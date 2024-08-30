@@ -1,11 +1,12 @@
 import {
     ChangeDetectionStrategy,
     Component,
-    ContentChild,
+    ContentChildren,
     EventEmitter,
     Input,
     NgModule,
     Output,
+    QueryList,
     TemplateRef,
     ViewEncapsulation,
     booleanAttribute,
@@ -46,10 +47,8 @@ export const SELECTBUTTON_VALUE_ACCESSOR: any = {
             (onChange)="onOptionSelect($event, option, i)"
         >
             @if(itemTemplate) {
-            <ng-template pTemplate="icon">
-                <ng-container
-                    *ngTemplateOutlet="selectButtonTemplate; context: { $implicit: option, index: i }"
-                ></ng-container>
+            <ng-template pTemplate="content">
+                <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: option, index: i }"></ng-container>
             </ng-template>
             }
         </p-toggleButton>
@@ -61,7 +60,8 @@ export const SELECTBUTTON_VALUE_ACCESSOR: any = {
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
-        '[class.p-selectbutton.p-component]': 'true',
+        '[class.p-selectbutton]': 'true',
+        '[class.p-component]': 'true',
         '[style]': 'style',
         '[attr.role]': 'group',
         '[attr.aria-labelledby]': 'ariaLabelledBy',
@@ -145,8 +145,7 @@ export class SelectButton extends BaseComponent implements ControlValueAccessor 
      * @param {SelectButtonOptionClickEvent} event - Custom click event.
      * @group Emits
      */
-    @Output() onOptionClick: EventEmitter<SelectButtonOptionClickEvent> =
-        new EventEmitter<SelectButtonOptionClickEvent>();
+    @Output() onOptionClick: EventEmitter<SelectButtonOptionClickEvent> = new EventEmitter<SelectButtonOptionClickEvent>();
     /**
      * Callback to invoke on selection change.
      * @param {SelectButtonChangeEvent} event - Custom change event.
@@ -154,10 +153,21 @@ export class SelectButton extends BaseComponent implements ControlValueAccessor 
      */
     @Output() onChange: EventEmitter<SelectButtonChangeEvent> = new EventEmitter<SelectButtonChangeEvent>();
 
-    @ContentChild(PrimeTemplate) itemTemplate!: PrimeTemplate;
+    @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
 
-    public get selectButtonTemplate(): TemplateRef<any> {
-        return this.itemTemplate?.template;
+    itemTemplate: TemplateRef<any> | undefined;
+
+    ngAfterContentInit() {
+        this.templates.forEach((item) => {
+            switch (item.getType()) {
+                case 'item':
+                    this.itemTemplate = item.template;
+                    break;
+                default:
+                    this.itemTemplate = item.template;
+                    break;
+            }
+        });
     }
 
     get equalityKey() {
@@ -231,8 +241,7 @@ export class SelectButton extends BaseComponent implements ControlValueAccessor 
         let newValue;
 
         if (this.multiple) {
-            if (selected)
-                newValue = this.value.filter((val) => !ObjectUtils.equals(val, optionValue, this.equalityKey));
+            if (selected) newValue = this.value.filter((val) => !ObjectUtils.equals(val, optionValue, this.equalityKey));
             else newValue = this.value ? [...this.value, optionValue] : [optionValue];
         } else {
             if (selected && !this.allowEmpty) {
@@ -286,9 +295,7 @@ export class SelectButton extends BaseComponent implements ControlValueAccessor 
     }
 
     removeOption(option: any): void {
-        this.value = this.value.filter(
-            (val: any) => !ObjectUtils.equals(val, this.getOptionValue(option), this.dataKey),
-        );
+        this.value = this.value.filter((val: any) => !ObjectUtils.equals(val, this.getOptionValue(option), this.dataKey));
     }
 
     isSelected(option: any) {
@@ -314,6 +321,6 @@ export class SelectButton extends BaseComponent implements ControlValueAccessor 
 
 @NgModule({
     imports: [SelectButton],
-    exports: [SelectButton],
+    exports: [SelectButton, SharedModule],
 })
 export class SelectButtonModule {}

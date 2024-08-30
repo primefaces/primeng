@@ -3,6 +3,7 @@ import {
     ChangeDetectionStrategy,
     Component,
     EventEmitter,
+    HostBinding,
     inject,
     Input,
     NgModule,
@@ -21,9 +22,7 @@ import { AvatarStyle } from './style/avatarstyle';
     template: `
         <ng-content></ng-content>
         <span class="p-avatar-text" *ngIf="label; else iconTemplate">{{ label }}</span>
-        <ng-template #iconTemplate
-            ><span [class]="icon" [ngClass]="'p-avatar-icon'" *ngIf="icon; else imageTemplate"></span
-        ></ng-template>
+        <ng-template #iconTemplate><span [class]="icon" [ngClass]="'p-avatar-icon'" *ngIf="icon; else imageTemplate"></span></ng-template>
         <ng-template #imageTemplate>
             <img [src]="image" *ngIf="image" (error)="imageError($event)" [attr.aria-label]="ariaLabel"
         /></ng-template>
@@ -100,6 +99,10 @@ export class Avatar extends BaseComponent {
 
     imageError(event: Event) {
         this.onImageError.emit(event);
+    }
+
+    @HostBinding('class') get hostClass(): any {
+        return this.styleClass;
     }
 }
 

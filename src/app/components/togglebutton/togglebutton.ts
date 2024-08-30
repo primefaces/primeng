@@ -24,6 +24,7 @@ import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ToggleButtonStyle } from './style/togglebuttonstyle';
+import { DomHandler } from 'primeng/dom';
 
 export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -37,8 +38,9 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-toggleButton',
     template: `
-        <span [ngClass]="cx('content')" [class]="styleClass">
-            @if (!iconTemplate) { @if(onIcon || offIcon) {
+        <span [ngClass]="cx('content')">
+            <ng-container *ngTemplateOutlet="contentTemplate; context: { $implicit: checked }"></ng-container>
+            @if(!contentTemplate) { @if (!iconTemplate) { @if(onIcon || offIcon) {
             <span
                 [class]="checked ? this.onIcon : this.offIcon"
                 [ngClass]="{
@@ -54,7 +56,7 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
             <span [ngClass]="cx('label')" [attr.data-pc-section]="'label'">{{
                 checked ? (hasOnLabel ? onLabel : '') : hasOffLabel ? offLabel : ''
             }}</span>
-            }
+            } }
         </span>
     `,
     standalone: true,
@@ -130,6 +132,9 @@ export class ToggleButton extends BaseComponent implements ControlValueAccessor 
      * @group Props
      */
     @Input() styleClass: string | undefined;
+    @HostBinding('class') get hostClass() {
+        return this.styleClass || '';
+    }
     /**
      * Identifier of the focus input to match a label defined for the component.
      * @group Props
@@ -181,7 +186,7 @@ export class ToggleButton extends BaseComponent implements ControlValueAccessor 
                     this.iconTemplate = item.template;
                     break;
                 default:
-                    this.iconTemplate = item.template;
+                    this.contentTemplate = item.template;
                     break;
             }
         });
@@ -247,6 +252,6 @@ export class ToggleButton extends BaseComponent implements ControlValueAccessor 
 
 @NgModule({
     imports: [ToggleButton],
-    exports: [ToggleButton],
+    exports: [ToggleButton, SharedModule],
 })
 export class ToggleButtonModule {}

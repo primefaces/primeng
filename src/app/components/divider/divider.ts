@@ -1,4 +1,4 @@
-import { NgModule, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, inject } from '@angular/core';
+import { NgModule, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, inject, HostBinding } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BaseComponent } from 'primeng/basecomponent';
 import { DividerStyle } from './style/dividerstyle';
@@ -9,18 +9,36 @@ import { DividerStyle } from './style/dividerstyle';
 @Component({
     selector: 'p-divider',
     template: `
-        <div [ngClass]="containerClass()" [class]="styleClass" [ngStyle]="style" role="separator" [style]="inlineStyles" [attr.aria-orientation]="layout" [attr.data-pc-name]="'divider'">
-            <div class="p-divider-content">
-                <ng-content></ng-content>
-            </div>
+        <div class="p-divider-content">
+            <ng-content></ng-content>
         </div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
-        class: 'p-element'
+        '[class.p-divider]': 'true',
+        '[class.p-component]': 'true',
+        '[class.p-divider-horizontal]': 'layout === "horizontal"',
+        '[class.p-divider-vertical]': 'layout === "vertical"',
+        '[class.p-divider-solid]': 'type === "solid"',
+        '[class.p-divider-dashed]': 'type === "dashed"',
+        '[class.p-divider-dotted]': 'type === "dotted"',
+        '[class.p-divider-left]': 'layout === "horizontal" && (!align || align === "left")',
+        '[class.p-divider-center]':
+            '(layout === "horizontal" && align === "center") || (layout === "vertical" && (!align || align === "center"))',
+        '[class.p-divider-right]': 'layout === "horizontal" && align === "right"',
+        '[class.p-divider-top]': 'layout === "vertical" && align === "top"',
+        '[class.p-divider-bottom]': 'layout === "vertical" && align === "bottom"',
+        '[style]': 'inlineStyles',
+        '[attr.aria-orientation]': 'layout',
+        '[attr.data-pc-name]': "'divider'",
+        '[attr.role]': '"separator"',
+        '[style.justifyContent]':
+            'layout === "horizontal" ? (align === "center" || align === null ? "center" : (align === "left" ? "flex-start" : (align === "right" ? "flex-end" : null))) : null',
+        '[style.alignItems]':
+            'layout === "vertical" ? (align === "center" || align === null ? "center" : (align === "top" ? "flex-start" : (align === "bottom" ? "flex-end" : null))) : null',
     },
-    providers: [DividerStyle]
+    providers: [DividerStyle],
 })
 export class Divider extends BaseComponent {
     /**
@@ -51,33 +69,14 @@ export class Divider extends BaseComponent {
 
     _componentStyle = inject(DividerStyle);
 
-    containerClass() {
-        return {
-            'p-divider p-component': true,
-            'p-divider-horizontal': this.layout === 'horizontal',
-            'p-divider-vertical': this.layout === 'vertical',
-            'p-divider-solid': this.type === 'solid',
-            'p-divider-dashed': this.type === 'dashed',
-            'p-divider-dotted': this.type === 'dotted',
-            'p-divider-left': this.layout === 'horizontal' && (!this.align || this.align === 'left'),
-            'p-divider-center': (this.layout === 'horizontal' && this.align === 'center') || (this.layout === 'vertical' && (!this.align || this.align === 'center')),
-            'p-divider-right': this.layout === 'horizontal' && this.align === 'right',
-            'p-divider-top': this.layout === 'vertical' && this.align === 'top',
-            'p-divider-bottom': this.layout === 'vertical' && this.align === 'bottom'
-        };
-    }
-
-    get inlineStyles() {
-        return {
-            justifyContent: this.layout === 'horizontal' ? (this.align === 'center' || this.align === null ? 'center' : this.align === 'left' ? 'flex-start' : this.align === 'right' ? 'flex-end' : null) : null,
-            alignItems: this.layout === 'vertical' ? (this.align === 'center' || this.align === null ? 'center' : this.align === 'top' ? 'flex-start' : this.align === 'bottom' ? 'flex-end' : null) : null
-        };
+    @HostBinding('class') get hostClass() {
+        return this.styleClass;
     }
 }
 
 @NgModule({
     imports: [CommonModule],
     exports: [Divider],
-    declarations: [Divider]
+    declarations: [Divider],
 })
 export class DividerModule {}

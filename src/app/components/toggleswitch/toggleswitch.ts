@@ -36,17 +36,13 @@ export const TOGGLESWITCH_VALUE_ACCESSOR: any = {
         <div
             [ngClass]="cx('root')"
             [ngStyle]="sx('root')"
-            [ngStyle]="style"
+            [style]="style"
             [class]="styleClass"
             (click)="onClick($event)"
             [attr.data-pc-name]="'toggleswitch'"
             [attr.data-pc-section]="'root'"
         >
-            <div
-                class="p-hidden-accessible"
-                [attr.data-pc-section]="'hiddenInputWrapper'"
-                [attr.data-p-hidden-accessible]="true"
-            >
+            <div class="p-hidden-accessible" [attr.data-pc-section]="'hiddenInputWrapper'" [attr.data-p-hidden-accessible]="true">
                 <input
                     #input
                     [attr.id]="inputId"
