@@ -14,40 +14,39 @@ import { PhotoService } from '@service/photoservice';
                 [showItemNavigators]="true"
                 [showThumbnails]="false"
                 [showIndicators]="true"
-                [showIndicatorsOnItem]="true"
+                [showItemNavigatorsOnHover]="true"
+                [circular]="true"
                 [responsiveOptions]="responsiveOptions"
-                [containerStyle]="{ 'max-width': '640px', 'margin-top': '2em' }"
+                [containerStyle]="{ 'max-width': '640px'}"
             >
                 <ng-template pTemplate="item" let-item>
                     <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
                 </ng-template>
                 <ng-template pTemplate="thumbnail" let-item>
-                    <div class="grid grid-cols-12 gap-4 grid-nogutter justify-center">
-                        <img [src]="item.thumbnailImageSrc" style="display: block;" />
-                    </div>
+                    <img [src]="item.thumbnailImageSrc" style="display: block;" />
                 </ng-template>
             </p-galleria>
         </div>
         <app-code [code]="code" selector="galleria-navigator-indicators-demo"></app-code>
     `,
-    providers: [PhotoService]
+    providers: [PhotoService],
 })
 export class IndicatorsDoc implements OnInit {
     images: any[] | undefined;
 
     responsiveOptions: any[] = [
         {
-            breakpoint: '1024px',
-            numVisible: 5
+            breakpoint: '991px',
+            numVisible: 4,
         },
         {
-            breakpoint: '768px',
-            numVisible: 3
+            breakpoint: '767px',
+            numVisible: 3,
         },
         {
-            breakpoint: '560px',
-            numVisible: 1
-        }
+            breakpoint: '575px',
+            numVisible: 1,
+        },
     ];
 
     constructor(private photoService: PhotoService) {}
@@ -64,16 +63,15 @@ export class IndicatorsDoc implements OnInit {
     [showItemNavigators]="true" 
     [showThumbnails]="false" 
     [showIndicators]="true" 
-    [showIndicatorsOnItem]="true" 
+    [showItemNavigatorsOnHover]="true"
+    [circular]="true"
     [responsiveOptions]="responsiveOptions" 
-    [containerStyle]="{ 'max-width': '640px', 'margin-top': '2em' }">
+    [containerStyle]="{ 'max-width': '640px' }">
         <ng-template pTemplate="item" let-item>
             <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
         </ng-template>
         <ng-template pTemplate="thumbnail" let-item>
-            <div class="grid grid-cols-12 gap-4 grid-nogutter justify-center">
-                <img [src]="item.thumbnailImageSrc" style="display: block;" />
-            </div>
+            <img [src]="item.thumbnailImageSrc" style="display: block;" />
         </ng-template>
 </p-galleria>`,
         html: `<div class="card">
@@ -82,16 +80,15 @@ export class IndicatorsDoc implements OnInit {
         [showItemNavigators]="true" 
         [showThumbnails]="false" 
         [showIndicators]="true" 
-        [showIndicatorsOnItem]="true" 
+        [showItemNavigatorsOnHover]="true"
+        [circular]="true"
         [responsiveOptions]="responsiveOptions" 
-        [containerStyle]="{ 'max-width': '640px', 'margin-top':'2em' }"> 
+        [containerStyle]="{ 'max-width': '640px' }"> 
             <ng-template pTemplate="item" let-item>
                 <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
             </ng-template>
             <ng-template pTemplate="thumbnail" let-item>
-                <div class="grid grid-cols-12 gap-4 grid-nogutter justify-center">
-                    <img [src]="item.thumbnailImageSrc" style="display: block;" />
-                </div>
+                <img [src]="item.thumbnailImageSrc" style="display: block;" />
             </ng-template>
     </p-galleria>
 </div>`,
@@ -111,17 +108,17 @@ export class GalleriaNavigatorIndicatorsDemo implements OnInit {
 
     responsiveOptions: any[] = [
         {
-            breakpoint: '1024px',
-            numVisible: 5
+            breakpoint: '991px',
+            numVisible: 4,
         },
         {
-            breakpoint: '768px',
-            numVisible: 3
+            breakpoint: '767px',
+            numVisible: 3,
         },
         {
-            breakpoint: '560px',
-            numVisible: 1
-        }
+            breakpoint: '575px',
+            numVisible: 1,
+        },
     ];
 
     constructor(private photoService: PhotoService) {}
@@ -140,6 +137,6 @@ export class GalleriaNavigatorIndicatorsDemo implements OnInit {
     alt: 'Description for Image 1',
     title: 'Title 1'
 },
-...`
+...`,
     };
 }

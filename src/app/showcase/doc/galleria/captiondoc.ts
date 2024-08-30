@@ -14,13 +14,11 @@ import { PhotoService } from '@service/photoservice';
                     <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
                 </ng-template>
                 <ng-template pTemplate="thumbnail" let-item>
-                    <div class="grid grid-cols-12 gap-4 grid-nogutter justify-center">
-                        <img [src]="item.thumbnailImageSrc" style="display: block;" />
-                    </div>
+                    <img [src]="item.thumbnailImageSrc" style="display: block;" />
                 </ng-template>
                 <ng-template pTemplate="caption" let-item>
-                    <h4 style="margin-bottom: .5rem; color: #ffffff;">{{ item.title }}</h4>
-                    <p>{{ item.alt }}</p>
+                    <h4 class="text-xl mb-2 font-bold">{{ item.title }}</h4>
+                    <p class="text-white">{{ item.alt }}</p>
                 </ng-template>
             </p-galleria>
         </div>
@@ -61,15 +59,13 @@ export class CaptionDoc implements OnInit {
             <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
         </ng-template>
         <ng-template pTemplate="thumbnail" let-item>
-            <div class="grid grid-cols-12 gap-4 grid-nogutter justify-center">
-                <img [src]="item.thumbnailImageSrc" style="display: block;" />
-            </div>
+            <img [src]="item.thumbnailImageSrc" style="display: block;" />
         </ng-template>
         <ng-template pTemplate="caption" let-item>
-            <h4 style="margin-bottom: .5rem; color: #ffffff;">
+            <h4 class="text-xl mb-2 font-bold">
                 {{ item.title }}
             </h4>
-            <p>{{ item.alt }}</p>
+            <p class="text-white">{{ item.alt }}</p>
         </ng-template>
 </p-galleria>
 `,
@@ -80,12 +76,16 @@ export class CaptionDoc implements OnInit {
         [containerStyle]="{ 'max-width': '640px' }" 
         [numVisible]="5"> 
             <ng-template pTemplate="item" let-item>
-                <img [src]="item.itemImageSrc" style="width: 100%;" />
+                <img [src]="item.itemImageSrc" style="width: 100%; display: block;"  />
             </ng-template>
             <ng-template pTemplate="thumbnail" let-item>
-                <div class="grid grid-cols-12 gap-4 grid-nogutter justify-center">
-                    <img [src]="item.thumbnailImageSrc" />
-                </div>
+                <img [src]="item.thumbnailImageSrc" style="display: block;" />
+            </ng-template>
+            <ng-template pTemplate="caption" let-item>
+                <h4 class="text-xl mb-2 font-bold">
+                    {{ item.title }}
+                 </h4>
+                <p class="text-white">{{ item.alt }}</p>
             </ng-template>
     </p-galleria>
 </div>`,

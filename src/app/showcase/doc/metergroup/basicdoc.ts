@@ -14,7 +14,7 @@ import { Code } from '@domain/code';
     `
 })
 export class BasicDoc {
-    value = [{ label: 'Space used', value: 15, color: '#34d399' }];
+    value = [{ label: 'Space used', value: 15, color: 'var(--p-primary-color)' }];
 
     code: Code = {
         basic: `<p-meterGroup [value]="value" />`,
@@ -34,7 +34,7 @@ import { MeterGroupModule } from 'primeng/metergroup';
 })
 export class MeterGroupBasicDemo {
     value = [
-        { label: 'Space used', value: 15, color: '#34d399' }
+        { label: 'Space used', value: 15, color: 'var(--p-primary-color)' }
     ];
 }`
     };

@@ -7,16 +7,28 @@ import { PhotoService } from '@service/photoservice';
     template: `
         <app-docsectiontext>
             <p>
-                Indicators can be placed at four different sides using the <i>indicatorsPosition</i> property. In addition, enabling <i>showIndicatorsOnItem</i> moves the indicators inside the image section. <i>indicatorsPosition</i> set to
-                <i>bottom</i> by default, accepted values are <i>top</i>, <i>left</i>, <i>right</i>, and <i>bottom</i>.
+                Indicators can be placed at four different sides using the <i>indicatorsPosition</i> property. In
+                addition, enabling <i>showIndicatorsOnItem</i> moves the indicators inside the image section.
+                <i>indicatorsPosition</i> set to <i>bottom</i> by default, accepted values are <i>top</i>, <i>left</i>,
+                <i>right</i>, and <i>bottom</i>.
             </p>
         </app-docsectiontext>
         <div class="card">
             <div class="flex flex-wrap gap-4 mb-8">
-                <p-radioButton *ngFor="let option of positionOptions" [name]="option.label" [value]="option.value" [label]="option.label" [(ngModel)]="position" [inputId]="label" />
+                <div *ngFor="let option of positionOptions" class="flex items-center">
+                    <p-radioButton
+                        [name]="option.label"
+                        [value]="option.value"
+                        [label]="option.label"
+                        [(ngModel)]="position"
+                        [inputId]="label"
+                    />
+                    <label [for]="option.label" class="ml-2"> {{ option.label }} </label>
+                </div>
             </div>
-            <div class="flex items-center">
-                <p-checkbox [(ngModel)]="showIndicatorsOnItem" [binary]="true" inputId="binary" label="Inside" ngClass="mt-4" />
+            <div class="flex items-center mb-8">
+                <p-checkbox [(ngModel)]="showIndicatorsOnItem" [binary]="true" inputId="inside_cbox" />
+                <label for="inside_cbox" class="ml-2"> Inside </label>
             </div>
             <p-galleria
                 [(value)]="images"
@@ -33,7 +45,7 @@ import { PhotoService } from '@service/photoservice';
             </p-galleria>
         </div>
         <app-code [code]="code" selector="galleria-indicator-positioned-demo"></app-code>
-    `
+    `,
 })
 export class PositionedDoc implements OnInit {
     images: any[] | undefined;
@@ -45,35 +57,35 @@ export class PositionedDoc implements OnInit {
     positionOptions = [
         {
             label: 'Bottom',
-            value: 'bottom'
+            value: 'bottom',
         },
         {
             label: 'Top',
-            value: 'top'
+            value: 'top',
         },
         {
             label: 'Left',
-            value: 'left'
+            value: 'left',
         },
         {
             label: 'Right',
-            value: 'right'
-        }
+            value: 'right',
+        },
     ];
 
     responsiveOptions: any[] = [
         {
             breakpoint: '1024px',
-            numVisible: 5
+            numVisible: 5,
         },
         {
             breakpoint: '768px',
-            numVisible: 3
+            numVisible: 3,
         },
         {
             breakpoint: '560px',
-            numVisible: 1
-        }
+            numVisible: 1,
+        },
     ];
 
     constructor(private photoService: PhotoService) {}
@@ -200,6 +212,6 @@ export class GalleriaIndicatorPositionedDemo implements OnInit {
     title: 'Title 1'
 },
 ...`,
-        service: ['PhotoService']
+        service: ['PhotoService'],
     };
 }

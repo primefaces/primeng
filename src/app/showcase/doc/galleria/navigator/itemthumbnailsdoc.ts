@@ -14,9 +14,7 @@ import { PhotoService } from '@service/photoservice';
                     <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
                 </ng-template>
                 <ng-template pTemplate="thumbnail" let-item>
-                    <div class="grid grid-cols-12 gap-4 grid-nogutter justify-center">
                         <img [src]="item.thumbnailImageSrc" style="display: block;" />
-                    </div>
                 </ng-template>
             </p-galleria>
         </div>
@@ -62,9 +60,7 @@ export class ItemThumbnailsDoc implements OnInit {
             <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
         </ng-template>
         <ng-template pTemplate="thumbnail" let-item>
-            <div class="grid grid-cols-12 gap-4 grid-nogutter justify-center">
-                <img [src]="item.thumbnailImageSrc" style="display: block;" />
-            </div>
+            <img [src]="item.thumbnailImageSrc" style="display: block;" />
         </ng-template>
 </p-galleria>`,
         html: `<div class="card">
@@ -79,9 +75,7 @@ export class ItemThumbnailsDoc implements OnInit {
                 <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
             </ng-template>
             <ng-template pTemplate="thumbnail" let-item>
-                <div class="grid grid-cols-12 gap-4 grid-nogutter justify-center">
-                    <img [src]="item.thumbnailImageSrc" style="display: block;" />
-                </div>
+                <img [src]="item.thumbnailImageSrc" style="display: block;" />
             </ng-template>
     </p-galleria>
 </div>`,

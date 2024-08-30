@@ -22,11 +22,11 @@ import { Code } from '@domain/code';
             </div>
             <p-fluid>
                 <span class="font-bold mb-2 block">Fluid Container</span>
-                <div class="grid grid-cols-12 gap-4">
-                    <div class="col-span-6"><input type="text" pInputText /></div>
-                    <div class="col-span-6"><input type="text" pInputText /></div>
-                    <div class="col-span-12"><input type="text" pInputText /></div>
-                    <div class="p-2"><input type="text" pInputText [fluid]="false" placeholder="Non-Fluid" /></div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div ><input type="text" pInputText /></div>
+                    <div ><input type="text" pInputText /></div>
+                    <div class="col-span-full"><input type="text" pInputText /></div>
+                    <div><input type="text" pInputText [fluid]="false" placeholder="Non-Fluid" /></div>
                 </div>
             </p-fluid>
         </div>
@@ -45,11 +45,11 @@ export class BasicDoc {
 </div>
 <p-fluid>
     <span class="font-bold mb-2 block">Fluid Container</span>
-        <div class="grid grid-cols-12 gap-4">
-            <div class="col-span-6"><input type="text" pInputText /></div>
-            <div class="col-span-6"><input type="text" pInputText /></div>
-            <div class="col-span-12"><input type="text" pInputText /></div>
-            <div class="p-2"><input type="text" pInputText [fluid]="false" placeholder="Non-Fluid" /></div>
+        <div class="grid grid-cols-2 gap-4">
+            <div><input type="text" pInputText /></div>
+            <div><input type="text" pInputText /></div>
+            <div class="col-span-full"><input type="text" pInputText /></div>
+            <div><input type="text" pInputText [fluid]="false" placeholder="Non-Fluid" /></div>
         </div>
 </p-fluid>`,
 
@@ -64,11 +64,11 @@ export class BasicDoc {
     </div>
     <p-fluid>
         <span class="font-bold mb-2 block">Fluid Container</span>
-            <div class="grid grid-cols-12 gap-4">
-                <div class="col-span-6"><input type="text" pInputText /></div>
-                <div class="col-span-6"><input type="text" pInputText /></div>
-                <div class="col-span-12"><input type="text" pInputText /></div>
-                <div class="p-2"><input type="text" pInputText [fluid]="false" placeholder="Non-Fluid" /></div>
+            <div class="grid grid-cols-2 gap-4">
+                <div><input type="text" pInputText /></div>
+                <div><input type="text" pInputText /></div>
+                <div class="col-span-full"><input type="text" pInputText /></div>
+                <div><input type="text" pInputText [fluid]="false" placeholder="Non-Fluid" /></div>
             </div>
     </p-fluid>
 </div>`,

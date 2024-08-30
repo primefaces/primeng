@@ -12,10 +12,10 @@ import { Code } from '@domain/code';
                 <ng-template pTemplate="label">
                     <div class="flex flex-wrap gap-4">
                         <ng-container *ngFor="let meterItem of value; let index = index">
-                            <p-card class="flex-1">
+                            <p-card class="flex-1" styleClass="border border-surface shadow-none">
                                 <div class="flex justify-between gap-8">
                                     <div class="flex flex-col gap-1">
-                                        <span class="text-secondary text-sm">{{ meterItem.label }}</span>
+                                        <span class="text-surface-500 dark:text-surface-400 text-sm">{{ meterItem.label }}</span>
                                         <span class="font-bold text-lg">{{ meterItem.value }}%</span>
                                     </div>
                                     <span class="w-8 h-8 rounded-full inline-flex justify-center items-center text-center" [style]="{ 'background-color': meterItem.color1, color: '#ffffff' }">
@@ -60,10 +60,10 @@ export class TemplateDoc {
     <ng-template pTemplate="label">
         <div class="flex flex-wrap gap-4">
             <ng-container *ngFor="let meterItem of value; let index = index">
-                <p-card class="flex-1">
+                <p-card class="flex-1" styleClass="border border-surface shadow-none">
                     <div class="flex justify-between gap-8">
                         <div class="flex flex-col gap-1">
-                            <span class="text-secondary text-sm">{{ meterItem.label }}</span>
+                            <span class="text-surface-500 dark:text-surface-400 text-sm">{{ meterItem.label }}</span>
                             <span class="font-bold text-lg">{{ meterItem.value }}%</span>
                         </div>
                         <span class="w-8 h-8 rounded-full inline-flex justify-center items-center text-center" [style]="{ 'background-color': meterItem.color1, color: '#ffffff' }">
@@ -97,10 +97,10 @@ export class TemplateDoc {
         <ng-template pTemplate="label">
             <div class="flex flex-wrap gap-4">
                 <ng-container *ngFor="let meterItem of value; let index = index">
-                    <p-card class="flex-1">
+                    <p-card class="flex-1" styleClass="border border-surface shadow-none">
                         <div class="flex justify-between gap-8">
                             <div class="flex flex-col gap-1">
-                                <span class="text-secondary text-sm">{{ meterItem.label }}</span>
+                                <span class="text-surface-500 dark:text-surface-400 text-sm">{{ meterItem.label }}</span>
                                 <span class="font-bold text-lg">{{ meterItem.value }}%</span>
                             </div>
                             <span class="w-8 h-8 rounded-full inline-flex justify-center items-center text-center" [style]="{ 'background-color': meterItem.color1, color: '#ffffff' }">

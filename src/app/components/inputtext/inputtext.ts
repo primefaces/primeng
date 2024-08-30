@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { Nullable } from 'primeng/ts-helpers';
 import { BaseComponent } from 'primeng/basecomponent';
 import { InputTextStyle } from './style/inputtextstyle';
+import { ObjectUtils } from 'primeng/utils';
 
 /**
  * InputText directive is an extension to standard input element with theming.
@@ -29,7 +30,7 @@ export class InputText extends BaseComponent implements DoCheck, AfterViewInit {
      * Spans 100% width of the container when enabled.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) fluid: boolean = false;
+    @Input({ transform: booleanAttribute }) fluid: boolean | undefined
 
     filled: Nullable<boolean>;
 
@@ -38,7 +39,8 @@ export class InputText extends BaseComponent implements DoCheck, AfterViewInit {
     get hasFluid() {
         const nativeElement = this.el.nativeElement;
         const fluidComponent = nativeElement.closest('p-fluid');
-        return this.fluid || !!fluidComponent 
+    
+        return ObjectUtils.isEmpty(this.fluid) ? !!fluidComponent  : this.fluid
     }
 
     constructor(@Optional() public ngModel: NgModel) {

@@ -12,7 +12,7 @@ import { Code } from '@domain/code';
             <p-tag severity="success" value="Success" [rounded]="true" />
             <p-tag severity="info" value="Info" [rounded]="true" />
             <p-tag severity="secondary" value="Secondary" [rounded]="true" />
-            <p-tag severity="warning" value="Warning" [rounded]="true" />
+            <p-tag severity="warn" value="Warning" [rounded]="true" />
             <p-tag severity="danger" value="Danger" [rounded]="true" />
             <p-tag severity="contrast" value="Contrast" [rounded]="true" />
         </div>
@@ -27,7 +27,7 @@ export class PillDoc {
     <p-tag severity="success" value="Success" [rounded]="true" />
     <p-tag severity="info" value="Info" [rounded]="true" />
     <p-tag severity="secondary" value="Secondary" [rounded]="true" />
-    <p-tag severity="warning" value="Warning" [rounded]="true" />
+    <p-tag severity="warn" value="Warning" [rounded]="true" />
     <p-tag severity="danger" value="Danger" [rounded]="true" />
     <p-tag severity="contrast" value="Contrast" [rounded]="true" />
 </div>`,

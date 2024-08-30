@@ -11,12 +11,10 @@ import { PhotoService } from '@service/photoservice';
         <div class="card">
             <p-galleria [(value)]="images" [autoPlay]="true" [circular]="true" [responsiveOptions]="responsiveOptions" [numVisible]="5" [containerStyle]="{ 'max-width': '640px' }">
                 <ng-template pTemplate="item" let-item>
-                    <img [src]="item.itemImageSrc" style="width: 100%;" />
+                    <img [src]="item.itemImageSrc" style="width: 100%; display: block" />
                 </ng-template>
                 <ng-template pTemplate="thumbnail" let-item>
-                    <div class="grid grid-cols-12 gap-4 grid-nogutter justify-center">
-                        <img [src]="item.thumbnailImageSrc" />
-                    </div>
+                    <img [src]="item.thumbnailImageSrc" style="display: block" />
                 </ng-template>
             </p-galleria>
         </div>
@@ -55,13 +53,11 @@ export class AutoPlayDoc implements OnInit {
     [responsiveOptions]="responsiveOptions" 
     [numVisible]="5" 
     [containerStyle]="{ 'max-width': '640px' }"> 
-        <ng-template pTemplate="item" let-item>
-            <img [src]="item.itemImageSrc" style="width: 100%;" />
+       <ng-template pTemplate="item" let-item>
+            <img [src]="item.itemImageSrc" style="width: 100%; display: block" />
         </ng-template>
         <ng-template pTemplate="thumbnail" let-item>
-            <div class="grid grid-cols-12 gap-4 grid-nogutter justify-center">
-                <img [src]="item.thumbnailImageSrc" />
-            </div>
+            <img [src]="item.thumbnailImageSrc" style="display: block" />
         </ng-template>
 </p-galleria>`,
         html: `<div class="card">
@@ -73,12 +69,10 @@ export class AutoPlayDoc implements OnInit {
         [numVisible]="5" 
         [containerStyle]="{ 'max-width': '640px' }"> 
             <ng-template pTemplate="item" let-item>
-                <img [src]="item.itemImageSrc" style="width: 100%;" />
+                <img [src]="item.itemImageSrc" style="width: 100%; display: block" />
             </ng-template>
             <ng-template pTemplate="thumbnail" let-item>
-                <div class="grid grid-cols-12 gap-4 grid-nogutter justify-center">
-                    <img [src]="item.thumbnailImageSrc" />
-                </div>
+                <img [src]="item.thumbnailImageSrc" style="display: block" />
             </ng-template>
     </p-galleria>
 </div>`,
