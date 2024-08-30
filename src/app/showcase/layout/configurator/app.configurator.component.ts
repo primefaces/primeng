@@ -14,8 +14,8 @@ import { $t, updatePreset, updateSurfacePalette } from 'primeng/themes';
 
 const presets = {
     Aura,
-    Nora,
     Lara,
+    Nora,
 };
 @Component({
     selector: 'app-configurator',
