@@ -19,31 +19,27 @@ import { AvatarStyle } from './style/avatarstyle';
 @Component({
     selector: 'p-avatar',
     template: `
-        <div
-            [ngClass]="containerClass()"
-            [class]="styleClass"
-            [ngStyle]="style"
-            [attr.aria-labelledby]="ariaLabelledBy"
-            [attr.aria-label]="ariaLabel"
-            [attr.data-pc-name]="'avatar'"
-        >
-            <ng-content></ng-content>
-            <span class="p-avatar-text" *ngIf="label; else iconTemplate">{{ label }}</span>
-            <ng-template #iconTemplate
-                ><span [class]="icon" [ngClass]="'p-avatar-icon'" *ngIf="icon; else imageTemplate"></span
-            ></ng-template>
-            <ng-template #imageTemplate
-                ><img [src]="image" *ngIf="image" (error)="imageError($event)" [attr.aria-label]="ariaLabel"
-            /></ng-template>
-        </div>
+        <ng-content></ng-content>
+        <span class="p-avatar-text" *ngIf="label; else iconTemplate">{{ label }}</span>
+        <ng-template #iconTemplate
+            ><span [class]="icon" [ngClass]="'p-avatar-icon'" *ngIf="icon; else imageTemplate"></span
+        ></ng-template>
+        <ng-template #imageTemplate>
+            <img [src]="image" *ngIf="image" (error)="imageError($event)" [attr.aria-label]="ariaLabel"
+        /></ng-template>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
-        '[class.p-avatar-circle]': 'shape === "circle" && !image',
-        '[class.p-avatar-lg]': 'size === "large"  && !image',
-        '[class.p-avatar-xl]': 'size === "xlarge"  && !image',
-        
+        '[class.p-avatar]': 'true',
+        '[class.p-component]': 'true',
+        '[class.p-avatar-circle]': 'shape === "circle"',
+        '[class.p-avatar-lg]': 'size === "large"',
+        '[class.p-avatar-xl]': 'size === "xlarge"',
+        '[class.p-avatar-image]': 'image != null',
+        '[attr.data-pc-name]': 'avatar',
+        '[attr.aria-label]': 'ariaLabel',
+        '[attr.aria-labelledby]': 'ariaLabelledBy',
     },
     providers: [AvatarStyle],
 })
@@ -101,16 +97,6 @@ export class Avatar extends BaseComponent {
     @Output() onImageError: EventEmitter<Event> = new EventEmitter<Event>();
 
     _componentStyle = inject(AvatarStyle);
-
-    containerClass() {
-        return {
-            'p-avatar p-component': true,
-            'p-avatar-image': this.image != null,
-            'p-avatar-circle': this.shape === 'circle',
-            'p-avatar-lg': this.size === 'large',
-            'p-avatar-xl': this.size === 'xlarge',
-        };
-    }
 
     imageError(event: Event) {
         this.onImageError.emit(event);
