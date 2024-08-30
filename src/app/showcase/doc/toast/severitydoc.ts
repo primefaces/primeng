@@ -109,7 +109,7 @@ export class SeverityDoc {
         pRipple 
         (click)="showWarn()" 
         label="Warn" 
-        severity="warn"  />
+        severity="warn" />
     <p-button 
         type="button" 
         pRipple 
