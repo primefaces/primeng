@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { DividerModule } from 'primeng/divider';
@@ -92,13 +92,7 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
                         <div class="flex items-center gap-2">
                             <p-iconField iconPosition="left" class="w-6/12 xl:max-w-36">
                                 <p-inputIcon class="pi pi-search"> </p-inputIcon>
-                                <input
-                                    type="text"
-                                    pInputText
-                                    [(ngModel)]="search"
-                                    placeholder="Search"
-                                    class="w-full"
-                                />
+                                <input type="text" pInputText [(ngModel)]="search" placeholder="Search" class="w-full" />
                             </p-iconField>
                             <p-button icon="pi pi-filter" outlined severity="secondary" />
                             <p-divider layout="vertical" styleClass="m-0" />
@@ -145,12 +139,7 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
                         </td>
 
                         <td style="width: 4rem">
-                            <p-tag
-                                *ngIf="data.type"
-                                severity="secondary"
-                                [value]="data.type"
-                                class="font-medium"
-                            ></p-tag>
+                            <p-tag *ngIf="data.type" severity="secondary" [value]="data.type" class="font-medium"></p-tag>
                         </td>
 
                         <td style="width: 4rem">
@@ -159,143 +148,13 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
                     </tr>
                 </ng-template>
             </p-table>
-            <!-- <DataTable
-                v-model:selection="selectedRows"
-                scrollable
-                selectionMode="multiple"
-                :value="tableData"
-                :rows="10"
-                :pt="{
-                    root: {
-                        class: 'w-full flex-1 overflow-x-auto'
-                    },
-                    thead: {
-                        class: 'hidden'
-                    },
-                    header: {
-                        class: 'sticky top-0 z-10'
-                    },
-                    column: {
-                        bodyCell: {
-                            class: '!border-transparent'
-                        }
-                    }
-                }"
-                :dt="{
-                    headerCell: {
-                        background: 'transparent'
-                    },
-                    row: {
-                        background: 'transparent'
-                    }
-                }"
-            > -->
-            <!-- <DataTable
-                v-model:selection="selectedRows"
-                scrollable
-                selectionMode="multiple"
-                :value="tableData"
-                :rows="10"
-                :pt="{
-                    root: {
-                        class: 'w-full flex-1 overflow-x-auto'
-                    },
-                    thead: {
-                        class: 'hidden'
-                    },
-                    header: {
-                        class: 'sticky top-0 z-10'
-                    },
-                    column: {
-                        bodyCell: {
-                            class: '!border-transparent'
-                        }
-                    }
-                }"
-                :dt="{
-                    headerCell: {
-                        background: 'transparent'
-                    },
-                    row: {
-                        background: 'transparent'
-                    }
-                }"
-            >
-                <template #header>
-                    <div class="flex xl:items-center justify-between gap-2 flex-col xl:flex-row">
-                        <div class="flex items-center gap-2">
-                            <Checkbox :binary="true" class="mr-1" />
-                            <Button icon="pi pi-envelope" outlined severity="secondary" />
-                            <Button icon="pi pi-exclamation-circle" outlined severity="secondary" />
-                            <Button icon="pi pi-tag" outlined severity="secondary" />
-                            <Button icon="pi pi-inbox" label="Archive" outlined severity="secondary" />
-                            <Button icon="pi pi-trash" label="Trash" outlined severity="secondary" />
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <IconField iconPosition="left" class="w-6/12 xl:max-w-36">
-                                <InputIcon class="pi pi-search"> </InputIcon>
-                                <InputText v-model="search" placeholder="Search" class="w-full" />
-                            </IconField>
-                            <Button icon="pi pi-filter" outlined severity="secondary" />
-                            <Divider layout="vertical" class="m-0" />
-                            <Button icon="pi pi-refresh" outlined severity="secondary" />
-                            <Button label="1 of 15" class="!whitespace-nowrap" outlined severity="secondary" />
-                            <Button icon="pi pi-chevron-left" outlined severity="secondary" />
-                            <Button icon="pi pi-chevron-right" outlined severity="secondary" />
-                        </div>
-                    </div>
-                </template>
-                <template #empty>Inbox is empty.</template>
-                <Column selectionMode="multiple" headerStyle="width: 1rem" style="width: 1rem"></Column>
-                <Column field="bookmarked" header="" headerStyle="width: 1rem" style="width: 1rem; padding: 0.5rem">
-                    <template #body="{ data }">
-                        <div @click="data.bookmarked = !data.bookmarked" @click.stop>
-                            <i :class="data.bookmarked ? 'pi pi-bookmark-fill' : 'pi pi-bookmark'"></i>
-                        </div>
-                    </template>
-                </Column>
-                <Column field="name" header="">
-                    <template #body="{ data }">
-                        <div class="flex items-center">
-                            <OverlayBadge severity="danger" class="w-fit">
-                                <Avatar
-                                    v-bind="data.image ? { image: data.image } : { label: data.capName }"
-                                    :class="{
-                                        'bg-violet-100 text-violet-950 text-xs font-medium': !data.image
-                                    }"
-                                    class="rounded-md overflow-hidden flex"
-                                />
-                            </OverlayBadge>
-                            <div class="ml-4 leading-6 text-color font-medium">{{ data.name }}</div>
-                        </div>
-                    </template>
-                </Column>
-                <Column field="title" header="" style="min-width: 14rem; max-width: 20rem">
-                    <template #body="{ data }">
-                        <div class="truncate">
-                            <span class="text-color leading-6 mr-2">{{ data.title }}</span>
-                            <span class="text-muted-color leading-5 text-sm">{{ data.message }}</span>
-                        </div>
-                    </template>
-                </Column>
-                <Column field="type" header="" style="width: 4rem">
-                    <template #body="{ data }">
-                        <Tag v-if="data.type" severity="secondary" :value="data.type" class="font-medium"></Tag>
-                    </template>
-                </Column>
-                <Column field="time" header="" style="width: 4rem">
-                    <template #body="{ data }">
-                        <div class="text-right text-sm leading-5 text-muted-color">{{ data.time }}</div>
-                    </template>
-                </Column>
-            </DataTable> -->
         </div>
     `,
     host: {
         class: 'flex gap-4 h-full flex-1 w-full overflow-auto',
     },
-    styleUrls: ['./styles/inboxapp.scss'],
     encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InboxApp {
     search: string | undefined;

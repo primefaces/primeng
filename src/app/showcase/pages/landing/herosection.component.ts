@@ -88,7 +88,7 @@ import { CustomersApp } from './samples/customersapp.component';
                         optionLabel="title"
                         styleClass="dark:border dark:border-white/20"
                     >
-                        <ng-template let-item pTemplate>
+                        <ng-template let-item pTemplate="item">
                             <i [class]="item.icon"></i>
                             <div class="hidden sm:flex flex-1 text-sm font-medium leading-5">{{ item.title }}</div>
                         </ng-template>

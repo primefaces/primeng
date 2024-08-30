@@ -1,5 +1,5 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { Component, Inject, PLATFORM_ID, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject, PLATFORM_ID, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { ChartModule } from 'primeng/chart';
@@ -52,12 +52,7 @@ import { AppConfigService } from '@service/appconfigservice';
                     <div class="text-2xl leading-8 text-color font-medium">Customers</div>
                     <div class="mt-1 leading-6 text-muted-color">The analysis list here shows all users</div>
                 </div>
-                <p-button
-                    icon="pi pi-circle-fill text-green-500"
-                    label="950 Active User"
-                    outlined
-                    severity="secondary"
-                />
+                <p-button icon="pi pi-circle-fill text-green-500" label="950 Active User" outlined severity="secondary" />
             </div>
             <div class="mt-10 mb-4 flex items-center justify-between">
                 <p-iconField iconPosition="left">
@@ -66,7 +61,7 @@ import { AppConfigService } from '@service/appconfigservice';
                 </p-iconField>
                 <div class="flex items-center gap-3">
                     <p-button icon="pi pi-filter" outlined severity="secondary" />
-                    <p-divider layout="vertical" />
+                    <p-divider layout="vertical" class="m-0 p-0" />
                     <p-button icon="pi pi-refresh" outlined severity="secondary" />
                     <p-button label="1 of 15" outlined severity="secondary" />
                     <p-button icon="pi pi-chevron-left" outlined severity="secondary" />
@@ -95,9 +90,7 @@ import { AppConfigService } from '@service/appconfigservice';
                             <td>
                                 <div class="flex items-center">
                                     <p-overlayBadge
-                                        [severity]="
-                                            data.active === undefined ? 'contrast' : data.active ? 'success' : 'danger'
-                                        "
+                                        [severity]="data.active === undefined ? 'contrast' : data.active ? 'success' : 'danger'"
                                         styleClass="w-fit"
                                     >
                                         <p-avatar
@@ -118,10 +111,7 @@ import { AppConfigService } from '@service/appconfigservice';
                             </td>
                             <td>
                                 <div class="flex items-center gap-2">
-                                    <div
-                                        class="flex items-center justify-center"
-                                        [innerHTML]="companyLogos[data.company.logo]"
-                                    ></div>
+                                    <div class="flex items-center justify-center" [innerHTML]="companyLogos[data.company.logo]"></div>
 
                                     <div class="leading-6 text-surface-600 dark:text-surface-400">
                                         {{ data.company.name }}
@@ -136,26 +126,14 @@ import { AppConfigService } from '@service/appconfigservice';
                             </td>
                             <td>
                                 <p-tag
-                                    [severity]="
-                                        data.status === 'Active'
-                                            ? 'success'
-                                            : data.status === 'Inactive'
-                                            ? 'danger'
-                                            : 'info'
-                                    "
+                                    [severity]="data.status === 'Active' ? 'success' : data.status === 'Inactive' ? 'danger' : 'info'"
                                     [value]="data.status"
                                     styleClass="font-medium"
                                 />
                             </td>
                             <td>
                                 <div class="flex justify-end w-full">
-                                    <p-button
-                                        (click)="visibleRight = true"
-                                        icon="pi pi-ellipsis-h"
-                                        rounded
-                                        outlined
-                                        severity="secondary"
-                                    />
+                                    <p-button (click)="visibleRight = true" icon="pi pi-ellipsis-h" rounded outlined severity="secondary" />
                                 </div>
                             </td>
                         </tr>
@@ -187,13 +165,15 @@ import { AppConfigService } from '@service/appconfigservice';
                         <p-selectButton
                             [(ngModel)]="selectedSidebarOption"
                             [options]="sidebarOptions"
-                            class="flex-1 px-6 py-3"
-                        />
+                            class="w-full px-6 py-3"
+                            styleClass="flex-1 py-2.5"
+                        >
+                            <ng-template pTemplate="item" let-item>
+                                <span class="text-sm">{{ item }}</span>
+                            </ng-template>
+                        </p-selectButton>
                     </div>
-                    <div
-                        *ngIf="selectedSidebarOption === 'Interaction Logs'"
-                        class="h-[calc(100%-172px)] flex flex-col gap-4 p-6"
-                    >
+                    <div *ngIf="selectedSidebarOption === 'Interaction Logs'" class="h-[calc(100%-172px)] flex flex-col gap-4 p-6">
                         <div class="h-1/3 flex flex-col p-3 rounded-xl bg-emphasis">
                             <div class="flex items-start justify-between">
                                 <div class="leading-6 font-medium text-color">Call Logs</div>
@@ -220,11 +200,7 @@ import { AppConfigService } from '@service/appconfigservice';
                                         <div class="text-sm leading-5 font-medium text-color">{{ data.name }}</div>
                                         <div class="mt-1 text-sm leading-5 text-muted-color">{{ data.time }}</div>
                                     </div>
-                                    <p-button
-                                        icon="pi pi-phone text-sm"
-                                        text
-                                        styleClass="bg-primary/10 dark:bg-primary/20 w-8 h-8"
-                                    />
+                                    <p-button icon="pi pi-phone text-sm" text styleClass="bg-primary/10 dark:bg-primary/20 w-8 h-8" />
                                 </div>
                             </div>
                         </div>
@@ -295,25 +271,18 @@ import { AppConfigService } from '@service/appconfigservice';
                                     </ul>
                                     <br />
                                     Demo: Schedule product demo with Arlene McCoy. (Assigned to: Jerome Bell)<br /><br />
-                                    Integration Blueprint: Draft and deliver technical blueprint. (Assigned to: Cameron
-                                    Williamson)<br /><br />
-                                    Follow-up Meeting: Arrange to discuss any queries post-demo. (Assigned to: Dianne
-                                    Russell)
+                                    Integration Blueprint: Draft and deliver technical blueprint. (Assigned to: Cameron Williamson)<br /><br />
+                                    Follow-up Meeting: Arrange to discuss any queries post-demo. (Assigned to: Dianne Russell)
                                     <br /><br />
                                     Please act on these items promptly.
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div
-                        *ngIf="selectedSidebarOption === 'Preferences'"
-                        class="h-[calc(100%-72px)] flex flex-col gap-4 p-6"
-                    >
+                    <div *ngIf="selectedSidebarOption === 'Preferences'" class="h-[calc(100%-72px)] flex flex-col gap-4 p-6">
                         <div *ngFor="let data of preferences" class="h-1/4 flex flex-col p-3 rounded-xl bg-emphasis">
                             <div class="leading-6 font-medium text-color p-2">{{ data.title }}</div>
-                            <div
-                                class="overflow-y-auto flex-1 bg-surface-0 dark:bg-surface-900 mt-2 p-4 flex flex-col gap-3 rounded-lg"
-                            >
+                            <div class="overflow-y-auto flex-1 bg-surface-0 dark:bg-surface-900 mt-2 p-4 flex flex-col gap-3 rounded-lg">
                                 <div *ngFor="let pref of data.prefs" class="flex items-center gap-2">
                                     <i class="text-lg text-color" [class]="pref.icon"></i>
                                     <div class="font-medium text-color flex-1">{{ pref.title }}</div>
@@ -366,24 +335,16 @@ import { AppConfigService } from '@service/appconfigservice';
                                 <div
                                     class="flex-1 flex items-center gap-2 justify-center mt-2 p-2 rounded-lg bg-surface-0 dark:bg-surface-900 shadow-sm"
                                 >
-                                    <div
-                                        class="font-semibold text-lg leading-none text-color border border-surface py-3.5 px-2 rounded-lg"
-                                    >
+                                    <div class="font-semibold text-lg leading-none text-color border border-surface py-3.5 px-2 rounded-lg">
                                         $
                                     </div>
-                                    <div
-                                        class="font-semibold text-lg leading-none text-color border border-surface py-3.5 px-2 rounded-lg"
-                                    >
+                                    <div class="font-semibold text-lg leading-none text-color border border-surface py-3.5 px-2 rounded-lg">
                                         272
                                     </div>
-                                    <div
-                                        class="font-semibold text-lg leading-none text-color border border-surface py-3.5 px-2 rounded-lg"
-                                    >
+                                    <div class="font-semibold text-lg leading-none text-color border border-surface py-3.5 px-2 rounded-lg">
                                         123
                                     </div>
-                                    <div
-                                        class="font-semibold text-lg leading-none text-color border border-surface py-3.5 px-2 rounded-lg"
-                                    >
+                                    <div class="font-semibold text-lg leading-none text-color border border-surface py-3.5 px-2 rounded-lg">
                                         000
                                     </div>
                                 </div>
@@ -423,13 +384,7 @@ import { AppConfigService } from '@service/appconfigservice';
                             <div
                                 class="flex-1 py-4 px-2 w-full mt-2 flex items-center justify-center rounded-lg bg-surface-0 dark:bg-surface-900 shadow-sm"
                             >
-                                <p-chart
-                                    type="bar"
-                                    [data]="chartData"
-                                    [options]="chartOptions"
-                                    height="15rem"
-                                    class="w-full"
-                                />
+                                <p-chart type="bar" [data]="chartData" [options]="chartOptions" height="15rem" class="w-full" />
                             </div>
                         </div>
                     </div>
@@ -440,8 +395,8 @@ import { AppConfigService } from '@service/appconfigservice';
     host: {
         class: 'w-full h-full',
     },
-    styleUrls: ['./styles/customersapp.scss'],
     encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CustomersApp {
     search: string = '';
@@ -478,11 +433,7 @@ export class CustomersApp {
 
     churnRisk: number = 24;
 
-    constructor(
-        @Inject(PLATFORM_ID) private platformId: any,
-        private sanitizer: DomSanitizer,
-        private configService: AppConfigService,
-    ) {}
+    constructor(@Inject(PLATFORM_ID) private platformId: any, private sanitizer: DomSanitizer, private configService: AppConfigService) {}
 
     ngOnInit() {
         if (isPlatformBrowser(this.platformId)) {

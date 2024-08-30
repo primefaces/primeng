@@ -1,5 +1,5 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { Component, effect, inject, PLATFORM_ID, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, effect, inject, PLATFORM_ID, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { ChartModule } from 'primeng/chart';
@@ -220,8 +220,8 @@ import { AppConfigService } from '@service/appconfigservice';
     host: {
         class: 'flex-1 h-full overflow-y-auto pb-0.5',
     },
-    styleUrls: ['./styles/overviewapp.scss'],
     encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class OverviewApp {
     chartData: any;

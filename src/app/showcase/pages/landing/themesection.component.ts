@@ -76,43 +76,43 @@ import { InputIconModule } from 'primeng/inputicon';
                                     <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                                 </th>
                                 <th pSortableColumn="name">
-                                    <div class="flex justify-content-between align-items-center">
+                                    <div class="flex justify-content-between align-items-center gap-2">
                                         Name
                                         <p-sortIcon field="name"></p-sortIcon>
                                     </div>
                                 </th>
                                 <th pSortableColumn="country.name">
-                                    <div class="flex justify-content-between align-items-center">
+                                    <div class="flex justify-content-between align-items-center gap-2">
                                         Country
                                         <p-sortIcon field="country.name"></p-sortIcon>
                                     </div>
                                 </th>
                                 <th pSortableColumn="representative.name">
-                                    <div class="flex justify-content-between align-items-center">
+                                    <div class="flex justify-content-between align-items-center gap-2">
                                         Agent
                                         <p-sortIcon field="representative.name"></p-sortIcon>
                                     </div>
                                 </th>
                                 <th pSortableColumn="date">
-                                    <div class="flex justify-content-between align-items-center">
+                                    <div class="flex justify-content-between align-items-center gap-2">
                                         Date
                                         <p-sortIcon field="date"></p-sortIcon>
                                     </div>
                                 </th>
                                 <th pSortableColumn="balance">
-                                    <div class="flex justify-content-between align-items-center">
+                                    <div class="flex justify-content-between align-items-center gap-2">
                                         Balance
                                         <p-sortIcon field="balance"></p-sortIcon>
                                     </div>
                                 </th>
                                 <th pSortableColumn="status">
-                                    <div class="flex justify-content-between align-items-center">
+                                    <div class="flex justify-content-between align-items-center gap-2">
                                         Status
                                         <p-sortIcon field="status"></p-sortIcon>
                                     </div>
                                 </th>
                                 <th pSortableColumn="activity">
-                                    <div class="flex justify-content-between align-items-center">
+                                    <div class="flex justify-content-between align-items-center gap-2">
                                         Activity
                                         <p-sortIcon field="activity"></p-sortIcon>
                                     </div>

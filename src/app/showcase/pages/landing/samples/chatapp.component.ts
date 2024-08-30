@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { MenuItem } from 'primeng/api';
@@ -49,7 +49,13 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
                 </p-iconField>
             </div>
             <div class="w-full px-5">
-                <p-selectButton [(ngModel)]="value" [options]="options" aria-labelledby="basic" class="w-full" />
+                <p-selectButton
+                    [(ngModel)]="value"
+                    [options]="options"
+                    aria-labelledby="basic"
+                    class="w-full"
+                    styleClass="w-full"
+                />
             </div>
             <div class="flex-1 flex flex-col">
                 <div
@@ -286,7 +292,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
                 </div>
             </div>
             <div class="mt-5">
-                <p-selectButton [(ngModel)]="media" [options]="mediaOptions" class="w-full" />
+                <p-selectButton [(ngModel)]="media" [options]="mediaOptions" class="w-full" styleClass="flex-1" />
 
                 <div class="mt-3 mb-5 grid grid-cols-3 gap-2">
                     <div
@@ -314,8 +320,8 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
     host: {
         class: 'flex-1 h-full overflow-y-auto overflow-x-clip overflow-hidden flex border border-surface rounded-2xl',
     },
-    styleUrls: ['./styles/chatapp.scss'],
     encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChatApp {
     search: string = '';

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { MessageService, PrimeNGConfig } from 'primeng/api';
@@ -66,8 +66,7 @@ import { SelectModule } from 'primeng/select';
                         <p-overlayBadge severity="danger" styleClass="w-fit">
                             <p-avatar
                                 image="https://www.primefaces.org/cdn/primevue/images/landing/apps/main-avatar.png"
-                                size="large"
-                                styleClass="rounded-lg overflow-hidden flex"
+                                class="rounded-lg overflow-hidden flex"
                             />
                         </p-overlayBadge>
 
@@ -77,73 +76,51 @@ import { SelectModule } from 'primeng/select';
                         </div>
                     </div>
                     <div class="flex items-center gap-6">
-                        <div class="text-sm leading-5 text-color">
-                            14.k <span class="text-muted-color">Followers</span>
-                        </div>
-                        <div class="text-sm leading-5 text-color">
-                            359 <span class="text-muted-color">Following</span>
-                        </div>
+                        <div class="text-sm leading-5 text-color">14.k <span class="text-muted-color">Followers</span></div>
+                        <div class="text-sm leading-5 text-color">359 <span class="text-muted-color">Following</span></div>
                     </div>
                     <p class="text-sm text-muted-color leading-5 mb-0">
-                        Meet Jacob Jones, the whimsical adventurer on a quest for life's quirks. From sock mysteries to
-                        subway adventures, join him for a laughter-filled journey!
+                        Meet Jacob Jones, the whimsical adventurer on a quest for life's quirks. From sock mysteries to subway adventures,
+                        join him for a laughter-filled journey!
                     </p>
                     <div class="flex items-center justify-between gap-2">
                         <div class="text-sm leading-5 text-color font-medium">Mutual Friends</div>
                         <p-avatarGroup>
                             <p-avatar
                                 image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar1.png"
-                                size="small"
-                                styleClass="rounded-lg overflow-hidden"
+                                class="rounded-lg overflow-hidden"
                             />
                             <p-avatar
                                 image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar9.jpg"
-                                size="small"
-                                styleClass="rounded-lg overflow-hidden"
+                                class="rounded-lg overflow-hidden"
                             />
                             <p-avatar
                                 image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar11.jpg"
-                                size="small"
-                                styleClass="rounded-lg overflow-hidden"
+                                class="rounded-lg overflow-hidden"
                             />
                             <p-avatar
                                 image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar13.jpg"
-                                size="small"
-                                styleClass="rounded-lg overflow-hidden"
+                                class="rounded-lg overflow-hidden"
                             />
                             <p-avatar
                                 image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar5.png"
-                                size="small"
-                                styleClass="rounded-lg overflow-hidden"
+                                class="rounded-lg overflow-hidden"
                             />
-                            <p-avatar label="+99" size="small" styleClass="rounded-lg overflow-hidden text-xs" />
+                            <p-avatar label="+99" class="rounded-lg overflow-hidden text-xs" />
                         </p-avatarGroup>
                     </div>
-                    <!-- <SelectButton
-                        v-model="selectedUserSelectButtonOption"
-                        :options="userSelectButtonOptions"
-                        :pt="{
-                            root: {
-                                class: 'w-full'
-                            },
-                            pcbutton: {
-                                root: {
-                                    class: 'flex-1'
-                                }
-                            }
-                        }"
-                    /> -->
                     <p-selectButton
                         [(ngModel)]="selectedUserSelectButtonOption"
                         [options]="userSelectButtonOptions"
-                        styleClass="w-full"
+                        class="w-full"
+                        styleClass="flex-1"
                     />
                     <div class="flex flex-col gap-4">
                         <div class="p-2 rounded-2xl flex items-center gap-3 bg-emphasis">
                             <p-overlayBadge severity="danger" class="w-fit">
                                 <p-avatar
                                     image="https://www.primefaces.org/cdn/primevue/images/landing/apps/main-avatar.png"
-                                    styleClass="rounded-lg overflow-hidden w-10 h-10 block"
+                                    class="rounded-lg overflow-hidden w-10 h-10 block"
                                 />
                             </p-overlayBadge>
 
@@ -157,7 +134,7 @@ import { SelectModule } from 'primeng/select';
                             <p-overlayBadge severity="danger" class="w-fit">
                                 <p-avatar
                                     image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar9.jpg"
-                                    styleClass="rounded-lg overflow-hidden w-10 h-10 flex"
+                                    class="rounded-lg overflow-hidden w-10 h-10 flex"
                                 />
                             </p-overlayBadge>
 
@@ -170,13 +147,10 @@ import { SelectModule } from 'primeng/select';
                     </div>
                 </div>
                 <div class="border border-surface rounded-3xl p-6">
-                    <div
-                        class="flex items-center gap-3 p-3 border border-surface rounded-xl shadow-[0px_1px_2px_0px_rgba(18,18,23,0.05)]"
-                    >
+                    <div class="flex items-center gap-3 p-3 border border-surface rounded-xl shadow-[0px_1px_2px_0px_rgba(18,18,23,0.05)]">
                         <p-avatar
                             image="https://www.primefaces.org/cdn/primevue/images/landing/apps/main-avatar.png"
-                            styleClass="rounded-lg overflow-hidden"
-                            class="w-14 h-14 avatar-image-fit-content"
+                            class="rounded-lg overflow-hidden w-14 h-14"
                         />
                         <div class="flex-1">
                             <div class="text-color font-medium leading-7">Jacob Jones</div>
@@ -221,9 +195,7 @@ import { SelectModule } from 'primeng/select';
                                 'pi-sun': darkMode
                             }"
                         ></i>
-                        <div class="font-medium leading-normal flex-1 text-left">
-                            Switch to {{ darkMode ? 'Light' : 'Dark' }}
-                        </div>
+                        <div class="font-medium leading-normal flex-1 text-left">Switch to {{ darkMode ? 'Light' : 'Dark' }}</div>
                         <p-inputSwitch [(ngModel)]="darkMode" />
                     </div>
                 </div>
@@ -257,8 +229,7 @@ import { SelectModule } from 'primeng/select';
                             </div>
                         </div>
                         <p class="leading-6 text-muted-color mb-0">
-                            Expert in data analysis? Join Data Insights Ltd. as a senior data analyst. Lead in the world
-                            of data with us!
+                            Expert in data analysis? Join Data Insights Ltd. as a senior data analyst. Lead in the world of data with us!
                         </p>
                         <div class="flex flex-wrap gap-2 items-center">
                             <p-tag value="Data Analysis" rounded class="font-normal"></p-tag>
@@ -271,31 +242,11 @@ import { SelectModule } from 'primeng/select';
                             class="p-4 rounded-3xl w-full bg-emphasis transition-all text-color hover:text-color-emphasis flex items-center gap-2 justify-between cursor-pointer"
                         >
                             <div class="flex items-center [&>*]:-mr-2">
-                                <p-avatar
-                                    image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar11.jpg"
-                                    size="small"
-                                    shape="circle"
-                                />
-                                <p-avatar
-                                    image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar10.jpg"
-                                    size="small"
-                                    shape="circle"
-                                />
-                                <p-avatar
-                                    image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar12.jpg"
-                                    size="small"
-                                    shape="circle"
-                                />
-                                <p-avatar
-                                    image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar9.jpg"
-                                    size="small"
-                                    shape="circle"
-                                />
-                                <p-avatar
-                                    image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar5.png"
-                                    size="small"
-                                    shape="circle"
-                                />
+                                <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar11.jpg" shape="circle" />
+                                <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar10.jpg" shape="circle" />
+                                <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar12.jpg" shape="circle" />
+                                <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar9.jpg" shape="circle" />
+                                <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar5.png" shape="circle" />
                             </div>
                             <div class="flex items-center gap-2">
                                 <div class="font-medium leading-6">12 Applicants</div>
@@ -314,38 +265,17 @@ import { SelectModule } from 'primeng/select';
                     </div>
                     <div>
                         <label for="document-name" class="text-color font-medium leading-6">Document Name </label>
-                        <input
-                            type="text"
-                            pInputText
-                            id="document-name"
-                            [(ngModel)]="documentName"
-                            class="mt-2 w-full"
-                        />
+                        <input type="text" pInputText id="document-name" [(ngModel)]="documentName" class="mt-2 w-full" />
                     </div>
                     <div>
                         <label class="text-color font-medium leading-6">Upload Files</label>
-                        <!-- <p-fileUpload
-                            name="demo[]"
-                            url="/api/upload"
-                            (onUpload)="onTemplatedUpload($event)"
-                            :pt="{
-                                root: {
-                                    class: 'bg-transparent border-dashed mt-2'
-                                },
-                                content: {
-                                    class: 'p-0'
-                                }
-                            }"
-                            accept="image/*"
-                            :maxFileSize="1000000"
-                            @select="onSelectedFiles"
-                        > -->
                         <p-fileUpload
                             name="demo[]"
                             url="/api/upload"
                             (onUpload)="onTemplatedUpload($event)"
                             accept="image/*"
                             [maxFileSize]="1000000"
+                            styleClass="mt-2"
                             (onSelect)="onSelectedFiles($event)"
                         >
                             <ng-template
@@ -413,18 +343,11 @@ import { SelectModule } from 'primeng/select';
                                             class="card max-w-[120px] !p-2 m-0 flex flex-col border-1 surface-border items-center gap-2 text-center"
                                         >
                                             <div>
-                                                <img
-                                                    role="presentation"
-                                                    [alt]="file.name"
-                                                    [src]="file.objectURL"
-                                                    width="100"
-                                                    height="50"
-                                                />
+                                                <img role="presentation" [alt]="file.name" [src]="file.objectURL" width="100" height="50" />
                                             </div>
-                                            <span
-                                                class="font-semibold max-w-[100px] text-ellipsis whitespace-nowrap overflow-hidden"
-                                                >{{ file.name }}</span
-                                            >
+                                            <span class="font-semibold max-w-[100px] text-ellipsis whitespace-nowrap overflow-hidden">{{
+                                                file.name
+                                            }}</span>
                                             <span class="text-sm text-muted-color">{{ formatSize(file.size) }}</span>
                                             <div class="grow flex flex-col gap-2 justify-end">
                                                 <p-badge value="Pending" severity="warning" />
@@ -450,18 +373,11 @@ import { SelectModule } from 'primeng/select';
                                             class="card max-w-[120px] !p-2 m-0 flex flex-col border-1 surface-border items-center gap-2 text-center"
                                         >
                                             <div>
-                                                <img
-                                                    role="presentation"
-                                                    [alt]="file.name"
-                                                    :src="file.objectURL"
-                                                    width="100"
-                                                    height="50"
-                                                />
+                                                <img role="presentation" [alt]="file.name" :src="file.objectURL" width="100" height="50" />
                                             </div>
-                                            <span
-                                                class="font-semibold max-w-[100px] text-ellipsis whitespace-nowrap overflow-hidden"
-                                                >{{ file.name }}</span
-                                            >
+                                            <span class="font-semibold max-w-[100px] text-ellipsis whitespace-nowrap overflow-hidden">{{
+                                                file.name
+                                            }}</span>
                                             <span class="text-sm text-muted-color">{{ formatSize(file.size) }}</span>
                                             <div class="grow flex flex-col gap-2 justify-end">
                                                 <p-badge value="Completed" class="mt-3" severity="success" />
@@ -519,54 +435,54 @@ import { SelectModule } from 'primeng/select';
                         <div class="flex items-center gap-x-2 gap-y-1 flex-wrap flex-1">
                             <p-avatar
                                 image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar1.png"
-                                size="small"
                                 shape="circle"
+                                class="rounded-lg overflow-hidden"
                             />
                             <p-avatar
                                 image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar2.png"
-                                size="small"
                                 shape="circle"
+                                class="rounded-lg overflow-hidden"
                             />
                             <p-avatar
                                 image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar9.jpg"
-                                size="small"
                                 shape="circle"
+                                class="rounded-lg overflow-hidden"
                             />
                             <p-avatar
                                 image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar11.jpg"
-                                size="small"
                                 shape="circle"
+                                class="rounded-lg overflow-hidden"
                             />
                             <div class="w-full"></div>
                             <p-avatar
                                 image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar5.png"
-                                size="small"
                                 shape="circle"
+                                class="rounded-lg overflow-hidden"
                             />
                             <p-avatar
                                 image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar13.jpg"
-                                size="small"
                                 shape="circle"
+                                class="rounded-lg overflow-hidden"
                             />
                             <p-avatar
                                 image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar7.png"
-                                size="small"
                                 shape="circle"
+                                class="rounded-lg overflow-hidden"
                             />
                             <p-avatar
                                 image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar8.png"
-                                size="small"
                                 shape="circle"
+                                class="rounded-lg overflow-hidden"
                             />
                             <p-avatar
                                 image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar10.jpg"
-                                size="small"
                                 shape="circle"
+                                class="rounded-lg overflow-hidden"
                             />
                             <p-avatar
                                 image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar12.jpg"
-                                size="small"
                                 shape="circle"
+                                class="rounded-lg overflow-hidden"
                             />
                         </div>
                         <p-button icon="pi pi-arrow-up-right" rounded text />
@@ -600,61 +516,55 @@ import { SelectModule } from 'primeng/select';
                             <div class="flex items-center gap-2 justify-between">
                                 <p-avatar
                                     image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar8.png"
-                                    styleClass="w-9 h-9"
+                                    class="w-9 h-9"
                                     shape="circle"
                                 />
                                 <div class="flex-1">
                                     <div class="text-sm font-medium text-color leading-5">Brook Simmons</div>
-                                    <div class="text-sm text-muted-color leading-5 line-clamp-4">
-                                        brook.sim42&#64;primevue.org
-                                    </div>
+                                    <div class="text-sm text-muted-color leading-5 line-clamp-4">brook.sim42&#64;primevue.org</div>
                                 </div>
                                 <p-select
                                     [(ngModel)]="memberSelectedTypes[0]"
                                     [options]="memberTypes"
                                     optionLabel="name"
                                     placeholder="Select"
-                                    styleClass="!w-16"
+                                    class="!border-0 !shadow-none"
                                 />
                             </div>
                             <div class="flex items-center gap-2 justify-between">
                                 <p-avatar
                                     image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar13.jpg"
-                                    styleClass="w-9 h-9"
+                                    class="w-9 h-9"
                                     shape="circle"
                                 />
                                 <div class="flex-1">
                                     <div class="text-sm font-medium text-color leading-5">Dianne Russell</div>
-                                    <div class="text-sm text-muted-color leading-5 line-clamp-4">
-                                        di.russ23&#64;primevue.org
-                                    </div>
+                                    <div class="text-sm text-muted-color leading-5 line-clamp-4">di.russ23&#64;primevue.org</div>
                                 </div>
                                 <p-select
                                     [(ngModel)]="memberSelectedTypes[1]"
                                     [options]="memberTypes"
                                     optionLabel="name"
                                     placeholder="Select"
-                                    styleClass="!w-16"
+                                    class="!border-0 !shadow-none"
                                 />
                             </div>
                             <div class="flex items-center gap-2 justify-between">
                                 <p-avatar
                                     image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar12.jpg"
-                                    styleClass="w-9 h-9"
+                                    class="w-9 h-9"
                                     shape="circle"
                                 />
                                 <div class="flex-1">
                                     <div class="text-sm font-medium text-color leading-5">Jacob Jones</div>
-                                    <div class="text-sm text-muted-color leading-5 line-clamp-4">
-                                        jac.jon87&#64;primevue.org
-                                    </div>
+                                    <div class="text-sm text-muted-color leading-5 line-clamp-4">jac.jon87&#64;primevue.org</div>
                                 </div>
                                 <p-select
                                     [(ngModel)]="memberSelectedTypes[2]"
                                     [options]="memberTypes"
                                     optionLabel="name"
                                     placeholder="Select"
-                                    styleClass="!w-16"
+                                    class="!border-0 !shadow-none"
                                 />
                             </div>
                         </div>
@@ -662,14 +572,7 @@ import { SelectModule } from 'primeng/select';
                     <div>
                         <div class="font-medium leading-6 text-muted-color">Copy Link</div>
                         <div class="flex items-center gap-3 mt-2">
-                            <input
-                                type="text"
-                                pInputText
-                                [(ngModel)]="copiedText"
-                                type="text"
-                                class="flex-1"
-                                readOnly
-                            />
+                            <input type="text" pInputText [(ngModel)]="copiedText" type="text" class="flex-1" readOnly />
                             <p-button label="Copy" severity="secondary" />
                         </div>
                     </div>
@@ -678,7 +581,7 @@ import { SelectModule } from 'primeng/select';
             <div class="flex-1 flex flex-wrap gap-6">
                 <div class="flex-1 border border-surface rounded-3xl p-6">
                     <div class="text-color font-medium leading-6 mb-4">User Profiles</div>
-                    <p-selectButton [(ngModel)]="userProfiles" [options]="userProfilesOptions" class="w-full" />
+                    <p-selectButton [(ngModel)]="userProfiles" [options]="userProfilesOptions" class="w-full" styleClass="flex-1" />
                     <div class="flex flex-col gap-4 mt-6">
                         <div class="flex items-center gap-3">
                             <i class="pi pi-volume-down text-color text-xl"></i>
@@ -729,7 +632,12 @@ import { SelectModule } from 'primeng/select';
                         <p-button label="Resend" text />
                     </div>
                     <div class="flex items-center justify-center">
-                        <p-inputOtp [(ngModel)]="forgotPasswordOTP" [length]="6" integerOnly class="w-full" />
+                        <p-inputOtp
+                            [(ngModel)]="forgotPasswordOTP"
+                            [length]="6"
+                            integerOnly
+                            class="w-full [&>*]:flex-1 [&>*]:min-h-14 [&>*]:text-2xl"
+                        />
                     </div>
                     <button pButton label="Change password" class="w-full"></button>
                 </div>
@@ -789,8 +697,8 @@ import { SelectModule } from 'primeng/select';
         class: 'flex-1 h-full overflow-y-auto overflow-x-clip overflow-hidden border border-surface rounded-2xl p-6',
     },
     providers: [MessageService],
-    styleUrls: ['./styles/cardsapp.scss'],
     encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CardsApp {
     files = [];

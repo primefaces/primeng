@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { SelectButtonModule } from 'primeng/selectbutton';
@@ -115,6 +115,7 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
                                         [value]="item.watchedPercent"
                                         [showValue]="false"
                                         styleClass="!h-1.5 !bg-surface-950 dark:!bg-surface-50 !rounded-full"
+                                        valueStyleClass="p-progressbar-value !bg-surface-0 dark:!bg-surface-950 !rounded-full"
                                     />
                                 </div>
                             </div>
@@ -177,11 +178,8 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
             </div>
         </div>
     `,
-    host: {
-        class: '',
-    },
-    styleUrls: ['./styles/moviesapp.scss'],
     encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MoviesApp {
     search: string | undefined;

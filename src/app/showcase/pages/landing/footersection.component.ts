@@ -132,7 +132,7 @@ import { RouterModule } from '@angular/router';
                     </div>
                 </div>
 
-                <hr class="section-divider mt-8" />
+                <hr class="section-divider" />
 
                 <div class="flex flex-wrap justify-between py-12 gap-8">
                     <span>
@@ -227,12 +227,12 @@ import { RouterModule } from '@angular/router';
                             />
                         </svg>
                     </span>
-                    <div class="flex align-items-center gap-2">
+                    <div class="flex items-center gap-2">
                         <a
                             href="https://twitter.com/prime_ng"
                             target="_blank"
                             rel="noopener noreferrer"
-                            class="linkbox w-3rem h-3rem flex align-items-center justify-content-center"
+                            class="linkbox linkbox-icon"
                         >
                             <i class="pi pi-twitter"></i>
                         </a>
@@ -240,7 +240,7 @@ import { RouterModule } from '@angular/router';
                             href="https://github.com/primefaces/primeng"
                             target="_blank"
                             rel="noopener noreferrer"
-                            class="linkbox block w-3rem h-3rem flex align-items-center justify-content-center"
+                            class="linkbox linkbox-icon"
                         >
                             <i class="pi pi-github"></i>
                         </a>
@@ -248,14 +248,11 @@ import { RouterModule } from '@angular/router';
                             href="https://discord.gg/gzKFYnpmCY"
                             target="_blank"
                             rel="noopener noreferrer"
-                            class="linkbox block w-3rem h-3rem flex align-items-center justify-content-center"
+                            class="linkbox linkbox-icon"
                         >
                             <i class="pi pi-discord"></i>
                         </a>
-                        <a
-                            href="https://github.com/orgs/primefaces/discussions"
-                            class="linkbox block w-3rem h-3rem flex align-items-center justify-content-center"
-                        >
+                        <a href="https://github.com/orgs/primefaces/discussions" class="linkbox linkbox-icon">
                             <i class="pi pi-comments"></i>
                         </a>
                     </div>
