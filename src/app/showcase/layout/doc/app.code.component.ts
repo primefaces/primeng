@@ -94,9 +94,9 @@ export class AppCodeComponent {
 
     @Input({ transform: booleanAttribute }) hideToggleCode: boolean = false;
 
-    @Input({ transform: booleanAttribute }) hideCodeSandbox: boolean = false;
+    @Input({ transform: booleanAttribute }) hideCodeSandbox: boolean = true;
 
-    @Input({ transform: booleanAttribute }) hideStackBlitz: boolean = false;
+    @Input({ transform: booleanAttribute }) hideStackBlitz: boolean = true;
 
     @ViewChild('codeElement') codeElement: ElementRef;
 
