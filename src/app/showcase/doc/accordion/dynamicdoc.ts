@@ -17,13 +17,13 @@ import { Code } from '@domain/code';
             </p-accordion>
         </div>
         <app-code [code]="code" selector="accordion-dynamic-demo"></app-code>
-    `
+    `,
 })
 export class DynamicDoc {
     tabs = [
         { title: 'Title 1', content: 'Content 1' },
         { title: 'Title 2', content: 'Content 2' },
-        { title: 'Title 3', content: 'Content 3' }
+        { title: 'Title 3', content: 'Content 3' },
     ];
     code: Code = {
         basic: `<p-accordion [activeIndex]="0">
@@ -60,6 +60,6 @@ export class AccordionDynamicDemo {
         { title: 'Title 2', content: 'Content 2' },
         { title: 'Title 3', content: 'Content 3' }
     ];
-}`
+}`,
     };
 }
