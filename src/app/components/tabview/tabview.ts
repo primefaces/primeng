@@ -3,40 +3,37 @@ import {
     AfterContentInit,
     AfterViewChecked,
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     ContentChildren,
     ElementRef,
-    EmbeddedViewRef,
     EventEmitter,
-    Inject,
+    HostBinding,
     Input,
     NgModule,
     OnDestroy,
     Output,
-    PLATFORM_ID,
     QueryList,
-    Renderer2,
     TemplateRef,
     ViewChild,
-    ViewContainerRef,
     ViewEncapsulation,
     booleanAttribute,
     forwardRef,
+    inject,
     numberAttribute,
-    signal
 } from '@angular/core';
 import { BlockableUI, PrimeTemplate, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { ChevronLeftIcon } from 'primeng/icons/chevronleft';
 import { ChevronRightIcon } from 'primeng/icons/chevronright';
 import { TimesIcon } from 'primeng/icons/times';
-import { RippleModule } from 'primeng/ripple';
+import { Ripple } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
 import { Subscription } from 'rxjs';
 import { TabViewChangeEvent, TabViewCloseEvent } from './tabview.interface';
 import { UniqueComponentId } from 'primeng/utils';
 import { Nullable } from 'primeng/ts-helpers';
+import { TabsStyle } from './style/tabsstyle';
+import { BaseComponent } from 'primeng/basecomponent';
 
 /**
  * TabPanel is a helper component for TabView component.
@@ -44,6 +41,8 @@ import { Nullable } from 'primeng/ts-helpers';
  */
 @Component({
     selector: 'p-tabPanel',
+    standalone: true,
+    imports: [CommonModule, SharedModule],
     template: `
         <div
             *ngIf="!closed"
@@ -61,11 +60,10 @@ import { Nullable } from 'primeng/ts-helpers';
             </ng-container>
         </div>
     `,
-    host: {
-        class: 'p-element'
-    }
+    host: {},
+    providers: [TabsStyle],
 })
-export class TabPanel implements AfterContentInit, OnDestroy {
+export class TabPanel extends BaseComponent implements AfterContentInit, OnDestroy {
     /**
      * Defines if tab can be removed.
      * @group Props
@@ -193,8 +191,6 @@ export class TabPanel implements AfterContentInit, OnDestroy {
 
     closed: boolean = false;
 
-    view: EmbeddedViewRef<any> | null = null;
-
     _headerStyle: { [klass: string]: any } | null | undefined;
 
     _headerStyleClass: string | undefined;
@@ -211,7 +207,7 @@ export class TabPanel implements AfterContentInit, OnDestroy {
 
     loaded: boolean = false;
 
-    public id: string | undefined;
+    public id: string | undefined = UniqueComponentId();
 
     contentTemplate: TemplateRef<any> | undefined;
 
@@ -223,17 +219,9 @@ export class TabPanel implements AfterContentInit, OnDestroy {
 
     closeIconTemplate: TemplateRef<any> | undefined;
 
-    tabView: TabView;
+    tabView: TabView = inject(forwardRef(() => TabView)) as TabView;
 
-    constructor(
-        @Inject(forwardRef(() => TabView)) tabView: TabView,
-        public el: ElementRef,
-        public viewContainer: ViewContainerRef,
-        public cd: ChangeDetectorRef
-    ) {
-        this.tabView = tabView as TabView;
-        this.id = UniqueComponentId();
-    }
+    _componentStyle = inject(TabsStyle);
 
     ngAfterContentInit() {
         (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
@@ -264,10 +252,6 @@ export class TabPanel implements AfterContentInit, OnDestroy {
             }
         });
     }
-
-    ngOnDestroy() {
-        this.view = null;
-    }
 }
 /**
  * TabView is a container component to group content with tabs.
@@ -275,94 +259,136 @@ export class TabPanel implements AfterContentInit, OnDestroy {
  */
 @Component({
     selector: 'p-tabView',
+    standalone: true,
+    imports: [CommonModule, TabPanel, SharedModule, TooltipModule, Ripple, TimesIcon, ChevronLeftIcon, ChevronRightIcon],
     template: `
-        <div [ngClass]="{ 'p-tabview p-component': true, 'p-tabview-scrollable': scrollable }" [ngStyle]="style" [class]="styleClass" [attr.data-pc-name]="'tabview'">
-            <div #elementToObserve class="p-tabview-nav-container">
-                <button
-                    *ngIf="scrollable && !backwardIsDisabled && autoHideButtons"
-                    #prevBtn
-                    class="p-tabview-nav-prev p-tabview-nav-btn p-link"
-                    (click)="navBackward()"
-                    [attr.tabindex]="tabindex"
-                    [attr.aria-label]="prevButtonAriaLabel"
-                    type="button"
-                    pRipple
-                >
-                    <ChevronLeftIcon *ngIf="!previousIconTemplate" [attr.aria-hidden]="true" />
-                    <ng-template *ngTemplateOutlet="previousIconTemplate"></ng-template>
-                </button>
-                <div #content class="p-tabview-nav-content" (scroll)="onScroll($event)" [attr.data-pc-section]="'navcontent'">
-                    <ul #navbar class="p-tabview-nav" role="tablist" [attr.data-pc-section]="'nav'">
-                        <ng-template ngFor let-tab [ngForOf]="tabs" let-i="index">
-                            <li role="presentation" [ngClass]="{ 'p-highlight': tab.selected, 'p-disabled': tab.disabled }" [attr.data-p-disabled]="tab.disabled" [ngStyle]="tab.headerStyle" [class]="tab.headerStyleClass" *ngIf="!tab.closed">
-                                <a
-                                    role="tab"
-                                    class="p-tabview-nav-link"
-                                    [pTooltip]="tab.tooltip"
-                                    [tooltipPosition]="tab.tooltipPosition"
-                                    [positionStyle]="tab.tooltipPositionStyle"
-                                    [tooltipStyleClass]="tab.tooltipStyleClass"
-                                    [attr.id]="getTabHeaderActionId(tab.id)"
-                                    [attr.aria-controls]="getTabContentId(tab.id)"
-                                    [attr.aria-selected]="tab.selected"
-                                    [attr.tabindex]="tab.disabled || !tab.selected ? '-1' : tabindex"
-                                    [attr.aria-disabled]="tab.disabled"
-                                    [attr.data-pc-index]="i"
-                                    [attr.data-pc-section]="'headeraction'"
-                                    (click)="open($event, tab)"
-                                    (keydown)="onTabKeyDown($event, tab)"
-                                    pRipple
-                                >
-                                    <ng-container *ngIf="!tab.headerTemplate">
-                                        <span class="p-tabview-left-icon" [ngClass]="tab.leftIcon" *ngIf="tab.leftIcon && !tab.leftIconTemplate"></span>
-                                        <span *ngIf="tab.leftIconTemplate" class="p-tabview-left-icon">
-                                            <ng-template *ngTemplateOutlet="tab.leftIconTemplate"></ng-template>
-                                        </span>
-                                        <span class="p-tabview-title">{{ tab.header }}</span>
-                                        <span class="p-tabview-right-icon" [ngClass]="tab.rightIcon" *ngIf="tab.rightIcon && !tab.rightIconTemplate"></span>
-                                        <span *ngIf="tab.rightIconTemplate" class="p-tabview-right-icon">
-                                            <ng-template *ngTemplateOutlet="tab.rightIconTemplate"></ng-template>
-                                        </span>
-                                    </ng-container>
+        <div #elementToObserve class="p-tablist">
+            <button
+                *ngIf="scrollable && !backwardIsDisabled && autoHideButtons"
+                #prevBtn
+                class="p-tablist-prev-button p-tablist-nav-button"
+                (click)="navBackward()"
+                [attr.tabindex]="tabindex"
+                [attr.aria-label]="prevButtonAriaLabel"
+                type="button"
+                pRipple
+            >
+                <ChevronLeftIcon *ngIf="!previousIconTemplate" [attr.aria-hidden]="true" />
+                <ng-template *ngTemplateOutlet="previousIconTemplate"></ng-template>
+            </button>
+            <div
+                #content
+                class="p-tablist-content"
+                [ngClass]="{ 'p-tablist-viewport': scrollable }"
+                (scroll)="onScroll($event)"
+                [attr.data-pc-section]="'navcontent'"
+            >
+                <div #navbar class="p-tablist-tab-list" role="tablist" [attr.data-pc-section]="'nav'">
+                    @for (tab of tabs; track tab; let i = $index) {
+                        @if (!tab.closed) {
+                            <button
+                                [ngClass]="{
+                                    'p-tab': true,
+                                    'p-tab-active': tab.selected,
+                                    'p-disabled': tab.disabled,
+                                }"
+                                [attr.role]="'tab'"
+                                [class]="tab.headerStyleClass"
+                                [ngStyle]="tab.headerStyle"
+                                [pTooltip]="tab.tooltip"
+                                [tooltipPosition]="tab.tooltipPosition"
+                                [positionStyle]="tab.tooltipPositionStyle"
+                                [tooltipStyleClass]="tab.tooltipStyleClass"
+                                [attr.id]="getTabHeaderActionId(tab.id)"
+                                [attr.aria-controls]="getTabContentId(tab.id)"
+                                [attr.aria-selected]="tab.selected"
+                                [attr.tabindex]="tab.disabled || !tab.selected ? '-1' : tabindex"
+                                [attr.aria-disabled]="tab.disabled"
+                                [disabled]="tab.disabled"
+                                [attr.data-pc-index]="i"
+                                [attr.data-p-disabled]="tab.disabled"
+                                [attr.data-pc-section]="'headeraction'"
+                                [attr.data-p-active]="tab.selected"
+                                (click)="open($event, tab)"
+                                (keydown)="onTabKeyDown($event, tab)"
+                                pRipple
+                            >
+                                @if (tab.headerTemplate) {
                                     <ng-container *ngTemplateOutlet="tab.headerTemplate"></ng-container>
-                                    <ng-container *ngIf="tab.closable">
-                                        <TimesIcon *ngIf="!tab.closeIconTemplate" [styleClass]="'p-tabview-close'" (click)="close($event, tab)" />
-                                        <span class="tab.closeIconTemplate" *ngIf="tab.closeIconTemplate"></span>
-                                        <ng-template *ngTemplateOutlet="tab.closeIconTemplate"></ng-template>
-                                    </ng-container>
-                                </a>
-                            </li>
-                        </ng-template>
-                        <li #inkbar class="p-tabview-ink-bar" role="presentation" aria-hidden="true" [attr.data-pc-section]="'inkbar'"></li>
-                    </ul>
+                                } @else {
+                                    @if (tab.leftIconTemplate) {
+                                        <ng-template *ngTemplateOutlet="tab.leftIconTemplate"></ng-template>
+                                    } @else if (tab.leftIcon && !tab.leftIconTemplate) {
+                                        <span class="p-tabview-left-icon" [ngClass]="tab.leftIcon"></span>
+                                    }
+
+                                    {{ tab.header }}
+
+                                    @if (tab.rightIconTemplate) {
+                                        <ng-template *ngTemplateOutlet="tab.rightIconTemplate"></ng-template>
+                                    } @else if (tab.rightIcon && !tab.rightIconTemplate) {
+                                        <span class="p-tabview-right-icon" [ngClass]="tab.rightIcon"></span>
+                                    }
+
+                                    @if (tab.closable) {
+                                        @if (tab.closeIconTemplate) {
+                                            <ng-template *ngTemplateOutlet="tab.closeIconTemplate"></ng-template>
+                                        } @else {
+                                            <TimesIcon (click)="close($event, tab)" />
+                                        }
+                                    }
+                                }
+                            </button>
+                            <span
+                                #inkbar
+                                class="p-tablist-active-bar"
+                                role="presentation"
+                                [attr.aria-hidden]="true"
+                                [attr.data-pc-section]="'inkbar'"
+                            ></span>
+                        }
+                    }
                 </div>
-                <button
-                    *ngIf="scrollable && !forwardIsDisabled && buttonVisible"
-                    #nextBtn
-                    [attr.tabindex]="tabindex"
-                    [attr.aria-label]="nextButtonAriaLabel"
-                    class="p-tabview-nav-next p-tabview-nav-btn p-link"
-                    (click)="navForward()"
-                    type="button"
-                    pRipple
-                >
-                    <ChevronRightIcon *ngIf="!nextIconTemplate" [attr.aria-hidden]="true" />
+            </div>
+            <button
+                *ngIf="scrollable && !forwardIsDisabled && buttonVisible"
+                #nextBtn
+                [attr.tabindex]="tabindex"
+                [attr.aria-label]="nextButtonAriaLabel"
+                class="p-tablist-next-button p-tablist-nav-button"
+                (click)="navForward()"
+                type="button"
+                pRipple
+            >
+                @if (nextIconTemplate) {
                     <ng-template *ngTemplateOutlet="nextIconTemplate"></ng-template>
-                </button>
-            </div>
-            <div class="p-tabview-panels">
-                <ng-content></ng-content>
-            </div>
+                } @else {
+                    <ChevronRightIcon [attr.aria-hidden]="true" />
+                }
+            </button>
+        </div>
+        <div class="p-tabpanels">
+            <ng-content></ng-content>
         </div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./tabview.css'],
     host: {
-        class: 'p-element'
-    }
+        '[class.p-tabs]': 'true',
+        '[class.p-tabs-scrollable]': 'scrollable',
+        '[class.p-component]': 'true',
+        '[attr.data-pc-name]': 'tabview',
+    },
+    providers: [TabsStyle],
 })
-export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, BlockableUI {
+export class TabView extends BaseComponent implements AfterContentInit, AfterViewChecked, OnDestroy, BlockableUI {
+    @HostBinding('class') get hostClass() {
+        return this.styleClass;
+    }
+
+    @HostBinding('style') get hostStyle() {
+        return this.style;
+    }
     /**
      * Inline style of the component.
      * @group Props
@@ -495,12 +521,7 @@ export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, B
 
     @ViewChild('elementToObserve') elementToObserve: ElementRef;
 
-    constructor(
-        @Inject(PLATFORM_ID) private platformId: any,
-        public el: ElementRef,
-        public cd: ChangeDetectorRef,
-        private renderer: Renderer2
-    ) {}
+    _componentStyle = inject(TabsStyle);
 
     ngAfterContentInit() {
         this.initTabs();
@@ -524,6 +545,7 @@ export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, B
     }
 
     ngAfterViewInit() {
+        super.ngAfterViewInit();
         if (isPlatformBrowser(this.platformId)) {
             if (this.autoHideButtons) {
                 this.bindResizeObserver();
@@ -569,6 +591,8 @@ export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, B
         if (this.resizeObserver) {
             this.unbindResizeObserver();
         }
+
+        super.ngOnDestroy();
     }
 
     getTabHeaderActionId(tabId) {
@@ -629,7 +653,7 @@ export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, B
     }
 
     onTabArrowLeftKey(event: KeyboardEvent) {
-        const prevHeaderAction = this.findPrevHeaderAction((<HTMLElement>event.target).parentElement);
+        const prevHeaderAction = this.findPrevHeaderAction(<HTMLElement>event.currentTarget);
         const index = DomHandler.getAttribute(prevHeaderAction, 'data-pc-index');
 
         prevHeaderAction ? this.changeFocusedTab(event, prevHeaderAction, index) : this.onTabEndKey(event);
@@ -637,9 +661,9 @@ export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, B
     }
 
     onTabArrowRightKey(event: KeyboardEvent) {
-        const nextHeaderAction = this.findNextHeaderAction((<HTMLElement>event.target).parentElement);
-        const index = DomHandler.getAttribute(nextHeaderAction, 'data-pc-index');
+        const nextHeaderAction = this.findNextHeaderAction(<HTMLElement>event.currentTarget);
 
+        const index = DomHandler.getAttribute(nextHeaderAction, 'data-pc-index');
         nextHeaderAction ? this.changeFocusedTab(event, nextHeaderAction, index) : this.onTabHomeKey(event);
         event.preventDefault();
     }
@@ -674,10 +698,12 @@ export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, B
 
     findNextHeaderAction(tabElement: any, selfCheck = false) {
         const headerElement = selfCheck ? tabElement : tabElement.nextElementSibling;
+
         return headerElement
-            ? DomHandler.getAttribute(headerElement, 'data-p-disabled') || DomHandler.getAttribute(headerElement, 'data-pc-section') === 'inkbar'
+            ? DomHandler.getAttribute(headerElement, 'data-p-disabled') ||
+              DomHandler.getAttribute(headerElement, 'data-pc-section') === 'inkbar'
                 ? this.findNextHeaderAction(headerElement)
-                : DomHandler.findSingle(headerElement, '[data-pc-section="headeraction"]')
+                : headerElement
             : null;
     }
 
@@ -685,9 +711,10 @@ export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, B
         const headerElement = selfCheck ? tabElement : tabElement.previousElementSibling;
 
         return headerElement
-            ? DomHandler.getAttribute(headerElement, 'data-p-disabled') || DomHandler.getAttribute(headerElement, 'data-pc-section') === 'inkbar'
+            ? DomHandler.getAttribute(headerElement, 'data-p-disabled') ||
+              DomHandler.getAttribute(headerElement, 'data-pc-section') === 'inkbar'
                 ? this.findPrevHeaderAction(headerElement)
-                : DomHandler.findSingle(headerElement, '[data-pc-section="headeraction"]')
+                : headerElement
             : null;
     }
 
@@ -738,15 +765,16 @@ export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, B
                 index: this.findTabIndex(tab),
                 close: () => {
                     this.closeTab(tab);
-                }
+                },
             });
         } else {
             this.closeTab(tab);
             this.onClose.emit({
                 originalEvent: event,
-                index: this.findTabIndex(tab)
+                index: this.findTabIndex(tab),
             });
         }
+        event.stopPropagation();
     }
 
     closeTab(tab: TabPanel) {
@@ -795,20 +823,24 @@ export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, B
     updateInkBar() {
         if (isPlatformBrowser(this.platformId)) {
             if (this.navbar) {
-                const tabHeader: HTMLElement | null = DomHandler.findSingle(this.navbar.nativeElement, 'li.p-highlight');
+                const tabHeader: HTMLElement | null = DomHandler.findSingle(
+                    this.navbar.nativeElement,
+                    '[data-pc-section="headeraction"][data-p-active="true"]',
+                );
 
                 if (!tabHeader) {
                     return;
                 }
 
-                (this.inkbar as ElementRef).nativeElement.style.width = DomHandler.getWidth(tabHeader) + 'px';
-                (this.inkbar as ElementRef).nativeElement.style.left = DomHandler.getOffset(tabHeader).left - DomHandler.getOffset(this.navbar.nativeElement).left + 'px';
+                (this.inkbar as ElementRef).nativeElement.style.width = DomHandler.getOuterWidth(tabHeader) + 'px';
+                (this.inkbar as ElementRef).nativeElement.style.left =
+                    DomHandler.getOffset(tabHeader).left - DomHandler.getOffset(this.navbar.nativeElement).left + 'px';
             }
         }
     }
 
     updateScrollBar(index: number) {
-        let tabHeader = (this.navbar as ElementRef).nativeElement.children[index];
+        let tabHeader = DomHandler.find(this.navbar.nativeElement, '[data-pc-section="headeraction"]')[index];
 
         if (tabHeader) {
             tabHeader.scrollIntoView({ block: 'nearest' });
@@ -845,7 +877,10 @@ export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, B
     }
 
     getVisibleButtonWidths() {
-        return [this.prevBtn?.nativeElement, this.nextBtn?.nativeElement].reduce((acc, el) => (el ? acc + DomHandler.getWidth(el) : acc), 0);
+        return [this.prevBtn?.nativeElement, this.nextBtn?.nativeElement].reduce(
+            (acc, el) => (el ? acc + DomHandler.getWidth(el) : acc),
+            0,
+        );
     }
 
     navBackward() {
@@ -866,8 +901,7 @@ export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, B
 }
 
 @NgModule({
-    imports: [CommonModule, SharedModule, TooltipModule, RippleModule, TimesIcon, ChevronLeftIcon, ChevronRightIcon],
+    imports: [TabView, TabPanel],
     exports: [TabView, TabPanel, SharedModule],
-    declarations: [TabView, TabPanel]
 })
 export class TabViewModule {}
