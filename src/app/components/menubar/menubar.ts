@@ -24,7 +24,7 @@ import {
     effect,
     inject,
     numberAttribute,
-    signal
+    signal,
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { MenuItem, PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
@@ -52,7 +52,7 @@ export class MenubarService {
 
     readonly mouseLeft$ = this.mouseLeaves.pipe(
         debounce(() => interval(this.autoHideDelay)),
-        filter((mouseLeft) => (this.autoHide as boolean) && mouseLeft)
+        filter((mouseLeft) => (this.autoHide as boolean) && mouseLeft),
     );
 }
 
@@ -105,7 +105,12 @@ export class MenubarService {
                     pTooltip
                     [tooltipOptions]="getItemProp(processedItem, 'tooltipOptions')"
                 >
-                    <div class="p-menubar-item-content" [attr.data-pc-section]="'content'" (click)="onItemClick($event, processedItem)" (mouseenter)="onItemMouseEnter({ $event, processedItem })">
+                    <div
+                        class="p-menubar-item-content"
+                        [attr.data-pc-section]="'content'"
+                        (click)="onItemClick($event, processedItem)"
+                        (mouseenter)="onItemMouseEnter({ $event, processedItem })"
+                    >
                         <ng-container *ngIf="!itemTemplate">
                             <a
                                 *ngIf="!getItemProp(processedItem, 'routerLink')"
@@ -128,20 +133,48 @@ export class MenubarService {
                                     [attr.tabindex]="-1"
                                 >
                                 </span>
-                                <span *ngIf="getItemProp(processedItem, 'escape'); else htmlLabel" class="p-menubar-item-label" [attr.data-pc-section]="'label'" [id]="getItemLabelId(processedItem)">
+                                <span
+                                    *ngIf="getItemProp(processedItem, 'escape'); else htmlLabel"
+                                    class="p-menubar-item-label"
+                                    [attr.data-pc-section]="'label'"
+                                    [id]="getItemLabelId(processedItem)"
+                                >
                                     {{ getItemLabel(processedItem) }}
                                 </span>
                                 <ng-template #htmlLabel>
-                                    <span class="p-menubar-item-label" [innerHTML]="getItemLabel(processedItem)" [attr.data-pc-section]="'label'" [id]="getItemLabelId(processedItem)"></span>
+                                    <span
+                                        class="p-menubar-item-label"
+                                        [innerHTML]="getItemLabel(processedItem)"
+                                        [attr.data-pc-section]="'label'"
+                                        [id]="getItemLabelId(processedItem)"
+                                    ></span>
                                 </ng-template>
-                                <p-badge *ngIf="getItemProp(processedItem, 'badge')" [styleClass]="getItemProp(processedItem, 'badgeStyleClass')" [value]="getItemProp(processedItem, 'badge')" />
+                                <p-badge
+                                    *ngIf="getItemProp(processedItem, 'badge')"
+                                    [styleClass]="getItemProp(processedItem, 'badgeStyleClass')"
+                                    [value]="getItemProp(processedItem, 'badge')"
+                                />
 
                                 <ng-container *ngIf="isItemGroup(processedItem)">
                                     <ng-container *ngIf="!submenuIconTemplate">
-                                        <AngleDownIcon [styleClass]="'p-menubar-submenu-icon'" *ngIf="root" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" />
-                                        <AngleRightIcon [styleClass]="'p-menubar-submenu-icon'" *ngIf="!root" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" />
+                                        <AngleDownIcon
+                                            [styleClass]="'p-menubar-submenu-icon'"
+                                            *ngIf="root"
+                                            [attr.data-pc-section]="'submenuicon'"
+                                            [attr.aria-hidden]="true"
+                                        />
+                                        <AngleRightIcon
+                                            [styleClass]="'p-menubar-submenu-icon'"
+                                            *ngIf="!root"
+                                            [attr.data-pc-section]="'submenuicon'"
+                                            [attr.aria-hidden]="true"
+                                        />
                                     </ng-container>
-                                    <ng-template *ngTemplateOutlet="submenuIconTemplate" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true"></ng-template>
+                                    <ng-template
+                                        *ngTemplateOutlet="submenuIconTemplate"
+                                        [attr.data-pc-section]="'submenuicon'"
+                                        [attr.aria-hidden]="true"
+                                    ></ng-template>
                                 </ng-container>
                             </a>
                             <a
@@ -173,20 +206,48 @@ export class MenubarService {
                                     [attr.aria-hidden]="true"
                                     [attr.tabindex]="-1"
                                 ></span>
-                                <span class="p-menubar-item-label" *ngIf="getItemProp(processedItem, 'escape'); else htmlRouteLabel">{{ getItemLabel(processedItem) }}</span>
-                                <ng-template #htmlRouteLabel><span class="p-menubar-item-label" [innerHTML]="getItemLabel(processedItem)" [attr.data-pc-section]="'label'"></span></ng-template>
-                                <p-badge *ngIf="getItemProp(processedItem, 'badge')" [styleClass]="getItemProp(processedItem, 'badgeStyleClass')" [value]="getItemProp(processedItem, 'badge')" />
+                                <span class="p-menubar-item-label" *ngIf="getItemProp(processedItem, 'escape'); else htmlRouteLabel">{{
+                                    getItemLabel(processedItem)
+                                }}</span>
+                                <ng-template #htmlRouteLabel
+                                    ><span
+                                        class="p-menubar-item-label"
+                                        [innerHTML]="getItemLabel(processedItem)"
+                                        [attr.data-pc-section]="'label'"
+                                    ></span
+                                ></ng-template>
+                                <p-badge
+                                    *ngIf="getItemProp(processedItem, 'badge')"
+                                    [styleClass]="getItemProp(processedItem, 'badgeStyleClass')"
+                                    [value]="getItemProp(processedItem, 'badge')"
+                                />
                                 <ng-container *ngIf="isItemGroup(processedItem)">
                                     <ng-container *ngIf="!menubar.submenuIconTemplate">
-                                        <AngleDownIcon [styleClass]="'p-menubar-submenu-icon'" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" *ngIf="root" />
-                                        <AngleRightIcon [styleClass]="'p-menubar-submenu-icon'" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" *ngIf="!root" />
+                                        <AngleDownIcon
+                                            [styleClass]="'p-menubar-submenu-icon'"
+                                            [attr.data-pc-section]="'submenuicon'"
+                                            [attr.aria-hidden]="true"
+                                            *ngIf="root"
+                                        />
+                                        <AngleRightIcon
+                                            [styleClass]="'p-menubar-submenu-icon'"
+                                            [attr.data-pc-section]="'submenuicon'"
+                                            [attr.aria-hidden]="true"
+                                            *ngIf="!root"
+                                        />
                                     </ng-container>
-                                    <ng-template *ngTemplateOutlet="menubar.submenuIconTemplate" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true"></ng-template>
+                                    <ng-template
+                                        *ngTemplateOutlet="menubar.submenuIconTemplate"
+                                        [attr.data-pc-section]="'submenuicon'"
+                                        [attr.aria-hidden]="true"
+                                    ></ng-template>
                                 </ng-container>
                             </a>
                         </ng-container>
                         <ng-container *ngIf="itemTemplate">
-                            <ng-template *ngTemplateOutlet="itemTemplate; context: { $implicit: processedItem.item, root: root }"></ng-template>
+                            <ng-template
+                                *ngTemplateOutlet="itemTemplate; context: { $implicit: processedItem.item, root: root }"
+                            ></ng-template>
                         </ng-container>
                     </div>
                     <p-menubarSub
@@ -210,9 +271,6 @@ export class MenubarService {
         </ul>
     `,
     encapsulation: ViewEncapsulation.None,
-    host: {
-        class: 'p-element'
-    }
 })
 export class MenubarSub implements OnInit, OnDestroy {
     @Input() items: any[];
@@ -259,7 +317,12 @@ export class MenubarSub implements OnInit, OnDestroy {
 
     mouseLeaveSubscriber: Subscription | undefined;
 
-    constructor(public el: ElementRef, public renderer: Renderer2, private cd: ChangeDetectorRef, private menubarService: MenubarService) {}
+    constructor(
+        public el: ElementRef,
+        public renderer: Renderer2,
+        private cd: ChangeDetectorRef,
+        private menubarService: MenubarService,
+    ) {}
 
     ngOnInit() {
         this.mouseLeaveSubscriber = this.menubarService.mouseLeft$.subscribe(() => {
@@ -294,7 +357,7 @@ export class MenubarSub implements OnInit, OnDestroy {
             'p-menubar-item': true,
             'p-menubar-item-active': this.isItemActive(processedItem),
             'p-focus': this.isItemFocused(processedItem),
-            'p-disabled': this.isItemDisabled(processedItem)
+            'p-disabled': this.isItemDisabled(processedItem),
         };
     }
 
@@ -305,7 +368,7 @@ export class MenubarSub implements OnInit, OnDestroy {
     getSeparatorItemClass(processedItem: any) {
         return {
             ...this.getItemProp(processedItem, 'class'),
-            'p-menubar-separator': true
+            'p-menubar-separator': true,
         };
     }
 
@@ -332,11 +395,18 @@ export class MenubarSub implements OnInit, OnDestroy {
     }
 
     getAriaSetSize() {
-        return this.items.filter((processedItem) => this.isItemVisible(processedItem) && !this.getItemProp(processedItem, 'separator')).length;
+        return this.items.filter((processedItem) => this.isItemVisible(processedItem) && !this.getItemProp(processedItem, 'separator'))
+            .length;
     }
 
     getAriaPosInset(index: number) {
-        return index - this.items.slice(0, index).filter((processedItem) => this.isItemVisible(processedItem) && this.getItemProp(processedItem, 'separator')).length + 1;
+        return (
+            index -
+            this.items
+                .slice(0, index)
+                .filter((processedItem) => this.isItemVisible(processedItem) && this.getItemProp(processedItem, 'separator')).length +
+            1
+        );
     }
 
     onItemMouseLeave() {
@@ -362,7 +432,13 @@ export class MenubarSub implements OnInit, OnDestroy {
 @Component({
     selector: 'p-menubar',
     template: `
-        <div [ngClass]="{ 'p-menubar p-component': true, 'p-menubar-mobile-active': mobileActive }" [class]="styleClass" [ngStyle]="style" [attr.data-pc-section]="'root'" [attr.data-pc-name]="'menubar'">
+        <div
+            [ngClass]="{ 'p-menubar p-component': true, 'p-menubar-mobile-active': mobileActive }"
+            [class]="styleClass"
+            [ngStyle]="style"
+            [attr.data-pc-section]="'root'"
+            [attr.data-pc-name]="'menubar'"
+        >
             <div class="p-menubar-start" *ngIf="startTemplate">
                 <ng-container *ngTemplateOutlet="startTemplate"></ng-container>
             </div>
@@ -416,7 +492,7 @@ export class MenubarSub implements OnInit, OnDestroy {
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    providers: [MenubarService, MenuBarStyle]
+    providers: [MenubarService, MenuBarStyle],
 })
 export class Menubar extends BaseComponent implements AfterContentInit, OnDestroy, OnInit {
     /**
@@ -553,7 +629,11 @@ export class Menubar extends BaseComponent implements AfterContentInit, OnDestro
 
     get focusedItemId() {
         const focusedItem = this.focusedItemInfo();
-        return focusedItem.item && focusedItem.item?.id ? focusedItem.item.id : focusedItem.index !== -1 ? `${this.id}${ObjectUtils.isNotEmpty(focusedItem.parentKey) ? '_' + focusedItem.parentKey : ''}_${focusedItem.index}` : null;
+        return focusedItem.item && focusedItem.item?.id
+            ? focusedItem.item.id
+            : focusedItem.index !== -1
+              ? `${this.id}${ObjectUtils.isNotEmpty(focusedItem.parentKey) ? '_' + focusedItem.parentKey : ''}_${focusedItem.index}`
+              : null;
     }
 
     constructor(
@@ -563,7 +643,7 @@ export class Menubar extends BaseComponent implements AfterContentInit, OnDestro
         public renderer: Renderer2,
         public cd: ChangeDetectorRef,
         public config: PrimeNGConfig,
-        private menubarService: MenubarService
+        private menubarService: MenubarService,
     ) {
         super();
         effect(() => {
@@ -629,7 +709,7 @@ export class Menubar extends BaseComponent implements AfterContentInit, OnDestro
                     level,
                     key,
                     parent,
-                    parentKey
+                    parentKey,
                 };
 
                 newItem['items'] = this.createProcessedItems(item.items, level + 1, newItem, key);
@@ -762,7 +842,10 @@ export class Menubar extends BaseComponent implements AfterContentInit, OnDestro
     onMenuFocus(event: any) {
         this.focused = true;
         const processedItem = this.findVisibleItem(this.findFirstFocusedItemIndex());
-        const focusedItemInfo = this.focusedItemInfo().index !== -1 ? this.focusedItemInfo() : { index: this.findFirstFocusedItemIndex(), level: 0, parentKey: '', item: processedItem?.item };
+        const focusedItemInfo =
+            this.focusedItemInfo().index !== -1
+                ? this.focusedItemInfo()
+                : { index: this.findFirstFocusedItemIndex(), level: 0, parentKey: '', item: processedItem?.item };
 
         this.focusedItemInfo.set(focusedItemInfo);
         this.onFocus.emit(event);
@@ -880,7 +963,10 @@ export class Menubar extends BaseComponent implements AfterContentInit, OnDestro
     }
 
     isItemMatched(processedItem: any): boolean {
-        return this.isValidItem(processedItem) && this.getProccessedItemLabel(processedItem).toLocaleLowerCase().startsWith(this.searchValue.toLocaleLowerCase());
+        return (
+            this.isValidItem(processedItem) &&
+            this.getProccessedItemLabel(processedItem).toLocaleLowerCase().startsWith(this.searchValue.toLocaleLowerCase())
+        );
     }
 
     isProccessedItemGroup(processedItem: any): boolean {
@@ -894,8 +980,15 @@ export class Menubar extends BaseComponent implements AfterContentInit, OnDestro
         let matched = false;
 
         if (this.focusedItemInfo().index !== -1) {
-            itemIndex = this.visibleItems.slice(this.focusedItemInfo().index).findIndex((processedItem) => this.isItemMatched(processedItem));
-            itemIndex = itemIndex === -1 ? this.visibleItems.slice(0, this.focusedItemInfo().index).findIndex((processedItem) => this.isItemMatched(processedItem)) : itemIndex + this.focusedItemInfo().index;
+            itemIndex = this.visibleItems
+                .slice(this.focusedItemInfo().index)
+                .findIndex((processedItem) => this.isItemMatched(processedItem));
+            itemIndex =
+                itemIndex === -1
+                    ? this.visibleItems
+                          .slice(0, this.focusedItemInfo().index)
+                          .findIndex((processedItem) => this.isItemMatched(processedItem))
+                    : itemIndex + this.focusedItemInfo().index;
         } else {
             itemIndex = this.visibleItems.findIndex((processedItem) => this.isItemMatched(processedItem));
         }
@@ -945,7 +1038,10 @@ export class Menubar extends BaseComponent implements AfterContentInit, OnDestro
                 this.onArrowRightKey(event);
             }
         } else {
-            const itemIndex = this.focusedItemInfo().index !== -1 ? this.findNextItemIndex(this.focusedItemInfo().index) : this.findFirstFocusedItemIndex();
+            const itemIndex =
+                this.focusedItemInfo().index !== -1
+                    ? this.findNextItemIndex(this.focusedItemInfo().index)
+                    : this.findFirstFocusedItemIndex();
 
             this.changeFocusedItemIndex(event, itemIndex);
             event.preventDefault();
@@ -965,7 +1061,10 @@ export class Menubar extends BaseComponent implements AfterContentInit, OnDestro
                 this.onArrowDownKey(event);
             }
         } else {
-            const itemIndex = this.focusedItemInfo().index !== -1 ? this.findNextItemIndex(this.focusedItemInfo().index) : this.findFirstFocusedItemIndex();
+            const itemIndex =
+                this.focusedItemInfo().index !== -1
+                    ? this.findNextItemIndex(this.focusedItemInfo().index)
+                    : this.findFirstFocusedItemIndex();
 
             this.changeFocusedItemIndex(event, itemIndex);
             event.preventDefault();
@@ -995,7 +1094,10 @@ export class Menubar extends BaseComponent implements AfterContentInit, OnDestro
                 const activeItemPath = this.activeItemPath().filter((p) => p.parentKey !== this.focusedItemInfo().parentKey);
                 this.activeItemPath.set(activeItemPath);
             } else {
-                const itemIndex = this.focusedItemInfo().index !== -1 ? this.findPrevItemIndex(this.focusedItemInfo().index) : this.findLastFocusedItemIndex();
+                const itemIndex =
+                    this.focusedItemInfo().index !== -1
+                        ? this.findPrevItemIndex(this.focusedItemInfo().index)
+                        : this.findLastFocusedItemIndex();
                 this.changeFocusedItemIndex(event, itemIndex);
             }
         }
@@ -1014,7 +1116,10 @@ export class Menubar extends BaseComponent implements AfterContentInit, OnDestro
 
             event.preventDefault();
         } else {
-            const itemIndex = this.focusedItemInfo().index !== -1 ? this.findPrevItemIndex(this.focusedItemInfo().index) : this.findLastFocusedItemIndex();
+            const itemIndex =
+                this.focusedItemInfo().index !== -1
+                    ? this.findPrevItemIndex(this.focusedItemInfo().index)
+                    : this.findLastFocusedItemIndex();
             this.changeFocusedItemIndex(event, itemIndex);
             event.preventDefault();
         }
@@ -1073,13 +1178,19 @@ export class Menubar extends BaseComponent implements AfterContentInit, OnDestro
     }
 
     findPrevItemIndex(index: number) {
-        const matchedItemIndex = index > 0 ? ObjectUtils.findLastIndex(this.visibleItems.slice(0, index), (processedItem) => this.isValidItem(processedItem)) : -1;
+        const matchedItemIndex =
+            index > 0
+                ? ObjectUtils.findLastIndex(this.visibleItems.slice(0, index), (processedItem) => this.isValidItem(processedItem))
+                : -1;
 
         return matchedItemIndex > -1 ? matchedItemIndex : index;
     }
 
     findNextItemIndex(index: number) {
-        const matchedItemIndex = index < this.visibleItems.length - 1 ? this.visibleItems.slice(index + 1).findIndex((processedItem) => this.isValidItem(processedItem)) : -1;
+        const matchedItemIndex =
+            index < this.visibleItems.length - 1
+                ? this.visibleItems.slice(index + 1).findIndex((processedItem) => this.isValidItem(processedItem))
+                : -1;
 
         return matchedItemIndex > -1 ? matchedItemIndex + index + 1 : index;
     }
@@ -1102,8 +1213,12 @@ export class Menubar extends BaseComponent implements AfterContentInit, OnDestro
         if (isPlatformBrowser(this.platformId)) {
             if (!this.outsideClickListener) {
                 this.outsideClickListener = this.renderer.listen(this.document, 'click', (event) => {
-                    const isOutsideContainer = this.rootmenu.el.nativeElement !== event.target && !this.rootmenu.el.nativeElement.contains(event.target);
-                    const isOutsideMenuButton = this.mobileActive && this.menubutton.nativeElement !== event.target && !this.menubutton.nativeElement.contains(event.target);
+                    const isOutsideContainer =
+                        this.rootmenu.el.nativeElement !== event.target && !this.rootmenu.el.nativeElement.contains(event.target);
+                    const isOutsideMenuButton =
+                        this.mobileActive &&
+                        this.menubutton.nativeElement !== event.target &&
+                        !this.menubutton.nativeElement.contains(event.target);
 
                     if (isOutsideContainer) {
                         isOutsideMenuButton ? (this.mobileActive = false) : this.hide();
@@ -1138,6 +1253,6 @@ export class Menubar extends BaseComponent implements AfterContentInit, OnDestro
 @NgModule({
     imports: [CommonModule, RouterModule, RippleModule, TooltipModule, SharedModule, BarsIcon, AngleDownIcon, AngleRightIcon, BadgeModule],
     exports: [Menubar, RouterModule, TooltipModule, SharedModule],
-    declarations: [Menubar, MenubarSub]
+    declarations: [Menubar, MenubarSub],
 })
 export class MenubarModule {}

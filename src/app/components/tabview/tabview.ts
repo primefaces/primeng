@@ -60,7 +60,7 @@ import { BaseComponent } from 'primeng/basecomponent';
             </ng-container>
         </div>
     `,
-    host: {},
+
     providers: [TabsStyle],
 })
 export class TabPanel extends BaseComponent implements AfterContentInit, OnDestroy {

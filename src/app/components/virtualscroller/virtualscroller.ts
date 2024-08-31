@@ -16,7 +16,7 @@ import {
     ViewChild,
     ViewEncapsulation,
     booleanAttribute,
-    numberAttribute
+    numberAttribute,
 } from '@angular/core';
 import { BlockableUI, Footer, Header, PrimeTemplate, ScrollerOptions, SharedModule } from 'primeng/api';
 import { Scroller, ScrollerModule } from 'primeng/scroller';
@@ -29,16 +29,36 @@ import { VirtualScrollerLazyLoadEvent } from './virtualscroller.interface';
 @Component({
     selector: 'p-virtualScroller',
     template: `
-        <div [ngClass]="'p-virtualscroller p-component'" [ngStyle]="style" [class]="styleClass" [attr.data-pc-name]="'virtualscroller'" [attr.data-pc-section]="'root'">
+        <div
+            [ngClass]="'p-virtualscroller p-component'"
+            [ngStyle]="style"
+            [class]="styleClass"
+            [attr.data-pc-name]="'virtualscroller'"
+            [attr.data-pc-section]="'root'"
+        >
             <div class="p-virtualscroller-header" *ngIf="header || headerTemplate">
                 <ng-content select="p-header"></ng-content>
                 <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
             </div>
             <div #content class="p-virtualscroller-content" [attr.data-pc-section]="'content'">
-                <p-scroller #scroller [items]="value" styleClass="p-virtualscroller-list" [style]="{ height: scrollHeight }" [itemSize]="itemSize" [lazy]="lazy" (onLazyLoad)="onLazyItemLoad($event)" [options]="options">
+                <p-scroller
+                    #scroller
+                    [items]="value"
+                    styleClass="p-virtualscroller-list"
+                    [style]="{ height: scrollHeight }"
+                    [itemSize]="itemSize"
+                    [lazy]="lazy"
+                    (onLazyLoad)="onLazyItemLoad($event)"
+                    [options]="options"
+                >
                     <ng-template pTemplate="item" let-item let-scrollerOptions="options">
                         <div [ngStyle]="{ height: itemSize + 'px' }" class="p-virtualscroller-item">
-                            <ng-container *ngTemplateOutlet="item ? itemTemplate : loadingItemTemplate; context: { $implicit: item, options: scrollerOptions }"></ng-container>
+                            <ng-container
+                                *ngTemplateOutlet="
+                                    item ? itemTemplate : loadingItemTemplate;
+                                    context: { $implicit: item, options: scrollerOptions }
+                                "
+                            ></ng-container>
                         </div>
                     </ng-template>
                 </p-scroller>
@@ -51,9 +71,6 @@ import { VirtualScrollerLazyLoadEvent } from './virtualscroller.interface';
     `,
     changeDetection: ChangeDetectionStrategy.Default,
     encapsulation: ViewEncapsulation.None,
-    host: {
-        class: 'p-element'
-    }
 })
 export class VirtualScroller implements AfterContentInit, BlockableUI {
     /**
@@ -123,7 +140,7 @@ export class VirtualScroller implements AfterContentInit, BlockableUI {
 
     constructor(
         public el: ElementRef,
-        public cd: ChangeDetectorRef
+        public cd: ChangeDetectorRef,
     ) {}
 
     ngAfterContentInit() {
@@ -161,7 +178,7 @@ export class VirtualScroller implements AfterContentInit, BlockableUI {
             this.onLazyLoad.emit({
                 ...event,
                 rows: <number>event.last - <number>event.first,
-                forceUpdate: () => this.cd.detectChanges()
+                forceUpdate: () => this.cd.detectChanges(),
             });
         }, this.delay);
     }
@@ -178,6 +195,6 @@ export class VirtualScroller implements AfterContentInit, BlockableUI {
 @NgModule({
     imports: [CommonModule, SharedModule, ScrollerModule],
     exports: [VirtualScroller, SharedModule, ScrollerModule],
-    declarations: [VirtualScroller]
+    declarations: [VirtualScroller],
 })
 export class VirtualScrollerModule {}

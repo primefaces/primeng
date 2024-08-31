@@ -1,5 +1,18 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, Directive, ElementRef, EventEmitter, HostListener, Input, NgModule, NgZone, OnDestroy, Output, Renderer2, booleanAttribute } from '@angular/core';
+import {
+    AfterViewInit,
+    Directive,
+    ElementRef,
+    EventEmitter,
+    HostListener,
+    Input,
+    NgModule,
+    NgZone,
+    OnDestroy,
+    Output,
+    Renderer2,
+    booleanAttribute,
+} from '@angular/core';
 import { DomHandler } from 'primeng/dom';
 import { VoidListener } from 'primeng/ts-helpers';
 /**
@@ -8,9 +21,6 @@ import { VoidListener } from 'primeng/ts-helpers';
  */
 @Directive({
     selector: '[pDraggable]',
-    host: {
-        class: 'p-element'
-    }
 })
 export class Draggable implements AfterViewInit, OnDestroy {
     @Input('pDraggable') scope: string | undefined;
@@ -56,7 +66,7 @@ export class Draggable implements AfterViewInit, OnDestroy {
     constructor(
         public el: ElementRef,
         public zone: NgZone,
-        private renderer: Renderer2
+        private renderer: Renderer2,
     ) {}
 
     @Input() get pDraggableDisabled(): boolean {
@@ -167,9 +177,6 @@ export class Draggable implements AfterViewInit, OnDestroy {
  */
 @Directive({
     selector: '[pDroppable]',
-    host: {
-        class: 'p-element'
-    }
 })
 export class Droppable implements AfterViewInit, OnDestroy {
     @Input('pDroppable') scope: string | string[] | undefined;
@@ -202,7 +209,7 @@ export class Droppable implements AfterViewInit, OnDestroy {
     constructor(
         public el: ElementRef,
         public zone: NgZone,
-        private renderer: Renderer2
+        private renderer: Renderer2,
     ) {}
 
     dragOverListener: VoidListener;
@@ -287,6 +294,6 @@ export class Droppable implements AfterViewInit, OnDestroy {
 @NgModule({
     imports: [CommonModule],
     exports: [Draggable, Droppable],
-    declarations: [Draggable, Droppable]
+    declarations: [Draggable, Droppable],
 })
 export class DragDropModule {}

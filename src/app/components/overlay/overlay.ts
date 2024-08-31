@@ -21,10 +21,22 @@ import {
     Renderer2,
     TemplateRef,
     ViewChild,
-    ViewEncapsulation
+    ViewEncapsulation,
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { OverlayModeType, OverlayOnBeforeHideEvent, OverlayOnBeforeShowEvent, OverlayOnHideEvent, OverlayOnShowEvent, OverlayOptions, OverlayService, PrimeNGConfig, PrimeTemplate, ResponsiveOverlayOptions, SharedModule } from 'primeng/api';
+import {
+    OverlayModeType,
+    OverlayOnBeforeHideEvent,
+    OverlayOnBeforeShowEvent,
+    OverlayOnHideEvent,
+    OverlayOnShowEvent,
+    OverlayOptions,
+    OverlayService,
+    PrimeNGConfig,
+    PrimeTemplate,
+    ResponsiveOverlayOptions,
+    SharedModule,
+} from 'primeng/api';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { ObjectUtils, ZIndexUtils } from 'primeng/utils';
 import { VoidListener } from 'primeng/ts-helpers';
@@ -61,7 +73,7 @@ const hideOverlayContentAnimation = animation([animate('{{hideTransitionParams}}
                 'p-overlay-left-end': modal && overlayResponsiveDirection === 'left-end',
                 'p-overlay-right': modal && overlayResponsiveDirection === 'right',
                 'p-overlay-right-start': modal && overlayResponsiveDirection === 'right-start',
-                'p-overlay-right-end': modal && overlayResponsiveDirection === 'right-end'
+                'p-overlay-right-end': modal && overlayResponsiveDirection === 'right-end',
             }"
             (click)="onOverlayClick()"
         >
@@ -72,7 +84,14 @@ const hideOverlayContentAnimation = animation([animate('{{hideTransitionParams}}
                 [class]="contentStyleClass"
                 [ngClass]="'p-overlay-content'"
                 (click)="onOverlayContentClick($event)"
-                [@overlayContentAnimation]="{ value: 'visible', params: { showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions, transform: transformOptions[modal ? overlayResponsiveDirection : 'default'] } }"
+                [@overlayContentAnimation]="{
+                    value: 'visible',
+                    params: {
+                        showTransitionParams: showTransitionOptions,
+                        hideTransitionParams: hideTransitionOptions,
+                        transform: transformOptions[modal ? overlayResponsiveDirection : 'default'],
+                    },
+                }"
                 (@overlayContentAnimation.start)="onOverlayContentAnimationStart($event)"
                 (@overlayContentAnimation.done)="onOverlayContentAnimationDone($event)"
             >
@@ -81,13 +100,15 @@ const hideOverlayContentAnimation = animation([animate('{{hideTransitionParams}}
             </div>
         </div>
     `,
-    animations: [trigger('overlayContentAnimation', [transition(':enter', [useAnimation(showOverlayContentAnimation)]), transition(':leave', [useAnimation(hideOverlayContentAnimation)])])],
+    animations: [
+        trigger('overlayContentAnimation', [
+            transition(':enter', [useAnimation(showOverlayContentAnimation)]),
+            transition(':leave', [useAnimation(hideOverlayContentAnimation)]),
+        ]),
+    ],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     providers: [OverlayStyle],
-    host: {
-        class: 'p-element'
-    }
 })
 export class Overlay extends BaseComponent implements AfterContentInit, OnDestroy {
     /**
@@ -133,7 +154,10 @@ export class Overlay extends BaseComponent implements AfterContentInit, OnDestro
      * @group Props
      */
     @Input() get styleClass(): string {
-        return ObjectUtils.merge(this._styleClass, this.modal ? this.overlayResponsiveOptions?.styleClass : this.overlayOptions?.styleClass);
+        return ObjectUtils.merge(
+            this._styleClass,
+            this.modal ? this.overlayResponsiveOptions?.styleClass : this.overlayOptions?.styleClass,
+        );
     }
     set styleClass(value: string) {
         this._styleClass = value;
@@ -144,7 +168,10 @@ export class Overlay extends BaseComponent implements AfterContentInit, OnDestro
      * @group Props
      */
     @Input() get contentStyle(): { [klass: string]: any } | null | undefined {
-        return ObjectUtils.merge(this._contentStyle, this.modal ? this.overlayResponsiveOptions?.contentStyle : this.overlayOptions?.contentStyle);
+        return ObjectUtils.merge(
+            this._contentStyle,
+            this.modal ? this.overlayResponsiveOptions?.contentStyle : this.overlayOptions?.contentStyle,
+        );
     }
     set contentStyle(value: { [klass: string]: any } | null | undefined) {
         this._contentStyle = value;
@@ -155,7 +182,10 @@ export class Overlay extends BaseComponent implements AfterContentInit, OnDestro
      * @group Props
      */
     @Input() get contentStyleClass(): string {
-        return ObjectUtils.merge(this._contentStyleClass, this.modal ? this.overlayResponsiveOptions?.contentStyleClass : this.overlayOptions?.contentStyleClass);
+        return ObjectUtils.merge(
+            this._contentStyleClass,
+            this.modal ? this.overlayResponsiveOptions?.contentStyleClass : this.overlayOptions?.contentStyleClass,
+        );
     }
     set contentStyleClass(value: string) {
         this._contentStyleClass = value;
@@ -377,12 +407,19 @@ export class Overlay extends BaseComponent implements AfterContentInit, OnDestro
         'left-end': 'translate3d(-100%, 0px, 0px)',
         right: 'translate3d(100%, 0px, 0px)',
         'right-start': 'translate3d(100%, 0px, 0px)',
-        'right-end': 'translate3d(100%, 0px, 0px)'
+        'right-end': 'translate3d(100%, 0px, 0px)',
     };
 
     get modal() {
         if (isPlatformBrowser(this.platformId)) {
-            return this.mode === 'modal' || (this.overlayResponsiveOptions && this.document.defaultView?.matchMedia(this.overlayResponsiveOptions.media?.replace('@media', '') || `(max-width: ${this.overlayResponsiveOptions.breakpoint})`).matches);
+            return (
+                this.mode === 'modal' ||
+                (this.overlayResponsiveOptions &&
+                    this.document.defaultView?.matchMedia(
+                        this.overlayResponsiveOptions.media?.replace('@media', '') ||
+                            `(max-width: ${this.overlayResponsiveOptions.breakpoint})`,
+                    ).matches)
+            );
         }
     }
 
@@ -414,7 +451,10 @@ export class Overlay extends BaseComponent implements AfterContentInit, OnDestro
         return DomHandler.getTargetElement(this.target, this.el?.nativeElement);
     }
 
-    constructor(public overlayService: OverlayService, private zone: NgZone) {
+    constructor(
+        public overlayService: OverlayService,
+        private zone: NgZone,
+    ) {
         super();
     }
 
@@ -467,7 +507,7 @@ export class Overlay extends BaseComponent implements AfterContentInit, OnDestro
     onOverlayContentClick(event: MouseEvent) {
         this.overlayService.add({
             originalEvent: event,
-            target: this.targetEl
+            target: this.targetEl,
         });
 
         this.isOverlayContentClicked = true;
@@ -564,9 +604,13 @@ export class Overlay extends BaseComponent implements AfterContentInit, OnDestro
     bindDocumentClickListener() {
         if (!this.documentClickListener) {
             this.documentClickListener = this.renderer.listen(this.document, 'click', (event) => {
-                const isTargetClicked = this.targetEl && (this.targetEl.isSameNode(event.target) || (!this.isOverlayClicked && this.targetEl.contains(event.target)));
+                const isTargetClicked =
+                    this.targetEl &&
+                    (this.targetEl.isSameNode(event.target) || (!this.isOverlayClicked && this.targetEl.contains(event.target)));
                 const isOutsideClicked = !isTargetClicked && !this.isOverlayContentClicked;
-                const valid = this.listener ? this.listener(event, { type: 'outside', mode: this.overlayMode, valid: event.which !== 3 && isOutsideClicked }) : isOutsideClicked;
+                const valid = this.listener
+                    ? this.listener(event, { type: 'outside', mode: this.overlayMode, valid: event.which !== 3 && isOutsideClicked })
+                    : isOutsideClicked;
 
                 valid && this.hide(event);
                 this.isOverlayClicked = this.isOverlayContentClicked = false;
@@ -584,7 +628,9 @@ export class Overlay extends BaseComponent implements AfterContentInit, OnDestro
     bindDocumentResizeListener() {
         if (!this.documentResizeListener) {
             this.documentResizeListener = this.renderer.listen(this.document.defaultView, 'resize', (event) => {
-                const valid = this.listener ? this.listener(event, { type: 'resize', mode: this.overlayMode, valid: !DomHandler.isTouchDevice() }) : !DomHandler.isTouchDevice();
+                const valid = this.listener
+                    ? this.listener(event, { type: 'resize', mode: this.overlayMode, valid: !DomHandler.isTouchDevice() })
+                    : !DomHandler.isTouchDevice();
 
                 valid && this.hide(event, true);
             });
@@ -609,7 +655,9 @@ export class Overlay extends BaseComponent implements AfterContentInit, OnDestro
                     return;
                 }
 
-                const valid = this.listener ? this.listener(event, { type: 'keydown', mode: this.overlayMode, valid: !DomHandler.isTouchDevice() }) : !DomHandler.isTouchDevice();
+                const valid = this.listener
+                    ? this.listener(event, { type: 'keydown', mode: this.overlayMode, valid: !DomHandler.isTouchDevice() })
+                    : !DomHandler.isTouchDevice();
 
                 if (valid) {
                     this.zone.run(() => {
@@ -648,6 +696,6 @@ export class Overlay extends BaseComponent implements AfterContentInit, OnDestro
 @NgModule({
     imports: [CommonModule, SharedModule],
     exports: [Overlay, SharedModule],
-    declarations: [Overlay]
+    declarations: [Overlay],
 })
 export class OverlayModule {}

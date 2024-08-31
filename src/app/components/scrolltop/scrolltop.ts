@@ -17,7 +17,7 @@ import {
     TemplateRef,
     ViewEncapsulation,
     inject,
-    numberAttribute
+    numberAttribute,
 } from '@angular/core';
 import { PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
@@ -37,7 +37,10 @@ import { ScrollTopStyle } from './style/scrolltopstyle';
     template: `
         <p-button
             *ngIf="visible"
-            [@animation]="{ value: 'open', params: { showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions } }"
+            [@animation]="{
+                value: 'open',
+                params: { showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions },
+            }"
             (@animation.start)="onEnter($event)"
             (@animation.done)="onLeave($event)"
             [attr.aria-label]="buttonAriaLabel"
@@ -61,23 +64,21 @@ import { ScrollTopStyle } from './style/scrolltopstyle';
             state(
                 'void',
                 style({
-                    opacity: 0
-                })
+                    opacity: 0,
+                }),
             ),
             state(
                 'open',
                 style({
-                    opacity: 1
-                })
+                    opacity: 1,
+                }),
             ),
             transition('void => open', animate('{{showTransitionParams}}')),
-            transition('open => void', animate('{{hideTransitionParams}}'))
-        ])
+            transition('open => void', animate('{{hideTransitionParams}}')),
+        ]),
     ],
-    host: {
-        class: 'p-element'
-    },
-    providers: [ScrollTopStyle]
+
+    providers: [ScrollTopStyle],
 })
 export class ScrollTop extends BaseComponent implements OnInit, OnDestroy {
     /**
@@ -165,7 +166,7 @@ export class ScrollTop extends BaseComponent implements OnInit, OnDestroy {
         let scrollElement = this.target === 'window' ? this.document.defaultView : this.el.nativeElement.parentElement;
         scrollElement.scroll({
             top: 0,
-            behavior: this.behavior
+            behavior: this.behavior,
         });
     }
 
@@ -245,6 +246,6 @@ export class ScrollTop extends BaseComponent implements OnInit, OnDestroy {
 @NgModule({
     imports: [CommonModule, ChevronUpIcon, SharedModule, ButtonModule],
     exports: [ScrollTop, SharedModule],
-    declarations: [ScrollTop]
+    declarations: [ScrollTop],
 })
 export class ScrollTopModule {}

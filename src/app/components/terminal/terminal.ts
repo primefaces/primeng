@@ -1,4 +1,16 @@
-import { NgModule, Component, AfterViewInit, AfterViewChecked, OnDestroy, Input, ElementRef, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef, inject } from '@angular/core';
+import {
+    NgModule,
+    Component,
+    AfterViewInit,
+    AfterViewChecked,
+    OnDestroy,
+    Input,
+    ElementRef,
+    ChangeDetectionStrategy,
+    ViewEncapsulation,
+    ChangeDetectorRef,
+    inject,
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { DomHandler } from 'primeng/dom';
@@ -25,16 +37,22 @@ import { TerminalStyle } from './style/terminalstyle';
             </div>
             <div class="p-terminal-prompt">
                 <span class="p-terminal-prompt-label">{{ prompt }}</span>
-                <input #in type="text" [(ngModel)]="command" class="p-terminal-prompt-value" autocomplete="off" (keydown)="handleCommand($event)" autofocus />
+                <input
+                    #in
+                    type="text"
+                    [(ngModel)]="command"
+                    class="p-terminal-prompt-value"
+                    autocomplete="off"
+                    (keydown)="handleCommand($event)"
+                    autofocus
+                />
             </div>
         </div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    host: {
-        class: 'p-element'
-    },
-    providers: [TerminalStyle]
+
+    providers: [TerminalStyle],
 })
 export class Terminal extends BaseComponent implements AfterViewInit, AfterViewChecked, OnDestroy {
     /**
@@ -122,6 +140,6 @@ export class Terminal extends BaseComponent implements AfterViewInit, AfterViewC
 @NgModule({
     imports: [CommonModule, FormsModule],
     exports: [Terminal],
-    declarations: [Terminal]
+    declarations: [Terminal],
 })
 export class TerminalModule {}

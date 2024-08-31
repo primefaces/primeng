@@ -43,7 +43,7 @@ import { BaseComponent } from 'primeng/basecomponent';
             [ngClass]="{
                 'p-panel p-component': true,
                 'p-panel-toggleable': toggleable,
-                'p-panel-expanded': !collapsed && toggleable
+                'p-panel-expanded': !collapsed && toggleable,
             }"
             [ngStyle]="style"
             [class]="styleClass"
@@ -57,7 +57,7 @@ import { BaseComponent } from 'primeng/basecomponent';
                     [ngClass]="{
                         'p-panel-icons-start': iconPos === 'start',
                         'p-panel-icons-end': iconPos === 'end',
-                        'p-panel-icons-center': iconPos === 'center'
+                        'p-panel-icons-center': iconPos === 'center',
                     }"
                 >
                     <ng-template *ngTemplateOutlet="iconTemplate"></ng-template>
@@ -89,9 +89,7 @@ import { BaseComponent } from 'primeng/basecomponent';
                             </ng-container>
                         </ng-container>
 
-                        <ng-template
-                            *ngTemplateOutlet="headerIconTemplate; context: { $implicit: collapsed }"
-                        ></ng-template>
+                        <ng-template *ngTemplateOutlet="headerIconTemplate; context: { $implicit: collapsed }"></ng-template>
                     </p-button>
                 </div>
             </div>
@@ -109,16 +107,16 @@ import { BaseComponent } from 'primeng/basecomponent';
                               params: {
                                   transitionParams: animating ? transitionOptions : '0ms',
                                   height: '0',
-                                  opacity: '0'
-                              }
+                                  opacity: '0',
+                              },
                           }
                         : {
                               value: 'visible',
                               params: {
                                   transitionParams: animating ? transitionOptions : '0ms',
                                   height: '*',
-                                  opacity: '1'
-                              }
+                                  opacity: '1',
+                              },
                           }
                 "
                 (@panelContent.done)="onToggleDone($event)"
@@ -163,9 +161,7 @@ import { BaseComponent } from 'primeng/basecomponent';
     ],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    host: {
-        class: 'p-element',
-    },
+
     providers: [PanelStyle],
 })
 export class Panel extends BaseComponent implements AfterContentInit, BlockableUI {

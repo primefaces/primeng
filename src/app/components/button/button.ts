@@ -48,9 +48,7 @@ const INTERNAL_BUTTON_CLASSES = {
  */
 @Directive({
     selector: '[pButton]',
-    host: {
-        class: 'p-element',
-    },
+
     providers: [ButtonStyle],
 })
 export class ButtonDirective extends BaseComponent implements AfterViewInit, OnDestroy {
@@ -130,17 +128,7 @@ export class ButtonDirective extends BaseComponent implements AfterViewInit, OnD
      * Defines the style of the button.
      * @group Props
      */
-    @Input() severity:
-        | 'success'
-        | 'info'
-        | 'warn'
-        | 'danger'
-        | 'help'
-        | 'primary'
-        | 'secondary'
-        | 'contrast'
-        | null
-        | undefined;
+    @Input() severity: 'success' | 'info' | 'warn' | 'danger' | 'help' | 'primary' | 'secondary' | 'contrast' | null | undefined;
     /**
      * Add a shadow to indicate elevation.
      * @group Props
@@ -354,10 +342,7 @@ export class ButtonDirective extends BaseComponent implements AfterViewInit, OnD
         if (iconElement) {
             if (this.iconPos) {
                 iconElement.className =
-                    'p-button-icon ' +
-                    (labelElement ? 'p-button-icon-' + this.iconPos : '') +
-                    ' ' +
-                    this.getIconClass();
+                    'p-button-icon ' + (labelElement ? 'p-button-icon-' + this.iconPos : '') + ' ' + this.getIconClass();
             } else {
                 iconElement.className = 'p-button-icon ' + this.getIconClass();
             }
@@ -367,9 +352,7 @@ export class ButtonDirective extends BaseComponent implements AfterViewInit, OnD
     }
 
     getIconClass() {
-        return this.loading
-            ? 'p-button-loading-icon ' + (this.loadingIcon ? this.loadingIcon : 'p-icon')
-            : this.icon || 'p-hidden';
+        return this.loading ? 'p-button-loading-icon ' + (this.loadingIcon ? this.loadingIcon : 'p-icon') : this.icon || 'p-hidden';
     }
 
     ngOnDestroy() {
@@ -424,16 +407,8 @@ export class ButtonDirective extends BaseComponent implements AfterViewInit, OnD
                 ></ng-template>
             </ng-container>
             <ng-container *ngIf="!loading">
-                <span
-                    *ngIf="icon && !iconTemplate"
-                    [class]="icon"
-                    [ngClass]="iconClass()"
-                    [attr.data-pc-section]="'icon'"
-                ></span>
-                <ng-template
-                    [ngIf]="!icon && iconTemplate"
-                    *ngTemplateOutlet="iconTemplate; context: { class: iconClass() }"
-                ></ng-template>
+                <span *ngIf="icon && !iconTemplate" [class]="icon" [ngClass]="iconClass()" [attr.data-pc-section]="'icon'"></span>
+                <ng-template [ngIf]="!icon && iconTemplate" *ngTemplateOutlet="iconTemplate; context: { class: iconClass() }"></ng-template>
             </ng-container>
             <span
                 class="p-button-label"
@@ -448,7 +423,6 @@ export class ButtonDirective extends BaseComponent implements AfterViewInit, OnD
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
-        class: 'p-element',
         '[class.p-disabled]': 'disabled' || 'loading',
     },
     providers: [ButtonStyle],
@@ -518,17 +492,7 @@ export class Button extends BaseComponent implements AfterContentInit {
      * Defines the style of the button.
      * @group Props
      */
-    @Input() severity:
-        | 'success'
-        | 'info'
-        | 'warn'
-        | 'danger'
-        | 'help'
-        | 'primary'
-        | 'secondary'
-        | 'contrast'
-        | null
-        | undefined;
+    @Input() severity: 'success' | 'info' | 'warn' | 'danger' | 'help' | 'primary' | 'secondary' | 'contrast' | null | undefined;
     /**
      * Add a border class without a background initially.
      * @group Props
@@ -570,17 +534,8 @@ export class Button extends BaseComponent implements AfterContentInit {
      * @group Props
      * @defaultValue secondary
      */
-    @Input() badgeSeverity:
-        | 'success'
-        | 'info'
-        | 'warning'
-        | 'danger'
-        | 'help'
-        | 'primary'
-        | 'secondary'
-        | 'contrast'
-        | null
-        | undefined = 'secondary';
+    @Input() badgeSeverity: 'success' | 'info' | 'warning' | 'danger' | 'help' | 'primary' | 'secondary' | 'contrast' | null | undefined =
+        'secondary';
     /**
      * Used to define a string that autocomplete attribute the current element.
      * @group Props
@@ -673,13 +628,11 @@ export class Button extends BaseComponent implements AfterContentInit {
     get buttonClass() {
         return {
             'p-button p-component': true,
-            'p-button-icon-only':
-                (this.icon || this.iconTemplate || this.loadingIcon || this.loadingIconTemplate) && !this.label,
+            'p-button-icon-only': (this.icon || this.iconTemplate || this.loadingIcon || this.loadingIconTemplate) && !this.label,
             'p-button-vertical': (this.iconPos === 'top' || this.iconPos === 'bottom') && this.label,
             'p-disabled': this.disabled || this.loading,
             'p-button-loading': this.loading,
-            'p-button-loading-label-only':
-                this.loading && !this.icon && this.label && !this.loadingIcon && this.iconPos === 'left',
+            'p-button-loading-label-only': this.loading && !this.icon && this.label && !this.loadingIcon && this.iconPos === 'left',
             'p-button-link': this.link,
             [`p-button-${this.severity}`]: this.severity,
             'p-button-raised': this.raised,

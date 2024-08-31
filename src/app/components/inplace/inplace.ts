@@ -1,5 +1,20 @@
 import { CommonModule } from '@angular/common';
-import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, EventEmitter, Input, NgModule, Output, QueryList, TemplateRef, ViewEncapsulation, booleanAttribute, inject } from '@angular/core';
+import {
+    AfterContentInit,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    ContentChildren,
+    EventEmitter,
+    Input,
+    NgModule,
+    Output,
+    QueryList,
+    TemplateRef,
+    ViewEncapsulation,
+    booleanAttribute,
+    inject,
+} from '@angular/core';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { TimesIcon } from 'primeng/icons/times';
@@ -9,18 +24,12 @@ import { InplaceStyle } from './style/inplacestyle';
 @Component({
     selector: 'p-inplaceDisplay',
     template: '<ng-content></ng-content>',
-    host: {
-        class: 'p-element'
-    }
 })
 export class InplaceDisplay {}
 
 @Component({
     selector: 'p-inplaceContent',
     template: '<ng-content></ng-content>',
-    host: {
-        class: 'p-element'
-    }
 })
 export class InplaceContent {}
 /**
@@ -30,8 +39,21 @@ export class InplaceContent {}
 @Component({
     selector: 'p-inplace',
     template: `
-        <div [ngClass]="{ 'p-inplace p-component': true, 'p-inplace-closable': closable }" [ngStyle]="style" [class]="styleClass" [attr.aria-live]="'polite'">
-            <div class="p-inplace-display" (click)="onActivateClick($event)" tabindex="0" role="button" (keydown)="onKeydown($event)" [ngClass]="{ 'p-disabled': disabled }" *ngIf="!active">
+        <div
+            [ngClass]="{ 'p-inplace p-component': true, 'p-inplace-closable': closable }"
+            [ngStyle]="style"
+            [class]="styleClass"
+            [attr.aria-live]="'polite'"
+        >
+            <div
+                class="p-inplace-display"
+                (click)="onActivateClick($event)"
+                tabindex="0"
+                role="button"
+                (keydown)="onKeydown($event)"
+                [ngClass]="{ 'p-disabled': disabled }"
+                *ngIf="!active"
+            >
                 <ng-content select="[pInplaceDisplay]"></ng-content>
                 <ng-container *ngTemplateOutlet="displayTemplate"></ng-container>
             </div>
@@ -40,8 +62,22 @@ export class InplaceContent {}
                 <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
 
                 <ng-container *ngIf="closable">
-                    <button *ngIf="closeIcon" type="button" [icon]="closeIcon" pButton (click)="onDeactivateClick($event)" [attr.aria-label]="closeAriaLabel"></button>
-                    <button *ngIf="!closeIcon" type="button" pButton [ngClass]="'p-button-icon-only'" (click)="onDeactivateClick($event)" [attr.aria-label]="closeAriaLabel">
+                    <button
+                        *ngIf="closeIcon"
+                        type="button"
+                        [icon]="closeIcon"
+                        pButton
+                        (click)="onDeactivateClick($event)"
+                        [attr.aria-label]="closeAriaLabel"
+                    ></button>
+                    <button
+                        *ngIf="!closeIcon"
+                        type="button"
+                        pButton
+                        [ngClass]="'p-button-icon-only'"
+                        (click)="onDeactivateClick($event)"
+                        [attr.aria-label]="closeAriaLabel"
+                    >
                         <TimesIcon *ngIf="!closeIconTemplate" />
                         <ng-template *ngTemplateOutlet="closeIconTemplate"></ng-template>
                     </button>
@@ -51,10 +87,8 @@ export class InplaceContent {}
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    host: {
-        class: 'p-element'
-    },
-    providers: [InplaceStyle]
+
+    providers: [InplaceStyle],
 })
 export class Inplace extends BaseComponent implements AfterContentInit {
     /**
@@ -184,6 +218,6 @@ export class Inplace extends BaseComponent implements AfterContentInit {
 @NgModule({
     imports: [CommonModule, ButtonModule, SharedModule, TimesIcon],
     exports: [Inplace, InplaceDisplay, InplaceContent, ButtonModule, SharedModule],
-    declarations: [Inplace, InplaceDisplay, InplaceContent]
+    declarations: [Inplace, InplaceDisplay, InplaceContent],
 })
 export class InplaceModule {}

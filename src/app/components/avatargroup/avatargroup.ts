@@ -1,24 +1,23 @@
-import { NgModule, Component, ChangeDetectionStrategy, ViewEncapsulation, Input } from '@angular/core';
+import { NgModule, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, HostBinding, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { AvatarGroupStyle } from './style/avatargroupstyle';
+import { BaseComponent } from 'primeng/basecomponent';
 /**
  * AvatarGroup is a helper component for Avatar.
  * @group Components
  */
 @Component({
     selector: 'p-avatarGroup',
-    template: `
-        <div [ngClass]="'p-avatar-group p-component'" [class]="styleClass" [ngStyle]="style">
-            <ng-content></ng-content>
-        </div>
-    `,
+    template: ` <ng-content></ng-content> `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./avatargroup.css'],
+    providers: [AvatarGroupStyle],
     host: {
-        class: 'p-element'
-    }
+        '[class.p-avatar-group]': 'true',
+        '[class.p-component]': 'true',
+    },
 })
-export class AvatarGroup {
+export class AvatarGroup extends BaseComponent {
     /**
      * Style class of the component
      * @group Props
@@ -29,11 +28,21 @@ export class AvatarGroup {
      * @group Props
      */
     @Input() style: { [klass: string]: any } | null | undefined;
+
+    @HostBinding('class') get hostClass() {
+        return this.styleClass;
+    }
+
+    @HostBinding('style') get hostStyle() {
+        return this.style;
+    }
+
+    _componentStyle = inject(AvatarGroupStyle);
 }
 
 @NgModule({
     imports: [CommonModule],
     exports: [AvatarGroup],
-    declarations: [AvatarGroup]
+    declarations: [AvatarGroup],
 })
 export class AvatarGroupModule {}

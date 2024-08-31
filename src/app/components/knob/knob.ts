@@ -1,5 +1,17 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, NgModule, Output, ViewEncapsulation, booleanAttribute, forwardRef, inject, numberAttribute } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    EventEmitter,
+    Input,
+    NgModule,
+    Output,
+    ViewEncapsulation,
+    booleanAttribute,
+    forwardRef,
+    inject,
+    numberAttribute,
+} from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { VoidListener } from 'primeng/ts-helpers';
 import { KnobStyle } from './style/knobstyle';
@@ -9,7 +21,7 @@ import { $dt } from '@primeuix/styled';
 export const KNOB_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => Knob),
-    multi: true
+    multi: true,
 };
 /**
  * Knob is a form component to define number inputs with a dial.
@@ -40,16 +52,23 @@ export const KNOB_VALUE_ACCESSOR: any = {
             >
                 <path [attr.d]="rangePath()" [attr.stroke-width]="strokeWidth" [attr.stroke]="rangeColor" class="p-knob-range"></path>
                 <path [attr.d]="valuePath()" [attr.stroke-width]="strokeWidth" [attr.stroke]="valueColor" class="p-knob-value"></path>
-                <text *ngIf="showValue" [attr.x]="50" [attr.y]="57" text-anchor="middle" [attr.fill]="textColor" class="p-knob-text" [attr.name]="name">{{ valueToDisplay() }}</text>
+                <text
+                    *ngIf="showValue"
+                    [attr.x]="50"
+                    [attr.y]="57"
+                    text-anchor="middle"
+                    [attr.fill]="textColor"
+                    class="p-knob-text"
+                    [attr.name]="name"
+                >
+                    {{ valueToDisplay() }}
+                </text>
             </svg>
         </div>
     `,
     providers: [KNOB_VALUE_ACCESSOR, KnobStyle],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    host: {
-        class: 'p-element'
-    }
 })
 export class Knob extends BaseComponent {
     /**
@@ -178,7 +197,7 @@ export class Knob extends BaseComponent {
     get containerClass() {
         return {
             'p-knob p-component': true,
-            'p-disabled': this.disabled
+            'p-disabled': this.disabled,
         };
     }
 
@@ -421,6 +440,6 @@ export class Knob extends BaseComponent {
 @NgModule({
     imports: [CommonModule],
     exports: [Knob],
-    declarations: [Knob]
+    declarations: [Knob],
 })
 export class KnobModule {}

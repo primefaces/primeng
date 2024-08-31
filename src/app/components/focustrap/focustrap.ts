@@ -8,9 +8,6 @@ import { Directive, ElementRef, Input, NgModule, inject, booleanAttribute, PLATF
  */
 @Directive({
     selector: '[pFocusTrap]',
-    host: {
-        class: 'p-element'
-    }
 })
 export class FocusTrap {
     /**
@@ -69,7 +66,7 @@ export class FocusTrap {
                 'aria-hidden': true,
                 'data-p-hidden-accessible': true,
                 'data-p-hidden-focusable': true,
-                onFocus: onFocus?.bind(this)
+                onFocus: onFocus?.bind(this),
             });
         };
 
@@ -86,7 +83,9 @@ export class FocusTrap {
     onFirstHiddenElementFocus(event) {
         const { currentTarget, relatedTarget } = event;
         const focusableElement =
-            relatedTarget === this.lastHiddenFocusableElement || !this.host.nativeElement?.contains(relatedTarget) ? DomHandler.getFirstFocusableElement(currentTarget.parentElement, ':not(.p-hidden-focusable)') : this.lastHiddenFocusableElement;
+            relatedTarget === this.lastHiddenFocusableElement || !this.host.nativeElement?.contains(relatedTarget)
+                ? DomHandler.getFirstFocusableElement(currentTarget.parentElement, ':not(.p-hidden-focusable)')
+                : this.lastHiddenFocusableElement;
 
         DomHandler.focus(focusableElement);
     }
@@ -94,7 +93,9 @@ export class FocusTrap {
     onLastHiddenElementFocus(event) {
         const { currentTarget, relatedTarget } = event;
         const focusableElement =
-            relatedTarget === this.firstHiddenFocusableElement || !this.host.nativeElement?.contains(relatedTarget) ? DomHandler.getLastFocusableElement(currentTarget.parentElement, ':not(.p-hidden-focusable)') : this.firstHiddenFocusableElement;
+            relatedTarget === this.firstHiddenFocusableElement || !this.host.nativeElement?.contains(relatedTarget)
+                ? DomHandler.getLastFocusableElement(currentTarget.parentElement, ':not(.p-hidden-focusable)')
+                : this.firstHiddenFocusableElement;
 
         DomHandler.focus(focusableElement);
     }
@@ -103,6 +104,6 @@ export class FocusTrap {
 @NgModule({
     imports: [CommonModule],
     exports: [FocusTrap],
-    declarations: [FocusTrap]
+    declarations: [FocusTrap],
 })
 export class FocusTrapModule {}

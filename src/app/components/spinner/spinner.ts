@@ -1,4 +1,19 @@
-import { NgModule, Component, ElementRef, OnInit, Input, Output, EventEmitter, forwardRef, ViewChild, ChangeDetectorRef, ChangeDetectionStrategy, ViewEncapsulation, booleanAttribute, numberAttribute } from '@angular/core';
+import {
+    NgModule,
+    Component,
+    ElementRef,
+    OnInit,
+    Input,
+    Output,
+    EventEmitter,
+    forwardRef,
+    ViewChild,
+    ChangeDetectorRef,
+    ChangeDetectionStrategy,
+    ViewEncapsulation,
+    booleanAttribute,
+    numberAttribute,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { InputTextModule } from 'primeng/inputtext';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
@@ -6,7 +21,7 @@ import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 export const SPINNER_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => Spinner),
-    multi: true
+    multi: true,
 };
 
 @Component({
@@ -41,7 +56,10 @@ export const SPINNER_VALUE_ACCESSOR: any = {
             />
             <button
                 type="button"
-                [ngClass]="{ 'ui-spinner-button ui-spinner-up ui-corner-tr ui-button ui-widget ui-state-default': true, 'ui-state-disabled': disabled }"
+                [ngClass]="{
+                    'ui-spinner-button ui-spinner-up ui-corner-tr ui-button ui-widget ui-state-default': true,
+                    'ui-state-disabled': disabled,
+                }"
                 [disabled]="disabled || readonly"
                 tabindex="-1"
                 [attr.readonly]="readonly"
@@ -53,7 +71,10 @@ export const SPINNER_VALUE_ACCESSOR: any = {
             </button>
             <button
                 type="button"
-                [ngClass]="{ 'ui-spinner-button ui-spinner-down ui-corner-br ui-button ui-widget ui-state-default': true, 'ui-state-disabled': disabled }"
+                [ngClass]="{
+                    'ui-spinner-button ui-spinner-down ui-corner-br ui-button ui-widget ui-state-default': true,
+                    'ui-state-disabled': disabled,
+                }"
                 [disabled]="disabled || readonly"
                 tabindex="-1"
                 [attr.readonly]="readonly"
@@ -66,14 +87,13 @@ export const SPINNER_VALUE_ACCESSOR: any = {
         </span>
     `,
     host: {
-        class: 'p-element',
         '[class.ui-inputwrapper-filled]': 'filled',
-        '[class.ui-inputwrapper-focus]': 'focus'
+        '[class.ui-inputwrapper-focus]': 'focus',
     },
     providers: [SPINNER_VALUE_ACCESSOR],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./spinner.css']
+    styleUrls: ['./spinner.css'],
 })
 export class Spinner implements OnInit, ControlValueAccessor {
     @Output() onChange: EventEmitter<any> = new EventEmitter();
@@ -162,7 +182,7 @@ export class Spinner implements OnInit, ControlValueAccessor {
 
     constructor(
         public el: ElementRef,
-        public cd: ChangeDetectorRef
+        public cd: ChangeDetectorRef,
     ) {}
 
     ngOnInit() {
@@ -400,6 +420,6 @@ export class Spinner implements OnInit, ControlValueAccessor {
 @NgModule({
     imports: [CommonModule, InputTextModule],
     exports: [Spinner],
-    declarations: [Spinner]
+    declarations: [Spinner],
 })
 export class SpinnerModule {}

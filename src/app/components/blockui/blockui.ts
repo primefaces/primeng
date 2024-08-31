@@ -1,5 +1,21 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { AfterViewInit, ChangeDetectionStrategy, Component, ContentChildren, ElementRef, Input, NgModule, OnDestroy, QueryList, TemplateRef, ViewChild, ViewEncapsulation, booleanAttribute, inject, numberAttribute } from '@angular/core';
+import {
+    AfterViewInit,
+    ChangeDetectionStrategy,
+    Component,
+    ContentChildren,
+    ElementRef,
+    Input,
+    NgModule,
+    OnDestroy,
+    QueryList,
+    TemplateRef,
+    ViewChild,
+    ViewEncapsulation,
+    booleanAttribute,
+    inject,
+    numberAttribute,
+} from '@angular/core';
 import { PrimeTemplate } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { ZIndexUtils } from 'primeng/utils';
@@ -27,10 +43,8 @@ import { BlockUiStyle } from './style/blockuistyle';
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    host: {
-        class: 'p-element'
-    },
-    providers: [BlockUiStyle]
+
+    providers: [BlockUiStyle],
 })
 export class BlockUI extends BaseComponent implements AfterViewInit, OnDestroy {
     /**
@@ -163,6 +177,6 @@ export class BlockUI extends BaseComponent implements AfterViewInit, OnDestroy {
 @NgModule({
     imports: [CommonModule],
     exports: [BlockUI],
-    declarations: [BlockUI]
+    declarations: [BlockUI],
 })
 export class BlockUIModule {}

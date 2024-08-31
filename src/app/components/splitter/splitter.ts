@@ -16,7 +16,7 @@ import {
     ViewChild,
     ViewEncapsulation,
     inject,
-    numberAttribute
+    numberAttribute,
 } from '@angular/core';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
@@ -31,9 +31,24 @@ import { SplitterStyle } from './style/splitterstyle';
 @Component({
     selector: 'p-splitter',
     template: `
-        <div #container [ngClass]="containerClass()" [class]="styleClass" [ngStyle]="style" [attr.data-pc-name]="'splitter'" [attr.data-p-gutter-resizing]="false" [attr.data-pc-section]="'root'">
+        <div
+            #container
+            [ngClass]="containerClass()"
+            [class]="styleClass"
+            [ngStyle]="style"
+            [attr.data-pc-name]="'splitter'"
+            [attr.data-p-gutter-resizing]="false"
+            [attr.data-pc-section]="'root'"
+        >
             <ng-template ngFor let-panel [ngForOf]="panels" let-i="index">
-                <div [ngClass]="panelContainerClass()" [class]="panelStyleClass" [ngStyle]="panelStyle" tabindex="-1" [attr.data-pc-name]="'splitter'" [attr.data-pc-section]="'root'">
+                <div
+                    [ngClass]="panelContainerClass()"
+                    [class]="panelStyleClass"
+                    [ngStyle]="panelStyle"
+                    tabindex="-1"
+                    [attr.data-pc-name]="'splitter'"
+                    [attr.data-pc-section]="'root'"
+                >
                     <ng-container *ngTemplateOutlet="panel"></ng-container>
                 </div>
                 <div
@@ -65,10 +80,9 @@ import { SplitterStyle } from './style/splitterstyle';
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
-        class: 'p-element',
-        '[class.p-splitter-panel-nested]': 'nested'
+        '[class.p-splitter-panel-nested]': 'nested',
     },
-    providers: [SplitterStyle]
+    providers: [SplitterStyle],
 })
 export class Splitter extends BaseComponent {
     /**
@@ -132,7 +146,9 @@ export class Splitter extends BaseComponent {
         this._panelSizes = val;
 
         if (this.el && this.el.nativeElement && this.panels.length > 0) {
-            let children = [...this.el.nativeElement.children[0].children].filter((child) => DomHandler.hasClass(child, 'p-splitter-panel'));
+            let children = [...this.el.nativeElement.children[0].children].filter((child) =>
+                DomHandler.hasClass(child, 'p-splitter-panel'),
+            );
             let _panelSizes = [];
 
             this.panels.map((panel, i) => {
@@ -226,14 +242,17 @@ export class Splitter extends BaseComponent {
                 }
 
                 if (!initialized) {
-                    let children = [...this.el.nativeElement.children[0].children].filter((child) => DomHandler.hasClass(child, 'p-splitter-panel'));
+                    let children = [...this.el.nativeElement.children[0].children].filter((child) =>
+                        DomHandler.hasClass(child, 'p-splitter-panel'),
+                    );
                     let _panelSizes = [];
 
                     this.panels.map((panel, i) => {
                         let panelInitialSize = this.panelSizes.length - 1 >= i ? this.panelSizes[i] : null;
                         let panelSize = panelInitialSize || 100 / this.panels.length;
                         _panelSizes[i] = panelSize;
-                        children[i].style.flexBasis = 'calc(' + panelSize + '% - ' + (this.panels.length - 1) * (this.gutterSize as number) + 'px)';
+                        children[i].style.flexBasis =
+                            'calc(' + panelSize + '% - ' + (this.panels.length - 1) * (this.gutterSize as number) + 'px)';
                     });
 
                     this._panelSizes = _panelSizes;
@@ -246,22 +265,44 @@ export class Splitter extends BaseComponent {
 
     resizeStart(event: TouchEvent | MouseEvent, index: number, isKeyDown?: boolean) {
         this.gutterElement = (event.currentTarget as HTMLElement) || (event.target as HTMLElement).parentElement;
-        this.size = this.horizontal() ? DomHandler.getWidth((this.containerViewChild as ElementRef).nativeElement) : DomHandler.getHeight((this.containerViewChild as ElementRef).nativeElement);
+        this.size = this.horizontal()
+            ? DomHandler.getWidth((this.containerViewChild as ElementRef).nativeElement)
+            : DomHandler.getHeight((this.containerViewChild as ElementRef).nativeElement);
 
         if (!isKeyDown) {
             this.dragging = true;
-            this.startPos = this.horizontal() ? (event instanceof MouseEvent ? event.pageX : event.changedTouches[0].pageX) : event instanceof MouseEvent ? event.pageY : event.changedTouches[0].pageY;
+            this.startPos = this.horizontal()
+                ? event instanceof MouseEvent
+                    ? event.pageX
+                    : event.changedTouches[0].pageX
+                : event instanceof MouseEvent
+                  ? event.pageY
+                  : event.changedTouches[0].pageY;
         }
 
         this.prevPanelElement = this.gutterElement.previousElementSibling as HTMLElement;
         this.nextPanelElement = this.gutterElement.nextElementSibling as HTMLElement;
 
         if (isKeyDown) {
-            this.prevPanelSize = this.horizontal() ? DomHandler.getOuterWidth(this.prevPanelElement, true) : DomHandler.getOuterHeight(this.prevPanelElement, true);
-            this.nextPanelSize = this.horizontal() ? DomHandler.getOuterWidth(this.nextPanelElement, true) : DomHandler.getOuterHeight(this.nextPanelElement, true);
+            this.prevPanelSize = this.horizontal()
+                ? DomHandler.getOuterWidth(this.prevPanelElement, true)
+                : DomHandler.getOuterHeight(this.prevPanelElement, true);
+            this.nextPanelSize = this.horizontal()
+                ? DomHandler.getOuterWidth(this.nextPanelElement, true)
+                : DomHandler.getOuterHeight(this.nextPanelElement, true);
         } else {
-            this.prevPanelSize = (100 * (this.horizontal() ? DomHandler.getOuterWidth(this.prevPanelElement, true) : DomHandler.getOuterHeight(this.prevPanelElement, true))) / this.size;
-            this.nextPanelSize = (100 * (this.horizontal() ? DomHandler.getOuterWidth(this.nextPanelElement, true) : DomHandler.getOuterHeight(this.nextPanelElement, true))) / this.size;
+            this.prevPanelSize =
+                (100 *
+                    (this.horizontal()
+                        ? DomHandler.getOuterWidth(this.prevPanelElement, true)
+                        : DomHandler.getOuterHeight(this.prevPanelElement, true))) /
+                this.size;
+            this.nextPanelSize =
+                (100 *
+                    (this.horizontal()
+                        ? DomHandler.getOuterWidth(this.nextPanelElement, true)
+                        : DomHandler.getOuterHeight(this.nextPanelElement, true))) /
+                this.size;
         }
 
         this.prevPanelIndex = index;
@@ -294,8 +335,10 @@ export class Splitter extends BaseComponent {
         this.prevSize = parseFloat(newPrevPanelSize).toFixed(4);
 
         if (this.validateResize(newPrevPanelSize, newNextPanelSize)) {
-            (this.prevPanelElement as HTMLElement).style.flexBasis = 'calc(' + newPrevPanelSize + '% - ' + (this.panels.length - 1) * this.gutterSize + 'px)';
-            (this.nextPanelElement as HTMLElement).style.flexBasis = 'calc(' + newNextPanelSize + '% - ' + (this.panels.length - 1) * this.gutterSize + 'px)';
+            (this.prevPanelElement as HTMLElement).style.flexBasis =
+                'calc(' + newPrevPanelSize + '% - ' + (this.panels.length - 1) * this.gutterSize + 'px)';
+            (this.nextPanelElement as HTMLElement).style.flexBasis =
+                'calc(' + newNextPanelSize + '% - ' + (this.panels.length - 1) * this.gutterSize + 'px)';
             this._panelSizes[this.prevPanelIndex as number] = newPrevPanelSize;
             this._panelSizes[(this.prevPanelIndex as number) + 1] = newNextPanelSize;
         }
@@ -510,7 +553,9 @@ export class Splitter extends BaseComponent {
                     return this.document.defaultView.sessionStorage;
 
                 default:
-                    throw new Error(this.stateStorage + ' is not a valid value for the state storage, supported values are "local" and "session".');
+                    throw new Error(
+                        this.stateStorage + ' is not a valid value for the state storage, supported values are "local" and "session".',
+                    );
             }
         } else {
             throw new Error('Storage is not a available by default on the server.');
@@ -527,7 +572,9 @@ export class Splitter extends BaseComponent {
 
         if (stateString) {
             this._panelSizes = JSON.parse(stateString);
-            let children = [...(this.containerViewChild as ElementRef).nativeElement.children].filter((child) => DomHandler.hasClass(child, 'p-splitter-panel'));
+            let children = [...(this.containerViewChild as ElementRef).nativeElement.children].filter((child) =>
+                DomHandler.hasClass(child, 'p-splitter-panel'),
+            );
             children.forEach((child, i) => {
                 child.style.flexBasis = 'calc(' + this._panelSizes[i] + '% - ' + (this.panels.length - 1) * this.gutterSize + 'px)';
             });
@@ -542,14 +589,14 @@ export class Splitter extends BaseComponent {
         return {
             'p-splitter p-component': true,
             'p-splitter-horizontal': this.layout === 'horizontal',
-            'p-splitter-vertical': this.layout === 'vertical'
+            'p-splitter-vertical': this.layout === 'vertical',
         };
     }
 
     panelContainerClass() {
         return {
             'p-splitter-panel': true,
-            'p-splitter-panel-nested': true
+            'p-splitter-panel-nested': true,
         };
     }
 
@@ -566,6 +613,6 @@ export class Splitter extends BaseComponent {
 @NgModule({
     imports: [CommonModule],
     exports: [Splitter, SharedModule],
-    declarations: [Splitter]
+    declarations: [Splitter],
 })
 export class SplitterModule {}

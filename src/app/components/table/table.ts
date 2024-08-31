@@ -210,7 +210,7 @@ export class TableService {
                     [items]="processedData"
                     [columns]="columns"
                     [style]="{
-                        height: scrollHeight !== 'flex' ? scrollHeight : undefined
+                        height: scrollHeight !== 'flex' ? scrollHeight : undefined,
                     }"
                     [scrollHeight]="scrollHeight !== 'flex' ? undefined : '100%'"
                     [itemSize]="virtualScrollItemSize || _virtualRowHeight"
@@ -231,7 +231,7 @@ export class TableService {
                                 buildInTable;
                                 context: {
                                     $implicit: items,
-                                    options: scrollerOptions
+                                    options: scrollerOptions,
                                 }
                             "
                         ></ng-container>
@@ -243,7 +243,7 @@ export class TableService {
                             buildInTable;
                             context: {
                                 $implicit: processedData,
-                                options: { columns }
+                                options: { columns },
                             }
                         "
                     ></ng-container>
@@ -258,15 +258,13 @@ export class TableService {
                         [style]="tableStyle"
                         [attr.id]="id + '-table'"
                     >
-                        <ng-container
-                            *ngTemplateOutlet="colGroupTemplate; context: { $implicit: scrollerOptions.columns }"
-                        ></ng-container>
+                        <ng-container *ngTemplateOutlet="colGroupTemplate; context: { $implicit: scrollerOptions.columns }"></ng-container>
                         <thead role="rowgroup" #thead [ngClass]="cx('thead')" [ngStyle]="sx('thead')">
                             <ng-container
                                 *ngTemplateOutlet="
                                     headerGroupedTemplate || headerTemplate;
                                     context: {
-                                        $implicit: scrollerOptions.columns
+                                        $implicit: scrollerOptions.columns,
                                     }
                                 "
                             ></ng-container>
@@ -302,17 +300,12 @@ export class TableService {
                             "
                             [ngClass]="cx('virtualScrollerSpacer')"
                         ></tbody>
-                        <tfoot
-                            role="rowgroup"
-                            *ngIf="footerGroupedTemplate || footerTemplate"
-                            #tfoot
-                            [ngClass]="cx('footer')"
-                        >
+                        <tfoot role="rowgroup" *ngIf="footerGroupedTemplate || footerTemplate" #tfoot [ngClass]="cx('footer')">
                             <ng-container
                                 *ngTemplateOutlet="
                                     footerGroupedTemplate || footerTemplate;
                                     context: {
-                                        $implicit: scrollerOptions.columns
+                                        $implicit: scrollerOptions.columns,
                                     }
                                 "
                             ></ng-container>
@@ -369,27 +362,12 @@ export class TableService {
                 <ng-container *ngTemplateOutlet="summaryTemplate"></ng-container>
             </div>
 
-            <div
-                #resizeHelper
-                [ngClass]="cx('columnResizeIndicator')"
-                style="display:none"
-                *ngIf="resizableColumns"
-            ></div>
-            <span
-                #reorderIndicatorUp
-                [ngClass]="cx('rowReorderIndicatorUp')"
-                style="display: none;"
-                *ngIf="reorderableColumns"
-            >
+            <div #resizeHelper [ngClass]="cx('columnResizeIndicator')" style="display:none" *ngIf="resizableColumns"></div>
+            <span #reorderIndicatorUp [ngClass]="cx('rowReorderIndicatorUp')" style="display: none;" *ngIf="reorderableColumns">
                 <ArrowDownIcon *ngIf="!reorderIndicatorUpIconTemplate" />
                 <ng-template *ngTemplateOutlet="reorderIndicatorUpIconTemplate"></ng-template>
             </span>
-            <span
-                #reorderIndicatorDown
-                [ngClass]="cx('rowReorderIndicatorDown')"
-                style="display: none;"
-                *ngIf="reorderableColumns"
-            >
+            <span #reorderIndicatorDown [ngClass]="cx('rowReorderIndicatorDown')" style="display: none;" *ngIf="reorderableColumns">
                 <ArrowUpIcon *ngIf="!reorderIndicatorDownIconTemplate" />
                 <ng-template *ngTemplateOutlet="reorderIndicatorDownIconTemplate"></ng-template>
             </span>
@@ -948,9 +926,7 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
      * @param {Object} object - sort meta.
      * @group Emits
      */
-    @Output() onSort: EventEmitter<{ multisortmeta: SortMeta[] } | any> = new EventEmitter<
-        { multisortmeta: SortMeta[] } | any
-    >();
+    @Output() onSort: EventEmitter<{ multisortmeta: SortMeta[] } | any> = new EventEmitter<{ multisortmeta: SortMeta[] } | any>();
     /**
      * Callback to invoke when data is filtered.
      * @param {TableFilterEvent} event - custom filtering event.
@@ -980,8 +956,7 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
      * @param {TableContextMenuSelectEvent} event - custom context menu select event.
      * @group Emits
      */
-    @Output() onContextMenuSelect: EventEmitter<TableContextMenuSelectEvent> =
-        new EventEmitter<TableContextMenuSelectEvent>();
+    @Output() onContextMenuSelect: EventEmitter<TableContextMenuSelectEvent> = new EventEmitter<TableContextMenuSelectEvent>();
     /**
      * Callback to invoke when a column is resized.
      * @param {TableColResizeEvent} event - custom column resize event.
@@ -1024,8 +999,7 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
      * @group Emits
      */
     @Output()
-    onHeaderCheckboxToggle: EventEmitter<TableHeaderCheckboxToggleEvent> =
-        new EventEmitter<TableHeaderCheckboxToggleEvent>();
+    onHeaderCheckboxToggle: EventEmitter<TableHeaderCheckboxToggleEvent> = new EventEmitter<TableHeaderCheckboxToggleEvent>();
     /**
      * A function to implement custom sorting, refer to sorting section for details.
      * @param {any} any - sort meta.
@@ -1672,8 +1646,7 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
                         if (value1 == null && value2 != null) result = -1;
                         else if (value1 != null && value2 == null) result = 1;
                         else if (value1 == null && value2 == null) result = 0;
-                        else if (typeof value1 === 'string' && typeof value2 === 'string')
-                            result = value1.localeCompare(value2);
+                        else if (typeof value1 === 'string' && typeof value2 === 'string') result = value1.localeCompare(value2);
                         else result = value1 < value2 ? -1 : value1 > value2 ? 1 : 0;
 
                         return order * result;
@@ -2023,9 +1996,7 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
 
                 rangeRowsData.push(rangeRowData);
                 this._selection = [...this.selection, rangeRowData];
-                let dataKeyValue = this.dataKey
-                    ? String(ObjectUtils.resolveFieldData(rangeRowData, this.dataKey))
-                    : null;
+                let dataKeyValue = this.dataKey ? String(ObjectUtils.resolveFieldData(rangeRowData, this.dataKey)) : null;
                 if (dataKeyValue) {
                     this.selectionKeys[dataKeyValue] = 1;
                 }
@@ -2251,11 +2222,7 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
 
     isFilterBlank(filter: any): boolean {
         if (filter !== null && filter !== undefined) {
-            if (
-                (typeof filter === 'string' && filter.trim().length == 0) ||
-                (Array.isArray(filter) && filter.length == 0)
-            )
-                return true;
+            if ((typeof filter === 'string' && filter.trim().length == 0) || (Array.isArray(filter) && filter.length == 0)) return true;
             else return false;
         }
         return true;
@@ -2283,9 +2250,7 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
                 let globalFilterFieldsArray;
                 if (this.filters['global']) {
                     if (!this.columns && !this.globalFilterFields)
-                        throw new Error(
-                            'Global filtering requires dynamic columns or globalFilterFields to be defined.',
-                        );
+                        throw new Error('Global filtering requires dynamic columns or globalFilterFields to be defined.');
                     else globalFilterFieldsArray = this.globalFilterFields || this.columns;
                 }
 
@@ -2355,11 +2320,7 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
                 }
 
                 if (this.paginator) {
-                    this.totalRecords = this.filteredValue
-                        ? this.filteredValue.length
-                        : this.value
-                        ? this.value.length
-                        : 0;
+                    this.totalRecords = this.filteredValue ? this.filteredValue.length : this.value ? this.value.length : 0;
                 }
             }
         }
@@ -2414,8 +2375,7 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
             sortField: this.sortField,
             sortOrder: this.sortOrder,
             filters: this.filters,
-            globalFilter:
-                this.filters && this.filters['global'] ? (<FilterMetadata>this.filters['global']).value : null,
+            globalFilter: this.filters && this.filters['global'] ? (<FilterMetadata>this.filters['global']).value : null,
             multiSortMeta: this.multiSortMeta,
             forceUpdate: () => this.cd.detectChanges(),
         };
@@ -2482,9 +2442,7 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
             }
         }
 
-        const exportableColumns: any[] = (<any[]>columns).filter(
-            (column) => column.exportable !== false && column.field,
-        );
+        const exportableColumns: any[] = (<any[]>columns).filter((column) => column.exportable !== false && column.field);
 
         //headers
         csv += exportableColumns.map((column) => '"' + this.getExportHeader(column) + '"').join(this.csvSeparator);
@@ -2697,8 +2655,7 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
         this.resizeColumnElement = event.target.parentElement;
         this.columnResizing = true;
         if (event.type == 'touchstart') {
-            this.lastResizerHelperX =
-                event.changedTouches[0].clientX - containerLeft + this.containerViewChild?.nativeElement.scrollLeft;
+            this.lastResizerHelperX = event.changedTouches[0].clientX - containerLeft + this.containerViewChild?.nativeElement.scrollLeft;
         } else {
             this.lastResizerHelperX = event.pageX - containerLeft + this.containerViewChild?.nativeElement.scrollLeft;
         }
@@ -2709,15 +2666,11 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
     onColumnResize(event: any) {
         let containerLeft = DomHandler.getOffset(this.containerViewChild?.nativeElement).left;
         DomHandler.addClass(this.containerViewChild?.nativeElement, 'p-unselectable-text');
-        (<ElementRef>this.resizeHelperViewChild).nativeElement.style.height =
-            this.containerViewChild?.nativeElement.offsetHeight + 'px';
+        (<ElementRef>this.resizeHelperViewChild).nativeElement.style.height = this.containerViewChild?.nativeElement.offsetHeight + 'px';
         (<ElementRef>this.resizeHelperViewChild).nativeElement.style.top = 0 + 'px';
         if (event.type == 'touchmove') {
             (<ElementRef>this.resizeHelperViewChild).nativeElement.style.left =
-                event.changedTouches[0].clientX -
-                containerLeft +
-                this.containerViewChild?.nativeElement.scrollLeft +
-                'px';
+                event.changedTouches[0].clientX - containerLeft + this.containerViewChild?.nativeElement.scrollLeft + 'px';
         } else {
             (<ElementRef>this.resizeHelperViewChild).nativeElement.style.left =
                 event.pageX - containerLeft + this.containerViewChild?.nativeElement.scrollLeft + 'px';
@@ -2772,9 +2725,7 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
 
     onColumnDragStart(event: any, columnElement: any) {
         this.reorderIconWidth = DomHandler.getHiddenElementOuterWidth(this.reorderIndicatorUpViewChild?.nativeElement);
-        this.reorderIconHeight = DomHandler.getHiddenElementOuterHeight(
-            this.reorderIndicatorDownViewChild?.nativeElement,
-        );
+        this.reorderIconHeight = DomHandler.getHiddenElementOuterHeight(this.reorderIndicatorDownViewChild?.nativeElement);
         this.draggedColumn = columnElement;
         event.dataTransfer.setData('text', 'b'); // For firefox
     }
@@ -2832,8 +2783,7 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
             let allowDrop = dragIndex != dropIndex;
             if (
                 allowDrop &&
-                ((dropIndex - dragIndex == 1 && this.dropPosition === -1) ||
-                    (dragIndex - dropIndex == 1 && this.dropPosition === 1))
+                ((dropIndex - dragIndex == 1 && this.dropPosition === -1) || (dragIndex - dropIndex == 1 && this.dropPosition === 1))
             ) {
                 allowDrop = false;
             }
@@ -2890,12 +2840,7 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
 
         let innerHTML = '';
         width.forEach((width, index) => {
-            let colWidth =
-                index === colIndex
-                    ? newColumnWidth
-                    : nextColumnWidth && index === colIndex + 1
-                    ? nextColumnWidth
-                    : width;
+            let colWidth = index === colIndex ? newColumnWidth : nextColumnWidth && index === colIndex + 1 ? nextColumnWidth : width;
             let style = `width: ${colWidth}px !important; max-width: ${colWidth}px !important;`;
             innerHTML += `
                 #${this.id}-table > .p-datatable-thead > tr > th:nth-child(${index + 1}),
@@ -2959,8 +2904,8 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
                 <number>this.draggedRowIndex > this.droppedRowIndex
                     ? this.droppedRowIndex
                     : this.droppedRowIndex === 0
-                    ? 0
-                    : this.droppedRowIndex - 1;
+                      ? 0
+                      : this.droppedRowIndex - 1;
             ObjectUtils.reorderArray(this.value, <number>this.draggedRowIndex, dropIndex);
 
             if (this.virtualScroll) {
@@ -2998,8 +2943,7 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
 
                 default:
                     throw new Error(
-                        this.stateStorage +
-                            ' is not a valid value for the state storage, supported values are "local" and "session".',
+                        this.stateStorage + ' is not a valid value for the state storage, supported values are "local" and "session".',
                     );
             }
         } else {
@@ -3315,7 +3259,7 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
                                 rowIndex: getRowIndex(rowIndex),
                                 columns: columns,
                                 editing: dt.editMode === 'row' && dt.isRowEditing(rowData),
-                                frozen: frozen
+                                frozen: frozen,
                             }
                         "
                     ></ng-container>
@@ -3329,7 +3273,7 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
                                 rowIndex: getRowIndex(rowIndex),
                                 columns: columns,
                                 editing: dt.editMode === 'row' && dt.isRowEditing(rowData),
-                                frozen: frozen
+                                frozen: frozen,
                             }
                         "
                     ></ng-container>
@@ -3345,7 +3289,7 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
                                 editing: dt.editMode === 'row' && dt.isRowEditing(rowData),
                                 frozen: frozen,
                                 rowgroup: shouldRenderRowspan(value, rowData, rowIndex),
-                                rowspan: calculateRowGroupSize(value, rowData, rowIndex)
+                                rowspan: calculateRowGroupSize(value, rowData, rowIndex),
                             }
                         "
                     ></ng-container>
@@ -3367,7 +3311,7 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
                                 rowIndex: getRowIndex(rowIndex),
                                 columns: columns,
                                 editing: dt.editMode === 'row' && dt.isRowEditing(rowData),
-                                frozen: frozen
+                                frozen: frozen,
                             }
                         "
                     ></ng-container>
@@ -3386,7 +3330,7 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
                                 columns: columns,
                                 expanded: dt.isRowExpanded(rowData),
                                 editing: dt.editMode === 'row' && dt.isRowEditing(rowData),
-                                frozen: frozen
+                                frozen: frozen,
                             }
                         "
                     ></ng-container>
@@ -3408,7 +3352,7 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
                                 columns: columns,
                                 expanded: dt.isRowExpanded(rowData),
                                 editing: dt.editMode === 'row' && dt.isRowEditing(rowData),
-                                frozen: frozen
+                                frozen: frozen,
                             }
                         "
                     ></ng-container>
@@ -3421,7 +3365,7 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
                                 $implicit: rowData,
                                 rowIndex: getRowIndex(rowIndex),
                                 columns: columns,
-                                frozen: frozen
+                                frozen: frozen,
                             }
                         "
                     ></ng-container>
@@ -3442,7 +3386,7 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
                                     columns: columns,
                                     expanded: dt.isRowExpanded(rowData),
                                     editing: dt.editMode === 'row' && dt.isRowEditing(rowData),
-                                    frozen: frozen
+                                    frozen: frozen,
                                 }
                             "
                         ></ng-container>
@@ -3461,7 +3405,7 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
                             columns: columns,
                             expanded: dt.isRowExpanded(rowData),
                             editing: dt.editMode === 'row' && dt.isRowEditing(rowData),
-                            frozen: frozen
+                            frozen: frozen,
                         }
                     "
                 ></ng-container>
@@ -3473,7 +3417,7 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
                                 $implicit: rowData,
                                 rowIndex: getRowIndex(rowIndex),
                                 columns: columns,
-                                frozen: frozen
+                                frozen: frozen,
                             }
                         "
                     ></ng-container>
@@ -3481,21 +3425,14 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
             </ng-template>
         </ng-container>
         <ng-container *ngIf="dt.loading">
-            <ng-container
-                *ngTemplateOutlet="dt.loadingBodyTemplate; context: { $implicit: columns, frozen: frozen }"
-            ></ng-container>
+            <ng-container *ngTemplateOutlet="dt.loadingBodyTemplate; context: { $implicit: columns, frozen: frozen }"></ng-container>
         </ng-container>
         <ng-container *ngIf="dt.isEmpty() && !dt.loading">
-            <ng-container
-                *ngTemplateOutlet="dt.emptyMessageTemplate; context: { $implicit: columns, frozen: frozen }"
-            ></ng-container>
+            <ng-container *ngTemplateOutlet="dt.emptyMessageTemplate; context: { $implicit: columns, frozen: frozen }"></ng-container>
         </ng-container>
     `,
     changeDetection: ChangeDetectionStrategy.Default,
     encapsulation: ViewEncapsulation.None,
-    host: {
-        class: 'p-element',
-    },
 })
 export class TableBody implements AfterViewInit, OnDestroy {
     @Input('pTableBody') columns: any[] | undefined;
@@ -3607,8 +3544,7 @@ export class TableBody implements AfterViewInit, OnDestroy {
     }
 
     updateFrozenRowStickyPosition() {
-        this.el.nativeElement.style.top =
-            DomHandler.getOuterHeight(this.el.nativeElement.previousElementSibling) + 'px';
+        this.el.nativeElement.style.top = DomHandler.getOuterHeight(this.el.nativeElement.previousElementSibling) + 'px';
     }
 
     updateFrozenRowGroupHeaderStickyPosition() {
@@ -3668,7 +3604,10 @@ export class FrozenColumn implements AfterViewInit {
 
     @Input() alignFrozen: string = 'left';
 
-    constructor(private el: ElementRef, private zone: NgZone) {}
+    constructor(
+        private el: ElementRef,
+        private zone: NgZone,
+    ) {}
 
     ngAfterViewInit() {
         this.zone.runOutsideAngular(() => {
@@ -3787,16 +3726,10 @@ export class SortableColumn implements OnInit, OnDestroy {
     }
 
     isFilterElement(element: HTMLElement) {
-        return (
-            this.isFilterElementIconOrButton(element) ||
-            this.isFilterElementIconOrButton(element?.parentElement?.parentElement)
-        );
+        return this.isFilterElementIconOrButton(element) || this.isFilterElementIconOrButton(element?.parentElement?.parentElement);
     }
     private isFilterElementIconOrButton(element: HTMLElement) {
-        return (
-            DomHandler.hasClass(element, 'pi-filter-icon') ||
-            DomHandler.hasClass(element, 'p-column-filter-menu-button')
-        );
+        return DomHandler.hasClass(element, 'pi-filter-icon') || DomHandler.hasClass(element, 'p-column-filter-menu-button');
     }
 
     ngOnDestroy() {
@@ -3821,9 +3754,6 @@ export class SortableColumn implements OnInit, OnDestroy {
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    host: {
-        class: 'p-element',
-    },
 })
 export class SortIcon implements OnInit, OnDestroy {
     @Input() field: string | undefined;
@@ -3832,7 +3762,10 @@ export class SortIcon implements OnInit, OnDestroy {
 
     sortOrder: number | undefined;
 
-    constructor(public dt: Table, public cd: ChangeDetectorRef) {
+    constructor(
+        public dt: Table,
+        public cd: ChangeDetectorRef,
+    ) {
         this.subscription = this.dt.tableService.sortSource$.subscribe((sortMeta) => {
             this.updateSortState();
         });
@@ -3861,12 +3794,7 @@ export class SortIcon implements OnInit, OnDestroy {
         let multiSortMeta = this.dt._multiSortMeta;
         let index = -1;
 
-        if (
-            multiSortMeta &&
-            this.dt.sortMode === 'multiple' &&
-            this.dt.showInitialSortBadge &&
-            multiSortMeta.length > 1
-        ) {
+        if (multiSortMeta && this.dt.sortMode === 'multiple' && this.dt.showInitialSortBadge && multiSortMeta.length > 1) {
             for (let i = 0; i < multiSortMeta.length; i++) {
                 let meta = multiSortMeta[i];
                 if (meta.field === this.field || meta.field === this.field) {
@@ -3916,7 +3844,11 @@ export class SelectableRow implements OnInit, OnDestroy {
 
     subscription: Subscription | undefined;
 
-    constructor(public dt: Table, public tableService: TableService, private el: ElementRef) {
+    constructor(
+        public dt: Table,
+        public tableService: TableService,
+        private el: ElementRef,
+    ) {
         if (this.isEnabled()) {
             this.subscription = this.dt.tableService.selectionSource$.subscribe(() => {
                 this.selected = this.dt.isSelected(this.data);
@@ -4083,10 +4015,7 @@ export class SelectableRow implements OnInit, OnDestroy {
                 if (ObjectUtils.isNotEmpty(this.dt.selection) && this.dt.selection.length > 0) {
                     let firstSelectedRowIndex, lastSelectedRowIndex;
                     firstSelectedRowIndex = ObjectUtils.findIndexInList(this.dt.selection[0], data);
-                    lastSelectedRowIndex = ObjectUtils.findIndexInList(
-                        this.dt.selection[this.dt.selection.length - 1],
-                        data,
-                    );
+                    lastSelectedRowIndex = ObjectUtils.findIndexInList(this.dt.selection[this.dt.selection.length - 1], data);
 
                     index = this.index <= firstSelectedRowIndex ? lastSelectedRowIndex : firstSelectedRowIndex;
                 } else {
@@ -4095,9 +4024,7 @@ export class SelectableRow implements OnInit, OnDestroy {
 
                 this.dt.anchorRowIndex = index;
                 this.dt.selection =
-                    index !== this.index
-                        ? data.slice(Math.min(index, this.index), Math.max(index, this.index) + 1)
-                        : [this.data];
+                    index !== this.index ? data.slice(Math.min(index, this.index), Math.max(index, this.index) + 1) : [this.data];
                 this.dt.selectRange(event, this.index);
             }
 
@@ -4157,7 +4084,6 @@ export class SelectableRow implements OnInit, OnDestroy {
 @Directive({
     selector: '[pSelectableRowDblClick]',
     host: {
-        class: 'p-element',
         '[class.p-selectable-row]': 'isEnabled()',
         '[class.p-highlight]': 'selected',
     },
@@ -4173,7 +4099,10 @@ export class SelectableRowDblClick implements OnInit, OnDestroy {
 
     subscription: Subscription | undefined;
 
-    constructor(public dt: Table, public tableService: TableService) {
+    constructor(
+        public dt: Table,
+        public tableService: TableService,
+    ) {
         if (this.isEnabled()) {
             this.subscription = this.dt.tableService.selectionSource$.subscribe(() => {
                 this.selected = this.dt.isSelected(this.data);
@@ -4212,7 +4141,6 @@ export class SelectableRowDblClick implements OnInit, OnDestroy {
 @Directive({
     selector: '[pContextMenuRow]',
     host: {
-        class: 'p-element',
         '[class.p-highlight-contextmenu]': 'selected',
         '[attr.tabindex]': 'isEnabled() ? 0 : undefined',
     },
@@ -4228,7 +4156,11 @@ export class ContextMenuRow {
 
     subscription: Subscription | undefined;
 
-    constructor(public dt: Table, public tableService: TableService, private el: ElementRef) {
+    constructor(
+        public dt: Table,
+        public tableService: TableService,
+        private el: ElementRef,
+    ) {
         if (this.isEnabled()) {
             this.subscription = this.dt.tableService.contextMenuSource$.subscribe((data) => {
                 this.selected = this.dt.equals(this.data, data);
@@ -4325,16 +4257,8 @@ export class ResizableColumn implements AfterViewInit, OnDestroy {
                 this.renderer.appendChild(this.el.nativeElement, this.resizer);
 
                 this.zone.runOutsideAngular(() => {
-                    this.resizerMouseDownListener = this.renderer.listen(
-                        this.resizer,
-                        'mousedown',
-                        this.onMouseDown.bind(this),
-                    );
-                    this.resizerTouchStartListener = this.renderer.listen(
-                        this.resizer,
-                        'touchstart',
-                        this.onTouchStart.bind(this),
-                    );
+                    this.resizerMouseDownListener = this.renderer.listen(this.resizer, 'mousedown', this.onMouseDown.bind(this));
+                    this.resizerTouchStartListener = this.renderer.listen(this.resizer, 'touchstart', this.onTouchStart.bind(this));
                 });
             }
         }
@@ -4342,21 +4266,9 @@ export class ResizableColumn implements AfterViewInit, OnDestroy {
 
     bindDocumentEvents() {
         this.zone.runOutsideAngular(() => {
-            this.documentMouseMoveListener = this.renderer.listen(
-                this.document,
-                'mousemove',
-                this.onDocumentMouseMove.bind(this),
-            );
-            this.documentMouseUpListener = this.renderer.listen(
-                this.document,
-                'mouseup',
-                this.onDocumentMouseUp.bind(this),
-            );
-            this.resizerTouchMoveListener = this.renderer.listen(
-                this.resizer,
-                'touchmove',
-                this.onTouchMove.bind(this),
-            );
+            this.documentMouseMoveListener = this.renderer.listen(this.document, 'mousemove', this.onDocumentMouseMove.bind(this));
+            this.documentMouseUpListener = this.renderer.listen(this.document, 'mouseup', this.onDocumentMouseUp.bind(this));
+            this.resizerTouchMoveListener = this.renderer.listen(this.resizer, 'touchmove', this.onTouchMove.bind(this));
             this.resizerTouchEndListener = this.renderer.listen(this.resizer, 'touchend', this.onTouchEnd.bind(this));
         });
     }
@@ -4459,35 +4371,15 @@ export class ReorderableColumn implements AfterViewInit, OnDestroy {
     bindEvents() {
         if (isPlatformBrowser(this.platformId)) {
             this.zone.runOutsideAngular(() => {
-                this.mouseDownListener = this.renderer.listen(
-                    this.el.nativeElement,
-                    'mousedown',
-                    this.onMouseDown.bind(this),
-                );
+                this.mouseDownListener = this.renderer.listen(this.el.nativeElement, 'mousedown', this.onMouseDown.bind(this));
 
-                this.dragStartListener = this.renderer.listen(
-                    this.el.nativeElement,
-                    'dragstart',
-                    this.onDragStart.bind(this),
-                );
+                this.dragStartListener = this.renderer.listen(this.el.nativeElement, 'dragstart', this.onDragStart.bind(this));
 
-                this.dragOverListener = this.renderer.listen(
-                    this.el.nativeElement,
-                    'dragover',
-                    this.onDragOver.bind(this),
-                );
+                this.dragOverListener = this.renderer.listen(this.el.nativeElement, 'dragover', this.onDragOver.bind(this));
 
-                this.dragEnterListener = this.renderer.listen(
-                    this.el.nativeElement,
-                    'dragenter',
-                    this.onDragEnter.bind(this),
-                );
+                this.dragEnterListener = this.renderer.listen(this.el.nativeElement, 'dragenter', this.onDragEnter.bind(this));
 
-                this.dragLeaveListener = this.renderer.listen(
-                    this.el.nativeElement,
-                    'dragleave',
-                    this.onDragLeave.bind(this),
-                );
+                this.dragLeaveListener = this.renderer.listen(this.el.nativeElement, 'dragleave', this.onDragLeave.bind(this));
             });
         }
     }
@@ -4577,7 +4469,11 @@ export class EditableColumn implements OnChanges, AfterViewInit, OnDestroy {
 
     overlayEventListener: any;
 
-    constructor(public dt: Table, public el: ElementRef, public zone: NgZone) {}
+    constructor(
+        public dt: Table,
+        public el: ElementRef,
+        public zone: NgZone,
+    ) {}
 
     public ngOnChanges(changes: SimpleChanges): void {
         if (this.el.nativeElement && !changes.data?.firstChange) {
@@ -4924,7 +4820,10 @@ export class EditableRow {
     },
 })
 export class InitEditableRow {
-    constructor(public dt: Table, public editableRow: EditableRow) {}
+    constructor(
+        public dt: Table,
+        public editableRow: EditableRow,
+    ) {}
 
     @HostListener('click', ['$event'])
     onClick(event: Event) {
@@ -4940,7 +4839,10 @@ export class InitEditableRow {
     },
 })
 export class SaveEditableRow {
-    constructor(public dt: Table, public editableRow: EditableRow) {}
+    constructor(
+        public dt: Table,
+        public editableRow: EditableRow,
+    ) {}
 
     @HostListener('click', ['$event'])
     onClick(event: Event) {
@@ -4956,7 +4858,10 @@ export class SaveEditableRow {
     },
 })
 export class CancelEditableRow {
-    constructor(public dt: Table, public editableRow: EditableRow) {}
+    constructor(
+        public dt: Table,
+        public editableRow: EditableRow,
+    ) {}
 
     @HostListener('click', ['$event'])
     onClick(event: Event) {
@@ -5006,9 +4911,7 @@ export class CellEditor implements AfterContentInit {
 
     get editing(): boolean {
         return (
-            (this.dt.editingCell &&
-                this.editableColumn &&
-                this.dt.editingCell === this.editableColumn.el.nativeElement) ||
+            (this.dt.editingCell && this.editableColumn && this.dt.editingCell === this.editableColumn.el.nativeElement) ||
             (this.editableRow && this.dt.editMode === 'row' && this.dt.isRowEditing(this.editableRow.data))
         );
     }
@@ -5053,7 +4956,10 @@ export class TableRadioButton {
 
     subscription: Subscription;
 
-    constructor(public dt: Table, public cd: ChangeDetectorRef) {
+    constructor(
+        public dt: Table,
+        public cd: ChangeDetectorRef,
+    ) {
         this.subscription = this.dt.tableService.selectionSource$.subscribe(() => {
             this.checked = this.dt.isSelected(this.value);
 
@@ -5096,18 +5002,10 @@ export class TableRadioButton {
 @Component({
     selector: 'p-tableCheckbox',
     template: `
-        <p-checkbox
-            [(ngModel)]="checked"
-            [binary]="true"
-            (onChange)="onClick($event)"
-            [disabled]="disabled"
-            [ariaLabel]="ariaLabel"
-        >
+        <p-checkbox [(ngModel)]="checked" [binary]="true" (onChange)="onClick($event)" [disabled]="disabled" [ariaLabel]="ariaLabel">
             <ng-container *ngIf="dt.checkboxIconTemplate">
                 <ng-template pTemplate="icon">
-                    <ng-template
-                        *ngTemplateOutlet="dt.checkboxIconTemplate; context: { $implicit: checked }"
-                    ></ng-template>
+                    <ng-template *ngTemplateOutlet="dt.checkboxIconTemplate; context: { $implicit: checked }"></ng-template>
                 </ng-template>
             </ng-container>
         </p-checkbox>
@@ -5136,7 +5034,11 @@ export class TableCheckbox {
 
     subscription: Subscription;
 
-    constructor(public dt: Table, public tableService: TableService, public cd: ChangeDetectorRef) {
+    constructor(
+        public dt: Table,
+        public tableService: TableService,
+        public cd: ChangeDetectorRef,
+    ) {
         this.subscription = this.dt.tableService.selectionSource$.subscribe(() => {
             this.checked = this.dt.isSelected(this.value) && !this.disabled;
             this.ariaLabel =
@@ -5184,18 +5086,10 @@ export class TableCheckbox {
 @Component({
     selector: 'p-tableHeaderCheckbox',
     template: `
-        <p-checkbox
-            [(ngModel)]="checked"
-            (onChange)="onClick($event)"
-            [binary]="true"
-            [disabled]="isDisabled()"
-            [ariaLabel]="ariaLabel"
-        >
+        <p-checkbox [(ngModel)]="checked" (onChange)="onClick($event)" [binary]="true" [disabled]="isDisabled()" [ariaLabel]="ariaLabel">
             <ng-container *ngIf="dt.headerCheckboxIconTemplate">
                 <ng-template pTemplate="icon">
-                    <ng-template
-                        *ngTemplateOutlet="dt.headerCheckboxIconTemplate; context: { $implicit: checked }"
-                    ></ng-template>
+                    <ng-template *ngTemplateOutlet="dt.headerCheckboxIconTemplate; context: { $implicit: checked }"></ng-template>
                 </ng-template>
             </ng-container>
         </p-checkbox>
@@ -5220,7 +5114,11 @@ export class TableHeaderCheckbox {
 
     valueChangeSubscription: Subscription;
 
-    constructor(public dt: Table, public tableService: TableService, public cd: ChangeDetectorRef) {
+    constructor(
+        public dt: Table,
+        public tableService: TableService,
+        public cd: ChangeDetectorRef,
+    ) {
         this.valueChangeSubscription = this.dt.tableService.valueSource$.subscribe(() => {
             this.checked = this.updateCheckedState();
             this.ariaLabel =
@@ -5278,9 +5176,7 @@ export class TableHeaderCheckbox {
         if (this.dt._selectAll !== null) {
             return this.dt._selectAll;
         } else {
-            const data = this.dt.selectionPageOnly
-                ? this.dt.dataToRender(this.dt.processedData)
-                : this.dt.processedData;
+            const data = this.dt.selectionPageOnly ? this.dt.dataToRender(this.dt.processedData) : this.dt.processedData;
             const val = this.dt.frozenValue ? [...this.dt.frozenValue, ...data] : data;
             const selectableVal = this.dt.rowSelectable
                 ? val.filter((data: any, index: number) => this.dt.rowSelectable({ data, index }))
@@ -5329,7 +5225,12 @@ export class ReorderableRow implements AfterViewInit {
 
     dropListener: VoidListener;
 
-    constructor(private renderer: Renderer2, public dt: Table, public el: ElementRef, public zone: NgZone) {}
+    constructor(
+        private renderer: Renderer2,
+        public dt: Table,
+        public el: ElementRef,
+        public zone: NgZone,
+    ) {}
 
     ngAfterViewInit() {
         if (this.isEnabled()) {
@@ -5340,27 +5241,15 @@ export class ReorderableRow implements AfterViewInit {
 
     bindEvents() {
         this.zone.runOutsideAngular(() => {
-            this.mouseDownListener = this.renderer.listen(
-                this.el.nativeElement,
-                'mousedown',
-                this.onMouseDown.bind(this),
-            );
+            this.mouseDownListener = this.renderer.listen(this.el.nativeElement, 'mousedown', this.onMouseDown.bind(this));
 
-            this.dragStartListener = this.renderer.listen(
-                this.el.nativeElement,
-                'dragstart',
-                this.onDragStart.bind(this),
-            );
+            this.dragStartListener = this.renderer.listen(this.el.nativeElement, 'dragstart', this.onDragStart.bind(this));
 
             this.dragEndListener = this.renderer.listen(this.el.nativeElement, 'dragend', this.onDragEnd.bind(this));
 
             this.dragOverListener = this.renderer.listen(this.el.nativeElement, 'dragover', this.onDragOver.bind(this));
 
-            this.dragLeaveListener = this.renderer.listen(
-                this.el.nativeElement,
-                'dragleave',
-                this.onDragLeave.bind(this),
-            );
+            this.dragLeaveListener = this.renderer.listen(this.el.nativeElement, 'dragleave', this.onDragLeave.bind(this));
         });
     }
 
@@ -5546,10 +5435,7 @@ export class ReorderableRow implements AfterViewInit {
                         ></p-select>
                     </div>
                     <div [ngClass]="cx('filterRuleList')">
-                        <div
-                            *ngFor="let fieldConstraint of fieldConstraints; let i = index"
-                            [ngClass]="cx('filterRule')"
-                        >
+                        <div *ngFor="let fieldConstraint of fieldConstraints; let i = index" [ngClass]="cx('filterRule')">
                             <p-select
                                 *ngIf="showMatchModes && matchModes"
                                 [options]="matchModes"
@@ -5632,10 +5518,7 @@ export class ReorderableRow implements AfterViewInit {
     `,
     animations: [
         trigger('overlayAnimation', [
-            transition(':enter', [
-                style({ opacity: 0, transform: 'scaleY(0.8)' }),
-                animate('.12s cubic-bezier(0, 0, 0.2, 1)'),
-            ]),
+            transition(':enter', [style({ opacity: 0, transform: 'scaleY(0.8)' }), animate('.12s cubic-bezier(0, 0, 0.2, 1)')]),
             transition(':leave', [animate('.1s linear', style({ opacity: 0 }))]),
         ]),
     ],
@@ -5882,12 +5765,7 @@ export class ColumnFilter extends BaseComponent implements AfterContentInit {
     }
 
     get isShowAddConstraint(): boolean | undefined | null {
-        return (
-            this.showAddButton &&
-            this.type !== 'boolean' &&
-            this.fieldConstraints &&
-            this.fieldConstraints.length < this.maxConstraints
-        );
+        return this.showAddButton && this.type !== 'boolean' && this.fieldConstraints && this.fieldConstraints.length < this.maxConstraints;
     }
 
     get showMenuButtonLabel() {
@@ -6100,9 +5978,7 @@ export class ColumnFilter extends BaseComponent implements AfterContentInit {
     }
 
     removeConstraint(filterMeta: FilterMetadata) {
-        this.dt.filters[<string>this.field] = (<FilterMetadata[]>this.dt.filters[<string>this.field]).filter(
-            (meta) => meta !== filterMeta,
-        );
+        this.dt.filters[<string>this.field] = (<FilterMetadata[]>this.dt.filters[<string>this.field]).filter((meta) => meta !== filterMeta);
         if (!this.showApplyButton) {
             this.dt._filter();
         }
@@ -6159,9 +6035,7 @@ export class ColumnFilter extends BaseComponent implements AfterContentInit {
         let nextItem = <HTMLLIElement>item.nextElementSibling;
 
         if (nextItem)
-            return DomHandler.hasClass(nextItem, 'p-datatable-filter-constraint-separator')
-                ? this.findNextItem(nextItem)
-                : nextItem;
+            return DomHandler.hasClass(nextItem, 'p-datatable-filter-constraint-separator') ? this.findNextItem(nextItem) : nextItem;
         else return item.parentElement?.firstElementChild;
     }
 
@@ -6169,9 +6043,7 @@ export class ColumnFilter extends BaseComponent implements AfterContentInit {
         let prevItem = <HTMLLIElement>item.previousElementSibling;
 
         if (prevItem)
-            return DomHandler.hasClass(prevItem, 'p-datatable-filter-constraint-separator')
-                ? this.findPrevItem(prevItem)
-                : prevItem;
+            return DomHandler.hasClass(prevItem, 'p-datatable-filter-constraint-separator') ? this.findPrevItem(prevItem) : prevItem;
         else return item.parentElement?.lastElementChild;
     }
 
@@ -6240,16 +6112,11 @@ export class ColumnFilter extends BaseComponent implements AfterContentInit {
     }
 
     getDefaultOperator(): string | undefined {
-        return this.dt.filters
-            ? (<FilterMetadata[]>this.dt.filters[<string>(<string>this.field)])[0].operator
-            : this.operator;
+        return this.dt.filters ? (<FilterMetadata[]>this.dt.filters[<string>(<string>this.field)])[0].operator : this.operator;
     }
 
     hasRowFilter() {
-        return (
-            this.dt.filters[<string>this.field] &&
-            !this.dt.isFilterBlank((<FilterMetadata>this.dt.filters[<string>this.field]).value)
-        );
+        return this.dt.filters[<string>this.field] && !this.dt.isFilterBlank((<FilterMetadata>this.dt.filters[<string>this.field]).value);
     }
 
     get hasFilter(): boolean {
@@ -6409,7 +6276,7 @@ export class ColumnFilter extends BaseComponent implements AfterContentInit {
                         currency: currency,
                         currencyDisplay: currencyDisplay,
                         useGrouping: useGrouping,
-                        showButtons: showButtons
+                        showButtons: showButtons,
                     }
                 "
             ></ng-container>
@@ -6505,7 +6372,10 @@ export class ColumnFilterFormElement implements OnInit {
 
     filterCallback: any;
 
-    constructor(public dt: Table, private colFilter: ColumnFilter) {}
+    constructor(
+        public dt: Table,
+        private colFilter: ColumnFilter,
+    ) {}
 
     ngOnInit() {
         this.filterCallback = (value: any) => {

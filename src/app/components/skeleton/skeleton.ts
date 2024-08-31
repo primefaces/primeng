@@ -9,13 +9,20 @@ import { SkeletonStyle } from './style/skeletonstyle';
  */
 @Component({
     selector: 'p-skeleton',
-    template: ` <div [ngClass]="containerClass()" [class]="styleClass" [ngStyle]="containerStyle" [attr.data-pc-name]="'skeleton'" [attr.aria-hidden]="true" [attr.data-pc-section]="'root'"></div> `,
+    template: `
+        <div
+            [ngClass]="containerClass()"
+            [class]="styleClass"
+            [ngStyle]="containerStyle"
+            [attr.data-pc-name]="'skeleton'"
+            [attr.aria-hidden]="true"
+            [attr.data-pc-section]="'root'"
+        ></div>
+    `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    host: {
-        class: 'p-element'
-    },
-    providers: [SkeletonStyle]
+
+    providers: [SkeletonStyle],
 })
 export class Skeleton extends BaseComponent {
     /**
@@ -65,7 +72,7 @@ export class Skeleton extends BaseComponent {
         return {
             'p-skeleton p-component': true,
             'p-skeleton-circle': this.shape === 'circle',
-            'p-skeleton-animation-none': this.animation === 'none'
+            'p-skeleton-animation-none': this.animation === 'none',
         };
     }
 
@@ -82,6 +89,6 @@ export class Skeleton extends BaseComponent {
 @NgModule({
     imports: [CommonModule],
     exports: [Skeleton],
-    declarations: [Skeleton]
+    declarations: [Skeleton],
 })
 export class SkeletonModule {}

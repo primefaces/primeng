@@ -1,5 +1,20 @@
 import { CommonModule } from '@angular/common';
-import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChildren, EventEmitter, Input, NgModule, Output, QueryList, TemplateRef, ViewEncapsulation, inject, booleanAttribute, SimpleChanges } from '@angular/core';
+import {
+    AfterContentInit,
+    ChangeDetectionStrategy,
+    Component,
+    ContentChildren,
+    EventEmitter,
+    Input,
+    NgModule,
+    Output,
+    QueryList,
+    TemplateRef,
+    ViewEncapsulation,
+    inject,
+    booleanAttribute,
+    SimpleChanges,
+} from '@angular/core';
 import { PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
 import { TimesCircleIcon } from 'primeng/icons/timescircle';
 import { ChipProps } from './chip.interface';
@@ -12,10 +27,20 @@ import { ChipStyle } from './style/chipstyle';
 @Component({
     selector: 'p-chip',
     template: `
-        <div [ngClass]="containerClass()" [class]="styleClass" [ngStyle]="style" *ngIf="visible" [attr.data-pc-name]="'chip'" [attr.aria-label]="label" [attr.data-pc-section]="'root'">
+        <div
+            [ngClass]="containerClass()"
+            [class]="styleClass"
+            [ngStyle]="style"
+            *ngIf="visible"
+            [attr.data-pc-name]="'chip'"
+            [attr.aria-label]="label"
+            [attr.data-pc-section]="'root'"
+        >
             <ng-content></ng-content>
             <img class="p-chip-image" [src]="image" *ngIf="image; else iconTemplate" (error)="imageError($event)" [alt]="alt" />
-            <ng-template #iconTemplate><span *ngIf="icon" [class]="icon" [ngClass]="'p-chip-icon'" [attr.data-pc-section]="'icon'"></span></ng-template>
+            <ng-template #iconTemplate
+                ><span *ngIf="icon" [class]="icon" [ngClass]="'p-chip-icon'" [attr.data-pc-section]="'icon'"></span
+            ></ng-template>
             <div class="p-chip-label" *ngIf="label" [attr.data-pc-section]="'label'">{{ label }}</div>
             <ng-container *ngIf="removable">
                 <ng-container *ngIf="!removeIconTemplate">
@@ -30,9 +55,27 @@ import { ChipStyle } from './style/chipstyle';
                         [attr.aria-label]="removeAriaLabel"
                         role="button"
                     ></span>
-                    <TimesCircleIcon tabindex="0" *ngIf="!removeIcon" [class]="'p-chip-remove-icon'" [attr.data-pc-section]="'removeicon'" (click)="close($event)" (keydown)="onKeydown($event)" [attr.aria-label]="removeAriaLabel" role="button" />
+                    <TimesCircleIcon
+                        tabindex="0"
+                        *ngIf="!removeIcon"
+                        [class]="'p-chip-remove-icon'"
+                        [attr.data-pc-section]="'removeicon'"
+                        (click)="close($event)"
+                        (keydown)="onKeydown($event)"
+                        [attr.aria-label]="removeAriaLabel"
+                        role="button"
+                    />
                 </ng-container>
-                <span *ngIf="removeIconTemplate" tabindex="0" [attr.data-pc-section]="'removeicon'" class="p-chip-remove-icon" (click)="close($event)" (keydown)="onKeydown($event)" [attr.aria-label]="removeAriaLabel" role="button">
+                <span
+                    *ngIf="removeIconTemplate"
+                    tabindex="0"
+                    [attr.data-pc-section]="'removeicon'"
+                    class="p-chip-remove-icon"
+                    (click)="close($event)"
+                    (keydown)="onKeydown($event)"
+                    [attr.aria-label]="removeAriaLabel"
+                    role="button"
+                >
                     <ng-template *ngTemplateOutlet="removeIconTemplate"></ng-template>
                 </span>
             </ng-container>
@@ -40,10 +83,8 @@ import { ChipStyle } from './style/chipstyle';
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    host: {
-        class: 'p-element'
-    },
-    providers: [ChipStyle]
+
+    providers: [ChipStyle],
 })
 export class Chip extends BaseComponent implements AfterContentInit {
     /**
@@ -176,7 +217,7 @@ export class Chip extends BaseComponent implements AfterContentInit {
 
     containerClass() {
         return {
-            'p-chip p-component': true
+            'p-chip p-component': true,
         };
     }
 
@@ -199,6 +240,6 @@ export class Chip extends BaseComponent implements AfterContentInit {
 @NgModule({
     imports: [CommonModule, TimesCircleIcon, SharedModule],
     exports: [Chip, SharedModule],
-    declarations: [Chip]
+    declarations: [Chip],
 })
 export class ChipModule {}

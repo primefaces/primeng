@@ -18,7 +18,7 @@ import {
     SimpleChanges,
     TemplateRef,
     ViewChild,
-    ViewEncapsulation
+    ViewEncapsulation,
 } from '@angular/core';
 import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
@@ -34,7 +34,7 @@ import { CheckboxStyle } from './style/checkboxstyle';
 export const CHECKBOX_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => Checkbox),
-    multi: true
+    multi: true,
 };
 /**
  * Checkbox is an extension to standard checkbox element with theming.
@@ -43,7 +43,14 @@ export const CHECKBOX_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-checkbox',
     template: `
-        <div [style]="style" [class]="styleClass" [ngClass]="containerClass" [attr.data-p-highlight]="checked" [attr.data-p-checked]="checked" [attr.data-p-disabled]="disabled">
+        <div
+            [style]="style"
+            [class]="styleClass"
+            [ngClass]="containerClass"
+            [attr.data-p-highlight]="checked"
+            [attr.data-p-checked]="checked"
+            [attr.data-p-disabled]="disabled"
+        >
             <input
                 #input
                 [attr.id]="inputId"
@@ -72,16 +79,15 @@ export const CHECKBOX_VALUE_ACCESSOR: any = {
                     </ng-container>
                     <MinusIcon *ngIf="_indeterminate()" [styleClass]="'p-checkbox-icon'" [attr.data-pc-section]="'icon'" />
                 </ng-container>
-                <ng-template *ngTemplateOutlet="checkboxIconTemplate; context: { checked: checked, class: 'p-checkbox-icon' }"></ng-template>
+                <ng-template
+                    *ngTemplateOutlet="checkboxIconTemplate; context: { checked: checked, class: 'p-checkbox-icon' }"
+                ></ng-template>
             </div>
         </div>
     `,
     providers: [CHECKBOX_VALUE_ACCESSOR, CheckboxStyle],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    host: {
-        class: 'p-element'
-    }
 })
 export class Checkbox extends BaseComponent implements ControlValueAccessor {
     /**
@@ -221,7 +227,7 @@ export class Checkbox extends BaseComponent implements ControlValueAccessor {
             'p-checkbox p-component': true,
             'p-checkbox-checked p-highlight': this.checked,
             'p-disabled': this.disabled,
-            'p-variant-filled': this.variant === 'filled' || this.config.inputStyle() === 'filled'
+            'p-variant-filled': this.variant === 'filled' || this.config.inputStyle() === 'filled',
         };
     }
 
@@ -269,7 +275,8 @@ export class Checkbox extends BaseComponent implements ControlValueAccessor {
         const currentModelValue = selfControl && !this.formControl ? selfControl.value : this.model;
 
         if (!this.binary) {
-            if (this.checked || this._indeterminate()) newModelValue = currentModelValue.filter((val) => !ObjectUtils.equals(val, this.value));
+            if (this.checked || this._indeterminate())
+                newModelValue = currentModelValue.filter((val) => !ObjectUtils.equals(val, this.value));
             else newModelValue = currentModelValue ? [...currentModelValue, this.value] : [this.value];
 
             this.onModelChange(newModelValue);
@@ -336,6 +343,6 @@ export class Checkbox extends BaseComponent implements ControlValueAccessor {
 @NgModule({
     imports: [CommonModule, AutoFocusModule, CheckIcon, MinusIcon],
     exports: [Checkbox, SharedModule],
-    declarations: [Checkbox]
+    declarations: [Checkbox],
 })
 export class CheckboxModule {}

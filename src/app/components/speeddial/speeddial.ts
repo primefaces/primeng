@@ -99,9 +99,7 @@ import { BaseComponent } from 'primeng/basecomponent';
                     [attr.data-pc-section]="'menuitem'"
                 >
                     <ng-container *ngIf="itemTemplate">
-                        <ng-container
-                            *ngTemplateOutlet="itemTemplate; context: { $implicit: item, index: i }"
-                        ></ng-container>
+                        <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: item, index: i }"></ng-container>
                     </ng-container>
                     <ng-container *ngIf="!itemTemplate">
                         <button
@@ -119,11 +117,7 @@ import { BaseComponent } from 'primeng/basecomponent';
                             [attr.data-pc-section]="'action'"
                             [attr.aria-label]="item.label"
                             [attr.tabindex]="
-                                item.disabled || (i !== activeIndex && readonly) || !visible
-                                    ? null
-                                    : item.tabindex
-                                    ? item.tabindex
-                                    : '0'
+                                item.disabled || (i !== activeIndex && readonly) || !visible ? null : item.tabindex ? item.tabindex : '0'
                             "
                         ></button>
                     </ng-container>
@@ -140,9 +134,6 @@ import { BaseComponent } from 'primeng/basecomponent';
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
 
-    host: {
-        class: 'p-element',
-    },
     providers: [SpeedDialStyle],
 })
 export class SpeedDial extends BaseComponent implements AfterViewInit, AfterContentInit, OnDestroy {
@@ -187,16 +178,7 @@ export class SpeedDial extends BaseComponent implements AfterViewInit, AfterCont
      * Specifies the opening direction of actions.
      * @gruop Props
      */
-    @Input() direction:
-        | 'up'
-        | 'down'
-        | 'left'
-        | 'right'
-        | 'up-left'
-        | 'up-right'
-        | 'down-left'
-        | 'down-right'
-        | undefined = 'up';
+    @Input() direction: 'up' | 'down' | 'left' | 'right' | 'up-left' | 'up-right' | 'down-left' | 'down-right' | undefined = 'up';
     /**
      * Transition delay step for each action item.
      * @group Props
@@ -606,9 +588,7 @@ export class SpeedDial extends BaseComponent implements AfterViewInit, AfterCont
     findPrevOptionIndex(index) {
         const items = DomHandler.find(this.container.nativeElement, '[data-pc-section="menuitem"]');
 
-        const filteredItems = [...items].filter(
-            (item) => !DomHandler.hasClass(DomHandler.findSingle(item, 'a'), 'p-disabled'),
-        );
+        const filteredItems = [...items].filter((item) => !DomHandler.hasClass(DomHandler.findSingle(item, 'a'), 'p-disabled'));
         const newIndex = index === -1 ? filteredItems[filteredItems.length - 1].id : index;
         let matchedOptionIndex = filteredItems.findIndex((link) => link.getAttribute('id') === newIndex);
 
@@ -619,9 +599,7 @@ export class SpeedDial extends BaseComponent implements AfterViewInit, AfterCont
 
     findNextOptionIndex(index) {
         const items = DomHandler.find(this.container.nativeElement, '[data-pc-section="menuitem"]');
-        const filteredItems = [...items].filter(
-            (item) => !DomHandler.hasClass(DomHandler.findSingle(item, 'a'), 'p-disabled'),
-        );
+        const filteredItems = [...items].filter((item) => !DomHandler.hasClass(DomHandler.findSingle(item, 'a'), 'p-disabled'));
         const newIndex = index === -1 ? filteredItems[0].id : index;
         let matchedOptionIndex = filteredItems.findIndex((link) => link.getAttribute('id') === newIndex);
 
@@ -632,9 +610,7 @@ export class SpeedDial extends BaseComponent implements AfterViewInit, AfterCont
 
     changeFocusedOptionIndex(index) {
         const items = DomHandler.find(this.container.nativeElement, '[data-pc-section="menuitem"]');
-        const filteredItems = [...items].filter(
-            (item) => !DomHandler.hasClass(DomHandler.findSingle(item, 'a'), 'p-disabled'),
-        );
+        const filteredItems = [...items].filter((item) => !DomHandler.hasClass(DomHandler.findSingle(item, 'a'), 'p-disabled'));
 
         if (filteredItems[index]) {
             this.focusedOptionIndex.set(filteredItems[index].getAttribute('id'));

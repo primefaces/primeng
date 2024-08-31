@@ -23,7 +23,7 @@ import {
     forwardRef,
     inject,
     numberAttribute,
-    signal
+    signal,
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { MenuItem, OverlayService, PrimeTemplate, SharedModule } from 'primeng/api';
@@ -89,7 +89,12 @@ import { BadgeModule } from 'primeng/badge';
                     pTooltip
                     [tooltipOptions]="getItemProp(processedItem, 'tooltipOptions')"
                 >
-                    <div [attr.data-pc-section]="'content'" class="p-contextmenu-item-content" (click)="onItemClick($event, processedItem)" (mouseenter)="onItemMouseEnter({ $event, processedItem })">
+                    <div
+                        [attr.data-pc-section]="'content'"
+                        class="p-contextmenu-item-content"
+                        (click)="onItemClick($event, processedItem)"
+                        (mouseenter)="onItemMouseEnter({ $event, processedItem })"
+                    >
                         <ng-container *ngIf="!itemTemplate">
                             <a
                                 *ngIf="!getItemProp(processedItem, 'routerLink')"
@@ -112,16 +117,40 @@ import { BadgeModule } from 'primeng/badge';
                                     [attr.tabindex]="-1"
                                 >
                                 </span>
-                                <span *ngIf="getItemProp(processedItem, 'escape'); else htmlLabel" class="p-contextmenu-item-label" [attr.data-pc-section]="'label'">
+                                <span
+                                    *ngIf="getItemProp(processedItem, 'escape'); else htmlLabel"
+                                    class="p-contextmenu-item-label"
+                                    [attr.data-pc-section]="'label'"
+                                >
                                     {{ getItemLabel(processedItem) }}
                                 </span>
                                 <ng-template #htmlLabel>
-                                    <span class="p-contextmenu-item-label" [innerHTML]="getItemLabel(processedItem)" [attr.data-pc-section]="'label'"></span>
+                                    <span
+                                        class="p-contextmenu-item-label"
+                                        [innerHTML]="getItemLabel(processedItem)"
+                                        [attr.data-pc-section]="'label'"
+                                    ></span>
                                 </ng-template>
-                                <p-badge *ngIf="getItemProp(processedItem, 'badge')" [styleClass]="getItemProp(processedItem, 'badgeStyleClass')" [value]="getItemProp(processedItem, 'badge')" />
+                                <p-badge
+                                    *ngIf="getItemProp(processedItem, 'badge')"
+                                    [styleClass]="getItemProp(processedItem, 'badgeStyleClass')"
+                                    [value]="getItemProp(processedItem, 'badge')"
+                                />
                                 <ng-container *ngIf="isItemGroup(processedItem)">
-                                    <AngleRightIcon *ngIf="!contextMenu.submenuIconTemplate" [class]="'p-contextmenu-submenu-icon'" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" />
-                                    <ng-template *ngTemplateOutlet="contextMenu.submenuIconTemplate; context: { class: 'p-contextmenu-submenu-icon' }" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true"></ng-template>
+                                    <AngleRightIcon
+                                        *ngIf="!contextMenu.submenuIconTemplate"
+                                        [class]="'p-contextmenu-submenu-icon'"
+                                        [attr.data-pc-section]="'submenuicon'"
+                                        [attr.aria-hidden]="true"
+                                    />
+                                    <ng-template
+                                        *ngTemplateOutlet="
+                                            contextMenu.submenuIconTemplate;
+                                            context: { class: 'p-contextmenu-submenu-icon' }
+                                        "
+                                        [attr.data-pc-section]="'submenuicon'"
+                                        [attr.aria-hidden]="true"
+                                    ></ng-template>
                                 </ng-container>
                             </a>
                             <a
@@ -153,16 +182,40 @@ import { BadgeModule } from 'primeng/badge';
                                     [attr.tabindex]="-1"
                                 >
                                 </span>
-                                <span *ngIf="getItemProp(processedItem, 'escape'); else htmlLabel" class="p-contextmenu-item-label" [attr.data-pc-section]="'label'">
+                                <span
+                                    *ngIf="getItemProp(processedItem, 'escape'); else htmlLabel"
+                                    class="p-contextmenu-item-label"
+                                    [attr.data-pc-section]="'label'"
+                                >
                                     {{ getItemLabel(processedItem) }}
                                 </span>
                                 <ng-template #htmlLabel>
-                                    <span class="p-contextmenu-item-label" [innerHTML]="getItemLabel(processedItem)" [attr.data-pc-section]="'label'"></span>
+                                    <span
+                                        class="p-contextmenu-item-label"
+                                        [innerHTML]="getItemLabel(processedItem)"
+                                        [attr.data-pc-section]="'label'"
+                                    ></span>
                                 </ng-template>
-                                <p-badge *ngIf="getItemProp(processedItem, 'badge')" [styleClass]="getItemProp(processedItem, 'badgeStyleClass')" [value]="getItemProp(processedItem, 'badge')" />
+                                <p-badge
+                                    *ngIf="getItemProp(processedItem, 'badge')"
+                                    [styleClass]="getItemProp(processedItem, 'badgeStyleClass')"
+                                    [value]="getItemProp(processedItem, 'badge')"
+                                />
                                 <ng-container *ngIf="isItemGroup(processedItem)">
-                                    <AngleRightIcon *ngIf="!contextMenu.submenuIconTemplate" [class]="'p-contextmenu-submenu-icon'" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" />
-                                    <ng-template *ngTemplateOutlet="contextMenu.submenuIconTemplate; context: { class: 'p-contextmenu-submenu-icon' }" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true"></ng-template>
+                                    <AngleRightIcon
+                                        *ngIf="!contextMenu.submenuIconTemplate"
+                                        [class]="'p-contextmenu-submenu-icon'"
+                                        [attr.data-pc-section]="'submenuicon'"
+                                        [attr.aria-hidden]="true"
+                                    />
+                                    <ng-template
+                                        *ngTemplateOutlet="
+                                            contextMenu.submenuIconTemplate;
+                                            context: { class: 'p-contextmenu-submenu-icon' }
+                                        "
+                                        [attr.data-pc-section]="'submenuicon'"
+                                        [attr.aria-hidden]="true"
+                                    ></ng-template>
                                 </ng-container>
                             </a>
                         </ng-container>
@@ -187,11 +240,10 @@ import { BadgeModule } from 'primeng/badge';
             </ng-template>
         </ul>
     `,
-    animations: [trigger('overlayAnimation', [transition(':enter', [style({ opacity: 0 })]), transition(':leave', [style({ opacity: 0 })])])],
+    animations: [
+        trigger('overlayAnimation', [transition(':enter', [style({ opacity: 0 })]), transition(':leave', [style({ opacity: 0 })])]),
+    ],
     encapsulation: ViewEncapsulation.None,
-    host: {
-        class: 'p-element'
-    }
 })
 export class ContextMenuSub extends BaseComponent {
     @Input({ transform: booleanAttribute }) visible: boolean = false;
@@ -256,7 +308,7 @@ export class ContextMenuSub extends BaseComponent {
             'p-contextmenu-item': true,
             'p-contextmenu-item-active': this.isItemActive(processedItem),
             'p-focus': this.isItemFocused(processedItem),
-            'p-disabled': this.isItemDisabled(processedItem)
+            'p-disabled': this.isItemDisabled(processedItem),
         };
     }
 
@@ -267,16 +319,23 @@ export class ContextMenuSub extends BaseComponent {
     getSeparatorItemClass(processedItem: any) {
         return {
             ...this.getItemProp(processedItem, 'class'),
-            'p-contextmenu-separator': true
+            'p-contextmenu-separator': true,
         };
     }
 
     getAriaSetSize() {
-        return this.items.filter((processedItem) => this.isItemVisible(processedItem) && !this.getItemProp(processedItem, 'separator')).length;
+        return this.items.filter((processedItem) => this.isItemVisible(processedItem) && !this.getItemProp(processedItem, 'separator'))
+            .length;
     }
 
     getAriaPosInset(index: number) {
-        return index - this.items.slice(0, index).filter((processedItem) => this.isItemVisible(processedItem) && this.getItemProp(processedItem, 'separator')).length + 1;
+        return (
+            index -
+            this.items
+                .slice(0, index)
+                .filter((processedItem) => this.isItemVisible(processedItem) && this.getItemProp(processedItem, 'separator')).length +
+            1
+        );
     }
 
     isItemVisible(processedItem: any): boolean {
@@ -376,10 +435,15 @@ export class ContextMenuSub extends BaseComponent {
             ></p-contextMenuSub>
         </div>
     `,
-    animations: [trigger('overlayAnimation', [transition(':enter', [style({ opacity: 0 }), animate('250ms')]), transition(':leave', [animate('.1s linear', style({ opacity: 0 }))])])],
+    animations: [
+        trigger('overlayAnimation', [
+            transition(':enter', [style({ opacity: 0 }), animate('250ms')]),
+            transition(':leave', [animate('.1s linear', style({ opacity: 0 }))]),
+        ]),
+    ],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    providers: [ContextMenuStyle]
+    providers: [ContextMenuStyle],
 })
 export class ContextMenu extends BaseComponent implements OnInit, AfterContentInit, OnDestroy {
     /**
@@ -533,7 +597,11 @@ export class ContextMenu extends BaseComponent implements OnInit, AfterContentIn
 
     get focusedItemId() {
         const focusedItem = this.focusedItemInfo();
-        return focusedItem.item && focusedItem.item?.id ? focusedItem.item.id : focusedItem.index !== -1 ? `${this.id}${ObjectUtils.isNotEmpty(focusedItem.parentKey) ? '_' + focusedItem.parentKey : ''}_${focusedItem.index}` : null;
+        return focusedItem.item && focusedItem.item?.id
+            ? focusedItem.item.id
+            : focusedItem.index !== -1
+              ? `${this.id}${ObjectUtils.isNotEmpty(focusedItem.parentKey) ? '_' + focusedItem.parentKey : ''}_${focusedItem.index}`
+              : null;
     }
 
     constructor(public overlayService: OverlayService) {
@@ -591,7 +659,13 @@ export class ContextMenu extends BaseComponent implements OnInit, AfterContentIn
                 const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : 'document';
 
                 this.documentClickListener = this.renderer.listen(documentTarget, 'click', (event) => {
-                    if (this.containerViewChild.nativeElement.offsetParent && this.isOutsideClicked(event) && !event.ctrlKey && event.button !== 2 && this.triggerEvent !== 'click') {
+                    if (
+                        this.containerViewChild.nativeElement.offsetParent &&
+                        this.isOutsideClicked(event) &&
+                        !event.ctrlKey &&
+                        event.button !== 2 &&
+                        this.triggerEvent !== 'click'
+                    ) {
                         this.hide();
                     }
                 });
@@ -638,7 +712,7 @@ export class ContextMenu extends BaseComponent implements OnInit, AfterContentIn
                     level,
                     key,
                     parent,
-                    parentKey
+                    parentKey,
                 };
 
                 newItem['items'] = this.createProcessedItems(item.items, level + 1, newItem, key);
@@ -685,7 +759,10 @@ export class ContextMenu extends BaseComponent implements OnInit, AfterContentIn
     }
 
     isItemMatched(processedItem: any): boolean {
-        return this.isValidItem(processedItem) && this.getProccessedItemLabel(processedItem).toLocaleLowerCase().startsWith(this.searchValue.toLocaleLowerCase());
+        return (
+            this.isValidItem(processedItem) &&
+            this.getProccessedItemLabel(processedItem).toLocaleLowerCase().startsWith(this.searchValue.toLocaleLowerCase())
+        );
     }
 
     isProccessedItemGroup(processedItem: any): boolean {
@@ -775,7 +852,8 @@ export class ContextMenu extends BaseComponent implements OnInit, AfterContentIn
     }
 
     onArrowDownKey(event: KeyboardEvent) {
-        const itemIndex = this.focusedItemInfo().index !== -1 ? this.findNextItemIndex(this.focusedItemInfo().index) : this.findFirstFocusedItemIndex();
+        const itemIndex =
+            this.focusedItemInfo().index !== -1 ? this.findNextItemIndex(this.focusedItemInfo().index) : this.findFirstFocusedItemIndex();
 
         this.changeFocusedItemIndex(event, itemIndex);
         event.preventDefault();
@@ -807,7 +885,10 @@ export class ContextMenu extends BaseComponent implements OnInit, AfterContentIn
             this.hide();
             event.preventDefault();
         } else {
-            const itemIndex = this.focusedItemInfo().index !== -1 ? this.findPrevItemIndex(this.focusedItemInfo().index) : this.findLastFocusedItemIndex();
+            const itemIndex =
+                this.focusedItemInfo().index !== -1
+                    ? this.findPrevItemIndex(this.focusedItemInfo().index)
+                    : this.findLastFocusedItemIndex();
 
             this.changeFocusedItemIndex(event, itemIndex);
             event.preventDefault();
@@ -904,7 +985,8 @@ export class ContextMenu extends BaseComponent implements OnInit, AfterContentIn
 
     onMenuFocus(event: any) {
         this.focused = true;
-        const focusedItemInfo = this.focusedItemInfo().index !== -1 ? this.focusedItemInfo() : { index: -1, level: 0, parentKey: '', item: null };
+        const focusedItemInfo =
+            this.focusedItemInfo().index !== -1 ? this.focusedItemInfo() : { index: -1, level: 0, parentKey: '', item: null };
 
         this.focusedItemInfo.set(focusedItemInfo);
     }
@@ -1001,8 +1083,12 @@ export class ContextMenu extends BaseComponent implements OnInit, AfterContentIn
     position() {
         let left = this.pageX + 1;
         let top = this.pageY + 1;
-        let width = this.containerViewChild.nativeElement.offsetParent ? this.containerViewChild.nativeElement.offsetWidth : DomHandler.getHiddenElementOuterWidth(this.containerViewChild.nativeElement);
-        let height = this.containerViewChild.nativeElement.offsetParent ? this.containerViewChild.nativeElement.offsetHeight : DomHandler.getHiddenElementOuterHeight(this.containerViewChild.nativeElement);
+        let width = this.containerViewChild.nativeElement.offsetParent
+            ? this.containerViewChild.nativeElement.offsetWidth
+            : DomHandler.getHiddenElementOuterWidth(this.containerViewChild.nativeElement);
+        let height = this.containerViewChild.nativeElement.offsetParent
+            ? this.containerViewChild.nativeElement.offsetHeight
+            : DomHandler.getHiddenElementOuterHeight(this.containerViewChild.nativeElement);
         let viewport = DomHandler.getViewport();
 
         //flip
@@ -1036,8 +1122,15 @@ export class ContextMenu extends BaseComponent implements OnInit, AfterContentIn
         let matched = false;
 
         if (this.focusedItemInfo().index !== -1) {
-            itemIndex = this.visibleItems.slice(this.focusedItemInfo().index).findIndex((processedItem) => this.isItemMatched(processedItem));
-            itemIndex = itemIndex === -1 ? this.visibleItems.slice(0, this.focusedItemInfo().index).findIndex((processedItem) => this.isItemMatched(processedItem)) : itemIndex + this.focusedItemInfo().index;
+            itemIndex = this.visibleItems
+                .slice(this.focusedItemInfo().index)
+                .findIndex((processedItem) => this.isItemMatched(processedItem));
+            itemIndex =
+                itemIndex === -1
+                    ? this.visibleItems
+                          .slice(0, this.focusedItemInfo().index)
+                          .findIndex((processedItem) => this.isItemMatched(processedItem))
+                    : itemIndex + this.focusedItemInfo().index;
         } else {
             itemIndex = this.visibleItems.findIndex((processedItem) => this.isItemMatched(processedItem));
         }
@@ -1080,13 +1173,19 @@ export class ContextMenu extends BaseComponent implements OnInit, AfterContentIn
     }
 
     findPrevItemIndex(index: number) {
-        const matchedItemIndex = index > 0 ? ObjectUtils.findLastIndex(this.visibleItems.slice(0, index), (processedItem) => this.isValidItem(processedItem)) : -1;
+        const matchedItemIndex =
+            index > 0
+                ? ObjectUtils.findLastIndex(this.visibleItems.slice(0, index), (processedItem) => this.isValidItem(processedItem))
+                : -1;
 
         return matchedItemIndex > -1 ? matchedItemIndex : index;
     }
 
     findNextItemIndex(index: number) {
-        const matchedItemIndex = index < this.visibleItems.length - 1 ? this.visibleItems.slice(index + 1).findIndex((processedItem) => this.isValidItem(processedItem)) : -1;
+        const matchedItemIndex =
+            index < this.visibleItems.length - 1
+                ? this.visibleItems.slice(index + 1).findIndex((processedItem) => this.isValidItem(processedItem))
+                : -1;
 
         return matchedItemIndex > -1 ? matchedItemIndex + index + 1 : index;
     }
@@ -1134,7 +1233,9 @@ export class ContextMenu extends BaseComponent implements OnInit, AfterContentIn
     }
 
     isOutsideClicked(event: Event) {
-        return !(this.containerViewChild.nativeElement.isSameNode(event.target) || this.containerViewChild.nativeElement.contains(event.target));
+        return !(
+            this.containerViewChild.nativeElement.isSameNode(event.target) || this.containerViewChild.nativeElement.contains(event.target)
+        );
     }
 
     unbindResizeListener() {
@@ -1194,6 +1295,6 @@ export class ContextMenu extends BaseComponent implements OnInit, AfterContentIn
 @NgModule({
     imports: [CommonModule, RouterModule, RippleModule, TooltipModule, AngleRightIcon, SharedModule, BadgeModule],
     exports: [ContextMenu, RouterModule, TooltipModule, SharedModule],
-    declarations: [ContextMenu, ContextMenuSub]
+    declarations: [ContextMenu, ContextMenuSub],
 })
 export class ContextMenuModule {}

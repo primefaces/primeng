@@ -1,5 +1,21 @@
 import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { AfterViewInit, ChangeDetectorRef, ContentChild, Directive, ElementRef, EmbeddedViewRef, EventEmitter, Inject, NgModule, OnDestroy, Output, PLATFORM_ID, Renderer2, TemplateRef, ViewContainerRef } from '@angular/core';
+import {
+    AfterViewInit,
+    ChangeDetectorRef,
+    ContentChild,
+    Directive,
+    ElementRef,
+    EmbeddedViewRef,
+    EventEmitter,
+    Inject,
+    NgModule,
+    OnDestroy,
+    Output,
+    PLATFORM_ID,
+    Renderer2,
+    TemplateRef,
+    ViewContainerRef,
+} from '@angular/core';
 import { Nullable } from 'primeng/ts-helpers';
 /**
  * Defer postpones the loading the content that is initially not in the viewport until it becomes visible on scroll.
@@ -7,9 +23,6 @@ import { Nullable } from 'primeng/ts-helpers';
  */
 @Directive({
     selector: '[pDefer]',
-    host: {
-        class: 'p-element'
-    }
 })
 export class DeferredLoader implements AfterViewInit, OnDestroy {
     /**
@@ -33,7 +46,7 @@ export class DeferredLoader implements AfterViewInit, OnDestroy {
         public el: ElementRef,
         public renderer: Renderer2,
         public viewContainer: ViewContainerRef,
-        private cd: ChangeDetectorRef
+        private cd: ChangeDetectorRef,
     ) {
         this.window = this.document.defaultView as Window;
     }
@@ -90,6 +103,6 @@ export class DeferredLoader implements AfterViewInit, OnDestroy {
 @NgModule({
     imports: [CommonModule],
     exports: [DeferredLoader],
-    declarations: [DeferredLoader]
+    declarations: [DeferredLoader],
 })
 export class DeferModule {}

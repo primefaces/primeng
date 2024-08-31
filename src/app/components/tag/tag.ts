@@ -1,5 +1,17 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, Input, NgModule, QueryList, TemplateRef, ViewEncapsulation, booleanAttribute, inject } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    ContentChildren,
+    Input,
+    NgModule,
+    QueryList,
+    TemplateRef,
+    ViewEncapsulation,
+    booleanAttribute,
+    inject,
+} from '@angular/core';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { TagStyle } from './style/tagstyle';
@@ -24,10 +36,8 @@ import { TagStyle } from './style/tagstyle';
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    host: {
-        class: 'p-element'
-    },
-    providers: [TagStyle]
+
+    providers: [TagStyle],
 })
 export class Tag extends BaseComponent {
     /**
@@ -90,7 +100,7 @@ export class Tag extends BaseComponent {
         return {
             'p-tag p-component': true,
             [`p-tag-${this.severity}`]: this.severity,
-            'p-tag-rounded': this.rounded
+            'p-tag-rounded': this.rounded,
         };
     }
 }
@@ -98,6 +108,6 @@ export class Tag extends BaseComponent {
 @NgModule({
     imports: [CommonModule, SharedModule],
     exports: [Tag, SharedModule],
-    declarations: [Tag]
+    declarations: [Tag],
 })
 export class TagModule {}

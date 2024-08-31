@@ -1,5 +1,20 @@
 import { CommonModule, DOCUMENT } from '@angular/common';
-import { AfterViewInit, ChangeDetectionStrategy, Component, Directive, ElementRef, Inject, Input, NgModule, Renderer2, OnChanges, SimpleChanges, ViewEncapsulation, booleanAttribute, inject } from '@angular/core';
+import {
+    AfterViewInit,
+    ChangeDetectionStrategy,
+    Component,
+    Directive,
+    ElementRef,
+    Inject,
+    Input,
+    NgModule,
+    Renderer2,
+    OnChanges,
+    SimpleChanges,
+    ViewEncapsulation,
+    booleanAttribute,
+    inject,
+} from '@angular/core';
 import { SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
@@ -12,10 +27,8 @@ import { BadgeStyle } from './style/badgestyle';
  */
 @Directive({
     selector: '[pBadge]',
-    host: {
-        class: 'p-element'
-    },
-    providers: [BadgeStyle]
+
+    providers: [BadgeStyle],
 })
 export class BadgeDirective extends BaseComponent implements OnChanges, AfterViewInit {
     /**
@@ -217,7 +230,7 @@ export class BadgeDirective extends BaseComponent implements OnChanges, AfterVie
     template: ` <span *ngIf="!badgeDisabled" [ngClass]="containerClass()" [class]="styleClass" [ngStyle]="style">{{ value }}</span> `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    providers: [BadgeStyle]
+    providers: [BadgeStyle],
 })
 export class Badge extends BaseComponent {
     /**
@@ -274,7 +287,7 @@ export class Badge extends BaseComponent {
             'p-badge-xl': this.badgeSize === 'xlarge' || this.size === 'xlarge',
             'p-badge-sm': this.badgeSize === 'small' || this.size === 'small',
             'p-badge-dot': ObjectUtils.isEmpty(this.value),
-            [`p-badge-${this.severity}`]: this.severity
+            [`p-badge-${this.severity}`]: this.severity,
         };
     }
 }
@@ -282,6 +295,6 @@ export class Badge extends BaseComponent {
 @NgModule({
     imports: [CommonModule],
     exports: [Badge, BadgeDirective, SharedModule],
-    declarations: [Badge, BadgeDirective]
+    declarations: [Badge, BadgeDirective],
 })
 export class BadgeModule {}

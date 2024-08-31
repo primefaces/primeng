@@ -19,7 +19,7 @@ import {
     OnDestroy,
     booleanAttribute,
     numberAttribute,
-    inject
+    inject,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ObjectUtils } from 'primeng/utils';
@@ -31,7 +31,13 @@ import { SpinnerIcon } from 'primeng/icons/spinner';
 import { ThLargeIcon } from 'primeng/icons/thlarge';
 import { BarsIcon } from 'primeng/icons/bars';
 import { Nullable } from 'primeng/ts-helpers';
-import { DataViewLayoutChangeEvent, DataViewLazyLoadEvent, DataViewPageEvent, DataViewPaginatorState, DataViewSortEvent } from './dataview.interface';
+import {
+    DataViewLayoutChangeEvent,
+    DataViewLazyLoadEvent,
+    DataViewPageEvent,
+    DataViewPaginatorState,
+    DataViewSortEvent,
+} from './dataview.interface';
 import { DataViewStyle } from './style/dataviewstyle';
 import { BaseComponent } from 'primeng/basecomponent';
 /**
@@ -41,7 +47,11 @@ import { BaseComponent } from 'primeng/basecomponent';
 @Component({
     selector: 'p-dataView',
     template: `
-        <div [ngClass]="{ 'p-dataview p-component': true, 'p-dataview-list': layout === 'list', 'p-dataview-grid': layout === 'grid' }" [ngStyle]="style" [class]="styleClass">
+        <div
+            [ngClass]="{ 'p-dataview p-component': true, 'p-dataview-list': layout === 'list', 'p-dataview-grid': layout === 'grid' }"
+            [ngStyle]="style"
+            [class]="styleClass"
+        >
             <div class="p-dataview-loading" *ngIf="loading">
                 <div class="p-dataview-loading-overlay p-component-overlay">
                     <i *ngIf="loadingIcon" [class]="'p-dataview-loading-icon pi-spin ' + loadingIcon"></i>
@@ -79,7 +89,16 @@ import { BaseComponent } from 'primeng/basecomponent';
             ></p-paginator>
 
             <div class="p-dataview-content">
-                <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: paginator ? (filteredValue || value | slice: (lazy ? 0 : first) : (lazy ? 0 : first) + rows) : filteredValue || value }"></ng-container>
+                <ng-container
+                    *ngTemplateOutlet="
+                        itemTemplate;
+                        context: {
+                            $implicit: paginator
+                                ? (filteredValue || value | slice: (lazy ? 0 : first) : (lazy ? 0 : first) + rows)
+                                : filteredValue || value,
+                        }
+                    "
+                ></ng-container>
 
                 <div *ngIf="isEmpty() && !loading">
                     <div class="p-dataview-emptymessage">
@@ -120,7 +139,7 @@ import { BaseComponent } from 'primeng/basecomponent';
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    providers:[DataViewStyle]
+    providers: [DataViewStyle],
 })
 export class DataView extends BaseComponent implements OnInit, AfterContentInit, OnDestroy, BlockableUI, OnChanges {
     /**
@@ -364,13 +383,13 @@ export class DataView extends BaseComponent implements OnInit, AfterContentInit,
         public el: ElementRef,
         public cd: ChangeDetectorRef,
         public filterService: FilterService,
-        public config: PrimeNGConfig
+        public config: PrimeNGConfig,
     ) {
-        super()
+        super();
     }
 
     ngOnInit() {
-        super.ngOnInit()
+        super.ngOnInit();
         if (this.lazy && this.lazyLoadOnInit) {
             this.onLazyLoad.emit(this.createLazyLoadMetadata());
         }
@@ -382,7 +401,7 @@ export class DataView extends BaseComponent implements OnInit, AfterContentInit,
     }
 
     ngOnChanges(simpleChanges: SimpleChanges) {
-        super.ngOnChanges(simpleChanges)
+        super.ngOnChanges(simpleChanges);
         if (simpleChanges.value) {
             this._value = simpleChanges.value.currentValue;
             this.updateTotalRecords();
@@ -469,7 +488,7 @@ export class DataView extends BaseComponent implements OnInit, AfterContentInit,
     changeLayout(layout: 'list' | 'grid') {
         this._layout = layout;
         this.onChangeLayout.emit({
-            layout: this.layout
+            layout: this.layout,
         });
         this.updateItemTemplate();
 
@@ -490,7 +509,7 @@ export class DataView extends BaseComponent implements OnInit, AfterContentInit,
 
         this.onPage.emit({
             first: <number>this.first,
-            rows: <number>this.rows
+            rows: <number>this.rows,
         });
     }
 
@@ -521,7 +540,7 @@ export class DataView extends BaseComponent implements OnInit, AfterContentInit,
 
         this.onSort.emit({
             sortField: <string>this.sortField,
-            sortOrder: <number>this.sortOrder
+            sortOrder: <number>this.sortOrder,
         });
     }
 
@@ -535,7 +554,7 @@ export class DataView extends BaseComponent implements OnInit, AfterContentInit,
             first: <number>this.first,
             rows: <number>this.rows,
             sortField: <string>this.sortField,
-            sortOrder: <number>this.sortOrder
+            sortOrder: <number>this.sortOrder,
         };
     }
 
@@ -571,7 +590,7 @@ export class DataView extends BaseComponent implements OnInit, AfterContentInit,
         if (this.translationSubscription) {
             this.translationSubscription.unsubscribe();
         }
-        super.ngOnDestroy()
+        super.ngOnDestroy();
     }
 }
 
@@ -579,19 +598,28 @@ export class DataView extends BaseComponent implements OnInit, AfterContentInit,
     selector: 'p-dataViewLayoutOptions',
     template: `
         <div [ngClass]="'p-dataview-layout-options p-selectbutton p-buttonset'" [ngStyle]="style" [class]="styleClass">
-            <button type="button" class="p-button p-button-icon-only" [ngClass]="{ 'p-highlight': dv.layout === 'list' }" (click)="changeLayout($event, 'list')" (keydown.enter)="changeLayout($event, 'list')">
+            <button
+                type="button"
+                class="p-button p-button-icon-only"
+                [ngClass]="{ 'p-highlight': dv.layout === 'list' }"
+                (click)="changeLayout($event, 'list')"
+                (keydown.enter)="changeLayout($event, 'list')"
+            >
                 <BarsIcon *ngIf="!dv.listIconTemplate" />
                 <ng-template *ngTemplateOutlet="dv.listIconTemplate"></ng-template></button
-            ><button type="button" class="p-button p-button-icon-only" [ngClass]="{ 'p-highlight': dv.layout === 'grid' }" (click)="changeLayout($event, 'grid')" (keydown.enter)="changeLayout($event, 'grid')">
+            ><button
+                type="button"
+                class="p-button p-button-icon-only"
+                [ngClass]="{ 'p-highlight': dv.layout === 'grid' }"
+                (click)="changeLayout($event, 'grid')"
+                (keydown.enter)="changeLayout($event, 'grid')"
+            >
                 <ThLargeIcon *ngIf="!dv.gridIconTemplate" />
                 <ng-template *ngTemplateOutlet="dv.gridIconTemplate"></ng-template>
             </button>
         </div>
     `,
     encapsulation: ViewEncapsulation.None,
-    host: {
-        class: 'p-element'
-    }
 })
 export class DataViewLayoutOptions {
     @Input() style: { [klass: string]: any } | null | undefined;
@@ -608,6 +636,6 @@ export class DataViewLayoutOptions {
 @NgModule({
     imports: [CommonModule, SharedModule, PaginatorModule, SpinnerIcon, BarsIcon, ThLargeIcon],
     exports: [DataView, SharedModule, DataViewLayoutOptions],
-    declarations: [DataView, DataViewLayoutOptions]
+    declarations: [DataView, DataViewLayoutOptions],
 })
 export class DataViewModule {}

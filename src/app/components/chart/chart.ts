@@ -1,4 +1,19 @@
-import { NgModule, Component, ElementRef, AfterViewInit, OnDestroy, Input, Output, EventEmitter, ChangeDetectionStrategy, ViewEncapsulation, Inject, PLATFORM_ID, NgZone, booleanAttribute } from '@angular/core';
+import {
+    NgModule,
+    Component,
+    ElementRef,
+    AfterViewInit,
+    OnDestroy,
+    Input,
+    Output,
+    EventEmitter,
+    ChangeDetectionStrategy,
+    ViewEncapsulation,
+    Inject,
+    PLATFORM_ID,
+    NgZone,
+    booleanAttribute,
+} from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import Chart from 'chart.js/auto';
 /**
@@ -8,15 +23,23 @@ import Chart from 'chart.js/auto';
 @Component({
     selector: 'p-chart',
     template: `
-        <div style="position:relative" [style.width]="responsive && !width ? null : width" [style.height]="responsive && !height ? null : height">
-            <canvas role="img" [attr.aria-label]="ariaLabel" [attr.aria-labelledby]="ariaLabelledBy" [attr.width]="responsive && !width ? null : width" [attr.height]="responsive && !height ? null : height" (click)="onCanvasClick($event)"></canvas>
+        <div
+            style="position:relative"
+            [style.width]="responsive && !width ? null : width"
+            [style.height]="responsive && !height ? null : height"
+        >
+            <canvas
+                role="img"
+                [attr.aria-label]="ariaLabel"
+                [attr.aria-labelledby]="ariaLabelledBy"
+                [attr.width]="responsive && !width ? null : width"
+                [attr.height]="responsive && !height ? null : height"
+                (click)="onCanvasClick($event)"
+            ></canvas>
         </div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    host: {
-        class: 'p-element'
-    }
 })
 export class UIChart implements AfterViewInit, OnDestroy {
     /**
@@ -95,7 +118,7 @@ export class UIChart implements AfterViewInit, OnDestroy {
     constructor(
         @Inject(PLATFORM_ID) private platformId: any,
         public el: ElementRef,
-        private zone: NgZone
+        private zone: NgZone,
     ) {}
 
     ngAfterViewInit() {
@@ -129,7 +152,7 @@ export class UIChart implements AfterViewInit, OnDestroy {
                     type: this.type,
                     data: this.data,
                     options: this.options,
-                    plugins: this.plugins
+                    plugins: this.plugins,
                 });
             });
         }
@@ -174,6 +197,6 @@ export class UIChart implements AfterViewInit, OnDestroy {
 @NgModule({
     imports: [CommonModule],
     exports: [UIChart],
-    declarations: [UIChart]
+    declarations: [UIChart],
 })
 export class ChartModule {}

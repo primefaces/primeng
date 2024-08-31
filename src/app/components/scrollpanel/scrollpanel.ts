@@ -1,5 +1,22 @@
 import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { AfterContentInit, AfterViewInit, ChangeDetectionStrategy, Component, ContentChildren, ElementRef, Input, NgModule, NgZone, OnDestroy, QueryList, TemplateRef, ViewChild, ViewEncapsulation, inject, numberAttribute } from '@angular/core';
+import {
+    AfterContentInit,
+    AfterViewInit,
+    ChangeDetectionStrategy,
+    Component,
+    ContentChildren,
+    ElementRef,
+    Input,
+    NgModule,
+    NgZone,
+    OnDestroy,
+    QueryList,
+    TemplateRef,
+    ViewChild,
+    ViewEncapsulation,
+    inject,
+    numberAttribute,
+} from '@angular/core';
 import { PrimeTemplate } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { Nullable } from 'primeng/ts-helpers';
@@ -16,7 +33,13 @@ import { ScrollPanelStyle } from './style/scrollpanelstyle';
     template: `
         <div #container [ngClass]="'p-scrollpanel p-component'" [ngStyle]="style" [class]="styleClass" [attr.data-pc-name]="'scrollpanel'">
             <div class="p-scrollpanel-content-container" [attr.data-pc-section]="'wrapper'">
-                <div #content class="p-scrollpanel-content" [attr.data-pc-section]="'content'" (mouseenter)="moveBar()" (scroll)="onScroll($event)">
+                <div
+                    #content
+                    class="p-scrollpanel-content"
+                    [attr.data-pc-section]="'content'"
+                    (mouseenter)="moveBar()"
+                    (scroll)="onScroll($event)"
+                >
                     <ng-content></ng-content>
                     <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
                 </div>
@@ -54,10 +77,8 @@ import { ScrollPanelStyle } from './style/scrollpanelstyle';
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    host: {
-        class: 'p-element'
-    },
-    providers: [ScrollPanelStyle]
+
+    providers: [ScrollPanelStyle],
 })
 export class ScrollPanel extends BaseComponent implements AfterViewInit, AfterContentInit, OnDestroy {
     /**
@@ -149,10 +170,26 @@ export class ScrollPanel extends BaseComponent implements AfterViewInit, AfterCo
                 this.onDocumentMouseUp = this.onDocumentMouseUp.bind(this);
 
                 this.windowResizeListener = this.renderer.listen(window, 'resize', this.moveBar);
-                this.contentScrollListener = this.renderer.listen((this.contentViewChild as ElementRef).nativeElement, 'scroll', this.moveBar);
-                this.mouseEnterListener = this.renderer.listen((this.contentViewChild as ElementRef).nativeElement, 'mouseenter', this.moveBar);
-                this.xBarMouseDownListener = this.renderer.listen((this.xBarViewChild as ElementRef).nativeElement, 'mousedown', this.onXBarMouseDown);
-                this.yBarMouseDownListener = this.renderer.listen((this.yBarViewChild as ElementRef).nativeElement, 'mousedown', this.onYBarMouseDown);
+                this.contentScrollListener = this.renderer.listen(
+                    (this.contentViewChild as ElementRef).nativeElement,
+                    'scroll',
+                    this.moveBar,
+                );
+                this.mouseEnterListener = this.renderer.listen(
+                    (this.contentViewChild as ElementRef).nativeElement,
+                    'mouseenter',
+                    this.moveBar,
+                );
+                this.xBarMouseDownListener = this.renderer.listen(
+                    (this.xBarViewChild as ElementRef).nativeElement,
+                    'mousedown',
+                    this.onXBarMouseDown,
+                );
+                this.yBarMouseDownListener = this.renderer.listen(
+                    (this.yBarViewChild as ElementRef).nativeElement,
+                    'mousedown',
+                    this.onYBarMouseDown,
+                );
                 this.calculateContainerHeight();
 
                 this.initialized = true;
@@ -188,7 +225,13 @@ export class ScrollPanel extends BaseComponent implements AfterViewInit, AfterCo
             if (content.offsetHeight + parseInt(xBarStyles['height'], 10) > parseInt(containerStyles['max-height'], 10)) {
                 container.style.height = containerStyles['max-height'];
             } else {
-                container.style.height = content.offsetHeight + parseFloat(containerStyles.paddingTop) + parseFloat(containerStyles.paddingBottom) + parseFloat(containerStyles.borderTopWidth) + parseFloat(containerStyles.borderBottomWidth) + 'px';
+                container.style.height =
+                    content.offsetHeight +
+                    parseFloat(containerStyles.paddingTop) +
+                    parseFloat(containerStyles.paddingBottom) +
+                    parseFloat(containerStyles.borderTopWidth) +
+                    parseFloat(containerStyles.borderBottomWidth) +
+                    'px';
             }
         }
     }
@@ -233,7 +276,8 @@ export class ScrollPanel extends BaseComponent implements AfterViewInit, AfterCo
                 DomHandler.removeClass(yBar, 'p-scrollpanel-hidden');
                 const yBarHeight = Math.max((this.scrollYRatio as number) * 100, 10);
                 const yBarTop = (content.scrollTop * (100 - yBarHeight)) / (totalHeight - ownHeight);
-                yBar.style.cssText = 'height:' + yBarHeight + '%; top: calc(' + yBarTop + '% - ' + xBar.clientHeight + 'px);right:' + right + 'px;';
+                yBar.style.cssText =
+                    'height:' + yBarHeight + '%; top: calc(' + yBarTop + '% - ' + xBar.clientHeight + 'px);right:' + right + 'px;';
             }
         });
         this.cd.markForCheck();
@@ -418,7 +462,9 @@ export class ScrollPanel extends BaseComponent implements AfterViewInit, AfterCo
      * @group Method
      */
     scrollTop(scrollTop: number) {
-        let scrollableHeight = (this.contentViewChild as ElementRef).nativeElement.scrollHeight - (this.contentViewChild as ElementRef).nativeElement.clientHeight;
+        let scrollableHeight =
+            (this.contentViewChild as ElementRef).nativeElement.scrollHeight -
+            (this.contentViewChild as ElementRef).nativeElement.clientHeight;
         scrollTop = scrollTop > scrollableHeight ? scrollableHeight : scrollTop > 0 ? scrollTop : 0;
         (this.contentViewChild as ElementRef).nativeElement.scrollTop = scrollTop;
     }
@@ -499,6 +545,6 @@ export class ScrollPanel extends BaseComponent implements AfterViewInit, AfterCo
 @NgModule({
     imports: [CommonModule],
     exports: [ScrollPanel],
-    declarations: [ScrollPanel]
+    declarations: [ScrollPanel],
 })
 export class ScrollPanelModule {}

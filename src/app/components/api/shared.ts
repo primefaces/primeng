@@ -3,19 +3,18 @@ import { Component, Directive, Input, NgModule, TemplateRef } from '@angular/cor
 
 @Component({
     selector: 'p-header',
-    template: '<ng-content></ng-content>'
+    template: '<ng-content></ng-content>',
 })
 export class Header {}
 
 @Component({
     selector: 'p-footer',
-    template: '<ng-content></ng-content>'
+    template: '<ng-content></ng-content>',
 })
 export class Footer {}
 
 @Directive({
     selector: '[pTemplate]',
-    host: {}
 })
 export class PrimeTemplate {
     @Input() type: string | undefined;
@@ -32,6 +31,6 @@ export class PrimeTemplate {
 @NgModule({
     imports: [CommonModule],
     exports: [Header, Footer, PrimeTemplate],
-    declarations: [Header, Footer, PrimeTemplate]
+    declarations: [Header, Footer, PrimeTemplate],
 })
 export class SharedModule {}

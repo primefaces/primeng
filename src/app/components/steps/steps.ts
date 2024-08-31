@@ -1,5 +1,20 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, NgModule, OnDestroy, OnInit, Output, ViewChild, ViewEncapsulation, booleanAttribute, numberAttribute } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    ElementRef,
+    EventEmitter,
+    Input,
+    NgModule,
+    OnDestroy,
+    OnInit,
+    Output,
+    ViewChild,
+    ViewEncapsulation,
+    booleanAttribute,
+    numberAttribute,
+} from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { DomHandler } from 'primeng/dom';
 import { Nullable } from 'primeng/ts-helpers';
@@ -13,7 +28,12 @@ import { Subscription } from 'rxjs';
 @Component({
     selector: 'p-steps',
     template: `
-        <nav [ngClass]="{ 'p-steps p-component': true, 'p-readonly': readonly }" [ngStyle]="style" [class]="styleClass" [attr.data-pc-name]="'steps'">
+        <nav
+            [ngClass]="{ 'p-steps p-component': true, 'p-readonly': readonly }"
+            [ngStyle]="style"
+            [class]="styleClass"
+            [attr.data-pc-name]="'steps'"
+        >
             <ul #list [attr.data-pc-section]="'menu'">
                 <li
                     *ngFor="let item of model; let i = index"
@@ -25,7 +45,10 @@ import { Subscription } from 'rxjs';
                     [attr.id]="item.id"
                     pTooltip
                     [tooltipOptions]="item.tooltipOptions"
-                    [ngClass]="{ 'p-highlight p-steps-current': isActive(item, i), 'p-disabled': item.disabled || (readonly && !isActive(item, i)) }"
+                    [ngClass]="{
+                        'p-highlight p-steps-current': isActive(item, i),
+                        'p-disabled': item.disabled || (readonly && !isActive(item, i)),
+                    }"
                     [attr.data-pc-section]="'menuitem'"
                 >
                     <a
@@ -79,9 +102,6 @@ import { Subscription } from 'rxjs';
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./steps.css'],
-    host: {
-        class: 'p-element'
-    }
 })
 export class Steps implements OnInit, OnDestroy {
     /**
@@ -126,7 +146,7 @@ export class Steps implements OnInit, OnDestroy {
     constructor(
         private router: Router,
         private route: ActivatedRoute,
-        private cd: ChangeDetectorRef
+        private cd: ChangeDetectorRef,
     ) {}
 
     subscription: Subscription | undefined;
@@ -151,7 +171,7 @@ export class Steps implements OnInit, OnDestroy {
             item.command({
                 originalEvent: event,
                 item: item,
-                index: i
+                index: i,
             });
         }
     }
@@ -284,6 +304,6 @@ export class Steps implements OnInit, OnDestroy {
 @NgModule({
     imports: [CommonModule, RouterModule, TooltipModule],
     exports: [Steps, RouterModule, TooltipModule],
-    declarations: [Steps]
+    declarations: [Steps],
 })
 export class StepsModule {}
