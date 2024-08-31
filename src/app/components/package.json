@@ -18,12 +18,12 @@
     "module": "primeng.js",
     "typings": "primeng.d.ts",
     "dependencies": {
-        "@primeuix/styled": "0.0.5"
+        "@primeuix/styled": "0.0.6"
     },
     "peerDependencies": {
-        "@angular/common": "^17.0.0",
-        "@angular/core": "^17.0.0",
-        "@angular/forms": "^17.0.0",
+        "@angular/core": "^17.0.0 || ^18.0.0",
+        "@angular/common": "^17.0.0 || ^18.0.0",
+        "@angular/forms": "^17.0.0 || ^18.0.0",
         "rxjs": "^6.0.0 || ^7.8.1",
         "zone.js": "~0.14.0"
     }
