@@ -177,8 +177,8 @@ const theme = ({ dt }) => `
     border-radius: ${dt('datatable.filter.constraint.border.radius')};
     cursor: pointer;
     transition: background ${dt('datatable.transition.duration')}, color ${dt(
-    'datatable.transition.duration',
-)}, border-color ${dt('datatable.transition.duration')},
+        'datatable.transition.duration',
+    )}, border-color ${dt('datatable.transition.duration')},
         box-shadow ${dt('datatable.transition.duration')};
 }
 
@@ -312,8 +312,8 @@ const theme = ({ dt }) => `
     font-weight: ${dt('datatable.column.title.font.weight')};
     text-align: left;
     transition: background ${dt('datatable.transition.duration')}, color ${dt(
-    'datatable.transition.duration',
-)}, border-color ${dt('datatable.transition.duration')},
+        'datatable.transition.duration',
+    )}, border-color ${dt('datatable.transition.duration')},
             outline-color ${dt('datatable.transition.duration')}, box-shadow ${dt('datatable.transition.duration')};
 }
 
@@ -328,8 +328,8 @@ const theme = ({ dt }) => `
     background: ${dt('datatable.row.background')};
     color: ${dt('datatable.row.color')};
     transition: background ${dt('datatable.transition.duration')}, color ${dt(
-    'datatable.transition.duration',
-)}, border-color ${dt('datatable.transition.duration')},
+        'datatable.transition.duration',
+    )}, border-color ${dt('datatable.transition.duration')},
             outline-color ${dt('datatable.transition.duration')}, box-shadow ${dt('datatable.transition.duration')};
 }
 
@@ -363,8 +363,8 @@ const theme = ({ dt }) => `
 .p-datatable-tbody > tr.p-datatable-contextmenu-row-selected {
     box-shadow: ${dt('datatable.body.cell.focus.ring.shadow')};
     outline: ${dt('datatable.body.cell.focus.ring.width')} ${dt('datatable.body.cell.focus.ring.style')} ${dt(
-    'datatable.body.cell.focus.ring.color',
-)};
+        'datatable.body.cell.focus.ring.color',
+    )};
     outline-offset: ${dt('datatable.body.cell.focus.ring.offset')};
 }
 
@@ -420,8 +420,8 @@ const theme = ({ dt }) => `
 .p-datatable-sortable-column:focus-visible {
     box-shadow: ${dt('datatable.header.cell.focus.ring.shadow')};
     outline: ${dt('datatable.header.cell.focus.ring.width')} ${dt('datatable.header.cell.focus.ring.style')} ${dt(
-    'datatable.header.cell.focus.ring.color',
-)};
+        'datatable.header.cell.focus.ring.color',
+    )};
     outline-offset: ${dt('datatable.header.cell.focus.ring.offset')};
 }
 
@@ -578,8 +578,8 @@ p-datatable-gridlines .p-datatable-tbody > tr:last-child > td {
     cursor: pointer;
     border-radius: ${dt('datatable.row.toggle.button.border.radius')};
     transition: background ${dt('datatable.transition.duration')}, color ${dt(
-    'datatable.transition.duration',
-)}, border-color ${dt('datatable.transition.duration')},
+        'datatable.transition.duration',
+    )}, border-color ${dt('datatable.transition.duration')},
             outline-color ${dt('datatable.transition.duration')}, box-shadow ${dt('datatable.transition.duration')};
     outline-color: transparent;
     user-select: none;
@@ -598,10 +598,40 @@ p-datatable-gridlines .p-datatable-tbody > tr:last-child > td {
 .p-datatable-row-toggle-button:focus-visible {
     box-shadow: ${dt('datatable.row.toggle.button.focus.ring.shadow')};
     outline: ${dt('datatable.row.toggle.button.focus.ring.width')} ${dt(
-    'datatable.row.toggle.button.focus.ring.style',
-)} ${dt('datatable.row.toggle.button.focus.ring.color')};
+        'datatable.row.toggle.button.focus.ring.style',
+    )} ${dt('datatable.row.toggle.button.focus.ring.color')};
     outline-offset: ${dt('datatable.row.toggle.button.focus.ring.offset')};
 }
+
+  .p-component-overlay {
+    background-color: rgba(0, 0, 0, 0.4);
+    transition-duration: 0.2s;
+  }
+    
+ .p-component-overlay-enter {
+    animation: p-component-overlay-enter-animation 150ms forwards;
+  }
+
+  .p-component-overlay-leave {
+    animation: p-component-overlay-leave-animation 150ms forwards;
+  }
+
+  @keyframes p-component-overlay-enter-animation {
+    from {
+      background-color: transparent;
+    }
+    to {
+      background-color: var(--maskbg);
+    }
+  }
+  @keyframes p-component-overlay-leave-animation {
+    from {
+      background-color: var(--maskbg);
+    }
+    to {
+      background-color: transparent;
+    }
+  }
 `;
 
 const classes = {
