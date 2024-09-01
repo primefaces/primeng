@@ -180,6 +180,39 @@ button {
         transform: rotate(359deg);
     }
 }
+
+.p-component-overlay {
+    background-color: rgba(0, 0, 0, 0.4);
+    transition-duration: 0.2s;
+}
+
+.p-component-overlay-enter {
+    animation: p-component-overlay-enter-animation 150ms forwards;
+}
+
+.p-component-overlay-leave {
+    animation: p-component-overlay-leave-animation 150ms forwards;
+}
+
+@keyframes p-component-overlay-enter-animation {
+    from {
+        background-color: transparent;
+    }
+
+    to {
+        background-color: var(--maskbg);
+    }
+}
+
+@keyframes p-component-overlay-leave-animation {
+    from {
+        background-color: var(--maskbg);
+    }
+
+    to {
+        background-color: transparent;
+    }
+}
 `;
 
 const classes = {};
