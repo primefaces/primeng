@@ -28,7 +28,7 @@ import {
     ViewEncapsulation,
     booleanAttribute,
     inject,
-    numberAttribute
+    numberAttribute,
 } from '@angular/core';
 import { PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
@@ -55,14 +55,17 @@ import { BaseComponent } from 'primeng/basecomponent';
             <div
                 *ngIf="maskVisible"
                 #mask
-                [ngClass]="{ 'p-galleria-mask p-overlay-mask p-overlay-mask-enter': true}"
+                [ngClass]="{ 'p-galleria-mask p-overlay-mask p-overlay-mask-enter': true }"
                 [class]="maskClass"
                 [attr.role]="fullScreen ? 'dialog' : 'region'"
                 [attr.aria-modal]="fullScreen ? 'true' : undefined"
             >
                 <p-galleriaContent
                     *ngIf="visible"
-                    [@animation]="{ value: 'visible', params: { showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions } }"
+                    [@animation]="{
+                        value: 'visible',
+                        params: { showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions },
+                    }"
                     (@animation.start)="onAnimationStart($event)"
                     (@animation.done)="onAnimationEnd($event)"
                     [value]="value"
@@ -77,18 +80,23 @@ import { BaseComponent } from 'primeng/basecomponent';
         </div>
 
         <ng-template #windowed>
-            <p-galleriaContent [value]="value" [activeIndex]="activeIndex" [numVisible]="numVisibleLimit || numVisible" (activeItemChange)="onActiveItemChange($event)"></p-galleriaContent>
+            <p-galleriaContent
+                [value]="value"
+                [activeIndex]="activeIndex"
+                [numVisible]="numVisibleLimit || numVisible"
+                (activeItemChange)="onActiveItemChange($event)"
+            ></p-galleriaContent>
         </ng-template>
     `,
     animations: [
         trigger('animation', [
             transition('void => visible', [style({ transform: 'scale(0.7)', opacity: 0 }), animate('{{showTransitionParams}}')]),
-            transition('visible => void', [animate('{{hideTransitionParams}}', style({ transform: 'scale(0.7)', opacity: 0 }))])
-        ])
+            transition('visible => void', [animate('{{hideTransitionParams}}', style({ transform: 'scale(0.7)', opacity: 0 }))]),
+        ]),
     ],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    providers: [GalleriaStyle]
+    providers: [GalleriaStyle],
 })
 export class Galleria extends BaseComponent implements OnChanges, OnDestroy {
     /**
@@ -288,7 +296,12 @@ export class Galleria extends BaseComponent implements OnChanges, OnDestroy {
 
     _componentStyle = inject(GalleriaStyle);
 
-    constructor(@Inject(PLATFORM_ID) public platformId: any, public element: ElementRef, public cd: ChangeDetectorRef, public config: PrimeNGConfig) {
+    constructor(
+        @Inject(PLATFORM_ID) public platformId: any,
+        public element: ElementRef,
+        public cd: ChangeDetectorRef,
+        public config: PrimeNGConfig,
+    ) {
         super();
     }
 
@@ -335,7 +348,7 @@ export class Galleria extends BaseComponent implements OnChanges, OnDestroy {
     }
 
     ngOnChanges(simpleChanges: SimpleChanges) {
-        super.ngOnChanges(simpleChanges)
+        super.ngOnChanges(simpleChanges);
         if (simpleChanges.value && simpleChanges.value.currentValue?.length < this.numVisible) {
             this.numVisibleLimit = simpleChanges.value.currentValue.length;
         } else {
@@ -365,7 +378,7 @@ export class Galleria extends BaseComponent implements OnChanges, OnDestroy {
                 break;
 
             case 'void':
-                DomHandler.addClass(this.mask?.nativeElement, 'p-component-overlay-leave');
+                DomHandler.addClass(this.mask?.nativeElement, 'p-overlay-mask-leave');
                 break;
         }
     }
@@ -419,14 +432,21 @@ export class Galleria extends BaseComponent implements OnChanges, OnDestroy {
                 'p-galleria p-component': true,
                 'p-galleria-fullscreen': this.galleria.fullScreen,
                 'p-galleria-inset-indicators': this.galleria.showIndicatorsOnItem,
-                'p-galleria-hover-navigators': this.galleria.showItemNavigatorsOnHover && !this.galleria.fullScreen
+                'p-galleria-hover-navigators': this.galleria.showItemNavigatorsOnHover && !this.galleria.fullScreen,
             }"
             [ngStyle]="!galleria.fullScreen ? galleria.containerStyle : {}"
             [class]="galleriaClass()"
             pFocusTrap
             [pFocusTrapDisabled]="!fullScreen"
         >
-            <button *ngIf="galleria.fullScreen" type="button" class="p-galleria-close-button" (click)="maskHide.emit()" [attr.aria-label]="closeAriaLabel()" [attr.data-pc-section]="'closebutton'">
+            <button
+                *ngIf="galleria.fullScreen"
+                type="button"
+                class="p-galleria-close-button"
+                (click)="maskHide.emit()"
+                [attr.aria-label]="closeAriaLabel()"
+                [attr.data-pc-section]="'closebutton'"
+            >
                 <TimesIcon *ngIf="!galleria.closeIconTemplate" [styleClass]="'p-galleria-close-icon'" />
                 <ng-template *ngTemplateOutlet="galleria.closeIconTemplate"></ng-template>
             </button>
@@ -474,7 +494,7 @@ export class Galleria extends BaseComponent implements OnChanges, OnDestroy {
             </div>
         </div>
     `,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GalleriaContent implements DoCheck {
     @Input() get activeIndex(): number {
@@ -508,7 +528,13 @@ export class GalleriaContent implements DoCheck {
 
     private differ: any;
 
-    constructor(public galleria: Galleria, public cd: ChangeDetectorRef, private differs: KeyValueDiffers, public config: PrimeNGConfig, private elementRef: ElementRef) {
+    constructor(
+        public galleria: Galleria,
+        public cd: ChangeDetectorRef,
+        private differs: KeyValueDiffers,
+        public config: PrimeNGConfig,
+        private elementRef: ElementRef,
+    ) {
         this.id = this.galleria.id || UniqueComponentId();
         this.differ = this.differs.find(this.galleria).create();
     }
@@ -537,10 +563,16 @@ export class GalleriaContent implements DoCheck {
     }
 
     galleriaClass() {
-        const thumbnailsPosClass = this.galleria.showThumbnails && this.getPositionClass('p-galleria-thumbnails', this.galleria.thumbnailsPosition as string);
-        const indicatorPosClass = this.galleria.showIndicators && this.getPositionClass('p-galleria-indicators', this.galleria.indicatorsPosition as string);
+        const thumbnailsPosClass =
+            this.galleria.showThumbnails && this.getPositionClass('p-galleria-thumbnails', this.galleria.thumbnailsPosition as string);
+        const indicatorPosClass =
+            this.galleria.showIndicators && this.getPositionClass('p-galleria-indicators', this.galleria.indicatorsPosition as string);
 
-        return (this.galleria.containerClass ? this.galleria.containerClass + ' ' : '') + (thumbnailsPosClass ? thumbnailsPosClass + ' ' : '') + (indicatorPosClass ? indicatorPosClass + ' ' : '');
+        return (
+            (this.galleria.containerClass ? this.galleria.containerClass + ' ' : '') +
+            (thumbnailsPosClass ? thumbnailsPosClass + ' ' : '') +
+            (indicatorPosClass ? indicatorPosClass + ' ' : '')
+        );
     }
 
     startSlideShow() {
@@ -597,7 +629,7 @@ export class GalleriaContent implements DoCheck {
             <ng-container *ngTemplateOutlet="contentTemplate; context: context"></ng-container>
         </ng-container>
     `,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GalleriaItemSlot {
     @Input() templates: QueryList<PrimeTemplate> | undefined;
@@ -678,8 +710,19 @@ export class GalleriaItemSlot {
                     <ChevronLeftIcon *ngIf="!galleria.itemPreviousIconTemplate" [styleClass]="'p-galleria-prev-icon'" />
                     <ng-template *ngTemplateOutlet="galleria.itemPreviousIconTemplate"></ng-template>
                 </button>
-                <div [id]="id + '_item_' + activeIndex" role="group" class="p-galleria-item" [attr.aria-label]="ariaSlideNumber(activeIndex + 1)" [attr.aria-roledescription]="ariaSlideLabel()">
-                    <p-galleriaItemSlot type="item" [item]="activeItem" [templates]="templates" class="p-galleria-item"></p-galleriaItemSlot>
+                <div
+                    [id]="id + '_item_' + activeIndex"
+                    role="group"
+                    class="p-galleria-item"
+                    [attr.aria-label]="ariaSlideNumber(activeIndex + 1)"
+                    [attr.aria-roledescription]="ariaSlideLabel()"
+                >
+                    <p-galleriaItemSlot
+                        type="item"
+                        [item]="activeItem"
+                        [templates]="templates"
+                        class="p-galleria-item"
+                    ></p-galleriaItemSlot>
                 </div>
                 <button
                     *ngIf="showItemNavigators"
@@ -716,7 +759,7 @@ export class GalleriaItemSlot {
             </ul>
         </div>
     `,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GalleriaItem implements OnChanges {
     @Input() id: string | undefined;
@@ -873,11 +916,15 @@ export class GalleriaItem implements OnChanges {
     }
 
     ariaSlideNumber(value) {
-        return this.galleria.config.translation.aria ? this.galleria.config.translation.aria.slideNumber.replace(/{slideNumber}/g, value) : undefined;
+        return this.galleria.config.translation.aria
+            ? this.galleria.config.translation.aria.slideNumber.replace(/{slideNumber}/g, value)
+            : undefined;
     }
 
     ariaPageLabel(value) {
-        return this.galleria.config.translation.aria ? this.galleria.config.translation.aria.pageLabel.replace(/{page}/g, value) : undefined;
+        return this.galleria.config.translation.aria
+            ? this.galleria.config.translation.aria.pageLabel.replace(/{page}/g, value)
+            : undefined;
     }
 }
 
@@ -889,7 +936,10 @@ export class GalleriaItem implements OnChanges {
                 <button
                     *ngIf="showThumbnailNavigators"
                     type="button"
-                    [ngClass]="{ 'p-galleria-thumbnail-prev-button p-galleria-thumbnail-nav-button': true, 'p-disabled': this.isNavBackwardDisabled() }"
+                    [ngClass]="{
+                        'p-galleria-thumbnail-prev-button p-galleria-thumbnail-nav-button': true,
+                        'p-disabled': this.isNavBackwardDisabled(),
+                    }"
                     (click)="navBackward($event)"
                     [disabled]="isNavBackwardDisabled()"
                     pRipple
@@ -902,7 +952,14 @@ export class GalleriaItem implements OnChanges {
                     <ng-template *ngTemplateOutlet="galleria.previousThumbnailIconTemplate"></ng-template>
                 </button>
                 <div class="p-galleria-thumbnails-viewport" [ngStyle]="{ height: isVertical ? contentHeight : '' }">
-                    <div #itemsContainer class="p-galleria-thumbnail-items" (transitionend)="onTransitionEnd()" (touchstart)="onTouchStart($event)" (touchmove)="onTouchMove($event)" role="tablist">
+                    <div
+                        #itemsContainer
+                        class="p-galleria-thumbnail-items"
+                        (transitionend)="onTransitionEnd()"
+                        (touchstart)="onTouchStart($event)"
+                        (touchmove)="onTouchMove($event)"
+                        role="tablist"
+                    >
                         <div
                             *ngFor="let item of value; let index = index"
                             [ngClass]="{
@@ -910,7 +967,7 @@ export class GalleriaItem implements OnChanges {
                                 'p-galleria-thumbnail-item-current': activeIndex === index,
                                 'p-galleria-thumbnail-item-active': isItemActive(index),
                                 'p-galleria-thumbnail-item-start': firstItemAciveIndex() === index,
-                                'p-galleria-thumbnail-item-end': lastItemActiveIndex() === index
+                                'p-galleria-thumbnail-item-end': lastItemActiveIndex() === index,
                             }"
                             [attr.aria-selected]="activeIndex === index"
                             [attr.aria-controls]="containerId + '_item_' + index"
@@ -935,7 +992,10 @@ export class GalleriaItem implements OnChanges {
                 <button
                     *ngIf="showThumbnailNavigators"
                     type="button"
-                    [ngClass]="{ 'p-galleria-thumbnail-next-button p-galleria-thumbnail-nav-button': true, 'p-disabled': this.isNavForwardDisabled() }"
+                    [ngClass]="{
+                        'p-galleria-thumbnail-next-button p-galleria-thumbnail-nav-button': true,
+                        'p-disabled': this.isNavForwardDisabled(),
+                    }"
                     (click)="navForward($event)"
                     [disabled]="isNavForwardDisabled()"
                     pRipple
@@ -950,7 +1010,7 @@ export class GalleriaItem implements OnChanges {
             </div>
         </div>
     `,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GalleriaThumbnails implements OnInit, AfterContentChecked, AfterViewInit, OnDestroy {
     @Input() containerId: string | undefined;
@@ -1020,7 +1080,13 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, AfterVie
 
     _oldactiveIndex: number = 0;
 
-    constructor(public galleria: Galleria, @Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, private renderer: Renderer2, private cd: ChangeDetectorRef) {}
+    constructor(
+        public galleria: Galleria,
+        @Inject(DOCUMENT) private document: Document,
+        @Inject(PLATFORM_ID) private platformId: any,
+        private renderer: Renderer2,
+        private cd: ChangeDetectorRef,
+    ) {}
 
     ngOnInit() {
         if (isPlatformBrowser(this.platformId)) {
@@ -1051,7 +1117,9 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, AfterVie
             }
 
             if (this.itemsContainer && this.itemsContainer.nativeElement) {
-                this.itemsContainer.nativeElement.style.transform = this.isVertical ? `translate3d(0, ${totalShiftedItems * (100 / this.d_numVisible)}%, 0)` : `translate3d(${totalShiftedItems * (100 / this.d_numVisible)}%, 0, 0)`;
+                this.itemsContainer.nativeElement.style.transform = this.isVertical
+                    ? `translate3d(0, ${totalShiftedItems * (100 / this.d_numVisible)}%, 0)`
+                    : `translate3d(${totalShiftedItems * (100 / this.d_numVisible)}%, 0, 0)`;
             }
 
             if (this._oldactiveIndex !== this._activeIndex) {
@@ -1092,7 +1160,8 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, AfterVie
                 if (value1 == null && value2 != null) result = -1;
                 else if (value1 != null && value2 == null) result = 1;
                 else if (value1 == null && value2 == null) result = 0;
-                else if (typeof value1 === 'string' && typeof value2 === 'string') result = value1.localeCompare(value2, undefined, { numeric: true });
+                else if (typeof value1 === 'string' && typeof value2 === 'string')
+                    result = value1.localeCompare(value2, undefined, { numeric: true });
                 else result = value1 < value2 ? -1 : value1 > value2 ? 1 : 0;
 
                 return -1 * result;
@@ -1120,7 +1189,7 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, AfterVie
             if (this.itemsContainer && this.sortedResponsiveOptions) {
                 let windowWidth = window.innerWidth;
                 let matchedResponsiveData = {
-                    numVisible: this._numVisible
+                    numVisible: this._numVisible,
                 };
 
                 for (let i = 0; i < this.sortedResponsiveOptions.length; i++) {
@@ -1147,7 +1216,10 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, AfterVie
         this.stopTheSlideShow();
 
         let nextItemIndex = this._activeIndex + 1;
-        if (nextItemIndex + this.totalShiftedItems > this.getMedianItemIndex() && (-1 * this.totalShiftedItems < this.getTotalPageNumber() - 1 || this.circular)) {
+        if (
+            nextItemIndex + this.totalShiftedItems > this.getMedianItemIndex() &&
+            (-1 * this.totalShiftedItems < this.getTotalPageNumber() - 1 || this.circular)
+        ) {
             this.step(-1);
         }
 
@@ -1279,7 +1351,10 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, AfterVie
 
     findFocusedIndicatorIndex() {
         const indicators = [...DomHandler.find(this.itemsContainer.nativeElement, '[data-pc-section="thumbnailitem"]')];
-        const activeIndicator = DomHandler.findSingle(this.itemsContainer.nativeElement, '[data-pc-section="thumbnailitem"] > [tabindex="0"]');
+        const activeIndicator = DomHandler.findSingle(
+            this.itemsContainer.nativeElement,
+            '[data-pc-section="thumbnailitem"] > [tabindex="0"]',
+        );
 
         return indicators.findIndex((ind) => ind === activeIndicator.parentElement);
     }
@@ -1311,7 +1386,9 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, AfterVie
 
         if (this.itemsContainer) {
             DomHandler.removeClass(this.itemsContainer.nativeElement, 'p-items-hidden');
-            this.itemsContainer.nativeElement.style.transform = this.isVertical ? `translate3d(0, ${totalShiftedItems * (100 / this.d_numVisible)}%, 0)` : `translate3d(${totalShiftedItems * (100 / this.d_numVisible)}%, 0, 0)`;
+            this.itemsContainer.nativeElement.style.transform = this.isVertical
+                ? `translate3d(0, ${totalShiftedItems * (100 / this.d_numVisible)}%, 0)`
+                : `translate3d(${totalShiftedItems * (100 / this.d_numVisible)}%, 0, 0)`;
             this.itemsContainer.nativeElement.style.transition = 'transform 500ms ease 0s';
         }
 
@@ -1372,7 +1449,7 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, AfterVie
 
         this.startPos = {
             x: touchobj.pageX,
-            y: touchobj.pageY
+            y: touchobj.pageY,
         };
     }
 
@@ -1431,13 +1508,25 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, AfterVie
     }
 
     ariaPageLabel(value) {
-        return this.galleria.config.translation.aria ? this.galleria.config.translation.aria.pageLabel.replace(/{page}/g, value) : undefined;
+        return this.galleria.config.translation.aria
+            ? this.galleria.config.translation.aria.pageLabel.replace(/{page}/g, value)
+            : undefined;
     }
 }
 
 @NgModule({
-    imports: [CommonModule, SharedModule, RippleModule, TimesIcon, ChevronRightIcon, ChevronLeftIcon, WindowMaximizeIcon, WindowMinimizeIcon, FocusTrapModule],
+    imports: [
+        CommonModule,
+        SharedModule,
+        RippleModule,
+        TimesIcon,
+        ChevronRightIcon,
+        ChevronLeftIcon,
+        WindowMaximizeIcon,
+        WindowMinimizeIcon,
+        FocusTrapModule,
+    ],
     exports: [CommonModule, Galleria, GalleriaContent, GalleriaItemSlot, GalleriaItem, GalleriaThumbnails, SharedModule],
-    declarations: [Galleria, GalleriaContent, GalleriaItemSlot, GalleriaItem, GalleriaThumbnails]
+    declarations: [Galleria, GalleriaContent, GalleriaItemSlot, GalleriaItem, GalleriaThumbnails],
 })
 export class GalleriaModule {}

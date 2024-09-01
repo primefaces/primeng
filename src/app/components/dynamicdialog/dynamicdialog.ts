@@ -55,8 +55,8 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                     value: 'visible',
                     params: {
                         transform: transformOptions,
-                        transition: ddconfig.transitionOptions || '150ms cubic-bezier(0, 0, 0.2, 1)'
-                    }
+                        transition: ddconfig.transitionOptions || '150ms cubic-bezier(0, 0, 0.2, 1)',
+                    },
                 }"
                 (@animation.start)="onAnimationStart($event)"
                 (@animation.done)="onAnimationEnd($event)"
@@ -68,18 +68,8 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                 [attr.aria-labelledby]="ariaLabelledBy"
                 [attr.aria-modal]="true"
             >
-                <div
-                    *ngIf="ddconfig.resizable"
-                    [ngClass]="cx('resizeHandle')"
-                    style="z-index: 90;"
-                    (mousedown)="initResize($event)"
-                ></div>
-                <div
-                    #titlebar
-                    [ngClass]="cx('header')"
-                    (mousedown)="initDrag($event)"
-                    *ngIf="ddconfig.showHeader === false ? false : true"
-                >
+                <div *ngIf="ddconfig.resizable" [ngClass]="cx('resizeHandle')" style="z-index: 90;" (mousedown)="initResize($event)"></div>
+                <div #titlebar [ngClass]="cx('header')" (mousedown)="initDrag($event)" *ngIf="ddconfig.showHeader === false ? false : true">
                     <ng-container *ngComponentOutlet="headerTemplate"></ng-container>
                     <ng-container *ngIf="!headerTemplate">
                         <span [ngClass]="cx('title')" [id]="ariaLabelledBy">{{ ddconfig.header }}</span>
@@ -370,9 +360,7 @@ export class DynamicDialogComponent extends BaseComponent implements AfterViewIn
     moveOnTop() {
         if (this.ddconfig.autoZIndex !== false) {
             ZIndexUtils.set('modal', this.container, (this.ddconfig.baseZIndex || 0) + this.config.zIndex.modal);
-            (this.wrapper as HTMLElement).style.zIndex = String(
-                parseInt((this.container as HTMLDivElement).style.zIndex, 10) - 1,
-            );
+            (this.wrapper as HTMLElement).style.zIndex = String(parseInt((this.container as HTMLDivElement).style.zIndex, 10) - 1);
         }
     }
 
@@ -399,7 +387,7 @@ export class DynamicDialogComponent extends BaseComponent implements AfterViewIn
 
             case 'void':
                 if (this.wrapper && this.ddconfig.modal !== false) {
-                    DomHandler.addClass(this.wrapper, 'p-component-overlay-leave');
+                    DomHandler.addClass(this.wrapper, 'p-overlay-mask-leave');
                 }
                 break;
         }
@@ -530,8 +518,7 @@ export class DynamicDialogComponent extends BaseComponent implements AfterViewIn
             let offset = (this.container as HTMLDivElement).getBoundingClientRect();
             let viewport = DomHandler.getViewport();
             let hasBeenDragged =
-                !parseInt((this.container as HTMLDivElement).style.top) ||
-                !parseInt((this.container as HTMLDivElement).style.left);
+                !parseInt((this.container as HTMLDivElement).style.top) || !parseInt((this.container as HTMLDivElement).style.left);
 
             if (hasBeenDragged) {
                 newWidth += deltaX;
@@ -544,8 +531,7 @@ export class DynamicDialogComponent extends BaseComponent implements AfterViewIn
             }
 
             if ((!minHeight || newHeight > parseInt(minHeight)) && offset.top + newHeight < viewport.height) {
-                (<ElementRef>this.contentViewChild).nativeElement.style.height =
-                    contentHeight + newHeight - containerHeight + 'px';
+                (<ElementRef>this.contentViewChild).nativeElement.style.height = contentHeight + newHeight - containerHeight + 'px';
 
                 if (this._style.height) {
                     this._style.height = newHeight + 'px';
@@ -668,16 +654,8 @@ export class DynamicDialogComponent extends BaseComponent implements AfterViewIn
     bindDocumentResizeListeners() {
         if (isPlatformBrowser(this.platformId)) {
             this.zone.runOutsideAngular(() => {
-                this.documentResizeListener = this.renderer.listen(
-                    this.document,
-                    'mousemove',
-                    this.onResize.bind(this),
-                );
-                this.documentResizeEndListener = this.renderer.listen(
-                    this.document,
-                    'mouseup',
-                    this.resizeEnd.bind(this),
-                );
+                this.documentResizeListener = this.renderer.listen(this.document, 'mousemove', this.onResize.bind(this));
+                this.documentResizeEndListener = this.renderer.listen(this.document, 'mouseup', this.resizeEnd.bind(this));
             });
         }
     }
@@ -751,15 +729,7 @@ export class DynamicDialogComponent extends BaseComponent implements AfterViewIn
 }
 
 @NgModule({
-    imports: [
-        CommonModule,
-        WindowMaximizeIcon,
-        WindowMinimizeIcon,
-        TimesIcon,
-        ButtonModule,
-        SharedModule,
-        FocusTrapModule,
-    ],
+    imports: [CommonModule, WindowMaximizeIcon, WindowMinimizeIcon, TimesIcon, ButtonModule, SharedModule, FocusTrapModule],
     declarations: [DynamicDialogComponent, DynamicDialogContent],
     exports: [SharedModule],
 })

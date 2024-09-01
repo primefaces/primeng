@@ -52,7 +52,7 @@ const theme = ({ dt }) => `
     pointer-events: none;
 }
 
-.p-component-overlay {
+.p-overlay-mask {
     position: fixed;
     top: 0;
     left: 0;
@@ -148,10 +148,14 @@ button {
 
 .p-icon-wrapper {
     display: inline-flex;
+    width: ${dt('icon.size')};
+    height: ${dt('icon.size')};
 }
 
 .p-icon {
     display: inline-block;
+    width: ${dt('icon.size')};
+    height: ${dt('icon.size')};
 }
 
 .p-icon-spin {
@@ -181,36 +185,39 @@ button {
     }
 }
 
-.p-component-overlay {
-    background-color: rgba(0, 0, 0, 0.4);
-    transition-duration: 0.2s;
+
+.p-overlay-mask {
+    background: ${dt('mask.background')};
+    color: ${dt('mask.color')};
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
 }
 
-.p-component-overlay-enter {
-    animation: p-component-overlay-enter-animation 150ms forwards;
+.p-overlay-mask-enter {
+    animation: p-overlay-mask-enter-animation ${dt('mask.transition.duration')} forwards;
 }
 
-.p-component-overlay-leave {
-    animation: p-component-overlay-leave-animation 150ms forwards;
+.p-overlay-mask-leave {
+    animation: p-overlay-mask-leave-animation ${dt('mask.transition.duration')} forwards;
 }
 
-@keyframes p-component-overlay-enter-animation {
+@keyframes p-overlay-mask-enter-animation {
     from {
-        background-color: transparent;
+        background: transparent;
     }
-
     to {
-        background-color: var(--maskbg);
+        background: ${dt('mask.background')};
     }
 }
-
-@keyframes p-component-overlay-leave-animation {
+@keyframes p-overlay-mask-leave-animation {
     from {
-        background-color: var(--maskbg);
+        background: ${dt('mask.background')};
     }
-
     to {
-        background-color: transparent;
+        background: transparent;
     }
 }
 `;

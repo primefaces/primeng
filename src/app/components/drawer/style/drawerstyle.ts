@@ -166,7 +166,7 @@ const theme = ({ dt }) => `
     transition-duration: 0.2s;
 }
 
-.p-component-overlay {
+.p-overlay-mask {
     position: fixed;
     top: 0;
     left: 0;
@@ -174,15 +174,15 @@ const theme = ({ dt }) => `
     height: 100%;
 }
 
-.p-component-overlay-enter {
-    animation: p-component-overlay-enter-animation 150ms forwards;
+.p-overlay-mask-enter {
+    animation: p-overlay-mask-enter-animation 150ms forwards;
 }
 
-.p-component-overlay-leave {
-    animation: p-component-overlay-leave-animation 150ms forwards;
+.p-overlay-mask-leave {
+    animation: p-overlay-mask-leave-animation 150ms forwards;
 }
 
-@keyframes p-component-overlay-enter-animation {
+@keyframes p-overlay-mask-enter-animation {
     from {
         background-color: transparent;
     }
@@ -190,7 +190,7 @@ const theme = ({ dt }) => `
         background-color: rgba(0, 0, 0, 0.4);
     }
 }
-@keyframes p-component-overlay-leave-animation {
+@keyframes p-overlay-mask-leave-animation {
     from {
         background-color: rgba(0, 0, 0, 0.4);
     }

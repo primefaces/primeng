@@ -144,7 +144,7 @@ export class BlockUI extends BaseComponent implements AfterViewInit, OnDestroy {
     unblock() {
         if (isPlatformBrowser(this.platformId) && this.mask && !this.animationEndListener) {
             this.animationEndListener = this.renderer.listen(this.mask.nativeElement, 'animationend', this.destroyModal.bind(this));
-            DomHandler.addClass(this.mask.nativeElement, 'p-component-overlay-leave');
+            DomHandler.addClass(this.mask.nativeElement, 'p-overlay-mask-leave');
         }
     }
 
@@ -152,7 +152,7 @@ export class BlockUI extends BaseComponent implements AfterViewInit, OnDestroy {
         this._blocked = false;
         if (this.mask && isPlatformBrowser(this.platformId)) {
             ZIndexUtils.clear(this.mask.nativeElement);
-            DomHandler.removeClass(this.mask.nativeElement, 'p-component-overlay-leave');
+            DomHandler.removeClass(this.mask.nativeElement, 'p-overlay-mask-leave');
             this.renderer.removeChild(this.el.nativeElement, this.mask.nativeElement);
             DomHandler.unblockBodyScroll();
         }

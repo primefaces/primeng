@@ -13,11 +13,11 @@ import { StyleDoc } from '@doc/blockui/styledoc';
                 margin-right: 0.25em;
             }
 
-            :host ::ng-deep .p-component-overlay-enter .pi.pi-lock {
+            :host ::ng-deep .p-overlay-mask-enter .pi.pi-lock {
                 animation: enter 150ms forwards;
             }
 
-            :host ::ng-deep .p-component-overlay-leave .pi.pi-lock {
+            :host ::ng-deep .p-overlay-mask-leave .pi.pi-lock {
                 animation: leave 150ms forwards;
             }
 
@@ -38,8 +38,8 @@ import { StyleDoc } from '@doc/blockui/styledoc';
                     color: transparent;
                 }
             }
-        `
-    ]
+        `,
+    ],
 })
 export class BlockUIDemo {
     blockedPanel: boolean = false;
@@ -57,27 +57,27 @@ export class BlockUIDemo {
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc
+            component: ImportDoc,
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc
+            component: BasicDoc,
         },
         {
             id: 'document',
             label: 'Document',
-            component: DocumentDoc
+            component: DocumentDoc,
         },
         {
             id: 'style',
             label: 'Style',
-            component: StyleDoc
+            component: StyleDoc,
         },
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc
-        }
+            component: AccessibilityDoc,
+        },
     ];
 }

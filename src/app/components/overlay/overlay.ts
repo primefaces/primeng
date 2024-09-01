@@ -60,7 +60,7 @@ const hideOverlayContentAnimation = animation([animate('{{hideTransitionParams}}
             [class]="styleClass"
             [ngClass]="{
                 'p-overlay p-component': true,
-                'p-overlay-modal p-component-overlay p-component-overlay-enter': modal,
+                'p-overlay-modal p-overlay-mask p-overlay-mask-enter': modal,
                 'p-overlay-center': modal && overlayResponsiveDirection === 'center',
                 'p-overlay-top': modal && overlayResponsiveDirection === 'top',
                 'p-overlay-top-start': modal && overlayResponsiveDirection === 'top-start',
@@ -530,7 +530,7 @@ export class Overlay extends BaseComponent implements AfterContentInit, OnDestro
             case 'void':
                 this.handleEvents('onBeforeHide', { overlay: this.overlayEl, target: this.targetEl, mode: this.overlayMode });
 
-                this.modal && DomHandler.addClass(this.overlayEl, 'p-component-overlay-leave');
+                this.modal && DomHandler.addClass(this.overlayEl, 'p-overlay-mask-leave');
 
                 break;
         }

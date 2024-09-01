@@ -48,7 +48,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                 'p-drawer-right': position === 'right' && !fullScreen,
                 'p-drawer-top': position === 'top' && !fullScreen,
                 'p-drawer-bottom': position === 'bottom' && !fullScreen,
-                'p-drawer-full': fullScreen
+                'p-drawer-full': fullScreen,
             }"
             *ngIf="visible"
             [@panelState]="{ value: 'visible', params: { transform: transformOptions, transition: transitionOptions } }"
@@ -366,7 +366,7 @@ export class Drawer extends BaseComponent implements AfterViewInit, AfterContent
             this.mask = this.renderer.createElement('div');
             this.renderer.setStyle(this.mask, 'zIndex', zIndex);
             DomHandler.setAttribute(this.mask, 'style', this.maskStyle);
-            DomHandler.addMultipleClasses(this.mask, 'p-component-overlay p-drawer-mask p-component-overlay-enter');
+            DomHandler.addMultipleClasses(this.mask, 'p-overlay-mask p-drawer-mask p-overlay-mask-enter');
 
             if (this.dismissible) {
                 this.maskClickListener = this.renderer.listen(this.mask, 'click', (event: any) => {
@@ -385,7 +385,7 @@ export class Drawer extends BaseComponent implements AfterViewInit, AfterContent
 
     disableModality() {
         if (this.mask) {
-            DomHandler.addClass(this.mask, 'p-component-overlay-leave');
+            DomHandler.addClass(this.mask, 'p-overlay-mask-leave');
             this.animationEndListener = this.renderer.listen(this.mask, 'animationend', this.destroyModal.bind(this));
         }
     }

@@ -53,7 +53,7 @@ import { BaseComponent } from 'primeng/basecomponent';
             [class]="styleClass"
         >
             <div class="p-dataview-loading" *ngIf="loading">
-                <div class="p-dataview-loading-overlay p-component-overlay">
+                <div class="p-dataview-loading-overlay p-overlay-mask">
                     <i *ngIf="loadingIcon" [class]="'p-dataview-loading-icon pi-spin ' + loadingIcon"></i>
                     <ng-container *ngIf="!loadingIcon">
                         <SpinnerIcon *ngIf="!loadingIconTemplate" [spin]="true" [styleClass]="'p-dataview-loading-icon'" />
