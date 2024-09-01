@@ -4,23 +4,21 @@ import {
     AfterViewChecked,
     AfterViewInit,
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     ContentChildren,
     ElementRef,
     EventEmitter,
-    Inject,
     Input,
     NgModule,
     OnDestroy,
     Output,
-    PLATFORM_ID,
     QueryList,
     TemplateRef,
     ViewChild,
     ViewChildren,
     ViewEncapsulation,
     booleanAttribute,
+    inject,
     signal,
 } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
@@ -32,6 +30,9 @@ import { RippleModule } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
 import { Nullable } from 'primeng/ts-helpers';
 import { ObjectUtils } from 'primeng/utils';
+import { TabMenuStyle } from './style/tabmenustyle';
+import { BaseComponent } from 'primeng/basecomponent';
+import { BadgeModule } from 'primeng/badge';
 
 /**
  * TabMenu is a navigation component that displays items as tab headers.
@@ -45,7 +46,7 @@ import { ObjectUtils } from 'primeng/utils';
                 <button
                     *ngIf="scrollable && !backwardIsDisabled"
                     #prevBtn
-                    class="p-tabmenu-nav-prev p-tabmenu-nav-btn p-link"
+                    class="p-tabmenu-nav-prev-button p-tabmenu-nav-button"
                     (click)="navBackward()"
                     type="button"
                     role="navigation"
@@ -65,7 +66,7 @@ import { ObjectUtils } from 'primeng/utils';
                         <li
                             #tab
                             *ngFor="let item of focusableItems; let i = index"
-                            role="presentation"
+                            role="menuitem"
                             [ngStyle]="item.style"
                             [class]="item.styleClass"
                             [attr.data-p-disabled]="disabled(item)"
@@ -76,24 +77,25 @@ import { ObjectUtils } from 'primeng/utils';
                             [ngClass]="{
                                 'p-tabmenuitem': true,
                                 'p-disabled': getItemProp(item, 'disabled'),
-                                'p-highlight': isActive(item),
+                                'p-tabmenuitem-active': isActive(item),
                                 'p-hidden': item.visible === false,
                             }"
                             pTooltip
                             [tooltipOptions]="item.tooltipOptions"
+                            pRipple
+                            [attr.aria-label]="getItemProp(item, 'label')"
+                            [attr.tabindex]="disabled(item) ? -1 : 0"
                         >
                             <a
                                 #tabLink
                                 *ngIf="!item.routerLink && !itemTemplate"
                                 class="p-menuitem-link"
-                                role="menuitem"
+                                role="presentation"
                                 [attr.href]="getItemProp(item, 'url')"
                                 [attr.id]="getItemProp(item, 'id')"
                                 [attr.aria-disabled]="disabled(item)"
-                                [attr.aria-label]="getItemProp(item, 'label')"
-                                [attr.tabindex]="disabled(item) ? -1 : 0"
                                 [target]="getItemProp(item, 'target')"
-                                pRipple
+                                [tabindex]="-1"
                             >
                                 <ng-container>
                                     <span class="p-menuitem-icon" [ngClass]="item.icon" *ngIf="item.icon" [ngStyle]="item.iconStyle"></span>
@@ -103,9 +105,12 @@ import { ObjectUtils } from 'primeng/utils';
                                     <ng-template #htmlLabel
                                         ><span class="p-menuitem-text" [innerHTML]="getItemProp(item, 'label')"></span
                                     ></ng-template>
-                                    <span class="p-menuitem-badge" *ngIf="item.badge" [ngClass]="item.badgeStyleClass">{{
-                                        getItemProp(item, 'badge')
-                                    }}</span>
+                                    <p-badge
+                                        *ngIf="item.badge"
+                                        [styleClass]="item.badgeStyleClass"
+                                        [value]="getItemProp(item, 'badge')"
+                                        size="small"
+                                    />
                                 </ng-container>
                             </a>
                             <a
@@ -115,20 +120,18 @@ import { ObjectUtils } from 'primeng/utils';
                                 [queryParams]="item.queryParams"
                                 [routerLinkActive]="'p-menuitem-link-active'"
                                 [routerLinkActiveOptions]="item.routerLinkActiveOptions || { exact: false }"
-                                role="menuitem"
+                                role="presentation"
                                 class="p-menuitem-link"
                                 [target]="item.target"
                                 [attr.id]="getItemProp(item, 'id')"
                                 [attr.aria-disabled]="disabled(item)"
-                                [attr.aria-label]="getItemProp(item, 'label')"
-                                [attr.tabindex]="disabled(item) ? -1 : 0"
+                                [tabindex]="-1"
                                 [fragment]="item.fragment"
                                 [queryParamsHandling]="item.queryParamsHandling"
                                 [preserveFragment]="item.preserveFragment"
                                 [skipLocationChange]="item.skipLocationChange"
                                 [replaceUrl]="item.replaceUrl"
                                 [state]="item.state"
-                                pRipple
                             >
                                 <ng-container>
                                     <span
@@ -144,20 +147,23 @@ import { ObjectUtils } from 'primeng/utils';
                                     <ng-template #htmlRouteLabel
                                         ><span class="p-menuitem-text" [innerHTML]="getItemProp(item, 'label')"></span
                                     ></ng-template>
-                                    <span class="p-menuitem-badge" *ngIf="item.badge" [ngClass]="item.badgeStyleClass">{{
-                                        getItemProp(item, 'badge')
-                                    }}</span>
+                                    <p-badge
+                                        *ngIf="item.badge"
+                                        [styleClass]="item.badgeStyleClass"
+                                        [value]="getItemProp(item, 'badge')"
+                                        size="small"
+                                    />
                                 </ng-container>
                             </a>
                             <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: item, index: i }"></ng-container>
                         </li>
-                        <li #inkbar class="p-tabmenu-ink-bar" role="none"></li>
+                        <li #inkbar class="p-tabmenuitem-active-bar" role="presentation" [attr.data-pc-section]="'inkbar'"></li>
                     </ul>
                 </div>
                 <button
                     *ngIf="scrollable && !forwardIsDisabled"
                     #nextBtn
-                    class="p-tabmenu-nav-next p-tabmenu-nav-btn p-link"
+                    class="p-tabmenu-nav-next-button p-tabmenu-nav-button"
                     (click)="navForward()"
                     type="button"
                     role="navigation"
@@ -171,9 +177,9 @@ import { ObjectUtils } from 'primeng/utils';
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./tabmenu.css'],
+    providers: [TabMenuStyle],
 })
-export class TabMenu implements AfterContentInit, AfterViewInit, AfterViewChecked, OnDestroy {
+export class TabMenu extends BaseComponent implements AfterContentInit, AfterViewInit, AfterViewChecked, OnDestroy {
     /**
      * An array of menuitems.
      * @group Props
@@ -276,6 +282,12 @@ export class TabMenu implements AfterContentInit, AfterViewInit, AfterViewChecke
 
     focusedItemInfo = signal<any>(null);
 
+    router = inject(Router);
+
+    route = inject(ActivatedRoute);
+
+    _componentStyle = inject(TabMenuStyle);
+
     get focusableItems() {
         if (!this._focusableItems || !this._focusableItems.length) {
             this._focusableItems = (this.model || []).reduce((result, item) => {
@@ -286,13 +298,6 @@ export class TabMenu implements AfterContentInit, AfterViewInit, AfterViewChecke
         }
         return this._focusableItems;
     }
-
-    constructor(
-        @Inject(PLATFORM_ID) private platformId: any,
-        private router: Router,
-        private route: ActivatedRoute,
-        private cd: ChangeDetectorRef,
-    ) {}
 
     ngAfterContentInit() {
         this.templates?.forEach((item) => {
@@ -333,6 +338,7 @@ export class TabMenu implements AfterContentInit, AfterViewInit, AfterViewChecke
 
     ngOnDestroy(): void {
         this.clearAutoScrollHandler();
+        super.ngOnDestroy();
     }
 
     isActive(item: MenuItem) {
@@ -391,31 +397,32 @@ export class TabMenu implements AfterContentInit, AfterViewInit, AfterViewChecke
         let i = index;
 
         let foundElement = {};
-        const tabLinks = this.tabLink.toArray();
         const tabs = this.tab.toArray();
 
         switch (event.code) {
             case 'ArrowRight':
                 foundElement = this.findNextItem(tabs, i);
                 i = foundElement['i'];
+                this.changeFocusedTab(event, foundElement['nextItem'], i);
                 break;
 
             case 'ArrowLeft':
                 foundElement = this.findPrevItem(tabs, i);
                 i = foundElement['i'];
+                this.changeFocusedTab(event, foundElement['prevItem'], i);
                 break;
 
             case 'End':
                 foundElement = this.findPrevItem(tabs, this.model.length);
                 i = foundElement['i'];
-
+                this.changeFocusedTab(event, foundElement['prevItem'], i);
                 event.preventDefault();
                 break;
 
             case 'Home':
                 foundElement = this.findNextItem(tabs, -1);
                 i = foundElement['i'];
-
+                this.changeFocusedTab(event, foundElement['nextItem'], i);
                 event.preventDefault();
                 break;
 
@@ -425,17 +432,17 @@ export class TabMenu implements AfterContentInit, AfterViewInit, AfterViewChecke
                 break;
 
             case 'Tab':
-                this.onTabKeyDown(tabLinks);
+                this.onTabKeyDown(tabs);
                 break;
 
             default:
                 break;
         }
 
-        if (tabLinks[i] && tabLinks[index]) {
-            tabLinks[index].nativeElement.tabIndex = '-1';
-            tabLinks[i].nativeElement.tabIndex = '0';
-            tabLinks[i].nativeElement.focus();
+        if (tabs[i] && tabs[index]) {
+            tabs[index].nativeElement.tabIndex = '-1';
+            tabs[i].nativeElement.tabIndex = '0';
+            tabs[i].nativeElement.focus();
         }
         this.cd.markForCheck();
     }
@@ -444,6 +451,15 @@ export class TabMenu implements AfterContentInit, AfterViewInit, AfterViewChecke
         tabLinks.forEach((item) => {
             item.nativeElement.tabIndex = DomHandler.getAttribute(item.nativeElement.parentElement, 'data-p-highlight') ? '0' : '-1';
         });
+    }
+
+    changeFocusedTab(event: KeyboardEvent, element: HTMLLIElement, index: number) {
+        if (element) {
+            DomHandler.focus(element);
+            element.scrollIntoView({ block: 'nearest' });
+
+            this.itemClick(event, element);
+        }
     }
 
     findNextItem(items, index) {
@@ -479,7 +495,7 @@ export class TabMenu implements AfterContentInit, AfterViewInit, AfterViewChecke
     }
 
     updateInkBar() {
-        const tabHeader = DomHandler.findSingle(this.navbar?.nativeElement, 'li.p-highlight');
+        const tabHeader = DomHandler.findSingle(this.navbar?.nativeElement, 'li.p-tabmenu-active');
         if (tabHeader) {
             (this.inkbar as ElementRef).nativeElement.style.width = DomHandler.getWidth(tabHeader) + 'px';
             (this.inkbar as ElementRef).nativeElement.style.left =
@@ -510,7 +526,7 @@ export class TabMenu implements AfterContentInit, AfterViewInit, AfterViewChecke
             return;
         }
 
-        tabHeader.scrollIntoView({ block: 'nearest', inline: 'center' });
+        tabHeader.scrollIntoView({ block: 'nearest' });
     }
 
     onScroll(event: Event) {
@@ -570,7 +586,7 @@ export class TabMenu implements AfterContentInit, AfterViewInit, AfterViewChecke
 }
 
 @NgModule({
-    imports: [CommonModule, RouterModule, SharedModule, RippleModule, TooltipModule, ChevronLeftIcon, ChevronRightIcon],
+    imports: [CommonModule, RouterModule, SharedModule, RippleModule, TooltipModule, ChevronLeftIcon, ChevronRightIcon, BadgeModule],
     exports: [TabMenu, RouterModule, SharedModule, TooltipModule],
     declarations: [TabMenu],
 })

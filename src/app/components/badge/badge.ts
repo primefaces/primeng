@@ -27,7 +27,6 @@ import { BadgeStyle } from './style/badgestyle';
  */
 @Directive({
     selector: '[pBadge]',
-
     providers: [BadgeStyle],
 })
 export class BadgeDirective extends BaseComponent implements OnChanges, AfterViewInit {
