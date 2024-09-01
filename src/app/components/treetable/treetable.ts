@@ -27,6 +27,7 @@ import {
     ViewChild,
     ViewEncapsulation,
     booleanAttribute,
+    inject,
     numberAttribute,
 } from '@angular/core';
 import {
@@ -75,6 +76,8 @@ import {
 } from './treetable.interface';
 import { CheckboxModule } from 'primeng/checkbox';
 import { FormsModule } from '@angular/forms';
+import { TreeTableStyle } from './style/treetablestyle';
+import { BaseComponent } from 'primeng/basecomponent';
 
 @Injectable()
 export class TreeTableService {
@@ -124,6 +127,7 @@ export class TreeTableService {
             data-scrollselectors=".p-treetable-scrollable-body"
             [ngClass]="{
                 'p-treetable p-component': true,
+                'p-treetable-gridlines': showGridlines,
                 'p-treetable-hoverable-rows': rowHover || selectionMode === 'single' || selectionMode === 'multiple',
                 'p-treetable-auto-layout': autoLayout,
                 'p-treetable-resizable': resizableColumns,
@@ -132,7 +136,7 @@ export class TreeTableService {
             }"
         >
             <div class="p-treetable-loading" *ngIf="loading && showLoader">
-                <div class="p-treetable-loading-overlay p-component-overlay">
+                <div class="p-treetable-mask p-overlay-mask">
                     <i *ngIf="loadingIcon" [class]="'p-treetable-loading-icon pi-spin ' + loadingIcon"></i>
                     <ng-container *ngIf="!loadingIcon">
                         <SpinnerIcon *ngIf="!loadingIconTemplate" [spin]="true" [styleClass]="'p-treetable-loading-icon'" />
@@ -275,10 +279,11 @@ export class TreeTableService {
             </span>
         </div>
     `,
-    providers: [TreeTableService],
+    providers: [TreeTableService, TreeTableStyle],
     encapsulation: ViewEncapsulation.None,
 })
-export class TreeTable implements AfterContentInit, OnInit, OnDestroy, BlockableUI, OnChanges {
+export class TreeTable extends BaseComponent implements AfterContentInit, OnInit, OnDestroy, BlockableUI, OnChanges {
+    _componentStyle = inject(TreeTableStyle);
     /**
      * An array of objects to represent dynamic columns.
      * @group Props
@@ -644,6 +649,12 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
         this.selectionKeysChange.emit(this._selectionKeys);
     }
     /**
+     * Whether to show grid lines between cells.
+     * @defaultValue false
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) showGridlines: boolean = false;
+    /**
      * Callback to invoke on selected node change.
      * @param {TreeTableNode} object - Node instance.
      * @group Emits
@@ -880,6 +891,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
     toggleRowIndex: Nullable<number>;
 
     ngOnInit() {
+        super.ngOnInit();
         if (this.lazy && this.lazyLoadOnInit && !this.virtualScroll) {
             this.onLazyLoad.emit(this.createLazyLoadMetadata());
         }
@@ -992,18 +1004,14 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
         });
     }
 
-    constructor(
-        @Inject(DOCUMENT) private document: Document,
-        private renderer: Renderer2,
-        public el: ElementRef,
-        public cd: ChangeDetectorRef,
-        public zone: NgZone,
-        public tableService: TreeTableService,
-        public filterService: FilterService,
-        public config: PrimeNGConfig,
-    ) {}
+    filterService = inject(FilterService);
+
+    tableService = inject(TreeTableService);
+
+    zone = inject(NgZone);
 
     ngOnChanges(simpleChange: SimpleChanges) {
+        super.ngOnChanges(simpleChange);
         if (simpleChange.value) {
             this._value = simpleChange.value.currentValue;
 
@@ -2350,6 +2358,8 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
         this.editingCellField = null;
         this.editingCellData = null;
         this.initialized = null;
+
+        super.ngOnDestroy();
     }
 }
 
@@ -2765,7 +2775,7 @@ export class TTScrollableView implements AfterViewInit, OnDestroy {
     selector: '[ttSortableColumn]',
     host: {
         '[class.p-sortable-column]': 'isEnabled()',
-        '[class.p-highlight]': 'sorted',
+        '[class.p-treetable-column-sorted]': 'sorted',
         '[attr.tabindex]': 'isEnabled() ? "0" : null',
         '[attr.role]': '"columnheader"',
         '[attr.aria-sort]': 'ariaSorted',
@@ -3088,8 +3098,7 @@ export class TTReorderableColumn implements AfterViewInit, OnDestroy {
 @Directive({
     selector: '[ttSelectableRow]',
     host: {
-        '[class.p-highlight]': 'selected',
-        '[attr.data-p-highlight]': 'selected',
+        '[class.p-treetable-row-selected]': 'selected',
         '[attr.aria-checked]': 'selected',
     },
 })
@@ -3175,7 +3184,7 @@ export class TTSelectableRow implements OnInit, OnDestroy {
 @Directive({
     selector: '[ttSelectableRowDblClick]',
     host: {
-        '[class.p-highlight]': 'selected',
+        '[class.p-treetable-row-selected]': 'selected',
     },
 })
 export class TTSelectableRowDblClick implements OnInit, OnDestroy {
@@ -3228,7 +3237,7 @@ export class TTSelectableRowDblClick implements OnInit, OnDestroy {
 @Directive({
     selector: '[ttContextMenuRow]',
     host: {
-        '[class.p-highlight-contextmenu]': 'selected',
+        '[class.p-treetable-contextmenu-row-selected]': 'selected',
         '[attr.tabindex]': 'isEnabled() ? 0 : undefined',
     },
 })
@@ -3891,7 +3900,7 @@ export class TTRow {
     template: `
         <button
             type="button"
-            class="p-treetable-toggler p-link"
+            class="p-treetable-toggler"
             (click)="onClick($event)"
             tabindex="-1"
             pRipple
