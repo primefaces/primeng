@@ -1,16 +1,16 @@
 import { Component } from '@angular/core';
-import { DisabledDoc } from '@doc/tabview/disableddoc';
-import { BasicDoc } from '@doc/tabview/basicdoc';
-import { DynamicDoc } from '@doc/tabview/dynamicdoc';
-import { ControlledDoc } from '@doc/tabview/controlleddoc';
-import { ImportDoc } from '@doc/tabview/importdoc';
-import { TemplateDoc } from '@doc/tabview/customtemplatedoc';
-import { ClosableDoc } from '@doc/tabview/closabledoc';
-import { ScrollableDoc } from '@doc/tabview/scrollabledoc';
-import { LazyDoc } from '@doc/tabview/lazydoc';
-import { StyleDoc } from '@doc/tabview/styledoc';
-import { AccessibilityDoc } from '@doc/tabview/accessibilitydoc';
-import { TabsDocModule } from '@doc/tabview/tabviewdoc.module';
+import { DisabledDoc } from '@doc/tabs/disableddoc';
+import { BasicDoc } from '@doc/tabs/basicdoc';
+import { DynamicDoc } from '@doc/tabs/dynamicdoc';
+import { ControlledDoc } from '@doc/tabs/controlleddoc';
+import { ImportDoc } from '@doc/tabs/importdoc';
+import { TemplateDoc } from '@doc/tabs/customtemplatedoc';
+import { ClosableDoc } from '@doc/tabs/closabledoc';
+import { ScrollableDoc } from '@doc/tabs/scrollabledoc';
+import { LazyDoc } from '@doc/tabs/lazydoc';
+import { StyleDoc } from '@doc/tabs/styledoc';
+import { AccessibilityDoc } from '@doc/tabs/accessibilitydoc';
+import { TabsDocModule } from '@doc/tabs/tabsdoc.module';
 
 @Component({
     template: `<app-doc
