@@ -1,5 +1,5 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { ChangeDetectionStrategy, Component, effect, inject, PLATFORM_ID, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, effect, inject, PLATFORM_ID, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { ChartModule } from 'primeng/chart';
@@ -163,11 +163,7 @@ import { AppConfigService } from '@service/appconfigservice';
                                         <div class="text-muted-color">{{ item.date }}</div>
                                     </td>
                                     <td class="w-1/6">
-                                        <p-tag
-                                            [severity]="item.process.type"
-                                            [value]="item.process.value"
-                                            styleClass="font-medium"
-                                        ></p-tag>
+                                        <p-tag [severity]="item.process.type" [value]="item.process.value" styleClass="font-medium"></p-tag>
                                     </td>
                                     <td class="w-1/6">
                                         <div class="text-muted-color text-right">{{ item.amount }}</div>
@@ -196,10 +192,7 @@ import { AppConfigService } from '@service/appconfigservice';
                                     <div class="flex flex-col gap-6 mt-4">
                                         <ng-container *ngFor="let val of metersData; let index = index">
                                             <div class="flex items-center gap-2">
-                                                <div
-                                                    class="w-2 h-2 rounded-full"
-                                                    [ngStyle]="{ backgroundColor: val.color }"
-                                                ></div>
+                                                <div class="w-2 h-2 rounded-full" [ngStyle]="{ backgroundColor: val.color }"></div>
                                                 <div class="text-color uppercase font-medium leading-6 flex-1">
                                                     {{ val.label }}
                                                     <span class="text-muted-color">({{ val.value }}%)</span>
@@ -246,9 +239,12 @@ export class OverviewApp {
 
     appState = this.configService.appState();
 
+    constructor(private cd: ChangeDetectorRef) {}
+
     themeEffect = effect(() => {
         if (this.configService.theme() && isPlatformBrowser(this.platformId)) {
             this.initChart();
+            this.cd.markForCheck();
         }
     });
 
@@ -475,14 +471,7 @@ export class OverviewApp {
                                 const label = document.createElement('span');
 
                                 label.appendChild(document.createTextNode(body.dataset.label));
-                                label.classList.add(
-                                    'text-base',
-                                    'font-medium',
-                                    'text-color',
-                                    'flex-1',
-                                    'text-left',
-                                    'capitalize',
-                                );
+                                label.classList.add('text-base', 'font-medium', 'text-color', 'flex-1', 'text-left', 'capitalize');
                                 row.appendChild(label);
                                 const value = document.createElement('span');
 
