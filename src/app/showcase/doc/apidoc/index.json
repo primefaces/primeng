@@ -11,6 +11,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "string",
+                            "default": "...",
                             "description": "Current id state as a string."
                         },
                         {
@@ -305,6 +306,9 @@
                 ]
             }
         }
+    },
+    "accordionstyle": {
+        "components": {}
     },
     "animate": {
         "components": {
@@ -4540,6 +4544,9 @@
                 }
             }
         }
+    },
+    "avatargroupstyle": {
+        "components": {}
     },
     "badge": {
         "components": {
@@ -25576,6 +25583,9 @@
             }
         }
     },
+    "stepsstyle": {
+        "components": {}
+    },
     "styleclass": {
         "components": {
             "StyleClass": {
@@ -27654,6 +27664,9 @@
             }
         }
     },
+    "tabmenustyle": {
+        "components": {}
+    },
     "tabmenu": {
         "components": {
             "TabMenu": {
@@ -27763,6 +27776,9 @@
             }
         }
     },
+    "tabsstyle": {
+        "components": {}
+    },
     "tabpanel": {
         "interfaces": {
             "components": {},
@@ -27803,10 +27819,10 @@
             }
         }
     },
-    "tabview": {
+    "tabs": {
         "components": {
             "TabPanel": {
-                "description": "TabPanel is a helper component for TabView component.",
+                "description": "TabPanel is a helper component for Tabs component.",
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
@@ -27910,6 +27926,316 @@
                     ]
                 }
             },
+            "Tabs": {
+                "description": "Tabs is a container component to group content with tabs.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "style",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "Object",
+                            "description": "Inline style of the component."
+                        },
+                        {
+                            "name": "styleClass",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Style class of the component."
+                        },
+                        {
+                            "name": "controlClose",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Whether tab close is controlled at onClose event or not."
+                        },
+                        {
+                            "name": "scrollable",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "When enabled displays buttons at each side of the tab headers to scroll the tab list."
+                        },
+                        {
+                            "name": "activeIndex",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number",
+                            "description": "Index of the active tab to change selected tab programmatically."
+                        },
+                        {
+                            "name": "selectOnFocus",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "When enabled, the focused tab is activated."
+                        },
+                        {
+                            "name": "nextButtonAriaLabel",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Used to define a string aria label attribute the forward navigation button."
+                        },
+                        {
+                            "name": "prevButtonAriaLabel",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Used to define a string aria label attribute the backward navigation button."
+                        },
+                        {
+                            "name": "autoHideButtons",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "true",
+                            "description": "When activated, navigation buttons will automatically hide or show based on the available space within the container."
+                        },
+                        {
+                            "name": "tabindex",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number",
+                            "default": "0",
+                            "description": "Index of the element in tabbing order."
+                        }
+                    ]
+                },
+                "emits": {
+                    "description": "Defines emit that determine the behavior of the component based on a given condition or report the actions that the component takes.",
+                    "values": [
+                        {
+                            "name": "onChange",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "TabsChangeEvent"
+                                }
+                            ],
+                            "description": "Callback to invoke on tab change."
+                        },
+                        {
+                            "name": "onClose",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "TabsCloseEvent"
+                                }
+                            ],
+                            "description": "Callback to invoke on tab close."
+                        },
+                        {
+                            "name": "activeIndexChange",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "number"
+                                }
+                            ],
+                            "description": "Callback to invoke on the active tab change."
+                        }
+                    ]
+                }
+            }
+        },
+        "interfaces": {
+            "components": {},
+            "events": {
+                "description": "Defines the custom events used by the component's emitters.",
+                "values": [
+                    {
+                        "name": "TabsChangeEvent",
+                        "description": "Custom tab change event.",
+                        "props": [
+                            {
+                                "name": "originalEvent",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "Event",
+                                "description": "Browser event"
+                            },
+                            {
+                                "name": "index",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "number",
+                                "description": "Index of the selected tab"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "TabsCloseEvent",
+                        "description": "Custom tab close event.",
+                        "props": [
+                            {
+                                "name": "originalEvent",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "Event",
+                                "description": "Browser event"
+                            },
+                            {
+                                "name": "index",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "number",
+                                "description": "Index of the closed tab"
+                            },
+                            {
+                                "name": "close",
+                                "optional": true,
+                                "readonly": false
+                            }
+                        ]
+                    }
+                ]
+            },
+            "templates": {
+                "description": "Defines the templates used by the component.",
+                "values": [
+                    {
+                        "parent": "tabs",
+                        "name": "previousicon",
+                        "parameters": [],
+                        "description": "Previous button icon template for the scrollable component."
+                    },
+                    {
+                        "parent": "tabs",
+                        "name": "nexticon",
+                        "parameters": [],
+                        "description": "Next button icon template for the scrollable component."
+                    }
+                ]
+            }
+        }
+    },
+    "tabview": {
+        "components": {
+            "TabPanel": {
+                "description": "TabPanel is a helper component for TabView component.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "style",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "Object",
+                            "description": "Inline style of the component."
+                        },
+                        {
+                            "name": "styleClass",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Style class of the component."
+                        },
+                        {
+                            "name": "controlClose",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Whether tab close is controlled at onClose event or not."
+                        },
+                        {
+                            "name": "scrollable",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "When enabled displays buttons at each side of the tab headers to scroll the tab list."
+                        },
+                        {
+                            "name": "activeIndex",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number",
+                            "description": "Index of the active tab to change selected tab programmatically."
+                        },
+                        {
+                            "name": "selectOnFocus",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "When enabled, the focused tab is activated."
+                        },
+                        {
+                            "name": "nextButtonAriaLabel",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Used to define a string aria label attribute the forward navigation button."
+                        },
+                        {
+                            "name": "prevButtonAriaLabel",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Used to define a string aria label attribute the backward navigation button."
+                        },
+                        {
+                            "name": "autoHideButtons",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "true",
+                            "description": "When activated, navigation buttons will automatically hide or show based on the available space within the container."
+                        },
+                        {
+                            "name": "tabindex",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number",
+                            "default": "0",
+                            "description": "Index of the element in tabbing order."
+                        }
+                    ]
+                },
+                "emits": {
+                    "description": "Defines emit that determine the behavior of the component based on a given condition or report the actions that the component takes.",
+                    "values": [
+                        {
+                            "name": "onChange",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "TabsChangeEvent"
+                                }
+                            ],
+                            "description": "Callback to invoke on tab change."
+                        },
+                        {
+                            "name": "onClose",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "TabsCloseEvent"
+                                }
+                            ],
+                            "description": "Callback to invoke on tab close."
+                        },
+                        {
+                            "name": "activeIndexChange",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "number"
+                                }
+                            ],
+                            "description": "Callback to invoke on the active tab change."
+                        }
+                    ]
+                }
+            },
             "TabView": {
                 "description": "TabView is a container component to group content with tabs.",
                 "props": {
@@ -28000,7 +28326,7 @@
                             "parameters": [
                                 {
                                     "name": "event",
-                                    "type": "TabViewChangeEvent"
+                                    "type": "TabsChangeEvent"
                                 }
                             ],
                             "description": "Callback to invoke on tab change."
@@ -28010,7 +28336,7 @@
                             "parameters": [
                                 {
                                     "name": "event",
-                                    "type": "TabViewCloseEvent"
+                                    "type": "TabsCloseEvent"
                                 }
                             ],
                             "description": "Callback to invoke on tab close."
@@ -31067,6 +31393,14 @@
                             "readonly": false,
                             "type": "any",
                             "description": "A map of keys to control the selection state."
+                        },
+                        {
+                            "name": "showGridlines",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Whether to show grid lines between cells."
                         }
                     ]
                 },

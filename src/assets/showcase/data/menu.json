@@ -245,8 +245,8 @@
                             "routerLink": "/scrollpanel"
                         },
                         {
-                            "name": "TabView",
-                            "routerLink": "/tabview"
+                            "name": "Tabs",
+                            "routerLink": "/tabs"
                         },
                         {
                             "name": "Toolbar",

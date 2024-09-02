@@ -189,7 +189,7 @@ export const routes: Routes = [
             { path: 'tag', loadChildren: () => import('@pages/tag/tagdemo.module').then((m) => m.TagDemoModule) },
             { path: 'table', loadChildren: () => import('@pages/table/tabledemo.module').then((m) => m.TableDemoModule) },
             { path: 'tabmenu', loadChildren: () => import('@pages/tabmenu/tabmenudemo.module').then((m) => m.TabMenuDemoModule) },
-            { path: 'tabview', loadChildren: () => import('@pages/tabview/tabviewdemo.module').then((m) => m.TabViewDemoModule) },
+            { path: 'tabs', loadChildren: () => import('@pages/tabs/routes') },
             { path: 'terminal', loadChildren: () => import('@pages/terminal/terminaldemo.module').then((m) => m.TerminalDemoModule) },
             {
                 path: 'tieredmenu',

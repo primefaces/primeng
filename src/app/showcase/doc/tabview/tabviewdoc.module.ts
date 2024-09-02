@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
-import { TabViewModule } from 'primeng/tabview';
+import { Tabs, TabPanel } from 'primeng/tabs';
 import { AppDocModule } from '@layout/doc/app.doc.module';
 import { AppCodeModule } from '@layout/doc/app.code.component';
 import { BasicDoc } from './basicdoc';
@@ -20,8 +20,20 @@ import { AvatarModule } from 'primeng/avatar';
 import { BadgeModule } from 'primeng/badge';
 
 @NgModule({
-    imports: [CommonModule, AppCodeModule, AppDocModule, TabViewModule, RouterModule, ButtonModule, AvatarModule, BadgeModule],
+    imports: [CommonModule, AppCodeModule, AppDocModule, Tabs, TabPanel, RouterModule, ButtonModule, AvatarModule, BadgeModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, ControlledDoc, DynamicDoc, DisabledDoc, TemplateDoc, ClosableDoc, ScrollableDoc, LazyDoc, StyleDoc, AccessibilityDoc]
+    declarations: [
+        ImportDoc,
+        BasicDoc,
+        ControlledDoc,
+        DynamicDoc,
+        DisabledDoc,
+        TemplateDoc,
+        ClosableDoc,
+        ScrollableDoc,
+        LazyDoc,
+        StyleDoc,
+        AccessibilityDoc,
+    ],
 })
-export class TabViewDocModule {}
+export class TabsDocModule {}

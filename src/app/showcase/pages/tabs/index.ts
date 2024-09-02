@@ -10,67 +10,75 @@ import { ScrollableDoc } from '@doc/tabview/scrollabledoc';
 import { LazyDoc } from '@doc/tabview/lazydoc';
 import { StyleDoc } from '@doc/tabview/styledoc';
 import { AccessibilityDoc } from '@doc/tabview/accessibilitydoc';
+import { TabsDocModule } from '@doc/tabview/tabviewdoc.module';
 
 @Component({
-    templateUrl: './tabviewdemo.html',
-    styleUrls: ['./tabviewdemo.scss']
+    template: `<app-doc
+        docTitle="Angular Tabs Component"
+        header="Tabs"
+        description="Tabs is a container component to group content with tabs."
+        [docs]="docs"
+        [apiDocs]="['Tabs']"
+    ></app-doc>`,
+    imports: [TabsDocModule],
+    standalone: true,
 })
-export class TabViewDemo {
+export class TabsDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc
+            component: ImportDoc,
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc
+            component: BasicDoc,
         },
         {
             id: 'dynamic',
             label: 'Dynamic',
-            component: DynamicDoc
+            component: DynamicDoc,
         },
         {
             id: 'controlled',
             label: 'Controlled',
-            component: ControlledDoc
+            component: ControlledDoc,
         },
         {
             id: 'disabled',
             label: 'Disabled',
-            component: DisabledDoc
+            component: DisabledDoc,
         },
         {
             id: 'template',
             label: 'Template',
-            component: TemplateDoc
+            component: TemplateDoc,
         },
         {
             id: 'closable',
             label: 'Closable',
-            component: ClosableDoc
+            component: ClosableDoc,
         },
         {
             id: 'scrollable',
             label: 'Scrollable',
-            component: ScrollableDoc
+            component: ScrollableDoc,
         },
         {
             id: 'lazy',
             label: 'Lazy',
-            component: LazyDoc
+            component: LazyDoc,
         },
         {
             id: 'style',
             label: 'Style',
-            component: StyleDoc
+            component: StyleDoc,
         },
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc
-        }
+            component: AccessibilityDoc,
+        },
     ];
 }
