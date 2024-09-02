@@ -7,27 +7,60 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>Styling Demo Content.</p>
         </app-docsectiontext>
-        <div class="card card-container flex justify-center items-center">
-            <div pRipple class="card styled-box-green shadow">Green</div>
-            <div pRipple class="card styled-box-orange shadow">Orange</div>
-            <div pRipple class="card styled-box-purple shadow">Purple</div>
+        <div class="card flex flex-col gap-4 items-center">
+            <span
+                >Ripple option at the
+                <span class="mx-1 h-8 w-8 rounded-border inline-flex items-center justify-center bg-primary text-primary-contrast"
+                    ><i class="pi pi-palette"></i
+                ></span>
+                configurator needs to be turned on for the demo.</span
+            >
+            <div class="flex justify-center gap-2">
+                <div pRipple class="box" style="border: 1px solid rgba(75, 175, 80, 0.3); --p-ripple-background: rgba(75, 175, 80, 0.3)">
+                    Green
+                </div>
+                <div pRipple class="box" style="border: 1px solid rgba(255, 193, 6, 0.3); --p-ripple-background: rgba(255, 193, 6, 0.3)">
+                    Orange
+                </div>
+                <div pRipple class="box" style="border: 1px solid rgba(156, 39, 176, 0.3); --p-ripple-background: rgba(156, 39, 176, 0.3)">
+                    Purple
+                </div>
+            </div>
         </div>
         <app-code [code]="code" selector="ripple-custom-demo"></app-code>
-    `
+    `,
+    styles: [
+        `
+            :host {
+                .box {
+                    padding: 2rem;
+                    border-radius: 10px;
+                    width: 110px;
+                    text-align: center;
+                }
+            }
+        `,
+    ],
 })
 export class CustomDoc {
     code: Code = {
-        basic: `<div pRipple class="card styled-box-green shadow">
+        basic: `<div pRipple class="box" style="border: 1px solid rgba(75, 175, 80, 0.3); --p-ripple-background: rgba(75, 175, 80, 0.3)">
     Green
+</div>
+<div pRipple class="box" style="border: 1px solid rgba(255, 193, 6, 0.3); --p-ripple-background: rgba(255, 193, 6, 0.3)">
+    Orange
+</div>
+<div pRipple class="box" style="border: 1px solid rgba(156, 39, 176, 0.3); --p-ripple-background: rgba(156, 39, 176, 0.3)">
+    Purple
 </div>`,
-        html: `<div class="card card-container flex justify-center items-center">
-    <div pRipple class="card styled-box-green shadow">
+        html: `<div class="flex justify-center gap-2">
+    <div pRipple class="box" style="border: 1px solid rgba(75, 175, 80, 0.3); --p-ripple-background: rgba(75, 175, 80, 0.3)">
         Green
     </div>
-    <div pRipple class="card styled-box-orange shadow">
+    <div pRipple class="box" style="border: 1px solid rgba(255, 193, 6, 0.3); --p-ripple-background: rgba(255, 193, 6, 0.3)">
         Orange
     </div>
-    <div pRipple class="card styled-box-purple shadow">
+    <div pRipple class="box" style="border: 1px solid rgba(156, 39, 176, 0.3); --p-ripple-background: rgba(156, 39, 176, 0.3)">
         Purple
     </div>
 </div>`,
@@ -40,89 +73,25 @@ import { RippleModule } from 'primeng/ripple';
     standalone: true,
     imports: [RippleModule],
     styles: [
-        \`:host ::ng-deep .card-container {
-            .card {
-                width: 75px;
-                height: 75px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                margin-right: 1rem;
-                user-select: none;
-                padding: 0;
-        
-                &.primary-box {
-                    background-color: var(--primary-color);
-                    padding: 0;
-                    color: var(--primary-color-text);
+        \` :host {
+                .box {
+                    padding: 2rem;
+                    border-radius: 10px;
+                    width: 110px;
+                    text-align: center;
                 }
-        
-                &.styled-box-green {
-                    .p-ink {
-                        background: rgba(#4baf50, 0.3);
-                    }
-                }
-        
-                &.styled-box-orange {
-                    .p-ink {
-                        background: rgba(#ffc106, 0.3);
-                    }
-                }
-        
-                &.styled-box-purple {
-                    .p-ink {
-                        background: rgba(#9c27b0, 0.3);
-                    }
-                }
-        
-                &:last-child {
-                    margin-right: 0;
-                }
-            }
-        }\`
+            }\`
     ],
 })
 export class RippleCustomDemo {
 }`,
-        scss: `:host ::ng-deep .card-container {
-    .card {
-        width: 75px;
-        height: 75px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-right: 1rem;
-        user-select: none;
-        padding: 0;
-
-        &.primary-box {
-            background-color: var(--primary-color);
-            padding: 0;
-            color: var(--primary-color-text);
-        }
-
-        &.styled-box-green {
-            .p-ink {
-                background: rgba(#4baf50, 0.3);
+        scss: `:host {
+            .box {
+                padding: 2rem;
+                border-radius: 10px;
+                width: 110px;
+                text-align: center;
             }
-        }
-
-        &.styled-box-orange {
-            .p-ink {
-                background: rgba(#ffc106, 0.3);
-            }
-        }
-
-        &.styled-box-purple {
-            .p-ink {
-                background: rgba(#9c27b0, 0.3);
-            }
-        }
-
-        &:last-child {
-            margin-right: 0;
-        }
-    }
-}`
+        }`,
     };
 }
