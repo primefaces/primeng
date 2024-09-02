@@ -351,8 +351,6 @@ export class Slider implements OnDestroy, ControlValueAccessor {
         if (this.animate) {
             DomHandler.addClass(this.el.nativeElement.children[0], 'p-slider-animate');
         }
-
-        event.preventDefault();
     }
 
     onBarClick(event: Event) {
@@ -406,9 +404,9 @@ export class Slider implements OnDestroy, ControlValueAccessor {
                 this.updateValue(this.max, event);
                 event.preventDefault();
                 break;
+
             case 'Tab':
                 this.onDragEnd(event);
-                event.preventDefault();
                 break;
 
             default:
