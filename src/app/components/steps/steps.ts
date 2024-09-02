@@ -13,6 +13,7 @@ import {
     ViewChild,
     ViewEncapsulation,
     booleanAttribute,
+    inject,
     numberAttribute,
 } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
@@ -21,6 +22,8 @@ import { Nullable } from 'primeng/ts-helpers';
 import { MenuItem } from 'primeng/api';
 import { TooltipModule } from 'primeng/tooltip';
 import { Subscription } from 'rxjs';
+import { StepsStyle } from './style/stepsstyle';
+import { BaseComponent } from 'primeng/basecomponent';
 /**
  * Steps components is an indicator for the steps in a wizard workflow.
  * @group Components
@@ -34,7 +37,7 @@ import { Subscription } from 'rxjs';
             [class]="styleClass"
             [attr.data-pc-name]="'steps'"
         >
-            <ul #list [attr.data-pc-section]="'menu'">
+            <ul #list [attr.data-pc-section]="'menu'" class="p-steps-list">
                 <li
                     *ngFor="let item of model; let i = index"
                     class="p-steps-item"
@@ -46,7 +49,7 @@ import { Subscription } from 'rxjs';
                     pTooltip
                     [tooltipOptions]="item.tooltipOptions"
                     [ngClass]="{
-                        'p-highlight p-steps-current': isActive(item, i),
+                        'p-steps-item-active': isActive(item, i),
                         'p-disabled': item.disabled || (readonly && !isActive(item, i)),
                     }"
                     [attr.data-pc-section]="'menuitem'"
@@ -56,9 +59,8 @@ import { Subscription } from 'rxjs';
                         *ngIf="isClickableRouterLink(item); else elseBlock"
                         [routerLink]="item.routerLink"
                         [queryParams]="item.queryParams"
-                        [routerLinkActive]="'p-menuitem-link-active'"
                         [routerLinkActiveOptions]="item.routerLinkActiveOptions || { exact: false }"
-                        class="p-menuitem-link"
+                        class="p-steps-item-link"
                         (click)="onItemClick($event, item, i)"
                         (keydown)="onItemKeydown($event, item, i)"
                         [target]="item.target"
@@ -73,15 +75,15 @@ import { Subscription } from 'rxjs';
                         [state]="item.state"
                         [attr.ariaCurrentWhenActive]="exact ? 'step' : undefined"
                     >
-                        <span class="p-steps-number">{{ i + 1 }}</span>
-                        <span class="p-steps-title" *ngIf="item.escape !== false; else htmlLabel">{{ item.label }}</span>
-                        <ng-template #htmlLabel><span class="p-steps-title" [innerHTML]="item.label"></span></ng-template>
+                        <span class="p-steps-item-number">{{ i + 1 }}</span>
+                        <span class="p-steps-item-label" *ngIf="item.escape !== false; else htmlLabel">{{ item.label }}</span>
+                        <ng-template #htmlLabel><span class="p-steps-item-label" [innerHTML]="item.label"></span></ng-template>
                     </a>
                     <ng-template #elseBlock>
                         <a
                             role="link"
                             [attr.href]="item.url"
-                            class="p-menuitem-link"
+                            class="p-steps-item-link"
                             (click)="onItemClick($event, item, i)"
                             (keydown)="onItemKeydown($event, item, i)"
                             [target]="item.target"
@@ -90,9 +92,9 @@ import { Subscription } from 'rxjs';
                             [attr.aria-disabled]="item.disabled || (readonly && i !== activeIndex)"
                             [attr.ariaCurrentWhenActive]="exact && (!item.disabled || readonly) ? 'step' : undefined"
                         >
-                            <span class="p-steps-number">{{ i + 1 }}</span>
-                            <span class="p-steps-title" *ngIf="item.escape !== false; else htmlRouteLabel">{{ item.label }}</span>
-                            <ng-template #htmlRouteLabel><span class="p-steps-title" [innerHTML]="item.label"></span></ng-template>
+                            <span class="p-steps-item-number">{{ i + 1 }}</span>
+                            <span class="p-steps-item-label" *ngIf="item.escape !== false; else htmlRouteLabel">{{ item.label }}</span>
+                            <ng-template #htmlRouteLabel><span class="p-steps-item-label" [innerHTML]="item.label"></span></ng-template>
                         </a>
                     </ng-template>
                 </li>
@@ -101,9 +103,9 @@ import { Subscription } from 'rxjs';
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./steps.css'],
+    providers: [StepsStyle],
 })
-export class Steps implements OnInit, OnDestroy {
+export class Steps extends BaseComponent implements OnInit, OnDestroy {
     /**
      * Index of the active item.
      * @group Props
@@ -143,15 +145,16 @@ export class Steps implements OnInit, OnDestroy {
 
     @ViewChild('list', { static: false }) listViewChild: Nullable<ElementRef>;
 
-    constructor(
-        private router: Router,
-        private route: ActivatedRoute,
-        private cd: ChangeDetectorRef,
-    ) {}
+    router = inject(Router);
+
+    route = inject(ActivatedRoute);
+
+    _componentStyle = inject(StepsStyle);
 
     subscription: Subscription | undefined;
 
     ngOnInit() {
+        super.ngOnInit();
         this.subscription = this.router.events.subscribe(() => this.cd.markForCheck());
     }
 
@@ -298,6 +301,8 @@ export class Steps implements OnInit, OnDestroy {
         if (this.subscription) {
             this.subscription.unsubscribe();
         }
+
+        super.ngOnDestroy();
     }
 }
 
