@@ -7,21 +7,41 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>Default Demo Content.</p>
         </app-docsectiontext>
-        <div class="card card-container flex justify-center items-center">
-            <div pRipple class="card bg-primary flex select-none justify-center items-center shadow">Default</div>
+        <div class="card flex flex-col items-center gap-4">
+            <span
+                >Ripple option at the
+                <span class="mx-1 h-8 w-8 rounded-border inline-flex items-center justify-center bg-primary text-primary-contrast"
+                    ><i class="pi pi-palette"></i
+                ></span>
+                configurator needs to be turned on for the demo.</span
+            >
+            <div pRipple class="ripple-box">Default</div>
         </div>
         <app-code [code]="code" selector="ripple-default-demo"></app-code>
     `,
+    styles: [
+        `
+            :host {
+                .ripple-box {
+                    display: flex;
+                    user-select: none;
+                    justify-content: center;
+                    align-items: center;
+                    padding: 3rem;
+                    font-weight: bold;
+                    background: var(--p-content-background);
+                    border: 1px solid var(--p-content-border-color);
+                    border-radius: var(--p-content-border-radius);
+                }
+            }
+        `,
+    ],
 })
 export class DefaultDoc {
     code: Code = {
-        basic: `<div pRipple class="card text-primary bg-primary text-primary-contrast flex select-none justify-center items-center shadow">
-    Default
-</div>`,
-        html: `<div class="card card-container flex justify-center items-center">
-    <div pRipple class="card text-primary bg-primary text-primary-contrast flex select-none justify-center items-center shadow">
-        Default
-    </div>
+        basic: `<div pRipple class="ripple-box">Default</div>`,
+        html: `<div class="card flex flex-col items-center gap-4">
+    <div pRipple class="ripple-box">Default</div>
 </div>`,
         typescript: `import { Component } from '@angular/core';
 import { RippleModule } from 'primeng/ripple';
@@ -30,43 +50,38 @@ import { RippleModule } from 'primeng/ripple';
     selector: 'ripple-default-demo',
     templateUrl: './ripple-default-demo.html',
     styles: [
-        \`:host ::ng-deep .card-container {
-            .card {
-                width: 75px;
-                height: 75px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                margin-right: 1rem;
-                user-select: none;
-                padding: 0;
-        
-                &:last-child {
-                    margin-right: 0;
+        \` :host {
+                .ripple-box {
+                    display: flex;
+                    user-select: none;
+                    justify-content: center;
+                    align-items: center;
+                    padding: 3rem;
+                    font-weight: bold;
+                    background: var(--p-content-background);
+                    border: 1px solid var(--p-content-border-color);
+                    border-radius: var(--p-content-border-radius);
                 }
-            }
-        }\`
+            }\`
     ],
     standalone: true,
     imports: [RippleModule]
 })
 export class RippleDefaultDemo {
 }`,
-        scss: `:host ::ng-deep .card-container {
-    .card {
-        width: 75px;
-        height: 75px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-right: 1rem;
-        user-select: none;
-        padding: 0;
-
-        &:last-child {
-            margin-right: 0;
-        }
-    }
+        scss: `:host {
+                .ripple-box {
+                    display: flex;
+                    user-select: none;
+                    justify-content: center;
+                    align-items: center;
+                    padding: 3rem;
+                    font-weight: bold;
+                    background: var(--p-content-background);
+                    border: 1px solid var(--p-content-border-color);
+                    border-radius: var(--p-content-border-radius);
+                }
+            }
 }`,
     };
 }
