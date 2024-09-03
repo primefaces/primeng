@@ -497,6 +497,6 @@ export class Drawer extends BaseComponent implements AfterViewInit, AfterContent
 
 @NgModule({
     imports: [Drawer],
-    exports: [Drawer],
+    exports: [Drawer, SharedModule],
 })
 export class DrawerModule {}
