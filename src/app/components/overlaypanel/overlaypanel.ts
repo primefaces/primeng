@@ -33,9 +33,10 @@ import { BaseComponent } from 'primeng/basecomponent';
 /**
  * OverlayPanel is a container component positioned as connected to its target.
  * @group Components
+ * @deprecated Use Popover component instead.
  */
 @Component({
-    selector: 'p-overlayPanel, p-popover',
+    selector: 'p-overlayPanel',
     template: `
         <div
             *ngIf="render"
@@ -45,7 +46,7 @@ import { BaseComponent } from 'primeng/basecomponent';
             (click)="onOverlayClick($event)"
             [@animation]="{
                 value: overlayVisible ? 'open' : 'close',
-                params: { showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions }
+                params: { showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions },
             }"
             (@animation.start)="onAnimationStart($event)"
             (@animation.done)="onAnimationEnd($event)"
@@ -58,19 +59,6 @@ import { BaseComponent } from 'primeng/basecomponent';
                 <ng-content></ng-content>
                 <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
             </div>
-            <!-- <p-button
-                *ngIf="showCloseIcon"
-                (click)="onCloseClick($event)"
-                (keydown.enter)="hide()"
-                [attr.aria-label]="ariaCloseLabel"
-                rounded
-                text
-            >
-                <TimesIcon *ngIf="!closeIconTemplate" />
-                <span *ngIf="closeIconTemplate">
-                    <ng-template *ngTemplateOutlet="closeIconTemplate"></ng-template>
-                </span>
-            </p-button> -->
         </div>
     `,
     animations: [
@@ -214,8 +202,12 @@ export class OverlayPanel extends BaseComponent implements AfterContentInit, OnD
 
     _componentStyle = inject(PopoverStyle);
 
-    constructor(private zone: NgZone, public overlayService: OverlayService) {
+    constructor(
+        private zone: NgZone,
+        public overlayService: OverlayService,
+    ) {
         super();
+        console.log('OverlayPanel is deprecated. Use Popover instead.');
     }
 
     ngAfterContentInit() {
@@ -350,9 +342,7 @@ export class OverlayPanel extends BaseComponent implements AfterContentInit, OnD
 
         const containerOffset = DomHandler.getOffset(this.container);
         const targetOffset = DomHandler.getOffset(this.target);
-        const borderRadius = this.document.defaultView
-            ?.getComputedStyle(this.container!)
-            .getPropertyValue('border-radius');
+        const borderRadius = this.document.defaultView?.getComputedStyle(this.container!).getPropertyValue('border-radius');
         let arrowLeft = 0;
 
         if (containerOffset.left < targetOffset.left) {

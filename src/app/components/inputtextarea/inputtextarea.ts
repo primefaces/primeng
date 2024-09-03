@@ -20,6 +20,7 @@ import { TextareaStyle } from './style/textareastyle';
 /**
  * InputTextarea adds styling and autoResize functionality to standard textarea element.
  * @group Components
+ * @deprecated Use Textarea directive instead.
  */
 @Directive({
     selector: '[pInputTextarea]',
