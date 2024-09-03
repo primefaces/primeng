@@ -60,10 +60,6 @@
                             "routerLink": "/colorpicker"
                         },
                         {
-                            "name": "Chips",
-                            "routerLink": "/chips"
-                        },
-                        {
                             "name": "DatePicker",
                             "routerLink": "/datepicker"
                         },
@@ -140,7 +136,7 @@
                             "routerLink": "/slider"
                         },
                         {
-                            "name": "TextArea",
+                            "name": "Textarea",
                             "routerLink": "/textarea"
                         },
                         {
@@ -165,12 +161,12 @@
                             "routerLink": "/button"
                         },
                         {
-                            "name": "SplitButton",
-                            "routerLink": "/splitbutton"
+                            "name": "SpeedDial",
+                            "routerLink": "/speeddial"
                         },
                         {
-                            "name": "Speed Dial",
-                            "routerLink": "/speeddial"
+                            "name": "SplitButton",
+                            "routerLink": "/splitbutton"
                         }
                     ]
                 },
@@ -186,7 +182,7 @@
                             "routerLink": "/orderlist"
                         },
                         {
-                            "name": "Org Chart",
+                            "name": "OrgChart",
                             "routerLink": "/organizationchart"
                         },
                         {
@@ -196,10 +192,6 @@
                         {
                             "name": "PickList",
                             "routerLink": "/picklist"
-                        },
-                        {
-                            "name": "Scroller",
-                            "routerLink": "/scroller"
                         },
                         {
                             "name": "Table",
@@ -216,6 +208,10 @@
                         {
                             "name": "TreeTable",
                             "routerLink": "/treetable"
+                        },
+                        {
+                            "name": "Scroller",
+                            "routerLink": "/scroller"
                         }
                     ]
                 },
@@ -243,17 +239,16 @@
                             "routerLink": "/panel"
                         },
                         {
+                            "name": "ScrollPanel",
+                            "routerLink": "/scrollpanel"
+                        },
+                        {
                             "name": "Splitter",
                             "routerLink": "/splitter"
                         },
                         {
                             "name": "Stepper",
-                            "routerLink": "/stepper",
-                            "badge": "NEW"
-                        },
-                        {
-                            "name": "ScrollPanel",
-                            "routerLink": "/scrollpanel"
+                            "routerLink": "/stepper"
                         },
                         {
                             "name": "Tabs",
@@ -404,6 +399,14 @@
                     "name": "Misc",
                     "children": [
                         {
+                            "name": "AnimateOnScroll",
+                            "routerLink": "/animateonscroll"
+                        },
+                        {
+                            "name": "AutoFocus",
+                            "routerLink": "/autofocus"
+                        },
+                        {
                             "name": "Avatar",
                             "routerLink": "/avatar"
                         },
@@ -420,6 +423,10 @@
                             "routerLink": "/chip"
                         },
                         {
+                            "name": "FocusTrap",
+                            "routerLink": "/focustrap"
+                        },
+                        {
                             "name": "Inplace",
                             "routerLink": "/inplace"
                         },
@@ -429,8 +436,7 @@
                         },
                         {
                             "name": "MeterGroup",
-                            "routerLink": "/metergroup",
-                            "badge": "NEW"
+                            "routerLink": "/metergroup"
                         },
                         {
                             "name": "ScrollTop",
@@ -449,41 +455,24 @@
                             "routerLink": "/progressspinner"
                         },
                         {
-                            "name": "Tag",
-                            "routerLink": "/tag"
-                        },
-                        {
-                            "name": "Terminal",
-                            "routerLink": "/terminal"
-                        }
-                    ]
-                },
-                {
-                    "name": "Directives",
-                    "children": [
-                        {
-                            "name": "Defer",
-                            "routerLink": "/defer"
-                        },
-                        {
-                            "name": "FocusTrap",
-                            "routerLink": "/focustrap"
+                            "name": "Ripple",
+                            "routerLink": "/ripple"
                         },
                         {
                             "name": "StyleClass",
                             "routerLink": "/styleclass"
                         },
                         {
-                            "name": "Ripple",
-                            "routerLink": "/ripple"
+                            "name": "Tag",
+                            "routerLink": "/tag"
                         },
                         {
-                            "name": "AutoFocus",
-                            "routerLink": "/autofocus"
+                            "name": "Terminal",
+                            "routerLink": "/terminal"
                         },
                         {
-                            "name": "AnimateOnScroll",
-                            "routerLink": "/animateonscroll"
+                            "name": "Defer",
+                            "routerLink": "/defer"
                         }
                     ]
                 },
@@ -568,6 +557,12 @@
             ]
         },
         {
+            "name": "Contribution",
+            "to": "/contribution",
+            "icon": "pi pi-users",
+            "badge": "NEW"
+        },
+        {
             "name": "Discover",
             "icon": "pi pi-search",
             "children": [
@@ -596,20 +591,12 @@
                     "href": "https://twitter.com/prime_ng"
                 },
                 {
-                    "name": "Partners",
-                    "routerLink": "/partners"
-                },
-                {
                     "name": "Newsletter",
                     "href": "https://www.primefaces.org/newsletter"
                 },
                 {
                     "name": "PrimeGear",
                     "href": "https://gear.primefaces.org"
-                },
-                {
-                    "name": "PrimeFlex CSS",
-                    "href": "https://primeflex.org"
                 }
             ]
         }
