@@ -13,11 +13,11 @@ export const routes: Routes = [
             { path: 'autocomplete', loadChildren: () => import('@pages/autocomplete/routes') },
             {
                 path: 'installation',
-                loadChildren: () => import('@pages/installation/installation.module').then((m) => m.InstallationModule),
+                loadChildren: () => import('@pages/introduction/routes'),
             },
             {
-                path: 'configuration',
-                loadChildren: () => import('@pages/configuration/configurationdemo.module').then((m) => m.ConfigurationDemoModule),
+                path: 'configurations',
+                loadChildren: () => import('@pages/configuration/routes'),
             },
             { path: 'playground', loadChildren: () => import('@pages/playground/playground.module').then((m) => m.PlaygroundModule) },
             { path: 'roadmap', loadChildren: () => import('@pages/roadmap/roadmap.module').then((m) => m.RoadmapModule) },
@@ -120,8 +120,8 @@ export const routes: Routes = [
                 loadChildren: () => import('@pages/inputgroup/inputgroupdemo.module').then((m) => m.InputGroupDemoModule),
             },
             {
-                path: 'inputtextarea',
-                loadChildren: () => import('@pages/inputtextarea/inputtextareademo.module').then((m) => m.InputTextareaDemoModule),
+                path: 'textarea',
+                loadChildren: () => import('@pages/textarea/routes'),
             },
             { path: 'knob', loadChildren: () => import('@pages/knob/knobdemo.module').then((m) => m.KnobDemoModule) },
             { path: 'keyfilter', loadChildren: () => import('@pages/keyfilter/keyfilterdemo.module').then((m) => m.KeyFilterDemoModule) },
@@ -209,10 +209,6 @@ export const routes: Routes = [
                 loadChildren: () => import('@pages/treeselect/treeselectdemo.module').then((m) => m.TreeSelectDemoModule),
             },
             { path: 'treetable', loadChildren: () => import('@pages/treetable/treetabledemo.module').then((m) => m.TreeTableDemoModule) },
-            {
-                path: 'tristatecheckbox',
-                loadChildren: () => import('@pages/tristatecheckbox/tristatecheckboxdemo.module').then((m) => m.TriStateCheckboxDemoModule),
-            },
             { path: 'scroller', loadChildren: () => import('@pages/scroller/scrollerdemo.module').then((m) => m.ScrollerDemoModule) },
             { path: 'uikit', loadChildren: () => import('@pages/uikit/uikit.module').then((m) => m.UIKitModule) },
             { path: 'autofocus', loadChildren: () => import('@pages/autofocus/autofocusdemo.module').then((m) => m.AutoFocusDemoModule) },

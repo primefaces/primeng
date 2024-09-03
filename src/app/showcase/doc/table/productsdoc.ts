@@ -15,11 +15,25 @@ import { ProductService } from '@service/productservice';
                 <p-toolbar styleClass="mb-6 gap-2">
                     <ng-template pTemplate="left">
                         <p-button pRipple severity="success" label="New" icon="pi pi-plus" class="mr-2" (click)="openNew()" />
-                        <p-button pRipple severity="danger" label="Delete" icon="pi pi-trash" (click)="deleteSelectedProducts()" [disabled]="!selectedProducts || !selectedProducts.length" />
+                        <p-button
+                            pRipple
+                            severity="danger"
+                            label="Delete"
+                            icon="pi pi-trash"
+                            (click)="deleteSelectedProducts()"
+                            [disabled]="!selectedProducts || !selectedProducts.length"
+                        />
                     </ng-template>
 
                     <ng-template pTemplate="right">
-                        <p-fileUpload mode="basic" accept="image/*" [maxFileSize]="1000000" label="Import" chooseLabel="Import" class="mr-2 inline-block" />
+                        <p-fileUpload
+                            mode="basic"
+                            accept="image/*"
+                            [maxFileSize]="1000000"
+                            label="Import"
+                            chooseLabel="Import"
+                            class="mr-2 inline-block"
+                        />
                         <p-button pRipple severity="help" label="Export" icon="pi pi-upload" />
                     </ng-template>
                 </p-toolbar>
@@ -42,7 +56,12 @@ import { ProductService } from '@service/productservice';
                             <h5 class="m-0">Manage Products</h5>
                             <span class="p-input-icon-left">
                                 <i class="pi pi-search"></i>
-                                <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search..." />
+                                <input
+                                    pInputText
+                                    type="text"
+                                    (input)="dt.filterGlobal($event.target.value, 'contains')"
+                                    placeholder="Search..."
+                                />
                             </span>
                         </div>
                     </ng-template>
@@ -66,7 +85,14 @@ import { ProductService } from '@service/productservice';
                                 <p-tableCheckbox [value]="product" />
                             </td>
                             <td>{{ product.name }}</td>
-                            <td><img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.name" width="50" class="shadow-lg" /></td>
+                            <td>
+                                <img
+                                    [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image"
+                                    [alt]="product.name"
+                                    width="50"
+                                    class="shadow-lg"
+                                />
+                            </td>
                             <td>{{ product.price | currency: 'USD' }}</td>
                             <td>{{ product.category }}</td>
                             <td><p-rating [(ngModel)]="product.rating" [readonly]="true" [cancel]="false" /></td>
@@ -74,19 +100,47 @@ import { ProductService } from '@service/productservice';
                                 <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" />
                             </td>
                             <td>
-                                <p-button pRipple icon="pi pi-pencil" class="mr-2" [rounded]="true" [outlined]="true" severity="success" (click)="editProduct(product)" />
-                                <p-button pRipple icon="pi pi-trash" severity="danger" [rounded]="true" [outlined]="true" (click)="deleteProduct(product)" />
+                                <p-button
+                                    pRipple
+                                    icon="pi pi-pencil"
+                                    class="mr-2"
+                                    [rounded]="true"
+                                    [outlined]="true"
+                                    severity="success"
+                                    (click)="editProduct(product)"
+                                />
+                                <p-button
+                                    pRipple
+                                    icon="pi pi-trash"
+                                    severity="danger"
+                                    [rounded]="true"
+                                    [outlined]="true"
+                                    (click)="deleteProduct(product)"
+                                />
                             </td>
                         </tr>
                     </ng-template>
                     <ng-template pTemplate="summary">
-                        <div class="flex items-center justify-between">In total there are {{ products ? products.length : 0 }} products.</div>
+                        <div class="flex items-center justify-between">
+                            In total there are {{ products ? products.length : 0 }} products.
+                        </div>
                     </ng-template>
                 </p-table>
 
-                <p-dialog [(visible)]="productDialog" [style]="{ width: '450px' }" header="Product Details" [modal]="true" styleClass="p-fluid">
+                <p-dialog
+                    [(visible)]="productDialog"
+                    [style]="{ width: '450px' }"
+                    header="Product Details"
+                    [modal]="true"
+                    styleClass="p-fluid"
+                >
                     <ng-template pTemplate="content">
-                        <img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.image" class="block m-auto pb-4" *ngIf="product.image" />
+                        <img
+                            [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image"
+                            [alt]="product.image"
+                            class="block m-auto pb-4"
+                            *ngIf="product.image"
+                        />
                         <div class="field">
                             <label for="name">Name</label>
                             <input type="text" pInputText id="name" [(ngModel)]="product.name" required autofocus />
@@ -94,14 +148,17 @@ import { ProductService } from '@service/productservice';
                         </div>
                         <div class="field">
                             <label for="description">Description</label>
-                            <textarea id="description" pInputTextarea [(ngModel)]="product.description" required rows="3" cols="20"></textarea>
+                            <textarea id="description" pTextarea [(ngModel)]="product.description" required rows="3" cols="20"></textarea>
                         </div>
 
                         <div class="field">
                             <label for="inventoryStatus">Inventory Status</label>
                             <p-dropdown [(ngModel)]="product.inventoryStatus" inputId="inventoryStatus" [options]="statuses">
                                 <ng-template pTemplate="selectedItem">
-                                    <p-tag [value]="product.inventoryStatus.toUpperCase()" [severity]="getSeverity(product.inventoryStatus.toUpperCase())" />
+                                    <p-tag
+                                        [value]="product.inventoryStatus.toUpperCase()"
+                                        [severity]="getSeverity(product.inventoryStatus.toUpperCase())"
+                                    />
                                 </ng-template>
                                 <ng-template let-option pTemplate="item">
                                     <p-tag [value]="option.label" [severity]="getSeverity(option.label)" />
@@ -154,7 +211,7 @@ import { ProductService } from '@service/productservice';
         </p-deferred-demo>
         <app-code [code]="code" selector="table-products-demo" [extFiles]="extFiles"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [MessageService, ConfirmationService]
+    providers: [MessageService, ConfirmationService],
 })
 export class ProductsDoc {
     productDialog: boolean = false;
@@ -173,7 +230,7 @@ export class ProductsDoc {
         private productService: ProductService,
         private messageService: MessageService,
         private confirmationService: ConfirmationService,
-        private cd: ChangeDetectorRef
+        private cd: ChangeDetectorRef,
     ) {}
 
     loadDemoData() {
@@ -185,7 +242,7 @@ export class ProductsDoc {
         this.statuses = [
             { label: 'INSTOCK', value: 'instock' },
             { label: 'LOWSTOCK', value: 'lowstock' },
-            { label: 'OUTOFSTOCK', value: 'outofstock' }
+            { label: 'OUTOFSTOCK', value: 'outofstock' },
         ];
     }
 
@@ -204,7 +261,7 @@ export class ProductsDoc {
                 this.products = this.products.filter((val) => !this.selectedProducts?.includes(val));
                 this.selectedProducts = null;
                 this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Products Deleted', life: 3000 });
-            }
+            },
         });
     }
 
@@ -222,7 +279,7 @@ export class ProductsDoc {
                 this.products = this.products.filter((val) => val.id !== product.id);
                 this.product = {};
                 this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Deleted', life: 3000 });
-            }
+            },
         });
     }
 
@@ -596,7 +653,7 @@ export class ProductsDoc {
                     <label for="description">Description</label>
                     <textarea 
                         id="description" 
-                        pInputTextarea 
+                        pTextarea 
                         [(ngModel)]="product.description" 
                         required 
                         rows="3" 
@@ -872,7 +929,7 @@ export class TableProductsDemo implements OnInit{
     margin: 0 auto 2rem auto;
     display: block;
 }`,
-        service: ['ProductService']
+        service: ['ProductService'],
     };
 
     extFiles = [
@@ -890,7 +947,7 @@ export interface Product {
     category?: string;
     image?: string;
     rating?: number;
-}`
-        }
+}`,
+        },
     ];
 }

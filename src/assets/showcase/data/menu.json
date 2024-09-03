@@ -5,8 +5,8 @@
             "icon": "pi pi-home",
             "children": [
                 {
-                    "name": "Installation",
-                    "routerLink": "/installation"
+                    "name": "Introduction",
+                    "routerLink": "/introduction"
                 },
                 {
                     "name": "Configuration",
@@ -15,6 +15,24 @@
                 {
                     "name": "Playground",
                     "routerLink": "/playground"
+                }
+            ]
+        },
+        {
+            "name": "Theming",
+            "icon": "pi pi-palette",
+            "children": [
+                {
+                    "name": "Overview",
+                    "routerLink": "/theming"
+                },
+                {
+                    "name": "Colors",
+                    "routerLink": "/colors"
+                },
+                {
+                    "name": "SASS API",
+                    "href": "https://www.primefaces.org/designer/api/primeng/15.0.0"
                 }
             ]
         },
@@ -38,12 +56,12 @@
                             "routerLink": "/checkbox"
                         },
                         {
-                            "name": "Chips",
-                            "routerLink": "/chips"
-                        },
-                        {
                             "name": "ColorPicker",
                             "routerLink": "/colorpicker"
+                        },
+                        {
+                            "name": "Chips",
+                            "routerLink": "/chips"
                         },
                         {
                             "name": "DatePicker",
@@ -55,13 +73,11 @@
                         },
                         {
                             "name": "FloatLabel",
-                            "routerLink": "/floatlabel",
-                            "badge": "NEW"
+                            "routerLink": "/floatlabel"
                         },
                         {
                             "name": "IconField",
-                            "routerLink": "/iconfield",
-                            "badge": "NEW"
+                            "routerLink": "/iconfield"
                         },
                         {
                             "name": "InputGroup",
@@ -72,33 +88,24 @@
                             "routerLink": "/inputmask"
                         },
                         {
-                            "name": "ToggleSwitch",
-                            "routerLink": "/toggleswitch"
+                            "name": "InputNumber",
+                            "routerLink": "/inputnumber"
+                        },
+                        {
+                            "name": "InputOtp",
+                            "routerLink": "/inputotp"
                         },
                         {
                             "name": "InputText",
                             "routerLink": "/inputtext"
                         },
                         {
-                            "name": "InputTextarea",
-                            "routerLink": "/inputtextarea"
-                        },
-                        {
-                            "name": "InputNumber",
-                            "routerLink": "/inputnumber"
-                        },
-                        {
-                            "name": "InputOtp",
-                            "routerLink": "/inputotp",
-                            "badge": "NEW"
+                            "name": "KeyFilter",
+                            "routerLink": "/keyfilter"
                         },
                         {
                             "name": "Knob",
                             "routerLink": "/knob"
-                        },
-                        {
-                            "name": "KeyFilter",
-                            "routerLink": "/keyfilter"
                         },
                         {
                             "name": "Listbox",
@@ -133,16 +140,20 @@
                             "routerLink": "/slider"
                         },
                         {
-                            "name": "TreeSelect",
-                            "routerLink": "/treeselect"
-                        },
-                        {
-                            "name": "TriStateCheckbox",
-                            "routerLink": "/tristatecheckbox"
+                            "name": "TextArea",
+                            "routerLink": "/textarea"
                         },
                         {
                             "name": "ToggleButton",
                             "routerLink": "/togglebutton"
+                        },
+                        {
+                            "name": "ToggleSwitch",
+                            "routerLink": "/toggleswitch"
+                        },
+                        {
+                            "name": "TreeSelect",
+                            "routerLink": "/treeselect"
                         }
                     ]
                 },
@@ -484,24 +495,6 @@
                             "routerLink": "/filterservice"
                         }
                     ]
-                }
-            ]
-        },
-        {
-            "name": "Theming",
-            "icon": "pi pi-palette",
-            "children": [
-                {
-                    "name": "Overview",
-                    "routerLink": "/theming"
-                },
-                {
-                    "name": "Colors",
-                    "routerLink": "/colors"
-                },
-                {
-                    "name": "SASS API",
-                    "href": "https://www.primefaces.org/designer/api/primeng/15.0.0"
                 }
             ]
         },

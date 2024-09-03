@@ -8,7 +8,7 @@
 /blockui
 /breadcrumb
 /button
-/calendar
+/datepicker
 /card
 /carousel
 /cascadeselect
@@ -18,7 +18,7 @@
 /chips
 /colorpicker
 /colors
-/configuration
+/setup
 /confirmdialog
 /confirmpopup
 /contextmenu
@@ -29,7 +29,7 @@
 /divider
 /dock
 /dragdrop
-/dropdown
+/select
 /dynamicdialog
 /editor
 /fieldset
@@ -50,10 +50,10 @@
 /inputmask
 /inputnumber
 /inputotp
-/inputswitch
+/toggleswitch
 /inputtext
 /inputtextarea
-/installation
+/configuration
 /keyfilter
 /knob
 /listbox
@@ -102,7 +102,7 @@
 /support
 /table
 /tabmenu
-/tabview
+/tabs
 /tag
 /team
 /templates
@@ -126,5 +126,4 @@
 /tree
 /treeselect
 /treetable
-/tristatecheckbox
 /uikit

@@ -1,4 +1,6 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { ConfigurationDocModule } from '@doc/configuration/configurationdoc.module';
 import { CspDoc } from '@doc/configuration/cspdoc';
 import { FilterModeDoc } from '@doc/configuration/filtermodedoc';
 import { ImportDoc } from '@doc/configuration/importdoc';
@@ -11,24 +13,31 @@ import { ZIndexDoc } from '@doc/configuration/zindexdoc';
 
 @Component({
     selector: 'configuration',
-    templateUrl: './configurationdemo.component.html'
+    standalone: true,
+    imports: [CommonModule, ConfigurationDocModule],
+    template: `<app-doc
+        docTitle="Configuration - PrimeNG"
+        header="Configuration"
+        description="Global configuration options of the components."
+        [docs]="docs"
+    ></app-doc>`,
 })
-export class ConfigurationDemoComponent {
+export class ConfigurationDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc
+            component: ImportDoc,
         },
         {
             id: 'ripple',
             label: 'Ripple',
-            component: RippleDoc
+            component: RippleDoc,
         },
         {
             id: 'zIndex',
             label: 'ZIndex',
-            component: ZIndexDoc
+            component: ZIndexDoc,
         },
         {
             id: 'csp',
@@ -37,14 +46,14 @@ export class ConfigurationDemoComponent {
                 {
                     id: 'csp-nonce',
                     label: 'Nonce',
-                    component: CspDoc
-                }
-            ]
+                    component: CspDoc,
+                },
+            ],
         },
         {
             id: 'filter-mode',
             label: 'Filter Mode',
-            component: FilterModeDoc
+            component: FilterModeDoc,
         },
         {
             id: 'locale',
@@ -53,24 +62,24 @@ export class ConfigurationDemoComponent {
                 {
                     id: 'set-locale',
                     label: 'Set Locale',
-                    component: SetLocaleDoc
+                    component: SetLocaleDoc,
                 },
                 {
                     id: 'ngx-translate',
                     label: 'ngx-translate',
-                    component: NgxTranslateDoc
+                    component: NgxTranslateDoc,
                 },
                 {
                     id: 'repository',
                     label: 'Repository',
-                    component: RepositoryDoc
+                    component: RepositoryDoc,
                 },
                 {
                     id: 'api',
                     label: 'API',
-                    component: ApiDoc
-                }
-            ]
-        }
+                    component: ApiDoc,
+                },
+            ],
+        },
     ];
 }
