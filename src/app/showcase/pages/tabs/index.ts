@@ -18,7 +18,7 @@ import { TabsDocModule } from '@doc/tabs/tabsdoc.module';
         header="Tabs"
         description="Tabs is a container component to group content with tabs."
         [docs]="docs"
-        [apiDocs]="['Tabs']"
+        [apiDocs]="['Tabs', 'TabPanel']"
     ></app-doc>`,
     imports: [TabsDocModule],
     standalone: true,

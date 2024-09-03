@@ -49,9 +49,9 @@ import { BaseComponent } from 'primeng/basecomponent';
             class="p-tabs-panel"
             role="tabpanel"
             [hidden]="!selected"
-            [attr.id]="Tabs.getTabContentId(id)"
+            [attr.id]="tabs.getTabContentId(id)"
             [attr.aria-hidden]="!selected"
-            [attr.aria-labelledby]="Tabs.getTabHeaderActionId(id)"
+            [attr.aria-labelledby]="tabs.getTabHeaderActionId(id)"
             [attr.data-pc-name]="'tabpanel'"
         >
             <ng-content></ng-content>
