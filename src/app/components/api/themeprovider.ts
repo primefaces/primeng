@@ -26,7 +26,7 @@ export class ThemeProvider {
                     });
                 });
             },
-            { allowSignalWrites: true }
+            { allowSignalWrites: true },
         );
         effect(() => {
             const themeValue = this.theme();
@@ -62,10 +62,11 @@ export class ThemeProvider {
     }
 
     loadFont() {
+        // @todo try to load font with angular.json
         const fontElement = this.document.createElement('link');
         DomHandler.setAttributes(fontElement, {
             rel: 'stylesheet',
-            href: 'https://rsms.me/inter/inter.css'
+            href: 'https://rsms.me/inter/inter.css',
         });
         this.document.head.appendChild(fontElement);
     }
