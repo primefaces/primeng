@@ -45,7 +45,7 @@ import { BaseComponent } from 'primeng/basecomponent';
             (click)="onOverlayClick($event)"
             [@animation]="{
                 value: overlayVisible ? 'open' : 'close',
-                params: { showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions }
+                params: { showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions },
             }"
             (@animation.start)="onAnimationStart($event)"
             (@animation.done)="onAnimationEnd($event)"
@@ -58,19 +58,6 @@ import { BaseComponent } from 'primeng/basecomponent';
                 <ng-content></ng-content>
                 <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
             </div>
-            <!-- <p-button
-                *ngIf="showCloseIcon"
-                (click)="onCloseClick($event)"
-                (keydown.enter)="hide()"
-                [attr.aria-label]="ariaCloseLabel"
-                rounded
-                text
-            >
-                <TimesIcon *ngIf="!closeIconTemplate" />
-                <span *ngIf="closeIconTemplate">
-                    <ng-template *ngTemplateOutlet="closeIconTemplate"></ng-template>
-                </span>
-            </p-button> -->
         </div>
     `,
     animations: [
@@ -214,7 +201,10 @@ export class Popover extends BaseComponent implements AfterContentInit, OnDestro
 
     _componentStyle = inject(PopoverStyle);
 
-    constructor(private zone: NgZone, public overlayService: OverlayService) {
+    constructor(
+        private zone: NgZone,
+        public overlayService: OverlayService,
+    ) {
         super();
     }
 
@@ -350,9 +340,7 @@ export class Popover extends BaseComponent implements AfterContentInit, OnDestro
 
         const containerOffset = DomHandler.getOffset(this.container);
         const targetOffset = DomHandler.getOffset(this.target);
-        const borderRadius = this.document.defaultView
-            ?.getComputedStyle(this.container!)
-            .getPropertyValue('border-radius');
+        const borderRadius = this.document.defaultView?.getComputedStyle(this.container!).getPropertyValue('border-radius');
         let arrowLeft = 0;
 
         if (containerOffset.left < targetOffset.left) {
