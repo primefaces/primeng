@@ -13,30 +13,44 @@ export class UseStyle {
         let cssRef = css;
         let styleRef = null;
 
-        const { immediate = true, manual = false, name = `style_${++_id}`, id = undefined, media = undefined, nonce = undefined, first = false, props = {} } = options;
+        const {
+            immediate = true,
+            manual = false,
+            name = `style_${++_id}`,
+            id = undefined,
+            media = undefined,
+            nonce = undefined,
+            first = false,
+            props = {},
+        } = options;
 
         if (!this.document) return;
-        styleRef = this.document.querySelector(`style[data-primeng-style-id="${name}"]`) || this.document.getElementById(id) || this.document.createElement('style');
+        styleRef =
+            this.document.querySelector(`style[data-primeng-style-id="${name}"]`) ||
+            this.document.getElementById(id) ||
+            this.document.createElement('style');
 
-        if (styleRef) {
+        if (!styleRef.isConnected) {
             cssRef = css;
             DomHandler.setAttributes(styleRef, {
                 type: 'text/css',
                 media,
-                nonce
+                nonce,
             });
-
-            styleRef.innerHTML = cssRef;
 
             first ? this.document.head.prepend(styleRef) : this.document.head.appendChild(styleRef);
             DomHandler.setAttribute(styleRef, 'data-primeng-style-id', name);
+        }
+
+        if (styleRef.textContent !== cssRef) {
+            styleRef.textContent = cssRef;
         }
 
         return {
             id,
             name,
             el: styleRef,
-            css: cssRef
+            css: cssRef,
         };
     }
 }
