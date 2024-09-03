@@ -13,7 +13,7 @@ import { AccessibilityDoc } from '@doc/message/accessibilitydoc';
     template: `<app-doc
         docTitle="Angular Message Component"
         header="Message"
-        description="Message groups a collection of contents in tabs."
+        description="Message component is used to display inline messages."
         [docs]="docs"
         [apiDocs]="['Message']"
     ></app-doc>`,

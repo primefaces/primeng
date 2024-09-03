@@ -5,7 +5,7 @@ import { Code } from '@domain/code';
     selector: 'basic-doc',
     template: `
         <app-docsectiontext>
-            <p>Menubar requires nested menuitems as its model.</p>
+            <p>Message component requires a content to display.</p>
         </app-docsectiontext>
         <div class="card">
             <p-message>Message Content</p-message>
