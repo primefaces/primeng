@@ -13,10 +13,29 @@ import { AppDevelopmentSection } from './app.developmentsection.component';
 import { AppDocApiTable } from './app.docapitable.component';
 import { AppDoc } from './app.doc.component';
 import { RouterModule } from '@angular/router';
+import { AppDocThemingSectionComponent } from './app.docthemingsection.component';
 
 @NgModule({
     imports: [CommonModule, FormsModule, ButtonModule, InputTextModule, TooltipModule, AppCodeModule, RouterModule],
-    exports: [AppDocSectionTextComponent, AppDocApiSection, AppDocSectionNavComponent, AppDocSectionsComponent, AppDevelopmentSection, AppDoc, AppDocApiTable],
-    declarations: [AppDocSectionTextComponent, AppDocApiSection, AppDocSectionNavComponent, AppDocSectionsComponent, AppDevelopmentSection, AppDoc, AppDocApiTable]
+    exports: [
+        AppDocSectionTextComponent,
+        AppDocApiSection,
+        AppDocSectionNavComponent,
+        AppDocSectionsComponent,
+        AppDevelopmentSection,
+        AppDoc,
+        AppDocApiTable,
+        AppDocThemingSectionComponent,
+    ],
+    declarations: [
+        AppDocSectionTextComponent,
+        AppDocApiSection,
+        AppDocSectionNavComponent,
+        AppDocSectionsComponent,
+        AppDevelopmentSection,
+        AppDoc,
+        AppDocApiTable,
+        AppDocThemingSectionComponent,
+    ],
 })
 export class AppDocModule {}

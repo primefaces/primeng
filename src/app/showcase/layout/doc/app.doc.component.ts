@@ -1,4 +1,14 @@
-import { ChangeDetectorRef, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    inject,
+    Input,
+    OnChanges,
+    OnInit,
+    signal,
+    SimpleChanges,
+    ViewEncapsulation,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { Doc } from '@domain/doc';
 import { Title, Meta } from '@angular/platform-browser';
@@ -7,29 +17,37 @@ import { Title, Meta } from '@angular/platform-browser';
     selector: 'app-doc',
     template: ` <div class="doc-component">
         <ul class="doc-tabmenu" *ngIf="docs && apiDocs">
-            <li [ngClass]="{ 'doc-tabmenu-active': activeTab === 0 }">
+            <li [ngClass]="{ 'doc-tabmenu-active': activeTab() === 0 }">
                 <button type="button" (click)="activateTab(0)">FEATURES</button>
             </li>
-            <li *ngIf="apiDocs" [ngClass]="{ 'doc-tabmenu-active': activeTab === 1 }">
+            <li *ngIf="apiDocs" [ngClass]="{ 'doc-tabmenu-active': activeTab() === 1 }">
                 <button type="button" (click)="activateTab(1)">API</button>
+            </li>
+            <li [ngClass]="{ 'doc-tabmenu-active': activeTab() === 2 }">
+                <button type="button" (click)="activateTab(2)">THEMING</button>
             </li>
         </ul>
         <div class="doc-tabpanels">
-            <div [ngClass]="{ hidden: activeTab === 1 }" class="doc-tabpanel">
+            <div [style.display]="activeTab() !== 0 ? 'none' : ''" class="doc-tabpanel">
                 <div class="doc-main">
                     <div class="doc-intro">
                         <h1>{{ header }}</h1>
                         <p>{{ description }}</p>
                     </div>
-                    <app-docsection [docs]="docs"></app-docsection>
+                    <app-docsection [docs]="docs" />
                 </div>
-                <app-docsection-nav [docs]="docs"></app-docsection-nav>
+                <app-docsection-nav [docs]="docs" />
             </div>
-            <div [ngClass]="{ hidden: activeTab === 0 }">
-                <app-docapisection [docs]="apiDocs" [header]="header" class="doc-tabpanel"></app-docapisection>
+            <div [style.display]="activeTab() !== 1 ? 'none' : ''" class="doc-tabpanel">
+                <app-docapisection [docs]="apiDocs" [header]="header" />
+            </div>
+            <div [style.display]="activeTab() !== 2 ? 'none' : ''" class="doc-tabpanel">
+                <app-docthemingsection [header]="header" />
             </div>
         </div>
     </div>`,
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    encapsulation: ViewEncapsulation.None,
 })
 export class AppDoc implements OnInit, OnChanges {
     @Input() docTitle!: string;
@@ -42,20 +60,17 @@ export class AppDoc implements OnInit, OnChanges {
 
     @Input() apiDocs!: string[];
 
-    activeTab!: number;
+    activeTab = signal<number>(0);
 
-    constructor(
-        private router: Router,
-        private titleService: Title,
-        private metaService: Meta,
-        private cd: ChangeDetectorRef,
-    ) {}
+    router = inject(Router);
+
+    titleService = inject(Title);
+
+    metaService = inject(Meta);
 
     ngOnInit() {
         if (this.router.url.includes('#api')) {
-            this.activeTab = 1;
-        } else {
-            this.activeTab = 0;
+            this.activeTab.set(1);
         }
     }
 
@@ -70,6 +85,6 @@ export class AppDoc implements OnInit, OnChanges {
     }
 
     activateTab(index) {
-        this.activeTab = index;
+        this.activeTab.set(index);
     }
 }
