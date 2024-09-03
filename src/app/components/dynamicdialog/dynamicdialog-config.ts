@@ -46,6 +46,11 @@ export class DynamicDialogConfig<T = any> {
      */
     focusOnShow?: boolean = true;
     /**
+     * Specifies if autofocus should happen on close.
+     * @group Props
+     */
+    focusOnClose?: boolean = true;
+    /**
      * When enabled, can only focus on elements inside the dialog.
      * @group Props
      */
