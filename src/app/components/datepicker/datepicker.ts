@@ -973,7 +973,7 @@ export class DatePicker extends BaseComponent implements OnInit, OnDestroy, Cont
      * @deprecated Locale property has no effect, use new i18n API instead.
      */
     @Input() set locale(newLocale: LocaleSettings) {
-        console.warn('Locale property has no effect, use new i18n API instead.');
+        console.log('Locale property has no effect, use new i18n API instead.');
     }
     /**
      * Type of view to display, valid values are "date" for datepicker and "month" for month picker.

@@ -635,7 +635,7 @@ export class TreeTable extends BaseComponent implements AfterContentInit, OnInit
     }
     set virtualRowHeight(val: number) {
         this._virtualRowHeight = val;
-        console.warn('The virtualRowHeight property is deprecated, use virtualScrollItemSize property instead.');
+        console.log('The virtualRowHeight property is deprecated, use virtualScrollItemSize property instead.');
     }
     /**
      * A map of keys to control the selection state.

@@ -27,7 +27,7 @@ export class StyleClass implements OnDestroy {
      */
     @Input() set enterClass(value: string) {
         this._enterClass = value;
-        console.warn('enterClass is deprecated, use enterFromClass instead');
+        console.log('enterClass is deprecated, use enterFromClass instead');
     }
     get enterClass() {
         return this._enterClass;
@@ -54,7 +54,7 @@ export class StyleClass implements OnDestroy {
      */
     @Input() set leaveClass(value: string) {
         this._leaveClass = value;
-        console.warn('leaveClass is deprecated, use leaveFromClass instead');
+        console.log('leaveClass is deprecated, use leaveFromClass instead');
     }
     get leaveClass() {
         return this._leaveClass;

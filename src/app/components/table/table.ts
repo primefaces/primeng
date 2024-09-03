@@ -655,7 +655,7 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
     }
     set responsive(val: boolean | undefined | null) {
         this._responsive = val;
-        console.warn('responsive property is deprecated as table is always responsive with scrollable behavior.');
+        console.log('responsive property is deprecated as table is always responsive with scrollable behavior.');
     }
     _responsive: boolean | undefined | null;
     /**
@@ -879,7 +879,7 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
     }
     set virtualRowHeight(val: number) {
         this._virtualRowHeight = val;
-        console.warn('The virtualRowHeight property is deprecated.');
+        console.log('The virtualRowHeight property is deprecated.');
     }
     /**
      * Whether all data is selected.

@@ -192,7 +192,7 @@ export class Spinner implements OnInit, ControlValueAccessor {
             this.thousandRegExp = new RegExp(`[${this.thousandSeparator || this.localeThousandSeparator}]`, 'gim');
 
             if (this.decimalSeparator && this.thousandSeparator && this.decimalSeparator === this.thousandSeparator) {
-                console.warn('thousandSeparator and decimalSeparator cannot have the same value.');
+                console.log('thousandSeparator and decimalSeparator cannot have the same value.');
             }
         }
     }

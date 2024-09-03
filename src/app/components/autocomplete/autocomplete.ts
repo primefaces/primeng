@@ -119,12 +119,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                     (click)="clear()"
                     [attr.aria-hidden]="true"
                 />
-                <span
-                    *ngIf="clearIconTemplate"
-                    class="p-autocomplete-clear-icon"
-                    (click)="clear()"
-                    [attr.aria-hidden]="true"
-                >
+                <span *ngIf="clearIconTemplate" class="p-autocomplete-clear-icon" (click)="clear()" [attr.aria-hidden]="true">
                     <ng-template *ngTemplateOutlet="clearIconTemplate"></ng-template>
                 </span>
             </ng-container>
@@ -152,9 +147,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                     [attr.aria-posinset]="i + 1"
                     [attr.aria-selected]="true"
                 >
-                    <ng-container
-                        *ngTemplateOutlet="selectedItemTemplate; context: { $implicit: option }"
-                    ></ng-container>
+                    <ng-container *ngTemplateOutlet="selectedItemTemplate; context: { $implicit: option }"></ng-container>
                     <p-chip
                         styleClass="p-autocomplete-chip"
                         *ngIf="!selectedItemTemplate"
@@ -163,22 +156,14 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                     >
                         <ng-container *ngIf="!removeIconTemplate">
                             <ng-template pTemplate="removeicon">
-                                <span
-                                    class="p-autocomplete-chip-icon"
-                                    (click)="!readonly ? removeOption($event, i) : ''"
-                                >
-                                    <TimesCircleIcon
-                                        [styleClass]="'p-autocomplete-chip-icon'"
-                                        [attr.aria-hidden]="true"
-                                    />
+                                <span class="p-autocomplete-chip-icon" (click)="!readonly ? removeOption($event, i) : ''">
+                                    <TimesCircleIcon [styleClass]="'p-autocomplete-chip-icon'" [attr.aria-hidden]="true" />
                                 </span>
                             </ng-template>
                         </ng-container>
                     </p-chip>
                     <span *ngIf="removeIconTemplate" [attr.aria-hidden]="true">
-                        <ng-template
-                            *ngTemplateOutlet="removeIconTemplate; context: { class: 'p-autocomplete-chip-icon' }"
-                        ></ng-template>
+                        <ng-template *ngTemplateOutlet="removeIconTemplate; context: { class: 'p-autocomplete-chip-icon' }"></ng-template>
                     </span>
                 </li>
                 <li class="p-autocomplete-input-chip" role="option">
@@ -219,12 +204,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                 </li>
             </ul>
             <ng-container *ngIf="loading">
-                <SpinnerIcon
-                    *ngIf="!loadingIconTemplate"
-                    [styleClass]="'p-autocomplete-loader'"
-                    [spin]="true"
-                    [attr.aria-hidden]="true"
-                />
+                <SpinnerIcon *ngIf="!loadingIconTemplate" [styleClass]="'p-autocomplete-loader'" [spin]="true" [attr.aria-hidden]="true" />
                 <span *ngIf="loadingIconTemplate" class="p-autocomplete-loader pi-spin " [attr.aria-hidden]="true">
                     <ng-template *ngTemplateOutlet="loadingIconTemplate"></ng-template>
                 </span>
@@ -277,17 +257,12 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                     >
                         <ng-template pTemplate="content" let-items let-scrollerOptions="options">
                             <ng-container
-                                *ngTemplateOutlet="
-                                    buildInItems;
-                                    context: { $implicit: items, options: scrollerOptions }
-                                "
+                                *ngTemplateOutlet="buildInItems; context: { $implicit: items, options: scrollerOptions }"
                             ></ng-container>
                         </ng-template>
                         <ng-container *ngIf="loaderTemplate">
                             <ng-template pTemplate="loader" let-scrollerOptions="options">
-                                <ng-container
-                                    *ngTemplateOutlet="loaderTemplate; context: { options: scrollerOptions }"
-                                ></ng-container>
+                                <ng-container *ngTemplateOutlet="loaderTemplate; context: { options: scrollerOptions }"></ng-container>
                             </ng-template>
                         </ng-container>
                     </p-scroller>
@@ -315,14 +290,9 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                                         [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }"
                                         role="option"
                                     >
-                                        <span *ngIf="!groupTemplate">{{
-                                            getOptionGroupLabel(option.optionGroup)
-                                        }}</span>
+                                        <span *ngIf="!groupTemplate">{{ getOptionGroupLabel(option.optionGroup) }}</span>
                                         <ng-container
-                                            *ngTemplateOutlet="
-                                                groupTemplate;
-                                                context: { $implicit: option.optionGroup }
-                                            "
+                                            *ngTemplateOutlet="groupTemplate; context: { $implicit: option.optionGroup }"
                                         ></ng-container>
                                     </li>
                                 </ng-container>
@@ -336,9 +306,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                                         [attr.aria-label]="getOptionLabel(option)"
                                         [attr.aria-selected]="isSelected(option)"
                                         [attr.aria-disabled]="isOptionDisabled(option)"
-                                        [attr.data-p-focused]="
-                                            focusedOptionIndex() === getOptionIndex(i, scrollerOptions)
-                                        "
+                                        [attr.data-p-focused]="focusedOptionIndex() === getOptionIndex(i, scrollerOptions)"
                                         [attr.aria-setsize]="ariaSetSize"
                                         [attr.aria-posinset]="getAriaPosInset(getOptionIndex(i, scrollerOptions))"
                                         (click)="onOptionSelect($event, option)"
@@ -350,9 +318,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                                                 itemTemplate;
                                                 context: {
                                                     $implicit: option,
-                                                    index: scrollerOptions.getOptions
-                                                        ? scrollerOptions.getOptions(i)
-                                                        : i
+                                                    index: scrollerOptions.getOptions ? scrollerOptions.getOptions(i) : i,
                                                 }
                                             "
                                         ></ng-container>
@@ -384,10 +350,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
 })
-export class AutoComplete
-    extends BaseComponent
-    implements AfterViewChecked, AfterContentInit, OnDestroy, ControlValueAccessor
-{
+export class AutoComplete extends BaseComponent implements AfterViewChecked, AfterContentInit, OnDestroy, ControlValueAccessor {
     /**
      * Minimum number of characters to initiate a search.
      * @group Props
@@ -660,7 +623,7 @@ export class AutoComplete
     }
     set itemSize(val: number) {
         this._itemSize = val;
-        console.warn('The itemSize property is deprecated, use virtualScrollItemSize property instead.');
+        console.log('The itemSize property is deprecated, use virtualScrollItemSize property instead.');
     }
     /**
      * Property name or getter function to use as the label of an option.
@@ -771,8 +734,7 @@ export class AutoComplete
      * @param {AutoCompleteDropdownClickEvent} event - custom dropdown click event.
      * @group Emits
      */
-    @Output() onDropdownClick: EventEmitter<AutoCompleteDropdownClickEvent> =
-        new EventEmitter<AutoCompleteDropdownClickEvent>();
+    @Output() onDropdownClick: EventEmitter<AutoCompleteDropdownClickEvent> = new EventEmitter<AutoCompleteDropdownClickEvent>();
     /**
      * Callback to invoke when clear button is clicked.
      * @param {Event} event - Browser event.
@@ -902,9 +864,7 @@ export class AutoComplete
     inputValue = computed(() => {
         const modelValue = this.modelValue();
         const selectedOption = this.optionValueSelected
-            ? (this.suggestions || []).find(
-                  (item: any) => ObjectUtils.resolveFieldData(item, this.optionValue) === modelValue,
-              )
+            ? (this.suggestions || []).find((item: any) => ObjectUtils.resolveFieldData(item, this.optionValue) === modelValue)
             : modelValue;
 
         if (modelValue) {
@@ -921,9 +881,7 @@ export class AutoComplete
     });
 
     get focusedMultipleOptionId() {
-        return this.focusedMultipleOptionIndex() !== -1
-            ? `${this.id}_multiple_option_${this.focusedMultipleOptionIndex()}`
-            : null;
+        return this.focusedMultipleOptionIndex() !== -1 ? `${this.id}_multiple_option_${this.focusedMultipleOptionIndex()}` : null;
     }
 
     get focusedOptionId() {
@@ -1010,7 +968,10 @@ export class AutoComplete
         };
     }
 
-    constructor(public overlayService: OverlayService, private zone: NgZone) {
+    constructor(
+        public overlayService: OverlayService,
+        private zone: NgZone,
+    ) {
         super();
         effect(() => {
             this.filled = ObjectUtils.isNotEmpty(this.modelValue());
@@ -1094,8 +1055,7 @@ export class AutoComplete
     handleSuggestionsChange() {
         if (this.loading) {
             this._suggestions() ? this.show() : !!this.emptyTemplate ? this.show() : this.hide();
-            const focusedOptionIndex =
-                this.overlayVisible && this.autoOptionFocus ? this.findFirstFocusedOptionIndex() : -1;
+            const focusedOptionIndex = this.overlayVisible && this.autoOptionFocus ? this.findFirstFocusedOptionIndex() : -1;
             this.focusedOptionIndex.set(focusedOptionIndex);
             this.suggestionsUpdated = true;
             this.loading = false;
@@ -1140,9 +1100,7 @@ export class AutoComplete
     }
 
     findSelectedOptionIndex() {
-        return this.hasSelectedOption()
-            ? this.visibleOptions().findIndex((option) => this.isValidSelectedOption(option))
-            : -1;
+        return this.hasSelectedOption() ? this.visibleOptions().findIndex((option) => this.isValidSelectedOption(option)) : -1;
     }
 
     findNextOptionIndex(index) {
@@ -1158,11 +1116,7 @@ export class AutoComplete
 
     findPrevOptionIndex(index) {
         const matchedOptionIndex =
-            index > 0
-                ? ObjectUtils.findLastIndex(this.visibleOptions().slice(0, index), (option) =>
-                      this.isValidOption(option),
-                  )
-                : -1;
+            index > 0 ? ObjectUtils.findLastIndex(this.visibleOptions().slice(0, index), (option) => this.isValidOption(option)) : -1;
 
         return matchedOptionIndex > -1 ? matchedOptionIndex : index;
     }
@@ -1182,9 +1136,7 @@ export class AutoComplete
     isSelected(option) {
         if (this.multiple) {
             return this.unique
-                ? this.modelValue()?.find((model) =>
-                      ObjectUtils.equals(model, this.getOptionValue(option), this.equalityKey()),
-                  )
+                ? this.modelValue()?.find((model) => ObjectUtils.equals(model, this.getOptionValue(option), this.equalityKey()))
                 : false;
         }
         return ObjectUtils.equals(this.modelValue(), this.getOptionValue(option), this.equalityKey());
@@ -1193,8 +1145,7 @@ export class AutoComplete
     isOptionMatched(option, value) {
         return (
             this.isValidOption(option) &&
-            this.getOptionLabel(option).toLocaleLowerCase(this.searchLocale) ===
-                value.toLocaleLowerCase(this.searchLocale)
+            this.getOptionLabel(option).toLocaleLowerCase(this.searchLocale) === value.toLocaleLowerCase(this.searchLocale)
         );
     }
 
@@ -1203,8 +1154,7 @@ export class AutoComplete
     }
     isDropdownClicked(event) {
         return this.dropdownButton?.nativeElement
-            ? event.target === this.dropdownButton.nativeElement ||
-                  this.dropdownButton.nativeElement.contains(event.target)
+            ? event.target === this.dropdownButton.nativeElement || this.dropdownButton.nativeElement.contains(event.target)
             : false;
     }
     equalityKey() {
@@ -1309,8 +1259,8 @@ export class AutoComplete
             this.focusedOptionIndex() !== -1
                 ? this.focusedOptionIndex()
                 : this.overlayVisible && this.autoOptionFocus
-                ? this.findFirstFocusedOptionIndex()
-                : -1;
+                  ? this.findFirstFocusedOptionIndex()
+                  : -1;
         this.focusedOptionIndex.set(focusedOptionIndex);
         this.overlayVisible && this.scrollInView(this.focusedOptionIndex());
         this.onFocus.emit(event);
@@ -1444,9 +1394,7 @@ export class AutoComplete
         }
 
         const optionIndex =
-            this.focusedOptionIndex() !== -1
-                ? this.findNextOptionIndex(this.focusedOptionIndex())
-                : this.findFirstFocusedOptionIndex();
+            this.focusedOptionIndex() !== -1 ? this.findNextOptionIndex(this.focusedOptionIndex()) : this.findFirstFocusedOptionIndex();
 
         this.changeFocusedOptionIndex(event, optionIndex);
 
@@ -1468,9 +1416,7 @@ export class AutoComplete
             event.preventDefault();
         } else {
             const optionIndex =
-                this.focusedOptionIndex() !== -1
-                    ? this.findPrevOptionIndex(this.focusedOptionIndex())
-                    : this.findLastFocusedOptionIndex();
+                this.focusedOptionIndex() !== -1 ? this.findPrevOptionIndex(this.focusedOptionIndex()) : this.findLastFocusedOptionIndex();
 
             this.changeFocusedOptionIndex(event, optionIndex);
 
@@ -1691,8 +1637,7 @@ export class AutoComplete
                 element.scrollIntoView && element.scrollIntoView({ block: 'nearest', inline: 'nearest' });
             } else if (!this.virtualScrollerDisabled) {
                 setTimeout(() => {
-                    this.virtualScroll &&
-                        this.scroller?.scrollToIndex(index !== -1 ? index : this.focusedOptionIndex());
+                    this.virtualScroll && this.scroller?.scrollToIndex(index !== -1 ? index : this.focusedOptionIndex());
                 }, 0);
             }
         }
@@ -1713,11 +1658,7 @@ export class AutoComplete
         this.dirty = true;
         this.overlayVisible = true;
         const focusedOptionIndex =
-            this.focusedOptionIndex() !== -1
-                ? this.focusedOptionIndex()
-                : this.autoOptionFocus
-                ? this.findFirstFocusedOptionIndex()
-                : -1;
+            this.focusedOptionIndex() !== -1 ? this.focusedOptionIndex() : this.autoOptionFocus ? this.findFirstFocusedOptionIndex() : -1;
         this.focusedOptionIndex.set(focusedOptionIndex);
         isFocus && DomHandler.focus(this.inputEL.nativeElement);
         if (isFocus) {
@@ -1774,16 +1715,16 @@ export class AutoComplete
         return this.field || this.optionLabel
             ? ObjectUtils.resolveFieldData(option, this.field || this.optionLabel)
             : option && option.label != undefined
-            ? option.label
-            : option;
+              ? option.label
+              : option;
     }
 
     getOptionValue(option) {
         return this.optionValue
             ? ObjectUtils.resolveFieldData(option, this.optionValue)
             : option && option.value != undefined
-            ? option.value
-            : option;
+              ? option.value
+              : option;
     }
 
     getOptionIndex(index, scrollerOptions) {
@@ -1794,14 +1735,12 @@ export class AutoComplete
         return this.optionGroupLabel
             ? ObjectUtils.resolveFieldData(optionGroup, this.optionGroupLabel)
             : optionGroup && optionGroup.label != undefined
-            ? optionGroup.label
-            : optionGroup;
+              ? optionGroup.label
+              : optionGroup;
     }
 
     getOptionGroupChildren(optionGroup: any) {
-        return this.optionGroupChildren
-            ? ObjectUtils.resolveFieldData(optionGroup, this.optionGroupChildren)
-            : optionGroup.items;
+        return this.optionGroupChildren ? ObjectUtils.resolveFieldData(optionGroup, this.optionGroupChildren) : optionGroup.items;
     }
 
     registerOnChange(fn: Function): void {

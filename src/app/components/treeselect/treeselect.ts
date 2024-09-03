@@ -17,7 +17,7 @@ import {
     QueryList,
     TemplateRef,
     ViewChild,
-    ViewEncapsulation
+    ViewEncapsulation,
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { OverlayOptions, PrimeTemplate, ScrollerOptions, SharedModule, TreeNode } from 'primeng/api';
@@ -40,7 +40,7 @@ import { InputTextModule } from 'primeng/inputtext';
 export const TREESELECT_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => TreeSelect),
-    multi: true
+    multi: true,
 };
 /**
  * TreeSelect is a form component to choose from hierarchical data.
@@ -74,7 +74,9 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
             <div class="p-treeselect-label-container">
                 <div [ngClass]="labelClass" [class]="labelStyleClass" [ngStyle]="labelStyle">
                     <ng-container *ngIf="valueTemplate; else defaultValueTemplate">
-                        <ng-container *ngTemplateOutlet="valueTemplate; context: { $implicit: value, placeholder: placeholder }"></ng-container>
+                        <ng-container
+                            *ngTemplateOutlet="valueTemplate; context: { $implicit: value, placeholder: placeholder }"
+                        ></ng-container>
                     </ng-container>
                     <ng-template #defaultValueTemplate>
                         <ng-container *ngIf="display === 'comma'; else chipsValueTemplate">
@@ -95,7 +97,13 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
                     <ng-template *ngTemplateOutlet="clearIconTemplate"></ng-template>
                 </span>
             </ng-container>
-            <div class="p-treeselect-dropdown" role="button" aria-haspopup="tree" [attr.aria-expanded]="overlayVisible ?? false" [attr.aria-label]="'treeselect trigger'">
+            <div
+                class="p-treeselect-dropdown"
+                role="button"
+                aria-haspopup="tree"
+                [attr.aria-expanded]="overlayVisible ?? false"
+                [attr.aria-label]="'treeselect trigger'"
+            >
                 <ChevronDownIcon *ngIf="!triggerIconTemplate" [styleClass]="'p-treeselect-dropdown-icon'" />
                 <span *ngIf="triggerIconTemplate" class="p-treeselect-dropdown-icon">
                     <ng-template *ngTemplateOutlet="triggerIconTemplate"></ng-template>
@@ -115,7 +123,14 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
                 (onHide)="hide($event)"
             >
                 <ng-template pTemplate="content">
-                    <div #panel [attr.id]="listId" class="p-treeselect-overlay p-component" [ngStyle]="panelStyle" [class]="panelStyleClass" [ngClass]="panelClass">
+                    <div
+                        #panel
+                        [attr.id]="listId"
+                        class="p-treeselect-overlay p-component"
+                        [ngStyle]="panelStyle"
+                        [class]="panelStyleClass"
+                        [ngClass]="panelClass"
+                    >
                         <span
                             #firstHiddenFocusableEl
                             role="presentation"
@@ -184,10 +199,22 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
                                     </ng-template>
                                 </ng-container>
                                 <ng-template pTemplate="togglericon" let-expanded *ngIf="itemTogglerIconTemplate">
-                                    <ng-container *ngTemplateOutlet="itemTogglerIconTemplate; context: { $implicit: expanded }"></ng-container>
+                                    <ng-container
+                                        *ngTemplateOutlet="itemTogglerIconTemplate; context: { $implicit: expanded }"
+                                    ></ng-container>
                                 </ng-template>
-                                <ng-template pTemplate="checkboxicon" let-selected let-partialSelected="partialSelected" *ngIf="itemCheckboxIconTemplate">
-                                    <ng-container *ngTemplateOutlet="itemCheckboxIconTemplate; context: { $implicit: selected, partialSelected: partialSelected }"></ng-container>
+                                <ng-template
+                                    pTemplate="checkboxicon"
+                                    let-selected
+                                    let-partialSelected="partialSelected"
+                                    *ngIf="itemCheckboxIconTemplate"
+                                >
+                                    <ng-container
+                                        *ngTemplateOutlet="
+                                            itemCheckboxIconTemplate;
+                                            context: { $implicit: selected, partialSelected: partialSelected }
+                                        "
+                                    ></ng-container>
                                 </ng-template>
                                 <ng-template pTemplate="loadingicon" *ngIf="itemLoadingIconTemplate">
                                     <ng-container *ngTemplateOutlet="itemLoadingIconTemplate"></ng-container>
@@ -211,7 +238,7 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [TREESELECT_VALUE_ACCESSOR, TreeSelectStyle],
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
 })
 export class TreeSelect extends BaseComponent implements AfterContentInit {
     /**
@@ -423,7 +450,7 @@ export class TreeSelect extends BaseComponent implements AfterContentInit {
     }
     set showTransitionOptions(val: string | undefined) {
         this._showTransitionOptions = val;
-        console.warn('The showTransitionOptions property is deprecated since v14.2.0, use overlayOptions property instead.');
+        console.log('The showTransitionOptions property is deprecated since v14.2.0, use overlayOptions property instead.');
     }
     /**
      * Transition options of the hide animation.
@@ -435,7 +462,7 @@ export class TreeSelect extends BaseComponent implements AfterContentInit {
     }
     set hideTransitionOptions(val: string | undefined) {
         this._hideTransitionOptions = val;
-        console.warn('The hideTransitionOptions property is deprecated since v14.2.0, use overlayOptions property instead.');
+        console.log('The hideTransitionOptions property is deprecated since v14.2.0, use overlayOptions property instead.');
     }
     /**
      * Displays a loader to indicate data load is in progress.
@@ -736,7 +763,7 @@ export class TreeSelect extends BaseComponent implements AfterContentInit {
         this.treeViewChild?._filter(this.filterValue);
         this.onFilter.emit({
             filter: this.filterValue,
-            filteredValue: this.treeViewChild?.filteredNodes
+            filteredValue: this.treeViewChild?.filteredNodes,
         });
         setTimeout(() => {
             this.overlayViewChild.alignOverlay();
@@ -757,14 +784,24 @@ export class TreeSelect extends BaseComponent implements AfterContentInit {
 
     onFirstHiddenFocus(event) {
         const focusableEl =
-            event.relatedTarget === this.focusInput?.nativeElement ? DomHandler.getFirstFocusableElement(this.overlayViewChild?.overlayViewChild?.nativeElement, ':not([data-p-hidden-focusable="true"])') : this.focusInput?.nativeElement;
+            event.relatedTarget === this.focusInput?.nativeElement
+                ? DomHandler.getFirstFocusableElement(
+                      this.overlayViewChild?.overlayViewChild?.nativeElement,
+                      ':not([data-p-hidden-focusable="true"])',
+                  )
+                : this.focusInput?.nativeElement;
 
         DomHandler.focus(focusableEl);
     }
 
     onLastHiddenFocus(event) {
         const focusableEl =
-            event.relatedTarget === this.focusInput?.nativeElement ? DomHandler.getLastFocusableElement(this.overlayViewChild?.overlayViewChild?.nativeElement, ':not([data-p-hidden-focusable="true"])') : this.focusInput?.nativeElement;
+            event.relatedTarget === this.focusInput?.nativeElement
+                ? DomHandler.getLastFocusableElement(
+                      this.overlayViewChild?.overlayViewChild?.nativeElement,
+                      ':not([data-p-hidden-focusable="true"])',
+                  )
+                : this.focusInput?.nativeElement;
 
         DomHandler.focus(focusableEl);
     }
@@ -798,7 +835,11 @@ export class TreeSelect extends BaseComponent implements AfterContentInit {
     onTabKey(event, pressedInInputText = false) {
         if (!pressedInInputText) {
             if (this.overlayVisible && this.hasFocusableElements()) {
-                DomHandler.focus(event.shiftKey ? this.lastHiddenFocusableElementOnOverlay.nativeElement : this.firstHiddenFocusableElementOnOverlay.nativeElement);
+                DomHandler.focus(
+                    event.shiftKey
+                        ? this.lastHiddenFocusableElementOnOverlay.nativeElement
+                        : this.firstHiddenFocusableElementOnOverlay.nativeElement,
+                );
 
                 event.preventDefault();
             } else {
@@ -808,7 +849,10 @@ export class TreeSelect extends BaseComponent implements AfterContentInit {
     }
 
     hasFocusableElements() {
-        return DomHandler.getFocusableElements(this.overlayViewChild.overlayViewChild.nativeElement, ':not([data-p-hidden-focusable="true"])').length > 0;
+        return (
+            DomHandler.getFocusableElements(this.overlayViewChild.overlayViewChild.nativeElement, ':not([data-p-hidden-focusable="true"])')
+                .length > 0
+        );
     }
 
     resetFilter() {
@@ -992,7 +1036,7 @@ export class TreeSelect extends BaseComponent implements AfterContentInit {
     get hasFluid() {
         const nativeElement = this.el.nativeElement;
         const fluidComponent = nativeElement.closest('p-fluid');
-        return this.fluid || !!fluidComponent 
+        return this.fluid || !!fluidComponent;
     }
 
     get labelClass() {
@@ -1009,13 +1053,29 @@ export class TreeSelect extends BaseComponent implements AfterContentInit {
 
     get label() {
         let value = this.value || [];
-        return value.length ? value.map((node: TreeNode) => node.label).join(', ') : this.selectionMode === 'single' && this.value ? value.label : this.placeholder;
+        return value.length
+            ? value.map((node: TreeNode) => node.label).join(', ')
+            : this.selectionMode === 'single' && this.value
+              ? value.label
+              : this.placeholder;
     }
 }
 
 @NgModule({
-    imports: [CommonModule, OverlayModule, RippleModule, InputTextModule, SharedModule, TreeModule, AutoFocusModule, SearchIcon, TimesIcon, ChevronDownIcon, ChipModule],
+    imports: [
+        CommonModule,
+        OverlayModule,
+        RippleModule,
+        InputTextModule,
+        SharedModule,
+        TreeModule,
+        AutoFocusModule,
+        SearchIcon,
+        TimesIcon,
+        ChevronDownIcon,
+        ChipModule,
+    ],
     exports: [TreeSelect, OverlayModule, SharedModule, TreeModule],
-    declarations: [TreeSelect]
+    declarations: [TreeSelect],
 })
 export class TreeSelectModule {}

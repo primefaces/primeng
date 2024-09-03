@@ -207,7 +207,7 @@ export class OverlayPanel extends BaseComponent implements AfterContentInit, OnD
         public overlayService: OverlayService,
     ) {
         super();
-        console.warn('OverlayPanel is deprecated. Use Popover instead.');
+        console.log('OverlayPanel is deprecated. Use Popover instead.');
     }
 
     ngAfterContentInit() {

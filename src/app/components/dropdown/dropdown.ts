@@ -82,7 +82,7 @@ export const DROPDOWN_VALUE_ACCESSOR: any = {
                 'p-select-option': true,
                 'p-select-option-selected': selected,
                 'p-disabled': disabled,
-                'p-focus': focused
+                'p-focus': focused,
             }"
         >
             <ng-container *ngIf="checkmark">
@@ -729,7 +729,7 @@ export class Dropdown extends BaseComponent implements OnInit, AfterViewInit, Af
     }
     set itemSize(val: number | undefined) {
         this._itemSize = val;
-        console.warn('The itemSize property is deprecated, use virtualScrollItemSize property instead.');
+        console.log('The itemSize property is deprecated, use virtualScrollItemSize property instead.');
     }
     _itemSize: number | undefined;
     /**
@@ -742,7 +742,7 @@ export class Dropdown extends BaseComponent implements OnInit, AfterViewInit, Af
     }
     set autoZIndex(val: boolean | undefined) {
         this._autoZIndex = val;
-        console.warn('The autoZIndex property is deprecated since v14.2.0, use overlayOptions property instead.');
+        console.log('The autoZIndex property is deprecated since v14.2.0, use overlayOptions property instead.');
     }
     _autoZIndex: boolean | undefined;
     /**
@@ -755,7 +755,7 @@ export class Dropdown extends BaseComponent implements OnInit, AfterViewInit, Af
     }
     set baseZIndex(val: number | undefined) {
         this._baseZIndex = val;
-        console.warn('The baseZIndex property is deprecated since v14.2.0, use overlayOptions property instead.');
+        console.log('The baseZIndex property is deprecated since v14.2.0, use overlayOptions property instead.');
     }
     _baseZIndex: number | undefined;
     /**
@@ -768,7 +768,7 @@ export class Dropdown extends BaseComponent implements OnInit, AfterViewInit, Af
     }
     set showTransitionOptions(val: string | undefined) {
         this._showTransitionOptions = val;
-        console.warn('The showTransitionOptions property is deprecated since v14.2.0, use overlayOptions property instead.');
+        console.log('The showTransitionOptions property is deprecated since v14.2.0, use overlayOptions property instead.');
     }
     _showTransitionOptions: string | undefined;
     /**
@@ -781,7 +781,7 @@ export class Dropdown extends BaseComponent implements OnInit, AfterViewInit, Af
     }
     set hideTransitionOptions(val: string | undefined) {
         this._hideTransitionOptions = val;
-        console.warn('The hideTransitionOptions property is deprecated since v14.2.0, use overlayOptions property instead.');
+        console.log('The hideTransitionOptions property is deprecated since v14.2.0, use overlayOptions property instead.');
     }
     _hideTransitionOptions: string | undefined;
     /**
@@ -1104,7 +1104,10 @@ export class Dropdown extends BaseComponent implements OnInit, AfterViewInit, Af
 
     editableInputValue = computed(() => this.getOptionLabel(this.selectedOption) || this.modelValue() || '');
 
-    constructor(public zone: NgZone, public filterService: FilterService) {
+    constructor(
+        public zone: NgZone,
+        public filterService: FilterService,
+    ) {
         super();
         effect(() => {
             const modelValue = this.modelValue();
@@ -1149,7 +1152,7 @@ export class Dropdown extends BaseComponent implements OnInit, AfterViewInit, Af
 
     ngOnInit() {
         super.ngOnInit();
-        console.warn('Dropdown component is deprecated as of v18, use Select component instead.');
+        console.log('Dropdown component is deprecated as of v18, use Select component instead.');
         this.id = this.id || UniqueComponentId();
         this.autoUpdateModel();
 
@@ -1364,16 +1367,16 @@ export class Dropdown extends BaseComponent implements OnInit, AfterViewInit, Af
         return this.optionLabel !== undefined && this.optionLabel !== null
             ? ObjectUtils.resolveFieldData(option, this.optionLabel)
             : option && option.label !== undefined
-            ? option.label
-            : option;
+              ? option.label
+              : option;
     }
 
     getOptionValue(option: any) {
         return this.optionValue && this.optionValue !== null
             ? ObjectUtils.resolveFieldData(option, this.optionValue)
             : !this.optionLabel && option && option.value !== undefined
-            ? option.value
-            : option;
+              ? option.value
+              : option;
     }
 
     isOptionDisabled(option: any) {
@@ -1386,8 +1389,8 @@ export class Dropdown extends BaseComponent implements OnInit, AfterViewInit, Af
             return this.optionDisabled
                 ? ObjectUtils.resolveFieldData(option, this.optionDisabled)
                 : option && option.disabled !== undefined
-                ? option.disabled
-                : false;
+                  ? option.disabled
+                  : false;
         }
     }
 
@@ -1395,8 +1398,8 @@ export class Dropdown extends BaseComponent implements OnInit, AfterViewInit, Af
         return this.optionGroupLabel !== undefined && this.optionGroupLabel !== null
             ? ObjectUtils.resolveFieldData(optionGroup, this.optionGroupLabel)
             : optionGroup && optionGroup.label !== undefined
-            ? optionGroup.label
-            : optionGroup;
+              ? optionGroup.label
+              : optionGroup;
     }
 
     getOptionGroupChildren(optionGroup: any) {
@@ -1494,10 +1497,10 @@ export class Dropdown extends BaseComponent implements OnInit, AfterViewInit, Af
             this.focusedOptionIndex() !== -1
                 ? this.focusedOptionIndex()
                 : this.autoOptionFocus
-                ? this.findFirstFocusedOptionIndex()
-                : this.editable
-                ? -1
-                : this.findSelectedOptionIndex();
+                  ? this.findFirstFocusedOptionIndex()
+                  : this.editable
+                    ? -1
+                    : this.findSelectedOptionIndex();
         this.focusedOptionIndex.set(focusedOptionIndex);
 
         if (isFocus) {
@@ -1584,8 +1587,8 @@ export class Dropdown extends BaseComponent implements OnInit, AfterViewInit, Af
             this.focusedOptionIndex() !== -1
                 ? this.focusedOptionIndex()
                 : this.overlayVisible && this.autoOptionFocus
-                ? this.findFirstFocusedOptionIndex()
-                : -1;
+                  ? this.findFirstFocusedOptionIndex()
+                  : -1;
         this.focusedOptionIndex.set(focusedOptionIndex);
         this.overlayVisible && this.scrollInView(this.focusedOptionIndex());
 
@@ -1738,8 +1741,8 @@ export class Dropdown extends BaseComponent implements OnInit, AfterViewInit, Af
                 this.focusedOptionIndex() !== -1
                     ? this.findNextOptionIndex(this.focusedOptionIndex())
                     : this.clicked()
-                    ? this.findFirstOptionIndex()
-                    : this.findFirstFocusedOptionIndex();
+                      ? this.findFirstOptionIndex()
+                      : this.findFirstFocusedOptionIndex();
 
             this.changeFocusedOptionIndex(event, optionIndex);
         }
@@ -1861,8 +1864,8 @@ export class Dropdown extends BaseComponent implements OnInit, AfterViewInit, Af
                 this.focusedOptionIndex() !== -1
                     ? this.findPrevOptionIndex(this.focusedOptionIndex())
                     : this.clicked()
-                    ? this.findLastOptionIndex()
-                    : this.findLastFocusedOptionIndex();
+                      ? this.findLastOptionIndex()
+                      : this.findLastFocusedOptionIndex();
 
             this.changeFocusedOptionIndex(event, optionIndex);
 

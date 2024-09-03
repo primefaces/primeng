@@ -47,7 +47,7 @@ export class BadgeDirective extends BaseComponent implements OnChanges, AfterVie
      */
     @Input() public set size(value: 'large' | 'xlarge' | 'small' | null | undefined) {
         this._size = value;
-        console.warn('size property is deprecated and will removed in v18, use badgeSize instead.');
+        console.log('size property is deprecated and will removed in v18, use badgeSize instead.');
     }
     get size() {
         return this._size;
@@ -269,7 +269,7 @@ export class Badge extends BaseComponent {
      */
     @Input() public set size(value: 'large' | 'xlarge' | 'small' | undefined | null) {
         this._size = value;
-        !this.badgeSize && this.size && console.warn('size property is deprecated and will removed in v18, use badgeSize instead.');
+        !this.badgeSize && this.size && console.log('size property is deprecated and will removed in v18, use badgeSize instead.');
     }
     get size() {
         return this._size;

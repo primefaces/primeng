@@ -70,7 +70,7 @@ export class Textarea extends BaseComponent implements OnInit, AfterViewInit, On
         @Optional() public control: NgControl,
     ) {
         super();
-        console.warn('pInputTextarea directive is deprecated in v18. Use pTextarea directive instead');
+        console.log('pInputTextarea directive is deprecated in v18. Use pTextarea directive instead');
     }
 
     ngOnInit() {

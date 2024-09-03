@@ -46,7 +46,7 @@ import {
     booleanAttribute,
     forwardRef,
     inject,
-    numberAttribute
+    numberAttribute,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
@@ -62,7 +62,7 @@ import { InputMaskStyle } from './style/inputmaskstyle';
 export const INPUTMASK_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => InputMask),
-    multi: true
+    multi: true,
 };
 /**
  * InputMask component is used to enter input in a certain format such as numeric, date, currency, email and phone.
@@ -105,7 +105,12 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
             [attr.data-pc-section]="'root'"
         />
         <ng-container *ngIf="value != null && filled && showClear && !disabled">
-            <TimesIcon *ngIf="!clearIconTemplate" [styleClass]="'p-inputmask-clear-icon'" (click)="clear()" [attr.data-pc-section]="'clearIcon'" />
+            <TimesIcon
+                *ngIf="!clearIconTemplate"
+                [styleClass]="'p-inputmask-clear-icon'"
+                (click)="clear()"
+                [attr.data-pc-section]="'clearIcon'"
+            />
             <span *ngIf="clearIconTemplate" class="p-inputmask-clear-icon" (click)="clear()" [attr.data-pc-section]="'clearIcon'">
                 <ng-template *ngTemplateOutlet="clearIconTemplate"></ng-template>
             </span>
@@ -113,7 +118,7 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
     `,
     providers: [INPUTMASK_VALUE_ACCESSOR, InputMaskStyle],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
 })
 export class InputMask extends BaseComponent implements OnInit, ControlValueAccessor {
     /**
@@ -238,7 +243,7 @@ export class InputMask extends BaseComponent implements OnInit, ControlValueAcce
      */
     @Input({ transform: booleanAttribute }) set autoFocus(value: boolean | undefined) {
         this.autofocus = value;
-        console.warn('autoFocus is deprecated. Use autofocus property instead.');
+        console.log('autoFocus is deprecated. Use autofocus property instead.');
     }
     /**
      * Used to define a string that autocomplete attribute the current element.
@@ -377,7 +382,7 @@ export class InputMask extends BaseComponent implements OnInit, ControlValueAcce
         this.defs = {
             '9': '[0-9]',
             a: this.characterPattern,
-            '*': `${this.characterPattern}|[0-9]`
+            '*': `${this.characterPattern}|[0-9]`,
         };
 
         let maskTokens = (this.mask as string).split('');
@@ -439,7 +444,10 @@ export class InputMask extends BaseComponent implements OnInit, ControlValueAcce
     caret(first?: number, last?: number): Caret | undefined {
         let range, begin, end;
 
-        if (!this.inputViewChild?.nativeElement.offsetParent || this.inputViewChild.nativeElement !== this.inputViewChild.nativeElement.ownerDocument.activeElement) {
+        if (
+            !this.inputViewChild?.nativeElement.offsetParent ||
+            this.inputViewChild.nativeElement !== this.inputViewChild.nativeElement.ownerDocument.activeElement
+        ) {
             return;
         }
 
@@ -857,6 +865,6 @@ export class InputMask extends BaseComponent implements OnInit, ControlValueAcce
 @NgModule({
     imports: [CommonModule, InputTextModule, AutoFocusModule, TimesIcon],
     exports: [InputMask, SharedModule],
-    declarations: [InputMask]
+    declarations: [InputMask],
 })
 export class InputMaskModule {}

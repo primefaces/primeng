@@ -973,7 +973,7 @@ export class Calendar extends BaseComponent implements OnInit, OnDestroy, Contro
      * @deprecated Locale property has no effect, use new i18n API instead.
      */
     @Input() set locale(newLocale: LocaleSettings) {
-        console.warn('Locale property has no effect, use new i18n API instead.');
+        console.log('Locale property has no effect, use new i18n API instead.');
     }
     /**
      * Type of view to display, valid values are "date" for datepicker and "month" for month picker.
@@ -1284,7 +1284,7 @@ export class Calendar extends BaseComponent implements OnInit, OnDestroy, Contro
     }
 
     ngOnInit() {
-        console.warn('Calendar component is deprecated as of v18, use DatePicker component instead.');
+        console.log('Calendar component is deprecated as of v18, use DatePicker component instead.');
         super.ngOnInit();
         this.attributeSelector = UniqueComponentId();
         this.panelId = this.attributeSelector + '_panel';
