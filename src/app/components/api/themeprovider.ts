@@ -1,7 +1,6 @@
 import { DOCUMENT } from '@angular/common';
 import { Injectable, effect, inject, signal, untracked } from '@angular/core';
 import { BaseStyle } from 'primeng/base';
-import { DomHandler } from 'primeng/dom';
 import { Theme, ThemeService } from 'primeng/themes';
 
 @Injectable({ providedIn: 'root' })
@@ -37,8 +36,6 @@ export class ThemeProvider {
                 this.isThemeChanged = false;
             }
         });
-        // @todo replace this later
-        this.loadFont();
     }
 
     onThemeChange(value: any) {
@@ -59,15 +56,5 @@ export class ThemeProvider {
 
         Theme.setLoadedStyleName('common');
         //}
-    }
-
-    loadFont() {
-        // @todo try to load font with angular.json
-        const fontElement = this.document.createElement('link');
-        DomHandler.setAttributes(fontElement, {
-            rel: 'stylesheet',
-            href: 'https://rsms.me/inter/inter.css',
-        });
-        this.document.head.appendChild(fontElement);
     }
 }
