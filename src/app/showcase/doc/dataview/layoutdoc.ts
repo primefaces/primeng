@@ -8,16 +8,20 @@ import { ProductService } from '@service/productservice';
     template: `
         <app-docsectiontext>
             <p>
-                DataView supports <i>list</i> and <i>grid</i> display modes defined with the <i>layout</i> property. The
-                helper <i>DataViewLayoutOptions</i> component can be used to switch between the modes however this
-                component is optional and you may use your own UI to switch modes as well.
+                DataView supports <i>list</i> and <i>grid</i> display modes defined with the <i>layout</i> property. The helper
+                <i>DataViewLayoutOptions</i> component can be used to switch between the modes however this component is optional and you
+                may use your own UI to switch modes as well.
             </p>
         </app-docsectiontext>
         <div class="card">
             <p-dataView #dv [value]="products" [layout]="layout">
                 <ng-template pTemplate="header">
                     <div class="flex justify-end">
-                        <p-dataViewLayoutOptions [layout]="layout" />
+                        <p-selectButton [(ngModel)]="layout" [options]="options" [allowEmpty]="false">
+                            <ng-template pTemplate="item" let-item>
+                                <i class="pi " [ngClass]="{ 'pi-bars': item === 'list', 'pi-table': item === 'grid' }"></i>
+                            </ng-template>
+                        </p-selectButton>
                     </div>
                 </ng-template>
                 <ng-template pTemplate="list" let-products>
@@ -43,9 +47,7 @@ import { ProductService } from '@service/productservice';
                             <div class="flex flex-col md:flex-row justify-between md:items-center flex-1 gap-6">
                                 <div class="flex flex-row md:flex-col justify-between items-start gap-2">
                                     <div>
-                                        <span class="font-medium text-surface-500 dark:text-surface-400 text-sm">{{
-                                            item.category
-                                        }}</span>
+                                        <span class="font-medium text-surface-500 dark:text-surface-400 text-sm">{{ item.category }}</span>
                                         <div class="text-lg font-medium mt-2">{{ item.name }}</div>
                                     </div>
                                     <div class="bg-surface-100 p-1" style="border-radius: 30px">
@@ -59,7 +61,7 @@ import { ProductService } from '@service/productservice';
                                     </div>
                                 </div>
                                 <div class="flex flex-col md:items-end gap-8">
-                                    <span class="text-xl font-semibold">{{ item.price | currency : 'USD' }}</span>
+                                    <span class="text-xl font-semibold">{{ item.price | currency: 'USD' }}</span>
                                     <div class="flex flex-row-reverse md:flex-row gap-2">
                                         <button pButton icon="pi pi-heart" [outlined]="true"></button>
                                         <button
@@ -77,10 +79,7 @@ import { ProductService } from '@service/productservice';
                 </ng-template>
                 <ng-template let-product pTemplate="grid" let-products>
                     <div class="grid grid-cols-12 gap-4">
-                        <div
-                            *ngFor="let product of products"
-                            class="col-span-12 sm:col-span-6 md:col-span-4 xl:col-span-6 p-2"
-                        >
+                        <div *ngFor="let product of products" class="col-span-12 sm:col-span-6 md:col-span-4 xl:col-span-6 p-2">
                             <div
                                 class="p-6 border border-surface-200 dark:border-surface-700 bg-surface-0 dark:bg-surface-900 rounded flex flex-col"
                             >
@@ -88,10 +87,7 @@ import { ProductService } from '@service/productservice';
                                     <div class="relative mx-auto">
                                         <img
                                             class="rounded w-full"
-                                            [src]="
-                                                'https://primefaces.org/cdn/primeng/images/demo/product/' +
-                                                product.image
-                                            "
+                                            [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image"
                                             [alt]="product.name"
                                             style="max-width: 300px"
                                         />
@@ -117,17 +113,13 @@ import { ProductService } from '@service/productservice';
                                                 class="bg-surface-0 flex products-center gap-2 justify-center py-1 px-2"
                                                 style="border-radius: 30px; box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.04), 0px 1px 2px 0px rgba(0, 0, 0, 0.06)"
                                             >
-                                                <span class="text-surface-900 font-medium text-sm">{{
-                                                    product.rating
-                                                }}</span>
+                                                <span class="text-surface-900 font-medium text-sm">{{ product.rating }}</span>
                                                 <i class="pi pi-star-fill text-yellow-500"></i>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="flex flex-col gap-6 mt-6">
-                                        <span class="text-2xl font-semibold">{{
-                                            product.price | currency : 'USD'
-                                        }}</span>
+                                        <span class="text-2xl font-semibold">{{ product.price | currency: 'USD' }}</span>
                                         <div class="flex gap-2">
                                             <button
                                                 pButton
@@ -153,6 +145,8 @@ export class LayoutDoc {
     layout: string = 'grid';
 
     products!: Product[];
+
+    options = ['list', 'grid'];
 
     constructor(private productService: ProductService) {}
 
@@ -182,7 +176,11 @@ export class LayoutDoc {
         basic: `<p-dataView #dv [value]="products" [layout]="layout">
     <ng-template pTemplate="header">
         <div class="flex justify-end">
-            <p-dataViewLayoutOptions [layout]="layout" />
+            <p-selectButton [(ngModel)]="layout" [options]="options" [allowEmpty]="false">
+                <ng-template pTemplate="item" let-item>
+                    <i class="pi " [ngClass]="{ 'pi-bars': item === 'list', 'pi-table': item === 'grid' }"></i>
+                </ng-template>
+            </p-selectButton>
         </div>
     </ng-template>
     <ng-template pTemplate="list" let-products>
@@ -315,7 +313,11 @@ export class LayoutDoc {
      <p-dataView #dv [value]="products" [layout]="layout">
         <ng-template pTemplate="header">
             <div class="flex justify-end">
-                <p-dataViewLayoutOptions [layout]="layout" />
+                <p-selectButton [(ngModel)]="layout" [options]="options" [allowEmpty]="false">
+                    <ng-template pTemplate="item" let-item>
+                        <i class="pi " [ngClass]="{ 'pi-bars': item === 'list', 'pi-table': item === 'grid' }"></i>
+                    </ng-template>
+                </p-selectButton>
             </div>
         </ng-template>
         <ng-template pTemplate="list" let-products>
@@ -452,7 +454,9 @@ import { DataViewModule } from 'primeng/dataview';
 import { TagModule } from 'primeng/tag';
 import { RatingModule } from 'primeng/rating';
 import { ButtonModule } from 'primeng/button';
+import { SelectButton } from 'primeng/selectbutton';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'data-view-layout-demo',
@@ -464,6 +468,8 @@ import { CommonModule } from '@angular/common';
       RatingModule,
       ButtonModule,
       CommonModule,
+      SelectButton,
+      FormsModule
     ],
     providers: [ProductService],
 })
@@ -471,6 +477,8 @@ export class DataViewLayoutDemo {
     layout: string = 'grid';
 
     products!: Product[];
+
+    options = ['list', 'grid'];
 
     constructor(private productService: ProductService) {}
 

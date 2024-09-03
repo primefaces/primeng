@@ -4,7 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { DataViewModule } from 'primeng/dataview';
-import { DropdownModule } from 'primeng/dropdown';
 import { RatingModule } from 'primeng/rating';
 import { TagModule } from 'primeng/tag';
 import { AppDocModule } from '@layout/doc/app.doc.module';
@@ -18,10 +17,25 @@ import { SortingDoc } from './sortingdoc';
 import { StyleDoc } from './styledoc';
 import { LoadingDoc } from './loadingdoc';
 import { SkeletonModule } from 'primeng/skeleton';
+import { SelectButton } from 'primeng/selectbutton';
+import { Select } from 'primeng/select';
 
 @NgModule({
-    imports: [CommonModule, AppCodeModule, AppDocModule, DataViewModule, DropdownModule, ButtonModule, RouterModule, RatingModule, TagModule, FormsModule, SkeletonModule],
+    imports: [
+        CommonModule,
+        AppCodeModule,
+        SelectButton,
+        AppDocModule,
+        DataViewModule,
+        Select,
+        ButtonModule,
+        RouterModule,
+        RatingModule,
+        TagModule,
+        FormsModule,
+        SkeletonModule,
+    ],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, PaginationDoc, SortingDoc, LayoutDoc, LoadingDoc, StyleDoc, AccessibilityDoc]
+    declarations: [ImportDoc, BasicDoc, PaginationDoc, SortingDoc, LayoutDoc, LoadingDoc, StyleDoc, AccessibilityDoc],
 })
 export class DataViewDocModule {}

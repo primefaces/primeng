@@ -28,8 +28,6 @@ import { PaginatorModule } from 'primeng/paginator';
 import { BlockableUI } from 'primeng/api';
 import { Subscription } from 'rxjs';
 import { SpinnerIcon } from 'primeng/icons/spinner';
-import { ThLargeIcon } from 'primeng/icons/thlarge';
-import { BarsIcon } from 'primeng/icons/bars';
 import { Nullable } from 'primeng/ts-helpers';
 import {
     DataViewLayoutChangeEvent,
@@ -594,48 +592,9 @@ export class DataView extends BaseComponent implements OnInit, AfterContentInit,
     }
 }
 
-@Component({
-    selector: 'p-dataViewLayoutOptions',
-    template: `
-        <div [ngClass]="'p-dataview-layout-options p-selectbutton p-buttonset'" [ngStyle]="style" [class]="styleClass">
-            <button
-                type="button"
-                class="p-button p-button-icon-only"
-                [ngClass]="{ 'p-highlight': dv.layout === 'list' }"
-                (click)="changeLayout($event, 'list')"
-                (keydown.enter)="changeLayout($event, 'list')"
-            >
-                <BarsIcon *ngIf="!dv.listIconTemplate" />
-                <ng-template *ngTemplateOutlet="dv.listIconTemplate"></ng-template></button
-            ><button
-                type="button"
-                class="p-button p-button-icon-only"
-                [ngClass]="{ 'p-highlight': dv.layout === 'grid' }"
-                (click)="changeLayout($event, 'grid')"
-                (keydown.enter)="changeLayout($event, 'grid')"
-            >
-                <ThLargeIcon *ngIf="!dv.gridIconTemplate" />
-                <ng-template *ngTemplateOutlet="dv.gridIconTemplate"></ng-template>
-            </button>
-        </div>
-    `,
-    encapsulation: ViewEncapsulation.None,
-})
-export class DataViewLayoutOptions {
-    @Input() style: { [klass: string]: any } | null | undefined;
-
-    @Input() styleClass: string | undefined;
-
-    constructor(public dv: DataView) {}
-
-    changeLayout(event: Event, layout: 'list' | 'grid') {
-        this.dv.changeLayout(layout);
-        event.preventDefault();
-    }
-}
 @NgModule({
-    imports: [CommonModule, SharedModule, PaginatorModule, SpinnerIcon, BarsIcon, ThLargeIcon],
-    exports: [DataView, SharedModule, DataViewLayoutOptions],
-    declarations: [DataView, DataViewLayoutOptions],
+    imports: [CommonModule, SharedModule, PaginatorModule, SpinnerIcon],
+    exports: [DataView, SharedModule],
+    declarations: [DataView],
 })
 export class DataViewModule {}
