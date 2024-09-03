@@ -357,7 +357,6 @@ export class StepperPanel {
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./stepper.css'],
     host: {
         '[class.p-stepper]': 'true',
         '[class.p-component]': 'true',
