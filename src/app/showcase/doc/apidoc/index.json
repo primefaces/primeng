@@ -15820,8 +15820,8 @@
     },
     "inputtextarea": {
         "components": {
-            "InputTextarea": {
-                "description": "InputTextarea adds styling and autoResize functionality to standard textarea element.",
+            "Textarea": {
+                "description": "Textarea adds styling and autoResize functionality to standard textarea element.",
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
