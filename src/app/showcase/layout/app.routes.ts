@@ -12,7 +12,7 @@ export const routes: Routes = [
             { path: 'accessibility', redirectTo: 'guides/accessibility', pathMatch: 'full' },
             { path: 'autocomplete', loadChildren: () => import('@pages/autocomplete/routes') },
             {
-                path: 'installation',
+                path: 'introduction',
                 loadChildren: () => import('@pages/introduction/routes'),
             },
             {
