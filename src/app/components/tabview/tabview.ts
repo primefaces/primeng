@@ -522,7 +522,7 @@ export class TabView extends BaseComponent implements AfterContentInit, AfterVie
 
     ngOnInit() {
         super.ngOnInit();
-        console.log('TabView component is deprecated as of v18. Use Tabs component instead.');
+        console.warn('TabView component is deprecated as of v18. Use Tabs component instead.');
     }
 
     ngAfterContentInit() {
