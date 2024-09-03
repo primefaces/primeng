@@ -87,10 +87,7 @@ export class BaseComponent {
     }
 
     ngAfterViewInit() {
-        this.rootEl = DomHandler.findSingle(
-            this.el.nativeElement,
-            `[data-pc-name="${ObjectUtils.toFlatCase(this._name)}"]`,
-        );
+        this.rootEl = DomHandler.findSingle(this.el.nativeElement, `[data-pc-name="${ObjectUtils.toFlatCase(this._name)}"]`);
         if (this.rootEl) {
             this.rootEl?.setAttribute(this.attrSelector, '');
         }
