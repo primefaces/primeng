@@ -1,8 +1,8 @@
-import { Injectable, effect, inject, signal, untracked } from '@angular/core';
-import { Theme, ThemeService } from 'primeng/themes';
-import { BaseStyle } from 'primeng/base';
 import { DOCUMENT } from '@angular/common';
+import { Injectable, effect, inject, signal, untracked } from '@angular/core';
+import { BaseStyle } from 'primeng/base';
 import { DomHandler } from 'primeng/dom';
+import { Theme, ThemeService } from 'primeng/themes';
 
 @Injectable({ providedIn: 'root' })
 export class ThemeProvider {
@@ -50,15 +50,15 @@ export class ThemeProvider {
 
     loadCommonTheme() {
         // common
-        if (!Theme.isStyleNameLoaded('common')) {
-            const { primitive, semantic } = this.baseStyle.getCommonTheme?.() || {};
-            const styleOptions = { nonce: undefined };
-            this.baseStyle.load(primitive?.css, { name: 'primitive-variables', ...styleOptions });
-            this.baseStyle.load(semantic?.css, { name: 'semantic-variables', ...styleOptions });
-            this.baseStyle.loadTheme({ name: 'global-style', ...styleOptions });
+        //if (!Theme.isStyleNameLoaded('common')) {
+        const { primitive, semantic } = this.baseStyle.getCommonTheme?.() || {};
+        const styleOptions = { nonce: undefined };
+        this.baseStyle.load(primitive?.css, { name: 'primitive-variables', ...styleOptions });
+        this.baseStyle.load(semantic?.css, { name: 'semantic-variables', ...styleOptions });
+        this.baseStyle.loadTheme({ name: 'global-style', ...styleOptions });
 
-            Theme.setLoadedStyleName('common');
-        }
+        Theme.setLoadedStyleName('common');
+        //}
     }
 
     loadFont() {

@@ -1,26 +1,13 @@
-import { DOCUMENT, isPlatformBrowser, isPlatformServer } from '@angular/common';
-import {
-    ChangeDetectorRef,
-    computed,
-    Directive,
-    effect,
-    ElementRef,
-    inject,
-    Injector,
-    Input,
-    PLATFORM_ID,
-    Renderer2,
-    SimpleChanges,
-    untracked,
-} from '@angular/core';
-import { Theme, ThemeService } from 'primeng/themes';
-import { Base, BaseStyle } from 'primeng/base';
-import { BaseComponentStyle } from './style/basecomponentstyle';
-import { PrimeNGConfig } from 'primeng/api';
-import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
-import { AppConfigService } from '@service/appconfigservice';
-import { DomHandler } from 'primeng/dom';
+import { DOCUMENT, isPlatformServer } from '@angular/common';
+import { ChangeDetectorRef, Directive, ElementRef, inject, Injector, Input, PLATFORM_ID, Renderer2, SimpleChanges } from '@angular/core';
 import { getKeyValue } from '@primeuix/utils/object';
+import { AppConfigService } from '@service/appconfigservice';
+import { PrimeNGConfig } from 'primeng/api';
+import { Base, BaseStyle } from 'primeng/base';
+import { DomHandler } from 'primeng/dom';
+import { Theme, ThemeService } from 'primeng/themes';
+import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
+import { BaseComponentStyle } from './style/basecomponentstyle';
 
 @Directive({ standalone: true, providers: [BaseComponentStyle, BaseStyle] })
 export class BaseComponent {
@@ -104,6 +91,7 @@ export class BaseComponent {
     }
 
     ngOnDestroy() {
+        Theme.clearLoadedStyleNames();
         this._unloadScopedThemeStyles();
     }
 
@@ -132,29 +120,29 @@ export class BaseComponent {
 
     _loadThemeStyles() {
         // common
-        if (!Theme.isStyleNameLoaded('common')) {
-            const { primitive, semantic } = this.componentStyle.getCommonTheme?.() || {};
-            this.baseStyle.load(primitive?.css, { name: 'primitive-variables', ...this.styleOptions });
-            this.baseStyle.load(semantic?.css, { name: 'semantic-variables', ...this.styleOptions });
-            this.baseStyle.loadTheme({ name: 'global-style', ...this.styleOptions });
-            Theme.setLoadedStyleName('common');
-        }
+        //if (!Theme.isStyleNameLoaded('common')) {
+        const { primitive, semantic } = this.componentStyle?.getCommonTheme?.() || {};
+        this.baseStyle.load(primitive?.css, { name: 'primitive-variables', ...this.styleOptions });
+        this.baseStyle.load(semantic?.css, { name: 'semantic-variables', ...this.styleOptions });
+        this.baseStyle.loadTheme({ name: 'global-style', ...this.styleOptions });
+        Theme.setLoadedStyleName('common');
+        //}
 
         // component
-        if (!Theme.isStyleNameLoaded(this.componentStyle?.name) && this.componentStyle?.name) {
-            const { css } = this.componentStyle.getComponentTheme?.() || {};
-            this.componentStyle.load(css, { name: `${this.componentStyle?.name}-variables`, ...this.styleOptions });
-            this.componentStyle.loadTheme({ name: `${this.componentStyle?.name}-style`, ...this.styleOptions });
-            Theme.setLoadedStyleName(this.componentStyle?.name);
-        }
+        //if (!Theme.isStyleNameLoaded(this.componentStyle?.name)) {
+        const { css } = this.componentStyle?.getComponentTheme?.() || {};
+        this.componentStyle?.load(css, { name: `${this.componentStyle?.name}-variables`, ...this.styleOptions });
+        this.componentStyle?.loadTheme({ name: `${this.componentStyle?.name}-style`, ...this.styleOptions });
+        Theme.setLoadedStyleName(this.componentStyle?.name);
+        //}
 
         // layer order
-        if (!Theme.isStyleNameLoaded('layer-order')) {
-            const layerOrder = this.componentStyle?.getLayerOrderThemeCSS?.();
+        //if (!Theme.isStyleNameLoaded('layer-order')) {
+        const layerOrder = this.componentStyle?.getLayerOrderThemeCSS?.();
 
-            this.baseStyle.load(layerOrder, { name: 'layer-order', first: true, ...this.styleOptions });
-            Theme.setLoadedStyleName('layer-order');
-        }
+        this.baseStyle.load(layerOrder, { name: 'layer-order', first: true, ...this.styleOptions });
+        Theme.setLoadedStyleName('layer-order');
+        //}
 
         if (this.dt) {
             this._loadScopedThemeStyles(this.dt);
