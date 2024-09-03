@@ -88,7 +88,7 @@
         "@docsearch/js": "^3.3.4",
         "esbuild": "^0.19.8",
         "@primeuix/styled": "0.0.6",
-        "@algolia/client-search": "^5.2.3"
+        "@algolia/client-search": "^4.19.1"
     },
     "dependencies": {
         "autoprefixer": "^10.4.20",
