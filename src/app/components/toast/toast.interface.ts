@@ -1,5 +1,5 @@
 import { TemplateRef } from '@angular/core';
-import { Message } from 'primeng/api';
+import { ToastMessageOptions } from 'primeng/api';
 
 /**
  * Defines valid templates in Toast.
@@ -35,7 +35,7 @@ export interface ToastCloseEvent {
     /**
      * Message of the closed element.
      */
-    message: Message;
+    message: ToastMessageOptions;
 }
 
 /**
@@ -49,11 +49,4 @@ export interface ToastItemCloseEvent extends ToastCloseEvent {
     index: number;
 }
 
-export type ToastPositionType =
-    | 'top-left'
-    | 'top-center'
-    | 'top-right'
-    | 'bottom-left'
-    | 'bottom-center'
-    | 'bottom-right'
-    | 'center';
+export type ToastPositionType = 'top-left' | 'top-center' | 'top-right' | 'bottom-left' | 'bottom-center' | 'bottom-right' | 'center';
