@@ -8,32 +8,32 @@ import { Code } from '@domain/code';
             <p>Content of the OverlayPanel is defined by <i>content</i> template.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-overlayPanel #op>
+            <p-popover #op>
                 <ng-template pTemplate="content">
                     <h4>Custom Content</h4>
                 </ng-template>
-            </p-overlayPanel>
+            </p-popover>
             <p-button (click)="op.toggle($event)" icon="pi pi-image" label="Show"></p-button>
         </div>
         <app-code [code]="code" selector="overlay-panel-template-demo"></app-code>
-    `
+    `,
 })
 export class TemplateDoc {
     code: Code = {
-        basic: `<p-overlayPanel #op>
+        basic: `<p-popover #op>
     <ng-template pTemplate="content">
         <h4>Custom Content</h4>
     </ng-template>
-</p-overlayPanel>
+</p-popover>
 <p-button (click)="op.toggle($event)" icon="pi pi-image" label="Show"></p-button>`,
 
         html: `
 <div class="card flex justify-center">
-    <p-overlayPanel #op>
+    <p-popover #op>
         <ng-template pTemplate="content">
             <h4>Custom Content</h4>
         </ng-template>
-    </p-overlayPanel>
+    </p-popover>
     <p-button (click)="op.toggle($event)" icon="pi pi-image" label="Show"></p-button>
 </div>`,
 
@@ -44,6 +44,6 @@ import { Component } from '@angular/core';
     selector: 'overlay-panel-template-demo',
     templateUrl: './overlay-panel-template-demo.html'
 })
-export class OverlayPanelTemplateDemo {}`
+export class OverlayPanelTemplateDemo {}`,
     };
 }

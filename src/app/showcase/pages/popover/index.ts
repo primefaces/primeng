@@ -6,36 +6,46 @@ import { DataTableDoc } from '@doc/popover/datatabledoc';
 import { TemplateDoc } from '@doc/popover/templatedoc';
 import { TargetDoc } from '@doc/popover/targetdoc';
 import { AccessibilityDoc } from '@doc/popover/accessibilitydoc';
+import { CommonModule } from '@angular/common';
+import { PopoverDocModule } from '@doc/popover/popoverdoc.module';
 
 @Component({
-    templateUrl: './popoverdemo.html'
+    template: `<app-doc
+        docTitle="Angular Popover Component"
+        header="Popover"
+        description="Popover is a container component that can overlay other components on page."
+        [docs]="docs"
+        [apiDocs]="['Popover']"
+    ></app-doc>`,
+    imports: [CommonModule, PopoverDocModule],
+    standalone: true,
 })
 export class PopoverDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc
+            component: ImportDoc,
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc
+            component: BasicDoc,
         },
         {
             id: 'datatable',
             label: 'DataTable',
-            component: DataTableDoc
+            component: DataTableDoc,
         },
         {
             id: 'style',
             label: 'Style',
-            component: StyleDoc
+            component: StyleDoc,
         },
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc
-        }
+            component: AccessibilityDoc,
+        },
     ];
 }

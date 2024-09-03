@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
@@ -16,22 +15,21 @@ import { TargetDoc } from './targetdoc';
 import { AccessibilityDoc } from './accessibilitydoc';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
-import { ChipsModule } from 'primeng/chips';
 import { InputTextModule } from 'primeng/inputtext';
+import { PopoverModule } from 'primeng/popover';
 
 @NgModule({
     imports: [
         CommonModule,
         AppCodeModule,
         RouterModule,
-        OverlayPanelModule,
+        PopoverModule,
         ButtonModule,
         TableModule,
         ToastModule,
         AppDocModule,
         InputGroupModule,
         InputGroupAddonModule,
-        ChipsModule,
         InputTextModule,
     ],
     declarations: [BasicDoc, ImportDoc, StyleDoc, DataTableDoc, TemplateDoc, TargetDoc, AccessibilityDoc],

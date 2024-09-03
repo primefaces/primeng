@@ -51,7 +51,6 @@ export const routes: Routes = [
             { path: 'chart', loadChildren: () => import('@pages/chart/chartdemo.module').then((m) => m.ChartDemoModule) },
             { path: 'checkbox', loadChildren: () => import('@pages/checkbox/checkboxdemo.module').then((m) => m.CheckboxDemoModule) },
             { path: 'chip', loadChildren: () => import('@pages/chip/chipdemo.module').then((m) => m.ChipDemoModule) },
-            { path: 'chips', loadChildren: () => import('@pages/chips/chipsdemo.module').then((m) => m.ChipsDemoModule) },
             {
                 path: 'colorpicker',
                 loadChildren: () => import('@pages/colorpicker/colorpickerdemo.module').then((m) => m.ColorPickerDemoModule),
@@ -141,7 +140,7 @@ export const routes: Routes = [
                 loadChildren: () =>
                     import('@pages/organizationchart/organizationchartdemo.module').then((m) => m.OrganizationChartDemoModule),
             },
-            { path: 'popover', loadChildren: () => import('@pages/popover/popoverdemo.module').then((m) => m.PopoverDemoModule) },
+            { path: 'popover', loadChildren: () => import('@pages/popover/routes') },
             { path: 'paginator', loadChildren: () => import('@pages/paginator/paginatordemo.module').then((m) => m.PaginatorDemoModule) },
             { path: 'panel', loadChildren: () => import('@pages/panel/paneldemo.module').then((m) => m.PanelDemoModule) },
             { path: 'panelmenu', loadChildren: () => import('@pages/panelmenu/panelmenudemo.module').then((m) => m.PanelMenuDemoModule) },

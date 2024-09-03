@@ -16,11 +16,11 @@ import { CommonModule } from '@angular/common';
     standalone: true,
     imports: [CommonModule, TextareaDocModule],
     template: `<app-doc
-        docTitle="Angular InputTextarea Component"
-        header="InputTextarea"
-        description="InputTextarea adds styling and autoResize functionality to standard textarea element."
+        docTitle="Angular Textarea Component"
+        header="Textarea"
+        description="Textarea adds styling and autoResize functionality to standard textarea element."
         [docs]="docs"
-        [apiDocs]="['InputTextarea']"
+        [apiDocs]="['Textarea']"
     ></app-doc>`,
 })
 export class TextareaDemo {
