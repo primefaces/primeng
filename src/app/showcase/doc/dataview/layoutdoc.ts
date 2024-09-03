@@ -8,9 +8,8 @@ import { ProductService } from '@service/productservice';
     template: `
         <app-docsectiontext>
             <p>
-                DataView supports <i>list</i> and <i>grid</i> display modes defined with the <i>layout</i> property. The helper
-                <i>DataViewLayoutOptions</i> component can be used to switch between the modes however this component is optional and you
-                may use your own UI to switch modes as well.
+                DataView supports <i>list</i> and <i>grid</i> display modes defined with the <i>layout</i> property. The <i>grid</i> mode is
+                not built-in for flexibility purposes and requires a library with CSS grid features like Tailwind.
             </p>
         </app-docsectiontext>
         <div class="card">
