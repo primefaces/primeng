@@ -27,8 +27,7 @@ import { TimesIcon } from 'primeng/icons/times';
 import { RippleModule } from 'primeng/ripple';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { ZIndexUtils } from 'primeng/utils';
-import { ButtonModule } from '../button/button';
-import { ButtonProps } from '../button/button.interface';
+import { ButtonModule, ButtonProps } from 'primeng/button';
 import { BaseComponent } from 'primeng/basecomponent';
 import { DrawerStyle } from './style/drawerstyle';
 

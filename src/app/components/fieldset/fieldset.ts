@@ -22,7 +22,7 @@ import { RippleModule } from 'primeng/ripple';
 import { Nullable } from 'primeng/ts-helpers';
 import { UniqueComponentId } from 'primeng/utils';
 import { FieldsetAfterToggleEvent, FieldsetBeforeToggleEvent } from './fieldset.interface';
-import { ButtonModule } from '../button/button';
+import { ButtonModule } from 'primeng/button';
 import { BaseComponent } from 'primeng/basecomponent';
 import { FieldsetStyle } from './style/fieldsetstyle';
 

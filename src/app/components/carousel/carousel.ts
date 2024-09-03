@@ -32,12 +32,12 @@ import { ChevronUpIcon } from 'primeng/icons/chevronup';
 import { RippleModule } from 'primeng/ripple';
 import { UniqueComponentId } from 'primeng/utils';
 import { CarouselPageEvent, CarouselResponsiveOptions } from './carousel.interface';
-import { PrimeNGConfig } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
-import { ButtonModule } from '../button/button';
+import { ButtonModule } from 'primeng/button';
 import { ButtonProps } from 'primeng/button';
 import { CarouselStyle } from './style/carouselstyle';
 import { BaseComponent } from 'primeng/basecomponent';
+
 /**
  * Carousel is a content slider featuring various customization options.
  * @group Components

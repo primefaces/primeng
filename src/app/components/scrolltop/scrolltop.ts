@@ -23,7 +23,7 @@ import { PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { ChevronUpIcon } from 'primeng/icons/chevronup';
 import { ZIndexUtils } from 'primeng/utils';
-import { ButtonModule } from '../button/button';
+import { ButtonModule } from 'primeng/button';
 import { ButtonProps } from 'primeng/button';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ScrollTopStyle } from './style/scrolltopstyle';
