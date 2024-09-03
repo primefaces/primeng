@@ -5,16 +5,19 @@ import { Code } from '@domain/code';
     selector: 'floatlabel-doc',
     template: `
         <app-docsectiontext>
-            <p>A floating label appears on top of the input field when focused. Visit <a routerLink="/floatlabel">FloatLabel</a> documentation for more information.</p>
+            <p>
+                A floating label appears on top of the input field when focused. Visit
+                <a routerLink="/floatlabel">FloatLabel</a> documentation for more information.
+            </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-floatLabel>
-                <textarea id="float-input" rows="5" cols="30" pInputTextarea></textarea>
+                <textarea id="float-input" rows="5" cols="30" pTextarea></textarea>
                 <label for="float-input">Summary</label>
             </p-floatLabel>
         </div>
         <app-code [code]="code" selector="input-textarea-floatlabel-demo"></app-code>
-    `
+    `,
 })
 export class FloatlabelDoc {
     code: Code = {
@@ -22,7 +25,7 @@ export class FloatlabelDoc {
     <textarea 
         id="float-input" 
         rows="5" cols="30" 
-        pInputTextarea>
+        pTextarea>
     </textarea>
     <label for="float-input">Summary</label>
 </p-floatLabel>`,
@@ -33,7 +36,7 @@ export class FloatlabelDoc {
             id="float-input" 
             rows="5"
             cols="30" 
-            pInputTextarea>
+            pTextarea>
         </textarea>
         <label for="float-input">Summary</label>
     </p-floatLabel>
@@ -51,6 +54,6 @@ import { FloatLabelModule } from 'primeng/floatlabel';
     imports: [FormsModule, InputTextareaModule, FloatLabelModule]
 })
 export class InputTextareaFloatlabelDemo {
-}`
+}`,
     };
 }

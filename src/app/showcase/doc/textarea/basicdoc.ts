@@ -2,35 +2,33 @@ import { Component } from '@angular/core';
 import { Code } from '@domain/code';
 
 @Component({
-    selector: 'filled-doc',
+    selector: 'basic-doc',
     template: `
         <app-docsectiontext>
-            <p>Specify the <i>variant</i> property as <i>filled</i> to display the component with a higher visual emphasis than the default <i>outlined</i> style.</p>
+            <p>Textarea is applied to an input field with <i>pTextarea</i> directive.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <textarea [variant]="'filled'" rows="5" cols="30" pInputTextarea [(ngModel)]="value"></textarea>
+            <textarea rows="5" cols="30" pTextarea [(ngModel)]="value"></textarea>
         </div>
-        <app-code [code]="code" selector="input-textarea-filled-demo"></app-code>
-    `
+        <app-code [code]="code" selector="input-textarea-basic-demo"></app-code>
+    `,
 })
-export class FilledDoc {
+export class BasicDoc {
     value!: string;
 
     code: Code = {
         basic: `<textarea 
-    variant="filled"
     rows="5"
     cols="30" 
-    pInputTextarea 
+    pTextarea 
     [(ngModel)]="value">
 </textarea>`,
 
         html: `<div class="card flex justify-center">
     <textarea 
-        variant="filled"
         rows="5"
         cols="30"
-        pInputTextarea 
+        pTextarea 
         [(ngModel)]="value">
     </textarea>
 </div>`,
@@ -40,14 +38,14 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { FormsModule } from '@angular/forms';
 
 @Component({
-    selector: 'input-textarea-filled-demo',
-    templateUrl: './input-textarea-filled-demo.html',
+    selector: 'input-textarea-basic-demo',
+    templateUrl: './input-textarea-basic-demo.html',
     standalone: true,
     imports: [FormsModule, InputTextareaModule]
 })
 
-export class InputTextareaFilledDemo {
+export class InputTextareaBasicDemo {
     value!: string;
-}`
+}`,
     };
 }

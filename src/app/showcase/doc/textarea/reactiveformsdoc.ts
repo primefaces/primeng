@@ -6,22 +6,25 @@ import { Code } from '@domain/code';
     selector: 'reactive-forms-doc',
     template: `
         <app-docsectiontext>
-            <p>InputTextarea can also be used with reactive forms. In this case, the <i>formControlName</i> property is used to bind the component to a form control.</p>
+            <p>
+                Textarea can also be used with reactive forms. In this case, the <i>formControlName</i> property is used to bind the
+                component to a form control.
+            </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
             <form [formGroup]="formGroup">
-                <textarea rows="5" cols="30" pInputTextarea formControlName="text"></textarea>
+                <textarea rows="5" cols="30" pTextarea formControlName="text"></textarea>
             </form>
         </div>
         <app-code [code]="code" selector="input-textarea-reactive-forms-demo"></app-code>
-    `
+    `,
 })
 export class ReactiveFormsDoc implements OnInit {
     formGroup!: FormGroup;
 
     ngOnInit() {
         this.formGroup = new FormGroup({
-            text: new FormControl<string | null>(null)
+            text: new FormControl<string | null>(null),
         });
     }
 
@@ -30,7 +33,7 @@ export class ReactiveFormsDoc implements OnInit {
     <textarea 
         rows="5" 
         cols="30" 
-        pInputTextarea 
+        pTextarea 
         formControlName="text">
     </textarea>
 </form>`,
@@ -40,7 +43,7 @@ export class ReactiveFormsDoc implements OnInit {
         <textarea 
             rows="5"
             cols="30" 
-            pInputTextarea 
+            pTextarea 
             formControlName="text">
         </textarea>
     </form>
@@ -64,6 +67,6 @@ export class InputTextareaReactiveFormsDemo implements OnInit {
             text: new FormControl<string | null>(null)
         });
     }
-}`
+}`,
     };
 }

@@ -2,34 +2,32 @@ import { Component } from '@angular/core';
 import { Code } from '@domain/code';
 
 @Component({
-    selector: 'basic-doc',
+    selector: 'autoresize-doc',
     template: `
         <app-docsectiontext>
-            <p>InputTextarea is applied to an input field with <i>pInputTextarea</i> directive.</p>
+            <p>When <i>autoResize</i> is enabled, textarea grows instead of displaying a scrollbar.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <textarea rows="5" cols="30" pInputTextarea [(ngModel)]="value"></textarea>
+            <textarea rows="5" cols="30" pTextarea [autoResize]="true"></textarea>
         </div>
-        <app-code [code]="code" selector="input-textarea-basic-demo"></app-code>
-    `
+        <app-code [code]="code" selector="input-textarea-auto-resize-demo"></app-code>
+    `,
 })
-export class BasicDoc {
-    value!: string;
-
+export class AutoResizeDoc {
     code: Code = {
         basic: `<textarea 
     rows="5"
     cols="30" 
-    pInputTextarea 
-    [(ngModel)]="value">
+    pTextarea 
+    [autoResize]="true">
 </textarea>`,
 
         html: `<div class="card flex justify-center">
     <textarea 
         rows="5"
         cols="30"
-        pInputTextarea 
-        [(ngModel)]="value">
+        pTextarea 
+        [autoResize]="true">
     </textarea>
 </div>`,
 
@@ -38,14 +36,12 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { FormsModule } from '@angular/forms';
 
 @Component({
-    selector: 'input-textarea-basic-demo',
-    templateUrl: './input-textarea-basic-demo.html',
+    selector: 'input-textarea-auto-resize-demo',
+    templateUrl: './input-textarea-auto-resize-demo.html',
     standalone: true,
     imports: [FormsModule, InputTextareaModule]
 })
-
-export class InputTextareaBasicDemo {
-    value!: string;
-}`
+export class InputTextareaAutoResizeDemo {
+}`,
     };
 }

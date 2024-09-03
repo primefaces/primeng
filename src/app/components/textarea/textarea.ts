@@ -18,11 +18,11 @@ import { Subscription } from 'rxjs';
 import { BaseComponent } from 'primeng/basecomponent';
 import { TextareaStyle } from './style/textareastyle';
 /**
- * InputTextarea adds styling and autoResize functionality to standard textarea element.
+ * Textarea adds styling and autoResize functionality to standard textarea element.
  * @group Components
  */
 @Directive({
-    selector: '[pInputTextarea]',
+    selector: '[pTextarea]',
     host: {
         class: 'p-textarea p-component',
         '[class.p-filled]': 'filled',
@@ -32,7 +32,7 @@ import { TextareaStyle } from './style/textareastyle';
     },
     providers: [TextareaStyle],
 })
-export class InputTextarea extends BaseComponent implements OnInit, AfterViewInit, OnDestroy {
+export class Textarea extends BaseComponent implements OnInit, AfterViewInit, OnDestroy {
     /**
      * When present, textarea size changes as being typed.
      * @group Props
@@ -148,7 +148,7 @@ export class InputTextarea extends BaseComponent implements OnInit, AfterViewIni
 
 @NgModule({
     imports: [CommonModule],
-    exports: [InputTextarea],
-    declarations: [InputTextarea],
+    exports: [Textarea],
+    declarations: [Textarea],
 })
-export class InputTextareaModule {}
+export class TextareaModule {}

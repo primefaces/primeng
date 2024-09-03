@@ -7,8 +7,9 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <h3>Screen Reader</h3>
             <p>
-                InputTextarea component renders a native textarea element that implicitly includes any passed prop. Value to describe the component can either be provided via <i>label</i> tag combined with <i>id</i> prop or using
-                <i>aria-labelledby</i>, <i>aria-label</i> props.
+                Textarea component renders a native textarea element that implicitly includes any passed prop. Value to describe the
+                component can either be provided via <i>label</i> tag combined with <i>id</i> prop or using <i>aria-labelledby</i>,
+                <i>aria-label</i> props.
             </p>
         </app-docsectiontext>
 
@@ -33,16 +34,16 @@ import { Code } from '@domain/code';
                 </tbody>
             </table>
         </div>
-    </div>`
+    </div>`,
 })
 export class AccessibilityDoc {
     code: Code = {
         basic: `<label for="address1">Address 1</label>
-<textarea pInputTextarea id="address1"></textarea>
+<textarea pTextarea id="address1"></textarea>
 
 <span id="address2">Address 2</span>
-<textarea pInputTextarea aria-labelledby="address2"></textarea>
+<textarea pTextarea aria-labelledby="address2"></textarea>
 
-<textarea pInputTextarea aria-label="Address Details"></textarea>`
+<textarea pTextarea aria-label="Address Details"></textarea>`,
     };
 }
