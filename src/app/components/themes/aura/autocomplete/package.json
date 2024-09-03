@@ -1,5 +1,0 @@
-{
-    "main": "./index.js",
-    "module": "./index.js",
-    "types": "../types/autocomplete/index.d.ts"
-}

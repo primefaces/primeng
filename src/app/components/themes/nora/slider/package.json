@@ -1,5 +1,0 @@
-{
-    "main": "./index.js",
-    "module": "./index.js",
-    "types": "../types/slider/index.d.ts"
-}

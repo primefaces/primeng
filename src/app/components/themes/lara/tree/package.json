@@ -1,5 +1,0 @@
-{
-    "main": "./index.js",
-    "module": "./index.js",
-    "types": "../types/tree/index.d.ts"
-}
