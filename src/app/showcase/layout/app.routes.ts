@@ -129,7 +129,7 @@ export const routes: Routes = [
             { path: 'megamenu', loadChildren: () => import('@pages/megamenu/megamenudemo.module').then((m) => m.MegaMenuDemoModule) },
             { path: 'menu', loadChildren: () => import('@pages/menu/menudemo.module').then((m) => m.MenuDemoModule) },
             { path: 'menubar', loadChildren: () => import('@pages/menubar/menubardemo.module').then((m) => m.MenubarDemoModule) },
-            { path: 'messages', loadChildren: () => import('@pages/messages/messagesdemo.module').then((m) => m.MessagesDemoModule) },
+            { path: 'message', loadChildren: () => import('@pages/message/routes') },
             {
                 path: 'multiselect',
                 loadChildren: () => import('@pages/multiselect/multiselectdemo.module').then((m) => m.MultiSelectDemoModule),

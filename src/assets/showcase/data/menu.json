@@ -360,8 +360,8 @@
                     "name": "Messages",
                     "children": [
                         {
-                            "name": "Messages",
-                            "routerLink": "/messages"
+                            "name": "Message",
+                            "routerLink": "/message"
                         },
                         {
                             "name": "Toast",

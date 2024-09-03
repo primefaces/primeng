@@ -310,32 +310,6 @@
     "accordionstyle": {
         "components": {}
     },
-    "animate": {
-        "components": {
-            "Animate": {
-                "description": "Animate manages PrimeFlex CSS classes declaratively to during enter/leave animations on scroll or on page load.",
-                "props": {
-                    "description": "Defines the input properties of the component.",
-                    "values": [
-                        {
-                            "name": "enterClass",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "string",
-                            "description": "Selector to define the CSS class for enter animation."
-                        },
-                        {
-                            "name": "leaveClass",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "string",
-                            "description": "Selector to define the CSS class for leave animation."
-                        }
-                    ]
-                }
-            }
-        }
-    },
     "animateonscroll": {
         "components": {
             "AnimateOnScroll": {
@@ -1297,143 +1271,6 @@
             ]
         }
     },
-    "message": {
-        "components": {
-            "Message": {
-                "description": "Message groups a collection of contents in tabs.",
-                "props": {
-                    "description": "Defines the input properties of the component.",
-                    "values": [
-                        {
-                            "name": "severity",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "string",
-                            "description": "Severity level of the message."
-                        },
-                        {
-                            "name": "text",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "string",
-                            "description": "Text content."
-                        },
-                        {
-                            "name": "escape",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "boolean",
-                            "default": "true",
-                            "description": "Whether displaying messages would be escaped or not."
-                        },
-                        {
-                            "name": "style",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "Object",
-                            "description": "Inline style of the component."
-                        },
-                        {
-                            "name": "styleClass",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "string",
-                            "description": "Style class of the component."
-                        }
-                    ]
-                }
-            }
-        },
-        "interfaces": {
-            "description": "Defines the custom interfaces used by the module.",
-            "values": [
-                {
-                    "name": "Message",
-                    "description": "Deines valid options for the message.",
-                    "props": [
-                        {
-                            "name": "severity",
-                            "optional": true,
-                            "readonly": false,
-                            "type": "string"
-                        },
-                        {
-                            "name": "summary",
-                            "optional": true,
-                            "readonly": false,
-                            "type": "string"
-                        },
-                        {
-                            "name": "detail",
-                            "optional": true,
-                            "readonly": false,
-                            "type": "string"
-                        },
-                        {
-                            "name": "id",
-                            "optional": true,
-                            "readonly": false,
-                            "type": "any"
-                        },
-                        {
-                            "name": "key",
-                            "optional": true,
-                            "readonly": false,
-                            "type": "string"
-                        },
-                        {
-                            "name": "life",
-                            "optional": true,
-                            "readonly": false,
-                            "type": "number"
-                        },
-                        {
-                            "name": "sticky",
-                            "optional": true,
-                            "readonly": false,
-                            "type": "boolean"
-                        },
-                        {
-                            "name": "closable",
-                            "optional": true,
-                            "readonly": false,
-                            "type": "boolean"
-                        },
-                        {
-                            "name": "data",
-                            "optional": true,
-                            "readonly": false,
-                            "type": "any"
-                        },
-                        {
-                            "name": "icon",
-                            "optional": true,
-                            "readonly": false,
-                            "type": "string"
-                        },
-                        {
-                            "name": "contentStyleClass",
-                            "optional": true,
-                            "readonly": false,
-                            "type": "string"
-                        },
-                        {
-                            "name": "styleClass",
-                            "optional": true,
-                            "readonly": false,
-                            "type": "string"
-                        },
-                        {
-                            "name": "closeIcon",
-                            "optional": true,
-                            "readonly": false,
-                            "type": "string"
-                        }
-                    ]
-                }
-            ]
-        }
-    },
     "messageservice": {
         "description": "Defines the service used by the component",
         "methods": {
@@ -1444,7 +1281,7 @@
                     "parameters": [
                         {
                             "name": "message",
-                            "type": "Message",
+                            "type": "ToastMessageOptions",
                             "description": "Message to be added."
                         }
                     ],
@@ -1456,7 +1293,7 @@
                     "parameters": [
                         {
                             "name": "messages",
-                            "type": "Message[]",
+                            "type": "ToastMessageOptions[]",
                             "description": "Messages to be added."
                         }
                     ],
@@ -2306,6 +2143,98 @@
     },
     "themeprovider": {
         "components": {}
+    },
+    "toastmessage": {
+        "components": {},
+        "interfaces": {
+            "description": "Defines the custom interfaces used by the module.",
+            "values": [
+                {
+                    "name": "ToastMessageOptions",
+                    "description": "Deines valid options for the toast message.",
+                    "props": [
+                        {
+                            "name": "severity",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "string"
+                        },
+                        {
+                            "name": "summary",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "string"
+                        },
+                        {
+                            "name": "detail",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "string"
+                        },
+                        {
+                            "name": "id",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "any"
+                        },
+                        {
+                            "name": "key",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "string"
+                        },
+                        {
+                            "name": "life",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "number"
+                        },
+                        {
+                            "name": "sticky",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "boolean"
+                        },
+                        {
+                            "name": "closable",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "boolean"
+                        },
+                        {
+                            "name": "data",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "any"
+                        },
+                        {
+                            "name": "icon",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "string"
+                        },
+                        {
+                            "name": "contentStyleClass",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "string"
+                        },
+                        {
+                            "name": "styleClass",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "string"
+                        },
+                        {
+                            "name": "closeIcon",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "string"
+                        }
+                    ]
+                }
+            ]
+        }
     },
     "tooltipoptions": {
         "components": {},
@@ -7580,345 +7509,6 @@
     },
     "chipstyle": {
         "components": {}
-    },
-    "chips": {
-        "components": {
-            "Chips": {
-                "description": "Chips groups a collection of contents in tabs.",
-                "props": {
-                    "description": "Defines the input properties of the component.",
-                    "values": [
-                        {
-                            "name": "style",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "Object",
-                            "description": "Inline style of the element."
-                        },
-                        {
-                            "name": "styleClass",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "string",
-                            "description": "Style class of the element."
-                        },
-                        {
-                            "name": "disabled",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "boolean",
-                            "default": "false",
-                            "description": "When present, it specifies that the element should be disabled."
-                        },
-                        {
-                            "name": "field",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "string",
-                            "description": "Name of the property to display on a chip."
-                        },
-                        {
-                            "name": "placeholder",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "string",
-                            "description": "Advisory information to display on input."
-                        },
-                        {
-                            "name": "max",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "number",
-                            "description": "Maximum number of entries allowed."
-                        },
-                        {
-                            "name": "maxLength",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "number",
-                            "description": "Maximum length of a chip."
-                        },
-                        {
-                            "name": "ariaLabel",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "string",
-                            "description": "Defines a string that labels the input for accessibility."
-                        },
-                        {
-                            "name": "ariaLabelledBy",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "string",
-                            "description": "Establishes relationships between the component and label(s) where its value should be one or more element IDs."
-                        },
-                        {
-                            "name": "tabindex",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "number",
-                            "description": "Index of the element in tabbing order."
-                        },
-                        {
-                            "name": "inputId",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "string",
-                            "description": "Identifier of the focus input to match a label defined for the component."
-                        },
-                        {
-                            "name": "allowDuplicate",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "boolean",
-                            "default": "true",
-                            "description": "Whether to allow duplicate values or not."
-                        },
-                        {
-                            "name": "caseSensitiveDuplication",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "boolean",
-                            "default": "true",
-                            "description": "Defines whether duplication check should be case-sensitive"
-                        },
-                        {
-                            "name": "inputStyle",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "Object",
-                            "description": "Inline style of the input field."
-                        },
-                        {
-                            "name": "inputStyleClass",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "string",
-                            "description": "Style class of the input field."
-                        },
-                        {
-                            "name": "addOnTab",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "boolean",
-                            "default": "false",
-                            "description": "Whether to add an item on tab key press."
-                        },
-                        {
-                            "name": "addOnBlur",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "boolean",
-                            "default": "false",
-                            "description": "Whether to add an item when the input loses focus."
-                        },
-                        {
-                            "name": "separator",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "string | RegExp",
-                            "description": "Separator char to add an item when pressed in addition to the enter key."
-                        },
-                        {
-                            "name": "showClear",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "boolean",
-                            "default": "false",
-                            "description": "When enabled, a clear icon is displayed to clear the value."
-                        },
-                        {
-                            "name": "autofocus",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "boolean",
-                            "default": "false",
-                            "description": "When present, it specifies that the component should automatically get focus on load."
-                        },
-                        {
-                            "name": "variant",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "\"filled\" | \"outlined\"",
-                            "default": "outlined",
-                            "description": "Specifies the input variant of the component."
-                        }
-                    ]
-                },
-                "emits": {
-                    "description": "Defines emit that determine the behavior of the component based on a given condition or report the actions that the component takes.",
-                    "values": [
-                        {
-                            "name": "onAdd",
-                            "parameters": [
-                                {
-                                    "name": "event",
-                                    "type": "ChipsAddEvent"
-                                }
-                            ],
-                            "description": "Callback to invoke on chip add."
-                        },
-                        {
-                            "name": "onRemove",
-                            "parameters": [
-                                {
-                                    "name": "event",
-                                    "type": "ChipsRemoveEvent"
-                                }
-                            ],
-                            "description": "Callback to invoke on chip remove."
-                        },
-                        {
-                            "name": "onFocus",
-                            "parameters": [
-                                {
-                                    "name": "event",
-                                    "type": "Event"
-                                }
-                            ],
-                            "description": "Callback to invoke on focus of input field."
-                        },
-                        {
-                            "name": "onBlur",
-                            "parameters": [
-                                {
-                                    "name": "event",
-                                    "type": "Event"
-                                }
-                            ],
-                            "description": "Callback to invoke on blur of input field."
-                        },
-                        {
-                            "name": "onChipClick",
-                            "parameters": [
-                                {
-                                    "name": "event",
-                                    "type": "ChipsClickEvent"
-                                }
-                            ],
-                            "description": "Callback to invoke on chip clicked."
-                        },
-                        {
-                            "name": "onClear",
-                            "parameters": [
-                                {
-                                    "name": "value",
-                                    "type": "any"
-                                }
-                            ],
-                            "description": "Callback to invoke on clear token clicked."
-                        }
-                    ]
-                },
-                "methods": {
-                    "description": "Defines methods that can be accessed by the component's reference.",
-                    "values": [
-                        {
-                            "name": "clear",
-                            "parameters": [],
-                            "description": "Callback to invoke on filter reset."
-                        }
-                    ]
-                }
-            }
-        },
-        "interfaces": {
-            "components": {},
-            "events": {
-                "description": "Defines the custom events used by the component's emitters.",
-                "values": [
-                    {
-                        "name": "ChipsAddEvent",
-                        "description": "Custom add event.",
-                        "props": [
-                            {
-                                "name": "originalEvent",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "Event",
-                                "description": "Browser event."
-                            },
-                            {
-                                "name": "value",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "any",
-                                "description": "Added/Removed item value."
-                            }
-                        ]
-                    },
-                    {
-                        "name": "ChipsRemoveEvent",
-                        "description": "Custom remove event.",
-                        "props": [
-                            {
-                                "name": "originalEvent",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "Event",
-                                "description": "Browser event."
-                            },
-                            {
-                                "name": "value",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "any",
-                                "description": "Added/Removed item value."
-                            }
-                        ]
-                    },
-                    {
-                        "name": "ChipsClickEvent",
-                        "description": "Custom click event.",
-                        "props": [
-                            {
-                                "name": "originalEvent",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "Event",
-                                "description": "Browser event."
-                            },
-                            {
-                                "name": "value",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "any",
-                                "description": "Added/Removed item value."
-                            }
-                        ]
-                    }
-                ]
-            },
-            "templates": {
-                "description": "Defines the templates used by the component.",
-                "values": [
-                    {
-                        "parent": "chips",
-                        "name": "item",
-                        "parameters": [
-                            {
-                                "name": "context",
-                                "type": "{\n  \t $implicit: any, // Value of the chip element.\n  }",
-                                "description": "item data."
-                            }
-                        ],
-                        "description": "Custom item template."
-                    },
-                    {
-                        "parent": "chips",
-                        "name": "removetokenicon",
-                        "parameters": [],
-                        "description": "Custom remove icon template."
-                    },
-                    {
-                        "parent": "chips",
-                        "name": "clearicon",
-                        "parameters": [],
-                        "description": "Custom clear icon template."
-                    }
-                ]
-            }
-        }
     },
     "colorpicker": {
         "components": {
@@ -15820,8 +15410,8 @@
     },
     "inputtextarea": {
         "components": {
-            "Textarea": {
-                "description": "Textarea adds styling and autoResize functionality to standard textarea element.",
+            "InputTextarea": {
+                "description": "InputTextarea adds styling and autoResize functionality to standard textarea element.",
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
@@ -17294,6 +16884,125 @@
     "menubarstyle": {
         "components": {}
     },
+    "message": {
+        "components": {
+            "Message": {
+                "description": "Message groups a collection of contents in tabs.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "severity",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "default": "info",
+                            "description": "Severity level of the message."
+                        },
+                        {
+                            "name": "text",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Text content."
+                        },
+                        {
+                            "name": "escape",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "true",
+                            "description": "Whether displaying messages would be escaped or not.",
+                            "deprecated": "Use content projection instead '<p-message>Content</p-message>'."
+                        },
+                        {
+                            "name": "style",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "Object",
+                            "description": "Inline style of the component."
+                        },
+                        {
+                            "name": "styleClass",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Style class of the component."
+                        },
+                        {
+                            "name": "closable",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Whether the message can be closed manually using the close icon."
+                        },
+                        {
+                            "name": "icon",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Icon to display in the message."
+                        },
+                        {
+                            "name": "closeIcon",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Icon to display in the message close button."
+                        },
+                        {
+                            "name": "showTransitionOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "default": "300ms ease-out",
+                            "description": "Transition options of the show animation."
+                        },
+                        {
+                            "name": "hideTransitionOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "default": "200ms cubic-bezier(0.86, 0, 0.07, 1)",
+                            "description": "Transition options of the hide animation."
+                        }
+                    ]
+                },
+                "emits": {
+                    "description": "Defines emit that determine the behavior of the component based on a given condition or report the actions that the component takes.",
+                    "values": [
+                        {
+                            "name": "onClose",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "Object"
+                                }
+                            ],
+                            "description": "Emits when the message is closed."
+                        }
+                    ]
+                },
+                "methods": {
+                    "description": "Defines methods that can be accessed by the component's reference.",
+                    "values": [
+                        {
+                            "name": "close",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "any",
+                                    "description": "Browser event."
+                                }
+                            ],
+                            "description": "Closes the message."
+                        }
+                    ]
+                }
+            }
+        }
+    },
     "messagestyle": {
         "components": {}
     },
@@ -17389,7 +17098,7 @@
                             "parameters": [
                                 {
                                     "name": "value",
-                                    "type": "Message[]"
+                                    "type": "ToastMessageOptions[]"
                                 }
                             ],
                             "description": "This function is executed when the value changes."
@@ -17399,7 +17108,7 @@
                             "parameters": [
                                 {
                                     "name": "value",
-                                    "type": "Message"
+                                    "type": "ToastMessageOptions"
                                 }
                             ],
                             "description": "This function is executed when a message is closed."
@@ -17422,6 +17131,9 @@
                 ]
             }
         }
+    },
+    "messagesstyle": {
+        "components": {}
     },
     "metergroup": {
         "components": {
@@ -28124,114 +27836,101 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
-                            "name": "style",
+                            "name": "closable",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Defines if tab can be removed."
+                        },
+                        {
+                            "name": "headerStyle",
                             "optional": false,
                             "readonly": false,
                             "type": "Object",
-                            "description": "Inline style of the component."
+                            "description": "Inline style of the tab header."
                         },
                         {
-                            "name": "styleClass",
+                            "name": "headerStyleClass",
                             "optional": false,
                             "readonly": false,
                             "type": "string",
-                            "description": "Style class of the component."
+                            "description": "Style class of the tab header."
                         },
                         {
-                            "name": "controlClose",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "boolean",
-                            "default": "false",
-                            "description": "Whether tab close is controlled at onClose event or not."
-                        },
-                        {
-                            "name": "scrollable",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "boolean",
-                            "default": "false",
-                            "description": "When enabled displays buttons at each side of the tab headers to scroll the tab list."
-                        },
-                        {
-                            "name": "activeIndex",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "number",
-                            "description": "Index of the active tab to change selected tab programmatically."
-                        },
-                        {
-                            "name": "selectOnFocus",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "boolean",
-                            "default": "false",
-                            "description": "When enabled, the focused tab is activated."
-                        },
-                        {
-                            "name": "nextButtonAriaLabel",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "string",
-                            "description": "Used to define a string aria label attribute the forward navigation button."
-                        },
-                        {
-                            "name": "prevButtonAriaLabel",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "string",
-                            "description": "Used to define a string aria label attribute the backward navigation button."
-                        },
-                        {
-                            "name": "autoHideButtons",
+                            "name": "cache",
                             "optional": false,
                             "readonly": false,
                             "type": "boolean",
                             "default": "true",
-                            "description": "When activated, navigation buttons will automatically hide or show based on the available space within the container."
+                            "description": "Whether a lazy loaded panel should avoid getting loaded again on reselection."
                         },
                         {
-                            "name": "tabindex",
+                            "name": "tooltip",
                             "optional": false,
                             "readonly": false,
-                            "type": "number",
-                            "default": "0",
-                            "description": "Index of the element in tabbing order."
-                        }
-                    ]
-                },
-                "emits": {
-                    "description": "Defines emit that determine the behavior of the component based on a given condition or report the actions that the component takes.",
-                    "values": [
-                        {
-                            "name": "onChange",
-                            "parameters": [
-                                {
-                                    "name": "event",
-                                    "type": "TabsChangeEvent"
-                                }
-                            ],
-                            "description": "Callback to invoke on tab change."
+                            "type": "string",
+                            "description": "Advisory information to display in a tooltip on hover."
                         },
                         {
-                            "name": "onClose",
-                            "parameters": [
-                                {
-                                    "name": "event",
-                                    "type": "TabsCloseEvent"
-                                }
-                            ],
-                            "description": "Callback to invoke on tab close."
+                            "name": "tooltipPosition",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "\"left\" | \"top\" | \"bottom\" | \"right\"",
+                            "default": "top",
+                            "description": "Position of the tooltip."
                         },
                         {
-                            "name": "activeIndexChange",
-                            "parameters": [
-                                {
-                                    "name": "value",
-                                    "type": "number"
-                                }
-                            ],
-                            "description": "Callback to invoke on the active tab change."
+                            "name": "tooltipPositionStyle",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "default": "absolute",
+                            "description": "Type of CSS position."
+                        },
+                        {
+                            "name": "tooltipStyleClass",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Style class of the tooltip."
+                        },
+                        {
+                            "name": "selected",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "description": "Defines if tab is active."
+                        },
+                        {
+                            "name": "disabled",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "description": "When true, tab cannot be activated."
+                        },
+                        {
+                            "name": "header",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Title of the tabPanel."
+                        },
+                        {
+                            "name": "leftIcon",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Left icon of the tabPanel.",
+                            "deprecated": "since v15.4.2, use "
+                        },
+                        {
+                            "name": "rightIcon",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Left icon of the tabPanel.",
+                            "deprecated": "since v15.4.2, use "
                         }
                     ]
                 }
@@ -28326,7 +28025,7 @@
                             "parameters": [
                                 {
                                     "name": "event",
-                                    "type": "TabsChangeEvent"
+                                    "type": "TabViewChangeEvent"
                                 }
                             ],
                             "description": "Callback to invoke on tab change."
@@ -28336,7 +28035,7 @@
                             "parameters": [
                                 {
                                     "name": "event",
-                                    "type": "TabsCloseEvent"
+                                    "type": "TabViewCloseEvent"
                                 }
                             ],
                             "description": "Callback to invoke on tab close."
@@ -28572,6 +28271,57 @@
     },
     "terminalservice": {
         "components": {}
+    },
+    "textarea": {
+        "components": {
+            "Textarea": {
+                "description": "Textarea adds styling and autoResize functionality to standard textarea element.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "autoResize",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "When present, textarea size changes as being typed."
+                        },
+                        {
+                            "name": "variant",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "\"filled\" | \"outlined\"",
+                            "default": "outlined",
+                            "description": "Specifies the input variant of the component."
+                        },
+                        {
+                            "name": "fluid",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Spans 100% width of the container when enabled."
+                        }
+                    ]
+                },
+                "emits": {
+                    "description": "Defines emit that determine the behavior of the component based on a given condition or report the actions that the component takes.",
+                    "values": [
+                        {
+                            "name": "onResize",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "Object | Event"
+                                }
+                            ],
+                            "description": "Callback to invoke on textarea resize."
+                        }
+                    ]
+                }
+            }
+        }
     },
     "aura": {
         "components": {}
@@ -29049,7 +28799,7 @@
                                 "name": "message",
                                 "optional": false,
                                 "readonly": false,
-                                "type": "Message",
+                                "type": "ToastMessageOptions",
                                 "description": "Message of the closed element."
                             }
                         ]
@@ -32439,180 +32189,6 @@
                                 "description": "Boolean value that defines if strict mode enabled."
                             }
                         ]
-                    }
-                ]
-            }
-        }
-    },
-    "tristatecheckbox": {
-        "components": {
-            "TriStateCheckbox": {
-                "description": "TriStateCheckbox is used to select either 'true', 'false' or 'null' as the value.",
-                "props": {
-                    "description": "Defines the input properties of the component.",
-                    "values": [
-                        {
-                            "name": "disabled",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "boolean",
-                            "default": "false",
-                            "description": "When present, it specifies that the element should be disabled."
-                        },
-                        {
-                            "name": "name",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "string",
-                            "description": "Name of the component."
-                        },
-                        {
-                            "name": "ariaLabel",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "string",
-                            "description": "Defines a string that labels the input for accessibility."
-                        },
-                        {
-                            "name": "ariaLabelledBy",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "string",
-                            "description": "Establishes relationships between the component and label(s) where its value should be one or more element IDs."
-                        },
-                        {
-                            "name": "variant",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "\"filled\" | \"outlined\"",
-                            "default": "outlined",
-                            "description": "Specifies the input variant of the component."
-                        },
-                        {
-                            "name": "tabindex",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "number",
-                            "description": "Index of the element in tabbing order."
-                        },
-                        {
-                            "name": "inputId",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "string",
-                            "description": "Identifier of the focus input to match a label defined for the component."
-                        },
-                        {
-                            "name": "style",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "Object",
-                            "description": "Inline style of the component."
-                        },
-                        {
-                            "name": "styleClass",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "string",
-                            "description": "Style class of the component."
-                        },
-                        {
-                            "name": "label",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "string",
-                            "description": "Label of the checkbox."
-                        },
-                        {
-                            "name": "readonly",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "boolean",
-                            "default": "false",
-                            "description": "When present, it specifies that the component cannot be edited."
-                        },
-                        {
-                            "name": "checkboxTrueIcon",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "string",
-                            "description": "Specifies the icon for checkbox true value."
-                        },
-                        {
-                            "name": "checkboxFalseIcon",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "string",
-                            "description": "Specifies the icon for checkbox false value."
-                        },
-                        {
-                            "name": "autofocus",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "boolean",
-                            "default": "false",
-                            "description": "When present, it specifies that the component should automatically get focus on load."
-                        }
-                    ]
-                },
-                "emits": {
-                    "description": "Defines emit that determine the behavior of the component based on a given condition or report the actions that the component takes.",
-                    "values": [
-                        {
-                            "name": "onChange",
-                            "parameters": [
-                                {
-                                    "name": "event",
-                                    "type": "TriStateCheckboxChangeEvent"
-                                }
-                            ],
-                            "description": "Callback to invoke on value change."
-                        }
-                    ]
-                }
-            }
-        },
-        "interfaces": {
-            "components": {},
-            "events": {
-                "description": "Defines the custom events used by the component's emitters.",
-                "values": [
-                    {
-                        "name": "TriStateCheckboxChangeEvent",
-                        "description": "Custom change event.",
-                        "props": [
-                            {
-                                "name": "originalEvent",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "Event",
-                                "description": "Browser event."
-                            },
-                            {
-                                "name": "value",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "boolean",
-                                "description": "Value of the checkbox."
-                            }
-                        ]
-                    }
-                ]
-            },
-            "templates": {
-                "description": "Defines the templates used by the component.",
-                "values": [
-                    {
-                        "parent": "tristatecheckbox",
-                        "name": "checkicon",
-                        "parameters": [],
-                        "description": "Custom check icon template."
-                    },
-                    {
-                        "parent": "tristatecheckbox",
-                        "name": "uncheckicon",
-                        "parameters": [],
-                        "description": "Custom uncheck icon template."
                     }
                 ]
             }
