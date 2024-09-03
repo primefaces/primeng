@@ -1,4 +1,4 @@
-import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { HttpClient, HttpEvent, HttpEventType, HttpHeaders } from '@angular/common/http';
 import {
     AfterContentInit,
@@ -23,13 +23,12 @@ import {
     numberAttribute,
 } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { BlockableUI, Message, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
+import { BlockableUI, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { DomHandler } from 'primeng/dom';
 import { PlusIcon } from 'primeng/icons/plus';
 import { TimesIcon } from 'primeng/icons/times';
 import { UploadIcon } from 'primeng/icons/upload';
-import { MessagesModule } from 'primeng/messages';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { RippleModule } from 'primeng/ripple';
 import { VoidListener } from 'primeng/ts-helpers';
@@ -47,6 +46,7 @@ import {
 } from './fileupload.interface';
 import { FileUploadStyle } from './style/fileuploadstyle';
 import { BaseComponent } from 'primeng/basecomponent';
+import { MessageModule } from 'primeng/message';
 /**
  * FileUpload is an advanced uploader with dragdrop support, multi file uploads, auto uploading, progress tracking and validations.
  * @group Components
@@ -98,23 +98,10 @@ import { BaseComponent } from 'primeng/basecomponent';
                             [attr.title]="''"
                             [attr.data-pc-section]="'input'"
                         />
-                        <span
-                            *ngIf="chooseIcon"
-                            [class]="chooseIcon"
-                            [attr.aria-label]="true"
-                            [attr.data-pc-section]="'chooseicon'"
-                        ></span>
+                        <span *ngIf="chooseIcon" [class]="chooseIcon" [attr.aria-label]="true" [attr.data-pc-section]="'chooseicon'"></span>
                         <ng-container *ngIf="!chooseIcon">
-                            <PlusIcon
-                                *ngIf="!chooseIconTemplate"
-                                [attr.aria-label]="true"
-                                [attr.data-pc-section]="'chooseicon'"
-                            />
-                            <span
-                                *ngIf="chooseIconTemplate"
-                                [attr.aria-label]="true"
-                                [attr.data-pc-section]="'chooseicon'"
-                            >
+                            <PlusIcon *ngIf="!chooseIconTemplate" [attr.aria-label]="true" [attr.data-pc-section]="'chooseicon'" />
+                            <span *ngIf="chooseIconTemplate" [attr.aria-label]="true" [attr.data-pc-section]="'chooseicon'">
                                 <ng-template *ngTemplateOutlet="chooseIconTemplate"></ng-template>
                             </span>
                         </ng-container>
@@ -159,7 +146,7 @@ import { BaseComponent } from 'primeng/basecomponent';
                             uploadedFiles: uploadedFiles,
                             chooseCallback: choose.bind(this),
                             clearCallback: clear.bind(this),
-                            uploadCallback: upload.bind(this)
+                            uploadCallback: upload.bind(this),
                         }
                     "
                 ></ng-container>
@@ -174,41 +161,43 @@ import { BaseComponent } from 'primeng/basecomponent';
                 [attr.data-pc-section]="'content'"
             >
                 <p-progressBar [value]="progress" [showValue]="false" *ngIf="hasFiles()"></p-progressBar>
-
-                <p-messages [value]="msgs" [enableService]="false"></p-messages>
+                @for (message of msgs; track message) {
+                    <p-message [severity]="message.severity" [text]="message.text"></p-message>
+                }
 
                 <div class="p-fileupload-file-list" *ngIf="hasFiles()">
-                    @if(!fileTemplate){
-                    <div class="p-fileupload-file" *ngFor="let file of files; let i = index">
-                        <img
-                            [src]="file.objectURL"
-                            *ngIf="isImage(file)"
-                            [width]="previewWidth"
-                            (error)="imageError($event)"
-                            class="p-fileupload-file-thumbnail"
-                        />
-                        <div class="p-fileupload-file-info">
-                            <div class="p-fileupload-file-name">{{ file.name }}</div>
-                            <span class="p-fileupload-file-size">{{ formatSize(file.size) }}</span>
+                    @if (!fileTemplate) {
+                        <div class="p-fileupload-file" *ngFor="let file of files; let i = index">
+                            <img
+                                [src]="file.objectURL"
+                                *ngIf="isImage(file)"
+                                [width]="previewWidth"
+                                (error)="imageError($event)"
+                                class="p-fileupload-file-thumbnail"
+                            />
+                            <div class="p-fileupload-file-info">
+                                <div class="p-fileupload-file-name">{{ file.name }}</div>
+                                <span class="p-fileupload-file-size">{{ formatSize(file.size) }}</span>
+                            </div>
+                            <div class="p-fileupload-file-actions">
+                                <p-button
+                                    (onClick)="remove($event, i)"
+                                    [disabled]="uploading"
+                                    text
+                                    rounded
+                                    severity="danger"
+                                    [styleClass]="'p-fileupload-file-remove-button ' + removeStyleClass"
+                                >
+                                    <ng-template pTemplate="icon">
+                                        <TimesIcon *ngIf="!cancelIconTemplate" />
+                                        <ng-template *ngTemplateOutlet="cancelIconTemplate"></ng-template>
+                                    </ng-template>
+                                </p-button>
+                            </div>
                         </div>
-                        <div class="p-fileupload-file-actions">
-                            <p-button
-                                (onClick)="remove($event, i)"
-                                [disabled]="uploading"
-                                text
-                                rounded
-                                severity="danger"
-                                [styleClass]="'p-fileupload-file-remove-button ' + removeStyleClass"
-                            >
-                                <ng-template pTemplate="icon">
-                                    <TimesIcon *ngIf="!cancelIconTemplate" />
-                                    <ng-template *ngTemplateOutlet="cancelIconTemplate"></ng-template>
-                                </ng-template>
-                            </p-button>
-                        </div>
-                    </div>
-                    } @if(fileTemplate) {
-                    <ng-template ngFor [ngForOf]="files" [ngForTemplate]="fileTemplate"></ng-template>
+                    }
+                    @if (fileTemplate) {
+                        <ng-template ngFor [ngForOf]="files" [ngForTemplate]="fileTemplate"></ng-template>
                     }
                 </div>
                 <ng-container
@@ -222,21 +211,19 @@ import { BaseComponent } from 'primeng/basecomponent';
                             removeUploadedFileCallback: removeUploadedFile.bind(this),
                             removeFileCallback: remove.bind(this),
                             progress: progress,
-                            messages: msgs
+                            messages: msgs,
                         }
                     "
                 ></ng-container>
-                @if(emptyTemplate && !hasFiles() && !hasUploadedFiles()){
-                <ng-container *ngTemplateOutlet="emptyTemplate"></ng-container>
+                @if (emptyTemplate && !hasFiles() && !hasUploadedFiles()) {
+                    <ng-container *ngTemplateOutlet="emptyTemplate"></ng-container>
                 }
             </div>
         </div>
-        <div
-            class="p-fileupload p-fileupload-basic p-component"
-            *ngIf="mode === 'basic'"
-            [attr.data-pc-name]="'fileupload'"
-        >
-            <p-messages [value]="msgs" [enableService]="false"></p-messages>
+        <div class="p-fileupload p-fileupload-basic p-component" *ngIf="mode === 'basic'" [attr.data-pc-name]="'fileupload'">
+            @for (message of msgs; track message) {
+                <p-message [severity]="message.severity" [text]="message.text"></p-message>
+            }
             <p-button
                 [styleClass]="'p-fileupload-choose-button ' + chooseStyleClass"
                 [disabled]="disabled"
@@ -247,20 +234,20 @@ import { BaseComponent } from 'primeng/basecomponent';
                 tabindex="0"
             >
                 <ng-template pTemplate="icon">
-                    @if(hasFiles() && !auto) {
-                    <span *ngIf="uploadIcon" class="p-button-icon p-button-icon-left" [ngClass]="uploadIcon"></span>
-                    <ng-container *ngIf="!uploadIcon">
-                        <UploadIcon *ngIf="!uploadIconTemplate" [styleClass]="'p-button-icon p-button-icon-left'" />
-                        <span *ngIf="uploadIconTemplate" class="p-button-icon p-button-icon-left">
-                            <ng-template *ngTemplateOutlet="uploadIconTemplate"></ng-template>
-                        </span>
-                    </ng-container>
-                    }@else {
-                    <span *ngIf="chooseIcon" class="p-button-icon p-button-icon-left pi" [ngClass]="chooseIcon"></span>
-                    <ng-container *ngIf="!chooseIcon">
-                        <PlusIcon *ngIf="!chooseIconTemplate" [attr.data-pc-section]="'uploadicon'" />
-                        <ng-template *ngTemplateOutlet="chooseIconTemplate"></ng-template>
-                    </ng-container>
+                    @if (hasFiles() && !auto) {
+                        <span *ngIf="uploadIcon" class="p-button-icon p-button-icon-left" [ngClass]="uploadIcon"></span>
+                        <ng-container *ngIf="!uploadIcon">
+                            <UploadIcon *ngIf="!uploadIconTemplate" [styleClass]="'p-button-icon p-button-icon-left'" />
+                            <span *ngIf="uploadIconTemplate" class="p-button-icon p-button-icon-left">
+                                <ng-template *ngTemplateOutlet="uploadIconTemplate"></ng-template>
+                            </span>
+                        </ng-container>
+                    } @else {
+                        <span *ngIf="chooseIcon" class="p-button-icon p-button-icon-left pi" [ngClass]="chooseIcon"></span>
+                        <ng-container *ngIf="!chooseIcon">
+                            <PlusIcon *ngIf="!chooseIconTemplate" [attr.data-pc-section]="'uploadicon'" />
+                            <ng-template *ngTemplateOutlet="chooseIconTemplate"></ng-template>
+                        </ng-container>
                     }
                 </ng-template>
                 <input
@@ -283,10 +270,7 @@ import { BaseComponent } from 'primeng/basecomponent';
     encapsulation: ViewEncapsulation.None,
     providers: [FileUploadStyle],
 })
-export class FileUpload
-    extends BaseComponent
-    implements AfterViewInit, AfterContentInit, OnInit, OnDestroy, BlockableUI
-{
+export class FileUpload extends BaseComponent implements AfterViewInit, AfterContentInit, OnInit, OnDestroy, BlockableUI {
     /**
      * Name of the request parameter to identify the files at backend.
      * @group Props
@@ -566,7 +550,7 @@ export class FileUpload
 
     public dragHighlight: boolean | undefined;
 
-    public msgs: Message[] | undefined;
+    public msgs: any[] | undefined;
 
     public fileTemplate: TemplateRef<any> | undefined;
 
@@ -661,11 +645,7 @@ export class FileUpload
             if (this.mode === 'advanced') {
                 this.zone.runOutsideAngular(() => {
                     if (this.content) {
-                        this.dragOverListener = this.renderer.listen(
-                            this.content.nativeElement,
-                            'dragover',
-                            this.onDragOver.bind(this),
-                        );
+                        this.dragOverListener = this.renderer.listen(this.content.nativeElement, 'dragover', this.onDragOver.bind(this));
                     }
                 });
             }
@@ -734,28 +714,26 @@ export class FileUpload
 
     isIE11() {
         if (isPlatformBrowser(this.platformId)) {
-            return (
-                !!(this.document.defaultView as any)['MSInputMethodContext'] && !!(this.document as any)['documentMode']
-            );
+            return !!(this.document.defaultView as any)['MSInputMethodContext'] && !!(this.document as any)['documentMode'];
         }
     }
 
     validate(file: File): boolean {
         this.msgs = this.msgs || [];
         if (this.accept && !this.isFileTypeValid(file)) {
+            const text = `${this.invalidFileTypeMessageSummary.replace('{0}', file.name)} ${this.invalidFileTypeMessageDetail.replace('{0}', this.accept)}`;
             this.msgs.push({
                 severity: 'error',
-                summary: this.invalidFileTypeMessageSummary.replace('{0}', file.name),
-                detail: this.invalidFileTypeMessageDetail.replace('{0}', this.accept),
+                text: text,
             });
             return false;
         }
 
         if (this.maxFileSize && file.size > this.maxFileSize) {
+            const text = `${this.invalidFileSizeMessageSummary.replace('{0}', file.name)} ${this.invalidFileSizeMessageDetail.replace('{0}', this.formatSize(this.maxFileSize))}`;
             this.msgs.push({
                 severity: 'error',
-                summary: this.invalidFileSizeMessageSummary.replace('{0}', file.name),
-                detail: this.invalidFileSizeMessageDetail.replace('{0}', this.formatSize(this.maxFileSize)),
+                text: text,
             });
             return false;
         }
@@ -934,10 +912,10 @@ export class FileUpload
         this.msgs ??= [];
         const hasExistingValidationMessages = this.msgs.length > 0 && this.fileLimit < files.length;
         if (this.isFileLimitExceeded() || hasExistingValidationMessages) {
+            const text = `${this.invalidFileLimitMessageSummary.replace('{0}', (this.fileLimit as number).toString())} ${this.invalidFileLimitMessageDetail.replace('{0}', (this.fileLimit as number).toString())}`;
             this.msgs.push({
                 severity: 'error',
-                summary: this.invalidFileLimitMessageSummary.replace('{0}', (this.fileLimit as number).toString()),
-                detail: this.invalidFileLimitMessageDetail.replace('{0}', (this.fileLimit as number).toString()),
+                text: text,
             });
         }
     }
@@ -1088,18 +1066,8 @@ export class FileUpload
 }
 
 @NgModule({
-    imports: [
-        CommonModule,
-        SharedModule,
-        ButtonModule,
-        ProgressBarModule,
-        MessagesModule,
-        RippleModule,
-        PlusIcon,
-        UploadIcon,
-        TimesIcon,
-    ],
-    exports: [FileUpload, SharedModule, ButtonModule, ProgressBarModule, MessagesModule],
+    imports: [CommonModule, SharedModule, ButtonModule, ProgressBarModule, MessageModule, RippleModule, PlusIcon, UploadIcon, TimesIcon],
+    exports: [FileUpload, SharedModule, ButtonModule, ProgressBarModule, MessageModule],
     declarations: [FileUpload],
 })
 export class FileUploadModule {}
