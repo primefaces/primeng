@@ -10,7 +10,7 @@ describe('Button', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [NoopAnimationsModule],
-            declarations: [Button]
+            declarations: [Button],
         });
 
         fixture = TestBed.createComponent(Button);

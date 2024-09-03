@@ -4,6 +4,6 @@ import { SpeedDialDemo } from './speeddialdemo';
 
 @NgModule({
     imports: [RouterModule.forChild([{ path: '', component: SpeedDialDemo }])],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class SpeedDialDemoRoutingModule {}

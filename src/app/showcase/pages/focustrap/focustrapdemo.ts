@@ -3,19 +3,19 @@ import { BasicDoc } from '@doc/focustrap/basicdoc';
 import { ImportDoc } from '@doc/focustrap/importdoc';
 
 @Component({
-    templateUrl: './focustrapdemo.html'
+    templateUrl: './focustrapdemo.html',
 })
 export class FocusTrapDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc
+            component: ImportDoc,
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc
-        }
+            component: BasicDoc,
+        },
     ];
 }

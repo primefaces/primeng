@@ -6,6 +6,6 @@ import { TreeDemoRoutingModule } from './treedemo-routing.module';
 
 @NgModule({
     imports: [CommonModule, TreeDemoRoutingModule, TreeDocModule],
-    declarations: [TreeDemo]
+    declarations: [TreeDemo],
 })
 export class TreeDemoModule {}

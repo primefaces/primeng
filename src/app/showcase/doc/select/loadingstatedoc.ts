@@ -16,7 +16,7 @@ interface City {
             <p-select [options]="cities" [(ngModel)]="selectedCity" [loading]="true" optionLabel="name" placeholder="Loading..." />
         </div>
         <app-code [code]="code" selector="select-loading-state-demo"></app-code>
-    `
+    `,
 })
 export class LoadingStateDoc implements OnInit {
     cities: City[];
@@ -29,7 +29,7 @@ export class LoadingStateDoc implements OnInit {
             { name: 'Rome', code: 'RM' },
             { name: 'London', code: 'LDN' },
             { name: 'Istanbul', code: 'IST' },
-            { name: 'Paris', code: 'PRS' }
+            { name: 'Paris', code: 'PRS' },
         ];
     }
 
@@ -79,6 +79,6 @@ export class SelectLoadingStateDemo implements OnInit {
             { name: 'Paris', code: 'PRS' }
         ];
     }
-}`
+}`,
     };
 }

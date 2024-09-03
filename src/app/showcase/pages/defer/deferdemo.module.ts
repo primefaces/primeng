@@ -6,6 +6,6 @@ import { DeferDemoRoutingModule } from './deferdemo-routing.module';
 
 @NgModule({
     imports: [CommonModule, DeferDemoRoutingModule, DeferDocModule],
-    declarations: [DeferDemo]
+    declarations: [DeferDemo],
 })
 export class DeferDemoModule {}

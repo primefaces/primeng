@@ -15,79 +15,79 @@ import { FilledDoc } from '@doc/treeselect/filleddoc';
 import { LazyDoc } from '@doc/treeselect/lazydoc';
 
 @Component({
-    templateUrl: './treeselectdemo.html'
+    templateUrl: './treeselectdemo.html',
 })
 export class TreeSelectDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc
+            component: ImportDoc,
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc
+            component: BasicDoc,
         },
         {
             id: 'reactive-forms',
             label: 'Reactive Forms',
-            component: ReactiveFormsDoc
+            component: ReactiveFormsDoc,
         },
         {
             id: 'multiple',
             label: 'Multiple',
-            component: MultipleDoc
+            component: MultipleDoc,
         },
         {
             id: 'checkbox',
             label: 'Checkbox',
-            component: CheckboxDoc
+            component: CheckboxDoc,
         },
         {
             id: 'virtual-scroll-doc',
             label: 'Virtual Scroll',
-            component: VirtualScrollDoc
+            component: VirtualScrollDoc,
         },
         {
             id: 'lazy',
             label: 'Lazy',
-            component: LazyDoc
+            component: LazyDoc,
         },
         {
             id: 'filter',
             label: 'Filter',
-            component: FilterDoc
+            component: FilterDoc,
         },
         {
             id: 'floatlabel',
             label: 'Float Label',
-            component: FloatLabelDoc
+            component: FloatLabelDoc,
         },
         {
             id: 'filled',
             label: 'Filled',
-            component: FilledDoc
+            component: FilledDoc,
         },
         {
             id: 'invalid',
             label: 'Invalid',
-            component: InvalidDoc
+            component: InvalidDoc,
         },
         {
             id: 'disabled',
             label: 'Disabled',
-            component: DisabledDoc
+            component: DisabledDoc,
         },
         {
             id: 'style',
             label: 'Style',
-            component: StyleDoc
+            component: StyleDoc,
         },
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc
-        }
+            component: AccessibilityDoc,
+        },
     ];
 }

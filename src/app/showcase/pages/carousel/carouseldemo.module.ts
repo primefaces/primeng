@@ -6,6 +6,6 @@ import { CarouselDemoRoutingModule } from './carouseldemo-routing.module';
 
 @NgModule({
     imports: [CommonModule, CarouselDemoRoutingModule, CarouselDocModule],
-    declarations: [CarouselDemo]
+    declarations: [CarouselDemo],
 })
 export class CarouselDemoModule {}

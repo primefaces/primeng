@@ -4,6 +4,6 @@ import { TimelineDemo } from './timelinedemo';
 
 @NgModule({
     imports: [RouterModule.forChild([{ path: '', component: TimelineDemo }])],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class TimelineDemoRoutingModule {}

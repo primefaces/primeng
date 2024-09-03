@@ -21,8 +21,20 @@ import { StyleClassModule } from 'primeng/styleclass';
 import { DrawerModule } from 'primeng/drawer';
 
 @NgModule({
-    imports: [CommonModule, FormsModule, AppCodeModule, RouterModule, DrawerModule,SidebarModule, ButtonModule, AppDocModule, AvatarModule, RippleModule, StyleClassModule],
+    imports: [
+        CommonModule,
+        FormsModule,
+        AppCodeModule,
+        RouterModule,
+        DrawerModule,
+        SidebarModule,
+        ButtonModule,
+        AppDocModule,
+        AvatarModule,
+        RippleModule,
+        StyleClassModule,
+    ],
     declarations: [BasicDoc, TemplateDoc, ImportDoc, StyleDoc, PositionDoc, FullScreenDoc, SizeDoc, AccessibilityDoc, HeadlessDoc],
-    exports: [AppDocModule]
+    exports: [AppDocModule],
 })
 export class DrawerDocModule {}

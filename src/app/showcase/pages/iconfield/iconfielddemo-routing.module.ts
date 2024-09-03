@@ -4,6 +4,6 @@ import { IconFieldDemo } from './iconfielddemo';
 
 @NgModule({
     imports: [RouterModule.forChild([{ path: '', component: IconFieldDemo }])],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class IconFieldDemoRoutingModule {}

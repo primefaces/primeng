@@ -17,8 +17,20 @@ import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 
 @NgModule({
-    imports: [CommonModule, AppCodeModule, AppDocModule, ToolbarModule, RouterModule, ButtonModule, SplitButtonModule, InputTextModule, AvatarModule, IconFieldModule, InputIconModule],
+    imports: [
+        CommonModule,
+        AppCodeModule,
+        AppDocModule,
+        ToolbarModule,
+        RouterModule,
+        ButtonModule,
+        SplitButtonModule,
+        InputTextModule,
+        AvatarModule,
+        IconFieldModule,
+        InputIconModule,
+    ],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, TemplateDoc, StyleDoc, AccessibilityDoc]
+    declarations: [ImportDoc, BasicDoc, TemplateDoc, StyleDoc, AccessibilityDoc],
 })
 export class ToolbarDocModule {}

@@ -6,9 +6,7 @@ import { Code } from '@domain/code';
     selector: 'headless-doc',
     template: `
         <app-docsectiontext>
-            <p>
-                <i>Headless</i> mode allows you to customize the entire user interface instead of the default elements.
-            </p>
+            <p><i>Headless</i> mode allows you to customize the entire user interface instead of the default elements.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-toast position="top-center" key="confirm" (onClose)="onClose()" [baseZIndex]="5000">
@@ -19,12 +17,7 @@ import { Code } from '@domain/code';
                             <span class="font-bold text-base text-white dark:text-black">{{ message.summary }}</span>
                         </div>
                         <div class="flex flex-col gap-2">
-                            <p-progressBar
-                                [value]="progress"
-                                [showValue]="false"
-                                [style]="{ height: '4px' }"
-                                styleClass="!bg-primary/80"
-                            />
+                            <p-progressBar [value]="progress" [showValue]="false" [style]="{ height: '4px' }" styleClass="!bg-primary/80" />
                             <label class="text-sm font-bold text-white dark:text-black">{{ progress }}% uploaded</label>
                         </div>
                         <div class="flex gap-4 mb-4 justify-end">
@@ -43,11 +36,7 @@ import { Code } from '@domain/code';
             :host ::ng-deep {
                 .p-progressbar-value {
                     --tw-bg-opacity: 1 !important;
-                    background-color: color-mix(
-                        in srgb,
-                        var(--p-primary-50) calc(100% * var(--tw-bg-opacity)),
-                        transparent
-                    ) !important;
+                    background-color: color-mix(in srgb, var(--p-primary-50) calc(100% * var(--tw-bg-opacity)), transparent) !important;
                 }
             }
         `,
@@ -61,7 +50,10 @@ export class HeadlessDoc {
 
     interval = null;
 
-    constructor(private messageService: MessageService, private cdr: ChangeDetectorRef) {}
+    constructor(
+        private messageService: MessageService,
+        private cdr: ChangeDetectorRef,
+    ) {}
 
     showConfirm() {
         if (!this.visible) {

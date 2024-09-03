@@ -249,7 +249,7 @@ const theme = ({ dt }) => `
 `;
 
 const inlineStyles = {
-    submenu: ({ instance, processedItem }) => ({ display: instance.isItemActive(processedItem) ? 'flex' : 'none' })
+    submenu: ({ instance, processedItem }) => ({ display: instance.isItemActive(processedItem) ? 'flex' : 'none' }),
 };
 
 const classes = {
@@ -257,8 +257,8 @@ const classes = {
         'p-menubar p-component',
         {
             'p-menubar-mobile': instance.queryMatches,
-            'p-menubar-mobile-active': instance.mobileActive
-        }
+            'p-menubar-mobile-active': instance.mobileActive,
+        },
     ],
     start: 'p-menubar-start',
     button: 'p-menubar-button',
@@ -268,8 +268,8 @@ const classes = {
         {
             'p-menubar-item-active': instance.isItemActive(processedItem),
             'p-focus': instance.isItemFocused(processedItem),
-            'p-disabled': instance.isItemDisabled(processedItem)
-        }
+            'p-disabled': instance.isItemDisabled(processedItem),
+        },
     ],
     itemContent: 'p-menubar-item-content',
     itemLink: 'p-menubar-item-link',
@@ -278,7 +278,7 @@ const classes = {
     submenuIcon: 'p-menubar-submenu-icon',
     submenu: 'p-menubar-submenu',
     separator: 'p-menubar-separator',
-    end: 'p-menubar-end'
+    end: 'p-menubar-end',
 };
 
 @Injectable()

@@ -19,7 +19,7 @@ import { WindowMinimizeIcon } from 'primeng/icons/windowminimize';
             </p-footer>
         </p-dialog>
         <button type="button" (click)="showDialog()" pButton icon="pi pi-info-circle" label="Show"></button>
-    `
+    `,
 })
 class TestDialogComponent {
     display: boolean = false;
@@ -37,7 +37,7 @@ describe('Dialog', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [NoopAnimationsModule, FocusTrapModule, ButtonModule, TimesIcon, WindowMaximizeIcon, WindowMinimizeIcon],
-            declarations: [Dialog, Footer, TestDialogComponent]
+            declarations: [Dialog, Footer, TestDialogComponent],
         });
 
         fixture = TestBed.createComponent(TestDialogComponent);
@@ -279,7 +279,7 @@ describe('Dialog', () => {
         let event = {
             pageX: 500,
             pageY: 500,
-            target: fixture.debugElement.nativeElement.querySelector('.p-dialog-header')
+            target: fixture.debugElement.nativeElement.querySelector('.p-dialog-header'),
         };
         dialog.initDrag(event as MouseEvent);
         expect(dialog.dragging).toEqual(true);
@@ -307,7 +307,7 @@ describe('Dialog', () => {
         let firstHeight = dialog.container.offsetHeight;
         let event = {
             pageX: 500,
-            pageY: 500
+            pageY: 500,
         };
         dialog.initResize(event as MouseEvent);
         expect(dialog.resizing).toEqual(true);

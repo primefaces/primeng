@@ -7,6 +7,6 @@ import { SkeletonDemoRoutingModule } from './skeletondemo-routing.module';
 
 @NgModule({
     imports: [CommonModule, SkeletonDemoRoutingModule, AppDocModule, SkeletonDocModule],
-    declarations: [SkeletonDemo]
+    declarations: [SkeletonDemo],
 })
 export class SkeletonDemoModule {}

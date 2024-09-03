@@ -6,8 +6,8 @@ import { Component } from '@angular/core';
         <app-docsectiontext>
             <h3>Screen Reader</h3>
             <p>
-                Scrollbars of the ScrollPanel has a <i>scrollbar</i> role along with the <i>aria-controls</i> attribute that refers to the id of the scrollable content container and the <i>aria-orientation</i> to indicate the orientation of
-                scrolling.
+                Scrollbars of the ScrollPanel has a <i>scrollbar</i> role along with the <i>aria-controls</i> attribute that refers to the
+                id of the scrollable content container and the <i>aria-orientation</i> to indicate the orientation of scrolling.
             </p>
             <h3>Header Keyboard Support</h3>
             <div class="doc-tablewrapper">
@@ -39,6 +39,6 @@ import { Component } from '@angular/core';
                 </table>
             </div>
         </app-docsectiontext>
-    </div>`
+    </div>`,
 })
 export class AccessibilityDoc {}

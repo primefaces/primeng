@@ -26,11 +26,14 @@ import { Component } from '@angular/core';
                     <tr>
                         <td>generateLegend</td>
                         <td>-</td>
-                        <td>Returns an HTML string of a legend for that chart. The legend is generated from the legendCallback in the options.</td>
+                        <td>
+                            Returns an HTML string of a legend for that chart. The legend is generated from the legendCallback in the
+                            options.
+                        </td>
                     </tr>
                 </tbody>
             </table>
         </div>
-    `
+    `,
 })
 export class MethodsDoc {}

@@ -6,28 +6,44 @@ import { Code } from '@domain/code';
     template: `
         <app-docsectiontext>
             <p>
-                Both the selected option and the options list can be templated to provide customizated representation. Use <i>selectedItem</i> template to customize the selected label display and the <i>item</i> template to change the content of the
-                options in the select panel. In addition when grouping is enabled, <i>group</i> template is available to customize the option groups. All templates get the option instance as the default local template variable.
+                Both the selected option and the options list can be templated to provide customizated representation. Use
+                <i>selectedItem</i> template to customize the selected label display and the <i>item</i> template to change the content of
+                the options in the select panel. In addition when grouping is enabled, <i>group</i> template is available to customize the
+                option groups. All templates get the option instance as the default local template variable.
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-select [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" [showClear]="true" placeholder="Select a country">
+            <p-select
+                [options]="countries"
+                [(ngModel)]="selectedCountry"
+                optionLabel="name"
+                [showClear]="true"
+                placeholder="Select a country"
+            >
                 <ng-template pTemplate="selectedItem" let-selectedOption>
                     <div class="flex items-center gap-2" *ngIf="selectedOption">
-                        <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + selectedOption.code.toLowerCase()" style="width: 18px" />
+                        <img
+                            src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
+                            [class]="'flag flag-' + selectedOption.code.toLowerCase()"
+                            style="width: 18px"
+                        />
                         <div>{{ selectedOption.name }}</div>
                     </div>
                 </ng-template>
                 <ng-template let-country pTemplate="item">
                     <div class="flex items-center gap-2">
-                        <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" style="width: 18px" />
+                        <img
+                            src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
+                            [class]="'flag flag-' + country.code.toLowerCase()"
+                            style="width: 18px"
+                        />
                         <div>{{ country.name }}</div>
                     </div>
                 </ng-template>
             </p-select>
         </div>
         <app-code [code]="code" selector="select-template-demo"></app-code>
-    `
+    `,
 })
 export class TemplateDoc implements OnInit {
     countries: any[] | undefined;
@@ -45,7 +61,7 @@ export class TemplateDoc implements OnInit {
             { name: 'India', code: 'IN' },
             { name: 'Japan', code: 'JP' },
             { name: 'Spain', code: 'ES' },
-            { name: 'United States', code: 'US' }
+            { name: 'United States', code: 'US' },
         ];
     }
 
@@ -133,6 +149,6 @@ export class SelectTemplateDemo implements OnInit {
             { name: 'United States', code: 'US' }
         ];
     }
-}`
+}`,
     };
 }

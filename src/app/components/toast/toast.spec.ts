@@ -10,7 +10,7 @@ import { TimesIcon } from 'primeng/icons/times';
 
 @Component({
     template: ` <p-toast></p-toast> `,
-    providers: [MessageService]
+    providers: [MessageService],
 })
 class TestToastComponent {
     constructor(private messageService: MessageService) {}
@@ -26,7 +26,7 @@ class TestToastComponent {
     showMultipleToast() {
         this.messageService.addAll([
             { severity: 'warn', summary: 'Are you sure?', detail: 'Confirm to proceed' },
-            { severity: 'warn', summary: 'Are you sure?', detail: 'Confirm to proceed' }
+            { severity: 'warn', summary: 'Are you sure?', detail: 'Confirm to proceed' },
         ]);
     }
 
@@ -47,7 +47,7 @@ describe('Toast', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [NoopAnimationsModule, ExclamationTriangleIcon, CheckIcon, TimesIcon],
-            declarations: [Toast, ToastItem, TestToastComponent]
+            declarations: [Toast, ToastItem, TestToastComponent],
         });
 
         fixture = TestBed.createComponent(TestToastComponent);

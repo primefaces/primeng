@@ -4,6 +4,6 @@ import { PickListDemo } from './picklistdemo';
 
 @NgModule({
     imports: [RouterModule.forChild([{ path: '', component: PickListDemo }])],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class PickListDemoRoutingModule {}

@@ -16,9 +16,9 @@ import { ObjectUtils } from 'primeng/utils';
         class: 'p-inputtext p-component',
         '[class.p-filled]': 'filled',
         '[class.p-variant-filled]': 'variant === "filled" || config.inputStyle() === "filled"',
-        '[class.p-inputtext-fluid]': 'hasFluid'
+        '[class.p-inputtext-fluid]': 'hasFluid',
     },
-    providers: [InputTextStyle]
+    providers: [InputTextStyle],
 })
 export class InputText extends BaseComponent implements DoCheck, AfterViewInit {
     /**
@@ -30,7 +30,7 @@ export class InputText extends BaseComponent implements DoCheck, AfterViewInit {
      * Spans 100% width of the container when enabled.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) fluid: boolean | undefined
+    @Input({ transform: booleanAttribute }) fluid: boolean | undefined;
 
     filled: Nullable<boolean>;
 
@@ -39,8 +39,8 @@ export class InputText extends BaseComponent implements DoCheck, AfterViewInit {
     get hasFluid() {
         const nativeElement = this.el.nativeElement;
         const fluidComponent = nativeElement.closest('p-fluid');
-    
-        return ObjectUtils.isEmpty(this.fluid) ? !!fluidComponent  : this.fluid
+
+        return ObjectUtils.isEmpty(this.fluid) ? !!fluidComponent : this.fluid;
     }
 
     constructor(@Optional() public ngModel: NgModel) {
@@ -70,6 +70,6 @@ export class InputText extends BaseComponent implements DoCheck, AfterViewInit {
 @NgModule({
     imports: [CommonModule],
     exports: [InputText],
-    declarations: [InputText]
+    declarations: [InputText],
 })
 export class InputTextModule {}

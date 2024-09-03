@@ -14,14 +14,22 @@ interface Column {
         <app-docsectiontext>
             <p>Selection of multiple nodes via checkboxes is enabled by configuring <i>selectionMode</i> as <i>checkbox</i>.</p>
             <p>
-                In checkbox selection mode, value binding should be a key-value pair where key (or the dataKey) is the node key and value is an object that has <i>checked</i> and <i>partialChecked</i> properties to represent the checked state of a
-                node.
+                In checkbox selection mode, value binding should be a key-value pair where key (or the dataKey) is the node key and value is
+                an object that has <i>checked</i> and <i>partialChecked</i> properties to represent the checked state of a node.
             </p>
         </app-docsectiontext>
         <app-code [code]="code2" selector="selection-keys" [hideToggleCode]="true"></app-code>
         <div class="card mt-4">
             <p-deferred-demo (load)="loadDemoData()">
-                <p-treeTable [value]="files" [columns]="cols" selectionMode="checkbox" [(selectionKeys)]="selectionKeys" dataKey="key" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
+                <p-treeTable
+                    [value]="files"
+                    [columns]="cols"
+                    selectionMode="checkbox"
+                    [(selectionKeys)]="selectionKeys"
+                    dataKey="key"
+                    [scrollable]="true"
+                    [tableStyle]="{ 'min-width': '50rem' }"
+                >
                     <ng-template pTemplate="header" let-columns>
                         <tr>
                             <th *ngFor="let col of columns">
@@ -43,7 +51,7 @@ interface Column {
         </div>
         <app-code [code]="code" selector="tree-table-selection-checkbox-demo"></app-code>
     `,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SelectionCheckboxDoc {
     files!: TreeNode[];
@@ -54,7 +62,7 @@ export class SelectionCheckboxDoc {
 
     constructor(
         private nodeService: NodeService,
-        private cd: ChangeDetectorRef
+        private cd: ChangeDetectorRef,
     ) {}
 
     loadDemoData() {
@@ -66,14 +74,14 @@ export class SelectionCheckboxDoc {
         this.cols = [
             { field: 'name', header: 'Name' },
             { field: 'size', header: 'Size' },
-            { field: 'type', header: 'Type' }
+            { field: 'type', header: 'Type' },
         ];
 
         this.selectionKeys = {
             '0-0': {
                 partialChecked: false,
-                checked: true
-            }
+                checked: true,
+            },
         };
     }
 
@@ -176,7 +184,7 @@ export class TreeTableSelectionCheckboxDemo implements OnInit {
     }
 }`,
 
-        service: ['NodeService']
+        service: ['NodeService'],
     };
 
     code2: Code = {
@@ -185,6 +193,6 @@ export class TreeTableSelectionCheckboxDemo implements OnInit {
         partialChecked: false,
         checked: true
     }
-}`
+}`,
     };
 }

@@ -9,7 +9,7 @@ describe('Galleria', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule, GalleriaModule]
+            imports: [NoopAnimationsModule, GalleriaModule],
         });
 
         fixture = TestBed.createComponent(Galleria);

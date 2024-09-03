@@ -5,29 +5,29 @@ import { ImportDoc } from '@doc/terminal/importdoc';
 import { AccessibilityDoc } from '@doc/terminal/accessibilitydoc';
 
 @Component({
-    templateUrl: './terminaldemo.html'
+    templateUrl: './terminaldemo.html',
 })
 export class TerminalDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc
+            component: ImportDoc,
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc
+            component: BasicDoc,
         },
         {
             id: 'style',
             label: 'Style',
-            component: StyleDoc
+            component: StyleDoc,
         },
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc
-        }
+            component: AccessibilityDoc,
+        },
     ];
 }

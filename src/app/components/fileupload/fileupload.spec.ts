@@ -17,8 +17,17 @@ describe('FileUpload', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule, ProgressBarModule, MessagesModule, ButtonModule, HttpClientModule, PlusIcon, TimesIcon, UploadIcon],
-            declarations: [FileUpload, PrimeTemplate]
+            imports: [
+                NoopAnimationsModule,
+                ProgressBarModule,
+                MessagesModule,
+                ButtonModule,
+                HttpClientModule,
+                PlusIcon,
+                TimesIcon,
+                UploadIcon,
+            ],
+            declarations: [FileUpload, PrimeTemplate],
         });
 
         fixture = TestBed.createComponent(FileUpload);
@@ -78,10 +87,10 @@ describe('FileUpload', () => {
                         lastModified: 1533276674178,
                         name: 'primeng.txt',
                         size: 179,
-                        type: 'text/plain'
-                    }
-                ]
-            }
+                        type: 'text/plain',
+                    },
+                ],
+            },
         };
         fileupload.onFileSelect(event);
         fixture.detectChanges();
@@ -118,17 +127,17 @@ describe('FileUpload', () => {
                         lastModified: 1533276674178,
                         name: 'primeng.txt',
                         size: 179,
-                        type: 'text/plain'
-                    }
-                ])
+                        type: 'text/plain',
+                    },
+                ]),
             ],
-            { type: 'application/json' }
+            { type: 'application/json' },
         );
         let blobFile = new File([blob], 'primeng.txt');
         event = {
             target: { files: [blobFile] },
             stopPropagation() {},
-            preventDefault() {}
+            preventDefault() {},
         };
         const uploadSpy = spyOn(fileupload, 'upload').and.callThrough();
         fileupload.onFileSelect(event);
@@ -151,17 +160,17 @@ describe('FileUpload', () => {
                         lastModified: 1533276674178,
                         name: 'primeng.txt',
                         size: 179,
-                        type: 'text/plain'
-                    }
-                ])
+                        type: 'text/plain',
+                    },
+                ]),
             ],
-            { type: 'application/json' }
+            { type: 'application/json' },
         );
         let blobFile = new File([blob], 'primeng.txt');
         event = {
             target: { files: [blobFile] },
             stopPropagation() {},
-            preventDefault() {}
+            preventDefault() {},
         };
         fileupload.onFileSelect(event);
         fixture.detectChanges();
@@ -189,24 +198,24 @@ describe('FileUpload', () => {
                         lastModified: 1533276674178,
                         name: 'primeng.txt',
                         size: 179,
-                        type: 'text/plain'
+                        type: 'text/plain',
                     },
                     {
                         lastModified: 1533276674179,
                         name: 'primeng2.txt',
                         size: 123,
-                        type: 'text/plain'
-                    }
-                ])
+                        type: 'text/plain',
+                    },
+                ]),
             ],
-            { type: 'application/json' }
+            { type: 'application/json' },
         );
         let blobFile = new File([blob], 'primeng.txt');
         let blobFile2 = new File([blob], 'primeng2.txt');
         event = {
             target: { files: [blobFile, blobFile2] },
             stopPropagation() {},
-            preventDefault() {}
+            preventDefault() {},
         };
         const uploadSpy = spyOn(fileupload, 'upload').and.callThrough();
         fileupload.onFileSelect(event);
@@ -232,10 +241,10 @@ describe('FileUpload', () => {
                         lastModified: 1533276674178,
                         name: 'primeng.txt',
                         size: 179,
-                        type: 'text/plain'
-                    }
-                ]
-            }
+                        type: 'text/plain',
+                    },
+                ],
+            },
         };
         const uploadSpy = spyOn(fileupload, 'upload').and.callThrough();
         fileupload.onFileSelect(event);
@@ -258,12 +267,12 @@ describe('FileUpload', () => {
                         lastModified: 1533276674178,
                         name: 'primeng.txt',
                         size: 179,
-                        type: 'text/plain'
-                    }
-                ]
+                        type: 'text/plain',
+                    },
+                ],
             },
             stopPropagation() {},
-            preventDefault() {}
+            preventDefault() {},
         };
         let event2;
         event2 = {
@@ -273,12 +282,12 @@ describe('FileUpload', () => {
                         lastModified: 1533276684178,
                         name: 'prime.txt',
                         size: 179,
-                        type: 'text/plain'
-                    }
-                ]
+                        type: 'text/plain',
+                    },
+                ],
             },
             stopPropagation() {},
-            preventDefault() {}
+            preventDefault() {},
         };
         fileupload.onFileSelect(event);
         fixture.detectChanges();
@@ -321,12 +330,12 @@ describe('FileUpload', () => {
                         lastModified: 1533276674178,
                         name: 'primeng.txt',
                         size: 179,
-                        type: 'text/plain'
-                    }
-                ]
+                        type: 'text/plain',
+                    },
+                ],
             },
             stopPropagation() {},
-            preventDefault() {}
+            preventDefault() {},
         };
         let event2;
         event2 = {
@@ -336,12 +345,12 @@ describe('FileUpload', () => {
                         lastModified: 1533276684178,
                         name: 'prime.txt',
                         size: 179,
-                        type: 'text/plain'
-                    }
-                ]
+                        type: 'text/plain',
+                    },
+                ],
             },
             stopPropagation() {},
-            preventDefault() {}
+            preventDefault() {},
         };
         const removeSpy = spyOn(fileupload, 'remove').and.callThrough();
         const clearSpy = spyOn(fileupload, 'clear').and.callThrough();
@@ -381,17 +390,17 @@ describe('FileUpload', () => {
                         lastModified: 1533276674178,
                         name: 'primeng.txt',
                         size: 179,
-                        type: 'text/plain'
-                    }
-                ])
+                        type: 'text/plain',
+                    },
+                ]),
             ],
-            { type: 'application/json' }
+            { type: 'application/json' },
         );
         let blobFile = new File([blob], 'primeng.txt');
         event = {
             target: { files: [blobFile] },
             stopPropagation() {},
-            preventDefault() {}
+            preventDefault() {},
         };
         const uploadSpy = spyOn(fileupload, 'upload').and.callThrough();
         const onBasicUploaderClickkSpy = spyOn(fileupload, 'onBasicUploaderClick').and.callThrough();

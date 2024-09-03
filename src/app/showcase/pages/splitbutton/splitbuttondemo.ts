@@ -15,79 +15,79 @@ import { StyleDoc } from '@doc/splitbutton/styledoc';
 import { AccessibilityDoc } from '@doc/splitbutton/accessibilitydoc';
 
 @Component({
-    templateUrl: './splitbuttondemo.html'
+    templateUrl: './splitbuttondemo.html',
 })
 export class SplitButtonDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc
+            component: ImportDoc,
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc
+            component: BasicDoc,
         },
         {
             id: 'nested',
             label: 'Nested',
-            component: NestedDoc
+            component: NestedDoc,
         },
         {
             id: 'severity',
             label: 'Severity',
-            component: SeverityDoc
+            component: SeverityDoc,
         },
         {
             id: 'raised',
             label: 'Raised',
-            component: RaisedDoc
+            component: RaisedDoc,
         },
         {
             id: 'rounded',
             label: 'Rounded',
-            component: RoundedDoc
+            component: RoundedDoc,
         },
         {
             id: 'text',
             label: 'Text',
-            component: TextDoc
+            component: TextDoc,
         },
         {
             id: 'raisedtext',
             label: 'Raised Text',
-            component: RaisedTextDoc
+            component: RaisedTextDoc,
         },
         {
             id: 'outlined',
             label: 'Outlined',
-            component: OutlinedDoc
+            component: OutlinedDoc,
         },
         {
             id: 'sizes',
             label: 'Sizes',
-            component: SizesDoc
+            component: SizesDoc,
         },
         {
             id: 'disabled',
             label: 'Disabled',
-            component: DisabledDoc
+            component: DisabledDoc,
         },
         {
             id: 'template',
             label: 'Template',
-            component: TemplateDoc
+            component: TemplateDoc,
         },
         {
             id: 'style',
             label: 'Style',
-            component: StyleDoc
+            component: StyleDoc,
         },
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc
-        }
+            component: AccessibilityDoc,
+        },
     ];
 }

@@ -8,7 +8,17 @@ import { TagModule } from 'primeng/tag';
 @Component({
     selector: '[app-menuitem]',
     template: `
-        <button *ngIf="root && item.children" pButton type="button" class="px-link" pStyleClass="@next" enterFromClass="hidden" enterActiveClass="animate-slidedown" leaveToClass="hidden" leaveActiveClass="animate-slideup">
+        <button
+            *ngIf="root && item.children"
+            pButton
+            type="button"
+            class="px-link"
+            pStyleClass="@next"
+            enterFromClass="hidden"
+            enterActiveClass="animate-slidedown"
+            leaveToClass="hidden"
+            leaveActiveClass="animate-slideup"
+        >
             <div class="menu-icon">
                 <i [ngClass]="item.icon"></i>
             </div>
@@ -22,7 +32,12 @@ import { TagModule } from 'primeng/tag';
             <span>{{ item.name }}</span>
             <p-tag *ngIf="item.badge" [value]="item.badge" />
         </a>
-        <a *ngIf="item.routerLink" [routerLink]="item.routerLink" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{ paths: 'exact', queryParams: 'ignored', matrixParams: 'ignored', fragment: 'ignored' }">
+        <a
+            *ngIf="item.routerLink"
+            [routerLink]="item.routerLink"
+            routerLinkActive="router-link-active"
+            [routerLinkActiveOptions]="{ paths: 'exact', queryParams: 'ignored', matrixParams: 'ignored', fragment: 'ignored' }"
+        >
             <div *ngIf="item.icon && root" class="menu-icon">
                 <i [ngClass]="item.icon"></i>
             </div>
@@ -30,14 +45,18 @@ import { TagModule } from 'primeng/tag';
             <p-tag *ngIf="item.badge" [value]="item.badge" />
         </a>
         <span *ngIf="!root && item.children" class="menu-child-category">{{ item.name }}</span>
-        <div *ngIf="item.children" class="overflow-y-hidden transition-all duration-[400ms] ease-in-out" [ngClass]="{ hidden: item.children && root && isActiveRootMenuItem(item) }">
+        <div
+            *ngIf="item.children"
+            class="overflow-y-hidden transition-all duration-[400ms] ease-in-out"
+            [ngClass]="{ hidden: item.children && root && isActiveRootMenuItem(item) }"
+        >
             <ol>
                 <li *ngFor="let child of item.children" app-menuitem [root]="false" [item]="child"></li>
             </ol>
         </div>
     `,
     standalone: true,
-    imports: [CommonModule, StyleClassModule, RouterModule, TagModule]
+    imports: [CommonModule, StyleClassModule, RouterModule, TagModule],
 })
 export class AppMenuItemComponent {
     @Input() item: MenuItem;
@@ -48,6 +67,11 @@ export class AppMenuItemComponent {
 
     isActiveRootMenuItem(menuitem: MenuItem): boolean {
         const url = this.router.url.split('#')[0];
-        return menuitem.children && !menuitem.children.some((item) => item.routerLink === `${url}` || (item.children && item.children.some((it) => it.routerLink === `${url}`)));
+        return (
+            menuitem.children &&
+            !menuitem.children.some(
+                (item) => item.routerLink === `${url}` || (item.children && item.children.some((it) => it.routerLink === `${url}`)),
+            )
+        );
     }
 }

@@ -6,6 +6,6 @@ import { TagDemoRoutingModule } from './dividerdemo-routing.module';
 
 @NgModule({
     imports: [CommonModule, TagDemoRoutingModule, DividerDocModule],
-    declarations: [DividerDemo]
+    declarations: [DividerDemo],
 })
 export class DividerDemoModule {}

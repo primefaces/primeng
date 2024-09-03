@@ -84,11 +84,11 @@ const theme = ({ dt }) => `
 const classes = {
     root: ({ props }) => ['p-splitter p-component', 'p-splitter-' + props.layout],
     gutter: 'p-splitter-gutter',
-    gutterHandle: 'p-splitter-gutter-handle'
+    gutterHandle: 'p-splitter-gutter-handle',
 };
 
 const inlineStyles = {
-    root: ({ props }) => [{ display: 'flex', 'flex-wrap': 'nowrap' }, props.layout === 'vertical' ? { 'flex-direction': 'column' } : '']
+    root: ({ props }) => [{ display: 'flex', 'flex-wrap': 'nowrap' }, props.layout === 'vertical' ? { 'flex-direction': 'column' } : ''],
 };
 
 @Injectable()

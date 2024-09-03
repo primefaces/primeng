@@ -8,7 +8,10 @@ import { CarService } from '@service/carservice';
     selector: 'filter-service-table-integration-demo',
     template: `
         <app-docsectiontext>
-            <p>A custom equals filter that checks for exact case sensitive value is registered and defined as a match mode of a column filter.</p>
+            <p>
+                A custom equals filter that checks for exact case sensitive value is registered and defined as a match mode of a column
+                filter.
+            </p>
         </app-docsectiontext>
         <div class="card">
             <p-table #dt [columns]="cols" [value]="cars" [paginator]="true" [rows]="10" responsiveLayout="scroll">
@@ -18,7 +21,12 @@ import { CarService } from '@service/carservice';
                     </tr>
                     <tr>
                         <th *ngFor="let col of columns">
-                            <p-columnFilter type="text" [field]="col.field" [matchModeOptions]="matchModeOptions" [matchMode]="'custom-equals'" />
+                            <p-columnFilter
+                                type="text"
+                                [field]="col.field"
+                                [matchModeOptions]="matchModeOptions"
+                                [matchMode]="'custom-equals'"
+                            />
                         </th>
                     </tr>
                 </ng-template>
@@ -31,7 +39,7 @@ import { CarService } from '@service/carservice';
         </div>
         <app-code [code]="code" selector="filter-service-table-integration-demo" [extFiles]="extFiles"></app-code>
     `,
-    providers: [FilterService]
+    providers: [FilterService],
 })
 export class TableIntegrationDoc implements OnInit {
     cars: Car[];
@@ -42,7 +50,7 @@ export class TableIntegrationDoc implements OnInit {
 
     constructor(
         private carService: CarService,
-        private filterService: FilterService
+        private filterService: FilterService,
     ) {}
 
     ngOnInit() {
@@ -64,13 +72,13 @@ export class TableIntegrationDoc implements OnInit {
             { field: 'year', header: 'Year' },
             { field: 'brand', header: 'Brand' },
             { field: 'color', header: 'Color' },
-            { field: 'vin', header: 'Vin' }
+            { field: 'vin', header: 'Vin' },
         ];
 
         this.matchModeOptions = [
             { label: 'Custom Equals', value: customFilterName },
             { label: 'Starts With', value: FilterMatchMode.STARTS_WITH },
-            { label: 'Contains', value: FilterMatchMode.CONTAINS }
+            { label: 'Contains', value: FilterMatchMode.CONTAINS },
         ];
 
         this.carService.getCarsMedium().then((cars) => (this.cars = cars));
@@ -179,7 +187,7 @@ export class FilterServiceTableIntegrationDemo implements OnInit {
         this.carService.getCarsMedium().then((cars) => (this.cars = cars));
     }
 }`,
-        service: ['CarService']
+        service: ['CarService'],
     };
 
     extFiles = [
@@ -197,7 +205,7 @@ export interface Product {
     category?: string;
     image?: string;
     rating?: number;
-}`
+}`,
         },
         {
             path: 'src/domain/car.ts',
@@ -210,7 +218,7 @@ export interface Car {
     color?;
     price?;
     saleDate?;
-}`
-        }
+}`,
+        },
     ];
 }

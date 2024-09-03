@@ -12,7 +12,7 @@ import { Code } from '@domain/code';
             <p-button label="Messages" icon="pi pi-users" badge="2" badgeSeverity="contrast" styleClass="m-0" outlined="true" />
         </div>
         <app-code [code]="code" selector="button-badge-demo"></app-code>
-    `
+    `,
 })
 export class BadgeDoc {
     code: Code = {
@@ -43,6 +43,6 @@ import { ButtonModule } from 'primeng/button';
     standalone: true,
     imports: [ButtonModule]
 })
-export class ButtonBadgeDemo { }`
+export class ButtonBadgeDemo { }`,
     };
 }

@@ -1,5 +1,21 @@
 import { CommonModule } from '@angular/common';
-import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, ElementRef, EventEmitter, inject, Input, NgModule, Output, QueryList, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
+import {
+    AfterContentInit,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    ContentChildren,
+    ElementRef,
+    EventEmitter,
+    inject,
+    Input,
+    NgModule,
+    Output,
+    QueryList,
+    TemplateRef,
+    ViewChild,
+    ViewEncapsulation,
+} from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { MenuItem, PrimeTemplate, SharedModule } from 'primeng/api';
 import { RippleModule } from 'primeng/ripple';
@@ -68,7 +84,12 @@ import { BaseComponent } from 'primeng/basecomponent';
                                 [state]="item.state"
                                 [attr.aria-hidden]="true"
                             >
-                                <span class="p-dock-item-icon" *ngIf="item.icon && !itemTemplate" [ngClass]="item.icon" [ngStyle]="item.iconStyle"></span>
+                                <span
+                                    class="p-dock-item-icon"
+                                    *ngIf="item.icon && !itemTemplate"
+                                    [ngClass]="item.icon"
+                                    [ngStyle]="item.iconStyle"
+                                ></span>
                                 <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: item }"></ng-container>
                             </a>
                             <ng-template #elseBlock>
@@ -81,10 +102,17 @@ import { BaseComponent } from 'primeng/basecomponent';
                                     [tooltipOptions]="item.tooltipOptions"
                                     [ngClass]="{ 'p-disabled': item.disabled }"
                                     [target]="item.target"
-                                    [attr.tabindex]="item.disabled || (i !== activeIndex && readonly) ? null : item.tabindex ? item.tabindex : '-1'"
+                                    [attr.tabindex]="
+                                        item.disabled || (i !== activeIndex && readonly) ? null : item.tabindex ? item.tabindex : '-1'
+                                    "
                                     [attr.aria-hidden]="true"
                                 >
-                                    <span class="p-dock-item-icon" *ngIf="item.icon && !itemTemplate" [ngClass]="item.icon" [ngStyle]="item.iconStyle"></span>
+                                    <span
+                                        class="p-dock-item-icon"
+                                        *ngIf="item.icon && !itemTemplate"
+                                        [ngClass]="item.icon"
+                                        [ngStyle]="item.iconStyle"
+                                    ></span>
                                     <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: item }"></ng-container>
                                 </a>
                             </ng-template>
@@ -96,7 +124,7 @@ import { BaseComponent } from 'primeng/basecomponent';
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    providers: [DockStyle]
+    providers: [DockStyle],
 })
 export class Dock extends BaseComponent implements AfterContentInit {
     /**
@@ -173,7 +201,7 @@ export class Dock extends BaseComponent implements AfterContentInit {
     }
 
     ngOnInit() {
-        super.ngOnInit()
+        super.ngOnInit();
         this.id = this.id || UniqueComponentId();
     }
 
@@ -306,7 +334,9 @@ export class Dock extends BaseComponent implements AfterContentInit {
     }
 
     onEndKey() {
-        this.changeFocusedOptionIndex(DomHandler.find(this.listViewChild.nativeElement, 'li[data-pc-section="menuitem"][data-p-disabled="false"]').length - 1);
+        this.changeFocusedOptionIndex(
+            DomHandler.find(this.listViewChild.nativeElement, 'li[data-pc-section="menuitem"][data-p-disabled="false"]').length - 1,
+        );
     }
 
     onSpaceKey() {
@@ -340,7 +370,7 @@ export class Dock extends BaseComponent implements AfterContentInit {
 
     get containerClass() {
         return {
-            ['p-dock p-component ' + ` p-dock-${this.position}`]: true
+            ['p-dock p-component ' + ` p-dock-${this.position}`]: true,
         };
     }
 
@@ -352,15 +382,14 @@ export class Dock extends BaseComponent implements AfterContentInit {
         return {
             'p-dock-item': true,
             'p-focus': this.isItemActive(this.getItemId(item, index)),
-            'p-disabled': this.disabled(item)
+            'p-disabled': this.disabled(item),
         };
     }
-    
 }
 
 @NgModule({
     imports: [CommonModule, RouterModule, RippleModule, TooltipModule],
     exports: [Dock, SharedModule, TooltipModule, RouterModule],
-    declarations: [Dock]
+    declarations: [Dock],
 })
 export class DockModule {}

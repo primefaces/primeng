@@ -6,14 +6,19 @@ import { Code } from '@domain/code';
     template: ` <app-docsectiontext>
             <h3>Screen Reader</h3>
             <p>
-                Value to describe the component can either be provided via <i>label</i> tag combined with <i>inputId</i> prop or using <i>ariaLabelledBy</i>, <i>ariaLabel</i> props. The input element has <i>combobox</i> role in addition to
-                <i>aria-autocomplete</i>, <i>aria-haspopup</i> and <i>aria-expanded</i> attributes. The relation between the input and the popup is created with <i>aria-controls</i> and <i>aria-activedescendant</i> attribute is used to instruct
-                screen reader which option to read during keyboard navigation within the popup list.
+                Value to describe the component can either be provided via <i>label</i> tag combined with <i>inputId</i> prop or using
+                <i>ariaLabelledBy</i>, <i>ariaLabel</i> props. The input element has <i>combobox</i> role in addition to
+                <i>aria-autocomplete</i>, <i>aria-haspopup</i> and <i>aria-expanded</i> attributes. The relation between the input and the
+                popup is created with <i>aria-controls</i> and <i>aria-activedescendant</i> attribute is used to instruct screen reader
+                which option to read during keyboard navigation within the popup list.
             </p>
-            <p>In multiple mode, chip list uses <i>listbox</i> role whereas each chip has the <i>option</i> role with <i>aria-label</i> set to the label of the chip.</p>
             <p>
-                The popup list has an id that refers to the <i>aria-controls</i> attribute of the input element and uses <i>listbox</i> as the role. Each list item has <i>option</i> role and an id to match the <i>aria-activedescendant</i> of the
-                input element.
+                In multiple mode, chip list uses <i>listbox</i> role whereas each chip has the <i>option</i> role with <i>aria-label</i> set
+                to the label of the chip.
+            </p>
+            <p>
+                The popup list has an id that refers to the <i>aria-controls</i> attribute of the input element and uses <i>listbox</i> as
+                the role. Each list item has <i>option</i> role and an id to match the <i>aria-activedescendant</i> of the input element.
             </p>
         </app-docsectiontext>
 
@@ -33,7 +38,10 @@ import { Code } from '@domain/code';
                         <td>
                             <i>tab</i>
                         </td>
-                        <td>Moves focus to the input element when popup is not visible. If the popup is open and an item is highlighted then popup gets closed, item gets selected and focus moves to the next focusable element.</td>
+                        <td>
+                            Moves focus to the input element when popup is not visible. If the popup is open and an item is highlighted then
+                            popup gets closed, item gets selected and focus moves to the next focusable element.
+                        </td>
                     </tr>
                     <tr>
                         <td>
@@ -131,7 +139,7 @@ import { Code } from '@domain/code';
                     </tr>
                 </tbody>
             </table>
-        </div>`
+        </div>`,
 })
 export class AccessibilityDoc {
     code: Code = {
@@ -141,6 +149,6 @@ export class AccessibilityDoc {
 <span id="ac2">Email</span>
 <p-autoComplete ariaLabelledBy="ac2" />
 
-<p-autoComplete ariaLabel="City" />`
+<p-autoComplete ariaLabel="City" />`,
     };
 }

@@ -21,8 +21,31 @@ import { FloatLabelModule } from 'primeng/floatlabel';
 import { FilledDoc } from './filleddoc';
 
 @NgModule({
-    imports: [CommonModule, AppCodeModule, InputTextModule, FormsModule, ReactiveFormsModule, AppDocModule, KeyFilterModule, FloatLabelModule],
-    declarations: [BasicDoc, DisabledDoc, FloatLabelDoc, HelpTextDoc, IconsDoc, InvalidDoc, KeyFilterDoc, SizesDoc, ImportDoc, StyleDoc, AccessibilityDoc, ReactiveFormsDoc, FilledDoc],
-    exports: [AppDocModule]
+    imports: [
+        CommonModule,
+        AppCodeModule,
+        InputTextModule,
+        FormsModule,
+        ReactiveFormsModule,
+        AppDocModule,
+        KeyFilterModule,
+        FloatLabelModule,
+    ],
+    declarations: [
+        BasicDoc,
+        DisabledDoc,
+        FloatLabelDoc,
+        HelpTextDoc,
+        IconsDoc,
+        InvalidDoc,
+        KeyFilterDoc,
+        SizesDoc,
+        ImportDoc,
+        StyleDoc,
+        AccessibilityDoc,
+        ReactiveFormsDoc,
+        FilledDoc,
+    ],
+    exports: [AppDocModule],
 })
 export class InputtextDocModule {}

@@ -229,7 +229,7 @@ const classes = {
         'p-tree-selectable': instance.selectionMode != null,
         'p-tree-loading': instance.loading,
         'p-tree-flex-scrollable': instance.scrollHeight === 'flex',
-        'p-tree-node-tragover': instance.dragHover
+        'p-tree-node-tragover': instance.dragHover,
     }),
     mask: 'p-tree-mask p-overlay-mask',
     loadingIcon: 'p-tree-loading-icon',
@@ -242,14 +242,15 @@ const classes = {
         [instance.styleClass]: !!instance.styleClass,
         'p-tree-node-selectable': instance.selectable,
         'p-tree-node-dragover': instance.ragHoberNode,
-        'p-tree-node-selected': instance.selectionMode === 'checkbox' && instance.tree.highlightOnSelect ? instance.checked : instance.selected
+        'p-tree-node-selected':
+            instance.selectionMode === 'checkbox' && instance.tree.highlightOnSelect ? instance.checked : instance.selected,
     }),
     nodeToggleButton: 'p-tree-node-toggle-button',
     nodeToggleIcon: 'p-tree-node-toggle-icon',
     nodeCheckbox: 'p-tree-node-checkbox',
     nodeIcon: 'p-tree-node-icon',
     nodeLabel: 'p-tree-node-label',
-    nodeChildren: 'p-tree-node-children'
+    nodeChildren: 'p-tree-node-children',
 };
 
 @Injectable()

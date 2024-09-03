@@ -21,7 +21,7 @@ import { Code } from '@domain/code';
             </p-inputGroup>
         </div>
         <app-code [code]="code" selector="input-group-multiple-demo"></app-code>
-    `
+    `,
 })
 export class MultipleDoc {
     code: Code = {
@@ -64,6 +64,6 @@ import { InputTextModule } from 'primeng/inputtext';
     imports: [FormsModule, InputGroupModule, InputGroupAddonModule, InputTextModule]
 })
 export class InputGroupMultipleDemo {
-}`
+}`,
     };
 }

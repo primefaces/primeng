@@ -11,7 +11,7 @@ import { Code } from '@domain/code';
             <p-inputMask mask="99-999999" [(ngModel)]="value" placeholder="99-999999" />
         </div>
         <app-code [code]="code" selector="input-mask-basic-demo"></app-code>
-    `
+    `,
 })
 export class BasicDoc {
     value: string | undefined;
@@ -41,6 +41,6 @@ import { FormsModule } from '@angular/forms';
 })
 export class InputMaskBasicDemo {
     value: string | undefined;
-}`
+}`,
     };
 }

@@ -4,6 +4,6 @@ import { FileUploadDemo } from './fileuploaddemo';
 
 @NgModule({
     imports: [RouterModule.forChild([{ path: '', component: FileUploadDemo }])],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class FileUploadDemoRoutingModule {}

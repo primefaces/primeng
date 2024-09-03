@@ -99,8 +99,8 @@ const classes = {
         'p-carousel p-component',
         {
             'p-carousel-vertical': instance.isVertical(),
-            'p-carousel-horizontal': !instance.isVertical()
-        }
+            'p-carousel-horizontal': !instance.isVertical(),
+        },
     ],
     header: 'p-carousel-header',
     contentContainer: 'p-carousel-content-container',
@@ -108,8 +108,8 @@ const classes = {
     pcPrevButton: ({ instance }) => [
         'p-carousel-prev-button',
         {
-            'p-disabled': instance.backwardIsDisabled
-        }
+            'p-disabled': instance.backwardIsDisabled,
+        },
     ],
     viewport: 'p-carousel-viewport',
     itemList: 'p-carousel-item-list',
@@ -118,32 +118,32 @@ const classes = {
         {
             'p-carousel-item-active': totalShiftedItems * -1 === value.length + d_numVisible,
             'p-carousel-item-start': index === 0,
-            'p-carousel-item-end': value.slice(-1 * d_numVisible).length - 1 === index
-        }
+            'p-carousel-item-end': value.slice(-1 * d_numVisible).length - 1 === index,
+        },
     ],
     item: ({ instance, index }) => [
         'p-carousel-item',
         {
             'p-carousel-item-active': instance.firstIndex() <= index && instance.lastIndex() >= index,
             'p-carousel-item-start': instance.firstIndex() === index,
-            'p-carousel-item-end': instance.lastIndex() === index
-        }
+            'p-carousel-item-end': instance.lastIndex() === index,
+        },
     ],
     pcNextButton: ({ instance }) => [
         'p-carousel-next-button',
         {
-            'p-disabled': instance.forwardIsDisabled
-        }
+            'p-disabled': instance.forwardIsDisabled,
+        },
     ],
     indicatorList: 'p-carousel-indicator-list',
     indicator: ({ instance, index }) => [
         'p-carousel-indicator',
         {
-            'p-carousel-indicator-active': instance.d_page === index
-        }
+            'p-carousel-indicator-active': instance.d_page === index,
+        },
     ],
     indicatorButton: 'p-carousel-indicator-button',
-    footer: 'p-carousel-footer'
+    footer: 'p-carousel-footer',
 };
 
 @Injectable()

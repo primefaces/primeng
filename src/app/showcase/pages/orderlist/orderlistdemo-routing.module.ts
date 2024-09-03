@@ -4,6 +4,6 @@ import { OrderListDemo } from './orderlistdemo';
 
 @NgModule({
     imports: [RouterModule.forChild([{ path: '', component: OrderListDemo }])],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class OrderListDemoRoutingModule {}

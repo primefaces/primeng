@@ -8,7 +8,7 @@ const theme = ({ dt }) => `
 `;
 
 const classes = {
-    root: 'p-fluid'
+    root: 'p-fluid',
 };
 
 @Injectable()
@@ -17,5 +17,5 @@ export class FluidStyle extends BaseStyle {
 
     classes = classes;
 
-    theme = theme
+    theme = theme;
 }

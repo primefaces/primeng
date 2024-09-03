@@ -11,7 +11,7 @@ import { Code } from '@domain/code';
             <p-cascadeSelect [loading]="true" [style]="{ minWidth: '14rem' }" placeholder="Loading..." />
         </div>
         <app-code [code]="code" selector="cascade-select-loading-demo"></app-code>
-    `
+    `,
 })
 export class LoadingDoc {
     code: Code = {
@@ -37,6 +37,6 @@ import { CascadeSelectModule } from 'primeng/cascadeselect';
     standalone: true,
     imports: [FormsModule, CascadeSelectModule]
 })
-export class CascadeSelectLoadingDemo {}`
+export class CascadeSelectLoadingDemo {}`,
     };
 }

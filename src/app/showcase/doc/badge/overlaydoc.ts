@@ -5,9 +5,7 @@ import { Code } from '@domain/code';
     selector: 'badge-overlay-demo',
     template: `
         <app-docsectiontext>
-            <p>
-                A badge can be added to any element by encapsulating the content with the <i>OverlayBadge</i> component.
-            </p>
+            <p>A badge can be added to any element by encapsulating the content with the <i>OverlayBadge</i> component.</p>
         </app-docsectiontext>
         <div class="card flex flex-wrap justify-center gap-6">
             <p-overlayBadge value="2">

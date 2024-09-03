@@ -12,7 +12,7 @@ describe('Carousel', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [NoopAnimationsModule, ChevronRightIcon, ChevronLeftIcon],
-            declarations: [Carousel]
+            declarations: [Carousel],
         });
 
         fixture = TestBed.createComponent(Carousel);
@@ -26,7 +26,7 @@ describe('Carousel', () => {
             { vin: 'bhv5y5w', year: 2015, brand: 'Jaguar', color: 'Blue' },
             { vin: 'ybw5fsd', year: 2012, brand: 'Ford', color: 'Yellow' },
             { vin: '45665e5', year: 2011, brand: 'Mercedes', color: 'Brown' },
-            { vin: 'he6sb5v', year: 2015, brand: 'Ford', color: 'Black' }
+            { vin: 'he6sb5v', year: 2015, brand: 'Ford', color: 'Black' },
         ];
     });
 

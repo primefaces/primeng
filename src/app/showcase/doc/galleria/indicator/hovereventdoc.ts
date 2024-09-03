@@ -9,14 +9,21 @@ import { PhotoService } from '@service/photoservice';
             <p>Indicators can be activated on hover instead of click if <i>changeItemOnIndicatorHover</i> is added.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-galleria [(value)]="images" [showIndicators]="true" [showThumbnails]="false" [changeItemOnIndicatorHover]="true" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }">
+            <p-galleria
+                [(value)]="images"
+                [showIndicators]="true"
+                [showThumbnails]="false"
+                [changeItemOnIndicatorHover]="true"
+                [responsiveOptions]="responsiveOptions"
+                [containerStyle]="{ 'max-width': '640px' }"
+            >
                 <ng-template pTemplate="item" let-item>
                     <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
                 </ng-template>
             </p-galleria>
         </div>
         <app-code [code]="code" selector="galleria-indicator-hover-event-demo"></app-code>
-    `
+    `,
 })
 export class HoverEventDoc implements OnInit {
     images: any[] | undefined;
@@ -24,16 +31,16 @@ export class HoverEventDoc implements OnInit {
     responsiveOptions: any[] = [
         {
             breakpoint: '1024px',
-            numVisible: 5
+            numVisible: 5,
         },
         {
             breakpoint: '768px',
-            numVisible: 3
+            numVisible: 3,
         },
         {
             breakpoint: '560px',
-            numVisible: 1
-        }
+            numVisible: 1,
+        },
     ];
 
     constructor(private photoService: PhotoService) {}
@@ -115,6 +122,6 @@ export class GalleriaIndicatorHoverEventDemo implements OnInit {
     title: 'Title 1'
 },
 ...`,
-        service: ['PhotoService']
+        service: ['PhotoService'],
     };
 }

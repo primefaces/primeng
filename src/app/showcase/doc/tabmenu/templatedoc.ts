@@ -12,14 +12,18 @@ import { Code } from '@domain/code';
             <p-tabMenu [model]="items" [activeItem]="activeItem">
                 <ng-template pTemplate="item" let-item>
                     <a pRipple class="flex items-center gap-2 p-menuitem-link">
-                        <img [alt]="item.name" [src]="'https://primefaces.org/cdn/primeng/images/demo/avatar/' + item.image" style="width: 32px" />
+                        <img
+                            [alt]="item.name"
+                            [src]="'https://primefaces.org/cdn/primeng/images/demo/avatar/' + item.image"
+                            style="width: 32px"
+                        />
                         <span class="font-bold">{{ item.name }}</span>
                     </a>
                 </ng-template>
             </p-tabMenu>
         </div>
         <app-code [code]="code" selector="tab-menu-template-demo"></app-code>
-    `
+    `,
 })
 export class TemplateDoc implements OnInit {
     items: MenuItem[] | undefined;
@@ -30,7 +34,7 @@ export class TemplateDoc implements OnInit {
         (this.items = [
             { name: 'Amy Elsner', image: 'amyelsner.png' },
             { name: 'Anna Fali', image: 'annafali.png' },
-            { name: 'Asiya Javayant', image: 'asiyajavayant.png' }
+            { name: 'Asiya Javayant', image: 'asiyajavayant.png' },
         ]),
             (this.activeItem = this.items[0]);
     }
@@ -104,6 +108,6 @@ import { TabMenuDemo } from './tabmenudemo';
     imports: [CommonModule, TabMenuModule],
     declarations: [TabMenuDemo]
 })
-export class TabMenuDemoModule {}`
+export class TabMenuDemoModule {}`,
     };
 }

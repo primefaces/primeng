@@ -8,6 +8,6 @@ import { InplaceDemoRoutingModule } from './inplacedemo-routing.module';
 
 @NgModule({
     imports: [CommonModule, InplaceDemoRoutingModule, InplaceModule, AppDocModule, InplaceDocModule],
-    declarations: [InplaceDemo]
+    declarations: [InplaceDemo],
 })
 export class InplaceDemoModule {}

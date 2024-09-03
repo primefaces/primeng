@@ -6,6 +6,6 @@ import { EditorDemoRoutingModule } from './editordemo-routing.module';
 
 @NgModule({
     imports: [CommonModule, EditorDemoRoutingModule, EditorDocModule],
-    declarations: [EditorDemo]
+    declarations: [EditorDemo],
 })
 export class EditorDemoModule {}

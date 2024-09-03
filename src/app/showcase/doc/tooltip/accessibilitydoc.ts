@@ -5,7 +5,10 @@ import { Component } from '@angular/core';
     template: `
         <app-docsectiontext>
             <h3>Screen Reader</h3>
-            <p>Tooltip component uses <i>tooltip</i> role and when it becomes visible the generated id of the tooltip is defined as the <i>aria-describedby</i> of the target.</p>
+            <p>
+                Tooltip component uses <i>tooltip</i> role and when it becomes visible the generated id of the tooltip is defined as the
+                <i>aria-describedby</i> of the target.
+            </p>
             <h3>Keyboard Support</h3>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
@@ -24,6 +27,6 @@ import { Component } from '@angular/core';
                 </table>
             </div>
         </app-docsectiontext>
-    `
+    `,
 })
 export class AccessibilityDoc {}

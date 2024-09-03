@@ -7,13 +7,19 @@ import { CustomerService } from '@service/customerservice';
     selector: 'paginator-basic-doc',
     template: ` <app-docsectiontext>
             <p>
-                Pagination is enabled by setting <i>paginator</i> property to <i>true</i> and defining a rows property to specify the number of rows per page. For server side pagination, see the
-                <a [routerLink]="['/table#lazy']">lazy loading</a> example.
+                Pagination is enabled by setting <i>paginator</i> property to <i>true</i> and defining a rows property to specify the number
+                of rows per page. For server side pagination, see the <a [routerLink]="['/table#lazy']">lazy loading</a> example.
             </p>
         </app-docsectiontext>
         <p-deferred-demo (load)="loadDemoData()">
             <div class="card">
-                <p-table [value]="customers" [paginator]="true" [rows]="5" [tableStyle]="{ 'min-width': '50rem' }" [rowsPerPageOptions]="[5, 10, 20]">
+                <p-table
+                    [value]="customers"
+                    [paginator]="true"
+                    [rows]="5"
+                    [tableStyle]="{ 'min-width': '50rem' }"
+                    [rowsPerPageOptions]="[5, 10, 20]"
+                >
                     <ng-template pTemplate="header">
                         <tr>
                             <th style="width:25%">Name</th>
@@ -34,14 +40,14 @@ import { CustomerService } from '@service/customerservice';
             </div>
         </p-deferred-demo>
         <app-code [code]="code" selector="table-paginator-basic-demo" [extFiles]="extFiles"></app-code>`,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PaginatorBasicDoc {
     customers!: Customer[];
 
     constructor(
         private customerService: CustomerService,
-        private cd: ChangeDetectorRef
+        private cd: ChangeDetectorRef,
     ) {}
 
     loadDemoData() {
@@ -143,7 +149,7 @@ export class TablePaginatorBasicDemo {
     balance: 70663
 },
 ...`,
-        service: ['CustomerService']
+        service: ['CustomerService'],
     };
 
     extFiles = [
@@ -171,7 +177,7 @@ export interface Customer {
     representative?: Representative;
     verified?: boolean;
     balance?: number;
-}`
-        }
+}`,
+        },
     ];
 }

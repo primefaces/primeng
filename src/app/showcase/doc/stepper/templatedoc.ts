@@ -16,7 +16,7 @@ import { Code } from '@domain/code';
                                 class="rounded-border border-2 w-12 h-12 inline-flex items-center justify-center"
                                 [ngClass]="{
                                     'bg-primary text-primary-contrast border-primary': index <= active,
-                                    'border-surface': index > active
+                                    'border-surface': index > active,
                                 }"
                             >
                                 <i class="pi pi-user"></i>
@@ -47,12 +47,7 @@ import { Code } from '@domain/code';
                             </div>
                         </div>
                         <div class="flex pt-6 justify-end">
-                            <p-button
-                                (onClick)="nextCallback.emit()"
-                                label="Next"
-                                icon="pi pi-arrow-right"
-                                iconPos="right"
-                            />
+                            <p-button (onClick)="nextCallback.emit()" label="Next" icon="pi pi-arrow-right" iconPos="right" />
                         </div>
                     </ng-template>
                 </p-stepperPanel>
@@ -63,7 +58,7 @@ import { Code } from '@domain/code';
                                 class="rounded-border border-2 w-12 h-12 inline-flex items-center justify-center"
                                 [ngClass]="{
                                     'bg-primary text-primary-contrast border-primary': index <= active,
-                                    'border-surface': index > active
+                                    'border-surface': index > active,
                                 }"
                             >
                                 <i class="pi pi-star"></i>
@@ -74,71 +69,21 @@ import { Code } from '@domain/code';
                         <div class="flex flex-col gap-2 mx-auto" style="min-height: 16rem; max-width: 24rem">
                             <div class="text-center mt-4 mb-4 text-xl font-semibold">Choose your interests</div>
                             <div class="flex flex-wrap justify-center gap-4">
-                                <button
-                                    p-toggleButton
-                                    [(ngModel)]="option1"
-                                    onLabel="Nature"
-                                    offLabel="Nature"
-                                ></button>
+                                <button p-toggleButton [(ngModel)]="option1" onLabel="Nature" offLabel="Nature"></button>
                                 <button p-toggleButton [(ngModel)]="option2" onLabel="Art" offLabel="Art"></button>
                                 <button p-toggleButton [(ngModel)]="option3" onLabel="Music" offLabel="Music"></button>
-                                <button
-                                    p-toggleButton
-                                    [(ngModel)]="option4"
-                                    onLabel="Design"
-                                    offLabel="Design"
-                                ></button>
-                                <button
-                                    p-toggleButton
-                                    [(ngModel)]="option5"
-                                    onLabel="Photography"
-                                    offLabel="Photography"
-                                ></button>
-                                <button
-                                    p-toggleButton
-                                    [(ngModel)]="option6"
-                                    onLabel="Movies"
-                                    offLabel="Movies"
-                                ></button>
-                                <button
-                                    p-toggleButton
-                                    [(ngModel)]="option7"
-                                    onLabel="Sports"
-                                    offLabel="Sports"
-                                ></button>
-                                <button
-                                    p-toggleButton
-                                    [(ngModel)]="option8"
-                                    onLabel="Gaming"
-                                    offLabel="Gaming"
-                                ></button>
-                                <button
-                                    p-toggleButton
-                                    [(ngModel)]="option9"
-                                    onLabel="Traveling"
-                                    offLabel="Traveling"
-                                ></button>
-                                <button
-                                    p-toggleButton
-                                    [(ngModel)]="option10"
-                                    onLabel="Dancing"
-                                    offLabel="Dancing"
-                                ></button>
+                                <button p-toggleButton [(ngModel)]="option4" onLabel="Design" offLabel="Design"></button>
+                                <button p-toggleButton [(ngModel)]="option5" onLabel="Photography" offLabel="Photography"></button>
+                                <button p-toggleButton [(ngModel)]="option6" onLabel="Movies" offLabel="Movies"></button>
+                                <button p-toggleButton [(ngModel)]="option7" onLabel="Sports" offLabel="Sports"></button>
+                                <button p-toggleButton [(ngModel)]="option8" onLabel="Gaming" offLabel="Gaming"></button>
+                                <button p-toggleButton [(ngModel)]="option9" onLabel="Traveling" offLabel="Traveling"></button>
+                                <button p-toggleButton [(ngModel)]="option10" onLabel="Dancing" offLabel="Dancing"></button>
                             </div>
                         </div>
                         <div class="flex pt-6 justify-between">
-                            <p-button
-                                (onClick)="prevCallback.emit()"
-                                label="Back"
-                                severity="secondary"
-                                icon="pi pi-arrow-left"
-                            />
-                            <p-button
-                                (onClick)="nextCallback.emit()"
-                                label="Next"
-                                icon="pi pi-arrow-right"
-                                iconPos="right"
-                            />
+                            <p-button (onClick)="prevCallback.emit()" label="Back" severity="secondary" icon="pi pi-arrow-left" />
+                            <p-button (onClick)="nextCallback.emit()" label="Next" icon="pi pi-arrow-right" iconPos="right" />
                         </div>
                     </ng-template>
                 </p-stepperPanel>
@@ -149,7 +94,7 @@ import { Code } from '@domain/code';
                                 class="rounded-border border-2 w-12 h-12 inline-flex items-center justify-center"
                                 [ngClass]="{
                                     'bg-primary text-primary-contrast border-primary': index <= active,
-                                    'border-surface': index > active
+                                    'border-surface': index > active,
                                 }"
                             >
                                 <i class="pi pi-id-card"></i>
@@ -164,12 +109,7 @@ import { Code } from '@domain/code';
                             </div>
                         </div>
                         <div class="flex pt-6 justify-start">
-                            <p-button
-                                (onClick)="prevCallback.emit()"
-                                label="Back"
-                                severity="secondary"
-                                icon="pi pi-arrow-left"
-                            />
+                            <p-button (onClick)="prevCallback.emit()" label="Back" severity="secondary" icon="pi pi-arrow-left" />
                         </div>
                     </ng-template>
                 </p-stepperPanel>

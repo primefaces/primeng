@@ -15,8 +15,17 @@ import { ProductService } from '@service/productservice';
                     <div class="border border-surface rounded-border m-2 p-4">
                         <div class="mb-4">
                             <div class="relative mx-auto">
-                                <img src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.name" class="w-full rounded-border" />
-                                <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" class="absolute" [ngStyle]="{ 'left.px': 5, 'top.px': 5 }" />
+                                <img
+                                    src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}"
+                                    [alt]="product.name"
+                                    class="w-full rounded-border"
+                                />
+                                <p-tag
+                                    [value]="product.inventoryStatus"
+                                    [severity]="getSeverity(product.inventoryStatus)"
+                                    class="absolute"
+                                    [ngStyle]="{ 'left.px': 5, 'top.px': 5 }"
+                                />
                             </div>
                         </div>
                         <div class="mb-4 font-medium">{{ product.name }}</div>
@@ -32,7 +41,7 @@ import { ProductService } from '@service/productservice';
             </p-carousel>
         </div>
         <app-code [code]="code" selector="carousel-num-scroll-demo" [extFiles]="extFiles"></app-code>
-    `
+    `,
 })
 export class NumScrollDoc implements OnInit {
     products: Product[] | undefined;
@@ -41,7 +50,7 @@ export class NumScrollDoc implements OnInit {
 
     constructor(
         private productService: ProductService,
-        private cdr: ChangeDetectorRef
+        private cdr: ChangeDetectorRef,
     ) {}
 
     ngOnInit() {
@@ -54,18 +63,18 @@ export class NumScrollDoc implements OnInit {
             {
                 breakpoint: '1199px',
                 numVisible: 1,
-                numScroll: 1
+                numScroll: 1,
             },
             {
                 breakpoint: '991px',
                 numVisible: 2,
-                numScroll: 1
+                numScroll: 1,
             },
             {
                 breakpoint: '767px',
                 numVisible: 1,
-                numScroll: 1
-            }
+                numScroll: 1,
+            },
         ];
     }
 
@@ -225,7 +234,7 @@ export class CarouselNumScrollDemo implements OnInit {
     rating: 5
 },
 ...`,
-        service: ['ProductService']
+        service: ['ProductService'],
     };
 
     extFiles = [
@@ -243,7 +252,7 @@ inventoryStatus?: string;
 category?: string;
 image?: string;
 rating?: number;
-}`
-        }
+}`,
+        },
     ];
 }

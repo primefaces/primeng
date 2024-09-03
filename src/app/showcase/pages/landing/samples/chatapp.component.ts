@@ -49,20 +49,14 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
                 </p-iconField>
             </div>
             <div class="w-full px-5">
-                <p-selectButton
-                    [(ngModel)]="value"
-                    [options]="options"
-                    aria-labelledby="basic"
-                    class="w-full"
-                    styleClass="w-full"
-                />
+                <p-selectButton [(ngModel)]="value" [options]="options" aria-labelledby="basic" class="w-full" styleClass="w-full" />
             </div>
             <div class="flex-1 flex flex-col">
                 <div
                     *ngFor="let chat of chats"
                     class="flex items-center gap-2 p-4 cursor-pointer hover:bg-emphasis transition-all"
                     [ngClass]="{
-                        'bg-emphasis': chat.name === activeChat
+                        'bg-emphasis': chat.name === activeChat,
                     }"
                 >
                     <div class="relative">
@@ -76,7 +70,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
                             [image]="chat.image"
                             [label]="!chat.image ? chat.capName : ''"
                             [ngClass]="{
-                                '!bg-primary-100 !text-primary-950': !chat.image
+                                '!bg-primary-100 !text-primary-950': !chat.image,
                             }"
                             styleClass="text-base font-medium flex"
                             size="large"
@@ -92,11 +86,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
                             <div class="text-muted-color text-sm leading-5 line-clamp-1">
                                 {{ chat.lastMessage }}
                             </div>
-                            <p-badge
-                                *ngIf="chat.unreadMessageCount > 0"
-                                [value]="chat.unreadMessageCount"
-                                severity="contrast"
-                            />
+                            <p-badge *ngIf="chat.unreadMessageCount > 0" [value]="chat.unreadMessageCount" severity="contrast" />
                         </div>
                     </div>
                 </div>
@@ -112,11 +102,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
                         shape="circle"
                     />
                     <div class="flex-1">
-                        <div
-                            class="text-color leading-6 cursor-pointer hover:text-muted-color-emphasis transition-colors"
-                        >
-                            PrimeTek
-                        </div>
+                        <div class="text-color leading-6 cursor-pointer hover:text-muted-color-emphasis transition-colors">PrimeTek</div>
                         <div class="text-muted-color leading-5 line-clamp-1 mt-1">
                             Cody Fisher, Esther Howard, Jerome Bell, Kristin Watson, Ronald Richards, Darrell Steward
                         </div>
@@ -145,14 +131,14 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
                     <div
                         class="flex items-center gap-2 sticky top-0 transition-all"
                         [ngClass]="{
-                            'flex-row-reverse': message.type === 'sent'
+                            'flex-row-reverse': message.type === 'sent',
                         }"
                     >
                         <p-avatar
                             [image]="message.image"
                             [label]="!message.image ? message.capName : ''"
                             [ngClass]="{
-                                'bg-primary-100 text-primary-950': !message.image
+                                'bg-primary-100 text-primary-950': !message.image,
                             }"
                             styleClass="w-10 h-10 text-sm font-medium"
                             shape="circle"
@@ -161,7 +147,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
                             <svg
                                 [ngClass]="{
                                     'fill-surface-100 dark:fill-surface-800': message.type === 'received',
-                                    'fill-primary rotate-180': message.type !== 'received'
+                                    'fill-primary rotate-180': message.type !== 'received',
                                 }"
                                 class=""
                                 xmlns="http://www.w3.org/2000/svg"
@@ -183,13 +169,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
                                 : 'flex-1 bg-primary px-2 py-1 rounded-lg'
                         "
                     >
-                        <p
-                            [ngClass]="
-                                message.type === 'received'
-                                    ? 'text-color leading-6 mb-0'
-                                    : 'text-primary-contrast leading-6 mb-0'
-                            "
-                        >
+                        <p [ngClass]="message.type === 'received' ? 'text-color leading-6 mb-0' : 'text-primary-contrast leading-6 mb-0'">
                             {{ message.message }}
                         </p>
                         <div
@@ -197,11 +177,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
                             :class="message.type === 'received' ? 'bg-surface-200 dark:bg-surface-700' : 'bg-primary-emphasis'"
                             class="mt-2 w-full rounded-lg mb-0.5 hover:opacity-75 transition-all"
                         >
-                            <img
-                                class="w-full h-auto block cursor-pointer"
-                                [src]="message.attachment"
-                                alt="Message Image"
-                            />
+                            <img class="w-full h-auto block cursor-pointer" [src]="message.attachment" alt="Message Image" />
                         </div>
                     </div>
                 </div>
@@ -276,15 +252,13 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
                             [image]="member.image"
                             [label]="!member.image ? member.capName : ''"
                             [ngClass]="{
-                                'bg-orange-100 text-orange-950': !member.image
+                                'bg-orange-100 text-orange-950': !member.image,
                             }"
                             styleClass="font-medium text-xs"
                             shape="circle"
                         />
 
-                        <div
-                            class="text-sm text-color hover:text-muted-color-emphasis transition-colors font-medium leading-5 flex-1"
-                        >
+                        <div class="text-sm text-color hover:text-muted-color-emphasis transition-colors font-medium leading-5 flex-1">
                             {{ member.name }}
                         </div>
                         <i class="pi pi-chevron-right text-xs text-muted-color"></i>
@@ -307,13 +281,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
                         <span class="text-muted-color font-medium">99+</span>
                     </div>
                 </div>
-                <p-button
-                    label="Show more"
-                    icon="pi pi-arrow-right"
-                    iconPos="right"
-                    outlined
-                    styleClass="w-full text-left"
-                />
+                <p-button label="Show more" icon="pi pi-arrow-right" iconPos="right" outlined styleClass="w-full text-left" />
             </div>
         </div>
     `,
@@ -490,8 +458,7 @@ export class ChatApp {
                 image: 'https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar2.png',
                 capName: 'A',
                 type: 'received',
-                message:
-                    "It's design-neutral and compatible with Tailwind. Features accessible, high-grade components!",
+                message: "It's design-neutral and compatible with Tailwind. Features accessible, high-grade components!",
             },
             {
                 id: 5,
@@ -545,8 +512,7 @@ export class ChatApp {
                 image: 'https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar13.jpg',
                 capName: 'D',
                 type: 'received',
-                message:
-                    "And the accessibility features are top-notch. It's great to see a library focusing on inclusivity.",
+                message: "And the accessibility features are top-notch. It's great to see a library focusing on inclusivity.",
             },
             {
                 id: 11,
@@ -574,8 +540,7 @@ export class ChatApp {
                 image: 'https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar11.jpg',
                 capName: 'G',
                 type: 'received',
-                message:
-                    'Yes! Lazy loading and code splitting can make a huge difference, especially in larger applications.',
+                message: 'Yes! Lazy loading and code splitting can make a huge difference, especially in larger applications.',
             },
             {
                 id: 14,

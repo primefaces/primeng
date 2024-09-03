@@ -9,49 +9,49 @@ import { CloseDoc } from '@doc/dynamicdialog/closedoc';
 import { CustomizationDoc } from '@doc/dynamicdialog/customizationdoc';
 
 @Component({
-    templateUrl: './dynamicdialogdemo.html'
+    templateUrl: './dynamicdialogdemo.html',
 })
 export class DynamicDialogDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc
+            component: ImportDoc,
         },
         {
             id: 'usage',
             label: 'Usage',
-            component: UsageDoc
+            component: UsageDoc,
         },
         {
             id: 'open',
             label: 'Opening a Dialog',
-            component: OpenDoc
+            component: OpenDoc,
         },
         {
             id: 'customization',
             label: 'Customization',
-            component: CustomizationDoc
+            component: CustomizationDoc,
         },
         {
             id: 'passingdata',
             label: 'Passing Data',
-            component: PassingDataDoc
+            component: PassingDataDoc,
         },
         {
             id: 'close',
             label: 'Closing a Dialog',
-            component: CloseDoc
+            component: CloseDoc,
         },
         {
             id: 'example',
             label: 'Example',
-            component: ExampleDoc
+            component: ExampleDoc,
         },
         {
             id: 'style',
             label: 'Style',
-            component: StyleDoc
-        }
+            component: StyleDoc,
+        },
     ];
 }

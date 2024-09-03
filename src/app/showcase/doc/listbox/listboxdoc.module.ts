@@ -21,6 +21,19 @@ import { VirtualScrollDoc } from './virtualscrolldoc';
 @NgModule({
     imports: [CommonModule, AppCodeModule, RouterModule, ListboxModule, FormsModule, ReactiveFormsModule, AppDocModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, MultipleDoc, TemplateDoc, InvalidDoc, DisabledDoc, FilterDoc, GroupDoc, StyleDoc, AccessibilityDoc, ReactiveFormsDoc, VirtualScrollDoc]
+    declarations: [
+        ImportDoc,
+        BasicDoc,
+        MultipleDoc,
+        TemplateDoc,
+        InvalidDoc,
+        DisabledDoc,
+        FilterDoc,
+        GroupDoc,
+        StyleDoc,
+        AccessibilityDoc,
+        ReactiveFormsDoc,
+        VirtualScrollDoc,
+    ],
 })
 export class ListboxDocModule {}

@@ -6,6 +6,6 @@ import { MenubarDemoRoutingModule } from './menubardemo-routing.module';
 
 @NgModule({
     imports: [CommonModule, MenubarDemoRoutingModule, MenubarDocModule],
-    declarations: [MenubarDemo]
+    declarations: [MenubarDemo],
 })
 export class MenubarDemoModule {}

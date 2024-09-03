@@ -154,7 +154,7 @@ import { AppConfigService } from '@service/appconfigservice';
                                                 [ngClass]="{
                                                     'pi-bitcoin text-yellow-500 !text-3xl': item.coin !== 'btc',
                                                     'pi-ethereum bg-surface-950 text-surface-0 dark:bg-surface-0 dark:text-surface-950 w-7 h-7 rounded-full flex items-center justify-center':
-                                                        item.coin !== 'eth'
+                                                        item.coin !== 'eth',
                                                 }"
                                             ></i>
                                         </div>

@@ -31,7 +31,17 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { AccessibilityDoc } from './accessibilitydoc';
 
 @NgModule({
-    imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, GalleriaModule, FormsModule, ButtonModule, RadioButtonModule, CheckboxModule],
+    imports: [
+        CommonModule,
+        RouterModule,
+        AppCodeModule,
+        AppDocModule,
+        GalleriaModule,
+        FormsModule,
+        ButtonModule,
+        RadioButtonModule,
+        CheckboxModule,
+    ],
     declarations: [
         AdvancedDoc,
         AutoPlayDoc,
@@ -53,8 +63,8 @@ import { AccessibilityDoc } from './accessibilitydoc';
         ResponsiveDoc,
         StyleDoc,
         ThumbnailDoc,
-        AccessibilityDoc
+        AccessibilityDoc,
     ],
-    exports: [AppDocModule]
+    exports: [AppDocModule],
 })
 export class GalleriaDocModule {}

@@ -11,54 +11,54 @@ import { VerticalDoc } from '@doc/slider/verticaldoc';
 
 @Component({
     templateUrl: './sliderdemo.html',
-    styleUrls: ['./sliderdemo.scss']
+    styleUrls: ['./sliderdemo.scss'],
 })
 export class SliderDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc
+            component: ImportDoc,
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc
+            component: BasicDoc,
         },
         {
             id: 'reactive-forms',
             label: 'Reactive Forms',
-            component: ReactiveFormsDoc
+            component: ReactiveFormsDoc,
         },
         {
             id: 'input',
             label: 'Input',
-            component: InputDoc
+            component: InputDoc,
         },
         {
             id: 'step',
             label: 'Step',
-            component: StepDoc
+            component: StepDoc,
         },
         {
             id: 'range',
             label: 'Range',
-            component: RangeDoc
+            component: RangeDoc,
         },
         {
             id: 'vertical',
             label: 'Vertical',
-            component: VerticalDoc
+            component: VerticalDoc,
         },
         {
             id: 'style',
             label: 'Style',
-            component: StyleDoc
+            component: StyleDoc,
         },
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc
-        }
+            component: AccessibilityDoc,
+        },
     ];
 }

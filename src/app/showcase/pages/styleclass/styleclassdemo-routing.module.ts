@@ -4,6 +4,6 @@ import { StyleClassDemo } from './styleclassdemo';
 
 @NgModule({
     imports: [RouterModule.forChild([{ path: '', component: StyleClassDemo }])],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class StyleClassDemoRoutingModule {}

@@ -47,7 +47,7 @@ interface Column {
         </div>
         <app-code [code]="code" selector="tree-table-template-demo"></app-code>
     `,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TemplateDoc {
     files!: TreeNode[];
@@ -62,7 +62,7 @@ export class TemplateDoc {
             { field: 'name', header: 'Name' },
             { field: 'size', header: 'Size' },
             { field: 'type', header: 'Type' },
-            { field: '', header: '' }
+            { field: '', header: '' },
         ];
     }
     code: Code = {
@@ -161,6 +161,6 @@ export class TreeTableTemplateDemo implements OnInit {
     }
 }`,
 
-        service: ['NodeService']
+        service: ['NodeService'],
     };
 }

@@ -15,6 +15,6 @@ import { TagModule } from 'primeng/tag';
 @NgModule({
     imports: [CommonModule, AppCodeModule, AppDocModule, OrderListModule, RouterModule, TagModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, FilterDoc, DragDropDoc, StyleDoc, AccessibilityDoc]
+    declarations: [ImportDoc, BasicDoc, FilterDoc, DragDropDoc, StyleDoc, AccessibilityDoc],
 })
 export class OrderlistDocModule {}

@@ -4,6 +4,6 @@ import { DynamicDialogDemo } from './dynamicdialogdemo';
 
 @NgModule({
     imports: [RouterModule.forChild([{ path: '', component: DynamicDialogDemo }])],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class DynamicDialogDemoRoutingModule {}

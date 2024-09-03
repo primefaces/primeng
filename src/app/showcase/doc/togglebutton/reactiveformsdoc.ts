@@ -6,7 +6,10 @@ import { Code } from '@domain/code';
     selector: 'reactive-forms-doc',
     template: `
         <app-docsectiontext>
-            <p>ToggleButton can also be used with reactive forms. In this case, the <i>formControlName</i> property is used to bind the component to a form control.</p>
+            <p>
+                ToggleButton can also be used with reactive forms. In this case, the <i>formControlName</i> property is used to bind the
+                component to a form control.
+            </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
             <form [formGroup]="formGroup">
@@ -14,14 +17,14 @@ import { Code } from '@domain/code';
             </form>
         </div>
         <app-code [code]="code" selector="toggle-button-reactive-forms-demo"></app-code>
-    `
+    `,
 })
 export class ReactiveFormsDoc implements OnInit {
     formGroup!: FormGroup;
 
     ngOnInit() {
         this.formGroup = new FormGroup({
-            checked: new FormControl<boolean>(false)
+            checked: new FormControl<boolean>(false),
         });
     }
 
@@ -60,6 +63,6 @@ export class ToggleButtonReactiveFormsDemo implements OnInit {
             checked: new FormControl<boolean>(false)
         });
     }
-}`
+}`,
     };
 }

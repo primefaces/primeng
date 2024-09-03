@@ -6,6 +6,6 @@ import { ContextMenuDemoRoutingModule } from './contextmenudemo-routing.module';
 
 @NgModule({
     imports: [CommonModule, ContextMenuDemoRoutingModule, ContextMenuDocModule],
-    declarations: [ContextMenuDemo]
+    declarations: [ContextMenuDemo],
 })
 export class ContextMenuDemoModule {}

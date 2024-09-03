@@ -7,39 +7,39 @@ import { StyleDoc } from '@doc/fieldset/styledoc';
 import { AccessibilityDoc } from '@doc/fieldset/accessibilitydoc';
 
 @Component({
-    templateUrl: './fieldsetdemo.html'
+    templateUrl: './fieldsetdemo.html',
 })
 export class FieldsetDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc
+            component: ImportDoc,
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc
+            component: BasicDoc,
         },
         {
             id: 'toggleable',
             label: 'Toggleable',
-            component: ToggleableDoc
+            component: ToggleableDoc,
         },
         {
             id: 'template',
             label: 'Template',
-            component: TemplateDoc
+            component: TemplateDoc,
         },
         {
             id: 'style',
             label: 'Style',
-            component: StyleDoc
+            component: StyleDoc,
         },
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc
-        }
+            component: AccessibilityDoc,
+        },
     ];
 }

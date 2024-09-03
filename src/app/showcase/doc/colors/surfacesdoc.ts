@@ -4,12 +4,23 @@ import { Component } from '@angular/core';
     selector: 'surfaces-doc',
     template: `
         <app-docsectiontext>
-            <p>Surface palette is used when designing the layers such as headers, content, footers, overlays and dividers. Surface palette varies between 0 - 900 and named surfaces are also available.</p>
+            <p>
+                Surface palette is used when designing the layers such as headers, content, footers, overlays and dividers. Surface palette
+                varies between 0 - 900 and named surfaces are also available.
+            </p>
         </app-docsectiontext>
         <div class="card">
             <div class="color-stack">
                 <div *ngFor="let shade of shades">
-                    <div class="color-box" [ngStyle]="{ backgroundColor: 'var(--surface-' + shade + ')', color: shade < 600 ? 'var(--surface-900)' : 'var(--surface-0)' }">surface-{{ shade }}</div>
+                    <div
+                        class="color-box"
+                        [ngStyle]="{
+                            backgroundColor: 'var(--surface-' + shade + ')',
+                            color: shade < 600 ? 'var(--surface-900)' : 'var(--surface-0)',
+                        }"
+                    >
+                        surface-{{ shade }}
+                    </div>
                 </div>
             </div>
         </div>
@@ -69,11 +80,25 @@ import { Component } from '@angular/core';
             .sample-layout {
                 width: 375px;
             }
-        `
-    ]
+        `,
+    ],
 })
 export class SurfacesDoc {
-    colors: string[] = ['blue', 'green', 'yellow', 'cyan', 'pink', 'indigo', 'red', 'teal', 'orange', 'bluegray', 'purple', 'gray', 'primary'];
+    colors: string[] = [
+        'blue',
+        'green',
+        'yellow',
+        'cyan',
+        'pink',
+        'indigo',
+        'red',
+        'teal',
+        'orange',
+        'bluegray',
+        'purple',
+        'gray',
+        'primary',
+    ];
 
     shades: number[] = [0, 50, 100, 200, 300, 400, 500, 600, 700, 800, 900];
 }

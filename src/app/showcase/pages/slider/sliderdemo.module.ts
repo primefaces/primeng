@@ -6,6 +6,6 @@ import { SliderDemoRoutingModule } from './sliderdemo-routing.module';
 
 @NgModule({
     imports: [CommonModule, SliderDemoRoutingModule, SliderDocModule],
-    declarations: [SliderDemo]
+    declarations: [SliderDemo],
 })
 export class SliderDemoModule {}

@@ -10,7 +10,10 @@ interface City {
     selector: 'floatlabel-doc',
     template: `
         <app-docsectiontext>
-            <p>A floating label appears on top of the input field when focused. Visit <a routerLink="/floatlabel">FloatLabel</a> documentation for more information.</p>
+            <p>
+                A floating label appears on top of the input field when focused. Visit
+                <a routerLink="/floatlabel">FloatLabel</a> documentation for more information.
+            </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-floatLabel>
@@ -19,7 +22,7 @@ interface City {
             </p-floatLabel>
         </div>
         <app-code [code]="code" selector="multi-select-floatlabel-demo"></app-code>
-    `
+    `,
 })
 export class FloatLabelDoc implements OnInit {
     cities!: City[];
@@ -32,7 +35,7 @@ export class FloatLabelDoc implements OnInit {
             { name: 'Rome', code: 'RM' },
             { name: 'London', code: 'LDN' },
             { name: 'Istanbul', code: 'IST' },
-            { name: 'Paris', code: 'PRS' }
+            { name: 'Paris', code: 'PRS' },
         ];
     }
 
@@ -87,6 +90,6 @@ export class MultiSelectFloatlabelDemo implements OnInit {
             { name: 'Paris', code: 'PRS' }
         ];
     }
-}`
+}`,
     };
 }

@@ -20,7 +20,7 @@ const theme = ({ dt }) => `
 `;
 
 const classes = {
-     root: 'p-overlaybadge'
+    root: 'p-overlaybadge',
 };
 
 @Injectable()

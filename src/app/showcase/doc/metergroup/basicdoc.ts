@@ -5,13 +5,16 @@ import { Code } from '@domain/code';
     selector: 'basic-doc',
     template: `
         <app-docsectiontext>
-            <p>MeterGroup requires a <i>value</i> as the data to display where each item in the collection should be a type of <i>MeterItem</i>.</p>
+            <p>
+                MeterGroup requires a <i>value</i> as the data to display where each item in the collection should be a type of
+                <i>MeterItem</i>.
+            </p>
         </app-docsectiontext>
         <div class="card">
             <p-meterGroup [value]="value" />
         </div>
         <app-code [code]="code" selector="meter-group-basic-demo"></app-code>
-    `
+    `,
 })
 export class BasicDoc {
     value = [{ label: 'Space used', value: 15, color: 'var(--p-primary-color)' }];
@@ -36,6 +39,6 @@ export class MeterGroupBasicDemo {
     value = [
         { label: 'Space used', value: 15, color: 'var(--p-primary-color)' }
     ];
-}`
+}`,
     };
 }

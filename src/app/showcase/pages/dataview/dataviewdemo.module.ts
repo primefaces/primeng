@@ -6,6 +6,6 @@ import { DataViewDemoRoutingModule } from './dataviewdemo-routing.module';
 
 @NgModule({
     imports: [CommonModule, DataViewDemoRoutingModule, DataViewDocModule],
-    declarations: [DataViewDemo]
+    declarations: [DataViewDemo],
 })
 export class DataViewDemoModule {}

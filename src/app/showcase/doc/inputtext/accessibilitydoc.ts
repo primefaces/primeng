@@ -7,7 +7,8 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <h3>Screen Reader</h3>
             <p>
-                InputText component renders a native input element that implicitly includes any passed prop. Value to describe the component can either be provided via <i>label</i> tag combined with <i>id</i> prop or using <i>aria-labelledby</i>,
+                InputText component renders a native input element that implicitly includes any passed prop. Value to describe the component
+                can either be provided via <i>label</i> tag combined with <i>id</i> prop or using <i>aria-labelledby</i>,
                 <i>aria-label</i> props.
             </p>
         </app-docsectiontext>
@@ -33,7 +34,7 @@ import { Code } from '@domain/code';
                 </tbody>
             </table>
         </div>
-    </div>`
+    </div>`,
 })
 export class AccessibilityDoc {
     code: Code = {
@@ -43,6 +44,6 @@ export class AccessibilityDoc {
 <span id="lastname">Lastname</span>
 <input pInputText aria-labelledby="lastname" />
 
-<input pInputText aria-label="Age" />`
+<input pInputText aria-label="Age" />`,
     };
 }

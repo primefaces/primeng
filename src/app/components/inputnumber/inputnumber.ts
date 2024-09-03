@@ -20,7 +20,7 @@ import {
     booleanAttribute,
     forwardRef,
     inject,
-    numberAttribute
+    numberAttribute,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
@@ -39,7 +39,7 @@ import { InputNumberStyle } from './style/inputnumberstyle';
 export const INPUTNUMBER_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => InputNumber),
-    multi: true
+    multi: true,
 };
 /**
  * InputNumber is an input component to provide numerical input.
@@ -48,7 +48,13 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-inputNumber',
     template: `
-        <span [ngClass]="_rootClass" [ngStyle]="style" [class]="styleClass" [attr.data-pc-name]="'inputnumber'" [attr.data-pc-section]="'root'">
+        <span
+            [ngClass]="_rootClass"
+            [ngStyle]="style"
+            [class]="styleClass"
+            [attr.data-pc-name]="'inputnumber'"
+            [attr.data-pc-section]="'root'"
+        >
             <input
                 pInputText
                 #input
@@ -91,12 +97,21 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
                 [fluid]="hasFluid"
             />
             <ng-container *ngIf="buttonLayout != 'vertical' && showClear && value">
-                <TimesIcon *ngIf="!clearIconTemplate" [ngClass]="'p-inputnumber-clear-icon'" (click)="clear()" [attr.data-pc-section]="'clearIcon'" />
+                <TimesIcon
+                    *ngIf="!clearIconTemplate"
+                    [ngClass]="'p-inputnumber-clear-icon'"
+                    (click)="clear()"
+                    [attr.data-pc-section]="'clearIcon'"
+                />
                 <span *ngIf="clearIconTemplate" (click)="clear()" class="p-inputnumber-clear-icon" [attr.data-pc-section]="'clearIcon'">
                     <ng-template *ngTemplateOutlet="clearIconTemplate"></ng-template>
                 </span>
             </ng-container>
-            <span class="p-inputnumber-button-group" *ngIf="showButtons && buttonLayout === 'stacked'" [attr.data-pc-section]="'buttonGroup'">
+            <span
+                class="p-inputnumber-button-group"
+                *ngIf="showButtons && buttonLayout === 'stacked'"
+                [attr.data-pc-section]="'buttonGroup'"
+            >
                 <button
                     type="button"
                     [ngClass]="_incrementButtonClass"
@@ -185,7 +200,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [INPUTNUMBER_VALUE_ACCESSOR, InputNumberStyle],
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
 })
 export class InputNumber extends BaseComponent implements OnInit, AfterContentInit, OnChanges, ControlValueAccessor {
     /**
@@ -507,7 +522,7 @@ export class InputNumber extends BaseComponent implements OnInit, AfterContentIn
     get hasFluid() {
         const nativeElement = this.el.nativeElement;
         const fluidComponent = nativeElement.closest('p-fluid');
-        return this.fluid || !!fluidComponent 
+        return this.fluid || !!fluidComponent;
     }
 
     get _incrementButtonClass() {
@@ -524,7 +539,18 @@ export class InputNumber extends BaseComponent implements OnInit, AfterContentIn
 
     ngOnChanges(simpleChange: SimpleChanges) {
         super.ngOnChanges(simpleChange);
-        const props = ['locale', 'localeMatcher', 'mode', 'currency', 'currencyDisplay', 'useGrouping', 'minFractionDigits', 'maxFractionDigits', 'prefix', 'suffix'];
+        const props = [
+            'locale',
+            'localeMatcher',
+            'mode',
+            'currency',
+            'currencyDisplay',
+            'useGrouping',
+            'minFractionDigits',
+            'maxFractionDigits',
+            'prefix',
+            'suffix',
+        ];
         if (props.some((p) => !!simpleChange[p])) {
             this.updateConstructParser();
         }
@@ -547,7 +573,6 @@ export class InputNumber extends BaseComponent implements OnInit, AfterContentIn
             }
         });
     }
-    
 
     ngOnInit() {
         super.ngOnInit();
@@ -566,7 +591,7 @@ export class InputNumber extends BaseComponent implements OnInit, AfterContentIn
             currencyDisplay: this.currencyDisplay,
             useGrouping: this.useGrouping,
             minimumFractionDigits: this.minFractionDigits,
-            maximumFractionDigits: this.maxFractionDigits
+            maximumFractionDigits: this.maxFractionDigits,
         };
     }
 
@@ -621,7 +646,13 @@ export class InputNumber extends BaseComponent implements OnInit, AfterContentIn
 
     getCurrencyExpression(): RegExp {
         if (this.currency) {
-            const formatter = new Intl.NumberFormat(this.locale, { style: 'currency', currency: this.currency, currencyDisplay: this.currencyDisplay, minimumFractionDigits: 0, maximumFractionDigits: 0 });
+            const formatter = new Intl.NumberFormat(this.locale, {
+                style: 'currency',
+                currency: this.currency,
+                currencyDisplay: this.currencyDisplay,
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0,
+            });
             return new RegExp(`[${formatter.format(1).replace(/\s/g, '').replace(this._numeral, '').replace(this._group, '')}]`, 'g');
         }
 
@@ -632,7 +663,11 @@ export class InputNumber extends BaseComponent implements OnInit, AfterContentIn
         if (this.prefix) {
             this.prefixChar = this.prefix;
         } else {
-            const formatter = new Intl.NumberFormat(this.locale, { style: this.mode, currency: this.currency, currencyDisplay: this.currencyDisplay });
+            const formatter = new Intl.NumberFormat(this.locale, {
+                style: this.mode,
+                currency: this.currency,
+                currencyDisplay: this.currencyDisplay,
+            });
             this.prefixChar = formatter.format(1).split('1')[0];
         }
 
@@ -643,7 +678,13 @@ export class InputNumber extends BaseComponent implements OnInit, AfterContentIn
         if (this.suffix) {
             this.suffixChar = this.suffix;
         } else {
-            const formatter = new Intl.NumberFormat(this.locale, { style: this.mode, currency: this.currency, currencyDisplay: this.currencyDisplay, minimumFractionDigits: 0, maximumFractionDigits: 0 });
+            const formatter = new Intl.NumberFormat(this.locale, {
+                style: this.mode,
+                currency: this.currency,
+                currencyDisplay: this.currencyDisplay,
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0,
+            });
             this.suffixChar = formatter.format(1).split('1')[1];
         }
 
@@ -1145,9 +1186,18 @@ export class InputNumber extends BaseComponent implements OnInit, AfterContentIn
 
             if (decimalCharIndex > 0 && selectionStart > decimalCharIndex) {
                 if (selectionStart + text.length - (decimalCharIndex + 1) <= maxFractionDigits) {
-                    const charIndex = currencyCharIndex >= selectionStart ? currencyCharIndex - 1 : suffixCharIndex >= selectionStart ? suffixCharIndex : inputValue.length;
+                    const charIndex =
+                        currencyCharIndex >= selectionStart
+                            ? currencyCharIndex - 1
+                            : suffixCharIndex >= selectionStart
+                              ? suffixCharIndex
+                              : inputValue.length;
 
-                    newValueStr = inputValue.slice(0, selectionStart) + text + inputValue.slice(selectionStart + text.length, charIndex) + inputValue.slice(charIndex);
+                    newValueStr =
+                        inputValue.slice(0, selectionStart) +
+                        text +
+                        inputValue.slice(selectionStart + text.length, charIndex) +
+                        inputValue.slice(charIndex);
                     this.updateValue(event, newValueStr, text, operation);
                 }
             } else {
@@ -1163,7 +1213,9 @@ export class InputNumber extends BaseComponent implements OnInit, AfterContentIn
         if (textSplit.length === 2) {
             const decimalCharIndex = value.slice(start, end).search(this._decimal);
             this._decimal.lastIndex = 0;
-            return decimalCharIndex > 0 ? value.slice(0, start) + this.formatValue(text) + value.slice(end) : value || this.formatValue(text);
+            return decimalCharIndex > 0
+                ? value.slice(0, start) + this.formatValue(text) + value.slice(end)
+                : value || this.formatValue(text);
         } else if (end - start === value.length) {
             return this.formatValue(text);
         } else if (start === 0) {
@@ -1251,7 +1303,10 @@ export class InputNumber extends BaseComponent implements OnInit, AfterContentIn
     }
 
     isNumeralChar(char: string) {
-        if (char.length === 1 && (this._numeral.test(char) || this._decimal.test(char) || this._group.test(char) || this._minusSign.test(char))) {
+        if (
+            char.length === 1 &&
+            (this._numeral.test(char) || this._decimal.test(char) || this._group.test(char) || this._minusSign.test(char))
+        ) {
             this.resetRegex();
             return true;
         }
@@ -1365,9 +1420,11 @@ export class InputNumber extends BaseComponent implements OnInit, AfterContentIn
                 selectionEnd = sRegex.lastIndex + tRegex.lastIndex;
                 this.input.nativeElement.setSelectionRange(selectionEnd, selectionEnd);
             } else if (newLength === currentLength) {
-                if (operation === 'insert' || operation === 'delete-back-single') this.input.nativeElement.setSelectionRange(selectionEnd + 1, selectionEnd + 1);
+                if (operation === 'insert' || operation === 'delete-back-single')
+                    this.input.nativeElement.setSelectionRange(selectionEnd + 1, selectionEnd + 1);
                 else if (operation === 'delete-single') this.input.nativeElement.setSelectionRange(selectionEnd - 1, selectionEnd - 1);
-                else if (operation === 'delete-range' || operation === 'spin') this.input.nativeElement.setSelectionRange(selectionEnd, selectionEnd);
+                else if (operation === 'delete-range' || operation === 'spin')
+                    this.input.nativeElement.setSelectionRange(selectionEnd, selectionEnd);
             } else if (operation === 'delete-back-single') {
                 let prevChar = inputValue.charAt(selectionEnd - 1);
                 let nextChar = inputValue.charAt(selectionEnd);
@@ -1402,7 +1459,11 @@ export class InputNumber extends BaseComponent implements OnInit, AfterContentIn
             this._decimal.lastIndex = 0;
 
             if (this.suffixChar) {
-                return decimalCharIndex !== -1 ? val1 : val1.replace(this.suffixChar, '').split(this._decimal)[0] + val2.replace(this.suffixChar, '').slice(decimalCharIndex) + this.suffixChar;
+                return decimalCharIndex !== -1
+                    ? val1
+                    : val1.replace(this.suffixChar, '').split(this._decimal)[0] +
+                          val2.replace(this.suffixChar, '').slice(decimalCharIndex) +
+                          this.suffixChar;
             } else {
                 return decimalCharIndex !== -1 ? val1.split(this._decimal)[0] + val2.slice(decimalCharIndex) : val1;
             }
@@ -1494,6 +1555,6 @@ export class InputNumber extends BaseComponent implements OnInit, AfterContentIn
 @NgModule({
     imports: [CommonModule, InputTextModule, ButtonModule, AutoFocusModule, TimesIcon, AngleUpIcon, AngleDownIcon],
     exports: [InputNumber, SharedModule],
-    declarations: [InputNumber]
+    declarations: [InputNumber],
 })
 export class InputNumberModule {}

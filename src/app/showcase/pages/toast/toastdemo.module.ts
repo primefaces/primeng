@@ -6,6 +6,6 @@ import { ToastDemoRoutingModule } from './toastdemo-routing.module';
 
 @NgModule({
     imports: [CommonModule, ToastDemoRoutingModule, ToastDocModule],
-    declarations: [ToastDemo]
+    declarations: [ToastDemo],
 })
 export class ToastDemoModule {}

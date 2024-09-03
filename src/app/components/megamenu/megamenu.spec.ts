@@ -10,7 +10,7 @@ describe('MegaMenu', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [RouterTestingModule.withRoutes([{ path: 'test', component: MegaMenu }]), NoopAnimationsModule, MegaMenuModule]
+            imports: [RouterTestingModule.withRoutes([{ path: 'test', component: MegaMenu }]), NoopAnimationsModule, MegaMenuModule],
         });
 
         fixture = TestBed.createComponent(MegaMenu);
@@ -43,25 +43,25 @@ describe('MegaMenu', () => {
                     [
                         {
                             label: 'TV 1',
-                            items: [{ label: 'TV 1.1' }, { label: 'TV 1.2' }]
+                            items: [{ label: 'TV 1.1' }, { label: 'TV 1.2' }],
                         },
                         {
                             label: 'TV 2',
-                            items: [{ label: 'TV 2.1' }, { label: 'TV 2.2' }]
-                        }
+                            items: [{ label: 'TV 2.1' }, { label: 'TV 2.2' }],
+                        },
                     ],
                     [
                         {
                             label: 'TV 3',
-                            items: [{ label: 'TV 3.1' }, { label: 'TV 3.2' }]
+                            items: [{ label: 'TV 3.1' }, { label: 'TV 3.2' }],
                         },
                         {
                             label: 'TV 4',
-                            items: [{ label: 'TV 4.1' }, { label: 'TV 4.2' }]
-                        }
-                    ]
-                ]
-            }
+                            items: [{ label: 'TV 4.1' }, { label: 'TV 4.2' }],
+                        },
+                    ],
+                ],
+            },
         ];
         fixture.detectChanges();
 
@@ -81,25 +81,25 @@ describe('MegaMenu', () => {
                     [
                         {
                             label: 'TV 1',
-                            items: [{ label: 'TV 1.1' }, { label: 'TV 1.2' }]
+                            items: [{ label: 'TV 1.1' }, { label: 'TV 1.2' }],
                         },
                         {
                             label: 'TV 2',
-                            items: [{ label: 'TV 2.1' }, { label: 'TV 2.2' }]
-                        }
+                            items: [{ label: 'TV 2.1' }, { label: 'TV 2.2' }],
+                        },
                     ],
                     [
                         {
                             label: 'TV 3',
-                            items: [{ label: 'TV 3.1' }, { label: 'TV 3.2' }]
+                            items: [{ label: 'TV 3.1' }, { label: 'TV 3.2' }],
                         },
                         {
                             label: 'TV 4',
-                            items: [{ label: 'TV 4.1' }, { label: 'TV 4.2' }]
-                        }
-                    ]
-                ]
-            }
+                            items: [{ label: 'TV 4.1' }, { label: 'TV 4.2' }],
+                        },
+                    ],
+                ],
+            },
         ];
         fixture.detectChanges();
 
@@ -120,14 +120,14 @@ describe('MegaMenu', () => {
                     [
                         {
                             label: 'TV 1',
-                            items: [{ label: 'TV 1.1' }, { label: 'TV 1.2' }]
+                            items: [{ label: 'TV 1.1' }, { label: 'TV 1.2' }],
                         },
                         {
                             label: 'TV 2',
-                            items: [{ label: 'TV 2.1' }, { label: 'TV 2.2' }]
-                        }
-                    ]
-                ]
+                            items: [{ label: 'TV 2.1' }, { label: 'TV 2.2' }],
+                        },
+                    ],
+                ],
             },
             {
                 label: 'Sports',
@@ -136,15 +136,15 @@ describe('MegaMenu', () => {
                     [
                         {
                             label: 'Sports 1',
-                            items: [{ label: 'Sports 1.1' }, { label: 'Sports 1.2' }]
+                            items: [{ label: 'Sports 1.1' }, { label: 'Sports 1.2' }],
                         },
                         {
                             label: 'Sports 2',
-                            items: [{ label: 'Sports 2.1' }, { label: 'Sports 2.2' }]
-                        }
-                    ]
-                ]
-            }
+                            items: [{ label: 'Sports 2.1' }, { label: 'Sports 2.2' }],
+                        },
+                    ],
+                ],
+            },
         ];
         fixture.detectChanges();
 
@@ -171,14 +171,14 @@ describe('MegaMenu', () => {
                     [
                         {
                             label: 'TV 1',
-                            items: [{ label: 'TV 1.1' }, { label: 'TV 1.2' }]
+                            items: [{ label: 'TV 1.1' }, { label: 'TV 1.2' }],
                         },
                         {
                             label: 'TV 2',
-                            items: [{ label: 'TV 2.1' }, { label: 'TV 2.2' }]
-                        }
-                    ]
-                ]
+                            items: [{ label: 'TV 2.1' }, { label: 'TV 2.2' }],
+                        },
+                    ],
+                ],
             },
             {
                 label: 'Sports',
@@ -187,15 +187,15 @@ describe('MegaMenu', () => {
                     [
                         {
                             label: 'Sports 1',
-                            items: [{ label: 'Sports 1.1' }, { label: 'Sports 1.2' }]
+                            items: [{ label: 'Sports 1.1' }, { label: 'Sports 1.2' }],
                         },
                         {
                             label: 'Sports 2',
-                            items: [{ label: 'Sports 2.1' }, { label: 'Sports 2.2' }]
-                        }
-                    ]
-                ]
-            }
+                            items: [{ label: 'Sports 2.1' }, { label: 'Sports 2.2' }],
+                        },
+                    ],
+                ],
+            },
         ];
         const itemClickSpy = spyOn(megamenu, 'onItemClick').and.callThrough();
         fixture.detectChanges();
@@ -224,14 +224,14 @@ describe('MegaMenu', () => {
                     [
                         {
                             label: 'TV 1',
-                            items: [{ label: 'TV 1.1', disabled: true }, { label: 'TV 1.2' }]
+                            items: [{ label: 'TV 1.1', disabled: true }, { label: 'TV 1.2' }],
                         },
                         {
                             label: 'TV 2',
-                            items: [{ label: 'TV 2.1' }, { label: 'TV 2.2' }]
-                        }
-                    ]
-                ]
+                            items: [{ label: 'TV 2.1' }, { label: 'TV 2.2' }],
+                        },
+                    ],
+                ],
             },
             {
                 label: 'Sports',
@@ -240,15 +240,15 @@ describe('MegaMenu', () => {
                     [
                         {
                             label: 'Sports 1',
-                            items: [{ label: 'Sports 1.1' }, { label: 'Sports 1.2' }]
+                            items: [{ label: 'Sports 1.1' }, { label: 'Sports 1.2' }],
                         },
                         {
                             label: 'Sports 2',
-                            items: [{ label: 'Sports 2.1' }, { label: 'Sports 2.2' }]
-                        }
-                    ]
-                ]
-            }
+                            items: [{ label: 'Sports 2.1' }, { label: 'Sports 2.2' }],
+                        },
+                    ],
+                ],
+            },
         ];
         const itemClickSpy = spyOn(megamenu, 'onItemClick').and.callThrough();
         fixture.detectChanges();
@@ -282,17 +282,17 @@ describe('MegaMenu', () => {
                                     label: 'TV 1.1',
                                     command: (event) => {
                                         item = event.item;
-                                    }
+                                    },
                                 },
-                                { label: 'TV 1.2' }
-                            ]
+                                { label: 'TV 1.2' },
+                            ],
                         },
                         {
                             label: 'TV 2',
-                            items: [{ label: 'TV 2.1' }, { label: 'TV 2.2' }]
-                        }
-                    ]
-                ]
+                            items: [{ label: 'TV 2.1' }, { label: 'TV 2.2' }],
+                        },
+                    ],
+                ],
             },
             {
                 label: 'Sports',
@@ -301,15 +301,15 @@ describe('MegaMenu', () => {
                     [
                         {
                             label: 'Sports 1',
-                            items: [{ label: 'Sports 1.1' }, { label: 'Sports 1.2' }]
+                            items: [{ label: 'Sports 1.1' }, { label: 'Sports 1.2' }],
                         },
                         {
                             label: 'Sports 2',
-                            items: [{ label: 'Sports 2.1' }, { label: 'Sports 2.2' }]
-                        }
-                    ]
-                ]
-            }
+                            items: [{ label: 'Sports 2.1' }, { label: 'Sports 2.2' }],
+                        },
+                    ],
+                ],
+            },
         ];
         fixture.detectChanges();
 
@@ -335,23 +335,23 @@ describe('MegaMenu', () => {
                     [
                         {
                             label: 'TV 1',
-                            items: [{ label: 'TV 1.1' }, { label: 'TV 1.2' }]
-                        }
+                            items: [{ label: 'TV 1.1' }, { label: 'TV 1.2' }],
+                        },
                     ],
                     [
                         {
                             label: 'TV 2',
-                            items: [{ label: 'TV 2.1' }, { label: 'TV 2.2' }]
-                        }
+                            items: [{ label: 'TV 2.1' }, { label: 'TV 2.2' }],
+                        },
                     ],
                     [
                         {
                             label: 'TV 3',
-                            items: [{ label: 'TV 3.1' }, { label: 'TV 3.2' }]
-                        }
-                    ]
-                ]
-            }
+                            items: [{ label: 'TV 3.1' }, { label: 'TV 3.2' }],
+                        },
+                    ],
+                ],
+            },
         ];
         fixture.detectChanges();
 
@@ -375,25 +375,25 @@ describe('MegaMenu', () => {
                     [
                         {
                             label: 'Video 1',
-                            items: [{ label: 'Video 1.1' }, { label: 'Video 1.2' }]
+                            items: [{ label: 'Video 1.1' }, { label: 'Video 1.2' }],
                         },
                         {
                             label: 'Video 2',
-                            items: [{ label: 'Video 2.1' }, { label: 'Video 2.2' }]
-                        }
+                            items: [{ label: 'Video 2.1' }, { label: 'Video 2.2' }],
+                        },
                     ],
                     [
                         {
                             label: 'Video 3',
-                            items: [{ label: 'Video 3.1' }, { label: 'Video 3.2' }]
+                            items: [{ label: 'Video 3.1' }, { label: 'Video 3.2' }],
                         },
                         {
                             label: 'Video 4',
-                            items: [{ label: 'Video 4.1' }, { label: 'Video 4.2' }]
-                        }
-                    ]
-                ]
-            }
+                            items: [{ label: 'Video 4.1' }, { label: 'Video 4.2' }],
+                        },
+                    ],
+                ],
+            },
         ];
         fixture.detectChanges();
 
@@ -417,41 +417,41 @@ describe('MegaMenu', () => {
                     [
                         {
                             label: 'TV 1',
-                            items: [{ label: 'TV 1.1' }, { label: 'TV 1.2' }]
-                        }
+                            items: [{ label: 'TV 1.1' }, { label: 'TV 1.2' }],
+                        },
                     ],
                     [
                         {
                             label: 'TV 2',
-                            items: [{ label: 'TV 2.1' }, { label: 'TV 2.2' }]
-                        }
+                            items: [{ label: 'TV 2.1' }, { label: 'TV 2.2' }],
+                        },
                     ],
                     [
                         {
                             label: 'TV 3',
-                            items: [{ label: 'TV 3.1' }, { label: 'TV 3.2' }]
-                        }
+                            items: [{ label: 'TV 3.1' }, { label: 'TV 3.2' }],
+                        },
                     ],
                     [
                         {
                             label: 'TV 4',
-                            items: [{ label: 'TV 4.1' }, { label: 'TV 4.2' }]
-                        }
+                            items: [{ label: 'TV 4.1' }, { label: 'TV 4.2' }],
+                        },
                     ],
                     [
                         {
                             label: 'TV 5',
-                            items: [{ label: 'TV 5.1' }, { label: 'TV 5.2' }]
-                        }
+                            items: [{ label: 'TV 5.1' }, { label: 'TV 5.2' }],
+                        },
                     ],
                     [
                         {
                             label: 'TV 6',
-                            items: [{ label: 'TV 6.1' }, { label: 'TV 6.2' }]
-                        }
-                    ]
-                ]
-            }
+                            items: [{ label: 'TV 6.1' }, { label: 'TV 6.2' }],
+                        },
+                    ],
+                ],
+            },
         ];
         fixture.detectChanges();
 
@@ -475,14 +475,14 @@ describe('MegaMenu', () => {
                     [
                         {
                             label: 'TV 1',
-                            items: [{ label: 'TV 1.1' }, { label: 'TV 1.2' }]
+                            items: [{ label: 'TV 1.1' }, { label: 'TV 1.2' }],
                         },
                         {
                             label: 'TV 2',
-                            items: [{ label: 'TV 2.1' }, { label: 'TV 2.2' }]
-                        }
-                    ]
-                ]
+                            items: [{ label: 'TV 2.1' }, { label: 'TV 2.2' }],
+                        },
+                    ],
+                ],
             },
             {
                 label: 'Sports',
@@ -491,15 +491,15 @@ describe('MegaMenu', () => {
                     [
                         {
                             label: 'Sports 1',
-                            items: [{ label: 'Sports 1.1' }, { label: 'Sports 1.2' }]
+                            items: [{ label: 'Sports 1.1' }, { label: 'Sports 1.2' }],
                         },
                         {
                             label: 'Sports 2',
-                            items: [{ label: 'Sports 2.1' }, { label: 'Sports 2.2' }]
-                        }
-                    ]
-                ]
-            }
+                            items: [{ label: 'Sports 2.1' }, { label: 'Sports 2.2' }],
+                        },
+                    ],
+                ],
+            },
         ];
 
         const onArrowDownKeySpy = spyOn(megamenu, 'onArrowDownKey').and.callThrough();

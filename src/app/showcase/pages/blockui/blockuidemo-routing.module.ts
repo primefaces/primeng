@@ -4,6 +4,6 @@ import { BlockUIDemo } from './blockuidemo';
 
 @NgModule({
     imports: [RouterModule.forChild([{ path: '', component: BlockUIDemo }])],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class BlockUIDemoRoutingModule {}

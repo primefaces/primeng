@@ -6,6 +6,6 @@ import { FilterServiceDemo } from './filterservicedemo';
 
 @NgModule({
     imports: [CommonModule, FilterServiceDemoRoutingModule, FilterServiceDocModule],
-    declarations: [FilterServiceDemo]
+    declarations: [FilterServiceDemo],
 })
 export class FilterServiceDemoModule {}

@@ -17,7 +17,17 @@ import { UtilsDoc } from './utilsdoc';
 
 @NgModule({
     imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, ButtonModule, PanelModule],
-    declarations: [ArchitectureDoc, CSSVariablesDoc, CustomThemeDoc, ScopedCSSDoc, PrimeFlexDoc, ScalingDoc, BuiltInThemesDoc, SwitchThemesDoc, UtilsDoc],
-    exports: [AppDocModule]
+    declarations: [
+        ArchitectureDoc,
+        CSSVariablesDoc,
+        CustomThemeDoc,
+        ScopedCSSDoc,
+        PrimeFlexDoc,
+        ScalingDoc,
+        BuiltInThemesDoc,
+        SwitchThemesDoc,
+        UtilsDoc,
+    ],
+    exports: [AppDocModule],
 })
 export class ThemingDocModule {}

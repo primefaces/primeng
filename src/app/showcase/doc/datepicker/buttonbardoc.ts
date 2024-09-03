@@ -11,7 +11,7 @@ import { Code } from '@domain/code';
             <p-datePicker [(ngModel)]="date" [showButtonBar]="true" />
         </div>
         <app-code [code]="code" selector="datepicker-buttonbar-demo"></app-code>
-    `
+    `,
 })
 export class ButtonBarDoc {
     date: Date[] | undefined;
@@ -39,6 +39,6 @@ import { DatePickerModule } from 'primeng/datepicker';
 })
 export class DatePickerButtonbarDemo {
     date: Date[] | undefined;
-}`
+}`,
     };
 }

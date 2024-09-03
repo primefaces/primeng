@@ -5,14 +5,21 @@ import { Code } from '@domain/code';
     selector: 'vertical-doc',
     template: `
         <app-docsectiontext>
-            <p>Layout of the Stepper is configured with the <i>orientation</i> property that accepts <i>horizontal</i> and <i>vertical</i> as available options.</p>
+            <p>
+                Layout of the Stepper is configured with the <i>orientation</i> property that accepts <i>horizontal</i> and
+                <i>vertical</i> as available options.
+            </p>
         </app-docsectiontext>
         <div class="card">
             <p-stepper orientation="vertical">
                 <p-stepperPanel header="Header I">
                     <ng-template pTemplate="content" let-nextCallback="nextCallback" let-index="index">
                         <div class="flex flex-col h-48">
-                            <div class="border-2 border-dashed border-surface rounded-border bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium">Content I</div>
+                            <div
+                                class="border-2 border-dashed border-surface rounded-border bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium"
+                            >
+                                Content I
+                            </div>
                         </div>
                         <div class="flex py-6">
                             <p-button label="Next" (onClick)="nextCallback.emit()" /></div
@@ -21,7 +28,11 @@ import { Code } from '@domain/code';
                 <p-stepperPanel header="Header II">
                     <ng-template pTemplate="content" let-prevCallback="prevCallback" let-nextCallback="nextCallback" let-index="index">
                         <div class="flex flex-col h-48">
-                            <div class="border-2 border-dashed border-surface rounded-border bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium">Content II</div>
+                            <div
+                                class="border-2 border-dashed border-surface rounded-border bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium"
+                            >
+                                Content II
+                            </div>
                         </div>
                         <div class="flex py-6 gap-2">
                             <p-button label="Back" severity="secondary" (onClick)="prevCallback.emit()" />
@@ -31,7 +42,11 @@ import { Code } from '@domain/code';
                 <p-stepperPanel header="Header III">
                     <ng-template pTemplate="content" let-prevCallback="prevCallback" let-index="index">
                         <div class="flex flex-col h-48">
-                            <div class="border-2 border-dashed border-surface rounded-border bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium">Content III</div>
+                            <div
+                                class="border-2 border-dashed border-surface rounded-border bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium"
+                            >
+                                Content III
+                            </div>
                         </div>
                         <div class="flex py-6">
                             <p-button label="Back" (onClick)="prevCallback.emit()" /></div
@@ -40,7 +55,7 @@ import { Code } from '@domain/code';
             </p-stepper>
         </div>
         <app-code [code]="code" selector="stepper-vertical-demo"></app-code>
-    `
+    `,
 })
 export class VerticalDoc {
     code: Code = {
@@ -135,6 +150,6 @@ import { ButtonModule } from 'primeng/button';
     imports: [StepperModule, ButtonModule]
 })
 export class StepperVerticalDemo {
-}`
+}`,
     };
 }

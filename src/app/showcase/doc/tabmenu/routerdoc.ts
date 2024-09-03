@@ -7,7 +7,10 @@ import { Router } from '@angular/router';
     selector: 'router-doc',
     template: `
         <app-docsectiontext>
-            <p>Items with navigation are defined with templating to be able to use a router link directive, an external link or programmatic navigation.</p>
+            <p>
+                Items with navigation are defined with templating to be able to use a router link directive, an external link or
+                programmatic navigation.
+            </p>
         </app-docsectiontext>
         <div class="card">
             <p-tabMenu [model]="items">
@@ -28,7 +31,7 @@ import { Router } from '@angular/router';
             </p-tabMenu>
         </div>
         <app-code [code]="code" selector="tab-menu-router-demo"></app-code>
-    `
+    `,
 })
 export class RouterDoc implements OnInit {
     items: MenuItem[] | undefined;
@@ -43,9 +46,9 @@ export class RouterDoc implements OnInit {
                 icon: 'pi pi-palette',
                 command: () => {
                     this.router.navigate(['/theming']);
-                }
+                },
             },
-            { label: 'External', icon: 'pi pi-link', url: 'https://angular.io/' }
+            { label: 'External', icon: 'pi pi-link', url: 'https://angular.io/' },
         ];
     }
 
@@ -125,6 +128,6 @@ export class TabMenuRouterDemo implements OnInit {
         ];
     }
 
-}`
+}`,
     };
 }

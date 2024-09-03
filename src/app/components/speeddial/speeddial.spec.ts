@@ -9,7 +9,7 @@ describe('SpeedDial', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule, SpeedDialModule]
+            imports: [NoopAnimationsModule, SpeedDialModule],
         });
 
         fixture = TestBed.createComponent(SpeedDial);

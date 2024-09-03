@@ -4,6 +4,6 @@ import { KeyFilterDemo } from './keyfilterdemo';
 
 @NgModule({
     imports: [RouterModule.forChild([{ path: '', component: KeyFilterDemo }])],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class KeyFilterDemoRoutingModule {}

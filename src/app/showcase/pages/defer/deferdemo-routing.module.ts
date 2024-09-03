@@ -4,6 +4,6 @@ import { DeferDemo } from './deferdemo';
 
 @NgModule({
     imports: [RouterModule.forChild([{ path: '', component: DeferDemo }])],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class DeferDemoRoutingModule {}

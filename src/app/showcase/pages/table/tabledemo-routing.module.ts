@@ -4,6 +4,6 @@ import { TableDemo } from './tabledemo';
 
 @NgModule({
     imports: [RouterModule.forChild([{ path: '', component: TableDemo }])],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class TableDemoRoutingModule {}

@@ -4,6 +4,6 @@ import { FloatLabelDemo } from './floatlabeldemo';
 
 @NgModule({
     imports: [RouterModule.forChild([{ path: '', component: FloatLabelDemo }])],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class FloatLabelDemoRoutingModule {}

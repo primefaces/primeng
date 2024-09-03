@@ -17,7 +17,7 @@ import { Code } from '@domain/code';
             <p-badge value="5" severity="contrast" />
         </div>
         <app-code [code]="code" selector="badge-severity-demo"></app-code>
-    `
+    `,
 })
 export class SeverityDoc {
     code: Code = {
@@ -37,6 +37,6 @@ import { BadgeModule } from 'primeng/badge';
     standalone: true,
     imports: [BadgeModule]
 })
-export class BadgeSeverityDemo {}`
+export class BadgeSeverityDemo {}`,
     };
 }

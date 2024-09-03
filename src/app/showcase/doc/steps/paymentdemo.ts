@@ -16,7 +16,11 @@ import { Router } from '@angular/router';
                         </div>
                         <div class="field col-span-8">
                             <label id="number" for="lastname">Number</label>
-                            <p-inputMask inputId="number" mask="9999-9999-9999-9999" [(ngModel)]="paymentInformation.cardholderNumber"></p-inputMask>
+                            <p-inputMask
+                                inputId="number"
+                                mask="9999-9999-9999-9999"
+                                [(ngModel)]="paymentInformation.cardholderNumber"
+                            ></p-inputMask>
                         </div>
                         <div class="field col-span-2">
                             <label id="date" for="date">Date</label>
@@ -40,14 +44,14 @@ import { Router } from '@angular/router';
                 </ng-template>
             </p-card>
         </div>
-    `
+    `,
 })
 export class PaymentDemo implements OnInit {
     paymentInformation: any;
 
     constructor(
         public ticketService: TicketService,
-        private router: Router
+        private router: Router,
     ) {}
 
     ngOnInit() {

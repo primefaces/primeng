@@ -6,13 +6,16 @@ import { Code } from '@domain/code';
     selector: 'active-doc',
     template: `
         <app-docsectiontext>
-            <p>By default item that matches the active route is highlighted, alternatively <i>activeItem</i> property can be used choose the initial active item.</p>
+            <p>
+                By default item that matches the active route is highlighted, alternatively <i>activeItem</i> property can be used choose
+                the initial active item.
+            </p>
         </app-docsectiontext>
         <div class="card">
             <p-tabMenu [model]="items" [activeItem]="activeItem"></p-tabMenu>
         </div>
         <app-code [code]="code" selector="tab-menu-active-demo"></app-code>
-    `
+    `,
 })
 export class ActiveDoc implements OnInit {
     items: MenuItem[] | undefined;
@@ -25,7 +28,7 @@ export class ActiveDoc implements OnInit {
             { label: 'Calendar', icon: 'pi pi-fw pi-calendar' },
             { label: 'Edit', icon: 'pi pi-fw pi-pencil' },
             { label: 'Documentation', icon: 'pi pi-fw pi-file' },
-            { label: 'Settings', icon: 'pi pi-fw pi-cog' }
+            { label: 'Settings', icon: 'pi pi-fw pi-cog' },
         ];
 
         this.activeItem = this.items[0];
@@ -63,6 +66,6 @@ export class TabMenuActiveDemo implements OnInit {
 
         this.activeItem = this.items[0];
     }
-}`
+}`,
     };
 }

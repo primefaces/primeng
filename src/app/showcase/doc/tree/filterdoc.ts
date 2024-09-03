@@ -8,9 +8,11 @@ import { NodeService } from '@service/nodeservice';
     template: `
         <app-docsectiontext>
             <p>
-                Filtering is enabled by adding the <i>filter</i> property, by default label property of a node is used to compare against the value in the text field, in order to customize which field(s) should be used during search define
-                <i>filterBy</i> property. In addition <i>filterMode</i> specifies the filtering strategy. In <i>lenient</i> mode when the query matches a node, children of the node are not searched further as all descendants of the node are included.
-                On the other hand, in <i>strict</i> mode when the query matches a node, filtering continues on all descendants.
+                Filtering is enabled by adding the <i>filter</i> property, by default label property of a node is used to compare against
+                the value in the text field, in order to customize which field(s) should be used during search define
+                <i>filterBy</i> property. In addition <i>filterMode</i> specifies the filtering strategy. In <i>lenient</i> mode when the
+                query matches a node, children of the node are not searched further as all descendants of the node are included. On the
+                other hand, in <i>strict</i> mode when the query matches a node, filtering continues on all descendants.
             </p>
         </app-docsectiontext>
         <div class="card flex flex-wrap justify-center gap-8">
@@ -18,7 +20,7 @@ import { NodeService } from '@service/nodeservice';
             <p-tree [value]="files" class="w-full md:w-[30rem]" [filter]="true" filterMode="strict" filterPlaceholder="Strict Filter" />
         </div>
         <app-code [code]="code" selector="tree-filter-demo"></app-code>
-    `
+    `,
 })
 export class FilterDoc implements OnInit {
     files!: TreeNode[];
@@ -107,6 +109,6 @@ export class TreeFilterDemo implements OnInit {
         }
     ]
 },
-...`
+...`,
     };
 }

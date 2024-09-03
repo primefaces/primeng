@@ -6,6 +6,6 @@ import { DatePickerDocModule } from '@doc/datepicker/datepickerdoc.module';
 
 @NgModule({
     imports: [CommonModule, DatePickerDemoRoutingModule, DatePickerDocModule],
-    declarations: [DatePickerDemo]
+    declarations: [DatePickerDemo],
 })
 export class DatePickerDemoModule {}

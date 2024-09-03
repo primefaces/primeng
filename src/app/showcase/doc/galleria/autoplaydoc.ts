@@ -9,7 +9,14 @@ import { PhotoService } from '@service/photoservice';
             <p>A slideshow implementation is defined by adding <i>circular</i> and <i>autoPlay</i> properties.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-galleria [(value)]="images" [autoPlay]="true" [circular]="true" [responsiveOptions]="responsiveOptions" [numVisible]="5" [containerStyle]="{ 'max-width': '640px' }">
+            <p-galleria
+                [(value)]="images"
+                [autoPlay]="true"
+                [circular]="true"
+                [responsiveOptions]="responsiveOptions"
+                [numVisible]="5"
+                [containerStyle]="{ 'max-width': '640px' }"
+            >
                 <ng-template pTemplate="item" let-item>
                     <img [src]="item.itemImageSrc" style="width: 100%; display: block" />
                 </ng-template>
@@ -19,7 +26,7 @@ import { PhotoService } from '@service/photoservice';
             </p-galleria>
         </div>
         <app-code [code]="code" selector="galleria-autoplay-demo"></app-code>
-    `
+    `,
 })
 export class AutoPlayDoc implements OnInit {
     images: any[] | undefined;
@@ -27,16 +34,16 @@ export class AutoPlayDoc implements OnInit {
     responsiveOptions: any[] = [
         {
             breakpoint: '1024px',
-            numVisible: 5
+            numVisible: 5,
         },
         {
             breakpoint: '768px',
-            numVisible: 3
+            numVisible: 3,
         },
         {
             breakpoint: '560px',
-            numVisible: 1
-        }
+            numVisible: 1,
+        },
     ];
 
     constructor(private photoService: PhotoService) {}
@@ -120,6 +127,6 @@ export class GalleriaAutoplayDemo implements OnInit {
     title: 'Title 1'
 },
 ...`,
-        service: ['PhotoService']
+        service: ['PhotoService'],
     };
 }

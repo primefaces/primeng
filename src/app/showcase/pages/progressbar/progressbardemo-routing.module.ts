@@ -4,6 +4,6 @@ import { ProgressBarDemo } from './progressbardemo';
 
 @NgModule({
     imports: [RouterModule.forChild([{ path: '', component: ProgressBarDemo }])],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class ProgressBarDemoRoutingModule {}

@@ -15,7 +15,7 @@ import { Code } from '@domain/code';
                 <li>Use <em>CSS selector</em></li>
                 <li>Use <em>() =&gt; HTMLElement</em></li>
             </ul>
-        </div>`
+        </div>`,
 })
 export class TargetDoc {
     code: Code = {
@@ -23,6 +23,6 @@ export class TargetDoc {
 
 this.primengConfig.overlayOptions: OverlayOptions = {
     appendTo: 'body'
-};`
+};`,
     };
 }

@@ -94,7 +94,11 @@ export class FilterService {
 
             if (value.getTime && filter.getTime) return value.getTime() === filter.getTime();
             else if (value == filter) return true;
-            else return ObjectUtils.removeAccents(value.toString()).toLocaleLowerCase(filterLocale) == ObjectUtils.removeAccents(filter.toString()).toLocaleLowerCase(filterLocale);
+            else
+                return (
+                    ObjectUtils.removeAccents(value.toString()).toLocaleLowerCase(filterLocale) ==
+                    ObjectUtils.removeAccents(filter.toString()).toLocaleLowerCase(filterLocale)
+                );
         },
 
         notEquals: (value: any, filter: any, filterLocale?: any): boolean => {
@@ -108,7 +112,11 @@ export class FilterService {
 
             if (value.getTime && filter.getTime) return value.getTime() !== filter.getTime();
             else if (value == filter) return false;
-            else return ObjectUtils.removeAccents(value.toString()).toLocaleLowerCase(filterLocale) != ObjectUtils.removeAccents(filter.toString()).toLocaleLowerCase(filterLocale);
+            else
+                return (
+                    ObjectUtils.removeAccents(value.toString()).toLocaleLowerCase(filterLocale) !=
+                    ObjectUtils.removeAccents(filter.toString()).toLocaleLowerCase(filterLocale)
+                );
         },
 
         in: (value: any, filter: any[]): boolean => {
@@ -253,7 +261,7 @@ export class FilterService {
             value.setHours(0, 0, 0, 0);
 
             return value.getTime() > filter.getTime();
-        }
+        },
     };
 
     register(rule: string, fn: Function) {

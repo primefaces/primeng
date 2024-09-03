@@ -4,6 +4,6 @@ import { ToggleButtonDemo } from './togglebuttondemo';
 
 @NgModule({
     imports: [RouterModule.forChild([{ path: '', component: ToggleButtonDemo }])],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class ToggleButtonDemoRoutingModule {}

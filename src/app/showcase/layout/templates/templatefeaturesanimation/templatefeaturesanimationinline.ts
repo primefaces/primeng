@@ -1,5 +1,15 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Inject, Input, NgModule, PLATFORM_ID, ViewEncapsulation } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    ElementRef,
+    Inject,
+    Input,
+    NgModule,
+    PLATFORM_ID,
+    ViewEncapsulation,
+} from '@angular/core';
 import { SharedModule } from 'primeng/api';
 
 @Component({
@@ -23,7 +33,7 @@ import { SharedModule } from 'primeng/api';
         </div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
 })
 export class TemplateFeaturesAnimationInline {
     @Input() inlineFeaturesData;
@@ -51,7 +61,7 @@ export class TemplateFeaturesAnimationInline {
     constructor(
         private cd: ChangeDetectorRef,
         public el: ElementRef,
-        @Inject(PLATFORM_ID) private platformId: any
+        @Inject(PLATFORM_ID) private platformId: any,
     ) {}
 
     ngOnInit() {
@@ -109,6 +119,6 @@ export class TemplateFeaturesAnimationInline {
 @NgModule({
     imports: [CommonModule, SharedModule],
     exports: [TemplateFeaturesAnimationInline, SharedModule],
-    declarations: [TemplateFeaturesAnimationInline]
+    declarations: [TemplateFeaturesAnimationInline],
 })
 export class TemplateFeaturesAnimationInlineModule {}

@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
             <p>Inline SVGs are embedded inside the dom.</p>
         </app-docsectiontext>
         <app-code [code]="code" [hideToggleCode]="true"></app-code>
-    `
+    `,
 })
 export class SVGDoc {
     code: Code = {
@@ -20,6 +20,6 @@ export class SVGDoc {
             </g>
         </svg>
     </ng-template>
-</p-dropdown>`
+</p-dropdown>`,
     };
 }

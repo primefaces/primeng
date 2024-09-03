@@ -6,6 +6,6 @@ import { ColorPickerDemoRoutingModule } from './colorpickerdemo-routing.module';
 
 @NgModule({
     imports: [CommonModule, ColorPickerDemoRoutingModule, ColorPickerDocModule],
-    declarations: [ColorPickerDemo]
+    declarations: [ColorPickerDemo],
 })
 export class ColorPickerDemoModule {}

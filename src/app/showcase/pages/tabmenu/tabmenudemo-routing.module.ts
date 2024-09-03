@@ -4,6 +4,6 @@ import { TabMenuDemo } from './tabmenudemo';
 
 @NgModule({
     imports: [RouterModule.forChild([{ path: '', component: TabMenuDemo }])],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class TabMenuDemoRoutingModule {}

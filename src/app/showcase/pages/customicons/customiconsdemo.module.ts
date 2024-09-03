@@ -6,6 +6,6 @@ import { CustomIconsDemoComponent } from './customiconsdemo.component';
 
 @NgModule({
     imports: [CommonModule, CustomIconsDemoRoutingModule, CustomIconsDocModule],
-    declarations: [CustomIconsDemoComponent]
+    declarations: [CustomIconsDemoComponent],
 })
 export class CustomIconsDemoModule {}

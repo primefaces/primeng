@@ -6,9 +6,9 @@ import { Code } from '@domain/code';
     template: `
         <app-docsectiontext>
             <p>
-                Mask format can be a combination of the following definitions; <i>a</i> for alphabetic characters,
-                <i>9</i> for numeric characters and <i>*</i> for alphanumberic characters. In addition, formatting
-                characters like <i>(</i> , <i>)</i> , <i>-</i> are also accepted.
+                Mask format can be a combination of the following definitions; <i>a</i> for alphabetic characters, <i>9</i> for numeric
+                characters and <i>*</i> for alphanumberic characters. In addition, formatting characters like <i>(</i> , <i>)</i> ,
+                <i>-</i> are also accepted.
             </p>
         </app-docsectiontext>
         <p-fluid class="card flex flex-wrap gap-4">

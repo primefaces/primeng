@@ -7,7 +7,10 @@ var gulp = require('gulp'),
     flatten = require('gulp-flatten');
 
 gulp.task('images', function () {
-    return gulp.src(['src/app/components/**/images/*.png', 'src/app/components/**/images/*.gif']).pipe(flatten()).pipe(gulp.dest('dist/resources/images'));
+    return gulp
+        .src(['src/app/components/**/images/*.png', 'src/app/components/**/images/*.gif'])
+        .pipe(flatten())
+        .pipe(gulp.dest('dist/resources/images'));
 });
 
 gulp.task('themes', function () {

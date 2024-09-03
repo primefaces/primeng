@@ -7,8 +7,8 @@ import { PhotoService } from '@service/photoservice';
     template: `
         <app-docsectiontext>
             <p>
-                Galleria requires a <i>value</i> as a collection of images, <i>item</i> template for the higher
-                resolution image and <i>thumbnail</i> template to display as a thumbnail.
+                Galleria requires a <i>value</i> as a collection of images, <i>item</i> template for the higher resolution image and
+                <i>thumbnail</i> template to display as a thumbnail.
             </p>
         </app-docsectiontext>
         <div class="card">

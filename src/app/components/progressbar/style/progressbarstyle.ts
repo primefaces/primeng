@@ -123,11 +123,11 @@ const classes = {
         'p-progressbar p-component',
         {
             'p-progressbar-determinate': instance.determinate,
-            'p-progressbar-indeterminate': instance.indeterminate
-        }
+            'p-progressbar-indeterminate': instance.indeterminate,
+        },
     ],
     value: 'p-progressbar-value',
-    label: 'p-progressbar-label'
+    label: 'p-progressbar-label',
 };
 
 @Injectable()

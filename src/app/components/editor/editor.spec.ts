@@ -10,7 +10,7 @@ describe('Editor', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [NoopAnimationsModule],
-            declarations: [Editor]
+            declarations: [Editor],
         });
 
         fixture = TestBed.createComponent(Editor);

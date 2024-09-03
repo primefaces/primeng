@@ -5,7 +5,10 @@ import { Code } from '@domain/code';
     selector: 'position-doc',
     template: `
         <app-docsectiontext>
-            <p>Position of the tooltip is specified using <i>tooltipPosition</i> attribute. Valid values are <i>top</i>, <i>bottom</i>, <i>right</i> and <i>left</i>. Default position of the tooltip is <i>right</i>.</p>
+            <p>
+                Position of the tooltip is specified using <i>tooltipPosition</i> attribute. Valid values are <i>top</i>, <i>bottom</i>,
+                <i>right</i> and <i>left</i>. Default position of the tooltip is <i>right</i>.
+            </p>
         </app-docsectiontext>
         <div class="card flex flex-wrap justify-center gap-2">
             <input type="text" pInputText pTooltip="Enter your username" tooltipPosition="right" placeholder="Right" />
@@ -14,7 +17,7 @@ import { Code } from '@domain/code';
             <input type="text" pInputText pTooltip="Enter your username" tooltipPosition="bottom" placeholder="Bottom" />
         </div>
         <app-code [code]="code" selector="tooltip-position-demo"></app-code>
-    `
+    `,
 })
 export class PositionDoc {
     code: Code = {
@@ -80,6 +83,6 @@ import { InputTextModule } from 'primeng/inputtext';
     standalone: true,
     imports: [TooltipModule, InputTextModule]
 })
-export class TooltipPositionDemo {}`
+export class TooltipPositionDemo {}`,
     };
 }

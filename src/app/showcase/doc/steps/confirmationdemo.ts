@@ -11,7 +11,10 @@ import { Router } from '@angular/router';
                 <ng-template pTemplate="content">
                     <div class="field col-span-12">
                         <label for="class">Name</label>
-                        <b>{{ ticketInformation.personalInformation.firstname ? ticketInformation.personalInformation.firstname : '-' }} {{ ticketInformation.personalInformation.lastname ? ticketInformation.personalInformation.lastname : '-' }}</b>
+                        <b
+                            >{{ ticketInformation.personalInformation.firstname ? ticketInformation.personalInformation.firstname : '-' }}
+                            {{ ticketInformation.personalInformation.lastname ? ticketInformation.personalInformation.lastname : '-' }}</b
+                        >
                     </div>
                     <div class="field col-span-12">
                         <label for="Age">Age</label>
@@ -31,11 +34,17 @@ import { Router } from '@angular/router';
                     </div>
                     <div class="field col-span-12">
                         <label for="Age">Cardholder Name</label>
-                        <b>{{ ticketInformation.paymentInformation.cardholderName ? ticketInformation.paymentInformation.cardholderName : '-' }}</b>
+                        <b>{{
+                            ticketInformation.paymentInformation.cardholderName ? ticketInformation.paymentInformation.cardholderName : '-'
+                        }}</b>
                     </div>
                     <div class="field col-span-12">
                         <label for="Age">Card Number</label>
-                        <b>{{ ticketInformation.paymentInformation.cardholderNumber ? ticketInformation.paymentInformation.cardholderNumber : '-' }}</b>
+                        <b>{{
+                            ticketInformation.paymentInformation.cardholderNumber
+                                ? ticketInformation.paymentInformation.cardholderNumber
+                                : '-'
+                        }}</b>
                     </div>
                     <div class="field col-span-12">
                         <label for="Age">Date</label>
@@ -43,25 +52,35 @@ import { Router } from '@angular/router';
                     </div>
                     <div class="field col-span-12">
                         <label for="Age">CVV</label>
-                        <b>{{ ticketInformation.paymentInformation.cvv && ticketInformation.paymentInformation.cvv.length === 3 ? '**' + ticketInformation.paymentInformation.cvv[2] : '-' }}</b>
+                        <b>{{
+                            ticketInformation.paymentInformation.cvv && ticketInformation.paymentInformation.cvv.length === 3
+                                ? '**' + ticketInformation.paymentInformation.cvv[2]
+                                : '-'
+                        }}</b>
                     </div>
                 </ng-template>
                 <ng-template pTemplate="footer">
                     <div class="grid grid-cols-12 gap-4 grid-nogutter justify-between">
                         <p-button label="Back" (onClick)="prevPage()" icon="pi pi-angle-left"></p-button>
-                        <p-button label="Complete" (onClick)="complete()" icon="pi pi-angle-right" iconPos="right" styleClass="p-button-success"></p-button>
+                        <p-button
+                            label="Complete"
+                            (onClick)="complete()"
+                            icon="pi pi-angle-right"
+                            iconPos="right"
+                            styleClass="p-button-success"
+                        ></p-button>
                     </div>
                 </ng-template>
             </p-card>
         </div>
-    `
+    `,
 })
 export class ConfirmationDemo implements OnInit {
     ticketInformation: any;
 
     constructor(
         public ticketService: TicketService,
-        private router: Router
+        private router: Router,
     ) {}
 
     ngOnInit() {

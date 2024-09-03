@@ -11,7 +11,7 @@ import { ContextMenuService } from 'primeng/api';
         <p-contextMenu [global]="true" [model]="items1"></p-contextMenu>
         <p-contextMenu [target]="p" [model]="items1" [appendTo]="p"></p-contextMenu>
         <p #p>PrimeNG ROCKS!</p>
-    `
+    `,
 })
 class TestContextMenuTest {
     items1 = [
@@ -22,27 +22,27 @@ class TestContextMenuTest {
                 {
                     label: 'New',
                     icon: 'pi pi-fw pi-plus',
-                    items: [{ label: 'Project' }, { label: 'Other' }]
+                    items: [{ label: 'Project' }, { label: 'Other' }],
                 },
                 { label: 'Open' },
                 { separator: true },
-                { label: 'Quit' }
-            ]
+                { label: 'Quit' },
+            ],
         },
         {
             label: 'Edit',
             icon: 'pi pi-fw pi-pencil',
             items: [
                 { label: 'Delete', icon: 'pi pi-fw pi-trash' },
-                { label: 'Refresh', icon: 'pi pi-fw pi-refresh' }
-            ]
+                { label: 'Refresh', icon: 'pi pi-fw pi-refresh' },
+            ],
         },
         {
             label: 'Help',
             icon: 'pi pi-fw pi-question',
             items: [
                 {
-                    label: 'Contents'
+                    label: 'Contents',
                 },
                 {
                     label: 'Search',
@@ -52,16 +52,16 @@ class TestContextMenuTest {
                             label: 'Text',
                             items: [
                                 {
-                                    label: 'Workspace'
-                                }
-                            ]
+                                    label: 'Workspace',
+                                },
+                            ],
                         },
                         {
-                            label: 'File'
-                        }
-                    ]
-                }
-            ]
+                            label: 'File',
+                        },
+                    ],
+                },
+            ],
         },
         {
             label: 'Actions',
@@ -72,21 +72,21 @@ class TestContextMenuTest {
                     icon: 'pi pi-fw pi-pencil',
                     items: [
                         { label: 'Save', icon: 'pi pi-fw pi-save' },
-                        { label: 'Update', icon: 'pi pi-fw pi-save' }
-                    ]
+                        { label: 'Update', icon: 'pi pi-fw pi-save' },
+                    ],
                 },
                 {
                     label: 'Other',
                     icon: 'pi pi-fw pi-tags',
-                    items: [{ label: 'Delete', icon: 'pi pi-fw pi-minus' }]
-                }
-            ]
+                    items: [{ label: 'Delete', icon: 'pi pi-fw pi-minus' }],
+                },
+            ],
         },
         { separator: true },
         {
             label: 'Quit',
-            icon: 'pi pi-fw pi-times'
-        }
+            icon: 'pi pi-fw pi-times',
+        },
     ];
 }
 
@@ -99,7 +99,7 @@ describe('ConextMenu', () => {
         TestBed.configureTestingModule({
             imports: [NoopAnimationsModule, RouterTestingModule.withRoutes([{ path: 'test', component: ContextMenu }]), ContextMenuModule],
             declarations: [TestContextMenuTest],
-            providers: [ContextMenuService]
+            providers: [ContextMenuService],
         });
 
         fixture = TestBed.createComponent(TestContextMenuTest);

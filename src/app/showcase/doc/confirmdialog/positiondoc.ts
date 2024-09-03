@@ -6,14 +6,11 @@ import { Code } from '@domain/code';
     selector: 'confirm-dialog-position-demo',
     template: `
         <app-docsectiontext>
-            <p>
-                The <i>position</i> property of the confirm options is used to display a Dialog at all edges and corners
-                of the screen.
-            </p>
+            <p>The <i>position</i> property of the confirm options is used to display a Dialog at all edges and corners of the screen.</p>
         </app-docsectiontext>
         <div class="card">
             <p-toast />
-            <p-confirmDialog key="positionDialog" [position]="position"/>
+            <p-confirmDialog key="positionDialog" [position]="position" />
             <div class="flex flex-wrap justify-center gap-2 mb-4">
                 <p-button
                     (click)="confirmPosition('left')"
@@ -38,13 +35,7 @@ import { Code } from '@domain/code';
                     severity="secondary"
                     styleClass="min-w-40"
                 />
-                <p-button
-                    (click)="confirmPosition('top')"
-                    icon="pi pi-arrow-down"
-                    label="Top"
-                    severity="secondary"
-                    styleClass="min-w-40"
-                />
+                <p-button (click)="confirmPosition('top')" icon="pi pi-arrow-down" label="Top" severity="secondary" styleClass="min-w-40" />
                 <p-button
                     (click)="confirmPosition('topright')"
                     icon="pi pi-arrow-down"
@@ -84,7 +75,10 @@ import { Code } from '@domain/code';
 export class PositionDoc {
     position: string = 'center';
 
-    constructor(private confirmationService: ConfirmationService, private messageService: MessageService) {}
+    constructor(
+        private confirmationService: ConfirmationService,
+        private messageService: MessageService,
+    ) {}
 
     confirmPosition(position: string) {
         this.position = position;

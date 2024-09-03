@@ -132,8 +132,8 @@ const classes = {
         'p-dock p-component',
         `p-dock-${props.position}`,
         {
-            'p-dock-mobile': instance.queryMatches
-        }
+            'p-dock-mobile': instance.queryMatches,
+        },
     ],
     listContainer: 'p-dock-list-container',
     list: 'p-dock-list',
@@ -141,14 +141,13 @@ const classes = {
         'p-dock-item',
         {
             'p-focus': instance.isItemActive(id),
-            'p-disabled': instance.disabled(processedItem)
-        }
+            'p-disabled': instance.disabled(processedItem),
+        },
     ],
     itemContent: 'p-dock-item-content',
     itemLink: 'p-dock-item-link',
-    itemIcon: 'p-dock-item-icon'
+    itemIcon: 'p-dock-item-icon',
 };
-
 
 @Injectable()
 export class DockStyle extends BaseStyle {

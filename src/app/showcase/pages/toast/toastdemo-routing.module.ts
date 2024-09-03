@@ -4,6 +4,6 @@ import { ToastDemo } from './toastdemo';
 
 @NgModule({
     imports: [RouterModule.forChild([{ path: '', component: ToastDemo }])],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class ToastDemoRoutingModule {}

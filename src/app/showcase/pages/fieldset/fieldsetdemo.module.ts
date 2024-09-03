@@ -6,6 +6,6 @@ import { FieldsetDemoRoutingModule } from './fieldsetdemo-routing.module';
 
 @NgModule({
     imports: [CommonModule, FieldsetDemoRoutingModule, FieldsetDocModule],
-    declarations: [FieldsetDemo]
+    declarations: [FieldsetDemo],
 })
 export class FieldsetDemoModule {}

@@ -16,7 +16,7 @@ import { Code } from '@domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="checkbox-dynamic-demo"></app-code>
-    `
+    `,
 })
 export class DynamicDoc {
     selectedCategories: any[] = [];
@@ -25,7 +25,7 @@ export class DynamicDoc {
         { name: 'Accounting', key: 'A' },
         { name: 'Marketing', key: 'M' },
         { name: 'Production', key: 'P' },
-        { name: 'Research', key: 'R' }
+        { name: 'Research', key: 'R' },
     ];
 
     code: Code = {
@@ -72,6 +72,6 @@ export class CheckboxDynamicDemo {
         { name: 'Production', key: 'P' },
         { name: 'Research', key: 'R' }
     ];
-}`
+}`,
     };
 }

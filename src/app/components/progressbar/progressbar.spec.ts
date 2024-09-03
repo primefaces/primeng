@@ -10,7 +10,7 @@ describe('ProgressBar', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [NoopAnimationsModule],
-            declarations: [ProgressBar]
+            declarations: [ProgressBar],
         });
 
         fixture = TestBed.createComponent(ProgressBar);

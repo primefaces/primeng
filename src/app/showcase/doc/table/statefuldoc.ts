@@ -7,15 +7,13 @@ import { CustomerService } from '@service/customerservice';
     selector: 'stateful-doc',
     template: ` <app-docsectiontext>
             <p>
-                Stateful table allows keeping the state such as page, sort and filtering either at local storage or
-                session storage so that when the page is visited again, table would render the data using the last
-                settings.
+                Stateful table allows keeping the state such as page, sort and filtering either at local storage or session storage so that
+                when the page is visited again, table would render the data using the last settings.
             </p>
             <p>
-                Change the state of the table e.g paginate, navigate away and then return to this table again to test
-                this feature, the setting is set as <i>session</i> with the <i>stateStorage</i> property so that Table
-                retains the state until the browser is closed. Other alternative is <i>local</i> referring to
-                <i>localStorage</i> for an extended lifetime.
+                Change the state of the table e.g paginate, navigate away and then return to this table again to test this feature, the
+                setting is set as <i>session</i> with the <i>stateStorage</i> property so that Table retains the state until the browser is
+                closed. Other alternative is <i>local</i> referring to <i>localStorage</i> for an extended lifetime.
             </p>
         </app-docsectiontext>
         <p-deferred-demo (load)="loadDemoData()">
@@ -49,9 +47,7 @@ import { CustomerService } from '@service/customerservice';
                     <ng-template pTemplate="header">
                         <tr>
                             <th pSortableColumn="name" style="width:25%">Name <p-sortIcon field="name" /></th>
-                            <th pSortableColumn="country.name" style="width:25%">
-                                Country <p-sortIcon field="country.name" />
-                            </th>
+                            <th pSortableColumn="country.name" style="width:25%">Country <p-sortIcon field="country.name" /></th>
                             <th pSortableColumn="representative.name" style="width:25%">
                                 Representative <p-sortIcon field="representative.name" />
                             </th>
@@ -75,9 +71,7 @@ import { CustomerService } from '@service/customerservice';
                             <td>
                                 <img
                                     [alt]="customer.representative.name"
-                                    src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{
-                                        customer.representative.image
-                                    }}"
+                                    src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}"
                                     width="32"
                                     style="vertical-align: middle"
                                 />
@@ -104,9 +98,7 @@ import { CustomerService } from '@service/customerservice';
                             <td>
                                 <img
                                     [alt]="customer.representative.name"
-                                    src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{
-                                        customer.representative.image
-                                    }}"
+                                    src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}"
                                     width="32"
                                     style="vertical-align: middle"
                                 />
@@ -133,7 +125,10 @@ export class StatefulDoc {
 
     selectedCustomers!: Customer;
 
-    constructor(private customerService: CustomerService, private cd: ChangeDetectorRef) {}
+    constructor(
+        private customerService: CustomerService,
+        private cd: ChangeDetectorRef,
+    ) {}
 
     loadDemoData() {
         this.customerService.getCustomersMini().then((data) => {

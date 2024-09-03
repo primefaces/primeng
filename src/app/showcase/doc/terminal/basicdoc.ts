@@ -7,15 +7,21 @@ import { Code } from '@domain/code';
     selector: 'basic-doc',
     template: `
         <app-docsectiontext>
-            <p>Commands are processed using observables via the <i>TerminalService</i>. Import this service into your component and subscribe to <i>commandHandler</i> to process commands by sending replies with <i>sendResponse</i> function.</p>
+            <p>
+                Commands are processed using observables via the <i>TerminalService</i>. Import this service into your component and
+                subscribe to <i>commandHandler</i> to process commands by sending replies with <i>sendResponse</i> function.
+            </p>
         </app-docsectiontext>
         <div class="card">
-            <p>Enter "<strong>date</strong>" to display the current date, "<strong>greet &#123;0&#125;</strong>" for a message and "<strong>random</strong>" to get a random number.</p>
+            <p>
+                Enter "<strong>date</strong>" to display the current date, "<strong>greet &#123;0&#125;</strong>" for a message and
+                "<strong>random</strong>" to get a random number.
+            </p>
             <p-terminal welcomeMessage="Welcome to PrimeNG" prompt="primeng $" />
         </div>
         <app-code [code]="code" selector="terminal-basic-demo"></app-code>
     `,
-    providers: [TerminalService]
+    providers: [TerminalService],
 })
 export class BasicDoc implements OnDestroy {
     subscription: Subscription;
@@ -71,6 +77,6 @@ export class TerminalBasicDemo implements OnDestroy {
             this.subscription.unsubscribe();
         }
     }
-}`
+}`,
     };
 }

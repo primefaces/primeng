@@ -6,6 +6,6 @@ import { DynamicDialogDemoRoutingModule } from './dynamicdialogdemo-routing.modu
 
 @NgModule({
     imports: [CommonModule, DynamicDialogDemoRoutingModule, DynamicDialogDocModule],
-    declarations: [DynamicDialogDemo]
+    declarations: [DynamicDialogDemo],
 })
 export class DynamicDialogDemoModule {}

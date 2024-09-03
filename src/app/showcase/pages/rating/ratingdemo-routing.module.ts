@@ -4,6 +4,6 @@ import { RatingDemo } from './ratingdemo';
 
 @NgModule({
     imports: [RouterModule.forChild([{ path: '', component: RatingDemo }])],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class RatingDemoRoutingModule {}

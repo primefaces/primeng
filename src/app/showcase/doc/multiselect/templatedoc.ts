@@ -10,20 +10,31 @@ interface Country {
     selector: 'template-doc',
     template: `
         <app-docsectiontext>
-            <p>Available options and the selected options support templating with <i>pTemplate</i> properties respectively. In addition, header, footer and filter sections can be templated as well.</p>
+            <p>
+                Available options and the selected options support templating with <i>pTemplate</i> properties respectively. In addition,
+                header, footer and filter sections can be templated as well.
+            </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-multiSelect [options]="countries" [(ngModel)]="selectedCountries" placeholder="Select Countries" optionLabel="name">
                 <ng-template let-value pTemplate="selectedItems">
                     <div class="inline-flex items-center gap-2 px-1" *ngFor="let option of value">
-                        <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + option.code.toLowerCase()" style="width: 18px" />
+                        <img
+                            src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
+                            [class]="'flag flag-' + option.code.toLowerCase()"
+                            style="width: 18px"
+                        />
                         <div>{{ option.name }},</div>
                     </div>
                     <div *ngIf="!value || value.length === 0">Select Countries</div>
                 </ng-template>
                 <ng-template let-country pTemplate="item">
                     <div class="flex items-center gap-2">
-                        <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" style="width: 18px" />
+                        <img
+                            src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
+                            [class]="'flag flag-' + country.code.toLowerCase()"
+                            style="width: 18px"
+                        />
                         <div>{{ country.name }}</div>
                     </div>
                 </ng-template>
@@ -38,7 +49,7 @@ interface Country {
             </p-multiSelect>
         </div>
         <app-code [code]="code" selector="multi-select-template-demo"></app-code>
-    `
+    `,
 })
 export class TemplateDoc implements OnInit {
     countries!: Country[];
@@ -56,7 +67,7 @@ export class TemplateDoc implements OnInit {
             { name: 'India', code: 'IN' },
             { name: 'Japan', code: 'JP' },
             { name: 'Spain', code: 'ES' },
-            { name: 'United States', code: 'US' }
+            { name: 'United States', code: 'US' },
         ];
     }
 
@@ -166,6 +177,6 @@ export class MultiSelectTemplateDemo implements OnInit {
         ];
 
     }
-}`
+}`,
     };
 }

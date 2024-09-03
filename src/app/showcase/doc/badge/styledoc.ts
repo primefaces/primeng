@@ -4,7 +4,10 @@ import { Component } from '@angular/core';
     selector: 'style-doc',
     template: `
         <app-docsectiontext>
-            <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['/theming']">theming</a> page.</p>
+            <p>
+                Following is the list of structural style classes, for theming classes visit
+                <a href="#" [routerLink]="['/theming']">theming</a> page.
+            </p>
         </app-docsectiontext>
         <div class="doc-tablewrapper">
             <table class="doc-table">
@@ -54,6 +57,6 @@ import { Component } from '@angular/core';
                 </tbody>
             </table>
         </div>
-    `
+    `,
 })
 export class StyleDoc {}

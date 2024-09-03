@@ -6,6 +6,6 @@ import { ChipDemoRoutingModule } from './chipdemo-routing.module';
 
 @NgModule({
     imports: [CommonModule, ChipDemoRoutingModule, ChipDocModule],
-    declarations: [ChipDemo]
+    declarations: [ChipDemo],
 })
 export class ChipDemoModule {}

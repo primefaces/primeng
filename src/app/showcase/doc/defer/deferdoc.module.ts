@@ -14,6 +14,6 @@ import { ImportDoc } from './importdoc';
 @NgModule({
     imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, FormsModule, DeferModule, TableModule, ToastModule],
     exports: [ImportDoc, BasicDoc, DataTableDoc, AppDocModule],
-    declarations: [ImportDoc, BasicDoc, DataTableDoc]
+    declarations: [ImportDoc, BasicDoc, DataTableDoc],
 })
 export class DeferDocModule {}

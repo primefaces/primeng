@@ -6,6 +6,6 @@ import { ThemingComponent } from './theming.component';
 
 @NgModule({
     imports: [CommonModule, ThemingRoutingModule, ThemingDocModule],
-    declarations: [ThemingComponent]
+    declarations: [ThemingComponent],
 })
 export class ThemingModule {}

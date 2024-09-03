@@ -12,7 +12,11 @@ interface PageEvent {
     selector: 'current-page-report-doc',
     template: `
         <app-docsectiontext>
-            <p>Current page report item in the template displays information about the pagination state. Default value is ({{ '{' }}currentPage{{ '}' }} of {{ '{' }}totalPages{{ '}' }}) whereas available placeholders are the following;</p>
+            <p>
+                Current page report item in the template displays information about the pagination state. Default value is ({{
+                    '{'
+                }}currentPage{{ '}' }} of {{ '{' }}totalPages{{ '}' }}) whereas available placeholders are the following;
+            </p>
             <ul class="mb-6 leading-loose">
                 <li>{{ '{' }}currentPage{{ '}' }}</li>
                 <li>{{ '{' }}totalPages{{ '}' }}</li>
@@ -35,7 +39,7 @@ interface PageEvent {
             />
         </div>
         <app-code [code]="code" selector="paginator-current-page-report-demo"></app-code>
-    `
+    `,
 })
 export class CurrentPageReportDoc {
     first: number = 0;
@@ -95,6 +99,6 @@ export class PaginatorCurrentPageReportDemo {
         this.first = event.first;
         this.rows = event.rows;
     }
-}`
+}`,
     };
 }

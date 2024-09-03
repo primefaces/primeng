@@ -165,8 +165,8 @@ const classes = {
         'p-panelmenu-header',
         {
             'p-panelmenu-header-active': instance.isItemActive(item) && !!item.items,
-            'p-disabled': instance.isItemDisabled(item)
-        }
+            'p-disabled': instance.isItemDisabled(item),
+        },
     ],
     headerContent: 'p-panelmenu-header-content',
     headerLink: 'p-panelmenu-header-link',
@@ -179,8 +179,8 @@ const classes = {
         'p-panelmenu-item',
         {
             'p-focus': instance.isItemFocused(processedItem),
-            'p-disabled': instance.isItemDisabled(processedItem)
-        }
+            'p-disabled': instance.isItemDisabled(processedItem),
+        },
     ],
     itemContent: 'p-panelmenu-item-content',
     itemLink: 'p-panelmenu-item-link',
@@ -188,7 +188,7 @@ const classes = {
     itemLabel: 'p-panelmenu-item-label',
     submenuIcon: 'p-panelmenu-submenu-icon',
     submenu: 'p-panelmenu-submenu',
-    separator: 'p-menuitem-separator'
+    separator: 'p-menuitem-separator',
 };
 
 @Injectable()

@@ -17,7 +17,7 @@ import { PhotoService } from '@service/photoservice';
                 [showItemNavigatorsOnHover]="true"
                 [circular]="true"
                 [responsiveOptions]="responsiveOptions"
-                [containerStyle]="{ 'max-width': '640px'}"
+                [containerStyle]="{ 'max-width': '640px' }"
             >
                 <ng-template pTemplate="item" let-item>
                     <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />

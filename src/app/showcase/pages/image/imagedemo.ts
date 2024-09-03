@@ -8,44 +8,44 @@ import { StyleDoc } from '@doc/Image/styledoc';
 import { TemplateDoc } from '@doc/Image/templatedoc';
 
 @Component({
-    templateUrl: './imagedemo.html'
+    templateUrl: './imagedemo.html',
 })
 export class ImageDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc
+            component: ImportDoc,
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc
+            component: BasicDoc,
         },
         {
             id: 'preview',
             label: 'Preview',
-            component: PreviewDoc
+            component: PreviewDoc,
         },
         {
             id: 'templates',
             label: 'Indicator',
-            component: TemplateDoc
+            component: TemplateDoc,
         },
         {
             id: 'preview-image-source',
             label: 'Image Source',
-            component: PreviewImageSourceDoc
+            component: PreviewImageSourceDoc,
         },
         {
             id: 'style',
             label: 'Style',
-            component: StyleDoc
+            component: StyleDoc,
         },
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc
-        }
+            component: AccessibilityDoc,
+        },
     ];
 }

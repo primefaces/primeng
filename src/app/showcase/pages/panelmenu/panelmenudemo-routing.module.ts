@@ -4,6 +4,6 @@ import { PanelMenuDemo } from './panelmenudemo';
 
 @NgModule({
     imports: [RouterModule.forChild([{ path: '', component: PanelMenuDemo }])],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class PanelMenuDemoRoutingModule {}

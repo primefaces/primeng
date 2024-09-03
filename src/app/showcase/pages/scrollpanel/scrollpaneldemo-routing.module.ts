@@ -4,6 +4,6 @@ import { ScrollPanelDemo } from './scrollpaneldemo';
 
 @NgModule({
     imports: [RouterModule.forChild([{ path: '', component: ScrollPanelDemo }])],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class ScrollPanelDemoRoutingModule {}

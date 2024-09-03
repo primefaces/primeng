@@ -11,7 +11,10 @@ interface City {
     selector: 'reactive-forms-doc',
     template: `
         <app-docsectiontext>
-            <p>Select can also be used with reactive forms. In this case, the <i>formControlName</i> property is used to bind the component to a form control.</p>
+            <p>
+                Select can also be used with reactive forms. In this case, the <i>formControlName</i> property is used to bind the component
+                to a form control.
+            </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
             <form [formGroup]="formGroup">
@@ -19,7 +22,7 @@ interface City {
             </form>
         </div>
         <app-code [code]="code" selector="select-reactive-forms-demo"></app-code>
-    `
+    `,
 })
 export class ReactiveFormsDoc implements OnInit {
     cities: City[] | undefined;
@@ -32,11 +35,11 @@ export class ReactiveFormsDoc implements OnInit {
             { name: 'Rome', code: 'RM' },
             { name: 'London', code: 'LDN' },
             { name: 'Istanbul', code: 'IST' },
-            { name: 'Paris', code: 'PRS' }
+            { name: 'Paris', code: 'PRS' },
         ];
 
         this.formGroup = new FormGroup({
-            selectedCity: new FormControl<City | null>(null)
+            selectedCity: new FormControl<City | null>(null),
         });
     }
 
@@ -92,6 +95,6 @@ export class SelectReactiveFormsDemo implements OnInit {
             selectedCity: new FormControl<City | null>(null)
         });
     }
-}`
+}`,
     };
 }

@@ -5,6 +5,6 @@ import { PartnersComponent } from './partners.component';
 
 @NgModule({
     declarations: [PartnersComponent],
-    imports: [CommonModule, PartnersRoutingModule]
+    imports: [CommonModule, PartnersRoutingModule],
 })
 export class PartnersModule {}

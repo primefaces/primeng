@@ -20,8 +20,8 @@ export default {
             style: '{form.field.focus.ring.style}',
             color: '{form.field.focus.ring.color}',
             offset: '{form.field.focus.ring.offset}',
-            shadow: '{form.field.focus.ring.shadow}'
+            shadow: '{form.field.focus.ring.shadow}',
         },
-        transitionDuration: '{form.field.transition.duration}'
-    }
+        transitionDuration: '{form.field.transition.duration}',
+    },
 };

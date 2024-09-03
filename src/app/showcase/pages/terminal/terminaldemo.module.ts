@@ -6,6 +6,6 @@ import { TerminalDemoRoutingModule } from './terminaldemo-routing.module';
 
 @NgModule({
     imports: [CommonModule, TerminalDemoRoutingModule, TerminalDocModule],
-    declarations: [TerminalDemo]
+    declarations: [TerminalDemo],
 })
 export class TerminalDemoModule {}

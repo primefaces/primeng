@@ -13,8 +13,19 @@ import { BasicDoc } from './basicdoc';
 import { FloatLabelModule } from 'primeng/floatlabel';
 
 @NgModule({
-    imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, FormsModule, ButtonModule, InputTextModule, DropdownModule, FocusTrapModule, FloatLabelModule],
+    imports: [
+        CommonModule,
+        RouterModule,
+        AppCodeModule,
+        AppDocModule,
+        FormsModule,
+        ButtonModule,
+        InputTextModule,
+        DropdownModule,
+        FocusTrapModule,
+        FloatLabelModule,
+    ],
     declarations: [ImportDoc, BasicDoc],
-    exports: [AppDocModule]
+    exports: [AppDocModule],
 })
 export class FocusTrapDocModule {}

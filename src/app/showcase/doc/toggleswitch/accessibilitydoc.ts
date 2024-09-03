@@ -7,7 +7,8 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <h3>Screen Reader</h3>
             <p>
-                InputSwitch component uses a hidden native checkbox element with <i>switch</i> role internally that is only visible to screen readers. Value to describe the component can either be provided via <i>label</i> tag combined with
+                InputSwitch component uses a hidden native checkbox element with <i>switch</i> role internally that is only visible to
+                screen readers. Value to describe the component can either be provided via <i>label</i> tag combined with
                 <i>inputId</i> prop or using <i>ariaLabelledBy</i>, <i>ariaLabel</i> props.
             </p>
         </app-docsectiontext>
@@ -39,7 +40,7 @@ import { Code } from '@domain/code';
                 </tbody>
             </table>
         </div>
-    </div>`
+    </div>`,
 })
 export class AccessibilityDoc {
     code: Code = {
@@ -49,6 +50,6 @@ export class AccessibilityDoc {
 <span id="switch2">Remember Me</span>
 <p-toggleSwitch ariaLabelledBy="switch2" />
 
-<p-toggleSwitch ariaLabel="Remember Me" />`
+<p-toggleSwitch ariaLabel="Remember Me" />`,
     };
 }

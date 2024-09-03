@@ -6,14 +6,23 @@ import { Code } from '@domain/code';
     selector: 'context-menu-basic-demo',
     template: `
         <app-docsectiontext>
-            <p>ContextMenu can be attached to a particular element whose local template variable name is defined using the <i>target</i> property.</p>
+            <p>
+                ContextMenu can be attached to a particular element whose local template variable name is defined using the
+                <i>target</i> property.
+            </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <img #img src="https://primefaces.org/cdn/primeng/images/demo/nature/nature2.jpg" alt="Logo" aria-haspopup="true" class="max-w-full" />
+            <img
+                #img
+                src="https://primefaces.org/cdn/primeng/images/demo/nature/nature2.jpg"
+                alt="Logo"
+                aria-haspopup="true"
+                class="max-w-full"
+            />
             <p-contextMenu [target]="img" [model]="items" />
         </div>
         <app-code [code]="code" selector="context-menu-basic-demo"></app-code>
-    `
+    `,
 })
 export class BasicDoc implements OnInit {
     items: MenuItem[] | undefined;
@@ -21,7 +30,7 @@ export class BasicDoc implements OnInit {
     ngOnInit() {
         this.items = [
             { label: 'Copy', icon: 'pi pi-copy' },
-            { label: 'Rename', icon: 'pi pi-file-edit' }
+            { label: 'Rename', icon: 'pi pi-file-edit' },
         ];
     }
 
@@ -63,6 +72,6 @@ export class ContextMenuBasicDemo implements OnInit {
             { label: 'Rename', icon: 'pi pi-file-edit' }
         ];
     }
-}`
+}`,
     };
 }

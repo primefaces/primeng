@@ -21,7 +21,7 @@ import { Code } from '@domain/code';
             </p-inplace>
         </div>
         <app-code [code]="code" selector="inplace-image-demo"></app-code>
-    `
+    `,
 })
 export class ImageDoc {
     code: Code = {
@@ -62,6 +62,6 @@ import { InplaceModule } from 'primeng/inplace';
     standalone: true,
     imports: [InplaceModule]
 })
-export class InplaceImageDemo {}`
+export class InplaceImageDemo {}`,
     };
 }

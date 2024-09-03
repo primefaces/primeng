@@ -12,7 +12,15 @@ import { ProductService } from '@service/productservice';
         <p-deferred-demo (load)="loadDemoData()">
             <div class="card">
                 <p-toast />
-                <p-table [value]="products" selectionMode="single" [(selection)]="selectedProduct" dataKey="code" (onRowSelect)="onRowSelect($event)" (onRowUnselect)="onRowUnselect($event)" [tableStyle]="{ 'min-width': '50rem' }">
+                <p-table
+                    [value]="products"
+                    selectionMode="single"
+                    [(selection)]="selectedProduct"
+                    dataKey="code"
+                    (onRowSelect)="onRowSelect($event)"
+                    (onRowUnselect)="onRowUnselect($event)"
+                    [tableStyle]="{ 'min-width': '50rem' }"
+                >
                     <ng-template pTemplate="header">
                         <tr>
                             <th>Code</th>
@@ -34,7 +42,7 @@ import { ProductService } from '@service/productservice';
         </p-deferred-demo>
         <app-code [code]="code" selector="table-selection-events-demo" [extFiles]="extFiles"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [MessageService]
+    providers: [MessageService],
 })
 export class SelectionEventsDoc {
     products!: Product[];
@@ -44,7 +52,7 @@ export class SelectionEventsDoc {
     constructor(
         private productService: ProductService,
         private messageService: MessageService,
-        private cd: ChangeDetectorRef
+        private cd: ChangeDetectorRef,
     ) {}
 
     loadDemoData() {
@@ -165,7 +173,7 @@ export class TableSelectionEventsDemo implements OnInit{
     rating: 5
 },
 ...`,
-        service: ['ProductService']
+        service: ['ProductService'],
     };
 
     extFiles = [
@@ -183,7 +191,7 @@ export interface Product {
     category?: string;
     image?: string;
     rating?: number;
-}`
-        }
+}`,
+        },
     ];
 }

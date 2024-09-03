@@ -20,8 +20,19 @@ import { StyleDoc } from './styledoc';
 import { RippleModule } from 'primeng/ripple';
 
 @NgModule({
-    imports: [CommonModule, AppCodeModule, RouterModule, MenuModule, ToastModule, ButtonModule, RippleModule, AvatarModule, AppDocModule, BadgeModule],
+    imports: [
+        CommonModule,
+        AppCodeModule,
+        RouterModule,
+        MenuModule,
+        ToastModule,
+        ButtonModule,
+        RippleModule,
+        AvatarModule,
+        AppDocModule,
+        BadgeModule,
+    ],
     declarations: [BasicDoc, CommandDoc, TemplateDoc, GroupDoc, ImportDoc, RouterDoc, PopupDoc, StyleDoc, AccessibilityDoc],
-    exports: [AppDocModule]
+    exports: [AppDocModule],
 })
 export class MenuDocModule {}

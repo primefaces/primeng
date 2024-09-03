@@ -147,7 +147,10 @@ import { Component } from '@angular/core';
                     </tr>
                     <tr>
                         <td>monthNames</td>
-                        <td>['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']</td>
+                        <td>
+                            ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November',
+                            'December']
+                        </td>
                     </tr>
                     <tr>
                         <td>monthNamesShort</td>
@@ -472,6 +475,6 @@ import { Component } from '@angular/core';
                 </tbody>
             </table>
         </div>
-    `
+    `,
 })
 export class ApiDoc {}

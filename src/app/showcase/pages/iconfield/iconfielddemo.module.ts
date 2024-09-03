@@ -6,6 +6,6 @@ import { IconFieldDemoRoutingModule } from './iconfielddemo-routing.module';
 
 @NgModule({
     imports: [CommonModule, IconFieldDocModule, IconFieldDemoRoutingModule],
-    declarations: [IconFieldDemo]
+    declarations: [IconFieldDemo],
 })
 export class IconFieldDemoModule {}

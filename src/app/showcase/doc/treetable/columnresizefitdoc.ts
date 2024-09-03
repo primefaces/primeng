@@ -12,7 +12,10 @@ interface Column {
     selector: 'resize-fit-doc',
     template: `
         <app-docsectiontext>
-            <p>Columns can be resized with drag and drop when <i>resizableColumns</i> is enabled. Default resize mode is <i>fit</i> that does not change the overall table width.</p>
+            <p>
+                Columns can be resized with drag and drop when <i>resizableColumns</i> is enabled. Default resize mode is <i>fit</i> that
+                does not change the overall table width.
+            </p>
         </app-docsectiontext>
         <div class="card">
             <p-deferred-demo (load)="loadDemoData()">
@@ -37,7 +40,7 @@ interface Column {
         </div>
         <app-code [code]="code" selector="tree-table-resize-fit-demo"></app-code>
     `,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ResizeFitDoc {
     files!: TreeNode[];
@@ -51,7 +54,7 @@ export class ResizeFitDoc {
         this.cols = [
             { field: 'name', header: 'Name' },
             { field: 'size', header: 'Size' },
-            { field: 'type', header: 'Type' }
+            { field: 'type', header: 'Type' },
         ];
     }
 
@@ -137,6 +140,6 @@ export class TreeTableResizeFitDemo implements OnInit {
     }
 }`,
 
-        service: ['NodeService']
+        service: ['NodeService'],
     };
 }

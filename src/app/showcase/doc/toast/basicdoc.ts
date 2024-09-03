@@ -7,9 +7,9 @@ import { Code } from '@domain/code';
     template: `
         <app-docsectiontext>
             <p>
-                Toasts are displayed by calling the <i>add</i> and <i>addAll</i> method provided by the
-                <i>messageService</i>. A single toast is specified by the <i>Message</i> interface that defines various
-                properties such as <i>severity</i>, <i>summary</i> and <i>detail</i>.
+                Toasts are displayed by calling the <i>add</i> and <i>addAll</i> method provided by the <i>messageService</i>. A single
+                toast is specified by the <i>Message</i> interface that defines various properties such as <i>severity</i>,
+                <i>summary</i> and <i>detail</i>.
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">

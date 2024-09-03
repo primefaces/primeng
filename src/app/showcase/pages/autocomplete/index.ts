@@ -18,92 +18,98 @@ import { AutoCompleteDocModule } from '@doc/autocomplete/autocompletedoc.module'
 import { FilledDoc } from '@doc/autocomplete/filleddoc';
 
 @Component({
-    template: `<app-doc docTitle="Angular AutoComplete Component" header="AutoComplete" description="AutoComplete is an input component that provides real-time suggestions when being typed." [docs]="docs" [apiDocs]="['AutoComplete']"></app-doc>`,
+    template: `<app-doc
+        docTitle="Angular AutoComplete Component"
+        header="AutoComplete"
+        description="AutoComplete is an input component that provides real-time suggestions when being typed."
+        [docs]="docs"
+        [apiDocs]="['AutoComplete']"
+    ></app-doc>`,
     standalone: true,
     imports: [AutoCompleteDocModule],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AutoCompleteDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc
+            component: ImportDoc,
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc
+            component: BasicDoc,
         },
         {
             id: 'reactive-forms',
             label: 'Reactive Forms',
-            component: ReactiveFormsDoc
+            component: ReactiveFormsDoc,
         },
         {
             id: 'dropdown',
             label: 'Dropdown',
-            component: DropdownDoc
+            component: DropdownDoc,
         },
         {
             id: 'objects',
             label: 'Objects',
-            component: ObjectsDoc
+            component: ObjectsDoc,
         },
         {
             id: 'template',
             label: 'Template',
-            component: TemplateDoc
+            component: TemplateDoc,
         },
         {
             id: 'group',
             label: 'Group',
-            component: GroupDoc
+            component: GroupDoc,
         },
         {
             id: 'forceselection',
             label: 'Force Selection',
-            component: ForceSelectionDoc
+            component: ForceSelectionDoc,
         },
         {
             id: 'virtualscroll',
             label: 'Virtual Scroll',
-            component: VirtualScrollDoc
+            component: VirtualScrollDoc,
         },
         {
             id: 'multiple',
             label: 'Multiple',
-            component: MultipleDoc
+            component: MultipleDoc,
         },
         {
             id: 'floatlabel',
             label: 'Float Label',
-            component: FloatLabelDoc
+            component: FloatLabelDoc,
         },
         {
             id: 'filled',
             label: 'Filled',
-            component: FilledDoc
+            component: FilledDoc,
         },
         {
             id: 'disabled',
             label: 'Disabled',
-            component: DisabledDoc
+            component: DisabledDoc,
         },
         {
             id: 'invalid',
             label: 'Invalid',
-            component: InvalidDoc
+            component: InvalidDoc,
         },
         {
             id: 'style',
             label: 'Style',
-            component: StyleDoc
+            component: StyleDoc,
         },
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc
-        }
+            component: AccessibilityDoc,
+        },
     ];
 }

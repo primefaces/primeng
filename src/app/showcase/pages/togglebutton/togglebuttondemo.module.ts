@@ -6,6 +6,6 @@ import { ToggleButtonDemoRoutingModule } from './togglebuttondemo-routing.module
 
 @NgModule({
     imports: [CommonModule, ToggleButtonDemoRoutingModule, ToggleButtonDocModule],
-    declarations: [ToggleButtonDemo]
+    declarations: [ToggleButtonDemo],
 })
 export class ToggleButtonDemoModule {}

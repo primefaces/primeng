@@ -11,7 +11,7 @@ import { Code } from '@domain/code';
             <p-rating [(ngModel)]="value" [cancel]="false" />
         </div>
         <app-code [code]="code" selector="rating-without-cancel-demo"></app-code>
-    `
+    `,
 })
 export class WithoutCancelDoc {
     value!: number;
@@ -35,6 +35,6 @@ import { RatingModule } from 'primeng/rating';
 })
 export class RatingWithoutCancelDemo {
     value!: number;
-}`
+}`,
     };
 }

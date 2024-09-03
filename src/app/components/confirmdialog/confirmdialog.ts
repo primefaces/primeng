@@ -21,15 +21,7 @@ import {
     inject,
     numberAttribute,
 } from '@angular/core';
-import {
-    ConfirmEventType,
-    Confirmation,
-    ConfirmationService,
-    Footer,
-    PrimeTemplate,
-    SharedModule,
-    TranslationKeys,
-} from 'primeng/api';
+import { ConfirmEventType, Confirmation, ConfirmationService, Footer, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { DomHandler } from 'primeng/dom';
 import { CheckIcon } from 'primeng/icons/check';
@@ -68,66 +60,70 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
             [appendTo]="option('appendTo')"
             [position]="position"
         >
-            @if(headlessTemplate) {
-            <ng-template pTemplate="headless">
-                <ng-container
-                    *ngTemplateOutlet="
-                        headlessTemplate;
-                        context: {
-                            $implicit: confirmation,
-                            onAccept: onAccept.bind(this),
-                            onReject: onReject.bind(this)
-                        }
-                    "
-                ></ng-container>
-            </ng-template>
-            } @else { @if(headerTemplate) {
-            <div [ngClass]="cx('header')">
-                <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
-            </div>
-            }
+            @if (headlessTemplate) {
+                <ng-template pTemplate="headless">
+                    <ng-container
+                        *ngTemplateOutlet="
+                            headlessTemplate;
+                            context: {
+                                $implicit: confirmation,
+                                onAccept: onAccept.bind(this),
+                                onReject: onReject.bind(this),
+                            }
+                        "
+                    ></ng-container>
+                </ng-template>
+            } @else {
+                @if (headerTemplate) {
+                    <div [ngClass]="cx('header')">
+                        <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
+                    </div>
+                }
 
-            <ng-template pTemplate="content">
-                @if(iconTemplate) {
-                <ng-template *ngTemplateOutlet="iconTemplate"></ng-template>
-                } @else if(!iconTemplate && !messageTemplate) {
-                <i [ngClass]="cx('icon')" [class]="option('icon')" *ngIf="option('icon')"></i>
-                } @if(messageTemplate) {
-                <ng-template *ngTemplateOutlet="messageTemplate; context: { $implicit: confirmation }"></ng-template>
-                } @else {<span [ngClass]="cx('message')" [innerHTML]="option('message')"> </span>}
-            </ng-template>
+                <ng-template pTemplate="content">
+                    @if (iconTemplate) {
+                        <ng-template *ngTemplateOutlet="iconTemplate"></ng-template>
+                    } @else if (!iconTemplate && !messageTemplate) {
+                        <i [ngClass]="cx('icon')" [class]="option('icon')" *ngIf="option('icon')"></i>
+                    }
+                    @if (messageTemplate) {
+                        <ng-template *ngTemplateOutlet="messageTemplate; context: { $implicit: confirmation }"></ng-template>
+                    } @else {
+                        <span [ngClass]="cx('message')" [innerHTML]="option('message')"> </span>
+                    }
+                </ng-template>
             }
             <ng-template pTemplate="footer">
-                @if(footer || footerTemplate) {
-                <ng-content select="p-footer"></ng-content>
-                <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
-                } @else if(!footer && !footerTemplate) {
-                <p-button
-                    *ngIf="option('rejectVisible')"
-                    [label]="rejectButtonLabel"
-                    (onClick)="onReject()"
-                    [styleClass]="cx('pcRejectButton', option('rejectButtonStyleClass'))"
-                    [ariaLabel]="option('rejectButtonProps', 'ariaLabel')"
-                    [buttonProps]="getRejectButtonProps()"
-                >
-                    @if(rejectIcon) {
-                    <i *ngIf="option('rejectIcon')" [class]="option('rejectIcon')"></i>
-                    }
-                    <ng-template *ngTemplateOutlet="rejectIconTemplate"></ng-template>
-                </p-button>
-                <p-button
-                    [label]="acceptButtonLabel"
-                    (onClick)="onAccept()"
-                    [styleClass]="cx('pcAcceptButton', option('acceptButtonStyleClass'))"
-                    *ngIf="option('acceptVisible')"
-                    [ariaLabel]="option('acceptButtonProps', 'ariaLabel')"
-                    [buttonProps]="getAcceptButtonProps()"
-                >
-                    @if(acceptIcon) {
-                    <i *ngIf="option('acceptIcon')" [class]="option('acceptIcon')"></i>
-                    }
-                    <ng-template *ngTemplateOutlet="acceptIconTemplate"></ng-template>
-                </p-button>
+                @if (footer || footerTemplate) {
+                    <ng-content select="p-footer"></ng-content>
+                    <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
+                } @else if (!footer && !footerTemplate) {
+                    <p-button
+                        *ngIf="option('rejectVisible')"
+                        [label]="rejectButtonLabel"
+                        (onClick)="onReject()"
+                        [styleClass]="cx('pcRejectButton', option('rejectButtonStyleClass'))"
+                        [ariaLabel]="option('rejectButtonProps', 'ariaLabel')"
+                        [buttonProps]="getRejectButtonProps()"
+                    >
+                        @if (rejectIcon) {
+                            <i *ngIf="option('rejectIcon')" [class]="option('rejectIcon')"></i>
+                        }
+                        <ng-template *ngTemplateOutlet="rejectIconTemplate"></ng-template>
+                    </p-button>
+                    <p-button
+                        [label]="acceptButtonLabel"
+                        (onClick)="onAccept()"
+                        [styleClass]="cx('pcAcceptButton', option('acceptButtonStyleClass'))"
+                        *ngIf="option('acceptVisible')"
+                        [ariaLabel]="option('acceptButtonProps', 'ariaLabel')"
+                        [buttonProps]="getAcceptButtonProps()"
+                    >
+                        @if (acceptIcon) {
+                            <i *ngIf="option('acceptIcon')" [class]="option('acceptIcon')"></i>
+                        }
+                        <ng-template *ngTemplateOutlet="acceptIconTemplate"></ng-template>
+                    </p-button>
                 }
             </ng-template>
         </p-dialog>
@@ -438,7 +434,10 @@ export class ConfirmDialog extends BaseComponent implements AfterContentInit, On
 
     translationSubscription: Subscription | undefined;
 
-    constructor(private confirmationService: ConfirmationService, public zone: NgZone) {
+    constructor(
+        private confirmationService: ConfirmationService,
+        public zone: NgZone,
+    ) {
         super();
         this.subscription = this.confirmationService.requireConfirmation$.subscribe((confirmation) => {
             if (!confirmation) {

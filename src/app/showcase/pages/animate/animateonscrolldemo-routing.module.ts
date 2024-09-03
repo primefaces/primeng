@@ -4,6 +4,6 @@ import { AnimateOnScrollDemo } from './animateonscrolldemo';
 
 @NgModule({
     imports: [RouterModule.forChild([{ path: '', component: AnimateOnScrollDemo }])],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class AnimateOnScrollDemoRoutingModule {}

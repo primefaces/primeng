@@ -4,6 +4,6 @@ import { OverlayDemo } from './overlaydemo';
 
 @NgModule({
     imports: [RouterModule.forChild([{ path: '', component: OverlayDemo }])],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class OverlayDemoRoutingModule {}

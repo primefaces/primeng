@@ -1,5 +1,16 @@
 import { CommonModule } from '@angular/common';
-import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChildren, inject, Input, NgModule, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
+import {
+    AfterContentInit,
+    ChangeDetectionStrategy,
+    Component,
+    ContentChildren,
+    inject,
+    Input,
+    NgModule,
+    QueryList,
+    TemplateRef,
+    ViewEncapsulation,
+} from '@angular/core';
 import { BlockableUI, PrimeTemplate, SharedModule } from 'primeng/api';
 import { Nullable } from 'primeng/ts-helpers';
 import { TimelineStyle } from './style/timelinestyle';
@@ -22,7 +33,7 @@ import { BaseComponent } from 'primeng/basecomponent';
                 'p-timeline-bottom': align === 'bottom',
                 'p-timeline-alternate': align === 'alternate',
                 'p-timeline-vertical': layout === 'vertical',
-                'p-timeline-horizontal': layout === 'horizontal'
+                'p-timeline-horizontal': layout === 'horizontal',
             }"
             [attr.data-pc-name]="'timeline'"
             [attr.data-pc-section]="'root'"
@@ -48,7 +59,7 @@ import { BaseComponent } from 'primeng/basecomponent';
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    providers:[TimelineStyle]
+    providers: [TimelineStyle],
 })
 export class Timeline extends BaseComponent implements AfterContentInit, BlockableUI {
     /**
@@ -88,7 +99,7 @@ export class Timeline extends BaseComponent implements AfterContentInit, Blockab
     _componentStyle = inject(TimelineStyle);
 
     constructor() {
-        super()
+        super();
     }
 
     getBlockableElement(): HTMLElement {
@@ -117,6 +128,6 @@ export class Timeline extends BaseComponent implements AfterContentInit, Blockab
 @NgModule({
     imports: [CommonModule],
     exports: [Timeline, SharedModule],
-    declarations: [Timeline]
+    declarations: [Timeline],
 })
 export class TimelineModule {}

@@ -5,6 +5,6 @@ import { StepperDemoRoutingModule } from './stepperdemo-routing.module';
 import { StepperDocModule } from '@doc/stepper/stepperdoc.module';
 @NgModule({
     imports: [CommonModule, StepperDemoRoutingModule, StepperDocModule],
-    declarations: [StepperDemo]
+    declarations: [StepperDemo],
 })
 export class StepperDemoModule {}

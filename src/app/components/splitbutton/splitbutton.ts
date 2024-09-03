@@ -1,5 +1,22 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, ContentChildren, ElementRef, EventEmitter, Input, NgModule, Output, QueryList, TemplateRef, ViewChild, ViewEncapsulation, booleanAttribute, inject, numberAttribute, signal } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    ContentChildren,
+    ElementRef,
+    EventEmitter,
+    Input,
+    NgModule,
+    Output,
+    QueryList,
+    TemplateRef,
+    ViewChild,
+    ViewEncapsulation,
+    booleanAttribute,
+    inject,
+    numberAttribute,
+    signal,
+} from '@angular/core';
 import { MenuItem, PrimeTemplate } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { ChevronDownIcon } from 'primeng/icons/chevrondown';
@@ -106,7 +123,7 @@ type SplitButtonIconPosition = 'left' | 'right';
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [SplitButtonStyle],
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
 })
 export class SplitButton extends BaseComponent {
     /**
@@ -351,7 +368,7 @@ export class SplitButton extends BaseComponent {
             'p-splitbutton-rounded': this.rounded,
             'p-splitbutton-outlined': this.outlined,
             'p-splitbutton-text': this.text,
-            [`p-splitbutton-${this.size === 'small' ? 'sm' : 'lg'}`]: this.size
+            [`p-splitbutton-${this.size === 'small' ? 'sm' : 'lg'}`]: this.size,
         };
 
         return { ...cls };
@@ -388,6 +405,6 @@ export class SplitButton extends BaseComponent {
 @NgModule({
     imports: [CommonModule, ButtonModule, TieredMenuModule, AutoFocusModule, ChevronDownIcon, RippleModule],
     exports: [SplitButton, ButtonModule, TieredMenuModule],
-    declarations: [SplitButton]
+    declarations: [SplitButton],
 })
 export class SplitButtonModule {}

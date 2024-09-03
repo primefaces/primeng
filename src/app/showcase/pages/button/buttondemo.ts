@@ -20,109 +20,109 @@ import { TemplateDoc } from '@doc/button/templatedoc';
 import { TextDoc } from '@doc/button/textdoc';
 import { ButtonGroupDoc } from '@doc/button/buttongroupdoc';
 @Component({
-    templateUrl: './buttondemo.html'
+    templateUrl: './buttondemo.html',
 })
 export class ButtonDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc
+            component: ImportDoc,
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc
+            component: BasicDoc,
         },
         {
             id: 'directive',
             label: 'Directive',
-            component: DirectiveDoc
+            component: DirectiveDoc,
         },
         {
             id: 'link',
             label: 'Link',
-            component: LinkDoc
+            component: LinkDoc,
         },
         {
             id: 'icons',
             label: 'Icons',
-            component: IconsDoc
+            component: IconsDoc,
         },
         {
             id: 'loading',
             label: 'Loading',
-            component: LoadingDoc
+            component: LoadingDoc,
         },
         {
             id: 'severity',
             label: 'Severity',
-            component: SeverityDoc
+            component: SeverityDoc,
         },
         {
             id: 'disabled',
             label: 'Disabled',
-            component: DisabledDoc
+            component: DisabledDoc,
         },
         {
             id: 'raised',
             label: 'Raised',
-            component: RaisedDoc
+            component: RaisedDoc,
         },
         {
             id: 'rounded',
             label: 'Rounded',
-            component: RoundedDoc
+            component: RoundedDoc,
         },
         {
             id: 'text',
             label: 'Text',
-            component: TextDoc
+            component: TextDoc,
         },
         {
             id: 'raisedtext',
             label: 'Raised Text',
-            component: RaisedTextDoc
+            component: RaisedTextDoc,
         },
         {
             id: 'outlined',
             label: 'Outlined',
-            component: OutlinedDoc
+            component: OutlinedDoc,
         },
         {
             id: 'icononly',
             label: 'Icon Only',
-            component: IconOnlyDoc
+            component: IconOnlyDoc,
         },
         {
             id: 'badges',
             label: 'Badges',
-            component: BadgeDoc
+            component: BadgeDoc,
         },
         {
             id: 'buttongroup',
             label: 'Button Group',
-            component: ButtonGroupDoc
+            component: ButtonGroupDoc,
         },
         {
             id: 'sizes',
             label: 'Sizes',
-            component: SizesDoc
+            component: SizesDoc,
         },
         {
             id: 'template',
             label: 'Template',
-            component: TemplateDoc
+            component: TemplateDoc,
         },
         {
             id: 'style',
             label: 'Style',
-            component: StyleDoc
+            component: StyleDoc,
         },
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc
-        }
+            component: AccessibilityDoc,
+        },
     ];
 }

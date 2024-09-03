@@ -7,9 +7,8 @@ import { CustomerService } from '@service/customerservice';
     selector: 'frozen-columns-doc',
     template: ` <app-docsectiontext>
             <p>
-                Certain columns can be frozen by using the <i>pFrozenColumn</i> directive of the table component. In
-                addition, <i>alignFrozen</i> is available to define whether the column should be fixed on the left or
-                right.
+                Certain columns can be frozen by using the <i>pFrozenColumn</i> directive of the table component. In addition,
+                <i>alignFrozen</i> is available to define whether the column should be fixed on the left or right.
             </p>
         </app-docsectiontext>
         <p-deferred-demo (load)="loadDemoData()">
@@ -54,12 +53,7 @@ import { CustomerService } from '@service/customerservice';
                             <td>{{ customer.status }}</td>
                             <td>{{ customer.activity }}</td>
                             <td>{{ customer.representative.name }}</td>
-                            <td
-                                alignFrozen="right"
-                                pFrozenColumn
-                                [frozen]="balanceFrozen"
-                                [ngClass]="{ 'font-bold': balanceFrozen }"
-                            >
+                            <td alignFrozen="right" pFrozenColumn [frozen]="balanceFrozen" [ngClass]="{ 'font-bold': balanceFrozen }">
                                 {{ formatCurrency(customer.balance) }}
                             </td>
                         </tr>
@@ -75,7 +69,10 @@ export class FrozenColumnsDoc {
 
     customers!: Customer[];
 
-    constructor(private customerService: CustomerService, private cd: ChangeDetectorRef) {}
+    constructor(
+        private customerService: CustomerService,
+        private cd: ChangeDetectorRef,
+    ) {}
 
     loadDemoData() {
         this.customerService.getCustomersMedium().then((data) => {

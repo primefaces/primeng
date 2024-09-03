@@ -16,7 +16,7 @@ const theme = ({ dt }) => `
 
 const classes = {
     root: 'p-inputotp p-component',
-    pcInput: 'p-inputotp-input'
+    pcInput: 'p-inputotp-input',
 };
 
 @Injectable()

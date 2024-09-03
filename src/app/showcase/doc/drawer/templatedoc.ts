@@ -11,29 +11,18 @@ import { Code } from '@domain/code';
             <p-drawer [(visible)]="visible">
                 <ng-template pTemplate="header">
                     <div class="flex items-center gap-2">
-                        <p-avatar
-                            image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"
-                            shape="circle"
-                        />
+                        <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
                         <span class="font-bold">Amy Elsner</span>
                     </div>
                 </ng-template>
                 <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
-                    et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                    aliquip ex ea commodo consequat.
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
+                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
                 </p>
                 <ng-template pTemplate="footer">
                     <div class="flex items-center gap-2">
                         <button pButton label="Account" icon="pi pi-user" class="w-full" outlined></button>
-                        <button
-                            pButton
-                            label="Logout"
-                            icon="pi pi-sign-out"
-                            class="w-full"
-                            severity="danger"
-                            text
-                        ></button>
+                        <button pButton label="Logout" icon="pi pi-sign-out" class="w-full" severity="danger" text></button>
                     </div>
                 </ng-template>
             </p-drawer>

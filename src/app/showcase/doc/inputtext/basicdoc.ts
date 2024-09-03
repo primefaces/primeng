@@ -11,7 +11,7 @@ import { Code } from '@domain/code';
             <input type="text" pInputText [(ngModel)]="value" />
         </div>
         <app-code [code]="code" selector="input-text-basic-demo"></app-code>
-    `
+    `,
 })
 export class BasicDoc {
     value: string;
@@ -35,6 +35,6 @@ import { FormsModule } from '@angular/forms';
 })
 export class InputTextBasicDemo {
     value: string;
-}`
+}`,
     };
 }

@@ -4,6 +4,6 @@ import { TreeTableDemo } from './treetabledemo';
 
 @NgModule({
     imports: [RouterModule.forChild([{ path: '', component: TreeTableDemo }])],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class TreeTableDemoRoutingModule {}

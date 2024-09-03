@@ -5,7 +5,10 @@ import { Component } from '@angular/core';
     template: ` <div>
         <app-docsectiontext>
             <h3>Screen Reader</h3>
-            <p>Input OTP uses a set of InputText components, refer to the <a routerLink="/inputtext">InputText</a> component for more information about the screen reader support.</p>
+            <p>
+                Input OTP uses a set of InputText components, refer to the <a routerLink="/inputtext">InputText</a> component for more
+                information about the screen reader support.
+            </p>
         </app-docsectiontext>
 
         <h3>Keyboard Support</h3>
@@ -37,6 +40,6 @@ import { Component } from '@angular/core';
                 </tbody>
             </table>
         </div>
-    </div>`
+    </div>`,
 })
 export class AccessibilityDoc {}

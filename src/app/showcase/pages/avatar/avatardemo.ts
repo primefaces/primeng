@@ -13,69 +13,69 @@ import { TemplateDoc } from '@doc/avatar/templatedoc';
 import { AccessibilityDoc } from '@doc/avatar/accessibilitydoc';
 
 @Component({
-    templateUrl: './avatardemo.html'
+    templateUrl: './avatardemo.html',
 })
 export class AvatarDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc
+            component: ImportDoc,
         },
         {
             id: 'label',
             label: 'Label',
-            component: LabelDoc
+            component: LabelDoc,
         },
         {
             id: 'icon',
             label: 'Icon',
-            component: IconDoc
+            component: IconDoc,
         },
         {
             id: 'image',
             label: 'Image',
-            component: ImageDoc
+            component: ImageDoc,
         },
         {
             id: 'size',
             label: 'Sizes',
-            component: SizeDoc
+            component: SizeDoc,
         },
         {
             id: 'avatargroup',
             label: 'AvatarGroup',
-            component: GroupDoc
+            component: GroupDoc,
         },
         {
             id: 'shape',
             label: 'Shape',
-            component: ShapeDoc
+            component: ShapeDoc,
         },
         {
             id: 'badge',
             label: 'Badge',
-            component: BadgeDoc
+            component: BadgeDoc,
         },
         {
             id: 'templating',
             label: 'Custom Content',
-            component: TemplateDoc
+            component: TemplateDoc,
         },
         {
             id: 'stylingofavatar',
             label: 'Styling of Avatar',
-            component: AvatarStyleDoc
+            component: AvatarStyleDoc,
         },
         {
             id: 'stylingofavatargroup',
             label: 'Styling of AvatarGroup',
-            component: AvatarGroupStyleDoc
+            component: AvatarGroupStyleDoc,
         },
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc
-        }
+            component: AccessibilityDoc,
+        },
     ];
 }

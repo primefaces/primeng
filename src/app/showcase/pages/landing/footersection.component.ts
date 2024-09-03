@@ -136,13 +136,7 @@ import { RouterModule } from '@angular/router';
 
                 <div class="flex flex-wrap justify-between py-12 gap-8">
                     <span>
-                        <svg
-                            width="120"
-                            height="33"
-                            viewBox="0 0 120 33"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                        >
+                        <svg width="120" height="33" viewBox="0 0 120 33" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path
                                 fill-rule="evenodd"
                                 clip-rule="evenodd"
@@ -159,15 +153,7 @@ import { RouterModule } from '@angular/router';
                                 d="M15.1934 0V0V0L0.0391235 5.38288L2.35052 25.3417L15.1934 32.427V32.427V32.427L28.0364 25.3417L30.3478 5.38288L15.1934 0Z"
                                 fill="var(--p-primary-color)"
                             />
-                            <mask
-                                id="mask0_1_36"
-                                style="mask-type:luminance"
-                                maskUnits="userSpaceOnUse"
-                                x="0"
-                                y="0"
-                                width="31"
-                                height="33"
-                            >
+                            <mask id="mask0_1_36" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="31" height="33">
                                 <path
                                     d="M15.1934 0V0V0L0.0391235 5.38288L2.35052 25.3417L15.1934 32.427V32.427V32.427L28.0364 25.3417L30.3478 5.38288L15.1934 0Z"
                                     fill="var(--high-contrast-text-color)"
@@ -195,14 +181,8 @@ import { RouterModule } from '@angular/router';
                                 d="M11.3853 16.9726L12.6739 15.0309L13.4793 15.5163H16.7008L17.5061 15.0309L18.7947 16.9726V24.254L17.8283 25.7103L16.7008 26.843H13.4793L12.3518 25.7103L11.3853 24.254V16.9726Z"
                                 fill="var(--p-surface-200)"
                             />
-                            <path
-                                d="M19.3168 24.7437L21.4168 22.6444V20.5451L19.3168 22.3214V24.7437Z"
-                                fill="var(--p-surface-200)"
-                            />
-                            <path
-                                d="M10.9166 24.7437L8.81662 22.6444V20.5451L10.9166 22.3214V24.7437Z"
-                                fill="var(--p-surface-200)"
-                            />
+                            <path d="M19.3168 24.7437L21.4168 22.6444V20.5451L19.3168 22.3214V24.7437Z" fill="var(--p-surface-200)" />
+                            <path d="M10.9166 24.7437L8.81662 22.6444V20.5451L10.9166 22.3214V24.7437Z" fill="var(--p-surface-200)" />
                             <path
                                 fill-rule="evenodd"
                                 clip-rule="evenodd"
@@ -228,12 +208,7 @@ import { RouterModule } from '@angular/router';
                         </svg>
                     </span>
                     <div class="flex items-center gap-2">
-                        <a
-                            href="https://twitter.com/prime_ng"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            class="linkbox linkbox-icon"
-                        >
+                        <a href="https://twitter.com/prime_ng" target="_blank" rel="noopener noreferrer" class="linkbox linkbox-icon">
                             <i class="pi pi-twitter"></i>
                         </a>
                         <a
@@ -244,12 +219,7 @@ import { RouterModule } from '@angular/router';
                         >
                             <i class="pi pi-github"></i>
                         </a>
-                        <a
-                            href="https://discord.gg/gzKFYnpmCY"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            class="linkbox linkbox-icon"
-                        >
+                        <a href="https://discord.gg/gzKFYnpmCY" target="_blank" rel="noopener noreferrer" class="linkbox linkbox-icon">
                             <i class="pi pi-discord"></i>
                         </a>
                         <a href="https://github.com/orgs/primefaces/discussions" class="linkbox linkbox-icon">

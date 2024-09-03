@@ -15,6 +15,6 @@ import { VideosDoc } from './videos/videosdoc';
 @NgModule({
     imports: [CommonModule, RouterModule, AppCodeModule, FormsModule, AppDocModule, ButtonModule],
     declarations: [DownloadDoc, StylesDoc, UsageDoc, AnimationsDoc, ExamplesDoc, VideosDoc],
-    exports: [AppDocModule]
+    exports: [AppDocModule],
 })
 export class InstallationDocModule {}

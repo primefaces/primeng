@@ -36,22 +36,22 @@ export const SELECTBUTTON_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-selectButton',
     template: `
-        @for(option of options; track option; let i = $index) {
-        <p-toggleButton
-            [autofocus]="autofocus"
-            [styleClass]="styleClass"
-            [ngModel]="isSelected(option)"
-            [onLabel]="this.getOptionLabel(option)"
-            [offLabel]="this.getOptionLabel(option)"
-            [disabled]="disabled || isOptionDisabled(option)"
-            (onChange)="onOptionSelect($event, option, i)"
-        >
-            @if(itemTemplate) {
-            <ng-template pTemplate="content">
-                <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: option, index: i }"></ng-container>
-            </ng-template>
-            }
-        </p-toggleButton>
+        @for (option of options; track option; let i = $index) {
+            <p-toggleButton
+                [autofocus]="autofocus"
+                [styleClass]="styleClass"
+                [ngModel]="isSelected(option)"
+                [onLabel]="this.getOptionLabel(option)"
+                [offLabel]="this.getOptionLabel(option)"
+                [disabled]="disabled || isOptionDisabled(option)"
+                (onChange)="onOptionSelect($event, option, i)"
+            >
+                @if (itemTemplate) {
+                    <ng-template pTemplate="content">
+                        <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: option, index: i }"></ng-container>
+                    </ng-template>
+                }
+            </p-toggleButton>
         }
     `,
     standalone: true,
@@ -188,24 +188,24 @@ export class SelectButton extends BaseComponent implements ControlValueAccessor 
         return this.optionLabel
             ? ObjectUtils.resolveFieldData(option, this.optionLabel)
             : option.label != undefined
-            ? option.label
-            : option;
+              ? option.label
+              : option;
     }
 
     getOptionValue(option: any) {
         return this.optionValue
             ? ObjectUtils.resolveFieldData(option, this.optionValue)
             : this.optionLabel || option.value === undefined
-            ? option
-            : option.value;
+              ? option
+              : option.value;
     }
 
     isOptionDisabled(option: any) {
         return this.optionDisabled
             ? ObjectUtils.resolveFieldData(option, this.optionDisabled)
             : option.disabled !== undefined
-            ? option.disabled
-            : false;
+              ? option.disabled
+              : false;
     }
 
     writeValue(value: any): void {

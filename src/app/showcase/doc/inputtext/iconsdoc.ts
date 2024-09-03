@@ -5,7 +5,10 @@ import { Code } from '@domain/code';
     selector: 'icons-doc',
     template: `
         <app-docsectiontext>
-            <p>Icons can be placed inside an input element by wrapping both the input and the icon with an element that has either <i>.p-input-icon-left</i> or <i>p-input-icon-right</i> class.</p>
+            <p>
+                Icons can be placed inside an input element by wrapping both the input and the icon with an element that has either
+                <i>.p-input-icon-left</i> or <i>p-input-icon-right</i> class.
+            </p>
         </app-docsectiontext>
         <div class="card flex flex-wrap justify-center gap-4">
             <span class="p-input-icon-left">
@@ -19,7 +22,7 @@ import { Code } from '@domain/code';
             </span>
         </div>
         <app-code [code]="code" selector="input-text-icons-demo"></app-code>
-    `
+    `,
 })
 export class IconsDoc {
     value: string | undefined;
@@ -56,6 +59,6 @@ export class InputTextIconsDemo {
     value: string | undefined;
     
     value2: string | undefined;
-}`
+}`,
     };
 }

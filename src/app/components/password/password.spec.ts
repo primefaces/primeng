@@ -9,7 +9,7 @@ describe('Password', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule, PasswordModule]
+            imports: [NoopAnimationsModule, PasswordModule],
         });
 
         fixture = TestBed.createComponent(Password);

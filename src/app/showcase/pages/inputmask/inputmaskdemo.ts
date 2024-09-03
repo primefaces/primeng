@@ -13,69 +13,69 @@ import { SlotCharDoc } from '@doc/inputmask/slotchardoc';
 import { StyleDoc } from '@doc/inputmask/styledoc';
 
 @Component({
-    templateUrl: './inputmaskdemo.html'
+    templateUrl: './inputmaskdemo.html',
 })
 export class InputMaskDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc
+            component: ImportDoc,
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc
+            component: BasicDoc,
         },
         {
             id: 'reactive-forms',
             label: 'Reactive Forms',
-            component: ReactiveFormsDoc
+            component: ReactiveFormsDoc,
         },
         {
             id: 'mask',
             label: 'Mask',
-            component: MaskDoc
+            component: MaskDoc,
         },
         {
             id: 'optional',
             label: 'Optional',
-            component: OptionalDoc
+            component: OptionalDoc,
         },
         {
             id: 'slotchar',
             label: 'Slot Char',
-            component: SlotCharDoc
+            component: SlotCharDoc,
         },
         {
             id: 'floatlabel',
             label: 'FloatLabel',
-            component: FloatlabelDoc
+            component: FloatlabelDoc,
         },
         {
             id: 'filled',
             label: 'Filled',
-            component: FilledDoc
+            component: FilledDoc,
         },
         {
             id: 'invalid',
             label: 'Invalid',
-            component: InvalidDoc
+            component: InvalidDoc,
         },
         {
             id: 'disabled',
             label: 'Disabled',
-            component: DisabledDoc
+            component: DisabledDoc,
         },
         {
             id: 'style',
             label: 'Style',
-            component: StyleDoc
+            component: StyleDoc,
         },
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc
-        }
+            component: AccessibilityDoc,
+        },
     ];
 }

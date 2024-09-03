@@ -4,6 +4,6 @@ import { RadioButtonDemo } from './radiobuttondemo';
 
 @NgModule({
     imports: [RouterModule.forChild([{ path: '', component: RadioButtonDemo }])],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class RadioButtonDemoRoutingModule {}

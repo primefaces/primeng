@@ -17,7 +17,7 @@ import {
     ViewEncapsulation,
     booleanAttribute,
     inject,
-    numberAttribute
+    numberAttribute,
 } from '@angular/core';
 import { FilterService, PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
@@ -46,7 +46,7 @@ import {
     PickListSourceSelectEvent,
     PickListTargetFilterEvent,
     PickListTargetReorderEvent,
-    PickListTargetSelectEvent
+    PickListTargetSelectEvent,
 } from './picklist.interface';
 import { PickListStyle } from './style/pickliststyle';
 import { BaseComponent } from 'primeng/basecomponent';
@@ -59,8 +59,20 @@ import { FormsModule } from '@angular/forms';
 @Component({
     selector: 'p-pickList',
     template: `
-        <div [class]="styleClass" [ngStyle]="style" [ngClass]="{ 'p-picklist p-component': true }" cdkDropListGroup [attr.data-pc-name]="'picklist'" [attr.data-pc-section]="'root'">
-            <div class="p-picklist-controls p-picklist-source-controls" *ngIf="showSourceControls" [attr.data-pc-section]="'sourceControls'" [attr.data-pc-group-section]="'controls'">
+        <div
+            [class]="styleClass"
+            [ngStyle]="style"
+            [ngClass]="{ 'p-picklist p-component': true }"
+            cdkDropListGroup
+            [attr.data-pc-name]="'picklist'"
+            [attr.data-pc-section]="'root'"
+        >
+            <div
+                class="p-picklist-controls p-picklist-source-controls"
+                *ngIf="showSourceControls"
+                [attr.data-pc-section]="'sourceControls'"
+                [attr.data-pc-group-section]="'controls'"
+            >
                 <button
                     type="button"
                     [attr.aria-label]="moveUpAriaLabel"
@@ -114,7 +126,11 @@ import { FormsModule } from '@angular/forms';
                     <ng-template *ngTemplateOutlet="moveBottomIconTemplate"></ng-template>
                 </button>
             </div>
-            <div class="p-picklist-list-container p-picklist-source-list-container" [attr.data-pc-section]="'sourceWrapper'" [attr.data-pc-group-section]="'listWrapper'">
+            <div
+                class="p-picklist-list-container p-picklist-source-list-container"
+                [attr.data-pc-section]="'sourceWrapper'"
+                [attr.data-pc-group-section]="'listWrapper'"
+            >
                 <p-listbox
                     #sourcelist
                     [multiple]="true"
@@ -141,29 +157,69 @@ import { FormsModule } from '@angular/forms';
                     </ng-container>
                 </p-listbox>
             </div>
-            <div class="p-picklist-controls p-picklist-transfer-controls" [attr.data-pc-section]="'buttons'" [attr.data-pc-group-section]="'controls'">
-                <button type="button" [attr.aria-label]="moveToTargetAriaLabel" pButton pRipple class="p-button-icon-only" [disabled]="moveRightDisabled()" (click)="moveRight()" [attr.data-pc-section]="'moveToTargetButton'">
+            <div
+                class="p-picklist-controls p-picklist-transfer-controls"
+                [attr.data-pc-section]="'buttons'"
+                [attr.data-pc-group-section]="'controls'"
+            >
+                <button
+                    type="button"
+                    [attr.aria-label]="moveToTargetAriaLabel"
+                    pButton
+                    pRipple
+                    class="p-button-icon-only"
+                    [disabled]="moveRightDisabled()"
+                    (click)="moveRight()"
+                    [attr.data-pc-section]="'moveToTargetButton'"
+                >
                     <ng-container *ngIf="!moveToTargetIconTemplate">
                         <AngleRightIcon *ngIf="!viewChanged" [attr.data-pc-section]="'movetotargeticon'" />
                         <AngleDownIcon *ngIf="viewChanged" [attr.data-pc-section]="'movetotargeticon'" />
                     </ng-container>
                     <ng-template *ngTemplateOutlet="moveToTargetIconTemplate; context: { $implicit: viewChanged }"></ng-template>
                 </button>
-                <button type="button" [attr.aria-label]="moveAllToTargetAriaLabel" pButton pRipple class="p-button-icon-only" [disabled]="moveAllRightDisabled()" (click)="moveAllRight()" [attr.data-pc-section]="'moveAllToTargetButton'">
+                <button
+                    type="button"
+                    [attr.aria-label]="moveAllToTargetAriaLabel"
+                    pButton
+                    pRipple
+                    class="p-button-icon-only"
+                    [disabled]="moveAllRightDisabled()"
+                    (click)="moveAllRight()"
+                    [attr.data-pc-section]="'moveAllToTargetButton'"
+                >
                     <ng-container *ngIf="!moveAllToTargetIconTemplate">
                         <AngleDoubleRightIcon *ngIf="!viewChanged" [attr.data-pc-section]="'movealltotargeticon'" />
                         <AngleDoubleDownIcon *ngIf="viewChanged" [attr.data-pc-section]="'movealltotargeticon'" />
                     </ng-container>
                     <ng-template *ngTemplateOutlet="moveAllToTargetIconTemplate; context: { $implicit: viewChanged }"></ng-template>
                 </button>
-                <button type="button" [attr.aria-label]="moveToSourceAriaLabel" pButton pRipple class="p-button-icon-only" [disabled]="moveLeftDisabled()" (click)="moveLeft()" [attr.data-pc-section]="'moveToSourceButton'">
+                <button
+                    type="button"
+                    [attr.aria-label]="moveToSourceAriaLabel"
+                    pButton
+                    pRipple
+                    class="p-button-icon-only"
+                    [disabled]="moveLeftDisabled()"
+                    (click)="moveLeft()"
+                    [attr.data-pc-section]="'moveToSourceButton'"
+                >
                     <ng-container *ngIf="!moveToSourceIconTemplate">
                         <AngleLeftIcon *ngIf="!viewChanged" [attr.data-pc-section]="'movedownsourceticon'" />
                         <AngleUpIcon *ngIf="viewChanged" [attr.data-pc-section]="'movedownsourceticon'" />
                     </ng-container>
                     <ng-template *ngTemplateOutlet="moveToSourceIconTemplate; context: { $implicit: viewChanged }"></ng-template>
                 </button>
-                <button type="button" [attr.aria-label]="moveAllToSourceAriaLabel" pButton pRipple class="p-button-icon-only" [disabled]="moveAllLeftDisabled()" (click)="moveAllLeft()" [attr.data-pc-section]="'moveAllToSourceButton'">
+                <button
+                    type="button"
+                    [attr.aria-label]="moveAllToSourceAriaLabel"
+                    pButton
+                    pRipple
+                    class="p-button-icon-only"
+                    [disabled]="moveAllLeftDisabled()"
+                    (click)="moveAllLeft()"
+                    [attr.data-pc-section]="'moveAllToSourceButton'"
+                >
                     <ng-container *ngIf="!moveAllToSourceIconTemplate">
                         <AngleDoubleLeftIcon *ngIf="!viewChanged" [attr.data-pc-section]="'movealltosourceticon'" />
                         <AngleDoubleUpIcon *ngIf="viewChanged" [attr.data-pc-section]="'movealltosourceticon'" />
@@ -171,7 +227,11 @@ import { FormsModule } from '@angular/forms';
                     <ng-template *ngTemplateOutlet="moveAllToSourceIconTemplate; context: { $implicit: viewChanged }"></ng-template>
                 </button>
             </div>
-            <div class="p-picklist-list-container p-picklist-target-list-container" [attr.data-pc-section]="'targetWrapper'" [attr.data-pc-group-section]="'listwrapper'">
+            <div
+                class="p-picklist-list-container p-picklist-target-list-container"
+                [attr.data-pc-section]="'targetWrapper'"
+                [attr.data-pc-group-section]="'listwrapper'"
+            >
                 <p-listbox
                     #targetlist
                     [multiple]="true"
@@ -198,7 +258,12 @@ import { FormsModule } from '@angular/forms';
                     </ng-container>
                 </p-listbox>
             </div>
-            <div class="p-picklist-controls p-picklist-target-controls" *ngIf="showTargetControls" [attr.data-pc-section]="'targetControls'" [attr.data-pc-group-section]="'controls'">
+            <div
+                class="p-picklist-controls p-picklist-target-controls"
+                *ngIf="showTargetControls"
+                [attr.data-pc-section]="'targetControls'"
+                [attr.data-pc-group-section]="'controls'"
+            >
                 <button
                     type="button"
                     [attr.aria-label]="moveUpAriaLabel"
@@ -256,7 +321,7 @@ import { FormsModule } from '@angular/forms';
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    providers: [PickListStyle]
+    providers: [PickListStyle],
 })
 export class PickList extends BaseComponent implements AfterViewChecked, AfterContentInit {
     /**
@@ -433,7 +498,8 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
      * Defines how the items are filtered.
      * @group Props
      */
-    @Input() filterMatchMode: 'contains' | 'startsWith' | 'endsWith' | 'equals' | 'notEquals' | 'in' | 'lt' | 'lte' | 'gt' | 'gte' = 'contains';
+    @Input() filterMatchMode: 'contains' | 'startsWith' | 'endsWith' | 'equals' | 'notEquals' | 'in' | 'lt' | 'lte' | 'gt' | 'gte' =
+        'contains';
     /**
      * Whether to displays rows with alternating colors.
      * @group Props
@@ -557,35 +623,67 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
     @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<PrimeTemplate>>;
 
     get moveUpAriaLabel() {
-        return this.upButtonAriaLabel ? this.upButtonAriaLabel : this.config.translation.aria ? this.config.translation.aria.moveUp : undefined;
+        return this.upButtonAriaLabel
+            ? this.upButtonAriaLabel
+            : this.config.translation.aria
+              ? this.config.translation.aria.moveUp
+              : undefined;
     }
 
     get moveTopAriaLabel() {
-        return this.topButtonAriaLabel ? this.topButtonAriaLabel : this.config.translation.aria ? this.config.translation.aria.moveTop : undefined;
+        return this.topButtonAriaLabel
+            ? this.topButtonAriaLabel
+            : this.config.translation.aria
+              ? this.config.translation.aria.moveTop
+              : undefined;
     }
 
     get moveDownAriaLabel() {
-        return this.downButtonAriaLabel ? this.downButtonAriaLabel : this.config.translation.aria ? this.config.translation.aria.moveDown : undefined;
+        return this.downButtonAriaLabel
+            ? this.downButtonAriaLabel
+            : this.config.translation.aria
+              ? this.config.translation.aria.moveDown
+              : undefined;
     }
 
     get moveBottomAriaLabel() {
-        return this.bottomButtonAriaLabel ? this.bottomButtonAriaLabel : this.config.translation.aria ? this.config.translation.aria.moveDown : undefined;
+        return this.bottomButtonAriaLabel
+            ? this.bottomButtonAriaLabel
+            : this.config.translation.aria
+              ? this.config.translation.aria.moveDown
+              : undefined;
     }
 
     get moveToTargetAriaLabel() {
-        return this.rightButtonAriaLabel ? this.rightButtonAriaLabel : this.config.translation.aria ? this.config.translation.aria.moveToTarget : undefined;
+        return this.rightButtonAriaLabel
+            ? this.rightButtonAriaLabel
+            : this.config.translation.aria
+              ? this.config.translation.aria.moveToTarget
+              : undefined;
     }
 
     get moveAllToTargetAriaLabel() {
-        return this.allRightButtonAriaLabel ? this.allRightButtonAriaLabel : this.config.translation.aria ? this.config.translation.aria.moveAllToTarget : undefined;
+        return this.allRightButtonAriaLabel
+            ? this.allRightButtonAriaLabel
+            : this.config.translation.aria
+              ? this.config.translation.aria.moveAllToTarget
+              : undefined;
     }
 
     get moveToSourceAriaLabel() {
-        return this.leftButtonAriaLabel ? this.leftButtonAriaLabel : this.config.translation.aria ? this.config.translation.aria.moveToSource : undefined;
+        return this.leftButtonAriaLabel
+            ? this.leftButtonAriaLabel
+            : this.config.translation.aria
+              ? this.config.translation.aria.moveToSource
+              : undefined;
     }
 
     get moveAllToSourceAriaLabel() {
-        return this.allLeftButtonAriaLabel ? this.allLeftButtonAriaLabel : this.config.translation.aria ? this.config.translation.aria.moveAllToSource : undefined;
+        return this.allLeftButtonAriaLabel
+            ? this.allLeftButtonAriaLabel
+            : this.config.translation.aria
+              ? this.config.translation.aria.moveAllToSource
+              : undefined;
     }
 
     get idSource() {
@@ -686,7 +784,7 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
 
     focused: any = {
         sourceList: false,
-        targetList: false
+        targetList: false,
     };
 
     _componentStyle = inject(PickListStyle);
@@ -708,12 +806,12 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
         if (this.filterBy) {
             this.sourceFilterOptions = {
                 filter: (value) => this.filterSource(value),
-                reset: () => this.resetSourceFilter()
+                reset: () => this.resetSourceFilter(),
             };
 
             this.targetFilterOptions = {
                 filter: (value) => this.filterTarget(value),
-                reset: () => this.resetTargetFilter()
+                reset: () => this.resetTargetFilter(),
             };
         }
     }
@@ -895,22 +993,41 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
         let searchFields = (<string>this.filterBy).split(',');
 
         if (listType === this.SOURCE_LIST) {
-            this.visibleOptionsSource = this.filterService.filter(data, searchFields, this.filterValueSource, this.filterMatchMode, this.filterLocale);
+            this.visibleOptionsSource = this.filterService.filter(
+                data,
+                searchFields,
+                this.filterValueSource,
+                this.filterMatchMode,
+                this.filterLocale,
+            );
             this.onSourceFilter.emit({ query: this.filterValueSource, value: this.visibleOptionsSource });
         } else if (listType === this.TARGET_LIST) {
-            this.visibleOptionsTarget = this.filterService.filter(data, searchFields, this.filterValueTarget, this.filterMatchMode, this.filterLocale);
+            this.visibleOptionsTarget = this.filterService.filter(
+                data,
+                searchFields,
+                this.filterValueTarget,
+                this.filterMatchMode,
+                this.filterLocale,
+            );
             this.onTargetFilter.emit({ query: this.filterValueTarget, value: this.visibleOptionsTarget });
         }
     }
 
     isItemVisible(item: any, listType: number): boolean | undefined {
-        if (listType == this.SOURCE_LIST) return this.isVisibleInList(<any[]>this.visibleOptionsSource, item, <string>this.filterValueSource);
+        if (listType == this.SOURCE_LIST)
+            return this.isVisibleInList(<any[]>this.visibleOptionsSource, item, <string>this.filterValueSource);
         else return this.isVisibleInList(<any[]>this.visibleOptionsTarget, item, <string>this.filterValueTarget);
     }
 
     isEmpty(listType: number) {
-        if (listType == this.SOURCE_LIST) return this.filterValueSource ? !this.visibleOptionsSource || this.visibleOptionsSource.length === 0 : !this.source || this.source.length === 0;
-        else return this.filterValueTarget ? !this.visibleOptionsTarget || this.visibleOptionsTarget.length === 0 : !this.target || this.target.length === 0;
+        if (listType == this.SOURCE_LIST)
+            return this.filterValueSource
+                ? !this.visibleOptionsSource || this.visibleOptionsSource.length === 0
+                : !this.source || this.source.length === 0;
+        else
+            return this.filterValueTarget
+                ? !this.visibleOptionsTarget || this.visibleOptionsTarget.length === 0
+                : !this.target || this.target.length === 0;
     }
 
     isVisibleInList(data: any[], item: any, filterValue: string): boolean | undefined {
@@ -959,7 +1076,11 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
                 }
             }
 
-            if (this.dragdrop && ((this.filterValueSource && listType === this.SOURCE_LIST) || (this.filterValueTarget && listType === this.TARGET_LIST))) this.filter(list, listType);
+            if (
+                this.dragdrop &&
+                ((this.filterValueSource && listType === this.SOURCE_LIST) || (this.filterValueTarget && listType === this.TARGET_LIST))
+            )
+                this.filter(list, listType);
 
             this.movedUp = true;
             this.reorderedListElement = listElement;
@@ -983,7 +1104,11 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
                 }
             }
 
-            if (this.dragdrop && ((this.filterValueSource && listType === this.SOURCE_LIST) || (this.filterValueTarget && listType === this.TARGET_LIST))) this.filter(list, listType);
+            if (
+                this.dragdrop &&
+                ((this.filterValueSource && listType === this.SOURCE_LIST) || (this.filterValueTarget && listType === this.TARGET_LIST))
+            )
+                this.filter(list, listType);
 
             listElement.scrollTop = 0;
             callback.emit({ items: selectedItems });
@@ -1008,7 +1133,11 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
                 }
             }
 
-            if (this.dragdrop && ((this.filterValueSource && listType === this.SOURCE_LIST) || (this.filterValueTarget && listType === this.TARGET_LIST))) this.filter(list, listType);
+            if (
+                this.dragdrop &&
+                ((this.filterValueSource && listType === this.SOURCE_LIST) || (this.filterValueTarget && listType === this.TARGET_LIST))
+            )
+                this.filter(list, listType);
 
             this.movedDown = true;
             this.reorderedListElement = listElement;
@@ -1032,7 +1161,11 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
                 }
             }
 
-            if (this.dragdrop && ((this.filterValueSource && listType === this.SOURCE_LIST) || (this.filterValueTarget && listType === this.TARGET_LIST))) this.filter(list, listType);
+            if (
+                this.dragdrop &&
+                ((this.filterValueSource && listType === this.SOURCE_LIST) || (this.filterValueTarget && listType === this.TARGET_LIST))
+            )
+                this.filter(list, listType);
 
             listElement.scrollTop = listElement.scrollHeight;
             callback.emit({ items: selectedItems });
@@ -1054,7 +1187,7 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
             }
 
             this.onMoveToTarget.emit({
-                items: this.selectedItemsSource
+                items: this.selectedItemsSource,
             });
 
             if (this.keepSelection) {
@@ -1083,7 +1216,7 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
                 }
             }
             this.onMoveAllToTarget.emit({
-                items: movedItems
+                items: movedItems,
             });
 
             if (this.keepSelection) {
@@ -1115,7 +1248,7 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
             }
 
             this.onMoveToSource.emit({
-                items: this.selectedItemsTarget
+                items: this.selectedItemsTarget,
             });
 
             if (this.keepSelection) {
@@ -1145,7 +1278,7 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
             }
 
             this.onMoveAllToSource.emit({
-                items: movedItems
+                items: movedItems,
             });
 
             if (this.keepSelection) {
@@ -1252,10 +1385,18 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
 
     getVisibleList(listType: number) {
         if (listType === this.SOURCE_LIST) {
-            return this.visibleOptionsSource && this.visibleOptionsSource.length > 0 ? this.visibleOptionsSource : this.source && this.source.length > 0 ? this.source : null;
+            return this.visibleOptionsSource && this.visibleOptionsSource.length > 0
+                ? this.visibleOptionsSource
+                : this.source && this.source.length > 0
+                  ? this.source
+                  : null;
         }
 
-        return this.visibleOptionsTarget && this.visibleOptionsTarget.length > 0 ? this.visibleOptionsTarget : this.target && this.target.length > 0 ? this.target : null;
+        return this.visibleOptionsTarget && this.visibleOptionsTarget.length > 0
+            ? this.visibleOptionsTarget
+            : this.target && this.target.length > 0
+              ? this.target
+              : null;
     }
 
     setSelectionList(listType: number, selectedItems: any[]) {
@@ -1323,10 +1464,18 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
         if (index === -1) return null;
 
         if (listType === this.SOURCE_LIST) {
-            return this.visibleOptionsSource && this.visibleOptionsSource.length ? this.visibleOptionsSource[index] : this.source && this.source.length ? this.source[index] : null;
+            return this.visibleOptionsSource && this.visibleOptionsSource.length
+                ? this.visibleOptionsSource[index]
+                : this.source && this.source.length
+                  ? this.source[index]
+                  : null;
         }
 
-        return this.visibleOptionsTarget && this.visibleOptionsTarget.length ? this.visibleOptionsTarget[index] : this.target && this.target.length ? this.target[index] : null;
+        return this.visibleOptionsTarget && this.visibleOptionsTarget.length
+            ? this.visibleOptionsTarget[index]
+            : this.target && this.target.length
+              ? this.target[index]
+              : null;
     }
 
     changeFocusedOptionIndex(index, listType) {
@@ -1387,7 +1536,9 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
             if (lastSelectedIndex !== -1) {
                 let focusedIndex = ObjectUtils.findIndexInList(this.focusedOption, visibleList);
 
-                selectedItems = [...visibleList.slice(Math.min(lastSelectedIndex, focusedIndex), Math.max(lastSelectedIndex, focusedIndex) + 1)];
+                selectedItems = [
+                    ...visibleList.slice(Math.min(lastSelectedIndex, focusedIndex), Math.max(lastSelectedIndex, focusedIndex) + 1),
+                ];
                 this.setSelectionList(listType, selectedItems);
 
                 callback.emit({ items: selectedItems });
@@ -1435,11 +1586,27 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
         let previousIndex, currentIndex;
 
         if (droppedList === this.SOURCE_LIST) {
-            previousIndex = isTransfer ? (this.filterValueTarget ? ObjectUtils.findIndexInList(data, this.target) : fromIndex) : this.filterValueSource ? ObjectUtils.findIndexInList(data, this.source) : fromIndex;
-            currentIndex = this.filterValueSource ? this.findFilteredCurrentIndex(<any[]>this.visibleOptionsSource, toIndex, this.source) : toIndex;
+            previousIndex = isTransfer
+                ? this.filterValueTarget
+                    ? ObjectUtils.findIndexInList(data, this.target)
+                    : fromIndex
+                : this.filterValueSource
+                  ? ObjectUtils.findIndexInList(data, this.source)
+                  : fromIndex;
+            currentIndex = this.filterValueSource
+                ? this.findFilteredCurrentIndex(<any[]>this.visibleOptionsSource, toIndex, this.source)
+                : toIndex;
         } else {
-            previousIndex = isTransfer ? (this.filterValueSource ? ObjectUtils.findIndexInList(data, this.source) : fromIndex) : this.filterValueTarget ? ObjectUtils.findIndexInList(data, this.target) : fromIndex;
-            currentIndex = this.filterValueTarget ? this.findFilteredCurrentIndex(<any[]>this.visibleOptionsTarget, toIndex, this.target) : toIndex;
+            previousIndex = isTransfer
+                ? this.filterValueSource
+                    ? ObjectUtils.findIndexInList(data, this.source)
+                    : fromIndex
+                : this.filterValueTarget
+                  ? ObjectUtils.findIndexInList(data, this.target)
+                  : fromIndex;
+            currentIndex = this.filterValueTarget
+                ? this.findFilteredCurrentIndex(<any[]>this.visibleOptionsTarget, toIndex, this.target)
+                : toIndex;
         }
 
         return { previousIndex, currentIndex };
@@ -1471,7 +1638,6 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
         this.resetSourceFilter();
         this.resetTargetFilter();
     }
-
 
     initMedia() {
         if (isPlatformBrowser(this.platformId)) {
@@ -1580,7 +1746,7 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
 }
 
 const DragConfig = {
-    zIndex: 1200
+    zIndex: 1200,
 };
 
 @NgModule({
@@ -1601,10 +1767,10 @@ const DragConfig = {
         SearchIcon,
         HomeIcon,
         ListboxModule,
-        FormsModule
+        FormsModule,
     ],
     exports: [PickList, SharedModule, DragDropModule, ListboxModule],
     declarations: [PickList],
-    providers: [{ provide: CDK_DRAG_CONFIG, useValue: DragConfig }]
+    providers: [{ provide: CDK_DRAG_CONFIG, useValue: DragConfig }],
 })
 export class PickListModule {}

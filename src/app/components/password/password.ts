@@ -29,7 +29,7 @@ import {
     booleanAttribute,
     forwardRef,
     inject,
-    numberAttribute
+    numberAttribute,
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
@@ -59,9 +59,9 @@ type Meter = {
         class: 'p-password p-inputtext p-component p-inputwrapper',
         '[class.p-inputwrapper-filled]': 'filled',
         '[class.p-variant-filled]': 'variant === "filled" || config.inputStyle() === "filled"',
-        '[class.p-password-fluid-directive]': 'hasFluid'
+        '[class.p-password-fluid-directive]': 'hasFluid',
     },
-    providers: [PasswordStyle]
+    providers: [PasswordStyle],
 })
 export class PasswordDirective extends BaseComponent implements OnDestroy, DoCheck {
     /**
@@ -128,7 +128,7 @@ export class PasswordDirective extends BaseComponent implements OnDestroy, DoChe
     get hasFluid() {
         const nativeElement = this.el.nativeElement;
         const fluidComponent = nativeElement.closest('p-fluid');
-        return this.fluid || !!fluidComponent 
+        return this.fluid || !!fluidComponent;
     }
 
     constructor(public zone: NgZone) {
@@ -349,7 +349,7 @@ type Mapper<T, G> = (item: T, ...args: any[]) => G;
 
 @Pipe({
     name: 'mapper',
-    pure: true
+    pure: true,
 })
 export class MapperPipe implements PipeTransform {
     public transform<T, G>(value: T, mapper: Mapper<T, G>, ...args: unknown[]): G {
@@ -360,7 +360,7 @@ export class MapperPipe implements PipeTransform {
 export const Password_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => Password),
-    multi: true
+    multi: true,
 };
 /**
  * Password displays strength indicator for password fields.
@@ -377,10 +377,10 @@ export const Password_VALUE_ACCESSOR: any = {
                 [attr.aria-labelledBy]="ariaLabelledBy"
                 [attr.id]="inputId"
                 pInputText
-                [ngClass]="disabled | mapper : inputFieldClass"
+                [ngClass]="disabled | mapper: inputFieldClass"
                 [ngStyle]="inputStyle"
                 [class]="inputStyleClass"
-                [attr.type]="unmasked | mapper : inputType"
+                [attr.type]="unmasked | mapper: inputType"
                 [attr.placeholder]="placeholder"
                 [attr.autocomplete]="autocomplete"
                 [value]="value"
@@ -395,7 +395,12 @@ export const Password_VALUE_ACCESSOR: any = {
                 [autofocus]="autofocus"
             />
             <ng-container *ngIf="showClear && value != null">
-                <TimesIcon *ngIf="!clearIconTemplate" class="p-password-clear-icon" (click)="clear()" [attr.data-pc-section]="'clearIcon'" />
+                <TimesIcon
+                    *ngIf="!clearIconTemplate"
+                    class="p-password-clear-icon"
+                    (click)="clear()"
+                    [attr.data-pc-section]="'clearIcon'"
+                />
                 <span (click)="clear()" class="p-password-clear-icon" [attr.data-pc-section]="'clearIcon'">
                     <ng-template *ngTemplateOutlet="clearIconTemplate"></ng-template>
                 </span>
@@ -403,13 +408,25 @@ export const Password_VALUE_ACCESSOR: any = {
 
             <ng-container *ngIf="toggleMask">
                 <ng-container *ngIf="unmasked">
-                    <EyeSlashIcon class="p-password-toggle-mask-icon p-password-mask-icon" *ngIf="!hideIconTemplate" (click)="onMaskToggle()" [attr.data-pc-section]="'hideIcon'" />
+                    <EyeSlashIcon
+                        class="p-password-toggle-mask-icon p-password-mask-icon"
+                        *ngIf="!hideIconTemplate"
+                        (click)="onMaskToggle()"
+                        [attr.data-pc-section]="'hideIcon'"
+                    />
                     <span *ngIf="hideIconTemplate" (click)="onMaskToggle()">
-                        <ng-template *ngTemplateOutlet="hideIconTemplate; context: { class: 'p-password-toggle-mask-icon p-password-mask-icon' }"></ng-template>
+                        <ng-template
+                            *ngTemplateOutlet="hideIconTemplate; context: { class: 'p-password-toggle-mask-icon p-password-mask-icon' }"
+                        ></ng-template>
                     </span>
                 </ng-container>
                 <ng-container *ngIf="!unmasked">
-                    <EyeIcon *ngIf="!showIconTemplate" class="p-password-toggle-mask-icon p-password-mask-icon" (click)="onMaskToggle()" [attr.data-pc-section]="'showIcon'" />
+                    <EyeIcon
+                        *ngIf="!showIconTemplate"
+                        class="p-password-toggle-mask-icon p-password-mask-icon"
+                        (click)="onMaskToggle()"
+                        [attr.data-pc-section]="'showIcon'"
+                    />
                     <span *ngIf="showIconTemplate" (click)="onMaskToggle()">
                         <ng-template *ngTemplateOutlet="showIconTemplate"></ng-template>
                     </span>
@@ -421,7 +438,10 @@ export const Password_VALUE_ACCESSOR: any = {
                 *ngIf="overlayVisible"
                 class="p-password-overlay p-component"
                 (click)="onOverlayClick($event)"
-                [@overlayAnimation]="{ value: 'visible', params: { showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions } }"
+                [@overlayAnimation]="{
+                    value: 'visible',
+                    params: { showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions },
+                }"
                 (@overlayAnimation.start)="onAnimationStart($event)"
                 (@overlayAnimation.done)="onAnimationEnd($event)"
                 [attr.data-pc-section]="'panel'"
@@ -433,7 +453,11 @@ export const Password_VALUE_ACCESSOR: any = {
                 <ng-template #content>
                     <div class="p-password-content">
                         <div class="p-password-meter" [attr.data-pc-section]="'meter'">
-                            <div [ngClass]="meter | mapper : strengthClass" [ngStyle]="{ width: meter ? meter.width : '' }" [attr.data-pc-section]="'meterLabel'"></div>
+                            <div
+                                [ngClass]="meter | mapper: strengthClass"
+                                [ngStyle]="{ width: meter ? meter.width : '' }"
+                                [attr.data-pc-section]="'meterLabel'"
+                            ></div>
                         </div>
                         <div class="p-password-meter-text" [attr.data-pc-section]="'info'">{{ infoText }}</div>
                     </div>
@@ -442,10 +466,15 @@ export const Password_VALUE_ACCESSOR: any = {
             </div>
         </div>
     `,
-    animations: [trigger('overlayAnimation', [transition(':enter', [style({ opacity: 0, transform: 'scaleY(0.8)' }), animate('{{showTransitionParams}}')]), transition(':leave', [animate('{{hideTransitionParams}}', style({ opacity: 0 }))])])],
+    animations: [
+        trigger('overlayAnimation', [
+            transition(':enter', [style({ opacity: 0, transform: 'scaleY(0.8)' }), animate('{{showTransitionParams}}')]),
+            transition(':leave', [animate('{{hideTransitionParams}}', style({ opacity: 0 }))]),
+        ]),
+    ],
     providers: [Password_VALUE_ACCESSOR, PasswordStyle],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
 })
 export class Password extends BaseComponent implements AfterContentInit, OnInit {
     /**
@@ -646,11 +675,11 @@ export class Password extends BaseComponent implements AfterContentInit, OnInit 
     translationSubscription: Nullable<Subscription>;
 
     _componentStyle = inject(PasswordStyle);
-    
+
     get hasFluid() {
         const nativeElement = this.el.nativeElement;
         const fluidComponent = nativeElement.closest('p-fluid');
-        return this.fluid || !!fluidComponent 
+        return this.fluid || !!fluidComponent;
     }
 
     constructor(public overlayService: OverlayService) {
@@ -743,7 +772,6 @@ export class Password extends BaseComponent implements AfterContentInit, OnInit 
             DomHandler.relativePosition(this.overlay, this.input.nativeElement);
         }
     }
-    
 
     onInput(event: Event) {
         this.value = (event.target as HTMLInputElement).value;
@@ -795,7 +823,7 @@ export class Password extends BaseComponent implements AfterContentInit, OnInit 
                 label = this.weakText();
                 meter = {
                     strength: 'weak',
-                    width: '33.33%'
+                    width: '33.33%',
                 };
                 break;
 
@@ -803,7 +831,7 @@ export class Password extends BaseComponent implements AfterContentInit, OnInit 
                 label = this.mediumText();
                 meter = {
                     strength: 'medium',
-                    width: '66.66%'
+                    width: '66.66%',
                 };
                 break;
 
@@ -811,7 +839,7 @@ export class Password extends BaseComponent implements AfterContentInit, OnInit 
                 label = this.strongText();
                 meter = {
                     strength: 'strong',
-                    width: '100%'
+                    width: '100%',
                 };
                 break;
 
@@ -832,7 +860,7 @@ export class Password extends BaseComponent implements AfterContentInit, OnInit 
     onOverlayClick(event: Event) {
         this.overlayService.add({
             originalEvent: event,
-            target: this.el.nativeElement
+            target: this.el.nativeElement,
         });
     }
 
@@ -991,6 +1019,6 @@ export class Password extends BaseComponent implements AfterContentInit, OnInit 
 @NgModule({
     imports: [CommonModule, InputTextModule, AutoFocusModule, TimesIcon, EyeSlashIcon, EyeIcon],
     exports: [PasswordDirective, Password, SharedModule],
-    declarations: [PasswordDirective, Password, MapperPipe]
+    declarations: [PasswordDirective, Password, MapperPipe],
 })
 export class PasswordModule {}

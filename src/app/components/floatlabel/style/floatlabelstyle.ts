@@ -66,9 +66,9 @@ const classes = {
             'p-inputtext-lg': props.size === 'large',
             'p-invalid': props.invalid,
             'p-variant-filled': props.variant === 'filled',
-            'p-inputtext-fluid': props.fluid
-        }
-    ]
+            'p-inputtext-fluid': props.fluid,
+        },
+    ],
 };
 
 @Injectable()

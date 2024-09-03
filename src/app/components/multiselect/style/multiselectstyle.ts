@@ -10,8 +10,8 @@ const theme = ({ dt }) => `
     background: ${dt('multiselect.background')};
     border: 1px solid ${dt('multiselect.border.color')};
     transition: background ${dt('multiselect.transition.duration')}, color ${dt('multiselect.transition.duration')}, border-color ${dt('multiselect.transition.duration')}, outline-color ${dt('multiselect.transition.duration')}, box-shadow ${dt(
-    'multiselect.transition.duration'
-)};
+        'multiselect.transition.duration',
+    )};
     border-radius: ${dt('multiselect.border.radius')};
     outline-color: transparent;
     box-shadow: ${dt('multiselect.shadow')};
@@ -145,8 +145,8 @@ const theme = ({ dt }) => `
     color: ${dt('multiselect.option.color')};
     background: transparent;
     transition: background ${dt('multiselect.transition.duration')}, color ${dt('multiselect.transition.duration')}, border-color ${dt('multiselect.transition.duration')}, box-shadow ${dt('multiselect.transition.duration')}, outline-color ${dt(
-    'multiselect.transition.duration'
-)};
+        'multiselect.transition.duration',
+    )};
     border-radius: ${dt('multiselect.option.border.radius')}
 }
 
@@ -210,7 +210,7 @@ p-multiselect.ng-invalid.ng-dirty > .p-multiselect.p-component.p-inputwrapper {
 `;
 
 const inlineStyles = {
-    root: ({ props }) => ({ position: props.appendTo === 'self' ? 'relative' : undefined })
+    root: ({ props }) => ({ position: props.appendTo === 'self' ? 'relative' : undefined }),
 };
 
 const classes = {
@@ -224,13 +224,14 @@ const classes = {
         'p-inputwrapper-filled': instance.filled,
         'p-inputwrapper-focus': instance.focused || instance.overlayVisible,
         'p-multiselect-open': instance.overlayVisible,
-        'p-multiselect-fluid': instance.hasFluid
+        'p-multiselect-fluid': instance.hasFluid,
     }),
     labelContainer: 'p-multiselect-label-container',
     label: ({ instance }) => ({
         'p-multiselect-label': true,
         'p-placeholder': instance.label === instance.placeholder,
-        'p-multiselect-label-empty': !instance.placeholder() && !instance.defaultLabel && (!instance.modelValue() || instance.modelValue().length === 0)
+        'p-multiselect-label-empty':
+            !instance.placeholder() && !instance.defaultLabel && (!instance.modelValue() || instance.modelValue().length === 0),
     }),
     chipItem: 'p-multiselect-chip-item',
     pcChip: 'p-multiselect-chip',
@@ -249,9 +250,9 @@ const classes = {
         'p-multiselect-option': true,
         'p-multiselect-option-selected': instance.isSelected(option) && instance.highlightOnSelect,
         'p-focus': instance.focusedOptionIndex === instance.getOptionIndex(index, getItemOptions),
-        'p-disabled': instance.isOptionDisabled(option)
+        'p-disabled': instance.isOptionDisabled(option),
     }),
-    emptyMessage: 'p-multiselect-empty-message'
+    emptyMessage: 'p-multiselect-empty-message',
 };
 
 @Injectable()

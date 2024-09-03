@@ -6,6 +6,6 @@ import { MegaMenuDemoRoutingModule } from './megamenudemo-routing.module';
 
 @NgModule({
     imports: [CommonModule, MegaMenuDemoRoutingModule, MegaMenuDocModule],
-    declarations: [MegaMenuDemo]
+    declarations: [MegaMenuDemo],
 })
 export class MegaMenuDemoModule {}

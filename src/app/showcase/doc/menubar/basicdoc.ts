@@ -12,7 +12,7 @@ import { Code } from '@domain/code';
             <p-menubar [model]="items" />
         </div>
         <app-code [code]="code" selector="menubar-basic-demo"></app-code>
-    `
+    `,
 })
 export class BasicDoc implements OnInit {
     items: MenuItem[] | undefined;
@@ -21,11 +21,11 @@ export class BasicDoc implements OnInit {
         this.items = [
             {
                 label: 'Home',
-                icon: 'pi pi-home'
+                icon: 'pi pi-home',
             },
             {
                 label: 'Features',
-                icon: 'pi pi-star'
+                icon: 'pi pi-star',
             },
             {
                 label: 'Projects',
@@ -33,15 +33,15 @@ export class BasicDoc implements OnInit {
                 items: [
                     {
                         label: 'Components',
-                        icon: 'pi pi-bolt'
+                        icon: 'pi pi-bolt',
                     },
                     {
                         label: 'Blocks',
-                        icon: 'pi pi-server'
+                        icon: 'pi pi-server',
                     },
                     {
                         label: 'UI Kit',
-                        icon: 'pi pi-pencil'
+                        icon: 'pi pi-pencil',
                     },
                     {
                         label: 'Templates',
@@ -49,20 +49,20 @@ export class BasicDoc implements OnInit {
                         items: [
                             {
                                 label: 'Apollo',
-                                icon: 'pi pi-palette'
+                                icon: 'pi pi-palette',
                             },
                             {
                                 label: 'Ultima',
-                                icon: 'pi pi-palette'
-                            }
-                        ]
-                    }
-                ]
+                                icon: 'pi pi-palette',
+                            },
+                        ],
+                    },
+                ],
             },
             {
                 label: 'Contact',
-                icon: 'pi pi-envelope'
-            }
+                icon: 'pi pi-envelope',
+            },
         ];
     }
 
@@ -134,6 +134,6 @@ export class MenubarBasicDemo implements OnInit {
             }
         ]
     }
-}`
+}`,
     };
 }

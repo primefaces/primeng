@@ -1,4 +1,13 @@
-import { Component, Input, ChangeDetectionStrategy, ViewEncapsulation, ElementRef, HostBinding, booleanAttribute, inject } from '@angular/core';
+import {
+    Component,
+    Input,
+    ChangeDetectionStrategy,
+    ViewEncapsulation,
+    ElementRef,
+    HostBinding,
+    booleanAttribute,
+    inject,
+} from '@angular/core';
 import { ObjectUtils } from 'primeng/utils';
 import { BaseComponent } from 'primeng/basecomponent';
 
@@ -8,8 +17,8 @@ import { BaseComponent } from 'primeng/basecomponent';
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
-        class: 'p-component p-iconwrapper'
-    }
+        class: 'p-component p-iconwrapper',
+    },
 })
 export class BaseIcon extends BaseComponent {
     @Input() label: string;

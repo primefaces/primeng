@@ -8,7 +8,15 @@ import { Code } from '@domain/code';
             <p>Select provides built-in filtering that is enabled by adding the <i>filter</i> property.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-select [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true" placeholder="Select a Country">
+            <p-select
+                [options]="countries"
+                [(ngModel)]="selectedCountry"
+                optionLabel="name"
+                [filter]="true"
+                filterBy="name"
+                [showClear]="true"
+                placeholder="Select a Country"
+            >
                 <ng-template pTemplate="selectedItem" let-selectedOption>
                     <div class="flex items-center gap-2">
                         <div>{{ selectedOption.name }}</div>
@@ -22,7 +30,7 @@ import { Code } from '@domain/code';
             </p-select>
         </div>
         <app-code [code]="code" selector="select-filter-demo"></app-code>
-    `
+    `,
 })
 export class FilterDoc implements OnInit {
     countries: any[] | undefined;
@@ -40,7 +48,7 @@ export class FilterDoc implements OnInit {
             { name: 'India', code: 'IN' },
             { name: 'Japan', code: 'JP' },
             { name: 'Spain', code: 'ES' },
-            { name: 'United States', code: 'US' }
+            { name: 'United States', code: 'US' },
         ];
     }
 
@@ -132,6 +140,6 @@ export class SelectFilterDemo implements OnInit {
             { name: 'United States', code: 'US' }
         ];
     }
-}`
+}`,
     };
 }

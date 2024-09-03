@@ -7,7 +7,8 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <h3>Screen Reader</h3>
             <p>
-                Value to describe the component can either be provided via <i>label</i> tag combined with <i>inputId</i> prop or using <i>ariaLabelledBy</i>, <i>ariaLabel</i> props. The input element uses <i>spinbutton</i> role in addition to the
+                Value to describe the component can either be provided via <i>label</i> tag combined with <i>inputId</i> prop or using
+                <i>ariaLabelledBy</i>, <i>ariaLabel</i> props. The input element uses <i>spinbutton</i> role in addition to the
                 <i>aria-valuemin</i>, <i>aria-valuemax</i> and <i>aria-valuenow</i> attributes.
             </p>
         </app-docsectiontext>
@@ -57,7 +58,7 @@ import { Code } from '@domain/code';
                 </tbody>
             </table>
         </div>
-    </div>`
+    </div>`,
 })
 export class AccessibilityDoc {
     code: Code = {
@@ -67,6 +68,6 @@ export class AccessibilityDoc {
 <span id="label_number">Number</span>
 <p-inputNumber ariaLabelledBy="label_number" />
 
-<p-inputNumber ariaLabel="Number" />`
+<p-inputNumber ariaLabel="Number" />`,
     };
 }

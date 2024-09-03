@@ -192,7 +192,7 @@ import { SelectModule } from 'primeng/select';
                             class="pi text-lg w-7 h-7 flex items-center justify-center"
                             [ngClass]="{
                                 'pi-moon': !darkMode,
-                                'pi-sun': darkMode
+                                'pi-sun': darkMode,
                             }"
                         ></i>
                         <div class="font-medium leading-normal flex-1 text-left">Switch to {{ darkMode ? 'Light' : 'Dark' }}</div>
@@ -753,7 +753,10 @@ export class CardsApp {
 
     items: any;
 
-    constructor(private config: PrimeNGConfig, private messageService: MessageService) {}
+    constructor(
+        private config: PrimeNGConfig,
+        private messageService: MessageService,
+    ) {}
 
     ngOnInit() {
         this.priceRangePopularSpecs = [

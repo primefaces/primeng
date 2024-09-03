@@ -16,7 +16,16 @@ interface Column {
         </app-docsectiontext>
         <div class="card">
             <p-deferred-demo (load)="loadDemoData()">
-                <p-treeTable [value]="files" [columns]="scrollableCols" [frozenColumns]="frozenCols" [scrollable]="true" scrollHeight="250px" frozenWidth="200px" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
+                <p-treeTable
+                    [value]="files"
+                    [columns]="scrollableCols"
+                    [frozenColumns]="frozenCols"
+                    [scrollable]="true"
+                    scrollHeight="250px"
+                    frozenWidth="200px"
+                    [scrollable]="true"
+                    [tableStyle]="{ 'min-width': '50rem' }"
+                >
                     <ng-template pTemplate="colgroup" let-columns>
                         <colgroup>
                             <col *ngFor="let col of columns" style="width:250px" />
@@ -49,7 +58,7 @@ interface Column {
         </div>
         <app-code [code]="code" selector="tree-table-scroll-frozen-columns-demo"></app-code>
     `,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FrozenColumnsDoc {
     files!: TreeNode[];
@@ -67,7 +76,7 @@ export class FrozenColumnsDoc {
         this.cols = [
             { field: 'name', header: 'Name' },
             { field: 'size', header: 'Size' },
-            { field: 'type', header: 'Type' }
+            { field: 'type', header: 'Type' },
         ];
 
         this.scrollableCols = [
@@ -76,7 +85,7 @@ export class FrozenColumnsDoc {
             { field: 'size', header: 'Size' },
             { field: 'type', header: 'Type' },
             { field: 'size', header: 'Size' },
-            { field: 'type', header: 'Type' }
+            { field: 'type', header: 'Type' },
         ];
 
         this.frozenCols = [{ field: 'name', header: 'Name' }];
@@ -211,6 +220,6 @@ export class TreeTableScrollFrozenColumnsDemo implements OnInit {
     }
 }`,
 
-        service: ['NodeService']
+        service: ['NodeService'],
     };
 }

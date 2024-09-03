@@ -10,13 +10,16 @@ interface City {
     selector: 'chips-doc',
     template: `
         <app-docsectiontext>
-            <p>Selected values are displayed as a comma separated list by default, setting <i>display</i> as <i>chip</i> displays them as chips.</p>
+            <p>
+                Selected values are displayed as a comma separated list by default, setting <i>display</i> as <i>chip</i> displays them as
+                chips.
+            </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-multiSelect [options]="cities" [(ngModel)]="selectedCities" placeholder="Select Cities" optionLabel="name" display="chip"/>
+            <p-multiSelect [options]="cities" [(ngModel)]="selectedCities" placeholder="Select Cities" optionLabel="name" display="chip" />
         </div>
         <app-code [code]="code" selector="multi-select-chips-demo"></app-code>
-    `
+    `,
 })
 export class ChipsDoc implements OnInit {
     cities!: City[];
@@ -29,7 +32,7 @@ export class ChipsDoc implements OnInit {
             { name: 'Rome', code: 'RM' },
             { name: 'London', code: 'LDN' },
             { name: 'Istanbul', code: 'IST' },
-            { name: 'Paris', code: 'PRS' }
+            { name: 'Paris', code: 'PRS' },
         ];
     }
 
@@ -79,6 +82,6 @@ export class MultiSelectChipsDemo implements OnInit {
             {name: 'Paris', code: 'PRS'}
         ];
     }
-}`
+}`,
     };
 }

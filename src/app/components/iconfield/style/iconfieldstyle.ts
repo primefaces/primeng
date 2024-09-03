@@ -39,7 +39,7 @@ const theme = ({ dt }) => `
 `;
 
 const classes = {
-    root: 'p-iconfield'
+    root: 'p-iconfield',
 };
 
 @Injectable()

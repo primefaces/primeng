@@ -60,23 +60,16 @@ import { CustomersApp } from './samples/customersapp.component';
                 <h1 class="text-5xl font-bold text-center xl:text-left leading-tight">
                     The Next-Gen UI Suite for <span class="font-bold text-primary">Angular</span>
                 </h1>
-                <p
-                    class="text-center mt-0 mb-8 text-surface-500 dark:text-surface-400 font-medium text-xl leading-relaxed lg:px-56"
-                >
-                    Enhance your web applications with PrimeNG's comprehensive suite of customizable, feature-rich UI
-                    components. With PrimeNG, turning your development vision into reality has never been easier.
+                <p class="text-center mt-0 mb-8 text-surface-500 dark:text-surface-400 font-medium text-xl leading-relaxed lg:px-56">
+                    Enhance your web applications with PrimeNG's comprehensive suite of customizable, feature-rich UI components. With
+                    PrimeNG, turning your development vision into reality has never been easier.
                 </p>
                 <div class="flex items-center gap-4">
                     <a [routerLink]="'installation'" class="linkbox linkbox-primary">
                         <span>Get Started</span>
                         <i class="pi pi-arrow-right ml-4"></i>
                     </a>
-                    <a
-                        href="https://github.com/primefaces/primeng"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="linkbox"
-                    >
+                    <a href="https://github.com/primefaces/primeng" target="_blank" rel="noopener noreferrer" class="linkbox">
                         <span>Give a Star</span>
                         <i class="pi pi-star-fill ml-4 text-yellow-500"></i>
                     </a>
@@ -111,27 +104,19 @@ import { CustomersApp } from './samples/customersapp.component';
                     <div
                         [ngClass]="{
                             'w-auto': isSlimMenu,
-                            'w-72': !isSlimMenu
+                            'w-72': !isSlimMenu,
                         }"
                         class="rounded-2xl p-5 bg-surface-50 dark:bg-surface-900 h-full flex flex-col justify-between"
                     >
                         <div
                             [ngClass]="{
                                 'w-12 flex flex-col items-center': isSlimMenu,
-                                'w-auto': !isSlimMenu
+                                'w-auto': !isSlimMenu,
                             }"
                         >
                             <div class="flex items-center gap-3">
-                                <div
-                                    class="w-11 h-11 border border-primary rounded-xl flex items-center justify-center"
-                                >
-                                    <svg
-                                        width="20"
-                                        height="24"
-                                        viewBox="0 0 20 24"
-                                        fill="none"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                    >
+                                <div class="w-11 h-11 border border-primary rounded-xl flex items-center justify-center">
+                                    <svg width="20" height="24" viewBox="0 0 20 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path
                                             d="M14.65 11.0645L13.1283 10.7253L14.3119 12.4216V17.6803L18.3698 14.2876V8.52002L16.5099 9.19856L14.65 11.0645Z"
                                             fill="var(--p-primary-color)"
@@ -181,7 +166,7 @@ import { CustomersApp } from './samples/customersapp.component';
                                 <div
                                     [ngClass]="{
                                         hidden: isSlimMenu,
-                                        block: !isSlimMenu
+                                        block: !isSlimMenu,
                                     }"
                                     class="text-surface-950 dark:text-surface-0 font-medium text-3xl"
                                 >
@@ -197,24 +182,23 @@ import { CustomersApp } from './samples/customersapp.component';
                                     [ngClass]="{
                                         'w-12 justify-center py-4': isSlimMenu,
                                         'w-full': !isSlimMenu,
-                                        'text-muted-color hover:bg-emphasis bg-transparent':
-                                            selectedSampleAppsSidebarNav !== navItem.title,
+                                        'text-muted-color hover:bg-emphasis bg-transparent': selectedSampleAppsSidebarNav !== navItem.title,
                                         'text-primary-contrast bg-primary hover:bg-primary-emphasis':
-                                            selectedSampleAppsSidebarNav === navItem.title
+                                            selectedSampleAppsSidebarNav === navItem.title,
                                     }"
                                 >
                                     <i [class]="navItem.icon"></i>
                                     <span
                                         [ngClass]="{
                                             hidden: isSlimMenu,
-                                            'font-medium leading-8': !isSlimMenu
+                                            'font-medium leading-8': !isSlimMenu,
                                         }"
                                         >・</span
                                     >
                                     <span
                                         [ngClass]="{
                                             hidden: isSlimMenu,
-                                            'font-medium leading-none': !isSlimMenu
+                                            'font-medium leading-none': !isSlimMenu,
                                         }"
                                         >{{ navItem.title }}</span
                                     >
@@ -224,7 +208,7 @@ import { CustomersApp } from './samples/customersapp.component';
                         <div
                             [ngClass]="{
                                 'w-12 flex flex-col items-center': isSlimMenu,
-                                'w-auto': !isSlimMenu
+                                'w-auto': !isSlimMenu,
                             }"
                         >
                             <div class="mt-10 flex flex-col gap-2">
@@ -234,15 +218,13 @@ import { CustomersApp } from './samples/customersapp.component';
                                     class="px-4 py-1 flex items-center gap-1 cursor-pointer text-base rounded-lg transition-all select-none text-muted-color hover:bg-emphasis"
                                     [ngClass]="{
                                         'w-12 justify-center py-4': isSlimMenu,
-                                        'w-full': !isSlimMenu
+                                        'w-full': !isSlimMenu,
                                     }"
                                 >
                                     <a (click)="toggleSlimMenu()" class="cursor-pointer block p-0 m-0 leading-none">
                                         <i [class]="isSlimMenu ? 'pi pi-window-maximize' : 'pi pi-window-minimize'"></i>
                                         <span [class]="isSlimMenu ? 'hidden' : 'font-medium leading-8'">・</span>
-                                        <span [class]="isSlimMenu ? 'hidden' : 'font-medium leading-none'">
-                                            Slim Mode</span
-                                        >
+                                        <span [class]="isSlimMenu ? 'hidden' : 'font-medium leading-none'"> Slim Mode</span>
                                     </a>
                                 </div>
                                 <div
@@ -252,17 +234,14 @@ import { CustomersApp } from './samples/customersapp.component';
                                     [ngClass]="{
                                         'w-12 justify-center py-4': isSlimMenu,
                                         'w-full': !isSlimMenu,
-                                        'text-muted-color hover:bg-emphasis bg-transparent':
-                                            selectedSampleAppsSidebarNav !== navItem.title,
+                                        'text-muted-color hover:bg-emphasis bg-transparent': selectedSampleAppsSidebarNav !== navItem.title,
                                         'text-primary-contrast bg-primary hover:bg-primary-emphasis':
-                                            selectedSampleAppsSidebarNav === navItem.title
+                                            selectedSampleAppsSidebarNav === navItem.title,
                                     }"
                                 >
                                     <i [class]="navItem.icon"></i>
                                     <span [class]="isSlimMenu ? 'hidden' : 'font-medium leading-8'">・</span>
-                                    <span [class]="isSlimMenu ? 'hidden' : 'font-medium leading-none'">{{
-                                        navItem.title
-                                    }}</span>
+                                    <span [class]="isSlimMenu ? 'hidden' : 'font-medium leading-none'">{{ navItem.title }}</span>
                                 </div>
                             </div>
                             <p-divider />
@@ -274,12 +253,8 @@ import { CustomersApp } from './samples/customersapp.component';
                                     class="shrink-0"
                                 />
                                 <div>
-                                    <div [class]="isSlimMenu ? 'hidden' : 'text-base font-medium text-color leading-5'">
-                                        Robin Jonas
-                                    </div>
-                                    <div [class]="isSlimMenu ? 'hidden' : 'text-sm text-muted-color mt-1'">
-                                        hi&#64;robin.xyz
-                                    </div>
+                                    <div [class]="isSlimMenu ? 'hidden' : 'text-base font-medium text-color leading-5'">Robin Jonas</div>
+                                    <div [class]="isSlimMenu ? 'hidden' : 'text-sm text-muted-color mt-1'">hi&#64;robin.xyz</div>
                                 </div>
                             </div>
                         </div>

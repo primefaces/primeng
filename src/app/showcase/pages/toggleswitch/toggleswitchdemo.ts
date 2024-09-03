@@ -8,49 +8,49 @@ import { AccessibilityDoc } from '@doc/toggleswitch/accessibilitydoc';
 import { ReactiveFormsDoc } from '@doc/toggleswitch/reactiveformsdoc';
 import { InvalidDoc } from '@doc/toggleswitch/invaliddoc';
 @Component({
-    templateUrl: './toggleswitchdemo.html'
+    templateUrl: './toggleswitchdemo.html',
 })
 export class ToggleSwitchDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc
+            component: ImportDoc,
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc
+            component: BasicDoc,
         },
         {
             id: 'reactive-forms',
             label: 'Reactive Forms',
-            component: ReactiveFormsDoc
+            component: ReactiveFormsDoc,
         },
         {
             id: 'preselection',
             label: 'Preselection',
-            component: PreselectionDoc
+            component: PreselectionDoc,
         },
         {
             id: 'invalid',
             label: 'Invalid',
-            component: InvalidDoc
+            component: InvalidDoc,
         },
         {
             id: 'disabled',
             label: 'Disabled',
-            component: DisabledDoc
+            component: DisabledDoc,
         },
         {
             id: 'style',
             label: 'Style',
-            component: StyleDoc
+            component: StyleDoc,
         },
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc
-        }
+            component: AccessibilityDoc,
+        },
     ];
 }

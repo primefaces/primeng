@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 @Component({
-    template: ` <p-colorPicker [(ngModel)]="color1"></p-colorPicker> `
+    template: ` <p-colorPicker [(ngModel)]="color1"></p-colorPicker> `,
 })
 class TestColorPickerComponent {
     color1: string = '#1976D2';
@@ -20,7 +20,7 @@ describe('ColorPicker', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [NoopAnimationsModule, FormsModule],
-            declarations: [ColorPicker, TestColorPickerComponent]
+            declarations: [ColorPicker, TestColorPickerComponent],
         });
 
         fixture = TestBed.createComponent(TestColorPickerComponent);

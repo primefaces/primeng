@@ -24,7 +24,25 @@ import { VerticalBarDoc } from './verticalbardoc';
 
 @NgModule({
     imports: [CommonModule, RouterModule, AppCodeModule, ChartModule, AppDocModule],
-    declarations: [BasicDoc, ChartjsDoc, ComboDoc, DoughnutDoc, HorizontalBarDoc, ImportDoc, LineDoc, LineStyleDoc, MethodsDoc, MultiAxisDoc, PieDoc, PolarAreaDoc, PropsDoc, RadarDoc, StackedBarDoc, VerticalBarDoc, AccessibilityDoc],
-    exports: [AppDocModule]
+    declarations: [
+        BasicDoc,
+        ChartjsDoc,
+        ComboDoc,
+        DoughnutDoc,
+        HorizontalBarDoc,
+        ImportDoc,
+        LineDoc,
+        LineStyleDoc,
+        MethodsDoc,
+        MultiAxisDoc,
+        PieDoc,
+        PolarAreaDoc,
+        PropsDoc,
+        RadarDoc,
+        StackedBarDoc,
+        VerticalBarDoc,
+        AccessibilityDoc,
+    ],
+    exports: [AppDocModule],
 })
 export class ChartDocModule {}

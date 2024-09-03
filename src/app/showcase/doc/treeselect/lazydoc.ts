@@ -7,7 +7,10 @@ import { TreeNode } from 'primeng/api';
     selector: 'lazy-doc',
     template: `
         <app-docsectiontext>
-            <p>Lazy loading is useful when dealing with huge datasets, in this example nodes are dynamically loaded on demand using <i>loading</i> property and <i>onNodeExpand</i> method.</p>
+            <p>
+                Lazy loading is useful when dealing with huge datasets, in this example nodes are dynamically loaded on demand using
+                <i>loading</i> property and <i>onNodeExpand</i> method.
+            </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-treeSelect
@@ -25,7 +28,7 @@ import { TreeNode } from 'primeng/api';
             />
         </div>
         <app-code [code]="code" selector="tree-select-basic-demo"></app-code>
-    `
+    `,
 })
 export class LazyDoc {
     selectedNodes: TreeNode[] = [];
@@ -51,18 +54,18 @@ export class LazyDoc {
             {
                 key: '0',
                 label: 'Node 0',
-                leaf: false
+                leaf: false,
             },
             {
                 key: '1',
                 label: 'Node 1',
-                leaf: false
+                leaf: false,
             },
             {
                 key: '2',
                 label: 'Node 2',
-                leaf: false
-            }
+                leaf: false,
+            },
         ];
     }
 
@@ -77,7 +80,7 @@ export class LazyDoc {
                 for (let i = 0; i < 1500; i++) {
                     _node.children.push({
                         key: event.node.key + '-' + i,
-                        label: 'Lazy ' + event.node.label + '-' + i
+                        label: 'Lazy ' + event.node.label + '-' + i,
                     });
                 }
 
@@ -223,6 +226,6 @@ export class TreeSelectLazyDemo {
         }
     ]
 },
-...`
+...`,
     };
 }

@@ -7,18 +7,25 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <h3>Screen Reader</h3>
             <p>
-                ConfirmDialog component uses <i>alertdialog</i> role along with <i>aria-labelledby</i> referring to the header element however any attribute is passed to the root element so you may use <i>aria-labelledby</i> to override this default
-                behavior. In addition <i>aria-modal</i> is added since focus is kept within the popup.
+                ConfirmDialog component uses <i>alertdialog</i> role along with <i>aria-labelledby</i> referring to the header element
+                however any attribute is passed to the root element so you may use <i>aria-labelledby</i> to override this default behavior.
+                In addition <i>aria-modal</i> is added since focus is kept within the popup.
             </p>
-            <p>It is recommended to use a trigger component that can be accessed with keyboard such as a button, if not adding <i>tabIndex</i> would be necessary.</p>
             <p>
-                When <i>confirm</i> function is used and a trigger is passed as a parameter, ConfirmDialog adds <i>aria-expanded</i> state attribute and <i>aria-controls</i> to the trigger so that the relation between the trigger and the popup is
-                defined.
+                It is recommended to use a trigger component that can be accessed with keyboard such as a button, if not adding
+                <i>tabIndex</i> would be necessary.
+            </p>
+            <p>
+                When <i>confirm</i> function is used and a trigger is passed as a parameter, ConfirmDialog adds <i>aria-expanded</i> state
+                attribute and <i>aria-controls</i> to the trigger so that the relation between the trigger and the popup is defined.
             </p>
 
             <app-code [code]="code1" [hideToggleCode]="true"></app-code>
 
-            <p>If the dialog is controlled with the <i>visible</i> property <i>aria-expanded</i> and <i>aria-controls</i> need to be handled explicitly.</p>
+            <p>
+                If the dialog is controlled with the <i>visible</i> property <i>aria-expanded</i> and <i>aria-controls</i> need to be
+                handled explicitly.
+            </p>
 
             <app-code [code]="code2" [hideToggleCode]="true"></app-code>
 
@@ -70,7 +77,7 @@ import { Code } from '@domain/code';
                 </table>
             </div>
         </app-docsectiontext>
-    </div>`
+    </div>`,
 })
 export class AccessibilityDoc {
     code1: Code = {
@@ -86,7 +93,7 @@ this.confirmationService.confirm({
 <p-button (click)="confirm1()" icon="pi pi-check" label="Confirm"></p-button>
 
 <p-confirmDialog></p-confirmDialog>
-        `
+        `,
     };
 
     code2: Code = {
@@ -105,6 +112,6 @@ this.confirmationService.confirm({
     label="Confirm" 
     aria-controls="{{visible ? 'dialog' : null}} 
     aria-expanded="{{visible ? true : false}}"
-></p-button>`
+></p-button>`,
     };
 }

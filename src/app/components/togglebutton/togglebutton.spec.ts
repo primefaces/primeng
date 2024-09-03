@@ -10,7 +10,7 @@ describe('ToggleButton', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [NoopAnimationsModule],
-            declarations: [ToggleButton]
+            declarations: [ToggleButton],
         });
 
         fixture = TestBed.createComponent(ToggleButton);

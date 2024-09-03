@@ -8,8 +8,8 @@ import { AppConfigService } from '@service/appconfigservice';
     template: `
         <app-docsectiontext>
             <p>
-                A doughnut chart is a variant of the pie chart, with a blank center allowing for additional information
-                about the data as a whole to be included.
+                A doughnut chart is a variant of the pie chart, with a blank center allowing for additional information about the data as a
+                whole to be included.
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
@@ -41,10 +41,18 @@ export class DoughnutDoc implements OnInit {
                 datasets: [
                     {
                         data: [300, 50, 100],
-                        backgroundColor: [documentStyle.getPropertyValue('--p-cyan-500'), documentStyle.getPropertyValue('--p-orange-500'), documentStyle.getPropertyValue('--p-gray-500')],
-                        hoverBackgroundColor: [documentStyle.getPropertyValue('--p-cyan-400'), documentStyle.getPropertyValue('--p-orange-400'), documentStyle.getPropertyValue('--p-gray-400')]
-                    }
-                ]
+                        backgroundColor: [
+                            documentStyle.getPropertyValue('--p-cyan-500'),
+                            documentStyle.getPropertyValue('--p-orange-500'),
+                            documentStyle.getPropertyValue('--p-gray-500'),
+                        ],
+                        hoverBackgroundColor: [
+                            documentStyle.getPropertyValue('--p-cyan-400'),
+                            documentStyle.getPropertyValue('--p-orange-400'),
+                            documentStyle.getPropertyValue('--p-gray-400'),
+                        ],
+                    },
+                ],
             };
 
             this.options = {

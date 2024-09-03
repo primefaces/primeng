@@ -20,7 +20,7 @@ import { Code } from '@domain/code';
             />
         </div>
         <app-code [code]="code" selector="cascade-select-invalid-demo"></app-code>
-    `
+    `,
 })
 export class InvalidDoc {
     countries: any[] | undefined;
@@ -38,17 +38,17 @@ export class InvalidDoc {
                         cities: [
                             { cname: 'Sydney', code: 'A-SY' },
                             { cname: 'Newcastle', code: 'A-NE' },
-                            { cname: 'Wollongong', code: 'A-WO' }
-                        ]
+                            { cname: 'Wollongong', code: 'A-WO' },
+                        ],
                     },
                     {
                         name: 'Queensland',
                         cities: [
                             { cname: 'Brisbane', code: 'A-BR' },
-                            { cname: 'Townsville', code: 'A-TO' }
-                        ]
-                    }
-                ]
+                            { cname: 'Townsville', code: 'A-TO' },
+                        ],
+                    },
+                ],
             },
             {
                 name: 'Canada',
@@ -58,17 +58,17 @@ export class InvalidDoc {
                         name: 'Quebec',
                         cities: [
                             { cname: 'Montreal', code: 'C-MO' },
-                            { cname: 'Quebec City', code: 'C-QU' }
-                        ]
+                            { cname: 'Quebec City', code: 'C-QU' },
+                        ],
                     },
                     {
                         name: 'Ontario',
                         cities: [
                             { cname: 'Ottawa', code: 'C-OT' },
-                            { cname: 'Toronto', code: 'C-TO' }
-                        ]
-                    }
-                ]
+                            { cname: 'Toronto', code: 'C-TO' },
+                        ],
+                    },
+                ],
             },
             {
                 name: 'United States',
@@ -79,8 +79,8 @@ export class InvalidDoc {
                         cities: [
                             { cname: 'Los Angeles', code: 'US-LA' },
                             { cname: 'San Diego', code: 'US-SD' },
-                            { cname: 'San Francisco', code: 'US-SF' }
-                        ]
+                            { cname: 'San Francisco', code: 'US-SF' },
+                        ],
                     },
                     {
                         name: 'Florida',
@@ -88,19 +88,19 @@ export class InvalidDoc {
                             { cname: 'Jacksonville', code: 'US-JA' },
                             { cname: 'Miami', code: 'US-MI' },
                             { cname: 'Tampa', code: 'US-TA' },
-                            { cname: 'Orlando', code: 'US-OR' }
-                        ]
+                            { cname: 'Orlando', code: 'US-OR' },
+                        ],
                     },
                     {
                         name: 'Texas',
                         cities: [
                             { cname: 'Austin', code: 'US-AU' },
                             { cname: 'Dallas', code: 'US-DA' },
-                            { cname: 'Houston', code: 'US-HO' }
-                        ]
-                    }
-                ]
-            }
+                            { cname: 'Houston', code: 'US-HO' },
+                        ],
+                    },
+                ],
+            },
         ];
     }
 
@@ -218,6 +218,6 @@ export class CascadeSelectInvalidDemo implements OnInit {
             }
         ];
     }
-}`
+}`,
     };
 }

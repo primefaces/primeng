@@ -15,7 +15,7 @@ import { Code } from '@domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="input-text-help-text-demo"></app-code>
-    `
+    `,
 })
 export class HelpTextDoc {
     value: string | undefined;
@@ -59,6 +59,6 @@ import { FormsModule } from '@angular/forms';
 })
 export class InputTextHelpTextDemo {
     value: string | undefined;
-}`
+}`,
     };
 }

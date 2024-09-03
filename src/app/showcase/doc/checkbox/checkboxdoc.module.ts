@@ -21,6 +21,19 @@ import { IndeterminateDoc } from './indeterminatedoc';
 @NgModule({
     imports: [CommonModule, RouterModule, FormsModule, AppCodeModule, AppDocModule, CheckboxModule, ReactiveFormsModule],
     exports: [ImportDoc],
-    declarations: [ImportDoc, BasicDoc, IndeterminateDoc, MultipleDoc, LabelDoc, DynamicDoc, DisabledDoc, InvalidDoc, StyleDoc, AccessibilityDoc, ReactiveFormsDoc, FilledDoc]
+    declarations: [
+        ImportDoc,
+        BasicDoc,
+        IndeterminateDoc,
+        MultipleDoc,
+        LabelDoc,
+        DynamicDoc,
+        DisabledDoc,
+        InvalidDoc,
+        StyleDoc,
+        AccessibilityDoc,
+        ReactiveFormsDoc,
+        FilledDoc,
+    ],
 })
 export class CheckboxDocModule {}

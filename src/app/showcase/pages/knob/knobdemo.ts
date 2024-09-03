@@ -15,79 +15,79 @@ import { StyleDoc } from '@doc/knob/styledoc';
 import { TemplateDoc } from '@doc/knob/templatedoc';
 
 @Component({
-    templateUrl: './knobdemo.html'
+    templateUrl: './knobdemo.html',
 })
 export class KnobDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc
+            component: ImportDoc,
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc
+            component: BasicDoc,
         },
         {
             id: 'reactive-forms',
             label: 'Reactive Forms',
-            component: ReactiveFormsDoc
+            component: ReactiveFormsDoc,
         },
         {
             id: 'minmax',
             label: 'Min/Max',
-            component: MinMaxDoc
+            component: MinMaxDoc,
         },
         {
             id: 'step',
             label: 'Step',
-            component: StepDoc
+            component: StepDoc,
         },
         {
             id: 'template',
             label: 'Template',
-            component: TemplateDoc
+            component: TemplateDoc,
         },
         {
             id: 'stroke',
             label: 'Stroke',
-            component: StrokeDoc
+            component: StrokeDoc,
         },
         {
             id: 'size',
             label: 'Size',
-            component: SizeDoc
+            component: SizeDoc,
         },
         {
             id: 'color',
             label: 'Color',
-            component: ColorDoc
+            component: ColorDoc,
         },
         {
             id: 'reactive',
             label: 'Reactive',
-            component: ReactiveDoc
+            component: ReactiveDoc,
         },
         {
             id: 'readonly',
             label: 'ReadOnly',
-            component: ReadonlyDoc
+            component: ReadonlyDoc,
         },
         {
             id: 'disabled',
             label: 'Disabled',
-            component: DisabledDoc
+            component: DisabledDoc,
         },
         {
             id: 'style',
             label: 'Style',
-            component: StyleDoc
+            component: StyleDoc,
         },
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc
-        }
+            component: AccessibilityDoc,
+        },
     ];
 }

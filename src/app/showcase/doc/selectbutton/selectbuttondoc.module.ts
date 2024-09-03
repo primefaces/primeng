@@ -16,6 +16,6 @@ import { TemplateDoc } from './templatedoc';
 @NgModule({
     imports: [CommonModule, AppCodeModule, AppDocModule, SelectButtonModule, FormsModule, ReactiveFormsModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, MultipleDoc, TemplateDoc, InvalidDoc, DisabledDoc, AccessibilityDoc, ReactiveFormsDoc]
+    declarations: [ImportDoc, BasicDoc, MultipleDoc, TemplateDoc, InvalidDoc, DisabledDoc, AccessibilityDoc, ReactiveFormsDoc],
 })
 export class SelectButtonDocModule {}

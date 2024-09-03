@@ -4,6 +4,6 @@ import { ContextMenuDemo } from './contextmenudemo';
 
 @NgModule({
     imports: [RouterModule.forChild([{ path: '', component: ContextMenuDemo }])],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class ContextMenuDemoRoutingModule {}

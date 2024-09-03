@@ -17,6 +17,6 @@ import { FigmaDoc } from './figmadoc';
 @NgModule({
     imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, MenuModule],
     declarations: [BasicDoc, ColorDoc, ConstantsDoc, DownloadDoc, ImportDoc, ListDoc, SizeDoc, SpinDoc, FigmaDoc],
-    exports: [AppDocModule]
+    exports: [AppDocModule],
 })
 export class IconsDocModule {}

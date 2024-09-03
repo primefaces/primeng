@@ -7,7 +7,10 @@ import { Router } from '@angular/router';
     selector: 'router-doc',
     template: `
         <app-docsectiontext>
-            <p>Items with navigation are defined with templating to be able to use a routerLink directive, an external link or programmatic navigation.</p>
+            <p>
+                Items with navigation are defined with templating to be able to use a routerLink directive, an external link or programmatic
+                navigation.
+            </p>
         </app-docsectiontext>
         <div class="card">
             <p-menubar [model]="items">
@@ -35,7 +38,7 @@ import { Router } from '@angular/router';
             </p-menubar>
         </div>
         <app-code [code]="code" selector="menubar-router-demo"></app-code>
-    `
+    `,
 })
 export class RouterDoc implements OnInit {
     items: MenuItem[] | undefined;
@@ -50,20 +53,20 @@ export class RouterDoc implements OnInit {
                 items: [
                     {
                         label: 'Installation',
-                        route: '/installation'
+                        route: '/installation',
                     },
                     {
                         label: 'Configuration',
-                        route: '/configuration'
-                    }
-                ]
+                        route: '/configuration',
+                    },
+                ],
             },
             {
                 label: 'Programmatic',
                 icon: 'pi pi-link',
                 command: () => {
                     this.router.navigate(['/installation']);
-                }
+                },
             },
             {
                 label: 'External',
@@ -71,14 +74,14 @@ export class RouterDoc implements OnInit {
                 items: [
                     {
                         label: 'Angular',
-                        url: 'https://angular.io/'
+                        url: 'https://angular.io/',
                     },
                     {
                         label: 'Vite.js',
-                        url: 'https://vitejs.dev/'
-                    }
-                ]
-            }
+                        url: 'https://vitejs.dev/',
+                    },
+                ],
+            },
         ];
     }
 
@@ -189,6 +192,6 @@ export class MenubarRouterDemo implements OnInit {
             }
         ];
     }
-}`
+}`,
     };
 }

@@ -12,8 +12,8 @@ interface UploadEvent {
     template: `
         <app-docsectiontext>
             <p>
-                FileUpload is an advanced uploader with dragdrop support, multi file uploads, auto uploading, progress
-                tracking and validations.
+                FileUpload is an advanced uploader with dragdrop support, multi file uploads, auto uploading, progress tracking and
+                validations.
             </p>
         </app-docsectiontext>
         <div class="card">

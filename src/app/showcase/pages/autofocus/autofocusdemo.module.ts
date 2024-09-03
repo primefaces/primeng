@@ -6,6 +6,6 @@ import { AutoFocusDemo } from './autofocusdemo';
 
 @NgModule({
     imports: [CommonModule, AutoFocusDemoRoutingModule, AutoFocusDocModule],
-    declarations: [AutoFocusDemo]
+    declarations: [AutoFocusDemo],
 })
 export class AutoFocusDemoModule {}

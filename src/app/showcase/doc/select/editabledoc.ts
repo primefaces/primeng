@@ -16,7 +16,7 @@ interface City {
             <p-select [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City" [editable]="true" optionLabel="name" />
         </div>
         <app-code [code]="code" selector="select-editable-demo"></app-code>
-    `
+    `,
 })
 export class EditableDoc implements OnInit {
     cities: City[] | undefined;
@@ -29,7 +29,7 @@ export class EditableDoc implements OnInit {
             { name: 'Rome', code: 'RM' },
             { name: 'London', code: 'LDN' },
             { name: 'Istanbul', code: 'IST' },
-            { name: 'Paris', code: 'PRS' }
+            { name: 'Paris', code: 'PRS' },
         ];
     }
 
@@ -79,6 +79,6 @@ export class SelectEditableDemo implements OnInit {
             { name: 'Paris', code: 'PRS' }
         ];
     }
-}`
+}`,
     };
 }

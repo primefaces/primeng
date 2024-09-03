@@ -6,6 +6,6 @@ import { BreadcrumbDocModule } from '@doc/breadcrumb/breadcrumbdoc.module';
 
 @NgModule({
     imports: [CommonModule, BreadcrumbDemoRoutingModule, BreadcrumbDocModule],
-    declarations: [BreadcrumbDemo]
+    declarations: [BreadcrumbDemo],
 })
 export class BreadcrumbDemoModule {}

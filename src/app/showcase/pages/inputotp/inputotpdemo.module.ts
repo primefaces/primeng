@@ -6,6 +6,6 @@ import { InputOtpDocModule } from '@doc/inputotp/inputotpdoc.module';
 
 @NgModule({
     imports: [CommonModule, InputOtpDemoRoutingModule, InputOtpDocModule],
-    declarations: [InputOtpDemo]
+    declarations: [InputOtpDemo],
 })
 export class InputOtpDemoModule {}

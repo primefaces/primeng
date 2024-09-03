@@ -11,7 +11,7 @@ describe('SplitButton', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule, RouterTestingModule, ButtonModule, SplitButtonModule]
+            imports: [NoopAnimationsModule, RouterTestingModule, ButtonModule, SplitButtonModule],
         });
 
         fixture = TestBed.createComponent(SplitButton);

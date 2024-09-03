@@ -4,6 +4,6 @@ import { AutoCompleteDemo } from '.';
 
 @NgModule({
     imports: [RouterModule.forChild([{ path: '', component: AutoCompleteDemo }])],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class AutoCompleteDemoRoutingModule {}

@@ -6,7 +6,10 @@ import { CustomerService } from '@service/customerservice';
 @Component({
     selector: 'paginator-locale-doc',
     template: ` <app-docsectiontext>
-            <p>paginator localization information such as page numbers and rows per page options are defined with the <i>paginatorLocale</i> property which defaults to the user locale.</p>
+            <p>
+                paginator localization information such as page numbers and rows per page options are defined with the
+                <i>paginatorLocale</i> property which defaults to the user locale.
+            </p>
         </app-docsectiontext>
         <p-deferred-demo (load)="loadDemoData()">
             <div class="card">
@@ -46,14 +49,14 @@ import { CustomerService } from '@service/customerservice';
             </div>
         </p-deferred-demo>
         <app-code [code]="code" selector="table-paginator-locale-demo" [extFiles]="extFiles"></app-code>`,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PaginatorLocaleDoc {
     customers!: Customer[];
 
     constructor(
         private customerService: CustomerService,
-        private cd: ChangeDetectorRef
+        private cd: ChangeDetectorRef,
     ) {}
 
     loadDemoData() {
@@ -170,7 +173,7 @@ export class TablePaginatorLocaleDemo {
     balance: 70663
 },
 ...`,
-        service: ['CustomerService']
+        service: ['CustomerService'],
     };
 
     extFiles = [
@@ -198,7 +201,7 @@ export interface Customer {
     representative?: Representative;
     verified?: boolean;
     balance?: number;
-}`
-        }
+}`,
+        },
     ];
 }

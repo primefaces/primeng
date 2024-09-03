@@ -154,7 +154,13 @@ export class ObjectUtils {
     }
 
     public static isEmpty(value) {
-        return value === null || value === undefined || value === '' || (Array.isArray(value) && value.length === 0) || (!this.isDate(value) && typeof value === 'object' && Object.keys(value).length === 0);
+        return (
+            value === null ||
+            value === undefined ||
+            value === '' ||
+            (Array.isArray(value) && value.length === 0) ||
+            (!this.isDate(value) && typeof value === 'object' && Object.keys(value).length === 0)
+        );
     }
 
     public static isNotEmpty(value) {

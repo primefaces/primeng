@@ -25,7 +25,7 @@ import { Code } from '@domain/code';
             </p-inputGroup>
         </div>
         <app-code [code]="code" selector="input-group-basic-demo"></app-code>
-    `
+    `,
 })
 export class BasicDoc {
     code: Code = {
@@ -75,6 +75,6 @@ import { InputTextModule } from 'primeng/inputtext';
     standalone: true,
     imports: [FormsModule, InputGroupModule, InputGroupAddonModule, InputTextModule]
 })
-export class InputGroupBasicDemo { }`
+export class InputGroupBasicDemo { }`,
     };
 }

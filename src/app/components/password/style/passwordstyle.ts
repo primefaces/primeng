@@ -99,7 +99,7 @@ p-password.ng-invalid.ng-dirty > .p-password.p-inputwrapper > .p-inputtext {
 `;
 
 const inlineStyles = {
-    root: ({ instance }) => ({ position: instance.appendTo === 'self' ? 'relative' : undefined })
+    root: ({ instance }) => ({ position: instance.appendTo === 'self' ? 'relative' : undefined }),
 };
 
 const classes = {
@@ -107,7 +107,7 @@ const classes = {
         'p-password p-component p-inputwrapper': true,
         'p-inputwrapper-filled': instance.filled(),
         'p-inputwrapper-focus': instance.focused,
-        'p-password-fluid': instance.hasFluid
+        'p-password-fluid': instance.hasFluid,
     }),
     pcInput: 'p-password-input',
     maskIcon: 'p-password-toggle-mask-icon p-password-mask-icon',
@@ -116,7 +116,7 @@ const classes = {
     content: 'p-password-content',
     meter: 'p-password-meter',
     meterLabel: ({ instance }) => `p-password-meter-label ${instance.meter ? 'p-password-meter-' + instance.meter.strength : ''}`,
-    meterText: 'p-password-meter-text'
+    meterText: 'p-password-meter-text',
 };
 
 @Injectable()

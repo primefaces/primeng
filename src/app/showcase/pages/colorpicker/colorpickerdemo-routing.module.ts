@@ -4,6 +4,6 @@ import { ColorPickerDemo } from './colorpickerdemo';
 
 @NgModule({
     imports: [RouterModule.forChild([{ path: '', component: ColorPickerDemo }])],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class ColorPickerDemoRoutingModule {}

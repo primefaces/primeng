@@ -10,8 +10,8 @@ const theme = ({ dt }) => `
     background: ${dt('cascadeselect.background')};
     border: 1px solid ${dt('cascadeselect.border.color')};
     transition: background ${dt('cascadeselect.transition.duration')}, color ${dt('cascadeselect.transition.duration')}, border-color ${dt('cascadeselect.transition.duration')}, outline-color ${dt(
-    'cascadeselect.transition.duration'
-)}, box-shadow ${dt('cascadeselect.transition.duration')};
+        'cascadeselect.transition.duration',
+    )}, box-shadow ${dt('cascadeselect.transition.duration')};
     border-radius: ${dt('cascadeselect.border.radius')};
     outline-color: transparent;
     box-shadow: ${dt('cascadeselect.shadow')};
@@ -126,8 +126,8 @@ const theme = ({ dt }) => `
     color: ${dt('cascadeselect.option.color')};
     background: transparent;
     transition: background ${dt('cascadeselect.transition.duration')}, color ${dt('cascadeselect.transition.duration')}, border-color ${dt('cascadeselect.transition.duration')}, box-shadow ${dt(
-    'cascadeselect.transition.duration'
-)}, outline-color ${dt('cascadeselect.transition.duration')};
+        'cascadeselect.transition.duration',
+    )}, outline-color ${dt('cascadeselect.transition.duration')};
     border-radius: ${dt('cascadeselect.option.border.radius')};
 }
 
@@ -195,7 +195,7 @@ p-cascadeselect.ng-invalid.ng-dirty > .p-inputwrapper {
 `;
 
 const inlineStyles = {
-    root: ({ props }) => ({ position: props.appendTo === 'self' ? 'relative' : undefined })
+    root: ({ props }) => ({ position: props.appendTo === 'self' ? 'relative' : undefined }),
 };
 
 const classes = {
@@ -204,20 +204,22 @@ const classes = {
         {
             'p-disabled': props.disabled,
             'p-invalid': props.invalid,
-            'p-variant-filled': props.variant ? props.variant === 'filled' : instance.$primevue.config.inputStyle === 'filled' || instance.$primevue.config.inputVariant === 'filled',
+            'p-variant-filled': props.variant
+                ? props.variant === 'filled'
+                : instance.$primevue.config.inputStyle === 'filled' || instance.$primevue.config.inputVariant === 'filled',
             'p-focus': instance.focused,
             'p-inputwrapper-filled': props.modelValue,
             'p-inputwrapper-focus': instance.focused || instance.overlayVisible,
             'p-cascadeselect-open': instance.overlayVisible,
-            'p-cascadeselect-fluid': props.fluid
-        }
+            'p-cascadeselect-fluid': props.fluid,
+        },
     ],
     label: ({ instance, props }) => [
         'p-cascadeselect-label',
         {
             'p-placeholder': instance.label === props.placeholder,
-            'p-cascadeselect-label-empty': !instance.$slots['value'] && (instance.label === 'p-emptylabel' || instance.label.length === 0)
-        }
+            'p-cascadeselect-label-empty': !instance.$slots['value'] && (instance.label === 'p-emptylabel' || instance.label.length === 0),
+        },
     ],
     dropdown: 'p-cascadeselect-dropdown',
     loadingIcon: 'p-cascadeselect-loading-icon',
@@ -231,13 +233,13 @@ const classes = {
             'p-cascadeselect-option-active': instance.isOptionActive(processedOption),
             'p-cascadeselect-option-selected': instance.isOptionSelected(processedOption),
             'p-focus': instance.isOptionFocused(processedOption),
-            'p-disabled': instance.isOptionDisabled(processedOption)
-        }
+            'p-disabled': instance.isOptionDisabled(processedOption),
+        },
     ],
     optionContent: 'p-cascadeselect-option-content',
     optionText: 'p-cascadeselect-option-text',
     groupIcon: 'p-cascadeselect-group-icon',
-    optionList: 'p-cascadeselect-overlay p-cascadeselect-option-list'
+    optionList: 'p-cascadeselect-overlay p-cascadeselect-option-list',
 };
 
 @Injectable()

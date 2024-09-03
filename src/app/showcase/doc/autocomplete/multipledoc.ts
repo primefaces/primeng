@@ -10,8 +10,8 @@ interface AutoCompleteCompleteEvent {
     selector: 'autocomplete-multiple-demo',
     template: ` <app-docsectiontext>
             <p>
-                Multiple mode is enabled using <i>multiple</i> property used to select more than one value from the
-                autocomplete. In this case, value reference should be an array.
+                Multiple mode is enabled using <i>multiple</i> property used to select more than one value from the autocomplete. In this
+                case, value reference should be an array.
             </p>
         </app-docsectiontext>
         <div class="card">

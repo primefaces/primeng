@@ -6,9 +6,7 @@ import { Drawer } from 'primeng/drawer';
     selector: 'headless-doc',
     template: `
         <app-docsectiontext>
-            <p>
-                <i>Headless</i> mode allows you to customize the entire user interface instead of the default elements.
-            </p>
+            <p><i>Headless</i> mode allows you to customize the entire user interface instead of the default elements.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-drawer #drawerRef [(visible)]="visible">
@@ -16,13 +14,7 @@ import { Drawer } from 'primeng/drawer';
                     <div class="flex flex-col h-full">
                         <div class="flex items-center justify-between px-6 pt-4 shrink-0">
                             <span class="inline-flex items-center gap-2">
-                                <svg
-                                    width="31"
-                                    height="33"
-                                    viewBox="0 0 31 33"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                >
+                                <svg width="31" height="33" viewBox="0 0 31 33" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path
                                         d="M15.1934 0V0V0L0.0391235 5.38288L2.35052 25.3417L15.1934 32.427V32.427V32.427L28.0364 25.3417L30.3478 5.38288L15.1934 0Z"
                                         fill="var(--p-primary-color)"
@@ -302,10 +294,7 @@ import { Drawer } from 'primeng/drawer';
                                 pRipple
                                 class="m-4 flex items-center cursor-pointer p-4 gap-2 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple"
                             >
-                                <p-avatar
-                                    image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"
-                                    shape="circle"
-                                />
+                                <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
                                 <span class="font-bold">Amy Elsner</span>
                             </a>
                         </div>

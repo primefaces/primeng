@@ -6,6 +6,6 @@ import { ColorsDemoComponent } from './colors.component';
 
 @NgModule({
     imports: [CommonModule, ColorsDocModule, ColorsDemoRoutingModule],
-    declarations: [ColorsDemoComponent]
+    declarations: [ColorsDemoComponent],
 })
 export class ColorsDemoModule {}

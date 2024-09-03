@@ -6,6 +6,6 @@ import { GalleriaDemoRoutingModule } from './galleriademo-routing.module';
 
 @NgModule({
     imports: [CommonModule, GalleriaDemoRoutingModule, GalleriaDocModule],
-    declarations: [GalleriaDemo]
+    declarations: [GalleriaDemo],
 })
 export class GalleriaDemoModule {}

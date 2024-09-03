@@ -6,6 +6,6 @@ import { OrderListDemoRoutingModule } from './orderlistdemo-routing.module';
 
 @NgModule({
     imports: [CommonModule, OrderListDemoRoutingModule, OrderlistDocModule],
-    declarations: [OrderListDemo]
+    declarations: [OrderListDemo],
 })
 export class OrderListDemoModule {}

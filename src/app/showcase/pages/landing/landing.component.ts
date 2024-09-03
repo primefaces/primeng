@@ -34,7 +34,11 @@ import { Subscription } from 'rxjs';
 export class LandingComponent implements OnInit {
     subscription!: Subscription;
 
-    constructor(private configService: AppConfigService, private metaService: Meta, private titleService: Title) {}
+    constructor(
+        private configService: AppConfigService,
+        private metaService: Meta,
+        private titleService: Title,
+    ) {}
 
     get landingClass() {
         return {

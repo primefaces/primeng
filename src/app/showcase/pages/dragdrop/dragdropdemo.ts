@@ -7,34 +7,34 @@ import { DragHandleDoc } from '@doc/dragdrop/draghandledoc';
 
 @Component({
     templateUrl: './dragdropdemo.html',
-    styleUrls: ['./dragdropdemo.scss']
+    styleUrls: ['./dragdropdemo.scss'],
 })
 export class DragDropDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc
+            component: ImportDoc,
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc
+            component: BasicDoc,
         },
         {
             id: 'datatable',
             label: 'DataTable',
-            component: DataTableDoc
+            component: DataTableDoc,
         },
         {
             id: 'dropindicator',
             label: 'Drop Indicator',
-            component: DropIndicatorDoc
+            component: DropIndicatorDoc,
         },
         {
             id: 'draghandle',
             label: 'Drag Handle',
-            component: DragHandleDoc
-        }
+            component: DragHandleDoc,
+        },
     ];
 }

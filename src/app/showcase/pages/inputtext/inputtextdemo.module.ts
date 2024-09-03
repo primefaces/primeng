@@ -10,6 +10,6 @@ import { InputTextDemoRoutingModule } from './inputtextdemo-routing.module';
 
 @NgModule({
     imports: [CommonModule, InputTextDemoRoutingModule, FormsModule, InputTextModule, InputtextDocModule, AppDocModule],
-    declarations: [InputTextDemo]
+    declarations: [InputTextDemo],
 })
 export class InputTextDemoModule {}

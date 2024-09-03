@@ -122,8 +122,8 @@ const classes = {
         {
             'p-listbox-striped': props.striped,
             'p-disabled': props.disabled,
-            'p-invalid': props.invalid
-        }
+            'p-invalid': props.invalid,
+        },
     ],
     header: 'p-listbox-header',
     pcFilter: 'p-listbox-filter',
@@ -135,12 +135,12 @@ const classes = {
         {
             'p-listbox-option-selected': instance.isSelected(option) && props.highlightOnSelect,
             'p-focus': instance.focusedOptionIndex === instance.getOptionIndex(index, getItemOptions),
-            'p-disabled': instance.isOptionDisabled(option)
-        }
+            'p-disabled': instance.isOptionDisabled(option),
+        },
     ],
     optionCheckIcon: 'p-listbox-option-check-icon',
     optionBlankIcon: 'p-listbox-option-blank-icon',
-    emptyMessage: 'p-listbox-empty-message'
+    emptyMessage: 'p-listbox-empty-message',
 };
 
 @Injectable()

@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
             <p><i>FilterService</i> needs to be injected into your component. Filters are accessed with <i>FilterService.filters</i>.</p>
         </app-docsectiontext>
         <app-code [code]="code" [hideToggleCode]="true"></app-code>
-    `
+    `,
 })
 export class UsageDoc {
     code: Code = {
@@ -29,6 +29,6 @@ export class UsageDoc {
         this.filterService.filters.gt(50, 20);                                     //true
         this.filterService.filters.in(value, ['PrimeFaces', 'PrimeNG']);           //true
     }
-}`
+}`,
     };
 }

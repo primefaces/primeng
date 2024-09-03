@@ -1,5 +1,16 @@
 import { CommonModule, NgOptimizedImage, isPlatformBrowser } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Inject, Input, NgModule, NgZone, PLATFORM_ID, ViewEncapsulation } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    ElementRef,
+    Inject,
+    Input,
+    NgModule,
+    NgZone,
+    PLATFORM_ID,
+    ViewEncapsulation,
+} from '@angular/core';
 import { SharedModule } from 'primeng/api';
 import { TemplateFeaturesAnimationInlineModule } from './templatefeaturesanimationinline';
 
@@ -20,7 +31,7 @@ import { TemplateFeaturesAnimationInlineModule } from './templatefeaturesanimati
                         (mouseleave)="leaveCardArea(data.id)"
                         [ngClass]="{
                             'template-features-animation-left-card': true,
-                            'template-features-animation-left-card-active': selectedID === data.id
+                            'template-features-animation-left-card-active': selectedID === data.id,
                         }"
                         (click)="handleClick(data.id)"
                     >
@@ -53,7 +64,7 @@ import { TemplateFeaturesAnimationInlineModule } from './templatefeaturesanimati
         </div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
 })
 export class TemplateFeaturesAnimation {
     @Input() featuresData;
@@ -77,7 +88,7 @@ export class TemplateFeaturesAnimation {
     constructor(
         private cd: ChangeDetectorRef,
         public el: ElementRef,
-        @Inject(PLATFORM_ID) private platformId: any
+        @Inject(PLATFORM_ID) private platformId: any,
     ) {}
 
     startInterval() {
@@ -132,6 +143,6 @@ export class TemplateFeaturesAnimation {
 @NgModule({
     imports: [CommonModule, SharedModule, TemplateFeaturesAnimationInlineModule, NgOptimizedImage],
     exports: [TemplateFeaturesAnimation, SharedModule],
-    declarations: [TemplateFeaturesAnimation]
+    declarations: [TemplateFeaturesAnimation],
 })
 export class TemplateFeaturesAnimationModule {}

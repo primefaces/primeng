@@ -4,6 +4,6 @@ import { GalleriaDemo } from './galleriademo';
 
 @NgModule({
     imports: [RouterModule.forChild([{ path: '', component: GalleriaDemo }])],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class GalleriaDemoRoutingModule {}

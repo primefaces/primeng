@@ -10,7 +10,7 @@ describe('TabMenu', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule, RouterTestingModule.withRoutes([{ path: 'test', component: TabMenu }]), TabMenuModule]
+            imports: [NoopAnimationsModule, RouterTestingModule.withRoutes([{ path: 'test', component: TabMenu }]), TabMenuModule],
         });
 
         fixture = TestBed.createComponent(TabMenu);
@@ -37,7 +37,7 @@ describe('TabMenu', () => {
     it('should not show items ', () => {
         tabmenu.model = [
             { label: 'Stats', icon: 'pi pi-fw pi-bar-chart', visible: false },
-            { label: 'Calendar', icon: 'pi pi-fw pi-calendar', visible: false }
+            { label: 'Calendar', icon: 'pi pi-fw pi-calendar', visible: false },
         ];
         fixture.detectChanges();
 
@@ -49,7 +49,7 @@ describe('TabMenu', () => {
     it('should show disabled items ', () => {
         tabmenu.model = [
             { label: 'Stats', icon: 'pi pi-fw pi-bar-chart', disabled: true },
-            { label: 'Calendar', icon: 'pi pi-fw pi-calendar', disabled: true }
+            { label: 'Calendar', icon: 'pi pi-fw pi-calendar', disabled: true },
         ];
         fixture.detectChanges();
 
@@ -64,7 +64,7 @@ describe('TabMenu', () => {
             { label: 'Calendar', icon: 'pi pi-fw pi-calendar' },
             { label: 'Documentation', icon: 'pi pi-fw pi-book' },
             { label: 'Support', icon: 'pi pi-fw pi-support' },
-            { label: 'Social', icon: 'pi pi-fw pi-twitter' }
+            { label: 'Social', icon: 'pi pi-fw pi-twitter' },
         ];
         fixture.detectChanges();
 
@@ -81,7 +81,7 @@ describe('TabMenu', () => {
             { label: 'Calendar', icon: 'pi pi-fw pi-calendar', routerLink: 'test' },
             { label: 'Documentation', icon: 'pi pi-fw pi-book', routerLink: 'test' },
             { label: 'Support', icon: 'pi pi-fw pi-support', routerLink: 'test' },
-            { label: 'Social', icon: 'pi pi-fw pi-twitter', routerLink: 'test' }
+            { label: 'Social', icon: 'pi pi-fw pi-twitter', routerLink: 'test' },
         ];
         fixture.detectChanges();
 
@@ -101,7 +101,7 @@ describe('TabMenu', () => {
             { label: 'Calendar', icon: 'pi pi-fw pi-calendar' },
             { label: 'Documentation', icon: 'pi pi-fw pi-book' },
             { label: 'Support', icon: 'pi pi-fw pi-support' },
-            { label: 'Social', icon: 'pi pi-fw pi-twitter' }
+            { label: 'Social', icon: 'pi pi-fw pi-twitter' },
         ];
         const itemClickSpy = spyOn(tabmenu, 'itemClick').and.callThrough();
         fixture.detectChanges();
@@ -123,7 +123,7 @@ describe('TabMenu', () => {
             { label: 'Calendar', icon: 'pi pi-fw pi-calendar' },
             { label: 'Documentation', icon: 'pi pi-fw pi-book' },
             { label: 'Support', icon: 'pi pi-fw pi-support' },
-            { label: 'Social', icon: 'pi pi-fw pi-twitter' }
+            { label: 'Social', icon: 'pi pi-fw pi-twitter' },
         ];
 
         const updateInkBarSpy = spyOn(tabmenu, 'updateInkBar').and.callThrough();
@@ -142,7 +142,7 @@ describe('TabMenu', () => {
     it("shouldn't show content", () => {
         tabmenu.model = [
             { label: 'Stats', icon: 'pi pi-fw pi-bar-chart', disabled: true },
-            { label: 'Calendar', icon: 'pi pi-fw pi-calendar', disabled: true }
+            { label: 'Calendar', icon: 'pi pi-fw pi-calendar', disabled: true },
         ];
         fixture.detectChanges();
 
@@ -165,8 +165,8 @@ describe('TabMenu', () => {
                 icon: 'pi pi-fw pi-calendar',
                 command: () => {
                     x = 'PRIMENG!';
-                }
-            }
+                },
+            },
         ];
         fixture.detectChanges();
 

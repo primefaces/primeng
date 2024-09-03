@@ -162,7 +162,7 @@ const classes = {
     eventSeparator: 'p-timeline-event-separator',
     eventMarker: 'p-timeline-event-marker',
     eventConnector: 'p-timeline-event-connector',
-    eventContent: 'p-timeline-event-content'
+    eventContent: 'p-timeline-event-content',
 };
 
 @Injectable()

@@ -6,12 +6,18 @@ import { Component } from '@angular/core';
         <app-docsectiontext>
             <h3>Screen Reader</h3>
             <p>
-                TieredMenu component uses the <i>menubar</i> role with <i>aria-orientation</i> set to "vertical" and the value to describe the menu can either be provided with <i>aria-labelledby</i> or <i>aria-label</i> props. Each list item has a
-                <i>presentation</i> role whereas anchor elements have a <i>menuitem</i> role with <i>aria-label</i> referring to the label of the item and <i>aria-disabled</i> defined if the item is disabled. A submenu within a TieredMenu uses the
-                <i>menu</i> role with an <i>aria-labelledby</i> defined as the id of the submenu root menuitem label. In addition, menuitems that open a submenu have <i>aria-haspopup</i>, <i>aria-expanded</i> and <i>aria-controls</i> to define the
-                relation between the item and the submenu.
+                TieredMenu component uses the <i>menubar</i> role with <i>aria-orientation</i> set to "vertical" and the value to describe
+                the menu can either be provided with <i>aria-labelledby</i> or <i>aria-label</i> props. Each list item has a
+                <i>presentation</i> role whereas anchor elements have a <i>menuitem</i> role with <i>aria-label</i> referring to the label
+                of the item and <i>aria-disabled</i> defined if the item is disabled. A submenu within a TieredMenu uses the
+                <i>menu</i> role with an <i>aria-labelledby</i> defined as the id of the submenu root menuitem label. In addition, menuitems
+                that open a submenu have <i>aria-haspopup</i>, <i>aria-expanded</i> and <i>aria-controls</i> to define the relation between
+                the item and the submenu.
             </p>
-            <p>In popup mode, the component implicitly manages the <i>aria-expanded</i>, <i>aria-haspopup</i> and <i>aria-controls</i> attributes of the target element to define the relation between the target and the popup.</p>
+            <p>
+                In popup mode, the component implicitly manages the <i>aria-expanded</i>, <i>aria-haspopup</i> and
+                <i>aria-controls</i> attributes of the target element to define the relation between the target and the popup.
+            </p>
 
             <h3>Keyboard Support</h3>
             <div class="doc-tablewrapper">
@@ -25,23 +31,38 @@ import { Component } from '@angular/core';
                     <tbody>
                         <tr>
                             <td><i>tab</i></td>
-                            <td>Add focus to the first item if focus moves in to the menu. If the focus is already within the menu, focus moves to the next focusable item in the page tab sequence.</td>
+                            <td>
+                                Add focus to the first item if focus moves in to the menu. If the focus is already within the menu, focus
+                                moves to the next focusable item in the page tab sequence.
+                            </td>
                         </tr>
                         <tr>
                             <td><i>shift</i> + <i>tab</i></td>
-                            <td>Add focus to the last item if focus moves in to the menu. If the focus is already within the menu, focus moves to the previous focusable item in the page tab sequence.</td>
+                            <td>
+                                Add focus to the last item if focus moves in to the menu. If the focus is already within the menu, focus
+                                moves to the previous focusable item in the page tab sequence.
+                            </td>
                         </tr>
                         <tr>
                             <td><i>enter</i></td>
-                            <td>If menuitem has a submenu, toggles the visibility of the submenu otherwise activates the menuitem and closes all open overlays.</td>
+                            <td>
+                                If menuitem has a submenu, toggles the visibility of the submenu otherwise activates the menuitem and closes
+                                all open overlays.
+                            </td>
                         </tr>
                         <tr>
                             <td><i>space</i></td>
-                            <td>If menuitem has a submenu, toggles the visibility of the submenu otherwise activates the menuitem and closes all open overlays.</td>
+                            <td>
+                                If menuitem has a submenu, toggles the visibility of the submenu otherwise activates the menuitem and closes
+                                all open overlays.
+                            </td>
                         </tr>
                         <tr>
                             <td><i>escape</i></td>
-                            <td>If focus is inside a popup submenu, closes the submenu and moves focus to the root item of the closed submenu.</td>
+                            <td>
+                                If focus is inside a popup submenu, closes the submenu and moves focus to the root item of the closed
+                                submenu.
+                            </td>
                         </tr>
                         <tr>
                             <td><i>down arrow</i></td>
@@ -71,6 +92,6 @@ import { Component } from '@angular/core';
                 </table>
             </div>
         </app-docsectiontext>
-    </div>`
+    </div>`,
 })
 export class AccessibilityDoc {}

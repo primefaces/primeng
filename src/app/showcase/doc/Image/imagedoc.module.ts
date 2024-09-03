@@ -15,6 +15,6 @@ import { AccessibilityDoc } from './accessibilitydoc';
 @NgModule({
     imports: [CommonModule, RouterModule, ImageModule, AppCodeModule, AppDocModule],
     declarations: [ImportDoc, BasicDoc, TemplateDoc, PreviewDoc, PreviewImageSourceDoc, StyleDoc, AccessibilityDoc],
-    exports: [AppDocModule]
+    exports: [AppDocModule],
 })
 export class ImageDocModule {}

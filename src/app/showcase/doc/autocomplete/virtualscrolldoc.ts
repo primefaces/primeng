@@ -10,14 +10,24 @@ interface AutoCompleteCompleteEvent {
     selector: 'autocomplete-virtual-scroll-demo',
     template: ` <app-docsectiontext>
             <p>
-                Virtual scrolling is an efficient way of rendering the options by displaying a small subset of data in the viewport at any time. When dealing with huge number of options, it is suggested to enable virtual scrolling to avoid
-                performance issues. Usage is simple as setting <i>virtualScroll</i> property to <i>true</i> and defining <i>virtualScrollItemSize</i> to specify the height of an item.
+                Virtual scrolling is an efficient way of rendering the options by displaying a small subset of data in the viewport at any
+                time. When dealing with huge number of options, it is suggested to enable virtual scrolling to avoid performance issues.
+                Usage is simple as setting <i>virtualScroll</i> property to <i>true</i> and defining <i>virtualScrollItemSize</i> to specify
+                the height of an item.
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-autoComplete [(ngModel)]="selectedItem" [virtualScroll]="true" [suggestions]="filteredItems" [virtualScrollItemSize]="34" (completeMethod)="filterItems($event)" field="label" [dropdown]="true" />
+            <p-autoComplete
+                [(ngModel)]="selectedItem"
+                [virtualScroll]="true"
+                [suggestions]="filteredItems"
+                [virtualScrollItemSize]="34"
+                (completeMethod)="filterItems($event)"
+                field="label"
+                [dropdown]="true"
+            />
         </div>
-        <app-code [code]="code" selector="autocomplete-virtual-scroll-demo"></app-code>`
+        <app-code [code]="code" selector="autocomplete-virtual-scroll-demo"></app-code>`,
 })
 export class VirtualScrollDoc {
     selectedItem: any;
@@ -112,6 +122,6 @@ export class AutocompleteVirtualScrollDemo {
             this.items.push({ label: 'Item ' + i, value: 'Item ' + i });
         }
     }
-}`
+}`,
     };
 }

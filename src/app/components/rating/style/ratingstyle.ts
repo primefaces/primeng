@@ -17,8 +17,8 @@ const theme = ({ dt }) => `
     border-radius: 50%;
     cursor: pointer;
     transition: background ${dt('rating.transition.duration')}, color ${dt('rating.transition.duration')}, border-color ${dt('rating.transition.duration')}, outline-color ${dt('rating.transition.duration')}, box-shadow ${dt(
-    'rating.transition.duration'
-)};
+        'rating.transition.duration',
+    )};
 }
 
 .p-rating-option.p-focus-visible {
@@ -30,8 +30,8 @@ const theme = ({ dt }) => `
 .p-rating-icon {
     color: ${dt('rating.icon.color')};
     transition: background ${dt('rating.transition.duration')}, color ${dt('rating.transition.duration')}, border-color ${dt('rating.transition.duration')}, outline-color ${dt('rating.transition.duration')}, box-shadow ${dt(
-    'rating.transition.duration'
-)};
+        'rating.transition.duration',
+    )};
     font-size: ${dt('rating.icon.size')};
     width: ${dt('rating.icon.size')};
     height: ${dt('rating.icon.size')};
@@ -51,18 +51,18 @@ const classes = {
         'p-rating',
         {
             'p-readonly': props.readonly,
-            'p-disabled': props.disabled
-        }
+            'p-disabled': props.disabled,
+        },
     ],
     option: ({ instance, props, value }) => [
         'p-rating-option',
         {
             'p-rating-option-active': value <= props.modelValue,
-            'p-focus-visible': value === instance.focusedOptionIndex && instance.isFocusVisibleItem
-        }
+            'p-focus-visible': value === instance.focusedOptionIndex && instance.isFocusVisibleItem,
+        },
     ],
     onIcon: 'p-rating-icon p-rating-on-icon',
-    offIcon: 'p-rating-icon p-rating-off-icon'
+    offIcon: 'p-rating-icon p-rating-off-icon',
 };
 
 @Injectable()

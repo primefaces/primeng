@@ -26,8 +26,35 @@ import { VirtualScrollDoc } from './virtualscrolldoc';
 import { LazyVirtualScrollDoc } from './virtualscrolllazydoc';
 
 @NgModule({
-    imports: [CommonModule, AppCodeModule, AppDocModule, TreeModule, ButtonModule, InputSwitchModule, FormsModule, ToastModule, ContextMenuModule],
+    imports: [
+        CommonModule,
+        AppCodeModule,
+        AppDocModule,
+        TreeModule,
+        ButtonModule,
+        InputSwitchModule,
+        FormsModule,
+        ToastModule,
+        ContextMenuModule,
+    ],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, ControlledDoc, SingleDoc, MultipleDoc, CheckboxDoc, EventDoc, LazyDoc, VirtualScrollDoc, LazyVirtualScrollDoc, TemplateDoc, DragDropDoc, ContextMenuDoc, FilterDoc, StyleDoc, AccessibilityDoc]
+    declarations: [
+        ImportDoc,
+        BasicDoc,
+        ControlledDoc,
+        SingleDoc,
+        MultipleDoc,
+        CheckboxDoc,
+        EventDoc,
+        LazyDoc,
+        VirtualScrollDoc,
+        LazyVirtualScrollDoc,
+        TemplateDoc,
+        DragDropDoc,
+        ContextMenuDoc,
+        FilterDoc,
+        StyleDoc,
+        AccessibilityDoc,
+    ],
 })
 export class TreeDocModule {}

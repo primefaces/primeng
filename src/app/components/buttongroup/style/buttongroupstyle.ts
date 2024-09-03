@@ -90,7 +90,7 @@ p-button[iconpos='right'] spinnericon {
 `;
 
 const classes = {
-    root: 'p-buttongroup p-component'
+    root: 'p-buttongroup p-component',
 };
 
 @Injectable()

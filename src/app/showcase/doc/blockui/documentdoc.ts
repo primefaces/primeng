@@ -12,7 +12,7 @@ import { Code } from '@domain/code';
             <p-button pRipple label="Block" (click)="blockDocument()" />
         </div>
         <app-code [code]="code" selector="block-ui-document-demo"></app-code>
-    `
+    `,
 })
 export class DocumentDoc {
     blockedDocument: boolean = false;
@@ -57,6 +57,6 @@ export class BlockUiDocumentDemo {
         }, 3000);
     }
 
-}`
+}`,
     };
 }

@@ -11,7 +11,7 @@ import { Code } from '@domain/code';
             <p-inputNumber inputId="integeronly" class="ng-invalid ng-dirty" [(ngModel)]="value1" />
         </div>
         <app-code [code]="code" selector="input-number-invalid-demo"></app-code>
-    `
+    `,
 })
 export class InvalidDoc {
     value1!: number;
@@ -41,6 +41,6 @@ import { FormsModule } from '@angular/forms';
 })
 export class InputNumberInvalidDemo {
     value1!: number;
-}`
+}`,
     };
 }

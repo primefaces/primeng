@@ -8,11 +8,10 @@ import { MessageService, PrimeNGConfig } from 'primeng/api';
         <app-docsectiontext>
             <p>
                 Uploader UI is customizable using a ng-template called <i>file</i> that gets the
-                <a href="https://www.w3.org/TR/FileAPI/">File</a> instance as the implicit variable. Second ng-template
-                named <i>content</i> can be used to place custom content inside the content section which would be
-                useful to implement a user interface to manage the uploaded files such as removing them. This template
-                gets the selected files as the implicit variable. Third and final ng-template option is
-                <i>toolbar</i> to display custom content at toolbar.
+                <a href="https://www.w3.org/TR/FileAPI/">File</a> instance as the implicit variable. Second ng-template named
+                <i>content</i> can be used to place custom content inside the content section which would be useful to implement a user
+                interface to manage the uploaded files such as removing them. This template gets the selected files as the implicit
+                variable. Third and final ng-template option is <i>toolbar</i> to display custom content at toolbar.
             </p></app-docsectiontext
         >
         <div class="card">
@@ -35,12 +34,7 @@ import { MessageService, PrimeNGConfig } from 'primeng/api';
                 >
                     <div class="flex flex-wrap justify-between items-center flex-1 gap-4">
                         <div class="flex gap-2">
-                            <p-button
-                                (onClick)="choose($event, chooseCallback)"
-                                icon="pi pi-images"
-                                [rounded]="true"
-                                [outlined]="true"
-                            />
+                            <p-button (onClick)="choose($event, chooseCallback)" icon="pi pi-images" [rounded]="true" [outlined]="true" />
                             <p-button
                                 (onClick)="uploadEvent(uploadCallback)"
                                 icon="pi pi-cloud-upload"
@@ -84,18 +78,11 @@ import { MessageService, PrimeNGConfig } from 'primeng/api';
                                     class="p-8 rounded-border flex flex-col border border-surface items-center gap-4"
                                 >
                                     <div>
-                                        <img
-                                            role="presentation"
-                                            [alt]="file.name"
-                                            [src]="file.objectURL"
-                                            width="100"
-                                            height="50"
-                                        />
+                                        <img role="presentation" [alt]="file.name" [src]="file.objectURL" width="100" height="50" />
                                     </div>
-                                    <span
-                                        class="font-semibold text-ellipsis max-w-60 whitespace-nowrap overflow-hidden"
-                                        >{{ file.name }}</span
-                                    >
+                                    <span class="font-semibold text-ellipsis max-w-60 whitespace-nowrap overflow-hidden">{{
+                                        file.name
+                                    }}</span>
                                     <div>{{ formatSize(file.size) }}</div>
                                     <p-badge value="Pending" severity="warning" />
                                     <p-button
@@ -116,18 +103,11 @@ import { MessageService, PrimeNGConfig } from 'primeng/api';
                                     class="card m-0 px-12 flex flex-col border border-surface items-center gap-4"
                                 >
                                     <div>
-                                        <img
-                                            role="presentation"
-                                            [alt]="file.name"
-                                            [src]="file.objectURL"
-                                            width="100"
-                                            height="50"
-                                        />
+                                        <img role="presentation" [alt]="file.name" [src]="file.objectURL" width="100" height="50" />
                                     </div>
-                                    <span
-                                        class="font-semibold text-ellipsis max-w-60 whitespace-nowrap overflow-hidden"
-                                        >{{ file.name }}</span
-                                    >
+                                    <span class="font-semibold text-ellipsis max-w-60 whitespace-nowrap overflow-hidden">{{
+                                        file.name
+                                    }}</span>
                                     <div>{{ formatSize(file.size) }}</div>
                                     <p-badge value="Completed" class="mt-4" severity="success" />
                                     <p-button
@@ -162,7 +142,10 @@ export class TemplateDoc {
 
     totalSizePercent: number = 0;
 
-    constructor(private config: PrimeNGConfig, private messageService: MessageService) {}
+    constructor(
+        private config: PrimeNGConfig,
+        private messageService: MessageService,
+    ) {}
 
     choose(event, callback) {
         callback();

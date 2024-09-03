@@ -58,7 +58,7 @@ const classes = {
     image: 'p-chip-image',
     icon: 'p-chip-icon',
     label: 'p-chip-label',
-    removeIcon: 'p-chip-remove-icon'
+    removeIcon: 'p-chip-remove-icon',
 };
 
 @Injectable()

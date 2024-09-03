@@ -7,14 +7,21 @@ import { Product } from '@domain/product';
     template: `
         <app-docsectiontext>
             <p>
-                <i>pDraggable</i> and <i>pDroppable</i> are attached to a target element to add drag-drop behavior. The value of a Directive attribute is required and it defines the scope to match draggables with droppables. Droppable scope can also
-                be an array to accept multiple droppables.
+                <i>pDraggable</i> and <i>pDroppable</i> are attached to a target element to add drag-drop behavior. The value of a Directive
+                attribute is required and it defines the scope to match draggables with droppables. Droppable scope can also be an array to
+                accept multiple droppables.
             </p>
         </app-docsectiontext>
         <div class="card flex flex-wrap gap-4">
             <div class="p-2 border border-surface rounded-border w-60">
                 <ul class="list-none flex flex-col gap-2 p-0 m-0">
-                    <li *ngFor="let product of availableProducts" class="p-2 rounded-border shadow-sm" pDraggable (onDragStart)="dragStart(product)" (onDragEnd)="dragEnd()">
+                    <li
+                        *ngFor="let product of availableProducts"
+                        class="p-2 rounded-border shadow-sm"
+                        pDraggable
+                        (onDragStart)="dragStart(product)"
+                        (onDragEnd)="dragEnd()"
+                    >
                         {{ product.name }}
                     </li>
                 </ul>
@@ -29,7 +36,7 @@ import { Product } from '@domain/product';
             </div>
         </div>
         <app-code [code]="code" selector="drag-drop-basic-demo" [extFiles]="extFiles"></app-code>
-    `
+    `,
 })
 export class BasicDoc implements OnInit {
     availableProducts: Product[] | undefined;
@@ -42,7 +49,7 @@ export class BasicDoc implements OnInit {
         this.selectedProducts = [];
         this.availableProducts = [
             { id: '1', name: 'Black Watch' },
-            { id: '2', name: 'Bamboo Watch' }
+            { id: '2', name: 'Bamboo Watch' },
         ];
     }
 
@@ -186,7 +193,7 @@ export class DragDropBasicDemo implements OnInit {
         cursor: move;
     }
 }`,
-        service: ['ProductService']
+        service: ['ProductService'],
     };
 
     extFiles = [
@@ -204,7 +211,7 @@ export interface Product {
     category?: string;
     image?: string;
     rating?: number;
-}`
-        }
+}`,
+        },
     ];
 }

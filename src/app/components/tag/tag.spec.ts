@@ -9,7 +9,7 @@ describe('Tag', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule, TagModule]
+            imports: [NoopAnimationsModule, TagModule],
         });
 
         fixture = TestBed.createComponent(Tag);

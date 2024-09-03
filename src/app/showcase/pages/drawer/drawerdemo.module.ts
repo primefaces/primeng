@@ -5,7 +5,7 @@ import { DrawerDemo } from './drawerdemo';
 import { DrawerDemoRoutingModule } from './drawerdemo-routing.module';
 
 @NgModule({
-    imports: [CommonModule, DrawerDemoRoutingModule,DrawerDocModule],
-    declarations: [DrawerDemo]
+    imports: [CommonModule, DrawerDemoRoutingModule, DrawerDocModule],
+    declarations: [DrawerDemo],
 })
 export class DrawerDemoModule {}

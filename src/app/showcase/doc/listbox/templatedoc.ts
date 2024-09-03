@@ -13,17 +13,28 @@ interface Country {
             <p>Custom content for an option is displayed with the <i>pTemplate</i> property that takes an option as a parameter.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-listbox [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" [listStyle]="{ 'max-height': '250px' }" [style]="{ width: '15rem' }" [listStyle]="{ 'max-height': '220px' }">
+            <p-listbox
+                [options]="countries"
+                [(ngModel)]="selectedCountry"
+                optionLabel="name"
+                [listStyle]="{ 'max-height': '250px' }"
+                [style]="{ width: '15rem' }"
+                [listStyle]="{ 'max-height': '220px' }"
+            >
                 <ng-template let-country pTemplate="item">
                     <div class="flex items-center gap-2">
-                        <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" style="width: 18px" />
+                        <img
+                            src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
+                            [class]="'flag flag-' + country.code.toLowerCase()"
+                            style="width: 18px"
+                        />
                         <div>{{ country.name }}</div>
                     </div>
                 </ng-template>
             </p-listbox>
         </div>
         <app-code [code]="code" selector="listbox-template-demo"></app-code>
-    `
+    `,
 })
 export class TemplateDoc implements OnInit {
     countries!: Country[];
@@ -41,7 +52,7 @@ export class TemplateDoc implements OnInit {
             { name: 'India', code: 'IN' },
             { name: 'Japan', code: 'JP' },
             { name: 'Spain', code: 'ES' },
-            { name: 'United States', code: 'US' }
+            { name: 'United States', code: 'US' },
         ];
     }
 
@@ -118,6 +129,6 @@ export class ListboxTemplateDemo implements OnInit {
             { name: 'United States', code: 'US' }
         ];
     }
-}`
+}`,
     };
 }

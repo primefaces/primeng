@@ -18,7 +18,7 @@ import { Code } from '@domain/code';
             </p-avatarGroup>
         </div>
         <app-code [code]="code" selector="avatar-group-demo"></app-code>
-    `
+    `,
 })
 export class GroupDoc {
     code: Code = {
@@ -71,6 +71,6 @@ import { AvatarGroupModule } from 'primeng/avatargroup';
     standalone: true,
     imports: [AvatarModule, AvatarGroupModule]
 })
-export class AvatarGroupDemo {}`
+export class AvatarGroupDemo {}`,
     };
 }

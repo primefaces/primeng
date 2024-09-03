@@ -26,7 +26,11 @@ import { ProductService } from '@service/productservice';
             >
                 <ng-template let-product pTemplate="item">
                     <div class="flex flex-wrap p-2 items-center gap-4">
-                        <img class="w-16 shadow shrink-0 rounded-border" src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" alt="{item.name}" />
+                        <img
+                            class="w-16 shadow shrink-0 rounded-border"
+                            src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}"
+                            alt="{item.name}"
+                        />
                         <div class="flex-1 flex flex-col gap-2">
                             <span class="font-bold">{{ product.name }}</span>
                             <div class="flex align-products-center gap-2">
@@ -40,7 +44,7 @@ import { ProductService } from '@service/productservice';
             </p-pickList>
         </div>
         <app-code [code]="code" selector="picklist-filter-demo" [extFiles]="extFiles"></app-code>
-    `
+    `,
 })
 export class FilterDoc {
     sourceProducts!: Product[];
@@ -49,7 +53,7 @@ export class FilterDoc {
 
     constructor(
         private carService: ProductService,
-        private cdr: ChangeDetectorRef
+        private cdr: ChangeDetectorRef,
     ) {}
 
     ngOnInit() {
@@ -184,7 +188,7 @@ export class PicklistFilterDemo {
 },
 ...`,
 
-        service: ['ProductService']
+        service: ['ProductService'],
     };
 
     extFiles = [
@@ -202,7 +206,7 @@ export interface Product {
     category?: string;
     image?: string;
     rating?: number;
-}`
-        }
+}`,
+        },
     ];
 }

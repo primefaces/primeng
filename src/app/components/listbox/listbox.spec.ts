@@ -12,7 +12,7 @@ describe('Listbox', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [NoopAnimationsModule, CheckIcon, SearchIcon],
-            declarations: [Listbox]
+            declarations: [Listbox],
         });
 
         fixture = TestBed.createComponent(Listbox);
@@ -41,7 +41,7 @@ describe('Listbox', () => {
             { label: 'Mercedes', value: 'Mercedes' },
             { label: 'Renault', value: 'Renault' },
             { label: 'VW', value: 'VW' },
-            { label: 'Volvo', value: 'Volvo' }
+            { label: 'Volvo', value: 'Volvo' },
         ];
         const onClickSpy = spyOn(listbox.onClick, 'emit').and.callThrough();
         fixture.detectChanges();
@@ -66,7 +66,7 @@ describe('Listbox', () => {
             { label: 'Mercedes', value: 'Mercedes' },
             { label: 'Renault', value: 'Renault' },
             { label: 'VW', value: 'VW' },
-            { label: 'Volvo', value: 'Volvo' }
+            { label: 'Volvo', value: 'Volvo' },
         ];
         fixture.detectChanges();
 
@@ -90,7 +90,7 @@ describe('Listbox', () => {
             { label: 'Mercedes', value: 'Mercedes' },
             { label: 'Renault', value: 'Renault' },
             { label: 'VW', value: 'VW' },
-            { label: 'Volvo', value: 'Volvo' }
+            { label: 'Volvo', value: 'Volvo' },
         ];
         listbox.readonly = true;
         fixture.detectChanges();
@@ -125,7 +125,7 @@ describe('Listbox', () => {
             { label: 'Mercedes', value: 'Mercedes' },
             { label: 'Renault', value: 'Renault' },
             { label: 'VW', value: 'VW' },
-            { label: 'Volvo', value: 'Volvo' }
+            { label: 'Volvo', value: 'Volvo' },
         ];
         fixture.detectChanges();
 
@@ -151,7 +151,7 @@ describe('Listbox', () => {
             { label: 'Mercedes', value: 'Mercedes' },
             { label: 'Renault', value: 'Renault' },
             { label: 'VW', value: 'VW' },
-            { label: 'Volvo', value: 'Volvo' }
+            { label: 'Volvo', value: 'Volvo' },
         ];
         listbox.metaKeySelection = false;
         fixture.detectChanges();
@@ -182,7 +182,7 @@ describe('Listbox', () => {
             { label: 'Mercedes', value: 'Mercedes' },
             { label: 'Renault', value: 'Renault' },
             { label: 'VW', value: 'VW' },
-            { label: 'Volvo', value: 'Volvo' }
+            { label: 'Volvo', value: 'Volvo' },
         ];
         const optionSelectMultipleSpy = spyOn(listbox, 'onOptionSelectMultiple').and.callThrough();
         fixture.detectChanges();
@@ -215,7 +215,7 @@ describe('Listbox', () => {
             { label: 'Mercedes', value: 'Mercedes' },
             { label: 'Renault', value: 'Renault' },
             { label: 'VW', value: 'VW' },
-            { label: 'Volvo', value: 'Volvo' }
+            { label: 'Volvo', value: 'Volvo' },
         ];
         const optionSelectMultipleSpy = spyOn(listbox, 'onOptionSelectMultiple').and.callThrough();
         fixture.detectChanges();
@@ -248,7 +248,7 @@ describe('Listbox', () => {
             { label: 'Mercedes', value: 'Mercedes' },
             { label: 'Renault', value: 'Renault' },
             { label: 'VW', value: 'VW' },
-            { label: 'Volvo', value: 'Volvo' }
+            { label: 'Volvo', value: 'Volvo' },
         ];
         const onToggleAllSpy = spyOn(listbox, 'onToggleAll').and.callThrough();
         listbox.cd.detectChanges();
@@ -274,7 +274,7 @@ describe('Listbox', () => {
             { label: 'Mercedes', value: 'Mercedes' },
             { label: 'Renault', value: 'Renault' },
             { label: 'VW', value: 'VW' },
-            { label: 'Volvo', value: 'Volvo' }
+            { label: 'Volvo', value: 'Volvo' },
         ];
         listbox.filter = true;
         listbox.optionLabel = 'label';
@@ -299,7 +299,7 @@ describe('Listbox', () => {
             { label: 'Mercedes', value: 'Mercedes' },
             { label: 'Renault', value: 'Renault' },
             { label: 'VW', value: 'VW' },
-            { label: 'Volvo', value: 'Volvo' }
+            { label: 'Volvo', value: 'Volvo' },
         ];
         let data;
         listbox.onChange.subscribe((value) => (data = value));
@@ -325,7 +325,7 @@ describe('Listbox', () => {
             { label: 'Mercedes', value: 'Mercedes' },
             { label: 'Renault', value: 'Renault' },
             { label: 'VW', value: 'VW' },
-            { label: 'Volvo', value: 'Volvo' }
+            { label: 'Volvo', value: 'Volvo' },
         ];
         let data;
         listbox.onDblClick.subscribe((value) => (data = value));
@@ -354,7 +354,7 @@ describe('Listbox', () => {
             { label: 'Mercedes', value: 'Mercedes' },
             { label: 'Renault', value: 'Renault' },
             { label: 'VW', value: 'VW' },
-            { label: 'Volvo', value: 'Volvo' }
+            { label: 'Volvo', value: 'Volvo' },
         ];
         let data;
         listbox.onDblClick.subscribe((value) => (data = value));
@@ -380,7 +380,7 @@ describe('Listbox', () => {
             { label: 'Mercedes', value: 'Mercedes' },
             { label: 'Renault', value: 'Renault' },
             { label: 'VW', value: 'VW' },
-            { label: 'Volvo', value: 'Volvo' }
+            { label: 'Volvo', value: 'Volvo' },
         ];
         listbox.metaKeySelection = true;
         const onOptionSelect = spyOn(listbox, 'onOptionSelect').and.callThrough();
@@ -416,7 +416,7 @@ describe('Listbox', () => {
             { label: 'Mercedes', value: 'Mercedes' },
             { label: 'Renault', value: 'Renault' },
             { label: 'VW', value: 'VW' },
-            { label: 'Volvo', value: 'Volvo' }
+            { label: 'Volvo', value: 'Volvo' },
         ];
         listbox.metaKeySelection = true;
         listbox.multiple = true;
@@ -455,7 +455,7 @@ describe('Listbox', () => {
             { label: 'Mercedes', value: 'Mercedes' },
             { label: 'Renault', value: 'Renault' },
             { label: 'VW', value: 'VW' },
-            { label: 'Volvo', value: 'Volvo' }
+            { label: 'Volvo', value: 'Volvo' },
         ];
         const onOptionSelectSpy = spyOn(listbox, 'onOptionSelect').and.callThrough();
         fixture.detectChanges();
@@ -489,7 +489,7 @@ describe('Listbox', () => {
             { label: 'Mercedes', value: 'Mercedes' },
             { label: 'Renault', value: 'Renault' },
             { label: 'VW', value: 'VW' },
-            { label: 'Volvo', value: 'Volvo' }
+            { label: 'Volvo', value: 'Volvo' },
         ];
         const toggleAllSpy = spyOn(listbox, 'onToggleAll').and.callThrough();
         fixture.detectChanges();
@@ -521,7 +521,7 @@ describe('Listbox', () => {
             { label: 'Mercedes', value: 'Mercedes' },
             { label: 'Renault', value: 'Renault' },
             { label: 'VW', value: 'VW' },
-            { label: 'Volvo', value: 'Volvo' }
+            { label: 'Volvo', value: 'Volvo' },
         ];
         const toggleAllSpy = spyOn(listbox, 'onToggleAll').and.callThrough();
         fixture.detectChanges();
@@ -548,7 +548,7 @@ describe('Listbox', () => {
             { label: 'Mercedes', value: 'Mercedes' },
             { label: 'Renault', value: 'Renault' },
             { label: 'VW', value: 'VW' },
-            { label: 'Volvo', value: 'Volvo' }
+            { label: 'Volvo', value: 'Volvo' },
         ];
         listbox.filterMatchMode = 'startsWith';
         listbox.filter = true;
@@ -569,7 +569,7 @@ describe('Listbox', () => {
             { label: 'Mercedes', value: 'Mercedes' },
             { label: 'Renault', value: 'Renault' },
             { label: 'VW', value: 'VW' },
-            { label: 'Volvo', value: 'Volvo' }
+            { label: 'Volvo', value: 'Volvo' },
         ];
         listbox.multiple = true;
         listbox.showToggleAll = true;
@@ -607,7 +607,7 @@ describe('Listbox', () => {
             { label: 'Mercedes', value: 'Mercedes' },
             { label: 'Renault', value: 'Renault' },
             { label: 'VW', value: 'VW' },
-            { label: 'Volvo', value: 'Volvo' }
+            { label: 'Volvo', value: 'Volvo' },
         ];
         const onArrowDownKeySpy = spyOn(listbox, 'onArrowDownKey').and.callThrough();
         const onArrowUpKeySpy = spyOn(listbox, 'onArrowUpKey').and.callThrough();

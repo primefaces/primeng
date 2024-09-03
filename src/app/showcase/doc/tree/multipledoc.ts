@@ -8,20 +8,30 @@ import { NodeService } from '@service/nodeservice';
     template: `
         <app-docsectiontext>
             <p>
-                More than one node is selectable by setting <i>selectionMode</i> to <i>multiple</i>. By default in multiple selection mode, metaKey press (e.g. <i>⌘</i>) is necessary to add to existing selections however this can be configured with
-                disabling the <i>metaKeySelection</i> property. Note that in touch enabled devices, Tree always ignores metaKey.
+                More than one node is selectable by setting <i>selectionMode</i> to <i>multiple</i>. By default in multiple selection mode,
+                metaKey press (e.g. <i>⌘</i>) is necessary to add to existing selections however this can be configured with disabling the
+                <i>metaKeySelection</i> property. Note that in touch enabled devices, Tree always ignores metaKey.
             </p>
-            <p>In multiple selection mode, value binding should be a key-value pair where key is the node key and value is a boolean to indicate selection.</p>
+            <p>
+                In multiple selection mode, value binding should be a key-value pair where key is the node key and value is a boolean to
+                indicate selection.
+            </p>
         </app-docsectiontext>
         <div class="card flex flex-col items-center justify-center">
             <div class="flex items-center mb-6 gap-2">
                 <p-inputSwitch inputId="input-metakey" [(ngModel)]="metaKeySelection" />
                 <label for="input-metakey">MetaKey</label>
             </div>
-            <p-tree [metaKeySelection]="metaKeySelection" [value]="files" class="w-full md:w-[30rem]" selectionMode="multiple" [(selection)]="selectedFiles" />
+            <p-tree
+                [metaKeySelection]="metaKeySelection"
+                [value]="files"
+                class="w-full md:w-[30rem]"
+                selectionMode="multiple"
+                [(selection)]="selectedFiles"
+            />
         </div>
         <app-code [code]="code" selector="tree-multiple-demo"></app-code>
-    `
+    `,
 })
 export class MultipleDoc implements OnInit {
     metaKeySelection: boolean = false;
@@ -118,6 +128,6 @@ export class TreeMultipleDemo implements OnInit {
         }
     ]
 },
-...`
+...`,
     };
 }

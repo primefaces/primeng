@@ -11,7 +11,7 @@ describe('SelectButton', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [NoopAnimationsModule],
-            declarations: [SelectButton]
+            declarations: [SelectButton],
         });
 
         fixture = TestBed.createComponent(SelectButton);
@@ -22,7 +22,7 @@ describe('SelectButton', () => {
         selectButton.options = [
             { label: 'Apartment', value: 'Apartment' },
             { label: 'House', value: 'House' },
-            { label: 'Studio', value: 'Studio' }
+            { label: 'Studio', value: 'Studio' },
         ];
         fixture.detectChanges();
 
@@ -35,7 +35,7 @@ describe('SelectButton', () => {
         selectButton.options = [
             { label: 'Apartment', value: { name: 'Apartment' } },
             { label: 'House', value: { name: 'House' } },
-            { label: 'Studio', value: { name: 'Studio' } }
+            { label: 'Studio', value: { name: 'Studio' } },
         ];
         selectButton.dataKey = 'name';
         selectButton.writeValue({ name: 'Studio' });
@@ -50,7 +50,7 @@ describe('SelectButton', () => {
         selectButton.options = [
             { label: 'Apartment', value: 'Apartment' },
             { label: 'House', value: 'House' },
-            { label: 'Studio', value: 'Studio' }
+            { label: 'Studio', value: 'Studio' },
         ];
         fixture.detectChanges();
 
@@ -67,7 +67,7 @@ describe('SelectButton', () => {
         selectButton.options = [
             { label: 'Apartment', value: { name: 'Apartment' } },
             { label: 'House', value: { name: 'House' } },
-            { label: 'Studio', value: { name: 'Studio' } }
+            { label: 'Studio', value: { name: 'Studio' } },
         ];
         fixture.detectChanges();
 
@@ -86,7 +86,7 @@ describe('SelectButton', () => {
         selectButton.options = [
             { label: 'Apartment', value: { name: 'Apartment' } },
             { label: 'House', value: { name: 'House' } },
-            { label: 'Studio', value: { name: 'Studio' } }
+            { label: 'Studio', value: { name: 'Studio' } },
         ];
 
         fixture.detectChanges();

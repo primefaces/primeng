@@ -11,7 +11,7 @@ import { Code } from '@domain/code';
             <input pInputText class="ng-invalid ng-dirty" [(ngModel)]="value" />
         </div>
         <app-code [code]="code" selector="input-text-invalid-demo"></app-code>
-    `
+    `,
 })
 export class InvalidDoc {
     value: string | undefined;
@@ -41,6 +41,6 @@ import { FormsModule } from '@angular/forms';
 })
 export class InputTextInvalidDemo {
     value: string | undefined;
-}`
+}`,
     };
 }

@@ -7,12 +7,15 @@ import { Code } from '@domain/code';
     template: `
         <app-docsectiontext>
             <p>
-                Properties of the dialog are defined in two ways, <i>message</i>, <i>icon</i>, <i>header</i> properties can either be defined using confirm method or declaratively on p-confirmDialog ng-template by <i>header</i>, <i>message</i>,
-                <i>icon</i> and <i>footer</i> templates. If these values are unlikely to change then declarative approach would be useful, still properties defined in a ng-template can be overridden with confirm method call.
+                Properties of the dialog are defined in two ways, <i>message</i>, <i>icon</i>, <i>header</i> properties can either be
+                defined using confirm method or declaratively on p-confirmDialog ng-template by <i>header</i>, <i>message</i>,
+                <i>icon</i> and <i>footer</i> templates. If these values are unlikely to change then declarative approach would be useful,
+                still properties defined in a ng-template can be overridden with confirm method call.
             </p>
             <p>
-                In addition, buttons at footer section can be customized by passing your own UI, important note to make confirmation work with a custom UI is defining a local ng-template variable for the dialog and assign accept()-reject() methods to
-                your own buttons.
+                In addition, buttons at footer section can be customized by passing your own UI, important note to make confirmation work
+                with a custom UI is defining a local ng-template variable for the dialog and assign accept()-reject() methods to your own
+                buttons.
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
@@ -29,12 +32,12 @@ import { Code } from '@domain/code';
         </div>
         <app-code [code]="code" selector="confirm-dialog-template-demo"></app-code>
     `,
-    providers: [ConfirmationService, MessageService]
+    providers: [ConfirmationService, MessageService],
 })
 export class TemplateDoc {
     constructor(
         private confirmationService: ConfirmationService,
-        private messageService: MessageService
+        private messageService: MessageService,
     ) {}
 
     confirm() {
@@ -46,19 +49,19 @@ export class TemplateDoc {
                 label: 'Cancel',
                 icon: 'pi pi-times',
                 outlined: true,
-                size: 'small'
+                size: 'small',
             },
             acceptButtonProps: {
                 label: 'Save',
                 icon: 'pi pi-check',
-                size: 'small'
+                size: 'small',
             },
             accept: () => {
                 this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted', life: 3000 });
             },
             reject: () => {
                 this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected', life: 3000 });
-            }
+            },
         });
     }
 
@@ -128,6 +131,6 @@ export class ConfirmDialogTemplateDemo {
         });
     }
 
-}`
+}`,
     };
 }

@@ -5,7 +5,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Component, DebugElement } from '@angular/core';
 
 @Component({
-    template: `<textarea rows="1" cols="1" (onResize)="onResize($event)" [autoResize]="autoResize" pInputTextarea></textarea> `
+    template: `<textarea rows="1" cols="1" (onResize)="onResize($event)" [autoResize]="autoResize" pInputTextarea></textarea> `,
 })
 class TestInputTextArea {
     autoResize: boolean;
@@ -19,7 +19,7 @@ describe('InputTextarea', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [NoopAnimationsModule],
-            declarations: [InputTextarea, TestInputTextArea]
+            declarations: [InputTextarea, TestInputTextArea],
         });
 
         fixture = TestBed.createComponent(TestInputTextArea);

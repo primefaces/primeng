@@ -9,7 +9,7 @@ describe('Knob', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule, KnobModule]
+            imports: [NoopAnimationsModule, KnobModule],
         });
 
         fixture = TestBed.createComponent(Knob);

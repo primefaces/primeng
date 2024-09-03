@@ -5,13 +5,16 @@ import { Code } from '@domain/code';
     selector: 'basic-doc',
     template: `
         <app-docsectiontext>
-            <p>Two-way value binding is defined using <i>ngModel</i>. The number of characters is defined with the <i>length</i> property, which is set to 4 by default.</p>
+            <p>
+                Two-way value binding is defined using <i>ngModel</i>. The number of characters is defined with the <i>length</i> property,
+                which is set to 4 by default.
+            </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-inputOtp [(ngModel)]="value" />
         </div>
         <app-code [code]="code" selector="input-otp-basic-demo"></app-code>
-    `
+    `,
 })
 export class BasicDoc {
     value: any;
@@ -35,6 +38,6 @@ import { FormsModule } from '@angular/forms';
 })
 export class InputOtpBasicDemo {
     value : any
-}`
+}`,
     };
 }

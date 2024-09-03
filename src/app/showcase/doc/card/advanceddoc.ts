@@ -5,10 +5,7 @@ import { Code } from '@domain/code';
     selector: 'card-advanced-demo',
     template: `
         <app-docsectiontext>
-            <p>
-                Card content can be customized further with <i>subHeader</i>, <i>header</i> and
-                <i>footer</i> properties.
-            </p>
+            <p>Card content can be customized further with <i>subHeader</i>, <i>header</i> and <i>footer</i> properties.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-card header="Advanced Card" subheader="Card Subheader" [style]="{ width: '25rem', overflow: 'hidden' }">
@@ -16,9 +13,8 @@ import { Code } from '@domain/code';
                     <img alt="Card" class="w-full" src="https://primefaces.org/cdn/primeng/images/card-ng.jpg" />
                 </ng-template>
                 <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error
-                    repudiandae numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam
-                    perferendis esse, cupiditate neque quas!
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt
+                    quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!
                 </p>
                 <ng-template pTemplate="footer">
                     <div class="flex gap-4 mt-1">

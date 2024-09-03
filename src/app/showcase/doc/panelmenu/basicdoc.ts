@@ -12,7 +12,7 @@ import { Code } from '@domain/code';
             <p-panelMenu [model]="items" styleClass="w-full md:w-80" />
         </div>
         <app-code [code]="code" selector="panel-menu-basic-demo"></app-code>
-    `
+    `,
 })
 export class BasicDoc implements OnInit {
     items: MenuItem[];
@@ -33,19 +33,19 @@ export class BasicDoc implements OnInit {
                                 items: [
                                     {
                                         label: 'Pending',
-                                        icon: 'pi pi-stop'
+                                        icon: 'pi pi-stop',
                                     },
                                     {
                                         label: 'Paid',
-                                        icon: 'pi pi-check-circle'
-                                    }
-                                ]
+                                        icon: 'pi pi-check-circle',
+                                    },
+                                ],
                             },
                             {
                                 label: 'Clients',
-                                icon: 'pi pi-users'
-                            }
-                        ]
+                                icon: 'pi pi-users',
+                            },
+                        ],
                     },
                     {
                         label: 'Images',
@@ -53,11 +53,11 @@ export class BasicDoc implements OnInit {
                         items: [
                             {
                                 label: 'Logos',
-                                icon: 'pi pi-image'
-                            }
-                        ]
-                    }
-                ]
+                                icon: 'pi pi-image',
+                            },
+                        ],
+                    },
+                ],
             },
             {
                 label: 'Cloud',
@@ -65,17 +65,17 @@ export class BasicDoc implements OnInit {
                 items: [
                     {
                         label: 'Upload',
-                        icon: 'pi pi-cloud-upload'
+                        icon: 'pi pi-cloud-upload',
                     },
                     {
                         label: 'Download',
-                        icon: 'pi pi-cloud-download'
+                        icon: 'pi pi-cloud-download',
                     },
                     {
                         label: 'Sync',
-                        icon: 'pi pi-refresh'
-                    }
-                ]
+                        icon: 'pi pi-refresh',
+                    },
+                ],
             },
             {
                 label: 'Devices',
@@ -83,18 +83,18 @@ export class BasicDoc implements OnInit {
                 items: [
                     {
                         label: 'Phone',
-                        icon: 'pi pi-mobile'
+                        icon: 'pi pi-mobile',
                     },
                     {
                         label: 'Desktop',
-                        icon: 'pi pi-desktop'
+                        icon: 'pi pi-desktop',
                     },
                     {
                         label: 'Tablet',
-                        icon: 'pi pi-tablet'
-                    }
-                ]
-            }
+                        icon: 'pi pi-tablet',
+                    },
+                ],
+            },
         ];
     }
 
@@ -198,6 +198,6 @@ export class PanelMenuBasicDemo implements OnInit {
             }
         ]
     }
-}`
+}`,
     };
 }

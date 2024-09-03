@@ -6,6 +6,6 @@ import { DockDemoRoutingModule } from './dockdemo-routing.module';
 
 @NgModule({
     imports: [CommonModule, DockDemoRoutingModule, DockDocModule],
-    declarations: [DockDemo]
+    declarations: [DockDemo],
 })
 export class DockDemoModule {}

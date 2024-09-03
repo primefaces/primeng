@@ -22,17 +22,29 @@ import { InfoDemo } from './infodemo';
                 <tr>
                     <td>{{ product.code }}</td>
                     <td>{{ product.name }}</td>
-                    <td><img src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.image" class="w-16" /></td>
+                    <td>
+                        <img
+                            src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}"
+                            [alt]="product.image"
+                            class="w-16"
+                        />
+                    </td>
                     <td>{{ product.category }}</td>
                     <td>
                         {{ product.quantity }}
                     </td>
                     <td>
-                        <p-button type="button" [text]="true" [rounded]="true" icon="pi pi-plus" (click)="selectProduct(product)"></p-button>
+                        <p-button
+                            type="button"
+                            [text]="true"
+                            [rounded]="true"
+                            icon="pi pi-plus"
+                            (click)="selectProduct(product)"
+                        ></p-button>
                     </td>
                 </tr>
             </ng-template>
-        </p-table>`
+        </p-table>`,
 })
 export class ProductListDemo implements OnInit {
     products: Product[];
@@ -40,7 +52,7 @@ export class ProductListDemo implements OnInit {
     constructor(
         private productService: ProductService,
         private dialogService: DialogService,
-        private ref: DynamicDialogRef
+        private ref: DynamicDialogRef,
     ) {}
 
     ngOnInit() {
@@ -57,8 +69,8 @@ export class ProductListDemo implements OnInit {
             modal: true,
             dismissableMask: true,
             data: {
-                totalProducts: this.products ? this.products.length : 0
-            }
+                totalProducts: this.products ? this.products.length : 0,
+            },
         });
     }
 

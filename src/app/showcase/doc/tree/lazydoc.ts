@@ -7,7 +7,8 @@ import { Code } from '@domain/code';
     template: `
         <app-docsectiontext>
             <p>
-                Lazy loading is useful when dealing with huge datasets, in this example nodes are dynamically loaded on demand using <i>loading</i> property and <i>onNodeExpand</i> method. Default value of <i>loadingMode</i> is <i>mask</i> and also
+                Lazy loading is useful when dealing with huge datasets, in this example nodes are dynamically loaded on demand using
+                <i>loading</i> property and <i>onNodeExpand</i> method. Default value of <i>loadingMode</i> is <i>mask</i> and also
                 <i>icon</i> is available.
             </p>
         </app-docsectiontext>
@@ -22,7 +23,7 @@ import { Code } from '@domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="tree-lazy-demo"></app-code>
-    `
+    `,
 })
 export class LazyDoc implements OnInit {
     loading: boolean = false;
@@ -50,18 +51,18 @@ export class LazyDoc implements OnInit {
             {
                 key: '0',
                 label: 'Node 0',
-                leaf: false
+                leaf: false,
             },
             {
                 key: '1',
                 label: 'Node 1',
-                leaf: false
+                leaf: false,
             },
             {
                 key: '2',
                 label: 'Node 2',
-                leaf: false
-            }
+                leaf: false,
+            },
         ];
     }
 
@@ -71,20 +72,20 @@ export class LazyDoc implements OnInit {
                 key: '0',
                 label: 'Node 0',
                 leaf: false,
-                loading: true
+                loading: true,
             },
             {
                 key: '1',
                 label: 'Node 1',
                 leaf: false,
-                loading: true
+                loading: true,
             },
             {
                 key: '2',
                 label: 'Node 2',
                 leaf: false,
-                loading: true
-            }
+                loading: true,
+            },
         ];
     }
 
@@ -99,7 +100,7 @@ export class LazyDoc implements OnInit {
                 for (let i = 0; i < 3; i++) {
                     _node.children.push({
                         key: event.node.key + '-' + i,
-                        label: 'Lazy ' + event.node.label + '-' + i
+                        label: 'Lazy ' + event.node.label + '-' + i,
                     });
                 }
 
@@ -122,7 +123,7 @@ export class LazyDoc implements OnInit {
                 for (let i = 0; i < 3; i++) {
                     _node.children.push({
                         key: event.node.key + '-' + i,
-                        label: 'Lazy ' + event.node.label + '-' + i
+                        label: 'Lazy ' + event.node.label + '-' + i,
                     });
                 }
 
@@ -289,6 +290,6 @@ export class TreeLazyDemo implements OnInit {
     label: 'Node 0',
     leaf: false
 },
-...`
+...`,
     };
 }

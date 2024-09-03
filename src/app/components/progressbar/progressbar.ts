@@ -35,7 +35,7 @@ import { ProgressBarStyle } from './style/progressbarstyle';
             [ngClass]="{
                 'p-progressbar p-component': true,
                 'p-progressbar-determinate': mode === 'determinate',
-                'p-progressbar-indeterminate': mode === 'indeterminate'
+                'p-progressbar-indeterminate': mode === 'indeterminate',
             }"
         >
             <div

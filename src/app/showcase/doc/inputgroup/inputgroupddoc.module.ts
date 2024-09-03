@@ -18,8 +18,21 @@ import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { AccessibilityDoc } from './accessibilitydoc';
 
 @NgModule({
-    imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, FormsModule, InputTextModule, ButtonModule, CheckboxModule, RadioButtonModule, InputGroupModule, InputGroupAddonModule, RadioButtonModule],
+    imports: [
+        CommonModule,
+        RouterModule,
+        AppCodeModule,
+        AppDocModule,
+        FormsModule,
+        InputTextModule,
+        ButtonModule,
+        CheckboxModule,
+        RadioButtonModule,
+        InputGroupModule,
+        InputGroupAddonModule,
+        RadioButtonModule,
+    ],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, MultipleDoc, ButtonDoc, CheckboxDoc, AccessibilityDoc]
+    declarations: [ImportDoc, BasicDoc, MultipleDoc, ButtonDoc, CheckboxDoc, AccessibilityDoc],
 })
 export class InputGroupDocModule {}

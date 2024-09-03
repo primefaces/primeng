@@ -11,59 +11,59 @@ import { AccessibilityDoc } from '@doc/badge/accessibilitydoc';
 import { OverlayDoc } from '@doc/badge/overlaydoc';
 
 @Component({
-    templateUrl: './badgedemo.html'
+    templateUrl: './badgedemo.html',
 })
 export class BadgeDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc
+            component: ImportDoc,
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc
+            component: BasicDoc,
         },
         {
             id: 'directive',
             label: 'Directive',
-            component: DirectiveDoc
+            component: DirectiveDoc,
         },
         {
             id: 'severity',
             label: 'Severity',
-            component: SeverityDoc
+            component: SeverityDoc,
         },
         {
             id: 'size',
             label: 'Size',
-            component: SizeDoc
+            component: SizeDoc,
         },
         {
             id: 'position',
             label: 'Position',
-            component: PositionDoc
+            component: PositionDoc,
         },
         {
             id: 'button',
             label: 'Button',
-            component: ButtonDoc
+            component: ButtonDoc,
         },
         {
             id: 'overlay',
             label: 'Overlay',
-            component: OverlayDoc
+            component: OverlayDoc,
         },
         {
             id: 'style',
             label: 'Style',
-            component: StyleDoc
+            component: StyleDoc,
         },
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc
-        }
+            component: AccessibilityDoc,
+        },
     ];
 }

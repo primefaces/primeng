@@ -6,6 +6,6 @@ import { TabMenuDemoRoutingModule } from './tabmenudemo-routing.module';
 
 @NgModule({
     imports: [CommonModule, TabMenuDemoRoutingModule, TabMenuDocModule],
-    declarations: [TabMenuDemo]
+    declarations: [TabMenuDemo],
 })
 export class TabMenuDemoModule {}

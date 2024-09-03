@@ -42,7 +42,7 @@ const classes = {
     title: 'p-card-title',
     subtitle: 'p-card-subtitle',
     content: 'p-card-content',
-    footer: 'p-card-footer'
+    footer: 'p-card-footer',
 };
 
 @Injectable()

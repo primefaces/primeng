@@ -6,12 +6,20 @@ import { Code } from '@domain/code';
     template: `
         <app-docsectiontext>
             <p>
-                Scroller requires <i>items</i> as the data to display, <i>itemSize</i> for the dimensions of an item and <i>item</i> template are required on component. In addition, an initial array is required based on the total number of items to
-                display. Size of the viewport is configured using <i>scrollWidth</i>, <i>scrollHeight</i> properties directly or with CSS <i>width</i> and <i>height</i> styles.
+                Scroller requires <i>items</i> as the data to display, <i>itemSize</i> for the dimensions of an item and
+                <i>item</i> template are required on component. In addition, an initial array is required based on the total number of items
+                to display. Size of the viewport is configured using <i>scrollWidth</i>, <i>scrollHeight</i> properties directly or with CSS
+                <i>width</i> and <i>height</i> styles.
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-scroller [items]="items" [itemSize]="50" scrollHeight="200px" styleClass="border border-surface" [style]="{ width: '200px', height: '200px' }">
+            <p-scroller
+                [items]="items"
+                [itemSize]="50"
+                scrollHeight="200px"
+                styleClass="border border-surface"
+                [style]="{ width: '200px', height: '200px' }"
+            >
                 <ng-template pTemplate="item" let-item let-options="options">
                     <div class="flex items-center p-2" [ngClass]="{ 'surface-ground': options.odd }" style="height: 50px;">{{ item }}</div>
                 </ng-template>
@@ -19,7 +27,7 @@ import { Code } from '@domain/code';
         </div>
         <app-code [code]="code" selector="scroller-basic-demo"></app-code>
     `,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BasicDoc {
     items!: string[];
@@ -85,6 +93,6 @@ export class ScrollerBasicDemo implements OnInit {
     .p-scroller-viewport {
         flex: none;
     }
-}`
+}`,
     };
 }

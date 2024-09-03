@@ -12,11 +12,21 @@ interface Column {
     selector: 'scroll-vertical-doc',
     template: `
         <app-docsectiontext>
-            <p>Adding <i>scrollable</i> property along with a <i>scrollHeight</i> for the data viewport enables vertical scrolling with fixed headers.</p>
+            <p>
+                Adding <i>scrollable</i> property along with a <i>scrollHeight</i> for the data viewport enables vertical scrolling with
+                fixed headers.
+            </p>
         </app-docsectiontext>
         <div class="card">
             <p-deferred-demo (load)="loadDemoData()">
-                <p-treeTable [value]="files" [columns]="cols" [scrollable]="true" scrollHeight="200px" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
+                <p-treeTable
+                    [value]="files"
+                    [columns]="cols"
+                    [scrollable]="true"
+                    scrollHeight="200px"
+                    [scrollable]="true"
+                    [tableStyle]="{ 'min-width': '50rem' }"
+                >
                     <ng-template pTemplate="header" let-columns>
                         <tr>
                             <th *ngFor="let col of columns">
@@ -37,7 +47,7 @@ interface Column {
         </div>
         <app-code [code]="code" selector="tree-table-scroll-vertical-demo"></app-code>
     `,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ScrollVerticalDoc {
     files!: TreeNode[];
@@ -51,7 +61,7 @@ export class ScrollVerticalDoc {
         this.cols = [
             { field: 'name', header: 'Name' },
             { field: 'size', header: 'Size' },
-            { field: 'type', header: 'Type' }
+            { field: 'type', header: 'Type' },
         ];
     }
 
@@ -141,6 +151,6 @@ export class TreeTableScrollVerticalDemo implements OnInit{
     }
 }`,
 
-        service: ['NodeService']
+        service: ['NodeService'],
     };
 }

@@ -7,7 +7,10 @@ import { Router } from '@angular/router';
     selector: 'router-doc',
     template: `
         <app-docsectiontext>
-            <p>Items with navigation are defined with templating to be able to use a router link component, an external link or programmatic navigation.</p>
+            <p>
+                Items with navigation are defined with templating to be able to use a router link component, an external link or
+                programmatic navigation.
+            </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-tieredMenu [model]="items">
@@ -38,7 +41,7 @@ import { Router } from '@angular/router';
             </p-tieredMenu>
         </div>
         <app-code [code]="code" selector="tiered-menu-router-demo"></app-code>
-    `
+    `,
 })
 export class RouterDoc implements OnInit {
     items: MenuItem[] | undefined;
@@ -53,20 +56,20 @@ export class RouterDoc implements OnInit {
                 items: [
                     {
                         label: 'Theming',
-                        route: '/theming'
+                        route: '/theming',
                     },
                     {
                         label: 'Colors',
-                        route: '/colors'
-                    }
-                ]
+                        route: '/colors',
+                    },
+                ],
             },
             {
                 label: 'Programmatic',
                 icon: 'pi pi-link',
                 command: () => {
                     this.router.navigate(['/installation']);
-                }
+                },
             },
             {
                 label: 'External',
@@ -74,14 +77,14 @@ export class RouterDoc implements OnInit {
                 items: [
                     {
                         label: 'Angular',
-                        url: 'https://angular.dev/'
+                        url: 'https://angular.dev/',
                     },
                     {
                         label: 'Vite.js',
-                        url: 'https://vitejs.dev/'
-                    }
-                ]
-            }
+                        url: 'https://vitejs.dev/',
+                    },
+                ],
+            },
         ];
     }
 
@@ -201,6 +204,6 @@ export class TieredMenuRouterDemo implements OnInit {
     }
 
 
-}`
+}`,
     };
 }

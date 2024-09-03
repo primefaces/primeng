@@ -22,7 +22,7 @@ import { Code } from '@domain/code';
             />
         </div>
         <app-code [code]="code" selector="input-number-vertical-demo"></app-code>
-    `
+    `,
 })
 export class VerticalDoc {
     value1: number = 50;
@@ -65,6 +65,6 @@ import { FormsModule } from '@angular/forms';
 })
 export class InputNumberVerticalDemo {
     value1: number = 50;
-}`
+}`,
     };
 }

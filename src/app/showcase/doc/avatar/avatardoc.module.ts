@@ -22,8 +22,31 @@ import { AvatarGroupStyleDoc } from './avatargroupstyledoc';
 import { AccessibilityDoc } from './accessibilitydoc';
 
 @NgModule({
-    imports: [CommonModule, RouterModule, AppCodeModule, InputTextModule, FormsModule, AppDocModule, AvatarModule, AvatarGroupModule, BadgeModule],
-    declarations: [ImportDoc, LabelDoc, IconDoc, GroupDoc, ImageDoc, AvatarStyleDoc, AvatarGroupStyleDoc, ShapeDoc, SizeDoc, BadgeDoc, TemplateDoc, AccessibilityDoc],
-    exports: [AppDocModule]
+    imports: [
+        CommonModule,
+        RouterModule,
+        AppCodeModule,
+        InputTextModule,
+        FormsModule,
+        AppDocModule,
+        AvatarModule,
+        AvatarGroupModule,
+        BadgeModule,
+    ],
+    declarations: [
+        ImportDoc,
+        LabelDoc,
+        IconDoc,
+        GroupDoc,
+        ImageDoc,
+        AvatarStyleDoc,
+        AvatarGroupStyleDoc,
+        ShapeDoc,
+        SizeDoc,
+        BadgeDoc,
+        TemplateDoc,
+        AccessibilityDoc,
+    ],
+    exports: [AppDocModule],
 })
 export class AvatarDocModule {}

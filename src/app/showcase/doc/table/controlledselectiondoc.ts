@@ -10,7 +10,13 @@ import { ProductService } from '@service/productservice';
         </app-docsectiontext>
         <p-deferred-demo (load)="loadDemoData()">
             <div class="card">
-                <p-table [value]="products" [(selection)]="selectedProducts" dataKey="code" [rowSelectable]="isRowSelectable" [tableStyle]="{ 'min-width': '50rem' }">
+                <p-table
+                    [value]="products"
+                    [(selection)]="selectedProducts"
+                    dataKey="code"
+                    [rowSelectable]="isRowSelectable"
+                    [tableStyle]="{ 'min-width': '50rem' }"
+                >
                     <ng-template pTemplate="header">
                         <tr>
                             <th style="width: 4rem">
@@ -37,7 +43,7 @@ import { ProductService } from '@service/productservice';
             </div>
         </p-deferred-demo>
         <app-code [code]="code" selector="table-controlled-selection-demo" [extFiles]="extFiles"></app-code>`,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ControlledSelectionDoc {
     products!: Product[];
@@ -46,7 +52,7 @@ export class ControlledSelectionDoc {
 
     constructor(
         private productService: ProductService,
-        private cd: ChangeDetectorRef
+        private cd: ChangeDetectorRef,
     ) {
         this.isRowSelectable = this.isRowSelectable.bind(this);
     }
@@ -163,7 +169,7 @@ export class TableControlledSelectionDemo implements OnInit{
     rating: 5
 },
 ...`,
-        service: ['ProductService']
+        service: ['ProductService'],
     };
 
     extFiles = [
@@ -181,7 +187,7 @@ export interface Product {
     category?: string;
     image?: string;
     rating?: number;
-}`
-        }
+}`,
+        },
     ];
 }

@@ -11,7 +11,7 @@ import { Code } from '@domain/code';
             <p-inputMask mask="999-99-9999" [(ngModel)]="value" class="ng-invalid ng-dirty" />
         </div>
         <app-code [code]="code" selector="input-mask-invalid-demo"></app-code>
-    `
+    `,
 })
 export class InvalidDoc {
     value: string | undefined;
@@ -41,6 +41,6 @@ import { FormsModule } from '@angular/forms';
 })
 export class InputMaskInvalidDemo {
     value: string | undefined;
-}`
+}`,
     };
 }

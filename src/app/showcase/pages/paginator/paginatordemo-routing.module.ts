@@ -4,6 +4,6 @@ import { PaginatorDemo } from './paginatordemo';
 
 @NgModule({
     imports: [RouterModule.forChild([{ path: '', component: PaginatorDemo }])],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class PaginatorDemoRoutingModule {}

@@ -6,6 +6,6 @@ import { MultiSelectDemoRoutingModule } from './multiselectdemo-routing.module';
 
 @NgModule({
     imports: [CommonModule, MultiSelectDemoRoutingModule, MultiSelectDocModule],
-    declarations: [MultiSelectDemo]
+    declarations: [MultiSelectDemo],
 })
 export class MultiSelectDemoModule {}

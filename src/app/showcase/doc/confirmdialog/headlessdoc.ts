@@ -6,18 +6,14 @@ import { Code } from '@domain/code';
     selector: 'confirm-dialog-headless-demo',
     template: `
         <app-docsectiontext>
-            <p>
-                <i>Headless</i> mode allows you to customize the entire user interface instead of the default elements.
-            </p>
+            <p><i>Headless</i> mode allows you to customize the entire user interface instead of the default elements.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-toast />
             <p-confirmDialog #cd>
                 <ng-template pTemplate="headless" let-message let-onAccept="onAccept" let-onReject="onReject">
                     <div class="flex flex-col items-center p-8 bg-surface-0 dark:bg-surface-900 rounded">
-                        <div
-                            class="rounded-full bg-primary text-primary-contrast inline-flex justify-center items-center h-24 w-24 -mt-20"
-                        >
+                        <div class="rounded-full bg-primary text-primary-contrast inline-flex justify-center items-center h-24 w-24 -mt-20">
                             <i class="pi pi-question text-5xl"></i>
                         </div>
                         <span class="font-bold text-2xl block mb-2 mt-6">{{ message.header }}</span>
@@ -29,14 +25,17 @@ import { Code } from '@domain/code';
                     </div>
                 </ng-template>
             </p-confirmDialog>
-            <p-button (click)="confirm()" label="Save"/>
+            <p-button (click)="confirm()" label="Save" />
         </div>
         <app-code [code]="code" selector="confirm-dialog-headless-demo"></app-code>
     `,
     providers: [ConfirmationService, MessageService],
 })
 export class HeadlessDoc {
-    constructor(private confirmationService: ConfirmationService, private messageService: MessageService) {}
+    constructor(
+        private confirmationService: ConfirmationService,
+        private messageService: MessageService,
+    ) {}
 
     confirm() {
         this.confirmationService.confirm({

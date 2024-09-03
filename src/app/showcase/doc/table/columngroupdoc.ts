@@ -45,7 +45,7 @@ import { Code } from '@domain/code';
             </div>
         </p-deferred-demo>
         <app-code [code]="code" selector="table-column-group-demo"></app-code>`,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ColumnGroupDoc {
     sales!: any[];
@@ -67,7 +67,7 @@ export class ColumnGroupDoc {
             { product: 'Galaxy Earrings', lastYearSale: 82, thisYearSale: 12, lastYearProfit: 131211, thisYearProfit: 100214 },
             { product: 'Game Controller', lastYearSale: 44, thisYearSale: 45, lastYearProfit: 66442, thisYearProfit: 53322 },
             { product: 'Gaming Set', lastYearSale: 90, thisYearSale: 56, lastYearProfit: 765442, thisYearProfit: 296232 },
-            { product: 'Gold Phone Case', lastYearSale: 75, thisYearSale: 54, lastYearProfit: 21212, thisYearProfit: 12533 }
+            { product: 'Gold Phone Case', lastYearSale: 75, thisYearSale: 54, lastYearProfit: 21212, thisYearProfit: 12533 },
         ];
 
         this.calculateLastYearTotal();
@@ -230,6 +230,6 @@ export class TableColumnGroupDemo implements OnInit {
     inventoryStatus: 'INSTOCK',
     rating: 5
 },
-...`
+...`,
     };
 }

@@ -6,34 +6,34 @@ import { PresetsDoc } from '@doc/keyfilter/presetsdoc';
 import { RegexDoc } from '@doc/keyfilter/regexdoc';
 
 @Component({
-    templateUrl: './keyfilterdemo.html'
+    templateUrl: './keyfilterdemo.html',
 })
 export class KeyFilterDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc
+            component: ImportDoc,
         },
         {
             id: 'presets',
             label: 'Presets',
-            component: PresetsDoc
+            component: PresetsDoc,
         },
         {
             id: 'regex',
             label: 'Regex',
-            component: RegexDoc
+            component: RegexDoc,
         },
         {
             id: 'reactive-forms',
             label: 'Reactive Forms',
-            component: ReactiveFormsDoc
+            component: ReactiveFormsDoc,
         },
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc
-        }
+            component: AccessibilityDoc,
+        },
     ];
 }

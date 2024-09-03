@@ -7,39 +7,39 @@ import { CheckboxDoc } from '@doc/inputgroup/checkboxdoc';
 import { AccessibilityDoc } from '@doc/inputgroup/accessibilitydoc';
 
 @Component({
-    templateUrl: './inputgroupdemo.html'
+    templateUrl: './inputgroupdemo.html',
 })
 export class InputGroupDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc
+            component: ImportDoc,
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc
+            component: BasicDoc,
         },
         {
             id: 'multiple',
             label: 'Multiple',
-            component: MultipleDoc
+            component: MultipleDoc,
         },
         {
             id: 'button',
             label: 'Button',
-            component: ButtonDoc
+            component: ButtonDoc,
         },
         {
             id: 'checkbox',
             label: 'Check & Radio',
-            component: CheckboxDoc
+            component: CheckboxDoc,
         },
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc
-        }
+            component: AccessibilityDoc,
+        },
     ];
 }

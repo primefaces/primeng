@@ -4,6 +4,6 @@ import { RippleDemo } from './rippledemo';
 
 @NgModule({
     imports: [RouterModule.forChild([{ path: '', component: RippleDemo }])],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class RippleDemoRoutingModule {}

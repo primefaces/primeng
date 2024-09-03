@@ -6,8 +6,10 @@ import { Component } from '@angular/core';
         <app-docsectiontext>
             <h3>Screen Reader</h3>
             <p>
-                Specification does not cover a color picker <a href="https://github.com/w3c/aria/issues/930">yet</a> and using a semantic native color picker is not consistent across browsers so currently component is not compatible with screen
-                readers. In the upcoming versions, text fields will be introduced below the slider section to be able to pick a color using accessible text boxes in hsl, rgba and hex formats.
+                Specification does not cover a color picker <a href="https://github.com/w3c/aria/issues/930">yet</a> and using a semantic
+                native color picker is not consistent across browsers so currently component is not compatible with screen readers. In the
+                upcoming versions, text fields will be introduced below the slider section to be able to pick a color using accessible text
+                boxes in hsl, rgba and hex formats.
             </p>
         </app-docsectiontext>
 
@@ -111,6 +113,6 @@ import { Component } from '@angular/core';
                 </tbody>
             </table>
         </div>
-    </div>`
+    </div>`,
 })
 export class AccessibilityDoc {}

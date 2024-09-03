@@ -53,7 +53,7 @@ import { BaseComponent } from 'primeng/basecomponent';
             (click)="onOverlayClick($event)"
             [@animation]="{
                 value: 'open',
-                params: { showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions }
+                params: { showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions },
             }"
             (@animation.start)="onAnimationStart($event)"
             (@animation.done)="onAnimationEnd($event)"
@@ -64,16 +64,10 @@ import { BaseComponent } from 'primeng/basecomponent';
             <ng-template #notHeadless>
                 <div #content class="p-confirmpopup-content">
                     <ng-container *ngIf="contentTemplate; else withoutContentTemplate">
-                        <ng-container
-                            *ngTemplateOutlet="contentTemplate; context: { $implicit: confirmation }"
-                        ></ng-container>
+                        <ng-container *ngTemplateOutlet="contentTemplate; context: { $implicit: confirmation }"></ng-container>
                     </ng-container>
                     <ng-template #withoutContentTemplate>
-                        <i
-                            [ngClass]="'p-confirmpopup-icon'"
-                            [class]="confirmation?.icon"
-                            *ngIf="confirmation?.icon"
-                        ></i>
+                        <i [ngClass]="'p-confirmpopup-icon'" [class]="confirmation?.icon" *ngIf="confirmation?.icon"></i>
                         <span class="p-confirmpopup-message">{{ confirmation?.message }}</span>
                     </ng-template>
                 </div>

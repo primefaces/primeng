@@ -8,39 +8,39 @@ import { WCAGDoc } from '@doc/guides/accessibility/wcagdoc';
 
 @Component({
     selector: 'accessibility',
-    templateUrl: './accessibilitydemo.component.html'
+    templateUrl: './accessibilitydemo.component.html',
 })
 export class AccessibilityDemoComponent {
     docs = [
         {
             id: 'introduction',
             label: 'Introduction',
-            component: IntroductionDoc
+            component: IntroductionDoc,
         },
         {
             id: 'wcag',
             label: 'WCAG',
-            component: WCAGDoc
+            component: WCAGDoc,
         },
         {
             id: 'form-controls',
             label: 'Form Controls',
-            component: FormControlsDoc
+            component: FormControlsDoc,
         },
         {
             id: 'semantic-html',
             label: 'Semantic HTML',
-            component: SemanticHTMLDoc
+            component: SemanticHTMLDoc,
         },
         {
             id: 'wai-aria',
             label: 'WAI-ARIA',
-            component: WAIARIADoc
+            component: WAIARIADoc,
         },
         {
             id: 'colors',
             label: 'Colors',
-            component: ColorsDoc
-        }
+            component: ColorsDoc,
+        },
     ];
 }

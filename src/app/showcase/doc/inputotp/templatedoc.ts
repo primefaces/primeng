@@ -6,8 +6,8 @@ import { Code } from '@domain/code';
     template: `
         <app-docsectiontext>
             <p>
-                Define a template with your own UI elements with bindings to the provided events and attributes to
-                replace the default design.
+                Define a template with your own UI elements with bindings to the provided events and attributes to replace the default
+                design.
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">

@@ -15,7 +15,7 @@ import { Code } from '@domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="knob-reactive-demo"></app-code>
-    `
+    `,
 })
 export class ReactiveDoc {
     value: number = 0;
@@ -60,6 +60,6 @@ import { ButtonModule } from 'primeng/button';
 })
 export class KnobReactiveDemo {
     value: number = 0;
-}`
+}`,
     };
 }

@@ -4,6 +4,6 @@ import { FluidDemo } from './fluiddemo';
 
 @NgModule({
     imports: [RouterModule.forChild([{ path: '', component: FluidDemo }])],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class FluidDemoRoutingModule {}

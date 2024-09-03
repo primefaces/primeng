@@ -11,7 +11,7 @@ import { Code } from '@domain/code';
             <p-tag value="New" />
         </div>
         <app-code [code]="code" selector="tag-basic-demo"></app-code>
-    `
+    `,
 })
 export class BasicDoc {
     code: Code = {
@@ -28,6 +28,6 @@ import { TagModule } from 'primeng/tag';
     standalone: true,
     imports: [TagModule]
 })
-export class TagBasicDemo {}`
+export class TagBasicDemo {}`,
     };
 }

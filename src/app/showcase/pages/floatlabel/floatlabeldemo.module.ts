@@ -7,6 +7,6 @@ import { FloatLabelDocModule } from '@doc/floatlabel/floatlabeldoc.module';
 
 @NgModule({
     imports: [CommonModule, FloatLabelDemoRoutingModule, FormsModule, FloatLabelDocModule],
-    declarations: [FloatLabelDemo]
+    declarations: [FloatLabelDemo],
 })
 export class FloatLabelDemoModule {}

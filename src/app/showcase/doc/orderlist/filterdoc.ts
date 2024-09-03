@@ -10,10 +10,20 @@ import { ProductService } from '@service/productservice';
             <p>Filter value is checked against the property of an object configured with the <i>filterBy</i> property</p>
         </app-docsectiontext>
         <div class="card xl:flex xl:justify-center">
-            <p-orderList [value]="products" [listStyle]="{ 'max-height': '30rem' }" header="List of Products" filterBy="name" filterPlaceholder="Filter by name">
+            <p-orderList
+                [value]="products"
+                [listStyle]="{ 'max-height': '30rem' }"
+                header="List of Products"
+                filterBy="name"
+                filterPlaceholder="Filter by name"
+            >
                 <ng-template let-product pTemplate="item">
                     <div class="flex flex-wrap p-2 items-center gap-4">
-                        <img src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.name" class="w-16 shadow shrink-0 rounded-border" />
+                        <img
+                            src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}"
+                            [alt]="product.name"
+                            class="w-16 shadow shrink-0 rounded-border"
+                        />
                         <div class="flex-1 flex flex-col gap-2">
                             <span class="font-bold">{{ product.name }}</span>
                             <div class="flex items-center gap-2">
@@ -27,14 +37,14 @@ import { ProductService } from '@service/productservice';
             </p-orderList>
         </div>
         <app-code [code]="code" selector="orderlist-filter-demo" [extFiles]="extFiles"></app-code>
-    `
+    `,
 })
 export class FilterDoc implements OnInit {
     products!: Product[];
 
     constructor(
         private productService: ProductService,
-        private cdr: ChangeDetectorRef
+        private cdr: ChangeDetectorRef,
     ) {}
 
     ngOnInit() {
@@ -159,7 +169,7 @@ export class OrderlistFilterDemo implements OnInit {
 },
 ...`,
 
-        service: ['ProductService']
+        service: ['ProductService'],
     };
 
     extFiles = [
@@ -177,7 +187,7 @@ export interface Product {
     category?: string;
     image?: string;
     rating?: number;
-}`
-        }
+}`,
+        },
     ];
 }

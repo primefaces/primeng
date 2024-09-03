@@ -6,7 +6,10 @@ import { Code } from '@domain/code';
     selector: 'target-doc',
     template: `
         <app-docsectiontext>
-            <p>A page may have multiple toast components, in case you'd like to target a specific message to a particular toast, use the <i>key</i> property so that toast and the message can match.</p>
+            <p>
+                A page may have multiple toast components, in case you'd like to target a specific message to a particular toast, use the
+                <i>key</i> property so that toast and the message can match.
+            </p>
         </app-docsectiontext>
         <div class="card flex justify-center gap-2">
             <p-toast key="toast1" />
@@ -16,7 +19,7 @@ import { Code } from '@domain/code';
         </div>
         <app-code [code]="code" selector="toast-target-demo"></app-code>
     `,
-    providers: [MessageService]
+    providers: [MessageService],
 })
 export class TargetDoc {
     constructor(private messageService: MessageService) {}
@@ -81,6 +84,6 @@ export class ToastTargetDemo {
         this.messageService.clear();
         this.messageService.add({ key: 'toast2', severity: 'warn', summary: 'Warning', detail: 'key: toast2' });
     }
-}`
+}`,
     };
 }

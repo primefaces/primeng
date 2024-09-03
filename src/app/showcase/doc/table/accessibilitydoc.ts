@@ -5,31 +5,49 @@ import { Component } from '@angular/core';
     template: ` <app-docsectiontext>
         <h3>Screen Reader</h3>
         <p>
-            Default role of the table is <i>table</i>. Header, body and footer elements use <i>rowgroup</i>, rows use <i>row</i> role, header cells have <i>columnheader</i> and body cells use <i>cell</i> roles. Sortable headers utilizer
-            <i>aria-sort</i> attribute either set to "ascending" or "descending".
-        </p>
-        <p>Table rows and table cells should be specified by users using the <i>aria-posinset</i>, <i>aria-setsize</i>, <i>aria-label</i>, and <i>aria-describedby</i> attributes, as they are determined through templating.</p>
-        <p>
-            Built-in checkbox and radiobutton components for row selection use <i>checkbox</i> and <i>radiobutton</i>. The label to describe them is retrieved from the <i>aria.selectRow</i> and <i>aria.unselectRow</i> properties of the
-            <a href="/configuration" class="">locale</a> API. Similarly header checkbox uses <i>selectAll</i> and <i>unselectAll</i> keys. When a row is selected, <i>aria-selected</i> is set to true on a row.
+            Default role of the table is <i>table</i>. Header, body and footer elements use <i>rowgroup</i>, rows use <i>row</i> role,
+            header cells have <i>columnheader</i> and body cells use <i>cell</i> roles. Sortable headers utilizer <i>aria-sort</i> attribute
+            either set to "ascending" or "descending".
         </p>
         <p>
-            The element to expand or collapse a row is a <i>button</i> with <i>aria-expanded</i> and <i>aria-controls</i> properties. Value to describe the buttons is derived from <i>aria.expandRow</i> and <i>aria.collapseRow</i> properties of the
+            Table rows and table cells should be specified by users using the <i>aria-posinset</i>, <i>aria-setsize</i>, <i>aria-label</i>,
+            and <i>aria-describedby</i> attributes, as they are determined through templating.
+        </p>
+        <p>
+            Built-in checkbox and radiobutton components for row selection use <i>checkbox</i> and <i>radiobutton</i>. The label to describe
+            them is retrieved from the <i>aria.selectRow</i> and <i>aria.unselectRow</i> properties of the
+            <a href="/configuration" class="">locale</a> API. Similarly header checkbox uses <i>selectAll</i> and <i>unselectAll</i> keys.
+            When a row is selected, <i>aria-selected</i> is set to true on a row.
+        </p>
+        <p>
+            The element to expand or collapse a row is a <i>button</i> with <i>aria-expanded</i> and <i>aria-controls</i> properties. Value
+            to describe the buttons is derived from <i>aria.expandRow</i> and <i>aria.collapseRow</i> properties of the
             <a href="/configuration" class="">locale</a> API.
         </p>
         <p>
-            The filter menu button use <i>aria.showFilterMenu</i> and <i>aria.hideFilterMenu</i> properties as <i>aria-label</i> in addition to the <i>aria-haspopup</i>, <i>aria-expanded</i> and <i>aria-controls</i> to define the relation between the
-            button and the overlay. Popop menu has <i>dialog</i> role with <i>aria-modal</i> as focus is kept within the overlay. The operator dropdown use <i>aria.filterOperator</i> and filter constraints dropdown use
-            <i>aria.filterConstraint</i> properties. Buttons to add rules on the other hand utilize <i>aria.addRule</i> and <i>aria.removeRule</i> properties. The footer buttons similarly use <i>aria.clear</i> and <i>aria.apply</i> properties.
-            <i>filterInputProps</i> of the Column component can be used to define aria labels for the built-in filter components, if a custom component is used with templating you also may define your own aria labels as well.
+            The filter menu button use <i>aria.showFilterMenu</i> and <i>aria.hideFilterMenu</i> properties as <i>aria-label</i> in addition
+            to the <i>aria-haspopup</i>, <i>aria-expanded</i> and <i>aria-controls</i> to define the relation between the button and the
+            overlay. Popop menu has <i>dialog</i> role with <i>aria-modal</i> as focus is kept within the overlay. The operator dropdown use
+            <i>aria.filterOperator</i> and filter constraints dropdown use <i>aria.filterConstraint</i> properties. Buttons to add rules on
+            the other hand utilize <i>aria.addRule</i> and <i>aria.removeRule</i> properties. The footer buttons similarly use
+            <i>aria.clear</i> and <i>aria.apply</i> properties. <i>filterInputProps</i> of the Column component can be used to define aria
+            labels for the built-in filter components, if a custom component is used with templating you also may define your own aria
+            labels as well.
         </p>
         <p>
-            Editable cells use custom templating so you need to manage aria roles and attributes manually if required. The row editor controls are button elements with <i>aria.editRow</i>, <i>aria.cancelEdit</i> and <i>aria.saveEdit</i> used for the
+            Editable cells use custom templating so you need to manage aria roles and attributes manually if required. The row editor
+            controls are button elements with <i>aria.editRow</i>, <i>aria.cancelEdit</i> and <i>aria.saveEdit</i> used for the
             <i>aria-label</i>.
         </p>
-        <p>Paginator is a standalone component used inside the Table, refer to the <a href="/paginator" class="">paginator</a> for more information about the accessibility features.</p>
+        <p>
+            Paginator is a standalone component used inside the Table, refer to the <a href="/paginator" class="">paginator</a> for more
+            information about the accessibility features.
+        </p>
         <h3>Keyboard Support</h3>
-        <p>Any button element inside the Table used for cases like filter, row expansion, edit are tabbable and can be used with <i>space</i> and <i>enter</i> keys.</p>
+        <p>
+            Any button element inside the Table used for cases like filter, row expansion, edit are tabbable and can be used with
+            <i>space</i> and <i>enter</i> keys.
+        </p>
         <h3>Sortable Headers Keyboard Support</h3>
         <div class="doc-tablewrapper">
             <table class="doc-table">
@@ -145,6 +163,6 @@ import { Component } from '@angular/core';
                 </tbody>
             </table>
         </div>
-    </app-docsectiontext>`
+    </app-docsectiontext>`,
 })
 export class AccessibilityDoc {}

@@ -5,20 +5,41 @@ import { Code } from '@domain/code';
     selector: 'loader-doc',
     template: `
         <app-docsectiontext>
-            <p>Busy state is enabled by adding <i>showLoader</i> property which blocks the UI with a modal by default. Alternatively, <i>loader</i> template can be used to customize items e.g. with <a href="/skeleton" class="">Skeleton</a>.</p>
+            <p>
+                Busy state is enabled by adding <i>showLoader</i> property which blocks the UI with a modal by default. Alternatively,
+                <i>loader</i> template can be used to customize items e.g. with <a href="/skeleton" class="">Skeleton</a>.
+            </p>
         </app-docsectiontext>
         <div class="card flex flex-wrap justify-center gap-4">
             <div>
-                <p-scroller [items]="items" [itemSize]="50" [showLoader]="true" [delay]="250" styleClass="border border-surface" [style]="{ width: '200px', height: '200px' }">
+                <p-scroller
+                    [items]="items"
+                    [itemSize]="50"
+                    [showLoader]="true"
+                    [delay]="250"
+                    styleClass="border border-surface"
+                    [style]="{ width: '200px', height: '200px' }"
+                >
                     <ng-template pTemplate="item" let-item let-options="options">
-                        <div class="flex items-center p-2" [ngClass]="{ 'surface-ground': options.odd }" style="height: 50px;">{{ item }}</div>
+                        <div class="flex items-center p-2" [ngClass]="{ 'surface-ground': options.odd }" style="height: 50px;">
+                            {{ item }}
+                        </div>
                     </ng-template>
                 </p-scroller>
             </div>
             <div>
-                <p-scroller [items]="items" [itemSize]="50" [showLoader]="true" [delay]="250" styleClass="border border-surface" [style]="{ width: '200px', height: '200px' }">
+                <p-scroller
+                    [items]="items"
+                    [itemSize]="50"
+                    [showLoader]="true"
+                    [delay]="250"
+                    styleClass="border border-surface"
+                    [style]="{ width: '200px', height: '200px' }"
+                >
                     <ng-template pTemplate="item" let-item let-options="options">
-                        <div class="flex items-center p-2" [ngClass]="{ 'surface-ground': options.odd }" style="height: 50px;">{{ item }}</div>
+                        <div class="flex items-center p-2" [ngClass]="{ 'surface-ground': options.odd }" style="height: 50px;">
+                            {{ item }}
+                        </div>
                     </ng-template>
                     <ng-template pTemplate="loader" let-options="options">
                         <div class="flex items-center p-2" [ngClass]="{ 'surface-ground': options.odd }" style="height: 50px;">
@@ -30,7 +51,7 @@ import { Code } from '@domain/code';
         </div>
         <app-code [code]="code" selector="scroller-loader-demo"></app-code>
     `,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoaderDoc {
     items!: string[];
@@ -112,6 +133,6 @@ export class ScrollerLoaderDemo implements OnInit {
     p-skeleton {
         width: 100%;
     }
-}`
+}`,
     };
 }

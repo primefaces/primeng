@@ -116,7 +116,7 @@ const classes = {
     message: 'p-confirmpopup-message',
     footer: 'p-confirmpopup-footer',
     pcRejectButton: 'p-confirmpopup-reject-button',
-    pcAcceptButton: 'p-confirmpopup-accept-button'
+    pcAcceptButton: 'p-confirmpopup-accept-button',
 };
 
 @Injectable()

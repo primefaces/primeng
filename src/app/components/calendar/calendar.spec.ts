@@ -15,7 +15,7 @@ describe('Calendar', () => {
         TestBed.configureTestingModule({
             schemas: [NO_ERRORS_SCHEMA],
             imports: [NoopAnimationsModule, FormsModule, SharedModule, ButtonModule],
-            declarations: [Calendar]
+            declarations: [Calendar],
         });
 
         fixture = TestBed.createComponent(Calendar);
@@ -194,7 +194,9 @@ describe('Calendar', () => {
 
         const onDateSelectSpy = spyOn(calendar, 'onDateSelect').and.callThrough();
         const calendarContainer = fixture.debugElement.query(By.css('.p-datepicker-calendar-container'));
-        const sampleDateEls = calendarContainer.query(By.css('tbody')).queryAll(By.css('span:not(.p-datepicker-weeknumber):not(.p-disabled)'));
+        const sampleDateEls = calendarContainer
+            .query(By.css('tbody'))
+            .queryAll(By.css('span:not(.p-datepicker-weeknumber):not(.p-disabled)'));
         expect(calendar.dateTemplate).toBeFalsy();
         sampleDateEls[7].nativeElement.click();
         fixture.detectChanges();
@@ -224,12 +226,15 @@ describe('Calendar', () => {
 
         const onDateSelectSpy = spyOn(calendar, 'onDateSelect').and.callThrough();
         const calendarContainer = fixture.debugElement.query(By.css('.p-datepicker-calendar-container'));
-        const sampleDateEl = calendarContainer.query(By.css('tbody')).queryAll(By.css('span:not(.p-datepicker-weeknumber):not(.p-disabled)'))[7].nativeElement;
+        const sampleDateEl = calendarContainer
+            .query(By.css('tbody'))
+            .queryAll(By.css('span:not(.p-datepicker-weeknumber):not(.p-disabled)'))[7].nativeElement;
         sampleDateEl.click();
         fixture.detectChanges();
 
         expect(calendar.inputFieldValue).toEqual(inputEl.value);
-        if (calendar.currentMonth < 9) expect(calendar.inputFieldValue).toEqual('08/0' + (calendar.currentMonth + 1) + '/' + calendar.currentYear);
+        if (calendar.currentMonth < 9)
+            expect(calendar.inputFieldValue).toEqual('08/0' + (calendar.currentMonth + 1) + '/' + calendar.currentYear);
         else expect(calendar.inputFieldValue).toEqual('08/' + (calendar.currentMonth + 1) + '/' + calendar.currentYear);
         expect(onDateSelectSpy).toHaveBeenCalled();
     });
@@ -636,14 +641,17 @@ describe('Calendar', () => {
         const onDateSelectSpy = spyOn(calendar, 'onDateSelect').and.callThrough();
         const panelEl = fixture.debugElement.query(By.css('div')).nativeElement;
         const containerEl = fixture.debugElement.query(By.css('.p-datepicker-calendar-container'));
-        const firstDayEl = containerEl.query(By.css('tbody')).queryAll(By.css('span:not(.p-datepicker-weeknumber):not(.p-disabled)'))[0].nativeElement;
+        const firstDayEl = containerEl
+            .query(By.css('tbody'))
+            .queryAll(By.css('span:not(.p-datepicker-weeknumber):not(.p-disabled)'))[0].nativeElement;
         expect(panelEl.className).toContain('p-datepicker-touch-ui');
         firstDayEl.click();
         fixture.detectChanges();
 
         tick(150);
         expect(calendar.overlayVisible).toEqual(false);
-        if (calendar.currentMonth < 9) expect(calendar.inputFieldValue).toEqual('0' + (calendar.currentMonth + 1) + '/01/' + calendar.currentYear);
+        if (calendar.currentMonth < 9)
+            expect(calendar.inputFieldValue).toEqual('0' + (calendar.currentMonth + 1) + '/01/' + calendar.currentYear);
         else expect(calendar.inputFieldValue).toEqual(calendar.currentMonth + 1 + '/01/' + calendar.currentYear);
         expect(inputEl.value).toEqual(calendar.inputFieldValue);
         expect(onDateSelectSpy).toHaveBeenCalled();
@@ -671,7 +679,9 @@ describe('Calendar', () => {
 
         calendar.cd.detectChanges();
         const containerEl = fixture.debugElement.query(By.css('.p-datepicker-calendar-container'));
-        const firstEl = containerEl.query(By.css('tbody')).queryAll(By.css('span:not(.p-datepicker-weeknumber):not(.p-disabled)'))[0].nativeElement;
+        const firstEl = containerEl
+            .query(By.css('tbody'))
+            .queryAll(By.css('span:not(.p-datepicker-weeknumber):not(.p-disabled)'))[0].nativeElement;
         const monthSpanEl = fixture.debugElement.query(By.css('.p-datepicker-month')).nativeElement;
         const yearSpanEl = fixture.debugElement.query(By.css('.p-datepicker-year')).nativeElement;
         expect(updateUISpy).toHaveBeenCalled();
@@ -710,7 +720,9 @@ describe('Calendar', () => {
         fixture.detectChanges();
 
         const calendarContainer = fixture.debugElement.query(By.css('.p-datepicker-calendar-container'));
-        const sampleDateEl = calendarContainer.query(By.css('tbody')).queryAll(By.css('span:not(.p-datepicker-weeknumber):not(.p-disabled)'))[7].nativeElement;
+        const sampleDateEl = calendarContainer
+            .query(By.css('tbody'))
+            .queryAll(By.css('span:not(.p-datepicker-weeknumber):not(.p-disabled)'))[7].nativeElement;
         sampleDateEl.click();
         fixture.detectChanges();
 
@@ -1210,7 +1222,9 @@ describe('Calendar', () => {
         expect(decrementYearSpy).not.toHaveBeenCalled();
         expect(createMonthsSpy).not.toHaveBeenCalled();
         const calendarContainer = fixture.debugElement.query(By.css('.p-datepicker-calendar-container'));
-        const sampleDateEls = calendarContainer.query(By.css('tbody')).queryAll(By.css('span:not(.p-datepicker-weeknumber):not(.p-disabled)'));
+        const sampleDateEls = calendarContainer
+            .query(By.css('tbody'))
+            .queryAll(By.css('span:not(.p-datepicker-weeknumber):not(.p-disabled)'));
         const updateInputfieldSpy = spyOn(calendar, 'updateInputfield').and.callThrough();
         const selectDateSpy = spyOn(calendar, 'selectDate').and.callThrough();
         const updateModelSpy = spyOn(calendar, 'updateModel').and.callThrough();
@@ -1619,8 +1633,12 @@ describe('Calendar', () => {
 
         const panelEl = fixture.debugElement.query(By.css('div')).nativeElement;
         const containerEl = fixture.debugElement.query(By.css('.p-datepicker-calendar-container'));
-        const firstDayEl = containerEl.query(By.css('tbody')).queryAll(By.css('span:not(.p-datepicker-weeknumber):not(.p-disabled)'))[0].nativeElement;
-        const thirdDayEl = containerEl.query(By.css('tbody')).queryAll(By.css('span:not(.p-datepicker-weeknumber):not(.p-disabled)'))[2].nativeElement;
+        const firstDayEl = containerEl
+            .query(By.css('tbody'))
+            .queryAll(By.css('span:not(.p-datepicker-weeknumber):not(.p-disabled)'))[0].nativeElement;
+        const thirdDayEl = containerEl
+            .query(By.css('tbody'))
+            .queryAll(By.css('span:not(.p-datepicker-weeknumber):not(.p-disabled)'))[2].nativeElement;
         expect(panelEl.className).toContain('p-datepicker-touch-ui');
         firstDayEl.click();
         fixture.detectChanges();
@@ -1711,9 +1729,15 @@ describe('Calendar', () => {
 
         const panelEl = fixture.debugElement.query(By.css('div')).nativeElement;
         const containerEl = fixture.debugElement.query(By.css('.p-datepicker-calendar-container'));
-        const firstDayEl = containerEl.query(By.css('tbody')).query(By.css('span:not(.p-datepicker-weeknumber):not(.p-disabled)')).nativeElement;
-        const secondDayEl = containerEl.query(By.css('tbody')).queryAll(By.css('span:not(.p-datepicker-weeknumber):not(.p-disabled)'))[1].nativeElement;
-        const thirdDayEl = containerEl.query(By.css('tbody')).queryAll(By.css('span:not(.p-datepicker-weeknumber):not(.p-disabled)'))[2].nativeElement;
+        const firstDayEl = containerEl
+            .query(By.css('tbody'))
+            .query(By.css('span:not(.p-datepicker-weeknumber):not(.p-disabled)')).nativeElement;
+        const secondDayEl = containerEl
+            .query(By.css('tbody'))
+            .queryAll(By.css('span:not(.p-datepicker-weeknumber):not(.p-disabled)'))[1].nativeElement;
+        const thirdDayEl = containerEl
+            .query(By.css('tbody'))
+            .queryAll(By.css('span:not(.p-datepicker-weeknumber):not(.p-disabled)'))[2].nativeElement;
         expect(panelEl.className).toContain('p-datepicker-touch-ui');
         firstDayEl.click();
         fixture.detectChanges();

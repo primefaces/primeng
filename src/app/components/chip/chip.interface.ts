@@ -15,7 +15,6 @@ export interface ChipTemplates {
     removeicon(): TemplateRef<any>;
 }
 
-
 export interface ChipProps {
     label?: string;
     icon?: string | undefined;

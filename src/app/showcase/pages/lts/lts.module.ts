@@ -7,6 +7,6 @@ import { LTSComponent } from './lts.component';
 
 @NgModule({
     imports: [CommonModule, LTSRoutingModule, TagModule, AppCodeModule],
-    declarations: [LTSComponent]
+    declarations: [LTSComponent],
 })
 export class LTSModule {}

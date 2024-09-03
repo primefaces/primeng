@@ -4,6 +4,6 @@ import { FilterServiceDemo } from './filterservicedemo';
 
 @NgModule({
     imports: [RouterModule.forChild([{ path: '', component: FilterServiceDemo }])],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class FilterServiceDemoRoutingModule {}

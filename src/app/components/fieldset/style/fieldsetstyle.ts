@@ -85,15 +85,15 @@ const classes = {
     root: ({ props }) => [
         'p-fieldset p-component',
         {
-            'p-fieldset-toggleable': props.toggleable
-        }
+            'p-fieldset-toggleable': props.toggleable,
+        },
     ],
     legend: 'p-fieldset-legend',
     legendLabel: 'p-fieldset-legend-label',
     toggleButton: 'p-fieldset-toggle-button',
     toggleIcon: 'p-fieldset-toggle-icon',
     contentContainer: 'p-fieldset-content-container',
-    content: 'p-fieldset-content'
+    content: 'p-fieldset-content',
 };
 
 @Injectable()

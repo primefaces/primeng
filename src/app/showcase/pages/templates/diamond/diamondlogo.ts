@@ -21,6 +21,6 @@ import { Component } from '@angular/core';
                 </clipPath>
             </defs>
         </svg>
-    `
+    `,
 })
 export class DiamondLogo {}

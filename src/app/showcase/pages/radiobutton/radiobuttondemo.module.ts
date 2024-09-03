@@ -6,6 +6,6 @@ import { RadioButtonDemoRoutingModule } from './radiobuttondemo-routing.module';
 
 @NgModule({
     imports: [CommonModule, RadioButtonDemoRoutingModule, RadioButtonDocModule],
-    declarations: [RadioButtonDemo]
+    declarations: [RadioButtonDemo],
 })
 export class RadioButtonDemoModule {}

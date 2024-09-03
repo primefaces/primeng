@@ -6,8 +6,9 @@ import { Code } from '@domain/code';
     template: `
         <app-docsectiontext>
             <p>
-                A group is created by wrapping the input and icon with the <i>IconField</i> component. Each icon is defined as a child of <i>InputIcon</i> component. In addition, position of the icon can be changed using <i>iconPosition</i> property
-                that the default value is <i>right</i> and also <i>left</i> option is available.
+                A group is created by wrapping the input and icon with the <i>IconField</i> component. Each icon is defined as a child of
+                <i>InputIcon</i> component. In addition, position of the icon can be changed using <i>iconPosition</i> property that the
+                default value is <i>right</i> and also <i>left</i> option is available.
             </p>
         </app-docsectiontext>
         <div class="card flex flex-wrap justify-center gap-4">
@@ -21,7 +22,7 @@ import { Code } from '@domain/code';
             </p-iconField>
         </div>
         <app-code [code]="code" selector="iconfield-basic-demo"></app-code>
-    `
+    `,
 })
 export class BasicDoc {
     code: Code = {
@@ -57,6 +58,6 @@ import { FormsModule } from '@angular/forms';
     standalone: true,
     imports: [InputIconModule, IconFieldModule, InputTextModule, FormsModule]
 })
-export class IconfieldBasicDemo {}`
+export class IconfieldBasicDemo {}`,
     };
 }

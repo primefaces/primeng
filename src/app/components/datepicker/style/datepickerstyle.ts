@@ -129,8 +129,8 @@ position: relative;
     cursor: pointer;
     font-weight: inherit;
     transition: background ${dt('datepicker.transition.duration')}, color ${dt('datepicker.transition.duration')}, border-color ${dt('datepicker.transition.duration')}, outline-color ${dt('datepicker.transition.duration')}, box-shadow ${dt(
-    'datepicker.transition.duration'
-)};
+        'datepicker.transition.duration',
+    )};
 }
 
 .p-datepicker-select-month {
@@ -267,8 +267,8 @@ position: relative;
     position: relative;
     padding: ${dt('datepicker.date.padding')};
     transition: background ${dt('datepicker.transition.duration')}, color ${dt('datepicker.transition.duration')}, border-color ${dt('datepicker.transition.duration')}, box-shadow ${dt('datepicker.transition.duration')}, outline-color ${dt(
-    'datepicker.transition.duration'
-)};
+        'datepicker.transition.duration',
+    )};
     border-radius: ${dt('datepicker.month.border.radius')};
     outline-color: transparent;
     color: ${dt('datepicker.date.color')};
@@ -304,8 +304,8 @@ position: relative;
     position: relative;
     padding: ${dt('datepicker.date.padding')};
     transition: background ${dt('datepicker.transition.duration')}, color ${dt('datepicker.transition.duration')}, border-color ${dt('datepicker.transition.duration')}, box-shadow ${dt('datepicker.transition.duration')}, outline-color ${dt(
-    'datepicker.transition.duration'
-)};
+        'datepicker.transition.duration',
+    )};
     border-radius: ${dt('datepicker.year.border.radius')};
     outline-color: transparent;
     color: ${dt('datepicker.date.color')};
@@ -383,7 +383,7 @@ p-datepicker.ng-invalid.ng-dirty .p-datepicker.p-inputwrapper .p-inputtext{
 `;
 
 const inlineStyles = {
-    root: ({ props }) => ({ position: props.appendTo === 'self' ? 'relative' : undefined })
+    root: ({ props }) => ({ position: props.appendTo === 'self' ? 'relative' : undefined }),
 };
 
 const classes = {
@@ -392,7 +392,7 @@ const classes = {
         'p-datepicker-fluid': instance.hasFluid,
         'p-inputwrapper-filled': instance.filled,
         'p-inputwrapper-focus': instance.focus,
-        'p-focus': instance.focus || instance.overlayVisible
+        'p-focus': instance.focus || instance.overlayVisible,
     }),
     pcInput: 'p-datepicker-input',
     dropdown: 'p-datepicker-dropdown',
@@ -402,7 +402,7 @@ const classes = {
         'p-datepicker-panel p-component': true,
         'p-datepicker-panel-inline': instance.inline,
         'p-disabled': instance.disabled,
-        'p-datepicker-timeonly': instance.timeOnly
+        'p-datepicker-timeonly': instance.timeOnly,
     }),
     calendarContainer: 'p-datepicker-calendar-container',
     calendar: 'p-datepicker-calendar',
@@ -423,21 +423,24 @@ const classes = {
         'p-datepicker-day-cell',
         {
             'p-datepicker-other-month': date.otherMonth,
-            'p-datepicker-today': date.today
-        }
+            'p-datepicker-today': date.today,
+        },
     ],
     day: ({ instance, date }) => {
         let selectedDayClass = '';
 
         if (instance.isRangeSelection() && instance.isSelected(date) && date.selectable) {
-            selectedDayClass = date.day === instance.value[0].getDate() || date.day === instance.value[1].getDate() ? 'p-datepicker-day-selected' : 'p-datepicker-day-selected-range';
+            selectedDayClass =
+                date.day === instance.value[0].getDate() || date.day === instance.value[1].getDate()
+                    ? 'p-datepicker-day-selected'
+                    : 'p-datepicker-day-selected-range';
         }
 
         return {
             'p-datepicker-day': true,
             'p-datepicker-day-selected': !instance.isRangeSelection() && instance.isSelected(date) && date.selectable,
             'p-disabled': instance.disabled || !date.selectable,
-            [selectedDayClass]: true
+            [selectedDayClass]: true,
         };
     },
     monthView: 'p-datepicker-month-view',
@@ -445,16 +448,16 @@ const classes = {
         'p-datepicker-month',
         {
             'p-datepicker-month-selected': instance.isMonthSelected(index),
-            'p-disabled': props.disabled || !month.selectable
-        }
+            'p-disabled': props.disabled || !month.selectable,
+        },
     ],
     yearView: 'p-datepicker-year-view',
     year: ({ instance, props, year }) => [
         'p-datepicker-year',
         {
             'p-datepicker-year-selected': instance.isYearSelected(year.value),
-            'p-disabled': props.disabled || !year.selectable
-        }
+            'p-disabled': props.disabled || !year.selectable,
+        },
     ],
     timePicker: 'p-datepicker-time-picker',
     hourPicker: 'p-datepicker-hour-picker',
@@ -466,7 +469,7 @@ const classes = {
     ampmPicker: 'p-datepicker-ampm-picker',
     buttonbar: 'p-datepicker-buttonbar',
     pcTodayButton: 'p-datepicker-today-button',
-    pcClearButton: 'p-datepicker-clear-button'
+    pcClearButton: 'p-datepicker-clear-button',
 };
 
 @Injectable()

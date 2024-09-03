@@ -29,7 +29,18 @@ import { FilledDoc } from './filleddoc';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { SelectModule } from 'primeng/select';
 @NgModule({
-    imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, FormsModule, ReactiveFormsModule, SelectModule, ButtonModule, InputTextModule, FloatLabelModule],
+    imports: [
+        CommonModule,
+        RouterModule,
+        AppCodeModule,
+        AppDocModule,
+        FormsModule,
+        ReactiveFormsModule,
+        SelectModule,
+        ButtonModule,
+        InputTextModule,
+        FloatLabelModule,
+    ],
     exports: [AppDocModule],
     declarations: [
         ImportDoc,
@@ -50,7 +61,7 @@ import { SelectModule } from 'primeng/select';
         CheckmarkDoc,
         ClearIconDoc,
         LoadingStateDoc,
-        FilledDoc
-    ]
+        FilledDoc,
+    ],
 })
 export class SelectDocModule {}

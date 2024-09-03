@@ -6,6 +6,6 @@ import { UIKitComponent } from './uikit.component';
 
 @NgModule({
     imports: [CommonModule, UIKitRoutingModule, HttpClientModule],
-    declarations: [UIKitComponent]
+    declarations: [UIKitComponent],
 })
 export class UIKitModule {}

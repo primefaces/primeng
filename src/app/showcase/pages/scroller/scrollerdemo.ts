@@ -14,69 +14,69 @@ import { AccessibilityDoc } from '@doc/scroller/accessibilitydoc';
 
 @Component({
     templateUrl: './scrollerdemo.html',
-    styleUrls: ['./scrollerdemo.scss']
+    styleUrls: ['./scrollerdemo.scss'],
 })
 export class ScrollerDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc
+            component: ImportDoc,
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc
+            component: BasicDoc,
         },
         {
             id: 'horizontal',
             label: 'Horizontal',
-            component: HorizontalDoc
+            component: HorizontalDoc,
         },
         {
             id: 'grid grid-cols-12 gap-4',
             label: 'Grid',
-            component: GridDoc
+            component: GridDoc,
         },
         {
             id: 'programmatic',
             label: 'Programmatic',
-            component: ProgrammaticDoc
+            component: ProgrammaticDoc,
         },
         {
             id: 'loader',
             label: 'Loader',
-            component: LoaderDoc
+            component: LoaderDoc,
         },
         {
             id: 'template',
             label: 'Template',
-            component: TemplateDoc
+            component: TemplateDoc,
         },
         {
             id: 'delay',
             label: 'Delay',
-            component: DelayDoc
+            component: DelayDoc,
         },
         {
             id: 'lazy-load',
             label: 'Lazy Load',
-            component: LazyLoadDoc
+            component: LazyLoadDoc,
         },
         {
             id: 'scroll-options',
             label: 'Scroll Options',
-            component: ScrollOptionsDoc
+            component: ScrollOptionsDoc,
         },
         {
             id: 'style',
             label: 'Style',
-            component: StyleDoc
+            component: StyleDoc,
         },
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc
-        }
+            component: AccessibilityDoc,
+        },
     ];
 }

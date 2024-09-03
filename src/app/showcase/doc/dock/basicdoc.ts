@@ -7,21 +7,14 @@ import { Code } from '@domain/code';
     template: `
         <app-docsectiontext>
             <p>
-                Dock requires a collection of menuitems as its <i>model</i>. Default location is <i>bottom</i> and other
-                sides are also available when defined with the <i>position</i> property. Content of the dock component
-                is defined by <i>item</i> template.
+                Dock requires a collection of menuitems as its <i>model</i>. Default location is <i>bottom</i> and other sides are also
+                available when defined with the <i>position</i> property. Content of the dock component is defined by <i>item</i> template.
             </p>
         </app-docsectiontext>
         <div class="card">
             <div class="flex flex-wrap gap-4 mb-8">
                 <div *ngFor="let pos of positionOptions" class="flex items-center">
-                    <p-radioButton
-                        name="dock"
-                        [value]="pos.value"
-                        [label]="pos.label"
-                        [(ngModel)]="position"
-                        [inputId]="pos.label"
-                    />
+                    <p-radioButton name="dock" [value]="pos.value" [label]="pos.label" [(ngModel)]="position" [inputId]="pos.label" />
                     <label [for]="pos.label" class="ml-2"> {{ pos.label }} </label>
                 </div>
             </div>

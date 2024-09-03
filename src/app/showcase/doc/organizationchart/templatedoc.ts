@@ -12,7 +12,12 @@ import { Code } from '@domain/code';
             <p-organizationChart [value]="data" [collapsible]="true">
                 <ng-template let-node pTemplate="default">
                     <div class="p-2 text-center">
-                        <img src="https://primefaces.org/cdn/primeng/images/flag/flag_placeholder.png" [alt]="node.label" [class]="'flag' + ' flag-' + node.data" width="32" />
+                        <img
+                            src="https://primefaces.org/cdn/primeng/images/flag/flag_placeholder.png"
+                            [alt]="node.label"
+                            [class]="'flag' + ' flag-' + node.data"
+                            width="32"
+                        />
                         <div>{{ node.data.name }}</div>
                         <div class="p-2">{{ node.label }}</div>
                     </div>
@@ -20,7 +25,7 @@ import { Code } from '@domain/code';
             </p-organizationChart>
         </div>
         <app-code [code]="code" selector="organization-chart-template-demo"></app-code>
-    `
+    `,
 })
 export class TemplateDoc {
     data: TreeNode[] = [
@@ -36,13 +41,13 @@ export class TemplateDoc {
                     children: [
                         {
                             label: 'Argentina',
-                            data: 'ar'
+                            data: 'ar',
                         },
                         {
                             label: 'Croatia',
-                            data: 'hr'
-                        }
-                    ]
+                            data: 'hr',
+                        },
+                    ],
                 },
                 {
                     label: 'France',
@@ -51,16 +56,16 @@ export class TemplateDoc {
                     children: [
                         {
                             label: 'France',
-                            data: 'fr'
+                            data: 'fr',
                         },
                         {
                             label: 'Morocco',
-                            data: 'ma'
-                        }
-                    ]
-                }
-            ]
-        }
+                            data: 'ma',
+                        },
+                    ],
+                },
+            ],
+        },
     ];
 
     code: Code = {
@@ -152,6 +157,6 @@ export class OrganizationChartTemplateDemo {
             ]
         }
     ];
-}`
+}`,
     };
 }

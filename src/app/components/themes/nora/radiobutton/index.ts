@@ -21,14 +21,14 @@ export default {
             style: '{focus.ring.style}',
             color: '{focus.ring.color}',
             offset: '{focus.ring.offset}',
-            shadow: '{focus.ring.shadow}'
+            shadow: '{focus.ring.shadow}',
         },
-        transitionDuration: '{form.field.transition.duration}'
+        transitionDuration: '{form.field.transition.duration}',
     },
     icon: {
         size: '0.75rem',
         checkedColor: '{primary.color}',
         checkedHoverColor: '{primary.color}',
-        disabledColor: '{form.field.disabled.color}'
-    }
+        disabledColor: '{form.field.disabled.color}',
+    },
 };

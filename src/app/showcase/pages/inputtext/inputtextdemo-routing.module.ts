@@ -4,6 +4,6 @@ import { InputTextDemo } from './inputtextdemo';
 
 @NgModule({
     imports: [RouterModule.forChild([{ path: '', component: InputTextDemo, data: { doc: true } }])],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class InputTextDemoRoutingModule {}

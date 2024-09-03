@@ -5,10 +5,20 @@ import { Code } from '@domain/code';
     selector: 'template-doc',
     template: `
         <app-docsectiontext>
-            <p>Scroller content is customizable by using <i>ng-template</i>. Valid values are <i>content</i>, <i>item</i>, <i>loader</i> and <i>loadericon</i></p>
+            <p>
+                Scroller content is customizable by using <i>ng-template</i>. Valid values are <i>content</i>, <i>item</i>,
+                <i>loader</i> and <i>loadericon</i>
+            </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-scroller [items]="items" [itemSize]="25 * 7" [showLoader]="true" [delay]="250" styleClass="border border-surface" [style]="{ width: '200px', height: '200px' }">
+            <p-scroller
+                [items]="items"
+                [itemSize]="25 * 7"
+                [showLoader]="true"
+                [delay]="250"
+                styleClass="border border-surface"
+                [style]="{ width: '200px', height: '200px' }"
+            >
                 <ng-template pTemplate="item" let-item let-options="options">
                     <div class="flex flex-col align-items-strech" [ngClass]="{ 'surface-ground': options.odd }">
                         <div class="flex items-center px-2" style="height: 25px">Item: {{ item }}</div>
@@ -35,7 +45,7 @@ import { Code } from '@domain/code';
         </div>
         <app-code [code]="code" selector="scroller-template-demo"></app-code>
     `,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TemplateDoc {
     items!: string[];
@@ -203,6 +213,6 @@ export class ScrollerTemplateDemo implements OnInit {
     p-skeleton {
         width: 100%;
     }
-}`
+}`,
     };
 }

@@ -6,8 +6,8 @@ import { Code } from '@domain/code';
     template: `
         <app-docsectiontext>
             <p>
-                Various shapes and sizes can be created using styling properties like <i>shape</i>, <i>width</i>,
-                <i>height</i>, <i>borderRadius</i> and <i>styleClass</i>.
+                Various shapes and sizes can be created using styling properties like <i>shape</i>, <i>width</i>, <i>height</i>,
+                <i>borderRadius</i> and <i>styleClass</i>.
             </p>
         </app-docsectiontext>
         <div class="card">

@@ -15,7 +15,7 @@ export class EventService {
             { id: 9, title: 'Happy Hour', start: '2017-02-12T17:30:00' },
             { id: 10, title: 'Dinner', start: '2017-02-12T20:00:00' },
             { id: 11, title: 'Birthday Party', start: '2017-02-13T07:00:00' },
-            { id: 12, title: 'Click for Google', url: 'https://www.google.com/', start: '2017-02-28' }
+            { id: 12, title: 'Click for Google', url: 'https://www.google.com/', start: '2017-02-28' },
         ];
     }
 

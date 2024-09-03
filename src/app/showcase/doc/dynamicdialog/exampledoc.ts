@@ -10,27 +10,25 @@ import { Footer } from './footer';
     template: `
         <app-docsectiontext>
             <p>
-                Dynamic dialogs require an instance of a <i>DialogService</i> that is responsible for displaying a
-                dialog with a component as its content. Calling <i>open</i> method of <i>DialogService</i> will display
-                dynamic dialog. First parameter of <i>open</i> method is the type of component to load and the second
-                parameter is the configuration of the Dialog such as <i>header</i>, <i>width</i> and more.
+                Dynamic dialogs require an instance of a <i>DialogService</i> that is responsible for displaying a dialog with a component
+                as its content. Calling <i>open</i> method of <i>DialogService</i> will display dynamic dialog. First parameter of
+                <i>open</i> method is the type of component to load and the second parameter is the configuration of the Dialog such as
+                <i>header</i>, <i>width</i> and more.
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-toast />
             <p-button (click)="show()" icon="pi pi-search" label="Select a Product" />
         </div>
-        <app-code
-            [code]="code"
-            selector="dynamic-dialog-example-demo"
-            [extFiles]="extFiles"
-            [routeFiles]="routeFiles"
-        ></app-code>
+        <app-code [code]="code" selector="dynamic-dialog-example-demo" [extFiles]="extFiles" [routeFiles]="routeFiles"></app-code>
     `,
     providers: [DialogService, MessageService],
 })
 export class ExampleDoc implements OnDestroy {
-    constructor(public dialogService: DialogService, public messageService: MessageService) {}
+    constructor(
+        public dialogService: DialogService,
+        public messageService: MessageService,
+    ) {}
 
     ref: DynamicDialogRef | undefined;
 

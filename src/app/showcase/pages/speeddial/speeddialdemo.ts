@@ -12,59 +12,59 @@ import { TooltipDoc } from '@doc/speeddial/tooltipdoc';
 
 @Component({
     templateUrl: './speeddialdemo.html',
-    styleUrls: ['./speeddialdemo.scss']
+    styleUrls: ['./speeddialdemo.scss'],
 })
 export class SpeedDialDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc
+            component: ImportDoc,
         },
         {
             id: 'linear',
             label: 'Linear',
-            component: LinearDoc
+            component: LinearDoc,
         },
         {
             id: 'circle',
             label: 'Circle',
-            component: CircleDoc
+            component: CircleDoc,
         },
         {
             id: 'semicircle',
             label: 'Semi Circle',
-            component: SemiCircleDoc
+            component: SemiCircleDoc,
         },
         {
             id: 'quartercircle',
             label: 'Quarter Circle',
-            component: QuarterCircleDoc
+            component: QuarterCircleDoc,
         },
         {
             id: 'tooltip',
             label: 'Tooltip',
-            component: TooltipDoc
+            component: TooltipDoc,
         },
         {
             id: 'mask',
             label: 'Mask',
-            component: MaskDoc
+            component: MaskDoc,
         },
         {
             id: 'custom',
             label: 'Custom',
-            component: CustomDoc
+            component: CustomDoc,
         },
         {
             id: 'style',
             label: 'Style',
-            component: StyleDoc
+            component: StyleDoc,
         },
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc
-        }
+            component: AccessibilityDoc,
+        },
     ];
 }

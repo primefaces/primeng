@@ -21,44 +21,44 @@ import { FilledDoc } from '@doc/select/filleddoc';
 
 @Component({
     templateUrl: './selectdemo.html',
-    styleUrls: ['./selectdemo.scss']
+    styleUrls: ['./selectdemo.scss'],
 })
 export class SelectDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc
+            component: ImportDoc,
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc
+            component: BasicDoc,
         },
         {
             id: 'reactive-forms',
             label: 'Reactive Forms',
-            component: ReactiveFormsDoc
+            component: ReactiveFormsDoc,
         },
         {
             id: 'checkmark',
             label: 'Checkmark',
-            component: CheckmarkDoc
+            component: CheckmarkDoc,
         },
         {
             id: 'editable',
             label: 'Editable',
-            component: EditableDoc
+            component: EditableDoc,
         },
         {
             id: 'group',
             label: 'Group',
-            component: GroupDoc
+            component: GroupDoc,
         },
         {
             id: 'template',
             label: 'Template',
-            component: TemplateDoc
+            component: TemplateDoc,
         },
         {
             id: 'filter',
@@ -67,65 +67,65 @@ export class SelectDemo {
                 {
                     id: 'filterbasic',
                     label: 'Basic',
-                    component: FilterDoc
+                    component: FilterDoc,
                 },
                 {
                     id: 'customfilter',
                     label: 'Custom Filter',
-                    component: CustomFilterDoc
-                }
-            ]
+                    component: CustomFilterDoc,
+                },
+            ],
         },
         {
             id: 'clearicon',
             label: 'Clear Icon',
-            component: ClearIconDoc
+            component: ClearIconDoc,
         },
         {
             id: 'loadingstate',
             label: 'Loading State',
-            component: LoadingStateDoc
+            component: LoadingStateDoc,
         },
 
         {
             id: 'virtualscroll',
             label: 'Virtual Scroll',
-            component: VirtualScrollDoc
+            component: VirtualScrollDoc,
         },
         {
             id: 'lazyvirtualscroll',
             label: 'Lazy Virtual Scroll',
-            component: LazyVirtualScrollDoc
+            component: LazyVirtualScrollDoc,
         },
         {
             id: 'floatlabel',
             label: 'Float Label',
-            component: FloatLabelDoc
+            component: FloatLabelDoc,
         },
         {
             id: 'filled',
             label: 'Filled',
-            component: FilledDoc
+            component: FilledDoc,
         },
         {
             id: 'invalid',
             label: 'Invalid',
-            component: InvalidDoc
+            component: InvalidDoc,
         },
         {
             id: 'disabled',
             label: 'Disabled',
-            component: DisabledDoc
+            component: DisabledDoc,
         },
         {
             id: 'style',
             label: 'Style',
-            component: StyleDoc
+            component: StyleDoc,
         },
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc
-        }
+            component: AccessibilityDoc,
+        },
     ];
 }

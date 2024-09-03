@@ -12,10 +12,14 @@ interface Column {
     selector: 'selection-single-doc',
     template: `
         <app-docsectiontext>
-            <p>Single node selection is configured by setting <i>selectionMode</i> as <i>single</i> along with <i>selection</i> properties to manage the selection value binding.</p>
             <p>
-                By default, metaKey press (e.g. <i>⌘</i>) is necessary to unselect a node however this can be configured with disabling the <i>metaKeySelection</i> property. In touch enabled devices this option has no effect and behavior is same as
-                setting it to false
+                Single node selection is configured by setting <i>selectionMode</i> as <i>single</i> along with <i>selection</i> properties
+                to manage the selection value binding.
+            </p>
+            <p>
+                By default, metaKey press (e.g. <i>⌘</i>) is necessary to unselect a node however this can be configured with disabling the
+                <i>metaKeySelection</i> property. In touch enabled devices this option has no effect and behavior is same as setting it to
+                false
             </p>
         </app-docsectiontext>
         <div class="card">
@@ -24,7 +28,16 @@ interface Column {
                 <span>Metakey</span>
             </div>
             <p-deferred-demo (load)="loadDemoData()">
-                <p-treeTable [value]="files" [columns]="cols" selectionMode="single" [metaKeySelection]="metaKeySelection" [(selection)]="selectedNode" dataKey="name" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
+                <p-treeTable
+                    [value]="files"
+                    [columns]="cols"
+                    selectionMode="single"
+                    [metaKeySelection]="metaKeySelection"
+                    [(selection)]="selectedNode"
+                    dataKey="name"
+                    [scrollable]="true"
+                    [tableStyle]="{ 'min-width': '50rem' }"
+                >
                     <ng-template pTemplate="header" let-columns>
                         <tr>
                             <th *ngFor="let col of columns">
@@ -45,7 +58,7 @@ interface Column {
         </div>
         <app-code [code]="code" selector="tree-table-selection-single-demo"></app-code>
     `,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SelectionSingleDoc {
     metaKeySelection: boolean = true;
@@ -64,7 +77,7 @@ export class SelectionSingleDoc {
         this.cols = [
             { field: 'name', header: 'Name' },
             { field: 'size', header: 'Size' },
-            { field: 'type', header: 'Type' }
+            { field: 'type', header: 'Type' },
         ];
     }
 
@@ -167,6 +180,6 @@ export class TreeTableSelectionSingleDemo implements OnInit {
     }
 }`,
 
-        service: ['NodeService']
+        service: ['NodeService'],
     };
 }

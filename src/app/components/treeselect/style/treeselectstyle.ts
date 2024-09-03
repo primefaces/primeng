@@ -10,8 +10,8 @@ const theme = ({ dt }) => `
     background: ${dt('treeselect.background')};
     border: 1px solid ${dt('treeselect.border.color')};
     transition: background ${dt('treeselect.transition.duration')}, color ${dt('treeselect.transition.duration')}, border-color ${dt('treeselect.transition.duration')}, outline-color ${dt('treeselect.transition.duration')}, box-shadow ${dt(
-    'treeselect.transition.duration'
-)};
+        'treeselect.transition.duration',
+    )};
     border-radius: ${dt('treeselect.border.radius')};
     outline-color: transparent;
     box-shadow: ${dt('treeselect.shadow')};
@@ -147,7 +147,7 @@ p-treeselect.ng-invalid.ng-dirty > .p-inputwrapper {
 `;
 
 const inlineStyles = {
-    root: ({ instance }) => ({ position: instance.appendTo === 'self' ? 'relative' : undefined })
+    root: ({ instance }) => ({ position: instance.appendTo === 'self' ? 'relative' : undefined }),
 };
 
 const classes = {
@@ -162,13 +162,13 @@ const classes = {
         'p-inputwrapper-focus': instance.focused || instance.overlayVisible,
         'p-treeselect-open': instance.overlayVisible,
         'p-treeselect-clearable': instance.showClear,
-        'p-treeselect-fluid': instance.hasFluid
+        'p-treeselect-fluid': instance.hasFluid,
     }),
     labelContainer: 'p-treeselect-label-container',
     label: ({ instance }) => ({
         'p-treeselect-label': true,
         'p-placeholder': instance.label === instance.placeholder,
-        'p-treeselect-label-empty': !instance.placeholder && instance.emptyValue
+        'p-treeselect-label-empty': !instance.placeholder && instance.emptyValue,
     }),
     chip: 'p-treeselect-chip-item',
     pcChip: 'p-treeselect-chip',
@@ -176,7 +176,7 @@ const classes = {
     dropdownIcon: 'p-treeselect-dropdown-icon',
     panel: 'p-treeselect-overlay p-component',
     treeContainer: 'p-treeselect-tree-container',
-    emptyMessage: 'p-treeselect-empty-message'
+    emptyMessage: 'p-treeselect-empty-message',
 };
 
 @Injectable()

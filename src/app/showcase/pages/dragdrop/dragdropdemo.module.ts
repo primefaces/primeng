@@ -6,6 +6,6 @@ import { DragDropDemoRoutingModule } from './dragdropdemo-routing.module';
 
 @NgModule({
     imports: [CommonModule, DragDropDemoRoutingModule, DragDropDocModule],
-    declarations: [DragDropDemo]
+    declarations: [DragDropDemo],
 })
 export class DragDropDemoModule {}

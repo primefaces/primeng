@@ -10,19 +10,32 @@ interface AutoCompleteCompleteEvent {
 @Component({
     selector: 'autocomplete-template-demo',
     template: ` <app-docsectiontext>
-            <p><i>item</i> template allows displaying custom content inside the suggestions panel. The local ng-template variable passed to the ng-template is an object in the suggestions array.</p>
+            <p>
+                <i>item</i> template allows displaying custom content inside the suggestions panel. The local ng-template variable passed to
+                the ng-template is an object in the suggestions array.
+            </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-autoComplete [(ngModel)]="selectedCountryAdvanced" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name" placeholder="Search">
+            <p-autoComplete
+                [(ngModel)]="selectedCountryAdvanced"
+                [suggestions]="filteredCountries"
+                (completeMethod)="filterCountry($event)"
+                field="name"
+                placeholder="Search"
+            >
                 <ng-template let-country pTemplate="item">
                     <div class="flex items-center gap-2">
-                        <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" style="width: 18px" />
+                        <img
+                            src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
+                            [class]="'flag flag-' + country.code.toLowerCase()"
+                            style="width: 18px"
+                        />
                         <div>{{ country.name }}</div>
                     </div>
                 </ng-template>
             </p-autoComplete>
         </div>
-        <app-code [code]="code" selector="autocomplete-template-demo"></app-code>`
+        <app-code [code]="code" selector="autocomplete-template-demo"></app-code>`,
 })
 export class TemplateDoc {
     countries: any[] | undefined;
@@ -143,6 +156,6 @@ export class AutocompleteTemplateDemo {
     "name": "Afghanistan",
     "code": "AF"
 }
-...`
+...`,
     };
 }

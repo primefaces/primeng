@@ -4,6 +4,6 @@ import { DrawerDemo } from './drawerdemo';
 
 @NgModule({
     imports: [RouterModule.forChild([{ path: '', component: DrawerDemo }])],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class DrawerDemoRoutingModule {}

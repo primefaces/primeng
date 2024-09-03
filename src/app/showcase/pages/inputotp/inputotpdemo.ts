@@ -9,44 +9,44 @@ import { AccessibilityDoc } from '@doc/inputotp/accessibilitydoc';
 
 @Component({
     templateUrl: './inputotp.html',
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
 })
 export class InputOtpDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc
+            component: ImportDoc,
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc
+            component: BasicDoc,
         },
         {
             id: 'mask',
             label: 'Mask',
-            component: MaskDoc
+            component: MaskDoc,
         },
         {
             id: 'integeronly',
             label: 'Integer Only',
-            component: IntegerOnlyDoc
+            component: IntegerOnlyDoc,
         },
         {
             id: 'template',
             label: 'Template',
-            component: TemplateDoc
+            component: TemplateDoc,
         },
         {
             id: 'sample',
             label: 'Sample',
-            component: SampleDoc
+            component: SampleDoc,
         },
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc
-        }
+            component: AccessibilityDoc,
+        },
     ];
 }

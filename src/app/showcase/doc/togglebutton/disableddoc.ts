@@ -8,10 +8,19 @@ import { Code } from '@domain/code';
             <p>When <i>disabled</i> is present, the element cannot be edited and focused.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-toggleButton disabled="true" onIcon="pi pi-check" offIcon="pi pi-times" [(ngModel)]="checked" onLabel="Yes" offLabel="No" styleClass="w-full sm:w-40" ariaLabel="Confirmation" />
+            <p-toggleButton
+                disabled="true"
+                onIcon="pi pi-check"
+                offIcon="pi pi-times"
+                [(ngModel)]="checked"
+                onLabel="Yes"
+                offLabel="No"
+                styleClass="w-full sm:w-40"
+                ariaLabel="Confirmation"
+            />
         </div>
         <app-code [code]="code" selector="toggle-button-disabled-demo"></app-code>
-    `
+    `,
 })
 export class DisabledDoc {
     checked: boolean = false;
@@ -51,6 +60,6 @@ import { ToggleButtonModule } from 'primeng/togglebutton';
 })
 export class ToggleButtonDisabledDemo {
     checked: boolean = false;
-}`
+}`,
     };
 }

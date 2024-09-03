@@ -28,12 +28,7 @@ import { PrimeTemplate, ScrollerOptions, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { SpinnerIcon } from 'primeng/icons/spinner';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
-import {
-    ScrollerLazyLoadEvent,
-    ScrollerScrollEvent,
-    ScrollerScrollIndexChangeEvent,
-    ScrollerToType,
-} from './scroller.interface';
+import { ScrollerLazyLoadEvent, ScrollerScrollEvent, ScrollerScrollIndexChangeEvent, ScrollerToType } from './scroller.interface';
 import { VirtalScrollerStyle } from './style/virtualscrollerstyle';
 import { BaseComponent } from 'primeng/basecomponent';
 /**
@@ -54,7 +49,7 @@ import { BaseComponent } from 'primeng/basecomponent';
                     'p-virtualscroller': true,
                     'p-virtualscroller-inline': inline,
                     'p-virtualscroller-both p-both-scroll': both,
-                    'p-virtualscroller-horizontal p-horizontal-scroll': horizontal
+                    'p-virtualscroller-horizontal p-horizontal-scroll': horizontal,
                 }"
                 (scroll)="onContainerScroll($event)"
                 [attr.data-pc-name]="'scroller'"
@@ -62,10 +57,7 @@ import { BaseComponent } from 'primeng/basecomponent';
             >
                 <ng-container *ngIf="contentTemplate; else buildInContent">
                     <ng-container
-                        *ngTemplateOutlet="
-                            contentTemplate;
-                            context: { $implicit: loadedItems, options: getContentOptions() }
-                        "
+                        *ngTemplateOutlet="contentTemplate; context: { $implicit: loadedItems, options: getContentOptions() }"
                     ></ng-container>
                 </ng-container>
                 <ng-template #buildInContent>
@@ -78,20 +70,12 @@ import { BaseComponent } from 'primeng/basecomponent';
                     >
                         <ng-container *ngFor="let item of loadedItems; let index = index; trackBy: _trackBy || index">
                             <ng-container
-                                *ngTemplateOutlet="
-                                    itemTemplate;
-                                    context: { $implicit: item, options: getOptions(index) }
-                                "
+                                *ngTemplateOutlet="itemTemplate; context: { $implicit: item, options: getOptions(index) }"
                             ></ng-container>
                         </ng-container>
                     </div>
                 </ng-template>
-                <div
-                    *ngIf="_showSpacer"
-                    class="p-virtualscroller-spacer"
-                    [ngStyle]="spacerStyle"
-                    [attr.data-pc-section]="'spacer'"
-                ></div>
+                <div *ngIf="_showSpacer" class="p-virtualscroller-spacer" [ngStyle]="spacerStyle" [attr.data-pc-section]="'spacer'"></div>
                 <div
                     *ngIf="!loaderDisabled && _showLoader && d_loading"
                     class="p-virtualscroller-loader"
@@ -104,7 +88,7 @@ import { BaseComponent } from 'primeng/basecomponent';
                                 *ngTemplateOutlet="
                                     loaderTemplate;
                                     context: {
-                                        options: getLoaderOptions(index, both && { numCols: _numItemsInViewport.cols })
+                                        options: getLoaderOptions(index, both && { numCols: _numItemsInViewport.cols }),
                                     }
                                 "
                             ></ng-container>
@@ -120,10 +104,7 @@ import { BaseComponent } from 'primeng/basecomponent';
                             ></ng-container>
                         </ng-container>
                         <ng-template #buildInLoaderIcon>
-                            <SpinnerIcon
-                                [styleClass]="'p-virtualscroller-loading-icon pi-spin'"
-                                [attr.data-pc-section]="'loadingIcon'"
-                            />
+                            <SpinnerIcon [styleClass]="'p-virtualscroller-loading-icon pi-spin'" [attr.data-pc-section]="'loadingIcon'" />
                         </ng-template>
                     </ng-template>
                 </div>
@@ -133,10 +114,7 @@ import { BaseComponent } from 'primeng/basecomponent';
             <ng-content></ng-content>
             <ng-container *ngIf="contentTemplate">
                 <ng-container
-                    *ngTemplateOutlet="
-                        contentTemplate;
-                        context: { $implicit: items, options: { rows: _items, columns: loadedColumns } }
-                    "
+                    *ngTemplateOutlet="contentTemplate; context: { $implicit: items, options: { rows: _items, columns: loadedColumns } }"
                 ></ng-container>
             </ng-container>
         </ng-template>
@@ -418,8 +396,7 @@ export class Scroller extends BaseComponent implements OnInit, AfterContentInit,
      * @param {ScrollerScrollEvent} event - Custom scroll index change event.
      * @group Emits
      */
-    @Output() onScrollIndexChange: EventEmitter<ScrollerScrollIndexChangeEvent> =
-        new EventEmitter<ScrollerScrollIndexChangeEvent>();
+    @Output() onScrollIndexChange: EventEmitter<ScrollerScrollIndexChangeEvent> = new EventEmitter<ScrollerScrollIndexChangeEvent>();
 
     @ViewChild('element') elementViewChild: Nullable<ElementRef>;
 
@@ -544,9 +521,7 @@ export class Scroller extends BaseComponent implements OnInit, AfterContentInit,
             if (this.both)
                 return this._items
                     .slice(this._appendOnly ? 0 : this.first.rows, this.last.rows)
-                    .map((item) =>
-                        this._columns ? item : item.slice(this._appendOnly ? 0 : this.first.cols, this.last.cols),
-                    );
+                    .map((item) => (this._columns ? item : item.slice(this._appendOnly ? 0 : this.first.cols, this.last.cols)));
             else if (this.horizontal && this._columns) return this._items;
             else return this._items.slice(this._appendOnly ? 0 : this.first, this.last);
         }
@@ -608,11 +583,7 @@ export class Scroller extends BaseComponent implements OnInit, AfterContentInit,
         if (simpleChanges.options) {
             const { previousValue, currentValue } = simpleChanges.options;
 
-            if (
-                this.lazy &&
-                previousValue?.loading !== currentValue?.loading &&
-                currentValue?.loading !== this.d_loading
-            ) {
+            if (this.lazy && previousValue?.loading !== currentValue?.loading && currentValue?.loading !== this.d_loading) {
                 this.d_loading = currentValue.loading;
                 isLoadingChanged = true;
             }
@@ -843,8 +814,7 @@ export class Scroller extends BaseComponent implements OnInit, AfterContentInit,
     }
 
     getRenderedRange() {
-        const calculateFirstInViewport = (_pos: number, _size: number) =>
-            _size || _pos ? Math.floor(_pos / (_size || _pos)) : 0;
+        const calculateFirstInViewport = (_pos: number, _size: number) => (_size || _pos ? Math.floor(_pos / (_size || _pos)) : 0);
 
         let firstInViewport = this.first;
         let lastInViewport: any = 0;
@@ -881,13 +851,9 @@ export class Scroller extends BaseComponent implements OnInit, AfterContentInit,
     calculateNumItems() {
         const contentPos = this.getContentPosition();
         const contentWidth =
-            (this.elementViewChild?.nativeElement
-                ? this.elementViewChild.nativeElement.offsetWidth - contentPos.left
-                : 0) || 0;
+            (this.elementViewChild?.nativeElement ? this.elementViewChild.nativeElement.offsetWidth - contentPos.left : 0) || 0;
         const contentHeight =
-            (this.elementViewChild?.nativeElement
-                ? this.elementViewChild.nativeElement.offsetHeight - contentPos.top
-                : 0) || 0;
+            (this.elementViewChild?.nativeElement ? this.elementViewChild.nativeElement.offsetHeight - contentPos.top : 0) || 0;
         const calculateNumItemsInViewport = (_contentSize: number, _itemSize: number) =>
             _itemSize || _contentSize ? Math.ceil(_contentSize / (_itemSize || _contentSize)) : 0;
         const calculateNumToleratedItems = (_numItems: number) => Math.ceil(_numItems / 2);
@@ -901,10 +867,7 @@ export class Scroller extends BaseComponent implements OnInit, AfterContentInit,
         const numToleratedItems =
             this.d_numToleratedItems ||
             (this.both
-                ? [
-                      calculateNumToleratedItems(numItemsInViewport.rows),
-                      calculateNumToleratedItems(numItemsInViewport.cols),
-                  ]
+                ? [calculateNumToleratedItems(numItemsInViewport.rows), calculateNumToleratedItems(numItemsInViewport.cols)]
                 : calculateNumToleratedItems(numItemsInViewport));
 
         return { numItemsInViewport, numToleratedItems };
@@ -928,9 +891,7 @@ export class Scroller extends BaseComponent implements OnInit, AfterContentInit,
 
         if (this.showLoader) {
             this.loaderArr = this.both
-                ? Array.from({ length: numItemsInViewport.rows }).map(() =>
-                      Array.from({ length: numItemsInViewport.cols }),
-                  )
+                ? Array.from({ length: numItemsInViewport.rows }).map(() => Array.from({ length: numItemsInViewport.cols }))
                 : Array.from({ length: numItemsInViewport });
         }
 
@@ -954,14 +915,9 @@ export class Scroller extends BaseComponent implements OnInit, AfterContentInit,
                     this.contentEl.style.position = 'relative';
                     (<ElementRef>this.elementViewChild).nativeElement.style.contain = 'none';
 
-                    const [contentWidth, contentHeight] = [
-                        DomHandler.getWidth(this.contentEl),
-                        DomHandler.getHeight(this.contentEl),
-                    ];
-                    contentWidth !== this.defaultContentWidth &&
-                        ((<ElementRef>this.elementViewChild).nativeElement.style.width = '');
-                    contentHeight !== this.defaultContentHeight &&
-                        ((<ElementRef>this.elementViewChild).nativeElement.style.height = '');
+                    const [contentWidth, contentHeight] = [DomHandler.getWidth(this.contentEl), DomHandler.getHeight(this.contentEl)];
+                    contentWidth !== this.defaultContentWidth && ((<ElementRef>this.elementViewChild).nativeElement.style.width = '');
+                    contentHeight !== this.defaultContentHeight && ((<ElementRef>this.elementViewChild).nativeElement.style.height = '');
 
                     const [width, height] = [
                         DomHandler.getWidth((<ElementRef>this.elementViewChild).nativeElement),
@@ -969,14 +925,10 @@ export class Scroller extends BaseComponent implements OnInit, AfterContentInit,
                     ];
                     (this.both || this.horizontal) &&
                         ((<ElementRef>this.elementViewChild).nativeElement.style.width =
-                            width < <number>this.defaultWidth
-                                ? width + 'px'
-                                : this._scrollWidth || this.defaultWidth + 'px');
+                            width < <number>this.defaultWidth ? width + 'px' : this._scrollWidth || this.defaultWidth + 'px');
                     (this.both || this.vertical) &&
                         ((<ElementRef>this.elementViewChild).nativeElement.style.height =
-                            height < <number>this.defaultHeight
-                                ? height + 'px'
-                                : this._scrollHeight || this.defaultHeight + 'px');
+                            height < <number>this.defaultHeight ? height + 'px' : this._scrollHeight || this.defaultHeight + 'px');
 
                     this.contentEl.style.minHeight = this.contentEl.style.minWidth = '';
                     this.contentEl.style.position = '';
@@ -1007,14 +959,9 @@ export class Scroller extends BaseComponent implements OnInit, AfterContentInit,
     setSize() {
         if (this.elementViewChild?.nativeElement) {
             const parentElement = this.elementViewChild.nativeElement.parentElement.parentElement;
-            const width =
-                this._scrollWidth ||
-                `${this.elementViewChild.nativeElement.offsetWidth || parentElement.offsetWidth}px`;
-            const height =
-                this._scrollHeight ||
-                `${this.elementViewChild.nativeElement.offsetHeight || parentElement.offsetHeight}px`;
-            const setProp = (_name: string, _value: any) =>
-                ((<ElementRef>this.elementViewChild).nativeElement.style[_name] = _value);
+            const width = this._scrollWidth || `${this.elementViewChild.nativeElement.offsetWidth || parentElement.offsetWidth}px`;
+            const height = this._scrollHeight || `${this.elementViewChild.nativeElement.offsetHeight || parentElement.offsetHeight}px`;
+            const setProp = (_name: string, _value: any) => ((<ElementRef>this.elementViewChild).nativeElement.style[_name] = _value);
 
             if (this.both || this.horizontal) {
                 setProp('height', height);
@@ -1068,8 +1015,7 @@ export class Scroller extends BaseComponent implements OnInit, AfterContentInit,
         const target = event.target;
         const contentPos = this.getContentPosition();
         const calculateScrollPos = (_pos: number, _cpos: number) => (_pos ? (_pos > _cpos ? _pos - _cpos : _pos) : 0);
-        const calculateCurrentIndex = (_pos: number, _size: number) =>
-            _size || _pos ? Math.floor(_pos / (_size || _pos)) : 0;
+        const calculateCurrentIndex = (_pos: number, _size: number) => (_size || _pos ? Math.floor(_pos / (_size || _pos)) : 0);
         const calculateTriggerIndex = (
             _currentIndex: number,
             _first: number,
@@ -1098,18 +1044,11 @@ export class Scroller extends BaseComponent implements OnInit, AfterContentInit,
                             ? _first
                             : _currentIndex - _numT
                         : _currentIndex > _triggerIndex
-                        ? _first
-                        : _currentIndex - 2 * _numT,
+                          ? _first
+                          : _currentIndex - 2 * _numT,
                 );
         };
-        const calculateLast = (
-            _currentIndex: number,
-            _first: number,
-            _last: number,
-            _num: number,
-            _numT: number,
-            _isCols = false,
-        ) => {
+        const calculateLast = (_currentIndex: number, _first: number, _last: number, _num: number, _numT: number, _isCols = false) => {
             let lastValue = _first + _num + 2 * _numT;
 
             if (_currentIndex >= _numT) {
@@ -1225,13 +1164,7 @@ export class Scroller extends BaseComponent implements OnInit, AfterContentInit,
                     this.d_numToleratedItems,
                     isScrollDownOrRight,
                 );
-                newLast = calculateLast(
-                    currentIndex,
-                    newFirst,
-                    this.last,
-                    this.numItemsInViewport,
-                    this.d_numToleratedItems,
-                );
+                newLast = calculateLast(currentIndex, newFirst, this.last, this.numItemsInViewport, this.d_numToleratedItems);
                 isRangeChanged = newFirst !== this.first || newLast !== this.last || this.isRangeChanged;
                 newScrollPos = scrollPos;
             }
@@ -1261,13 +1194,8 @@ export class Scroller extends BaseComponent implements OnInit, AfterContentInit,
 
             if (this._lazy && this.isPageChanged(first)) {
                 const lazyLoadState = {
-                    first: this._step
-                        ? Math.min(this.getPageByFirst(first) * this._step, (<any[]>this.items).length - this._step)
-                        : first,
-                    last: Math.min(
-                        this._step ? (this.getPageByFirst(first) + 1) * this._step : last,
-                        (<any[]>this.items).length,
-                    ),
+                    first: this._step ? Math.min(this.getPageByFirst(first) * this._step, (<any[]>this.items).length - this._step) : first,
+                    last: Math.min(this._step ? (this.getPageByFirst(first) + 1) * this._step : last, (<any[]>this.items).length),
                 };
                 const isLazyStateChanged =
                     this.lazyLoadState.first !== lazyLoadState.first || this.lazyLoadState.last !== lazyLoadState.last;
@@ -1345,10 +1273,10 @@ export class Scroller extends BaseComponent implements OnInit, AfterContentInit,
                 const reinit = this.both
                     ? isDiffWidth || isDiffHeight
                     : this.horizontal
-                    ? isDiffWidth
-                    : this.vertical
-                    ? isDiffHeight
-                    : false;
+                      ? isDiffWidth
+                      : this.vertical
+                        ? isDiffHeight
+                        : false;
 
                 reinit &&
                     this.zone.run(() => {

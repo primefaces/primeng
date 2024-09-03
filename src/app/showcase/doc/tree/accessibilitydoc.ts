@@ -5,10 +5,13 @@ import { Component } from '@angular/core';
     template: ` <app-docsectiontext>
         <h3>Screen Reader</h3>
         <p>
-            Value to describe the component can either be provided with <i>aria-labelledby</i> or <i>aria-label</i> props. The root list element has a <i>tree</i> role whereas each list item has a <i>treeitem</i> role along with <i>aria-label</i>,
-            <i>aria-selected</i> and <i>aria-expanded</i> attributes. In checkbox selection, <i>aria-checked</i> is used instead of <i>aria-selected</i>. The container element of a treenode has the <i>group</i> role. Checkbox and toggle icons are
-            hidden from screen readers as their parent element with <i>treeitem</i> role and attributes are used instead for readers and keyboard support. The <i>aria-setsize</i>, <i>aria-posinset</i> and <i>aria-level</i> attributes are calculated
-            implicitly and added to each treeitem.
+            Value to describe the component can either be provided with <i>aria-labelledby</i> or <i>aria-label</i> props. The root list
+            element has a <i>tree</i> role whereas each list item has a <i>treeitem</i> role along with <i>aria-label</i>,
+            <i>aria-selected</i> and <i>aria-expanded</i> attributes. In checkbox selection, <i>aria-checked</i> is used instead of
+            <i>aria-selected</i>. The container element of a treenode has the <i>group</i> role. Checkbox and toggle icons are hidden from
+            screen readers as their parent element with <i>treeitem</i> role and attributes are used instead for readers and keyboard
+            support. The <i>aria-setsize</i>, <i>aria-posinset</i> and <i>aria-level</i> attributes are calculated implicitly and added to
+            each treeitem.
         </p>
         <h3>Keyboard Support</h3>
         <div class="doc-tablewrapper">
@@ -23,15 +26,17 @@ import { Component } from '@angular/core';
                     <tr>
                         <td><i>tab</i></td>
                         <td>
-                            Moves focus to the first selected node when focus enters the component, if there is none then first element receives the focus. If focus is already inside the component, moves focus to the next focusable element in the
+                            Moves focus to the first selected node when focus enters the component, if there is none then first element
+                            receives the focus. If focus is already inside the component, moves focus to the next focusable element in the
                             page tab sequence.
                         </td>
                     </tr>
                     <tr>
                         <td><i>shift</i> + <i>tab</i></td>
                         <td>
-                            Moves focus to the last selected node when focus enters the component, if there is none then first element receives the focus. If focus is already inside the component, moves focus to the previous focusable element in the
-                            page tab sequence.
+                            Moves focus to the last selected node when focus enters the component, if there is none then first element
+                            receives the focus. If focus is already inside the component, moves focus to the previous focusable element in
+                            the page tab sequence.
                         </td>
                     </tr>
                     <tr>
@@ -61,6 +66,6 @@ import { Component } from '@angular/core';
                 </tbody>
             </table>
         </div>
-    </app-docsectiontext>`
+    </app-docsectiontext>`,
 })
 export class AccessibilityDoc {}

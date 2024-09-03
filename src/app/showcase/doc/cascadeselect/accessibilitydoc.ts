@@ -6,13 +6,15 @@ import { Code } from '@domain/code';
     template: ` <app-docsectiontext>
             <h3>Screen Reader</h3>
             <p>
-                Value to describe the component can either be provided with <i>ariaLabelledBy</i> or <i>ariaLabel</i> props. The cascadeselect element has a <i>combobox</i> role in addition to <i>aria-haspopup</i> and <i>aria-expanded</i> attributes.
+                Value to describe the component can either be provided with <i>ariaLabelledBy</i> or <i>ariaLabel</i> props. The
+                cascadeselect element has a <i>combobox</i> role in addition to <i>aria-haspopup</i> and <i>aria-expanded</i> attributes.
                 The relation between the combobox and the popup is created with <i>aria-controls</i> that refers to the id of the popup.
             </p>
             <p>
-                The popup list has an id that refers to the <i>aria-controls</i> attribute of the <i>combobox</i> element and uses <i>tree</i> as the role. Each list item has a <i>treeitem</i> role along with <i>aria-label</i>,
-                <i>aria-selected</i> and <i>aria-expanded</i> attributes. The container element of a treenode has the <i>group</i> role. The <i>aria-setsize</i>, <i>aria-posinset</i> and <i>aria-level</i> attributes are calculated implicitly and
-                added to each treeitem.
+                The popup list has an id that refers to the <i>aria-controls</i> attribute of the <i>combobox</i> element and uses
+                <i>tree</i> as the role. Each list item has a <i>treeitem</i> role along with <i>aria-label</i>, <i>aria-selected</i> and
+                <i>aria-expanded</i> attributes. The container element of a treenode has the <i>group</i> role. The <i>aria-setsize</i>,
+                <i>aria-posinset</i> and <i>aria-level</i> attributes are calculated implicitly and added to each treeitem.
             </p>
         </app-docsectiontext>
 
@@ -38,13 +40,19 @@ import { Code } from '@domain/code';
                         <td>
                             <i>space</i>
                         </td>
-                        <td>Opens the popup and moves visual focus to the selected option, if there is none then first option receives the focus.</td>
+                        <td>
+                            Opens the popup and moves visual focus to the selected option, if there is none then first option receives the
+                            focus.
+                        </td>
                     </tr>
                     <tr>
                         <td>
                             <i>down arrow</i>
                         </td>
-                        <td>Opens the popup and moves visual focus to the selected option, if there is none then first option receives the focus.</td>
+                        <td>
+                            Opens the popup and moves visual focus to the selected option, if there is none then first option receives the
+                            focus.
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -114,7 +122,7 @@ import { Code } from '@domain/code';
                     </tr>
                 </tbody>
             </table>
-        </div>`
+        </div>`,
 })
 export class AccessibilityDoc {
     @Input() id: string;
@@ -125,6 +133,6 @@ export class AccessibilityDoc {
         basic: `<span id="dd1">Options</span>
 <p-cascadeSelect ariaLabelledBy="dd1"/>
 
-<p-cascadeSelect ariaLabel="Options"/>`
+<p-cascadeSelect ariaLabel="Options"/>`,
     };
 }

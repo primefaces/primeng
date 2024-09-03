@@ -9,16 +9,14 @@ import { BaseComponent } from 'primeng/basecomponent';
  */
 @Component({
     selector: 'p-inputGroup',
-    template: `
-            <ng-content></ng-content>
-    `,
+    template: ` <ng-content></ng-content> `,
     providers: [InputGroupStyle],
 
     host: {
         class: 'p-inputgroup',
         '[attr.data-pc-name]': 'inputgroup',
         '[class]': 'styleClass',
-        '[style]': 'style'
+        '[style]': 'style',
     },
 })
 export class InputGroup extends BaseComponent {
@@ -39,6 +37,6 @@ export class InputGroup extends BaseComponent {
 @NgModule({
     imports: [CommonModule],
     exports: [InputGroup, SharedModule],
-    declarations: [InputGroup]
+    declarations: [InputGroup],
 })
 export class InputGroupModule {}

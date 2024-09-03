@@ -20,6 +20,18 @@ import { NormalizeDoc } from './csslayer/normalizedoc';
 @NgModule({
     imports: [CommonModule, AppCodeModule, AppDocModule, RouterModule, FormsModule, CheckboxModule, InputSwitchModule],
     exports: [AppDocModule],
-    declarations: [ColorsDoc, FormControlsDoc, IntroductionDoc, SemanticHTMLDoc, WAIARIADoc, WCAGDoc, SpecificityDoc, ResetDoc, TailwindDoc, BootstrapDoc, NormalizeDoc]
+    declarations: [
+        ColorsDoc,
+        FormControlsDoc,
+        IntroductionDoc,
+        SemanticHTMLDoc,
+        WAIARIADoc,
+        WCAGDoc,
+        SpecificityDoc,
+        ResetDoc,
+        TailwindDoc,
+        BootstrapDoc,
+        NormalizeDoc,
+    ],
 })
 export class GuidesDocModule {}

@@ -6,6 +6,6 @@ import { InputNumberDemoRoutingModule } from './inputnumberdemo-routing.module';
 
 @NgModule({
     imports: [CommonModule, InputNumberDemoRoutingModule, InputNumberDocModule],
-    declarations: [InputNumberDemo]
+    declarations: [InputNumberDemo],
 })
 export class InputNumberDemoModule {}

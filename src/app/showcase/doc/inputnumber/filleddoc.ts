@@ -5,13 +5,16 @@ import { Code } from '@domain/code';
     selector: 'filled-doc',
     template: `
         <app-docsectiontext>
-            <p>Specify the <i>variant</i> property as <i>filled</i> to display the component with a higher visual emphasis than the default <i>outlined</i> style.</p>
+            <p>
+                Specify the <i>variant</i> property as <i>filled</i> to display the component with a higher visual emphasis than the default
+                <i>outlined</i> style.
+            </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-inputNumber variant="filled" [(ngModel)]="value1" />
         </div>
         <app-code [code]="code" selector="input-number-filled-demo"></app-code>
-    `
+    `,
 })
 export class FilledDoc {
     value1!: number;
@@ -35,6 +38,6 @@ import { FormsModule } from '@angular/forms';
 })
 export class InputNumberFilledDemo {
     value1!: number;
-}`
+}`,
     };
 }

@@ -19,8 +19,8 @@ const theme = ({ dt }) => `
     background: ${dt('slider.handle.background')};
     border-radius: ${dt('slider.handle.border.radius')};
     transition: background ${dt('slider.transition.duration')}, color ${dt('slider.transition.duration')}, border-color ${dt('slider.transition.duration')}, box-shadow ${dt('slider.transition.duration')}, outline-color ${dt(
-    'slider.transition.duration'
-)};
+        'slider.transition.duration',
+    )};
     outline-color: transparent;
 }
 
@@ -92,7 +92,7 @@ const theme = ({ dt }) => `
 
 const inlineStyles = {
     handle: { position: 'absolute' },
-    range: { position: 'absolute' }
+    range: { position: 'absolute' },
 };
 
 const classes = {
@@ -101,11 +101,11 @@ const classes = {
         {
             'p-disabled': props.disabled,
             'p-slider-horizontal': props.orientation === 'horizontal',
-            'p-slider-vertical': props.orientation === 'vertical'
-        }
+            'p-slider-vertical': props.orientation === 'vertical',
+        },
     ],
     range: 'p-slider-range',
-    handle: 'p-slider-handle'
+    handle: 'p-slider-handle',
 };
 
 @Injectable()

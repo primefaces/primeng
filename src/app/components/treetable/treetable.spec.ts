@@ -88,7 +88,14 @@ import { MinusIcon } from 'primeng/icons/minus';
                 </tr>
             </ng-template>
         </p-treeTable>
-        <p-treeTable class="singleSelectionTreeTable" [value]="files" [columns]="cols" selectionMode="single" [(selection)]="selectedNode" dataKey="name">
+        <p-treeTable
+            class="singleSelectionTreeTable"
+            [value]="files"
+            [columns]="cols"
+            selectionMode="single"
+            [(selection)]="selectedNode"
+            dataKey="name"
+        >
             <ng-template pTemplate="header" let-columns>
                 <tr>
                     <th *ngFor="let col of columns">
@@ -105,7 +112,14 @@ import { MinusIcon } from 'primeng/icons/minus';
                 </tr>
             </ng-template>
         </p-treeTable>
-        <p-treeTable class="multipleSelectionTreeTable" [value]="files" [columns]="cols" selectionMode="multiple" [(selection)]="selectedNode" dataKey="name">
+        <p-treeTable
+            class="multipleSelectionTreeTable"
+            [value]="files"
+            [columns]="cols"
+            selectionMode="multiple"
+            [(selection)]="selectedNode"
+            dataKey="name"
+        >
             <ng-template pTemplate="header" let-columns>
                 <tr>
                     <th *ngFor="let col of columns">
@@ -122,7 +136,13 @@ import { MinusIcon } from 'primeng/icons/minus';
                 </tr>
             </ng-template>
         </p-treeTable>
-        <p-treeTable class="checkboxSelectionTreeTable" [value]="files" [columns]="cols" selectionMode="checkbox" [(selection)]="selectedNode">
+        <p-treeTable
+            class="checkboxSelectionTreeTable"
+            [value]="files"
+            [columns]="cols"
+            selectionMode="checkbox"
+            [(selection)]="selectedNode"
+        >
             <ng-template pTemplate="caption">
                 <div style="text-align:left">
                     <p-treeTableHeaderCheckbox></p-treeTableHeaderCheckbox>
@@ -160,7 +180,12 @@ import { MinusIcon } from 'primeng/icons/minus';
                         <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-treeTableToggler>
                         <p-treeTableCellEditor>
                             <ng-template pTemplate="input">
-                                <input pInputText type="text" [(ngModel)]="rowData[col.field]" [ngStyle]="{ width: i == 0 ? '90%' : '100%' }" />
+                                <input
+                                    pInputText
+                                    type="text"
+                                    [(ngModel)]="rowData[col.field]"
+                                    [ngStyle]="{ width: i == 0 ? '90%' : '100%' }"
+                                />
                             </ng-template>
                             <ng-template pTemplate="output">{{ rowData[col.field] }}</ng-template>
                         </p-treeTableCellEditor>
@@ -219,7 +244,14 @@ import { MinusIcon } from 'primeng/icons/minus';
                 </tr>
             </ng-template>
         </p-treeTable>
-        <p-treeTable class="contextMenuTreeTable" [value]="files" [columns]="cols" dataKey="name" [(contextMenuSelection)]="selectedNode" [contextMenu]="cm">
+        <p-treeTable
+            class="contextMenuTreeTable"
+            [value]="files"
+            [columns]="cols"
+            dataKey="name"
+            [(contextMenuSelection)]="selectedNode"
+            [contextMenu]="cm"
+        >
             <ng-template pTemplate="header" let-columns>
                 <tr>
                     <th *ngFor="let col of columns">
@@ -243,7 +275,15 @@ import { MinusIcon } from 'primeng/icons/minus';
             <ng-template pTemplate="caption">
                 <div style="text-align: right">
                     <i class="pi pi-search" style="margin:4px 4px 0 0"></i>
-                    <input type="text" pInputText size="50" class="globalFilter" placeholder="Global Filter" (input)="tt.filterGlobal($event.target.value, 'contains')" style="width:auto" />
+                    <input
+                        type="text"
+                        pInputText
+                        size="50"
+                        class="globalFilter"
+                        placeholder="Global Filter"
+                        (input)="tt.filterGlobal($event.target.value, 'contains')"
+                        style="width:auto"
+                    />
                 </div>
             </ng-template>
             <ng-template pTemplate="header" let-columns>
@@ -272,7 +312,7 @@ import { MinusIcon } from 'primeng/icons/minus';
                 </tr>
             </ng-template>
         </p-treeTable>
-    `
+    `,
 })
 class TestTreeTableComponent {
     ngOnInit() {
@@ -285,11 +325,11 @@ class TestTreeTableComponent {
     cols = [
         { field: 'name', header: 'Name' },
         { field: 'size', header: 'Size' },
-        { field: 'type', header: 'Type' }
+        { field: 'type', header: 'Type' },
     ];
     items = [
         { label: 'View', icon: 'pi pi-search', command: (event) => {} },
-        { label: 'Toggle', icon: 'pi pi-sort', command: (event) => {} }
+        { label: 'Toggle', icon: 'pi pi-sort', command: (event) => {} },
     ];
 
     loadNodes(event) {
@@ -307,9 +347,9 @@ class TestTreeTableComponent {
                 data: {
                     name: 'Item ' + (index + i),
                     size: Math.floor(Math.random() * 1000) + 1 + 'kb',
-                    type: 'Type ' + (index + i)
+                    type: 'Type ' + (index + i),
                 },
-                leaf: false
+                leaf: false,
             };
 
             this.virtualFiles.push(node);
@@ -324,310 +364,310 @@ class TestTreeTableComponent {
             data: {
                 name: 'Applications',
                 size: '200mb',
-                type: 'Folder'
+                type: 'Folder',
             },
             children: [
                 {
                     data: {
                         name: 'Angular',
                         size: '25mb',
-                        type: 'Folder'
+                        type: 'Folder',
                     },
                     children: [
                         {
                             data: {
                                 name: 'angular.app',
                                 size: '10mb',
-                                type: 'Application'
-                            }
+                                type: 'Application',
+                            },
                         },
                         {
                             data: {
                                 name: 'cli.app',
                                 size: '10mb',
-                                type: 'Application'
-                            }
+                                type: 'Application',
+                            },
                         },
                         {
                             data: {
                                 name: 'mobile.app',
                                 size: '5mb',
-                                type: 'Application'
-                            }
-                        }
-                    ]
+                                type: 'Application',
+                            },
+                        },
+                    ],
                 },
                 {
                     data: {
                         name: 'editor.app',
                         size: '25mb',
-                        type: 'Application'
-                    }
+                        type: 'Application',
+                    },
                 },
                 {
                     data: {
                         name: 'settings.app',
                         size: '50mb',
-                        type: 'Application'
-                    }
-                }
-            ]
+                        type: 'Application',
+                    },
+                },
+            ],
         },
         {
             data: {
                 name: 'Cloud',
                 size: '20mb',
-                type: 'Folder'
+                type: 'Folder',
             },
             children: [
                 {
                     data: {
                         name: 'backup-1.zip',
                         size: '10mb',
-                        type: 'Zip'
-                    }
+                        type: 'Zip',
+                    },
                 },
                 {
                     data: {
                         name: 'backup-2.zip',
                         size: '10mb',
-                        type: 'Zip'
-                    }
-                }
-            ]
+                        type: 'Zip',
+                    },
+                },
+            ],
         },
         {
             data: {
                 name: 'Desktop',
                 size: '150kb',
-                type: 'Folder'
+                type: 'Folder',
             },
             children: [
                 {
                     data: {
                         name: 'note-meeting.txt',
                         size: '50kb',
-                        type: 'Text'
-                    }
+                        type: 'Text',
+                    },
                 },
                 {
                     data: {
                         name: 'note-todo.txt',
                         size: '100kb',
-                        type: 'Text'
-                    }
-                }
-            ]
+                        type: 'Text',
+                    },
+                },
+            ],
         },
         {
             data: {
                 name: 'Documents',
                 size: '75kb',
-                type: 'Folder'
+                type: 'Folder',
             },
             children: [
                 {
                     data: {
                         name: 'Work',
                         size: '55kb',
-                        type: 'Folder'
+                        type: 'Folder',
                     },
                     children: [
                         {
                             data: {
                                 name: 'Expenses.doc',
                                 size: '30kb',
-                                type: 'Document'
-                            }
+                                type: 'Document',
+                            },
                         },
                         {
                             data: {
                                 name: 'Resume.doc',
                                 size: '25kb',
-                                type: 'Resume'
-                            }
-                        }
-                    ]
+                                type: 'Resume',
+                            },
+                        },
+                    ],
                 },
                 {
                     data: {
                         name: 'Home',
                         size: '20kb',
-                        type: 'Folder'
+                        type: 'Folder',
                     },
                     children: [
                         {
                             data: {
                                 name: 'Invoices',
                                 size: '20kb',
-                                type: 'Text'
-                            }
-                        }
-                    ]
-                }
-            ]
+                                type: 'Text',
+                            },
+                        },
+                    ],
+                },
+            ],
         },
         {
             data: {
                 name: 'Downloads',
                 size: '25mb',
-                type: 'Folder'
+                type: 'Folder',
             },
             children: [
                 {
                     data: {
                         name: 'Spanish',
                         size: '10mb',
-                        type: 'Folder'
+                        type: 'Folder',
                     },
                     children: [
                         {
                             data: {
                                 name: 'tutorial-a1.txt',
                                 size: '5mb',
-                                type: 'Text'
-                            }
+                                type: 'Text',
+                            },
                         },
                         {
                             data: {
                                 name: 'tutorial-a2.txt',
                                 size: '5mb',
-                                type: 'Text'
-                            }
-                        }
-                    ]
+                                type: 'Text',
+                            },
+                        },
+                    ],
                 },
                 {
                     data: {
                         name: 'Travel',
                         size: '15mb',
-                        type: 'Text'
+                        type: 'Text',
                     },
                     children: [
                         {
                             data: {
                                 name: 'Hotel.pdf',
                                 size: '10mb',
-                                type: 'PDF'
-                            }
+                                type: 'PDF',
+                            },
                         },
                         {
                             data: {
                                 name: 'Flight.pdf',
                                 size: '5mb',
-                                type: 'PDF'
-                            }
-                        }
-                    ]
-                }
-            ]
+                                type: 'PDF',
+                            },
+                        },
+                    ],
+                },
+            ],
         },
         {
             data: {
                 name: 'Main',
                 size: '50mb',
-                type: 'Folder'
+                type: 'Folder',
             },
             children: [
                 {
                     data: {
                         name: 'bin',
                         size: '50kb',
-                        type: 'Link'
-                    }
+                        type: 'Link',
+                    },
                 },
                 {
                     data: {
                         name: 'etc',
                         size: '100kb',
-                        type: 'Link'
-                    }
+                        type: 'Link',
+                    },
                 },
                 {
                     data: {
                         name: 'var',
                         size: '100kb',
-                        type: 'Link'
-                    }
-                }
-            ]
+                        type: 'Link',
+                    },
+                },
+            ],
         },
         {
             data: {
                 name: 'Other',
                 size: '5mb',
-                type: 'Folder'
+                type: 'Folder',
             },
             children: [
                 {
                     data: {
                         name: 'todo.txt',
                         size: '3mb',
-                        type: 'Text'
-                    }
+                        type: 'Text',
+                    },
                 },
                 {
                     data: {
                         name: 'logo.png',
                         size: '2mb',
-                        type: 'Picture'
-                    }
-                }
-            ]
+                        type: 'Picture',
+                    },
+                },
+            ],
         },
         {
             data: {
                 name: 'Pictures',
                 size: '150kb',
-                type: 'Folder'
+                type: 'Folder',
             },
             children: [
                 {
                     data: {
                         name: 'barcelona.jpg',
                         size: '90kb',
-                        type: 'Picture'
-                    }
+                        type: 'Picture',
+                    },
                 },
                 {
                     data: {
                         name: 'primeng.png',
                         size: '30kb',
-                        type: 'Picture'
-                    }
+                        type: 'Picture',
+                    },
                 },
                 {
                     data: {
                         name: 'prime.jpg',
                         size: '30kb',
-                        type: 'Picture'
-                    }
-                }
-            ]
+                        type: 'Picture',
+                    },
+                },
+            ],
         },
         {
             data: {
                 name: 'Videos',
                 size: '1500mb',
-                type: 'Folder'
+                type: 'Folder',
             },
             children: [
                 {
                     data: {
                         name: 'primefaces.mkv',
                         size: '1000mb',
-                        type: 'Video'
-                    }
+                        type: 'Video',
+                    },
                 },
                 {
                     data: {
                         name: 'intro.avi',
                         size: '500mb',
-                        type: 'Video'
-                    }
-                }
-            ]
-        }
+                        type: 'Video',
+                    },
+                },
+            ],
+        },
     ];
 }
 
@@ -651,7 +691,7 @@ describe('TreeTable', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [NoopAnimationsModule, FormsModule, TreeTableModule, ContextMenuModule],
-            declarations: [TestTreeTableComponent]
+            declarations: [TestTreeTableComponent],
         });
 
         fixture = TestBed.createComponent(TestTreeTableComponent);
@@ -1123,18 +1163,33 @@ describe('TreeTable', () => {
         expect(editableColumns[3].nativeElement.className).toContain('p-cell-editing');
 
         editableColumns = editableTreeTableEl.queryAll(By.css('td'));
-        editableColumns[3].triggerEventHandler('keydown', { target: editableColumns[3].nativeElement, shiftKey: true, keyCode: 9, preventDefault() {} });
+        editableColumns[3].triggerEventHandler('keydown', {
+            target: editableColumns[3].nativeElement,
+            shiftKey: true,
+            keyCode: 9,
+            preventDefault() {},
+        });
         fixture.detectChanges();
 
         expect(editableColumns[3].nativeElement.className).not.toContain('p-cell-editing');
         expect(editableColumns[2].nativeElement.className).toContain('p-cell-editing');
         editableColumns = editableTreeTableEl.queryAll(By.css('td'));
-        editableColumns[2].triggerEventHandler('keydown', { target: editableColumns[2].nativeElement, shiftKey: true, keyCode: 9, preventDefault() {} });
+        editableColumns[2].triggerEventHandler('keydown', {
+            target: editableColumns[2].nativeElement,
+            shiftKey: true,
+            keyCode: 9,
+            preventDefault() {},
+        });
         fixture.detectChanges();
 
         expect(editableColumns[1].nativeElement.className).toContain('p-cell-editing');
         editableColumns = editableTreeTableEl.queryAll(By.css('td'));
-        editableColumns[1].triggerEventHandler('keydown', { target: editableColumns[1].nativeElement, shiftKey: true, keyCode: 27, preventDefault() {} });
+        editableColumns[1].triggerEventHandler('keydown', {
+            target: editableColumns[1].nativeElement,
+            shiftKey: true,
+            keyCode: 27,
+            preventDefault() {},
+        });
         fixture.detectChanges();
 
         expect(editableColumns[1].nativeElement.className).not.toContain('p-cell-editing');
@@ -1143,7 +1198,12 @@ describe('TreeTable', () => {
         fixture.detectChanges();
 
         expect(editableColumns[1].nativeElement.className).toContain('p-cell-editing');
-        editableColumns[1].triggerEventHandler('keydown', { target: editableColumns[1].nativeElement, shiftKey: true, keyCode: 13, preventDefault() {} });
+        editableColumns[1].triggerEventHandler('keydown', {
+            target: editableColumns[1].nativeElement,
+            shiftKey: true,
+            keyCode: 13,
+            preventDefault() {},
+        });
         fixture.detectChanges();
 
         expect(editableColumns[1].nativeElement.className).not.toContain('p-cell-editing');

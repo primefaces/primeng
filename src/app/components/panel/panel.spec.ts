@@ -12,7 +12,7 @@ describe('Panel', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [NoopAnimationsModule, PlusIcon, MinusIcon],
-            declarations: [Panel]
+            declarations: [Panel],
         });
 
         fixture = TestBed.createComponent(Panel);

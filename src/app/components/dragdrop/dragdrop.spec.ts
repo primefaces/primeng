@@ -6,7 +6,13 @@ import { Component } from '@angular/core';
 @Component({
     template: `
         <ul style="margin:0;padding:0">
-            <li *ngFor="let car of availableCars" pDraggable="cars" (onDragStart)="dragStart($event, car)" (onDrag)="onDrag()" (onDragEnd)="dragEnd($event)">
+            <li
+                *ngFor="let car of availableCars"
+                pDraggable="cars"
+                (onDragStart)="dragStart($event, car)"
+                (onDrag)="onDrag()"
+                (onDragEnd)="dragEnd($event)"
+            >
                 <h3>{{ car.vin }} - {{ car.year }}</h3>
             </li>
         </ul>
@@ -17,7 +23,7 @@ import { Component } from '@angular/core';
                 </h4>
             </div>
         </div>
-    `
+    `,
 })
 class TestDragDropComponent {
     availableCars: any[] = [
@@ -30,7 +36,7 @@ class TestDragDropComponent {
         { brand: 'Honda', year: 2012, color: 'Yellow', vin: 'g43gr' },
         { brand: 'Jaguar', year: 2013, color: 'Orange', vin: 'greg34' },
         { brand: 'Ford', year: 2000, color: 'Black', vin: 'h54hw5' },
-        { brand: 'Fiat', year: 2013, color: 'Red', vin: '245t2s' }
+        { brand: 'Fiat', year: 2013, color: 'Red', vin: '245t2s' },
     ];
 
     selectedCars: any[] = [];
@@ -75,7 +81,7 @@ describe('Draggable', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [NoopAnimationsModule, DragDropModule],
-            declarations: [TestDragDropComponent]
+            declarations: [TestDragDropComponent],
         });
 
         fixture = TestBed.createComponent(TestDragDropComponent);
@@ -198,7 +204,7 @@ describe('Draggable', () => {
         event.dataTransfer = {
             getData(type) {
                 return 'cars';
-            }
+            },
         };
         dropEl.nativeElement.dispatchEvent(event);
         fixture.detectChanges();

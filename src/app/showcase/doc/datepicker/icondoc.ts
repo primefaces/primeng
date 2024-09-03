@@ -20,18 +20,9 @@ import { Code } from '@domain/code';
 
             <div class="flex-auto">
                 <label for="templatedisplay" class="font-bold block mb-2"> Custom Icon </label>
-                <p-datePicker
-                    [(ngModel)]="date3"
-                    [iconDisplay]="'input'"
-                    [showIcon]="true"
-                    [timeOnly]="true"
-                    inputId="templatedisplay"
-                >
+                <p-datePicker [(ngModel)]="date3" [iconDisplay]="'input'" [showIcon]="true" [timeOnly]="true" inputId="templatedisplay">
                     <ng-template pTemplate="inputicon" let-clickCallBack="clickCallBack">
-                        <i
-                            class="pi pi-clock pointer-events-none pointer-events-none"
-                            (click)="clickCallBack($event)"
-                        ></i>
+                        <i class="pi pi-clock pointer-events-none pointer-events-none" (click)="clickCallBack($event)"></i>
                     </ng-template>
                 </p-datePicker>
             </div>

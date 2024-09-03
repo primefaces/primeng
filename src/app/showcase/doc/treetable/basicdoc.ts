@@ -7,8 +7,8 @@ import { NodeService } from '@service/nodeservice';
     selector: 'basic-doc',
     template: ` <app-docsectiontext>
             <p>
-                TreeTable requires a collection of <i>TreeNode</i> instances as a <i>value</i> components as children
-                for the representation.
+                TreeTable requires a collection of <i>TreeNode</i> instances as a <i>value</i> components as children for the
+                representation.
             </p>
         </app-docsectiontext>
         <div class="card">
@@ -40,7 +40,10 @@ import { NodeService } from '@service/nodeservice';
 export class BasicDoc {
     files!: TreeNode[];
 
-    constructor(private nodeService: NodeService, private cd: ChangeDetectorRef) {}
+    constructor(
+        private nodeService: NodeService,
+        private cd: ChangeDetectorRef,
+    ) {}
 
     loadDemoData() {
         this.nodeService.getFilesystem().then((files) => {

@@ -4,6 +4,6 @@ import { RoadmapComponent } from './roadmap.component';
 
 @NgModule({
     imports: [RouterModule.forChild([{ path: '', component: RoadmapComponent }])],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class RoadmapRoutingModule {}

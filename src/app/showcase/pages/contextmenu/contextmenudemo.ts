@@ -10,54 +10,54 @@ import { TableDoc } from '@doc/contextmenu/tabledoc';
 import { TemplateDoc } from '@doc/contextmenu/templatedoc';
 
 @Component({
-    templateUrl: './contextmenudemo.html'
+    templateUrl: './contextmenudemo.html',
 })
 export class ContextMenuDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc
+            component: ImportDoc,
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc
+            component: BasicDoc,
         },
         {
             id: 'document',
             label: 'Document',
-            component: DocumentDoc
+            component: DocumentDoc,
         },
         {
             id: 'template',
             label: 'Template',
-            component: TemplateDoc
+            component: TemplateDoc,
         },
         {
             id: 'command',
             label: 'Command',
-            component: CommandDoc
+            component: CommandDoc,
         },
         {
             id: 'router',
             label: 'Router',
-            component: RouterDoc
+            component: RouterDoc,
         },
         {
             id: 'table',
             label: 'Table',
-            component: TableDoc
+            component: TableDoc,
         },
         {
             id: 'style',
             label: 'Style',
-            component: StyleDoc
+            component: StyleDoc,
         },
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc
-        }
+            component: AccessibilityDoc,
+        },
     ];
 }

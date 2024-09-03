@@ -10,6 +10,6 @@ import { SurfacesDoc } from './surfacesdoc';
 @NgModule({
     imports: [CommonModule, RouterModule, AppDocModule, AppCodeModule],
     exports: [AppDocModule],
-    declarations: [OverviewDoc, SurfacesDoc, PaletteDoc]
+    declarations: [OverviewDoc, SurfacesDoc, PaletteDoc],
 })
 export class ColorsDocModule {}

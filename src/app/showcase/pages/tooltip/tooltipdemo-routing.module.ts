@@ -4,6 +4,6 @@ import { TooltipDemo } from './tooltipdemo';
 
 @NgModule({
     imports: [RouterModule.forChild([{ path: '', component: TooltipDemo }])],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class TooltipDemoRoutingModule {}

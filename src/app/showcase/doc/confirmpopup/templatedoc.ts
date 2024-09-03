@@ -12,9 +12,7 @@ import { Code } from '@domain/code';
             <p-toast />
             <p-confirmPopup>
                 <ng-template pTemplate="content" let-message>
-                    <div
-                        class="flex flex-col items-center w-full gap-4 border-b border-surface-200 dark:border-surface-700 p-4 mb-4 pb-0"
-                    >
+                    <div class="flex flex-col items-center w-full gap-4 border-b border-surface-200 dark:border-surface-700 p-4 mb-4 pb-0">
                         <i [class]="message.icon" class="text-6xl text-primary-500"></i>
                         <p>{{ message.message }}</p>
                     </div>
@@ -27,7 +25,10 @@ import { Code } from '@domain/code';
     providers: [ConfirmationService, MessageService],
 })
 export class TemplateDoc {
-    constructor(private confirmationService: ConfirmationService, private messageService: MessageService) {}
+    constructor(
+        private confirmationService: ConfirmationService,
+        private messageService: MessageService,
+    ) {}
 
     confirm(event: Event) {
         this.confirmationService.confirm({

@@ -15,7 +15,7 @@ import { Code } from '@domain/code';
             </p-datePicker>
         </div>
         <app-code [code]="code" selector="datepicker-datetemplate-demo"></app-code>
-    `
+    `,
 })
 export class DateTemplateDoc {
     date: Date[] | undefined;
@@ -51,6 +51,6 @@ import { DatePickerModule } from 'primeng/datepicker';
 })
 export class DatePickerDatetemplateDemo {
     date: Date[] | undefined;
-}`
+}`,
     };
 }

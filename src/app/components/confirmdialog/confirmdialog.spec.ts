@@ -8,7 +8,7 @@ import { ConfirmDialog } from './confirmdialog';
 @Component({
     template: `<p-confirmDialog></p-confirmDialog>
 
-        <button type="button" (click)="confirm1()" pButton icon="pi pi-check" label="Confirm"></button>`
+        <button type="button" (click)="confirm1()" pButton icon="pi pi-check" label="Confirm"></button>`,
 })
 class TestConfirmDialogComponent {
     constructor(private confirmationService: ConfirmationService) {}
@@ -25,7 +25,7 @@ class TestConfirmDialogComponent {
             },
             reject: () => {
                 this.header = 'reject';
-            }
+            },
         });
     }
 }
@@ -39,7 +39,7 @@ describe('ConfirmDialog', () => {
             schemas: [NO_ERRORS_SCHEMA],
             imports: [NoopAnimationsModule],
             declarations: [ConfirmDialog, TestConfirmDialogComponent],
-            providers: [ConfirmationService]
+            providers: [ConfirmationService],
         });
 
         fixture = TestBed.createComponent(TestConfirmDialogComponent);
@@ -104,7 +104,9 @@ describe('ConfirmDialog', () => {
         confirmDialog.rejectIcon = 'Primeng ROCKS!';
         fixture.detectChanges();
 
-        expect(fixture.debugElement.query(By.css('.p-dialog-footer')).children[0].query(By.css('i')).nativeElement.className).toContain('Primeng ROCKS!');
+        expect(fixture.debugElement.query(By.css('.p-dialog-footer')).children[0].query(By.css('i')).nativeElement.className).toContain(
+            'Primeng ROCKS!',
+        );
     });
 
     it('should not show accept button', () => {

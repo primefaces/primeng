@@ -6,8 +6,8 @@ import { Code } from '@domain/code';
     template: `
         <app-docsectiontext>
             <p>
-                A basic chip with a text is created with the <i>label</i> property. In addition when <i>removable</i> is added, a delete icon is displayed to remove a chip, the optional <i>onRemove</i> event is available to get notified when a chip
-                is hidden.
+                A basic chip with a text is created with the <i>label</i> property. In addition when <i>removable</i> is added, a delete
+                icon is displayed to remove a chip, the optional <i>onRemove</i> event is available to get notified when a chip is hidden.
             </p>
         </app-docsectiontext>
         <div class="card flex items-center gap-2 flex-wrap">
@@ -17,7 +17,7 @@ import { Code } from '@domain/code';
             <p-chip label="Thriller" [removable]="true" />
         </div>
         <app-code [code]="code" selector="chip-basic-demo"></app-code>
-    `
+    `,
 })
 export class BasicDoc {
     code: Code = {
@@ -37,6 +37,6 @@ import { ChipModule } from 'primeng/chip';
     standalone: true,
     imports: [ChipModule]
 })
-export class ChipBasicDemo {}`
+export class ChipBasicDemo {}`,
     };
 }

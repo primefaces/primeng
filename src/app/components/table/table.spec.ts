@@ -47,7 +47,15 @@ import type { Paginator } from '../paginator/paginator';
             <ng-template pTemplate="caption">
                 <div style="text-align: right">
                     <i class="pi pi-search" style="margin:4px 4px 0 0"></i>
-                    <input type="text" class="globalFilter" pInputText size="50" placeholder="Global Filter" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto" />
+                    <input
+                        type="text"
+                        class="globalFilter"
+                        pInputText
+                        size="50"
+                        placeholder="Global Filter"
+                        (input)="dt.filterGlobal($event.target.value, 'contains')"
+                        style="width:auto"
+                    />
                 </div>
             </ng-template>
             <ng-template pTemplate="header" let-columns>
@@ -58,7 +66,13 @@ import type { Paginator } from '../paginator/paginator';
                 </tr>
                 <tr>
                     <th *ngFor="let col of columns" [ngSwitch]="col.field">
-                        <input *ngSwitchCase="'brand'" class="brandFilter" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)" />
+                        <input
+                            *ngSwitchCase="'brand'"
+                            class="brandFilter"
+                            pInputText
+                            type="text"
+                            (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)"
+                        />
                     </th>
                 </tr>
             </ng-template>
@@ -76,7 +90,12 @@ import type { Paginator } from '../paginator/paginator';
                 <tr>
                     <th *ngFor="let col of columns" class="sortableColumn" [pSortableColumn]="col.field">
                         {{ col.header }}
-                        <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                        <p-sortIcon
+                            [field]="col.field"
+                            ariaLabel="Activate to sort"
+                            ariaLabelDesc="Activate to sort in descending order"
+                            ariaLabelAsc="Activate to sort in ascending order"
+                        ></p-sortIcon>
                     </th>
                 </tr>
             </ng-template>
@@ -302,7 +321,19 @@ import type { Paginator } from '../paginator/paginator';
         </p-table>
 
         <p-contextMenu #cm [model]="items"></p-contextMenu>
-        <p-table class="stateTable" #dt1 [columns]="cols2" [value]="cars2" [paginator]="true" [rows]="3" dataKey="vin" [resizableColumns]="true" [reorderableColumns]="true" selectionMode="single" stateKey="statedemo">
+        <p-table
+            class="stateTable"
+            #dt1
+            [columns]="cols2"
+            [value]="cars2"
+            [paginator]="true"
+            [rows]="3"
+            dataKey="vin"
+            [resizableColumns]="true"
+            [reorderableColumns]="true"
+            selectionMode="single"
+            stateKey="statedemo"
+        >
             <ng-template pTemplate="header" let-columns>
                 <tr>
                     <th *ngFor="let col of columns" [pSortableColumn]="col.field" pResizableColumn pReorderableColumn>
@@ -312,7 +343,12 @@ import type { Paginator } from '../paginator/paginator';
                 </tr>
                 <tr>
                     <th *ngFor="let col of columns" [ngSwitch]="col.field" class="p-fluid">
-                        <input pInputText type="text" (input)="dt1.filter($event.target.value, col.field, col.filterMatchMode)" [value]="dt1.filters[col.field]?.value" />
+                        <input
+                            pInputText
+                            type="text"
+                            (input)="dt1.filter($event.target.value, col.field, col.filterMatchMode)"
+                            [value]="dt1.filters[col.field]?.value"
+                        />
                     </th>
                 </tr>
             </ng-template>
@@ -324,24 +360,24 @@ import type { Paginator } from '../paginator/paginator';
                 </tr>
             </ng-template>
         </p-table>
-    `
+    `,
 })
 class TestBasicTableComponent {
     items = [
         { label: 'View', icon: 'pi pi-search', command: (event) => {} },
-        { label: 'Delete', icon: 'pi pi-times', command: (event) => {} }
+        { label: 'Delete', icon: 'pi pi-times', command: (event) => {} },
     ];
     cols = [
         { field: 'brand', header: 'Brand' },
         { field: 'vin', header: 'Vin' },
         { field: 'year', header: 'Year' },
-        { field: 'color', header: 'Color' }
+        { field: 'color', header: 'Color' },
     ];
     cols2 = [
         { field: 'brand', header: 'Brand' },
         { field: 'vin', header: 'Vin' },
         { field: 'year', header: 'Year' },
-        { field: 'color', header: 'Color' }
+        { field: 'color', header: 'Color' },
     ];
     cars = [
         { brand: 'VW', year: 2012, color: 'Orange', vin: 'dsad231ff' },
@@ -353,7 +389,7 @@ class TestBasicTableComponent {
         { brand: 'Honda', year: 2012, color: 'Yellow', vin: 'g43gr' },
         { brand: 'Jaguar', year: 2013, color: 'Orange', vin: 'greg34' },
         { brand: 'Ford', year: 2000, color: 'Black', vin: 'h54hw5' },
-        { brand: 'Fiat', year: 2013, color: 'Red', vin: '245t2s' }
+        { brand: 'Fiat', year: 2013, color: 'Red', vin: '245t2s' },
     ];
     cars2 = [
         { brand: 'VW', year: 2012, color: 'Orange', vin: 'dsad231ff' },
@@ -365,7 +401,7 @@ class TestBasicTableComponent {
         { brand: 'Honda', year: 2012, color: 'Yellow', vin: 'g43gr' },
         { brand: 'Jaguar', year: 2013, color: 'Orange', vin: 'greg34' },
         { brand: 'Ford', year: 2000, color: 'Black', vin: 'h54hw5' },
-        { brand: 'Fiat', year: 2013, color: 'Red', vin: '245t2s' }
+        { brand: 'Fiat', year: 2013, color: 'Red', vin: '245t2s' },
     ];
 
     customSort(event) {
@@ -402,8 +438,16 @@ describe('Table', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule, FormsModule, SharedModule, DropdownModule, ContextMenuModule, TableModule, RouterTestingModule.withRoutes([{ path: 'test', component: ContextMenu }])],
-            declarations: [TestBasicTableComponent, EditableColumn]
+            imports: [
+                NoopAnimationsModule,
+                FormsModule,
+                SharedModule,
+                DropdownModule,
+                ContextMenuModule,
+                TableModule,
+                RouterTestingModule.withRoutes([{ path: 'test', component: ContextMenu }]),
+            ],
+            declarations: [TestBasicTableComponent, EditableColumn],
         });
 
         fixture = TestBed.createComponent(TestBasicTableComponent);
@@ -483,8 +527,13 @@ describe('Table', () => {
         fixture.detectChanges();
 
         const basicTableElement = fixture.debugElement.query(By.css('.basicTable'));
-        const paginators = basicTableElement?.queryAll(By.css('p-paginator'))?.map(({ componentInstance }) => componentInstance as Paginator);
-        expect(paginators).toEqual([jasmine.objectContaining({ styleClass: 'p-paginator-top' }), jasmine.objectContaining({ styleClass: 'p-paginator-bottom' })]);
+        const paginators = basicTableElement
+            ?.queryAll(By.css('p-paginator'))
+            ?.map(({ componentInstance }) => componentInstance as Paginator);
+        expect(paginators).toEqual([
+            jasmine.objectContaining({ styleClass: 'p-paginator-top' }),
+            jasmine.objectContaining({ styleClass: 'p-paginator-bottom' }),
+        ]);
     });
 
     it('should pass paginatorStyleClass to paginators', () => {
@@ -494,8 +543,13 @@ describe('Table', () => {
         fixture.detectChanges();
 
         const basicTableElement = fixture.debugElement.query(By.css('.basicTable'));
-        const paginators = basicTableElement?.queryAll(By.css('p-paginator'))?.map(({ componentInstance }) => componentInstance as Paginator);
-        expect(paginators).toEqual([jasmine.objectContaining({ styleClass: 'p-paginator-custom p-paginator-top' }), jasmine.objectContaining({ styleClass: 'p-paginator-custom p-paginator-bottom' })]);
+        const paginators = basicTableElement
+            ?.queryAll(By.css('p-paginator'))
+            ?.map(({ componentInstance }) => componentInstance as Paginator);
+        expect(paginators).toEqual([
+            jasmine.objectContaining({ styleClass: 'p-paginator-custom p-paginator-top' }),
+            jasmine.objectContaining({ styleClass: 'p-paginator-custom p-paginator-bottom' }),
+        ]);
     });
 
     it('should use custom filter and show 2 items', fakeAsync(() => {

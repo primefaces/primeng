@@ -5,7 +5,10 @@ import { Code } from '@domain/code';
     selector: 'datepicker-format-demo',
     template: `
         <app-docsectiontext>
-            <p>Default date format is <i>mm/dd/yy</i> which can be customized using the <i>dateFormat</i> property. Following options can be a part of the format.</p>
+            <p>
+                Default date format is <i>mm/dd/yy</i> which can be customized using the <i>dateFormat</i> property. Following options can
+                be a part of the format.
+            </p>
             <ul class="mb-6 leading-loose">
                 <li><i>d</i> - day of month (no leading zero)</li>
                 <li><i>dd</i> - day of month (two digit)</li>
@@ -30,7 +33,7 @@ import { Code } from '@domain/code';
             <p-datePicker [(ngModel)]="date" dateFormat="dd.mm.yy" />
         </div>
         <app-code [code]="code" selector="datepicker-format-demo"></app-code>
-    `
+    `,
 })
 export class FormatDoc {
     date: Date | undefined;
@@ -58,6 +61,6 @@ import { DatePickerModule } from 'primeng/datepicker';
 })
 export class DatePickerFormatDemo {
     date: Date | undefined;
-}`
+}`,
     };
 }

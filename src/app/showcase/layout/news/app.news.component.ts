@@ -10,7 +10,7 @@ import { AppConfigService } from '@service/appconfigservice';
     standalone: true,
     templateUrl: './app.news.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [CommonModule, FormsModule, StyleClassModule]
+    imports: [CommonModule, FormsModule, StyleClassModule],
 })
 export class AppNewsComponent {
     storageKey: string = 'primeng';
@@ -19,7 +19,7 @@ export class AppNewsComponent {
 
     constructor(
         private configService: AppConfigService,
-        private cd: ChangeDetectorRef
+        private cd: ChangeDetectorRef,
     ) {
         afterNextRender(() => {
             const itemString = localStorage.getItem(this.storageKey);
@@ -48,7 +48,7 @@ export class AppNewsComponent {
     hideNews() {
         this.configService.hideNews();
         const item = {
-            hiddenNews: this.announcement.id
+            hiddenNews: this.announcement.id,
         };
 
         localStorage.setItem(this.storageKey, JSON.stringify(item));

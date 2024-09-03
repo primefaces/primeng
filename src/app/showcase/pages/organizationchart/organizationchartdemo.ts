@@ -9,44 +9,44 @@ import { AccessibilityDoc } from '@doc/organizationchart/accessibilitydoc';
 
 @Component({
     templateUrl: './organizationchartdemo.html',
-    styleUrls: ['./organizationchartdemo.scss']
+    styleUrls: ['./organizationchartdemo.scss'],
 })
 export class OrganizationChartDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc
+            component: ImportDoc,
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc
+            component: BasicDoc,
         },
         {
             id: 'template',
             label: 'Template',
-            component: TemplateDoc
+            component: TemplateDoc,
         },
         {
             id: 'selection',
             label: 'Selection',
-            component: SelectionDoc
+            component: SelectionDoc,
         },
         {
             id: 'colored',
             label: 'Colored',
-            component: ColoredDoc
+            component: ColoredDoc,
         },
         {
             id: 'style',
             label: 'Style',
-            component: StyleDoc
+            component: StyleDoc,
         },
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc
-        }
+            component: AccessibilityDoc,
+        },
     ];
 }

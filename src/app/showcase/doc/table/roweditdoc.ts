@@ -8,17 +8,22 @@ import { ProductService } from '@service/productservice';
     selector: 'row-edit-doc',
     template: ` <app-docsectiontext>
             <p>
-                Row editing toggles the visibility of all the editors in the row at once and provides additional options to save and cancel editing. Row editing functionality is enabled by setting the <i>editMode</i> to "row" on table, defining a
-                dataKey to uniquely identify a row, adding <i>pEditableRow</i> directive to the editable rows and defining the UI Controls with <i>pInitEditableRow</i>, <i>pSaveEditableRow</i> and <i>pCancelEditableRow</i> directives respectively.
+                Row editing toggles the visibility of all the editors in the row at once and provides additional options to save and cancel
+                editing. Row editing functionality is enabled by setting the <i>editMode</i> to "row" on table, defining a dataKey to
+                uniquely identify a row, adding <i>pEditableRow</i> directive to the editable rows and defining the UI Controls with
+                <i>pInitEditableRow</i>, <i>pSaveEditableRow</i> and <i>pCancelEditableRow</i> directives respectively.
             </p>
             <p>
-                Save and Cancel functionality implementation is left to the page author to provide more control over the editing business logic. Example below utilizes a simple implementation where a row is cloned when editing is initialized and is
-                saved or restored depending on the result of the editing. An implicit variable called "editing" is passed to the body template so you may come up with your own UI controls that implement editing based on your own requirements such as
-                adding validations and styling. Note that <i>pSaveEditableRow</i> only switches the row to back view mode when there are no validation errors.
+                Save and Cancel functionality implementation is left to the page author to provide more control over the editing business
+                logic. Example below utilizes a simple implementation where a row is cloned when editing is initialized and is saved or
+                restored depending on the result of the editing. An implicit variable called "editing" is passed to the body template so you
+                may come up with your own UI controls that implement editing based on your own requirements such as adding validations and
+                styling. Note that <i>pSaveEditableRow</i> only switches the row to back view mode when there are no validation errors.
             </p>
             <p>
-                Moreover, you may use setting <i>pEditableRowDisabled</i> property as true to disable editing for that particular row and in case you need to display rows in edit mode by default, use the <i>editingRowKeys</i> property which is a map
-                whose key is the dataKey of the record where the value is any arbitrary number greater than zero.
+                Moreover, you may use setting <i>pEditableRowDisabled</i> property as true to disable editing for that particular row and in
+                case you need to display rows in edit mode by default, use the <i>editingRowKeys</i> property which is a map whose key is
+                the dataKey of the record where the value is any arbitrary number greater than zero.
             </p>
         </app-docsectiontext>
         <p-deferred-demo (load)="loadDemoData()">
@@ -59,7 +64,12 @@ import { ProductService } from '@service/productservice';
                             <td>
                                 <p-cellEditor>
                                     <ng-template pTemplate="input">
-                                        <p-dropdown [options]="statuses" appendTo="body" [(ngModel)]="product.inventoryStatus" [style]="{ width: '100%' }" />
+                                        <p-dropdown
+                                            [options]="statuses"
+                                            appendTo="body"
+                                            [(ngModel)]="product.inventoryStatus"
+                                            [style]="{ width: '100%' }"
+                                        />
                                     </ng-template>
                                     <ng-template pTemplate="output">
                                         <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" />
@@ -78,9 +88,36 @@ import { ProductService } from '@service/productservice';
                             </td>
                             <td>
                                 <div class="flex items-center justify-center gap-2">
-                                    <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil" (click)="onRowEditInit(product)" class="p-button-rounded p-button-text"></button>
-                                    <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check" (click)="onRowEditSave(product)" class="p-button-rounded p-button-text p-button-success mr-2"></button>
-                                    <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times" (click)="onRowEditCancel(product, ri)" class="p-button-rounded p-button-text p-button-danger"></button>
+                                    <button
+                                        *ngIf="!editing"
+                                        pButton
+                                        pRipple
+                                        type="button"
+                                        pInitEditableRow
+                                        icon="pi pi-pencil"
+                                        (click)="onRowEditInit(product)"
+                                        class="p-button-rounded p-button-text"
+                                    ></button>
+                                    <button
+                                        *ngIf="editing"
+                                        pButton
+                                        pRipple
+                                        type="button"
+                                        pSaveEditableRow
+                                        icon="pi pi-check"
+                                        (click)="onRowEditSave(product)"
+                                        class="p-button-rounded p-button-text p-button-success mr-2"
+                                    ></button>
+                                    <button
+                                        *ngIf="editing"
+                                        pButton
+                                        pRipple
+                                        type="button"
+                                        pCancelEditableRow
+                                        icon="pi pi-times"
+                                        (click)="onRowEditCancel(product, ri)"
+                                        class="p-button-rounded p-button-text p-button-danger"
+                                    ></button>
                                 </div>
                             </td>
                         </tr>
@@ -90,7 +127,7 @@ import { ProductService } from '@service/productservice';
         </p-deferred-demo>
         <app-code [code]="code" selector="table-row-edit-demo" [extFiles]="extFiles"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [MessageService]
+    providers: [MessageService],
 })
 export class RowEditDoc {
     products!: Product[];
@@ -102,7 +139,7 @@ export class RowEditDoc {
     constructor(
         private productService: ProductService,
         private messageService: MessageService,
-        private cd: ChangeDetectorRef
+        private cd: ChangeDetectorRef,
     ) {}
 
     loadDemoData() {
@@ -114,7 +151,7 @@ export class RowEditDoc {
         this.statuses = [
             { label: 'In Stock', value: 'INSTOCK' },
             { label: 'Low Stock', value: 'LOWSTOCK' },
-            { label: 'Out of Stock', value: 'OUTOFSTOCK' }
+            { label: 'Out of Stock', value: 'OUTOFSTOCK' },
         ];
     }
 
@@ -439,7 +476,7 @@ export class TableRowEditDemo implements OnInit{
     rating: 5
 },
 ...`,
-        service: ['ProductService']
+        service: ['ProductService'],
     };
 
     extFiles = [
@@ -457,7 +494,7 @@ export interface Product {
     category?: string;
     image?: string;
     rating?: number;
-}`
-        }
+}`,
+        },
     ];
 }

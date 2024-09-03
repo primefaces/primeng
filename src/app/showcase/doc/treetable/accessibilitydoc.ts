@@ -5,16 +5,24 @@ import { Component } from '@angular/core';
     template: ` <app-docsectiontext>
         <h3>Screen Reader</h3>
         <p>
-            Default role of the table is <i>table</i>. Header, body and footer elements use <i>rowgroup</i>, rows use <i>row</i> role, header cells have <i>columnheader</i> and body cells use <i>cell</i> roles. Sortable headers utilizer
-            <i>aria-sort</i> attribute either set to "ascending" or "descending".
+            Default role of the table is <i>table</i>. Header, body and footer elements use <i>rowgroup</i>, rows use <i>row</i> role,
+            header cells have <i>columnheader</i> and body cells use <i>cell</i> roles. Sortable headers utilizer <i>aria-sort</i> attribute
+            either set to "ascending" or "descending".
         </p>
         <p>
-            Row elements manage <i>aria-expanded</i> for state and <i>aria-level</i> attribute to define the hierachy by <i>ttRow</i> directive. Table rows and table cells should be specified by users using the <i>aria-posinset</i>,
+            Row elements manage <i>aria-expanded</i> for state and <i>aria-level</i> attribute to define the hierachy by
+            <i>ttRow</i> directive. Table rows and table cells should be specified by users using the <i>aria-posinset</i>,
             <i>aria-setsize</i>, <i>aria-label</i>, and <i>aria-describedby</i> attributes, as they are determined through templating.
         </p>
-        <p>When selection is enabled, <i>ttSelectableRow</i> directive sets <i>aria-selected</i> to true on a row. In checkbox mode, the built-in checkbox component use <i>checkbox</i> role with <i>aria-checked</i> state attribute.</p>
+        <p>
+            When selection is enabled, <i>ttSelectableRow</i> directive sets <i>aria-selected</i> to true on a row. In checkbox mode, the
+            built-in checkbox component use <i>checkbox</i> role with <i>aria-checked</i> state attribute.
+        </p>
         <p>Editable cells use custom templating so you need to manage aria roles and attributes manually if required.</p>
-        <p>Paginator is a standalone component used inside the TreeTable, refer to the <a href="/paginator/">paginator</a> for more information about the accessibility features.</p>
+        <p>
+            Paginator is a standalone component used inside the TreeTable, refer to the <a href="/paginator/">paginator</a> for more
+            information about the accessibility features.
+        </p>
         <h3>Sortable Headers Keyboard Support</h3>
         <div class="doc-tablewrapper">
             <table class="doc-table">
@@ -53,15 +61,17 @@ import { Component } from '@angular/core';
                     <tr>
                         <td><i>tab</i></td>
                         <td>
-                            Moves focus to the first selected node when focus enters the component, if there is none then first element receives the focus. If focus is already inside the component, moves focus to the next focusable element in the
+                            Moves focus to the first selected node when focus enters the component, if there is none then first element
+                            receives the focus. If focus is already inside the component, moves focus to the next focusable element in the
                             page tab sequence.
                         </td>
                     </tr>
                     <tr>
                         <td><i>shift</i> + <i>tab</i></td>
                         <td>
-                            Moves focus to the last selected node when focus enters the component, if there is none then first element receives the focus. If focus is already inside the component, moves focus to the previous focusable element in the
-                            page tab sequence.
+                            Moves focus to the last selected node when focus enters the component, if there is none then first element
+                            receives the focus. If focus is already inside the component, moves focus to the previous focusable element in
+                            the page tab sequence.
                         </td>
                     </tr>
                     <tr>
@@ -91,6 +101,6 @@ import { Component } from '@angular/core';
                 </tbody>
             </table>
         </div>
-    </app-docsectiontext>`
+    </app-docsectiontext>`,
 })
 export class AccessibilityDoc {}

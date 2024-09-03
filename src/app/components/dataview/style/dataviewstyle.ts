@@ -58,16 +58,15 @@ const classes = {
         'p-dataview p-component',
         {
             'p-dataview-list': props.layout === 'list',
-            'p-dataview-grid': props.layout === 'grid'
-        }
+            'p-dataview-grid': props.layout === 'grid',
+        },
     ],
     header: 'p-dataview-header',
     pcPaginator: ({ position }) => 'p-dataview-paginator-' + position,
     content: 'p-dataview-content',
     emptyMessage: 'p-dataview-empty-message', // TODO: remove?
-    footer: 'p-dataview-footer'
+    footer: 'p-dataview-footer',
 };
-
 
 @Injectable()
 export class DataViewStyle extends BaseStyle {

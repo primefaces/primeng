@@ -17,8 +17,19 @@ import { Code } from '@domain/code';
             <div class="col-span-12 md:col-span-4">
                 <h5>Icon - Circle</h5>
                 <p-avatar icon="pi pi-user" styleClass="mr-2" size="xlarge" shape="circle" />
-                <p-avatar icon="pi pi-user" styleClass="mr-2" size="large" [style]="{ 'background-color': '#ece9fc', color: '#2a1261' }" shape="circle" />
-                <p-avatar icon="pi pi-user" styleClass="mr-2" [style]="{ 'background-color': '#dee9fc', color: '#1a2551' }" shape="circle" />
+                <p-avatar
+                    icon="pi pi-user"
+                    styleClass="mr-2"
+                    size="large"
+                    [style]="{ 'background-color': '#ece9fc', color: '#2a1261' }"
+                    shape="circle"
+                />
+                <p-avatar
+                    icon="pi pi-user"
+                    styleClass="mr-2"
+                    [style]="{ 'background-color': '#dee9fc', color: '#1a2551' }"
+                    shape="circle"
+                />
             </div>
             <div class="col-span-12 md:col-span-4">
                 <h5>Badge</h5>
@@ -26,7 +37,7 @@ import { Code } from '@domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="avatar-icon-demo"></app-code>
-    `
+    `,
 })
 export class IconDoc {
     code: Code = {
@@ -120,6 +131,6 @@ import { BadgeModule } from 'primeng/badge';
     standalone: true,
     imports: [AvatarModule, BadgeModule]
 })
-export class AvatarIconDemo {}`
+export class AvatarIconDemo {}`,
     };
 }

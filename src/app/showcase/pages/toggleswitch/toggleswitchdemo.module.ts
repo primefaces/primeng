@@ -6,6 +6,6 @@ import { ToggleSwitchDemoRoutingModule } from './toggleswitchdemo-routing.module
 
 @NgModule({
     imports: [CommonModule, ToggleSwitchDemoRoutingModule, InputSwitchDocModule],
-    declarations: [ToggleSwitchDemo]
+    declarations: [ToggleSwitchDemo],
 })
 export class ToggleSwitchDemoModule {}

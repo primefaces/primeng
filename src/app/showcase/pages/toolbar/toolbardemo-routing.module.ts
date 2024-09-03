@@ -4,6 +4,6 @@ import { ToolbarDemo } from './toolbardemo';
 
 @NgModule({
     imports: [RouterModule.forChild([{ path: '', component: ToolbarDemo }])],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class ToolbarDemoRoutingModule {}

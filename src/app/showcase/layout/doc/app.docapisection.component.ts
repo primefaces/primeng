@@ -14,7 +14,7 @@ import { ObjectUtils } from 'primeng/utils';
             </div>
             <app-docsection [apiDocs]="_docs"></app-docsection>
         </div>
-        <app-docsection-nav [docs]="_docs"></app-docsection-nav>`
+        <app-docsection-nav [docs]="_docs"></app-docsection-nav>`,
 })
 export class AppDocApiSection {
     @Input() header!: string;
@@ -26,7 +26,7 @@ export class AppDocApiSection {
     constructor(
         private location: Location,
         private router: Router,
-        private cd: ChangeDetectorRef
+        private cd: ChangeDetectorRef,
     ) {}
 
     ngOnInit() {
@@ -43,7 +43,9 @@ export class AppDocApiSection {
             return module.description;
         }
         if (!module.description && module.components && Object.keys(module.components).length) {
-            return module.components[docName] && module.components[docName].description ? module.components[docName].description : 'No description available';
+            return module.components[docName] && module.components[docName].description
+                ? module.components[docName].description
+                : 'No description available';
         }
     }
 
@@ -63,7 +65,7 @@ export class AppDocApiSection {
                 label: docName,
                 description: this.getDescription(module, docName),
                 children: [],
-                docName: docName
+                docName: docName,
             };
 
             if (module) {
@@ -75,14 +77,30 @@ export class AppDocApiSection {
                           : module.interfaces && ObjectUtils.isNotEmpty(module.interfaces.components)
                             ? module.interfaces.components[`${docName}Props`].props
                             : undefined;
-                let emits = module.components && module.components[docName] ? module.components[docName].emits : module.emits ? module.emits : undefined;
+                let emits =
+                    module.components && module.components[docName]
+                        ? module.components[docName].emits
+                        : module.emits
+                          ? module.emits
+                          : undefined;
                 let templates = module.interfaces ? module.interfaces.templates : undefined;
                 let events = module.interfaces ? module.interfaces.events : undefined;
-                let methods = module.components && module.components[docName] ? module.components[docName].methods : module.methods ? module.methods : undefined;
+                let methods =
+                    module.components && module.components[docName]
+                        ? module.components[docName].methods
+                        : module.methods
+                          ? module.methods
+                          : undefined;
                 let interfaces = module.interfaces ? module.interfaces : undefined;
                 let types = module.types ? module.types : undefined;
 
-                if (module && module.components && !module.components[docName] && Object.keys(module.components).length && !docName.includes('Service')) {
+                if (
+                    module &&
+                    module.components &&
+                    !module.components[docName] &&
+                    Object.keys(module.components).length &&
+                    !docName.includes('Service')
+                ) {
                     const components = Object.keys(module.components);
                     components.forEach((component) => {
                         const comp = module.components[component];
@@ -96,7 +114,7 @@ export class AppDocApiSection {
                                 label: 'Properties',
                                 component: AppDocApiTable,
                                 description: props.description ?? `Properties of ${docName} component.`,
-                                data: this.setPropsData(comp['props']['values'])
+                                data: this.setPropsData(comp['props']['values']),
                             });
                         }
 
@@ -106,7 +124,7 @@ export class AppDocApiSection {
                                 label: 'Emitters',
                                 description: emits.description ?? `Event emitters of ${docName} component.`,
                                 component: AppDocApiTable,
-                                data: this.setEmitData(emits.values)
+                                data: this.setEmitData(emits.values),
                             });
                         }
 
@@ -116,7 +134,7 @@ export class AppDocApiSection {
                                 label: 'Methods',
                                 description: methods.description ?? `Methods of ${component} component.`,
                                 component: AppDocApiTable,
-                                data: this.setEmitData(methods.values)
+                                data: this.setEmitData(methods.values),
                             });
                         }
                     });
@@ -128,7 +146,7 @@ export class AppDocApiSection {
                         label: 'Properties',
                         component: AppDocApiTable,
                         description: props.description ?? `Properties of ${docName} component.`,
-                        data: this.setPropsData(props.values)
+                        data: this.setPropsData(props.values),
                     });
                 }
 
@@ -138,7 +156,7 @@ export class AppDocApiSection {
                         label: 'Emitters',
                         description: emits.description ?? `Event emitters of ${docName} component.`,
                         component: AppDocApiTable,
-                        data: this.setEmitData(emits.values)
+                        data: this.setEmitData(emits.values),
                     });
                 }
 
@@ -148,7 +166,7 @@ export class AppDocApiSection {
                         label: 'Methods',
                         description: methods.description ?? `Methods of ${docName} component.`,
                         component: AppDocApiTable,
-                        data: this.setEmitData(methods.values)
+                        data: this.setEmitData(methods.values),
                     });
                 }
 
@@ -158,7 +176,7 @@ export class AppDocApiSection {
                         label: 'Templates',
                         description: templates.description ?? `Templates of ${docName} component.`,
                         component: AppDocApiTable,
-                        data: this.setEmitData(templates.values)
+                        data: this.setEmitData(templates.values),
                     });
                 }
 
@@ -168,7 +186,7 @@ export class AppDocApiSection {
                         label: 'Interfaces',
                         component: AppDocApiTable,
                         description: interfaces.description,
-                        data: this.setEventsData(this.docs[0].toLowerCase(), interfaces.values, 'interfaces')
+                        data: this.setEventsData(this.docs[0].toLowerCase(), interfaces.values, 'interfaces'),
                     });
                 }
 
@@ -178,7 +196,7 @@ export class AppDocApiSection {
                         label: 'Types',
                         component: AppDocApiTable,
                         data: this.setTypesData(moduleName, types.values),
-                        description: APIDoc[moduleName].types.description || null
+                        description: APIDoc[moduleName].types.description || null,
                     });
                 }
 
@@ -188,7 +206,7 @@ export class AppDocApiSection {
                         label: 'Events',
                         component: AppDocApiTable,
                         description: events.description ?? `Events used in ${docName} component.`,
-                        data: this.setEventsData(moduleName, events.values)
+                        data: this.setEventsData(moduleName, events.values),
                     });
                 }
 
@@ -200,7 +218,7 @@ export class AppDocApiSection {
                             component: AppDocApiTable,
                             isInterface: interfaces.isInterface ?? false,
                             description: interfaces.interfaces.description,
-                            data: this.setEventsData(this.docs[0], interfaces.interfaces.values, 'interfaces')
+                            data: this.setEventsData(this.docs[0], interfaces.interfaces.values, 'interfaces'),
                         });
 
                         if (interfaces.types && interfaces.types.values && interfaces.types.values.length) {
@@ -209,7 +227,7 @@ export class AppDocApiSection {
                                 label: 'Types',
                                 component: AppDocApiTable,
                                 data: this.setTypesData(moduleName, interfaces.types.values),
-                                description: APIDoc[moduleName].interfaces.types.description || null
+                                description: APIDoc[moduleName].interfaces.types.description || null,
                             });
                         }
                     }
@@ -226,7 +244,9 @@ export class AppDocApiSection {
         });
 
         if (newDocs[0].children.find((child) => child.title == 'Interfaces')) {
-            newDocs[0].children = newDocs[0].children.map((child) => (child.label === 'Interfaces' ? { ...child, data: [...child.data, ...mergedInterfaces] } : child));
+            newDocs[0].children = newDocs[0].children.map((child) =>
+                child.label === 'Interfaces' ? { ...child, data: [...child.data, ...mergedInterfaces] } : child,
+            );
         } else {
             if (mergedInterfaces.length) {
                 newDocs[0].children.push({
@@ -234,7 +254,7 @@ export class AppDocApiSection {
                     label: 'Interfaces',
                     component: AppDocApiTable,
                     description: 'Defines the custom interfaces used by the module.',
-                    data: mergedInterfaces
+                    data: mergedInterfaces,
                 });
             }
         }
@@ -272,7 +292,7 @@ export class AppDocApiSection {
                 component: AppDocApiTable,
                 description: event.description,
                 relatedProp: event.relatedProp ?? 'Related Prop',
-                data: []
+                data: [],
             };
 
             if (event.props && event.props.length) {
@@ -280,7 +300,7 @@ export class AppDocApiSection {
                     eventData.data.push({
                         name: prop.name,
                         type: prop.type,
-                        description: prop.description
+                        description: prop.description,
                     });
                 });
             }
@@ -295,7 +315,7 @@ export class AppDocApiSection {
             name: emitter.name,
             parameters: emitter.parameters,
             description: emitter.description,
-            deprecated: emitter.deprecated
+            deprecated: emitter.deprecated,
         }));
     }
 
@@ -306,7 +326,7 @@ export class AppDocApiSection {
             default: prop.default ? prop.default : 'null',
             description: prop.description,
             deprecated: prop.deprecated,
-            optional: prop.optional
+            optional: prop.optional,
         }));
     }
 
@@ -316,7 +336,7 @@ export class AppDocApiSection {
             type: prop.type,
             default: prop.default ? prop.default : 'null',
             optional: prop.optional,
-            description: prop.description
+            description: prop.description,
         }));
     }
 
@@ -325,7 +345,7 @@ export class AppDocApiSection {
             id: `api.${moduleName}.types.${type.name}`,
             label: type.name,
             component: AppDocApiTable,
-            data: [{ values: type.value }]
+            data: [{ values: type.value }],
         }));
     }
 

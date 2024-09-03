@@ -7,34 +7,34 @@ import { AccessibilityDoc } from '@doc/iconfield/accessibilitydoc';
 
 @Component({
     templateUrl: './iconfielddemo.html',
-    styleUrls: ['./iconfielddemo.scss']
+    styleUrls: ['./iconfielddemo.scss'],
 })
 export class IconFieldDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc
+            component: ImportDoc,
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc
+            component: BasicDoc,
         },
         {
             id: 'template',
             label: 'Template',
-            component: TemplateDoc
+            component: TemplateDoc,
         },
         {
             id: 'style',
             label: 'Style',
-            component: StyleDoc
+            component: StyleDoc,
         },
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc
-        }
+            component: AccessibilityDoc,
+        },
     ];
 }

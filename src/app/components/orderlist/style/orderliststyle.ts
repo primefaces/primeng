@@ -17,7 +17,7 @@ const theme = ({ dt }) => `
 
 const classes = {
     root: 'p-orderlist p-component',
-    controls: 'p-orderlist-controls'
+    controls: 'p-orderlist-controls',
 };
 
 @Injectable()

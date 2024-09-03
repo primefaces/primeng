@@ -13,7 +13,7 @@ import { InputIconStyle } from './style/inputiconstyle';
     template: `<span class="p-inputicon" [ngClass]="styleClass"><ng-content></ng-content></span>`,
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [InputIconStyle]
+    providers: [InputIconStyle],
 })
 export class InputIcon extends BaseComponent {
     /**
@@ -28,6 +28,6 @@ export class InputIcon extends BaseComponent {
 @NgModule({
     imports: [CommonModule],
     exports: [InputIcon, SharedModule],
-    declarations: [InputIcon]
+    declarations: [InputIcon],
 })
 export class InputIconModule {}

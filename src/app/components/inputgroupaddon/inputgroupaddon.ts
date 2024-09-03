@@ -14,7 +14,7 @@ import { InputGroupAddonStyle } from './style/inputgroupaddonstyle';
             <ng-content></ng-content>
         </div>
     `,
-    providers: [InputGroupAddonStyle]
+    providers: [InputGroupAddonStyle],
 })
 export class InputGroupAddon extends BaseComponent {
     /**
@@ -34,6 +34,6 @@ export class InputGroupAddon extends BaseComponent {
 @NgModule({
     imports: [CommonModule],
     exports: [InputGroupAddon, SharedModule],
-    declarations: [InputGroupAddon]
+    declarations: [InputGroupAddon],
 })
 export class InputGroupAddonModule {}

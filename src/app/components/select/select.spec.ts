@@ -8,7 +8,14 @@ import { Component } from '@angular/core';
 
 @Component({
     template: `
-        <p-select [(ngModel)]="selectedCity" [options]="groupedCars" [editable]="editable" [disabled]="disabled" [placeholder]="placeholder" [group]="true">
+        <p-select
+            [(ngModel)]="selectedCity"
+            [options]="groupedCars"
+            [editable]="editable"
+            [disabled]="disabled"
+            [placeholder]="placeholder"
+            [group]="true"
+        >
             <ng-template let-group pTemplate="group">
                 <span>{{ group.label }}</span>
             </ng-template>
@@ -16,7 +23,7 @@ import { Component } from '@angular/core';
         <p-select [(ngModel)]="selectedCity"></p-select>
         <button (click)="setValue()"></button>
         <p-select [(ngModel)]="selectedCity" [options]="groupedCarsAlternate" optionGroupChildren="children" [group]="true"></p-select>
-    `
+    `,
 })
 class TestSelectComponent {
     selectedCity: any;
@@ -28,8 +35,8 @@ class TestSelectComponent {
             items: [
                 { label: 'Audi', value: 'Audi' },
                 { label: 'BMW', value: 'BMW' },
-                { label: 'Mercedes', value: 'Mercedes' }
-            ]
+                { label: 'Mercedes', value: 'Mercedes' },
+            ],
         },
         {
             label: 'USA',
@@ -37,8 +44,8 @@ class TestSelectComponent {
             items: [
                 { label: 'Cadillac', value: 'Cadillac' },
                 { label: 'Ford', value: 'Ford' },
-                { label: 'GMC', value: 'GMC' }
-            ]
+                { label: 'GMC', value: 'GMC' },
+            ],
         },
         {
             label: 'Japan',
@@ -46,15 +53,15 @@ class TestSelectComponent {
             items: [
                 { label: 'Honda', value: 'Honda' },
                 { label: 'Mazda', value: 'Mazda' },
-                { label: 'Toyota', value: 'Toyota' }
-            ]
-        }
+                { label: 'Toyota', value: 'Toyota' },
+            ],
+        },
     ];
 
     groupedCarsAlternate = this.groupedCars.map((city) => ({
         label: city.label,
         value: city.value,
-        children: city.items
+        children: city.items,
     }));
 
     disabled: boolean;
@@ -78,7 +85,7 @@ describe('Select', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [NoopAnimationsModule, FormsModule, ScrollingModule],
-            declarations: [Select, SelectItem, TestSelectComponent]
+            declarations: [Select, SelectItem, TestSelectComponent],
         }).compileComponents();
 
         fixture = TestBed.createComponent(Select);
@@ -126,7 +133,7 @@ describe('Select', () => {
             { name: 'Rome', code: 'RM' },
             { name: 'London', code: 'LDN' },
             { name: 'Istanbul', code: 'IST' },
-            { name: 'Paris', code: 'PRS' }
+            { name: 'Paris', code: 'PRS' },
         ];
         fixture.detectChanges();
 
@@ -145,7 +152,7 @@ describe('Select', () => {
             { name: 'Rome', code: 'RM' },
             { name: 'London', code: 'LDN' },
             { name: 'Istanbul', code: 'IST' },
-            { name: 'Paris', code: 'PRS' }
+            { name: 'Paris', code: 'PRS' },
         ];
         fixture.detectChanges();
 
@@ -164,7 +171,7 @@ describe('Select', () => {
             { name: 'Rome', code: 'RM' },
             { name: 'London', code: 'LDN' },
             { name: 'Istanbul', code: 'IST' },
-            { name: 'Paris', code: 'PRS' }
+            { name: 'Paris', code: 'PRS' },
         ];
         fixture.detectChanges();
 
@@ -186,7 +193,7 @@ describe('Select', () => {
             { name: 'Rome', code: 'RM' },
             { name: 'London', code: 'LDN' },
             { name: 'Istanbul', code: 'IST' },
-            { name: 'Paris', code: 'PRS' }
+            { name: 'Paris', code: 'PRS' },
         ];
         fixture.detectChanges();
 
@@ -207,7 +214,7 @@ describe('Select', () => {
             { label: 'Rome', value: { id: 2, name: 'Rome', code: 'RM' } },
             { label: 'London', value: { id: 3, name: 'London', code: 'LDN' } },
             { label: 'Istanbul', value: { id: 4, name: 'Istanbul', code: 'IST' } },
-            { label: 'Paris', value: { id: 5, name: 'Paris', code: 'PRS' } }
+            { label: 'Paris', value: { id: 5, name: 'Paris', code: 'PRS' } },
         ];
         select.showClear = true;
         fixture.detectChanges();
@@ -237,7 +244,7 @@ describe('Select', () => {
             { label: 'Rome', code: 'RM' },
             { label: 'London', code: 'LDN' },
             { label: 'Istanbul', code: 'IST' },
-            { label: 'Paris', code: 'PRS' }
+            { label: 'Paris', code: 'PRS' },
         ];
         fixture.detectChanges();
 
@@ -265,7 +272,7 @@ describe('Select', () => {
             { label: 'Rome', code: 'RM' },
             { label: 'London', code: 'LDN' },
             { label: 'Istanbul', code: 'IST' },
-            { label: 'Paris', code: 'PRS' }
+            { label: 'Paris', code: 'PRS' },
         ];
         select.filter = true;
         fixture.detectChanges();
@@ -295,7 +302,7 @@ describe('Select', () => {
             { name: 'Rome', code: 'RM' },
             { name: 'London', code: 'LDN' },
             { name: 'Istanbul', code: 'IST' },
-            { name: 'Paris', code: 'PRS' }
+            { name: 'Paris', code: 'PRS' },
         ];
         select.appendTo = 'body';
         fixture.detectChanges();
@@ -315,7 +322,7 @@ describe('Select', () => {
             { name: 'Rome', code: 'RM' },
             { name: 'London', code: 'LDN' },
             { name: 'Istanbul', code: 'IST' },
-            { name: 'Paris', code: 'PRS' }
+            { name: 'Paris', code: 'PRS' },
         ];
         select.appendTo = 'body';
         fixture.detectChanges();
@@ -342,7 +349,7 @@ describe('Select', () => {
             { name: 'Rome', code: 'RM' },
             { name: 'London', code: 'LDN' },
             { name: 'Istanbul', code: 'IST' },
-            { name: 'Paris', code: 'PRS' }
+            { name: 'Paris', code: 'PRS' },
         ];
         select.appendTo = document.body;
         select.optionValue = 'code';
@@ -370,7 +377,7 @@ describe('Select', () => {
             { name: 'Rome', code: 'RM' },
             { name: 'London', code: 'LDN' },
             { name: 'Istanbul', code: 'IST' },
-            { name: 'Paris', code: 'PRS' }
+            { name: 'Paris', code: 'PRS' },
         ];
         select.appendTo = document.body;
         fixture.detectChanges();
@@ -394,7 +401,7 @@ describe('Select', () => {
             { name: 'Rome', code: 'RM' },
             { name: 'London', code: 'LDN' },
             { name: 'Istanbul', code: 'IST' },
-            { name: 'Paris', code: 'PRS' }
+            { name: 'Paris', code: 'PRS' },
         ];
         fixture.detectChanges();
 
@@ -415,7 +422,7 @@ describe('Select', () => {
             { name: 'Rome', code: 'RM' },
             { name: 'London', code: 'LDN' },
             { name: 'Istanbul', code: 'IST', inactive: true },
-            { name: 'Paris', code: 'PRS', inactive: true }
+            { name: 'Paris', code: 'PRS', inactive: true },
         ];
         fixture.detectChanges();
 
@@ -432,7 +439,7 @@ describe('Select', () => {
             { label: 'Rome', value: 'RM' },
             { label: 'London', value: 'LDN' },
             { label: 'Istanbul', value: 'IST' },
-            { label: 'Paris', value: 'PRS' }
+            { label: 'Paris', value: 'PRS' },
         ];
         fixture.detectChanges();
 
@@ -520,6 +527,6 @@ describe('Select', () => {
             fixture.detectChanges();
 
             expect(select.filled()).toBeFalsy();
-        })
+        }),
     );
 });

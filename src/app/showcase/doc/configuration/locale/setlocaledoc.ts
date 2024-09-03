@@ -6,12 +6,13 @@ import { Code } from '@domain/code';
     template: `
         <app-docsectiontext>
             <p>
-                A translation is applied using the PrimeNGConfig instance so begin with injecting it. A common location is the application root to initialize the default language used by the components. English is the default language and
+                A translation is applied using the PrimeNGConfig instance so begin with injecting it. A common location is the application
+                root to initialize the default language used by the components. English is the default language and
                 <i>setTranslation</i> function is used to change the values by passing a <i>Translation</i> object.
             </p>
         </app-docsectiontext>
         <app-code [code]="code" [hideToggleCode]="true"></app-code>
-    `
+    `,
 })
 export class SetLocaleDoc {
     code: Code = {
@@ -34,6 +35,6 @@ export class AppComponent implements OnInit, OnDestroy {
             //translations
         });
     }
-}`
+}`,
     };
 }

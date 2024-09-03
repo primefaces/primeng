@@ -11,14 +11,14 @@ import { Code } from '@domain/code';
             <p-meterGroup [value]="value" />
         </div>
         <app-code [code]="code" selector="meter-group-multiple-demo"></app-code>
-    `
+    `,
 })
 export class MultipleDoc {
     value = [
         { label: 'Apps', color: '#34d399', value: 16 },
         { label: 'Messages', color: '#fbbf24', value: 8 },
         { label: 'Media', color: '#60a5fa', value: 24 },
-        { label: 'System', color: '#c084fc', value: 10 }
+        { label: 'System', color: '#c084fc', value: 10 },
     ];
     code: Code = {
         basic: `<p-meterGroup [value]="value" />`,
@@ -43,6 +43,6 @@ export class MeterGroupMultipleDemo {
         { label: 'Media', color: '#60a5fa', value: 24 },
         { label: 'System', color: '#c084fc', value: 10 }
     ];
-}`
+}`,
     };
 }

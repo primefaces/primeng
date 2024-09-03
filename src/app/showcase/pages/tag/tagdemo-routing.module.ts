@@ -4,6 +4,6 @@ import { TagDemo } from './tagdemo';
 
 @NgModule({
     imports: [RouterModule.forChild([{ path: '', component: TagDemo }])],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class TagDemoRoutingModule {}

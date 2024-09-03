@@ -14,7 +14,14 @@ import { Component } from '@angular/core';
                         fill="url(#paint0_linear_1894_9042)"
                     />
                     <defs>
-                        <linearGradient id="paint0_linear_1894_9042" x1="1120.7" y1="12" x2="1120.7" y2="2412" gradientUnits="userSpaceOnUse">
+                        <linearGradient
+                            id="paint0_linear_1894_9042"
+                            x1="1120.7"
+                            y1="12"
+                            x2="1120.7"
+                            y2="2412"
+                            gradientUnits="userSpaceOnUse"
+                        >
                             <stop stop-color="#5CACF4" />
                             <stop offset="1" stop-color="#1B74C5" />
                         </linearGradient>
@@ -22,6 +29,6 @@ import { Component } from '@angular/core';
                 </svg>
             </span>
         </div>
-    `
+    `,
 })
 export class PoseidonSeparator {}

@@ -21,7 +21,7 @@ const classes = {
     icon: 'p-confirmdialog-icon',
     message: 'p-confirmdialog-message',
     pcRejectButton: 'p-confirmdialog-reject-button',
-    pcAcceptButton: 'p-confirmdialog-accept-button'
+    pcAcceptButton: 'p-confirmdialog-accept-button',
 };
 
 @Injectable()

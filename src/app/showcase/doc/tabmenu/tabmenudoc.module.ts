@@ -20,7 +20,18 @@ import { RouterDoc } from './routerdoc';
 
 @NgModule({
     imports: [CommonModule, AppCodeModule, RouterModule, TabMenuModule, ButtonModule, RippleModule, AppDocModule, ToastModule],
-    declarations: [BasicDoc, ScrollableDoc, ImportDoc, StyleDoc, ControlledDoc, ActiveDoc, TemplateDoc, CommandDoc, RouterDoc, AccessibilityDoc],
-    exports: [AppDocModule]
+    declarations: [
+        BasicDoc,
+        ScrollableDoc,
+        ImportDoc,
+        StyleDoc,
+        ControlledDoc,
+        ActiveDoc,
+        TemplateDoc,
+        CommandDoc,
+        RouterDoc,
+        AccessibilityDoc,
+    ],
+    exports: [AppDocModule],
 })
 export class TabMenuDocModule {}

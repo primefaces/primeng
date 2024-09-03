@@ -4,6 +4,6 @@ import { TerminalDemo } from './terminaldemo';
 
 @NgModule({
     imports: [RouterModule.forChild([{ path: '', component: TerminalDemo }])],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class TerminalDemoRoutingModule {}

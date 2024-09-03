@@ -8,10 +8,7 @@ import { AppConfigService } from '@service/appconfigservice';
     selector: 'chart-pie-demo',
     template: `
         <app-docsectiontext>
-            <p>
-                A pie chart is a circular statistical graphic which is divided into slices to illustrate numerical
-                proportion.
-            </p>
+            <p>A pie chart is a circular statistical graphic which is divided into slices to illustrate numerical proportion.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-chart type="pie" [data]="data" [options]="options" class="w-full md:w-[30rem]" />
@@ -42,9 +39,17 @@ export class PieDoc implements OnInit {
                 datasets: [
                     {
                         data: [540, 325, 702],
-                        backgroundColor: [documentStyle.getPropertyValue('--p-cyan-500'), documentStyle.getPropertyValue('--p-orange-500'), documentStyle.getPropertyValue('--p-gray-500')],
-                        hoverBackgroundColor: [documentStyle.getPropertyValue('--p-cyan-400'), documentStyle.getPropertyValue('--p-orange-400'), documentStyle.getPropertyValue('--p-gray-400')]
-                    }
+                        backgroundColor: [
+                            documentStyle.getPropertyValue('--p-cyan-500'),
+                            documentStyle.getPropertyValue('--p-orange-500'),
+                            documentStyle.getPropertyValue('--p-gray-500'),
+                        ],
+                        hoverBackgroundColor: [
+                            documentStyle.getPropertyValue('--p-cyan-400'),
+                            documentStyle.getPropertyValue('--p-orange-400'),
+                            documentStyle.getPropertyValue('--p-gray-400'),
+                        ],
+                    },
                 ],
             };
 

@@ -6,11 +6,14 @@ import { Code } from '@domain/code';
     selector: 'usage-doc',
     template: `
         <app-docsectiontext>
-            <p>To use dynamic dialog, a reference should be declared as <i>DynamicDialogRef</i> after the <i>DialogService</i> injected into the component.</p>
+            <p>
+                To use dynamic dialog, a reference should be declared as <i>DynamicDialogRef</i> after the <i>DialogService</i> injected
+                into the component.
+            </p>
         </app-docsectiontext>
         <app-code [code]="code" [hideToggleCode]="true"></app-code>
     `,
-    providers: [DialogService]
+    providers: [DialogService],
 })
 export class UsageDoc {
     ref: DynamicDialogRef | undefined;
@@ -33,6 +36,6 @@ export class DynamicDialogDemo implements OnDestroy {
     ref: DynamicDialogRef | undefined;
 
     constructor(public dialogService: DialogService) {}
-}`
+}`,
     };
 }

@@ -6,6 +6,6 @@ import { TableDocModule } from '@doc/table/tabledoc.module';
 
 @NgModule({
     imports: [CommonModule, TableDemoRoutingModule, TableDocModule],
-    declarations: [TableDemo]
+    declarations: [TableDemo],
 })
 export class TableDemoModule {}

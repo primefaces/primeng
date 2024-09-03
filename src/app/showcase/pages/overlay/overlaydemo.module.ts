@@ -6,6 +6,6 @@ import { OverlayDemoRoutingModule } from './overlaydemo-routing.module';
 
 @NgModule({
     imports: [CommonModule, OverlayDemoRoutingModule, OverlayDocModule],
-    declarations: [OverlayDemo]
+    declarations: [OverlayDemo],
 })
 export class OverlayDemoModule {}

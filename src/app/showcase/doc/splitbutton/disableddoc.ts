@@ -7,8 +7,9 @@ import { Code } from '@domain/code';
     template: `
         <app-docsectiontext>
             <p>
-                When the <i>disabled</i> attribute is present, the element is uneditable and unfocused. Additionally, the disabled states of the button and menu button can be handled independently. The button is disabled when <i>buttonDisabled</i> is
-                present, and the menu button is disabled when <i>menuButtonDisabled</i> is present.
+                When the <i>disabled</i> attribute is present, the element is uneditable and unfocused. Additionally, the disabled states of
+                the button and menu button can be handled independently. The button is disabled when <i>buttonDisabled</i> is present, and
+                the menu button is disabled when <i>menuButtonDisabled</i> is present.
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
@@ -17,7 +18,7 @@ import { Code } from '@domain/code';
         </div>
         <app-code [code]="code" selector="split-button-disabled-demo"></app-code>
     `,
-    providers: [MessageService]
+    providers: [MessageService],
 })
 export class DisabledDoc {
     constructor(private messageService: MessageService) {
@@ -26,17 +27,17 @@ export class DisabledDoc {
                 label: 'Update',
                 command: () => {
                     this.update();
-                }
+                },
             },
             {
                 label: 'Delete',
                 command: () => {
                     this.delete();
-                }
+                },
             },
             { label: 'Angular Website', url: 'http://angular.io' },
             { separator: true },
-            { label: 'Upload', routerLink: ['/fileupload'] }
+            { label: 'Upload', routerLink: ['/fileupload'] },
         ];
     }
 
@@ -139,6 +140,6 @@ export class SplitButtonDisabledDemo {
     delete() {
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Data Deleted' });
     }
-}`
+}`,
     };
 }

@@ -6,6 +6,6 @@ import { PanelDemoRoutingModule } from './paneldemo-routing.module';
 
 @NgModule({
     imports: [CommonModule, PanelDemoRoutingModule, PanelDocModule],
-    declarations: [PanelDemo]
+    declarations: [PanelDemo],
 })
 export class PanelDemoModule {}

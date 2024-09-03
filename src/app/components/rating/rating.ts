@@ -85,7 +85,7 @@ export const RATING_VALUE_ACCESSOR: any = {
                     class="p-rating-option"
                     [ngClass]="{
                         'p-rating-option-active': star + 1 <= value,
-                        'p-focus-visible': star + 1 === focusedOptionIndex() && isFocusVisibleItem
+                        'p-focus-visible': star + 1 === focusedOptionIndex() && isFocusVisibleItem,
                     }"
                     (click)="onOptionClick($event, star + 1)"
                 >
@@ -139,12 +139,7 @@ export const RATING_VALUE_ACCESSOR: any = {
             </ng-template>
         </ng-container>
         <ng-template #customTemplate>
-            <span
-                *ngIf="cancel"
-                (click)="onOptionClick($event, 0)"
-                [ngStyle]="iconCancelStyle"
-                [attr.data-pc-section]="'cancelIcon'"
-            >
+            <span *ngIf="cancel" (click)="onOptionClick($event, 0)" [ngStyle]="iconCancelStyle" [attr.data-pc-section]="'cancelIcon'">
                 <ng-container *ngTemplateOutlet="cancelIconTemplate"></ng-container>
             </span>
             <span
@@ -349,9 +344,7 @@ export class Rating extends BaseComponent implements OnInit, ControlValueAccesso
     }
 
     starAriaLabel(value) {
-        return value === 1
-            ? this.config.translation.aria.star
-            : this.config.translation.aria.stars.replace(/{star}/g, value);
+        return value === 1 ? this.config.translation.aria.star : this.config.translation.aria.stars.replace(/{star}/g, value);
     }
 
     getIconTemplate(i: number): Nullable<TemplateRef<any>> {

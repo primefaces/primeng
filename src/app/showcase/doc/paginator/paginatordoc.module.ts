@@ -34,15 +34,6 @@ import { InputNumberModule } from 'primeng/inputnumber';
         DropdownModule,
     ],
     exports: [AppDocModule],
-    declarations: [
-        ImportDoc,
-        BasicDoc,
-        TemplateDoc,
-        ImagesDoc,
-        StyleDoc,
-        AccessibilityDoc,
-        LocaleDoc,
-        CurrentPageReportDoc,
-    ],
+    declarations: [ImportDoc, BasicDoc, TemplateDoc, ImagesDoc, StyleDoc, AccessibilityDoc, LocaleDoc, CurrentPageReportDoc],
 })
 export class PaginatorDocModule {}

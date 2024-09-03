@@ -11,7 +11,7 @@ import { Code } from '@domain/code';
             <p-knob [(ngModel)]="value" [readonly]="true" />
         </div>
         <app-code [code]="code" selector="knob-readonly-demo"></app-code>
-    `
+    `,
 })
 export class ReadonlyDoc {
     value: number = 50;
@@ -35,6 +35,6 @@ import { KnobModule } from 'primeng/knob';
 })
 export class KnobReadonlyDemo {
     value: number = 50;
-}`
+}`,
     };
 }

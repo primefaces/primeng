@@ -11,10 +11,31 @@ import { ContextMenuService, TreeDragDropService } from 'primeng/api';
     template: `
         <p-tree></p-tree>
         <p-contextMenu #cm [model]="item"></p-contextMenu>
-        <p-tree class="files" [value]="filesTree7" draggableNodes="true" droppableNodes="true" droppableScope="files" draggableScope="server2"></p-tree>
-        <p-tree class="server1" [value]="filesTree8" draggableNodes="true" droppableNodes="true" droppableScope="server1" draggableScope="files"></p-tree>
-        <p-tree class="server2" [value]="filesTree9" draggableNodes="true" droppableNodes="true" droppableScope="server2" draggableScope="server1"></p-tree>
-    `
+        <p-tree
+            class="files"
+            [value]="filesTree7"
+            draggableNodes="true"
+            droppableNodes="true"
+            droppableScope="files"
+            draggableScope="server2"
+        ></p-tree>
+        <p-tree
+            class="server1"
+            [value]="filesTree8"
+            draggableNodes="true"
+            droppableNodes="true"
+            droppableScope="server1"
+            draggableScope="files"
+        ></p-tree>
+        <p-tree
+            class="server2"
+            [value]="filesTree9"
+            draggableNodes="true"
+            droppableNodes="true"
+            droppableScope="server2"
+            draggableScope="server1"
+        ></p-tree>
+    `,
 })
 class TestTreeComponent implements OnInit {
     @ViewChild('cm') cm: ElementRef;
@@ -41,17 +62,17 @@ class TestTreeComponent implements OnInit {
                         collapsedIcon: 'pi pi-folder',
                         children: [
                             { label: 'Expenses.doc', icon: 'pi pi-file-word-o', data: 'Expenses Document' },
-                            { label: 'Resume.doc', icon: 'pi pi-file-word-o', data: 'Resume Document' }
-                        ]
+                            { label: 'Resume.doc', icon: 'pi pi-file-word-o', data: 'Resume Document' },
+                        ],
                     },
                     {
                         label: 'Home',
                         data: 'Home Folder',
                         expandedIcon: 'pi pi-folder-open',
                         collapsedIcon: 'pi pi-folder',
-                        children: [{ label: 'Invoices.txt', icon: 'pi pi-file-word-o', data: 'Invoices for this month' }]
-                    }
-                ]
+                        children: [{ label: 'Invoices.txt', icon: 'pi pi-file-word-o', data: 'Invoices for this month' }],
+                    },
+                ],
             },
             {
                 label: 'Pictures',
@@ -61,8 +82,8 @@ class TestTreeComponent implements OnInit {
                 children: [
                     { label: 'barcelona.jpg', icon: 'pi pi-file-image-o', data: 'Barcelona Photo' },
                     { label: 'logo.jpg', icon: 'pi pi-file-image-o', data: 'PrimeFaces Logo' },
-                    { label: 'primeui.png', icon: 'pi pi-file-image-o', data: 'PrimeUI Logo' }
-                ]
+                    { label: 'primeui.png', icon: 'pi pi-file-image-o', data: 'PrimeUI Logo' },
+                ],
             },
             {
                 label: 'Movies',
@@ -75,19 +96,19 @@ class TestTreeComponent implements OnInit {
                         data: 'Pacino Movies',
                         children: [
                             { label: 'Scarface', icon: 'pi pi-file-video-o', data: 'Scarface Movie' },
-                            { label: 'Serpico', icon: 'pi pi-file-video-o', data: 'Serpico Movie' }
-                        ]
+                            { label: 'Serpico', icon: 'pi pi-file-video-o', data: 'Serpico Movie' },
+                        ],
                     },
                     {
                         label: 'Robert De Niro',
                         data: 'De Niro Movies',
                         children: [
                             { label: 'Goodfellas', icon: 'pi pi-file-video-o', data: 'Goodfellas Movie' },
-                            { label: 'Untouchables', icon: 'pi pi-file-video-o', data: 'Untouchables Movie' }
-                        ]
-                    }
-                ]
-            }
+                            { label: 'Untouchables', icon: 'pi pi-file-video-o', data: 'Untouchables Movie' },
+                        ],
+                    },
+                ],
+            },
         ];
 
         this.filesTree8 = [
@@ -95,8 +116,8 @@ class TestTreeComponent implements OnInit {
                 label: 'Backup',
                 data: 'Backup Folder',
                 expandedIcon: 'pi pi-folder-open',
-                collapsedIcon: 'pi pi-folder'
-            }
+                collapsedIcon: 'pi pi-folder',
+            },
         ];
 
         this.filesTree9 = [
@@ -104,13 +125,13 @@ class TestTreeComponent implements OnInit {
                 label: 'Storage',
                 data: 'Storage Folder',
                 expandedIcon: 'pi pi-folder-open',
-                collapsedIcon: 'pi pi-folder'
-            }
+                collapsedIcon: 'pi pi-folder',
+            },
         ];
 
         this.items = [
             { label: 'View', icon: 'pi pi-search' },
-            { label: 'Unselect', icon: 'pi pi-close' }
+            { label: 'Unselect', icon: 'pi pi-close' },
         ];
     }
 }
@@ -129,7 +150,7 @@ describe('Tree', () => {
             imports: [NoopAnimationsModule, RouterTestingModule.withRoutes([{ path: 'test', component: ContextMenu }])],
             declarations: [Tree, UITreeNode, ContextMenu, ContextMenuSub, TestTreeComponent],
             providers: [TreeDragDropService, ContextMenuService],
-            schemas: [NO_ERRORS_SCHEMA]
+            schemas: [NO_ERRORS_SCHEMA],
         });
 
         fixture = TestBed.createComponent(TestTreeComponent);
@@ -153,17 +174,17 @@ describe('Tree', () => {
                         collapsedIcon: 'pi pi-folder',
                         children: [
                             { label: 'Expenses.doc', icon: 'pi pi-file-word-o', data: 'Expenses Document' },
-                            { label: 'Resume.doc', icon: 'pi pi-file-word-o', data: 'Resume Document' }
-                        ]
+                            { label: 'Resume.doc', icon: 'pi pi-file-word-o', data: 'Resume Document' },
+                        ],
                     },
                     {
                         label: 'Home',
                         data: 'Home Folder',
                         expandedIcon: 'pi pi-folder-open',
                         collapsedIcon: 'pi pi-folder',
-                        children: [{ label: 'Invoices.txt', icon: 'pi pi-file-word-o', data: 'Invoices for this month' }]
-                    }
-                ]
+                        children: [{ label: 'Invoices.txt', icon: 'pi pi-file-word-o', data: 'Invoices for this month' }],
+                    },
+                ],
             },
             {
                 label: 'Pictures',
@@ -173,8 +194,8 @@ describe('Tree', () => {
                 children: [
                     { label: 'barcelona.jpg', icon: 'pi pi-file-image-o', data: 'Barcelona Photo' },
                     { label: 'logo.jpg', icon: 'pi pi-file-image-o', data: 'PrimeFaces Logo' },
-                    { label: 'primeui.png', icon: 'pi pi-file-image-o', data: 'PrimeUI Logo' }
-                ]
+                    { label: 'primeui.png', icon: 'pi pi-file-image-o', data: 'PrimeUI Logo' },
+                ],
             },
             {
                 label: 'Movies',
@@ -187,19 +208,19 @@ describe('Tree', () => {
                         data: 'Pacino Movies',
                         children: [
                             { label: 'Scarface', icon: 'pi pi-file-video-o', data: 'Scarface Movie' },
-                            { label: 'Serpico', icon: 'pi pi-file-video-o', data: 'Serpico Movie' }
-                        ]
+                            { label: 'Serpico', icon: 'pi pi-file-video-o', data: 'Serpico Movie' },
+                        ],
                     },
                     {
                         label: 'Robert De Niro',
                         data: 'De Niro Movies',
                         children: [
                             { label: 'Goodfellas', icon: 'pi pi-file-video-o', data: 'Goodfellas Movie' },
-                            { label: 'Untouchables', icon: 'pi pi-file-video-o', data: 'Untouchables Movie' }
-                        ]
-                    }
-                ]
-            }
+                            { label: 'Untouchables', icon: 'pi pi-file-video-o', data: 'Untouchables Movie' },
+                        ],
+                    },
+                ],
+            },
         ];
     });
 

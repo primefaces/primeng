@@ -1,5 +1,18 @@
 import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { Directive, ElementRef, EventEmitter, HostListener, Inject, Input, NgModule, Output, PLATFORM_ID, Provider, booleanAttribute, forwardRef } from '@angular/core';
+import {
+    Directive,
+    ElementRef,
+    EventEmitter,
+    HostListener,
+    Inject,
+    Input,
+    NgModule,
+    Output,
+    PLATFORM_ID,
+    Provider,
+    booleanAttribute,
+    forwardRef,
+} from '@angular/core';
 import { AbstractControl, NG_VALIDATORS, Validator } from '@angular/forms';
 import { DomHandler } from 'primeng/dom';
 import { KeyFilterPattern } from './keyfilter.interface';
@@ -7,7 +20,7 @@ import { KeyFilterPattern } from './keyfilter.interface';
 export const KEYFILTER_VALIDATOR: Provider = {
     provide: NG_VALIDATORS,
     useExisting: forwardRef(() => KeyFilter),
-    multi: true
+    multi: true,
 };
 
 type SafariKeys = {
@@ -39,7 +52,7 @@ const DEFAULT_MASKS: Record<KeyFilterPattern, RegExp> = {
     hex: /^[0-9a-f]*$/i,
     email: /^[a-z0-9_\.\-@]*$/i,
     alpha: /^[a-z_]*$/i,
-    alphanum: /^[a-z0-9_]*$/i
+    alphanum: /^[a-z0-9_]*$/i,
 };
 
 const KEYS: Keys = {
@@ -47,7 +60,7 @@ const KEYS: Keys = {
     RETURN: 13,
     ESC: 27,
     BACKSPACE: 8,
-    DELETE: 46
+    DELETE: 46,
 };
 
 const SAFARI_KEYS: SafariKeys = {
@@ -59,7 +72,7 @@ const SAFARI_KEYS: SafariKeys = {
     63277: 34, // page down
     63272: 46, // delete
     63273: 36, // home
-    63275: 35 // end
+    63275: 35, // end
 };
 /**
  * KeyFilter Directive is a built-in feature of InputText to restrict user input based on a regular expression.
@@ -67,7 +80,7 @@ const SAFARI_KEYS: SafariKeys = {
  */
 @Directive({
     selector: '[pKeyFilter]',
-    providers: [KEYFILTER_VALIDATOR]
+    providers: [KEYFILTER_VALIDATOR],
 })
 export class KeyFilter implements Validator {
     /**
@@ -110,7 +123,11 @@ export class KeyFilter implements Validator {
 
     lastValue: any;
 
-    constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, public el: ElementRef) {
+    constructor(
+        @Inject(DOCUMENT) private document: Document,
+        @Inject(PLATFORM_ID) private platformId: any,
+        public el: ElementRef,
+    ) {
         if (isPlatformBrowser(this.platformId)) {
             this.isAndroid = DomHandler.isAndroid();
         } else {
@@ -128,7 +145,17 @@ export class KeyFilter implements Validator {
     isSpecialKey(e: KeyboardEvent) {
         let k = e.keyCode || e.charCode;
 
-        return k == 9 || k == 13 || k == 27 || k == 16 || k == 17 || (k >= 18 && k <= 20) || (DomHandler.getBrowser().opera && !e.shiftKey && (k == 8 || (k >= 33 && k <= 35) || (k >= 36 && k <= 39) || (k >= 44 && k <= 45)));
+        return (
+            k == 9 ||
+            k == 13 ||
+            k == 27 ||
+            k == 16 ||
+            k == 17 ||
+            (k >= 18 && k <= 20) ||
+            (DomHandler.getBrowser().opera &&
+                !e.shiftKey &&
+                (k == 8 || (k >= 33 && k <= 35) || (k >= 36 && k <= 39) || (k >= 44 && k <= 45)))
+        );
     }
 
     getKey(e: KeyboardEvent) {
@@ -257,7 +284,7 @@ export class KeyFilter implements Validator {
             let value = this.el.nativeElement.value;
             if (value && !this.regex.test(value)) {
                 return {
-                    validatePattern: false
+                    validatePattern: false,
                 };
             }
         }
@@ -267,6 +294,6 @@ export class KeyFilter implements Validator {
 @NgModule({
     imports: [CommonModule],
     exports: [KeyFilter],
-    declarations: [KeyFilter]
+    declarations: [KeyFilter],
 })
 export class KeyFilterModule {}

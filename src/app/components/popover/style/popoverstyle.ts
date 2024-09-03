@@ -85,7 +85,7 @@ const theme = ({ dt }) => `
 
 const classes = {
     root: 'p-popover p-component',
-    content: 'p-popover-content'
+    content: 'p-popover-content',
 };
 
 @Injectable()

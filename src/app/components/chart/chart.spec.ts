@@ -9,7 +9,7 @@ describe('UIChart', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [NoopAnimationsModule],
-            declarations: [UIChart]
+            declarations: [UIChart],
         });
 
         fixture = TestBed.createComponent(UIChart);
@@ -22,10 +22,10 @@ describe('UIChart', () => {
                 {
                     data: [11, 16, 7, 3, 14],
                     backgroundColor: ['#42A5F5', '#66BB6A', '#FFA726', '#26C6DA', '#7E57C2'],
-                    label: 'My dataset'
-                }
+                    label: 'My dataset',
+                },
             ],
-            labels: ['Red', 'Green', 'Yellow', 'Grey', 'Blue']
+            labels: ['Red', 'Green', 'Yellow', 'Grey', 'Blue'],
         };
 
         chart.data = testData;
@@ -50,10 +50,10 @@ describe('UIChart', () => {
                 {
                     data: [11, 16, 7, 3, 14],
                     backgroundColor: ['#42A5F5', '#66BB6A', '#FFA726', '#26C6DA', '#7E57C2'],
-                    label: 'My dataset'
-                }
+                    label: 'My dataset',
+                },
             ],
-            labels: ['Red', 'Green', 'Yellow', 'Grey', 'Blue']
+            labels: ['Red', 'Green', 'Yellow', 'Grey', 'Blue'],
         };
         chart.height = '200px';
         chart.width = '200px';

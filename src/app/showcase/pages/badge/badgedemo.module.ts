@@ -6,6 +6,6 @@ import { BadgeDemoRoutingModule } from './badgedemo-routing.module';
 
 @NgModule({
     imports: [CommonModule, BadgeDemoRoutingModule, BadgeDocModule],
-    declarations: [BadgeDemo]
+    declarations: [BadgeDemo],
 })
 export class BadgeDemoModule {}

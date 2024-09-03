@@ -4,6 +4,6 @@ import { DockDemo } from './dockdemo';
 
 @NgModule({
     imports: [RouterModule.forChild([{ path: '', component: DockDemo }])],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class DockDemoRoutingModule {}

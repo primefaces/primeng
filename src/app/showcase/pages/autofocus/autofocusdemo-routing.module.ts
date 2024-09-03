@@ -4,6 +4,6 @@ import { AutoFocusDemo } from './autofocusdemo';
 
 @NgModule({
     imports: [RouterModule.forChild([{ path: '', component: AutoFocusDemo }])],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class AutoFocusDemoRoutingModule {}

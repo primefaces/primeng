@@ -6,6 +6,6 @@ import { InputGroupDemoRoutingModule } from './inputgroupdemo-routing.module';
 
 @NgModule({
     imports: [CommonModule, InputGroupDemoRoutingModule, InputGroupDocModule],
-    declarations: [InputGroupDemo]
+    declarations: [InputGroupDemo],
 })
 export class InputGroupDemoModule {}

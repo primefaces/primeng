@@ -9,49 +9,49 @@ import { TypeDoc } from '@doc/divider/typedoc';
 import { VerticalDoc } from '@doc/divider/verticaldoc';
 
 @Component({
-    templateUrl: './dividerdemo.html'
+    templateUrl: './dividerdemo.html',
 })
 export class DividerDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc
+            component: ImportDoc,
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc
+            component: BasicDoc,
         },
         {
             id: 'type',
             label: 'Type',
-            component: TypeDoc
+            component: TypeDoc,
         },
         {
             id: 'vertical',
             label: 'Vertical',
-            component: VerticalDoc
+            component: VerticalDoc,
         },
         {
             id: 'content',
             label: 'Content',
-            component: ContentDoc
+            component: ContentDoc,
         },
         {
             id: 'login',
             label: 'Login',
-            component: LoginDoc
+            component: LoginDoc,
         },
         {
             id: 'style',
             label: 'Style',
-            component: StyleDoc
+            component: StyleDoc,
         },
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc
-        }
+            component: AccessibilityDoc,
+        },
     ];
 }

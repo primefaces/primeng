@@ -4,6 +4,6 @@ import { InputMaskDemo } from './inputmaskdemo';
 
 @NgModule({
     imports: [RouterModule.forChild([{ path: '', component: InputMaskDemo }])],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class InputMaskDemoRoutingModule {}

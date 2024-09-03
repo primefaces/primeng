@@ -5,6 +5,6 @@ import { PlaygroundComponent } from './playground.component';
 
 @NgModule({
     imports: [CommonModule, PlaygroundRoutingModule],
-    declarations: [PlaygroundComponent]
+    declarations: [PlaygroundComponent],
 })
 export class PlaygroundModule {}

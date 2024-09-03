@@ -7,13 +7,16 @@ import { NodeService } from '@service/nodeservice';
     selector: 'single-doc',
     template: `
         <app-docsectiontext>
-            <p>Single node selection is configured by setting <i>selectionMode</i> as <i>single</i> along with <i>selection</i> properties to manage the selection value binding.</p>
+            <p>
+                Single node selection is configured by setting <i>selectionMode</i> as <i>single</i> along with <i>selection</i> properties
+                to manage the selection value binding.
+            </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-tree [value]="files" class="w-full md:w-[30rem]" selectionMode="single" [(selection)]="selectedFile" />
         </div>
         <app-code [code]="code" selector="tree-single-demo"></app-code>
-    `
+    `,
 })
 export class SingleDoc implements OnInit {
     files!: TreeNode[];
@@ -94,6 +97,6 @@ export class TreeSingleDemo implements OnInit {
         }
     ]
 },
-...`
+...`,
     };
 }

@@ -28,7 +28,7 @@ import { Code } from '@domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="radio-button-group-demo"></app-code>
-    `
+    `,
 })
 export class GroupDoc {
     ingredient!: string;
@@ -140,6 +140,6 @@ import { FormsModule } from '@angular/forms';
 })
 export class RadioButtonGroupDemo {
     ingredient!: string;
-}`
+}`,
     };
 }

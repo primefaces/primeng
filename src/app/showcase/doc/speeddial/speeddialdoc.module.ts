@@ -20,6 +20,17 @@ import { TooltipDoc } from './tooltipdoc';
 @NgModule({
     imports: [CommonModule, AppCodeModule, AppDocModule, SpeedDialModule, MessagesModule, ToastModule, TooltipModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, LinearDoc, CircleDoc, SemiCircleDoc, QuarterCircleDoc, TooltipDoc, MaskDoc, CustomDoc, StyleDoc, AccessibilityDoc]
+    declarations: [
+        ImportDoc,
+        LinearDoc,
+        CircleDoc,
+        SemiCircleDoc,
+        QuarterCircleDoc,
+        TooltipDoc,
+        MaskDoc,
+        CustomDoc,
+        StyleDoc,
+        AccessibilityDoc,
+    ],
 })
 export class SpeedDialDocModule {}

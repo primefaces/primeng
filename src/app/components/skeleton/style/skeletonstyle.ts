@@ -40,7 +40,7 @@ const theme = ({ dt }) => `
 `;
 
 const inlineStyles = {
-    root: { position: 'relative' }
+    root: { position: 'relative' },
 };
 
 const classes = {
@@ -48,9 +48,9 @@ const classes = {
         'p-skeleton p-component',
         {
             'p-skeleton-circle': props.shape === 'circle',
-            'p-skeleton-animation-none': props.animation === 'none'
-        }
-    ]
+            'p-skeleton-animation-none': props.animation === 'none',
+        },
+    ],
 };
 
 @Injectable()

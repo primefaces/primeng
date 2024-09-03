@@ -16,7 +16,7 @@ import { Code } from '@domain/code';
             </ng-template>
         </div>
         <app-code [code]="code" selector="tooltip-custom-demo"></app-code>
-    `
+    `,
 })
 export class CustomDoc {
     code: Code = {
@@ -55,6 +55,6 @@ import { ButtonModule } from 'primeng/button';
 })
 export class TooltipCustomDemo {
   
-}`
+}`,
     };
 }

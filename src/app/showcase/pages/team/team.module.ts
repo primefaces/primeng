@@ -5,6 +5,6 @@ import { TeamComponent } from './team.component';
 
 @NgModule({
     declarations: [TeamComponent],
-    imports: [CommonModule, TeamRoutingModule]
+    imports: [CommonModule, TeamRoutingModule],
 })
 export class TeamModule {}

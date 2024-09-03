@@ -23,124 +23,124 @@ import { InvalidDoc } from '@doc/datepicker/invaliddoc';
 import { DisabledDoc } from '@doc/datepicker/disableddoc';
 import { FilledDoc } from '@doc/datepicker/filleddoc';
 @Component({
-    templateUrl: './datepickerdemo.html'
+    templateUrl: './datepickerdemo.html',
 })
 export class DatePickerDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc
+            component: ImportDoc,
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc
+            component: BasicDoc,
         },
         {
             id: 'reactive-forms',
             label: 'Reactive Forms',
-            component: ReactiveFormsDoc
+            component: ReactiveFormsDoc,
         },
         {
             id: 'format',
             label: 'Format',
-            component: FormatDoc
+            component: FormatDoc,
         },
         {
             id: 'locale',
             label: 'Locale',
-            component: LocaleDoc
+            component: LocaleDoc,
         },
         {
             id: 'icon',
             label: 'Icon',
-            component: IconDoc
+            component: IconDoc,
         },
         {
             id: 'minmax',
             label: 'Min / Max',
-            component: MinMaxDoc
+            component: MinMaxDoc,
         },
         {
             id: 'multiple',
             label: 'Multiple',
-            component: MultipleDoc
+            component: MultipleDoc,
         },
         {
             id: 'range',
             label: 'Range',
-            component: RangeDoc
+            component: RangeDoc,
         },
         {
             id: 'buttonbar',
             label: 'ButtonBar',
-            component: ButtonBarDoc
+            component: ButtonBarDoc,
         },
         {
             id: 'time',
             label: 'Time',
-            component: TimeDoc
+            component: TimeDoc,
         },
         {
             id: 'monthpicker',
             label: 'Month Picker',
-            component: MonthDoc
+            component: MonthDoc,
         },
         {
             id: 'yearpicker',
             label: 'Year Picker',
-            component: YearDoc
+            component: YearDoc,
         },
         {
             id: 'multiplemonths',
             label: 'Multiple Months',
-            component: MultipleMonthDoc
+            component: MultipleMonthDoc,
         },
         {
             id: 'datetemplate',
             label: 'Date Template',
-            component: DateTemplateDoc
+            component: DateTemplateDoc,
         },
         {
             id: 'touchui',
             label: 'TouchUI',
-            component: TouchUIDoc
+            component: TouchUIDoc,
         },
         {
             id: 'inline',
             label: 'Inline',
-            component: InlineDoc
+            component: InlineDoc,
         },
         {
             id: 'floatlabel',
             label: 'Float Label',
-            component: FloatLabelDoc
+            component: FloatLabelDoc,
         },
         {
             id: 'filled',
             label: 'Filled',
-            component: FilledDoc
+            component: FilledDoc,
         },
         {
             id: 'invalid',
             label: 'Invalid',
-            component: InvalidDoc
+            component: InvalidDoc,
         },
         {
             id: 'disabled',
             label: 'Disabled',
-            component: DisabledDoc
+            component: DisabledDoc,
         },
         {
             id: 'style',
             label: 'Style',
-            component: StyleDoc
+            component: StyleDoc,
         },
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc
-        }
+            component: AccessibilityDoc,
+        },
     ];
 }

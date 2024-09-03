@@ -4,6 +4,6 @@ import { FocusTrapDemo } from './focustrapdemo';
 
 @NgModule({
     imports: [RouterModule.forChild([{ path: '', component: FocusTrapDemo }])],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class FocusTrapDemoRoutingModule {}

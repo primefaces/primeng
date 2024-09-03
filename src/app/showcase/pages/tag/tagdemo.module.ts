@@ -6,6 +6,6 @@ import { TagDemoRoutingModule } from './tagdemo-routing.module';
 
 @NgModule({
     imports: [CommonModule, TagDemoRoutingModule, TagDocModule],
-    declarations: [TagDemo]
+    declarations: [TagDemo],
 })
 export class TagDemoModule {}

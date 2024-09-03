@@ -18,7 +18,7 @@ import { SharedModule } from 'primeng/api';
         </div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
 })
 export class TemplateRelated {
     @Input() relatedData: any[] = [];
@@ -27,6 +27,6 @@ export class TemplateRelated {
 @NgModule({
     imports: [CommonModule, SharedModule, RouterModule],
     exports: [TemplateRelated, SharedModule],
-    declarations: [TemplateRelated]
+    declarations: [TemplateRelated],
 })
 export class TemplateRelatedModule {}

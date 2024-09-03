@@ -14,7 +14,7 @@ import { Code } from '@domain/code';
             </p-floatLabel>
         </div>
         <app-code [code]="code" selector="input-text-floatlabel-demo"></app-code>
-    `
+    `,
 })
 export class FloatLabelDoc {
     value: string | undefined;
@@ -45,6 +45,6 @@ import { FloatLabelModule } from 'primeng/floatlabel';
 })
 export class InputTextFloatlabelDemo {
     value: string | undefined;
-}`
+}`,
     };
 }

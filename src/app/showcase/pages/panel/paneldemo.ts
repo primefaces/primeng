@@ -7,39 +7,39 @@ import { StyleDoc } from '@doc/panel/styledoc';
 import { AccessibilityDoc } from '@doc/panel/accessibilitydoc';
 
 @Component({
-    templateUrl: './paneldemo.html'
+    templateUrl: './paneldemo.html',
 })
 export class PanelDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc
+            component: ImportDoc,
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc
+            component: BasicDoc,
         },
         {
             id: 'toggleable',
             label: 'Toggleable',
-            component: ToggleableDoc
+            component: ToggleableDoc,
         },
         {
             id: 'template',
             label: 'Template',
-            component: TemplateDoc
+            component: TemplateDoc,
         },
         {
             id: 'style',
             label: 'Style',
-            component: StyleDoc
+            component: StyleDoc,
         },
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc
-        }
+            component: AccessibilityDoc,
+        },
     ];
 }

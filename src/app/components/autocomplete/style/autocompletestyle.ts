@@ -46,8 +46,8 @@ const theme = ({ dt }) => `
     border-left: 0 none;
     color: ${dt('autocomplete.dropdown.color')};
     transition: background ${dt('autocomplete.transition.duration')}, color ${dt('autocomplete.transition.duration')}, border-color ${dt('autocomplete.transition.duration')}, outline-color ${dt('autocomplete.transition.duration')}, box-shadow ${dt(
-    'autocomplete.transition.duration'
-)};
+        'autocomplete.transition.duration',
+    )};
     outline-color: transparent;
 }
 
@@ -149,8 +149,8 @@ const theme = ({ dt }) => `
     border-radius: ${dt('autocomplete.border.radius')};
     width: 100%;
     transition: background ${dt('autocomplete.transition.duration')}, color ${dt('autocomplete.transition.duration')}, border-color ${dt('autocomplete.transition.duration')}, outline-color ${dt('autocomplete.transition.duration')}, box-shadow ${dt(
-    'autocomplete.transition.duration'
-)};
+        'autocomplete.transition.duration',
+    )};
     outline-color: transparent;
     box-shadow: ${dt('autocomplete.shadow')};
 }
@@ -255,7 +255,7 @@ p-autocomplete.ng-invalid.ng-dirty > .p-autocomplete.p-inputwrapper > .p-autocom
 `;
 
 const inlineStyles = {
-    root: { position: 'relative' }
+    root: { position: 'relative' },
 };
 
 const classes = {
@@ -268,18 +268,18 @@ const classes = {
         'p-autocomplete-open': instance.overlayVisible,
         'p-autocomplete-clearable': instance.showClear && !instance.disabled,
         // 'p-invalid': instance.invalid,
-        'p-autocomplete-fluid': instance.hasFluid()
+        'p-autocomplete-fluid': instance.hasFluid(),
     }),
     pcInput: 'p-autocomplete-input',
     inputMultiple: ({ instance }) => ({
         'p-autocomplete-input-multiple': true,
-        'p-variant-filled': instance.variant ? instance.variant === 'filled' : instance.config.inputStyle() === 'filled'
+        'p-variant-filled': instance.variant ? instance.variant === 'filled' : instance.config.inputStyle() === 'filled',
     }),
     chipItem: ({ instance, i }) => [
         'p-autocomplete-chip-item',
         {
-            'p-focus': instance.focusedMultipleOptionIndex === i
-        }
+            'p-focus': instance.focusedMultipleOptionIndex === i,
+        },
     ],
     pcChip: 'p-autocomplete-chip',
     chipIcon: 'p-autocomplete-chip-icon',
@@ -293,9 +293,9 @@ const classes = {
         'p-autocomplete-option': true,
         'p-autocomplete-option-selected': instance.isSelected(option),
         'p-focus': instance.focusedOptionIndex === instance.getOptionIndex(i, getItemOptions),
-        'p-disabled': instance.isOptionDisabled(option)
+        'p-disabled': instance.isOptionDisabled(option),
     }),
-    emptyMessage: 'p-autocomplete-empty-message'
+    emptyMessage: 'p-autocomplete-empty-message',
 };
 
 @Injectable()

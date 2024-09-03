@@ -15,11 +15,20 @@ interface UploadEvent {
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-toast />
-            <p-fileUpload mode="basic" chooseLabel="Choose" chooseIcon="pi pi-upload" name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php" accept="image/*" maxFileSize="1000000" (onUpload)="onUpload($event)" />
+            <p-fileUpload
+                mode="basic"
+                chooseLabel="Choose"
+                chooseIcon="pi pi-upload"
+                name="demo[]"
+                url="https://www.primefaces.org/cdn/api/upload.php"
+                accept="image/*"
+                maxFileSize="1000000"
+                (onUpload)="onUpload($event)"
+            />
         </div>
         <app-code [code]="code" selector="file-upload-basic-demo"></app-code>
     `,
-    providers: [MessageService]
+    providers: [MessageService],
 })
 export class BasicDoc {
     constructor(private messageService: MessageService) {}
@@ -73,6 +82,6 @@ export class FileUploadBasicDemo {
     onUpload(event: UploadEvent) {
         this.messageService.add({ severity: 'info', summary: 'Success', detail: 'File Uploaded with Basic Mode' });
     }
-}`
+}`,
     };
 }

@@ -7,7 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { InputText } from 'primeng/inputtext';
 
 @Component({
-    template: `<input type="text" [pValidateOnly]="validateOnly" [(ngModel)]="cc" pKeyFilter="int" pInputText placeholder="Integers" />`
+    template: `<input type="text" [pValidateOnly]="validateOnly" [(ngModel)]="cc" pKeyFilter="int" pInputText placeholder="Integers" />`,
 })
 class TestKeyFilterComponent {
     type: string = 'int';
@@ -23,7 +23,7 @@ describe('KeyFilter', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [NoopAnimationsModule, FormsModule],
-            declarations: [KeyFilter, TestKeyFilterComponent, InputText]
+            declarations: [KeyFilter, TestKeyFilterComponent, InputText],
         });
 
         fixture = TestBed.createComponent(TestKeyFilterComponent);
@@ -140,7 +140,7 @@ describe('KeyFilter', () => {
         keydownEvent.clipboardData = {
             getData: (type) => {
                 return '53';
-            }
+            },
         };
         keydownEvent.initEvent('paste', true, true);
         const preventDefaultSpy = spyOn(keydownEvent, 'preventDefault').and.callThrough();
@@ -160,7 +160,7 @@ describe('KeyFilter', () => {
         keydownEvent.clipboardData = {
             getData: (type) => {
                 return 'pasteevent';
-            }
+            },
         };
         const preventDefaultSpy = spyOn(keydownEvent, 'preventDefault').and.callThrough();
         inputEl.dispatchEvent(keydownEvent);

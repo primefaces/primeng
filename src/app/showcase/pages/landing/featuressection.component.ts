@@ -24,8 +24,7 @@ import { AppConfigService } from '@service/appconfigservice';
                                 />
                                 <div class="font-semibold mb-4 text-lg">80+ UI Components</div>
                                 <p class="m-0 text-surface-500 dark:text-surface-400 font-medium">
-                                    The ultimate set of UI Components to assist you with 80+ impressive Angular
-                                    Components.
+                                    The ultimate set of UI Components to assist you with 80+ impressive Angular Components.
                                 </p>
                             </div>
                         </div>
@@ -40,8 +39,8 @@ import { AppConfigService } from '@service/appconfigservice';
                                 />
                                 <div class="font-semibold mb-4 text-lg">Community</div>
                                 <p class="m-0 text-surface-500 dark:text-surface-400 font-medium">
-                                    Connect with the other open source community members, collaborate and have a voice
-                                    in the project roadmap.
+                                    Connect with the other open source community members, collaborate and have a voice in the project
+                                    roadmap.
                                 </p>
                             </div>
                         </div>
@@ -56,8 +55,7 @@ import { AppConfigService } from '@service/appconfigservice';
                                 />
                                 <div class="font-semibold mb-4 text-lg">Productivity</div>
                                 <p class="m-0 text-surface-500 dark:text-surface-400 font-medium">
-                                    Boost your productivity by achieving more in less time and accomplish amazing
-                                    results.
+                                    Boost your productivity by achieving more in less time and accomplish amazing results.
                                 </p>
                             </div>
                         </div>
@@ -85,8 +83,8 @@ import { AppConfigService } from '@service/appconfigservice';
                                 />
                                 <div class="font-semibold mb-4 text-lg">Enterprise Support</div>
                                 <p class="m-0 text-surface-500 dark:text-surface-400 font-medium">
-                                    Exceptional support service featuring response within 1 business day and option to
-                                    request enhancements and new features for the library.
+                                    Exceptional support service featuring response within 1 business day and option to request enhancements
+                                    and new features for the library.
                                 </p>
                             </div>
                         </div>
@@ -116,8 +114,8 @@ import { AppConfigService } from '@service/appconfigservice';
                                 />
                                 <div class="font-semibold mb-4 text-lg">Themes</div>
                                 <p class="m-0 text-surface-500 dark:text-surface-400 font-medium">
-                                    Built on a design-agnostic api, choose from a vast amount of themes such as
-                                    Material, Bootstrap, custom or develop your own.
+                                    Built on a design-agnostic api, choose from a vast amount of themes such as Material, Bootstrap, custom
+                                    or develop your own.
                                 </p>
                             </div>
                         </div>

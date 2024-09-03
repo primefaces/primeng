@@ -20,32 +20,32 @@ export default {
             style: '{form.field.focus.ring.style}',
             color: '{form.field.focus.ring.color}',
             offset: '{form.field.focus.ring.offset}',
-            shadow: '{form.field.focus.ring.shadow}'
+            shadow: '{form.field.focus.ring.shadow}',
         },
-        transitionDuration: '{form.field.transition.duration}'
+        transitionDuration: '{form.field.transition.duration}',
     },
     icon: {
         color: '{text.muted.color}',
         hoverColor: '{text.muted.color}',
         checkedColor: '{highlight.color}',
-        disabledColor: '{form.field.disabled.color}'
+        disabledColor: '{form.field.disabled.color}',
     },
     content: {
         left: '0.25rem',
         top: '0.25rem',
         checkedBackground: 'transparent',
-        checkedShadow: 'none'
+        checkedShadow: 'none',
     },
     colorScheme: {
         light: {
             root: {
-                hoverBackground: '{surface.100}'
-            }
+                hoverBackground: '{surface.100}',
+            },
         },
         dark: {
             root: {
-                hoverBackground: '{surface.800}'
-            }
-        }
-    }
+                hoverBackground: '{surface.800}',
+            },
+        },
+    },
 };

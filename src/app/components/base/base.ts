@@ -14,5 +14,5 @@ export default {
     },
     clearLoadedStyleNames() {
         this._loadedStyleNames.clear();
-    }
+    },
 };

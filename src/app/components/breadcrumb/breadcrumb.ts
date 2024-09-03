@@ -1,5 +1,18 @@
 import { CommonModule } from '@angular/common';
-import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChildren, EventEmitter, inject, Input, NgModule, Output, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
+import {
+    AfterContentInit,
+    ChangeDetectionStrategy,
+    Component,
+    ContentChildren,
+    EventEmitter,
+    inject,
+    Input,
+    NgModule,
+    Output,
+    QueryList,
+    TemplateRef,
+    ViewEncapsulation,
+} from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { MenuItem, PrimeTemplate, SharedModule } from 'primeng/api';
 import { ChevronRightIcon } from 'primeng/icons/chevronright';
@@ -15,7 +28,13 @@ import { BaseComponent } from 'primeng/basecomponent';
 @Component({
     selector: 'p-breadcrumb',
     template: `
-        <nav [class]="styleClass" [ngStyle]="style" [ngClass]="'p-breadcrumb p-component'" [attr.data-pc-name]="'breadcrumb'" [attr.data-pc-section]="'root'">
+        <nav
+            [class]="styleClass"
+            [ngStyle]="style"
+            [ngClass]="'p-breadcrumb p-component'"
+            [attr.data-pc-name]="'breadcrumb'"
+            [attr.data-pc-section]="'root'"
+        >
             <ol [attr.data-pc-section]="'menu'" class="p-breadcrumb-list">
                 <li
                     [class]="home.styleClass"
@@ -67,8 +86,12 @@ import { BaseComponent } from 'primeng/basecomponent';
                         <span *ngIf="home.icon" class="p-breadcrumb-item-icon" [ngClass]="home.icon" [ngStyle]="home.iconStyle"></span>
                         <HomeIcon *ngIf="!home.icon" [styleClass]="'p-breadcrumb-item-icon'" />
                         <ng-container *ngIf="home.label">
-                            <span *ngIf="home.escape !== false; else htmlHomeRouteLabel" class="p-breadcrumb-item-label">{{ home.label }}</span>
-                            <ng-template #htmlHomeRouteLabel><span class="p-breadcrumb-item-label" [innerHTML]="home.label"></span></ng-template>
+                            <span *ngIf="home.escape !== false; else htmlHomeRouteLabel" class="p-breadcrumb-item-label">{{
+                                home.label
+                            }}</span>
+                            <ng-template #htmlHomeRouteLabel
+                                ><span class="p-breadcrumb-item-label" [innerHTML]="home.label"></span
+                            ></ng-template>
                         </ng-container>
                     </a>
                 </li>
@@ -77,7 +100,15 @@ import { BaseComponent } from 'primeng/basecomponent';
                     <ng-template *ngTemplateOutlet="separatorTemplate"></ng-template>
                 </li>
                 <ng-template ngFor let-item let-end="last" [ngForOf]="model">
-                    <li [class]="item.styleClass" [attr.id]="item.id" [ngStyle]="item.style" [ngClass]="{ 'p-breadcrumb-item': true, 'p-disabled': item.disabled }" pTooltip [tooltipOptions]="item.tooltipOptions" [attr.data-pc-section]="'menuitem'">
+                    <li
+                        [class]="item.styleClass"
+                        [attr.id]="item.id"
+                        [ngStyle]="item.style"
+                        [ngClass]="{ 'p-breadcrumb-item': true, 'p-disabled': item.disabled }"
+                        pTooltip
+                        [tooltipOptions]="item.tooltipOptions"
+                        [attr.data-pc-section]="'menuitem'"
+                    >
                         <a
                             *ngIf="!item.routerLink"
                             [attr.href]="item.url ? item.url : null"
@@ -89,10 +120,19 @@ import { BaseComponent } from 'primeng/basecomponent';
                             [attr.ariaCurrentWhenActive]="isCurrentUrl(item)"
                         >
                             <ng-container *ngIf="!itemTemplate">
-                                <span *ngIf="item.icon" class="p-breadcrumb-item-icon" [ngClass]="item.icon" [ngStyle]="item.iconStyle"></span>
+                                <span
+                                    *ngIf="item.icon"
+                                    class="p-breadcrumb-item-icon"
+                                    [ngClass]="item.icon"
+                                    [ngStyle]="item.iconStyle"
+                                ></span>
                                 <ng-container *ngIf="item.label">
-                                    <span *ngIf="item.escape !== false; else htmlLabel" class="p-breadcrumb-item-label'">{{ item.label }}</span>
-                                    <ng-template #htmlLabel><span class="p-breadcrumb-item-label'" [innerHTML]="item.label"></span></ng-template>
+                                    <span *ngIf="item.escape !== false; else htmlLabel" class="p-breadcrumb-item-label'">{{
+                                        item.label
+                                    }}</span>
+                                    <ng-template #htmlLabel
+                                        ><span class="p-breadcrumb-item-label'" [innerHTML]="item.label"></span
+                                    ></ng-template>
                                 </ng-container>
                             </ng-container>
                             <ng-container *ngIf="itemTemplate">
@@ -118,10 +158,19 @@ import { BaseComponent } from 'primeng/basecomponent';
                             [attr.ariaCurrentWhenActive]="isCurrentUrl(item)"
                         >
                             <ng-container *ngIf="!itemTemplate">
-                                <span *ngIf="item.icon" class="p-breadcrumb-item-icon" [ngClass]="item.icon" [ngStyle]="item.iconStyle"></span>
+                                <span
+                                    *ngIf="item.icon"
+                                    class="p-breadcrumb-item-icon"
+                                    [ngClass]="item.icon"
+                                    [ngStyle]="item.iconStyle"
+                                ></span>
                                 <ng-container *ngIf="item.label">
-                                    <span *ngIf="item.escape !== false; else htmlRouteLabel" class="p-breadcrumb-item-label'">{{ item.label }}</span>
-                                    <ng-template #htmlRouteLabel><span class="p-breadcrumb-item-label'" [innerHTML]="item.label"></span></ng-template>
+                                    <span *ngIf="item.escape !== false; else htmlRouteLabel" class="p-breadcrumb-item-label'">{{
+                                        item.label
+                                    }}</span>
+                                    <ng-template #htmlRouteLabel
+                                        ><span class="p-breadcrumb-item-label'" [innerHTML]="item.label"></span
+                                    ></ng-template>
                                 </ng-container>
                             </ng-container>
                             <ng-container *ngIf="itemTemplate">
@@ -139,7 +188,7 @@ import { BaseComponent } from 'primeng/basecomponent';
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    providers: [BreadCrumbStyle]
+    providers: [BreadCrumbStyle],
 })
 export class Breadcrumb extends BaseComponent implements AfterContentInit {
     /**
@@ -199,13 +248,13 @@ export class Breadcrumb extends BaseComponent implements AfterContentInit {
         if (item.command) {
             item.command({
                 originalEvent: event,
-                item: item
+                item: item,
             });
         }
 
         this.onItemClick.emit({
             originalEvent: event,
-            item: item
+            item: item,
         });
     }
 
@@ -244,6 +293,6 @@ export class Breadcrumb extends BaseComponent implements AfterContentInit {
 @NgModule({
     imports: [CommonModule, RouterModule, TooltipModule, ChevronRightIcon, HomeIcon, SharedModule],
     exports: [Breadcrumb, RouterModule, TooltipModule, SharedModule],
-    declarations: [Breadcrumb]
+    declarations: [Breadcrumb],
 })
 export class BreadcrumbModule {}

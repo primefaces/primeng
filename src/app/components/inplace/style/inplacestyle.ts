@@ -31,7 +31,7 @@ const theme = ({ dt }) => `
 const classes = {
     root: 'p-inplace p-component',
     display: ({ props }) => ['p-inplace-display', { 'p-disabled': props.disabled }],
-    content: 'p-inplace-content'
+    content: 'p-inplace-content',
 };
 
 @Injectable()

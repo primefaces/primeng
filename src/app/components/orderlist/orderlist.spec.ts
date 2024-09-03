@@ -8,11 +8,15 @@ import { Component } from '@angular/core';
     template: `<p-orderList [value]="cars">
         <ng-template let-car pTemplate="item">
             <div>
-                <img src="https://primefaces.org/cdn/primeng/images/demo/car/{{ car.brand }}.png" style="display:inline-block;margin:2px 0 2px 2px" width="48" />
+                <img
+                    src="https://primefaces.org/cdn/primeng/images/demo/car/{{ car.brand }}.png"
+                    style="display:inline-block;margin:2px 0 2px 2px"
+                    width="48"
+                />
                 <div style="font-size:14px;float:right;margin:15px 5px 0 0">{{ car.brand }} - {{ car.year }} - {{ car.color }}</div>
             </div>
         </ng-template>
-    </p-orderList>`
+    </p-orderList>`,
 })
 class TestOrderListComponent {
     cars: any[];
@@ -28,7 +32,7 @@ class TestOrderListComponent {
             { brand: 'Honda', year: 2012, color: 'Yellow', vin: 'g43gr' },
             { brand: 'Jaguar', year: 2013, color: 'Orange', vin: 'greg34' },
             { brand: 'Ford', year: 2000, color: 'Black', vin: 'h54hw5' },
-            { brand: 'Fiat', year: 2013, color: 'Red', vin: '245t2s' }
+            { brand: 'Fiat', year: 2013, color: 'Red', vin: '245t2s' },
         ];
     }
 }
@@ -40,7 +44,7 @@ describe('OrderList', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [NoopAnimationsModule, OrderListModule],
-            declarations: [TestOrderListComponent]
+            declarations: [TestOrderListComponent],
         });
 
         fixture = TestBed.createComponent(TestOrderListComponent);

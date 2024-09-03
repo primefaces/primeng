@@ -10,8 +10,8 @@ const theme = ({ dt }) => `
     background: ${dt('select.background')};
     border: 1px solid ${dt('select.border.color')};
     transition: background ${dt('select.transition.duration')}, color ${dt('select.transition.duration')}, border-color ${dt(
-    'select.transition.duration',
-)},
+        'select.transition.duration',
+    )},
         outline-color ${dt('select.transition.duration')}, box-shadow ${dt('select.transition.duration')};
     border-radius: ${dt('select.border.radius')};
     outline-color: transparent;
@@ -157,8 +157,8 @@ input.p-select-label {
     color: ${dt('select.option.color')};
     background: transparent;
     transition: background ${dt('select.transition.duration')}, color ${dt('select.transition.duration')}, border-color ${dt(
-    'select.transition.duration',
-)},
+        'select.transition.duration',
+    )},
             box-shadow ${dt('select.transition.duration')}, outline-color ${dt('select.transition.duration')};
     border-radius: ${dt('select.option.border.radius')};
 }

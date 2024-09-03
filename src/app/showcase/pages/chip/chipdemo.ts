@@ -9,44 +9,44 @@ import { AccessibilityDoc } from '@doc/chip/accessibilitydoc';
 
 @Component({
     templateUrl: './chipdemo.html',
-    styleUrls: ['chipdemo.scss']
+    styleUrls: ['chipdemo.scss'],
 })
 export class ChipDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc
+            component: ImportDoc,
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc
+            component: BasicDoc,
         },
         {
             id: 'icon',
             label: 'Icon',
-            component: IconDoc
+            component: IconDoc,
         },
         {
             id: 'image',
             label: 'Image',
-            component: ImageDoc
+            component: ImageDoc,
         },
         {
             id: 'custom',
             label: 'Custom Content',
-            component: TemplateDoc
+            component: TemplateDoc,
         },
         {
             id: 'style',
             label: 'Style',
-            component: StyleDoc
+            component: StyleDoc,
         },
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc
-        }
+            component: AccessibilityDoc,
+        },
     ];
 }

@@ -20,6 +20,6 @@ import { RouterDoc } from './routerdoc';
 @NgModule({
     imports: [CommonModule, AppCodeModule, RouterModule, PanelMenuModule, AppDocModule, ButtonModule, BadgeModule, ToastModule],
     declarations: [BasicDoc, ImportDoc, MultipleDoc, ControlledDoc, TemplateDoc, CommandDoc, StyleDoc, AccessibilityDoc, RouterDoc],
-    exports: [AppDocModule]
+    exports: [AppDocModule],
 })
 export class PanelMenuDocModule {}

@@ -1076,7 +1076,7 @@ const theme = ({ dt }) => `
 const classes = {
     root: 'p-editor',
     toolbar: 'p-editor-toolbar',
-    content: 'p-editor-content'
+    content: 'p-editor-content',
 };
 
 @Injectable()

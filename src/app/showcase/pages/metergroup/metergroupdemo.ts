@@ -10,59 +10,59 @@ import { TemplateDoc } from '@doc/metergroup/templatedoc';
 import { StyleDoc } from '@doc/metergroup/styledoc';
 import { AccessibilityDoc } from '@doc/metergroup/accessibilitydoc';
 @Component({
-    templateUrl: './metergroupdemo.html'
+    templateUrl: './metergroupdemo.html',
 })
 export class MeterGroupDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc
+            component: ImportDoc,
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc
+            component: BasicDoc,
         },
         {
             id: 'multiple',
             label: 'Multiple',
-            component: MultipleDoc
+            component: MultipleDoc,
         },
         {
             id: 'icon',
             label: 'Icon',
-            component: IconDoc
+            component: IconDoc,
         },
         {
             id: 'label',
             label: 'Label',
-            component: LabelDoc
+            component: LabelDoc,
         },
         {
             id: 'vertical',
             label: 'Vertical',
-            component: VerticalDoc
+            component: VerticalDoc,
         },
         {
             id: 'minmax',
             label: 'Min Max',
-            component: MinMaxDoc
+            component: MinMaxDoc,
         },
         {
             id: 'template',
             label: 'Template',
-            component: TemplateDoc
+            component: TemplateDoc,
         },
         {
             id: 'style',
             label: 'Style',
-            component: StyleDoc
+            component: StyleDoc,
         },
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc
-        }
+            component: AccessibilityDoc,
+        },
     ];
 }

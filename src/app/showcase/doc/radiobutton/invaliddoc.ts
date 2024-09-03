@@ -11,7 +11,7 @@ import { Code } from '@domain/code';
             <p-radioButton styleClass="ng-invalid ng-dirty" [(ngModel)]="checked" />
         </div>
         <app-code [code]="code" selector="radio-button-invalid-demo"></app-code>
-    `
+    `,
 })
 export class InvalidDoc {
     checked: any = false;
@@ -33,6 +33,6 @@ import { FormsModule } from '@angular/forms';
     standalone: true,
     imports: [FormsModule, RadioButtonModule]
 })
-export class RadioButtonInvalidDemo { }`
+export class RadioButtonInvalidDemo { }`,
     };
 }

@@ -9,7 +9,7 @@ describe('Image', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule, ImageModule]
+            imports: [NoopAnimationsModule, ImageModule],
         });
 
         fixture = TestBed.createComponent(Image);

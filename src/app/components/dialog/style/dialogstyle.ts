@@ -167,21 +167,21 @@ const inlineStyles = {
             instance.position === 'left' || instance.position === 'topleft' || instance.position === 'bottomleft'
                 ? 'flex-start'
                 : instance.position === 'right' || instance.position === 'topright' || instance.position === 'bottomright'
-                ? 'flex-end'
-                : 'center',
+                  ? 'flex-end'
+                  : 'center',
         alignItems:
             instance.position === 'top' || instance.position === 'topleft' || instance.position === 'topright'
                 ? 'flex-start'
                 : instance.position === 'bottom' || instance.position === 'bottomleft' || instance.position === 'bottomright'
-                ? 'flex-end'
-                : 'center',
-        pointerEvents: instance.modal ? 'auto' : 'none'
+                  ? 'flex-end'
+                  : 'center',
+        pointerEvents: instance.modal ? 'auto' : 'none',
     }),
     root: {
         display: 'flex',
         flexDirection: 'column',
-        pointerEvents: 'auto'
-    }
+        pointerEvents: 'auto',
+    },
 };
 
 const classes = {
@@ -192,7 +192,7 @@ const classes = {
         return {
             'p-dialog-mask': true,
             'p-overlay-mask p-overlay-mask-enter': instance.modal,
-            [`p-dialog-${pos}`]: pos
+            [`p-dialog-${pos}`]: pos,
         };
     },
     root: ({ instance }) => ({ 'p-dialog p-component': true, 'p-dialog-maximized': instance.maximizable && instance.maximized }),
@@ -203,7 +203,7 @@ const classes = {
     pcMaximizeButton: 'p-dialog-maximize-button',
     pcCloseButton: 'p-dialog-close-button',
     content: 'p-dialog-content',
-    footer: 'p-dialog-footer'
+    footer: 'p-dialog-footer',
 };
 
 @Injectable()

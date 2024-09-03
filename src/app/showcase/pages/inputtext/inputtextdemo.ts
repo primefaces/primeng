@@ -15,59 +15,59 @@ import { FilledDoc } from '@doc/inputtext/filleddoc';
 
 @Component({
     templateUrl: './inputtextdemo.html',
-    styleUrls: ['./inputtextdemo.scss']
+    styleUrls: ['./inputtextdemo.scss'],
 })
 export class InputTextDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc
+            component: ImportDoc,
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc
+            component: BasicDoc,
         },
         {
             id: 'reactive-forms',
             label: 'Reactive Forms',
-            component: ReactiveFormsDoc
+            component: ReactiveFormsDoc,
         },
         {
             id: 'helptext',
             label: 'Help Text',
-            component: HelpTextDoc
+            component: HelpTextDoc,
         },
         {
             id: 'floatlabel',
             label: 'Float Label',
-            component: FloatLabelDoc
+            component: FloatLabelDoc,
         },
         {
             id: 'filled',
             label: 'Filled',
-            component: FilledDoc
+            component: FilledDoc,
         },
         {
             id: 'invalid',
             label: 'Invalid',
-            component: InvalidDoc
+            component: InvalidDoc,
         },
         {
             id: 'disabled',
             label: 'Disabled',
-            component: DisabledDoc
+            component: DisabledDoc,
         },
         {
             id: 'style',
             label: 'Style',
-            component: StyleDoc
+            component: StyleDoc,
         },
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc
-        }
+            component: AccessibilityDoc,
+        },
     ];
 }

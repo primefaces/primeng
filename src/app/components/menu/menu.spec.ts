@@ -8,7 +8,7 @@ import { ButtonModule } from '../button/button';
 
 @Component({
     template: `<p-menu #menu></p-menu>
-        <button type="button" pButton icon="pi pi-bars" label="Show" (click)="menu.toggle($event)"></button> `
+        <button type="button" pButton icon="pi pi-bars" label="Show" (click)="menu.toggle($event)"></button> `,
 })
 class TestMenuComponent {}
 
@@ -19,7 +19,7 @@ describe('Menu', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [NoopAnimationsModule, RouterTestingModule, ButtonModule, MenuModule],
-            declarations: [TestMenuComponent]
+            declarations: [TestMenuComponent],
         });
 
         fixture = TestBed.createComponent(TestMenuComponent);
@@ -57,8 +57,8 @@ describe('Menu', () => {
         const hasSubMenuSpy = spyOn(menu, 'hasSubMenu').and.callThrough();
         menu.model = [
             {
-                label: 'File'
-            }
+                label: 'File',
+            },
         ];
         fixture.detectChanges();
 
@@ -73,9 +73,9 @@ describe('Menu', () => {
                 label: 'File',
                 items: [
                     { label: 'News', icon: 'pi pi-fw pi-plus' },
-                    { label: 'Download', icon: 'pi pi-fw pi-download' }
-                ]
-            }
+                    { label: 'Download', icon: 'pi pi-fw pi-download' },
+                ],
+            },
         ];
         fixture.detectChanges();
 
@@ -89,9 +89,9 @@ describe('Menu', () => {
                 label: 'File',
                 items: [
                     { label: 'New', icon: 'pi pi-fw pi-plus' },
-                    { label: 'Download', icon: 'pi pi-fw pi-download' }
-                ]
-            }
+                    { label: 'Download', icon: 'pi pi-fw pi-download' },
+                ],
+            },
         ];
         fixture.detectChanges();
 
@@ -105,9 +105,9 @@ describe('Menu', () => {
                 label: 'File',
                 items: [
                     { label: 'New', icon: 'pi pi-fw pi-plus', style: { height: '300px' }, styleClass: 'Primeng ROCKS!' },
-                    { label: 'Download', icon: 'pi pi-fw pi-download', style: { height: '300px' }, styleClass: 'Primeng ROCKS!' }
-                ]
-            }
+                    { label: 'Download', icon: 'pi pi-fw pi-download', style: { height: '300px' }, styleClass: 'Primeng ROCKS!' },
+                ],
+            },
         ];
         fixture.detectChanges();
 
@@ -123,8 +123,12 @@ describe('Menu', () => {
         menu.model = [
             {
                 label: 'File',
-                items: [{ label: 'New', icon: 'pi pi-fw pi-plus' }, { separator: true }, { label: 'Download', icon: 'pi pi-fw pi-download' }]
-            }
+                items: [
+                    { label: 'New', icon: 'pi pi-fw pi-plus' },
+                    { separator: true },
+                    { label: 'Download', icon: 'pi pi-fw pi-download' },
+                ],
+            },
         ];
         fixture.detectChanges();
 
@@ -138,8 +142,8 @@ describe('Menu', () => {
         menu.model = [
             {
                 label: 'File',
-                items: [{ label: 'New', icon: 'primeng', target: 'primeng', title: 'primeng', url: 'primeng' }]
-            }
+                items: [{ label: 'New', icon: 'primeng', target: 'primeng', title: 'primeng', url: 'primeng' }],
+            },
         ];
         fixture.detectChanges();
 
@@ -155,8 +159,8 @@ describe('Menu', () => {
         menu.model = [
             {
                 label: 'File',
-                items: [{ label: 'New', icon: 'pi pi-fw pi-plus', disabled: true }]
-            }
+                items: [{ label: 'New', icon: 'pi pi-fw pi-plus', disabled: true }],
+            },
         ];
         fixture.detectChanges();
 
@@ -168,8 +172,8 @@ describe('Menu', () => {
         menu.model = [
             {
                 label: 'File',
-                items: [{ label: 'New', icon: 'pi pi-fw pi-plus' }]
-            }
+                items: [{ label: 'New', icon: 'pi pi-fw pi-plus' }],
+            },
         ];
         const itemClickSpy = spyOn(menu, 'itemClick').and.callThrough();
         fixture.detectChanges();
@@ -184,8 +188,8 @@ describe('Menu', () => {
         menu.model = [
             {
                 label: 'File',
-                items: [{ label: 'New', icon: 'pi pi-fw pi-plus' }]
-            }
+                items: [{ label: 'New', icon: 'pi pi-fw pi-plus' }],
+            },
         ];
         fixture.detectChanges();
 
@@ -210,8 +214,8 @@ describe('Menu', () => {
         menu.model = [
             {
                 label: 'File',
-                items: [{ label: 'New', icon: 'pi pi-fw pi-plus' }]
-            }
+                items: [{ label: 'New', icon: 'pi pi-fw pi-plus' }],
+            },
         ];
         fixture.detectChanges();
 

@@ -7,39 +7,39 @@ import { TemplateDoc } from '@doc/breadcrumb/templatedoc';
 import { RouterDoc } from '@doc/breadcrumb/routerdoc';
 
 @Component({
-    templateUrl: './breadcrumbdemo.html'
+    templateUrl: './breadcrumbdemo.html',
 })
 export class BreadcrumbDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc
+            component: ImportDoc,
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc
+            component: BasicDoc,
         },
         {
             id: 'template',
             label: 'Template',
-            component: TemplateDoc
+            component: TemplateDoc,
         },
         {
             id: 'router',
             label: 'Router',
-            component: RouterDoc
+            component: RouterDoc,
         },
         {
             id: 'style',
             label: 'Style',
-            component: StyleDoc
+            component: StyleDoc,
         },
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc
-        }
+            component: AccessibilityDoc,
+        },
     ];
 }

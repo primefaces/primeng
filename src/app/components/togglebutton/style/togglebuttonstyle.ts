@@ -18,8 +18,8 @@ const theme = ({ dt }) => `
     font-family: inherit;
     font-feature-settings: inherit;
     transition: background ${dt('togglebutton.transition.duration')}, color ${dt(
-    'togglebutton.transition.duration',
-)}, border-color ${dt('togglebutton.transition.duration')},
+        'togglebutton.transition.duration',
+    )}, border-color ${dt('togglebutton.transition.duration')},
         outline-color ${dt('togglebutton.transition.duration')}, box-shadow ${dt('togglebutton.transition.duration')};
     border-radius: ${dt('togglebutton.border.radius')};
     outline-color: transparent;
@@ -44,11 +44,9 @@ const theme = ({ dt }) => `
     content: "";
     background: transparent;
     transition: background ${dt('togglebutton.transition.duration')}, color ${dt(
-    'togglebutton.transition.duration',
-)}, border-color ${dt('togglebutton.transition.duration')},
-            outline-color ${dt('togglebutton.transition.duration')}, box-shadow ${dt(
-    'togglebutton.transition.duration',
-)};
+        'togglebutton.transition.duration',
+    )}, border-color ${dt('togglebutton.transition.duration')},
+            outline-color ${dt('togglebutton.transition.duration')}, box-shadow ${dt('togglebutton.transition.duration')};
     position: absolute;
     left: ${dt('togglebutton.content.left')};
     top: ${dt('togglebutton.content.top')};
@@ -75,9 +73,7 @@ const theme = ({ dt }) => `
 
 .p-togglebutton:focus-visible {
     box-shadow: ${dt('togglebutton.focus.ring.shadow')};
-    outline: ${dt('togglebutton.focus.ring.width')} ${dt('togglebutton.focus.ring.style')} ${dt(
-    'togglebutton.focus.ring.color',
-)};
+    outline: ${dt('togglebutton.focus.ring.width')} ${dt('togglebutton.focus.ring.style')} ${dt('togglebutton.focus.ring.color')};
     outline-offset: ${dt('togglebutton.focus.ring.offset')};
 }
 

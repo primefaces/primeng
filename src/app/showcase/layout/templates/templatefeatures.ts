@@ -13,10 +13,7 @@ import { AppConfigService } from '../../service/appconfigservice';
                         <ng-container *ngFor="let feature of featuresData">
                             <div class="template-features-horizontal-card">
                                 <div class="template-features-horizontal-card-top">
-                                    <img
-                                        [src]="isDarkMode ? feature.darkSrc || feature.src : feature.src"
-                                        [alt]="feature.title"
-                                    />
+                                    <img [src]="isDarkMode ? feature.darkSrc || feature.src : feature.src" [alt]="feature.title" />
                                 </div>
                                 <div class="template-features-horizontal-card-bottom">
                                     <h5 class="template-features-horizontal-card-bottom-title">{{ feature.title }}</h5>
@@ -34,15 +31,10 @@ import { AppConfigService } from '../../service/appconfigservice';
                     <div class="template-features-vertical">
                         <ng-container *ngFor="let _ of [].constructor(2); let i = index">
                             <div class="template-features-vertical-col">
-                                <ng-container
-                                    *ngFor="let data of i === 0 ? firstColumnData : secondColumnData; let j = index"
-                                >
+                                <ng-container *ngFor="let data of i === 0 ? firstColumnData : secondColumnData; let j = index">
                                     <div class="template-features-vertical-card">
                                         <div class="template-features-vertical-card-image">
-                                            <img
-                                                [src]="isDarkMode ? data.darkSrc || data.src : data.src"
-                                                [alt]="data.title"
-                                            />
+                                            <img [src]="isDarkMode ? data.darkSrc || data.src : data.src" [alt]="data.title" />
                                         </div>
                                         <h2>{{ data.title }}</h2>
                                         <p>{{ data.description }}</p>

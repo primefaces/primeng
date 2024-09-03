@@ -8,8 +8,8 @@ import { ContextMenu } from 'primeng/contextmenu';
     template: `
         <app-docsectiontext>
             <p>
-                ContextMenu offers item customization with the <i>item</i> template that receives the menuitem instance
-                from the model as a parameter.
+                ContextMenu offers item customization with the <i>item</i> template that receives the menuitem instance from the model as a
+                parameter.
             </p>
         </app-docsectiontext>
         <div class="card flex md:justify-center">

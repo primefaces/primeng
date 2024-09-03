@@ -4,6 +4,6 @@ import { SplitButtonDemo } from './splitbuttondemo';
 
 @NgModule({
     imports: [RouterModule.forChild([{ path: '', component: SplitButtonDemo }])],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class SplitButtonDemoRoutingModule {}

@@ -6,6 +6,6 @@ import { CascadeSelectDemoRoutingModule } from './cascadeselectdemo-routing.modu
 
 @NgModule({
     imports: [CommonModule, CascadeSelectDemoRoutingModule, CascadeSelectDocModule],
-    declarations: [CascadeSelectDemo]
+    declarations: [CascadeSelectDemo],
 })
 export class CascadeSelectDemoModule {}

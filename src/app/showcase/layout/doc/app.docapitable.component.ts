@@ -1,12 +1,5 @@
 import { Location } from '@angular/common';
-import {
-    ChangeDetectionStrategy,
-    Component,
-    Input,
-    ViewContainerRef,
-    booleanAttribute,
-    numberAttribute,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, ViewContainerRef, booleanAttribute, numberAttribute } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppConfigService } from '@service/appconfigservice';
 
@@ -39,9 +32,7 @@ import { AppConfigService } from '@service/appconfigservice';
                 <tbody>
                     <tr *ngFor="let prop of data">
                         <td *ngFor="let entry of getEntries(prop)">
-                            <ng-container
-                                *ngIf="entry[0] !== 'readonly' && entry[0] !== 'optional' && entry[0] !== 'deprecated'"
-                            >
+                            <ng-container *ngIf="entry[0] !== 'readonly' && entry[0] !== 'optional' && entry[0] !== 'deprecated'">
                                 <span
                                     *ngIf="entry[0] === 'name'"
                                     [attr.id]="id + '.' + entry[1]"
@@ -49,8 +40,7 @@ import { AppConfigService } from '@service/appconfigservice';
                                     [ngClass]="{ 'line-through cursor-pointer': !!prop.deprecated }"
                                     [attr.title]="prop.deprecated"
                                     >{{ entry[1] || '-'
-                                    }}<a (click)="navigate($event, entry[1])" class="doc-option-link"
-                                        ><i class="pi pi-link"></i></a
+                                    }}<a (click)="navigate($event, entry[1])" class="doc-option-link"><i class="pi pi-link"></i></a
                                 ></span>
                                 <span *ngIf="entry[0] === 'type'" class="doc-option-type">{{ entry[1] || '-' }}</span>
                                 <ng-container *ngIf="entry[0] === 'parameters'">
@@ -60,7 +50,7 @@ import { AppConfigService } from '@service/appconfigservice';
                                                 *ngIf="parameter.name"
                                                 [ngClass]="{
                                                     'doc-option-parameter-name': label === 'Emitters',
-                                                    'text-primary-700': label === 'Templates'
+                                                    'text-primary-700': label === 'Templates',
                                                 }"
                                                 >{{ parameter.name }} :</span
                                             >
@@ -71,7 +61,7 @@ import { AppConfigService } from '@service/appconfigservice';
                                                     (click)="scrollToLinkedElement($event, value, prop)"
                                                     [ngClass]="{
                                                         'doc-option-parameter-type': label === 'Emitters',
-                                                        'text-primary-700': label === 'Templates'
+                                                        'text-primary-700': label === 'Templates',
                                                     }"
                                                     >{{ value || '-' }}</a
                                                 >
@@ -79,7 +69,7 @@ import { AppConfigService } from '@service/appconfigservice';
                                                     <span
                                                         [ngClass]="{
                                                             'doc-option-parameter-type': label === 'Emitters',
-                                                            'text-primary-700': label === 'Templates'
+                                                            'text-primary-700': label === 'Templates',
                                                         }"
                                                         >{{ value }}</span
                                                     >
@@ -96,7 +86,7 @@ import { AppConfigService } from '@service/appconfigservice';
                                         'doc-option-dark': isDarkMode && entry[0] === 'default',
                                         'doc-option-light': !isDarkMode && entry[0] === 'default',
                                         'doc-option-default': entry[0] === 'default',
-                                        'doc-option-description': entry[0] === 'description'
+                                        'doc-option-description': entry[0] === 'description',
                                     }"
                                     *ngIf="entry[0] !== 'name' && entry[0] !== 'type' && entry[0] !== 'parameters'"
                                     [id]="id + '.' + entry[0]"
@@ -198,10 +188,7 @@ export class AppDocApiTable {
     isLinkType(value) {
         if (this.label === 'Templates') return false;
         const validValues = ['confirmationoptions', 'toastmessageoptions'];
-        return (
-            value.toLowerCase().includes(this.id.split('.')[1].toLowerCase()) ||
-            validValues.includes(value.toLowerCase())
-        );
+        return value.toLowerCase().includes(this.id.split('.')[1].toLowerCase()) || validValues.includes(value.toLowerCase());
     }
 
     setLinkPath(value, type) {
@@ -212,12 +199,12 @@ export class AppDocApiTable {
         let definationType = type
             ? type
             : value.includes('Type')
-            ? 'types'
-            : value.includes('Event')
-            ? 'events'
-            : validValues.includes(value.toLowerCase())
-            ? 'options'
-            : 'interfaces';
+              ? 'types'
+              : value.includes('Event')
+                ? 'events'
+                : validValues.includes(value.toLowerCase())
+                  ? 'options'
+                  : 'interfaces';
 
         if (componentName.includes('toast')) {
             componentName = 'toast';

@@ -19,9 +19,19 @@ import { MessageService } from 'primeng/api';
 import { FloatLabelModule } from 'primeng/floatlabel';
 
 @NgModule({
-    imports: [CommonModule, AppCodeModule, RouterModule, TieredMenuModule, ButtonModule, AppDocModule, BadgeModule, ToastModule, FloatLabelModule],
+    imports: [
+        CommonModule,
+        AppCodeModule,
+        RouterModule,
+        TieredMenuModule,
+        ButtonModule,
+        AppDocModule,
+        BadgeModule,
+        ToastModule,
+        FloatLabelModule,
+    ],
     declarations: [BasicDoc, ImportDoc, PopupDoc, StyleDoc, AccessibilityDoc, TemplateDoc, CommandDoc, RouterDoc],
     exports: [AppDocModule],
-    providers: [MessageService]
+    providers: [MessageService],
 })
 export class TieredMenuDocModule {}

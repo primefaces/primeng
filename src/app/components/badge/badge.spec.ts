@@ -9,7 +9,7 @@ describe('Badge', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule, BadgeModule]
+            imports: [NoopAnimationsModule, BadgeModule],
         });
 
         fixture = TestBed.createComponent(Badge);

@@ -141,8 +141,8 @@ const classes = {
         {
             'p-contextmenu-item-active': instance.isItemActive(processedItem),
             'p-focus': instance.isItemFocused(processedItem),
-            'p-disabled': instance.isItemDisabled(processedItem)
-        }
+            'p-disabled': instance.isItemDisabled(processedItem),
+        },
     ],
     itemContent: 'p-contextmenu-item-content',
     itemLink: 'p-contextmenu-item-link',
@@ -150,7 +150,7 @@ const classes = {
     itemLabel: 'p-contextmenu-item-label',
     submenuIcon: 'p-contextmenu-submenu-icon',
     submenu: 'p-contextmenu-submenu',
-    separator: 'p-contextmenu-separator'
+    separator: 'p-contextmenu-separator',
 };
 
 @Injectable()

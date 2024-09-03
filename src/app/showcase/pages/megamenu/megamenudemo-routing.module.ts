@@ -4,6 +4,6 @@ import { MegaMenuDemo } from './megamenudemo';
 
 @NgModule({
     imports: [RouterModule.forChild([{ path: '', component: MegaMenuDemo }])],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class MegaMenuDemoRoutingModule {}

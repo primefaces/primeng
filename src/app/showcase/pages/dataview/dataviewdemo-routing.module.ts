@@ -4,6 +4,6 @@ import { DataViewDemo } from './dataviewdemo';
 
 @NgModule({
     imports: [RouterModule.forChild([{ path: '', component: DataViewDemo }])],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class DataViewDemoRoutingModule {}

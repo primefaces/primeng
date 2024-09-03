@@ -6,6 +6,6 @@ import { ConfirmPopupDemoRoutingModule } from './confirmpopupdemo-routing.module
 
 @NgModule({
     imports: [CommonModule, ConfirmPopupDemoRoutingModule, ConfirmPopupDocModule],
-    declarations: [ConfirmPopupDemo]
+    declarations: [ConfirmPopupDemo],
 })
 export class ConfirmPopupDemoModule {}

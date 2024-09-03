@@ -12,12 +12,23 @@ interface Column {
     selector: 'context-menu-doc',
     template: `
         <app-docsectiontext>
-            <p>TreeTable has exclusive integration with ContextMenu using the <i>contextMenu</i> event to open a menu on right click alont with <i>contextMenuSelection</i> properties to control the selection via the menu.</p>
+            <p>
+                TreeTable has exclusive integration with ContextMenu using the <i>contextMenu</i> event to open a menu on right click alont
+                with <i>contextMenuSelection</i> properties to control the selection via the menu.
+            </p>
         </app-docsectiontext>
         <div class="card">
             <p-toast [style]="{ marginTop: '80px' }" />
             <p-deferred-demo (load)="loadDemoData()">
-                <p-treeTable [value]="files" [columns]="cols" dataKey="name" [(contextMenuSelection)]="selectedNode" [contextMenu]="cm" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
+                <p-treeTable
+                    [value]="files"
+                    [columns]="cols"
+                    dataKey="name"
+                    [(contextMenuSelection)]="selectedNode"
+                    [contextMenu]="cm"
+                    [scrollable]="true"
+                    [tableStyle]="{ 'min-width': '50rem' }"
+                >
                     <ng-template pTemplate="header" let-columns>
                         <tr>
                             <th *ngFor="let col of columns">
@@ -40,7 +51,7 @@ interface Column {
         <app-code [code]="code" selector="tree-table-context-menu-demo"></app-code>
     `,
     providers: [MessageService],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ContextMenuDoc {
     files!: TreeNode[];
@@ -53,7 +64,7 @@ export class ContextMenuDoc {
 
     constructor(
         private nodeService: NodeService,
-        private messageService: MessageService
+        private messageService: MessageService,
     ) {}
 
     loadDemoData() {
@@ -62,12 +73,12 @@ export class ContextMenuDoc {
         this.cols = [
             { field: 'name', header: 'Name' },
             { field: 'size', header: 'Size' },
-            { field: 'type', header: 'Type' }
+            { field: 'type', header: 'Type' },
         ];
 
         this.items = [
             { label: 'View', icon: 'pi pi-search', command: (event) => this.viewFile(this.selectedNode) },
-            { label: 'Toggle', icon: 'pi pi-sort', command: (event) => this.toggleFile(this.selectedNode) }
+            { label: 'Toggle', icon: 'pi pi-sort', command: (event) => this.toggleFile(this.selectedNode) },
         ];
     }
 
@@ -197,6 +208,6 @@ export class TreeTableContextMenuDemo implements OnInit{
     }
 }`,
 
-        service: ['NodeService']
+        service: ['NodeService'],
     };
 }

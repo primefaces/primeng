@@ -127,8 +127,8 @@ const classes = {
     root: ({ props }) => [
         'p-image p-component',
         {
-            'p-image-preview': props.preview
-        }
+            'p-image-preview': props.preview,
+        },
     ],
     previewMask: 'p-image-preview-mask',
     previewIcon: 'p-image-preview-icon',
@@ -139,17 +139,17 @@ const classes = {
     zoomOutButton: ({ instance }) => [
         'p-image-action p-image-zoom-out-button',
         {
-            'p-disabled': instance.isZoomOutDisabled
-        }
+            'p-disabled': instance.isZoomOutDisabled,
+        },
     ],
     zoomInButton: ({ instance }) => [
         'p-image-action p-image-zoom-in-button',
         {
-            'p-disabled': instance.isZoomInDisabled
-        }
+            'p-disabled': instance.isZoomInDisabled,
+        },
     ],
     closeButton: 'p-image-action p-image-close-button',
-    original: 'p-image-original'
+    original: 'p-image-original',
 };
 
 @Injectable()

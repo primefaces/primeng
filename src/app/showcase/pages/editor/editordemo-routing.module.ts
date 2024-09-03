@@ -4,6 +4,6 @@ import { EditorDemo } from './editordemo';
 
 @NgModule({
     imports: [RouterModule.forChild([{ path: '', component: EditorDemo }])],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class EditorDemoRoutingModule {}

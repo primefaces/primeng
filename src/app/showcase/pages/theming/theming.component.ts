@@ -11,54 +11,54 @@ import { UtilsDoc } from '@doc/theming/utilsdoc';
 
 @Component({
     templateUrl: './theming.component.html',
-    styleUrls: ['./theming.component.scss']
+    styleUrls: ['./theming.component.scss'],
 })
 export class ThemingComponent {
     docs = [
         {
             id: 'architecture',
             label: 'Architecture',
-            component: ArchitectureDoc
+            component: ArchitectureDoc,
         },
         {
             id: 'builtinthemes',
             label: 'Built-in Themes',
-            component: BuiltInThemesDoc
+            component: BuiltInThemesDoc,
         },
         {
             id: 'switchthemes',
             label: 'Switch Themes',
-            component: SwitchThemesDoc
+            component: SwitchThemesDoc,
         },
         {
             id: 'customtheme',
             label: 'Custom Theme',
-            component: CustomThemeDoc
+            component: CustomThemeDoc,
         },
         {
             id: 'scopedcss',
             label: 'Scoped CSS',
-            component: ScopedCSSDoc
+            component: ScopedCSSDoc,
         },
         {
             id: 'scale',
             label: 'Scale',
-            component: ScalingDoc
+            component: ScalingDoc,
         },
         {
             id: 'primeflex',
             label: 'PrimeFlex',
-            component: PrimeFlexDoc
+            component: PrimeFlexDoc,
         },
         {
             id: 'utils',
             label: 'Utils',
-            component: UtilsDoc
+            component: UtilsDoc,
         },
         {
             id: 'css-variables',
             label: 'CSS Variables',
-            component: CSSVariablesDoc
-        }
+            component: CSSVariablesDoc,
+        },
     ];
 }

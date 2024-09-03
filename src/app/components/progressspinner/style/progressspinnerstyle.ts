@@ -77,7 +77,7 @@ const theme = ({ dt }) => `
 const classes = {
     root: 'p-progressspinner',
     spin: 'p-progressspinner-spin',
-    circle: 'p-progressspinner-circle'
+    circle: 'p-progressspinner-circle',
 };
 
 @Injectable()

@@ -13,6 +13,6 @@ import { AccessibilityDoc } from './accessibilitydoc';
 @NgModule({
     imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, ProgressSpinnerModule],
     declarations: [BasicDoc, ImportDoc, CustomDoc, StyleDoc, AccessibilityDoc],
-    exports: [AppDocModule]
+    exports: [AppDocModule],
 })
 export class ProgressSpinnerDocModule {}

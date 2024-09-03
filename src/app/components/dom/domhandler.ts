@@ -42,7 +42,11 @@ export class DomHandler {
     public static removeClass(element: any, className: string): void {
         if (element && className) {
             if (element.classList) element.classList.remove(className);
-            else element.className = element.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
+            else
+                element.className = element.className.replace(
+                    new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'),
+                    ' ',
+                );
         }
     }
 
@@ -125,14 +129,19 @@ export class DomHandler {
             return getComputedStyle(el).getPropertyValue('position') === 'relative' ? el : getClosestRelativeElement(el.parentElement);
         };
 
-        const elementDimensions = element.offsetParent ? { width: element.offsetWidth, height: element.offsetHeight } : this.getHiddenElementDimensions(element);
+        const elementDimensions = element.offsetParent
+            ? { width: element.offsetWidth, height: element.offsetHeight }
+            : this.getHiddenElementDimensions(element);
         const targetHeight = target.offsetHeight;
         const targetOffset = target.getBoundingClientRect();
         const windowScrollTop = this.getWindowScrollTop();
         const windowScrollLeft = this.getWindowScrollLeft();
         const viewport = this.getViewport();
         const relativeElement = getClosestRelativeElement(element);
-        const relativeElementOffset = relativeElement?.getBoundingClientRect() || { top: -1 * windowScrollTop, left: -1 * windowScrollLeft };
+        const relativeElementOffset = relativeElement?.getBoundingClientRect() || {
+            top: -1 * windowScrollTop,
+            left: -1 * windowScrollLeft,
+        };
         let top: number, left: number;
 
         if (targetOffset.top + targetHeight + elementDimensions.height > viewport.height) {
@@ -165,7 +174,9 @@ export class DomHandler {
     }
 
     public static absolutePosition(element: any, target: any, gutter: boolean = true): void {
-        const elementDimensions = element.offsetParent ? { width: element.offsetWidth, height: element.offsetHeight } : this.getHiddenElementDimensions(element);
+        const elementDimensions = element.offsetParent
+            ? { width: element.offsetWidth, height: element.offsetHeight }
+            : this.getHiddenElementDimensions(element);
         const elementOuterHeight = elementDimensions.height;
         const elementOuterWidth = elementDimensions.width;
         const targetOuterHeight = target.offsetHeight;
@@ -188,7 +199,8 @@ export class DomHandler {
             element.style.transformOrigin = 'top';
         }
 
-        if (targetOffset.left + elementOuterWidth > viewport.width) left = Math.max(0, targetOffset.left + windowScrollLeft + targetOuterWidth - elementOuterWidth);
+        if (targetOffset.left + elementOuterWidth > viewport.width)
+            left = Math.max(0, targetOffset.left + windowScrollLeft + targetOuterWidth - elementOuterWidth);
         else left = targetOffset.left + windowScrollLeft;
 
         element.style.top = top + 'px';
@@ -208,7 +220,11 @@ export class DomHandler {
             const overflowRegex = /(auto|scroll)/;
             const overflowCheck = (node: any) => {
                 let styleDeclaration = window['getComputedStyle'](node, null);
-                return overflowRegex.test(styleDeclaration.getPropertyValue('overflow')) || overflowRegex.test(styleDeclaration.getPropertyValue('overflowX')) || overflowRegex.test(styleDeclaration.getPropertyValue('overflowY'));
+                return (
+                    overflowRegex.test(styleDeclaration.getPropertyValue('overflow')) ||
+                    overflowRegex.test(styleDeclaration.getPropertyValue('overflowX')) ||
+                    overflowRegex.test(styleDeclaration.getPropertyValue('overflowY'))
+                );
             };
 
             for (let parent of parents) {
@@ -402,7 +418,11 @@ export class DomHandler {
         let height = el.offsetHeight;
         let style = getComputedStyle(el);
 
-        height -= parseFloat(style.paddingTop) + parseFloat(style.paddingBottom) + parseFloat(style.borderTopWidth) + parseFloat(style.borderBottomWidth);
+        height -=
+            parseFloat(style.paddingTop) +
+            parseFloat(style.paddingBottom) +
+            parseFloat(style.borderTopWidth) +
+            parseFloat(style.borderBottomWidth);
 
         return height;
     }
@@ -411,7 +431,11 @@ export class DomHandler {
         let width = el.offsetWidth;
         let style = getComputedStyle(el);
 
-        width -= parseFloat(style.paddingLeft) + parseFloat(style.paddingRight) + parseFloat(style.borderLeftWidth) + parseFloat(style.borderRightWidth);
+        width -=
+            parseFloat(style.paddingLeft) +
+            parseFloat(style.paddingRight) +
+            parseFloat(style.borderLeftWidth) +
+            parseFloat(style.borderRightWidth);
 
         return width;
     }
@@ -432,7 +456,7 @@ export class DomHandler {
 
         return {
             top: rect.top + (window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0),
-            left: rect.left + (window.pageXOffset || document.documentElement.scrollLeft || document.body.scrollLeft || 0)
+            left: rect.left + (window.pageXOffset || document.documentElement.scrollLeft || document.body.scrollLeft || 0),
         };
     }
 
@@ -504,7 +528,9 @@ export class DomHandler {
     }
 
     public static isElement(obj: any) {
-        return typeof HTMLElement === 'object' ? obj instanceof HTMLElement : obj && typeof obj === 'object' && obj !== null && obj.nodeType === 1 && typeof obj.nodeName === 'string';
+        return typeof HTMLElement === 'object'
+            ? obj instanceof HTMLElement
+            : obj && typeof obj === 'object' && obj !== null && obj.nodeType === 1 && typeof obj.nodeName === 'string';
     }
 
     public static calculateScrollbarWidth(el?: HTMLElement): number {
@@ -550,7 +576,11 @@ export class DomHandler {
         if (window.getSelection) {
             if (window.getSelection().empty) {
                 window.getSelection().empty();
-            } else if (window.getSelection().removeAllRanges && window.getSelection().rangeCount > 0 && window.getSelection().getRangeAt(0).getClientRects().length > 0) {
+            } else if (
+                window.getSelection().removeAllRanges &&
+                window.getSelection().rangeCount > 0 &&
+                window.getSelection().getRangeAt(0).getClientRects().length > 0
+            ) {
                 window.getSelection().removeAllRanges();
             }
         } else if (document['selection'] && document['selection'].empty) {
@@ -585,11 +615,16 @@ export class DomHandler {
     public static resolveUserAgent() {
         let ua = navigator.userAgent.toLowerCase();
         let match =
-            /(chrome)[ \/]([\w.]+)/.exec(ua) || /(webkit)[ \/]([\w.]+)/.exec(ua) || /(opera)(?:.*version|)[ \/]([\w.]+)/.exec(ua) || /(msie) ([\w.]+)/.exec(ua) || (ua.indexOf('compatible') < 0 && /(mozilla)(?:.*? rv:([\w.]+)|)/.exec(ua)) || [];
+            /(chrome)[ \/]([\w.]+)/.exec(ua) ||
+            /(webkit)[ \/]([\w.]+)/.exec(ua) ||
+            /(opera)(?:.*version|)[ \/]([\w.]+)/.exec(ua) ||
+            /(msie) ([\w.]+)/.exec(ua) ||
+            (ua.indexOf('compatible') < 0 && /(mozilla)(?:.*? rv:([\w.]+)|)/.exec(ua)) ||
+            [];
 
         return {
             browser: match[1] || '',
-            version: match[2] || '0'
+            version: match[2] || '0',
         };
     }
 
@@ -636,7 +671,8 @@ export class DomHandler {
 
         for (let focusableElement of focusableElements) {
             const computedStyle = getComputedStyle(focusableElement);
-            if (this.isVisible(focusableElement) && computedStyle.display != 'none' && computedStyle.visibility != 'hidden') visibleFocusableElements.push(focusableElement);
+            if (this.isVisible(focusableElement) && computedStyle.display != 'none' && computedStyle.visibility != 'hidden')
+                visibleFocusableElements.push(focusableElement);
         }
 
         return visibleFocusableElements;
@@ -647,7 +683,8 @@ export class DomHandler {
 
         if (focusableElement) {
             const computedStyle = getComputedStyle(focusableElement);
-            if (this.isVisible(focusableElement) && computedStyle.display != 'none' && computedStyle.visibility != 'hidden') return focusableElement;
+            if (this.isVisible(focusableElement) && computedStyle.display != 'none' && computedStyle.visibility != 'hidden')
+                return focusableElement;
         }
 
         return null;
@@ -799,7 +836,13 @@ export class DomHandler {
                         } else if (type === 'object') {
                             const _cv = Array.isArray(v)
                                 ? computedStyles(rule, v)
-                                : Object.entries(v).map(([_k, _v]) => (rule === 'style' && (!!_v || _v === 0) ? `${_k.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase()}:${_v}` : !!_v ? _k : undefined));
+                                : Object.entries(v).map(([_k, _v]) =>
+                                      rule === 'style' && (!!_v || _v === 0)
+                                          ? `${_k.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase()}:${_v}`
+                                          : !!_v
+                                            ? _k
+                                            : undefined,
+                                  );
 
                             cv = _cv.length ? cv.concat(_cv.filter((c) => !!c)) : cv;
                         }
@@ -818,7 +861,12 @@ export class DomHandler {
                     } else if (key === 'pBind') {
                         this.setAttributes(element, value);
                     } else {
-                        value = key === 'class' ? [...new Set(computedStyles('class', value))].join(' ').trim() : key === 'style' ? computedStyles('style', value).join(';').trim() : value;
+                        value =
+                            key === 'class'
+                                ? [...new Set(computedStyles('class', value))].join(' ').trim()
+                                : key === 'style'
+                                  ? computedStyles('style', value).join(';').trim()
+                                  : value;
                         (element.$attrs = element.$attrs || {}) && (element.$attrs[key] = value);
                         element.setAttribute(key, value);
                     }

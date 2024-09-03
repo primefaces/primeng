@@ -6,6 +6,6 @@ import { ButtonDemoRoutingModule } from './buttondemo-routing.module';
 
 @NgModule({
     imports: [CommonModule, ButtonDemoRoutingModule, ButtonDocModule],
-    declarations: [ButtonDemo]
+    declarations: [ButtonDemo],
 })
 export class ButtonDemoModule {}

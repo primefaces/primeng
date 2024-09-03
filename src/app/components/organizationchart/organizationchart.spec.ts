@@ -12,7 +12,7 @@ describe('OrganizationChart', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [NoopAnimationsModule, ChevronDownIcon, ChevronUpIcon],
-            declarations: [OrganizationChart, OrganizationChartNode]
+            declarations: [OrganizationChart, OrganizationChartNode],
         });
 
         fixture = TestBed.createComponent(OrganizationChart);
@@ -27,27 +27,27 @@ describe('OrganizationChart', () => {
                         expanded: true,
                         children: [
                             {
-                                label: 'Chelsea FC'
+                                label: 'Chelsea FC',
                             },
                             {
-                                label: 'F.C. Barcelona'
-                            }
-                        ]
+                                label: 'F.C. Barcelona',
+                            },
+                        ],
                     },
                     {
                         label: 'Real Madrid',
                         expanded: true,
                         children: [
                             {
-                                label: 'Bayern Munich'
+                                label: 'Bayern Munich',
                             },
                             {
-                                label: 'Real Madrid'
-                            }
-                        ]
-                    }
-                ]
-            }
+                                label: 'Real Madrid',
+                            },
+                        ],
+                    },
+                ],
+            },
         ];
     });
 
@@ -130,30 +130,30 @@ describe('OrganizationChart', () => {
                         expanded: true,
                         children: [
                             {
-                                label: 'Chelsea FC'
+                                label: 'Chelsea FC',
                             },
                             {
                                 label: 'F.C. Barcelona',
-                                selectable: false
-                            }
+                                selectable: false,
+                            },
                         ],
-                        selectable: false
+                        selectable: false,
                     },
                     {
                         label: 'Real Madrid',
                         expanded: true,
                         children: [
                             {
-                                label: 'Bayern Munich'
+                                label: 'Bayern Munich',
                             },
                             {
-                                label: 'Real Madrid'
-                            }
-                        ]
-                    }
+                                label: 'Real Madrid',
+                            },
+                        ],
+                    },
                 ],
-                selectable: false
-            }
+                selectable: false,
+            },
         ];
         fixture.detectChanges();
 

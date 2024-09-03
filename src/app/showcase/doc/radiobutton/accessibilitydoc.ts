@@ -7,7 +7,8 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <h3>Screen Reader</h3>
             <p>
-                RadioButton component uses a hidden native radio button element internally that is only visible to screen readers. Value to describe the component can either be provided via <i>label</i> tag combined with <i>inputId</i> prop or using
+                RadioButton component uses a hidden native radio button element internally that is only visible to screen readers. Value to
+                describe the component can either be provided via <i>label</i> tag combined with <i>inputId</i> prop or using
                 <i>ariaLabelledBy</i>, <i>ariaLabel</i> props.
             </p>
         </app-docsectiontext>
@@ -28,7 +29,10 @@ import { Code } from '@domain/code';
                         <td>
                             <i>tab</i>
                         </td>
-                        <td>Moves focus to the checked radio button, if there is none within the group then first radio button receives the focus.</td>
+                        <td>
+                            Moves focus to the checked radio button, if there is none within the group then first radio button receives the
+                            focus.
+                        </td>
                     </tr>
                     <tr>
                         <td>
@@ -57,7 +61,7 @@ import { Code } from '@domain/code';
                 </tbody>
             </table>
         </div>
-    </div>`
+    </div>`,
 })
 export class AccessibilityDoc {
     code: Code = {
@@ -67,6 +71,6 @@ export class AccessibilityDoc {
 <span id="rb2">Two</span>
 <p-radioButton ariaLabelledBy="rb2" />
 
-<p-radioButton ariaLabel="Three" />`
+<p-radioButton ariaLabel="Three" />`,
     };
 }

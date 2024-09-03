@@ -25,7 +25,7 @@ import { TemplateYoutubeModule } from 'src/app/showcase/layout/templates/templat
         TemplateFeaturesAnimationModule,
         TemplateConfigurationModule,
         TemplateRelatedModule,
-        TemplateFeaturesAnimationInlineModule
-    ]
+        TemplateFeaturesAnimationInlineModule,
+    ],
 })
 export class LearnMoreModule {}

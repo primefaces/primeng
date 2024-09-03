@@ -6,7 +6,10 @@ import { Code } from '@domain/code';
     selector: 'reactive-forms-doc',
     template: `
         <app-docsectiontext>
-            <p>InputNumber can also be used with reactive forms. In this case, the <i>formControlName</i> property is used to bind the component to a form control.</p>
+            <p>
+                InputNumber can also be used with reactive forms. In this case, the <i>formControlName</i> property is used to bind the
+                component to a form control.
+            </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
             <form [formGroup]="formGroup">
@@ -14,14 +17,14 @@ import { Code } from '@domain/code';
             </form>
         </div>
         <app-code [code]="code" selector="input-number-reactive-forms-demo"></app-code>
-    `
+    `,
 })
 export class ReactiveFormsDoc implements OnInit {
     formGroup!: FormGroup;
 
     ngOnInit() {
         this.formGroup = new FormGroup({
-            value: new FormControl(1234)
+            value: new FormControl(1234),
         });
     }
 
@@ -54,6 +57,6 @@ export class InputNumberReactiveFormsDemo implements OnInit {
             value: new FormControl(1234)
         });
     }
-}`
+}`,
     };
 }

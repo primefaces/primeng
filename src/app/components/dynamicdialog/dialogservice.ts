@@ -17,7 +17,7 @@ export class DialogService {
     constructor(
         private appRef: ApplicationRef,
         private injector: Injector,
-        @Inject(DOCUMENT) private document: Document
+        @Inject(DOCUMENT) private document: Document,
     ) {}
     /**
      * Displays the dialog using the dynamic dialog object options.
@@ -63,7 +63,10 @@ export class DialogService {
             sub.unsubscribe();
         });
 
-        const componentRef = createComponent(DynamicDialogComponent, { environmentInjector: this.appRef.injector, elementInjector: new DynamicDialogInjector(this.injector, map) });
+        const componentRef = createComponent(DynamicDialogComponent, {
+            environmentInjector: this.appRef.injector,
+            elementInjector: new DynamicDialogInjector(this.injector, map),
+        });
 
         this.appRef.attachView(componentRef.hostView);
 

@@ -20,27 +20,27 @@ export default {
             style: '{form.field.focus.ring.style}',
             color: '{form.field.focus.ring.color}',
             offset: '{form.field.focus.ring.offset}',
-            shadow: '{form.field.focus.ring.shadow}'
+            shadow: '{form.field.focus.ring.shadow}',
         },
-        transitionDuration: '{form.field.transition.duration}'
+        transitionDuration: '{form.field.transition.duration}',
     },
     dropdown: {
         width: '2.5rem',
-        color: '{form.field.icon.color}'
+        color: '{form.field.icon.color}',
     },
     overlay: {
         background: '{overlay.select.background}',
         borderColor: '{overlay.select.border.color}',
         borderRadius: '{overlay.select.border.radius}',
         color: '{overlay.select.color}',
-        shadow: '{overlay.select.shadow}'
+        shadow: '{overlay.select.shadow}',
     },
     list: {
         padding: '{list.padding}',
         gap: '{list.gap}',
         header: {
-            padding: '{list.header.padding}'
-        }
+            padding: '{list.header.padding}',
+        },
     },
     option: {
         focusBackground: '{list.option.focus.background}',
@@ -52,18 +52,18 @@ export default {
         selectedFocusColor: '{list.option.selected.focus.color}',
         padding: '{list.option.padding}',
         borderRadius: '{list.option.border.radius}',
-        gap: '0.5rem'
+        gap: '0.5rem',
     },
     optionGroup: {
         background: '{list.option.group.background}',
         color: '{list.option.group.color}',
         fontWeight: '{list.option.group.font.weight}',
-        padding: '{list.option.group.padding}'
+        padding: '{list.option.group.padding}',
     },
     chip: {
-        borderRadius: '{border.radius.xs}'
+        borderRadius: '{border.radius.xs}',
     },
     emptyMessage: {
-        padding: '{list.option.padding}'
-    }
+        padding: '{list.option.padding}',
+    },
 };

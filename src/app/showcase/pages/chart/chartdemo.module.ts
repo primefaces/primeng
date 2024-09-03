@@ -7,6 +7,6 @@ import { ChartDemoRoutingModule } from './chartdemo-routing.module';
 
 @NgModule({
     imports: [CommonModule, ChartDemoRoutingModule, ChartModule, ChartDocModule],
-    declarations: [ChartDemo]
+    declarations: [ChartDemo],
 })
 export class ChartDemoModule {}

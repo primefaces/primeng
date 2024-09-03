@@ -5,7 +5,10 @@ import { Code } from '@domain/code';
     selector: 'floatlabel-doc',
     template: `
         <app-docsectiontext>
-            <p>A floating label appears on top of the input field when focused. Visit <a routerLink="/floatlabel">FloatLabel</a> documentation for more information.</p>
+            <p>
+                A floating label appears on top of the input field when focused. Visit
+                <a routerLink="/floatlabel">FloatLabel</a> documentation for more information.
+            </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-floatLabel>
@@ -14,7 +17,7 @@ import { Code } from '@domain/code';
             </p-floatLabel>
         </div>
         <app-code [code]="code" selector="input-mask-floatlabel-demo"></app-code>
-    `
+    `,
 })
 export class FloatlabelDoc {
     value: string | undefined;
@@ -51,6 +54,6 @@ import { FloatLabelModule } from "primeng/floatlabel"
 })
 export class InputMaskFloatlabelDemo {
     value: string | undefined;
-}`
+}`,
     };
 }

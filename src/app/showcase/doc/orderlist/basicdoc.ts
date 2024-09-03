@@ -7,13 +7,20 @@ import { ProductService } from '@service/productservice';
     selector: 'basic-doc',
     template: `
         <app-docsectiontext>
-            <p>OrderList is used as a controlled input with <i>value</i> properties. Content of a list item needs to be defined with the <i>pTemplate</i> property that receives an object in the list as parameter.</p>
+            <p>
+                OrderList is used as a controlled input with <i>value</i> properties. Content of a list item needs to be defined with the
+                <i>pTemplate</i> property that receives an object in the list as parameter.
+            </p>
         </app-docsectiontext>
         <div class="card xl:flex xl:justify-center">
             <p-orderList [value]="products" [listStyle]="{ height: '25rem' }" header="List of Products">
                 <ng-template let-product pTemplate="item">
                     <div class="flex flex-wrap p-2 items-center gap-4">
-                        <img src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.name" class="w-16 shadow shrink-0 rounded-border" />
+                        <img
+                            src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}"
+                            [alt]="product.name"
+                            class="w-16 shadow shrink-0 rounded-border"
+                        />
                         <div class="flex-1 flex flex-col gap-2">
                             <span class="font-bold">{{ product.name }}</span>
                             <div class="flex items-center gap-2">
@@ -27,14 +34,14 @@ import { ProductService } from '@service/productservice';
             </p-orderList>
         </div>
         <app-code [code]="code" selector="orderlist-basic-demo" [extFiles]="extFiles"></app-code>
-    `
+    `,
 })
 export class BasicDoc implements OnInit {
     products!: Product[];
 
     constructor(
         private productService: ProductService,
-        private cdr: ChangeDetectorRef
+        private cdr: ChangeDetectorRef,
     ) {}
 
     ngOnInit() {
@@ -159,7 +166,7 @@ export class OrderlistBasicDemo implements OnInit {
 },
 ...`,
 
-        service: ['ProductService']
+        service: ['ProductService'],
     };
 
     extFiles = [
@@ -177,7 +184,7 @@ export interface Product {
     category?: string;
     image?: string;
     rating?: number;
-}`
-        }
+}`,
+        },
     ];
 }

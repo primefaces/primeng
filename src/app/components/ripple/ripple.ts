@@ -33,11 +33,7 @@ export class Ripple extends BaseComponent implements AfterViewInit, OnDestroy {
             if (this.config && this.config.ripple()) {
                 this.zone.runOutsideAngular(() => {
                     this.create();
-                    this.mouseDownListener = this.renderer.listen(
-                        this.el.nativeElement,
-                        'mousedown',
-                        this.onMouseDown.bind(this),
-                    );
+                    this.mouseDownListener = this.renderer.listen(this.el.nativeElement, 'mousedown', this.onMouseDown.bind(this));
                 });
             }
         }
@@ -51,10 +47,7 @@ export class Ripple extends BaseComponent implements AfterViewInit, OnDestroy {
 
         DomHandler.removeClass(ink, 'p-ink-active');
         if (!DomHandler.getHeight(ink) && !DomHandler.getWidth(ink)) {
-            let d = Math.max(
-                DomHandler.getOuterWidth(this.el.nativeElement),
-                DomHandler.getOuterHeight(this.el.nativeElement),
-            );
+            let d = Math.max(DomHandler.getOuterWidth(this.el.nativeElement), DomHandler.getOuterHeight(this.el.nativeElement));
             ink.style.height = d + 'px';
             ink.style.width = d + 'px';
         }

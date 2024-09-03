@@ -8,44 +8,44 @@ import { ImportDoc } from '@doc/togglebutton/importdoc';
 import { StyleDoc } from '@doc/togglebutton/styledoc';
 
 @Component({
-    templateUrl: './togglebuttondemo.html'
+    templateUrl: './togglebuttondemo.html',
 })
 export class ToggleButtonDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc
+            component: ImportDoc,
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc
+            component: BasicDoc,
         },
         {
             id: 'reactive-forms',
             label: 'Reactive Forms',
-            component: ReactiveFormsDoc
+            component: ReactiveFormsDoc,
         },
         {
             id: 'customized',
             label: 'Customized',
-            component: CustomizedDoc
+            component: CustomizedDoc,
         },
         {
             id: 'disabled',
             label: 'Disabled',
-            component: DisabledDoc
+            component: DisabledDoc,
         },
         {
             id: 'style',
             label: 'Style',
-            component: StyleDoc
+            component: StyleDoc,
         },
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc
-        }
+            component: AccessibilityDoc,
+        },
     ];
 }

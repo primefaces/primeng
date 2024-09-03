@@ -6,6 +6,6 @@ import { OrganizationChartDemoRoutingModule } from './organizationchartdemo-rout
 
 @NgModule({
     imports: [CommonModule, OrganizationChartDemoRoutingModule, OrganizationChartDocModule],
-    declarations: [OrganizationChartDemo]
+    declarations: [OrganizationChartDemo],
 })
 export class OrganizationChartDemoModule {}

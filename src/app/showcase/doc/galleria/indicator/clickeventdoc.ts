@@ -6,17 +6,26 @@ import { PhotoService } from '@service/photoservice';
     selector: 'click-event-doc',
     template: `
         <app-docsectiontext>
-            <p>Indicators are displayed at the bottom by enabling <i>showIndicators</i> property and interacted with the click event by default.</p>
+            <p>
+                Indicators are displayed at the bottom by enabling <i>showIndicators</i> property and interacted with the click event by
+                default.
+            </p>
         </app-docsectiontext>
         <div class="card">
-            <p-galleria [(value)]="images" [showIndicators]="true" [showThumbnails]="false" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }">
+            <p-galleria
+                [(value)]="images"
+                [showIndicators]="true"
+                [showThumbnails]="false"
+                [responsiveOptions]="responsiveOptions"
+                [containerStyle]="{ 'max-width': '640px' }"
+            >
                 <ng-template pTemplate="item" let-item>
                     <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
                 </ng-template>
             </p-galleria>
         </div>
         <app-code [code]="code" selector="galleria-indicator-click-event-demo"></app-code>
-    `
+    `,
 })
 export class ClickEventDoc implements OnInit {
     images: any[] | undefined;
@@ -24,16 +33,16 @@ export class ClickEventDoc implements OnInit {
     responsiveOptions: any[] = [
         {
             breakpoint: '1024px',
-            numVisible: 5
+            numVisible: 5,
         },
         {
             breakpoint: '768px',
-            numVisible: 3
+            numVisible: 3,
         },
         {
             breakpoint: '560px',
-            numVisible: 1
-        }
+            numVisible: 1,
+        },
     ];
 
     constructor(private photoService: PhotoService) {}
@@ -113,6 +122,6 @@ export class GalleriaIndicatorClickEventDemo implements OnInit {
     title: 'Title 1'
 },
 ...`,
-        service: ['PhotoService']
+        service: ['PhotoService'],
     };
 }

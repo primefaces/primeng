@@ -9,7 +9,7 @@ describe('CascadeSelect', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule, CascadeSelectModule]
+            imports: [NoopAnimationsModule, CascadeSelectModule],
         });
 
         fixture = TestBed.createComponent(CascadeSelect);

@@ -22,12 +22,21 @@ import { TemplateHeroRectangleModule } from './templateherorectangle';
                 <p>{{ templateHeroData?.description }}</p>
                 <div class="template-hero-card-buttons">
                     <a [href]="templateHeroData?.liveHref" target="_blank" class="template-hero-card-buttons-btn1 p-button"> Live Demo </a>
-                    <a [href]="templateHeroData?.storeHref ?? 'https://www.primefaces.org/store/'" target="_blank" class="template-hero-card-buttons-btn2 p-button">
+                    <a
+                        [href]="templateHeroData?.storeHref ?? 'https://www.primefaces.org/store/'"
+                        target="_blank"
+                        class="template-hero-card-buttons-btn2 p-button"
+                    >
                         {{ templateHeroData?.free ? 'Source Code' : 'Buy Now' }}
                     </a>
                 </div>
                 <div class="template-hero-card-links ">
-                    <a [href]="templateHeroData?.supportHref ?? 'https://github.com/orgs/primefaces/discussions/categories/primeng-templates'" target="_blank">
+                    <a
+                        [href]="
+                            templateHeroData?.supportHref ?? 'https://github.com/orgs/primefaces/discussions/categories/primeng-templates'
+                        "
+                        target="_blank"
+                    >
                         <i class="pi pi-github " style="font-size: 1rem;"></i>
                         <span>{{ templateHeroData?.free ? 'Open Issues' : 'Get Support' }}</span>
                     </a>
@@ -47,7 +56,7 @@ import { TemplateHeroRectangleModule } from './templateherorectangle';
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrl: '../../../pages/templates/learnmore/learnmore.scss'
+    styleUrl: '../../../pages/templates/learnmore/learnmore.scss',
 })
 export class TemplateHero {
     @Input() templateHeroData;
@@ -57,6 +66,6 @@ export class TemplateHero {
 @NgModule({
     imports: [CommonModule, SharedModule, NgOptimizedImage, TemplateHeroLightModule, TemplateHeroRectangleModule],
     exports: [TemplateHero, SharedModule],
-    declarations: [TemplateHero]
+    declarations: [TemplateHero],
 })
 export class TemplateHeroModule {}

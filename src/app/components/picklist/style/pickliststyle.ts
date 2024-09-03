@@ -29,9 +29,8 @@ const classes = {
     sourceListContainer: 'p-picklist-list-container p-picklist-source-list-container',
     transferControls: 'p-picklist-controls p-picklist-transfer-controls',
     targetListContainer: 'p-picklist-list-container p-picklist-target-list-container',
-    targetControls: 'p-picklist-controls p-picklist-target-controls'
+    targetControls: 'p-picklist-controls p-picklist-target-controls',
 };
-
 
 @Injectable()
 export class PickListStyle extends BaseStyle {

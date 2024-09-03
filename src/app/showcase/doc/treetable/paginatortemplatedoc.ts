@@ -12,13 +12,22 @@ interface Column {
     template: `
         <app-docsectiontext>
             <p>
-                Paginator UI is customized using the <i>paginatorleft</i> and <i>paginatorright</i> property. Each element can also be customized further with your own UI to replace the default one, refer to the
-                <a href="#" [routerLink]="['/paginator']">Paginator</a> component for more information about the advanced customization options.
+                Paginator UI is customized using the <i>paginatorleft</i> and <i>paginatorright</i> property. Each element can also be
+                customized further with your own UI to replace the default one, refer to the
+                <a href="#" [routerLink]="['/paginator']">Paginator</a> component for more information about the advanced customization
+                options.
             </p>
         </app-docsectiontext>
         <div class="card">
             <p-deferred-demo (load)="loadDemoData()">
-                <p-treeTable [value]="files" [columns]="cols" [paginator]="true" [rows]="10" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
+                <p-treeTable
+                    [value]="files"
+                    [columns]="cols"
+                    [paginator]="true"
+                    [rows]="10"
+                    [scrollable]="true"
+                    [tableStyle]="{ 'min-width': '50rem' }"
+                >
                     <ng-template pTemplate="header" let-columns>
                         <tr>
                             <th *ngFor="let col of columns">
@@ -46,7 +55,7 @@ interface Column {
         </div>
         <app-code [code]="code" selector="tree-table-paginator-template-demo"></app-code>
     `,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PaginatorTemplateDoc {
     files!: TreeNode[];
@@ -60,17 +69,17 @@ export class PaginatorTemplateDoc {
                 data: {
                     name: 'Item ' + i,
                     size: Math.floor(Math.random() * 1000) + 1 + 'kb',
-                    type: 'Type ' + i
+                    type: 'Type ' + i,
                 },
                 children: [
                     {
                         data: {
                             name: 'Item ' + i + ' - 0',
                             size: Math.floor(Math.random() * 1000) + 1 + 'kb',
-                            type: 'Type ' + i
-                        }
-                    }
-                ]
+                            type: 'Type ' + i,
+                        },
+                    },
+                ],
             };
 
             this.files.push(node);
@@ -79,7 +88,7 @@ export class PaginatorTemplateDoc {
         this.cols = [
             { field: 'name', header: 'Name' },
             { field: 'size', header: 'Size' },
-            { field: 'type', header: 'Type' }
+            { field: 'type', header: 'Type' },
         ];
     }
 
@@ -197,6 +206,6 @@ export class TreeTablePaginatorTemplateDemo implements OnInit {
             { field: 'type', header: 'Type' }
         ];
     }
-}`
+}`,
     };
 }

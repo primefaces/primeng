@@ -16,7 +16,14 @@ interface Column {
         </app-docsectiontext>
         <div class="card">
             <p-deferred-demo (load)="loadDemoData()">
-                <p-treeTable [value]="files" [columns]="cols" [scrollable]="true" scrollHeight="200px" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
+                <p-treeTable
+                    [value]="files"
+                    [columns]="cols"
+                    [scrollable]="true"
+                    scrollHeight="200px"
+                    [scrollable]="true"
+                    [tableStyle]="{ 'min-width': '50rem' }"
+                >
                     <ng-template pTemplate="colgroup" let-columns>
                         <colgroup>
                             <col *ngFor="let col of columns" style="width:500px" />
@@ -41,7 +48,7 @@ interface Column {
             </p-deferred-demo>
         </div>
         <app-code [code]="code" selector="tree-table-scroll-horizontal-demo"></app-code>
-    `
+    `,
 })
 export class ScrollHorizontalDoc {
     files!: TreeNode[];
@@ -55,7 +62,7 @@ export class ScrollHorizontalDoc {
         this.cols = [
             { field: 'name', header: 'Name' },
             { field: 'size', header: 'Size' },
-            { field: 'type', header: 'Type' }
+            { field: 'type', header: 'Type' },
         ];
     }
 
@@ -140,6 +147,6 @@ export class TreeTableScrollHorizontalDemo implements OnInit {
     }
 }`,
 
-        service: ['NodeService']
+        service: ['NodeService'],
     };
 }

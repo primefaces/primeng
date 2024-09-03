@@ -7,34 +7,34 @@ import { AccessibilityDoc } from '@doc/progressspinner/accessibilitydoc';
 
 @Component({
     templateUrl: './progressspinnerdemo.html',
-    styleUrls: ['./progressspinnerdemo.css']
+    styleUrls: ['./progressspinnerdemo.css'],
 })
 export class ProgressSpinnerDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc
+            component: ImportDoc,
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc
+            component: BasicDoc,
         },
         {
             id: 'custom',
             label: 'Custom',
-            component: CustomDoc
+            component: CustomDoc,
         },
         {
             id: 'style',
             label: 'Style',
-            component: StyleDoc
+            component: StyleDoc,
         },
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc
-        }
+            component: AccessibilityDoc,
+        },
     ];
 }

@@ -6,6 +6,6 @@ import { SplitButtonDemoRoutingModule } from './splitbuttondemo-routing.module';
 
 @NgModule({
     imports: [CommonModule, SplitButtonDemoRoutingModule, SplitButtonDocModule],
-    declarations: [SplitButtonDemo]
+    declarations: [SplitButtonDemo],
 })
 export class SplitButtonDemoModule {}

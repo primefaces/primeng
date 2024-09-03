@@ -7,34 +7,34 @@ import { AccessibilityDoc } from '@doc/picklist/accessibilitydoc';
 
 @Component({
     templateUrl: './picklistdemo.html',
-    styleUrls: ['./picklistdemo.scss']
+    styleUrls: ['./picklistdemo.scss'],
 })
 export class PickListDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc
+            component: ImportDoc,
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc
+            component: BasicDoc,
         },
         {
             id: 'filter',
             label: 'Filter',
-            component: FilterDoc
+            component: FilterDoc,
         },
         {
             id: 'style',
             label: 'Style',
-            component: StyleDoc
+            component: StyleDoc,
         },
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc
-        }
+            component: AccessibilityDoc,
+        },
     ];
 }

@@ -20,7 +20,14 @@ interface PageEvent {
                     <p-button icon="pi pi-star" styleClass="p-button-outlined" />
                 </div>
                 <div class="flex-1">
-                    <p-paginator (onPageChange)="onPageChange1($event)" [first]="first1" [rows]="rows1" [totalRecords]="120" [rowsPerPageOptions]="[10, 20, 30]" [showFirstLastIcon]="false" />
+                    <p-paginator
+                        (onPageChange)="onPageChange1($event)"
+                        [first]="first1"
+                        [rows]="rows1"
+                        [totalRecords]="120"
+                        [rowsPerPageOptions]="[10, 20, 30]"
+                        [showFirstLastIcon]="false"
+                    />
                 </div>
                 <div class="justify-end">
                     <p-button icon="pi pi-search" />
@@ -45,7 +52,14 @@ interface PageEvent {
             <div class="flex items-center justify-start">
                 <div class="flex justify-center items-center gap-4">
                     <span>Items per page: </span>
-                    <p-slider [(ngModel)]="rows3" (ngModelChange)="first3 = 0" [style]="{ width: '10rem' }" [min]="10" [max]="120" [step]="30" />
+                    <p-slider
+                        [(ngModel)]="rows3"
+                        (ngModelChange)="first3 = 0"
+                        [style]="{ width: '10rem' }"
+                        [min]="10"
+                        [max]="120"
+                        [step]="30"
+                    />
                 </div>
                 <p-paginator
                     (onPageChange)="onPageChange3($event)"
@@ -59,7 +73,7 @@ interface PageEvent {
             </div>
         </div>
         <app-code [code]="code" selector="paginator-template-demo"></app-code>
-    `
+    `,
 })
 export class TemplateDoc {
     first1: number = 0;
@@ -80,7 +94,7 @@ export class TemplateDoc {
         { label: 5, value: 5 },
         { label: 10, value: 10 },
         { label: 20, value: 20 },
-        { label: 120, value: 120 }
+        { label: 120, value: 120 },
     ];
 
     onPageChange1(event: PageEvent) {
@@ -213,6 +227,6 @@ export class PaginatorTemplateDemo {
         this.first3 = event.first;
         this.rows3 = event.rows;
     }
-}`
+}`,
     };
 }

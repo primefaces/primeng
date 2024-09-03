@@ -12,14 +12,25 @@ interface Column {
     selector: 'column-toggle-doc',
     template: `
         <app-docsectiontext>
-            <p>Column visibility based on a condition can be implemented with dynamic columns, in this sample a MultiSelect is used to manage the visible columns.</p>
+            <p>
+                Column visibility based on a condition can be implemented with dynamic columns, in this sample a MultiSelect is used to
+                manage the visible columns.
+            </p>
         </app-docsectiontext>
         <div class="card">
             <p-deferred-demo (load)="loadDemoData()">
                 <p-treeTable [value]="files" [columns]="selectedColumns" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template pTemplate="caption">
                         <div style="text-align:left">
-                            <p-multiSelect [options]="cols" [(ngModel)]="selectedColumns" optionLabel="header" selectedItemsLabel="{0} columns selected" [style]="{ width: '20em' }" defaultLabel="Choose Columns" display="chip" />
+                            <p-multiSelect
+                                [options]="cols"
+                                [(ngModel)]="selectedColumns"
+                                optionLabel="header"
+                                selectedItemsLabel="{0} columns selected"
+                                [style]="{ width: '20em' }"
+                                defaultLabel="Choose Columns"
+                                display="chip"
+                            />
                         </div>
                     </ng-template>
                     <ng-template pTemplate="header" let-columns>
@@ -42,7 +53,7 @@ interface Column {
         </div>
         <app-code [code]="code" selector="tree-table-column-toggle-demo"></app-code>
     `,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ColumnToggleDoc {
     files!: TreeNode[];
@@ -59,7 +70,7 @@ export class ColumnToggleDoc {
         this.cols = [
             { field: 'name', header: 'Name' },
             { field: 'size', header: 'Size' },
-            { field: 'type', header: 'Type' }
+            { field: 'type', header: 'Type' },
         ];
 
         this.selectedColumns = this.cols;
@@ -176,6 +187,6 @@ export class TreeTableColumnToggleDemo implements OnInit {
     }
 }`,
 
-        service: ['NodeService']
+        service: ['NodeService'],
     };
 }

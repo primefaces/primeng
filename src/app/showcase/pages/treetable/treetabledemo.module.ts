@@ -7,6 +7,6 @@ import { TreeTableDemoRoutingModule } from './treetabledemo-routing.module';
 
 @NgModule({
     imports: [CommonModule, TreeTableDemoRoutingModule, TreeTableDocModule],
-    declarations: [TreeTableDemo]
+    declarations: [TreeTableDemo],
 })
 export class TreeTableDemoModule {}

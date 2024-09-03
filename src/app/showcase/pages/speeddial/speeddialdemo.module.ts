@@ -6,6 +6,6 @@ import { SpeedDialDemoRoutingModule } from './speeddialdemo-routing.module';
 
 @NgModule({
     imports: [CommonModule, SpeedDialDemoRoutingModule, SpeedDialDocModule],
-    declarations: [SpeedDialDemo]
+    declarations: [SpeedDialDemo],
 })
 export class SpeedDialDemoModule {}

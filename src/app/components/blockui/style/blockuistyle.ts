@@ -20,7 +20,7 @@ const theme = ({ dt }) => `
 `;
 
 const classes = {
-    root: 'p-blockui'
+    root: 'p-blockui',
 };
 
 @Injectable()

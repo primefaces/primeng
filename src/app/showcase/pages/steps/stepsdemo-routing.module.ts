@@ -17,11 +17,11 @@ import { StepsDemo } from './stepsdemo';
                     { path: 'seat', component: SeatDemo },
                     { path: 'payment', component: PaymentDemo },
                     { path: 'confirmation', component: ConfirmationDemo },
-                    { path: '', redirectTo: 'personal', pathMatch: 'full' }
-                ]
-            }
-        ])
+                    { path: '', redirectTo: 'personal', pathMatch: 'full' },
+                ],
+            },
+        ]),
     ],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class StepsDemoRoutingModule {}

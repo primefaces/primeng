@@ -10,7 +10,7 @@ describe('TieredMenu', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule, RouterTestingModule, TieredMenuModule]
+            imports: [NoopAnimationsModule, RouterTestingModule, TieredMenuModule],
         });
 
         fixture = TestBed.createComponent(TieredMenu);
@@ -51,20 +51,20 @@ describe('TieredMenu', () => {
                     {
                         label: 'New',
                         icon: 'pi pi-fw pi-plus',
-                        items: [{ label: 'Project' }, { label: 'Other' }]
+                        items: [{ label: 'Project' }, { label: 'Other' }],
                     },
                     { label: 'Open' },
-                    { label: 'Quit' }
-                ]
+                    { label: 'Quit' },
+                ],
             },
             {
                 label: 'Edit',
                 icon: 'pi pi-fw pi-pencil',
                 items: [
                     { label: 'Delete', icon: 'pi pi-fw pi-trash' },
-                    { label: 'Refresh', icon: 'pi pi-fw pi-refresh' }
-                ]
-            }
+                    { label: 'Refresh', icon: 'pi pi-fw pi-refresh' },
+                ],
+            },
         ];
         tieredmenu.autoZIndex = true;
         fixture.detectChanges();
@@ -81,20 +81,20 @@ describe('TieredMenu', () => {
                     {
                         label: 'New',
                         icon: 'pi pi-fw pi-plus',
-                        items: [{ label: 'Project' }, { label: 'Other' }]
+                        items: [{ label: 'Project' }, { label: 'Other' }],
                     },
                     { label: 'Open' },
-                    { label: 'Quit' }
-                ]
+                    { label: 'Quit' },
+                ],
             },
             {
                 label: 'Edit',
                 icon: 'pi pi-fw pi-pencil',
                 items: [
                     { label: 'Delete', icon: 'pi pi-fw pi-trash' },
-                    { label: 'Refresh', icon: 'pi pi-fw pi-refresh' }
-                ]
-            }
+                    { label: 'Refresh', icon: 'pi pi-fw pi-refresh' },
+                ],
+            },
         ];
         tieredmenu.baseZIndex = 500;
         fixture.detectChanges();
@@ -111,20 +111,20 @@ describe('TieredMenu', () => {
                     {
                         label: 'New',
                         icon: 'pi pi-fw pi-plus',
-                        items: [{ label: 'Project' }, { label: 'Other' }]
+                        items: [{ label: 'Project' }, { label: 'Other' }],
                     },
                     { label: 'Open' },
-                    { label: 'Quit' }
-                ]
+                    { label: 'Quit' },
+                ],
             },
             {
                 label: 'Edit',
                 icon: 'pi pi-fw pi-pencil',
                 items: [
                     { label: 'Delete', icon: 'pi pi-fw pi-trash' },
-                    { label: 'Refresh', icon: 'pi pi-fw pi-refresh' }
-                ]
-            }
+                    { label: 'Refresh', icon: 'pi pi-fw pi-refresh' },
+                ],
+            },
         ];
         fixture.detectChanges();
         const items = fixture.debugElement.query(By.css('ul'));
@@ -140,21 +140,21 @@ describe('TieredMenu', () => {
                         label: 'New',
                         icon: 'pi pi-fw pi-plus',
                         items: [{ label: 'Project' }, { label: 'Other' }],
-                        command: () => {}
+                        command: () => {},
                     },
                     { label: 'Open' },
-                    { label: 'Quit' }
-                ]
+                    { label: 'Quit' },
+                ],
             },
             {
                 label: 'Edit',
                 icon: 'pi pi-fw pi-pencil',
                 items: [
                     { label: 'Delete', icon: 'pi pi-fw pi-trash' },
-                    { label: 'Refresh', icon: 'pi pi-fw pi-refresh' }
+                    { label: 'Refresh', icon: 'pi pi-fw pi-refresh' },
                 ],
-                disabled: true
-            }
+                disabled: true,
+            },
         ];
         fixture.detectChanges();
 
@@ -184,16 +184,16 @@ describe('TieredMenu', () => {
                     {
                         label: 'New',
                         icon: 'pi pi-fw pi-plus',
-                        items: [{ label: 'Project' }, { label: 'Other' }]
+                        items: [{ label: 'Project' }, { label: 'Other' }],
                     },
                     { label: 'Open' },
-                    { label: 'Quit' }
-                ]
+                    { label: 'Quit' },
+                ],
             },
             {
                 label: 'Edit',
-                icon: 'pi pi-fw pi-pencil'
-            }
+                icon: 'pi pi-fw pi-pencil',
+            },
         ];
         tieredmenu.popup = true;
         tieredmenu.appendTo = 'body';
@@ -227,16 +227,16 @@ describe('TieredMenu', () => {
                     {
                         label: 'New',
                         icon: 'pi pi-fw pi-plus',
-                        items: [{ label: 'Project' }, { label: 'Other' }]
+                        items: [{ label: 'Project' }, { label: 'Other' }],
                     },
                     { label: 'Open' },
-                    { label: 'Quit' }
-                ]
+                    { label: 'Quit' },
+                ],
             },
             {
                 label: 'Edit',
-                icon: 'pi pi-fw pi-pencil'
-            }
+                icon: 'pi pi-fw pi-pencil',
+            },
         ];
         tieredmenu.popup = true;
         tieredmenu.appendTo = document.body;
@@ -270,20 +270,20 @@ describe('TieredMenu', () => {
                     {
                         label: 'New',
                         icon: 'pi pi-fw pi-plus',
-                        items: [{ label: 'Project' }, { label: 'Other' }]
+                        items: [{ label: 'Project' }, { label: 'Other' }],
                     },
                     { label: 'Open' },
-                    { label: 'Quit' }
-                ]
+                    { label: 'Quit' },
+                ],
             },
             {
                 label: 'Edit',
                 icon: 'pi pi-fw pi-pencil',
                 items: [
                     { label: 'Delete', icon: 'pi pi-fw pi-trash' },
-                    { label: 'Refresh', icon: 'pi pi-fw pi-refresh' }
-                ]
-            }
+                    { label: 'Refresh', icon: 'pi pi-fw pi-refresh' },
+                ],
+            },
         ];
         fixture.detectChanges();
 
@@ -309,21 +309,21 @@ describe('TieredMenu', () => {
                     {
                         label: 'New',
                         icon: 'pi pi-fw pi-plus',
-                        items: [{ label: 'Project' }, { label: 'Other' }]
+                        items: [{ label: 'Project' }, { label: 'Other' }],
                     },
                     { label: 'Open' },
-                    { label: 'Quit' }
+                    { label: 'Quit' },
                 ],
-                disabled: true
+                disabled: true,
             },
             {
                 label: 'Edit',
                 icon: 'pi pi-fw pi-pencil',
                 items: [
                     { label: 'Delete', icon: 'pi pi-fw pi-trash' },
-                    { label: 'Refresh', icon: 'pi pi-fw pi-refresh' }
-                ]
-            }
+                    { label: 'Refresh', icon: 'pi pi-fw pi-refresh' },
+                ],
+            },
         ];
         fixture.detectChanges();
 
@@ -348,21 +348,21 @@ describe('TieredMenu', () => {
                     {
                         label: 'New',
                         icon: 'pi pi-fw pi-plus',
-                        items: [{ label: 'Project' }, { label: 'Other' }]
+                        items: [{ label: 'Project' }, { label: 'Other' }],
                     },
                     { label: 'Open' },
-                    { label: 'Quit' }
-                ]
+                    { label: 'Quit' },
+                ],
             },
             {
                 label: 'Edit',
                 icon: 'pi pi-fw pi-pencil',
                 items: [
                     { label: 'Delete', icon: 'pi pi-fw pi-trash' },
-                    { label: 'Refresh', icon: 'pi pi-fw pi-refresh' }
+                    { label: 'Refresh', icon: 'pi pi-fw pi-refresh' },
                 ],
-                disabled: true
-            }
+                disabled: true,
+            },
         ];
         fixture.detectChanges();
 

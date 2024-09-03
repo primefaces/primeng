@@ -8,39 +8,39 @@ import { AccessibilityDoc } from '@doc/orderlist/accessibilitydoc';
 
 @Component({
     templateUrl: './orderlistdemo.html',
-    styleUrls: ['./orderlistdemo.scss']
+    styleUrls: ['./orderlistdemo.scss'],
 })
 export class OrderListDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc
+            component: ImportDoc,
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc
+            component: BasicDoc,
         },
         {
             id: 'filter',
             label: 'Filter',
-            component: FilterDoc
+            component: FilterDoc,
         },
         {
             id: 'dragdrop',
             label: 'DragDrop',
-            component: DragDropDoc
+            component: DragDropDoc,
         },
         {
             id: 'style',
             label: 'Style',
-            component: StyleDoc
+            component: StyleDoc,
         },
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc
-        }
+            component: AccessibilityDoc,
+        },
     ];
 }

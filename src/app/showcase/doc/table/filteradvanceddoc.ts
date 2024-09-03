@@ -11,13 +11,28 @@ import { CustomerService } from '../../service/customerservice';
         </app-docsectiontext>
         <p-deferred-demo (load)="loadDemoData()">
             <div class="card">
-                <p-table #dt1 [value]="customers" dataKey="id" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]" [loading]="loading" [paginator]="true" [globalFilterFields]="['name', 'country.name', 'representative.name', 'status']">
+                <p-table
+                    #dt1
+                    [value]="customers"
+                    dataKey="id"
+                    [rows]="10"
+                    [rowsPerPageOptions]="[10, 25, 50]"
+                    [loading]="loading"
+                    [paginator]="true"
+                    [globalFilterFields]="['name', 'country.name', 'representative.name', 'status']"
+                >
                     <ng-template pTemplate="caption">
                         <div class="flex">
                             <p-button label="Clear" [outlined]="true" icon="pi pi-filter-slash" (click)="clear(dt1)" />
                             <span class="p-input-icon-left ml-auto">
                                 <i class="pi pi-search"></i>
-                                <input pInputText type="text" [(ngModel)]="searchValue" (input)="dt1.filterGlobal($event.target.value, 'contains')" placeholder="Search keyword" />
+                                <input
+                                    pInputText
+                                    type="text"
+                                    [(ngModel)]="searchValue"
+                                    (input)="dt1.filterGlobal($event.target.value, 'contains')"
+                                    placeholder="Search keyword"
+                                />
                             </span>
                         </div>
                     </ng-template>
@@ -38,17 +53,35 @@ import { CustomerService } from '../../service/customerservice';
                             <th style="min-width:15rem">
                                 <div class="flex items-center">
                                     Agent
-                                    <p-columnFilter field="representative" matchMode="in" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
+                                    <p-columnFilter
+                                        field="representative"
+                                        matchMode="in"
+                                        display="menu"
+                                        [showMatchModes]="false"
+                                        [showOperator]="false"
+                                        [showAddButton]="false"
+                                    >
                                         <ng-template pTemplate="header">
                                             <div class="px-4 pt-4 pb-0">
                                                 <span class="font-bold">Agent Picker</span>
                                             </div>
                                         </ng-template>
                                         <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                            <p-multiSelect [(ngModel)]="value" [options]="representatives" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name">
+                                            <p-multiSelect
+                                                [(ngModel)]="value"
+                                                [options]="representatives"
+                                                placeholder="Any"
+                                                (onChange)="filter($event.value)"
+                                                optionLabel="name"
+                                            >
                                                 <ng-template let-option pTemplate="item">
                                                     <div class="inline-block align-middle">
-                                                        <img [alt]="option.label" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ option.image }}" width="24" class="align-middle" />
+                                                        <img
+                                                            [alt]="option.label"
+                                                            src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ option.image }}"
+                                                            width="24"
+                                                            class="align-middle"
+                                                        />
                                                         <span class="ml-1 mt-1">{{ option.name }}</span>
                                                     </div>
                                                 </ng-template>
@@ -74,7 +107,12 @@ import { CustomerService } from '../../service/customerservice';
                                     Status
                                     <p-columnFilter field="status" matchMode="equals" display="menu">
                                         <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                            <p-dropdown [(ngModel)]="value" [options]="statuses" (onChange)="filter($event.value)" placeholder="Any">
+                                            <p-dropdown
+                                                [(ngModel)]="value"
+                                                [options]="statuses"
+                                                (onChange)="filter($event.value)"
+                                                placeholder="Any"
+                                            >
                                                 <ng-template let-option pTemplate="item">
                                                     <p-tag [value]="option.value" [severity]="getSeverity(option.label)"></p-tag>
                                                 </ng-template>
@@ -86,9 +124,21 @@ import { CustomerService } from '../../service/customerservice';
                             <th style="min-width:10rem">
                                 <div class="flex items-center">
                                     Activity
-                                    <p-columnFilter field="activity" matchMode="between" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
+                                    <p-columnFilter
+                                        field="activity"
+                                        matchMode="between"
+                                        display="menu"
+                                        [showMatchModes]="false"
+                                        [showOperator]="false"
+                                        [showAddButton]="false"
+                                    >
                                         <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                            <p-slider [(ngModel)]="value" [range]="true" styleClass="m-4" (onSlideEnd)="filter($event.values)" />
+                                            <p-slider
+                                                [(ngModel)]="value"
+                                                [range]="true"
+                                                styleClass="m-4"
+                                                (onSlideEnd)="filter($event.values)"
+                                            />
                                             <div class="flex items-center px-2">
                                                 <span *ngIf="!value">0</span>
                                                 <span *ngIf="value">{{ value[0] }} - {{ value[1] }}</span>
@@ -111,11 +161,20 @@ import { CustomerService } from '../../service/customerservice';
                                 {{ customer.name }}
                             </td>
                             <td>
-                                <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px" />
+                                <img
+                                    src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
+                                    [class]="'flag flag-' + customer.country.code"
+                                    style="width: 20px"
+                                />
                                 <span class="ml-1 align-middle">{{ customer.country.name }}</span>
                             </td>
                             <td>
-                                <img [alt]="customer.representative.name" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}" width="32" style="vertical-align: middle" />
+                                <img
+                                    [alt]="customer.representative.name"
+                                    src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}"
+                                    width="32"
+                                    style="vertical-align: middle"
+                                />
                                 <span class="ml-1 align-middle">{{ customer.representative.name }}</span>
                             </td>
                             <td>
@@ -131,7 +190,13 @@ import { CustomerService } from '../../service/customerservice';
                                 <p-progressBar [value]="customer.activity" [showValue]="false" />
                             </td>
                             <td class="text-center">
-                                <i class="pi" [ngClass]="{ 'text-green-500 pi-check-circle': customer.verified, 'text-red-500 pi-times-circle': !customer.verified }"></i>
+                                <i
+                                    class="pi"
+                                    [ngClass]="{
+                                        'text-green-500 pi-check-circle': customer.verified,
+                                        'text-red-500 pi-times-circle': !customer.verified,
+                                    }"
+                                ></i>
                             </td>
                         </tr>
                     </ng-template>
@@ -144,7 +209,7 @@ import { CustomerService } from '../../service/customerservice';
             </div>
         </p-deferred-demo>
         <app-code [code]="code" selector="table-filter-advanced-demo" [extFiles]="extFiles"></app-code>`,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FilterAdvancedDoc {
     customers!: Customer[];
@@ -161,7 +226,7 @@ export class FilterAdvancedDoc {
 
     constructor(
         private customerService: CustomerService,
-        private cd: ChangeDetectorRef
+        private cd: ChangeDetectorRef,
     ) {}
 
     loadDemoData() {
@@ -183,7 +248,7 @@ export class FilterAdvancedDoc {
             { name: 'Ivan Magalhaes', image: 'ivanmagalhaes.png' },
             { name: 'Onyama Limba', image: 'onyamalimba.png' },
             { name: 'Stephen Shaw', image: 'stephenshaw.png' },
-            { name: 'Xuxue Feng', image: 'xuxuefeng.png' }
+            { name: 'Xuxue Feng', image: 'xuxuefeng.png' },
         ];
 
         this.statuses = [
@@ -192,7 +257,7 @@ export class FilterAdvancedDoc {
             { label: 'New', value: 'new' },
             { label: 'Negotiation', value: 'negotiation' },
             { label: 'Renewal', value: 'renewal' },
-            { label: 'Proposal', value: 'proposal' }
+            { label: 'Proposal', value: 'proposal' },
         ];
     }
 
@@ -614,7 +679,7 @@ export class TableFilterAdvancedDemo implements OnInit {
     balance: 70663
 },
 ...`,
-        service: ['CustomerService']
+        service: ['CustomerService'],
     };
 
     extFiles = [
@@ -642,7 +707,7 @@ export interface Customer {
     representative?: Representative;
     verified?: boolean;
     balance?: number;
-}`
-        }
+}`,
+        },
     ];
 }

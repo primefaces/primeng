@@ -6,7 +6,10 @@ import { Code } from '@domain/code';
     selector: 'circle-doc',
     template: `
         <app-docsectiontext>
-            <p>Items can be displayed around the button when <i>type</i> is set to <i>circle</i>. Additional <i>radius</i> property defines the radius of the circle.</p>
+            <p>
+                Items can be displayed around the button when <i>type</i> is set to <i>circle</i>. Additional <i>radius</i> property defines
+                the radius of the circle.
+            </p>
         </app-docsectiontext>
         <div class="card">
             <div style="height: 500px" class="flex items-center justify-center">
@@ -16,7 +19,7 @@ import { Code } from '@domain/code';
         </div>
         <app-code [code]="code" selector="speed-dial-circle-demo"></app-code>
     `,
-    providers: [MessageService]
+    providers: [MessageService],
 })
 export class CircleDoc implements OnInit {
     items: MenuItem[] | undefined;
@@ -29,29 +32,29 @@ export class CircleDoc implements OnInit {
                 icon: 'pi pi-pencil',
                 command: () => {
                     this.messageService.add({ severity: 'info', summary: 'Add', detail: 'Data Added' });
-                }
+                },
             },
             {
                 icon: 'pi pi-refresh',
                 command: () => {
                     this.messageService.add({ severity: 'success', summary: 'Update', detail: 'Data Updated' });
-                }
+                },
             },
             {
                 icon: 'pi pi-trash',
                 command: () => {
                     this.messageService.add({ severity: 'error', summary: 'Delete', detail: 'Data Deleted' });
-                }
+                },
             },
             {
                 icon: 'pi pi-upload',
-                routerLink: ['/fileupload']
+                routerLink: ['/fileupload'],
             },
             {
                 icon: 'pi pi-external-link',
                 target: '_blank',
-                url: 'http://angular.io'
-            }
+                url: 'http://angular.io',
+            },
         ];
     }
 
@@ -121,6 +124,6 @@ export class SpeedDialCircleDemo implements OnInit {
             }
         ];
     }
-}`
+}`,
     };
 }

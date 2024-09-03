@@ -11,7 +11,7 @@ import { Code } from '@domain/code';
             <p-progressSpinner strokeWidth="8" fill="transparent" animationDuration=".5s" [style]="{ width: '50px', height: '50px' }" />
         </div>
         <app-code [code]="code" selector="progress-spinner-custom-demo"></app-code>
-    `
+    `,
 })
 export class CustomDoc {
     @Input() id: string;
@@ -40,6 +40,6 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
     standalone: true,
     imports: [ProgressSpinnerModule]
 })
-export class ProgressSpinnerCustomDemo {}`
+export class ProgressSpinnerCustomDemo {}`,
     };
 }

@@ -111,9 +111,9 @@ const classes = {
             'p-badge-warn': props.severity === 'warn',
             'p-badge-danger': props.severity === 'danger',
             'p-badge-secondary': props.severity === 'secondary',
-            'p-badge-contrast': props.severity === 'contrast'
-        }
-    ]
+            'p-badge-contrast': props.severity === 'contrast',
+        },
+    ],
 };
 
 @Injectable()

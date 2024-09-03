@@ -9,17 +9,17 @@ import { DynamicDialogConfig } from './dynamicdialog-config';
 import { DynamicDialogRef } from './dynamicdialog-ref';
 
 @Component({
-    template: ` <h2>PrimeNG ROCKS!</h2> `
+    template: ` <h2>PrimeNG ROCKS!</h2> `,
 })
 export class TestComponent {
     constructor(
         public ref: DynamicDialogRef,
-        public config: DynamicDialogConfig
+        public config: DynamicDialogConfig,
     ) {}
 }
 
 @Component({
-    template: ` <div class="TestDynamicDialog"></div> `
+    template: ` <div class="TestDynamicDialog"></div> `,
 })
 export class TestDynamicDialogComponent {
     constructor(public dialogService: DialogService) {}
@@ -30,12 +30,12 @@ export class TestDynamicDialogComponent {
             width: '70%',
             contentStyle: { 'max-height': '350px', overflow: 'auto' },
             dismissableMask: true,
-            baseZIndex: 0
+            baseZIndex: 0,
         });
     }
 }
 @Component({
-    template: ` <div class="TestDynamicDialogClosableFalse"></div> `
+    template: ` <div class="TestDynamicDialogClosableFalse"></div> `,
 })
 export class TestDynamicDialogWithClosableFalseComponent {
     constructor(public dialogService: DialogService) {}
@@ -48,7 +48,7 @@ export class TestDynamicDialogWithClosableFalseComponent {
             closable: false,
             closeOnEscape: true,
             dismissableMask: true,
-            baseZIndex: 0
+            baseZIndex: 0,
         });
     }
 }
@@ -56,7 +56,7 @@ export class TestDynamicDialogWithClosableFalseComponent {
     imports: [CommonModule, DynamicDialogModule],
     declarations: [TestComponent, TestDynamicDialogComponent],
     exports: [TestComponent],
-    providers: [DialogService]
+    providers: [DialogService],
 })
 export class FakeTestDialogModule {}
 
@@ -64,7 +64,7 @@ describe('DynamicDialog', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [NoopAnimationsModule, FakeTestDialogModule],
-            declarations: [Footer]
+            declarations: [Footer],
         });
     });
 

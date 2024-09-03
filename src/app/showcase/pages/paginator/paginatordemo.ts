@@ -10,44 +10,44 @@ import { CurrentPageReportDoc } from '@doc/paginator/currentpagereportdoc';
 
 @Component({
     templateUrl: './paginatordemo.html',
-    styleUrls: ['./paginatordemo.scss']
+    styleUrls: ['./paginatordemo.scss'],
 })
 export class PaginatorDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc
+            component: ImportDoc,
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc
+            component: BasicDoc,
         },
         {
             id: 'locale',
             label: 'Locale',
-            component: LocaleDoc
+            component: LocaleDoc,
         },
         {
             id: 'template',
             label: 'Template',
-            component: TemplateDoc
+            component: TemplateDoc,
         },
         {
             id: 'current-page-report',
             label: 'Current Page Report',
-            component: CurrentPageReportDoc
+            component: CurrentPageReportDoc,
         },
         {
             id: 'style',
             label: 'Style',
-            component: StyleDoc
+            component: StyleDoc,
         },
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc
-        }
+            component: AccessibilityDoc,
+        },
     ];
 }

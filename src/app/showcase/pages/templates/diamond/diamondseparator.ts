@@ -21,6 +21,6 @@ import { Component } from '@angular/core';
                 </svg>
             </span>
         </div>
-    `
+    `,
 })
 export class DiamondSeparator {}

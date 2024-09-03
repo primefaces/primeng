@@ -82,11 +82,29 @@ const inlineStyles = {
     root: ({ props }) => ({
         alignItems: (props.direction === 'up' || props.direction === 'down') && 'center',
         justifyContent: (props.direction === 'left' || props.direction === 'right') && 'center',
-        flexDirection: props.direction === 'up' ? 'column-reverse' : props.direction === 'down' ? 'column' : props.direction === 'left' ? 'row-reverse' : props.direction === 'right' ? 'row' : null
+        flexDirection:
+            props.direction === 'up'
+                ? 'column-reverse'
+                : props.direction === 'down'
+                  ? 'column'
+                  : props.direction === 'left'
+                    ? 'row-reverse'
+                    : props.direction === 'right'
+                      ? 'row'
+                      : null,
     }),
     list: ({ props }) => ({
-        flexDirection: props.direction === 'up' ? 'column-reverse' : props.direction === 'down' ? 'column' : props.direction === 'left' ? 'row-reverse' : props.direction === 'right' ? 'row' : null
-    })
+        flexDirection:
+            props.direction === 'up'
+                ? 'column-reverse'
+                : props.direction === 'down'
+                  ? 'column'
+                  : props.direction === 'left'
+                    ? 'row-reverse'
+                    : props.direction === 'right'
+                      ? 'row'
+                      : null,
+    }),
 };
 
 const classes = {
@@ -95,14 +113,14 @@ const classes = {
         {
             [`p-speeddial-direction-${props.direction}`]: props.type !== 'circle',
             'p-speeddial-open': instance.d_visible,
-            'p-disabled': props.disabled
-        }
+            'p-disabled': props.disabled,
+        },
     ],
     pcButton: ({ props }) => [
         'p-speeddial-button',
         {
-            'p-speeddial-rotate': props.rotateAnimation && !props.hideIcon
-        }
+            'p-speeddial-rotate': props.rotateAnimation && !props.hideIcon,
+        },
     ],
     list: 'p-speeddial-list',
     item: 'p-speeddial-item',
@@ -111,9 +129,9 @@ const classes = {
     mask: ({ instance }) => [
         'p-speeddial-mask',
         {
-            'p-speeddial-mask-visible': instance.d_visible
-        }
-    ]
+            'p-speeddial-mask-visible': instance.d_visible,
+        },
+    ],
 };
 
 @Injectable()

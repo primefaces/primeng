@@ -13,6 +13,6 @@ import { StyleDoc } from './styledoc';
 @NgModule({
     imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, FormsModule, FloatLabelModule, InputTextModule],
     declarations: [BasicDoc, ImportDoc, StyleDoc, AccessibilityDoc],
-    exports: [AppDocModule]
+    exports: [AppDocModule],
 })
 export class FloatLabelDocModule {}

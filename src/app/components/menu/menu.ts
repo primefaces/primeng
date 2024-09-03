@@ -27,7 +27,7 @@ import {
     forwardRef,
     inject,
     numberAttribute,
-    signal
+    signal,
 } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
@@ -42,10 +42,13 @@ import { BaseComponent } from 'primeng/basecomponent';
 import { BadgeModule } from 'primeng/badge';
 
 @Pipe({
-    name: 'safeHtml'
+    name: 'safeHtml',
 })
 export class SafeHtmlPipe implements PipeTransform {
-    constructor(@Inject(PLATFORM_ID) private readonly platformId: any, private readonly sanitizer: DomSanitizer) {}
+    constructor(
+        @Inject(PLATFORM_ID) private readonly platformId: any,
+        private readonly sanitizer: DomSanitizer,
+    ) {}
 
     public transform(value: string): SafeHtml {
         if (!value || !isPlatformBrowser(this.platformId)) {
@@ -107,14 +110,20 @@ export class SafeHtmlPipe implements PipeTransform {
             </ng-container>
 
             <ng-template #itemContent>
-                <span class="p-menu-item-icon" *ngIf="item.icon" [ngClass]="item.icon" [class]="item.iconClass" [ngStyle]="item.iconStyle"></span>
+                <span
+                    class="p-menu-item-icon"
+                    *ngIf="item.icon"
+                    [ngClass]="item.icon"
+                    [class]="item.iconClass"
+                    [ngStyle]="item.iconStyle"
+                ></span>
                 <span class="p-menu-item-label" *ngIf="item.escape !== false; else htmlLabel">{{ item.label }}</span>
                 <ng-template #htmlLabel><span class="p-menu-item-label" [innerHTML]="item.label | safeHtml"></span></ng-template>
                 <p-badge *ngIf="item.badge" [styleClass]="item.badgeStyleClass" [value]="item.badge" />
             </ng-template>
         </div>
     `,
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
 })
 export class MenuItemContent {
     @Input('pMenuItemContent') item: MenuItem | undefined;
@@ -147,7 +156,10 @@ export class MenuItemContent {
             [ngStyle]="style"
             *ngIf="!popup || visible"
             (click)="onOverlayClick($event)"
-            [@overlayAnimation]="{ value: 'visible', params: { showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions } }"
+            [@overlayAnimation]="{
+                value: 'visible',
+                params: { showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions },
+            }"
             [@.disabled]="popup !== true"
             (@overlayAnimation.start)="onOverlayAnimationStart($event)"
             (@overlayAnimation.done)="onOverlayAnimationEnd($event)"
@@ -172,7 +184,12 @@ export class MenuItemContent {
                 (keydown)="onListKeyDown($event)"
             >
                 <ng-template ngFor let-submenu let-i="index" [ngForOf]="model" *ngIf="hasSubMenu()">
-                    <li class="p-menu-separator" *ngIf="submenu.separator" [ngClass]="{ 'p-hidden': submenu.visible === false }" role="separator"></li>
+                    <li
+                        class="p-menu-separator"
+                        *ngIf="submenu.separator"
+                        [ngClass]="{ 'p-hidden': submenu.visible === false }"
+                        role="separator"
+                    ></li>
                     <li
                         class="p-menu-submenu-label"
                         [attr.data-automationid]="submenu.automationId"
@@ -190,13 +207,22 @@ export class MenuItemContent {
                         <ng-container *ngTemplateOutlet="submenuHeaderTemplate; context: { $implicit: submenu }"></ng-container>
                     </li>
                     <ng-template ngFor let-item let-j="index" [ngForOf]="submenu.items">
-                        <li class="p-menu-separator" *ngIf="item.separator" [ngClass]="{ 'p-hidden': item.visible === false || submenu.visible === false }" role="separator"></li>
+                        <li
+                            class="p-menu-separator"
+                            *ngIf="item.separator"
+                            [ngClass]="{ 'p-hidden': item.visible === false || submenu.visible === false }"
+                            role="separator"
+                        ></li>
                         <li
                             class="p-menu-item"
                             *ngIf="!item.separator"
                             [pMenuItemContent]="item"
                             [itemTemplate]="itemTemplate"
-                            [ngClass]="{ 'p-hidden': item.visible === false || submenu.visible === false, 'p-focus': focusedOptionId() && menuitemId(item, id, i, j) === focusedOptionId(), 'p-disabled': disabled(item.disabled) }"
+                            [ngClass]="{
+                                'p-hidden': item.visible === false || submenu.visible === false,
+                                'p-focus': focusedOptionId() && menuitemId(item, id, i, j) === focusedOptionId(),
+                                'p-disabled': disabled(item.disabled),
+                            }"
                             [ngStyle]="item.style"
                             [class]="item.styleClass"
                             (onMenuItemClick)="itemClick($event, menuitemId(item, id, i, j))"
@@ -213,13 +239,22 @@ export class MenuItemContent {
                     </ng-template>
                 </ng-template>
                 <ng-template ngFor let-item let-i="index" [ngForOf]="model" *ngIf="!hasSubMenu()">
-                    <li class="p-menu-separator" *ngIf="item.separator" [ngClass]="{ 'p-hidden': item.visible === false }" role="separator"></li>
+                    <li
+                        class="p-menu-separator"
+                        *ngIf="item.separator"
+                        [ngClass]="{ 'p-hidden': item.visible === false }"
+                        role="separator"
+                    ></li>
                     <li
                         class="p-menu-item"
                         *ngIf="!item.separator"
                         [pMenuItemContent]="item"
                         [itemTemplate]="itemTemplate"
-                        [ngClass]="{ 'p-hidden': item.visible === false, 'p-focus': focusedOptionId() && menuitemId(item, id, i, j) === focusedOptionId(), 'p-disabled': disabled(item.disabled) }"
+                        [ngClass]="{
+                            'p-hidden': item.visible === false,
+                            'p-focus': focusedOptionId() && menuitemId(item, id, i, j) === focusedOptionId(),
+                            'p-disabled': disabled(item.disabled),
+                        }"
                         [ngStyle]="item.style"
                         [class]="item.styleClass"
                         (onMenuItemClick)="itemClick($event, menuitemId(item, id, i))"
@@ -240,10 +275,15 @@ export class MenuItemContent {
             </div>
         </div>
     `,
-    animations: [trigger('overlayAnimation', [transition(':enter', [style({ opacity: 0, transform: 'scaleY(0.8)' }), animate('{{showTransitionParams}}')]), transition(':leave', [animate('{{hideTransitionParams}}', style({ opacity: 0 }))])])],
+    animations: [
+        trigger('overlayAnimation', [
+            transition(':enter', [style({ opacity: 0, transform: 'scaleY(0.8)' }), animate('{{showTransitionParams}}')]),
+            transition(':leave', [animate('{{hideTransitionParams}}', style({ opacity: 0 }))]),
+        ]),
+    ],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    providers: [MenuStyle]
+    providers: [MenuStyle],
 })
 export class Menu extends BaseComponent implements OnDestroy {
     /**
@@ -622,7 +662,9 @@ export class Menu extends BaseComponent implements OnDestroy {
     }
 
     onEndKey(event) {
-        this.changeFocusedOptionIndex(DomHandler.find(this.containerViewChild.nativeElement, 'li[data-pc-section="menuitem"][data-p-disabled="false"]').length - 1);
+        this.changeFocusedOptionIndex(
+            DomHandler.find(this.containerViewChild.nativeElement, 'li[data-pc-section="menuitem"][data-p-disabled="false"]').length - 1,
+        );
         event.preventDefault();
     }
 
@@ -683,7 +725,7 @@ export class Menu extends BaseComponent implements OnDestroy {
         if (item.command) {
             item.command({
                 originalEvent: originalEvent,
-                item: item
+                item: item,
             });
         }
 
@@ -700,7 +742,7 @@ export class Menu extends BaseComponent implements OnDestroy {
         if (this.popup) {
             this.overlayService.add({
                 originalEvent: event,
-                target: this.el.nativeElement
+                target: this.el.nativeElement,
             });
         }
 
@@ -712,7 +754,8 @@ export class Menu extends BaseComponent implements OnDestroy {
             const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : 'document';
 
             this.documentClickListener = this.renderer.listen(documentTarget, 'click', (event) => {
-                const isOutsideContainer = this.containerViewChild.nativeElement && !this.containerViewChild.nativeElement.contains(event.target);
+                const isOutsideContainer =
+                    this.containerViewChild.nativeElement && !this.containerViewChild.nativeElement.contains(event.target);
                 const isOutsideTarget = !(this.target && (this.target === event.target || this.target.contains(event.target)));
                 if (!this.popup && isOutsideContainer && isOutsideTarget) {
                     this.onListBlur(event);
@@ -818,6 +861,6 @@ export class Menu extends BaseComponent implements OnDestroy {
 @NgModule({
     imports: [CommonModule, RouterModule, RippleModule, TooltipModule, BadgeModule],
     exports: [Menu, RouterModule, TooltipModule],
-    declarations: [Menu, MenuItemContent, SafeHtmlPipe]
+    declarations: [Menu, MenuItemContent, SafeHtmlPipe],
 })
 export class MenuModule {}

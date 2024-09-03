@@ -8,16 +8,18 @@ import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
 @Component({
     template: `<p-accordion [collapseIcon]="collapseIcon" [expandIcon]="expandIcon" [styleClass]="styleClass" [style]="style">
         <p-accordionTab [header]="header1" [disabled]="disabled1">
-            The story begins as Don Vito Corleone, the head of a New York Mafia family, overseeshis daughter's wedding. His beloved son ichael has just come home from the war, but does not intend to become part of his father's business. T hrough
-            Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, kind and benevolent to those who give respect, but given to ruthless violence whenever anything stands against
-            the good of the family.
+            The story begins as Don Vito Corleone, the head of a New York Mafia family, overseeshis daughter's wedding. His beloved son
+            ichael has just come home from the war, but does not intend to become part of his father's business. T hrough Michael's life the
+            nature of the family business becomes clear. The business of the family is just like the head of the family, kind and benevolent
+            to those who give respect, but given to ruthless violence whenever anything stands against the good of the family.
         </p-accordionTab>
         <p-accordionTab header="Godfather II">
-            The story begins as Don Vito Corleone, the head of a New York Mafia family, overseeshis daughter's wedding. His beloved son ichael has just come home from the war, but does not intend to become part of his father's business. T hrough
-            Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, kind and benevolent to those who give respect, but given to ruthless violence whenever anything stands against
-            the good of the family.
+            The story begins as Don Vito Corleone, the head of a New York Mafia family, overseeshis daughter's wedding. His beloved son
+            ichael has just come home from the war, but does not intend to become part of his father's business. T hrough Michael's life the
+            nature of the family business becomes clear. The business of the family is just like the head of the family, kind and benevolent
+            to those who give respect, but given to ruthless violence whenever anything stands against the good of the family.
         </p-accordionTab>
-    </p-accordion>`
+    </p-accordion>`,
 })
 class TestAccordionComponent {
     header1: string = 'Godfather I';
@@ -43,7 +45,7 @@ describe('Accordion', () => {
         TestBed.configureTestingModule({
             schemas: [NO_ERRORS_SCHEMA],
             imports: [NoopAnimationsModule],
-            declarations: [Accordion, AccordionTab, TestAccordionComponent]
+            declarations: [Accordion, AccordionTab, TestAccordionComponent],
         });
     }));
     beforeEach(() => {
@@ -76,8 +78,12 @@ describe('Accordion', () => {
         firstAccordionTab.selected = true;
         fixture.detectChanges();
 
-        const firstAccordionTabHeaderEl = fixture.debugElement.children[0].children[0].children[0].query(By.css('.p-accordion-header')).nativeElement;
-        const secondAccordionTabHeaderEl = fixture.debugElement.children[0].children[0].children[1].query(By.css('.p-accordion-header')).nativeElement;
+        const firstAccordionTabHeaderEl = fixture.debugElement.children[0].children[0].children[0].query(
+            By.css('.p-accordion-header'),
+        ).nativeElement;
+        const secondAccordionTabHeaderEl = fixture.debugElement.children[0].children[0].children[1].query(
+            By.css('.p-accordion-header'),
+        ).nativeElement;
         expect(firstAccordionTabHeaderEl.className).toContain('p-highlight');
         expect(secondAccordionTabHeaderEl.className).not.toContain('p-highlight');
     });
@@ -92,8 +98,12 @@ describe('Accordion', () => {
         firstAccordionTabOpenEl.click();
         fixture.detectChanges();
 
-        const firstAccordionTabHeaderEl = fixture.debugElement.children[0].children[0].children[0].query(By.css('.p-accordion-header')).nativeElement;
-        const secondAccordionTabHeaderEl = fixture.debugElement.children[0].children[0].children[1].query(By.css('.p-accordion-header')).nativeElement;
+        const firstAccordionTabHeaderEl = fixture.debugElement.children[0].children[0].children[0].query(
+            By.css('.p-accordion-header'),
+        ).nativeElement;
+        const secondAccordionTabHeaderEl = fixture.debugElement.children[0].children[0].children[1].query(
+            By.css('.p-accordion-header'),
+        ).nativeElement;
         expect(firstAccordionTabHeaderEl.className).toContain('p-highlight');
         expect(secondAccordionTabHeaderEl.className).toContain('p-highlight');
     });
@@ -103,7 +113,9 @@ describe('Accordion', () => {
         fixture.detectChanges();
 
         const firstAccordionTabOpenEl = fixture.debugElement.children[0].children[0].children[0].query(By.css('a')).nativeElement;
-        const accordionTabHeaderEl = fixture.debugElement.children[0].children[0].children[0].query(By.css('.p-accordion-header')).nativeElement;
+        const accordionTabHeaderEl = fixture.debugElement.children[0].children[0].children[0].query(
+            By.css('.p-accordion-header'),
+        ).nativeElement;
         firstAccordionTabOpenEl.click();
         expect(accordionTabHeaderEl.className).toContain('p-disabled');
         expect(accordionTabHeaderEl.className).not.toContain('p-highlight');
@@ -115,7 +127,9 @@ describe('Accordion', () => {
         fixture.detectChanges();
 
         firstAccordionTab.changeDetector.detectChanges();
-        const firstAccordionTabOpenEl = fixture.debugElement.children[0].children[0].children[0].query(By.css('.p-accordion-toggle-icon')).nativeElement;
+        const firstAccordionTabOpenEl = fixture.debugElement.children[0].children[0].children[0].query(
+            By.css('.p-accordion-toggle-icon'),
+        ).nativeElement;
         expect(firstAccordionTabOpenEl.className).toContain('pi-caret-up');
         firstAccordionTab.selected = true;
         fixture.detectChanges();
@@ -161,7 +175,9 @@ describe('Accordion', () => {
         secondAccordionTabOpenEl.click();
         fixture.detectChanges();
 
-        const secondAccordionTabHeaderEl = fixture.debugElement.children[0].children[0].children[1].query(By.css('.p-accordion-header')).nativeElement;
+        const secondAccordionTabHeaderEl = fixture.debugElement.children[0].children[0].children[1].query(
+            By.css('.p-accordion-header'),
+        ).nativeElement;
         expect(secondAccordionTabHeaderEl.className).not.toContain('p-highlight');
     }));
 
@@ -171,14 +187,18 @@ describe('Accordion', () => {
         accordion.activeIndex = 1;
         fixture.detectChanges();
 
-        const secondAccordionTabHeaderEl = fixture.debugElement.children[0].children[0].children[1].query(By.css('.p-accordion-header')).nativeElement;
+        const secondAccordionTabHeaderEl = fixture.debugElement.children[0].children[0].children[1].query(
+            By.css('.p-accordion-header'),
+        ).nativeElement;
         expect(secondAccordionTabHeaderEl.className).toContain('p-highlight');
     });
 
     it('should be toggle on space and enter keydown event', () => {
         fixture.detectChanges();
 
-        const secondAccordionTabHeaderEl = fixture.debugElement.children[0].children[0].children[1].query(By.css('.p-accordion-header')).nativeElement;
+        const secondAccordionTabHeaderEl = fixture.debugElement.children[0].children[0].children[1].query(
+            By.css('.p-accordion-header'),
+        ).nativeElement;
         expect(secondAccordionTabHeaderEl.className).not.toContain('p-highlight');
 
         //toggle when enter is pressed

@@ -10,7 +10,7 @@ describe('ProgressSpinner', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [NoopAnimationsModule],
-            declarations: [ProgressSpinner]
+            declarations: [ProgressSpinner],
         });
 
         fixture = TestBed.createComponent(ProgressSpinner);

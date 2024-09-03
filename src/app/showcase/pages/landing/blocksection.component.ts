@@ -10,7 +10,7 @@ import { Component } from '@angular/core';
             <div class="section-header relative z-30">Blocks</div>
             <p class="section-detail relative z-30">400+ ready to copy-paste UI blocks to build spectacular applications in no time.</p>
             <div class="flex justify-center mt-6 relative z-30">
-                <a href="https://blocks.primeng.org" target="_blank" class="linkbox linkbox-primary" >
+                <a href="https://blocks.primeng.org" target="_blank" class="linkbox linkbox-primary">
                     <span>Explore All</span>
                     <i class="pi pi-arrow-right ml-2"></i>
                 </a>
@@ -20,7 +20,7 @@ import { Component } from '@angular/core';
                     <div class="prime-block flex self-stretch p-1">
                         <div class="block-sidebar w-1/12 p-4">
                             <div class="logo">
-                                <img src="https://primefaces.org/cdn/primeng/images/landing/blocks/logo-1.svg" alt="block logo"  />
+                                <img src="https://primefaces.org/cdn/primeng/images/landing/blocks/logo-1.svg" alt="block logo" />
                             </div>
                             <div class="sidebar-menu mt-8">
                                 <div class="bar w-8/12 my-4"></div>
@@ -125,29 +125,29 @@ import { Component } from '@angular/core';
                             <div class="circle circle-highlight"></div>
                         </div>
                         <div class="block-content flex-1 p-6 flex flex-col">
-                        <div class="bar w-1/12"></div>
+                            <div class="bar w-1/12"></div>
                             <div class="block-main mt-6 h-full flex justify-center items-center flex-col">
                                 <div class="flex justify-between">
                                     <div class="block-item w-16">
-                                    <div class="bar w-8"></div>
-                                    <span class="text my-2">26 %</span>
-                                    <div class="box box-orange"></div>
+                                        <div class="bar w-8"></div>
+                                        <span class="text my-2">26 %</span>
+                                        <div class="box box-orange"></div>
                                     </div>
                                     <div class="block-item block-item-active animation-2 ml-4 mr-4 w-16">
-                                    <div class="bar w-4"></div>
-                                    <span class="text my-2">6 %</span>
-                                    <div class="box box-pink"></div>
-                                </div>
-                                <div class="block-item mr-4 w-16">
-                                    <div class="bar w-16"></div>
-                                    <span class="text my-2">62 %</span>
-                                    <div class="box box-green"></div>
-                                </div>
-                                <div class="block-item w-16">
-                                    <div class="bar w-8"></div>
-                                    <span class="text my-2">39 %</span>
-                                    <div class="box box-blue"></div>
-                                </div>
+                                        <div class="bar w-4"></div>
+                                        <span class="text my-2">6 %</span>
+                                        <div class="box box-pink"></div>
+                                    </div>
+                                    <div class="block-item mr-4 w-16">
+                                        <div class="bar w-16"></div>
+                                        <span class="text my-2">62 %</span>
+                                        <div class="box box-green"></div>
+                                    </div>
+                                    <div class="block-item w-16">
+                                        <div class="bar w-8"></div>
+                                        <span class="text my-2">39 %</span>
+                                        <div class="box box-blue"></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -164,14 +164,14 @@ import { Component } from '@angular/core';
                             </div>
                         </div>
                         <div class="block-sidebar-list px-6">
-                        <div class="bar w-8 my-4"></div>
-                        <div class="bar w-12 my-4"></div>
-                        <div class="bar w-8 my-4"></div>
-                        <div class="bar w-8 my-4"></div>
-                        <div class="bar w-4 my-4"></div>
-                        <div class="bar w-12 my-4"></div>
-                        <div class="bar w-12 my-4"></div>
-                        <div class="bar w-8 my-4"></div>
+                            <div class="bar w-8 my-4"></div>
+                            <div class="bar w-12 my-4"></div>
+                            <div class="bar w-8 my-4"></div>
+                            <div class="bar w-8 my-4"></div>
+                            <div class="bar w-4 my-4"></div>
+                            <div class="bar w-12 my-4"></div>
+                            <div class="bar w-12 my-4"></div>
+                            <div class="bar w-8 my-4"></div>
                         </div>
                         <div class="block-content flex-1 my-8 mx-6 flex flex-col">
                             <div class="block-main h-full flex justify-center items-center flex-col px-2">
@@ -285,7 +285,7 @@ import { Component } from '@angular/core';
                     <div class="prime-block flex self-stretch p-1">
                         <div class="block-sidebar p-4">
                             <div class="logo">
-                                <img src="https://primefaces.org/cdn/primeng/images/landing/blocks/logo-2.svg"  alt="block logo" />
+                                <img src="https://primefaces.org/cdn/primeng/images/landing/blocks/logo-2.svg" alt="block logo" />
                             </div>
                             <div class="sidebar-menu mt-8">
                                 <div class="circle my-4"></div>
@@ -319,27 +319,27 @@ import { Component } from '@angular/core';
                                         <div class="bar w-12 mx-4"></div>
                                     </div>
                                     <div class="bar w-12 mx-4"></div>
-                                <div class="bar w-12 mx-4"></div>
-                                <div class="bar w-12 mx-4"></div>
+                                    <div class="bar w-12 mx-4"></div>
+                                    <div class="bar w-12 mx-4"></div>
                                 </div>
                                 <div class="block-item block-item-col flex">
-                                <div class="flex">
-                                    <div class="circle circle-small circle-highlight -mr-1"></div>
+                                    <div class="flex">
+                                        <div class="circle circle-small circle-highlight -mr-1"></div>
+                                        <div class="bar w-12 mx-4"></div>
+                                    </div>
+                                    <div class="bar w-12 mx-4"></div>
+                                    <div class="bar w-12 mx-4"></div>
                                     <div class="bar w-12 mx-4"></div>
                                 </div>
-                                <div class="bar w-12 mx-4"></div>
-                                <div class="bar w-12 mx-4"></div>
-                                <div class="bar w-12 mx-4"></div>
-                            </div>
-                            <div class="block-item block-item-col flex">
-                                <div class="flex">
-                                    <div class="circle circle-small circle-highlight -mr-1"></div>
+                                <div class="block-item block-item-col flex">
+                                    <div class="flex">
+                                        <div class="circle circle-small circle-highlight -mr-1"></div>
+                                        <div class="bar w-12 mx-4"></div>
+                                    </div>
+                                    <div class="bar w-12 mx-4"></div>
+                                    <div class="bar w-12 mx-4"></div>
                                     <div class="bar w-12 mx-4"></div>
                                 </div>
-                                <div class="bar w-12 mx-4"></div>
-                                <div class="bar w-12 mx-4"></div>
-                                <div class="bar w-12 mx-4"></div>
-                            </div>
                             </div>
                         </div>
                     </div>
@@ -351,34 +351,39 @@ import { Component } from '@angular/core';
                                 <img src="https://primefaces.org/cdn/primeng/images/landing/blocks/logo-1.svg" alt="block logo" />
                             </div>
                             <div class="flex-auto sidebar-menu flex">
-                            <div class="bar w-8 mx-2"></div>
-                            <div class="bar w-8 mx-2"></div>
-                            <div class="bar w-8 mx-2"></div>
-                            <div class="bar w-8 mx-2"></div>
-                            <div class="bar w-8 mx-2"></div>
-                        </div>
+                                <div class="bar w-8 mx-2"></div>
+                                <div class="bar w-8 mx-2"></div>
+                                <div class="bar w-8 mx-2"></div>
+                                <div class="bar w-8 mx-2"></div>
+                                <div class="bar w-8 mx-2"></div>
+                            </div>
                             <div class="circle"></div>
                         </div>
                         <div class="block-content flex-1 p-6 flex flex-col">
-                        <div class="block-main h-full flex justify-center items-center flex-col">
-                            <div class="block-item block-item-active animation-2 mx-4 w-32 text-center flex flex-col items-center overflow-visible">
-                                <div class="-mt-6">
-                                    <img src="https://primefaces.org/cdn/primevue/images/landing/blocks/question.svg" alt="question mark" />
-                                </div>
-                                <div class="bar w-8 mt-2"></div>
-                                <div class="bar w-24 mt-2"></div>
-                                <div class="bar w-16 mt-2"></div>
-                                <div class="flex">
-                                    <div class="bar bar-highlight bar-button w-16 mr-2 mt-6"></div>
-                                    <div class="bar bar-button w-16 mr-2 mt-6"></div>
+                            <div class="block-main h-full flex justify-center items-center flex-col">
+                                <div
+                                    class="block-item block-item-active animation-2 mx-4 w-32 text-center flex flex-col items-center overflow-visible"
+                                >
+                                    <div class="-mt-6">
+                                        <img
+                                            src="https://primefaces.org/cdn/primevue/images/landing/blocks/question.svg"
+                                            alt="question mark"
+                                        />
+                                    </div>
+                                    <div class="bar w-8 mt-2"></div>
+                                    <div class="bar w-24 mt-2"></div>
+                                    <div class="bar w-16 mt-2"></div>
+                                    <div class="flex">
+                                        <div class="bar bar-highlight bar-button w-16 mr-2 mt-6"></div>
+                                        <div class="bar bar-button w-16 mr-2 mt-6"></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    </div>
                 </div>
             </section>
         </section>
-    `
+    `,
 })
 export class BlockSectionComponent {}

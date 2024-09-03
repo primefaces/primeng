@@ -4,6 +4,6 @@ import { TieredMenuDemo } from './tieredmenudemo';
 
 @NgModule({
     imports: [RouterModule.forChild([{ path: '', component: TieredMenuDemo }])],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class TieredMenuDemoRoutingModule {}

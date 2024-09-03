@@ -12,24 +12,47 @@ interface PageEvent {
     selector: 'locale-doc',
     template: `
         <app-docsectiontext>
-            <p>Localization information such as page numbers and rows per page options are defined with the <i>locale</i> property which defaults to the user locale.</p>
+            <p>
+                Localization information such as page numbers and rows per page options are defined with the <i>locale</i> property which
+                defaults to the user locale.
+            </p>
         </app-docsectiontext>
         <div class="card flex flex-wrap gap-4 p-fluid">
             <div class="flex-auto">
                 <label class="block font-bold mb-2" for="locale-user">User Locale</label>
-                <p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows" [totalRecords]="120" [rowsPerPageOptions]="[10, 20, 30]" />
+                <p-paginator
+                    (onPageChange)="onPageChange($event)"
+                    [first]="first"
+                    [rows]="rows"
+                    [totalRecords]="120"
+                    [rowsPerPageOptions]="[10, 20, 30]"
+                />
             </div>
             <div class="flex-auto">
                 <label class="block font-bold mb-2" for="locale-us">United States Locale</label>
-                <p-paginator locale="en-US" (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows" [totalRecords]="120" [rowsPerPageOptions]="[10, 20, 30]" />
+                <p-paginator
+                    locale="en-US"
+                    (onPageChange)="onPageChange($event)"
+                    [first]="first"
+                    [rows]="rows"
+                    [totalRecords]="120"
+                    [rowsPerPageOptions]="[10, 20, 30]"
+                />
             </div>
             <div class="flex-auto">
                 <label class="block font-bold mb-2" for="locale-indian">Persian Locale</label>
-                <p-paginator locale="fa-IR" (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows" [totalRecords]="120" [rowsPerPageOptions]="[10, 20, 30]" />
+                <p-paginator
+                    locale="fa-IR"
+                    (onPageChange)="onPageChange($event)"
+                    [first]="first"
+                    [rows]="rows"
+                    [totalRecords]="120"
+                    [rowsPerPageOptions]="[10, 20, 30]"
+                />
             </div>
         </div>
         <app-code [code]="code" selector="paginator-locale-demo"></app-code>
-    `
+    `,
 })
 export class LocaleDoc {
     first: number = 0;
@@ -127,6 +150,6 @@ export class PaginatorLocaleDemo {
         this.first = event.first;
         this.rows = event.rows;
     }
-}`
+}`,
     };
 }

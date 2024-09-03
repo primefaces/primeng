@@ -6,8 +6,10 @@ import { Component } from '@angular/core';
         <app-docsectiontext>
             <h3>Screen Reader</h3>
             <p>
-                TabMenu component uses the <i>menubar</i> role and the value to describe the menu can either be provided with <i>aria-labelledby</i> or <i>aria-label</i> props. Each list item has a <i>presentation</i> role whereas anchor elements
-                have a <i>menuitem</i> role with <i>aria-label</i> referring to the label of the item and <i>aria-disabled</i> defined if the item is disabled.
+                TabMenu component uses the <i>menubar</i> role and the value to describe the menu can either be provided with
+                <i>aria-labelledby</i> or <i>aria-label</i> props. Each list item has a <i>presentation</i> role whereas anchor elements
+                have a <i>menuitem</i> role with <i>aria-label</i> referring to the label of the item and <i>aria-disabled</i> defined if
+                the item is disabled.
             </p>
             <h3>Keyboard Support</h3>
             <div class="doc-tablewrapper">
@@ -21,7 +23,10 @@ import { Component } from '@angular/core';
                     <tbody>
                         <tr>
                             <td><i>tab</i></td>
-                            <td>Adds focus to the active tab header when focus moves in to the component, if there is already a focused tab header moves the focus out of the component based on the page tab sequence.</td>
+                            <td>
+                                Adds focus to the active tab header when focus moves in to the component, if there is already a focused tab
+                                header moves the focus out of the component based on the page tab sequence.
+                            </td>
                         </tr>
                         <tr>
                             <td><i>enter</i></td>
@@ -51,6 +56,6 @@ import { Component } from '@angular/core';
                 </table>
             </div>
         </app-docsectiontext>
-    </div>`
+    </div>`,
 })
 export class AccessibilityDoc {}

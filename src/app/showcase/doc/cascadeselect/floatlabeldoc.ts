@@ -5,7 +5,10 @@ import { Code } from '@domain/code';
     selector: 'cascade-select-float-label-demo',
     template: `
         <app-docsectiontext>
-            <p>A floating label appears on top of the input field when focused. Visit <a routerLink="/floatlabel">FloatLabel</a> documentation for more information.</p>
+            <p>
+                A floating label appears on top of the input field when focused. Visit
+                <a routerLink="/floatlabel">FloatLabel</a> documentation for more information.
+            </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-floatLabel>
@@ -23,7 +26,7 @@ import { Code } from '@domain/code';
             </p-floatLabel>
         </div>
         <app-code [code]="code" selector="cascade-select-float-label-demo"></app-code>
-    `
+    `,
 })
 export class FloatLabelDoc {
     countries: any[] | undefined;
@@ -41,17 +44,17 @@ export class FloatLabelDoc {
                         cities: [
                             { cname: 'Sydney', code: 'A-SY' },
                             { cname: 'Newcastle', code: 'A-NE' },
-                            { cname: 'Wollongong', code: 'A-WO' }
-                        ]
+                            { cname: 'Wollongong', code: 'A-WO' },
+                        ],
                     },
                     {
                         name: 'Queensland',
                         cities: [
                             { cname: 'Brisbane', code: 'A-BR' },
-                            { cname: 'Townsville', code: 'A-TO' }
-                        ]
-                    }
-                ]
+                            { cname: 'Townsville', code: 'A-TO' },
+                        ],
+                    },
+                ],
             },
             {
                 name: 'Canada',
@@ -61,17 +64,17 @@ export class FloatLabelDoc {
                         name: 'Quebec',
                         cities: [
                             { cname: 'Montreal', code: 'C-MO' },
-                            { cname: 'Quebec City', code: 'C-QU' }
-                        ]
+                            { cname: 'Quebec City', code: 'C-QU' },
+                        ],
                     },
                     {
                         name: 'Ontario',
                         cities: [
                             { cname: 'Ottawa', code: 'C-OT' },
-                            { cname: 'Toronto', code: 'C-TO' }
-                        ]
-                    }
-                ]
+                            { cname: 'Toronto', code: 'C-TO' },
+                        ],
+                    },
+                ],
             },
             {
                 name: 'United States',
@@ -82,8 +85,8 @@ export class FloatLabelDoc {
                         cities: [
                             { cname: 'Los Angeles', code: 'US-LA' },
                             { cname: 'San Diego', code: 'US-SD' },
-                            { cname: 'San Francisco', code: 'US-SF' }
-                        ]
+                            { cname: 'San Francisco', code: 'US-SF' },
+                        ],
                     },
                     {
                         name: 'Florida',
@@ -91,19 +94,19 @@ export class FloatLabelDoc {
                             { cname: 'Jacksonville', code: 'US-JA' },
                             { cname: 'Miami', code: 'US-MI' },
                             { cname: 'Tampa', code: 'US-TA' },
-                            { cname: 'Orlando', code: 'US-OR' }
-                        ]
+                            { cname: 'Orlando', code: 'US-OR' },
+                        ],
                     },
                     {
                         name: 'Texas',
                         cities: [
                             { cname: 'Austin', code: 'US-AU' },
                             { cname: 'Dallas', code: 'US-DA' },
-                            { cname: 'Houston', code: 'US-HO' }
-                        ]
-                    }
-                ]
-            }
+                            { cname: 'Houston', code: 'US-HO' },
+                        ],
+                    },
+                ],
+            },
         ];
     }
 
@@ -228,6 +231,6 @@ export class CascadeSelectFloatLabelDemo implements OnInit {
             }
         ];
     }
-}`
+}`,
     };
 }

@@ -4,6 +4,6 @@ import { KnobDemo } from './knobdemo';
 
 @NgModule({
     imports: [RouterModule.forChild([{ path: '', component: KnobDemo }])],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class KnobDemoRoutingModule {}

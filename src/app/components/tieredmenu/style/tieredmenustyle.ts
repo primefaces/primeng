@@ -131,15 +131,15 @@ const theme = ({ dt }) => `
 `;
 
 const inlineStyles = {
-    submenu: ({ instance, processedItem }) => ({ display: instance.isItemActive(processedItem) ? 'flex' : 'none' })
+    submenu: ({ instance, processedItem }) => ({ display: instance.isItemActive(processedItem) ? 'flex' : 'none' }),
 };
 
 const classes = {
     root: ({ instance, props }) => [
         'p-tieredmenu p-component',
         {
-            'p-tieredmenu-overlay': props.popup
-        }
+            'p-tieredmenu-overlay': props.popup,
+        },
     ],
     start: 'p-tieredmenu-start',
     rootList: 'p-tieredmenu-root-list',
@@ -148,8 +148,8 @@ const classes = {
         {
             'p-tieredmenu-item-active': instance.isItemActive(processedItem),
             'p-focus': instance.isItemFocused(processedItem),
-            'p-disabled': instance.isItemDisabled(processedItem)
-        }
+            'p-disabled': instance.isItemDisabled(processedItem),
+        },
     ],
     itemContent: 'p-tieredmenu-item-content',
     itemLink: 'p-tieredmenu-item-link',
@@ -158,7 +158,7 @@ const classes = {
     submenuIcon: 'p-tieredmenu-submenu-icon',
     submenu: 'p-tieredmenu-submenu',
     separator: 'p-tieredmenu-separator',
-    end: 'p-tieredmenu-end'
+    end: 'p-tieredmenu-end',
 };
 
 @Injectable()

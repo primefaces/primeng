@@ -40,23 +40,28 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
     template: `
         <span [ngClass]="cx('content')">
             <ng-container *ngTemplateOutlet="contentTemplate; context: { $implicit: checked }"></ng-container>
-            @if(!contentTemplate) { @if (!iconTemplate) { @if(onIcon || offIcon) {
-            <span
-                [class]="checked ? this.onIcon : this.offIcon"
-                [ngClass]="{
-                    'p-togglebutton-icon': true,
-                    'p-togglebutton-icon-left': iconPos === 'left',
-                    'p-togglebutton-icon-right': iconPos === 'right'
-                }"
-                [attr.data-pc-section]="'icon'"
-            ></span>
-            } } @else {
-            <ng-container *ngTemplateOutlet="iconTemplate; context: { $implicit: checked }"></ng-container>
-            } @if(onLabel || offLabel) {
-            <span [ngClass]="cx('label')" [attr.data-pc-section]="'label'">{{
-                checked ? (hasOnLabel ? onLabel : '') : hasOffLabel ? offLabel : ''
-            }}</span>
-            } }
+            @if (!contentTemplate) {
+                @if (!iconTemplate) {
+                    @if (onIcon || offIcon) {
+                        <span
+                            [class]="checked ? this.onIcon : this.offIcon"
+                            [ngClass]="{
+                                'p-togglebutton-icon': true,
+                                'p-togglebutton-icon-left': iconPos === 'left',
+                                'p-togglebutton-icon-right': iconPos === 'right',
+                            }"
+                            [attr.data-pc-section]="'icon'"
+                        ></span>
+                    }
+                } @else {
+                    <ng-container *ngTemplateOutlet="iconTemplate; context: { $implicit: checked }"></ng-container>
+                }
+                @if (onLabel || offLabel) {
+                    <span [ngClass]="cx('label')" [attr.data-pc-section]="'label'">{{
+                        checked ? (hasOnLabel ? onLabel : '') : hasOffLabel ? offLabel : ''
+                    }}</span>
+                }
+            }
         </span>
     `,
     standalone: true,

@@ -6,34 +6,34 @@ import { ImportDoc } from '@doc/card/importdoc';
 import { StyleDoc } from '@doc/card/styledoc';
 
 @Component({
-    templateUrl: './carddemo.html'
+    templateUrl: './carddemo.html',
 })
 export class CardDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc
+            component: ImportDoc,
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc
+            component: BasicDoc,
         },
         {
             id: 'advanced',
             label: 'Advanced',
-            component: AdvancedDoc
+            component: AdvancedDoc,
         },
         {
             id: 'style',
             label: 'Style',
-            component: StyleDoc
+            component: StyleDoc,
         },
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc
-        }
+            component: AccessibilityDoc,
+        },
     ];
 }

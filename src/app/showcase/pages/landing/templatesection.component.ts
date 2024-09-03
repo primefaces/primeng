@@ -25,24 +25,20 @@ import { AppConfigService } from '@service/appconfigservice';
                         [ngStyle]="{
                             'background-image': isDarkMode
                                 ? 'url(https://primefaces.org/cdn/primeng/images/landing/templates/verona-dark-v17.jpg)'
-                                : 'url(https://primefaces.org/cdn/primeng/images/landing/templates/verona-light-v17.jpg)'
+                                : 'url(https://primefaces.org/cdn/primeng/images/landing/templates/verona-light-v17.jpg)',
                         }"
                     >
-                        <a class="templates-btn" href="https://www.primefaces.org/verona-ng" target="_blank"
-                            >Verona Preview</a
-                        >
+                        <a class="templates-btn" href="https://www.primefaces.org/verona-ng" target="_blank">Verona Preview</a>
                     </div>
                     <div
                         class="template-block block-2 ml-2 flex justify-center items-center"
                         [ngStyle]="{
                             'background-image': isDarkMode
                                 ? 'url(https://primefaces.org/cdn/primeng/images/landing/templates/freya-dark-v17.jpg)'
-                                : 'url(https://primefaces.org/cdn/primeng/images/landing/templates/freya-light-v17.jpg)'
+                                : 'url(https://primefaces.org/cdn/primeng/images/landing/templates/freya-light-v17.jpg)',
                         }"
                     >
-                        <a class="templates-btn" href="https://www.primefaces.org/freya-ng/" target="_blank"
-                            >Freya Preview</a
-                        >
+                        <a class="templates-btn" href="https://www.primefaces.org/freya-ng/" target="_blank">Freya Preview</a>
                     </div>
                 </div>
                 <div class="flex my-6 md:flex-row flex-col gap-6 lg:gap-0">
@@ -51,12 +47,10 @@ import { AppConfigService } from '@service/appconfigservice';
                         [ngStyle]="{
                             'background-image': isDarkMode
                                 ? 'url(https://primefaces.org/cdn/primeng/images/landing/templates/atlantis-dark-v17.jpg)'
-                                : 'url(https://primefaces.org/cdn/primeng/images/landing/templates/atlantis-light-v17.jpg)'
+                                : 'url(https://primefaces.org/cdn/primeng/images/landing/templates/atlantis-light-v17.jpg)',
                         }"
                     >
-                        <a class="templates-btn" href="https://www.primefaces.org/atlantis-ng/" target="_blank"
-                            >Atlantis Preview</a
-                        >
+                        <a class="templates-btn" href="https://www.primefaces.org/atlantis-ng/" target="_blank">Atlantis Preview</a>
                     </div>
                     <div class="template-block block-middle mr-2 hidden lg:flex justify-center items-center flex-col">
                         <img
@@ -73,12 +67,10 @@ import { AppConfigService } from '@service/appconfigservice';
                         [ngStyle]="{
                             'background-image': isDarkMode
                                 ? 'url(https://primefaces.org/cdn/primeng/images/landing/templates/apollo-dark-v17.jpg)'
-                                : 'url(https://primefaces.org/cdn/primeng/images/landing/templates/apollo-light-v17.jpg)'
+                                : 'url(https://primefaces.org/cdn/primeng/images/landing/templates/apollo-light-v17.jpg)',
                         }"
                     >
-                        <a class="templates-btn" href="https://www.primefaces.org/apollo-ng/" target="_blank"
-                            >Apollo Preview</a
-                        >
+                        <a class="templates-btn" href="https://www.primefaces.org/apollo-ng/" target="_blank">Apollo Preview</a>
                     </div>
                 </div>
                 <div class="flex md:flex-row flex-col gap-6 lg:gap-0">
@@ -87,24 +79,20 @@ import { AppConfigService } from '@service/appconfigservice';
                         [ngStyle]="{
                             'background-image': isDarkMode
                                 ? 'url(https://primefaces.org/cdn/primeng/images/landing/templates/diamond-dark-v17.jpg)'
-                                : 'url(https://primefaces.org/cdn/primeng/images/landing/templates/diamond-light-v17.jpg)'
+                                : 'url(https://primefaces.org/cdn/primeng/images/landing/templates/diamond-light-v17.jpg)',
                         }"
                     >
-                        <a class="templates-btn" href="https://www.primefaces.org/diamond-ng/" target="_blank"
-                            >Diamond Preview</a
-                        >
+                        <a class="templates-btn" href="https://www.primefaces.org/diamond-ng/" target="_blank">Diamond Preview</a>
                     </div>
                     <div
                         class="template-block block-6 ml-2 flex justify-center items-center"
                         [ngStyle]="{
                             'background-image': isDarkMode
                                 ? 'url(https://primefaces.org/cdn/primeng/images/landing/templates/ultima-dark-v17.jpg)'
-                                : 'url(https://primefaces.org/cdn/primeng/images/landing/templates/ultima-light-v17.jpg)'
+                                : 'url(https://primefaces.org/cdn/primeng/images/landing/templates/ultima-light-v17.jpg)',
                         }"
                     >
-                        <a class="templates-btn" href="https://www.primefaces.org/ultima-ng/" target="_blank"
-                            >Ultima Preview</a
-                        >
+                        <a class="templates-btn" href="https://www.primefaces.org/ultima-ng/" target="_blank">Ultima Preview</a>
                     </div>
                 </div>
                 <div class="lines">

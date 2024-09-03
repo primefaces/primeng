@@ -4,6 +4,6 @@ import { ListboxDemo } from './listboxdemo';
 
 @NgModule({
     imports: [RouterModule.forChild([{ path: '', component: ListboxDemo }])],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class ListboxDemoRoutingModule {}

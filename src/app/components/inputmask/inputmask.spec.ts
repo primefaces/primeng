@@ -6,7 +6,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { InputMask } from './inputmask';
 
 @Component({
-    template: `<p-inputMask [(ngModel)]="val" mask="99-9999"></p-inputMask>`
+    template: `<p-inputMask [(ngModel)]="val" mask="99-9999"></p-inputMask>`,
 })
 class TestInputMaskComponent {
     val: string;
@@ -21,7 +21,7 @@ describe('InputMask', () => {
         TestBed.configureTestingModule({
             imports: [NoopAnimationsModule, FormsModule],
             declarations: [InputMask, TestInputMaskComponent],
-            schemas: [NO_ERRORS_SCHEMA]
+            schemas: [NO_ERRORS_SCHEMA],
         });
 
         fixture = TestBed.createComponent(TestInputMaskComponent);

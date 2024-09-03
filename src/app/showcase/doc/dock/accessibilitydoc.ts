@@ -6,8 +6,10 @@ import { Component } from '@angular/core';
         <app-docsectiontext>
             <h3>Screen Reader</h3>
             <p>
-                Dock component uses the <i>menu</i> role with the <i>aria-orientation</i> and the value to describe the menu can either be provided with <i>aria-labelledby</i> or <i>aria-label</i> props. Each list item has a <i>presentation</i> role
-                whereas anchor elements have a <i>menuitem</i> role with <i>aria-label</i> referring to the label of the item and <i>aria-disabled</i> defined if the item is disabled.
+                Dock component uses the <i>menu</i> role with the <i>aria-orientation</i> and the value to describe the menu can either be
+                provided with <i>aria-labelledby</i> or <i>aria-label</i> props. Each list item has a <i>presentation</i> role whereas
+                anchor elements have a <i>menuitem</i> role with <i>aria-label</i> referring to the label of the item and
+                <i>aria-disabled</i> defined if the item is disabled.
             </p>
             <h3>Keyboard Support</h3>
             <div class="doc-tablewrapper">
@@ -21,11 +23,17 @@ import { Component } from '@angular/core';
                     <tbody>
                         <tr>
                             <td><i>tab</i></td>
-                            <td>Add focus to the first item if focus moves in to the menu. If the focus is already within the menu, focus moves to the next focusable item in the page tab sequence.</td>
+                            <td>
+                                Add focus to the first item if focus moves in to the menu. If the focus is already within the menu, focus
+                                moves to the next focusable item in the page tab sequence.
+                            </td>
                         </tr>
                         <tr>
                             <td><i>shift</i> + <i>tab</i></td>
-                            <td>Add focus to the last item if focus moves in to the menu. If the focus is already within the menu, focus moves to the previous focusable item in the page tab sequence.</td>
+                            <td>
+                                Add focus to the last item if focus moves in to the menu. If the focus is already within the menu, focus
+                                moves to the previous focusable item in the page tab sequence.
+                            </td>
                         </tr>
                         <tr>
                             <td><i>enter</i></td>
@@ -55,6 +63,6 @@ import { Component } from '@angular/core';
                 </table>
             </div>
         </app-docsectiontext>
-    </div>`
+    </div>`,
 })
 export class AccessibilityDoc {}

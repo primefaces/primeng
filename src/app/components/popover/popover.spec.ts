@@ -12,7 +12,7 @@ import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
             <img src="https://primefaces.org/cdn/primeng/images/demo/galleria/galleria1.jpg" alt="Galleria 1" />
         </p-overlayPanel>
         <a (click)="outSideClick()" class="outside-anchor"></a>
-    `
+    `,
 })
 class TestOverlayPanelComponent {
     outSideClick() {}
@@ -26,7 +26,7 @@ describe('Popover', () => {
         TestBed.configureTestingModule({
             schemas: [NO_ERRORS_SCHEMA],
             imports: [NoopAnimationsModule],
-            declarations: [Popover, TestOverlayPanelComponent]
+            declarations: [Popover, TestOverlayPanelComponent],
         });
 
         fixture = TestBed.createComponent(TestOverlayPanelComponent);

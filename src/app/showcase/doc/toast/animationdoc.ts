@@ -6,15 +6,23 @@ import { Code } from '@domain/code';
     selector: 'animation-doc',
     template: `
         <app-docsectiontext>
-            <p>Transition of the animations can be customized using the <i>showTransitionOptions</i>, <i>hideTransitionOptions</i>, <i>showTransformOptions</i> and <i>hideTransformOptions</i> properties.</p>
+            <p>
+                Transition of the animations can be customized using the <i>showTransitionOptions</i>, <i>hideTransitionOptions</i>,
+                <i>showTransformOptions</i> and <i>hideTransformOptions</i> properties.
+            </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-toast [showTransformOptions]="'translateY(100%)'" [showTransitionOptions]="'1000ms'" [hideTransitionOptions]="'1000ms'" [showTransformOptions]="'translateX(100%)'" />
+            <p-toast
+                [showTransformOptions]="'translateY(100%)'"
+                [showTransitionOptions]="'1000ms'"
+                [hideTransitionOptions]="'1000ms'"
+                [showTransformOptions]="'translateX(100%)'"
+            />
             <p-button pRipple (click)="show()" label="Show" />
         </div>
         <app-code [code]="code" selector="toast-animation-demo"></app-code>
     `,
-    providers: [MessageService]
+    providers: [MessageService],
 })
 export class AnimationDoc {
     constructor(private messageService: MessageService) {}
@@ -57,6 +65,6 @@ export class ToastAnimationDemo {
     show() {
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Message Content' });
     }
-}`
+}`,
     };
 }

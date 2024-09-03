@@ -83,9 +83,27 @@ const theme = ({ dt }) => `
 /* Position */
 const inlineStyles = {
     root: ({ props }) => ({
-        justifyContent: props.layout === 'horizontal' ? (props.align === 'center' || props.align === null ? 'center' : props.align === 'left' ? 'flex-start' : props.align === 'right' ? 'flex-end' : null) : null,
-        alignItems: props.layout === 'vertical' ? (props.align === 'center' || props.align === null ? 'center' : props.align === 'top' ? 'flex-start' : props.align === 'bottom' ? 'flex-end' : null) : null
-    })
+        justifyContent:
+            props.layout === 'horizontal'
+                ? props.align === 'center' || props.align === null
+                    ? 'center'
+                    : props.align === 'left'
+                      ? 'flex-start'
+                      : props.align === 'right'
+                        ? 'flex-end'
+                        : null
+                : null,
+        alignItems:
+            props.layout === 'vertical'
+                ? props.align === 'center' || props.align === null
+                    ? 'center'
+                    : props.align === 'top'
+                      ? 'flex-start'
+                      : props.align === 'bottom'
+                        ? 'flex-end'
+                        : null
+                : null,
+    }),
 };
 
 const classes = {
@@ -98,9 +116,9 @@ const classes = {
         { 'p-divider-right': props.layout === 'horizontal' && props.align === 'right' },
         { 'p-divider-top': props.layout === 'vertical' && props.align === 'top' },
         { 'p-divider-center': props.layout === 'vertical' && (!props.align || props.align === 'center') },
-        { 'p-divider-bottom': props.layout === 'vertical' && props.align === 'bottom' }
+        { 'p-divider-bottom': props.layout === 'vertical' && props.align === 'bottom' },
     ],
-    content: 'p-divider-content'
+    content: 'p-divider-content',
 };
 
 @Injectable()

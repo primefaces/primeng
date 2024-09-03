@@ -1,5 +1,17 @@
 import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { AfterViewInit, Directive, ElementRef, Input, NgModule, Renderer2, OnInit, Inject, PLATFORM_ID, booleanAttribute, numberAttribute } from '@angular/core';
+import {
+    AfterViewInit,
+    Directive,
+    ElementRef,
+    Input,
+    NgModule,
+    Renderer2,
+    OnInit,
+    Inject,
+    PLATFORM_ID,
+    booleanAttribute,
+    numberAttribute,
+} from '@angular/core';
 import { DomHandler } from 'primeng/dom';
 
 interface AnimateOnScrollOptions {
@@ -15,8 +27,8 @@ interface AnimateOnScrollOptions {
 @Directive({
     selector: '[pAnimateOnScroll]',
     host: {
-        '[class.p-animateonscroll]': 'true'
-    }
+        '[class.p-animateonscroll]': 'true',
+    },
 })
 export class AnimateOnScroll implements OnInit, AfterViewInit {
     /**
@@ -65,7 +77,7 @@ export class AnimateOnScroll implements OnInit, AfterViewInit {
         @Inject(PLATFORM_ID) private platformId: any,
         private host: ElementRef,
         public el: ElementRef,
-        public renderer: Renderer2
+        public renderer: Renderer2,
     ) {}
 
     ngOnInit() {
@@ -84,7 +96,7 @@ export class AnimateOnScroll implements OnInit, AfterViewInit {
         return {
             root: this.root,
             rootMargin: this.rootMargin,
-            threshold: this.threshold
+            threshold: this.threshold,
         };
     }
 
@@ -116,7 +128,7 @@ export class AnimateOnScroll implements OnInit, AfterViewInit {
 
                 this.animationState = undefined;
             },
-            { ...this.options, threshold: 0 }
+            { ...this.options, threshold: 0 },
         );
     }
 
@@ -176,6 +188,6 @@ export class AnimateOnScroll implements OnInit, AfterViewInit {
 @NgModule({
     imports: [CommonModule],
     exports: [AnimateOnScroll],
-    declarations: [AnimateOnScroll]
+    declarations: [AnimateOnScroll],
 })
 export class AnimateOnScrollModule {}

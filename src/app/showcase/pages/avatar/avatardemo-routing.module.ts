@@ -4,6 +4,6 @@ import { AvatarDemo } from './avatardemo';
 
 @NgModule({
     imports: [RouterModule.forChild([{ path: '', component: AvatarDemo }])],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class AvatarDemoRoutingModule {}

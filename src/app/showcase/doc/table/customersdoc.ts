@@ -92,9 +92,7 @@ import { Table } from 'primeng/table';
                                                     <div class="inline-block align-middle">
                                                         <img
                                                             [alt]="option.label"
-                                                            src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{
-                                                                option.image
-                                                            }}"
+                                                            src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ option.image }}"
                                                             width="24"
                                                             class="align-middle"
                                                         />
@@ -117,13 +115,7 @@ import { Table } from 'primeng/table';
                                 <div class="flex justify-between items-center">
                                     Balance
                                     <p-sortIcon field="balance" />
-                                    <p-columnFilter
-                                        type="numeric"
-                                        field="balance"
-                                        display="menu"
-                                        currency="USD"
-                                        class="ml-auto"
-                                    />
+                                    <p-columnFilter type="numeric" field="balance" display="menu" currency="USD" class="ml-auto" />
                                 </div>
                             </th>
                             <th pSortableColumn="status" style="min-width: 10rem">
@@ -139,10 +131,7 @@ import { Table } from 'primeng/table';
                                                 placeholder="Any"
                                             >
                                                 <ng-template let-option pTemplate="item">
-                                                    <p-tag
-                                                        [value]="option.label"
-                                                        [severity]="getSeverity(option.label)"
-                                                    />
+                                                    <p-tag [value]="option.label" [severity]="getSeverity(option.label)" />
                                                 </ng-template>
                                             </p-dropdown>
                                         </ng-template>
@@ -199,19 +188,17 @@ import { Table } from 'primeng/table';
                             <td>
                                 <img
                                     [alt]="customer.representative.name"
-                                    src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{
-                                        customer.representative.image
-                                    }}"
+                                    src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}"
                                     width="32"
                                     style="vertical-align: middle"
                                 />
                                 <span class="ml-1 align-middle">{{ customer.representative.name }}</span>
                             </td>
                             <td>
-                                {{ customer.date | date : 'MM/dd/yyyy' }}
+                                {{ customer.date | date: 'MM/dd/yyyy' }}
                             </td>
                             <td>
-                                {{ customer.balance | currency : 'USD' : 'symbol' }}
+                                {{ customer.balance | currency: 'USD' : 'symbol' }}
                             </td>
                             <td>
                                 <p-tag [value]="customer.status" [severity]="getSeverity(customer.status)" />
@@ -250,7 +237,10 @@ export class CustomersDoc {
 
     searchValue: string | undefined;
 
-    constructor(private customerService: CustomerService, private cd: ChangeDetectorRef) {}
+    constructor(
+        private customerService: CustomerService,
+        private cd: ChangeDetectorRef,
+    ) {}
 
     loadDemoData() {
         this.customerService.getCustomersLarge().then((customers) => {

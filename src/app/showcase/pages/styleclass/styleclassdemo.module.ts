@@ -6,6 +6,6 @@ import { StyleClassDemoRoutingModule } from './styleclassdemo-routing.module';
 
 @NgModule({
     imports: [CommonModule, StyleClassDemoRoutingModule, StyleClassDocModule],
-    declarations: [StyleClassDemo]
+    declarations: [StyleClassDemo],
 })
 export class StyleClassDemoModule {}

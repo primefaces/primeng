@@ -6,6 +6,6 @@ import { RatingDemoRoutingModule } from './ratingdemo-routing.module';
 
 @NgModule({
     imports: [CommonModule, RatingDemoRoutingModule, RatingDocModule],
-    declarations: [RatingDemo]
+    declarations: [RatingDemo],
 })
 export class RatingDemoModule {}

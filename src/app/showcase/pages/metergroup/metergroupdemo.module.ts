@@ -6,6 +6,6 @@ import { MeterGroupDemoRoutingModule } from './metergroupdemo-routing.module';
 
 @NgModule({
     imports: [CommonModule, MeterGroupDemoRoutingModule, MeterGroupDocModule],
-    declarations: [MeterGroupDemo]
+    declarations: [MeterGroupDemo],
 })
 export class MeterGroupDemoModule {}

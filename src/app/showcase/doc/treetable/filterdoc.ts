@@ -13,8 +13,10 @@ interface Column {
     template: `
         <app-docsectiontext>
             <p>
-                The <i>filterMode</i> specifies the filtering strategy, in <i>lenient</i> mode when the query matches a node, children of the node are not searched further as all descendants of the node are included. On the other hand, in
-                <i>strict</i> mode when the query matches a node, filtering continues on all descendants. A general filled called <i>filterGlobal</i> is also provided to search all columns that support filtering.
+                The <i>filterMode</i> specifies the filtering strategy, in <i>lenient</i> mode when the query matches a node, children of
+                the node are not searched further as all descendants of the node are included. On the other hand, in <i>strict</i> mode when
+                the query matches a node, filtering continues on all descendants. A general filled called <i>filterGlobal</i> is also
+                provided to search all columns that support filtering.
             </p>
         </app-docsectiontext>
         <div class="card">
@@ -22,12 +24,24 @@ interface Column {
                 <p-selectButton [options]="filterModes" [(ngModel)]="filterMode" optionLabel="label" optionValue="value" />
             </div>
             <p-deferred-demo (load)="loadDemoData()">
-                <p-treeTable #tt [value]="files" [columns]="cols" [filterMode]="filterMode" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
+                <p-treeTable
+                    #tt
+                    [value]="files"
+                    [columns]="cols"
+                    [filterMode]="filterMode"
+                    [scrollable]="true"
+                    [tableStyle]="{ 'min-width': '50rem' }"
+                >
                     <ng-template pTemplate="caption">
                         <div class="flex justify-end items-center">
                             <div class="p-input-icon-left">
                                 <i class="pi pi-search"></i>
-                                <input type="text" pInputText placeholder="Global Search" (input)="tt.filterGlobal($event.target.value, 'contains')" />
+                                <input
+                                    type="text"
+                                    pInputText
+                                    placeholder="Global Search"
+                                    (input)="tt.filterGlobal($event.target.value, 'contains')"
+                                />
                             </div>
                         </div>
                     </ng-template>
@@ -61,14 +75,14 @@ interface Column {
         </div>
         <app-code [code]="code" selector="tree-table-filter-demo"></app-code>
     `,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FilterDoc {
     filterMode = 'lenient';
 
     filterModes = [
         { label: 'Lenient', value: 'lenient' },
-        { label: 'Strict', value: 'strict' }
+        { label: 'Strict', value: 'strict' },
     ];
 
     files!: TreeNode[];
@@ -82,7 +96,7 @@ export class FilterDoc {
         this.cols = [
             { field: 'name', header: 'Name' },
             { field: 'size', header: 'Size' },
-            { field: 'type', header: 'Type' }
+            { field: 'type', header: 'Type' },
         ];
     }
 
@@ -244,6 +258,6 @@ export class TreeTableFilterDemo implements OnInit{
     }
 }`,
 
-        service: ['NodeService']
+        service: ['NodeService'],
     };
 }

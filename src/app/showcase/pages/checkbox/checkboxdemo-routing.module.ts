@@ -4,6 +4,6 @@ import { CheckboxDemo } from './checkboxdemo';
 
 @NgModule({
     imports: [RouterModule.forChild([{ path: '', component: CheckboxDemo }])],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class CheckboxDemoRoutingModule {}

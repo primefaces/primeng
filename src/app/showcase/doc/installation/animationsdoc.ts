@@ -6,12 +6,13 @@ import { Code } from '@domain/code';
     template: `
         <app-docsectiontext>
             <p>
-                Various components utilize Angular animations to improve the user experience. Animations have their own module <i>BrowserAnimationsModule</i> is required to be imported in your application. If you prefer to disable animations
-                globally, import <i>NoopAnimationsModule</i> instead.
+                Various components utilize Angular animations to improve the user experience. Animations have their own module
+                <i>BrowserAnimationsModule</i> is required to be imported in your application. If you prefer to disable animations globally,
+                import <i>NoopAnimationsModule</i> instead.
             </p>
         </app-docsectiontext>
         <app-code [code]="code" [hideToggleCode]="true"></app-code>
-    `
+    `,
 })
 export class AnimationsDoc {
     code: Code = {
@@ -26,6 +27,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ],
     //...
 })
-export class AppModule { }`
+export class AppModule { }`,
     };
 }

@@ -7,10 +7,7 @@ import { ProductService } from '@service/productservice';
     selector: 'data-view-loading-demo',
     template: `
         <app-docsectiontext>
-            <p>
-                While data is being loaded. <a routerLink="/skeleton">Skeleton</a> component may be used to indicate the
-                busy state.
-            </p>
+            <p>While data is being loaded. <a routerLink="/skeleton">Skeleton</a> component may be used to indicate the busy state.</p>
         </app-docsectiontext>
         <div class="card">
             <p-dataView #dv [value]="products" [layout]="layout">
@@ -27,9 +24,7 @@ import { ProductService } from '@service/productservice';
                                 [ngClass]="{ 'border-t border-surface-200 dark:border-surface-700': !first }"
                             >
                                 <p-skeleton styleClass="!w-9/12 sm:!w-64 xl:!w-40 !h-24 mx-auto" />
-                                <div
-                                    class="flex flex-col sm:flex-row justify-between items-center xl:items-start flex-1 gap-6"
-                                >
+                                <div class="flex flex-col sm:flex-row justify-between items-center xl:items-start flex-1 gap-6">
                                     <div class="flex flex-col items-center sm:items-start gap-4">
                                         <p-skeleton width="8rem" height="2rem" />
                                         <p-skeleton width="6rem" height="1rem" />
@@ -50,13 +45,8 @@ import { ProductService } from '@service/productservice';
                 </ng-template>
                 <ng-template let-product pTemplate="grid" let-products>
                     <div class="grid grid-cols-12 gap-4">
-                        <div
-                            *ngFor="let i of counterArray(6); let first = first"
-                            class="col-span-12 sm:col-span-6 xl:col-span-4 p-2"
-                        >
-                            <div
-                                class="p-6 border border-surface-200 dark:border-surface-700 bg-surface-0 dark:bg-surface-900 rounded"
-                            >
+                        <div *ngFor="let i of counterArray(6); let first = first" class="col-span-12 sm:col-span-6 xl:col-span-4 p-2">
+                            <div class="p-6 border border-surface-200 dark:border-surface-700 bg-surface-0 dark:bg-surface-900 rounded">
                                 <div class="flex flex-wrap items-center justify-between gap-2">
                                     <p-skeleton width="6rem" height="2rem" />
                                     <p-skeleton width="3rem" height="1rem" />

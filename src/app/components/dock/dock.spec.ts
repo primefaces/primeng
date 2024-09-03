@@ -9,7 +9,7 @@ describe('Dock', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule, DockModule]
+            imports: [NoopAnimationsModule, DockModule],
         });
 
         fixture = TestBed.createComponent(Dock);

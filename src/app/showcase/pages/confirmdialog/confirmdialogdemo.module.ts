@@ -6,6 +6,6 @@ import { ConfirmDialogDemoRoutingModule } from './confirmdialogdemo-routing.modu
 
 @NgModule({
     imports: [CommonModule, ConfirmDialogDemoRoutingModule, ConfirmDialogDocModule],
-    declarations: [ConfirmDialogDemo]
+    declarations: [ConfirmDialogDemo],
 })
 export class ConfirmDialogDemoModule {}

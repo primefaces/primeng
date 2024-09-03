@@ -14,6 +14,6 @@ import { RouterDoc } from './routerdoc';
 @NgModule({
     imports: [CommonModule, AppCodeModule, RouterModule, BreadcrumbModule, AppDocModule],
     declarations: [BasicDoc, TemplateDoc, RouterDoc, ImportDoc, StyleDoc, AccessibilityDoc],
-    exports: [AppDocModule]
+    exports: [AppDocModule],
 })
 export class BreadcrumbDocModule {}

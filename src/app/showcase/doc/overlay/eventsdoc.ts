@@ -5,7 +5,7 @@ import { Code } from '@domain/code';
     selector: 'events-doc',
     template: ` <section class="py-6">
         <app-code [code]="code" [hideToggleCode]="true"></app-code>
-    </section>`
+    </section>`,
 })
 export class EventsDoc {
     code: Code = {
@@ -20,6 +20,6 @@ this.primengConfig.overlayOptions: OverlayOptions = {
     onHide: (event?: OverlayOnHideEvent) => {};                // Callback to invoke when the overlay is hidden.
     onAnimationStart: (event?: AnimationEvent) => {};          // Callback to invoke when the animation is started.
     onAnimationDone: (event?: AnimationEvent) => {};           // Callback to invoke when the animation is done.
-};`
+};`,
     };
 }

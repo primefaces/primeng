@@ -6,39 +6,39 @@ import { StyleDoc } from '@doc/confirmpopup/styledoc';
 import { AccessibilityDoc } from '@doc/confirmpopup/accessibilitydoc';
 import { HeadlessDoc } from '@doc/confirmpopup/headlessdoc';
 @Component({
-    templateUrl: './confirmpopupdemo.html'
+    templateUrl: './confirmpopupdemo.html',
 })
 export class ConfirmPopupDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc
+            component: ImportDoc,
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc
+            component: BasicDoc,
         },
         {
             id: 'template',
             label: 'Template',
-            component: TemplateDoc
+            component: TemplateDoc,
         },
         {
             id: 'headless',
             label: 'Headless',
-            component: HeadlessDoc
+            component: HeadlessDoc,
         },
         {
             id: 'style',
             label: 'Style',
-            component: StyleDoc
+            component: StyleDoc,
         },
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc
-        }
+            component: AccessibilityDoc,
+        },
     ];
 }

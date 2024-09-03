@@ -4,6 +4,6 @@ import { DividerDemo } from './dividerdemo';
 
 @NgModule({
     imports: [RouterModule.forChild([{ path: '', component: DividerDemo }])],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class TagDemoRoutingModule {}

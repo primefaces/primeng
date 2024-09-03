@@ -11,15 +11,16 @@ interface City {
     template: `
         <app-docsectiontext>
             <p>
-                Select is used as a controlled component with <i>ngModel</i> property along with an <i>options</i> collection. Label and value of an option are defined with the <i>optionLabel</i> and <i>optionValue</i> properties respectively. Note
-                that, when options are simple primitive values such as a string array, no <i>optionLabel</i> and <i>optionValue</i> would be necessary.
+                Select is used as a controlled component with <i>ngModel</i> property along with an <i>options</i> collection. Label and
+                value of an option are defined with the <i>optionLabel</i> and <i>optionValue</i> properties respectively. Note that, when
+                options are simple primitive values such as a string array, no <i>optionLabel</i> and <i>optionValue</i> would be necessary.
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-select [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" placeholder="Select a City" />
         </div>
         <app-code [code]="code" selector="select-basic-demo"></app-code>
-    `
+    `,
 })
 export class BasicDoc implements OnInit {
     cities: City[];
@@ -32,7 +33,7 @@ export class BasicDoc implements OnInit {
             { name: 'Rome', code: 'RM' },
             { name: 'London', code: 'LDN' },
             { name: 'Istanbul', code: 'IST' },
-            { name: 'Paris', code: 'PRS' }
+            { name: 'Paris', code: 'PRS' },
         ];
     }
 
@@ -80,6 +81,6 @@ export class SelectBasicDemo implements OnInit {
             { name: 'Paris', code: 'PRS' }
         ];
     }
-}`
+}`,
     };
 }

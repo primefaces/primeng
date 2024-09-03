@@ -313,7 +313,7 @@ const theme = ({ dt }) => `
 `;
 
 const inlineStyles = {
-    submenu: ({ instance, processedItem }) => ({ display: instance.isItemActive(processedItem) ? 'block' : 'none' })
+    submenu: ({ instance, processedItem }) => ({ display: instance.isItemActive(processedItem) ? 'block' : 'none' }),
 };
 
 const classes = {
@@ -323,8 +323,8 @@ const classes = {
             'p-megamenu-mobile': instance.queryMatches,
             'p-megamenu-mobile-active': instance.mobileActive,
             'p-megamenu-horizontal': instance.horizontal,
-            'p-megamenu-vertical': instance.vertical
-        }
+            'p-megamenu-vertical': instance.vertical,
+        },
     ],
     start: 'p-megamenu-start',
     button: 'p-megamenu-button',
@@ -332,16 +332,16 @@ const classes = {
     submenuLabel: ({ instance, processedItem }) => [
         'p-megamenu-submenu-label',
         {
-            'p-disabled': instance.isItemDisabled(processedItem)
-        }
+            'p-disabled': instance.isItemDisabled(processedItem),
+        },
     ],
     item: ({ instance, processedItem }) => [
         'p-megamenu-item',
         {
             'p-megamenu-item-active': instance.isItemActive(processedItem),
             'p-focus': instance.isItemFocused(processedItem),
-            'p-disabled': instance.isItemDisabled(processedItem)
-        }
+            'p-disabled': instance.isItemDisabled(processedItem),
+        },
     ],
     itemContent: 'p-megamenu-item-content',
     itemLink: 'p-megamenu-item-link',
@@ -383,7 +383,7 @@ const classes = {
     },
     submenu: 'p-megamenu-submenu',
     separator: 'p-megamenu-separator',
-    end: 'p-megamenu-end'
+    end: 'p-megamenu-end',
 };
 
 @Injectable()

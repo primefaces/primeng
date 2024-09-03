@@ -15,7 +15,7 @@ import { Code } from '@domain/code';
             </span>
         </div>
         <app-code [code]="code" selector="button-set-demo"></app-code>
-    `
+    `,
 })
 export class ButtonsetDoc {
     code: Code = {
@@ -41,6 +41,6 @@ import { Component } from '@angular/core';
     selector: 'button-set-demo',
     templateUrl: './button-set-demo.html'
 })
-export class ButtonSetDemo { }`
+export class ButtonSetDemo { }`,
     };
 }

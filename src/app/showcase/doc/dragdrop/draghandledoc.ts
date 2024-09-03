@@ -5,7 +5,10 @@ import { Code } from '@domain/code';
     selector: 'drag-drop-drag-handle-demo',
     template: `
         <app-docsectiontext>
-            <p><i>dragHandle</i> is used to restrict dragging unless mousedown occurs on the specified element. Panel below can only be dragged using its header.</p>
+            <p>
+                <i>dragHandle</i> is used to restrict dragging unless mousedown occurs on the specified element. Panel below can only be
+                dragged using its header.
+            </p>
         </app-docsectiontext>
         <div class="card">
             <div pDraggable dragHandle=".p-panel-header" class="w-60">
@@ -13,7 +16,7 @@ import { Code } from '@domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="drag-drop-drag-handle-demo" [extFiles]="extFiles"></app-code>
-    `
+    `,
 })
 export class DragHandleDoc {
     code: Code = {
@@ -48,7 +51,7 @@ import { PanelModule } from 'primeng/panel';
 })
 export class DragDropDragHandleDemo {}`,
 
-        service: ['ProductService']
+        service: ['ProductService'],
     };
 
     extFiles = [
@@ -66,7 +69,7 @@ export interface Product {
     category?: string;
     image?: string;
     rating?: number;
-}`
-        }
+}`,
+        },
     ];
 }

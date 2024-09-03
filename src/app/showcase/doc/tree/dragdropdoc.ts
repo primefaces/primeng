@@ -10,11 +10,18 @@ import { NodeService } from '@service/nodeservice';
             <p>Nodes can be reordered within the same tree and also can be transferred between other trees using drag&drop.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-tree class="w-full md:w-[30rem]" [value]="files" [draggableNodes]="true" [droppableNodes]="true" draggableScope="self" droppableScope="self" />
+            <p-tree
+                class="w-full md:w-[30rem]"
+                [value]="files"
+                [draggableNodes]="true"
+                [droppableNodes]="true"
+                draggableScope="self"
+                droppableScope="self"
+            />
         </div>
         <app-code [code]="code" selector="tree-drag-drop-demo"></app-code>
     `,
-    providers: [TreeDragDropService]
+    providers: [TreeDragDropService],
 })
 export class DragDropDoc implements OnInit {
     files!: TreeNode[];
@@ -95,6 +102,6 @@ export class TreeDragDropDemo implements OnInit {
         }
     ]
 },
-...`
+...`,
     };
 }

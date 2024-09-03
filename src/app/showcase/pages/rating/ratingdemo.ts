@@ -11,59 +11,59 @@ import { AccessibilityDoc } from '@doc/rating/accessibilitydoc';
 import { ReactiveFormsDoc } from '@doc/rating/reactiveformsdoc';
 
 @Component({
-    templateUrl: './ratingdemo.html'
+    templateUrl: './ratingdemo.html',
 })
 export class RatingDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc
+            component: ImportDoc,
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc
+            component: BasicDoc,
         },
         {
             id: 'reactive-forms',
             label: 'Reactive Forms',
-            component: ReactiveFormsDoc
+            component: ReactiveFormsDoc,
         },
         {
             id: 'withoutcancel',
             label: 'Without Cancel',
-            component: WithoutCancelDoc
+            component: WithoutCancelDoc,
         },
         {
             id: 'numberofstars',
             label: 'Number of Stars',
-            component: NumberOfStarsDoc
+            component: NumberOfStarsDoc,
         },
         {
             id: 'template',
             label: 'Template',
-            component: TemplateDoc
+            component: TemplateDoc,
         },
         {
             id: 'readonly',
             label: 'ReadOnly',
-            component: ReadOnlyDoc
+            component: ReadOnlyDoc,
         },
         {
             id: 'disabled',
             label: 'Disabled',
-            component: DisabledDoc
+            component: DisabledDoc,
         },
         {
             id: 'style',
             label: 'Style',
-            component: StyleDoc
+            component: StyleDoc,
         },
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc
-        }
+            component: AccessibilityDoc,
+        },
     ];
 }

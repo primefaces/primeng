@@ -18,7 +18,7 @@ import {
     booleanAttribute,
     forwardRef,
     inject,
-    numberAttribute
+    numberAttribute,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { DomHandler } from 'primeng/dom';
@@ -31,7 +31,7 @@ import { BaseComponent } from 'primeng/basecomponent';
 export const SLIDER_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => Slider),
-    multi: true
+    multi: true,
 };
 /**
  * Slider is a component to provide input with a drag handle.
@@ -43,7 +43,13 @@ export const SLIDER_VALUE_ACCESSOR: any = {
         <div
             [ngStyle]="style"
             [class]="styleClass"
-            [ngClass]="{ 'p-slider p-component': true, 'p-disabled': disabled, 'p-slider-horizontal': orientation == 'horizontal', 'p-slider-vertical': orientation == 'vertical', 'p-slider-animate': animate }"
+            [ngClass]="{
+                'p-slider p-component': true,
+                'p-disabled': disabled,
+                'p-slider-horizontal': orientation == 'horizontal',
+                'p-slider-vertical': orientation == 'vertical',
+                'p-slider-animate': animate,
+            }"
             (click)="onBarClick($event)"
             [attr.data-pc-name]="'slider'"
             [attr.data-pc-section]="'root'"
@@ -51,23 +57,45 @@ export const SLIDER_VALUE_ACCESSOR: any = {
             <span
                 *ngIf="range && orientation == 'horizontal'"
                 class="p-slider-range"
-                [ngStyle]="{ position: 'absolute', left: offset !== null && offset !== undefined ? offset + '%' : handleValues[0] + '%', width: diff ? diff + '%' : handleValues[1] - handleValues[0] + '%' }"
+                [ngStyle]="{
+                    position: 'absolute',
+                    left: offset !== null && offset !== undefined ? offset + '%' : handleValues[0] + '%',
+                    width: diff ? diff + '%' : handleValues[1] - handleValues[0] + '%',
+                }"
                 [attr.data-pc-section]="'range'"
             ></span>
             <span
                 *ngIf="range && orientation == 'vertical'"
                 class="p-slider-range"
-                [ngStyle]="{ position: 'absolute', bottom: offset !== null && offset !== undefined ? offset + '%' : handleValues[0] + '%', height: diff ? diff + '%' : handleValues[1] - handleValues[0] + '%' }"
+                [ngStyle]="{
+                    position: 'absolute',
+                    bottom: offset !== null && offset !== undefined ? offset + '%' : handleValues[0] + '%',
+                    height: diff ? diff + '%' : handleValues[1] - handleValues[0] + '%',
+                }"
                 [attr.data-pc-section]="'range'"
             ></span>
-            <span *ngIf="!range && orientation == 'vertical'" class="p-slider-range" [attr.data-pc-section]="'range'" [ngStyle]="{ position: 'absolute', height: handleValue + '%' }"></span>
-            <span *ngIf="!range && orientation == 'horizontal'" class="p-slider-range" [attr.data-pc-section]="'range'" [ngStyle]="{ position: 'absolute', width: handleValue + '%' }"></span>
+            <span
+                *ngIf="!range && orientation == 'vertical'"
+                class="p-slider-range"
+                [attr.data-pc-section]="'range'"
+                [ngStyle]="{ position: 'absolute', height: handleValue + '%' }"
+            ></span>
+            <span
+                *ngIf="!range && orientation == 'horizontal'"
+                class="p-slider-range"
+                [attr.data-pc-section]="'range'"
+                [ngStyle]="{ position: 'absolute', width: handleValue + '%' }"
+            ></span>
             <span
                 *ngIf="!range"
                 #sliderHandle
                 class="p-slider-handle"
                 [style.transition]="dragging ? 'none' : null"
-                [ngStyle]="{ position: 'absolute', left: orientation == 'horizontal' ? handleValue + '%' : null, bottom: orientation == 'vertical' ? handleValue + '%' : null }"
+                [ngStyle]="{
+                    position: 'absolute',
+                    left: orientation == 'horizontal' ? handleValue + '%' : null,
+                    bottom: orientation == 'vertical' ? handleValue + '%' : null,
+                }"
                 (touchstart)="onDragStart($event)"
                 (touchmove)="onDrag($event)"
                 (touchend)="onDragEnd($event)"
@@ -134,7 +162,7 @@ export const SLIDER_VALUE_ACCESSOR: any = {
     `,
     providers: [SLIDER_VALUE_ACCESSOR, SliderStyle],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
 })
 export class Slider extends BaseComponent implements OnDestroy, ControlValueAccessor {
     /**
@@ -328,9 +356,13 @@ export class Slider extends BaseComponent implements OnDestroy, ControlValueAcce
             handleValue = 0;
 
         if (this.orientation === 'horizontal') {
-            handleValue = Math.floor(((parseInt((touchobj as any).clientX, 10) - (this.startx as number)) * 100) / (this.barWidth as number)) + this.startHandleValue;
+            handleValue =
+                Math.floor(((parseInt((touchobj as any).clientX, 10) - (this.startx as number)) * 100) / (this.barWidth as number)) +
+                this.startHandleValue;
         } else {
-            handleValue = Math.floor((((this.starty as number) - parseInt((touchobj as any).clientY, 10)) * 100) / (this.barHeight as number)) + this.startHandleValue;
+            handleValue =
+                Math.floor((((this.starty as number) - parseInt((touchobj as any).clientY, 10)) * 100) / (this.barHeight as number)) +
+                this.startHandleValue;
         }
 
         this.setValueFromHandle(event, handleValue);
@@ -584,14 +616,18 @@ export class Slider extends BaseComponent implements OnDestroy, ControlValueAcce
     }
 
     calculateHandleValue(event: Event): number {
-        if (this.orientation === 'horizontal') return (((event as MouseEvent).pageX - (this.initX as number)) * 100) / (this.barWidth as number);
-        else return (((this.initY as number) + (this.barHeight as number) - (event as MouseEvent).pageY) * 100) / (this.barHeight as number);
+        if (this.orientation === 'horizontal')
+            return (((event as MouseEvent).pageX - (this.initX as number)) * 100) / (this.barWidth as number);
+        else
+            return (((this.initY as number) + (this.barHeight as number) - (event as MouseEvent).pageY) * 100) / (this.barHeight as number);
     }
 
     updateHandleValue(): void {
         if (this.range) {
-            this.handleValues[0] = (((this.values as number[])[0] < this.min ? 0 : (this.values as number[])[0] - this.min) * 100) / (this.max - this.min);
-            this.handleValues[1] = (((this.values as number[])[1] > this.max ? 100 : (this.values as number[])[1] - this.min) * 100) / (this.max - this.min);
+            this.handleValues[0] =
+                (((this.values as number[])[0] < this.min ? 0 : (this.values as number[])[0] - this.min) * 100) / (this.max - this.min);
+            this.handleValues[1] =
+                (((this.values as number[])[1] > this.max ? 100 : (this.values as number[])[1] - this.min) * 100) / (this.max - this.min);
         } else {
             if ((this.value as number) < this.min) this.handleValue = 0;
             else if ((this.value as number) > this.max) this.handleValue = 100;
@@ -707,6 +743,6 @@ export class Slider extends BaseComponent implements OnDestroy, ControlValueAcce
 @NgModule({
     imports: [CommonModule, AutoFocusModule],
     exports: [Slider],
-    declarations: [Slider]
+    declarations: [Slider],
 })
 export class SliderModule {}

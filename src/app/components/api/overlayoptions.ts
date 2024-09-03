@@ -10,7 +10,21 @@ export type OverlayModeType = 'modal' | 'overlay' | undefined;
  * Represents the type of direction for a responsive overlay, which can be one of the specified values or undefined.
  * @group Types
  */
-export type ResponsiveOverlayDirectionType = 'center' | 'top' | 'top-start' | 'top-end' | 'bottom' | 'bottom-start' | 'bottom-end' | 'left' | 'left-start' | 'left-end' | 'right' | 'right-start' | 'right-end' | undefined;
+export type ResponsiveOverlayDirectionType =
+    | 'center'
+    | 'top'
+    | 'top-start'
+    | 'top-end'
+    | 'bottom'
+    | 'bottom-start'
+    | 'bottom-end'
+    | 'left'
+    | 'left-start'
+    | 'left-end'
+    | 'right'
+    | 'right-start'
+    | 'right-end'
+    | undefined;
 
 /**
  * Represents the options for an overlay listener.

@@ -4,24 +4,24 @@ import { AnimationDoc } from '@doc/styleclass/animationdoc';
 import { ToggleClassDoc } from '@doc/styleclass/toggleclassdoc';
 
 @Component({
-    templateUrl: './styleclassdemo.html'
+    templateUrl: './styleclassdemo.html',
 })
 export class StyleClassDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc
+            component: ImportDoc,
         },
         {
             id: 'toggleclass',
             label: 'Toggle Class',
-            component: ToggleClassDoc
+            component: ToggleClassDoc,
         },
         {
             id: 'animation',
             label: 'Animation',
-            component: AnimationDoc
-        }
+            component: AnimationDoc,
+        },
     ];
 }

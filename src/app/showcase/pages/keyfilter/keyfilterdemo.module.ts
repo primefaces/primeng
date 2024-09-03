@@ -6,6 +6,6 @@ import { KeyFilterDemoRoutingModule } from './keyfilterdemo-routing.module';
 
 @NgModule({
     imports: [CommonModule, KeyFilterDemoRoutingModule, KeyFilterDocModule],
-    declarations: [KeyFilterDemo]
+    declarations: [KeyFilterDemo],
 })
 export class KeyFilterDemoModule {}

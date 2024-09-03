@@ -13,7 +13,7 @@ describe('Rating', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [NoopAnimationsModule, StarIcon, StarFillIcon, BanIcon],
-            declarations: [Rating]
+            declarations: [Rating],
         });
 
         fixture = TestBed.createComponent(Rating);

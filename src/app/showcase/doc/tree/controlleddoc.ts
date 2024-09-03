@@ -17,7 +17,7 @@ import { NodeService } from '@service/nodeservice';
             <p-tree [value]="files" class="w-full md:w-[30rem]" />
         </div>
         <app-code [code]="code" selector="tree-controlled-demo"></app-code>
-    `
+    `,
 })
 export class ControlledDoc implements OnInit {
     files!: TreeNode[];
@@ -150,6 +150,6 @@ export class TreeControlledDemo implements OnInit {
         }
     ]
 },
-...`
+...`,
     };
 }

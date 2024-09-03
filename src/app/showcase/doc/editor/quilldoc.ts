@@ -12,16 +12,16 @@ import { Code } from '@domain/code';
         <div class="mt-4">
             <app-code [code]="code2" [hideToggleCode]="true"></app-code>
         </div>
-    `
+    `,
 })
 export class QuillDoc {
     code: Code = {
-        basic: `npm install quill`
+        basic: `npm install quill`,
     };
 
     code2: Code = {
         basic: `// import Quill styles in styles.scss
 @import "../node_modules/quill/dist/quill.core.css";
-@import "../node_modules/quill/dist/quill.snow.css";`
+@import "../node_modules/quill/dist/quill.snow.css";`,
     };
 }

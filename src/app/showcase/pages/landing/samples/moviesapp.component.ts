@@ -126,13 +126,7 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
                                         {{ item.categories.join(', ') }}
                                     </div>
                                 </div>
-                                <p-button
-                                    *ngIf="item.bookmarked"
-                                    icon="pi pi-bookmark-fill"
-                                    severity="contrast"
-                                    text
-                                    rounded
-                                />
+                                <p-button *ngIf="item.bookmarked" icon="pi pi-bookmark-fill" severity="contrast" text rounded />
                             </div>
                         </div>
                     </ng-template>
@@ -165,13 +159,7 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
                                     {{ movie.categories.join(', ') }}
                                 </div>
                             </div>
-                            <p-button
-                                *ngIf="movie.bookmarked"
-                                icon="pi pi-bookmark-fill"
-                                severity="contrast"
-                                text
-                                rounded
-                            />
+                            <p-button *ngIf="movie.bookmarked" icon="pi pi-bookmark-fill" severity="contrast" text rounded />
                         </div>
                     </div>
                 </div>

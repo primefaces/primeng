@@ -11,9 +11,8 @@ import { PhotoService } from '@service/photoservice';
     template: `
         <app-docsectiontext>
             <p>
-                Dock requires a collection of menuitems as its <i>model</i>. Default location is <i>bottom</i> and other
-                sides are also available when defined with the <i>position</i> property. Content of the dock component
-                is defined by <i>item</i> template.
+                Dock requires a collection of menuitems as its <i>model</i>. Default location is <i>bottom</i> and other sides are also
+                available when defined with the <i>position</i> property. Content of the dock component is defined by <i>item</i> template.
             </p>
         </app-docsectiontext>
         <div class="card">
@@ -59,10 +58,7 @@ import { PhotoService } from '@service/photoservice';
                     [draggable]="false"
                     [resizable]="false"
                 >
-                    <p-terminal
-                        welcomeMessage="Welcome to PrimeNG (cmd: 'date', 'greet {0}', 'random')"
-                        prompt="primeng $"
-                    />
+                    <p-terminal welcomeMessage="Welcome to PrimeNG (cmd: 'date', 'greet {0}', 'random')" prompt="primeng $" />
                 </p-dialog>
 
                 <p-galleria

@@ -6,6 +6,6 @@ import { ImageDemoRoutingModule } from './imagedemo-routing.module';
 
 @NgModule({
     imports: [CommonModule, ImageDemoRoutingModule, ImageDocModule],
-    declarations: [ImageDemo]
+    declarations: [ImageDemo],
 })
 export class ImageDemoModule {}

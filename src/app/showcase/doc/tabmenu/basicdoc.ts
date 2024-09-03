@@ -12,7 +12,7 @@ import { Code } from '@domain/code';
             <p-tabMenu [model]="items" />
         </div>
         <app-code [code]="code" selector="tab-menu-basic-demo"></app-code>
-    `
+    `,
 })
 export class BasicDoc implements OnInit {
     items: MenuItem[] | undefined;
@@ -22,7 +22,7 @@ export class BasicDoc implements OnInit {
             { label: 'Dashboard', icon: 'pi pi-home' },
             { label: 'Transactions', icon: 'pi pi-chart-line' },
             { label: 'Products', icon: 'pi pi-list' },
-            { label: 'Messages', icon: 'pi pi-inbox' }
+            { label: 'Messages', icon: 'pi pi-inbox' },
         ];
     }
 
@@ -54,6 +54,6 @@ export class TabMenuBasicDemo implements OnInit {
             { label: 'Messages', icon: 'pi pi-inbox' }
         ]
     }
-}`
+}`,
     };
 }

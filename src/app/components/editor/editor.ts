@@ -17,7 +17,7 @@ import {
     ViewEncapsulation,
     afterNextRender,
     forwardRef,
-    inject
+    inject,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Header, PrimeTemplate, SharedModule } from 'primeng/api';
@@ -30,7 +30,7 @@ import { BaseComponent } from 'primeng/basecomponent';
 export const EDITOR_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => Editor),
-    multi: true
+    multi: true,
 };
 /**
  * Editor groups a collection of contents in tabs.
@@ -90,7 +90,7 @@ export const EDITOR_VALUE_ACCESSOR: any = {
     `,
     providers: [EDITOR_VALUE_ACCESSOR, EditorStyle],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
 })
 export class Editor extends BaseComponent implements AfterContentInit, ControlValueAccessor {
     /**
@@ -291,7 +291,7 @@ export class Editor extends BaseComponent implements AfterContentInit, ControlVa
             formats: this.formats,
             bounds: this.bounds,
             debug: this.debug,
-            scrollingContainer: this.scrollingContainer
+            scrollingContainer: this.scrollingContainer,
         });
 
         if (this.value) {
@@ -310,7 +310,7 @@ export class Editor extends BaseComponent implements AfterContentInit, ControlVa
                     htmlValue: html,
                     textValue: text,
                     delta: delta,
-                    source: source
+                    source: source,
                 });
 
                 this.onModelChange(html);
@@ -322,12 +322,12 @@ export class Editor extends BaseComponent implements AfterContentInit, ControlVa
             this.onSelectionChange.emit({
                 range: range,
                 oldRange: oldRange,
-                source: source
+                source: source,
             });
         });
 
         this.onInit.emit({
-            editor: this.quill
+            editor: this.quill,
         });
     }
 
@@ -335,7 +335,7 @@ export class Editor extends BaseComponent implements AfterContentInit, ControlVa
         if (!this.quillElements) {
             this.quillElements = {
                 editorElement: DomHandler.findSingle(this.el.nativeElement, 'div.p-editor-content'),
-                toolbarElement: DomHandler.findSingle(this.el.nativeElement, 'div.p-editor-toolbar')
+                toolbarElement: DomHandler.findSingle(this.el.nativeElement, 'div.p-editor-toolbar'),
             };
         }
     }
@@ -344,6 +344,6 @@ export class Editor extends BaseComponent implements AfterContentInit, ControlVa
 @NgModule({
     imports: [CommonModule],
     exports: [Editor, SharedModule],
-    declarations: [Editor]
+    declarations: [Editor],
 })
 export class EditorModule {}

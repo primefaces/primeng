@@ -17,7 +17,7 @@ import { Code } from '@domain/code';
             <p-steps [activeIndex]="active" [model]="items" />
         </div>
         <app-code [code]="code" selector="steps-controlled-demo"></app-code>
-    `
+    `,
 })
 export class ControlledDoc implements OnInit {
     items: MenuItem[] | undefined;
@@ -27,14 +27,14 @@ export class ControlledDoc implements OnInit {
     ngOnInit() {
         this.items = [
             {
-                label: 'Personal Info'
+                label: 'Personal Info',
             },
             {
-                label: 'Reservation'
+                label: 'Reservation',
             },
             {
-                label: 'Review'
-            }
+                label: 'Review',
+            },
         ];
     }
 
@@ -114,6 +114,6 @@ export class StepsControlledDemo implements OnInit {
             }
         ];
     }
-}`
+}`,
     };
 }

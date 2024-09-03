@@ -4,6 +4,6 @@ import { SkeletonDemo } from './skeletondemo';
 
 @NgModule({
     imports: [RouterModule.forChild([{ path: '', component: SkeletonDemo }])],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class SkeletonDemoRoutingModule {}

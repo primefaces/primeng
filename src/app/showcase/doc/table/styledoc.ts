@@ -25,7 +25,13 @@ import { ProductService } from '@service/productservice';
                             <td>{{ product.name }}</td>
                             <td>{{ product.category }}</td>
                             <td>
-                                <div [ngClass]="{ outofstock: product.quantity === 0, lowstock: product.quantity > 0 && product.quantity < 10, instock: product.quantity > 10 }">
+                                <div
+                                    [ngClass]="{
+                                        outofstock: product.quantity === 0,
+                                        lowstock: product.quantity > 0 && product.quantity < 10,
+                                        instock: product.quantity > 10,
+                                    }"
+                                >
                                     {{ product.quantity }}
                                 </div>
                             </td>
@@ -57,15 +63,15 @@ import { ProductService } from '@service/productservice';
             :host ::ng-deep .row-accessories {
                 background-color: rgba(0, 0, 0, 0.15) !important;
             }
-        `
-    ]
+        `,
+    ],
 })
 export class StyleDoc {
     products!: Product[];
 
     constructor(
         private productService: ProductService,
-        private cd: ChangeDetectorRef
+        private cd: ChangeDetectorRef,
     ) {}
 
     loadDemoData() {
@@ -187,7 +193,7 @@ export class TableStyleDemo implements OnInit{
 :host ::ng-deep .row-accessories {
     background-color: rgba(0, 0, 0, 0.15) !important;
 }`,
-        service: ['ProductService']
+        service: ['ProductService'],
     };
 
     extFiles = [
@@ -205,7 +211,7 @@ export interface Product {
     category?: string;
     image?: string;
     rating?: number;
-}`
-        }
+}`,
+        },
     ];
 }

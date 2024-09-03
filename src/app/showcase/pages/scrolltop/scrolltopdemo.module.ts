@@ -6,6 +6,6 @@ import { ScrollTopDemoRoutingModule } from './scrolltopdemo-routing.module';
 
 @NgModule({
     imports: [CommonModule, ScrollTopDemoRoutingModule, ScrollTopDocModule],
-    declarations: [ScrollTopDemo]
+    declarations: [ScrollTopDemo],
 })
 export class ScrollTopDemoModule {}

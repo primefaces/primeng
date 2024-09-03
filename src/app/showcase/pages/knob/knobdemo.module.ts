@@ -6,6 +6,6 @@ import { KnobDemoRoutingModule } from './knobdemo-routing.module';
 
 @NgModule({
     imports: [CommonModule, KnobDemoRoutingModule, KnobDocModule],
-    declarations: [KnobDemo]
+    declarations: [KnobDemo],
 })
 export class KnobDemoModule {}

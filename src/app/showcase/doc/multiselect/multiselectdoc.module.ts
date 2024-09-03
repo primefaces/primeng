@@ -23,8 +23,33 @@ import { FloatLabelModule } from 'primeng/floatlabel';
 import { FilledDoc } from './filleddoc';
 
 @NgModule({
-    imports: [CommonModule, AppCodeModule, RouterModule, MultiSelectModule, FormsModule, ReactiveFormsModule, AppDocModule, FloatLabelModule],
+    imports: [
+        CommonModule,
+        AppCodeModule,
+        RouterModule,
+        MultiSelectModule,
+        FormsModule,
+        ReactiveFormsModule,
+        AppDocModule,
+        FloatLabelModule,
+    ],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, ChipsDoc, GroupDoc, FilterDoc, TemplateDoc, VirtualScrollDoc, FloatLabelDoc, InvalidDoc, DisabledDoc, StyleDoc, AccessibilityDoc, ReactiveFormsDoc, LoadingStateDoc, FilledDoc]
+    declarations: [
+        ImportDoc,
+        BasicDoc,
+        ChipsDoc,
+        GroupDoc,
+        FilterDoc,
+        TemplateDoc,
+        VirtualScrollDoc,
+        FloatLabelDoc,
+        InvalidDoc,
+        DisabledDoc,
+        StyleDoc,
+        AccessibilityDoc,
+        ReactiveFormsDoc,
+        LoadingStateDoc,
+        FilledDoc,
+    ],
 })
 export class MultiSelectDocModule {}

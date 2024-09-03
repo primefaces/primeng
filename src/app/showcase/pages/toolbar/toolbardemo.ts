@@ -6,34 +6,34 @@ import { TemplateDoc } from '@doc/toolbar/templatedoc';
 import { AccessibilityDoc } from '@doc/toolbar/accessibilitydoc';
 
 @Component({
-    templateUrl: './toolbardemo.html'
+    templateUrl: './toolbardemo.html',
 })
 export class ToolbarDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc
+            component: ImportDoc,
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc
+            component: BasicDoc,
         },
         {
             id: 'template',
             label: 'Template',
-            component: TemplateDoc
+            component: TemplateDoc,
         },
         {
             id: 'style',
             label: 'Style',
-            component: StyleDoc
+            component: StyleDoc,
         },
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc
-        }
+            component: AccessibilityDoc,
+        },
     ];
 }

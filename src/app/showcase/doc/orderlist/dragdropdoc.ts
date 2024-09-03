@@ -7,13 +7,19 @@ import { ProductService } from '@service/productservice';
     selector: 'drag-drop-doc',
     template: `
         <app-docsectiontext>
-            <p>Items can be reordered using drag and drop by enabling <i>dragdrop</i> property. Depends on <i>&#64;angular/cdk</i> package.</p>
+            <p>
+                Items can be reordered using drag and drop by enabling <i>dragdrop</i> property. Depends on <i>&#64;angular/cdk</i> package.
+            </p>
         </app-docsectiontext>
         <div class="card xl:flex xl:justify-center">
             <p-orderList [value]="products" [listStyle]="{ 'max-height': '30rem' }" header="List of Products" [dragdrop]="true">
                 <ng-template let-product pTemplate="item">
                     <div class="flex flex-wrap p-2 items-center gap-4">
-                        <img src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.name" class="w-16 shadow shrink-0 rounded-border" />
+                        <img
+                            src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}"
+                            [alt]="product.name"
+                            class="w-16 shadow shrink-0 rounded-border"
+                        />
                         <div class="flex-1 flex flex-col gap-2">
                             <span class="font-bold">{{ product.name }}</span>
                             <div class="flex items-center gap-2">
@@ -27,14 +33,14 @@ import { ProductService } from '@service/productservice';
             </p-orderList>
         </div>
         <app-code [code]="code" selector="orderlist-drag-drop-demo" [extFiles]="extFiles"></app-code>
-    `
+    `,
 })
 export class DragDropDoc implements OnInit {
     products!: Product[];
 
     constructor(
         private productService: ProductService,
-        private cdr: ChangeDetectorRef
+        private cdr: ChangeDetectorRef,
     ) {}
 
     ngOnInit() {
@@ -161,7 +167,7 @@ export class OrderlistDragDropDemo implements OnInit {
 },
 ...`,
 
-        service: ['ProductService']
+        service: ['ProductService'],
     };
 
     extFiles = [
@@ -179,7 +185,7 @@ export interface Product {
     category?: string;
     image?: string;
     rating?: number;
-}`
-        }
+}`,
+        },
     ];
 }

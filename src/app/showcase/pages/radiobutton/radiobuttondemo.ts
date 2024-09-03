@@ -10,54 +10,54 @@ import { StyleDoc } from '@doc/radiobutton/styledoc';
 import { FilledDoc } from '@doc/radiobutton/filleddoc';
 
 @Component({
-    templateUrl: './radiobuttondemo.html'
+    templateUrl: './radiobuttondemo.html',
 })
 export class RadioButtonDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc
+            component: ImportDoc,
         },
         {
             id: 'group',
             label: 'Group',
-            component: GroupDoc
+            component: GroupDoc,
         },
         {
             id: 'dynamic',
             label: 'Dynamic',
-            component: DynamicDoc
+            component: DynamicDoc,
         },
         {
             id: 'reactive-forms',
             label: 'Reactive Forms',
-            component: ReactiveFormsDoc
+            component: ReactiveFormsDoc,
         },
         {
             id: 'filled',
             label: 'Filled',
-            component: FilledDoc
+            component: FilledDoc,
         },
         {
             id: 'invalid',
             label: 'Invalid',
-            component: InvalidDoc
+            component: InvalidDoc,
         },
         {
             id: 'disabled',
             label: 'Disabled',
-            component: DisabledDoc
+            component: DisabledDoc,
         },
         {
             id: 'style',
             label: 'Style',
-            component: StyleDoc
+            component: StyleDoc,
         },
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc
-        }
+            component: AccessibilityDoc,
+        },
     ];
 }

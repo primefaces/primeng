@@ -15,6 +15,6 @@ import { StyleDoc } from './styledoc';
 @NgModule({
     imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, InputTextModule, IconFieldModule, InputIconModule, FormsModule],
     declarations: [ImportDoc, BasicDoc, TemplateDoc, AccessibilityDoc, StyleDoc],
-    exports: [AppDocModule]
+    exports: [AppDocModule],
 })
 export class IconFieldDocModule {}

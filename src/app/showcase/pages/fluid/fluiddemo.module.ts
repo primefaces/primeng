@@ -7,6 +7,6 @@ import { FluidDocModule } from '@doc/fluid/fluiddoc.module';
 
 @NgModule({
     imports: [CommonModule, FluidDemoRoutingModule, FormsModule, FluidDocModule],
-    declarations: [FluidDemo]
+    declarations: [FluidDemo],
 })
 export class FluidDemoModule {}

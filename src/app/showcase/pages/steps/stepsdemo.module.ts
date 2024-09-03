@@ -6,6 +6,6 @@ import { StepsDemoRoutingModule } from './stepsdemo-routing.module';
 
 @NgModule({
     imports: [CommonModule, StepsDemoRoutingModule, StepsDocModule],
-    declarations: [StepsDemo]
+    declarations: [StepsDemo],
 })
 export class StepsDemoModule {}

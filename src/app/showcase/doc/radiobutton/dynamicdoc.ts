@@ -16,7 +16,7 @@ import { Code } from '@domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="radio-button-dynamic-demo"></app-code>
-    `
+    `,
 })
 export class DynamicDoc implements OnInit {
     selectedCategory: any = null;
@@ -25,7 +25,7 @@ export class DynamicDoc implements OnInit {
         { name: 'Accounting', key: 'A' },
         { name: 'Marketing', key: 'M' },
         { name: 'Production', key: 'P' },
-        { name: 'Research', key: 'R' }
+        { name: 'Research', key: 'R' },
     ];
 
     ngOnInit() {
@@ -84,6 +84,6 @@ export class RadioButtonDynamicDemo implements OnInit{
     ngOnInit() {
         this.selectedCategory = this.categories[1];
     }
-}`
+}`,
     };
 }

@@ -4,6 +4,6 @@ import { MultiSelectDemo } from './multiselectdemo';
 
 @NgModule({
     imports: [RouterModule.forChild([{ path: '', component: MultiSelectDemo }])],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class MultiSelectDemoRoutingModule {}

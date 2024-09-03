@@ -15,6 +15,6 @@ import { ToggleableDoc } from './toggleabledoc';
 @NgModule({
     imports: [CommonModule, AppCodeModule, AppDocModule, FieldsetModule, RouterModule, AvatarModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, ToggleableDoc, TemplateDoc, StyleDoc, AccessibilityDoc]
+    declarations: [ImportDoc, BasicDoc, ToggleableDoc, TemplateDoc, StyleDoc, AccessibilityDoc],
 })
 export class FieldsetDocModule {}

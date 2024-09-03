@@ -6,6 +6,6 @@ import { InputMaskDemoRoutingModule } from './inputmaskdemo-routing.module';
 
 @NgModule({
     imports: [CommonModule, InputMaskDemoRoutingModule, InputMaskDocModule],
-    declarations: [InputMaskDemo]
+    declarations: [InputMaskDemo],
 })
 export class InputMaskDemoModule {}

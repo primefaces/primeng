@@ -5,7 +5,10 @@ import { Code } from '@domain/code';
     selector: 'horizontal-doc',
     template: `
         <app-docsectiontext>
-            <p>TimeLine orientation is controlled with the <i>layout</i> property, default is <i>vertical</i> having <i>horizontal</i> as the alternative.</p>
+            <p>
+                TimeLine orientation is controlled with the <i>layout</i> property, default is <i>vertical</i> having <i>horizontal</i> as
+                the alternative.
+            </p>
         </app-docsectiontext>
         <div class="card flex flex-col gap-4">
             <p-timeline [value]="events" layout="horizontal" align="top">
@@ -26,7 +29,7 @@ import { Code } from '@domain/code';
             </p-timeline>
         </div>
         <app-code [code]="code" selector="timeline-horizontal-demo"></app-code>
-    `
+    `,
 })
 export class HorizontalDoc {
     events: string[];
@@ -95,6 +98,6 @@ export class TimelineHorizontalDemo {
             "2020", "2021", "2022", "2023"
         ];
     }
-}`
+}`,
     };
 }

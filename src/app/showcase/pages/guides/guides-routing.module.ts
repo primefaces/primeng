@@ -10,9 +10,9 @@ import { CssLayerDemoComponent } from './csslayer/csslayerdemo.component';
             { path: '', redirectTo: 'accessibility', pathMatch: 'full' },
             { path: 'accessibility', component: AccessibilityDemoComponent },
             { path: 'templateupdate', component: TemplateUpdateDemoComponent },
-            { path: 'csslayer', component: CssLayerDemoComponent }
-        ])
+            { path: 'csslayer', component: CssLayerDemoComponent },
+        ]),
     ],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class GuidesRoutingModule {}

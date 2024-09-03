@@ -10,13 +10,16 @@ interface City {
     selector: 'select-filled-demo',
     template: `
         <app-docsectiontext>
-            <p>Specify the <i>variant</i> property as <i>filled</i> to display the component with a higher visual emphasis than the default <i>outlined</i> style.</p>
+            <p>
+                Specify the <i>variant</i> property as <i>filled</i> to display the component with a higher visual emphasis than the default
+                <i>outlined</i> style.
+            </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-select [options]="cities" [(ngModel)]="selectedCity" variant="filled" optionLabel="name" placeholder="Select a City" />
         </div>
         <app-code [code]="code" selector="select-filled-demo"></app-code>
-    `
+    `,
 })
 export class FilledDoc implements OnInit {
     cities: City[];
@@ -29,7 +32,7 @@ export class FilledDoc implements OnInit {
             { name: 'Rome', code: 'RM' },
             { name: 'London', code: 'LDN' },
             { name: 'Istanbul', code: 'IST' },
-            { name: 'Paris', code: 'PRS' }
+            { name: 'Paris', code: 'PRS' },
         ];
     }
 
@@ -79,6 +82,6 @@ export class SelectFilledDemo implements OnInit {
             { name: 'Paris', code: 'PRS' }
         ];
     }
-}`
+}`,
     };
 }

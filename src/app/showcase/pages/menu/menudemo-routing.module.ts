@@ -4,6 +4,6 @@ import { MenuDemo } from './menudemo';
 
 @NgModule({
     imports: [RouterModule.forChild([{ path: '', component: MenuDemo }])],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class MenuDemoRoutingModule {}

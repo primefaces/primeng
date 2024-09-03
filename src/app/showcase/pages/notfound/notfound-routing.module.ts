@@ -4,6 +4,6 @@ import { NotFoundComponent } from './notfound.component';
 
 @NgModule({
     imports: [RouterModule.forChild([{ path: '', component: NotFoundComponent }])],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class NotFoundRoutingModule {}

@@ -14,64 +14,64 @@ import { AccessibilityDoc } from '@doc/dialog/accessibilitydoc';
 import { WithoutModalDoc } from '@doc/dialog/withoutmodaldoc';
 
 @Component({
-    templateUrl: './dialogdemo.html'
+    templateUrl: './dialogdemo.html',
 })
 export class DialogDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc
+            component: ImportDoc,
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc
+            component: BasicDoc,
         },
         {
             id: 'template',
             label: 'Template',
-            component: TemplateDoc
+            component: TemplateDoc,
         },
         {
             id: 'position',
             label: 'Position',
-            component: PositionDoc
+            component: PositionDoc,
         },
         {
             id: 'maximizable',
             label: 'Maximizable',
-            component: MaximizableDoc
+            component: MaximizableDoc,
         },
         {
             id: 'longcontent',
             label: 'Long Content',
-            component: LongContentDoc
+            component: LongContentDoc,
         },
         {
             id: 'withoutmodal',
             label: 'Without Modal',
-            component: WithoutModalDoc
+            component: WithoutModalDoc,
         },
         {
             id: 'responsive',
             label: 'Responsive',
-            component: ResponsiveDoc
+            component: ResponsiveDoc,
         },
         {
             id: 'headless',
             label: 'Headless',
-            component: HeadlessDoc
+            component: HeadlessDoc,
         },
         {
             id: 'style',
             label: 'Style',
-            component: StyleDoc
+            component: StyleDoc,
         },
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc
-        }
+            component: AccessibilityDoc,
+        },
     ];
 }

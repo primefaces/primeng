@@ -6,6 +6,6 @@ import { PaginatorDemoRoutingModule } from './paginatordemo-routing.module';
 
 @NgModule({
     imports: [CommonModule, PaginatorDemoRoutingModule, PaginatorDocModule],
-    declarations: [PaginatorDemo]
+    declarations: [PaginatorDemo],
 })
 export class PaginatorDemoModule {}

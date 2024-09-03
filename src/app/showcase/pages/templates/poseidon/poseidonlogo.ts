@@ -20,7 +20,14 @@ import { Component } from '@angular/core';
                 />
             </g>
             <defs>
-                <linearGradient id="paint0_linear_2005_187770" x1="1785.56" y1="0.104126" x2="1785.56" y2="3867.66" gradientUnits="userSpaceOnUse">
+                <linearGradient
+                    id="paint0_linear_2005_187770"
+                    x1="1785.56"
+                    y1="0.104126"
+                    x2="1785.56"
+                    y2="3867.66"
+                    gradientUnits="userSpaceOnUse"
+                >
                     <stop stop-color="white" />
                     <stop offset="1" stop-color="white" stop-opacity="0" />
                 </linearGradient>
@@ -29,6 +36,6 @@ import { Component } from '@angular/core';
                 </clipPath>
             </defs>
         </svg>
-    `
+    `,
 })
 export class PoseidonLogo {}

@@ -30,7 +30,7 @@ import { Code } from '@domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="divider-login-demo"></app-code>
-    `
+    `,
 })
 export class LoginDoc {
     code: Code = {
@@ -97,6 +97,6 @@ import { InputTextModule } from 'primeng/inputtext';
     standalone: true,
     imports: [DividerModule, ButtonModule, InputTextModule]
 })
-export class DividerLoginDemo {}`
+export class DividerLoginDemo {}`,
     };
 }

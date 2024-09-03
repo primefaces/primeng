@@ -8,9 +8,12 @@ import { CustomerService } from '@service/customerservice';
     selector: 'lazy-load-doc',
     template: ` <app-docsectiontext>
             <p>
-                Lazy mode is handy to deal with large datasets, instead of loading the entire data, small chunks of data is loaded by invoking onLazyLoad callback everytime <i>paging</i>, <i>sorting</i> and <i>filtering</i> happens. Sample here loads
-                the data from remote datasource efficiently using lazy loading. Also, the implementation of <i>checkbox selection</i> in lazy tables is left entirely to the user. Since the table component does not know what will happen to the data on
-                the next page or whether there are instant data changes, the selection array can be implemented in several ways. One of them is as in the example below.
+                Lazy mode is handy to deal with large datasets, instead of loading the entire data, small chunks of data is loaded by
+                invoking onLazyLoad callback everytime <i>paging</i>, <i>sorting</i> and <i>filtering</i> happens. Sample here loads the
+                data from remote datasource efficiently using lazy loading. Also, the implementation of <i>checkbox selection</i> in lazy
+                tables is left entirely to the user. Since the table component does not know what will happen to the data on the next page
+                or whether there are instant data changes, the selection array can be implemented in several ways. One of them is as in the
+                example below.
             </p>
         </app-docsectiontext>
         <p-deferred-demo (load)="loadDemoData()">
@@ -55,10 +58,24 @@ import { CustomerService } from '@service/customerservice';
                             <th>
                                 <p-columnFilter field="representative" matchMode="in" [showMenu]="false">
                                     <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                        <p-multiSelect [(ngModel)]="value" appendTo="body" [options]="representatives" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name" [maxSelectedLabels]="1" [selectedItemsLabel]="'{0} items'">
+                                        <p-multiSelect
+                                            [(ngModel)]="value"
+                                            appendTo="body"
+                                            [options]="representatives"
+                                            placeholder="Any"
+                                            (onChange)="filter($event.value)"
+                                            optionLabel="name"
+                                            [maxSelectedLabels]="1"
+                                            [selectedItemsLabel]="'{0} items'"
+                                        >
                                             <ng-template let-option pTemplate="item">
                                                 <div class="inline-block align-middle">
-                                                    <img [alt]="option.label" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ option.image }}" width="24" class="align-middle" />
+                                                    <img
+                                                        [alt]="option.label"
+                                                        src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ option.image }}"
+                                                        width="24"
+                                                        class="align-middle"
+                                                    />
                                                     <span class="ml-1 mt-1">{{ option.name }}</span>
                                                 </div>
                                             </ng-template>
@@ -83,7 +100,7 @@ import { CustomerService } from '@service/customerservice';
             </div>
         </p-deferred-demo>
         <app-code [code]="code" selector="table-lazy-load-demo" [extFiles]="extFiles"></app-code>`,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LazyLoadDoc implements OnInit {
     customers!: Customer[];
@@ -100,7 +117,7 @@ export class LazyLoadDoc implements OnInit {
 
     constructor(
         private customerService: CustomerService,
-        private cd: ChangeDetectorRef
+        private cd: ChangeDetectorRef,
     ) {}
 
     ngOnInit() {
@@ -118,7 +135,7 @@ export class LazyLoadDoc implements OnInit {
             { name: 'Ivan Magalhaes', image: 'ivanmagalhaes.png' },
             { name: 'Onyama Limba', image: 'onyamalimba.png' },
             { name: 'Stephen Shaw', image: 'stephenshaw.png' },
-            { name: 'Xuxue Feng', image: 'xuxuefeng.png' }
+            { name: 'Xuxue Feng', image: 'xuxuefeng.png' },
         ];
     }
 
@@ -392,7 +409,7 @@ export class TableLazyLoadDemo implements OnInit{
     balance: 70663
 },
 ...`,
-        service: ['CustomerService']
+        service: ['CustomerService'],
     };
 
     extFiles = [
@@ -420,7 +437,7 @@ export interface Customer {
     representative?: Representative;
     verified?: boolean;
     balance?: number;
-}`
-        }
+}`,
+        },
     ];
 }

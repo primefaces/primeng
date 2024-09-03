@@ -11,9 +11,7 @@ import { IconFieldStyle } from './style/iconfieldstyle';
  */
 @Component({
     selector: 'p-iconField',
-    template: ` <span class="p-iconfield" [ngClass]="containerClass" [class]="styleClass"
-        ><ng-content></ng-content>
-    </span>`,
+    template: ` <span class="p-iconfield" [ngClass]="containerClass" [class]="styleClass"><ng-content></ng-content> </span>`,
     providers: [IconFieldStyle],
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,

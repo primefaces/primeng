@@ -18,8 +18,8 @@ const theme = ({ dt }) => `
     border: 0 none;
     border-radius: ${dt('colorpicker.preview.border.radius')};
     transition: background ${dt('colorpicker.transition.duration')}, color ${dt('colorpicker.transition.duration')}, border-color ${dt('colorpicker.transition.duration')}, outline-color ${dt('colorpicker.transition.duration')}, box-shadow ${dt(
-    'colorpicker.transition.duration'
-)};
+        'colorpicker.transition.duration',
+    )};
     outline-color: transparent;
     cursor: pointer;
 }
@@ -121,15 +121,15 @@ const classes = {
         'p-colorpicker-panel',
         {
             'p-colorpicker-panel-inline': props.inline,
-            'p-disabled': props.disabled
-        }
+            'p-disabled': props.disabled,
+        },
     ],
     content: 'p-colorpicker-content',
     colorSelector: 'p-colorpicker-color-selector',
     colorBackground: 'p-colorpicker-color-background',
     colorHandle: 'p-colorpicker-color-handle',
     hue: 'p-colorpicker-hue',
-    hueHandle: 'p-colorpicker-hue-handle'
+    hueHandle: 'p-colorpicker-hue-handle',
 };
 
 @Injectable()

@@ -18,27 +18,8 @@ import { TableDoc } from './tabledoc';
 import { BadgeModule } from 'primeng/badge';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        AppCodeModule,
-        RouterModule,
-        ContextMenuModule,
-        AppDocModule,
-        TagModule,
-        ToastModule,
-        BadgeModule,
-    ],
-    declarations: [
-        BasicDoc,
-        ImportDoc,
-        DocumentDoc,
-        TemplateDoc,
-        CommandDoc,
-        RouterDoc,
-        TableDoc,
-        StyleDoc,
-        AccessibilityDoc,
-    ],
+    imports: [CommonModule, AppCodeModule, RouterModule, ContextMenuModule, AppDocModule, TagModule, ToastModule, BadgeModule],
+    declarations: [BasicDoc, ImportDoc, DocumentDoc, TemplateDoc, CommandDoc, RouterDoc, TableDoc, StyleDoc, AccessibilityDoc],
     exports: [AppDocModule],
 })
 export class ContextMenuDocModule {}

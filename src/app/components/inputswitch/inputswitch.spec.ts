@@ -10,7 +10,7 @@ describe('InputSwitch', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [NoopAnimationsModule],
-            declarations: [InputSwitch]
+            declarations: [InputSwitch],
         });
 
         fixture = TestBed.createComponent(InputSwitch);
@@ -152,7 +152,7 @@ describe('InputSwitch', () => {
         expect(onModelChangeSpy).toHaveBeenCalled();
         expect(onChangeSpy).toHaveBeenCalledWith({
             originalEvent: jasmine.anything(),
-            checked: inputswitch.modelValue
+            checked: inputswitch.modelValue,
         });
     });
 

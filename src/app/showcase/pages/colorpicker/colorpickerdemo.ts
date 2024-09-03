@@ -9,49 +9,49 @@ import { AccessibilityDoc } from '@doc/colorpicker/accessibilitydoc';
 import { ReactiveFormsDoc } from '@doc/colorpicker/reactiveformsdoc';
 
 @Component({
-    templateUrl: './colorpickerdemo.html'
+    templateUrl: './colorpickerdemo.html',
 })
 export class ColorPickerDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc
+            component: ImportDoc,
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc
+            component: BasicDoc,
         },
         {
             id: 'reactive-forms',
             label: 'Reactive Forms',
-            component: ReactiveFormsDoc
+            component: ReactiveFormsDoc,
         },
         {
             id: 'inline',
             label: 'Inline',
-            component: InlineDoc
+            component: InlineDoc,
         },
         {
             id: 'format',
             label: 'Format',
-            component: FormatDoc
+            component: FormatDoc,
         },
         {
             id: 'disabled',
             label: 'Disabled',
-            component: DisabledDoc
+            component: DisabledDoc,
         },
         {
             id: 'style',
             label: 'Style',
-            component: StyleDoc
+            component: StyleDoc,
         },
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc
-        }
+            component: AccessibilityDoc,
+        },
     ];
 }

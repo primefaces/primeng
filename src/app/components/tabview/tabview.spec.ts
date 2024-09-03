@@ -10,23 +10,28 @@ import { TimesIcon } from 'primeng/icons/times';
 @Component({
     template: `<p-tabView>
         <p-tabPanel header="Godfather I" leftIcon="pi pi-calendar">
-            The story begins as Don Vito Corleone, the head of a New York Mafia family, overseeshis daughter's wedding. His beloved son ichael has just come home from the war, but does not intend to become part of his father's business. T hrough
-            Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, kind and benevolent to those who give respect, but given to ruthless violence whenever anything stands against
-            the good of the family.
+            The story begins as Don Vito Corleone, the head of a New York Mafia family, overseeshis daughter's wedding. His beloved son
+            ichael has just come home from the war, but does not intend to become part of his father's business. T hrough Michael's life the
+            nature of the family business becomes clear. The business of the family is just like the head of the family, kind and benevolent
+            to those who give respect, but given to ruthless violence whenever anything stands against the good of the family.
         </p-tabPanel>
         <p-tabPanel header="Godfather II" leftIcon="pi pi-inbox">
-            Francis Ford Coppola's legendary continuation and sequel to his landmark 1972 film, The_Godfather parallels the young Vito Corleone's rise with his son Michael's spiritual fall, deepening The_Godfather's depiction of the dark side of the
-            American dream. In the early 1900s, the child Vito flees his Sicilian village for America after the local Mafia kills his family. Vito struggles to make a living, legally or illegally, for his wife and growing brood in Little Italy,
-            killing the local Black Hand Fanucci after he demands his customary cut of the tyro's business. With Fanucci gone, Vito's communal stature grows.
+            Francis Ford Coppola's legendary continuation and sequel to his landmark 1972 film, The_Godfather parallels the young Vito
+            Corleone's rise with his son Michael's spiritual fall, deepening The_Godfather's depiction of the dark side of the American
+            dream. In the early 1900s, the child Vito flees his Sicilian village for America after the local Mafia kills his family. Vito
+            struggles to make a living, legally or illegally, for his wife and growing brood in Little Italy, killing the local Black Hand
+            Fanucci after he demands his customary cut of the tyro's business. With Fanucci gone, Vito's communal stature grows.
         </p-tabPanel>
         <p-tabPanel>
             <ng-template pTemplate="header">Godfather III</ng-template>
             <ng-template pTemplate="content">
-                After a break of more than 15 years, director Francis Ford Coppola and writer Mario Puzo returned to the well for this third and final story of the fictional Corleone crime family. Two decades have passed, and crime kingpin Michael
-                Corleone, now divorced from his wife Kay has nearly succeeded in keeping his promise that his family would one day be completely legitimate.
+                After a break of more than 15 years, director Francis Ford Coppola and writer Mario Puzo returned to the well for this third
+                and final story of the fictional Corleone crime family. Two decades have passed, and crime kingpin Michael Corleone, now
+                divorced from his wife Kay has nearly succeeded in keeping his promise that his family would one day be completely
+                legitimate.
             </ng-template>
         </p-tabPanel>
-    </p-tabView>`
+    </p-tabView>`,
 })
 class TestTabViewComponent {}
 
@@ -40,7 +45,7 @@ describe('TabView', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [NoopAnimationsModule, TimesIcon],
-            declarations: [TabView, TabPanel, Tooltip, TestTabViewComponent, PrimeTemplate]
+            declarations: [TabView, TabPanel, Tooltip, TestTabViewComponent, PrimeTemplate],
         }).compileComponents();
 
         fixture = TestBed.createComponent(TestTabViewComponent);
@@ -65,8 +70,10 @@ describe('TabView', () => {
         fixture.detectChanges();
 
         tabview.cd.detectChanges();
-        const firstTabViewNavEl = fixture.debugElement.children[0].children[0].children[0].children[0].children[0].children[0].nativeElement;
-        const secondTabViewNavEl = fixture.debugElement.children[0].children[0].children[0].children[0].children[0].children[1].nativeElement;
+        const firstTabViewNavEl =
+            fixture.debugElement.children[0].children[0].children[0].children[0].children[0].children[0].nativeElement;
+        const secondTabViewNavEl =
+            fixture.debugElement.children[0].children[0].children[0].children[0].children[0].children[1].nativeElement;
         expect(firstTabViewNavEl.textContent).toContain('Primeng ROCKS!');
         expect(secondTabViewNavEl.textContent).toContain('Primeng ROCKS!');
     });
@@ -78,7 +85,8 @@ describe('TabView', () => {
         fixture.detectChanges();
 
         tabview.cd.detectChanges();
-        const firstTabViewNavEl = fixture.debugElement.children[0].children[0].children[0].children[0].children[0].children[0].nativeElement;
+        const firstTabViewNavEl =
+            fixture.debugElement.children[0].children[0].children[0].children[0].children[0].children[0].nativeElement;
         expect(firstTabViewNavEl.className).toContain('p-disabled');
     });
 
@@ -89,7 +97,9 @@ describe('TabView', () => {
         fixture.detectChanges();
 
         tabview.cd.detectChanges();
-        const firstTabViewNavEl = fixture.debugElement.children[0].children[0].children[0].children[0].query(By.css('timesicon')).nativeElement;
+        const firstTabViewNavEl = fixture.debugElement.children[0].children[0].children[0].children[0].query(
+            By.css('timesicon'),
+        ).nativeElement;
         expect(firstTabViewNavEl).toBeTruthy();
         firstTabViewNavEl.click();
         fixture.detectChanges();
@@ -122,7 +132,8 @@ describe('TabView', () => {
         fixture.detectChanges();
 
         tabview.cd.detectChanges();
-        const firstTabViewNavEl = fixture.debugElement.children[0].children[0].children[0].children[0].children[0].children[0].nativeElement;
+        const firstTabViewNavEl =
+            fixture.debugElement.children[0].children[0].children[0].children[0].children[0].children[0].nativeElement;
         expect(firstTabViewNavEl.className).toContain('Primeng ROCKS!');
         expect(firstTabViewNavEl.style.height).toContain('300px');
     });
@@ -153,9 +164,12 @@ describe('TabView', () => {
         fixture.detectChanges();
 
         tabview.cd.detectChanges();
-        const firstTabViewNavEl = fixture.debugElement.children[0].children[0].children[0].children[0].children[0].children[0].nativeElement;
-        const secondTabViewNavEl = fixture.debugElement.children[0].children[0].children[0].children[0].children[0].children[1].nativeElement;
-        const thirdTabViewNavEl = fixture.debugElement.children[0].children[0].children[0].children[0].children[0].children[2].nativeElement;
+        const firstTabViewNavEl =
+            fixture.debugElement.children[0].children[0].children[0].children[0].children[0].children[0].nativeElement;
+        const secondTabViewNavEl =
+            fixture.debugElement.children[0].children[0].children[0].children[0].children[0].children[1].nativeElement;
+        const thirdTabViewNavEl =
+            fixture.debugElement.children[0].children[0].children[0].children[0].children[0].children[2].nativeElement;
         expect(firstTabViewNavEl.className).not.toContain('p-highlight');
         expect(secondTabViewNavEl.className).toContain('p-highlight');
         expect(thirdTabViewNavEl.className).not.toContain('p-highlight');
@@ -176,7 +190,8 @@ describe('TabView', () => {
         tabview.activeIndex = 2;
         fixture.detectChanges();
 
-        const thirdTabViewNavEl = fixture.debugElement.children[0].children[0].children[0].children[0].children[0].children[2].nativeElement;
+        const thirdTabViewNavEl =
+            fixture.debugElement.children[0].children[0].children[0].children[0].children[0].children[2].nativeElement;
         expect(thirdTabViewNavEl.textContent).toContain('Godfather III');
     });
 });

@@ -9,49 +9,49 @@ import { ReadOnlyDoc } from '@doc/editor/readonlydoc';
 import { StyleDoc } from '@doc/editor/styledoc';
 
 @Component({
-    templateUrl: './editordemo.html'
+    templateUrl: './editordemo.html',
 })
 export class EditorDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc
+            component: ImportDoc,
         },
         {
             id: 'quill',
             label: 'Quill',
-            component: QuillDoc
+            component: QuillDoc,
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc
+            component: BasicDoc,
         },
         {
             id: 'readonly',
             label: 'Read Only',
-            component: ReadOnlyDoc
+            component: ReadOnlyDoc,
         },
         {
             id: 'reactive-forms',
             label: 'Reactive Forms',
-            component: ReactiveFormsDoc
+            component: ReactiveFormsDoc,
         },
         {
             id: 'template',
             label: 'Template',
-            component: CustomToolbarDoc
+            component: CustomToolbarDoc,
         },
         {
             id: 'style',
             label: 'Style',
-            component: StyleDoc
+            component: StyleDoc,
         },
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc
-        }
+            component: AccessibilityDoc,
+        },
     ];
 }

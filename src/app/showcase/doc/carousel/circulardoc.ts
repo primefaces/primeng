@@ -7,16 +7,35 @@ import { ProductService } from '@service/productservice';
     selector: 'carousel-circular-demo',
     template: `
         <app-docsectiontext>
-            <p>When <i>autoplayInterval</i> is defined in milliseconds, items are scrolled automatically. In addition, for infinite scrolling <i>circular</i> property needs to be added which is enabled automatically in auto play mode.</p>
+            <p>
+                When <i>autoplayInterval</i> is defined in milliseconds, items are scrolled automatically. In addition, for infinite
+                scrolling <i>circular</i> property needs to be added which is enabled automatically in auto play mode.
+            </p>
         </app-docsectiontext>
         <div class="card">
-            <p-carousel [value]="products" [numVisible]="3" [numScroll]="3" [circular]="true" [responsiveOptions]="responsiveOptions" autoplayInterval="3000">
+            <p-carousel
+                [value]="products"
+                [numVisible]="3"
+                [numScroll]="3"
+                [circular]="true"
+                [responsiveOptions]="responsiveOptions"
+                autoplayInterval="3000"
+            >
                 <ng-template let-product pTemplate="item">
                     <div class="border border-surface-200 dark:border-surface-700 rounded m-2 p-4">
                         <div class="mb-4">
                             <div class="relative mx-auto">
-                                <img src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.name" class="w-full rounded-border" />
-                                <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" class="absolute" [ngStyle]="{ 'left.px': 5, 'top.px': 5 }" />
+                                <img
+                                    src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}"
+                                    [alt]="product.name"
+                                    class="w-full rounded-border"
+                                />
+                                <p-tag
+                                    [value]="product.inventoryStatus"
+                                    [severity]="getSeverity(product.inventoryStatus)"
+                                    class="absolute"
+                                    [ngStyle]="{ 'left.px': 5, 'top.px': 5 }"
+                                />
                             </div>
                         </div>
                         <div class="mb-4 font-medium">{{ product.name }}</div>
@@ -32,7 +51,7 @@ import { ProductService } from '@service/productservice';
             </p-carousel>
         </div>
         <app-code [code]="code" selector="carousel-circular-demo" [extFiles]="extFiles"></app-code>
-    `
+    `,
 })
 export class CircularDoc implements OnInit {
     products: Product[] | undefined;
@@ -41,7 +60,7 @@ export class CircularDoc implements OnInit {
 
     constructor(
         private productService: ProductService,
-        private cdr: ChangeDetectorRef
+        private cdr: ChangeDetectorRef,
     ) {}
 
     ngOnInit() {
@@ -54,18 +73,18 @@ export class CircularDoc implements OnInit {
             {
                 breakpoint: '1199px',
                 numVisible: 1,
-                numScroll: 1
+                numScroll: 1,
             },
             {
                 breakpoint: '991px',
                 numVisible: 2,
-                numScroll: 1
+                numScroll: 1,
             },
             {
                 breakpoint: '767px',
                 numVisible: 1,
-                numScroll: 1
-            }
+                numScroll: 1,
+            },
         ];
     }
 
@@ -228,7 +247,7 @@ export class CarouselCircularDemo implements OnInit{
     rating: 5
 },
 ...`,
-        service: ['ProductService']
+        service: ['ProductService'],
     };
 
     extFiles = [
@@ -246,7 +265,7 @@ export interface Product {
     category?: string;
     image?: string;
     rating?: number;
-}`
-        }
+}`,
+        },
     ];
 }

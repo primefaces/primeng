@@ -12,7 +12,7 @@ import { ButtonGroupStyle } from './style/buttongroupstyle';
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    providers: [ButtonGroupStyle]
+    providers: [ButtonGroupStyle],
 })
 export class ButtonGroup extends BaseComponent {
     _componentStyle = inject(ButtonGroupStyle);
@@ -21,6 +21,6 @@ export class ButtonGroup extends BaseComponent {
 @NgModule({
     imports: [CommonModule],
     exports: [ButtonGroup],
-    declarations: [ButtonGroup]
+    declarations: [ButtonGroup],
 })
 export class ButtonGroupModule {}

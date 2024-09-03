@@ -9,49 +9,49 @@ import { TemplateDoc } from '@doc/tag/templatedoc';
 import { AccessibilityDoc } from '@doc/tag/accessibilitydoc';
 
 @Component({
-    templateUrl: './tagdemo.html'
+    templateUrl: './tagdemo.html',
 })
 export class TagDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc
+            component: ImportDoc,
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc
+            component: BasicDoc,
         },
         {
             id: 'severity',
             label: 'Severity',
-            component: SeverityDoc
+            component: SeverityDoc,
         },
         {
             id: 'pill',
             label: 'Pill',
-            component: PillDoc
+            component: PillDoc,
         },
         {
             id: 'icon',
             label: 'Icon',
-            component: IconDoc
+            component: IconDoc,
         },
         {
             id: 'template',
             label: 'Template',
-            component: TemplateDoc
+            component: TemplateDoc,
         },
         {
             id: 'style',
             label: 'Style',
-            component: StyleDoc
+            component: StyleDoc,
         },
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc
-        }
+            component: AccessibilityDoc,
+        },
     ];
 }

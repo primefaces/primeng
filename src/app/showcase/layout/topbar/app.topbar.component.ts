@@ -1,14 +1,5 @@
 import { CommonModule, DOCUMENT } from '@angular/common';
-import {
-    Component,
-    ElementRef,
-    Inject,
-    Input,
-    OnDestroy,
-    Renderer2,
-    afterNextRender,
-    booleanAttribute,
-} from '@angular/core';
+import { Component, ElementRef, Inject, Input, OnDestroy, Renderer2, afterNextRender, booleanAttribute } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import docsearch from '@docsearch/js';

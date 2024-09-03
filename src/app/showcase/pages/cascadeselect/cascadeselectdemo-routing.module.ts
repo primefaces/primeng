@@ -4,6 +4,6 @@ import { CascadeSelectDemo } from './cascadeselectdemo';
 
 @NgModule({
     imports: [RouterModule.forChild([{ path: '', component: CascadeSelectDemo }])],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class CascadeSelectDemoRoutingModule {}

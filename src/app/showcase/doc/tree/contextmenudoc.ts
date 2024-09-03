@@ -16,7 +16,7 @@ import { NodeService } from '@service/nodeservice';
         </div>
         <app-code [code]="code" selector="tree-context-menu-demo"></app-code>
     `,
-    providers: [MessageService]
+    providers: [MessageService],
 })
 export class ContextMenuDoc implements OnInit {
     files!: TreeNode[];
@@ -27,7 +27,7 @@ export class ContextMenuDoc implements OnInit {
 
     constructor(
         private nodeService: NodeService,
-        private messageService: MessageService
+        private messageService: MessageService,
     ) {}
 
     ngOnInit() {
@@ -35,7 +35,7 @@ export class ContextMenuDoc implements OnInit {
 
         this.items = [
             { label: 'View', icon: 'pi pi-search', command: (event) => this.viewFile(this.selectedFile) },
-            { label: 'Unselect', icon: 'pi pi-times', command: (event) => this.unselectFile() }
+            { label: 'Unselect', icon: 'pi pi-times', command: (event) => this.unselectFile() },
         ];
     }
 
@@ -138,6 +138,6 @@ export class TreeContextMenuDemo implements OnInit {
         }
     ]
 },
-...`
+...`,
     };
 }

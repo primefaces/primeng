@@ -10,7 +10,7 @@ export default {
             style: '{focus.ring.style}',
             color: '{focus.ring.color}',
             offset: '{focus.ring.offset}',
-            shadow: '{focus.ring.shadow}'
+            shadow: '{focus.ring.shadow}',
         },
         borderWidth: '1px',
         borderColor: '{form.field.border.color}',
@@ -24,7 +24,7 @@ export default {
         checkedHoverBackground: '{primary.color}',
         transitionDuration: '{form.field.transition.duration}',
         slideDuration: '0.1s',
-        disabledBackground: '{form.field.disabled.background}'
+        disabledBackground: '{form.field.disabled.background}',
     },
     handle: {
         borderRadius: '50%',
@@ -33,6 +33,6 @@ export default {
         hoverBackground: '{form.field.border.color}',
         checkedBackground: '{primary.contrast.color}',
         checkedHoverBackground: '{primary.contrast.color}',
-        disabledBackground: '{form.field.disabled.color}'
-    }
+        disabledBackground: '{form.field.disabled.color}',
+    },
 };

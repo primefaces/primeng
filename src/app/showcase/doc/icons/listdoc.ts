@@ -5,10 +5,18 @@ import { default as IconData } from 'src/assets/showcase/data/icons.json';
     selector: 'list-doc',
     template: `
         <app-docsectiontext>
-            <p>Here is the full list of PrimeIcons. More icons will be added periodically and you may also <a href="https://github.com/primefaces/primeicons/issues">request new icons</a> at the issue tracker.</p>
+            <p>
+                Here is the full list of PrimeIcons. More icons will be added periodically and you may also
+                <a href="https://github.com/primefaces/primeicons/issues">request new icons</a> at the issue tracker.
+            </p>
         </app-docsectiontext>
         <div>
-            <input class="p-inputtext p-component w-full p-4 mt-4 mb-6" (input)="onFilter($event)" pInputText placeholder="Search an icon" />
+            <input
+                class="p-inputtext p-component w-full p-4 mt-4 mb-6"
+                (input)="onFilter($event)"
+                pInputText
+                placeholder="Search an icon"
+            />
         </div>
         <div class="card">
             <div class="grid grid-cols-12 gap-4 text-center">
@@ -18,7 +26,7 @@ import { default as IconData } from 'src/assets/showcase/data/icons.json';
                 </div>
             </div>
         </div>
-    `
+    `,
 })
 export class ListDoc {
     icons: any;
@@ -49,7 +57,7 @@ export class ListDoc {
                         tag
                             .replace(/[^\w\s]/gi, '')
                             .replace(/\s/g, '')
-                            .includes(sanitizedInput.toLowerCase())
+                            .includes(sanitizedInput.toLowerCase()),
                     ) ||
                     icon.properties.name
                         .replace(/[^\w\s]/gi, '')

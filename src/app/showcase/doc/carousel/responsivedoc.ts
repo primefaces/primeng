@@ -8,9 +8,10 @@ import { ProductService } from '@service/productservice';
     template: `
         <app-docsectiontext>
             <p>
-                Carousel supports specific configuration per screen size with the <i>responsiveOptions</i> property that takes an array of objects where each object defines the max-width <i>breakpoint</i>, <i>numVisible</i> for the number of items
-                items per page and <i>numScroll</i> for number of items to scroll. When <i>responsiveOptions</i> is defined, the <i>numScroll</i> and <i>numVisible</i> properties of the Carousel are used as default when there is breakpoint that
-                applies.
+                Carousel supports specific configuration per screen size with the <i>responsiveOptions</i> property that takes an array of
+                objects where each object defines the max-width <i>breakpoint</i>, <i>numVisible</i> for the number of items items per page
+                and <i>numScroll</i> for number of items to scroll. When <i>responsiveOptions</i> is defined, the <i>numScroll</i> and
+                <i>numVisible</i> properties of the Carousel are used as default when there is breakpoint that applies.
             </p>
         </app-docsectiontext>
         <div class="card">
@@ -19,8 +20,17 @@ import { ProductService } from '@service/productservice';
                     <div class="border border-surface-200 dark:border-surface-700 rounded m-2 p-4">
                         <div class="mb-4">
                             <div class="relative mx-auto">
-                                <img src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.name" class="w-full rounded-border" />
-                                <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" class="absolute" [ngStyle]="{ 'left.px': 5, 'top.px': 5 }" />
+                                <img
+                                    src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}"
+                                    [alt]="product.name"
+                                    class="w-full rounded-border"
+                                />
+                                <p-tag
+                                    [value]="product.inventoryStatus"
+                                    [severity]="getSeverity(product.inventoryStatus)"
+                                    class="absolute"
+                                    [ngStyle]="{ 'left.px': 5, 'top.px': 5 }"
+                                />
                             </div>
                         </div>
                         <div class="mb-4 font-medium">{{ product.name }}</div>
@@ -36,7 +46,7 @@ import { ProductService } from '@service/productservice';
             </p-carousel>
         </div>
         <app-code [code]="code" selector="carousel-responsive-demo" [extFiles]="extFiles"></app-code>
-    `
+    `,
 })
 export class ResponsiveDoc implements OnInit {
     products: Product[] | undefined;
@@ -45,7 +55,7 @@ export class ResponsiveDoc implements OnInit {
 
     constructor(
         private productService: ProductService,
-        private cdr: ChangeDetectorRef
+        private cdr: ChangeDetectorRef,
     ) {}
 
     ngOnInit() {
@@ -58,18 +68,18 @@ export class ResponsiveDoc implements OnInit {
             {
                 breakpoint: '1400px',
                 numVisible: 3,
-                numScroll: 3
+                numScroll: 3,
             },
             {
                 breakpoint: '1220px',
                 numVisible: 2,
-                numScroll: 2
+                numScroll: 2,
             },
             {
                 breakpoint: '1100px',
                 numVisible: 1,
-                numScroll: 1
-            }
+                numScroll: 1,
+            },
         ];
     }
 
@@ -229,7 +239,7 @@ export class CarouselResponsiveDemo {
     rating: 5
 },
 ...`,
-        service: ['ProductService']
+        service: ['ProductService'],
     };
 
     extFiles = [
@@ -247,7 +257,7 @@ export interface Product {
     category?: string;
     image?: string;
     rating?: number;
-}`
-        }
+}`,
+        },
     ];
 }

@@ -4,6 +4,6 @@ import { DragDropDemo } from './dragdropdemo';
 
 @NgModule({
     imports: [RouterModule.forChild([{ path: '', component: DragDropDemo }])],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class DragDropDemoRoutingModule {}

@@ -6,15 +6,29 @@ import { Code } from '@domain/code';
     template: `
         <app-docsectiontext>
             <p>
-                CascadeSelect is used as a controlled component with <i>ngModel</i> property along with an <i>options</i> collection. To define the label of a group <i>optionGroupLabel</i> property is needed and also <i>optionGroupChildren</i> is
-                required to define the property that refers to the children of a group. Note that order of the <i>optionGroupChildren</i> matters as it should correspond to the data hierarchy.
+                CascadeSelect is used as a controlled component with <i>ngModel</i> property along with an <i>options</i> collection. To
+                define the label of a group <i>optionGroupLabel</i> property is needed and also <i>optionGroupChildren</i> is required to
+                define the property that refers to the children of a group. Note that order of the <i>optionGroupChildren</i> matters as it
+                should correspond to the data hierarchy.
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-cascadeSelect [(ngModel)]="selectedCity" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" [style]="{ minWidth: '14rem' }" placeholder="Select a City">
+            <p-cascadeSelect
+                [(ngModel)]="selectedCity"
+                [options]="countries"
+                optionLabel="cname"
+                optionGroupLabel="name"
+                [optionGroupChildren]="['states', 'cities']"
+                [style]="{ minWidth: '14rem' }"
+                placeholder="Select a City"
+            >
                 <ng-template pTemplate="option" let-option>
                     <div class="flex items-center gap-2">
-                        <img *ngIf="option.states" src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + option.code.toLowerCase()" />
+                        <img
+                            *ngIf="option.states"
+                            src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
+                            [class]="'flag flag-' + option.code.toLowerCase()"
+                        />
                         <i class="pi pi-compass mr-2" *ngIf="option.cities"></i>
                         <i class="pi pi-map-marker mr-2" *ngIf="option.cname"></i>
                         <span>{{ option.cname || option.name }}</span>
@@ -23,7 +37,7 @@ import { Code } from '@domain/code';
             </p-cascadeSelect>
         </div>
         <app-code [code]="code" selector="cascade-select-template-demo"></app-code>
-    `
+    `,
 })
 export class TemplateDoc {
     countries: any[] | undefined;
@@ -41,17 +55,17 @@ export class TemplateDoc {
                         cities: [
                             { cname: 'Sydney', code: 'A-SY' },
                             { cname: 'Newcastle', code: 'A-NE' },
-                            { cname: 'Wollongong', code: 'A-WO' }
-                        ]
+                            { cname: 'Wollongong', code: 'A-WO' },
+                        ],
                     },
                     {
                         name: 'Queensland',
                         cities: [
                             { cname: 'Brisbane', code: 'A-BR' },
-                            { cname: 'Townsville', code: 'A-TO' }
-                        ]
-                    }
-                ]
+                            { cname: 'Townsville', code: 'A-TO' },
+                        ],
+                    },
+                ],
             },
             {
                 name: 'Canada',
@@ -61,17 +75,17 @@ export class TemplateDoc {
                         name: 'Quebec',
                         cities: [
                             { cname: 'Montreal', code: 'C-MO' },
-                            { cname: 'Quebec City', code: 'C-QU' }
-                        ]
+                            { cname: 'Quebec City', code: 'C-QU' },
+                        ],
                     },
                     {
                         name: 'Ontario',
                         cities: [
                             { cname: 'Ottawa', code: 'C-OT' },
-                            { cname: 'Toronto', code: 'C-TO' }
-                        ]
-                    }
-                ]
+                            { cname: 'Toronto', code: 'C-TO' },
+                        ],
+                    },
+                ],
             },
             {
                 name: 'United States',
@@ -82,8 +96,8 @@ export class TemplateDoc {
                         cities: [
                             { cname: 'Los Angeles', code: 'US-LA' },
                             { cname: 'San Diego', code: 'US-SD' },
-                            { cname: 'San Francisco', code: 'US-SF' }
-                        ]
+                            { cname: 'San Francisco', code: 'US-SF' },
+                        ],
                     },
                     {
                         name: 'Florida',
@@ -91,19 +105,19 @@ export class TemplateDoc {
                             { cname: 'Jacksonville', code: 'US-JA' },
                             { cname: 'Miami', code: 'US-MI' },
                             { cname: 'Tampa', code: 'US-TA' },
-                            { cname: 'Orlando', code: 'US-OR' }
-                        ]
+                            { cname: 'Orlando', code: 'US-OR' },
+                        ],
                     },
                     {
                         name: 'Texas',
                         cities: [
                             { cname: 'Austin', code: 'US-AU' },
                             { cname: 'Dallas', code: 'US-DA' },
-                            { cname: 'Houston', code: 'US-HO' }
-                        ]
-                    }
-                ]
-            }
+                            { cname: 'Houston', code: 'US-HO' },
+                        ],
+                    },
+                ],
+            },
         ];
     }
 
@@ -243,6 +257,6 @@ export class CascadeSelectTemplateDemo implements OnInit {
             }
         ];
     }
-}`
+}`,
     };
 }

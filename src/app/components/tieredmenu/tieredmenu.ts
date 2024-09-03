@@ -27,7 +27,7 @@ import {
     inject,
     input,
     numberAttribute,
-    signal
+    signal,
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { MenuItem, OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
@@ -90,7 +90,12 @@ import { nestedPosition } from '@primeuix/utils/dom';
                     pTooltip
                     [tooltipOptions]="getItemProp(processedItem, 'tooltipOptions')"
                 >
-                    <div [attr.data-pc-section]="'content'" class="p-tieredmenu-item-content" (click)="onItemClick($event, processedItem)" (mouseenter)="onItemMouseEnter({ $event, processedItem })">
+                    <div
+                        [attr.data-pc-section]="'content'"
+                        class="p-tieredmenu-item-content"
+                        (click)="onItemClick($event, processedItem)"
+                        (mouseenter)="onItemMouseEnter({ $event, processedItem })"
+                    >
                         <ng-container *ngIf="!itemTemplate">
                             <a
                                 *ngIf="!getItemProp(processedItem, 'routerLink')"
@@ -111,17 +116,39 @@ import { nestedPosition } from '@primeuix/utils/dom';
                                     [attr.tabindex]="-1"
                                 >
                                 </span>
-                                <span *ngIf="getItemProp(processedItem, 'escape'); else htmlLabel" class="p-tieredmenu-item-label" [attr.data-pc-section]="'label'">
+                                <span
+                                    *ngIf="getItemProp(processedItem, 'escape'); else htmlLabel"
+                                    class="p-tieredmenu-item-label"
+                                    [attr.data-pc-section]="'label'"
+                                >
                                     {{ getItemLabel(processedItem) }}
                                 </span>
                                 <ng-template #htmlLabel>
-                                    <span class="p-tieredmenu-item-label" [innerHTML]="getItemLabel(processedItem)" [attr.data-pc-section]="'label'"></span>
+                                    <span
+                                        class="p-tieredmenu-item-label"
+                                        [innerHTML]="getItemLabel(processedItem)"
+                                        [attr.data-pc-section]="'label'"
+                                    ></span>
                                 </ng-template>
-                                <span class="p-menuitem-badge" *ngIf="getItemProp(processedItem, 'badge')" [ngClass]="getItemProp(processedItem, 'badgeStyleClass')">{{ getItemProp(processedItem, 'badge') }}</span>
+                                <span
+                                    class="p-menuitem-badge"
+                                    *ngIf="getItemProp(processedItem, 'badge')"
+                                    [ngClass]="getItemProp(processedItem, 'badgeStyleClass')"
+                                    >{{ getItemProp(processedItem, 'badge') }}</span
+                                >
 
                                 <ng-container *ngIf="isItemGroup(processedItem)">
-                                    <AngleRightIcon *ngIf="!tieredMenu.submenuIconTemplate" [ngClass]="'p-tieredmenu-submenu-icon'" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" />
-                                    <ng-template *ngTemplateOutlet="tieredMenu.submenuIconTemplate" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true"></ng-template>
+                                    <AngleRightIcon
+                                        *ngIf="!tieredMenu.submenuIconTemplate"
+                                        [ngClass]="'p-tieredmenu-submenu-icon'"
+                                        [attr.data-pc-section]="'submenuicon'"
+                                        [attr.aria-hidden]="true"
+                                    />
+                                    <ng-template
+                                        *ngTemplateOutlet="tieredMenu.submenuIconTemplate"
+                                        [attr.data-pc-section]="'submenuicon'"
+                                        [attr.aria-hidden]="true"
+                                    ></ng-template>
                                 </ng-container>
                             </a>
                             <a
@@ -153,22 +180,49 @@ import { nestedPosition } from '@primeuix/utils/dom';
                                     [attr.tabindex]="-1"
                                 >
                                 </span>
-                                <span *ngIf="getItemProp(processedItem, 'escape'); else htmlLabel" class="p-tieredmenu-item-label" [attr.data-pc-section]="'label'">
+                                <span
+                                    *ngIf="getItemProp(processedItem, 'escape'); else htmlLabel"
+                                    class="p-tieredmenu-item-label"
+                                    [attr.data-pc-section]="'label'"
+                                >
                                     {{ getItemLabel(processedItem) }}
                                 </span>
                                 <ng-template #htmlLabel>
-                                    <span class="p-tieredmenu-item-label" [innerHTML]="getItemLabel(processedItem)" [attr.data-pc-section]="'label'"></span>
+                                    <span
+                                        class="p-tieredmenu-item-label"
+                                        [innerHTML]="getItemLabel(processedItem)"
+                                        [attr.data-pc-section]="'label'"
+                                    ></span>
                                 </ng-template>
-                                <span class="p-menuitem-badge" *ngIf="getItemProp(processedItem, 'badge')" [ngClass]="getItemProp(processedItem, 'badgeStyleClass')">{{ getItemProp(processedItem, 'badge') }}</span>
+                                <span
+                                    class="p-menuitem-badge"
+                                    *ngIf="getItemProp(processedItem, 'badge')"
+                                    [ngClass]="getItemProp(processedItem, 'badgeStyleClass')"
+                                    >{{ getItemProp(processedItem, 'badge') }}</span
+                                >
 
                                 <ng-container *ngIf="isItemGroup(processedItem)">
-                                    <AngleRightIcon *ngIf="!tieredMenu.submenuIconTemplate" [ngClass]="'p-tieredmenu-submenu-icon'" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" />
-                                    <ng-template *ngTemplateOutlet="tieredMenu.submenuIconTemplate" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true"></ng-template>
+                                    <AngleRightIcon
+                                        *ngIf="!tieredMenu.submenuIconTemplate"
+                                        [ngClass]="'p-tieredmenu-submenu-icon'"
+                                        [attr.data-pc-section]="'submenuicon'"
+                                        [attr.aria-hidden]="true"
+                                    />
+                                    <ng-template
+                                        *ngTemplateOutlet="tieredMenu.submenuIconTemplate"
+                                        [attr.data-pc-section]="'submenuicon'"
+                                        [attr.aria-hidden]="true"
+                                    ></ng-template>
                                 </ng-container>
                             </a>
                         </ng-container>
                         <ng-container *ngIf="itemTemplate">
-                            <ng-template *ngTemplateOutlet="itemTemplate; context: { $implicit: processedItem.item, hasSubmenu: getItemProp(processedItem, 'items') }"></ng-template>
+                            <ng-template
+                                *ngTemplateOutlet="
+                                    itemTemplate;
+                                    context: { $implicit: processedItem.item, hasSubmenu: getItemProp(processedItem, 'items') }
+                                "
+                            ></ng-template>
                         </ng-container>
                     </div>
 
@@ -190,7 +244,7 @@ import { nestedPosition } from '@primeuix/utils/dom';
             </ng-template>
         </ul>
     `,
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
 })
 export class TieredMenuSub {
     @Input() items: any[];
@@ -235,7 +289,11 @@ export class TieredMenuSub {
 
     @ViewChild('sublist', { static: true }) sublistViewChild: ElementRef;
 
-    constructor(public el: ElementRef, public renderer: Renderer2, @Inject(forwardRef(() => TieredMenu)) public tieredMenu: TieredMenu) {
+    constructor(
+        public el: ElementRef,
+        public renderer: Renderer2,
+        @Inject(forwardRef(() => TieredMenu)) public tieredMenu: TieredMenu,
+    ) {
         effect(() => {
             const path = this.activeItemPath();
             if (ObjectUtils.isNotEmpty(path)) {
@@ -271,7 +329,7 @@ export class TieredMenuSub {
             'p-tieredmenu-item': true,
             'p-tieredmenu-item-active': this.isItemActive(processedItem),
             'p-focus': this.isItemFocused(processedItem),
-            'p-disabled': this.isItemDisabled(processedItem)
+            'p-disabled': this.isItemDisabled(processedItem),
         };
     }
 
@@ -282,12 +340,13 @@ export class TieredMenuSub {
     getSeparatorItemClass(processedItem: any) {
         return {
             ...this.getItemProp(processedItem, 'class'),
-            'p-tieredmenu-separator': true
+            'p-tieredmenu-separator': true,
         };
     }
 
     getAriaSetSize() {
-        return this.items.filter((processedItem) => this.isItemVisible(processedItem) && !this.getItemProp(processedItem, 'separator')).length;
+        return this.items.filter((processedItem) => this.isItemVisible(processedItem) && !this.getItemProp(processedItem, 'separator'))
+            .length;
     }
 
     getAriaPosInset(index: number) {
@@ -352,7 +411,10 @@ export class TieredMenuSub {
             [class]="styleClass"
             [ngStyle]="style"
             (click)="onOverlayClick($event)"
-            [@overlayAnimation]="{ value: 'visible', params: { showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions } }"
+            [@overlayAnimation]="{
+                value: 'visible',
+                params: { showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions },
+            }"
             [@.disabled]="popup !== true"
             (@overlayAnimation.start)="onOverlayAnimationStart($event)"
             (@overlayAnimation.done)="onOverlayAnimationEnd($event)"
@@ -381,10 +443,15 @@ export class TieredMenuSub {
             ></p-tieredMenuSub>
         </div>
     `,
-    animations: [trigger('overlayAnimation', [transition(':enter', [style({ opacity: 0, transform: 'scaleY(0.8)' }), animate('{{showTransitionParams}}')]), transition(':leave', [animate('{{hideTransitionParams}}', style({ opacity: 0 }))])])],
+    animations: [
+        trigger('overlayAnimation', [
+            transition(':enter', [style({ opacity: 0, transform: 'scaleY(0.8)' }), animate('{{showTransitionParams}}')]),
+            transition(':leave', [animate('{{hideTransitionParams}}', style({ opacity: 0 }))]),
+        ]),
+    ],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    providers: [TieredMenuStyle]
+    providers: [TieredMenuStyle],
 })
 export class TieredMenu extends BaseComponent implements OnInit, AfterContentInit, OnDestroy {
     /**
@@ -540,7 +607,11 @@ export class TieredMenu extends BaseComponent implements OnInit, AfterContentIni
 
     get focusedItemId() {
         const focusedItemInfo = this.focusedItemInfo();
-        return focusedItemInfo.item?.id ? focusedItemInfo.item.id : focusedItemInfo.index !== -1 ? `${this.id}${ObjectUtils.isNotEmpty(focusedItemInfo.parentKey) ? '_' + focusedItemInfo.parentKey : ''}_${focusedItemInfo.index}` : null;
+        return focusedItemInfo.item?.id
+            ? focusedItemInfo.item.id
+            : focusedItemInfo.index !== -1
+              ? `${this.id}${ObjectUtils.isNotEmpty(focusedItemInfo.parentKey) ? '_' + focusedItemInfo.parentKey : ''}_${focusedItemInfo.index}`
+              : null;
     }
 
     constructor(public overlayService: OverlayService) {
@@ -593,7 +664,7 @@ export class TieredMenu extends BaseComponent implements OnInit, AfterContentIni
                     level,
                     key,
                     parent,
-                    parentKey
+                    parentKey,
                 };
 
                 newItem['items'] = this.createProcessedItems(item.items, level + 1, newItem, key);
@@ -628,7 +699,12 @@ export class TieredMenu extends BaseComponent implements OnInit, AfterContentIni
     }
 
     isValidItem(processedItem: any): boolean {
-        return !!processedItem && !this.isItemDisabled(processedItem.item) && !this.isItemSeparator(processedItem.item) && this.isItemVisible(processedItem.item);
+        return (
+            !!processedItem &&
+            !this.isItemDisabled(processedItem.item) &&
+            !this.isItemSeparator(processedItem.item) &&
+            this.isItemVisible(processedItem.item)
+        );
     }
 
     isItemDisabled(item: any): boolean {
@@ -644,7 +720,10 @@ export class TieredMenu extends BaseComponent implements OnInit, AfterContentIni
     }
 
     isItemMatched(processedItem: any): boolean {
-        return this.isValidItem(processedItem) && this.getProccessedItemLabel(processedItem).toLocaleLowerCase().startsWith(this.searchValue.toLocaleLowerCase());
+        return (
+            this.isValidItem(processedItem) &&
+            this.getProccessedItemLabel(processedItem).toLocaleLowerCase().startsWith(this.searchValue.toLocaleLowerCase())
+        );
     }
 
     isProccessedItemGroup(processedItem: any): boolean {
@@ -655,7 +734,7 @@ export class TieredMenu extends BaseComponent implements OnInit, AfterContentIni
         if (this.popup) {
             this.overlayService.add({
                 originalEvent: event,
-                target: this.el.nativeElement
+                target: this.el.nativeElement,
             });
         }
     }
@@ -759,7 +838,8 @@ export class TieredMenu extends BaseComponent implements OnInit, AfterContentIni
     }
 
     onArrowDownKey(event: KeyboardEvent) {
-        const itemIndex = this.focusedItemInfo().index !== -1 ? this.findNextItemIndex(this.focusedItemInfo().index) : this.findFirstFocusedItemIndex();
+        const itemIndex =
+            this.focusedItemInfo().index !== -1 ? this.findNextItemIndex(this.focusedItemInfo().index) : this.findFirstFocusedItemIndex();
 
         this.changeFocusedItemIndex(event, itemIndex);
         event.preventDefault();
@@ -792,7 +872,10 @@ export class TieredMenu extends BaseComponent implements OnInit, AfterContentIni
             this.popup && this.hide(event, true);
             event.preventDefault();
         } else {
-            const itemIndex = this.focusedItemInfo().index !== -1 ? this.findPrevItemIndex(this.focusedItemInfo().index) : this.findLastFocusedItemIndex();
+            const itemIndex =
+                this.focusedItemInfo().index !== -1
+                    ? this.findPrevItemIndex(this.focusedItemInfo().index)
+                    : this.findLastFocusedItemIndex();
 
             this.changeFocusedItemIndex(event, itemIndex);
             event.preventDefault();
@@ -1005,8 +1088,15 @@ export class TieredMenu extends BaseComponent implements OnInit, AfterContentIni
         let matched = false;
 
         if (this.focusedItemInfo().index !== -1) {
-            itemIndex = this.visibleItems.slice(this.focusedItemInfo().index).findIndex((processedItem) => this.isItemMatched(processedItem));
-            itemIndex = itemIndex === -1 ? this.visibleItems.slice(0, this.focusedItemInfo().index).findIndex((processedItem) => this.isItemMatched(processedItem)) : itemIndex + this.focusedItemInfo().index;
+            itemIndex = this.visibleItems
+                .slice(this.focusedItemInfo().index)
+                .findIndex((processedItem) => this.isItemMatched(processedItem));
+            itemIndex =
+                itemIndex === -1
+                    ? this.visibleItems
+                          .slice(0, this.focusedItemInfo().index)
+                          .findIndex((processedItem) => this.isItemMatched(processedItem))
+                    : itemIndex + this.focusedItemInfo().index;
         } else {
             itemIndex = this.visibleItems.findIndex((processedItem) => this.isItemMatched(processedItem));
         }
@@ -1045,13 +1135,19 @@ export class TieredMenu extends BaseComponent implements OnInit, AfterContentIni
     }
 
     findPrevItemIndex(index: number) {
-        const matchedItemIndex = index > 0 ? ObjectUtils.findLastIndex(this.visibleItems.slice(0, index), (processedItem) => this.isValidItem(processedItem)) : -1;
+        const matchedItemIndex =
+            index > 0
+                ? ObjectUtils.findLastIndex(this.visibleItems.slice(0, index), (processedItem) => this.isValidItem(processedItem))
+                : -1;
 
         return matchedItemIndex > -1 ? matchedItemIndex : index;
     }
 
     findNextItemIndex(index: number) {
-        const matchedItemIndex = index < this.visibleItems.length - 1 ? this.visibleItems.slice(index + 1).findIndex((processedItem) => this.isValidItem(processedItem)) : -1;
+        const matchedItemIndex =
+            index < this.visibleItems.length - 1
+                ? this.visibleItems.slice(index + 1).findIndex((processedItem) => this.isValidItem(processedItem))
+                : -1;
 
         return matchedItemIndex > -1 ? matchedItemIndex + index + 1 : index;
     }
@@ -1123,7 +1219,9 @@ export class TieredMenu extends BaseComponent implements OnInit, AfterContentIni
             if (!this.outsideClickListener) {
                 this.outsideClickListener = this.renderer.listen(this.document, 'click', (event) => {
                     const isOutsideContainer = this.containerViewChild && !this.containerViewChild.nativeElement.contains(event.target);
-                    const isOutsideTarget = this.popup ? !(this.target && (this.target === event.target || this.target.contains(event.target))) : true;
+                    const isOutsideTarget = this.popup
+                        ? !(this.target && (this.target === event.target || this.target.contains(event.target)))
+                        : true;
                     if (isOutsideContainer && isOutsideTarget) {
                         this.hide();
                     }
@@ -1177,6 +1275,6 @@ export class TieredMenu extends BaseComponent implements OnInit, AfterContentIni
 @NgModule({
     imports: [CommonModule, RouterModule, RippleModule, TooltipModule, AngleRightIcon, SharedModule],
     exports: [TieredMenu, RouterModule, TooltipModule, SharedModule],
-    declarations: [TieredMenu, TieredMenuSub]
+    declarations: [TieredMenu, TieredMenuSub],
 })
 export class TieredMenuModule {}

@@ -36,7 +36,7 @@ import { SharedModule } from 'primeng/api';
         </div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
 })
 export class TemplateLicense {
     @Input() license;
@@ -45,6 +45,6 @@ export class TemplateLicense {
 @NgModule({
     imports: [CommonModule, SharedModule],
     exports: [TemplateLicense, SharedModule],
-    declarations: [TemplateLicense]
+    declarations: [TemplateLicense],
 })
 export class TemplateLicenseModule {}

@@ -14,6 +14,6 @@ import { RegexDoc } from './regexdoc';
 @NgModule({
     imports: [CommonModule, AppCodeModule, ReactiveFormsModule, AppDocModule, KeyFilterModule, InputTextModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, PresetsDoc, RegexDoc, AccessibilityDoc, ReactiveFormsDoc]
+    declarations: [ImportDoc, PresetsDoc, RegexDoc, AccessibilityDoc, ReactiveFormsDoc],
 })
 export class KeyFilterDocModule {}

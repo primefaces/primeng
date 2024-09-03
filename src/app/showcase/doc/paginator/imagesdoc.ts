@@ -15,11 +15,18 @@ interface PageEvent {
             <p>Sample image gallery implementation using paginator.</p>
         </app-docsectiontext>
         <div class="card flex flex-col gap-4 justify-center items-center">
-            <p-paginator [first]="first" [rows]="1" [totalRecords]="120" (onPageChange)="onPageChange($event)" [showJumpToPageDropdown]="true" [showPageLinks]="false"></p-paginator>
+            <p-paginator
+                [first]="first"
+                [rows]="1"
+                [totalRecords]="120"
+                (onPageChange)="onPageChange($event)"
+                [showJumpToPageDropdown]="true"
+                [showPageLinks]="false"
+            ></p-paginator>
             <img src="https://primefaces.org/cdn/primeng/images/demo/nature/nature{{ (first + 1) % 10 }}.jpg" class="max-w-full" />
         </div>
         <app-code [code]="code" selector="paginator-images-demo"></app-code>
-    `
+    `,
 })
 export class ImagesDoc {
     first: number = 0;
@@ -64,6 +71,6 @@ export class PaginatorImagesDemo {
         this.first = event.first;
         this.rows = event.rows;
     }
-}`
+}`,
     };
 }

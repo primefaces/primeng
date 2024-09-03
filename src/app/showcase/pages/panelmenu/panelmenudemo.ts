@@ -10,54 +10,54 @@ import { CommandDoc } from '@doc/panelmenu/commanddoc';
 import { RouterDoc } from '@doc/panelmenu/routerdoc';
 
 @Component({
-    templateUrl: './panelmenudemo.html'
+    templateUrl: './panelmenudemo.html',
 })
 export class PanelMenuDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc
+            component: ImportDoc,
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc
+            component: BasicDoc,
         },
         {
             id: 'multiple',
             label: 'Multiple',
-            component: MultipleDoc
+            component: MultipleDoc,
         },
         {
             id: 'controlled',
             label: 'Controlled',
-            component: ControlledDoc
+            component: ControlledDoc,
         },
         {
             id: 'template',
             label: 'Template',
-            component: TemplateDoc
+            component: TemplateDoc,
         },
         {
             id: 'command',
             label: 'Command',
-            component: CommandDoc
+            component: CommandDoc,
         },
         {
             id: 'router',
             label: 'Router',
-            component: RouterDoc
+            component: RouterDoc,
         },
         {
             id: 'style',
             label: 'Style',
-            component: StyleDoc
+            component: StyleDoc,
         },
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc
-        }
+            component: AccessibilityDoc,
+        },
     ];
 }

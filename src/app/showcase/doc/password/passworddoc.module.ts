@@ -23,8 +23,33 @@ import { FilledDoc } from './filleddoc';
 import { InputTextModule } from 'primeng/inputtext';
 
 @NgModule({
-    imports: [CommonModule, InputTextModule, AppCodeModule, AppDocModule, PasswordModule, FormsModule, ReactiveFormsModule, DividerModule, RouterModule, FloatLabelModule],
+    imports: [
+        CommonModule,
+        InputTextModule,
+        AppCodeModule,
+        AppDocModule,
+        PasswordModule,
+        FormsModule,
+        ReactiveFormsModule,
+        DividerModule,
+        RouterModule,
+        FloatLabelModule,
+    ],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, MeterDoc, LocaleDoc, ToggleMaskDoc, TemplateDoc, FloatLabelDoc, InvalidDoc, DisabledDoc, StyleDoc, AccessibilityDoc, ReactiveFormsDoc, FilledDoc]
+    declarations: [
+        ImportDoc,
+        BasicDoc,
+        MeterDoc,
+        LocaleDoc,
+        ToggleMaskDoc,
+        TemplateDoc,
+        FloatLabelDoc,
+        InvalidDoc,
+        DisabledDoc,
+        StyleDoc,
+        AccessibilityDoc,
+        ReactiveFormsDoc,
+        FilledDoc,
+    ],
 })
 export class PasswordDocModule {}

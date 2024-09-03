@@ -6,6 +6,6 @@ import { TieredMenuDemoRoutingModule } from './tieredmenudemo-routing.module';
 
 @NgModule({
     imports: [CommonModule, TieredMenuDemoRoutingModule, TieredMenuDocModule],
-    declarations: [TieredMenuDemo]
+    declarations: [TieredMenuDemo],
 })
 export class TieredMenuDemoModule {}

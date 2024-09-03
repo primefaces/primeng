@@ -66,11 +66,11 @@ const classes = {
             'p-tag-danger': props.severity === 'danger',
             'p-tag-secondary': props.severity === 'secondary',
             'p-tag-contrast': props.severity === 'contrast',
-            'p-tag-rounded': props.rounded
-        }
+            'p-tag-rounded': props.rounded,
+        },
     ],
     icon: 'p-tag-icon',
-    label: 'p-tag-label'
+    label: 'p-tag-label',
 };
 
 @Injectable()

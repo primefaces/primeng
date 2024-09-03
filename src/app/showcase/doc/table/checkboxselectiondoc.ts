@@ -6,7 +6,10 @@ import { ProductService } from '@service/productservice';
 @Component({
     selector: 'checkbox-selection-doc',
     template: ` <app-docsectiontext>
-            <p>Multiple selection can also be handled using checkboxes by enabling the <i>selectionMode</i> property of column as <i>multiple</i>.</p>
+            <p>
+                Multiple selection can also be handled using checkboxes by enabling the <i>selectionMode</i> property of column as
+                <i>multiple</i>.
+            </p>
         </app-docsectiontext>
         <p-deferred-demo (load)="loadDemoData()">
             <div class="card">
@@ -37,7 +40,7 @@ import { ProductService } from '@service/productservice';
             </div>
         </p-deferred-demo>
         <app-code [code]="code" selector="table-checkbox-selection-demo" [extFiles]="extFiles"></app-code>`,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CheckboxSelectionDoc {
     products!: Product[];
@@ -46,7 +49,7 @@ export class CheckboxSelectionDoc {
 
     constructor(
         private productService: ProductService,
-        private cd: ChangeDetectorRef
+        private cd: ChangeDetectorRef,
     ) {}
 
     loadDemoData() {
@@ -151,7 +154,7 @@ export class TableCheckboxSelectionDemo implements OnInit{
     rating: 5
 },
 ...`,
-        service: ['ProductService']
+        service: ['ProductService'],
     };
 
     extFiles = [
@@ -169,7 +172,7 @@ export interface Product {
     category?: string;
     image?: string;
     rating?: number;
-}`
-        }
+}`,
+        },
     ];
 }

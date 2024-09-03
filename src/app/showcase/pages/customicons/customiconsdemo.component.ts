@@ -5,29 +5,29 @@ import { MaterialDoc } from '@doc/customicons/materialdoc';
 import { SVGDoc } from '@doc/customicons/svgdoc';
 
 @Component({
-    templateUrl: './customiconsdemo.component.html'
+    templateUrl: './customiconsdemo.component.html',
 })
 export class CustomIconsDemoComponent {
     docs = [
         {
             id: 'material',
             label: 'Material',
-            component: MaterialDoc
+            component: MaterialDoc,
         },
         {
             id: 'fontawesome',
             label: 'Font Awesome',
-            component: FontAwesomeDoc
+            component: FontAwesomeDoc,
         },
         {
             id: 'svg',
             label: 'SVG',
-            component: SVGDoc
+            component: SVGDoc,
         },
         {
             id: 'image',
             label: 'Image',
-            component: ImageDoc
-        }
+            component: ImageDoc,
+        },
     ];
 }

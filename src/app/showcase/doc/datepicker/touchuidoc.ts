@@ -11,7 +11,7 @@ import { Code } from '@domain/code';
             <p-datePicker [(ngModel)]="date" [touchUI]="true" [readonlyInput]="true" />
         </div>
         <app-code [code]="code" selector="datepicker-touchui-demo"></app-code>
-    `
+    `,
 })
 export class TouchUIDoc {
     date: Date[] | undefined;
@@ -41,6 +41,6 @@ import { DatePickerModule } from 'primeng/datepicker';
 })
 export class DatePickerTouchuiDemo {
     date: Date[] | undefined;
-}`
+}`,
     };
 }

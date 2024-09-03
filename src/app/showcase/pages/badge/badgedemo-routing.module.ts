@@ -4,6 +4,6 @@ import { BadgeDemo } from './badgedemo';
 
 @NgModule({
     imports: [RouterModule.forChild([{ path: '', component: BadgeDemo }])],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class BadgeDemoRoutingModule {}

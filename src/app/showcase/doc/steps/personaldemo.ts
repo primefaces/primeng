@@ -21,16 +21,36 @@ import { Router } from '@angular/router';
                                 [(ngModel)]="personalInformation.firstname"
                                 [ngClass]="{ 'ng-dirty': (firstname.invalid && submitted) || (firstname.dirty && firstname.invalid) }"
                             />
-                            <small *ngIf="(firstname.invalid && submitted) || (firstname.dirty && firstname.invalid)" class="p-error">Firstname is required.</small>
+                            <small *ngIf="(firstname.invalid && submitted) || (firstname.dirty && firstname.invalid)" class="p-error"
+                                >Firstname is required.</small
+                            >
                         </div>
                         <div class="field">
                             <label for="lastname">Lastname</label>
-                            <input #lastname="ngModel" id="lastname" type="text" required pInputText [(ngModel)]="personalInformation.lastname" [ngClass]="{ 'ng-dirty': (lastname.invalid && submitted) || (lastname.dirty && lastname.invalid) }" />
-                            <small class="p-error" *ngIf="(lastname.invalid && submitted) || (lastname.dirty && lastname.invalid)">Lastname is required.</small>
+                            <input
+                                #lastname="ngModel"
+                                id="lastname"
+                                type="text"
+                                required
+                                pInputText
+                                [(ngModel)]="personalInformation.lastname"
+                                [ngClass]="{ 'ng-dirty': (lastname.invalid && submitted) || (lastname.dirty && lastname.invalid) }"
+                            />
+                            <small class="p-error" *ngIf="(lastname.invalid && submitted) || (lastname.dirty && lastname.invalid)"
+                                >Lastname is required.</small
+                            >
                         </div>
                         <div class="field">
                             <label for="age">Age</label>
-                            <input #age="ngModel" id="age" type="number" required pInputText [(ngModel)]="personalInformation.age" [ngClass]="{ 'ng-dirty': (age.invalid && submitted) || (age.dirty && age.invalid) }" />
+                            <input
+                                #age="ngModel"
+                                id="age"
+                                type="number"
+                                required
+                                pInputText
+                                [(ngModel)]="personalInformation.age"
+                                [ngClass]="{ 'ng-dirty': (age.invalid && submitted) || (age.dirty && age.invalid) }"
+                            />
                             <small class="p-error" *ngIf="(age.invalid && submitted) || (age.dirty && age.invalid)">Age is required.</small>
                         </div>
                     </div>
@@ -42,7 +62,7 @@ import { Router } from '@angular/router';
                 </ng-template>
             </p-card>
         </div>
-    `
+    `,
 })
 export class PersonalDemo implements OnInit {
     personalInformation: any;
@@ -51,7 +71,7 @@ export class PersonalDemo implements OnInit {
 
     constructor(
         public ticketService: TicketService,
-        private router: Router
+        private router: Router,
     ) {}
 
     ngOnInit() {

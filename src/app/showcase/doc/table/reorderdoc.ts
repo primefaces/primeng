@@ -11,10 +11,14 @@ interface Column {
 @Component({
     selector: 'reorder-doc',
     template: ` <app-docsectiontext>
-            <p>Order of the columns and rows can be changed using drag and drop. Column reordering is configured by adding <i>reorderableColumns</i> property.</p>
             <p>
-                Similarly, adding <i>reorderableRows</i> property enables draggable rows. For the drag handle a column needs to have <i>rowReorder</i> property and <i>onRowReorder</i> callback is required to control the state of the rows after
-                reorder completes.
+                Order of the columns and rows can be changed using drag and drop. Column reordering is configured by adding
+                <i>reorderableColumns</i> property.
+            </p>
+            <p>
+                Similarly, adding <i>reorderableRows</i> property enables draggable rows. For the drag handle a column needs to have
+                <i>rowReorder</i> property and <i>onRowReorder</i> callback is required to control the state of the rows after reorder
+                completes.
             </p>
         </app-docsectiontext>
         <p-deferred-demo (load)="loadDemoData()">
@@ -42,7 +46,7 @@ interface Column {
             </div>
         </p-deferred-demo>
         <app-code [code]="code" selector="table-reorder-demo" [extFiles]="extFiles"></app-code>`,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ReorderDoc {
     products!: Product[];
@@ -51,7 +55,7 @@ export class ReorderDoc {
 
     constructor(
         private productService: ProductService,
-        private cd: ChangeDetectorRef
+        private cd: ChangeDetectorRef,
     ) {}
 
     loadDemoData() {
@@ -64,7 +68,7 @@ export class ReorderDoc {
             { field: 'code', header: 'Code' },
             { field: 'name', header: 'Name' },
             { field: 'category', header: 'Category' },
-            { field: 'quantity', header: 'Quantity' }
+            { field: 'quantity', header: 'Quantity' },
         ];
     }
 
@@ -176,7 +180,7 @@ export class TableReorderDemo implements OnInit{
     rating: 5
 },
 ...`,
-        service: ['ProductService']
+        service: ['ProductService'],
     };
 
     extFiles = [
@@ -194,7 +198,7 @@ export interface Product {
     category?: string;
     image?: string;
     rating?: number;
-}`
-        }
+}`,
+        },
     ];
 }

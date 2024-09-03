@@ -11,54 +11,54 @@ import { AccessibilityDoc } from '@doc/carousel/accessibilitydoc';
 
 @Component({
     templateUrl: './carouseldemo.html',
-    styleUrls: ['./carouseldemo.scss']
+    styleUrls: ['./carouseldemo.scss'],
 })
 export class CarouselDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc
+            component: ImportDoc,
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc
+            component: BasicDoc,
         },
         {
             id: 'circular',
             label: 'Circular',
-            component: CircularDoc
+            component: CircularDoc,
         },
         {
             id: 'numscroll',
             label: 'Num Scroll',
-            component: NumScrollDoc
+            component: NumScrollDoc,
         },
         {
             id: 'custom',
             label: 'Custom Content',
-            component: TemplateDoc
+            component: TemplateDoc,
         },
         {
             id: 'responsive',
             label: 'Responsive',
-            component: ResponsiveDoc
+            component: ResponsiveDoc,
         },
         {
             id: 'vertical',
             label: 'Vertical',
-            component: VerticalDoc
+            component: VerticalDoc,
         },
         {
             id: 'style',
             label: 'Style',
-            component: StyleDoc
+            component: StyleDoc,
         },
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc
-        }
+            component: AccessibilityDoc,
+        },
     ];
 }

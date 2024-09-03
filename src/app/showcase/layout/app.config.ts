@@ -6,5 +6,13 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { routes } from './app.routes';
 
 export const appConfig: ApplicationConfig = {
-    providers: [provideRouter(routes, withInMemoryScrolling({ anchorScrolling: 'enabled', scrollPositionRestoration: 'enabled' }), withEnabledBlockingInitialNavigation()), provideHttpClient(withFetch()), provideAnimationsAsync()]
+    providers: [
+        provideRouter(
+            routes,
+            withInMemoryScrolling({ anchorScrolling: 'enabled', scrollPositionRestoration: 'enabled' }),
+            withEnabledBlockingInitialNavigation(),
+        ),
+        provideHttpClient(withFetch()),
+        provideAnimationsAsync(),
+    ],
 };

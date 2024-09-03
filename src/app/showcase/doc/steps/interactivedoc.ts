@@ -6,7 +6,10 @@ import { Code } from '@domain/code';
     selector: 'interactive-doc',
     template: `
         <app-docsectiontext>
-            <p>In order to add interactivity to the component, disable <i>readonly</i> and use a binding to <i>activeIndex</i> along with <i>activeIndexChange</i> to control the Steps.</p>
+            <p>
+                In order to add interactivity to the component, disable <i>readonly</i> and use a binding to <i>activeIndex</i> along with
+                <i>activeIndexChange</i> to control the Steps.
+            </p>
         </app-docsectiontext>
         <div class="card">
             <p-toast />
@@ -14,7 +17,7 @@ import { Code } from '@domain/code';
         </div>
         <app-code [code]="code" selector="steps-interactive-demo"></app-code>
     `,
-    providers: [MessageService]
+    providers: [MessageService],
 })
 export class InteractiveDoc implements OnInit {
     items: MenuItem[] | undefined;
@@ -31,20 +34,20 @@ export class InteractiveDoc implements OnInit {
         this.items = [
             {
                 label: 'Personal',
-                command: (event: any) => this.messageService.add({ severity: 'info', summary: 'First Step', detail: event.item.label })
+                command: (event: any) => this.messageService.add({ severity: 'info', summary: 'First Step', detail: event.item.label }),
             },
             {
                 label: 'Seat',
-                command: (event: any) => this.messageService.add({ severity: 'info', summary: 'Second Step', detail: event.item.label })
+                command: (event: any) => this.messageService.add({ severity: 'info', summary: 'Second Step', detail: event.item.label }),
             },
             {
                 label: 'Payment',
-                command: (event: any) => this.messageService.add({ severity: 'info', summary: 'Third Step', detail: event.item.label })
+                command: (event: any) => this.messageService.add({ severity: 'info', summary: 'Third Step', detail: event.item.label }),
             },
             {
                 label: 'Confirmation',
-                command: (event: any) => this.messageService.add({ severity: 'info', summary: 'Last Step', detail: event.item.label })
-            }
+                command: (event: any) => this.messageService.add({ severity: 'info', summary: 'Last Step', detail: event.item.label }),
+            },
         ];
     }
 
@@ -108,6 +111,6 @@ export class StepsInteractiveDemo implements OnInit {
             }
         ];
     }
-}`
+}`,
     };
 }

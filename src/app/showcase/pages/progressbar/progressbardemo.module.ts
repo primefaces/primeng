@@ -6,6 +6,6 @@ import { ProgressBarDemoRoutingModule } from './progressbardemo-routing.module';
 
 @NgModule({
     imports: [CommonModule, ProgressBarDemoRoutingModule, ProgressBarDocModule],
-    declarations: [ProgressBarDemo]
+    declarations: [ProgressBarDemo],
 })
 export class ProgressBarDemoModule {}

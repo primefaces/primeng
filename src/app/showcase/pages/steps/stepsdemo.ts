@@ -9,44 +9,44 @@ import { ControlledDoc } from '@doc/steps/controlleddoc';
 
 @Component({
     templateUrl: './stepsdemo.html',
-    styleUrls: ['stepsdemo.scss']
+    styleUrls: ['stepsdemo.scss'],
 })
 export class StepsDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc
+            component: ImportDoc,
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc
+            component: BasicDoc,
         },
         {
             id: 'controlled',
             label: 'Controlled',
-            component: ControlledDoc
+            component: ControlledDoc,
         },
         {
             id: 'interactive',
             label: 'Interactive',
-            component: InteractiveDoc
+            component: InteractiveDoc,
         },
         {
             id: 'routing',
             label: 'Routing',
-            component: RoutingDoc
+            component: RoutingDoc,
         },
         {
             id: 'style',
             label: 'Style',
-            component: StyleDoc
+            component: StyleDoc,
         },
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc
-        }
+            component: AccessibilityDoc,
+        },
     ];
 }

@@ -38,8 +38,8 @@ const theme = ({ dt }) => `
     width: ${dt('checkbox.width')};
     height: ${dt('checkbox.height')};
     transition: background ${dt('checkbox.transition.duration')}, color ${dt('checkbox.transition.duration')}, border-color ${dt('checkbox.transition.duration')}, box-shadow ${dt('checkbox.transition.duration')}, outline-color ${dt(
-    'checkbox.transition.duration'
-)};
+        'checkbox.transition.duration',
+    )};
     outline-color: transparent;
     box-shadow: ${dt('checkbox.shadow')};
 }
@@ -122,12 +122,14 @@ const classes = {
             'p-checkbox-checked': instance.checked,
             'p-disabled': props.disabled,
             'p-invalid': props.invalid,
-            'p-variant-filled': props.variant ? props.variant === 'filled' : instance.$primevue.config.inputStyle === 'filled' || instance.$primevue.config.inputVariant === 'filled'
-        }
+            'p-variant-filled': props.variant
+                ? props.variant === 'filled'
+                : instance.$primevue.config.inputStyle === 'filled' || instance.$primevue.config.inputVariant === 'filled',
+        },
     ],
     box: 'p-checkbox-box',
     input: 'p-checkbox-input',
-    icon: 'p-checkbox-icon'
+    icon: 'p-checkbox-icon',
 };
 
 @Injectable()

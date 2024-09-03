@@ -24,7 +24,7 @@ import {
     forwardRef,
     inject,
     numberAttribute,
-    signal
+    signal,
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { MegaMenuItem, PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
@@ -56,7 +56,9 @@ import { BadgeModule } from 'primeng/badge';
             (focus)="menuFocus.emit($event)"
             (blur)="menuBlur.emit($event)"
         >
-            <li *ngIf="submenu" [ngClass]="getSubmenuHeaderClass(submenu)" [style]="getItemProp(submenu, 'style')" role="presentation">{{ getItemLabel(submenu) }}</li>
+            <li *ngIf="submenu" [ngClass]="getSubmenuHeaderClass(submenu)" [style]="getItemProp(submenu, 'style')" role="presentation">
+                {{ getItemLabel(submenu) }}
+            </li>
             <ng-template ngFor let-processedItem [ngForOf]="items" let-index="index">
                 <li
                     *ngIf="isItemVisible(processedItem) && getItemProp(processedItem, 'separator')"
@@ -88,7 +90,12 @@ import { BadgeModule } from 'primeng/badge';
                     pTooltip
                     [tooltipOptions]="getItemProp(processedItem, 'tooltipOptions')"
                 >
-                    <div class="p-megamenu-item-content" [attr.data-pc-section]="'content'" (click)="onItemClick($event, processedItem)" (mouseenter)="onItemMouseEnter({ $event, processedItem })">
+                    <div
+                        class="p-megamenu-item-content"
+                        [attr.data-pc-section]="'content'"
+                        (click)="onItemClick($event, processedItem)"
+                        (mouseenter)="onItemMouseEnter({ $event, processedItem })"
+                    >
                         <ng-container *ngIf="!itemTemplate">
                             <a
                                 *ngIf="!getItemProp(processedItem, 'routerLink')"
@@ -111,19 +118,45 @@ import { BadgeModule } from 'primeng/badge';
                                     [attr.tabindex]="-1"
                                 >
                                 </span>
-                                <span *ngIf="getItemProp(processedItem, 'escape'); else htmlLabel" class="p-megamenu-item-label" [attr.data-pc-section]="'label'">
+                                <span
+                                    *ngIf="getItemProp(processedItem, 'escape'); else htmlLabel"
+                                    class="p-megamenu-item-label"
+                                    [attr.data-pc-section]="'label'"
+                                >
                                     {{ getItemLabel(processedItem) }}
                                 </span>
                                 <ng-template #htmlLabel>
-                                    <span class="p-megamenu-item-label" [innerHTML]="getItemLabel(processedItem)" [attr.data-pc-section]="'label'"></span>
+                                    <span
+                                        class="p-megamenu-item-label"
+                                        [innerHTML]="getItemLabel(processedItem)"
+                                        [attr.data-pc-section]="'label'"
+                                    ></span>
                                 </ng-template>
-                                <p-badge *ngIf="getItemProp(processedItem, 'badge')" [styleClass]="getItemProp(processedItem, 'badgeStyleClass')" [value]="getItemProp(processedItem, 'badge')" />
+                                <p-badge
+                                    *ngIf="getItemProp(processedItem, 'badge')"
+                                    [styleClass]="getItemProp(processedItem, 'badgeStyleClass')"
+                                    [value]="getItemProp(processedItem, 'badge')"
+                                />
                                 <ng-container *ngIf="isItemGroup(processedItem)">
                                     <ng-container *ngIf="!megaMenu.submenuIconTemplate">
-                                        <AngleDownIcon [ngClass]="'p-megamenu-submenu-icon'" [attr.data-pc-section]="'submenuicon'" *ngIf="orientation === 'horizontal'" [attr.aria-hidden]="true" />
-                                        <AngleRightIcon [ngClass]="'p-megamenu-submenu-icon'" [attr.data-pc-section]="'submenuicon'" *ngIf="orientation === 'vertical'" [attr.aria-hidden]="true" />
+                                        <AngleDownIcon
+                                            [ngClass]="'p-megamenu-submenu-icon'"
+                                            [attr.data-pc-section]="'submenuicon'"
+                                            *ngIf="orientation === 'horizontal'"
+                                            [attr.aria-hidden]="true"
+                                        />
+                                        <AngleRightIcon
+                                            [ngClass]="'p-megamenu-submenu-icon'"
+                                            [attr.data-pc-section]="'submenuicon'"
+                                            *ngIf="orientation === 'vertical'"
+                                            [attr.aria-hidden]="true"
+                                        />
                                     </ng-container>
-                                    <ng-template *ngTemplateOutlet="megaMenu.submenuIconTemplate" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true"></ng-template>
+                                    <ng-template
+                                        *ngTemplateOutlet="megaMenu.submenuIconTemplate"
+                                        [attr.data-pc-section]="'submenuicon'"
+                                        [attr.aria-hidden]="true"
+                                    ></ng-template>
                                 </ng-container>
                             </a>
                             <a
@@ -155,15 +188,41 @@ import { BadgeModule } from 'primeng/badge';
                                     [attr.aria-hidden]="true"
                                     [attr.tabindex]="-1"
                                 ></span>
-                                <span class="p-megamenu-item-label" *ngIf="getItemProp(processedItem, 'escape'); else htmlRouteLabel">{{ getItemLabel(processedItem) }}</span>
-                                <ng-template #htmlRouteLabel><span class="p-megamenu-item-label" [innerHTML]="getItemLabel(processedItem)" [attr.data-pc-section]="'label'"></span></ng-template>
-                                <p-badge *ngIf="getItemProp(processedItem, 'badge')" [styleClass]="getItemProp(processedItem, 'badgeStyleClass')" [value]="getItemProp(processedItem, 'badge')" />
+                                <span class="p-megamenu-item-label" *ngIf="getItemProp(processedItem, 'escape'); else htmlRouteLabel">{{
+                                    getItemLabel(processedItem)
+                                }}</span>
+                                <ng-template #htmlRouteLabel
+                                    ><span
+                                        class="p-megamenu-item-label"
+                                        [innerHTML]="getItemLabel(processedItem)"
+                                        [attr.data-pc-section]="'label'"
+                                    ></span
+                                ></ng-template>
+                                <p-badge
+                                    *ngIf="getItemProp(processedItem, 'badge')"
+                                    [styleClass]="getItemProp(processedItem, 'badgeStyleClass')"
+                                    [value]="getItemProp(processedItem, 'badge')"
+                                />
                                 <ng-container *ngIf="isItemGroup(processedItem)">
                                     <ng-container *ngIf="!megaMenu.submenuIconTemplate">
-                                        <AngleDownIcon [styleClass]="'p-megamenu-submenu-icon'" [attr.data-pc-section]="'submenuicon'" *ngIf="orientation === 'horizontal'" [attr.aria-hidden]="true" />
-                                        <AngleRightIcon [styleClass]="'p-megamenu-submenu-icon'" [attr.data-pc-section]="'submenuicon'" *ngIf="orientation === 'vertical'" [attr.aria-hidden]="true" />
+                                        <AngleDownIcon
+                                            [styleClass]="'p-megamenu-submenu-icon'"
+                                            [attr.data-pc-section]="'submenuicon'"
+                                            *ngIf="orientation === 'horizontal'"
+                                            [attr.aria-hidden]="true"
+                                        />
+                                        <AngleRightIcon
+                                            [styleClass]="'p-megamenu-submenu-icon'"
+                                            [attr.data-pc-section]="'submenuicon'"
+                                            *ngIf="orientation === 'vertical'"
+                                            [attr.aria-hidden]="true"
+                                        />
                                     </ng-container>
-                                    <ng-template *ngTemplateOutlet="megaMenu.submenuIconTemplate" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true"></ng-template>
+                                    <ng-template
+                                        *ngTemplateOutlet="megaMenu.submenuIconTemplate"
+                                        [attr.data-pc-section]="'submenuicon'"
+                                        [attr.aria-hidden]="true"
+                                    ></ng-template>
                                 </ng-container>
                             </a>
                         </ng-container>
@@ -171,7 +230,11 @@ import { BadgeModule } from 'primeng/badge';
                             <ng-template *ngTemplateOutlet="itemTemplate; context: { $implicit: processedItem.item }"></ng-template>
                         </ng-container>
                     </div>
-                    <div *ngIf="isItemVisible(processedItem) && isItemGroup(processedItem)" class="p-megamenu-overlay" [attr.data-pc-section]="'panel'">
+                    <div
+                        *ngIf="isItemVisible(processedItem) && isItemGroup(processedItem)"
+                        class="p-megamenu-overlay"
+                        [attr.data-pc-section]="'panel'"
+                    >
                         <div class="p-megamenu-grid" [attr.data-pc-section]="'grid'">
                             <div *ngFor="let col of processedItem.items" [ngClass]="getColumnClass(processedItem)">
                                 <p-megaMenuSub
@@ -195,7 +258,7 @@ import { BadgeModule } from 'primeng/badge';
             </ng-template>
         </ul>
     `,
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
 })
 export class MegaMenuSub {
     @Input() id: string | undefined;
@@ -238,7 +301,10 @@ export class MegaMenuSub {
 
     @ViewChild('menubar', { static: true }) menubarViewChild: ElementRef;
 
-    constructor(public el: ElementRef, @Inject(forwardRef(() => MegaMenu)) public megaMenu: MegaMenu) {}
+    constructor(
+        public el: ElementRef,
+        @Inject(forwardRef(() => MegaMenu)) public megaMenu: MegaMenu,
+    ) {}
 
     onItemClick(event: any, processedItem: any) {
         this.getItemProp(processedItem, 'command', { originalEvent: event, item: processedItem.item });
@@ -263,7 +329,7 @@ export class MegaMenuSub {
             'p-megamenu-item': true,
             'p-megamenu-item-active': this.isItemActive(processedItem),
             'p-focus': this.isItemFocused(processedItem),
-            'p-disabled': this.isItemDisabled(processedItem)
+            'p-disabled': this.isItemDisabled(processedItem),
         };
     }
 
@@ -274,7 +340,7 @@ export class MegaMenuSub {
     getSeparatorItemClass(processedItem: any) {
         return {
             ...this.getItemProp(processedItem, 'class'),
-            'p-megamenu-separator': true
+            'p-megamenu-separator': true,
         };
     }
 
@@ -313,7 +379,7 @@ export class MegaMenuSub {
 
             'p-disabled': this.isItemDisabled(processedItem),
 
-            ...this.getItemProp(processedItem, 'class')
+            ...this.getItemProp(processedItem, 'class'),
         };
     }
 
@@ -346,11 +412,18 @@ export class MegaMenuSub {
     }
 
     getAriaSetSize() {
-        return this.items.filter((processedItem) => this.isItemVisible(processedItem) && !this.getItemProp(processedItem, 'separator')).length;
+        return this.items.filter((processedItem) => this.isItemVisible(processedItem) && !this.getItemProp(processedItem, 'separator'))
+            .length;
     }
 
     getAriaPosInset(index: number) {
-        return index - this.items.slice(0, index).filter((processedItem) => this.isItemVisible(processedItem) && this.getItemProp(processedItem, 'separator')).length + 1;
+        return (
+            index -
+            this.items
+                .slice(0, index)
+                .filter((processedItem) => this.isItemVisible(processedItem) && this.getItemProp(processedItem, 'separator')).length +
+            1
+        );
     }
 
     onItemMouseEnter(param: any) {
@@ -366,7 +439,11 @@ export class MegaMenuSub {
     selector: 'p-megaMenu',
     template: `
         <div
-            [ngClass]="{ 'p-megamenu p-component': true, 'p-megamenu-horizontal': orientation == 'horizontal', 'p-megamenu-vertical': orientation == 'vertical' }"
+            [ngClass]="{
+                'p-megamenu p-component': true,
+                'p-megamenu-horizontal': orientation == 'horizontal',
+                'p-megamenu-vertical': orientation == 'vertical',
+            }"
             [class]="styleClass"
             [ngStyle]="style"
             [attr.data-pc-section]="'root'"
@@ -409,7 +486,7 @@ export class MegaMenuSub {
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    providers: [MegaMenuStyle]
+    providers: [MegaMenuStyle],
 })
 export class MegaMenu extends BaseComponent implements AfterContentInit, OnDestroy, OnInit {
     /**
@@ -527,7 +604,11 @@ export class MegaMenu extends BaseComponent implements AfterContentInit, OnDestr
 
     get focusedItemId() {
         const focusedItem = this.focusedItemInfo();
-        return focusedItem?.item && focusedItem.item?.id ? focusedItem.item.id : ObjectUtils.isNotEmpty(focusedItem.key) ? `${this.id}_${focusedItem.key}` : null;
+        return focusedItem?.item && focusedItem.item?.id
+            ? focusedItem.item.id
+            : ObjectUtils.isNotEmpty(focusedItem.key)
+              ? `${this.id}_${focusedItem.key}`
+              : null;
     }
 
     constructor() {
@@ -592,11 +673,18 @@ export class MegaMenu extends BaseComponent implements AfterContentInit, OnDestr
                     key,
                     parent,
                     parentKey,
-                    columnIndex: columnIndex !== undefined ? columnIndex : (<any>parent).columnIndex !== undefined ? (<any>parent).columnIndex : index
+                    columnIndex:
+                        columnIndex !== undefined
+                            ? columnIndex
+                            : (<any>parent).columnIndex !== undefined
+                              ? (<any>parent).columnIndex
+                              : index,
                 };
 
                 newItem['items'] =
-                    level === 0 && item.items && item.items.length > 0 ? item.items.map((_items, _index) => this.createProcessedItems(_items, level + 1, newItem, key, _index)) : this.createProcessedItems(item.items, level + 1, newItem, key);
+                    level === 0 && item.items && item.items.length > 0
+                        ? item.items.map((_items, _index) => this.createProcessedItems(_items, level + 1, newItem, key, _index))
+                        : this.createProcessedItems(item.items, level + 1, newItem, key);
                 processedItems.push(newItem);
             });
         return processedItems;
@@ -790,7 +878,10 @@ export class MegaMenu extends BaseComponent implements AfterContentInit, OnDestr
     }
 
     isItemMatched(processedItem: any): boolean {
-        return this.isValidItem(processedItem) && this.getProccessedItemLabel(processedItem).toLocaleLowerCase().startsWith(this.searchValue.toLocaleLowerCase());
+        return (
+            this.isValidItem(processedItem) &&
+            this.getProccessedItemLabel(processedItem).toLocaleLowerCase().startsWith(this.searchValue.toLocaleLowerCase())
+        );
     }
 
     isProccessedItemGroup(processedItem: any): boolean {
@@ -804,8 +895,15 @@ export class MegaMenu extends BaseComponent implements AfterContentInit, OnDestr
         let matched = false;
 
         if (this.focusedItemInfo().index !== -1) {
-            itemIndex = this.visibleItems.slice(this.focusedItemInfo().index).findIndex((processedItem) => this.isItemMatched(processedItem));
-            itemIndex = itemIndex === -1 ? this.visibleItems.slice(0, this.focusedItemInfo().index).findIndex((processedItem) => this.isItemMatched(processedItem)) : itemIndex + this.focusedItemInfo().index;
+            itemIndex = this.visibleItems
+                .slice(this.focusedItemInfo().index)
+                .findIndex((processedItem) => this.isItemMatched(processedItem));
+            itemIndex =
+                itemIndex === -1
+                    ? this.visibleItems
+                          .slice(0, this.focusedItemInfo().index)
+                          .findIndex((processedItem) => this.isItemMatched(processedItem))
+                    : itemIndex + this.focusedItemInfo().index;
         } else {
             itemIndex = this.visibleItems.findIndex((processedItem) => this.isItemMatched(processedItem));
         }
@@ -870,7 +968,8 @@ export class MegaMenu extends BaseComponent implements AfterContentInit, OnDestr
             }
         }
 
-        const itemIndex = this.focusedItemInfo().index !== -1 ? this.findNextItemIndex(this.focusedItemInfo().index) : this.findFirstFocusedItemIndex();
+        const itemIndex =
+            this.focusedItemInfo().index !== -1 ? this.findNextItemIndex(this.focusedItemInfo().index) : this.findFirstFocusedItemIndex();
         this.changeFocusedItemInfo(event, itemIndex);
         event.preventDefault();
     }
@@ -889,13 +988,21 @@ export class MegaMenu extends BaseComponent implements AfterContentInit, OnDestr
 
                     if (grouped) {
                         this.onItemChange({ originalEvent: event, processedItem });
-                        this.focusedItemInfo.set({ index: -1, key: processedItem.key, parentKey: processedItem.parentKey, item: processedItem.item });
+                        this.focusedItemInfo.set({
+                            index: -1,
+                            key: processedItem.key,
+                            parentKey: processedItem.parentKey,
+                            item: processedItem.item,
+                        });
                         this.searchValue = '';
                     }
                 }
             }
 
-            const itemIndex = this.focusedItemInfo().index !== -1 ? this.findNextItemIndex(this.focusedItemInfo().index) : this.findFirstFocusedItemIndex();
+            const itemIndex =
+                this.focusedItemInfo().index !== -1
+                    ? this.findNextItemIndex(this.focusedItemInfo().index)
+                    : this.findFirstFocusedItemIndex();
 
             this.changeFocusedItemInfo(event, itemIndex);
         } else {
@@ -916,7 +1023,12 @@ export class MegaMenu extends BaseComponent implements AfterContentInit, OnDestr
 
                 if (!grouped && ObjectUtils.isNotEmpty(this.activeItem)) {
                     if (this.focusedItemInfo().index === 0) {
-                        this.focusedItemInfo.set({ index: this.activeItem().index, key: this.activeItem().key, parentKey: this.activeItem().parentKey, item: processedItem.item });
+                        this.focusedItemInfo.set({
+                            index: this.activeItem().index,
+                            key: this.activeItem().key,
+                            parentKey: this.activeItem().parentKey,
+                            item: processedItem.item,
+                        });
                         this.activeItem.set(null);
                     } else {
                         this.changeFocusedItemInfo(event, this.findFirstItemIndex());
@@ -926,7 +1038,10 @@ export class MegaMenu extends BaseComponent implements AfterContentInit, OnDestr
 
             event.preventDefault();
         } else {
-            const itemIndex = this.focusedItemInfo().index !== -1 ? this.findPrevItemIndex(this.focusedItemInfo().index) : this.findLastFocusedItemIndex();
+            const itemIndex =
+                this.focusedItemInfo().index !== -1
+                    ? this.findPrevItemIndex(this.focusedItemInfo().index)
+                    : this.findLastFocusedItemIndex();
 
             this.changeFocusedItemInfo(event, itemIndex);
             event.preventDefault();
@@ -939,14 +1054,22 @@ export class MegaMenu extends BaseComponent implements AfterContentInit, OnDestr
 
         if (grouped) {
             if (this.orientation === 'horizontal') {
-                const itemIndex = this.focusedItemInfo().index !== -1 ? this.findPrevItemIndex(this.focusedItemInfo().index) : this.findLastFocusedItemIndex();
+                const itemIndex =
+                    this.focusedItemInfo().index !== -1
+                        ? this.findPrevItemIndex(this.focusedItemInfo().index)
+                        : this.findLastFocusedItemIndex();
 
                 this.changeFocusedItemInfo(event, itemIndex);
             }
         } else {
             if (this.orientation === 'vertical' && ObjectUtils.isNotEmpty(this.activeItem())) {
                 if (processedItem.columnIndex === 0) {
-                    this.focusedItemInfo.set({ index: this.activeItem().index, key: this.activeItem().key, parentKey: this.activeItem().parentKey, item: processedItem.item });
+                    this.focusedItemInfo.set({
+                        index: this.activeItem().index,
+                        key: this.activeItem().key,
+                        parentKey: this.activeItem().parentKey,
+                        item: processedItem.item,
+                    });
                     this.activeItem.set(null);
                 }
             }
@@ -1024,13 +1147,19 @@ export class MegaMenu extends BaseComponent implements AfterContentInit, OnDestr
     }
 
     findPrevItemIndex(index: number) {
-        const matchedItemIndex = index > 0 ? ObjectUtils.findLastIndex(this.visibleItems.slice(0, index), (processedItem) => this.isValidItem(processedItem)) : -1;
+        const matchedItemIndex =
+            index > 0
+                ? ObjectUtils.findLastIndex(this.visibleItems.slice(0, index), (processedItem) => this.isValidItem(processedItem))
+                : -1;
 
         return matchedItemIndex > -1 ? matchedItemIndex : index;
     }
 
     findNextItemIndex(index: number) {
-        const matchedItemIndex = index < this.visibleItems.length - 1 ? this.visibleItems.slice(index + 1).findIndex((processedItem) => this.isValidItem(processedItem)) : -1;
+        const matchedItemIndex =
+            index < this.visibleItems.length - 1
+                ? this.visibleItems.slice(index + 1).findIndex((processedItem) => this.isValidItem(processedItem))
+                : -1;
 
         return matchedItemIndex > -1 ? matchedItemIndex + index + 1 : index;
     }
@@ -1049,7 +1178,8 @@ export class MegaMenu extends BaseComponent implements AfterContentInit, OnDestr
         if (isPlatformBrowser(this.platformId)) {
             if (!this.outsideClickListener) {
                 this.outsideClickListener = this.renderer.listen(this.document, 'click', (event) => {
-                    const isOutsideContainer = this.rootmenu?.el.nativeElement !== event.target && !this.rootmenu?.el.nativeElement.contains(event.target);
+                    const isOutsideContainer =
+                        this.rootmenu?.el.nativeElement !== event.target && !this.rootmenu?.el.nativeElement.contains(event.target);
 
                     if (isOutsideContainer) {
                         this.hide();
@@ -1083,6 +1213,6 @@ export class MegaMenu extends BaseComponent implements AfterContentInit, OnDestr
 @NgModule({
     imports: [CommonModule, RouterModule, RippleModule, TooltipModule, SharedModule, AngleDownIcon, AngleRightIcon, BadgeModule],
     exports: [MegaMenu, RouterModule, TooltipModule, SharedModule],
-    declarations: [MegaMenu, MegaMenuSub]
+    declarations: [MegaMenu, MegaMenuSub],
 })
 export class MegaMenuModule {}

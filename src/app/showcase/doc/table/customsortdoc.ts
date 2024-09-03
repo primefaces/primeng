@@ -8,7 +8,8 @@ import { ProductService } from '@service/productservice';
     selector: 'custom-sort-doc',
     template: ` <app-docsectiontext>
             <p>
-                Instead of using the built-in sorting algorithm a custom sort can be attached by enabling <i>customSort</i> property and defining a sortFunction implementation. This function gets a SortEvent instance that provides the data to sort,
+                Instead of using the built-in sorting algorithm a custom sort can be attached by enabling <i>customSort</i> property and
+                defining a sortFunction implementation. This function gets a SortEvent instance that provides the data to sort,
                 <i>sortField</i>, <i>sortOrder</i> and <i>multiSortMeta</i>.
             </p>
         </app-docsectiontext>
@@ -37,14 +38,14 @@ import { ProductService } from '@service/productservice';
             </div>
         </p-deferred-demo>
         <app-code [code]="code" selector="table-custom-sort-demo" [extFiles]="extFiles"></app-code>`,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CustomSortDoc {
     products!: Product[];
 
     constructor(
         private productService: ProductService,
-        private cd: ChangeDetectorRef
+        private cd: ChangeDetectorRef,
     ) {}
 
     loadDemoData() {
@@ -164,7 +165,7 @@ export class TableCustomSortDemo implements OnInit {
     rating: 5
 },
 ...`,
-        service: ['ProductService']
+        service: ['ProductService'],
     };
 
     extFiles = [
@@ -182,7 +183,7 @@ export interface Product {
     category?: string;
     image?: string;
     rating?: number;
-}`
-        }
+}`,
+        },
     ];
 }

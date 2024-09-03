@@ -10,10 +10,9 @@ import { InputTextModule } from 'primeng/inputtext';
 import { FluidModule } from 'primeng/fluid';
 import { AccessibilityDoc } from './accessibilitydoc';
 
-
 @NgModule({
     imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, FormsModule, InputTextModule, FluidModule],
     declarations: [BasicDoc, ImportDoc, AccessibilityDoc],
-    exports: [AppDocModule]
+    exports: [AppDocModule],
 })
 export class FluidDocModule {}

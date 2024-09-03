@@ -24,7 +24,7 @@ import { NodeService } from '@service/nodeservice';
         </div>
         <app-code [code]="code" selector="tree-events-demo"></app-code>
     `,
-    providers: [MessageService]
+    providers: [MessageService],
 })
 export class EventDoc implements OnInit {
     files!: TreeNode[];
@@ -33,7 +33,7 @@ export class EventDoc implements OnInit {
 
     constructor(
         private nodeService: NodeService,
-        private messageService: MessageService
+        private messageService: MessageService,
     ) {}
 
     ngOnInit() {
@@ -150,6 +150,6 @@ export class TreeEventsDemo implements OnInit {
         }
     ]
 },
-...`
+...`,
     };
 }

@@ -75,7 +75,7 @@ const theme = ({ dt }) => `
 const classes = {
     root: 'p-tooltip p-component',
     arrow: 'p-tooltip-arrow',
-    text: 'p-tooltip-text'
+    text: 'p-tooltip-text',
 };
 
 @Injectable()

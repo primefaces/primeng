@@ -7,34 +7,34 @@ import { AccessibilityDoc } from '@doc/dock/accessibilitydoc';
 
 @Component({
     templateUrl: './dockdemo.html',
-    styleUrls: ['./dockdemo.scss']
+    styleUrls: ['./dockdemo.scss'],
 })
 export class DockDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc
+            component: ImportDoc,
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc
+            component: BasicDoc,
         },
         {
             id: 'advanced',
             label: 'Advanced',
-            component: AdvancedDoc
+            component: AdvancedDoc,
         },
         {
             id: 'style',
             label: 'Style',
-            component: StyleDoc
+            component: StyleDoc,
         },
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc
-        }
+            component: AccessibilityDoc,
+        },
     ];
 }

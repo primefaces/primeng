@@ -7,12 +7,14 @@ import { ProductService } from '@service/productservice';
     selector: 'single-selection-doc',
     template: ` <app-docsectiontext>
             <p>
-                Single row selection is enabled by defining <i>selectionMode</i> as <i>single</i> along with a value binding using <i>selection</i> property. When available, it is suggested to provide a unique identifier of a row with
-                <i>dataKey</i> to optimize performance.
+                Single row selection is enabled by defining <i>selectionMode</i> as <i>single</i> along with a value binding using
+                <i>selection</i> property. When available, it is suggested to provide a unique identifier of a row with <i>dataKey</i> to
+                optimize performance.
             </p>
             <p>
-                By default, metaKey press (e.g. <i>⌘</i>) is necessary to unselect a row however this can be configured with disabling the <i>metaKeySelection</i> property. In touch enabled devices this option has no effect and behavior is same as
-                setting it to false.
+                By default, metaKey press (e.g. <i>⌘</i>) is necessary to unselect a row however this can be configured with disabling the
+                <i>metaKeySelection</i> property. In touch enabled devices this option has no effect and behavior is same as setting it to
+                false.
             </p>
         </app-docsectiontext>
         <p-deferred-demo (load)="loadDemoData()">
@@ -21,7 +23,14 @@ import { ProductService } from '@service/productservice';
                     <p-inputSwitch [(ngModel)]="metaKey" inputId="input-metakey" />
                     <label for="input-metakey">MetaKey</label>
                 </div>
-                <p-table [value]="products" selectionMode="single" [(selection)]="selectedProduct" [metaKeySelection]="metaKey" dataKey="id" [tableStyle]="{ 'min-width': '50rem' }">
+                <p-table
+                    [value]="products"
+                    selectionMode="single"
+                    [(selection)]="selectedProduct"
+                    [metaKeySelection]="metaKey"
+                    dataKey="id"
+                    [tableStyle]="{ 'min-width': '50rem' }"
+                >
                     <ng-template pTemplate="header">
                         <tr>
                             <th>Code</th>
@@ -42,7 +51,7 @@ import { ProductService } from '@service/productservice';
             </div>
         </p-deferred-demo>
         <app-code [code]="code" selector="table-single-selection-demo" [extFiles]="extFiles"></app-code>`,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SingleSelectionDoc {
     products!: Product[];
@@ -53,7 +62,7 @@ export class SingleSelectionDoc {
 
     constructor(
         private productService: ProductService,
-        private cd: ChangeDetectorRef
+        private cd: ChangeDetectorRef,
     ) {}
 
     loadDemoData() {
@@ -156,7 +165,7 @@ export class TableSingleSelectionDemo implements OnInit{
     rating: 5
 },
 ...`,
-        service: ['ProductService']
+        service: ['ProductService'],
     };
 
     extFiles = [
@@ -174,7 +183,7 @@ export interface Product {
     category?: string;
     image?: string;
     rating?: number;
-}`
-        }
+}`,
+        },
     ];
 }

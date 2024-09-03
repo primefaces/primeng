@@ -4,6 +4,6 @@ import { OrganizationChartDemo } from './organizationchartdemo';
 
 @NgModule({
     imports: [RouterModule.forChild([{ path: '', component: OrganizationChartDemo }])],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class OrganizationChartDemoRoutingModule {}

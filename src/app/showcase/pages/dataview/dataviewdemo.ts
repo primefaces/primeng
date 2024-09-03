@@ -10,49 +10,49 @@ import { LoadingDoc } from '@doc/dataview/loadingdoc';
 
 @Component({
     templateUrl: './dataviewdemo.html',
-    styleUrls: ['./dataviewdemo.scss']
+    styleUrls: ['./dataviewdemo.scss'],
 })
 export class DataViewDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc
+            component: ImportDoc,
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc
+            component: BasicDoc,
         },
         {
             id: 'pagination',
             label: 'Pagination',
-            component: PaginationDoc
+            component: PaginationDoc,
         },
         {
             id: 'sorting',
             label: 'Sorting',
-            component: SortingDoc
+            component: SortingDoc,
         },
         {
             id: 'layout',
             label: 'Layout',
-            component: LayoutDoc
+            component: LayoutDoc,
         },
         {
             id: 'loading',
             label: 'Loading',
-            component: LoadingDoc
+            component: LoadingDoc,
         },
         {
             id: 'style',
             label: 'Style',
-            component: StyleDoc
+            component: StyleDoc,
         },
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc
-        }
+            component: AccessibilityDoc,
+        },
     ];
 }

@@ -9,7 +9,7 @@ describe('Splitter', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule, SplitterModule]
+            imports: [NoopAnimationsModule, SplitterModule],
         });
 
         fixture = TestBed.createComponent(Splitter);

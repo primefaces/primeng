@@ -16,79 +16,79 @@ import { FilledDoc } from '@doc/inputnumber/filleddoc';
 
 @Component({
     templateUrl: './inputnumberdemo.html',
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
 })
 export class InputNumberDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc
+            component: ImportDoc,
         },
         {
             id: 'numerals',
             label: 'Numerals',
-            component: NumeralsDoc
+            component: NumeralsDoc,
         },
         {
             id: 'reactive-forms',
             label: 'Reactive Forms',
-            component: ReactiveFormsDoc
+            component: ReactiveFormsDoc,
         },
         {
             id: 'locale',
             label: 'Locale',
-            component: LocaleDoc
+            component: LocaleDoc,
         },
         {
             id: 'currency',
             label: 'Currency',
-            component: CurrencyDoc
+            component: CurrencyDoc,
         },
         {
             id: 'prefixsuffix',
             label: 'Prefix & Suffix',
-            component: PrefixSuffixDoc
+            component: PrefixSuffixDoc,
         },
         {
             id: 'buttons',
             label: 'Buttons',
-            component: ButtonsDoc
+            component: ButtonsDoc,
         },
         {
             id: 'vertical',
             label: 'Vertical',
-            component: VerticalDoc
+            component: VerticalDoc,
         },
         {
             id: 'floatlabel',
             label: 'Float Label',
-            component: FloatlabelDoc
+            component: FloatlabelDoc,
         },
         {
             id: 'filled',
             label: 'Filled',
-            component: FilledDoc
+            component: FilledDoc,
         },
         {
             id: 'invalid',
             label: 'Invalid',
-            component: InvalidDoc
+            component: InvalidDoc,
         },
         {
             id: 'disabled',
             label: 'Disabled',
-            component: DisabledDoc
+            component: DisabledDoc,
         },
         {
             id: 'style',
             label: 'Style',
-            component: StyleDoc
+            component: StyleDoc,
         },
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc
-        }
+            component: AccessibilityDoc,
+        },
     ];
 }

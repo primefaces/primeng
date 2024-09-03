@@ -5,13 +5,16 @@ import { Code } from '@domain/code';
     selector: 'datepicker-multiple-demo',
     template: `
         <app-docsectiontext>
-            <p>In order to choose multiple dates, set <i>selectionMode</i> as <i>multiple</i>. In this mode, the value binding should be an array.</p>
+            <p>
+                In order to choose multiple dates, set <i>selectionMode</i> as <i>multiple</i>. In this mode, the value binding should be an
+                array.
+            </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-datePicker [(ngModel)]="dates" selectionMode="multiple" [readonlyInput]="true" />
         </div>
         <app-code [code]="code" selector="datepicker-multiple-demo"></app-code>
-    `
+    `,
 })
 export class MultipleDoc {
     dates: Date[] | undefined;
@@ -41,6 +44,6 @@ import { DatePickerModule } from 'primeng/datepicker';
 })
 export class DatePickerMultipleDemo {
     dates: Date[] | undefined;
-}`
+}`,
     };
 }

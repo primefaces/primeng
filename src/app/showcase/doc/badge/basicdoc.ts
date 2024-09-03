@@ -11,7 +11,7 @@ import { Code } from '@domain/code';
             <p-badge [value]="2" />
         </div>
         <app-code [code]="code" selector="badge-basic-demo"></app-code>
-    `
+    `,
 })
 export class BasicDoc {
     code: Code = {
@@ -28,6 +28,6 @@ import { BadgeModule } from 'primeng/badge';
     standalone: true,
     imports: [BadgeModule]
 })
-export class BadgeBasicDemo {}`
+export class BadgeBasicDemo {}`,
     };
 }

@@ -25,7 +25,7 @@ import { Code } from '@domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="skeleton-card-demo"></app-code>
-    `
+    `,
 })
 export class CardDoc {
     code: Code = {
@@ -70,6 +70,6 @@ import { SkeletonModule } from 'primeng/skeleton';
     standalone: true,
     imports: [SkeletonModule]
 })
-export class SkeletonCardDemo {}`
+export class SkeletonCardDemo {}`,
     };
 }

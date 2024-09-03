@@ -6,6 +6,6 @@ import { PasswordDemoRoutingModule } from './passworddemo-routing.module';
 
 @NgModule({
     imports: [CommonModule, PasswordDemoRoutingModule, PasswordDocModule],
-    declarations: [PasswordDemo]
+    declarations: [PasswordDemo],
 })
 export class PasswordDemoModule {}

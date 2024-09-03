@@ -158,18 +158,18 @@ const classes = {
         'p-inputnumber-stacked': instance.showButtons && instance.buttonLayout === 'stacked',
         'p-inputnumber-horizontal': instance.showButtons && instance.buttonLayout === 'horizontal',
         'p-inputnumber-vertical': instance.showButtons && instance.buttonLayout === 'vertical',
-        'p-inputnumber-fluid': instance.hasFluid
+        'p-inputnumber-fluid': instance.hasFluid,
     }),
     pcInput: 'p-inputnumber-input',
     buttonGroup: 'p-inputnumber-button-group',
     incrementButton: ({ instance }) => ({
         'p-inputnumber-button p-inputnumber-increment-button': true,
-        'p-disabled': instance.showButtons && instance.max !== null && instance.maxlength
+        'p-disabled': instance.showButtons && instance.max !== null && instance.maxlength,
     }),
     decrementButton: ({ instance }) => ({
         'p-inputnumber-button p-inputnumber-decrement-button': true,
-        'p-disabled': instance.showButtons && instance.min !== null && instance.minlength
-    })
+        'p-disabled': instance.showButtons && instance.min !== null && instance.minlength,
+    }),
 };
 
 @Injectable()

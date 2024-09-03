@@ -11,7 +11,7 @@ import { Code } from '@domain/code';
             <p-datePicker [(ngModel)]="date" view="year" dateFormat="yy" />
         </div>
         <app-code [code]="code" selector="datepicker-year-demo"></app-code>
-    `
+    `,
 })
 export class YearDoc {
     date: Date[] | undefined;
@@ -41,6 +41,6 @@ import { DatePickerModule } from 'primeng/datepicker';
 })
 export class DatePickerYearDemo {
     date: Date[] | undefined;
-}`
+}`,
     };
 }

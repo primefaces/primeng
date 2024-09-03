@@ -14,7 +14,7 @@ import { Code } from '@domain/code';
             </p-chip>
         </div>
         <app-code [code]="code" selector="chip-template-demo"></app-code>
-    `
+    `,
 })
 export class TemplateDoc {
     code: Code = {
@@ -45,6 +45,6 @@ import { ChipModule } from 'primeng/chip';
     standalone: true,
     imports: [ChipModule]
 })
-export class ChipTemplateDemo {}`
+export class ChipTemplateDemo {}`,
     };
 }

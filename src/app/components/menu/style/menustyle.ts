@@ -91,8 +91,8 @@ const classes = {
     root: ({ props }) => [
         'p-menu p-component',
         {
-            'p-menu-overlay': props.popup
-        }
+            'p-menu-overlay': props.popup,
+        },
     ],
     start: 'p-menu-start',
     list: 'p-menu-list',
@@ -103,13 +103,13 @@ const classes = {
         'p-menu-item',
         {
             'p-focus': instance.id === instance.focusedOptionId,
-            'p-disabled': instance.disabled()
-        }
+            'p-disabled': instance.disabled(),
+        },
     ],
     itemContent: 'p-menu-item-content',
     itemLink: 'p-menu-item-link',
     itemIcon: 'p-menu-item-icon',
-    itemLabel: 'p-menu-item-label'
+    itemLabel: 'p-menu-item-label',
 };
 
 @Injectable()

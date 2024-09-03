@@ -32,7 +32,7 @@ import { Table } from 'primeng/table';
             </div>
         </p-deferred-demo>
         <app-code [code]="code" selector="table-removable-sort-demo" [extFiles]="extFiles"></app-code>`,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RemovableSortDoc {
     @ViewChild('dt') dt: Table;
@@ -214,7 +214,7 @@ export class TableRemovableSortDemo implements OnInit {
     rating: 5
 },
 ...`,
-        service: ['ProductService']
+        service: ['ProductService'],
     };
 
     extFiles = [
@@ -232,7 +232,7 @@ export interface Product {
     category?: string;
     image?: string;
     rating?: number;
-}`
-        }
+}`,
+        },
     ];
 }

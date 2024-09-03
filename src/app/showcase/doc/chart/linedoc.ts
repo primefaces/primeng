@@ -8,8 +8,8 @@ import { AppConfigService } from '@service/appconfigservice';
     template: `
         <app-docsectiontext>
             <p>
-                A line chart or line graph is a type of chart which displays information as a series of data points
-                called 'markers' connected by straight line segments.
+                A line chart or line graph is a type of chart which displays information as a series of data points called 'markers'
+                connected by straight line segments.
             </p>
         </app-docsectiontext>
         <div class="card">
@@ -46,15 +46,15 @@ export class LineDoc implements OnInit {
                         data: [65, 59, 80, 81, 56, 55, 40],
                         fill: false,
                         borderColor: documentStyle.getPropertyValue('--p-cyan-500'),
-                        tension: 0.4
+                        tension: 0.4,
                     },
                     {
                         label: 'Second Dataset',
                         data: [28, 48, 40, 19, 86, 27, 90],
                         fill: false,
                         borderColor: documentStyle.getPropertyValue('--p-gray-500'),
-                        tension: 0.4
-                    }
+                        tension: 0.4,
+                    },
                 ],
             };
 

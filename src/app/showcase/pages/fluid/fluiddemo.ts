@@ -4,24 +4,24 @@ import { BasicDoc } from '@doc/fluid/basicdoc';
 import { AccessibilityDoc } from '@doc/fluid/accessibilitydoc';
 
 @Component({
-    templateUrl: './fluiddemo.html'
+    templateUrl: './fluiddemo.html',
 })
 export class FluidDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc
+            component: ImportDoc,
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc
+            component: BasicDoc,
         },
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc
+            component: AccessibilityDoc,
         },
     ];
 }

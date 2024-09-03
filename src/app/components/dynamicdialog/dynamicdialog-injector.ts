@@ -3,7 +3,7 @@ import { InjectOptions, Injector, ProviderToken, InjectFlags } from '@angular/co
 export class DynamicDialogInjector implements Injector {
     constructor(
         private _parentInjector: Injector,
-        private _additionalTokens: WeakMap<any, any>
+        private _additionalTokens: WeakMap<any, any>,
     ) {}
 
     get<T>(token: ProviderToken<T>, notFoundValue?: T, options?: InjectOptions | InjectFlags): T {

@@ -22,7 +22,7 @@ import {
     ViewEncapsulation,
     booleanAttribute,
     inject,
-    numberAttribute
+    numberAttribute,
 } from '@angular/core';
 import { Footer, Header, PrimeTemplate, SharedModule } from 'primeng/api';
 import { ChevronDownIcon } from 'primeng/icons/chevrondown';
@@ -45,7 +45,13 @@ import { BaseComponent } from 'primeng/basecomponent';
 @Component({
     selector: 'p-carousel',
     template: `
-        <div [attr.id]="id" [ngClass]="{ 'p-carousel p-component': true, 'p-carousel-vertical': isVertical(), 'p-carousel-horizontal': !isVertical() }" [ngStyle]="style" [class]="styleClass" role="region">
+        <div
+            [attr.id]="id"
+            [ngClass]="{ 'p-carousel p-component': true, 'p-carousel-vertical': isVertical(), 'p-carousel-horizontal': !isVertical() }"
+            [ngStyle]="style"
+            [class]="styleClass"
+            role="region"
+        >
             <div class="p-carousel-header" *ngIf="headerFacet || headerTemplate">
                 <ng-content select="p-header"></ng-content>
                 <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
@@ -71,7 +77,13 @@ import { BaseComponent } from 'primeng/basecomponent';
                             <ng-template *ngTemplateOutlet="previousIconTemplate"></ng-template>
                         </span>
                     </p-button>
-                    <div class="p-carousel-viewport" [ngStyle]="{ height: isVertical() ? verticalViewPortHeight : 'auto' }" (touchend)="onTouchEnd($event)" (touchstart)="onTouchStart($event)" (touchmove)="onTouchMove($event)">
+                    <div
+                        class="p-carousel-viewport"
+                        [ngStyle]="{ height: isVertical() ? verticalViewPortHeight : 'auto' }"
+                        (touchend)="onTouchEnd($event)"
+                        (touchstart)="onTouchStart($event)"
+                        (touchmove)="onTouchMove($event)"
+                    >
                         <div #itemsContainer class="p-carousel-item-list" (transitionend)="onTransitionEnd()">
                             <div
                                 *ngFor="let item of clonedItemsForStarting; let index = index"
@@ -79,7 +91,7 @@ import { BaseComponent } from 'primeng/basecomponent';
                                     'p-carousel-item p-carousel-item-clone': true,
                                     'p-carousel-item-active': totalShiftedItems * -1 === value.length,
                                     'p-carousel-item-start': 0 === index,
-                                    'p-carousel-item-end': clonedItemsForStarting.length - 1 === index
+                                    'p-carousel-item-end': clonedItemsForStarting.length - 1 === index,
                                 }"
                                 [attr.aria-hidden]="!(totalShiftedItems * -1 === value.length)"
                                 [attr.aria-label]="ariaSlideNumber(index)"
@@ -89,7 +101,12 @@ import { BaseComponent } from 'primeng/basecomponent';
                             </div>
                             <div
                                 *ngFor="let item of value; let index = index"
-                                [ngClass]="{ 'p-carousel-item': true, 'p-carousel-item-active': firstIndex() <= index && lastIndex() >= index, 'p-carousel-item-start': firstIndex() === index, 'p-carousel-item-end': lastIndex() === index }"
+                                [ngClass]="{
+                                    'p-carousel-item': true,
+                                    'p-carousel-item-active': firstIndex() <= index && lastIndex() >= index,
+                                    'p-carousel-item-start': firstIndex() === index,
+                                    'p-carousel-item-end': lastIndex() === index,
+                                }"
                                 [attr.aria-hidden]="!(totalShiftedItems * -1 === value.length)"
                                 [attr.aria-label]="ariaSlideNumber(index)"
                                 [attr.aria-roledescription]="ariaSlideLabel()"
@@ -102,7 +119,7 @@ import { BaseComponent } from 'primeng/basecomponent';
                                     'p-carousel-item p-carousel-item-clone': true,
                                     'p-carousel-item-active': totalShiftedItems * -1 === numVisible,
                                     'p-carousel-item-start': 0 === index,
-                                    'p-carousel-item-end': clonedItemsForFinishing.length - 1 === index
+                                    'p-carousel-item-end': clonedItemsForFinishing.length - 1 === index,
                                 }"
                             >
                                 <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: item }"></ng-container>
@@ -129,8 +146,19 @@ import { BaseComponent } from 'primeng/basecomponent';
                         </span>
                     </p-button>
                 </div>
-                <ul #indicatorContent [ngClass]="'p-carousel-indicator-list'" [class]="indicatorsContentClass" [ngStyle]="indicatorsContentStyle" *ngIf="showIndicators" (keydown)="onIndicatorKeydown($event)">
-                    <li *ngFor="let totalDot of totalDotsArray(); let i = index" [ngClass]="{ 'p-carousel-indicator': true, 'p-carousel-indicator-active': _page === i }" [attr.data-pc-section]="'indicator'">
+                <ul
+                    #indicatorContent
+                    [ngClass]="'p-carousel-indicator-list'"
+                    [class]="indicatorsContentClass"
+                    [ngStyle]="indicatorsContentStyle"
+                    *ngIf="showIndicators"
+                    (keydown)="onIndicatorKeydown($event)"
+                >
+                    <li
+                        *ngFor="let totalDot of totalDotsArray(); let i = index"
+                        [ngClass]="{ 'p-carousel-indicator': true, 'p-carousel-indicator-active': _page === i }"
+                        [attr.data-pc-section]="'indicator'"
+                    >
                         <button
                             type="button"
                             [ngClass]="'p-carousel-indicator-button'"
@@ -152,7 +180,7 @@ import { BaseComponent } from 'primeng/basecomponent';
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    providers:[CarouselStyle]
+    providers: [CarouselStyle],
 })
 export class Carousel extends BaseComponent implements AfterContentInit {
     /**
@@ -318,7 +346,7 @@ export class Carousel extends BaseComponent implements AfterContentInit {
     prevState: any = {
         numScroll: 0,
         numVisible: 0,
-        value: []
+        value: [],
     };
 
     defaultNumScroll: number = 1;
@@ -379,7 +407,7 @@ export class Carousel extends BaseComponent implements AfterContentInit {
         public el: ElementRef,
         public zone: NgZone,
     ) {
-        super()
+        super();
         this.totalShiftedItems = this.page * this.numScroll * -1;
         this.window = this.document.defaultView as Window;
     }
@@ -473,7 +501,13 @@ export class Carousel extends BaseComponent implements AfterContentInit {
             const isCircular = this.isCircular();
             let totalShiftedItems = this.totalShiftedItems;
 
-            if (this.value && this.itemsContainer && (this.prevState.numScroll !== this._numScroll || this.prevState.numVisible !== this._numVisible || this.prevState.value.length !== this.value.length)) {
+            if (
+                this.value &&
+                this.itemsContainer &&
+                (this.prevState.numScroll !== this._numScroll ||
+                    this.prevState.numVisible !== this._numVisible ||
+                    this.prevState.value.length !== this.value.length)
+            ) {
                 if (this.autoplayInterval) {
                     this.stopAutoplay(false);
                 }
@@ -485,7 +519,7 @@ export class Carousel extends BaseComponent implements AfterContentInit {
                     page = this.totalDots() - 1;
                     this._page = page;
                     this.onPage.emit({
-                        page: this.page
+                        page: this.page,
                     });
                 }
 
@@ -511,7 +545,9 @@ export class Carousel extends BaseComponent implements AfterContentInit {
                 this.prevState.value = [...(this._value as any[])];
 
                 if (this.totalDots() > 0 && this.itemsContainer.nativeElement) {
-                    this.itemsContainer.nativeElement.style.transform = this.isVertical() ? `translate3d(0, ${totalShiftedItems * (100 / this._numVisible)}%, 0)` : `translate3d(${totalShiftedItems * (100 / this._numVisible)}%, 0, 0)`;
+                    this.itemsContainer.nativeElement.style.transform = this.isVertical()
+                        ? `translate3d(0, ${totalShiftedItems * (100 / this._numVisible)}%, 0)`
+                        : `translate3d(${totalShiftedItems * (100 / this._numVisible)}%, 0, 0)`;
                 }
 
                 this.isCreated = true;
@@ -561,7 +597,8 @@ export class Carousel extends BaseComponent implements AfterContentInit {
                 if (value1 == null && value2 != null) result = -1;
                 else if (value1 != null && value2 == null) result = 1;
                 else if (value1 == null && value2 == null) result = 0;
-                else if (typeof value1 === 'string' && typeof value2 === 'string') result = value1.localeCompare(value2, undefined, { numeric: true });
+                else if (typeof value1 === 'string' && typeof value2 === 'string')
+                    result = value1.localeCompare(value2, undefined, { numeric: true });
                 else result = value1 < value2 ? -1 : value1 > value2 ? 1 : 0;
 
                 return -1 * result;
@@ -587,7 +624,7 @@ export class Carousel extends BaseComponent implements AfterContentInit {
         if (this.responsiveOptions) {
             let matchedResponsiveData = {
                 numVisible: this.defaultNumVisible,
-                numScroll: this.defaultNumScroll
+                numScroll: this.defaultNumScroll,
             };
 
             if (typeof window !== 'undefined') {
@@ -616,7 +653,7 @@ export class Carousel extends BaseComponent implements AfterContentInit {
 
                 this._page = page;
                 this.onPage.emit({
-                    page: this.page
+                    page: this.page,
                 });
             }
 
@@ -762,7 +799,10 @@ export class Carousel extends BaseComponent implements AfterContentInit {
         const indicators = [...DomHandler.find(this.indicatorContent.nativeElement, '[data-pc-section="indicator"]')];
         const highlightedIndex = indicators.findIndex((ind) => DomHandler.getAttribute(ind, 'data-p-highlight') === true);
 
-        const activeIndicator = DomHandler.findSingle(this.indicatorContent.nativeElement, '[data-pc-section="indicator"] > button[tabindex="0"]');
+        const activeIndicator = DomHandler.findSingle(
+            this.indicatorContent.nativeElement,
+            '[data-pc-section="indicator"] > button[tabindex="0"]',
+        );
         const activeIndex = indicators.findIndex((ind) => ind === activeIndicator.parentElement);
 
         indicators[activeIndex].children[0].tabIndex = '-1';
@@ -771,7 +811,10 @@ export class Carousel extends BaseComponent implements AfterContentInit {
 
     findFocusedIndicatorIndex() {
         const indicators = [...DomHandler.find(this.indicatorContent.nativeElement, '[data-pc-section="indicator"]')];
-        const activeIndicator = DomHandler.findSingle(this.indicatorContent.nativeElement, '[data-pc-section="indicator"] > button[tabindex="0"]');
+        const activeIndicator = DomHandler.findSingle(
+            this.indicatorContent.nativeElement,
+            '[data-pc-section="indicator"] > button[tabindex="0"]',
+        );
 
         return indicators.findIndex((ind) => ind === activeIndicator.parentElement);
     }
@@ -819,14 +862,16 @@ export class Carousel extends BaseComponent implements AfterContentInit {
         }
 
         if (this.itemsContainer) {
-            this.itemsContainer.nativeElement.style.transform = this.isVertical() ? `translate3d(0, ${totalShiftedItems * (100 / this._numVisible)}%, 0)` : `translate3d(${totalShiftedItems * (100 / this._numVisible)}%, 0, 0)`;
+            this.itemsContainer.nativeElement.style.transform = this.isVertical()
+                ? `translate3d(0, ${totalShiftedItems * (100 / this._numVisible)}%, 0)`
+                : `translate3d(${totalShiftedItems * (100 / this._numVisible)}%, 0, 0)`;
             this.itemsContainer.nativeElement.style.transition = 'transform 500ms ease 0s';
         }
 
         this.totalShiftedItems = totalShiftedItems;
         this._page = page;
         this.onPage.emit({
-            page: this.page
+            page: this.page,
         });
         this.cd.markForCheck();
     }
@@ -865,7 +910,9 @@ export class Carousel extends BaseComponent implements AfterContentInit {
             this.itemsContainer.nativeElement.style.transition = '';
 
             if ((this.page === 0 || this.page === this.totalDots() - 1) && this.isCircular()) {
-                this.itemsContainer.nativeElement.style.transform = this.isVertical() ? `translate3d(0, ${this.totalShiftedItems * (100 / this._numVisible)}%, 0)` : `translate3d(${this.totalShiftedItems * (100 / this._numVisible)}%, 0, 0)`;
+                this.itemsContainer.nativeElement.style.transform = this.isVertical()
+                    ? `translate3d(0, ${this.totalShiftedItems * (100 / this._numVisible)}%, 0)`
+                    : `translate3d(${this.totalShiftedItems * (100 / this._numVisible)}%, 0, 0)`;
             }
         }
     }
@@ -875,7 +922,7 @@ export class Carousel extends BaseComponent implements AfterContentInit {
 
         this.startPos = {
             x: touchobj.pageX,
-            y: touchobj.pageY
+            y: touchobj.pageY,
         };
     }
 
@@ -956,6 +1003,6 @@ export class Carousel extends BaseComponent implements AfterContentInit {
 @NgModule({
     imports: [CommonModule, SharedModule, RippleModule, ChevronRightIcon, ChevronLeftIcon, ChevronDownIcon, ChevronUpIcon, ButtonModule],
     exports: [CommonModule, Carousel, SharedModule],
-    declarations: [Carousel]
+    declarations: [Carousel],
 })
 export class CarouselModule {}

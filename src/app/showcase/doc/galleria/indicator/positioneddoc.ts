@@ -7,10 +7,9 @@ import { PhotoService } from '@service/photoservice';
     template: `
         <app-docsectiontext>
             <p>
-                Indicators can be placed at four different sides using the <i>indicatorsPosition</i> property. In
-                addition, enabling <i>showIndicatorsOnItem</i> moves the indicators inside the image section.
-                <i>indicatorsPosition</i> set to <i>bottom</i> by default, accepted values are <i>top</i>, <i>left</i>,
-                <i>right</i>, and <i>bottom</i>.
+                Indicators can be placed at four different sides using the <i>indicatorsPosition</i> property. In addition, enabling
+                <i>showIndicatorsOnItem</i> moves the indicators inside the image section. <i>indicatorsPosition</i> set to <i>bottom</i> by
+                default, accepted values are <i>top</i>, <i>left</i>, <i>right</i>, and <i>bottom</i>.
             </p>
         </app-docsectiontext>
         <div class="card">

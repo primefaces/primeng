@@ -4,6 +4,6 @@ import { UIKitComponent } from './uikit.component';
 
 @NgModule({
     imports: [RouterModule.forChild([{ path: '', component: UIKitComponent }])],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class UIKitRoutingModule {}

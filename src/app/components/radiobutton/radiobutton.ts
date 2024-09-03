@@ -61,10 +61,7 @@ export class RadioControlRegistry {
             return false;
         }
 
-        return (
-            controlPair[0].control.root === (accessor as any).control.control.root &&
-            controlPair[1].name === accessor.name
-        );
+        return controlPair[0].control.root === (accessor as any).control.control.root && controlPair[1].name === accessor.name;
     }
 }
 /**
@@ -80,7 +77,7 @@ export class RadioControlRegistry {
                 'p-radiobutton p-component': true,
                 'p-radiobutton-checked': checked,
                 'p-disabled': disabled,
-                'p-variant-filled': variant === 'filled' || config.inputStyle() === 'filled'
+                'p-variant-filled': variant === 'filled' || config.inputStyle() === 'filled',
             }"
             [class]="styleClass"
             [attr.data-pc-name]="'radiobutton'"

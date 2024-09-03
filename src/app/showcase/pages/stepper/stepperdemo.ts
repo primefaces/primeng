@@ -6,39 +6,39 @@ import { LinearDoc } from '@doc/stepper/lineardoc';
 import { TemplateDoc } from '@doc/stepper/templatedoc';
 import { AccessibilityDoc } from '@doc/stepper/accessibilitydoc';
 @Component({
-    templateUrl: './stepperdemo.html'
+    templateUrl: './stepperdemo.html',
 })
 export class StepperDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc
+            component: ImportDoc,
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc
+            component: BasicDoc,
         },
         {
             id: 'vertical',
             label: 'Vertical',
-            component: VerticalDoc
+            component: VerticalDoc,
         },
         {
             id: 'linear',
             label: 'Linear',
-            component: LinearDoc
+            component: LinearDoc,
         },
         {
             id: 'template',
             label: 'Template',
-            component: TemplateDoc
+            component: TemplateDoc,
         },
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc
-        }
+            component: AccessibilityDoc,
+        },
     ];
 }

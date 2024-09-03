@@ -6,6 +6,6 @@ import { AnimateOnScrollDemo } from './animateonscrolldemo';
 
 @NgModule({
     imports: [CommonModule, AnimateOnScrollDemoRoutingModule, AnimateOnScrollDocModule],
-    declarations: [AnimateOnScrollDemo]
+    declarations: [AnimateOnScrollDemo],
 })
 export class AnimateOnScrollDemoModule {}

@@ -7,7 +7,8 @@ import { Code } from '@domain/code';
     template: `
         <app-docsectiontext>
             <p>
-                Nodes can be selected by defining <i>selectionMode</i> along with a value binding with <i>selection</i> properties. By default only one node can be selected, set <i>selectionMode</i> as <i>multiple</i> to select more than one.
+                Nodes can be selected by defining <i>selectionMode</i> along with a value binding with <i>selection</i> properties. By
+                default only one node can be selected, set <i>selectionMode</i> as <i>multiple</i> to select more than one.
             </p></app-docsectiontext
         >
         <div class="card flex justify-center overflow-x-auto">
@@ -22,7 +23,7 @@ import { Code } from '@domain/code';
             </p-organizationChart>
         </div>
         <app-code [code]="code" selector="organization-chart-selection-demo"></app-code>
-    `
+    `,
 })
 export class SelectionDoc {
     selectedNodes!: TreeNode[];
@@ -34,7 +35,7 @@ export class SelectionDoc {
             data: {
                 image: 'https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png',
                 name: 'Amy Elsner',
-                title: 'CEO'
+                title: 'CEO',
             },
             children: [
                 {
@@ -43,16 +44,16 @@ export class SelectionDoc {
                     data: {
                         image: 'https://primefaces.org/cdn/primeng/images/demo/avatar/annafali.png',
                         name: 'Anna Fali',
-                        title: 'CMO'
+                        title: 'CMO',
                     },
                     children: [
                         {
-                            label: 'Sales'
+                            label: 'Sales',
                         },
                         {
-                            label: 'Marketing'
-                        }
-                    ]
+                            label: 'Marketing',
+                        },
+                    ],
                 },
                 {
                     expanded: true,
@@ -60,19 +61,19 @@ export class SelectionDoc {
                     data: {
                         image: 'https://primefaces.org/cdn/primeng/images/demo/avatar/stephenshaw.png',
                         name: 'Stephen Shaw',
-                        title: 'CTO'
+                        title: 'CTO',
                     },
                     children: [
                         {
-                            label: 'Development'
+                            label: 'Development',
                         },
                         {
-                            label: 'UI/UX Design'
-                        }
-                    ]
-                }
-            ]
-        }
+                            label: 'UI/UX Design',
+                        },
+                    ],
+                },
+            ],
+        },
     ];
 
     code: Code = {
@@ -178,6 +179,6 @@ export class OrganizationChartSelectionDemo {
             ]
         }
     ];
-}`
+}`,
     };
 }

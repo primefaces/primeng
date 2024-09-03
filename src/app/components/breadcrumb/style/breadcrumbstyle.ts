@@ -71,7 +71,7 @@ const classes = {
     item: ({ instance }) => ['p-breadcrumb-item', { 'p-disabled': instance.disabled() }],
     itemLink: 'p-breadcrumb-item-link',
     itemIcon: 'p-breadcrumb-item-icon',
-    itemLabel: 'p-breadcrumb-item-label'
+    itemLabel: 'p-breadcrumb-item-label',
 };
 
 @Injectable()

@@ -23,8 +23,33 @@ import { FilledDoc } from './filleddoc';
 import { FluidModule } from 'primeng/fluid';
 
 @NgModule({
-    imports: [CommonModule, FormsModule, ReactiveFormsModule, InputNumberModule, RouterModule, AppCodeModule, AppDocModule, FloatLabelModule, FluidModule],
+    imports: [
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        InputNumberModule,
+        RouterModule,
+        AppCodeModule,
+        AppDocModule,
+        FloatLabelModule,
+        FluidModule,
+    ],
     exports: [AppDocModule],
-    declarations: [ImportDoc, NumeralsDoc, LocaleDoc, CurrencyDoc, PrefixSuffixDoc, ButtonsDoc, VerticalDoc, FloatlabelDoc, InvalidDoc, FilledDoc, DisabledDoc, StyleDoc, AccessibilityDoc, ReactiveFormsDoc]
+    declarations: [
+        ImportDoc,
+        NumeralsDoc,
+        LocaleDoc,
+        CurrencyDoc,
+        PrefixSuffixDoc,
+        ButtonsDoc,
+        VerticalDoc,
+        FloatlabelDoc,
+        InvalidDoc,
+        FilledDoc,
+        DisabledDoc,
+        StyleDoc,
+        AccessibilityDoc,
+        ReactiveFormsDoc,
+    ],
 })
 export class InputNumberDocModule {}

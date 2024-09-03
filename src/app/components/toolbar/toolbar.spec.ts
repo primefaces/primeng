@@ -17,7 +17,7 @@ import { ButtonModule } from '../button/button';
             <button type="button" icon="pi pi-calendar" class="p-button-success"></button>
             <button type="button" icon="pi pi-times" class="p-button-danger"></button>
         </div>
-    </p-toolbar>`
+    </p-toolbar>`,
 })
 class TestToolbarComponent {}
 
@@ -28,7 +28,7 @@ describe('Toolbar', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [NoopAnimationsModule, ButtonModule],
-            declarations: [Toolbar, TestToolbarComponent]
+            declarations: [Toolbar, TestToolbarComponent],
         });
 
         fixture = TestBed.createComponent(TestToolbarComponent);

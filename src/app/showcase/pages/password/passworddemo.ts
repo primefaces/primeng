@@ -14,74 +14,74 @@ import { ToggleMaskDoc } from '@doc/password/togglemaskdoc';
 import { FilledDoc } from '@doc/password/filleddoc';
 
 @Component({
-    templateUrl: './passworddemo.html'
+    templateUrl: './passworddemo.html',
 })
 export class PasswordDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc
+            component: ImportDoc,
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc
+            component: BasicDoc,
         },
         {
             id: 'reactive-forms',
             label: 'Reactive Forms',
-            component: ReactiveFormsDoc
+            component: ReactiveFormsDoc,
         },
         {
             id: 'meter',
             label: 'Meter',
-            component: MeterDoc
+            component: MeterDoc,
         },
         {
             id: 'locale',
             label: 'Locale',
-            component: LocaleDoc
+            component: LocaleDoc,
         },
         {
             id: 'togglemask',
             label: 'Toggle Mask',
-            component: ToggleMaskDoc
+            component: ToggleMaskDoc,
         },
         {
             id: 'template',
             label: 'Template',
-            component: TemplateDoc
+            component: TemplateDoc,
         },
         {
             id: 'floatlabel',
             label: 'Float Label',
-            component: FloatLabelDoc
+            component: FloatLabelDoc,
         },
         {
             id: 'filled',
             label: 'Filled',
-            component: FilledDoc
+            component: FilledDoc,
         },
         {
             id: 'invalid',
             label: 'Invalid',
-            component: InvalidDoc
+            component: InvalidDoc,
         },
         {
             id: 'disabled',
             label: 'Disabled',
-            component: DisabledDoc
+            component: DisabledDoc,
         },
         {
             id: 'style',
             label: 'Style',
-            component: StyleDoc
+            component: StyleDoc,
         },
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc
-        }
+            component: AccessibilityDoc,
+        },
     ];
 }

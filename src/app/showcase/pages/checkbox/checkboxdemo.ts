@@ -12,64 +12,64 @@ import { FilledDoc } from '@doc/checkbox/filleddoc';
 import { IndeterminateDoc } from '@doc/checkbox/indeterminatedoc';
 
 @Component({
-    templateUrl: './checkboxdemo.html'
+    templateUrl: './checkboxdemo.html',
 })
 export class CheckboxDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc
+            component: ImportDoc,
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc
+            component: BasicDoc,
         },
         {
             id: 'indeterminate',
             label: 'Indeterminate',
-            component: IndeterminateDoc
+            component: IndeterminateDoc,
         },
         {
             id: 'reactive-forms',
             label: 'Reactive Forms',
-            component: ReactiveFormsDoc
+            component: ReactiveFormsDoc,
         },
         {
             id: 'group',
             label: 'Group',
-            component: MultipleDoc
+            component: MultipleDoc,
         },
         {
             id: 'dynamic',
             label: 'Dynamic',
-            component: DynamicDoc
+            component: DynamicDoc,
         },
         {
             id: 'invalid',
             label: 'Invalid',
-            component: InvalidDoc
+            component: InvalidDoc,
         },
         {
             id: 'filled',
             label: 'Filled',
-            component: FilledDoc
+            component: FilledDoc,
         },
         {
             id: 'disabled',
             label: 'Disabled',
-            component: DisabledDoc
+            component: DisabledDoc,
         },
         {
             id: 'style',
             label: 'Style',
-            component: StyleDoc
+            component: StyleDoc,
         },
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc
-        }
+            component: AccessibilityDoc,
+        },
     ];
 }

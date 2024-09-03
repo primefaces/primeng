@@ -18,7 +18,7 @@ import { FloatLabelStyle } from './style/floatlabelstyle';
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    providers: [FloatLabelStyle]
+    providers: [FloatLabelStyle],
 })
 export class FloatLabel extends BaseComponent {
     _componentStyle = inject(FloatLabelStyle);
@@ -27,6 +27,6 @@ export class FloatLabel extends BaseComponent {
 @NgModule({
     imports: [CommonModule, SharedModule, RouterModule],
     exports: [FloatLabel, SharedModule],
-    declarations: [FloatLabel]
+    declarations: [FloatLabel],
 })
 export class FloatLabelModule {}

@@ -4,6 +4,6 @@ import { PasswordDemo } from './passworddemo';
 
 @NgModule({
     imports: [RouterModule.forChild([{ path: '', component: PasswordDemo }])],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class PasswordDemoRoutingModule {}

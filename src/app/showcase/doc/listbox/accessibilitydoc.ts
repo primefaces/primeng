@@ -7,8 +7,9 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <h3>Screen Reader</h3>
             <p>
-                Value to describe the component can be provided <i>ariaLabelledBy</i> or <i>ariaLabel</i> props. The list element has a <i>listbox</i> role with the <i>aria-multiselectable</i> attribute that sets to true when multiple selection is
-                enabled. Each list item has an <i>option</i> role with <i>aria-selected</i> and <i>aria-disabled</i> as their attributes.
+                Value to describe the component can be provided <i>ariaLabelledBy</i> or <i>ariaLabel</i> props. The list element has a
+                <i>listbox</i> role with the <i>aria-multiselectable</i> attribute that sets to true when multiple selection is enabled.
+                Each list item has an <i>option</i> role with <i>aria-selected</i> and <i>aria-disabled</i> as their attributes.
             </p>
         </app-docsectiontext>
 
@@ -93,13 +94,13 @@ import { Code } from '@domain/code';
                 </tbody>
             </table>
         </div>
-    </div>`
+    </div>`,
 })
 export class AccessibilityDoc {
     code: Code = {
         basic: `<span id="lb">Options</span>
 <p-listbox ariaLabelledBy="lb"/>
 
-<p-listbox ariaLabel="City"/>`
+<p-listbox ariaLabel="City"/>`,
     };
 }

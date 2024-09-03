@@ -13,6 +13,6 @@ import { AnimationDoc } from './animationdoc';
 @NgModule({
     imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, StyleClassModule, ButtonModule, InputTextModule],
     declarations: [ImportDoc, ToggleClassDoc, AnimationDoc],
-    exports: [AppDocModule]
+    exports: [AppDocModule],
 })
 export class StyleClassDocModule {}

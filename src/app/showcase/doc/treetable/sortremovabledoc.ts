@@ -51,7 +51,7 @@ interface Column {
         </div>
         <app-code [code]="code" selector="tree-table-sort-removable-demo"></app-code>
     `,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SortRemovableDoc {
     @ViewChild('tt') tt: TreeTable;
@@ -79,7 +79,7 @@ export class SortRemovableDoc {
         this.cols = [
             { field: 'name', header: 'Name' },
             { field: 'size', header: 'Size' },
-            { field: 'type', header: 'Type' }
+            { field: 'type', header: 'Type' },
         ];
     }
     customSort(event: SortEvent) {
@@ -210,6 +210,6 @@ export class TreeTableSortRemovableDemo implements OnInit {
     }
 }`,
 
-        service: ['NodeService']
+        service: ['NodeService'],
     };
 }

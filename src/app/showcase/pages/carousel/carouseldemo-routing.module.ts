@@ -4,6 +4,6 @@ import { CarouselDemo } from './carouseldemo';
 
 @NgModule({
     imports: [RouterModule.forChild([{ path: '', component: CarouselDemo }])],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class CarouselDemoRoutingModule {}

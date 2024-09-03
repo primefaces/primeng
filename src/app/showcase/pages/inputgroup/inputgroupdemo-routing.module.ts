@@ -4,6 +4,6 @@ import { InputGroupDemo } from './inputgroupdemo';
 
 @NgModule({
     imports: [RouterModule.forChild([{ path: '', component: InputGroupDemo }])],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class InputGroupDemoRoutingModule {}

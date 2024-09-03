@@ -4,6 +4,6 @@ import { ProgressSpinnerDemo } from './progressspinnerdemo';
 
 @NgModule({
     imports: [RouterModule.forChild([{ path: '', component: ProgressSpinnerDemo }])],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class ProgressSpinnerDemoRoutingModule {}

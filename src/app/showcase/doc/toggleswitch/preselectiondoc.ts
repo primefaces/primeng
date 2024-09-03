@@ -11,7 +11,7 @@ import { Code } from '@domain/code';
             <p-toggleSwitch [(ngModel)]="checked" />
         </div>
         <app-code [code]="code" selector="toggle-switch-preselection-demo"></app-code>
-    `
+    `,
 })
 export class PreselectionDoc {
     checked: boolean = true;
@@ -35,6 +35,6 @@ import { FormsModule } from '@angular/forms';
 })
 export class ToggleSwitchPreselectionDemo {
     checked: boolean = true;
-}`
+}`,
     };
 }

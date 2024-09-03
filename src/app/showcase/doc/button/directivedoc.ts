@@ -5,13 +5,16 @@ import { Code } from '@domain/code';
     selector: 'button-directive-demo',
     template: `
         <app-docsectiontext>
-            <p>Button can also be used as directive using <i>pButton</i>. In contrary of p-button component, pButton directive does not utilize ripple effect, use <i>pRipple</i> directive to enable ripple.</p>
+            <p>
+                Button can also be used as directive using <i>pButton</i>. In contrary of p-button component, pButton directive does not
+                utilize ripple effect, use <i>pRipple</i> directive to enable ripple.
+            </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
             <button pButton pRipple label="Submit" class="p-button-success"></button>
         </div>
         <app-code [code]="code" selector="button-directive-demo"></app-code>
-    `
+    `,
 })
 export class DirectiveDoc {
     code: Code = {
@@ -41,6 +44,6 @@ import { RippleModule } from 'primeng/ripple';
     standalone: true,
     imports: [ButtonModule, RippleModule]
 })
-export class ButtonDirectiveDemo { }`
+export class ButtonDirectiveDemo { }`,
     };
 }

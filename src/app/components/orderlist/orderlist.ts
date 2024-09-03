@@ -21,7 +21,7 @@ import {
     ViewEncapsulation,
     booleanAttribute,
     inject,
-    numberAttribute
+    numberAttribute,
 } from '@angular/core';
 import { FilterService, PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
@@ -47,25 +47,66 @@ import { FormsModule } from '@angular/forms';
     selector: 'p-orderList',
     template: `
         <div
-            [ngClass]="{ 'p-orderlist p-component': true, 'p-orderlist-striped': stripedRows, 'p-orderlist-controls-left': controlsPosition === 'left', 'p-orderlist-controls-right': controlsPosition === 'right' }"
+            [ngClass]="{
+                'p-orderlist p-component': true,
+                'p-orderlist-striped': stripedRows,
+                'p-orderlist-controls-left': controlsPosition === 'left',
+                'p-orderlist-controls-right': controlsPosition === 'right',
+            }"
             [ngStyle]="style"
             [class]="styleClass"
             [attr.data-pc-section]="'root'"
         >
             <div class="p-orderlist-controls" [attr.data-pc-section]="'controls'">
-                <button type="button" [disabled]="moveDisabled()" pButton pRipple class="p-button-icon-only" (click)="moveUp()" [attr.aria-label]="moveUpAriaLabel" [attr.data-pc-section]="'moveUpButton'">
+                <button
+                    type="button"
+                    [disabled]="moveDisabled()"
+                    pButton
+                    pRipple
+                    class="p-button-icon-only"
+                    (click)="moveUp()"
+                    [attr.aria-label]="moveUpAriaLabel"
+                    [attr.data-pc-section]="'moveUpButton'"
+                >
                     <AngleUpIcon *ngIf="!moveUpIconTemplate" [attr.data-pc-section]="'moveupicon'" />
                     <ng-template *ngTemplateOutlet="moveUpIconTemplate"></ng-template>
                 </button>
-                <button type="button" [disabled]="moveDisabled()" pButton pRipple class="p-button-icon-only" (click)="moveTop()" [attr.aria-label]="moveTopAriaLabel" [attr.data-pc-section]="'moveTopButton'">
+                <button
+                    type="button"
+                    [disabled]="moveDisabled()"
+                    pButton
+                    pRipple
+                    class="p-button-icon-only"
+                    (click)="moveTop()"
+                    [attr.aria-label]="moveTopAriaLabel"
+                    [attr.data-pc-section]="'moveTopButton'"
+                >
                     <AngleDoubleUpIcon *ngIf="!moveTopIconTemplate" [attr.data-pc-section]="'movetopicon'" />
                     <ng-template *ngTemplateOutlet="moveTopIconTemplate"></ng-template>
                 </button>
-                <button type="button" [disabled]="moveDisabled()" pButton pRipple class="p-button-icon-only" (click)="moveDown()" [attr.aria-label]="moveDownAriaLabel" [attr.data-pc-section]="'moveDownButton'">
+                <button
+                    type="button"
+                    [disabled]="moveDisabled()"
+                    pButton
+                    pRipple
+                    class="p-button-icon-only"
+                    (click)="moveDown()"
+                    [attr.aria-label]="moveDownAriaLabel"
+                    [attr.data-pc-section]="'moveDownButton'"
+                >
                     <AngleDownIcon *ngIf="!moveDownIconTemplate" [attr.data-pc-section]="'movedownicon'" />
                     <ng-template *ngTemplateOutlet="moveDownIconTemplate"></ng-template>
                 </button>
-                <button type="button" [disabled]="moveDisabled()" pButton pRipple class="p-button-icon-only" (click)="moveBottom()" [attr.aria-label]="moveBottomAriaLabel" [attr.data-pc-section]="'moveBottomButton'">
+                <button
+                    type="button"
+                    [disabled]="moveDisabled()"
+                    pButton
+                    pRipple
+                    class="p-button-icon-only"
+                    (click)="moveBottom()"
+                    [attr.aria-label]="moveBottomAriaLabel"
+                    [attr.data-pc-section]="'moveBottomButton'"
+                >
                     <AngleDoubleDownIcon *ngIf="!moveBottomIconTemplate" [attr.data-pc-section]="'movebottomicon'" />
                     <ng-template *ngTemplateOutlet="moveBottomIconTemplate"></ng-template>
                 </button>
@@ -102,7 +143,7 @@ import { FormsModule } from '@angular/forms';
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    providers: [OrderListStyle]
+    providers: [OrderListStyle],
 })
 export class OrderList extends BaseComponent implements AfterContentInit {
     /**
@@ -199,7 +240,8 @@ export class OrderList extends BaseComponent implements AfterContentInit {
      * Defines how the items are filtered.
      * @group Props
      */
-    @Input() filterMatchMode: 'contains' | 'startsWith' | 'endsWith' | 'equals' | 'notEquals' | 'in' | 'lt' | 'lte' | 'gt' | 'gte' = 'contains';
+    @Input() filterMatchMode: 'contains' | 'startsWith' | 'endsWith' | 'equals' | 'notEquals' | 'in' | 'lt' | 'lte' | 'gt' | 'gte' =
+        'contains';
 
     /**
      * Indicates the width of the screen at which the component should change its behavior.
@@ -375,7 +417,12 @@ export class OrderList extends BaseComponent implements AfterContentInit {
 
     public _value: any[] | undefined;
 
-    constructor(public el: ElementRef, public cd: ChangeDetectorRef, public filterService: FilterService, public config: PrimeNGConfig) {
+    constructor(
+        public el: ElementRef,
+        public cd: ChangeDetectorRef,
+        public filterService: FilterService,
+        public config: PrimeNGConfig,
+    ) {
         super();
     }
 
@@ -388,7 +435,7 @@ export class OrderList extends BaseComponent implements AfterContentInit {
         if (this.filterBy) {
             this.filterOptions = {
                 filter: (value) => this.onFilterKeyup(value),
-                reset: () => this.resetFilter()
+                reset: () => this.resetFilter(),
             };
         }
     }
@@ -502,13 +549,19 @@ export class OrderList extends BaseComponent implements AfterContentInit {
 
         this.onFilterEvent.emit({
             originalEvent: event,
-            value: this.visibleOptions as any[]
+            value: this.visibleOptions as any[],
         });
     }
 
     filter() {
         let searchFields: string[] = (this.filterBy as string).split(',');
-        this.visibleOptions = this.filterService.filter(this.value as any[], searchFields, this.filterValue, this.filterMatchMode, this.filterLocale);
+        this.visibleOptions = this.filterService.filter(
+            this.value as any[],
+            searchFields,
+            this.filterValue,
+            this.filterMatchMode,
+            this.filterLocale,
+        );
     }
 
     /**
@@ -660,7 +713,9 @@ export class OrderList extends BaseComponent implements AfterContentInit {
     }
 
     onListFocus(event) {
-        const focusableEl = DomHandler.findSingle(this.listViewChild.el.nativeElement, '[data-p-highlight="true"]') || DomHandler.findSingle(this.listViewChild.el.nativeElement, '[data-pc-section="item"]');
+        const focusableEl =
+            DomHandler.findSingle(this.listViewChild.el.nativeElement, '[data-p-highlight="true"]') ||
+            DomHandler.findSingle(this.listViewChild.el.nativeElement, '[data-pc-section="item"]');
 
         if (focusableEl) {
             const findIndex = ObjectUtils.findIndexInList(focusableEl, this.listViewChild.el.nativeElement.children);
@@ -779,7 +834,9 @@ export class OrderList extends BaseComponent implements AfterContentInit {
 
             if (lastSelectedIndex !== -1) {
                 let focusedIndex = ObjectUtils.findIndexInList(this.focusedOption, visibleOptions);
-                this.d_selection = [...visibleOptions.slice(Math.min(lastSelectedIndex, focusedIndex), Math.max(lastSelectedIndex, focusedIndex) + 1)];
+                this.d_selection = [
+                    ...visibleOptions.slice(Math.min(lastSelectedIndex, focusedIndex), Math.max(lastSelectedIndex, focusedIndex) + 1),
+                ];
                 this.selectionChange.emit(this.d_selection);
                 this.onSelectionChange.emit({ originalEvent: event, value: this.d_selection });
 
@@ -811,13 +868,21 @@ export class OrderList extends BaseComponent implements AfterContentInit {
     }
 
     getVisibleOptions() {
-        return this.visibleOptions && this.visibleOptions.length > 0 ? this.visibleOptions : this.value && this.value.length > 0 ? this.value : null;
+        return this.visibleOptions && this.visibleOptions.length > 0
+            ? this.visibleOptions
+            : this.value && this.value.length > 0
+              ? this.value
+              : null;
     }
 
     getFocusedOption(index: number) {
         if (index === -1) return null;
 
-        return this.visibleOptions && this.visibleOptions.length ? this.visibleOptions[index] : this.value && this.value.length ? this.value[index] : null;
+        return this.visibleOptions && this.visibleOptions.length
+            ? this.visibleOptions[index]
+            : this.value && this.value.length
+              ? this.value[index]
+              : null;
     }
 
     changeFocusedOptionIndex(index) {
@@ -842,14 +907,20 @@ export class OrderList extends BaseComponent implements AfterContentInit {
     findNextItem(item: any): HTMLElement | null {
         let nextItem = item.nextElementSibling;
 
-        if (nextItem) return !DomHandler.hasClass(nextItem, 'p-orderlist-item') || DomHandler.isHidden(nextItem) ? this.findNextItem(nextItem) : nextItem;
+        if (nextItem)
+            return !DomHandler.hasClass(nextItem, 'p-orderlist-item') || DomHandler.isHidden(nextItem)
+                ? this.findNextItem(nextItem)
+                : nextItem;
         else return null;
     }
 
     findPrevItem(item: any): HTMLElement | null {
         let prevItem = item.previousElementSibling;
 
-        if (prevItem) return !DomHandler.hasClass(prevItem, 'p-orderlist-item') || DomHandler.isHidden(prevItem) ? this.findPrevItem(prevItem) : prevItem;
+        if (prevItem)
+            return !DomHandler.hasClass(prevItem, 'p-orderlist-item') || DomHandler.isHidden(prevItem)
+                ? this.findPrevItem(prevItem)
+                : prevItem;
         else return null;
     }
 
@@ -915,8 +986,21 @@ export class OrderList extends BaseComponent implements AfterContentInit {
 }
 
 @NgModule({
-    imports: [CommonModule, ButtonModule, SharedModule, RippleModule, DragDropModule, AngleDoubleDownIcon, AngleDoubleUpIcon, AngleUpIcon, AngleDownIcon, SearchIcon, ListboxModule, FormsModule],
+    imports: [
+        CommonModule,
+        ButtonModule,
+        SharedModule,
+        RippleModule,
+        DragDropModule,
+        AngleDoubleDownIcon,
+        AngleDoubleUpIcon,
+        AngleUpIcon,
+        AngleDownIcon,
+        SearchIcon,
+        ListboxModule,
+        FormsModule,
+    ],
     exports: [OrderList, SharedModule, DragDropModule, ListboxModule],
-    declarations: [OrderList]
+    declarations: [OrderList],
 })
 export class OrderListModule {}

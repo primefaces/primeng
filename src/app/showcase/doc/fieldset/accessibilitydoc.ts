@@ -6,11 +6,16 @@ import { Component } from '@angular/core';
         <app-docsectiontext>
             <h3>Screen Reader</h3>
             <p>
-                Fieldset component uses the semantic <i>fieldset</i> element. When toggleable option is enabled, a clickable element with <i>button</i> role is included inside the <i>legend</i> element, this button has <i>aria-controls</i> to define
-                the id of the content section along with <i>aria-expanded</i> for the visibility state. The value to read the button defaults to the value of the <i>legend</i> property and can be customized by defining an <i>aria-label</i> or
-                <i>aria-labelledby</i> via the <i>toggleButtonProps</i> property.
+                Fieldset component uses the semantic <i>fieldset</i> element. When toggleable option is enabled, a clickable element with
+                <i>button</i> role is included inside the <i>legend</i> element, this button has <i>aria-controls</i> to define the id of
+                the content section along with <i>aria-expanded</i> for the visibility state. The value to read the button defaults to the
+                value of the <i>legend</i> property and can be customized by defining an <i>aria-label</i> or <i>aria-labelledby</i> via the
+                <i>toggleButtonProps</i> property.
             </p>
-            <p>The content uses <i>region</i>, defines an id that matches the <i>aria-controls</i> of the content toggle button and <i>aria-labelledby</i> referring to the id of the header.</p>
+            <p>
+                The content uses <i>region</i>, defines an id that matches the <i>aria-controls</i> of the content toggle button and
+                <i>aria-labelledby</i> referring to the id of the header.
+            </p>
             <h3>Content Toggle Button Keyboard Support</h3>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
@@ -41,6 +46,6 @@ import { Component } from '@angular/core';
                 </table>
             </div>
         </app-docsectiontext>
-    </div>`
+    </div>`,
 })
 export class AccessibilityDoc {}

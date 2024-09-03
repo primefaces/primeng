@@ -8,7 +8,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { MenuItem } from 'primeng/api';
 
 @Component({
-    template: `<p-steps [model]="items"></p-steps> `
+    template: `<p-steps [model]="items"></p-steps> `,
 })
 class TestStepsComponent {
     items: MenuItem[];
@@ -23,26 +23,26 @@ class TestStepsComponent {
                 label: 'Personal',
                 command: (event: any) => {
                     this.activeIndex = 0;
-                }
+                },
             },
             {
                 label: 'Seat',
                 command: (event: any) => {
                     this.activeIndex = 1;
-                }
+                },
             },
             {
                 label: 'Payment',
                 command: (event: any) => {
                     this.activeIndex = 2;
-                }
+                },
             },
             {
                 label: 'Confirmation',
                 command: (event: any) => {
                     this.activeIndex = 3;
-                }
-            }
+                },
+            },
         ];
     }
 }
@@ -56,7 +56,7 @@ describe('Steps', () => {
         TestBed.configureTestingModule({
             schemas: [NO_ERRORS_SCHEMA],
             imports: [NoopAnimationsModule, RouterTestingModule, StepsModule],
-            declarations: [Toast, TestStepsComponent]
+            declarations: [Toast, TestStepsComponent],
         });
 
         fixture = TestBed.createComponent(TestStepsComponent);

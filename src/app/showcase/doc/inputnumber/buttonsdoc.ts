@@ -6,33 +6,19 @@ import { Code } from '@domain/code';
     template: `
         <app-docsectiontext>
             <p>
-                Spinner buttons are enabled using the <i>showButtons</i> options and layout is defined with the
-                <i>buttonLayout</i>. Default value is "stacked" whereas "horizontal" and "stacked" are alternatives.
-                Note that even there are no buttons, up and down arrow keys can be used to spin the values with
-                keyboard.
+                Spinner buttons are enabled using the <i>showButtons</i> options and layout is defined with the <i>buttonLayout</i>. Default
+                value is "stacked" whereas "horizontal" and "stacked" are alternatives. Note that even there are no buttons, up and down
+                arrow keys can be used to spin the values with keyboard.
             </p>
         </app-docsectiontext>
         <p-fluid class="card flex flex-wrap gap-4">
             <div class="flex-auto">
                 <label class="mb-2 block font-bold" for="stacked">Stacked</label>
-                <p-inputNumber
-                    [(ngModel)]="value1"
-                    [showButtons]="true"
-                    inputId="stacked"
-                    mode="currency"
-                    currency="USD"
-                />
+                <p-inputNumber [(ngModel)]="value1" [showButtons]="true" inputId="stacked" mode="currency" currency="USD" />
             </div>
             <div class="flex-auto">
                 <label class="mb-2 block font-bold" for="minmax-buttons">Min-Max Boundaries</label>
-                <p-inputNumber
-                    [(ngModel)]="value2"
-                    mode="decimal"
-                    [showButtons]="true"
-                    inputId="minmax-buttons"
-                    [min]="0"
-                    [max]="100"
-                />
+                <p-inputNumber [(ngModel)]="value2" mode="decimal" [showButtons]="true" inputId="minmax-buttons" [min]="0" [max]="100" />
             </div>
             <div class="flex-auto">
                 <label class="mb-2 block font-bold" for="horizontal">Horizontal with Step</label>

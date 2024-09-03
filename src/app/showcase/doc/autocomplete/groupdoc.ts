@@ -10,19 +10,32 @@ interface AutoCompleteCompleteEvent {
 @Component({
     selector: 'grouped-doc',
     template: ` <app-docsectiontext>
-            <p>Option grouping is enabled when <i>group</i> property is set to <i>true</i>. <i>group</i> template is available to customize the option groups. All templates get the option instance as the default local template variable.</p>
+            <p>
+                Option grouping is enabled when <i>group</i> property is set to <i>true</i>. <i>group</i> template is available to customize
+                the option groups. All templates get the option instance as the default local template variable.
+            </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-autoComplete [(ngModel)]="selectedCity" [group]="true" [suggestions]="filteredGroups" (completeMethod)="filterGroupedCity($event)" placeholder="Hint: type 'a'">
+            <p-autoComplete
+                [(ngModel)]="selectedCity"
+                [group]="true"
+                [suggestions]="filteredGroups"
+                (completeMethod)="filterGroupedCity($event)"
+                placeholder="Hint: type 'a'"
+            >
                 <ng-template let-group pTemplate="group">
                     <div class="flex items-center">
-                        <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'mr-2 flag flag-' + group.value" style="width: 20px" />
+                        <img
+                            src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
+                            [class]="'mr-2 flag flag-' + group.value"
+                            style="width: 20px"
+                        />
                         <span>{{ group.label }}</span>
                     </div>
                 </ng-template>
             </p-autoComplete>
         </div>
-        <app-code [code]="code" selector="autocomplete-grouped-demo"></app-code>`
+        <app-code [code]="code" selector="autocomplete-grouped-demo"></app-code>`,
 })
 export class GroupDoc implements OnInit {
     selectedCity: any;
@@ -42,8 +55,8 @@ export class GroupDoc implements OnInit {
                     { label: 'Berlin', value: 'Berlin' },
                     { label: 'Frankfurt', value: 'Frankfurt' },
                     { label: 'Hamburg', value: 'Hamburg' },
-                    { label: 'Munich', value: 'Munich' }
-                ]
+                    { label: 'Munich', value: 'Munich' },
+                ],
             },
             {
                 label: 'USA',
@@ -52,8 +65,8 @@ export class GroupDoc implements OnInit {
                     { label: 'Chicago', value: 'Chicago' },
                     { label: 'Los Angeles', value: 'Los Angeles' },
                     { label: 'New York', value: 'New York' },
-                    { label: 'San Francisco', value: 'San Francisco' }
-                ]
+                    { label: 'San Francisco', value: 'San Francisco' },
+                ],
             },
             {
                 label: 'Japan',
@@ -62,9 +75,9 @@ export class GroupDoc implements OnInit {
                     { label: 'Kyoto', value: 'Kyoto' },
                     { label: 'Osaka', value: 'Osaka' },
                     { label: 'Tokyo', value: 'Tokyo' },
-                    { label: 'Yokohama', value: 'Yokohama' }
-                ]
-            }
+                    { label: 'Yokohama', value: 'Yokohama' },
+                ],
+            },
         ];
     }
 
@@ -78,7 +91,7 @@ export class GroupDoc implements OnInit {
                 filteredGroups.push({
                     label: optgroup.label,
                     value: optgroup.value,
-                    items: filteredSubOptions
+                    items: filteredSubOptions,
                 });
             }
         }
@@ -197,6 +210,6 @@ export class AutocompleteGroupedDemo implements OnInit {
 
         this.filteredGroups = filteredGroups;
     }
-}`
+}`,
     };
 }

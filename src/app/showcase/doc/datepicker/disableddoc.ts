@@ -11,7 +11,7 @@ import { Code } from '@domain/code';
             <p-datePicker [(ngModel)]="date" [disabled]="true" />
         </div>
         <app-code [code]="code" selector="datepicker-disabled-demo"></app-code>
-    `
+    `,
 })
 export class DisabledDoc {
     date: Date | undefined;
@@ -39,6 +39,6 @@ import { DatePickerModule } from 'primeng/datepicker';
 })
 export class DatePickerDisabledDemo {
     date: Date | undefined;
-}`
+}`,
     };
 }

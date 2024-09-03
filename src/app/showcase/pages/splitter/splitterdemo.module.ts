@@ -6,6 +6,6 @@ import { SplitterDemoRoutingModule } from './splitterdemo-routing.module';
 
 @NgModule({
     imports: [CommonModule, SplitterDemoRoutingModule, SplitterDocModule],
-    declarations: [SplitterDemo]
+    declarations: [SplitterDemo],
 })
 export class SplitterDemoModule {}

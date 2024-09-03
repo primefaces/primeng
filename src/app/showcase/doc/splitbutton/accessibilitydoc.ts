@@ -6,11 +6,16 @@ import { Code } from '@domain/code';
     template: ` <app-docsectiontext>
             <h3>Screen Reader</h3>
             <p>
-                SplitButton component renders two native button elements, main button uses the label property to define <i>aria-label</i> by default which can be customized with <i>buttonProps</i>. Dropdown button requires an explicit definition to
-                describe it using <i>menuButtonProps</i> option and also includes <i>aria-haspopup</i>, <i>aria-expanded</i> for states along with <i>aria-controls</i> to define the relation between the popup and the button.
+                SplitButton component renders two native button elements, main button uses the label property to define <i>aria-label</i> by
+                default which can be customized with <i>buttonProps</i>. Dropdown button requires an explicit definition to describe it
+                using <i>menuButtonProps</i> option and also includes <i>aria-haspopup</i>, <i>aria-expanded</i> for states along with
+                <i>aria-controls</i> to define the relation between the popup and the button.
             </p>
 
-            <p>The popup overlay uses <i>menu</i> role on the list and each action item has a <i>menuitem</i> role with an <i>aria-label</i> as the menuitem label. The id of the menu refers to the <i>aria-controls</i> of the dropdown button.</p>
+            <p>
+                The popup overlay uses <i>menu</i> role on the list and each action item has a <i>menuitem</i> role with an
+                <i>aria-label</i> as the menuitem label. The id of the menu refers to the <i>aria-controls</i> of the dropdown button.
+            </p>
         </app-docsectiontext>
 
         <app-code [code]="code" [hideToggleCode]="true" [hideStackBlitz]="true" [hideCodeSandbox]="true"></app-code>
@@ -127,12 +132,12 @@ import { Code } from '@domain/code';
                     </tr>
                 </tbody>
             </table>
-        </div>`
+        </div>`,
 })
 export class AccessibilityDoc {
     code: Code = {
         basic: `<p-splitButton 
     [buttonProps]="{'aria-label': 'Default Action'}" 
-    [menuButtonProps]="{'aria-label': 'More Options'}" />`
+    [menuButtonProps]="{'aria-label': 'More Options'}" />`,
     };
 }

@@ -34,12 +34,7 @@ export class PrimeNGConfig extends ThemeProvider {
             FilterMatchMode.GREATER_THAN,
             FilterMatchMode.GREATER_THAN_OR_EQUAL_TO,
         ],
-        date: [
-            FilterMatchMode.DATE_IS,
-            FilterMatchMode.DATE_IS_NOT,
-            FilterMatchMode.DATE_BEFORE,
-            FilterMatchMode.DATE_AFTER,
-        ],
+        date: [FilterMatchMode.DATE_IS, FilterMatchMode.DATE_IS_NOT, FilterMatchMode.DATE_BEFORE, FilterMatchMode.DATE_AFTER],
     };
 
     public translation: Translation = {

@@ -10,7 +10,13 @@ import { CustomerService } from '@service/customerservice';
         </app-docsectiontext>
         <p-deferred-demo (load)="loadDemoData()">
             <div class="card">
-                <p-table [value]="unlockedCustomers" [frozenValue]="lockedCustomers" [scrollable]="true" scrollHeight="400px" [tableStyle]="{ 'min-width': '60rem' }">
+                <p-table
+                    [value]="unlockedCustomers"
+                    [frozenValue]="lockedCustomers"
+                    [scrollable]="true"
+                    scrollHeight="400px"
+                    [tableStyle]="{ 'min-width': '60rem' }"
+                >
                     <ng-template pTemplate="header">
                         <tr>
                             <th>Name</th>
@@ -27,7 +33,14 @@ import { CustomerService } from '@service/customerservice';
                             <td>{{ customer.company }}</td>
                             <td>{{ customer.representative.name }}</td>
                             <td>
-                                <button pButton pRipple type="button" [icon]="'pi pi-lock-open'" (click)="toggleLock(customer, true, index)" class="p-button-sm p-button-text"></button>
+                                <button
+                                    pButton
+                                    pRipple
+                                    type="button"
+                                    [icon]="'pi pi-lock-open'"
+                                    (click)="toggleLock(customer, true, index)"
+                                    class="p-button-sm p-button-text"
+                                ></button>
                             </td>
                         </tr>
                     </ng-template>
@@ -38,7 +51,15 @@ import { CustomerService } from '@service/customerservice';
                             <td>{{ customer.company }}</td>
                             <td>{{ customer.representative.name }}</td>
                             <td>
-                                <button pButton pRipple type="button" [icon]="'pi pi-lock'" [disabled]="lockedCustomers.length >= 2" (click)="toggleLock(customer, false, index)" class="p-button-sm p-button-text"></button>
+                                <button
+                                    pButton
+                                    pRipple
+                                    type="button"
+                                    [icon]="'pi pi-lock'"
+                                    [disabled]="lockedCustomers.length >= 2"
+                                    (click)="toggleLock(customer, false, index)"
+                                    class="p-button-sm p-button-text"
+                                ></button>
                             </td>
                         </tr>
                     </ng-template>
@@ -46,7 +67,7 @@ import { CustomerService } from '@service/customerservice';
             </div>
         </p-deferred-demo>
         <app-code [code]="code" selector="table-frozen-rows-demo" [extFiles]="extFiles"></app-code>`,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FrozenRowsDoc {
     unlockedCustomers!: Customer[];
@@ -55,7 +76,7 @@ export class FrozenRowsDoc {
 
     constructor(
         private customerService: CustomerService,
-        private cd: ChangeDetectorRef
+        private cd: ChangeDetectorRef,
     ) {}
 
     loadDemoData() {
@@ -70,7 +91,7 @@ export class FrozenRowsDoc {
                 name: 'Geraldine Bisset',
                 country: {
                     name: 'France',
-                    code: 'fr'
+                    code: 'fr',
                 },
                 company: 'Bisset Group',
                 status: 'proposal',
@@ -78,9 +99,9 @@ export class FrozenRowsDoc {
                 activity: 0,
                 representative: {
                     name: 'Amy Elsner',
-                    image: 'amyelsner.png'
-                }
-            }
+                    image: 'amyelsner.png',
+                },
+            },
         ];
     }
 
@@ -285,7 +306,7 @@ export class TableFrozenRowsDemo implements OnInit{
     balance: 70663
 },
 ...`,
-        service: ['CustomerService']
+        service: ['CustomerService'],
     };
 
     extFiles = [
@@ -313,7 +334,7 @@ export interface Customer {
     representative?: Representative;
     verified?: boolean;
     balance?: number;
-}`
-        }
+}`,
+        },
     ];
 }

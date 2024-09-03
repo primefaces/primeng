@@ -6,6 +6,6 @@ import { ProgressSpinnerDemoRoutingModule } from './progressspinnerdemo-routing.
 
 @NgModule({
     imports: [CommonModule, ProgressSpinnerDemoRoutingModule, ProgressSpinnerDocModule],
-    declarations: [ProgressSpinnerDemo]
+    declarations: [ProgressSpinnerDemo],
 })
 export class ProgressSpinnerDemoModule {}

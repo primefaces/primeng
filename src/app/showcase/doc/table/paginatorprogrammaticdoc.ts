@@ -7,14 +7,28 @@ import { CustomerService } from '@service/customerservice';
     selector: 'paginator-programmatic-doc',
     template: `
         <app-docsectiontext>
-            <p>Paginator can also be controlled via model using a binding to the <i>first</i> property where changes trigger a pagination.</p>
+            <p>
+                Paginator can also be controlled via model using a binding to the <i>first</i> property where changes trigger a pagination.
+            </p>
         </app-docsectiontext>
         <p-deferred-demo (load)="loadDemoData()">
             <div class="card">
                 <div class="mb-4 flex gap-1">
-                    <p-button type="button" icon="pi pi-chevron-left" (click)="prev()" [disabled]="isFirstPage()" styleClass="p-button-text" />
+                    <p-button
+                        type="button"
+                        icon="pi pi-chevron-left"
+                        (click)="prev()"
+                        [disabled]="isFirstPage()"
+                        styleClass="p-button-text"
+                    />
                     <p-button type="button" icon="pi pi-refresh" (click)="reset()" styleClass="p-button-text" />
-                    <p-button type="button" icon="pi pi-chevron-right" (click)="next()" [disabled]="isLastPage()" styleClass="p-button-text" />
+                    <p-button
+                        type="button"
+                        icon="pi pi-chevron-right"
+                        (click)="next()"
+                        [disabled]="isLastPage()"
+                        styleClass="p-button-text"
+                    />
                 </div>
                 <p-table
                     [value]="customers"
@@ -48,7 +62,7 @@ import { CustomerService } from '@service/customerservice';
         </p-deferred-demo>
         <app-code [code]="code" selector="table-paginator-programmatic-demo" [extFiles]="extFiles"></app-code>
     `,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PaginatorProgrammaticDoc {
     customers!: Customer[];
@@ -59,7 +73,7 @@ export class PaginatorProgrammaticDoc {
 
     constructor(
         private customerService: CustomerService,
-        private cd: ChangeDetectorRef
+        private cd: ChangeDetectorRef,
     ) {}
 
     loadDemoData() {
@@ -275,7 +289,7 @@ export class TablePaginatorProgrammaticDemo {
     balance: 70663
 },
 ...`,
-        service: ['CustomerService']
+        service: ['CustomerService'],
     };
 
     extFiles = [
@@ -303,7 +317,7 @@ export interface Customer {
     representative?: Representative;
     verified?: boolean;
     balance?: number;
-}`
-        }
+}`,
+        },
     ];
 }

@@ -8,9 +8,18 @@ import { Tooltip, TooltipModule } from './tooltip';
 @Component({
     template: `
         <div style="margin:50px;">
-            <input type="text" pInputText pTooltip="Enter your username" [positionStyle]="positionStyle" [appendTo]="appendTo" [tooltipDisabled]="disabled" [tooltipEvent]="event" [tooltipPosition]="position" />
+            <input
+                type="text"
+                pInputText
+                pTooltip="Enter your username"
+                [positionStyle]="positionStyle"
+                [appendTo]="appendTo"
+                [tooltipDisabled]="disabled"
+                [tooltipEvent]="event"
+                [tooltipPosition]="position"
+            />
         </div>
-    `
+    `,
 })
 class TestTooltipComponent {
     position: string = 'right';
@@ -32,7 +41,7 @@ describe('Tooltip', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [NoopAnimationsModule, TooltipModule],
-            declarations: [InputText, TestTooltipComponent]
+            declarations: [InputText, TestTooltipComponent],
         });
 
         fixture = TestBed.createComponent(TestTooltipComponent);

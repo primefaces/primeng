@@ -11,7 +11,7 @@ import { Code } from '@domain/code';
             <p-progressBar [value]="50" />
         </div>
         <app-code [code]="code" selector="progress-bar-basic-demo"></app-code>
-    `
+    `,
 })
 export class BasicDoc {
     code: Code = {
@@ -28,6 +28,6 @@ import { ProgressBarModule } from 'primeng/progressbar';
     standalone: true,
     imports: [ProgressBarModule]
 })
-export class ProgressBarBasicDemo {}`
+export class ProgressBarBasicDemo {}`,
     };
 }

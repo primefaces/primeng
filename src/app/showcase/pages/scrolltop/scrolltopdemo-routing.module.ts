@@ -4,6 +4,6 @@ import { ScrollTopDemo } from './scrolltopdemo';
 
 @NgModule({
     imports: [RouterModule.forChild([{ path: '', component: ScrollTopDemo }])],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class ScrollTopDemoRoutingModule {}

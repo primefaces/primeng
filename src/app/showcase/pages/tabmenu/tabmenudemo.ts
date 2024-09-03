@@ -9,49 +9,49 @@ import { CommandDoc } from '@doc/tabmenu/commanddoc';
 import { RouterDoc } from '@doc/tabmenu/routerdoc';
 
 @Component({
-    templateUrl: './tabmenudemo.html'
+    templateUrl: './tabmenudemo.html',
 })
 export class TabMenuDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc
+            component: ImportDoc,
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc
+            component: BasicDoc,
         },
         {
             id: 'controlled',
             label: 'Controlled',
-            component: ControlledDoc
+            component: ControlledDoc,
         },
         {
             id: 'template',
             label: 'Template',
-            component: TemplateDoc
+            component: TemplateDoc,
         },
         {
             id: 'command',
             label: 'Command',
-            component: CommandDoc
+            component: CommandDoc,
         },
         {
             id: 'router',
             label: 'Router',
-            component: RouterDoc
+            component: RouterDoc,
         },
         {
             id: 'style',
             label: 'Style',
-            component: StyleDoc
+            component: StyleDoc,
         },
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc
-        }
+            component: AccessibilityDoc,
+        },
     ];
 }

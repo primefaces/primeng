@@ -6,7 +6,10 @@ import { NodeService } from '@service/nodeservice';
     selector: 'floatlabel-doc',
     template: `
         <app-docsectiontext>
-            <p>A floating label appears on top of the input field when focused. Visit <a routerLink="/floatlabel">FloatLabel</a> documentation for more information.</p>
+            <p>
+                A floating label appears on top of the input field when focused. Visit
+                <a routerLink="/floatlabel">FloatLabel</a> documentation for more information.
+            </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-floatLabel class="md:w-80 w-full">
@@ -15,7 +18,7 @@ import { NodeService } from '@service/nodeservice';
             </p-floatLabel>
         </div>
         <app-code [code]="code" selector="tree-select-floatlabel-demo"></app-code>
-    `
+    `,
 })
 export class FloatLabelDoc {
     nodes!: any[];
@@ -103,6 +106,6 @@ export class TreeSelectFloatlabelDemo {
         }
     ]
 },
-...`
+...`,
     };
 }

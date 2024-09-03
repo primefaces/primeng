@@ -6,6 +6,6 @@ import { SelectButtonDemoRoutingModule } from './selectbuttondemo-routing.module
 
 @NgModule({
     imports: [CommonModule, SelectButtonDemoRoutingModule, SelectButtonDocModule],
-    declarations: [SelectButtonDemo]
+    declarations: [SelectButtonDemo],
 })
 export class SelectButtonDemoModule {}

@@ -140,8 +140,8 @@ const inlineStyles = {
         top: 0,
         display: 'flex',
         flexDirection: 'column',
-        alignItems: instance.position === 'top' ? 'flex-start' : instance.position === 'bottom' ? 'flex-end' : 'center'
-    })
+        alignItems: instance.position === 'top' ? 'flex-start' : instance.position === 'bottom' ? 'flex-end' : 'center',
+    }),
 };
 
 const classes = {
@@ -150,17 +150,17 @@ const classes = {
         'p-overlay-mask p-overlay-mask-enter': instance.modal,
         'p-drawer-open': instance.containerVisible,
         'p-drawer-full': instance.fullScreen,
-        [`p-drawer-${instance.position}`]: !!instance.position
+        [`p-drawer-${instance.position}`]: !!instance.position,
     }),
     root: ({ instance }) => ({
         'p-drawer p-component': true,
-        'p-drawer-full': instance.fullScreen
+        'p-drawer-full': instance.fullScreen,
     }),
     header: 'p-drawer-header',
     title: 'p-drawer-title',
     pcCloseButton: 'p-drawer-close-button',
     content: 'p-drawer-content',
-    footer: 'p-drawer-footer'
+    footer: 'p-drawer-footer',
 };
 
 @Injectable()

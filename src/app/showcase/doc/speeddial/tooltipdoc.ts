@@ -6,7 +6,10 @@ import { Code } from '@domain/code';
     selector: 'tooltip-doc',
     template: `
         <app-docsectiontext>
-            <p>Items display a tooltip on hover when a standalone <a href="#" [routerLink]="['/tooltip']">Tooltip</a> is present with a target that matches the items.</p>
+            <p>
+                Items display a tooltip on hover when a standalone <a href="#" [routerLink]="['/tooltip']">Tooltip</a> is present with a
+                target that matches the items.
+            </p>
         </app-docsectiontext>
         <div class="card">
             <div style="height: 350px; position: relative;" class="speeddial-tooltip-demo">
@@ -17,7 +20,7 @@ import { Code } from '@domain/code';
         </div>
         <app-code [code]="code" selector="speed-dial-tooltip-demo"></app-code>
     `,
-    providers: [MessageService]
+    providers: [MessageService],
 })
 export class TooltipDoc implements OnInit {
     tooltipItems: MenuItem[] | undefined;
@@ -30,94 +33,94 @@ export class TooltipDoc implements OnInit {
         this.tooltipItems = [
             {
                 tooltipOptions: {
-                    tooltipLabel: 'Add'
+                    tooltipLabel: 'Add',
                 },
                 icon: 'pi pi-pencil',
                 command: () => {
                     this.messageService.add({ severity: 'info', summary: 'Add', detail: 'Data Added' });
-                }
+                },
             },
             {
                 tooltipOptions: {
-                    tooltipLabel: 'Update'
+                    tooltipLabel: 'Update',
                 },
                 icon: 'pi pi-refresh',
                 command: () => {
                     this.messageService.add({ severity: 'success', summary: 'Update', detail: 'Data Updated' });
-                }
+                },
             },
             {
                 tooltipOptions: {
-                    tooltipLabel: 'Delete'
+                    tooltipLabel: 'Delete',
                 },
                 icon: 'pi pi-trash',
                 command: () => {
                     this.messageService.add({ severity: 'error', summary: 'Delete', detail: 'Data Deleted' });
-                }
-            },
-            {
-                tooltipOptions: {
-                    tooltipLabel: 'Upload'
                 },
-                icon: 'pi pi-upload'
             },
             {
                 tooltipOptions: {
-                    tooltipLabel: 'Angular Website'
+                    tooltipLabel: 'Upload',
+                },
+                icon: 'pi pi-upload',
+            },
+            {
+                tooltipOptions: {
+                    tooltipLabel: 'Angular Website',
                 },
                 icon: 'pi pi-external-link',
                 target: '_blank',
-                url: 'http://angular.io'
-            }
+                url: 'http://angular.io',
+            },
         ];
 
         this.leftTooltipItems = [
             {
                 tooltipOptions: {
                     tooltipLabel: 'Add',
-                    tooltipPosition: 'left'
+                    tooltipPosition: 'left',
                 },
                 icon: 'pi pi-pencil',
                 command: () => {
                     this.messageService.add({ severity: 'info', summary: 'Add', detail: 'Data Added' });
-                }
+                },
             },
             {
                 tooltipOptions: {
                     tooltipLabel: 'Update',
-                    tooltipPosition: 'left'
+                    tooltipPosition: 'left',
                 },
                 icon: 'pi pi-refresh',
                 command: () => {
                     this.messageService.add({ severity: 'success', summary: 'Update', detail: 'Data Updated' });
-                }
+                },
             },
             {
                 tooltipOptions: {
                     tooltipLabel: 'Delete',
-                    tooltipPosition: 'left'
+                    tooltipPosition: 'left',
                 },
                 icon: 'pi pi-trash',
                 command: () => {
                     this.messageService.add({ severity: 'error', summary: 'Delete', detail: 'Data Deleted' });
-                }
+                },
             },
             {
                 icon: 'pi pi-upload',
                 tooltipOptions: {
                     tooltipLabel: 'Upload',
-                    tooltipPosition: 'left'
-                }
+                    tooltipPosition: 'left',
+                },
             },
             {
                 tooltipOptions: {
                     tooltipLabel: 'Angular Website',
-                    tooltipPosition: 'left'
+                    tooltipPosition: 'left',
                 },
                 icon: 'pi pi-external-link',
                 target: '_blank',
-                url: 'http://angular.io'
-            }
+                url: 'http://angular.io',
+            },
         ];
     }
 
@@ -289,6 +292,6 @@ export class SpeedDialTooltipDemo implements OnInit {
             }
         }
     }
-}`
+}`,
     };
 }

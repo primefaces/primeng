@@ -17,7 +17,7 @@ const staticMessages = {
     interfaces: 'Defines the custom interfaces used by the module.',
     types: 'Defines the custom types used by the module.',
     props: 'Defines the input properties of the component.',
-    service: 'Defines the service used by the component'
+    service: 'Defines the service used by the component',
 };
 
 async function main() {
@@ -33,7 +33,7 @@ async function main() {
         disableSources: false,
         logLevel: 'Error',
         sort: ['source-order'],
-        exclude: ['node_modules', 'src/app/components/**/*spec.ts', 'src/app/components/**/*public_api.ts']
+        exclude: ['node_modules', 'src/app/components/**/*spec.ts', 'src/app/components/**/*public_api.ts'],
     });
 
     const project = await app.convert();
@@ -60,7 +60,7 @@ async function main() {
                     if (module.groups) {
                         if (!doc[name]) {
                             doc[name] = {
-                                components: {}
+                                components: {},
                             };
                         }
                         const module_components_group = module.groups.find((g) => g.title === 'Components');
@@ -76,7 +76,7 @@ async function main() {
                                 const comment = component.comment;
 
                                 doc[name]['components'][componentName] = {
-                                    description: comment && comment.summary.map((s) => s.text || '').join(' ')
+                                    description: comment && comment.summary.map((s) => s.text || '').join(' '),
                                 };
 
                                 const component_props_group = component.groups.find((g) => g.title === 'Props');
@@ -84,7 +84,7 @@ async function main() {
                                 if (isProcessable(component_props_group)) {
                                     const props = {
                                         description: staticMessages['props'],
-                                        values: []
+                                        values: [],
                                     };
 
                                     component_props_group.children.forEach((prop) => {
@@ -92,10 +92,29 @@ async function main() {
                                             name: prop.name,
                                             optional: prop.flags.isOptional,
                                             readonly: prop.flags.isReadonly,
-                                            type: prop.getSignature && prop.getSignature.type ? prop.getSignature.type.toString() : prop.type ? prop.type.toString() : null,
-                                            default: prop.type && prop.type.name === 'boolean' && !prop.defaultValue ? 'false' : prop.defaultValue ? prop.defaultValue.replace(/^'|'$/g, '') : undefined,
-                                            description: (prop.getSignature?.comment?.summary || prop.setSignature?.comment?.summary || prop.comment?.summary)?.map((s) => s.text || '').join(' '),
-                                            deprecated: getDeprecatedText(prop.getSignature) || getDeprecatedText(prop.setSignature) || getDeprecatedText(prop)
+                                            type:
+                                                prop.getSignature && prop.getSignature.type
+                                                    ? prop.getSignature.type.toString()
+                                                    : prop.type
+                                                      ? prop.type.toString()
+                                                      : null,
+                                            default:
+                                                prop.type && prop.type.name === 'boolean' && !prop.defaultValue
+                                                    ? 'false'
+                                                    : prop.defaultValue
+                                                      ? prop.defaultValue.replace(/^'|'$/g, '')
+                                                      : undefined,
+                                            description: (
+                                                prop.getSignature?.comment?.summary ||
+                                                prop.setSignature?.comment?.summary ||
+                                                prop.comment?.summary
+                                            )
+                                                ?.map((s) => s.text || '')
+                                                .join(' '),
+                                            deprecated:
+                                                getDeprecatedText(prop.getSignature) ||
+                                                getDeprecatedText(prop.setSignature) ||
+                                                getDeprecatedText(prop),
                                         });
                                     });
                                     doc[name]['components'][componentName]['props'] = props;
@@ -105,15 +124,23 @@ async function main() {
                                 if (isProcessable(component_emits_group)) {
                                     const emits = {
                                         description: staticMessages['emits'],
-                                        values: []
+                                        values: [],
                                     };
 
                                     component_emits_group.children.forEach((emitter) => {
                                         emits.values.push({
                                             name: emitter.name,
-                                            parameters: [{ name: extractParameter(emitter) && extractParameter(emitter).includes('Event') ? 'event' : 'value', type: extractParameter(emitter) }],
+                                            parameters: [
+                                                {
+                                                    name:
+                                                        extractParameter(emitter) && extractParameter(emitter).includes('Event')
+                                                            ? 'event'
+                                                            : 'value',
+                                                    type: extractParameter(emitter),
+                                                },
+                                            ],
                                             description: emitter.comment && emitter.comment.summary.map((s) => s.text || '').join(' '),
-                                            deprecated: getDeprecatedText(emitter)
+                                            deprecated: getDeprecatedText(emitter),
                                         });
                                     });
 
@@ -124,7 +151,7 @@ async function main() {
                                 if (isProcessable(component_methods_group)) {
                                     const methods = {
                                         description: staticMessages['methods'],
-                                        values: []
+                                        values: [],
                                     };
 
                                     component_methods_group.children.forEach((method) => {
@@ -135,10 +162,10 @@ async function main() {
                                                 return {
                                                     name: param.name,
                                                     type: param.type.toString(),
-                                                    description: param.comment && param.comment.summary.map((s) => s.text || '').join(' ')
+                                                    description: param.comment && param.comment.summary.map((s) => s.text || '').join(' '),
                                                 };
                                             }),
-                                            description: signature.comment && signature.comment.summary.map((s) => s.text || '').join(' ')
+                                            description: signature.comment && signature.comment.summary.map((s) => s.text || '').join(' '),
                                         });
                                     });
 
@@ -149,7 +176,7 @@ async function main() {
                                 if (isProcessable(component_events_group)) {
                                     const events = {
                                         description: staticMessages['events'],
-                                        values: []
+                                        values: [],
                                     };
 
                                     component_events_group.children.forEach((event) => {
@@ -164,8 +191,8 @@ async function main() {
                                                     readonly: child.flags.isReadonly,
                                                     type: child.type && child.type.toString(),
                                                     description: child.comment && child.comment.summary.map((s) => s.text || '').join(' '),
-                                                    deprecated: getDeprecatedText(child)
-                                                }))
+                                                    deprecated: getDeprecatedText(child),
+                                                })),
                                         });
                                     });
 
@@ -177,7 +204,7 @@ async function main() {
                         if (isProcessable(module_events_group)) {
                             const events = {
                                 description: staticMessages['events'],
-                                values: []
+                                values: [],
                             };
 
                             module_events_group.children.forEach((event) => {
@@ -192,8 +219,8 @@ async function main() {
                                             readonly: child.flags.isReadonly,
                                             type: child.type && child.type.toString(),
                                             description: child.comment && child.comment.summary.map((s) => s.text || '').join(' '),
-                                            deprecated: getDeprecatedText(child)
-                                        }))
+                                            deprecated: getDeprecatedText(child),
+                                        })),
                                 });
                             });
 
@@ -203,7 +230,7 @@ async function main() {
                         if (isProcessable(module_templates_group)) {
                             const templates = {
                                 description: staticMessages['templates'],
-                                values: []
+                                values: [],
                             };
 
                             module_templates_group.children.forEach((template) => {
@@ -223,10 +250,16 @@ async function main() {
                                                     param.type.declaration.children.forEach((child) => {
                                                         if (child.signatures) {
                                                             const childSignature = child.signatures[0];
-                                                            const parameters = childSignature.parameters.reduce((acc, { name, type }, index) => (index === 0 ? `${name}: ${type.name}` : `${acc}, ${name}: ${type.name}`), '');
+                                                            const parameters = childSignature.parameters.reduce(
+                                                                (acc, { name, type }, index) =>
+                                                                    index === 0 ? `${name}: ${type.name}` : `${acc}, ${name}: ${type.name}`,
+                                                                '',
+                                                            );
                                                             type += ` \t ${childSignature.name}(${parameters}): ${childSignature.type?.name}, // ${childSignature.comment?.summary[0]?.text}\n `;
                                                         } else {
-                                                            const childType = child.type.elementType ? child.type.elementType.name : child.type.name;
+                                                            const childType = child.type.elementType
+                                                                ? child.type.elementType.name
+                                                                : child.type.name;
 
                                                             type += ` \t ${child.name}: ${childType}, // ${child.comment?.summary[0]?.text}\n `;
                                                         }
@@ -239,11 +272,11 @@ async function main() {
                                             return {
                                                 name: param.name,
                                                 type: type,
-                                                description: param.comment && param.comment.summary.map((s) => s.text || '').join(' ')
+                                                description: param.comment && param.comment.summary.map((s) => s.text || '').join(' '),
                                             };
                                         }),
                                         description: signature.comment && signature.comment.summary.map((s) => s.text || '').join(' '),
-                                        deprecated: getDeprecatedText(signature)
+                                        deprecated: getDeprecatedText(signature),
                                     });
                                 });
                             });
@@ -254,7 +287,7 @@ async function main() {
                         if (isProcessable(module_interface_group)) {
                             const interfaces = {
                                 description: staticMessages['interfaces'],
-                                values: []
+                                values: [],
                             };
 
                             module_interface_group.children.forEach((int) => {
@@ -269,8 +302,8 @@ async function main() {
                                             readonly: child.flags.isReadonly,
                                             type: child.type ? child.type.toString() : extractParameter(int),
                                             description: child.comment && child.comment.summary.map((s) => s.text || '').join(' '),
-                                            deprecated: getDeprecatedText(child)
-                                        }))
+                                            deprecated: getDeprecatedText(child),
+                                        })),
                                 });
                             });
 
@@ -279,7 +312,7 @@ async function main() {
 
                         if (isProcessable(module_service_group)) {
                             doc[name] = {
-                                description: staticMessages['service']
+                                description: staticMessages['service'],
                             };
 
                             module_service_group.children.forEach((service) => {
@@ -287,7 +320,7 @@ async function main() {
                                 if (isProcessable(service_methods_group)) {
                                     const methods = {
                                         description: 'Methods used in service.',
-                                        values: []
+                                        values: [],
                                     };
 
                                     service_methods_group.children.forEach((method) => {
@@ -298,11 +331,11 @@ async function main() {
                                                 return {
                                                     name: param.name,
                                                     type: param.type.toString(),
-                                                    description: param.comment && param.comment.summary.map((s) => s.text || '').join(' ')
+                                                    description: param.comment && param.comment.summary.map((s) => s.text || '').join(' '),
                                                 };
                                             }),
                                             returnType: signature.type.toString(),
-                                            description: signature.comment && signature.comment.summary.map((s) => s.text || '').join(' ')
+                                            description: signature.comment && signature.comment.summary.map((s) => s.text || '').join(' '),
                                         });
                                     });
 
@@ -314,14 +347,14 @@ async function main() {
                         if (isProcessable(module_types_group)) {
                             const types = {
                                 description: staticMessages['types'],
-                                values: []
+                                values: [],
                             };
 
                             module_types_group.children.forEach((t) => {
                                 types.values.push({
                                     name: t.name,
                                     value: getTypesValue(t),
-                                    description: t.comment.summary && t.comment.summary.map((s) => s.text || '').join(' ')
+                                    description: t.comment.summary && t.comment.summary.map((s) => s.text || '').join(' '),
                                 });
                             });
 
@@ -342,14 +375,14 @@ async function main() {
                     mergedDocs[parentKey] = {
                         ...doc[parentKey],
                         interfaces: {
-                            ...interfaceDoc
-                        }
+                            ...interfaceDoc,
+                        },
                     };
                 }
             } else {
                 if (!mergedDocs[key]) {
                     mergedDocs[key] = {
-                        ...doc[key]
+                        ...doc[key],
                     };
                 }
             }
@@ -370,7 +403,10 @@ function extractParameter(emitter) {
             return type.toString().replace(/^.*?<([^>]*)>.*$/, '$1');
         } else {
             if (!type.typeArguments[0].types && !type.typeArguments[0].type) {
-                return type.typeArguments.map((el) => ({ name: el.name.includes('Event') ? 'event' : 'value', type: el.name.replace(/[^a-zA-Z]/g, '') }));
+                return type.typeArguments.map((el) => ({
+                    name: el.name.includes('Event') ? 'event' : 'value',
+                    type: el.name.replace(/[^a-zA-Z]/g, ''),
+                }));
             }
 
             if (type.typeArguments[0].types) {
@@ -401,7 +437,7 @@ const getTypesValue = (typeobj) => {
         const signature = typeobj.getAllSignatures()[0];
         const value = signature.parameters.map((param) => {
             return {
-                [`[${param.name}:${param.type.toString()}]`]: signature.type.toString()
+                [`[${param.name}:${param.type.toString()}]`]: signature.type.toString(),
             };
         })[0];
 
@@ -414,7 +450,7 @@ const getTypesValue = (typeobj) => {
         }
         if (type.type === 'reflection' && type.declaration) {
             let values = type.declaration.children.map((child) => ({
-                [child.name]: child.type.toString()
+                [child.name]: child.type.toString(),
             }));
 
             return JSON.stringify(Object.assign({}, ...values), null, 4);

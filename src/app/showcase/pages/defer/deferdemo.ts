@@ -8,14 +8,14 @@ import { Car } from '../domain/car';
 
 @Component({
     templateUrl: './deferdemo.html',
-    providers: [MessageService]
+    providers: [MessageService],
 })
 export class DeferDemo {
     cars: Car[];
 
     constructor(
         private carService: CarService,
-        private messageService: MessageService
+        private messageService: MessageService,
     ) {}
 
     initData() {
@@ -27,17 +27,17 @@ export class DeferDemo {
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc
+            component: ImportDoc,
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc
+            component: BasicDoc,
         },
         {
             id: 'datatable',
             label: 'DataTable',
-            component: DataTableDoc
-        }
+            component: DataTableDoc,
+        },
     ];
 }

@@ -16,7 +16,15 @@ interface Column {
             <div class="card">
                 <p-table [columns]="selectedColumns" [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template pTemplate="caption">
-                        <p-multiSelect display="chip" [options]="cols" [(ngModel)]="selectedColumns" optionLabel="header" selectedItemsLabel="{0} columns selected" [style]="{ 'min-width': '200px' }" placeholder="Choose Columns" />
+                        <p-multiSelect
+                            display="chip"
+                            [options]="cols"
+                            [(ngModel)]="selectedColumns"
+                            optionLabel="header"
+                            selectedItemsLabel="{0} columns selected"
+                            [style]="{ 'min-width': '200px' }"
+                            placeholder="Choose Columns"
+                        />
                     </ng-template>
                     <ng-template pTemplate="header" let-columns>
                         <tr>
@@ -38,7 +46,7 @@ interface Column {
             </div>
         </p-deferred-demo>
         <app-code [code]="code" selector="table-column-toggle-demo" [extFiles]="extFiles"></app-code>`,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ColumnToggleDoc {
     products!: Product[];
@@ -49,7 +57,7 @@ export class ColumnToggleDoc {
 
     constructor(
         private productService: ProductService,
-        private cd: ChangeDetectorRef
+        private cd: ChangeDetectorRef,
     ) {}
 
     loadDemoData() {
@@ -61,7 +69,7 @@ export class ColumnToggleDoc {
         this.cols = [
             { field: 'name', header: 'Name' },
             { field: 'category', header: 'Category' },
-            { field: 'quantity', header: 'Quantity' }
+            { field: 'quantity', header: 'Quantity' },
         ];
 
         this.selectedColumns = this.cols;
@@ -188,7 +196,7 @@ export class TableColumnToggleDemo implements OnInit{
     rating: 5
 },
 ...`,
-        service: ['ProductService']
+        service: ['ProductService'],
     };
 
     extFiles = [
@@ -206,7 +214,7 @@ export interface Product {
     category?: string;
     image?: string;
     rating?: number;
-}`
-        }
+}`,
+        },
     ];
 }

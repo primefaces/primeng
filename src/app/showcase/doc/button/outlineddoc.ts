@@ -18,7 +18,7 @@ import { Code } from '@domain/code';
             <p-button label="Contrast" [outlined]="true" severity="contrast" />
         </div>
         <app-code [code]="code" selector="button-outlined-demo"></app-code>
-    `
+    `,
 })
 export class OutlinedDoc {
     code: Code = {
@@ -51,6 +51,6 @@ import { ButtonModule } from 'primeng/button';
     standalone: true,
     imports: [ButtonModule]
 })
-export class ButtonOutlinedDemo { }`
+export class ButtonOutlinedDemo { }`,
     };
 }

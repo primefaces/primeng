@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
             <p><a href="https://fontawesome.com/">Font Awesome</a> is a popular icon library with a wide range of icons.</p>
         </app-docsectiontext>
         <app-code [code]="code" [hideToggleCode]="true"></app-code>
-    `
+    `,
 })
 export class FontAwesomeDoc {
     code: Code = {
@@ -16,6 +16,6 @@ export class FontAwesomeDoc {
     <ng-template pTemplate="dropdownicon">
         <i class="fa-light fa-chevron-down"></i>
     </ng-template>
-</p-dropdown>`
+</p-dropdown>`,
     };
 }

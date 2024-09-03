@@ -6,7 +6,10 @@ import { Code } from '@domain/code';
     selector: 'template-doc',
     template: `
         <app-docsectiontext>
-            <p>TieredMenu offers item customization with the <i>item</i> template that receives the menuitem instance from the model as a parameter.</p>
+            <p>
+                TieredMenu offers item customization with the <i>item</i> template that receives the menuitem instance from the model as a
+                parameter.
+            </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-tieredMenu [model]="items">
@@ -15,14 +18,18 @@ import { Code } from '@domain/code';
                         <span [class]="item.icon" class="p-tieredmenu-item-icon"></span>
                         <span class="ml-2">{{ item.label }}</span>
                         <p-badge *ngIf="item.badge" class="ml-auto" [value]="item.badge" />
-                        <span *ngIf="item.shortcut" class="ml-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
+                        <span
+                            *ngIf="item.shortcut"
+                            class="ml-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1"
+                            >{{ item.shortcut }}</span
+                        >
                         <i *ngIf="hasSubmenu" class="pi pi-angle-right ml-auto"></i>
                     </a>
                 </ng-template>
             </p-tieredMenu>
         </div>
         <app-code [code]="code" selector="tiered-menu-template-demo"></app-code>
-    `
+    `,
 })
 export class TemplateDoc implements OnInit {
     items: MenuItem[] | undefined;
@@ -40,31 +47,31 @@ export class TemplateDoc implements OnInit {
                             {
                                 label: 'Document',
                                 icon: 'pi pi-file',
-                                shortcut: '⌘+N'
+                                shortcut: '⌘+N',
                             },
                             {
                                 label: 'Image',
                                 icon: 'pi pi-image',
-                                shortcut: '⌘+I'
+                                shortcut: '⌘+I',
                             },
                             {
                                 label: 'Video',
                                 icon: 'pi pi-video',
-                                shortcut: '⌘+L'
-                            }
-                        ]
+                                shortcut: '⌘+L',
+                            },
+                        ],
                     },
                     {
                         label: 'Open',
                         icon: 'pi pi-folder-open',
-                        shortcut: '⌘+O'
+                        shortcut: '⌘+O',
                     },
                     {
                         label: 'Print',
                         icon: 'pi pi-print',
-                        shortcut: '⌘+P'
-                    }
-                ]
+                        shortcut: '⌘+P',
+                    },
+                ],
             },
             {
                 label: 'Edit',
@@ -73,22 +80,22 @@ export class TemplateDoc implements OnInit {
                     {
                         label: 'Copy',
                         icon: 'pi pi-copy',
-                        shortcut: '⌘+C'
+                        shortcut: '⌘+C',
                     },
                     {
                         label: 'Delete',
                         icon: 'pi pi-times',
-                        shortcut: '⌘+D'
-                    }
-                ]
+                        shortcut: '⌘+D',
+                    },
+                ],
             },
             {
                 label: 'Search',
                 icon: 'pi pi-search',
-                shortcut: '⌘+S'
+                shortcut: '⌘+S',
             },
             {
-                separator: true
+                separator: true,
             },
             {
                 label: 'Share',
@@ -97,15 +104,15 @@ export class TemplateDoc implements OnInit {
                     {
                         label: 'Slack',
                         icon: 'pi pi-slack',
-                        badge: '2'
+                        badge: '2',
                     },
                     {
                         label: 'Whatsapp',
                         icon: 'pi pi-whatsapp',
-                        badge: '3'
-                    }
-                ]
-            }
+                        badge: '3',
+                    },
+                ],
+            },
         ];
     }
 
@@ -237,6 +244,6 @@ export class TieredMenuTemplateDemo implements OnInit {
             }
         ]
     }
-}`
+}`,
     };
 }

@@ -5,7 +5,10 @@ import { Code } from '@domain/code';
     selector: 'editor-customtoolbar-demo',
     template: `
         <app-docsectiontext>
-            <p>Editor provides a default toolbar with common options, to customize it define your elements inside the header element. Refer to <a href="http://quilljs.com/docs/modules/toolbar/">Quill documentation</a> for available controls.</p>
+            <p>
+                Editor provides a default toolbar with common options, to customize it define your elements inside the header element. Refer
+                to <a href="http://quilljs.com/docs/modules/toolbar/">Quill documentation</a> for available controls.
+            </p>
         </app-docsectiontext>
         <div class="card">
             <p-editor [(ngModel)]="text" [style]="{ height: '320px' }">
@@ -19,7 +22,7 @@ import { Code } from '@domain/code';
             </p-editor>
         </div>
         <app-code [code]="code" selector="editor-customtoolbar-demo"></app-code>
-    `
+    `,
 })
 export class CustomToolbarDoc {
     text: string = '<div>Hello World!</div><div>PrimeNG <b>Editor</b> Rocks</div><div><br></div>';
@@ -56,6 +59,6 @@ import { Component } from '@angular/core';
 })
 export class EditorCustomtoolbarDemo {
     text: string = '<div>Hello World!</div><div>PrimeNG <b>Editor</b> Rocks</div><div><br></div>';
-}`
+}`,
     };
 }

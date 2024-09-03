@@ -14,7 +14,7 @@ import { Code } from '@domain/code';
         </div>
         <app-code [code]="code" selector="progress-bar-dynamic-demo"></app-code>
     `,
-    providers: [MessageService]
+    providers: [MessageService],
 })
 export class DynamicDoc implements OnInit, OnDestroy {
     value: number = 0;
@@ -24,7 +24,7 @@ export class DynamicDoc implements OnInit, OnDestroy {
     constructor(
         private messageService: MessageService,
         private cd: ChangeDetectorRef,
-        private ngZone: NgZone
+        private ngZone: NgZone,
     ) {}
 
     ngOnInit() {
@@ -94,6 +94,6 @@ export class ProgressBarDynamicDemo implements OnInit {
             clearInterval(this.interval);
         }
     }
-}`
+}`,
     };
 }

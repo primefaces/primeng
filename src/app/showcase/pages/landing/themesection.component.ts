@@ -16,29 +16,18 @@ import { InputIconModule } from 'primeng/inputicon';
 @Component({
     selector: 'theme-section',
     standalone: true,
-    imports: [
-        CommonModule,
-        TableModule,
-        ButtonModule,
-        TagModule,
-        ProgressBarModule,
-        InputTextModule,
-        IconFieldModule,
-        InputIconModule,
-    ],
+    imports: [CommonModule, TableModule, ButtonModule, TagModule, ProgressBarModule, InputTextModule, IconFieldModule, InputIconModule],
     template: `
         <section class="landing-themes py-20">
             <div class="section-header">Components</div>
-            <p class="section-detail">
-                The most complete UI component library for Angular based on a design-agnostic infrastructure.
-            </p>
+            <p class="section-detail">The most complete UI component library for Angular based on a design-agnostic infrastructure.</p>
             <div
                 class="themes-main flex mt-16 justify-center px-8 lg:px-20"
                 [style]="{ 'background-size': 'cover' }"
                 [ngStyle]="{
                     'background-image': isDarkMode
                         ? 'url(https://primefaces.org/cdn/primeng/images/landing/wave-dark-alt-gray.svg)'
-                        : 'url(https://primefaces.org/cdn/primeng/images/landing/wave-light-alt-gray.svg)'
+                        : 'url(https://primefaces.org/cdn/primeng/images/landing/wave-light-alt-gray.svg)',
                 }"
             >
                 <div class="box overflow-hidden z-10 p-8 table-container">
@@ -142,9 +131,7 @@ import { InputIconModule } from 'primeng/inputicon';
                                     <div class="flex items-center gap-2">
                                         <img
                                             [alt]="customer.representative.name"
-                                            src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{
-                                                customer.representative.image
-                                            }}"
+                                            src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}"
                                             width="32"
                                             height="32"
                                             style="vertical-align: middle"
@@ -154,10 +141,10 @@ import { InputIconModule } from 'primeng/inputicon';
                                     </div>
                                 </td>
                                 <td style="width: 14%; min-width: 8rem">
-                                    {{ customer.date | date : 'MM/dd/yyyy' }}
+                                    {{ customer.date | date: 'MM/dd/yyyy' }}
                                 </td>
                                 <td style="width: 14%; min-width: 8rem">
-                                    {{ customer.balance | currency : 'USD' : 'symbol' }}
+                                    {{ customer.balance | currency: 'USD' : 'symbol' }}
                                 </td>
                                 <td style="width: 14%; min-width: 10rem">
                                     <p-tag
@@ -174,12 +161,7 @@ import { InputIconModule } from 'primeng/inputicon';
                                     ></p-progressBar>
                                 </td>
                                 <td style="text-align: center">
-                                    <button
-                                        pButton
-                                        type="button"
-                                        class="p-button-text p-button-icon-only"
-                                        icon="pi pi-cog"
-                                    ></button>
+                                    <button pButton type="button" class="p-button-text p-button-icon-only" icon="pi pi-cog"></button>
                                 </td>
                             </tr>
                         </ng-template>

@@ -12,7 +12,7 @@ import { Code } from '@domain/code';
             <p-tabMenu [scrollable]="true" [model]="items" [activeItem]="activeItem"></p-tabMenu>
         </div>
         <app-code [code]="code" selector="tab-menu-scrollable-demo"></app-code>
-    `
+    `,
 })
 export class ScrollableDoc implements OnInit {
     items: MenuItem[] | undefined;
@@ -61,6 +61,6 @@ import { TabMenuDemo } from './tabmenudemo';
     imports: [CommonModule, TabMenuModule],
     declarations: [TabMenuDemo]
 })
-export class TabMenuDemoModule {}`
+export class TabMenuDemoModule {}`,
     };
 }

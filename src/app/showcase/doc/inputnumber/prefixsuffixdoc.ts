@@ -6,8 +6,7 @@ import { Code } from '@domain/code';
     template: `
         <app-docsectiontext>
             <p>
-                Custom texts e.g. units can be placed before or after the input section with the <i>prefix</i> and
-                <i>suffix</i> properties.
+                Custom texts e.g. units can be placed before or after the input section with the <i>prefix</i> and <i>suffix</i> properties.
             </p>
         </app-docsectiontext>
         <p-fluid class="card flex flex-wrap gap-4">

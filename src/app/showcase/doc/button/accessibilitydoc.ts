@@ -7,8 +7,10 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <h3>Screen Reader</h3>
             <p>
-                Button component renders a native button element that implicitly includes any passed prop. Text to describe the button is defined with the <i>aria-label</i> prop, if not present <i>label</i> prop is used as the value. If the button is
-                icon only or custom templating is used, it is recommended to use <i>aria-label</i> so that screen readers would be able to read the element properly.
+                Button component renders a native button element that implicitly includes any passed prop. Text to describe the button is
+                defined with the <i>aria-label</i> prop, if not present <i>label</i> prop is used as the value. If the button is icon only
+                or custom templating is used, it is recommended to use <i>aria-label</i> so that screen readers would be able to read the
+                element properly.
             </p>
         </app-docsectiontext>
 
@@ -45,7 +47,7 @@ import { Code } from '@domain/code';
                 </tbody>
             </table>
         </div>
-    `
+    `,
 })
 export class AccessibilityDoc {
     code: Code = {
@@ -55,6 +57,6 @@ export class AccessibilityDoc {
 <p-button class="youtube p-0" aria-label="Youtube">
     <i class="pi pi-youtube px-2"></i>
     <span class="px-4">Youtube</span>
-</p-button>`
+</p-button>`,
     };
 }

@@ -6,7 +6,7 @@ import { Checkbox } from './checkbox';
 import { CheckIcon } from 'primeng/icons/check';
 
 @Component({
-    template: ` <p-checkbox [(ngModel)]="checked"> </p-checkbox> `
+    template: ` <p-checkbox [(ngModel)]="checked"> </p-checkbox> `,
 })
 class TestCheckboxComponent {
     checked: boolean = false;
@@ -20,7 +20,7 @@ describe('Checkbox', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [NoopAnimationsModule, FormsModule, CheckIcon],
-            declarations: [Checkbox, TestCheckboxComponent]
+            declarations: [Checkbox, TestCheckboxComponent],
         });
 
         fixture = TestBed.createComponent(TestCheckboxComponent);

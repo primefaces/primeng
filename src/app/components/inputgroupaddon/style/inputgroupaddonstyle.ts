@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BaseStyle } from 'primeng/base';
 
 const classes = {
-    root: 'p-inputgroupaddon'
+    root: 'p-inputgroupaddon',
 };
 
 @Injectable()

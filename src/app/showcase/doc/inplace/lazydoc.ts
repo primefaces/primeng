@@ -37,7 +37,7 @@ import { ProductService } from '@service/productservice';
             </p-inplace>
         </div>
         <app-code [code]="code" selector="inplace-lazy-demo"></app-code>
-    `
+    `,
 })
 export class LazyDoc {
     products: Product[] | undefined;
@@ -138,7 +138,7 @@ inventoryStatus: 'INSTOCK',
 rating: 5
 },
 ...`,
-        service: ['ProductService']
+        service: ['ProductService'],
     };
 
     extFiles = [
@@ -156,7 +156,7 @@ inventoryStatus?: string;
 category?: string;
 image?: string;
 rating?: number;
-}`
-        }
+}`,
+        },
     ];
 }

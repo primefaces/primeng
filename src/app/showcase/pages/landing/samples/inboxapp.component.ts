@@ -52,7 +52,7 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
                             (click)="activeInboxNav = nav.name"
                             [ngClass]="{
                                 'text-color bg-emphasis': activeInboxNav === nav.name,
-                                'text-muted-color bg-transparent': activeInboxNav !== nav.name
+                                'text-muted-color bg-transparent': activeInboxNav !== nav.name,
                             }"
                             class="px-4 py-2 rounded-lg flex items-center gap-2 cursor-pointer hover:bg-emphasis transition-all"
                         >
@@ -122,7 +122,7 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
                                         [label]="!data.image ? data.capName : ''"
                                         [ngClass]="{
                                             'bg-violet-100 text-violet-950 text-xs font-medium': !data.image,
-                                            'rounded-md overflow-hidden flex': true
+                                            'rounded-md overflow-hidden flex': true,
                                         }"
                                     />
                                 </p-overlayBadge>

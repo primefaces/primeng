@@ -6,6 +6,6 @@ import { FileUploadDemoRoutingModule } from './fileuploaddemo-routing.module';
 
 @NgModule({
     imports: [CommonModule, FileUploadDemoRoutingModule, FileUploadDocModule],
-    declarations: [FileUploadDemo]
+    declarations: [FileUploadDemo],
 })
 export class FileUploadDemoModule {}

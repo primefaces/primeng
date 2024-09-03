@@ -10,18 +10,14 @@ import { AppConfigService } from '@service/appconfigservice';
         <section class="landing-users py-20 px-4 lg:px-20">
             <div class="section-header">Who Uses</div>
             <p class="section-detail">
-                PrimeTek libraries have reached over<span
-                    class="font-semibold animated-text relative white-space-nowrap"
+                PrimeTek libraries have reached over<span class="font-semibold animated-text relative white-space-nowrap"
                     ><span>150 Million Downloads</span></span
                 >on npm! Join the PrimeLand community and experience the difference yourself.
             </p>
             <div class="flex justify-center items-center mt-6">
                 <span class="ml-2"> </span>
             </div>
-            <div
-                *ngFor="let x of users; let i = index"
-                class="logo-section relative w-full md:w-8/12 mt-12 users-container"
-            >
+            <div *ngFor="let x of users; let i = index" class="logo-section relative w-full md:w-8/12 mt-12 users-container">
                 <div class="fade-left h-24 w-24 block absolute top-0 left-0 z-20"></div>
                 <div class="marquee-wrapper overflow-hidden flex">
                     <div *ngFor="let _ of [1, 2, 3]" [ngClass]="getMarqueeClass(x.reverse)">
@@ -40,20 +36,7 @@ import { AppConfigService } from '@service/appconfigservice';
 export class UsersSectionComponent {
     constructor(private configService: AppConfigService) {}
 
-    usersData = [
-        'fox',
-        'airbus',
-        'mercedes',
-        'ebay',
-        'ford',
-        'vw',
-        'intel',
-        'unicredit',
-        'lufthansa',
-        'nvidia',
-        'verizon',
-        'amex',
-    ];
+    usersData = ['fox', 'airbus', 'mercedes', 'ebay', 'ford', 'vw', 'intel', 'unicredit', 'lufthansa', 'nvidia', 'verizon', 'amex'];
     users = null;
 
     ngOnInit() {

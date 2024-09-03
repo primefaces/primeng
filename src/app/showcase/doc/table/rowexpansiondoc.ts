@@ -9,15 +9,24 @@ import { TableRowCollapseEvent, TableRowExpandEvent } from 'primeng/table';
     selector: 'row-expansion-doc',
     template: ` <app-docsectiontext>
             <p>
-                Row expansion allows displaying detailed content for a particular row. To use this feature, add a template named rowexpansion and use the <i>pRowToggler</i> directive whose value is the row data instance on an element of your choice
-                whose click event toggles the expansion. This enables providing your custom UI such as buttons, links and so on. Example below uses an anchor with an icon as a toggler. Setting <i>pRowTogglerDisabled</i> as true disables the toggle
-                event for the element.
+                Row expansion allows displaying detailed content for a particular row. To use this feature, add a template named
+                rowexpansion and use the <i>pRowToggler</i> directive whose value is the row data instance on an element of your choice
+                whose click event toggles the expansion. This enables providing your custom UI such as buttons, links and so on. Example
+                below uses an anchor with an icon as a toggler. Setting <i>pRowTogglerDisabled</i> as true disables the toggle event for the
+                element.
             </p>
         </app-docsectiontext>
         <p-deferred-demo (load)="loadDemoData()">
             <div class="card">
                 <p-toast />
-                <p-table [value]="products" dataKey="id" [tableStyle]="{ 'min-width': '60rem' }" [expandedRowKeys]="expandedRows" (onRowExpand)="onRowExpand($event)" (onRowCollapse)="onRowCollapse($event)">
+                <p-table
+                    [value]="products"
+                    dataKey="id"
+                    [tableStyle]="{ 'min-width': '60rem' }"
+                    [expandedRowKeys]="expandedRows"
+                    (onRowExpand)="onRowExpand($event)"
+                    (onRowCollapse)="onRowCollapse($event)"
+                >
                     <ng-template pTemplate="caption">
                         <div class="flex flex-wrap justify-end gap-2">
                             <p-button label="Expand All" icon="pi pi-plus" text (onClick)="expandAll()" />
@@ -38,10 +47,25 @@ import { TableRowCollapseEvent, TableRowExpandEvent } from 'primeng/table';
                     <ng-template pTemplate="body" let-product let-expanded="expanded">
                         <tr>
                             <td>
-                                <p-button type="button" pRipple [pRowToggler]="product" [text]="true" [rounded]="true" [plain]="true" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'" />
+                                <p-button
+                                    type="button"
+                                    pRipple
+                                    [pRowToggler]="product"
+                                    [text]="true"
+                                    [rounded]="true"
+                                    [plain]="true"
+                                    [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"
+                                />
                             </td>
                             <td>{{ product.name }}</td>
-                            <td><img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.name" width="50" class="shadow-lg" /></td>
+                            <td>
+                                <img
+                                    [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image"
+                                    [alt]="product.name"
+                                    width="50"
+                                    class="shadow-lg"
+                                />
+                            </td>
                             <td>{{ product.price | currency: 'USD' }}</td>
                             <td>{{ product.category }}</td>
                             <td><p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false" /></td>
@@ -92,7 +116,7 @@ import { TableRowCollapseEvent, TableRowExpandEvent } from 'primeng/table';
         </p-deferred-demo>
         <app-code [code]="code" selector="table-row-expansion-demo" [extFiles]="extFiles"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [MessageService]
+    providers: [MessageService],
 })
 export class RowExpansionDoc {
     products!: Product[];
@@ -102,7 +126,7 @@ export class RowExpansionDoc {
     constructor(
         private productService: ProductService,
         private cd: ChangeDetectorRef,
-        private messageService: MessageService
+        private messageService: MessageService,
     ) {}
 
     loadDemoData() {
@@ -390,7 +414,7 @@ export class TableRowExpansionDemo implements OnInit{
     ]
 },
 ...`,
-        service: ['ProductService']
+        service: ['ProductService'],
     };
 
     extFiles = [
@@ -408,7 +432,7 @@ export interface Product {
     category?: string;
     image?: string;
     rating?: number;
-}`
-        }
+}`,
+        },
     ];
 }

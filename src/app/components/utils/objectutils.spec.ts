@@ -11,7 +11,7 @@ describe('ObjectUtils Suite', () => {
         { brand: 'Honda', year: 2012, color: { name: 'Blue' }, vin: 'g43gr' },
         { brand: 'Jaguar', year: 2013, color: { name: 'Black' }, vin: 'greg34' },
         { brand: 'Ford', year: 2000, color: { name: 'White' }, vin: 'h54hw5' },
-        { brand: 'Fiat', year: 2013, color: { name: 'Yellow' }, vin: '245t2s' }
+        { brand: 'Fiat', year: 2013, color: { name: 'Yellow' }, vin: '245t2s' },
     ];
 
     it('Should resolve field data', () => {
@@ -20,10 +20,10 @@ describe('ObjectUtils Suite', () => {
             lastname: 'Andolini',
             address: {
                 country: {
-                    name: 'Italy'
+                    name: 'Italy',
                 },
-                city: 'Corleone'
-            }
+                city: 'Corleone',
+            },
         };
 
         expect(ObjectUtils.resolveFieldData(obj, 'firstname')).toBe('Silvio');

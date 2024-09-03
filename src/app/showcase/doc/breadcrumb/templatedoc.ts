@@ -6,7 +6,10 @@ import { Code } from '@domain/code';
     selector: 'breadcrumb-template-demo',
     template: `
         <app-docsectiontext>
-            <p>Custom content can be placed inside the items using the <i>item</i> template. The divider between the items has its own <i>separator</i> template.</p>
+            <p>
+                Custom content can be placed inside the items using the <i>item</i> template. The divider between the items has its own
+                <i>separator</i> template.
+            </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-breadcrumb class="max-w-full" [model]="items" [home]="home">
@@ -19,7 +22,7 @@ import { Code } from '@domain/code';
             </p-breadcrumb>
         </div>
         <app-code [code]="code" selector="breadcrumb-template-demo"></app-code>
-    `
+    `,
 })
 export class TemplateDoc implements OnInit {
     items: MenuItem[] | undefined;
@@ -27,7 +30,13 @@ export class TemplateDoc implements OnInit {
     home: MenuItem | undefined;
 
     ngOnInit() {
-        this.items = [{ icon: 'pi pi-sitemap' }, { icon: 'pi pi-book' }, { icon: 'pi pi-wallet' }, { icon: 'pi pi-shopping-bag' }, { icon: 'pi pi-calculator' }];
+        this.items = [
+            { icon: 'pi pi-sitemap' },
+            { icon: 'pi pi-book' },
+            { icon: 'pi pi-wallet' },
+            { icon: 'pi pi-shopping-bag' },
+            { icon: 'pi pi-calculator' },
+        ];
 
         this.home = { icon: 'pi pi-home' };
     }
@@ -74,6 +83,6 @@ export class BreadcrumbTemplateDemo implements OnInit {
 
         this.home = { icon: 'pi pi-home' };
     }
-}`
+}`,
     };
 }

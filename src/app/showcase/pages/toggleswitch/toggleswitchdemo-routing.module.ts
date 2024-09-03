@@ -4,6 +4,6 @@ import { ToggleSwitchDemo } from './toggleswitchdemo';
 
 @NgModule({
     imports: [RouterModule.forChild([{ path: '', component: ToggleSwitchDemo }])],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class ToggleSwitchDemoRoutingModule {}

@@ -11,7 +11,7 @@ import { Code } from '@domain/code';
             <p-datePicker [(ngModel)]="date" [numberOfMonths]="2" />
         </div>
         <app-code [code]="code" selector="datepicker-multiplemonths-demo"></app-code>
-    `
+    `,
 })
 export class MultipleMonthDoc {
     date: Date[] | undefined;
@@ -38,6 +38,6 @@ import { DatePickerModule } from 'primeng/datepicker';
 })
 export class DatePickerMultiplemonthsDemo {
     date: Date[] | undefined;
-}`
+}`,
     };
 }

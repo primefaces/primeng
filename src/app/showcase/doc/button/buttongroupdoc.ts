@@ -15,7 +15,7 @@ import { Code } from '@domain/code';
             </p-buttonGroup>
         </div>
         <app-code [code]="code" selector="button-group-demo"></app-code>
-    `
+    `,
 })
 export class ButtonGroupDoc {
     code: Code = {
@@ -42,6 +42,6 @@ import { ButtonModule } from 'primeng/button';
     standalone: true,
     imports: [ButtonModule]
 })
-export class ButtonGroupDemo { }`
+export class ButtonGroupDemo { }`,
     };
 }

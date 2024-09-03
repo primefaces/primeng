@@ -5,6 +5,6 @@ import { RoadmapComponent } from './roadmap.component';
 
 @NgModule({
     imports: [CommonModule, RoadmapRoutingModule],
-    declarations: [RoadmapComponent]
+    declarations: [RoadmapComponent],
 })
 export class RoadmapModule {}

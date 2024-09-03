@@ -4,6 +4,6 @@ import { ChipDemo } from './chipdemo';
 
 @NgModule({
     imports: [RouterModule.forChild([{ path: '', component: ChipDemo }])],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class ChipDemoRoutingModule {}

@@ -7,39 +7,39 @@ import { UsageDoc } from '@doc/filterservice/usagedoc';
 import { TableIntegrationDoc } from '@doc/filterservice/tableintegrationdoc';
 
 @Component({
-    templateUrl: './filterservicedemo.html'
+    templateUrl: './filterservicedemo.html',
 })
 export class FilterServiceDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc
+            component: ImportDoc,
         },
         {
             id: 'usage',
             label: 'Usage',
-            component: UsageDoc
+            component: UsageDoc,
         },
         {
             id: 'builtinconstraints',
             label: 'Built-in Constraints',
-            component: BuiltInConstraintsDoc
+            component: BuiltInConstraintsDoc,
         },
         {
             id: 'customconstraints',
             label: 'Custom Constraints',
-            component: CustomConstraintsDoc
+            component: CustomConstraintsDoc,
         },
         {
             id: 'table-integration',
             label: 'Table Integration',
-            component: TableIntegrationDoc
+            component: TableIntegrationDoc,
         },
         {
             id: 'api',
             label: 'FilterService API',
-            component: ApiDoc
-        }
+            component: ApiDoc,
+        },
     ];
 }

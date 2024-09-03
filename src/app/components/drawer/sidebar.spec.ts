@@ -10,7 +10,7 @@ import { Drawer } from './drawer';
             <button type="button" (click)="visibleSidebar1 = false" label="Save"></button>
             <button type="button" (click)="visibleSidebar1 = false" label="Cancel"></button>
         </p-drawer>
-        <button type="button" (click)="visibleSidebar1 = true"></button>`
+        <button type="button" (click)="visibleSidebar1 = true"></button>`,
 })
 class TestSideBarComponent {
     visibleSidebar1;
@@ -24,7 +24,7 @@ describe('Sidebar', () => {
         TestBed.configureTestingModule({
             schemas: [NO_ERRORS_SCHEMA],
             imports: [NoopAnimationsModule],
-            declarations: [Drawer, TestSideBarComponent]
+            declarations: [Drawer, TestSideBarComponent],
         });
 
         fixture = TestBed.createComponent(TestSideBarComponent);

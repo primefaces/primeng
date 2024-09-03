@@ -11,12 +11,7 @@ import { NodeService } from '@service/nodeservice';
         <div class="card">
             <p-button (click)="toggleApplications()" label="Toggle Applications" />
             <p-deferred-demo (load)="loadDemoData()">
-                <p-treeTable
-                    [value]="files"
-                    [scrollable]="true"
-                    [tableStyle]="{ 'min-width': '50rem' }"
-                    styleClass="mt-6"
-                >
+                <p-treeTable [value]="files" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }" styleClass="mt-6">
                     <ng-template pTemplate="header">
                         <tr>
                             <th style="width:34%;">Name</th>
@@ -43,7 +38,10 @@ import { NodeService } from '@service/nodeservice';
 export class ControlledDoc {
     files!: TreeNode[];
 
-    constructor(private nodeService: NodeService, private cd: ChangeDetectorRef) {}
+    constructor(
+        private nodeService: NodeService,
+        private cd: ChangeDetectorRef,
+    ) {}
 
     loadDemoData() {
         this.nodeService.getFilesystem().then((files) => {

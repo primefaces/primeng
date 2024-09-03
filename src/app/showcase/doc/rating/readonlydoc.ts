@@ -11,7 +11,7 @@ import { Code } from '@domain/code';
             <p-rating [(ngModel)]="value" [readonly]="true" [cancel]="false" />
         </div>
         <app-code [code]="code" selector="rating-readonly-demo"></app-code>
-    `
+    `,
 })
 export class ReadOnlyDoc {
     value: number = 5;
@@ -35,6 +35,6 @@ import { RatingModule } from 'primeng/rating';
 })
 export class RatingReadonlyDemo {
     value: number = 5;
-}`
+}`,
     };
 }

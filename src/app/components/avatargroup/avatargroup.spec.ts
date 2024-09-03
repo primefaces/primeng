@@ -9,7 +9,7 @@ describe('AvatarGroup', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule, AvatarGroupModule]
+            imports: [NoopAnimationsModule, AvatarGroupModule],
         });
 
         fixture = TestBed.createComponent(AvatarGroup);

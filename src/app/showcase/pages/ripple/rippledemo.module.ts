@@ -6,6 +6,6 @@ import { RippleDemoRoutingModule } from './rippledemo-routing.module';
 
 @NgModule({
     imports: [CommonModule, RippleDemoRoutingModule, RippleDocModule],
-    declarations: [RippleDemo]
+    declarations: [RippleDemo],
 })
 export class RippleDemoModule {}

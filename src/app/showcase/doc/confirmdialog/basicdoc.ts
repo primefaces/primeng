@@ -7,8 +7,8 @@ import { Code } from '@domain/code';
     template: `
         <app-docsectiontext>
             <p>
-                ConfirmDialog is defined using <i>p-confirmDialog</i> tag and an instance of
-                <i>ConfirmationService</i> is required to display it bycalling confirm method.
+                ConfirmDialog is defined using <i>p-confirmDialog</i> tag and an instance of <i>ConfirmationService</i> is required to
+                display it bycalling confirm method.
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center gap-2">
@@ -22,7 +22,10 @@ import { Code } from '@domain/code';
     providers: [ConfirmationService, MessageService],
 })
 export class BasicDoc {
-    constructor(private confirmationService: ConfirmationService, private messageService: MessageService) {}
+    constructor(
+        private confirmationService: ConfirmationService,
+        private messageService: MessageService,
+    ) {}
 
     confirm1(event: Event) {
         this.confirmationService.confirm({

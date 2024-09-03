@@ -24,8 +24,8 @@ p-inputmask {
 const classes = {
     root: ({ instance }) => ({
         'p-inputmask': true,
-        'p-filled': instance.variant ? instance.variant === 'filled' : instance.config.inputStyle() === 'filled'
-    })
+        'p-filled': instance.variant ? instance.variant === 'filled' : instance.config.inputStyle() === 'filled',
+    }),
 };
 
 @Injectable()

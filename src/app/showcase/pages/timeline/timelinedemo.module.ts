@@ -6,6 +6,6 @@ import { TimelineDemoRoutingModule } from './timelinedemo-routing.module';
 
 @NgModule({
     imports: [CommonModule, TimelineDemoRoutingModule, TimelineDocModule],
-    declarations: [TimelineDemo]
+    declarations: [TimelineDemo],
 })
 export class TimelineDemoModule {}

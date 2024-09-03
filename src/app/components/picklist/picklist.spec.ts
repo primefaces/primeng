@@ -8,11 +8,15 @@ import { Component, EventEmitter } from '@angular/core';
     template: `<p-pickList [source]="sourceCars" [target]="targetCars">
         <ng-template let-car pTemplate="item">
             <div class="p-clearfix">
-                <img src="https://primefaces.org/cdn/primeng/images/demo/car/{{ car.brand }}.png" style="display:inline-block;margin:2px 0 2px 2px" width="48" />
+                <img
+                    src="https://primefaces.org/cdn/primeng/images/demo/car/{{ car.brand }}.png"
+                    style="display:inline-block;margin:2px 0 2px 2px"
+                    width="48"
+                />
                 <div style="font-size:14px;float:right;margin:15px 5px 0 0">{{ car.brand }} - {{ car.year }} - {{ car.color }}</div>
             </div>
         </ng-template>
-    </p-pickList>`
+    </p-pickList>`,
 })
 class TestPickListComponent {
     sourceCars: any[];
@@ -29,7 +33,7 @@ class TestPickListComponent {
             { brand: 'Honda', year: 2012, color: 'Yellow', vin: 'g43gr' },
             { brand: 'Jaguar', year: 2013, color: 'Orange', vin: 'greg34' },
             { brand: 'Ford', year: 2000, color: 'Black', vin: 'h54hw5' },
-            { brand: 'Fiat', year: 2013, color: 'Red', vin: '245t2s' }
+            { brand: 'Fiat', year: 2013, color: 'Red', vin: '245t2s' },
         ];
         this.targetCars = [];
     }
@@ -43,7 +47,7 @@ describe('PickList', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [NoopAnimationsModule, PickListModule],
-            declarations: [PickList, TestPickListComponent]
+            declarations: [PickList, TestPickListComponent],
         });
 
         fixture = TestBed.createComponent(TestPickListComponent);
@@ -304,7 +308,9 @@ describe('PickList', () => {
         sourceControlUpButton.nativeElement.click();
         fixture.detectChanges();
 
-        const sourceListItemsAfterChange = fixture.debugElement.query(By.css('.p-picklist-source-wrapper')).queryAll(By.css('.p-picklist-item'));
+        const sourceListItemsAfterChange = fixture.debugElement
+            .query(By.css('.p-picklist-source-wrapper'))
+            .queryAll(By.css('.p-picklist-item'));
         expect(moveUpSpy).toHaveBeenCalled();
         expect(sourceListItemsAfterChange[2].nativeElement.className).toContain('p-highlight');
         expect(sourceListItemsAfterChange[2].nativeElement.textContent).toContain('BMW');
@@ -325,7 +331,9 @@ describe('PickList', () => {
 
         expect(moveUpSpy).toHaveBeenCalled();
         let callback = new EventEmitter();
-        expect(picklist.moveBottom(picklist.source[0], picklist.source, picklist.selectedItemsSource, callback, picklist.SOURCE_LIST)).toBeUndefined();
+        expect(
+            picklist.moveBottom(picklist.source[0], picklist.source, picklist.selectedItemsSource, callback, picklist.SOURCE_LIST),
+        ).toBeUndefined();
     });
 
     it('should call moveDown', () => {
@@ -340,7 +348,9 @@ describe('PickList', () => {
         sourceControlDownButton.nativeElement.click();
         fixture.detectChanges();
 
-        const sourceListItemsAfterChange = fixture.debugElement.query(By.css('.p-picklist-source-wrapper')).queryAll(By.css('.p-picklist-item'));
+        const sourceListItemsAfterChange = fixture.debugElement
+            .query(By.css('.p-picklist-source-wrapper'))
+            .queryAll(By.css('.p-picklist-item'));
         expect(moveDownSpy).toHaveBeenCalled();
         expect(sourceListItemsAfterChange[4].nativeElement.className).toContain('p-highlight');
         expect(sourceListItemsAfterChange[4].nativeElement.textContent).toContain('BMW');
@@ -361,7 +371,9 @@ describe('PickList', () => {
 
         expect(moveDownSpy).toHaveBeenCalled();
         let callback = new EventEmitter();
-        expect(picklist.moveDown(picklist.source[9], picklist.source, picklist.selectedItemsSource, callback, picklist.SOURCE_LIST)).toBeUndefined();
+        expect(
+            picklist.moveDown(picklist.source[9], picklist.source, picklist.selectedItemsSource, callback, picklist.SOURCE_LIST),
+        ).toBeUndefined();
     });
 
     it('should call movetop', () => {
@@ -376,7 +388,9 @@ describe('PickList', () => {
         sourceControlTopButton.nativeElement.click();
         fixture.detectChanges();
 
-        const sourceListItemsAfterChange = fixture.debugElement.query(By.css('.p-picklist-source-wrapper')).queryAll(By.css('.p-picklist-item'));
+        const sourceListItemsAfterChange = fixture.debugElement
+            .query(By.css('.p-picklist-source-wrapper'))
+            .queryAll(By.css('.p-picklist-item'));
         expect(moveTopSpy).toHaveBeenCalled();
         expect(sourceListItemsAfterChange[0].nativeElement.className).toContain('p-highlight');
         expect(sourceListItemsAfterChange[0].nativeElement.textContent).toContain('BMW');
@@ -397,7 +411,9 @@ describe('PickList', () => {
 
         expect(moveTopSpy).toHaveBeenCalled();
         let callback = new EventEmitter();
-        expect(picklist.moveTop(picklist.source[0], picklist.source, picklist.selectedItemsSource, callback, picklist.SOURCE_LIST)).toBeUndefined();
+        expect(
+            picklist.moveTop(picklist.source[0], picklist.source, picklist.selectedItemsSource, callback, picklist.SOURCE_LIST),
+        ).toBeUndefined();
     });
 
     it('should call moveBottom', () => {
@@ -412,7 +428,9 @@ describe('PickList', () => {
         sourceControlBottomButton.nativeElement.click();
         fixture.detectChanges();
 
-        const sourceListItemsAfterChange = fixture.debugElement.query(By.css('.p-picklist-source-wrapper')).queryAll(By.css('.p-picklist-item'));
+        const sourceListItemsAfterChange = fixture.debugElement
+            .query(By.css('.p-picklist-source-wrapper'))
+            .queryAll(By.css('.p-picklist-item'));
         expect(moveBottomSpy).toHaveBeenCalled();
         expect(sourceListItemsAfterChange[9].nativeElement.className).toContain('p-highlight');
         expect(sourceListItemsAfterChange[9].nativeElement.textContent).toContain('BMW');
@@ -433,7 +451,9 @@ describe('PickList', () => {
 
         expect(moveBottomSpy).toHaveBeenCalled();
         let callback = new EventEmitter();
-        expect(picklist.moveBottom(picklist.source[9], picklist.source, picklist.selectedItemsSource, callback, picklist.SOURCE_LIST)).toBeUndefined();
+        expect(
+            picklist.moveBottom(picklist.source[9], picklist.source, picklist.selectedItemsSource, callback, picklist.SOURCE_LIST),
+        ).toBeUndefined();
     });
 
     it('should call moveRight', () => {
@@ -448,8 +468,12 @@ describe('PickList', () => {
         controlRightButton.nativeElement.click();
         fixture.detectChanges();
 
-        const sourceListItemsAfterChange = fixture.debugElement.query(By.css('.p-picklist-source-wrapper')).queryAll(By.css('.p-picklist-item'));
-        const targetListItemsAfterChange = fixture.debugElement.query(By.css('.p-picklist-target-wrapper')).queryAll(By.css('.p-picklist-item'));
+        const sourceListItemsAfterChange = fixture.debugElement
+            .query(By.css('.p-picklist-source-wrapper'))
+            .queryAll(By.css('.p-picklist-item'));
+        const targetListItemsAfterChange = fixture.debugElement
+            .query(By.css('.p-picklist-target-wrapper'))
+            .queryAll(By.css('.p-picklist-item'));
         expect(moveRightSpy).toHaveBeenCalled();
         expect(sourceListItemsAfterChange[3].nativeElement.textContent).toContain('Mercedes');
         expect(targetListItemsAfterChange[0].nativeElement.textContent).toContain('BMW');
@@ -478,8 +502,12 @@ describe('PickList', () => {
         controlLeftButton.nativeElement.click();
         fixture.detectChanges();
 
-        const sourceListItemsAfterChange = fixture.debugElement.query(By.css('.p-picklist-source-wrapper')).queryAll(By.css('.p-picklist-item'));
-        const targetListItemsAfterChange = fixture.debugElement.query(By.css('.p-picklist-target-wrapper')).queryAll(By.css('.p-picklist-item'));
+        const sourceListItemsAfterChange = fixture.debugElement
+            .query(By.css('.p-picklist-source-wrapper'))
+            .queryAll(By.css('.p-picklist-item'));
+        const targetListItemsAfterChange = fixture.debugElement
+            .query(By.css('.p-picklist-target-wrapper'))
+            .queryAll(By.css('.p-picklist-item'));
         expect(moveLeftSpy).toHaveBeenCalled();
         expect(targetListItemsAfterChange.length).toEqual(0);
         expect(picklist.target.length).toEqual(0);
@@ -497,8 +525,12 @@ describe('PickList', () => {
         controlAllRightButton.nativeElement.click();
         fixture.detectChanges();
 
-        const sourceListItemsAfterChange = fixture.debugElement.query(By.css('.p-picklist-source-wrapper')).queryAll(By.css('.p-picklist-item'));
-        const targetListItemsAfterChange = fixture.debugElement.query(By.css('.p-picklist-target-wrapper')).queryAll(By.css('.p-picklist-item'));
+        const sourceListItemsAfterChange = fixture.debugElement
+            .query(By.css('.p-picklist-source-wrapper'))
+            .queryAll(By.css('.p-picklist-item'));
+        const targetListItemsAfterChange = fixture.debugElement
+            .query(By.css('.p-picklist-target-wrapper'))
+            .queryAll(By.css('.p-picklist-item'));
         expect(moveAllRightSpy).toHaveBeenCalled();
         expect(sourceListItemsAfterChange.length).toEqual(0);
         expect(targetListItemsAfterChange.length).toEqual(10);
@@ -520,8 +552,12 @@ describe('PickList', () => {
         controlAllLeftButton.nativeElement.click();
         fixture.detectChanges();
 
-        const sourceListItemsAfterChange = fixture.debugElement.query(By.css('.p-picklist-source-wrapper')).queryAll(By.css('.p-picklist-item'));
-        const targetListItemsAfterChange = fixture.debugElement.query(By.css('.p-picklist-target-wrapper')).queryAll(By.css('.p-picklist-item'));
+        const sourceListItemsAfterChange = fixture.debugElement
+            .query(By.css('.p-picklist-source-wrapper'))
+            .queryAll(By.css('.p-picklist-item'));
+        const targetListItemsAfterChange = fixture.debugElement
+            .query(By.css('.p-picklist-target-wrapper'))
+            .queryAll(By.css('.p-picklist-item'));
         expect(moveAllLeftSpy).toHaveBeenCalled();
         expect(targetListItemsAfterChange.length).toEqual(0);
         expect(sourceListItemsAfterChange.length).toEqual(10);

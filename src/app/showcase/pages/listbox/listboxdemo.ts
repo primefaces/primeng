@@ -13,69 +13,69 @@ import { TemplateDoc } from '@doc/listbox/templatedoc';
 import { VirtualScrollDoc } from '@doc/listbox/virtualscrolldoc';
 
 @Component({
-    templateUrl: './listboxdemo.html'
+    templateUrl: './listboxdemo.html',
 })
 export class ListboxDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc
+            component: ImportDoc,
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc
+            component: BasicDoc,
         },
         {
             id: 'reactive-forms',
             label: 'Reactive Forms',
-            component: ReactiveFormsDoc
+            component: ReactiveFormsDoc,
         },
         {
             id: 'multiple',
             label: 'Multiple',
-            component: MultipleDoc
+            component: MultipleDoc,
         },
         {
             id: 'group',
             label: 'Group',
-            component: GroupDoc
+            component: GroupDoc,
         },
         {
             id: 'filter',
             label: 'Filter',
-            component: FilterDoc
+            component: FilterDoc,
         },
         {
             id: 'template',
             label: 'Template',
-            component: TemplateDoc
+            component: TemplateDoc,
         },
         {
             id: 'virtualscroll',
             label: 'Virtual Scroll',
-            component: VirtualScrollDoc
+            component: VirtualScrollDoc,
         },
         {
             id: 'invalid',
             label: 'Invalid',
-            component: InvalidDoc
+            component: InvalidDoc,
         },
         {
             id: 'disabled',
             label: 'Disabled',
-            component: DisabledDoc
+            component: DisabledDoc,
         },
         {
             id: 'style',
             label: 'Style',
-            component: StyleDoc
+            component: StyleDoc,
         },
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc
-        }
+            component: AccessibilityDoc,
+        },
     ];
 }

@@ -6,6 +6,6 @@ import { CardDemoRoutingModule } from './carddemo-routing.module';
 
 @NgModule({
     imports: [CommonModule, CardDemoRoutingModule, CardDocModule],
-    declarations: [CardDemo]
+    declarations: [CardDemo],
 })
 export class CardDemoModule {}

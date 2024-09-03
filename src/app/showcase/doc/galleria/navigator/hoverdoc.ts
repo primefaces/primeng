@@ -21,7 +21,7 @@ import { PhotoService } from '@service/photoservice';
                     <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
                 </ng-template>
                 <ng-template pTemplate="thumbnail" let-item>
-                        <img [src]="item.thumbnailImageSrc" style="display: block;" />
+                    <img [src]="item.thumbnailImageSrc" style="display: block;" />
                 </ng-template>
             </p-galleria>
         </div>

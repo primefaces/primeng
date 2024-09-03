@@ -9,7 +9,7 @@ describe('Chip', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule, ChipModule]
+            imports: [NoopAnimationsModule, ChipModule],
         });
 
         fixture = TestBed.createComponent(Chip);

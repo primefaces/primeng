@@ -16,7 +16,11 @@ import { Doc } from 'src/app/showcase/domain/doc';
                 </div>
                 <ng-container>
                     <ul *ngIf="doc.children">
-                        <li *ngFor="let child of doc.children; let isFirst = first" class="navbar-item" [ngClass]="{ 'active-navbar-item': activeId === child.id }">
+                        <li
+                            *ngFor="let child of doc.children; let isFirst = first"
+                            class="navbar-item"
+                            [ngClass]="{ 'active-navbar-item': activeId === child.id }"
+                        >
                             <div class="navbar-item-content">
                                 <button class="px-link" (click)="onButtonClick($event, child)">
                                     {{ child.label }}
@@ -27,7 +31,7 @@ import { Doc } from 'src/app/showcase/domain/doc';
                 </ng-container>
             </ng-container>
         </li>
-    </ul>`
+    </ul>`,
 })
 export class AppDocSectionNavComponent implements OnInit, OnDestroy {
     @Input() docs!: Doc[];
@@ -60,7 +64,7 @@ export class AppDocSectionNavComponent implements OnInit, OnDestroy {
         private location: Location,
         private zone: NgZone,
         private renderer: Renderer2,
-        private router: Router
+        private router: Router,
     ) {}
 
     ngOnInit(): void {
@@ -96,7 +100,9 @@ export class AppDocSectionNavComponent implements OnInit, OnDestroy {
     }
 
     getLabels() {
-        return [...Array.from(this.document.querySelectorAll(':is(h1,h2,h3).doc-section-label'))].filter((el: any) => DomHandler.isVisible(el));
+        return [...Array.from(this.document.querySelectorAll(':is(h1,h2,h3).doc-section-label'))].filter((el: any) =>
+            DomHandler.isVisible(el),
+        );
     }
 
     onScroll() {

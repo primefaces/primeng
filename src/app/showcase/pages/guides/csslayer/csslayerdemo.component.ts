@@ -7,19 +7,19 @@ import { TailwindDoc } from 'src/app/showcase/doc/guides/csslayer/tailwinddoc';
 
 @Component({
     selector: 'css-layer',
-    templateUrl: './csslayerdemo.component.html'
+    templateUrl: './csslayerdemo.component.html',
 })
 export class CssLayerDemoComponent {
     docs = [
         {
             id: 'css-specificity',
             label: 'CSS Specificity',
-            component: SpecificityDoc
+            component: SpecificityDoc,
         },
         {
             id: 'reset',
             label: 'Reset',
-            component: ResetDoc
+            component: ResetDoc,
         },
         {
             id: 'libraries',
@@ -29,19 +29,19 @@ export class CssLayerDemoComponent {
                 {
                     id: 'tailwind',
                     label: 'Tailwind CSS',
-                    component: TailwindDoc
+                    component: TailwindDoc,
                 },
                 {
                     id: 'bootstrap',
                     label: 'Bootstrap',
-                    component: BootstrapDoc
+                    component: BootstrapDoc,
                 },
                 {
                     id: 'normalize',
                     label: 'Normalize',
-                    component: NormalizeDoc
-                }
-            ]
-        }
+                    component: NormalizeDoc,
+                },
+            ],
+        },
     ];
 }

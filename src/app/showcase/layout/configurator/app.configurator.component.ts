@@ -25,17 +25,16 @@ const presets = {
             <div class="config-panel-colors">
                 <span class="config-panel-label">Primary</span>
                 <div>
-                    @for (primaryColor of primaryColors; track primaryColor){
-                    <button
-                        type="button"
-                        [title]="primaryColor.name"
-                        (click)="updateColors('primary', primaryColor)"
-                        [ngClass]="{ 'active-color': primaryColor.name === selectedPrimaryColor() }"
-                        [style]="{
-                            'background-color':
-                                primaryColor.name === 'noir' ? 'var(--text-color)' : primaryColor?.palette['500']
-                        }"
-                    ></button>
+                    @for (primaryColor of primaryColors; track primaryColor) {
+                        <button
+                            type="button"
+                            [title]="primaryColor.name"
+                            (click)="updateColors('primary', primaryColor)"
+                            [ngClass]="{ 'active-color': primaryColor.name === selectedPrimaryColor() }"
+                            [style]="{
+                                'background-color': primaryColor.name === 'noir' ? 'var(--text-color)' : primaryColor?.palette['500'],
+                            }"
+                        ></button>
                     }
                 </div>
             </div>
@@ -43,27 +42,23 @@ const presets = {
             <div class="config-panel-colors">
                 <span class="config-panel-label">Surface</span>
                 <div>
-                    @for (surface of surfaces; track surface){
-                    <button
-                        type="button"
-                        [title]="surface.name"
-                        (click)="updateColors('surface', surface)"
-                        [ngClass]="{ 'active-color': surface.name === selectedSurfaceColor() }"
-                        [style]="{
-                            'background-color': surface.name === 'noir' ? 'var(--text-color)' : surface?.palette['500']
-                        }"
-                    ></button>
+                    @for (surface of surfaces; track surface) {
+                        <button
+                            type="button"
+                            [title]="surface.name"
+                            (click)="updateColors('surface', surface)"
+                            [ngClass]="{ 'active-color': surface.name === selectedSurfaceColor() }"
+                            [style]="{
+                                'background-color': surface.name === 'noir' ? 'var(--text-color)' : surface?.palette['500'],
+                            }"
+                        ></button>
                     }
                 </div>
             </div>
 
             <div class="config-panel-settings">
                 <span class="config-panel-label">Presets</span>
-                <p-selectButton
-                    [options]="presets"
-                    [(ngModel)]="selectedPreset"
-                    (ngModelChange)="onPresetChange($event)"
-                />
+                <p-selectButton [options]="presets" [(ngModel)]="selectedPreset" (ngModelChange)="onPresetChange($event)" />
             </div>
 
             <div class="config-panel-settings">

@@ -19,7 +19,7 @@ describe('MultiSelect', () => {
         TestBed.configureTestingModule({
             imports: [NoopAnimationsModule, ScrollingModule, TooltipModule, OverlayModule, SearchIcon, ChevronDownIcon, TimesIcon],
             declarations: [MultiSelect, MultiSelectItem],
-            schemas: [NO_ERRORS_SCHEMA]
+            schemas: [NO_ERRORS_SCHEMA],
         });
 
         fixture = TestBed.createComponent(MultiSelect);
@@ -167,7 +167,7 @@ describe('MultiSelect', () => {
             { label: 'Mercedes', value: 'Mercedes' },
             { label: 'Renault', value: 'Renault' },
             { label: 'VW', value: 'VW' },
-            { label: 'Volvo', value: 'Volvo' }
+            { label: 'Volvo', value: 'Volvo' },
         ];
         fixture.detectChanges();
 
@@ -197,7 +197,7 @@ describe('MultiSelect', () => {
             { label: 'Mercedes', value: 'Mercedes' },
             { label: 'Renault', value: 'Renault' },
             { label: 'VW', value: 'VW' },
-            { label: 'Volvo', value: 'Volvo' }
+            { label: 'Volvo', value: 'Volvo' },
         ];
         fixture.detectChanges();
 
@@ -243,7 +243,7 @@ describe('MultiSelect', () => {
             { label: 'Mercedes', value: 'Mercedes' },
             { label: 'Renault', value: 'Renault' },
             { label: 'VW', value: 'VW' },
-            { label: 'Volvo', value: 'Volvo' }
+            { label: 'Volvo', value: 'Volvo' },
         ];
         multiselect.selectionLimit = 3;
         multiselect.value = [];
@@ -283,7 +283,7 @@ describe('MultiSelect', () => {
             { label: 'Mercedes', value: 'Mercedes' },
             { label: 'Renault', value: 'Renault' },
             { label: 'VW', value: 'VW' },
-            { label: 'Volvo', value: 'Volvo' }
+            { label: 'Volvo', value: 'Volvo' },
         ];
         fixture.detectChanges();
 
@@ -320,7 +320,7 @@ describe('MultiSelect', () => {
             { label: 'Mercedes', value: 'Mercedes' },
             { label: 'Renault', value: 'Renault' },
             { label: 'VW', value: 'VW' },
-            { label: 'Volvo', value: 'Volvo' }
+            { label: 'Volvo', value: 'Volvo' },
         ];
         fixture.detectChanges();
 
@@ -353,7 +353,7 @@ describe('MultiSelect', () => {
             { label: 'Mercedes', value: 'Mercedes' },
             { label: 'Renault', value: 'Renault' },
             { label: 'VW', value: 'VW' },
-            { label: 'Volvo', value: 'Volvo' }
+            { label: 'Volvo', value: 'Volvo' },
         ];
         multiselect.value = [];
         multiselect.selectionLimit = 2;
@@ -391,7 +391,7 @@ describe('MultiSelect', () => {
             { label: 'Mercedes', value: 'Mercedes' },
             { label: 'Renault', value: 'Renault' },
             { label: 'VW', value: 'VW' },
-            { label: 'Volvo', value: 'Volvo' }
+            { label: 'Volvo', value: 'Volvo' },
         ];
         fixture.detectChanges();
 
@@ -421,7 +421,7 @@ describe('MultiSelect', () => {
             { label: 'Mercedes', value: 'Mercedes' },
             { label: 'Renault', value: 'Renault' },
             { label: 'VW', value: 'VW' },
-            { label: 'Volvo', value: 'Volvo' }
+            { label: 'Volvo', value: 'Volvo' },
         ];
         fixture.detectChanges();
 
@@ -454,7 +454,7 @@ describe('MultiSelect', () => {
             { name: 'Rome', code: 'RM' },
             { name: 'London', code: 'LDN' },
             { name: 'Istanbul', code: 'IST' },
-            { name: 'Paris', code: 'PRS' }
+            { name: 'Paris', code: 'PRS' },
         ];
         multiselect.optionLabel = 'name';
         fixture.detectChanges();
@@ -487,7 +487,7 @@ describe('MultiSelect', () => {
             { label: 'Mercedes', value: 'Mercedes' },
             { label: 'Renault', value: 'Renault' },
             { label: 'VW', value: 'VW' },
-            { label: 'Volvo', value: 'Volvo' }
+            { label: 'Volvo', value: 'Volvo' },
         ];
         fixture.detectChanges();
 
@@ -514,7 +514,7 @@ describe('MultiSelect', () => {
             { label: 'Mercedes', value: 'Mercedes' },
             { label: 'Renault', value: 'Renault' },
             { label: 'VW', value: 'VW' },
-            { label: 'Volvo', value: 'Volvo' }
+            { label: 'Volvo', value: 'Volvo' },
         ];
 
         fixture.detectChanges();
@@ -548,7 +548,7 @@ describe('MultiSelect', () => {
             { label: 'Mercedes', value: 'Mercedes' },
             { label: 'Renault', value: 'Renault' },
             { label: 'VW', value: 'VW' },
-            { label: 'Volvo', value: 'Volvo' }
+            { label: 'Volvo', value: 'Volvo' },
         ];
         fixture.detectChanges();
 

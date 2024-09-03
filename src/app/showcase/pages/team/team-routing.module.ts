@@ -4,6 +4,6 @@ import { TeamComponent } from './team.component';
 
 @NgModule({
     imports: [RouterModule.forChild([{ path: '', component: TeamComponent }])],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class TeamRoutingModule {}

@@ -4,6 +4,6 @@ import { ThemingComponent } from './theming.component';
 
 @NgModule({
     imports: [RouterModule.forChild([{ path: '', component: ThemingComponent }])],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class ThemingRoutingModule {}

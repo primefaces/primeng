@@ -14,7 +14,7 @@ import { Code } from '@domain/code';
         </div>
         <app-code [code]="code" selector="tab-menu-command-demo"></app-code>
     `,
-    providers: [MessageService]
+    providers: [MessageService],
 })
 export class CommandDoc implements OnInit {
     items: MenuItem[] | undefined;
@@ -28,29 +28,29 @@ export class CommandDoc implements OnInit {
                 icon: 'pi pi-home',
                 command: () => {
                     this.messageService.add({ severity: 'success', summary: 'Selected', detail: 'Dashboard', life: 3000 });
-                }
+                },
             },
             {
                 label: 'Transactions',
                 icon: 'pi pi-chart-line',
                 command: () => {
                     this.messageService.add({ severity: 'success', summary: 'Selected', detail: 'Transactions', life: 3000 });
-                }
+                },
             },
             {
                 label: 'Products',
                 icon: 'pi pi-list',
                 command: () => {
                     this.messageService.add({ severity: 'success', summary: 'Selected', detail: 'Products', life: 3000 });
-                }
+                },
             },
             {
                 label: 'Messages',
                 icon: 'pi pi-inbox',
                 command: () => {
                     this.messageService.add({ severity: 'success', summary: 'Selected', detail: 'Messages', life: 3000 });
-                }
-            }
+                },
+            },
         ];
     }
 
@@ -113,6 +113,6 @@ export class TabMenuCommandDemo implements OnInit {
         ];
     }
 
-}`
+}`,
     };
 }

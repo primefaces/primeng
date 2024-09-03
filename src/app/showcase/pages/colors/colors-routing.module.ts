@@ -4,6 +4,6 @@ import { ColorsDemoComponent } from './colors.component';
 
 @NgModule({
     imports: [RouterModule.forChild([{ path: '', component: ColorsDemoComponent }])],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class ColorsDemoRoutingModule {}

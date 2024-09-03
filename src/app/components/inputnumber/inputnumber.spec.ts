@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
 import { By } from '@angular/platform-browser';
 
 @Component({
-    template: `<p-inputNumber [(ngModel)]="val" [readonly]="readonly" [minFractionDigits]="minFractionDigits"></p-inputNumber>`
+    template: `<p-inputNumber [(ngModel)]="val" [readonly]="readonly" [minFractionDigits]="minFractionDigits"></p-inputNumber>`,
 })
 class TestInputNumberComponent {
     val: number;
@@ -22,7 +22,7 @@ describe('InputNumber', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [NoopAnimationsModule, FormsModule],
-            declarations: [InputNumber, TestInputNumberComponent]
+            declarations: [InputNumber, TestInputNumberComponent],
         });
 
         fixture = TestBed.createComponent(TestInputNumberComponent);
@@ -40,17 +40,17 @@ describe('InputNumber', () => {
         const pressFiveEvent = new KeyboardEvent('event', {
             code: 'Digit5',
             key: '5',
-            keyCode: '5'.charCodeAt(0)
+            keyCode: '5'.charCodeAt(0),
         });
         const pressNumpadDecimalWithDotEvent = new KeyboardEvent('event', {
             code: 'NumpadDecimal',
             key: '.',
-            keyCode: '.'.charCodeAt(0)
+            keyCode: '.'.charCodeAt(0),
         });
         const pressNumpadDecimalWithCommaEvent = new KeyboardEvent('event', {
             code: 'NumpadDecimal',
             key: ',',
-            keyCode: ','.charCodeAt(0)
+            keyCode: ','.charCodeAt(0),
         });
 
         beforeEach(() => {
@@ -84,7 +84,7 @@ describe('InputNumber', () => {
             const pressMinusEvent = new KeyboardEvent('event', {
                 code: 'Minus',
                 key: '-',
-                keyCode: '-'.charCodeAt(0)
+                keyCode: '-'.charCodeAt(0),
             });
             inputNumber.onInputKeyPress(pressMinusEvent);
             //@ts-ignore primeNG can can set value to string '-'

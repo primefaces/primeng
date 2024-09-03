@@ -6,7 +6,10 @@ import { Code } from '@domain/code';
     selector: 'linear-doc',
     template: `
         <app-docsectiontext>
-            <p>SpeedDial items are defined with the <i>model</i> property based on MenuModel API. Default orientation of the items is linear and <i>direction</i> property is used to define the position of the items related to the button.</p>
+            <p>
+                SpeedDial items are defined with the <i>model</i> property based on MenuModel API. Default orientation of the items is
+                linear and <i>direction</i> property is used to define the position of the items related to the button.
+            </p>
         </app-docsectiontext>
         <div class="card">
             <div style="height: 500px; position: relative;" class="speeddial-linear-demo">
@@ -19,7 +22,7 @@ import { Code } from '@domain/code';
         </div>
         <app-code [code]="code" selector="speed-dial-linear-demo"></app-code>
     `,
-    providers: [MessageService]
+    providers: [MessageService],
 })
 export class LinearDoc implements OnInit {
     items: MenuItem[] | undefined;
@@ -32,29 +35,29 @@ export class LinearDoc implements OnInit {
                 icon: 'pi pi-pencil',
                 command: () => {
                     this.messageService.add({ severity: 'info', summary: 'Add', detail: 'Data Added' });
-                }
+                },
             },
             {
                 icon: 'pi pi-refresh',
                 command: () => {
                     this.messageService.add({ severity: 'success', summary: 'Update', detail: 'Data Updated' });
-                }
+                },
             },
             {
                 icon: 'pi pi-trash',
                 command: () => {
                     this.messageService.add({ severity: 'error', summary: 'Delete', detail: 'Data Deleted' });
-                }
+                },
             },
             {
                 icon: 'pi pi-upload',
-                routerLink: ['/fileupload']
+                routerLink: ['/fileupload'],
             },
             {
                 icon: 'pi pi-external-link',
                 target: '_blank',
-                url: 'http://angular.io'
-            }
+                url: 'http://angular.io',
+            },
         ];
     }
 
@@ -171,6 +174,6 @@ export class SpeedDialLinearDemo implements OnInit {
             top: calc(50% - 2rem);
         }
     }
-}`
+}`,
     };
 }

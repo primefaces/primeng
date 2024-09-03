@@ -6,6 +6,6 @@ import { ScrollPanelDemoRoutingModule } from './scrollpaneldemo-routing.module';
 
 @NgModule({
     imports: [CommonModule, ScrollPanelDemoRoutingModule, ScrollPanelDocModule],
-    declarations: [ScrollPanelDemo]
+    declarations: [ScrollPanelDemo],
 })
 export class ScrollPanelDemoModule {}

@@ -18,7 +18,11 @@ import { SharedModule } from 'primeng/api';
                         <p>&gt; ng new my-apollo-app</p>
                         <p>&gt; cd my-apollo-app</p>
                         <p>&gt; ng serve</p>
-                        <img class="template-configuration-screen-bottom-logo" src="https://primefaces.org/cdn/primeng/images/templates/angular-3d-logo.png" alt="Angular 3D Logo" />
+                        <img
+                            class="template-configuration-screen-bottom-logo"
+                            src="https://primefaces.org/cdn/primeng/images/templates/angular-3d-logo.png"
+                            alt="Angular 3D Logo"
+                        />
                     </div>
                 </div>
                 <h3 class="template-configuration-title">{{ title }}</h3>
@@ -27,7 +31,7 @@ import { SharedModule } from 'primeng/api';
         </div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
 })
 export class TemplateConfiguration {
     @Input() title;
@@ -37,6 +41,6 @@ export class TemplateConfiguration {
 @NgModule({
     imports: [CommonModule, SharedModule],
     exports: [TemplateConfiguration, SharedModule],
-    declarations: [TemplateConfiguration]
+    declarations: [TemplateConfiguration],
 })
 export class TemplateConfigurationModule {}

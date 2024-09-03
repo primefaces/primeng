@@ -29,32 +29,80 @@ import { SharedModule } from 'primeng/api';
                 </g>
             </g>
             <defs>
-                <filter id="filter0_f_1970_42395" x="0" y="0" width="490" height="143" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
+                <filter
+                    id="filter0_f_1970_42395"
+                    x="0"
+                    y="0"
+                    width="490"
+                    height="143"
+                    filterUnits="userSpaceOnUse"
+                    colorInterpolationFilters="sRGB"
+                >
                     <feFlood flood-opacity="0" result="BackgroundImageFix" />
                     <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
                     <feGaussianBlur stdDeviation="17" result="effect1_foregroundBlur_1970_42395" />
                 </filter>
-                <filter id="filter1_f_1970_42395" x="14" y="14" width="462" height="68" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
+                <filter
+                    id="filter1_f_1970_42395"
+                    x="14"
+                    y="14"
+                    width="462"
+                    height="68"
+                    filterUnits="userSpaceOnUse"
+                    colorInterpolationFilters="sRGB"
+                >
                     <feFlood flood-opacity="0" result="BackgroundImageFix" />
                     <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
                     <feGaussianBlur stdDeviation="10" result="effect1_foregroundBlur_1970_42395" />
                 </filter>
-                <filter id="filter2_f_1970_42395" x="69" y="23" width="352" height="68" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
+                <filter
+                    id="filter2_f_1970_42395"
+                    x="69"
+                    y="23"
+                    width="352"
+                    height="68"
+                    filterUnits="userSpaceOnUse"
+                    colorInterpolationFilters="sRGB"
+                >
                     <feFlood flood-opacity="0" result="BackgroundImageFix" />
                     <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
                     <feGaussianBlur stdDeviation="10" result="effect1_foregroundBlur_1970_42395" />
                 </filter>
-                <filter id="filter3_f_1970_42395" x="115" y="31" width="260" height="68" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
+                <filter
+                    id="filter3_f_1970_42395"
+                    x="115"
+                    y="31"
+                    width="260"
+                    height="68"
+                    filterUnits="userSpaceOnUse"
+                    colorInterpolationFilters="sRGB"
+                >
                     <feFlood flood-opacity="0" result="BackgroundImageFix" />
                     <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
                     <feGaussianBlur stdDeviation="10" result="effect1_foregroundBlur_1970_42395" />
                 </filter>
-                <filter id="filter4_f_1970_42395" x="153" y="46" width="184" height="68" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
+                <filter
+                    id="filter4_f_1970_42395"
+                    x="153"
+                    y="46"
+                    width="184"
+                    height="68"
+                    filterUnits="userSpaceOnUse"
+                    colorInterpolationFilters="sRGB"
+                >
                     <feFlood flood-opacity="0" result="BackgroundImageFix" />
                     <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
                     <feGaussianBlur stdDeviation="10" result="effect1_foregroundBlur_1970_42395" />
                 </filter>
-                <filter id="filter5_f_1970_42395" x="183" y="61" width="124" height="68" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
+                <filter
+                    id="filter5_f_1970_42395"
+                    x="183"
+                    y="61"
+                    width="124"
+                    height="68"
+                    filterUnits="userSpaceOnUse"
+                    colorInterpolationFilters="sRGB"
+                >
                     <feFlood flood-opacity="0" result="BackgroundImageFix" />
                     <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
                     <feGaussianBlur stdDeviation="10" result="effect1_foregroundBlur_1970_42395" />
@@ -64,13 +112,13 @@ import { SharedModule } from 'primeng/api';
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrl: '../../../pages/templates/learnmore/learnmore.scss'
+    styleUrl: '../../../pages/templates/learnmore/learnmore.scss',
 })
 export class TemplateHeroLight {}
 
 @NgModule({
     imports: [CommonModule, SharedModule, NgOptimizedImage],
     exports: [TemplateHeroLight, SharedModule],
-    declarations: [TemplateHeroLight]
+    declarations: [TemplateHeroLight],
 })
 export class TemplateHeroLightModule {}

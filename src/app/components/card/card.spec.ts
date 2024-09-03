@@ -12,13 +12,14 @@ import { ButtonModule } from '../button/button';
             <img src="Card" src="https://primefaces.org/cdn/primeng/images/usercard.png" />
         </p-header>
         <div>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt quisquam
+            repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!
         </div>
         <p-footer>
             <button type="button" label="Save" icon="pi pi-check" style="margin-right: .25em"></button>
             <button type="button" label="Cancel" icon="pi pi-times" class="ui-button-secondary"></button>
         </p-footer>
-    </p-card>`
+    </p-card>`,
 })
 class TestCardComponent {
     header: string;
@@ -38,7 +39,7 @@ describe('Card', () => {
         TestBed.configureTestingModule({
             schemas: [NO_ERRORS_SCHEMA],
             imports: [NoopAnimationsModule, ButtonModule],
-            declarations: [Card, TestCardComponent, Header, Footer]
+            declarations: [Card, TestCardComponent, Header, Footer],
         });
     }));
     beforeEach(() => {

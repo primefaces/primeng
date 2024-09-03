@@ -5,9 +5,7 @@ import { Code } from '@domain/code';
     selector: 'dialog-headless-demo',
     template: `
         <app-docsectiontext>
-            <p>
-                <i>Headless</i> mode allows you to customize the entire user interface instead of the default elements.
-            </p>
+            <p><i>Headless</i> mode allows you to customize the entire user interface instead of the default elements.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-button (click)="showDialog()" icon="pi pi-user" label="Login" />
@@ -29,15 +27,7 @@ import { Code } from '@domain/code';
                                 d="M15.1934 0V0V0L0.0391235 5.38288L2.35052 25.3417L15.1934 32.427V32.427V32.427L28.0364 25.3417L30.3478 5.38288L15.1934 0Z"
                                 fill="var(--p-primary-color)"
                             />
-                            <mask
-                                id="mask0_1_52"
-                                style="mask-type:luminance"
-                                maskUnits="userSpaceOnUse"
-                                x="0"
-                                y="0"
-                                width="31"
-                                height="33"
-                            >
+                            <mask id="mask0_1_52" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="31" height="33">
                                 <path
                                     d="M15.1934 0V0V0L0.0391235 5.38288L2.35052 25.3417L15.1934 32.427V32.427V32.427L28.0364 25.3417L30.3478 5.38288L15.1934 0Z"
                                     fill="var(--high-contrast-text-color)"
@@ -102,12 +92,7 @@ import { Code } from '@domain/code';
                         </div>
                         <div class="inline-flex flex-col gap-2">
                             <label for="password" class="text-primary-50 font-semibold">Password</label>
-                            <input
-                                pInputText
-                                id="password"
-                                class="!bg-white/20 !border-0 !p-4 !text-primary-50 w-80"
-                                type="password"
-                            />
+                            <input pInputText id="password" class="!bg-white/20 !border-0 !p-4 !text-primary-50 w-80" type="password" />
                         </div>
                         <div class="flex items-center gap-4">
                             <p-button

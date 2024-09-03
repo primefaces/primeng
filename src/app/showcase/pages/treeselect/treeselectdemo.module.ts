@@ -6,6 +6,6 @@ import { TreeSelectDemoRoutingModule } from './treeselectdemo-routing.module';
 
 @NgModule({
     imports: [CommonModule, TreeSelectDemoRoutingModule, TreeSelectDocModule],
-    declarations: [TreeSelectDemo]
+    declarations: [TreeSelectDemo],
 })
 export class TreeSelectDemoModule {}

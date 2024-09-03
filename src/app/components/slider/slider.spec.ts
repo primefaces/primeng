@@ -10,7 +10,7 @@ describe('Slider', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [NoopAnimationsModule],
-            declarations: [Slider]
+            declarations: [Slider],
         });
 
         fixture = TestBed.createComponent(Slider);
@@ -122,15 +122,15 @@ describe('Slider', () => {
         const touchstartEvent: any = document.createEvent('CustomEvent');
         touchstartEvent.changedTouches = [
             {
-                clientX: 450
-            }
+                clientX: 450,
+            },
         ];
         touchstartEvent.initEvent('touchstart', true, true);
         const touchmoveEvent: any = document.createEvent('CustomEvent');
         touchmoveEvent.changedTouches = [
             {
-                clientX: 400
-            }
+                clientX: 400,
+            },
         ];
         touchmoveEvent.initEvent('touchmove', true, true);
         const spanEl = fixture.debugElement.query(By.css('.p-slider-handle'));
@@ -154,15 +154,15 @@ describe('Slider', () => {
         const touchstartEvent: any = document.createEvent('CustomEvent');
         touchstartEvent.changedTouches = [
             {
-                clientY: 400
-            }
+                clientY: 400,
+            },
         ];
         touchstartEvent.initEvent('touchstart', true, true);
         const touchmoveEvent: any = document.createEvent('CustomEvent');
         touchmoveEvent.changedTouches = [
             {
-                clientY: 450
-            }
+                clientY: 450,
+            },
         ];
         touchmoveEvent.initEvent('touchmove', true, true);
         const spanEl = fixture.debugElement.query(By.css('.p-slider-handle'));

@@ -1,5 +1,23 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { AfterViewInit, Directive, ElementRef, HostListener, Inject, Input, NgModule, NgZone, OnDestroy, PLATFORM_ID, Renderer2, SimpleChanges, TemplateRef, ViewContainerRef, booleanAttribute, inject, numberAttribute } from '@angular/core';
+import {
+    AfterViewInit,
+    Directive,
+    ElementRef,
+    HostListener,
+    Inject,
+    Input,
+    NgModule,
+    NgZone,
+    OnDestroy,
+    PLATFORM_ID,
+    Renderer2,
+    SimpleChanges,
+    TemplateRef,
+    ViewContainerRef,
+    booleanAttribute,
+    inject,
+    numberAttribute,
+} from '@angular/core';
 import { TooltipOptions } from 'primeng/api';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { Nullable } from 'primeng/ts-helpers';
@@ -13,7 +31,7 @@ import { BaseComponent } from 'primeng/basecomponent';
  */
 @Directive({
     selector: '[pTooltip]',
-    providers: [TooltipStyle]
+    providers: [TooltipStyle],
 })
 export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
     /**
@@ -131,7 +149,7 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
         life: null,
         autoHide: true,
         hideOnEscape: true,
-        id: UniqueComponentId() + '_tooltip'
+        id: UniqueComponentId() + '_tooltip',
     };
 
     _disabled: boolean | undefined;
@@ -166,7 +184,10 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
 
     _componentStyle = inject(TooltipStyle);
 
-    constructor(public zone: NgZone, private viewContainer: ViewContainerRef) {
+    constructor(
+        public zone: NgZone,
+        private viewContainer: ViewContainerRef,
+    ) {
         super();
     }
 
@@ -311,7 +332,10 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
 
     onMouseLeave(e: MouseEvent) {
         if (!this.isAutoHide()) {
-            const valid = DomHandler.hasClass(e.relatedTarget, 'p-tooltip') || DomHandler.hasClass(e.relatedTarget, 'p-tooltip-text') || DomHandler.hasClass(e.relatedTarget, 'p-tooltip-arrow');
+            const valid =
+                DomHandler.hasClass(e.relatedTarget, 'p-tooltip') ||
+                DomHandler.hasClass(e.relatedTarget, 'p-tooltip-text') ||
+                DomHandler.hasClass(e.relatedTarget, 'p-tooltip-arrow');
             !valid && this.deactivate();
         } else {
             this.deactivate();
@@ -566,7 +590,9 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
     }
 
     private get activeElement(): HTMLElement {
-        return this.el.nativeElement.nodeName.includes('P-') ? DomHandler.findSingle(this.el.nativeElement, '.p-component') : this.el.nativeElement;
+        return this.el.nativeElement.nodeName.includes('P-')
+            ? DomHandler.findSingle(this.el.nativeElement, '.p-component')
+            : this.el.nativeElement;
     }
 
     alignLeft() {
@@ -613,7 +639,9 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
         this.container.style.top = -999 + 'px';
 
         let defaultClassName = 'p-tooltip p-component p-tooltip-' + position;
-        this.container.className = this.getOption('tooltipStyleClass') ? defaultClassName + ' ' + this.getOption('tooltipStyleClass') : defaultClassName;
+        this.container.className = this.getOption('tooltipStyleClass')
+            ? defaultClassName + ' ' + this.getOption('tooltipStyleClass')
+            : defaultClassName;
     }
 
     isOutOfBounds(): boolean {
@@ -738,6 +766,6 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
 @NgModule({
     imports: [CommonModule],
     exports: [Tooltip],
-    declarations: [Tooltip]
+    declarations: [Tooltip],
 })
 export class TooltipModule {}

@@ -26,7 +26,12 @@ interface Column {
                     </ng-template>
                     <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
                         <tr [ttRow]="rowNode">
-                            <td *ngFor="let col of columns; let i = index" ttEditableColumn [ttEditableColumnDisabled]="i == 0" [ngClass]="{ 'p-toggler-column': i === 0 }">
+                            <td
+                                *ngFor="let col of columns; let i = index"
+                                ttEditableColumn
+                                [ttEditableColumnDisabled]="i == 0"
+                                [ngClass]="{ 'p-toggler-column': i === 0 }"
+                            >
                                 <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
                                 <p-treeTableCellEditor>
                                     <ng-template pTemplate="input">
@@ -42,7 +47,7 @@ interface Column {
         </div>
         <app-code [code]="code" selector="tree-table-edit-demo"></app-code>
     `,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EditDoc {
     files!: TreeNode[];
@@ -56,7 +61,7 @@ export class EditDoc {
         this.cols = [
             { field: 'name', header: 'Name' },
             { field: 'size', header: 'Size' },
-            { field: 'type', header: 'Type' }
+            { field: 'type', header: 'Type' },
         ];
     }
 
@@ -156,6 +161,6 @@ export class TreeTableEditDemo implements OnInit {
     }
 }`,
 
-        service: ['NodeService']
+        service: ['NodeService'],
     };
 }

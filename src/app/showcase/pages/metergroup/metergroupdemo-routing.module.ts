@@ -4,6 +4,6 @@ import { MeterGroupDemo } from './metergroupdemo';
 
 @NgModule({
     imports: [RouterModule.forChild([{ path: '', component: MeterGroupDemo }])],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class MeterGroupDemoRoutingModule {}

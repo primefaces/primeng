@@ -22,15 +22,15 @@ export default {
             style: '{focus.ring.style}',
             color: '{focus.ring.color}',
             offset: '{focus.ring.offset}',
-            shadow: '{focus.ring.shadow}'
+            shadow: '{focus.ring.shadow}',
         },
-        transitionDuration: '{form.field.transition.duration}'
+        transitionDuration: '{form.field.transition.duration}',
     },
     icon: {
         size: '0.875rem',
         color: '{form.field.color}',
         checkedColor: '{primary.contrast.color}',
         checkedHoverColor: '{primary.contrast.color}',
-        disabledColor: '{form.field.disabled.color}'
-    }
+        disabledColor: '{form.field.disabled.color}',
+    },
 };

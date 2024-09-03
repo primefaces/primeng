@@ -5,6 +5,6 @@ import { SupportRoutingModule } from './support-routing.module';
 
 @NgModule({
     imports: [CommonModule, SupportRoutingModule],
-    declarations: [SupportComponent]
+    declarations: [SupportComponent],
 })
 export class SupportModule {}

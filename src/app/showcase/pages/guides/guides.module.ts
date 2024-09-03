@@ -8,6 +8,6 @@ import { GuidesDocModule } from '@doc/guides/guidesdoc.module';
 
 @NgModule({
     imports: [CommonModule, GuidesRoutingModule, GuidesDocModule],
-    declarations: [AccessibilityDemoComponent, TemplateUpdateDemoComponent, CssLayerDemoComponent]
+    declarations: [AccessibilityDemoComponent, TemplateUpdateDemoComponent, CssLayerDemoComponent],
 })
 export class GuidesModule {}

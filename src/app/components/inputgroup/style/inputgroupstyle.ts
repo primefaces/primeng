@@ -106,9 +106,9 @@ const classes = {
     root: ({ props }) => [
         'p-inputgroup',
         {
-            'p-inputgroup-fluid': props.fluid
-        }
-    ]
+            'p-inputgroup-fluid': props.fluid,
+        },
+    ],
 };
 
 @Injectable()

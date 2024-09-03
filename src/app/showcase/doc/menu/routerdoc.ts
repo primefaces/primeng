@@ -8,8 +8,9 @@ import { Router } from '@angular/router';
     template: `
         <app-docsectiontext>
             <p>
-                Navigation is specified using url property for external links and with <i>routerLink</i> for internal ones. If a menuitem has an active route, <i>p-menuitem-link-active</i> style class is added as an indicator. Active route link can
-                be configured with <i>routerLinkActiveOptions</i> property of MenuItem API.
+                Navigation is specified using url property for external links and with <i>routerLink</i> for internal ones. If a menuitem
+                has an active route, <i>p-menuitem-link-active</i> style class is added as an indicator. Active route link can be configured
+                with <i>routerLinkActiveOptions</i> property of MenuItem API.
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
@@ -31,7 +32,7 @@ import { Router } from '@angular/router';
             </p-menu>
         </div>
         <app-code [code]="code" selector="menu-router-demo"></app-code>
-    `
+    `,
 })
 export class RouterDoc implements OnInit {
     items: MenuItem[] | undefined;
@@ -46,22 +47,22 @@ export class RouterDoc implements OnInit {
                     {
                         label: 'Router Link',
                         icon: 'pi pi-palette',
-                        route: '/guides/csslayer'
+                        route: '/guides/csslayer',
                     },
                     {
                         label: 'Programmatic',
                         icon: 'pi pi-link',
                         command: () => {
                             this.router.navigate(['/installation']);
-                        }
+                        },
                     },
                     {
                         label: 'External',
                         icon: 'pi pi-home',
-                        url: 'https://angular.io//'
-                    }
-                ]
-            }
+                        url: 'https://angular.io//',
+                    },
+                ],
+            },
         ];
     }
 
@@ -144,6 +145,6 @@ export class MenuRouterDemo implements OnInit {
             }
         ];
     }
-}`
+}`,
     };
 }

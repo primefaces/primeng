@@ -4,6 +4,6 @@ import { ConfirmDialogDemo } from './confirmdialogdemo';
 
 @NgModule({
     imports: [RouterModule.forChild([{ path: '', component: ConfirmDialogDemo }])],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class ConfirmDialogDemoRoutingModule {}

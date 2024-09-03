@@ -9,44 +9,44 @@ import { AccessibilityDoc } from '@doc/skeleton/accessibilitydoc';
 
 @Component({
     templateUrl: './skeletondemo.html',
-    styleUrls: ['./skeletondemo.scss']
+    styleUrls: ['./skeletondemo.scss'],
 })
 export class SkeletonDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc
+            component: ImportDoc,
         },
         {
             id: 'shapes',
             label: 'Shapes',
-            component: ShapesDoc
+            component: ShapesDoc,
         },
         {
             id: 'card',
             label: 'Card',
-            component: CardDoc
+            component: CardDoc,
         },
         {
             id: 'list',
             label: 'List',
-            component: ListDoc
+            component: ListDoc,
         },
         {
             id: 'datatable',
             label: 'DataTable',
-            component: DataTableDoc
+            component: DataTableDoc,
         },
         {
             id: 'style',
             label: 'Style',
-            component: StyleDoc
+            component: StyleDoc,
         },
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc
-        }
+            component: AccessibilityDoc,
+        },
     ];
 }

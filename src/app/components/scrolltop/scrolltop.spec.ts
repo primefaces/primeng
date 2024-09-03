@@ -9,7 +9,7 @@ describe('ScrollTop', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule, ScrollTopModule]
+            imports: [NoopAnimationsModule, ScrollTopModule],
         });
 
         fixture = TestBed.createComponent(ScrollTop);

@@ -6,6 +6,6 @@ import { ToolbarDemoRoutingModule } from './toolbardemo-routing.module';
 
 @NgModule({
     imports: [CommonModule, ToolbarDemoRoutingModule, ToolbarDocModule],
-    declarations: [ToolbarDemo]
+    declarations: [ToolbarDemo],
 })
 export class ToolbarDemoModule {}

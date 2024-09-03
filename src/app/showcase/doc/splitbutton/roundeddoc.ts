@@ -20,7 +20,7 @@ import { Code } from '@domain/code';
         </div>
         <app-code [code]="code" selector="split-button-rounded-demo"></app-code>
     `,
-    providers: [MessageService]
+    providers: [MessageService],
 })
 export class RoundedDoc {
     items: MenuItem[];
@@ -31,17 +31,17 @@ export class RoundedDoc {
                 label: 'Update',
                 command: () => {
                     this.update();
-                }
+                },
             },
             {
                 label: 'Delete',
                 command: () => {
                     this.delete();
-                }
+                },
             },
             { label: 'Angular Website', url: 'http://angular.io' },
             { separator: true },
-            { label: 'Upload', routerLink: ['/fileupload'] }
+            { label: 'Upload', routerLink: ['/fileupload'] },
         ];
     }
 
@@ -191,6 +191,6 @@ export class SplitButtonRoundedDemo {
     delete() {
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Data Deleted' });
     }
-}`
+}`,
     };
 }

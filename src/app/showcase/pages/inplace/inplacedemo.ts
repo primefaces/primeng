@@ -9,49 +9,49 @@ import { AccessibilityDoc } from '@doc/inplace/accessibilitydoc';
 import { LazyDoc } from '@doc/inplace/lazydoc';
 
 @Component({
-    templateUrl: './inplacedemo.html'
+    templateUrl: './inplacedemo.html',
 })
 export class InplaceDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc
+            component: ImportDoc,
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc
+            component: BasicDoc,
         },
         {
             id: 'input',
             label: 'Input',
-            component: InputDoc
+            component: InputDoc,
         },
         {
             id: 'image',
             label: 'Image',
-            component: ImageDoc
+            component: ImageDoc,
         },
         {
             id: 'lazy',
             label: 'Lazy',
-            component: LazyDoc
+            component: LazyDoc,
         },
         {
             id: 'data',
             label: 'Data',
-            component: DataDoc
+            component: DataDoc,
         },
         {
             id: 'style',
             label: 'Style',
-            component: StyleDoc
+            component: StyleDoc,
         },
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc
-        }
+            component: AccessibilityDoc,
+        },
     ];
 }

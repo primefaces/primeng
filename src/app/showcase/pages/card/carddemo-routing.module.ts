@@ -4,6 +4,6 @@ import { CardDemo } from './carddemo';
 
 @NgModule({
     imports: [RouterModule.forChild([{ path: '', component: CardDemo }])],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class CardDemoRoutingModule {}

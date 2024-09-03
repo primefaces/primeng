@@ -12,7 +12,7 @@ describe('Breadcrumb', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [RouterTestingModule.withRoutes([{ path: 'test', component: Breadcrumb }]), NoopAnimationsModule, BreadcrumbModule],
-            schemas: [NO_ERRORS_SCHEMA]
+            schemas: [NO_ERRORS_SCHEMA],
         });
 
         fixture = TestBed.createComponent(Breadcrumb);
@@ -54,7 +54,10 @@ describe('Breadcrumb', () => {
 
     it('should display items', () => {
         breadcrumb.home = { icon: 'pi pi-home' };
-        breadcrumb.model = [{ label: 'Squad' }, { label: 'Lionel Messi', url: 'https://en.wikipedia.org/wiki/Lionel_Messi', icon: 'pi pi-external-link' }];
+        breadcrumb.model = [
+            { label: 'Squad' },
+            { label: 'Lionel Messi', url: 'https://en.wikipedia.org/wiki/Lionel_Messi', icon: 'pi pi-external-link' },
+        ];
         fixture.detectChanges();
 
         const itemsEl = fixture.debugElement.query(By.css('ol'));
@@ -65,7 +68,10 @@ describe('Breadcrumb', () => {
 
     it('should call itemClick when click home ', () => {
         breadcrumb.home = { icon: 'pi pi-home' };
-        breadcrumb.model = [{ label: 'Squad' }, { label: 'Lionel Messi', url: 'https://en.wikipedia.org/wiki/Lionel_Messi', icon: 'pi pi-external-link' }];
+        breadcrumb.model = [
+            { label: 'Squad' },
+            { label: 'Lionel Messi', url: 'https://en.wikipedia.org/wiki/Lionel_Messi', icon: 'pi pi-external-link' },
+        ];
         fixture.detectChanges();
 
         const itemClickSpy = spyOn(breadcrumb, 'onClick').and.callThrough();
@@ -78,7 +84,10 @@ describe('Breadcrumb', () => {
 
     it('should call itemClick when click item ', () => {
         breadcrumb.home = { icon: 'pi pi-home' };
-        breadcrumb.model = [{ label: 'Squad' }, { label: 'Lionel Messi', url: 'https://en.wikipedia.org/wiki/Lionel_Messi', icon: 'pi pi-external-link' }];
+        breadcrumb.model = [
+            { label: 'Squad' },
+            { label: 'Lionel Messi', url: 'https://en.wikipedia.org/wiki/Lionel_Messi', icon: 'pi pi-external-link' },
+        ];
         fixture.detectChanges();
 
         const itemClickSpy = spyOn(breadcrumb, 'onClick').and.callThrough();
@@ -106,7 +115,7 @@ describe('Breadcrumb', () => {
         breadcrumb.home = { icon: 'pi pi-home' };
         breadcrumb.model = [
             { label: 'Squad', disabled: true },
-            { label: 'Lionel Messi', url: 'https://en.wikipedia.org/wiki/Lionel_Messi', icon: 'pi pi-external-link' }
+            { label: 'Lionel Messi', url: 'https://en.wikipedia.org/wiki/Lionel_Messi', icon: 'pi pi-external-link' },
         ];
         fixture.detectChanges();
 
@@ -125,9 +134,9 @@ describe('Breadcrumb', () => {
                 label: 'Squad',
                 command: () => {
                     breadcrumb.styleClass = 'primengRocks!';
-                }
+                },
             },
-            { label: 'Lionel Messi', url: 'https://en.wikipedia.org/wiki/Lionel_Messi', icon: 'pi pi-external-link' }
+            { label: 'Lionel Messi', url: 'https://en.wikipedia.org/wiki/Lionel_Messi', icon: 'pi pi-external-link' },
         ];
         fixture.detectChanges();
 
@@ -147,9 +156,9 @@ describe('Breadcrumb', () => {
                 label: 'Squad',
                 command: () => {
                     breadcrumb.styleClass = 'primengRocks!';
-                }
+                },
             },
-            { label: 'Lionel Messi', url: 'https://en.wikipedia.org/wiki/Lionel_Messi', icon: 'pi pi-external-link' }
+            { label: 'Lionel Messi', url: 'https://en.wikipedia.org/wiki/Lionel_Messi', icon: 'pi pi-external-link' },
         ];
         fixture.detectChanges();
 

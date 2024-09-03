@@ -13,7 +13,14 @@ import { TimesIcon } from 'primeng/icons/times';
 
 @Component({
     template: `
-        <p-dropdown [(ngModel)]="selectedCity" [options]="groupedCars" [editable]="editable" [disabled]="disabled" [placeholder]="placeholder" [group]="true">
+        <p-dropdown
+            [(ngModel)]="selectedCity"
+            [options]="groupedCars"
+            [editable]="editable"
+            [disabled]="disabled"
+            [placeholder]="placeholder"
+            [group]="true"
+        >
             <ng-template let-group pTemplate="group">
                 <span>{{ group.label }}</span>
             </ng-template>
@@ -21,7 +28,7 @@ import { TimesIcon } from 'primeng/icons/times';
         <p-dropdown [(ngModel)]="selectedCity"></p-dropdown>
         <button (click)="setValue()"></button>
         <p-dropdown [(ngModel)]="selectedCity" [options]="groupedCarsAlternate" optionGroupChildren="children" [group]="true"></p-dropdown>
-    `
+    `,
 })
 class TestDropdownComponent {
     selectedCity: any;
@@ -33,8 +40,8 @@ class TestDropdownComponent {
             items: [
                 { label: 'Audi', value: 'Audi' },
                 { label: 'BMW', value: 'BMW' },
-                { label: 'Mercedes', value: 'Mercedes' }
-            ]
+                { label: 'Mercedes', value: 'Mercedes' },
+            ],
         },
         {
             label: 'USA',
@@ -42,8 +49,8 @@ class TestDropdownComponent {
             items: [
                 { label: 'Cadillac', value: 'Cadillac' },
                 { label: 'Ford', value: 'Ford' },
-                { label: 'GMC', value: 'GMC' }
-            ]
+                { label: 'GMC', value: 'GMC' },
+            ],
         },
         {
             label: 'Japan',
@@ -51,15 +58,15 @@ class TestDropdownComponent {
             items: [
                 { label: 'Honda', value: 'Honda' },
                 { label: 'Mazda', value: 'Mazda' },
-                { label: 'Toyota', value: 'Toyota' }
-            ]
-        }
+                { label: 'Toyota', value: 'Toyota' },
+            ],
+        },
     ];
 
     groupedCarsAlternate = this.groupedCars.map((city) => ({
         label: city.label,
         value: city.value,
-        children: city.items
+        children: city.items,
     }));
 
     disabled: boolean;
@@ -82,8 +89,17 @@ describe('Dropdown', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule, FormsModule, ScrollingModule, TooltipModule, OverlayModule, ChevronDownIcon, SearchIcon, TimesIcon],
-            declarations: [Dropdown, DropdownItem, TestDropdownComponent]
+            imports: [
+                NoopAnimationsModule,
+                FormsModule,
+                ScrollingModule,
+                TooltipModule,
+                OverlayModule,
+                ChevronDownIcon,
+                SearchIcon,
+                TimesIcon,
+            ],
+            declarations: [Dropdown, DropdownItem, TestDropdownComponent],
         }).compileComponents();
 
         fixture = TestBed.createComponent(Dropdown);
@@ -131,7 +147,7 @@ describe('Dropdown', () => {
             { name: 'Rome', code: 'RM' },
             { name: 'London', code: 'LDN' },
             { name: 'Istanbul', code: 'IST' },
-            { name: 'Paris', code: 'PRS' }
+            { name: 'Paris', code: 'PRS' },
         ];
         fixture.detectChanges();
 
@@ -150,7 +166,7 @@ describe('Dropdown', () => {
             { name: 'Rome', code: 'RM' },
             { name: 'London', code: 'LDN' },
             { name: 'Istanbul', code: 'IST' },
-            { name: 'Paris', code: 'PRS' }
+            { name: 'Paris', code: 'PRS' },
         ];
         fixture.detectChanges();
 
@@ -169,7 +185,7 @@ describe('Dropdown', () => {
             { name: 'Rome', code: 'RM' },
             { name: 'London', code: 'LDN' },
             { name: 'Istanbul', code: 'IST' },
-            { name: 'Paris', code: 'PRS' }
+            { name: 'Paris', code: 'PRS' },
         ];
         fixture.detectChanges();
 
@@ -191,7 +207,7 @@ describe('Dropdown', () => {
             { name: 'Rome', code: 'RM' },
             { name: 'London', code: 'LDN' },
             { name: 'Istanbul', code: 'IST' },
-            { name: 'Paris', code: 'PRS' }
+            { name: 'Paris', code: 'PRS' },
         ];
         fixture.detectChanges();
 
@@ -212,7 +228,7 @@ describe('Dropdown', () => {
             { label: 'Rome', value: { id: 2, name: 'Rome', code: 'RM' } },
             { label: 'London', value: { id: 3, name: 'London', code: 'LDN' } },
             { label: 'Istanbul', value: { id: 4, name: 'Istanbul', code: 'IST' } },
-            { label: 'Paris', value: { id: 5, name: 'Paris', code: 'PRS' } }
+            { label: 'Paris', value: { id: 5, name: 'Paris', code: 'PRS' } },
         ];
         dropdown.showClear = true;
         fixture.detectChanges();
@@ -242,7 +258,7 @@ describe('Dropdown', () => {
             { label: 'Rome', code: 'RM' },
             { label: 'London', code: 'LDN' },
             { label: 'Istanbul', code: 'IST' },
-            { label: 'Paris', code: 'PRS' }
+            { label: 'Paris', code: 'PRS' },
         ];
         fixture.detectChanges();
 
@@ -272,7 +288,7 @@ describe('Dropdown', () => {
             { label: 'Rome', code: 'RM' },
             { label: 'London', code: 'LDN' },
             { label: 'Istanbul', code: 'IST' },
-            { label: 'Paris', code: 'PRS' }
+            { label: 'Paris', code: 'PRS' },
         ];
         dropdown.filter = true;
         fixture.detectChanges();
@@ -304,7 +320,7 @@ describe('Dropdown', () => {
             { name: 'Rome', code: 'RM' },
             { name: 'London', code: 'LDN' },
             { name: 'Istanbul', code: 'IST' },
-            { name: 'Paris', code: 'PRS' }
+            { name: 'Paris', code: 'PRS' },
         ];
         dropdown.appendTo = 'body';
         fixture.detectChanges();
@@ -324,7 +340,7 @@ describe('Dropdown', () => {
             { name: 'Rome', code: 'RM' },
             { name: 'London', code: 'LDN' },
             { name: 'Istanbul', code: 'IST' },
-            { name: 'Paris', code: 'PRS' }
+            { name: 'Paris', code: 'PRS' },
         ];
         dropdown.appendTo = 'body';
         fixture.detectChanges();
@@ -351,7 +367,7 @@ describe('Dropdown', () => {
             { name: 'Rome', code: 'RM' },
             { name: 'London', code: 'LDN' },
             { name: 'Istanbul', code: 'IST' },
-            { name: 'Paris', code: 'PRS' }
+            { name: 'Paris', code: 'PRS' },
         ];
         dropdown.appendTo = document.body;
         dropdown.optionValue = 'code';
@@ -379,7 +395,7 @@ describe('Dropdown', () => {
             { name: 'Rome', code: 'RM' },
             { name: 'London', code: 'LDN' },
             { name: 'Istanbul', code: 'IST' },
-            { name: 'Paris', code: 'PRS' }
+            { name: 'Paris', code: 'PRS' },
         ];
         dropdown.appendTo = document.body;
         fixture.detectChanges();
@@ -403,7 +419,7 @@ describe('Dropdown', () => {
             { name: 'Rome', code: 'RM' },
             { name: 'London', code: 'LDN' },
             { name: 'Istanbul', code: 'IST' },
-            { name: 'Paris', code: 'PRS' }
+            { name: 'Paris', code: 'PRS' },
         ];
         fixture.detectChanges();
 
@@ -424,7 +440,7 @@ describe('Dropdown', () => {
             { name: 'Rome', code: 'RM' },
             { name: 'London', code: 'LDN' },
             { name: 'Istanbul', code: 'IST', inactive: true },
-            { name: 'Paris', code: 'PRS', inactive: true }
+            { name: 'Paris', code: 'PRS', inactive: true },
         ];
         fixture.detectChanges();
 
@@ -441,7 +457,7 @@ describe('Dropdown', () => {
             { label: 'Rome', value: 'RM' },
             { label: 'London', value: 'LDN' },
             { label: 'Istanbul', value: 'IST' },
-            { label: 'Paris', value: 'PRS' }
+            { label: 'Paris', value: 'PRS' },
         ];
         fixture.detectChanges();
 
@@ -529,6 +545,6 @@ describe('Dropdown', () => {
             fixture.detectChanges();
 
             expect(dropdown.filled()).toBeFalsy();
-        })
+        }),
     );
 });

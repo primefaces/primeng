@@ -11,7 +11,7 @@ describe('Fieldset', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [NoopAnimationsModule, MinusIcon],
-            declarations: [Fieldset]
+            declarations: [Fieldset],
         });
 
         fixture = TestBed.createComponent(Fieldset);

@@ -8,8 +8,8 @@ import { AppConfigService } from '@service/appconfigservice';
     template: `
         <app-docsectiontext>
             <p>
-                A radar chart is a graphical method of displaying multivariate data in the form of a two-dimensional
-                chart of three or more quantitative variables represented on axes starting from the same point.
+                A radar chart is a graphical method of displaying multivariate data in the form of a two-dimensional chart of three or more
+                quantitative variables represented on axes starting from the same point.
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
@@ -47,7 +47,7 @@ export class RadarDoc implements OnInit {
                         pointBorderColor: documentStyle.getPropertyValue('--p-gray-400'),
                         pointHoverBackgroundColor: textColor,
                         pointHoverBorderColor: documentStyle.getPropertyValue('--p-gray-400'),
-                        data: [65, 59, 90, 81, 56, 55, 40]
+                        data: [65, 59, 90, 81, 56, 55, 40],
                     },
                     {
                         label: 'My Second dataset',
@@ -56,8 +56,8 @@ export class RadarDoc implements OnInit {
                         pointBorderColor: documentStyle.getPropertyValue('--p-cyan-400'),
                         pointHoverBackgroundColor: textColor,
                         pointHoverBorderColor: documentStyle.getPropertyValue('--p-cyan-400'),
-                        data: [28, 48, 40, 19, 96, 27, 100]
-                    }
+                        data: [28, 48, 40, 19, 96, 27, 100],
+                    },
                 ],
             };
 
@@ -65,17 +65,17 @@ export class RadarDoc implements OnInit {
                 plugins: {
                     legend: {
                         labels: {
-                            color: textColor
-                        }
-                    }
+                            color: textColor,
+                        },
+                    },
                 },
                 scales: {
                     r: {
                         grid: {
-                            color: textColorSecondary
-                        }
-                    }
-                }
+                            color: textColorSecondary,
+                        },
+                    },
+                },
             };
         }
     }

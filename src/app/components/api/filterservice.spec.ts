@@ -10,10 +10,14 @@ describe('FilterService Suite', () => {
         { brand: 'Honda', year: 2012, color: { name: 'Blue' }, vin: 'g43gr', price: '4000.0' },
         { brand: 'Jaguar', year: 2013, color: { name: 'Black' }, vin: 'greg34', price: '1000.0' },
         { brand: 'Ford', year: 2000, color: { name: 'White' }, vin: 'h54hw5', price: '2000.0' },
-        { brand: 'Fiat', year: 2013, color: { name: 'Yellow' }, vin: '245t2s', price: '5000.0' }
+        { brand: 'Fiat', year: 2013, color: { name: 'Yellow' }, vin: '245t2s', price: '5000.0' },
     ];
 
-    let timeData = [{ date: 'Tue Aug 04 2019 00:00:00 GMT+0300 (GMT+03:00)' }, { date: 'Tue Aug 05 2019 00:00:00 GMT+0300 (GMT+03:00)' }, { date: 'Tue Aug 07 2019 00:00:00 GMT+0300 (GMT+03:00)' }];
+    let timeData = [
+        { date: 'Tue Aug 04 2019 00:00:00 GMT+0300 (GMT+03:00)' },
+        { date: 'Tue Aug 05 2019 00:00:00 GMT+0300 (GMT+03:00)' },
+        { date: 'Tue Aug 07 2019 00:00:00 GMT+0300 (GMT+03:00)' },
+    ];
 
     let filterService = new FilterService();
 

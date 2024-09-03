@@ -109,8 +109,7 @@ import { SelectModule } from 'primeng/select';
                 <ng-template pTemplate="selectedItem">{{ currentPageReport }}</ng-template>
                 <ng-container *ngIf="jumpToPageItemTemplate">
                     <ng-template let-item pTemplate="item">
-                        <ng-container *ngTemplateOutlet="jumpToPageItemTemplate; context: { $implicit: item }">
-                        </ng-container>
+                        <ng-container *ngTemplateOutlet="jumpToPageItemTemplate; context: { $implicit: item }"> </ng-container>
                     </ng-template>
                 </ng-container>
                 <ng-template pTemplate="dropdownicon" *ngIf="dropdownIconTemplate">
@@ -166,8 +165,7 @@ import { SelectModule } from 'primeng/select';
             >
                 <ng-container *ngIf="dropdownItemTemplate">
                     <ng-template let-item pTemplate="item">
-                        <ng-container *ngTemplateOutlet="dropdownItemTemplate; context: { $implicit: item }">
-                        </ng-container>
+                        <ng-container *ngTemplateOutlet="dropdownItemTemplate; context: { $implicit: item }"> </ng-container>
                     </ng-template>
                 </ng-container>
                 <ng-template pTemplate="dropdownicon" *ngIf="dropdownIconTemplate">
@@ -350,9 +348,7 @@ export class Paginator extends BaseComponent implements OnInit, AfterContentInit
     }
 
     getPageAriaLabel(value: number): string | undefined {
-        return this.config.translation.aria
-            ? this.config.translation.aria.pageLabel.replace(/{page}/g, `${value}`)
-            : undefined;
+        return this.config.translation.aria ? this.config.translation.aria.pageLabel.replace(/{page}/g, `${value}`) : undefined;
     }
 
     getLocalization(digit: number): string {

@@ -10,7 +10,7 @@ import { AppConfigService } from '@service/appconfigservice';
             <p>Various styles of a line series can be customized to display customizations like an area chart.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-chart type="line" [data]="data" [options]="options" class="h-[30rem]"/>
+            <p-chart type="line" [data]="data" [options]="options" class="h-[30rem]" />
         </div>
         <app-code [code]="code" selector="chart-line-style-demo"></app-code>
     `,
@@ -43,7 +43,7 @@ export class LineStyleDoc implements OnInit {
                         data: [65, 59, 80, 81, 56, 55, 40],
                         fill: false,
                         tension: 0.4,
-                        borderColor: documentStyle.getPropertyValue('--p-cyan-500')
+                        borderColor: documentStyle.getPropertyValue('--p-cyan-500'),
                     },
                     {
                         label: 'Second Dataset',
@@ -51,7 +51,7 @@ export class LineStyleDoc implements OnInit {
                         fill: false,
                         borderDash: [5, 5],
                         tension: 0.4,
-                        borderColor: documentStyle.getPropertyValue('--p-orange-500')
+                        borderColor: documentStyle.getPropertyValue('--p-orange-500'),
                     },
                     {
                         label: 'Third Dataset',
@@ -59,8 +59,8 @@ export class LineStyleDoc implements OnInit {
                         fill: true,
                         borderColor: documentStyle.getPropertyValue('--p-gray-500'),
                         tension: 0.4,
-                        backgroundColor: 'rgba(107, 114, 128, 0.2)'
-                    }
+                        backgroundColor: 'rgba(107, 114, 128, 0.2)',
+                    },
                 ],
             };
 

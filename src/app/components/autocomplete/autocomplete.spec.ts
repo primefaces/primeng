@@ -13,7 +13,7 @@ import { TimesCircleIcon } from 'primeng/icons/timescircle';
 @Component({
     template: `<p-autoComplete [(ngModel)]="brand" [suggestions]="filteredBrands" (completeMethod)="filterBrands($event)"></p-autoComplete>
         <a (click)="deleteLastEl()"></a>
-        <p-autoComplete [(ngModel)]="car" [suggestions]="filteredCars" (completeMethod)="filterBrandsWithField($event)"></p-autoComplete> `
+        <p-autoComplete [(ngModel)]="car" [suggestions]="filteredCars" (completeMethod)="filterBrandsWithField($event)"></p-autoComplete> `,
 })
 class TestAutocompleteComponent {
     brands: string[] = ['Audi', 'BMW', 'Fiat', 'Ford', 'Honda', 'Jaguar', 'Mercedes', 'Renault', 'Volvo', 'VW'];
@@ -55,8 +55,16 @@ describe('AutoComplete', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule, FormsModule, BrowserDynamicTestingModule, ButtonModule, OverlayModule, ChevronDownIcon, TimesCircleIcon],
-            declarations: [AutoComplete, TestAutocompleteComponent]
+            imports: [
+                NoopAnimationsModule,
+                FormsModule,
+                BrowserDynamicTestingModule,
+                ButtonModule,
+                OverlayModule,
+                ChevronDownIcon,
+                TimesCircleIcon,
+            ],
+            declarations: [AutoComplete, TestAutocompleteComponent],
         }).compileComponents();
 
         fixture = TestBed.createComponent(TestAutocompleteComponent);

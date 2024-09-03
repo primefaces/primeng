@@ -6,6 +6,6 @@ import { ListboxDemoRoutingModule } from './listboxdemo-routing.module';
 
 @NgModule({
     imports: [CommonModule, ListboxDemoRoutingModule, ListboxDocModule],
-    declarations: [ListboxDemo]
+    declarations: [ListboxDemo],
 })
 export class ListboxDemoModule {}

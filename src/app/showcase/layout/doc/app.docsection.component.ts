@@ -28,13 +28,21 @@ import { Doc } from 'src/app/showcase/domain/doc';
                     <app-docsectiontext [title]="doc.label" [id]="doc.id" [description]="doc.description" [level]="2" />
 
                     <ng-template ngFor [ngForOf]="doc.children" let-child>
-                        <app-docapitable [id]="child.id" [label]="child.label" [data]="child.data" [description]="child.description" [relatedProp]="child.relatedProp" [level]="3" [isInterface]="child.isInterface" />
+                        <app-docapitable
+                            [id]="child.id"
+                            [label]="child.label"
+                            [data]="child.data"
+                            [description]="child.description"
+                            [relatedProp]="child.relatedProp"
+                            [level]="3"
+                            [isInterface]="child.isInterface"
+                        />
                     </ng-template>
                 </ng-container>
             </section>
         </ng-container>
     `,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppDocSectionsComponent {
     @Input() docs!: Doc[];

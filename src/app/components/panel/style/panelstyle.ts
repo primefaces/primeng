@@ -53,8 +53,8 @@ const classes = {
     root: ({ props }) => [
         'p-panel p-component',
         {
-            'p-panel-toggleable': props.toggleable
-        }
+            'p-panel-toggleable': props.toggleable,
+        },
     ],
     header: 'p-panel-header',
     title: 'p-panel-title',
@@ -62,7 +62,7 @@ const classes = {
     pcToggleButton: 'p-panel-toggle-button',
     contentContainer: 'p-panel-content-container',
     content: 'p-panel-content',
-    footer: 'p-panel-footer'
+    footer: 'p-panel-footer',
 };
 @Injectable()
 export class PanelStyle extends BaseStyle {

@@ -7,6 +7,6 @@ import { FocusTrapDemoRoutingModule } from './focustrapdemo-routing.module';
 
 @NgModule({
     imports: [CommonModule, FocusTrapDemoRoutingModule, FormsModule, FocusTrapDocModule],
-    declarations: [FocusTrapDemo]
+    declarations: [FocusTrapDemo],
 })
 export class FocusTrapDemoModule {}

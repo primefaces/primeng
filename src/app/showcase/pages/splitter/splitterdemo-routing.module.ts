@@ -4,6 +4,6 @@ import { SplitterDemo } from './splitterdemo';
 
 @NgModule({
     imports: [RouterModule.forChild([{ path: '', component: SplitterDemo }])],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class SplitterDemoRoutingModule {}

@@ -4,6 +4,6 @@ import { StepperDemo } from './stepperdemo';
 
 @NgModule({
     imports: [RouterModule.forChild([{ path: '', component: StepperDemo }])],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class StepperDemoRoutingModule {}

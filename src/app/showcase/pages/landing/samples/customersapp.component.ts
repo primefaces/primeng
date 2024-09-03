@@ -98,7 +98,7 @@ import { AppConfigService } from '@service/appconfigservice';
                                             [label]="!data.image ? data.capName : ''"
                                             [ngClass]="{
                                                 'bg-violet-100 text-violet-950 text-xs font-medium': !data.image,
-                                                'rounded-md overflow-hidden flex': true
+                                                'rounded-md overflow-hidden flex': true,
                                             }"
                                         />
                                     </p-overlayBadge>
@@ -433,7 +433,11 @@ export class CustomersApp {
 
     churnRisk: number = 24;
 
-    constructor(@Inject(PLATFORM_ID) private platformId: any, private sanitizer: DomSanitizer, private configService: AppConfigService) {}
+    constructor(
+        @Inject(PLATFORM_ID) private platformId: any,
+        private sanitizer: DomSanitizer,
+        private configService: AppConfigService,
+    ) {}
 
     ngOnInit() {
         if (isPlatformBrowser(this.platformId)) {

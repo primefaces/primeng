@@ -19,7 +19,7 @@ import {
     ViewEncapsulation,
     booleanAttribute,
     inject,
-    numberAttribute
+    numberAttribute,
 } from '@angular/core';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
@@ -91,10 +91,15 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
             </div>
         </div>
     `,
-    animations: [trigger('panelState', [transition('void => visible', [useAnimation(showAnimation)]), transition('visible => void', [useAnimation(hideAnimation)])])],
+    animations: [
+        trigger('panelState', [
+            transition('void => visible', [useAnimation(showAnimation)]),
+            transition('visible => void', [useAnimation(hideAnimation)]),
+        ]),
+    ],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    providers: [DrawerStyle]
+    providers: [DrawerStyle],
 })
 export class Sidebar extends BaseComponent implements AfterViewInit, AfterContentInit, OnDestroy {
     /**
@@ -373,7 +378,9 @@ export class Sidebar extends BaseComponent implements AfterViewInit, AfterConten
 
     appendContainer() {
         if (this.appendTo) {
-            return this.appendTo === 'body' ? this.renderer.appendChild(this.document.body, this.container) : DomHandler.appendChild(this.container, this.appendTo);
+            return this.appendTo === 'body'
+                ? this.renderer.appendChild(this.document.body, this.container)
+                : DomHandler.appendChild(this.container, this.appendTo);
         }
     }
 
@@ -421,6 +428,6 @@ export class Sidebar extends BaseComponent implements AfterViewInit, AfterConten
 @NgModule({
     imports: [CommonModule, RippleModule, SharedModule, TimesIcon, ButtonModule],
     exports: [Sidebar, SharedModule],
-    declarations: [Sidebar]
+    declarations: [Sidebar],
 })
 export class SidebarModule {}

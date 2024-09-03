@@ -6,6 +6,6 @@ import { DialogDemoRoutingModule } from './dialogdemo-routing.module';
 
 @NgModule({
     imports: [CommonModule, DialogDemoRoutingModule, DialogDocModule],
-    declarations: [DialogDemo]
+    declarations: [DialogDemo],
 })
 export class DialogDemoModule {}

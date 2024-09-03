@@ -14,7 +14,7 @@ import { Code } from '@domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="slider-input-demo"></app-code>
-    `
+    `,
 })
 export class InputDoc {
     value: number = 50;
@@ -45,6 +45,6 @@ import { InputTextModule } from 'primeng/inputtext';
 })
 export class SliderInputDemo {
     value: number = 50;
-}`
+}`,
     };
 }

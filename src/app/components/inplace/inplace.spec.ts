@@ -12,7 +12,7 @@ describe('Inplace', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [NoopAnimationsModule, ButtonModule, TimesIcon],
-            declarations: [Inplace]
+            declarations: [Inplace],
         });
 
         fixture = TestBed.createComponent(Inplace);

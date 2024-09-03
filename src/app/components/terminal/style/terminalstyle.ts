@@ -51,7 +51,7 @@ const classes = {
     commandResponse: 'p-terminal-command-response',
     prompt: 'p-terminal-prompt',
     promptLabel: 'p-terminal-prompt-label',
-    promptValue: 'p-terminal-prompt-value'
+    promptValue: 'p-terminal-prompt-value',
 };
 
 @Injectable()

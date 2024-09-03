@@ -8,7 +8,7 @@ import { Component } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 @Component({
-    template: `<p-terminal welcomeMessage="Welcome to PrimeNG" prompt="primeng $"></p-terminal>`
+    template: `<p-terminal welcomeMessage="Welcome to PrimeNG" prompt="primeng $"></p-terminal>`,
 })
 class TestTerminalComponent {
     subscription: Subscription;
@@ -35,7 +35,7 @@ describe('Terminal', () => {
         TestBed.configureTestingModule({
             imports: [NoopAnimationsModule, FormsModule],
             declarations: [Terminal, TestTerminalComponent],
-            providers: [TerminalService]
+            providers: [TerminalService],
         });
 
         fixture = TestBed.createComponent(TestTerminalComponent);

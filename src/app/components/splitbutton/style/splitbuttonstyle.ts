@@ -58,11 +58,11 @@ const classes = {
         {
             'p-splitbutton-raised': props.raised,
             'p-splitbutton-rounded': props.rounded,
-            'p-splitbutton-fluid': props.fluid
-        }
+            'p-splitbutton-fluid': props.fluid,
+        },
     ],
     pcButton: 'p-splitbutton-button',
-    pcDropdown: 'p-splitbutton-dropdown'
+    pcDropdown: 'p-splitbutton-dropdown',
 };
 
 @Injectable()

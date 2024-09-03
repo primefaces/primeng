@@ -7,15 +7,24 @@ import { NodeService } from '@service/nodeservice';
     selector: 'reactive-forms-doc',
     template: `
         <app-docsectiontext>
-            <p>TreeSelect can also be used with reactive forms. In this case, the <i>formControlName</i> property is used to bind the component to a form control.</p>
+            <p>
+                TreeSelect can also be used with reactive forms. In this case, the <i>formControlName</i> property is used to bind the
+                component to a form control.
+            </p>
         </app-docsectiontext>
         <div class="card">
             <form class="flex justify-center" [formGroup]="formGroup">
-                <p-treeSelect class="md:w-80 w-full" containerStyleClass="w-full" formControlName="selectedNodes" [options]="nodes" placeholder="Select Item" />
+                <p-treeSelect
+                    class="md:w-80 w-full"
+                    containerStyleClass="w-full"
+                    formControlName="selectedNodes"
+                    [options]="nodes"
+                    placeholder="Select Item"
+                />
             </form>
         </div>
         <app-code [code]="code" selector="tree-select-reactive-forms-demo"></app-code>
-    `
+    `,
 })
 export class ReactiveFormsDoc implements OnInit {
     nodes!: any[];
@@ -28,7 +37,7 @@ export class ReactiveFormsDoc implements OnInit {
 
     ngOnInit() {
         this.formGroup = new FormGroup({
-            selectedNodes: new FormControl()
+            selectedNodes: new FormControl(),
         });
     }
 
@@ -107,6 +116,6 @@ export class TreeSelectReactiveFormsDemo implements OnInit {
         }
     ]
 },
-...`
+...`,
     };
 }

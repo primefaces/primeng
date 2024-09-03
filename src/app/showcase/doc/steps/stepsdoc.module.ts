@@ -25,9 +25,34 @@ import { ButtonModule } from 'primeng/button';
 import { ControlledDoc } from './controlleddoc';
 
 @NgModule({
-    imports: [CommonModule, AppCodeModule, StepsModule, ToastModule, AppDocModule, FormsModule, DropdownModule, InputTextModule, InputMaskModule, CheckboxModule, CardModule, ButtonModule],
-    declarations: [BasicDoc, ImportDoc, StyleDoc, InteractiveDoc, ConfirmationDemo, PaymentDemo, PersonalDemo, SeatDemo, RoutingDoc, ControlledDoc, AccessibilityDoc],
+    imports: [
+        CommonModule,
+        AppCodeModule,
+        StepsModule,
+        ToastModule,
+        AppDocModule,
+        FormsModule,
+        DropdownModule,
+        InputTextModule,
+        InputMaskModule,
+        CheckboxModule,
+        CardModule,
+        ButtonModule,
+    ],
+    declarations: [
+        BasicDoc,
+        ImportDoc,
+        StyleDoc,
+        InteractiveDoc,
+        ConfirmationDemo,
+        PaymentDemo,
+        PersonalDemo,
+        SeatDemo,
+        RoutingDoc,
+        ControlledDoc,
+        AccessibilityDoc,
+    ],
     exports: [AppDocModule],
-    providers: [TicketService]
+    providers: [TicketService],
 })
 export class StepsDocModule {}

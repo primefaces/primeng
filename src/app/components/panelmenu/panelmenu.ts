@@ -23,7 +23,7 @@ import {
     forwardRef,
     inject,
     numberAttribute,
-    signal
+    signal,
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { MenuItem, PrimeTemplate, SharedModule } from 'primeng/api';
@@ -85,15 +85,34 @@ import { BaseComponent } from 'primeng/basecomponent';
                             >
                                 <ng-container *ngIf="isItemGroup(processedItem)">
                                     <ng-container *ngIf="!panelMenu.submenuIconTemplate">
-                                        <AngleDownIcon [styleClass]="'p-panelmenu-submenu-icon'" *ngIf="isItemActive(processedItem)" [ngStyle]="getItemProp(processedItem, 'iconStyle')" />
-                                        <AngleRightIcon [styleClass]="'p-panelmenu-submenu-icon'" *ngIf="!isItemActive(processedItem)" [ngStyle]="getItemProp(processedItem, 'iconStyle')" />
+                                        <AngleDownIcon
+                                            [styleClass]="'p-panelmenu-submenu-icon'"
+                                            *ngIf="isItemActive(processedItem)"
+                                            [ngStyle]="getItemProp(processedItem, 'iconStyle')"
+                                        />
+                                        <AngleRightIcon
+                                            [styleClass]="'p-panelmenu-submenu-icon'"
+                                            *ngIf="!isItemActive(processedItem)"
+                                            [ngStyle]="getItemProp(processedItem, 'iconStyle')"
+                                        />
                                     </ng-container>
                                     <ng-template *ngTemplateOutlet="panelMenu.submenuIconTemplate"></ng-template>
                                 </ng-container>
-                                <span class="p-panelmenu-submenu-icon" [ngClass]="processedItem.icon" *ngIf="processedItem.icon" [ngStyle]="getItemProp(processedItem, 'iconStyle')"></span>
-                                <span class="p-panelmenu-item-label" *ngIf="processedItem.item?.escape !== false; else htmlLabel">{{ getItemProp(processedItem, 'label') }}</span>
-                                <ng-template #htmlLabel><span class="p-panelmenu-item-label" [innerHTML]="getItemProp(processedItem, 'label')"></span></ng-template>
-                                <span class="p-menuitem-badge" *ngIf="processedItem.badge" [ngClass]="processedItem.badgeStyleClass">{{ processedItem.badge }}</span>
+                                <span
+                                    class="p-panelmenu-submenu-icon"
+                                    [ngClass]="processedItem.icon"
+                                    *ngIf="processedItem.icon"
+                                    [ngStyle]="getItemProp(processedItem, 'iconStyle')"
+                                ></span>
+                                <span class="p-panelmenu-item-label" *ngIf="processedItem.item?.escape !== false; else htmlLabel">{{
+                                    getItemProp(processedItem, 'label')
+                                }}</span>
+                                <ng-template #htmlLabel
+                                    ><span class="p-panelmenu-item-label" [innerHTML]="getItemProp(processedItem, 'label')"></span
+                                ></ng-template>
+                                <span class="p-menuitem-badge" *ngIf="processedItem.badge" [ngClass]="processedItem.badgeStyleClass">{{
+                                    processedItem.badge
+                                }}</span>
                             </a>
                             <a
                                 *ngIf="getItemProp(processedItem, 'routerLink')"
@@ -116,15 +135,39 @@ import { BaseComponent } from 'primeng/basecomponent';
                             >
                                 <ng-container *ngIf="isItemGroup(processedItem)">
                                     <ng-container *ngIf="!panelMenu.submenuIconTemplate">
-                                        <AngleDownIcon *ngIf="isItemActive(processedItem)" [styleClass]="'p-panelmenu-submenu-icon'" [ngStyle]="getItemProp(processedItem, 'iconStyle')" />
-                                        <AngleRightIcon *ngIf="!isItemActive(processedItem)" [styleClass]="'p-panelmenu-submenu-icon'" [ngStyle]="getItemProp(processedItem, 'iconStyle')" />
+                                        <AngleDownIcon
+                                            *ngIf="isItemActive(processedItem)"
+                                            [styleClass]="'p-panelmenu-submenu-icon'"
+                                            [ngStyle]="getItemProp(processedItem, 'iconStyle')"
+                                        />
+                                        <AngleRightIcon
+                                            *ngIf="!isItemActive(processedItem)"
+                                            [styleClass]="'p-panelmenu-submenu-icon'"
+                                            [ngStyle]="getItemProp(processedItem, 'iconStyle')"
+                                        />
                                     </ng-container>
                                     <ng-template *ngTemplateOutlet="panelMenu.submenuIconTemplate"></ng-template>
                                 </ng-container>
-                                <span class="p-panelmenu-submenu-icon" [ngClass]="processedItem.icon" *ngIf="processedItem.icon" [ngStyle]="getItemProp(processedItem, 'iconStyle')"></span>
-                                <span class="p-panelmenu-item-label" *ngIf="getItemProp(processedItem, 'escape') !== false; else htmlRouteLabel">{{ getItemProp(processedItem, 'label') }}</span>
-                                <ng-template #htmlRouteLabel><span class="p-panelmenu-item-label" [innerHTML]="getItemProp(processedItem, 'label')"></span></ng-template>
-                                <span class="p-menuitem-badge" *ngIf="processedItem.badge" [ngClass]="getItemProp(processedItem, 'badgeStyleClass')">{{ getItemProp(processedItem, 'badge') }}</span>
+                                <span
+                                    class="p-panelmenu-submenu-icon"
+                                    [ngClass]="processedItem.icon"
+                                    *ngIf="processedItem.icon"
+                                    [ngStyle]="getItemProp(processedItem, 'iconStyle')"
+                                ></span>
+                                <span
+                                    class="p-panelmenu-item-label"
+                                    *ngIf="getItemProp(processedItem, 'escape') !== false; else htmlRouteLabel"
+                                    >{{ getItemProp(processedItem, 'label') }}</span
+                                >
+                                <ng-template #htmlRouteLabel
+                                    ><span class="p-panelmenu-item-label" [innerHTML]="getItemProp(processedItem, 'label')"></span
+                                ></ng-template>
+                                <span
+                                    class="p-menuitem-badge"
+                                    *ngIf="processedItem.badge"
+                                    [ngClass]="getItemProp(processedItem, 'badgeStyleClass')"
+                                    >{{ getItemProp(processedItem, 'badge') }}</span
+                                >
                             </a>
                         </ng-container>
                         <ng-container *ngIf="itemTemplate">
@@ -155,20 +198,20 @@ import { BaseComponent } from 'primeng/basecomponent';
             state(
                 'hidden',
                 style({
-                    height: '0'
-                })
+                    height: '0',
+                }),
             ),
             state(
                 'visible',
                 style({
-                    height: '*'
-                })
+                    height: '*',
+                }),
             ),
             transition('visible <=> hidden', [animate('{{transitionParams}}')]),
-            transition('void => *', animate(0))
-        ])
+            transition('void => *', animate(0)),
+        ]),
     ],
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
 })
 export class PanelMenuSub {
     @Input() panelId: string | undefined;
@@ -201,7 +244,10 @@ export class PanelMenuSub {
 
     @ViewChild('list') listViewChild: ElementRef;
 
-    constructor(@Inject(forwardRef(() => PanelMenu)) public panelMenu: PanelMenu, public el: ElementRef) {}
+    constructor(
+        @Inject(forwardRef(() => PanelMenu)) public panelMenu: PanelMenu,
+        public el: ElementRef,
+    ) {}
 
     getItemId(processedItem) {
         return processedItem.item?.id ?? `${this.panelId}_${processedItem.key}`;
@@ -215,7 +261,7 @@ export class PanelMenuSub {
         return {
             'p-panelmenu-item': true,
             'p-disabled': this.isItemDisabled(processedItem),
-            'p-focus': this.isItemFocused(processedItem)
+            'p-focus': this.isItemFocused(processedItem),
         };
     }
 
@@ -252,15 +298,24 @@ export class PanelMenuSub {
     }
 
     getAnimation(processedItem) {
-        return this.isItemActive(processedItem) ? { value: 'visible', params: { transitionParams: this.transitionOptions, height: '*' } } : { value: 'hidden', params: { transitionParams: this.transitionOptions, height: '0' } };
+        return this.isItemActive(processedItem)
+            ? { value: 'visible', params: { transitionParams: this.transitionOptions, height: '*' } }
+            : { value: 'hidden', params: { transitionParams: this.transitionOptions, height: '0' } };
     }
 
     getAriaSetSize() {
-        return this.items.filter((processedItem) => this.isItemVisible(processedItem) && !this.getItemProp(processedItem, 'separator')).length;
+        return this.items.filter((processedItem) => this.isItemVisible(processedItem) && !this.getItemProp(processedItem, 'separator'))
+            .length;
     }
 
     getAriaPosInset(index) {
-        return index - this.items.slice(0, index).filter((processedItem) => this.isItemVisible(processedItem) && this.getItemProp(processedItem, 'separator')).length + 1;
+        return (
+            index -
+            this.items
+                .slice(0, index)
+                .filter((processedItem) => this.isItemVisible(processedItem) && this.getItemProp(processedItem, 'separator')).length +
+            1
+        );
     }
 
     onItemClick(event, processedItem) {
@@ -297,7 +352,7 @@ export class PanelMenuSub {
         ></p-panelMenuSub>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
 })
 export class PanelMenuList implements OnChanges {
     @Input() panelId: string | undefined;
@@ -345,7 +400,11 @@ export class PanelMenuList implements OnChanges {
 
     get focusedItemId() {
         const focusedItem = this.focusedItem();
-        return focusedItem && focusedItem.item?.id ? focusedItem.item.id : ObjectUtils.isNotEmpty(this.focusedItem()) ? `${this.panelId}_${this.focusedItem().key}` : undefined;
+        return focusedItem && focusedItem.item?.id
+            ? focusedItem.item.id
+            : ObjectUtils.isNotEmpty(this.focusedItem())
+              ? `${this.panelId}_${this.focusedItem().key}`
+              : undefined;
     }
 
     constructor(private el: ElementRef) {}
@@ -385,7 +444,10 @@ export class PanelMenuList implements OnChanges {
     }
 
     isItemMatched(processedItem) {
-        return this.isValidItem(processedItem) && this.getItemLabel(processedItem).toLocaleLowerCase().startsWith(this.searchValue.toLocaleLowerCase());
+        return (
+            this.isValidItem(processedItem) &&
+            this.getItemLabel(processedItem).toLocaleLowerCase().startsWith(this.searchValue.toLocaleLowerCase())
+        );
     }
 
     isVisibleItem(processedItem) {
@@ -411,7 +473,12 @@ export class PanelMenuList implements OnChanges {
             parentNode = parentNode?.parentNode as Element;
         }
 
-        return parentNode?.id && this.visibleItems().find((processedItem) => this.isValidItem(processedItem) && `${this.panelId}_${processedItem.key}` === parentNode.id);
+        return (
+            parentNode?.id &&
+            this.visibleItems().find(
+                (processedItem) => this.isValidItem(processedItem) && `${this.panelId}_${processedItem.key}` === parentNode.id,
+            )
+        );
     }
 
     createProcessedItems(items, level = 0, parent = {}, parentKey = '') {
@@ -428,7 +495,7 @@ export class PanelMenuList implements OnChanges {
                     level,
                     key,
                     parent,
-                    parentKey
+                    parentKey,
                 };
 
                 newItem['items'] = this.createProcessedItems(item.items, level + 1, newItem, key);
@@ -484,7 +551,11 @@ export class PanelMenuList implements OnChanges {
     onFocus(event) {
         if (!this.focused) {
             this.focused = true;
-            const focusedItem = this.focusedItem() || (this.isElementInPanel(event, event.relatedTarget) ? this.findItemByEventTarget(event.target) || this.findFirstItem() : this.findLastItem());
+            const focusedItem =
+                this.focusedItem() ||
+                (this.isElementInPanel(event, event.relatedTarget)
+                    ? this.findItemByEventTarget(event.target) || this.findFirstItem()
+                    : this.findLastItem());
             if (event.relatedTarget !== null) this.focusedItem.set(focusedItem);
         }
     }
@@ -628,7 +699,8 @@ export class PanelMenuList implements OnChanges {
     onEnterKey(event) {
         if (ObjectUtils.isNotEmpty(this.focusedItem())) {
             const element = DomHandler.findSingle(this.subMenuViewChild.listViewChild.nativeElement, `li[id="${`${this.focusedItemId}`}"]`);
-            const anchorElement = element && (DomHandler.findSingle(element, '[data-pc-section="action"]') || DomHandler.findSingle(element, 'a,button'));
+            const anchorElement =
+                element && (DomHandler.findSingle(element, '[data-pc-section="action"]') || DomHandler.findSingle(element, 'a,button'));
 
             anchorElement ? anchorElement.click() : element && element.click();
         }
@@ -654,7 +726,8 @@ export class PanelMenuList implements OnChanges {
 
     findPrevItem(processedItem) {
         const index = this.visibleItems().findIndex((item) => item.key === processedItem.key);
-        const matchedItem = index > 0 ? ObjectUtils.findLast(this.visibleItems().slice(0, index), (pItem) => this.isValidItem(pItem)) : undefined;
+        const matchedItem =
+            index > 0 ? ObjectUtils.findLast(this.visibleItems().slice(0, index), (pItem) => this.isValidItem(pItem)) : undefined;
 
         return matchedItem || processedItem;
     }
@@ -692,7 +765,7 @@ export class PanelMenuList implements OnChanges {
             this.changeFocusedItem({
                 originalEvent: event,
                 processedItem: matchedItem,
-                allowHeaderFocus: false
+                allowHeaderFocus: false,
             });
         }
 
@@ -718,9 +791,19 @@ export class PanelMenuList implements OnChanges {
     template: `
         <div [class]="styleClass" [ngStyle]="style" [ngClass]="'p-panelmenu p-component'" #container>
             <ng-container *ngFor="let item of model; let f = first; let l = last; let i = index">
-                <div *ngIf="isItemVisible(item)" class="p-panelmenu-panel" [ngClass]="getItemProp(item, 'headerClass')" [ngStyle]="getItemProp(item, 'style')" [attr.data-pc-section]="'panel'">
+                <div
+                    *ngIf="isItemVisible(item)"
+                    class="p-panelmenu-panel"
+                    [ngClass]="getItemProp(item, 'headerClass')"
+                    [ngStyle]="getItemProp(item, 'style')"
+                    [attr.data-pc-section]="'panel'"
+                >
                     <div
-                        [ngClass]="{ 'p-component p-panelmenu-header': true, 'p-panelmenu-header-active': isItemActive(item) && !!item.items, 'p-disabled': isItemDisabled(item) }"
+                        [ngClass]="{
+                            'p-component p-panelmenu-header': true,
+                            'p-panelmenu-header-active': isItemActive(item) && !!item.items,
+                            'p-disabled': isItemDisabled(item),
+                        }"
                         [class]="getItemProp(item, 'styleClass')"
                         [ngStyle]="getItemProp(item, 'style')"
                         [pTooltip]="getItemProp(item, 'tooltip')"
@@ -756,10 +839,24 @@ export class PanelMenuList implements OnChanges {
                                         </ng-container>
                                         <ng-template *ngTemplateOutlet="submenuIconTemplate"></ng-template>
                                     </ng-container>
-                                    <span class="p-panelmenu-submenu-icon" [ngClass]="item.icon" *ngIf="item.icon" [ngStyle]="getItemProp(item, 'iconStyle')"></span>
-                                    <span class="p-panelmenu-header-label" *ngIf="getItemProp(item, 'escape') !== false; else htmlLabel">{{ getItemProp(item, 'label') }}</span>
-                                    <ng-template #htmlLabel><span class="p-panelmenu-header-label" [innerHTML]="getItemProp(item, 'label')"></span></ng-template>
-                                    <span class="p-menuitem-badge" *ngIf="getItemProp(item, 'badge')" [ngClass]="getItemProp(item, 'badgeStyleClass')">{{ getItemProp(item, 'badge') }}</span>
+                                    <span
+                                        class="p-panelmenu-submenu-icon"
+                                        [ngClass]="item.icon"
+                                        *ngIf="item.icon"
+                                        [ngStyle]="getItemProp(item, 'iconStyle')"
+                                    ></span>
+                                    <span class="p-panelmenu-header-label" *ngIf="getItemProp(item, 'escape') !== false; else htmlLabel">{{
+                                        getItemProp(item, 'label')
+                                    }}</span>
+                                    <ng-template #htmlLabel
+                                        ><span class="p-panelmenu-header-label" [innerHTML]="getItemProp(item, 'label')"></span
+                                    ></ng-template>
+                                    <span
+                                        class="p-menuitem-badge"
+                                        *ngIf="getItemProp(item, 'badge')"
+                                        [ngClass]="getItemProp(item, 'badgeStyleClass')"
+                                        >{{ getItemProp(item, 'badge') }}</span
+                                    >
                                 </a>
                             </ng-container>
                             <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: item }"></ng-container>
@@ -787,10 +884,24 @@ export class PanelMenuList implements OnChanges {
                                     </ng-container>
                                     <ng-template *ngTemplateOutlet="submenuIconTemplate"></ng-template>
                                 </ng-container>
-                                <span class="p-panelmenu-submenu-icon" [ngClass]="item.icon" *ngIf="item.icon" [ngStyle]="getItemProp(item, 'iconStyle')"></span>
-                                <span class="p-panelmenu-header-label" *ngIf="getItemProp(item, 'escape') !== false; else htmlRouteLabel">{{ getItemProp(item, 'label') }}</span>
-                                <ng-template #htmlRouteLabel><span class="p-panelmenu-header-label" [innerHTML]="getItemProp(item, 'label')"></span></ng-template>
-                                <span class="p-menuitem-badge" *ngIf="getItemProp(item, 'badge')" [ngClass]="getItemProp(item, 'badgeStyleClass')">{{ getItemProp(item, 'badge') }}</span>
+                                <span
+                                    class="p-panelmenu-submenu-icon"
+                                    [ngClass]="item.icon"
+                                    *ngIf="item.icon"
+                                    [ngStyle]="getItemProp(item, 'iconStyle')"
+                                ></span>
+                                <span class="p-panelmenu-header-label" *ngIf="getItemProp(item, 'escape') !== false; else htmlRouteLabel">{{
+                                    getItemProp(item, 'label')
+                                }}</span>
+                                <ng-template #htmlRouteLabel
+                                    ><span class="p-panelmenu-header-label" [innerHTML]="getItemProp(item, 'label')"></span
+                                ></ng-template>
+                                <span
+                                    class="p-menuitem-badge"
+                                    *ngIf="getItemProp(item, 'badge')"
+                                    [ngClass]="getItemProp(item, 'badgeStyleClass')"
+                                    >{{ getItemProp(item, 'badge') }}</span
+                                >
                             </a>
                         </div>
                     </div>
@@ -828,22 +939,22 @@ export class PanelMenuList implements OnChanges {
             state(
                 'hidden',
                 style({
-                    height: '0'
-                })
+                    height: '0',
+                }),
             ),
             state(
                 'visible',
                 style({
-                    height: '*'
-                })
+                    height: '*',
+                }),
             ),
             transition('visible <=> hidden', [animate('{{transitionParams}}')]),
-            transition('void => *', animate(0))
-        ])
+            transition('void => *', animate(0)),
+        ]),
     ],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    providers: [PanelMenuStyle]
+    providers: [PanelMenuStyle],
 })
 export class PanelMenu extends BaseComponent implements AfterContentInit {
     /**
@@ -946,7 +1057,9 @@ export class PanelMenu extends BaseComponent implements AfterContentInit {
     }
 
     getAnimation(item: MenuItem) {
-        return item.expanded ? { value: 'visible', params: { transitionParams: this.animating ? this.transitionOptions : '0ms', height: '*' } } : { value: 'hidden', params: { transitionParams: this.transitionOptions, height: '0' } };
+        return item.expanded
+            ? { value: 'visible', params: { transitionParams: this.animating ? this.transitionOptions : '0ms', height: '*' } }
+            : { value: 'hidden', params: { transitionParams: this.transitionOptions, height: '0' } };
     }
 
     getItemProp(item, name) {
@@ -988,9 +1101,17 @@ export class PanelMenu extends BaseComponent implements AfterContentInit {
     updateFocusedHeader(event) {
         const { originalEvent, focusOnNext, selfCheck } = event;
         const panelElement = originalEvent.currentTarget.closest('[data-pc-section="panel"]');
-        const header = selfCheck ? DomHandler.findSingle(panelElement, '[data-pc-section="header"]') : focusOnNext ? this.findNextHeader(panelElement) : this.findPrevHeader(panelElement);
+        const header = selfCheck
+            ? DomHandler.findSingle(panelElement, '[data-pc-section="header"]')
+            : focusOnNext
+              ? this.findNextHeader(panelElement)
+              : this.findPrevHeader(panelElement);
 
-        header ? this.changeFocusedHeader(originalEvent, header) : focusOnNext ? this.onHeaderHomeKey(originalEvent) : this.onHeaderEndKey(originalEvent);
+        header
+            ? this.changeFocusedHeader(originalEvent, header)
+            : focusOnNext
+              ? this.onHeaderHomeKey(originalEvent)
+              : this.onHeaderEndKey(originalEvent);
     }
 
     changeFocusedHeader(event, element) {
@@ -1001,14 +1122,22 @@ export class PanelMenu extends BaseComponent implements AfterContentInit {
         const nextPanelElement = selfCheck ? panelElement : panelElement.nextElementSibling;
         const headerElement = DomHandler.findSingle(nextPanelElement, '[data-pc-section="header"]');
 
-        return headerElement ? (DomHandler.getAttribute(headerElement, 'data-p-disabled') ? this.findNextHeader(headerElement.parentElement) : headerElement) : null;
+        return headerElement
+            ? DomHandler.getAttribute(headerElement, 'data-p-disabled')
+                ? this.findNextHeader(headerElement.parentElement)
+                : headerElement
+            : null;
     }
 
     findPrevHeader(panelElement, selfCheck = false) {
         const prevPanelElement = selfCheck ? panelElement : panelElement.previousElementSibling;
         const headerElement = DomHandler.findSingle(prevPanelElement, '[data-pc-section="header"]');
 
-        return headerElement ? (DomHandler.getAttribute(headerElement, 'data-p-disabled') ? this.findPrevHeader(headerElement.parentElement) : headerElement) : null;
+        return headerElement
+            ? DomHandler.getAttribute(headerElement, 'data-p-disabled')
+                ? this.findPrevHeader(headerElement.parentElement)
+                : headerElement
+            : null;
     }
 
     findFirstHeader() {
@@ -1073,7 +1202,10 @@ export class PanelMenu extends BaseComponent implements AfterContentInit {
     }
 
     onHeaderArrowDownKey(event) {
-        const rootList = DomHandler.getAttribute(event.currentTarget, 'data-p-highlight') === true ? DomHandler.findSingle(event.currentTarget.nextElementSibling, '[data-pc-section="menu"]') : null;
+        const rootList =
+            DomHandler.getAttribute(event.currentTarget, 'data-p-highlight') === true
+                ? DomHandler.findSingle(event.currentTarget.nextElementSibling, '[data-pc-section="menu"]')
+                : null;
 
         rootList ? DomHandler.focus(rootList) : this.updateFocusedHeader({ originalEvent: event, focusOnNext: true });
         event.preventDefault();
@@ -1081,7 +1213,10 @@ export class PanelMenu extends BaseComponent implements AfterContentInit {
 
     onHeaderArrowUpKey(event) {
         const prevHeader = this.findPrevHeader(event.currentTarget.parentElement) || this.findLastHeader();
-        const rootList = DomHandler.getAttribute(prevHeader, 'data-p-highlight') === true ? DomHandler.findSingle(prevHeader.nextElementSibling, '[data-pc-section="menu"]') : null;
+        const rootList =
+            DomHandler.getAttribute(prevHeader, 'data-p-highlight') === true
+                ? DomHandler.findSingle(prevHeader.nextElementSibling, '[data-pc-section="menu"]')
+                : null;
 
         rootList ? DomHandler.focus(rootList) : this.updateFocusedHeader({ originalEvent: event, focusOnNext: false });
         event.preventDefault();
@@ -1107,6 +1242,6 @@ export class PanelMenu extends BaseComponent implements AfterContentInit {
 @NgModule({
     imports: [CommonModule, RouterModule, TooltipModule, SharedModule, AngleDownIcon, AngleRightIcon, ChevronDownIcon, ChevronRightIcon],
     exports: [PanelMenu, RouterModule, TooltipModule, SharedModule],
-    declarations: [PanelMenu, PanelMenuSub, PanelMenuList]
+    declarations: [PanelMenu, PanelMenuSub, PanelMenuList],
 })
 export class PanelMenuModule {}

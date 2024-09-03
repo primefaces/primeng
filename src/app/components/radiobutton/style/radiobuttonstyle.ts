@@ -38,8 +38,8 @@ const theme = ({ dt }) => `
     width: ${dt('radiobutton.width')};
     height: ${dt('radiobutton.height')};
     transition: background ${dt('radiobutton.transition.duration')}, color ${dt('radiobutton.transition.duration')}, border-color ${dt('radiobutton.transition.duration')}, box-shadow ${dt('radiobutton.transition.duration')}, outline-color ${dt(
-    'radiobutton.transition.duration'
-)};
+        'radiobutton.transition.duration',
+    )};
     outline-color: transparent;
     box-shadow: ${dt('radiobutton.shadow')};
 }
@@ -127,12 +127,14 @@ const classes = {
             'p-radiobutton-checked': instance.checked,
             'p-disabled': props.disabled,
             'p-invalid': props.invalid,
-            'p-variant-filled': props.variant ? props.variant === 'filled' : instance.$primevue.config.inputStyle === 'filled' || instance.$primevue.config.inputVariant === 'filled'
-        }
+            'p-variant-filled': props.variant
+                ? props.variant === 'filled'
+                : instance.$primevue.config.inputStyle === 'filled' || instance.$primevue.config.inputVariant === 'filled',
+        },
     ],
     box: 'p-radiobutton-box',
     input: 'p-radiobutton-input',
-    icon: 'p-radiobutton-icon'
+    icon: 'p-radiobutton-icon',
 };
 
 @Injectable()

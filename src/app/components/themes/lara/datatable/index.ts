@@ -1,11 +1,11 @@
 export default {
     root: {
-        transitionDuration: '{transition.duration}'
+        transitionDuration: '{transition.duration}',
     },
     header: {
         borderColor: '{datatable.border.color}',
         borderWidth: '1px 0 1px 0',
-        padding: '0.75rem 1rem'
+        padding: '0.75rem 1rem',
     },
     headerCell: {
         selectedBackground: '{highlight.background}',
@@ -19,11 +19,11 @@ export default {
             style: '{focus.ring.style}',
             color: '{focus.ring.color}',
             offset: '{focus.ring.offset}',
-            shadow: 'inset {focus.ring.shadow}'
-        }
+            shadow: 'inset {focus.ring.shadow}',
+        },
     },
     columnTitle: {
-        fontWeight: '700'
+        fontWeight: '700',
     },
     row: {
         background: '{content.background}',
@@ -37,37 +37,37 @@ export default {
             style: '{focus.ring.style}',
             color: '{focus.ring.color}',
             offset: '{focus.ring.offset}',
-            shadow: 'inset {focus.ring.shadow}'
-        }
+            shadow: 'inset {focus.ring.shadow}',
+        },
     },
     bodyCell: {
         borderColor: '{datatable.border.color}',
-        padding: '0.75rem 1rem'
+        padding: '0.75rem 1rem',
     },
     footerCell: {
         borderColor: '{datatable.border.color}',
-        padding: '0.75rem 1rem'
+        padding: '0.75rem 1rem',
     },
     columnFooter: {
-        fontWeight: '700'
+        fontWeight: '700',
     },
     footer: {
         borderColor: '{datatable.border.color}',
         borderWidth: '0 0 1px 0',
-        padding: '0.75rem 1rem'
+        padding: '0.75rem 1rem',
     },
     dropPointColor: '{primary.color}',
     columnResizerWidth: '0.5rem',
     resizeIndicator: {
         width: '1px',
-        color: '{primary.color}'
+        color: '{primary.color}',
     },
     sortIcon: {
         color: '{text.muted.color}',
-        hoverColor: '{text.hover.muted.color}'
+        hoverColor: '{text.hover.muted.color}',
     },
     loadingIcon: {
-        size: '2rem'
+        size: '2rem',
     },
     rowToggleButton: {
         hoverBackground: '{content.hover.background}',
@@ -82,8 +82,8 @@ export default {
             style: '{focus.ring.style}',
             color: '{focus.ring.color}',
             offset: '{focus.ring.offset}',
-            shadow: '{focus.ring.shadow}'
-        }
+            shadow: '{focus.ring.shadow}',
+        },
     },
     filter: {
         inlineGap: '0.5rem',
@@ -92,7 +92,7 @@ export default {
             borderColor: '{overlay.select.border.color}',
             borderRadius: '{overlay.select.border.radius}',
             color: '{overlay.select.color}',
-            shadow: '{overlay.select.shadow}'
+            shadow: '{overlay.select.shadow}',
         },
         overlayPopover: {
             background: '{overlay.popover.background}',
@@ -101,14 +101,14 @@ export default {
             color: '{overlay.popover.color}',
             shadow: '{overlay.popover.shadow}',
             padding: '{overlay.popover.padding}',
-            gap: '0.5rem'
+            gap: '0.5rem',
         },
         rule: {
-            borderColor: '{content.border.color}'
+            borderColor: '{content.border.color}',
         },
         constraintList: {
             padding: '{list.padding}',
-            gap: '{list.gap}'
+            gap: '{list.gap}',
         },
         constraint: {
             focusBackground: '{list.option.focus.background}',
@@ -119,76 +119,76 @@ export default {
             selectedColor: '{list.option.selected.color}',
             selectedFocusColor: '{list.option.selected.focus.color}',
             separator: {
-                borderColor: '{content.border.color}'
+                borderColor: '{content.border.color}',
             },
             padding: '{list.option.padding}',
-            borderRadius: '{list.option.border.radius}'
-        }
+            borderRadius: '{list.option.border.radius}',
+        },
     },
     paginatorTop: {
         borderColor: '{datatable.border.color}',
-        borderWidth: '0 0 1px 0'
+        borderWidth: '0 0 1px 0',
     },
     paginatorBottom: {
         borderColor: '{datatable.border.color}',
-        borderWidth: '0 0 1px 0'
+        borderWidth: '0 0 1px 0',
     },
     colorScheme: {
         light: {
             root: {
-                borderColor: '{content.border.color}'
+                borderColor: '{content.border.color}',
             },
             header: {
                 background: '{surface.50}',
-                color: '{text.color}'
+                color: '{text.color}',
             },
             headerCell: {
                 background: '{surface.50}',
                 hoverBackground: '{surface.100}',
-                color: '{text.color}'
+                color: '{text.color}',
             },
             footer: {
                 background: '{surface.50}',
-                color: '{text.color}'
+                color: '{text.color}',
             },
             footerCell: {
                 background: '{surface.50}',
-                color: '{text.color}'
+                color: '{text.color}',
             },
             row: {
-                stripedBackground: '{surface.50}'
+                stripedBackground: '{surface.50}',
             },
             bodyCell: {
-                selectedBorderColor: '{primary.100}'
-            }
+                selectedBorderColor: '{primary.100}',
+            },
         },
         dark: {
             root: {
-                borderColor: '{surface.800}'
+                borderColor: '{surface.800}',
             },
             header: {
                 background: '{surface.800}',
-                color: '{text.color}'
+                color: '{text.color}',
             },
             headerCell: {
                 background: '{surface.800}',
                 hoverBackground: '{surface.700}',
-                color: '{text.color}'
+                color: '{text.color}',
             },
             footer: {
                 background: '{surface.800}',
-                color: '{text.color}'
+                color: '{text.color}',
             },
             footerCell: {
                 background: '{surface.800}',
-                color: '{text.color}'
+                color: '{text.color}',
             },
             row: {
-                stripedBackground: '{surface.950}'
+                stripedBackground: '{surface.950}',
             },
             bodyCell: {
-                selectedBorderColor: '{primary.900}'
-            }
-        }
-    }
+                selectedBorderColor: '{primary.900}',
+            },
+        },
+    },
 };

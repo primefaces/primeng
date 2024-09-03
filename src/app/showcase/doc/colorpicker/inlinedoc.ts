@@ -11,7 +11,7 @@ import { Code } from '@domain/code';
             <p-colorPicker [(ngModel)]="color" [inline]="true" />
         </div>
         <app-code [code]="code" selector="color-picker-inline-demo"></app-code>
-    `
+    `,
 })
 export class InlineDoc {
     color: string | undefined;
@@ -39,6 +39,6 @@ import { ColorPickerModule } from 'primeng/colorpicker';
 })
 export class ColorPickerInlineDemo {
     color: string | undefined;
-}`
+}`,
     };
 }

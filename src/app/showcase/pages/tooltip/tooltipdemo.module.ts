@@ -6,6 +6,6 @@ import { TooltipDemoRoutingModule } from './tooltipdemo-routing.module';
 
 @NgModule({
     imports: [CommonModule, TooltipDemoRoutingModule, TooltipDocModule],
-    declarations: [TooltipDemo]
+    declarations: [TooltipDemo],
 })
 export class TooltipDemoModule {}

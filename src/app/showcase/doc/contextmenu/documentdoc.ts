@@ -13,7 +13,7 @@ import { Code } from '@domain/code';
             <p-contextMenu [model]="items" [global]="true" />
         </div>
         <app-code [code]="code" selector="context-menu-document-demo"></app-code>
-    `
+    `,
 })
 export class DocumentDoc implements OnInit {
     items: MenuItem[] | undefined;
@@ -22,7 +22,7 @@ export class DocumentDoc implements OnInit {
         this.items = [
             {
                 label: 'Translate',
-                icon: 'pi pi-language'
+                icon: 'pi pi-language',
             },
             {
                 label: 'Speech',
@@ -30,21 +30,21 @@ export class DocumentDoc implements OnInit {
                 items: [
                     {
                         label: 'Start',
-                        icon: 'pi pi-caret-right'
+                        icon: 'pi pi-caret-right',
                     },
                     {
                         label: 'Stop',
-                        icon: 'pi pi-pause'
-                    }
-                ]
+                        icon: 'pi pi-pause',
+                    },
+                ],
             },
             {
-                separator: true
+                separator: true,
             },
             {
                 label: 'Print',
-                icon: 'pi pi-print'
-            }
+                icon: 'pi pi-print',
+            },
         ];
     }
 
@@ -110,6 +110,6 @@ import { ContextMenuDemo } from './contextmenudemo';
     imports: [CommonModule, ContextMenuModule],
     declarations: [ContextMenuDemo]
 })
-export class ContextMenuDemoModule {}`
+export class ContextMenuDemoModule {}`,
     };
 }

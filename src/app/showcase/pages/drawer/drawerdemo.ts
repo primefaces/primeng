@@ -10,54 +10,54 @@ import { HeadlessDoc } from '@doc/drawer/headlessdoc';
 import { AccessibilityDoc } from '@doc/drawer/accessibilitydoc';
 
 @Component({
-    templateUrl: './drawerdemo.html'
+    templateUrl: './drawerdemo.html',
 })
 export class DrawerDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc
+            component: ImportDoc,
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc
+            component: BasicDoc,
         },
         {
             id: 'position',
             label: 'Position',
-            component: PositionDoc
+            component: PositionDoc,
         },
         {
             id: 'size',
             label: 'Size',
-            component: SizeDoc
+            component: SizeDoc,
         },
         {
             id: 'fullscreen',
             label: 'Full Screen',
-            component: FullScreenDoc
+            component: FullScreenDoc,
         },
         {
             id: 'template',
             label: 'Template',
-            component: TemplateDoc
+            component: TemplateDoc,
         },
         {
             id: 'headless',
             label: 'Headless',
-            component: HeadlessDoc
+            component: HeadlessDoc,
         },
         {
             id: 'style',
             label: 'Style',
-            component: StyleDoc
+            component: StyleDoc,
         },
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc
-        }
+            component: AccessibilityDoc,
+        },
     ];
 }

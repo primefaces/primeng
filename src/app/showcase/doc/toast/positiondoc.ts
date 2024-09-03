@@ -7,9 +7,8 @@ import { Code } from '@domain/code';
     template: `
         <app-docsectiontext>
             <p>
-                Location of the toast is customized with the <i>position</i> property. Valid values are <i>top-left</i>,
-                <i>top-center</i>, <i>top-right</i>, <i>bottom-left</i>, <i>bottom-center</i>, <i>bottom-right</i> and
-                <i>center</i>.
+                Location of the toast is customized with the <i>position</i> property. Valid values are <i>top-left</i>, <i>top-center</i>,
+                <i>top-right</i>, <i>bottom-left</i>, <i>bottom-center</i>, <i>bottom-right</i> and <i>center</i>.
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">

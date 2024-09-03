@@ -6,6 +6,6 @@ import { PickListDemoRoutingModule } from './picklistdemo-routing.module';
 
 @NgModule({
     imports: [CommonModule, PickListDemoRoutingModule, PicklistDocModule],
-    declarations: [PickListDemo]
+    declarations: [PickListDemo],
 })
 export class PickListDemoModule {}

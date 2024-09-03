@@ -14,7 +14,7 @@ import { Code } from '@domain/code';
         </div>
         <app-code [code]="code" selector="file-upload-custom-demo"></app-code>
     `,
-    providers: [MessageService]
+    providers: [MessageService],
 })
 export class CustomDoc {
     constructor(private messageService: MessageService) {}
@@ -66,6 +66,6 @@ export class CustomDoc {
         
         this.messageService.add({ severity: 'info', summary: 'Success', detail: 'File Uploaded with Basic Mode' });
     }
-}`
+}`,
     };
 }

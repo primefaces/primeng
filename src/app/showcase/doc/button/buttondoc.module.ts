@@ -52,7 +52,7 @@ import { ButtonGroupDoc } from './buttongroupdoc';
         TemplateDoc,
         StyleDoc,
         AccessibilityDoc,
-        DirectiveDoc
-    ]
+        DirectiveDoc,
+    ],
 })
 export class ButtonDocModule {}

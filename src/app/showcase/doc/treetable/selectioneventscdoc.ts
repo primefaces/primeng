@@ -54,7 +54,7 @@ interface NodeEvent {
         <app-code [code]="code" selector="tree-table-selection-events-demo"></app-code>
     `,
     providers: [MessageService],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SelectionEventsDoc {
     files!: TreeNode[];
@@ -65,7 +65,7 @@ export class SelectionEventsDoc {
 
     constructor(
         private nodeService: NodeService,
-        private messageService: MessageService
+        private messageService: MessageService,
     ) {}
 
     loadDemoData() {
@@ -74,7 +74,7 @@ export class SelectionEventsDoc {
         this.cols = [
             { field: 'name', header: 'Name' },
             { field: 'size', header: 'Size' },
-            { field: 'type', header: 'Type' }
+            { field: 'type', header: 'Type' },
         ];
     }
 
@@ -196,6 +196,6 @@ export class TreeTableSelectionEventsDemo implements OnInit {
     }
 }`,
 
-        service: ['NodeService']
+        service: ['NodeService'],
     };
 }

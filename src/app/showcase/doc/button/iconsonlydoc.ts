@@ -55,7 +55,7 @@ import { Code } from '@domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="button-icon-only-demo"></app-code>
-    `
+    `,
 })
 export class IconOnlyDoc {
     code: Code = {
@@ -156,6 +156,6 @@ import { ButtonModule } from 'primeng/button';
     standalone: true,
     imports: [ButtonModule]
 })
-export class ButtonIconOnlyDemo { }`
+export class ButtonIconOnlyDemo { }`,
     };
 }

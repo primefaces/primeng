@@ -8,8 +8,8 @@ import { AppConfigService } from '@service/appconfigservice';
     template: `
         <app-docsectiontext>
             <p>
-                Polar area charts are similar to pie charts, but each segment has the same angle - the radius of the
-                segment differs depending on the value.
+                Polar area charts are similar to pie charts, but each segment has the same angle - the radius of the segment differs
+                depending on the value.
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
@@ -45,12 +45,12 @@ export class PolarAreaDoc implements OnInit {
                             documentStyle.getPropertyValue('--p-gray-500'),
                             documentStyle.getPropertyValue('--p-orange-500'),
                             documentStyle.getPropertyValue('--p-purple-500'),
-                            documentStyle.getPropertyValue('--p-cyan-500')
+                            documentStyle.getPropertyValue('--p-cyan-500'),
                         ],
-                        label: 'My dataset'
-                    }
+                        label: 'My dataset',
+                    },
                 ],
-                labels: ['Pink', 'Gray', 'Orange', 'Purple', 'Cyan']
+                labels: ['Pink', 'Gray', 'Orange', 'Purple', 'Cyan'],
             };
 
             this.options = {

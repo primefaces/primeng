@@ -6,6 +6,6 @@ import { BlockUIDemoRoutingModule } from './blockuidemo-routing.module';
 
 @NgModule({
     imports: [CommonModule, BlockUIDemoRoutingModule, BlockUIDocModule],
-    declarations: [BlockUIDemo]
+    declarations: [BlockUIDemo],
 })
 export class BlockUIDemoModule {}

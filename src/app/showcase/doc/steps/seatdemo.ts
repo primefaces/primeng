@@ -12,15 +12,35 @@ import { Router } from '@angular/router';
                     <div class="p-fluid formgrid grid grid-cols-12 gap-4">
                         <div class="field col-span-12 md:col-span-6">
                             <label for="class">Class</label>
-                            <p-dropdown inputId="class" [(ngModel)]="seatInformation.class" [options]="classes" (onChange)="setVagons($event)" optionLabel="name" placeholder="Select a Class"></p-dropdown>
+                            <p-dropdown
+                                inputId="class"
+                                [(ngModel)]="seatInformation.class"
+                                [options]="classes"
+                                (onChange)="setVagons($event)"
+                                optionLabel="name"
+                                placeholder="Select a Class"
+                            ></p-dropdown>
                         </div>
                         <div class="field col-span-12 md:col-span-6">
                             <label for="wagon">Wagon</label>
-                            <p-dropdown inputId="wagon" [(ngModel)]="seatInformation.wagon" [options]="vagons" (onChange)="setSeats($event)" optionLabel="wagon" placeholder="Select a Wagon"></p-dropdown>
+                            <p-dropdown
+                                inputId="wagon"
+                                [(ngModel)]="seatInformation.wagon"
+                                [options]="vagons"
+                                (onChange)="setSeats($event)"
+                                optionLabel="wagon"
+                                placeholder="Select a Wagon"
+                            ></p-dropdown>
                         </div>
                         <div class="field col-span-12">
                             <label for="seat">Seat</label>
-                            <p-dropdown inputId="seat" [(ngModel)]="seatInformation.seat" [options]="seats" optionLabel="seat" placeholder="Select a Seat"></p-dropdown>
+                            <p-dropdown
+                                inputId="seat"
+                                [(ngModel)]="seatInformation.seat"
+                                [options]="seats"
+                                optionLabel="seat"
+                                placeholder="Select a Seat"
+                            ></p-dropdown>
                         </div>
                     </div>
                 </ng-template>
@@ -32,12 +52,12 @@ import { Router } from '@angular/router';
                 </ng-template>
             </p-card>
         </div>
-    `
+    `,
 })
 export class SeatDemo implements OnInit {
     constructor(
         public ticketService: TicketService,
-        private router: Router
+        private router: Router,
     ) {}
 
     classes: any[];
@@ -54,7 +74,7 @@ export class SeatDemo implements OnInit {
         this.classes = [
             { name: 'First Class', code: 'A', factor: 1 },
             { name: 'Second Class', code: 'B', factor: 2 },
-            { name: 'Third Class', code: 'C', factor: 3 }
+            { name: 'Third Class', code: 'C', factor: 3 },
         ];
     }
 

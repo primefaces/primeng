@@ -7,9 +7,9 @@ import { Code } from '@domain/code';
     template: `
         <app-docsectiontext>
             <p>
-                Menu offers item customization with the <i>item</i> template that receives the menuitem instance from
-                the model as a parameter. The submenu header has its own <i>submenuheader</i> template, additional slots
-                named <i>start</i> and <i>end</i> are provided to embed content before or after the menu.
+                Menu offers item customization with the <i>item</i> template that receives the menuitem instance from the model as a
+                parameter. The submenu header has its own <i>submenuheader</i> template, additional slots named <i>start</i> and
+                <i>end</i> are provided to embed content before or after the menu.
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
@@ -21,15 +21,7 @@ import { Code } from '@domain/code';
                                 d="M15.1934 0V0V0L0.0391235 5.38288L2.35052 25.3417L15.1934 32.427V32.427V32.427L28.0364 25.3417L30.3478 5.38288L15.1934 0Z"
                                 fill="var(--p-primary-color)"
                             />
-                            <mask
-                                id="mask0_1_52"
-                                style="mask-type:luminance"
-                                maskUnits="userSpaceOnUse"
-                                x="0"
-                                y="0"
-                                width="31"
-                                height="33"
-                            >
+                            <mask id="mask0_1_52" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="31" height="33">
                                 <path
                                     d="M15.1934 0V0V0L0.0391235 5.38288L2.35052 25.3417L15.1934 32.427V32.427V32.427L28.0364 25.3417L30.3478 5.38288L15.1934 0Z"
                                     fill="var(--high-contrast-text-color)"
@@ -111,11 +103,7 @@ import { Code } from '@domain/code';
                         pRipple
                         class="relative overflow-hidden w-full border-0 bg-transparent flex items-start p-2 pl-4 hover:bg-surface-100 dark:hover:bg-surface-800 rounded-none cursor-pointer transition-colors duration-200"
                     >
-                        <p-avatar
-                            image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"
-                            class="mr-2"
-                            shape="circle"
-                        />
+                        <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" class="mr-2" shape="circle" />
                         <span class="inline-flex flex-col items-start">
                             <span class="font-bold">Amy Elsner</span>
                             <span class="text-sm">Admin</span>

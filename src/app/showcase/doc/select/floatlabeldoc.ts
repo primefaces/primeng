@@ -19,7 +19,7 @@ interface City {
             </p-floatLabel>
         </div>
         <app-code [code]="code" selector="select-floatlabel-demo"></app-code>
-    `
+    `,
 })
 export class FloatLabelDoc implements OnInit {
     cities: City[] | undefined;
@@ -32,7 +32,7 @@ export class FloatLabelDoc implements OnInit {
             { name: 'Rome', code: 'RM' },
             { name: 'London', code: 'LDN' },
             { name: 'Istanbul', code: 'IST' },
-            { name: 'Paris', code: 'PRS' }
+            { name: 'Paris', code: 'PRS' },
         ];
     }
 
@@ -87,6 +87,6 @@ export class SelectFloatlabelDemo implements OnInit {
             { name: 'Paris', code: 'PRS' }
         ];
     }
-}`
+}`,
     };
 }

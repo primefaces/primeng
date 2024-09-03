@@ -5,18 +5,34 @@ import { Code } from '@domain/code';
     selector: 'horizontal-doc',
     template: `
         <app-docsectiontext>
-            <p>Setting <i>orientation</i> to <i>horizontal</i> enables scrolling horizontally. In this case, the <i>itemSize</i> should refer to the width of an item.</p>
+            <p>
+                Setting <i>orientation</i> to <i>horizontal</i> enables scrolling horizontally. In this case, the <i>itemSize</i> should
+                refer to the width of an item.
+            </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-scroller [items]="items" [itemSize]="50" scrollHeight="200px" orientation="horizontal" styleClass="border border-surface" [style]="{ width: '200px', height: '200px' }">
+            <p-scroller
+                [items]="items"
+                [itemSize]="50"
+                scrollHeight="200px"
+                orientation="horizontal"
+                styleClass="border border-surface"
+                [style]="{ width: '200px', height: '200px' }"
+            >
                 <ng-template pTemplate="item" let-item let-options="options">
-                    <div class="flex items-center p-2" style="writing-mode: vertical-lr; width: 50px;" [ngClass]="{ 'surface-ground': options.odd }">{{ item }}</div>
+                    <div
+                        class="flex items-center p-2"
+                        style="writing-mode: vertical-lr; width: 50px;"
+                        [ngClass]="{ 'surface-ground': options.odd }"
+                    >
+                        {{ item }}
+                    </div>
                 </ng-template>
             </p-scroller>
         </div>
         <app-code [code]="code" selector="scroller-horizontal-demo"></app-code>
     `,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HorizontalDoc {
     items!: string[];
@@ -104,6 +120,6 @@ export class ScrollerHorizontalDemo implements OnInit {
             flex-direction: row;
         }
     }
-}`
+}`,
     };
 }

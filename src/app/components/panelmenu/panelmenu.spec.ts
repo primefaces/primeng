@@ -11,7 +11,7 @@ describe('PanelMenu', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule, RouterTestingModule, PanelModule]
+            imports: [NoopAnimationsModule, RouterTestingModule, PanelModule],
         });
 
         fixture = TestBed.createComponent(PanelMenu);
@@ -46,15 +46,15 @@ describe('PanelMenu', () => {
                         icon: 'pi pi-fw pi-plus',
                         items: [
                             { label: 'User', icon: 'pi pi-fw pi-user-plus' },
-                            { label: 'Filter', icon: 'pi pi-fw pi-filter' }
-                        ]
+                            { label: 'Filter', icon: 'pi pi-fw pi-filter' },
+                        ],
                     },
                     { label: 'Open', icon: 'pi pi-fw pi-external-link' },
                     { separator: true },
-                    { label: 'Quit', icon: 'pi pi-fw pi-times' }
+                    { label: 'Quit', icon: 'pi pi-fw pi-times' },
                 ],
-                visible: false
-            }
+                visible: false,
+            },
         ];
         fixture.detectChanges();
 
@@ -73,17 +73,17 @@ describe('PanelMenu', () => {
                         icon: 'pi pi-fw pi-plus',
                         items: [
                             { label: 'User', icon: 'pi pi-fw pi-user-plus' },
-                            { label: 'Filter', icon: 'pi pi-fw pi-filter' }
-                        ]
+                            { label: 'Filter', icon: 'pi pi-fw pi-filter' },
+                        ],
                     },
                     { label: 'Open', icon: 'pi pi-fw pi-external-link' },
                     { separator: true },
-                    { label: 'Quit', icon: 'pi pi-fw pi-times' }
+                    { label: 'Quit', icon: 'pi pi-fw pi-times' },
                 ],
                 style: { height: '300px' },
                 styleClass: 'Primeng ROCKS!',
-                disabled: true
-            }
+                disabled: true,
+            },
         ];
         fixture.detectChanges();
 
@@ -104,17 +104,17 @@ describe('PanelMenu', () => {
                         icon: 'pi pi-fw pi-plus',
                         items: [
                             { label: 'User', icon: 'pi pi-fw pi-user-plus' },
-                            { label: 'Filter', icon: 'pi pi-fw pi-filter' }
-                        ]
+                            { label: 'Filter', icon: 'pi pi-fw pi-filter' },
+                        ],
                     },
                     { label: 'Open', icon: 'pi pi-fw pi-external-link' },
                     { separator: true },
-                    { label: 'Quit', icon: 'pi pi-fw pi-times' }
+                    { label: 'Quit', icon: 'pi pi-fw pi-times' },
                 ],
                 title: 'primeng',
                 target: 'primeng',
-                url: 'primeng'
-            }
+                url: 'primeng',
+            },
         ];
         fixture.detectChanges();
 
@@ -134,13 +134,13 @@ describe('PanelMenu', () => {
                     {
                         label: 'New',
                         icon: 'pi pi-fw pi-plus',
-                        visible: false
+                        visible: false,
                     },
                     { label: 'Open', icon: 'pi pi-fw pi-external-link', visible: false },
                     { separator: true, visible: false },
-                    { label: 'Quit', icon: 'pi pi-fw pi-times', visible: false }
-                ]
-            }
+                    { label: 'Quit', icon: 'pi pi-fw pi-times', visible: false },
+                ],
+            },
         ];
         fixture.detectChanges();
 
@@ -158,13 +158,13 @@ describe('PanelMenu', () => {
                         label: 'New',
                         icon: 'pi pi-fw pi-plus',
                         style: { height: '300px' },
-                        styleClass: 'Primeng ROCKS!'
+                        styleClass: 'Primeng ROCKS!',
                     },
                     { label: 'Open', icon: 'pi pi-fw pi-external-link', style: { height: '300px' }, styleClass: 'Primeng ROCKS!' },
                     { separator: true },
-                    { label: 'Quit', icon: 'pi pi-fw pi-times', style: { height: '300px' }, styleClass: 'Primeng ROCKS!' }
-                ]
-            }
+                    { label: 'Quit', icon: 'pi pi-fw pi-times', style: { height: '300px' }, styleClass: 'Primeng ROCKS!' },
+                ],
+            },
         ];
         fixture.detectChanges();
 
@@ -187,7 +187,7 @@ describe('PanelMenu', () => {
                         title: 'primeng',
                         target: 'primeng',
                         url: 'primeng',
-                        disabled: true
+                        disabled: true,
                     },
                     {
                         label: 'Open',
@@ -195,7 +195,7 @@ describe('PanelMenu', () => {
                         title: 'primeng',
                         target: 'primeng',
                         url: 'primeng',
-                        disabled: true
+                        disabled: true,
                     },
                     {
                         label: 'Quit',
@@ -203,10 +203,10 @@ describe('PanelMenu', () => {
                         title: 'primeng',
                         target: 'primeng',
                         url: 'primeng',
-                        disabled: true
-                    }
-                ]
-            }
+                        disabled: true,
+                    },
+                ],
+            },
         ];
         fixture.detectChanges();
 
@@ -223,16 +223,20 @@ describe('PanelMenu', () => {
             {
                 label: 'File',
                 icon: 'pi pi-pw pi-file',
-                items: [{ label: 'Open', icon: 'pi pi-fw pi-external-link' }, { separator: true }, { label: 'Quit', icon: 'pi pi-fw pi-times' }]
+                items: [
+                    { label: 'Open', icon: 'pi pi-fw pi-external-link' },
+                    { separator: true },
+                    { label: 'Quit', icon: 'pi pi-fw pi-times' },
+                ],
             },
             {
                 label: 'Edit',
                 icon: 'pi pi-pw pi-pencil',
                 items: [
                     { label: 'Delete', icon: 'pi pi-fw pi-trash' },
-                    { label: 'Refresh', icon: 'pi pi-fw pi-refresh' }
-                ]
-            }
+                    { label: 'Refresh', icon: 'pi pi-fw pi-refresh' },
+                ],
+            },
         ];
         fixture.detectChanges();
 
@@ -254,16 +258,20 @@ describe('PanelMenu', () => {
             {
                 label: 'File',
                 icon: 'pi pi-pw pi-file',
-                items: [{ label: 'Open', icon: 'pi pi-fw pi-external-link' }, { separator: true }, { label: 'Quit', icon: 'pi pi-fw pi-times' }]
+                items: [
+                    { label: 'Open', icon: 'pi pi-fw pi-external-link' },
+                    { separator: true },
+                    { label: 'Quit', icon: 'pi pi-fw pi-times' },
+                ],
             },
             {
                 label: 'Edit',
                 icon: 'pi pi-pw pi-pencil',
                 items: [
                     { label: 'Delete', icon: 'pi pi-fw pi-trash' },
-                    { label: 'Refresh', icon: 'pi pi-fw pi-refresh' }
-                ]
-            }
+                    { label: 'Refresh', icon: 'pi pi-fw pi-refresh' },
+                ],
+            },
         ];
         panelmenu.multiple = true;
         fixture.detectChanges();
@@ -289,16 +297,20 @@ describe('PanelMenu', () => {
             {
                 label: 'File',
                 icon: 'pi pi-pw pi-file',
-                items: [{ label: 'Open', icon: 'pi pi-fw pi-external-link' }, { separator: true }, { label: 'Quit', icon: 'pi pi-fw pi-times' }]
+                items: [
+                    { label: 'Open', icon: 'pi pi-fw pi-external-link' },
+                    { separator: true },
+                    { label: 'Quit', icon: 'pi pi-fw pi-times' },
+                ],
             },
             {
                 label: 'Edit',
                 icon: 'pi pi-pw pi-pencil',
                 items: [
                     { label: 'Delete', icon: 'pi pi-fw pi-trash' },
-                    { label: 'Refresh', icon: 'pi pi-fw pi-refresh' }
-                ]
-            }
+                    { label: 'Refresh', icon: 'pi pi-fw pi-refresh' },
+                ],
+            },
         ];
         panelmenu.multiple = false;
         fixture.detectChanges();

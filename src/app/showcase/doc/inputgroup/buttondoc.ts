@@ -23,7 +23,7 @@ import { Code } from '@domain/code';
             </p-inputGroup>
         </div>
         <app-code [code]="code" selector="input-group-button-demo"></app-code>
-    `
+    `,
 })
 export class ButtonDoc {
     code: Code = {
@@ -71,6 +71,6 @@ import { ButtonModule } from 'primeng/button';
     imports: [FormsModule, InputGroupModule, InputGroupAddonModule, InputTextModule, ButtonModule]
 })
 export class InputGroupButtonDemo {
-}`
+}`,
     };
 }

@@ -8,44 +8,44 @@ import { StyleDoc } from '@doc/splitter/styledoc';
 import { AccessibilityDoc } from '@doc/splitter/accessibilitydoc';
 
 @Component({
-    templateUrl: './splitterdemo.html'
+    templateUrl: './splitterdemo.html',
 })
 export class SplitterDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc
+            component: ImportDoc,
         },
         {
             id: 'horizontal',
             label: 'Horizontal',
-            component: HorizontalDoc
+            component: HorizontalDoc,
         },
         {
             id: 'size',
             label: 'Size',
-            component: SizeDoc
+            component: SizeDoc,
         },
         {
             id: 'vertical',
             label: 'Vertical',
-            component: VerticalDoc
+            component: VerticalDoc,
         },
         {
             id: 'nested',
             label: 'Nested',
-            component: NestedDoc
+            component: NestedDoc,
         },
         {
             id: 'style',
             label: 'Style',
-            component: StyleDoc
+            component: StyleDoc,
         },
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc
-        }
+            component: AccessibilityDoc,
+        },
     ];
 }
