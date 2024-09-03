@@ -1,23 +1,23 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-import { Message } from './message';
+import { ToastMessageOptions } from './toastmessage';
 /**
  * Message service used in messages and toast components.
  * @group Service
  */
 @Injectable()
 export class MessageService {
-    private messageSource = new Subject<Message | Message[]>();
+    private messageSource = new Subject<ToastMessageOptions | ToastMessageOptions[]>();
     private clearSource = new Subject<string | null>();
 
     messageObserver = this.messageSource.asObservable();
     clearObserver = this.clearSource.asObservable();
     /**
      * Inserts single message.
-     * @param {Message} message - Message to be added.
+     * @param {ToastMessageOptions} message - Message to be added.
      * @group Method
      */
-    add(message: Message) {
+    add(message: ToastMessageOptions) {
         if (message) {
             this.messageSource.next(message);
         }
@@ -27,7 +27,7 @@ export class MessageService {
      * @param {Message[]} messages - Messages to be added.
      * @group Method
      */
-    addAll(messages: Message[]) {
+    addAll(messages: ToastMessageOptions[]) {
         if (messages && messages.length) {
             this.messageSource.next(messages);
         }

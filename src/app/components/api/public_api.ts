@@ -10,7 +10,7 @@ export * from './filterservice';
 export * from './lazyloadevent';
 export * from './megamenuitem';
 export * from './menuitem';
-export * from './message';
+export * from './toastmessage';
 export * from './messageservice';
 export * from './overlayoptions';
 export * from './overlayservice';

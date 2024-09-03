@@ -22,7 +22,7 @@ import {
     inject,
     numberAttribute,
 } from '@angular/core';
-import { Message, MessageService, PrimeTemplate, SharedModule } from 'primeng/api';
+import { ToastMessageOptions, MessageService, PrimeTemplate, SharedModule } from 'primeng/api';
 import { CheckIcon } from 'primeng/icons/check';
 import { ExclamationTriangleIcon } from 'primeng/icons/exclamationtriangle';
 import { InfoCircleIcon } from 'primeng/icons/infocircle';
@@ -51,8 +51,8 @@ import { ButtonModule } from 'primeng/button';
                     showTransformParams: showTransformOptions,
                     hideTransformParams: hideTransformOptions,
                     showTransitionParams: showTransitionOptions,
-                    hideTransitionParams: hideTransitionOptions
-                }
+                    hideTransitionParams: hideTransitionOptions,
+                },
             }"
             (mouseenter)="onMouseEnter()"
             (mouseleave)="onMouseLeave()"
@@ -62,68 +62,59 @@ import { ButtonModule } from 'primeng/button';
             [attr.data-pc-name]="'toast'"
             [attr.data-pc-section]="'root'"
         >
-            @if(headlessTemplate){
-            <ng-container
-                *ngTemplateOutlet="headlessTemplate; context: { $implicit: message, closeFn: onCloseIconClick }"
-            ></ng-container>
-            }@else {
-            <div
-                [ngClass]="cx('messageContent')"
-                [class]="message?.contentStyleClass"
-                [attr.data-pc-section]="'content'"
-            >
-                <ng-container *ngIf="!template">
-                    <span *ngIf="message.icon" [ngClass]="cx('messageIcon')"></span>
-                    <span
-                        [ngClass]="cx('messageIcon')"
-                        *ngIf="!message.icon"
-                        [attr.aria-hidden]="true"
-                        [attr.data-pc-section]="'icon'"
-                    >
-                        @switch(message.severity) { @case('success') {
-                        <CheckIcon [attr.aria-hidden]="true" [attr.data-pc-section]="'icon'" />
-                        } @case('info') {
-                        <InfoCircleIcon [attr.aria-hidden]="true" [attr.data-pc-section]="'icon'" />
-                        } @case('error') {
-                        <TimesCircleIcon [attr.aria-hidden]="true" [attr.data-pc-section]="'icon'" />
-                        } @case('warn') {
-                        <ExclamationTriangleIcon [attr.aria-hidden]="true" [attr.data-pc-section]="'icon'" />
-                        } @default{
-                        <InfoCircleIcon [attr.aria-hidden]="true" [attr.data-pc-section]="'icon'" />
-                        } }
-                    </span>
-                    <div [ngClass]="cx('messageText')" [attr.data-pc-section]="'text'">
-                        <div [ngClass]="cx('summary')" [attr.data-pc-section]="'summary'">
-                            {{ message.summary }}
+            @if (headlessTemplate) {
+                <ng-container
+                    *ngTemplateOutlet="headlessTemplate; context: { $implicit: message, closeFn: onCloseIconClick }"
+                ></ng-container>
+            } @else {
+                <div [ngClass]="cx('messageContent')" [class]="message?.contentStyleClass" [attr.data-pc-section]="'content'">
+                    <ng-container *ngIf="!template">
+                        <span *ngIf="message.icon" [ngClass]="cx('messageIcon')"></span>
+                        <span [ngClass]="cx('messageIcon')" *ngIf="!message.icon" [attr.aria-hidden]="true" [attr.data-pc-section]="'icon'">
+                            @switch (message.severity) {
+                                @case ('success') {
+                                    <CheckIcon [attr.aria-hidden]="true" [attr.data-pc-section]="'icon'" />
+                                }
+                                @case ('info') {
+                                    <InfoCircleIcon [attr.aria-hidden]="true" [attr.data-pc-section]="'icon'" />
+                                }
+                                @case ('error') {
+                                    <TimesCircleIcon [attr.aria-hidden]="true" [attr.data-pc-section]="'icon'" />
+                                }
+                                @case ('warn') {
+                                    <ExclamationTriangleIcon [attr.aria-hidden]="true" [attr.data-pc-section]="'icon'" />
+                                }
+                                @default {
+                                    <InfoCircleIcon [attr.aria-hidden]="true" [attr.data-pc-section]="'icon'" />
+                                }
+                            }
+                        </span>
+                        <div [ngClass]="cx('messageText')" [attr.data-pc-section]="'text'">
+                            <div [ngClass]="cx('summary')" [attr.data-pc-section]="'summary'">
+                                {{ message.summary }}
+                            </div>
+                            <div [ngClass]="cx('detail')" [attr.data-pc-section]="'detail'">{{ message.detail }}</div>
                         </div>
-                        <div [ngClass]="cx('detail')" [attr.data-pc-section]="'detail'">{{ message.detail }}</div>
-                    </div>
-                </ng-container>
-                <ng-container *ngTemplateOutlet="template; context: { $implicit: message }"></ng-container>
-                @if(message?.closable !== false){
-
-                <p-button
-                    [styleClass]="cx('closeButton')"
-                    (onClick)="onCloseIconClick($event)"
-                    (keydown.enter)="onCloseIconClick($event)"
-                    [attr.ariaLabel]="closeAriaLabel"
-                    [attr.data-pc-section]="'closebutton'"
-                    rounded
-                    text
-                >
-                    @if(message.closeIcon) {
-                    <span *ngIf="message.closeIcon" [ngClass]="cx('closeIcon')"></span>
-
-                    }@else {
-                    <TimesIcon
-                        [ngClass]="cx('closeIcon')"
-                        [attr.aria-hidden]="true"
-                        [attr.data-pc-section]="'closeicon'"
-                    />
+                    </ng-container>
+                    <ng-container *ngTemplateOutlet="template; context: { $implicit: message }"></ng-container>
+                    @if (message?.closable !== false) {
+                        <p-button
+                            [styleClass]="cx('closeButton')"
+                            (onClick)="onCloseIconClick($event)"
+                            (keydown.enter)="onCloseIconClick($event)"
+                            [attr.ariaLabel]="closeAriaLabel"
+                            [attr.data-pc-section]="'closebutton'"
+                            rounded
+                            text
+                        >
+                            @if (message.closeIcon) {
+                                <span *ngIf="message.closeIcon" [ngClass]="cx('closeIcon')"></span>
+                            } @else {
+                                <TimesIcon [ngClass]="cx('closeIcon')" [attr.aria-hidden]="true" [attr.data-pc-section]="'closeicon'" />
+                            }
+                        </p-button>
                     }
-                </p-button>
-                }
-            </div>
+                </div>
             }
         </div>
     `,
@@ -160,7 +151,7 @@ import { ButtonModule } from 'primeng/button';
     providers: [ToastStyle],
 })
 export class ToastItem extends BaseComponent implements AfterViewInit, OnDestroy {
-    @Input() message: Message | null | undefined;
+    @Input() message: ToastMessageOptions | null | undefined;
 
     @Input({ transform: numberAttribute }) index: number | null | undefined;
 
@@ -198,12 +189,15 @@ export class ToastItem extends BaseComponent implements AfterViewInit, OnDestroy
     initTimeout() {
         if (!this.message?.sticky) {
             this.zone.runOutsideAngular(() => {
-                this.timeout = setTimeout(() => {
-                    this.onClose.emit({
-                        index: <number>this.index,
-                        message: <Message>this.message,
-                    });
-                }, this.message?.life || this.life || 3000);
+                this.timeout = setTimeout(
+                    () => {
+                        this.onClose.emit({
+                            index: <number>this.index,
+                            message: <ToastMessageOptions>this.message,
+                        });
+                    },
+                    this.message?.life || this.life || 3000,
+                );
             });
         }
     }
@@ -228,7 +222,7 @@ export class ToastItem extends BaseComponent implements AfterViewInit, OnDestroy
 
         this.onClose.emit({
             index: <number>this.index,
-            message: <Message>this.message,
+            message: <ToastMessageOptions>this.message,
         });
 
         event.preventDefault();
@@ -370,9 +364,9 @@ export class Toast extends BaseComponent implements OnInit, AfterContentInit, On
 
     clearSubscription: Subscription | undefined;
 
-    messages: Message[] | null | undefined;
+    messages: ToastMessageOptions[] | null | undefined;
 
-    messagesArchieve: Message[] | undefined;
+    messagesArchieve: ToastMessageOptions[] | undefined;
 
     template: TemplateRef<any> | undefined;
 
@@ -422,7 +416,7 @@ export class Toast extends BaseComponent implements OnInit, AfterContentInit, On
         }
     }
 
-    add(messages: Message[]): void {
+    add(messages: ToastMessageOptions[]): void {
         this.messages = this.messages ? [...this.messages, ...messages] : [...messages];
 
         if (this.preventDuplicates) {
@@ -432,7 +426,7 @@ export class Toast extends BaseComponent implements OnInit, AfterContentInit, On
         this.cd.markForCheck();
     }
 
-    canAdd(message: Message): boolean {
+    canAdd(message: ToastMessageOptions): boolean {
         let allow = this.key === message.key;
 
         if (allow && this.preventOpenDuplicates) {
@@ -446,7 +440,7 @@ export class Toast extends BaseComponent implements OnInit, AfterContentInit, On
         return allow;
     }
 
-    containsMessage(collection: Message[], message: Message): boolean {
+    containsMessage(collection: ToastMessageOptions[], message: ToastMessageOptions): boolean {
         if (!collection) {
             return false;
         }
@@ -489,11 +483,7 @@ export class Toast extends BaseComponent implements OnInit, AfterContentInit, On
         if (event.fromState === 'void') {
             this.renderer.setAttribute(this.containerViewChild?.nativeElement, this.id, '');
             if (this.autoZIndex && this.containerViewChild?.nativeElement.style.zIndex === '') {
-                ZIndexUtils.set(
-                    'modal',
-                    this.containerViewChild?.nativeElement,
-                    this.baseZIndex || this.config.zIndex.modal,
-                );
+                ZIndexUtils.set('modal', this.containerViewChild?.nativeElement, this.baseZIndex || this.config.zIndex.modal);
             }
         }
     }
@@ -557,16 +547,7 @@ export class Toast extends BaseComponent implements OnInit, AfterContentInit, On
 }
 
 @NgModule({
-    imports: [
-        CommonModule,
-        RippleModule,
-        CheckIcon,
-        InfoCircleIcon,
-        TimesCircleIcon,
-        ExclamationTriangleIcon,
-        TimesIcon,
-        ButtonModule,
-    ],
+    imports: [CommonModule, RippleModule, CheckIcon, InfoCircleIcon, TimesCircleIcon, ExclamationTriangleIcon, TimesIcon, ButtonModule],
     exports: [Toast, SharedModule],
     declarations: [Toast, ToastItem],
 })

@@ -1,8 +1,8 @@
 /**
- * Deines valid options for the message.
+ * Deines valid options for the toast message.
  * @group Interface
  */
-export interface Message {
+export interface ToastMessageOptions {
     severity?: string;
     summary?: string;
     detail?: string;
