@@ -60,7 +60,7 @@
 /megamenu
 /menu
 /menubar
-/messages
+/message
 /metergroup
 /multiselect
 /notfound
