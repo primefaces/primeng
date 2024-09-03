@@ -18,7 +18,7 @@ import {
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { AutoFocusModule } from 'primeng/autofocus';
 import { InputSwitchChangeEvent } from './inputswitch.interface';
-import { ToggleSwitchStyle } from './style/toggleswitchstyle';
+import { InputSwitchStyle } from './style/inputswitchstyle';
 import { BaseComponent } from 'primeng/basecomponent';
 
 export const INPUTSWITCH_VALUE_ACCESSOR: any = {
@@ -42,11 +42,7 @@ export const INPUTSWITCH_VALUE_ACCESSOR: any = {
             [attr.data-pc-name]="'inputswitch'"
             [attr.data-pc-section]="'root'"
         >
-            <div
-                class="p-hidden-accessible"
-                [attr.data-pc-section]="'hiddenInputWrapper'"
-                [attr.data-p-hidden-accessible]="true"
-            >
+            <div class="p-hidden-accessible" [attr.data-pc-section]="'hiddenInputWrapper'" [attr.data-p-hidden-accessible]="true">
                 <input
                     #input
                     [attr.id]="inputId"
@@ -70,7 +66,7 @@ export const INPUTSWITCH_VALUE_ACCESSOR: any = {
             <span [ngClass]="cx('slider')" [attr.data-pc-section]="'slider'"></span>
         </div>
     `,
-    providers: [INPUTSWITCH_VALUE_ACCESSOR, ToggleSwitchStyle],
+    providers: [INPUTSWITCH_VALUE_ACCESSOR, InputSwitchStyle],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
 })
@@ -152,7 +148,7 @@ export class InputSwitch extends BaseComponent {
 
     onModelTouched: Function = () => {};
 
-    _componentStyle = inject(ToggleSwitchStyle);
+    _componentStyle = inject(InputSwitchStyle);
 
     onClick(event: Event) {
         if (!this.disabled && !this.readonly) {

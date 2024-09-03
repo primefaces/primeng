@@ -6,7 +6,6 @@ import {
     AfterViewInit,
     booleanAttribute,
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     computed,
     ContentChildren,
@@ -23,17 +22,15 @@ import {
     OnInit,
     Output,
     QueryList,
-    Renderer2,
     Signal,
     signal,
-    SimpleChanges,
     TemplateRef,
     ViewChild,
     ViewEncapsulation,
     ViewRef,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { FilterService, OverlayOptions, PrimeNGConfig, PrimeTemplate, SelectItem, SharedModule, TranslationKeys } from 'primeng/api';
+import { FilterService, OverlayOptions, PrimeTemplate, SelectItem, SharedModule, TranslationKeys } from 'primeng/api';
 import { AutoFocusModule } from 'primeng/autofocus';
 import { DomHandler } from 'primeng/dom';
 import { Overlay, OverlayModule } from 'primeng/overlay';
@@ -52,7 +49,7 @@ import { Nullable } from 'primeng/ts-helpers';
 import { InputTextModule } from 'primeng/inputtext';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
-import { SelectStyle } from './style/selectstyle';
+import { DropdownStyle } from './style/dropdownstyle';
 import { BaseComponent } from 'primeng/basecomponent';
 
 export const DROPDOWN_VALUE_ACCESSOR: any = {
@@ -408,7 +405,7 @@ export class DropdownItem extends BaseComponent {
         '[attr.id]': 'id',
         '(click)': 'onContainerClick($event)',
     },
-    providers: [DROPDOWN_VALUE_ACCESSOR, SelectStyle],
+    providers: [DROPDOWN_VALUE_ACCESSOR, DropdownStyle],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
 })
@@ -864,7 +861,7 @@ export class Dropdown extends BaseComponent implements OnInit, AfterViewInit, Af
      */
     @Output() onLazyLoad: EventEmitter<DropdownLazyLoadEvent> = new EventEmitter<DropdownLazyLoadEvent>();
 
-    _componentStyle = inject(SelectStyle);
+    _componentStyle = inject(DropdownStyle);
 
     @ViewChild('container') containerViewChild: Nullable<ElementRef>;
 

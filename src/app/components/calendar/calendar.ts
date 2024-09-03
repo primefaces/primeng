@@ -1,5 +1,5 @@
 import { animate, AnimationEvent, state, style, transition, trigger } from '@angular/animations';
-import { CommonModule, DOCUMENT } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import {
     booleanAttribute,
     ChangeDetectionStrategy,
@@ -10,7 +10,6 @@ import {
     EventEmitter,
     forwardRef,
     inject,
-    Inject,
     Input,
     NgModule,
     NgZone,
@@ -19,13 +18,12 @@ import {
     OnInit,
     Output,
     QueryList,
-    Renderer2,
     TemplateRef,
     ViewChild,
     ViewEncapsulation,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
+import { OverlayService, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { RippleModule } from 'primeng/ripple';
@@ -49,7 +47,7 @@ import {
 } from './calendar.interface';
 import { AutoFocusModule } from 'primeng/autofocus';
 import { InputTextModule } from 'primeng/inputtext';
-import { DatePickerStyle } from './style/datepickerstyle';
+import { CalendarStyle } from './style/calendarstyle';
 import { BaseComponent } from 'primeng/basecomponent';
 
 export const CALENDAR_VALUE_ACCESSOR: any = {
@@ -551,7 +549,7 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
             ]),
         ]),
     ],
-    providers: [CALENDAR_VALUE_ACCESSOR, DatePickerStyle],
+    providers: [CALENDAR_VALUE_ACCESSOR, CalendarStyle],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
 })
@@ -1096,7 +1094,7 @@ export class Calendar extends BaseComponent implements OnInit, OnDestroy, Contro
         }
     }
 
-    _componentStyle = inject(DatePickerStyle);
+    _componentStyle = inject(CalendarStyle);
 
     contentViewChild!: ElementRef;
 

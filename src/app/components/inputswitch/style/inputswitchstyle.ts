@@ -35,8 +35,8 @@ const theme = ({ dt }) => `
     border-color: ${dt('toggleswitch.border.color')};
     background: ${dt('toggleswitch.background')};
     transition: background ${dt('toggleswitch.transition.duration')}, color ${dt('toggleswitch.transition.duration')}, border-color ${dt(
-    'toggleswitch.transition.duration',
-)}, outline-color ${dt('toggleswitch.transition.duration')}, box-shadow ${dt('toggleswitch.transition.duration')};
+        'toggleswitch.transition.duration',
+    )}, outline-color ${dt('toggleswitch.transition.duration')}, box-shadow ${dt('toggleswitch.transition.duration')};
     border-radius: ${dt('toggleswitch.border.radius')};
     outline-color: transparent;
     box-shadow: ${dt('toggleswitch.shadow')};
@@ -122,7 +122,7 @@ const classes = {
 };
 
 @Injectable()
-export class ToggleSwitchStyle extends BaseStyle {
+export class InputSwitchStyle extends BaseStyle {
     name = 'toggleswitch';
 
     theme = theme;
