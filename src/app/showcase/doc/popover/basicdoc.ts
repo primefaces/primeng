@@ -6,8 +6,8 @@ import { Code } from '@domain/code';
     template: `
         <app-docsectiontext>
             <p>
-                Popover is accessed via its reference and visibility is controlled using <i>toggle</i>, <i>show</i> and
-                <i>hide</i> methods with an event of the target.
+                Popover is accessed via its reference and visibility is controlled using <i>toggle</i>, <i>show</i> and <i>hide</i> methods
+                with an event of the target.
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
@@ -15,9 +15,7 @@ import { Code } from '@domain/code';
             <p-popover #op>
                 <div class="flex flex-col gap-4 w-[25rem]">
                     <div>
-                        <span class="font-medium text-surface-900 dark:text-surface-0 block mb-2"
-                            >Share this document</span
-                        >
+                        <span class="font-medium text-surface-900 dark:text-surface-0 block mb-2">Share this document</span>
                         <p-inputGroup>
                             <input
                                 pInputText
@@ -43,10 +41,7 @@ import { Code } from '@domain/code';
                         <span class="font-medium text-surface-900 dark:text-surface-0 block mb-2">Team Members</span>
                         <ul class="list-none p-0 m-0 flex flex-col gap-4">
                             <li *ngFor="let member of members" class="flex items-center gap-2">
-                                <img
-                                    [src]="'https://primefaces.org/cdn/primeng/images/demo/avatar/' + member.image"
-                                    style="width: 32px"
-                                />
+                                <img [src]="'https://primefaces.org/cdn/primeng/images/demo/avatar/' + member.image" style="width: 32px" />
                                 <div>
                                     <span class="font-medium">{{ member.name }}</span>
                                     <div class="text-sm text-muted-color">{{ member.email }}</div>

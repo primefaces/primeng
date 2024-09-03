@@ -201,12 +201,9 @@ export class Popover extends BaseComponent implements AfterContentInit, OnDestro
 
     _componentStyle = inject(PopoverStyle);
 
-    constructor(
-        private zone: NgZone,
-        public overlayService: OverlayService,
-    ) {
-        super();
-    }
+    zone = inject(NgZone);
+
+    overlayService = inject(OverlayService);
 
     ngAfterContentInit() {
         this.templates?.forEach((item) => {
