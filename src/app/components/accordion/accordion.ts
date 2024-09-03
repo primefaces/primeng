@@ -45,7 +45,6 @@ import { ChevronUpIcon } from 'primeng/icons/chevronup';
             [disabled]="disabled"
             [attr.aria-expanded]="selected"
             [attr.aria-level]="headerAriaLevel"
-            [class.p-highlight]="selected"
             [class.p-disabled]="disabled"
             [attr.data-p-disabled]="disabled"
             [attr.data-pc-section]="'header'"
