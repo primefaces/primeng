@@ -15,7 +15,6 @@
 /chart
 /checkbox
 /chip
-/chips
 /colorpicker
 /colors
 /setup
@@ -68,8 +67,8 @@
 /orderlist
 /organizationchart
 /overlay
-/overlaypanel
 /paginator
+/popover
 /panel
 /panelmenu
 /partners
