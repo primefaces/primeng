@@ -49,11 +49,7 @@ export class DrawerDemo {
             label: 'Headless',
             component: HeadlessDoc,
         },
-        {
-            id: 'style',
-            label: 'Style',
-            component: StyleDoc,
-        },
+
         {
             id: 'accessibility',
             label: 'Accessibility',

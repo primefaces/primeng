@@ -37,11 +37,7 @@ export class FileUploadDemo {
             label: 'Advanced',
             component: AdvancedDoc,
         },
-        {
-            id: 'style',
-            label: 'Style',
-            component: StyleDoc,
-        },
+
         {
             id: 'accessibility',
             label: 'Accessibility',

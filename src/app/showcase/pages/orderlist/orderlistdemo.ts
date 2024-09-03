@@ -32,11 +32,7 @@ export class OrderListDemo {
             label: 'DragDrop',
             component: DragDropDoc,
         },
-        {
-            id: 'style',
-            label: 'Style',
-            component: StyleDoc,
-        },
+
         {
             id: 'accessibility',
             label: 'Accessibility',

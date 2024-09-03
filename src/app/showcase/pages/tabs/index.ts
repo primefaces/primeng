@@ -70,11 +70,7 @@ export class TabsDemo {
             label: 'Lazy',
             component: LazyDoc,
         },
-        {
-            id: 'style',
-            label: 'Style',
-            component: StyleDoc,
-        },
+
         {
             id: 'accessibility',
             label: 'Accessibility',

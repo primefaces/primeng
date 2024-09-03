@@ -44,11 +44,7 @@ export class TimelineDemo {
             label: 'Horizontal',
             component: HorizontalDoc,
         },
-        {
-            id: 'style',
-            label: 'Style',
-            component: StyleDoc,
-        },
+
         {
             id: 'accessibility',
             label: 'Accessibility',

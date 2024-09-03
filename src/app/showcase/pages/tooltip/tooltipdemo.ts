@@ -49,11 +49,7 @@ export class TooltipDemo {
             label: 'Tooltip Options',
             component: OptionsDoc,
         },
-        {
-            id: 'style',
-            label: 'Style',
-            component: StyleDoc,
-        },
+
         {
             id: 'accessibility',
             label: 'Accessibility',

@@ -43,11 +43,7 @@ export class DividerDemo {
             label: 'Login',
             component: LoginDoc,
         },
-        {
-            id: 'style',
-            label: 'Style',
-            component: StyleDoc,
-        },
+
         {
             id: 'accessibility',
             label: 'Accessibility',

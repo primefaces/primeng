@@ -43,11 +43,7 @@ export class TagDemo {
             label: 'Template',
             component: TemplateDoc,
         },
-        {
-            id: 'style',
-            label: 'Style',
-            component: StyleDoc,
-        },
+
         {
             id: 'accessibility',
             label: 'Accessibility',

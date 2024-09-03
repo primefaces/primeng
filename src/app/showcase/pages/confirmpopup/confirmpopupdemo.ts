@@ -30,11 +30,7 @@ export class ConfirmPopupDemo {
             label: 'Headless',
             component: HeadlessDoc,
         },
-        {
-            id: 'style',
-            label: 'Style',
-            component: StyleDoc,
-        },
+
         {
             id: 'accessibility',
             label: 'Accessibility',

@@ -37,11 +37,7 @@ export class SplitterDemo {
             label: 'Nested',
             component: NestedDoc,
         },
-        {
-            id: 'style',
-            label: 'Style',
-            component: StyleDoc,
-        },
+
         {
             id: 'accessibility',
             label: 'Accessibility',

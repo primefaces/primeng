@@ -63,11 +63,7 @@ export class DialogDemo {
             label: 'Headless',
             component: HeadlessDoc,
         },
-        {
-            id: 'style',
-            label: 'Style',
-            component: StyleDoc,
-        },
+
         {
             id: 'accessibility',
             label: 'Accessibility',

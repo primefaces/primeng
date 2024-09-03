@@ -26,11 +26,7 @@ export class ScrollTopDemo {
             label: 'Target Element',
             component: ElementDoc,
         },
-        {
-            id: 'style',
-            label: 'Style',
-            component: StyleDoc,
-        },
+
         {
             id: 'accessibility',
             label: 'Accessibility',

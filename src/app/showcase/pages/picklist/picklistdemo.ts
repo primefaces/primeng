@@ -26,11 +26,7 @@ export class PickListDemo {
             label: 'Filter',
             component: FilterDoc,
         },
-        {
-            id: 'style',
-            label: 'Style',
-            component: StyleDoc,
-        },
+
         {
             id: 'accessibility',
             label: 'Accessibility',

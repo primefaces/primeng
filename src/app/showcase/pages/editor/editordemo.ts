@@ -43,11 +43,7 @@ export class EditorDemo {
             label: 'Template',
             component: CustomToolbarDoc,
         },
-        {
-            id: 'style',
-            label: 'Style',
-            component: StyleDoc,
-        },
+
         {
             id: 'accessibility',
             label: 'Accessibility',

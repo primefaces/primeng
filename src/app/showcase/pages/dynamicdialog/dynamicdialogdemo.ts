@@ -48,10 +48,5 @@ export class DynamicDialogDemo {
             label: 'Example',
             component: ExampleDoc,
         },
-        {
-            id: 'style',
-            label: 'Style',
-            component: StyleDoc,
-        },
     ];
 }

@@ -59,11 +59,7 @@ export class InputTextDemo {
             label: 'Disabled',
             component: DisabledDoc,
         },
-        {
-            id: 'style',
-            label: 'Style',
-            component: StyleDoc,
-        },
+
         {
             id: 'accessibility',
             label: 'Accessibility',

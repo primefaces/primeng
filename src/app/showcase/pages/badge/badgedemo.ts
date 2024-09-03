@@ -55,11 +55,7 @@ export class BadgeDemo {
             label: 'Overlay',
             component: OverlayDoc,
         },
-        {
-            id: 'style',
-            label: 'Style',
-            component: StyleDoc,
-        },
+
         {
             id: 'accessibility',
             label: 'Accessibility',

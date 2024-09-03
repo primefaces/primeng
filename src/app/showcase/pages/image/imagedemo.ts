@@ -37,11 +37,7 @@ export class ImageDemo {
             label: 'Image Source',
             component: PreviewImageSourceDoc,
         },
-        {
-            id: 'style',
-            label: 'Style',
-            component: StyleDoc,
-        },
+
         {
             id: 'accessibility',
             label: 'Accessibility',

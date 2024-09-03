@@ -51,11 +51,6 @@ export class CarouselDemo {
             component: VerticalDoc,
         },
         {
-            id: 'style',
-            label: 'Style',
-            component: StyleDoc,
-        },
-        {
             id: 'accessibility',
             label: 'Accessibility',
             component: AccessibilityDoc,

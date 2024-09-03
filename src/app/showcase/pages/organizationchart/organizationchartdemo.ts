@@ -38,11 +38,7 @@ export class OrganizationChartDemo {
             label: 'Colored',
             component: ColoredDoc,
         },
-        {
-            id: 'style',
-            label: 'Style',
-            component: StyleDoc,
-        },
+
         {
             id: 'accessibility',
             label: 'Accessibility',

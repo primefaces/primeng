@@ -19,11 +19,7 @@ export class TerminalDemo {
             label: 'Basic',
             component: BasicDoc,
         },
-        {
-            id: 'style',
-            label: 'Style',
-            component: StyleDoc,
-        },
+
         {
             id: 'accessibility',
             label: 'Accessibility',

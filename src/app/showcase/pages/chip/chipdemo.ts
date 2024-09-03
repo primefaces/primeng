@@ -38,11 +38,7 @@ export class ChipDemo {
             label: 'Custom Content',
             component: TemplateDoc,
         },
-        {
-            id: 'style',
-            label: 'Style',
-            component: StyleDoc,
-        },
+
         {
             id: 'accessibility',
             label: 'Accessibility',

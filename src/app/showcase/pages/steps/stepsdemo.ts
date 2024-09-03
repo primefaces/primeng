@@ -38,11 +38,7 @@ export class StepsDemo {
             label: 'Routing',
             component: RoutingDoc,
         },
-        {
-            id: 'style',
-            label: 'Style',
-            component: StyleDoc,
-        },
+
         {
             id: 'accessibility',
             label: 'Accessibility',

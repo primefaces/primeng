@@ -50,11 +50,7 @@ export class SliderDemo {
             label: 'Vertical',
             component: VerticalDoc,
         },
-        {
-            id: 'style',
-            label: 'Style',
-            component: StyleDoc,
-        },
+
         {
             id: 'accessibility',
             label: 'Accessibility',

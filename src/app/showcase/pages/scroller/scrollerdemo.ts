@@ -68,11 +68,7 @@ export class ScrollerDemo {
             label: 'Scroll Options',
             component: ScrollOptionsDoc,
         },
-        {
-            id: 'style',
-            label: 'Style',
-            component: StyleDoc,
-        },
+
         {
             id: 'accessibility',
             label: 'Accessibility',

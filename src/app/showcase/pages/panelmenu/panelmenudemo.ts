@@ -49,11 +49,7 @@ export class PanelMenuDemo {
             label: 'Router',
             component: RouterDoc,
         },
-        {
-            id: 'style',
-            label: 'Style',
-            component: StyleDoc,
-        },
+
         {
             id: 'accessibility',
             label: 'Accessibility',

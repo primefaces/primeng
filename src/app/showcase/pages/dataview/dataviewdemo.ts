@@ -44,11 +44,7 @@ export class DataViewDemo {
             label: 'Loading',
             component: LoadingDoc,
         },
-        {
-            id: 'style',
-            label: 'Style',
-            component: StyleDoc,
-        },
+
         {
             id: 'accessibility',
             label: 'Accessibility',

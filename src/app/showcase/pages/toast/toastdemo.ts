@@ -85,11 +85,7 @@ export class ToastDemo {
             label: 'Animation',
             component: AnimationDoc,
         },
-        {
-            id: 'style',
-            label: 'Style',
-            component: StyleDoc,
-        },
+
         {
             id: 'accessibility',
             label: 'Accessibility',

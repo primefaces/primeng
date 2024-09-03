@@ -229,11 +229,7 @@ export class TreeTableDemo {
             label: 'Context Menu',
             component: ContextMenuDoc,
         },
-        {
-            id: 'style',
-            label: 'Style',
-            component: StyleDoc,
-        },
+
         {
             id: 'accessibility',
             label: 'Accessibility',

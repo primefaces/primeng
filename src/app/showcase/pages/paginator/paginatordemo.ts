@@ -39,11 +39,7 @@ export class PaginatorDemo {
             label: 'Current Page Report',
             component: CurrentPageReportDoc,
         },
-        {
-            id: 'style',
-            label: 'Style',
-            component: StyleDoc,
-        },
+
         {
             id: 'accessibility',
             label: 'Accessibility',

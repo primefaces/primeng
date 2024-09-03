@@ -37,11 +37,7 @@ export class PopoverDemo {
             label: 'DataTable',
             component: DataTableDoc,
         },
-        {
-            id: 'style',
-            label: 'Style',
-            component: StyleDoc,
-        },
+
         {
             id: 'accessibility',
             label: 'Accessibility',

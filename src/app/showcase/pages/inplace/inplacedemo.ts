@@ -43,11 +43,7 @@ export class InplaceDemo {
             label: 'Data',
             component: DataDoc,
         },
-        {
-            id: 'style',
-            label: 'Style',
-            component: StyleDoc,
-        },
+
         {
             id: 'accessibility',
             label: 'Accessibility',

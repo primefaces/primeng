@@ -56,11 +56,7 @@ export class SpeedDialDemo {
             label: 'Custom',
             component: CustomDoc,
         },
-        {
-            id: 'style',
-            label: 'Style',
-            component: StyleDoc,
-        },
+
         {
             id: 'accessibility',
             label: 'Accessibility',

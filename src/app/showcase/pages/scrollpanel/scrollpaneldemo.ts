@@ -27,11 +27,7 @@ export class ScrollPanelDemo {
             label: 'Custom',
             component: CusstomDoc,
         },
-        {
-            id: 'style',
-            label: 'Style',
-            component: StyleDoc,
-        },
+
         {
             id: 'accessibility',
             label: 'Accessibility',

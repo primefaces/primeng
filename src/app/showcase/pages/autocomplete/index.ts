@@ -101,11 +101,7 @@ export class AutoCompleteDemo {
             label: 'Invalid',
             component: InvalidDoc,
         },
-        {
-            id: 'style',
-            label: 'Style',
-            component: StyleDoc,
-        },
+
         {
             id: 'accessibility',
             label: 'Accessibility',
