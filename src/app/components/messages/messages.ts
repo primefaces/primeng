@@ -237,7 +237,7 @@ export class Messages extends BaseComponent implements AfterContentInit, OnDestr
 
     constructor(@Optional() public messageService: MessageService) {
         super();
-        console.warn('Messages component is deprecated as of v18. Use Message component instead.');
+        console.log('Messages component is deprecated as of v18. Use Message component instead.');
     }
 
     ngAfterContentInit() {
