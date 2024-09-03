@@ -6,7 +6,7 @@ import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
 import { Button } from 'primeng/button';
 import { FormsModule } from '@angular/forms';
 import { MessageService } from 'primeng/api';
-import { Message } from 'primeng/api';
+import { ToastMessageOptions } from 'primeng/api';
 import { CheckIcon } from 'primeng/icons/check';
 import { TimesCircleIcon } from 'primeng/icons/timescircle';
 import { ExclamationTriangleIcon } from 'primeng/icons/exclamationtriangle';
@@ -27,10 +27,10 @@ import { TimesIcon } from 'primeng/icons/times';
         <button type="button" pButton (click)="clearWithService()" label="Use Service"></button>
         <button type="button" pButton (click)="clearWithServiceAndKey()" label="Use Service"></button>
         <button type="button" pButton (click)="showClosableFalse()" label="Not Closable"></button>
-    `
+    `,
 })
 class TestMessagesComponent {
-    msgs: Message[] = [];
+    msgs: ToastMessageOptions[] = [];
 
     constructor(private messageService: MessageService) {}
 
@@ -66,7 +66,7 @@ class TestMessagesComponent {
     showAllViaService() {
         this.messageService.addAll([
             { severity: 'success', key: 'primeng', summary: 'Service Message', detail: 'Via MessageService' },
-            { severity: 'success', summary: 'Service Message', detail: 'Via MessageService' }
+            { severity: 'success', summary: 'Service Message', detail: 'Via MessageService' },
         ]);
     }
 
@@ -92,7 +92,7 @@ describe('Messages', () => {
         TestBed.configureTestingModule({
             imports: [NoopAnimationsModule, FormsModule, CheckIcon, TimesCircleIcon, ExclamationTriangleIcon, InfoCircleIcon, TimesIcon],
             declarations: [Messages, Button, TestMessagesComponent],
-            providers: [MessageService]
+            providers: [MessageService],
         });
 
         fixture = TestBed.createComponent(TestMessagesComponent);
