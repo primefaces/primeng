@@ -189,11 +189,6 @@ const theme = ({ dt }) => `
     white-space: nowrap;
 }
 
-.p-tree.p-tree-horizontal .p-tree-node {
-    background: url('./images/line.gif') repeat-x scroll center center transparent;
-    padding: 0.25rem 2.5rem;
-}
-
 .p-tree.p-tree-horizontal .p-tree-node.p-tree-node-leaf,
 .p-tree.p-tree-horizontal .p-tree-node.p-tree-node-collapsed {
     padding-right: 0;
@@ -210,11 +205,6 @@ const theme = ({ dt }) => `
 
 .p-tree.p-tree-horizontal .p-tree-node-connector-table {
     height: 100%;
-    width: 1px;
-}
-
-.p-tree.p-tree-horizontal .p-tree-node-connector-line {
-    background: url('./images/line.gif') repeat-y scroll 0 0 transparent;
     width: 1px;
 }
 

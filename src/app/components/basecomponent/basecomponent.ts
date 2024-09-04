@@ -1,7 +1,6 @@
 import { DOCUMENT, isPlatformServer } from '@angular/common';
 import { ChangeDetectorRef, Directive, ElementRef, inject, Injector, Input, PLATFORM_ID, Renderer2, SimpleChanges } from '@angular/core';
 import { getKeyValue } from '@primeuix/utils/object';
-import { AppConfigService } from '@service/appconfigservice';
 import { PrimeNGConfig } from 'primeng/api';
 import { Base, BaseStyle } from 'primeng/base';
 import { DomHandler } from 'primeng/dom';
@@ -12,8 +11,6 @@ import { BaseComponentStyle } from './style/basecomponentstyle';
 @Directive({ standalone: true, providers: [BaseComponentStyle, BaseStyle] })
 export class BaseComponent {
     public document: Document = inject(DOCUMENT);
-
-    public configService = inject(AppConfigService);
 
     public platformId: any = inject(PLATFORM_ID);
 

@@ -1,5 +1,6 @@
 import { definePreset } from 'primeng/themes';
-import Aura from '@themes/aura';
+// @todo import Aura from 'primeng/themes/aura';
+import { Aura } from 'primeng/themes/aura';
 
 const Noir = definePreset(Aura, {
     semantic: {
