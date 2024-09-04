@@ -91,6 +91,9 @@ export const EDITOR_VALUE_ACCESSOR: any = {
     providers: [EDITOR_VALUE_ACCESSOR, EditorStyle],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
+    host: {
+        class: 'p-editor',
+    },
 })
 export class Editor extends BaseComponent implements AfterContentInit, ControlValueAccessor {
     /**
