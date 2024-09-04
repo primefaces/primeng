@@ -6,7 +6,7 @@
             "children": [
                 {
                     "name": "Introduction",
-                    "routerLink": "/introduction"
+                    "routerLink": "/installation"
                 },
                 {
                     "name": "Configuration",
@@ -17,6 +17,11 @@
                     "routerLink": "/playground"
                 }
             ]
+        },
+        {
+            "name": "Installation",
+            "icon": "pi pi-cloud-download",
+            "routerLink": "/installation"
         },
         {
             "name": "Theming",

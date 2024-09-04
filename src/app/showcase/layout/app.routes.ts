@@ -13,10 +13,10 @@ export const routes: Routes = [
             { path: 'autocomplete', loadChildren: () => import('@pages/autocomplete/routes') },
             {
                 path: 'installation',
-                loadChildren: () => import('@pages/introduction/routes'),
+                loadChildren: () => import('@pages/installation/routes'),
             },
             {
-                path: 'configurations',
+                path: 'configuration',
                 loadChildren: () => import('@pages/configuration/routes'),
             },
             { path: 'playground', loadChildren: () => import('@pages/playground/playground.module').then((m) => m.PlaygroundModule) },

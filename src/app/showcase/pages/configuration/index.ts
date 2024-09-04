@@ -9,6 +9,7 @@ import { NgxTranslateDoc } from '@doc/configuration/locale/ngx-translatedoc';
 import { RepositoryDoc } from '@doc/configuration/locale/repositorydoc';
 import { SetLocaleDoc } from '@doc/configuration/locale/setlocaledoc';
 import { RippleDoc } from '@doc/configuration/rippledoc';
+import { ThemingDoc } from '@doc/configuration/themingdoc';
 import { ZIndexDoc } from '@doc/configuration/zindexdoc';
 
 @Component({
@@ -28,6 +29,11 @@ export class ConfigurationDemo {
             id: 'import',
             label: 'Import',
             component: ImportDoc,
+        },
+        {
+            id: 'theming',
+            label: 'Theming',
+            component: ThemingDoc,
         },
         {
             id: 'ripple',
@@ -66,7 +72,7 @@ export class ConfigurationDemo {
                 },
                 {
                     id: 'ngx-translate',
-                    label: 'ngx-translate',
+                    label: 'Ngx-translate',
                     component: NgxTranslateDoc,
                 },
                 {
