@@ -7,10 +7,11 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { SelectButton } from 'primeng/selectbutton';
 import { AppConfigService } from '@service/appconfigservice';
 import { PrimeNGConfig } from 'primeng/api';
-import Aura from '@themes/aura';
-import Nora from '@themes/nora';
-import Lara from '@themes/lara';
 import { $t, updatePreset, updateSurfacePalette } from 'primeng/themes';
+// @todo import Aura from 'primeng/themes/aura';
+import { Aura } from 'primeng/themes/aura';
+import { Lara } from 'primeng/themes/lara';
+import { Nora } from 'primeng/themes/nora';
 
 const presets = {
     Aura,

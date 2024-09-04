@@ -84,7 +84,7 @@ import virtualscroller from './virtualscroller';
 import tooltip from './tooltip';
 import ripple from './ripple';
 
-export default {
+export const Lara = {
     primitive: {
         borderRadius: {
             none: '0',
@@ -384,11 +384,10 @@ export default {
     semantic: {
         transitionDuration: '0.2s',
         focusRing: {
-            width: '1px',
-            style: 'solid',
-            color: '{primary.color}',
-            offset: '2px',
-            shadow: 'none',
+            width: '0',
+            style: 'none',
+            color: 'transparent',
+            offset: '0',
         },
         disabledOpacity: '0.6',
         iconSize: '1rem',
@@ -408,29 +407,29 @@ export default {
         },
         formField: {
             paddingX: '0.75rem',
-            paddingY: '0.5rem',
+            paddingY: '0.625rem',
             borderRadius: '{border.radius.md}',
             focusRing: {
-                width: '0',
-                style: 'none',
-                color: 'transparent',
-                offset: '0',
-                shadow: 'none',
+                width: '{focus.ring.width}',
+                style: '{focus.ring.style}',
+                color: '{focus.ring.color}',
+                offset: '{focus.ring.offset}',
+                shadow: '{focus.ring.shadow}',
             },
             transitionDuration: '{transition.duration}',
         },
         list: {
-            padding: '0.25rem 0.25rem',
-            gap: '2px',
+            padding: '0.5rem 0',
+            gap: '0',
             header: {
-                padding: '0.5rem 1rem 0.25rem 1rem',
+                padding: '0.625rem 1rem 0 1rem',
             },
             option: {
-                padding: '0.5rem 0.75rem',
-                borderRadius: '{border.radius.sm}',
+                padding: '0.625rem 1rem',
+                borderRadius: '0',
             },
             optionGroup: {
-                padding: '0.5rem 0.75rem',
+                padding: '0.625rem 1rem',
                 fontWeight: '600',
             },
         },
@@ -442,16 +441,16 @@ export default {
         },
         navigation: {
             list: {
-                padding: '0.25rem 0.25rem',
-                gap: '2px',
+                padding: '0.5rem 0',
+                gap: '0',
             },
             item: {
-                padding: '0.5rem 0.75rem',
-                borderRadius: '{border.radius.sm}',
+                padding: '0.625rem 1rem',
+                borderRadius: '0',
                 gap: '0.5rem',
             },
             submenuLabel: {
-                padding: '0.5rem 0.75rem',
+                padding: '0.625rem 1rem',
                 fontWeight: '600',
             },
             submenuIcon: {
@@ -461,20 +460,20 @@ export default {
         overlay: {
             select: {
                 borderRadius: '{border.radius.md}',
-                shadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1)',
+                shadow: '0 2px 12px 0 rgba(0, 0, 0, 0.1)',
             },
             popover: {
                 borderRadius: '{border.radius.md}',
-                padding: '0.75rem',
-                shadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1)',
+                padding: '1rem',
+                shadow: '0 1px 3px rgba(0, 0, 0, 0.1)',
             },
             modal: {
                 borderRadius: '{border.radius.xl}',
-                padding: '1.25rem',
-                shadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)',
+                padding: '1.5rem',
+                shadow: '0 1px 3px rgba(0, 0, 0, 0.3)',
             },
             navigation: {
-                shadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1)',
+                shadow: '0 2px 12px 0 rgba(0, 0, 0, 0.1)',
             },
         },
         colorScheme: {
@@ -505,6 +504,9 @@ export default {
                     color: '{primary.700}',
                     focusColor: '{primary.800}',
                 },
+                focusRing: {
+                    shadow: '0 0 0 0.2rem {primary.200}',
+                },
                 mask: {
                     background: 'rgba(0,0,0,0.4)',
                     color: '{surface.200}',
@@ -513,9 +515,9 @@ export default {
                     background: '{surface.0}',
                     disabledBackground: '{surface.200}',
                     filledBackground: '{surface.50}',
-                    filledFocusBackground: '{surface.50}',
+                    filledFocusBackground: '{surface.0}',
                     borderColor: '{surface.300}',
-                    hoverBorderColor: '{surface.400}',
+                    hoverBorderColor: '{primary.color}',
                     focusBorderColor: '{primary.color}',
                     invalidBorderColor: '{red.400}',
                     color: '{surface.700}',
@@ -524,8 +526,8 @@ export default {
                     floatLabelColor: '{surface.500}',
                     floatLabelFocusColor: '{surface.500}',
                     floatLabelInvalidColor: '{red.400}',
-                    iconColor: '{surface.400}',
-                    shadow: '0 0 #0000, 0 0 #0000, 0 1px 2px 0 rgba(18, 18, 23, 0.05)',
+                    iconColor: '{surface.500}',
+                    shadow: 'none',
                 },
                 text: {
                     color: '{surface.700}',
@@ -573,7 +575,7 @@ export default {
                     },
                     optionGroup: {
                         background: 'transparent',
-                        color: '{text.muted.color}',
+                        color: '{text.color}',
                     },
                 },
                 navigation: {
@@ -591,7 +593,7 @@ export default {
                     },
                     submenuLabel: {
                         background: 'transparent',
-                        color: '{text.muted.color}',
+                        color: '{text.color}',
                     },
                     submenuIcon: {
                         color: '{surface.400}',
@@ -627,6 +629,9 @@ export default {
                     color: 'rgba(255,255,255,.87)',
                     focusColor: 'rgba(255,255,255,.87)',
                 },
+                focusRing: {
+                    shadow: '0 0 0 0.2rem color-mix(in srgb, {primary.color}, transparent 80%)',
+                },
                 mask: {
                     background: 'rgba(0,0,0,0.6)',
                     color: '{surface.200}',
@@ -635,9 +640,9 @@ export default {
                     background: '{surface.950}',
                     disabledBackground: '{surface.700}',
                     filledBackground: '{surface.800}',
-                    filledFocusBackground: '{surface.800}',
+                    filledFocusBackground: '{surface.950}',
                     borderColor: '{surface.700}',
-                    hoverBorderColor: '{surface.600}',
+                    hoverBorderColor: '{primary.color}',
                     focusBorderColor: '{primary.color}',
                     invalidBorderColor: '{red.300}',
                     color: '{surface.0}',
@@ -647,7 +652,7 @@ export default {
                     floatLabelFocusColor: '{surface.400}',
                     floatLabelInvalidColor: '{red.300}',
                     iconColor: '{surface.400}',
-                    shadow: '0 0 #0000, 0 0 #0000, 0 1px 2px 0 rgba(18, 18, 23, 0.05)',
+                    shadow: 'none',
                 },
                 text: {
                     color: '{surface.0}',
@@ -695,7 +700,7 @@ export default {
                     },
                     optionGroup: {
                         background: 'transparent',
-                        color: '{text.muted.color}',
+                        color: '{text.color}',
                     },
                 },
                 navigation: {
@@ -713,7 +718,7 @@ export default {
                     },
                     submenuLabel: {
                         background: 'transparent',
-                        color: '{text.muted.color}',
+                        color: '{text.color}',
                     },
                     submenuIcon: {
                         color: '{surface.500}',
@@ -812,6 +817,7 @@ export default {
         ripple,
     },
     // directives: {
-    //     // tooltip,
-    // },
+    //     tooltip
+    //     // ripple
+    // }
 };

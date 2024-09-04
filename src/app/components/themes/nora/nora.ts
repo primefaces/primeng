@@ -84,7 +84,7 @@ import virtualscroller from './virtualscroller';
 import tooltip from './tooltip';
 import ripple from './ripple';
 
-export default {
+export const Nora = {
     primitive: {
         borderRadius: {
             none: '0',

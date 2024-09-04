@@ -3,6 +3,9 @@
     "dest": "../../../dist",
     "deleteDestPath": true,
     "lib": {
-      "entryFile": "public_api.ts"
-    }
-  }
+        "entryFile": "public_api.ts"
+    },
+    "allowedNonPeerDependencies": [
+        "@primeuix/styled"
+    ]
+}
