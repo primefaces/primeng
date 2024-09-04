@@ -78,7 +78,7 @@ export class LoadingDoc {
 
     products!: Product[];
 
-    options : string[] = ['list', 'grid'];
+    options: string[] = ['list', 'grid'];
 
     constructor(private productService: ProductService) {}
 

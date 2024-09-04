@@ -1251,16 +1251,16 @@ export class DatePicker extends BaseComponent implements OnInit, OnDestroy, Cont
         return this.currentView === 'year'
             ? this.getTranslation('prevDecade')
             : this.currentView === 'month'
-            ? this.getTranslation('prevYear')
-            : this.getTranslation('prevMonth');
+              ? this.getTranslation('prevYear')
+              : this.getTranslation('prevMonth');
     }
 
     get nextIconAriaLabel() {
         return this.currentView === 'year'
             ? this.getTranslation('nextDecade')
             : this.currentView === 'month'
-            ? this.getTranslation('nextYear')
-            : this.getTranslation('nextMonth');
+              ? this.getTranslation('nextYear')
+              : this.getTranslation('nextMonth');
     }
 
     get rootClass() {
@@ -1277,7 +1277,10 @@ export class DatePicker extends BaseComponent implements OnInit, OnDestroy, Cont
         return this.fluid || !!fluidComponent;
     }
 
-    constructor(private zone: NgZone, public overlayService: OverlayService) {
+    constructor(
+        private zone: NgZone,
+        public overlayService: OverlayService,
+    ) {
         super();
         this.window = this.document.defaultView as Window;
     }
@@ -3174,8 +3177,8 @@ export class DatePicker extends BaseComponent implements OnInit, OnDestroy, Cont
             this.defaultDate && this.isValidDate(this.defaultDate) && !this.value
                 ? this.defaultDate
                 : propValue && this.isValidDate(propValue)
-                ? propValue
-                : new Date();
+                  ? propValue
+                  : new Date();
 
         this.currentMonth = val.getMonth();
         this.currentYear = val.getFullYear();

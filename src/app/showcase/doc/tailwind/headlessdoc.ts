@@ -55,14 +55,8 @@ import { Code } from '@domain/code';
                                 d="M11.3853 16.9726L12.6739 15.0309L13.4793 15.5163H16.7008L17.5061 15.0309L18.7947 16.9726V24.254L17.8283 25.7103L16.7008 26.843H13.4793L12.3518 25.7103L11.3853 24.254V16.9726Z"
                                 fill="var(--ground-background)"
                             />
-                            <path
-                                d="M19.3168 24.7437L21.4168 22.6444V20.5451L19.3168 22.3214V24.7437Z"
-                                fill="var(--ground-background)"
-                            />
-                            <path
-                                d="M10.9166 24.7437L8.81662 22.6444V20.5451L10.9166 22.3214V24.7437Z"
-                                fill="var(--ground-background)"
-                            />
+                            <path d="M19.3168 24.7437L21.4168 22.6444V20.5451L19.3168 22.3214V24.7437Z" fill="var(--ground-background)" />
+                            <path d="M10.9166 24.7437L8.81662 22.6444V20.5451L10.9166 22.3214V24.7437Z" fill="var(--ground-background)" />
                             <path
                                 fill-rule="evenodd"
                                 clip-rule="evenodd"

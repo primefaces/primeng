@@ -13,7 +13,7 @@ import { Code } from '@domain/code';
         <div class="card">
             <p-select [(ngModel)]="animation" [options]="animations" placeholder="Select One" class="w-full sm:w-44" />
             <div class="py-8 overflow-hidden">
-               <div [ngClass]="dynamicAnimationClasses"></div>
+                <div [ngClass]="dynamicAnimationClasses"></div>
             </div>
         </div>
         <app-code [code]="code" selector="code" [hideToggleCode]="true" [hideCodeSandbox]="true" [hideStackBlitz]="true"></app-code>
@@ -397,24 +397,24 @@ import { Code } from '@domain/code';
     `,
 })
 export class AnimationsDoc {
-    animation = null
-    animations
+    animation = null;
+    animations;
 
     get dynamicAnimationClasses(): string[] {
         return [
-          'rounded-border',
-          'bg-primary',
-          'w-16',
-          'h-16',
-          'mx-auto',
-          `animate-${this.animation}`,
-          'animate-once',
-          'animate-duration-1000'
+            'rounded-border',
+            'bg-primary',
+            'w-16',
+            'h-16',
+            'mx-auto',
+            `animate-${this.animation}`,
+            'animate-once',
+            'animate-duration-1000',
         ];
-      }
+    }
 
-    ngOnInit(){
-        this.animations= [
+    ngOnInit() {
+        this.animations = [
             'fadein',
             'fadeout',
             'slideup',
@@ -433,8 +433,8 @@ export class AnimationsDoc {
             'zoomindown',
             'zoominleft',
             'zoominright',
-            'zoominup'
-        ]
+            'zoominup',
+        ];
     }
 
     code: Code = {
