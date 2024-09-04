@@ -5,9 +5,10 @@ import { GuidesRoutingModule } from './guides-routing.module';
 import { TemplateUpdateDemoComponent } from './templateupdate/templateupdatedemo.component';
 import { CssLayerDemoComponent } from './csslayer/csslayerdemo.component';
 import { GuidesDocModule } from '@doc/guides/guidesdoc.module';
+import { PrimeFlexDemoComponent } from './primeflex/primeflexdemo.component';
 
 @NgModule({
     imports: [CommonModule, GuidesRoutingModule, GuidesDocModule],
-    declarations: [AccessibilityDemoComponent, TemplateUpdateDemoComponent, CssLayerDemoComponent],
+    declarations: [AccessibilityDemoComponent, TemplateUpdateDemoComponent, CssLayerDemoComponent, PrimeFlexDemoComponent],
 })
 export class GuidesModule {}

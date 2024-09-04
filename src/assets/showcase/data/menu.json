@@ -530,8 +530,8 @@
                     "routerLink": "/guides/accessibility"
                 },
                 {
-                    "name": "CSS Layer",
-                    "routerLink": "/guides/csslayer"
+                    "name": "Primeflex",
+                    "routerLink": "/guides/primeflex"
                 },
                 {
                     "name": "PrimeTV",
