@@ -49,7 +49,7 @@ import { RouterModule } from '@angular/router';
                                     href="https://discord.gg/gzKFYnpmCY"
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    class="text-secondary font-medium hover:text-primary transition-colors transition-duration-150"
+                                    class="text-surface-500 dark:text-surface-400 font-medium hover:text-primary rounded transition-all duration-300"
                                     >Discord</a
                                 >
                             </li>
@@ -62,6 +62,14 @@ import { RouterModule } from '@angular/router';
                             </li>
                         </ul>
                     </div>
+                    <div class="w-6/12 lg:w-3/12 flex">
+                    <ul class="list-none p-0 m-0">
+                        <li class="font-bold mt-8 lg:mt-0 mb-8">Theming</li>
+                        <li class="mb-6">
+                            <a [routerLink]="'/theming'" class="text-surface-500 dark:text-surface-400 font-medium hover:text-primary rounded transition-all duration-300">Styled Mode</a>
+                        </li>
+                    </ul>
+                </div>
                     <div class="w-6/12 lg:w-3/12 flex">
                         <ul class="list-none p-0 m-0">
                             <li class="font-bold mt-8 lg:mt-0 mb-8">Resources</li>

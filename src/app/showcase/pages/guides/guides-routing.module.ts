@@ -3,6 +3,7 @@ import { RouterModule } from '@angular/router';
 import { AccessibilityDemoComponent } from './accessibility/accessibilitydemo.component';
 import { TemplateUpdateDemoComponent } from './templateupdate/templateupdatedemo.component';
 import { CssLayerDemoComponent } from './csslayer/csslayerdemo.component';
+import { PrimeFlexDemoComponent } from './primeflex/primeflexdemo.component';
 
 @NgModule({
     imports: [
@@ -10,7 +11,7 @@ import { CssLayerDemoComponent } from './csslayer/csslayerdemo.component';
             { path: '', redirectTo: 'accessibility', pathMatch: 'full' },
             { path: 'accessibility', component: AccessibilityDemoComponent },
             { path: 'templateupdate', component: TemplateUpdateDemoComponent },
-            { path: 'csslayer', component: CssLayerDemoComponent },
+            { path: 'primeflex', component: PrimeFlexDemoComponent },
         ]),
     ],
     exports: [RouterModule],

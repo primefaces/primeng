@@ -17,6 +17,10 @@ import { InputSwitchModule } from 'primeng/inputswitch';
 import { TailwindDoc } from './csslayer/tailwinddoc';
 import { BootstrapDoc } from './csslayer/bootstrapdoc';
 import { NormalizeDoc } from './csslayer/normalizedoc';
+import { OverviewDoc } from './primeflex/overviewdoc';
+import { TailwindCSSDoc } from './primeflex/tailwindcssdoc';
+import { PluginDoc } from './primeflex/plugindoc';
+import { MigrationDoc } from './primeflex/migrationdoc';
 @NgModule({
     imports: [CommonModule, AppCodeModule, AppDocModule, RouterModule, FormsModule, CheckboxModule, InputSwitchModule],
     exports: [AppDocModule],
@@ -32,6 +36,10 @@ import { NormalizeDoc } from './csslayer/normalizedoc';
         TailwindDoc,
         BootstrapDoc,
         NormalizeDoc,
+        OverviewDoc,
+        TailwindCSSDoc,
+        PluginDoc,
+        MigrationDoc
     ],
 })
 export class GuidesDocModule {}
