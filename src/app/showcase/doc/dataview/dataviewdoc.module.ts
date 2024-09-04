@@ -17,14 +17,14 @@ import { SortingDoc } from './sortingdoc';
 import { StyleDoc } from './styledoc';
 import { LoadingDoc } from './loadingdoc';
 import { SkeletonModule } from 'primeng/skeleton';
-import { SelectButton } from 'primeng/selectbutton';
 import { Select } from 'primeng/select';
+import { SelectButtonModule } from 'primeng/selectbutton';
 
 @NgModule({
     imports: [
         CommonModule,
         AppCodeModule,
-        SelectButton,
+        SelectButtonModule,
         AppDocModule,
         DataViewModule,
         Select,
