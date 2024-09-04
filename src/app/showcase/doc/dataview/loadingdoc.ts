@@ -13,7 +13,11 @@ import { ProductService } from '@service/productservice';
             <p-dataView #dv [value]="products" [layout]="layout">
                 <ng-template pTemplate="header">
                     <div class="flex justify-end">
-                        <p-dataViewLayoutOptions [layout]="layout" />
+                        <p-selectButton [(ngModel)]="layout" [options]="options" [allowEmpty]="false">
+                            <ng-template pTemplate="item" let-option>
+                                <i [class]="option === 'list' ? 'pi pi-bars' : 'pi pi-table'"></i>
+                            </ng-template>
+                        </p-selectButton>
                     </div>
                 </ng-template>
                 <ng-template pTemplate="list" let-products>
@@ -74,6 +78,8 @@ export class LoadingDoc {
 
     products!: Product[];
 
+    options : string[] = ['list', 'grid'];
+
     constructor(private productService: ProductService) {}
 
     ngOnInit() {
@@ -104,7 +110,11 @@ export class LoadingDoc {
         basic: `<p-dataView #dv [value]="products" [layout]="layout">
     <ng-template pTemplate="header">
         <div class="flex justify-end">
-            <p-dataViewLayoutOptions [layout]="layout" />
+            <p-selectButton [(ngModel)]="layout" [options]="options" [allowEmpty]="false">
+                <ng-template pTemplate="item" let-option>
+                    <i [class]="option === 'list' ? 'pi pi-bars' : 'pi pi-table'"></i>
+                </ng-template>
+            </p-selectButton>
         </div>
     </ng-template>
     <ng-template pTemplate="list" let-products>
@@ -168,7 +178,11 @@ export class LoadingDoc {
     <p-dataView #dv [value]="products" [layout]="layout">
         <ng-template pTemplate="header">
             <div class="flex justify-end">
-                <p-dataViewLayoutOptions [layout]="layout" />
+                <p-selectButton [(ngModel)]="layout" [options]="options" [allowEmpty]="false">
+                    <ng-template pTemplate="item" let-option>
+                        <i [class]="option === 'list' ? 'pi pi-bars' : 'pi pi-table'"></i>
+                    </ng-template>
+                </p-selectButton>
             </div>
         </ng-template>
         <ng-template pTemplate="list" let-products>
@@ -235,18 +249,21 @@ import { ProductService } from '@service/productservice';
 import { DataViewModule } from 'primeng/dataview';
 import { CommonModule } from '@angular/common';
 import { SkeletonModule } from 'primeng/skeleton';
+import { SelectButtonModule } from 'primeng/selectbutton';
 
 @Component({
     selector: 'data-view-loading-demo',
     templateUrl: './data-view-loading-demo.html',
     standalone: true,
-    imports: [DataViewModule, CommonModule, SkeletonModule,],
+    imports: [DataViewModule, CommonModule, SkeletonModule, SelectButtonModule],
     providers: [ProductService]
 })
 export class DataViewLoadingDemo {
     layout: string = 'grid';
 
     products!: Product[];
+
+    options : string[] = ['list', 'grid'];
 
     constructor(private productService: ProductService) {}
 

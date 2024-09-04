@@ -19,7 +19,7 @@ import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { RippleModule } from 'primeng/ripple';
 import { ObjectUtils } from 'primeng/utils';
 import { SelectButtonChangeEvent, SelectButtonOptionClickEvent } from './selectbutton.interface';
-import { ToggleButton } from 'primeng/togglebutton';
+import { ToggleButtonModule } from 'primeng/togglebutton';
 import { BaseComponent } from 'primeng/basecomponent';
 import { SelectButtonStyle } from './style/selectbuttonstyle';
 import { CommonModule } from '@angular/common';
@@ -55,7 +55,7 @@ export const SELECTBUTTON_VALUE_ACCESSOR: any = {
         }
     `,
     standalone: true,
-    imports: [RippleModule, SharedModule, ToggleButton, FormsModule, CommonModule],
+    imports: [RippleModule, SharedModule, ToggleButtonModule, FormsModule, CommonModule],
     providers: [SELECTBUTTON_VALUE_ACCESSOR, SelectButtonStyle],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
