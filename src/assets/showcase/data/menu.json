@@ -512,6 +512,10 @@
                     "routerLink": "/guides/accessibility"
                 },
                 {
+                    "name": "Migration to V18",
+                    "routerLink": "/guides/migration"
+                },
+                {
                     "name": "Primeflex",
                     "routerLink": "/guides/primeflex"
                 },
