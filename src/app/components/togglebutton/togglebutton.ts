@@ -160,6 +160,11 @@ export class ToggleButton extends BaseComponent implements ControlValueAccessor 
      * @group Props
      */
     @Input({ transform: booleanAttribute }) autofocus: boolean | undefined;
+      /**
+     * Whether selection can not be cleared.
+     * @group Props
+     */
+      @Input() allowEmpty: boolean | undefined
     /**
      * Callback to invoke on value change.
      * @param {ToggleButtonChangeEvent} event - Custom change event.
@@ -198,7 +203,7 @@ export class ToggleButton extends BaseComponent implements ControlValueAccessor 
     }
 
     toggle(event: Event) {
-        if (!this.disabled) {
+        if (!this.disabled && !(this.allowEmpty === false && this.checked)) {
             this.checked = !this.checked;
             this.onModelChange(this.checked);
             this.onModelTouched();
