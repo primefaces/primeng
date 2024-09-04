@@ -5,7 +5,7 @@
             "icon": "pi pi-home",
             "children": [
                 {
-                    "name": "Introduction",
+                    "name": "Installation",
                     "routerLink": "/installation"
                 },
                 {
@@ -19,27 +19,9 @@
             ]
         },
         {
-            "name": "Installation",
-            "icon": "pi pi-cloud-download",
-            "routerLink": "/installation"
-        },
-        {
             "name": "Theming",
             "icon": "pi pi-palette",
-            "children": [
-                {
-                    "name": "Overview",
-                    "routerLink": "/theming"
-                },
-                {
-                    "name": "Colors",
-                    "routerLink": "/colors"
-                },
-                {
-                    "name": "SASS API",
-                    "href": "https://www.primefaces.org/designer/api/primeng/15.0.0"
-                }
-            ]
+            "routerLink": "/theming"
         },
         {
             "name": "Components",
@@ -535,6 +517,10 @@
                     "routerLink": "/guides/accessibility"
                 },
                 {
+                    "name": "Migration to V18",
+                    "routerLink": "/guides/migration"
+                },
+                {
                     "name": "Primeflex",
                     "routerLink": "/guides/primeflex"
                 },
@@ -582,7 +568,7 @@
                 },
                 {
                     "name": "Roadmap",
-                    "routerLink": "/roadmap"
+                    "routerLink": "/"
                 },
                 {
                     "name": "Source Code",

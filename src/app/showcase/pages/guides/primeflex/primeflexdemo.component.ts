@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { MigrationDoc } from '@doc/guides/primeflex/migrationdoc';
 import { OverviewDoc } from '@doc/guides/primeflex/overviewdoc';
-import { PluginDoc } from '@doc/guides/primeflex/plugindoc';
 import { TailwindCSSDoc } from '@doc/guides/primeflex/tailwindcssdoc';
 
 @Component({
@@ -19,11 +18,6 @@ export class PrimeFlexDemoComponent {
             id: 'tailwindcss',
             label: 'Tailwind CSS',
             component: TailwindCSSDoc,
-        },
-        {
-            id: 'plugin',
-            label: 'Plugin',
-            component: PluginDoc,
         },
         {
             id: 'migration',

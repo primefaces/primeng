@@ -19,8 +19,12 @@ import { BootstrapDoc } from './csslayer/bootstrapdoc';
 import { NormalizeDoc } from './csslayer/normalizedoc';
 import { OverviewDoc } from './primeflex/overviewdoc';
 import { TailwindCSSDoc } from './primeflex/tailwindcssdoc';
-import { PluginDoc } from './primeflex/plugindoc';
 import { MigrationDoc } from './primeflex/migrationdoc';
+import { BreakingChangesDoc } from './migration/breakingchangesdoc';
+import { DeprecatedComponentsDoc } from './migration/deprecatedcomponentsdoc';
+import { MigrationOverviewDoc } from './migration/migrationoverviewdoc';
+import { RenamedComponentsDoc } from './migration/renamedcomponentsdoc';
+
 @NgModule({
     imports: [CommonModule, AppCodeModule, AppDocModule, RouterModule, FormsModule, CheckboxModule, InputSwitchModule],
     exports: [AppDocModule],
@@ -38,8 +42,11 @@ import { MigrationDoc } from './primeflex/migrationdoc';
         NormalizeDoc,
         OverviewDoc,
         TailwindCSSDoc,
-        PluginDoc,
-        MigrationDoc
+        MigrationDoc,
+        BreakingChangesDoc,
+        DeprecatedComponentsDoc,
+        MigrationOverviewDoc,
+        RenamedComponentsDoc,
     ],
 })
 export class GuidesDocModule {}

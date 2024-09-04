@@ -22,13 +22,13 @@ import { BaseComponent } from 'primeng/basecomponent';
 import { InplaceStyle } from './style/inplacestyle';
 
 @Component({
-    selector: 'p-inplaceDisplay',
+    selector: 'p-inplacedisplay, p-inplaceDisplay',
     template: '<ng-content></ng-content>',
 })
 export class InplaceDisplay {}
 
 @Component({
-    selector: 'p-inplaceContent',
+    selector: 'p-inplacecontent, p-inplaceContent',
     template: '<ng-content></ng-content>',
 })
 export class InplaceContent {}

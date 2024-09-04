@@ -11,7 +11,7 @@ import { AppConfigService } from '@service/appconfigservice';
             <div class="section-header">Who Uses</div>
             <p class="section-detail">
                 PrimeTek libraries have reached over<span class="font-semibold animated-text relative white-space-nowrap"
-                    ><span>150 Million Downloads</span></span
+                    ><span>200 Million Downloads</span></span
                 >on npm! Join the PrimeLand community and experience the difference yourself.
             </p>
             <div class="flex justify-center items-center mt-6">
