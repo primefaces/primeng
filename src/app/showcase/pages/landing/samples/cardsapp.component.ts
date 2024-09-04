@@ -521,7 +521,7 @@ import { SelectModule } from 'primeng/select';
                                 />
                                 <div class="flex-1">
                                     <div class="text-sm font-medium text-color leading-5">Brook Simmons</div>
-                                    <div class="text-sm text-muted-color leading-5 line-clamp-4">brook.sim42&#64;primevue.org</div>
+                                    <div class="text-sm text-muted-color leading-5 line-clamp-4">brook.sim42&#64;primeng.org</div>
                                 </div>
                                 <p-select
                                     [(ngModel)]="memberSelectedTypes[0]"
@@ -539,7 +539,7 @@ import { SelectModule } from 'primeng/select';
                                 />
                                 <div class="flex-1">
                                     <div class="text-sm font-medium text-color leading-5">Dianne Russell</div>
-                                    <div class="text-sm text-muted-color leading-5 line-clamp-4">di.russ23&#64;primevue.org</div>
+                                    <div class="text-sm text-muted-color leading-5 line-clamp-4">di.russ23&#64;primeng.org</div>
                                 </div>
                                 <p-select
                                     [(ngModel)]="memberSelectedTypes[1]"
@@ -557,7 +557,7 @@ import { SelectModule } from 'primeng/select';
                                 />
                                 <div class="flex-1">
                                     <div class="text-sm font-medium text-color leading-5">Jacob Jones</div>
-                                    <div class="text-sm text-muted-color leading-5 line-clamp-4">jac.jon87&#64;primevue.org</div>
+                                    <div class="text-sm text-muted-color leading-5 line-clamp-4">jac.jon87&#64;primeng.org</div>
                                 </div>
                                 <p-select
                                     [(ngModel)]="memberSelectedTypes[2]"

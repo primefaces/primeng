@@ -15,7 +15,7 @@ import { Code } from '@domain/code';
 
             <h3>CSS Layer</h3>
             <p>
-                Enable PrimeVue CSS layer and configure the tailwind styles to have higher specificity with layering. This way,
+                Enable PrimeNG CSS layer and configure the tailwind styles to have higher specificity with layering. This way,
                 <i>!</i> prefix is not required.
             </p>
             <app-code [code]="code2" selector="code2" [hideToggleCode]="true" [hideCodeSandbox]="true" [hideStackBlitz]="true"></app-code>
@@ -29,25 +29,26 @@ export class OverrideDoc {
     };
 
     code2: Code = {
-        basic: `import PrimeVue from 'primevue/config';
-import Aura from '@primevue/themes/aura';
-
-const app = createApp(App);
-
-app.use(PrimeVue, {
-theme: {
-preset: Aura,
-options: {
-    cssLayer: {
-        name: 'primevue',
-        order: 'tailwind-base, primevue, tailwind-utilities'
+        basic: `import { PrimeNGConfig } from 'primeng/api;
+import { Aura } from 'primeng/themes/aura';
+@Component({...})
+export class AppComponent() {
+    constructor(private primengConfig: PrimeNGConfig) {
+        this.primengConfig.theme.set({
+            preset: Aura,
+                options: {
+                    cssLayer: {
+                        name: 'primeng',
+                        order: 'tailwind-base, primeng, tailwind-utilities'
+                    }
+                }
+            })
+        }
     }
-}
-}
-});`,
+}`,
     };
     code3: Code = {
-        basic: `@layer tailwind-base, primevue, tailwind-utilities;
+        basic: `@layer tailwind-base, primeng, tailwind-utilities;
 
 @layer tailwind-base {
 @tailwind base;

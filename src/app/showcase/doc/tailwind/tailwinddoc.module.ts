@@ -6,7 +6,6 @@ import { TagModule } from 'primeng/tag';
 import { AppDocModule } from '@layout/doc/app.doc.module';
 import { AppCodeModule } from '@layout/doc/app.code.component';
 import { OverviewDoc } from './overviewdoc';
-import { PresetsDoc } from './presetsdoc';
 import { PluginDoc } from './plugindoc';
 import { ExtensionsDoc } from './extensionsdoc';
 import { OverrideDoc } from './overridedoc';
@@ -36,7 +35,7 @@ import { AnimationsDoc } from './animationsdoc';
         FormsModule,
         DialogModule,
     ],
-    declarations: [OverviewDoc, PresetsDoc, PluginDoc, ExtensionsDoc, OverrideDoc, ColorPaletteDoc, FormDoc, HeadlessDoc, AnimationsDoc],
+    declarations: [OverviewDoc, PluginDoc, ExtensionsDoc, OverrideDoc, ColorPaletteDoc, FormDoc, HeadlessDoc, AnimationsDoc],
     exports: [AppDocModule],
 })
 export class TailwindDocModule {}
