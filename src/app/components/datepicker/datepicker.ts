@@ -1281,6 +1281,7 @@ export class DatePicker extends BaseComponent implements OnInit, OnDestroy, Cont
         public overlayService: OverlayService,
     ) {
         super();
+        this.window = this.document.defaultView as Window;
     }
 
     ngOnInit() {
