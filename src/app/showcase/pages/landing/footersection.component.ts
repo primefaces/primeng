@@ -15,7 +15,7 @@ import { RouterModule } from '@angular/router';
                             <li class="font-bold mb-8">General</li>
                             <li class="mb-6">
                                 <a
-                                    [routerLink]="['introduction']"
+                                    [routerLink]="['installation']"
                                     class="text-surface-500 dark:text-surface-400 font-medium hover:text-primary rounded transition-all duration-300"
                                 >
                                     Get Started

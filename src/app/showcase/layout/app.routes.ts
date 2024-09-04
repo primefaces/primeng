@@ -12,11 +12,11 @@ export const routes: Routes = [
             { path: 'accessibility', redirectTo: 'guides/accessibility', pathMatch: 'full' },
             { path: 'autocomplete', loadChildren: () => import('@pages/autocomplete/routes') },
             {
-                path: 'introduction',
-                loadChildren: () => import('@pages/introduction/routes'),
+                path: 'installation',
+                loadChildren: () => import('@pages/installation/routes'),
             },
             {
-                path: 'configurations',
+                path: 'configuration',
                 loadChildren: () => import('@pages/configuration/routes'),
             },
             { path: 'playground', loadChildren: () => import('@pages/playground/playground.module').then((m) => m.PlaygroundModule) },

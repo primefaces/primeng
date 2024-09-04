@@ -13,22 +13,17 @@ import { InstallationDocModule } from '@doc/installation/installationdoc.module'
     imports: [CommonModule, InstallationDocModule],
     template: `<app-doc
         docTitle="Getting Started - PrimeNG"
-        header="Introduction"
-        description="PrimeNG is a rich set of open source native Angular UI components."
+        header="Installation"
+        description="Install PrimeNG in your project."
         [docs]="docs"
     ></app-doc>`,
 })
-export class IntroductionDemo {
+export class InstallationDemo {
     docs = [
         {
             id: 'download',
             label: 'Download',
             component: DownloadDoc,
-        },
-        {
-            id: 'styles',
-            label: 'Styles',
-            component: StylesDoc,
         },
         {
             id: 'usage',
