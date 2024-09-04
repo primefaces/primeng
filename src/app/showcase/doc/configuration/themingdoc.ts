@@ -19,13 +19,13 @@ export class ThemingDoc {
     code: Code = {
         typescript: `import { Component } from '@angular/core';
 import { PrimeNGConfig } from 'primeng/api';
-import Aura from 'primeng/themes';
+import { Aura } from 'primeng/themes/aura';
 
 @Component({...})
 export class AppComponent {
 
     constructor(private config: PrimeNGConfig) {
-        this.config.theme.set({preset: Aura});
+        this.config.theme.set({ preset: Aura });
     }
 }`,
     };
