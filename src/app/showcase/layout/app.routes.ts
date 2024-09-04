@@ -23,7 +23,10 @@ export const routes: Routes = [
             { path: 'roadmap', loadChildren: () => import('@pages/roadmap/roadmap.module').then((m) => m.RoadmapModule) },
             { path: 'team', loadChildren: () => import('@pages/team/team.module').then((m) => m.TeamModule) },
             { path: 'partners', loadChildren: () => import('@pages/partners/partners.module').then((m) => m.PartnersModule) },
-            { path: 'theming', loadChildren: () => import('@pages/theming/theming.module').then((m) => m.ThemingModule) },
+            {
+                path: 'theming',
+                loadChildren: () => import('@pages/theming/routes'),
+            },
             { path: 'icons', loadChildren: () => import('@pages/icons/iconsdemo.module').then((m) => m.IconsDemoModule) },
             {
                 path: 'customicons',
