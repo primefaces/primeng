@@ -91,7 +91,6 @@ export class BaseComponent {
     }
 
     ngOnDestroy() {
-        Theme.clearLoadedStyleNames();
         this._unloadScopedThemeStyles();
     }
 
@@ -120,29 +119,29 @@ export class BaseComponent {
 
     _loadThemeStyles() {
         // common
-        //if (!Theme.isStyleNameLoaded('common')) {
-        const { primitive, semantic } = this.componentStyle?.getCommonTheme?.() || {};
-        this.baseStyle.load(primitive?.css, { name: 'primitive-variables', ...this.styleOptions });
-        this.baseStyle.load(semantic?.css, { name: 'semantic-variables', ...this.styleOptions });
-        this.baseStyle.loadTheme({ name: 'global-style', ...this.styleOptions });
-        Theme.setLoadedStyleName('common');
-        //}
+        if (!Theme.isStyleNameLoaded('common')) {
+            const { primitive, semantic } = this.componentStyle?.getCommonTheme?.() || {};
+            this.baseStyle.load(primitive?.css, { name: 'primitive-variables', ...this.styleOptions });
+            this.baseStyle.load(semantic?.css, { name: 'semantic-variables', ...this.styleOptions });
+            this.baseStyle.loadTheme({ name: 'global-style', ...this.styleOptions });
+            Theme.setLoadedStyleName('common');
+        }
 
         // component
-        //if (!Theme.isStyleNameLoaded(this.componentStyle?.name)) {
-        const { css } = this.componentStyle?.getComponentTheme?.() || {};
-        this.componentStyle?.load(css, { name: `${this.componentStyle?.name}-variables`, ...this.styleOptions });
-        this.componentStyle?.loadTheme({ name: `${this.componentStyle?.name}-style`, ...this.styleOptions });
-        Theme.setLoadedStyleName(this.componentStyle?.name);
-        //}
+        if (!Theme.isStyleNameLoaded(this.componentStyle?.name) && this.componentStyle?.name) {
+            const { css } = this.componentStyle?.getComponentTheme?.() || {};
+            this.componentStyle?.load(css, { name: `${this.componentStyle?.name}-variables`, ...this.styleOptions });
+            this.componentStyle?.loadTheme({ name: `${this.componentStyle?.name}-style`, ...this.styleOptions });
+            Theme.setLoadedStyleName(this.componentStyle?.name);
+        }
 
         // layer order
-        //if (!Theme.isStyleNameLoaded('layer-order')) {
-        const layerOrder = this.componentStyle?.getLayerOrderThemeCSS?.();
+        if (!Theme.isStyleNameLoaded('layer-order')) {
+            const layerOrder = this.componentStyle?.getLayerOrderThemeCSS?.();
 
-        this.baseStyle.load(layerOrder, { name: 'layer-order', first: true, ...this.styleOptions });
-        Theme.setLoadedStyleName('layer-order');
-        //}
+            this.baseStyle.load(layerOrder, { name: 'layer-order', first: true, ...this.styleOptions });
+            Theme.setLoadedStyleName('layer-order');
+        }
 
         if (this.dt) {
             this._loadScopedThemeStyles(this.dt);

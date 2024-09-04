@@ -38,6 +38,11 @@ export class ThemeProvider {
         });
     }
 
+    ngOnDestroy() {
+        Theme.clearLoadedStyleNames();
+        ThemeService.clear();
+    }
+
     onThemeChange(value: any) {
         Theme.setTheme(value);
         if (this.document) {
@@ -47,14 +52,14 @@ export class ThemeProvider {
 
     loadCommonTheme() {
         // common
-        //if (!Theme.isStyleNameLoaded('common')) {
-        const { primitive, semantic } = this.baseStyle.getCommonTheme?.() || {};
-        const styleOptions = { nonce: undefined };
-        this.baseStyle.load(primitive?.css, { name: 'primitive-variables', ...styleOptions });
-        this.baseStyle.load(semantic?.css, { name: 'semantic-variables', ...styleOptions });
-        this.baseStyle.loadTheme({ name: 'global-style', ...styleOptions });
+        if (!Theme.isStyleNameLoaded('common')) {
+            const { primitive, semantic } = this.baseStyle.getCommonTheme?.() || {};
+            const styleOptions = { nonce: undefined };
+            this.baseStyle.load(primitive?.css, { name: 'primitive-variables', ...styleOptions });
+            this.baseStyle.load(semantic?.css, { name: 'semantic-variables', ...styleOptions });
+            this.baseStyle.loadTheme({ name: 'global-style', ...styleOptions });
 
-        Theme.setLoadedStyleName('common');
-        //}
+            Theme.setLoadedStyleName('common');
+        }
     }
 }
