@@ -86,6 +86,7 @@ position: relative;
 }
 
 .p-datepicker-panel {
+    position: absolute;
     width: auto;
     padding: ${dt('datepicker.panel.padding')};
     background: ${dt('datepicker.panel.background')};
