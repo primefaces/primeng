@@ -189,6 +189,7 @@ export const routes: Routes = [
             { path: 'table', loadChildren: () => import('@pages/table/tabledemo.module').then((m) => m.TableDemoModule) },
             { path: 'tabmenu', loadChildren: () => import('@pages/tabmenu/tabmenudemo.module').then((m) => m.TabMenuDemoModule) },
             { path: 'tabs', loadChildren: () => import('@pages/tabs/routes') },
+            { path: 'tailwind', loadChildren: () => import('@pages/tailwind/tailwinddemo.module').then((m) => m.TailwindDemoModule) },
             { path: 'terminal', loadChildren: () => import('@pages/terminal/terminaldemo.module').then((m) => m.TerminalDemoModule) },
             {
                 path: 'tieredmenu',
