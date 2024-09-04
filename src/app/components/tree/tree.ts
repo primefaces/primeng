@@ -153,6 +153,7 @@ import {
                         [index]="index"
                         [itemSize]="itemSize"
                         [level]="level + 1"
+                        [loadingMode]="loadingMode"
                     ></p-treeNode>
                 </ul>
             </li>
