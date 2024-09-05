@@ -12,10 +12,10 @@ import { Code } from '@domain/code';
 })
 export class FontAwesomeDoc {
     code: Code = {
-        basic: `<p-dropdown>
+        basic: `<p-select>
     <ng-template pTemplate="dropdownicon">
         <i class="fa-light fa-chevron-down"></i>
     </ng-template>
-</p-dropdown>`,
+</p-select>`,
     };
 }
