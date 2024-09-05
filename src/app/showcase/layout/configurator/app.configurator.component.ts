@@ -1,12 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Output, computed, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { AppConfigService } from '@service/appconfigservice';
+import { PrimeNGConfig } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { SelectButton } from 'primeng/selectbutton';
-import { AppConfigService } from '@service/appconfigservice';
-import { PrimeNGConfig } from 'primeng/api';
 import { $t, updatePreset, updateSurfacePalette } from 'primeng/themes';
 // @todo import Aura from 'primeng/themes/aura';
 import { Aura } from 'primeng/themes/aura';
@@ -27,15 +27,15 @@ const presets = {
                 <span class="config-panel-label">Primary</span>
                 <div>
                     @for (primaryColor of primaryColors; track primaryColor) {
-                        <button
-                            type="button"
-                            [title]="primaryColor.name"
-                            (click)="updateColors('primary', primaryColor)"
-                            [ngClass]="{ 'active-color': primaryColor.name === selectedPrimaryColor() }"
-                            [style]="{
+                    <button
+                        type="button"
+                        [title]="primaryColor.name"
+                        (click)="updateColors('primary', primaryColor)"
+                        [ngClass]="{ 'active-color': primaryColor.name === selectedPrimaryColor() }"
+                        [style]="{
                                 'background-color': primaryColor.name === 'noir' ? 'var(--text-color)' : primaryColor?.palette['500'],
                             }"
-                        ></button>
+                    ></button>
                     }
                 </div>
             </div>
@@ -44,15 +44,15 @@ const presets = {
                 <span class="config-panel-label">Surface</span>
                 <div>
                     @for (surface of surfaces; track surface) {
-                        <button
-                            type="button"
-                            [title]="surface.name"
-                            (click)="updateColors('surface', surface)"
-                            [ngClass]="{ 'active-color': surface.name === selectedSurfaceColor() }"
-                            [style]="{
+                    <button
+                        type="button"
+                        [title]="surface.name"
+                        (click)="updateColors('surface', surface)"
+                        [ngClass]="{ 'active-color': surface.name === selectedSurfaceColor() }"
+                        [style]="{
                                 'background-color': surface.name === 'noir' ? 'var(--text-color)' : surface?.palette['500'],
                             }"
-                        ></button>
+                    ></button>
                     }
                 </div>
             </div>
@@ -65,11 +65,6 @@ const presets = {
                     (ngModelChange)="onPresetChange($event)"
                     [allowEmpty]="false"
                 />
-            </div>
-
-            <div class="config-panel-settings">
-                <div class="config-panel-label">Ripple</div>
-                <p-inputSwitch [(ngModel)]="ripple" (onChange)="onRippleChange($event)" />
             </div>
         </div>
     `,
