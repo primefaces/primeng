@@ -52,7 +52,6 @@ import {
     TranslationKeys,
 } from 'primeng/api';
 import { Button, ButtonModule } from 'primeng/button';
-import { CalendarModule } from 'primeng/calendar';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { ArrowDownIcon } from 'primeng/icons/arrowdown';
 import { ArrowUpIcon } from 'primeng/icons/arrowup';
@@ -98,6 +97,7 @@ import { DataTableStyle } from './style/datatablestyle';
 import { BaseComponent } from 'primeng/basecomponent';
 import { RadioButton, RadioButtonClickEvent, RadioButtonModule } from 'primeng/radiobutton';
 import { SelectModule } from 'primeng/select';
+import { DatePickerModule } from 'primeng/datepicker';
 
 @Injectable()
 export class TableService {
@@ -2904,8 +2904,8 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
                 <number>this.draggedRowIndex > this.droppedRowIndex
                     ? this.droppedRowIndex
                     : this.droppedRowIndex === 0
-                      ? 0
-                      : this.droppedRowIndex - 1;
+                    ? 0
+                    : this.droppedRowIndex - 1;
             ObjectUtils.reorderArray(this.value, <number>this.draggedRowIndex, dropIndex);
 
             if (this.virtualScroll) {
@@ -3473,12 +3473,7 @@ export class TableBody implements AfterViewInit, OnDestroy {
         }
     }
 
-    constructor(
-        public dt: Table,
-        public tableService: TableService,
-        public cd: ChangeDetectorRef,
-        public el: ElementRef,
-    ) {
+    constructor(public dt: Table, public tableService: TableService, public cd: ChangeDetectorRef, public el: ElementRef) {
         this.subscription = this.dt.tableService.valueSource$.subscribe(() => {
             if (this.dt.virtualScroll) {
                 this.cd.detectChanges();
@@ -3604,10 +3599,7 @@ export class FrozenColumn implements AfterViewInit {
 
     @Input() alignFrozen: string = 'left';
 
-    constructor(
-        private el: ElementRef,
-        private zone: NgZone,
-    ) {}
+    constructor(private el: ElementRef, private zone: NgZone) {}
 
     ngAfterViewInit() {
         this.zone.runOutsideAngular(() => {
@@ -3762,10 +3754,7 @@ export class SortIcon implements OnInit, OnDestroy {
 
     sortOrder: number | undefined;
 
-    constructor(
-        public dt: Table,
-        public cd: ChangeDetectorRef,
-    ) {
+    constructor(public dt: Table, public cd: ChangeDetectorRef) {
         this.subscription = this.dt.tableService.sortSource$.subscribe((sortMeta) => {
             this.updateSortState();
         });
@@ -3844,11 +3833,7 @@ export class SelectableRow implements OnInit, OnDestroy {
 
     subscription: Subscription | undefined;
 
-    constructor(
-        public dt: Table,
-        public tableService: TableService,
-        private el: ElementRef,
-    ) {
+    constructor(public dt: Table, public tableService: TableService, private el: ElementRef) {
         if (this.isEnabled()) {
             this.subscription = this.dt.tableService.selectionSource$.subscribe(() => {
                 this.selected = this.dt.isSelected(this.data);
@@ -4099,10 +4084,7 @@ export class SelectableRowDblClick implements OnInit, OnDestroy {
 
     subscription: Subscription | undefined;
 
-    constructor(
-        public dt: Table,
-        public tableService: TableService,
-    ) {
+    constructor(public dt: Table, public tableService: TableService) {
         if (this.isEnabled()) {
             this.subscription = this.dt.tableService.selectionSource$.subscribe(() => {
                 this.selected = this.dt.isSelected(this.data);
@@ -4156,11 +4138,7 @@ export class ContextMenuRow {
 
     subscription: Subscription | undefined;
 
-    constructor(
-        public dt: Table,
-        public tableService: TableService,
-        private el: ElementRef,
-    ) {
+    constructor(public dt: Table, public tableService: TableService, private el: ElementRef) {
         if (this.isEnabled()) {
             this.subscription = this.dt.tableService.contextMenuSource$.subscribe((data) => {
                 this.selected = this.dt.equals(this.data, data);
@@ -4469,11 +4447,7 @@ export class EditableColumn implements OnChanges, AfterViewInit, OnDestroy {
 
     overlayEventListener: any;
 
-    constructor(
-        public dt: Table,
-        public el: ElementRef,
-        public zone: NgZone,
-    ) {}
+    constructor(public dt: Table, public el: ElementRef, public zone: NgZone) {}
 
     public ngOnChanges(changes: SimpleChanges): void {
         if (this.el.nativeElement && !changes.data?.firstChange) {
@@ -4820,10 +4794,7 @@ export class EditableRow {
     },
 })
 export class InitEditableRow {
-    constructor(
-        public dt: Table,
-        public editableRow: EditableRow,
-    ) {}
+    constructor(public dt: Table, public editableRow: EditableRow) {}
 
     @HostListener('click', ['$event'])
     onClick(event: Event) {
@@ -4839,10 +4810,7 @@ export class InitEditableRow {
     },
 })
 export class SaveEditableRow {
-    constructor(
-        public dt: Table,
-        public editableRow: EditableRow,
-    ) {}
+    constructor(public dt: Table, public editableRow: EditableRow) {}
 
     @HostListener('click', ['$event'])
     onClick(event: Event) {
@@ -4858,10 +4826,7 @@ export class SaveEditableRow {
     },
 })
 export class CancelEditableRow {
-    constructor(
-        public dt: Table,
-        public editableRow: EditableRow,
-    ) {}
+    constructor(public dt: Table, public editableRow: EditableRow) {}
 
     @HostListener('click', ['$event'])
     onClick(event: Event) {
@@ -4889,11 +4854,7 @@ export class CellEditor implements AfterContentInit {
 
     outputTemplate: Nullable<TemplateRef<any>>;
 
-    constructor(
-        public dt: Table,
-        @Optional() public editableColumn: EditableColumn,
-        @Optional() public editableRow: EditableRow,
-    ) {}
+    constructor(public dt: Table, @Optional() public editableColumn: EditableColumn, @Optional() public editableRow: EditableRow) {}
 
     ngAfterContentInit() {
         (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
@@ -4956,10 +4917,7 @@ export class TableRadioButton {
 
     subscription: Subscription;
 
-    constructor(
-        public dt: Table,
-        public cd: ChangeDetectorRef,
-    ) {
+    constructor(public dt: Table, public cd: ChangeDetectorRef) {
         this.subscription = this.dt.tableService.selectionSource$.subscribe(() => {
             this.checked = this.dt.isSelected(this.value);
 
@@ -5034,11 +4992,7 @@ export class TableCheckbox {
 
     subscription: Subscription;
 
-    constructor(
-        public dt: Table,
-        public tableService: TableService,
-        public cd: ChangeDetectorRef,
-    ) {
+    constructor(public dt: Table, public tableService: TableService, public cd: ChangeDetectorRef) {
         this.subscription = this.dt.tableService.selectionSource$.subscribe(() => {
             this.checked = this.dt.isSelected(this.value) && !this.disabled;
             this.ariaLabel =
@@ -5114,11 +5068,7 @@ export class TableHeaderCheckbox {
 
     valueChangeSubscription: Subscription;
 
-    constructor(
-        public dt: Table,
-        public tableService: TableService,
-        public cd: ChangeDetectorRef,
-    ) {
+    constructor(public dt: Table, public tableService: TableService, public cd: ChangeDetectorRef) {
         this.valueChangeSubscription = this.dt.tableService.valueSource$.subscribe(() => {
             this.checked = this.updateCheckedState();
             this.ariaLabel =
@@ -5225,12 +5175,7 @@ export class ReorderableRow implements AfterViewInit {
 
     dropListener: VoidListener;
 
-    constructor(
-        private renderer: Renderer2,
-        public dt: Table,
-        public el: ElementRef,
-        public zone: NgZone,
-    ) {}
+    constructor(private renderer: Renderer2, public dt: Table, public el: ElementRef, public zone: NgZone) {}
 
     ngAfterViewInit() {
         if (this.isEnabled()) {
@@ -6320,14 +6265,14 @@ export class ColumnFilter extends BaseComponent implements AfterContentInit {
                     (ngModelChange)="onModelChange($event)"
                 />
 
-                <p-calendar
+                <p-datePicker
                     [ariaLabel]="ariaLabel"
                     *ngSwitchCase="'date'"
                     [placeholder]="placeholder"
                     [ngModel]="filterConstraint?.value"
                     (ngModelChange)="onModelChange($event)"
                     appendTo="body"
-                ></p-calendar>
+                ></p-datePicker>
             </ng-container>
         </ng-template>
     `,
@@ -6372,10 +6317,7 @@ export class ColumnFilterFormElement implements OnInit {
 
     filterCallback: any;
 
-    constructor(
-        public dt: Table,
-        private colFilter: ColumnFilter,
-    ) {}
+    constructor(public dt: Table, private colFilter: ColumnFilter) {}
 
     ngOnInit() {
         this.filterCallback = (value: any) => {
@@ -6414,7 +6356,7 @@ export class ColumnFilterFormElement implements OnInit {
         FormsModule,
         ButtonModule,
         SelectButtonModule,
-        CalendarModule,
+        DatePickerModule,
         InputNumberModule,
         CheckboxModule,
         ScrollerModule,
