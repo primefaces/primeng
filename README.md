@@ -9,4 +9,4 @@
 
 ### Website
 
-Visit the [PrimeNG Website](https://primeng.org) for general information, demos and documentation.
+Visit the [PrimeNG Website](https://v18.primeng.org) for general information, demos and documentation.
