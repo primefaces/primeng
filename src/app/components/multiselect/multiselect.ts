@@ -2120,9 +2120,6 @@ export class MultiSelect extends BaseComponent implements OnInit, AfterViewInit,
         this.onChange.emit({ originalEvent: event, value: this.value });
         DomHandler.focus(this.headerCheckboxViewChild?.nativeElement);
         this.headerCheckboxFocus = true;
-
-        event.preventDefault();
-        event.stopPropagation();
     }
 
     changeFocusedOptionIndex(event, index) {
