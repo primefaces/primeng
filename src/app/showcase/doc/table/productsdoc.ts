@@ -153,7 +153,7 @@ import { ProductService } from '@service/productservice';
 
                         <div class="field">
                             <label for="inventoryStatus">Inventory Status</label>
-                            <p-dropdown [(ngModel)]="product.inventoryStatus" inputId="inventoryStatus" [options]="statuses">
+                            <p-select [(ngModel)]="product.inventoryStatus" inputId="inventoryStatus" [options]="statuses">
                                 <ng-template pTemplate="selectedItem">
                                     <p-tag
                                         [value]="product.inventoryStatus.toUpperCase()"
@@ -163,7 +163,7 @@ import { ProductService } from '@service/productservice';
                                 <ng-template let-option pTemplate="item">
                                     <p-tag [value]="option.label" [severity]="getSeverity(option.label)" />
                                 </ng-template>
-                            </p-dropdown>
+                            </p-select>
                         </div>
 
                         <div class="field">
@@ -663,7 +663,7 @@ export class ProductsDoc {
 
                 <div class="field">
                     <label for="inventoryStatus">Inventory Status</label>
-                    <p-dropdown 
+                    <p-select 
                         [(ngModel)]="product.inventoryStatus" 
                         inputId="inventoryStatus" 
                         [options]="statuses">
@@ -677,7 +677,7 @@ export class ProductsDoc {
                                     [value]="option.label" 
                                     [severity]="getSeverity(option.label)" />
                             </ng-template>
-                    </p-dropdown>
+                    </p-select>
                 </div>
 
                 <div class="field">

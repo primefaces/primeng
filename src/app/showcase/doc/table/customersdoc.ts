@@ -124,7 +124,7 @@ import { Table } from 'primeng/table';
                                     <p-sortIcon field="status" />
                                     <p-columnFilter field="status" matchMode="equals" display="menu" class="ml-auto">
                                         <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                            <p-dropdown
+                                            <p-select
                                                 [(ngModel)]="value"
                                                 [options]="statuses"
                                                 (onChange)="filter($event.value)"
@@ -133,7 +133,7 @@ import { Table } from 'primeng/table';
                                                 <ng-template let-option pTemplate="item">
                                                     <p-tag [value]="option.label" [severity]="getSeverity(option.label)" />
                                                 </ng-template>
-                                            </p-dropdown>
+                                            </p-select>
                                         </ng-template>
                                     </p-columnFilter>
                                 </div>
@@ -387,11 +387,11 @@ export class CustomersDoc {
                     <p-sortIcon field="status" />
                     <p-columnFilter field="status" matchMode="equals" display="menu" class="ml-auto">
                         <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                            <p-dropdown [(ngModel)]="value" [options]="statuses" (onChange)="filter($event.value)" placeholder="Any">
+                            <p-select [(ngModel)]="value" [options]="statuses" (onChange)="filter($event.value)" placeholder="Any">
                                 <ng-template let-option pTemplate="item">
                                     <p-tag [value]="option.label" [severity]="getSeverity(option.label)" />
                                 </ng-template>
-                            </p-dropdown>
+                            </p-select>
                         </ng-template>
                     </p-columnFilter>
                 </div>
@@ -542,11 +542,11 @@ export class CustomersDoc {
                     <p-sortIcon field="status" />
                     <p-columnFilter field="status" matchMode="equals" display="menu" class="ml-auto">
                         <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                            <p-dropdown [(ngModel)]="value" [options]="statuses" (onChange)="filter($event.value)" placeholder="Any">
+                            <p-select [(ngModel)]="value" [options]="statuses" (onChange)="filter($event.value)" placeholder="Any">
                                 <ng-template let-option pTemplate="item">
                                     <p-tag [value]="option.label" [severity]="getSeverity(option.label)" />
                                 </ng-template>
-                            </p-dropdown>
+                            </p-select>
                         </ng-template>
                     </p-columnFilter>
                 </div>
@@ -682,7 +682,7 @@ import { ProgressBarModule } from 'primeng/progressbar';
                 cursor: auto;
             }
         
-            .p-dropdown-label:not(.p-placeholder) {
+            .p-select-label:not(.p-placeholder) {
                 text-transform: uppercase;
             }
         }

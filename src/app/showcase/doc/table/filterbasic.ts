@@ -98,7 +98,7 @@ import { CustomerService } from '@service/customerservice';
                             <th>
                                 <p-columnFilter field="status" matchMode="equals" [showMenu]="false">
                                     <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                        <p-dropdown
+                                        <p-select
                                             [(ngModel)]="value"
                                             [options]="statuses"
                                             (onChange)="filter($event.value)"
@@ -108,7 +108,7 @@ import { CustomerService } from '@service/customerservice';
                                             <ng-template let-option pTemplate="item">
                                                 <p-tag [value]="option.value" [severity]="getSeverity(option.label)" />
                                             </ng-template>
-                                        </p-dropdown>
+                                        </p-select>
                                     </ng-template>
                                 </p-columnFilter>
                             </th>
@@ -311,7 +311,7 @@ export class FilterBasicDoc {
                 <th>
                     <p-columnFilter field="status" matchMode="equals" [showMenu]="false">
                         <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                            <p-dropdown 
+                            <p-select 
                                 [(ngModel)]="value" 
                                 [options]="statuses" 
                                 (onChange)="filter($event.value)" 
@@ -322,7 +322,7 @@ export class FilterBasicDoc {
                                             [value]="option.value" 
                                             [severity]="getSeverity(option.label)" />
                                     </ng-template>
-                            </p-dropdown>
+                            </p-select>
                         </ng-template>
                     </p-columnFilter>
                 </th>
@@ -447,7 +447,7 @@ export class FilterBasicDoc {
             <th>
                 <p-columnFilter field="status" matchMode="equals" [showMenu]="false">
                     <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                        <p-dropdown 
+                        <p-select 
                             [(ngModel)]="value" 
                             [options]="statuses"
                             (onChange)="filter($event.value)" 
@@ -458,7 +458,7 @@ export class FilterBasicDoc {
                                         [value]="option.value" 
                                         [severity]="getSeverity(option.label)" />
                                 </ng-template>
-                        </p-dropdown>
+                        </p-select>
                     </ng-template>
                 </p-columnFilter>
             </th>

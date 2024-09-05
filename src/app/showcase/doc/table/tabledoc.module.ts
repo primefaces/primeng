@@ -6,7 +6,6 @@ import { CalendarModule } from 'primeng/calendar';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ContextMenuModule } from 'primeng/contextmenu';
 import { DialogModule } from 'primeng/dialog';
-import { DropdownModule } from 'primeng/dropdown';
 import { FileUploadModule } from 'primeng/fileupload';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { InputSwitchModule } from 'primeng/inputswitch';
@@ -85,6 +84,7 @@ import { RowExpansionDoc } from './rowexpansiondoc';
 import { FilterSortEditDoc } from './filtersorteditdoc';
 import { RemovableSortDoc } from './removablesortdoc';
 import { FilterAdvancedDoc } from './filteradvanceddoc';
+import { SelectModule } from 'primeng/select';
 
 @NgModule({
     imports: [
@@ -97,7 +97,7 @@ import { FilterAdvancedDoc } from './filteradvanceddoc';
         ConfirmDialogModule,
         MultiSelectModule,
         ContextMenuModule,
-        DropdownModule,
+        SelectModule,
         ButtonModule,
         TagModule,
         ToastModule,

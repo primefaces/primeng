@@ -64,7 +64,7 @@ import { ProductService } from '@service/productservice';
                             <td>
                                 <p-cellEditor>
                                     <ng-template pTemplate="input">
-                                        <p-dropdown
+                                        <p-select
                                             [options]="statuses"
                                             appendTo="body"
                                             [(ngModel)]="product.inventoryStatus"
@@ -227,7 +227,7 @@ export class RowEditDoc {
             <td>
                 <p-cellEditor>
                     <ng-template pTemplate="input">
-                        <p-dropdown 
+                        <p-select 
                             [options]="statuses" 
                             appendTo="body" 
                             [(ngModel)]="product.inventoryStatus" 
@@ -331,7 +331,7 @@ export class RowEditDoc {
                 <td>
                     <p-cellEditor>
                         <ng-template pTemplate="input">
-                            <p-dropdown 
+                            <p-select 
                                 [options]="statuses" 
                                 appendTo="body" 
                                 [(ngModel)]="product.inventoryStatus" 
