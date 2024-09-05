@@ -518,14 +518,14 @@ import { InputIconModule } from 'primeng/inputicon';
 import { HttpClientModule } from '@angular/common/http';
 import { InputTextModule } from 'primeng/inputtext';
 import { MultiSelectModule } from 'primeng/multiselect';
-import { DropdownModule } from 'primeng/dropdown';
+import { SelectModule } from 'primeng/select';
 import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'table-filter-basic-demo',
     templateUrl: 'table-filter-basic-demo.html',
     standalone: true,
-    imports: [TableModule, TagModule, IconFieldModule, InputTextModule, InputIconModule, MultiSelectModule, DropdownModule, HttpClientModule, CommonModule],
+    imports: [TableModule, TagModule, IconFieldModule, InputTextModule, InputIconModule, MultiSelectModule, SelectModule, HttpClientModule, CommonModule],
     providers: [CustomerService]
 })
 @Component({

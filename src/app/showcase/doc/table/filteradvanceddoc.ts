@@ -570,13 +570,24 @@ export class FilterAdvancedDoc {
 import { Table } from 'primeng/table';
 import { Customer, Representative } from '../domain/customer';
 import { CustomerService } from '../service/customerservice';
+import { SelectModule } from 'primeng/select';
+import { TableModule } from 'primeng/table';
+import { TagModule } from 'primeng/tag';
+import { ButtonModule } from 'primeng/button';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { HttpClientModule } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
+import { InputTextModule } from 'primeng/inputtext';
+import { SelectModule } from 'primeng/select';
+import { ProgressBarModule } from 'primeng/progressbar';
+
 
 @Component({
     selector: 'table-filter-advanced-demo',
     templateUrl: 'table-filter-advanced-demo.html',
     standalone: true,
     imports: [TableModule, HttpClientModule, CommonModule, InputTextModule, TagModule, 
-    DropdownModule, MultiSelectModule, ProgressBarModule, ButtonModule ],
+    SelectModule, MultiSelectModule, ProgressBarModule, ButtonModule ],
     providers: [CustomerService]
 })
 export class TableFilterAdvancedDemo implements OnInit {

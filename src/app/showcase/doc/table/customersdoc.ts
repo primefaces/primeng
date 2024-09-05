@@ -621,7 +621,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { InputTextModule } from 'primeng/inputtext';
-import { DropdownModule } from 'primeng/dropdown';
+import { SelectModule } from 'primeng/select';
 import { SliderModule } from 'primeng/slider';
 import { ProgressBarModule } from 'primeng/progressbar';
 
@@ -630,7 +630,7 @@ import { ProgressBarModule } from 'primeng/progressbar';
     templateUrl: 'table-customers-demo.html',
     standalone: true,
     imports: [TableModule, TagModule, ButtonModule,IconFieldModule, InputIconModule, HttpClientModule, 
-    CommonModule, MultiSelectModule, InputTextModule, DropdownModule, SliderModule, ProgressBarModule ],
+    CommonModule, MultiSelectModule, InputTextModule, SelectModule, SliderModule, ProgressBarModule ],
     providers: [CustomerService],
     styles: [
     \`

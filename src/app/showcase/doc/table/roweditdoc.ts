@@ -401,7 +401,7 @@ import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
 import { CommonModule } from '@angular/common';
 import { TagModule } from 'primeng/tag';
-import { DropdownModule } from 'primeng/dropdown';
+import { SelectModule } from 'primeng/select';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 
@@ -409,7 +409,7 @@ import { InputTextModule } from 'primeng/inputtext';
     selector: 'table-row-edit-demo',
     templateUrl: 'table-row-edit-demo.html',
     standalone: true,
-    imports: [TableModule, ToastModule, CommonModule, TagModule, DropdownModule, ButtonModule, InputTextModule],
+    imports: [TableModule, ToastModule, CommonModule, TagModule, SelectModule, ButtonModule, InputTextModule],
     providers: [MessageService, ProductService]
 })
 export class TableRowEditDemo implements OnInit{
