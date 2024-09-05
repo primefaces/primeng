@@ -6,11 +6,13 @@ import { AppCodeModule } from '@layout/doc/app.code.component';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
-import { DropdownModule } from 'primeng/dropdown';
 import { FocusTrapModule } from 'primeng/focustrap';
 import { ImportDoc } from './importdoc';
 import { BasicDoc } from './basicdoc';
 import { FloatLabelModule } from 'primeng/floatlabel';
+import { IconFieldModule } from 'primeng/iconfield';
+import { InputIconModule } from 'primeng/inputicon';
+import { CheckboxModule } from 'primeng/checkbox';
 
 @NgModule({
     imports: [
@@ -21,9 +23,11 @@ import { FloatLabelModule } from 'primeng/floatlabel';
         FormsModule,
         ButtonModule,
         InputTextModule,
-        DropdownModule,
         FocusTrapModule,
         FloatLabelModule,
+        IconFieldModule,
+        InputIconModule,
+        CheckboxModule
     ],
     declarations: [ImportDoc, BasicDoc],
     exports: [AppDocModule],
