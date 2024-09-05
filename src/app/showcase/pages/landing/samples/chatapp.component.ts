@@ -5,7 +5,6 @@ import { RouterModule } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { BadgeModule } from 'primeng/badge';
 import { ChartModule } from 'primeng/chart';
-import { InputSwitchModule } from 'primeng/inputswitch';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { AvatarModule } from 'primeng/avatar';
 import { IconFieldModule } from 'primeng/iconfield';
@@ -14,6 +13,7 @@ import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { MenuModule } from 'primeng/menu';
 import { InputTextareaModule } from 'primeng/inputtextarea';
+import { ToggleSwitchModule } from 'primeng/toggleswitch';
 
 @Component({
     selector: 'chat-app',
@@ -22,7 +22,6 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
         CommonModule,
         RouterModule,
         ChartModule,
-        InputSwitchModule,
         SelectButtonModule,
         BadgeModule,
         FormsModule,
@@ -33,6 +32,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
         InputTextModule,
         MenuModule,
         InputTextareaModule,
+        ToggleSwitchModule
     ],
     template: `
         <div class="w-4/12 xl:w-3/12 min-w-40 overflow-auto flex flex-col gap-6">
@@ -228,17 +228,17 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
                 <div class="flex items-center gap-2">
                     <i class="pi pi-bell text-color"></i>
                     <div class="leading-6 font-medium text-color flex-1">Notification</div>
-                    <p-inputSwitch [(ngModel)]="notification" />
+                    <p-toggleSwitch [(ngModel)]="notification" />
                 </div>
                 <div class="flex items-center gap-2">
                     <i class="pi pi-volume-down text-color"></i>
                     <div class="leading-6 font-medium text-color flex-1">Sound</div>
-                    <p-inputSwitch [(ngModel)]="sound" />
+                    <p-toggleSwitch [(ngModel)]="sound" />
                 </div>
                 <div class="flex items-center gap-2">
                     <i class="pi pi-download text-color"></i>
                     <div class="leading-6 font-medium text-color flex-1">Save to downloads</div>
-                    <p-inputSwitch [(ngModel)]="download" />
+                    <p-toggleSwitch [(ngModel)]="download" />
                 </div>
             </div>
             <div class="mt-6">

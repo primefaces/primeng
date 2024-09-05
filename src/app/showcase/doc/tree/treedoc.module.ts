@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { ContextMenuModule } from 'primeng/contextmenu';
-import { InputSwitchModule } from 'primeng/inputswitch';
 import { ToastModule } from 'primeng/toast';
 import { TreeModule } from 'primeng/tree';
 import { AppDocModule } from '@layout/doc/app.doc.module';
@@ -24,6 +23,7 @@ import { StyleDoc } from './styledoc';
 import { TemplateDoc } from './templatedoc';
 import { VirtualScrollDoc } from './virtualscrolldoc';
 import { LazyVirtualScrollDoc } from './virtualscrolllazydoc';
+import { ToggleSwitchModule } from 'primeng/toggleswitch';
 
 @NgModule({
     imports: [
@@ -32,10 +32,10 @@ import { LazyVirtualScrollDoc } from './virtualscrolllazydoc';
         AppDocModule,
         TreeModule,
         ButtonModule,
-        InputSwitchModule,
         FormsModule,
         ToastModule,
         ContextMenuModule,
+        ToggleSwitchModule
     ],
     exports: [AppDocModule],
     declarations: [

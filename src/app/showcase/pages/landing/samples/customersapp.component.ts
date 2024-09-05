@@ -4,7 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { ChartModule } from 'primeng/chart';
 import { DropdownModule } from 'primeng/dropdown';
-import { InputSwitchModule } from 'primeng/inputswitch';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { DividerModule } from 'primeng/divider';
 import { AvatarModule } from 'primeng/avatar';
@@ -20,6 +19,7 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
 import { DrawerModule } from 'primeng/drawer';
 import { DomSanitizer } from '@angular/platform-browser';
 import { AppConfigService } from '@service/appconfigservice';
+import { ToggleSwitchModule } from 'primeng/toggleswitch';
 
 @Component({
     selector: 'customers-app',
@@ -29,7 +29,6 @@ import { AppConfigService } from '@service/appconfigservice';
         RouterModule,
         DropdownModule,
         ChartModule,
-        InputSwitchModule,
         SelectButtonModule,
         FormsModule,
         DividerModule,
@@ -44,6 +43,7 @@ import { AppConfigService } from '@service/appconfigservice';
         KnobModule,
         OverlayBadgeModule,
         DrawerModule,
+        ToggleSwitchModule
     ],
     template: `
         <div class="h-full flex-1 flex flex-col overflow-hidden border border-surface rounded-2xl p-6">
@@ -286,7 +286,7 @@ import { AppConfigService } from '@service/appconfigservice';
                                 <div *ngFor="let pref of data.prefs" class="flex items-center gap-2">
                                     <i class="text-lg text-color" [class]="pref.icon"></i>
                                     <div class="font-medium text-color flex-1">{{ pref.title }}</div>
-                                    <p-inputSwitch [(ngModel)]="pref.checked" />
+                                    <p-toggleSwitch [(ngModel)]="pref.checked" />
                                 </div>
                             </div>
                         </div>

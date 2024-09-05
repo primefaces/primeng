@@ -16,7 +16,7 @@ import { ProductService } from '@service/productservice';
         <p-deferred-demo (load)="loadDemoData()">
             <div class="card">
                 <div class="flex justify-center items-center mb-6 gap-2">
-                    <p-inputSwitch [(ngModel)]="metaKey" inputId="input-metakey" />
+                    <p-toggleSwitch [(ngModel)]="metaKey" inputId="input-metakey" />
                     <label for="input-metakey">MetaKey</label>
                 </div>
                 <p-table
@@ -70,7 +70,7 @@ export class MultipleSelectionDoc {
 
     code: Code = {
         basic: `<div class="flex justify-center items-center mb-6 gap-2">
-    <p-inputSwitch [(ngModel)]="metaKey" inputId="input-metakey" />
+    <p-toggleSwitch [(ngModel)]="metaKey" inputId="input-metakey" />
     <label for="input-metakey">MetaKey</label>
 </div>
 <p-table 
@@ -99,7 +99,7 @@ export class MultipleSelectionDoc {
 </p-table>`,
         html: `<div class="card">
     <div class="flex justify-center items-center mb-6 gap-2">
-        <p-inputSwitch [(ngModel)]="metaKey" inputId="input-metakey" />
+        <p-toggleSwitch [(ngModel)]="metaKey" inputId="input-metakey" />
         <label for="input-metakey">MetaKey</label>
     </div>
     <p-table 
@@ -131,15 +131,15 @@ export class MultipleSelectionDoc {
 import { Product } from '@domain/product';
 import { ProductService } from '@service/productservice';
 import { TableModule } from 'primeng/table';
-import { InputSwitchModule } from 'primeng/inputswitch';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { ToggleSwitchModule } from 'primeng/toggleswitch';
 
 @Component({
     selector: 'table-multiple-selection-demo',
     templateUrl: 'table-multiple-selection-demo.html',
     standalone: true,
-    imports: [TableModule, InputSwitchModule, FormsModule, CommonModule],
+    imports: [TableModule, ToggleSwitchModule, FormsModule, CommonModule],
     providers: [ProductService]
 })
 export class TableMultipleSelectionDemo implements OnInit{

@@ -20,7 +20,7 @@ import { ProductService } from '@service/productservice';
         <p-deferred-demo (load)="loadDemoData()">
             <div class="card">
                 <div class="flex justify-center items-center mb-6 gap-2">
-                    <p-inputSwitch [(ngModel)]="metaKey" inputId="input-metakey" />
+                    <p-toggleSwitch [(ngModel)]="metaKey" inputId="input-metakey" />
                     <label for="input-metakey">MetaKey</label>
                 </div>
                 <p-table
@@ -73,7 +73,7 @@ export class SingleSelectionDoc {
     }
 
     code: Code = {
-        basic: `<p-inputSwitch [(ngModel)]="metaKey" inputId="input-metakey" />
+        basic: `<p-toggleSwitch [(ngModel)]="metaKey" inputId="input-metakey" />
     <p-table 
         [value]="products" 
         selectionMode="single" 
@@ -100,7 +100,7 @@ export class SingleSelectionDoc {
 
         html: `<div class="card">
     <div class="flex justify-center items-center mb-6 gap-2">
-        <p-inputSwitch [(ngModel)]="metaKey" inputId="input-metakey" />
+        <p-toggleSwitch [(ngModel)]="metaKey" inputId="input-metakey" />
         <label for="input-metakey">MetaKey</label>
     </div>
     <p-table [value]="products" selectionMode="single" [(selection)]="selectedProduct" [metaKeySelection]="metaKey" dataKey="id" [tableStyle]="{ 'min-width': '50rem' }">
@@ -126,7 +126,7 @@ export class SingleSelectionDoc {
 import { Product } from '@domain/product';
 import { ProductService } from '@service/productservice';
 import { TableModule } from 'primeng/table';
-import { InputSwitchModule } from 'primeng/inputswitch';
+import { ToggleSwitchModule } from 'primeng/toggleswitch';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
@@ -134,7 +134,7 @@ import { CommonModule } from '@angular/common';
     selector: 'table-single-selection-demo',
     templateUrl: 'table-single-selection-demo.html',
     standalone: true,
-    imports: [TableModule, InputSwitchModule, FormsModule, CommonModule],
+    imports: [TableModule, ToggleSwitchModule, FormsModule, CommonModule],
     providers: [ProductService]
 })
 export class TableSingleSelectionDemo implements OnInit{

@@ -112,18 +112,56 @@ export class SortRemovableDoc {
     }
 
     code: Code = {
-        basic: `<p-treeTable 
-    [value]="files" 
-    [columns]="cols" 
-    selectionMode="single" 
-    [(selection)]="selectedNode" 
-    dataKey="name" 
-    [scrollable]="true" 
-    [tableStyle]="{'min-width':'50rem'}">
+        basic: `<p-treeTable
+    #tt
+    [value]="files"
+    (sortFunction)="customSort($event)"
+    [customSort]="true"
+    [columns]="cols"
+    selectionMode="single"
+    [metaKeySelection]="metaKeySelection"
+    [(selection)]="selectedNode"
+    dataKey="name"
+    [scrollable]="true"
+    [tableStyle]="{ 'min-width': '50rem' }"
+>
+    <ng-template pTemplate="header" let-columns>
+        <tr>
+            <th *ngFor="let col of columns" [ttSortableColumn]="col.field">
+                {{ col.header }}
+                <p-treeTableSortIcon [field]="col.field" />
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+        <tr [ttRow]="rowNode" [ttSelectableRow]="rowNode">
+            <td *ngFor="let col of columns; let i = index">
+                <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
+                {{ rowData[col.field] }}
+            </td>
+        </tr>
+    </ng-template>
+</p-treeTable>`,
+
+        html: `<div class="card">
+   <p-treeTable
+        #tt
+        [value]="files"
+        (sortFunction)="customSort($event)"
+        [customSort]="true"
+        [columns]="cols"
+        selectionMode="single"
+        [metaKeySelection]="metaKeySelection"
+        [(selection)]="selectedNode"
+        dataKey="name"
+        [scrollable]="true"
+        [tableStyle]="{ 'min-width': '50rem' }"
+    >
         <ng-template pTemplate="header" let-columns>
             <tr>
-                <th *ngFor="let col of columns">
+                <th *ngFor="let col of columns" [ttSortableColumn]="col.field">
                     {{ col.header }}
+                    <p-treeTableSortIcon [field]="col.field" />
                 </th>
             </tr>
         </ng-template>
@@ -135,36 +173,6 @@ export class SortRemovableDoc {
                 </td>
             </tr>
         </ng-template>
-</p-treeTable>`,
-
-        html: `<div class="card">
-    <div class="flex gap-4 items-center justify-center mb-6">
-        <p-inputSwitch [(ngModel)]="metaKeySelection" />
-        <span>Metakey</span>
-    </div>
-    <p-treeTable 
-        [value]="files" 
-        [columns]="cols" 
-        selectionMode="single" 
-        [(selection)]="selectedNode" 
-        dataKey="name" 
-        [scrollable]="true" 
-        [tableStyle]="{'min-width':'50rem'}">
-            <ng-template pTemplate="header" let-columns>
-                <tr>
-                    <th *ngFor="let col of columns">
-                        {{ col.header }}
-                    </th>
-                </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
-                <tr [ttRow]="rowNode" [ttSelectableRow]="rowNode">
-                    <td *ngFor="let col of columns; let i = index">
-                        <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
-                        {{ rowData[col.field] }}
-                    </td>
-                </tr>
-            </ng-template>
     </p-treeTable>
 </div>`,
 
@@ -172,7 +180,6 @@ export class SortRemovableDoc {
 import { TreeNode } from 'primeng/api';
 import { NodeService } from '@service/nodeservice';
 import { TreeTableModule } from 'primeng/treetable';
-import { InputSwitchModule } from 'primeng/inputswitch';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
@@ -185,7 +192,7 @@ interface Column {
     selector: 'tree-table-sort-removable-demo',
     templateUrl: './tree-table-sort-removable-demo.html',
     standalone: true,
-    imports: [TreeTableModule, InputSwitchModule, FormsModule, CommonModule],
+    imports: [TreeTableModule, FormsModule, CommonModule],
     providers: [NodeService]
 })
 export class TreeTableSortRemovableDemo implements OnInit {

@@ -8,7 +8,6 @@ import { ContextMenuModule } from 'primeng/contextmenu';
 import { DialogModule } from 'primeng/dialog';
 import { FileUploadModule } from 'primeng/fileupload';
 import { SelectButtonModule } from 'primeng/selectbutton';
-import { InputSwitchModule } from 'primeng/inputswitch';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
@@ -85,6 +84,7 @@ import { FilterSortEditDoc } from './filtersorteditdoc';
 import { RemovableSortDoc } from './removablesortdoc';
 import { FilterAdvancedDoc } from './filteradvanceddoc';
 import { SelectModule } from 'primeng/select';
+import { ToggleSwitchModule } from 'primeng/toggleswitch';
 
 @NgModule({
     imports: [
@@ -102,7 +102,6 @@ import { SelectModule } from 'primeng/select';
         TagModule,
         ToastModule,
         InputTextModule,
-        InputSwitchModule,
         InputNumberModule,
         InputTextareaModule,
         ProgressBarModule,
@@ -121,6 +120,7 @@ import { SelectModule } from 'primeng/select';
         DeferredDemo,
         IconFieldModule,
         InputIconModule,
+        ToggleSwitchModule
     ],
     declarations: [
         ImportDoc,

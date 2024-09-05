@@ -20,7 +20,7 @@ interface Column {
         </app-docsectiontext>
         <div class="card">
             <div class="flex gap-4 items-center justify-center mb-6">
-                <p-inputSwitch [(ngModel)]="metaKeySelection" />
+                <p-toggleSwitch [(ngModel)]="metaKeySelection" />
                 <span>Metakey</span>
             </div>
             <p-deferred-demo (load)="loadDemoData()">
@@ -78,7 +78,7 @@ export class SelectionMultipleDoc {
     }
 
     code: Code = {
-        basic: `<p-inputSwitch [(ngModel)]="metaKeySelection" />
+        basic: `<p-toggleSwitch [(ngModel)]="metaKeySelection" />
 <p-treeTable 
     [value]="files" 
     [columns]="cols" 
@@ -107,7 +107,7 @@ export class SelectionMultipleDoc {
 
         html: `<div class="card">
     <div class="flex gap-4 items-center justify-center mb-6">
-        <p-inputSwitch [(ngModel)]="metaKeySelection" />
+        <p-toggleSwitch [(ngModel)]="metaKeySelection" />
         <span>Metakey</span>
     </div>
     <p-treeTable 
@@ -141,7 +141,7 @@ export class SelectionMultipleDoc {
 import { TreeNode } from 'primeng/api';
 import { NodeService } from '@service/nodeservice';
 import { TreeTableModule } from 'primeng/treetable';
-import { InputSwitchModule } from 'primeng/inputswitch';
+import { ToggleSwitchModule } from 'primeng/toggleswitch';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
@@ -154,7 +154,7 @@ interface Column {
     selector: 'tree-table-selection-multiple-demo',
     templateUrl: './tree-table-selection-multiple-demo.html',
     standalone: true,
-    imports: [TreeTableModule, InputSwitchModule, FormsModule, CommonModule],
+    imports: [TreeTableModule, ToggleSwitchModule, FormsModule, CommonModule],
     providers: [NodeService]
 })
 export class TreeTableSelectionMultipleDemo implements OnInit {

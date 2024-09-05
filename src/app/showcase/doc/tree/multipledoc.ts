@@ -19,7 +19,7 @@ import { NodeService } from '@service/nodeservice';
         </app-docsectiontext>
         <div class="card flex flex-col items-center justify-center">
             <div class="flex items-center mb-6 gap-2">
-                <p-inputSwitch inputId="input-metakey" [(ngModel)]="metaKeySelection" />
+                <p-toggleSwitch inputId="input-metakey" [(ngModel)]="metaKeySelection" />
                 <label for="input-metakey">MetaKey</label>
             </div>
             <p-tree
@@ -48,7 +48,7 @@ export class MultipleDoc implements OnInit {
 
     code: Code = {
         basic: `<div class="flex items-center mb-6 gap-2">
-    <p-inputSwitch inputId="input-metakey" [(ngModel)]="metaKeySelection" />
+    <p-toggleSwitch inputId="input-metakey" [(ngModel)]="metaKeySelection" />
     <label for="input-metakey">MetaKey</label>
 </div>
 <p-tree 
@@ -60,7 +60,7 @@ export class MultipleDoc implements OnInit {
 
         html: `<div class="card flex flex-col items-center justify-center">
     <div class="flex items-center mb-6 gap-2">
-        <p-inputSwitch inputId="input-metakey" [(ngModel)]="metaKeySelection" />
+        <p-toggleSwitch inputId="input-metakey" [(ngModel)]="metaKeySelection" />
         <label for="input-metakey">MetaKey</label>
     </div>
     <p-tree 
@@ -75,14 +75,14 @@ export class MultipleDoc implements OnInit {
 import { TreeNode } from 'primeng/api';
 import { NodeService } from '@service/nodeservice';
 import { TreeModule } from 'primeng/tree';
-import { InputSwitchModule } from 'primeng/inputswitch';
+import { ToggleSwitchModule } from 'primeng/toggleswitch';
 import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'tree-multiple-demo',
     templateUrl: './tree-multiple-demo.html',
     standalone: true,
-    imports: [TreeModule, InputSwitchModule, FormsModule],
+    imports: [TreeModule, ToggleSwitchModule, FormsModule],
     providers: [NodeService]
 })
 export class TreeMultipleDemo implements OnInit {
