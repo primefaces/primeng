@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, afterNextRender } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { AppConfigService } from '@service/appconfigservice';
 import { StyleClassModule } from 'primeng/styleclass';
 import News from '../../data/news.json';
-import { AppConfigService } from '@service/appconfigservice';
 
 @Component({
     selector: 'app-news',
@@ -13,14 +13,11 @@ import { AppConfigService } from '@service/appconfigservice';
     imports: [CommonModule, FormsModule, StyleClassModule],
 })
 export class AppNewsComponent {
-    storageKey: string = 'primeng';
+    storageKey: string = 'primeng-v18';
 
     announcement: any;
 
-    constructor(
-        private configService: AppConfigService,
-        private cd: ChangeDetectorRef,
-    ) {
+    constructor(private configService: AppConfigService, private cd: ChangeDetectorRef) {
         afterNextRender(() => {
             const itemString = localStorage.getItem(this.storageKey);
 
