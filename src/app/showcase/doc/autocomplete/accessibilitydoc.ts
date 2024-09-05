@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '@domain/code';
 
 @Component({
-    selector: 'accessibility-doc',
+    selector: 'autocomplete-accessibility-doc',
     template: ` <app-docsectiontext>
             <h3>Screen Reader</h3>
             <p>

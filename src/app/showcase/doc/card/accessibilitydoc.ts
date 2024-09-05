@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Code } from '@domain/code';
 
 @Component({
-    selector: 'accessibility-doc',
+    selector: 'card-accessibility-doc',
     template: ` <app-docsectiontext>
         <div class="doc-section-description">
             <h3>Screen Reader</h3>

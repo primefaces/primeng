@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'style-doc',
+    selector: 'radio-button-style-doc',
     template: `
         <app-docsectiontext>
             <p>

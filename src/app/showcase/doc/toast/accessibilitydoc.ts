@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'accessibility-doc',
+    selector: 'toast-accessibility-doc',
     template: `
         <app-docsectiontext>
             <h3>Screen Reader</h3>

@@ -4,7 +4,7 @@ import { Product } from '@domain/product';
 import { ProductService } from '@service/productservice';
 
 @Component({
-    selector: 'style-doc',
+    selector: 'table-style-doc',
     template: ` <app-docsectiontext>
             <p>Certain rows or cells can easily be styled based on conditions.</p>
         </app-docsectiontext>

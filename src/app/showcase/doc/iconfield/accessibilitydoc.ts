@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'accessibility-doc',
+    selector: 'iconfield-accessibility-doc',
     template: ` <app-docsectiontext>
         <h3>Screen Reader</h3>
         <p>IconField and InputIcon does not require any roles and attributes.</p>

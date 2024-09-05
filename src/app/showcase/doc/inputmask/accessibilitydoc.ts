@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Code } from '@domain/code';
 
 @Component({
-    selector: 'accessibility-doc',
+    selector: 'input-mask-accessibility-doc',
     template: ` <div>
         <app-docsectiontext>
             <h3>Screen Reader</h3>

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'accessibility-doc',
+    selector: 'fieldset-accessibility-doc',
     template: ` <div>
         <app-docsectiontext>
             <h3>Screen Reader</h3>

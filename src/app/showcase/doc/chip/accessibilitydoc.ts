@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'accessibility-doc',
+    selector: 'chip-accessibility-doc',
     template: ` <div>
         <app-docsectiontext>
             <div class="doc-section-description">

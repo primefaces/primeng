@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'style-doc',
+    selector: 'icon-field-style-doc',
     template: `
         <app-docsectiontext>
             <p>
