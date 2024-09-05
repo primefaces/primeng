@@ -567,10 +567,6 @@
                     "routerLink": "/team"
                 },
                 {
-                    "name": "Roadmap",
-                    "routerLink": "/"
-                },
-                {
                     "name": "Source Code",
                     "href": "https://github.com/primefaces/primeng"
                 },
