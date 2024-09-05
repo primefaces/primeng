@@ -36,7 +36,7 @@ interface PageEvent {
             <p-divider />
             <div class="flex items-center justify-end">
                 <span class="mx-1 text-color">Items per page: </span>
-                <p-dropdown [options]="options" optionLabel="label" optionValue="value" [(ngModel)]="rows2" (ngModelChange)="first2 = 0" />
+                <p-select [options]="options" optionLabel="label" optionValue="value" [(ngModel)]="rows2" (ngModelChange)="first2 = 0" />
                 <p-paginator
                     [first]="first2"
                     [rows]="rows2"
@@ -127,7 +127,7 @@ export class TemplateDoc {
 
 <div class="flex items-center justify-end">
     <span class="mx-1 text-color">Items per page: </span>
-    <p-dropdown [options]="options" optionLabel="label" optionValue="value" [(ngModel)]="rows2" (ngModelChange)="first2 = 0" />
+    <p-select [options]="options" optionLabel="label" optionValue="value" [(ngModel)]="rows2" (ngModelChange)="first2 = 0" />
     <p-paginator [first]="first2" [rows]="rows2" [totalRecords]="120" (onPageChange)="onPageChange2($event)" [showCurrentPageReport]="true"
         currentPageReportTemplate="{first} - {last} of {totalRecords}" [showPageLinks]="false" [showFirstLastIcon]="false" ></p-paginator>
 </div>
@@ -156,7 +156,7 @@ export class TemplateDoc {
     <p-divider />
     <div class="flex items-center justify-end">
         <span class="mx-1 text-color">Items per page: </span>
-        <p-dropdown [options]="options" optionLabel="label" optionValue="value" [(ngModel)]="rows2" (ngModelChange)="first2 = 0" />
+        <p-select [options]="options" optionLabel="label" optionValue="value" [(ngModel)]="rows2" (ngModelChange)="first2 = 0" />
         <p-paginator [first]="first2" [rows]="rows2" [totalRecords]="120" (onPageChange)="onPageChange2($event)" [showCurrentPageReport]="true" 
             currentPageReportTemplate="{first} - {last} of {totalRecords}" [showPageLinks]="false" [showFirstLastIcon]="false"></p-paginator>
     </div>
