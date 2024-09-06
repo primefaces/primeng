@@ -10,7 +10,6 @@ import { FileUploadModule } from 'primeng/fileupload';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
-import { InputTextareaModule } from 'primeng/inputtextarea';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { RadioButtonModule } from 'primeng/radiobutton';
@@ -85,6 +84,7 @@ import { RemovableSortDoc } from './removablesortdoc';
 import { FilterAdvancedDoc } from './filteradvanceddoc';
 import { SelectModule } from 'primeng/select';
 import { ToggleSwitchModule } from 'primeng/toggleswitch';
+import { TextareaModule } from 'primeng/textarea';
 
 @NgModule({
     imports: [
@@ -103,7 +103,7 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
         ToastModule,
         InputTextModule,
         InputNumberModule,
-        InputTextareaModule,
+        TextareaModule,
         ProgressBarModule,
         TooltipModule,
         RadioButtonModule,
