@@ -229,7 +229,7 @@ export class FilterBasicDoc {
                 return 'info';
 
             case 'negotiation':
-                return 'warning';
+                return 'warn';
 
             case 'renewal':
                 return null;
@@ -592,7 +592,7 @@ export class TableFilterBasicDemo implements OnInit {
                 return 'info';
 
             case 'negotiation':
-                return 'warning';
+                return 'warn';
 
             case 'renewal':
                 return null;
