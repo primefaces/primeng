@@ -106,7 +106,7 @@ export class CommandDoc implements OnInit {
 
     getBadge(user) {
         if (user.role === 'Member') return 'info';
-        else if (user.role === 'Guest') return 'warning';
+        else if (user.role === 'Guest') return 'warn';
         else return null;
     }
 
@@ -245,7 +245,7 @@ export class ContextMenuCommandDemo implements OnInit {
 
     getBadge(user) {
         if (user.role === 'Member') return 'info';
-        else if (user.role === 'Guest') return 'warning';
+        else if (user.role === 'Guest') return 'warn';
         else return null;
     }
 
