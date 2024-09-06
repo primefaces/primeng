@@ -103,7 +103,7 @@ export class DataTableDoc implements OnInit {
             case 'INSTOCK':
                 return 'success';
             case 'LOWSTOCK':
-                return 'warning';
+                return 'warn';
             case 'OUTOFSTOCK':
                 return 'danger';
         }
@@ -384,7 +384,7 @@ export class DragDropDataTableDemo implements OnInit {
             case 'INSTOCK':
                 return 'success';
             case 'LOWSTOCK':
-                return 'warning';
+                return 'warn';
             case 'OUTOFSTOCK':
                 return 'danger';
         }
