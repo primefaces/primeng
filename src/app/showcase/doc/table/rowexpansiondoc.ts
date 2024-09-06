@@ -149,7 +149,7 @@ export class RowExpansionDoc {
             case 'INSTOCK':
                 return 'success';
             case 'LOWSTOCK':
-                return 'warning';
+                return 'warn';
             case 'OUTOFSTOCK':
                 return 'danger';
         }
@@ -158,7 +158,7 @@ export class RowExpansionDoc {
     getStatusSeverity(status: string) {
         switch (status) {
             case 'PENDING':
-                return 'warning';
+                return 'warn';
             case 'DELIVERED':
                 return 'success';
             case 'CANCELLED':
@@ -364,7 +364,7 @@ export class TableRowExpansionDemo implements OnInit{
             case 'INSTOCK':
                 return 'success';
             case 'LOWSTOCK':
-                return 'warning';
+                return 'warn';
             case 'OUTOFSTOCK':
                 return 'danger';
         }
@@ -373,7 +373,7 @@ export class TableRowExpansionDemo implements OnInit{
     getStatusSeverity(status: string) {
         switch (status) {
             case 'PENDING':
-                return 'warning';
+                return 'warn';
             case 'DELIVERED':
                 return 'success';
             case 'CANCELLED':
