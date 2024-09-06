@@ -110,7 +110,7 @@ export class RowspanGroupingDoc {
                 return 'info';
 
             case 'negotiation':
-                return 'warning';
+                return 'warn';
 
             case 'renewal':
                 return null;
@@ -283,7 +283,7 @@ export class TableRowspanGroupingDemo implements OnInit{
                 return 'info';
 
             case 'negotiation':
-                return 'warning';
+                return 'warn';
 
             case 'renewal':
                 return null;

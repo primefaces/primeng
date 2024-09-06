@@ -149,7 +149,7 @@ export class StatefulDoc {
                 return 'info';
 
             case 'negotiation':
-                return 'warning';
+                return 'warn';
 
             case 'renewal':
                 return null;
@@ -405,7 +405,7 @@ export class TableStatefulDemo implements OnInit{
                 return 'info';
 
             case 'negotiation':
-                return 'warning';
+                return 'warn';
 
             case 'renewal':
                 return null;
