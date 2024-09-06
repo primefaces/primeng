@@ -12,10 +12,10 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card flex justify-center gap-2">
             <p-tag value="Primary" />
-            <p-tag severity="success" value="Success" />
             <p-tag severity="secondary" value="Secondary" />
+            <p-tag severity="success" value="Success" />
             <p-tag severity="info" value="Info" />
-            <p-tag severity="warn" value="Warning" />
+            <p-tag severity="warn" value="Warn" />
             <p-tag severity="danger" value="Danger" />
             <p-tag severity="contrast" value="Contrast" />
         </div>
@@ -27,10 +27,10 @@ export class SeverityDoc {
         basic: `<p-tag severity="success" value="Success"/>`,
         html: `<div class="card flex justify-center gap-2">
     <p-tag value="Primary"/>
-    <p-tag severity="success" value="Success"/>
     <p-tag severity="secondary" value="Secondary"/>
+    <p-tag severity="success" value="Success"/>
     <p-tag severity="info" value="Info"/>
-    <p-tag severity="warn" value="Warning"/>
+    <p-tag severity="warn" value="Warn"/>
     <p-tag severity="danger" value="Danger"/>
     <p-tag severity="contrast" value="Contrast"/>
 </div>`,
