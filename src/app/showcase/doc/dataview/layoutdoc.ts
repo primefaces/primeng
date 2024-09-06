@@ -38,7 +38,8 @@ import { ProductService } from '@service/productservice';
                                 <p-tag
                                     [value]="item.inventoryStatus"
                                     [severity]="getSeverity(item)"
-                                    class="absolute dark:!bg-surface-900"
+                                    class="absolute"
+                                    styleClass="dark:!bg-surface-900"
                                     [style.left.px]="4"
                                     [style.top.px]="4"
                                 />
@@ -93,7 +94,8 @@ import { ProductService } from '@service/productservice';
                                         <p-tag
                                             [value]="product.inventoryStatus"
                                             [severity]="getSeverity(product)"
-                                            class="absolute dark:!bg-surface-900"
+                                            class="absolute"
+                                            styleClass="dark:!bg-surface-900"
                                             [style.left.px]="4"
                                             [style.top.px]="4"
                                         />
@@ -161,7 +163,7 @@ export class LayoutDoc {
                 return 'success';
 
             case 'LOWSTOCK':
-                return 'warning';
+                return 'warn';
 
             case 'OUTOFSTOCK':
                 return 'danger';
@@ -197,7 +199,8 @@ export class LayoutDoc {
                     <p-tag
                         [value]="item.inventoryStatus"
                         [severity]="getSeverity(item)"
-                        class="absolute dark:!bg-surface-900"
+                        class="absolute"
+                        styleClass="dark:!bg-surface-900"
                         [style.left.px]="4"
                         [style.top.px]="4"
                     />
@@ -260,7 +263,8 @@ export class LayoutDoc {
                             <p-tag
                                 [value]="product.inventoryStatus"
                                 [severity]="getSeverity(product)"
-                                class="absolute dark:!bg-surface-900"
+                                class="absolute"
+                                styleClass="dark:!bg-surface-900"
                                 [style.left.px]="4"
                                 [style.top.px]="4"
                             />
@@ -334,7 +338,8 @@ export class LayoutDoc {
                         <p-tag
                             [value]="item.inventoryStatus"
                             [severity]="getSeverity(item)"
-                            class="absolute dark:!bg-surface-900"
+                            class="absolute"
+                            styleClass="dark:!bg-surface-900"
                             [style.left.px]="4"
                             [style.top.px]="4"
                         />
@@ -397,7 +402,8 @@ export class LayoutDoc {
                                 <p-tag
                                     [value]="product.inventoryStatus"
                                     [severity]="getSeverity(product)"
-                                    class="absolute dark:!bg-surface-900"
+                                    class="absolute"
+                                    styleClass="dark:!bg-surface-900"
                                     [style.left.px]="4"
                                     [style.top.px]="4"
                                 />
@@ -493,7 +499,7 @@ export class DataViewLayoutDemo {
                 return 'success';
 
             case 'LOWSTOCK':
-                return 'warning';
+                return 'warn';
 
             case 'OUTOFSTOCK':
                 return 'danger';
