@@ -325,6 +325,10 @@
                             "routerLink": "/steps"
                         },
                         {
+                            "name": "TabMenu",
+                            "routerLink": "/tabmenu"
+                        },
+                        {
                             "name": "TieredMenu",
                             "routerLink": "/tieredmenu"
                         }
