@@ -103,8 +103,10 @@ export class BasicDoc implements OnInit {
         html: `<div class="card">
     <p-chart type="bar" [data]="basicData" [options]="basicOptions" />
 </div>`,
-        typescript: `import { Component, OnInit } from '@angular/core';
-import { ChartModule } from 'primeng/chart';
+        typescript: `import { isPlatformBrowser } from '@angular/common';
+import { ChangeDetectorRef, Component, effect, inject, OnInit, PLATFORM_ID } from '@angular/core';
+import { AppConfigService } from '@service/appconfigservice';
+
 
 @Component({
     selector: 'chart-basic-demo',
