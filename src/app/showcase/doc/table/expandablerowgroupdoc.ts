@@ -129,7 +129,7 @@ export class ExpandableRowGroupDoc {
                 return 'info';
 
             case 'negotiation':
-                return 'warning';
+                return 'warn';
 
             case 'renewal':
                 return null;
@@ -342,7 +342,7 @@ export class TableExpandableRowGroupDemo implements OnInit{
                 return 'info';
 
             case 'negotiation':
-                return 'warning';
+                return 'warn';
 
             case 'renewal':
                 return null;
