@@ -10,7 +10,7 @@ import { AppConfigService } from '@service/appconfigservice';
         <section class="landing-users py-20 px-4 lg:px-20">
             <div class="section-header">Who Uses</div>
             <p class="section-detail">
-                PrimeTek libraries have reached over<span class="font-semibold animated-text relative white-space-nowrap"
+                PrimeTek libraries have reached over<span class="font-semibold animated-text relative white-space-nowrap !p-0"
                     ><span>200 Million Downloads</span></span
                 >on npm! Join the PrimeLand community and experience the difference yourself.
             </p>
