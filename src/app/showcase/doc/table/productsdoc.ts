@@ -54,15 +54,17 @@ import { ProductService } from '@service/productservice';
                     <ng-template pTemplate="caption">
                         <div class="flex items-center justify-between">
                             <h5 class="m-0">Manage Products</h5>
-                            <span class="p-input-icon-left">
-                                <i class="pi pi-search"></i>
+                            <p-iconField iconPosition="left" class="ml-auto">
+                                <p-inputIcon>
+                                    <i class="pi pi-search"></i>
+                                </p-inputIcon>
                                 <input
                                     pInputText
                                     type="text"
                                     (input)="dt.filterGlobal($event.target.value, 'contains')"
-                                    placeholder="Search..."
+                                    placeholder="Search"
                                 />
-                            </span>
+                            </p-iconField>
                         </div>
                     </ng-template>
                     <ng-template pTemplate="header">
@@ -93,7 +95,7 @@ import { ProductService } from '@service/productservice';
                                     class="shadow-lg"
                                 />
                             </td>
-                            <td>{{ product.price | currency: 'USD' }}</td>
+                            <td>{{ product.price | currency : 'USD' }}</td>
                             <td>{{ product.category }}</td>
                             <td><p-rating [(ngModel)]="product.rating" [readonly]="true" [cancel]="false" /></td>
                             <td>
@@ -334,7 +336,7 @@ export class ProductsDoc {
             case 'INSTOCK':
                 return 'success';
             case 'LOWSTOCK':
-                return 'warning';
+                return 'warn';
             case 'OUTOFSTOCK':
                 return 'danger';
         }
@@ -390,14 +392,17 @@ export class ProductsDoc {
     <ng-template pTemplate="caption">
         <div class="flex items-center justify-between">
             <h5 class="m-0">Manage Products</h5>
-            <span class="p-input-icon-left">
-                <i class="pi pi-search"></i>
-                <input 
-                    pInputText 
-                    type="text" 
-                    (input)="dt.filterGlobal($event.target.value, 'contains')" 
-                    placeholder="Search..." />
-            </span>
+               <p-iconField iconPosition="left" class="ml-auto">
+                    <p-inputIcon>
+                        <i class="pi pi-search"></i>
+                    </p-inputIcon>
+                    <input
+                        pInputText
+                        type="text"
+                        (input)="dt.filterGlobal($event.target.value, 'contains')"
+                        placeholder="Search"
+                    />
+                </p-iconField>
         </div>
     </ng-template>
     <ng-template pTemplate="header">
@@ -530,14 +535,17 @@ export class ProductsDoc {
         <ng-template pTemplate="caption">
             <div class="flex items-center justify-between">
                 <h5 class="m-0">Manage Products</h5>
-                <span class="p-input-icon-left">
-                    <i class="pi pi-search"></i>
-                    <input 
-                        pInputText 
-                        type="text" 
-                        (input)="dt.filterGlobal($event.target.value, 'contains')" 
-                        placeholder="Search..." />
-                </span>
+                    <p-iconField iconPosition="left" class="ml-auto">
+                        <p-inputIcon>
+                            <i class="pi pi-search"></i>
+                        </p-inputIcon>
+                        <input
+                            pInputText
+                            type="text"
+                            (input)="dt.filterGlobal($event.target.value, 'contains')"
+                            placeholder="Search"
+                        />
+                    </p-iconField>
             </div>
         </ng-template>
         <ng-template pTemplate="header">
@@ -904,7 +912,7 @@ export class TableProductsDemo implements OnInit{
             case 'INSTOCK':
                 return 'success';
             case 'LOWSTOCK':
-                return 'warning';
+                return 'warn';
             case 'OUTOFSTOCK':
                 return 'danger';
         }
