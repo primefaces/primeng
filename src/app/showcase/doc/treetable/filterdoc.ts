@@ -34,15 +34,17 @@ interface Column {
                 >
                     <ng-template pTemplate="caption">
                         <div class="flex justify-end items-center">
-                            <div class="p-input-icon-left">
-                                <i class="pi pi-search"></i>
+                            <p-iconField iconPosition="left" class="ml-auto">
+                                <p-inputIcon>
+                                    <i class="pi pi-search"></i>
+                                </p-inputIcon>
                                 <input
                                     type="text"
                                     pInputText
                                     placeholder="Global Search"
                                     (input)="tt.filterGlobal($event.target.value, 'contains')"
                                 />
-                            </div>
+                            </p-iconField>
                         </div>
                     </ng-template>
                     <ng-template pTemplate="header" let-columns>
@@ -221,6 +223,8 @@ import { SelectButtonModule } from 'primeng/selectbutton';
 import { FormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { CommonModule } from '@angular/common';
+import { IconFieldModule } from 'primeng/iconfield';
+import { InputIconModule } from 'primeng/inputicon';
 
 interface Column {
     field: string;
@@ -231,7 +235,7 @@ interface Column {
     selector: 'tree-table-filter-demo',
     templateUrl: './tree-table-filter-demo.html',
     standalone: true,
-    imports: [TreeTableModule, SelectButtonModule, FormsModule, InputTextModule, CommonModule],
+    imports: [TreeTableModule, SelectButtonModule, FormsModule, InputTextModule, CommonModule, IconFieldModule, InputIconModule],
     providers: [NodeService]
 })
 export class TreeTableFilterDemo implements OnInit{
