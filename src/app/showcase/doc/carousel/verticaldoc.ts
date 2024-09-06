@@ -27,6 +27,7 @@ import { ProductService } from '@service/productservice';
                                     [value]="product.inventoryStatus"
                                     [severity]="getSeverity(product.inventoryStatus)"
                                     class="absolute"
+                                    styleClass="dark:!bg-surface-900"
                                     [ngStyle]="{ 'left.px': 5, 'top.px': 5 }"
                                 />
                             </div>
@@ -90,7 +91,8 @@ export class VerticalDoc implements OnInit {
                         <p-tag 
                             [value]="product.inventoryStatus" 
                             [severity]="getSeverity(product.inventoryStatus)" 
-                            class="absolute" 
+                            class="absolute"
+                            styleClass="dark:!bg-surface-900" 
                             [ngStyle]="{ 'left.px': 5, 'top.px': 5 }" />
                     </div>
                 </div>
@@ -127,7 +129,8 @@ export class VerticalDoc implements OnInit {
                             <p-tag 
                                 [value]="product.inventoryStatus" 
                                 [severity]="getSeverity(product.inventoryStatus)" 
-                                class="absolute" 
+                                class="absolute"
+                                styleClass="dark:!bg-surface-900"
                                 [ngStyle]="{ 'left.px': 5, 'top.px': 5 }" />
                         </div>
                     </div>
