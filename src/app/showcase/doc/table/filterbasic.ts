@@ -106,7 +106,7 @@ import { CustomerService } from '@service/customerservice';
                                             [showClear]="true"
                                         >
                                             <ng-template let-option pTemplate="item">
-                                                <p-tag [value]="option.value" [severity]="getSeverity(option.label)" />
+                                                <p-tag [value]="option.value" [severity]="getSeverity(option.value)" />
                                             </ng-template>
                                         </p-select>
                                     </ng-template>
@@ -318,9 +318,7 @@ export class FilterBasicDoc {
                                 placeholder="Select One" 
                                 [showClear]="true">
                                     <ng-template let-option pTemplate="item">
-                                        <p-tag 
-                                            [value]="option.value" 
-                                            [severity]="getSeverity(option.label)" />
+                                        <p-tag [value]="option.value" [severity]="getSeverity(option.value)" />
                                     </ng-template>
                             </p-select>
                         </ng-template>
@@ -454,9 +452,7 @@ export class FilterBasicDoc {
                             placeholder="Select One" 
                             [showClear]="true">
                                 <ng-template let-option pTemplate="item">
-                                    <p-tag 
-                                        [value]="option.value" 
-                                        [severity]="getSeverity(option.label)" />
+                                    <p-tag [value]="option.value" [severity]="getSeverity(option.value)" />
                                 </ng-template>
                         </p-select>
                     </ng-template>
