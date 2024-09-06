@@ -63,33 +63,29 @@ export class BasicDoc implements OnInit {
                 plugins: {
                     legend: {
                         labels: {
-                            fontColor: textColor,
-                        },
-                    },
+                            color: textColor
+                        }
+                    }
                 },
                 scales: {
                     x: {
                         ticks: {
-                            color: textColorSecondary,
-                            font: {
-                                weight: 500,
-                            },
+                            color: textColorSecondary
                         },
                         grid: {
-                            display: false,
-                            drawBorder: false,
-                        },
+                            color: surfaceBorder
+                        }
                     },
                     y: {
+                        beginAtZero: true,
                         ticks: {
-                            color: textColorSecondary,
+                            color: textColorSecondary
                         },
                         grid: {
-                            color: surfaceBorder,
-                            drawBorder: false,
-                        },
-                    },
-                },
+                            color: surfaceBorder
+                        }
+                    }
+                }
             };
         }
     }
@@ -141,23 +137,21 @@ export class ChartBasicDemo implements OnInit {
                 }
             },
             scales: {
+                x: {
+                    ticks: {
+                        color: textColorSecondary
+                    },
+                    grid: {
+                        color: surfaceBorder
+                    }
+                },
                 y: {
                     beginAtZero: true,
                     ticks: {
                         color: textColorSecondary
                     },
                     grid: {
-                        color: surfaceBorder,
-                        drawBorder: false
-                    }
-                },
-                x: {
-                    ticks: {
-                        color: textColorSecondary
-                    },
-                    grid: {
-                        color: surfaceBorder,
-                        drawBorder: false
+                        color: surfaceBorder
                     }
                 }
             }
