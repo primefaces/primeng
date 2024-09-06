@@ -137,74 +137,97 @@ import { ProductService } from '@service/productservice';
                     styleClass="p-fluid"
                 >
                     <ng-template pTemplate="content">
-                        <img
-                            [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image"
-                            [alt]="product.image"
-                            class="block m-auto pb-4"
-                            *ngIf="product.image"
-                        />
-                        <div class="field">
-                            <label for="name">Name</label>
-                            <input type="text" pInputText id="name" [(ngModel)]="product.name" required autofocus />
-                            <small class="p-error" *ngIf="submitted && !product.name">Name is required.</small>
-                        </div>
-                        <div class="field">
-                            <label for="description">Description</label>
-                            <textarea id="description" pTextarea [(ngModel)]="product.description" required rows="3" cols="20"></textarea>
-                        </div>
+                        <div class="flex flex-col gap-6">
+                            <img
+                                [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image"
+                                [alt]="product.image"
+                                class="block m-auto pb-4"
+                                *ngIf="product.image"
+                            />
+                            <div>
+                                <label for="name" class="block font-bold mb-3">Name</label>
+                                <input type="text" pInputText id="name" [(ngModel)]="product.name" required autofocus fluid />
+                                <small class="text-red-500" *ngIf="submitted && !product.name">Name is required.</small>
+                            </div>
+                            <div>
+                                <label for="description" class="block font-bold mb-3">Description</label>
+                                <textarea
+                                    id="description"
+                                    pTextarea
+                                    [(ngModel)]="product.description"
+                                    required
+                                    rows="3"
+                                    cols="20"
+                                    fluid
+                                ></textarea>
+                            </div>
 
-                        <div class="field">
-                            <label for="inventoryStatus">Inventory Status</label>
-                            <p-select [(ngModel)]="product.inventoryStatus" inputId="inventoryStatus" [options]="statuses">
-                                <ng-template pTemplate="selectedItem">
-                                    <p-tag
-                                        [value]="product.inventoryStatus.toUpperCase()"
-                                        [severity]="getSeverity(product.inventoryStatus.toUpperCase())"
+                            <div>
+                                <label for="inventoryStatus" class="block font-bold mb-3">Inventory Status</label>
+                                <p-select
+                                    [(ngModel)]="product.inventoryStatus"
+                                    inputId="inventoryStatus"
+                                    placeholder="Select a Status"
+                                    [options]="statuses"
+                                    fluid
+                                >
+                                    <ng-template pTemplate="selectedItem">
+                                        <p-tag
+                                            [value]="product.inventoryStatus.toUpperCase()"
+                                            [severity]="getSeverity(product.inventoryStatus.toUpperCase())"
+                                        />
+                                    </ng-template>
+                                    <ng-template let-option pTemplate="item">
+                                        <p-tag [value]="option.label" [severity]="getSeverity(option.label)" />
+                                    </ng-template>
+                                </p-select>
+                            </div>
+
+                            <div>
+                                <span class="block font-bold mb-4">Category</span>
+                                <div class="grid grid-cols-12 gap-4">
+                                    <div class="flex items-center gap-2 col-span-6">
+                                        <p-radioButton id="category1" name="category" value="Accessories" [(ngModel)]="product.category" />
+                                        <label for="category1">Accessories</label>
+                                    </div>
+                                    <div class="flex items-center gap-2 col-span-6">
+                                        <p-radioButton id="category2" name="category" value="Clothing" [(ngModel)]="product.category" />
+                                        <label for="category2">Clothing</label>
+                                    </div>
+                                    <div class="flex items-center gap-2 col-span-6">
+                                        <p-radioButton id="category3" name="category" value="Electronics" [(ngModel)]="product.category" />
+                                        <label for="category3">Electronics</label>
+                                    </div>
+                                    <div class="flex items-center gap-2 col-span-6">
+                                        <p-radioButton id="category4" name="category" value="Fitness" [(ngModel)]="product.category" />
+                                        <label for="category4">Fitness</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-12 gap-4">
+                                <div class="col-span-6">
+                                    <label for="price" class="block font-bold mb-3">Price</label>
+                                    <p-inputNumber
+                                        id="price"
+                                        [(ngModel)]="product.price"
+                                        mode="currency"
+                                        currency="USD"
+                                        locale="en-US"
+                                        fluid
                                     />
-                                </ng-template>
-                                <ng-template let-option pTemplate="item">
-                                    <p-tag [value]="option.label" [severity]="getSeverity(option.label)" />
-                                </ng-template>
-                            </p-select>
-                        </div>
-
-                        <div class="field">
-                            <label class="mb-4">Category</label>
-                            <div class="formgrid grid grid-cols-12 gap-4">
-                                <div class="field-radiobutton col-span-6">
-                                    <p-radioButton id="category1" name="category" value="Accessories" [(ngModel)]="product.category" />
-                                    <label for="category1">Accessories</label>
                                 </div>
-                                <div class="field-radiobutton col-span-6">
-                                    <p-radioButton id="category2" name="category" value="Clothing" [(ngModel)]="product.category" />
-                                    <label for="category2">Clothing</label>
+                                <div class="col-span-6">
+                                    <label for="quantity" class="block font-bold mb-3">Quantity</label>
+                                    <p-inputNumber id="quantity" [(ngModel)]="product.quantity" fluid />
                                 </div>
-                                <div class="field-radiobutton col-span-6">
-                                    <p-radioButton id="category3" name="category" value="Electronics" [(ngModel)]="product.category" />
-                                    <label for="category3">Electronics</label>
-                                </div>
-                                <div class="field-radiobutton col-span-6">
-                                    <p-radioButton id="category4" name="category" value="Fitness" [(ngModel)]="product.category" />
-                                    <label for="category4">Fitness</label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="formgrid grid grid-cols-12 gap-4">
-                            <div class="field col">
-                                <label for="price">Price</label>
-                                <p-inputNumber id="price" [(ngModel)]="product.price" mode="currency" currency="USD" locale="en-US" />
-                            </div>
-                            <div class="field col">
-                                <label for="quantity">Quantity</label>
-                                <p-inputNumber id="quantity" [(ngModel)]="product.quantity" />
                             </div>
                         </div>
                     </ng-template>
 
                     <ng-template pTemplate="footer">
                         <p-button pRipple label="Cancel" icon="pi pi-times" [text]="true" (click)="hideDialog()" />
-                        <p-button pRipple label="Save" icon="pi pi-check" [text]="true" (click)="saveProduct()" />
+                        <p-button pRipple label="Save" icon="pi pi-check" (click)="saveProduct()" />
                     </ng-template>
                 </p-dialog>
 
@@ -343,36 +366,29 @@ export class ProductsDoc {
     }
 
     code: Code = {
-        basic: `<p-toast />
-<p-toolbar styleClass="mb-6 gap-2">
+        basic: `<p-toolbar styleClass="mb-6 gap-2">
     <ng-template pTemplate="left">
-        <p-button 
-            pRipple 
-            severity="success" 
-            label="New" 
-            icon="pi pi-plus" 
-            class="mr-2" 
-            (click)="openNew()" />
-        <p-button 
+        <p-button pRipple severity="success" label="New" icon="pi pi-plus" class="mr-2" (click)="openNew()" />
+        <p-button
             pRipple
-            severity="danger" 
-            label="Delete" 
-            icon="pi pi-trash" 
-            (click)="deleteSelectedProducts()" 
-            [disabled]="!selectedProducts || !selectedProducts.length" />
+            severity="danger"
+            label="Delete"
+            icon="pi pi-trash"
+            (click)="deleteSelectedProducts()"
+            [disabled]="!selectedProducts || !selectedProducts.length"
+        />
     </ng-template>
 
     <ng-template pTemplate="right">
-        <p-fileUpload 
-            mode="basic" 
-            accept="image/*" 
-            [maxFileSize]="1000000" 
-            label="Import" 
-            chooseLabel="Import" 
-            class="mr-2 inline-block" />
-        <p-button 
-            pRipple severity="help" 
-            label="Export" icon="pi pi-upload" />
+        <p-fileUpload
+            mode="basic"
+            accept="image/*"
+            [maxFileSize]="1000000"
+            label="Import"
+            chooseLabel="Import"
+            class="mr-2 inline-block"
+        />
+        <p-button pRipple severity="help" label="Export" icon="pi pi-upload" />
     </ng-template>
 </p-toolbar>
 
@@ -392,17 +408,17 @@ export class ProductsDoc {
     <ng-template pTemplate="caption">
         <div class="flex items-center justify-between">
             <h5 class="m-0">Manage Products</h5>
-               <p-iconField iconPosition="left" class="ml-auto">
-                    <p-inputIcon>
-                        <i class="pi pi-search"></i>
-                    </p-inputIcon>
-                    <input
-                        pInputText
-                        type="text"
-                        (input)="dt.filterGlobal($event.target.value, 'contains')"
-                        placeholder="Search"
-                    />
-                </p-iconField>
+            <p-iconField iconPosition="left" class="ml-auto">
+                <p-inputIcon>
+                    <i class="pi pi-search"></i>
+                </p-inputIcon>
+                <input
+                    pInputText
+                    type="text"
+                    (input)="dt.filterGlobal($event.target.value, 'contains')"
+                    placeholder="Search"
+                />
+            </p-iconField>
         </div>
     </ng-template>
     <ng-template pTemplate="header">
@@ -410,24 +426,12 @@ export class ProductsDoc {
             <th style="width: 4rem">
                 <p-tableHeaderCheckbox />
             </th>
-            <th pSortableColumn="name" style="min-width:15rem">
-                Name <p-sortIcon field="name" />
-            </th>
-            <th>
-                Image
-            </th>
-            <th pSortableColumn="price">
-                Price <p-sortIcon field="price" />
-            </th>
-            <th pSortableColumn="category" style="min-width:10rem">
-                Category <p-sortIcon field="category" />
-            </th>
-            <th pSortableColumn="rating">
-                Reviews <p-sortIcon field="rating" />
-            </th>
-            <th pSortableColumn="inventoryStatus" style="min-width:10rem">
-                Status <p-sortIcon field="inventoryStatus" />
-            </th>
+            <th pSortableColumn="name" style="min-width:15rem">Name <p-sortIcon field="name" /></th>
+            <th>Image</th>
+            <th pSortableColumn="price">Price <p-sortIcon field="price" /></th>
+            <th pSortableColumn="category" style="min-width:10rem">Category <p-sortIcon field="category" /></th>
+            <th pSortableColumn="rating">Reviews <p-sortIcon field="rating" /></th>
+            <th pSortableColumn="inventoryStatus" style="min-width:10rem">Status <p-sortIcon field="inventoryStatus" /></th>
             <th></th>
         </tr>
     </ng-template>
@@ -436,44 +440,39 @@ export class ProductsDoc {
             <td>
                 <p-tableCheckbox [value]="product" />
             </td>
+            <td>{{ product.name }}</td>
             <td>
-                {{ product.name }}
+                <img
+                    [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image"
+                    [alt]="product.name"
+                    width="50"
+                    class="shadow-lg"
+                />
             </td>
-            <td>
-                <img 
-                    [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" 
-                    [alt]="product.name" 
-                    width="50" 
-                    class="shadow-lg" />
-            </td>
-            <td>
-                {{ product.price | currency : 'USD' }}
-            </td>
-            <td>
-                {{ product.category }}
-            </td>
-            <td>
-                <p-rating [(ngModel)]="product.rating" [readonly]="true" [cancel]="false" />
-            </td>
+            <td>{{ product.price | currency : 'USD' }}</td>
+            <td>{{ product.category }}</td>
+            <td><p-rating [(ngModel)]="product.rating" [readonly]="true" [cancel]="false" /></td>
             <td>
                 <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" />
             </td>
             <td>
-                <p-button 
-                    pRipple 
-                    icon="pi pi-pencil" 
-                    class="mr-2" 
-                    [rounded]="true" 
-                    [outlined]="true" 
-                    severity="success" 
-                    (click)="editProduct(product)" />
-                <p-button 
-                    pRipple 
-                    icon="pi pi-trash" 
-                    severity="danger" 
-                    [rounded]="true" 
-                    [outlined]="true" 
-                    (click)="deleteProduct(product)" />
+                <p-button
+                    pRipple
+                    icon="pi pi-pencil"
+                    class="mr-2"
+                    [rounded]="true"
+                    [outlined]="true"
+                    severity="success"
+                    (click)="editProduct(product)"
+                />
+                <p-button
+                    pRipple
+                    icon="pi pi-trash"
+                    severity="danger"
+                    [rounded]="true"
+                    [outlined]="true"
+                    (click)="deleteProduct(product)"
+                />
             </td>
         </tr>
     </ng-template>
@@ -482,40 +481,33 @@ export class ProductsDoc {
             In total there are {{ products ? products.length : 0 }} products.
         </div>
     </ng-template>
-</p-table>`,
+</p-table>
+`,
         html: `<div class="card">
     <p-toast />
     <p-toolbar styleClass="mb-6 gap-2">
         <ng-template pTemplate="left">
-            <p-button 
-                pRipple 
-                severity="success" 
-                label="New" 
-                icon="pi pi-plus" 
-                class="mr-2" 
-                (click)="openNew()" />
-            <p-button 
-                pRipple 
-                severity="danger" 
-                label="Delete" 
-                icon="pi pi-trash" 
-                (click)="deleteSelectedProducts()" 
-                [disabled]="!selectedProducts || !selectedProducts.length" />
+            <p-button pRipple severity="success" label="New" icon="pi pi-plus" class="mr-2" (click)="openNew()" />
+            <p-button
+                pRipple
+                severity="danger"
+                label="Delete"
+                icon="pi pi-trash"
+                (click)="deleteSelectedProducts()"
+                [disabled]="!selectedProducts || !selectedProducts.length"
+            />
         </ng-template>
 
         <ng-template pTemplate="right">
-            <p-fileUpload 
-                mode="basic" 
-                accept="image/*" 
-                [maxFileSize]="1000000" 
-                label="Import" 
-                chooseLabel="Import" 
-                class="mr-2 inline-block" />
-            <p-button 
-                pRipple 
-                severity="help" 
-                label="Export" 
-                icon="pi pi-upload" />
+            <p-fileUpload
+                mode="basic"
+                accept="image/*"
+                [maxFileSize]="1000000"
+                label="Import"
+                chooseLabel="Import"
+                class="mr-2 inline-block"
+            />
+            <p-button pRipple severity="help" label="Export" icon="pi pi-upload" />
         </ng-template>
     </p-toolbar>
 
@@ -535,17 +527,17 @@ export class ProductsDoc {
         <ng-template pTemplate="caption">
             <div class="flex items-center justify-between">
                 <h5 class="m-0">Manage Products</h5>
-                    <p-iconField iconPosition="left" class="ml-auto">
-                        <p-inputIcon>
-                            <i class="pi pi-search"></i>
-                        </p-inputIcon>
-                        <input
-                            pInputText
-                            type="text"
-                            (input)="dt.filterGlobal($event.target.value, 'contains')"
-                            placeholder="Search"
-                        />
-                    </p-iconField>
+                <p-iconField iconPosition="left" class="ml-auto">
+                    <p-inputIcon>
+                        <i class="pi pi-search"></i>
+                    </p-inputIcon>
+                    <input
+                        pInputText
+                        type="text"
+                        (input)="dt.filterGlobal($event.target.value, 'contains')"
+                        placeholder="Search"
+                    />
+                </p-iconField>
             </div>
         </ng-template>
         <ng-template pTemplate="header">
@@ -553,24 +545,12 @@ export class ProductsDoc {
                 <th style="width: 4rem">
                     <p-tableHeaderCheckbox />
                 </th>
-                <th pSortableColumn="name" style="min-width:15rem">
-                    Name <p-sortIcon field="name" />
-                </th>
-                <th>
-                    Image
-                </th>
-                <th pSortableColumn="price">
-                    Price <p-sortIcon field="price" />
-                </th>
-                <th pSortableColumn="category" style="min-width:10rem">
-                    Category <p-sortIcon field="category" />
-                </th>
-                <th pSortableColumn="rating">
-                    Reviews <p-sortIcon field="rating" />
-                </th>
-                <th pSortableColumn="inventoryStatus" style="min-width:10rem">
-                    Status <p-sortIcon field="inventoryStatus" />
-                </th>
+                <th pSortableColumn="name" style="min-width:15rem">Name <p-sortIcon field="name" /></th>
+                <th>Image</th>
+                <th pSortableColumn="price">Price <p-sortIcon field="price" /></th>
+                <th pSortableColumn="category" style="min-width:10rem">Category <p-sortIcon field="category" /></th>
+                <th pSortableColumn="rating">Reviews <p-sortIcon field="rating" /></th>
+                <th pSortableColumn="inventoryStatus" style="min-width:10rem">Status <p-sortIcon field="inventoryStatus" /></th>
                 <th></th>
             </tr>
         </ng-template>
@@ -579,49 +559,39 @@ export class ProductsDoc {
                 <td>
                     <p-tableCheckbox [value]="product" />
                 </td>
+                <td>{{ product.name }}</td>
                 <td>
-                    {{ product.name }}
+                    <img
+                        [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image"
+                        [alt]="product.name"
+                        width="50"
+                        class="shadow-lg"
+                    />
+                </td>
+                <td>{{ product.price | currency : 'USD' }}</td>
+                <td>{{ product.category }}</td>
+                <td><p-rating [(ngModel)]="product.rating" [readonly]="true" [cancel]="false" /></td>
+                <td>
+                    <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" />
                 </td>
                 <td>
-                <img 
-                    [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" 
-                    [alt]="product.name" 
-                    width="50" 
-                    class="shadow-lg" />
-                </td>
-                <td>
-                    {{ product.price | currency : 'USD' }}
-                </td>
-                <td>
-                    {{ product.category }}
-                </td>
-                <td>
-                    <p-rating 
-                        [(ngModel)]="product.rating" 
-                        [readonly]="true" 
-                        [cancel]="false" />
-                </td>
-                <td>
-                    <p-tag 
-                        [value]="product.inventoryStatus" 
-                        [severity]="getSeverity(product.inventoryStatus)" />
-                </td>
-                <td>
-                    <p-button 
-                        pRipple 
-                        icon="pi pi-pencil" 
-                        class="mr-2" 
-                        [rounded]="true" 
-                        [outlined]="true" 
-                        severity="success" 
-                        (click)="editProduct(product)" />
-                    <p-button 
-                        pRipple 
-                        icon="pi pi-trash" 
-                        severity="danger" 
-                        [rounded]="true" 
-                        [outlined]="true" 
-                        (click)="deleteProduct(product)" />
+                    <p-button
+                        pRipple
+                        icon="pi pi-pencil"
+                        class="mr-2"
+                        [rounded]="true"
+                        [outlined]="true"
+                        severity="success"
+                        (click)="editProduct(product)"
+                    />
+                    <p-button
+                        pRipple
+                        icon="pi pi-trash"
+                        severity="danger"
+                        [rounded]="true"
+                        [outlined]="true"
+                        (click)="deleteProduct(product)"
+                    />
                 </td>
             </tr>
         </ng-template>
@@ -632,133 +602,106 @@ export class ProductsDoc {
         </ng-template>
     </p-table>
 
-    <p-dialog 
-        [(visible)]="productDialog" 
-        [style]="{ width: '450px' }" 
-        header="Product Details" 
-        [modal]="true" 
-        styleClass="p-fluid">
-            <ng-template pTemplate="content">
-                <img 
-                    [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" 
-                    [alt]="product.image" 
-                    class="block m-auto pb-4" 
-                    *ngIf="product.image" />
-                <div class="field">
-                    <label for="name">Name</label>
-                    <input 
-                        type="text" 
-                        pInputText 
-                        id="name" 
-                        [(ngModel)]="product.name" 
-                        required 
-                        autofocus />
-                    <small class="p-error" *ngIf="submitted && !product.name">
-                        Name is required.
-                    </small>
+    <p-dialog
+        [(visible)]="productDialog"
+        [style]="{ width: '450px' }"
+        header="Product Details"
+        [modal]="true"
+        styleClass="p-fluid"
+    >
+        <ng-template pTemplate="content">
+            <div class="flex flex-col gap-6">
+                <img
+                    [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image"
+                    [alt]="product.image"
+                    class="block m-auto pb-4"
+                    *ngIf="product.image"
+                />
+                <div>
+                    <label for="name" class="block font-bold mb-3">Name</label>
+                    <input type="text" pInputText id="name" [(ngModel)]="product.name" required autofocus fluid />
+                    <small class="text-red-500" *ngIf="submitted && !product.name">Name is required.</small>
                 </div>
-                <div class="field">
-                    <label for="description">Description</label>
-                    <textarea 
-                        id="description" 
-                        pTextarea 
-                        [(ngModel)]="product.description" 
-                        required 
-                        rows="3" 
-                        cols="20">
-                    </textarea>
+                <div>
+                    <label for="description" class="block font-bold mb-3">Description</label>
+                    <textarea
+                        id="description"
+                        pTextarea
+                        [(ngModel)]="product.description"
+                        required
+                        rows="3"
+                        cols="20"
+                        fluid
+                    ></textarea>
                 </div>
 
-                <div class="field">
-                    <label for="inventoryStatus">Inventory Status</label>
-                    <p-select 
-                        [(ngModel)]="product.inventoryStatus" 
-                        inputId="inventoryStatus" 
-                        [options]="statuses">
-                            <ng-template pTemplate="selectedItem">
-                                <p-tag 
-                                    [value]="product.inventoryStatus.toUpperCase()"
-                                    [severity]="getSeverity(product.inventoryStatus.toUpperCase())" />
-                            </ng-template>
-                            <ng-template let-option pTemplate="item">
-                                <p-tag 
-                                    [value]="option.label" 
-                                    [severity]="getSeverity(option.label)" />
-                            </ng-template>
+                <div>
+                    <label for="inventoryStatus" class="block font-bold mb-3">Inventory Status</label>
+                    <p-select
+                        [(ngModel)]="product.inventoryStatus"
+                        inputId="inventoryStatus"
+                        placeholder="Select a Status"
+                        [options]="statuses"
+                        fluid
+                    >
+                        <ng-template pTemplate="selectedItem">
+                            <p-tag
+                                [value]="product.inventoryStatus.toUpperCase()"
+                                [severity]="getSeverity(product.inventoryStatus.toUpperCase())"
+                            />
+                        </ng-template>
+                        <ng-template let-option pTemplate="item">
+                            <p-tag [value]="option.label" [severity]="getSeverity(option.label)" />
+                        </ng-template>
                     </p-select>
                 </div>
 
-                <div class="field">
-                    <label class="mb-4">Category</label>
-                    <div class="formgrid grid grid-cols-12 gap-4">
-                        <div class="field-radiobutton col-span-6">
-                            <p-radioButton 
-                                id="category1" 
-                                name="category" 
-                                value="Accessories" 
-                                [(ngModel)]="product.category" />
+                <div>
+                    <span class="block font-bold mb-4">Category</span>
+                    <div class="grid grid-cols-12 gap-4">
+                        <div class="flex items-center gap-2 col-span-6">
+                            <p-radioButton id="category1" name="category" value="Accessories" [(ngModel)]="product.category" />
                             <label for="category1">Accessories</label>
                         </div>
-                        <div class="field-radiobutton col-span-6">
-                            <p-radioButton 
-                                id="category2" 
-                                name="category" 
-                                value="Clothing" 
-                                [(ngModel)]="product.category" />
+                        <div class="flex items-center gap-2 col-span-6">
+                            <p-radioButton id="category2" name="category" value="Clothing" [(ngModel)]="product.category" />
                             <label for="category2">Clothing</label>
                         </div>
-                        <div class="field-radiobutton col-span-6">
-                            <p-radioButton 
-                                id="category3" 
-                                name="category" 
-                                value="Electronics" 
-                                [(ngModel)]="product.category" />
+                        <div class="flex items-center gap-2 col-span-6">
+                            <p-radioButton id="category3" name="category" value="Electronics" [(ngModel)]="product.category" />
                             <label for="category3">Electronics</label>
                         </div>
-                        <div class="field-radiobutton col-span-6">
-                            <p-radioButton 
-                                id="category4" 
-                                name="category" 
-                                value="Fitness" 
-                                [(ngModel)]="product.category" />
+                        <div class="flex items-center gap-2 col-span-6">
+                            <p-radioButton id="category4" name="category" value="Fitness" [(ngModel)]="product.category" />
                             <label for="category4">Fitness</label>
                         </div>
                     </div>
                 </div>
 
-                <div class="formgrid grid grid-cols-12 gap-4">
-                    <div class="field col">
-                        <label for="price">Price</label>
-                        <p-inputNumber 
-                            id="price" 
-                            [(ngModel)]="product.price" 
-                            mode="currency" 
-                            currency="USD" 
-                            locale="en-US" />
+                <div class="grid grid-cols-12 gap-4">
+                    <div class="col-span-6">
+                        <label for="price" class="block font-bold mb-3">Price</label>
+                        <p-inputNumber
+                            id="price"
+                            [(ngModel)]="product.price"
+                            mode="currency"
+                            currency="USD"
+                            locale="en-US"
+                            fluid
+                        />
                     </div>
-                    <div class="field col">
-                        <label for="quantity">Quantity</label>
-                        <p-inputNumber 
-                            id="quantity" 
-                            [(ngModel)]="product.quantity" />
+                    <div class="col-span-6">
+                        <label for="quantity" class="block font-bold mb-3">Quantity</label>
+                        <p-inputNumber id="quantity" [(ngModel)]="product.quantity" fluid />
                     </div>
                 </div>
-            </ng-template>
+            </div>
+        </ng-template>
 
-            <ng-template pTemplate="footer">
-                <p-button 
-                    pRipple 
-                    label="Cancel" 
-                    icon="pi pi-times" 
-                    [text]="true" 
-                    (click)="hideDialog()" />
-                <p-button 
-                    pRipple 
-                    label="Save" 
-                    icon="pi pi-check" 
-                    [text]="true" 
-                    (click)="saveProduct()" />
-            </ng-template>
+        <ng-template pTemplate="footer">
+            <p-button pRipple label="Cancel" icon="pi pi-times" [text]="true" (click)="hideDialog()" />
+            <p-button pRipple label="Save" icon="pi pi-check" (click)="saveProduct()" />
+        </ng-template>
     </p-dialog>
 
     <p-confirmDialog [style]="{ width: '450px' }" />
@@ -784,12 +727,14 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { RatingModule } from 'primeng/rating';
 import { FormsModule } from '@angular/forms';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { IconFieldModule } from 'primeng/iconfield';
+import { InputIconModule } from 'primeng/inputicon';
 
 @Component({
     selector: 'table-products-demo',
     templateUrl: 'table-products-demo.html',
     standalone: true,
-    imports: [TableModule, DialogModule, RippleModule, ButtonModule, ToastModule, ToolbarModule, ConfirmDialogModule, InputTextModule, InputTextareaModule, CommonModule, FileUploadModule, SelectModule, TagModule, RadioButtonModule, RatingModule, InputTextModule, FormsModule, InputNumberModule],
+    imports: [TableModule, DialogModule, RippleModule, ButtonModule, ToastModule, ToolbarModule, ConfirmDialogModule, InputTextModule, InputTextareaModule, CommonModule, FileUploadModule, SelectModule, TagModule, RadioButtonModule, RatingModule, InputTextModule, FormsModule, InputNumberModule, IconFieldModule, InputIconModule],
     providers: [MessageService, ConfirmationService, ProductService],
     styles: [
         \`:host ::ng-deep .p-dialog .product-image {
