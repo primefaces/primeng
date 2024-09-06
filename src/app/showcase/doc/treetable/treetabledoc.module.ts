@@ -48,6 +48,8 @@ import { ScrollFlexibleDoc } from './flexiblescrolldoc';
 import { DialogModule } from 'primeng/dialog';
 import { SortRemovableDoc } from './sortremovabledoc';
 import { ToggleSwitchModule } from 'primeng/toggleswitch';
+import { IconFieldModule } from 'primeng/iconfield';
+import { InputIconModule } from 'primeng/inputicon';
 
 @NgModule({
     imports: [
@@ -65,7 +67,9 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
         ContextMenuModule,
         DialogModule,
         DeferredDemo,
-        ToggleSwitchModule
+        ToggleSwitchModule,
+        IconFieldModule,
+        InputIconModule
     ],
     exports: [AppDocModule],
     declarations: [
