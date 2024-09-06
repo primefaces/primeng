@@ -12,8 +12,8 @@ import { InputIconModule } from 'primeng/inputicon';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { MenuModule } from 'primeng/menu';
-import { InputTextareaModule } from 'primeng/inputtextarea';
 import { ToggleSwitchModule } from 'primeng/toggleswitch';
+import { TextareaModule } from 'primeng/textarea';
 
 @Component({
     selector: 'chat-app',
@@ -31,8 +31,8 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
         ButtonModule,
         InputTextModule,
         MenuModule,
-        InputTextareaModule,
-        ToggleSwitchModule
+        TextareaModule,
+        ToggleSwitchModule,
     ],
     template: `
         <div class="w-4/12 xl:w-3/12 min-w-40 overflow-auto flex flex-col gap-6">
@@ -187,7 +187,7 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
                     <p-button icon="pi pi-face-smile" text />
                     <p-button icon="pi pi-paperclip" text />
                     <textarea
-                        pInputTextarea
+                        pTextarea
                         class="ml-1 flex-1 border-0 shadow-none max-h-32 min-h-9 bg-emphasis overflow-auto"
                         autoResize
                         rows="1"
