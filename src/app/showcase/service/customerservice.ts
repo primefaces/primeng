@@ -32,7 +32,7 @@ export class CustomerService {
                 },
                 company: 'Chanay, Jeffrey A Esq',
                 date: '2019-02-09',
-                status: 'proposal',
+                status: 'negotiation',
                 verified: true,
                 activity: 0,
                 representative: {
@@ -86,7 +86,7 @@ export class CustomerService {
                 },
                 company: 'Printing Dimensions',
                 date: '2016-05-20',
-                status: 'proposal',
+                status: 'negotiation',
                 verified: true,
                 activity: 33,
                 representative: {
@@ -176,7 +176,7 @@ export class CustomerService {
                 },
                 company: 'King, Christopher A Esq',
                 date: '2015-07-07',
-                status: 'proposal',
+                status: 'negotiation',
                 verified: false,
                 activity: 3,
                 representative: {
@@ -608,7 +608,7 @@ export class CustomerService {
                 },
                 company: 'Giampetro, Anthony D',
                 date: '2019-08-08',
-                status: 'proposal',
+                status: 'negotiation',
                 verified: true,
                 activity: 85,
                 representative: {
@@ -1112,7 +1112,7 @@ export class CustomerService {
                 },
                 company: 'Hubbard, Bruce Esq',
                 date: '2017-05-25',
-                status: 'proposal',
+                status: 'negotiation',
                 verified: true,
                 activity: 87,
                 representative: {
@@ -1346,7 +1346,7 @@ export class CustomerService {
                 },
                 company: 'A K Construction Co',
                 date: '2018-11-13',
-                status: 'proposal',
+                status: 'negotiation',
                 verified: true,
                 activity: 22,
                 representative: {
@@ -1436,7 +1436,7 @@ export class CustomerService {
                 },
                 company: 'Museum Of Science & Industry',
                 date: '2017-06-01',
-                status: 'proposal',
+                status: 'negotiation',
                 verified: true,
                 activity: 90,
                 representative: {
@@ -1454,7 +1454,7 @@ export class CustomerService {
                 },
                 company: 'Garrison Ind',
                 date: '2017-03-14',
-                status: 'proposal',
+                status: 'negotiation',
                 verified: true,
                 activity: 96,
                 representative: {
@@ -1490,7 +1490,7 @@ export class CustomerService {
                 },
                 company: 'Smc Inc',
                 date: '2018-09-11',
-                status: 'proposal',
+                status: 'negotiation',
                 verified: true,
                 activity: 46,
                 representative: {
@@ -1706,7 +1706,7 @@ export class CustomerService {
                 },
                 company: 'Tree Musketeers',
                 date: '2019-02-17',
-                status: 'proposal',
+                status: 'negotiation',
                 verified: true,
                 activity: 50,
                 representative: {
@@ -1760,7 +1760,7 @@ export class CustomerService {
                 },
                 company: 'Kelly, Charles G Esq',
                 date: '2019-10-02',
-                status: 'proposal',
+                status: 'negotiation',
                 verified: true,
                 activity: 44,
                 representative: {
@@ -1796,7 +1796,7 @@ export class CustomerService {
                 },
                 company: 'Beck Horizon Builders',
                 date: '2018-05-14',
-                status: 'proposal',
+                status: 'negotiation',
                 verified: true,
                 activity: 99,
                 representative: {
@@ -1904,7 +1904,7 @@ export class CustomerService {
                 },
                 company: 'American Arts & Graphics',
                 date: '2020-06-18',
-                status: 'proposal',
+                status: 'negotiation',
                 verified: true,
                 activity: 21,
                 representative: {
@@ -2012,7 +2012,7 @@ export class CustomerService {
                 },
                 company: 'Juno Chefs Incorporated',
                 date: '2017-03-17',
-                status: 'proposal',
+                status: 'negotiation',
                 verified: false,
                 activity: 31,
                 representative: {
@@ -2120,7 +2120,7 @@ export class CustomerService {
                 },
                 company: 'Jackson Shields Yeiser',
                 date: '2016-07-13',
-                status: 'proposal',
+                status: 'negotiation',
                 verified: true,
                 activity: 55,
                 representative: {
@@ -2192,7 +2192,7 @@ export class CustomerService {
                 },
                 company: 'Carol, Drake Sparks Esq',
                 date: '2018-05-22',
-                status: 'proposal',
+                status: 'negotiation',
                 verified: true,
                 activity: 77,
                 representative: {
@@ -2246,7 +2246,7 @@ export class CustomerService {
                 },
                 company: 'Merlin Electric Co',
                 date: '2019-05-23',
-                status: 'proposal',
+                status: 'negotiation',
                 verified: true,
                 activity: 10,
                 representative: {
@@ -2336,7 +2336,7 @@ export class CustomerService {
                 },
                 company: 'Nelson Hawaiian Ltd',
                 date: '2016-11-10',
-                status: 'proposal',
+                status: 'negotiation',
                 verified: true,
                 activity: 41,
                 representative: {
@@ -2480,7 +2480,7 @@ export class CustomerService {
                 },
                 company: 'Vlahos, John J Esq',
                 date: '2017-03-12',
-                status: 'proposal',
+                status: 'negotiation',
                 verified: false,
                 activity: 3,
                 representative: {
@@ -2570,7 +2570,7 @@ export class CustomerService {
                 },
                 company: 'Admiral Party Rentals & Sales',
                 date: '2016-02-10',
-                status: 'proposal',
+                status: 'negotiation',
                 verified: false,
                 activity: 58,
                 representative: {
@@ -2642,7 +2642,7 @@ export class CustomerService {
                 },
                 company: 'Megibow & Edwards',
                 date: '2019-08-17',
-                status: 'proposal',
+                status: 'negotiation',
                 verified: true,
                 activity: 18,
                 representative: {
@@ -2768,7 +2768,7 @@ export class CustomerService {
                 },
                 company: 'Silver Bros Inc',
                 date: '2016-08-19',
-                status: 'proposal',
+                status: 'negotiation',
                 verified: true,
                 activity: 14,
                 representative: {
@@ -2786,7 +2786,7 @@ export class CustomerService {
                 },
                 company: 'Newtec Inc',
                 date: '2020-02-09',
-                status: 'proposal',
+                status: 'negotiation',
                 verified: true,
                 activity: 77,
                 representative: {
@@ -3200,7 +3200,7 @@ export class CustomerService {
                 },
                 company: 'Corn Popper',
                 date: '2020-09-16',
-                status: 'proposal',
+                status: 'negotiation',
                 verified: true,
                 activity: 76,
                 representative: {
@@ -3272,7 +3272,7 @@ export class CustomerService {
                 },
                 company: 'Royal Pontiac Olds Inc',
                 date: '2018-07-19',
-                status: 'proposal',
+                status: 'negotiation',
                 verified: false,
                 activity: 24,
                 representative: {
@@ -3290,7 +3290,7 @@ export class CustomerService {
                 },
                 company: 'Leonards Antiques Inc',
                 date: '2015-03-15',
-                status: 'proposal',
+                status: 'negotiation',
                 verified: true,
                 activity: 86,
                 representative: {
@@ -3326,7 +3326,7 @@ export class CustomerService {
                 },
                 company: 'Nercon Engineering & Mfg Inc',
                 date: '2015-02-19',
-                status: 'proposal',
+                status: 'negotiation',
                 verified: true,
                 activity: 9,
                 representative: {
@@ -3452,7 +3452,7 @@ export class CustomerService {
                 },
                 company: 'Computer Repair Service',
                 date: '2016-02-13',
-                status: 'proposal',
+                status: 'negotiation',
                 verified: false,
                 activity: 79,
                 representative: {
@@ -3506,7 +3506,7 @@ export class CustomerService {
                 },
                 company: 'New England Taxidermy',
                 date: '2019-01-07',
-                status: 'proposal',
+                status: 'negotiation',
                 verified: true,
                 activity: 4,
                 representative: {
@@ -3884,7 +3884,7 @@ export class CustomerService {
                 },
                 company: 'Metlab Testing Services',
                 date: '2015-02-13',
-                status: 'proposal',
+                status: 'negotiation',
                 verified: true,
                 activity: 99,
                 representative: {
@@ -3974,7 +3974,7 @@ export class CustomerService {
                 },
                 company: 'Dill Dill Carr \u0026 Stonbraker Pc',
                 date: '2017-07-27',
-                status: 'proposal',
+                status: 'negotiation',
                 verified: true,
                 activity: 63,
                 representative: {
@@ -4100,7 +4100,7 @@ export class CustomerService {
                 },
                 company: 'Little Sheet Metal Co',
                 date: '2016-06-22',
-                status: 'proposal',
+                status: 'negotiation',
                 verified: true,
                 activity: 38,
                 representative: {
@@ -4388,7 +4388,7 @@ export class CustomerService {
                 },
                 company: 'Bosco, Paul J',
                 date: '2017-09-11',
-                status: 'proposal',
+                status: 'negotiation',
                 verified: true,
                 activity: 60,
                 representative: {
@@ -4478,7 +4478,7 @@ export class CustomerService {
                 },
                 company: 'Linguistic Systems Inc',
                 date: '2017-08-04',
-                status: 'proposal',
+                status: 'negotiation',
                 verified: true,
                 activity: 86,
                 representative: {
@@ -4730,7 +4730,7 @@ export class CustomerService {
                 },
                 company: 'Price Business Services',
                 date: '2019-10-11',
-                status: 'proposal',
+                status: 'negotiation',
                 verified: true,
                 activity: 98,
                 representative: {
@@ -4982,7 +4982,7 @@ export class CustomerService {
                 },
                 company: 'Schott Fiber Optics Inc',
                 date: '2019-06-05',
-                status: 'proposal',
+                status: 'negotiation',
                 verified: true,
                 activity: 95,
                 representative: {
@@ -5144,7 +5144,7 @@ export class CustomerService {
                 },
                 company: 'Geonex Martel Inc',
                 date: '2015-03-19',
-                status: 'proposal',
+                status: 'negotiation',
                 verified: true,
                 activity: 64,
                 representative: {
@@ -5252,7 +5252,7 @@ export class CustomerService {
                 },
                 company: 'Flash, Elena Salerno Esq',
                 date: '2018-01-28',
-                status: 'proposal',
+                status: 'negotiation',
                 verified: true,
                 activity: 0,
                 representative: {
@@ -5288,7 +5288,7 @@ export class CustomerService {
                 },
                 company: 'Alabama Educational Tv Comm',
                 date: '2019-06-09',
-                status: 'proposal',
+                status: 'negotiation',
                 verified: true,
                 activity: 30,
                 representative: {
@@ -5306,7 +5306,7 @@ export class CustomerService {
                 },
                 company: 'Franz Inc',
                 date: '2017-02-07',
-                status: 'proposal',
+                status: 'negotiation',
                 verified: true,
                 activity: 59,
                 representative: {
@@ -5396,7 +5396,7 @@ export class CustomerService {
                 },
                 company: 'Grayson, Grant S Esq',
                 date: '2019-12-22',
-                status: 'proposal',
+                status: 'negotiation',
                 verified: true,
                 activity: 22,
                 representative: {
@@ -5450,7 +5450,7 @@ export class CustomerService {
                 },
                 company: 'Wmmt Radio Station',
                 date: '2016-03-28',
-                status: 'proposal',
+                status: 'negotiation',
                 verified: true,
                 activity: 73,
                 representative: {
@@ -5540,7 +5540,7 @@ export class CustomerService {
                 },
                 company: 'Kaminski, Katherine Andritsaki',
                 date: '2015-07-17',
-                status: 'proposal',
+                status: 'negotiation',
                 verified: true,
                 activity: 29,
                 representative: {
@@ -5612,7 +5612,7 @@ export class CustomerService {
                 },
                 company: 'Anchor Computer Inc',
                 date: '2018-12-08',
-                status: 'proposal',
+                status: 'negotiation',
                 verified: true,
                 activity: 89,
                 representative: {
@@ -5648,7 +5648,7 @@ export class CustomerService {
                 },
                 company: 'H A C Farm Lines Co Optv Assoc',
                 date: '2017-02-17',
-                status: 'proposal',
+                status: 'negotiation',
                 verified: true,
                 activity: 58,
                 representative: {
@@ -5738,7 +5738,7 @@ export class CustomerService {
                 },
                 company: 'Schoen, Edward J Jr',
                 date: '2017-03-03',
-                status: 'proposal',
+                status: 'negotiation',
                 verified: true,
                 activity: 29,
                 representative: {
@@ -5936,7 +5936,7 @@ export class CustomerService {
                 },
                 company: 'National Medical Excess Corp',
                 date: '2019-09-01',
-                status: 'proposal',
+                status: 'negotiation',
                 verified: true,
                 activity: 8,
                 representative: {
@@ -5990,7 +5990,7 @@ export class CustomerService {
                 },
                 company: 'Insty Prints',
                 date: '2019-02-02',
-                status: 'proposal',
+                status: 'negotiation',
                 verified: true,
                 activity: 8,
                 representative: {
@@ -6026,7 +6026,7 @@ export class CustomerService {
                 },
                 company: 'Circuit Solution Inc',
                 date: '2019-07-10',
-                status: 'proposal',
+                status: 'negotiation',
                 verified: true,
                 activity: 88,
                 representative: {
@@ -6044,7 +6044,7 @@ export class CustomerService {
                 },
                 company: 'Local Office',
                 date: '2016-05-21',
-                status: 'proposal',
+                status: 'negotiation',
                 verified: true,
                 activity: 85,
                 representative: {
@@ -6080,7 +6080,7 @@ export class CustomerService {
                 },
                 company: 'Davis, Maxon R Esq',
                 date: '2019-06-20',
-                status: 'proposal',
+                status: 'negotiation',
                 verified: true,
                 activity: 44,
                 representative: {
@@ -6098,7 +6098,7 @@ export class CustomerService {
                 },
                 company: 'Garrison, Paul E Esq',
                 date: '2019-08-01',
-                status: 'proposal',
+                status: 'negotiation',
                 verified: true,
                 activity: 91,
                 representative: {
@@ -6224,7 +6224,7 @@ export class CustomerService {
                 },
                 company: 'H P G Industrys Inc',
                 date: '2019-12-15',
-                status: 'proposal',
+                status: 'negotiation',
                 verified: true,
                 activity: 20,
                 representative: {
@@ -6314,7 +6314,7 @@ export class CustomerService {
                 },
                 company: 'Logan, Ronald J Esq',
                 date: '2016-02-13',
-                status: 'proposal',
+                status: 'negotiation',
                 verified: true,
                 activity: 5,
                 representative: {
@@ -6350,7 +6350,7 @@ export class CustomerService {
                 },
                 company: 'Germer And Gertz Llp',
                 date: '2015-01-03',
-                status: 'proposal',
+                status: 'negotiation',
                 verified: true,
                 activity: 66,
                 representative: {
@@ -6458,7 +6458,7 @@ export class CustomerService {
                 },
                 company: 'Quality Inn Northwest',
                 date: '2016-04-05',
-                status: 'proposal',
+                status: 'negotiation',
                 verified: true,
                 activity: 14,
                 representative: {
@@ -6602,7 +6602,7 @@ export class CustomerService {
                 },
                 company: 'Gehring Pumps Inc',
                 date: '2018-10-21',
-                status: 'proposal',
+                status: 'negotiation',
                 verified: true,
                 activity: 90,
                 representative: {
@@ -6710,7 +6710,7 @@ export class CustomerService {
                 },
                 company: 'Minor, Cynthia A Esq',
                 date: '2020-09-25',
-                status: 'proposal',
+                status: 'negotiation',
                 verified: true,
                 activity: 17,
                 representative: {
@@ -6854,7 +6854,7 @@ export class CustomerService {
                 },
                 company: 'Soward, Anne Esq',
                 date: '2018-10-07',
-                status: 'proposal',
+                status: 'negotiation',
                 verified: false,
                 activity: 28,
                 representative: {
@@ -6980,7 +6980,7 @@ export class CustomerService {
                 },
                 company: 'Sameshima, Douglas J Esq',
                 date: '2019-11-27',
-                status: 'proposal',
+                status: 'negotiation',
                 verified: true,
                 activity: 85,
                 representative: {
@@ -6998,7 +6998,7 @@ export class CustomerService {
                 },
                 company: 'Thompson, John Randolph Jr',
                 date: '2017-08-13',
-                status: 'proposal',
+                status: 'negotiation',
                 verified: true,
                 activity: 40,
                 representative: {
@@ -7124,7 +7124,7 @@ export class CustomerService {
                 },
                 company: 'Vico Products Mfg Co',
                 date: '2017-10-02',
-                status: 'proposal',
+                status: 'negotiation',
                 verified: true,
                 activity: 53,
                 representative: {
@@ -7160,7 +7160,7 @@ export class CustomerService {
                 },
                 company: 'Farrell \u0026 Johnson Office Equip',
                 date: '2017-06-24',
-                status: 'proposal',
+                status: 'negotiation',
                 verified: true,
                 activity: 39,
                 representative: {
@@ -7268,7 +7268,7 @@ export class CustomerService {
                 },
                 company: 'Barkan, Neal J Esq',
                 date: '2019-02-19',
-                status: 'proposal',
+                status: 'negotiation',
                 verified: true,
                 activity: 38,
                 representative: {
@@ -7322,7 +7322,7 @@ export class CustomerService {
                 },
                 company: 'Young, Timothy L Esq',
                 date: '2019-02-05',
-                status: 'proposal',
+                status: 'negotiation',
                 verified: true,
                 activity: 55,
                 representative: {
@@ -7412,7 +7412,7 @@ export class CustomerService {
                 },
                 company: 'Sat Poly Inc',
                 date: '2020-10-19',
-                status: 'proposal',
+                status: 'negotiation',
                 verified: true,
                 activity: 69,
                 representative: {
@@ -7520,7 +7520,7 @@ export class CustomerService {
                 },
                 company: 'United Cerebral Palsy Of Ne Pa',
                 date: '2020-12-11',
-                status: 'proposal',
+                status: 'negotiation',
                 verified: true,
                 activity: 0,
                 representative: {
@@ -7736,7 +7736,7 @@ export class CustomerService {
                 },
                 company: 'Armon Communications',
                 date: '2018-02-16',
-                status: 'proposal',
+                status: 'negotiation',
                 verified: true,
                 activity: 84,
                 representative: {
@@ -7790,7 +7790,7 @@ export class CustomerService {
                 },
                 company: 'Haughey, Charles Jr',
                 date: '2016-11-03',
-                status: 'proposal',
+                status: 'negotiation',
                 verified: true,
                 activity: 63,
                 representative: {
@@ -7844,7 +7844,7 @@ export class CustomerService {
                 },
                 company: 'Nazette Marner Good Wendt',
                 date: '2015-08-18',
-                status: 'proposal',
+                status: 'negotiation',
                 verified: true,
                 activity: 66,
                 representative: {
@@ -7862,7 +7862,7 @@ export class CustomerService {
                 },
                 company: 'Levinson Axelrod Wheaton',
                 date: '2016-02-11',
-                status: 'proposal',
+                status: 'negotiation',
                 verified: true,
                 activity: 64,
                 representative: {
@@ -8132,7 +8132,7 @@ export class CustomerService {
                 },
                 company: 'Dimmock, Thomas J Esq',
                 date: '2017-02-10',
-                status: 'proposal',
+                status: 'negotiation',
                 verified: true,
                 activity: 9,
                 representative: {
@@ -8276,7 +8276,7 @@ export class CustomerService {
                 },
                 company: 'Switchcraft Inc',
                 date: '2019-06-08',
-                status: 'proposal',
+                status: 'negotiation',
                 verified: true,
                 activity: 21,
                 representative: {
@@ -8312,7 +8312,7 @@ export class CustomerService {
                 },
                 company: 'Shimotani, Grace T',
                 date: '2020-11-15',
-                status: 'proposal',
+                status: 'negotiation',
                 verified: true,
                 activity: 94,
                 representative: {
@@ -8564,7 +8564,7 @@ export class CustomerService {
                 },
                 company: 'Mcrae, James L',
                 date: '2018-03-20',
-                status: 'proposal',
+                status: 'negotiation',
                 verified: true,
                 activity: 45,
                 representative: {
@@ -8582,7 +8582,7 @@ export class CustomerService {
                 },
                 company: 'Mcgraths Seafood',
                 date: '2017-05-13',
-                status: 'proposal',
+                status: 'negotiation',
                 verified: true,
                 activity: 34,
                 representative: {
@@ -8600,7 +8600,7 @@ export class CustomerService {
                 },
                 company: 'Kummerer, J Michael Esq',
                 date: '2017-02-21',
-                status: 'proposal',
+                status: 'negotiation',
                 verified: true,
                 activity: 12,
                 representative: {
