@@ -112,7 +112,7 @@ import { Drawer } from 'primeng/drawer';
                                     <div
                                         pRipple
                                         pStyleClass="@next"
-                                        enterClass="hidden"
+                                        enterFromClass="hidden"
                                         enterActiveClass="animate-slidedown"
                                         leaveToClass="hidden"
                                         leaveActiveClass="animate-slideup"
@@ -144,7 +144,7 @@ import { Drawer } from 'primeng/drawer';
                                             <a
                                                 pRipple
                                                 pStyleClass="@next"
-                                                enterClass="hidden"
+                                                enterFromClass="hidden"
                                                 enterActiveClass="animate-slidedown"
                                                 leaveToClass="hidden"
                                                 leaveActiveClass="animate-slideup"
@@ -161,7 +161,7 @@ import { Drawer } from 'primeng/drawer';
                                                     <a
                                                         pRipple
                                                         pStyleClass="@next"
-                                                        enterClass="hidden"
+                                                        enterFromClass="hidden"
                                                         enterActiveClass="animate-slidedown"
                                                         leaveToClass="hidden"
                                                         leaveActiveClass="animate-slideup"
@@ -254,7 +254,7 @@ import { Drawer } from 'primeng/drawer';
                                     <div
                                         pRipple
                                         pStyleClass="@next"
-                                        enterClass="hidden"
+                                        enterFromClass="hidden"
                                         enterActiveClass="animate-slidedown"
                                         leaveToClass="hidden"
                                         leaveActiveClass="animate-slideup"
@@ -418,7 +418,7 @@ export class HeadlessDoc {
                         <div
                             pRipple
                             pStyleClass="@next"
-                            enterClass="hidden"
+                            enterFromClass="hidden"
                             enterActiveClass="animate-slidedown"
                             leaveToClass="hidden"
                             leaveActiveClass="animate-slideup"
@@ -444,7 +444,7 @@ export class HeadlessDoc {
                                 <a
                                     pRipple
                                     pStyleClass="@next"
-                                    enterClass="hidden"
+                                    enterFromClass="hidden"
                                     enterActiveClass="animate-slidedown"
                                     leaveToClass="hidden"
                                     leaveActiveClass="animate-slideup"
@@ -459,7 +459,7 @@ export class HeadlessDoc {
                                         <a
                                             pRipple
                                             pStyleClass="@next"
-                                            enterClass="hidden"
+                                            enterFromClass="hidden"
                                             enterActiveClass="animate-slidedown"
                                             leaveToClass="hidden"
                                             leaveActiveClass="animate-slideup"
@@ -525,7 +525,7 @@ export class HeadlessDoc {
                         <div
                             pRipple
                             pStyleClass="@next"
-                            enterClass="hidden"
+                            enterFromClass="hidden"
                             enterActiveClass="animate-slidedown"
                             leaveToClass="hidden"
                             leaveActiveClass="animate-slideup"
@@ -645,7 +645,7 @@ export class HeadlessDoc {
                         <div
                             pRipple
                             pStyleClass="@next"
-                            enterClass="hidden"
+                            enterFromClass="hidden"
                             enterActiveClass="animate-slidedown"
                             leaveToClass="hidden"
                             leaveActiveClass="animate-slideup"
@@ -671,7 +671,7 @@ export class HeadlessDoc {
                                 <a
                                     pRipple
                                     pStyleClass="@next"
-                                    enterClass="hidden"
+                                    enterFromClass="hidden"
                                     enterActiveClass="animate-slidedown"
                                     leaveToClass="hidden"
                                     leaveActiveClass="animate-slideup"
@@ -686,7 +686,7 @@ export class HeadlessDoc {
                                         <a
                                             pRipple
                                             pStyleClass="@next"
-                                            enterClass="hidden"
+                                            enterFromClass="hidden"
                                             enterActiveClass="animate-slidedown"
                                             leaveToClass="hidden"
                                             leaveActiveClass="animate-slideup"
@@ -752,7 +752,7 @@ export class HeadlessDoc {
                         <div
                             pRipple
                             pStyleClass="@next"
-                            enterClass="hidden"
+                            enterFromClass="hidden"
                             enterActiveClass="animate-slidedown"
                             leaveToClass="hidden"
                             leaveActiveClass="animate-slideup"
