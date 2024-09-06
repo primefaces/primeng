@@ -124,7 +124,7 @@ export class SubheaderGroupingDoc {
                 return 'info';
 
             case 'negotiation':
-                return 'warning';
+                return 'warn';
 
             case 'renewal':
                 return null;
@@ -307,7 +307,7 @@ export class TableSubheaderGroupingDemo implements OnInit{
                 return 'info';
 
             case 'negotiation':
-                return 'warning';
+                return 'warn';
 
             case 'renewal':
                 return null;
