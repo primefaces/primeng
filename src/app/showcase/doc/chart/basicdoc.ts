@@ -1,8 +1,7 @@
 import { isPlatformBrowser } from '@angular/common';
-import { ChangeDetectorRef, Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
+import { ChangeDetectorRef, Component, effect, inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { Code } from '@domain/code';
 import { AppConfigService } from '@service/appconfigservice';
-import { Subscription, debounceTime } from 'rxjs';
 
 @Component({
     selector: 'chart-basic-demo',
@@ -26,9 +25,18 @@ export class BasicDoc implements OnInit {
 
     basicOptions: any;
 
-    subscription!: Subscription;
+    platformId = inject(PLATFORM_ID);
 
-    constructor(@Inject(PLATFORM_ID) private platformId: any) {}
+    configService = inject(AppConfigService);
+
+    constructor(private cd: ChangeDetectorRef) {}
+
+    themeEffect = effect(() => {
+        if (this.configService.theme()) {
+            this.initChart();
+            this.cd.markForCheck();
+        }
+    });
 
     ngOnInit() {
         this.initChart();
@@ -63,29 +71,29 @@ export class BasicDoc implements OnInit {
                 plugins: {
                     legend: {
                         labels: {
-                            color: textColor
-                        }
-                    }
+                            color: textColor,
+                        },
+                    },
                 },
                 scales: {
                     x: {
                         ticks: {
-                            color: textColorSecondary
+                            color: textColorSecondary,
                         },
                         grid: {
-                            color: surfaceBorder
-                        }
+                            color: surfaceBorder,
+                        },
                     },
                     y: {
                         beginAtZero: true,
                         ticks: {
-                            color: textColorSecondary
+                            color: textColorSecondary,
                         },
                         grid: {
-                            color: surfaceBorder
-                        }
-                    }
-                }
+                            color: surfaceBorder,
+                        },
+                    },
+                },
             };
         }
     }
@@ -109,53 +117,77 @@ export class ChartBasicDemo implements OnInit {
 
     basicOptions: any;
 
+    platformId = inject(PLATFORM_ID);
+
+    configService = inject(AppConfigService);
+
+    constructor(private cd: ChangeDetectorRef) {}
+
+    themeEffect = effect(() => {
+        if (this.configService.theme() && isPlatformBrowser(this.platformId)) {
+            this.initChart();
+            this.cd.markForCheck();
+        }
+    });
+
     ngOnInit() {
-        const documentStyle = getComputedStyle(document.documentElement);
-        const textColor = documentStyle.getPropertyValue('--p-text-color');
-        const textColorSecondary = documentStyle.getPropertyValue('--p-text-muted-color');
-        const surfaceBorder = documentStyle.getPropertyValue('--p-content-border-color');
+        this.initChart();
+    }
 
-        this.basicData = {
-            labels: ['Q1', 'Q2', 'Q3', 'Q4'],
-            datasets: [
-                {
-                    label: 'Sales',
-                    data: [540, 325, 702, 620],
-                    backgroundColor: ['rgba(249, 115, 22, 0.2)', 'rgba(6, 182, 212, 0.2)', 'rgb(107, 114, 128, 0.2)', 'rgba(139, 92, 246, 0.2)'],
-                    borderColor: ['rgb(249, 115, 22)', 'rgb(6, 182, 212)', 'rgb(107, 114, 128)', 'rgb(139, 92, 246)'],
-                    borderWidth: 1
-                }
-            ]
-        };
+    initChart() {
+        if (isPlatformBrowser(this.platformId)) {
+            const documentStyle = getComputedStyle(document.documentElement);
+            const textColor = documentStyle.getPropertyValue('--p-text-color');
+            const textColorSecondary = documentStyle.getPropertyValue('--p-text-muted-color');
+            const surfaceBorder = documentStyle.getPropertyValue('--p-content-border-color');
 
-        this.basicOptions = {
-            plugins: {
-                legend: {
-                    labels: {
-                        color: textColor
-                    }
-                }
-            },
-            scales: {
-                x: {
-                    ticks: {
-                        color: textColorSecondary
+            this.basicData = {
+                labels: ['Q1', 'Q2', 'Q3', 'Q4'],
+                datasets: [
+                    {
+                        label: 'Sales',
+                        data: [540, 325, 702, 620],
+                        backgroundColor: [
+                            'rgba(249, 115, 22, 0.2)',
+                            'rgba(6, 182, 212, 0.2)',
+                            'rgb(107, 114, 128, 0.2)',
+                            'rgba(139, 92, 246, 0.2)',
+                        ],
+                        borderColor: ['rgb(249, 115, 22)', 'rgb(6, 182, 212)', 'rgb(107, 114, 128)', 'rgb(139, 92, 246)'],
+                        borderWidth: 1,
                     },
-                    grid: {
-                        color: surfaceBorder
-                    }
+                ],
+            };
+
+            this.basicOptions = {
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: textColor,
+                        },
+                    },
                 },
-                y: {
-                    beginAtZero: true,
-                    ticks: {
-                        color: textColorSecondary
+                scales: {
+                    x: {
+                        ticks: {
+                            color: textColorSecondary,
+                        },
+                        grid: {
+                            color: surfaceBorder,
+                        },
                     },
-                    grid: {
-                        color: surfaceBorder
-                    }
-                }
-            }
-        };
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            color: textColorSecondary,
+                        },
+                        grid: {
+                            color: surfaceBorder,
+                        },
+                    },
+                },
+            };
+        }
     }
 }`,
     };
