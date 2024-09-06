@@ -28,7 +28,7 @@ interface Column {
                                 optionLabel="header"
                                 selectedItemsLabel="{0} columns selected"
                                 [style]="{ width: '20em' }"
-                                defaultLabel="Choose Columns"
+                                placeholder="Choose Columns"
                                 display="chip"
                             />
                         </div>
@@ -90,7 +90,7 @@ export class ColumnToggleDoc {
                     optionLabel="header" 
                     selectedItemsLabel="{0} columns selected" 
                     [style]="{ width: '20em' }" 
-                    defaultLabel="Choose Columns" display="chip" />
+                    placeholder="Choose Columns" display="chip" />
             </div>
         </ng-template>
         <ng-template pTemplate="header" let-columns>
@@ -124,7 +124,7 @@ export class ColumnToggleDoc {
                         optionLabel="header" 
                         selectedItemsLabel="{0} columns selected" 
                         [style]="{ width: '20em' }" 
-                        defaultLabel="Choose Columns" 
+                        placeholder="Choose Columns" 
                         display="chip" />
                 </div>
             </ng-template>
