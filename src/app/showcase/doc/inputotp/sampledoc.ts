@@ -11,7 +11,7 @@ import { Code } from '@domain/code';
             <div class="flex flex-col items-center">
                 <div class="font-bold text-xl mb-2">Authenticate Your Account</div>
                 <p class="text-muted-color block mb-8">Please enter the code sent to your phone.</p>
-                <p-inputOtp [(ngModel)]="value" [length]="6">
+                <p-input-otp [(ngModel)]="value" [length]="6">
                     <ng-template pTemplate="input" let-token let-events="events" let-index="index">
                         <input
                             pInputText
@@ -26,7 +26,7 @@ import { Code } from '@domain/code';
                             <i class="pi pi-minus"></i>
                         </div>
                     </ng-template>
-                </p-inputOtp>
+                </p-input-otp>
                 <div class="flex justify-between mt-8 self-stretch">
                     <p-button label="Resend Code" [link]="true" class="p-0" />
                     <p-button label="Submit Code" />
@@ -86,7 +86,7 @@ export class SampleDoc {
         basic: `<div class="flex flex-col items-center">
     <div class="font-bold text-xl mb-2">Authenticate Your Account</div>
     <p class="text-muted-color block mb-8">Please enter the code sent to your phone.</p>
-    <p-inputOtp [(ngModel)]="value" [length]="6">
+    <p-input-otp [(ngModel)]="value" [length]="6">
         <ng-template pTemplate="input" let-token let-events="events" let-index="index">
             <input 
                 pInputText
@@ -100,7 +100,7 @@ export class SampleDoc {
                 <i class="pi pi-minus"></i>
             </div>
         </ng-template>
-    </p-inputOtp>
+    </p-input-otp>
     <div class="flex justify-between mt-8 self-stretch">
         <p-button label="Resend Code" [link]="true" class="p-0"/>
         <p-button label="Submit Code"/>
@@ -111,7 +111,7 @@ export class SampleDoc {
     <div class="flex flex-col items-center">
         <div class="font-bold text-xl mb-2">Authenticate Your Account</div>
         <p class="text-muted-color block mb-8">Please enter the code sent to your phone.</p>
-        <p-inputOtp [(ngModel)]="value" [length]="6">
+        <p-input-otp [(ngModel)]="value" [length]="6">
             <ng-template pTemplate="input" let-token let-events="events" let-index="index">
                 <input 
                     pInputText 
@@ -125,7 +125,7 @@ export class SampleDoc {
                     <i class="pi pi-minus"></i>
                 </div>
             </ng-template>
-        </p-inputOtp>
+        </p-input-otp>
         <div class="flex justify-between mt-8 self-stretch">
             <p-button label="Resend Code" [link]="true" class="p-0"/>
             <p-button label="Submit Code"/>

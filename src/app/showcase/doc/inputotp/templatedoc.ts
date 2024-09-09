@@ -11,7 +11,7 @@ import { Code } from '@domain/code';
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-inputOtp [(ngModel)]="value">
+            <p-input-otp [(ngModel)]="value">
                 <ng-template pTemplate="input" let-token let-events="events">
                     <input
                         pInputText
@@ -23,7 +23,7 @@ import { Code } from '@domain/code';
                         [maxLength]="1"
                     />
                 </ng-template>
-            </p-inputOtp>
+            </p-input-otp>
         </div>
         <app-code [code]="code" selector="input-otp-template-demo"></app-code>,
     `,
@@ -52,7 +52,7 @@ export class TemplateDoc {
     value: any;
 
     code: Code = {
-        basic: `<p-inputOtp [(ngModel)]="value">
+        basic: `<p-input-otp [(ngModel)]="value">
     <ng-template pTemplate="input" let-token let-events="events">
         <input 
             pInputText 
@@ -63,10 +63,10 @@ export class TemplateDoc {
             [attr.value]="token" 
             [maxLength]="1" />
     </ng-template>
-</p-inputOtp>`,
+</p-input-otp>`,
 
         html: `<div class="card flex justify-center">
-    <p-inputOtp [(ngModel)]="value">
+    <p-input-otp [(ngModel)]="value">
         <ng-template pTemplate="input" let-token let-events="events">
             <input 
                 pInputText
@@ -77,7 +77,7 @@ export class TemplateDoc {
                 [attr.value]="token" 
                 [maxLength]="1" />
         </ng-template>
-    </p-inputOtp>
+    </p-input-otp>
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

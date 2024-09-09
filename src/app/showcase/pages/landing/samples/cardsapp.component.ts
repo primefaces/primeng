@@ -632,7 +632,7 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
                         <p-button label="Resend" text />
                     </div>
                     <div class="flex items-center justify-center">
-                        <p-inputOtp
+                        <p-input-otp
                             [(ngModel)]="forgotPasswordOTP"
                             [length]="6"
                             integerOnly
