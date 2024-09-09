@@ -17,7 +17,7 @@ interface AutoCompleteCompleteEvent {
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-autoComplete
+            <p-auto-complete
                 [(ngModel)]="selectedItem"
                 [virtualScroll]="true"
                 [suggestions]="filteredItems"
@@ -59,7 +59,7 @@ export class VirtualScrollDoc {
     }
 
     code: Code = {
-        basic: `<p-autoComplete 
+        basic: `<p-auto-complete 
     [(ngModel)]="selectedItem" 
     [virtualScroll]="true" 
     [suggestions]="filteredItems" 
@@ -69,7 +69,7 @@ export class VirtualScrollDoc {
     [dropdown]="true" />`,
 
         html: `<div class="card flex justify-center">
-    <p-autoComplete 
+    <p-auto-complete 
         [(ngModel)]="selectedItem" 
         [virtualScroll]="true" 
         [suggestions]="filteredItems" 

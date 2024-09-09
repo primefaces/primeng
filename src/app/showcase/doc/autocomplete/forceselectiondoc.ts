@@ -16,7 +16,7 @@ interface AutoCompleteCompleteEvent {
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-autoComplete
+            <p-auto-complete
                 [(ngModel)]="selectedCountry"
                 [forceSelection]="true"
                 [suggestions]="filteredCountries"
@@ -60,7 +60,7 @@ export class ForceSelectionDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-autoComplete 
+        basic: `<p-auto-complete 
     [(ngModel)]="selectedCountry" 
     [forceSelection]="true" 
     [suggestions]="filteredCountries" 
@@ -68,7 +68,7 @@ export class ForceSelectionDoc implements OnInit {
     field="name" />`,
 
         html: `<div class="card flex justify-center">
-    <p-autoComplete 
+    <p-auto-complete 
         [(ngModel)]="selectedCountry" 
         [forceSelection]="true" 
         [suggestions]="filteredCountries" 

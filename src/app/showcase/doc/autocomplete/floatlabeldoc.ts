@@ -16,7 +16,7 @@ interface AutoCompleteCompleteEvent {
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-floatLabel>
-                <p-autoComplete
+                <p-auto-complete
                     [(ngModel)]="selectedItem"
                     [suggestions]="suggestions"
                     (completeMethod)="search($event)"
@@ -40,7 +40,7 @@ export class FloatLabelDoc {
 
     code: Code = {
         basic: `<p-floatLabel>
-    <p-autoComplete 
+    <p-auto-complete 
         [(ngModel)]="selectedItem" 
         [suggestions]="suggestions" 
         (completeMethod)="search($event)" 
@@ -50,7 +50,7 @@ export class FloatLabelDoc {
 
         html: `<div class="card flex justify-center">
     <p-floatLabel>
-        <p-autoComplete 
+        <p-auto-complete 
             [(ngModel)]="selectedItem" 
             [suggestions]="suggestions" 
             (completeMethod)="search($event)" 

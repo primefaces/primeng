@@ -17,7 +17,7 @@ interface AutoCompleteCompleteEvent {
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-autoComplete
+            <p-auto-complete
                 [(ngModel)]="selectedCountry"
                 placeholder="Search"
                 [suggestions]="filteredCountries"
@@ -57,14 +57,14 @@ export class ObjectsDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-autoComplete 
+        basic: `<p-auto-complete 
     [(ngModel)]="selectedCountry" 
     [suggestions]="filteredCountries" 
     (completeMethod)="filterCountry($event)" 
     field="name" />`,
 
         html: `<div class="card flex justify-center">
-    <p-autoComplete 
+    <p-auto-complete 
         [(ngModel)]="selectedCountry" 
         [suggestions]="filteredCountries" 
         (completeMethod)="filterCountry($event)" 

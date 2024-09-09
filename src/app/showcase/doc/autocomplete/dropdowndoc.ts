@@ -19,7 +19,7 @@ interface AutoCompleteCompleteEvent {
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-autoComplete
+            <p-auto-complete
                 [(ngModel)]="selectedCountry"
                 [dropdown]="true"
                 placeholder="Search"
@@ -65,7 +65,7 @@ export class DropdownDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-autoComplete 
+        basic: `<p-auto-complete 
     [(ngModel)]="selectedCountry" 
     [dropdown]="true" 
     [suggestions]="filteredCountries" 
@@ -73,7 +73,7 @@ export class DropdownDoc implements OnInit {
     field="name" />`,
 
         html: `<div class="card flex justify-center">
-    <p-autoComplete 
+    <p-auto-complete 
         [(ngModel)]="selectedCountry" 
         [dropdown]="true" 
         [suggestions]="filteredCountries" 

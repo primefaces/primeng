@@ -63,7 +63,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
  * @group Components
  */
 @Component({
-    selector: 'p-autoComplete',
+    selector: 'p-autoComplete, p-auto-complete',
     template: `
         <div
             #container
