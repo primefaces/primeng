@@ -52,7 +52,7 @@ import { MessageModule } from 'primeng/message';
  * @group Components
  */
 @Component({
-    selector: 'p-fileupload, p-fileUpload',
+    selector: 'p-fileupload, p-fileUpload, p-file-upload',
     template: `
         <div
             [ngClass]="'p-fileupload p-fileupload-advanced p-component'"

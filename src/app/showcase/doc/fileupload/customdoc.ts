@@ -10,7 +10,7 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-toast></p-toast>
-            <p-fileUpload name="myfile[]" [customUpload]="true" (uploadHandler)="customUploader($event)"></p-fileUpload>
+            <p-file-upload name="myfile[]" [customUpload]="true" (uploadHandler)="customUploader($event)"></p-file-upload>
         </div>
         <app-code [code]="code" selector="file-upload-custom-demo"></app-code>
     `,
@@ -34,11 +34,11 @@ export class CustomDoc {
     }
 
     code: Code = {
-        basic: `<p-fileUpload name="myfile[]" [customUpload]="true" (uploadHandler)="customUploader($event)"></p-fileUpload>`,
+        basic: `<p-file-upload name="myfile[]" [customUpload]="true" (uploadHandler)="customUploader($event)"></p-file-upload>`,
         html: `
 <div class="card flex justify-center">
     <p-toast></p-toast>
-    <p-fileUpload name="myfile[]" [customUpload]="true" (uploadHandler)="customUploader($event)"></p-fileUpload>
+    <p-file-upload name="myfile[]" [customUpload]="true" (uploadHandler)="customUploader($event)"></p-file-upload>
 </div>`,
         typescript: `
 import { Component, Input } from '@angular/core';

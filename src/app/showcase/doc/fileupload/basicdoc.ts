@@ -15,7 +15,7 @@ interface UploadEvent {
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-toast />
-            <p-fileUpload
+            <p-file-upload
                 mode="basic"
                 chooseLabel="Choose"
                 chooseIcon="pi pi-upload"
@@ -38,7 +38,7 @@ export class BasicDoc {
     }
 
     code: Code = {
-        basic: `<p-fileUpload 
+        basic: `<p-file-upload 
     mode="basic" 
     chooseLabel="Choose" 
     chooseIcon="pi pi-upload"
@@ -49,7 +49,7 @@ export class BasicDoc {
     (onUpload)="onUpload($event)" />`,
         html: `<div class="card flex justify-center">
     <p-toast />
-    <p-fileUpload 
+    <p-file-upload 
         mode="basic" 
         chooseLabel="Choose" 
         chooseIcon="pi pi-upload"
