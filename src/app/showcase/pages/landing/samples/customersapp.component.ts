@@ -286,7 +286,7 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
                                 <div *ngFor="let pref of data.prefs" class="flex items-center gap-2">
                                     <i class="text-lg text-color" [class]="pref.icon"></i>
                                     <div class="font-medium text-color flex-1">{{ pref.title }}</div>
-                                    <p-toggleSwitch [(ngModel)]="pref.checked" />
+                                    <p-toggle-switch [(ngModel)]="pref.checked" />
                                 </div>
                             </div>
                         </div>

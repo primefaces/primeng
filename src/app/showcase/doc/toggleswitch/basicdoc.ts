@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
             <p>Two-way value binding is defined using <i>ngModel</i>.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-toggleSwitch [(ngModel)]="checked" />
+            <p-toggle-switch [(ngModel)]="checked" />
         </div>
         <app-code [code]="code" selector="toggle-switch-basic-demo"></app-code>
     `,
@@ -17,10 +17,10 @@ export class BasicDoc {
     checked: boolean = false;
 
     code: Code = {
-        basic: `<p-toggleSwitch [(ngModel)]="checked" />`,
+        basic: `<p-toggle-switch [(ngModel)]="checked" />`,
 
         html: `<div class="card flex justify-center">
-    <p-toggleSwitch [(ngModel)]="checked" />
+    <p-toggle-switch [(ngModel)]="checked" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

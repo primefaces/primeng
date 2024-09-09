@@ -13,7 +13,7 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card flex justify-center">
             <form [formGroup]="formGroup">
-                <p-toggleSwitch formControlName="checked" />
+                <p-toggle-switch formControlName="checked" />
             </form>
         </div>
         <app-code [code]="code" selector="toggle-switch-reactive-forms-demo"></app-code>
@@ -29,10 +29,10 @@ export class ReactiveFormsDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-toggleSwitch formControlName="checked" />`,
+        basic: `<p-toggle-switch formControlName="checked" />`,
 
         html: `<div class="card flex justify-center">
-    <p-toggleSwitch formControlName="checked" />
+    <p-toggle-switch formControlName="checked" />
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';

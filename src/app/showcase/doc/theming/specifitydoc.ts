@@ -23,7 +23,7 @@ import { Component } from '@angular/core';
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-toggleswitch [(ngModel)]="checked" styleClass="my-switch-slider" />
+            <p-toggle-switch [(ngModel)]="checked" styleClass="my-switch-slider" />
         </div>
         <app-code [code]="code" selector="specificity-demo" [hideToggleCode]="true"></app-code>
     `,
@@ -47,7 +47,7 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
 
 @Component({
     template: \` 
-        <p-toggleswitch [(ngModel)]="checked" styleClass="my-switch-slider"/>
+        <p-toggle-switch [(ngModel)]="checked" styleClass="my-switch-slider"/>
     \`,
     styles: \` 
         .my-switch-slider .p-toggleswitch-slider {

@@ -10,8 +10,8 @@ import { Component } from '@angular/core';
             </p>
         </app-docsectiontext>
         <div class="card flex gap-2 justify-center items-center">
-            <p-toggleswitch [(ngModel)]="checked1" />
-            <p-toggleswitch [(ngModel)]="checked2" [dt]="amberSwitch" />
+            <p-toggle-switch [(ngModel)]="checked1" />
+            <p-toggle-switch [(ngModel)]="checked2" [dt]="amberSwitch" />
         </div>
         <app-code [code]="code" selector="scoped-tokens-demo" [hideToggleCode]="true"></app-code>
     `,
@@ -58,8 +58,8 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
 
 @Component({
     template: \` 
-        <p-toggleswitch [(ngModel)]="checked1"/>
-        <p-toggleswitch [(ngModel)]="checked2" [dt]="amberSwitch"/>
+        <p-toggle-switch [(ngModel)]="checked1"/>
+        <p-toggle-switch [(ngModel)]="checked2" [dt]="amberSwitch"/>
     \`,
     standalone: true,
     imports: [ToggleSwitchModule, FormsModule]

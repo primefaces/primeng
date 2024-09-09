@@ -31,7 +31,7 @@ export const TOGGLESWITCH_VALUE_ACCESSOR: any = {
  * @group Components
  */
 @Component({
-    selector: 'p-toggleswitch, p-toggleSwitch',
+    selector: 'p-toggleswitch, p-toggleSwitch, p-toggle-switch',
     template: `
         <div
             [ngClass]="cx('root')"

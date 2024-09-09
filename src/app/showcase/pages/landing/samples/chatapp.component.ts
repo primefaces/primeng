@@ -228,17 +228,17 @@ import { TextareaModule } from 'primeng/textarea';
                 <div class="flex items-center gap-2">
                     <i class="pi pi-bell text-color"></i>
                     <div class="leading-6 font-medium text-color flex-1">Notification</div>
-                    <p-toggleSwitch [(ngModel)]="notification" />
+                    <p-toggle-switch [(ngModel)]="notification" />
                 </div>
                 <div class="flex items-center gap-2">
                     <i class="pi pi-volume-down text-color"></i>
                     <div class="leading-6 font-medium text-color flex-1">Sound</div>
-                    <p-toggleSwitch [(ngModel)]="sound" />
+                    <p-toggle-switch [(ngModel)]="sound" />
                 </div>
                 <div class="flex items-center gap-2">
                     <i class="pi pi-download text-color"></i>
                     <div class="leading-6 font-medium text-color flex-1">Save to downloads</div>
-                    <p-toggleSwitch [(ngModel)]="download" />
+                    <p-toggle-switch [(ngModel)]="download" />
                 </div>
             </div>
             <div class="mt-6">
