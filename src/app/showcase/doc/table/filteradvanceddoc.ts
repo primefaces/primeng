@@ -68,7 +68,7 @@ import { CustomerService } from '../../service/customerservice';
                                             </div>
                                         </ng-template>
                                         <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                            <p-multi-select
+                                            <p-multiselect
                                                 [(ngModel)]="value"
                                                 [options]="representatives"
                                                 placeholder="Any"
@@ -86,7 +86,7 @@ import { CustomerService } from '../../service/customerservice';
                                                         <span class="ml-1 mt-1">{{ option.name }}</span>
                                                     </div>
                                                 </ng-template>
-                                            </p-multi-select>
+                                            </p-multiselect>
                                         </ng-template>
                                     </p-columnFilter>
                                 </div>
@@ -341,7 +341,7 @@ export class FilterAdvancedDoc {
                             </div>
                         </ng-template>
                         <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                            <p-multi-select
+                            <p-multiselect
                                 [(ngModel)]="value"
                                 [options]="representatives"
                                 placeholder="Any"
@@ -359,7 +359,7 @@ export class FilterAdvancedDoc {
                                         <span class="ml-1 mt-1">{{ option.name }}</span>
                                     </div>
                                 </ng-template>
-                            </p-multi-select>
+                            </p-multiselect>
                         </ng-template>
                     </p-columnFilter>
                 </div>
@@ -538,7 +538,7 @@ export class FilterAdvancedDoc {
                                 </div>
                             </ng-template>
                             <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                <p-multi-select
+                                <p-multiselect
                                     [(ngModel)]="value"
                                     [options]="representatives"
                                     placeholder="Any"
@@ -556,7 +556,7 @@ export class FilterAdvancedDoc {
                                             <span class="ml-1 mt-1">{{ option.name }}</span>
                                         </div>
                                     </ng-template>
-                                </p-multi-select>
+                                </p-multiselect>
                             </ng-template>
                         </p-columnFilter>
                     </div>

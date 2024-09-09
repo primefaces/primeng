@@ -81,7 +81,7 @@ import { Table } from 'primeng/table';
                                             </div>
                                         </ng-template>
                                         <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                            <p-multi-select
+                                            <p-multiselect
                                                 [(ngModel)]="value"
                                                 [options]="representatives"
                                                 placeholder="Any"
@@ -99,7 +99,7 @@ import { Table } from 'primeng/table';
                                                         <span class="ml-1 mt-1">{{ option.name }}</span>
                                                     </div>
                                                 </ng-template>
-                                            </p-multi-select>
+                                            </p-multiselect>
                                         </ng-template>
                                     </p-columnFilter>
                                 </div>
@@ -355,14 +355,14 @@ export class CustomersDoc {
                             </div>
                         </ng-template>
                         <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                            <p-multi-select [(ngModel)]="value" [options]="representatives" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name">
+                            <p-multiselect [(ngModel)]="value" [options]="representatives" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name">
                                 <ng-template let-option pTemplate="item">
                                     <div class="inline-block align-middle">
                                         <img [alt]="option.label" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ option.image }}" width="24" class="align-middle" />
                                         <span class="ml-1 mt-1">{{ option.name }}</span>
                                     </div>
                                 </ng-template>
-                            </p-multi-select>
+                            </p-multiselect>
                         </ng-template>
                     </p-columnFilter>
                 </div>
@@ -510,14 +510,14 @@ export class CustomersDoc {
                             </div>
                         </ng-template>
                         <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                            <p-multi-select [(ngModel)]="value" [options]="representatives" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name">
+                            <p-multiselect [(ngModel)]="value" [options]="representatives" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name">
                                 <ng-template let-option pTemplate="item">
                                     <div class="inline-block align-middle">
                                         <img [alt]="option.label" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ option.image }}" width="24" class="align-middle" />
                                         <span class="ml-1 mt-1">{{ option.name }}</span>
                                     </div>
                                 </ng-template>
-                            </p-multi-select>
+                            </p-multiselect>
                         </ng-template>
                     </p-columnFilter>
                 </div>

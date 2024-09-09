@@ -246,8 +246,8 @@ import { Code } from '@domain/code';
 export class AccessibilityDoc {
     code: Code = {
         basic: `<span id="dd1">Options</span>
-<p-multi-select ariaLabelledBy="dd1"/>
+<p-multiselect ariaLabelledBy="dd1"/>
 
-<p-multi-select ariaLabel="Options"/>`,
+<p-multiselect ariaLabel="Options"/>`,
     };
 }

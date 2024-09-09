@@ -18,7 +18,7 @@ interface City {
         </app-docsectiontext>
         <div class="card flex justify-center">
             <form [formGroup]="formGroup">
-                <p-multi-select [options]="cities" formControlName="selectedCities" optionLabel="name" placeholder="Select Cities" />
+                <p-multiselect [options]="cities" formControlName="selectedCities" optionLabel="name" placeholder="Select Cities" />
             </form>
         </div>
         <app-code [code]="code" selector="multi-select-reactive-forms-demo"></app-code>
@@ -45,7 +45,7 @@ export class ReactiveFormsDoc implements OnInit {
 
     code: Code = {
         basic: `<form [formGroup]="formGroup">
-    <p-multi-select 
+    <p-multiselect 
         [options]="cities" 
         formControlName="selectedCities" 
         optionLabel="name" 
@@ -54,7 +54,7 @@ export class ReactiveFormsDoc implements OnInit {
 
         html: `<div class="card flex justify-center">
     <form [formGroup]="formGroup">
-        <p-multi-select 
+        <p-multiselect 
             [options]="cities" 
             formControlName="selectedCities" 
             optionLabel="name" 

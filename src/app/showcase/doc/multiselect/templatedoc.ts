@@ -16,7 +16,7 @@ interface Country {
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-multi-select [options]="countries" [(ngModel)]="selectedCountries" placeholder="Select Countries" optionLabel="name">
+            <p-multiselect [options]="countries" [(ngModel)]="selectedCountries" placeholder="Select Countries" optionLabel="name">
                 <ng-template let-value pTemplate="selectedItems">
                     <div class="inline-flex items-center gap-2 px-1" *ngFor="let option of value">
                         <img
@@ -46,7 +46,7 @@ interface Country {
                         item{{ (selectedCountries ? selectedCountries.length : 0) > 1 ? 's' : '' }} selected.
                     </div>
                 </ng-template>
-            </p-multi-select>
+            </p-multiselect>
         </div>
         <app-code [code]="code" selector="multi-select-template-demo"></app-code>
     `,
@@ -72,7 +72,7 @@ export class TemplateDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-multi-select 
+        basic: `<p-multiselect 
     [options]="countries" 
     [(ngModel)]="selectedCountries" 
     placeholder="Select Countries" 
@@ -104,10 +104,10 @@ export class TemplateDoc implements OnInit {
                 item{{ (selectedCountries ? selectedCountries.length : 0) > 1 ? 's' : '' }} selected.
             </div>
         </ng-template>
-</p-multi-select>`,
+</p-multiselect>`,
 
         html: `<div class="card flex justify-center">
-    <p-multi-select 
+    <p-multiselect 
         [options]="countries" 
         [(ngModel)]="selectedCountries" 
         placeholder="Select a Country" 
@@ -139,7 +139,7 @@ export class TemplateDoc implements OnInit {
                     item{{ (selectedCountries ? selectedCountries.length : 0) > 1 ? 's' : '' }} selected.
                 </div>
             </ng-template>
-    </p-multi-select>
+    </p-multiselect>
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';

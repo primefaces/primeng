@@ -16,7 +16,7 @@ interface Column {
             <div class="card">
                 <p-table [columns]="selectedColumns" [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template pTemplate="caption">
-                        <p-multi-select
+                        <p-multiselect
                             display="chip"
                             [options]="cols"
                             [(ngModel)]="selectedColumns"
@@ -81,7 +81,7 @@ export class ColumnToggleDoc {
     [value]="products" 
     [tableStyle]="{'min-width': '50rem'}">
         <ng-template pTemplate="caption">
-            <p-multi-select 
+            <p-multiselect 
                 display="chip" 
                 [options]="cols" 
                 [(ngModel)]="selectedColumns" 
@@ -113,7 +113,7 @@ export class ColumnToggleDoc {
         [value]="products" 
         [tableStyle]="{'min-width': '50rem'}">
             <ng-template pTemplate="caption">
-                <p-multi-select 
+                <p-multiselect 
                     display="chip" 
                     [options]="cols" 
                     [(ngModel)]="selectedColumns" 

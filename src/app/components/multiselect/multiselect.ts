@@ -83,7 +83,7 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
 };
 
 @Component({
-    selector: 'p-multiSelectItem, p-multi-select-item',
+    selector: 'p-multiSelectItem, p-multiselect-item',
     template: `
         <li
             pRipple
@@ -176,7 +176,7 @@ export class MultiSelectItem extends BaseComponent {
  * @group Components
  */
 @Component({
-    selector: 'p-multiSelect, p-multi-select',
+    selector: 'p-multiSelect, p-multiselect',
     template: `
         <div #container [attr.id]="id" [ngClass]="rootClass" [ngStyle]="style" [class]="styleClass" (click)="onContainerClick($event)">
             <div class="p-hidden-accessible" [attr.data-p-hidden-accessible]="true">
@@ -466,7 +466,7 @@ export class MultiSelectItem extends BaseComponent {
                                             </li>
                                         </ng-container>
                                         <ng-container *ngIf="!isOptionGroup(option)">
-                                            <p-multi-select-item
+                                            <p-multiselect-item
                                                 [id]="id + '_' + getOptionIndex(i, scrollerOptions)"
                                                 [option]="option"
                                                 [selected]="isSelected(option)"
@@ -482,7 +482,7 @@ export class MultiSelectItem extends BaseComponent {
                                                 [variant]="variant"
                                                 (onClick)="onOptionSelect($event, false, getOptionIndex(i, scrollerOptions))"
                                                 (onMouseEnter)="onOptionMouseEnter($event, getOptionIndex(i, scrollerOptions))"
-                                            ></p-multi-select-item>
+                                            ></p-multiselect-item>
                                         </ng-container>
                                     </ng-template>
 

@@ -14,7 +14,7 @@ import { MultiSelect } from 'primeng/multiselect';
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-multi-select
+            <p-multiselect
                 [options]="items"
                 [showToggleAll]="true"
                 [selectAll]="selectAll"
@@ -31,7 +31,7 @@ import { MultiSelect } from 'primeng/multiselect';
                     <i class="pi pi-check" *ngIf="allSelected"></i>
                     <i class="pi pi-minus" *ngIf="partialSelected" [ngStyle]="{ color: 'var(--text-color)' }"></i>
                 </ng-template>
-            </p-multi-select>
+            </p-multiselect>
         </div>
         <app-code [code]="code" selector="multi-select-virtual-scroll-demo"></app-code>
     `,
@@ -51,7 +51,7 @@ export class VirtualScrollDoc {
     }
 
     code: Code = {
-        basic: `<p-multi-select
+        basic: `<p-multiselect
     [options]="items"
     [showToggleAll]="true"
     [selectAll]="selectAll"
@@ -68,10 +68,10 @@ export class VirtualScrollDoc {
         <i class="pi pi-check" *ngIf="allSelected"></i>
         <i class="pi pi-minus" *ngIf="partialSelected" [ngStyle]="{ color: 'var(--text-color)' }"></i>
     </ng-template>
-</p-multi-select>`,
+</p-multiselect>`,
 
         html: `<div class="card flex justify-center">
-    <p-multi-select
+    <p-multiselect
         [options]="items"
         [showToggleAll]="true"
         [selectAll]="selectAll"
@@ -88,7 +88,7 @@ export class VirtualScrollDoc {
             <i class="pi pi-check" *ngIf="allSelected"></i>
             <i class="pi pi-minus" *ngIf="partialSelected" [ngStyle]="{ color: 'var(--text-color)' }"></i>
         </ng-template>
-    </p-multi-select>
+    </p-multiselect>
 </div>`,
 
         typescript: `import { Component, ViewChild } from '@angular/core';

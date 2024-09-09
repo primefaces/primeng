@@ -20,7 +20,7 @@ interface City {
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-multi-select [options]="cities" [(ngModel)]="selectedCities" optionLabel="name" placeholder="Select Cities" />
+            <p-multiselect [options]="cities" [(ngModel)]="selectedCities" optionLabel="name" placeholder="Select Cities" />
         </div>
         <app-code [code]="code" selector="multi-select-basic-demo"></app-code>
     `,
@@ -41,14 +41,14 @@ export class BasicDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-multi-select 
+        basic: `<p-multiselect 
     [options]="cities" 
     [(ngModel)]="selectedCities" 
     optionLabel="name" 
     placeholder="Select Cities" />`,
 
         html: `<div class="card flex justify-center">
-    <p-multi-select 
+    <p-multiselect 
         [options]="cities" 
         [(ngModel)]="selectedCities" 
         optionLabel="name" 
