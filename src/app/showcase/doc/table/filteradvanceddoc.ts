@@ -188,7 +188,7 @@ import { CustomerService } from '../../service/customerservice';
                                 <p-tag [value]="customer.status" [severity]="getSeverity(customer.status)" />
                             </td>
                             <td>
-                                <p-progressBar [value]="customer.activity" [showValue]="false" />
+                                <p-progress-bar [value]="customer.activity" [showValue]="false" />
                             </td>
                             <td class="text-center">
                                 <i
@@ -461,7 +461,7 @@ export class FilterAdvancedDoc {
                 <p-tag [value]="customer.status" [severity]="getSeverity(customer.status)" />
             </td>
             <td>
-                <p-progressBar [value]="customer.activity" [showValue]="false" />
+                <p-progress-bar [value]="customer.activity" [showValue]="false" />
             </td>
             <td class="text-center">
                 <i
@@ -658,7 +658,7 @@ export class FilterAdvancedDoc {
                     <p-tag [value]="customer.status" [severity]="getSeverity(customer.status)" />
                 </td>
                 <td>
-                    <p-progressBar [value]="customer.activity" [showValue]="false" />
+                    <p-progress-bar [value]="customer.activity" [showValue]="false" />
                 </td>
                 <td class="text-center">
                     <i

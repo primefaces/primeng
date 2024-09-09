@@ -204,7 +204,7 @@ import { Table } from 'primeng/table';
                                 <p-tag [value]="customer.status" [severity]="getSeverity(customer.status)" />
                             </td>
                             <td>
-                                <p-progressBar [value]="customer.activity" [showValue]="false" />
+                                <p-progress-bar [value]="customer.activity" [showValue]="false" />
                             </td>
                             <td style="text-align: center">
                                 <p-button severity="secondary" icon="pi pi-cog" />
@@ -440,7 +440,7 @@ export class CustomersDoc {
                 <p-tag [value]="customer.status" [severity]="getSeverity(customer.status)" />
             </td>
             <td>
-                <p-progressBar [value]="customer.activity" [showValue]="false" />
+                <p-progress-bar [value]="customer.activity" [showValue]="false" />
             </td>
             <td style="text-align: center">
                 <p-button severity="secondary" icon="pi pi-cog"/>
@@ -595,7 +595,7 @@ export class CustomersDoc {
                 <p-tag [value]="customer.status" [severity]="getSeverity(customer.status)" />
             </td>
             <td>
-                <p-progressBar [value]="customer.activity" [showValue]="false" />
+                <p-progress-bar [value]="customer.activity" [showValue]="false" />
             </td>
             <td style="text-align: center">
                 <p-button severity="secondary" icon="pi pi-cog"/>

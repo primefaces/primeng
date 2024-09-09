@@ -154,11 +154,11 @@ import { InputIconModule } from 'primeng/inputicon';
                                     ></p-tag>
                                 </td>
                                 <td style="width: 14%; min-width: 6rem">
-                                    <p-progressBar
+                                    <p-progress-bar
                                         [value]="customer.activity"
                                         [showValue]="false"
                                         [style]="{ height: '6px' }"
-                                    ></p-progressBar>
+                                    ></p-progress-bar>
                                 </td>
                                 <td style="text-align: center">
                                     <button pButton type="button" class="p-button-text p-button-icon-only" icon="pi pi-cog"></button>

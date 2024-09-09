@@ -160,7 +160,7 @@ import { MessageModule } from 'primeng/message';
                 (drop)="onDrop($event)"
                 [attr.data-pc-section]="'content'"
             >
-                <p-progressBar [value]="progress" [showValue]="false" *ngIf="hasFiles()"></p-progressBar>
+                <p-progress-bar [value]="progress" [showValue]="false" *ngIf="hasFiles()"></p-progress-bar>
                 @for (message of msgs; track message) {
                     <p-message [severity]="message.severity" [text]="message.text"></p-message>
                 }

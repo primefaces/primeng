@@ -21,7 +21,7 @@ import { ProgressBarStyle } from './style/progressbarstyle';
  * @group Components
  */
 @Component({
-    selector: 'p-progressBar',
+    selector: 'p-progressBar, p-progress-bar',
     template: `
         <div
             role="progressbar"

@@ -9,7 +9,7 @@ import { Code } from '@domain/code';
             <p>For progresses with no value to track, set the <i>mode</i> property to <i>indeterminate</i>.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-progressBar mode="indeterminate" [style]="{ height: '6px' }" />
+            <p-progress-bar mode="indeterminate" [style]="{ height: '6px' }" />
         </div>
         <app-code [code]="code" selector="progress-bar-indeterminate-demo"></app-code>
     `,
@@ -17,9 +17,9 @@ import { Code } from '@domain/code';
 })
 export class IndeterminateDoc {
     code: Code = {
-        basic: `<p-progressBar mode="indeterminate" [style]="{ height: '6px' }" />`,
+        basic: `<p-progress-bar mode="indeterminate" [style]="{ height: '6px' }" />`,
         html: `<div class="card">
-    <p-progressBar mode="indeterminate" [style]="{'height': '6px'}" />
+    <p-progress-bar mode="indeterminate" [style]="{'height': '6px'}" />
 </div>`,
         typescript: `import { Component } from '@angular/core';
 import { MessageService } from 'primeng/api';
