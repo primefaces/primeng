@@ -10,7 +10,7 @@ import { Code } from '@domain/code';
         <div class="card flex justify-center">
             <div class="flex flex-col gap-4">
                 <div *ngFor="let category of categories" class="field-checkbox">
-                    <p-radioButton [inputId]="category.key" name="category" [value]="category" [(ngModel)]="selectedCategory" />
+                    <p-radio-button [inputId]="category.key" name="category" [value]="category" [(ngModel)]="selectedCategory" />
                     <label [for]="category.key" class="ml-2">{{ category.name }}</label>
                 </div>
             </div>
@@ -35,7 +35,7 @@ export class DynamicDoc implements OnInit {
     code: Code = {
         basic: `<div class="flex flex-col gap-4">
     <div *ngFor="let category of categories" class="field-checkbox">
-        <p-radioButton 
+        <p-radio-button 
             [inputId]="category.key"
             name="category" 
             [value]="category" 
@@ -49,7 +49,7 @@ export class DynamicDoc implements OnInit {
         html: `<div class="card flex justify-center">
     <div class="flex flex-col gap-4">
         <div *ngFor="let category of categories" class="field-checkbox">
-            <p-radioButton 
+            <p-radio-button 
                 [inputId]="category.key" 
                 name="category" 
                 [value]="category" 

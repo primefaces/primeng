@@ -66,11 +66,11 @@ import { Code } from '@domain/code';
 export class AccessibilityDoc {
     code: Code = {
         basic: `<label for="rb1">One</label>
-<p-radioButton inputId="rb1" />
+<p-radio-button inputId="rb1" />
 
 <span id="rb2">Two</span>
-<p-radioButton ariaLabelledBy="rb2" />
+<p-radio-button ariaLabelledBy="rb2" />
 
-<p-radioButton ariaLabel="Three" />`,
+<p-radio-button ariaLabel="Three" />`,
     };
 }

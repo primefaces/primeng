@@ -187,19 +187,19 @@ import { ProductService } from '@service/productservice';
                                 <span class="block font-bold mb-4">Category</span>
                                 <div class="grid grid-cols-12 gap-4">
                                     <div class="flex items-center gap-2 col-span-6">
-                                        <p-radioButton id="category1" name="category" value="Accessories" [(ngModel)]="product.category" />
+                                        <p-radio-button id="category1" name="category" value="Accessories" [(ngModel)]="product.category" />
                                         <label for="category1">Accessories</label>
                                     </div>
                                     <div class="flex items-center gap-2 col-span-6">
-                                        <p-radioButton id="category2" name="category" value="Clothing" [(ngModel)]="product.category" />
+                                        <p-radio-button id="category2" name="category" value="Clothing" [(ngModel)]="product.category" />
                                         <label for="category2">Clothing</label>
                                     </div>
                                     <div class="flex items-center gap-2 col-span-6">
-                                        <p-radioButton id="category3" name="category" value="Electronics" [(ngModel)]="product.category" />
+                                        <p-radio-button id="category3" name="category" value="Electronics" [(ngModel)]="product.category" />
                                         <label for="category3">Electronics</label>
                                     </div>
                                     <div class="flex items-center gap-2 col-span-6">
-                                        <p-radioButton id="category4" name="category" value="Fitness" [(ngModel)]="product.category" />
+                                        <p-radio-button id="category4" name="category" value="Fitness" [(ngModel)]="product.category" />
                                         <label for="category4">Fitness</label>
                                     </div>
                                 </div>
@@ -660,19 +660,19 @@ export class ProductsDoc {
                     <span class="block font-bold mb-4">Category</span>
                     <div class="grid grid-cols-12 gap-4">
                         <div class="flex items-center gap-2 col-span-6">
-                            <p-radioButton id="category1" name="category" value="Accessories" [(ngModel)]="product.category" />
+                            <p-radio-button id="category1" name="category" value="Accessories" [(ngModel)]="product.category" />
                             <label for="category1">Accessories</label>
                         </div>
                         <div class="flex items-center gap-2 col-span-6">
-                            <p-radioButton id="category2" name="category" value="Clothing" [(ngModel)]="product.category" />
+                            <p-radio-button id="category2" name="category" value="Clothing" [(ngModel)]="product.category" />
                             <label for="category2">Clothing</label>
                         </div>
                         <div class="flex items-center gap-2 col-span-6">
-                            <p-radioButton id="category3" name="category" value="Electronics" [(ngModel)]="product.category" />
+                            <p-radio-button id="category3" name="category" value="Electronics" [(ngModel)]="product.category" />
                             <label for="category3">Electronics</label>
                         </div>
                         <div class="flex items-center gap-2 col-span-6">
-                            <p-radioButton id="category4" name="category" value="Fitness" [(ngModel)]="product.category" />
+                            <p-radio-button id="category4" name="category" value="Fitness" [(ngModel)]="product.category" />
                             <label for="category4">Fitness</label>
                         </div>
                     </div>

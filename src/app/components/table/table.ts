@@ -4881,7 +4881,7 @@ export class CellEditor implements AfterContentInit {
 @Component({
     selector: 'p-tableRadioButton',
     template: `
-        <p-radioButton
+        <p-radio-button
             #rb
             [(ngModel)]="checked"
             [disabled]="disabled"

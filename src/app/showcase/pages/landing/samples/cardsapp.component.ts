@@ -416,7 +416,7 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
                         >
                             <i class="text-color" :class="permission.icon"></i>
                             <div class="flex-1 text-sm leading-5 text-color">{{ permission.name }}</div>
-                            <p-radioButton
+                            <p-radio-button
                                 [(ngModel)]="selectedPermission"
                                 [inputId]="permission.key"
                                 variant="filled"

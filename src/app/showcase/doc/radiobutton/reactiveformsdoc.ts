@@ -14,7 +14,7 @@ import { Code } from '@domain/code';
         <div class="card flex justify-center">
             <form class="flex flex-col gap-4" [formGroup]="formGroup">
                 <div *ngFor="let category of categories" class="field-checkbox">
-                    <p-radioButton [inputId]="category.key" [value]="category" formControlName="selectedCategory" />
+                    <p-radio-button [inputId]="category.key" [value]="category" formControlName="selectedCategory" />
                     <label [for]="category.key" class="ml-2">{{ category.name }}</label>
                 </div>
             </form>
@@ -41,7 +41,7 @@ export class ReactiveFormsDoc implements OnInit {
     code: Code = {
         basic: `<form class="flex flex-col gap-4" [formGroup]="formGroup">
     <div *ngFor="let category of categories" class="field-checkbox">
-        <p-radioButton 
+        <p-radio-button 
             [inputId]="category.key" 
             [value]="category"
             formControlName="selectedCategory" />
@@ -54,7 +54,7 @@ export class ReactiveFormsDoc implements OnInit {
         html: `<div class="card flex justify-center">
     <form class="flex flex-col gap-4" [formGroup]="formGroup">
         <div *ngFor="let category of categories" class="field-checkbox">
-            <p-radioButton 
+            <p-radio-button 
                 [inputId]="category.key" 
                 [value]="category" 
                 formControlName="selectedCategory" />

@@ -15,7 +15,7 @@ import { PhotoService } from '@service/photoservice';
         <div class="card">
             <div class="flex flex-wrap gap-4 mb-8">
                 <div *ngFor="let option of positionOptions" class="flex items-center">
-                    <p-radioButton
+                    <p-radio-button
                         [name]="option.label"
                         [value]="option.value"
                         [label]="option.label"
@@ -111,7 +111,7 @@ export class PositionedDoc implements OnInit {
 </p-galleria>`,
         html: `<div class="card">
     <div class="flex flex-wrap gap-4 mb-8">
-        <p-radioButton 
+        <p-radio-button 
             *ngFor="let option of positionOptions;" 
             [name]="option.label" 
             [value]="option.value" 
