@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
             <p>If the target element is not specified, BlockUI blocks the document by default.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-blockUI [blocked]="blockedDocument" />
+            <p-block-ui [blocked]="blockedDocument" />
             <p-button pRipple label="Block" (click)="blockDocument()" />
         </div>
         <app-code [code]="code" selector="block-ui-document-demo"></app-code>
@@ -28,9 +28,9 @@ export class DocumentDoc {
     }
 
     code: Code = {
-        basic: `<p-blockUI [blocked]="blockedDocument" />`,
+        basic: `<p-block-ui [blocked]="blockedDocument" />`,
         html: `<div class="card">
-    <p-blockUI [blocked]="blockedDocument" />
+    <p-block-ui [blocked]="blockedDocument" />
     <p-button pRipple label="Block" (click)="blockDocument()" />
 </div>`,
         typescript: `import { Component, ChangeDetectorRef } from '@angular/core';
