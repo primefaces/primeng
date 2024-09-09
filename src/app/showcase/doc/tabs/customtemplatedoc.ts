@@ -9,7 +9,7 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card">
             <p-tabs styleClass="tabview-custom">
-                <p-tabpanel>
+                <p-tab-panel>
                     <ng-template pTemplate="header">
                         <div class="flex items-center gap-2">
                             <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
@@ -22,8 +22,8 @@ import { Code } from '@domain/code';
                         Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
                         sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                     </p>
-                </p-tabpanel>
-                <p-tabpanel header="Header II">
+                </p-tab-panel>
+                <p-tab-panel header="Header II">
                     <ng-template pTemplate="header">
                         <div class="flex items-center gap-2">
                             <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/onyamalimba.png" shape="circle" />
@@ -36,8 +36,8 @@ import { Code } from '@domain/code';
                         voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione
                         voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.
                     </p>
-                </p-tabpanel>
-                <p-tabpanel header="Header III">
+                </p-tab-panel>
+                <p-tab-panel header="Header III">
                     <ng-template pTemplate="header">
                         <div class="flex items-center gap-2">
                             <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/ionibowcher.png" shape="circle" />
@@ -51,7 +51,7 @@ import { Code } from '@domain/code';
                         qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita
                         distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.
                     </p>
-                </p-tabpanel>
+                </p-tab-panel>
             </p-tabs>
         </div>
         <app-code [code]="code" selector="tabs-template-demo"></app-code>
@@ -60,7 +60,7 @@ import { Code } from '@domain/code';
 export class TemplateDoc {
     code: Code = {
         basic: `<p-tabs styleClass="tabview-custom">
-    <p-tabpanel>
+    <p-tab-panel>
         <ng-template pTemplate="header">
             <div class="flex items-center gap-2">
                 <p-avatar 
@@ -74,8 +74,8 @@ export class TemplateDoc {
         <p>
             Lorem ipsum dolor sit amet...
         </p>
-    </p-tabpanel>
-    <p-tabpanel header="Header II">
+    </p-tab-panel>
+    <p-tab-panel header="Header II">
         <ng-template pTemplate="header">
             <div class="flex items-center gap-2">
                 <p-avatar 
@@ -89,8 +89,8 @@ export class TemplateDoc {
         <p>
             Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium...
         </p>
-    </p-tabpanel>
-    <p-tabpanel header="Header III">
+    </p-tab-panel>
+    <p-tab-panel header="Header III">
         <ng-template pTemplate="header">
             <div class="flex items-center gap-2">
                 <p-avatar 
@@ -105,12 +105,12 @@ export class TemplateDoc {
         <p>
             At vero eos et accusamus et iusto odio dignissimos...
         </p>
-    </p-tabpanel>
+    </p-tab-panel>
 </p-tabs>`,
 
         html: `<div class="card">
     <p-tabs styleClass="tabview-custom">
-        <p-tabpanel>
+        <p-tab-panel>
             <ng-template pTemplate="header">
                 <div class="flex items-center gap-2">
                     <p-avatar 
@@ -124,8 +124,8 @@ export class TemplateDoc {
             <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit...
             </p>
-        </p-tabpanel>
-        <p-tabpanel header="Header II">
+        </p-tab-panel>
+        <p-tab-panel header="Header II">
             <ng-template pTemplate="header">
                 <div class="flex items-center gap-2">
                     <p-avatar 
@@ -139,8 +139,8 @@ export class TemplateDoc {
             <p>
                 Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium...
             </p>
-        </p-tabpanel>
-        <p-tabpanel header="Header III">
+        </p-tab-panel>
+        <p-tab-panel header="Header III">
             <ng-template pTemplate="header">
                 <div class="flex items-center gap-2">
                     <p-avatar 
@@ -155,7 +155,7 @@ export class TemplateDoc {
             <p>
                 At vero eos et accusamus et iusto odio dignissimos...
             </p>
-        </p-tabpanel>
+        </p-tab-panel>
     </p-tabs>
 </div>`,
 

@@ -11,18 +11,18 @@ import { Component } from '@angular/core';
         </app-docsectiontext>
         <div class="card">
             <p-tabs>
-                <p-tabpanel header="Aura">
+                <p-tab-panel header="Aura">
                     <app-code [code]="aura" selector="presets-demo-1" [hideToggleCode]="true"></app-code>
-                </p-tabpanel>
-                <p-tabpanel header="Lara">
+                </p-tab-panel>
+                <p-tab-panel header="Lara">
                     <app-code [code]="lara" selector="presets-demo-2" [hideToggleCode]="true"></app-code>
-                </p-tabpanel>
-                <p-tabpanel header="Nora">
+                </p-tab-panel>
+                <p-tab-panel header="Nora">
                     <app-code [code]="nora" selector="presets-demo-3" [hideToggleCode]="true"></app-code>
-                </p-tabpanel>
-                <p-tabpanel header="Material">
+                </p-tab-panel>
+                <p-tab-panel header="Material">
                     <p>Coming soon with a future update.</p>
-                </p-tabpanel>
+                </p-tab-panel>
             </p-tabs>
         </div>
     `,

@@ -9,11 +9,11 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card">
             <p-tabs>
-                <p-tabpanel *ngFor="let tab of tabs" [header]="tab.title">
+                <p-tab-panel *ngFor="let tab of tabs" [header]="tab.title">
                     <p>
                         {{ tab.content }}
                     </p>
-                </p-tabpanel>
+                </p-tab-panel>
             </p-tabs>
         </div>
         <app-code [code]="code" selector="tabs-dynamic-demo"></app-code>
@@ -32,20 +32,20 @@ export class DynamicDoc implements OnInit {
 
     code: Code = {
         basic: `<p-tabs>
-    <p-tabpanel *ngFor="let tab of tabs" [header]="tab.title">
+    <p-tab-panel *ngFor="let tab of tabs" [header]="tab.title">
         <p>
             {{ tab.content }}
         </p>
-    </p-tabpanel>
+    </p-tab-panel>
 </p-tabs>`,
 
         html: `<div class="card">
 <p-tabs>
-<p-tabpanel *ngFor="let tab of tabs" [header]="tab.title">
+<p-tab-panel *ngFor="let tab of tabs" [header]="tab.title">
     <p>
         {{ tab.content }}
     </p>
-</p-tabpanel>
+</p-tab-panel>
 </p-tabs>
 </div>`,
 
