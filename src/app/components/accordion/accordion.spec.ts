@@ -7,18 +7,18 @@ import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
 
 @Component({
     template: `<p-accordion [collapseIcon]="collapseIcon" [expandIcon]="expandIcon" [styleClass]="styleClass" [style]="style">
-        <p-accordionTab [header]="header1" [disabled]="disabled1">
+        <p-accordion-tab [header]="header1" [disabled]="disabled1">
             The story begins as Don Vito Corleone, the head of a New York Mafia family, overseeshis daughter's wedding. His beloved son
             ichael has just come home from the war, but does not intend to become part of his father's business. T hrough Michael's life the
             nature of the family business becomes clear. The business of the family is just like the head of the family, kind and benevolent
             to those who give respect, but given to ruthless violence whenever anything stands against the good of the family.
-        </p-accordionTab>
-        <p-accordionTab header="Godfather II">
+        </p-accordion-tab>
+        <p-accordion-tab header="Godfather II">
             The story begins as Don Vito Corleone, the head of a New York Mafia family, overseeshis daughter's wedding. His beloved son
             ichael has just come home from the war, but does not intend to become part of his father's business. T hrough Michael's life the
             nature of the family business becomes clear. The business of the family is just like the head of the family, kind and benevolent
             to those who give respect, but given to ruthless violence whenever anything stands against the good of the family.
-        </p-accordionTab>
+        </p-accordion-tab>
     </p-accordion>`,
 })
 class TestAccordionComponent {

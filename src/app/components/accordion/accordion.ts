@@ -35,7 +35,7 @@ import { ChevronUpIcon } from 'primeng/icons/chevronup';
  * @group Components
  */
 @Component({
-    selector: 'p-accordionTab',
+    selector: 'p-accordionTab, p-accordion-tab',
     standalone: true,
     imports: [CommonModule, ChevronDownIcon, ChevronUpIcon],
     template: `
