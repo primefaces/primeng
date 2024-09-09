@@ -9,7 +9,7 @@ import { InputIconStyle } from './style/inputiconstyle';
  * @group Components
  */
 @Component({
-    selector: 'p-inputicon, p-inputIcon',
+    selector: 'p-inputicon, p-inputIcon, p-input-icon',
     template: `<span class="p-inputicon" [ngClass]="styleClass"><ng-content></ng-content></span>`,
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,

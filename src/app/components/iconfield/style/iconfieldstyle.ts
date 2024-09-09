@@ -7,7 +7,8 @@ const theme = ({ dt }) => `
     position: relative;
 }
 
-.p-iconfield > p-inputicon {
+.p-iconfield > p-inputicon,
+.p-iconfield > p-input-icon {
     position: absolute;
     top: 50%;
     margin-top: calc(-1 * (${dt('icon.size')} / 2));
@@ -29,11 +30,13 @@ const theme = ({ dt }) => `
     padding-right: calc((${dt('form.field.padding.x')} * 2) + ${dt('icon.size')});
 }
 
-.p-iconfield.p-iconfield-left > p-inputicon {
+.p-iconfield.p-iconfield-left > p-inputicon,
+.p-iconfield.p-iconfield-left > p-input-icon{
     left: ${dt('form.field.padding.x')};
 }
 
-.p-iconfield.p-iconfield-right > p-inputicon {
+.p-iconfield.p-iconfield-right > p-inputicon,
+.p-iconfield.p-iconfield-right > p-input-icon {
     right: ${dt('form.field.padding.x')};
 }
 `;

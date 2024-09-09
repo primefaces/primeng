@@ -377,7 +377,7 @@ export class MultiSelectItem extends BaseComponent {
                                 </p-checkbox>
 
                                 <div class="p-multiselect-filter-container" *ngIf="filter">
-                                    <p-iconField>
+                                    <p-icon-field>
                                         <input
                                             #filterInput
                                             pInputText
@@ -399,13 +399,13 @@ export class MultiSelectItem extends BaseComponent {
                                             [attr.placeholder]="filterPlaceHolder"
                                             [attr.aria-label]="ariaFilterLabel"
                                         />
-                                        <p-inputIcon>
+                                        <p-input-icon>
                                             <SearchIcon [styleClass]="'p-multiselect-filter-icon'" *ngIf="!filterIconTemplate" />
                                             <span *ngIf="filterIconTemplate" class="p-multiselect-filter-icon">
                                                 <ng-template *ngTemplateOutlet="filterIconTemplate"></ng-template>
                                             </span>
-                                        </p-inputIcon>
-                                    </p-iconField>
+                                        </p-input-icon>
+                                    </p-icon-field>
                                 </div>
                             </ng-template>
                         </div>

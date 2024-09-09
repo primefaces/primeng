@@ -9,10 +9,10 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card flex justify-center">
             <div pFocusTrap class="w-full sm:w-80 flex flex-col gap-6">
-                <p-iconField>
-                    <p-inputIcon>
+                <p-icon-field>
+                    <p-input-icon>
                         <i class="pi pi-user"></i>
-                    </p-inputIcon>
+                    </p-input-icon>
                     <input
                         type="text"
                         pInputText
@@ -23,14 +23,14 @@ import { Code } from '@domain/code';
                         [autofocus]="true"
                         [fluid]="true"
                     />
-                </p-iconField>
+                </p-icon-field>
 
-                <p-iconField>
-                    <p-inputIcon>
+                <p-icon-field>
+                    <p-input-icon>
                         <i class="pi pi-envelope"> </i>
-                    </p-inputIcon>
+                    </p-input-icon>
                     <input type="text" pInputText id="email" [(ngModel)]="email" type="email" placeholder="Email" [fluid]="true" />
-                </p-iconField>
+                </p-icon-field>
 
                 <div class="flex items-center gap-2">
                     <p-checkbox id="accept" [(ngModel)]="accept" name="accept" value="Accept" />
@@ -52,10 +52,10 @@ export class BasicDoc {
 
     code: Code = {
         basic: `<div pFocusTrap class="w-full sm:w-80 flex flex-col gap-6">
-    <p-iconField>
-        <p-inputIcon>
+    <p-icon-field>
+        <p-input-icon>
             <i class="pi pi-user"></i>
-        </p-inputIcon>
+        </p-input-icon>
         <input
             type="text"
             pInputText
@@ -66,14 +66,14 @@ export class BasicDoc {
             [autofocus]="true"
             [fluid]="true"
         />
-    </p-iconField>
+    </p-icon-field>
 
-    <p-iconField>
-        <p-inputIcon>
+    <p-icon-field>
+        <p-input-icon>
             <i class="pi pi-envelope"> </i>
-        </p-inputIcon>
+        </p-input-icon>
         <input type="text" pInputText id="email" [(ngModel)]="email" type="email" placeholder="Email" [fluid]="true" />
-    </p-iconField>
+    </p-icon-field>
 
     <div class="flex items-center gap-2">
         <p-checkbox id="accept" [(ngModel)]="accept" name="accept" value="Accept" />
@@ -84,10 +84,10 @@ export class BasicDoc {
 </div>`,
         html: ` <div class="card flex justify-center">
     <div pFocusTrap class="w-full sm:w-80 flex flex-col gap-6">
-        <p-iconField>
-            <p-inputIcon>
+        <p-icon-field>
+            <p-input-icon>
                 <i class="pi pi-user"></i>
-            </p-inputIcon>
+            </p-input-icon>
             <input
                 type="text"
                 pInputText
@@ -98,14 +98,14 @@ export class BasicDoc {
                 [autofocus]="true"
                 [fluid]="true"
             />
-        </p-iconField>
+        </p-icon-field>
 
-        <p-iconField>
-            <p-inputIcon>
+        <p-icon-field>
+            <p-input-icon>
                 <i class="pi pi-envelope"> </i>
-            </p-inputIcon>
+            </p-input-icon>
             <input type="text" pInputText id="email" [(ngModel)]="email" type="email" placeholder="Email" [fluid]="true" />
-        </p-iconField>
+        </p-icon-field>
 
         <div class="flex items-center gap-2">
             <p-checkbox id="accept" [(ngModel)]="accept" name="accept" value="Accept" />

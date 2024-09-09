@@ -34,17 +34,17 @@ interface Column {
                 >
                     <ng-template pTemplate="caption">
                         <div class="flex justify-end items-center">
-                            <p-iconField iconPosition="left" class="ml-auto">
-                                <p-inputIcon>
+                            <p-icon-field iconPosition="left" class="ml-auto">
+                                <p-input-icon>
                                     <i class="pi pi-search"></i>
-                                </p-inputIcon>
+                                </p-input-icon>
                                 <input
                                     type="text"
                                     pInputText
                                     placeholder="Global Search"
                                     (input)="tt.filterGlobal($event.target.value, 'contains')"
                                 />
-                            </p-iconField>
+                            </p-icon-field>
                         </div>
                     </ng-template>
                     <ng-template pTemplate="header" let-columns>

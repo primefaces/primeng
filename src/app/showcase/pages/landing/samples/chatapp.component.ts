@@ -43,10 +43,10 @@ import { TextareaModule } from 'primeng/textarea';
                 </div>
             </div>
             <div class="px-5">
-                <p-iconField iconPosition="left">
-                    <p-inputIcon class="pi pi-search"> </p-inputIcon>
+                <p-icon-field iconPosition="left">
+                    <p-input-icon class="pi pi-search"> </p-input-icon>
                     <input type="text" pInputText [(ngModel)]="search" placeholder="Search" class="w-full" />
-                </p-iconField>
+                </p-icon-field>
             </div>
             <div class="w-full px-5">
                 <p-selectButton [(ngModel)]="value" [options]="options" aria-labelledby="basic" class="w-full" styleClass="w-full" />

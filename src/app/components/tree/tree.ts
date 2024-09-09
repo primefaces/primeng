@@ -782,7 +782,7 @@ export class UITreeNode extends BaseComponent implements OnInit {
                 </ng-container>
             </div>
             <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
-            <p-iconField *ngIf="filter">
+            <p-icon-field *ngIf="filter">
                 <input
                     #filter
                     pInputText
@@ -793,13 +793,13 @@ export class UITreeNode extends BaseComponent implements OnInit {
                     (keydown.enter)="$event.preventDefault()"
                     (input)="_filter($event.target.value)"
                 />
-                <p-inputIcon>
+                <p-input-icon>
                     <SearchIcon *ngIf="!filterIconTemplate" class="p-tree-filter-icon" />
                     <span *ngIf="filterIconTemplate">
                         <ng-template *ngTemplateOutlet="filterIconTemplate"></ng-template>
                     </span>
-                </p-inputIcon>
-            </p-iconField>
+                </p-input-icon>
+            </p-icon-field>
             <ng-container *ngIf="getRootNode()?.length">
                 <p-scroller
                     #scroller

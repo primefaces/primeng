@@ -291,7 +291,7 @@ export class SelectItem extends BaseComponent {
                             <ng-container *ngTemplateOutlet="filterTemplate; context: { options: filterOptions }"></ng-container>
                         </ng-container>
                         <ng-template #builtInFilterElement>
-                            <p-iconField>
+                            <p-icon-field>
                                 <input
                                     #filter
                                     pInputText
@@ -309,13 +309,13 @@ export class SelectItem extends BaseComponent {
                                     (keydown)="onFilterKeyDown($event)"
                                     (blur)="onFilterBlur($event)"
                                 />
-                                <p-inputIcon>
+                                <p-input-icon>
                                     <SearchIcon *ngIf="!filterIconTemplate" />
                                     <span *ngIf="filterIconTemplate">
                                         <ng-template *ngTemplateOutlet="filterIconTemplate"></ng-template>
                                     </span>
-                                </p-inputIcon>
-                            </p-iconField>
+                                </p-input-icon>
+                            </p-icon-field>
                         </ng-template>
                     </div>
                     <div class="p-select-list-container" [style.max-height]="virtualScroll ? 'auto' : scrollHeight || 'auto'">

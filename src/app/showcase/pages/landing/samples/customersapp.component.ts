@@ -55,10 +55,10 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
                 <p-button icon="pi pi-circle-fill text-green-500" label="950 Active User" outlined severity="secondary" />
             </div>
             <div class="mt-10 mb-4 flex items-center justify-between">
-                <p-iconField iconPosition="left">
-                    <p-inputIcon class="pi pi-search"> </p-inputIcon>
+                <p-icon-field iconPosition="left">
+                    <p-input-icon class="pi pi-search"> </p-input-icon>
                     <input pInputText type="text" [(ngModel)]="search" placeholder="Search" />
-                </p-iconField>
+                </p-icon-field>
                 <div class="flex items-center gap-3">
                     <p-button icon="pi pi-filter" outlined severity="secondary" />
                     <p-divider layout="vertical" class="m-0 p-0" />

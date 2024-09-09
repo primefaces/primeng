@@ -32,17 +32,17 @@ import { CustomerService } from '@service/customerservice';
                     stateKey="statedemo-session"
                 >
                     <ng-template pTemplate="caption">
-                        <p-iconField iconPosition="left">
-                            <p-inputIcon>
+                        <p-icon-field iconPosition="left">
+                            <p-input-icon>
                                 <i class="pi pi-search"></i>
-                            </p-inputIcon>
+                            </p-input-icon>
                             <input
                                 pInputText
                                 type="text"
                                 (input)="dt1.filterGlobal($event.target.value, 'contains')"
                                 placeholder="Global Search"
                             />
-                        </p-iconField>
+                        </p-icon-field>
                     </ng-template>
                     <ng-template pTemplate="header">
                         <tr>
@@ -171,17 +171,17 @@ export class StatefulDoc {
     stateKey="statedemo-session"
 >
     <ng-template pTemplate="caption">
-        <p-iconField iconPosition="left">
-            <p-inputIcon>
+        <p-icon-field iconPosition="left">
+            <p-input-icon>
                 <i class="pi pi-search"></i>
-            </p-inputIcon>
+            </p-input-icon>
             <input
                 pInputText
                 type="text"
                 (input)="dt1.filterGlobal($event.target.value, 'contains')"
                 placeholder="Global Search"
             />
-        </p-iconField>
+        </p-icon-field>
     </ng-template>
     <ng-template pTemplate="header">
         <tr>
@@ -275,17 +275,17 @@ export class StatefulDoc {
         stateKey="statedemo-session"
     >
         <ng-template pTemplate="caption">
-            <p-iconField iconPosition="left">
-                <p-inputIcon>
+            <p-icon-field iconPosition="left">
+                <p-input-icon>
                     <i class="pi pi-search"></i>
-                </p-inputIcon>
+                </p-input-icon>
                 <input
                     pInputText
                     type="text"
                     (input)="dt1.filterGlobal($event.target.value, 'contains')"
                     placeholder="Global Search"
                 />
-            </p-iconField>
+            </p-icon-field>
         </ng-template>
         <ng-template pTemplate="header">
             <tr>

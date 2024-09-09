@@ -24,17 +24,17 @@ import { CustomerService } from '../../service/customerservice';
                     <ng-template pTemplate="caption">
                         <div class="flex">
                             <p-button label="Clear" [outlined]="true" icon="pi pi-filter-slash" (click)="clear(dt1)" />
-                            <p-iconField iconPosition="left" class="ml-auto">
-                                <p-inputIcon>
+                            <p-icon-field iconPosition="left" class="ml-auto">
+                                <p-input-icon>
                                     <i class="pi pi-search"></i>
-                                </p-inputIcon>
+                                </p-input-icon>
                                 <input
                                     pInputText
                                     type="text"
                                     (input)="dt2.filterGlobal($event.target.value, 'contains')"
                                     placeholder="Search keyword"
                                 />
-                            </p-iconField>
+                            </p-icon-field>
                         </div>
                     </ng-template>
                     <ng-template pTemplate="header">
@@ -297,17 +297,17 @@ export class FilterAdvancedDoc {
     <ng-template pTemplate="caption">
         <div class="flex">
             <p-button label="Clear" [outlined]="true" icon="pi pi-filter-slash" (click)="clear(dt1)" />
-            <p-iconField iconPosition="left" class="ml-auto">
-                <p-inputIcon>
+            <p-icon-field iconPosition="left" class="ml-auto">
+                <p-input-icon>
                     <i class="pi pi-search"></i>
-                </p-inputIcon>
+                </p-input-icon>
                 <input
                     pInputText
                     type="text"
                     (input)="dt2.filterGlobal($event.target.value, 'contains')"
                     placeholder="Search keyword"
                 />
-            </p-iconField>
+            </p-icon-field>
         </div>
     </ng-template>
     <ng-template pTemplate="header">
@@ -494,17 +494,17 @@ export class FilterAdvancedDoc {
         <ng-template pTemplate="caption">
             <div class="flex">
                 <p-button label="Clear" [outlined]="true" icon="pi pi-filter-slash" (click)="clear(dt1)" />
-                <p-iconField iconPosition="left" class="ml-auto">
-                    <p-inputIcon>
+                <p-icon-field iconPosition="left" class="ml-auto">
+                    <p-input-icon>
                         <i class="pi pi-search"></i>
-                    </p-inputIcon>
+                    </p-input-icon>
                     <input
                         pInputText
                         type="text"
                         (input)="dt2.filterGlobal($event.target.value, 'contains')"
                         placeholder="Search keyword"
                     />
-                </p-iconField>
+                </p-icon-field>
             </div>
         </ng-template>
         <ng-template pTemplate="header">

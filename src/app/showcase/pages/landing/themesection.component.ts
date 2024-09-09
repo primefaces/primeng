@@ -45,10 +45,10 @@ import { InputIconModule } from 'primeng/inputicon';
                         <ng-template pTemplate="caption">
                             <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center">
                                 <span class="text-xl font-bold">Customers</span>
-                                <p-iconField class="mt-4 sm:mt-0 w-full sm:w-auto">
-                                    <p-inputIcon>
+                                <p-icon-field class="mt-4 sm:mt-0 w-full sm:w-auto">
+                                    <p-input-icon>
                                         <i class="pi pi-search"></i>
-                                    </p-inputIcon>
+                                    </p-input-icon>
                                     <input
                                         class="w-full"
                                         pInputText
@@ -56,7 +56,7 @@ import { InputIconModule } from 'primeng/inputicon';
                                         (input)="dt.filterGlobal($event.target.value, 'contains')"
                                         placeholder="Search"
                                     />
-                                </p-iconField>
+                                </p-icon-field>
                             </div>
                         </ng-template>
                         <ng-template pTemplate="header">
