@@ -13,7 +13,7 @@ interface City {
             <p>Invalid state style is added using the <i>ng-invalid</i> and <i>ng-dirty</i> class to indicate a failed validation.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-multiSelect
+            <p-multi-select
                 [options]="cities"
                 [(ngModel)]="selectedCities"
                 class="ng-dirty ng-invalid"
@@ -40,14 +40,14 @@ export class InvalidDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-multiSelect 
+        basic: `<p-multi-select 
         [options]="cities" 
         [(ngModel)]="selectedCities" 
         class="ng-dirty ng-invalid" 
         optionLabel="name" />`,
 
         html: `<div class="card flex justify-center">
-    <p-multiSelect 
+    <p-multi-select 
         [options]="cities" 
         [(ngModel)]="selectedCities" 
         class="ng-dirty ng-invalid" 

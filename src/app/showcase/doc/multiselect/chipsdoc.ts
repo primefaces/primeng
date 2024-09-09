@@ -16,7 +16,7 @@ interface City {
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-multiSelect [options]="cities" [(ngModel)]="selectedCities" placeholder="Select Cities" optionLabel="name" display="chip" />
+            <p-multi-select [options]="cities" [(ngModel)]="selectedCities" placeholder="Select Cities" optionLabel="name" display="chip" />
         </div>
         <app-code [code]="code" selector="multi-select-chips-demo"></app-code>
     `,
@@ -37,7 +37,7 @@ export class ChipsDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-multiSelect 
+        basic: `<p-multi-select 
     [options]="cities" 
     [(ngModel)]="selectedCities" 
     placeholder="Select Cities"
@@ -45,7 +45,7 @@ export class ChipsDoc implements OnInit {
     display="chip" />`,
 
         html: `<div class="card flex justify-center">
-    <p-multiSelect 
+    <p-multi-select 
         [options]="cities" 
         [(ngModel)]="selectedCities" 
         placeholder="Select Cities" 

@@ -16,7 +16,7 @@ interface City {
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-multiSelect
+            <p-multi-select
                 [options]="cities"
                 [(ngModel)]="selectedCities"
                 variant="filled"
@@ -43,7 +43,7 @@ export class FilledDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-multiSelect 
+        basic: `<p-multi-select 
     [options]="cities" 
     [(ngModel)]="selectedCities" 
     variant="filled"
@@ -51,7 +51,7 @@ export class FilledDoc implements OnInit {
     placeholder="Select Cities" />`,
 
         html: `<div class="card flex justify-center">
-    <p-multiSelect 
+    <p-multi-select 
         [options]="cities" 
         [(ngModel)]="selectedCities" 
         variant="filled"

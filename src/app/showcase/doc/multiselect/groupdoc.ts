@@ -14,7 +14,7 @@ interface City {
             <p>Options can be grouped when a nested data structures is provided.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-multiSelect
+            <p-multi-select
                 [options]="groupedCities"
                 [group]="true"
                 [(ngModel)]="selectedCities"
@@ -32,7 +32,7 @@ interface City {
                         <span>{{ group.label }}</span>
                     </div>
                 </ng-template>
-            </p-multiSelect>
+            </p-multi-select>
         </div>
         <app-code [code]="code" selector="multi-select-group-demo"></app-code>
     `,
@@ -78,7 +78,7 @@ export class GroupDoc {
     }
 
     code: Code = {
-        basic: `<p-multiSelect 
+        basic: `<p-multi-select 
     [options]="groupedCities" 
     [group]="true" 
     [(ngModel)]="selectedCities" 
@@ -94,10 +94,10 @@ export class GroupDoc {
                 <span>{{ group.label }}</span>
             </div>
         </ng-template>
-</p-multiSelect>`,
+</p-multi-select>`,
 
         html: `<div class="card flex justify-center">
-    <p-multiSelect 
+    <p-multi-select 
         [options]="groupedCities" 
         [group]="true" 
         [(ngModel)]="selectedCities" 
@@ -113,7 +113,7 @@ export class GroupDoc {
                     <span>{{ group.label }}</span>
                 </div>
             </ng-template>
-    </p-multiSelect>
+    </p-multi-select>
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

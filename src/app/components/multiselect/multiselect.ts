@@ -83,7 +83,7 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
 };
 
 @Component({
-    selector: 'p-multiSelectItem',
+    selector: 'p-multiSelectItem, p-multi-select-item',
     template: `
         <li
             pRipple
@@ -176,7 +176,7 @@ export class MultiSelectItem extends BaseComponent {
  * @group Components
  */
 @Component({
-    selector: 'p-multiSelect',
+    selector: 'p-multiSelect, p-multi-select',
     template: `
         <div #container [attr.id]="id" [ngClass]="rootClass" [ngStyle]="style" [class]="styleClass" (click)="onContainerClick($event)">
             <div class="p-hidden-accessible" [attr.data-p-hidden-accessible]="true">
@@ -466,7 +466,7 @@ export class MultiSelectItem extends BaseComponent {
                                             </li>
                                         </ng-container>
                                         <ng-container *ngIf="!isOptionGroup(option)">
-                                            <p-multiSelectItem
+                                            <p-multi-select-item
                                                 [id]="id + '_' + getOptionIndex(i, scrollerOptions)"
                                                 [option]="option"
                                                 [selected]="isSelected(option)"
@@ -482,7 +482,7 @@ export class MultiSelectItem extends BaseComponent {
                                                 [variant]="variant"
                                                 (onClick)="onOptionSelect($event, false, getOptionIndex(i, scrollerOptions))"
                                                 (onMouseEnter)="onOptionMouseEnter($event, getOptionIndex(i, scrollerOptions))"
-                                            ></p-multiSelectItem>
+                                            ></p-multi-select-item>
                                         </ng-container>
                                     </ng-template>
 
@@ -1599,8 +1599,8 @@ export class MultiSelect extends BaseComponent implements OnInit, AfterViewInit,
         return this.optionDisabled
             ? ObjectUtils.resolveFieldData(option, this.optionDisabled)
             : option && option.disabled !== undefined
-              ? option.disabled
-              : false;
+            ? option.disabled
+            : false;
     }
 
     isSelected(option) {
@@ -1664,24 +1664,24 @@ export class MultiSelect extends BaseComponent implements OnInit, AfterViewInit,
         return this.optionLabel
             ? ObjectUtils.resolveFieldData(option, this.optionLabel)
             : option && option.label != undefined
-              ? option.label
-              : option;
+            ? option.label
+            : option;
     }
 
     getOptionValue(option: any) {
         return this.optionValue
             ? ObjectUtils.resolveFieldData(option, this.optionValue)
             : !this.optionLabel && option && option.value !== undefined
-              ? option.value
-              : option;
+            ? option.value
+            : option;
     }
 
     getOptionGroupLabel(optionGroup: any) {
         return this.optionGroupLabel
             ? ObjectUtils.resolveFieldData(optionGroup, this.optionGroupLabel)
             : optionGroup && optionGroup.label != undefined
-              ? optionGroup.label
-              : optionGroup;
+            ? optionGroup.label
+            : optionGroup;
     }
 
     getOptionGroupChildren(optionGroup: any) {
@@ -1994,8 +1994,8 @@ export class MultiSelect extends BaseComponent implements OnInit, AfterViewInit,
             this.focusedOptionIndex() !== -1
                 ? this.focusedOptionIndex()
                 : this.overlayVisible && this.autoOptionFocus
-                  ? this.findFirstFocusedOptionIndex()
-                  : -1;
+                ? this.findFirstFocusedOptionIndex()
+                : -1;
         this.focusedOptionIndex.set(focusedOptionIndex);
         this.overlayVisible && this.scrollInView(this.focusedOptionIndex());
         this.onFocus.emit({ originalEvent: event });
@@ -2090,8 +2090,8 @@ export class MultiSelect extends BaseComponent implements OnInit, AfterViewInit,
                     (this.optionDisabled
                         ? ObjectUtils.resolveFieldData(option, this.optionDisabled)
                         : option && option.disabled !== undefined
-                          ? option.disabled
-                          : false),
+                        ? option.disabled
+                        : false),
             );
 
             const visibleOptions = this.allSelected()

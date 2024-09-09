@@ -22,7 +22,7 @@ interface Column {
                 <p-treeTable [value]="files" [columns]="selectedColumns" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template pTemplate="caption">
                         <div style="text-align:left">
-                            <p-multiSelect
+                            <p-multi-select
                                 [options]="cols"
                                 [(ngModel)]="selectedColumns"
                                 optionLabel="header"
@@ -84,7 +84,7 @@ export class ColumnToggleDoc {
     [tableStyle]="{'min-width':'50rem'}">
         <ng-template pTemplate="caption">
             <div style="text-align:left">
-                <p-multiSelect 
+                <p-multi-select 
                     [options]="cols" 
                     [(ngModel)]="selectedColumns"
                     optionLabel="header" 
@@ -118,7 +118,7 @@ export class ColumnToggleDoc {
         [tableStyle]="{'min-width':'50rem'}">
             <ng-template pTemplate="caption">
                 <div style="text-align:left">
-                    <p-multiSelect 
+                    <p-multi-select 
                         [options]="cols" 
                         [(ngModel)]="selectedColumns" 
                         optionLabel="header" 
