@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import {
     booleanAttribute,
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     ContentChildren,
     EventEmitter,
@@ -19,7 +18,7 @@ import {
     ViewEncapsulation,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
+import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { BanIcon } from 'primeng/icons/ban';
 import { StarIcon } from 'primeng/icons/star';
 import { StarFillIcon } from 'primeng/icons/starfill';
