@@ -13,7 +13,7 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card flex justify-center">
             <form [formGroup]="formGroup">
-                <p-inputMask mask="99-999999" formControlName="value" placeholder="99-999999" />
+                <p-input-mask mask="99-999999" formControlName="value" placeholder="99-999999" />
             </form>
         </div>
         <app-code [code]="code" selector="input-mask-reactive-forms-demo"></app-code>
@@ -29,13 +29,13 @@ export class ReactiveFormsDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-inputMask 
+        basic: `<p-input-mask 
     mask="99-999999" 
     formControlName="value" 
     placeholder="99-999999" />`,
 
         html: `<div class="card flex justify-center">
-    <p-inputMask 
+    <p-input-mask 
         mask="99-999999" 
         formControlName="value" 
         placeholder="99-999999" />

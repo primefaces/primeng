@@ -25,20 +25,17 @@
     FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
     OTHER DEALINGS IN THE SOFTWARE.
 */
-import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     ContentChildren,
     ElementRef,
     EventEmitter,
-    Inject,
     Input,
     NgModule,
     OnInit,
     Output,
-    PLATFORM_ID,
     QueryList,
     TemplateRef,
     ViewChild,
@@ -49,7 +46,7 @@ import {
     numberAttribute,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
+import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { AutoFocusModule } from 'primeng/autofocus';
 import { DomHandler } from 'primeng/dom';
 import { TimesIcon } from 'primeng/icons/times';
@@ -69,7 +66,7 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
  * @group Components
  */
 @Component({
-    selector: 'p-inputmask, p-inputMask',
+    selector: 'p-inputmask, p-inputMask, p-input-mask',
     template: `
         <input
             #input

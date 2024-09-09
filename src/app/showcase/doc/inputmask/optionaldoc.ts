@@ -11,7 +11,7 @@ import { Code } from '@domain/code';
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-inputMask mask="(999) 999-9999? x99999" [(ngModel)]="value" placeholder="(999) 999-9999? x99999" />
+            <p-input-mask mask="(999) 999-9999? x99999" [(ngModel)]="value" placeholder="(999) 999-9999? x99999" />
         </div>
         <app-code [code]="code" selector="input-mask-optional-demo"></app-code>
     `,
@@ -20,13 +20,13 @@ export class OptionalDoc {
     value: string | undefined;
 
     code: Code = {
-        basic: `<p-inputMask 
+        basic: `<p-input-mask 
     mask="(999) 999-9999? x99999" 
     [(ngModel)]="value" 
     placeholder="(999) 999-9999? x99999" />`,
 
         html: `<div class="card flex justify-center">
-    <p-inputMask 
+    <p-input-mask 
         mask="(999) 999-9999? x99999" 
         [(ngModel)]="value" 
         placeholder="(999) 999-9999? x99999" />

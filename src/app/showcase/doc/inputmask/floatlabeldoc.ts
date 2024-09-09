@@ -12,7 +12,7 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-float-label>
-                <p-inputMask mask="999-99-9999" [(ngModel)]="value" id="ssn_input" />
+                <p-input-mask mask="999-99-9999" [(ngModel)]="value" id="ssn_input" />
                 <label for="ssn_input">SSN</label>
             </p-float-label>
         </div>
@@ -24,7 +24,7 @@ export class FloatlabelDoc {
 
     code: Code = {
         basic: `<p-float-label>
-    <p-inputMask 
+    <p-input-mask 
         mask="999-99-9999" 
         [(ngModel)]="value" 
         id="ssn_input" />
@@ -33,7 +33,7 @@ export class FloatlabelDoc {
 
         html: `<div class="card flex justify-center">
     <p-float-label>
-        <p-inputMask 
+        <p-input-mask 
             mask="999-99-9999" 
             [(ngModel)]="value" 
             id="ssn_input" />

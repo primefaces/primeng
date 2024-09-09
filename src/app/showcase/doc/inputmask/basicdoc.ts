@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
             <p>InputMask is used as a controlled input with <i>ngModel</i> properties.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-inputMask mask="99-999999" [(ngModel)]="value" placeholder="99-999999" />
+            <p-input-mask mask="99-999999" [(ngModel)]="value" placeholder="99-999999" />
         </div>
         <app-code [code]="code" selector="input-mask-basic-demo"></app-code>
     `,
@@ -17,13 +17,13 @@ export class BasicDoc {
     value: string | undefined;
 
     code: Code = {
-        basic: `<p-inputMask 
+        basic: `<p-input-mask 
     mask="99-999999" 
     [(ngModel)]="value" 
     placeholder="99-999999" />`,
 
         html: `<div class="card flex justify-center">
-    <p-inputMask 
+    <p-input-mask 
         mask="99-999999" 
         [(ngModel)]="value" 
         placeholder="99-999999" />

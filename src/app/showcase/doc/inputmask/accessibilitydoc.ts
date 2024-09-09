@@ -39,11 +39,11 @@ import { Code } from '@domain/code';
 export class AccessibilityDoc {
     code: Code = {
         basic: `<label for="date">Date</label>
-<p-inputMask inputId="date"/>
+<p-input-mask inputId="date"/>
 
 <span id="phone">Phone</span>
-<p-inputMask ariaLabelledBy="phone"/>
+<p-input-mask ariaLabelledBy="phone"/>
 
-<p-inputMask ariaLabel="Age"/>`,
+<p-input-mask ariaLabel="Age"/>`,
     };
 }

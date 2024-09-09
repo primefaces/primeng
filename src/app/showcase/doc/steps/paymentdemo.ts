@@ -16,19 +16,19 @@ import { Router } from '@angular/router';
                         </div>
                         <div class="field col-span-8">
                             <label id="number" for="lastname">Number</label>
-                            <p-inputMask
+                            <p-input-mask
                                 inputId="number"
                                 mask="9999-9999-9999-9999"
                                 [(ngModel)]="paymentInformation.cardholderNumber"
-                            ></p-inputMask>
+                            ></p-input-mask>
                         </div>
                         <div class="field col-span-2">
                             <label id="date" for="date">Date</label>
-                            <p-inputMask inputId="date" mask="99/99" [(ngModel)]="paymentInformation.date"></p-inputMask>
+                            <p-input-mask inputId="date" mask="99/99" [(ngModel)]="paymentInformation.date"></p-input-mask>
                         </div>
                         <div class="field col-span-2">
                             <label for="cvv">CVV</label>
-                            <p-inputMask id="cvv" mask="999" [(ngModel)]="paymentInformation.cvv"></p-inputMask>
+                            <p-input-mask id="cvv" mask="999" [(ngModel)]="paymentInformation.cvv"></p-input-mask>
                         </div>
                         <div class="field-checkbox col-span-12">
                             <p-checkbox id="remember" [binary]="true" [(ngModel)]="paymentInformation.remember"></p-checkbox>
