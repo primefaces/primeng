@@ -9,7 +9,7 @@ import { NodeService } from '@service/nodeservice';
             <p>When <i>disabled</i> is present, the element cannot be edited and focused.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-treeSelect
+            <p-tree-select
                 class="md:w-80 w-full"
                 containerStyleClass="w-full"
                 [(ngModel)]="selectedNodes"
@@ -31,7 +31,7 @@ export class DisabledDoc {
     }
 
     code: Code = {
-        basic: `<p-treeSelect 
+        basic: `<p-tree-select 
     class="md:w-80 w-full" 
     containerStyleClass="w-full" 
     [(ngModel)]="selectedNodes" 
@@ -40,7 +40,7 @@ export class DisabledDoc {
     placeholder="TreeSelect" />`,
 
         html: `<div class="card flex justify-center">
-    <p-treeSelect 
+    <p-tree-select 
         class="md:w-80 w-full"
         containerStyleClass="w-full"
         [(ngModel)]="selectedNodes" 

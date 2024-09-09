@@ -4,7 +4,6 @@ import {
     AfterContentInit,
     booleanAttribute,
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     ContentChildren,
     ElementRef,
@@ -47,7 +46,7 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
  * @group Components
  */
 @Component({
-    selector: 'p-treeSelect',
+    selector: 'p-treeSelect, p-tree-select',
     template: `
         <div #container [ngClass]="containerClass" [class]="containerStyleClass" [ngStyle]="containerStyle" (click)="onClick($event)">
             <div class="p-hidden-accessible">

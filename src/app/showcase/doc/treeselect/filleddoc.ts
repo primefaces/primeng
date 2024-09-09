@@ -12,7 +12,7 @@ import { NodeService } from '@service/nodeservice';
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-treeSelect
+            <p-tree-select
                 class="md:w-80 w-full"
                 containerStyleClass="w-full"
                 [(ngModel)]="selectedNodes"
@@ -34,7 +34,7 @@ export class FilledDoc {
     }
 
     code: Code = {
-        basic: `<p-treeSelect 
+        basic: `<p-tree-select 
     class="md:w-80 w-full" 
     containerStyleClass="w-full" 
     [(ngModel)]="selectedNodes" 
@@ -43,7 +43,7 @@ export class FilledDoc {
     placeholder="Select Item" />`,
 
         html: `<div class="card flex justify-center">
-    <p-treeSelect 
+    <p-tree-select 
         class="md:w-80 w-full" 
         containerStyleClass="w-full" 
         [(ngModel)]="selectedNodes" 

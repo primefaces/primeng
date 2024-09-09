@@ -14,7 +14,7 @@ import { NodeService } from '@service/nodeservice';
         </app-docsectiontext>
         <div class="card">
             <form class="flex justify-center" [formGroup]="formGroup">
-                <p-treeSelect
+                <p-tree-select
                     class="md:w-80 w-full"
                     containerStyleClass="w-full"
                     formControlName="selectedNodes"
@@ -43,7 +43,7 @@ export class ReactiveFormsDoc implements OnInit {
 
     code: Code = {
         basic: `<form [formGroup]="formGroup">
-    <p-treeSelect 
+    <p-tree-select 
         class="md:w-80 w-full" 
         containerStyleClass="w-full" 
         formControlName="selectedNodes" 
@@ -53,7 +53,7 @@ export class ReactiveFormsDoc implements OnInit {
 
         html: `<div class="card flex justify-center">
     <form [formGroup]="formGroup">
-        <p-treeSelect 
+        <p-tree-select 
             class="md:w-80 w-full" 
             containerStyleClass="w-full" 
             formControlName="selectedNodes" 

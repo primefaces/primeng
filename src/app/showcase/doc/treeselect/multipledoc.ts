@@ -18,7 +18,7 @@ import { NodeService } from '@service/nodeservice';
         </app-docsectiontext>
         <app-code [code]="exampleCode" [hideToggleCode]="true"></app-code>
         <div class="card flex justify-center">
-            <p-treeSelect
+            <p-tree-select
                 class="w-full md:w-80"
                 containerStyleClass="w-full"
                 [(ngModel)]="selectedNodes"
@@ -49,7 +49,7 @@ export class MultipleDoc {
     };
 
     code: Code = {
-        basic: `<p-treeSelect 
+        basic: `<p-tree-select 
     class="w-full md:w-80" 
     containerStyleClass="w-full" 
     [(ngModel)]="selectedNodes" 
@@ -59,7 +59,7 @@ export class MultipleDoc {
     placeholder="Select Item" />`,
 
         html: `<div class="card flex justify-center">
-    <p-treeSelect 
+    <p-tree-select 
         class="w-full md:w-80" 
         containerStyleClass="w-full" 
         [(ngModel)]="selectedNodes" 
