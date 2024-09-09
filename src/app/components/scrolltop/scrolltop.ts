@@ -1,19 +1,14 @@
 import { AnimationEvent, animate, state, style, transition, trigger } from '@angular/animations';
-import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     ContentChildren,
-    ElementRef,
-    Inject,
     Input,
     NgModule,
     OnDestroy,
     OnInit,
-    PLATFORM_ID,
     QueryList,
-    Renderer2,
     TemplateRef,
     ViewEncapsulation,
     inject,
@@ -33,7 +28,7 @@ import { ScrollTopStyle } from './style/scrolltopstyle';
  * @group Components
  */
 @Component({
-    selector: 'p-scrollTop',
+    selector: 'p-scrollTop, p-scroll-top',
     template: `
         <p-button
             *ngIf="visible"
