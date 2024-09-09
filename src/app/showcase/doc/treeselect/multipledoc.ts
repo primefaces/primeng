@@ -41,8 +41,7 @@ export class MultipleDoc {
     }
 
     exampleCode: Code = {
-        typescript: `
-{
+        typescript: `{
     '0-0': true,
     '0-1-0': true
 }`,
