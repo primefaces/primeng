@@ -12,7 +12,7 @@ import { Code } from '@domain/code';
             </p>
         </app-docsectiontext>
         <div class="card">
-            <p-meterGroup [value]="value" labelPosition="start" labelOrientation="vertical" />
+            <p-meter-group [value]="value" labelPosition="start" labelOrientation="vertical" />
         </div>
         <app-code [code]="code" selector="meter-group-label-demo"></app-code>
     `,
@@ -25,13 +25,13 @@ export class LabelDoc {
         { label: 'System', color: '#c084fc', value: 10 },
     ];
     code: Code = {
-        basic: `<p-meterGroup 
+        basic: `<p-meter-group 
     [value]="value" 
     labelPosition="start" 
     labelOrientation="vertical" />`,
 
         html: `<div class="card">
-    <p-meterGroup 
+    <p-meter-group 
         [value]="value" 
         labelPosition="start" 
         labelOrientation="vertical" />

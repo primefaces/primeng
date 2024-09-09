@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
             <p>MeterGroup provides templating support for labels, meter items, and content around the meters.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-meterGroup [value]="value" labelPosition="start">
+            <p-meter-group [value]="value" labelPosition="start">
                 <ng-template pTemplate="label">
                     <div class="flex flex-wrap gap-4">
                         <ng-container *ngFor="let meterItem of value; let index = index">
@@ -48,7 +48,7 @@ import { Code } from '@domain/code';
                         <p-button label="Update Plan" size="small" />
                     </div>
                 </ng-template>
-            </p-meterGroup>
+            </p-meter-group>
         </div>
         <app-code [code]="code" selector="meter-group-template-demo"></app-code>
     `,
@@ -62,7 +62,7 @@ export class TemplateDoc {
     ];
 
     code: Code = {
-        basic: `<p-meterGroup [value]="value" labelPosition="start">
+        basic: `<p-meter-group [value]="value" labelPosition="start">
     <ng-template pTemplate="label">
         <div class="flex flex-wrap gap-4">
             <ng-container *ngFor="let meterItem of value; let index = index">
@@ -96,10 +96,10 @@ export class TemplateDoc {
             <p-button label="Update Plan" size="small" />
         </div>
     </ng-template>
-</p-meterGroup>`,
+</p-meter-group>`,
 
         html: `<div class="card">
-    <p-meterGroup [value]="value" labelPosition="start">
+    <p-meter-group [value]="value" labelPosition="start">
         <ng-template pTemplate="label">
             <div class="flex flex-wrap gap-4">
                 <ng-container *ngFor="let meterItem of value; let index = index">
@@ -133,7 +133,7 @@ export class TemplateDoc {
                 <p-button label="Update Plan" size="small" />
             </div>
         </ng-template>
-    </p-meterGroup>
+    </p-meter-group>
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

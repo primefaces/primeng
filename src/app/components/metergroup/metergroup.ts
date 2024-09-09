@@ -10,7 +10,6 @@ import {
     QueryList,
     TemplateRef,
     ViewEncapsulation,
-    effect,
     forwardRef,
     inject,
     ViewChild,
@@ -22,7 +21,7 @@ import { BaseComponent } from 'primeng/basecomponent';
 import { MeterGroupStyle } from './style/metergroupstyle';
 
 @Component({
-    selector: 'p-meterGroupLabel',
+    selector: 'p-meterGroupLabel, p-meter-group-label',
     template: `
         <ol [ngClass]="labelClass">
             <li *ngFor="let labelItem of value; let index = index; trackBy: parentInstance.trackByFn" class="p-metergroup-label">
@@ -71,7 +70,7 @@ export class MeterGroupLabel {
  * @group Components
  */
 @Component({
-    selector: 'p-meterGroup',
+    selector: 'p-meterGroup, p-meter-group',
     template: `
         <div
             #container
@@ -84,7 +83,7 @@ export class MeterGroupLabel {
             [class]="styleClass"
         >
             @if (labelPosition === 'start') {
-                <p-meterGroupLabel
+                <p-meter-group-label
                     *ngIf="!labelTemplate"
                     [value]="value"
                     [labelPosition]="labelPosition"
@@ -128,7 +127,7 @@ export class MeterGroupLabel {
                 *ngTemplateOutlet="endTemplate; context: { $implicit: value, totalPercent: totalPercent(), percentages: percentages() }"
             ></ng-container>
             @if (labelPosition === 'end') {
-                <p-meterGroupLabel
+                <p-meter-group-label
                     *ngIf="!labelTemplate"
                     [value]="value"
                     [labelPosition]="labelPosition"

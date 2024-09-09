@@ -187,7 +187,7 @@ import { AppConfigService } from '@service/appconfigservice';
                                 />
                                 <p-menu #menu id="overlay_menu" [model]="menuItems" [popup]="true" styleClass="ml-6" />
                             </div>
-                            <p-meterGroup [value]="metersData" labelPosition="end">
+                            <p-meter-group [value]="metersData" labelPosition="end">
                                 <ng-template pTemplate="label">
                                     <div class="flex flex-col gap-6 mt-4">
                                         <ng-container *ngFor="let val of metersData; let index = index">
@@ -202,7 +202,7 @@ import { AppConfigService } from '@service/appconfigservice';
                                         </ng-container>
                                     </div>
                                 </ng-template>
-                            </p-meterGroup>
+                            </p-meter-group>
                         </div>
                         <p-button label="Show All" outlined styleClass="w-full" />
                     </div>

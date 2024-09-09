@@ -11,7 +11,7 @@ import { Code } from '@domain/code';
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-meterGroup [value]="value" orientation="vertical" labelOrientation="vertical" [style]="{ height: '300px' }" />
+            <p-meter-group [value]="value" orientation="vertical" labelOrientation="vertical" [style]="{ height: '300px' }" />
         </div>
         <app-code [code]="code" selector="meter-group-vertical-demo"></app-code>
     `,
@@ -24,14 +24,14 @@ export class VerticalDoc {
         { label: 'System', color: '#c084fc', value: 10 },
     ];
     code: Code = {
-        basic: `<p-meterGroup 
+        basic: `<p-meter-group 
     [value]="value" 
     orientation="vertical" 
     labelOrientation="vertical" 
     [style]="{ height: '300px' }" />`,
 
         html: `<div class="card flex justify-center">
-    <p-meterGroup 
+    <p-meter-group 
         [value]="value" 
         orientation="vertical" 
         labelOrientation="vertical" 

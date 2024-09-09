@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
             <p>Adding more items to the array displays the meters in a group.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-meterGroup [value]="value" />
+            <p-meter-group [value]="value" />
         </div>
         <app-code [code]="code" selector="meter-group-multiple-demo"></app-code>
     `,
@@ -21,10 +21,10 @@ export class MultipleDoc {
         { label: 'System', color: '#c084fc', value: 10 },
     ];
     code: Code = {
-        basic: `<p-meterGroup [value]="value" />`,
+        basic: `<p-meter-group [value]="value" />`,
 
         html: `<div class="card">
-    <p-meterGroup [value]="value" />
+    <p-meter-group [value]="value" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
