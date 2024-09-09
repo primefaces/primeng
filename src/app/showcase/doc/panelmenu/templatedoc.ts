@@ -9,7 +9,7 @@ import { Code } from '@domain/code';
             <p>PanelMenu requires a collection of menuitems as its <i>model</i>.</p>
         </app-docsectiontext>
         <div class="card flex flex-col items-center">
-            <p-panelMenu [model]="items" styleClass="w-full md:w-80">
+            <p-panel-menu [model]="items" styleClass="w-full md:w-80">
                 <ng-template pTemplate="item" let-item>
                     <a pRipple class="flex items-center px-4 py-2 cursor-pointer group">
                         <i [class]="item.icon + ' text-primary group-hover:text-inherit'"></i>
@@ -22,7 +22,7 @@ import { Code } from '@domain/code';
                         >
                     </a>
                 </ng-template>
-            </p-panelMenu>
+            </p-panel-menu>
         </div>
         <app-code [code]="code" selector="panel-menu-template-demo"></app-code>
     `,
@@ -116,7 +116,7 @@ export class TemplateDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-panelMenu [model]="items" styleClass="w-full md:w-80">
+        basic: `<p-panel-menu [model]="items" styleClass="w-full md:w-80">
     <ng-template pTemplate="item" let-item>
         <a pRipple class="flex items-center px-4 py-2 cursor-pointer group">
             <i [class]="item.icon + ' text-primary group-hover:text-inherit'"></i>
@@ -130,10 +130,10 @@ export class TemplateDoc implements OnInit {
             </span>
         </a>
     </ng-template>
-</p-panelMenu>`,
+</p-panel-menu>`,
 
         html: `<div class="card flex flex-col items-center">
-    <p-panelMenu [model]="items" styleClass="w-full md:w-80">
+    <p-panel-menu [model]="items" styleClass="w-full md:w-80">
         <ng-template pTemplate="item" let-item>
             <a pRipple class="flex items-center px-4 py-2 cursor-pointer group">
                 <i [class]="item.icon + ' text-primary group-hover:text-inherit'"></i>
@@ -147,7 +147,7 @@ export class TemplateDoc implements OnInit {
                 </span>
             </a>
         </ng-template>
-    </p-panelMenu>
+    </p-panel-menu>
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';

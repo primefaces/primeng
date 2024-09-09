@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-panelMenu [model]="items" styleClass="w-full md:w-80">
+            <p-panel-menu [model]="items" styleClass="w-full md:w-80">
                 <ng-template pTemplate="item" let-item>
                     <ng-container *ngIf="item.route; else urlRef">
                         <a
@@ -42,7 +42,7 @@ import { Router } from '@angular/router';
                         </ng-template>
                     </ng-template>
                 </ng-template>
-            </p-panelMenu>
+            </p-panel-menu>
         </div>
         <app-code [code]="code" selector="panel-menu-router-demo"></app-code>
     `,
@@ -98,7 +98,7 @@ export class RouterDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-panelMenu [model]="items" styleClass="w-full md:w-80">
+        basic: `<p-panel-menu [model]="items" styleClass="w-full md:w-80">
     <ng-template pTemplate="item" let-item>
         <ng-container *ngIf="item.route; else urlRef">
             <a [routerLink]="item.route" class="flex align-items-center 
@@ -122,10 +122,10 @@ export class RouterDoc implements OnInit {
             </ng-template>
         </ng-template>
     </ng-template>
-</p-panelMenu>`,
+</p-panel-menu>`,
 
         html: `<div class="card flex justify-center">
-    <p-panelMenu [model]="items" styleClass="w-full md:w-80">
+    <p-panel-menu [model]="items" styleClass="w-full md:w-80">
         <ng-template pTemplate="item" let-item>
             <ng-container *ngIf="item.route; else urlRef">
                 <a [routerLink]="item.route" class="flex align-items-center 
@@ -149,7 +149,7 @@ export class RouterDoc implements OnInit {
                 </ng-template>
             </ng-template>
         </ng-template>
-    </p-panelMenu>
+    </p-panel-menu>
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';

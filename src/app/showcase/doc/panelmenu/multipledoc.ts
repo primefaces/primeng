@@ -12,7 +12,7 @@ import { Code } from '@domain/code';
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-panelMenu [model]="items" styleClass="w-full md:w-80" [multiple]="true" />
+            <p-panel-menu [model]="items" styleClass="w-full md:w-80" [multiple]="true" />
         </div>
         <app-code [code]="code" selector="panel-menu-multiple-demo"></app-code>
     `,
@@ -102,10 +102,10 @@ export class MultipleDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-panelMenu [model]="items" [style]="{'width':'300px'}" [multiple]="true" />`,
+        basic: `<p-panel-menu [model]="items" [style]="{'width':'300px'}" [multiple]="true" />`,
 
         html: `<div class="card flex justify-center">
-    <p-panelMenu [model]="items" [style]="{'width':'300px'}" [multiple]="true" />
+    <p-panel-menu [model]="items" [style]="{'width':'300px'}" [multiple]="true" />
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
