@@ -9,7 +9,7 @@ import { Code } from '@domain/code';
             <p>MegaMenu requires a collection of menuitems as its <i>model</i>.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-megaMenu [model]="items" />
+            <p-mega-menu [model]="items" />
         </div>
         <app-code [code]="code" selector="mega-menu-basic-demo"></app-code>
     `,
@@ -148,10 +148,10 @@ export class BasicDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-megaMenu [model]="items" />`,
+        basic: `<p-mega-menu [model]="items" />`,
 
         html: `<div class="card">
-    <p-megaMenu [model]="items" />
+    <p-mega-menu [model]="items" />
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';

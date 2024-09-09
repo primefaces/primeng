@@ -9,7 +9,7 @@ import { Code } from '@domain/code';
             <p>Custom content can be placed between p-megaMenu tags. Megamenu should be <i>horizontal</i> for custom content.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-megaMenu
+            <p-mega-menu
                 [model]="items"
                 [style]="{ 'border-radius': '3rem', display: 'flex' }"
                 styleClass="p-4 bg-surface-0 dark:bg-surface-900"
@@ -102,7 +102,7 @@ import { Code } from '@domain/code';
                 <ng-template pTemplate="end">
                     <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
                 </ng-template>
-            </p-megaMenu>
+            </p-mega-menu>
         </div>
         <app-code [code]="code" selector="mega-menu-template-demo"></app-code>
     `,
@@ -168,7 +168,7 @@ export class TemplateDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-megaMenu [model]="items" [style]="{ 'border-radius': '3rem', display: 'flex' }" styleClass="p-4 bg-surface-0 dark:bg-surface-900">
+        basic: `<p-mega-menu [model]="items" [style]="{ 'border-radius': '3rem', display: 'flex' }" styleClass="p-4 bg-surface-0 dark:bg-surface-900">
     <ng-template pTemplate="start">
         <svg width="33" height="35" viewBox="0 0 33 35" fill="none" xmlns="http://www.w3.org/2000/svg" class="h-8">
             <path d="..." fill="var(--primary-color)" />
@@ -223,10 +223,10 @@ export class TemplateDoc implements OnInit {
     <ng-template pTemplate="end">
         <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
     </ng-template>
-</p-megaMenu>`,
+</p-mega-menu>`,
 
         html: `<div class="card">
-    <p-megaMenu [model]="items" [style]="{ 'border-radius': '3rem', display: 'flex' }" styleClass="p-4 bg-surface-0 dark:bg-surface-900">
+    <p-mega-menu [model]="items" [style]="{ 'border-radius': '3rem', display: 'flex' }" styleClass="p-4 bg-surface-0 dark:bg-surface-900">
         <ng-template pTemplate="start">
               <svg
                 width="31"
@@ -317,7 +317,7 @@ export class TemplateDoc implements OnInit {
         <ng-template pTemplate="end">
             <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
         </ng-template>
-    </p-megaMenu>
+    </p-mega-menu>
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';

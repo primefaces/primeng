@@ -12,7 +12,7 @@ import { Code } from '@domain/code';
             </p>
         </app-docsectiontext>
         <div class="card">
-            <p-megaMenu [model]="items" orientation="vertical" />
+            <p-mega-menu [model]="items" orientation="vertical" />
         </div>
         <app-code [code]="code" selector="mega-menu-vertical-demo"></app-code>
     `,
@@ -151,10 +151,10 @@ export class VerticalDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-megaMenu [model]="items" orientation="vertical" />`,
+        basic: `<p-mega-menu [model]="items" orientation="vertical" />`,
 
         html: `<div class="card">
-    <p-megaMenu [model]="items" orientation="vertical" />
+    <p-mega-menu [model]="items" orientation="vertical" />
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';

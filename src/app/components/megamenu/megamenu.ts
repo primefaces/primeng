@@ -1,8 +1,7 @@
-import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
     AfterContentInit,
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     ContentChildren,
     ElementRef,
@@ -13,9 +12,7 @@ import {
     OnDestroy,
     OnInit,
     Output,
-    PLATFORM_ID,
     QueryList,
-    Renderer2,
     TemplateRef,
     ViewChild,
     ViewEncapsulation,
@@ -40,7 +37,7 @@ import { MegaMenuStyle } from './style/megamenustyle';
 import { BadgeModule } from 'primeng/badge';
 
 @Component({
-    selector: 'p-megaMenuSub',
+    selector: 'p-megaMenuSub, p-mega-menu-sub',
     template: `
         <ul
             *ngIf="isSubmenuVisible(submenu)"
@@ -237,7 +234,7 @@ import { BadgeModule } from 'primeng/badge';
                     >
                         <div class="p-megamenu-grid" [attr.data-pc-section]="'grid'">
                             <div *ngFor="let col of processedItem.items" [ngClass]="getColumnClass(processedItem)">
-                                <p-megaMenuSub
+                                <p-mega-menu-sub
                                     *ngFor="let submenu of col"
                                     [id]="getSubListId(submenu)"
                                     [submenu]="submenu"
@@ -250,7 +247,7 @@ import { BadgeModule } from 'primeng/badge';
                                     (itemClick)="itemClick.emit($event)"
                                     (itemMouseEnter)="onItemMouseEnter($event)"
                                 >
-                                </p-megaMenuSub>
+                                </p-mega-menu-sub>
                             </div>
                         </div>
                     </div>
@@ -436,7 +433,7 @@ export class MegaMenuSub {
  * @group Components
  */
 @Component({
-    selector: 'p-megaMenu',
+    selector: 'p-megaMenu, p-mega-menu',
     template: `
         <div
             [ngClass]="{
@@ -453,7 +450,7 @@ export class MegaMenuSub {
             <div class="p-megamenu-start" *ngIf="startTemplate">
                 <ng-container *ngTemplateOutlet="startTemplate"></ng-container>
             </div>
-            <p-megaMenuSub
+            <p-mega-menu-sub
                 #rootmenu
                 [itemTemplate]="itemTemplate"
                 [items]="processedItems"
@@ -473,7 +470,7 @@ export class MegaMenuSub {
                 (menuBlur)="onMenuBlur($event)"
                 (menuKeydown)="onKeyDown($event)"
                 (itemMouseEnter)="onItemMouseEnter($event)"
-            ></p-megaMenuSub>
+            ></p-mega-menu-sub>
             <div class="p-megamenu-end" *ngIf="endTemplate; else legacy">
                 <ng-container *ngTemplateOutlet="endTemplate"></ng-container>
             </div>
