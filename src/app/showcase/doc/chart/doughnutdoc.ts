@@ -1,7 +1,6 @@
 import { isPlatformBrowser } from '@angular/common';
-import { Component, Inject, OnInit, PLATFORM_ID, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, PLATFORM_ID, ChangeDetectorRef, inject, effect } from '@angular/core';
 import { Code } from '@domain/code';
-import { Subscription, debounceTime } from 'rxjs';
 import { AppConfigService } from '@service/appconfigservice';
 @Component({
     selector: 'chart-doughnut-demo',
@@ -22,10 +21,20 @@ export class DoughnutDoc implements OnInit {
     data: any;
 
     options: any;
+    
+    platformId = inject(PLATFORM_ID);
 
-    subscription!: Subscription;
+    configService = inject(AppConfigService);
 
-    constructor(@Inject(PLATFORM_ID) private platformId: any) {}
+    constructor(private cd: ChangeDetectorRef) {}
+
+    themeEffect = effect(() => {
+        if (this.configService.theme()) {
+            this.initChart();
+            this.cd.markForCheck();
+        }
+    });
+
 
     ngOnInit() {
         this.initChart();
@@ -72,8 +81,9 @@ export class DoughnutDoc implements OnInit {
         html: `<div class="card flex justify-center">
     <p-chart type="doughnut" [data]="data" [options]="options" class="w-full md:w-[30rem]" />
 </div>`,
-        typescript: `import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit, PLATFORM_ID, ChangeDetectorRef, inject, effect } from '@angular/core';
 import { ChartModule } from 'primeng/chart';
+import { AppConfigService } from '@service/appconfigservice';
 
 @Component({
     selector: 'chart-doughnut-demo',
@@ -85,33 +95,60 @@ export class ChartDoughnutDemo implements OnInit {
     data: any;
 
     options: any;
+    
+    platformId = inject(PLATFORM_ID);
+
+    configService = inject(AppConfigService);
+
+    constructor(private cd: ChangeDetectorRef) {}
+
+    themeEffect = effect(() => {
+        if (this.configService.theme()) {
+            this.initChart();
+            this.cd.markForCheck();
+        }
+    });
+
 
     ngOnInit() {
-        const documentStyle = getComputedStyle(document.documentElement);
-        const textColor = documentStyle.getPropertyValue('--p-text-color');
+        this.initChart();
+    }
 
-        this.data = {
-            labels: ['A', 'B', 'C'],
-             datasets: [
-                {
-                    data: [300, 50, 100],
-                    backgroundColor: [documentStyle.getPropertyValue('--p-cyan-500'), documentStyle.getPropertyValue('--p-orange-500'), documentStyle.getPropertyValue('--p-gray-500')],
-                    hoverBackgroundColor: [documentStyle.getPropertyValue('--p-cyan-400'), documentStyle.getPropertyValue('--p-orange-400'), documentStyle.getPropertyValue('--p-gray-400')]
-                }
-            ]
-        };
+    initChart() {
+        if (isPlatformBrowser(this.platformId)) {
+            const documentStyle = getComputedStyle(document.documentElement);
+            const textColor = documentStyle.getPropertyValue('--p-text-color');
 
+            this.data = {
+                labels: ['A', 'B', 'C'],
+                datasets: [
+                    {
+                        data: [300, 50, 100],
+                        backgroundColor: [
+                            documentStyle.getPropertyValue('--p-cyan-500'),
+                            documentStyle.getPropertyValue('--p-orange-500'),
+                            documentStyle.getPropertyValue('--p-gray-500'),
+                        ],
+                        hoverBackgroundColor: [
+                            documentStyle.getPropertyValue('--p-cyan-400'),
+                            documentStyle.getPropertyValue('--p-orange-400'),
+                            documentStyle.getPropertyValue('--p-gray-400'),
+                        ],
+                    },
+                ],
+            };
 
-        this.options = {
-            cutout: '60%',
-            plugins: {
-                legend: {
-                    labels: {
-                        color: textColor
-                    }
-                }
-            }
-        };
+            this.options = {
+                cutout: '60%',
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: textColor,
+                        },
+                    },
+                },
+            };
+        }
     }
 }`,
     };

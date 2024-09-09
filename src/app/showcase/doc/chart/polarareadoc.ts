@@ -1,7 +1,6 @@
 import { isPlatformBrowser } from '@angular/common';
-import { Component, Inject, OnInit, PLATFORM_ID, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, PLATFORM_ID, ChangeDetectorRef, inject, effect } from '@angular/core';
 import { Code } from '@domain/code';
-import { Subscription, debounceTime } from 'rxjs';
 import { AppConfigService } from '@service/appconfigservice';
 @Component({
     selector: 'chart-polar-area-demo',
@@ -23,13 +22,23 @@ export class PolarAreaDoc implements OnInit {
 
     options: any;
 
-    subscription!: Subscription;
+    platformId = inject(PLATFORM_ID);
 
-    constructor(@Inject(PLATFORM_ID) private platformId: any) {}
+    configService = inject(AppConfigService);
+
+    constructor(private cd: ChangeDetectorRef) {}
+
+    themeEffect = effect(() => {
+        if (this.configService.theme()) {
+            this.initChart();
+            this.cd.markForCheck();
+        }
+    });
 
     ngOnInit() {
         this.initChart();
     }
+    
     initChart() {
         if (isPlatformBrowser(this.platformId)) {
             const documentStyle = getComputedStyle(document.documentElement);
@@ -77,7 +86,9 @@ export class PolarAreaDoc implements OnInit {
         html: `<div class="card flex justify-center">
     <p-chart type="polarArea" [data]="data" [options]="options" class="w-full md:w-[30rem]" />
 </div>`,
-        typescript: `import { Component, OnInit } from '@angular/core';
+        typescript: `import { isPlatformBrowser } from '@angular/common';
+import { Component, OnInit, PLATFORM_ID, ChangeDetectorRef, inject, effect } from '@angular/core';
+import { AppConfigService } from '@service/appconfigservice';
 import { ChartModule } from 'primeng/chart';
 
 @Component({
@@ -91,44 +102,63 @@ export class ChartPolarAreaDemo implements OnInit {
 
     options: any;
 
+    platformId = inject(PLATFORM_ID);
+
+    configService = inject(AppConfigService);
+
+    constructor(private cd: ChangeDetectorRef) {}
+
+    themeEffect = effect(() => {
+        if (this.configService.theme()) {
+            this.initChart();
+            this.cd.markForCheck();
+        }
+    });
+
     ngOnInit() {
-        const documentStyle = getComputedStyle(document.documentElement);
-        const textColor = documentStyle.getPropertyValue('--p-text-color');
-        const surfaceBorder = documentStyle.getPropertyValue('--p-content-border-color');
-        
-        this.data = {
-            datasets: [
-                {
-                    data: [11, 16, 7, 3, 14],
-                    backgroundColor: [
-                        documentStyle.getPropertyValue('--p-pink-500'),
-                        documentStyle.getPropertyValue('--p-gray-500'),
-                        documentStyle.getPropertyValue('--p-orange-500'),
-                        documentStyle.getPropertyValue('--p-purple-500'),
-                        documentStyle.getPropertyValue('--p-cyan-500')
-                    ],
-                    label: 'My dataset'
-                }
-            ],
-            labels: ['Pink', 'Gray', 'Orange', 'Purple', 'Cyan']
-        };
-        
-        this.options = {
-            plugins: {
-                legend: {
-                    labels: {
-                        color: textColor
-                    }
-                }
-            },
-            scales: {
-                r: {
-                    grid: {
-                        color: surfaceBorder
-                    }
-                }
-            }
-        };
+        this.initChart();
+    }
+
+    initChart() {
+        if (isPlatformBrowser(this.platformId)) {
+            const documentStyle = getComputedStyle(document.documentElement);
+            const textColor = documentStyle.getPropertyValue('--p-text-color');
+            const surfaceBorder = documentStyle.getPropertyValue('--p-content-border-color');
+
+            this.data = {
+                datasets: [
+                    {
+                        data: [11, 16, 7, 3, 14],
+                        backgroundColor: [
+                            documentStyle.getPropertyValue('--p-pink-500'),
+                            documentStyle.getPropertyValue('--p-gray-500'),
+                            documentStyle.getPropertyValue('--p-orange-500'),
+                            documentStyle.getPropertyValue('--p-purple-500'),
+                            documentStyle.getPropertyValue('--p-cyan-500'),
+                        ],
+                        label: 'My dataset',
+                    },
+                ],
+                labels: ['Pink', 'Gray', 'Orange', 'Purple', 'Cyan'],
+            };
+
+            this.options = {
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: textColor,
+                        },
+                    },
+                },
+                scales: {
+                    r: {
+                        grid: {
+                            color: surfaceBorder,
+                        },
+                    },
+                },
+            };
+        }
     }
 }`,
     };

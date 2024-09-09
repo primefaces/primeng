@@ -1,7 +1,6 @@
 import { isPlatformBrowser } from '@angular/common';
-import { Component, Inject, OnInit, PLATFORM_ID, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, PLATFORM_ID, ChangeDetectorRef, inject, effect } from '@angular/core';
 import { Code } from '@domain/code';
-import { Subscription, debounceTime } from 'rxjs';
 import { AppConfigService } from '@service/appconfigservice';
 @Component({
     selector: 'chart-radar-demo',
@@ -23,9 +22,19 @@ export class RadarDoc implements OnInit {
 
     options: any;
 
-    subscription!: Subscription;
+    platformId = inject(PLATFORM_ID);
 
-    constructor(@Inject(PLATFORM_ID) private platformId: any) {}
+    configService = inject(AppConfigService);
+
+    constructor(private cd: ChangeDetectorRef) {}
+
+    themeEffect = effect(() => {
+        if (this.configService.theme()) {
+            this.initChart();
+            this.cd.markForCheck();
+        }
+    });
+
 
     ngOnInit() {
         this.initChart();
@@ -85,7 +94,9 @@ export class RadarDoc implements OnInit {
         html: `<div class="card flex justify-center">
     <p-chart type="radar" [data]="data" [options]="options" class="w-full md:w-[30rem]" />
 </div>`,
-        typescript: `import { Component, OnInit } from '@angular/core';
+        typescript: `import { isPlatformBrowser } from '@angular/common';
+import { Component, OnInit, PLATFORM_ID, ChangeDetectorRef, inject, effect } from '@angular/core';
+import { AppConfigService } from '@service/appconfigservice';
 import { ChartModule } from 'primeng/chart';
 
 @Component({
@@ -99,51 +110,70 @@ export class ChartRadarDemo implements OnInit {
 
     options: any;
 
+    platformId = inject(PLATFORM_ID);
+
+    configService = inject(AppConfigService);
+
+    constructor(private cd: ChangeDetectorRef) {}
+
+    themeEffect = effect(() => {
+        if (this.configService.theme()) {
+            this.initChart();
+            this.cd.markForCheck();
+        }
+    });
+
     ngOnInit() {
-        const documentStyle = getComputedStyle(document.documentElement);
-        const textColor = documentStyle.getPropertyValue('--p-text-color');
-        const textColorSecondary = documentStyle.getPropertyValue('--p-text-muted-color');
-        
-        this.data = {
-            labels: ['Eating', 'Drinking', 'Sleeping', 'Designing', 'Coding', 'Cycling', 'Running'],
-            datasets: [
-                {
-                    label: 'My First dataset',
-                    borderColor: documentStyle.getPropertyValue('--p-gray-400'),
-                    pointBackgroundColor: documentStyle.getPropertyValue('--p-gray-400'),
-                    pointBorderColor: documentStyle.getPropertyValue('--p-gray-400'),
-                    pointHoverBackgroundColor: textColor,
-                    pointHoverBorderColor: documentStyle.getPropertyValue('--p-gray-400'),
-                    data: [65, 59, 90, 81, 56, 55, 40]
+        this.initChart();
+    }
+
+    initChart() {
+        if (isPlatformBrowser(this.platformId)) {
+            const documentStyle = getComputedStyle(document.documentElement);
+            const textColor = documentStyle.getPropertyValue('--p-text-color');
+            const textColorSecondary = documentStyle.getPropertyValue('--p-text-muted-color');
+
+            this.data = {
+                labels: ['Eating', 'Drinking', 'Sleeping', 'Designing', 'Coding', 'Cycling', 'Running'],
+                datasets: [
+                    {
+                        label: 'My First dataset',
+                        borderColor: documentStyle.getPropertyValue('--p-gray-400'),
+                        pointBackgroundColor: documentStyle.getPropertyValue('--p-gray-400'),
+                        pointBorderColor: documentStyle.getPropertyValue('--p-gray-400'),
+                        pointHoverBackgroundColor: textColor,
+                        pointHoverBorderColor: documentStyle.getPropertyValue('--p-gray-400'),
+                        data: [65, 59, 90, 81, 56, 55, 40],
+                    },
+                    {
+                        label: 'My Second dataset',
+                        borderColor: documentStyle.getPropertyValue('--p-cyan-400'),
+                        pointBackgroundColor: documentStyle.getPropertyValue('--p-cyan-400'),
+                        pointBorderColor: documentStyle.getPropertyValue('--p-cyan-400'),
+                        pointHoverBackgroundColor: textColor,
+                        pointHoverBorderColor: documentStyle.getPropertyValue('--p-cyan-400'),
+                        data: [28, 48, 40, 19, 96, 27, 100],
+                    },
+                ],
+            };
+
+            this.options = {
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: textColor,
+                        },
+                    },
                 },
-                {
-                    label: 'My Second dataset',
-                    borderColor: documentStyle.getPropertyValue('--p-cyan-400'),
-                    pointBackgroundColor: documentStyle.getPropertyValue('--p-cyan-400'),
-                    pointBorderColor: documentStyle.getPropertyValue('--p-cyan-400'),
-                    pointHoverBackgroundColor: textColor,
-                    pointHoverBorderColor: documentStyle.getPropertyValue('--p-cyan-400'),
-                    data: [28, 48, 40, 19, 96, 27, 100]
-                }
-            ]
-        };
-        
-        this.options = {
-            plugins: {
-                legend: {
-                    labels: {
-                        color: textColor
-                    }
-                }
-            },
-            scales: {
-                r: {
-                    grid: {
-                        color: textColorSecondary
-                    }
-                }
-            }
-        };
+                scales: {
+                    r: {
+                        grid: {
+                            color: textColorSecondary,
+                        },
+                    },
+                },
+            };
+        }
     }
 }`,
     };

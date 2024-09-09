@@ -1,8 +1,8 @@
 import { isPlatformBrowser } from '@angular/common';
-import { Component, Inject, OnInit, PLATFORM_ID, ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectorRef, Component, effect, inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { Code } from '@domain/code';
-import { Subscription, debounceTime } from 'rxjs';
 import { AppConfigService } from '@service/appconfigservice';
+
 @Component({
     selector: 'chart-line-demo',
     template: `
@@ -23,9 +23,18 @@ export class LineDoc implements OnInit {
 
     options: any;
 
-    subscription!: Subscription;
+    platformId = inject(PLATFORM_ID);
 
-    constructor(@Inject(PLATFORM_ID) private platformId: any) {}
+    configService = inject(AppConfigService);
+
+    constructor(private cd: ChangeDetectorRef) {}
+
+    themeEffect = effect(() => {
+        if (this.configService.theme()) {
+            this.initChart();
+            this.cd.markForCheck();
+        }
+    });
 
     ngOnInit() {
         this.initChart();
@@ -97,7 +106,9 @@ export class LineDoc implements OnInit {
         html: `<div class="card">
     <p-chart type="line" [data]="data" [options]="options" class="h-[30rem]" />
 </div>`,
-        typescript: `import { Component, OnInit } from '@angular/core';
+        typescript: `import { isPlatformBrowser } from '@angular/common';
+import { ChangeDetectorRef, Component, effect, inject, OnInit, PLATFORM_ID } from '@angular/core';
+import { AppConfigService } from '@service/appconfigservice';
 import { ChartModule } from 'primeng/chart';
 
 @Component({
@@ -111,63 +122,82 @@ export class ChartLineDemo implements OnInit {
 
     options: any;
 
+    platformId = inject(PLATFORM_ID);
+
+    configService = inject(AppConfigService);
+
+    constructor(private cd: ChangeDetectorRef) {}
+
+    themeEffect = effect(() => {
+        if (this.configService.theme()) {
+            this.initChart();
+            this.cd.markForCheck();
+        }
+    });
+
     ngOnInit() {
-        const documentStyle = getComputedStyle(document.documentElement);
-        const textColor = documentStyle.getPropertyValue('--p-text-color');
-        const textColorSecondary = documentStyle.getPropertyValue('--p-text-muted-color');
-        const surfaceBorder = documentStyle.getPropertyValue('--p-content-border-color');
+        this.initChart();
+    }
 
-        this.data = {
-            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-            datasets: [
-                {
-                    label: 'First Dataset',
-                    data: [65, 59, 80, 81, 56, 55, 40],
-                    fill: false,
-                    borderColor: documentStyle.getPropertyValue('--p-cyan-500'),
-                    tension: 0.4
-                },
-                {
-                    label: 'Second Dataset',
-                    data: [28, 48, 40, 19, 86, 27, 90],
-                    fill: false,
-                    borderColor: documentStyle.getPropertyValue('--p-gray-500'),
-                    tension: 0.4
-                }
-            ]
-        };
+    initChart() {
+        if (isPlatformBrowser(this.platformId)) {
+            const documentStyle = getComputedStyle(document.documentElement);
+            const textColor = documentStyle.getPropertyValue('--p-text-color');
+            const textColorSecondary = documentStyle.getPropertyValue('--p-text-muted-color');
+            const surfaceBorder = documentStyle.getPropertyValue('--p-content-border-color');
 
-        this.options = {
-            maintainAspectRatio: false,
-            aspectRatio: 0.6,
-            plugins: {
-                legend: {
-                    labels: {
-                        color: textColor
-                    }
-                }
-            },
-            scales: {
-                x: {
-                    ticks: {
-                        color: textColorSecondary
+            this.data = {
+                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+                datasets: [
+                    {
+                        label: 'First Dataset',
+                        data: [65, 59, 80, 81, 56, 55, 40],
+                        fill: false,
+                        borderColor: documentStyle.getPropertyValue('--p-cyan-500'),
+                        tension: 0.4,
                     },
-                    grid: {
-                        color: surfaceBorder,
-                        drawBorder: false
-                    }
+                    {
+                        label: 'Second Dataset',
+                        data: [28, 48, 40, 19, 86, 27, 90],
+                        fill: false,
+                        borderColor: documentStyle.getPropertyValue('--p-gray-500'),
+                        tension: 0.4,
+                    },
+                ],
+            };
+
+            this.options = {
+                maintainAspectRatio: false,
+                aspectRatio: 0.6,
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: textColor,
+                        },
+                    },
                 },
-                y: {
-                    ticks: {
-                        color: textColorSecondary
+                scales: {
+                    x: {
+                        ticks: {
+                            color: textColorSecondary,
+                        },
+                        grid: {
+                            color: surfaceBorder,
+                            drawBorder: false,
+                        },
                     },
-                    grid: {
-                        color: surfaceBorder,
-                        drawBorder: false
-                    }
-                }
-            }
-        };
+                    y: {
+                        ticks: {
+                            color: textColorSecondary,
+                        },
+                        grid: {
+                            color: surfaceBorder,
+                            drawBorder: false,
+                        },
+                    },
+                },
+            };
+        }
     }
 }`,
     };

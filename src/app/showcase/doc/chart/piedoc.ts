@@ -81,6 +81,7 @@ export class PieDoc implements OnInit {
 </div>`,
         typescript: `import { ChangeDetectorRef, Component, effect, inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { ChartModule } from 'primeng/chart';
+import { AppConfigService } from '@service/appconfigservice';
 
 @Component({
     selector: 'chart-pie-demo',

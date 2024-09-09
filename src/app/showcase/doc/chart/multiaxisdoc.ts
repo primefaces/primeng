@@ -1,8 +1,8 @@
 import { isPlatformBrowser } from '@angular/common';
-import { Component, Inject, OnInit, PLATFORM_ID, ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectorRef, Component, effect, inject , OnInit, PLATFORM_ID } from '@angular/core';
 import { Code } from '@domain/code';
-import { Subscription, debounceTime } from 'rxjs';
 import { AppConfigService } from '@service/appconfigservice';
+
 @Component({
     selector: 'chart-multi-axis-demo',
     template: `
@@ -20,9 +20,18 @@ export class MultiAxisDoc implements OnInit {
 
     options: any;
 
-    subscription!: Subscription;
+    platformId = inject(PLATFORM_ID);
 
-    constructor(@Inject(PLATFORM_ID) private platformId: any) {}
+    configService = inject(AppConfigService);
+
+    constructor(private cd: ChangeDetectorRef) {}
+
+    themeEffect = effect(() => {
+        if (this.configService.theme()) {
+            this.initChart();
+            this.cd.markForCheck();
+        }
+    });
 
     ngOnInit() {
         this.initChart();
@@ -110,7 +119,9 @@ export class MultiAxisDoc implements OnInit {
         html: `<div class="card">
     <p-chart type="line" [data]="data" [options]="options" class="h-[30rem]" />
 </div>`,
-        typescript: `import { Component, OnInit } from '@angular/core';
+        typescript: `import { isPlatformBrowser } from '@angular/common';
+import { ChangeDetectorRef, Component, effect, inject , OnInit, PLATFORM_ID } from '@angular/core';
+import { AppConfigService } from '@service/appconfigservice';
 import { ChartModule } from 'primeng/chart';
 
 @Component({
@@ -124,79 +135,98 @@ export class ChartMultiAxisDemo implements OnInit {
 
     options: any;
 
+    platformId = inject(PLATFORM_ID);
+
+    configService = inject(AppConfigService);
+
+    constructor(private cd: ChangeDetectorRef) {}
+
+    themeEffect = effect(() => {
+        if (this.configService.theme()) {
+            this.initChart();
+            this.cd.markForCheck();
+        }
+    });
+
     ngOnInit() {
-        const documentStyle = getComputedStyle(document.documentElement);
-        const textColor = documentStyle.getPropertyValue('--p-text-color');
-        const textColorSecondary = documentStyle.getPropertyValue('--p-text-muted-color');
-        const surfaceBorder = documentStyle.getPropertyValue('--p-content-border-color');
-        
-        this.data = {
-            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-            datasets: [
-                {
-                    label: 'Dataset 1',
-                    fill: false,
-                    borderColor: documentStyle.getPropertyValue('--p-cyan-500'),
-                    yAxisID: 'y',
-                    tension: 0.4,
-                    data: [65, 59, 80, 81, 56, 55, 10]
-                },
-                {
-                    label: 'Dataset 2',
-                    fill: false,
-                    borderColor: documentStyle.getPropertyValue('--p-gray-500'),
-                    yAxisID: 'y1',
-                    tension: 0.4,
-                    data: [28, 48, 40, 19, 86, 27, 90]
-                }
-            ]
-        };
-        
-        this.options = {
-            stacked: false,
-            maintainAspectRatio: false,
-            aspectRatio: 0.6,
-            plugins: {
-                legend: {
-                    labels: {
-                        color: textColor
-                    }
-                }
-            },
-            scales: {
-                x: {
-                    ticks: {
-                        color: textColorSecondary
+        this.initChart();
+    }
+
+    initChart() {
+        if (isPlatformBrowser(this.platformId)) {
+            const documentStyle = getComputedStyle(document.documentElement);
+            const textColor = documentStyle.getPropertyValue('--p-text-color');
+            const textColorSecondary = documentStyle.getPropertyValue('--p-text-muted-color');
+            const surfaceBorder = documentStyle.getPropertyValue('--p-content-border-color');
+
+            this.data = {
+                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+                datasets: [
+                    {
+                        label: 'Dataset 1',
+                        fill: false,
+                        borderColor: documentStyle.getPropertyValue('--p-cyan-500'),
+                        yAxisID: 'y',
+                        tension: 0.4,
+                        data: [65, 59, 80, 81, 56, 55, 10],
                     },
-                    grid: {
-                        color: surfaceBorder
-                    }
-                },
-                y: {
-                    type: 'linear',
-                    display: true,
-                    position: 'left',
-                    ticks: {
-                        color: textColorSecondary
+                    {
+                        label: 'Dataset 2',
+                        fill: false,
+                        borderColor: documentStyle.getPropertyValue('--p-gray-500'),
+                        yAxisID: 'y1',
+                        tension: 0.4,
+                        data: [28, 48, 40, 19, 86, 27, 90],
                     },
-                    grid: {
-                        color: surfaceBorder
-                    }
-                },
-                y1: {
-                    type: 'linear',
-                    display: true,
-                    position: 'right',
-                    ticks: {
-                        color: textColorSecondary
+                ],
+            };
+
+            this.options = {
+                stacked: false,
+                maintainAspectRatio: false,
+                aspectRatio: 0.6,
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: textColor,
+                        },
                     },
-                    grid: {
-                        drawOnChartArea: false,
-                        color: surfaceBorder
-                    }
-                }
-            }
-        };
+                },
+                scales: {
+                    x: {
+                        ticks: {
+                            color: textColorSecondary,
+                        },
+                        grid: {
+                            color: surfaceBorder,
+                        },
+                    },
+                    y: {
+                        type: 'linear',
+                        display: true,
+                        position: 'left',
+                        ticks: {
+                            color: textColorSecondary,
+                        },
+                        grid: {
+                            color: surfaceBorder,
+                        },
+                    },
+                    y1: {
+                        type: 'linear',
+                        display: true,
+                        position: 'right',
+                        ticks: {
+                            color: textColorSecondary,
+                        },
+                        grid: {
+                            drawOnChartArea: false,
+                            color: surfaceBorder,
+                        },
+                    },
+                },
+            };
+        }
     }
 }`,
     };
