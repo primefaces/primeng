@@ -12,7 +12,7 @@ import { Code } from '@domain/code';
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-cascade-select
+            <p-cascadeselect
                 [(ngModel)]="selectedCity"
                 [options]="countries"
                 optionLabel="cname"
@@ -108,7 +108,7 @@ export class BasicDoc {
     }
 
     code: Code = {
-        basic: `<p-cascade-select 
+        basic: `<p-cascadeselect 
     [(ngModel)]="selectedCity" 
     [options]="countries" 
     optionLabel="cname" 
@@ -118,7 +118,7 @@ export class BasicDoc {
     placeholder="Select a City" />`,
 
         html: `<div class="card flex justify-center">
-    <p-cascade-select 
+    <p-cascadeselect 
         [(ngModel)]="selectedCity" 
         [options]="countries" 
         optionLabel="cname"

@@ -13,7 +13,7 @@ import { Code } from '@domain/code';
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-cascade-select
+            <p-cascadeselect
                 [(ngModel)]="selectedCity"
                 [options]="countries"
                 optionLabel="cname"
@@ -34,7 +34,7 @@ import { Code } from '@domain/code';
                         <span>{{ option.cname || option.name }}</span>
                     </div>
                 </ng-template>
-            </p-cascade-select>
+            </p-cascadeselect>
         </div>
         <app-code [code]="code" selector="cascade-select-template-demo"></app-code>
     `,
@@ -122,7 +122,7 @@ export class TemplateDoc {
     }
 
     code: Code = {
-        basic: `<p-cascade-select 
+        basic: `<p-cascadeselect 
     [(ngModel)]="selectedCity" 
     [options]="countries"
     optionLabel="cname"
@@ -141,10 +141,10 @@ export class TemplateDoc {
             <span>{{ option.cname || option.name }}</span>
         </div>
     </ng-template>
-</p-cascade-select>`,
+</p-cascadeselect>`,
 
         html: `<div class="card flex justify-center">
-    <p-cascade-select 
+    <p-cascadeselect 
         [(ngModel)]="selectedCity" 
         [options]="countries"
         optionLabel="cname" 
@@ -163,7 +163,7 @@ export class TemplateDoc {
                     <span>{{ option.cname || option.name }}</span>
                 </div>
             </ng-template>
-    </p-cascade-select>
+    </p-cascadeselect>
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';

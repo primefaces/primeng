@@ -53,7 +53,7 @@ export const CASCADESELECT_VALUE_ACCESSOR: any = {
 };
 
 @Component({
-    selector: 'p-cascadeSelectSub, p-cascade-select-sub',
+    selector: 'p-cascadeSelectSub, p-cascadeselect-sub',
     template: `
         <ul
             class="p-cascadeselect-list"
@@ -98,7 +98,7 @@ export const CASCADESELECT_VALUE_ACCESSOR: any = {
                             <ng-template *ngTemplateOutlet="groupIconTemplate"></ng-template>
                         </span>
                     </div>
-                    <p-cascade-select-sub
+                    <p-cascadeselect-sub
                         *ngIf="isOptionGroup(processedOption) && isOptionActive(processedOption)"
                         [role]="'group'"
                         class="p-cascadeselect-overlay p-cascadeselect-option-list"
@@ -115,7 +115,7 @@ export const CASCADESELECT_VALUE_ACCESSOR: any = {
                         [dirty]="dirty"
                         [optionTemplate]="optionTemplate"
                     >
-                    </p-cascade-select-sub>
+                    </p-cascadeselect-sub>
                 </li>
             </ng-template>
         </ul>
@@ -252,7 +252,7 @@ export class CascadeSelectSub extends BaseComponent implements OnInit {
  * @group Components
  */
 @Component({
-    selector: 'p-cascadeSelect, p-cascade-select',
+    selector: 'p-cascadeSelect, p-cascadeselect',
     template: ` <div
         #container
         [ngClass]="containerClass"
@@ -363,7 +363,7 @@ export class CascadeSelectSub extends BaseComponent implements OnInit {
                     [attr.data-pc-section]="'panel'"
                 >
                     <div class="p-cascadeselect-list-container" [attr.data-pc-section]="'wrapper'">
-                        <p-cascade-selectSub
+                        <p-cascadeselectSub
                             [options]="processedOptions"
                             [selectId]="id"
                             [focusedOptionId]="focused ? focusedOptionId : undefined"
@@ -383,7 +383,7 @@ export class CascadeSelectSub extends BaseComponent implements OnInit {
                             [dirty]="dirty"
                             [role]="'tree'"
                         >
-                        </p-cascade-selectSub>
+                        </p-cascadeselectSub>
                     </div>
                     <span role="status" aria-live="polite" class="p-hidden-accessible">
                         {{ selectedMessageText }}

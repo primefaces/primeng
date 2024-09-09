@@ -13,7 +13,7 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card flex justify-center">
             <form [formGroup]="formGroup">
-                <p-cascade-select
+                <p-cascadeselect
                     formControlName="selectedCity"
                     [options]="countries"
                     optionLabel="cname"
@@ -117,7 +117,7 @@ export class ReactiveFormsDoc implements OnInit {
 
     code: Code = {
         basic: `<form [formGroup]="formGroup">
-    <p-cascade-select 
+    <p-cascadeselect 
         formControlName="selectedCity" 
         [options]="countries" 
         optionLabel="cname" 
@@ -129,7 +129,7 @@ export class ReactiveFormsDoc implements OnInit {
 
         html: `<div class="card flex justify-center">
     <form [formGroup]="formGroup">
-        <p-cascade-select 
+        <p-cascadeselect 
             formControlName="selectedCity"
             [options]="countries"
             optionLabel="cname"
