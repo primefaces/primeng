@@ -8,7 +8,7 @@ const theme = ({ dt }) => `
     width: 100%;
 }
 
-p-inputgroupaddon {
+p-input-group-addon {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -36,7 +36,7 @@ p-inputgroupaddon {
     width: 1%;
 }
 
-p-inputgroupaddon:last-child {
+p-input-group-addon:last-child {
     border-right: 1px solid ${dt('inputgroup.addon.border.color')};
 }
 
@@ -47,9 +47,9 @@ p-inputgroupaddon:last-child {
     margin: 0;
 }
 
-.p-inputgroup > .p-component + p-inputgroupaddon,
-.p-inputgroup > .p-inputwrapper > .p-inputtext + p-inputgroupaddon,
-.p-inputgroup > .p-floatlabel > .p-component + p-inputgroupaddon {
+.p-inputgroup > .p-component + p-input-group-addon,
+.p-inputgroup > .p-inputwrapper > .p-inputtext + p-input-group-addon,
+.p-inputgroup > .p-floatlabel > .p-component + p-input-group-addon {
     border-left: 0 none;
 }
 
@@ -65,7 +65,7 @@ p-inputgroupaddon:last-child {
     z-index: 1;
 }
 
-p-inputgroupaddon:first-child,
+p-input-group-addon:first-child,
 .p-inputgroup button:first-child,
 .p-inputgroup input:first-child,
 .p-inputgroup > .p-inputwrapper:first-child,
@@ -79,7 +79,7 @@ p-inputgroupaddon:first-child,
     border-bottom-left-radius: ${dt('inputgroup.addon.border.radius')};
 }
 
-p-inputgroupaddon:last-child,
+p-input-group-addon:last-child,
 .p-inputgroup button:last-child,
 .p-inputgroup input:last-child,
 .p-inputgroup > .p-inputwrapper:last-child,
