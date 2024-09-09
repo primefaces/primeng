@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
             <p>Icons and Labels can be customized using <i>onLabel</i>, <i>offLabel</i>, <i>onIcon</i> and <i>offIcon</i> properties.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-toggleButton
+            <p-toggle-button
                 [(ngModel)]="checked"
                 onLabel="Locked"
                 offLabel="Unlocked"
@@ -27,7 +27,7 @@ export class CustomizedDoc {
     checked: boolean = false;
 
     code: Code = {
-        basic: `<p-toggleButton 
+        basic: `<p-toggle-button 
     [(ngModel)]="checked" 
     onLabel="Locked" 
     offLabel="Unlocked" 
@@ -39,7 +39,7 @@ export class CustomizedDoc {
     ariaLabel="Do you confirm" />`,
 
         html: `<div class="card flex justify-center">
-    <p-toggleButton 
+    <p-toggle-button 
         [(ngModel)]="checked" 
         onLabel="Locked"
         offLabel="Unlocked" 

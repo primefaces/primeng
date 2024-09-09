@@ -13,7 +13,7 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card flex justify-center">
             <form [formGroup]="formGroup">
-                <p-toggleButton formControlName="checked" onLabel="On" offLabel="Off" />
+                <p-toggle-button formControlName="checked" onLabel="On" offLabel="Off" />
             </form>
         </div>
         <app-code [code]="code" selector="toggle-button-reactive-forms-demo"></app-code>
@@ -30,7 +30,7 @@ export class ReactiveFormsDoc implements OnInit {
 
     code: Code = {
         basic: `<form [formGroup]="formGroup">
-    <p-toggleButton 
+    <p-toggle-button 
         formControlName="checked" 
         onLabel="On" 
         offLabel="Off" />
@@ -38,7 +38,7 @@ export class ReactiveFormsDoc implements OnInit {
 
         html: `<div class="card flex justify-center">
     <form [formGroup]="formGroup">
-        <p-toggleButton 
+        <p-toggle-button 
             formControlName="checked" 
             onLabel="On" 
             offLabel="Off" />

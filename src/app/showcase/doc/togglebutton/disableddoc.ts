@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
             <p>When <i>disabled</i> is present, the element cannot be edited and focused.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-toggleButton
+            <p-toggle-button
                 disabled="true"
                 onIcon="pi pi-check"
                 offIcon="pi pi-times"
@@ -26,7 +26,7 @@ export class DisabledDoc {
     checked: boolean = false;
 
     code: Code = {
-        basic: `<p-toggleButton
+        basic: `<p-toggle-button
     disabled="true" 
     onIcon="pi pi-check" 
     offIcon="pi pi-times" 
@@ -37,7 +37,7 @@ export class DisabledDoc {
     ariaLabel="Confirmation" />`,
 
         html: `<div class="card flex justify-center">
-    <p-toggleButton 
+    <p-toggle-button 
         disabled="true" 
         onIcon="pi pi-check" 
         offIcon="pi pi-times" 

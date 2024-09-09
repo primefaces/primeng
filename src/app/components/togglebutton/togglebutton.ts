@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import {
     booleanAttribute,
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     ContentChildren,
     EventEmitter,
@@ -24,7 +23,6 @@ import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ToggleButtonStyle } from './style/togglebuttonstyle';
-import { DomHandler } from 'primeng/dom';
 
 export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -36,7 +34,7 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
  * @group Components
  */
 @Component({
-    selector: 'p-toggleButton',
+    selector: 'p-toggleButton, p-toggle-button',
     template: `
         <span [ngClass]="cx('content')">
             <ng-container *ngTemplateOutlet="contentTemplate; context: { $implicit: checked }"></ng-container>

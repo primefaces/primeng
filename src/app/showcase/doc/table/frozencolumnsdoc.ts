@@ -13,7 +13,7 @@ import { CustomerService } from '@service/customerservice';
         </app-docsectiontext>
         <p-deferred-demo (load)="loadDemoData()">
             <div class="card">
-                <p-toggleButton
+                <p-toggle-button
                     [(ngModel)]="balanceFrozen"
                     [onIcon]="'pi pi-lock'"
                     offIcon="pi pi-lock-open"
@@ -86,7 +86,7 @@ export class FrozenColumnsDoc {
     }
 
     code: Code = {
-        basic: `<p-toggleButton 
+        basic: `<p-toggle-button 
     [(ngModel)]="balanceFrozen" 
     [onIcon]="'pi pi-lock'"
     offIcon="pi pi-lock-open" 
@@ -122,7 +122,7 @@ export class FrozenColumnsDoc {
     </ng-template>
 </p-table>`,
         html: `<div class="card">
-    <p-toggleButton 
+    <p-toggle-button 
         [(ngModel)]="balanceFrozen" 
         [onIcon]="'pi pi-lock'" 
         offIcon="pi pi-lock-open" 
