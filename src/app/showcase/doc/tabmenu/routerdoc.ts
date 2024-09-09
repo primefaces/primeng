@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
             </p>
         </app-docsectiontext>
         <div class="card">
-            <p-tabMenu [model]="items">
+            <p-tab-menu [model]="items">
                 <ng-template pTemplate="item" let-item>
                     <ng-container *ngIf="item.route; else elseBlock">
                         <a [routerLink]="item.route" class="p-menuitem-link">
@@ -28,7 +28,7 @@ import { Router } from '@angular/router';
                         </a>
                     </ng-template>
                 </ng-template>
-            </p-tabMenu>
+            </p-tab-menu>
         </div>
         <app-code [code]="code" selector="tab-menu-router-demo"></app-code>
     `,
@@ -53,7 +53,7 @@ export class RouterDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-tabMenu [model]="items">
+        basic: `<p-tab-menu [model]="items">
     <ng-template pTemplate="item" let-item>
         <ng-container *ngIf="item.route; else elseBlock">
             <a [routerLink]="item.route" class="p-menuitem-link">
@@ -72,10 +72,10 @@ export class RouterDoc implements OnInit {
             </a>
         </ng-template>
     </ng-template>
-</p-tabMenu>`,
+</p-tab-menu>`,
 
         html: `<div class="card">
-    <p-tabMenu [model]="items">
+    <p-tab-menu [model]="items">
         <ng-template pTemplate="item" let-item>
             <ng-container *ngIf="item.route; else elseBlock">
                 <a [routerLink]="item.route" class="p-menuitem-link">
@@ -94,7 +94,7 @@ export class RouterDoc implements OnInit {
                 </a>
             </ng-template>
         </ng-template>
-    </p-tabMenu>
+    </p-tab-menu>
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';

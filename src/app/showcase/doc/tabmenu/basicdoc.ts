@@ -9,7 +9,7 @@ import { Code } from '@domain/code';
             <p>TabMenu requires a collection of menuitems as its model.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-tabMenu [model]="items" />
+            <p-tab-menu [model]="items" />
         </div>
         <app-code [code]="code" selector="tab-menu-basic-demo"></app-code>
     `,
@@ -27,10 +27,10 @@ export class BasicDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-tabMenu [model]="items" />`,
+        basic: `<p-tab-menu [model]="items" />`,
 
         html: `<div class="card">
-    <p-tabMenu [model]="items" />
+    <p-tab-menu [model]="items" />
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';

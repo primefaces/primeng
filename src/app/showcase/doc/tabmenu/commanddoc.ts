@@ -10,7 +10,7 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card">
             <p-toast />
-            <p-tabMenu [model]="items" />
+            <p-tab-menu [model]="items" />
         </div>
         <app-code [code]="code" selector="tab-menu-command-demo"></app-code>
     `,
@@ -56,11 +56,11 @@ export class CommandDoc implements OnInit {
 
     code: Code = {
         basic: `<p-toast />
-<p-tabMenu [model]="items" />`,
+<p-tab-menu [model]="items" />`,
 
         html: `<div class="card">
     <p-toast />
-    <p-tabMenu [model]="items" />
+    <p-tab-menu [model]="items" />
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';

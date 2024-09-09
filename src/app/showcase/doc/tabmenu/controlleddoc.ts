@@ -35,7 +35,7 @@ import { Code } from '@domain/code';
                     [outlined]="activeItem !== items[2]"
                 />
             </div>
-            <p-tabMenu [model]="items" [activeItem]="activeItem" (activeItemChange)="onActiveItemChange($event)" />
+            <p-tab-menu [model]="items" [activeItem]="activeItem" (activeItemChange)="onActiveItemChange($event)" />
         </div>
         <app-code [code]="code" selector="tab-menu-controlled-demo"></app-code>
     `,
@@ -80,7 +80,7 @@ export class ControlledDoc implements OnInit {
         styleClass="w-8 h-8 p-0" 
         [outlined]="activeItem !== items[2]" />
 </div>
-<p-tabMenu 
+<p-tab-menu 
     [model]="items" 
     [activeItem]="activeItem" 
     (activeItemChange)="onActiveItemChange($event)" />`,
@@ -105,7 +105,7 @@ export class ControlledDoc implements OnInit {
             styleClass="w-8 h-8 p-0" 
             [outlined]="activeItem !== items[2]" />
     </div>
-    <p-tabMenu 
+    <p-tab-menu 
         [model]="items" 
         [activeItem]="activeItem" 
         (activeItemChange)="onActiveItemChange($event)" />

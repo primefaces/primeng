@@ -9,7 +9,7 @@ import { Code } from '@domain/code';
             <p>Setting <i>scrollable</i> property to <i>true</i> enables scrolling if content overflows.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-tabMenu [scrollable]="true" [model]="items" [activeItem]="activeItem"></p-tabMenu>
+            <p-tab-menu [scrollable]="true" [model]="items" [activeItem]="activeItem"></p-tab-menu>
         </div>
         <app-code [code]="code" selector="tab-menu-scrollable-demo"></app-code>
     `,
@@ -25,11 +25,11 @@ export class ScrollableDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-tabMenu [scrollable]="true" [model]="items" [activeItem]="activeItem"></p-tabMenu>`,
+        basic: `<p-tab-menu [scrollable]="true" [model]="items" [activeItem]="activeItem"></p-tab-menu>`,
 
         html: `
 <div class="card">
-    <p-tabMenu [scrollable]="true" [model]="items" [activeItem]="activeItem"></p-tabMenu>
+    <p-tab-menu [scrollable]="true" [model]="items" [activeItem]="activeItem"></p-tab-menu>
 </div>`,
 
         typescript: `
