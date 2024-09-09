@@ -13,19 +13,19 @@ import { Code } from '@domain/code';
         <p-fluid class="card flex flex-wrap gap-4">
             <div class="flex-auto">
                 <label class="block font-bold mb-2" for="locale-user">User Locale</label>
-                <p-inputNumber [(ngModel)]="value1" inputId="locale-user" [minFractionDigits]="2" />
+                <p-input-number [(ngModel)]="value1" inputId="locale-user" [minFractionDigits]="2" />
             </div>
             <div class="flex-auto">
                 <label class="block font-bold mb-2" for="locale-us">United States Locale</label>
-                <p-inputNumber [(ngModel)]="value2" inputId="locale-us" mode="decimal" locale="en-US" [minFractionDigits]="2" />
+                <p-input-number [(ngModel)]="value2" inputId="locale-us" mode="decimal" locale="en-US" [minFractionDigits]="2" />
             </div>
             <div class="flex-auto">
                 <label class="block font-bold mb-2" for="locale-german">German Locale</label>
-                <p-inputNumber [(ngModel)]="value3" inputId="locale-german" mode="decimal" locale="de-DE" [minFractionDigits]="2" />
+                <p-input-number [(ngModel)]="value3" inputId="locale-german" mode="decimal" locale="de-DE" [minFractionDigits]="2" />
             </div>
             <div class="flex-auto">
                 <label class="block font-bold mb-2" for="locale-indian">Indian Locale</label>
-                <p-inputNumber [(ngModel)]="value4" inputId="locale-indian" mode="decimal" locale="en-IN" [minFractionDigits]="2" />
+                <p-input-number [(ngModel)]="value4" inputId="locale-indian" mode="decimal" locale="en-IN" [minFractionDigits]="2" />
             </div>
         </p-fluid>
         <app-code [code]="code" selector="input-number-locale-demo"></app-code>
@@ -41,26 +41,26 @@ export class LocaleDoc {
     value4: number = 732762;
 
     code: Code = {
-        basic: `<p-inputNumber 
+        basic: `<p-input-number 
     [(ngModel)]="value1" 
     inputId="locale-user" 
     [minFractionDigits]="2" />
 
-<p-inputNumber 
+<p-input-number 
     [(ngModel)]="value2" 
     inputId="locale-us" 
     mode="decimal" 
     locale="en-US" 
     [minFractionDigits]="2" /> 
 
-<p-inputNumber 
+<p-input-number 
     [(ngModel)]="value3" 
     inputId="locale-german" 
     mode="decimal" 
     locale="de-DE" 
     [minFractionDigits]="2" /> 
 
-<p-inputNumber 
+<p-input-number 
     [(ngModel)]="value4" 
     inputId="locale-indian" 
     mode="decimal" 
@@ -72,7 +72,7 @@ export class LocaleDoc {
         <label class="block font-bold mb-2" for="locale-user">
             User Locale
         </label>
-        <p-inputNumber 
+        <p-input-number 
             [(ngModel)]="value1" 
             inputId="locale-user" 
             [minFractionDigits]="2" />
@@ -81,7 +81,7 @@ export class LocaleDoc {
         <label class="block font-bold mb-2" for="locale-us">
             United States Locale
         </label>
-        <p-inputNumber 
+        <p-input-number 
             [(ngModel)]="value2" 
             inputId="locale-us" 
             mode="decimal" 
@@ -92,7 +92,7 @@ export class LocaleDoc {
         <label class="block font-bold mb-2" for="locale-german">
             German Locale
         </label>
-        <p-inputNumber 
+        <p-input-number 
             [(ngModel)]="value3" 
             inputId="locale-german" 
             mode="decimal" 
@@ -103,7 +103,7 @@ export class LocaleDoc {
         <label class="block font-bold mb-2" for="locale-indian">
             Indian Locale
         </label>
-        <p-inputNumber 
+        <p-input-number 
             [(ngModel)]="value4" 
             inputId="locale-indian" 
             mode="decimal" 

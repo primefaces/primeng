@@ -208,7 +208,7 @@ import { ProductService } from '@service/productservice';
                             <div class="grid grid-cols-12 gap-4">
                                 <div class="col-span-6">
                                     <label for="price" class="block font-bold mb-3">Price</label>
-                                    <p-inputNumber
+                                    <p-input-number
                                         id="price"
                                         [(ngModel)]="product.price"
                                         mode="currency"
@@ -219,7 +219,7 @@ import { ProductService } from '@service/productservice';
                                 </div>
                                 <div class="col-span-6">
                                     <label for="quantity" class="block font-bold mb-3">Quantity</label>
-                                    <p-inputNumber id="quantity" [(ngModel)]="product.quantity" fluid />
+                                    <p-input-number id="quantity" [(ngModel)]="product.quantity" fluid />
                                 </div>
                             </div>
                         </div>
@@ -681,7 +681,7 @@ export class ProductsDoc {
                 <div class="grid grid-cols-12 gap-4">
                     <div class="col-span-6">
                         <label for="price" class="block font-bold mb-3">Price</label>
-                        <p-inputNumber
+                        <p-input-number
                             id="price"
                             [(ngModel)]="product.price"
                             mode="currency"
@@ -692,7 +692,7 @@ export class ProductsDoc {
                     </div>
                     <div class="col-span-6">
                         <label for="quantity" class="block font-bold mb-3">Quantity</label>
-                        <p-inputNumber id="quantity" [(ngModel)]="product.quantity" fluid />
+                        <p-input-number id="quantity" [(ngModel)]="product.quantity" fluid />
                     </div>
                 </div>
             </div>

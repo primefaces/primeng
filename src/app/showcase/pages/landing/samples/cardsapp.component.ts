@@ -649,7 +649,7 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
                     <div class="mt-4 flex gap-2">
                         <div class="flex-1">
                             <label for="price-min-val" class="leading-6 text-color">Min Value</label>
-                            <p-inputNumber
+                            <p-input-number
                                 [(ngModel)]="priceRange[0]"
                                 [min]="0"
                                 inputId="price-min-val"
@@ -661,7 +661,7 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
                         </div>
                         <div class="flex-1">
                             <label for="price-max-val" class="leading-6 text-color">Max Value</label>
-                            <p-inputNumber
+                            <p-input-number
                                 [(ngModel)]="priceRange[1]"
                                 inputId="price-max-val"
                                 mode="currency"

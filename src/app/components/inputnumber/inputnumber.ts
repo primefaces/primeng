@@ -46,7 +46,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
  * @group Components
  */
 @Component({
-    selector: 'p-inputNumber',
+    selector: 'p-inputNumber, p-input-number',
     template: `
         <span
             [ngClass]="_rootClass"

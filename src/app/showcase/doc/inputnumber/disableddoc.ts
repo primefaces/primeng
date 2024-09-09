@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
             <p>When <i>disabled</i> is present, the element cannot be edited and focused.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-inputNumber inputId="integeronly" [disabled]="true" prefix="%" [(ngModel)]="value1" />
+            <p-input-number inputId="integeronly" [disabled]="true" prefix="%" [(ngModel)]="value1" />
         </div>
         <app-code [code]="code" selector="input-number-disabled-demo"></app-code>
     `,
@@ -17,14 +17,14 @@ export class DisabledDoc {
     value1: number = 50;
 
     code: Code = {
-        basic: `<p-inputNumber 
+        basic: `<p-input-number 
     inputId="integeronly" 
     [disabled]="true" 
     prefix="%" 
     [(ngModel)]="value1" />`,
 
         html: `<div class="card flex justify-center">
-    <p-inputNumber 
+    <p-input-number 
         inputId="integeronly" 
         [disabled]="true" 
         prefix="%" 

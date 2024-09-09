@@ -11,7 +11,7 @@ import { Code } from '@domain/code';
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-inputNumber variant="filled" [(ngModel)]="value1" />
+            <p-input-number variant="filled" [(ngModel)]="value1" />
         </div>
         <app-code [code]="code" selector="input-number-filled-demo"></app-code>
     `,
@@ -20,10 +20,10 @@ export class FilledDoc {
     value1!: number;
 
     code: Code = {
-        basic: `<p-inputNumber variant="filled" [(ngModel)]="value1" />`,
+        basic: `<p-input-number variant="filled" [(ngModel)]="value1" />`,
 
         html: `<div class="card flex justify-center">
-    <p-inputNumber variant="filled" [(ngModel)]="value1" />
+    <p-input-number variant="filled" [(ngModel)]="value1" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

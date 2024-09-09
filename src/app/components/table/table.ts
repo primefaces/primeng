@@ -6238,7 +6238,7 @@ export class ColumnFilter extends BaseComponent implements AfterContentInit {
                     (keydown.enter)="onTextInputEnterKeyDown($event)"
                     [attr.placeholder]="placeholder"
                 />
-                <p-inputNumber
+                <p-input-number
                     *ngSwitchCase="'numeric'"
                     [ngModel]="filterConstraint?.value"
                     (ngModelChange)="onModelChange($event)"
@@ -6256,7 +6256,7 @@ export class ColumnFilter extends BaseComponent implements AfterContentInit {
                     [currency]="currency"
                     [currencyDisplay]="currencyDisplay"
                     [useGrouping]="useGrouping"
-                ></p-inputNumber>
+                ></p-input-number>
                 <p-checkbox
                     [indeterminate]="true"
                     [binary]="true"
