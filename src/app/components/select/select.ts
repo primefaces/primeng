@@ -702,7 +702,7 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
      * Fields used when filtering the options, defaults to optionLabel.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) focusOnHover: boolean = false;
+    @Input({ transform: booleanAttribute }) focusOnHover: boolean = true
     /**
      * Determines if the option will be selected on focus.
      * @group Props
