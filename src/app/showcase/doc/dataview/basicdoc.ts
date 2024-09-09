@@ -13,7 +13,7 @@ import { ProductService } from '@service/productservice';
             </p>
         </app-docsectiontext>
         <div class="card">
-            <p-dataView #dv [value]="products">
+            <p-data-view #dv [value]="products">
                 <ng-template pTemplate="list" let-products>
                     <div class="grid grid-cols-12 gap-4 grid-nogutter">
                         <div class="col-span-12" *ngFor="let item of products; let first = first" class="col-span-12">
@@ -73,7 +73,7 @@ import { ProductService } from '@service/productservice';
                         </div>
                     </div>
                 </ng-template>
-            </p-dataView>
+            </p-data-view>
         </div>
         <app-code [code]="code" selector="data-view-basic-demo" [extFiles]="extFiles"></app-code>
     `,
@@ -104,7 +104,7 @@ export class BasicDoc {
     }
 
     code: Code = {
-        basic: `<p-dataView #dv [value]="products">
+        basic: `<p-data-view #dv [value]="products">
     <ng-template pTemplate="list" let-products>
         <div class="grid grid-cols-12 gap-4 grid-nogutter">
             <div class="col-span-12" *ngFor="let item of products; let first = first" class="col-span-12">
@@ -164,10 +164,10 @@ export class BasicDoc {
             </div>
         </div>
     </ng-template>
-</p-dataView>`,
+</p-data-view>`,
 
         html: `<div class="card">
-  <p-dataView #dv [value]="products">
+  <p-data-view #dv [value]="products">
         <ng-template pTemplate="list" let-products>
             <div class="grid grid-cols-12 gap-4 grid-nogutter">
                 <div class="col-span-12" *ngFor="let item of products; let first = first" class="col-span-12">
@@ -227,7 +227,7 @@ export class BasicDoc {
                 </div>
             </div>
         </ng-template>
-    </p-dataView>
+    </p-data-view>
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

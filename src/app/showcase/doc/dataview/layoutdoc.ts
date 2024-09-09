@@ -13,7 +13,7 @@ import { ProductService } from '@service/productservice';
             </p>
         </app-docsectiontext>
         <div class="card">
-            <p-dataView #dv [value]="products" [layout]="layout">
+            <p-data-view #dv [value]="products" [layout]="layout">
                 <ng-template pTemplate="header">
                     <div class="flex justify-end">
                         <p-select-button [(ngModel)]="layout" [options]="options" [allowEmpty]="false">
@@ -137,7 +137,7 @@ import { ProductService } from '@service/productservice';
                         </div>
                     </div>
                 </ng-template>
-            </p-dataView>
+            </p-data-view>
         </div>
         <app-code [code]="code" selector="data-view-layout-demo" [extFiles]="extFiles"></app-code>
     `,
@@ -174,7 +174,7 @@ export class LayoutDoc {
     }
 
     code: Code = {
-        basic: `<p-dataView #dv [value]="products" [layout]="layout">
+        basic: `<p-data-view #dv [value]="products" [layout]="layout">
     <ng-template pTemplate="header">
         <div class="flex justify-end">
             <p-select-button [(ngModel)]="layout" [options]="options" [allowEmpty]="false">
@@ -310,10 +310,10 @@ export class LayoutDoc {
             </div>
         </div>
     </ng-template>
-</p-dataView>`,
+</p-data-view>`,
 
         html: `<div class="card">
-     <p-dataView #dv [value]="products" [layout]="layout">
+     <p-data-view #dv [value]="products" [layout]="layout">
         <ng-template pTemplate="header">
             <div class="flex justify-end">
                 <p-select-button [(ngModel)]="layout" [options]="options" [allowEmpty]="false">
@@ -449,7 +449,7 @@ export class LayoutDoc {
                 </div>
             </div>
         </ng-template>
-    </p-dataView>
+    </p-data-view>
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

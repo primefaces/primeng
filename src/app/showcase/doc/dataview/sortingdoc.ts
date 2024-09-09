@@ -11,7 +11,7 @@ import { ProductService } from '@service/productservice';
             <p>Built-in sorting is controlled by bindings <i>sortField</i> and <i>sortOrder</i> properties from a custom UI.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-dataView #dv [value]="products" [sortField]="sortField" [sortOrder]="sortOrder">
+            <p-data-view #dv [value]="products" [sortField]="sortField" [sortOrder]="sortOrder">
                 <ng-template pTemplate="header">
                     <div class="flex flex-col md:flex-row md:justify-between">
                         <p-select
@@ -82,7 +82,7 @@ import { ProductService } from '@service/productservice';
                         </div>
                     </div>
                 </ng-template>
-            </p-dataView>
+            </p-data-view>
         </div>
         <app-code [code]="code" selector="data-view-sorting-demo" [extFiles]="extFiles"></app-code>
     `,
@@ -136,7 +136,7 @@ export class SortingDoc {
     }
 
     code: Code = {
-        basic: `<p-dataView #dv [value]="products" [sortField]="sortField" [sortOrder]="sortOrder">
+        basic: `<p-data-view #dv [value]="products" [sortField]="sortField" [sortOrder]="sortOrder">
     <ng-template pTemplate="header">
         <div class="flex flex-col md:flex-row md:justify-between">
             <p-select
@@ -207,10 +207,10 @@ export class SortingDoc {
             </div>
         </div>
     </ng-template>
-</p-dataView>`,
+</p-data-view>`,
 
         html: `<div class="card">
-    <p-dataView #dv [value]="products" [sortField]="sortField" [sortOrder]="sortOrder">
+    <p-data-view #dv [value]="products" [sortField]="sortField" [sortOrder]="sortOrder">
         <ng-template pTemplate="header">
             <div class="flex flex-col md:flex-row md:justify-between">
                 <p-select
@@ -281,7 +281,7 @@ export class SortingDoc {
                 </div>
             </div>
         </ng-template>
-    </p-dataView>
+    </p-data-view>
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

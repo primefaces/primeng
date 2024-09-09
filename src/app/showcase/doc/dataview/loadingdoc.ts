@@ -10,7 +10,7 @@ import { ProductService } from '@service/productservice';
             <p>While data is being loaded. <a routerLink="/skeleton">Skeleton</a> component may be used to indicate the busy state.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-dataView #dv [value]="products" [layout]="layout">
+            <p-data-view #dv [value]="products" [layout]="layout">
                 <ng-template pTemplate="header">
                     <div class="flex justify-end">
                         <p-select-button [(ngModel)]="layout" [options]="options" [allowEmpty]="false">
@@ -68,7 +68,7 @@ import { ProductService } from '@service/productservice';
                         </div>
                     </div>
                 </ng-template>
-            </p-dataView>
+            </p-data-view>
         </div>
         <app-code [code]="code" selector="data-view-loading-demo" [extFiles]="extFiles"></app-code>
     `,
@@ -107,7 +107,7 @@ export class LoadingDoc {
     }
 
     code: Code = {
-        basic: `<p-dataView #dv [value]="products" [layout]="layout">
+        basic: `<p-data-view #dv [value]="products" [layout]="layout">
     <ng-template pTemplate="header">
         <div class="flex justify-end">
             <p-select-button [(ngModel)]="layout" [options]="options" [allowEmpty]="false">
@@ -172,10 +172,10 @@ export class LoadingDoc {
             </div>
         </div>
     </ng-template>
-</p-dataView>`,
+</p-data-view>`,
 
         html: `<div class="card">
-    <p-dataView #dv [value]="products" [layout]="layout">
+    <p-data-view #dv [value]="products" [layout]="layout">
         <ng-template pTemplate="header">
             <div class="flex justify-end">
                 <p-select-button [(ngModel)]="layout" [options]="options" [allowEmpty]="false">
@@ -240,7 +240,7 @@ export class LoadingDoc {
                 </div>
             </div>
         </ng-template>
-    </p-dataView>
+    </p-data-view>
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
