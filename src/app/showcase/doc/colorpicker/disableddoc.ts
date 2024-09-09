@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
             <p>When <i>disabled</i> is present, the element cannot be edited and focused.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-color-picker [(ngModel)]="color" [disabled]="true" />
+            <p-colorpicker [(ngModel)]="color" [disabled]="true" />
         </div>
         <app-code [code]="code" selector="color-picker-disabled-demo"></app-code>
     `,
@@ -17,12 +17,12 @@ export class DisabledDoc {
     color: string | undefined;
 
     code: Code = {
-        basic: `<p-color-picker 
+        basic: `<p-colorpicker 
     [(ngModel)]="color" 
     [disabled]="true" />`,
 
         html: `<div class="card flex justify-center">
-    <p-color-picker 
+    <p-colorpicker 
         [(ngModel)]="color" 
         [disabled]="true" />
 </div>`,

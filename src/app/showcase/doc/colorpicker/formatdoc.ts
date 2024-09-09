@@ -13,17 +13,17 @@ import { Code } from '@domain/code';
         <div class="card flex flex-wrap gap-4">
             <div class="flex-1 flex flex-col items-center gap-4">
                 <label for="cp-hex" class="font-bold block mb-2"> HEX </label>
-                <p-color-picker [(ngModel)]="color" />
+                <p-colorpicker [(ngModel)]="color" />
                 <span>{{ color }}</span>
             </div>
             <div class="flex-1 flex flex-col items-center gap-4">
                 <label for="cp-rgb" class="font-bold block mb-2"> RGB </label>
-                <p-color-picker [(ngModel)]="colorRGB" format="rgb" />
+                <p-colorpicker [(ngModel)]="colorRGB" format="rgb" />
                 <span>{{ 'r:' + colorRGB.r + ' g:' + colorRGB.g + ' b:' + colorRGB.b }}</span>
             </div>
             <div class="flex-1 flex flex-col items-center gap-4">
                 <label for="cp-hsb" class="font-bold block mb-2"> HSB </label>
-                <p-color-picker [(ngModel)]="colorHSB" format="hsb" />
+                <p-colorpicker [(ngModel)]="colorHSB" format="hsb" />
                 <span>{{ 'h:' + colorHSB.h + ' s:' + colorHSB.s + ' b:' + colorHSB.b }}</span>
             </div>
         </div>
@@ -38,34 +38,34 @@ export class FormatDoc {
     colorHSB: any = { h: 239, s: 59, b: 95 };
 
     code: Code = {
-        basic: `<p-color-picker 
+        basic: `<p-colorpicker 
     [(ngModel)]="color" />
 
-<p-color-picker 
+<p-colorpicker 
     [(ngModel)]="colorRGB" 
     format="rgb" />
 
-<p-color-picker 
+<p-colorpicker 
     [(ngModel)]="colorHSB" 
     format="hsb" />`,
 
         html: `<div class="card flex flex-wrap gap-4">
     <div class="flex-1 flex flex-col items-center gap-4">
         <label for="cp-hex" class="font-bold block mb-2"> HEX </label>
-        <p-color-picker 
+        <p-colorpicker 
             [(ngModel)]="color" />
         <span>{{ color }}</span>
     </div>
     <div class="flex-1 flex flex-col items-center gap-4">
         <label for="cp-rgb" class="font-bold block mb-2"> RGB </label>
-        <p-color-picker 
+        <p-colorpicker 
             [(ngModel)]="colorRGB" 
             format="rgb" />
         <span>{{ 'r:' + colorRGB.r + ' g:' + colorRGB.g + ' b:' + colorRGB.b }}</span>
     </div>
     <div class="flex-1 flex flex-col items-center gap-4">
         <label for="cp-hsb" class="font-bold block mb-2"> HSB </label>
-        <p-color-picker 
+        <p-colorpicker 
             [(ngModel)]="colorHSB" 
             format="hsb" />
         <span>{{ 'h:' + colorHSB.h + ' s:' + colorHSB.s + ' b:' + colorHSB.b }}</span>

@@ -37,7 +37,7 @@ export const COLORPICKER_VALUE_ACCESSOR: any = {
  * @group Components
  */
 @Component({
-    selector: 'p-colorPicker, p-color-picker',
+    selector: 'p-colorPicker, p-colorpicker',
     template: `
         <div
             #container
