@@ -11,9 +11,9 @@ import { ChevronDownIcon } from 'primeng/icons/chevrondown';
 import { TimesCircleIcon } from 'primeng/icons/timescircle';
 
 @Component({
-    template: `<p-auto-complete [(ngModel)]="brand" [suggestions]="filteredBrands" (completeMethod)="filterBrands($event)"></p-auto-complete>
+    template: `<p-autocomplete [(ngModel)]="brand" [suggestions]="filteredBrands" (completeMethod)="filterBrands($event)"></p-autocomplete>
         <a (click)="deleteLastEl()"></a>
-        <p-auto-complete [(ngModel)]="car" [suggestions]="filteredCars" (completeMethod)="filterBrandsWithField($event)"></p-auto-complete> `,
+        <p-autocomplete [(ngModel)]="car" [suggestions]="filteredCars" (completeMethod)="filterBrandsWithField($event)"></p-autocomplete> `,
 })
 class TestAutocompleteComponent {
     brands: string[] = ['Audi', 'BMW', 'Fiat', 'Ford', 'Honda', 'Jaguar', 'Mercedes', 'Renault', 'Volvo', 'VW'];

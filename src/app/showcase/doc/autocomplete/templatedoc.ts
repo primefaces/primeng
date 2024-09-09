@@ -16,7 +16,7 @@ interface AutoCompleteCompleteEvent {
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-auto-complete
+            <p-autocomplete
                 [(ngModel)]="selectedCountryAdvanced"
                 [suggestions]="filteredCountries"
                 (completeMethod)="filterCountry($event)"
@@ -33,7 +33,7 @@ interface AutoCompleteCompleteEvent {
                         <div>{{ country.name }}</div>
                     </div>
                 </ng-template>
-            </p-auto-complete>
+            </p-autocomplete>
         </div>
         <app-code [code]="code" selector="autocomplete-template-demo"></app-code>`,
 })
@@ -66,7 +66,7 @@ export class TemplateDoc {
     }
 
     code: Code = {
-        basic: `<p-auto-complete 
+        basic: `<p-autocomplete 
     [(ngModel)]="selectedCountryAdvanced" 
     [suggestions]="filteredCountries" 
     (completeMethod)="filterCountry($event)" 
@@ -80,10 +80,10 @@ export class TemplateDoc {
                 <div>{{ country.name }}</div>
             </div>
         </ng-template>
-</p-auto-complete>`,
+</p-autocomplete>`,
 
         html: `<div class="card flex justify-center">
-    <p-auto-complete 
+    <p-autocomplete 
     [(ngModel)]="selectedCountryAdvanced" 
     [suggestions]="filteredCountries" 
     (completeMethod)="filterCountry($event)" 
@@ -97,7 +97,7 @@ export class TemplateDoc {
                 <div>{{ country.name }}</div>
             </div>
         </ng-template>
-    </p-auto-complete>
+    </p-autocomplete>
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

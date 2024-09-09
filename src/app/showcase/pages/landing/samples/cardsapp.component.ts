@@ -398,7 +398,7 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
                     </div>
                     <div>
                         <label class="text-color font-medium leading-6">Tag (Optional)</label>
-                        <p-auto-complete
+                        <p-autocomplete
                             [(ngModel)]="filesTag"
                             styleClass="w-full mt-2"
                             inputId="multiple-ac-2"
@@ -498,7 +498,7 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
                     <div>
                         <div class="text-muted-color leading-6">Email</div>
                         <div class="flex items-start gap-3 mt-2">
-                            <p-auto-complete
+                            <p-autocomplete
                                 [(ngModel)]="emailChips"
                                 inputId="multiple-ac-2"
                                 styleClass="w-full"

@@ -18,7 +18,7 @@ interface AutoCompleteCompleteEvent {
         </app-docsectiontext>
         <div class="card flex justify-center">
             <form [formGroup]="formGroup">
-                <p-auto-complete
+                <p-autocomplete
                     formControlName="selectedCountry"
                     [suggestions]="filteredCountries"
                     (completeMethod)="filterCountry($event)"
@@ -64,7 +64,7 @@ export class ReactiveFormsDoc implements OnInit {
 
     code: Code = {
         basic: `<form [formGroup]="formGroup">
-    <p-auto-complete 
+    <p-autocomplete 
         formControlName="selectedCountry"
         [suggestions]="filteredCountries" 
         (completeMethod)="filterCountry($event)" 
@@ -73,7 +73,7 @@ export class ReactiveFormsDoc implements OnInit {
 
         html: `<div class="card flex justify-center">
     <form [formGroup]="formGroup">
-        <p-auto-complete 
+        <p-autocomplete 
             formControlName="selectedCountry"
             [suggestions]="filteredCountries" 
             (completeMethod)="filterCountry($event)" 

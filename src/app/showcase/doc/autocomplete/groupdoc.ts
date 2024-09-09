@@ -16,7 +16,7 @@ interface AutoCompleteCompleteEvent {
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-auto-complete
+            <p-autocomplete
                 [(ngModel)]="selectedCity"
                 [group]="true"
                 [suggestions]="filteredGroups"
@@ -33,7 +33,7 @@ interface AutoCompleteCompleteEvent {
                         <span>{{ group.label }}</span>
                     </div>
                 </ng-template>
-            </p-auto-complete>
+            </p-autocomplete>
         </div>
         <app-code [code]="code" selector="autocomplete-grouped-demo"></app-code>`,
 })
@@ -100,7 +100,7 @@ export class GroupDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-auto-complete 
+        basic: `<p-autocomplete 
     [(ngModel)]="selectedCity" 
     [group]="true" 
     [suggestions]="filteredGroups" 
@@ -115,10 +115,10 @@ export class GroupDoc implements OnInit {
                 <span>{{ group.label }}</span>
             </div>
         </ng-template>
-</p-auto-complete>`,
+</p-autocomplete>`,
 
         html: `<div class="card flex justify-center">
-    <p-auto-complete 
+    <p-autocomplete 
         [(ngModel)]="selectedCity" 
         [group]="true" 
         [suggestions]="filteredGroups" 
@@ -133,7 +133,7 @@ export class GroupDoc implements OnInit {
                     <span>{{ group.label }}</span>
                 </div>
             </ng-template>
-    </p-auto-complete>
+    </p-autocomplete>
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';

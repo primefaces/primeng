@@ -15,7 +15,7 @@ interface AutoCompleteCompleteEvent {
             </p>
         </app-docsectiontext>
         <div class="card">
-            <p-auto-complete
+            <p-autocomplete
                 [(ngModel)]="selectedItems"
                 [suggestions]="items"
                 (completeMethod)="search($event)"
@@ -35,7 +35,7 @@ export class MultipleDoc {
     }
 
     code: Code = {
-        basic: `<p-auto-complete 
+        basic: `<p-autocomplete 
     [(ngModel)]="selectedItems" 
     [suggestions]="items" 
     (completeMethod)="search($event)" 
@@ -43,7 +43,7 @@ export class MultipleDoc {
     styleClass="w-full" />`,
 
         html: `<div class="card">
-    <p-auto-complete 
+    <p-autocomplete 
         [(ngModel)]="selectedItems" 
         [suggestions]="items" 
         (completeMethod)="search($event)" 

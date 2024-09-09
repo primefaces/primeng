@@ -144,11 +144,11 @@ import { Code } from '@domain/code';
 export class AccessibilityDoc {
     code: Code = {
         basic: `<label for="ac1">Username</label>
-<p-auto-complete inputId="ac1"/>
+<p-autocomplete inputId="ac1"/>
 
 <span id="ac2">Email</span>
-<p-auto-complete ariaLabelledBy="ac2" />
+<p-autocomplete ariaLabelledBy="ac2" />
 
-<p-auto-complete ariaLabel="City" />`,
+<p-autocomplete ariaLabel="City" />`,
     };
 }
