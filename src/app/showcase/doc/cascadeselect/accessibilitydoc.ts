@@ -131,8 +131,8 @@ export class AccessibilityDoc {
 
     code: Code = {
         basic: `<span id="dd1">Options</span>
-<p-cascadeSelect ariaLabelledBy="dd1"/>
+<p-cascade-select ariaLabelledBy="dd1"/>
 
-<p-cascadeSelect ariaLabel="Options"/>`,
+<p-cascade-select ariaLabel="Options"/>`,
     };
 }

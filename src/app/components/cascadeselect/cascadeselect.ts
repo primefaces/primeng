@@ -26,11 +26,10 @@ import {
     ViewEncapsulation,
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { OverlayOptions, OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
+import { OverlayOptions, OverlayService, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { AngleRightIcon } from 'primeng/icons/angleright';
 import { AutoFocusModule } from 'primeng/autofocus';
-
 import { ChevronDownIcon } from 'primeng/icons/chevrondown';
 import { TimesIcon } from 'primeng/icons/times';
 import { Overlay, OverlayModule } from 'primeng/overlay';
@@ -54,7 +53,7 @@ export const CASCADESELECT_VALUE_ACCESSOR: any = {
 };
 
 @Component({
-    selector: 'p-cascadeSelectSub',
+    selector: 'p-cascadeSelectSub, p-cascade-select-sub',
     template: `
         <ul
             class="p-cascadeselect-list"
@@ -99,7 +98,7 @@ export const CASCADESELECT_VALUE_ACCESSOR: any = {
                             <ng-template *ngTemplateOutlet="groupIconTemplate"></ng-template>
                         </span>
                     </div>
-                    <p-cascadeSelectSub
+                    <p-cascade-select-sub
                         *ngIf="isOptionGroup(processedOption) && isOptionActive(processedOption)"
                         [role]="'group'"
                         class="p-cascadeselect-overlay p-cascadeselect-option-list"
@@ -116,7 +115,7 @@ export const CASCADESELECT_VALUE_ACCESSOR: any = {
                         [dirty]="dirty"
                         [optionTemplate]="optionTemplate"
                     >
-                    </p-cascadeSelectSub>
+                    </p-cascade-select-sub>
                 </li>
             </ng-template>
         </ul>
@@ -253,7 +252,7 @@ export class CascadeSelectSub extends BaseComponent implements OnInit {
  * @group Components
  */
 @Component({
-    selector: 'p-cascadeSelect',
+    selector: 'p-cascadeSelect, p-cascade-select',
     template: ` <div
         #container
         [ngClass]="containerClass"
@@ -364,7 +363,7 @@ export class CascadeSelectSub extends BaseComponent implements OnInit {
                     [attr.data-pc-section]="'panel'"
                 >
                     <div class="p-cascadeselect-list-container" [attr.data-pc-section]="'wrapper'">
-                        <p-cascadeSelectSub
+                        <p-cascade-selectSub
                             [options]="processedOptions"
                             [selectId]="id"
                             [focusedOptionId]="focused ? focusedOptionId : undefined"
@@ -384,7 +383,7 @@ export class CascadeSelectSub extends BaseComponent implements OnInit {
                             [dirty]="dirty"
                             [role]="'tree'"
                         >
-                        </p-cascadeSelectSub>
+                        </p-cascade-selectSub>
                     </div>
                     <span role="status" aria-live="polite" class="p-hidden-accessible">
                         {{ selectedMessageText }}

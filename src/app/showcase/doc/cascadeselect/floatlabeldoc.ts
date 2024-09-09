@@ -12,7 +12,7 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-floatLabel>
-                <p-cascadeSelect
+                <p-cascade-select
                     inputId="cs-city"
                     [(ngModel)]="selectedCity"
                     [options]="countries"
@@ -112,7 +112,7 @@ export class FloatLabelDoc {
 
     code: Code = {
         basic: `<p-floatLabel>
-    <p-cascadeSelect
+    <p-cascade-select
         inputId="cs-city"
         [(ngModel)]="selectedCity"
         [options]="countries"
@@ -126,7 +126,7 @@ export class FloatLabelDoc {
 
         html: `<div class="card flex justify-center">
     <p-floatLabel>
-        <p-cascadeSelect
+        <p-cascade-select
             inputId="cs-city"
             [(ngModel)]="selectedCity"
             [options]="countries"
