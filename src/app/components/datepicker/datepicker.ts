@@ -59,7 +59,7 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
  * @group Components
  */
 @Component({
-    selector: 'p-datePicker, p-date-picker',
+    selector: 'p-datePicker, p-datepicker',
     template: `
         <span #container [ngClass]="rootClass" [ngStyle]="style" [class]="styleClass">
             <ng-template [ngIf]="!inline">

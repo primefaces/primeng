@@ -71,7 +71,7 @@ import { AppConfigService } from '@service/appconfigservice';
                 />
                 <div class="flex items-center gap-2">
                     <p-button label="Download" icon="pi pi-download" iconPos="right" />
-                    <p-date-picker
+                    <p-datepicker
                         [(ngModel)]="dates"
                         appendTo="body"
                         dateFormat="dd.mm.yy"

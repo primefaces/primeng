@@ -30,7 +30,7 @@ import { Code } from '@domain/code';
             </ul>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-date-picker [(ngModel)]="date" dateFormat="dd.mm.yy" />
+            <p-datepicker [(ngModel)]="date" dateFormat="dd.mm.yy" />
         </div>
         <app-code [code]="code" selector="datepicker-format-demo"></app-code>
     `,
@@ -39,12 +39,12 @@ export class FormatDoc {
     date: Date | undefined;
 
     code: Code = {
-        basic: `<p-date-picker 
+        basic: `<p-datepicker 
     [(ngModel)]="date" 
     dateFormat="dd.mm.yy" />`,
 
         html: `<div class="card flex justify-center">
-    <p-date-picker 
+    <p-datepicker 
         [(ngModel)]="date" 
         dateFormat="dd.mm.yy" />
 </div>`,

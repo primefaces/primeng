@@ -14,15 +14,15 @@ import { Code } from '@domain/code';
         <p-fluid class="card flex flex-wrap gap-4">
             <div class="flex-auto">
                 <label for="calendar-12h" class="font-bold block mb-2"> 12h Format </label>
-                <p-date-picker inputId="calendar-12h" [(ngModel)]="datetime12h" [showTime]="true" [hourFormat]="12" />
+                <p-datepicker inputId="calendar-12h" [(ngModel)]="datetime12h" [showTime]="true" [hourFormat]="12" />
             </div>
             <div class="flex-auto">
                 <label for="calendar-24h" class="font-bold block mb-2"> 24h Format </label>
-                <p-date-picker inputId="calendar-24h" [(ngModel)]="datetime24h" [showTime]="true" [hourFormat]="24" />
+                <p-datepicker inputId="calendar-24h" [(ngModel)]="datetime24h" [showTime]="true" [hourFormat]="24" />
             </div>
             <div class="flex-auto">
                 <label for="calendar-timeonly" class="font-bold block mb-2"> Time Only </label>
-                <p-date-picker inputId="calendar-timeonly" [(ngModel)]="time" [timeOnly]="true" />
+                <p-datepicker inputId="calendar-timeonly" [(ngModel)]="time" [timeOnly]="true" />
             </div>
         </p-fluid>
 
@@ -37,19 +37,19 @@ export class TimeDoc {
     time: Date[] | undefined;
 
     code: Code = {
-        basic: `<p-date-picker 
+        basic: `<p-datepicker 
     inputId="calendar-12h" 
     [(ngModel)]="datetime12h" 
     [showTime]="true" 
     [hourFormat]="12" />
 
-<p-date-picker 
+<p-datepicker 
     inputId="calendar-24h" 
     [(ngModel)]="datetime24h" 
     [showTime]="true" 
     [hourFormat]="24" />
 
-<p-date-picker 
+<p-datepicker 
     inputId="calendar-timeonly" 
     [(ngModel)]="time" 
     [timeOnly]="true" />`,
@@ -57,7 +57,7 @@ export class TimeDoc {
         html: `<p-fluid class="card flex flex-wrap gap-4">
     <div class="flex-auto">
         <label for="calendar-12h" class="font-bold block mb-2"> 12h Format </label>
-        <p-date-picker 
+        <p-datepicker 
             inputId="calendar-12h" 
             [(ngModel)]="datetime12h" 
             [showTime]="true" 
@@ -65,7 +65,7 @@ export class TimeDoc {
     </div>
     <div class="flex-auto">
         <label for="calendar-24h" class="font-bold block mb-2"> 24h Format </label>
-        <p-date-picker 
+        <p-datepicker 
             inputId="calendar-24h" 
             [(ngModel)]="datetime24h" 
             [showTime]="true" 
@@ -73,7 +73,7 @@ export class TimeDoc {
     </div>
     <div class="flex-auto">
         <label for="calendar-timeonly" class="font-bold block mb-2"> Time Only </label>
-        <p-date-picker 
+        <p-datepicker 
             inputId="calendar-timeonly" 
             [(ngModel)]="time" 
             [timeOnly]="true" />

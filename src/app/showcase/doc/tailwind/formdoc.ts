@@ -21,7 +21,7 @@ import { Component } from '@angular/core';
                 <div class="flex flex-col sm:flex-row sm:items-center gap-6">
                     <div class="flex-1">
                         <label for="date" class="block font-semibold mb-2">Date</label>
-                        <p-date-picker inputId="date" class="w-full" />
+                        <p-datepicker inputId="date" class="w-full" />
                     </div>
                     <div class="flex-1">
                         <label for="country" class="block font-semibold mb-2">Country</label>
@@ -99,7 +99,7 @@ export class FormDoc {
     <div class="flex flex-col sm:flex-row sm:items-center gap-6">
         <div class="flex-1">
             <label for="date" class="block font-semibold mb-2">Date</label>
-            <p-date-picker inputId="date" class="w-full" />
+            <p-datepicker inputId="date" class="w-full" />
         </div>
         <div class="flex-1">
             <label for="country" class="block font-semibold mb-2">Country</label>

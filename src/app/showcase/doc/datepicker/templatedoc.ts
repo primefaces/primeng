@@ -8,10 +8,10 @@ import { Code } from '@domain/code';
             <p>Calendar UI accepts custom content using <i>header</i> and <i>footer</i> templates.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-date-picker [(ngModel)]="date">
+            <p-datepicker [(ngModel)]="date">
                 <ng-template pTemplate="header">Header</ng-template>
                 <ng-template pTemplate="footer">Footer</ng-template>
-            </p-date-picker>
+            </p-datepicker>
         </div>
         <app-code [code]="code" selector="datepicker-template-demo"></app-code>
     `,
@@ -20,16 +20,16 @@ export class TemplateDoc {
     date: Date[] | undefined;
 
     code: Code = {
-        basic: `<p-date-picker [(ngModel)]="date">
+        basic: `<p-datepicker [(ngModel)]="date">
     <ng-template pTemplate="header">Header</ng-template>
     <ng-template pTemplate="footer">Footer</ng-template>
-</p-date-picker>`,
+</p-datepicker>`,
 
         html: `<div class="card flex justify-center">
-    <p-date-picker [(ngModel)]="date">
+    <p-datepicker [(ngModel)]="date">
         <ng-template pTemplate="header">Header</ng-template>
         <ng-template pTemplate="footer">Footer</ng-template>
-    </p-date-picker>
+    </p-datepicker>
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

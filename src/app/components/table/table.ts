@@ -6265,14 +6265,14 @@ export class ColumnFilter extends BaseComponent implements AfterContentInit {
                     (ngModelChange)="onModelChange($event)"
                 />
 
-                <p-date-picker
+                <p-datepicker
                     [ariaLabel]="ariaLabel"
                     *ngSwitchCase="'date'"
                     [placeholder]="placeholder"
                     [ngModel]="filterConstraint?.value"
                     (ngModelChange)="onModelChange($event)"
                     appendTo="body"
-                ></p-date-picker>
+                ></p-datepicker>
             </ng-container>
         </ng-template>
     `,

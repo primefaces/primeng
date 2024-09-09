@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
             <p>Two-way value binding is defined using the standard <i>ngModel</i> directive referencing to a <i>Date</i> property.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-date-picker [(ngModel)]="date" />
+            <p-datepicker [(ngModel)]="date" />
         </div>
         <app-code [code]="code" selector="datepicker-basic-demo"></app-code>
     `,
@@ -17,10 +17,10 @@ export class BasicDoc {
     date: Date | undefined;
 
     code: Code = {
-        basic: `<p-date-picker [(ngModel)]="date" />`,
+        basic: `<p-datepicker [(ngModel)]="date" />`,
 
         html: `<div class="card flex justify-center">
-    <p-date-picker [(ngModel)]="date" />
+    <p-datepicker [(ngModel)]="date" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

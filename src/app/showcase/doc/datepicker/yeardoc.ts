@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
             <p>Specifying <i>view</i> as <i>year</i> in addition to a suitable <i>dateFormat</i> enables the year picker.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-date-picker [(ngModel)]="date" view="year" dateFormat="yy" />
+            <p-datepicker [(ngModel)]="date" view="year" dateFormat="yy" />
         </div>
         <app-code [code]="code" selector="datepicker-year-demo"></app-code>
     `,
@@ -17,13 +17,13 @@ export class YearDoc {
     date: Date[] | undefined;
 
     code: Code = {
-        basic: `<p-date-picker 
+        basic: `<p-datepicker 
     [(ngModel)]="date" 
     view="year" 
     dateFormat="yy" />`,
 
         html: `<div class="card flex justify-center">
-    <p-date-picker 
+    <p-datepicker 
         [(ngModel)]="date" 
         view="year" 
         dateFormat="yy" />
