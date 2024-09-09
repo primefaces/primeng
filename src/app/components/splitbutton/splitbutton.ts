@@ -23,7 +23,6 @@ import { ChevronDownIcon } from 'primeng/icons/chevrondown';
 import { TieredMenu, TieredMenuModule } from 'primeng/tieredmenu';
 import { UniqueComponentId } from 'primeng/utils';
 import { AutoFocusModule } from 'primeng/autofocus';
-
 import { ButtonProps, MenuButtonProps } from './splitbutton.interface';
 import { SplitButtonStyle } from './style/splitbuttonstyle';
 import { BaseComponent } from 'primeng/basecomponent';
@@ -35,7 +34,7 @@ type SplitButtonIconPosition = 'left' | 'right';
  * @group Components
  */
 @Component({
-    selector: 'p-splitButton',
+    selector: 'p-splitButton, p-split-button',
     template: `
         <div #container [ngClass]="containerClass" [class]="styleClass" [ngStyle]="style">
             <ng-container *ngIf="contentTemplate; else defaultButton">

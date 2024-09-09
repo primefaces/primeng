@@ -25,7 +25,7 @@ import { Code } from '@domain/code';
                     </p-icon-field>
                 </div>
                 <div class="p-toolbar-group-end">
-                    <p-splitButton label="Save" [model]="items" />
+                    <p-split-button label="Save" [model]="items" />
                 </div>
             </p-toolbar>
         </div>
@@ -62,7 +62,7 @@ export class BasicDoc implements OnInit {
         </p-icon-field>
     </div>
     <div class="p-toolbar-group-end">
-        <p-splitButton label="Save" [model]="items" />
+        <p-split-button label="Save" [model]="items" />
     </div>
 </p-toolbar>`,
 
@@ -80,7 +80,7 @@ export class BasicDoc implements OnInit {
             </p-icon-field>
         </div>
         <div class="p-toolbar-group-end">
-            <p-splitButton label="Save" [model]="items" />
+            <p-split-button label="Save" [model]="items" />
         </div>
     </p-toolbar>
 </div>`,

@@ -136,7 +136,7 @@ import { Code } from '@domain/code';
 })
 export class AccessibilityDoc {
     code: Code = {
-        basic: `<p-splitButton 
+        basic: `<p-split-button 
     [buttonProps]="{'aria-label': 'Default Action'}" 
     [menuButtonProps]="{'aria-label': 'More Options'}" />`,
     };

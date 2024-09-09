@@ -10,14 +10,14 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card flex justify-center flex-wrap gap-4">
             <p-toast />
-            <p-splitButton label="Save" (onClick)="save('info')" [model]="items" />
-            <p-splitButton label="Save" (onClick)="save('secondary')" [model]="items" severity="secondary" />
-            <p-splitButton label="Save" (onClick)="save('success')" [model]="items" severity="success" />
-            <p-splitButton label="Save" (onClick)="save('info')" [model]="items" severity="info" />
-            <p-splitButton label="Save" (onClick)="save('warn')" [model]="items" severity="warn" />
-            <p-splitButton label="Save" (onClick)="save('help')" [model]="items" severity="help" />
-            <p-splitButton label="Save" (onClick)="save('danger')" [model]="items" severity="danger" />
-            <p-splitButton label="Save" (onClick)="save('contrast')" [model]="items" severity="contrast" />
+            <p-split-button label="Save" (onClick)="save('info')" [model]="items" />
+            <p-split-button label="Save" (onClick)="save('secondary')" [model]="items" severity="secondary" />
+            <p-split-button label="Save" (onClick)="save('success')" [model]="items" severity="success" />
+            <p-split-button label="Save" (onClick)="save('info')" [model]="items" severity="info" />
+            <p-split-button label="Save" (onClick)="save('warn')" [model]="items" severity="warn" />
+            <p-split-button label="Save" (onClick)="save('help')" [model]="items" severity="help" />
+            <p-split-button label="Save" (onClick)="save('danger')" [model]="items" severity="danger" />
+            <p-split-button label="Save" (onClick)="save('contrast')" [model]="items" severity="contrast" />
         </div>
         <app-code [code]="code" selector="split-button-severity-demo"></app-code>
     `,
@@ -59,36 +59,36 @@ export class SeverityDoc {
     }
 
     code: Code = {
-        basic: `<p-splitButton 
+        basic: `<p-split-button 
     label="Save" 
     (onClick)="save('info')" 
     [model]="items" />
-<p-splitButton 
+<p-split-button 
     label="Save" 
     (onClick)="save('info')" 
     [model]="items" 
     severity="secondary" />
-<p-splitButton 
+<p-split-button 
     label="Save" 
     (onClick)="save('success')" 
     [model]="items" 
     severity="success" />
-<p-splitButton 
+<p-split-button 
     label="Save" 
     (onClick)="save('info')" 
     [model]="items" 
     severity="info" />
-<p-splitButton 
+<p-split-button 
     label="Save" 
     (onClick)="save('warn')" 
     [model]="items" 
     severity="warn" />
-<p-splitButton 
+<p-split-button 
     label="Save" 
     (onClick)="save('info')" 
     [model]="items" 
     severity="help" />
-<p-splitButton 
+<p-split-button 
     label="Save" 
     (onClick)="save('error')" 
     [model]="items" 
@@ -96,36 +96,36 @@ export class SeverityDoc {
 
         html: `<div class="card flex justify-center flex-wrap gap-4">
     <p-toast />
-    <p-splitButton 
+    <p-split-button 
         label="Save" 
         (onClick)="save('info')" 
         [model]="items" />
-    <p-splitButton 
+    <p-split-button 
         label="Save" 
         (onClick)="save('info')" 
         [model]="items" 
         severity="secondary" />
-    <p-splitButton 
+    <p-split-button 
         label="Save" 
         (onClick)="save('success')" 
         [model]="items" 
         severity="success" />
-    <p-splitButton 
+    <p-split-button 
         label="Save" 
         (onClick)="save('info')" 
         [model]="items" 
         severity="info" />
-    <p-splitButton 
+    <p-split-button 
         label="Save" 
         (onClick)="save('warn')" 
         [model]="items" 
         severity="warn" />
-    <p-splitButton 
+    <p-split-button 
         label="Save" 
         (onClick)="save('info')" 
         [model]="items" 
         severity="help" />
-    <p-splitButton 
+    <p-split-button 
         label="Save" 
         (onClick)="save('error')" 
         [model]="items"

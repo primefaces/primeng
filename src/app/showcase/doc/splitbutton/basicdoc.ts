@@ -13,7 +13,7 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-toast />
-            <p-splitButton label="Save" (onClick)="save('info')" [model]="items" />
+            <p-split-button label="Save" (onClick)="save('info')" [model]="items" />
         </div>
         <app-code [code]="code" selector="split-button-basic-demo"></app-code>
     `,
@@ -55,14 +55,14 @@ export class BasicDoc {
     }
 
     code: Code = {
-        basic: `<p-splitButton 
+        basic: `<p-split-button 
     label="Save" 
     (onClick)="save('info')" 
     [model]="items" />`,
 
         html: `<div class="card flex justify-center">
     <p-toast />
-    <p-splitButton 
+    <p-split-button 
         label="Save" 
         (onClick)="save('info')" 
         [model]="items" />
