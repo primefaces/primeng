@@ -19,7 +19,7 @@ import {
     inject,
     numberAttribute,
 } from '@angular/core';
-import { FilterService, PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
+import { FilterService, PrimeTemplate, SharedModule } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { DomHandler } from 'primeng/dom';
 import { AngleDoubleDownIcon } from 'primeng/icons/angledoubledown';
@@ -57,7 +57,7 @@ import { FormsModule } from '@angular/forms';
  * @group Components
  */
 @Component({
-    selector: 'p-pickList',
+    selector: 'p-pickList, p-pick-list',
     template: `
         <div
             [class]="styleClass"

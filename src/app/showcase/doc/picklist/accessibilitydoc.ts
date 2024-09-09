@@ -112,8 +112,8 @@ import { Code } from '@domain/code';
 export class AccessibilityDoc {
     code: Code = {
         html: `<span id="lb">Options</span>        
-<p-pickList ariaLabelledBy="lb" />
+<p-pick-list ariaLabelledBy="lb" />
 
-<p-pickList ariaLabel="City" />`,
+<p-pick-list ariaLabel="City" />`,
     };
 }

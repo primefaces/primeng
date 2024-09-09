@@ -5,7 +5,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Component, EventEmitter } from '@angular/core';
 
 @Component({
-    template: `<p-pickList [source]="sourceCars" [target]="targetCars">
+    template: `<p-pick-list [source]="sourceCars" [target]="targetCars">
         <ng-template let-car pTemplate="item">
             <div class="p-clearfix">
                 <img
@@ -16,7 +16,7 @@ import { Component, EventEmitter } from '@angular/core';
                 <div style="font-size:14px;float:right;margin:15px 5px 0 0">{{ car.brand }} - {{ car.year }} - {{ car.color }}</div>
             </div>
         </ng-template>
-    </p-pickList>`,
+    </p-pick-list>`,
 })
 class TestPickListComponent {
     sourceCars: any[];
