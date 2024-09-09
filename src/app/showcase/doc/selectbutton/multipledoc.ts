@@ -11,7 +11,7 @@ import { Code } from '@domain/code';
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-selectButton [options]="paymentOptions" [(ngModel)]="value" [multiple]="true" optionLabel="name" optionValue="value" />
+            <p-select-button [options]="paymentOptions" [(ngModel)]="value" [multiple]="true" optionLabel="name" optionValue="value" />
         </div>
         <app-code [code]="code" selector="select-button-multiple-demo"></app-code>
     `,
@@ -26,7 +26,7 @@ export class MultipleDoc {
     value!: number;
 
     code: Code = {
-        basic: `<p-selectButton 
+        basic: `<p-select-button 
     [options]="paymentOptions" 
     [(ngModel)]="value" 
     [multiple]="true" 
@@ -34,7 +34,7 @@ export class MultipleDoc {
     optionValue="value" />`,
 
         html: `<div class="card flex justify-center">
-    <p-selectButton 
+    <p-select-button 
         [options]="paymentOptions" 
         [(ngModel)]="value" 
         [multiple]="true" 

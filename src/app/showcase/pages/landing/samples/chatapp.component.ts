@@ -49,7 +49,7 @@ import { TextareaModule } from 'primeng/textarea';
                 </p-icon-field>
             </div>
             <div class="w-full px-5">
-                <p-selectButton [(ngModel)]="value" [options]="options" aria-labelledby="basic" class="w-full" styleClass="w-full" />
+                <p-select-button [(ngModel)]="value" [options]="options" aria-labelledby="basic" class="w-full" styleClass="w-full" />
             </div>
             <div class="flex-1 flex flex-col">
                 <div
@@ -266,7 +266,7 @@ import { TextareaModule } from 'primeng/textarea';
                 </div>
             </div>
             <div class="mt-5">
-                <p-selectButton [(ngModel)]="media" [options]="mediaOptions" class="w-full" styleClass="flex-1" />
+                <p-select-button [(ngModel)]="media" [options]="mediaOptions" class="w-full" styleClass="flex-1" />
 
                 <div class="mt-3 mb-5 grid grid-cols-3 gap-2">
                     <div

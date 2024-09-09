@@ -162,7 +162,7 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
                             </div>
                             <p-button icon="pi pi-sign-out" text rounded severity="secondary" />
                         </div>
-                        <p-selectButton
+                        <p-select-button
                             [(ngModel)]="selectedSidebarOption"
                             [options]="sidebarOptions"
                             class="w-full px-6 py-3"
@@ -171,7 +171,7 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
                             <ng-template pTemplate="item" let-item>
                                 <span class="text-sm">{{ item }}</span>
                             </ng-template>
-                        </p-selectButton>
+                        </p-select-button>
                     </div>
                     <div *ngIf="selectedSidebarOption === 'Interaction Logs'" class="h-[calc(100%-172px)] flex flex-col gap-4 p-6">
                         <div class="h-1/3 flex flex-col p-3 rounded-xl bg-emphasis">

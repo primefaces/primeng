@@ -11,7 +11,7 @@ import { ProductService } from '@service/productservice';
         <p-deferred-demo (load)="loadDemoData()">
             <div class="card">
                 <div class="flex justify-center mb-4">
-                    <p-selectButton
+                    <p-select-button
                         [options]="sizes"
                         [(ngModel)]="selectedSize"
                         [multiple]="false"
@@ -69,7 +69,7 @@ export class SizeDoc {
 
     code: Code = {
         basic: `<div class="flex justify-center mb-4">
-    <p-selectButton 
+    <p-select-button 
         [options]="sizes" 
         [(ngModel)]="selectedSize" 
         [multiple]="false" 
@@ -96,7 +96,7 @@ export class SizeDoc {
 </p-table>`,
         html: `<div class="card">
     <div class="flex justify-center mb-4">
-        <p-selectButton 
+        <p-select-button 
             [options]="sizes" 
             [(ngModel)]="selectedSize" 
             [multiple]="false" 

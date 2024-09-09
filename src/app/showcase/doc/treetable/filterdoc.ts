@@ -21,7 +21,7 @@ interface Column {
         </app-docsectiontext>
         <div class="card">
             <div class="flex justify-center mb-6">
-                <p-selectButton [options]="filterModes" [(ngModel)]="filterMode" optionLabel="label" optionValue="value" />
+                <p-select-button [options]="filterModes" [(ngModel)]="filterMode" optionLabel="label" optionValue="value" />
             </div>
             <p-deferred-demo (load)="loadDemoData()">
                 <p-treeTable
@@ -103,7 +103,7 @@ export class FilterDoc {
     }
 
     code: Code = {
-        basic: `<p-selectButton 
+        basic: `<p-select-button 
     [options]="filterModes" 
     [(ngModel)]="filterMode" 
     optionLabel="label" 
@@ -160,7 +160,7 @@ export class FilterDoc {
 
         html: `<div class="card">
     <div class="flex justify-center mb-6">
-        <p-selectButton 
+        <p-select-button 
             [options]="filterModes" 
             [(ngModel)]="filterMode" 
             optionLabel="label" 

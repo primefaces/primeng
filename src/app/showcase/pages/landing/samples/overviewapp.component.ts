@@ -62,7 +62,7 @@ import { AppConfigService } from '@service/appconfigservice';
                 </div>
             </div>
             <div class="mt-4 flex flex-wrap gap-6 items-center justify-between">
-                <p-selectButton
+                <p-select-button
                     [(ngModel)]="selectedTime"
                     [options]="timeOptions"
                     aria-labelledby="basic"

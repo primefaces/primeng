@@ -59,7 +59,7 @@ const presets = {
 
             <div class="config-panel-settings">
                 <span class="config-panel-label">Presets</span>
-                <p-selectButton
+                <p-select-button
                     [options]="presets"
                     [(ngModel)]="selectedPreset"
                     (ngModelChange)="onPresetChange($event)"

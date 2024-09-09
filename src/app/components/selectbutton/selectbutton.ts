@@ -34,7 +34,7 @@ export const SELECTBUTTON_VALUE_ACCESSOR: any = {
  * @group Components
  */
 @Component({
-    selector: 'p-selectButton',
+    selector: 'p-selectButton, p-select-button',
     template: `
         @for (option of options; track option; let i = $index) {
             <p-toggleButton
