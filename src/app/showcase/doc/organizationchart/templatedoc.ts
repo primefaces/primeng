@@ -9,7 +9,7 @@ import { Code } from '@domain/code';
             <p>Custom content instead of a node <i>label</i> is defined using the <i>pTemplate</i> property.</p>
         </app-docsectiontext>
         <div class="card flex justify-center overflow-x-auto">
-            <p-organizationChart [value]="data" [collapsible]="true">
+            <p-organization-chart [value]="data" [collapsible]="true">
                 <ng-template let-node pTemplate="default">
                     <div class="p-2 text-center">
                         <img
@@ -22,7 +22,7 @@ import { Code } from '@domain/code';
                         <div class="p-2">{{ node.label }}</div>
                     </div>
                 </ng-template>
-            </p-organizationChart>
+            </p-organization-chart>
         </div>
         <app-code [code]="code" selector="organization-chart-template-demo"></app-code>
     `,
@@ -69,7 +69,7 @@ export class TemplateDoc {
     ];
 
     code: Code = {
-        basic: `<p-organizationChart [value]="data" [collapsible]="true">
+        basic: `<p-organization-chart [value]="data" [collapsible]="true">
     <ng-template let-node pTemplate="default">
         <div class="p-2 text-center">
             <img 
@@ -85,10 +85,10 @@ export class TemplateDoc {
             </div>
         </div>
     </ng-template>
-</p-organizationChart>`,
+</p-organization-chart>`,
 
         html: `<div class="card flex justify-center">
-    <p-organizationChart [value]="data" [collapsible]="true">
+    <p-organization-chart [value]="data" [collapsible]="true">
         <ng-template let-node pTemplate="default">
             <div class="p-2 text-center">
                 <img 
@@ -104,7 +104,7 @@ export class TemplateDoc {
                 </div>
             </div>
         </ng-template>
-    </p-organizationChart>
+    </p-organization-chart>
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

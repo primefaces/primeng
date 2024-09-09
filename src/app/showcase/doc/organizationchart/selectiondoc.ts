@@ -12,7 +12,7 @@ import { Code } from '@domain/code';
             </p></app-docsectiontext
         >
         <div class="card flex justify-center overflow-x-auto">
-            <p-organizationChart [value]="data" selectionMode="multiple" [(selection)]="selectedNodes" [collapsible]="true">
+            <p-organization-chart [value]="data" selectionMode="multiple" [(selection)]="selectedNodes" [collapsible]="true">
                 <ng-template let-node pTemplate="person">
                     <div class="p-2 text-center">
                         <img [src]="node.data.image" class="mb-4 w-12 h-12" />
@@ -20,7 +20,7 @@ import { Code } from '@domain/code';
                         <div>{{ node.data.title }}</div>
                     </div>
                 </ng-template>
-            </p-organizationChart>
+            </p-organization-chart>
         </div>
         <app-code [code]="code" selector="organization-chart-selection-demo"></app-code>
     `,
@@ -77,7 +77,7 @@ export class SelectionDoc {
     ];
 
     code: Code = {
-        basic: `<p-organizationChart 
+        basic: `<p-organization-chart 
     [value]="data" 
     selectionMode="multiple" 
     [(selection)]="selectedNodes" 
@@ -95,10 +95,10 @@ export class SelectionDoc {
                 </div>
             </div>
         </ng-template>
-</p-organizationChart>`,
+</p-organization-chart>`,
 
         html: `<div class="card flex justify-center overflow-x-auto">
-    <p-organizationChart 
+    <p-organization-chart 
         [value]="data" 
         selectionMode="multiple" 
         [(selection)]="selectedNodes" 
@@ -116,7 +116,7 @@ export class SelectionDoc {
                     </div>
                 </div>
             </ng-template>
-    </p-organizationChart>
+    </p-organization-chart>
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

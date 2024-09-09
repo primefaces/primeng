@@ -9,7 +9,7 @@ import { Code } from '@domain/code';
             <p>OrganizationChart requires a collection of <i>TreeNode</i> instances as a <i>value</i>.</p>
         </app-docsectiontext>
         <div class="card flex justify-center overflow-x-auto">
-            <p-organizationChart [value]="data" />
+            <p-organization-chart [value]="data" />
         </div>
         <app-code [code]="code" selector="organization-chart-basic-doc"></app-code>
     `,
@@ -49,10 +49,10 @@ export class BasicDoc {
     ];
 
     code: Code = {
-        basic: `<p-organizationChart [value]="data" />`,
+        basic: `<p-organization-chart [value]="data" />`,
 
         html: `<div class="card flex justify-center">
-    <p-organizationChart [value]="data" />
+    <p-organization-chart [value]="data" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

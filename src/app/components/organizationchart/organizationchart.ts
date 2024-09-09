@@ -225,7 +225,7 @@ export class OrganizationChartNode implements OnDestroy {
  * @group Components
  */
 @Component({
-    selector: 'p-organizationChart',
+    selector: 'p-organizationChart, p-organization-chart',
     template: `
         <div
             [ngStyle]="style"
