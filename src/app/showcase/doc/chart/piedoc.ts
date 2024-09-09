@@ -1,7 +1,6 @@
 import { isPlatformBrowser } from '@angular/common';
 import { ChangeDetectorRef, Component, effect, inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { Code } from '@domain/code';
-import { Subscription, debounceTime } from 'rxjs';
 import { AppConfigService } from '@service/appconfigservice';
 
 @Component({
@@ -20,8 +19,6 @@ export class PieDoc implements OnInit {
     data: any;
 
     options: any;
-
-    subscription!: Subscription;
 
     platformId = inject(PLATFORM_ID);
 
