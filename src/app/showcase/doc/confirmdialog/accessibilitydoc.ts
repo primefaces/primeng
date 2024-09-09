@@ -92,19 +92,19 @@ this.confirmationService.confirm({
 
 <p-button (click)="confirm1()" icon="pi pi-check" label="Confirm"></p-button>
 
-<p-confirmDialog></p-confirmDialog>
+<p-confirm-dialog></p-confirm-dialog>
         `,
     };
 
     code2: Code = {
-        html: `<p-confirmDialog 
+        html: `<p-confirm-dialog 
     id="dialog" 
     [visible]="visible" 
     (onHide)="visible = false" 
     message="Are you sure you want to proceed?" 
     header="Confirmation" 
     icon="pi pi-exclamation-triangle"
-></p-confirmDialog>
+></p-confirm-dialog>
 
 <p-button 
     (click)="visible = true" 

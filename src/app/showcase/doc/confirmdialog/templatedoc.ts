@@ -20,14 +20,14 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-toast />
-            <p-confirmDialog>
+            <p-confirm-dialog>
                 <ng-template pTemplate="message" let-message>
                     <div class="flex flex-col items-center w-full gap-4 border-b border-surface-200 dark:border-surface-700">
                         <i [ngClass]="message.icon" class="!text-6xl text-primary-500"></i>
                         <p>{{ message.message }}</p>
                     </div>
                 </ng-template>
-            </p-confirmDialog>
+            </p-confirm-dialog>
             <p-button (click)="confirm()" label="Save" />
         </div>
         <app-code [code]="code" selector="confirm-dialog-template-demo"></app-code>
@@ -67,26 +67,26 @@ export class TemplateDoc {
 
     code: Code = {
         basic: `<p-toast />
-<p-confirmDialog>
+<p-confirm-dialog>
     <ng-template pTemplate="message" let-message>
         <div class="flex flex-col items-center w-full gap-4 border-b border-surface-200 dark:border-surface-700">
             <i [ngClass]="message.icon" class="!text-6xl text-primary-500"></i>
             <p>{{ message.message }}</p>
         </div>
     </ng-template>
-</p-confirmDialog>
+</p-confirm-dialog>
 <p-button (click)="confirm()" label="Save" />`,
 
         html: `<div class="card flex justify-center">
     <p-toast />
-    <p-confirmDialog>
+    <p-confirm-dialog>
         <ng-template pTemplate="message" let-message>
             <div class="flex flex-col items-center w-full gap-4 border-b border-surface-200 dark:border-surface-700">
                 <i [ngClass]="message.icon" class="!text-6xl text-primary-500"></i>
                 <p>{{ message.message }}</p>
             </div>
         </ng-template>
-    </p-confirmDialog>
+    </p-confirm-dialog>
     <p-button (click)="confirm()" label="Save" />
 </div>`,
 
