@@ -11,7 +11,7 @@ import { NodeService } from '@service/nodeservice';
         </app-docsectiontext>
         <div class="card">
             <p-deferred-demo (load)="loadDemoData()">
-                <p-treeTable [value]="files" [scrollable]="true" showGridlines [tableStyle]="{ 'min-width': '50rem' }">
+                <p-tree-table [value]="files" [scrollable]="true" showGridlines [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template pTemplate="header">
                         <tr>
                             <th>Name</th>
@@ -22,14 +22,14 @@ import { NodeService } from '@service/nodeservice';
                     <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
                         <tr [ttRow]="rowNode">
                             <td>
-                                <p-treeTableToggler [rowNode]="rowNode" />
+                                <p-tree-tableToggler [rowNode]="rowNode" />
                                 {{ rowData.name }}
                             </td>
                             <td>{{ rowData.size }}</td>
                             <td>{{ rowData.type }}</td>
                         </tr>
                     </ng-template>
-                </p-treeTable>
+                </p-tree-table>
             </p-deferred-demo>
         </div>
         <app-code [code]="code" selector="tree-table-gridlines-demo"></app-code>
@@ -46,7 +46,7 @@ export class GridlinesDoc {
     }
 
     code: Code = {
-        basic: `<p-treeTable [value]="files" [scrollable]="true" showGridlines [tableStyle]="{ 'min-width': '50rem' }">
+        basic: `<p-tree-table [value]="files" [scrollable]="true" showGridlines [tableStyle]="{ 'min-width': '50rem' }">
     <ng-template pTemplate="header">
         <tr>
             <th>Name</th>
@@ -57,17 +57,17 @@ export class GridlinesDoc {
     <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
         <tr [ttRow]="rowNode">
             <td>
-                <p-treeTableToggler [rowNode]="rowNode" />
+                <p-tree-tableToggler [rowNode]="rowNode" />
                 {{ rowData.name }}
             </td>
             <td>{{ rowData.size }}</td>
             <td>{{ rowData.type }}</td>
         </tr>
     </ng-template>
-</p-treeTable>`,
+</p-tree-table>`,
 
         html: `<div class="card">
-    <p-treeTable [value]="files" [scrollable]="true" showGridlines [tableStyle]="{ 'min-width': '50rem' }">
+    <p-tree-table [value]="files" [scrollable]="true" showGridlines [tableStyle]="{ 'min-width': '50rem' }">
         <ng-template pTemplate="header">
             <tr>
                 <th>Name</th>
@@ -78,14 +78,14 @@ export class GridlinesDoc {
         <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
             <tr [ttRow]="rowNode">
                 <td>
-                    <p-treeTableToggler [rowNode]="rowNode" />
+                    <p-tree-tableToggler [rowNode]="rowNode" />
                     {{ rowData.name }}
                 </td>
                 <td>{{ rowData.size }}</td>
                 <td>{{ rowData.type }}</td>
             </tr>
         </ng-template>
-    </p-treeTable>
+    </p-tree-table>
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';

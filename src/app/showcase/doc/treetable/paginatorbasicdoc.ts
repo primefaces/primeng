@@ -14,7 +14,7 @@ interface Column {
         </app-docsectiontext>
         <div class="card">
             <p-deferred-demo (load)="loadDemoData()">
-                <p-treeTable
+                <p-tree-table
                     [value]="files"
                     [columns]="cols"
                     [paginator]="true"
@@ -33,12 +33,12 @@ interface Column {
                     <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
                         <tr [ttRow]="rowNode">
                             <td *ngFor="let col of columns; let i = index">
-                                <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
+                                <p-tree-tableToggler [rowNode]="rowNode" *ngIf="i === 0" />
                                 {{ rowData[col.field] }}
                             </td>
                         </tr>
                     </ng-template>
-                </p-treeTable>
+                </p-tree-table>
             </p-deferred-demo>
         </div>
         <app-code [code]="code" selector="tree-table-paginator-basic-demo"></app-code>`,
@@ -79,7 +79,7 @@ export class PaginatorBasicDoc {
     }
 
     code: Code = {
-        basic: `<p-treeTable 
+        basic: `<p-tree-table 
     [value]="files" 
     [columns]="cols" 
     [paginator]="true" 
@@ -97,15 +97,15 @@ export class PaginatorBasicDoc {
         <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
             <tr [ttRow]="rowNode">
                 <td *ngFor="let col of columns; let i = index">
-                    <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
+                    <p-tree-tableToggler [rowNode]="rowNode" *ngIf="i === 0" />
                     {{ rowData[col.field] }}
                 </td>
             </tr>
         </ng-template>
-</p-treeTable>`,
+</p-tree-table>`,
 
         html: `<div class="card">
-    <p-treeTable 
+    <p-tree-table 
         [value]="files" 
         [columns]="cols" 
         [paginator]="true" 
@@ -123,12 +123,12 @@ export class PaginatorBasicDoc {
             <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
                 <tr [ttRow]="rowNode">
                     <td *ngFor="let col of columns; let i = index">
-                        <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
+                        <p-tree-tableToggler [rowNode]="rowNode" *ngIf="i === 0" />
                         {{ rowData[col.field] }}
                     </td>
                 </tr>
             </ng-template>
-    </p-treeTable>
+    </p-tree-table>
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';

@@ -28,7 +28,7 @@ interface Column {
                 <span>Metakey</span>
             </div>
             <p-deferred-demo (load)="loadDemoData()">
-                <p-treeTable
+                <p-tree-table
                     [value]="files"
                     [columns]="cols"
                     selectionMode="single"
@@ -48,12 +48,12 @@ interface Column {
                     <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
                         <tr [ttRow]="rowNode" [ttSelectableRow]="rowNode">
                             <td *ngFor="let col of columns; let i = index">
-                                <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
+                                <p-tree-tableToggler [rowNode]="rowNode" *ngIf="i === 0" />
                                 {{ rowData[col.field] }}
                             </td>
                         </tr>
                     </ng-template>
-                </p-treeTable>
+                </p-tree-table>
             </p-deferred-demo>
         </div>
         <app-code [code]="code" selector="tree-table-selection-single-demo"></app-code>
@@ -82,7 +82,7 @@ export class SelectionSingleDoc {
     }
 
     code: Code = {
-        basic: `<p-treeTable 
+        basic: `<p-tree-table 
     [value]="files" 
     [columns]="cols" 
     selectionMode="single" 
@@ -100,19 +100,19 @@ export class SelectionSingleDoc {
         <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
             <tr [ttRow]="rowNode" [ttSelectableRow]="rowNode">
                 <td *ngFor="let col of columns; let i = index">
-                    <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
+                    <p-tree-tableToggler [rowNode]="rowNode" *ngIf="i === 0" />
                     {{ rowData[col.field] }}
                 </td>
             </tr>
         </ng-template>
-</p-treeTable>`,
+</p-tree-table>`,
 
         html: `<div class="card">
     <div class="flex gap-4 items-center justify-center mb-6">
         <p-toggle-switch [(ngModel)]="metaKeySelection" />
         <span>Metakey</span>
     </div>
-    <p-treeTable 
+    <p-tree-table 
         [value]="files" 
         [columns]="cols" 
         selectionMode="single" 
@@ -130,12 +130,12 @@ export class SelectionSingleDoc {
             <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
                 <tr [ttRow]="rowNode" [ttSelectableRow]="rowNode">
                     <td *ngFor="let col of columns; let i = index">
-                        <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
+                        <p-tree-tableToggler [rowNode]="rowNode" *ngIf="i === 0" />
                         {{ rowData[col.field] }}
                     </td>
                 </tr>
             </ng-template>
-    </p-treeTable>
+    </p-tree-table>
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';

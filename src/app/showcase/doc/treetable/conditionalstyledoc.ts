@@ -19,7 +19,7 @@ interface Column {
         </app-docsectiontext>
         <div class="card">
             <p-deferred-demo (load)="loadDemoData()">
-                <p-treeTable [value]="files" [columns]="cols" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
+                <p-tree-table [value]="files" [columns]="cols" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template pTemplate="header" let-columns>
                         <tr>
                             <th *ngFor="let col of columns">
@@ -33,12 +33,12 @@ interface Column {
                                 *ngFor="let col of columns; let i = index"
                                 [ngClass]="{ 'font-bold': col.field === 'size' && rowData.size.endsWith('kb') }"
                             >
-                                <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
+                                <p-tree-tableToggler [rowNode]="rowNode" *ngIf="i === 0" />
                                 {{ rowData[col.field] }}
                             </td>
                         </tr>
                     </ng-template>
-                </p-treeTable>
+                </p-tree-table>
             </p-deferred-demo>
         </div>
         <app-code [code]="code" selector="tree-table-conditional-style-demo"></app-code>
@@ -62,7 +62,7 @@ export class ConditionalStyleDoc {
     }
 
     code: Code = {
-        basic: `<p-treeTable 
+        basic: `<p-tree-table 
     [value]="files" 
     [columns]="cols" 
     [scrollable]="true" 
@@ -79,15 +79,15 @@ export class ConditionalStyleDoc {
                 <td 
                     *ngFor="let col of columns; let i = index" 
                     [ngClass]="{ 'font-bold': col.field === 'size' && rowData.size.endsWith('kb') }">
-                        <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
+                        <p-tree-tableToggler [rowNode]="rowNode" *ngIf="i === 0" />
                         {{ rowData[col.field] }}
                 </td>
             </tr>
         </ng-template>
-</p-treeTable>`,
+</p-tree-table>`,
 
         html: `<div class="card">
-    <p-treeTable 
+    <p-tree-table 
         [value]="files" 
         [columns]="cols" 
         [scrollable]="true" 
@@ -104,12 +104,12 @@ export class ConditionalStyleDoc {
                     <td 
                         *ngFor="let col of columns; let i = index" 
                         [ngClass]="{ 'font-bold': col.field === 'size' && rowData.size.endsWith('kb') }">
-                            <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
+                            <p-tree-tableToggler [rowNode]="rowNode" *ngIf="i === 0" />
                             {{ rowData[col.field] }}
                     </td>
                 </tr>
             </ng-template>
-    </p-treeTable>
+    </p-tree-table>
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';

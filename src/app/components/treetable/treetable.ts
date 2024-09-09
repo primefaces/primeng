@@ -118,7 +118,7 @@ export class TreeTableService {
  * @group Components
  */
 @Component({
-    selector: 'p-treeTable',
+    selector: 'p-treeTable, p-tree-table',
     template: `
         <div
             #container

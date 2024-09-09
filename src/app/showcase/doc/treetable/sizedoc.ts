@@ -17,7 +17,7 @@ import { NodeService } from '@service/nodeservice';
                 <p-select-button [options]="sizes" [(ngModel)]="selectedSize" [multiple]="false" optionLabel="name" optionValue="class" />
             </div>
             <p-deferred-demo (load)="loadDemoData()">
-                <p-treeTable [value]="files" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }" [styleClass]="selectedSize">
+                <p-tree-table [value]="files" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }" [styleClass]="selectedSize">
                     <ng-template pTemplate="header">
                         <tr>
                             <th>Name</th>
@@ -28,14 +28,14 @@ import { NodeService } from '@service/nodeservice';
                     <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
                         <tr [ttRow]="rowNode">
                             <td>
-                                <p-treeTableToggler [rowNode]="rowNode" />
+                                <p-tree-tableToggler [rowNode]="rowNode" />
                                 {{ rowData.name }}
                             </td>
                             <td>{{ rowData.size }}</td>
                             <td>{{ rowData.type }}</td>
                         </tr>
                     </ng-template>
-                </p-treeTable>
+                </p-tree-table>
             </p-deferred-demo>
         </div>
         <app-code [code]="code" selector="tree-table-size-demo"></app-code>
@@ -70,7 +70,7 @@ export class SizeDoc {
         optionLabel="name" 
         optionValue="class" />
 </div>
-<p-treeTable 
+<p-tree-table 
     [value]="files" 
     [scrollable]="true" 
     [tableStyle]="{'min-width':'50rem'}" 
@@ -85,14 +85,14 @@ export class SizeDoc {
         <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
             <tr [ttRow]="rowNode">
                 <td>
-                    <p-treeTableToggler [rowNode]="rowNode" />
+                    <p-tree-tableToggler [rowNode]="rowNode" />
                     {{ rowData.name }}
                 </td>
                 <td>{{ rowData.size }}</td>
                 <td>{{ rowData.type }}</td>
             </tr>
         </ng-template>
-</p-treeTable>`,
+</p-tree-table>`,
 
         html: `<div class="card">
     <div class="flex justify-center mb-4">
@@ -103,7 +103,7 @@ export class SizeDoc {
             optionLabel="name" 
             optionValue="class" />
     </div>
-    <p-treeTable 
+    <p-tree-table 
         [value]="files" 
         [scrollable]="true" 
         [tableStyle]="{'min-width':'50rem'}" 
@@ -118,14 +118,14 @@ export class SizeDoc {
             <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
                 <tr [ttRow]="rowNode">
                     <td>
-                        <p-treeTableToggler [rowNode]="rowNode" />
+                        <p-tree-tableToggler [rowNode]="rowNode" />
                         {{ rowData.name }}
                     </td>
                     <td>{{ rowData.size }}</td>
                     <td>{{ rowData.type }}</td>
                 </tr>
             </ng-template>
-    </p-treeTable>
+    </p-tree-table>
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';

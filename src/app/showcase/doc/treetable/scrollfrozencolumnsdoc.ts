@@ -16,7 +16,7 @@ interface Column {
         </app-docsectiontext>
         <div class="card">
             <p-deferred-demo (load)="loadDemoData()">
-                <p-treeTable
+                <p-tree-table
                     [value]="files"
                     [columns]="scrollableCols"
                     [frozenColumns]="frozenCols"
@@ -48,12 +48,12 @@ interface Column {
                     <ng-template pTemplate="frozenbody" let-rowNode let-rowData="rowData">
                         <tr [ttRow]="rowNode" style="height: 57px">
                             <td>
-                                <p-treeTableToggler [rowNode]="rowNode" />
+                                <p-tree-tableToggler [rowNode]="rowNode" />
                                 {{ rowData.name }}
                             </td>
                         </tr>
                     </ng-template>
-                </p-treeTable>
+                </p-tree-table>
             </p-deferred-demo>
         </div>
         <app-code [code]="code" selector="tree-table-scroll-frozen-columns-demo"></app-code>
@@ -92,7 +92,7 @@ export class FrozenColumnsDoc {
     }
 
     code: Code = {
-        basic: `<p-treeTable 
+        basic: `<p-tree-table 
     [value]="files" 
     [columns]="scrollableCols" 
     [frozenColumns]="frozenCols" 
@@ -123,15 +123,15 @@ export class FrozenColumnsDoc {
         <ng-template pTemplate="frozenbody" let-rowNode let-rowData="rowData">
             <tr [ttRow]="rowNode" style="height: 57px">
                 <td>
-                    <p-treeTableToggler [rowNode]="rowNode" />
+                    <p-tree-tableToggler [rowNode]="rowNode" />
                     {{ rowData.name }}
                 </td>
             </tr>
         </ng-template>
-</p-treeTable>`,
+</p-tree-table>`,
 
         html: `<div class="card">
-    <p-treeTable 
+    <p-tree-table 
         [value]="files" 
         [columns]="scrollableCols" 
         [frozenColumns]="frozenCols" 
@@ -162,12 +162,12 @@ export class FrozenColumnsDoc {
             <ng-template pTemplate="frozenbody" let-rowNode let-rowData="rowData">
                 <tr [ttRow]="rowNode" style="height: 57px">
                     <td>
-                        <p-treeTableToggler [rowNode]="rowNode" />
+                        <p-tree-tableToggler [rowNode]="rowNode" />
                         {{ rowData.name }}
                     </td>
                 </tr>
             </ng-template>
-    </p-treeTable>
+    </p-tree-table>
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';

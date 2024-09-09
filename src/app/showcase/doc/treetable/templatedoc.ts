@@ -16,7 +16,7 @@ interface Column {
         </app-docsectiontext>
         <div class="card">
             <p-deferred-demo (load)="loadDemoData()">
-                <p-treeTable [value]="files" [columns]="cols" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
+                <p-tree-table [value]="files" [columns]="cols" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template pTemplate="caption"><div class="text-xl font-bold">File Viewer</div> </ng-template>
                     <ng-template pTemplate="header" let-columns>
                         <tr>
@@ -28,7 +28,7 @@ interface Column {
                     <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
                         <tr [ttRow]="rowNode">
                             <td *ngFor="let col of columns; let i = index; let last = last">
-                                <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
+                                <p-tree-tableToggler [rowNode]="rowNode" *ngIf="i === 0" />
                                 {{ rowData[col.field] }}
                                 <ng-container *ngIf="last">
                                     <p-button icon="pi pi-search" rounded="true" [style]="{ 'margin-right': '.5em' }" />
@@ -42,7 +42,7 @@ interface Column {
                             <p-button icon="pi pi-refresh" label="Reload" severity="warning" />
                         </div>
                     </ng-template>
-                </p-treeTable>
+                </p-tree-table>
             </p-deferred-demo>
         </div>
         <app-code [code]="code" selector="tree-table-template-demo"></app-code>
@@ -66,7 +66,7 @@ export class TemplateDoc {
         ];
     }
     code: Code = {
-        basic: `<p-treeTable [value]="files" [columns]="cols" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
+        basic: `<p-tree-table [value]="files" [columns]="cols" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
         <ng-template pTemplate="caption"><div class="text-xl font-bold">File Viewer</div> </ng-template>
         <ng-template pTemplate="header" let-columns>
             <tr>
@@ -78,7 +78,7 @@ export class TemplateDoc {
         <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
             <tr [ttRow]="rowNode">
                 <td *ngFor="let col of columns; let i = index; let last = last">
-                    <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
+                    <p-tree-tableToggler [rowNode]="rowNode" *ngIf="i === 0" />
                     {{ rowData[col.field] }}
                     <ng-container *ngIf="last">
                         <p-button icon="pi pi-search" rounded="true" [style]="{ 'margin-right': '.5em' }" />
@@ -92,10 +92,10 @@ export class TemplateDoc {
                 <p-button icon="pi pi-refresh" label="Reload" severity="warning" />
             </div>
         </ng-template>
-</p-treeTable>`,
+</p-tree-table>`,
 
         html: `<div class="card">
-    <p-treeTable [value]="files" [columns]="cols" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
+    <p-tree-table [value]="files" [columns]="cols" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
     <ng-template pTemplate="caption"><div class="text-xl font-bold">File Viewer</div> </ng-template>
     <ng-template pTemplate="header" let-columns>
         <tr>
@@ -107,7 +107,7 @@ export class TemplateDoc {
     <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
         <tr [ttRow]="rowNode">
             <td *ngFor="let col of columns; let i = index; let last = last">
-                <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
+                <p-tree-tableToggler [rowNode]="rowNode" *ngIf="i === 0" />
                 {{ rowData[col.field] }}
                 <ng-container *ngIf="last">
                     <p-button icon="pi pi-search" rounded="true" [style]="{ 'margin-right': '.5em' }" />
@@ -121,7 +121,7 @@ export class TemplateDoc {
             <p-button icon="pi pi-refresh" label="Reload" severity="warning" />
         </div>
     </ng-template>
-    </p-treeTable>
+    </p-tree-table>
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
