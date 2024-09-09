@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
             <p>Scrollbar visuals can be styled for a unified look across different platforms.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-scrollPanel [style]="{ width: '100%', height: '200px' }" styleClass="custombar">
+            <p-scroll-panel [style]="{ width: '100%', height: '200px' }" styleClass="custombar">
                 <p>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
                     aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis
@@ -45,7 +45,7 @@ import { Code } from '@domain/code';
                     deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam
                     libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.
                 </p>
-            </p-scrollPanel>
+            </p-scroll-panel>
         </div>
 
         <app-code [code]="code" selector="scroll-panel-custom-demo"></app-code>
@@ -53,7 +53,7 @@ import { Code } from '@domain/code';
 })
 export class CusstomDoc {
     code: Code = {
-        basic: `<p-scrollPanel [style]="{ width: '100%', height: '200px' }" styleClass="custombar">
+        basic: `<p-scroll-panel [style]="{ width: '100%', height: '200px' }" styleClass="custombar">
     <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit...
     </p>
@@ -72,10 +72,10 @@ export class CusstomDoc {
     <p>
         At vero eos et accusamus et iusto odio dignissimos...
     </p>
-</p-scrollPanel>`,
+</p-scroll-panel>`,
 
         html: `<div class="card">
-    <p-scrollPanel [style]="{ width: '100%', height: '200px' }" styleClass="custombar">
+    <p-scroll-panel [style]="{ width: '100%', height: '200px' }" styleClass="custombar">
         <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
             et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
@@ -118,7 +118,7 @@ export class CusstomDoc {
             fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis
             est eligendi optio cumque nihil impedit quo minus.
         </p>
-    </p-scrollPanel>
+    </p-scroll-panel>
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

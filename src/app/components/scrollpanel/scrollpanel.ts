@@ -1,4 +1,4 @@
-import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
     AfterContentInit,
     AfterViewInit,
@@ -29,7 +29,7 @@ import { ScrollPanelStyle } from './style/scrollpanelstyle';
  * @group Components
  */
 @Component({
-    selector: 'p-scrollPanel',
+    selector: 'p-scrollPanel, p-scroll-panel',
     template: `
         <div #container [ngClass]="'p-scrollpanel p-component'" [ngStyle]="style" [class]="styleClass" [attr.data-pc-name]="'scrollpanel'">
             <div class="p-scrollpanel-content-container" [attr.data-pc-section]="'wrapper'">
