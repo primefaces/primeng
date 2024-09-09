@@ -8,7 +8,7 @@ import { ProgressSpinnerStyle } from './style/progressspinnerstyle';
  * @group Components
  */
 @Component({
-    selector: 'p-progressSpinner',
+    selector: 'p-progressSpinner, p-progress-spinner',
     template: `
         <div
             class="p-progressspinner"

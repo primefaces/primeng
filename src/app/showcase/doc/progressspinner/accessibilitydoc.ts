@@ -20,6 +20,6 @@ import { Code } from '@domain/code';
 })
 export class AccessibilityDoc {
     code: Code = {
-        html: `<p-progressSpinner aria-label="Loading"></p-progressSpinner>`,
+        html: `<p-progress-spinner aria-label="Loading"></p-progress-spinner>`,
     };
 }
