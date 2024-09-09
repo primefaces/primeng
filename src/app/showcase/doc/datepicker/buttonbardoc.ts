@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
             <p>When <i>showButtonBar</i> is present, today and clear buttons are displayed at the footer.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-datePicker [(ngModel)]="date" [showButtonBar]="true" />
+            <p-date-picker [(ngModel)]="date" [showButtonBar]="true" />
         </div>
         <app-code [code]="code" selector="datepicker-buttonbar-demo"></app-code>
     `,
@@ -17,12 +17,12 @@ export class ButtonBarDoc {
     date: Date[] | undefined;
 
     code: Code = {
-        basic: `<p-datePicker 
+        basic: `<p-date-picker 
     [(ngModel)]="date" 
     [showButtonBar]="true"/>`,
 
         html: `<div class="card flex justify-center">
-    <p-datePicker 
+    <p-date-picker 
         [(ngModel)]="date" 
         [showButtonBar]="true"/>
 </div>`,

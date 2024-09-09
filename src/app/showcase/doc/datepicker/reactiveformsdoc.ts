@@ -13,7 +13,7 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card flex justify-center">
             <form [formGroup]="formGroup">
-                <p-datePicker formControlName="date" />
+                <p-date-picker formControlName="date" />
             </form>
         </div>
         <app-code [code]="code" selector="datepicker-reactive-forms-demo"></app-code>
@@ -30,12 +30,12 @@ export class ReactiveFormsDoc implements OnInit {
 
     code: Code = {
         basic: `<form [formGroup]="formGroup">
-    <p-datePicker formControlName="date" />
+    <p-date-picker formControlName="date" />
 </form>`,
 
         html: `<div class="card flex justify-center">
     <form [formGroup]="formGroup">
-        <p-datePicker formControlName="date" />
+        <p-date-picker formControlName="date" />
     </form>
 </div>`,
 

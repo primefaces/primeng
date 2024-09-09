@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
             <p>Invalid state style is added using the <i>ng-invalid</i> and <i>ng-dirty</i> class to indicate a failed validation.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-datePicker [(ngModel)]="date" class="ng-invalid ng-dirty" />
+            <p-date-picker [(ngModel)]="date" class="ng-invalid ng-dirty" />
         </div>
         <app-code [code]="code" selector="datepicker-invalid-demo"></app-code>
     `,
@@ -17,12 +17,12 @@ export class InvalidDoc {
     date: Date | undefined;
 
     code: Code = {
-        basic: `<p-datePicker 
+        basic: `<p-date-picker 
     [(ngModel)]="date" 
     class="ng-invalid ng-dirty" />`,
 
         html: `<div class="card flex justify-center">
-    <p-datePicker 
+    <p-date-picker 
         [(ngModel)]="date" 
         class="ng-invalid ng-dirty" />
 </div>`,

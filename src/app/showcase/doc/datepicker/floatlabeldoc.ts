@@ -12,7 +12,7 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-floatLabel>
-                <p-datePicker [(ngModel)]="date" inputId="birth_date" />
+                <p-date-picker [(ngModel)]="date" inputId="birth_date" />
                 <label for="birth_date">Birth Date</label>
             </p-floatLabel>
         </div>
@@ -24,7 +24,7 @@ export class FloatLabelDoc {
 
     code: Code = {
         basic: `<p-floatLabel>
-    <p-datePicker 
+    <p-date-picker 
         [(ngModel)]="date" 
         inputId="birth_date" />
     <label for="birth_date">Birth Date</label>
@@ -32,7 +32,7 @@ export class FloatLabelDoc {
 
         html: `<div class="card flex justify-center">
     <p-floatLabel>
-        <p-datePicker 
+        <p-date-picker 
             [(ngModel)]="date" 
             inputId="birth_date" />
         <label for="birth_date">Birth Date</label>

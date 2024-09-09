@@ -10,21 +10,21 @@ import { Code } from '@domain/code';
         <p-fluid class="card flex flex-wrap gap-4">
             <div class="flex-auto">
                 <label for="buttondisplay" class="font-bold block mb-2"> Button </label>
-                <p-datePicker [(ngModel)]="date1" [showIcon]="true" inputId="buttondisplay" [showOnFocus]="false" />
+                <p-date-picker [(ngModel)]="date1" [showIcon]="true" inputId="buttondisplay" [showOnFocus]="false" />
             </div>
 
             <div class="flex-auto">
                 <label for="icondisplay" class="font-bold block mb-2"> Default Icon </label>
-                <p-datePicker [(ngModel)]="date2" [iconDisplay]="'input'" [showIcon]="true" inputId="icondisplay" />
+                <p-date-picker [(ngModel)]="date2" [iconDisplay]="'input'" [showIcon]="true" inputId="icondisplay" />
             </div>
 
             <div class="flex-auto">
                 <label for="templatedisplay" class="font-bold block mb-2"> Custom Icon </label>
-                <p-datePicker [(ngModel)]="date3" [iconDisplay]="'input'" [showIcon]="true" [timeOnly]="true" inputId="templatedisplay">
+                <p-date-picker [(ngModel)]="date3" [iconDisplay]="'input'" [showIcon]="true" [timeOnly]="true" inputId="templatedisplay">
                     <ng-template pTemplate="inputicon" let-clickCallBack="clickCallBack">
                         <i class="pi pi-clock pointer-events-none pointer-events-none" (click)="clickCallBack($event)"></i>
                     </ng-template>
-                </p-datePicker>
+                </p-date-picker>
             </div>
         </p-fluid>
         <app-code [code]="code" selector="datepicker-icon-demo"></app-code>
@@ -38,19 +38,19 @@ export class IconDoc {
     date3: Date | undefined;
 
     code: Code = {
-        basic: `<p-datePicker 
+        basic: `<p-date-picker 
     [(ngModel)]="date1" 
     [showIcon]="true" 
     [showOnFocus]="false" 
     inputId="buttondisplay" />
 
-<p-datePicker 
+<p-date-picker 
     [(ngModel)]="date2" 
     [iconDisplay]="'input'" 
     [showIcon]="true" 
     inputId="icondisplay" />
 
-<p-datePicker 
+<p-date-picker 
     [(ngModel)]="date3" 
     [iconDisplay]="'input'" 
     [showIcon]="true" 
@@ -59,12 +59,12 @@ export class IconDoc {
         <ng-template pTemplate="inputicon" let-clickCallBack="clickCallBack">
             <i class="pi pi-user pointer-events-none" (click)="clickCallBack($event)"></i>
         </ng-template>
-</p-datePicker>`,
+</p-date-picker>`,
 
         html: `<p-fluid class="card flex flex-wrap gap-4">
 <div class="flex-auto">
     <label for="buttondisplay" class="font-bold block mb-2"> Button </label>
-    <p-datePicker 
+    <p-date-picker 
         [(ngModel)]="date1" 
         [showIcon]="true" 
         inputId="buttondisplay" 
@@ -73,7 +73,7 @@ export class IconDoc {
 
 <div class="flex-auto">
     <label for="icondisplay" class="font-bold block mb-2"> Default Icon </label>
-    <p-datePicker 
+    <p-date-picker 
         [(ngModel)]="date2" 
         [iconDisplay]="'input'" 
         [showIcon]="true" 
@@ -82,7 +82,7 @@ export class IconDoc {
 
 <div class="flex-auto">
     <label for="templatedisplay" class="font-bold block mb-2"> Custom Icon </label>
-        <p-datePicker 
+        <p-date-picker 
             [(ngModel)]="date3" 
             [iconDisplay]="'input'" 
             [showIcon]="true" 
@@ -93,7 +93,7 @@ export class IconDoc {
                         class="pi pi-clock pointer-events-none pointer-events-none" 
                         (click)="clickCallBack($event)"></i>
                 </ng-template>
-        </p-datePicker>
+        </p-date-picker>
 </div>
 </p-fluid>`,
 

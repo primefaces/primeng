@@ -11,7 +11,7 @@ import { Code } from '@domain/code';
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-datePicker [(ngModel)]="rangeDates" selectionMode="range" [readonlyInput]="true" />
+            <p-date-picker [(ngModel)]="rangeDates" selectionMode="range" [readonlyInput]="true" />
         </div>
         <app-code [code]="code" selector="datepicker-range-demo"></app-code>
     `,
@@ -20,13 +20,13 @@ export class RangeDoc {
     rangeDates: Date[] | undefined;
 
     code: Code = {
-        basic: `<p-datePicker 
+        basic: `<p-date-picker 
     [(ngModel)]="rangeDates" 
     selectionMode="range" 
     [readonlyInput]="true" />`,
 
         html: `<div class="card flex justify-center">
-    <p-datePicker 
+    <p-date-picker 
         [(ngModel)]="rangeDates" 
         selectionMode="range" 
         [readonlyInput]="true" />

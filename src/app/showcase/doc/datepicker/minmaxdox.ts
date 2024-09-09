@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
             <p>Boundaries for the permitted dates that can be entered are defined with <i>minDate</i> and <i>maxDate</i> properties.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-datePicker [(ngModel)]="date" [minDate]="minDate" [maxDate]="maxDate" [readonlyInput]="true" />
+            <p-date-picker [(ngModel)]="date" [minDate]="minDate" [maxDate]="maxDate" [readonlyInput]="true" />
         </div>
         <app-code [code]="code" selector="datepicker-minmax-demo"></app-code>
     `,
@@ -37,14 +37,14 @@ export class MinMaxDoc {
     }
 
     code: Code = {
-        basic: `<p-datePicker 
+        basic: `<p-date-picker 
     [(ngModel)]="date" 
     [minDate]="minDate" 
     [maxDate]="maxDate" 
     [readonlyInput]="true" />`,
 
         html: `<div class="card flex justify-center">
-    <p-datePicker 
+    <p-date-picker 
         [(ngModel)]="date" 
         [minDate]="minDate" 
         [maxDate]="maxDate" 

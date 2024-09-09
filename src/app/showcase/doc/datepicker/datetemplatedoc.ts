@@ -8,11 +8,11 @@ import { Code } from '@domain/code';
             <p>Custom content can be placed inside date cells with the <i>ng-template</i> property that takes a Date as a parameter.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-datePicker [(ngModel)]="date">
+            <p-date-picker [(ngModel)]="date">
                 <ng-template pTemplate="date" let-date>
                     <span [ngStyle]="{ textDecoration: date.day < 21 && date.day > 10 ? 'line-through' : 'inherit' }">{{ date.day }}</span>
                 </ng-template>
-            </p-datePicker>
+            </p-date-picker>
         </div>
         <app-code [code]="code" selector="datepicker-datetemplate-demo"></app-code>
     `,
@@ -21,22 +21,22 @@ export class DateTemplateDoc {
     date: Date[] | undefined;
 
     code: Code = {
-        basic: `<p-datePicker [(ngModel)]="date">
+        basic: `<p-date-picker [(ngModel)]="date">
     <ng-template pTemplate="date" let-date>
         <span [ngStyle]="{textDecoration: (date.day < 21 && date.day > 10) ? 'line-through' : 'inherit'}">
             {{date.day}}
         </span>
     </ng-template>
-</p-datePicker>`,
+</p-date-picker>`,
 
         html: `<div class="card flex justify-center">
-    <p-datePicker [(ngModel)]="date">
+    <p-date-picker [(ngModel)]="date">
         <ng-template pTemplate="date" let-date>
             <span [ngStyle]="{ textDecoration: date.day < 21 && date.day > 10 ? 'line-through' : 'inherit' }">
                 {{ date.day }}
             </span>
         </ng-template>
-    </p-datePicker>
+    </p-date-picker>
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

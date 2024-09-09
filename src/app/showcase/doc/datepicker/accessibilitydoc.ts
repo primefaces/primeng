@@ -250,11 +250,11 @@ import { Code } from '@domain/code';
 export class AccessibilityDoc {
     code: Code = {
         basic: `<label for="date1">Date</label>
-<p-datePicker inputId="date1"/>
+<p-date-picker inputId="date1"/>
 
 <span id="date2">Date</span>
-<p-datePicker ariaLabelledBy="date2"/>
+<p-date-picker ariaLabelledBy="date2"/>
 
-<p-datePicker ariaLabel="Date"/>`,
+<p-date-picker ariaLabel="Date"/>`,
     };
 }

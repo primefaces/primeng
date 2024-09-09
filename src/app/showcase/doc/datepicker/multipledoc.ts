@@ -11,7 +11,7 @@ import { Code } from '@domain/code';
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-datePicker [(ngModel)]="dates" selectionMode="multiple" [readonlyInput]="true" />
+            <p-date-picker [(ngModel)]="dates" selectionMode="multiple" [readonlyInput]="true" />
         </div>
         <app-code [code]="code" selector="datepicker-multiple-demo"></app-code>
     `,
@@ -20,13 +20,13 @@ export class MultipleDoc {
     dates: Date[] | undefined;
 
     code: Code = {
-        basic: `<p-datePicker 
+        basic: `<p-date-picker 
     [(ngModel)]="dates" 
     selectionMode="multiple" 
     [readonlyInput]="true" />`,
 
         html: `<div class="card flex justify-center">
-    <p-datePicker 
+    <p-date-picker 
         [(ngModel)]="dates" 
         selectionMode="multiple" 
         [readonlyInput]="true" />

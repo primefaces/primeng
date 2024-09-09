@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
             <p>DatePicker is displayed as a popup by default, add <i>inline</i> property to customize this behavior.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-datePicker class="max-w-full" [(ngModel)]="date" [inline]="true" [showWeek]="true" />
+            <p-date-picker class="max-w-full" [(ngModel)]="date" [inline]="true" [showWeek]="true" />
         </div>
         <app-code [code]="code" selector="datepicker-inline-demo"></app-code>
     `,
@@ -17,14 +17,14 @@ export class InlineDoc {
     date: Date[] | undefined;
 
     code: Code = {
-        basic: `<p-datePicker 
+        basic: `<p-date-picker 
     class="max-w-full" 
     [(ngModel)]="date" 
     [inline]="true" 
     [showWeek]="true" />`,
 
         html: `<div class="card flex justify-center">
-    <p-datePicker 
+    <p-date-picker 
         class="max-w-full" 
         [(ngModel)]="date" 
         [inline]="true" 

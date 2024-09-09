@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
             <p>Number of months to display is configured with the <i>numberOfMonths</i> property.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-datePicker [(ngModel)]="date" [numberOfMonths]="2" />
+            <p-date-picker [(ngModel)]="date" [numberOfMonths]="2" />
         </div>
         <app-code [code]="code" selector="datepicker-multiplemonths-demo"></app-code>
     `,
@@ -17,12 +17,12 @@ export class MultipleMonthDoc {
     date: Date[] | undefined;
 
     code: Code = {
-        basic: `<p-datePicker 
+        basic: `<p-date-picker 
     [(ngModel)]="date" 
     [numberOfMonths]="2" />`,
 
         html: `<div class="card flex justify-center">
-    <p-datePicker 
+    <p-date-picker 
         [(ngModel)]="date" 
         [numberOfMonths]="2" />
 </div>`,

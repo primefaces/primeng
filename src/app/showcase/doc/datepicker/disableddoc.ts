@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
             <p>When <i>disabled</i> is present, the element cannot be edited and focused.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-datePicker [(ngModel)]="date" [disabled]="true" />
+            <p-date-picker [(ngModel)]="date" [disabled]="true" />
         </div>
         <app-code [code]="code" selector="datepicker-disabled-demo"></app-code>
     `,
@@ -17,12 +17,12 @@ export class DisabledDoc {
     date: Date | undefined;
 
     code: Code = {
-        basic: `<p-datePicker 
+        basic: `<p-date-picker 
     [(ngModel)]="date" 
     [disabled]="true" />`,
 
         html: `<div class="card flex justify-center">
-    <p-datePicker 
+    <p-date-picker 
         [(ngModel)]="date" 
         [disabled]="true" />
 </div>`,

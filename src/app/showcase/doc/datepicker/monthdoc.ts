@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
             <p>Month only picker is enabled by specifying <i>view</i> as <i>month</i> in addition to a suitable <i>dateFormat</i>.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-datePicker [(ngModel)]="date" view="month" dateFormat="mm/yy" [readonlyInput]="true" />
+            <p-date-picker [(ngModel)]="date" view="month" dateFormat="mm/yy" [readonlyInput]="true" />
         </div>
         <app-code [code]="code" selector="datepicker-month-demo"></app-code>
     `,
@@ -17,14 +17,14 @@ export class MonthDoc {
     date: Date[] | undefined;
 
     code: Code = {
-        basic: `<p-datePicker 
+        basic: `<p-date-picker 
     [(ngModel)]="date" 
     view="month" 
     dateFormat="mm/yy" 
     [readonlyInput]="true" />`,
 
         html: `<div class="card flex justify-center">
-    <p-datePicker 
+    <p-date-picker 
         [(ngModel)]="date" 
         view="month" 
         dateFormat="mm/yy" 
