@@ -11,7 +11,7 @@ import { Code } from '@domain/code';
         <div class="card">
             <div style="height: 500px" class="flex justify-center">
                 <p-toast />
-                <p-speedDial
+                <p-speed-dial
                     [model]="items"
                     direction="up"
                     transitionDelay="80"
@@ -63,7 +63,7 @@ export class CustomDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-speedDial 
+        basic: `<p-speed-dial 
     [model]="items" 
     direction="up" 
     transitionDelay="80" 
@@ -74,7 +74,7 @@ export class CustomDoc implements OnInit {
         html: `<div class="card">
     <div style="height: 500px" class="flex justify-center">
         <p-toast />
-        <p-speedDial 
+        <p-speed-dial 
             [model]="items" 
             direction="up" 
             transitionDelay="80" 

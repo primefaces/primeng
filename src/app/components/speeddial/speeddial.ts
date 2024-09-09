@@ -1,21 +1,17 @@
-import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
     AfterContentInit,
     AfterViewInit,
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     ContentChildren,
     ElementRef,
     EventEmitter,
-    Inject,
     Input,
     NgModule,
     OnDestroy,
     Output,
-    PLATFORM_ID,
     QueryList,
-    Renderer2,
     TemplateRef,
     ViewChild,
     ViewEncapsulation,
@@ -41,7 +37,7 @@ import { BaseComponent } from 'primeng/basecomponent';
  * @group Components
  */
 @Component({
-    selector: 'p-speedDial',
+    selector: 'p-speedDial, p-speed-dial',
     template: `
         <div
             #container

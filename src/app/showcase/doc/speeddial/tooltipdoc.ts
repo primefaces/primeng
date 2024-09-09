@@ -14,8 +14,8 @@ import { Code } from '@domain/code';
         <div class="card">
             <div style="height: 350px; position: relative;" class="speeddial-tooltip-demo">
                 <p-toast />
-                <p-speedDial [model]="leftTooltipItems" className="speeddial-right" direction="up" />
-                <p-speedDial [model]="tooltipItems" className="speeddial-left" direction="up" />
+                <p-speed-dial [model]="leftTooltipItems" className="speeddial-right" direction="up" />
+                <p-speed-dial [model]="tooltipItems" className="speeddial-left" direction="up" />
             </div>
         </div>
         <app-code [code]="code" selector="speed-dial-tooltip-demo"></app-code>
@@ -125,11 +125,11 @@ export class TooltipDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-speedDial 
+        basic: `<p-speed-dial 
     [model]="leftTooltipItems" 
     className="speeddial-right" 
     direction="up" />
-<p-speedDial 
+<p-speed-dial 
     [model]="tooltipItems" 
     className="speeddial-left" 
     direction="up" />`,
@@ -137,11 +137,11 @@ export class TooltipDoc implements OnInit {
         html: `<div class="card">
     <div style="height: 350px; position: relative;" class="speeddial-tooltip-demo">
         <p-toast />
-        <p-speedDial 
+        <p-speed-dial 
             [model]="leftTooltipItems" 
             className="speeddial-right" 
             direction="up" />
-        <p-speedDial 
+        <p-speed-dial 
             [model]="tooltipItems" 
             className="speeddial-left" 
             direction="up" />

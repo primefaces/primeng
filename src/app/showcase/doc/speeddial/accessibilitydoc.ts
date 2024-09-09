@@ -104,6 +104,6 @@ import { Code } from '@domain/code';
 })
 export class AccessibilityDoc {
     code: Code = {
-        basic: `<p-speedDial aria-label="Options" />`,
+        basic: `<p-speed-dial aria-label="Options" />`,
     };
 }
