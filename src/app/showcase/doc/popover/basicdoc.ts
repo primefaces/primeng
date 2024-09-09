@@ -16,25 +16,25 @@ import { Code } from '@domain/code';
                 <div class="flex flex-col gap-4 w-[25rem]">
                     <div>
                         <span class="font-medium text-surface-900 dark:text-surface-0 block mb-2">Share this document</span>
-                        <p-inputGroup>
+                        <p-input-group>
                             <input
                                 pInputText
                                 value="https://primeng.org/12323ff26t2g243g423g234gg52hy25XADXAG3"
                                 readonly
                                 class="w-[25rem]"
                             />
-                            <p-inputGroupAddon>
+                            <p-input-group-addon>
                                 <i class="pi pi-copy"></i>
-                            </p-inputGroupAddon>
-                        </p-inputGroup>
+                            </p-input-group-addon>
+                        </p-input-group>
                     </div>
                     <div>
                         <span class="font-medium text-surface-900 dark:text-surface-0 block mb-2">Invite Member</span>
                         <div class="flex">
-                            <p-inputGroup>
+                            <p-input-group>
                                 <input pInputText disabled />
                                 <button pButton label="Invite" icon="pi pi-users"></button>
-                            </p-inputGroup>
+                            </p-input-group>
                         </div>
                     </div>
                     <div>
@@ -72,20 +72,20 @@ export class BasicDoc {
         <div class="flex flex-col gap-4 w-[25rem]">
             <div>
                 <span class="font-medium text-surface-900 dark:text-surface-0 block mb-2">Share this document</span>
-                <p-inputGroup>
+                <p-input-group>
                     <input pInputText value="https://primeng.org/12323ff26t2g243g423g234gg52hy25XADXAG3" readonly class="w-[25rem]" />
-                    <p-inputGroupAddon>
+                    <p-input-group-addon>
                         <i class="pi pi-copy"></i>
-                    </p-inputGroupAddon>
-                </p-inputGroup>
+                    </p-input-group-addon>
+                </p-input-group>
             </div>
             <div>
                 <span class="font-medium text-surface-900 dark:text-surface-0 block mb-2">Invite Member</span>
                 <div class="flex">
-                    <p-inputGroup>
+                    <p-input-group>
                         <input pInputText disabled />
                         <button pButton label="Invite" icon="pi pi-users"></button>
-                    </p-inputGroup>
+                    </p-input-group>
                 </div>
             </div>
             <div>
@@ -113,20 +113,20 @@ export class BasicDoc {
         <div class="flex flex-col gap-4 w-[25rem]">
             <div>
                 <span class="font-medium text-surface-900 dark:text-surface-0 block mb-2">Share this document</span>
-                <p-inputGroup>
+                <p-input-group>
                     <input pInputText value="https://primeng.org/12323ff26t2g243g423g234gg52hy25XADXAG3" readonly class="w-[25rem]" />
-                    <p-inputGroupAddon>
+                    <p-input-group-addon>
                         <i class="pi pi-copy"></i>
-                    </p-inputGroupAddon>
-                </p-inputGroup>
+                    </p-input-group-addon>
+                </p-input-group>
             </div>
             <div>
                 <span class="font-medium text-surface-900 dark:text-surface-0 block mb-2">Invite Member</span>
                 <div class="flex">
-                    <p-inputGroup>
+                    <p-input-group>
                         <input pInputText disabled />
                         <button pButton label="Invite" icon="pi pi-users"></button>
-                    </p-inputGroup>
+                    </p-input-group>
                 </div>
             </div>
             <div>

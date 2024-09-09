@@ -8,47 +8,47 @@ import { Code } from '@domain/code';
             <p>Multiple add-ons can be placed inside the same group.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-inputGroup class="w-full md:w-[30rem]">
-                <p-inputGroupAddon>
+            <p-input-group class="w-full md:w-[30rem]">
+                <p-input-group-addon>
                     <i class="pi pi-clock"></i>
-                </p-inputGroupAddon>
-                <p-inputGroupAddon>
+                </p-input-group-addon>
+                <p-input-group-addon>
                     <i class="pi pi-star-fill"></i>
-                </p-inputGroupAddon>
+                </p-input-group-addon>
                 <input type="text" pInputText placeholder="Price" />
-                <p-inputGroupAddon>$</p-inputGroupAddon>
-                <p-inputGroupAddon>.00</p-inputGroupAddon>
-            </p-inputGroup>
+                <p-input-group-addon>$</p-input-group-addon>
+                <p-input-group-addon>.00</p-input-group-addon>
+            </p-input-group>
         </div>
         <app-code [code]="code" selector="input-group-multiple-demo"></app-code>
     `,
 })
 export class MultipleDoc {
     code: Code = {
-        basic: `<p-inputGroup class="w-full md:w-[30rem]">
-    <p-inputGroupAddon>
+        basic: `<p-input-group class="w-full md:w-[30rem]">
+    <p-input-group-addon>
         <i class="pi pi-clock"></i>
-    </p-inputGroupAddon>
-    <p-inputGroupAddon>
+    </p-input-group-addon>
+    <p-input-group-addon>
         <i class="pi pi-star-fill"></i>
-    </p-inputGroupAddon>
+    </p-input-group-addon>
     <input type="text" pInputText placeholder="Price" />
-    <p-inputGroupAddon>$</p-inputGroupAddon>
-    <p-inputGroupAddon>.00</p-inputGroupAddon>
-</p-inputGroup>`,
+    <p-input-group-addon>$</p-input-group-addon>
+    <p-input-group-addon>.00</p-input-group-addon>
+</p-input-group>`,
 
         html: `<div class="card flex justify-center">
-    <p-inputGroup class="w-full md:w-[30rem]">
-        <p-inputGroupAddon>
+    <p-input-group class="w-full md:w-[30rem]">
+        <p-input-group-addon>
             <i class="pi pi-clock"></i>
-        </p-inputGroupAddon>
-        <p-inputGroupAddon>
+        </p-input-group-addon>
+        <p-input-group-addon>
             <i class="pi pi-star-fill"></i>
-        </p-inputGroupAddon>
+        </p-input-group-addon>
         <input type="text" pInputText placeholder="Price" />
-        <p-inputGroupAddon>$</p-inputGroupAddon>
-        <p-inputGroupAddon>.00</p-inputGroupAddon>
-    </p-inputGroup>
+        <p-input-group-addon>$</p-input-group-addon>
+        <p-input-group-addon>.00</p-input-group-addon>
+    </p-input-group>
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
