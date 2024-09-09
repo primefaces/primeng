@@ -12,7 +12,7 @@ import { Code } from '@domain/code';
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-tieredMenu [model]="items">
+            <p-tiered-menu [model]="items">
                 <ng-template pTemplate="item" let-item let-hasSubmenu="hasSubmenu">
                     <a pRipple class="flex items-center p-tieredmenu-item-link">
                         <span [class]="item.icon" class="p-tieredmenu-item-icon"></span>
@@ -26,7 +26,7 @@ import { Code } from '@domain/code';
                         <i *ngIf="hasSubmenu" class="pi pi-angle-right ml-auto"></i>
                     </a>
                 </ng-template>
-            </p-tieredMenu>
+            </p-tiered-menu>
         </div>
         <app-code [code]="code" selector="tiered-menu-template-demo"></app-code>
     `,
@@ -117,7 +117,7 @@ export class TemplateDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-tieredMenu [model]="items">
+        basic: `<p-tiered-menu [model]="items">
     <ng-template pTemplate="item" let-item let-hasSubmenu="hasSubmenu">
     <a pRipple class="flex items-center p-tieredmenu-item-link">
     <span [class]="item.icon" class="p-tieredmenu-item-icon"></span>
@@ -129,10 +129,10 @@ export class TemplateDoc implements OnInit {
             <i *ngIf="hasSubmenu" class="pi pi-angle-right ml-auto"></i>
         </a>
     </ng-template>
-</p-tieredMenu>`,
+</p-tiered-menu>`,
 
         html: `<div class="card flex justify-center">
-    <p-tieredMenu [model]="items">
+    <p-tiered-menu [model]="items">
         <ng-template pTemplate="item" let-item let-hasSubmenu="hasSubmenu">
         <a pRipple class="flex items-center p-tieredmenu-item-link">
         <span [class]="item.icon" class="p-tieredmenu-item-icon"></span>
@@ -144,7 +144,7 @@ export class TemplateDoc implements OnInit {
                 <i *ngIf="hasSubmenu" class="pi pi-angle-right ml-auto"></i>
             </a>
         </ng-template>
-    </p-tieredMenu>
+    </p-tiered-menu>
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';

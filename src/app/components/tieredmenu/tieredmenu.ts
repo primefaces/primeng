@@ -1,9 +1,8 @@
 import { AnimationEvent, animate, style, transition, trigger } from '@angular/animations';
-import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
     AfterContentInit,
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     ContentChildren,
     ElementRef,
@@ -14,7 +13,6 @@ import {
     OnDestroy,
     OnInit,
     Output,
-    PLATFORM_ID,
     QueryList,
     Renderer2,
     TemplateRef,
@@ -42,7 +40,7 @@ import { BaseComponent } from 'primeng/basecomponent';
 import { nestedPosition } from '@primeuix/utils/dom';
 
 @Component({
-    selector: 'p-tieredMenuSub',
+    selector: 'p-tieredMenuSub, p-tiered-menu-sub',
     template: `
         <ul
             #sublist
@@ -226,7 +224,7 @@ import { nestedPosition } from '@primeuix/utils/dom';
                         </ng-container>
                     </div>
 
-                    <p-tieredMenuSub
+                    <p-tiered-menu-sub
                         *ngIf="isItemVisible(processedItem) && isItemGroup(processedItem)"
                         [items]="processedItem.items"
                         [itemTemplate]="itemTemplate"
@@ -239,7 +237,7 @@ import { nestedPosition } from '@primeuix/utils/dom';
                         (itemClick)="itemClick.emit($event)"
                         (itemMouseEnter)="onItemMouseEnter($event)"
                         [inlineStyles]="{ display: isItemActive(processedItem) ? 'flex' : 'none' }"
-                    ></p-tieredMenuSub>
+                    ></p-tiered-menu-sub>
                 </li>
             </ng-template>
         </ul>
@@ -400,7 +398,7 @@ export class TieredMenuSub {
  * @group Components
  */
 @Component({
-    selector: 'p-tieredMenu',
+    selector: 'p-tieredMenu, p-tiered-menu',
     template: `
         <div
             #container
@@ -420,7 +418,7 @@ export class TieredMenuSub {
             (@overlayAnimation.done)="onOverlayAnimationEnd($event)"
             *ngIf="!popup || visible"
         >
-            <p-tieredMenuSub
+            <p-tiered-menu-sub
                 #rootmenu
                 [root]="true"
                 [items]="processedItems"
@@ -440,7 +438,7 @@ export class TieredMenuSub {
                 (menuBlur)="onMenuBlur($event)"
                 (menuKeydown)="onKeyDown($event)"
                 (itemMouseEnter)="onItemMouseEnter($event)"
-            ></p-tieredMenuSub>
+            ></p-tiered-menu-sub>
         </div>
     `,
     animations: [

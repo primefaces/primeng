@@ -9,7 +9,7 @@ import { Code } from '../../domain/code';
             <p>TieredMenu requires a collection of menuitems as its <i>model</i>.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-tieredMenu [model]="items" />
+            <p-tiered-menu [model]="items" />
         </div>
         <app-code [code]="code" selector="tiered-menu-basic-demo"></app-code>
     `,
@@ -90,10 +90,10 @@ export class BasicDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-tieredMenu [model]="items" />`,
+        basic: `<p-tiered-menu [model]="items" />`,
 
         html: `<div class="card flex justify-center">
-    <p-tieredMenu [model]="items" />
+    <p-tiered-menu [model]="items" />
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';

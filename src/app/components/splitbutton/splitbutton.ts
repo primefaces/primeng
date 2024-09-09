@@ -105,7 +105,7 @@ type SplitButtonIconPosition = 'left' | 'right';
                 <ChevronDownIcon *ngIf="!dropdownIconTemplate" />
                 <ng-template *ngTemplateOutlet="dropdownIconTemplate"></ng-template>
             </button>
-            <p-tieredMenu
+            <p-tiered-menu
                 [id]="ariaId"
                 #menu
                 [popup]="true"
@@ -117,7 +117,7 @@ type SplitButtonIconPosition = 'left' | 'right';
                 [hideTransitionOptions]="hideTransitionOptions"
                 (onHide)="onHide()"
                 (onShow)="onShow()"
-            ></p-tieredMenu>
+            ></p-tiered-menu>
         </div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
