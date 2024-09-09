@@ -11,10 +11,10 @@ import { Code } from '@domain/code';
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-floatLabel>
+            <p-float-label>
                 <p-password [(ngModel)]="value" [feedback]="false" />
                 <label for="password">Password</label>
-            </p-floatLabel>
+            </p-float-label>
         </div>
         <app-code [code]="code" selector="password-floatlabel-demo"></app-code>
     `,
@@ -23,16 +23,16 @@ export class FloatLabelDoc {
     value!: string;
 
     code: Code = {
-        basic: `<p-floatLabel>
+        basic: `<p-float-label>
     <p-password [(ngModel)]="value" [feedback]="false" />
     <label for="password">Password</label>
-</p-floatLabel>`,
+</p-float-label>`,
 
         html: `<div class="card flex justify-center">
-    <p-floatLabel>
+    <p-float-label>
         <p-password [(ngModel)]="value" [feedback]="false" />
         <label for="password">Password</label>
-    </p-floatLabel>
+    </p-float-label>
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

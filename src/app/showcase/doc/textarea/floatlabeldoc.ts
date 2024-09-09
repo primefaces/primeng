@@ -11,27 +11,27 @@ import { Code } from '@domain/code';
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-floatLabel>
+            <p-float-label>
                 <textarea id="float-input" rows="5" cols="30" pTextarea></textarea>
                 <label for="float-input">Summary</label>
-            </p-floatLabel>
+            </p-float-label>
         </div>
         <app-code [code]="code" selector="input-textarea-floatlabel-demo"></app-code>
     `,
 })
 export class FloatlabelDoc {
     code: Code = {
-        basic: `<p-floatLabel>
+        basic: `<p-float-label>
     <textarea 
         id="float-input" 
         rows="5" cols="30" 
         pTextarea>
     </textarea>
     <label for="float-input">Summary</label>
-</p-floatLabel>`,
+</p-float-label>`,
 
         html: `<div class="card flex justify-center">
-    <p-floatLabel>
+    <p-float-label>
         <textarea 
             id="float-input" 
             rows="5"
@@ -39,7 +39,7 @@ export class FloatlabelDoc {
             pTextarea>
         </textarea>
         <label for="float-input">Summary</label>
-    </p-floatLabel>
+    </p-float-label>
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

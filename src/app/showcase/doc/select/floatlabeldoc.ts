@@ -13,10 +13,10 @@ interface City {
             <p>A floating label appears on top of the input field when focused.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-floatLabel>
+            <p-float-label>
                 <p-select [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" inputId="float-label" />
                 <label for="float-label">Select a City</label>
-            </p-floatLabel>
+            </p-float-label>
         </div>
         <app-code [code]="code" selector="select-floatlabel-demo"></app-code>
     `,
@@ -37,24 +37,24 @@ export class FloatLabelDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-floatLabel>
+        basic: `<p-float-label>
     <p-select 
         [options]="cities"
         [(ngModel)]="selectedCity"
         optionLabel="name" 
         inputId="float-label" />
     <label for="float-label">Select a City</label>
-</p-floatLabel>`,
+</p-float-label>`,
 
         html: `<div class="card flex justify-center">
-    <p-floatLabel>
+    <p-float-label>
         <p-select 
             [options]="cities"
             [(ngModel)]="selectedCity"
             optionLabel="name"
             inputId="float-label" />
         <label for="float-label">Select a City</label>
-    </p-floatLabel>
+    </p-float-label>
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';

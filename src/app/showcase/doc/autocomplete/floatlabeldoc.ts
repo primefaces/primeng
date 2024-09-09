@@ -15,7 +15,7 @@ interface AutoCompleteCompleteEvent {
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-floatLabel>
+            <p-float-label>
                 <p-auto-complete
                     [(ngModel)]="selectedItem"
                     [suggestions]="suggestions"
@@ -23,7 +23,7 @@ interface AutoCompleteCompleteEvent {
                     inputId="float-label"
                 />
                 <label for="float-label">Float Label</label>
-            </p-floatLabel>
+            </p-float-label>
         </div>
         <app-code [code]="code" selector="autocomplete-float-label-demo"></app-code>`,
 })
@@ -39,24 +39,24 @@ export class FloatLabelDoc {
     }
 
     code: Code = {
-        basic: `<p-floatLabel>
+        basic: `<p-float-label>
     <p-auto-complete 
         [(ngModel)]="selectedItem" 
         [suggestions]="suggestions" 
         (completeMethod)="search($event)" 
         inputId="float-label" />
     <label for="float-label">Float Label</label>
-</p-floatLabel>`,
+</p-float-label>`,
 
         html: `<div class="card flex justify-center">
-    <p-floatLabel>
+    <p-float-label>
         <p-auto-complete 
             [(ngModel)]="selectedItem" 
             [suggestions]="suggestions" 
             (completeMethod)="search($event)" 
             inputId="float-label" />
         <label for="float-label">Float Label</label>
-    </p-floatLabel>
+    </p-float-label>
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

@@ -8,10 +8,10 @@ import { Code } from '@domain/code';
             <p>FloatLabel is used by wrapping the input and its label.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-floatLabel>
+            <p-float-label>
                 <input id="username" type="text" pInputText [(ngModel)]="value" />
                 <label for="username">Username</label>
-            </p-floatLabel>
+            </p-float-label>
         </div>
         <app-code [code]="code" selector="float-label-basic-demo"></app-code>
     `,
@@ -20,16 +20,16 @@ export class BasicDoc {
     value: string | undefined;
 
     code: Code = {
-        basic: `<p-floatLabel>
+        basic: `<p-float-label>
     <input id="username" type="text" pInputText [(ngModel)]="value" />
     <label for="username">Username</label>
-</p-floatLabel>`,
+</p-float-label>`,
 
         html: `<div class="card flex justify-center">
-    <p-floatLabel>
+    <p-float-label>
         <input id="username" type="text" pInputText [(ngModel)]="value" />
         <label for="username">Username</label>
-    </p-floatLabel>
+    </p-float-label>
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

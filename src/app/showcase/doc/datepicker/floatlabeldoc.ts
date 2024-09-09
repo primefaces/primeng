@@ -11,10 +11,10 @@ import { Code } from '@domain/code';
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-floatLabel>
+            <p-float-label>
                 <p-date-picker [(ngModel)]="date" inputId="birth_date" />
                 <label for="birth_date">Birth Date</label>
-            </p-floatLabel>
+            </p-float-label>
         </div>
         <app-code [code]="code" selector="datepicker-float-label-demo"></app-code>
     `,
@@ -23,20 +23,20 @@ export class FloatLabelDoc {
     date: Date | undefined;
 
     code: Code = {
-        basic: `<p-floatLabel>
+        basic: `<p-float-label>
     <p-date-picker 
         [(ngModel)]="date" 
         inputId="birth_date" />
     <label for="birth_date">Birth Date</label>
-</p-floatLabel>`,
+</p-float-label>`,
 
         html: `<div class="card flex justify-center">
-    <p-floatLabel>
+    <p-float-label>
         <p-date-picker 
             [(ngModel)]="date" 
             inputId="birth_date" />
         <label for="birth_date">Birth Date</label>
-    </p-floatLabel>
+    </p-float-label>
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

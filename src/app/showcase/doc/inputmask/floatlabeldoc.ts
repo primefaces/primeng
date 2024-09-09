@@ -11,10 +11,10 @@ import { Code } from '@domain/code';
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-floatLabel>
+            <p-float-label>
                 <p-inputMask mask="999-99-9999" [(ngModel)]="value" id="ssn_input" />
                 <label for="ssn_input">SSN</label>
-            </p-floatLabel>
+            </p-float-label>
         </div>
         <app-code [code]="code" selector="input-mask-floatlabel-demo"></app-code>
     `,
@@ -23,22 +23,22 @@ export class FloatlabelDoc {
     value: string | undefined;
 
     code: Code = {
-        basic: `<p-floatLabel>
+        basic: `<p-float-label>
     <p-inputMask 
         mask="999-99-9999" 
         [(ngModel)]="value" 
         id="ssn_input" />
     <label for="ssn_input">SSN</label>
-</p-floatLabel>`,
+</p-float-label>`,
 
         html: `<div class="card flex justify-center">
-    <p-floatLabel>
+    <p-float-label>
         <p-inputMask 
             mask="999-99-9999" 
             [(ngModel)]="value" 
             id="ssn_input" />
         <label for="ssn_input">SSN</label>
-    </p-floatLabel>
+    </p-float-label>
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

@@ -16,10 +16,10 @@ interface City {
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-floatLabel>
+            <p-float-label>
                 <p-multiSelect inputId="float-label" [options]="cities" [(ngModel)]="selectedCities" optionLabel="name" />
                 <label for="float-label">MultiSelect</label>
-            </p-floatLabel>
+            </p-float-label>
         </div>
         <app-code [code]="code" selector="multi-select-floatlabel-demo"></app-code>
     `,
@@ -40,24 +40,24 @@ export class FloatLabelDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-floatLabel>
+        basic: `<p-float-label>
     <p-multiSelect 
         inputId="float-label" 
         [options]="cities" 
         [(ngModel)]="selectedCities" 
         optionLabel="name" />
     <label for="float-label">MultiSelect</label>
-</p-floatLabel>`,
+</p-float-label>`,
 
         html: `<div class="card flex justify-center">
-    <p-floatLabel>
+    <p-float-label>
         <p-multiSelect 
             inputId="float-label" 
             [options]="cities" 
             [(ngModel)]="selectedCities" 
             optionLabel="name" />
         <label for="float-label">MultiSelect</label>
-    </p-floatLabel>
+    </p-float-label>
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';

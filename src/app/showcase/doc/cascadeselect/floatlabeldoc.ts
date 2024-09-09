@@ -11,7 +11,7 @@ import { Code } from '@domain/code';
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-floatLabel>
+            <p-float-label>
                 <p-cascade-select
                     inputId="cs-city"
                     [(ngModel)]="selectedCity"
@@ -23,7 +23,7 @@ import { Code } from '@domain/code';
                     placeholder="Select a City"
                 />
                 <label for="cs-city">City</label>
-            </p-floatLabel>
+            </p-float-label>
         </div>
         <app-code [code]="code" selector="cascade-select-float-label-demo"></app-code>
     `,
@@ -111,7 +111,7 @@ export class FloatLabelDoc {
     }
 
     code: Code = {
-        basic: `<p-floatLabel>
+        basic: `<p-float-label>
     <p-cascade-select
         inputId="cs-city"
         [(ngModel)]="selectedCity"
@@ -122,10 +122,10 @@ export class FloatLabelDoc {
         [style]="{ minWidth: '14rem' }"
         placeholder="Select a City" />
     <label for="cs-city">City</label>
-</p-floatLabel>`,
+</p-float-label>`,
 
         html: `<div class="card flex justify-center">
-    <p-floatLabel>
+    <p-float-label>
         <p-cascade-select
             inputId="cs-city"
             [(ngModel)]="selectedCity"
@@ -136,7 +136,7 @@ export class FloatLabelDoc {
             [style]="{ minWidth: '14rem' }"
             placeholder="Select a City" />
         <label for="cs-city">City</label>
-    </p-floatLabel>
+    </p-float-label>
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
