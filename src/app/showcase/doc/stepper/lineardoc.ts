@@ -9,7 +9,7 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card">
             <p-stepper [linear]="true">
-                <p-stepperPanel header="Header I">
+                <p-stepper-panel header="Header I">
                     <ng-template pTemplate="content" let-nextCallback="nextCallback" let-index="index">
                         <div class="flex flex-col h-48">
                             <div
@@ -21,8 +21,8 @@ import { Code } from '@domain/code';
                         <div class="flex pt-6 justify-end">
                             <p-button label="Next" icon="pi pi-arrow-right" iconPos="right" (onClick)="nextCallback.emit()" /></div
                     ></ng-template>
-                </p-stepperPanel>
-                <p-stepperPanel header="Header II">
+                </p-stepper-panel>
+                <p-stepper-panel header="Header II">
                     <ng-template pTemplate="content" let-prevCallback="prevCallback" let-nextCallback="nextCallback" let-index="index">
                         <div class="flex flex-col h-48">
                             <div
@@ -35,8 +35,8 @@ import { Code } from '@domain/code';
                             <p-button label="Back" icon="pi pi-arrow-left" (onClick)="prevCallback.emit()" />
                             <p-button label="Next" icon="pi pi-arrow-right" iconPos="right" (onClick)="nextCallback.emit()" /></div
                     ></ng-template>
-                </p-stepperPanel>
-                <p-stepperPanel header="Header III">
+                </p-stepper-panel>
+                <p-stepper-panel header="Header III">
                     <ng-template pTemplate="content" let-prevCallback="prevCallback" let-index="index">
                         <div class="flex flex-col h-48">
                             <div
@@ -48,7 +48,7 @@ import { Code } from '@domain/code';
                         <div class="flex pt-6 justify-start">
                             <p-button label="Back" icon="pi pi-arrow-left" (onClick)="prevCallback.emit()" /></div
                     ></ng-template>
-                </p-stepperPanel>
+                </p-stepper-panel>
             </p-stepper>
         </div>
         <app-code [code]="code" selector="stepper-linear-demo"></app-code>
@@ -57,7 +57,7 @@ import { Code } from '@domain/code';
 export class LinearDoc {
     code: Code = {
         basic: `<p-stepper [linear]="true">
-    <p-stepperPanel header="Header I">
+    <p-stepper-panel header="Header I">
         <ng-template pTemplate="content" let-nextCallback="nextCallback" let-index="index">
             <div class="flex flex-col h-48">
                 <div class="border-2 border-dashed border-surface rounded-border bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium">
@@ -68,8 +68,8 @@ export class LinearDoc {
                 <p-button label="Next" icon="pi pi-arrow-right" iconPos="right" (onClick)="nextCallback.emit()" />
             </div>
         </ng-template>
-    </p-stepperPanel>
-    <p-stepperPanel header="Header II">
+    </p-stepper-panel>
+    <p-stepper-panel header="Header II">
         <ng-template pTemplate="content" let-prevCallback="prevCallback" let-nextCallback="nextCallback" let-index="index">
             <div class="flex flex-col h-48">
                 <div class="border-2 border-dashed border-surface rounded-border bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium">
@@ -81,8 +81,8 @@ export class LinearDoc {
                 <p-button label="Next" icon="pi pi-arrow-right" iconPos="right" (onClick)="nextCallback.emit()" />
             </div>
         </ng-template>
-    </p-stepperPanel>
-    <p-stepperPanel header="Header III">
+    </p-stepper-panel>
+    <p-stepper-panel header="Header III">
         <ng-template pTemplate="content" let-prevCallback="prevCallback" let-index="index">
             <div class="flex flex-col h-48">
                 <div class="border-2 border-dashed border-surface rounded-border bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium">
@@ -93,12 +93,12 @@ export class LinearDoc {
                 <p-button label="Back" icon="pi pi-arrow-left" (onClick)="prevCallback.emit()" />
             </div>
         </ng-template>
-    </p-stepperPanel>
+    </p-stepper-panel>
 </p-stepper>`,
 
         html: `<div class="card">
     <p-stepper [linear]="true">
-        <p-stepperPanel header="Header I">
+        <p-stepper-panel header="Header I">
             <ng-template pTemplate="content" let-nextCallback="nextCallback" let-index="index">
                 <div class="flex flex-col h-48">
                     <div class="border-2 border-dashed border-surface rounded-border bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium">
@@ -109,8 +109,8 @@ export class LinearDoc {
                     <p-button label="Next" icon="pi pi-arrow-right" iconPos="right" (onClick)="nextCallback.emit()" />
                 </div>
             </ng-template>
-        </p-stepperPanel>
-        <p-stepperPanel header="Header II">
+        </p-stepper-panel>
+        <p-stepper-panel header="Header II">
             <ng-template pTemplate="content" let-prevCallback="prevCallback" let-nextCallback="nextCallback" let-index="index">
                 <div class="flex flex-col h-48">
                     <div class="border-2 border-dashed border-surface rounded-border bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium">
@@ -122,8 +122,8 @@ export class LinearDoc {
                     <p-button label="Next" icon="pi pi-arrow-right" iconPos="right" (onClick)="nextCallback.emit()" />
                 </div>
             </ng-template>
-        </p-stepperPanel>
-        <p-stepperPanel header="Header III">
+        </p-stepper-panel>
+        <p-stepper-panel header="Header III">
             <ng-template pTemplate="content" let-prevCallback="prevCallback" let-index="index">
                 <div class="flex flex-col h-48">
                     <div class="border-2 border-dashed border-surface rounded-border bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium">
@@ -134,7 +134,7 @@ export class LinearDoc {
                     <p-button label="Back" icon="pi pi-arrow-left" (onClick)="prevCallback.emit()" />
                 </div>
             </ng-template>
-        </p-stepperPanel>
+        </p-stepper-panel>
     </p-stepper>
 </div>`,
 

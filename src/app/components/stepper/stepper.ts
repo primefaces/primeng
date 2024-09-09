@@ -21,7 +21,7 @@ import { BaseComponent } from 'primeng/basecomponent';
 import { StepperStyle } from './style/stepperstyle';
 
 @Component({
-    selector: 'p-stepperHeader',
+    selector: 'p-stepperHeader, p-stepper-header',
     template: `
         <ng-container *ngIf="template; else buttonRef">
             <ng-container
@@ -78,7 +78,7 @@ export class StepperHeader {
 }
 
 @Component({
-    selector: 'p-stepperSeparator',
+    selector: 'p-stepperSeparator, p-stepper-separator',
     template: `
         <ng-container *ngIf="template; else span">
             <ng-container
@@ -108,7 +108,7 @@ export class StepperSeparator {
 }
 
 @Component({
-    selector: 'p-stepperContent',
+    selector: 'p-stepperContent, p-stepper-content',
     template: ` <div
         [id]="id"
         role="tabpanel"
@@ -170,7 +170,7 @@ export class StepperContent {
 }
 
 @Component({
-    selector: 'p-stepperPanel',
+    selector: 'p-stepperPanel, p-stepper-panel',
     template: ` <ng-content></ng-content> `,
 })
 export class StepperPanel extends BaseComponent {
@@ -233,7 +233,7 @@ export class StepperPanel extends BaseComponent {
                         [data-pc-index]="index"
                         [data-p-active]="isStepActive(index)"
                     >
-                        <p-stepperHeader
+                        <p-stepper-header
                             [id]="getStepHeaderActionId(index)"
                             [template]="step.headerTemplate"
                             [stepperPanel]="step"
@@ -244,10 +244,10 @@ export class StepperPanel extends BaseComponent {
                             [highlighted]="index < activeStep"
                             [aria-controls]="getStepContentId(index)"
                             (onClick)="onItemClick($event, index)"
-                        ></p-stepperHeader>
+                        ></p-stepper-header>
 
                         <ng-container *ngIf="index !== stepperPanels.length - 1">
-                            <p-stepperSeparator
+                            <p-stepper-separator
                                 [template]="step.separatorTemplate"
                                 [separatorClass]="'p-stepper-separator'"
                                 [stepperPanel]="step"
@@ -262,7 +262,7 @@ export class StepperPanel extends BaseComponent {
             <div class="p-stepper-panels">
                 <ng-template ngFor let-step [ngForOf]="panels" let-index="index" [ngForTrackBy]="trackByFn">
                     <ng-container *ngIf="isStepActive(index)">
-                        <p-stepperContent
+                        <p-stepper-content
                             [id]="getStepContentId(index)"
                             [template]="step.contentTemplate"
                             [orientation]="orientation"
@@ -294,7 +294,7 @@ export class StepperPanel extends BaseComponent {
                     [data-pc-index]="index"
                     [data-p-active]="isStepActive(index)"
                 >
-                    <p-stepperHeader
+                    <p-stepper-header
                         [id]="getStepHeaderActionId(index)"
                         [template]="step.headerTemplate"
                         [stepperPanel]="step"
@@ -307,7 +307,7 @@ export class StepperPanel extends BaseComponent {
                         class="p-step"
                         [ngClass]="{ 'p-step-active': isStepActive(index) }"
                         (onClick)="onItemClick($event, index)"
-                    ></p-stepperHeader>
+                    ></p-stepper-header>
 
                     <div
                         class="p-steppanel"
@@ -319,7 +319,7 @@ export class StepperPanel extends BaseComponent {
                         "
                     >
                         <ng-container *ngIf="index !== stepperPanels.length - 1">
-                            <p-stepperSeparator
+                            <p-stepper-separator
                                 [template]="step.separatorTemplate"
                                 [separatorClass]="'p-stepper-separator'"
                                 [stepperPanel]="step"
@@ -328,7 +328,7 @@ export class StepperPanel extends BaseComponent {
                                 [highlighted]="index < activeStep"
                             />
                         </ng-container>
-                        <p-stepperContent
+                        <p-stepper-content
                             [id]="getStepContentId(index)"
                             [template]="step.contentTemplate"
                             [orientation]="orientation"

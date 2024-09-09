@@ -12,7 +12,7 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card">
             <p-stepper orientation="vertical">
-                <p-stepperPanel header="Header I">
+                <p-stepper-panel header="Header I">
                     <ng-template pTemplate="content" let-nextCallback="nextCallback" let-index="index">
                         <div class="flex flex-col h-48">
                             <div
@@ -24,8 +24,8 @@ import { Code } from '@domain/code';
                         <div class="flex py-6">
                             <p-button label="Next" (onClick)="nextCallback.emit()" /></div
                     ></ng-template>
-                </p-stepperPanel>
-                <p-stepperPanel header="Header II">
+                </p-stepper-panel>
+                <p-stepper-panel header="Header II">
                     <ng-template pTemplate="content" let-prevCallback="prevCallback" let-nextCallback="nextCallback" let-index="index">
                         <div class="flex flex-col h-48">
                             <div
@@ -38,8 +38,8 @@ import { Code } from '@domain/code';
                             <p-button label="Back" severity="secondary" (onClick)="prevCallback.emit()" />
                             <p-button label="Next" (onClick)="nextCallback.emit()" /></div
                     ></ng-template>
-                </p-stepperPanel>
-                <p-stepperPanel header="Header III">
+                </p-stepper-panel>
+                <p-stepper-panel header="Header III">
                     <ng-template pTemplate="content" let-prevCallback="prevCallback" let-index="index">
                         <div class="flex flex-col h-48">
                             <div
@@ -51,7 +51,7 @@ import { Code } from '@domain/code';
                         <div class="flex py-6">
                             <p-button label="Back" (onClick)="prevCallback.emit()" /></div
                     ></ng-template>
-                </p-stepperPanel>
+                </p-stepper-panel>
             </p-stepper>
         </div>
         <app-code [code]="code" selector="stepper-vertical-demo"></app-code>
@@ -60,7 +60,7 @@ import { Code } from '@domain/code';
 export class VerticalDoc {
     code: Code = {
         basic: `<p-stepper orientation="vertical">
-    <p-stepperPanel header="Header I">
+    <p-stepper-panel header="Header I">
         <ng-template pTemplate="content" let-nextCallback="nextCallback" let-index="index">
             <div class="flex flex-col h-48">
                 <div class="border-2 border-dashed border-surface rounded-border bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium">Content I</div>
@@ -69,8 +69,8 @@ export class VerticalDoc {
                 <p-button label="Next" (onClick)="nextCallback.emit()" />
             </div
         ></ng-template>
-    </p-stepperPanel>
-    <p-stepperPanel header="Header II">
+    </p-stepper-panel>
+    <p-stepper-panel header="Header II">
         <ng-template pTemplate="content" let-prevCallback="prevCallback" let-nextCallback="nextCallback" let-index="index">
             <div class="flex flex-col h-48">
                 <div class="border-2 border-dashed border-surface rounded-border bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium">
@@ -82,8 +82,8 @@ export class VerticalDoc {
                 <p-button label="Next" (onClick)="nextCallback.emit()" />
             </div>
         </ng-template>
-    </p-stepperPanel>
-    <p-stepperPanel header="Header III">
+    </p-stepper-panel>
+    <p-stepper-panel header="Header III">
         <ng-template pTemplate="content" let-prevCallback="prevCallback" let-index="index">
             <div class="flex flex-col h-48">
                 <div class="border-2 border-dashed border-surface rounded-border bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium">
@@ -94,12 +94,12 @@ export class VerticalDoc {
                 <p-button label="Back" (onClick)="prevCallback.emit()" />
             </div>
         </ng-template>
-    </p-stepperPanel>
+    </p-stepper-panel>
 </p-stepper>`,
 
         html: `<div class="card">
     <p-stepper orientation="vertical">
-        <p-stepperPanel header="Header I">
+        <p-stepper-panel header="Header I">
             <ng-template pTemplate="content" let-nextCallback="nextCallback" let-index="index">
                 <div class="flex flex-col h-48">
                     <div class="border-2 border-dashed border-surface rounded-border bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium">
@@ -110,8 +110,8 @@ export class VerticalDoc {
                     <p-button label="Next" (onClick)="nextCallback.emit()" />
                 </div>
             </ng-template>
-        </p-stepperPanel>
-        <p-stepperPanel header="Header II">
+        </p-stepper-panel>
+        <p-stepper-panel header="Header II">
             <ng-template pTemplate="content" let-prevCallback="prevCallback" let-nextCallback="nextCallback" let-index="index">
                 <div class="flex flex-col h-48">
                     <div class="border-2 border-dashed border-surface rounded-border bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium">
@@ -123,8 +123,8 @@ export class VerticalDoc {
                     <p-button label="Next" (onClick)="nextCallback.emit()" />
                 </div>
             </ng-template>
-        </p-stepperPanel>
-        <p-stepperPanel header="Header III">
+        </p-stepper-panel>
+        <p-stepper-panel header="Header III">
             <ng-template pTemplate="content" let-prevCallback="prevCallback" let-index="index">
                 <div class="flex flex-col h-48">
                     <div class="border-2 border-dashed border-surface rounded-border bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium">
@@ -135,7 +135,7 @@ export class VerticalDoc {
                     <p-button label="Back" (onClick)="prevCallback.emit()" />
                 </div>
             </ng-template>
-        </p-stepperPanel>
+        </p-stepper-panel>
     </p-stepper>
 </div>`,
 
