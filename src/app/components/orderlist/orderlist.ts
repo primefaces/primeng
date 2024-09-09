@@ -1,21 +1,17 @@
 import { CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
-import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { CommonModule,isPlatformBrowser } from '@angular/common';
 import {
     AfterContentInit,
-    AfterViewChecked,
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
     ContentChildren,
     ElementRef,
     EventEmitter,
-    Inject,
     Input,
     NgModule,
     Output,
-    PLATFORM_ID,
     QueryList,
-    Renderer2,
     TemplateRef,
     ViewChild,
     ViewEncapsulation,
@@ -44,7 +40,7 @@ import { FormsModule } from '@angular/forms';
  * @group Components
  */
 @Component({
-    selector: 'p-orderList',
+    selector: 'p-orderList, p-order-list',
     template: `
         <div
             [ngClass]="{

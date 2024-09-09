@@ -12,7 +12,7 @@ import { ProductService } from '@service/productservice';
             </p>
         </app-docsectiontext>
         <div class="card xl:flex xl:justify-center">
-            <p-orderList [value]="products" [listStyle]="{ 'max-height': '30rem' }" header="List of Products" [dragdrop]="true">
+            <p-order-list [value]="products" [listStyle]="{ 'max-height': '30rem' }" header="List of Products" [dragdrop]="true">
                 <ng-template let-product pTemplate="item">
                     <div class="flex flex-wrap p-2 items-center gap-4">
                         <img
@@ -30,7 +30,7 @@ import { ProductService } from '@service/productservice';
                         <span class="font-bold text-surface-900 dark:text-surface-0">{{ '$' + product.price }}</span>
                     </div>
                 </ng-template>
-            </p-orderList>
+            </p-order-list>
         </div>
         <app-code [code]="code" selector="orderlist-drag-drop-demo" [extFiles]="extFiles"></app-code>
     `,
@@ -62,7 +62,7 @@ export class DragDropDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-orderList 
+        basic: `<p-order-list 
     [value]="products" 
     [listStyle]="{ 'max-height': '30rem' }" 
     header="List of Products" 
@@ -87,10 +87,10 @@ export class DragDropDoc implements OnInit {
                 </span>
             </div>
         </ng-template>
-</p-orderList>`,
+</p-order-list>`,
 
         html: `<div class="card xl:flex xl:justify-center">
-    <p-orderList 
+    <p-order-list 
         [value]="products" 
         [listStyle]="{ 'max-height': '30rem' }"
         header="List of Products" 
@@ -115,7 +115,7 @@ export class DragDropDoc implements OnInit {
                     </span>
                 </div>
             </ng-template>
-    </p-orderList>
+    </p-order-list>
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';

@@ -13,7 +13,7 @@ import { ProductService } from '@service/productservice';
             </p>
         </app-docsectiontext>
         <div class="card xl:flex xl:justify-center">
-            <p-orderList [value]="products" [listStyle]="{ height: '25rem' }" header="List of Products">
+            <p-order-list [value]="products" [listStyle]="{ height: '25rem' }" header="List of Products">
                 <ng-template let-product pTemplate="item">
                     <div class="flex flex-wrap p-2 items-center gap-4">
                         <img
@@ -31,7 +31,7 @@ import { ProductService } from '@service/productservice';
                         <span class="font-bold text-surface-900 dark:text-surface-0">{{ '$' + product.price }}</span>
                     </div>
                 </ng-template>
-            </p-orderList>
+            </p-order-list>
         </div>
         <app-code [code]="code" selector="orderlist-basic-demo" [extFiles]="extFiles"></app-code>
     `,
@@ -63,7 +63,7 @@ export class BasicDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-orderList 
+        basic: `<p-order-list 
     [value]="products" 
     [listStyle]="{ height: '25rem' }" 
     header="List of Products">
@@ -87,10 +87,10 @@ export class BasicDoc implements OnInit {
                 </span>
             </div>
         </ng-template>
-</p-orderList>`,
+</p-order-list>`,
 
         html: `<div class="card xl:flex xl:justify-center">
-    <p-orderList 
+    <p-order-list 
         [value]="products" 
         [listStyle]="{ height: '25rem' }" 
         header="List of Products">
@@ -114,7 +114,7 @@ export class BasicDoc implements OnInit {
                     </span>
                 </div>
             </ng-template>
-    </p-orderList>
+    </p-order-list>
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
