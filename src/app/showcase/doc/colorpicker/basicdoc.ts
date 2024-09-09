@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
             <p>ColorPicker is used as a controlled input with <i>ngModel</i> property.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-colorPicker [(ngModel)]="color" />
+            <p-color-picker [(ngModel)]="color" />
         </div>
         <app-code [code]="code" selector="color-picker-basic-demo"></app-code>
     `,
@@ -17,10 +17,10 @@ export class BasicDoc {
     color: string | undefined;
 
     code: Code = {
-        basic: `<p-colorPicker [(ngModel)]="color" />`,
+        basic: `<p-color-picker [(ngModel)]="color" />`,
 
         html: `<div class="card flex justify-center">
-    <p-colorPicker [(ngModel)]="color" />
+    <p-color-picker [(ngModel)]="color" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
