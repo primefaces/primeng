@@ -42,7 +42,7 @@ import { BaseComponent } from 'primeng/basecomponent';
  * @group Components
  */
 @Component({
-    selector: 'p-confirmPopup',
+    selector: 'p-confirmPopup, p-confirm-popup',
     template: `
         <div
             *ngIf="visible"

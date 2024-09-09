@@ -13,7 +13,7 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card flex justify-center gap-2">
             <p-toast />
-            <p-confirmPopup />
+            <p-confirm-popup />
             <p-button (click)="confirm1($event)" label="Save" [outlined]="true" />
             <p-button (click)="confirm2($event)" label="Delete" severity="danger" [outlined]="true" />
         </div>
@@ -74,7 +74,7 @@ export class BasicDoc {
 
     code: Code = {
         basic: `<p-toast />
-<p-confirmPopup />
+<p-confirm-popup />
 <p-button 
     (click)="confirm1($event)" 
     label="Save" 
@@ -87,7 +87,7 @@ export class BasicDoc {
 
         html: `<div class="card flex justify-center gap-2">
     <p-toast />
-    <p-confirmPopup />
+    <p-confirm-popup />
     <p-button 
         (click)="confirm1($event)" 
         label="Save" 
