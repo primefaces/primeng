@@ -1,5 +1,5 @@
 import { AnimationEvent, animate, style, transition, trigger } from '@angular/animations';
-import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
     AfterContentInit,
     ChangeDetectionStrategy,
@@ -38,7 +38,7 @@ import { BaseComponent } from 'primeng/basecomponent';
 import { BadgeModule } from 'primeng/badge';
 
 @Component({
-    selector: 'p-contextMenuSub',
+    selector: 'p-contextMenuSub, p-context-menu-sub',
     template: `
         <ul
             *ngIf="root ? true : visible"
@@ -224,7 +224,7 @@ import { BadgeModule } from 'primeng/badge';
                         </ng-container>
                     </div>
 
-                    <p-contextMenuSub
+                    <p-context-menu-sub
                         *ngIf="isItemVisible(processedItem) && isItemGroup(processedItem)"
                         [items]="processedItem.items"
                         [itemTemplate]="itemTemplate"
@@ -235,7 +235,7 @@ import { BadgeModule } from 'primeng/badge';
                         [level]="level + 1"
                         (itemClick)="itemClick.emit($event)"
                         (itemMouseEnter)="onItemMouseEnter($event)"
-                    ></p-contextMenuSub>
+                    ></p-context-menu-sub>
                 </li>
             </ng-template>
         </ul>
@@ -398,7 +398,7 @@ export class ContextMenuSub extends BaseComponent {
  * @group Components
  */
 @Component({
-    selector: 'p-contextMenu',
+    selector: 'p-contextMenu, p-context-menu',
     template: `
         <div
             #container
@@ -413,7 +413,7 @@ export class ContextMenuSub extends BaseComponent {
             (@overlayAnimation.done)="onOverlayAnimationEnd($event)"
             *ngIf="visible()"
         >
-            <p-contextMenuSub
+            <p-context-menu-sub
                 #rootmenu
                 [root]="true"
                 [items]="processedItems"
@@ -432,7 +432,7 @@ export class ContextMenuSub extends BaseComponent {
                 (menuBlur)="onMenuBlur($event)"
                 (menuKeydown)="onKeyDown($event)"
                 (itemMouseEnter)="onItemMouseEnter($event)"
-            ></p-contextMenuSub>
+            ></p-context-menu-sub>
         </div>
     `,
     animations: [

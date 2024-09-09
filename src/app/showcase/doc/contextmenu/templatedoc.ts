@@ -40,7 +40,7 @@ import { ContextMenu } from 'primeng/contextmenu';
                 </li>
             </ul>
 
-            <p-contextMenu #cm [model]="items" (onHide)="onHide()">
+            <p-context-menu #cm [model]="items" (onHide)="onHide()">
                 <ng-template pTemplate="item" let-item>
                     <a pRipple class="flex items-center p-contextmenu-item-link">
                         <span [class]="item.icon"></span>
@@ -54,7 +54,7 @@ import { ContextMenu } from 'primeng/contextmenu';
                         <i *ngIf="item.items" class="pi pi-angle-right ml-auto"></i>
                     </a>
                 </ng-template>
-            </p-contextMenu>
+            </p-context-menu>
         </div>
 
         <app-code [code]="code" selector="context-menu-template-demo"></app-code>
@@ -201,7 +201,7 @@ export class TemplateDoc implements OnInit {
     </li>
 </ul>
 
-<p-contextMenu #cm [model]="items" (onHide)="onHide()">
+<p-context-menu #cm [model]="items" (onHide)="onHide()">
     <ng-template pTemplate="item" let-item>
         <a pRipple class="flex items-center p-contextmenu-item-link">
             <span [class]="item.icon"></span>
@@ -215,7 +215,7 @@ export class TemplateDoc implements OnInit {
             <i *ngIf="item.items" class="pi pi-angle-right ml-auto"></i>
         </a>
     </ng-template>
-</p-contextMenu>`,
+</p-context-menu>`,
 
         html: `<div class="card flex md:justify-center">
     <ul
@@ -245,7 +245,7 @@ export class TemplateDoc implements OnInit {
             </li>
         </ul>
 
-    <p-contextMenu #cm [model]="items" (onHide)="onHide()">
+    <p-context-menu #cm [model]="items" (onHide)="onHide()">
         <ng-template pTemplate="item" let-item>
             <a pRipple class="flex items-center p-contextmenu-item-link">
                 <span [class]="item.icon"></span>
@@ -259,7 +259,7 @@ export class TemplateDoc implements OnInit {
                 <i *ngIf="item.items" class="pi pi-angle-right ml-auto"></i>
             </a>
         </ng-template>
-    </p-contextMenu>
+    </p-context-menu>
 </div>`,
 
         typescript: `import { Component, OnInit, ViewChild } from '@angular/core';

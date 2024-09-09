@@ -18,7 +18,7 @@ import { ProductService } from '@service/productservice';
         </app-docsectiontext>
         <p-deferred-demo (load)="loadDemoData()">
             <div class="card">
-                <p-contextMenu #cm [model]="items" />
+                <p-context-menu #cm [model]="items" />
                 <p-table
                     [value]="products"
                     [(contextMenuSelection)]="selectedProduct"
@@ -85,7 +85,7 @@ export class ContextMenuDoc {
     }
 
     code: Code = {
-        basic: `<p-contextMenu #cm [model]="items" />
+        basic: `<p-context-menu #cm [model]="items" />
 <p-table 
     [value]="products" 
     [(contextMenuSelection)]="selectedProduct" 
@@ -110,7 +110,7 @@ export class ContextMenuDoc {
         </ng-template>
 </p-table>`,
         html: `<div class="card">
-    <p-contextMenu #cm [model]="items" />
+    <p-context-menu #cm [model]="items" />
     <p-table 
         [value]="products" 
         [(contextMenuSelection)]="selectedProduct" 

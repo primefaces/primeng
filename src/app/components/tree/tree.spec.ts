@@ -10,7 +10,7 @@ import { ContextMenuService, TreeDragDropService } from 'primeng/api';
 @Component({
     template: `
         <p-tree></p-tree>
-        <p-contextMenu #cm [model]="item"></p-contextMenu>
+        <p-context-menu #cm [model]="item"></p-context-menu>
         <p-tree
             class="files"
             [value]="filesTree7"

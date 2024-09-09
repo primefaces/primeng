@@ -46,7 +46,7 @@ interface Column {
                     </ng-template>
                 </p-tree-table>
             </p-deferred-demo>
-            <p-contextMenu #cm [model]="items" />
+            <p-context-menu #cm [model]="items" />
         </div>
         <app-code [code]="code" selector="tree-table-context-menu-demo"></app-code>
     `,
@@ -119,7 +119,7 @@ export class ContextMenuDoc {
         </ng-template>
 </p-tree-table>
 
-<p-contextMenu #cm [model]="items" />`,
+<p-context-menu #cm [model]="items" />`,
 
         html: `<div class="card">
     <p-toast [style]="{ marginTop: '80px' }" />
@@ -149,7 +149,7 @@ export class ContextMenuDoc {
             </ng-template>
     </p-tree-table>
 
-    <p-contextMenu #cm [model]="items" />
+    <p-context-menu #cm [model]="items" />
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';

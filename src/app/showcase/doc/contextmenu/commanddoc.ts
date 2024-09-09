@@ -37,7 +37,7 @@ interface Users {
                 </li>
             </ul>
 
-            <p-contextMenu #cm [model]="items" (onHide)="onHide()" />
+            <p-context-menu #cm [model]="items" (onHide)="onHide()" />
         </div>
 
         <app-code [code]="code" selector="context-menu-command-demo"></app-code>
@@ -140,7 +140,7 @@ export class CommandDoc implements OnInit {
         </li>
     </ul>
 
-    <p-contextMenu #cm [model]="items" (onHide)="onHide()" />`,
+    <p-context-menu #cm [model]="items" (onHide)="onHide()" />`,
 
         html: `<div class="card flex sm:justify-center">
     <p-toast />
@@ -163,7 +163,7 @@ export class CommandDoc implements OnInit {
         </li>
     </ul>
 
-    <p-contextMenu #cm [model]="items" (onHide)="onHide()" />
+    <p-context-menu #cm [model]="items" (onHide)="onHide()" />
 </div>`,
 
         typescript: `import { Component, OnInit, ViewChild } from '@angular/core';

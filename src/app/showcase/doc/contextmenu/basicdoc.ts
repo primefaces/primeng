@@ -19,7 +19,7 @@ import { Code } from '@domain/code';
                 aria-haspopup="true"
                 class="max-w-full"
             />
-            <p-contextMenu [target]="img" [model]="items" />
+            <p-context-menu [target]="img" [model]="items" />
         </div>
         <app-code [code]="code" selector="context-menu-basic-demo"></app-code>
     `,
@@ -41,7 +41,7 @@ export class BasicDoc implements OnInit {
     alt="Logo" 
     aria-haspopup="true" 
     class="max-w-full" />
-<p-contextMenu [target]="img" [model]="items" />`,
+<p-context-menu [target]="img" [model]="items" />`,
 
         html: `<div class="card flex justify-center">
     <img 
@@ -50,7 +50,7 @@ export class BasicDoc implements OnInit {
         alt="Logo"
         aria-haspopup="true" 
         class="max-w-full" />
-    <p-contextMenu [target]="img" [model]="items" />
+    <p-context-menu [target]="img" [model]="items" />
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';

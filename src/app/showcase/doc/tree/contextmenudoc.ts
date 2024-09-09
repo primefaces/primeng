@@ -11,7 +11,7 @@ import { NodeService } from '@service/nodeservice';
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-tree class="w-full md:w-[30rem]" [value]="files" selectionMode="single" [(selection)]="selectedFile" [contextMenu]="cm" />
-            <p-contextMenu #cm [model]="items" />
+            <p-context-menu #cm [model]="items" />
             <p-toast />
         </div>
         <app-code [code]="code" selector="tree-context-menu-demo"></app-code>
@@ -54,7 +54,7 @@ export class ContextMenuDoc implements OnInit {
     selectionMode="single" 
     [(selection)]="selectedFile" 
     [contextMenu]="cm" />
-<p-contextMenu #cm [model]="items" />
+<p-context-menu #cm [model]="items" />
 <p-toast />`,
 
         html: `<div class="card flex justify-center">
@@ -64,7 +64,7 @@ export class ContextMenuDoc implements OnInit {
         selectionMode="single" 
         [(selection)]="selectedFile" 
         [contextMenu]="cm" />
-    <p-contextMenu #cm [model]="items" />
+    <p-context-menu #cm [model]="items" />
     <p-toast />
 </div>`,
 

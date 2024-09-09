@@ -10,7 +10,7 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card text-center">
             <p class="mb-0">Right-Click anywhere on this page to view the global ContextMenu.</p>
-            <p-contextMenu [model]="items" [global]="true" />
+            <p-context-menu [model]="items" [global]="true" />
         </div>
         <app-code [code]="code" selector="context-menu-document-demo"></app-code>
     `,
@@ -49,11 +49,11 @@ export class DocumentDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-contextMenu [model]="items" [global]="true" />`,
+        basic: `<p-context-menu [model]="items" [global]="true" />`,
 
         html: `<div class="card text-center">
     <p class="mb-0">Right-Click anywhere on this page to view the global ContextMenu.</p>
-    <p-contextMenu [model]="items" [global]="true" />
+    <p-context-menu [model]="items" [global]="true" />
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
