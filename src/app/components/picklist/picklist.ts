@@ -57,7 +57,7 @@ import { FormsModule } from '@angular/forms';
  * @group Components
  */
 @Component({
-    selector: 'p-pickList, p-pick-list',
+    selector: 'p-pickList, p-picklist',
     template: `
         <div
             [class]="styleClass"

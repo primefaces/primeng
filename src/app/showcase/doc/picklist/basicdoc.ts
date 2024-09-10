@@ -14,7 +14,7 @@ import { ProductService } from '@service/productservice';
             </p>
         </app-docsectiontext>
         <div class="card">
-            <p-pick-list
+            <p-picklist
                 [source]="sourceProducts"
                 [target]="targetProducts"
                 sourceHeader="Available"
@@ -42,7 +42,7 @@ import { ProductService } from '@service/productservice';
                         <span class="font-bold text-surface-900 dark:text-surface-0">{{ '$' + product.price }}</span>
                     </div>
                 </ng-template>
-            </p-pick-list>
+            </p-picklist>
         </div>
         <app-code [code]="code" selector="picklist-basic-demo" [extFiles]="extFiles"></app-code>
     `,
@@ -66,7 +66,7 @@ export class BasicDoc {
     }
 
     code: Code = {
-        basic: `<p-pick-list 
+        basic: `<p-picklist 
     [source]="sourceProducts" 
     [target]="targetProducts" 
     sourceHeader="Available" 
@@ -96,10 +96,10 @@ export class BasicDoc {
                 </span>
             </div>
         </ng-template>
-</p-pick-list>`,
+</p-picklist>`,
 
         html: `<div class="card">
-    <p-pick-list 
+    <p-picklist 
         [source]="sourceProducts" 
         [target]="targetProducts" 
         sourceHeader="Available"
@@ -131,7 +131,7 @@ export class BasicDoc {
                     </span>
                 </div>
             </ng-template>
-    </p-pick-list>
+    </p-picklist>
 </div>`,
 
         typescript: `import { ChangeDetectorRef, Component } from '@angular/core';
