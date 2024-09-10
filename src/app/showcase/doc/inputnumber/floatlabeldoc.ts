@@ -11,10 +11,10 @@ import { Code } from '@domain/code';
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-float-label>
+            <p-floatlabel>
                 <p-input-number inputId="integeronly" [(ngModel)]="value1" />
                 <label for="number-input">Number</label>
-            </p-float-label>
+            </p-floatlabel>
         </div>
         <app-code [code]="code" selector="input-number-float-label-demo"></app-code>
     `,
@@ -23,16 +23,16 @@ export class FloatlabelDoc {
     value1!: number;
 
     code: Code = {
-        basic: `<p-float-label>
+        basic: `<p-floatlabel>
     <p-input-number inputId="integeronly" [(ngModel)]="value1" />
     <label for="number-input">Number</label>
-</p-float-label>`,
+</p-floatlabel>`,
 
         html: `<div class="card flex justify-center">
-    <p-float-label>
+    <p-floatlabel>
         <p-input-number inputId="integeronly" [(ngModel)]="value1" />
         <label for="number-input">Number</label>
-    </p-float-label>
+    </p-floatlabel>
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

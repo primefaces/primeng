@@ -8,10 +8,10 @@ import { Code } from '@domain/code';
             <p>A floating label appears on top of the input field when focused.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-float-label>
+            <p-floatlabel>
                 <input pInputText id="username" [(ngModel)]="value" />
                 <label for="username">Username</label>
-            </p-float-label>
+            </p-floatlabel>
         </div>
         <app-code [code]="code" selector="input-text-floatlabel-demo"></app-code>
     `,
@@ -20,16 +20,16 @@ export class FloatLabelDoc {
     value: string | undefined;
 
     code: Code = {
-        basic: `<p-float-label>
+        basic: `<p-floatlabel>
     <input pInputText id="username" [(ngModel)]="value" />
     <label for="username">Username</label>
-</p-float-label>`,
+</p-floatlabel>`,
 
         html: `<div class="card flex justify-center">
-    <p-float-label>
+    <p-floatlabel>
         <input pInputText id="username" [(ngModel)]="value" />
         <label for="username">Username</label>
-    </p-float-label>
+    </p-floatlabel>
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
