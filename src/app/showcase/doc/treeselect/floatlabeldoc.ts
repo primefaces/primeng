@@ -13,7 +13,7 @@ import { NodeService } from '@service/nodeservice';
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-floatlabel class="md:w-80 w-full">
-                <p-tree-select containerStyleClass="w-full" [(ngModel)]="selectedNodes" [options]="nodes" placeholder="Select Item" />
+                <p-treeselect containerStyleClass="w-full" [(ngModel)]="selectedNodes" [options]="nodes" placeholder="Select Item" />
                 <label for="treeselect">Tree Select</label>
             </p-floatlabel>
         </div>
@@ -31,7 +31,7 @@ export class FloatLabelDoc {
 
     code: Code = {
         basic: `<p-floatlabel class="md:w-80 w-full">
-    <p-tree-select 
+    <p-treeselect 
         containerStyleClass="w-full" 
         [(ngModel)]="selectedNodes" 
         [options]="nodes" 
@@ -43,7 +43,7 @@ export class FloatLabelDoc {
 
         html: `<div class="card flex justify-center">
     <p-floatlabel class="md:w-80 w-full">
-        <p-tree-select 
+        <p-treeselect 
             containerStyleClass="w-full" 
             [(ngModel)]="selectedNodes" 
             [options]="nodes" 

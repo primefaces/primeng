@@ -9,7 +9,7 @@ import { NodeService } from '@service/nodeservice';
             <p>Selection of multiple nodes via checkboxes is enabled by configuring <i>selectionMode</i> as <i>checkbox</i>.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-tree-select
+            <p-treeselect
                 class="w-full md:w-80"
                 containerStyleClass="w-full"
                 [(ngModel)]="selectedNodes"
@@ -33,7 +33,7 @@ export class CheckboxDoc {
     }
 
     code: Code = {
-        basic: `<p-tree-select 
+        basic: `<p-treeselect 
     class="w-full md:w-80" 
     containerStyleClass="w-full" 
     [(ngModel)]="selectedNodes" 
@@ -44,7 +44,7 @@ export class CheckboxDoc {
     placeholder="Select Item" />`,
 
         html: `<div class="card flex justify-center">
-    <p-tree-select 
+    <p-treeselect 
         class="w-full md:w-80" 
         containerStyleClass="w-full" 
         [(ngModel)]="selectedNodes" 

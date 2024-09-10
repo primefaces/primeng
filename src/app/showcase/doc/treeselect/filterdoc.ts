@@ -15,7 +15,7 @@ import { NodeService } from '@service/nodeservice';
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-tree-select
+            <p-treeselect
                 class="md:w-80 w-full"
                 containerStyleClass="w-full"
                 [(ngModel)]="selectedNodes"
@@ -38,7 +38,7 @@ export class FilterDoc {
     }
 
     code: Code = {
-        basic: `<p-tree-select 
+        basic: `<p-treeselect 
     class="md:w-80 w-full" 
     containerStyleClass="w-full" 
     [(ngModel)]="selectedNodes" 
@@ -48,7 +48,7 @@ export class FilterDoc {
     [filterInputAutoFocus]="true" />`,
 
         html: `<div class="card flex justify-center">
-    <p-tree-select 
+    <p-treeselect 
         class="md:w-80 w-full" 
         containerStyleClass="w-full" 
         [(ngModel)]="selectedNodes" 

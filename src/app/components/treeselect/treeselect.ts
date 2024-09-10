@@ -46,7 +46,7 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
  * @group Components
  */
 @Component({
-    selector: 'p-treeSelect, p-tree-select',
+    selector: 'p-treeSelect, p-treeselect',
     template: `
         <div #container [ngClass]="containerClass" [class]="containerStyleClass" [ngStyle]="containerStyle" (click)="onClick($event)">
             <div class="p-hidden-accessible">

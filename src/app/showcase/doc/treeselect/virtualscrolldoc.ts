@@ -13,7 +13,7 @@ import { NodeService } from '@service/nodeservice';
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-tree-select
+            <p-treeselect
                 class="w-full md:w-80"
                 containerStyleClass="w-full"
                 [(ngModel)]="selectedNodes"
@@ -25,7 +25,7 @@ import { NodeService } from '@service/nodeservice';
                 [virtualScroll]="true"
                 [virtualScrollItemSize]="46"
                 [virtualScrollOptions]="{ scrollHeight: '200px' }"
-            ></p-tree-select>
+            ></p-treeselect>
         </div>
         <app-code [code]="code" selector="tree-select-virtual-scroll-demo"></app-code>`,
 })
@@ -39,7 +39,7 @@ export class VirtualScrollDoc {
     }
 
     code: Code = {
-        basic: `<p-tree-select 
+        basic: `<p-treeselect 
     class="w-full md:w-80" 
     containerStyleClass="w-full" 
     [(ngModel)]="selectedNodes" 
@@ -53,7 +53,7 @@ export class VirtualScrollDoc {
     [virtualScrollOptions]="{scrollHeight: '200px'}" />`,
 
         html: `<div class="card flex justify-center">
-    <p-tree-select 
+    <p-treeselect 
         class="w-full md:w-80" 
         containerStyleClass="w-full" 
         [(ngModel)]="selectedNodes" 

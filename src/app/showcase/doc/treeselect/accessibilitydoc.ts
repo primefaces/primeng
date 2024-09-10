@@ -198,8 +198,8 @@ import { Code } from '@domain/code';
 export class AccessibilityDoc {
     code: Code = {
         basic: `<span id="dd1">Options</span>
-<p-tree-select ariaLabelledBy="dd1" />
+<p-treeselect ariaLabelledBy="dd1" />
 
-<p-tree-select ariaLabel="Options" />`,
+<p-treeselect ariaLabel="Options" />`,
     };
 }

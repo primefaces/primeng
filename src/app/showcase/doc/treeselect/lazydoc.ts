@@ -13,7 +13,7 @@ import { TreeNode } from 'primeng/api';
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-tree-select
+            <p-treeselect
                 class="w-full"
                 containerStyleClass="w-full"
                 [(ngModel)]="selectedNodes"
@@ -93,7 +93,7 @@ export class LazyDoc {
     }
 
     code: Code = {
-        basic: `<p-tree-select
+        basic: `<p-treeselect
     class="w-full"
     containerStyleClass="w-full"
     [(ngModel)]="selectedNodes"
@@ -108,7 +108,7 @@ export class LazyDoc {
 />`,
 
         html: `<div class="card flex justify-center">
-    <p-tree-select
+    <p-treeselect
         class="w-full"
         containerStyleClass="w-full"
         [(ngModel)]="selectedNodes"
