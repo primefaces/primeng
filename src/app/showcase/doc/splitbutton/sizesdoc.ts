@@ -10,9 +10,9 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card flex flex-wrap justify-center gap-4">
             <p-toast />
-            <p-split-button label="Small" [model]="items" (onClick)="save('info')" size="sm" />
-            <p-split-button label="Normal" [model]="items" (onClick)="save('info')" />
-            <p-split-button label="Large" [model]="items" (onClick)="save('info')" size="lg" />
+            <p-splitbutton label="Small" [model]="items" (onClick)="save('info')" size="sm" />
+            <p-splitbutton label="Normal" [model]="items" (onClick)="save('info')" />
+            <p-splitbutton label="Large" [model]="items" (onClick)="save('info')" size="lg" />
         </div>
         <app-code [code]="code" selector="split-button-sizes-demo"></app-code>
     `,
@@ -54,16 +54,16 @@ export class SizesDoc {
     }
 
     code: Code = {
-        basic: `<p-split-button 
+        basic: `<p-splitbutton 
     label="Small" 
     [model]="items" 
     (onClick)="save('info')" 
     size="sm" />
-<p-split-button 
+<p-splitbutton 
     label="Normal" 
     [model]="items" 
     (onClick)="save('info')" />
-<p-split-button 
+<p-splitbutton 
     label="Large" 
     [model]="items" 
     (onClick)="save('info')" 
@@ -71,16 +71,16 @@ export class SizesDoc {
 
         html: `<div class="card flex flex-wrap gap-4 justify-center">
     <p-toast />
-    <p-split-button 
+    <p-splitbutton 
         label="Small" 
         [model]="items" 
         (onClick)="save('info')" 
         size="sm" />
-    <p-split-button 
+    <p-splitbutton 
         label="Normal" 
         [model]="items" 
         (onClick)="save('info')" />
-    <p-split-button 
+    <p-splitbutton 
         label="Large" 
         [model]="items" 
         (onClick)="save('info')" 

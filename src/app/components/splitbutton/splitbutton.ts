@@ -34,7 +34,7 @@ type SplitButtonIconPosition = 'left' | 'right';
  * @group Components
  */
 @Component({
-    selector: 'p-splitButton, p-split-button',
+    selector: 'p-splitButton, p-splitbutton',
     template: `
         <div #container [ngClass]="containerClass" [class]="styleClass" [ngStyle]="style">
             <ng-container *ngIf="contentTemplate; else defaultButton">

@@ -13,7 +13,7 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-toast />
-            <p-split-button label="Save" (onClick)="save('info')" severity="contrast" [model]="items">
+            <p-splitbutton label="Save" (onClick)="save('info')" severity="contrast" [model]="items">
                 <ng-template pTemplate="content">
                     <span class="flex items-center font-bold">
                         <img
@@ -24,7 +24,7 @@ import { Code } from '@domain/code';
                         <span>PrimeNG</span>
                     </span>
                 </ng-template>
-            </p-split-button>
+            </p-splitbutton>
         </div>
         <app-code [code]="code" selector="split-button-template-demo"></app-code>
     `,
@@ -66,7 +66,7 @@ export class TemplateDoc {
     }
 
     code: Code = {
-        basic: `<p-split-button 
+        basic: `<p-splitbutton 
     label="Save" 
     (onClick)="save('info')" 
     severity="contrast" 
@@ -80,11 +80,11 @@ export class TemplateDoc {
                 <span>PrimeNG</span>
             </span>
         </ng-template>
-</p-split-button>`,
+</p-splitbutton>`,
 
         html: `<div class="card flex justify-center">
     <p-toast />
-    <p-split-button 
+    <p-splitbutton 
         label="Save" 
         (onClick)="save('info')" 
         severity="contrast" 
@@ -98,7 +98,7 @@ export class TemplateDoc {
                     <span>PrimeNG</span>
                 </span>
             </ng-template>
-    </p-split-button>
+    </p-splitbutton>
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

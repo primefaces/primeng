@@ -14,7 +14,7 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-toast />
-            <p-split-button label="Save" icon="pi pi-plus" (onClick)="save('info')" [model]="items" [disabled]="true" />
+            <p-splitbutton label="Save" icon="pi pi-plus" (onClick)="save('info')" [model]="items" [disabled]="true" />
         </div>
         <app-code [code]="code" selector="split-button-disabled-demo"></app-code>
     `,
@@ -56,7 +56,7 @@ export class DisabledDoc {
     }
 
     code: Code = {
-        basic: `<p-split-button 
+        basic: `<p-splitbutton 
     label="Save" 
     icon="pi pi-plus" 
     (onClick)="save('info')" 
@@ -65,7 +65,7 @@ export class DisabledDoc {
 
         html: `<div class="card flex justify-center">
     <p-toast />
-    <p-split-button 
+    <p-splitbutton 
         label="Save" 
         icon="pi pi-plus" 
         (onClick)="save('info')" 
@@ -75,7 +75,7 @@ export class DisabledDoc {
 
 <div class="card flex justify-center">
     <p-toast />
-    <p-split-button 
+    <p-splitbutton 
         label="Save" 
         icon="pi pi-plus" 
         (onClick)="save('info')" 
@@ -85,7 +85,7 @@ export class DisabledDoc {
 
 <div class="card flex justify-center">
     <p-toast />
-    <p-split-button 
+    <p-splitbutton 
         label="Save"
         icon="pi pi-plus"
         (onClick)="save('info')" 
