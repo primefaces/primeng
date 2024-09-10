@@ -13,7 +13,7 @@ import { ProductService } from '@service/productservice';
             </p>
         </app-docsectiontext>
         <div class="card">
-            <p-data-view #dv [value]="products" [rows]="5" [paginator]="true">
+            <p-dataview #dv [value]="products" [rows]="5" [paginator]="true">
                 <ng-template pTemplate="list" let-products>
                     <div class="grid grid-cols-12 gap-4 grid-nogutter">
                         <div class="col-span-12" *ngFor="let item of products; let first = first" class="col-span-12">
@@ -73,7 +73,7 @@ import { ProductService } from '@service/productservice';
                         </div>
                     </div>
                 </ng-template>
-            </p-data-view>
+            </p-dataview>
         </div>
         <app-code [code]="code" selector="data-view-pagination-demo" [extFiles]="extFiles"></app-code>
     `,
@@ -104,7 +104,7 @@ export class PaginationDoc {
     }
 
     code: Code = {
-        basic: `<p-data-view #dv [value]="products" [rows]="5" [paginator]="true">
+        basic: `<p-dataview #dv [value]="products" [rows]="5" [paginator]="true">
     <ng-template pTemplate="list" let-products>
         <div class="grid grid-cols-12 gap-4 grid-nogutter">
             <div class="col-span-12" *ngFor="let item of products; let first = first" class="col-span-12">
@@ -164,10 +164,10 @@ export class PaginationDoc {
             </div>
         </div>
     </ng-template>
-</p-data-view>`,
+</p-dataview>`,
 
         html: `<div class="card">
-    <p-data-view #dv [value]="products" [rows]="5" [paginator]="true">
+    <p-dataview #dv [value]="products" [rows]="5" [paginator]="true">
         <ng-template pTemplate="list" let-products>
             <div class="grid grid-cols-12 gap-4 grid-nogutter">
                 <div class="col-span-12" *ngFor="let item of products; let first = first" class="col-span-12">
@@ -227,7 +227,7 @@ export class PaginationDoc {
                 </div>
             </div>
         </ng-template>
-    </p-data-view>
+    </p-dataview>
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

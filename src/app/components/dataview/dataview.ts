@@ -43,7 +43,7 @@ import { BaseComponent } from 'primeng/basecomponent';
  * @group Components
  */
 @Component({
-    selector: 'p-dataView, p-data-view',
+    selector: 'p-dataView, p-dataview',
     template: `
         <div
             [ngClass]="{ 'p-dataview p-component': true, 'p-dataview-list': layout === 'list', 'p-dataview-grid': layout === 'grid' }"
