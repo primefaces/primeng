@@ -90,10 +90,10 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
                             <p-button icon="pi pi-trash" label="Trash" outlined severity="secondary" />
                         </div>
                         <div class="flex items-center gap-2">
-                            <p-icon-field iconPosition="left" class="w-6/12 xl:max-w-36">
-                                <p-input-icon class="pi pi-search"> </p-input-icon>
+                            <p-iconfield iconPosition="left" class="w-6/12 xl:max-w-36">
+                                <p-inputicon class="pi pi-search"> </p-inputicon>
                                 <input type="text" pInputText [(ngModel)]="search" placeholder="Search" class="w-full" />
-                            </p-icon-field>
+                            </p-iconfield>
                             <p-button icon="pi pi-filter" outlined severity="secondary" />
                             <p-divider layout="vertical" styleClass="m-0" />
                             <p-button icon="pi pi-refresh" outlined severity="secondary" />

@@ -27,20 +27,20 @@ import { Code } from '@domain/code';
                         <div class="flex flex-col gap-2 mx-auto" style="min-height: 16rem; max-width: 20rem">
                             <div class="text-center mt-4 mb-4 text-xl font-semibold">Create your account</div>
                             <div class="field p-fluid">
-                                <p-icon-field>
-                                    <p-input-icon>
+                                <p-iconfield>
+                                    <p-inputicon>
                                         <i class="pi pi-user"></i>
-                                    </p-input-icon>
+                                    </p-inputicon>
                                     <input [(ngModel)]="name" pInputText id="input" type="text" placeholder="Name" />
-                                </p-icon-field>
+                                </p-iconfield>
                             </div>
                             <div class="field p-fluid">
-                                <p-icon-field>
-                                    <p-input-icon>
+                                <p-iconfield>
+                                    <p-inputicon>
                                         <i class="pi pi-envelope"></i>
-                                    </p-input-icon>
+                                    </p-inputicon>
                                     <input [(ngModel)]="email" pInputText id="email" type="email" placeholder="Email" />
-                                </p-icon-field>
+                                </p-iconfield>
                             </div>
                             <div class="field p-fluid">
                                 <p-password [(ngModel)]="password" [toggleMask]="true" placeholder="Password" />
@@ -174,20 +174,20 @@ export class TemplateDoc {
             <div class="flex flex-col gap-2 mx-auto" style="min-height: 16rem; max-width: 20rem">
                 <div class="text-center mt-4 mb-4 text-xl font-semibold">Create your account</div>
                 <div class="field p-fluid">
-                    <p-icon-field>
-                        <p-input-icon>
+                    <p-iconfield>
+                        <p-inputicon>
                             <i class="pi pi-user"></i>
-                        </p-input-icon>
+                        </p-inputicon>
                         <input [(ngModel)]="name" pInputText id="input" type="text" placeholder="Name" />
-                    </p-icon-field>
+                    </p-iconfield>
                 </div>
                 <div class="field p-fluid">
-                    <p-icon-field>
-                        <p-input-icon>
+                    <p-iconfield>
+                        <p-inputicon>
                             <i class="pi pi-envelope"></i>
-                        </p-input-icon>
+                        </p-inputicon>
                         <input [(ngModel)]="email" pInputText id="email" type="email" placeholder="Email" />
-                    </p-icon-field>
+                    </p-iconfield>
                 </div>
                 <div class="field p-fluid">
                     <p-password [(ngModel)]="password" [toggleMask]="true" placeholder="Password" />
@@ -282,20 +282,20 @@ export class TemplateDoc {
                 <div class="flex flex-col gap-2 mx-auto" style="min-height: 16rem; max-width: 20rem">
                     <div class="text-center mt-4 mb-4 text-xl font-semibold">Create your account</div>
                     <div class="field p-fluid">
-                        <p-icon-field>
-                            <p-input-icon>
+                        <p-iconfield>
+                            <p-inputicon>
                                 <i class="pi pi-user"></i>
-                            </p-input-icon>
+                            </p-inputicon>
                             <input [(ngModel)]="name" pInputText id="input" type="text" placeholder="Name" />
-                        </p-icon-field>
+                        </p-iconfield>
                     </div>
                     <div class="field p-fluid">
-                        <p-icon-field>
-                            <p-input-icon>
+                        <p-iconfield>
+                            <p-inputicon>
                                 <i class="pi pi-envelope"></i>
-                            </p-input-icon>
+                            </p-inputicon>
                             <input [(ngModel)]="email" pInputText id="email" type="email" placeholder="Email" />
-                        </p-icon-field>
+                        </p-iconfield>
                     </div>
                     <div class="field p-fluid">
                         <p-password [(ngModel)]="password" [toggleMask]="true" placeholder="Password" />

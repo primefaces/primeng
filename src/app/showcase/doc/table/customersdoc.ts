@@ -29,10 +29,10 @@ import { Table } from 'primeng/table';
                     <ng-template pTemplate="caption">
                         <div class="flex justify-between">
                             <p-button [outlined]="true" icon="pi pi-filter-slash" label="Clear" (click)="clear(dt)" />
-                            <p-icon-field iconPosition="left">
-                                <p-input-icon>
+                            <p-iconfield iconPosition="left">
+                                <p-inputicon>
                                     <i class="pi pi-search"></i>
-                                </p-input-icon>
+                                </p-inputicon>
                                 <input
                                     pInputText
                                     type="text"
@@ -40,7 +40,7 @@ import { Table } from 'primeng/table';
                                     (input)="dt.filterGlobal($event.target.value, 'contains')"
                                     placeholder="Keyboard Search"
                                 />
-                            </p-icon-field>
+                            </p-iconfield>
                         </div>
                     </ng-template>
                     <ng-template pTemplate="header">
@@ -317,12 +317,12 @@ export class CustomersDoc {
     <ng-template pTemplate="caption">
         <div class="flex justify-between">
             <p-button [outlined]="true" icon="pi pi-filter-slash" label="Clear" (click)="clear(dt)" />
-            <p-icon-field iconPosition="left">
-                <p-input-icon>
+            <p-iconfield iconPosition="left">
+                <p-inputicon>
                     <i class="pi pi-search"></i>
-                </p-input-icon>
+                </p-inputicon>
                 <input pInputText type="text" [(ngModel)]="searchValue" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Keyboard Search" />
-            </p-icon-field>
+            </p-iconfield>
         </div>
     </ng-template>
     <ng-template pTemplate="header">
@@ -472,12 +472,12 @@ export class CustomersDoc {
     <ng-template pTemplate="caption">
         <div class="flex justify-between">
             <p-button [outlined]="true" icon="pi pi-filter-slash" label="Clear" (click)="clear(dt)" />
-            <p-icon-field iconPosition="left">
-                <p-input-icon>
+            <p-iconfield iconPosition="left">
+                <p-inputicon>
                     <i class="pi pi-search"></i>
-                </p-input-icon>
+                </p-inputicon>
                 <input pInputText type="text" [(ngModel)]="searchValue" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Keyboard Search" />
-            </p-icon-field>
+            </p-iconfield>
         </div>
     </ng-template>
     <ng-template pTemplate="header">

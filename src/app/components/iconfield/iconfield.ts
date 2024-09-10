@@ -10,7 +10,7 @@ import { IconFieldStyle } from './style/iconfieldstyle';
  * @group Components
  */
 @Component({
-    selector: 'p-iconfield, p-iconField, p-icon-field',
+    selector: 'p-iconfield, p-iconField',
     template: ` <span class="p-iconfield" [ngClass]="containerClass" [class]="styleClass"><ng-content></ng-content> </span>`,
     providers: [IconFieldStyle],
     encapsulation: ViewEncapsulation.None,

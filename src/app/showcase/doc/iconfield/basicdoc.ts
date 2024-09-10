@@ -12,38 +12,38 @@ import { Code } from '@domain/code';
             </p>
         </app-docsectiontext>
         <div class="card flex flex-wrap justify-center gap-4">
-            <p-icon-field iconPosition="left">
-                <p-input-icon styleClass="pi pi-search" />
+            <p-iconfield iconPosition="left">
+                <p-inputicon styleClass="pi pi-search" />
                 <input type="text" pInputText placeholder="Search" />
-            </p-icon-field>
-            <p-icon-field iconPosition="right">
-                <p-input-icon styleClass="pi pi-spinner pi-spin" />
+            </p-iconfield>
+            <p-iconfield iconPosition="right">
+                <p-inputicon styleClass="pi pi-spinner pi-spin" />
                 <input type="text" pInputText />
-            </p-icon-field>
+            </p-iconfield>
         </div>
         <app-code [code]="code" selector="iconfield-basic-demo"></app-code>
     `,
 })
 export class BasicDoc {
     code: Code = {
-        basic: `<p-icon-field iconPosition="left">
-    <p-input-icon styleClass="pi pi-search" />
+        basic: `<p-iconfield iconPosition="left">
+    <p-inputicon styleClass="pi pi-search" />
     <input type="text" pInputText placeholder="Search" />
-</p-icon-field>
-<p-icon-field iconPosition="right">
-    <p-input-icon styleClass="pi pi-spinner pi-spin" />
+</p-iconfield>
+<p-iconfield iconPosition="right">
+    <p-inputicon styleClass="pi pi-spinner pi-spin" />
     <input type="text" pInputText />
-</p-icon-field>`,
+</p-iconfield>`,
 
         html: `<div class="card flex flex-wrap justify-center gap-4">
-    <p-icon-field iconPosition="left">
-        <p-input-icon styleClass="pi pi-search" />
+    <p-iconfield iconPosition="left">
+        <p-inputicon styleClass="pi pi-search" />
         <input type="text" pInputText placeholder="Search" />
-    </p-icon-field>
-    <p-icon-field iconPosition="right">
-        <p-input-icon styleClass="pi pi-spinner pi-spin" />
+    </p-iconfield>
+    <p-iconfield iconPosition="right">
+        <p-inputicon styleClass="pi pi-spinner pi-spin" />
         <input type="text" pInputText />
-    </p-icon-field>
+    </p-iconfield>
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

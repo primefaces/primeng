@@ -118,7 +118,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                 </ng-container>
                 <ng-template #builtInFilterElement>
                     <div class="p-listbox-filter-container" *ngIf="filter">
-                        <p-icon-field>
+                        <p-iconfield>
                             <input
                                 #filterInput
                                 pInputText
@@ -136,13 +136,13 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                                 (keydown)="onFilterKeyDown($event)"
                                 (blur)="onFilterBlur($event)"
                             />
-                            <p-input-icon>
+                            <p-inputicon>
                                 <SearchIcon *ngIf="!filterIconTemplate" [styleClass]="'p-listbox-filter-icon'" [attr.aria-hidden]="true" />
                                 <span *ngIf="filterIconTemplate" class="p-listbox-filter-icon" [attr.aria-hidden]="true">
                                     <ng-template *ngTemplateOutlet="filterIconTemplate"></ng-template>
                                 </span>
-                            </p-input-icon>
-                        </p-icon-field>
+                            </p-inputicon>
+                        </p-iconfield>
                     </div>
                     <span role="status" attr.aria-live="polite" class="p-hidden-accessible" [attr.data-p-hidden-accessible]="true">
                         {{ filterResultMessageText }}

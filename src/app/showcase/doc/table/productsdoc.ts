@@ -54,17 +54,17 @@ import { ProductService } from '@service/productservice';
                     <ng-template pTemplate="caption">
                         <div class="flex items-center justify-between">
                             <h5 class="m-0">Manage Products</h5>
-                            <p-icon-field iconPosition="left" class="ml-auto">
-                                <p-input-icon>
+                            <p-iconfield iconPosition="left" class="ml-auto">
+                                <p-inputicon>
                                     <i class="pi pi-search"></i>
-                                </p-input-icon>
+                                </p-inputicon>
                                 <input
                                     pInputText
                                     type="text"
                                     (input)="dt.filterGlobal($event.target.value, 'contains')"
                                     placeholder="Search"
                                 />
-                            </p-icon-field>
+                            </p-iconfield>
                         </div>
                     </ng-template>
                     <ng-template pTemplate="header">
@@ -408,17 +408,17 @@ export class ProductsDoc {
     <ng-template pTemplate="caption">
         <div class="flex items-center justify-between">
             <h5 class="m-0">Manage Products</h5>
-            <p-icon-field iconPosition="left" class="ml-auto">
-                <p-input-icon>
+            <p-iconfield iconPosition="left" class="ml-auto">
+                <p-inputicon>
                     <i class="pi pi-search"></i>
-                </p-input-icon>
+                </p-inputicon>
                 <input
                     pInputText
                     type="text"
                     (input)="dt.filterGlobal($event.target.value, 'contains')"
                     placeholder="Search"
                 />
-            </p-icon-field>
+            </p-iconfield>
         </div>
     </ng-template>
     <ng-template pTemplate="header">
@@ -527,17 +527,17 @@ export class ProductsDoc {
         <ng-template pTemplate="caption">
             <div class="flex items-center justify-between">
                 <h5 class="m-0">Manage Products</h5>
-                <p-icon-field iconPosition="left" class="ml-auto">
-                    <p-input-icon>
+                <p-iconfield iconPosition="left" class="ml-auto">
+                    <p-inputicon>
                         <i class="pi pi-search"></i>
-                    </p-input-icon>
+                    </p-inputicon>
                     <input
                         pInputText
                         type="text"
                         (input)="dt.filterGlobal($event.target.value, 'contains')"
                         placeholder="Search"
                     />
-                </p-icon-field>
+                </p-iconfield>
             </div>
         </ng-template>
         <ng-template pTemplate="header">

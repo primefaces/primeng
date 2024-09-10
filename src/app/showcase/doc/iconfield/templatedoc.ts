@@ -11,8 +11,8 @@ import { Code } from '@domain/code';
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-icon-field iconPosition="left">
-                <p-input-icon>
+            <p-iconfield iconPosition="left">
+                <p-inputicon>
                     <svg width="20" height="20" viewBox="0 0 35 40" fill="none" xmlns="http://www.w3.org/2000/svg" class="block mx-auto">
                         <path
                             d="M15.1934 0V0V0L0.0391235 5.38288L2.35052 25.3417L15.1934 32.427V32.427V32.427L28.0364 25.3417L30.3478 5.38288L15.1934 0Z"
@@ -71,17 +71,17 @@ import { Code } from '@domain/code';
                             fill="var(--ground-background)"
                         />
                     </svg>
-                </p-input-icon>
+                </p-inputicon>
                 <input type="text" pInputText placeholder="Search" />
-            </p-icon-field>
+            </p-iconfield>
         </div>
         <app-code [code]="code" selector="iconfield-template-demo"></app-code>
     `,
 })
 export class TemplateDoc {
     code: Code = {
-        basic: `<p-icon-field iconPosition="left">
-    <p-input-icon>
+        basic: `<p-iconfield iconPosition="left">
+    <p-inputicon>
         <svg width="20" height="20" viewBox="0 0 35 40" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="..." />
             <mask id="mask0_1_36" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="31" height="33">
@@ -111,13 +111,13 @@ export class TemplateDoc {
             <path d="..." fill="var(--primary-color-text)" />
             <path d="..." fill="var(--primary-color-text)" />
         </svg>
-    </p-input-icon>
+    </p-inputicon>
     <input type="text" pInputText placeholder="Search" />
-</p-icon-field>`,
+</p-iconfield>`,
 
         html: `<div class="card flex justify-center">
-    <p-icon-field iconPosition="left">
-    <p-input-icon>
+    <p-iconfield iconPosition="left">
+    <p-inputicon>
         <svg width="20" height="20" viewBox="0 0 35 40" fill="none" xmlns="http://www.w3.org/2000/svg" class="block mx-auto">
             <path
                 d="M15.1934 0V0V0L0.0391235 5.38288L2.35052 25.3417L15.1934 32.427V32.427V32.427L28.0364 25.3417L30.3478 5.38288L15.1934 0Z"
@@ -176,9 +176,9 @@ export class TemplateDoc {
                 fill="var(--ground-background)"
             />
         </svg>
-    </p-input-icon>
+    </p-inputicon>
     <input type="text" pInputText placeholder="Search" />
-</p-icon-field>
+</p-iconfield>
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

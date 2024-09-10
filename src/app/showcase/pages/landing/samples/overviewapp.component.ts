@@ -50,10 +50,10 @@ import { AppConfigService } from '@service/appconfigservice';
                     <div class="text-color text-3xl font-semibold leading-normal">Welcome to PrimeNG</div>
                 </div>
                 <div class="flex gap-2 whitespace-nowrap flex-nowrap">
-                    <p-icon-field iconPosition="left">
-                        <p-input-icon class="pi pi-search"> </p-input-icon>
+                    <p-iconfield iconPosition="left">
+                        <p-inputicon class="pi pi-search"> </p-inputicon>
                         <input type="text" pInputText placeholder="Search" />
-                    </p-icon-field>
+                    </p-iconfield>
                     <p-button severity="secondary" outlined>
                         <p-overlayBadge severity="danger" styleClass="!min-w-0 !w-2.5 !h-2.5">
                             <i class="pi pi-bell"></i>

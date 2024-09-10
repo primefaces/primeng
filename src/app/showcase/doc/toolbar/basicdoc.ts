@@ -19,10 +19,10 @@ import { Code } from '@domain/code';
                     <p-button icon="pi pi-upload" text />
                 </div>
                 <div class="p-toolbar-group-center">
-                    <p-icon-field iconPosition="left">
-                        <p-input-icon styleClass="pi pi-search" />
+                    <p-iconfield iconPosition="left">
+                        <p-inputicon styleClass="pi pi-search" />
                         <input type="text" pInputText placeholder="Search" />
-                    </p-icon-field>
+                    </p-iconfield>
                 </div>
                 <div class="p-toolbar-group-end">
                     <p-split-button label="Save" [model]="items" />
@@ -56,10 +56,10 @@ export class BasicDoc implements OnInit {
         <p-button icon="pi pi-upload" text />
     </div>
     <div class="p-toolbar-group-center">
-        <p-icon-field iconPosition="left">
-            <p-input-icon styleClass="pi pi-search" />
+        <p-iconfield iconPosition="left">
+            <p-inputicon styleClass="pi pi-search" />
             <input type="text" pInputText placeholder="Search" />
-        </p-icon-field>
+        </p-iconfield>
     </div>
     <div class="p-toolbar-group-end">
         <p-split-button label="Save" [model]="items" />
@@ -74,10 +74,10 @@ export class BasicDoc implements OnInit {
             <p-button icon="pi pi-upload" text />
         </div>
         <div class="p-toolbar-group-center">
-            <p-icon-field iconPosition="left">
-                <p-input-icon styleClass="pi pi-search" />
+            <p-iconfield iconPosition="left">
+                <p-inputicon styleClass="pi pi-search" />
                 <input type="text" pInputText placeholder="Search" />
-            </p-icon-field>
+            </p-iconfield>
         </div>
         <div class="p-toolbar-group-end">
             <p-split-button label="Save" [model]="items" />
