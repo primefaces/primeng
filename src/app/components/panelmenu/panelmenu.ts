@@ -37,7 +37,7 @@ import { PanelMenuStyle } from './style/panelmenustyle';
 import { BaseComponent } from 'primeng/basecomponent';
 
 @Component({
-    selector: 'p-panelMenuSub, p-panel-menu-sub',
+    selector: 'p-panelMenuSub, p-panelmenu-sub',
     template: `
         <ul
             #list
@@ -174,7 +174,7 @@ import { BaseComponent } from 'primeng/basecomponent';
                         </ng-container>
                     </div>
                     <div class="p-toggleable-content" [@submenu]="getAnimation(processedItem)">
-                        <p-panel-menu-sub
+                        <p-panelmenu-sub
                             *ngIf="isItemVisible(processedItem) && isItemGroup(processedItem) && isItemExpanded(processedItem)"
                             [id]="getItemId(processedItem) + '_list'"
                             [panelId]="panelId"
@@ -186,7 +186,7 @@ import { BaseComponent } from 'primeng/basecomponent';
                             [level]="level + 1"
                             [parentExpanded]="!!parentExpanded && isItemExpanded(processedItem)"
                             (itemToggle)="onItemToggle($event)"
-                        ></p-panel-menu-sub>
+                        ></p-panelmenu-sub>
                     </div>
                 </li>
             </ng-template>
@@ -332,7 +332,7 @@ export class PanelMenuSub {
 @Component({
     selector: 'p-panelMenuList, p-panel-menu-list',
     template: `
-        <p-panel-menu-sub
+        <p-panelmenu-sub
             #submenu
             [root]="true"
             [id]="panelId + '_list'"
@@ -348,7 +348,7 @@ export class PanelMenuSub {
             (keydown)="onKeyDown($event)"
             (menuFocus)="onFocus($event)"
             (menuBlur)="onBlur($event)"
-        ></p-panel-menu-sub>
+        ></p-panelmenu-sub>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
@@ -786,7 +786,7 @@ export class PanelMenuList implements OnChanges {
  * @group Components
  */
 @Component({
-    selector: 'p-panelMenu, p-panel-menu',
+    selector: 'p-panelMenu, p-panelmenu',
     template: `
         <div [class]="styleClass" [ngStyle]="style" [ngClass]="'p-panelmenu p-component'" #container>
             <ng-container *ngFor="let item of model; let f = first; let l = last; let i = index">
@@ -916,7 +916,7 @@ export class PanelMenuList implements OnChanges {
                         [ngClass]="{ 'p-panelmenu-expanded': isItemActive(item) }"
                     >
                         <div class="p-panelmenu-content" [attr.data-pc-section]="'menucontent'">
-                            <p-panel-menu-list
+                            <p-panelmenu-list
                                 [panelId]="getPanelId(i, item)"
                                 [items]="getItemProp(item, 'items')"
                                 [itemTemplate]="itemTemplate"
@@ -926,7 +926,7 @@ export class PanelMenuList implements OnChanges {
                                 [tabindex]="tabindex"
                                 [parentExpanded]="isItemActive(item)"
                                 (headerFocus)="updateFocusedHeader($event)"
-                            ></p-panel-menu-list>
+                            ></p-panelmenu-list>
                         </div>
                     </div>
                 </div>

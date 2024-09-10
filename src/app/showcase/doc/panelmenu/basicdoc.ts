@@ -9,7 +9,7 @@ import { Code } from '@domain/code';
             <p>PanelMenu requires a collection of menuitems as its <i>model</i>.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-panel-menu [model]="items" styleClass="w-full md:w-80" />
+            <p-panelmenu [model]="items" styleClass="w-full md:w-80" />
         </div>
         <app-code [code]="code" selector="panel-menu-basic-demo"></app-code>
     `,
@@ -99,10 +99,10 @@ export class BasicDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-panel-menu [model]="items" styleClass="w-full md:w-20rem" />`,
+        basic: `<p-panelmenu [model]="items" styleClass="w-full md:w-20rem" />`,
 
         html: `<div class="card flex justify-center">
-    <p-panel-menu [model]="items" styleClass="w-full md:w-80" />
+    <p-panelmenu [model]="items" styleClass="w-full md:w-80" />
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
