@@ -14,7 +14,7 @@ import {
     inject,
     numberAttribute,
 } from '@angular/core';
-import { PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
+import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { ChevronUpIcon } from 'primeng/icons/chevronup';
 import { ZIndexUtils } from 'primeng/utils';
@@ -28,7 +28,7 @@ import { ScrollTopStyle } from './style/scrolltopstyle';
  * @group Components
  */
 @Component({
-    selector: 'p-scrollTop, p-scroll-top',
+    selector: 'p-scrollTop, p-scrolltop',
     template: `
         <p-button
             *ngIf="visible"

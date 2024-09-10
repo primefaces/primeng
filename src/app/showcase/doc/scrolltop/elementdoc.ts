@@ -20,7 +20,7 @@ import { Code } from '@domain/code';
                     Diam maecenas ultricies mi eget mauris. Eget egestas purus viverra accumsan in nisl nisi. Suscipit adipiscing bibendum
                     est ultricies integer. Mattis aliquam faucibus purus in massa tempor nec.
                 </p>
-                <p-scroll-top target="parent" styleClass="custom-scrolltop" [threshold]="100" icon="pi pi-arrow-up" />
+                <p-scrolltop target="parent" styleClass="custom-scrolltop" [threshold]="100" icon="pi pi-arrow-up" />
             </div>
         </div>
         <app-code [code]="code" selector="scroll-top-element-demo"></app-code>
@@ -28,7 +28,7 @@ import { Code } from '@domain/code';
 })
 export class ElementDoc {
     code: Code = {
-        basic: `<p-scroll-top 
+        basic: `<p-scrolltop 
     target="parent" 
     styleClass="custom-scrolltop" 
     [threshold]="100" 
@@ -42,7 +42,7 @@ export class ElementDoc {
             Cursus sit amet dictum sit amet. Tristique senectus et netus et malesuada fames ac turpis egestas. Et tortor consequat id porta nibh venenatis cras sed. Diam maecenas ultricies mi eget mauris. Eget egestas purus viverra accumsan
             in nisl nisi. Suscipit adipiscing bibendum est ultricies integer. Mattis aliquam faucibus purus in massa tempor nec.
         </p>
-        <p-scroll-top target="parent" styleClass="custom-scrolltop" [threshold]="100" icon="pi pi-arrow-up" />
+        <p-scrolltop target="parent" styleClass="custom-scrolltop" [threshold]="100" icon="pi pi-arrow-up" />
     </div>
 </div>`,
         typescript: `import { Component } from '@angular/core';
