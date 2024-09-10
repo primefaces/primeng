@@ -216,16 +216,16 @@ export class TemplateDoc {
             <div class="flex flex-col gap-2 mx-auto" style="min-height: 16rem; max-width: 24rem">
                 <div class="text-center mt-4 mb-4 text-xl font-semibold">Choose your interests</div>
                 <div class="flex flex-wrap justify-center gap-4">
-                    <p-toggle-button [(ngModel)]="option1" onLabel="Nature" offLabel="Nature" />
-                    <p-toggle-button [(ngModel)]="option2" onLabel="Art" offLabel="Art" />
-                    <p-toggle-button [(ngModel)]="option3" onLabel="Music" offLabel="Music" />
-                    <p-toggle-button [(ngModel)]="option4" onLabel="Design" offLabel="Design" />
-                    <p-toggle-button [(ngModel)]="option5" onLabel="Photography" offLabel="Photography" />
-                    <p-toggle-button [(ngModel)]="option6" onLabel="Movies" offLabel="Movies" />
-                    <p-toggle-button [(ngModel)]="option7" onLabel="Sports" offLabel="Sports" />
-                    <p-toggle-button [(ngModel)]="option8" onLabel="Gaming" offLabel="Gaming" />
-                    <p-toggle-button [(ngModel)]="option9" onLabel="Traveling" offLabel="Traveling" />
-                    <p-toggle-button [(ngModel)]="option10" onLabel="Dancing" offLabel="Dancing" />
+                    <p-togglebutton [(ngModel)]="option1" onLabel="Nature" offLabel="Nature" />
+                    <p-togglebutton [(ngModel)]="option2" onLabel="Art" offLabel="Art" />
+                    <p-togglebutton [(ngModel)]="option3" onLabel="Music" offLabel="Music" />
+                    <p-togglebutton [(ngModel)]="option4" onLabel="Design" offLabel="Design" />
+                    <p-togglebutton [(ngModel)]="option5" onLabel="Photography" offLabel="Photography" />
+                    <p-togglebutton [(ngModel)]="option6" onLabel="Movies" offLabel="Movies" />
+                    <p-togglebutton [(ngModel)]="option7" onLabel="Sports" offLabel="Sports" />
+                    <p-togglebutton [(ngModel)]="option8" onLabel="Gaming" offLabel="Gaming" />
+                    <p-togglebutton [(ngModel)]="option9" onLabel="Traveling" offLabel="Traveling" />
+                    <p-togglebutton [(ngModel)]="option10" onLabel="Dancing" offLabel="Dancing" />
                 </div>
             </div>
             <div class="flex pt-6 justify-between">
@@ -324,16 +324,16 @@ export class TemplateDoc {
                 <div class="flex flex-col gap-2 mx-auto" style="min-height: 16rem; max-width: 24rem">
                     <div class="text-center mt-4 mb-4 text-xl font-semibold">Choose your interests</div>
                     <div class="flex flex-wrap justify-center gap-4">
-                        <p-toggle-button [(ngModel)]="option1" onLabel="Nature" offLabel="Nature" />
-                        <p-toggle-button [(ngModel)]="option2" onLabel="Art" offLabel="Art" />
-                        <p-toggle-button [(ngModel)]="option3" onLabel="Music" offLabel="Music" />
-                        <p-toggle-button [(ngModel)]="option4" onLabel="Design" offLabel="Design" />
-                        <p-toggle-button [(ngModel)]="option5" onLabel="Photography" offLabel="Photography" />
-                        <p-toggle-button [(ngModel)]="option6" onLabel="Movies" offLabel="Movies" />
-                        <p-toggle-button [(ngModel)]="option7" onLabel="Sports" offLabel="Sports" />
-                        <p-toggle-button [(ngModel)]="option8" onLabel="Gaming" offLabel="Gaming" />
-                        <p-toggle-button [(ngModel)]="option9" onLabel="Traveling" offLabel="Traveling" />
-                        <p-toggle-button [(ngModel)]="option10" onLabel="Dancing" offLabel="Dancing" />
+                        <p-togglebutton [(ngModel)]="option1" onLabel="Nature" offLabel="Nature" />
+                        <p-togglebutton [(ngModel)]="option2" onLabel="Art" offLabel="Art" />
+                        <p-togglebutton [(ngModel)]="option3" onLabel="Music" offLabel="Music" />
+                        <p-togglebutton [(ngModel)]="option4" onLabel="Design" offLabel="Design" />
+                        <p-togglebutton [(ngModel)]="option5" onLabel="Photography" offLabel="Photography" />
+                        <p-togglebutton [(ngModel)]="option6" onLabel="Movies" offLabel="Movies" />
+                        <p-togglebutton [(ngModel)]="option7" onLabel="Sports" offLabel="Sports" />
+                        <p-togglebutton [(ngModel)]="option8" onLabel="Gaming" offLabel="Gaming" />
+                        <p-togglebutton [(ngModel)]="option9" onLabel="Traveling" offLabel="Traveling" />
+                        <p-togglebutton [(ngModel)]="option10" onLabel="Dancing" offLabel="Dancing" />
                     </div>
                 </div>
                 <div class="flex pt-6 justify-between">

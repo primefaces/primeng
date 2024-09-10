@@ -37,7 +37,7 @@ export const SELECTBUTTON_VALUE_ACCESSOR: any = {
     selector: 'p-selectButton, p-select-button',
     template: `
         @for (option of options; track option; let i = $index) {
-            <p-toggle-button
+            <p-togglebutton
                 [autofocus]="autofocus"
                 [styleClass]="styleClass"
                 [ngModel]="isSelected(option)"
@@ -52,7 +52,7 @@ export const SELECTBUTTON_VALUE_ACCESSOR: any = {
                         <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: option, index: i }"></ng-container>
                     </ng-template>
                 }
-            </p-toggle-button>
+            </p-togglebutton>
         }
     `,
     standalone: true,

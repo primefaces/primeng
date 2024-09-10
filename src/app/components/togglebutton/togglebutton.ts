@@ -34,7 +34,7 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
  * @group Components
  */
 @Component({
-    selector: 'p-toggleButton, p-toggle-button',
+    selector: 'p-toggleButton, p-togglebutton',
     template: `
         <span [ngClass]="cx('content')">
             <ng-container *ngTemplateOutlet="contentTemplate; context: { $implicit: checked }"></ng-container>

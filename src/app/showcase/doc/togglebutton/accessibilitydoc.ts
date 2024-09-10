@@ -47,8 +47,8 @@ import { Code } from '@domain/code';
 export class AccessibilityDoc {
     code: Code = {
         basic: `<span id="rememberme">Remember Me</span>
-<p-toggle-button ariaLabelledBy="rememberme" />
+<p-togglebutton ariaLabelledBy="rememberme" />
 
-<p-toggle-button ariaLabel="Remember Me" />`,
+<p-togglebutton ariaLabel="Remember Me" />`,
     };
 }
