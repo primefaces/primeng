@@ -8,7 +8,7 @@ import { InputGroupAddonStyle } from './style/inputgroupaddonstyle';
  * @group Components
  */
 @Component({
-    selector: 'p-inputgroup-addon, p-inputGroupAddon, p-input-group-addon',
+    selector: 'p-inputgroup-addon, p-inputGroupAddon',
     template: `
         <div [attr.data-pc-name]="'inputgroupaddon'" class="p-inputgroupaddon" [ngClass]="styleClass" [ngStyle]="style">
             <ng-content></ng-content>

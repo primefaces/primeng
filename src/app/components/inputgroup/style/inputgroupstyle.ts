@@ -8,7 +8,7 @@ const theme = ({ dt }) => `
     width: 100%;
 }
 
-p-input-group-addon {
+p-inputgroup-addon {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -36,7 +36,7 @@ p-input-group-addon {
     width: 1%;
 }
 
-p-input-group-addon:last-child {
+p-inputgroup-addon:last-child {
     border-right: 1px solid ${dt('inputgroup.addon.border.color')};
 }
 
@@ -47,9 +47,9 @@ p-input-group-addon:last-child {
     margin: 0;
 }
 
-.p-inputgroup > .p-component + p-input-group-addon,
-.p-inputgroup > .p-inputwrapper > .p-inputtext + p-input-group-addon,
-.p-inputgroup > .p-floatlabel > .p-component + p-input-group-addon {
+.p-inputgroup > .p-component + p-inputgroup-addon,
+.p-inputgroup > .p-inputwrapper > .p-inputtext + p-inputgroup-addon,
+.p-inputgroup > .p-floatlabel > .p-component + p-inputgroup-addon {
     border-left: 0 none;
 }
 
@@ -65,7 +65,7 @@ p-input-group-addon:last-child {
     z-index: 1;
 }
 
-p-input-group-addon:first-child,
+p-inputgroup-addon:first-child,
 .p-inputgroup button:first-child,
 .p-inputgroup input:first-child,
 .p-inputgroup > .p-inputwrapper:first-child,
@@ -79,7 +79,7 @@ p-input-group-addon:first-child,
     border-bottom-left-radius: ${dt('inputgroup.addon.border.radius')};
 }
 
-p-input-group-addon:last-child,
+p-inputgroup-addon:last-child,
 .p-inputgroup button:last-child,
 .p-inputgroup input:last-child,
 .p-inputgroup > .p-inputwrapper:last-child,
