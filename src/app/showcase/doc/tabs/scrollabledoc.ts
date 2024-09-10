@@ -9,9 +9,9 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card">
             <p-tabs [(activeIndex)]="activeIndex" [scrollable]="true">
-                <p-tab-panel *ngFor="let tab of scrollableTabs" [header]="tab.title">
+                <p-tabpanel *ngFor="let tab of scrollableTabs" [header]="tab.title">
                     <p>{{ tab.content }}</p>
-                </p-tab-panel>
+                </p-tabpanel>
             </p-tabs>
         </div>
         <app-code [code]="code" selector="tabs-scrollable-demo"></app-code>
@@ -24,16 +24,16 @@ export class ScrollableDoc {
 
     code: Code = {
         basic: `<p-tabs [(activeIndex)]="activeIndex" [scrollable]="true">
-    <p-tab-panel *ngFor="let tab of scrollableTabs" [header]="tab.title">
+    <p-tabpanel *ngFor="let tab of scrollableTabs" [header]="tab.title">
         <p>{{ tab.content }}</p>
-    </p-tab-panel>
+    </p-tabpanel>
 </p-tabs>`,
 
         html: `<div class="card">
     <p-tabs [(activeIndex)]="activeIndex" [scrollable]="true">
-        <p-tab-panel *ngFor="let tab of scrollableTabs" [header]="tab.title">
+        <p-tabpanel *ngFor="let tab of scrollableTabs" [header]="tab.title">
             <p>{{ tab.content }}</p>
-        </p-tab-panel>
+        </p-tabpanel>
     </p-tabs>
 </div>`,
 

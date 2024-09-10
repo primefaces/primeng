@@ -40,7 +40,7 @@ import { BaseComponent } from 'primeng/basecomponent';
  * @group Components
  */
 @Component({
-    selector: 'p-tabpanel, p-tab-panel',
+    selector: 'p-tabpanel',
     standalone: true,
     imports: [CommonModule, SharedModule],
     template: `

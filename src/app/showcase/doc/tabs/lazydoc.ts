@@ -14,13 +14,13 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card">
             <p-tabs>
-                <p-tab-panel header="Header 1"> Content 1 </p-tab-panel>
-                <p-tab-panel header="Header 2">
+                <p-tabpanel header="Header 1"> Content 1 </p-tabpanel>
+                <p-tabpanel header="Header 2">
                     <ng-template pTemplate="content"> Complex Content to Lazy Load </ng-template>
-                </p-tab-panel>
-                <p-tab-panel header="Header 3">
+                </p-tabpanel>
+                <p-tabpanel header="Header 3">
                     <ng-template pTemplate="content"> Complex Content to Lazy Load </ng-template>
-                </p-tab-panel>
+                </p-tabpanel>
             </p-tabs>
         </div>
         <app-code [code]="code" selector="tabs-lazy-demo"></app-code>
@@ -29,24 +29,24 @@ import { Code } from '@domain/code';
 export class LazyDoc {
     code: Code = {
         basic: `<p-tabs>
-    <p-tab-panel header="Header 1"> Content 1 </p-tab-panel>
-    <p-tab-panel header="Header 2">
+    <p-tabpanel header="Header 1"> Content 1 </p-tabpanel>
+    <p-tabpanel header="Header 2">
         <ng-template pTemplate="content"> Complex Content to Lazy Load </ng-template>
-    </p-tab-panel>
-    <p-tab-panel header="Header 3">
+    </p-tabpanel>
+    <p-tabpanel header="Header 3">
         <ng-template pTemplate="content"> Complex Content to Lazy Load </ng-template>
-    </p-tab-panel>
+    </p-tabpanel>
 </p-tabs>`,
 
         html: `<div class="card">
     <p-tabs>
-    <p-tab-panel header="Header 1"> Content 1 </p-tab-panel>
-    <p-tab-panel header="Header 2">
+    <p-tabpanel header="Header 1"> Content 1 </p-tabpanel>
+    <p-tabpanel header="Header 2">
         <ng-template pTemplate="content"> Complex Content to Lazy Load </ng-template>
-    </p-tab-panel>
-    <p-tab-panel header="Header 3">
+    </p-tabpanel>
+    <p-tabpanel header="Header 3">
         <ng-template pTemplate="content"> Complex Content to Lazy Load </ng-template>
-    </p-tab-panel>
+    </p-tabpanel>
     </p-tabs>
 </div>`,
 
