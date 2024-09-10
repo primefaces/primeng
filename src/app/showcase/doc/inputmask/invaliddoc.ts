@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
             <p>Invalid state style is added using the <i>ng-invalid</i> and <i>ng-dirty</i> class to indicate a failed validation.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-input-mask mask="999-99-9999" [(ngModel)]="value" class="ng-invalid ng-dirty" />
+            <p-inputmask mask="999-99-9999" [(ngModel)]="value" class="ng-invalid ng-dirty" />
         </div>
         <app-code [code]="code" selector="input-mask-invalid-demo"></app-code>
     `,
@@ -17,13 +17,13 @@ export class InvalidDoc {
     value: string | undefined;
 
     code: Code = {
-        basic: `<p-input-mask 
+        basic: `<p-inputmask 
     mask="999-99-9999" 
     [(ngModel)]="value" 
     class="ng-invalid ng-dirty" />`,
 
         html: `<div class="card flex justify-center">
-    <p-input-mask 
+    <p-inputmask 
         mask="999-99-9999" 
         [(ngModel)]="value" 
         class="ng-invalid ng-dirty" />

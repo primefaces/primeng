@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
             <p>When <i>disabled</i> is present, the element cannot be edited and focused.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-input-mask mask="999-99-9999" [(ngModel)]="value" [disabled]="true" />
+            <p-inputmask mask="999-99-9999" [(ngModel)]="value" [disabled]="true" />
         </div>
         <app-code [code]="code" selector="input-mask-disabled-demo"></app-code>
     `,
@@ -17,13 +17,13 @@ export class DisabledDoc {
     value: string | undefined;
 
     code: Code = {
-        basic: `<p-input-mask 
+        basic: `<p-inputmask 
     mask="999-99-9999" 
     [(ngModel)]="value" 
     [disabled]="true" />`,
 
         html: `<div class="card flex justify-center">
-    <p-input-mask 
+    <p-inputmask 
         mask="999-99-9999" 
         [(ngModel)]="value" 
         [disabled]="true" />

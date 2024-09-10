@@ -6,7 +6,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { InputMask } from './inputmask';
 
 @Component({
-    template: `<p-input-mask [(ngModel)]="val" mask="99-9999"></p-input-mask>`,
+    template: `<p-inputmask [(ngModel)]="val" mask="99-9999"></p-inputmask>`,
 })
 class TestInputMaskComponent {
     val: string;

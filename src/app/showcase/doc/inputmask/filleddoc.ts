@@ -11,7 +11,7 @@ import { Code } from '@domain/code';
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-input-mask mask="99-999999" [(ngModel)]="value" variant="filled" placeholder="99-999999" />
+            <p-inputmask mask="99-999999" [(ngModel)]="value" variant="filled" placeholder="99-999999" />
         </div>
         <app-code [code]="code" selector="input-mask-filled-demo"></app-code>
     `,
@@ -20,14 +20,14 @@ export class FilledDoc {
     value: string | undefined;
 
     code: Code = {
-        basic: `<p-input-mask 
+        basic: `<p-inputmask 
     mask="99-999999" 
     [(ngModel)]="value" 
     variant="filled"
     placeholder="99-999999" />`,
 
         html: `<div class="card flex justify-center">
-    <p-input-mask 
+    <p-inputmask 
         mask="99-999999" 
         [(ngModel)]="value" 
         variant="filled"

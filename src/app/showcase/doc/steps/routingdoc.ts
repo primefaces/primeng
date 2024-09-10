@@ -167,15 +167,15 @@ import { Router } from '@angular/router';
                         </div>
                         <div class="field col-span-8">
                             <label id="number" for="lastname">Number</label>
-                            <p-input-mask inputId="number" mask="9999-9999-9999-9999" [(ngModel)]="paymentInformation.cardholderNumber"></p-input-mask>
+                            <p-inputmask inputId="number" mask="9999-9999-9999-9999" [(ngModel)]="paymentInformation.cardholderNumber"></p-inputmask>
                         </div>
                         <div class="field col-span-2">
                             <label id="date" for="date">Date</label>
-                            <p-input-mask inputId="date" mask="99/99" [(ngModel)]="paymentInformation.date"></p-input-mask>
+                            <p-inputmask inputId="date" mask="99/99" [(ngModel)]="paymentInformation.date"></p-inputmask>
                         </div>
                         <div class="field col-span-2">
                             <label for="cvv">CVV</label>
-                            <p-input-mask id="cvv" mask="999" [(ngModel)]="paymentInformation.cvv"></p-input-mask>
+                            <p-inputmask id="cvv" mask="999" [(ngModel)]="paymentInformation.cvv"></p-inputmask>
                         </div>
                         <div class="field-checkbox col-span-12">
                             <p-checkbox id="remember" [binary]="true" [(ngModel)]="paymentInformation.remember"></p-checkbox>

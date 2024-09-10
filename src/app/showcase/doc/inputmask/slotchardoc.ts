@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
             <p>Default placeholder for a mask is underscore that can be customized using <i>slotChar</i> property.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-input-mask [(ngModel)]="value" mask="99/99/9999" placeholder="99/99/9999" slotChar="mm/dd/yyyy" />
+            <p-inputmask [(ngModel)]="value" mask="99/99/9999" placeholder="99/99/9999" slotChar="mm/dd/yyyy" />
         </div>
         <app-code [code]="code" selector="input-mask-slot-char-demo"></app-code>
     `,
@@ -17,14 +17,14 @@ export class SlotCharDoc {
     value: string | undefined;
 
     code: Code = {
-        basic: `<p-input-mask 
+        basic: `<p-inputmask 
     [(ngModel)]="value" 
     mask="99/99/9999" 
     placeholder="99/99/9999" 
     slotChar="mm/dd/yyyy" />`,
 
         html: `<div class="card flex justify-center">
-    <p-input-mask 
+    <p-inputmask 
         [(ngModel)]="value" 
         mask="99/99/9999" 
         placeholder="99/99/9999" 
