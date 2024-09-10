@@ -84,7 +84,7 @@ export class PaginatorProgrammaticDoc {
     }
 
     isLastPage(): boolean {
-        return this.customers ? this.first === this.customers.length - this.rows : true;
+        return this.customers ? this.first + this.rows >= this.customers.length : true;
     }
 
     isFirstPage(): boolean {
