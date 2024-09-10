@@ -109,7 +109,7 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
                             <p-avatar label="+99" class="rounded-lg overflow-hidden text-xs" />
                         </p-avatarGroup>
                     </div>
-                    <p-select-button
+                    <p-selectbutton
                         [(ngModel)]="selectedUserSelectButtonOption"
                         [options]="userSelectButtonOptions"
                         class="w-full"
@@ -581,7 +581,7 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
             <div class="flex-1 flex flex-wrap gap-6">
                 <div class="flex-1 border border-surface rounded-3xl p-6">
                     <div class="text-color font-medium leading-6 mb-4">User Profiles</div>
-                    <p-select-button [(ngModel)]="userProfiles" [options]="userProfilesOptions" class="w-full" styleClass="flex-1" />
+                    <p-selectbutton [(ngModel)]="userProfiles" [options]="userProfilesOptions" class="w-full" styleClass="flex-1" />
                     <div class="flex flex-col gap-4 mt-6">
                         <div class="flex items-center gap-3">
                             <i class="pi pi-volume-down text-color text-xl"></i>

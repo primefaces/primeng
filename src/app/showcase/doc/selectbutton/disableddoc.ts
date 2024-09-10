@@ -11,8 +11,8 @@ import { Code } from '@domain/code';
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center flex-wrap gap-4">
-            <p-select-button [options]="stateOptions" [(ngModel)]="value1" optionLabel="label" optionValue="value" [disabled]="true" />
-            <p-select-button
+            <p-selectbutton [options]="stateOptions" [(ngModel)]="value1" optionLabel="label" optionValue="value" [disabled]="true" />
+            <p-selectbutton
                 [options]="stateOptions2"
                 [(ngModel)]="value2"
                 optionLabel="label"
@@ -39,14 +39,14 @@ export class DisabledDoc {
     value2: string = 'Option 1';
 
     code: Code = {
-        basic: `<p-select-button 
+        basic: `<p-selectbutton 
     [options]="stateOptions" 
     [(ngModel)]="value1" 
     optionLabel="label"
     optionValue="value" 
     [disabled]="true" />
 
-<p-select-button 
+<p-selectbutton 
     [options]="stateOptions2" 
     [(ngModel)]="value2" 
     optionLabel="label" 
@@ -54,13 +54,13 @@ export class DisabledDoc {
     optionDisabled="constant" />`,
 
         html: `<div class="card flex justify-center">
-    <p-select-button 
+    <p-selectbutton 
         [options]="stateOptions" 
         [(ngModel)]="value1" 
         optionLabel="label" 
         optionValue="value" 
         [disabled]="true" />
-    <p-select-button 
+    <p-selectbutton 
         [options]="stateOptions2" 
         [(ngModel)]="value2"
         optionLabel="label" 

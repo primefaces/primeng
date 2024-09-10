@@ -14,7 +14,7 @@ import { NodeService } from '@service/nodeservice';
         </app-docsectiontext>
         <div class="card">
             <div class="flex justify-center mb-4">
-                <p-select-button [options]="sizes" [(ngModel)]="selectedSize" [multiple]="false" optionLabel="name" optionValue="class" />
+                <p-selectbutton [options]="sizes" [(ngModel)]="selectedSize" [multiple]="false" optionLabel="name" optionValue="class" />
             </div>
             <p-deferred-demo (load)="loadDemoData()">
                 <p-tree-table [value]="files" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }" [styleClass]="selectedSize">
@@ -63,7 +63,7 @@ export class SizeDoc {
 
     code: Code = {
         basic: `<div class="flex justify-center mb-4">
-    <p-select-button 
+    <p-selectbutton 
         [options]="sizes" 
         [(ngModel)]="selectedSize" 
         [multiple]="false" 
@@ -96,7 +96,7 @@ export class SizeDoc {
 
         html: `<div class="card">
     <div class="flex justify-center mb-4">
-        <p-select-button 
+        <p-selectbutton 
             [options]="sizes" 
             [(ngModel)]="selectedSize" 
             [multiple]="false" 

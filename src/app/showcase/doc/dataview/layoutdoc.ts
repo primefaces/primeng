@@ -16,11 +16,11 @@ import { ProductService } from '@service/productservice';
             <p-data-view #dv [value]="products" [layout]="layout">
                 <ng-template pTemplate="header">
                     <div class="flex justify-end">
-                        <p-select-button [(ngModel)]="layout" [options]="options" [allowEmpty]="false">
+                        <p-selectbutton [(ngModel)]="layout" [options]="options" [allowEmpty]="false">
                             <ng-template pTemplate="item" let-item>
                                 <i class="pi " [ngClass]="{ 'pi-bars': item === 'list', 'pi-table': item === 'grid' }"></i>
                             </ng-template>
-                        </p-select-button>
+                        </p-selectbutton>
                     </div>
                 </ng-template>
                 <ng-template pTemplate="list" let-products>
@@ -177,11 +177,11 @@ export class LayoutDoc {
         basic: `<p-data-view #dv [value]="products" [layout]="layout">
     <ng-template pTemplate="header">
         <div class="flex justify-end">
-            <p-select-button [(ngModel)]="layout" [options]="options" [allowEmpty]="false">
+            <p-selectbutton [(ngModel)]="layout" [options]="options" [allowEmpty]="false">
                 <ng-template pTemplate="item" let-item>
                     <i class="pi " [ngClass]="{ 'pi-bars': item === 'list', 'pi-table': item === 'grid' }"></i>
                 </ng-template>
-            </p-select-button>
+            </p-selectbutton>
         </div>
     </ng-template>
     <ng-template pTemplate="list" let-products>
@@ -316,11 +316,11 @@ export class LayoutDoc {
      <p-data-view #dv [value]="products" [layout]="layout">
         <ng-template pTemplate="header">
             <div class="flex justify-end">
-                <p-select-button [(ngModel)]="layout" [options]="options" [allowEmpty]="false">
+                <p-selectbutton [(ngModel)]="layout" [options]="options" [allowEmpty]="false">
                     <ng-template pTemplate="item" let-item>
                         <i class="pi " [ngClass]="{ 'pi-bars': item === 'list', 'pi-table': item === 'grid' }"></i>
                     </ng-template>
-                </p-select-button>
+                </p-selectbutton>
             </div>
         </ng-template>
         <ng-template pTemplate="list" let-products>

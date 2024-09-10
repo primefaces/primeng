@@ -13,7 +13,7 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card flex justify-center">
             <form [formGroup]="formGroup">
-                <p-select-button [options]="stateOptions" formControlName="value" optionLabel="label" optionValue="value" />
+                <p-selectbutton [options]="stateOptions" formControlName="value" optionLabel="label" optionValue="value" />
             </form>
         </div>
         <app-code [code]="code" selector="select-button-reactive-forms-demo"></app-code>
@@ -35,7 +35,7 @@ export class ReactiveFormsDoc implements OnInit {
 
     code: Code = {
         basic: `<form [formGroup]="formGroup">
-    <p-select-button 
+    <p-selectbutton 
         [options]="stateOptions" 
         formControlName="value" 
         optionLabel="label" 
@@ -44,7 +44,7 @@ export class ReactiveFormsDoc implements OnInit {
 
         html: `<div class="card flex justify-center">
     <form [formGroup]="formGroup">
-        <p-select-button 
+        <p-selectbutton 
             [options]="stateOptions" 
             formControlName="value" 
             optionLabel="label" 

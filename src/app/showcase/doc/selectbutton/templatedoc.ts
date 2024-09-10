@@ -11,12 +11,12 @@ import { Code } from '@domain/code';
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-select-button [options]="justifyOptions" [(ngModel)]="value" optionLabel="justify">
+            <p-selectbutton [options]="justifyOptions" [(ngModel)]="value" optionLabel="justify">
                 <ng-template pTemplate="item" let-item>
                     <i [class]="item.icon"></i>
                     <span>{{ item.justify }}</span>
                 </ng-template>
-            </p-select-button>
+            </p-selectbutton>
         </div>
         <app-code [code]="code" selector="select-button-template-demo"></app-code>
     `,
@@ -32,24 +32,24 @@ export class TemplateDoc {
     ];
 
     code: Code = {
-        basic: `<p-select-button 
+        basic: `<p-selectbutton 
     [options]="justifyOptions" 
     [(ngModel)]="value" 
     optionLabel="justify">
         <ng-template pTemplate="item" let-item>
             <i [class]="item.icon"></i>
         </ng-template>
-</p-select-button>`,
+</p-selectbutton>`,
 
         html: `<div class="card flex justify-center">
-    <p-select-button 
+    <p-selectbutton 
         [options]="justifyOptions" 
         [(ngModel)]="value" 
         optionLabel="justify">
             <ng-template pTemplate="item" let-item>
                 <i [class]="item.icon"></i>
             </ng-template>
-    </p-select-button>
+    </p-selectbutton>
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

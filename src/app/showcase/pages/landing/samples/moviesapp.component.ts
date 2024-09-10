@@ -38,7 +38,7 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
             class="flex-1 flex flex-col gap-6 p-6 h-full overflow-y-auto overflow-x-clip overflow-hidden border border-surface rounded-2xl"
         >
             <div class="flex flex-wrap gap-4 items-center justify-between">
-                <p-select-button [(ngModel)]="value" [options]="options" aria-labelledby="basic" />
+                <p-selectbutton [(ngModel)]="value" [options]="options" aria-labelledby="basic" />
                 <div class="flex gap-2.5 items-center">
                     <p-iconfield iconPosition="left">
                         <p-inputicon class="pi pi-search"> </p-inputicon>

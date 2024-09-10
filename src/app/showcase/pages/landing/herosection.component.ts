@@ -75,7 +75,7 @@ import { CustomersApp } from './samples/customersapp.component';
                     </a>
                 </div>
                 <div class="w-full flex lg:hidden items-center justify-center mt-16 mb-4">
-                    <p-select-button
+                    <p-selectbutton
                         [(ngModel)]="selectedSampleOption"
                         [options]="sampleOptions"
                         optionLabel="title"
@@ -85,7 +85,7 @@ import { CustomersApp } from './samples/customersapp.component';
                             <i [class]="item.icon"></i>
                             <div class="hidden sm:flex flex-1 text-sm font-medium leading-5">{{ item.title }}</div>
                         </ng-template>
-                    </p-select-button>
+                    </p-selectbutton>
                 </div>
                 <div
                     class="bg-surface-0 border border-black/10 dark:border-white/20 dark:bg-surface-950 w-full rounded-3xl p-0 flex lg:hidden items-start gap-6 overflow-hidden"
