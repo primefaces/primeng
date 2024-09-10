@@ -39,7 +39,7 @@ import { BadgeModule } from 'primeng/badge';
  * @group Components
  */
 @Component({
-    selector: 'p-tabMenu, p-tab-menu',
+    selector: 'p-tabMenu, p-tabmenu',
     template: `
         <div [ngClass]="{ 'p-tabmenu p-component': true, 'p-tabmenu-scrollable': scrollable }" [ngStyle]="style" [class]="styleClass">
             <div class="p-tabmenu-nav-container">

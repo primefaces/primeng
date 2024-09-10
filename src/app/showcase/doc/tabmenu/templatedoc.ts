@@ -9,7 +9,7 @@ import { Code } from '@domain/code';
             <p>TabMenu supports templating via the <i>item</i> template which gets the menuitem instance and the index.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-tab-menu [model]="items" [activeItem]="activeItem">
+            <p-tabmenu [model]="items" [activeItem]="activeItem">
                 <ng-template pTemplate="item" let-item>
                     <a pRipple class="flex items-center gap-2 p-menuitem-link">
                         <img
@@ -20,7 +20,7 @@ import { Code } from '@domain/code';
                         <span class="font-bold">{{ item.name }}</span>
                     </a>
                 </ng-template>
-            </p-tab-menu>
+            </p-tabmenu>
         </div>
         <app-code [code]="code" selector="tab-menu-template-demo"></app-code>
     `,
@@ -40,7 +40,7 @@ export class TemplateDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-tab-menu [model]="items" [activeItem]="activeItem">
+        basic: `<p-tabmenu [model]="items" [activeItem]="activeItem">
     <ng-template pTemplate="item" let-item>
         <a pRipple class="flex items-center gap-2 p-menuitem-link">
             <img 
@@ -52,10 +52,10 @@ export class TemplateDoc implements OnInit {
             </span>
         </a>
     </ng-template>
-</p-tab-menu>`,
+</p-tabmenu>`,
 
         html: `<div class="card">
-    <p-tab-menu [model]="items" [activeItem]="activeItem">
+    <p-tabmenu [model]="items" [activeItem]="activeItem">
         <ng-template pTemplate="item" let-item>
             <a pRipple class="flex items-center gap-2 p-menuitem-link">
                 <img 
@@ -67,7 +67,7 @@ export class TemplateDoc implements OnInit {
                 </span>
             </a>
         </ng-template>
-    </p-tab-menu>
+    </p-tabmenu>
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';

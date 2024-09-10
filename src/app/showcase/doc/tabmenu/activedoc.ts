@@ -12,7 +12,7 @@ import { Code } from '@domain/code';
             </p>
         </app-docsectiontext>
         <div class="card">
-            <p-tab-menu [model]="items" [activeItem]="activeItem"></p-tab-menu>
+            <p-tabmenu [model]="items" [activeItem]="activeItem"></p-tabmenu>
         </div>
         <app-code [code]="code" selector="tab-menu-active-demo"></app-code>
     `,
@@ -35,11 +35,11 @@ export class ActiveDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-tab-menu [model]="items" [activeItem]="activeItem"></p-tab-menu>`,
+        basic: `<p-tabmenu [model]="items" [activeItem]="activeItem"></p-tabmenu>`,
 
         html: `
 <div class="card">
-    <p-tab-menu [model]="items" [activeItem]="activeItem"></p-tab-menu>
+    <p-tabmenu [model]="items" [activeItem]="activeItem"></p-tabmenu>
 </div>`,
 
         typescript: `
