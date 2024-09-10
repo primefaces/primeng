@@ -11,7 +11,7 @@ import { Code } from '@domain/code';
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-input-otp [(ngModel)]="value" />
+            <p-inputotp [(ngModel)]="value" />
         </div>
         <app-code [code]="code" selector="input-otp-basic-demo"></app-code>
     `,
@@ -20,10 +20,10 @@ export class BasicDoc {
     value: any;
 
     code: Code = {
-        basic: `<p-input-otp [(ngModel)]="value" />`,
+        basic: `<p-inputotp [(ngModel)]="value" />`,
 
         html: `<div class="card flex justify-center">
-    <p-input-otp [(ngModel)]="value" />
+    <p-inputotp [(ngModel)]="value" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

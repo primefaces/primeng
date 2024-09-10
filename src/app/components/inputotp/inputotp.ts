@@ -35,7 +35,7 @@ export const INPUT_OTP_VALUE_ACCESSOR: any = {
  * @group Components
  */
 @Component({
-    selector: 'p-inputOtp, p-input-otp',
+    selector: 'p-inputOtp, p-inputotp',
     template: `
         <ng-container *ngFor="let i of getRange(length); trackBy: trackByFn">
             <ng-container *ngIf="!inputTemplate">
