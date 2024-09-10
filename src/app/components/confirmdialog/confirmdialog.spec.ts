@@ -6,7 +6,7 @@ import { ConfirmationService } from 'primeng/api';
 import { ConfirmDialog } from './confirmdialog';
 
 @Component({
-    template: `<p-confirm-dialog></p-confirm-dialog>
+    template: `<p-confirmdialog></p-confirmdialog>
 
         <button type="button" (click)="confirm1()" pButton icon="pi pi-check" label="Confirm"></button>`,
 })

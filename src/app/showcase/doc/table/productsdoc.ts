@@ -231,7 +231,7 @@ import { ProductService } from '@service/productservice';
                     </ng-template>
                 </p-dialog>
 
-                <p-confirm-dialog [style]="{ width: '450px' }" />
+                <p-confirmdialog [style]="{ width: '450px' }" />
             </div>
         </p-deferred-demo>
         <app-code [code]="code" selector="table-products-demo" [extFiles]="extFiles"></app-code>`,
@@ -704,7 +704,7 @@ export class ProductsDoc {
         </ng-template>
     </p-dialog>
 
-    <p-confirm-dialog [style]="{ width: '450px' }" />
+    <p-confirmdialog [style]="{ width: '450px' }" />
 </div>`,
         typescript: `import { Component, OnInit } from '@angular/core';
 import { ConfirmationService, MessageService } from 'primeng/api';

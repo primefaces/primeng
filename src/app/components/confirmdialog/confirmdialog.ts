@@ -45,7 +45,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
  * @group Components
  */
 @Component({
-    selector: 'p-confirmDialog, p-confirm-dialog',
+    selector: 'p-confirmDialog, p-confirmdialog',
     template: `
         <p-dialog
             #dialog

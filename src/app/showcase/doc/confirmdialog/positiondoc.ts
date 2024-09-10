@@ -10,7 +10,7 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card">
             <p-toast />
-            <p-confirm-dialog key="positionDialog" [position]="position" />
+            <p-confirmdialog key="positionDialog" [position]="position" />
             <div class="flex flex-wrap justify-center gap-2 mb-4">
                 <p-button
                     (click)="confirmPosition('left')"
@@ -114,7 +114,7 @@ export class PositionDoc {
 
     code: Code = {
         basic: `<p-toast />
-<p-confirm-dialog key="positionDialog" [position]="position"/>
+<p-confirmdialog key="positionDialog" [position]="position"/>
     <div class="flex flex-wrap justify-center gap-2 mb-4">
         <p-button
             (click)="confirmPosition('left')"
@@ -180,7 +180,7 @@ export class PositionDoc {
 
         html: `<div class="card">
     <p-toast />
-    <p-confirm-dialog key="positionDialog" [position]="position"/>
+    <p-confirmdialog key="positionDialog" [position]="position"/>
     <div class="flex flex-wrap justify-center gap-2 mb-4">
         <p-button
             (click)="confirmPosition('left')"
