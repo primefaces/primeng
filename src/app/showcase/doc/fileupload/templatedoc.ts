@@ -52,14 +52,14 @@ import { MessageService, PrimeNGConfig } from 'primeng/api';
                                 [disabled]="!files || files.length === 0"
                             />
                         </div>
-                        <p-progress-bar
+                        <p-progressbar
                             [value]="totalSizePercent"
                             [showValue]="false"
                             class="w-full"
                             styleClass="md:w-20rem h-1 w-full md:ml-auto"
                         >
                             <span class="whitespace-nowrap">{{ totalSize }}B / 1Mb</span>
-                        </p-progress-bar>
+                        </p-progressbar>
                     </div>
                 </ng-template>
                 <ng-template
@@ -236,14 +236,14 @@ export class TemplateDoc {
                     [disabled]="!files || files.length === 0"
                 />
             </div>
-            <p-progress-bar
+            <p-progressbar
                 [value]="totalSizePercent"
                 [showValue]="false"
                 class="w-full"
                 styleClass="md:w-20rem h-1 w-full md:ml-auto"
             >
                 <span class="whitespace-nowrap">{{ totalSize }}B / 1Mb</span>
-            </p-progress-bar>
+            </p-progressbar>
         </div>
     </ng-template>
     <ng-template
@@ -371,14 +371,14 @@ export class TemplateDoc {
                         [disabled]="!files || files.length === 0"
                     />
                 </div>
-                <p-progress-bar
+                <p-progressbar
                     [value]="totalSizePercent"
                     [showValue]="false"
                     class="w-full"
                     styleClass="md:w-20rem h-1 w-full md:ml-auto"
                 >
                     <span class="whitespace-nowrap">{{ totalSize }}B / 1Mb</span>
-                </p-progress-bar>
+                </p-progressbar>
             </div>
         </ng-template>
         <ng-template

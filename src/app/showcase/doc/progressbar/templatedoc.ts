@@ -8,28 +8,28 @@ import { Code } from '@domain/code';
             <p><i>content</i> template allows displaying custom content inside the progressbar.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-progress-bar [value]="50">
+            <p-progressbar [value]="50">
                 <ng-template pTemplate="content" let-value>
                     <span>{{ value }}/100</span>
                 </ng-template>
-            </p-progress-bar>
+            </p-progressbar>
         </div>
         <app-code [code]="code" selector="progress-bar-template-demo"></app-code>
     `,
 })
 export class TemplateDoc {
     code: Code = {
-        basic: `<p-progress-bar [value]="50">
+        basic: `<p-progressbar [value]="50">
     <ng-template pTemplate="content" let-value> 
     <span>{{value}}/100</span>    
     </ng-template>
-</p-progress-bar>`,
+</p-progressbar>`,
         html: `<div class="card">
-     <p-progress-bar [value]="50">
+     <p-progressbar [value]="50">
          <ng-template pTemplate="content" let-value> 
          <span>{{value}}/100</span>        
          </ng-template>
-     </p-progress-bar>
+     </p-progressbar>
 </div>`,
         typescript: `import { Component } from '@angular/core';
 import { ProgressBarModule } from 'primeng/progressbar';

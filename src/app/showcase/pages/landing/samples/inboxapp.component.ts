@@ -64,14 +64,14 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
                 <div>
                     <div class="border border-surface rounded-border px-4 pb-4 pt-3 mb-4">
                         <div class="font-medium text-color mb-4">Free Version</div>
-                        <p-progress-bar [value]="75">
+                        <p-progressbar [value]="75">
                             <ng-template pTemplate="content" let-value>
                                 <span
                                     class="w-full text-center text-sm font-normal text-surface-0 leading-5 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
                                     >4 days left</span
                                 >
                             </ng-template>
-                        </p-progress-bar>
+                        </p-progressbar>
                     </div>
                     <p-button label="Upgrade to PRO 🚀" outlined styleClass="w-full" />
                 </div>

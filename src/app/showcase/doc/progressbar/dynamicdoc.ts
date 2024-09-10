@@ -10,7 +10,7 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card">
             <p-toast />
-            <p-progress-bar [value]="value" />
+            <p-progressbar [value]="value" />
         </div>
         <app-code [code]="code" selector="progress-bar-dynamic-demo"></app-code>
     `,
@@ -50,10 +50,10 @@ export class DynamicDoc implements OnInit, OnDestroy {
     }
 
     code: Code = {
-        basic: `<p-progress-bar [value]="value" />`,
+        basic: `<p-progressbar [value]="value" />`,
         html: `<div class="card">
     <p-toast />
-    <p-progress-bar [value]="value" />
+    <p-progressbar [value]="value" />
 </div>`,
         typescript: `import { Component, NgZone, OnInit } from '@angular/core';
 import { MessageService } from 'primeng/api';

@@ -111,7 +111,7 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
                                     {{ item.point }}
                                 </div>
                                 <div class="absolute z-10 bottom-2 inset-x-2">
-                                    <p-progress-bar
+                                    <p-progressbar
                                         [value]="item.watchedPercent"
                                         [showValue]="false"
                                         styleClass="!h-1.5 !bg-surface-950 dark:!bg-surface-50 !rounded-full"
