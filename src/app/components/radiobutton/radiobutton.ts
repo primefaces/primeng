@@ -67,7 +67,7 @@ export class RadioControlRegistry {
  * @group Components
  */
 @Component({
-    selector: 'p-radioButton, p-radio-button',
+    selector: 'p-radioButton, p-radiobutton',
     template: `
         <div
             [ngStyle]="style"
@@ -296,7 +296,7 @@ export class RadioButton extends BaseComponent implements ControlValueAccessor, 
     private throwNameError() {
         throw new Error(`
           If you define both a name and a formControlName attribute on your radio button, their values
-          must match. Ex: <p-radio-button formControlName="food" name="food"></p-radio-button>
+          must match. Ex: <p-radiobutton formControlName="food" name="food"></p-radiobutton>
         `);
     }
 }

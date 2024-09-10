@@ -10,7 +10,7 @@ import { Code } from '@domain/code';
         <div class="card flex flex-col md:flex-row gap-4">
             <p-inputgroup>
                 <input type="text" pInputText placeholder="Price" />
-                <p-inputgroup-addon><p-radio-button [(ngModel)]="radioValue1" name="rb1" value="rb1" /></p-inputgroup-addon>
+                <p-inputgroup-addon><p-radiobutton [(ngModel)]="radioValue1" name="rb1" value="rb1" /></p-inputgroup-addon>
             </p-inputgroup>
 
             <p-inputgroup>
@@ -21,7 +21,7 @@ import { Code } from '@domain/code';
             <p-inputgroup>
                 <p-inputgroup-addon><p-checkbox [(ngModel)]="checked2" [binary]="true" /></p-inputgroup-addon>
                 <input type="text" pInputText placeholder="Website" />
-                <p-inputgroup-addon><p-radio-button name="rb2" value="rb2" [(ngModel)]="category" /></p-inputgroup-addon>
+                <p-inputgroup-addon><p-radiobutton name="rb2" value="rb2" [(ngModel)]="category" /></p-inputgroup-addon>
             </p-inputgroup>
         </div>
         <app-code [code]="code" selector="input-group-checkbox-demo"></app-code>
@@ -40,7 +40,7 @@ export class CheckboxDoc {
         basic: `<p-inputgroup>
     <input type="text" pInputText placeholder="Price" />
     <p-inputgroup-addon>
-        <p-radio-button [(ngModel)]="radioValue1" name="rb1" value="rb1"/>
+        <p-radiobutton [(ngModel)]="radioValue1" name="rb1" value="rb1"/>
     </p-inputgroup-addon>
 </p-inputgroup>
 
@@ -52,14 +52,14 @@ export class CheckboxDoc {
 <p-inputgroup>
     <p-inputgroup-addon><p-checkbox [(ngModel)]="checked2" [binary]="true"/></p-inputgroup-addon>
     <input type="text" pInputText placeholder="Website" />
-    <p-inputgroup-addon><p-radio-button name="rb2" value="rb2" [(ngModel)]="category"/></p-inputgroup-addon>
+    <p-inputgroup-addon><p-radiobutton name="rb2" value="rb2" [(ngModel)]="category"/></p-inputgroup-addon>
 </p-inputgroup>`,
 
         html: `<div class="card flex flex-col md:flex-row gap-4">
     <p-inputgroup>
         <input type="text" pInputText placeholder="Price" />
         <p-inputgroup-addon>
-            <p-radio-button [(ngModel)]="radioValue1" name="rb1" value="rb1"/>
+            <p-radiobutton [(ngModel)]="radioValue1" name="rb1" value="rb1"/>
         </p-inputgroup-addon>
     </p-inputgroup>
     
@@ -71,7 +71,7 @@ export class CheckboxDoc {
     <p-inputgroup>
         <p-inputgroup-addon><p-checkbox [(ngModel)]="checked2" [binary]="true"/></p-inputgroup-addon>
         <input type="text" pInputText placeholder="Website" />
-        <p-inputgroup-addon><p-radio-button name="rb2" value="rb2" [(ngModel)]="category"/></p-inputgroup-addon>
+        <p-inputgroup-addon><p-radiobutton name="rb2" value="rb2" [(ngModel)]="category"/></p-inputgroup-addon>
     </p-inputgroup>
 </div>`,
 
