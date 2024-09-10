@@ -10,7 +10,7 @@ import { ProductService } from '@service/productservice';
             <p>Filter value is checked against the property of an object configured with the <i>filterBy</i> property</p>
         </app-docsectiontext>
         <div class="card xl:flex xl:justify-center">
-            <p-order-list
+            <p-orderlist
                 [value]="products"
                 [listStyle]="{ 'max-height': '30rem' }"
                 header="List of Products"
@@ -34,7 +34,7 @@ import { ProductService } from '@service/productservice';
                         <span class="font-bold text-surface-900 dark:text-surface-0">{{ '$' + product.price }}</span>
                     </div>
                 </ng-template>
-            </p-order-list>
+            </p-orderlist>
         </div>
         <app-code [code]="code" selector="orderlist-filter-demo" [extFiles]="extFiles"></app-code>
     `,
@@ -66,7 +66,7 @@ export class FilterDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-order-list 
+        basic: `<p-orderlist 
     [value]="products" 
     [listStyle]="{ 'max-height': '30rem' }" 
     header="List of Products"
@@ -90,10 +90,10 @@ export class FilterDoc implements OnInit {
                 </span>
             </div>
         </ng-template>
-</p-order-list>`,
+</p-orderlist>`,
 
         html: `<div class="card xl:flex xl:justify-center">
-    <p-order-list 
+    <p-orderlist 
         [value]="products" 
         [listStyle]="{ 'max-height': '30rem' }" 
         header="List of Products" 
@@ -117,7 +117,7 @@ export class FilterDoc implements OnInit {
                     </span>
                 </div>
             </ng-template>
-    </p-order-list>
+    </p-orderlist>
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';

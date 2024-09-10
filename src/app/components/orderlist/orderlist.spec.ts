@@ -5,7 +5,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Component } from '@angular/core';
 
 @Component({
-    template: `<p-order-list [value]="cars">
+    template: `<p-orderlist [value]="cars">
         <ng-template let-car pTemplate="item">
             <div>
                 <img
@@ -16,7 +16,7 @@ import { Component } from '@angular/core';
                 <div style="font-size:14px;float:right;margin:15px 5px 0 0">{{ car.brand }} - {{ car.year }} - {{ car.color }}</div>
             </div>
         </ng-template>
-    </p-order-list>`,
+    </p-orderlist>`,
 })
 class TestOrderListComponent {
     cars: any[];

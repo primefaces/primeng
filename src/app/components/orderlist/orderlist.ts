@@ -40,7 +40,7 @@ import { FormsModule } from '@angular/forms';
  * @group Components
  */
 @Component({
-    selector: 'p-orderList, p-order-list',
+    selector: 'p-orderList, p-orderlist',
     template: `
         <div
             [ngClass]="{
