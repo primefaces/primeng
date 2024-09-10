@@ -67,7 +67,7 @@ import { Router } from '@angular/router';
                     <path d="M11.4013 8.27235L8.00893 7.94938L10.2705 5.68861H12.5321L11.4013 8.27235Z" fill="var(--ground-background)" />
                 </svg>
             </span>
-            <p-context-menu [target]="span" [model]="items">
+            <p-contextmenu [target]="span" [model]="items">
                 <ng-template pTemplate="item" let-item>
                     <ng-container *ngIf="item.route; else elseBlock">
                         <a [routerLink]="item.route" class="p-contextmenu-item-link">
@@ -82,7 +82,7 @@ import { Router } from '@angular/router';
                         </a>
                     </ng-template>
                 </ng-template>
-            </p-context-menu>
+            </p-contextmenu>
         </div>
         <app-code [code]="code" selector="context-menu-router-demo"></app-code>
     `,
@@ -193,7 +193,7 @@ export class RouterDoc implements OnInit {
         />
     </svg>
 </span>
-<p-context-menu [target]="span" [model]="items">
+<p-contextmenu [target]="span" [model]="items">
     <ng-template pTemplate="item" let-item>
         <ng-container *ngIf="item.route; else elseBlock">
             <a [routerLink]="item.route" class="p-contextmenu-item-link">
@@ -208,7 +208,7 @@ export class RouterDoc implements OnInit {
             </a>
         </ng-template>
     </ng-template>
-</p-context-menu>`,
+</p-contextmenu>`,
 
         html: `<div class="card flex justify-center">
     <span
@@ -282,7 +282,7 @@ export class RouterDoc implements OnInit {
             />
         </svg>
     </span>
-    <p-context-menu [target]="span" [model]="items">
+    <p-contextmenu [target]="span" [model]="items">
         <ng-template pTemplate="item" let-item>
             <ng-container *ngIf="item.route; else elseBlock">
                 <a [routerLink]="item.route" class="p-contextmenu-item-link">
@@ -297,7 +297,7 @@ export class RouterDoc implements OnInit {
                 </a>
             </ng-template>
         </ng-template>
-    </p-context-menu>
+    </p-contextmenu>
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';

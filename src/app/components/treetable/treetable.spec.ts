@@ -269,7 +269,7 @@ import { MinusIcon } from 'primeng/icons/minus';
             </ng-template>
         </p-treetable>
 
-        <p-context-menu #cm [model]="items"></p-context-menu>
+        <p-contextmenu #cm [model]="items"></p-contextmenu>
 
         <p-treetable class="filterTreeTable" #tt [value]="files" [columns]="cols">
             <ng-template pTemplate="caption">

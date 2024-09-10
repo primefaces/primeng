@@ -320,7 +320,7 @@ import type { Paginator } from '../paginator/paginator';
             </ng-template>
         </p-table>
 
-        <p-context-menu #cm [model]="items"></p-context-menu>
+        <p-contextmenu #cm [model]="items"></p-contextmenu>
         <p-table
             class="stateTable"
             #dt1

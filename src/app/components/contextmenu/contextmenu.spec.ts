@@ -8,8 +8,8 @@ import { ContextMenuService } from 'primeng/api';
 
 @Component({
     template: `
-        <p-context-menu [global]="true" [model]="items1"></p-context-menu>
-        <p-context-menu [target]="p" [model]="items1" [appendTo]="p"></p-context-menu>
+        <p-contextmenu [global]="true" [model]="items1"></p-contextmenu>
+        <p-contextmenu [target]="p" [model]="items1" [appendTo]="p"></p-contextmenu>
         <p #p>PrimeNG ROCKS!</p>
     `,
 })
