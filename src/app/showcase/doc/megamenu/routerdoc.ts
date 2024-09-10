@@ -16,7 +16,7 @@ import { Code } from '@domain/code';
 })
 export class RouterDoc {
     code: Code = {
-        basic: `<p-mega-menu [model]="items">
+        basic: `<p-megamenu [model]="items">
     <ng-template pTemplate="item" let-item>
         <ng-container *ngIf="item.route; else elseBlock">
             <a [routerLink]="item.route" class="p-menuitem-link">
@@ -31,6 +31,6 @@ export class RouterDoc {
             </a>
         </ng-template>
     </ng-template>
-</p-mega-menu>`,
+</p-megamenu>`,
     };
 }
