@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import {
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     ElementRef,
     EventEmitter,
@@ -31,7 +30,7 @@ export const TOGGLESWITCH_VALUE_ACCESSOR: any = {
  * @group Components
  */
 @Component({
-    selector: 'p-toggleswitch, p-toggleSwitch, p-toggle-switch',
+    selector: 'p-toggleswitch, p-toggleSwitch',
     template: `
         <div
             [ngClass]="cx('root')"

@@ -20,7 +20,7 @@ import { ProductService } from '@service/productservice';
         <p-deferred-demo (load)="loadDemoData()">
             <div class="card">
                 <div class="flex justify-center items-center mb-6 gap-2">
-                    <p-toggle-switch [(ngModel)]="metaKey" inputId="input-metakey" />
+                    <p-toggleswitch [(ngModel)]="metaKey" inputId="input-metakey" />
                     <label for="input-metakey">MetaKey</label>
                 </div>
                 <p-table
@@ -73,7 +73,7 @@ export class SingleSelectionDoc {
     }
 
     code: Code = {
-        basic: `<p-toggle-switch [(ngModel)]="metaKey" inputId="input-metakey" />
+        basic: `<p-toggleswitch [(ngModel)]="metaKey" inputId="input-metakey" />
     <p-table 
         [value]="products" 
         selectionMode="single" 
@@ -100,7 +100,7 @@ export class SingleSelectionDoc {
 
         html: `<div class="card">
     <div class="flex justify-center items-center mb-6 gap-2">
-        <p-toggle-switch [(ngModel)]="metaKey" inputId="input-metakey" />
+        <p-toggleswitch [(ngModel)]="metaKey" inputId="input-metakey" />
         <label for="input-metakey">MetaKey</label>
     </div>
     <p-table [value]="products" selectionMode="single" [(selection)]="selectedProduct" [metaKeySelection]="metaKey" dataKey="id" [tableStyle]="{ 'min-width': '50rem' }">

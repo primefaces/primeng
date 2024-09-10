@@ -24,7 +24,7 @@ interface Column {
         </app-docsectiontext>
         <div class="card">
             <div class="flex gap-4 items-center justify-center mb-6">
-                <p-toggle-switch [(ngModel)]="metaKeySelection" />
+                <p-toggleswitch [(ngModel)]="metaKeySelection" />
                 <span>Metakey</span>
             </div>
             <p-deferred-demo (load)="loadDemoData()">
@@ -109,7 +109,7 @@ export class SelectionSingleDoc {
 
         html: `<div class="card">
     <div class="flex gap-4 items-center justify-center mb-6">
-        <p-toggle-switch [(ngModel)]="metaKeySelection" />
+        <p-toggleswitch [(ngModel)]="metaKeySelection" />
         <span>Metakey</span>
     </div>
     <p-tree-table 

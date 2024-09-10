@@ -19,7 +19,7 @@ import { NodeService } from '@service/nodeservice';
         </app-docsectiontext>
         <div class="card flex flex-col items-center justify-center">
             <div class="flex items-center mb-6 gap-2">
-                <p-toggle-switch inputId="input-metakey" [(ngModel)]="metaKeySelection" />
+                <p-toggleswitch inputId="input-metakey" [(ngModel)]="metaKeySelection" />
                 <label for="input-metakey">MetaKey</label>
             </div>
             <p-tree
@@ -48,7 +48,7 @@ export class MultipleDoc implements OnInit {
 
     code: Code = {
         basic: `<div class="flex items-center mb-6 gap-2">
-    <p-toggle-switch inputId="input-metakey" [(ngModel)]="metaKeySelection" />
+    <p-toggleswitch inputId="input-metakey" [(ngModel)]="metaKeySelection" />
     <label for="input-metakey">MetaKey</label>
 </div>
 <p-tree 
@@ -60,7 +60,7 @@ export class MultipleDoc implements OnInit {
 
         html: `<div class="card flex flex-col items-center justify-center">
     <div class="flex items-center mb-6 gap-2">
-        <p-toggle-switch inputId="input-metakey" [(ngModel)]="metaKeySelection" />
+        <p-toggleswitch inputId="input-metakey" [(ngModel)]="metaKeySelection" />
         <label for="input-metakey">MetaKey</label>
     </div>
     <p-tree 

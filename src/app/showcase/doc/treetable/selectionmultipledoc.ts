@@ -20,7 +20,7 @@ interface Column {
         </app-docsectiontext>
         <div class="card">
             <div class="flex gap-4 items-center justify-center mb-6">
-                <p-toggle-switch [(ngModel)]="metaKeySelection" />
+                <p-toggleswitch [(ngModel)]="metaKeySelection" />
                 <span>Metakey</span>
             </div>
             <p-deferred-demo (load)="loadDemoData()">
@@ -78,7 +78,7 @@ export class SelectionMultipleDoc {
     }
 
     code: Code = {
-        basic: `<p-toggle-switch [(ngModel)]="metaKeySelection" />
+        basic: `<p-toggleswitch [(ngModel)]="metaKeySelection" />
 <p-tree-table 
     [value]="files" 
     [columns]="cols" 
@@ -107,7 +107,7 @@ export class SelectionMultipleDoc {
 
         html: `<div class="card">
     <div class="flex gap-4 items-center justify-center mb-6">
-        <p-toggle-switch [(ngModel)]="metaKeySelection" />
+        <p-toggleswitch [(ngModel)]="metaKeySelection" />
         <span>Metakey</span>
     </div>
     <p-tree-table 

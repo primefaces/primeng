@@ -196,7 +196,7 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
                             }"
                         ></i>
                         <div class="font-medium leading-normal flex-1 text-left">Switch to {{ darkMode ? 'Light' : 'Dark' }}</div>
-                        <p-toggle-switch [(ngModel)]="darkMode" />
+                        <p-toggleswitch [(ngModel)]="darkMode" />
                     </div>
                 </div>
                 <div class="border border-surface rounded-3xl">
@@ -586,32 +586,32 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
                         <div class="flex items-center gap-3">
                             <i class="pi pi-volume-down text-color text-xl"></i>
                             <div class="leading-6 text-color flex-1">Sound</div>
-                            <p-toggle-switch [(ngModel)]="userProfilesValues[0]" />
+                            <p-toggleswitch [(ngModel)]="userProfilesValues[0]" />
                         </div>
                         <div class="flex items-center gap-3">
                             <i class="pi pi-wifi text-color text-xl"></i>
                             <div class="leading-6 text-color flex-1">Wi-Fi</div>
-                            <p-toggle-switch [(ngModel)]="userProfilesValues[1]" />
+                            <p-toggleswitch [(ngModel)]="userProfilesValues[1]" />
                         </div>
                         <div class="flex items-center gap-3">
                             <i class="pi pi-moon text-color text-xl"></i>
                             <div class="leading-6 text-color flex-1">Dark Mode</div>
-                            <p-toggle-switch [(ngModel)]="userProfilesValues[2]" />
+                            <p-toggleswitch [(ngModel)]="userProfilesValues[2]" />
                         </div>
                         <div class="flex items-center gap-3">
                             <i class="pi pi-map-marker text-color text-xl"></i>
                             <div class="leading-6 text-color flex-1">Location Services</div>
-                            <p-toggle-switch [(ngModel)]="userProfilesValues[3]" />
+                            <p-toggleswitch [(ngModel)]="userProfilesValues[3]" />
                         </div>
                         <div class="flex items-center gap-3">
                             <i class="pi pi-shield text-color text-xl"></i>
                             <div class="leading-6 text-color flex-1">Privacy Settings</div>
-                            <p-toggle-switch [(ngModel)]="userProfilesValues[4]" />
+                            <p-toggleswitch [(ngModel)]="userProfilesValues[4]" />
                         </div>
                         <div class="flex items-center gap-3">
                             <i class="pi pi-sync text-color text-xl"></i>
                             <div class="leading-6 text-color flex-1">Auto Update</div>
-                            <p-toggle-switch [(ngModel)]="userProfilesValues[5]" />
+                            <p-toggleswitch [(ngModel)]="userProfilesValues[5]" />
                         </div>
                     </div>
                 </div>
