@@ -11,7 +11,7 @@ import { MessageService } from 'primeng/api';
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-toast />
-            <p-tiered-menu [model]="items" />
+            <p-tieredmenu [model]="items" />
         </div>
         <app-code [code]="code" selector="tiered-menu-command-demo"></app-code>
     `,
@@ -83,11 +83,11 @@ export class CommandDoc implements OnInit {
 
     code: Code = {
         basic: `<p-toast/>
-<p-tiered-menu [model]="items" />`,
+<p-tieredmenu [model]="items" />`,
 
         html: `<div class="card flex justify-center">
     <p-toast/>
-    <p-tiered-menu [model]="items" />
+    <p-tieredmenu [model]="items" />
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';

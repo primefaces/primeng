@@ -40,7 +40,7 @@ import { BaseComponent } from 'primeng/basecomponent';
 import { nestedPosition } from '@primeuix/utils/dom';
 
 @Component({
-    selector: 'p-tieredMenuSub, p-tiered-menu-sub',
+    selector: 'p-tieredMenuSub, p-tieredmenu-sub',
     template: `
         <ul
             #sublist
@@ -224,7 +224,7 @@ import { nestedPosition } from '@primeuix/utils/dom';
                         </ng-container>
                     </div>
 
-                    <p-tiered-menu-sub
+                    <p-tieredmenu-sub
                         *ngIf="isItemVisible(processedItem) && isItemGroup(processedItem)"
                         [items]="processedItem.items"
                         [itemTemplate]="itemTemplate"
@@ -237,7 +237,7 @@ import { nestedPosition } from '@primeuix/utils/dom';
                         (itemClick)="itemClick.emit($event)"
                         (itemMouseEnter)="onItemMouseEnter($event)"
                         [inlineStyles]="{ display: isItemActive(processedItem) ? 'flex' : 'none' }"
-                    ></p-tiered-menu-sub>
+                    ></p-tieredmenu-sub>
                 </li>
             </ng-template>
         </ul>
@@ -398,7 +398,7 @@ export class TieredMenuSub {
  * @group Components
  */
 @Component({
-    selector: 'p-tieredMenu, p-tiered-menu',
+    selector: 'p-tieredMenu, p-tieredmenu',
     template: `
         <div
             #container
@@ -418,7 +418,7 @@ export class TieredMenuSub {
             (@overlayAnimation.done)="onOverlayAnimationEnd($event)"
             *ngIf="!popup || visible"
         >
-            <p-tiered-menu-sub
+            <p-tieredmenu-sub
                 #rootmenu
                 [root]="true"
                 [items]="processedItems"
@@ -438,7 +438,7 @@ export class TieredMenuSub {
                 (menuBlur)="onMenuBlur($event)"
                 (menuKeydown)="onKeyDown($event)"
                 (itemMouseEnter)="onItemMouseEnter($event)"
-            ></p-tiered-menu-sub>
+            ></p-tieredmenu-sub>
         </div>
     `,
     animations: [

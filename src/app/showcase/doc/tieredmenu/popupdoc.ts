@@ -10,7 +10,7 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-button label="Toggle" (click)="menu.toggle($event)" />
-            <p-tiered-menu #menu [model]="items" [popup]="true" />
+            <p-tieredmenu #menu [model]="items" [popup]="true" />
         </div>
         <app-code [code]="code" selector="tiered-menu-popup-demo"></app-code>
     `,
@@ -92,11 +92,11 @@ export class PopupDoc implements OnInit {
 
     code: Code = {
         basic: `<p-button label="Toggle" (click)="menu.toggle($event)" />
-<p-tiered-menu #menu [model]="items" [popup]="true" />`,
+<p-tieredmenu #menu [model]="items" [popup]="true" />`,
 
         html: `<div class="card flex justify-center">
     <p-button label="Toggle" (click)="menu.toggle($event)" />
-    <p-tiered-menu #menu [model]="items" [popup]="true" />
+    <p-tieredmenu #menu [model]="items" [popup]="true" />
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';

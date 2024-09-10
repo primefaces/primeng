@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-tiered-menu [model]="items">
+            <p-tieredmenu [model]="items">
                 <ng-template pTemplate="item" let-item let-hasSubmenu="hasSubmenu">
                     <ng-container *ngIf="item.route; else withoutRoute">
                         <a [routerLink]="item.route" [href]="item.href" class="p-tieredmenu-item-link">
@@ -38,7 +38,7 @@ import { Router } from '@angular/router';
                         </ng-template>
                     </ng-template>
                 </ng-template>
-            </p-tiered-menu>
+            </p-tieredmenu>
         </div>
         <app-code [code]="code" selector="tiered-menu-router-demo"></app-code>
     `,
@@ -89,7 +89,7 @@ export class RouterDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-tiered-menu [model]="items">
+        basic: `<p-tieredmenu [model]="items">
         <ng-template pTemplate="item" let-item let-hasSubmenu="hasSubmenu">
             <ng-container *ngIf="item.route; else withoutRoute">
                 <a [routerLink]="item.route" [href]="item.href" class="p-tieredmenu-item-link">
@@ -114,10 +114,10 @@ export class RouterDoc implements OnInit {
                 </ng-template>
             </ng-template>
         </ng-template>
-</p-tiered-menu>`,
+</p-tieredmenu>`,
 
         html: `<div class="card flex justify-center">
-    <p-tiered-menu [model]="items">
+    <p-tieredmenu [model]="items">
         <ng-template pTemplate="item" let-item let-hasSubmenu="hasSubmenu">
             <ng-container *ngIf="item.route; else withoutRoute">
                 <a [routerLink]="item.route" [href]="item.href" class="p-tieredmenu-item-link">
@@ -142,7 +142,7 @@ export class RouterDoc implements OnInit {
                 </ng-template>
             </ng-template>
         </ng-template>
-    </p-tiered-menu>
+    </p-tieredmenu>
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
