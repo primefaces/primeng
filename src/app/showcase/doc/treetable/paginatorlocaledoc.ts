@@ -18,7 +18,7 @@ interface Column {
         </app-docsectiontext>
         <div class="card">
             <p-deferred-demo (load)="loadDemoData()">
-                <p-tree-table
+                <p-treetable
                     paginatorLocale="fa-IR"
                     [value]="files"
                     [columns]="cols"
@@ -37,12 +37,12 @@ interface Column {
                     <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
                         <tr [ttRow]="rowNode">
                             <td *ngFor="let col of columns; let i = index">
-                                <p-tree-tableToggler [rowNode]="rowNode" *ngIf="i === 0" />
+                                <p-treetableToggler [rowNode]="rowNode" *ngIf="i === 0" />
                                 {{ rowData[col.field] }}
                             </td>
                         </tr>
                     </ng-template>
-                </p-tree-table>
+                </p-treetable>
             </p-deferred-demo>
         </div>
         <app-code [code]="code" selector="tree-table-paginator-locale-demo"></app-code>
@@ -85,7 +85,7 @@ export class PaginatorLocaleDoc {
     }
 
     code: Code = {
-        basic: `<p-tree-table 
+        basic: `<p-treetable 
     paginatorLocale="fa-IR" 
     [value]="files" 
     [columns]="cols" 
@@ -103,15 +103,15 @@ export class PaginatorLocaleDoc {
         <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
             <tr [ttRow]="rowNode">
                 <td *ngFor="let col of columns; let i = index">
-                    <p-tree-tableToggler [rowNode]="rowNode" *ngIf="i === 0" />
+                    <p-treetableToggler [rowNode]="rowNode" *ngIf="i === 0" />
                     {{ rowData[col.field] }}
                 </td>
             </tr>
         </ng-template>
-</p-tree-table>`,
+</p-treetable>`,
 
         html: `<div class="card">
-    <p-tree-table 
+    <p-treetable 
         paginatorLocale="fa-IR" 
         [value]="files" 
         [columns]="cols" 
@@ -129,12 +129,12 @@ export class PaginatorLocaleDoc {
             <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
                 <tr [ttRow]="rowNode">
                     <td *ngFor="let col of columns; let i = index">
-                        <p-tree-tableToggler [rowNode]="rowNode" *ngIf="i === 0" />
+                        <p-treetableToggler [rowNode]="rowNode" *ngIf="i === 0" />
                         {{ rowData[col.field] }}
                     </td>
                 </tr>
             </ng-template>
-    </p-tree-table>
+    </p-treetable>
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';

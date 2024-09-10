@@ -19,7 +19,7 @@ interface Column {
         </app-docsectiontext>
         <div class="card">
             <p-deferred-demo (load)="loadDemoData()">
-                <p-tree-table [value]="files" [columns]="cols" [resizableColumns]="true" [tableStyle]="{ 'min-width': '50rem' }">
+                <p-treetable [value]="files" [columns]="cols" [resizableColumns]="true" [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template pTemplate="header" let-columns>
                         <tr>
                             <th *ngFor="let col of columns" ttResizableColumn>
@@ -30,12 +30,12 @@ interface Column {
                     <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
                         <tr [ttRow]="rowNode">
                             <td *ngFor="let col of columns; let i = index">
-                                <p-tree-tableToggler [rowNode]="rowNode" *ngIf="i === 0" />
+                                <p-treetableToggler [rowNode]="rowNode" *ngIf="i === 0" />
                                 {{ rowData[col.field] }}
                             </td>
                         </tr>
                     </ng-template>
-                </p-tree-table>
+                </p-treetable>
             </p-deferred-demo>
         </div>
         <app-code [code]="code" selector="tree-table-resize-fit-demo"></app-code>
@@ -59,7 +59,7 @@ export class ResizeFitDoc {
     }
 
     code: Code = {
-        basic: `<p-tree-table 
+        basic: `<p-treetable 
     [value]="files" 
     [columns]="cols" 
     [resizableColumns]="true" 
@@ -74,15 +74,15 @@ export class ResizeFitDoc {
         <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
             <tr [ttRow]="rowNode">
                 <td *ngFor="let col of columns; let i = index">
-                    <p-tree-tableToggler [rowNode]="rowNode" *ngIf="i === 0" />
+                    <p-treetableToggler [rowNode]="rowNode" *ngIf="i === 0" />
                     {{ rowData[col.field] }}
                 </td>
             </tr>
         </ng-template>
-</p-tree-table>`,
+</p-treetable>`,
 
         html: `<div class="card">
-    <p-tree-table 
+    <p-treetable 
         [value]="files" 
         [columns]="cols" 
         [resizableColumns]="true" 
@@ -97,12 +97,12 @@ export class ResizeFitDoc {
             <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
                 <tr [ttRow]="rowNode">
                     <td *ngFor="let col of columns; let i = index">
-                        <p-tree-tableToggler [rowNode]="rowNode" *ngIf="i === 0" />
+                        <p-treetableToggler [rowNode]="rowNode" *ngIf="i === 0" />
                         {{ rowData[col.field] }}
                     </td>
                 </tr>
             </ng-template>
-    </p-tree-table>
+    </p-treetable>
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';

@@ -7,7 +7,7 @@ import { Code } from '@domain/code';
     template: `
         <div class="card">
             <p-deferred-demo (load)="loadDemoData()">
-                <p-tree-table [value]="sales" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
+                <p-treetable [value]="sales" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template pTemplate="header">
                         <tr>
                             <th rowspan="3">Brand</th>
@@ -27,7 +27,7 @@ import { Code } from '@domain/code';
                     <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
                         <tr [ttRow]="rowNode">
                             <td>
-                                <p-tree-tableToggler [rowNode]="rowNode" />
+                                <p-treetableToggler [rowNode]="rowNode" />
                                 {{ rowData.brand }}
                             </td>
                             <td>{{ rowData.lastYearSale }}</td>
@@ -43,7 +43,7 @@ import { Code } from '@domain/code';
                             <td>$2,126,925</td>
                         </tr>
                     </ng-template>
-                </p-tree-table>
+                </p-treetable>
             </p-deferred-demo>
         </div>
         <app-code [code]="code" selector="tree-table-column-group-demo"></app-code>
@@ -308,7 +308,7 @@ export class ColumnGroupDoc {
         ];
     }
     code: Code = {
-        basic: `<p-tree-table [value]="sales" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
+        basic: `<p-treetable [value]="sales" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
     <ng-template pTemplate="header">
         <tr>
             <th rowspan="3">Brand</th>
@@ -328,7 +328,7 @@ export class ColumnGroupDoc {
     <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
         <tr>
             <td>
-                <p-tree-tableToggler [rowNode]="rowNode" />
+                <p-treetableToggler [rowNode]="rowNode" />
                 {{ rowData.brand }}
             </td>
             <td>{{ rowData.lastYearSale }}</td>
@@ -344,10 +344,10 @@ export class ColumnGroupDoc {
             <td>$2,126,925</td>
         </tr>
     </ng-template>
-</p-tree-table>`,
+</p-treetable>`,
 
         html: `<div class="card">
-    <p-tree-table [value]="sales" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
+    <p-treetable [value]="sales" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
         <ng-template pTemplate="header">
             <tr>
                 <th rowspan="3">Brand</th>
@@ -367,7 +367,7 @@ export class ColumnGroupDoc {
         <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
             <tr [ttRow]="rowNode">
                 <td>
-                    <p-tree-tableToggler [rowNode]="rowNode" />
+                    <p-treetableToggler [rowNode]="rowNode" />
                     {{ rowData.brand }}
                 </td>
                 <td>{{ rowData.lastYearSale }}</td>
@@ -383,7 +383,7 @@ export class ColumnGroupDoc {
                 <td>$2,126,925</td>
             </tr>
         </ng-template>
-    </p-tree-table>
+    </p-treetable>
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';

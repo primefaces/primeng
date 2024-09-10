@@ -16,7 +16,7 @@ interface Column {
         </app-docsectiontext>
         <div class="card">
             <p-deferred-demo (load)="loadDemoData()">
-                <p-tree-table
+                <p-treetable
                     [value]="files"
                     [columns]="cols"
                     [scrollable]="true"
@@ -39,12 +39,12 @@ interface Column {
                     <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
                         <tr [ttRow]="rowNode">
                             <td *ngFor="let col of columns; let i = index">
-                                <p-tree-tableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-tree-tableToggler>
+                                <p-treetableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-treetableToggler>
                                 {{ rowData[col.field] }}
                             </td>
                         </tr>
                     </ng-template>
-                </p-tree-table>
+                </p-treetable>
             </p-deferred-demo>
         </div>
         <app-code [code]="code" selector="tree-table-scroll-horizontal-demo"></app-code>
@@ -67,7 +67,7 @@ export class ScrollHorizontalDoc {
     }
 
     code: Code = {
-        basic: `<p-tree-table [value]="files" [columns]="cols" [scrollable]="true" scrollHeight="200px" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
+        basic: `<p-treetable [value]="files" [columns]="cols" [scrollable]="true" scrollHeight="200px" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
     <ng-template pTemplate="colgroup" let-columns>
         <colgroup>
             <col *ngFor="let col of columns" style="width:500px" />
@@ -83,16 +83,16 @@ export class ScrollHorizontalDoc {
     <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
         <tr [ttRow]="rowNode">
             <td *ngFor="let col of columns; let i = index">
-                <p-tree-tableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-tree-tableToggler>
+                <p-treetableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-treetableToggler>
                 {{ rowData[col.field] }}
             </td>
         </tr>
     </ng-template>
-</p-tree-table>`,
+</p-treetable>`,
 
         html: `
 <div class="card">
-    <p-tree-table [value]="files" [columns]="cols" [scrollable]="true" scrollHeight="200px" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
+    <p-treetable [value]="files" [columns]="cols" [scrollable]="true" scrollHeight="200px" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
         <ng-template pTemplate="colgroup" let-columns>
             <colgroup>
                 <col *ngFor="let col of columns" style="width:500px" />
@@ -108,12 +108,12 @@ export class ScrollHorizontalDoc {
         <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
             <tr [ttRow]="rowNode">
                 <td *ngFor="let col of columns; let i = index">
-                    <p-tree-tableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-tree-tableToggler>
+                    <p-treetableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-treetableToggler>
                     {{ rowData[col.field] }}
                 </td>
             </tr>
         </ng-template>
-    </p-tree-table>
+    </p-treetable>
 </div>`,
 
         typescript: `

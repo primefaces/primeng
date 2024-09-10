@@ -24,7 +24,7 @@ import { NodeService } from '@service/nodeservice';
                     [contentStyle]="{ height: '300px' }"
                 >
                     <ng-template pTemplate="content">
-                        <p-tree-table [value]="files" [scrollable]="true" scrollHeight="flex" [tableStyle]="{ 'min-width': '50rem' }">
+                        <p-treetable [value]="files" [scrollable]="true" scrollHeight="flex" [tableStyle]="{ 'min-width': '50rem' }">
                             <ng-template pTemplate="header">
                                 <tr>
                                     <th>Name</th>
@@ -35,14 +35,14 @@ import { NodeService } from '@service/nodeservice';
                             <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
                                 <tr [ttRow]="rowNode">
                                     <td>
-                                        <p-tree-tableToggler [rowNode]="rowNode" />
+                                        <p-treetableToggler [rowNode]="rowNode" />
                                         {{ rowData.name }}
                                     </td>
                                     <td>{{ rowData.size }}</td>
                                     <td>{{ rowData.type }}</td>
                                 </tr>
                             </ng-template>
-                        </p-tree-table>
+                        </p-treetable>
                     </ng-template>
                     <ng-template pTemplate="footer">
                         <p-button label="Ok" icon="pi pi-check" (onClick)="dialogVisible = false" />
@@ -80,7 +80,7 @@ export class ScrollFlexibleDoc {
     modal 
     [contentStyle]="{ height: '300px' }">
         <ng-template pTemplate="content">
-            <p-tree-table 
+            <p-treetable 
                 [value]="files" 
                 [scrollable]="true" 
                 scrollHeight="flex" 
@@ -95,7 +95,7 @@ export class ScrollFlexibleDoc {
                     <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
                         <tr [ttRow]="rowNode">
                             <td>
-                                <p-tree-tableToggler [rowNode]="rowNode" />
+                                <p-treetableToggler [rowNode]="rowNode" />
                                 {{ rowData.name }}
                             </td>
                             <td>
@@ -106,7 +106,7 @@ export class ScrollFlexibleDoc {
                             </td>
                         </tr>
                     </ng-template>
-            </p-tree-table>
+            </p-treetable>
         </ng-template>
         <ng-template pTemplate="footer">
             <p-button label="Ok" icon="pi pi-check" (onClick)="dialogVisible = false" />
@@ -123,7 +123,7 @@ export class ScrollFlexibleDoc {
         modal 
         [contentStyle]="{ height: '300px' }">
             <ng-template pTemplate="content">
-                <p-tree-table 
+                <p-treetable 
                     [value]="files" 
                     [scrollable]="true" 
                     scrollHeight="flex" 
@@ -138,7 +138,7 @@ export class ScrollFlexibleDoc {
                         <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
                             <tr [ttRow]="rowNode">
                                 <td>
-                                    <p-tree-tableToggler [rowNode]="rowNode" />
+                                    <p-treetableToggler [rowNode]="rowNode" />
                                     {{ rowData.name }}
                                 </td>
                                 <td>
@@ -149,7 +149,7 @@ export class ScrollFlexibleDoc {
                                 </td>
                             </tr>
                         </ng-template>
-                </p-tree-table>
+                </p-treetable>
             </ng-template>
             <ng-template pTemplate="footer">
                 <p-button label="Ok" icon="pi pi-check" (onClick)="dialogVisible = false" />

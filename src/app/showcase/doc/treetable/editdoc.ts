@@ -16,7 +16,7 @@ interface Column {
         </app-docsectiontext>
         <div class="card">
             <p-deferred-demo (load)="loadDemoData()">
-                <p-tree-table [value]="files" [columns]="cols" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
+                <p-treetable [value]="files" [columns]="cols" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template pTemplate="header" let-columns>
                         <tr>
                             <th *ngFor="let col of columns">
@@ -32,17 +32,17 @@ interface Column {
                                 [ttEditableColumnDisabled]="i == 0"
                                 [ngClass]="{ 'p-toggler-column': i === 0 }"
                             >
-                                <p-tree-tableToggler [rowNode]="rowNode" *ngIf="i === 0" />
-                                <p-tree-tableCellEditor>
+                                <p-treetableToggler [rowNode]="rowNode" *ngIf="i === 0" />
+                                <p-treetableCellEditor>
                                     <ng-template pTemplate="input">
                                         <input pInputText type="text" [(ngModel)]="rowData[col.field]" />
                                     </ng-template>
                                     <ng-template pTemplate="output">{{ rowData[col.field] }}</ng-template>
-                                </p-tree-tableCellEditor>
+                                </p-treetableCellEditor>
                             </td>
                         </tr>
                     </ng-template>
-                </p-tree-table>
+                </p-treetable>
             </p-deferred-demo>
         </div>
         <app-code [code]="code" selector="tree-table-edit-demo"></app-code>
@@ -66,7 +66,7 @@ export class EditDoc {
     }
 
     code: Code = {
-        basic: `<p-tree-table 
+        basic: `<p-treetable 
     [value]="files" 
     [columns]="cols" 
     [scrollable]="true" 
@@ -81,22 +81,22 @@ export class EditDoc {
         <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
             <tr [ttRow]="rowNode">
                 <td *ngFor="let col of columns; let i = index" ttEditableColumn [ttEditableColumnDisabled]="i == 0" [ngClass]="{ 'p-toggler-column': i === 0 }">
-                    <p-tree-tableToggler [rowNode]="rowNode" *ngIf="i === 0" />
-                    <p-tree-tableCellEditor>
+                    <p-treetableToggler [rowNode]="rowNode" *ngIf="i === 0" />
+                    <p-treetableCellEditor>
                         <ng-template pTemplate="input">
                             <input pInputText type="text" [(ngModel)]="rowData[col.field]" />
                         </ng-template>
                         <ng-template pTemplate="output">
                             {{ rowData[col.field] }}
                         </ng-template>
-                    </p-tree-tableCellEditor>
+                    </p-treetableCellEditor>
                 </td>
             </tr>
         </ng-template>
-</p-tree-table>`,
+</p-treetable>`,
 
         html: `<div class="card">
-    <p-tree-table 
+    <p-treetable 
         [value]="files" 
         [columns]="cols" 
         [scrollable]="true" 
@@ -111,19 +111,19 @@ export class EditDoc {
             <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
                 <tr [ttRow]="rowNode">
                     <td *ngFor="let col of columns; let i = index" ttEditableColumn [ttEditableColumnDisabled]="i == 0" [ngClass]="{ 'p-toggler-column': i === 0 }">
-                        <p-tree-tableToggler [rowNode]="rowNode" *ngIf="i === 0" />
-                        <p-tree-tableCellEditor>
+                        <p-treetableToggler [rowNode]="rowNode" *ngIf="i === 0" />
+                        <p-treetableCellEditor>
                             <ng-template pTemplate="input">
                                 <input pInputText type="text" [(ngModel)]="rowData[col.field]" />
                             </ng-template>
                             <ng-template pTemplate="output">
                                 {{ rowData[col.field] }}
                             </ng-template>
-                        </p-tree-tableCellEditor>
+                        </p-treetableCellEditor>
                     </td>
                 </tr>
         </ng-template>
-    </p-tree-table>
+    </p-treetable>
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';

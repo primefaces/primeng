@@ -20,7 +20,7 @@ interface Column {
         <div class="card">
             <p-toast [style]="{ marginTop: '80px' }" />
             <p-deferred-demo (load)="loadDemoData()">
-                <p-tree-table
+                <p-treetable
                     [value]="files"
                     [columns]="cols"
                     dataKey="name"
@@ -39,12 +39,12 @@ interface Column {
                     <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
                         <tr [ttRow]="rowNode" [ttContextMenuRow]="rowNode">
                             <td *ngFor="let col of columns; let i = index">
-                                <p-tree-tableToggler [rowNode]="rowNode" *ngIf="i === 0" />
+                                <p-treetableToggler [rowNode]="rowNode" *ngIf="i === 0" />
                                 {{ rowData[col.field] }}
                             </td>
                         </tr>
                     </ng-template>
-                </p-tree-table>
+                </p-treetable>
             </p-deferred-demo>
             <p-context-menu #cm [model]="items" />
         </div>
@@ -94,7 +94,7 @@ export class ContextMenuDoc {
     code: Code = {
         basic: `<p-toast [style]="{ marginTop: '80px' }" />
 
-<p-tree-table 
+<p-treetable 
     [value]="files" 
     [columns]="cols" 
     dataKey="name" 
@@ -112,19 +112,19 @@ export class ContextMenuDoc {
         <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
             <tr [ttRow]="rowNode" [ttContextMenuRow]="rowNode">
                 <td *ngFor="let col of columns; let i = index">
-                    <p-tree-tableToggler [rowNode]="rowNode" *ngIf="i === 0" />
+                    <p-treetableToggler [rowNode]="rowNode" *ngIf="i === 0" />
                     {{ rowData[col.field] }}
                 </td>
             </tr>
         </ng-template>
-</p-tree-table>
+</p-treetable>
 
 <p-context-menu #cm [model]="items" />`,
 
         html: `<div class="card">
     <p-toast [style]="{ marginTop: '80px' }" />
 
-    <p-tree-table 
+    <p-treetable 
         [value]="files" 
         [columns]="cols"
         dataKey="name" 
@@ -142,12 +142,12 @@ export class ContextMenuDoc {
             <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
                 <tr [ttRow]="rowNode" [ttContextMenuRow]="rowNode">
                     <td *ngFor="let col of columns; let i = index">
-                        <p-tree-tableToggler [rowNode]="rowNode" *ngIf="i === 0" />
+                        <p-treetableToggler [rowNode]="rowNode" *ngIf="i === 0" />
                         {{ rowData[col.field] }}
                     </td>
                 </tr>
             </ng-template>
-    </p-tree-table>
+    </p-treetable>
 
     <p-context-menu #cm [model]="items" />
 </div>`,

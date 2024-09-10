@@ -11,7 +11,7 @@ import { NodeService } from '@service/nodeservice';
         <div class="card">
             <p-button (click)="toggleApplications()" label="Toggle Applications" />
             <p-deferred-demo (load)="loadDemoData()">
-                <p-tree-table [value]="files" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }" styleClass="mt-6">
+                <p-treetable [value]="files" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }" styleClass="mt-6">
                     <ng-template pTemplate="header">
                         <tr>
                             <th style="width:34%;">Name</th>
@@ -22,14 +22,14 @@ import { NodeService } from '@service/nodeservice';
                     <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
                         <tr [ttRow]="rowNode">
                             <td style="width:34%;">
-                                <p-tree-tableToggler [rowNode]="rowNode" />
+                                <p-treetableToggler [rowNode]="rowNode" />
                                 {{ rowData.name }}
                             </td>
                             <td style="width:34%;">{{ rowData.size }}</td>
                             <td style="width:34%;">{{ rowData.type }}</td>
                         </tr>
                     </ng-template>
-                </p-tree-table>
+                </p-treetable>
             </p-deferred-demo>
         </div>
         <app-code [code]="code" selector="tree-table-controlled-demo"></app-code>`,
@@ -60,7 +60,7 @@ export class ControlledDoc {
 
     code: Code = {
         basic: `<p-button (click)="toggleApplications()" label="Toggle Applications" />
-<p-tree-table [value]="files" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }" styleClass="mt-6">
+<p-treetable [value]="files" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }" styleClass="mt-6">
     <ng-template pTemplate="header">
         <tr>
             <th>Name</th>
@@ -71,18 +71,18 @@ export class ControlledDoc {
     <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
         <tr [ttRow]="rowNode">
             <td>
-                <p-tree-tableToggler [rowNode]="rowNode" />
+                <p-treetableToggler [rowNode]="rowNode" />
                 {{ rowData.name }}
             </td>
             <td>{{ rowData.size }}</td>
             <td>{{ rowData.type }}</td>
         </tr>
     </ng-template>
-</p-tree-table>`,
+</p-treetable>`,
 
         html: `<div class="card">
 <p-button (click)="toggleApplications()" label="Toggle Applications" />
-<p-tree-table [value]="files" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }" styleClass="mt-6">
+<p-treetable [value]="files" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }" styleClass="mt-6">
     <ng-template pTemplate="header">
         <tr>
             <th>Name</th>
@@ -93,14 +93,14 @@ export class ControlledDoc {
     <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
         <tr [ttRow]="rowNode">
             <td>
-                <p-tree-tableToggler [rowNode]="rowNode" />
+                <p-treetableToggler [rowNode]="rowNode" />
                 {{ rowData.name }}
             </td>
             <td>{{ rowData.size }}</td>
             <td>{{ rowData.type }}</td>
         </tr>
     </ng-template>
-</p-tree-table>
+</p-treetable>
 </div>`,
 
         typescript: `import { ChangeDetectorRef, Component, OnInit } from '@angular/core';

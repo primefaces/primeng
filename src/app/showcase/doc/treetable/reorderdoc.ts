@@ -16,7 +16,7 @@ interface Column {
         </app-docsectiontext>
         <div class="card">
             <p-deferred-demo (load)="loadDemoData()">
-                <p-tree-table
+                <p-treetable
                     [value]="files"
                     [columns]="cols"
                     [reorderableColumns]="true"
@@ -33,12 +33,12 @@ interface Column {
                     <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
                         <tr [ttRow]="rowNode">
                             <td *ngFor="let col of columns; let i = index">
-                                <p-tree-tableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-tree-tableToggler>
+                                <p-treetableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-treetableToggler>
                                 {{ rowData[col.field] }}
                             </td>
                         </tr>
                     </ng-template>
-                </p-tree-table>
+                </p-treetable>
             </p-deferred-demo>
             <app-code [code]="code" selector="tree-table-reorder-demo"></app-code>
         </div>
@@ -62,7 +62,7 @@ export class ReorderDoc {
     }
 
     code: Code = {
-        basic: `<p-tree-table [value]="files" [columns]="cols" [reorderableColumns]="true" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
+        basic: `<p-treetable [value]="files" [columns]="cols" [reorderableColumns]="true" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
     <ng-template pTemplate="header" let-columns>
         <tr>
             <th *ngFor="let col of columns" ttReorderableColumn>
@@ -73,16 +73,16 @@ export class ReorderDoc {
     <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
         <tr [ttRow]="rowNode">
             <td *ngFor="let col of columns; let i = index">
-                <p-tree-tableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-tree-tableToggler>
+                <p-treetableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-treetableToggler>
                 {{ rowData[col.field] }}
             </td>
         </tr>
     </ng-template>
-</p-tree-table>`,
+</p-treetable>`,
 
         html: `
 <div class="card">
-    <p-tree-table [value]="files" [columns]="cols" [reorderableColumns]="true" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
+    <p-treetable [value]="files" [columns]="cols" [reorderableColumns]="true" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
         <ng-template pTemplate="header" let-columns>
             <tr>
                 <th *ngFor="let col of columns" ttReorderableColumn>
@@ -93,12 +93,12 @@ export class ReorderDoc {
         <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
             <tr [ttRow]="rowNode">
                 <td *ngFor="let col of columns; let i = index">
-                    <p-tree-tableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-tree-tableToggler>
+                    <p-treetableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-treetableToggler>
                     {{ rowData[col.field] }}
                 </td>
             </tr>
         </ng-template>
-    </p-tree-table>
+    </p-treetable>
 </div>`,
 
         typescript: `

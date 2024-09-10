@@ -22,7 +22,7 @@ interface NodeEvent {
         <div class="card">
             <p-toast />
             <p-deferred-demo (load)="loadDemoData()">
-                <p-tree-table
+                <p-treetable
                     [value]="files"
                     [columns]="cols"
                     selectionMode="single"
@@ -43,12 +43,12 @@ interface NodeEvent {
                     <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
                         <tr [ttRow]="rowNode" [ttSelectableRow]="rowNode">
                             <td *ngFor="let col of columns; let i = index">
-                                <p-tree-tableToggler [rowNode]="rowNode" *ngIf="i === 0" />
+                                <p-treetableToggler [rowNode]="rowNode" *ngIf="i === 0" />
                                 {{ rowData[col.field] }}
                             </td>
                         </tr>
                     </ng-template>
-                </p-tree-table>
+                </p-treetable>
             </p-deferred-demo>
         </div>
         <app-code [code]="code" selector="tree-table-selection-events-demo"></app-code>
@@ -87,7 +87,7 @@ export class SelectionEventsDoc {
     }
 
     code: Code = {
-        basic: `<p-tree-table 
+        basic: `<p-treetable 
     [value]="files" 
     [columns]="cols" 
     selectionMode="single" 
@@ -107,16 +107,16 @@ export class SelectionEventsDoc {
         <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
             <tr [ttRow]="rowNode" [ttSelectableRow]="rowNode">
                 <td *ngFor="let col of columns; let i = index">
-                    <p-tree-tableToggler [rowNode]="rowNode" *ngIf="i === 0" />
+                    <p-treetableToggler [rowNode]="rowNode" *ngIf="i === 0" />
                     {{ rowData[col.field] }}
                 </td>
             </tr>
         </ng-template>
-</p-tree-table>`,
+</p-treetable>`,
 
         html: `<div class="card">
     <p-toast />
-    <p-tree-table 
+    <p-treetable 
         [value]="files" 
         [columns]="cols" 
         selectionMode="single" 
@@ -136,12 +136,12 @@ export class SelectionEventsDoc {
             <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
                 <tr [ttRow]="rowNode" [ttSelectableRow]="rowNode">
                     <td *ngFor="let col of columns; let i = index">
-                        <p-tree-tableToggler [rowNode]="rowNode" *ngIf="i === 0" />
+                        <p-treetableToggler [rowNode]="rowNode" *ngIf="i === 0" />
                         {{ rowData[col.field] }}
                     </td>
                 </tr>
             </ng-template>
-    </p-tree-table>
+    </p-treetable>
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
