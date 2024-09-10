@@ -14,7 +14,7 @@ import { Code } from '@domain/code';
         <div class="card">
             <div style="height: 500px" class="flex items-center justify-center">
                 <p-toast />
-                <p-speed-dial [model]="items" type="circle" [radius]="80" buttonClassName="p-button-warning" />
+                <p-speeddial [model]="items" type="circle" [radius]="80" buttonClassName="p-button-warning" />
             </div>
         </div>
         <app-code [code]="code" selector="speed-dial-circle-demo"></app-code>
@@ -59,7 +59,7 @@ export class CircleDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-speed-dial 
+        basic: `<p-speeddial 
     [model]="items" 
     type="circle" 
     [radius]="80" 
@@ -68,7 +68,7 @@ export class CircleDoc implements OnInit {
         html: `<div class="card">
     <div style="height: 500px" class="flex items-center justify-center">
         <p-toast />
-        <p-speed-dial 
+        <p-speeddial 
             [model]="items" 
             type="circle" 
             [radius]="80"

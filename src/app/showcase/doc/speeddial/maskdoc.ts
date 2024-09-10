@@ -11,7 +11,7 @@ import { Code } from '@domain/code';
         <div class="card">
             <div style="height: 350px; position: relative;" class="speeddial-mask-demo">
                 <p-toast />
-                <p-speed-dial [model]="items" direction="up" [mask]="true" />
+                <p-speeddial [model]="items" direction="up" [mask]="true" />
             </div>
         </div>
         <app-code [code]="code" selector="speed-dial-mask-demo"></app-code>
@@ -56,7 +56,7 @@ export class MaskDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-speed-dial 
+        basic: `<p-speeddial 
     [model]="items" 
     direction="up" 
     [mask]="true" />`,
@@ -64,7 +64,7 @@ export class MaskDoc implements OnInit {
         html: `<div class="card">
     <div style="height: 350px; position: relative;" class="speeddial-mask-demo">
         <p-toast />
-        <p-speed-dial 
+        <p-speeddial 
             [model]="items" 
             direction="up" 
             [mask]="true" />

@@ -37,7 +37,7 @@ import { BaseComponent } from 'primeng/basecomponent';
  * @group Components
  */
 @Component({
-    selector: 'p-speedDial, p-speed-dial',
+    selector: 'p-speedDial, p-speeddial',
     template: `
         <div
             #container

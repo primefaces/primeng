@@ -14,10 +14,10 @@ import { Code } from '@domain/code';
         <div class="card">
             <div style="height: 500px; position: relative;" class="speeddial-linear-demo">
                 <p-toast />
-                <p-speed-dial [model]="items" direction="up" />
-                <p-speed-dial [model]="items" direction="down" />
-                <p-speed-dial [model]="items" direction="left" />
-                <p-speed-dial [model]="items" direction="right" />
+                <p-speeddial [model]="items" direction="up" />
+                <p-speeddial [model]="items" direction="down" />
+                <p-speeddial [model]="items" direction="left" />
+                <p-speeddial [model]="items" direction="right" />
             </div>
         </div>
         <app-code [code]="code" selector="speed-dial-linear-demo"></app-code>
@@ -62,18 +62,18 @@ export class LinearDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-speed-dial [model]="items" direction="up" />
-<p-speed-dial [model]="items" direction="down" />
-<p-speed-dial [model]="items" direction="left" />
-<p-speed-dial [model]="items" direction="right" />`,
+        basic: `<p-speeddial [model]="items" direction="up" />
+<p-speeddial [model]="items" direction="down" />
+<p-speeddial [model]="items" direction="left" />
+<p-speeddial [model]="items" direction="right" />`,
 
         html: `<div class="card">
     <div style="height: 500px; position: relative;" class="speeddial-linear-demo">
         <p-toast />
-        <p-speed-dial [model]="items" direction="up" />
-        <p-speed-dial [model]="items" direction="down" />
-        <p-speed-dial [model]="items" direction="left" />
-        <p-speed-dial [model]="items" direction="right" />
+        <p-speeddial [model]="items" direction="up" />
+        <p-speeddial [model]="items" direction="down" />
+        <p-speeddial [model]="items" direction="left" />
+        <p-speeddial [model]="items" direction="right" />
     </div>
 </div>`,
 

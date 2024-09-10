@@ -11,10 +11,10 @@ import { Code } from '@domain/code';
         <div class="card">
             <div style="height: 500px; position: relative;" class="speeddial-circle-demo">
                 <p-toast />
-                <p-speed-dial [model]="items" radius="120" direction="up-left" type="quarter-circle" buttonClassName="p-button-success" />
-                <p-speed-dial [model]="items" radius="120" direction="up-right" type="quarter-circle" buttonClassName="p-button-success" />
-                <p-speed-dial [model]="items" radius="120" direction="down-left" type="quarter-circle" buttonClassName="p-button-success" />
-                <p-speed-dial [model]="items" radius="120" direction="down-right" type="quarter-circle" buttonClassName="p-button-success" />
+                <p-speeddial [model]="items" radius="120" direction="up-left" type="quarter-circle" buttonClassName="p-button-success" />
+                <p-speeddial [model]="items" radius="120" direction="up-right" type="quarter-circle" buttonClassName="p-button-success" />
+                <p-speeddial [model]="items" radius="120" direction="down-left" type="quarter-circle" buttonClassName="p-button-success" />
+                <p-speeddial [model]="items" radius="120" direction="down-right" type="quarter-circle" buttonClassName="p-button-success" />
             </div>
         </div>
         <app-code [code]="code" selector="speed-dial-quarter-circle-demo"></app-code>
@@ -59,25 +59,25 @@ export class QuarterCircleDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-speed-dial 
+        basic: `<p-speeddial 
     [model]="items" 
     radius="120"
     direction="up-left" 
     type="quarter-circle" 
     buttonClassName="p-button-success" />
-<p-speed-dial 
+<p-speeddial 
     [model]="items" 
     radius="120" 
     direction="up-right"
     type="quarter-circle" 
     buttonClassName="p-button-success" />
-<p-speed-dial 
+<p-speeddial 
     [model]="items" 
     radius="120" 
     direction="down-left" 
     type="quarter-circle" 
     buttonClassName="p-button-success" />
-<p-speed-dial 
+<p-speeddial 
     [model]="items" 
     radius="120" 
     direction="down-right" 
@@ -87,25 +87,25 @@ export class QuarterCircleDoc implements OnInit {
         html: `<div class="card">
     <div style="height: 500px; position: relative;" class="speeddial-circle-demo">
         <p-toast />
-        <p-speed-dial 
+        <p-speeddial 
             [model]="items" 
             radius="120" 
             direction="up-left" 
             type="quarter-circle" 
             buttonClassName="p-button-success" />
-        <p-speed-dial 
+        <p-speeddial 
             [model]="items" 
             radius="120" 
             direction="up-right" 
             type="quarter-circle" 
             buttonClassName="p-button-success" />
-        <p-speed-dial 
+        <p-speeddial 
             [model]="items" 
             radius="120" 
             direction="down-left" 
             type="quarter-circle" 
             buttonClassName="p-button-success" />
-        <p-speed-dial 
+        <p-speeddial 
             [model]="items" 
             radius="120" 
             direction="down-right" 

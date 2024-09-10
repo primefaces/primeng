@@ -11,10 +11,10 @@ import { Code } from '@domain/code';
         <div class="card">
             <div style="height: 500px; position: relative;" class="speeddial-linear-demo">
                 <p-toast />
-                <p-speed-dial [model]="items" direction="up" [radius]="80" type="semi-circle" />
-                <p-speed-dial [model]="items" direction="down" [radius]="80" type="semi-circle" />
-                <p-speed-dial [model]="items" direction="left" [radius]="80" type="semi-circle" />
-                <p-speed-dial [model]="items" direction="right" [radius]="80" type="semi-circle" />
+                <p-speeddial [model]="items" direction="up" [radius]="80" type="semi-circle" />
+                <p-speeddial [model]="items" direction="down" [radius]="80" type="semi-circle" />
+                <p-speeddial [model]="items" direction="left" [radius]="80" type="semi-circle" />
+                <p-speeddial [model]="items" direction="right" [radius]="80" type="semi-circle" />
             </div>
         </div>
         <app-code [code]="code" selector="speed-dial-semi-circle-demo"></app-code>
@@ -59,22 +59,22 @@ export class SemiCircleDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-speed-dial 
+        basic: `<p-speeddial 
     [model]="items" 
     direction="up" 
     [radius]="80" 
     type="semi-circle" />
-<p-speed-dial 
+<p-speeddial 
     [model]="items" 
     direction="down" 
     [radius]="80" 
     type="semi-circle" />
-<p-speed-dial 
+<p-speeddial 
     [model]="items" 
     direction="left" 
     [radius]="80" 
     type="semi-circle" />
-<p-speed-dial 
+<p-speeddial 
     [model]="items"
     direction="right" 
     [radius]="80" 
@@ -83,22 +83,22 @@ export class SemiCircleDoc implements OnInit {
         html: `<div class="card">
     <div style="height: 500px; position: relative;" class="speeddial-linear-demo">
         <p-toast />
-        <p-speed-dial 
+        <p-speeddial 
             [model]="items" 
             direction="up" 
             [radius]="80" 
             type="semi-circle" />
-        <p-speed-dial 
+        <p-speeddial 
             [model]="items"
             direction="down" 
             [radius]="80" 
             type="semi-circle" />
-        <p-speed-dial 
+        <p-speeddial 
             [model]="items" 
             direction="left" 
             [radius]="80" 
             type="semi-circle" />
-        <p-speed-dial 
+        <p-speeddial 
             [model]="items" 
             direction="right" 
             [radius]="80" 
