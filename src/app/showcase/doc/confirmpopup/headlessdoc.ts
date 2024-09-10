@@ -10,7 +10,7 @@ import { ConfirmPopup } from 'primeng/confirmpopup';
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-toast />
-            <p-confirm-popup #confirmPopupRef>
+            <p-confirmpopup #confirmPopupRef>
                 <ng-template pTemplate="headless" let-message let-test>
                     <div class="rounded p-4">
                         <span>{{ message.message }}</span>
@@ -20,7 +20,7 @@ import { ConfirmPopup } from 'primeng/confirmpopup';
                         </div>
                     </div>
                 </ng-template>
-            </p-confirm-popup>
+            </p-confirmpopup>
             <p-button (click)="confirm($event)" label="Save" />
         </div>
         <app-code [code]="code" selector="confirm-popup-headless-demo"></app-code>
@@ -58,7 +58,7 @@ export class HeadlessDoc {
 
     code: Code = {
         basic: `<p-toast />
-    <p-confirm-popup #confirmPopupRef>
+    <p-confirmpopup #confirmPopupRef>
         <ng-template pTemplate="headless" let-message let-test>
             <div class="rounded p-4">
                 <span>{{ message.message }}</span>
@@ -68,12 +68,12 @@ export class HeadlessDoc {
                 </div>
             </div>
         </ng-template>
-    </p-confirm-popup>
+    </p-confirmpopup>
 <p-button (click)="confirm($event)" label="Save" />`,
 
         html: `<div class="card flex justify-center gap-2">
     <p-toast />
-    <p-confirm-popup #confirmPopupRef>
+    <p-confirmpopup #confirmPopupRef>
         <ng-template pTemplate="headless" let-message let-test>
             <div class="rounded p-4">
                 <span>{{ message.message }}</span>
@@ -83,7 +83,7 @@ export class HeadlessDoc {
                 </div>
             </div>
         </ng-template>
-    </p-confirm-popup>
+    </p-confirmpopup>
 <p-button (click)="confirm($event)" label="Save" />
 </div>`,
 
