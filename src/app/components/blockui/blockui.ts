@@ -26,7 +26,7 @@ import { BlockUiStyle } from './style/blockuistyle';
  * @group Components
  */
 @Component({
-    selector: 'p-blockUI, p-block-ui',
+    selector: 'p-blockUI, p-blockui',
     template: `
         <div
             #mask

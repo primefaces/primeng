@@ -7,8 +7,8 @@ import { Panel } from 'primeng/panel';
 
 @Component({
     template: `
-        <p-block-ui></p-block-ui>
-        <p-block-ui [target]="pnl"> </p-block-ui>
+        <p-blockui></p-blockui>
+        <p-blockui [target]="pnl"> </p-blockui>
         <p-panel #pnl header="Godfather I" [style]="{ 'margin-top': '20px' }"> </p-panel>
     `,
 })
