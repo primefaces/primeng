@@ -16,7 +16,7 @@ import { MessageService, PrimeNGConfig } from 'primeng/api';
         >
         <div class="card">
             <p-toast />
-            <p-file-upload
+            <p-fileupload
                 name="myfile[]"
                 url="https://www.primefaces.org/cdn/api/upload.php"
                 [multiple]="true"
@@ -129,7 +129,7 @@ import { MessageService, PrimeNGConfig } from 'primeng/api';
                         <p class="mt-6 mb-0">Drag and drop files to here to upload.</p>
                     </div>
                 </ng-template>
-            </p-file-upload>
+            </p-fileupload>
         </div>
         <app-code [code]="code" selector="file-upload-template-demo"></app-code>
     `,
@@ -195,7 +195,7 @@ export class TemplateDoc {
 
     code: Code = {
         basic: `<p-toast />
-<p-file-upload
+<p-fileupload
     name="myfile[]"
     url="https://www.primefaces.org/cdn/api/upload.php"
     [multiple]="true"
@@ -327,10 +327,10 @@ export class TemplateDoc {
             <p class="mt-6 mb-0">Drag and drop files to here to upload.</p>
         </div>
     </ng-template>
-</p-file-upload>`,
+</p-fileupload>`,
         html: `<div class="card">
     <p-toast />
-    <p-file-upload
+    <p-fileupload
         name="myfile[]"
         url="https://www.primefaces.org/cdn/api/upload.php"
         [multiple]="true"
@@ -462,7 +462,7 @@ export class TemplateDoc {
                 <p class="mt-6 mb-0">Drag and drop files to here to upload.</p>
             </div>
         </ng-template>
-    </p-file-upload>
+    </p-fileupload>
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

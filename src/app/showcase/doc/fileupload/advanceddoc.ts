@@ -18,7 +18,7 @@ interface UploadEvent {
         </app-docsectiontext>
         <div class="card">
             <p-toast />
-            <p-file-upload
+            <p-fileupload
                 name="demo[]"
                 url="https://www.primefaces.org/cdn/api/upload.php"
                 (onUpload)="onUpload($event)"
@@ -35,7 +35,7 @@ interface UploadEvent {
                         <li *ngFor="let file of uploadedFiles">{{ file.name }} - {{ file.size }} bytes</li>
                     </ul>
                 </ng-template>
-            </p-file-upload>
+            </p-fileupload>
         </div>
         <app-code [code]="code" selector="file-upload-advanced-demo"></app-code>
     `,
@@ -55,7 +55,7 @@ export class AdvancedDoc {
     }
 
     code: Code = {
-        basic: `<p-file-upload
+        basic: `<p-fileupload
     name="demo[]"
     url="https://www.primefaces.org/cdn/api/upload.php"
     (onUpload)="onUpload($event)"
@@ -72,10 +72,10 @@ export class AdvancedDoc {
             <li *ngFor="let file of uploadedFiles">{{ file.name }} - {{ file.size }} bytes</li>
         </ul>
     </ng-template>
-</p-file-upload>`,
+</p-fileupload>`,
         html: `<div class="card">
     <p-toast />
-    <p-file-upload
+    <p-fileupload
         name="demo[]"
         url="https://www.primefaces.org/cdn/api/upload.php"
         (onUpload)="onUpload($event)"
@@ -92,7 +92,7 @@ export class AdvancedDoc {
                 <li *ngFor="let file of uploadedFiles">{{ file.name }} - {{ file.size }} bytes</li>
             </ul>
         </ng-template>
-    </p-file-upload>
+    </p-fileupload>
 </div>`,
         typescript: `import { Component } from '@angular/core';
 import { MessageService } from 'primeng/api';

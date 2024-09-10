@@ -269,7 +269,7 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
                     </div>
                     <div>
                         <label class="text-color font-medium leading-6">Upload Files</label>
-                        <p-file-upload
+                        <p-fileupload
                             name="demo[]"
                             url="/api/upload"
                             (onUpload)="onTemplatedUpload($event)"
@@ -394,7 +394,7 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
                                     </div>
                                 </div>
                             </ng-template>
-                        </p-file-upload>
+                        </p-fileupload>
                     </div>
                     <div>
                         <label class="text-color font-medium leading-6">Tag (Optional)</label>

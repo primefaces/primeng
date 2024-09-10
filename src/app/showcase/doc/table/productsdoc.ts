@@ -26,7 +26,7 @@ import { ProductService } from '@service/productservice';
                     </ng-template>
 
                     <ng-template pTemplate="right">
-                        <p-file-upload
+                        <p-fileupload
                             mode="basic"
                             accept="image/*"
                             [maxFileSize]="1000000"
@@ -380,7 +380,7 @@ export class ProductsDoc {
     </ng-template>
 
     <ng-template pTemplate="right">
-        <p-file-upload
+        <p-fileupload
             mode="basic"
             accept="image/*"
             [maxFileSize]="1000000"
@@ -499,7 +499,7 @@ export class ProductsDoc {
         </ng-template>
 
         <ng-template pTemplate="right">
-            <p-file-upload
+            <p-fileupload
                 mode="basic"
                 accept="image/*"
                 [maxFileSize]="1000000"
