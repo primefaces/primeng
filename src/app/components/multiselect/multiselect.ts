@@ -358,11 +358,14 @@ export class MultiSelectItem extends BaseComponent {
                                     [variant]="variant"
                                     [disabled]="disabled || toggleAllDisabled"
                                 >
-                                    <ng-container *ngIf="allSelected() || partialSelected()">
-                                        <ng-template pTemplate="icon" let-class="class">
-                                            <span *ngIf="headerCheckboxIconTemplate">
-                                                <ng-template
-                                                    *ngTemplateOutlet="
+                                    <ng-template pTemplate="icon" let-class="class">
+                                        <CheckIcon
+                                            *ngIf="!headerCheckboxIconTemplate && allSelected()"
+                                            [styleClass]="class"
+                                            [attr.data-pc-section]="'icon'"
+                                        />
+                                        <ng-template
+                                            *ngTemplateOutlet="
                                                         headerCheckboxIconTemplate;
                                                         context: {
                                                             checked: allSelected(),
@@ -370,10 +373,8 @@ export class MultiSelectItem extends BaseComponent {
                                                             class: class,
                                                         }
                                                     "
-                                                ></ng-template>
-                                            </span>
-                                        </ng-template>
-                                    </ng-container>
+                                        ></ng-template>
+                                    </ng-template>
                                 </p-checkbox>
 
                                 <div class="p-multiselect-filter-container" *ngIf="filter">
