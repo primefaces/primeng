@@ -21,7 +21,7 @@ import { BaseComponent } from 'primeng/basecomponent';
 import { MeterGroupStyle } from './style/metergroupstyle';
 
 @Component({
-    selector: 'p-meterGroupLabel, p-meter-group-label',
+    selector: 'p-meterGroupLabel, p-metergroup-label',
     template: `
         <ol [ngClass]="labelClass">
             <li *ngFor="let labelItem of value; let index = index; trackBy: parentInstance.trackByFn" class="p-metergroup-label">
@@ -70,7 +70,7 @@ export class MeterGroupLabel {
  * @group Components
  */
 @Component({
-    selector: 'p-meterGroup, p-meter-group',
+    selector: 'p-meterGroup, p-metergroup',
     template: `
         <div
             #container
@@ -83,7 +83,7 @@ export class MeterGroupLabel {
             [class]="styleClass"
         >
             @if (labelPosition === 'start') {
-                <p-meter-group-label
+                <p-metergroup-label
                     *ngIf="!labelTemplate"
                     [value]="value"
                     [labelPosition]="labelPosition"
@@ -127,7 +127,7 @@ export class MeterGroupLabel {
                 *ngTemplateOutlet="endTemplate; context: { $implicit: value, totalPercent: totalPercent(), percentages: percentages() }"
             ></ng-container>
             @if (labelPosition === 'end') {
-                <p-meter-group-label
+                <p-metergroup-label
                     *ngIf="!labelTemplate"
                     [value]="value"
                     [labelPosition]="labelPosition"

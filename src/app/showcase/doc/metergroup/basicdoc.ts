@@ -11,7 +11,7 @@ import { Code } from '@domain/code';
             </p>
         </app-docsectiontext>
         <div class="card">
-            <p-meter-group [value]="value" />
+            <p-metergroup [value]="value" />
         </div>
         <app-code [code]="code" selector="meter-group-basic-demo"></app-code>
     `,
@@ -20,10 +20,10 @@ export class BasicDoc {
     value = [{ label: 'Space used', value: 15, color: 'var(--p-primary-color)' }];
 
     code: Code = {
-        basic: `<p-meter-group [value]="value" />`,
+        basic: `<p-metergroup [value]="value" />`,
 
         html: `<div class="card">
-    <p-meter-group [value]="value" />
+    <p-metergroup [value]="value" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

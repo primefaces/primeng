@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
             <p>Boundaries are configured with the <i>min</i> and <i>max</i> values whose defaults are 0 and 100 respectively.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-meter-group [value]="value" [max]="200" />
+            <p-metergroup [value]="value" [max]="200" />
         </div>
         <app-code [code]="code" selector="meter-group-min-max-demo"></app-code>
     `,
@@ -21,10 +21,10 @@ export class MinMaxDoc {
         { label: 'System', color: '#c084fc', value: 10 },
     ];
     code: Code = {
-        basic: `<p-meter-group [value]="value" [max]="200" />`,
+        basic: `<p-metergroup [value]="value" [max]="200" />`,
 
         html: `<div class="card">
-<p-meter-group [value]="value" [max]="200" />
+<p-metergroup [value]="value" [max]="200" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
