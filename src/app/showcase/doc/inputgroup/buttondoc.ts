@@ -8,53 +8,53 @@ import { Code } from '@domain/code';
             <p>Buttons can be placed at either side of an input element.</p>
         </app-docsectiontext>
         <div class="card flex flex-col md:flex-row gap-4">
-            <p-input-group>
+            <p-inputgroup>
                 <button type="button" pButton label="Search"></button>
                 <input type="text" pInputText placeholder="Keyword" />
-            </p-input-group>
-            <p-input-group>
+            </p-inputgroup>
+            <p-inputgroup>
                 <input type="text" pInputText placeholder="Keyword" />
                 <button type="button" pButton icon="pi pi-search" class="p-button-warning"></button>
-            </p-input-group>
-            <p-input-group>
+            </p-inputgroup>
+            <p-inputgroup>
                 <button type="button" pButton icon="pi pi-check" class="p-button-success"></button>
                 <input type="text" pInputText placeholder="Vote" />
                 <button type="button" pButton icon="pi pi-times" class="p-button-danger"></button>
-            </p-input-group>
+            </p-inputgroup>
         </div>
         <app-code [code]="code" selector="input-group-button-demo"></app-code>
     `,
 })
 export class ButtonDoc {
     code: Code = {
-        basic: `<p-input-group>
+        basic: `<p-inputgroup>
     <button type="button" pButton label="Search"></button>
     <input type="text" pInputText placeholder="Keyword" />
-</p-input-group>
-<p-input-group>
+</p-inputgroup>
+<p-inputgroup>
     <input type="text" pInputText placeholder="Keyword" />
     <button type="button" pButton icon="pi pi-search" class="p-button-warning"></button>
-</p-input-group>
-<p-input-group>
+</p-inputgroup>
+<p-inputgroup>
     <button type="button" pButton icon="pi pi-check" class="p-button-success"></button>
     <input type="text" pInputText placeholder="Vote" />
     <button type="button" pButton icon="pi pi-times" class="p-button-danger"></button>
-</p-input-group>`,
+</p-inputgroup>`,
 
         html: `<div class="card flex flex-col md:flex-row gap-4">
-    <p-input-group>
+    <p-inputgroup>
         <button type="button" pButton label="Search"></button>
         <input type="text" pInputText placeholder="Keyword" />
-    </p-input-group>
-    <p-input-group>
+    </p-inputgroup>
+    <p-inputgroup>
         <input type="text" pInputText placeholder="Keyword" />
         <button type="button" pButton icon="pi pi-search" class="p-button-warning"></button>
-    </p-input-group>
-    <p-input-group>
+    </p-inputgroup>
+    <p-inputgroup>
         <button type="button" pButton icon="pi pi-check" class="p-button-success"></button>
         <input type="text" pInputText placeholder="Vote" />
         <button type="button" pButton icon="pi pi-times" class="p-button-danger"></button>
-    </p-input-group>
+    </p-inputgroup>
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

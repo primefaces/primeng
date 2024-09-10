@@ -8,21 +8,21 @@ import { Code } from '@domain/code';
             <p>Checkbox and RadioButton components can be combined with an input element under the same group.</p>
         </app-docsectiontext>
         <div class="card flex flex-col md:flex-row gap-4">
-            <p-input-group>
+            <p-inputgroup>
                 <input type="text" pInputText placeholder="Price" />
-                <p-input-group-addon><p-radio-button [(ngModel)]="radioValue1" name="rb1" value="rb1" /></p-input-group-addon>
-            </p-input-group>
+                <p-inputgroup-addon><p-radio-button [(ngModel)]="radioValue1" name="rb1" value="rb1" /></p-inputgroup-addon>
+            </p-inputgroup>
 
-            <p-input-group>
-                <p-input-group-addon><p-checkbox [(ngModel)]="checked1" [binary]="true" /></p-input-group-addon>
+            <p-inputgroup>
+                <p-inputgroup-addon><p-checkbox [(ngModel)]="checked1" [binary]="true" /></p-inputgroup-addon>
                 <input type="text" pInputText placeholder="Username" />
-            </p-input-group>
+            </p-inputgroup>
 
-            <p-input-group>
-                <p-input-group-addon><p-checkbox [(ngModel)]="checked2" [binary]="true" /></p-input-group-addon>
+            <p-inputgroup>
+                <p-inputgroup-addon><p-checkbox [(ngModel)]="checked2" [binary]="true" /></p-inputgroup-addon>
                 <input type="text" pInputText placeholder="Website" />
-                <p-input-group-addon><p-radio-button name="rb2" value="rb2" [(ngModel)]="category" /></p-input-group-addon>
-            </p-input-group>
+                <p-inputgroup-addon><p-radio-button name="rb2" value="rb2" [(ngModel)]="category" /></p-inputgroup-addon>
+            </p-inputgroup>
         </div>
         <app-code [code]="code" selector="input-group-checkbox-demo"></app-code>
     `,
@@ -37,42 +37,42 @@ export class CheckboxDoc {
     category: string | undefined;
 
     code: Code = {
-        basic: `<p-input-group>
+        basic: `<p-inputgroup>
     <input type="text" pInputText placeholder="Price" />
-    <p-input-group-addon>
+    <p-inputgroup-addon>
         <p-radio-button [(ngModel)]="radioValue1" name="rb1" value="rb1"/>
-    </p-input-group-addon>
-</p-input-group>
+    </p-inputgroup-addon>
+</p-inputgroup>
 
-<p-input-group>
-    <p-input-group-addon><p-checkbox [(ngModel)]="checked1" [binary]="true"/></p-input-group-addon>
+<p-inputgroup>
+    <p-inputgroup-addon><p-checkbox [(ngModel)]="checked1" [binary]="true"/></p-inputgroup-addon>
     <input type="text" pInputText placeholder="Username" />
-</p-input-group>
+</p-inputgroup>
 
-<p-input-group>
-    <p-input-group-addon><p-checkbox [(ngModel)]="checked2" [binary]="true"/></p-input-group-addon>
+<p-inputgroup>
+    <p-inputgroup-addon><p-checkbox [(ngModel)]="checked2" [binary]="true"/></p-inputgroup-addon>
     <input type="text" pInputText placeholder="Website" />
-    <p-input-group-addon><p-radio-button name="rb2" value="rb2" [(ngModel)]="category"/></p-input-group-addon>
-</p-input-group>`,
+    <p-inputgroup-addon><p-radio-button name="rb2" value="rb2" [(ngModel)]="category"/></p-inputgroup-addon>
+</p-inputgroup>`,
 
         html: `<div class="card flex flex-col md:flex-row gap-4">
-    <p-input-group>
+    <p-inputgroup>
         <input type="text" pInputText placeholder="Price" />
-        <p-input-group-addon>
+        <p-inputgroup-addon>
             <p-radio-button [(ngModel)]="radioValue1" name="rb1" value="rb1"/>
-        </p-input-group-addon>
-    </p-input-group>
+        </p-inputgroup-addon>
+    </p-inputgroup>
     
-    <p-input-group>
-        <p-input-group-addon><p-checkbox [(ngModel)]="checked1" [binary]="true"/></p-input-group-addon>
+    <p-inputgroup>
+        <p-inputgroup-addon><p-checkbox [(ngModel)]="checked1" [binary]="true"/></p-inputgroup-addon>
         <input type="text" pInputText placeholder="Username" />
-    </p-input-group>
+    </p-inputgroup>
     
-    <p-input-group>
-        <p-input-group-addon><p-checkbox [(ngModel)]="checked2" [binary]="true"/></p-input-group-addon>
+    <p-inputgroup>
+        <p-inputgroup-addon><p-checkbox [(ngModel)]="checked2" [binary]="true"/></p-inputgroup-addon>
         <input type="text" pInputText placeholder="Website" />
-        <p-input-group-addon><p-radio-button name="rb2" value="rb2" [(ngModel)]="category"/></p-input-group-addon>
-    </p-input-group>
+        <p-inputgroup-addon><p-radio-button name="rb2" value="rb2" [(ngModel)]="category"/></p-inputgroup-addon>
+    </p-inputgroup>
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

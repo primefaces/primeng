@@ -8,7 +8,7 @@ import { BaseComponent } from 'primeng/basecomponent';
  * @group Components
  */
 @Component({
-    selector: 'p-inputgroup, p-inputGroup, p-input-group',
+    selector: 'p-inputgroup, p-inputGroup',
     template: ` <ng-content></ng-content> `,
     providers: [InputGroupStyle],
 
