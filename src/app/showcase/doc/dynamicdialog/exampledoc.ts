@@ -74,7 +74,7 @@ export class ExampleDoc implements OnDestroy {
 
         typescript: `import { Component, OnDestroy } from '@angular/core';
 import { MessageService } from 'primeng/api';
-import { DialogService, DynamicDialogModule, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ProductListDemo } from './demo/productlistdemo';
 import { Footer } from './demo/footer';
 import { ToastModule } from 'primeng/toast';
