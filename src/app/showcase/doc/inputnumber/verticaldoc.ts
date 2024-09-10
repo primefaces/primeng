@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
             <p>Buttons can also placed vertically by setting <i>buttonLayout</i> as <i>vertical</i>.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-input-number
+            <p-inputnumber
                 [(ngModel)]="value1"
                 [showButtons]="true"
                 buttonLayout="vertical"
@@ -28,7 +28,7 @@ export class VerticalDoc {
     value1: number = 50;
 
     code: Code = {
-        basic: `<p-input-number 
+        basic: `<p-inputnumber 
     [(ngModel)]="value1" 
     [showButtons]="true" 
     buttonLayout="vertical" 
@@ -40,7 +40,7 @@ export class VerticalDoc {
     decrementButtonIcon="pi pi-minus" />`,
 
         html: `<div class="card flex justify-center">
-    <p-input-number 
+    <p-inputnumber 
         [(ngModel)]="value1" 
         [style]="{'width': '4rem'}" 
         [showButtons]="true" 

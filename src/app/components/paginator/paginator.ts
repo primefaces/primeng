@@ -145,13 +145,13 @@ import { SelectModule } from 'primeng/select';
                     <ng-template *ngTemplateOutlet="lastPageLinkIconTemplate"></ng-template>
                 </span>
             </button>
-            <p-input-number
+            <p-inputnumber
                 *ngIf="showJumpToPageInput"
                 [ngModel]="currentPage()"
                 class="p-paginator-jtp-input"
                 [disabled]="empty()"
                 (ngModelChange)="changePage($event - 1)"
-            ></p-input-number>
+            ></p-inputnumber>
             <p-select
                 [options]="rowsPerPageItems"
                 [(ngModel)]="rows"

@@ -12,7 +12,7 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-floatlabel>
-                <p-input-number inputId="integeronly" [(ngModel)]="value1" />
+                <p-inputnumber inputId="integeronly" [(ngModel)]="value1" />
                 <label for="number-input">Number</label>
             </p-floatlabel>
         </div>
@@ -24,13 +24,13 @@ export class FloatlabelDoc {
 
     code: Code = {
         basic: `<p-floatlabel>
-    <p-input-number inputId="integeronly" [(ngModel)]="value1" />
+    <p-inputnumber inputId="integeronly" [(ngModel)]="value1" />
     <label for="number-input">Number</label>
 </p-floatlabel>`,
 
         html: `<div class="card flex justify-center">
     <p-floatlabel>
-        <p-input-number inputId="integeronly" [(ngModel)]="value1" />
+        <p-inputnumber inputId="integeronly" [(ngModel)]="value1" />
         <label for="number-input">Number</label>
     </p-floatlabel>
 </div>`,

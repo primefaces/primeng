@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
 import { By } from '@angular/platform-browser';
 
 @Component({
-    template: `<p-input-number [(ngModel)]="val" [readonly]="readonly" [minFractionDigits]="minFractionDigits"></p-input-number>`,
+    template: `<p-inputnumber [(ngModel)]="val" [readonly]="readonly" [minFractionDigits]="minFractionDigits"></p-inputnumber>`,
 })
 class TestInputNumberComponent {
     val: number;

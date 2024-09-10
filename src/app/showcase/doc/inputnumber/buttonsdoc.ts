@@ -14,15 +14,15 @@ import { Code } from '@domain/code';
         <p-fluid class="card flex flex-wrap gap-4">
             <div class="flex-auto">
                 <label class="mb-2 block font-bold" for="stacked">Stacked</label>
-                <p-input-number [(ngModel)]="value1" [showButtons]="true" inputId="stacked" mode="currency" currency="USD" />
+                <p-inputnumber [(ngModel)]="value1" [showButtons]="true" inputId="stacked" mode="currency" currency="USD" />
             </div>
             <div class="flex-auto">
                 <label class="mb-2 block font-bold" for="minmax-buttons">Min-Max Boundaries</label>
-                <p-input-number [(ngModel)]="value2" mode="decimal" [showButtons]="true" inputId="minmax-buttons" [min]="0" [max]="100" />
+                <p-inputnumber [(ngModel)]="value2" mode="decimal" [showButtons]="true" inputId="minmax-buttons" [min]="0" [max]="100" />
             </div>
             <div class="flex-auto">
                 <label class="mb-2 block font-bold" for="horizontal">Horizontal with Step</label>
-                <p-input-number
+                <p-inputnumber
                     [(ngModel)]="value3"
                     [showButtons]="true"
                     buttonLayout="horizontal"
@@ -49,14 +49,14 @@ export class ButtonsDoc {
     value3: number = 25;
 
     code: Code = {
-        basic: `<p-input-number 
+        basic: `<p-inputnumber 
     [(ngModel)]="value1" 
     [showButtons]="true" 
     inputId="stacked" 
     mode="currency" 
     currency="USD" />
 
-<p-input-number 
+<p-inputnumber 
     [(ngModel)]="value2" 
     mode="decimal" 
     [showButtons]="true" 
@@ -64,7 +64,7 @@ export class ButtonsDoc {
     [min]="0" 
     [max]="100" /> 
 
-<p-input-number 
+<p-inputnumber 
     [(ngModel)]="value3" 
     [showButtons]="true" 
     buttonLayout="horizontal" 
@@ -83,7 +83,7 @@ export class ButtonsDoc {
         <label class="mb-2 block font-bold" for="stacked">
             Stacked
         </label>
-        <p-input-number 
+        <p-inputnumber 
             [(ngModel)]="value1" 
             [showButtons]="true" 
             inputId="stacked" 
@@ -94,7 +94,7 @@ export class ButtonsDoc {
         <label class="mb-2 block font-bold" for="minmax-buttons">
             Min-Max Boundaries
         </label>
-        <p-input-number 
+        <p-inputnumber 
             [(ngModel)]="value2"
             mode="decimal" 
             [showButtons]="true" 
@@ -106,7 +106,7 @@ export class ButtonsDoc {
         <label class="mb-2 block font-bold" for="horizontal">
             Horizontal with Step
         </label>
-        <p-input-number
+        <p-inputnumber
             [(ngModel)]="value3"
             [showButtons]="true"
             buttonLayout="horizontal"
