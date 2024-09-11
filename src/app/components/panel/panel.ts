@@ -267,8 +267,8 @@ export class Panel implements AfterContentInit, BlockableUI {
             if (this.collapsed) this.expand();
             else this.collapse();
         }
-        
-        this.cd.markForCheck()
+
+        this.cd.markForCheck();
         event.preventDefault();
     }
 
