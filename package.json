@@ -56,7 +56,7 @@
         "eslint-plugin-import": "latest",
         "eslint-plugin-jsdoc": "latest",
         "eslint-plugin-prefer-arrow": "latest",
-        "express": "^4.19.2",
+        "express": "^4.20.0",
         "file-saver": "^2.0.5",
         "gulp": "^5.0.0",
         "gulp-concat": "^2.6.1",
