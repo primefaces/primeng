@@ -259,7 +259,6 @@ import { MessageModule } from 'primeng/message';
                     [multiple]="multiple"
                     [disabled]="disabled"
                     (change)="onFileSelect($event)"
-                    *ngIf="!hasFiles()"
                     (focus)="onFocus()"
                     (blur)="onBlur()"
                     [attr.data-pc-section]="'input'"
@@ -806,7 +805,7 @@ export class FileUpload extends BaseComponent implements AfterViewInit, AfterCon
      * Uploads the selected files.
      * @group Method
      */
-    upload() {
+    uploader() {
         if (this.customUpload) {
             if (this.fileLimit) {
                 this.uploadedFileCount += this.files.length;
@@ -1032,9 +1031,12 @@ export class FileUpload extends BaseComponent implements AfterViewInit, AfterCon
         return `${formattedSize} ${sizes[i]}`;
     }
 
+    upload() {
+        if (this.hasFiles()) this.uploader();
+    }
+
     onBasicUploaderClick() {
-        if (this.hasFiles()) this.upload();
-        else this.basicFileInput?.nativeElement.click();
+        this.basicFileInput?.nativeElement.click();
     }
 
     onBasicKeydown(event: KeyboardEvent) {
