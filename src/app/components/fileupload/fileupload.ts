@@ -224,10 +224,11 @@ import { MessageModule } from 'primeng/message';
             @for (message of msgs; track message) {
                 <p-message [severity]="message.severity" [text]="message.text"></p-message>
             }
+
             <p-button
                 [styleClass]="'p-fileupload-choose-button ' + chooseStyleClass"
                 [disabled]="disabled"
-                [label]="basicButtonLabel"
+                [label]="chooseButtonLabel"
                 [style]="style"
                 (onClick)="onBasicUploaderClick()"
                 (keydown)="onBasicKeydown($event)"
@@ -264,6 +265,15 @@ import { MessageModule } from 'primeng/message';
                     [attr.data-pc-section]="'input'"
                 />
             </p-button>
+            @if (!auto) {
+                @if (!fileLabelTemplate) {
+                    <span [class]="cx('filelabel')">
+                        {{ basicFileChosenLabel() }}
+                    </span>
+                } @else {
+                    <ng-container *ngTemplateOutlet="fileLabelTemplate; context: { $implicit: files }"></ng-container>
+                }
+            }
         </div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -562,6 +572,8 @@ export class FileUpload extends BaseComponent implements AfterViewInit, AfterCon
 
     chooseIconTemplate: TemplateRef<any> | undefined;
 
+    fileLabelTemplate: TemplateRef<any> | undefined;
+
     uploadIconTemplate: TemplateRef<any> | undefined;
 
     cancelIconTemplate: TemplateRef<any> | undefined;
@@ -599,6 +611,10 @@ export class FileUpload extends BaseComponent implements AfterViewInit, AfterCon
 
                 case 'file':
                     this.fileTemplate = item.template;
+                    break;
+
+                case 'filelabel':
+                    this.fileLabelTemplate = item.template;
                     break;
 
                 case 'content':
@@ -650,6 +666,17 @@ export class FileUpload extends BaseComponent implements AfterViewInit, AfterCon
                 });
             }
         }
+    }
+
+    basicFileChosenLabel() {
+        if (this.auto) return this.chooseButtonLabel;
+        else if (this.hasFiles()) {
+            if (this.files && this.files.length === 1) return this.files[0].name;
+
+            return this.config.getTranslation('fileChosenMessage')?.replace('{0}', this.files.length);
+        }
+
+        return this.config.getTranslation('noFileChosenMessage') || '';
     }
 
     getTranslation(option: string) {

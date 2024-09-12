@@ -119,6 +119,8 @@ export class PrimeNGConfig extends ThemeProvider {
         emptySelectionMessage: 'No selected item',
         emptySearchMessage: 'No results found',
         emptyFilterMessage: 'No results found',
+        fileChosenMessage: '{0} files',
+        noFileChosenMessage: 'No file chosen',
         aria: {
             trueLabel: 'True',
             falseLabel: 'False',

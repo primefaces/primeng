@@ -49,6 +49,8 @@ export interface Translation {
     passwordPrompt?: string;
     emptyMessage?: string;
     emptyFilterMessage?: string;
+    fileChosenMessage?: string;
+    noFileChosenMessage?: string;
     pending?: string;
     chooseYear?: string;
     chooseMonth?: string;

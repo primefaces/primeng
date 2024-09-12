@@ -143,6 +143,16 @@ export interface FileUploadTemplates {
      */
     file(): TemplateRef<any>;
     /**
+     * Custom file label template.
+     */
+    filelabel(context: {
+        /**
+         * File list.
+         */
+        $implicit: any;
+    }): TemplateRef<any>;
+
+    /**
      * Custom template of file.
      */
     header(context: {
