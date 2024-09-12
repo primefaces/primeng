@@ -321,7 +321,7 @@ export class DataTableDoc implements OnInit {
     </p-popover>
 </div>`,
 
-        typescript: `import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+        typescript: `import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { Popover } from 'primeng/popover';
 import { PopoverModule } from 'primeng/popover';

@@ -8,6 +8,7 @@ import { TargetDoc } from '@doc/popover/targetdoc';
 import { AccessibilityDoc } from '@doc/popover/accessibilitydoc';
 import { CommonModule } from '@angular/common';
 import { PopoverDocModule } from '@doc/popover/popoverdoc.module';
+import { SelectDataDoc } from '@doc/popover/selectdatadoc';
 
 @Component({
     template: `<app-doc
@@ -31,6 +32,11 @@ export class PopoverDemo {
             id: 'basic',
             label: 'Basic',
             component: BasicDoc,
+        },
+        {
+            id: 'selectdata',
+            label: 'Select Data',
+            component: SelectDataDoc,
         },
         {
             id: 'datatable',

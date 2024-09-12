@@ -18,6 +18,7 @@ import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { InputTextModule } from 'primeng/inputtext';
 import { PopoverModule } from 'primeng/popover';
 import { TagModule } from 'primeng/tag';
+import { SelectDataDoc } from './selectdatadoc';
 
 @NgModule({
     imports: [
@@ -34,7 +35,7 @@ import { TagModule } from 'primeng/tag';
         InputTextModule,
         TagModule
     ],
-    declarations: [BasicDoc, ImportDoc, StyleDoc, DataTableDoc, TemplateDoc, TargetDoc, AccessibilityDoc],
+    declarations: [BasicDoc, ImportDoc, StyleDoc, DataTableDoc, TemplateDoc, TargetDoc, SelectDataDoc, AccessibilityDoc],
     exports: [AppDocModule],
 })
 export class PopoverDocModule {}
