@@ -64,7 +64,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
             <ng-container *ngTemplateOutlet="headlessTemplate || notHeadless"></ng-container>
             <ng-template #notHeadless>
                 <div [ngClass]="cx('header')" [attr.data-pc-section]="'header'">
-                    <ng-container *ngTemplateOutlet="_headerTemplate"></ng-container>
+                    <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
                     <div *ngIf="header" [class]="cx('title')">{{ header }}</div>
                     <p-button
                         *ngIf="showCloseIcon"
