@@ -13,7 +13,7 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-toast />
-            <p-splitbutton label="Save" (onClick)="save('info')" [model]="items" />
+            <p-splitbutton label="Save" (onClick)="save()" [model]="items" />
         </div>
         <app-code [code]="code" selector="split-button-basic-demo"></app-code>
     `,
@@ -42,29 +42,29 @@ export class BasicDoc {
 
     items: MenuItem[];
 
-    save(severity: string) {
-        this.messageService.add({ severity: severity, summary: 'Success', detail: 'Data Saved' });
+    save() {
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Data Saved' });
     }
 
     update() {
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Data Updated' });
+        this.messageService.add({ severity: 'success', summary: 'Updated', detail: 'Data Updated' });
     }
 
     delete() {
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Data Deleted' });
+        this.messageService.add({ severity: 'warn', summary: 'Delete', detail: 'Data Deleted' });
     }
 
     code: Code = {
         basic: `<p-splitbutton 
     label="Save" 
-    (onClick)="save('info')" 
+    (onClick)="save()" 
     [model]="items" />`,
 
         html: `<div class="card flex justify-center">
     <p-toast />
     <p-splitbutton 
         label="Save" 
-        (onClick)="save('info')" 
+        (onClick)="save()" 
         [model]="items" />
 </div>`,
 
@@ -103,16 +103,16 @@ export class SplitButtonBasicDemo {
         ];
     }
 
-    save(severity: string) {
-        this.messageService.add({ severity: severity, summary: 'Success', detail: 'Data Saved' });
+     save() {
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Data Saved' });
     }
 
     update() {
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Data Updated' });
+        this.messageService.add({ severity: 'success', summary: 'Updated', detail: 'Data Updated' });
     }
 
     delete() {
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Data Deleted' });
+        this.messageService.add({ severity: 'warn', summary: 'Delete', detail: 'Data Deleted' });
     }
 }`,
     };
