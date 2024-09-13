@@ -15,13 +15,13 @@ import { ConfirmPopup } from 'primeng/confirmpopup';
                     <div class="rounded p-4">
                         <span>{{ message.message }}</span>
                         <div class="flex items-center gap-2 mt-4">
-                            <p-button (click)="accept()" label="Save" size="small" />
-                            <p-button (click)="reject()" label="Cancel" [text]="true" size="small" severity="secondary" />
+                            <p-button (onClick)="accept()" label="Save" size="small" />
+                            <p-button (onClick)="reject()" label="Cancel" [text]="true" size="small" severity="secondary" />
                         </div>
                     </div>
                 </ng-template>
             </p-confirmpopup>
-            <p-button (click)="confirm($event)" label="Save" />
+            <p-button (onClick)="confirm($event)" label="Save" />
         </div>
         <app-code [code]="code" selector="confirm-popup-headless-demo"></app-code>
     `,
@@ -63,13 +63,13 @@ export class HeadlessDoc {
             <div class="rounded p-4">
                 <span>{{ message.message }}</span>
                 <div class="flex items-center gap-2 mt-4">
-                    <p-button (click)="accept()" label="Save" size="small" />
-                    <p-button (click)="reject()" label="Cancel" [text]="true" size="small" severity="secondary" />
+                    <p-button (onClick)="accept()" label="Save" size="small" />
+                    <p-button (onClick)="reject()" label="Cancel" [text]="true" size="small" severity="secondary" />
                 </div>
             </div>
         </ng-template>
     </p-confirmpopup>
-<p-button (click)="confirm($event)" label="Save" />`,
+<p-button (onClick)="confirm($event)" label="Save" />`,
 
         html: `<div class="card flex justify-center gap-2">
     <p-toast />
@@ -78,13 +78,13 @@ export class HeadlessDoc {
             <div class="rounded p-4">
                 <span>{{ message.message }}</span>
                 <div class="flex items-center gap-2 mt-4">
-                    <p-button (click)="accept()" label="Save" size="small" />
-                    <p-button (click)="reject()" label="Cancel" [text]="true" size="small" severity="secondary" />
+                    <p-button (onClick)="accept()" label="Save" size="small" />
+                    <p-button (onClick)="reject()" label="Cancel" [text]="true" size="small" severity="secondary" />
                 </div>
             </div>
         </ng-template>
     </p-confirmpopup>
-<p-button (click)="confirm($event)" label="Save" />
+<p-button (onClick)="confirm($event)" label="Save" />
 </div>`,
 
         typescript: `import { Component, ViewChild } from '@angular/core';
