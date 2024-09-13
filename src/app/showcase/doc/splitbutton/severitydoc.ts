@@ -10,14 +10,14 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card flex justify-center flex-wrap gap-4">
             <p-toast />
-            <p-splitbutton label="Save" (onClick)="save('info')" [model]="items" />
-            <p-splitbutton label="Save" (onClick)="save('secondary')" [model]="items" severity="secondary" />
-            <p-splitbutton label="Save" (onClick)="save('success')" [model]="items" severity="success" />
-            <p-splitbutton label="Save" (onClick)="save('info')" [model]="items" severity="info" />
-            <p-splitbutton label="Save" (onClick)="save('warn')" [model]="items" severity="warn" />
-            <p-splitbutton label="Save" (onClick)="save('help')" [model]="items" severity="help" />
-            <p-splitbutton label="Save" (onClick)="save('danger')" [model]="items" severity="danger" />
-            <p-splitbutton label="Save" (onClick)="save('contrast')" [model]="items" severity="contrast" />
+            <p-splitbutton label="Save" (onClick)="save()" [model]="items" />
+            <p-splitbutton label="Save" (onClick)="save()" [model]="items" severity="secondary" />
+            <p-splitbutton label="Save" (onClick)="save()" [model]="items" severity="success" />
+            <p-splitbutton label="Save" (onClick)="save()" [model]="items" severity="info" />
+            <p-splitbutton label="Save" (onClick)="save()" [model]="items" severity="warn" />
+            <p-splitbutton label="Save" (onClick)="save()" [model]="items" severity="help" />
+            <p-splitbutton label="Save" (onClick)="save()" [model]="items" severity="danger" />
+            <p-splitbutton label="Save" (onClick)="save()" [model]="items" severity="contrast" />
         </div>
         <app-code [code]="code" selector="split-button-severity-demo"></app-code>
     `,
@@ -46,51 +46,51 @@ export class SeverityDoc {
         ];
     }
 
-    save(severity: string) {
-        this.messageService.add({ severity: severity, summary: 'Success', detail: 'Data Saved' });
+    save() {
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Data Saved' });
     }
 
     update() {
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Data Updated' });
+        this.messageService.add({ severity: 'success', summary: 'Updated', detail: 'Data Updated' });
     }
 
     delete() {
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Data Deleted' });
+        this.messageService.add({ severity: 'warn', summary: 'Delete', detail: 'Data Deleted' });
     }
 
     code: Code = {
         basic: `<p-splitbutton 
     label="Save" 
-    (onClick)="save('info')" 
+    (onClick)="save()" 
     [model]="items" />
 <p-splitbutton 
     label="Save" 
-    (onClick)="save('info')" 
+    (onClick)="save()" 
     [model]="items" 
     severity="secondary" />
 <p-splitbutton 
     label="Save" 
-    (onClick)="save('success')" 
+    (onClick)="save()" 
     [model]="items" 
     severity="success" />
 <p-splitbutton 
     label="Save" 
-    (onClick)="save('info')" 
+    (onClick)="save()" 
     [model]="items" 
     severity="info" />
 <p-splitbutton 
     label="Save" 
-    (onClick)="save('warn')" 
+    (onClick)="save()" 
     [model]="items" 
     severity="warn" />
 <p-splitbutton 
     label="Save" 
-    (onClick)="save('info')" 
+    (onClick)="save()" 
     [model]="items" 
     severity="help" />
 <p-splitbutton 
     label="Save" 
-    (onClick)="save('error')" 
+    (onClick)="save()" 
     [model]="items" 
     severity="danger" />`,
 
@@ -98,36 +98,36 @@ export class SeverityDoc {
     <p-toast />
     <p-splitbutton 
         label="Save" 
-        (onClick)="save('info')" 
+        (onClick)="save()" 
         [model]="items" />
     <p-splitbutton 
         label="Save" 
-        (onClick)="save('info')" 
+        (onClick)="save()" 
         [model]="items" 
         severity="secondary" />
     <p-splitbutton 
         label="Save" 
-        (onClick)="save('success')" 
+        (onClick)="save()" 
         [model]="items" 
         severity="success" />
     <p-splitbutton 
         label="Save" 
-        (onClick)="save('info')" 
+        (onClick)="save()" 
         [model]="items" 
         severity="info" />
     <p-splitbutton 
         label="Save" 
-        (onClick)="save('warn')" 
+        (onClick)="save()" 
         [model]="items" 
         severity="warn" />
     <p-splitbutton 
         label="Save" 
-        (onClick)="save('info')" 
+        (onClick)="save()" 
         [model]="items" 
         severity="help" />
     <p-splitbutton 
         label="Save" 
-        (onClick)="save('error')" 
+        (onClick)="save()" 
         [model]="items"
         severity="danger" />
 </div>`,
@@ -167,16 +167,16 @@ export class SplitButtonSeverityDemo {
         ];
     }
 
-    save(severity: string) {
-        this.messageService.add({ severity: severity, summary: 'Success', detail: 'Data Saved' });
+    save() {
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Data Saved' });
     }
 
     update() {
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Data Updated' });
+        this.messageService.add({ severity: 'success', summary: 'Updated', detail: 'Data Updated' });
     }
 
     delete() {
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Data Deleted' });
+        this.messageService.add({ severity: 'warn', summary: 'Delete', detail: 'Data Deleted' });
     }
 }`,
     };
