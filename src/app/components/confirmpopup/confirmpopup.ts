@@ -75,7 +75,7 @@ import { BaseComponent } from 'primeng/basecomponent';
                     <p-button
                         type="button"
                         [label]="rejectButtonLabel"
-                        (click)="reject()"
+                        (onClick)="reject()"
                         [ngClass]="'p-confirmpopup-reject-button'"
                         [styleClass]="confirmation?.rejectButtonStyleClass"
                         [size]="confirmation.rejectButtonProps?.size || 'small'"
@@ -90,7 +90,7 @@ import { BaseComponent } from 'primeng/basecomponent';
                     <p-button
                         type="button"
                         [label]="acceptButtonLabel"
-                        (click)="accept()"
+                        (onClick)="accept()"
                         [ngClass]="'p-confirmpopup-accept-button'"
                         [styleClass]="confirmation?.acceptButtonStyleClass"
                         [size]="confirmation.acceptButtonProps?.size || 'small'"
