@@ -13,7 +13,7 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-toast />
-            <p-splitbutton label="Save" (onClick)="save('info')" severity="contrast" [model]="items">
+            <p-splitbutton label="Save" (onClick)="save()" severity="contrast" [model]="items">
                 <ng-template pTemplate="content">
                     <span class="flex items-center font-bold">
                         <img
@@ -53,22 +53,23 @@ export class TemplateDoc {
         ];
     }
 
-    save(severity: string) {
-        this.messageService.add({ severity: severity, summary: 'Success', detail: 'Data Saved' });
+    
+    save() {
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Data Saved' });
     }
 
     update() {
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Data Updated' });
+        this.messageService.add({ severity: 'success', summary: 'Updated', detail: 'Data Updated' });
     }
 
     delete() {
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Data Deleted' });
+        this.messageService.add({ severity: 'warn', summary: 'Delete', detail: 'Data Deleted' });
     }
 
     code: Code = {
         basic: `<p-splitbutton 
     label="Save" 
-    (onClick)="save('info')" 
+    (onClick)="save()" 
     severity="contrast" 
     [model]="items">
         <ng-template pTemplate="content">
@@ -86,7 +87,7 @@ export class TemplateDoc {
     <p-toast />
     <p-splitbutton 
         label="Save" 
-        (onClick)="save('info')" 
+        (onClick)="save()" 
         severity="contrast" 
         [model]="items">
             <ng-template pTemplate="content">
@@ -136,16 +137,16 @@ export class SplitButtonTemplateDemo {
         ];
     }
 
-    save(severity: string) {
-        this.messageService.add({ severity: severity, summary: 'Success', detail: 'Data Saved' });
+    save() {
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Data Saved' });
     }
 
     update() {
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Data Updated' });
+        this.messageService.add({ severity: 'success', summary: 'Updated', detail: 'Data Updated' });
     }
 
     delete() {
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Data Deleted' });
+        this.messageService.add({ severity: 'warn', summary: 'Delete', detail: 'Data Deleted' });
     }
 }`,
     };
