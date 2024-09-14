@@ -30,7 +30,7 @@ import { RippleModule } from 'primeng/ripple';
 import { Scroller, ScrollerModule } from 'primeng/scroller';
 import { ScrollerOptions } from 'primeng/api';
 import { ObjectUtils } from 'primeng/utils';
-import { Subscription } from 'rxjs';
+import { first, last, Subscription } from 'rxjs';
 import { CheckIcon } from 'primeng/icons/check';
 import { ChevronDownIcon } from 'primeng/icons/chevrondown';
 import { ChevronRightIcon } from 'primeng/icons/chevronright';
@@ -813,14 +813,14 @@ export class UITreeNode implements OnInit {
                         <ul *ngIf="items" class="p-tree-container" [ngClass]="scrollerOptions.contentStyleClass" [style]="scrollerOptions.contentStyle" role="tree" [attr.aria-label]="ariaLabel" [attr.aria-labelledby]="ariaLabelledBy">
                             <p-treeNode
                                 #treeNode
-                                *ngFor="let rowNode of items; let firstChild = first; let lastChild = last; let index = index; trackBy: trackBy"
+                                *ngFor="let rowNode of items; let firstChild = first; trackBy: trackBy"
                                 [level]="rowNode.level"
                                 [rowNode]="rowNode"
                                 [node]="rowNode.node"
                                 [parentNode]="rowNode.parent"
                                 [firstChild]="firstChild"
-                                [lastChild]="lastChild"
-                                [index]="getIndex(scrollerOptions, index)"
+                                [lastChild]="rowNode.lastChild"
+                                [index]="rowNode.index"
                                 [itemSize]="scrollerOptions.itemSize"
                                 [indentation]="indentation"
                                 [loadingMode]="loadingMode"
@@ -1286,20 +1286,22 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
 
     serializeNodes(parent: TreeNode<any> | null, nodes: TreeNode<any>[] | any, level: number, visible: boolean) {
         if (nodes && nodes.length) {
-            for (let node of nodes) {
+            nodes.forEach((node, index) => {
                 node.parent = parent;
                 const rowNode = {
                     node: node,
                     parent: parent,
                     level: level,
-                    visible: visible && (parent ? parent.expanded : true)
+                    visible: visible && (parent ? parent.expanded : true),
+                    lastChild: index === nodes.length - 1,
+                    index: index,
                 };
                 (this.serializedValue as TreeNode<any>[]).push(<TreeNode>rowNode);
 
                 if (rowNode.visible && node.expanded) {
                     this.serializeNodes(node, node.children, level + 1, rowNode.visible);
                 }
-            }
+            });
         }
     }
 
