@@ -13,7 +13,8 @@ import { UniqueComponentId, ZIndexUtils } from 'primeng/utils';
     selector: '[pTooltip]',
     host: {
         class: 'p-element'
-    }
+    },
+    standalone: true
 })
 export class Tooltip implements AfterViewInit, OnDestroy {
     /**
@@ -166,7 +167,14 @@ export class Tooltip implements AfterViewInit, OnDestroy {
 
     interactionInProgress = false;
 
-    constructor(@Inject(PLATFORM_ID) private platformId: any, public el: ElementRef, public zone: NgZone, public config: PrimeNGConfig, private renderer: Renderer2, private viewContainer: ViewContainerRef) {}
+    constructor(
+        @Inject(PLATFORM_ID) private platformId: any,
+        public el: ElementRef,
+        public zone: NgZone,
+        public config: PrimeNGConfig,
+        private renderer: Renderer2,
+        private viewContainer: ViewContainerRef
+    ) {}
 
     ngAfterViewInit() {
         if (isPlatformBrowser(this.platformId)) {
@@ -732,8 +740,7 @@ export class Tooltip implements AfterViewInit, OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule],
-    exports: [Tooltip],
-    declarations: [Tooltip]
+    imports: [CommonModule, Tooltip],
+    exports: [Tooltip]
 })
 export class TooltipModule {}
