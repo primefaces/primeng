@@ -23,6 +23,6 @@ export class ApolloSeparator {
     configService = inject(AppConfigService);
 
     get fillColor() {
-        return this.configService.appState().darkTheme ? 'var(--p-surface-900)' : 'var(--p-surface-0)';
+        return this.configService.appState().darkTheme ? 'var(--p-surface-0)' : 'var(--p-surface-900)';
     }
 }

@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { AppConfigService } from '@service/appconfigservice';
 
 @Component({
     standalone: true,
@@ -31,4 +32,10 @@ import { Component } from '@angular/core';
         </div>
     `,
 })
-export class PoseidonSeparator {}
+export class PoseidonSeparator {
+    configService = inject(AppConfigService);
+
+    get fillColor() {
+        return this.configService.appState().darkTheme ? 'var(--p-surface-0)' : 'var(--p-surface-900)';
+    }
+}
