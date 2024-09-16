@@ -14,12 +14,15 @@ import { AppDocApiTable } from './app.docapitable.component';
 import { AppDoc } from './app.doc.component';
 import { RouterModule } from '@angular/router';
 import { AppDocThemingSectionComponent } from './app.docthemingsection.component';
+import { AppDocFeaturesSection } from './app.docfeaturessection.component';
+import { AppDocService } from './app.doc.service';
 
 @NgModule({
     imports: [CommonModule, FormsModule, ButtonModule, InputTextModule, TooltipModule, AppCodeModule, RouterModule],
     exports: [
         AppDocSectionTextComponent,
         AppDocApiSection,
+        AppDocFeaturesSection,
         AppDocSectionNavComponent,
         AppDocSectionsComponent,
         AppDevelopmentSection,
@@ -28,6 +31,7 @@ import { AppDocThemingSectionComponent } from './app.docthemingsection.component
         AppDocThemingSectionComponent,
     ],
     declarations: [
+        AppDocFeaturesSection,
         AppDocSectionTextComponent,
         AppDocApiSection,
         AppDocSectionNavComponent,
@@ -37,5 +41,6 @@ import { AppDocThemingSectionComponent } from './app.docthemingsection.component
         AppDocApiTable,
         AppDocThemingSectionComponent,
     ],
+    providers: [AppDocService],
 })
 export class AppDocModule {}

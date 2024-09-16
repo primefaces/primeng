@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, QueryList, signal, ViewChildren } from '@angular/core';
 import { Doc } from 'src/app/showcase/domain/doc';
 
 @Component({
