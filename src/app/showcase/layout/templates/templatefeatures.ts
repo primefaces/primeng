@@ -8,16 +8,20 @@ import { AppConfigService } from '../../service/appconfigservice';
     template: `
         <div class="template-features">
             <ng-container *ngIf="displayType === 'horizontal'; else vertical">
-                <div class="template-features-horizontal-wrapper">
-                    <div class="template-features-horizontal">
+                <div class="px-6 py-6 sm:px-10 sm:py-10 lg:py-20 rounded-3xl bg-surface-0 dark:bg-surface-900">
+                    <div class="flex flex-wrap justify-center gap-6 mx-auto w-full max-w-5xl">
                         <ng-container *ngFor="let feature of featuresData">
-                            <div class="template-features-horizontal-card">
-                                <div class="template-features-horizontal-card-top">
-                                    <img [src]="isDarkMode ? feature.darkSrc || feature.src : feature.src" [alt]="feature.title" />
+                            <div class="p-5 rounded-2xl border border-surface flex-1 min-w-80 max-w-96 animate-duration-500">
+                                <div class="flex w-full mb-5 bg-surface-100 dark:bg-surface-800 overflow-hidden rounded-lg">
+                                    <img
+                                        class="w-full"
+                                        [src]="isDarkMode ? feature.darkSrc || feature.src : feature.src"
+                                        [alt]="feature.title"
+                                    />
                                 </div>
-                                <div class="template-features-horizontal-card-bottom">
-                                    <h5 class="template-features-horizontal-card-bottom-title">{{ feature.title }}</h5>
-                                    <p class="template-features-horizontal-card-bottom-description">
+                                <div>
+                                    <h5 class="text-surface-900 dark:text-surface-0 font-semibold mb-2 text-lg">{{ feature.title }}</h5>
+                                    <p class="m-0 text-muted-color">
                                         {{ feature.description }}
                                     </p>
                                 </div>
@@ -27,21 +31,25 @@ import { AppConfigService } from '../../service/appconfigservice';
                 </div>
             </ng-container>
             <ng-template #vertical>
-                <div class="template-features-vertical-wrapper">
-                    <div class="template-features-vertical">
-                        <ng-container *ngFor="let _ of [].constructor(2); let i = index">
-                            <div class="template-features-vertical-col">
-                                <ng-container *ngFor="let data of i === 0 ? firstColumnData : secondColumnData; let j = index">
-                                    <div class="template-features-vertical-card">
-                                        <div class="template-features-vertical-card-image">
-                                            <img [src]="isDarkMode ? data.darkSrc || data.src : data.src" [alt]="data.title" />
-                                        </div>
-                                        <h2>{{ data.title }}</h2>
-                                        <p>{{ data.description }}</p>
+                <div class="px-6 py-6 sm:px-10 sm:py-10 lg:py-20 rounded-3xl bg-surface-0 dark:bg-surface-900">
+                    <div class="mx-auto max-w-3xl flex sm:flex-row flex-col items-start gap-6">
+                        <div
+                            *ngFor="let _ of [].constructor(2); let i = index"
+                            class="flex flex-col gap-6 flex-1"
+                            [ngClass]="{
+                                'sm:pt-32': i === 1,
+                            }"
+                        >
+                            <ng-container *ngFor="let data of i === 0 ? firstColumnData : secondColumnData; let j = index">
+                                <div class="w-full p-4 md:p-5 rounded-2xl border border-surface animate-duration-500">
+                                    <div class="w-full bg-surface-100 dark:bg-surface-800 rounded-lg overflow-hidden flex">
+                                        <img class="w-full h-auto rounded-lg" [src]="isDarkMode ? data.darkSrc || data.src : data.src" [alt]="data.title" />
                                     </div>
-                                </ng-container>
-                            </div>
-                        </ng-container>
+                                    <h2 class="mt-5 mb-0 text-lg text-surface-900 dark:text-surface-0 font-semibold">{{ data.title }}</h2>
+                                    <p class="mt-2 mb-0 text-muted-color">{{ data.description }}</p>
+                                </div>
+                            </ng-container>
+                        </div>
                     </div>
                 </div>
             </ng-template>
