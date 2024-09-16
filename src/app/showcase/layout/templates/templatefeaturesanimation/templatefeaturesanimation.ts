@@ -52,15 +52,11 @@ import { TemplateFeaturesAnimationInlineModule } from './templatefeaturesanimati
                             >
                                 {{ (i + 1).toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false }) }}
                             </div>
-                            <div class="text-[2.5rem] font-bold absolute top-0 left-0 text-transparent">
-                                {{ (i + 1).toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false }) }}
-                            </div>
+                            <div class="text-[2.5rem] font-bold absolute top-0 left-0 text-transparent">{{ (i + 1).toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false }) }}</div>
                         </div>
                         <div class="flex-1">
-                            <h5 class="text-lg lg:text-xl font-semibold m-0">{{ data.title }}</h5>
-                            <p class="text-sm lg:text-base text-muted-color mt-1 mb-0 [&>a]:text-primary [&>a]:hover:underline">
-                                {{ data.description }}
-                            </p>
+                            <h5  class="text-lg lg:text-xl font-semibold m-0">{{ data.title }}</h5>
+                            <p  class="text-sm lg:text-base text-muted-color mt-1 mb-0 [&>a]:text-primary [&>a]:hover:underline">{{ data.description }}</p>
                         </div>
                     </div>
                 </div>
@@ -75,11 +71,7 @@ import { TemplateFeaturesAnimationInlineModule } from './templatefeaturesanimati
                         ></template-features-animation-inline>
                     </ng-container>
                     <ng-template #featureImage>
-                        <img
-                            class="w-full h-auto object-cover flex"
-                            [src]="featuresData[selectedID - 1]?.src"
-                            alt="Animation Feature Image"
-                        />
+                        <img class="w-full h-auto object-cover flex" [src]="featuresData[selectedID - 1]?.src" alt="Animation Feature Image" />
                     </ng-template>
                 </div>
             </div>
