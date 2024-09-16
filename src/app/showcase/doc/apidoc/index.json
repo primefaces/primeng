@@ -531,19 +531,19 @@
                             "name": "acceptButtonProps",
                             "optional": true,
                             "readonly": false,
-                            "type": "ButtonProps"
+                            "type": "any"
                         },
                         {
                             "name": "rejectButtonProps",
                             "optional": true,
                             "readonly": false,
-                            "type": "ButtonProps"
+                            "type": "any"
                         },
                         {
                             "name": "closeButtonProps",
                             "optional": true,
                             "readonly": false,
-                            "type": "ButtonProps"
+                            "type": "any"
                         },
                         {
                             "name": "closable",
@@ -2636,6 +2636,18 @@
                         },
                         {
                             "name": "emptyFilterMessage",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "string"
+                        },
+                        {
+                            "name": "fileChosenMessage",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "string"
+                        },
+                        {
+                            "name": "noFileChosenMessage",
                             "optional": true,
                             "readonly": false,
                             "type": "string"
@@ -6109,7 +6121,7 @@
             }
         }
     },
-    "datepickerstyle": {
+    "calendarstyle": {
         "components": {}
     },
     "card": {
@@ -9783,6 +9795,9 @@
             }
         }
     },
+    "datepickerstyle": {
+        "components": {}
+    },
     "defer": {
         "components": {
             "DeferredLoader": {
@@ -11161,7 +11176,7 @@
                             "name": "filterMatchMode",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"endsWith\" | \"startsWith\" | \"contains\" | \"equals\" | \"lt\" | \"in\" | \"notEquals\" | \"lte\" | \"gt\" | \"gte\"",
+                            "type": "\"endsWith\" | \"startsWith\" | \"contains\" | \"equals\" | \"in\" | \"notEquals\" | \"lt\" | \"lte\" | \"gt\" | \"gte\"",
                             "default": "contains",
                             "description": "Defines how the items are filtered."
                         },
@@ -11646,7 +11661,7 @@
             }
         }
     },
-    "selectstyle": {
+    "dropdownstyle": {
         "components": {}
     },
     "dialogservice": {
@@ -12907,7 +12922,7 @@
                     "description": "Defines methods that can be accessed by the component's reference.",
                     "values": [
                         {
-                            "name": "upload",
+                            "name": "uploader",
                             "parameters": [],
                             "description": "Uploads the selected files."
                         },
@@ -13161,6 +13176,17 @@
                         "name": "file",
                         "parameters": [],
                         "description": "Custom template of file."
+                    },
+                    {
+                        "parent": "fileupload",
+                        "name": "filelabel",
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "{\n  \t $implicit: any, // File list.\n  }"
+                            }
+                        ],
+                        "description": "Custom file label template."
                     },
                     {
                         "parent": "fileupload",
@@ -15374,7 +15400,7 @@
             }
         }
     },
-    "toggleswitchstyle": {
+    "inputswitchstyle": {
         "components": {}
     },
     "inputtext": {
@@ -15889,7 +15915,7 @@
                             "name": "filterMatchMode",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"endsWith\" | \"startsWith\" | \"contains\" | \"equals\" | \"lt\" | \"in\" | \"notEquals\" | \"lte\" | \"gt\" | \"gte\"",
+                            "type": "\"endsWith\" | \"startsWith\" | \"contains\" | \"equals\" | \"in\" | \"notEquals\" | \"lt\" | \"lte\" | \"gt\" | \"gte\"",
                             "default": "contains",
                             "description": "Defines how the items are filtered."
                         },
@@ -17672,7 +17698,7 @@
                             "name": "filterMatchMode",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"endsWith\" | \"startsWith\" | \"contains\" | \"equals\" | \"lt\" | \"in\" | \"notEquals\" | \"lte\" | \"gt\" | \"gte\"",
+                            "type": "\"endsWith\" | \"startsWith\" | \"contains\" | \"equals\" | \"in\" | \"notEquals\" | \"lt\" | \"lte\" | \"gt\" | \"gte\"",
                             "default": "contains",
                             "description": "Defines how the items are filtered."
                         },
@@ -18445,7 +18471,7 @@
                             "name": "filterMatchMode",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"endsWith\" | \"startsWith\" | \"contains\" | \"equals\" | \"lt\" | \"in\" | \"notEquals\" | \"lte\" | \"gt\" | \"gte\"",
+                            "type": "\"endsWith\" | \"startsWith\" | \"contains\" | \"equals\" | \"in\" | \"notEquals\" | \"lt\" | \"lte\" | \"gt\" | \"gte\"",
                             "default": "contains",
                             "description": "Defines how the items are filtered."
                         },
@@ -20661,7 +20687,7 @@
                             "name": "filterMatchMode",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"endsWith\" | \"startsWith\" | \"contains\" | \"equals\" | \"lt\" | \"in\" | \"notEquals\" | \"lte\" | \"gt\" | \"gte\"",
+                            "type": "\"endsWith\" | \"startsWith\" | \"contains\" | \"equals\" | \"in\" | \"notEquals\" | \"lt\" | \"lte\" | \"gt\" | \"gte\"",
                             "default": "contains",
                             "description": "Defines how the items are filtered."
                         },
@@ -22989,7 +23015,7 @@
                             "name": "filterMatchMode",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"endsWith\" | \"startsWith\" | \"contains\" | \"equals\" | \"lt\" | \"in\" | \"notEquals\" | \"lte\" | \"gt\" | \"gte\"",
+                            "type": "\"endsWith\" | \"startsWith\" | \"contains\" | \"equals\" | \"in\" | \"notEquals\" | \"lt\" | \"lte\" | \"gt\" | \"gte\"",
                             "default": "contains",
                             "description": "Defines how the items are filtered."
                         },
@@ -23036,7 +23062,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "boolean",
-                            "default": "false",
+                            "default": "true",
                             "description": "Fields used when filtering the options, defaults to optionLabel."
                         },
                         {
@@ -23473,6 +23499,9 @@
                 ]
             }
         }
+    },
+    "selectstyle": {
+        "components": {}
     },
     "selectbutton": {
         "components": {
@@ -25222,6 +25251,9 @@
                 ]
             }
         }
+    },
+    "stepperstyle": {
+        "components": {}
     },
     "steps": {
         "components": {
@@ -28326,13 +28358,13 @@
     "aura": {
         "components": {}
     },
-    "lara": {
+    "datatable": {
         "components": {}
     },
-    "nora": {
+    "inlinemessage": {
         "components": {}
     },
-    "tieredmenustyle": {
+    "inputchips": {
         "components": {}
     },
     "tieredmenu": {
@@ -28527,35 +28559,7 @@
                     ]
                 }
             }
-        },
-        "interfaces": {
-            "components": {},
-            "templates": {
-                "description": "Defines the templates used by the component.",
-                "values": [
-                    {
-                        "parent": "tieredmenu",
-                        "name": "item",
-                        "parameters": [
-                            {
-                                "name": "context",
-                                "type": "{\n  \t $implicit: any, // Item instance.\n  \t hasSubmenu: boolean, // Submenu control of the item.\n  }"
-                            }
-                        ],
-                        "description": "Custom template of item."
-                    },
-                    {
-                        "parent": "tieredmenu",
-                        "name": "submenuicon",
-                        "parameters": [],
-                        "description": "Custom template of submenuicon."
-                    }
-                ]
-            }
         }
-    },
-    "timelinestyle": {
-        "components": {}
     },
     "timeline": {
         "components": {
@@ -28604,54 +28608,7 @@
                     ]
                 }
             }
-        },
-        "interfaces": {
-            "components": {},
-            "templates": {
-                "description": "Defines the templates used by the component.",
-                "values": [
-                    {
-                        "parent": "timeline",
-                        "name": "content",
-                        "parameters": [
-                            {
-                                "name": "context",
-                                "type": "{\n  \t $implicit: any, // Item instance.\n  }",
-                                "description": "item data."
-                            }
-                        ],
-                        "description": "Custom content template."
-                    },
-                    {
-                        "parent": "timeline",
-                        "name": "opposite",
-                        "parameters": [
-                            {
-                                "name": "context",
-                                "type": "{\n  \t $implicit: any, // Item instance.\n  }",
-                                "description": "item data."
-                            }
-                        ],
-                        "description": "Custom opposite item template."
-                    },
-                    {
-                        "parent": "timeline",
-                        "name": "marker",
-                        "parameters": [
-                            {
-                                "name": "context",
-                                "type": "{\n  \t $implicit: any, // Item instance.\n  }",
-                                "description": "item data."
-                            }
-                        ],
-                        "description": "Custom marker template."
-                    }
-                ]
-            }
         }
-    },
-    "toaststyle": {
-        "components": {}
     },
     "toast": {
         "components": {
@@ -28785,58 +28742,7 @@
                     ]
                 }
             }
-        },
-        "interfaces": {
-            "components": {},
-            "events": {
-                "description": "Defines the custom events used by the component's emitters.",
-                "values": [
-                    {
-                        "name": "ToastCloseEvent",
-                        "description": "Custom close event.",
-                        "props": [
-                            {
-                                "name": "message",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "ToastMessageOptions",
-                                "description": "Message of the closed element."
-                            }
-                        ]
-                    }
-                ]
-            },
-            "templates": {
-                "description": "Defines the templates used by the component.",
-                "values": [
-                    {
-                        "parent": "toast",
-                        "name": "message",
-                        "parameters": [
-                            {
-                                "name": "context",
-                                "type": "{\n  \t $implicit: any, // Data of the message.\n  }"
-                            }
-                        ],
-                        "description": "Custom template of message."
-                    },
-                    {
-                        "parent": "toast",
-                        "name": "headless",
-                        "parameters": [
-                            {
-                                "name": "context",
-                                "type": "{\n  \t $implicit: any, // Data of the message.\n  }"
-                            }
-                        ],
-                        "description": "Headless template."
-                    }
-                ]
-            }
         }
-    },
-    "togglebuttonstyle": {
-        "components": {}
     },
     "togglebutton": {
         "components": {
@@ -28939,6 +28845,14 @@
                             "type": "boolean",
                             "default": "false",
                             "description": "When present, it specifies that the component should automatically get focus on load."
+                        },
+                        {
+                            "name": "allowEmpty",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Whether selection can not be cleared."
                         }
                     ]
                 },
@@ -28957,63 +28871,6 @@
                         }
                     ]
                 }
-            }
-        },
-        "interfaces": {
-            "components": {},
-            "events": {
-                "description": "Defines the custom events used by the component's emitters.",
-                "values": [
-                    {
-                        "name": "ToggleButtonChangeEvent",
-                        "description": "Custom change event.",
-                        "props": [
-                            {
-                                "name": "originalEvent",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "Event",
-                                "description": "Browser event."
-                            },
-                            {
-                                "name": "checked",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "boolean",
-                                "description": "Boolean value to represent checked state."
-                            }
-                        ]
-                    }
-                ]
-            },
-            "templates": {
-                "description": "Defines the templates used by the component.",
-                "values": [
-                    {
-                        "parent": "togglebutton",
-                        "name": "icon",
-                        "parameters": [
-                            {
-                                "name": "context",
-                                "type": "{\n  \t $implicit: boolean, // Checked.\n  }",
-                                "description": "checked state as boolean."
-                            }
-                        ],
-                        "description": "Custom icon template."
-                    },
-                    {
-                        "parent": "togglebutton",
-                        "name": "content",
-                        "parameters": [
-                            {
-                                "name": "context",
-                                "type": "{\n  \t $implicit: boolean, // Checked.\n  \t label: string, // Label of the component.\n  }",
-                                "description": "content data."
-                            }
-                        ],
-                        "description": "Custom content template."
-                    }
-                ]
             }
         }
     },
@@ -29131,38 +28988,7 @@
                     ]
                 }
             }
-        },
-        "interfaces": {
-            "components": {},
-            "events": {
-                "description": "Defines the custom events used by the component's emitters.",
-                "values": [
-                    {
-                        "name": "ToggleSwitchChangeEvent",
-                        "description": "Custom change event.",
-                        "props": [
-                            {
-                                "name": "originalEvent",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "Event",
-                                "description": "Browser event."
-                            },
-                            {
-                                "name": "checked",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "boolean",
-                                "description": "Checked state."
-                            }
-                        ]
-                    }
-                ]
-            }
         }
-    },
-    "toolbarstyle": {
-        "components": {}
     },
     "toolbar": {
         "components": {
@@ -29195,36 +29021,7 @@
                     ]
                 }
             }
-        },
-        "interfaces": {
-            "components": {},
-            "templates": {
-                "description": "Defines the templates used by the component.",
-                "values": [
-                    {
-                        "parent": "toolbar",
-                        "name": "start",
-                        "parameters": [],
-                        "description": "Custom start content."
-                    },
-                    {
-                        "parent": "toolbar",
-                        "name": "end",
-                        "parameters": [],
-                        "description": "Custom end content."
-                    },
-                    {
-                        "parent": "toolbar",
-                        "name": "center",
-                        "parameters": [],
-                        "description": "Custom center content."
-                    }
-                ]
-            }
         }
-    },
-    "tooltipstyle": {
-        "components": {}
     },
     "tooltip": {
         "components": {
@@ -29368,9 +29165,6 @@
                 }
             }
         }
-    },
-    "treestyle": {
-        "components": {}
     },
     "tree": {
         "components": {
@@ -29805,303 +29599,7 @@
                     ]
                 }
             }
-        },
-        "interfaces": {
-            "components": {},
-            "events": {
-                "description": "Defines the custom events used by the component's emitters.",
-                "values": [
-                    {
-                        "name": "TreeNodeSelectEvent",
-                        "description": "Custom node select event.",
-                        "props": [
-                            {
-                                "name": "originalEvent",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "Event",
-                                "description": "Browser event"
-                            },
-                            {
-                                "name": "node",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "TreeNode<any>",
-                                "description": "Node instance."
-                            }
-                        ]
-                    },
-                    {
-                        "name": "TreeNodeUnSelectEvent",
-                        "description": "Custom node unselect event.",
-                        "props": [
-                            {
-                                "name": "originalEvent",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "Event",
-                                "description": "Browser event"
-                            },
-                            {
-                                "name": "node",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "TreeNode<any>",
-                                "description": "Node instance."
-                            }
-                        ]
-                    },
-                    {
-                        "name": "TreeNodeExpandEvent",
-                        "description": "Custom node expand event.",
-                        "props": [
-                            {
-                                "name": "originalEvent",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "Event",
-                                "description": "Browser event"
-                            },
-                            {
-                                "name": "node",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "TreeNode<any>",
-                                "description": "Node instance."
-                            }
-                        ]
-                    },
-                    {
-                        "name": "TreeNodeCollapseEvent",
-                        "description": "Custom node collapse event.",
-                        "props": [
-                            {
-                                "name": "originalEvent",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "Event",
-                                "description": "Browser event"
-                            },
-                            {
-                                "name": "node",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "TreeNode<any>",
-                                "description": "Node instance."
-                            }
-                        ]
-                    },
-                    {
-                        "name": "TreeNodeContextMenuSelectEvent",
-                        "description": "Custom context menu select event.",
-                        "props": [
-                            {
-                                "name": "originalEvent",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "Event",
-                                "description": "Browser event"
-                            },
-                            {
-                                "name": "node",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "TreeNode<any>",
-                                "description": "Node instance."
-                            }
-                        ]
-                    },
-                    {
-                        "name": "TreeNodeDropEvent",
-                        "description": "Custom node drop event.",
-                        "props": [
-                            {
-                                "name": "originalEvent",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "DragEvent",
-                                "description": "Browser drag event."
-                            },
-                            {
-                                "name": "dragNode",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "TreeNode<any>",
-                                "description": "Dragged node instance."
-                            },
-                            {
-                                "name": "dropNode",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "TreeNode<any>",
-                                "description": "Dropped node instance."
-                            },
-                            {
-                                "name": "index",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "number",
-                                "description": "Index of the dragged node."
-                            },
-                            {
-                                "name": "accept",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "Function",
-                                "description": "Callback to invoke on drop."
-                            }
-                        ]
-                    },
-                    {
-                        "name": "TreeLazyLoadEvent",
-                        "description": "Custom lazy load event.",
-                        "props": [
-                            {
-                                "name": "first",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "number",
-                                "description": "First element index in viewport."
-                            },
-                            {
-                                "name": "last",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "number",
-                                "description": "Last element index in viewport."
-                            }
-                        ]
-                    },
-                    {
-                        "name": "TreeScrollIndexChangeEvent",
-                        "description": "Custom scroll index change event.",
-                        "props": [
-                            {
-                                "name": "first",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "number",
-                                "description": "First element index in viewport."
-                            },
-                            {
-                                "name": "last",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "number",
-                                "description": "Last element index in viewport."
-                            }
-                        ]
-                    },
-                    {
-                        "name": "TreeScrollEvent",
-                        "description": "Custom scroll event.",
-                        "props": [
-                            {
-                                "name": "originalEvent",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "Event",
-                                "description": "Browser event."
-                            }
-                        ]
-                    },
-                    {
-                        "name": "TreeFilterEvent",
-                        "description": "Custom filter event.",
-                        "props": [
-                            {
-                                "name": "filter",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "string",
-                                "description": "Filter value."
-                            },
-                            {
-                                "name": "filteredValue",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "TreeNode<any>[]",
-                                "description": "Filtered nodes."
-                            }
-                        ]
-                    }
-                ]
-            },
-            "templates": {
-                "description": "Defines the templates used by the component.",
-                "values": [
-                    {
-                        "parent": "tree",
-                        "name": "header",
-                        "parameters": [],
-                        "description": "Custom header template."
-                    },
-                    {
-                        "parent": "tree",
-                        "name": "empty",
-                        "parameters": [],
-                        "description": "Custom empty message template."
-                    },
-                    {
-                        "parent": "tree",
-                        "name": "footer",
-                        "parameters": [],
-                        "description": "Custom footer template."
-                    },
-                    {
-                        "parent": "tree",
-                        "name": "loader",
-                        "parameters": [
-                            {
-                                "name": "context",
-                                "type": "{\n  \t options: ScrollerOptions, // Scroller options.\n  }",
-                                "description": "loader options."
-                            }
-                        ],
-                        "description": "Custom loader template."
-                    },
-                    {
-                        "parent": "tree",
-                        "name": "togglericon",
-                        "parameters": [
-                            {
-                                "name": "context",
-                                "type": "{\n  \t $implicit: boolean, // Expanded state of the node.\n  }",
-                                "description": "expand data."
-                            }
-                        ],
-                        "description": "Custom toggler icon template."
-                    },
-                    {
-                        "parent": "tree",
-                        "name": "checkboxicon",
-                        "parameters": [
-                            {
-                                "name": "context",
-                                "type": "{\n  \t $implicit: boolean, // Checked state of the node.\n  \t partialSelected: boolean, // Partial selection state of the node.\n  }",
-                                "description": "node data."
-                            }
-                        ],
-                        "description": "Custom checkbox icon template."
-                    },
-                    {
-                        "parent": "tree",
-                        "name": "loadingicon",
-                        "parameters": [],
-                        "description": "Custom loading icon template."
-                    },
-                    {
-                        "parent": "tree",
-                        "name": "filtericon",
-                        "parameters": [],
-                        "description": "Custom filter icon template."
-                    }
-                ]
-            }
         }
-    },
-    "treeselectstyle": {
-        "components": {}
     },
     "treeselect": {
         "components": {
@@ -30520,147 +30018,7 @@
                     ]
                 }
             }
-        },
-        "interfaces": {
-            "components": {},
-            "events": {
-                "description": "Defines the custom events used by the component's emitters.",
-                "values": [
-                    {
-                        "name": "TreeSelectNodeCollapseEvent",
-                        "description": "Custom node collapse event.",
-                        "props": [
-                            {
-                                "name": "originalEvent",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "Event",
-                                "description": "Browser event."
-                            },
-                            {
-                                "name": "node",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "TreeNode<any>",
-                                "description": "Node instance."
-                            }
-                        ]
-                    },
-                    {
-                        "name": "TreeSelectNodeExpandEvent",
-                        "description": "Custom node expand event.",
-                        "props": [
-                            {
-                                "name": "originalEvent",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "Event",
-                                "description": "Browser event."
-                            },
-                            {
-                                "name": "node",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "TreeNode<any>",
-                                "description": "Node instance."
-                            }
-                        ]
-                    }
-                ]
-            },
-            "templates": {
-                "description": "Defines the templates used by the component.",
-                "values": [
-                    {
-                        "parent": "treeselect",
-                        "name": "value",
-                        "parameters": [
-                            {
-                                "name": "context",
-                                "type": "{\n  \t $implicit: TreeNode, // Value of the component.\n  \t placeholder: string, // Placeholder of the component.\n  }",
-                                "description": "value data."
-                            }
-                        ],
-                        "description": "Custom value template."
-                    },
-                    {
-                        "parent": "treeselect",
-                        "name": "header",
-                        "parameters": [
-                            {
-                                "name": "context",
-                                "type": "{\n  \t $implicit: TreeNode, // Value of the component.\n  \t options: TreeNode, // Placeholder of the component.\n  }",
-                                "description": "header data."
-                            }
-                        ],
-                        "description": "Custom header template."
-                    },
-                    {
-                        "parent": "treeselect",
-                        "name": "empty",
-                        "parameters": [],
-                        "description": "Custom empty template."
-                    },
-                    {
-                        "parent": "treeselect",
-                        "name": "footer",
-                        "parameters": [],
-                        "description": "Custom footer template."
-                    },
-                    {
-                        "parent": "treeselect",
-                        "name": "clearicon",
-                        "parameters": [],
-                        "description": "Custom clear icon template."
-                    },
-                    {
-                        "parent": "treeselect",
-                        "name": "triggericon",
-                        "parameters": [],
-                        "description": "Custom dropdown trigger icon template."
-                    },
-                    {
-                        "parent": "treeselect",
-                        "name": "filtericon",
-                        "parameters": [],
-                        "description": "Custom filter icon template."
-                    },
-                    {
-                        "parent": "treeselect",
-                        "name": "closeicon",
-                        "parameters": [],
-                        "description": "Custom close icon template."
-                    },
-                    {
-                        "parent": "treeselect",
-                        "name": "itemtogglericon",
-                        "parameters": [
-                            {
-                                "name": "context",
-                                "type": "{\n  \t $implicit: boolean, // Expanded state of the node.\n  }",
-                                "description": "toggler icon data."
-                            }
-                        ],
-                        "description": "Custom node toggler template."
-                    },
-                    {
-                        "parent": "treeselect",
-                        "name": "itemcheckboxicon",
-                        "parameters": [],
-                        "description": "Custom node checkbox icon template."
-                    },
-                    {
-                        "parent": "treeselect",
-                        "name": "itemloadingicon",
-                        "parameters": [],
-                        "description": "Custom loading icon template."
-                    }
-                ]
-            }
         }
-    },
-    "treetablestyle": {
-        "components": {}
     },
     "treetable": {
         "components": {
@@ -31387,824 +30745,7 @@
                     ]
                 }
             }
-        },
-        "interfaces": {
-            "components": {},
-            "events": {
-                "description": "Defines the custom events used by the component's emitters.",
-                "values": [
-                    {
-                        "name": "TreeTableLazyLoadEvent",
-                        "description": "Custom lazy load event.",
-                        "props": [
-                            {
-                                "name": "rows",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "number"
-                            },
-                            {
-                                "name": "sortField",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "string | string[]"
-                            },
-                            {
-                                "name": "sortOrder",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "number"
-                            },
-                            {
-                                "name": "filters",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "Object"
-                            },
-                            {
-                                "name": "globalFilter",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "string | string[]"
-                            },
-                            {
-                                "name": "multiSortMeta",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "SortMeta[]"
-                            },
-                            {
-                                "name": "forceUpdate",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "Function"
-                            },
-                            {
-                                "name": "first",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "any",
-                                "description": "First element in viewport."
-                            },
-                            {
-                                "name": "last",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "any",
-                                "description": "Last element in viewport."
-                            }
-                        ]
-                    },
-                    {
-                        "name": "TreeTableColumnReorderEvent",
-                        "description": "Custom column reorder event.",
-                        "props": [
-                            {
-                                "name": "dragIndex",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "number",
-                                "description": "Index of the dragged item."
-                            },
-                            {
-                                "name": "dropIndex",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "number",
-                                "description": "Index of the drop position."
-                            },
-                            {
-                                "name": "columns",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "any[]",
-                                "description": "Columns after reorder."
-                            }
-                        ]
-                    },
-                    {
-                        "name": "TreeTableFilterEvent",
-                        "description": "Custom filter event.",
-                        "props": [
-                            {
-                                "name": "filters",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "Object",
-                                "description": "Filter meta."
-                            },
-                            {
-                                "name": "filteredValue",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "TreeNode<any>[]",
-                                "description": "Value after filter."
-                            }
-                        ]
-                    },
-                    {
-                        "name": "TreeTableNodeExpandEvent",
-                        "description": "Custom node expand event.",
-                        "props": [
-                            {
-                                "name": "originalEvent",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "Event",
-                                "description": "Browser event."
-                            },
-                            {
-                                "name": "node",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "TreeTableNode<T>",
-                                "description": "Node instance."
-                            }
-                        ]
-                    },
-                    {
-                        "name": "TreeTableNodeCollapseEvent",
-                        "description": "Custom node collapse event.",
-                        "props": [
-                            {
-                                "name": "originalEvent",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "Event",
-                                "description": "Browser event."
-                            },
-                            {
-                                "name": "node",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "TreeTableNode<T>",
-                                "description": "Node instance."
-                            }
-                        ]
-                    },
-                    {
-                        "name": "TreeTableSortEvent",
-                        "description": "Custom sort event.",
-                        "props": [
-                            {
-                                "name": "originalEvent",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "Event",
-                                "description": "Browser event."
-                            },
-                            {
-                                "name": "data",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "TreeNode<any>[]",
-                                "description": "Value to be sorted."
-                            },
-                            {
-                                "name": "mode",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "\"multiple\" | \"single\"",
-                                "description": "Sort mode."
-                            },
-                            {
-                                "name": "field",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "string",
-                                "description": "Sort field."
-                            },
-                            {
-                                "name": "order",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "number",
-                                "description": "Sort order."
-                            },
-                            {
-                                "name": "multiSortMeta",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "SortMeta[]",
-                                "description": "Multiple sort meta."
-                            },
-                            {
-                                "name": "multisortmeta",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "any",
-                                "description": "Multiple sort meta."
-                            },
-                            {
-                                "name": "sortMeta",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "SortMeta",
-                                "description": "Sort meta."
-                            }
-                        ]
-                    },
-                    {
-                        "name": "TreeTableColResizeEvent",
-                        "description": "Custom column resize event.",
-                        "props": [
-                            {
-                                "name": "element",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "HTMLElement",
-                                "description": "Instance of resized column."
-                            },
-                            {
-                                "name": "delta",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "number",
-                                "description": "Position."
-                            }
-                        ]
-                    },
-                    {
-                        "name": "TreeTableNodeSelectEvent",
-                        "description": "Custom node select event.",
-                        "props": [
-                            {
-                                "name": "checked",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "boolean"
-                            },
-                            {
-                                "name": "label",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "string",
-                                "description": "Label of the node."
-                            },
-                            {
-                                "name": "data",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "any",
-                                "description": "Data represented by the node."
-                            },
-                            {
-                                "name": "icon",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "string",
-                                "description": "Icon of the node to display next to content."
-                            },
-                            {
-                                "name": "expandedIcon",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "string",
-                                "description": "Icon to use in expanded state."
-                            },
-                            {
-                                "name": "collapsedIcon",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "string",
-                                "description": "Icon to use in collapsed state."
-                            },
-                            {
-                                "name": "children",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "TreeNode<any>[]",
-                                "description": "An array of treenodes as children."
-                            },
-                            {
-                                "name": "leaf",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "boolean",
-                                "description": "Specifies if the node has children. Used in lazy loading."
-                            },
-                            {
-                                "name": "expanded",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "boolean",
-                                "description": "Expanded state of the node."
-                            },
-                            {
-                                "name": "parent",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "TreeNode<any>",
-                                "description": "Parent of the node."
-                            },
-                            {
-                                "name": "partialSelected",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "boolean",
-                                "description": "Defines if value is partially selected."
-                            },
-                            {
-                                "name": "style",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "any",
-                                "description": "Inline style of the node."
-                            },
-                            {
-                                "name": "styleClass",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "string",
-                                "description": "Style class of the node."
-                            },
-                            {
-                                "name": "draggable",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "boolean",
-                                "description": "Defines if the node is draggable."
-                            },
-                            {
-                                "name": "droppable",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "boolean",
-                                "description": "Defines if the node is droppable."
-                            },
-                            {
-                                "name": "selectable",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "boolean",
-                                "description": "Whether the node is selectable when selection mode is enabled."
-                            },
-                            {
-                                "name": "key",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "string",
-                                "description": "Mandatory unique key of the node."
-                            },
-                            {
-                                "name": "loading",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "boolean",
-                                "description": "Mandatory unique key of the node."
-                            },
-                            {
-                                "name": "originalEvent",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "Event",
-                                "description": "Browser event."
-                            },
-                            {
-                                "name": "rowNode",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "any",
-                                "description": "Row of the node."
-                            },
-                            {
-                                "name": "node",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "TreeNode<any>",
-                                "description": "Node instance."
-                            },
-                            {
-                                "name": "type",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "string",
-                                "description": "Selection type."
-                            },
-                            {
-                                "name": "index",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "number",
-                                "description": "Node index."
-                            },
-                            {
-                                "name": "level",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "number",
-                                "description": "Node level."
-                            },
-                            {
-                                "name": "visible",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "boolean",
-                                "description": "Boolean value indicates if node is in viewport."
-                            }
-                        ]
-                    },
-                    {
-                        "name": "TreeTableNodeUnSelectEvent",
-                        "description": "Custom node unselect event.",
-                        "props": [
-                            {
-                                "name": "originalEvent",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "Event",
-                                "description": "Browser event."
-                            },
-                            {
-                                "name": "node",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "TreeTableNode<any>",
-                                "description": "Node instance."
-                            },
-                            {
-                                "name": "type",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "string",
-                                "description": "Selection type."
-                            }
-                        ]
-                    },
-                    {
-                        "name": "TreeTableContextMenuSelectEvent",
-                        "description": "Custom context menu select event.",
-                        "props": [
-                            {
-                                "name": "originalEvent",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "Event",
-                                "description": "Browser event."
-                            },
-                            {
-                                "name": "node",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "TreeTableNode<any>",
-                                "description": "Node instance."
-                            }
-                        ]
-                    },
-                    {
-                        "name": "TreeTableHeaderCheckboxToggleEvent",
-                        "description": "Custom checkbox toggle event.",
-                        "props": [
-                            {
-                                "name": "originalEvent",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "Event",
-                                "description": "Browser event."
-                            },
-                            {
-                                "name": "checked",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "boolean",
-                                "description": "Checked state."
-                            }
-                        ]
-                    },
-                    {
-                        "name": "TreeTableEditEvent",
-                        "description": "Custom edit event.",
-                        "props": [
-                            {
-                                "name": "field",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "string",
-                                "description": "Field to be edited."
-                            },
-                            {
-                                "name": "data",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "string",
-                                "description": "New value."
-                            }
-                        ]
-                    }
-                ]
-            },
-            "templates": {
-                "description": "Defines the templates used by the component.",
-                "values": [
-                    {
-                        "parent": "treetable",
-                        "name": "caption",
-                        "parameters": [],
-                        "description": "Custom caption template."
-                    },
-                    {
-                        "parent": "treetable",
-                        "name": "header",
-                        "parameters": [
-                            {
-                                "name": "context",
-                                "type": "{\n  \t $implicit: any, // Columns instance.\n  }",
-                                "description": "header data."
-                            }
-                        ],
-                        "description": "Custom header template."
-                    },
-                    {
-                        "parent": "treetable",
-                        "name": "body",
-                        "parameters": [
-                            {
-                                "name": "context",
-                                "type": "{\n  \t $implicit: TreeNode, // undefined\n  \t node: TreeNode, // Serialized node.\n  \t rowData: any, // Row data.\n  \t columns: any, // Columns instance.\n  }",
-                                "description": "body data."
-                            }
-                        ],
-                        "description": "Custom body template."
-                    },
-                    {
-                        "parent": "treetable",
-                        "name": "footer",
-                        "parameters": [
-                            {
-                                "name": "context",
-                                "type": "{\n  \t $implicit: any, // Columns instance.\n  }",
-                                "description": "footer data."
-                            }
-                        ],
-                        "description": "Custom footer template."
-                    },
-                    {
-                        "parent": "treetable",
-                        "name": "summary",
-                        "parameters": [],
-                        "description": "Custom summary template."
-                    },
-                    {
-                        "parent": "treetable",
-                        "name": "colgroup",
-                        "parameters": [
-                            {
-                                "name": "context",
-                                "type": "{\n  \t $implicit: any, // Columns instance.\n  }",
-                                "description": "column group data."
-                            }
-                        ],
-                        "description": "Custom colgroup template."
-                    },
-                    {
-                        "parent": "treetable",
-                        "name": "emptymessage",
-                        "parameters": [
-                            {
-                                "name": "context",
-                                "type": "{\n  \t $implicit: any, // Columns instance.\n  \t frozen: boolean, // Boolean value indicates whether column is frozen.\n  }"
-                            }
-                        ],
-                        "description": "Custom emptymessage template."
-                    },
-                    {
-                        "parent": "treetable",
-                        "name": "paginatorleft",
-                        "parameters": [],
-                        "description": "Custom paginator left section template."
-                    },
-                    {
-                        "parent": "treetable",
-                        "name": "paginatorright",
-                        "parameters": [],
-                        "description": "Custom paginator right section template."
-                    },
-                    {
-                        "parent": "treetable",
-                        "name": "paginatordropdownitem",
-                        "parameters": [],
-                        "description": "Custom paginator dropdown template."
-                    },
-                    {
-                        "parent": "treetable",
-                        "name": "frozenheader",
-                        "parameters": [
-                            {
-                                "name": "context",
-                                "type": "{\n  \t $implicit: any, // Columns instance.\n  }",
-                                "description": "frozen header data."
-                            }
-                        ],
-                        "description": "Custom frozenheader template."
-                    },
-                    {
-                        "parent": "treetable",
-                        "name": "frozenbody",
-                        "parameters": [],
-                        "description": "Custom frozenbody template."
-                    },
-                    {
-                        "parent": "treetable",
-                        "name": "frozenfooter",
-                        "parameters": [
-                            {
-                                "name": "context",
-                                "type": "{\n  \t $implicit: any, // Columns instance.\n  }",
-                                "description": "frozen footer data."
-                            }
-                        ],
-                        "description": "Custom frozenfooter template."
-                    },
-                    {
-                        "parent": "treetable",
-                        "name": "frozencolgroup",
-                        "parameters": [
-                            {
-                                "name": "context",
-                                "type": "{\n  \t $implicit: any, // Columns instance.\n  }",
-                                "description": "group data."
-                            }
-                        ],
-                        "description": "Custom frozen column group template."
-                    },
-                    {
-                        "parent": "treetable",
-                        "name": "loadingicon",
-                        "parameters": [],
-                        "description": "Custom loading icon template."
-                    },
-                    {
-                        "parent": "treetable",
-                        "name": "reorderindicatorupicon",
-                        "parameters": [],
-                        "description": "Custom reorder indicator up icon template."
-                    },
-                    {
-                        "parent": "treetable",
-                        "name": "reorderindicatordownicon",
-                        "parameters": [],
-                        "description": "Custom reorder indicator down icon template."
-                    },
-                    {
-                        "parent": "treetable",
-                        "name": "sorticon",
-                        "parameters": [
-                            {
-                                "name": "context",
-                                "type": "{\n  \t $implicit: number, // Sort order.\n  }",
-                                "description": "sort data."
-                            }
-                        ],
-                        "description": "Custom sort icon template."
-                    },
-                    {
-                        "parent": "treetable",
-                        "name": "checkboxicon",
-                        "parameters": [
-                            {
-                                "name": "context",
-                                "type": "{\n  \t $implicit: boolean, // Checkbox state.\n  \t partialSelected: boolean, // Partial selection state of row node.\n  }",
-                                "description": "checkbox data."
-                            }
-                        ],
-                        "description": "Custom checkbox icon template."
-                    },
-                    {
-                        "parent": "treetable",
-                        "name": "headercheckboxicon",
-                        "parameters": [
-                            {
-                                "name": "context",
-                                "type": "{\n  \t $implicit: boolean, // Checkbox state.\n  }",
-                                "description": "checkbox data."
-                            }
-                        ],
-                        "description": "Custom header checkbox icon template."
-                    },
-                    {
-                        "parent": "treetable",
-                        "name": "togglericon",
-                        "parameters": [
-                            {
-                                "name": "context",
-                                "type": "{\n  \t $implicit: boolean, // Expand state of row node.\n  }",
-                                "description": "toggle icon data."
-                            }
-                        ],
-                        "description": "Custom toggler icon template."
-                    },
-                    {
-                        "parent": "treetable",
-                        "name": "paginatorfirstpagelinkicon",
-                        "parameters": [],
-                        "description": "Custom paginator first page link icon template."
-                    },
-                    {
-                        "parent": "treetable",
-                        "name": "paginatorlastpagelinkicon",
-                        "parameters": [],
-                        "description": "Custom paginatorlastpagelinkicon template."
-                    },
-                    {
-                        "parent": "treetable",
-                        "name": "paginatorpreviouspagelinkicon",
-                        "parameters": [],
-                        "description": "Custom paginatorpreviouspagelinkicon template."
-                    },
-                    {
-                        "parent": "treetable",
-                        "name": "paginatornextpagelinkicon",
-                        "parameters": [],
-                        "description": "Custom paginatornextpagelinkicon template."
-                    }
-                ]
-            },
-            "interfaces": {
-                "description": "Defines the custom interfaces used by the module.",
-                "values": [
-                    {
-                        "name": "TreeTablePaginatorState",
-                        "description": "Paginator state.",
-                        "props": [
-                            {
-                                "name": "page",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "number",
-                                "description": "Current page."
-                            },
-                            {
-                                "name": "first",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "number",
-                                "description": "Index of the first element."
-                            },
-                            {
-                                "name": "rows",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "number",
-                                "description": "Row count."
-                            },
-                            {
-                                "name": "pageCount",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "number",
-                                "description": "Page count."
-                            }
-                        ]
-                    },
-                    {
-                        "name": "TreeTableFilterOptions",
-                        "description": "Filtering options.",
-                        "props": [
-                            {
-                                "name": "filterField",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "string",
-                                "description": "Field to be filtered."
-                            },
-                            {
-                                "name": "filterValue",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "any",
-                                "description": "Value to use when filtering."
-                            },
-                            {
-                                "name": "filterConstraint",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "Function",
-                                "description": "Filter constraints."
-                            },
-                            {
-                                "name": "isStrictMode",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "boolean",
-                                "description": "Boolean value that defines if strict mode enabled."
-                            }
-                        ]
-                    }
-                ]
-            }
         }
-    },
-    "usestyle": {
-        "components": {}
-    },
-    "objectutils": {
-        "components": {}
-    },
-    "uniquecomponentid": {
-        "components": {}
-    },
-    "zindexutils": {
-        "components": {}
     },
     "virtualscroller": {
         "components": {
@@ -32289,38 +30830,57 @@
                     ]
                 }
             }
-        },
-        "interfaces": {
-            "components": {},
-            "templates": {
-                "description": "Defines the templates used by the component.",
-                "values": [
-                    {
-                        "parent": "virtualscroller",
-                        "name": "item",
-                        "parameters": [
-                            {
-                                "name": "context",
-                                "type": "{\n  \t $implicit: any, // Item instance.\n  \t options: ScrollerOptions, // Scroller options.\n  }",
-                                "description": "item data."
-                            }
-                        ],
-                        "description": "Custom item template."
-                    },
-                    {
-                        "parent": "virtualscroller",
-                        "name": "header",
-                        "parameters": [],
-                        "description": "Custom header template."
-                    },
-                    {
-                        "parent": "virtualscroller",
-                        "name": "footer",
-                        "parameters": [],
-                        "description": "Custom header template."
-                    }
-                ]
-            }
         }
+    },
+    "lara": {
+        "components": {}
+    },
+    "nora": {
+        "components": {}
+    },
+    "themes": {
+        "components": {}
+    },
+    "tieredmenustyle": {
+        "components": {}
+    },
+    "timelinestyle": {
+        "components": {}
+    },
+    "toaststyle": {
+        "components": {}
+    },
+    "togglebuttonstyle": {
+        "components": {}
+    },
+    "toggleswitchstyle": {
+        "components": {}
+    },
+    "toolbarstyle": {
+        "components": {}
+    },
+    "tooltipstyle": {
+        "components": {}
+    },
+    "treestyle": {
+        "components": {}
+    },
+    "treeselectstyle": {
+        "components": {}
+    },
+    "treetablestyle": {
+        "components": {}
+    },
+    "usestyle": {
+        "components": {}
+    },
+    "objectutils": {
+        "components": {}
+    },
+    "uniquecomponentid": {
+        "components": {}
+    },
+    "zindexutils": {
+        "components": {}
     }
 }

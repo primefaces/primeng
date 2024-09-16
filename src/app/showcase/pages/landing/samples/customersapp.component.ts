@@ -43,7 +43,7 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
         KnobModule,
         OverlayBadgeModule,
         DrawerModule,
-        ToggleSwitchModule
+        ToggleSwitchModule,
     ],
     template: `
         <div class="h-full flex-1 flex flex-col overflow-hidden border border-surface rounded-2xl p-6">
@@ -728,37 +728,37 @@ export class CustomersApp {
         this.opportunities = [
             {
                 title: 'Apollo',
-                link: 'https://primevue.org/templates/apollo/',
+                link: 'https://primeng.org/templates/apollo/',
                 image: 'https://primefaces.org/cdn/primevue/images/layouts/apollo-vue.jpg',
                 text: 'Keep your application fresh with Apollo, the newest and most modern template available.',
             },
             {
                 title: 'Ultima',
-                link: 'https://primevue.org/templates/ultima/',
+                link: 'https://primeng.org/templates/ultima/',
                 image: 'https://primefaces.org/cdn/primevue/images/layouts/ultima-vue.jpg',
                 text: "Elevate your application's intuitiveness with Ultima's premium Material Design interface.",
             },
             {
                 title: 'Diamond',
-                link: 'https://primevue.org/templates/diamond/',
+                link: 'https://primeng.org/templates/diamond/',
                 image: 'https://primefaces.org/cdn/primevue/images/layouts/diamond-vue.jpg',
                 text: "Handle complex operations with elegance with Diamond's robust and powerful premium design.",
             },
             {
                 title: 'Atlantis',
-                link: 'https://primevue.org/templates/atlantis/',
+                link: 'https://primeng.org/templates/atlantis/',
                 image: 'https://primefaces.org/cdn/primevue/images/layouts/atlantis-vue.jpg',
                 text: "Boost your application's capabilities, customization with the Atlantis template.",
             },
             {
                 title: 'Verona',
-                link: 'https://primevue.org/templates/verona/',
+                link: 'https://primeng.org/templates/verona/',
                 image: 'https://primefaces.org/cdn/primevue/images/layouts/verona-vue.jpg',
                 text: "Achieve sophistication and subtlety with Verona's minimalistic, content-focused design.",
             },
             {
                 title: 'Freya',
-                link: 'https://primevue.org/templates/freya/',
+                link: 'https://primeng.org/templates/freya/',
                 image: 'https://primefaces.org/cdn/primevue/images/layouts/freya-vue.png',
                 text: "Give your application a sleek, updated look with Freya's chic and modern premium template.",
             },
