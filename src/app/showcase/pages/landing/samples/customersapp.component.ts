@@ -20,6 +20,7 @@ import { DrawerModule } from 'primeng/drawer';
 import { DomSanitizer } from '@angular/platform-browser';
 import { AppConfigService } from '@service/appconfigservice';
 import { ToggleSwitchModule } from 'primeng/toggleswitch';
+import { PopoverModule } from 'primeng/popover';
 
 @Component({
     selector: 'customers-app',
@@ -44,6 +45,7 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
         OverlayBadgeModule,
         DrawerModule,
         ToggleSwitchModule,
+        PopoverModule,
     ],
     template: `
         <div class="h-full flex-1 flex flex-col overflow-hidden border border-surface rounded-2xl p-6">
@@ -133,12 +135,20 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
                             </td>
                             <td>
                                 <div class="flex justify-end w-full">
-                                    <p-button (click)="visibleRight = true" icon="pi pi-ellipsis-h" rounded outlined severity="secondary" />
+                                    <p-button (onClick)="op.show($event)" icon="pi pi-search" severity="secondary" rounded />
                                 </div>
                             </td>
                         </tr>
                     </ng-template>
                 </p-table>
+                <p-popover #op>
+                    <ng-template pTemplate="content">
+                        <div class="flex gap-2">
+                            <p-button (onClick)="confirm1($event)" label="Details" />
+                            <p-button (onClick)="confirm2($event)" label="Cancel" severity="danger" />
+                        </div>
+                    </ng-template>
+                </p-popover>
             </div>
         </div>
     `,
@@ -329,9 +339,5 @@ export class CustomersApp {
 <path d="M9.79907 18.5C4.82851 18.5 0.799072 14.4706 0.799072 9.5C5.76963 9.5 9.79907 13.5294 9.79907 18.5Z" />
 </svg>`),
         };
-
-     
-
-       
     }
 }
