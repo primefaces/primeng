@@ -21,15 +21,7 @@ import { InputIconModule } from 'primeng/inputicon';
         <section class="landing-themes py-20">
             <div class="section-header">Components</div>
             <p class="section-detail">The most complete UI component library for Angular based on a design-agnostic infrastructure.</p>
-            <div
-                class="themes-main flex mt-16 justify-center px-8 lg:px-20"
-                [style]="{ 'background-size': 'cover' }"
-                [ngStyle]="{
-                    'background-image': isDarkMode
-                        ? 'url(https://primefaces.org/cdn/primeng/images/landing/wave-dark-alt-gray.svg)'
-                        : 'url(https://primefaces.org/cdn/primeng/images/landing/wave-light-alt-gray.svg)',
-                }"
-            >
+            <div class="themes-main flex mt-16 justify-center px-8 lg:px-20">
                 <div class="box overflow-hidden z-10 p-8 table-container">
                     <p-table
                         #dt
