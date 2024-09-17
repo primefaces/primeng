@@ -285,7 +285,13 @@ import { KnobModule } from 'primeng/knob';
                                             <div class="leading-6 text-color font-medium">Brook Simmons</div>
                                             <div class="mt-1 leading-5 text-muted-color text-sm">Sales Executive</div>
                                         </div>
-                                        <p-button icon="pi pi-sign-out" text rounded severity="secondary" />
+                                        <p-button
+                                            (onClick)="visibleRight = false"
+                                            icon="pi pi-sign-out"
+                                            text
+                                            rounded
+                                            severity="secondary"
+                                        />
                                     </div>
                                     <p-selectbutton
                                         [(ngModel)]="selectedSidebarOption"
