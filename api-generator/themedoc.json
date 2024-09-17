@@ -1,0 +1,3453 @@
+{
+	"id": 0,
+	"name": "PrimeNG",
+	"variant": "project",
+	"kind": 1,
+	"flags": {},
+	"children": [
+		{
+			"id": 1,
+			"name": "themes/accordion",
+			"variant": "declaration",
+			"kind": 2,
+			"flags": {},
+			"comment": {
+				"summary": [
+					{
+						"kind": "text",
+						"text": "Accordion Design Tokens\n\n[Live Demo](https://www.primeng.org/accordion/)"
+					}
+				]
+			},
+			"children": [
+				{
+					"id": 2,
+					"name": "AccordionDesignTokens",
+					"variant": "declaration",
+					"kind": 256,
+					"flags": {},
+					"children": [
+						{
+							"id": 3,
+							"name": "root",
+							"variant": "declaration",
+							"kind": 1024,
+							"flags": {
+								"isOptional": true
+							},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "Used to pass tokens of the root section"
+									}
+								]
+							},
+							"sources": [
+								{
+									"fileName": "accordion/index.ts",
+									"line": 17,
+									"character": 4,
+									"url": "https://github.com/primefaces/primeng/blob/c7dac38bdb42b808b4914e047fe28922cbae05f5/src/app/components/themes/types/accordion/index.ts#L17"
+								}
+							],
+							"type": {
+								"type": "reflection",
+								"declaration": {
+									"id": 4,
+									"name": "__type",
+									"variant": "declaration",
+									"kind": 65536,
+									"flags": {},
+									"children": [
+										{
+											"id": 5,
+											"name": "transitionDuration",
+											"variant": "declaration",
+											"kind": 1024,
+											"flags": {
+												"isOptional": true
+											},
+											"comment": {
+												"summary": [
+													{
+														"kind": "text",
+														"text": "Transition duration of root"
+													}
+												],
+												"blockTags": [
+													{
+														"tag": "@designToken",
+														"content": [
+															{
+																"kind": "text",
+																"text": "accordion.transition.duration"
+															}
+														]
+													}
+												]
+											},
+											"sources": [
+												{
+													"fileName": "accordion/index.ts",
+													"line": 23,
+													"character": 8,
+													"url": "https://github.com/primefaces/primeng/blob/c7dac38bdb42b808b4914e047fe28922cbae05f5/src/app/components/themes/types/accordion/index.ts#L23"
+												}
+											],
+											"type": {
+												"type": "intrinsic",
+												"name": "string"
+											}
+										}
+									],
+									"groups": [
+										{
+											"title": "Properties",
+											"children": [
+												5
+											]
+										}
+									],
+									"sources": [
+										{
+											"fileName": "accordion/index.ts",
+											"line": 17,
+											"character": 11,
+											"url": "https://github.com/primefaces/primeng/blob/c7dac38bdb42b808b4914e047fe28922cbae05f5/src/app/components/themes/types/accordion/index.ts#L17"
+										}
+									]
+								}
+							}
+						},
+						{
+							"id": 6,
+							"name": "panel",
+							"variant": "declaration",
+							"kind": 1024,
+							"flags": {
+								"isOptional": true
+							},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "Used to pass tokens of the panel section"
+									}
+								]
+							},
+							"sources": [
+								{
+									"fileName": "accordion/index.ts",
+									"line": 28,
+									"character": 4,
+									"url": "https://github.com/primefaces/primeng/blob/c7dac38bdb42b808b4914e047fe28922cbae05f5/src/app/components/themes/types/accordion/index.ts#L28"
+								}
+							],
+							"type": {
+								"type": "reflection",
+								"declaration": {
+									"id": 7,
+									"name": "__type",
+									"variant": "declaration",
+									"kind": 65536,
+									"flags": {},
+									"children": [
+										{
+											"id": 8,
+											"name": "borderWidth",
+											"variant": "declaration",
+											"kind": 1024,
+											"flags": {
+												"isOptional": true
+											},
+											"comment": {
+												"summary": [
+													{
+														"kind": "text",
+														"text": "Border width of panel"
+													}
+												],
+												"blockTags": [
+													{
+														"tag": "@designToken",
+														"content": [
+															{
+																"kind": "text",
+																"text": "accordion.panel.border.width"
+															}
+														]
+													}
+												]
+											},
+											"sources": [
+												{
+													"fileName": "accordion/index.ts",
+													"line": 34,
+													"character": 8,
+													"url": "https://github.com/primefaces/primeng/blob/c7dac38bdb42b808b4914e047fe28922cbae05f5/src/app/components/themes/types/accordion/index.ts#L34"
+												}
+											],
+											"type": {
+												"type": "intrinsic",
+												"name": "string"
+											}
+										},
+										{
+											"id": 9,
+											"name": "borderColor",
+											"variant": "declaration",
+											"kind": 1024,
+											"flags": {
+												"isOptional": true
+											},
+											"comment": {
+												"summary": [
+													{
+														"kind": "text",
+														"text": "Border color of panel"
+													}
+												],
+												"blockTags": [
+													{
+														"tag": "@designToken",
+														"content": [
+															{
+																"kind": "text",
+																"text": "accordion.panel.border.color"
+															}
+														]
+													}
+												]
+											},
+											"sources": [
+												{
+													"fileName": "accordion/index.ts",
+													"line": 40,
+													"character": 8,
+													"url": "https://github.com/primefaces/primeng/blob/c7dac38bdb42b808b4914e047fe28922cbae05f5/src/app/components/themes/types/accordion/index.ts#L40"
+												}
+											],
+											"type": {
+												"type": "intrinsic",
+												"name": "string"
+											}
+										}
+									],
+									"groups": [
+										{
+											"title": "Properties",
+											"children": [
+												8,
+												9
+											]
+										}
+									],
+									"sources": [
+										{
+											"fileName": "accordion/index.ts",
+											"line": 28,
+											"character": 12,
+											"url": "https://github.com/primefaces/primeng/blob/c7dac38bdb42b808b4914e047fe28922cbae05f5/src/app/components/themes/types/accordion/index.ts#L28"
+										}
+									]
+								}
+							}
+						},
+						{
+							"id": 10,
+							"name": "header",
+							"variant": "declaration",
+							"kind": 1024,
+							"flags": {
+								"isOptional": true
+							},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "Used to pass tokens of the header section"
+									}
+								]
+							},
+							"sources": [
+								{
+									"fileName": "accordion/index.ts",
+									"line": 45,
+									"character": 4,
+									"url": "https://github.com/primefaces/primeng/blob/c7dac38bdb42b808b4914e047fe28922cbae05f5/src/app/components/themes/types/accordion/index.ts#L45"
+								}
+							],
+							"type": {
+								"type": "reflection",
+								"declaration": {
+									"id": 11,
+									"name": "__type",
+									"variant": "declaration",
+									"kind": 65536,
+									"flags": {},
+									"children": [
+										{
+											"id": 12,
+											"name": "color",
+											"variant": "declaration",
+											"kind": 1024,
+											"flags": {
+												"isOptional": true
+											},
+											"comment": {
+												"summary": [
+													{
+														"kind": "text",
+														"text": "Color of header"
+													}
+												],
+												"blockTags": [
+													{
+														"tag": "@designToken",
+														"content": [
+															{
+																"kind": "text",
+																"text": "accordion.header.color"
+															}
+														]
+													}
+												]
+											},
+											"sources": [
+												{
+													"fileName": "accordion/index.ts",
+													"line": 51,
+													"character": 8,
+													"url": "https://github.com/primefaces/primeng/blob/c7dac38bdb42b808b4914e047fe28922cbae05f5/src/app/components/themes/types/accordion/index.ts#L51"
+												}
+											],
+											"type": {
+												"type": "intrinsic",
+												"name": "string"
+											}
+										},
+										{
+											"id": 13,
+											"name": "hoverColor",
+											"variant": "declaration",
+											"kind": 1024,
+											"flags": {
+												"isOptional": true
+											},
+											"comment": {
+												"summary": [
+													{
+														"kind": "text",
+														"text": "Hover color of header"
+													}
+												],
+												"blockTags": [
+													{
+														"tag": "@designToken",
+														"content": [
+															{
+																"kind": "text",
+																"text": "accordion.header.hover.color"
+															}
+														]
+													}
+												]
+											},
+											"sources": [
+												{
+													"fileName": "accordion/index.ts",
+													"line": 57,
+													"character": 8,
+													"url": "https://github.com/primefaces/primeng/blob/c7dac38bdb42b808b4914e047fe28922cbae05f5/src/app/components/themes/types/accordion/index.ts#L57"
+												}
+											],
+											"type": {
+												"type": "intrinsic",
+												"name": "string"
+											}
+										},
+										{
+											"id": 14,
+											"name": "activeColor",
+											"variant": "declaration",
+											"kind": 1024,
+											"flags": {
+												"isOptional": true
+											},
+											"comment": {
+												"summary": [
+													{
+														"kind": "text",
+														"text": "Active color of header"
+													}
+												],
+												"blockTags": [
+													{
+														"tag": "@designToken",
+														"content": [
+															{
+																"kind": "text",
+																"text": "accordion.header.active.color"
+															}
+														]
+													}
+												]
+											},
+											"sources": [
+												{
+													"fileName": "accordion/index.ts",
+													"line": 63,
+													"character": 8,
+													"url": "https://github.com/primefaces/primeng/blob/c7dac38bdb42b808b4914e047fe28922cbae05f5/src/app/components/themes/types/accordion/index.ts#L63"
+												}
+											],
+											"type": {
+												"type": "intrinsic",
+												"name": "string"
+											}
+										},
+										{
+											"id": 15,
+											"name": "padding",
+											"variant": "declaration",
+											"kind": 1024,
+											"flags": {
+												"isOptional": true
+											},
+											"comment": {
+												"summary": [
+													{
+														"kind": "text",
+														"text": "Padding of header"
+													}
+												],
+												"blockTags": [
+													{
+														"tag": "@designToken",
+														"content": [
+															{
+																"kind": "text",
+																"text": "accordion.header.padding"
+															}
+														]
+													}
+												]
+											},
+											"sources": [
+												{
+													"fileName": "accordion/index.ts",
+													"line": 69,
+													"character": 8,
+													"url": "https://github.com/primefaces/primeng/blob/c7dac38bdb42b808b4914e047fe28922cbae05f5/src/app/components/themes/types/accordion/index.ts#L69"
+												}
+											],
+											"type": {
+												"type": "intrinsic",
+												"name": "string"
+											}
+										},
+										{
+											"id": 16,
+											"name": "fontWeight",
+											"variant": "declaration",
+											"kind": 1024,
+											"flags": {
+												"isOptional": true
+											},
+											"comment": {
+												"summary": [
+													{
+														"kind": "text",
+														"text": "Font weight of header"
+													}
+												],
+												"blockTags": [
+													{
+														"tag": "@designToken",
+														"content": [
+															{
+																"kind": "text",
+																"text": "accordion.header.font.weight"
+															}
+														]
+													}
+												]
+											},
+											"sources": [
+												{
+													"fileName": "accordion/index.ts",
+													"line": 75,
+													"character": 8,
+													"url": "https://github.com/primefaces/primeng/blob/c7dac38bdb42b808b4914e047fe28922cbae05f5/src/app/components/themes/types/accordion/index.ts#L75"
+												}
+											],
+											"type": {
+												"type": "intrinsic",
+												"name": "string"
+											}
+										},
+										{
+											"id": 17,
+											"name": "borderRadius",
+											"variant": "declaration",
+											"kind": 1024,
+											"flags": {
+												"isOptional": true
+											},
+											"comment": {
+												"summary": [
+													{
+														"kind": "text",
+														"text": "Border radius of header"
+													}
+												],
+												"blockTags": [
+													{
+														"tag": "@designToken",
+														"content": [
+															{
+																"kind": "text",
+																"text": "accordion.header.border.radius"
+															}
+														]
+													}
+												]
+											},
+											"sources": [
+												{
+													"fileName": "accordion/index.ts",
+													"line": 81,
+													"character": 8,
+													"url": "https://github.com/primefaces/primeng/blob/c7dac38bdb42b808b4914e047fe28922cbae05f5/src/app/components/themes/types/accordion/index.ts#L81"
+												}
+											],
+											"type": {
+												"type": "intrinsic",
+												"name": "string"
+											}
+										},
+										{
+											"id": 18,
+											"name": "borderWidth",
+											"variant": "declaration",
+											"kind": 1024,
+											"flags": {
+												"isOptional": true
+											},
+											"comment": {
+												"summary": [
+													{
+														"kind": "text",
+														"text": "Border width of header"
+													}
+												],
+												"blockTags": [
+													{
+														"tag": "@designToken",
+														"content": [
+															{
+																"kind": "text",
+																"text": "accordion.header.border.width"
+															}
+														]
+													}
+												]
+											},
+											"sources": [
+												{
+													"fileName": "accordion/index.ts",
+													"line": 87,
+													"character": 8,
+													"url": "https://github.com/primefaces/primeng/blob/c7dac38bdb42b808b4914e047fe28922cbae05f5/src/app/components/themes/types/accordion/index.ts#L87"
+												}
+											],
+											"type": {
+												"type": "intrinsic",
+												"name": "string"
+											}
+										},
+										{
+											"id": 19,
+											"name": "borderColor",
+											"variant": "declaration",
+											"kind": 1024,
+											"flags": {
+												"isOptional": true
+											},
+											"comment": {
+												"summary": [
+													{
+														"kind": "text",
+														"text": "Border color of header"
+													}
+												],
+												"blockTags": [
+													{
+														"tag": "@designToken",
+														"content": [
+															{
+																"kind": "text",
+																"text": "accordion.header.border.color"
+															}
+														]
+													}
+												]
+											},
+											"sources": [
+												{
+													"fileName": "accordion/index.ts",
+													"line": 93,
+													"character": 8,
+													"url": "https://github.com/primefaces/primeng/blob/c7dac38bdb42b808b4914e047fe28922cbae05f5/src/app/components/themes/types/accordion/index.ts#L93"
+												}
+											],
+											"type": {
+												"type": "intrinsic",
+												"name": "string"
+											}
+										},
+										{
+											"id": 20,
+											"name": "background",
+											"variant": "declaration",
+											"kind": 1024,
+											"flags": {
+												"isOptional": true
+											},
+											"comment": {
+												"summary": [
+													{
+														"kind": "text",
+														"text": "Background of header"
+													}
+												],
+												"blockTags": [
+													{
+														"tag": "@designToken",
+														"content": [
+															{
+																"kind": "text",
+																"text": "accordion.header.background"
+															}
+														]
+													}
+												]
+											},
+											"sources": [
+												{
+													"fileName": "accordion/index.ts",
+													"line": 99,
+													"character": 8,
+													"url": "https://github.com/primefaces/primeng/blob/c7dac38bdb42b808b4914e047fe28922cbae05f5/src/app/components/themes/types/accordion/index.ts#L99"
+												}
+											],
+											"type": {
+												"type": "intrinsic",
+												"name": "string"
+											}
+										},
+										{
+											"id": 21,
+											"name": "hoverBackground",
+											"variant": "declaration",
+											"kind": 1024,
+											"flags": {
+												"isOptional": true
+											},
+											"comment": {
+												"summary": [
+													{
+														"kind": "text",
+														"text": "Hover background of header"
+													}
+												],
+												"blockTags": [
+													{
+														"tag": "@designToken",
+														"content": [
+															{
+																"kind": "text",
+																"text": "accordion.header.hover.background"
+															}
+														]
+													}
+												]
+											},
+											"sources": [
+												{
+													"fileName": "accordion/index.ts",
+													"line": 105,
+													"character": 8,
+													"url": "https://github.com/primefaces/primeng/blob/c7dac38bdb42b808b4914e047fe28922cbae05f5/src/app/components/themes/types/accordion/index.ts#L105"
+												}
+											],
+											"type": {
+												"type": "intrinsic",
+												"name": "string"
+											}
+										},
+										{
+											"id": 22,
+											"name": "activeBackground",
+											"variant": "declaration",
+											"kind": 1024,
+											"flags": {
+												"isOptional": true
+											},
+											"comment": {
+												"summary": [
+													{
+														"kind": "text",
+														"text": "Active background of header"
+													}
+												],
+												"blockTags": [
+													{
+														"tag": "@designToken",
+														"content": [
+															{
+																"kind": "text",
+																"text": "accordion.header.active.background"
+															}
+														]
+													}
+												]
+											},
+											"sources": [
+												{
+													"fileName": "accordion/index.ts",
+													"line": 111,
+													"character": 8,
+													"url": "https://github.com/primefaces/primeng/blob/c7dac38bdb42b808b4914e047fe28922cbae05f5/src/app/components/themes/types/accordion/index.ts#L111"
+												}
+											],
+											"type": {
+												"type": "intrinsic",
+												"name": "string"
+											}
+										},
+										{
+											"id": 23,
+											"name": "activeHoverBackground",
+											"variant": "declaration",
+											"kind": 1024,
+											"flags": {
+												"isOptional": true
+											},
+											"comment": {
+												"summary": [
+													{
+														"kind": "text",
+														"text": "Active hover background of header"
+													}
+												],
+												"blockTags": [
+													{
+														"tag": "@designToken",
+														"content": [
+															{
+																"kind": "text",
+																"text": "accordion.header.active.hover.background"
+															}
+														]
+													}
+												]
+											},
+											"sources": [
+												{
+													"fileName": "accordion/index.ts",
+													"line": 117,
+													"character": 8,
+													"url": "https://github.com/primefaces/primeng/blob/c7dac38bdb42b808b4914e047fe28922cbae05f5/src/app/components/themes/types/accordion/index.ts#L117"
+												}
+											],
+											"type": {
+												"type": "intrinsic",
+												"name": "string"
+											}
+										},
+										{
+											"id": 24,
+											"name": "focusRing",
+											"variant": "declaration",
+											"kind": 1024,
+											"flags": {
+												"isOptional": true
+											},
+											"comment": {
+												"summary": [
+													{
+														"kind": "text",
+														"text": "Focus ring of header"
+													}
+												]
+											},
+											"sources": [
+												{
+													"fileName": "accordion/index.ts",
+													"line": 121,
+													"character": 8,
+													"url": "https://github.com/primefaces/primeng/blob/c7dac38bdb42b808b4914e047fe28922cbae05f5/src/app/components/themes/types/accordion/index.ts#L121"
+												}
+											],
+											"type": {
+												"type": "reflection",
+												"declaration": {
+													"id": 25,
+													"name": "__type",
+													"variant": "declaration",
+													"kind": 65536,
+													"flags": {},
+													"children": [
+														{
+															"id": 26,
+															"name": "width",
+															"variant": "declaration",
+															"kind": 1024,
+															"flags": {
+																"isOptional": true
+															},
+															"comment": {
+																"summary": [
+																	{
+																		"kind": "text",
+																		"text": "Focus ring width of header"
+																	}
+																],
+																"blockTags": [
+																	{
+																		"tag": "@designToken",
+																		"content": [
+																			{
+																				"kind": "text",
+																				"text": "accordion.header.focus.ring.width"
+																			}
+																		]
+																	}
+																]
+															},
+															"sources": [
+																{
+																	"fileName": "accordion/index.ts",
+																	"line": 127,
+																	"character": 12,
+																	"url": "https://github.com/primefaces/primeng/blob/c7dac38bdb42b808b4914e047fe28922cbae05f5/src/app/components/themes/types/accordion/index.ts#L127"
+																}
+															],
+															"type": {
+																"type": "intrinsic",
+																"name": "string"
+															}
+														},
+														{
+															"id": 27,
+															"name": "style",
+															"variant": "declaration",
+															"kind": 1024,
+															"flags": {
+																"isOptional": true
+															},
+															"comment": {
+																"summary": [
+																	{
+																		"kind": "text",
+																		"text": "Focus ring style of header"
+																	}
+																],
+																"blockTags": [
+																	{
+																		"tag": "@designToken",
+																		"content": [
+																			{
+																				"kind": "text",
+																				"text": "accordion.header.focus.ring.style"
+																			}
+																		]
+																	}
+																]
+															},
+															"sources": [
+																{
+																	"fileName": "accordion/index.ts",
+																	"line": 133,
+																	"character": 12,
+																	"url": "https://github.com/primefaces/primeng/blob/c7dac38bdb42b808b4914e047fe28922cbae05f5/src/app/components/themes/types/accordion/index.ts#L133"
+																}
+															],
+															"type": {
+																"type": "intrinsic",
+																"name": "string"
+															}
+														},
+														{
+															"id": 28,
+															"name": "color",
+															"variant": "declaration",
+															"kind": 1024,
+															"flags": {
+																"isOptional": true
+															},
+															"comment": {
+																"summary": [
+																	{
+																		"kind": "text",
+																		"text": "Focus ring color of header"
+																	}
+																],
+																"blockTags": [
+																	{
+																		"tag": "@designToken",
+																		"content": [
+																			{
+																				"kind": "text",
+																				"text": "accordion.header.focus.ring.color"
+																			}
+																		]
+																	}
+																]
+															},
+															"sources": [
+																{
+																	"fileName": "accordion/index.ts",
+																	"line": 139,
+																	"character": 12,
+																	"url": "https://github.com/primefaces/primeng/blob/c7dac38bdb42b808b4914e047fe28922cbae05f5/src/app/components/themes/types/accordion/index.ts#L139"
+																}
+															],
+															"type": {
+																"type": "intrinsic",
+																"name": "string"
+															}
+														},
+														{
+															"id": 29,
+															"name": "offset",
+															"variant": "declaration",
+															"kind": 1024,
+															"flags": {
+																"isOptional": true
+															},
+															"comment": {
+																"summary": [
+																	{
+																		"kind": "text",
+																		"text": "Focus ring offset of header"
+																	}
+																],
+																"blockTags": [
+																	{
+																		"tag": "@designToken",
+																		"content": [
+																			{
+																				"kind": "text",
+																				"text": "accordion.header.focus.ring.offset"
+																			}
+																		]
+																	}
+																]
+															},
+															"sources": [
+																{
+																	"fileName": "accordion/index.ts",
+																	"line": 145,
+																	"character": 12,
+																	"url": "https://github.com/primefaces/primeng/blob/c7dac38bdb42b808b4914e047fe28922cbae05f5/src/app/components/themes/types/accordion/index.ts#L145"
+																}
+															],
+															"type": {
+																"type": "intrinsic",
+																"name": "string"
+															}
+														},
+														{
+															"id": 30,
+															"name": "shadow",
+															"variant": "declaration",
+															"kind": 1024,
+															"flags": {
+																"isOptional": true
+															},
+															"comment": {
+																"summary": [
+																	{
+																		"kind": "text",
+																		"text": "Focus ring shadow of header"
+																	}
+																],
+																"blockTags": [
+																	{
+																		"tag": "@designToken",
+																		"content": [
+																			{
+																				"kind": "text",
+																				"text": "accordion.header.focus.ring.shadow"
+																			}
+																		]
+																	}
+																]
+															},
+															"sources": [
+																{
+																	"fileName": "accordion/index.ts",
+																	"line": 151,
+																	"character": 12,
+																	"url": "https://github.com/primefaces/primeng/blob/c7dac38bdb42b808b4914e047fe28922cbae05f5/src/app/components/themes/types/accordion/index.ts#L151"
+																}
+															],
+															"type": {
+																"type": "intrinsic",
+																"name": "string"
+															}
+														}
+													],
+													"groups": [
+														{
+															"title": "Properties",
+															"children": [
+																26,
+																27,
+																28,
+																29,
+																30
+															]
+														}
+													],
+													"sources": [
+														{
+															"fileName": "accordion/index.ts",
+															"line": 121,
+															"character": 20,
+															"url": "https://github.com/primefaces/primeng/blob/c7dac38bdb42b808b4914e047fe28922cbae05f5/src/app/components/themes/types/accordion/index.ts#L121"
+														}
+													]
+												}
+											}
+										},
+										{
+											"id": 31,
+											"name": "toggleIcon",
+											"variant": "declaration",
+											"kind": 1024,
+											"flags": {
+												"isOptional": true
+											},
+											"comment": {
+												"summary": [
+													{
+														"kind": "text",
+														"text": "Toggle icon of header"
+													}
+												]
+											},
+											"sources": [
+												{
+													"fileName": "accordion/index.ts",
+													"line": 156,
+													"character": 8,
+													"url": "https://github.com/primefaces/primeng/blob/c7dac38bdb42b808b4914e047fe28922cbae05f5/src/app/components/themes/types/accordion/index.ts#L156"
+												}
+											],
+											"type": {
+												"type": "reflection",
+												"declaration": {
+													"id": 32,
+													"name": "__type",
+													"variant": "declaration",
+													"kind": 65536,
+													"flags": {},
+													"children": [
+														{
+															"id": 33,
+															"name": "color",
+															"variant": "declaration",
+															"kind": 1024,
+															"flags": {
+																"isOptional": true
+															},
+															"comment": {
+																"summary": [
+																	{
+																		"kind": "text",
+																		"text": "Toggle icon color of header"
+																	}
+																],
+																"blockTags": [
+																	{
+																		"tag": "@designToken",
+																		"content": [
+																			{
+																				"kind": "text",
+																				"text": "accordion.header.toggle.icon.color"
+																			}
+																		]
+																	}
+																]
+															},
+															"sources": [
+																{
+																	"fileName": "accordion/index.ts",
+																	"line": 162,
+																	"character": 12,
+																	"url": "https://github.com/primefaces/primeng/blob/c7dac38bdb42b808b4914e047fe28922cbae05f5/src/app/components/themes/types/accordion/index.ts#L162"
+																}
+															],
+															"type": {
+																"type": "intrinsic",
+																"name": "string"
+															}
+														},
+														{
+															"id": 34,
+															"name": "hoverColor",
+															"variant": "declaration",
+															"kind": 1024,
+															"flags": {
+																"isOptional": true
+															},
+															"comment": {
+																"summary": [
+																	{
+																		"kind": "text",
+																		"text": "Toggle icon hover color of header"
+																	}
+																],
+																"blockTags": [
+																	{
+																		"tag": "@designToken",
+																		"content": [
+																			{
+																				"kind": "text",
+																				"text": "accordion.header.toggle.icon.hover.color"
+																			}
+																		]
+																	}
+																]
+															},
+															"sources": [
+																{
+																	"fileName": "accordion/index.ts",
+																	"line": 168,
+																	"character": 12,
+																	"url": "https://github.com/primefaces/primeng/blob/c7dac38bdb42b808b4914e047fe28922cbae05f5/src/app/components/themes/types/accordion/index.ts#L168"
+																}
+															],
+															"type": {
+																"type": "intrinsic",
+																"name": "string"
+															}
+														},
+														{
+															"id": 35,
+															"name": "activeColor",
+															"variant": "declaration",
+															"kind": 1024,
+															"flags": {
+																"isOptional": true
+															},
+															"comment": {
+																"summary": [
+																	{
+																		"kind": "text",
+																		"text": "Toggle icon active color of header"
+																	}
+																],
+																"blockTags": [
+																	{
+																		"tag": "@designToken",
+																		"content": [
+																			{
+																				"kind": "text",
+																				"text": "accordion.header.toggle.icon.active.color"
+																			}
+																		]
+																	}
+																]
+															},
+															"sources": [
+																{
+																	"fileName": "accordion/index.ts",
+																	"line": 174,
+																	"character": 12,
+																	"url": "https://github.com/primefaces/primeng/blob/c7dac38bdb42b808b4914e047fe28922cbae05f5/src/app/components/themes/types/accordion/index.ts#L174"
+																}
+															],
+															"type": {
+																"type": "intrinsic",
+																"name": "string"
+															}
+														},
+														{
+															"id": 36,
+															"name": "activeHoverColor",
+															"variant": "declaration",
+															"kind": 1024,
+															"flags": {
+																"isOptional": true
+															},
+															"comment": {
+																"summary": [
+																	{
+																		"kind": "text",
+																		"text": "Toggle icon active hover color of header"
+																	}
+																],
+																"blockTags": [
+																	{
+																		"tag": "@designToken",
+																		"content": [
+																			{
+																				"kind": "text",
+																				"text": "accordion.header.toggle.icon.active.hover.color"
+																			}
+																		]
+																	}
+																]
+															},
+															"sources": [
+																{
+																	"fileName": "accordion/index.ts",
+																	"line": 180,
+																	"character": 12,
+																	"url": "https://github.com/primefaces/primeng/blob/c7dac38bdb42b808b4914e047fe28922cbae05f5/src/app/components/themes/types/accordion/index.ts#L180"
+																}
+															],
+															"type": {
+																"type": "intrinsic",
+																"name": "string"
+															}
+														}
+													],
+													"groups": [
+														{
+															"title": "Properties",
+															"children": [
+																33,
+																34,
+																35,
+																36
+															]
+														}
+													],
+													"sources": [
+														{
+															"fileName": "accordion/index.ts",
+															"line": 156,
+															"character": 21,
+															"url": "https://github.com/primefaces/primeng/blob/c7dac38bdb42b808b4914e047fe28922cbae05f5/src/app/components/themes/types/accordion/index.ts#L156"
+														}
+													]
+												}
+											}
+										},
+										{
+											"id": 37,
+											"name": "first",
+											"variant": "declaration",
+											"kind": 1024,
+											"flags": {
+												"isOptional": true
+											},
+											"comment": {
+												"summary": [
+													{
+														"kind": "text",
+														"text": "First of header"
+													}
+												]
+											},
+											"sources": [
+												{
+													"fileName": "accordion/index.ts",
+													"line": 185,
+													"character": 8,
+													"url": "https://github.com/primefaces/primeng/blob/c7dac38bdb42b808b4914e047fe28922cbae05f5/src/app/components/themes/types/accordion/index.ts#L185"
+												}
+											],
+											"type": {
+												"type": "reflection",
+												"declaration": {
+													"id": 38,
+													"name": "__type",
+													"variant": "declaration",
+													"kind": 65536,
+													"flags": {},
+													"children": [
+														{
+															"id": 39,
+															"name": "topBorderRadius",
+															"variant": "declaration",
+															"kind": 1024,
+															"flags": {
+																"isOptional": true
+															},
+															"comment": {
+																"summary": [
+																	{
+																		"kind": "text",
+																		"text": "First top border radius of header"
+																	}
+																],
+																"blockTags": [
+																	{
+																		"tag": "@designToken",
+																		"content": [
+																			{
+																				"kind": "text",
+																				"text": "accordion.header.first.top.border.radius"
+																			}
+																		]
+																	}
+																]
+															},
+															"sources": [
+																{
+																	"fileName": "accordion/index.ts",
+																	"line": 191,
+																	"character": 12,
+																	"url": "https://github.com/primefaces/primeng/blob/c7dac38bdb42b808b4914e047fe28922cbae05f5/src/app/components/themes/types/accordion/index.ts#L191"
+																}
+															],
+															"type": {
+																"type": "intrinsic",
+																"name": "string"
+															}
+														},
+														{
+															"id": 40,
+															"name": "borderWidth",
+															"variant": "declaration",
+															"kind": 1024,
+															"flags": {
+																"isOptional": true
+															},
+															"comment": {
+																"summary": [
+																	{
+																		"kind": "text",
+																		"text": "First border width of header"
+																	}
+																],
+																"blockTags": [
+																	{
+																		"tag": "@designToken",
+																		"content": [
+																			{
+																				"kind": "text",
+																				"text": "accordion.header.first.border.width"
+																			}
+																		]
+																	}
+																]
+															},
+															"sources": [
+																{
+																	"fileName": "accordion/index.ts",
+																	"line": 197,
+																	"character": 12,
+																	"url": "https://github.com/primefaces/primeng/blob/c7dac38bdb42b808b4914e047fe28922cbae05f5/src/app/components/themes/types/accordion/index.ts#L197"
+																}
+															],
+															"type": {
+																"type": "intrinsic",
+																"name": "string"
+															}
+														}
+													],
+													"groups": [
+														{
+															"title": "Properties",
+															"children": [
+																39,
+																40
+															]
+														}
+													],
+													"sources": [
+														{
+															"fileName": "accordion/index.ts",
+															"line": 185,
+															"character": 16,
+															"url": "https://github.com/primefaces/primeng/blob/c7dac38bdb42b808b4914e047fe28922cbae05f5/src/app/components/themes/types/accordion/index.ts#L185"
+														}
+													]
+												}
+											}
+										},
+										{
+											"id": 41,
+											"name": "last",
+											"variant": "declaration",
+											"kind": 1024,
+											"flags": {
+												"isOptional": true
+											},
+											"comment": {
+												"summary": [
+													{
+														"kind": "text",
+														"text": "Last of header"
+													}
+												]
+											},
+											"sources": [
+												{
+													"fileName": "accordion/index.ts",
+													"line": 202,
+													"character": 8,
+													"url": "https://github.com/primefaces/primeng/blob/c7dac38bdb42b808b4914e047fe28922cbae05f5/src/app/components/themes/types/accordion/index.ts#L202"
+												}
+											],
+											"type": {
+												"type": "reflection",
+												"declaration": {
+													"id": 42,
+													"name": "__type",
+													"variant": "declaration",
+													"kind": 65536,
+													"flags": {},
+													"children": [
+														{
+															"id": 43,
+															"name": "bottomBorderRadius",
+															"variant": "declaration",
+															"kind": 1024,
+															"flags": {
+																"isOptional": true
+															},
+															"comment": {
+																"summary": [
+																	{
+																		"kind": "text",
+																		"text": "Last bottom border radius of header"
+																	}
+																],
+																"blockTags": [
+																	{
+																		"tag": "@designToken",
+																		"content": [
+																			{
+																				"kind": "text",
+																				"text": "accordion.header.last.bottom.border.radius"
+																			}
+																		]
+																	}
+																]
+															},
+															"sources": [
+																{
+																	"fileName": "accordion/index.ts",
+																	"line": 208,
+																	"character": 12,
+																	"url": "https://github.com/primefaces/primeng/blob/c7dac38bdb42b808b4914e047fe28922cbae05f5/src/app/components/themes/types/accordion/index.ts#L208"
+																}
+															],
+															"type": {
+																"type": "intrinsic",
+																"name": "string"
+															}
+														},
+														{
+															"id": 44,
+															"name": "activeBottomBorderRadius",
+															"variant": "declaration",
+															"kind": 1024,
+															"flags": {
+																"isOptional": true
+															},
+															"comment": {
+																"summary": [
+																	{
+																		"kind": "text",
+																		"text": "Last active bottom border radius of header"
+																	}
+																],
+																"blockTags": [
+																	{
+																		"tag": "@designToken",
+																		"content": [
+																			{
+																				"kind": "text",
+																				"text": "accordion.header.last.active.bottom.border.radius"
+																			}
+																		]
+																	}
+																]
+															},
+															"sources": [
+																{
+																	"fileName": "accordion/index.ts",
+																	"line": 214,
+																	"character": 12,
+																	"url": "https://github.com/primefaces/primeng/blob/c7dac38bdb42b808b4914e047fe28922cbae05f5/src/app/components/themes/types/accordion/index.ts#L214"
+																}
+															],
+															"type": {
+																"type": "intrinsic",
+																"name": "string"
+															}
+														}
+													],
+													"groups": [
+														{
+															"title": "Properties",
+															"children": [
+																43,
+																44
+															]
+														}
+													],
+													"sources": [
+														{
+															"fileName": "accordion/index.ts",
+															"line": 202,
+															"character": 15,
+															"url": "https://github.com/primefaces/primeng/blob/c7dac38bdb42b808b4914e047fe28922cbae05f5/src/app/components/themes/types/accordion/index.ts#L202"
+														}
+													]
+												}
+											}
+										}
+									],
+									"groups": [
+										{
+											"title": "Properties",
+											"children": [
+												12,
+												13,
+												14,
+												15,
+												16,
+												17,
+												18,
+												19,
+												20,
+												21,
+												22,
+												23,
+												24,
+												31,
+												37,
+												41
+											]
+										}
+									],
+									"sources": [
+										{
+											"fileName": "accordion/index.ts",
+											"line": 45,
+											"character": 13,
+											"url": "https://github.com/primefaces/primeng/blob/c7dac38bdb42b808b4914e047fe28922cbae05f5/src/app/components/themes/types/accordion/index.ts#L45"
+										}
+									]
+								}
+							}
+						},
+						{
+							"id": 45,
+							"name": "content",
+							"variant": "declaration",
+							"kind": 1024,
+							"flags": {
+								"isOptional": true
+							},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "Used to pass tokens of the content section"
+									}
+								]
+							},
+							"sources": [
+								{
+									"fileName": "accordion/index.ts",
+									"line": 220,
+									"character": 4,
+									"url": "https://github.com/primefaces/primeng/blob/c7dac38bdb42b808b4914e047fe28922cbae05f5/src/app/components/themes/types/accordion/index.ts#L220"
+								}
+							],
+							"type": {
+								"type": "reflection",
+								"declaration": {
+									"id": 46,
+									"name": "__type",
+									"variant": "declaration",
+									"kind": 65536,
+									"flags": {},
+									"children": [
+										{
+											"id": 47,
+											"name": "borderWidth",
+											"variant": "declaration",
+											"kind": 1024,
+											"flags": {
+												"isOptional": true
+											},
+											"comment": {
+												"summary": [
+													{
+														"kind": "text",
+														"text": "Border width of content"
+													}
+												],
+												"blockTags": [
+													{
+														"tag": "@designToken",
+														"content": [
+															{
+																"kind": "text",
+																"text": "accordion.content.border.width"
+															}
+														]
+													}
+												]
+											},
+											"sources": [
+												{
+													"fileName": "accordion/index.ts",
+													"line": 226,
+													"character": 8,
+													"url": "https://github.com/primefaces/primeng/blob/c7dac38bdb42b808b4914e047fe28922cbae05f5/src/app/components/themes/types/accordion/index.ts#L226"
+												}
+											],
+											"type": {
+												"type": "intrinsic",
+												"name": "string"
+											}
+										},
+										{
+											"id": 48,
+											"name": "borderColor",
+											"variant": "declaration",
+											"kind": 1024,
+											"flags": {
+												"isOptional": true
+											},
+											"comment": {
+												"summary": [
+													{
+														"kind": "text",
+														"text": "Border color of content"
+													}
+												],
+												"blockTags": [
+													{
+														"tag": "@designToken",
+														"content": [
+															{
+																"kind": "text",
+																"text": "accordion.content.border.color"
+															}
+														]
+													}
+												]
+											},
+											"sources": [
+												{
+													"fileName": "accordion/index.ts",
+													"line": 232,
+													"character": 8,
+													"url": "https://github.com/primefaces/primeng/blob/c7dac38bdb42b808b4914e047fe28922cbae05f5/src/app/components/themes/types/accordion/index.ts#L232"
+												}
+											],
+											"type": {
+												"type": "intrinsic",
+												"name": "string"
+											}
+										},
+										{
+											"id": 49,
+											"name": "background",
+											"variant": "declaration",
+											"kind": 1024,
+											"flags": {
+												"isOptional": true
+											},
+											"comment": {
+												"summary": [
+													{
+														"kind": "text",
+														"text": "Background of content"
+													}
+												],
+												"blockTags": [
+													{
+														"tag": "@designToken",
+														"content": [
+															{
+																"kind": "text",
+																"text": "accordion.content.background"
+															}
+														]
+													}
+												]
+											},
+											"sources": [
+												{
+													"fileName": "accordion/index.ts",
+													"line": 238,
+													"character": 8,
+													"url": "https://github.com/primefaces/primeng/blob/c7dac38bdb42b808b4914e047fe28922cbae05f5/src/app/components/themes/types/accordion/index.ts#L238"
+												}
+											],
+											"type": {
+												"type": "intrinsic",
+												"name": "string"
+											}
+										},
+										{
+											"id": 50,
+											"name": "color",
+											"variant": "declaration",
+											"kind": 1024,
+											"flags": {
+												"isOptional": true
+											},
+											"comment": {
+												"summary": [
+													{
+														"kind": "text",
+														"text": "Color of content"
+													}
+												],
+												"blockTags": [
+													{
+														"tag": "@designToken",
+														"content": [
+															{
+																"kind": "text",
+																"text": "accordion.content.color"
+															}
+														]
+													}
+												]
+											},
+											"sources": [
+												{
+													"fileName": "accordion/index.ts",
+													"line": 244,
+													"character": 8,
+													"url": "https://github.com/primefaces/primeng/blob/c7dac38bdb42b808b4914e047fe28922cbae05f5/src/app/components/themes/types/accordion/index.ts#L244"
+												}
+											],
+											"type": {
+												"type": "intrinsic",
+												"name": "string"
+											}
+										},
+										{
+											"id": 51,
+											"name": "padding",
+											"variant": "declaration",
+											"kind": 1024,
+											"flags": {
+												"isOptional": true
+											},
+											"comment": {
+												"summary": [
+													{
+														"kind": "text",
+														"text": "Padding of content"
+													}
+												],
+												"blockTags": [
+													{
+														"tag": "@designToken",
+														"content": [
+															{
+																"kind": "text",
+																"text": "accordion.content.padding"
+															}
+														]
+													}
+												]
+											},
+											"sources": [
+												{
+													"fileName": "accordion/index.ts",
+													"line": 250,
+													"character": 8,
+													"url": "https://github.com/primefaces/primeng/blob/c7dac38bdb42b808b4914e047fe28922cbae05f5/src/app/components/themes/types/accordion/index.ts#L250"
+												}
+											],
+											"type": {
+												"type": "intrinsic",
+												"name": "string"
+											}
+										}
+									],
+									"groups": [
+										{
+											"title": "Properties",
+											"children": [
+												47,
+												48,
+												49,
+												50,
+												51
+											]
+										}
+									],
+									"sources": [
+										{
+											"fileName": "accordion/index.ts",
+											"line": 220,
+											"character": 14,
+											"url": "https://github.com/primefaces/primeng/blob/c7dac38bdb42b808b4914e047fe28922cbae05f5/src/app/components/themes/types/accordion/index.ts#L220"
+										}
+									]
+								}
+							}
+						},
+						{
+							"id": 52,
+							"name": "colorScheme",
+							"variant": "declaration",
+							"kind": 1024,
+							"flags": {
+								"isOptional": true
+							},
+							"sources": [
+								{
+									"fileName": "index.d.ts",
+									"line": 9,
+									"character": 4,
+									"url": "https://github.com/primefaces/primeng/blob/c7dac38bdb42b808b4914e047fe28922cbae05f5/src/app/components/themes/types/index.d.ts#L9"
+								}
+							],
+							"type": {
+								"type": "reflection",
+								"declaration": {
+									"id": 53,
+									"name": "__type",
+									"variant": "declaration",
+									"kind": 65536,
+									"flags": {},
+									"children": [
+										{
+											"id": 54,
+											"name": "light",
+											"variant": "declaration",
+											"kind": 1024,
+											"flags": {
+												"isOptional": true
+											},
+											"sources": [
+												{
+													"fileName": "index.d.ts",
+													"line": 10,
+													"character": 8,
+													"url": "https://github.com/primefaces/primeng/blob/c7dac38bdb42b808b4914e047fe28922cbae05f5/src/app/components/themes/types/index.d.ts#L10"
+												}
+											],
+											"type": {
+												"type": "reference",
+												"target": {
+													"sourceFileName": "node_modules/typescript/lib/lib.es5.d.ts",
+													"qualifiedName": "Omit"
+												},
+												"typeArguments": [
+													{
+														"type": "reference",
+														"target": 2,
+														"name": "AccordionDesignTokens",
+														"package": "primeng"
+													},
+													{
+														"type": "literal",
+														"value": "colorScheme"
+													}
+												],
+												"name": "Omit",
+												"package": "typescript"
+											}
+										},
+										{
+											"id": 55,
+											"name": "dark",
+											"variant": "declaration",
+											"kind": 1024,
+											"flags": {
+												"isOptional": true
+											},
+											"sources": [
+												{
+													"fileName": "index.d.ts",
+													"line": 11,
+													"character": 8,
+													"url": "https://github.com/primefaces/primeng/blob/c7dac38bdb42b808b4914e047fe28922cbae05f5/src/app/components/themes/types/index.d.ts#L11"
+												}
+											],
+											"type": {
+												"type": "reference",
+												"target": {
+													"sourceFileName": "node_modules/typescript/lib/lib.es5.d.ts",
+													"qualifiedName": "Omit"
+												},
+												"typeArguments": [
+													{
+														"type": "reference",
+														"target": 2,
+														"name": "AccordionDesignTokens",
+														"package": "primeng"
+													},
+													{
+														"type": "literal",
+														"value": "colorScheme"
+													}
+												],
+												"name": "Omit",
+												"package": "typescript"
+											}
+										}
+									],
+									"groups": [
+										{
+											"title": "Properties",
+											"children": [
+												54,
+												55
+											]
+										}
+									],
+									"sources": [
+										{
+											"fileName": "index.d.ts",
+											"line": 9,
+											"character": 18,
+											"url": "https://github.com/primefaces/primeng/blob/c7dac38bdb42b808b4914e047fe28922cbae05f5/src/app/components/themes/types/index.d.ts#L9"
+										}
+									]
+								}
+							},
+							"inheritedFrom": {
+								"type": "reference",
+								"target": -1,
+								"name": "ColorSchemeDesignToken.colorScheme"
+							}
+						}
+					],
+					"groups": [
+						{
+							"title": "Properties",
+							"children": [
+								3,
+								6,
+								10,
+								45,
+								52
+							]
+						}
+					],
+					"sources": [
+						{
+							"fileName": "accordion/index.ts",
+							"line": 13,
+							"character": 17,
+							"url": "https://github.com/primefaces/primeng/blob/c7dac38bdb42b808b4914e047fe28922cbae05f5/src/app/components/themes/types/accordion/index.ts#L13"
+						}
+					],
+					"extendedTypes": [
+						{
+							"type": "reference",
+							"target": {
+								"sourceFileName": "src/app/components/themes/types/index.d.ts",
+								"qualifiedName": "ColorSchemeDesignToken"
+							},
+							"typeArguments": [
+								{
+									"type": "reference",
+									"target": 2,
+									"name": "AccordionDesignTokens",
+									"package": "primeng"
+								}
+							],
+							"name": "ColorSchemeDesignToken",
+							"package": "primeng"
+						}
+					]
+				}
+			],
+			"groups": [
+				{
+					"title": "Interfaces",
+					"children": [
+						2
+					]
+				}
+			],
+			"sources": [
+				{
+					"fileName": "accordion/index.ts",
+					"line": 1,
+					"character": 0,
+					"url": "https://github.com/primefaces/primeng/blob/c7dac38bdb42b808b4914e047fe28922cbae05f5/src/app/components/themes/types/accordion/index.ts#L1"
+				}
+			]
+		},
+		{
+			"id": 56,
+			"name": "themes/panel",
+			"variant": "declaration",
+			"kind": 2,
+			"flags": {},
+			"comment": {
+				"summary": [
+					{
+						"kind": "text",
+						"text": "Panel Design Tokens\n\n[Live Demo](https://www.primeng.org/panel/)"
+					}
+				]
+			},
+			"children": [
+				{
+					"id": 57,
+					"name": "PanelDesignTokens",
+					"variant": "declaration",
+					"kind": 256,
+					"flags": {},
+					"children": [
+						{
+							"id": 84,
+							"name": "colorScheme",
+							"variant": "declaration",
+							"kind": 1024,
+							"flags": {
+								"isOptional": true
+							},
+							"sources": [
+								{
+									"fileName": "index.d.ts",
+									"line": 9,
+									"character": 4,
+									"url": "https://github.com/primefaces/primeng/blob/c7dac38bdb42b808b4914e047fe28922cbae05f5/src/app/components/themes/types/index.d.ts#L9"
+								}
+							],
+							"type": {
+								"type": "reflection",
+								"declaration": {
+									"id": 85,
+									"name": "__type",
+									"variant": "declaration",
+									"kind": 65536,
+									"flags": {},
+									"children": [
+										{
+											"id": 86,
+											"name": "light",
+											"variant": "declaration",
+											"kind": 1024,
+											"flags": {
+												"isOptional": true
+											},
+											"sources": [
+												{
+													"fileName": "index.d.ts",
+													"line": 10,
+													"character": 8,
+													"url": "https://github.com/primefaces/primeng/blob/c7dac38bdb42b808b4914e047fe28922cbae05f5/src/app/components/themes/types/index.d.ts#L10"
+												}
+											],
+											"type": {
+												"type": "reference",
+												"target": {
+													"sourceFileName": "node_modules/typescript/lib/lib.es5.d.ts",
+													"qualifiedName": "Omit"
+												},
+												"typeArguments": [
+													{
+														"type": "reference",
+														"target": 57,
+														"name": "PanelDesignTokens",
+														"package": "primeng"
+													},
+													{
+														"type": "literal",
+														"value": "colorScheme"
+													}
+												],
+												"name": "Omit",
+												"package": "typescript"
+											}
+										},
+										{
+											"id": 87,
+											"name": "dark",
+											"variant": "declaration",
+											"kind": 1024,
+											"flags": {
+												"isOptional": true
+											},
+											"sources": [
+												{
+													"fileName": "index.d.ts",
+													"line": 11,
+													"character": 8,
+													"url": "https://github.com/primefaces/primeng/blob/c7dac38bdb42b808b4914e047fe28922cbae05f5/src/app/components/themes/types/index.d.ts#L11"
+												}
+											],
+											"type": {
+												"type": "reference",
+												"target": {
+													"sourceFileName": "node_modules/typescript/lib/lib.es5.d.ts",
+													"qualifiedName": "Omit"
+												},
+												"typeArguments": [
+													{
+														"type": "reference",
+														"target": 57,
+														"name": "PanelDesignTokens",
+														"package": "primeng"
+													},
+													{
+														"type": "literal",
+														"value": "colorScheme"
+													}
+												],
+												"name": "Omit",
+												"package": "typescript"
+											}
+										}
+									],
+									"groups": [
+										{
+											"title": "Properties",
+											"children": [
+												86,
+												87
+											]
+										}
+									],
+									"sources": [
+										{
+											"fileName": "index.d.ts",
+											"line": 9,
+											"character": 18,
+											"url": "https://github.com/primefaces/primeng/blob/c7dac38bdb42b808b4914e047fe28922cbae05f5/src/app/components/themes/types/index.d.ts#L9"
+										}
+									]
+								}
+							},
+							"inheritedFrom": {
+								"type": "reference",
+								"target": -1,
+								"name": "ColorSchemeDesignToken.colorScheme"
+							}
+						},
+						{
+							"id": 58,
+							"name": "root",
+							"variant": "declaration",
+							"kind": 1024,
+							"flags": {
+								"isOptional": true
+							},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "Used to pass tokens of the root section"
+									}
+								]
+							},
+							"sources": [
+								{
+									"fileName": "panel/index.d.ts",
+									"line": 17,
+									"character": 4,
+									"url": "https://github.com/primefaces/primeng/blob/c7dac38bdb42b808b4914e047fe28922cbae05f5/src/app/components/themes/types/panel/index.d.ts#L17"
+								}
+							],
+							"type": {
+								"type": "reflection",
+								"declaration": {
+									"id": 59,
+									"name": "__type",
+									"variant": "declaration",
+									"kind": 65536,
+									"flags": {},
+									"children": [
+										{
+											"id": 60,
+											"name": "background",
+											"variant": "declaration",
+											"kind": 1024,
+											"flags": {
+												"isOptional": true
+											},
+											"comment": {
+												"summary": [
+													{
+														"kind": "text",
+														"text": "Background of root"
+													}
+												],
+												"blockTags": [
+													{
+														"tag": "@designToken",
+														"content": [
+															{
+																"kind": "text",
+																"text": "panel.background"
+															}
+														]
+													}
+												]
+											},
+											"sources": [
+												{
+													"fileName": "panel/index.d.ts",
+													"line": 23,
+													"character": 8,
+													"url": "https://github.com/primefaces/primeng/blob/c7dac38bdb42b808b4914e047fe28922cbae05f5/src/app/components/themes/types/panel/index.d.ts#L23"
+												}
+											],
+											"type": {
+												"type": "intrinsic",
+												"name": "string"
+											}
+										},
+										{
+											"id": 61,
+											"name": "borderColor",
+											"variant": "declaration",
+											"kind": 1024,
+											"flags": {
+												"isOptional": true
+											},
+											"comment": {
+												"summary": [
+													{
+														"kind": "text",
+														"text": "Border color of root"
+													}
+												],
+												"blockTags": [
+													{
+														"tag": "@designToken",
+														"content": [
+															{
+																"kind": "text",
+																"text": "panel.border.color"
+															}
+														]
+													}
+												]
+											},
+											"sources": [
+												{
+													"fileName": "panel/index.d.ts",
+													"line": 29,
+													"character": 8,
+													"url": "https://github.com/primefaces/primeng/blob/c7dac38bdb42b808b4914e047fe28922cbae05f5/src/app/components/themes/types/panel/index.d.ts#L29"
+												}
+											],
+											"type": {
+												"type": "intrinsic",
+												"name": "string"
+											}
+										},
+										{
+											"id": 62,
+											"name": "color",
+											"variant": "declaration",
+											"kind": 1024,
+											"flags": {
+												"isOptional": true
+											},
+											"comment": {
+												"summary": [
+													{
+														"kind": "text",
+														"text": "Color of root"
+													}
+												],
+												"blockTags": [
+													{
+														"tag": "@designToken",
+														"content": [
+															{
+																"kind": "text",
+																"text": "panel.color"
+															}
+														]
+													}
+												]
+											},
+											"sources": [
+												{
+													"fileName": "panel/index.d.ts",
+													"line": 35,
+													"character": 8,
+													"url": "https://github.com/primefaces/primeng/blob/c7dac38bdb42b808b4914e047fe28922cbae05f5/src/app/components/themes/types/panel/index.d.ts#L35"
+												}
+											],
+											"type": {
+												"type": "intrinsic",
+												"name": "string"
+											}
+										},
+										{
+											"id": 63,
+											"name": "borderRadius",
+											"variant": "declaration",
+											"kind": 1024,
+											"flags": {
+												"isOptional": true
+											},
+											"comment": {
+												"summary": [
+													{
+														"kind": "text",
+														"text": "Border radius of root"
+													}
+												],
+												"blockTags": [
+													{
+														"tag": "@designToken",
+														"content": [
+															{
+																"kind": "text",
+																"text": "panel.border.radius"
+															}
+														]
+													}
+												]
+											},
+											"sources": [
+												{
+													"fileName": "panel/index.d.ts",
+													"line": 41,
+													"character": 8,
+													"url": "https://github.com/primefaces/primeng/blob/c7dac38bdb42b808b4914e047fe28922cbae05f5/src/app/components/themes/types/panel/index.d.ts#L41"
+												}
+											],
+											"type": {
+												"type": "intrinsic",
+												"name": "string"
+											}
+										}
+									],
+									"groups": [
+										{
+											"title": "Properties",
+											"children": [
+												60,
+												61,
+												62,
+												63
+											]
+										}
+									],
+									"sources": [
+										{
+											"fileName": "panel/index.d.ts",
+											"line": 17,
+											"character": 11,
+											"url": "https://github.com/primefaces/primeng/blob/c7dac38bdb42b808b4914e047fe28922cbae05f5/src/app/components/themes/types/panel/index.d.ts#L17"
+										}
+									]
+								}
+							}
+						},
+						{
+							"id": 64,
+							"name": "header",
+							"variant": "declaration",
+							"kind": 1024,
+							"flags": {
+								"isOptional": true
+							},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "Used to pass tokens of the header section"
+									}
+								]
+							},
+							"sources": [
+								{
+									"fileName": "panel/index.d.ts",
+									"line": 46,
+									"character": 4,
+									"url": "https://github.com/primefaces/primeng/blob/c7dac38bdb42b808b4914e047fe28922cbae05f5/src/app/components/themes/types/panel/index.d.ts#L46"
+								}
+							],
+							"type": {
+								"type": "reflection",
+								"declaration": {
+									"id": 65,
+									"name": "__type",
+									"variant": "declaration",
+									"kind": 65536,
+									"flags": {},
+									"children": [
+										{
+											"id": 66,
+											"name": "background",
+											"variant": "declaration",
+											"kind": 1024,
+											"flags": {
+												"isOptional": true
+											},
+											"comment": {
+												"summary": [
+													{
+														"kind": "text",
+														"text": "Background of header"
+													}
+												],
+												"blockTags": [
+													{
+														"tag": "@designToken",
+														"content": [
+															{
+																"kind": "text",
+																"text": "panel.header.background"
+															}
+														]
+													}
+												]
+											},
+											"sources": [
+												{
+													"fileName": "panel/index.d.ts",
+													"line": 52,
+													"character": 8,
+													"url": "https://github.com/primefaces/primeng/blob/c7dac38bdb42b808b4914e047fe28922cbae05f5/src/app/components/themes/types/panel/index.d.ts#L52"
+												}
+											],
+											"type": {
+												"type": "intrinsic",
+												"name": "string"
+											}
+										},
+										{
+											"id": 67,
+											"name": "color",
+											"variant": "declaration",
+											"kind": 1024,
+											"flags": {
+												"isOptional": true
+											},
+											"comment": {
+												"summary": [
+													{
+														"kind": "text",
+														"text": "Color of header"
+													}
+												],
+												"blockTags": [
+													{
+														"tag": "@designToken",
+														"content": [
+															{
+																"kind": "text",
+																"text": "panel.header.color"
+															}
+														]
+													}
+												]
+											},
+											"sources": [
+												{
+													"fileName": "panel/index.d.ts",
+													"line": 58,
+													"character": 8,
+													"url": "https://github.com/primefaces/primeng/blob/c7dac38bdb42b808b4914e047fe28922cbae05f5/src/app/components/themes/types/panel/index.d.ts#L58"
+												}
+											],
+											"type": {
+												"type": "intrinsic",
+												"name": "string"
+											}
+										},
+										{
+											"id": 68,
+											"name": "padding",
+											"variant": "declaration",
+											"kind": 1024,
+											"flags": {
+												"isOptional": true
+											},
+											"comment": {
+												"summary": [
+													{
+														"kind": "text",
+														"text": "Padding of header"
+													}
+												],
+												"blockTags": [
+													{
+														"tag": "@designToken",
+														"content": [
+															{
+																"kind": "text",
+																"text": "panel.header.padding"
+															}
+														]
+													}
+												]
+											},
+											"sources": [
+												{
+													"fileName": "panel/index.d.ts",
+													"line": 64,
+													"character": 8,
+													"url": "https://github.com/primefaces/primeng/blob/c7dac38bdb42b808b4914e047fe28922cbae05f5/src/app/components/themes/types/panel/index.d.ts#L64"
+												}
+											],
+											"type": {
+												"type": "intrinsic",
+												"name": "string"
+											}
+										},
+										{
+											"id": 69,
+											"name": "borderColor",
+											"variant": "declaration",
+											"kind": 1024,
+											"flags": {
+												"isOptional": true
+											},
+											"comment": {
+												"summary": [
+													{
+														"kind": "text",
+														"text": "Border color of header"
+													}
+												],
+												"blockTags": [
+													{
+														"tag": "@designToken",
+														"content": [
+															{
+																"kind": "text",
+																"text": "panel.header.border.color"
+															}
+														]
+													}
+												]
+											},
+											"sources": [
+												{
+													"fileName": "panel/index.d.ts",
+													"line": 70,
+													"character": 8,
+													"url": "https://github.com/primefaces/primeng/blob/c7dac38bdb42b808b4914e047fe28922cbae05f5/src/app/components/themes/types/panel/index.d.ts#L70"
+												}
+											],
+											"type": {
+												"type": "intrinsic",
+												"name": "string"
+											}
+										},
+										{
+											"id": 70,
+											"name": "borderWidth",
+											"variant": "declaration",
+											"kind": 1024,
+											"flags": {
+												"isOptional": true
+											},
+											"comment": {
+												"summary": [
+													{
+														"kind": "text",
+														"text": "Border width of header"
+													}
+												],
+												"blockTags": [
+													{
+														"tag": "@designToken",
+														"content": [
+															{
+																"kind": "text",
+																"text": "panel.header.border.width"
+															}
+														]
+													}
+												]
+											},
+											"sources": [
+												{
+													"fileName": "panel/index.d.ts",
+													"line": 76,
+													"character": 8,
+													"url": "https://github.com/primefaces/primeng/blob/c7dac38bdb42b808b4914e047fe28922cbae05f5/src/app/components/themes/types/panel/index.d.ts#L76"
+												}
+											],
+											"type": {
+												"type": "intrinsic",
+												"name": "string"
+											}
+										},
+										{
+											"id": 71,
+											"name": "borderRadius",
+											"variant": "declaration",
+											"kind": 1024,
+											"flags": {
+												"isOptional": true
+											},
+											"comment": {
+												"summary": [
+													{
+														"kind": "text",
+														"text": "Border radius of header"
+													}
+												],
+												"blockTags": [
+													{
+														"tag": "@designToken",
+														"content": [
+															{
+																"kind": "text",
+																"text": "panel.header.border.radius"
+															}
+														]
+													}
+												]
+											},
+											"sources": [
+												{
+													"fileName": "panel/index.d.ts",
+													"line": 82,
+													"character": 8,
+													"url": "https://github.com/primefaces/primeng/blob/c7dac38bdb42b808b4914e047fe28922cbae05f5/src/app/components/themes/types/panel/index.d.ts#L82"
+												}
+											],
+											"type": {
+												"type": "intrinsic",
+												"name": "string"
+											}
+										}
+									],
+									"groups": [
+										{
+											"title": "Properties",
+											"children": [
+												66,
+												67,
+												68,
+												69,
+												70,
+												71
+											]
+										}
+									],
+									"sources": [
+										{
+											"fileName": "panel/index.d.ts",
+											"line": 46,
+											"character": 13,
+											"url": "https://github.com/primefaces/primeng/blob/c7dac38bdb42b808b4914e047fe28922cbae05f5/src/app/components/themes/types/panel/index.d.ts#L46"
+										}
+									]
+								}
+							}
+						},
+						{
+							"id": 72,
+							"name": "toggleableHeader",
+							"variant": "declaration",
+							"kind": 1024,
+							"flags": {
+								"isOptional": true
+							},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "Used to pass tokens of the toggleable header section"
+									}
+								]
+							},
+							"sources": [
+								{
+									"fileName": "panel/index.d.ts",
+									"line": 87,
+									"character": 4,
+									"url": "https://github.com/primefaces/primeng/blob/c7dac38bdb42b808b4914e047fe28922cbae05f5/src/app/components/themes/types/panel/index.d.ts#L87"
+								}
+							],
+							"type": {
+								"type": "reflection",
+								"declaration": {
+									"id": 73,
+									"name": "__type",
+									"variant": "declaration",
+									"kind": 65536,
+									"flags": {},
+									"children": [
+										{
+											"id": 74,
+											"name": "padding",
+											"variant": "declaration",
+											"kind": 1024,
+											"flags": {
+												"isOptional": true
+											},
+											"comment": {
+												"summary": [
+													{
+														"kind": "text",
+														"text": "Padding of toggleable header"
+													}
+												],
+												"blockTags": [
+													{
+														"tag": "@designToken",
+														"content": [
+															{
+																"kind": "text",
+																"text": "panel.toggleable.header.padding"
+															}
+														]
+													}
+												]
+											},
+											"sources": [
+												{
+													"fileName": "panel/index.d.ts",
+													"line": 93,
+													"character": 8,
+													"url": "https://github.com/primefaces/primeng/blob/c7dac38bdb42b808b4914e047fe28922cbae05f5/src/app/components/themes/types/panel/index.d.ts#L93"
+												}
+											],
+											"type": {
+												"type": "intrinsic",
+												"name": "string"
+											}
+										}
+									],
+									"groups": [
+										{
+											"title": "Properties",
+											"children": [
+												74
+											]
+										}
+									],
+									"sources": [
+										{
+											"fileName": "panel/index.d.ts",
+											"line": 87,
+											"character": 23,
+											"url": "https://github.com/primefaces/primeng/blob/c7dac38bdb42b808b4914e047fe28922cbae05f5/src/app/components/themes/types/panel/index.d.ts#L87"
+										}
+									]
+								}
+							}
+						},
+						{
+							"id": 75,
+							"name": "title",
+							"variant": "declaration",
+							"kind": 1024,
+							"flags": {
+								"isOptional": true
+							},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "Used to pass tokens of the title section"
+									}
+								]
+							},
+							"sources": [
+								{
+									"fileName": "panel/index.d.ts",
+									"line": 98,
+									"character": 4,
+									"url": "https://github.com/primefaces/primeng/blob/c7dac38bdb42b808b4914e047fe28922cbae05f5/src/app/components/themes/types/panel/index.d.ts#L98"
+								}
+							],
+							"type": {
+								"type": "reflection",
+								"declaration": {
+									"id": 76,
+									"name": "__type",
+									"variant": "declaration",
+									"kind": 65536,
+									"flags": {},
+									"children": [
+										{
+											"id": 77,
+											"name": "fontWeight",
+											"variant": "declaration",
+											"kind": 1024,
+											"flags": {
+												"isOptional": true
+											},
+											"comment": {
+												"summary": [
+													{
+														"kind": "text",
+														"text": "Font weight of title"
+													}
+												],
+												"blockTags": [
+													{
+														"tag": "@designToken",
+														"content": [
+															{
+																"kind": "text",
+																"text": "panel.title.font.weight"
+															}
+														]
+													}
+												]
+											},
+											"sources": [
+												{
+													"fileName": "panel/index.d.ts",
+													"line": 104,
+													"character": 8,
+													"url": "https://github.com/primefaces/primeng/blob/c7dac38bdb42b808b4914e047fe28922cbae05f5/src/app/components/themes/types/panel/index.d.ts#L104"
+												}
+											],
+											"type": {
+												"type": "intrinsic",
+												"name": "string"
+											}
+										}
+									],
+									"groups": [
+										{
+											"title": "Properties",
+											"children": [
+												77
+											]
+										}
+									],
+									"sources": [
+										{
+											"fileName": "panel/index.d.ts",
+											"line": 98,
+											"character": 12,
+											"url": "https://github.com/primefaces/primeng/blob/c7dac38bdb42b808b4914e047fe28922cbae05f5/src/app/components/themes/types/panel/index.d.ts#L98"
+										}
+									]
+								}
+							}
+						},
+						{
+							"id": 78,
+							"name": "content",
+							"variant": "declaration",
+							"kind": 1024,
+							"flags": {
+								"isOptional": true
+							},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "Used to pass tokens of the content section"
+									}
+								]
+							},
+							"sources": [
+								{
+									"fileName": "panel/index.d.ts",
+									"line": 109,
+									"character": 4,
+									"url": "https://github.com/primefaces/primeng/blob/c7dac38bdb42b808b4914e047fe28922cbae05f5/src/app/components/themes/types/panel/index.d.ts#L109"
+								}
+							],
+							"type": {
+								"type": "reflection",
+								"declaration": {
+									"id": 79,
+									"name": "__type",
+									"variant": "declaration",
+									"kind": 65536,
+									"flags": {},
+									"children": [
+										{
+											"id": 80,
+											"name": "padding",
+											"variant": "declaration",
+											"kind": 1024,
+											"flags": {
+												"isOptional": true
+											},
+											"comment": {
+												"summary": [
+													{
+														"kind": "text",
+														"text": "Padding of content"
+													}
+												],
+												"blockTags": [
+													{
+														"tag": "@designToken",
+														"content": [
+															{
+																"kind": "text",
+																"text": "panel.content.padding"
+															}
+														]
+													}
+												]
+											},
+											"sources": [
+												{
+													"fileName": "panel/index.d.ts",
+													"line": 115,
+													"character": 8,
+													"url": "https://github.com/primefaces/primeng/blob/c7dac38bdb42b808b4914e047fe28922cbae05f5/src/app/components/themes/types/panel/index.d.ts#L115"
+												}
+											],
+											"type": {
+												"type": "intrinsic",
+												"name": "string"
+											}
+										}
+									],
+									"groups": [
+										{
+											"title": "Properties",
+											"children": [
+												80
+											]
+										}
+									],
+									"sources": [
+										{
+											"fileName": "panel/index.d.ts",
+											"line": 109,
+											"character": 14,
+											"url": "https://github.com/primefaces/primeng/blob/c7dac38bdb42b808b4914e047fe28922cbae05f5/src/app/components/themes/types/panel/index.d.ts#L109"
+										}
+									]
+								}
+							}
+						},
+						{
+							"id": 81,
+							"name": "footer",
+							"variant": "declaration",
+							"kind": 1024,
+							"flags": {
+								"isOptional": true
+							},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "Used to pass tokens of the footer section"
+									}
+								]
+							},
+							"sources": [
+								{
+									"fileName": "panel/index.d.ts",
+									"line": 120,
+									"character": 4,
+									"url": "https://github.com/primefaces/primeng/blob/c7dac38bdb42b808b4914e047fe28922cbae05f5/src/app/components/themes/types/panel/index.d.ts#L120"
+								}
+							],
+							"type": {
+								"type": "reflection",
+								"declaration": {
+									"id": 82,
+									"name": "__type",
+									"variant": "declaration",
+									"kind": 65536,
+									"flags": {},
+									"children": [
+										{
+											"id": 83,
+											"name": "padding",
+											"variant": "declaration",
+											"kind": 1024,
+											"flags": {
+												"isOptional": true
+											},
+											"comment": {
+												"summary": [
+													{
+														"kind": "text",
+														"text": "Padding of footer"
+													}
+												],
+												"blockTags": [
+													{
+														"tag": "@designToken",
+														"content": [
+															{
+																"kind": "text",
+																"text": "panel.footer.padding"
+															}
+														]
+													}
+												]
+											},
+											"sources": [
+												{
+													"fileName": "panel/index.d.ts",
+													"line": 126,
+													"character": 8,
+													"url": "https://github.com/primefaces/primeng/blob/c7dac38bdb42b808b4914e047fe28922cbae05f5/src/app/components/themes/types/panel/index.d.ts#L126"
+												}
+											],
+											"type": {
+												"type": "intrinsic",
+												"name": "string"
+											}
+										}
+									],
+									"groups": [
+										{
+											"title": "Properties",
+											"children": [
+												83
+											]
+										}
+									],
+									"sources": [
+										{
+											"fileName": "panel/index.d.ts",
+											"line": 120,
+											"character": 13,
+											"url": "https://github.com/primefaces/primeng/blob/c7dac38bdb42b808b4914e047fe28922cbae05f5/src/app/components/themes/types/panel/index.d.ts#L120"
+										}
+									]
+								}
+							}
+						}
+					],
+					"groups": [
+						{
+							"title": "Properties",
+							"children": [
+								84,
+								58,
+								64,
+								72,
+								75,
+								78,
+								81
+							]
+						}
+					],
+					"sources": [
+						{
+							"fileName": "panel/index.d.ts",
+							"line": 13,
+							"character": 17,
+							"url": "https://github.com/primefaces/primeng/blob/c7dac38bdb42b808b4914e047fe28922cbae05f5/src/app/components/themes/types/panel/index.d.ts#L13"
+						}
+					],
+					"extendedTypes": [
+						{
+							"type": "reference",
+							"target": {
+								"sourceFileName": "src/app/components/themes/types/index.d.ts",
+								"qualifiedName": "ColorSchemeDesignToken"
+							},
+							"typeArguments": [
+								{
+									"type": "reference",
+									"target": 57,
+									"name": "PanelDesignTokens",
+									"package": "primeng"
+								}
+							],
+							"name": "ColorSchemeDesignToken",
+							"package": "primeng"
+						}
+					]
+				}
+			],
+			"groups": [
+				{
+					"title": "Interfaces",
+					"children": [
+						57
+					]
+				}
+			],
+			"sources": [
+				{
+					"fileName": "panel/index.d.ts",
+					"line": 1,
+					"character": 0,
+					"url": "https://github.com/primefaces/primeng/blob/c7dac38bdb42b808b4914e047fe28922cbae05f5/src/app/components/themes/types/panel/index.d.ts#L1"
+				}
+			]
+		}
+	],
+	"groups": [
+		{
+			"title": "Modules",
+			"children": [
+				1,
+				56
+			]
+		}
+	],
+	"packageName": "primeng",
+	"packageVersion": "18.0.0-beta.1",
+	"readme": [
+		{
+			"kind": "text",
+			"text": "[![npm version](https://badge.fury.io/js/primeng.svg)](https://badge.fury.io/js/primeng)\n[![npm downloads](https://img.shields.io/npm/dm/primeng.svg)](https://www.npmjs.com/package/primeng)\n[![Actions CI](https://github.com/primefaces/primeng/workflows/NodeJS%20CI/badge.svg)](https://github.com/primefaces/primeng/actions/workflows/node.js.yml)\n[![Discord Chat](https://img.shields.io/discord/557940238991753223.svg?color=7289da&label=chat&logo=discord)](https://discord.gg/gzKFYnpmCY)\n[![Discussions](https://img.shields.io/github/discussions-search?query=org%3Aprimefaces&logo=github&label=Prime%20Discussions&link=https%3A%2F%2Fgithub.com%2Forgs%2Fprimefaces%2Fdiscussions)](https://github.com/orgs/primefaces/discussions)\n\n[![PrimeNG Hero](https://www.primefaces.org/static/social/primeng-preview.jpg)](https://primeng.org)\n\n### Website\n\nVisit the [PrimeNG Website](https://v18.primeng.org) for general information, demos and documentation."
+		}
+	],
+	"symbolIdMap": {
+		"1": {
+			"sourceFileName": "src/app/components/themes/types/accordion/index.ts",
+			"qualifiedName": ""
+		},
+		"2": {
+			"sourceFileName": "src/app/components/themes/types/accordion/index.ts",
+			"qualifiedName": "AccordionDesignTokens"
+		},
+		"3": {
+			"sourceFileName": "src/app/components/themes/types/accordion/index.ts",
+			"qualifiedName": "AccordionDesignTokens.root"
+		},
+		"4": {
+			"sourceFileName": "src/app/components/themes/types/accordion/index.ts",
+			"qualifiedName": "__type"
+		},
+		"5": {
+			"sourceFileName": "src/app/components/themes/types/accordion/index.ts",
+			"qualifiedName": "__type.transitionDuration"
+		},
+		"6": {
+			"sourceFileName": "src/app/components/themes/types/accordion/index.ts",
+			"qualifiedName": "AccordionDesignTokens.panel"
+		},
+		"7": {
+			"sourceFileName": "src/app/components/themes/types/accordion/index.ts",
+			"qualifiedName": "__type"
+		},
+		"8": {
+			"sourceFileName": "src/app/components/themes/types/accordion/index.ts",
+			"qualifiedName": "__type.borderWidth"
+		},
+		"9": {
+			"sourceFileName": "src/app/components/themes/types/accordion/index.ts",
+			"qualifiedName": "__type.borderColor"
+		},
+		"10": {
+			"sourceFileName": "src/app/components/themes/types/accordion/index.ts",
+			"qualifiedName": "AccordionDesignTokens.header"
+		},
+		"11": {
+			"sourceFileName": "src/app/components/themes/types/accordion/index.ts",
+			"qualifiedName": "__type"
+		},
+		"12": {
+			"sourceFileName": "src/app/components/themes/types/accordion/index.ts",
+			"qualifiedName": "__type.color"
+		},
+		"13": {
+			"sourceFileName": "src/app/components/themes/types/accordion/index.ts",
+			"qualifiedName": "__type.hoverColor"
+		},
+		"14": {
+			"sourceFileName": "src/app/components/themes/types/accordion/index.ts",
+			"qualifiedName": "__type.activeColor"
+		},
+		"15": {
+			"sourceFileName": "src/app/components/themes/types/accordion/index.ts",
+			"qualifiedName": "__type.padding"
+		},
+		"16": {
+			"sourceFileName": "src/app/components/themes/types/accordion/index.ts",
+			"qualifiedName": "__type.fontWeight"
+		},
+		"17": {
+			"sourceFileName": "src/app/components/themes/types/accordion/index.ts",
+			"qualifiedName": "__type.borderRadius"
+		},
+		"18": {
+			"sourceFileName": "src/app/components/themes/types/accordion/index.ts",
+			"qualifiedName": "__type.borderWidth"
+		},
+		"19": {
+			"sourceFileName": "src/app/components/themes/types/accordion/index.ts",
+			"qualifiedName": "__type.borderColor"
+		},
+		"20": {
+			"sourceFileName": "src/app/components/themes/types/accordion/index.ts",
+			"qualifiedName": "__type.background"
+		},
+		"21": {
+			"sourceFileName": "src/app/components/themes/types/accordion/index.ts",
+			"qualifiedName": "__type.hoverBackground"
+		},
+		"22": {
+			"sourceFileName": "src/app/components/themes/types/accordion/index.ts",
+			"qualifiedName": "__type.activeBackground"
+		},
+		"23": {
+			"sourceFileName": "src/app/components/themes/types/accordion/index.ts",
+			"qualifiedName": "__type.activeHoverBackground"
+		},
+		"24": {
+			"sourceFileName": "src/app/components/themes/types/accordion/index.ts",
+			"qualifiedName": "__type.focusRing"
+		},
+		"25": {
+			"sourceFileName": "src/app/components/themes/types/accordion/index.ts",
+			"qualifiedName": "__type"
+		},
+		"26": {
+			"sourceFileName": "src/app/components/themes/types/accordion/index.ts",
+			"qualifiedName": "__type.width"
+		},
+		"27": {
+			"sourceFileName": "src/app/components/themes/types/accordion/index.ts",
+			"qualifiedName": "__type.style"
+		},
+		"28": {
+			"sourceFileName": "src/app/components/themes/types/accordion/index.ts",
+			"qualifiedName": "__type.color"
+		},
+		"29": {
+			"sourceFileName": "src/app/components/themes/types/accordion/index.ts",
+			"qualifiedName": "__type.offset"
+		},
+		"30": {
+			"sourceFileName": "src/app/components/themes/types/accordion/index.ts",
+			"qualifiedName": "__type.shadow"
+		},
+		"31": {
+			"sourceFileName": "src/app/components/themes/types/accordion/index.ts",
+			"qualifiedName": "__type.toggleIcon"
+		},
+		"32": {
+			"sourceFileName": "src/app/components/themes/types/accordion/index.ts",
+			"qualifiedName": "__type"
+		},
+		"33": {
+			"sourceFileName": "src/app/components/themes/types/accordion/index.ts",
+			"qualifiedName": "__type.color"
+		},
+		"34": {
+			"sourceFileName": "src/app/components/themes/types/accordion/index.ts",
+			"qualifiedName": "__type.hoverColor"
+		},
+		"35": {
+			"sourceFileName": "src/app/components/themes/types/accordion/index.ts",
+			"qualifiedName": "__type.activeColor"
+		},
+		"36": {
+			"sourceFileName": "src/app/components/themes/types/accordion/index.ts",
+			"qualifiedName": "__type.activeHoverColor"
+		},
+		"37": {
+			"sourceFileName": "src/app/components/themes/types/accordion/index.ts",
+			"qualifiedName": "__type.first"
+		},
+		"38": {
+			"sourceFileName": "src/app/components/themes/types/accordion/index.ts",
+			"qualifiedName": "__type"
+		},
+		"39": {
+			"sourceFileName": "src/app/components/themes/types/accordion/index.ts",
+			"qualifiedName": "__type.topBorderRadius"
+		},
+		"40": {
+			"sourceFileName": "src/app/components/themes/types/accordion/index.ts",
+			"qualifiedName": "__type.borderWidth"
+		},
+		"41": {
+			"sourceFileName": "src/app/components/themes/types/accordion/index.ts",
+			"qualifiedName": "__type.last"
+		},
+		"42": {
+			"sourceFileName": "src/app/components/themes/types/accordion/index.ts",
+			"qualifiedName": "__type"
+		},
+		"43": {
+			"sourceFileName": "src/app/components/themes/types/accordion/index.ts",
+			"qualifiedName": "__type.bottomBorderRadius"
+		},
+		"44": {
+			"sourceFileName": "src/app/components/themes/types/accordion/index.ts",
+			"qualifiedName": "__type.activeBottomBorderRadius"
+		},
+		"45": {
+			"sourceFileName": "src/app/components/themes/types/accordion/index.ts",
+			"qualifiedName": "AccordionDesignTokens.content"
+		},
+		"46": {
+			"sourceFileName": "src/app/components/themes/types/accordion/index.ts",
+			"qualifiedName": "__type"
+		},
+		"47": {
+			"sourceFileName": "src/app/components/themes/types/accordion/index.ts",
+			"qualifiedName": "__type.borderWidth"
+		},
+		"48": {
+			"sourceFileName": "src/app/components/themes/types/accordion/index.ts",
+			"qualifiedName": "__type.borderColor"
+		},
+		"49": {
+			"sourceFileName": "src/app/components/themes/types/accordion/index.ts",
+			"qualifiedName": "__type.background"
+		},
+		"50": {
+			"sourceFileName": "src/app/components/themes/types/accordion/index.ts",
+			"qualifiedName": "__type.color"
+		},
+		"51": {
+			"sourceFileName": "src/app/components/themes/types/accordion/index.ts",
+			"qualifiedName": "__type.padding"
+		},
+		"52": {
+			"sourceFileName": "src/app/components/themes/types/index.d.ts",
+			"qualifiedName": "ColorSchemeDesignToken.colorScheme"
+		},
+		"53": {
+			"sourceFileName": "src/app/components/themes/types/index.d.ts",
+			"qualifiedName": "__type"
+		},
+		"54": {
+			"sourceFileName": "src/app/components/themes/types/index.d.ts",
+			"qualifiedName": "__type.light"
+		},
+		"55": {
+			"sourceFileName": "src/app/components/themes/types/index.d.ts",
+			"qualifiedName": "__type.dark"
+		},
+		"56": {
+			"sourceFileName": "src/app/components/themes/types/panel/index.d.ts",
+			"qualifiedName": ""
+		},
+		"57": {
+			"sourceFileName": "src/app/components/themes/types/panel/index.d.ts",
+			"qualifiedName": "PanelDesignTokens"
+		},
+		"58": {
+			"sourceFileName": "src/app/components/themes/types/panel/index.d.ts",
+			"qualifiedName": "PanelDesignTokens.root"
+		},
+		"59": {
+			"sourceFileName": "src/app/components/themes/types/panel/index.d.ts",
+			"qualifiedName": "__type"
+		},
+		"60": {
+			"sourceFileName": "src/app/components/themes/types/panel/index.d.ts",
+			"qualifiedName": "__type.background"
+		},
+		"61": {
+			"sourceFileName": "src/app/components/themes/types/panel/index.d.ts",
+			"qualifiedName": "__type.borderColor"
+		},
+		"62": {
+			"sourceFileName": "src/app/components/themes/types/panel/index.d.ts",
+			"qualifiedName": "__type.color"
+		},
+		"63": {
+			"sourceFileName": "src/app/components/themes/types/panel/index.d.ts",
+			"qualifiedName": "__type.borderRadius"
+		},
+		"64": {
+			"sourceFileName": "src/app/components/themes/types/panel/index.d.ts",
+			"qualifiedName": "PanelDesignTokens.header"
+		},
+		"65": {
+			"sourceFileName": "src/app/components/themes/types/panel/index.d.ts",
+			"qualifiedName": "__type"
+		},
+		"66": {
+			"sourceFileName": "src/app/components/themes/types/panel/index.d.ts",
+			"qualifiedName": "__type.background"
+		},
+		"67": {
+			"sourceFileName": "src/app/components/themes/types/panel/index.d.ts",
+			"qualifiedName": "__type.color"
+		},
+		"68": {
+			"sourceFileName": "src/app/components/themes/types/panel/index.d.ts",
+			"qualifiedName": "__type.padding"
+		},
+		"69": {
+			"sourceFileName": "src/app/components/themes/types/panel/index.d.ts",
+			"qualifiedName": "__type.borderColor"
+		},
+		"70": {
+			"sourceFileName": "src/app/components/themes/types/panel/index.d.ts",
+			"qualifiedName": "__type.borderWidth"
+		},
+		"71": {
+			"sourceFileName": "src/app/components/themes/types/panel/index.d.ts",
+			"qualifiedName": "__type.borderRadius"
+		},
+		"72": {
+			"sourceFileName": "src/app/components/themes/types/panel/index.d.ts",
+			"qualifiedName": "PanelDesignTokens.toggleableHeader"
+		},
+		"73": {
+			"sourceFileName": "src/app/components/themes/types/panel/index.d.ts",
+			"qualifiedName": "__type"
+		},
+		"74": {
+			"sourceFileName": "src/app/components/themes/types/panel/index.d.ts",
+			"qualifiedName": "__type.padding"
+		},
+		"75": {
+			"sourceFileName": "src/app/components/themes/types/panel/index.d.ts",
+			"qualifiedName": "PanelDesignTokens.title"
+		},
+		"76": {
+			"sourceFileName": "src/app/components/themes/types/panel/index.d.ts",
+			"qualifiedName": "__type"
+		},
+		"77": {
+			"sourceFileName": "src/app/components/themes/types/panel/index.d.ts",
+			"qualifiedName": "__type.fontWeight"
+		},
+		"78": {
+			"sourceFileName": "src/app/components/themes/types/panel/index.d.ts",
+			"qualifiedName": "PanelDesignTokens.content"
+		},
+		"79": {
+			"sourceFileName": "src/app/components/themes/types/panel/index.d.ts",
+			"qualifiedName": "__type"
+		},
+		"80": {
+			"sourceFileName": "src/app/components/themes/types/panel/index.d.ts",
+			"qualifiedName": "__type.padding"
+		},
+		"81": {
+			"sourceFileName": "src/app/components/themes/types/panel/index.d.ts",
+			"qualifiedName": "PanelDesignTokens.footer"
+		},
+		"82": {
+			"sourceFileName": "src/app/components/themes/types/panel/index.d.ts",
+			"qualifiedName": "__type"
+		},
+		"83": {
+			"sourceFileName": "src/app/components/themes/types/panel/index.d.ts",
+			"qualifiedName": "__type.padding"
+		},
+		"84": {
+			"sourceFileName": "src/app/components/themes/types/index.d.ts",
+			"qualifiedName": "ColorSchemeDesignToken.colorScheme"
+		},
+		"85": {
+			"sourceFileName": "src/app/components/themes/types/index.d.ts",
+			"qualifiedName": "__type"
+		},
+		"86": {
+			"sourceFileName": "src/app/components/themes/types/index.d.ts",
+			"qualifiedName": "__type.light"
+		},
+		"87": {
+			"sourceFileName": "src/app/components/themes/types/index.d.ts",
+			"qualifiedName": "__type.dark"
+		}
+	}
+}
