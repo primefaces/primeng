@@ -602,36 +602,6 @@ p-datatable-gridlines .p-datatable-tbody > tr:last-child > td {
     )} ${dt('datatable.row.toggle.button.focus.ring.color')};
     outline-offset: ${dt('datatable.row.toggle.button.focus.ring.offset')};
 }
-
-  .p-overlay-mask {
-    background-color: rgba(0, 0, 0, 0.4);
-    transition-duration: 0.2s;
-  }
-    
- .p-overlay-mask-enter {
-    animation: p-overlay-mask-enter-animation 150ms forwards;
-  }
-
-  .p-overlay-mask-leave {
-    animation: p-overlay-mask-leave-animation 150ms forwards;
-  }
-
-  @keyframes p-overlay-mask-enter-animation {
-    from {
-      background-color: transparent;
-    }
-    to {
-      background-color: var(--maskbg);
-    }
-  }
-  @keyframes p-overlay-mask-leave-animation {
-    from {
-      background-color: var(--maskbg);
-    }
-    to {
-      background-color: transparent;
-    }
-  }
 `;
 
 const classes = {
