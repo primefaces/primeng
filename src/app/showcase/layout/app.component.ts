@@ -54,7 +54,7 @@ import Noir from '../themes/app-theme';
         },
     ],
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
     constructor(
         @Inject(DOCUMENT) private document: Document,
         private renderer: Renderer2,
@@ -72,10 +72,6 @@ export class AppComponent implements OnInit {
         });
 
         this.primeng.theme.set(Noir);
-    }
-
-    ngOnInit(): void {
-        this.primeng.ripple.set(true);
     }
 
     injectScripts() {
