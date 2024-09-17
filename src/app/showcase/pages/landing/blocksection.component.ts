@@ -184,7 +184,7 @@ import { Component } from '@angular/core';
                                         </div>
                                         <div class="bar bar-button w-16 mt-6"></div>
                                     </div>
-                                    <div class="block-item block-item-active animation-3 mx-3 w-3 flex justify-content-between flex-column">
+                                    <div class="block-item block-item-active animation-3 mx-4 w-3/12 flex justify-between flex-col">
                                         <div class="bar w-full"></div>
                                         <div class="flex items-center mt-4">
                                             <div class="circle circle-small circle-highlight mr-2"></div>
@@ -196,7 +196,7 @@ import { Component } from '@angular/core';
                                         </div>
                                         <div class="bar bar-button w-16 mt-6"></div>
                                     </div>
-                                    <div class="block-item w-3 flex justify-content-between flex-column">
+                                    <div class="block-item w-3/12 flex justify-between flex-col">
                                         <div class="bar w-full"></div>
                                         <div class="flex items-center mt-4">
                                             <div class="circle circle-small circle-highlight mr-2"></div>
@@ -364,7 +364,7 @@ import { Component } from '@angular/core';
                                 <div
                                     class="block-item block-item-active animation-2 mx-4 w-32 text-center flex flex-col items-center overflow-visible"
                                 >
-                                    <div>
+                                    <div class="-mt-6">
                                         <img
                                             src="https://primefaces.org/cdn/primevue/images/landing/blocks/question.svg"
                                             alt="question mark"
