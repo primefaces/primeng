@@ -39,7 +39,6 @@ async function main() {
 
     const project = await app.convert();
     await app.generateJson(project, `./api-generator/typedoc.json`);
-
     if (project) {
         let doc = {};
 
@@ -53,7 +52,6 @@ async function main() {
         };
 
         const modules = project.groups.find((g) => g.title === 'Modules');
-
         if (isProcessable(modules)) {
             modules.children.forEach((module) => {
                 const name = module.name.replace(/.*\//, '');
@@ -383,6 +381,8 @@ async function main() {
 
                             doc[name]['types'] = types;
                         }
+
+                        // if(isProcessable(module_theming_group)) {}
                     }
                 }
             });
