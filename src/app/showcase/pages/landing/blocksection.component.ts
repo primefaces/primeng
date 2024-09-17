@@ -364,7 +364,7 @@ import { Component } from '@angular/core';
                                 <div
                                     class="block-item block-item-active animation-2 mx-4 w-32 text-center flex flex-col items-center overflow-visible"
                                 >
-                                    <div class="-mt-6">
+                                    <div>
                                         <img
                                             src="https://primefaces.org/cdn/primevue/images/landing/blocks/question.svg"
                                             alt="question mark"

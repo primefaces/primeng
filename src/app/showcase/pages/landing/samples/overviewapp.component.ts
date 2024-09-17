@@ -2,22 +2,22 @@ import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, effect, inject, PLATFORM_ID, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { ChartModule } from 'primeng/chart';
-import { SelectButtonModule } from 'primeng/selectbutton';
+import { AppConfigService } from '@service/appconfigservice';
+import { MenuItem } from 'primeng/api';
 import { AvatarModule } from 'primeng/avatar';
-import { TooltipModule } from 'primeng/tooltip';
+import { ButtonModule } from 'primeng/button';
+import { ChartModule } from 'primeng/chart';
+import { DatePickerModule } from 'primeng/datepicker';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
-import { ButtonModule } from 'primeng/button';
-import { TableModule } from 'primeng/table';
-import { MeterGroupModule } from 'primeng/metergroup';
 import { InputTextModule } from 'primeng/inputtext';
 import { MenuModule } from 'primeng/menu';
-import { TagModule } from 'primeng/tag';
+import { MeterGroupModule } from 'primeng/metergroup';
 import { OverlayBadgeModule } from 'primeng/overlaybadge';
-import { DatePickerModule } from 'primeng/datepicker';
-import { MenuItem } from 'primeng/api';
-import { AppConfigService } from '@service/appconfigservice';
+import { SelectButtonModule } from 'primeng/selectbutton';
+import { TableModule } from 'primeng/table';
+import { TagModule } from 'primeng/tag';
+import { TooltipModule } from 'primeng/tooltip';
 
 @Component({
     selector: 'overview-app',
@@ -44,7 +44,7 @@ import { AppConfigService } from '@service/appconfigservice';
     ],
     template: `
         <div class="flex-1 h-full overflow-y-auto pb-0.5">
-            <div class="flex flex-wrap gap-4 items-start justify-between">
+            <div class="flex flex-wrap gap-4 items-start justify-between p-1">
                 <div class="flex-1">
                     <div class="text-muted-color font-medium leading-normal">Overview</div>
                     <div class="text-color text-3xl font-semibold leading-normal">Welcome to PrimeNG</div>
@@ -61,7 +61,7 @@ import { AppConfigService } from '@service/appconfigservice';
                     </p-button>
                 </div>
             </div>
-            <div class="mt-4 flex flex-wrap gap-6 items-center justify-between">
+            <div class="mt-4 flex flex-wrap gap-6 items-center justify-between p-1">
                 <p-selectbutton
                     [(ngModel)]="selectedTime"
                     [options]="timeOptions"
