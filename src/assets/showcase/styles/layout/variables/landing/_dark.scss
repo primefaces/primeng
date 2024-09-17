@@ -49,5 +49,5 @@
     --home-templates-btn-border-bottom:4px solid #424b57;
     --home-templates-btn-border-left:3px solid #424b57;
     --home-features-card-shadow: none;
-    --home-box-ring-color: rgba(96, 165, 250, 0.3);
+    --home-box-ring-color: color-mix(in srgb, var(--primary-color), transparent 70%);
 }
