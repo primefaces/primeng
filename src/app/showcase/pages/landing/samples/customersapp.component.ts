@@ -144,8 +144,8 @@ import { PopoverModule } from 'primeng/popover';
                 <p-popover #op>
                     <ng-template pTemplate="content">
                         <div class="flex gap-2">
-                            <p-button (onClick)="confirm1($event)" label="Details" />
-                            <p-button (onClick)="confirm2($event)" label="Cancel" severity="danger" />
+                            <p-button (onClick)="op.hide()" label="Details" />
+                            <p-button (onClick)="op.hide()" label="Delete" severity="danger" />
                         </div>
                     </ng-template>
                 </p-popover>
