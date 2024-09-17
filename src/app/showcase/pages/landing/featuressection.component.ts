@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { AppConfigService } from '@service/appconfigservice';
+import { AnimateOnScrollModule } from 'primeng/animateonscroll';
 
 @Component({
     selector: 'features-section',
     standalone: true,
-    imports: [CommonModule],
+    imports: [CommonModule, AnimateOnScrollModule],
     template: `
         <section class="landing-features py-20">
             <div class="section-header">Features</div>
@@ -14,7 +15,7 @@ import { AppConfigService } from '@service/appconfigservice';
                 <div class="features-container">
                     <div class="grid grid-cols-12 gap-4">
                         <div class="col-span-12 md:col-span-6 xl:col-span-3 flex justify-center">
-                            <div class="box p-6 w-full animate-duration-500">
+                            <div class="box p-6 w-full animate-duration-500" pAnimateOnScroll enterClass="animate-fadein">
                                 <img
                                     src="https://primefaces.org/cdn/primeng/images/landing/features/icon-components.svg"
                                     width="30"
@@ -29,7 +30,7 @@ import { AppConfigService } from '@service/appconfigservice';
                             </div>
                         </div>
                         <div class="col-span-12 md:col-span-6 xl:col-span-3 flex justify-center">
-                            <div class="box p-6 w-full animate-duration-500">
+                            <div class="box p-6 w-full animate-duration-500" pAnimateOnScroll enterClass="animate-fadein">
                                 <img
                                     src="https://primefaces.org/cdn/primeng/images/landing/features/icon-community.svg"
                                     width="30"
@@ -45,7 +46,7 @@ import { AppConfigService } from '@service/appconfigservice';
                             </div>
                         </div>
                         <div class="col-span-12 md:col-span-6 xl:col-span-3 flex justify-center">
-                            <div class="box p-6 w-full animate-duration-500">
+                            <div class="box p-6 w-full animate-duration-500" pAnimateOnScroll enterClass="animate-fadein">
                                 <img
                                     src="https://primefaces.org/cdn/primeng/images/landing/features/icon-productivity.svg"
                                     width="30"
@@ -60,7 +61,7 @@ import { AppConfigService } from '@service/appconfigservice';
                             </div>
                         </div>
                         <div class="col-span-12 md:col-span-6 xl:col-span-3 flex justify-center">
-                            <div class="box p-6 w-full animate-duration-500">
+                            <div class="box p-6 w-full animate-duration-500" pAnimateOnScroll enterClass="animate-fadein">
                                 <img
                                     src="https://primefaces.org/cdn/primeng/images/landing/features/icon-accessibility.svg"
                                     alt="components icon"
@@ -73,7 +74,7 @@ import { AppConfigService } from '@service/appconfigservice';
                             </div>
                         </div>
                         <div class="col-span-12 md:col-span-6 xl:col-span-3 flex justify-center">
-                            <div class="box p-6 w-full animate-duration-500">
+                            <div class="box p-6 w-full animate-duration-500" pAnimateOnScroll enterClass="animate-fadein">
                                 <img
                                     src="https://primefaces.org/cdn/primeng/images/landing/features/icon-support.svg"
                                     alt="components icon"
@@ -89,7 +90,7 @@ import { AppConfigService } from '@service/appconfigservice';
                             </div>
                         </div>
                         <div class="col-span-12 md:col-span-6 xl:col-span-3 flex justify-center">
-                            <div class="box p-6 w-full animate-duration-500">
+                            <div class="box p-6 w-full animate-duration-500" pAnimateOnScroll enterClass="animate-fadein">
                                 <img
                                     src="https://primefaces.org/cdn/primeng/images/landing/features/icon-mobile.svg"
                                     width="30"
@@ -104,7 +105,7 @@ import { AppConfigService } from '@service/appconfigservice';
                             </div>
                         </div>
                         <div class="col-span-12 md:col-span-6 xl:col-span-3 flex justify-center">
-                            <div class="box p-6 w-full animate-duration-500">
+                            <div class="box p-6 w-full animate-duration-500" pAnimateOnScroll enterClass="animate-fadein">
                                 <img
                                     src="https://primefaces.org/cdn/primeng/images/landing/features/icon-theme.svg"
                                     width="30"
@@ -120,7 +121,7 @@ import { AppConfigService } from '@service/appconfigservice';
                             </div>
                         </div>
                         <div class="col-span-12 md:col-span-6 xl:col-span-3 flex justify-center">
-                            <div class="box p-6 w-full animate-duration-500">
+                            <div class="box p-6 w-full animate-duration-500" pAnimateOnScroll enterClass="animate-fadein">
                                 <img
                                     src="https://primefaces.org/cdn/primeng/images/landing/features/icon-ts.svg"
                                     width="30"
