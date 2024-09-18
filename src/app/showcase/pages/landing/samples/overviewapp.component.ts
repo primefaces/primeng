@@ -242,7 +242,7 @@ export class OverviewApp {
     constructor(private cd: ChangeDetectorRef) {}
 
     themeEffect = effect(() => {
-        if (this.configService.theme() && isPlatformBrowser(this.platformId)) {
+        if (this.configService.theme()) {
             this.initChart();
         }
     });
@@ -351,15 +351,15 @@ export class OverviewApp {
             { label: 'XAU', color: '#EAB308', value: 29, text: '200 g' },
         ];
 
-        if (isPlatformBrowser(this.platformId)) {
-            this.initChart();
-        }
+        this.initChart();
     }
 
     initChart() {
-        this.chartData = this.setChartData(this.selectedTime);
-        this.chartOptions = this.setChartOptions();
-        this.cd.markForCheck();
+        if (isPlatformBrowser(this.platformId)) {
+            this.chartData = this.setChartData(this.selectedTime);
+            this.chartOptions = this.setChartOptions();
+            this.cd.markForCheck();
+        }
     }
 
     setChartData(timeUnit: string) {
