@@ -244,7 +244,6 @@ export class OverviewApp {
     themeEffect = effect(() => {
         if (this.configService.theme() && isPlatformBrowser(this.platformId)) {
             this.initChart();
-            this.cd.markForCheck();
         }
     });
 
@@ -360,6 +359,7 @@ export class OverviewApp {
     initChart() {
         this.chartData = this.setChartData(this.selectedTime);
         this.chartOptions = this.setChartOptions();
+        this.cd.markForCheck();
     }
 
     setChartData(timeUnit: string) {
