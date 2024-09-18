@@ -163,6 +163,7 @@ const inlineStyles = {
         left: 0,
         top: 0,
         display: 'flex',
+        backgroundColor: 'rgba(0, 0, 0, 0.4)',
         justifyContent:
             instance.position === 'left' || instance.position === 'topleft' || instance.position === 'bottomleft'
                 ? 'flex-start'
@@ -175,7 +176,7 @@ const inlineStyles = {
                 : instance.position === 'bottom' || instance.position === 'bottomleft' || instance.position === 'bottomright'
                   ? 'flex-end'
                   : 'center',
-        pointerEvents: instance.modal ? 'auto' : 'none',
+        pointerEvents: instance.modal ? 'auto' : (instance.ddconfig && instance.ddconfig.modal ? 'auto' : 'none'),
     }),
     root: {
         display: 'flex',
