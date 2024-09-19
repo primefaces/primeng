@@ -4,7 +4,7 @@
  *
  * [Live Demo](https://www.primeng.org/accordion/)
  *
- * @module themes/autocomplete
+ * @module themes/accordion
  *
  */
 
@@ -17,7 +17,6 @@ export interface AccordionDesignTokens extends ColorSchemeDesignToken<AccordionD
     root?: {
         /**
          * Transition duration of root
-         *
          * @designToken accordion.transition.duration
          */
         transitionDuration?: string;

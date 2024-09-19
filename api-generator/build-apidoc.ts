@@ -414,7 +414,10 @@ function extractParameter(emitter) {
                     if (el.type && el.type === 'array') {
                         return { name: 'value', type: el.elementType.name + '[]' };
                     } else {
-                        return { name: el.name.includes('Event') ? 'event' : 'value', type: el.name.replace(/[^a-zA-Z]/g, '') };
+                        return {
+                            name: el.name.includes('Event') ? 'event' : 'value',
+                            type: el.name.replace(/[^a-zA-Z]/g, ''),
+                        };
                     }
                 });
             }
