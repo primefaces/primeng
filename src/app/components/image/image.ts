@@ -253,12 +253,7 @@ export class Image implements AfterContentInit {
         min: 0.5
     };
 
-    constructor(
-        @Inject(DOCUMENT) private document: Document,
-        private config: PrimeNGConfig,
-        private cd: ChangeDetectorRef,
-        public el: ElementRef
-    ) {}
+    constructor(@Inject(DOCUMENT) private document: Document, private config: PrimeNGConfig, private cd: ChangeDetectorRef, public el: ElementRef) {}
 
     ngAfterContentInit() {
         this.templates?.forEach((item) => {

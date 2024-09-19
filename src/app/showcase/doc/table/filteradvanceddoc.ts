@@ -119,10 +119,10 @@ import { CustomerService } from '../../service/customerservice';
                                 <span class="ml-1 vertical-align-middle">{{ customer.representative.name }}</span>
                             </td>
                             <td>
-                                {{ customer.date | date: 'MM/dd/yyyy' }}
+                                {{ customer.date | date : 'MM/dd/yyyy' }}
                             </td>
                             <td>
-                                {{ customer.balance | currency: 'USD' : 'symbol' }}
+                                {{ customer.balance | currency : 'USD' : 'symbol' }}
                             </td>
                             <td>
                                 <p-tag [value]="customer.status" [severity]="getSeverity(customer.status)" />
@@ -159,10 +159,7 @@ export class FilterAdvancedDoc {
 
     activityValues: number[] = [0, 100];
 
-    constructor(
-        private customerService: CustomerService,
-        private cd: ChangeDetectorRef
-    ) {}
+    constructor(private customerService: CustomerService, private cd: ChangeDetectorRef) {}
 
     loadDemoData() {
         this.customerService.getCustomersLarge().then((customers) => {

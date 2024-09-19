@@ -28,10 +28,7 @@ export class DropdownDoc implements OnInit {
 
     filteredCountries: any[] | undefined;
 
-    constructor(
-        private countryService: CountryService,
-        private PlatformService: PlatformService
-    ) {}
+    constructor(private countryService: CountryService, private PlatformService: PlatformService) {}
 
     ngOnInit() {
         if (this.PlatformService.isBrowser()) {

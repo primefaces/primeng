@@ -13,7 +13,7 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <p-toast />
-            <p-button pRipple (onClick)="show()" label="Show" />
+            <p-button (onClick)="show()" label="Show" />
         </div>
         <app-code [code]="code" selector="toast-basic-demo"></app-code>
     `,
@@ -28,10 +28,10 @@ export class BasicDoc {
 
     code: Code = {
         basic: `<p-toast />
-<p-button pRipple (onClick)="show()" label="Show" />`,
+<p-button (onClick)="show()" label="Show" />`,
         html: `<div class="card flex justify-content-center">
     <p-toast />
-    <p-button pRipple (onClick)="show()" label="Show" />
+    <p-button (onClick)="show()" label="Show" />
 </div>`,
         typescript: `import { Component } from '@angular/core';
 import { MessageService } from 'primeng/api';

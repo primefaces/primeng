@@ -42,7 +42,7 @@ import { TableRowCollapseEvent, TableRowExpandEvent } from 'primeng/table';
                             </td>
                             <td>{{ product.name }}</td>
                             <td><img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.name" width="50" class="shadow-4" /></td>
-                            <td>{{ product.price | currency: 'USD' }}</td>
+                            <td>{{ product.price | currency : 'USD' }}</td>
                             <td>{{ product.category }}</td>
                             <td><p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false" /></td>
                             <td>
@@ -70,7 +70,7 @@ import { TableRowCollapseEvent, TableRowExpandEvent } from 'primeng/table';
                                                 <td>{{ order.id }}</td>
                                                 <td>{{ order.customer }}</td>
                                                 <td>{{ order.date }}</td>
-                                                <td>{{ order.amount | currency: 'USD' }}</td>
+                                                <td>{{ order.amount | currency : 'USD' }}</td>
                                                 <td>
                                                     <p-tag [value]="order.status" [severity]="getStatusSeverity(order.status)" />
                                                 </td>
@@ -99,11 +99,7 @@ export class RowExpansionDoc {
 
     expandedRows = {};
 
-    constructor(
-        private productService: ProductService,
-        private cd: ChangeDetectorRef,
-        private messageService: MessageService
-    ) {}
+    constructor(private productService: ProductService, private cd: ChangeDetectorRef, private messageService: MessageService) {}
 
     loadDemoData() {
         this.productService.getProductsWithOrdersSmall().then((data) => {

@@ -37,11 +37,7 @@ import { InfoDemo } from './infodemo';
 export class ProductListDemo implements OnInit {
     products: Product[];
 
-    constructor(
-        private productService: ProductService,
-        private dialogService: DialogService,
-        private ref: DynamicDialogRef
-    ) {}
+    constructor(private productService: ProductService, private dialogService: DialogService, private ref: DynamicDialogRef) {}
 
     ngOnInit() {
         this.productService.getProductsSmall().then((products) => (this.products = products.slice(0, 5)));

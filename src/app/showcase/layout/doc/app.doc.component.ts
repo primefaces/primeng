@@ -44,12 +44,7 @@ export class AppDoc implements OnInit, OnChanges {
 
     activeTab!: number;
 
-    constructor(
-        private router: Router,
-        private titleService: Title,
-        private metaService: Meta,
-        private cd: ChangeDetectorRef
-    ) {}
+    constructor(private router: Router, private titleService: Title, private metaService: Meta, private cd: ChangeDetectorRef) {}
 
     ngOnInit() {
         if (this.router.url.includes('#api')) {

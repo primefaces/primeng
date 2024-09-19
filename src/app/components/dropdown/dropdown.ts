@@ -191,7 +191,7 @@ export class DropdownItem {
                 </span>
             </ng-container>
 
-            <div class="p-dropdown-trigger" role="button" aria-label="dropdown trigger" aria-haspopup="listbox" [attr.aria-expanded]="overlayVisible ?? false" [attr.data-pc-section]="'trigger'">
+            <div class="p-dropdown-trigger" role="button" aria-label="dropdown trigger" (mousedown)="onMouseDown($event)" aria-haspopup="listbox" [attr.aria-expanded]="overlayVisible ?? false" [attr.data-pc-section]="'trigger'">
                 <ng-container *ngIf="loading; else elseBlock">
                     <ng-container *ngIf="loadingIconTemplate">
                         <ng-container *ngTemplateOutlet="loadingIconTemplate"></ng-container>
@@ -1018,14 +1018,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
 
     editableInputValue = computed(() => this.getOptionLabel(this.selectedOption) || this.modelValue() || '');
 
-    constructor(
-        public el: ElementRef,
-        public renderer: Renderer2,
-        public cd: ChangeDetectorRef,
-        public zone: NgZone,
-        public filterService: FilterService,
-        public config: PrimeNGConfig
-    ) {
+    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public zone: NgZone, public filterService: FilterService, public config: PrimeNGConfig) {
         effect(() => {
             const modelValue = this.modelValue();
             const visibleOptions = this.visibleOptions();
@@ -1438,10 +1431,14 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         }
         if (isFocus) {
             if (this.focusInputViewChild) {
-                DomHandler.focus(this.focusInputViewChild?.nativeElement);
+                setTimeout(() => {
+                    DomHandler.focus(this.focusInputViewChild?.nativeElement);
+                });
             }
             if (this.editable && this.editableInputViewChild) {
-                DomHandler.focus(this.editableInputViewChild?.nativeElement);
+                setTimeout(() => {
+                    DomHandler.focus(this.editableInputViewChild?.nativeElement);
+                });
             }
         }
         this.cd.markForCheck();
@@ -1469,6 +1466,10 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
             this.onModelTouched();
         }
         this.preventModelTouched = false;
+    }
+
+    onMouseDown(event: MouseEvent) {
+        event.preventDefault();
     }
 
     onKeyDown(event: KeyboardEvent, search: boolean) {

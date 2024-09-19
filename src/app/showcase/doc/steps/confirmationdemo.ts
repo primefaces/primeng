@@ -59,10 +59,7 @@ import { Router } from '@angular/router';
 export class ConfirmationDemo implements OnInit {
     ticketInformation: any;
 
-    constructor(
-        public ticketService: TicketService,
-        private router: Router
-    ) {}
+    constructor(public ticketService: TicketService, private router: Router) {}
 
     ngOnInit() {
         this.ticketInformation = this.ticketService.ticketInformation;

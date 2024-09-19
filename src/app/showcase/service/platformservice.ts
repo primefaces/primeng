@@ -5,10 +5,7 @@ import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 export class PlatformService {
     private window: Window;
 
-    constructor(
-        @Inject(PLATFORM_ID) private platformId: any,
-        @Inject(DOCUMENT) private document: Document
-    ) {
+    constructor(@Inject(PLATFORM_ID) private platformId: any, @Inject(DOCUMENT) private document: Document) {
         this.window = this.document.defaultView as Window;
     }
 

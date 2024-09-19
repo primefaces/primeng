@@ -13,8 +13,8 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card flex justify-content-center gap-2">
             <p-toast key="myKey" />
-            <p-button pRipple (onClick)="show()" label="Show" />
-            <p-button pRipple (onClick)="clear()" label="Clear" severity="secondary" />
+            <p-button (onClick)="show()" label="Show" />
+            <p-button (onClick)="clear()" label="Clear" severity="secondary" />
         </div>
         <app-code [code]="code" selector="toast-clear-demo"></app-code>
     `,
@@ -34,22 +34,18 @@ export class ClearDoc {
     code: Code = {
         basic: `<p-toast key="myKey" />
 <p-button 
-    pRipple 
     (onClick)="show()" 
     label="Show" />
 <p-button 
-    pRipple 
     (onClick)="clear()" 
     label="Clear" 
     severity="secondary" />`,
         html: `<div class="card flex justify-content-center gap-2">
     <p-toast key="myKey" />
     <p-button 
-        pRipple 
         (onClick)="show()" 
         label="Show" />
     <p-button 
-        pRipple 
         (onClick)="clear()" 
         label="Clear" 
         severity="secondary" />

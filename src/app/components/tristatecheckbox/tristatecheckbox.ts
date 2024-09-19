@@ -79,10 +79,7 @@ export const TRISTATECHECKBOX_VALUE_ACCESSOR: any = {
     }
 })
 export class TriStateCheckbox implements ControlValueAccessor {
-    constructor(
-        private cd: ChangeDetectorRef,
-        public config: PrimeNGConfig
-    ) {}
+    constructor(private cd: ChangeDetectorRef, public config: PrimeNGConfig) {}
     /**
      * When present, it specifies that the element should be disabled.
      * @group Props

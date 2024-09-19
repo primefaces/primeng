@@ -240,7 +240,7 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
                                             <td *ngFor="let date of week" [attr.aria-label]="date.day" [ngClass]="{ 'p-datepicker-other-month': date.otherMonth, 'p-datepicker-today': date.today }">
                                                 <ng-container *ngIf="date.otherMonth ? showOtherMonths : true">
                                                     <span
-                                                        [ngClass]="{ 'p-highlight': isSelected(date) && date.selectable, 'p-disabled': !date.selectable }"
+                                                        [ngClass]="{ 'p-highlight p-datepicker-current-day': isSelected(date) && date.selectable, 'p-disabled': !date.selectable }"
                                                         (click)="onDateSelect($event, date)"
                                                         draggable="false"
                                                         [attr.data-date]="formatDateKey(formatDateMetaToDate(date))"
@@ -1169,15 +1169,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         return this.currentView === 'year' ? this.getTranslation('nextDecade') : this.currentView === 'month' ? this.getTranslation('nextYear') : this.getTranslation('nextMonth');
     }
 
-    constructor(
-        @Inject(DOCUMENT) private document: Document,
-        public el: ElementRef,
-        public renderer: Renderer2,
-        public cd: ChangeDetectorRef,
-        private zone: NgZone,
-        private config: PrimeNGConfig,
-        public overlayService: OverlayService
-    ) {
+    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, private zone: NgZone, private config: PrimeNGConfig, public overlayService: OverlayService) {
         this.window = this.document.defaultView as Window;
     }
 
@@ -3077,10 +3069,16 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         } else if (this.overlay) {
             if (this.appendTo) {
                 if (this.view === 'date') {
-                    this.overlay.style.width = DomHandler.getOuterWidth(this.overlay) + 'px';
-                    this.overlay.style.minWidth = DomHandler.getOuterWidth(this.inputfieldViewChild?.nativeElement) + 'px';
+                    if (!this.overlay.style.width) {
+                        this.overlay.style.width = DomHandler.getOuterWidth(this.overlay) + 'px';
+                    }
+                    if (!this.overlay.style.minWidth) {
+                        this.overlay.style.minWidth = DomHandler.getOuterWidth(this.inputfieldViewChild?.nativeElement) + 'px';
+                    }
                 } else {
-                    this.overlay.style.width = DomHandler.getOuterWidth(this.inputfieldViewChild?.nativeElement) + 'px';
+                    if (!this.overlay.style.width) {
+                        this.overlay.style.width = DomHandler.getOuterWidth(this.inputfieldViewChild?.nativeElement) + 'px';
+                    }
                 }
 
                 DomHandler.absolutePosition(this.overlay, this.inputfieldViewChild?.nativeElement);

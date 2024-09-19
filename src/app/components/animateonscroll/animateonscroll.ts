@@ -60,13 +60,7 @@ export class AnimateOnScroll implements OnInit, AfterViewInit {
 
     animationEndListener: VoidFunction | undefined;
 
-    constructor(
-        @Inject(DOCUMENT) private document: Document,
-        @Inject(PLATFORM_ID) private platformId: any,
-        private host: ElementRef,
-        public el: ElementRef,
-        public renderer: Renderer2
-    ) {}
+    constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, private host: ElementRef, public el: ElementRef, public renderer: Renderer2) {}
 
     ngOnInit() {
         if (isPlatformBrowser(this.platformId)) {

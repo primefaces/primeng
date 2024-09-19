@@ -54,12 +54,12 @@ import { TabViewModule } from 'primeng/tabview';
 import { CommonModule } from '@angular/common';
 
 @Component({
-    selector: 'tab-view-basic-demo',
-    templateUrl: './tab-view-basic-demo.html',
+    selector: 'tab-view-dynamic-demo',
+    templateUrl: './tab-view-dynamic-demo.html',
     standalone: true,
     imports: [TabViewModule, CommonModule]
 })
-export class TabViewBasicDemo imlements onInit {
+export class TabViewDynamicDemo implements OnInit {
     tabs: { title: string, content: string }[] = [];
 
     ngOnInit() {

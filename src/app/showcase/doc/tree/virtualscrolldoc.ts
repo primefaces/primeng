@@ -20,10 +20,7 @@ export class VirtualScrollDoc implements OnInit {
 
     files!: TreeNode[];
 
-    constructor(
-        private nodeService: NodeService,
-        private cd: ChangeDetectorRef
-    ) {}
+    constructor(private nodeService: NodeService, private cd: ChangeDetectorRef) {}
 
     ngOnInit() {
         this.nodeService.getFiles().then((data) => {

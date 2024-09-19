@@ -146,14 +146,7 @@ export class ScrollPanel implements AfterViewInit, AfterContentInit, OnDestroy {
 
     documentMouseUpListener: Nullable<(event?: any) => void>;
 
-    constructor(
-        @Inject(PLATFORM_ID) private platformId: any,
-        public el: ElementRef,
-        public zone: NgZone,
-        public cd: ChangeDetectorRef,
-        @Inject(DOCUMENT) private document: Document,
-        private renderer: Renderer2
-    ) {
+    constructor(@Inject(PLATFORM_ID) private platformId: any, public el: ElementRef, public zone: NgZone, public cd: ChangeDetectorRef, @Inject(DOCUMENT) private document: Document, private renderer: Renderer2) {
         this.contentId = UniqueComponentId() + '_content';
     }
 

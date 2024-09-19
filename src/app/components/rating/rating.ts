@@ -195,10 +195,7 @@ export class Rating implements OnInit, ControlValueAccessor {
 
     name: string | undefined;
 
-    constructor(
-        private cd: ChangeDetectorRef,
-        private config: PrimeNGConfig
-    ) {}
+    constructor(private cd: ChangeDetectorRef, private config: PrimeNGConfig) {}
 
     ngOnInit() {
         this.name = this.name || UniqueComponentId();

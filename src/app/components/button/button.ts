@@ -155,10 +155,7 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
 
     private _internalClasses: string[] = Object.values(INTERNAL_BUTTON_CLASSES);
 
-    constructor(
-        public el: ElementRef,
-        @Inject(DOCUMENT) private document: Document
-    ) {}
+    constructor(public el: ElementRef, @Inject(DOCUMENT) private document: Document) {}
 
     ngAfterViewInit() {
         DomHandler.addMultipleClasses(this.htmlElement, this.getStyleClass().join(' '));
@@ -567,6 +564,14 @@ export class Button implements AfterContentInit {
             'p-badge p-component': true,
             'p-badge-no-gutter': this.badge && String(this.badge).length === 1
         };
+    }
+
+    /**
+     * Applies focus.
+     * @group Method
+     */
+    public focus() {
+        this.el.nativeElement.firstChild.focus();
     }
 }
 

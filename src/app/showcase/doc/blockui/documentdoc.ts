@@ -9,7 +9,7 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card">
             <p-blockUI [blocked]="blockedDocument" />
-            <p-button pRipple label="Block" (onClick)="blockDocument()" />
+            <p-button label="Block" (onClick)="blockDocument()" />
         </div>
         <app-code [code]="code" selector="block-ui-document-demo"></app-code>
     `
@@ -31,7 +31,7 @@ export class DocumentDoc {
         basic: `<p-blockUI [blocked]="blockedDocument" />`,
         html: `<div class="card">
     <p-blockUI [blocked]="blockedDocument" />
-    <p-button pRipple label="Block" (onClick)="blockDocument()" />
+    <p-button label="Block" (onClick)="blockDocument()" />
 </div>`,
         typescript: `import { Component, ChangeDetectorRef } from '@angular/core';
 import { BlockUIModule } from 'primeng/blockui';

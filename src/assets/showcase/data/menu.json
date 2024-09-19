@@ -571,16 +571,18 @@
             ]
         },
         {
+            "name": "Contribution",
+            "icon": "pi pi-users",
+            "routerLink": "/contribution",
+            "badge": "NEW"
+        },
+        {
             "name": "Discover",
             "icon": "pi pi-search",
             "children": [
                 {
                     "name": "About Us",
                     "routerLink": "/team"
-                },
-                {
-                    "name": "Roadmap",
-                    "routerLink": "/roadmap"
                 },
                 {
                     "name": "Source Code",

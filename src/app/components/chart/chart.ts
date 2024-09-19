@@ -107,11 +107,7 @@ export class UIChart implements AfterViewInit, OnDestroy {
 
     chart: any;
 
-    constructor(
-        @Inject(PLATFORM_ID) private platformId: any,
-        public el: ElementRef,
-        private zone: NgZone
-    ) {}
+    constructor(@Inject(PLATFORM_ID) private platformId: any, public el: ElementRef, private zone: NgZone) {}
 
     ngAfterViewInit() {
         this.initChart();

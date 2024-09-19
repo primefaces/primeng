@@ -383,7 +383,7 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
 
     onAnimationEnd(event: AnimationEvent) {
         if (event.toState === 'void') {
-            if (this.parentContent) {
+            if (this.parentContent && this.config.focusOnClose !== false) {
                 this.focus(this.parentContent);
             }
             this.onContainerDestroy();

@@ -27,13 +27,7 @@ export class AppTopBarComponent implements OnDestroy {
 
     private window: Window;
 
-    constructor(
-        @Inject(DOCUMENT) private document: Document,
-        private el: ElementRef,
-        private renderer: Renderer2,
-        private router: Router,
-        private configService: AppConfigService
-    ) {
+    constructor(@Inject(DOCUMENT) private document: Document, private el: ElementRef, private renderer: Renderer2, private router: Router, private configService: AppConfigService) {
         this.window = this.document.defaultView as Window;
 
         afterNextRender(() => {

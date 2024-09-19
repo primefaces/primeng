@@ -80,8 +80,9 @@ export class ApolloPage {
             src: 'https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-features2-responsive.png'
         },
         {
-            title: 'Lifetime Support',
-            description: 'Apollo has a dedicated forum where lifetime support is delivered by engineers at PrimeTek in a timely manner.',
+            title: 'Support',
+            description: `PrimeTek offers assistance with account management and licensing issues, with the expectation that users have the necessary technical knowledge to use our products, as we do not offer technical support or consulting. Users
+                            can seek assistance in our community via our public Discord and Forum.`,
             src: 'https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-features2-lifetime.png'
         },
         {
@@ -260,12 +261,12 @@ export class ApolloPage {
             {
                 title: 'Basic License',
                 price: '$59',
-                included: ['Non Commercial Usage', 'Single End Product, No Multi-Use', 'Lifetime Support', 'Unlimited Updates']
+                included: ['Non Commercial Usage', 'Single End Product, No Multi-Use', '1 Year Free Updates']
             },
             {
                 title: 'Extended License',
                 price: '$590',
-                included: ['Commercial Usage', 'Multiple End Products', 'Lifetime Support', 'Unlimited Updates']
+                included: ['Commercial Usage', 'Multiple End Products', '1 Year Free Updates']
             }
         ]
     };

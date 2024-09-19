@@ -52,7 +52,7 @@ export class ChipsDoc implements OnInit {
         [showClear]="true" />
 </div>`,
 
-        typescript: `import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MultiSelectModule } from 'primeng/multiselect';
 
@@ -67,7 +67,7 @@ interface City {
     standalone: true,
     imports: [FormsModule, MultiSelectModule]
 })
-export class MultiSelectChipsDemo implements OnInit {
+export class MultiSelectChipsDemo {
     cities!: City[];
 
     selectedCities!: City[];

@@ -167,12 +167,7 @@ export class Messages implements AfterContentInit, OnDestroy {
 
     contentTemplate: TemplateRef<any> | undefined;
 
-    constructor(
-        @Optional() public messageService: MessageService,
-        public el: ElementRef,
-        public cd: ChangeDetectorRef,
-        private config: PrimeNGConfig
-    ) {}
+    constructor(@Optional() public messageService: MessageService, public el: ElementRef, public cd: ChangeDetectorRef, private config: PrimeNGConfig) {}
 
     ngAfterContentInit() {
         this.templates?.forEach((item) => {

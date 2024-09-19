@@ -11,8 +11,8 @@ import { Code } from '@domain/code';
         <div class="card flex justify-content-center">
             <p-toast />
             <div class="flex flex-wrap gap-2">
-                <p-button pRipple (onClick)="show()" severity="success" label="Sticky" />
-                <p-button pRipple (onClick)="clear()" label="Clear" />
+                <p-button (onClick)="show()" severity="success" label="Sticky" />
+                <p-button (onClick)="clear()" label="Clear" />
             </div>
         </div>
         <app-code [code]="code" selector="toast-sticky-demo"></app-code>
@@ -33,26 +33,22 @@ export class StickyDoc {
     code: Code = {
         basic: `<p-toast />
 <div class="flex flex-wrap gap-2">
-    <p-button 
-        pRipple 
+    <p-button
         (onClick)="show()" 
         severity="success" 
         label="Sticky" />
-    <p-button 
-        pRipple 
+    <p-button
         (onClick)="clear()" 
         label="Clear" />
 </div>`,
         html: `<div class="card flex justify-content-center">
     <p-toast />
     <div class="flex flex-wrap gap-2">
-        <p-button 
-            pRipple 
+        <p-button
             (onClick)="show()" 
             severity="success" 
             label="Sticky" />
-        <p-button 
-            pRipple 
+        <p-button
             (onClick)="clear()" 
             label="Clear" />
     </div>

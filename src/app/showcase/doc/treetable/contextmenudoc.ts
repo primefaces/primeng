@@ -51,10 +51,7 @@ export class ContextMenuDoc {
 
     items!: MenuItem[];
 
-    constructor(
-        private nodeService: NodeService,
-        private messageService: MessageService
-    ) {}
+    constructor(private nodeService: NodeService, private messageService: MessageService) {}
 
     loadDemoData() {
         this.nodeService.getFilesystem().then((files) => (this.files = files));

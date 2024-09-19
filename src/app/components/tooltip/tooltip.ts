@@ -166,14 +166,7 @@ export class Tooltip implements AfterViewInit, OnDestroy {
 
     interactionInProgress = false;
 
-    constructor(
-        @Inject(PLATFORM_ID) private platformId: any,
-        public el: ElementRef,
-        public zone: NgZone,
-        public config: PrimeNGConfig,
-        private renderer: Renderer2,
-        private viewContainer: ViewContainerRef
-    ) {}
+    constructor(@Inject(PLATFORM_ID) private platformId: any, public el: ElementRef, public zone: NgZone, public config: PrimeNGConfig, private renderer: Renderer2, private viewContainer: ViewContainerRef) {}
 
     ngAfterViewInit() {
         if (isPlatformBrowser(this.platformId)) {
@@ -684,9 +677,6 @@ export class Tooltip implements AfterViewInit, OnDestroy {
             if (!target) {
                 target = this.getTarget(this.el.nativeElement);
             }
-
-            target.removeEventListener('focus', this.focusListener);
-            target.removeEventListener('blur', this.blurListener);
         }
         this.unbindDocumentResizeListener();
     }
