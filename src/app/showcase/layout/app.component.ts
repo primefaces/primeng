@@ -1,6 +1,6 @@
 import { DOCUMENT, IMAGE_CONFIG } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { Component, Inject, OnInit, PLATFORM_ID, Renderer2, afterNextRender } from '@angular/core';
+import { afterNextRender, Component, Inject, PLATFORM_ID, Renderer2 } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { LandingComponent } from '@pages/landing/landing.component';
@@ -54,7 +54,7 @@ import Noir from '../themes/app-theme';
         },
     ],
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
     constructor(
         @Inject(DOCUMENT) private document: Document,
         private renderer: Renderer2,
@@ -74,10 +74,6 @@ export class AppComponent implements OnInit {
         this.primeng.theme.set(Noir);
     }
 
-    ngOnInit(): void {
-        this.primeng.ripple.set(true);
-    }
-
     injectScripts() {
         const script = this.renderer.createElement('script');
         script.type = 'text/javascript';
@@ -90,7 +86,7 @@ export class AppComponent implements OnInit {
           window.dataLayer = window.dataLayer || [];
           function gtag() { dataLayer.push(arguments); }
           gtag('js', new Date());
-    
+
           gtag('config', 'G-W297P962XH');
         `;
         this.renderer.appendChild(this.document.body, scriptBody);

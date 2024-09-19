@@ -6,7 +6,7 @@
         transform: rotateX(55deg) rotateY(0deg) rotateZ(-45deg);
         position: relative;
         z-index: 1;
-        
+
         .template-block {
             width: 504px;
             height: 257px;
@@ -19,7 +19,7 @@
             position: relative;
             z-index: 1;
             transition: 1.5s;
-            opacity:0;
+            opacity: 0;
             visibility: hidden;
 
             &.block-1 {
@@ -29,7 +29,7 @@
             &.block-2 {
                 animation: animated-block-2 2s 0.2s ease-in-out alternate infinite;
             }
-            
+
             &.block-middle {
                 transform: scale(0.9);
             }
@@ -148,7 +148,7 @@
                     background: var(--home-templates-line);
                 }
             }
-            
+
             .left {
                 position: absolute;
                 top: 50%;
@@ -173,7 +173,7 @@
 
         &.templates-animation {
             .template-block {
-                opacity:1;
+                opacity: 1;
                 visibility: visible;
                 transition: none !important;
             }
@@ -186,7 +186,7 @@
                     transition: none !important;
                 }
             }
-            
+
             .lines {
                 opacity: 0.5;
                 width: 100%;
@@ -194,6 +194,7 @@
         }
     }
 }
+
 @media screen and (max-width: $landingBreakpointXL) {
     .landing-templates {
         .templates {
@@ -210,6 +211,7 @@
     .landing-templates {
         .templates {
             transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+
             .template-block {
                 width: 336px;
                 height: 171px;
@@ -218,36 +220,24 @@
                 margin-right: 0 !important;
                 margin-left: 0 !important;
             }
+
             .lines {
                 display: none;
             }
         }
     }
 }
+
 @media screen and (max-width: $landingBreakpointMD) {
     .landing-templates {
         .templates {
             transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+
             .template-block {
                 width: 354px;
                 height: 180px;
-                
+
             }
         }
     }
 }
-
-
-@keyframes animated-block-1 {
-    to {
-        transform:  translateX(-10px);
-    }
-}
-
-@keyframes animated-block-2 {
-    to {
-        transform:  translateX(10px);
-    }
-}
-
-

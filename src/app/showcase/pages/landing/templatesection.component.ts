@@ -57,8 +57,8 @@ import { AppConfigService } from '@service/appconfigservice';
                             height="110"
                             [src]="
                                 isDarkMode
-                                    ? 'https://primefaces.org/cdn/primeng/images/landing/templates/templates-text-dark-v17.png'
-                                    : 'https://primefaces.org/cdn/primeng/images/landing/templates/templates-text-light-v17.png'
+                                    ? 'https://primefaces.org/cdn/primevue/images/landing/templates/templates-text-noir-dark.png'
+                                    : 'https://primefaces.org/cdn/primevue/images/landing/templates/templates-text-noir-light.png'
                             "
                         />
                     </div>
