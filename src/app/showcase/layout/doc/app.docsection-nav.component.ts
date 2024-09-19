@@ -1,6 +1,5 @@
-import { DOCUMENT, Location, isPlatformBrowser } from '@angular/common';
+import { DOCUMENT, isPlatformBrowser, Location } from '@angular/common';
 import { Component, ElementRef, Inject, Input, NgZone, OnDestroy, OnInit, PLATFORM_ID, Renderer2, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
 import { DomHandler } from 'primeng/dom';
 import { ObjectUtils } from 'primeng/utils';
 import { Subscription } from 'rxjs';
@@ -45,11 +44,13 @@ export class AppDocSectionNavComponent implements OnInit, OnDestroy {
     get activeId() {
         return this._activeId;
     }
+
     set activeId(val: string) {
         if (val !== this._activeId) {
             this._activeId = val;
         }
     }
+
     isScrollBlocked: boolean = false;
 
     topbarHeight: number = 0;
@@ -64,7 +65,6 @@ export class AppDocSectionNavComponent implements OnInit, OnDestroy {
         private location: Location,
         private zone: NgZone,
         private renderer: Renderer2,
-        private router: Router,
     ) {}
 
     ngOnInit(): void {

@@ -12,7 +12,7 @@ import {
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { Doc } from '@domain/doc';
-import { Title, Meta } from '@angular/platform-browser';
+import { Meta, Title } from '@angular/platform-browser';
 import { AppDocService } from './app.doc.service';
 import { DOCUMENT } from '@angular/common';
 

@@ -1,4 +1,4 @@
-import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { Component, Inject, PLATFORM_ID, ViewChild } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { ProgressBarModule } from 'primeng/progressbar';
@@ -8,7 +8,6 @@ import { Customer } from '@domain/customer';
 import { AppComponent } from '../../layout/app.component';
 import { AppConfigService } from '@service/appconfigservice';
 import { CustomerService } from '@service/customerservice';
-import { Subscription } from 'rxjs';
 import { InputTextModule } from 'primeng/inputtext';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
