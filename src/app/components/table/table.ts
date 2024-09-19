@@ -77,6 +77,7 @@ import {
     TableRowUnSelectEvent,
     TableSelectAllChangeEvent
 } from './table.interface';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Injectable()
 export class TableService {
@@ -200,13 +201,13 @@ export class TableService {
                     [step]="rows"
                     [delay]="lazy ? virtualScrollDelay : 0"
                     [inline]="true"
+                    [autoSize]="true"
                     [lazy]="lazy"
                     (onLazyLoad)="onLazyItemLoad($event)"
                     [loaderDisabled]="true"
                     [showSpacer]="false"
                     [showLoader]="loadingBodyTemplate"
                     [options]="virtualScrollOptions"
-                    [autoSize]="true"
                 >
                     <ng-template pTemplate="content" let-items let-scrollerOptions="options">
                         <ng-container *ngTemplateOutlet="buildInTable; context: { $implicit: items, options: scrollerOptions }"></ng-container>
@@ -1175,7 +1176,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         public cd: ChangeDetectorRef,
         public filterService: FilterService,
         public overlayService: OverlayService,
-        public config: PrimeNGConfig
+        public config: PrimeNGConfig,
+        private readonly domSanitizer: DomSanitizer
     ) {
         this.window = this.document.defaultView as Window;
     }
@@ -1577,9 +1579,9 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                 this.restoringSort = false;
             }
 
-            this.lazy && this.onLazyLoad.emit(this.createLazyLoadMetadata());
-
-            if (this.value) {
+            if (this.lazy) {
+                this.onLazyLoad.emit(this.createLazyLoadMetadata());
+            } else if (this.value) {
                 if (this.customSort) {
                     this.sortFunction.emit({
                         data: this.value,
@@ -1587,7 +1589,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                         field: field,
                         order: order
                     });
-                } else if (!this.lazy) {
+                } else {
                     this.value.sort((data1, data2) => {
                         let value1 = ObjectUtils.resolveFieldData(data1, field);
                         let value2 = ObjectUtils.resolveFieldData(data2, field);
@@ -1605,7 +1607,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                     this._value = [...this.value];
                 }
 
-                if ((!this.lazy || this.customSort) && this.hasFilter()) {
+                if (this.hasFilter()) {
                     this._filter();
                 }
             }
@@ -1627,15 +1629,16 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         }
 
         if (this.multiSortMeta) {
-            this.lazy && this.onLazyLoad.emit(this.createLazyLoadMetadata());
-            if (this.value) {
+            if (this.lazy) {
+                this.onLazyLoad.emit(this.createLazyLoadMetadata());
+            } else if (this.value) {
                 if (this.customSort) {
                     this.sortFunction.emit({
                         data: this.value,
                         mode: this.sortMode,
                         multiSortMeta: this.multiSortMeta
                     });
-                } else if (!this.lazy) {
+                } else {
                     this.value.sort((data1, data2) => {
                         return this.multisortField(data1, data2, <SortMeta[]>this.multiSortMeta, 0);
                     });
@@ -1643,7 +1646,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                     this._value = [...this.value];
                 }
 
-                if ((!this.lazy || this.customSort) && this.hasFilter()) {
+                if (this.hasFilter()) {
                     this._filter();
                 }
             }
@@ -2689,7 +2692,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                 }
             `;
         });
-        this.renderer.setProperty(this.styleElement, 'innerHTML', innerHTML);
+        this.renderer.setProperty(this.styleElement, 'innerHTML', this.domSanitizer.bypassSecurityTrustStyle(innerHTML));
     }
 
     onRowDragStart(event: any, index: number) {
@@ -2943,7 +2946,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                     `;
                 });
 
-                this.styleElement.innerHTML = innerHTML;
+                this.styleElement.textContent = innerHTML;
             }
         }
     }
@@ -3040,7 +3043,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         }
     }
     `;
-                this.renderer.setProperty(this.responsiveStyleElement, 'innerHTML', innerHTML);
+                this.renderer.setProperty(this.responsiveStyleElement, 'innerHTML', this.domSanitizer.bypassSecurityTrustStyle(innerHTML));
             }
         }
     }

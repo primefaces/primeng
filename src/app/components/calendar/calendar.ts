@@ -3069,10 +3069,16 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         } else if (this.overlay) {
             if (this.appendTo) {
                 if (this.view === 'date') {
-                    this.overlay.style.width = DomHandler.getOuterWidth(this.overlay) + 'px';
-                    this.overlay.style.minWidth = DomHandler.getOuterWidth(this.inputfieldViewChild?.nativeElement) + 'px';
+                    if (!this.overlay.style.width) {
+                        this.overlay.style.width = DomHandler.getOuterWidth(this.overlay) + 'px';
+                    }
+                    if (!this.overlay.style.minWidth) {
+                        this.overlay.style.minWidth = DomHandler.getOuterWidth(this.inputfieldViewChild?.nativeElement) + 'px';
+                    }
                 } else {
-                    this.overlay.style.width = DomHandler.getOuterWidth(this.inputfieldViewChild?.nativeElement) + 'px';
+                    if (!this.overlay.style.width) {
+                        this.overlay.style.width = DomHandler.getOuterWidth(this.inputfieldViewChild?.nativeElement) + 'px';
+                    }
                 }
 
                 DomHandler.absolutePosition(this.overlay, this.inputfieldViewChild?.nativeElement);

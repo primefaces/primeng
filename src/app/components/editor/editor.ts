@@ -41,7 +41,7 @@ export const EDITOR_VALUE_ACCESSOR: any = {
                 <ng-content select="p-header"></ng-content>
                 <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
             </div>
-            <div class="p-editor-toolbar" *ngIf="!toolbar && !headerTemplate">
+            <div class="p-editor-toolbar" *ngIf="!modules && !toolbar && !headerTemplate">
                 <span class="ql-formats">
                     <select class="ql-header">
                         <option value="1">Heading</option>
