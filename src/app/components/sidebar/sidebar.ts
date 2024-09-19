@@ -328,9 +328,13 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
     }
 
     enableModality() {
+        const activeDrawers = this.document.querySelectorAll('.p-sidebar-active');
+        const activeDrawersLength = activeDrawers.length;
+        const zIndex = activeDrawersLength == 1 ? String(parseInt((this.container as HTMLDivElement).style.zIndex) - 1) : String(parseInt((activeDrawers[0] as HTMLElement).style.zIndex) - 1);
+
         if (!this.mask) {
             this.mask = this.renderer.createElement('div');
-            this.renderer.setStyle(this.mask, 'zIndex', String(parseInt((this.container as HTMLDivElement).style.zIndex) - 1));
+            this.renderer.setStyle(this.mask, 'zIndex', zIndex);
             DomHandler.addMultipleClasses(this.mask, 'p-component-overlay p-sidebar-mask p-component-overlay p-component-overlay-enter');
 
             if (this.dismissible) {

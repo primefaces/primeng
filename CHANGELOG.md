@@ -1,4 +1,50 @@
 # Changelog
+## [17.18.10](https://github.com/primefaces/primeng/tree/17.18.10) (2024-09-11)
+[Full Changelog](https://github.com/primefaces/primeng/compare/17.18.9...17.18.10)
+
+**Fixed bugs:**
+- Accessibility: Slider -> Keyboardtrap [\#16324](https://github.com/primefaces/primeng/issues/16324)
+- MegaMenu: aria-hidden throws console error [\#16248](https://github.com/primefaces/primeng/issues/16248)
+- Icon: Mistake in example documentation code [\#16277](https://github.com/primefaces/primeng/issues/16277)
+- p-tree: Lazy loading icon does not show on child items [\#16282](https://github.com/primefaces/primeng/issues/16282)
+- Docs: dynamicdialog example import missing, build problem [\#16328](https://github.com/primefaces/primeng/issues/16328)
+- Table: Flawed example in paginator documentation [\#16308](https://github.com/primefaces/primeng/issues/16308)
+- Editor: the style of the toolbar is missing up when custom modules used [\#16114](https://github.com/primefaces/primeng/issues/16114)
+- Tooltip on Dropdown causes Errors [\#16321](https://github.com/primefaces/primeng/issues/16321)
+- DynamicDialog | Closing nested dialog makes the underlying dialog scroll back to the top [\#16335](https://github.com/primefaces/primeng/issues/16335)
+- Panel component -> toggle from the outside [\#16326](https://github.com/primefaces/primeng/issues/16326)
+
+## [17.18.9](https://github.com/primefaces/primeng/tree/17.18.9) (2024-08-15)
+[Full Changelog](https://github.com/primefaces/primeng/compare/17.18.8...17.18.9)
+
+**Fixed bugs:**
+- Menu | aria-hidden throws console error [\#16240](https://github.com/primefaces/primeng/issues/16240)
+- Table: Cannot set autoSize from ScrollerOptions [\#16209](https://github.com/primefaces/primeng/issues/16209)
+- Component: Slider [\#16214](https://github.com/primefaces/primeng/issues/16214)
+- Table: breaks after one call to updateStyleElement() [\#16211](https://github.com/primefaces/primeng/issues/16211)
+- FileUpload: Never cancels the upload request when I click on the cancel button. [\#15664](https://github.com/primefaces/primeng/issues/15664)
+- Menu: console.error when selecting a menu item with keyboard [\#16219](https://github.com/primefaces/primeng/issues/16219)
+- p-table triggers lazy loading event twice [\#16182](https://github.com/primefaces/primeng/issues/16182)
+- Sidebar: Overlay of Nested Sidebar Blocks Its Own Content [\#16233](https://github.com/primefaces/primeng/issues/16233)
+- Autocomplete: Error when deleting input text if virtualscroll is enabled [\#16227](https://github.com/primefaces/primeng/issues/16227)
+
+## [17.18.8](https://github.com/primefaces/primeng/tree/17.18.8) (2024-08-08)
+[Full Changelog](https://github.com/primefaces/primeng/compare/17.18.7...17.18.8)
+
+**Fixed bugs:**
+- Menubar: Clicking menuitems outputs error in console [\#16201](https://github.com/primefaces/primeng/issues/16201)
+- Component: Table may have Trusted Types incompatibilities from .innerHTML assignment [\#16153](https://github.com/primefaces/primeng/issues/16153)
+- P-autocomplete after second click doesn't show dropdown [\#15281](https://github.com/primefaces/primeng/issues/15281)
+- AutoComplete: Cannot intercept enter key [\#16160](https://github.com/primefaces/primeng/issues/16160)
+- Table: when scrollHeight is set to 'flex', on the first load, the table height is not fitting parent [\#16165](https://github.com/primefaces/primeng/issues/16165)
+- Calendar: panelStyle width and min width overridden when appendTo is used [\#16176](https://github.com/primefaces/primeng/issues/16176)
+- ColumnFilter: Template names are wrong [\#16180](https://github.com/primefaces/primeng/issues/16180)
+- ListBox component accessibility issues [\#16152](https://github.com/primefaces/primeng/issues/16152)
+- Tree: Accessibility issues [\#16156](https://github.com/primefaces/primeng/issues/16156)
+- Component: colorPicker - inline=true property doesn't set the appropriate color [\#16169](https://github.com/primefaces/primeng/issues/16169)
+- Accessibility: Tree not selectable via Keyboard after second dialog opening [\#16191](https://github.com/primefaces/primeng/issues/16191)
+- ColorPicker: click on label does not open the color picker in docs [\#16193](https://github.com/primefaces/primeng/issues/16193)
+
 ## [17.18.7](https://github.com/primefaces/primeng/tree/17.18.7) (2024-08-01)
 [Full Changelog](https://github.com/primefaces/primeng/compare/17.18.6...17.18.7)
 
@@ -814,6 +860,23 @@
 - TypeError: this.focusedItemInfo.mutate is not a function [\#14119](https://github.com/primefaces/primeng/issues/14119)
 - Upgrade to Angular 17? [\#14063](https://github.com/primefaces/primeng/issues/14063)
 
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [16.9.15-LTS](https://www.npmjs.com/package/primeng/v/16.9.15-lts) (2024-08-15)
+
+**Fixed bugs:**
+- Menubar: Clicking menuitems outputs error in console [\#16201](https://github.com/primefaces/primeng/issues/16201)
+- P-autocomplete after second click doesn't show dropdown [\#15281](https://github.com/primefaces/primeng/issues/15281)
+- AutoComplete: Cannot intercept enter key [\#16160](https://github.com/primefaces/primeng/issues/16160)
+- Table: when scrollHeight is set to 'flex', on the first load, the table height is not fitting parent [\#16165](https://github.com/primefaces/primeng/issues/16165)
+- Calendar: panelStyle width and min width overridden when appendTo is used [\#16176](https://github.com/primefaces/primeng/issues/16176)
+- ListBox component accessibility issues [\#16152](https://github.com/primefaces/primeng/issues/16152)
+- Component: colorPicker - inline=true property doesn't set the appropriate color [\#16169](https://github.com/primefaces/primeng/issues/16169)
+- Accessibility: Tree not selectable via Keyboard after second dialog opening [\#16191](https://github.com/primefaces/primeng/issues/16191)
+- Menu | aria-hidden throws console error [\#16240](https://github.com/primefaces/primeng/issues/16240)
+- Table: Cannot set autoSize from ScrollerOptions [\#16209](https://github.com/primefaces/primeng/issues/16209)
+- Component: Slider [\#16214](https://github.com/primefaces/primeng/issues/16214)
+- Table: breaks after one call to updateStyleElement() [\#16211](https://github.com/primefaces/primeng/issues/16211)
+- Sidebar: Overlay of Nested Sidebar Blocks Its Own Content [\#16233](https://github.com/primefaces/primeng/issues/16233)
+
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [16.9.14-LTS](https://www.npmjs.com/package/primeng/v/16.9.14-lts) (2024-08-01)
 
 **Fixed bugs:**
@@ -1485,6 +1548,17 @@
 - Touch Control - Thumbnails selects photo randomly when tapping. [\#12943](https://github.com/primefaces/primeng/issues/12943)
 - Checkbox in p-treeNode always checked when using custom icon [\#12951](https://github.com/primefaces/primeng/issues/12951)
 - ConfirmDialog: Duplicated AcceptIcons [\#13001](https://github.com/primefaces/primeng/issues/13001)
+
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [15.4.26-LTS](https://www.npmjs.com/package/primeng/v/15.4.26-lts) (2024-08-15)
+
+**Fixed bugs:**
+- Table: when scrollHeight is set to 'flex', on the first load, the table height is not fitting parent [\#16165](https://github.com/primefaces/primeng/issues/16165)
+- Calendar: panelStyle width and min width overridden when appendTo is used [\#16176](https://github.com/primefaces/primeng/issues/16176)
+- Component: colorPicker - inline=true property doesn't set the appropriate color [\#16169](https://github.com/primefaces/primeng/issues/16169)
+- Table: Cannot set autoSize from ScrollerOptions [\#16209](https://github.com/primefaces/primeng/issues/16209)
+- Table: breaks after one call to updateStyleElement() [\#16211](https://github.com/primefaces/primeng/issues/16211)
+- Sidebar: Overlay of Nested Sidebar Blocks Its Own Content [\#16233](https://github.com/primefaces/primeng/issues/16233)
+
 
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [15.4.25-LTS](https://www.npmjs.com/package/primeng/v/15.4.25-lts) (2024-08-01)
 

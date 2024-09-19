@@ -105,7 +105,6 @@ export class MenubarService {
                             <a
                                 *ngIf="!getItemProp(processedItem, 'routerLink')"
                                 [attr.href]="getItemProp(processedItem, 'url')"
-                                [attr.aria-hidden]="true"
                                 [attr.data-automationid]="getItemProp(processedItem, 'automationId')"
                                 [attr.data-pc-section]="'action'"
                                 [target]="getItemProp(processedItem, 'target')"
@@ -119,7 +118,6 @@ export class MenubarService {
                                     [ngClass]="getItemProp(processedItem, 'icon')"
                                     [ngStyle]="getItemProp(processedItem, 'iconStyle')"
                                     [attr.data-pc-section]="'icon'"
-                                    [attr.aria-hidden]="true"
                                     [attr.tabindex]="-1"
                                 >
                                 </span>
@@ -133,10 +131,10 @@ export class MenubarService {
 
                                 <ng-container *ngIf="isItemGroup(processedItem)">
                                     <ng-container *ngIf="!submenuIconTemplate">
-                                        <AngleDownIcon [styleClass]="'p-submenu-icon'" *ngIf="root" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" />
-                                        <AngleRightIcon [styleClass]="'p-submenu-icon'" *ngIf="!root" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" />
+                                        <AngleDownIcon [styleClass]="'p-submenu-icon'" *ngIf="root" [attr.data-pc-section]="'submenuicon'" />
+                                        <AngleRightIcon [styleClass]="'p-submenu-icon'" *ngIf="!root" [attr.data-pc-section]="'submenuicon'" />
                                     </ng-container>
-                                    <ng-template *ngTemplateOutlet="submenuIconTemplate" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true"></ng-template>
+                                    <ng-template *ngTemplateOutlet="submenuIconTemplate" [attr.data-pc-section]="'submenuicon'"></ng-template>
                                 </ng-container>
                             </a>
                             <a
@@ -144,7 +142,6 @@ export class MenubarService {
                                 [routerLink]="getItemProp(processedItem, 'routerLink')"
                                 [attr.data-automationid]="getItemProp(processedItem, 'automationId')"
                                 [attr.tabindex]="-1"
-                                [attr.aria-hidden]="true"
                                 [attr.data-pc-section]="'action'"
                                 [queryParams]="getItemProp(processedItem, 'queryParams')"
                                 [routerLinkActive]="'p-menuitem-link-active'"
@@ -165,7 +162,6 @@ export class MenubarService {
                                     [ngClass]="getItemProp(processedItem, 'icon')"
                                     [ngStyle]="getItemProp(processedItem, 'iconStyle')"
                                     [attr.data-pc-section]="'icon'"
-                                    [attr.aria-hidden]="true"
                                     [attr.tabindex]="-1"
                                 ></span>
                                 <span class="p-menuitem-text" *ngIf="getItemProp(processedItem, 'escape'); else htmlRouteLabel">{{ getItemLabel(processedItem) }}</span>
@@ -173,10 +169,10 @@ export class MenubarService {
                                 <span class="p-menuitem-badge" *ngIf="getItemProp(processedItem, 'badge')" [ngClass]="getItemProp(processedItem, 'badgeStyleClass')">{{ getItemProp(processedItem, 'badge') }}</span>
                                 <ng-container *ngIf="isItemGroup(processedItem)">
                                     <ng-container *ngIf="!menubar.submenuIconTemplate">
-                                        <AngleDownIcon [styleClass]="'p-submenu-icon'" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" *ngIf="root" />
-                                        <AngleRightIcon [styleClass]="'p-submenu-icon'" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" *ngIf="!root" />
+                                        <AngleDownIcon [styleClass]="'p-submenu-icon'" [attr.data-pc-section]="'submenuicon'" *ngIf="root" />
+                                        <AngleRightIcon [styleClass]="'p-submenu-icon'" [attr.data-pc-section]="'submenuicon'" *ngIf="!root" />
                                     </ng-container>
-                                    <ng-template *ngTemplateOutlet="menubar.submenuIconTemplate" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true"></ng-template>
+                                    <ng-template *ngTemplateOutlet="menubar.submenuIconTemplate" [attr.data-pc-section]="'submenuicon'"></ng-template>
                                 </ng-container>
                             </a>
                         </ng-container>

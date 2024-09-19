@@ -64,7 +64,6 @@ export class SafeHtmlPipe implements PipeTransform {
                     [attr.data-automationid]="item.automationId"
                     [attr.tabindex]="-1"
                     [attr.data-pc-section]="'action'"
-                    [attr.aria-hidden]="true"
                     class="p-menuitem-link"
                     [target]="item.target"
                     [ngClass]="{ 'p-disabled': item.disabled }"
@@ -78,7 +77,6 @@ export class SafeHtmlPipe implements PipeTransform {
                     [attr.data-automationid]="item.automationId"
                     [attr.tabindex]="-1"
                     [attr.data-pc-section]="'action'"
-                    [attr.aria-hidden]="true"
                     [attr.title]="item.title"
                     [queryParams]="item.queryParams"
                     routerLinkActive="p-menuitem-link-active"
@@ -723,7 +721,7 @@ export class Menu implements OnDestroy {
             const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : 'document';
 
             this.documentClickListener = this.renderer.listen(documentTarget, 'click', (event) => {
-                const isOutsideContainer = this.containerViewChild.nativeElement && !this.containerViewChild.nativeElement.contains(event.target);
+                const isOutsideContainer = this.containerViewChild?.nativeElement && !this.containerViewChild?.nativeElement.contains(event.target);
                 const isOutsideTarget = !(this.target && (this.target === event.target || this.target.contains(event.target)));
                 if (!this.popup && isOutsideContainer && isOutsideTarget) {
                     this.onListBlur(event);
