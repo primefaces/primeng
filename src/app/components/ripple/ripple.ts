@@ -1,9 +1,10 @@
-import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { AfterViewInit, Directive, inject, NgModule, NgZone, OnDestroy } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { AfterViewInit, Directive, effect, inject, NgModule, NgZone, OnDestroy } from '@angular/core';
 import { BaseComponent } from 'primeng/basecomponent';
 import { DomHandler } from 'primeng/dom';
 import { VoidListener } from 'primeng/ts-helpers';
 import { RippleStyle } from './style/ripplestyle';
+
 /**
  * Ripple directive adds ripple effect to the host element.
  * @group Components
@@ -27,16 +28,22 @@ export class Ripple extends BaseComponent implements AfterViewInit, OnDestroy {
 
     timeout: any;
 
+    constructor() {
+        super();
+        effect(() => {
+            if (isPlatformBrowser(this.platformId) && this.config.ripple()) {
+                if (this.config.ripple()) {
+                    this.zone.runOutsideAngular(() => {
+                        this.create();
+                        this.mouseDownListener = this.renderer.listen(this.el.nativeElement, 'mousedown', this.onMouseDown.bind(this));
+                    });
+                }
+            }
+        });
+    }
+
     ngAfterViewInit() {
         super.ngAfterViewInit();
-        if (isPlatformBrowser(this.platformId)) {
-            if (this.config && this.config.ripple()) {
-                this.zone.runOutsideAngular(() => {
-                    this.create();
-                    this.mouseDownListener = this.renderer.listen(this.el.nativeElement, 'mousedown', this.onMouseDown.bind(this));
-                });
-            }
-        }
     }
 
     onMouseDown(event: MouseEvent) {

@@ -19,6 +19,7 @@ const presets = {
     Lara,
     Nora,
 };
+
 @Component({
     selector: 'app-configurator',
     standalone: true,
@@ -82,6 +83,7 @@ export class AppConfiguratorComponent {
     get ripple() {
         return this.config.ripple();
     }
+
     set ripple(value: boolean) {
         this.config.ripple.set(value);
     }

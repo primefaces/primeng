@@ -52,7 +52,7 @@ export class AppMainComponent {
     get containerClass() {
         return {
             'layout-news-active': this.isNewsActive,
-            'p-ripple-disabled': this.isRippleDisabled,
+            // 'p-ripple-disabled': this.isRippleDisabled,
         };
     }
 
