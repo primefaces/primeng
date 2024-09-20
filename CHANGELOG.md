@@ -860,6 +860,16 @@
 - TypeError: this.focusedItemInfo.mutate is not a function [\#14119](https://github.com/primefaces/primeng/issues/14119)
 - Upgrade to Angular 17? [\#14063](https://github.com/primefaces/primeng/issues/14063)
 
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [16.9.16-LTS](https://www.npmjs.com/package/primeng/v/16.9.16-lts) (2024-09-20)
+
+**Fixed bugs:**
+- MegaMenu: aria-hidden throws console error [\#16248](https://github.com/primefaces/primeng/issues/16248)
+- Icon: Mistake in example documentation code [\#16277](https://github.com/primefaces/primeng/issues/16277)
+- Table: Flawed example in paginator documentation [\#16308](https://github.com/primefaces/primeng/issues/16308)
+- Editor: the style of the toolbar is missing up when custom modules used [\#16114](https://github.com/primefaces/primeng/issues/16114)
+- Tooltip on Dropdown causes Errors [\#16321](https://github.com/primefaces/primeng/issues/16321)
+- Panel component -> toggle from the outside [\#16326](https://github.com/primefaces/primeng/issues/16326)
+
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [16.9.15-LTS](https://www.npmjs.com/package/primeng/v/16.9.15-lts) (2024-08-15)
 
 **Fixed bugs:**
