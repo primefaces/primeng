@@ -131,3 +131,26 @@ export class DividerStyle extends BaseStyle {
 
     inlineStyles = inlineStyles;
 }
+
+/**
+ *
+ * Divider is used to separate contents.
+ *
+ * [Live Demo](https://primeng.org/divider)
+ *
+ * @module dividerstyle
+ *
+ */
+export enum DividerClasses {
+    /**
+     * Class name of the root element
+     */
+    root = 'p-divider',
+    /**
+     * Class name of the content element
+     */
+    content = 'p-divider-content'
+}
+
+export interface DividerStyle extends BaseStyle {
+}
