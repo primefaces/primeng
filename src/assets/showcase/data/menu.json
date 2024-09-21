@@ -482,7 +482,7 @@
         {
             "name": "Figma UI Kit",
             "icon": "pi pi-pencil",
-            "routerLink": "/uikit"
+            "href": "https://primeng.org/uikit"
         },
         {
             "name": "Icons",
@@ -501,7 +501,7 @@
         {
             "name": "Templates",
             "icon": "pi pi-star",
-            "routerLink": "/templates"
+            "href": "https://primeng.org/templates"
         },
         {
             "name": "PrimeBlocks",
@@ -544,11 +544,11 @@
                 },
                 {
                     "name": "Long Term Support",
-                    "routerLink": "/lts"
+                    "href": "https://primeng.org/lts"
                 },
                 {
                     "name": "PRO Support",
-                    "routerLink": "/support"
+                    "href": "https://primeng.org/support"
                 }
             ]
         },
