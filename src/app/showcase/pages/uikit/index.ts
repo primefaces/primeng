@@ -341,7 +341,9 @@ import { RippleModule } from '../../../components/ripple/ripple';
                             You'll be able to download two Figma files for light and dark themes.
                         </p>
 
-                        <div class="text-xl leading-normal mb-2 font-medium text-surface-900 dark:text-surface-0">
+                        <div
+                            class="text-xl text-surface-900 dark:text-surface-0 leading-normal mb-2 font-medium text-surface-900 dark:text-surface-0"
+                        >
                             Is there a recurring fee or is the license perpetual?
                         </div>
                         <p class="mt-0 mb-12 p-0 leading-normal text-lg text-surface-800 dark:text-surface-50">
