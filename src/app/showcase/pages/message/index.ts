@@ -16,6 +16,7 @@ import { AccessibilityDoc } from '@doc/message/accessibilitydoc';
         description="Message component is used to display inline messages."
         [docs]="docs"
         [apiDocs]="['Message']"
+        themeDocs="message"
     ></app-doc>`,
     imports: [MessageDocModule],
     standalone: true,

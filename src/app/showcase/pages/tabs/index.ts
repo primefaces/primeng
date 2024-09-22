@@ -8,7 +8,6 @@ import { TemplateDoc } from '@doc/tabs/customtemplatedoc';
 import { ClosableDoc } from '@doc/tabs/closabledoc';
 import { ScrollableDoc } from '@doc/tabs/scrollabledoc';
 import { LazyDoc } from '@doc/tabs/lazydoc';
-import { StyleDoc } from '@doc/tabs/styledoc';
 import { AccessibilityDoc } from '@doc/tabs/accessibilitydoc';
 import { TabsDocModule } from '@doc/tabs/tabsdoc.module';
 
@@ -19,6 +18,7 @@ import { TabsDocModule } from '@doc/tabs/tabsdoc.module';
         description="Tabs is a container component to group content with tabs."
         [docs]="docs"
         [apiDocs]="['Tabs', 'TabPanel']"
+        themeDocs="tabs"
     ></app-doc>`,
     imports: [TabsDocModule],
     standalone: true,

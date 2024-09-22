@@ -83,7 +83,7 @@ async function main() {
                                         const values = child.groups.find((g) => g.title === 'Enumeration Members');
                                         values.children.forEach((value) => {
                                             classes.values.push({
-                                                className: value.type.value,
+                                                class: value.type.value,
                                                 description: value.comment && value.comment.summary[0]['text'],
                                             });
                                         });

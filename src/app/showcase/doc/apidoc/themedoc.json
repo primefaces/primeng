@@ -1,306 +1,4 @@
 {
-    "accordion": {
-        "description": "Accordion Design Tokens\n\n[Live Demo](https://www.primeng.org/accordion/)",
-        "tokens": [
-            {
-                "name": "root.transitionDuration",
-                "token": "accordion.transition.duration",
-                "optional": true,
-                "readonly": false,
-                "type": "string",
-                "default": "",
-                "description": "Transition duration of root"
-            },
-            {
-                "name": "panel.borderWidth",
-                "token": "accordion.panel.border.width",
-                "optional": true,
-                "readonly": false,
-                "type": "string",
-                "default": "",
-                "description": "Border width of panel"
-            },
-            {
-                "name": "panel.borderColor",
-                "token": "accordion.panel.border.color",
-                "optional": true,
-                "readonly": false,
-                "type": "string",
-                "default": "",
-                "description": "Border color of panel"
-            },
-            {
-                "name": "header.color",
-                "token": "accordion.header.color",
-                "optional": true,
-                "readonly": false,
-                "type": "string",
-                "default": "",
-                "description": "Color of header"
-            },
-            {
-                "name": "header.hoverColor",
-                "token": "accordion.header.hover.color",
-                "optional": true,
-                "readonly": false,
-                "type": "string",
-                "default": "",
-                "description": "Hover color of header"
-            },
-            {
-                "name": "header.activeColor",
-                "token": "accordion.header.active.color",
-                "optional": true,
-                "readonly": false,
-                "type": "string",
-                "default": "",
-                "description": "Active color of header"
-            },
-            {
-                "name": "header.padding",
-                "token": "accordion.header.padding",
-                "optional": true,
-                "readonly": false,
-                "type": "string",
-                "default": "",
-                "description": "Padding of header"
-            },
-            {
-                "name": "header.fontWeight",
-                "token": "accordion.header.font.weight",
-                "optional": true,
-                "readonly": false,
-                "type": "string",
-                "default": "",
-                "description": "Font weight of header"
-            },
-            {
-                "name": "header.borderRadius",
-                "token": "accordion.header.border.radius",
-                "optional": true,
-                "readonly": false,
-                "type": "string",
-                "default": "",
-                "description": "Border radius of header"
-            },
-            {
-                "name": "header.borderWidth",
-                "token": "accordion.header.border.width",
-                "optional": true,
-                "readonly": false,
-                "type": "string",
-                "default": "",
-                "description": "Border width of header"
-            },
-            {
-                "name": "header.borderColor",
-                "token": "accordion.header.border.color",
-                "optional": true,
-                "readonly": false,
-                "type": "string",
-                "default": "",
-                "description": "Border color of header"
-            },
-            {
-                "name": "header.background",
-                "token": "accordion.header.background",
-                "optional": true,
-                "readonly": false,
-                "type": "string",
-                "default": "",
-                "description": "Background of header"
-            },
-            {
-                "name": "header.hoverBackground",
-                "token": "accordion.header.hover.background",
-                "optional": true,
-                "readonly": false,
-                "type": "string",
-                "default": "",
-                "description": "Hover background of header"
-            },
-            {
-                "name": "header.activeBackground",
-                "token": "accordion.header.active.background",
-                "optional": true,
-                "readonly": false,
-                "type": "string",
-                "default": "",
-                "description": "Active background of header"
-            },
-            {
-                "name": "header.activeHoverBackground",
-                "token": "accordion.header.active.hover.background",
-                "optional": true,
-                "readonly": false,
-                "type": "string",
-                "default": "",
-                "description": "Active hover background of header"
-            },
-            {
-                "name": "focusRing.width",
-                "token": "accordion.header.focus.ring.width",
-                "optional": true,
-                "readonly": false,
-                "type": "string",
-                "default": "",
-                "description": "Focus ring width of header"
-            },
-            {
-                "name": "focusRing.style",
-                "token": "accordion.header.focus.ring.style",
-                "optional": true,
-                "readonly": false,
-                "type": "string",
-                "default": "",
-                "description": "Focus ring style of header"
-            },
-            {
-                "name": "focusRing.color",
-                "token": "accordion.header.focus.ring.color",
-                "optional": true,
-                "readonly": false,
-                "type": "string",
-                "default": "",
-                "description": "Focus ring color of header"
-            },
-            {
-                "name": "focusRing.offset",
-                "token": "accordion.header.focus.ring.offset",
-                "optional": true,
-                "readonly": false,
-                "type": "string",
-                "default": "",
-                "description": "Focus ring offset of header"
-            },
-            {
-                "name": "focusRing.shadow",
-                "token": "accordion.header.focus.ring.shadow",
-                "optional": true,
-                "readonly": false,
-                "type": "string",
-                "default": "",
-                "description": "Focus ring shadow of header"
-            },
-            {
-                "name": "toggleIcon.color",
-                "token": "accordion.header.toggle.icon.color",
-                "optional": true,
-                "readonly": false,
-                "type": "string",
-                "default": "",
-                "description": "Toggle icon color of header"
-            },
-            {
-                "name": "toggleIcon.hoverColor",
-                "token": "accordion.header.toggle.icon.hover.color",
-                "optional": true,
-                "readonly": false,
-                "type": "string",
-                "default": "",
-                "description": "Toggle icon hover color of header"
-            },
-            {
-                "name": "toggleIcon.activeColor",
-                "token": "accordion.header.toggle.icon.active.color",
-                "optional": true,
-                "readonly": false,
-                "type": "string",
-                "default": "",
-                "description": "Toggle icon active color of header"
-            },
-            {
-                "name": "toggleIcon.activeHoverColor",
-                "token": "accordion.header.toggle.icon.active.hover.color",
-                "optional": true,
-                "readonly": false,
-                "type": "string",
-                "default": "",
-                "description": "Toggle icon active hover color of header"
-            },
-            {
-                "name": "first.topBorderRadius",
-                "token": "accordion.header.first.top.border.radius",
-                "optional": true,
-                "readonly": false,
-                "type": "string",
-                "default": "",
-                "description": "First top border radius of header"
-            },
-            {
-                "name": "first.borderWidth",
-                "token": "accordion.header.first.border.width",
-                "optional": true,
-                "readonly": false,
-                "type": "string",
-                "default": "",
-                "description": "First border width of header"
-            },
-            {
-                "name": "last.bottomBorderRadius",
-                "token": "accordion.header.last.bottom.border.radius",
-                "optional": true,
-                "readonly": false,
-                "type": "string",
-                "default": "",
-                "description": "Last bottom border radius of header"
-            },
-            {
-                "name": "last.activeBottomBorderRadius",
-                "token": "accordion.header.last.active.bottom.border.radius",
-                "optional": true,
-                "readonly": false,
-                "type": "string",
-                "default": "",
-                "description": "Last active bottom border radius of header"
-            },
-            {
-                "name": "content.borderWidth",
-                "token": "accordion.content.border.width",
-                "optional": true,
-                "readonly": false,
-                "type": "string",
-                "default": "",
-                "description": "Border width of content"
-            },
-            {
-                "name": "content.borderColor",
-                "token": "accordion.content.border.color",
-                "optional": true,
-                "readonly": false,
-                "type": "string",
-                "default": "",
-                "description": "Border color of content"
-            },
-            {
-                "name": "content.background",
-                "token": "accordion.content.background",
-                "optional": true,
-                "readonly": false,
-                "type": "string",
-                "default": "",
-                "description": "Background of content"
-            },
-            {
-                "name": "content.color",
-                "token": "accordion.content.color",
-                "optional": true,
-                "readonly": false,
-                "type": "string",
-                "default": "",
-                "description": "Color of content"
-            },
-            {
-                "name": "content.padding",
-                "token": "accordion.content.padding",
-                "optional": true,
-                "readonly": false,
-                "type": "string",
-                "default": "",
-                "description": "Padding of content"
-            }
-        ]
-    },
     "autocomplete": {
         "description": "AutoComplete Design Tokens\n\n[Live Demo](https://www.primeng.org/autocomplete/)",
         "tokens": [
@@ -4480,7 +4178,7 @@
             }
         ]
     },
-    "datatable": {
+    "table": {
         "description": "DataTable Design Tokens\n\n[Live Demo](https://www.primeng.org/datatable/)",
         "tokens": [
             {
@@ -6843,6 +6541,119 @@
                 "type": "string",
                 "default": "",
                 "description": "Padding of content"
+            }
+        ]
+    },
+    "dynamicdialog": {
+        "description": "DynamicDialog Design Tokens\n\n[Live Demo](https://www.primeng.org/dynamicdialog/)",
+        "tokens": [
+            {
+                "name": "root.background",
+                "token": "dialog.background",
+                "optional": true,
+                "readonly": false,
+                "type": "string",
+                "default": "",
+                "description": "Background of root"
+            },
+            {
+                "name": "root.borderColor",
+                "token": "dialog.border.color",
+                "optional": true,
+                "readonly": false,
+                "type": "string",
+                "default": "",
+                "description": "Border color of root"
+            },
+            {
+                "name": "root.color",
+                "token": "dialog.color",
+                "optional": true,
+                "readonly": false,
+                "type": "string",
+                "default": "",
+                "description": "Color of root"
+            },
+            {
+                "name": "root.borderRadius",
+                "token": "dialog.border.radius",
+                "optional": true,
+                "readonly": false,
+                "type": "string",
+                "default": "",
+                "description": "Border radius of root"
+            },
+            {
+                "name": "root.shadow",
+                "token": "dialog.shadow",
+                "optional": true,
+                "readonly": false,
+                "type": "string",
+                "default": "",
+                "description": "Shadow of root"
+            },
+            {
+                "name": "header.padding",
+                "token": "dialog.header.padding",
+                "optional": true,
+                "readonly": false,
+                "type": "string",
+                "default": "",
+                "description": "Padding of header"
+            },
+            {
+                "name": "header.gap",
+                "token": "dialog.header.gap",
+                "optional": true,
+                "readonly": false,
+                "type": "string",
+                "default": "",
+                "description": "Gap of header"
+            },
+            {
+                "name": "title.fontSize",
+                "token": "dialog.title.font.size",
+                "optional": true,
+                "readonly": false,
+                "type": "string",
+                "default": "",
+                "description": "Font size of title"
+            },
+            {
+                "name": "title.fontWeight",
+                "token": "dialog.title.font.weight",
+                "optional": true,
+                "readonly": false,
+                "type": "string",
+                "default": "",
+                "description": "Font weight of title"
+            },
+            {
+                "name": "content.padding",
+                "token": "dialog.content.padding",
+                "optional": true,
+                "readonly": false,
+                "type": "string",
+                "default": "",
+                "description": "Padding of content"
+            },
+            {
+                "name": "footer.padding",
+                "token": "dialog.footer.padding",
+                "optional": true,
+                "readonly": false,
+                "type": "string",
+                "default": "",
+                "description": "Padding of footer"
+            },
+            {
+                "name": "footer.gap",
+                "token": "dialog.footer.gap",
+                "optional": true,
+                "readonly": false,
+                "type": "string",
+                "default": "",
+                "description": "Gap of footer"
             }
         ]
     },
@@ -19044,7 +18855,7 @@
             }
         ]
     },
-    "virtualscroller": {
+    "scroller": {
         "description": "VirtualScroller Design Tokens\n\n[Live Demo](https://www.primeng.org/virtualscroller/)",
         "tokens": [
             {

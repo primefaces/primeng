@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component, Input, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, Input, signal } from '@angular/core';
 import ThemeDoc from 'src/app/showcase/doc/apidoc/themedoc.json';
+import APIDoc from 'src/app/showcase/doc/apidoc/index.json';
 
 @Component({
     selector: 'app-docthemingsection',
@@ -8,12 +9,20 @@ import ThemeDoc from 'src/app/showcase/doc/apidoc/themedoc.json';
             <div class="doc-intro">
                 <h1>{{ header }} Theming</h1>
             </div>
-            @if (doc() && doc().tokens) {
+            @if (classDoc()) {
                 <app-docapitable
-                    [id]="id()"
+                    [id]="header + 'Classes'"
+                    [label]="'CSS Classes'"
+                    description="List of class names used in the styled mode."
+                    [data]="classDoc().classes"
+                />
+            }
+            @if (tokensDoc()) {
+                <app-docapitable
+                    [id]="header + 'DesignTokens'"
                     [label]="header + ' Design Tokens'"
                     description="List of design tokens used in a preset."
-                    [data]="doc().tokens"
+                    [data]="tokensDoc().tokens"
                 />
             }
         </div>
@@ -24,32 +33,47 @@ import ThemeDoc from 'src/app/showcase/doc/apidoc/themedoc.json';
 export class AppDocThemingSectionComponent {
     @Input() header!: string;
 
-    id = signal<string>('');
+    @Input() docs: string;
 
-    doc = signal<any>([]);
+    tokensDoc = signal<any>([]);
+
+    classDoc = signal<any>([]);
 
     navItems = signal<any>([]);
 
+    _navItems = computed(() => {
+        const tokens = this.tokensDoc();
+        const classes = this.classDoc();
+        return;
+    });
+
     ngOnInit() {
         this.createDocs();
-        this.navItems.set([
-            {
-                id: 'styled',
-                label: 'Styled',
-                children: [
-                    {
-                        id: this.header + 'DesignTokens',
-                        label: 'Design Tokens',
-                    },
-                ],
-            },
-        ]);
-
-        this.id.set(this.header + 'DesignTokens');
     }
 
     createDocs() {
         const docName = this.header.toLowerCase().replace(/\s+/g, '');
-        this.doc.set(ThemeDoc[docName]);
+        if (ThemeDoc[docName]) {
+            this.tokensDoc.set(ThemeDoc[docName]);
+            this.navItems.update((prev) => [
+                ...prev,
+                {
+                    id: this.header + 'DesignTokens',
+                    label: 'Design Tokens',
+                },
+            ]);
+        }
+        if (APIDoc[docName]) {
+            const classes = APIDoc[docName]['style']['classes']['values'];
+            this.classDoc.set({ classes: classes });
+
+            this.navItems.update((prev) => [
+                {
+                    id: this.header + 'classes',
+                    label: 'CSS Classes',
+                },
+                ...prev,
+            ]);
+        }
     }
 }

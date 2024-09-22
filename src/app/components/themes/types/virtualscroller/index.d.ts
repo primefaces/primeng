@@ -4,7 +4,7 @@
  *
  * [Live Demo](https://www.primeng.org/virtualscroller/)
  *
- * @module themes/virtualscroller
+ * @module themes/scroller
  *
  */
 

@@ -1,6 +1,6 @@
 import { DOCUMENT, IMAGE_CONFIG } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { Component, Inject, OnInit, PLATFORM_ID, Renderer2, afterNextRender } from '@angular/core';
+import { afterNextRender, Component, Inject, PLATFORM_ID, Renderer2 } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { LandingComponent } from '@pages/landing/landing.component';
@@ -22,7 +22,7 @@ import Noir from '../themes/app-theme';
 
 @Component({
     selector: 'app-root',
-    templateUrl: './app.component.html',
+    template: ` <router-outlet></router-outlet>`,
     standalone: true,
     imports: [
         RouterOutlet,
@@ -86,7 +86,7 @@ export class AppComponent {
           window.dataLayer = window.dataLayer || [];
           function gtag() { dataLayer.push(arguments); }
           gtag('js', new Date());
-    
+
           gtag('config', 'G-W297P962XH');
         `;
         this.renderer.appendChild(this.document.body, scriptBody);

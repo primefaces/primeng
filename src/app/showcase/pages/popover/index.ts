@@ -1,10 +1,7 @@
 import { Component } from '@angular/core';
 import { BasicDoc } from '@doc/popover/basicdoc';
 import { ImportDoc } from '@doc/popover/importdoc';
-import { StyleDoc } from '@doc/popover/styledoc';
 import { DataTableDoc } from '@doc/popover/datatabledoc';
-import { TemplateDoc } from '@doc/popover/templatedoc';
-import { TargetDoc } from '@doc/popover/targetdoc';
 import { AccessibilityDoc } from '@doc/popover/accessibilitydoc';
 import { CommonModule } from '@angular/common';
 import { PopoverDocModule } from '@doc/popover/popoverdoc.module';
@@ -17,6 +14,7 @@ import { SelectDataDoc } from '@doc/popover/selectdatadoc';
         description="Popover is a container component that can overlay other components on page."
         [docs]="docs"
         [apiDocs]="['Popover']"
+        themeDocs="popover"
     ></app-doc>`,
     imports: [CommonModule, PopoverDocModule],
     standalone: true,

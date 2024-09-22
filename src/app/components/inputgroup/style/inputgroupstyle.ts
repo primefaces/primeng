@@ -119,3 +119,22 @@ export class InputGroupStyle extends BaseStyle {
 
     classes = classes;
 }
+
+/**
+ *
+ * InputGroup displays text, icon, buttons and other content can be grouped next to an input.
+ *
+ * [Live Demo](https://www.primeng.org/inputgroup/)
+ *
+ * @module inputgroupstyle
+ *
+ */
+
+export enum InputGroupClasses {
+    /**
+     * Class name of the root element
+     */
+    root = 'p-inputgroup',
+}
+
+export interface InputGroupStyle extends BaseStyle {}

@@ -3,7 +3,6 @@ import { BasicDoc } from '@doc/autocomplete/basicdoc';
 import { GroupDoc } from '@doc/autocomplete/groupdoc';
 import { ImportDoc } from '@doc/autocomplete/importdoc';
 import { MultipleDoc } from '@doc/autocomplete/multipledoc';
-import { StyleDoc } from '@doc/autocomplete/styledoc';
 import { TemplateDoc } from '@doc/autocomplete/templatedoc';
 import { VirtualScrollDoc } from '@doc/autocomplete/virtualscrolldoc';
 import { AccessibilityDoc } from '@doc/autocomplete/accessibilitydoc';
@@ -24,6 +23,7 @@ import { FilledDoc } from '@doc/autocomplete/filleddoc';
         description="AutoComplete is an input component that provides real-time suggestions when being typed."
         [docs]="docs"
         [apiDocs]="['AutoComplete']"
+        themeDocs="AutoComplete"
     ></app-doc>`,
     standalone: true,
     imports: [AutoCompleteDocModule],

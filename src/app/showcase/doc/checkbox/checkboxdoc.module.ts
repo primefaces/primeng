@@ -20,7 +20,7 @@ import { IndeterminateDoc } from './indeterminatedoc';
 
 @NgModule({
     imports: [CommonModule, RouterModule, FormsModule, AppCodeModule, AppDocModule, CheckboxModule, ReactiveFormsModule],
-    exports: [ImportDoc],
+    exports: [ImportDoc, AppDocModule],
     declarations: [
         ImportDoc,
         BasicDoc,

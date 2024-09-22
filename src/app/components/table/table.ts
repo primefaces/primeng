@@ -42,7 +42,6 @@ import {
     FilterService,
     LazyLoadMeta,
     OverlayService,
-    PrimeNGConfig,
     PrimeTemplate,
     ScrollerOptions,
     SelectItem,
@@ -73,7 +72,6 @@ import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
 import { Subject, Subscription } from 'rxjs';
 import {
-    TableFilterButtonPropsOptions,
     ExportCSVOptions,
     TableColResizeEvent,
     TableColumnReorderEvent,
@@ -81,6 +79,7 @@ import {
     TableEditCancelEvent,
     TableEditCompleteEvent,
     TableEditInitEvent,
+    TableFilterButtonPropsOptions,
     TableFilterEvent,
     TableHeaderCheckboxToggleEvent,
     TableLazyLoadEvent,
@@ -93,7 +92,7 @@ import {
     TableSelectAllChangeEvent,
 } from './table.interface';
 import { CheckboxModule } from 'primeng/checkbox';
-import { DataTableStyle } from './style/datatablestyle';
+import { TableStyle } from './style/tablestyle';
 import { BaseComponent } from 'primeng/basecomponent';
 import { RadioButton, RadioButtonClickEvent, RadioButtonModule } from 'primeng/radiobutton';
 import { SelectModule } from 'primeng/select';
@@ -373,7 +372,7 @@ export class TableService {
             </span>
         </div>
     `,
-    providers: [TableService, DataTableStyle],
+    providers: [TableService, TableStyle],
     changeDetection: ChangeDetectionStrategy.Default,
     encapsulation: ViewEncapsulation.None,
 })
@@ -1217,7 +1216,7 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
 
     zone = inject(NgZone);
 
-    _componentStyle = inject(DataTableStyle);
+    _componentStyle = inject(TableStyle);
 
     ngOnInit() {
         super.ngOnInit();
@@ -2904,8 +2903,8 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
                 <number>this.draggedRowIndex > this.droppedRowIndex
                     ? this.droppedRowIndex
                     : this.droppedRowIndex === 0
-                    ? 0
-                    : this.droppedRowIndex - 1;
+                      ? 0
+                      : this.droppedRowIndex - 1;
             ObjectUtils.reorderArray(this.value, <number>this.draggedRowIndex, dropIndex);
 
             if (this.virtualScroll) {
@@ -6428,6 +6427,6 @@ export class ColumnFilterFormElement implements OnInit {
         ColumnFilter,
         ColumnFilterFormElement,
     ],
-    providers: [DataTableStyle],
+    providers: [TableStyle],
 })
 export class TableModule {}

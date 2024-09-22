@@ -1,24 +1,20 @@
-import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
     AfterContentInit,
     AfterViewChecked,
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     ContentChildren,
     ElementRef,
     EventEmitter,
     inject,
-    Inject,
     Input,
     NgModule,
     NgZone,
     OnDestroy,
     OnInit,
     Output,
-    PLATFORM_ID,
     QueryList,
-    Renderer2,
     SimpleChanges,
     TemplateRef,
     ViewChild,
@@ -29,8 +25,9 @@ import { DomHandler } from 'primeng/dom';
 import { SpinnerIcon } from 'primeng/icons/spinner';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { ScrollerLazyLoadEvent, ScrollerScrollEvent, ScrollerScrollIndexChangeEvent, ScrollerToType } from './scroller.interface';
-import { VirtalScrollerStyle } from './style/virtualscrollerstyle';
+import { ScrollerStyle } from './style/scrollerstyle';
 import { BaseComponent } from 'primeng/basecomponent';
+
 /**
  * Scroller is a performance-approach to handle huge data efficiently.
  * @group Components
@@ -121,7 +118,7 @@ import { BaseComponent } from 'primeng/basecomponent';
     `,
     changeDetection: ChangeDetectionStrategy.Default,
     encapsulation: ViewEncapsulation.None,
-    providers: [VirtalScrollerStyle],
+    providers: [ScrollerStyle],
 })
 export class Scroller extends BaseComponent implements OnInit, AfterContentInit, AfterViewChecked, OnDestroy {
     /**
@@ -544,7 +541,8 @@ export class Scroller extends BaseComponent implements OnInit, AfterContentInit,
 
         return this._columns;
     }
-    _componentStyle = inject(VirtalScrollerStyle);
+
+    _componentStyle = inject(ScrollerStyle);
 
     constructor(private zone: NgZone) {
         super();

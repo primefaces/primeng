@@ -311,7 +311,7 @@
             "classes": {
                 "values": [
                     {
-                        "className": "p-accordion",
+                        "class": "p-accordion",
                         "description": "Class name of the root element"
                     }
                 ]
@@ -381,13 +381,13 @@
         "classes": {
             "values": [
                 {
-                    "className": 0
+                    "class": 0
                 },
                 {
-                    "className": 1
+                    "class": 1
                 },
                 {
-                    "className": 2
+                    "class": 2
                 }
             ]
         }
@@ -4367,59 +4367,59 @@
             "classes": {
                 "values": [
                     {
-                        "className": "p-autocomplete",
+                        "class": "p-autocomplete",
                         "description": "Class name of the root element"
                     },
                     {
-                        "className": "p-autocomplete-input",
+                        "class": "p-autocomplete-input",
                         "description": "Class name of the input element"
                     },
                     {
-                        "className": "p-autocomplete-input-multiple",
+                        "class": "p-autocomplete-input-multiple",
                         "description": "Class name of the input multiple element"
                     },
                     {
-                        "className": "p-autocomplete-chip-item",
+                        "class": "p-autocomplete-chip-item",
                         "description": "Class name of the chip item element"
                     },
                     {
-                        "className": "p-autocomplete-chip",
+                        "class": "p-autocomplete-chip",
                         "description": "Class name of the chip element"
                     },
                     {
-                        "className": "p-autocomplete-chip-icon",
+                        "class": "p-autocomplete-chip-icon",
                         "description": "Class name of the chip icon element"
                     },
                     {
-                        "className": "p-autocomplete-input-chip",
+                        "class": "p-autocomplete-input-chip",
                         "description": "Class name of the input chip element"
                     },
                     {
-                        "className": "p-autocomplete-loader",
+                        "class": "p-autocomplete-loader",
                         "description": "Class name of the loader element"
                     },
                     {
-                        "className": "p-autocomplete-dropdown",
+                        "class": "p-autocomplete-dropdown",
                         "description": "Class name of the dropdown element"
                     },
                     {
-                        "className": "p-autocomplete-overlay",
+                        "class": "p-autocomplete-overlay",
                         "description": "Class name of the panel element"
                     },
                     {
-                        "className": "p-autocomplete-list",
+                        "class": "p-autocomplete-list",
                         "description": "Class name of the list element"
                     },
                     {
-                        "className": "p-autocomplete-option-group",
+                        "class": "p-autocomplete-option-group",
                         "description": "Class name of the option group element"
                     },
                     {
-                        "className": "p-autocomplete-option",
+                        "class": "p-autocomplete-option",
                         "description": "Class name of the option element"
                     },
                     {
-                        "className": "p-autocomplete-empty-message",
+                        "class": "p-autocomplete-empty-message",
                         "description": "Class name of the empty message element"
                     }
                 ]
@@ -4542,15 +4542,15 @@
             "classes": {
                 "values": [
                     {
-                        "className": "p-avatar",
+                        "class": "p-avatar",
                         "description": "Class name of the root element"
                     },
                     {
-                        "className": "p-avatar-label",
+                        "class": "p-avatar-label",
                         "description": "Class name of the label element"
                     },
                     {
-                        "className": "p-avatar-icon",
+                        "class": "p-avatar-icon",
                         "description": "Class name of the icon element"
                     }
                 ]
@@ -4587,7 +4587,7 @@
             "classes": {
                 "values": [
                     {
-                        "className": "p-avatar-group"
+                        "class": "p-avatar-group"
                     }
                 ]
             }
@@ -4705,7 +4705,7 @@
             "classes": {
                 "values": [
                     {
-                        "className": "p-badge",
+                        "class": "p-badge",
                         "description": "Class name of the root element"
                     }
                 ]
@@ -4794,7 +4794,7 @@
             "classes": {
                 "values": [
                     {
-                        "className": "p-blockui",
+                        "class": "p-blockui",
                         "description": "Class name of the root element"
                     }
                 ]
@@ -4917,35 +4917,35 @@
             "classes": {
                 "values": [
                     {
-                        "className": "p-breadcrumb",
+                        "class": "p-breadcrumb",
                         "description": "Class name of the root element"
                     },
                     {
-                        "className": "p-breadcrumb-list",
+                        "class": "p-breadcrumb-list",
                         "description": "Class name of the list element"
                     },
                     {
-                        "className": "p-breadcrumb-home-item",
+                        "class": "p-breadcrumb-home-item",
                         "description": "Class name of the home item element"
                     },
                     {
-                        "className": "p-breadcrumb-separator",
+                        "class": "p-breadcrumb-separator",
                         "description": "Class name of the separator element"
                     },
                     {
-                        "className": "p-breadcrumb-item",
+                        "class": "p-breadcrumb-item",
                         "description": "Class name of the item element"
                     },
                     {
-                        "className": "p-breadcrumb-item-link",
+                        "class": "p-breadcrumb-item-link",
                         "description": "Class name of the item link element"
                     },
                     {
-                        "className": "p-breadcrumb-item-icon",
+                        "class": "p-breadcrumb-item-icon",
                         "description": "Class name of the item icon element"
                     },
                     {
-                        "className": "p-breadcrumb-item-label",
+                        "class": "p-breadcrumb-item-label",
                         "description": "Class name of the item label element"
                     }
                 ]
@@ -5326,19 +5326,19 @@
             "classes": {
                 "values": [
                     {
-                        "className": "p-button",
+                        "class": "p-button",
                         "description": "Class name of the root element"
                     },
                     {
-                        "className": "p-button-loading-icon",
+                        "class": "p-button-loading-icon",
                         "description": "Class name of the loading icon element"
                     },
                     {
-                        "className": "p-button-icon",
+                        "class": "p-button-icon",
                         "description": "Class name of the icon element"
                     },
                     {
-                        "className": "p-button-label",
+                        "class": "p-button-label",
                         "description": "Class name of the label element"
                     }
                 ]
@@ -5352,7 +5352,7 @@
             "classes": {
                 "values": [
                     {
-                        "className": "p-buttongroup",
+                        "class": "p-buttongroup",
                         "description": "Class name of the root element"
                     }
                 ]
@@ -6390,35 +6390,35 @@
             "classes": {
                 "values": [
                     {
-                        "className": "p-card",
+                        "class": "p-card",
                         "description": "Class name of the root element"
                     },
                     {
-                        "className": "p-card-header",
+                        "class": "p-card-header",
                         "description": "Class name of the header element"
                     },
                     {
-                        "className": "p-card-body",
+                        "class": "p-card-body",
                         "description": "Class name of the body element"
                     },
                     {
-                        "className": "p-card-caption",
+                        "class": "p-card-caption",
                         "description": "Class name of the caption element"
                     },
                     {
-                        "className": "p-card-title",
+                        "class": "p-card-title",
                         "description": "Class name of the title element"
                     },
                     {
-                        "className": "p-card-subtitle",
+                        "class": "p-card-subtitle",
                         "description": "Class name of the subtitle element"
                     },
                     {
-                        "className": "p-card-content",
+                        "class": "p-card-content",
                         "description": "Class name of the content element"
                     },
                     {
-                        "className": "p-card-footer",
+                        "class": "p-card-footer",
                         "description": "Class name of the footer element"
                     }
                 ]
@@ -6699,59 +6699,59 @@
             "classes": {
                 "values": [
                     {
-                        "className": "p-carousel",
+                        "class": "p-carousel",
                         "description": "Class name of the root element"
                     },
                     {
-                        "className": "p-carousel-header",
+                        "class": "p-carousel-header",
                         "description": "Class name of the header element"
                     },
                     {
-                        "className": "p-carousel-content-container",
+                        "class": "p-carousel-content-container",
                         "description": "Class name of the content container element"
                     },
                     {
-                        "className": "p-carousel-content",
+                        "class": "p-carousel-content",
                         "description": "Class name of the content element"
                     },
                     {
-                        "className": "p-carousel-prev-button",
+                        "class": "p-carousel-prev-button",
                         "description": "Class name of the previous button element"
                     },
                     {
-                        "className": "p-carousel-viewport",
+                        "class": "p-carousel-viewport",
                         "description": "Class name of the viewport element"
                     },
                     {
-                        "className": "p-carousel-item-list",
+                        "class": "p-carousel-item-list",
                         "description": "Class name of the item list element"
                     },
                     {
-                        "className": "p-carousel-item-clone",
+                        "class": "p-carousel-item-clone",
                         "description": "Class name of the item clone element"
                     },
                     {
-                        "className": "p-carousel-item",
+                        "class": "p-carousel-item",
                         "description": "Class name of the item element"
                     },
                     {
-                        "className": "p-carousel-next-button",
+                        "class": "p-carousel-next-button",
                         "description": "Class name of the next button element"
                     },
                     {
-                        "className": "p-carousel-indicator-list",
+                        "class": "p-carousel-indicator-list",
                         "description": "Class name of the indicator list element"
                     },
                     {
-                        "className": "p-carousel-indicator",
+                        "class": "p-carousel-indicator",
                         "description": "Class name of the indicator element"
                     },
                     {
-                        "className": "p-carousel-indicator-button",
+                        "class": "p-carousel-indicator-button",
                         "description": "Class name of the indicator button element"
                     },
                     {
-                        "className": "p-carousel-footer",
+                        "class": "p-carousel-footer",
                         "description": "Class name of the footer element"
                     }
                 ]
@@ -7342,55 +7342,55 @@
             "classes": {
                 "values": [
                     {
-                        "className": "p-cascadeselect",
+                        "class": "p-cascadeselect",
                         "description": "Class name of the root element"
                     },
                     {
-                        "className": "p-cascadeselect-label",
+                        "class": "p-cascadeselect-label",
                         "description": "Class name of the label element"
                     },
                     {
-                        "className": "p-cascadeselect-dropdown",
+                        "class": "p-cascadeselect-dropdown",
                         "description": "Class name of the dropdown element"
                     },
                     {
-                        "className": "p-cascadeselect-loading-icon",
+                        "class": "p-cascadeselect-loading-icon",
                         "description": "Class name of the loading icon element"
                     },
                     {
-                        "className": "p-cascadeselect-dropdown-icon",
+                        "class": "p-cascadeselect-dropdown-icon",
                         "description": "Class name of the dropdown icon element"
                     },
                     {
-                        "className": "p-cascadeselect-overlay",
+                        "class": "p-cascadeselect-overlay",
                         "description": "Class name of the overlay element"
                     },
                     {
-                        "className": "p-cascadeselect-list-container",
+                        "class": "p-cascadeselect-list-container",
                         "description": "Class name of the list container element"
                     },
                     {
-                        "className": "p-cascadeselect-list",
+                        "class": "p-cascadeselect-list",
                         "description": "Class name of the list element"
                     },
                     {
-                        "className": "p-cascadeselect-item",
+                        "class": "p-cascadeselect-item",
                         "description": "Class name of the item element"
                     },
                     {
-                        "className": "p-cascadeselect-item-content",
+                        "class": "p-cascadeselect-item-content",
                         "description": "Class name of the item content element"
                     },
                     {
-                        "className": "p-cascadeselect-item-text",
+                        "class": "p-cascadeselect-item-text",
                         "description": "Class name of the item text element"
                     },
                     {
-                        "className": "p-cascadeselect-group-icon",
+                        "class": "p-cascadeselect-group-icon",
                         "description": "Class name of the group icon element"
                     },
                     {
-                        "className": "p-cascadeselect-item-list",
+                        "class": "p-cascadeselect-item-list",
                         "description": "Class name of the item list element"
                     }
                 ]
@@ -7493,7 +7493,7 @@
             "classes": {
                 "values": [
                     {
-                        "className": "p-chart",
+                        "class": "p-chart",
                         "description": "Class name of the root element"
                     }
                 ]
@@ -7746,19 +7746,19 @@
             "classes": {
                 "values": [
                     {
-                        "className": "p-checkbox",
+                        "class": "p-checkbox",
                         "description": "Class name of the root element"
                     },
                     {
-                        "className": "p-checkbox-box",
+                        "class": "p-checkbox-box",
                         "description": "Class name of the box element"
                     },
                     {
-                        "className": "p-checkbox-input",
+                        "class": "p-checkbox-input",
                         "description": "Class name of the input element"
                     },
                     {
-                        "className": "p-checkbox-icon",
+                        "class": "p-checkbox-icon",
                         "description": "Class name of the icon element"
                     }
                 ]
@@ -7890,23 +7890,23 @@
             "classes": {
                 "values": [
                     {
-                        "className": "p-chip",
+                        "class": "p-chip",
                         "description": "Class name of the root element"
                     },
                     {
-                        "className": "p-chip-image",
+                        "class": "p-chip-image",
                         "description": "Class name of the image element"
                     },
                     {
-                        "className": "p-chip-icon",
+                        "class": "p-chip-icon",
                         "description": "Class name of the icon element"
                     },
                     {
-                        "className": "p-chip-label",
+                        "class": "p-chip-label",
                         "description": "Class name of the label element"
                     },
                     {
-                        "className": "p-chip-remove-icon",
+                        "class": "p-chip-remove-icon",
                         "description": "Class name of the remove icon element"
                     }
                 ]
@@ -8091,35 +8091,35 @@
             "classes": {
                 "values": [
                     {
-                        "className": "p-colorpicker",
+                        "class": "p-colorpicker",
                         "description": "Class name of the root element"
                     },
                     {
-                        "className": "p-colorpicker-preview",
+                        "class": "p-colorpicker-preview",
                         "description": "Class name of the preview element"
                     },
                     {
-                        "className": "p-colorpicker-panel",
+                        "class": "p-colorpicker-panel",
                         "description": "Class name of the panel element"
                     },
                     {
-                        "className": "p-colorpicker-color-selector",
+                        "class": "p-colorpicker-color-selector",
                         "description": "Class name of the color selector element"
                     },
                     {
-                        "className": "p-colorpicker-color-background",
+                        "class": "p-colorpicker-color-background",
                         "description": "Class name of the color background element"
                     },
                     {
-                        "className": "p-colorpicker-color-handle",
+                        "class": "p-colorpicker-color-handle",
                         "description": "Class name of the color handle element"
                     },
                     {
-                        "className": "p-colorpicker-hue",
+                        "class": "p-colorpicker-hue",
                         "description": "Class name of the hue element"
                     },
                     {
-                        "className": "p-colorpicker-hue-handle",
+                        "class": "p-colorpicker-hue-handle",
                         "description": "Class name of the hue handle element"
                     }
                 ]
@@ -8459,23 +8459,23 @@
             "classes": {
                 "values": [
                     {
-                        "className": "p-confirmdialog",
+                        "class": "p-confirmdialog",
                         "description": "Class name of the root element"
                     },
                     {
-                        "className": "p-confirmdialog-icon",
+                        "class": "p-confirmdialog-icon",
                         "description": "Class name of the icon element"
                     },
                     {
-                        "className": "p-confirmdialog-message",
+                        "class": "p-confirmdialog-message",
                         "description": "Class name of the message element"
                     },
                     {
-                        "className": "p-confirmdialog-reject-button",
+                        "class": "p-confirmdialog-reject-button",
                         "description": "Class name of the reject button element"
                     },
                     {
-                        "className": "p-confirmdialog-accept-button",
+                        "class": "p-confirmdialog-accept-button",
                         "description": "Class name of the accept button element"
                     }
                 ]
@@ -8608,31 +8608,31 @@
             "classes": {
                 "values": [
                     {
-                        "className": "p-confirmpopup",
+                        "class": "p-confirmpopup",
                         "description": "Class name of the root element"
                     },
                     {
-                        "className": "p-confirmpopup-content",
+                        "class": "p-confirmpopup-content",
                         "description": "Class name of the content element"
                     },
                     {
-                        "className": "p-confirmpopup-icon",
+                        "class": "p-confirmpopup-icon",
                         "description": "Class name of the icon element"
                     },
                     {
-                        "className": "p-confirmpopup-message",
+                        "class": "p-confirmpopup-message",
                         "description": "Class name of the message element"
                     },
                     {
-                        "className": "p-confirmpopup-footer",
+                        "class": "p-confirmpopup-footer",
                         "description": "Class name of the footer element"
                     },
                     {
-                        "className": "p-confirmpopup-reject-button",
+                        "class": "p-confirmpopup-reject-button",
                         "description": "Class name of the reject button element"
                     },
                     {
-                        "className": "p-confirmpopup-accept-button",
+                        "class": "p-confirmpopup-accept-button",
                         "description": "Class name of the accept button element"
                     }
                 ]
@@ -8806,43 +8806,43 @@
             "classes": {
                 "values": [
                     {
-                        "className": "p-contextmenu",
+                        "class": "p-contextmenu",
                         "description": "Class name of the root element"
                     },
                     {
-                        "className": "p-contextmenu-root-list",
+                        "class": "p-contextmenu-root-list",
                         "description": "Class name of the root list element"
                     },
                     {
-                        "className": "p-contextmenu-item",
+                        "class": "p-contextmenu-item",
                         "description": "Class name of the item element"
                     },
                     {
-                        "className": "p-contextmenu-item-content",
+                        "class": "p-contextmenu-item-content",
                         "description": "Class name of the item content element"
                     },
                     {
-                        "className": "p-contextmenu-item-link",
+                        "class": "p-contextmenu-item-link",
                         "description": "Class name of the item link element"
                     },
                     {
-                        "className": "p-contextmenu-item-icon",
+                        "class": "p-contextmenu-item-icon",
                         "description": "Class name of the item icon element"
                     },
                     {
-                        "className": "p-contextmenu-item-label",
+                        "class": "p-contextmenu-item-label",
                         "description": "Class name of the item label element"
                     },
                     {
-                        "className": "p-contextmenu-submenu-icon",
+                        "class": "p-contextmenu-submenu-icon",
                         "description": "Class name of the submenu icon element"
                     },
                     {
-                        "className": "p-contextmenu-submenu",
+                        "class": "p-contextmenu-submenu",
                         "description": "Class name of the submenu element"
                     },
                     {
-                        "className": "p-contextmenu-separator",
+                        "class": "p-contextmenu-separator",
                         "description": "Class name of the separator element"
                     }
                 ]
@@ -9379,27 +9379,27 @@
             "classes": {
                 "values": [
                     {
-                        "className": "p-dataview",
+                        "class": "p-dataview",
                         "description": "Class name of the root element"
                     },
                     {
-                        "className": "p-dataview-header",
+                        "class": "p-dataview-header",
                         "description": "Class name of the header element"
                     },
                     {
-                        "className": "p-dataview-paginator-[position]",
+                        "class": "p-dataview-paginator-[position]",
                         "description": "Class name of the paginator element"
                     },
                     {
-                        "className": "p-dataview-content",
+                        "class": "p-dataview-content",
                         "description": "Class name of the content element"
                     },
                     {
-                        "className": "p-dataview-empty-message",
+                        "class": "p-dataview-empty-message",
                         "description": "Class name of the empty message element"
                     },
                     {
-                        "className": "p-dataview-footer",
+                        "class": "p-dataview-footer",
                         "description": "Class name of the footer element"
                     }
                 ]
@@ -10356,155 +10356,155 @@
             "classes": {
                 "values": [
                     {
-                        "className": "p-datepicker",
+                        "class": "p-datepicker",
                         "description": "Class name of the root element"
                     },
                     {
-                        "className": "p-datepicker-input",
+                        "class": "p-datepicker-input",
                         "description": "Class name of the input element"
                     },
                     {
-                        "className": "p-datepicker-dropdown",
+                        "class": "p-datepicker-dropdown",
                         "description": "Class name of the dropdown element"
                     },
                     {
-                        "className": "p-datepicker-input-icon-container",
+                        "class": "p-datepicker-input-icon-container",
                         "description": "Class name of the input icon container element"
                     },
                     {
-                        "className": "p-datepicker-input-icon",
+                        "class": "p-datepicker-input-icon",
                         "description": "Class name of the input icon element"
                     },
                     {
-                        "className": "p-datepicker-panel",
+                        "class": "p-datepicker-panel",
                         "description": "Class name of the panel element"
                     },
                     {
-                        "className": "p-datepicker-calendar-container",
+                        "class": "p-datepicker-calendar-container",
                         "description": "Class name of the calendar container element"
                     },
                     {
-                        "className": "p-datepicker-calendar",
+                        "class": "p-datepicker-calendar",
                         "description": "Class name of the calendar element"
                     },
                     {
-                        "className": "p-datepicker-header",
+                        "class": "p-datepicker-header",
                         "description": "Class name of the header element"
                     },
                     {
-                        "className": "p-datepicker-prev-button",
+                        "class": "p-datepicker-prev-button",
                         "description": "Class name of the previous button element"
                     },
                     {
-                        "className": "p-datepicker-title",
+                        "class": "p-datepicker-title",
                         "description": "Class name of the title element"
                     },
                     {
-                        "className": "p-datepicker-select-month",
+                        "class": "p-datepicker-select-month",
                         "description": "Class name of the select month element"
                     },
                     {
-                        "className": "p-datepicker-select-year",
+                        "class": "p-datepicker-select-year",
                         "description": "Class name of the select year element"
                     },
                     {
-                        "className": "p-datepicker-decade",
+                        "class": "p-datepicker-decade",
                         "description": "Class name of the decade element"
                     },
                     {
-                        "className": "p-datepicker-next-button",
+                        "class": "p-datepicker-next-button",
                         "description": "Class name of the next button element"
                     },
                     {
-                        "className": "p-datepicker-day-view",
+                        "class": "p-datepicker-day-view",
                         "description": "Class name of the day view element"
                     },
                     {
-                        "className": "p-datepicker-weekheader",
+                        "class": "p-datepicker-weekheader",
                         "description": "Class name of the week header element"
                     },
                     {
-                        "className": "p-datepicker-weeknumber",
+                        "class": "p-datepicker-weeknumber",
                         "description": "Class name of the week number element"
                     },
                     {
-                        "className": "p-datepicker-weeklabel-container",
+                        "class": "p-datepicker-weeklabel-container",
                         "description": "Class name of the week label container element"
                     },
                     {
-                        "className": "p-datepicker-weekday-cell",
+                        "class": "p-datepicker-weekday-cell",
                         "description": "Class name of the week day cell element"
                     },
                     {
-                        "className": "p-datepicker-weekday",
+                        "class": "p-datepicker-weekday",
                         "description": "Class name of the week day element"
                     },
                     {
-                        "className": "p-datepicker-day-cell",
+                        "class": "p-datepicker-day-cell",
                         "description": "Class name of the day cell element"
                     },
                     {
-                        "className": "p-datepicker-day",
+                        "class": "p-datepicker-day",
                         "description": "Class name of the day element"
                     },
                     {
-                        "className": "p-datepicker-month-view",
+                        "class": "p-datepicker-month-view",
                         "description": "Class name of the month view element"
                     },
                     {
-                        "className": "p-datepicker-month",
+                        "class": "p-datepicker-month",
                         "description": "Class name of the month element"
                     },
                     {
-                        "className": "p-datepicker-year-view",
+                        "class": "p-datepicker-year-view",
                         "description": "Class name of the year view element"
                     },
                     {
-                        "className": "p-datepicker-year",
+                        "class": "p-datepicker-year",
                         "description": "Class name of the year element"
                     },
                     {
-                        "className": "p-datepicker-time-picker",
+                        "class": "p-datepicker-time-picker",
                         "description": "Class name of the time picker element"
                     },
                     {
-                        "className": "p-datepicker-hour-picker",
+                        "class": "p-datepicker-hour-picker",
                         "description": "Class name of the hour picker element"
                     },
                     {
-                        "className": "p-datepicker-increment-button",
+                        "class": "p-datepicker-increment-button",
                         "description": "Class name of the increment button element"
                     },
                     {
-                        "className": "p-datepicker-decrement-button",
+                        "class": "p-datepicker-decrement-button",
                         "description": "Class name of the decrement button element"
                     },
                     {
-                        "className": "p-datepicker-separator",
+                        "class": "p-datepicker-separator",
                         "description": "Class name of the separator element"
                     },
                     {
-                        "className": "p-datepicker-minute-picker",
+                        "class": "p-datepicker-minute-picker",
                         "description": "Class name of the minute picker element"
                     },
                     {
-                        "className": "p-datepicker-second-picker",
+                        "class": "p-datepicker-second-picker",
                         "description": "Class name of the second picker element"
                     },
                     {
-                        "className": "p-datepicker-ampm-picker",
+                        "class": "p-datepicker-ampm-picker",
                         "description": "Class name of the ampm picker element"
                     },
                     {
-                        "className": "p-datepicker-buttonbar",
+                        "class": "p-datepicker-buttonbar",
                         "description": "Class name of the buttonbar element"
                     },
                     {
-                        "className": "p-datepicker-today-button",
+                        "class": "p-datepicker-today-button",
                         "description": "Class name of the today button element"
                     },
                     {
-                        "className": "p-datepicker-clear-button",
+                        "class": "p-datepicker-clear-button",
                         "description": "Class name of the clear button element"
                     }
                 ]
@@ -11031,39 +11031,39 @@
             "classes": {
                 "values": [
                     {
-                        "className": "p-dialog-mask",
+                        "class": "p-dialog-mask",
                         "description": "Class name of the mask element"
                     },
                     {
-                        "className": "p-dialog",
+                        "class": "p-dialog",
                         "description": "Class name of the root element"
                     },
                     {
-                        "className": "p-dialog-header",
+                        "class": "p-dialog-header",
                         "description": "Class name of the header element"
                     },
                     {
-                        "className": "p-dialog-title",
+                        "class": "p-dialog-title",
                         "description": "Class name of the title element"
                     },
                     {
-                        "className": "p-dialog-header-actions",
+                        "class": "p-dialog-header-actions",
                         "description": "Class name of the header actions element"
                     },
                     {
-                        "className": "p-dialog-maximize-button",
+                        "class": "p-dialog-maximize-button",
                         "description": "Class name of the maximize button element"
                     },
                     {
-                        "className": "p-dialog-close-button",
+                        "class": "p-dialog-close-button",
                         "description": "Class name of the close button element"
                     },
                     {
-                        "className": "p-dialog-content",
+                        "class": "p-dialog-content",
                         "description": "Class name of the content element"
                     },
                     {
-                        "className": "p-dialog-footer",
+                        "class": "p-dialog-footer",
                         "description": "Class name of the footer element"
                     }
                 ]
@@ -11123,11 +11123,11 @@
             "classes": {
                 "values": [
                     {
-                        "className": "p-divider",
+                        "class": "p-divider",
                         "description": "Class name of the root element"
                     },
                     {
-                        "className": "p-divider-content",
+                        "class": "p-divider-content",
                         "description": "Class name of the content element"
                     }
                 ]
@@ -11246,31 +11246,31 @@
             "classes": {
                 "values": [
                     {
-                        "className": "p-dock",
+                        "class": "p-dock",
                         "description": "Class name of the root element"
                     },
                     {
-                        "className": "p-dock-list-container",
+                        "class": "p-dock-list-container",
                         "description": "Class name of the list container element"
                     },
                     {
-                        "className": "p-dock-list",
+                        "class": "p-dock-list",
                         "description": "Class name of the list element"
                     },
                     {
-                        "className": "p-dock-item",
+                        "class": "p-dock-item",
                         "description": "Class name of the item element"
                     },
                     {
-                        "className": "p-dock-item-content",
+                        "class": "p-dock-item-content",
                         "description": "Class name of the item content element"
                     },
                     {
-                        "className": "p-dock-item-link",
+                        "class": "p-dock-item-link",
                         "description": "Class name of the item link element"
                     },
                     {
-                        "className": "p-dock-item-icon",
+                        "class": "p-dock-item-icon",
                         "description": "Class name of the item icon element"
                     }
                 ]
@@ -11627,27 +11627,27 @@
             "classes": {
                 "values": [
                     {
-                        "className": "p-drawer-mask",
+                        "class": "p-drawer-mask",
                         "description": "Class name of the mask element"
                     },
                     {
-                        "className": "p-drawer",
+                        "class": "p-drawer",
                         "description": "Class name of the root element"
                     },
                     {
-                        "className": "p-drawer-header",
+                        "class": "p-drawer-header",
                         "description": "Class name of the header element"
                     },
                     {
-                        "className": "p-drawer-title",
+                        "class": "p-drawer-title",
                         "description": "Class name of the title element"
                     },
                     {
-                        "className": "p-drawer-close-button",
+                        "class": "p-drawer-close-button",
                         "description": "Class name of the close button element"
                     },
                     {
-                        "className": "p-drawer-content",
+                        "class": "p-drawer-content",
                         "description": "Class name of the content element"
                     }
                 ]
@@ -12977,7 +12977,47 @@
     "dynamicdialog": {
         "components": {},
         "style": {
-            "components": {}
+            "components": {},
+            "classes": {
+                "values": [
+                    {
+                        "class": "p-dialog-mask",
+                        "description": "Class name of the mask element"
+                    },
+                    {
+                        "class": "p-dialog",
+                        "description": "Class name of the root element"
+                    },
+                    {
+                        "class": "p-dialog-header",
+                        "description": "Class name of the header element"
+                    },
+                    {
+                        "class": "p-dialog-title",
+                        "description": "Class name of the title element"
+                    },
+                    {
+                        "class": "p-dialog-header-actions",
+                        "description": "Class name of the header actions element"
+                    },
+                    {
+                        "class": "p-dialog-maximize-button",
+                        "description": "Class name of the maximize button element"
+                    },
+                    {
+                        "class": "p-dialog-close-button",
+                        "description": "Class name of the close button element"
+                    },
+                    {
+                        "class": "p-dialog-content",
+                        "description": "Class name of the content element"
+                    },
+                    {
+                        "class": "p-dialog-footer",
+                        "description": "Class name of the footer element"
+                    }
+                ]
+            }
         }
     },
     "dynamicdialogcontent": {
@@ -13186,7 +13226,23 @@
             }
         },
         "style": {
-            "components": {}
+            "components": {},
+            "classes": {
+                "values": [
+                    {
+                        "class": "p-editor",
+                        "description": "Class name of the root element"
+                    },
+                    {
+                        "class": "p-editor-toolbar",
+                        "description": "Class name of the toolbar element"
+                    },
+                    {
+                        "class": "p-editor-content",
+                        "description": "Class name of the content element"
+                    }
+                ]
+            }
         }
     },
     "fieldset": {
@@ -13365,7 +13421,35 @@
             }
         },
         "style": {
-            "components": {}
+            "components": {},
+            "classes": {
+                "values": [
+                    {
+                        "class": "p-fieldset",
+                        "description": "Class name of the root element"
+                    },
+                    {
+                        "class": "p-fieldset-legend",
+                        "description": "Class name of the legend element"
+                    },
+                    {
+                        "class": "p-fieldset-legend-label",
+                        "description": "Class name of the legend label element"
+                    },
+                    {
+                        "class": "p-fieldset-toggle-icon",
+                        "description": "Class name of the toggle icon element"
+                    },
+                    {
+                        "class": "p-fieldset-content-container",
+                        "description": "Class name of the content container element"
+                    },
+                    {
+                        "class": "p-fieldset-content",
+                        "description": "Class name of the content element"
+                    }
+                ]
+            }
         }
     },
     "fileupload": {
@@ -14066,7 +14150,71 @@
             }
         },
         "style": {
-            "components": {}
+            "components": {},
+            "classes": {
+                "values": [
+                    {
+                        "class": "p-fileupload",
+                        "description": "Class name of the root element"
+                    },
+                    {
+                        "class": "p-fileupload-header",
+                        "description": "Class name of the header element"
+                    },
+                    {
+                        "class": "p-fileupload-choose-button",
+                        "description": "Class name of the choose button element"
+                    },
+                    {
+                        "class": "p-fileupload-upload-button",
+                        "description": "Class name of the upload button element"
+                    },
+                    {
+                        "class": "p-fileupload-cancel-button",
+                        "description": "Class name of the cancel button element"
+                    },
+                    {
+                        "class": "p-fileupload-content",
+                        "description": "Class name of the content element"
+                    },
+                    {
+                        "class": "p-fileupload-file-list",
+                        "description": "Class name of the file list element"
+                    },
+                    {
+                        "class": "p-fileupload-file",
+                        "description": "Class name of the file element"
+                    },
+                    {
+                        "class": "p-fileupload-file-thumbnail",
+                        "description": "Class name of the file thumbnail element"
+                    },
+                    {
+                        "class": "p-fileupload-file-info",
+                        "description": "Class name of the file info element"
+                    },
+                    {
+                        "class": "p-fileupload-file-name",
+                        "description": "Class name of the file name element"
+                    },
+                    {
+                        "class": "p-fileupload-file-size",
+                        "description": "Class name of the file size element"
+                    },
+                    {
+                        "class": "p-fileupload-file-badge",
+                        "description": "Class name of the file badge element"
+                    },
+                    {
+                        "class": "p-fileupload-file-actions",
+                        "description": "Class name of the file actions element"
+                    },
+                    {
+                        "class": "p-fileupload-file-remove-button",
+                        "description": "Class name of the file remove button element"
+                    }
+                ]
+            }
         }
     },
     "floatlabel": {
@@ -14076,7 +14224,15 @@
             }
         },
         "style": {
-            "components": {}
+            "components": {},
+            "classes": {
+                "values": [
+                    {
+                        "class": "p-floatlabel",
+                        "description": "Class name of the root element"
+                    }
+                ]
+            }
         }
     },
     "fluid": {
@@ -14086,7 +14242,15 @@
             }
         },
         "style": {
-            "components": {}
+            "components": {},
+            "classes": {
+                "values": [
+                    {
+                        "class": "p-fluid",
+                        "description": "Class name of the root element"
+                    }
+                ]
+            }
         }
     },
     "focustrap": {
@@ -14477,7 +14641,123 @@
             }
         },
         "style": {
-            "components": {}
+            "components": {},
+            "classes": {
+                "values": [
+                    {
+                        "class": "p-galleria-mask",
+                        "description": "Class name of the mask element"
+                    },
+                    {
+                        "class": "p-galleria",
+                        "description": "Class name of the root element"
+                    },
+                    {
+                        "class": "p-galleria-close-button",
+                        "description": "Class name of the close button element"
+                    },
+                    {
+                        "class": "p-galleria-close-icon",
+                        "description": "Class name of the close icon element"
+                    },
+                    {
+                        "class": "p-galleria-header",
+                        "description": "Class name of the header element"
+                    },
+                    {
+                        "class": "p-galleria-content",
+                        "description": "Class name of the content element"
+                    },
+                    {
+                        "class": "p-galleria-footer",
+                        "description": "Class name of the footer element"
+                    },
+                    {
+                        "class": "p-galleria-items-container",
+                        "description": "Class name of the items container element"
+                    },
+                    {
+                        "class": "p-galleria-items",
+                        "description": "Class name of the items element"
+                    },
+                    {
+                        "class": "p-galleria-prev-button",
+                        "description": "Class name of the previous item button element"
+                    },
+                    {
+                        "class": "p-galleria-prev-icon",
+                        "description": "Class name of the previous item icon element"
+                    },
+                    {
+                        "class": "p-galleria-item",
+                        "description": "Class name of the item element"
+                    },
+                    {
+                        "class": "p-galleria-next-button",
+                        "description": "Class name of the next item button element"
+                    },
+                    {
+                        "class": "p-galleria-next-icon",
+                        "description": "Class name of the next item icon element"
+                    },
+                    {
+                        "class": "p-galleria-caption",
+                        "description": "Class name of the caption element"
+                    },
+                    {
+                        "class": "p-galleria-indicator-list",
+                        "description": "Class name of the indicator list element"
+                    },
+                    {
+                        "class": "p-galleria-indicator",
+                        "description": "Class name of the indicator element"
+                    },
+                    {
+                        "class": "p-galleria-indicator-button",
+                        "description": "Class name of the indicator button element"
+                    },
+                    {
+                        "class": "p-galleria-thumbnails",
+                        "description": "Class name of the thumbnails element"
+                    },
+                    {
+                        "class": "p-galleria-thumbnails-content",
+                        "description": "Class name of the thumbnail content element"
+                    },
+                    {
+                        "class": "p-galleria-thumbnail-prev-button",
+                        "description": "Class name of the previous thumbnail button element"
+                    },
+                    {
+                        "class": "p-galleria-thumbnail-prev-icon",
+                        "description": "Class name of the previous thumbnail icon element"
+                    },
+                    {
+                        "class": "p-galleria-thumbnails-viewport",
+                        "description": "Class name of the thumbnails viewport element"
+                    },
+                    {
+                        "class": "p-galleria-thumbnail-items",
+                        "description": "Class name of the thumbnail items element"
+                    },
+                    {
+                        "class": "p-galleria-thumbnail-item",
+                        "description": "Class name of the thumbnail item element"
+                    },
+                    {
+                        "class": "p-galleria-thumbnail",
+                        "description": "Class name of the thumbnail element"
+                    },
+                    {
+                        "class": "p-galleria-thumbnail-next-button",
+                        "description": "Class name of the next thumbnail button element"
+                    },
+                    {
+                        "class": "p-galleria-thumbnail-next-icon",
+                        "description": "Class name of the next thumbnail icon element"
+                    }
+                ]
+            }
         }
     },
     "iconfield": {
@@ -14507,7 +14787,15 @@
             }
         },
         "style": {
-            "components": {}
+            "components": {},
+            "classes": {
+                "values": [
+                    {
+                        "class": "p-iconfield",
+                        "description": "Class name of the root element"
+                    }
+                ]
+            }
         }
     },
     "angledoubledown": {
@@ -14886,7 +15174,55 @@
             }
         },
         "style": {
-            "components": {}
+            "components": {},
+            "classes": {
+                "values": [
+                    {
+                        "class": "p-image",
+                        "description": "Class name of the root element"
+                    },
+                    {
+                        "class": "p-image-preview-mask",
+                        "description": "Class name of the preview mask element"
+                    },
+                    {
+                        "class": "p-image-preview-icon",
+                        "description": "Class name of the preview icon element"
+                    },
+                    {
+                        "class": "p-image-mask",
+                        "description": "Class name of the mask element"
+                    },
+                    {
+                        "class": "p-image-toolbar",
+                        "description": "Class name of the toolbar element"
+                    },
+                    {
+                        "class": "p-image-rotate-right-button",
+                        "description": "Class name of the rotate right button element"
+                    },
+                    {
+                        "class": "p-image-rotate-left-button",
+                        "description": "Class name of the rotate left button element"
+                    },
+                    {
+                        "class": "p-image-zoom-out-button",
+                        "description": "Class name of the zoom out button element"
+                    },
+                    {
+                        "class": "p-image-zoom-in-button",
+                        "description": "Class name of the zoom in button element"
+                    },
+                    {
+                        "class": "p-image-close-button",
+                        "description": "Class name of the close button element"
+                    },
+                    {
+                        "class": "p-image-original",
+                        "description": "Class name of the original element"
+                    }
+                ]
+            }
         }
     },
     "inplace": {
@@ -15039,7 +15375,23 @@
             }
         },
         "style": {
-            "components": {}
+            "components": {},
+            "classes": {
+                "values": [
+                    {
+                        "class": "p-inplace",
+                        "description": "Class name of the root element"
+                    },
+                    {
+                        "class": "p-inplace-display",
+                        "description": "Class name of the display element"
+                    },
+                    {
+                        "class": "p-inplace-content",
+                        "description": "Class name of the content element"
+                    }
+                ]
+            }
         }
     },
     "inputgroup": {
@@ -15068,7 +15420,15 @@
             }
         },
         "style": {
-            "components": {}
+            "components": {},
+            "classes": {
+                "values": [
+                    {
+                        "class": "p-inputgroup",
+                        "description": "Class name of the root element"
+                    }
+                ]
+            }
         }
     },
     "inputgroupaddon": {
@@ -15423,7 +15783,15 @@
             }
         },
         "style": {
-            "components": {}
+            "components": {},
+            "classes": {
+                "values": [
+                    {
+                        "class": "p-inputmask",
+                        "description": "Class name of the root element"
+                    }
+                ]
+            }
         }
     },
     "inputnumber": {
@@ -15866,7 +16234,31 @@
             }
         },
         "style": {
-            "components": {}
+            "components": {},
+            "classes": {
+                "values": [
+                    {
+                        "class": "p-inputnumber",
+                        "description": "Class name of the root element"
+                    },
+                    {
+                        "class": "p-inputnumber-input",
+                        "description": "Class name of the input element"
+                    },
+                    {
+                        "class": "p-inputnumber-button-group",
+                        "description": "Class name of the button group element"
+                    },
+                    {
+                        "class": "p-inputnumber-increment-button",
+                        "description": "Class name of the increment button element"
+                    },
+                    {
+                        "class": "p-inputnumber-decrement-button",
+                        "description": "Class name of the decrement button element"
+                    }
+                ]
+            }
         }
     },
     "inputotp": {
@@ -16081,7 +16473,19 @@
             }
         },
         "style": {
-            "components": {}
+            "components": {},
+            "classes": {
+                "values": [
+                    {
+                        "class": "p-inputotp",
+                        "description": "Class name of the root element"
+                    },
+                    {
+                        "class": "p-inputotp-input",
+                        "description": "Class name of the input element"
+                    }
+                ]
+            }
         }
     },
     "inputswitch": {
@@ -16259,7 +16663,15 @@
             }
         },
         "style": {
-            "components": {}
+            "components": {},
+            "classes": {
+                "values": [
+                    {
+                        "class": "p-inputtext",
+                        "description": "The class of root element"
+                    }
+                ]
+            }
         }
     },
     "inputtextarea": {
@@ -16368,7 +16780,7 @@
             "classes": {
                 "values": [
                     {
-                        "className": "p-textarea",
+                        "class": "p-textarea",
                         "description": "Class name of the root element"
                     }
                 ]
@@ -16586,7 +16998,27 @@
             }
         },
         "style": {
-            "components": {}
+            "components": {},
+            "classes": {
+                "values": [
+                    {
+                        "class": "p-knob",
+                        "description": "Class name of the root element"
+                    },
+                    {
+                        "class": "p-knob-range",
+                        "description": "Class name of the range element"
+                    },
+                    {
+                        "class": "p-knob-value",
+                        "description": "Class name of the value element"
+                    },
+                    {
+                        "class": "p-knob-text",
+                        "description": "Class name of the text element"
+                    }
+                ]
+            }
         }
     },
     "listbox": {
@@ -17280,7 +17712,51 @@
             }
         },
         "style": {
-            "components": {}
+            "components": {},
+            "classes": {
+                "values": [
+                    {
+                        "class": "p-listbox",
+                        "description": "Class name of the root element"
+                    },
+                    {
+                        "class": "p-listbox-header",
+                        "description": "Class name of the header element"
+                    },
+                    {
+                        "class": "p-listbox-filter",
+                        "description": "Class name of the filter element"
+                    },
+                    {
+                        "class": "p-listbox-list-container",
+                        "description": "Class name of the list container element"
+                    },
+                    {
+                        "class": "p-listbox-list",
+                        "description": "Class name of the list element"
+                    },
+                    {
+                        "class": "p-listbox-option-group",
+                        "description": "Class name of the option group element"
+                    },
+                    {
+                        "class": "p-listbox-option",
+                        "description": "Class name of the option element"
+                    },
+                    {
+                        "class": "p-listbox-option-check-icon",
+                        "description": "Class name of the option check icon element"
+                    },
+                    {
+                        "class": "p-listbox-option-blank-icon",
+                        "description": "Class name of the option blank icon element"
+                    },
+                    {
+                        "class": "p-listbox-empty-message",
+                        "description": "Class name of the empty message element"
+                    }
+                ]
+            }
         }
     },
     "megamenu": {
@@ -17398,7 +17874,79 @@
             }
         },
         "style": {
-            "components": {}
+            "components": {},
+            "classes": {
+                "values": [
+                    {
+                        "class": "p-megamenu",
+                        "description": "Class name of the root element"
+                    },
+                    {
+                        "class": "p-megamenu-start",
+                        "description": "Class name of the start element"
+                    },
+                    {
+                        "class": "p-megamenu-button",
+                        "description": "Class name of the button element"
+                    },
+                    {
+                        "class": "p-megamenu-root-list",
+                        "description": "Class name of the root list element"
+                    },
+                    {
+                        "class": "p-megamenu-submenu-item",
+                        "description": "Class name of the submenu item element"
+                    },
+                    {
+                        "class": "p-megamenu-item",
+                        "description": "Class name of the item element"
+                    },
+                    {
+                        "class": "p-megamenu-item-content",
+                        "description": "Class name of the item content element"
+                    },
+                    {
+                        "class": "p-megamenu-item-link",
+                        "description": "Class name of the item link element"
+                    },
+                    {
+                        "class": "p-megamenu-item-icon",
+                        "description": "Class name of the item icon element"
+                    },
+                    {
+                        "class": "p-megamenu-item-label",
+                        "description": "Class name of the item label element"
+                    },
+                    {
+                        "class": "p-megamenu-submenu-icon",
+                        "description": "Class name of the submenu icon element"
+                    },
+                    {
+                        "class": "p-megamenu-panel",
+                        "description": "Class name of the panel element"
+                    },
+                    {
+                        "class": "p-megamenu-grid",
+                        "description": "Class name of the grid element"
+                    },
+                    {
+                        "class": "p-megamenu-submenu",
+                        "description": "Class name of the submenu element"
+                    },
+                    {
+                        "class": "p-megamenu-submenu-item-label",
+                        "description": "Class name of the submenu item label element"
+                    },
+                    {
+                        "class": "p-megamenu-separator",
+                        "description": "Class name of the separator element"
+                    },
+                    {
+                        "class": "p-megamenu-end",
+                        "description": "Class name of the end element"
+                    }
+                ]
+            }
         }
     },
     "menu": {
@@ -17629,7 +18177,55 @@
             }
         },
         "style": {
-            "components": {}
+            "components": {},
+            "classes": {
+                "values": [
+                    {
+                        "class": "p-menu",
+                        "description": "Class name of the root element"
+                    },
+                    {
+                        "class": "p-menu-start",
+                        "description": "Class name of the start element"
+                    },
+                    {
+                        "class": "p-menu-list",
+                        "description": "Class name of the list element"
+                    },
+                    {
+                        "class": "p-menu-submenu-item",
+                        "description": "Class name of the submenu item element"
+                    },
+                    {
+                        "class": "p-menu-separator",
+                        "description": "Class name of the separator element"
+                    },
+                    {
+                        "class": "p-menu-end",
+                        "description": "Class name of the end element"
+                    },
+                    {
+                        "class": "p-menu-item",
+                        "description": "Class name of the item element"
+                    },
+                    {
+                        "class": "p-menu-item-content",
+                        "description": "Class name of the item content element"
+                    },
+                    {
+                        "class": "p-menu-item-link",
+                        "description": "Class name of the item link element"
+                    },
+                    {
+                        "class": "p-menu-item-icon",
+                        "description": "Class name of the item icon element"
+                    },
+                    {
+                        "class": "p-menu-item-label",
+                        "description": "Class name of the item label element"
+                    }
+                ]
+            }
         }
     },
     "menubar": {
@@ -17794,7 +18390,63 @@
             }
         },
         "style": {
-            "components": {}
+            "components": {},
+            "classes": {
+                "values": [
+                    {
+                        "class": "p-menubar",
+                        "description": "Class name of the root element"
+                    },
+                    {
+                        "class": "p-menubar-start",
+                        "description": "Class name of the start element"
+                    },
+                    {
+                        "class": "p-menubar-button",
+                        "description": "Class name of the button element"
+                    },
+                    {
+                        "class": "p-menubar-root-list",
+                        "description": "Class name of the root list element"
+                    },
+                    {
+                        "class": "p-menubar-item",
+                        "description": "Class name of the item element"
+                    },
+                    {
+                        "class": "p-menubar-item-content",
+                        "description": "Class name of the item content element"
+                    },
+                    {
+                        "class": "p-menubar-item-link",
+                        "description": "Class name of the item link element"
+                    },
+                    {
+                        "class": "p-menubar-item-icon",
+                        "description": "Class name of the item icon element"
+                    },
+                    {
+                        "class": "p-menubar-item-label",
+                        "description": "Class name of the item label element"
+                    },
+                    {
+                        "class": "p-menubar-submenu-icon",
+                        "description": "Class name of the submenu icon element"
+                    },
+                    {
+                        "class": "p-menubar-submenu",
+                        "description": "Class name of the submenu element"
+                    },
+                    {
+                        "class": "p-menubar-separator",
+                        "description": "Class name of the separator element"
+                    },
+                    {
+                        "class": "p-menubar-end",
+                        "description": "Class name of the end element"
+                    }
+                ]
+            }
         }
     },
     "message": {
@@ -17916,7 +18568,35 @@
             }
         },
         "style": {
-            "components": {}
+            "components": {},
+            "classes": {
+                "values": [
+                    {
+                        "class": "p-message",
+                        "description": "Class name of the root element"
+                    },
+                    {
+                        "class": "p-message-content",
+                        "description": "Class name of the content element"
+                    },
+                    {
+                        "class": "p-message-icon",
+                        "description": "Class name of the icon element"
+                    },
+                    {
+                        "class": "p-message-text",
+                        "description": "Class name of the text element"
+                    },
+                    {
+                        "class": "p-message-close-button",
+                        "description": "Class name of the close button element"
+                    },
+                    {
+                        "class": "p-message-close-icon",
+                        "description": "Class name of the close icon element"
+                    }
+                ]
+            }
         }
     },
     "messages": {
@@ -18223,7 +18903,43 @@
             }
         },
         "style": {
-            "components": {}
+            "components": {},
+            "classes": {
+                "values": [
+                    {
+                        "class": "p-metergroup",
+                        "description": "Class name of the root element"
+                    },
+                    {
+                        "class": "p-metergroup-meters",
+                        "description": "Class name of the meters element"
+                    },
+                    {
+                        "class": "p-metergroup-meter",
+                        "description": "Class name of the meter element"
+                    },
+                    {
+                        "class": "p-metergroup-label-list",
+                        "description": "Class name of the label list element"
+                    },
+                    {
+                        "class": "p-metergroup-label",
+                        "description": "Class name of the label element"
+                    },
+                    {
+                        "class": "p-metergroup-label-icon",
+                        "description": "Class name of the label icon element"
+                    },
+                    {
+                        "class": "p-metergroup-label-marker",
+                        "description": "Class name of the label marker element"
+                    },
+                    {
+                        "class": "p-metergroup-label-text",
+                        "description": "Class name of the label text element"
+                    }
+                ]
+            }
         }
     },
     "multiselect": {
@@ -19235,7 +19951,83 @@
             }
         },
         "style": {
-            "components": {}
+            "components": {},
+            "classes": {
+                "values": [
+                    {
+                        "class": "p-multiselect",
+                        "description": "Class name of the root element"
+                    },
+                    {
+                        "class": "p-multiselect-label-container",
+                        "description": "Class name of the label container element"
+                    },
+                    {
+                        "class": "p-multiselect-label",
+                        "description": "Class name of the label element"
+                    },
+                    {
+                        "class": "p-multiselect-chip-item",
+                        "description": "Class name of the chip item element"
+                    },
+                    {
+                        "class": "p-multiselect-chip",
+                        "description": "Class name of the chip element"
+                    },
+                    {
+                        "class": "p-multiselect-chip-icon",
+                        "description": "Class name of the chip icon element"
+                    },
+                    {
+                        "class": "p-multiselect-dropdown",
+                        "description": "Class name of the dropdown element"
+                    },
+                    {
+                        "class": "p-multiselect-loading-icon",
+                        "description": "Class name of the loading icon element"
+                    },
+                    {
+                        "class": "p-multiselect-dropdown-icon",
+                        "description": "Class name of the dropdown icon element"
+                    },
+                    {
+                        "class": "p-multiselect-overlay",
+                        "description": "Class name of the overlay element"
+                    },
+                    {
+                        "class": "p-multiselect-header",
+                        "description": "Class name of the header element"
+                    },
+                    {
+                        "class": "p-multiselect-filter-container",
+                        "description": "Class name of the filter container element"
+                    },
+                    {
+                        "class": "p-multiselect-filter",
+                        "description": "Class name of the filter element"
+                    },
+                    {
+                        "class": "p-multiselect-list-container",
+                        "description": "Class name of the list container element"
+                    },
+                    {
+                        "class": "p-multiselect-list",
+                        "description": "Class name of the list element"
+                    },
+                    {
+                        "class": "p-multiselect-option-group",
+                        "description": "Class name of the option group element"
+                    },
+                    {
+                        "class": "p-multiselect-option",
+                        "description": "Class name of the option element"
+                    },
+                    {
+                        "class": "p-multiselect-empty-message",
+                        "description": "Class name of the empty message element"
+                    }
+                ]
+            }
         }
     },
     "orderlist": {
@@ -19657,7 +20449,19 @@
             }
         },
         "style": {
-            "components": {}
+            "components": {},
+            "classes": {
+                "values": [
+                    {
+                        "class": "p-orderlist",
+                        "description": "Class name of the root element"
+                    },
+                    {
+                        "class": "p-orderlist-controls",
+                        "description": "Class name of the controls element"
+                    }
+                ]
+            }
         }
     },
     "organizationchart": {
@@ -19883,7 +20687,51 @@
             }
         },
         "style": {
-            "components": {}
+            "components": {},
+            "classes": {
+                "values": [
+                    {
+                        "class": "p-organizationchart",
+                        "description": "Class name of the root element"
+                    },
+                    {
+                        "class": "p-organizationchart-table",
+                        "description": "Class name of the table element"
+                    },
+                    {
+                        "class": "p-organizationchart-node",
+                        "description": "Class name of the node element"
+                    },
+                    {
+                        "class": "p-organizationchart-node-toggle-button",
+                        "description": "Class name of the node toggle button element"
+                    },
+                    {
+                        "class": "p-organizationchart-node-toggle-button-icon",
+                        "description": "Class name of the node toggle button icon element"
+                    },
+                    {
+                        "class": "p-organizationchart-connectors",
+                        "description": "Class name of the connectors element"
+                    },
+                    {
+                        "class": "p-organizationchart-connector-down",
+                        "description": "Class name of the connector down element"
+                    },
+                    {
+                        "class": "p-organizationchart-connector-left",
+                        "description": "Class name of the connector left element"
+                    },
+                    {
+                        "class": "p-organizationchart-connector-right",
+                        "description": "Class name of the connector right element"
+                    },
+                    {
+                        "class": "p-organizationchart-node-children",
+                        "description": "Class name of the node children element"
+                    }
+                ]
+            }
         }
     },
     "overlay": {
@@ -20523,7 +21371,19 @@
             }
         },
         "style": {
-            "components": {}
+            "components": {},
+            "classes": {
+                "values": [
+                    {
+                        "class": "p-popover",
+                        "description": "Class name of the root element"
+                    },
+                    {
+                        "class": "p-popover-content",
+                        "description": "Class name of the content element"
+                    }
+                ]
+            }
         },
         "interfaces": {
             "components": {},
@@ -20811,7 +21671,79 @@
             }
         },
         "style": {
-            "components": {}
+            "components": {},
+            "classes": {
+                "values": [
+                    {
+                        "class": "p-paginator",
+                        "description": "Class name of the paginator element"
+                    },
+                    {
+                        "class": "p-paginator-content-start",
+                        "description": "Class name of the content start element"
+                    },
+                    {
+                        "class": "p-paginator-content-end",
+                        "description": "Class name of the content end element"
+                    },
+                    {
+                        "class": "p-paginator-first",
+                        "description": "Class name of the first element"
+                    },
+                    {
+                        "class": "p-paginator-first-icon",
+                        "description": "Class name of the first icon element"
+                    },
+                    {
+                        "class": "p-paginator-prev",
+                        "description": "Class name of the prev element"
+                    },
+                    {
+                        "class": "p-paginator-prev-icon",
+                        "description": "Class name of the prev icon element"
+                    },
+                    {
+                        "class": "p-paginator-next",
+                        "description": "Class name of the next element"
+                    },
+                    {
+                        "class": "p-paginator-next-icon",
+                        "description": "Class name of the next icon element"
+                    },
+                    {
+                        "class": "p-paginator-last",
+                        "description": "Class name of the last element"
+                    },
+                    {
+                        "class": "p-paginator-last-icon",
+                        "description": "Class name of the last icon element"
+                    },
+                    {
+                        "class": "p-paginator-pages",
+                        "description": "Class name of the pages element"
+                    },
+                    {
+                        "class": "p-paginator-page",
+                        "description": "Class name of the page element"
+                    },
+                    {
+                        "class": "p-paginator-current",
+                        "description": "Class name of the current element"
+                    },
+                    {
+                        "class": "p-paginator-rpp-dropdown",
+                        "description": "Class name of the row per page dropdown element"
+                    },
+                    {
+                        "class": "p-paginator-jtp-dropdown",
+                        "description": "Class name of the jump to page dropdown element"
+                    },
+                    {
+                        "class": "p-paginator-jtp-input",
+                        "description": "Class name of the jump to page input element"
+                    }
+                ]
+            }
         }
     },
     "panel": {
@@ -21047,35 +21979,35 @@
             "classes": {
                 "values": [
                     {
-                        "className": "p-panel",
+                        "class": "p-panel",
                         "description": "Class name of the root element"
                     },
                     {
-                        "className": "p-panel-header",
+                        "class": "p-panel-header",
                         "description": "Class name of the header element"
                     },
                     {
-                        "className": "p-panel-title",
+                        "class": "p-panel-title",
                         "description": "Class name of the title element"
                     },
                     {
-                        "className": "p-panel-header-actions",
+                        "class": "p-panel-header-actions",
                         "description": "Class name of the header actions element"
                     },
                     {
-                        "className": "p-panel-toggle-button",
+                        "class": "p-panel-toggle-button",
                         "description": "Class name of the toggle button element"
                     },
                     {
-                        "className": "p-panel-content-container",
+                        "class": "p-panel-content-container",
                         "description": "Class name of the content container element"
                     },
                     {
-                        "className": "p-panel-content",
+                        "class": "p-panel-content",
                         "description": "Class name of the content element"
                     },
                     {
-                        "className": "p-panel-footer",
+                        "class": "p-panel-footer",
                         "description": "Class name of the footer element"
                     }
                 ]
@@ -21181,7 +22113,82 @@
             }
         },
         "style": {
-            "components": {}
+            "components": {},
+            "classes": {
+                "values": [
+                    {
+                        "class": "p-panelmenu",
+                        "description": "Class name of the root element"
+                    },
+                    {
+                        "class": "p-panelmenu-panel",
+                        "description": "Class name of the panel element"
+                    },
+                    {
+                        "class": "p-panelmenu-header",
+                        "description": "Class name of the header element"
+                    },
+                    {
+                        "class": "p-panelmenu-header-content",
+                        "description": "Class name of the header content element"
+                    },
+                    {
+                        "class": "p-panelmenu-header-link",
+                        "description": "Class name of the header link element"
+                    },
+                    {
+                        "class": "p-panelmenu-header-icon",
+                        "description": "Class name of the header icon element"
+                    },
+                    {
+                        "class": "p-panelmenu-header-label",
+                        "description": "Class name of the header label element"
+                    },
+                    {
+                        "class": "p-panelmenu-content-container",
+                        "description": "Class name of the content container element"
+                    },
+                    {
+                        "class": "p-panelmenu-content",
+                        "description": "Class name of the content element"
+                    },
+                    {
+                        "class": "p-panelmenu-root-list",
+                        "description": "Class name of the root list element"
+                    },
+                    {
+                        "class": "p-panelmenu-item",
+                        "description": "Class name of the item element"
+                    },
+                    {
+                        "class": "p-panelmenu-item-content",
+                        "description": "Class name of the item content element"
+                    },
+                    {
+                        "class": "p-panelmenu-item-link",
+                        "description": "Class name of the item link element"
+                    },
+                    {
+                        "class": "p-panelmenu-item-icon",
+                        "description": "Class name of the item icon element"
+                    },
+                    {
+                        "class": "p-panelmenu-item-label",
+                        "description": "Class name of the item label element"
+                    },
+                    {
+                        "class": "p-panelmenu-submenu-icon",
+                        "description": "Class name of the submenu icon element"
+                    },
+                    {
+                        "class": "p-panelmenu-submenu",
+                        "description": "Class name of the submenu element"
+                    },
+                    {
+                        "class": "p-menuitem-separator"
+                    }
+                ]
+            }
         }
     },
     "password": {
@@ -21546,7 +22553,43 @@
             }
         },
         "style": {
-            "components": {}
+            "components": {},
+            "classes": {
+                "values": [
+                    {
+                        "class": "p-password",
+                        "description": "Class name of the root element"
+                    },
+                    {
+                        "class": "p-password-input",
+                        "description": "Class name of the pt input element"
+                    },
+                    {
+                        "class": "p-password-mask-icon",
+                        "description": "Class name of the mask icon element"
+                    },
+                    {
+                        "class": "p-password-unmask-icon",
+                        "description": "Class name of the unmask icon element"
+                    },
+                    {
+                        "class": "p-password-overlay",
+                        "description": "Class name of the overlay element"
+                    },
+                    {
+                        "class": "p-password-meter",
+                        "description": "Class name of the meter element"
+                    },
+                    {
+                        "class": "p-password-meter-label",
+                        "description": "Class name of the meter label element"
+                    },
+                    {
+                        "class": "p-password-meter-text",
+                        "description": "Class name of the meter text element"
+                    }
+                ]
+            }
         }
     },
     "picklist": {
@@ -22324,7 +23367,35 @@
             }
         },
         "style": {
-            "components": {}
+            "components": {},
+            "classes": {
+                "values": [
+                    {
+                        "class": "p-picklist",
+                        "description": "Class name of the root element"
+                    },
+                    {
+                        "class": "p-picklist-source-controls",
+                        "description": "Class name of the source controls element"
+                    },
+                    {
+                        "class": "p-picklist-source-list-container",
+                        "description": "Class name of the source list container element"
+                    },
+                    {
+                        "class": "p-picklist-transfer-controls",
+                        "description": "Class name of the transfer controls element"
+                    },
+                    {
+                        "class": "p-picklist-target-list-container",
+                        "description": "Class name of the target list container element"
+                    },
+                    {
+                        "class": "p-picklist-target-controls",
+                        "description": "Class name of the target controls element"
+                    }
+                ]
+            }
         }
     },
     "progressbar": {
@@ -22417,7 +23488,23 @@
             }
         },
         "style": {
-            "components": {}
+            "components": {},
+            "classes": {
+                "values": [
+                    {
+                        "class": "p-progressbar",
+                        "description": "Class name of the root element"
+                    },
+                    {
+                        "class": "p-progressbar-value",
+                        "description": "Class name of the value element"
+                    },
+                    {
+                        "class": "p-progressbar-label",
+                        "description": "Class name of the label element"
+                    }
+                ]
+            }
         }
     },
     "progressspinner": {
@@ -22477,7 +23564,23 @@
             }
         },
         "style": {
-            "components": {}
+            "components": {},
+            "classes": {
+                "values": [
+                    {
+                        "class": "p-progressspinner",
+                        "description": "Class name of the root element"
+                    },
+                    {
+                        "class": "p-progressspinner-spin",
+                        "description": "Class name of the spin element"
+                    },
+                    {
+                        "class": "p-progressspinner-circle",
+                        "description": "Class name of the circle element"
+                    }
+                ]
+            }
         }
     },
     "radiobutton": {
@@ -22660,7 +23763,27 @@
             }
         },
         "style": {
-            "components": {}
+            "components": {},
+            "classes": {
+                "values": [
+                    {
+                        "class": "p-radiobutton",
+                        "description": "Class name of the root element"
+                    },
+                    {
+                        "class": "p-radiobutton-box",
+                        "description": "Class name of the box element"
+                    },
+                    {
+                        "class": "p-radiobutton-input",
+                        "description": "Class name of the input element"
+                    },
+                    {
+                        "class": "p-radiobutton-icon",
+                        "description": "Class name of the icon element"
+                    }
+                ]
+            }
         }
     },
     "rating": {
@@ -22853,7 +23976,27 @@
             }
         },
         "style": {
-            "components": {}
+            "components": {},
+            "classes": {
+                "values": [
+                    {
+                        "class": "p-rating",
+                        "description": "Class name of the root element"
+                    },
+                    {
+                        "class": "p-rating-option",
+                        "description": "Class name of the option element"
+                    },
+                    {
+                        "class": "p-rating-on-icon",
+                        "description": "Class name of the on icon element"
+                    },
+                    {
+                        "class": "p-rating-off-icon",
+                        "description": "Class name of the off icon element"
+                    }
+                ]
+            }
         }
     },
     "ripple": {
@@ -22863,7 +24006,15 @@
             }
         },
         "style": {
-            "components": {}
+            "components": {},
+            "classes": {
+                "values": [
+                    {
+                        "class": "p-ink",
+                        "description": "Class name of the root element"
+                    }
+                ]
+            }
         }
     },
     "scroller": {
@@ -23405,123 +24556,30 @@
                     }
                 ]
             }
-        }
-    },
-    "virtualscroller": {
-        "components": {
-            "VirtualScroller": {
-                "description": "VirtualScroller is a performant approach to handle huge data efficiently.",
-                "props": {
-                    "description": "Defines the input properties of the component.",
-                    "values": [
-                        {
-                            "name": "value",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "any[]",
-                            "description": "An array of objects to display."
-                        },
-                        {
-                            "name": "itemSize",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "number",
-                            "description": "Height of an item in the list."
-                        },
-                        {
-                            "name": "style",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "Object",
-                            "description": "Inline style of the component."
-                        },
-                        {
-                            "name": "styleClass",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "string",
-                            "description": "Style class of the component."
-                        },
-                        {
-                            "name": "scrollHeight",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "any",
-                            "description": "Max height of the content area in inline mode."
-                        },
-                        {
-                            "name": "lazy",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "boolean",
-                            "default": "false",
-                            "description": "Defines if data is loaded and interacted with in lazy manner."
-                        },
-                        {
-                            "name": "options",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "ScrollerOptions",
-                            "description": "Whether to use the scroller feature. The properties of scroller component can be used like an object in it."
-                        },
-                        {
-                            "name": "delay",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "number",
-                            "default": "250",
-                            "description": "Threshold in milliseconds to delay lazy loading during scrolling."
-                        }
-                    ]
-                },
-                "emits": {
-                    "description": "Defines emit that determine the behavior of the component based on a given condition or report the actions that the component takes.",
-                    "values": [
-                        {
-                            "name": "onLazyLoad",
-                            "parameters": [
-                                {
-                                    "name": "event",
-                                    "type": "VirtualScrollerLazyLoadEvent"
-                                }
-                            ],
-                            "description": "Callback to invoke in lazy mode to load new data."
-                        }
-                    ]
-                }
-            }
         },
         "style": {
-            "components": {}
-        },
-        "interfaces": {
             "components": {},
-            "templates": {
-                "description": "Defines the templates used by the component.",
+            "classes": {
                 "values": [
                     {
-                        "parent": "virtualscroller",
-                        "name": "item",
-                        "parameters": [
-                            {
-                                "name": "context",
-                                "type": "{\n  \t $implicit: any, // Item instance.\n  \t options: ScrollerOptions, // Scroller options.\n  }",
-                                "description": "item data."
-                            }
-                        ],
-                        "description": "Custom item template."
+                        "class": "p-virtualscroller",
+                        "description": "Class name of the root element"
                     },
                     {
-                        "parent": "virtualscroller",
-                        "name": "header",
-                        "parameters": [],
-                        "description": "Custom header template."
+                        "class": "p-virtualscroller-content",
+                        "description": "Class name of the content element"
                     },
                     {
-                        "parent": "virtualscroller",
-                        "name": "footer",
-                        "parameters": [],
-                        "description": "Custom header template."
+                        "class": "p-virtualscroller-spacer",
+                        "description": "Class name of the spacer element"
+                    },
+                    {
+                        "class": "p-virtualscroller-loader",
+                        "description": "Class name of the loader element"
+                    },
+                    {
+                        "class": "p-virtualscroller-loading-icon",
+                        "description": "Class name of the loading icon element"
                     }
                 ]
             }
@@ -23596,7 +24654,31 @@
             }
         },
         "style": {
-            "components": {}
+            "components": {},
+            "classes": {
+                "values": [
+                    {
+                        "class": "p-scrollpanel",
+                        "description": "Class name of the root element"
+                    },
+                    {
+                        "class": "p-scrollpanel-content-container",
+                        "description": "Class name of the content container element"
+                    },
+                    {
+                        "class": "p-scrollpanel-content",
+                        "description": "Class name of the content element"
+                    },
+                    {
+                        "class": "p-scrollpanel-bar-x",
+                        "description": "Class name of the bar x element"
+                    },
+                    {
+                        "class": "p-scrollpanel-bar-y",
+                        "description": "Class name of the bar y element"
+                    }
+                ]
+            }
         }
     },
     "scrolltop": {
@@ -23705,7 +24787,19 @@
             }
         },
         "style": {
-            "components": {}
+            "components": {},
+            "classes": {
+                "values": [
+                    {
+                        "class": "p-scrolltop",
+                        "description": "Class name of the root element"
+                    },
+                    {
+                        "class": "p-scrolltop-icon",
+                        "description": "Class name of the icon element"
+                    }
+                ]
+            }
         }
     },
     "select": {
@@ -24540,7 +25634,83 @@
             }
         },
         "style": {
-            "components": {}
+            "components": {},
+            "classes": {
+                "values": [
+                    {
+                        "class": "p-select",
+                        "description": "Class name of the root element"
+                    },
+                    {
+                        "class": "p-select-label",
+                        "description": "Class name of the label element"
+                    },
+                    {
+                        "class": "p-select-clear-icon",
+                        "description": "Class name of the clear icon element"
+                    },
+                    {
+                        "class": "p-select-dropdown",
+                        "description": "Class name of the dropdown element"
+                    },
+                    {
+                        "class": "p-select-loading-icon",
+                        "description": "Class name of the loadingicon element"
+                    },
+                    {
+                        "class": "p-select-dropdown-icon",
+                        "description": "Class name of the dropdown icon element"
+                    },
+                    {
+                        "class": "p-select-overlay",
+                        "description": "Class name of the overlay element"
+                    },
+                    {
+                        "class": "p-select-header",
+                        "description": "Class name of the header element"
+                    },
+                    {
+                        "class": "p-select-filter",
+                        "description": "Class name of the filter element"
+                    },
+                    {
+                        "class": "p-select-list-container",
+                        "description": "Class name of the list container element"
+                    },
+                    {
+                        "class": "p-select-list",
+                        "description": "Class name of the list element"
+                    },
+                    {
+                        "class": "p-select-option-group",
+                        "description": "Class name of the option group element"
+                    },
+                    {
+                        "class": "p-select-option-group-label",
+                        "description": "Class name of the option group label element"
+                    },
+                    {
+                        "class": "p-select-option",
+                        "description": "Class name of the option element"
+                    },
+                    {
+                        "class": "p-select-option-label",
+                        "description": "Class name of the option label element"
+                    },
+                    {
+                        "class": "p-select-option-check-icon",
+                        "description": "Class name of the option check icon element"
+                    },
+                    {
+                        "class": "p-select-option-blank-icon",
+                        "description": "Class name of the option blank icon element"
+                    },
+                    {
+                        "class": "p-select-empty-message",
+                        "description": "Class name of the empty message element"
+                    }
+                ]
+            }
         }
     },
     "selectbutton": {
@@ -24754,7 +25924,7 @@
             "classes": {
                 "values": [
                     {
-                        "className": "p-selectbutton",
+                        "class": "p-selectbutton",
                         "description": "Class name of the root element"
                     }
                 ]
@@ -25063,7 +26233,7 @@
             "classes": {
                 "values": [
                     {
-                        "className": "p-skeleton",
+                        "class": "p-skeleton",
                         "description": "Class name of the root element"
                     }
                 ]
@@ -25272,15 +26442,15 @@
             "classes": {
                 "values": [
                     {
-                        "className": "p-slider",
+                        "class": "p-slider",
                         "description": "Class name of the root element"
                     },
                     {
-                        "className": "p-slider-range",
+                        "class": "p-slider-range",
                         "description": "Class name of the range element"
                     },
                     {
-                        "className": "p-slider-handle",
+                        "class": "p-slider-handle",
                         "description": "Class name of the handle element"
                     }
                 ]
@@ -25538,31 +26708,31 @@
             "classes": {
                 "values": [
                     {
-                        "className": "p-speeddial",
+                        "class": "p-speeddial",
                         "description": "Class name of the root element"
                     },
                     {
-                        "className": "p-speeddial-button",
+                        "class": "p-speeddial-button",
                         "description": "Class name of the button element"
                     },
                     {
-                        "className": "p-speeddial-list",
+                        "class": "p-speeddial-list",
                         "description": "Class name of the list element"
                     },
                     {
-                        "className": "p-speeddial-item",
+                        "class": "p-speeddial-item",
                         "description": "Class name of the item element"
                     },
                     {
-                        "className": "p-speeddial-action",
+                        "class": "p-speeddial-action",
                         "description": "Class name of the action element"
                     },
                     {
-                        "className": "p-speeddial-action-icon",
+                        "class": "p-speeddial-action-icon",
                         "description": "Class name of the action icon element"
                     },
                     {
-                        "className": "p-speeddial-mask",
+                        "class": "p-speeddial-mask",
                         "description": "Class name of the mask element"
                     }
                 ]
@@ -25849,15 +27019,15 @@
             "classes": {
                 "values": [
                     {
-                        "className": "p-splitbutton",
+                        "class": "p-splitbutton",
                         "description": "Class name of the root element"
                     },
                     {
-                        "className": "p-splitbutton-button",
+                        "class": "p-splitbutton-button",
                         "description": "Class name of the button element"
                     },
                     {
-                        "className": "p-splitbutton-dropdown",
+                        "class": "p-splitbutton-dropdown",
                         "description": "Class name of the dropdown element"
                     }
                 ]
@@ -26047,15 +27217,15 @@
             "classes": {
                 "values": [
                     {
-                        "className": "p-splitter",
+                        "class": "p-splitter",
                         "description": "Class name of the root element"
                     },
                     {
-                        "className": "p-splitter-gutter",
+                        "class": "p-splitter-gutter",
                         "description": "Class name of the gutter element"
                     },
                     {
-                        "className": "p-splitter-gutter-handle",
+                        "class": "p-splitter-gutter-handle",
                         "description": "Class name of the gutter handle element"
                     }
                 ]
@@ -26163,11 +27333,11 @@
             "classes": {
                 "values": [
                     {
-                        "className": "p-stepper",
+                        "class": "p-stepper",
                         "description": "Class name of the root element"
                     },
                     {
-                        "className": "p-stepper-separator",
+                        "class": "p-stepper-separator",
                         "description": "Class name of the separator element"
                     }
                 ]
@@ -26479,27 +27649,27 @@
             "classes": {
                 "values": [
                     {
-                        "className": "p-steps",
+                        "class": "p-steps",
                         "description": "Class name of the root element"
                     },
                     {
-                        "className": "p-steps-list",
+                        "class": "p-steps-list",
                         "description": "Class name of the list element"
                     },
                     {
-                        "className": "p-steps-item",
+                        "class": "p-steps-item",
                         "description": "Class name of the item element"
                     },
                     {
-                        "className": "p-steps-item-link",
+                        "class": "p-steps-item-link",
                         "description": "Class name of the item link element"
                     },
                     {
-                        "className": "p-steps-item-number",
+                        "class": "p-steps-item-number",
                         "description": "Class name of the item number element"
                     },
                     {
-                        "className": "p-steps-item-label",
+                        "class": "p-steps-item-label",
                         "description": "Class name of the item label element"
                     }
                 ]
@@ -26861,208 +28031,6 @@
                         "name": "clearFilterIconTemplate",
                         "parameters": [],
                         "description": "Custom clear filter icon template."
-                    }
-                ]
-            }
-        }
-    },
-    "datatable": {
-        "components": {},
-        "style": {
-            "components": {},
-            "classes": {
-                "values": [
-                    {
-                        "className": "p-datatable",
-                        "description": "Class name of the root element"
-                    },
-                    {
-                        "className": "p-datatable-mask",
-                        "description": "Class name of the mask element"
-                    },
-                    {
-                        "className": "p-datatable-loading-icon",
-                        "description": "Class name of the loading icon element"
-                    },
-                    {
-                        "className": "p-datatable-header",
-                        "description": "Class name of the header element"
-                    },
-                    {
-                        "className": "p-datatable-paginator-[position]",
-                        "description": "Class name of the paginator element"
-                    },
-                    {
-                        "className": "p-datatable-table-container",
-                        "description": "Class name of the table container element"
-                    },
-                    {
-                        "className": "p-datatable-table",
-                        "description": "Class name of the table element"
-                    },
-                    {
-                        "className": "p-datatable-thead",
-                        "description": "Class name of the thead element"
-                    },
-                    {
-                        "className": "p-datatable-column-resizer",
-                        "description": "Class name of the column resizer element"
-                    },
-                    {
-                        "className": "p-datatable-column-header-content",
-                        "description": "Class name of the column header content element"
-                    },
-                    {
-                        "className": "p-datatable-column-title",
-                        "description": "Class name of the column title element"
-                    },
-                    {
-                        "className": "p-datatable-sort-icon",
-                        "description": "Class name of the sort icon element"
-                    },
-                    {
-                        "className": "p-datatable-sort-badge",
-                        "description": "Class name of the sort badge element"
-                    },
-                    {
-                        "className": "p-datatable-filter",
-                        "description": "Class name of the filter element"
-                    },
-                    {
-                        "className": "p-datatable-filter-element-container",
-                        "description": "Class name of the filter element container element"
-                    },
-                    {
-                        "className": "p-datatable-column-filter-button",
-                        "description": "Class name of the column filter button element"
-                    },
-                    {
-                        "className": "p-datatable-column-filter-clear-button",
-                        "description": "Class name of the column filter clear button element"
-                    },
-                    {
-                        "className": "p-datatable-filter-overlay",
-                        "description": "Class name of the filter overlay element"
-                    },
-                    {
-                        "className": "p-datatable-filter-constraint-list",
-                        "description": "Class name of the filter constraint list element"
-                    },
-                    {
-                        "className": "p-datatable-filter-constraint",
-                        "description": "Class name of the filter constraint element"
-                    },
-                    {
-                        "className": "p-datatable-filter-constraint-separator",
-                        "description": "Class name of the filter constraint separator element"
-                    },
-                    {
-                        "className": "p-datatable-filter-operator",
-                        "description": "Class name of the filter operator element"
-                    },
-                    {
-                        "className": "p-datatable-filter-operator-dropdown",
-                        "description": "Class name of the filter operator dropdown element"
-                    },
-                    {
-                        "className": "p-datatable-filter-rule-list",
-                        "description": "Class name of the filter rule list element"
-                    },
-                    {
-                        "className": "p-datatable-filter-rule",
-                        "description": "Class name of the filter rule element"
-                    },
-                    {
-                        "className": "p-datatable-filter-constraint-dropdown",
-                        "description": "Class name of the filter constraint dropdown element"
-                    },
-                    {
-                        "className": "p-datatable-filter-remove-rule-button",
-                        "description": "Class name of the filter remove rule button element"
-                    },
-                    {
-                        "className": "p-datatable-filter-add-rule-button",
-                        "description": "Class name of the filter add rule button element"
-                    },
-                    {
-                        "className": "p-datatable-filter-buttonbar",
-                        "description": "Class name of the filter buttonbar element"
-                    },
-                    {
-                        "className": "p-datatable-filter-clear-button",
-                        "description": "Class name of the filter clear button element"
-                    },
-                    {
-                        "className": "p-datatable-filter-apply-button",
-                        "description": "Class name of the filter apply button element"
-                    },
-                    {
-                        "className": "p-datatable-tbody",
-                        "description": "Class name of the tbody element"
-                    },
-                    {
-                        "className": "p-datatable-row-group-header",
-                        "description": "Class name of the row group header element"
-                    },
-                    {
-                        "className": "p-datatable-row-toggle-button",
-                        "description": "Class name of the row toggle button element"
-                    },
-                    {
-                        "className": "p-datatable-row-toggle-icon",
-                        "description": "Class name of the row toggle icon element"
-                    },
-                    {
-                        "className": "p-datatable-row-expansion",
-                        "description": "Class name of the row expansion element"
-                    },
-                    {
-                        "className": "p-datatable-row-group-footer",
-                        "description": "Class name of the row group footer element"
-                    },
-                    {
-                        "className": "p-datatable-empty-message",
-                        "description": "Class name of the empty message element"
-                    },
-                    {
-                        "className": "p-datatable-reorderable-row-handle",
-                        "description": "Class name of the reorderable row handle element"
-                    },
-                    {
-                        "className": "p-datatable-row-editor-init",
-                        "description": "Class name of the row editor init element"
-                    },
-                    {
-                        "className": "p-datatable-row-editor-save",
-                        "description": "Class name of the row editor save element"
-                    },
-                    {
-                        "className": "p-datatable-row-editor-cancel",
-                        "description": "Class name of the row editor cancel element"
-                    },
-                    {
-                        "className": "p-datatable-tfoot",
-                        "description": "Class name of the tfoot element"
-                    },
-                    {
-                        "className": "p-datatable-virtualscroller-spacer",
-                        "description": "Class name of the virtual scroller spacer element"
-                    },
-                    {
-                        "className": "p-datatable-footer",
-                        "description": "Class name of the footer element"
-                    },
-                    {
-                        "className": "p-datatable-column-resize-indicator",
-                        "description": "Class name of the column resize indicator element"
-                    },
-                    {
-                        "className": "p-datatable-row-reorder-indicator-up",
-                        "description": "Class name of the row reorder indicator up element"
-                    },
-                    {
-                        "className": "p-datatable-row-reorder-indicator-down",
-                        "description": "Class name of the row reorder indicator down element"
                     }
                 ]
             }
@@ -28033,6 +29001,205 @@
                 }
             }
         },
+        "style": {
+            "components": {},
+            "classes": {
+                "values": [
+                    {
+                        "class": "p-datatable",
+                        "description": "Class name of the root element"
+                    },
+                    {
+                        "class": "p-datatable-mask",
+                        "description": "Class name of the mask element"
+                    },
+                    {
+                        "class": "p-datatable-loading-icon",
+                        "description": "Class name of the loading icon element"
+                    },
+                    {
+                        "class": "p-datatable-header",
+                        "description": "Class name of the header element"
+                    },
+                    {
+                        "class": "p-datatable-paginator-[position]",
+                        "description": "Class name of the paginator element"
+                    },
+                    {
+                        "class": "p-datatable-table-container",
+                        "description": "Class name of the table container element"
+                    },
+                    {
+                        "class": "p-datatable-table",
+                        "description": "Class name of the table element"
+                    },
+                    {
+                        "class": "p-datatable-thead",
+                        "description": "Class name of the thead element"
+                    },
+                    {
+                        "class": "p-datatable-column-resizer",
+                        "description": "Class name of the column resizer element"
+                    },
+                    {
+                        "class": "p-datatable-column-header-content",
+                        "description": "Class name of the column header content element"
+                    },
+                    {
+                        "class": "p-datatable-column-title",
+                        "description": "Class name of the column title element"
+                    },
+                    {
+                        "class": "p-datatable-sort-icon",
+                        "description": "Class name of the sort icon element"
+                    },
+                    {
+                        "class": "p-datatable-sort-badge",
+                        "description": "Class name of the sort badge element"
+                    },
+                    {
+                        "class": "p-datatable-filter",
+                        "description": "Class name of the filter element"
+                    },
+                    {
+                        "class": "p-datatable-filter-element-container",
+                        "description": "Class name of the filter element container element"
+                    },
+                    {
+                        "class": "p-datatable-column-filter-button",
+                        "description": "Class name of the column filter button element"
+                    },
+                    {
+                        "class": "p-datatable-column-filter-clear-button",
+                        "description": "Class name of the column filter clear button element"
+                    },
+                    {
+                        "class": "p-datatable-filter-overlay",
+                        "description": "Class name of the filter overlay element"
+                    },
+                    {
+                        "class": "p-datatable-filter-constraint-list",
+                        "description": "Class name of the filter constraint list element"
+                    },
+                    {
+                        "class": "p-datatable-filter-constraint",
+                        "description": "Class name of the filter constraint element"
+                    },
+                    {
+                        "class": "p-datatable-filter-constraint-separator",
+                        "description": "Class name of the filter constraint separator element"
+                    },
+                    {
+                        "class": "p-datatable-filter-operator",
+                        "description": "Class name of the filter operator element"
+                    },
+                    {
+                        "class": "p-datatable-filter-operator-dropdown",
+                        "description": "Class name of the filter operator dropdown element"
+                    },
+                    {
+                        "class": "p-datatable-filter-rule-list",
+                        "description": "Class name of the filter rule list element"
+                    },
+                    {
+                        "class": "p-datatable-filter-rule",
+                        "description": "Class name of the filter rule element"
+                    },
+                    {
+                        "class": "p-datatable-filter-constraint-dropdown",
+                        "description": "Class name of the filter constraint dropdown element"
+                    },
+                    {
+                        "class": "p-datatable-filter-remove-rule-button",
+                        "description": "Class name of the filter remove rule button element"
+                    },
+                    {
+                        "class": "p-datatable-filter-add-rule-button",
+                        "description": "Class name of the filter add rule button element"
+                    },
+                    {
+                        "class": "p-datatable-filter-buttonbar",
+                        "description": "Class name of the filter buttonbar element"
+                    },
+                    {
+                        "class": "p-datatable-filter-clear-button",
+                        "description": "Class name of the filter clear button element"
+                    },
+                    {
+                        "class": "p-datatable-filter-apply-button",
+                        "description": "Class name of the filter apply button element"
+                    },
+                    {
+                        "class": "p-datatable-tbody",
+                        "description": "Class name of the tbody element"
+                    },
+                    {
+                        "class": "p-datatable-row-group-header",
+                        "description": "Class name of the row group header element"
+                    },
+                    {
+                        "class": "p-datatable-row-toggle-button",
+                        "description": "Class name of the row toggle button element"
+                    },
+                    {
+                        "class": "p-datatable-row-toggle-icon",
+                        "description": "Class name of the row toggle icon element"
+                    },
+                    {
+                        "class": "p-datatable-row-expansion",
+                        "description": "Class name of the row expansion element"
+                    },
+                    {
+                        "class": "p-datatable-row-group-footer",
+                        "description": "Class name of the row group footer element"
+                    },
+                    {
+                        "class": "p-datatable-empty-message",
+                        "description": "Class name of the empty message element"
+                    },
+                    {
+                        "class": "p-datatable-reorderable-row-handle",
+                        "description": "Class name of the reorderable row handle element"
+                    },
+                    {
+                        "class": "p-datatable-row-editor-init",
+                        "description": "Class name of the row editor init element"
+                    },
+                    {
+                        "class": "p-datatable-row-editor-save",
+                        "description": "Class name of the row editor save element"
+                    },
+                    {
+                        "class": "p-datatable-row-editor-cancel",
+                        "description": "Class name of the row editor cancel element"
+                    },
+                    {
+                        "class": "p-datatable-tfoot",
+                        "description": "Class name of the tfoot element"
+                    },
+                    {
+                        "class": "p-datatable-virtualscroller-spacer",
+                        "description": "Class name of the virtual scroller spacer element"
+                    },
+                    {
+                        "class": "p-datatable-footer",
+                        "description": "Class name of the footer element"
+                    },
+                    {
+                        "class": "p-datatable-column-resize-indicator",
+                        "description": "Class name of the column resize indicator element"
+                    },
+                    {
+                        "class": "p-datatable-row-reorder-indicator-up",
+                        "description": "Class name of the row reorder indicator up element"
+                    },
+                    {
+                        "class": "p-datatable-row-reorder-indicator-down",
+                        "description": "Class name of the row reorder indicator down element"
+                    }
+                ]
+            }
+        },
         "interfaces": {
             "components": {},
             "events": {
@@ -28866,31 +30033,31 @@
             "classes": {
                 "values": [
                     {
-                        "className": "p-tabmenu",
+                        "class": "p-tabmenu",
                         "description": "Class name of the root element"
                     },
                     {
-                        "className": "p-tabmenu-tablist",
+                        "class": "p-tabmenu-tablist",
                         "description": "Class name of the tablist element"
                     },
                     {
-                        "className": "p-tabmenu-item",
+                        "class": "p-tabmenu-item",
                         "description": "Class name of the item element"
                     },
                     {
-                        "className": "p-tabmenu-item-link",
+                        "class": "p-tabmenu-item-link",
                         "description": "Class name of the item link element"
                     },
                     {
-                        "className": "p-tabmenu-item-icon",
+                        "class": "p-tabmenu-item-icon",
                         "description": "Class name of the item icon element"
                     },
                     {
-                        "className": "p-tabmenu-item-label",
+                        "class": "p-tabmenu-item-label",
                         "description": "Class name of the item label element"
                     },
                     {
-                        "className": "p-tabmenu-ink-bar",
+                        "class": "p-tabmenu-ink-bar",
                         "description": "Class name of the inkbar element"
                     }
                 ]
@@ -29160,39 +30327,39 @@
             "classes": {
                 "values": [
                     {
-                        "className": "p-tabs",
+                        "class": "p-tabs",
                         "description": "Class name of the root element"
                     },
                     {
-                        "className": "p-tablist",
+                        "class": "p-tablist",
                         "description": "Class name of the wrapper element"
                     },
                     {
-                        "className": "p-tablist-content",
+                        "class": "p-tablist-content",
                         "description": "Class name of the content element"
                     },
                     {
-                        "className": "p-tablist-tab-list",
+                        "class": "p-tablist-tab-list",
                         "description": "Class name of the tab list element"
                     },
                     {
-                        "className": "p-tab",
+                        "class": "p-tab",
                         "description": "Class name of the tab list element"
                     },
                     {
-                        "className": "p-tablist-active-bar",
+                        "class": "p-tablist-active-bar",
                         "description": "Class name of the inkbar element"
                     },
                     {
-                        "className": "p-tablist-nav-button",
+                        "class": "p-tablist-nav-button",
                         "description": "Class name of the navigation buttons"
                     },
                     {
-                        "className": "p-tabpanels",
+                        "class": "p-tabpanels",
                         "description": "Class name of the tab panels wrapper"
                     },
                     {
-                        "className": "p-tabs-panel",
+                        "class": "p-tabs-panel",
                         "description": "Class name of the tab panel element"
                     }
                 ]
@@ -29666,15 +30833,15 @@
             "classes": {
                 "values": [
                     {
-                        "className": "p-tag",
+                        "class": "p-tag",
                         "description": "Class name of the root element"
                     },
                     {
-                        "className": "p-tag-icon",
+                        "class": "p-tag-icon",
                         "description": "Class name of the icon element"
                     },
                     {
-                        "className": "p-tag-label",
+                        "class": "p-tag-label",
                         "description": "Class name of the label element"
                     }
                 ]
@@ -29739,39 +30906,39 @@
             "classes": {
                 "values": [
                     {
-                        "className": "p-terminal",
+                        "class": "p-terminal",
                         "description": "Class name of the root element"
                     },
                     {
-                        "className": "p-terminal-welcome-message",
+                        "class": "p-terminal-welcome-message",
                         "description": "Class name of the welcome message element"
                     },
                     {
-                        "className": "p-terminal-command-list",
+                        "class": "p-terminal-command-list",
                         "description": "Class name of the command list element"
                     },
                     {
-                        "className": "p-terminal-command",
+                        "class": "p-terminal-command",
                         "description": "Class name of the command element"
                     },
                     {
-                        "className": "p-terminal-command-value",
+                        "class": "p-terminal-command-value",
                         "description": "Class name of the command value element"
                     },
                     {
-                        "className": "p-terminal-command-response",
+                        "class": "p-terminal-command-response",
                         "description": "Class name of the command response element"
                     },
                     {
-                        "className": "p-terminal-prompt",
+                        "class": "p-terminal-prompt",
                         "description": "Class name of the prompt element"
                     },
                     {
-                        "className": "p-terminal-prompt-label",
+                        "class": "p-terminal-prompt-label",
                         "description": "Class name of the prompt label element"
                     },
                     {
-                        "className": "p-terminal-prompt-value",
+                        "class": "p-terminal-prompt-value",
                         "description": "Class name of the prompt value element"
                     }
                 ]
@@ -29810,6 +30977,9 @@
         "components": {}
     },
     "aura": {
+        "components": {}
+    },
+    "datatable": {
         "components": {}
     },
     "inlinemessage": {
@@ -30016,51 +31186,51 @@
             "classes": {
                 "values": [
                     {
-                        "className": "p-tieredmenu",
+                        "class": "p-tieredmenu",
                         "description": "Class name of the root element"
                     },
                     {
-                        "className": "p-tieredmenu-start",
+                        "class": "p-tieredmenu-start",
                         "description": "Class name of the start element"
                     },
                     {
-                        "className": "p-tieredmenu-root-list",
+                        "class": "p-tieredmenu-root-list",
                         "description": "Class name of the root list element"
                     },
                     {
-                        "className": "p-tieredmenu-item",
+                        "class": "p-tieredmenu-item",
                         "description": "Class name of the item element"
                     },
                     {
-                        "className": "p-tieredmenu-item-content",
+                        "class": "p-tieredmenu-item-content",
                         "description": "Class name of the item content element"
                     },
                     {
-                        "className": "p-tieredmenu-item-link",
+                        "class": "p-tieredmenu-item-link",
                         "description": "Class name of the item link element"
                     },
                     {
-                        "className": "p-tieredmenu-item-icon",
+                        "class": "p-tieredmenu-item-icon",
                         "description": "Class name of the item icon element"
                     },
                     {
-                        "className": "p-tieredmenu-item-label",
+                        "class": "p-tieredmenu-item-label",
                         "description": "Class name of the item label element"
                     },
                     {
-                        "className": "p-tieredmenu-submenu-icon",
+                        "class": "p-tieredmenu-submenu-icon",
                         "description": "Class name of the submenu icon element"
                     },
                     {
-                        "className": "p-tieredmenu-submenu",
+                        "class": "p-tieredmenu-submenu",
                         "description": "Class name of the submenu element"
                     },
                     {
-                        "className": "p-tieredmenu-separator",
+                        "class": "p-tieredmenu-separator",
                         "description": "Class name of the separator element"
                     },
                     {
-                        "className": "p-tieredmenu-end",
+                        "class": "p-tieredmenu-end",
                         "description": "Class name of the end element"
                     }
                 ]
@@ -30145,31 +31315,31 @@
             "classes": {
                 "values": [
                     {
-                        "className": "p-timeline",
+                        "class": "p-timeline",
                         "description": "Class name of the root element"
                     },
                     {
-                        "className": "p-timeline-event",
+                        "class": "p-timeline-event",
                         "description": "Class name of the event element"
                     },
                     {
-                        "className": "p-timeline-event-opposite",
+                        "class": "p-timeline-event-opposite",
                         "description": "Class name of the event opposite element"
                     },
                     {
-                        "className": "p-timeline-event-separator",
+                        "class": "p-timeline-event-separator",
                         "description": "Class name of the event separator element"
                     },
                     {
-                        "className": "p-timeline-event-marker",
+                        "class": "p-timeline-event-marker",
                         "description": "Class name of the event marker element"
                     },
                     {
-                        "className": "p-timeline-event-connector",
+                        "class": "p-timeline-event-connector",
                         "description": "Class name of the event connector element"
                     },
                     {
-                        "className": "p-timeline-event-content",
+                        "class": "p-timeline-event-content",
                         "description": "Class name of the event content element"
                     }
                 ]
@@ -30358,39 +31528,39 @@
             "classes": {
                 "values": [
                     {
-                        "className": "p-toast",
+                        "class": "p-toast",
                         "description": "Class name of the root element"
                     },
                     {
-                        "className": "p-toast-message",
+                        "class": "p-toast-message",
                         "description": "Class name of the message element"
                     },
                     {
-                        "className": "p-toast-message-content",
+                        "class": "p-toast-message-content",
                         "description": "Class name of the message content element"
                     },
                     {
-                        "className": "p-toast-message-icon",
+                        "class": "p-toast-message-icon",
                         "description": "Class name of the message icon element"
                     },
                     {
-                        "className": "p-toast-message-text",
+                        "class": "p-toast-message-text",
                         "description": "Class name of the message text element"
                     },
                     {
-                        "className": "p-toast-summary",
+                        "class": "p-toast-summary",
                         "description": "Class name of the summary element"
                     },
                     {
-                        "className": "p-toast-detail",
+                        "class": "p-toast-detail",
                         "description": "Class name of the detail element"
                     },
                     {
-                        "className": "p-toast-close-button",
+                        "class": "p-toast-close-button",
                         "description": "Class name of the close button element"
                     },
                     {
-                        "className": "p-toast-close-icon",
+                        "class": "p-toast-close-icon",
                         "description": "Class name of the close icon element"
                     }
                 ]
@@ -30579,15 +31749,15 @@
             "classes": {
                 "values": [
                     {
-                        "className": "p-togglebutton",
+                        "class": "p-togglebutton",
                         "description": "Class name of the root element"
                     },
                     {
-                        "className": "p-togglebutton-icon",
+                        "class": "p-togglebutton-icon",
                         "description": "Class name of the icon element"
                     },
                     {
-                        "className": "p-togglebutton-label",
+                        "class": "p-togglebutton-label",
                         "description": "Class name of the label element"
                     }
                 ]
@@ -30771,15 +31941,15 @@
             "classes": {
                 "values": [
                     {
-                        "className": "p-toggleswitch",
+                        "class": "p-toggleswitch",
                         "description": "Class name of the root element"
                     },
                     {
-                        "className": "p-toggleswitch-input",
+                        "class": "p-toggleswitch-input",
                         "description": "Class name of the input element"
                     },
                     {
-                        "className": "p-toggleswitch-slider",
+                        "class": "p-toggleswitch-slider",
                         "description": "Class name of the slider element"
                     }
                 ]
@@ -30851,19 +32021,19 @@
             "classes": {
                 "values": [
                     {
-                        "className": "p-toolbar",
+                        "class": "p-toolbar",
                         "description": "Class name of the root element"
                     },
                     {
-                        "className": "p-toolbar-start",
+                        "class": "p-toolbar-start",
                         "description": "Class name of the start element"
                     },
                     {
-                        "className": "p-toolbar-center",
+                        "class": "p-toolbar-center",
                         "description": "Class name of the center element"
                     },
                     {
-                        "className": "p-toolbar-end",
+                        "class": "p-toolbar-end",
                         "description": "Class name of the end element"
                     }
                 ]
@@ -31043,15 +32213,15 @@
             "classes": {
                 "values": [
                     {
-                        "className": "p-tooltip",
+                        "class": "p-tooltip",
                         "description": "Class name of the root element"
                     },
                     {
-                        "className": "p-tooltip-arrow",
+                        "class": "p-tooltip-arrow",
                         "description": "Class name of the arrow element"
                     },
                     {
-                        "className": "p-tooltip-text",
+                        "class": "p-tooltip-text",
                         "description": "Class name of the text element"
                     }
                 ]
@@ -31497,59 +32667,59 @@
             "classes": {
                 "values": [
                     {
-                        "className": "p-tree",
+                        "class": "p-tree",
                         "description": "Class name of the root element"
                     },
                     {
-                        "className": "p-tree-mask",
+                        "class": "p-tree-mask",
                         "description": "Class name of the mask element"
                     },
                     {
-                        "className": "p-tree-loading-icon",
+                        "class": "p-tree-loading-icon",
                         "description": "Class name of the loading icon element"
                     },
                     {
-                        "className": "p-tree-filter-input",
+                        "class": "p-tree-filter-input",
                         "description": "Class name of the filter input element"
                     },
                     {
-                        "className": "p-tree-root",
+                        "class": "p-tree-root",
                         "description": "Class name of the wrapper element"
                     },
                     {
-                        "className": "p-tree-root-children",
+                        "class": "p-tree-root-children",
                         "description": "Class name of the root children element"
                     },
                     {
-                        "className": "p-tree-node",
+                        "class": "p-tree-node",
                         "description": "Class name of the node element"
                     },
                     {
-                        "className": "p-tree-node-content",
+                        "class": "p-tree-node-content",
                         "description": "Class name of the node content element"
                     },
                     {
-                        "className": "p-tree-node-toggle-button",
+                        "class": "p-tree-node-toggle-button",
                         "description": "Class name of the node toggle button element"
                     },
                     {
-                        "className": "p-tree-node-toggle-icon",
+                        "class": "p-tree-node-toggle-icon",
                         "description": "Class name of the node toggle icon element"
                     },
                     {
-                        "className": "p-tree-node-checkbox",
+                        "class": "p-tree-node-checkbox",
                         "description": "Class name of the node checkbox element"
                     },
                     {
-                        "className": "p-tree-node-icon",
+                        "class": "p-tree-node-icon",
                         "description": "Class name of the node icon element"
                     },
                     {
-                        "className": "p-tree-node-label",
+                        "class": "p-tree-node-label",
                         "description": "Class name of the node label element"
                     },
                     {
-                        "className": "p-tree-node-children",
+                        "class": "p-tree-node-children",
                         "description": "Class name of the node children element"
                     }
                 ]
@@ -32272,43 +33442,43 @@
             "classes": {
                 "values": [
                     {
-                        "className": "p-treeselect",
+                        "class": "p-treeselect",
                         "description": "Class name of the root element"
                     },
                     {
-                        "className": "p-treeselect-label-container",
+                        "class": "p-treeselect-label-container",
                         "description": "Class name of the label container element"
                     },
                     {
-                        "className": "p-treeselect-label",
+                        "class": "p-treeselect-label",
                         "description": "Class name of the label element"
                     },
                     {
-                        "className": "p-treeselect-chip-item",
+                        "class": "p-treeselect-chip-item",
                         "description": "Class name of the chip item element"
                     },
                     {
-                        "className": "p-treeselect-chip",
+                        "class": "p-treeselect-chip",
                         "description": "Class name of the chip element"
                     },
                     {
-                        "className": "p-treeselect-dropdown",
+                        "class": "p-treeselect-dropdown",
                         "description": "Class name of the dropdown element"
                     },
                     {
-                        "className": "p-treeselect-dropdown-icon",
+                        "class": "p-treeselect-dropdown-icon",
                         "description": "Class name of the dropdown icon element"
                     },
                     {
-                        "className": "p-treeselect-overlay",
+                        "class": "p-treeselect-overlay",
                         "description": "Class name of the panel element"
                     },
                     {
-                        "className": "p-treeselect-tree-container",
+                        "class": "p-treeselect-tree-container",
                         "description": "Class name of the tree container element"
                     },
                     {
-                        "className": "p-treeselect-empty-message",
+                        "class": "p-treeselect-empty-message",
                         "description": "Class name of the empty message element"
                     }
                 ]
@@ -33183,87 +34353,87 @@
             "classes": {
                 "values": [
                     {
-                        "className": "p-treetable",
+                        "class": "p-treetable",
                         "description": "Class name of the root element"
                     },
                     {
-                        "className": "p-treetable-loading",
+                        "class": "p-treetable-loading",
                         "description": "Class name of the loading element"
                     },
                     {
-                        "className": "p-treetable-mask",
+                        "class": "p-treetable-mask",
                         "description": "Class name of the mask element"
                     },
                     {
-                        "className": "p-treetable-loading-icon",
+                        "class": "p-treetable-loading-icon",
                         "description": "Class name of the loading icon element"
                     },
                     {
-                        "className": "p-treetable-header",
+                        "class": "p-treetable-header",
                         "description": "Class name of the header element"
                     },
                     {
-                        "className": "p-treetable-paginator-[position]",
+                        "class": "p-treetable-paginator-[position]",
                         "description": "Class name of the paginator element"
                     },
                     {
-                        "className": "p-treetable-table-container",
+                        "class": "p-treetable-table-container",
                         "description": "Class name of the table container element"
                     },
                     {
-                        "className": "p-treetable-table",
+                        "class": "p-treetable-table",
                         "description": "Class name of the table element"
                     },
                     {
-                        "className": "p-treetable-thead",
+                        "class": "p-treetable-thead",
                         "description": "Class name of the thead element"
                     },
                     {
-                        "className": "p-treetable-column-resizer",
+                        "class": "p-treetable-column-resizer",
                         "description": "Class name of the column resizer element"
                     },
                     {
-                        "className": "p-treetable-column-title",
+                        "class": "p-treetable-column-title",
                         "description": "Class name of the column title element"
                     },
                     {
-                        "className": "p-treetable-sort-icon",
+                        "class": "p-treetable-sort-icon",
                         "description": "Class name of the sort icon element"
                     },
                     {
-                        "className": "p-treetable-sort-badge",
+                        "class": "p-treetable-sort-badge",
                         "description": "Class name of the sort badge element"
                     },
                     {
-                        "className": "p-treetable-tbody",
+                        "class": "p-treetable-tbody",
                         "description": "Class name of the tbody element"
                     },
                     {
-                        "className": "p-treetable-node-toggle-button",
+                        "class": "p-treetable-node-toggle-button",
                         "description": "Class name of the node toggle button element"
                     },
                     {
-                        "className": "p-treetable-node-toggle-icon",
+                        "class": "p-treetable-node-toggle-icon",
                         "description": "Class name of the node toggle icon element"
                     },
                     {
-                        "className": "p-treetable-node-checkbox",
+                        "class": "p-treetable-node-checkbox",
                         "description": "Class name of the node checkbox element"
                     },
                     {
-                        "className": "p-treetable-empty-message",
+                        "class": "p-treetable-empty-message",
                         "description": "Class name of the empty message element"
                     },
                     {
-                        "className": "p-treetable-tfoot",
+                        "class": "p-treetable-tfoot",
                         "description": "Class name of the tfoot element"
                     },
                     {
-                        "className": "p-treetable-footer",
+                        "class": "p-treetable-footer",
                         "description": "Class name of the footer element"
                     },
                     {
-                        "className": "p-treetable-column-resize-indicator",
+                        "class": "p-treetable-column-resize-indicator",
                         "description": "Class name of the column resize indicator element"
                     }
                 ]
@@ -34070,6 +35240,123 @@
                                 "description": "Boolean value that defines if strict mode enabled."
                             }
                         ]
+                    }
+                ]
+            }
+        }
+    },
+    "virtualscroller": {
+        "components": {
+            "VirtualScroller": {
+                "description": "VirtualScroller is a performant approach to handle huge data efficiently.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "value",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "any[]",
+                            "description": "An array of objects to display."
+                        },
+                        {
+                            "name": "itemSize",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number",
+                            "description": "Height of an item in the list."
+                        },
+                        {
+                            "name": "style",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "Object",
+                            "description": "Inline style of the component."
+                        },
+                        {
+                            "name": "styleClass",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Style class of the component."
+                        },
+                        {
+                            "name": "scrollHeight",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "any",
+                            "description": "Max height of the content area in inline mode."
+                        },
+                        {
+                            "name": "lazy",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Defines if data is loaded and interacted with in lazy manner."
+                        },
+                        {
+                            "name": "options",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "ScrollerOptions",
+                            "description": "Whether to use the scroller feature. The properties of scroller component can be used like an object in it."
+                        },
+                        {
+                            "name": "delay",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number",
+                            "default": "250",
+                            "description": "Threshold in milliseconds to delay lazy loading during scrolling."
+                        }
+                    ]
+                },
+                "emits": {
+                    "description": "Defines emit that determine the behavior of the component based on a given condition or report the actions that the component takes.",
+                    "values": [
+                        {
+                            "name": "onLazyLoad",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "VirtualScrollerLazyLoadEvent"
+                                }
+                            ],
+                            "description": "Callback to invoke in lazy mode to load new data."
+                        }
+                    ]
+                }
+            }
+        },
+        "interfaces": {
+            "components": {},
+            "templates": {
+                "description": "Defines the templates used by the component.",
+                "values": [
+                    {
+                        "parent": "virtualscroller",
+                        "name": "item",
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "{\n  \t $implicit: any, // Item instance.\n  \t options: ScrollerOptions, // Scroller options.\n  }",
+                                "description": "item data."
+                            }
+                        ],
+                        "description": "Custom item template."
+                    },
+                    {
+                        "parent": "virtualscroller",
+                        "name": "header",
+                        "parameters": [],
+                        "description": "Custom header template."
+                    },
+                    {
+                        "parent": "virtualscroller",
+                        "name": "footer",
+                        "parameters": [],
+                        "description": "Custom header template."
                     }
                 ]
             }
