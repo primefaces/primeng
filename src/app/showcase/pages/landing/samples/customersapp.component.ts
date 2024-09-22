@@ -135,7 +135,7 @@ import { PopoverModule } from 'primeng/popover';
                             </td>
                             <td>
                                 <div class="flex justify-end w-full">
-                                    <p-button (onClick)="op.show($event)" icon="pi pi-search" severity="secondary" rounded />
+                                    <p-button (onClick)="op.show($event)" icon="pi pi-ellipsis-v" severity="secondary" rounded />
                                 </div>
                             </td>
                         </tr>

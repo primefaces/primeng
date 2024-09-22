@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input, NgModule, ViewEncapsulation } from '@angular/core';
 import { SharedModule } from 'primeng/api';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
     selector: 'template-license',
@@ -12,7 +13,9 @@ import { SharedModule } from 'primeng/api';
                         <div class="flex-1 border border-surface rounded-xl lg:rounded-2xl p-6 min-w-80">
                             <span class="text-surface-600 dark:text-surface-400 font-semibold">{{ licenseData?.title }}</span>
                             <div class="text-surface-900 dark:text-surface-0 text-4xl font-semibold mt-4 mb-5">
-                                <span [ngClass]="{ 'text-muted-color line-through mr-4': licenseData?.discount_price }">{{ licenseData?.price }}</span>
+                                <span [ngClass]="{ 'text-muted-color line-through mr-4': licenseData?.discount_price }">{{
+                                    licenseData?.price
+                                }}</span>
                                 <span>{{ licenseData?.discount_price }}</span>
                             </div>
                             <div class="flex flex-col gap-2 mb-5">
@@ -21,7 +24,7 @@ import { SharedModule } from 'primeng/api';
                                 </ng-container>
                             </div>
                             <a href="https://www.primefaces.org/layouts/licenses" target="_blank">
-                                <p-button styleClass="w-full" >License Details</p-button>
+                                <p-button styleClass="w-full">License Details</p-button>
                             </a>
                         </div>
                     </ng-container>
@@ -29,7 +32,9 @@ import { SharedModule } from 'primeng/api';
                 <p class="text-muted-color text-center mt-6 mb-0">{{ license?.description }}</p>
                 <p class="text-muted-color text-center mt-6 mb-0">
                     Visit the 
-                    <a [href]="license?.documentLink" class="text-primary cursor-pointer transition-all hover:underline" target="_blank"> official documentation </a>
+                    <a [href]="license?.documentLink" class="text-primary cursor-pointer transition-all hover:underline" target="_blank">
+                        official documentation
+                    </a>
                      for more information.
                 </p>
             </div>
@@ -43,7 +48,7 @@ export class TemplateLicense {
 }
 
 @NgModule({
-    imports: [CommonModule, SharedModule],
+    imports: [CommonModule, SharedModule, ButtonModule],
     exports: [TemplateLicense, SharedModule],
     declarations: [TemplateLicense],
 })
