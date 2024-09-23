@@ -953,7 +953,7 @@ export class MultiSelect extends BaseComponent implements OnInit, AfterViewInit,
      * Indicates whether to focus on options when hovering over them, defaults to optionLabel.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) focusOnHover: boolean = false;
+    @Input({ transform: booleanAttribute }) focusOnHover: boolean = true
     /**
      * Fields used when filtering the options, defaults to optionLabel.
      * @group Props
