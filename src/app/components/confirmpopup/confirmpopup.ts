@@ -1,7 +1,8 @@
-import { AnimationEvent, animate, state, style, transition, trigger } from '@angular/animations';
+import { animate, AnimationEvent, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule, DOCUMENT } from '@angular/common';
 import {
     AfterContentInit,
+    booleanAttribute,
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
@@ -10,16 +11,15 @@ import {
     EventEmitter,
     HostListener,
     Inject,
+    inject,
     Input,
     NgModule,
+    numberAttribute,
     OnDestroy,
     QueryList,
     Renderer2,
     TemplateRef,
     ViewEncapsulation,
-    booleanAttribute,
-    inject,
-    numberAttribute,
 } from '@angular/core';
 import {
     Confirmation,
@@ -37,6 +37,7 @@ import { ZIndexUtils } from 'primeng/utils';
 import { Subscription } from 'rxjs';
 import { ConfirmPopupStyle } from './style/confirmpopupstyle';
 import { BaseComponent } from 'primeng/basecomponent';
+
 /**
  * ConfirmPopup displays a confirmation overlay displayed relatively to its target.
  * @group Components
@@ -75,7 +76,7 @@ import { BaseComponent } from 'primeng/basecomponent';
                     <p-button
                         type="button"
                         [label]="rejectButtonLabel"
-                        (onClick)="reject()"
+                        (onClick)="onReject()"
                         [ngClass]="'p-confirmpopup-reject-button'"
                         [styleClass]="confirmation?.rejectButtonStyleClass"
                         [size]="confirmation.rejectButtonProps?.size || 'small'"
@@ -90,7 +91,7 @@ import { BaseComponent } from 'primeng/basecomponent';
                     <p-button
                         type="button"
                         [label]="acceptButtonLabel"
-                        (onClick)="accept()"
+                        (onClick)="onAccept()"
                         [ngClass]="'p-confirmpopup-accept-button'"
                         [styleClass]="confirmation?.acceptButtonStyleClass"
                         [size]="confirmation.acceptButtonProps?.size || 'small'"
@@ -287,7 +288,7 @@ export class ConfirmPopup extends BaseComponent implements AfterContentInit, OnD
     @HostListener('document:keydown.escape', ['$event'])
     onEscapeKeydown(event: KeyboardEvent) {
         if (this.confirmation && this.confirmation.closeOnEscape) {
-            this.reject();
+            this.onReject();
         }
     }
 
@@ -362,7 +363,7 @@ export class ConfirmPopup extends BaseComponent implements AfterContentInit, OnD
         this.visible = false;
     }
 
-    accept() {
+    onAccept() {
         if (this.confirmation?.acceptEvent) {
             this.confirmation.acceptEvent.emit();
         }
@@ -370,7 +371,7 @@ export class ConfirmPopup extends BaseComponent implements AfterContentInit, OnD
         this.hide();
     }
 
-    reject() {
+    onReject() {
         if (this.confirmation?.rejectEvent) {
             this.confirmation.rejectEvent.emit();
         }
