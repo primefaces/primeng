@@ -262,7 +262,7 @@ export class SelectStyle extends BaseStyle {
  *
  * Select also known as Select, is used to choose an item from a collection of options.
  *
- * [Live Demo](https://www.primevue.org/select/)
+ * [Live Demo](https://www.primeng.org/select/)
  *
  * @module selectstyle
  *

@@ -16,7 +16,7 @@ import { DynamicDoc } from '@doc/accordion/dynamicdoc';
         description="Accordion groups a collection of contents in tabs."
         [docs]="docs"
         [apiDocs]="['Accordion', 'AccordionTab']"
-        themeDocs="Accordion"
+        themeDocs="accordion"
     ></app-doc>`,
     imports: [AccordionDocModule],
     standalone: true,

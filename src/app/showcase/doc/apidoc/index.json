@@ -313,6 +313,26 @@
                     {
                         "class": "p-accordion",
                         "description": "Class name of the root element"
+                    },
+                    {
+                        "class": "p-accordioncontent",
+                        "description": "Class name of the content wrapper"
+                    },
+                    {
+                        "class": "p-accordioncontent-content",
+                        "description": "Class name of the content"
+                    },
+                    {
+                        "class": "p-accordionheader",
+                        "description": "Class name of the header"
+                    },
+                    {
+                        "class": "p-accordionheader-toggle-icon",
+                        "description": "Class name of the toggle icon"
+                    },
+                    {
+                        "class": "p-accordionpanel",
+                        "description": "Class name of the panel"
                     }
                 ]
             }

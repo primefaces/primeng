@@ -78,7 +78,7 @@ export class RatingStyle extends BaseStyle {
  *
  * Rating component is a star based selection input.
  *
- * [Live Demo](https://www.primevue.org/rating/)
+ * [Live Demo](https://www.primeng.org/rating/)
  *
  * @module ratingstyle
  *

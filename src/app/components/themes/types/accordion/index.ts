@@ -4,7 +4,7 @@
  *
  * [Live Demo](https://www.primeng.org/accordion/)
  *
- * @module themes/autocomplete
+ * @module themes/accordion
  *
  */
 

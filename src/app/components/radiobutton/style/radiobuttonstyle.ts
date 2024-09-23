@@ -150,7 +150,7 @@ export class RadioButtonStyle extends BaseStyle {
  *
  * RadioButton is an extension to standard radio button element with theming.
  *
- * [Live Demo](https://www.primevue.org/radiobutton/)
+ * [Live Demo](https://www.primeng.org/radiobutton/)
  *
  * @module radiobuttonstyle
  *
