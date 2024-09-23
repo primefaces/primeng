@@ -62,16 +62,10 @@ async function themedoc() {
                                     if (prop.type?.declaration) {
                                         setTokens(prop.type?.declaration, prop.name);
                                     } else if (prop.comment?.getTag('@designToken')) {
+                                        const variable = prop.comment.getTag('@designToken').content[0]?.text || '';
                                         tokens.push({
-                                            name: _name ? `${_name}.${prop.name}` : prop.name,
-                                            token: prop.comment.getTag('@designToken').content[0]?.text || '',
-                                            optional: prop.flags.isOptional,
-                                            readonly: prop.flags.isReadonly,
-                                            type: prop.type.toString(),
-                                            default:
-                                                prop.comment && prop.comment.getTag('@defaultValue')
-                                                    ? prop.comment.getTag('@defaultValue').content[0]?.text || ''
-                                                    : '', // TODO: Check
+                                            token: _name ? `${_name}.${prop.name}` : prop.name,
+                                            variable: '--p-' + variable.replace('.', '-'),
                                             description:
                                                 prop.comment &&
                                                 prop.comment.summary
