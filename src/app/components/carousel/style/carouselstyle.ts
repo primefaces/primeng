@@ -220,8 +220,7 @@ export enum CarouselClasses {
     /**
      * Class name of the footer element
      */
-    footer = 'p-carousel-footer'
+    footer = 'p-carousel-footer',
 }
 
-export interface CarouselStyle extends BaseStyle {
-}
+export interface CarouselStyle extends BaseStyle {}

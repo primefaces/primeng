@@ -174,8 +174,7 @@ export enum StepsClasses {
     /**
      * Class name of the item label element
      */
-    itemLabel = 'p-steps-item-label'
+    itemLabel = 'p-steps-item-label',
 }
 
-export interface StepsStyle extends BaseStyle {
-}
+export interface StepsStyle extends BaseStyle {}

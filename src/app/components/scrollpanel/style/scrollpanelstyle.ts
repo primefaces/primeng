@@ -117,5 +117,4 @@ export enum ScrollPanelClasses {
     barY = 'p-scrollpanel-bar-y',
 }
 
-export interface ScrollPanelStyle extends BaseStyle {
-}
+export interface ScrollPanelStyle extends BaseStyle {}

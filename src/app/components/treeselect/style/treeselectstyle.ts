@@ -239,8 +239,7 @@ export enum TreeSelectClasses {
     /**
      * Class name of the empty message element
      */
-    emptyMessage = 'p-treeselect-empty-message'
+    emptyMessage = 'p-treeselect-empty-message',
 }
 
-export interface TreeSelectStyle extends BaseStyle {
-}
+export interface TreeSelectStyle extends BaseStyle {}

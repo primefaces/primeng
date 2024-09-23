@@ -124,8 +124,7 @@ export enum BreadcrumbClasses {
     /**
      * Class name of the item label element
      */
-    itemLabel = 'p-breadcrumb-item-label'
+    itemLabel = 'p-breadcrumb-item-label',
 }
 
-export interface BreadcrumbStyle extends BaseStyle {
-}
+export interface BreadcrumbStyle extends BaseStyle {}

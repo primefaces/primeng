@@ -225,8 +225,7 @@ export enum StepperClasses {
     /**
      * Class name of the separator element
      */
-    separator = 'p-stepper-separator'
+    separator = 'p-stepper-separator',
 }
 
-export interface StepperStyle extends BaseStyle {
-}
+export interface StepperStyle extends BaseStyle {}

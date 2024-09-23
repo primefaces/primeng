@@ -141,5 +141,4 @@ export enum FieldsetClasses {
     content = 'p-fieldset-content',
 }
 
-export interface FieldsetStyle extends BaseStyle {
-}
+export interface FieldsetStyle extends BaseStyle {}

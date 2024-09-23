@@ -45,8 +45,7 @@ export enum BlockUIClasses {
     /**
      * Class name of the root element
      */
-    root = 'p-blockui'
+    root = 'p-blockui',
 }
 
-export interface BlockUIStyle extends BaseStyle {
-}
+export interface BlockUIStyle extends BaseStyle {}

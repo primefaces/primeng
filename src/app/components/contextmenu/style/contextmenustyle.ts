@@ -212,9 +212,7 @@ export enum ContextMenuClasses {
     /**
      * Class name of the separator element
      */
-    separator = 'p-contextmenu-separator'
+    separator = 'p-contextmenu-separator',
 }
 
-export interface ContextMenuStyle extends BaseStyle {
-}
-
+export interface ContextMenuStyle extends BaseStyle {}

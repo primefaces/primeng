@@ -182,8 +182,7 @@ export enum ColorPickerClasses {
     /**
      * Class name of the hue handle element
      */
-    hueHandle = 'p-colorpicker-hue-handle'
+    hueHandle = 'p-colorpicker-hue-handle',
 }
 
-export interface ColorPickerStyle extends BaseStyle {
-}
+export interface ColorPickerStyle extends BaseStyle {}

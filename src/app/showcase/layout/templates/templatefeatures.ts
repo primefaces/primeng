@@ -43,7 +43,11 @@ import { AppConfigService } from '../../service/appconfigservice';
                             <ng-container *ngFor="let data of i === 0 ? firstColumnData : secondColumnData; let j = index">
                                 <div class="w-full p-4 md:p-5 rounded-2xl border border-surface animate-duration-500">
                                     <div class="w-full bg-surface-100 dark:bg-surface-800 rounded-lg overflow-hidden flex">
-                                        <img class="w-full h-auto rounded-lg" [src]="isDarkMode ? data.darkSrc || data.src : data.src" [alt]="data.title" />
+                                        <img
+                                            class="w-full h-auto rounded-lg"
+                                            [src]="isDarkMode ? data.darkSrc || data.src : data.src"
+                                            [alt]="data.title"
+                                        />
                                     </div>
                                     <h2 class="mt-5 mb-0 text-lg text-surface-900 dark:text-surface-0 font-semibold">{{ data.title }}</h2>
                                     <p class="mt-2 mb-0 text-muted-color">{{ data.description }}</p>

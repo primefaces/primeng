@@ -154,8 +154,7 @@ export enum ToggleSwitchClasses {
     /**
      * Class name of the slider element
      */
-    slider = 'p-toggleswitch-slider'
+    slider = 'p-toggleswitch-slider',
 }
 
-export interface ToggleSwitchStyle extends BaseStyle {
-}
+export interface ToggleSwitchStyle extends BaseStyle {}

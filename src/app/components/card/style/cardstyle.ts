@@ -95,8 +95,7 @@ export enum CardClasses {
     /**
      * Class name of the footer element
      */
-    footer = 'p-card-footer'
+    footer = 'p-card-footer',
 }
 
-export interface CardStyle extends BaseStyle {
-}
+export interface CardStyle extends BaseStyle {}

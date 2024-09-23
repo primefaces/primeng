@@ -643,8 +643,7 @@ export enum DatePickerClasses {
     /**
      * Class name of the clear button element
      */
-    pcClearButton = 'p-datepicker-clear-button'
+    pcClearButton = 'p-datepicker-clear-button',
 }
 
-export interface DatePickerStyle extends BaseStyle {
-}
+export interface DatePickerStyle extends BaseStyle {}

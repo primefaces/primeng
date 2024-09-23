@@ -195,8 +195,7 @@ export enum DockClasses {
     /**
      * Class name of the item icon element
      */
-    itemIcon = 'p-dock-item-icon'
+    itemIcon = 'p-dock-item-icon',
 }
 
-export interface DockStyle extends BaseStyle {
-}
+export interface DockStyle extends BaseStyle {}

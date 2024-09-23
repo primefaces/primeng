@@ -123,8 +123,7 @@ export enum SplitterClasses {
     /**
      * Class name of the gutter handle element
      */
-    gutterHandle = 'p-splitter-gutter-handle'
+    gutterHandle = 'p-splitter-gutter-handle',
 }
 
-export interface SplitterStyle extends BaseStyle {
-}
+export interface SplitterStyle extends BaseStyle {}

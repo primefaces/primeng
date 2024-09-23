@@ -157,8 +157,7 @@ export enum ToggleButtonClasses {
     /**
      * Class name of the label element
      */
-    label = 'p-togglebutton-label'
+    label = 'p-togglebutton-label',
 }
 
-export interface ToggleButtonStyle extends BaseStyle {
-}
+export interface ToggleButtonStyle extends BaseStyle {}

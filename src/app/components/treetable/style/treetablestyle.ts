@@ -618,8 +618,7 @@ export enum TreeTableClasses {
     /**
      * Class name of the column resize indicator element
      */
-    columnResizeIndicator = 'p-treetable-column-resize-indicator'
+    columnResizeIndicator = 'p-treetable-column-resize-indicator',
 }
 
-export interface TreeTableStyle extends BaseStyle {
-}
+export interface TreeTableStyle extends BaseStyle {}

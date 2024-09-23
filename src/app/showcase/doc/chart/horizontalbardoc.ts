@@ -19,7 +19,7 @@ export class HorizontalBarDoc implements OnInit {
     data: any;
 
     options: any;
-    
+
     platformId = inject(PLATFORM_ID);
 
     configService = inject(AppConfigService);

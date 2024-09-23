@@ -317,8 +317,7 @@ export enum TreeClasses {
     /**
      * Class name of the node children element
      */
-    nodeChildren = 'p-tree-node-children'
+    nodeChildren = 'p-tree-node-children',
 }
 
-export interface TreeStyle extends BaseStyle {
-}
+export interface TreeStyle extends BaseStyle {}

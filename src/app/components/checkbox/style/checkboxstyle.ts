@@ -166,8 +166,7 @@ export enum CheckboxClasses {
     /**
      * Class name of the icon element
      */
-    icon = 'p-checkbox-icon'
+    icon = 'p-checkbox-icon',
 }
 
-export interface CheckboxStyle extends BaseStyle {
-}
+export interface CheckboxStyle extends BaseStyle {}

@@ -192,5 +192,4 @@ export enum FileUploadClasses {
     pcFileRemoveButton = 'p-fileupload-file-remove-button',
 }
 
-export interface FileUploadStyle extends BaseStyle {
-}
+export interface FileUploadStyle extends BaseStyle {}

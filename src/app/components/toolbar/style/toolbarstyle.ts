@@ -64,8 +64,7 @@ export enum ToolbarClasses {
     /**
      * Class name of the end element
      */
-    end = 'p-toolbar-end'
+    end = 'p-toolbar-end',
 }
 
-export interface ToolbarStyle extends BaseStyle {
-}
+export interface ToolbarStyle extends BaseStyle {}

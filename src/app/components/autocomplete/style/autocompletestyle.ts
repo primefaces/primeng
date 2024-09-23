@@ -374,9 +374,7 @@ export enum AutoCompleteClasses {
     /**
      * Class name of the empty message element
      */
-    emptyMessage = 'p-autocomplete-empty-message'
+    emptyMessage = 'p-autocomplete-empty-message',
 }
 
-export interface AutoCompleteStyle extends BaseStyle {
-}
-
+export interface AutoCompleteStyle extends BaseStyle {}

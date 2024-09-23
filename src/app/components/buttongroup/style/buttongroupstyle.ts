@@ -115,8 +115,7 @@ export enum ButtonGroupClasses {
     /**
      * Class name of the root element
      */
-    root = 'p-buttongroup'
+    root = 'p-buttongroup',
 }
 
-export interface ButtonGroupStyle extends BaseStyle {
-}
+export interface ButtonGroupStyle extends BaseStyle {}

@@ -160,5 +160,4 @@ export enum AccordionClasses {
     panel = 'p-accordionpanel',
 }
 
-export interface AccordionStyle extends BaseStyle {
-}
+export interface AccordionStyle extends BaseStyle {}

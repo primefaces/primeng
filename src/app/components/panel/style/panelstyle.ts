@@ -49,7 +49,6 @@ const theme = ({ dt }) => `
 }
 `;
 
-
 const classes = {
     root: ({ props }) => [
         'p-panel p-component',

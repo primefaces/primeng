@@ -108,8 +108,7 @@ export enum TerminalClasses {
     /**
      * Class name of the prompt value element
      */
-    promptValue = 'p-terminal-prompt-value'
+    promptValue = 'p-terminal-prompt-value',
 }
 
-export interface TerminalStyle extends BaseStyle {
-}
+export interface TerminalStyle extends BaseStyle {}

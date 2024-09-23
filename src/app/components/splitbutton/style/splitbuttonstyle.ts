@@ -95,8 +95,7 @@ export enum SplitButtonClasses {
     /**
      * Class name of the dropdown element
      */
-    pcDropdown = 'p-splitbutton-dropdown'
+    pcDropdown = 'p-splitbutton-dropdown',
 }
 
-export interface SplitButtonStyle extends BaseStyle {
-}
+export interface SplitButtonStyle extends BaseStyle {}

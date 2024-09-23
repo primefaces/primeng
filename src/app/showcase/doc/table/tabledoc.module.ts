@@ -120,7 +120,7 @@ import { TextareaModule } from 'primeng/textarea';
         DeferredDemo,
         IconFieldModule,
         InputIconModule,
-        ToggleSwitchModule
+        ToggleSwitchModule,
     ],
     declarations: [
         ImportDoc,

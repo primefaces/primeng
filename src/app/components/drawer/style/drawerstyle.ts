@@ -276,8 +276,7 @@ export enum DrawerClasses {
     /**
      * Class name of the content element
      */
-    content = 'p-drawer-content'
+    content = 'p-drawer-content',
 }
 
-export interface DrawerStyle extends BaseStyle {
-}
+export interface DrawerStyle extends BaseStyle {}

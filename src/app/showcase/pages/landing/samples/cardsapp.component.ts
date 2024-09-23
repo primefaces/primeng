@@ -54,7 +54,7 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
         FileUploadModule,
         OverlayBadgeModule,
         CheckboxModule,
-        ToggleSwitchModule
+        ToggleSwitchModule,
     ],
     template: `
         <div class="text-color text-2xl font-medium leading-8">Cards</div>

@@ -271,5 +271,4 @@ import type { SelectStyle } from 'primeng/select';
 
 export enum DropdownClasses {}
 
-export interface DropdownStyle extends SelectStyle {
-}
+export interface DropdownStyle extends SelectStyle {}

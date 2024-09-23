@@ -103,8 +103,7 @@ export enum TagClasses {
     /**
      * Class name of the label element
      */
-    label = 'p-tag-label'
+    label = 'p-tag-label',
 }
 
-export interface TagStyle extends BaseStyle {
-}
+export interface TagStyle extends BaseStyle {}

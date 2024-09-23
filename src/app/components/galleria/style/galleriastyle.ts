@@ -628,5 +628,4 @@ export enum GalleriaClasses {
     nextThumbnailIcon = 'p-galleria-thumbnail-next-icon',
 }
 
-export interface GalleriaStyle extends BaseStyle {
-}
+export interface GalleriaStyle extends BaseStyle {}

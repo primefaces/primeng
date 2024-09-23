@@ -676,9 +676,7 @@ export class HeroSectionComponent implements OnInit, OnDestroy {
             { icon: 'pi pi-user', title: 'Customers' },
             { icon: 'pi pi-video', title: 'Movies' },
         ];
-        this.sampleAppsSidebarNavsMore = [
-            { icon: 'pi pi-cog', title: 'Settings' },
-        ];
+        this.sampleAppsSidebarNavsMore = [{ icon: 'pi pi-cog', title: 'Settings' }];
 
         this.selectedSampleAppsSidebarNav = 'Overview';
         this.selectButtonValue = { label: 'Styled', value: 1 };

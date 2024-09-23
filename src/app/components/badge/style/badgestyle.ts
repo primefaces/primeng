@@ -138,8 +138,7 @@ export enum BadgeClasses {
     /**
      * Class name of the root element
      */
-    root = 'p-badge'
+    root = 'p-badge',
 }
 
-export interface BadgeStyle extends BaseStyle {
-}
+export interface BadgeStyle extends BaseStyle {}

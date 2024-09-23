@@ -110,9 +110,7 @@ export enum DataViewClasses {
     /**
      * Class name of the footer element
      */
-    footer = 'p-dataview-footer'
+    footer = 'p-dataview-footer',
 }
 
-export interface DataViewStyle extends BaseStyle {
-}
-
+export interface DataViewStyle extends BaseStyle {}

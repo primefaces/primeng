@@ -100,5 +100,4 @@ export enum ScrollerClasses {
     loadingIcon = 'p-virtualscroller-loading-icon',
 }
 
-export interface ScrollerStyle extends BaseStyle {
-}
+export interface ScrollerStyle extends BaseStyle {}

@@ -27,7 +27,7 @@ import { CheckboxModule } from 'primeng/checkbox';
         FloatLabelModule,
         IconFieldModule,
         InputIconModule,
-        CheckboxModule
+        CheckboxModule,
     ],
     declarations: [ImportDoc, BasicDoc],
     exports: [AppDocModule],

@@ -36,5 +36,4 @@ export enum FluidClasses {
     root = 'p-fluid',
 }
 
-export interface FluidStyle extends BaseStyle {
-}
+export interface FluidStyle extends BaseStyle {}

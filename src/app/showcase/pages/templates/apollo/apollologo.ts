@@ -29,9 +29,9 @@ import { AppConfigService } from '@service/appconfigservice';
             />
         </svg>
     `,
-    host:{
-        class:"h-8 lg:h-10 [&>svg]:h-full [&>svg]:w-auto select-none"
-    }
+    host: {
+        class: 'h-8 lg:h-10 [&>svg]:h-full [&>svg]:w-auto select-none',
+    },
 })
 export class ApolloLogo {
     configService = inject(AppConfigService);

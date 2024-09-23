@@ -355,8 +355,7 @@ export enum ToastClasses {
     /**
      * Class name of the close icon element
      */
-    closeIcon = 'p-toast-close-icon'
+    closeIcon = 'p-toast-close-icon',
 }
 
-export interface ToastStyle extends BaseStyle {
-}
+export interface ToastStyle extends BaseStyle {}

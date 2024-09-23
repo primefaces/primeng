@@ -112,8 +112,7 @@ export enum AvatarClasses {
     /**
      * Class name of the icon element
      */
-    icon = 'p-avatar-icon'
+    icon = 'p-avatar-icon',
 }
 
-export interface AvatarStyle extends BaseStyle {
-}
+export interface AvatarStyle extends BaseStyle {}

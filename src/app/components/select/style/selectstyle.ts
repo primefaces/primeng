@@ -342,5 +342,4 @@ export enum SelectClasses {
     emptyMessage = 'p-select-empty-message',
 }
 
-export interface SelectStyle extends BaseStyle {
-}
+export interface SelectStyle extends BaseStyle {}

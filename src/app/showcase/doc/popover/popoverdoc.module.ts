@@ -33,7 +33,7 @@ import { SelectDataDoc } from './selectdatadoc';
         InputGroupModule,
         InputGroupAddonModule,
         InputTextModule,
-        TagModule
+        TagModule,
     ],
     declarations: [BasicDoc, ImportDoc, StyleDoc, DataTableDoc, TemplateDoc, TargetDoc, SelectDataDoc, AccessibilityDoc],
     exports: [AppDocModule],

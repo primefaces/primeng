@@ -165,8 +165,7 @@ export enum ConfirmPopupClasses {
     /**
      * Class name of the accept button element
      */
-    pcAcceptButton = 'p-confirmpopup-accept-button'
+    pcAcceptButton = 'p-confirmpopup-accept-button',
 }
 
-export interface ConfirmPopupStyle extends BaseStyle {
-}
+export interface ConfirmPopupStyle extends BaseStyle {}

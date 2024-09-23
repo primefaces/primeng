@@ -676,8 +676,7 @@ export enum ButtonClasses {
     /**
      * Class name of the label element
      */
-    label = 'p-button-label'
+    label = 'p-button-label',
 }
 
-export interface ButtonStyle extends BaseStyle {
-}
+export interface ButtonStyle extends BaseStyle {}

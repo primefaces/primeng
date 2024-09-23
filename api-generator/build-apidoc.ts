@@ -391,7 +391,6 @@ async function main() {
         let mergedDocs = {};
 
         for (const key in doc) {
-
             const parentKey = key.includes('style') ? key.replace(/style/g, '') : key.includes('.interface') ? key.split('.')[0] : key;
 
             if (!mergedDocs[parentKey]) {
@@ -419,7 +418,6 @@ async function main() {
                     },
                 };
             }
-
         }
 
         const typedocJSON = JSON.stringify(mergedDocs, null, 4);

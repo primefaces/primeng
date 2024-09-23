@@ -227,8 +227,7 @@ export enum TieredMenuClasses {
     /**
      * Class name of the end element
      */
-    end = 'p-tieredmenu-end'
+    end = 'p-tieredmenu-end',
 }
 
-export interface TieredMenuStyle extends BaseStyle {
-}
+export interface TieredMenuStyle extends BaseStyle {}

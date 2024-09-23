@@ -262,9 +262,7 @@ export enum DialogClasses {
     /**
      * Class name of the footer element
      */
-    footer = 'p-dialog-footer'
+    footer = 'p-dialog-footer',
 }
 
-export interface DialogStyle extends BaseStyle {
-}
-
+export interface DialogStyle extends BaseStyle {}

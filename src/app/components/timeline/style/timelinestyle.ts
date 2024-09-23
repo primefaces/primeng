@@ -211,8 +211,7 @@ export enum TimelineClasses {
     /**
      * Class name of the event content element
      */
-    eventContent = 'p-timeline-event-content'
+    eventContent = 'p-timeline-event-content',
 }
 
-export interface TimelineStyle extends BaseStyle {
-}
+export interface TimelineStyle extends BaseStyle {}

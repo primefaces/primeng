@@ -77,8 +77,7 @@ export enum SkeletonClasses {
     /**
      * Class name of the root element
      */
-    root = 'p-skeleton'
+    root = 'p-skeleton',
 }
 
-export interface SkeletonStyle extends BaseStyle {
-}
+export interface SkeletonStyle extends BaseStyle {}

@@ -149,8 +149,7 @@ export enum DividerClasses {
     /**
      * Class name of the content element
      */
-    content = 'p-divider-content'
+    content = 'p-divider-content',
 }
 
-export interface DividerStyle extends BaseStyle {
-}
+export interface DividerStyle extends BaseStyle {}

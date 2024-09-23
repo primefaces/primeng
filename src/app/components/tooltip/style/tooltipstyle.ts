@@ -108,8 +108,7 @@ export enum TooltipClasses {
     /**
      * Class name of the text element
      */
-    text = 'p-tooltip-text'
+    text = 'p-tooltip-text',
 }
 
-export interface TooltipStyle extends BaseStyle {
-}
+export interface TooltipStyle extends BaseStyle {}

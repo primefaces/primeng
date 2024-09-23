@@ -140,8 +140,7 @@ export enum SliderClasses {
     /**
      * Class name of the handle element
      */
-    handle = 'p-slider-handle'
+    handle = 'p-slider-handle',
 }
 
-export interface SliderStyle extends BaseStyle {
-}
+export interface SliderStyle extends BaseStyle {}

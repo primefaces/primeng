@@ -185,8 +185,7 @@ export enum TabMenuClasses {
     /**
      * Class name of the inkbar element
      */
-    inkbar = 'p-tabmenu-ink-bar'
+    inkbar = 'p-tabmenu-ink-bar',
 }
 
-export interface TabMenuStyle extends BaseStyle {
-}
+export interface TabMenuStyle extends BaseStyle {}

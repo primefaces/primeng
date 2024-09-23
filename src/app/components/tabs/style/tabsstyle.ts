@@ -210,6 +210,4 @@ export enum TabsClasses {
     tabpanel = 'p-tabs-panel',
 }
 
-export interface TabsStyle extends BaseStyle {
-}
-
+export interface TabsStyle extends BaseStyle {}

@@ -105,8 +105,7 @@ export enum TextareaClasses {
     /**
      * Class name of the root element
      */
-    root = 'p-textarea'
+    root = 'p-textarea',
 }
 
-export interface TextareaStyle extends BaseStyle {
-}
+export interface TextareaStyle extends BaseStyle {}

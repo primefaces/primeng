@@ -69,7 +69,7 @@ import { InputIconModule } from 'primeng/inputicon';
         DeferredDemo,
         ToggleSwitchModule,
         IconFieldModule,
-        InputIconModule
+        InputIconModule,
     ],
     exports: [AppDocModule],
     declarations: [

@@ -34,7 +34,11 @@ import { SharedModule } from 'primeng/api';
                 </button>
             </div>
             <div class="w-[90%] h-fit overflow-hidden relative flex mt-5 rounded-lg shadow-[0px_0px_48px_0px_rgba(0,0,0,0.08)]">
-                <img class="max-h-96 w-full h-auto object-cover object-top flex" [src]="inlineFeaturesData[selectedID - 1]?.src" alt="Animation Inline Feature Image" />
+                <img
+                    class="max-h-96 w-full h-auto object-cover object-top flex"
+                    [src]="inlineFeaturesData[selectedID - 1]?.src"
+                    alt="Animation Inline Feature Image"
+                />
             </div>
         </div>
     `,
