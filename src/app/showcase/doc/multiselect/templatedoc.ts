@@ -16,7 +16,7 @@ interface Country {
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-multiselect [options]="countries" [(ngModel)]="selectedCountries" placeholder="Select Countries" optionLabel="name">
+            <p-multiselect [options]="countries" [(ngModel)]="selectedCountries" placeholder="Select Countries" optionLabel="name" styleClass="w-full md:w-80">
                 <ng-template let-value pTemplate="selectedItems">
                     <div class="inline-flex items-center gap-2 px-1" *ngFor="let option of value">
                         <img
@@ -76,7 +76,8 @@ export class TemplateDoc implements OnInit {
     [options]="countries" 
     [(ngModel)]="selectedCountries" 
     placeholder="Select Countries" 
-    optionLabel="name">
+    optionLabel="name"
+    styleClass="w-full md:w-80">
         <ng-template let-value pTemplate="selectedItems">
             <div class="inline-flex items-center gap-2 px-1" *ngFor="let option of value">
                 <img 
@@ -111,7 +112,8 @@ export class TemplateDoc implements OnInit {
         [options]="countries" 
         [(ngModel)]="selectedCountries" 
         placeholder="Select a Country" 
-        optionLabel="name">
+        optionLabel="name"
+        styleClass="w-full md:w-80">
             <ng-template let-value pTemplate="selectedItems">
                 <div class="inline-flex items-center gap-2 px-1" *ngFor="let option of value">
                     <img 
@@ -175,7 +177,6 @@ export class MultiSelectTemplateDemo implements OnInit {
             { name: 'Spain', code: 'ES' },
             { name: 'United States', code: 'US' }
         ];
-
     }
 }`,
     };

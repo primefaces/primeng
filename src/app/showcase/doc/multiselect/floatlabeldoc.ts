@@ -17,7 +17,7 @@ interface City {
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-floatlabel>
-                <p-multiselect inputId="float-label" [options]="cities" [(ngModel)]="selectedCities" optionLabel="name" />
+                <p-multiselect inputId="float-label" [options]="cities" [(ngModel)]="selectedCities" optionLabel="name" styleClass="w-full md:w-80" />
                 <label for="float-label">MultiSelect</label>
             </p-floatlabel>
         </div>
@@ -45,7 +45,8 @@ export class FloatLabelDoc implements OnInit {
         inputId="float-label" 
         [options]="cities" 
         [(ngModel)]="selectedCities" 
-        optionLabel="name" />
+        optionLabel="name"
+        styleClass="w-full md:w-80" />
     <label for="float-label">MultiSelect</label>
 </p-floatlabel>`,
 
@@ -55,7 +56,8 @@ export class FloatLabelDoc implements OnInit {
             inputId="float-label" 
             [options]="cities" 
             [(ngModel)]="selectedCities" 
-            optionLabel="name" />
+            optionLabel="name"
+            styleClass="w-full md:w-80" />
         <label for="float-label">MultiSelect</label>
     </p-floatlabel>
 </div>`,

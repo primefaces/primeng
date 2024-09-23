@@ -20,7 +20,7 @@ interface City {
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-multiselect [options]="cities" [(ngModel)]="selectedCities" optionLabel="name" placeholder="Select Cities" />
+            <p-multiselect [options]="cities" [(ngModel)]="selectedCities" optionLabel="name" placeholder="Select Cities" styleClass="w-full md:w-80" />
         </div>
         <app-code [code]="code" selector="multi-select-basic-demo"></app-code>
     `,
@@ -45,14 +45,16 @@ export class BasicDoc implements OnInit {
     [options]="cities" 
     [(ngModel)]="selectedCities" 
     optionLabel="name" 
-    placeholder="Select Cities" />`,
+    placeholder="Select Cities"
+    styleClass="w-full md:w-80" />`,
 
         html: `<div class="card flex justify-center">
     <p-multiselect 
         [options]="cities" 
         [(ngModel)]="selectedCities" 
         optionLabel="name" 
-        placeholder="Select Cities" />
+        placeholder="Select Cities"
+        styleClass="w-full md:w-80" />
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';

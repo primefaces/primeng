@@ -25,6 +25,7 @@ import { MultiSelect } from 'primeng/multiselect';
                 class="multiselect-custom-virtual-scroll"
                 placeholder="Select Cities"
                 (onSelectAllChange)="onSelectAllChange($event)"
+                styleClass="w-full md:w-80"
                 #ms
             >
                 <ng-template pTemplate="headercheckboxicon" let-allSelected let-partialSelected="partialSelected">
@@ -62,6 +63,7 @@ export class VirtualScrollDoc {
     class="multiselect-custom-virtual-scroll"
     placeholder="Select Cities"
     (onSelectAllChange)="onSelectAllChange($event)"
+    styleClass="w-full md:w-80"
     #ms
 >
     <ng-template pTemplate="headercheckboxicon" let-allSelected let-partialSelected="partialSelected">
@@ -82,6 +84,7 @@ export class VirtualScrollDoc {
         class="multiselect-custom-virtual-scroll"
         placeholder="Select Cities"
         (onSelectAllChange)="onSelectAllChange($event)"
+        styleClass="w-full md:w-80"
         #ms
         >
         <ng-template pTemplate="headercheckboxicon" let-allSelected let-partialSelected="partialSelected">
