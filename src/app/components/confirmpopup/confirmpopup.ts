@@ -75,7 +75,7 @@ import { BaseComponent } from 'primeng/basecomponent';
                     <p-button
                         type="button"
                         [label]="rejectButtonLabel"
-                        (onClick)="reject()"
+                        (onClick)="onReject()"
                         [ngClass]="'p-confirmpopup-reject-button'"
                         [styleClass]="confirmation?.rejectButtonStyleClass"
                         [size]="confirmation.rejectButtonProps?.size || 'small'"
@@ -90,7 +90,7 @@ import { BaseComponent } from 'primeng/basecomponent';
                     <p-button
                         type="button"
                         [label]="acceptButtonLabel"
-                        (onClick)="accept()"
+                        (onClick)="onAccept()"
                         [ngClass]="'p-confirmpopup-accept-button'"
                         [styleClass]="confirmation?.acceptButtonStyleClass"
                         [size]="confirmation.acceptButtonProps?.size || 'small'"
@@ -287,7 +287,7 @@ export class ConfirmPopup extends BaseComponent implements AfterContentInit, OnD
     @HostListener('document:keydown.escape', ['$event'])
     onEscapeKeydown(event: KeyboardEvent) {
         if (this.confirmation && this.confirmation.closeOnEscape) {
-            this.reject();
+            this.onReject();
         }
     }
 
@@ -362,7 +362,7 @@ export class ConfirmPopup extends BaseComponent implements AfterContentInit, OnD
         this.visible = false;
     }
 
-    accept() {
+    onAccept() {
         if (this.confirmation?.acceptEvent) {
             this.confirmation.acceptEvent.emit();
         }
@@ -370,7 +370,7 @@ export class ConfirmPopup extends BaseComponent implements AfterContentInit, OnD
         this.hide();
     }
 
-    reject() {
+    onReject() {
         if (this.confirmation?.rejectEvent) {
             this.confirmation.rejectEvent.emit();
         }
