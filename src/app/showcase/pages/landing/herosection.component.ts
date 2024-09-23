@@ -13,7 +13,7 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { SliderModule } from 'primeng/slider';
 import { TabMenuModule } from 'primeng/tabmenu';
-import { Subscription, debounceTime } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { AppConfigService } from '@service/appconfigservice';
 import { DividerModule } from 'primeng/divider';
 import { AvatarModule } from 'primeng/avatar';
@@ -759,13 +759,13 @@ export class HeroSectionComponent implements OnInit, OnDestroy {
                 title: 'Verona',
                 link: 'https://primevue.org/templates/verona/',
                 image: 'https://primefaces.org/cdn/primevue/images/layouts/verona-vue.jpg',
-                text: "Achieve sophistication and subtlety with Verona's minimalistic, content-focused design.",
+                text: "'Achieve sophistication and subtlety with Verona\'s minimalistic, content-focused design.'
             },
             {
                 title: 'Freya',
                 link: 'https://primevue.org/templates/freya/',
                 image: 'https://primefaces.org/cdn/primevue/images/layouts/freya-vue.png',
-                text: "Give your application a sleek, updated look with Freya's chic and modern premium template.",
+                text: 'Give your application a sleek, updated look with Freya\'s chic and modern premium template.',
             },
         ];
 
@@ -815,7 +815,7 @@ export class HeroSectionComponent implements OnInit, OnDestroy {
                 name: 'Jacob Jones',
                 time: '12.23.2023',
                 title: 'Optimized Workflow Revolution  ',
-                text: "Experience a workflow revolution with our intuitive SaaS tool. With enhanced features and optimized processes, it's efficiency like never before. Let's get in touch for a brief demo!",
+                text: 'Experience a workflow revolution with our intuitive SaaS tool. With enhanced features and optimized processes, it\'s efficiency like never before. Let\'s get in touch for a brief demo!',
             },
             {
                 image: 'https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar8.png',
