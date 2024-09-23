@@ -147,7 +147,7 @@ export class AppDocApiTable {
         public location: Location,
         private configService: AppConfigService,
     ) {}
-
+    
     get isDarkMode(): boolean {
         return this.configService.appState().darkTheme;
     }
