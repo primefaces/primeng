@@ -698,6 +698,7 @@ const inlineStyles = {
     thead: { position: 'sticky' },
     tfoot: { position: 'sticky' },
 };
+
 @Injectable()
 export class TableStyle extends BaseStyle {
     name = 'datatable';
