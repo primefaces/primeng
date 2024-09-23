@@ -6,7 +6,6 @@ import {
     AfterViewInit,
     booleanAttribute,
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     computed,
     ContentChild,
@@ -23,10 +22,8 @@ import {
     OnInit,
     Output,
     QueryList,
-    Renderer2,
     Signal,
     signal,
-    SimpleChanges,
     TemplateRef,
     ViewChild,
     ViewEncapsulation,
@@ -40,6 +37,7 @@ import {
     OverlayService,
     PrimeNGConfig,
     PrimeTemplate,
+    ScrollerOptions,
     SharedModule,
     TranslationKeys,
 } from 'primeng/api';
@@ -47,7 +45,6 @@ import { DomHandler } from 'primeng/dom';
 import { Overlay, OverlayModule } from 'primeng/overlay';
 import { RippleModule } from 'primeng/ripple';
 import { Scroller, ScrollerModule } from 'primeng/scroller';
-import { ScrollerOptions } from 'primeng/api';
 import { TooltipModule } from 'primeng/tooltip';
 import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
 import { CheckIcon } from 'primeng/icons/check';
@@ -58,13 +55,13 @@ import { ChevronDownIcon } from 'primeng/icons/chevrondown';
 import { Nullable } from 'primeng/ts-helpers';
 import { AutoFocusModule } from 'primeng/autofocus';
 import {
-    MultiSelectRemoveEvent,
-    MultiSelectFilterOptions,
-    MultiSelectFilterEvent,
     MultiSelectBlurEvent,
     MultiSelectChangeEvent,
+    MultiSelectFilterEvent,
+    MultiSelectFilterOptions,
     MultiSelectFocusEvent,
     MultiSelectLazyLoadEvent,
+    MultiSelectRemoveEvent,
     MultiSelectSelectAllChangeEvent,
 } from './multiselect.interface';
 import { MinusIcon } from 'primeng/icons/minus';
@@ -366,13 +363,13 @@ export class MultiSelectItem extends BaseComponent {
                                         />
                                         <ng-template
                                             *ngTemplateOutlet="
-                                                        headerCheckboxIconTemplate;
-                                                        context: {
-                                                            checked: allSelected(),
-                                                            partialSelected: partialSelected(),
-                                                            class: class,
-                                                        }
-                                                    "
+                                                headerCheckboxIconTemplate;
+                                                context: {
+                                                    checked: allSelected(),
+                                                    partialSelected: partialSelected(),
+                                                    class: class,
+                                                }
+                                            "
                                         ></ng-template>
                                     </ng-template>
                                 </p-checkbox>
@@ -953,7 +950,7 @@ export class MultiSelect extends BaseComponent implements OnInit, AfterViewInit,
      * Indicates whether to focus on options when hovering over them, defaults to optionLabel.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) focusOnHover: boolean = false;
+    @Input({ transform: booleanAttribute }) focusOnHover: boolean = true;
     /**
      * Fields used when filtering the options, defaults to optionLabel.
      * @group Props
@@ -1600,8 +1597,8 @@ export class MultiSelect extends BaseComponent implements OnInit, AfterViewInit,
         return this.optionDisabled
             ? ObjectUtils.resolveFieldData(option, this.optionDisabled)
             : option && option.disabled !== undefined
-            ? option.disabled
-            : false;
+              ? option.disabled
+              : false;
     }
 
     isSelected(option) {
@@ -1665,24 +1662,24 @@ export class MultiSelect extends BaseComponent implements OnInit, AfterViewInit,
         return this.optionLabel
             ? ObjectUtils.resolveFieldData(option, this.optionLabel)
             : option && option.label != undefined
-            ? option.label
-            : option;
+              ? option.label
+              : option;
     }
 
     getOptionValue(option: any) {
         return this.optionValue
             ? ObjectUtils.resolveFieldData(option, this.optionValue)
             : !this.optionLabel && option && option.value !== undefined
-            ? option.value
-            : option;
+              ? option.value
+              : option;
     }
 
     getOptionGroupLabel(optionGroup: any) {
         return this.optionGroupLabel
             ? ObjectUtils.resolveFieldData(optionGroup, this.optionGroupLabel)
             : optionGroup && optionGroup.label != undefined
-            ? optionGroup.label
-            : optionGroup;
+              ? optionGroup.label
+              : optionGroup;
     }
 
     getOptionGroupChildren(optionGroup: any) {
@@ -1995,8 +1992,8 @@ export class MultiSelect extends BaseComponent implements OnInit, AfterViewInit,
             this.focusedOptionIndex() !== -1
                 ? this.focusedOptionIndex()
                 : this.overlayVisible && this.autoOptionFocus
-                ? this.findFirstFocusedOptionIndex()
-                : -1;
+                  ? this.findFirstFocusedOptionIndex()
+                  : -1;
         this.focusedOptionIndex.set(focusedOptionIndex);
         this.overlayVisible && this.scrollInView(this.focusedOptionIndex());
         this.onFocus.emit({ originalEvent: event });
@@ -2091,8 +2088,8 @@ export class MultiSelect extends BaseComponent implements OnInit, AfterViewInit,
                     (this.optionDisabled
                         ? ObjectUtils.resolveFieldData(option, this.optionDisabled)
                         : option && option.disabled !== undefined
-                        ? option.disabled
-                        : false),
+                          ? option.disabled
+                          : false),
             );
 
             const visibleOptions = this.allSelected()

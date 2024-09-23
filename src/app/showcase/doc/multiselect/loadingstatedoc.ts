@@ -13,7 +13,14 @@ interface City {
             <p>Loading state can be used <i>loading</i> property.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-multiselect [options]="cities" [(ngModel)]="selectedCities" [loading]="true" optionLabel="name" placeholder="Loading..." />
+            <p-multiselect
+                [options]="cities"
+                [(ngModel)]="selectedCities"
+                [loading]="true"
+                optionLabel="name"
+                placeholder="Loading..."
+                styleClass="w-full md:w-80"
+            />
         </div>
         <app-code [code]="code" selector="multi-select-loading-state-demo"></app-code>
     `,
@@ -34,20 +41,22 @@ export class LoadingStateDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-multiselect 
-    [options]="cities" 
-    [(ngModel)]="selectedCities" 
+        basic: `<p-multiselect
+    [options]="cities"
+    [(ngModel)]="selectedCities"
     [loading]="true"
-    optionLabel="name" 
-    placeholder="Loading..." />`,
+    optionLabel="name"
+    placeholder="Loading..."
+    styleClass="w-full md:w-80" />`,
 
         html: `<div class="card flex justify-center">
-    <p-multiselect 
-        [options]="cities" 
-        [(ngModel)]="selectedCities" 
+    <p-multiselect
+        [options]="cities"
+        [(ngModel)]="selectedCities"
         [loading]="true"
-        optionLabel="name" 
-        placeholder="Loading..." />
+        optionLabel="name"
+        placeholder="Loading..."
+        styleClass="w-full md:w-80" />
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';

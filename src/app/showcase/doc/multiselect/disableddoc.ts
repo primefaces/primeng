@@ -19,6 +19,7 @@ interface City {
                 [disabled]="true"
                 optionLabel="name"
                 placeholder="Select Cities"
+                styleClass="w-full md:w-80"
             />
         </div>
         <app-code [code]="code" selector="multi-select-disabled-demo"></app-code>
@@ -44,14 +45,16 @@ export class DisabledDoc implements OnInit {
         [options]="cities" 
         [(ngModel)]="selectedCities" 
         [disabled]="true" 
-        optionLabel="name" />`,
+        optionLabel="name"
+        styleClass="w-full md:w-80" />`,
 
         html: `<div class="card flex justify-center">
     <p-multiselect 
         [options]="cities" 
         [(ngModel)]="selectedCities" 
         [disabled]="true" 
-        optionLabel="name" />
+        optionLabel="name"
+        styleClass="w-full md:w-80" />
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
