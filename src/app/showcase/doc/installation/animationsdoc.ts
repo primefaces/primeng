@@ -6,27 +6,42 @@ import { Code } from '@domain/code';
     template: `
         <app-docsectiontext>
             <p>
-                Various components utilize Angular animations to improve the user experience. Animations have their own module
-                <i>BrowserAnimationsModule</i> is required to be imported in your application. If you prefer to disable animations globally,
-                import <i>NoopAnimationsModule</i> instead.
+                Various components utilize Angular animations to enhance the user experience. To enable animations in your application, you
+                must import the <i>BrowserAnimationsModule</i>. If you prefer to disable animations globally, you can import
+                <i>NoopAnimationsModule</i> instead.
+            </p>
+            <p>
+                Starting from Angular 17, you can also use the <i>provideAnimationAsync</i> function for configuring animations in a more
+                efficient way, especially in larger applications where optimizing load times is crucial.
             </p>
         </app-docsectiontext>
-        <app-code [code]="code" [hideToggleCode]="true"></app-code>
+        <div class="mb-4">
+            <app-code [code]="code" [hideToggleCode]="true"></app-code>
+        </div>
+        <app-code [code]="code2" [hideToggleCode]="true"></app-code>
     `,
 })
 export class AnimationsDoc {
     code: Code = {
-        typescript: `import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+        typescript: `// app.config.ts
+import { ApplicationConfig } from '@angular/core';
+import { provideAnimationAsync } from '@angular/platform-browser/animations/async';
 
-@NgModule({
-    imports: [
-        BrowserModule,
-        BrowserAnimationsModule,
-        //...
+export const appConfig: ApplicationConfig = {
+    providers: [
+        // Other providers...
+        provideAnimationAsync(),
     ],
-    //...
-})
-export class AppModule { }`,
+};`,
+    };
+
+    code2: Code = {
+        typescript: `// main.ts
+import {bootstrapApplication} from '@angular/platform-browser';
+import {appConfig} from './app/app.config';
+import {AppComponent} from './app/app.component';
+
+bootstrapApplication(AppComponent, appConfig).catch((err) => console.error(err));
+`,
     };
 }
