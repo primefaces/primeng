@@ -1,4 +1,4 @@
-import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { Component, Inject, PLATFORM_ID, ViewChild } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { ProgressBarModule } from 'primeng/progressbar';
@@ -8,7 +8,6 @@ import { Customer } from '@domain/customer';
 import { AppComponent } from '../../layout/app.component';
 import { AppConfigService } from '@service/appconfigservice';
 import { CustomerService } from '@service/customerservice';
-import { Subscription } from 'rxjs';
 import { InputTextModule } from 'primeng/inputtext';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
@@ -21,15 +20,7 @@ import { InputIconModule } from 'primeng/inputicon';
         <section class="landing-themes py-20">
             <div class="section-header">Components</div>
             <p class="section-detail">The most complete UI component library for Angular based on a design-agnostic infrastructure.</p>
-            <div
-                class="themes-main flex mt-16 justify-center px-8 lg:px-20"
-                [style]="{ 'background-size': 'cover' }"
-                [ngStyle]="{
-                    'background-image': isDarkMode
-                        ? 'url(https://primefaces.org/cdn/primeng/images/landing/wave-dark-alt-gray.svg)'
-                        : 'url(https://primefaces.org/cdn/primeng/images/landing/wave-light-alt-gray.svg)',
-                }"
-            >
+            <div class="themes-main flex mt-16 justify-center px-8 lg:px-20">
                 <div class="box overflow-hidden z-10 p-8 table-container">
                     <p-table
                         #dt

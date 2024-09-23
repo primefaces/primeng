@@ -35,7 +35,6 @@ export class RadarDoc implements OnInit {
         }
     });
 
-
     ngOnInit() {
         this.initChart();
     }

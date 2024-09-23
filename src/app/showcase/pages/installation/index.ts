@@ -26,15 +26,21 @@ export class InstallationDemo {
             component: DownloadDoc,
         },
         {
-            id: 'usage',
-            label: 'Usage',
-            component: UsageDoc,
-        },
-        {
             id: 'animations',
             label: 'Animations',
             component: AnimationsDoc,
         },
+        {
+            id: 'styles',
+            label: 'Style',
+            component: StylesDoc,
+        },
+        {
+            id: 'usage',
+            label: 'Usage',
+            component: UsageDoc,
+        },
+
         {
             id: 'examples',
             label: 'QuickStart',

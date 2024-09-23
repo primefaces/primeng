@@ -1087,3 +1087,30 @@ export class EditorStyle extends BaseStyle {
 
     classes = classes;
 }
+
+/**
+ *
+ * Editor groups a collection of contents in tabs.
+ *
+ * [Live Demo](https://www.primeng.org/editor/)
+ *
+ * @module editorstyle
+ *
+ */
+export enum EditorClasses {
+    /**
+     * Class name of the root element
+     */
+    root = 'p-editor',
+    /**
+     * Class name of the toolbar element
+     */
+    toolbar = 'p-editor-toolbar',
+    /**
+     * Class name of the content element
+     */
+    content = 'p-editor-content',
+}
+
+export interface EditorStyle extends BaseStyle {
+}

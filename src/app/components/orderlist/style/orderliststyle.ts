@@ -28,3 +28,27 @@ export class OrderListStyle extends BaseStyle {
 
     classes = classes;
 }
+
+/**
+ *
+ * OrderList is used to maneged the order of a collection.
+ *
+ * [Live Demo](https://primeng.org/orderlist)
+ *
+ * @module orderliststyle
+ *
+ */
+
+export enum OrderListClasses {
+    /**
+     * Class name of the root element
+     */
+    root = 'p-orderlist',
+    /**
+     * Class name of the controls element
+     */
+    controls = 'p-orderlist-controls',
+}
+
+export interface OrderListStyle extends BaseStyle {
+}

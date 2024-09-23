@@ -21,7 +21,7 @@ export class DoughnutDoc implements OnInit {
     data: any;
 
     options: any;
-    
+
     platformId = inject(PLATFORM_ID);
 
     configService = inject(AppConfigService);
@@ -34,7 +34,6 @@ export class DoughnutDoc implements OnInit {
             this.cd.markForCheck();
         }
     });
-
 
     ngOnInit() {
         this.initChart();

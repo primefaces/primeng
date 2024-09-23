@@ -53,3 +53,22 @@ export class IconFieldStyle extends BaseStyle {
 
     classes = classes;
 }
+
+/**
+ *
+ * IconField wraps an input and an icon.
+ *
+ * [Live Demo](https://www.primeng.org/iconfield/)
+ *
+ * @module iconfieldstyle
+ *
+ */
+export enum IconFieldClasses {
+    /**
+     * Class name of the root element
+     */
+    root = 'p-iconfield',
+}
+
+export interface IconFieldStyle extends BaseStyle {
+}

@@ -160,3 +160,55 @@ export class TabsStyle extends BaseStyle {
 
     classes = classes;
 }
+
+/**
+ *
+ * Tabs facilitates seamless switching between different views.
+ *
+ * [Live Demo](https://www.tabview.org/tabs/)
+ *
+ * @module tabviewstyle
+ *
+ */
+
+export enum TabViewClasses {
+    /**
+     * Class name of the root element
+     */
+    root = 'p-tabs',
+    /**
+     * Class name of the wrapper element
+     */
+    list = 'p-tablist',
+    /**
+     * Class name of the content element
+     */
+    content = 'p-tablist-content',
+    /**
+     * Class name of the tab list element
+     */
+    tablist = 'p-tablist-tab-list',
+    /**
+     * Class name of the tab list element
+     */
+    tab = 'p-tab',
+    /**
+     * Class name of the inkbar element
+     */
+    inkbar = 'p-tablist-active-bar',
+    /**
+     * Class name of the navigation buttons
+     */
+    button = 'p-tablist-nav-button',
+    /**
+     * Class name of the tab panels wrapper
+     */
+    tabpanels = 'p-tabpanels',
+    /**
+     * Class name of the tab panel element
+     */
+    tabpanel = 'p-tabs-panel',
+}
+
+export interface TabViewStyle extends BaseStyle {
+}

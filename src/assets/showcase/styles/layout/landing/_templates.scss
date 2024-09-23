@@ -1,6 +1,5 @@
 .landing-templates {
     overflow: hidden;
-    background: var(--home-templates-bg);
 
     .templates {
         transform: rotateX(55deg) rotateY(0deg) rotateZ(-45deg);
@@ -236,18 +235,3 @@
         }
     }
 }
-
-
-@keyframes animated-block-1 {
-    to {
-        transform:  translateX(-10px);
-    }
-}
-
-@keyframes animated-block-2 {
-    to {
-        transform:  translateX(10px);
-    }
-}
-
-

@@ -123,3 +123,42 @@ export class AccordionStyle extends BaseStyle {
 
     classes = classes;
 }
+
+/**
+ *
+ * Accordion groups a collection of contents in tabs.
+ *
+ * [Live Demo](https://www.primeng.org/accordion/)
+ *
+ * @module accordionstyle
+ *
+ */
+export enum AccordionClasses {
+    /**
+     * Class name of the root element
+     */
+    root = 'p-accordion',
+    /**
+     * Class name of the content wrapper
+     */
+    contentwrapper = 'p-accordioncontent',
+    /**
+     * Class name of the content
+     */
+    content = 'p-accordioncontent-content',
+    /**
+     * Class name of the header
+     */
+    header = 'p-accordionheader',
+    /**
+     * Class name of the toggle icon
+     */
+    toggleicon = 'p-accordionheader-toggle-icon',
+    /**
+     * Class name of the panel
+     */
+    panel = 'p-accordionpanel',
+}
+
+export interface AccordionStyle extends BaseStyle {
+}

@@ -101,3 +101,22 @@ export class ButtonGroupStyle extends BaseStyle {
 
     classes = classes;
 }
+
+/**
+ *
+ * A set of Buttons can be displayed together using the ButtonGroup component.
+ *
+ * [Live Demo](https://www.primeng.org/button/)
+ *
+ * @module buttongroupstyle
+ *
+ */
+export enum ButtonGroupClasses {
+    /**
+     * Class name of the root element
+     */
+    root = 'p-buttongroup',
+}
+
+export interface ButtonGroupStyle extends BaseStyle {
+}

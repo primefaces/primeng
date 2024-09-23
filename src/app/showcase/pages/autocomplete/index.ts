@@ -1,21 +1,20 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { BasicDoc } from '@doc/autocomplete/basicdoc';
-import { GroupDoc } from '@doc/autocomplete/groupdoc';
 import { ImportDoc } from '@doc/autocomplete/importdoc';
-import { MultipleDoc } from '@doc/autocomplete/multipledoc';
-import { StyleDoc } from '@doc/autocomplete/styledoc';
-import { TemplateDoc } from '@doc/autocomplete/templatedoc';
-import { VirtualScrollDoc } from '@doc/autocomplete/virtualscrolldoc';
-import { AccessibilityDoc } from '@doc/autocomplete/accessibilitydoc';
-import { DropdownDoc } from '@doc/autocomplete/dropdowndoc';
-import { ForceSelectionDoc } from '@doc/autocomplete/forceselectiondoc';
-import { ObjectsDoc } from '@doc/autocomplete/objectsdoc';
+import { AutoCompleteDocModule } from '@doc/autocomplete/autocompletedoc.module';
 import { ReactiveFormsDoc } from '@doc/autocomplete/reactiveformsdoc';
+import { DropdownDoc } from '@doc/autocomplete/dropdowndoc';
+import { ObjectsDoc } from '@doc/autocomplete/objectsdoc';
+import { TemplateDoc } from '@doc/autocomplete/templatedoc';
+import { GroupDoc } from '@doc/autocomplete/groupdoc';
+import { ForceSelectionDoc } from '@doc/autocomplete/forceselectiondoc';
+import { VirtualScrollDoc } from '@doc/autocomplete/virtualscrolldoc';
+import { MultipleDoc } from '@doc/autocomplete/multipledoc';
 import { FloatLabelDoc } from '@doc/autocomplete/floatlabeldoc';
+import { FilledDoc } from '@doc/autocomplete/filleddoc';
 import { DisabledDoc } from '@doc/autocomplete/disableddoc';
 import { InvalidDoc } from '@doc/autocomplete/invaliddoc';
-import { AutoCompleteDocModule } from '@doc/autocomplete/autocompletedoc.module';
-import { FilledDoc } from '@doc/autocomplete/filleddoc';
+import { AccessibilityDoc } from '@doc/autocomplete/accessibilitydoc';
 
 @Component({
     template: `<app-doc
@@ -24,6 +23,7 @@ import { FilledDoc } from '@doc/autocomplete/filleddoc';
         description="AutoComplete is an input component that provides real-time suggestions when being typed."
         [docs]="docs"
         [apiDocs]="['AutoComplete']"
+        themeDocs="AutoComplete"
     ></app-doc>`,
     standalone: true,
     imports: [AutoCompleteDocModule],

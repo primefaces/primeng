@@ -7,20 +7,19 @@ import { DisabledDoc } from '@doc/textarea/disableddoc';
 import { FloatlabelDoc } from '@doc/textarea/floatlabeldoc';
 import { InvalidDoc } from '@doc/textarea/invaliddoc';
 import { ImportDoc } from '@doc/textarea/importdoc';
-import { StyleDoc } from '@doc/textarea/styledoc';
 import { FilledDoc } from '@doc/textarea/filleddoc';
 import { TextareaDocModule } from '@doc/textarea/texteareadoc.module';
-import { CommonModule } from '@angular/common';
 
 @Component({
     standalone: true,
-    imports: [CommonModule, TextareaDocModule],
+    imports: [TextareaDocModule],
     template: `<app-doc
         docTitle="Angular Textarea Component"
         header="Textarea"
         description="Textarea adds styling and autoResize functionality to standard textarea element."
         [docs]="docs"
         [apiDocs]="['Textarea']"
+        themeDocs="textearea"
     ></app-doc>`,
 })
 export class TextareaDemo {

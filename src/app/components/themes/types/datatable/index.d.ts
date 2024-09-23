@@ -4,7 +4,7 @@
  *
  * [Live Demo](https://www.primeng.org/datatable/)
  *
- * @module themes/datatable
+ * @module themes/table
  *
  */
 

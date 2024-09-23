@@ -12,12 +12,14 @@ import { $t, updatePreset, updateSurfacePalette } from 'primeng/themes';
 import { Aura } from 'primeng/themes/aura';
 import { Lara } from 'primeng/themes/lara';
 import { Nora } from 'primeng/themes/nora';
+import { ToggleSwitchModule } from 'primeng/toggleswitch';
 
 const presets = {
     Aura,
     Lara,
     Nora,
 };
+
 @Component({
     selector: 'app-configurator',
     standalone: true,
@@ -27,15 +29,15 @@ const presets = {
                 <span class="config-panel-label">Primary</span>
                 <div>
                     @for (primaryColor of primaryColors; track primaryColor) {
-                    <button
-                        type="button"
-                        [title]="primaryColor.name"
-                        (click)="updateColors('primary', primaryColor)"
-                        [ngClass]="{ 'active-color': primaryColor.name === selectedPrimaryColor() }"
-                        [style]="{
+                        <button
+                            type="button"
+                            [title]="primaryColor.name"
+                            (click)="updateColors('primary', primaryColor)"
+                            [ngClass]="{ 'active-color': primaryColor.name === selectedPrimaryColor() }"
+                            [style]="{
                                 'background-color': primaryColor.name === 'noir' ? 'var(--text-color)' : primaryColor?.palette['500'],
                             }"
-                    ></button>
+                        ></button>
                     }
                 </div>
             </div>
@@ -44,15 +46,15 @@ const presets = {
                 <span class="config-panel-label">Surface</span>
                 <div>
                     @for (surface of surfaces; track surface) {
-                    <button
-                        type="button"
-                        [title]="surface.name"
-                        (click)="updateColors('surface', surface)"
-                        [ngClass]="{ 'active-color': surface.name === selectedSurfaceColor() }"
-                        [style]="{
+                        <button
+                            type="button"
+                            [title]="surface.name"
+                            (click)="updateColors('surface', surface)"
+                            [ngClass]="{ 'active-color': surface.name === selectedSurfaceColor() }"
+                            [style]="{
                                 'background-color': surface.name === 'noir' ? 'var(--text-color)' : surface?.palette['500'],
                             }"
-                    ></button>
+                        ></button>
                     }
                 </div>
             </div>
@@ -66,17 +68,22 @@ const presets = {
                     [allowEmpty]="false"
                 />
             </div>
+            <div class="config-panel-settings">
+                <span class="config-panel-label">Ripple</span>
+                <p-toggleSwitch [(ngModel)]="ripple" />
+            </div>
         </div>
     `,
     host: {
         class: 'config-panel hidden',
     },
-    imports: [CommonModule, FormsModule, InputSwitchModule, ButtonModule, RadioButtonModule, SelectButton],
+    imports: [CommonModule, FormsModule, InputSwitchModule, ButtonModule, RadioButtonModule, SelectButton, ToggleSwitchModule],
 })
 export class AppConfiguratorComponent {
     get ripple() {
         return this.config.ripple();
     }
+
     set ripple(value: boolean) {
         this.config.ripple.set(value);
     }
@@ -86,10 +93,6 @@ export class AppConfiguratorComponent {
     config: PrimeNGConfig = inject(PrimeNGConfig);
 
     configService: AppConfigService = inject(AppConfigService);
-
-    onRippleChange(event) {
-        this.config.ripple.set(event.checked);
-    }
 
     presets = Object.keys(presets);
 

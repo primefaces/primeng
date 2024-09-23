@@ -31,3 +31,22 @@ export class BlockUiStyle extends BaseStyle {
 
     classes = classes;
 }
+
+/**
+ *
+ * BlockUI represents people using icons, labels and images.
+ *
+ * [Live Demo](https://www.primeng.org/blockui)
+ *
+ * @module blockuistyle
+ *
+ */
+export enum BlockUIClasses {
+    /**
+     * Class name of the root element
+     */
+    root = 'p-blockui',
+}
+
+export interface BlockUIStyle extends BaseStyle {
+}

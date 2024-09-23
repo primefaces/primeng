@@ -5,7 +5,6 @@ import { ControlledDoc } from '@doc/accordion/controlleddoc';
 import { DisabledDoc } from '@doc/accordion/disableddoc';
 import { ImportDoc } from '@doc/accordion/importdoc';
 import { MultipleDoc } from '@doc/accordion/multipledoc';
-import { StyleDoc } from '@doc/accordion/styledoc';
 import { TemplateDoc } from '@doc/accordion/templatedoc';
 import { AccordionDocModule } from '@doc/accordion/accordiondoc.module';
 import { DynamicDoc } from '@doc/accordion/dynamicdoc';
@@ -17,6 +16,7 @@ import { DynamicDoc } from '@doc/accordion/dynamicdoc';
         description="Accordion groups a collection of contents in tabs."
         [docs]="docs"
         [apiDocs]="['Accordion', 'AccordionTab']"
+        themeDocs="accordion"
     ></app-doc>`,
     imports: [AccordionDocModule],
     standalone: true,

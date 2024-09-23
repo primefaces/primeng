@@ -35,7 +35,7 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
         FormsModule,
         ToastModule,
         ContextMenuModule,
-        ToggleSwitchModule
+        ToggleSwitchModule,
     ],
     exports: [AppDocModule],
     declarations: [

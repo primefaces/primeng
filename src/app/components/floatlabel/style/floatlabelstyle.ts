@@ -79,3 +79,22 @@ export class FloatLabelStyle extends BaseStyle {
 
     classes = classes;
 }
+
+/**
+ *
+ * FloatLabel visually integrates a label with its form element.
+ *
+ * [Live Demo](https://www.primeng.org/floatlabel/)
+ *
+ * @module floatlabelstyle
+ *
+ */
+export enum FloatLabelClasses {
+    /**
+     * Class name of the root element
+     */
+    root = 'p-floatlabel',
+}
+
+export interface FloatLabelStyle extends BaseStyle {
+}

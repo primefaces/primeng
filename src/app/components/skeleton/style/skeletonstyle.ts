@@ -63,3 +63,22 @@ export class SkeletonStyle extends BaseStyle {
 
     inlineStyles = inlineStyles;
 }
+
+/**
+ *
+ * Skeleton is a placeholder to display instead of the actual content.
+ *
+ * [Live Demo](https://www.primeng.org/skeleton/)
+ *
+ * @module skeletonstyle
+ *
+ */
+export enum SkeletonClasses {
+    /**
+     * Class name of the root element
+     */
+    root = 'p-skeleton',
+}
+
+export interface SkeletonStyle extends BaseStyle {
+}

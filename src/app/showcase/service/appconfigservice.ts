@@ -1,5 +1,5 @@
-import { DOCUMENT } from '@angular/common';
-import { computed, effect, inject, Injectable, signal } from '@angular/core';
+import { DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { computed, effect, inject, Injectable, PLATFORM_ID, signal } from '@angular/core';
 import { AppState } from '@domain/appstate';
 
 @Injectable({
@@ -21,17 +21,22 @@ export class AppConfigService {
 
     document = inject(DOCUMENT);
 
+    platformId = inject(PLATFORM_ID);
+
     theme = computed(() => (this.appState().darkTheme ? 'dark' : 'light'));
 
     constructor() {
         effect(() => {
             const state = this.appState();
-            if (this.document) {
-                if (state.darkTheme) {
-                    this.document.documentElement.classList.add('p-dark');
-                } else {
-                    this.document.documentElement.classList.remove('p-dark');
-                }
+
+            if (isPlatformBrowser(this.platformId)) {
+                (document as any).startViewTransition(() => {
+                    if (state.darkTheme) {
+                        this.document.documentElement.classList.add('p-dark');
+                    } else {
+                        this.document.documentElement.classList.remove('p-dark');
+                    }
+                });
             }
         });
     }

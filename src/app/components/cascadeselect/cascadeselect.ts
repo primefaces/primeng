@@ -363,7 +363,7 @@ export class CascadeSelectSub extends BaseComponent implements OnInit {
                     [attr.data-pc-section]="'panel'"
                 >
                     <div class="p-cascadeselect-list-container" [attr.data-pc-section]="'wrapper'">
-                        <p-cascadeselectSub
+                        <p-cascadeselect-sub
                             [options]="processedOptions"
                             [selectId]="id"
                             [focusedOptionId]="focused ? focusedOptionId : undefined"
@@ -376,14 +376,12 @@ export class CascadeSelectSub extends BaseComponent implements OnInit {
                             [optionGroupLabel]="optionGroupLabel"
                             [optionGroupChildren]="optionGroupChildren"
                             [optionDisabled]="optionDisabled"
-                            [optionValue]="optionValue"
-                            [optionLabel]="optionLabel"
                             [root]="true"
                             (onChange)="onOptionChange($event)"
                             [dirty]="dirty"
                             [role]="'tree'"
                         >
-                        </p-cascadeselectSub>
+                        </p-cascadeselect-sub>
                     </div>
                     <span role="status" aria-live="polite" class="p-hidden-accessible">
                         {{ selectedMessageText }}
@@ -1332,7 +1330,6 @@ export class CascadeSelect extends BaseComponent implements OnInit, AfterContent
         this.overlayVisible = true;
         const activeOptionPath = this.hasSelectedOption() ? this.findOptionPathByValue(this.modelValue()) : this.activeOptionPath();
         this.activeOptionPath.set(activeOptionPath);
-
         let focusedOptionInfo;
 
         if (this.hasSelectedOption() && ObjectUtils.isNotEmpty(this.activeOptionPath())) {

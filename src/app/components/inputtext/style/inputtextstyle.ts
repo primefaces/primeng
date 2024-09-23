@@ -94,3 +94,22 @@ export class InputTextStyle extends BaseStyle {
 
     classes = classes;
 }
+
+/**
+ *
+ * InputText renders a text field to enter data.
+ *
+ * [Live Demo](https://www.primeng.org/inputtext/)
+ *
+ * @module inputtextstyle
+ *
+ */
+export enum InputTextClasses {
+    /**
+     * The class of root element
+     */
+    root = 'p-inputtext',
+}
+
+export interface InputTextStyle extends BaseStyle {
+}

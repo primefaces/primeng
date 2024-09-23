@@ -36,3 +36,23 @@ export class InputMaskStyle extends BaseStyle {
 
     classes = classes;
 }
+
+/**
+ *
+ * InputMask component is used to enter input in a certain format such as numeric, date, currency, email and phone.
+ *
+ * [Live Demo](https://www.primeng.org/inputmask/)
+ *
+ * @module inputmaskstyle
+ *
+ */
+
+export enum InputMaskClasses {
+    /**
+     * Class name of the root element
+     */
+    root = 'p-inputmask',
+}
+
+export interface InputMaskStyle extends BaseStyle {
+}

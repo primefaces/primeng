@@ -91,3 +91,23 @@ export class TextareaStyle extends BaseStyle {
 
     classes = classes;
 }
+
+/**
+ *
+ * Textarea is a multi-line text input element.
+ *
+ * [Live Demo](https://www.primeng.org/textarea/)
+ *
+ * @module textareastyle
+ *
+ */
+
+export enum TextareaClasses {
+    /**
+     * Class name of the root element
+     */
+    root = 'p-textarea',
+}
+
+export interface TextareaStyle extends BaseStyle {
+}

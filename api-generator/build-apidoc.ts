@@ -18,6 +18,7 @@ const staticMessages = {
     types: 'Defines the custom types used by the module.',
     props: 'Defines the input properties of the component.',
     service: 'Defines the service used by the component',
+    classes: 'List of class names used in the styled mode.',
 };
 
 async function main() {
@@ -67,7 +68,29 @@ async function main() {
                         const module_interface_group = module.groups.find((g) => g.title === 'Interface');
                         const module_service_group = module.groups.find((g) => g.title === 'Service');
                         const module_types_group = module.groups.find((g) => g.title === 'Types');
+                        const module_enums_group = module.groups.find((g) => g.title === 'Enumerations');
 
+                        if (isProcessable(module_enums_group)) {
+                            const classes = {
+                                description: staticMessages['styles'],
+                                values: [],
+                            };
+                            module_enums_group.children.forEach((child) => {
+                                if (child) {
+                                    if (child && child.groups) {
+                                        const values = child.groups.find((g) => g.title === 'Enumeration Members');
+                                        values.children.forEach((value) => {
+                                            classes.values.push({
+                                                class: value.type.value,
+                                                description: value.comment && value.comment.summary[0]['text'],
+                                            });
+                                        });
+                                    }
+                                }
+                            });
+
+                            doc[name]['classes'] = classes;
+                        }
                         if (isProcessable(module_components_group)) {
                             module_components_group.children.forEach((component) => {
                                 const componentName = component.name;
@@ -368,23 +391,32 @@ async function main() {
         let mergedDocs = {};
 
         for (const key in doc) {
+            const parentKey = key.includes('style') ? key.replace(/style/g, '') : key.includes('.interface') ? key.split('.')[0] : key;
+
+            if (!mergedDocs[parentKey]) {
+                mergedDocs[parentKey] = {
+                    ...doc[parentKey],
+                };
+            }
+
+            if (key.includes('style')) {
+                const styleDoc = doc[key];
+                mergedDocs[parentKey] = {
+                    ...mergedDocs[parentKey],
+                    style: {
+                        ...styleDoc,
+                    },
+                };
+            }
+
             if (key.includes('.interface')) {
-                const parentKey = key.split('.')[0];
                 const interfaceDoc = doc[key];
-                if (!mergedDocs[parentKey]) {
-                    mergedDocs[parentKey] = {
-                        ...doc[parentKey],
-                        interfaces: {
-                            ...interfaceDoc,
-                        },
-                    };
-                }
-            } else {
-                if (!mergedDocs[key]) {
-                    mergedDocs[key] = {
-                        ...doc[key],
-                    };
-                }
+                mergedDocs[parentKey] = {
+                    ...mergedDocs[parentKey],
+                    interfaces: {
+                        ...interfaceDoc,
+                    },
+                };
             }
         }
 
@@ -414,7 +446,10 @@ function extractParameter(emitter) {
                     if (el.type && el.type === 'array') {
                         return { name: 'value', type: el.elementType.name + '[]' };
                     } else {
-                        return { name: el.name.includes('Event') ? 'event' : 'value', type: el.name.replace(/[^a-zA-Z]/g, '') };
+                        return {
+                            name: el.name.includes('Event') ? 'event' : 'value',
+                            type: el.name.replace(/[^a-zA-Z]/g, ''),
+                        };
                     }
                 });
             }

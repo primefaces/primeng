@@ -21,6 +21,7 @@ interface City {
                 placeholder="Select Cities"
                 scrollHeight="250px"
                 display="chip"
+                styleClass="w-full md:w-80"
             >
                 <ng-template let-group pTemplate="group">
                     <div class="flex items-center">
@@ -84,7 +85,8 @@ export class GroupDoc {
     [(ngModel)]="selectedCities" 
     placeholder="Select Cities"
     scrollHeight="250px" 
-    display="chip">
+    display="chip"
+    styleClass="w-full md:w-80">
         <ng-template let-group pTemplate="group">
             <div class="flex items-center">
                 <img 
@@ -103,7 +105,8 @@ export class GroupDoc {
         [(ngModel)]="selectedCities" 
         placeholder="Select Cities" 
         scrollHeight="250px" 
-        display="chip">
+        display="chip"
+        styleClass="w-full md:w-80">
             <ng-template let-group pTemplate="group">
                 <div class="flex items-center">
                     <img 

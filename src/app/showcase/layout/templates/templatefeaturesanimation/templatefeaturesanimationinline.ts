@@ -15,20 +15,30 @@ import { SharedModule } from 'primeng/api';
 @Component({
     selector: 'template-features-animation-inline',
     template: `
-        <div class="template-features-animation-right-inline">
-            <div class="template-features-animation-right-inline-tabs">
+        <div class="w-full py-8 rounded-xl bg-surface-50 dark:bg-surface-800 relative flex flex-col items-center justify-center">
+            <div
+                class="hidden sm:flex items-center gap-0.5 xl:gap-1 rounded-full border border-surface p-1 w-[90%] bg-surface-0 dark:bg-surface-900"
+            >
                 <button
                     *ngFor="let data of inlineFeaturesData; let i = index"
                     (mouseenter)="enterCardArea(data.id)"
                     (mouseleave)="leaveCardArea(data.id)"
-                    [class.template-features-animation-right-inline-tabs-btnActive]="data.id === selectedID"
                     (click)="handleBtnClick(data.id)"
+                    [ngClass]="{
+                        'flex-1 py-1 px-1 lg:px-2 rounded-full text-surface-900 dark:text-surface-0 border-none outline-none text-xs font-medium transition-all hover:bg-surface-200 dark:hover:bg-surface-700 cursor-pointer': true,
+                        'bg-surface-200 dark:bg-surface-700': data.id === selectedID,
+                        'bg-transparent': data.id !== selectedID,
+                    }"
                 >
                     {{ data.title }}
                 </button>
             </div>
-            <div class="template-features-animation-right-inline-image">
-                <img [src]="inlineFeaturesData[selectedID - 1]?.src" alt="Animation Inline Feature Image" />
+            <div class="w-[90%] h-fit overflow-hidden relative flex mt-5 rounded-lg shadow-[0px_0px_48px_0px_rgba(0,0,0,0.08)]">
+                <img
+                    class="max-h-96 w-full h-auto object-cover object-top flex"
+                    [src]="inlineFeaturesData[selectedID - 1]?.src"
+                    alt="Animation Inline Feature Image"
+                />
             </div>
         </div>
     `,

@@ -39,18 +39,25 @@ export class AppDocApiSection {
     }
 
     getDescription(module, docName) {
-        if (module.description) {
-            return module.description;
-        }
-        if (!module.description && module.components && Object.keys(module.components).length) {
-            return module.components[docName] && module.components[docName].description
-                ? module.components[docName].description
-                : 'No description available';
+        if (module) {
+            if (module.description) {
+                return module.description;
+            }
+            if (!module.description && module.components && Object.keys(module.components).length) {
+                return module.components[docName] && module.components[docName].description
+                    ? module.components[docName].description
+                    : 'No description available';
+            }
         }
     }
 
     isInterface(module) {
-        return module.components && !Object.keys(module.components).length && Object.keys(module.interfaces).indexOf('interfaces') === -1;
+        return (
+            module &&
+            module.components &&
+            !Object.keys(module.components).length &&
+            Object.keys(module.interfaces).indexOf('interfaces') === -1
+        );
     }
 
     createDocs() {

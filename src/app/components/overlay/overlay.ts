@@ -524,7 +524,6 @@ export class Overlay extends BaseComponent implements AfterContentInit, OnDestro
 
                 DomHandler.appendOverlay(this.overlayEl, this.appendTo === 'body' ? this.document.body : this.appendTo, this.appendTo);
                 this.alignOverlay();
-
                 break;
 
             case 'void':

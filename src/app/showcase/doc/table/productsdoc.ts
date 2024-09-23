@@ -95,7 +95,7 @@ import { ProductService } from '@service/productservice';
                                     class="shadow-lg"
                                 />
                             </td>
-                            <td>{{ product.price | currency : 'USD' }}</td>
+                            <td>{{ product.price | currency: 'USD' }}</td>
                             <td>{{ product.category }}</td>
                             <td><p-rating [(ngModel)]="product.rating" [readonly]="true" [cancel]="false" /></td>
                             <td>

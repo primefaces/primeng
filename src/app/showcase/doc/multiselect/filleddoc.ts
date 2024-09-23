@@ -22,6 +22,7 @@ interface City {
                 variant="filled"
                 optionLabel="name"
                 placeholder="Select Cities"
+                styleClass="w-full md:w-80"
             />
         </div>
         <app-code [code]="code" selector="multi-select-filled-demo"></app-code>
@@ -48,7 +49,8 @@ export class FilledDoc implements OnInit {
     [(ngModel)]="selectedCities" 
     variant="filled"
     optionLabel="name" 
-    placeholder="Select Cities" />`,
+    placeholder="Select Cities"
+    styleClass="w-full md:w-80" />`,
 
         html: `<div class="card flex justify-center">
     <p-multiselect 
@@ -56,7 +58,8 @@ export class FilledDoc implements OnInit {
         [(ngModel)]="selectedCities" 
         variant="filled"
         optionLabel="name" 
-        placeholder="Select Cities" />
+        placeholder="Select Cities"
+        styleClass="w-full md:w-80" />
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';

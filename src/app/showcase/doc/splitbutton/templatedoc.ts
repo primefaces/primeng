@@ -53,7 +53,6 @@ export class TemplateDoc {
         ];
     }
 
-    
     save() {
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Data Saved' });
     }
