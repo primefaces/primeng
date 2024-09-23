@@ -4033,7 +4033,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "boolean",
-                            "default": "false",
+                            "default": "true",
                             "description": "When enabled, the hovered option will be focused."
                         },
                         {
@@ -19477,7 +19477,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "boolean",
-                            "default": "false",
+                            "default": "true",
                             "description": "Indicates whether to focus on options when hovering over them, defaults to optionLabel."
                         },
                         {
