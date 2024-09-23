@@ -682,7 +682,7 @@ export class AutoComplete extends BaseComponent implements AfterViewChecked, Aft
      * When enabled, the hovered option will be focused.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) focusOnHover: boolean | undefined;
+    @Input({ transform: booleanAttribute }) focusOnHover: boolean | undefined = true
     /**
      * Whether typeahead is active or not.
      * @defaultValue true
