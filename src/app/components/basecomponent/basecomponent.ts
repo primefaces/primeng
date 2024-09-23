@@ -1,4 +1,4 @@
-import { DOCUMENT, isPlatformServer } from '@angular/common';
+import { DOCUMENT, isPlatformBrowser, isPlatformServer } from '@angular/common';
 import { ChangeDetectorRef, Directive, ElementRef, inject, Injector, Input, PLATFORM_ID, Renderer2, SimpleChanges } from '@angular/core';
 import { getKeyValue } from '@primeuix/utils/object';
 import { PrimeNGConfig } from 'primeng/api';
@@ -71,7 +71,7 @@ export class BaseComponent {
     }
 
     ngAfterViewInit() {
-        this.rootEl = DomHandler.findSingle(this.el.nativeElement, `[data-pc-name="${ObjectUtils.toFlatCase(this._name)}"]`);
+        this.rootEl = this.el?.nativeElement;
         if (this.rootEl) {
             this.rootEl?.setAttribute(this.attrSelector, '');
         }
