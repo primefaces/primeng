@@ -143,7 +143,7 @@ const theme = ({ dt }) => `
 
 @Injectable()
 export class TabMenuStyle extends BaseStyle {
-    name = 'tabs';
+    name = 'tabmenu';
 
     theme = theme;
 }
