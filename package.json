@@ -1,6 +1,6 @@
 {
     "name": "primeng",
-    "version": "18.0.0-beta.1",
+    "version": "18.0.0-beta.2",
     "license": "SEE LICENSE IN LICENSE.md",
     "scripts": {
         "ng": "ng",
@@ -17,7 +17,8 @@
         "build:check": "npm run format:check && npm run security:check",
         "security:check": "npm audit --production --audit-level high",
         "apidoc": "node ./api-generator/build-apidoc.ts",
-        "themedoc": "node ./api-generator/build-theming.ts"
+        "themedoc": "node ./api-generator/build-theming.ts",
+        "build:docs": "npm run apidoc && npm run themedoc"
     },
     "repository": {
         "type": "git",
