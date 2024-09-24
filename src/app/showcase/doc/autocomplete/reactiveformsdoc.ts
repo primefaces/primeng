@@ -15,7 +15,7 @@ interface AutoCompleteCompleteEvent {
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <form [formGroup]="formGroup">
-                <p-autoComplete formControlName="selectedCountry" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name" placeholder="Search" />
+                <p-autoComplete formControlName="selectedCountry" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" optionLabel="name" placeholder="Search" />
             </form>
         </div>
         <app-code [code]="code" selector="autocomplete-reactive-forms-demo"></app-code>`
@@ -55,20 +55,20 @@ export class ReactiveFormsDoc implements OnInit {
 
     code: Code = {
         basic: `<form [formGroup]="formGroup">
-    <p-autoComplete 
+    <p-autoComplete
         formControlName="selectedCountry"
-        [suggestions]="filteredCountries" 
-        (completeMethod)="filterCountry($event)" 
-        field="name" />
+        [suggestions]="filteredCountries"
+        (completeMethod)="filterCountry($event)"
+        optionLabel="name" />
 </form>`,
 
         html: `<div class="card flex justify-content-center">
     <form [formGroup]="formGroup">
-        <p-autoComplete 
+        <p-autoComplete
             formControlName="selectedCountry"
-            [suggestions]="filteredCountries" 
-            (completeMethod)="filterCountry($event)" 
-            field="name" />
+            [suggestions]="filteredCountries"
+            (completeMethod)="filterCountry($event)"
+            optionLabel="name" />
     </form>
 </div>`,
 
