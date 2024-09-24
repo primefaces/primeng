@@ -13,7 +13,7 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { SliderModule } from 'primeng/slider';
 import { TabMenuModule } from 'primeng/tabmenu';
-import { Subscription } from 'rxjs';
+import { Subscription, debounceTime } from 'rxjs';
 import { AppConfigService } from '@service/appconfigservice';
 import { DividerModule } from 'primeng/divider';
 import { AvatarModule } from 'primeng/avatar';
@@ -759,7 +759,7 @@ export class HeroSectionComponent implements OnInit, OnDestroy {
                 title: 'Verona',
                 link: 'https://primevue.org/templates/verona/',
                 image: 'https://primefaces.org/cdn/primevue/images/layouts/verona-vue.jpg',
-                text: "'Achieve sophistication and subtlety with Verona\'s minimalistic, content-focused design.'
+                text: 'Achieve sophistication and subtlety with Verona\'s minimalistic, content-focused design.',
             },
             {
                 title: 'Freya',
