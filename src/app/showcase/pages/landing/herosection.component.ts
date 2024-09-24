@@ -13,7 +13,7 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { SliderModule } from 'primeng/slider';
 import { TabMenuModule } from 'primeng/tabmenu';
-import { Subscription } from 'rxjs';
+import { Subscription, debounceTime } from 'rxjs';
 import { AppConfigService } from '@service/appconfigservice';
 import { DividerModule } from 'primeng/divider';
 import { AvatarModule } from 'primeng/avatar';
@@ -227,7 +227,7 @@ import { KnobModule } from 'primeng/knob';
                                         'w-full': !isSlimMenu,
                                     }"
                                 >
-                                    <a (click)="toggleSlimMenu()" class="cursor-pointer block p-0 m-0 leading-none">
+                                    <a class="cursor-pointer block p-0 m-0 leading-none">
                                         <i [class]="isSlimMenu ? 'pi pi-window-maximize' : 'pi pi-window-minimize'"></i>
                                         <span [class]="isSlimMenu ? 'hidden' : 'font-medium leading-8'">・</span>
                                         <span [class]="isSlimMenu ? 'hidden' : 'font-medium leading-none'"> Slim Mode</span>
@@ -741,14 +741,13 @@ export class HeroSectionComponent implements OnInit, OnDestroy {
                 title: 'Ultima',
                 link: 'https://primevue.org/templates/ultima/',
                 image: 'https://primefaces.org/cdn/primevue/images/layouts/ultima-vue.jpg',
-                text: 'Elevate your application\'s intuitiveness with Ultima\'s premium Material Design interface.',
+                text: "Elevate your application's intuitiveness with Ultima's premium Material Design interface.",
             },
             {
                 title: 'Diamond',
                 link: 'https://primevue.org/templates/diamond/',
                 image: 'https://primefaces.org/cdn/primevue/images/layouts/diamond-vue.jpg',
-                text: 'Handle complex operations with elegance with Diamond\'s robust and powerful premium design.',
-            },
+                text: "H'Handle complex operations with elegance with Diamond\'s robust and powerful premium design.'            },
             {
                 title: 'Atlantis',
                 link: 'https://primevue.org/templates/atlantis/',
@@ -759,7 +758,7 @@ export class HeroSectionComponent implements OnInit, OnDestroy {
                 title: 'Verona',
                 link: 'https://primevue.org/templates/verona/',
                 image: 'https://primefaces.org/cdn/primevue/images/layouts/verona-vue.jpg',
-                text: "'Achieve sophistication and subtlety with Verona\'s minimalistic, content-focused design.'
+                text: 'Achieve sophistication and subtlety with Verona\'s minimalistic, content-focused design.',
             },
             {
                 title: 'Freya',
