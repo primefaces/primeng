@@ -1,4 +1,13 @@
 # Changelog
+## [18.0.0-beta.2](https://github.com/primefaces/primeng/tree/18.0.0-beta.2) (2024-09-23)
+[Full Changelog](https://github.com/primefaces/primeng/compare/18.0.0-beta.1...18.0.0-beta.2)
+
+**Fixed bugs:**
+- Date filter on table v18 [\#16354](https://github.com/primefaces/primeng/issues/16354)
+- Fileupload | add fileLabelTemplate [\#16377](https://github.com/primefaces/primeng/issues/16377)
+- Cannot find module '@primeuix/styled' from 'node_modules/primeng/fesm2022/primeng-themes.mjs' [\#16353](https://github.com/primefaces/primeng/issues/16353)
+- Component: Select [primeng v18] [\#16351](https://github.com/primefaces/primeng/issues/16351)
+
 ## [17.18.10](https://github.com/primefaces/primeng/tree/17.18.10) (2024-09-11)
 [Full Changelog](https://github.com/primefaces/primeng/compare/17.18.9...17.18.10)
 
