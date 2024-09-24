@@ -741,19 +741,19 @@ export class HeroSectionComponent implements OnInit, OnDestroy {
                 title: 'Ultima',
                 link: 'https://primevue.org/templates/ultima/',
                 image: 'https://primefaces.org/cdn/primevue/images/layouts/ultima-vue.jpg',
-                text: "Elevate your application's intuitiveness with Ultima's premium Material Design interface.",
+                text: 'Elevate your application\'s intuitiveness with Ultima\'s premium Material Design interface.',
             },
             {
                 title: 'Diamond',
                 link: 'https://primevue.org/templates/diamond/',
                 image: 'https://primefaces.org/cdn/primevue/images/layouts/diamond-vue.jpg',
-                text: "Handle complex operations with elegance with Diamond's robust and powerful premium design.",
+                text: 'Handle complex operations with elegance with Diamond\'s robust and powerful premium design.',
             },
             {
                 title: 'Atlantis',
                 link: 'https://primevue.org/templates/atlantis/',
                 image: 'https://primefaces.org/cdn/primevue/images/layouts/atlantis-vue.jpg',
-                text: "Boost your application's capabilities, customization with the Atlantis template.",
+                text: 'Boost your application\'s capabilities, customization with the Atlantis template.',
             },
             {
                 title: 'Verona',
