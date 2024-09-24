@@ -52,7 +52,10 @@ export class ExportDoc {
 
     selectedProducts!: Product[];
 
-    constructor(private productService: ProductService, private cd: ChangeDetectorRef) {}
+    constructor(
+        private productService: ProductService,
+        private cd: ChangeDetectorRef
+    ) {}
 
     cols!: Column[];
 

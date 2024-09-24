@@ -504,7 +504,13 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
         return this._columns;
     }
 
-    constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, private renderer: Renderer2, private cd: ChangeDetectorRef, private zone: NgZone) {}
+    constructor(
+        @Inject(DOCUMENT) private document: Document,
+        @Inject(PLATFORM_ID) private platformId: any,
+        private renderer: Renderer2,
+        private cd: ChangeDetectorRef,
+        private zone: NgZone
+    ) {}
 
     ngOnInit() {
         this.setInitialState();

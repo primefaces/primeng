@@ -40,7 +40,10 @@ import { ProductService } from '@service/productservice';
 export class SingleColumnSortDoc {
     products!: Product[];
 
-    constructor(private productService: ProductService, private cd: ChangeDetectorRef) {}
+    constructor(
+        private productService: ProductService,
+        private cd: ChangeDetectorRef
+    ) {}
 
     loadDemoData() {
         this.productService.getProductsMini().then((data) => {

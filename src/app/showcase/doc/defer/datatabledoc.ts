@@ -44,7 +44,10 @@ import { CarService } from '@service/carservice';
 export class DataTableDoc {
     cars: Car[] | undefined;
 
-    constructor(private carService: CarService, private messageService: MessageService) {}
+    constructor(
+        private carService: CarService,
+        private messageService: MessageService
+    ) {}
 
     initData() {
         this.messageService.add({ severity: 'success', summary: 'Data Initialized', detail: 'Render Completed' });

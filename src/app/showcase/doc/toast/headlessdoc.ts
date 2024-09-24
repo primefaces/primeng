@@ -41,7 +41,10 @@ export class HeadlessDoc {
 
     interval = null;
 
-    constructor(private messageService: MessageService, private cdr: ChangeDetectorRef) {}
+    constructor(
+        private messageService: MessageService,
+        private cdr: ChangeDetectorRef
+    ) {}
 
     showConfirm() {
         if (!this.visible) {

@@ -25,7 +25,10 @@ export class ContextMenuDoc implements OnInit {
 
     items!: MenuItem[];
 
-    constructor(private nodeService: NodeService, private messageService: MessageService) {}
+    constructor(
+        private nodeService: NodeService,
+        private messageService: MessageService
+    ) {}
 
     ngOnInit() {
         this.nodeService.getFiles().then((files) => (this.files = files));

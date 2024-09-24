@@ -6,7 +6,10 @@ import { Code } from '@domain/code';
     templateUrl: './lts.component.html'
 })
 export class LTSComponent {
-    constructor(private titleService: Title, private metaService: Meta) {
+    constructor(
+        private titleService: Title,
+        private metaService: Meta
+    ) {
         this.titleService.setTitle('Long Term Support - PrimeNG');
         this.metaService.updateTag({ name: 'description', content: 'Long Term Support' });
     }

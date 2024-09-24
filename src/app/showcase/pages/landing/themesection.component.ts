@@ -128,11 +128,11 @@ import { Subscription } from 'rxjs';
                                 </td>
                                 <td style="width: 14%; min-width: 8rem">
                                     <span class="p-column-title">Date</span>
-                                    {{ customer.date | date : 'MM/dd/yyyy' }}
+                                    {{ customer.date | date: 'MM/dd/yyyy' }}
                                 </td>
                                 <td style="width: 14%; min-width: 8rem">
                                     <span class="p-column-title">Balance</span>
-                                    {{ customer.balance | currency : 'USD' : 'symbol' }}
+                                    {{ customer.balance | currency: 'USD' : 'symbol' }}
                                 </td>
                                 <td style="width: 14%; min-width: 10rem">
                                     <p-tag [value]="customer.status" [severity]="getSeverity(customer.status)" styleClass="text-sm font-bold"></p-tag>
@@ -158,7 +158,12 @@ import { Subscription } from 'rxjs';
     `
 })
 export class ThemeSectionComponent {
-    constructor(@Inject(PLATFORM_ID) private platformId: any, private customerService: CustomerService, private configService: AppConfigService, public app: AppComponent) {}
+    constructor(
+        @Inject(PLATFORM_ID) private platformId: any,
+        private customerService: CustomerService,
+        private configService: AppConfigService,
+        public app: AppComponent
+    ) {}
 
     @ViewChild('dt') table: Table;
 

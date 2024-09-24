@@ -123,7 +123,11 @@ export class Steps implements OnInit, OnDestroy {
 
     @ViewChild('list', { static: false }) listViewChild: Nullable<ElementRef>;
 
-    constructor(private router: Router, private route: ActivatedRoute, private cd: ChangeDetectorRef) {}
+    constructor(
+        private router: Router,
+        private route: ActivatedRoute,
+        private cd: ChangeDetectorRef
+    ) {}
 
     subscription: Subscription | undefined;
 

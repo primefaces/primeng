@@ -18,7 +18,10 @@ export class InfoDemo implements OnInit {
 
     instance: DynamicDialogComponent | undefined;
 
-    constructor(public ref: DynamicDialogRef, private dialogService: DialogService) {
+    constructor(
+        public ref: DynamicDialogRef,
+        private dialogService: DialogService
+    ) {
         this.instance = this.dialogService.getInstance(this.ref);
     }
 

@@ -225,7 +225,12 @@ export class TabPanel implements AfterContentInit, OnDestroy {
 
     tabView: TabView;
 
-    constructor(@Inject(forwardRef(() => TabView)) tabView: TabView, public el: ElementRef, public viewContainer: ViewContainerRef, public cd: ChangeDetectorRef) {
+    constructor(
+        @Inject(forwardRef(() => TabView)) tabView: TabView,
+        public el: ElementRef,
+        public viewContainer: ViewContainerRef,
+        public cd: ChangeDetectorRef
+    ) {
         this.tabView = tabView as TabView;
         this.id = UniqueComponentId();
     }
@@ -490,7 +495,12 @@ export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, B
 
     @ViewChild('elementToObserve') elementToObserve: ElementRef;
 
-    constructor(@Inject(PLATFORM_ID) private platformId: any, public el: ElementRef, public cd: ChangeDetectorRef, private renderer: Renderer2) {}
+    constructor(
+        @Inject(PLATFORM_ID) private platformId: any,
+        public el: ElementRef,
+        public cd: ChangeDetectorRef,
+        private renderer: Renderer2
+    ) {}
 
     ngAfterContentInit() {
         this.initTabs();

@@ -54,7 +54,14 @@ export class AppDocSectionNavComponent implements OnInit, OnDestroy {
 
     @ViewChild('nav') nav: ElementRef;
 
-    constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, private location: Location, private zone: NgZone, private renderer: Renderer2, private router: Router) {}
+    constructor(
+        @Inject(DOCUMENT) private document: Document,
+        @Inject(PLATFORM_ID) private platformId: any,
+        private location: Location,
+        private zone: NgZone,
+        private renderer: Renderer2,
+        private router: Router
+    ) {}
 
     ngOnInit(): void {
         if (isPlatformBrowser(this.platformId)) {

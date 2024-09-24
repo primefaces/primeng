@@ -27,7 +27,7 @@ import { ProductService } from '@service/productservice';
                         <tr>
                             <td>{{ product.code }}</td>
                             <td>{{ product.name }}</td>
-                            <td>{{ product.price | currency : 'USD' }}</td>
+                            <td>{{ product.price | currency: 'USD' }}</td>
                             <td>{{ product.category }}</td>
                             <td>{{ product.quantity }}</td>
                         </tr>
@@ -41,7 +41,10 @@ import { ProductService } from '@service/productservice';
 export class PreSortDoc {
     products!: Product[];
 
-    constructor(private productService: ProductService, private cd: ChangeDetectorRef) {}
+    constructor(
+        private productService: ProductService,
+        private cd: ChangeDetectorRef
+    ) {}
 
     loadDemoData() {
         this.productService.getProductsMini().then((data) => {

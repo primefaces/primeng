@@ -66,7 +66,10 @@ export class LazyLoadDoc implements OnInit {
 
     loading: boolean = false;
 
-    constructor(private nodeService: NodeService, private cd: ChangeDetectorRef) {}
+    constructor(
+        private nodeService: NodeService,
+        private cd: ChangeDetectorRef
+    ) {}
 
     ngOnInit() {
         this.cols = [

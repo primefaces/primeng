@@ -194,7 +194,10 @@ export class Editor implements AfterContentInit, ControlValueAccessor {
 
     private quillElements!: { editorElement: HTMLElement; toolbarElement: HTMLElement };
 
-    constructor(public el: ElementRef, @Inject(PLATFORM_ID) private platformId: object) {
+    constructor(
+        public el: ElementRef,
+        @Inject(PLATFORM_ID) private platformId: object
+    ) {
         /**
          * Read or write the DOM once, when initializing non-Angular (Quill) library.
          */

@@ -53,7 +53,10 @@ export class FrozenRowsDoc {
 
     lockedCustomers!: Customer[];
 
-    constructor(private customerService: CustomerService, private cd: ChangeDetectorRef) {}
+    constructor(
+        private customerService: CustomerService,
+        private cd: ChangeDetectorRef
+    ) {}
 
     loadDemoData() {
         this.customerService.getCustomersMedium().then((data) => {

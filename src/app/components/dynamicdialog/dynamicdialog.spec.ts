@@ -12,7 +12,10 @@ import { DynamicDialogRef } from './dynamicdialog-ref';
     template: ` <h2>PrimeNG ROCKS!</h2> `
 })
 export class TestComponent {
-    constructor(public ref: DynamicDialogRef, public config: DynamicDialogConfig) {}
+    constructor(
+        public ref: DynamicDialogRef,
+        public config: DynamicDialogConfig
+    ) {}
 }
 
 @Component({

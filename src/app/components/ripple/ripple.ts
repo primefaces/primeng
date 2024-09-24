@@ -15,7 +15,14 @@ import { VoidListener } from 'primeng/ts-helpers';
     }
 })
 export class Ripple implements AfterViewInit, OnDestroy {
-    constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, private renderer: Renderer2, public el: ElementRef, public zone: NgZone, @Optional() public config: PrimeNGConfig) {}
+    constructor(
+        @Inject(DOCUMENT) private document: Document,
+        @Inject(PLATFORM_ID) private platformId: any,
+        private renderer: Renderer2,
+        public el: ElementRef,
+        public zone: NgZone,
+        @Optional() public config: PrimeNGConfig
+    ) {}
 
     animationListener: VoidListener;
 

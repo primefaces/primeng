@@ -48,7 +48,11 @@ export class TemplateFeaturesAnimationInline {
 
     options;
 
-    constructor(private cd: ChangeDetectorRef, public el: ElementRef, @Inject(PLATFORM_ID) private platformId: any) {}
+    constructor(
+        private cd: ChangeDetectorRef,
+        public el: ElementRef,
+        @Inject(PLATFORM_ID) private platformId: any
+    ) {}
 
     ngOnInit() {
         if (isPlatformBrowser(this.platformId)) {

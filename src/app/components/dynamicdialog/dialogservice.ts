@@ -14,7 +14,11 @@ import { ObjectUtils } from 'primeng/utils';
 export class DialogService {
     dialogComponentRefMap: Map<DynamicDialogRef<any>, ComponentRef<DynamicDialogComponent>> = new Map();
 
-    constructor(private appRef: ApplicationRef, private injector: Injector, @Inject(DOCUMENT) private document: Document) {}
+    constructor(
+        private appRef: ApplicationRef,
+        private injector: Injector,
+        @Inject(DOCUMENT) private document: Document
+    ) {}
     /**
      * Displays the dialog using the dynamic dialog object options.
      * @param {*} componentType - Dynamic component for content template.

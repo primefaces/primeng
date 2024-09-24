@@ -17,7 +17,10 @@ export class AppNewsComponent {
 
     announcement: any;
 
-    constructor(private configService: AppConfigService, private cd: ChangeDetectorRef) {
+    constructor(
+        private configService: AppConfigService,
+        private cd: ChangeDetectorRef
+    ) {
         afterNextRender(() => {
             const itemString = localStorage.getItem(this.storageKey);
 
