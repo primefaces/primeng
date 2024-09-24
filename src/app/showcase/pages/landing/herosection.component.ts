@@ -227,7 +227,7 @@ import { KnobModule } from 'primeng/knob';
                                         'w-full': !isSlimMenu,
                                     }"
                                 >
-                                    <a (click)="toggleSlimMenu()" class="cursor-pointer block p-0 m-0 leading-none">
+                                    <a  class="cursor-pointer block p-0 m-0 leading-none">
                                         <i [class]="isSlimMenu ? 'pi pi-window-maximize' : 'pi pi-window-minimize'"></i>
                                         <span [class]="isSlimMenu ? 'hidden' : 'font-medium leading-8'">・</span>
                                         <span [class]="isSlimMenu ? 'hidden' : 'font-medium leading-none'"> Slim Mode</span>
