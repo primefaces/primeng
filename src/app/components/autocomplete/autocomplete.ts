@@ -1279,6 +1279,8 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
 
     onArrowDownKey(event) {
         if (!this.overlayVisible) {
+            this.focused && this.search(event, event.target.value, 'keydown');
+            this.show();
             return;
         }
 
