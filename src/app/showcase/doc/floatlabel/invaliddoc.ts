@@ -9,17 +9,17 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card flex flex-wrap justify-center items-end gap-4">
             <p-floatlabel>
-                <input pInputText id="value1" [(ngModel)]="value1" autocomplete="off" class="ng-dirty ng-invalid" />
+                <input pInputText id="value1" [(ngModel)]="value1" class="ng-dirty ng-invalid" />
                 <label for="value1">Username</label>
             </p-floatlabel>
 
             <p-floatlabel variant="in">
-                <input pInputText id="value2" [(ngModel)]="value2" autocomplete="off" class="ng-dirty ng-invalid" />
+                <input pInputText id="value2" [(ngModel)]="value2" class="ng-dirty ng-invalid" />
                 <label for="value2">Username</label>
             </p-floatlabel>
 
             <p-floatlabel variant="on">
-                <input pInputText id="value3" [(ngModel)]="value3" autocomplete="off" class="ng-dirty ng-invalid" />
+                <input pInputText id="value3" [(ngModel)]="value3" class="ng-dirty ng-invalid" />
                 <label for="value3">Username</label>
             </p-floatlabel>
         </div>
@@ -35,33 +35,33 @@ export class InvalidDoc {
 
     code: Code = {
         basic: `<p-floatlabel>
-    <input pInputText id="value1" [(ngModel)]="value1" autocomplete="off" class="ng-dirty ng-invalid" />
+    <input pInputText id="value1" [(ngModel)]="value1" class="ng-dirty ng-invalid" />
     <label for="value1">Username</label>
 </p-floatlabel>
 
 <p-floatlabel variant="in">
-    <input pInputText id="value2" [(ngModel)]="value2" autocomplete="off" class="ng-dirty ng-invalid" />
+    <input pInputText id="value2" [(ngModel)]="value2" class="ng-dirty ng-invalid" />
     <label for="value2">Username</label>
 </p-floatlabel>
 
 <p-floatlabel variant="on">
-    <input pInputText id="value3" [(ngModel)]="value3" autocomplete="off" class="ng-dirty ng-invalid" />
+    <input pInputText id="value3" [(ngModel)]="value3" class="ng-dirty ng-invalid" />
     <label for="value3">Username</label>
 </p-floatlabel>`,
 
         html: `<div class="card flex flex-wrap justify-center items-end gap-4">
     <p-floatlabel>
-        <input pInputText id="value1" [(ngModel)]="value1" autocomplete="off" class="ng-dirty ng-invalid" />
+        <input pInputText id="value1" [(ngModel)]="value1" class="ng-dirty ng-invalid" />
         <label for="value1">Username</label>
     </p-floatlabel>
 
     <p-floatlabel variant="in">
-        <input pInputText id="value2" [(ngModel)]="value2" autocomplete="off" class="ng-dirty ng-invalid" />
+        <input pInputText id="value2" [(ngModel)]="value2" class="ng-dirty ng-invalid" />
         <label for="value2">Username</label>
     </p-floatlabel>
 
     <p-floatlabel variant="on">
-        <input pInputText id="value3" [(ngModel)]="value3" autocomplete="off" class="ng-dirty ng-invalid" />
+        <input pInputText id="value3" [(ngModel)]="value3" class="ng-dirty ng-invalid" />
         <label for="value3">Username</label>
     </p-floatlabel>
 </div>`,
