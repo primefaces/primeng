@@ -19,6 +19,7 @@ import {
     Output,
     QueryList,
     Renderer2,
+    SecurityContext,
     TemplateRef,
     ViewChild,
     ViewEncapsulation
@@ -39,6 +40,7 @@ import { CalendarIcon } from 'primeng/icons/calendar';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { NavigationState, CalendarResponsiveOptions, CalendarTypeView, LocaleSettings, Month, CalendarMonthChangeEvent, CalendarYearChangeEvent } from './calendar.interface';
 import { AutoFocusModule } from 'primeng/autofocus';
+import { DomSanitizer } from '@angular/platform-browser';
 
 export const CALENDAR_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -1045,7 +1047,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
     overlay: Nullable<HTMLDivElement>;
 
-    responsiveStyleElement: HTMLStyleElement | undefined | null;
+    responsiveStyleElement: any;
 
     overlayVisible: Nullable<boolean>;
 
@@ -1169,7 +1171,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         return this.currentView === 'year' ? this.getTranslation('nextDecade') : this.currentView === 'month' ? this.getTranslation('nextYear') : this.getTranslation('nextMonth');
     }
 
-    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, private zone: NgZone, private config: PrimeNGConfig, public overlayService: OverlayService) {
+    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, private zone: NgZone, private config: PrimeNGConfig, public overlayService: OverlayService, private readonly domSanitizer: DomSanitizer) {
         this.window = this.document.defaultView as Window;
     }
 
@@ -3541,7 +3543,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         if (this.numberOfMonths > 1 && this.responsiveOptions) {
             if (!this.responsiveStyleElement) {
                 this.responsiveStyleElement = this.renderer.createElement('style');
-                (<HTMLStyleElement>this.responsiveStyleElement).type = 'text/css';
+                this.responsiveStyleElement.type = 'text/css';
                 DomHandler.setAttribute(this.responsiveStyleElement, 'nonce', this.config?.csp()?.nonce);
                 this.renderer.appendChild(this.document.body, this.responsiveStyleElement);
             }
@@ -3573,8 +3575,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
                     `;
                 }
             }
-
-            (<HTMLStyleElement>this.responsiveStyleElement).innerHTML = innerHTML;
+            this.responsiveStyleElement.innerHTML = this.domSanitizer.bypassSecurityTrustStyle(innerHTML);
         }
     }
 

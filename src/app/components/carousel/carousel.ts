@@ -33,6 +33,7 @@ import { UniqueComponentId } from 'primeng/utils';
 import { CarouselPageEvent, CarouselResponsiveOptions } from './carousel.interface';
 import { PrimeNGConfig } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
+import { DomSanitizer } from '@angular/platform-browser';
 /**
  * Carousel is a content slider featuring various customization options.
  * @group Components
@@ -357,7 +358,7 @@ export class Carousel implements AfterContentInit {
 
     window: Window;
 
-    constructor(public el: ElementRef, public zone: NgZone, public cd: ChangeDetectorRef, private renderer: Renderer2, @Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, private config: PrimeNGConfig) {
+    constructor(public el: ElementRef, public zone: NgZone, public cd: ChangeDetectorRef, private renderer: Renderer2, @Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, private config: PrimeNGConfig, private readonly domSanitizer: DomSanitizer) {
         this.totalShiftedItems = this.page * this.numScroll * -1;
         this.window = this.document.defaultView as Window;
     }
@@ -558,7 +559,7 @@ export class Carousel implements AfterContentInit {
             }
         }
 
-        this.carouselStyle.innerHTML = innerHTML;
+        this.carouselStyle.innerHTML = this.domSanitizer.bypassSecurityTrustStyle(innerHTML);
     }
 
     calculatePosition() {

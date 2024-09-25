@@ -4,6 +4,7 @@ import { CheckIcon } from 'primeng/icons/check';
 import { ExclamationTriangleIcon } from 'primeng/icons/exclamationtriangle';
 import { InfoCircleIcon } from 'primeng/icons/infocircle';
 import { TimesCircleIcon } from 'primeng/icons/timescircle';
+import { SafeHtmlPipe } from '../dom/safeHtmlPipe';
 /**
  * Message groups a collection of contents in tabs.
  * @group Components
@@ -17,7 +18,7 @@ import { TimesCircleIcon } from 'primeng/icons/timescircle';
             <TimesCircleIcon *ngIf="icon === 'error'" [styleClass]="'p-inline-message-icon'" />
             <ExclamationTriangleIcon *ngIf="icon === 'warn'" [styleClass]="'p-inline-message-icon'" />
             <div *ngIf="!escape; else escapeOut">
-                <span *ngIf="!escape" class="p-inline-message-text" [innerHTML]="text"></span>
+                <span *ngIf="!escape" class="p-inline-message-text" [innerHTML]="text | safeHtml"></span>
             </div>
             <ng-template #escapeOut>
                 <span *ngIf="escape" class="p-inline-message-text">{{ text }}</span>
@@ -75,7 +76,7 @@ export class UIMessage {
 }
 
 @NgModule({
-    imports: [CommonModule, CheckIcon, InfoCircleIcon, TimesCircleIcon, ExclamationTriangleIcon],
+    imports: [CommonModule, CheckIcon, InfoCircleIcon, TimesCircleIcon, ExclamationTriangleIcon, SafeHtmlPipe],
     exports: [UIMessage],
     declarations: [UIMessage]
 })

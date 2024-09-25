@@ -41,6 +41,7 @@ import { VoidListener } from 'primeng/ts-helpers';
 import { UniqueComponentId, ZIndexUtils } from 'primeng/utils';
 import { GalleriaResponsiveOptions } from './galleria.interface';
 import { FocusTrapModule } from 'primeng/focustrap';
+import { DomSanitizer } from '@angular/platform-browser';
 /**
  * Galleria is an advanced content gallery component.
  * @group Components
@@ -997,7 +998,7 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, AfterVie
 
     startPos: { x: number; y: number } | null = null;
 
-    thumbnailsStyle: HTMLStyleElement | null = null;
+    thumbnailsStyle: any = null;
 
     sortedResponsiveOptions: GalleriaResponsiveOptions[] | null = null;
 
@@ -1017,7 +1018,7 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, AfterVie
 
     _oldactiveIndex: number = 0;
 
-    constructor(public galleria: Galleria, @Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, private renderer: Renderer2, private cd: ChangeDetectorRef) {}
+    constructor(public galleria: Galleria, @Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, private renderer: Renderer2, private cd: ChangeDetectorRef, private readonly domSanitizer: DomSanitizer) {}
 
     ngOnInit() {
         if (isPlatformBrowser(this.platformId)) {
@@ -1108,7 +1109,7 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, AfterVie
             }
         }
 
-        this.thumbnailsStyle.innerHTML = innerHTML;
+        this.thumbnailsStyle.innerHTML = this.domSanitizer.bypassSecurityTrustStyle(innerHTML);
         DomHandler.setAttribute(this.thumbnailsStyle, 'nonce', this.galleria.config?.csp()?.nonce);
     }
 

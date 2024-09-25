@@ -34,6 +34,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { Nullable } from 'primeng/ts-helpers';
 import { ObjectUtils } from 'primeng/utils';
 import { filter } from 'rxjs/operators';
+import { SafeHtmlPipe } from '../dom/safeHtmlPipe';
 
 /**
  * TabMenu is a navigation component that displays items as tab headers.
@@ -81,7 +82,7 @@ import { filter } from 'rxjs/operators';
                                 <ng-container>
                                     <span class="p-menuitem-icon" [ngClass]="item.icon" *ngIf="item.icon" [ngStyle]="item.iconStyle"></span>
                                     <span class="p-menuitem-text" *ngIf="item.escape !== false; else htmlLabel">{{ getItemProp(item, 'label') }}</span>
-                                    <ng-template #htmlLabel><span class="p-menuitem-text" [innerHTML]="getItemProp(item, 'label')"></span></ng-template>
+                                    <ng-template #htmlLabel><span class="p-menuitem-text" [innerHTML]="getItemProp(item, 'label') | safeHtml"></span></ng-template>
                                     <span class="p-menuitem-badge" *ngIf="item.badge" [ngClass]="item.badgeStyleClass">{{ getItemProp(item, 'badge') }}</span>
                                 </ng-container>
                             </a>
@@ -110,7 +111,7 @@ import { filter } from 'rxjs/operators';
                                 <ng-container>
                                     <span class="p-menuitem-icon" [attr.aria-hidden]="true" [ngClass]="item.icon" *ngIf="item.icon" [ngStyle]="item.iconStyle"></span>
                                     <span class="p-menuitem-text" *ngIf="item.escape !== false; else htmlRouteLabel">{{ getItemProp(item, 'label') }}</span>
-                                    <ng-template #htmlRouteLabel><span class="p-menuitem-text" [innerHTML]="getItemProp(item, 'label')"></span></ng-template>
+                                    <ng-template #htmlRouteLabel><span class="p-menuitem-text" [innerHTML]="getItemProp(item, 'label') | safeHtml"></span></ng-template>
                                     <span class="p-menuitem-badge" *ngIf="item.badge" [ngClass]="item.badgeStyleClass">{{ getItemProp(item, 'badge') }}</span>
                                 </ng-container>
                             </a>
@@ -523,7 +524,7 @@ export class TabMenu implements AfterContentInit, AfterViewInit, AfterViewChecke
 }
 
 @NgModule({
-    imports: [CommonModule, RouterModule, SharedModule, RippleModule, TooltipModule, ChevronLeftIcon, ChevronRightIcon],
+    imports: [CommonModule, RouterModule, SharedModule, RippleModule, TooltipModule, ChevronLeftIcon, ChevronRightIcon, SafeHtmlPipe],
     exports: [TabMenu, RouterModule, SharedModule, TooltipModule],
     declarations: [TabMenu]
 })
