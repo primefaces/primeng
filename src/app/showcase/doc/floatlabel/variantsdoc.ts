@@ -12,12 +12,12 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card flex flex-wrap justify-center items-end gap-4">
             <p-floatlabel variant="in">
-                <input pInputText id="in_label" v-model="value1" autocomplete="off" />
+                <input pInputText id="in_label" [(ngModel)]="value1" autocomplete="off" />
                 <label for="in_label">In Label</label>
             </p-floatlabel>
 
             <p-floatlabel variant="on">
-                <input pInputText id="on_label" v-model="value2" autocomplete="off" />
+                <input pInputText id="on_label" [(ngModel)]="value2" autocomplete="off" />
                 <label for="on_label">On Label</label>
             </p-floatlabel>
         </div>
@@ -55,12 +55,13 @@ export class VariantsDoc {
         typescript: `import { Component } from '@angular/core';
 import { FloatLabelModule } from "primeng/floatlabel"  
 import { InputTextModule } from 'primeng/inputtext';
+import { FormsModule } from '@angular/forms';
 
 @Component({
-    selector: 'float-label-basic-demo',
-    templateUrl: './float-label-basic-demo.html',
+    selector: 'float-label-variants-demo',
+    templateUrl: './float-label-variants-demo.html',
     standalone: true,
-    imports: [FloatLabelModule, InputTextModule]
+    imports: [FloatLabelModule, InputTextModule, FormsModule]
 })
 export class FloatLabelVariantsDemo {
     value1: string | undefined;

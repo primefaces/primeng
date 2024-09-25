@@ -30,7 +30,7 @@ const theme = ({ dt }) => `
      left: calc((${dt('form.field.padding.x')} * 2) + ${dt('icon.size')});
 }
 
-.p-floatlabel:has(.p-invalid) label {
+.p-floatlabel:has(.ng-invalid.ng-dirty) label {
     color: ${dt('floatlabel.invalid.color')};
 }
 
