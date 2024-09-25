@@ -3,6 +3,7 @@ import { ImportDoc } from '@doc/iftalabel/importdoc';
 import { BasicDoc } from '@doc/iftalabel/basicdoc';
 import { IftaLabelDocModule } from '@doc/iftalabel/iftalabeldoc.module';
 import { InvalidDoc } from '@doc/iftalabel/invaliddoc';
+import { AccessibilityDoc } from '@doc/iftalabel/accessibilitydoc';
 
 @Component({
     standalone: true,
@@ -34,6 +35,10 @@ export class IftaLabelDemo {
             label: 'Invalid',
             component: InvalidDoc,
         },
-
+        {
+            id: 'accessibility',
+            label: 'Accessibility',
+            component: AccessibilityDoc
+        },
     ];
 }
