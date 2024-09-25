@@ -9,7 +9,7 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-floatlabel>
-                <input id="username" type="text" pInputText [(ngModel)]="value" />
+                <input id="username" pInputText [(ngModel)]="value" />
                 <label for="username">Username</label>
             </p-floatlabel>
         </div>
@@ -21,13 +21,13 @@ export class BasicDoc {
 
     code: Code = {
         basic: `<p-floatlabel>
-    <input id="username" type="text" pInputText [(ngModel)]="value" />
+    <input id="username" pInputText [(ngModel)]="value" />
     <label for="username">Username</label>
 </p-floatlabel>`,
 
         html: `<div class="card flex justify-center">
     <p-floatlabel>
-        <input id="username" type="text" pInputText [(ngModel)]="value" />
+        <input id="username" pInputText [(ngModel)]="value" />
         <label for="username">Username</label>
     </p-floatlabel>
 </div>`,

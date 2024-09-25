@@ -56,7 +56,8 @@
                         },
                         {
                             "name": "FloatLabel",
-                            "routerLink": "/floatlabel"
+                            "routerLink": "/floatlabel",
+                            "badge": "NEW"
                         },
                         {
                             "name": "IconField",
@@ -64,7 +65,8 @@
                         },
                         {
                             "name": "IftaLabel",
-                            "routerLink": "/iftalabel"
+                            "routerLink": "/iftalabel",
+                            "badge": "NEW"
                         },
                         {
                             "name": "InputGroup",
