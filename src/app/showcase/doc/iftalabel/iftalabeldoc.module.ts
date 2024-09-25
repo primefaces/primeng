@@ -8,10 +8,11 @@ import { InputTextModule } from 'primeng/inputtext';
 import { IftaLabelModule } from 'primeng/iftalabel';
 import { ImportDoc } from './importdoc';
 import { BasicDoc } from './basicdoc';
+import { InvalidDoc } from './invaliddoc';
 
 @NgModule({
     imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, FormsModule, IftaLabelModule, InputTextModule],
-    declarations: [ImportDoc, BasicDoc],
+    declarations: [ImportDoc, BasicDoc, InvalidDoc],
     exports: [AppDocModule],
 })
 export class IftaLabelDocModule {}

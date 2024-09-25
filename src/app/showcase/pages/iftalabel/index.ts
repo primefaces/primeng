@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ImportDoc } from '@doc/iftalabel/importdoc';
 import { BasicDoc } from '@doc/iftalabel/basicdoc';
 import { IftaLabelDocModule } from '@doc/iftalabel/iftalabeldoc.module';
+import { InvalidDoc } from '@doc/iftalabel/invaliddoc';
 
 @Component({
     standalone: true,
@@ -27,6 +28,11 @@ export class IftaLabelDemo {
             id: 'basic',
             label: 'Basic',
             component: BasicDoc,
+        },
+        {
+            id: 'invalid',
+            label: 'Invalid',
+            component: InvalidDoc,
         },
 
     ];

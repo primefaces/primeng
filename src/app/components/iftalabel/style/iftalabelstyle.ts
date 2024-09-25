@@ -31,7 +31,7 @@ const theme = ({ dt }) => `
     padding-top: ${dt('iftalabel.input.padding.top')};
 }
 
-.p-iftalabel:has(.p-invalid) label {
+.p-iftalabel:has(.ng-invalid.ng-dirty) label {
     color: ${dt('iftalabel.invalid.color')};
 }
 
