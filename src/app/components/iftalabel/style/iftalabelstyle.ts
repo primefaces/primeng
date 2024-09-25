@@ -66,16 +66,32 @@ const theme = ({ dt }) => `
 `;
 
 const classes = {
-    root: 'p-iftalabel',
+    root: 'p-iftalabel'
 };
 
 @Injectable()
 export class IftaLabelStyle extends BaseStyle {
-    name: 'iftalabel';
+    name = 'iftalabel';
 
     theme = theme;
 
     classes = classes;
+}
+
+/**
+ *
+ * IftaLabel visually integrates a label within its form element.
+ *
+ * [Live Demo](https://www.primeng.org/iftalabel/)
+ *
+ * @module iftalabelstyle
+ *
+ */
+export enum IftaLabelClasses {
+    /**
+     * Class name of the root element
+     */
+    root = 'p-iftalabel',
 }
 
 export interface IftaLabelStyle extends BaseStyle {}

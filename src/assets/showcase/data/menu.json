@@ -63,6 +63,10 @@
                             "routerLink": "/iconfield"
                         },
                         {
+                            "name": "IftaLabel",
+                            "routerLink": "/iftalabel"
+                        },
+                        {
                             "name": "InputGroup",
                             "routerLink": "/inputgroup"
                         },

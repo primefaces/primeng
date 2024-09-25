@@ -10,7 +10,7 @@ import { IftaLabelStyle } from './style/iftalabelstyle';
  * @group Components
  */
 @Component({
-    selector: 'p-iftalabel',
+    selector: 'p-iftalabel, p-iftaLabel',
     template: ` <ng-content></ng-content> `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,

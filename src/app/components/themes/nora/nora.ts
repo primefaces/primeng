@@ -83,6 +83,7 @@ import toolbar from './toolbar';
 import virtualscroller from './virtualscroller';
 import tooltip from './tooltip';
 import ripple from './ripple';
+import iftalabel from './iftalabel';
 
 export const Nora = {
     primitive: {
@@ -763,6 +764,7 @@ export const Nora = {
         inputgroup,
         inputnumber,
         inputtext,
+        iftalabel,
         knob,
         listbox,
         megamenu,

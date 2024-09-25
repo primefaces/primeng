@@ -34,6 +34,7 @@ import inputchips from './inputchips';
 import inputgroup from './inputgroup';
 import inputnumber from './inputnumber';
 import inputtext from './inputtext';
+import iftalabel from './iftalabel';
 import knob from './knob';
 import listbox from './listbox';
 import megamenu from './megamenu';
@@ -83,6 +84,7 @@ import toolbar from './toolbar';
 import virtualscroller from './virtualscroller';
 import tooltip from './tooltip';
 import ripple from './ripple';
+
 
 export const Aura = {
     primitive: {
@@ -763,6 +765,7 @@ export const Aura = {
         inputgroup,
         inputnumber,
         inputtext,
+        iftalabel,
         knob,
         listbox,
         megamenu,

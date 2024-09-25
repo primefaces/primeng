@@ -83,6 +83,7 @@ import toolbar from './toolbar';
 import virtualscroller from './virtualscroller';
 import tooltip from './tooltip';
 import ripple from './ripple';
+import iftalabel from './iftalabel';
 
 export const Lara = {
     primitive: {
@@ -768,6 +769,7 @@ export const Lara = {
         inputgroup,
         inputnumber,
         inputtext,
+        iftalabel,
         knob,
         listbox,
         megamenu,
