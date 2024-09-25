@@ -54,12 +54,13 @@ export class VariantsDoc {
 
         typescript: `import { Component } from '@angular/core';
 import { FloatLabelModule } from "primeng/floatlabel"  
+import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
     selector: 'float-label-basic-demo',
     templateUrl: './float-label-basic-demo.html',
     standalone: true,
-    imports: [FloatLabelModule]
+    imports: [FloatLabelModule, InputTextModule]
 })
 export class FloatLabelVariantsDemo {
     value1: string | undefined;
