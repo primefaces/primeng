@@ -9,7 +9,7 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-iftalabel>
-                <input pInputText id="username" [(ngModel)]="value" autocomplete="off" />
+                <input pInputText id="username" [(ngModel)]="value" />
                 <label for="username">Username</label>
             </p-iftalabel>
         </div>
@@ -21,13 +21,13 @@ export class BasicDoc {
 
     code: Code = {
         basic: `<p-iftalabel>
-    <input pInputText id="username" [(ngModel)]="value" autocomplete="off" />
+    <input pInputText id="username" [(ngModel)]="value" />
     <label for="username">Username</label>
 </p-iftalabel>`,
 
         html: `<div class="card flex justify-center">
     <p-iftalabel>
-        <input pInputText id="username" [(ngModel)]="value" autocomplete="off" />
+        <input pInputText id="username" [(ngModel)]="value" />
         <label for="username">Username</label>
     </p-iftalabel>
 </div>`,
