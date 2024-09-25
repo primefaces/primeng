@@ -9,6 +9,8 @@ import { BasicDoc } from '@doc/inputtext/basicdoc';
 import { ReactiveFormsDoc } from '@doc/inputtext/reactiveformsdoc';
 import { FilledDoc } from '@doc/inputtext/filleddoc';
 import { InputtextDocModule } from '@doc/inputtext/inputtextdoc.module';
+import { IftaLabelDoc } from '@doc/inputtext/iftalabeldoc';
+import { SizesDoc } from '@doc/inputtext/sizesdoc';
 
 @Component({
     standalone: true,
@@ -40,14 +42,24 @@ export class InputTextDemo {
             component: ReactiveFormsDoc,
         },
         {
-            id: 'helptext',
-            label: 'Help Text',
-            component: HelpTextDoc,
-        },
-        {
             id: 'floatlabel',
             label: 'Float Label',
             component: FloatLabelDoc,
+        },
+        {
+            id: 'iftalabel',
+            label: 'Ifta Label',
+            component: IftaLabelDoc,
+        },
+        {
+            id: 'sizes',
+            label: 'Sizes',
+            component: SizesDoc,
+        },
+        {
+            id: 'helptext',
+            label: 'Help Text',
+            component: HelpTextDoc,
         },
         {
             id: 'filled',

@@ -20,18 +20,10 @@ export class FilledDoc {
     value: string;
 
     code: Code = {
-        basic: `<input 
-    type="text" 
-    pInputText 
-    [(ngModel)]="value" 
-    variant="filled" />`,
+        basic: `<input type="text" pInputText [(ngModel)]="value" variant="filled" />`,
 
         html: `<div class="card flex justify-center">
-    <input 
-        type="text" 
-        pInputText 
-        [(ngModel)]="value" 
-        variant="filled" />
+    <input type="text" pInputText [(ngModel)]="value" variant="filled" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
