@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject, NgModule, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, Input, NgModule, ViewEncapsulation } from '@angular/core';
 import { SharedModule } from 'primeng/api';
 import { RouterModule } from '@angular/router';
 import { BaseComponent } from 'primeng/basecomponent';
@@ -12,7 +12,7 @@ import { FloatLabelStyle } from './style/floatlabelstyle';
 @Component({
     selector: 'p-floatlabel, p-floatLabel',
     template: `
-        <span class="p-floatlabel">
+        <span [class]="containerClass">
             <ng-content></ng-content>
         </span>
     `,
@@ -22,6 +22,20 @@ import { FloatLabelStyle } from './style/floatlabelstyle';
 })
 export class FloatLabel extends BaseComponent {
     _componentStyle = inject(FloatLabelStyle);
+    /**
+     * Defines the positioning of the label relative to the input.
+     * @group Props
+     */
+    @Input() variant: 'in' | 'over' | 'on' = 'over';
+
+    get containerClass() {
+        return {
+            'p-floatlabel': true,
+            'p-floatlabel-over': this.variant === 'over',
+            'p-floatlabel-on': this.variant === 'on',
+            'p-floatlabel-in': this.variant === 'in',
+        };
+    }
 }
 
 @NgModule({
