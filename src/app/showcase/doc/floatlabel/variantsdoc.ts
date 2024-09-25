@@ -31,23 +31,23 @@ export class VariantsDoc {
 
     code: Code = {
         basic: `<p-floatlabel variant="in">
-    <input pInputText id="in_label" v-model="value1" autocomplete="off" />
+    <input pInputText id="in_label" [(ngModel)]="value1" autocomplete="off" />
     <label for="in_label">In Label</label>
 </p-floatlabel>
 
 <p-floatlabel variant="on">
-    <input pInputText id="on_label" v-model="value2" autocomplete="off" />
+    <input pInputText id="on_label" [(ngModel)]="value2" autocomplete="off" />
     <label for="on_label">On Label</label>
 </p-floatlabel>`,
 
         html: `<div class="card flex flex-wrap justify-center items-end gap-4">
     <p-floatlabel variant="in">
-        <input pInputText id="in_label" v-model="value1" autocomplete="off" />
+        <input pInputText id="in_label" [(ngModel)]="value1" autocomplete="off" />
         <label for="in_label">In Label</label>
     </p-floatlabel>
 
     <p-floatlabel variant="on">
-        <input pInputText id="on_label" v-model="value2" autocomplete="off" />
+        <input pInputText id="on_label" [(ngModel)]="value2" autocomplete="off" />
         <label for="on_label">On Label</label>
     </p-floatlabel>
 </div>`,
