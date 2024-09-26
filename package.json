@@ -46,6 +46,7 @@
         "@types/jest": "^29.5.1",
         "@types/node": "^16.18.67",
         "@types/react": "^18.2.41",
+        "@types/resize-observer-browser": "^0.1.11",
         "@typescript-eslint/eslint-plugin": "^7.11.0",
         "chart.js": "4.4.2",
         "codelyzer": "^0.0.28",
