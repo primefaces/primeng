@@ -117,7 +117,7 @@ export class Splitter {
 
             this.panels.map((panel, i) => {
                 let panelInitialSize = this.panelSizes.length - 1 >= i ? this.panelSizes[i] : null;
-                let panelSize = panelInitialSize || 100 / this.panels.length;
+                let panelSize = panelInitialSize ?? 100 / this.panels.length;
                 _panelSizes[i] = panelSize;
                 children[i].style.flexBasis = 'calc(' + panelSize + '% - ' + (this.panels.length - 1) * this.gutterSize + 'px)';
             });

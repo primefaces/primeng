@@ -64,7 +64,6 @@ import { DomHandler } from 'primeng/dom';
                                 [skipLocationChange]="item.skipLocationChange"
                                 [replaceUrl]="item.replaceUrl"
                                 [state]="item.state"
-                                [attr.aria-hidden]="true"
                             >
                                 <span class="p-dock-action-icon" *ngIf="item.icon && !itemTemplate" [ngClass]="item.icon" [ngStyle]="item.iconStyle"></span>
                                 <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: item }"></ng-container>
@@ -80,7 +79,6 @@ import { DomHandler } from 'primeng/dom';
                                     [ngClass]="{ 'p-disabled': item.disabled }"
                                     [target]="item.target"
                                     [attr.tabindex]="item.disabled || (i !== activeIndex && readonly) ? null : item.tabindex ? item.tabindex : '-1'"
-                                    [attr.aria-hidden]="true"
                                 >
                                     <span class="p-dock-action-icon" *ngIf="item.icon && !itemTemplate" [ngClass]="item.icon" [ngStyle]="item.iconStyle"></span>
                                     <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: item }"></ng-container>
