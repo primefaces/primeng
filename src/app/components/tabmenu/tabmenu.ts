@@ -3,23 +3,23 @@ import {
     AfterContentInit,
     AfterViewChecked,
     AfterViewInit,
+    booleanAttribute,
     ChangeDetectionStrategy,
     Component,
     ContentChildren,
     ElementRef,
     EventEmitter,
+    inject,
     Input,
     NgModule,
     OnDestroy,
     Output,
     QueryList,
+    signal,
     TemplateRef,
     ViewChild,
     ViewChildren,
     ViewEncapsulation,
-    booleanAttribute,
-    inject,
-    signal,
 } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { MenuItem, PrimeTemplate, SharedModule } from 'primeng/api';
@@ -297,6 +297,11 @@ export class TabMenu extends BaseComponent implements AfterContentInit, AfterVie
             }, []);
         }
         return this._focusableItems;
+    }
+
+    constructor() {
+        super();
+        console.log('TabMenu is deprecated as of v18. Use tabs component instead https://primeng.org/tabs#tabmenu');
     }
 
     ngAfterContentInit() {
