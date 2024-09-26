@@ -21,18 +21,13 @@ import {
     SimpleChanges,
     TemplateRef,
     ViewChild,
-    ViewEncapsulation,
+    ViewEncapsulation
 } from '@angular/core';
 import { PrimeTemplate, ScrollerOptions, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { SpinnerIcon } from 'primeng/icons/spinner';
 import { Nullable } from 'primeng/ts-helpers';
-import {
-    ScrollerLazyLoadEvent,
-    ScrollerScrollEvent,
-    ScrollerScrollIndexChangeEvent,
-    ScrollerToType,
-} from './scroller.interface';
+import { ScrollerLazyLoadEvent, ScrollerScrollEvent, ScrollerScrollIndexChangeEvent, ScrollerToType } from './scroller.interface';
 
 /**
  * Scroller is a performance-approach to handle huge data efficiently.
