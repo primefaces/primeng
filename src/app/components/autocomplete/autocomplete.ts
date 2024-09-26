@@ -865,7 +865,7 @@ export class AutoComplete extends BaseComponent implements AfterViewChecked, Aft
             ? (this.suggestions || []).find((item: any) => ObjectUtils.resolveFieldData(item, this.optionValue) === modelValue)
             : modelValue;
 
-        if (modelValue) {
+        if (ObjectUtils.isNotEmpty(modelValue)) {
             if (typeof modelValue === 'object' || this.optionValueSelected) {
                 const label = this.getOptionLabel(selectedOption);
 

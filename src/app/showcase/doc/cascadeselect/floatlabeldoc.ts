@@ -10,25 +10,58 @@ import { Code } from '@domain/code';
                 <a routerLink="/floatlabel">FloatLabel</a> documentation for more information.
             </p>
         </app-docsectiontext>
-        <div class="card flex justify-center">
-            <p-floatlabel>
+
+        <div class="card flex flex-wrap justify-center items-end gap-4">
+            <p-floatlabel class="w-full md:w-56">
                 <p-cascadeselect
-                    inputId="cs-city"
-                    [(ngModel)]="selectedCity"
+                    [(ngModel)]="value1"
+                    inputId="over_label"
                     [options]="countries"
                     optionLabel="cname"
                     optionGroupLabel="name"
                     [optionGroupChildren]="['states', 'cities']"
-                    [style]="{ minWidth: '14rem' }"
-                    placeholder="Select a City"
+                    styleClass="w-full"
                 />
-                <label for="cs-city">City</label>
+                <label for="over_label">Over Label</label>
+            </p-floatlabel>
+
+            <p-floatlabel class="w-full md:w-56" variant="in">
+                <p-cascadeselect
+                    [(ngModel)]="value2"
+                    inputId="in_label"
+                    [options]="countries"
+                    optionLabel="cname"
+                    optionGroupLabel="name"
+                    [optionGroupChildren]="['states', 'cities']"
+                    styleClass="w-full"
+                />
+                <label for="in_label">In Label</label>
+            </p-floatlabel>
+
+            <p-floatlabel class="w-full md:w-56" variant="on">
+                <p-cascadeselect
+                    [(ngModel)]="value3"
+                    inputId="on_label"
+                    [options]="countries"
+                    optionLabel="cname"
+                    optionGroupLabel="name"
+                    [optionGroupChildren]="['states', 'cities']"
+                    styleClass="w-full"
+                />
+                <label for="on_label">On Label</label>
             </p-floatlabel>
         </div>
+
         <app-code [code]="code" selector="cascade-select-float-label-demo"></app-code>
     `,
 })
 export class FloatLabelDoc {
+    value1: string | undefined;
+
+    value2: string | undefined;
+
+    value3: string | undefined;
+
     countries: any[] | undefined;
 
     selectedCity: any;
@@ -111,31 +144,35 @@ export class FloatLabelDoc {
     }
 
     code: Code = {
-        basic: `<p-floatlabel>
-    <p-cascadeselect
-        inputId="cs-city"
-        [(ngModel)]="selectedCity"
-        [options]="countries"
-        optionLabel="cname"
-        optionGroupLabel="name"
-        [optionGroupChildren]="['states', 'cities']"
-        [style]="{ minWidth: '14rem' }"
-        placeholder="Select a City" />
-    <label for="cs-city">City</label>
+        basic: `<p-floatlabel class="w-full md:w-56">
+    <p-cascadeselect [(ngModel)]="value1" inputId="over_label" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" styleClass="w-full" />
+    <label for="over_label">Over Label</label>
+</p-floatlabel>
+
+<p-floatlabel class="w-full md:w-56" variant="in">
+    <p-cascadeselect [(ngModel)]="value2" inputId="in_label" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" styleClass="w-full" />
+    <label for="in_label">In Label</label>
+</p-floatlabel>
+
+<p-floatlabel class="w-full md:w-56" variant="on">
+    <p-cascadeselect [(ngModel)]="value3" inputId="on_label" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" styleClass="w-full" />
+    <label for="on_label">On Label</label>
 </p-floatlabel>`,
 
-        html: `<div class="card flex justify-center">
-    <p-floatlabel>
-        <p-cascadeselect
-            inputId="cs-city"
-            [(ngModel)]="selectedCity"
-            [options]="countries"
-            optionLabel="cname"
-            optionGroupLabel="name"
-            [optionGroupChildren]="['states', 'cities']"
-            [style]="{ minWidth: '14rem' }"
-            placeholder="Select a City" />
-        <label for="cs-city">City</label>
+        html: `<div class="card flex flex-wrap justify-center items-end gap-4">
+    <p-floatlabel class="w-full md:w-56">
+        <p-cascadeselect [(ngModel)]="value1" inputId="over_label" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" styleClass="w-full" />
+        <label for="over_label">Over Label</label>
+    </p-floatlabel>
+
+    <p-floatlabel class="w-full md:w-56" variant="in">
+        <p-cascadeselect [(ngModel)]="value2" inputId="in_label" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" styleClass="w-full" />
+        <label for="in_label">In Label</label>
+    </p-floatlabel>
+
+    <p-floatlabel class="w-full md:w-56" variant="on">
+        <p-cascadeselect [(ngModel)]="value3" inputId="on_label" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" styleClass="w-full" />
+        <label for="on_label">On Label</label>
     </p-floatlabel>
 </div>`,
 
@@ -151,6 +188,12 @@ import { FloatLabelModule } from 'primeng/floatlabel';
     imports: [FormsModule, CascadeSelectModule, FloatLabelModule]
 })
 export class CascadeSelectFloatLabelDemo implements OnInit {
+    value1: string | undefined;
+
+    value2: string | undefined;
+
+    value3: string | undefined;
+
     countries: any[] | undefined;
 
     selectedCity: any;

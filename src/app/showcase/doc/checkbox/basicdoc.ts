@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
             <p>Binary checkbox is used as a controlled input with <i>ngModel</i> and <i>binary</i> properties.</p>
         </app-docsectiontext>
         <div class="card flex justify-center gap-4">
-            <p-checkbox [(ngModel)]="checked" [binary]="true" inputId="binary" />
+            <p-checkbox [(ngModel)]="checked" [binary]="true" />
         </div>
         <app-code [code]="code" selector="checkbox-basic-demo"></app-code>
     `,
@@ -17,16 +17,10 @@ export class BasicDoc {
     checked: any = null;
 
     code: Code = {
-        basic: `<p-checkbox 
-    [(ngModel)]="checked" 
-    [binary]="true" 
-    inputId="binary" />`,
+        basic: `<p-checkbox [(ngModel)]="checked" [binary]="true" />`,
 
         html: `<div class="card flex justify-center">
-    <p-checkbox 
-        [(ngModel)]="checked" 
-        [binary]="true" 
-        inputId="binary" />
+    <p-checkbox [(ngModel)]="checked" [binary]="true" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

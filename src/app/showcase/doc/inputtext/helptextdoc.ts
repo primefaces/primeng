@@ -23,27 +23,15 @@ export class HelpTextDoc {
     code: Code = {
         basic: `<div class="flex flex-col gap-2">
     <label for="username">Username</label>
-    <input 
-        pInputText 
-        id="username" 
-        aria-describedby="username-help" 
-        [(ngModel)]="value" />
-    <small id="username-help">
-        Enter your username to reset your password.
-    </small>
+    <input pInputText id="username" aria-describedby="username-help" [(ngModel)]="value" />
+    <small id="username-help">Enter your username to reset your password.</small>
 </div>`,
 
         html: `<div class="card flex justify-center">
     <div class="flex flex-col gap-2">
         <label for="username">Username</label>
-        <input 
-            pInputText
-            id="username" 
-            aria-describedby="username-help" 
-            [(ngModel)]="value" />
-        <small id="username-help">
-            Enter your username to reset your password.
-        </small>
+        <input pInputText id="username" aria-describedby="username-help" [(ngModel)]="value" />
+        <small id="username-help">Enter your username to reset your password.</small>
     </div>
 </div>`,
 

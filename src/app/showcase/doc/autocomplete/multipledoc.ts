@@ -15,18 +15,32 @@ interface AutoCompleteCompleteEvent {
             </p>
         </app-docsectiontext>
         <div class="card">
+            <label for="multiple-ac-1" class="font-bold mb-2 block">With Typeahead</label>
             <p-autocomplete
-                [(ngModel)]="selectedItems"
+                [(ngModel)]="value1"
+                inputId="multiple-ac-1"
+                multiple
+                fluid
                 [suggestions]="items"
                 (completeMethod)="search($event)"
-                [multiple]="true"
-                styleClass="w-full"
+            />
+
+            <label for="multiple-ac-2" class="font-bold mt-8 mb-2 block">Without Typeahead</label>
+            <p-autocomplete
+                [(ngModel)]="value2"
+                inputId="multiple-ac-2"
+                multiple
+                fluid
+                (completeMethod)="search($event)"
+                [typeahead]="false"
             />
         </div>
         <app-code [code]="code" selector="autocomplete-multiple-demo"></app-code>`,
 })
 export class MultipleDoc {
-    selectedItems: any[] | undefined;
+    value1: any[] | undefined;
+
+    value2: any[] | undefined;
 
     items: any[] | undefined;
 
@@ -35,20 +49,18 @@ export class MultipleDoc {
     }
 
     code: Code = {
-        basic: `<p-autocomplete 
-    [(ngModel)]="selectedItems" 
-    [suggestions]="items" 
-    (completeMethod)="search($event)" 
-    [multiple]="true"
-    styleClass="w-full" />`,
+        basic: `<label for="multiple-ac-1" class="font-bold mb-2 block">With Typeahead</label>
+<p-autocomplete [(ngModel)]="value1" inputId="multiple-ac-1" multiple fluid [suggestions]="items" (completeMethod)="search($event)" />
+
+<label for="multiple-ac-2" class="font-bold mt-8 mb-2 block">Without Typeahead</label>
+<p-autocomplete [(ngModel)]="value2" inputId="multiple-ac-2" multiple fluid (completeMethod)="search($event)" [typeahead]="false" />`,
 
         html: `<div class="card">
-    <p-autocomplete 
-        [(ngModel)]="selectedItems" 
-        [suggestions]="items" 
-        (completeMethod)="search($event)" 
-        [multiple]="true"
-        styleClass="w-full" />
+    <label for="multiple-ac-1" class="font-bold mb-2 block">With Typeahead</label>
+    <p-autocomplete [(ngModel)]="value1" inputId="multiple-ac-1" multiple fluid [suggestions]="items" (completeMethod)="search($event)" />
+
+    <label for="multiple-ac-2" class="font-bold mt-8 mb-2 block">Without Typeahead</label>
+    <p-autocomplete [(ngModel)]="value2" inputId="multiple-ac-2" multiple fluid (completeMethod)="search($event)" [typeahead]="false" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
@@ -67,7 +79,9 @@ interface AutoCompleteCompleteEvent {
     imports: [FormsModule, AutoCompleteModule]
 })
 export class AutocompleteMultipleDemo {
-    selectedItems: any[] | undefined;
+    value1: any[] | undefined;
+
+    value2: any[] | undefined;
 
     items: any[] | undefined;
 

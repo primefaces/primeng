@@ -16,32 +16,24 @@ interface AutoCompleteCompleteEvent {
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-autocomplete [(ngModel)]="selectedItem" [suggestions]="suggestions" (completeMethod)="search($event)" placeholder="Search" />
+            <p-autocomplete [(ngModel)]="value" [suggestions]="items" (completeMethod)="search($event)" />
         </div>
         <app-code [code]="code" selector="autocomplete-basic-demo"></app-code>`,
 })
 export class BasicDoc {
     items: any[] | undefined;
 
-    selectedItem: any;
-
-    suggestions: any[] | undefined;
+    value: any;
 
     search(event: AutoCompleteCompleteEvent) {
-        this.suggestions = [...Array(10).keys()].map((item) => event.query + '-' + item);
+        this.items = [...Array(10).keys()].map((item) => event.query + '-' + item);
     }
 
     code: Code = {
-        basic: `<p-autocomplete 
-    [(ngModel)]="selectedItem" 
-    [suggestions]="suggestions" 
-    (completeMethod)="search($event)" />`,
+        basic: `<p-autocomplete [(ngModel)]="value" [suggestions]="items" (completeMethod)="search($event)" />`,
 
         html: `<div class="card flex justify-center">
-    <p-autocomplete 
-        [(ngModel)]="selectedItem"
-        [suggestions]="suggestions"
-        (completeMethod)="search($event)" />
+    <p-autocomplete [(ngModel)]="value" [suggestions]="items" (completeMethod)="search($event)" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
@@ -62,12 +54,10 @@ interface AutoCompleteCompleteEvent {
 export class AutocompleteBasicDemo {
     items: any[] | undefined;
 
-    selectedItem: any;
-
-    suggestions: any[] | undefined;
+    value: any;
 
     search(event: AutoCompleteCompleteEvent) {
-        this.suggestions = [...Array(10).keys()].map(item => event.query + '-' + item);
+        this.items = [...Array(10).keys()].map(item => event.query + '-' + item);
     }
 }`,
     };

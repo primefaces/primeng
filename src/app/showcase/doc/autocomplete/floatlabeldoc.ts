@@ -14,48 +14,67 @@ interface AutoCompleteCompleteEvent {
                 <a routerLink="/floatlabel">FloatLabel</a> documentation for more information.
             </p>
         </app-docsectiontext>
-        <div class="card flex justify-center">
+        <div class="card flex flex-wrap justify-center items-end gap-4">
             <p-floatlabel>
-                <p-autocomplete
-                    [(ngModel)]="selectedItem"
-                    [suggestions]="suggestions"
-                    (completeMethod)="search($event)"
-                    inputId="float-label"
-                />
-                <label for="float-label">Float Label</label>
+                <p-autocomplete [(ngModel)]="value1" [suggestions]="items" (completeMethod)="search($event)" inputId="over_label" />
+                <label for="over_label">Over Label</label>
+            </p-floatlabel>
+
+            <p-floatlabel variant="in">
+                <p-autocomplete [(ngModel)]="value2" [suggestions]="items" (completeMethod)="search($event)" inputId="in_label" />
+                <label for="in_label">In Label</label>
+            </p-floatlabel>
+
+            <p-floatlabel variant="on">
+                <p-autocomplete [(ngModel)]="value3" [suggestions]="items" (completeMethod)="search($event)" inputId="on_label" />
+                <label for="on_label">On Label</label>
             </p-floatlabel>
         </div>
         <app-code [code]="code" selector="autocomplete-float-label-demo"></app-code>`,
 })
 export class FloatLabelDoc {
+    value1: string | undefined;
+
+    value2: string | undefined;
+
+    value3: string | undefined;
+
     items: any[] | undefined;
 
-    selectedItem: any;
-
-    suggestions: any[] | undefined;
-
     search(event: AutoCompleteCompleteEvent) {
-        this.suggestions = [...Array(10).keys()].map((item) => event.query + '-' + item);
+        this.items = [...Array(10).keys()].map((item) => event.query + '-' + item);
     }
 
     code: Code = {
         basic: `<p-floatlabel>
-    <p-autocomplete 
-        [(ngModel)]="selectedItem" 
-        [suggestions]="suggestions" 
-        (completeMethod)="search($event)" 
-        inputId="float-label" />
-    <label for="float-label">Float Label</label>
+    <p-autocomplete [(ngModel)]="value1" [suggestions]="items" (completeMethod)="search($event)" inputId="over_label" />
+    <label for="over_label">Over Label</label>
+</p-floatlabel>
+
+<p-floatlabel variant="in">
+    <p-autocomplete [(ngModel)]="value2" [suggestions]="items" (completeMethod)="search($event)" inputId="in_label" />
+    <label for="in_label">In Label</label>
+</p-floatlabel>
+
+<p-floatlabel variant="on">
+    <p-autocomplete [(ngModel)]="value3" [suggestions]="items" (completeMethod)="search($event)" inputId="on_label" />
+    <label for="on_label">On Label</label>
 </p-floatlabel>`,
 
-        html: `<div class="card flex justify-center">
+        html: `<div class="card flex flex-wrap justify-center items-end gap-4">
     <p-floatlabel>
-        <p-autocomplete 
-            [(ngModel)]="selectedItem" 
-            [suggestions]="suggestions" 
-            (completeMethod)="search($event)" 
-            inputId="float-label" />
-        <label for="float-label">Float Label</label>
+        <p-autocomplete [(ngModel)]="value1" [suggestions]="items" (completeMethod)="search($event)" inputId="over_label" />
+        <label for="over_label">Over Label</label>
+    </p-floatlabel>
+
+    <p-floatlabel variant="in">
+        <p-autocomplete [(ngModel)]="value2" [suggestions]="items" (completeMethod)="search($event)" inputId="in_label" />
+        <label for="in_label">In Label</label>
+    </p-floatlabel>
+
+    <p-floatlabel variant="on">
+        <p-autocomplete [(ngModel)]="value3" [suggestions]="items" (completeMethod)="search($event)" inputId="on_label" />
+        <label for="on_label">On Label</label>
     </p-floatlabel>
 </div>`,
 
@@ -76,14 +95,16 @@ interface AutoCompleteCompleteEvent {
     imports: [FormsModule, AutoCompleteModule, FloatLabelModule]
 })
 export class AutocompleteFloatLabelDemo {
+    value1: string | undefined;
+
+    value2: string | undefined;
+
+    value3: string | undefined;
+
     items: any[] | undefined;
 
-    selectedItem: any;
-
-    suggestions: any[] | undefined;
-
     search(event: AutoCompleteCompleteEvent) {
-        this.suggestions = [...Array(10).keys()].map(item => event.query + '-' + item);
+        this.items = [...Array(10).keys()].map((item) => event.query + '-' + item);
     }
 }`,
     };

@@ -89,6 +89,10 @@ export const routes: Routes = [
                 path: 'iconfield',
                 loadChildren: () => import('@pages/iconfield/routes'),
             },
+            {
+                path: 'iftalabel',
+                loadChildren: () => import('@pages/iftalabel/routes'),
+            },
             { path: 'editor', loadChildren: () => import('@pages/editor/routes') },
             {
                 path: 'floatlabel',

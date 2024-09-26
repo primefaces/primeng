@@ -19,6 +19,9 @@ import { SizesDoc } from './sizesdoc';
 import { StyleDoc } from './styledoc';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { FilledDoc } from './filleddoc';
+import { IftaLabelDoc } from './iftalabeldoc';
+import { IftaLabelModule } from 'primeng/iftalabel';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
     imports: [
@@ -30,11 +33,14 @@ import { FilledDoc } from './filleddoc';
         AppDocModule,
         KeyFilterModule,
         FloatLabelModule,
+        IftaLabelModule,
+        RouterModule
     ],
     declarations: [
         BasicDoc,
         DisabledDoc,
         FloatLabelDoc,
+        IftaLabelDoc,
         HelpTextDoc,
         IconsDoc,
         InvalidDoc,

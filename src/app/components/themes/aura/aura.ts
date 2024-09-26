@@ -34,6 +34,7 @@ import inputchips from './inputchips';
 import inputgroup from './inputgroup';
 import inputnumber from './inputnumber';
 import inputtext from './inputtext';
+import iftalabel from './iftalabel';
 import knob from './knob';
 import listbox from './listbox';
 import megamenu from './megamenu';
@@ -83,6 +84,7 @@ import toolbar from './toolbar';
 import virtualscroller from './virtualscroller';
 import tooltip from './tooltip';
 import ripple from './ripple';
+
 
 export const Aura = {
     primitive: {
@@ -522,7 +524,8 @@ export const Aura = {
                     disabledColor: '{surface.500}',
                     placeholderColor: '{surface.500}',
                     floatLabelColor: '{surface.500}',
-                    floatLabelFocusColor: '{surface.500}',
+                    floatLabelFocusColor: '{primary.600}',
+                    floatLabelActiveColor: '{surface.500}',
                     floatLabelInvalidColor: '{red.400}',
                     iconColor: '{surface.400}',
                     shadow: '0 0 #0000, 0 0 #0000, 0 1px 2px 0 rgba(18, 18, 23, 0.05)',
@@ -644,7 +647,8 @@ export const Aura = {
                     disabledColor: '{surface.400}',
                     placeholderColor: '{surface.400}',
                     floatLabelColor: '{surface.400}',
-                    floatLabelFocusColor: '{surface.400}',
+                    floatLabelFocusColor: '{primary.color}',
+                    floatLabelActiveColor: '{surface.400}',
                     floatLabelInvalidColor: '{red.300}',
                     iconColor: '{surface.400}',
                     shadow: '0 0 #0000, 0 0 #0000, 0 1px 2px 0 rgba(18, 18, 23, 0.05)',
@@ -761,6 +765,7 @@ export const Aura = {
         inputgroup,
         inputnumber,
         inputtext,
+        iftalabel,
         knob,
         listbox,
         megamenu,

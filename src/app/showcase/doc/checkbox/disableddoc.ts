@@ -7,24 +7,25 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>When <i>disabled</i> is present, the element cannot be edited and focused.</p>
         </app-docsectiontext>
-        <div class="card flex justify-center">
-            <p-checkbox [disabled]="true" [(ngModel)]="checked" />
+        <div class="card flex justify-center gap-2">
+            <p-checkbox [(ngModel)]="checked1" [binary]="true" [disabled]="true" />
+            <p-checkbox [(ngModel)]="checked2" [binary]="true" [disabled]="true" />
         </div>
         <app-code [code]="code" selector="checkbox-disabled-demo"></app-code>
     `,
 })
 export class DisabledDoc {
-    checked: boolean = false;
+    checked1: boolean = false;
+
+    checked2: boolean = true;
 
     code: Code = {
-        basic: `<p-checkbox 
-    [disabled]="true" 
-    [(ngModel)]="checked" />`,
+        basic: `<p-checkbox [(ngModel)]="checked1" [binary]="true" [disabled]="true" />
+<p-checkbox [(ngModel)]="checked2" [binary]="true" [disabled]="true" />`,
 
-        html: `<div class="card flex justify-center">
-    <p-checkbox 
-        [disabled]="true" 
-        [(ngModel)]="checked" />
+        html: `<div class="card flex justify-center gap-2">
+    <p-checkbox [(ngModel)]="checked1" [binary]="true" [disabled]="true" />
+    <p-checkbox [(ngModel)]="checked2" [binary]="true" [disabled]="true" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
@@ -38,7 +39,9 @@ import { CheckboxModule } from 'primeng/checkbox';
     imports: [FormsModule, CheckboxModule]
 })
 export class CheckboxDisabledDemo {
-    checked: boolean = false;
+    checked1: boolean = false;
+    
+    checked2: boolean = true;
 }`,
     };
 }

@@ -10,6 +10,7 @@ import { DisabledDoc } from '@doc/cascadeselect/disableddoc';
 import { FilledDoc } from '@doc/cascadeselect/filleddoc';
 import { LoadingDoc } from '@doc/cascadeselect/loadingdoc';
 import { CascadeSelectDocModule } from '@doc/cascadeselect/cascasdeselectdoc.module';
+import { IftaLabelDoc } from '@doc/cascadeselect/iftalabeldoc';
 
 @Component({
     standalone: true,
@@ -49,13 +50,18 @@ export class CascadeSelectDemo {
         },
         {
             id: 'loading',
-            label: 'Loading',
+            label: 'Loading State',
             component: LoadingDoc,
         },
         {
             id: 'float-label',
             label: 'Float Label',
             component: FloatLabelDoc,
+        },
+        {
+            id: 'ifta-label',
+            label: 'Ifta Label',
+            component: IftaLabelDoc,
         },
         {
             id: 'filled',

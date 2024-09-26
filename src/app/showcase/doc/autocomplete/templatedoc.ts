@@ -20,8 +20,7 @@ interface AutoCompleteCompleteEvent {
                 [(ngModel)]="selectedCountryAdvanced"
                 [suggestions]="filteredCountries"
                 (completeMethod)="filterCountry($event)"
-                field="name"
-                placeholder="Search"
+                optionLabel="name"
             >
                 <ng-template let-country pTemplate="item">
                     <div class="flex items-center gap-2">
@@ -70,7 +69,7 @@ export class TemplateDoc {
     [(ngModel)]="selectedCountryAdvanced" 
     [suggestions]="filteredCountries" 
     (completeMethod)="filterCountry($event)" 
-    field="name">
+    optionLabel="name">
         <ng-template let-country pTemplate="item">
             <div class="flex items-center gap-2">
                 <img 
@@ -87,7 +86,7 @@ export class TemplateDoc {
     [(ngModel)]="selectedCountryAdvanced" 
     [suggestions]="filteredCountries" 
     (completeMethod)="filterCountry($event)" 
-    field="name">
+    optionLabel="name">
         <ng-template let-country pTemplate="item">
             <div class="flex items-center gap-2">
                 <img 

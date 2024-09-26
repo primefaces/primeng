@@ -20,16 +20,10 @@ export class FilledDoc {
     checked: boolean = false;
 
     code: Code = {
-        basic: `<p-checkbox 
-    [(ngModel)]="checked" 
-    [binary]="true" 
-    variant="filled" />`,
+        basic: `<p-checkbox [(ngModel)]="checked" [binary]="true" variant="filled" />`,
 
         html: `<div class="card flex justify-center">
-    <p-checkbox 
-        [(ngModel)]="checked" 
-        [binary]="true" 
-        variant="filled" />
+    <p-checkbox [(ngModel)]="checked" [binary]="true" variant="filled" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

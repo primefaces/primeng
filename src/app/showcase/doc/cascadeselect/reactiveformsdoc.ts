@@ -117,26 +117,12 @@ export class ReactiveFormsDoc implements OnInit {
 
     code: Code = {
         basic: `<form [formGroup]="formGroup">
-    <p-cascadeselect 
-        formControlName="selectedCity" 
-        [options]="countries" 
-        optionLabel="cname" 
-        optionGroupLabel="name" 
-        [optionGroupChildren]="['states', 'cities']" 
-        [style]="{ minWidth: '14rem' }"
-        placeholder="Select a City" />
+    <p-cascadeselect formControlName="selectedCity" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" [style]="{ minWidth: '14rem' }" placeholder="Select a City" />
 </form>`,
 
         html: `<div class="card flex justify-center">
     <form [formGroup]="formGroup">
-        <p-cascadeselect 
-            formControlName="selectedCity"
-            [options]="countries"
-            optionLabel="cname"
-            optionGroupLabel="name" 
-            [optionGroupChildren]="['states', 'cities']"
-            [style]="{ minWidth: '14rem' }" 
-            placeholder="Select a City" />
+        <p-cascadeselect formControlName="selectedCity" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" [style]="{ minWidth: '14rem' }" placeholder="Select a City" />
     </form>
 </div>`,
 

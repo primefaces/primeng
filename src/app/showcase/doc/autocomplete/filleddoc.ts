@@ -31,18 +31,10 @@ export class FilledDoc {
     }
 
     code: Code = {
-        basic: `<p-autocomplete
-    [(ngModel)]="selectedItem"
-    [suggestions]="suggestions"
-    (completeMethod)="search($event)"
-    variant="filled" />`,
+        basic: `<p-autocomplete [(ngModel)]="selectedItem" [suggestions]="suggestions" (completeMethod)="search($event)" variant="filled" />`,
 
         html: `<div class="card flex justify-center">
-    <p-autocomplete
-        [(ngModel)]="selectedItem"
-        [suggestions]="suggestions"
-        (completeMethod)="search($event)"
-        variant="filled" />
+    <p-autocomplete [(ngModel)]="selectedItem" [suggestions]="suggestions" (completeMethod)="search($event)" variant="filled" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
