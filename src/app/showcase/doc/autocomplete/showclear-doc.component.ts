@@ -1,6 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Code } from '@domain/code';
 import { CountryService } from '@service/countryservice';
+import { PlatformService } from '@service/platformservice';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 interface AutoCompleteCompleteEvent {
     originalEvent: Event;
@@ -8,32 +10,34 @@ interface AutoCompleteCompleteEvent {
 }
 
 @Component({
-    selector: 'force-selection-doc',
-    template: ` <app-docsectiontext>
-            <p>ForceSelection mode validates the manual input to check whether it also exists in the suggestions list, if not the input value is cleared to make sure the value passed to the model is always one of the suggestions.</p>
+    selector: 'dropdown-clear-icon-demo',
+    template: `
+        <app-docsectiontext>
+            <p>When <i>showClear</i> is enabled, a clear icon is added to reset the Autocomplete.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
-            <p-autoComplete [(ngModel)]="selectedCountry" [forceSelection]="true" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" optionLabel="name" />
+        <div class="card flex justify-content-center" [formGroup]="countryFormGroup">
+            <p-autoComplete formControlName="country" [dropdown]="true" [showClear]="true" placeholder="Search" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" optionLabel="name" />
         </div>
-        <app-code [code]="code" selector="autocomplete-force-selection-demo"></app-code>`
+        <app-code [code]="code" selector="dropdown-clear-icon-demo"></app-code>
+    `
 })
-export class ForceSelectionDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
+export class ShowClearDoc implements OnInit {
     countries: any[] | undefined;
 
-    selectedCountry: any;
+    countryFormGroup: FormGroup = this.formBuilder.group({
+        'country': [{ name: 'Switzerland', code: 'CH' }]
+    });
 
     filteredCountries: any[] | undefined;
 
-    constructor(private countryService: CountryService) {}
+    constructor(private countryService: CountryService, private PlatformService: PlatformService, private formBuilder: FormBuilder) {}
 
     ngOnInit() {
-        this.countryService.getCountries().then((countries) => {
-            this.countries = countries;
-        });
+        if (this.PlatformService.isBrowser()) {
+            this.countryService.getCountries().then((countries) => {
+                this.countries = countries;
+            });
+        }
     }
 
     filterCountry(event: AutoCompleteCompleteEvent) {
@@ -52,16 +56,18 @@ export class ForceSelectionDoc implements OnInit {
 
     code: Code = {
         basic: `<p-autoComplete
-    [(ngModel)]="selectedCountry"
-    [forceSelection]="true"
+    formControlName="country"
+    [dropdown]="true"
+    [showClear]="true"
     [suggestions]="filteredCountries"
     (completeMethod)="filterCountry($event)"
     optionLabel="name" />`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-content-center" [formGroup]="countryFormGroup">
     <p-autoComplete
-        [(ngModel)]="selectedCountry"
-        [forceSelection]="true"
+        formControlName="country"
+        [dropdown]="true"
+        [showClear]="true"
         [suggestions]="filteredCountries"
         (completeMethod)="filterCountry($event)"
         optionLabel="name" />
@@ -69,8 +75,9 @@ export class ForceSelectionDoc implements OnInit {
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { CountryService } from '@service/countryservice';
-import { AutoCompleteModule } from 'primeng/autocomplete';
 import { FormsModule } from '@angular/forms';
+import { AutoCompleteModule } from 'primeng/autocomplete';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 interface AutoCompleteCompleteEvent {
     originalEvent: Event;
@@ -78,20 +85,22 @@ interface AutoCompleteCompleteEvent {
 }
 
 @Component({
-    selector: 'autocomplete-force-selection-demo',
-    templateUrl: './autocomplete-force-selection-demo.html',
-    standalone: true,
+    selector: 'autocomplete-dropdown-demo',
+    templateUrl: './autocomplete-dropdown-demo.html',
+    standalone:true,
     imports: [FormsModule, AutoCompleteModule],
-    providers: [CountryService]
+    providers:[CountryService]
 })
-export class AutocompleteForceSelectionDemo implements OnInit {
+export class AutocompleteShowClearDemo implements OnInit {
     countries: any[] | undefined;
 
-    selectedCountry: any;
+    countryFormGroup: FormGroup = this.formBuilder.group({
+        'country': [{ name: 'Switzerland', code: 'CH' }]
+    });
 
     filteredCountries: any[] | undefined;
 
-    constructor(private countryService: CountryService) {}
+    constructor(private countryService: CountryService, private formBuilder: FormBuilder) {}
 
     ngOnInit() {
         this.countryService.getCountries().then((countries) => {

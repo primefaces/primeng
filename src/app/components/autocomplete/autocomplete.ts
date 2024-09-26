@@ -94,7 +94,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                 (paste)="onInputPaste($event)"
                 (keyup)="onInputKeyUp($event)"
             />
-            <ng-container *ngIf="filled && !disabled && showClear && !loading">
+            <ng-container *ngIf="isVisibleClearIcon">
                 <TimesIcon *ngIf="!clearIconTemplate" [styleClass]="'p-autocomplete-clear-icon'" (click)="clear()" [attr.aria-hidden]="true" />
                 <span *ngIf="clearIconTemplate" class="p-autocomplete-clear-icon" (click)="clear()" [attr.aria-hidden]="true">
                     <ng-template *ngTemplateOutlet="clearIconTemplate"></ng-template>
@@ -878,6 +878,10 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
 
     get optionValueSelected() {
         return typeof this.modelValue() === 'string' && this.optionValue;
+    }
+
+    get isVisibleClearIcon(): boolean | undefined {
+        return this.modelValue() != null && this.hasSelectedOption() && this.showClear && !this.disabled && !this.loading;
     }
 
     constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public config: PrimeNGConfig, public overlayService: OverlayService, private zone: NgZone) {
