@@ -50,7 +50,7 @@ export class CascadeSelectDemo {
         },
         {
             id: 'loading',
-            label: 'Loading',
+            label: 'Loading State',
             component: LoadingDoc,
         },
         {

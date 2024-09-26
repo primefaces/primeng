@@ -15,16 +15,10 @@ import { Code } from '@domain/code';
 })
 export class LoadingDoc {
     code: Code = {
-        basic: `<p-cascadeselect 
-    [loading]="true" 
-    [style]="{ minWidth: '14rem' }"
-    placeholder="Loading..." />`,
+        basic: `<p-cascadeselect [loading]="true" [style]="{ minWidth: '14rem' }" placeholder="Loading..." />`,
 
         html: `<div class="card flex justify-center">
-    <p-cascadeselect 
-        [loading]="true"
-        [style]="{ minWidth: '14rem' }" 
-        placeholder="Loading..." />
+    <p-cascadeselect [loading]="true" [style]="{ minWidth: '14rem' }" placeholder="Loading..." />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
