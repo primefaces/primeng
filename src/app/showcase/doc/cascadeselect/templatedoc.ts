@@ -135,10 +135,7 @@ export class TemplateDoc {
     placeholder="Select a City">
     <ng-template pTemplate="option" let-option>
         <div class="flex items-center gap-2">
-            <img 
-                src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
-                *ngIf="option.states" 
-                [class]="'flag flag-' + option.code.toLowerCase()"/>
+            <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" *ngIf="option.states" [class]="'flag flag-' + option.code.toLowerCase()" />
             <i class="pi pi-compass mr-2" *ngIf="option.cities"></i>
             <i class="pi pi-map-marker mr-2" *ngIf="option.cname"></i>
             <span>{{ option.cname || option.name }}</span>
@@ -160,10 +157,7 @@ export class TemplateDoc {
         placeholder="Select a City">
             <ng-template pTemplate="option" let-option>
                 <div class="flex items-center gap-2">
-                    <img 
-                        src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
-                        *ngIf="option.states"
-                        [class]="'flag flag-' + option.code.toLowerCase()"/>
+                    <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" *ngIf="option.states" [class]="'flag flag-' + option.code.toLowerCase()" />
                     <i class="pi pi-compass mr-2" *ngIf="option.cities"></i>
                     <i class="pi pi-map-marker mr-2" *ngIf="option.cname"></i>
                     <span>{{ option.cname || option.name }}</span>
