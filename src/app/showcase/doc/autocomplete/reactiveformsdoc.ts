@@ -20,64 +20,30 @@ interface AutoCompleteCompleteEvent {
             <form [formGroup]="formGroup">
                 <p-autocomplete
                     formControlName="selectedCountry"
-                    [suggestions]="filteredCountries"
-                    (completeMethod)="filterCountry($event)"
-                    field="name"
-                    placeholder="Search"
+                    [suggestions]="items"
+                    (completeMethod)="search($event)"
                 />
             </form>
         </div>
         <app-code [code]="code" selector="autocomplete-reactive-forms-demo"></app-code>`,
 })
-export class ReactiveFormsDoc implements OnInit {
-    countries: any[] | undefined;
+export class ReactiveFormsDoc {
+    items: any[] | undefined;
 
     formGroup: FormGroup | undefined;
 
-    filteredCountries: any[] | undefined;
-
-    constructor(private countryService: CountryService) {}
-
-    ngOnInit() {
-        this.countryService.getCountries().then((countries) => {
-            this.countries = countries;
-        });
-
-        this.formGroup = new FormGroup({
-            selectedCountry: new FormControl<object | null>(null),
-        });
-    }
-
-    filterCountry(event: AutoCompleteCompleteEvent) {
-        let filtered: any[] = [];
-        let query = event.query;
-
-        for (let i = 0; i < (this.countries as any[]).length; i++) {
-            let country = (this.countries as any[])[i];
-            if (country.name.toLowerCase().indexOf(query.toLowerCase()) == 0) {
-                filtered.push(country);
-            }
-        }
-
-        this.filteredCountries = filtered;
+    search(event: AutoCompleteCompleteEvent) {
+        this.items = [...Array(10).keys()].map((item) => event.query + '-' + item);
     }
 
     code: Code = {
         basic: `<form [formGroup]="formGroup">
-    <p-autocomplete 
-        formControlName="selectedCountry"
-        [suggestions]="filteredCountries" 
-        (completeMethod)="filterCountry($event)" 
-        field="name" />
+    <p-autocomplete formControlName="selectedCountry" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name" />
 </form>`,
 
         html: `<div class="card flex justify-center">
     <form [formGroup]="formGroup">
-        <p-autocomplete 
-            formControlName="selectedCountry"
-            [suggestions]="filteredCountries" 
-            (completeMethod)="filterCountry($event)" 
-            field="name" />
+        <p-autocomplete formControlName="selectedCountry" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name" />
     </form>
 </div>`,
 
@@ -99,46 +65,13 @@ interface AutoCompleteCompleteEvent {
     providers: [CountryService]
 })
 export class AutocompleteReactiveFormsDemo implements OnInit {
-    countries: any[] | undefined;
+    items: any[] | undefined;
 
     formGroup: FormGroup | undefined;
 
-    filteredCountries: any[] | undefined;
-
-    constructor(private countryService: CountryService) {}
-
-    ngOnInit() {
-        this.countryService.getCountries().then((countries) => {
-            this.countries = countries;
-        });
-
-        this.formGroup = new FormGroup({
-            selectedCountry: new FormControl<object | null>(null)
-        });
-    }
-
-    filterCountry(event: AutoCompleteCompleteEvent) {
-        let filtered: any[] = [];
-        let query = event.query;
-
-        for (let i = 0; i < (this.countries as any[]).length; i++) {
-            let country = (this.countries as any[])[i];
-            if (country.name.toLowerCase().indexOf(query.toLowerCase()) == 0) {
-                filtered.push(country);
-            }
-        }
-
-        this.filteredCountries = filtered;
+    search(event: AutoCompleteCompleteEvent) {
+        this.items = [...Array(10).keys()].map((item) => event.query + '-' + item);
     }
 }`,
-        service: ['CountryService'],
-
-        data: `
-//CountryService
-{
-    "name": "Afghanistan",
-    "code": "AF"
-}
-...`,
     };
 }
