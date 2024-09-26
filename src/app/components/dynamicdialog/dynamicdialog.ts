@@ -43,7 +43,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
 @Component({
     selector: 'p-dynamicDialog',
     template: `
-        <div #mask [ngClass]="cx('mask')" [ngStyle]="sx('mask')" [class]="ddconfig.maskStyleClass">
+        <div #mask [ngStyle]="sx('mask')" [class]="ddconfig.maskStyleClass" [ngClass]="maskClass">
             <div
                 *ngIf="visible"
                 #container
@@ -292,6 +292,17 @@ export class DynamicDialogComponent extends BaseComponent implements AfterViewIn
 
     get closeIconTemplate() {
         return this.ddconfig?.templates?.closeicon;
+    }
+
+    get maskClass() {
+        const positions = ['left', 'right', 'top', 'topleft', 'topright', 'bottom', 'bottomleft', 'bottomright'];
+        const pos = positions.find((item) => item === this.position);
+
+        return {
+            'p-dialog-mask': true,
+            'p-overlay-mask p-overlay-mask-enter': this.ddconfig.modal || this.ddconfig.dismissableMask,
+            [`p-dialog-${pos}`]: pos,
+        };
     }
 
     constructor(
