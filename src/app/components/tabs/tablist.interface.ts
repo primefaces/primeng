@@ -1,10 +1,10 @@
 import { TemplateRef } from '@angular/core';
 
 /**
- * Defines valid templates in Tabs.
+ * Defines valid templates in TabList.
  * @group Templates
  */
-export interface TabsTemplates {
+export interface TabListTemplates {
     /**
      * Previous button icon template for the scrollable component.
      */
