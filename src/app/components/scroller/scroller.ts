@@ -21,13 +21,19 @@ import {
     SimpleChanges,
     TemplateRef,
     ViewChild,
-    ViewEncapsulation
+    ViewEncapsulation,
 } from '@angular/core';
 import { PrimeTemplate, ScrollerOptions, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { SpinnerIcon } from 'primeng/icons/spinner';
-import { Nullable, VoidListener } from 'primeng/ts-helpers';
-import { ScrollerLazyLoadEvent, ScrollerScrollEvent, ScrollerScrollIndexChangeEvent, ScrollerToType } from './scroller.interface';
+import { Nullable } from 'primeng/ts-helpers';
+import {
+    ScrollerLazyLoadEvent,
+    ScrollerScrollEvent,
+    ScrollerScrollIndexChangeEvent,
+    ScrollerToType,
+} from './scroller.interface';
+
 /**
  * Scroller is a performance-approach to handle huge data efficiently.
  * @group Components
@@ -874,14 +880,13 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
 
     setSpacerSize() {
         if (this._items) {
-            const setProp = (_name, _count, _size) => (this.spacerStyle = { ...this.spacerStyle, ...{[`${_name}`]: _count * _size + 'px' }});
+            const setProp = (_name, _count, _size) => (this.spacerStyle = { ...this.spacerStyle, ...{ [`${_name}`]: _count * _size + 'px' } });
 
             const numItems = this._items.length;
             if (this.both) {
                 setProp('height', numItems, this._itemSize[0]);
                 setProp('width', this._columns?.length || this._items[1]?.length, this._itemSize[1]);
-            }
-            else {
+            } else {
                 this.horizontal ? setProp('width', this._columns.length || this._items.length, this._itemSize) : setProp('height', numItems, this._itemSize);
             }
         }

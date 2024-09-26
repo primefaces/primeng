@@ -25,12 +25,16 @@ export class ShowClearDoc implements OnInit {
     countries: any[] | undefined;
 
     countryFormGroup: FormGroup = this.formBuilder.group({
-        'country': [{ name: 'Switzerland', code: 'CH' }]
+        country: [{ name: 'Switzerland', code: 'CH' }]
     });
 
     filteredCountries: any[] | undefined;
 
-    constructor(private countryService: CountryService, private PlatformService: PlatformService, private formBuilder: FormBuilder) {}
+    constructor(
+        private countryService: CountryService,
+        private PlatformService: PlatformService,
+        private formBuilder: FormBuilder
+    ) {}
 
     ngOnInit() {
         if (this.PlatformService.isBrowser()) {

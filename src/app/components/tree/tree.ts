@@ -24,11 +24,10 @@ import {
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
-import { BlockableUI, PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys, TreeDragDropService, TreeNode } from 'primeng/api';
+import { BlockableUI, PrimeNGConfig, PrimeTemplate, ScrollerOptions, SharedModule, TranslationKeys, TreeDragDropService, TreeNode } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { RippleModule } from 'primeng/ripple';
 import { Scroller, ScrollerModule } from 'primeng/scroller';
-import { ScrollerOptions } from 'primeng/api';
 import { ObjectUtils } from 'primeng/utils';
 import { Subscription } from 'rxjs';
 import { CheckIcon } from 'primeng/icons/check';
@@ -1542,20 +1541,20 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
             }
         }
     }
-  
-    filterUnselectableChildren(node: TreeNode): TreeNode {
-      let clonedNode = Object.assign({}, node); 
-      
-      if (clonedNode.children && clonedNode.children.length) {
-        for (let child of clonedNode.children) {
-          if (child.selectable === false) {
-            clonedNode.children = clonedNode.children.filter((val: TreeNode) => val != child);
-          }
-          child = this.filterUnselectableChildren(child);
-        }
-      }
 
-      return clonedNode;
+    filterUnselectableChildren(node: TreeNode): TreeNode {
+        let clonedNode = Object.assign({}, node);
+
+        if (clonedNode.children && clonedNode.children.length) {
+            for (let child of clonedNode.children) {
+                if (child.selectable === false) {
+                    clonedNode.children = clonedNode.children.filter((val: TreeNode) => val != child);
+                }
+                child = this.filterUnselectableChildren(child);
+            }
+        }
+
+        return clonedNode;
     }
 
     isSelected(node: TreeNode) {

@@ -37,7 +37,7 @@ import { ChevronDownIcon } from 'primeng/icons/chevrondown';
 import { TimesIcon } from 'primeng/icons/times';
 import { CalendarIcon } from 'primeng/icons/calendar';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
-import { NavigationState, CalendarResponsiveOptions, CalendarTypeView, LocaleSettings, Month, CalendarMonthChangeEvent, CalendarYearChangeEvent } from './calendar.interface';
+import { CalendarMonthChangeEvent, CalendarResponsiveOptions, CalendarTypeView, CalendarYearChangeEvent, LocaleSettings, Month, NavigationState } from './calendar.interface';
 import { AutoFocusModule } from 'primeng/autofocus';
 
 export const CALENDAR_VALUE_ACCESSOR: any = {
@@ -1847,7 +1847,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         if (!this.isComparable()) return false;
         if (this.isMultipleSelection()) return false;
 
-        let value = this.isRangeSelection() ? this.value[0] : this.value; 
+        let value = this.isRangeSelection() ? this.value[0] : this.value;
         return value ? value.getFullYear() === year : false;
     }
 
