@@ -445,7 +445,7 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
      */
     @Output() onImageError: EventEmitter<Event> = new EventEmitter<Event>();
     /**
-     * This event is triggered if an error occurs while loading an image file.
+     * This event is triggered if an error occurs while removing an uploaded file.
      * @param {RemoveUploadedFileEvent} event - Remove event.
      * @group Emits
      */
