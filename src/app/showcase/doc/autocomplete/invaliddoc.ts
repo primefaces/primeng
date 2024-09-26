@@ -33,7 +33,7 @@ export class InvalidDoc {
     }
 
     code: Code = {
-        basic: `<p-autocomplete class="ng-invalid ng-dirty"  [(ngModel)]="selectedItem"  [suggestions]="suggestions"  (completeMethod)="search($event)" />`,
+        basic: `<p-autocomplete class="ng-invalid ng-dirty" [(ngModel)]="selectedItem" [suggestions]="suggestions" (completeMethod)="search($event)" />`,
 
         html: `<div class="card flex justify-center">
     <p-autocomplete class="ng-invalid ng-dirty" [(ngModel)]="selectedItem" [suggestions]="suggestions" (completeMethod)="search($event)" />
