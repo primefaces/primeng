@@ -21,7 +21,6 @@ interface AutoCompleteCompleteEvent {
                 [suggestions]="filteredCountries"
                 (completeMethod)="filterCountry($event)"
                 optionLabel="name"
-                placeholder="Search"
             >
                 <ng-template let-country pTemplate="item">
                     <div class="flex items-center gap-2">

@@ -20,7 +20,6 @@ interface AutoCompleteCompleteEvent {
             <p-autocomplete
                 [(ngModel)]="value"
                 [dropdown]="true"
-                placeholder="Search"
                 [suggestions]="items"
                 (completeMethod)="search($event)"
             />
@@ -39,10 +38,10 @@ export class DropdownDoc {
     }
 
     code: Code = {
-        basic: `<p-autocomplete [(ngModel)]="value" [dropdown]="true" placeholder="Search" [suggestions]="items" (completeMethod)="search($event)" />`,
+        basic: `<p-autocomplete [(ngModel)]="value" [dropdown]="true" [suggestions]="items" (completeMethod)="search($event)" />`,
 
         html: `<div class="card flex justify-center">
-    <p-autocomplete [(ngModel)]="value" [dropdown]="true" placeholder="Search" [suggestions]="items" (completeMethod)="search($event)" />
+    <p-autocomplete [(ngModel)]="value" [dropdown]="true" [suggestions]="items" (completeMethod)="search($event)" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
