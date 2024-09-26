@@ -8,46 +8,81 @@ import { Code } from '@domain/code';
             <p>Adding <i>scrollable</i> property displays navigational buttons at each side to scroll between tabs.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-tabs [(activeIndex)]="activeIndex" [scrollable]="true">
-                <p-tabpanel *ngFor="let tab of scrollableTabs" [header]="tab.title">
-                    <p>{{ tab.content }}</p>
-                </p-tabpanel>
+            <p-tabs value="0" scrollable>
+                <p-tablist>
+                    @for (tab of scrollableTabs; track tab.value) {
+                        <p-tab [value]="tab.value">
+                            {{ tab.title }}
+                        </p-tab>
+                    }
+                </p-tablist>
+                <p-tabpanels>
+                    @for (tab of scrollableTabs; track tab.value) {
+                        <p-tabpanel [value]="tab.value">
+                            <p class="m-0">{{ tab.content }}</p>
+                        </p-tabpanel>
+                    }
+                </p-tabpanels>
             </p-tabs>
         </div>
         <app-code [code]="code" selector="tabs-scrollable-demo"></app-code>
     `,
 })
 export class ScrollableDoc {
-    activeIndex: number = 0;
-
-    scrollableTabs: any[] = Array.from({ length: 50 }, (_, i) => ({ title: `Tab ${i + 1}`, content: `Tab ${i + 1} Content` }));
+    scrollableTabs: any[] = Array.from({ length: 50 }, (_, i) => ({
+        title: `Tab ${i + 1}`,
+        content: `Tab ${i + 1} Content`,
+        value: `${i}`,,
+    }));
 
     code: Code = {
-        basic: `<p-tabs [(activeIndex)]="activeIndex" [scrollable]="true">
-    <p-tabpanel *ngFor="let tab of scrollableTabs" [header]="tab.title">
-        <p>{{ tab.content }}</p>
-    </p-tabpanel>
+        basic: `<p-tabs value="0" scrollable>
+    <p-tablist>
+        @for(tab of scrollableTabs; track tab.value){
+            <p-tab [value]="tab.value">
+                {{ tab.title }}
+            </p-tab>
+        }
+    </p-tablist>
+    <p-tabpanels>
+        @for(tab of scrollableTabs; track tab.value){
+            <p-tabpanel [value]="tab.value">
+                <p class="m-0">{{ tab.content }}</p>
+            </p-tabpanel>
+        }
+    </p-tabpanels>
 </p-tabs>`,
 
         html: `<div class="card">
-    <p-tabs [(activeIndex)]="activeIndex" [scrollable]="true">
-        <p-tabpanel *ngFor="let tab of scrollableTabs" [header]="tab.title">
-            <p>{{ tab.content }}</p>
-        </p-tabpanel>
+    <p-tabs value="0" scrollable>
+        <p-tablist>
+            @for(tab of scrollableTabs; track tab.value){
+                <p-tab [value]="tab.value">
+                    {{ tab.title }}
+                </p-tab>
+            }
+        </p-tablist>
+        <p-tabpanels>
+            @for(tab of scrollableTabs; track tab.value){
+                <p-tabpanel [value]="tab.value">
+                    <p class="m-0">{{ tab.content }}</p>
+                </p-tabpanel>
+            }
+        </p-tabpanels>
     </p-tabs>
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { Tabs, TabPanel } from 'primeng/tabs';
+import { TabsModule } from 'primeng/tabs';
 import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'tabs-scrollable-demo',
     templateUrl: './tabs-scrollable-demo.html',
     standalone: true,
-    imports: [Tabs, TabPanel, CommonModule]
+    imports: [CommonModule, TabsModule]
 })
-export class TabViewScrollableDemo {
+export class TabsScrollableDemo {
     activeIndex: number = 0;
 
     scrollableTabs: any[] = Array.from({ length: 50 }, (_, i) => ({ title: "Title", content: "Content" }));

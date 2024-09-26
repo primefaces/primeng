@@ -246,7 +246,6 @@ export const routes: Routes = [
             },
             { path: 'tag', loadChildren: () => import('@pages/tag/routes') },
             { path: 'table', loadChildren: () => import('@pages/table/routes') },
-            { path: 'tabmenu', loadChildren: () => import('@pages/tabmenu/routes') },
             { path: 'tabs', loadChildren: () => import('@pages/tabs/routes') },
             {
                 path: 'tailwind',

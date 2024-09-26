@@ -5,71 +5,90 @@ import { Code } from '@domain/code';
     selector: 'dynamic-doc',
     template: `
         <app-docsectiontext>
-            <p>Tabs can be generated dynamically using the standard <i>ngFor</i> directive.</p>
+            <p>Tabs can be generated dynamically using the standard <i>&#64;for</i> block.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-tabs>
-                <p-tabpanel *ngFor="let tab of tabs" [header]="tab.title">
-                    <p>
-                        {{ tab.content }}
-                    </p>
-                </p-tabpanel>
+            <p-tabs value="0">
+                <p-tablist>
+                    @for (tab of tabs; track tab.value) {
+                        <p-tab [value]="tab.value">{{ tab.title }}</p-tab>
+                    }
+                </p-tablist>
+                <p-tabpanels>
+                    @for (tab of tabs; track tab.value) {
+                        <p-tabpanel [value]="tab.value">
+                            <p class="m-0">{{ tab.content }}</p>
+                        </p-tabpanel>
+                    }
+                </p-tabpanels>
             </p-tabs>
         </div>
         <app-code [code]="code" selector="tabs-dynamic-demo"></app-code>
     `,
 })
 export class DynamicDoc implements OnInit {
-    tabs: { title: string; content: string }[] = [];
-
-    ngOnInit() {
-        this.tabs = [
-            { title: 'Tab 1', content: 'Tab 1 Content' },
-            { title: 'Tab 2', content: 'Tab 2 Content' },
-            { title: 'Tab 3', content: 'Tab 3 Content' },
-        ];
-    }
-
+    tabs: { title: string; value: string; content: string }[] = [];
     code: Code = {
-        basic: `<p-tabs>
-    <p-tabpanel *ngFor="let tab of tabs" [header]="tab.title">
-        <p>
-            {{ tab.content }}
-        </p>
-    </p-tabpanel>
+        basic: `<p-tabs value="0">
+    <p-tablist>
+        @for (tab of tabs; track tab.value) {
+            <p-tab [value]="tab.value">{{ tab.title }}</p-tab>
+        }
+    </p-tablist>
+    <p-tabpanels>
+        @for (tab of tabs; track tab.value) {
+            <p-tabpanel [value]="tab.value">
+                <p class="m-0">{{ tab.content }}</p>
+            </p-tabpanel>
+        }
+    </p-tabpanels>
 </p-tabs>`,
 
         html: `<div class="card">
-<p-tabs>
-<p-tabpanel *ngFor="let tab of tabs" [header]="tab.title">
-    <p>
-        {{ tab.content }}
-    </p>
-</p-tabpanel>
-</p-tabs>
+    <p-tabs value="0">
+        <p-tablist>
+            @for (tab of tabs; track tab.value) {
+                <p-tab [value]="tab.value">{{ tab.title }}</p-tab>
+            }
+        </p-tablist>
+        <p-tabpanels>
+            @for (tab of tabs; track tab.value) {
+                <p-tabpanel [value]="tab.value">
+                    <p class="m-0">{{ tab.content }}</p>
+                </p-tabpanel>
+            }
+        </p-tabpanels>
+    </p-tabs>
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
-import { Tabs, TabPanel } from 'primeng/tabs';
+import { TabsModule } from 'primeng/tabs';
 import { CommonModule } from '@angular/common';
 
 @Component({
-    selector: 'tabs-basic-demo',
-    templateUrl: './tabs-basic-demo.html',
+    selector: 'tabs-dynamic-demo',
+    templateUrl: './tabs-dynamic-demo.html',
     standalone: true,
-    imports: [Tabs, TabPanel, CommonModule]
+    imports: [TabsModule, CommonModule]
 })
-export class TabViewBasicDemo imlements onInit {
-    tabs: { title: string, content: string }[] = [];
+export class TabsDynamicDemo implements OnInit {
+    tabs: { title: string; value: number; content: string }[] = [];
 
     ngOnInit() {
         this.tabs = [
-            { title: 'Tab 1', content: 'Tab 1 Content' },
-            { title: 'Tab 2', content: 'Tab 2 Content' },
-            { title: 'Tab 3', content: 'Tab 3 Content' }
+            { title: 'Tab 1', value: 0, content: 'Tab 1 Content' },
+            { title: 'Tab 2', value: 1, content: 'Tab 2 Content' },
+            { title: 'Tab 3', value: 2, content: 'Tab 3 Content' },
         ];
     }
-
 }`,
     };
+
+    ngOnInit() {
+        this.tabs = [
+            { title: 'Tab 1', value: '0', content: 'Tab 1 Content' },
+            { title: 'Tab 2', value: '1', content: 'Tab 2 Content' },
+            { title: 'Tab 3', value: '2', content: 'Tab 3 Content' },
+        ];
+    }
 }

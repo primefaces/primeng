@@ -17,7 +17,7 @@ import { RatingModule } from 'primeng/rating';
 import { SkeletonModule } from 'primeng/skeleton';
 import { SliderModule } from 'primeng/slider';
 import { TableModule } from 'primeng/table';
-import { Tabs, TabPanel } from 'primeng/tabs';
+import { TabsModule } from 'primeng/tabs';
 import { TagModule } from 'primeng/tag';
 import { ToastModule } from 'primeng/toast';
 import { ToggleButtonModule } from 'primeng/togglebutton';
@@ -109,8 +109,7 @@ import { TextareaModule } from 'primeng/textarea';
         RadioButtonModule,
         ToolbarModule,
         FileUploadModule,
-        Tabs,
-        TabPanel,
+        TabsModule,
         ToggleButtonModule,
         RatingModule,
         SkeletonModule,
