@@ -9,7 +9,7 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-floatlabel>
-                <input id="username" pInputText [(ngModel)]="value" />
+                <input id="username" pInputText [(ngModel)]="value" autocomplete="off" />
                 <label for="username">Username</label>
             </p-floatlabel>
         </div>
