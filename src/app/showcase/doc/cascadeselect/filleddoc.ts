@@ -108,26 +108,10 @@ export class FilledDoc {
     }
 
     code: Code = {
-        basic: `<p-cascadeselect 
-    [(ngModel)]="selectedCity" 
-    variant="filled"
-    [options]="countries" 
-    optionLabel="cname" 
-    optionGroupLabel="name" 
-    [optionGroupChildren]="['states', 'cities']" 
-    [style]="{ minWidth: '14rem' }"
-    placeholder="Select a City" />`,
+        basic: `<p-cascadeselect [(ngModel)]="selectedCity" variant="filled" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" [style]="{ minWidth: '14rem' }" placeholder="Select a City" />`,
 
         html: `<div class="card flex justify-center">
-    <p-cascadeselect 
-        [(ngModel)]="selectedCity" 
-        variant="filled"
-        [options]="countries" 
-        optionLabel="cname"
-        optionGroupLabel="name" 
-        [optionGroupChildren]="['states', 'cities']" 
-        [style]="{ minWidth: '14rem' }" 
-        placeholder="Select a City" />
+    <p-cascadeselect [(ngModel)]="selectedCity" variant="filled" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" [style]="{ minWidth: '14rem' }" placeholder="Select a City" />
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
