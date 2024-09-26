@@ -1,7 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '@domain/code';
-import { CountryService } from '@service/countryservice';
-import { PlatformService } from '@service/platformservice';
 
 interface AutoCompleteCompleteEvent {
     originalEvent: Event;
@@ -20,69 +18,32 @@ interface AutoCompleteCompleteEvent {
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-autocomplete
-                [(ngModel)]="selectedCountry"
+                [(ngModel)]="value"
                 [dropdown]="true"
                 placeholder="Search"
-                [suggestions]="filteredCountries"
-                (completeMethod)="filterCountry($event)"
-                field="name"
+                [suggestions]="items"
+                (completeMethod)="search($event)"
             />
         </div>
         <app-code [code]="code" selector="autocomplete-dropdown-demo"></app-code>`,
 })
-export class DropdownDoc implements OnInit {
-    countries: any[] | undefined;
+export class DropdownDoc {
+    items: any[] | undefined;
 
-    selectedCountry: any;
+    value: any;
 
-    filteredCountries: any[] | undefined;
-
-    constructor(
-        private countryService: CountryService,
-        private PlatformService: PlatformService,
-    ) {}
-
-    ngOnInit() {
-        if (this.PlatformService.isBrowser()) {
-            this.countryService.getCountries().then((countries) => {
-                this.countries = countries;
-            });
-        }
-    }
-
-    filterCountry(event: AutoCompleteCompleteEvent) {
-        let filtered: any[] = [];
-        let query = event.query;
-
-        for (let i = 0; i < (this.countries as any[]).length; i++) {
-            let country = (this.countries as any[])[i];
-            if (country.name.toLowerCase().indexOf(query.toLowerCase()) == 0) {
-                filtered.push(country);
-            }
-        }
-
-        this.filteredCountries = filtered;
+    search(event: AutoCompleteCompleteEvent) {
+        this.items = [...Array(10).keys()].map((item) => event.query + '-' + item);
     }
 
     code: Code = {
-        basic: `<p-autocomplete 
-    [(ngModel)]="selectedCountry" 
-    [dropdown]="true" 
-    [suggestions]="filteredCountries" 
-    (completeMethod)="filterCountry($event)" 
-    field="name" />`,
+        basic: `<p-autocomplete [(ngModel)]="value" [dropdown]="true" placeholder="Search" [suggestions]="items" (completeMethod)="search($event)" />`,
 
         html: `<div class="card flex justify-center">
-    <p-autocomplete 
-        [(ngModel)]="selectedCountry" 
-        [dropdown]="true" 
-        [suggestions]="filteredCountries" 
-        (completeMethod)="filterCountry($event)" 
-        field="name" />
+    <p-autocomplete [(ngModel)]="value" [dropdown]="true" placeholder="Search" [suggestions]="items" (completeMethod)="search($event)" />
 </div>`,
 
-        typescript: `import { Component, OnInit } from '@angular/core';
-import { CountryService } from '@service/countryservice';
+        typescript: `import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 
@@ -95,46 +56,16 @@ interface AutoCompleteCompleteEvent {
     selector: 'autocomplete-dropdown-demo',
     templateUrl: './autocomplete-dropdown-demo.html',
     standalone:true,
-    imports: [FormsModule, AutoCompleteModule],
-    providers:[CountryService]
+    imports: [FormsModule, AutoCompleteModule]
 })
 export class AutocompleteDropdownDemo implements OnInit {
-    countries: any[] | undefined;
+    items: any[] | undefined;
 
-    selectedCountry: any;
+    value: any;
 
-    filteredCountries: any[] | undefined;
-
-    constructor(private countryService: CountryService) {}
-
-    ngOnInit() {
-        this.countryService.getCountries().then((countries) => {
-            this.countries = countries;
-        });
-    }
-
-    filterCountry(event: AutoCompleteCompleteEvent) {
-        let filtered: any[] = [];
-        let query = event.query;
-
-        for (let i = 0; i < (this.countries as any[]).length; i++) {
-            let country = (this.countries as any[])[i];
-            if (country.name.toLowerCase().indexOf(query.toLowerCase()) == 0) {
-                filtered.push(country);
-            }
-        }
-
-        this.filteredCountries = filtered;
+    search(event: AutoCompleteCompleteEvent) {
+        this.items = [...Array(10).keys()].map((item) => event.query + '-' + item);
     }
 }`,
-        service: ['CountryService'],
-
-        data: `
-//CountryService
-{
-    "name": "Afghanistan",
-    "code": "AF"
-}
-...`,
     };
 }

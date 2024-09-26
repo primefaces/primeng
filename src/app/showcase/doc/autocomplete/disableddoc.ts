@@ -34,18 +34,10 @@ export class DisabledDoc {
     }
 
     code: Code = {
-        basic: `<p-autocomplete 
-    [(ngModel)]="selectedItem" 
-    [suggestions]="suggestions"
-    (completeMethod)="search($event)" 
-    [disabled]="true" />`,
+        basic: `<p-autocomplete [(ngModel)]="selectedItem" [suggestions]="suggestions"(completeMethod)="search($event)" [disabled]="true" />`,
 
         html: `<div class="card flex justify-center">
-    <p-autocomplete 
-        [(ngModel)]="selectedItem" 
-        [suggestions]="suggestions" 
-        (completeMethod)="search($event)" 
-        [disabled]="true" />
+    <p-autocomplete [(ngModel)]="selectedItem" [suggestions]="suggestions" (completeMethod)="search($event)" [disabled]="true" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
