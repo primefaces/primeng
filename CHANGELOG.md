@@ -1,4 +1,26 @@
 # Changelog
+
+## [17.18.11](https://github.com/primefaces/primeng/tree/17.18.11) (2024-09-26)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/17.18.10...17.18.11)
+
+**Fixed bugs:**
+
+- Messages: Messages template does not work if messagemodule is imported alone [\#16253](https://github.com/primefaces/primeng/issues/16253)
+- Component: MultiSelect (Property 'ngOnInit' is missing in type 'MultiSelectTemplateDemo) [\#16256](https://github.com/primefaces/primeng/issues/16256)
+- Table: Scroller is broken when scrollHeight is flex [\#16246](https://github.com/primefaces/primeng/issues/16246)
+- Component: Calendar Year picker [\#14233](https://github.com/primefaces/primeng/issues/14233)
+- Steps: aria-expanded is inappropiate and can be misleading [\#16266](https://github.com/primefaces/primeng/issues/16266)
+- Table: editable column is broken when disabled temporarily [\#16304](https://github.com/primefaces/primeng/issues/16304)
+- Grouping Functionality in p-table Breaks After Pagination Navigation Beyond First Page [\#15192](https://github.com/primefaces/primeng/issues/15192)
+- OrganizationChart collapsible property does not propagate [\#16361](https://github.com/primefaces/primeng/issues/16361)
+- Component: p-table p-columnFilter p-multiSelect [\#16132](https://github.com/primefaces/primeng/issues/16132)
+- ContextMenu, Dock: aria-hidden throws console error [\#16397](https://github.com/primefaces/primeng/issues/16397)
+- Autocomplete Clear Icon not shown if value set programatically [\#16410](https://github.com/primefaces/primeng/issues/16410)
+- p-tree: Unselectable children is selected when selecting parent [\#16430](https://github.com/primefaces/primeng/issues/16430)
+- p-splitter: zero width panel parsed as null [\#16425](https://github.com/primefaces/primeng/issues/16425)
+- Component: Metergroup [\#16439](https://github.com/primefaces/primeng/issues/16439)
+
 ## [18.0.0-beta.2](https://github.com/primefaces/primeng/tree/18.0.0-beta.2) (2024-09-23)
 [Full Changelog](https://github.com/primefaces/primeng/compare/18.0.0-beta.1...18.0.0-beta.2)
 
