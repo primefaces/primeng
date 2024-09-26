@@ -38,14 +38,14 @@ export class CheckboxDemo {
             component: BasicDoc,
         },
         {
-            id: 'indeterminate',
-            label: 'Indeterminate',
-            component: IndeterminateDoc,
-        },
-        {
             id: 'reactive-forms',
             label: 'Reactive Forms',
             component: ReactiveFormsDoc,
+        },
+        {
+            id: 'indeterminate',
+            label: 'Indeterminate',
+            component: IndeterminateDoc,
         },
         {
             id: 'group',
@@ -58,14 +58,14 @@ export class CheckboxDemo {
             component: DynamicDoc,
         },
         {
-            id: 'invalid',
-            label: 'Invalid',
-            component: InvalidDoc,
-        },
-        {
             id: 'filled',
             label: 'Filled',
             component: FilledDoc,
+        },
+        {
+            id: 'invalid',
+            label: 'Invalid',
+            component: InvalidDoc,
         },
         {
             id: 'disabled',

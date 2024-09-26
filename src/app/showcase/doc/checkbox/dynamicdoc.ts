@@ -8,8 +8,8 @@ import { Code } from '@domain/code';
             <p>Checkboxes can be generated using a list of values.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <div class="flex flex-col gap-2">
-                <div *ngFor="let category of categories" class="field-checkbox">
+            <div class="flex flex-col gap-4">
+                <div *ngFor="let category of categories" class="flex items-center">
                     <p-checkbox [inputId]="category.key" name="group" [value]="category" [(ngModel)]="selectedCategories" />
                     <label [for]="category.key" class="ml-2"> {{ category.name }} </label>
                 </div>
@@ -28,26 +28,20 @@ export class DynamicDoc {
         { name: 'Research', key: 'R' },
     ];
 
+    ngOnInit() {
+        this.selectedCategories = [this.categories[1]];
+    }
+
     code: Code = {
-        basic: `<div *ngFor="let category of categories" class="field-checkbox">
-    <p-checkbox 
-        [inputId]="category.key" 
-        name="group" 
-        [value]="category" 
-        [(ngModel)]="selectedCategories" 
-    />
+        basic: `<div *ngFor="let category of categories" class="flex items-center">
+    <p-checkbox [inputId]="category.key" name="group" [value]="category" [(ngModel)]="selectedCategories" />
     <label [for]="category.key" class="ml-2"> {{ category.name }} </label>
 </div>`,
 
         html: `<div class="card flex justify-center">
-    <div class="flex flex-col gap-2">
-        <div *ngFor="let category of categories" class="field-checkbox">
-            <p-checkbox 
-                [inputId]="category.key" 
-                name="group" 
-                [value]="category" 
-                [(ngModel)]="selectedCategories" 
-            />
+    <div class="flex flex-col gap-4">
+        <div *ngFor="let category of categories" class="flex items-center">
+            <p-checkbox [inputId]="category.key" name="group" [value]="category" [(ngModel)]="selectedCategories" />
             <label [for]="category.key" class="ml-2"> {{ category.name }} </label>
         </div>
     </div>
@@ -56,12 +50,13 @@ export class DynamicDoc {
         typescript: `import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CheckboxModule } from 'primeng/checkbox';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'checkbox-dynamic-demo',
     templateUrl: './checkbox-dynamic-demo.html',
     standalone: true,
-    imports: [FormsModule, CheckboxModule]
+    imports: [FormsModule, CheckboxModule, CommonModule]
 })
 export class CheckboxDynamicDemo {
     selectedCategories: any[] = [];
@@ -70,8 +65,12 @@ export class CheckboxDynamicDemo {
         { name: 'Accounting', key: 'A' },
         { name: 'Marketing', key: 'M' },
         { name: 'Production', key: 'P' },
-        { name: 'Research', key: 'R' }
+        { name: 'Research', key: 'R' },
     ];
+
+    ngOnInit() {
+        this.selectedCategories = [this.categories[1]];
+    }
 }`,
     };
 }

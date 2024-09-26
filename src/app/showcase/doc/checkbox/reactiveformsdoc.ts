@@ -14,7 +14,7 @@ import { Code } from '@domain/code';
         <div class="card">
             <form [formGroup]="formGroup" class="flex items-center justify-center gap-1">
                 <p-checkbox formControlName="city" value="New York" inputId="ny" />
-                <label for="ny">New York</label>
+                <label for="ny" class="ml-2">New York</label>
             </form>
         </div>
         <app-code [code]="code" selector="checkbox-reactive-forms-demo"></app-code>
@@ -31,20 +31,14 @@ export class ReactiveFormsDoc implements OnInit {
 
     code: Code = {
         basic: `<form class="flex items-center gap-1" [formGroup]="formGroup">
-    <p-checkbox 
-        formControlName="city" 
-        value="New York" 
-        inputId="ny" />
-    <label for="ny">New York</label>
+    <p-checkbox formControlName="city" value="New York" inputId="ny" />
+    <label for="ny" class="ml-2">New York</label>
 </form>`,
 
         html: `<div class="card">
     <form class="flex items-center gap-1" [formGroup]="formGroup">
-        <p-checkbox 
-            formControlName="city" 
-            value="New York" 
-            inputId="ny" />
-        <label for="ny">New York</label>
+        <p-checkbox formControlName="city" value="New York" inputId="ny" />
+        <label for="ny" class="ml-2">New York</label>
     </form>
 </div>`,
 
