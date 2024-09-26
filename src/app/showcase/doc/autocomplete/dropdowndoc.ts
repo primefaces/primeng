@@ -33,7 +33,9 @@ export class DropdownDoc {
     value: any;
 
     search(event: AutoCompleteCompleteEvent) {
-        this.items = [...Array(10).keys()].map((item) => event.query + '-' + item);
+        let _items = [...Array(10).keys()];
+
+        this.items = event.query ? [...Array(10).keys()].map((item) => event.query + '-' + item) : _items;
     }
 
     code: Code = {
@@ -64,7 +66,9 @@ export class AutocompleteDropdownDemo implements OnInit {
     value: any;
 
     search(event: AutoCompleteCompleteEvent) {
-        this.items = [...Array(10).keys()].map((item) => event.query + '-' + item);
+    let _items = [...Array(10).keys()];
+    
+    this.items = event.query ? [...Array(10).keys()].map((item) => event.query + '-' + item) : _items;
     }
 }`,
     };
