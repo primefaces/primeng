@@ -32,7 +32,7 @@ export class ScrollableDoc {
     scrollableTabs: any[] = Array.from({ length: 50 }, (_, i) => ({
         title: `Tab ${i + 1}`,
         content: `Tab ${i + 1} Content`,
-        value: `${i}`,,
+        value: `${i}`,
     }));
 
     code: Code = {
