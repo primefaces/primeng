@@ -9,7 +9,7 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-iftalabel>
-                <input pInputText id="username" [(ngModel)]="value" />
+                <input pInputText id="username" [(ngModel)]="value" autocomplete="off" />
                 <label for="username">Username</label>
             </p-iftalabel>
         </div>
