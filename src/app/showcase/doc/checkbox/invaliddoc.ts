@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
             <p>Invalid state style is added using the <i>ng-invalid</i> and <i>ng-dirty</i> class to indicate a failed validation.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-checkbox [(ngModel)]="checked" [binary]="true" inputId="binary" styleClass="ng-invalid ng-dirty" />
+            <p-checkbox [(ngModel)]="checked" [binary]="true" styleClass="ng-invalid ng-dirty" />
         </div>
         <app-code [code]="code" selector="checkbox-invalid-demo"></app-code>
     `,
@@ -17,10 +17,10 @@ export class InvalidDoc {
     checked: boolean = false;
 
     code: Code = {
-        basic: `<p-checkbox [(ngModel)]="checked" [binary]="true" inputId="binary" styleClass="ng-invalid ng-dirty" />`,
+        basic: `<p-checkbox [(ngModel)]="checked" [binary]="true" styleClass="ng-invalid ng-dirty" />`,
 
         html: `<div class="card flex justify-center">
-    <p-checkbox [(ngModel)]="checked" [binary]="true" inputId="binary" styleClass="ng-invalid ng-dirty" />
+    <p-checkbox [(ngModel)]="checked" [binary]="true" styleClass="ng-invalid ng-dirty" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

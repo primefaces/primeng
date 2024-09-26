@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
             <p>When <i>indeterminate</i> is present, the checkbox masks the actual value visually.</p>
         </app-docsectiontext>
         <div class="card flex justify-center gap-4">
-            <p-checkbox [(ngModel)]="checked" [binary]="true" [indeterminate]="true" inputId="binary" />
+            <p-checkbox [(ngModel)]="checked" [binary]="true" [indeterminate]="true" />
         </div>
         <app-code [code]="code" selector="checkbox-indeterminate-demo"></app-code>
     `,
@@ -17,10 +17,10 @@ export class IndeterminateDoc {
     checked: any = null;
 
     code: Code = {
-        basic: `<p-checkbox [(ngModel)]="checked" [binary]="true" [indeterminate]="true" inputId="binary" />`,
+        basic: `<p-checkbox [(ngModel)]="checked" [binary]="true" [indeterminate]="true" />`,
 
         html: `<div class="card flex justify-center">
-    <p-checkbox [(ngModel)]="checked" [binary]="true" [indeterminate]="true" inputId="binary" />
+    <p-checkbox [(ngModel)]="checked" [binary]="true" [indeterminate]="true" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
