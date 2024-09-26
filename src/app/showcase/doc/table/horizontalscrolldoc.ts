@@ -59,7 +59,10 @@ import { CustomerService } from '@service/customerservice';
 export class HorizontalScrollDoc {
     customers!: Customer[];
 
-    constructor(private customerService: CustomerService, private cd: ChangeDetectorRef) {}
+    constructor(
+        private customerService: CustomerService,
+        private cd: ChangeDetectorRef
+    ) {}
 
     loadDemoData() {
         this.customerService.getCustomersMedium().then((data) => {

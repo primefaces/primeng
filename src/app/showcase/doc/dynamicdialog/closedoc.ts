@@ -19,7 +19,10 @@ import { ProductListDemo } from './productlistdemo';
     providers: [DialogService, MessageService]
 })
 export class CloseDoc {
-    constructor(public dialogService: DialogService, public messageService: MessageService) {}
+    constructor(
+        public dialogService: DialogService,
+        public messageService: MessageService
+    ) {}
 
     ref: DynamicDialogRef | undefined;
 

@@ -33,7 +33,10 @@ import { CustomerService } from '@service/customerservice';
 export class ColumnResizeScrollableModeDoc {
     customers!: Customer[];
 
-    constructor(private customerService: CustomerService, private cd: ChangeDetectorRef) {}
+    constructor(
+        private customerService: CustomerService,
+        private cd: ChangeDetectorRef
+    ) {}
 
     loadDemoData() {
         this.customerService.getCustomersLarge().then((customers) => {

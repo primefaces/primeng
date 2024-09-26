@@ -164,7 +164,10 @@ export class Dock implements AfterContentInit {
         return this.focusedOptionIndex !== -1 ? this.focusedOptionIndex : null;
     }
 
-    constructor(private el: ElementRef, public cd: ChangeDetectorRef) {
+    constructor(
+        private el: ElementRef,
+        public cd: ChangeDetectorRef
+    ) {
         this.currentIndex = -3;
     }
 

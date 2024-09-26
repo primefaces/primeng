@@ -30,7 +30,7 @@ import { ProductService } from '@service/productservice';
                             <td>{{ product.name }}</td>
                             <td>{{ product.category }}</td>
                             <td>{{ product.quantity }}</td>
-                            <td>{{ product.price | currency : 'USD' }}</td>
+                            <td>{{ product.price | currency: 'USD' }}</td>
                         </tr>
                     </ng-template>
                 </p-table>
@@ -42,7 +42,10 @@ import { ProductService } from '@service/productservice';
 export class CustomSortDoc {
     products!: Product[];
 
-    constructor(private productService: ProductService, private cd: ChangeDetectorRef) {}
+    constructor(
+        private productService: ProductService,
+        private cd: ChangeDetectorRef
+    ) {}
 
     loadDemoData() {
         this.productService.getProductsMini().then((data) => {

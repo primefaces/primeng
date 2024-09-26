@@ -104,7 +104,10 @@ export class OrganizationChartNode implements OnDestroy {
 
     subscription: Subscription;
 
-    constructor(@Inject(forwardRef(() => OrganizationChart)) chart: OrganizationChart, public cd: ChangeDetectorRef) {
+    constructor(
+        @Inject(forwardRef(() => OrganizationChart)) chart: OrganizationChart,
+        public cd: ChangeDetectorRef
+    ) {
         this.chart = chart as OrganizationChart;
         this.subscription = this.chart.selectionSource$.subscribe(() => {
             this.cd.markForCheck();
@@ -247,7 +250,10 @@ export class OrganizationChart implements AfterContentInit {
 
     selectionSource$ = this.selectionSource.asObservable();
 
-    constructor(public el: ElementRef, public cd: ChangeDetectorRef) {}
+    constructor(
+        public el: ElementRef,
+        public cd: ChangeDetectorRef
+    ) {}
 
     get root(): TreeNode<any> | null {
         return this.value && this.value.length ? this.value[0] : null;
