@@ -34,6 +34,9 @@ import { Code } from '@domain/code';
                         <span>{{ option.cname || option.name }}</span>
                     </div>
                 </ng-template>
+                <ng-template pTemplate="triggericon">
+                    <i class="pi pi-map-marker"></i>
+                </ng-template>
             </p-cascadeselect>
         </div>
         <app-code [code]="code" selector="cascade-select-template-demo"></app-code>
@@ -141,6 +144,9 @@ export class TemplateDoc {
             <span>{{ option.cname || option.name }}</span>
         </div>
     </ng-template>
+    <ng-template pTemplate="triggericon">
+        <i class="pi pi-map-marker"></i>
+    </ng-template>
 </p-cascadeselect>`,
 
         html: `<div class="card flex justify-center">
@@ -162,6 +168,9 @@ export class TemplateDoc {
                     <i class="pi pi-map-marker mr-2" *ngIf="option.cname"></i>
                     <span>{{ option.cname || option.name }}</span>
                 </div>
+            </ng-template>
+            <ng-template pTemplate="triggericon">
+                <i class="pi pi-map-marker"></i>
             </ng-template>
     </p-cascadeselect>
 </div>`,
