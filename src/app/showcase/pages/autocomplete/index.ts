@@ -90,7 +90,7 @@ export class AutoCompleteDemo {
         {
             id: 'iftalabel',
             label: 'Ifta Label',
-            component: IftaLabelDoc
+            component: IftaLabelDoc,
         },
         {
             id: 'filled',
@@ -98,16 +98,15 @@ export class AutoCompleteDemo {
             component: FilledDoc,
         },
         {
-            id: 'disabled',
-            label: 'Disabled',
-            component: DisabledDoc,
-        },
-        {
             id: 'invalid',
             label: 'Invalid',
             component: InvalidDoc,
         },
-
+        {
+            id: 'disabled',
+            label: 'Disabled',
+            component: DisabledDoc,
+        },
         {
             id: 'accessibility',
             label: 'Accessibility',
