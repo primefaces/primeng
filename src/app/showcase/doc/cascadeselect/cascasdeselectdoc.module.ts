@@ -17,6 +17,8 @@ import { DisabledDoc } from './disableddoc';
 import { FilledDoc } from './filleddoc';
 import { LoadingDoc } from './loadingdoc';
 import { FloatLabelModule } from 'primeng/floatlabel';
+import { IftaLabelDoc } from './iftalabeldoc';
+import { IftaLabelModule } from 'primeng/iftalabel';
 @NgModule({
     imports: [
         CommonModule,
@@ -27,6 +29,7 @@ import { FloatLabelModule } from 'primeng/floatlabel';
         AppDocModule,
         ReactiveFormsModule,
         FloatLabelModule,
+        IftaLabelModule
     ],
     exports: [AppDocModule],
     declarations: [
@@ -35,6 +38,7 @@ import { FloatLabelModule } from 'primeng/floatlabel';
         TemplateDoc,
         InvalidDoc,
         FloatLabelDoc,
+        IftaLabelDoc,
         FilledDoc,
         DisabledDoc,
         StyleDoc,
