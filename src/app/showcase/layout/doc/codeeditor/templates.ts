@@ -398,6 +398,7 @@ const getAngularApp = (props: Props = {}) => {
     import { BadgeModule } from 'primeng/badge';
     import { BreadcrumbModule } from 'primeng/breadcrumb';
     import { ButtonModule } from 'primeng/button';
+    import { ButtonGroupModule } from 'primeng/buttongroup';
     import { CalendarModule } from 'primeng/calendar';
     import { CarouselModule } from 'primeng/carousel';
     import { CascadeSelectModule } from 'primeng/cascadeselect';
@@ -512,6 +513,7 @@ const getAngularApp = (props: Props = {}) => {
         BreadcrumbModule,
         BlockUIModule,
         ButtonModule,
+        ButtonGroupModule,
         CalendarModule,
         CarouselModule,
         CascadeSelectModule,
@@ -618,6 +620,7 @@ const getAngularApp = (props: Props = {}) => {
         BreadcrumbModule,
         BlockUIModule,
         ButtonModule,
+        ButtonGroupModule,
         CalendarModule,
         CarouselModule,
         CascadeSelectModule,
