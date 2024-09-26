@@ -17,7 +17,7 @@ interface AutoCompleteCompleteEvent {
             </p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-autoComplete [(ngModel)]="selectedCountry" [dropdown]="true" placeholder="Search" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name" />
+            <p-autoComplete [(ngModel)]="selectedCountry" [dropdown]="true" placeholder="Search" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" optionLabel="name" />
         </div>
         <app-code [code]="code" selector="autocomplete-dropdown-demo"></app-code>`
 })
@@ -53,20 +53,20 @@ export class DropdownDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-autoComplete 
-    [(ngModel)]="selectedCountry" 
-    [dropdown]="true" 
-    [suggestions]="filteredCountries" 
-    (completeMethod)="filterCountry($event)" 
-    field="name" />`,
+        basic: `<p-autoComplete
+    [(ngModel)]="selectedCountry"
+    [dropdown]="true"
+    [suggestions]="filteredCountries"
+    (completeMethod)="filterCountry($event)"
+    optionLabel="name" />`,
 
         html: `<div class="card flex justify-content-center">
-    <p-autoComplete 
-        [(ngModel)]="selectedCountry" 
-        [dropdown]="true" 
-        [suggestions]="filteredCountries" 
-        (completeMethod)="filterCountry($event)" 
-        field="name" />
+    <p-autoComplete
+        [(ngModel)]="selectedCountry"
+        [dropdown]="true"
+        [suggestions]="filteredCountries"
+        (completeMethod)="filterCountry($event)"
+        optionLabel="name" />
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';

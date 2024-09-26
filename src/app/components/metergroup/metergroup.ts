@@ -61,7 +61,7 @@ export class MeterGroupLabel {
                 <ng-container *ngFor="let meterItem of value; let index = index; trackBy: trackByFn">
                     <ng-container *ngTemplateOutlet="meterTemplate; context: { $implicit: meterItem, index: index, orientation: this.orientation, class: 'p-metergroup-meter', size: percentValue(meterItem.value), totalPercent: totalPercent() }">
                     </ng-container>
-                    <ng-container *ngIf="!meterTemplate">
+                    <ng-container *ngIf="!meterTemplate && meterItem.value > 0">
                         <span class="p-metergroup-meter" [ngStyle]="meterStyle(meterItem)"></span>
                     </ng-container>
                 </ng-container>

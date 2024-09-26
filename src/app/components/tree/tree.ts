@@ -153,6 +153,7 @@ import {
                         [index]="index"
                         [itemSize]="itemSize"
                         [level]="level + 1"
+                        [loadingMode]="loadingMode"
                     ></p-treeNode>
                 </ul>
             </li>
@@ -1520,8 +1521,8 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
     propagateDown(node: TreeNode, select: boolean) {
         let index = this.findIndexInSelection(node);
 
-        if (select && index == -1) {
-            this.selection = [...(this.selection || []), node];
+        if (select && index == -1 && node.selectable !== false) {
+            this.selection = [...(this.selection || []), this.filterUnselectableChildren(node)];
         } else if (!select && index > -1) {
             this.selection = this.selection.filter((val: TreeNode, i: number) => i != index);
         }
@@ -1535,6 +1536,21 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
                 this.propagateDown(child, select);
             }
         }
+    }
+  
+    filterUnselectableChildren(node: TreeNode): TreeNode {
+      let clonedNode = Object.assign({}, node); 
+      
+      if (clonedNode.children && clonedNode.children.length) {
+        for (let child of clonedNode.children) {
+          if (child.selectable === false) {
+            clonedNode.children = clonedNode.children.filter((val: TreeNode) => val != child);
+          }
+          child = this.filterUnselectableChildren(child);
+        }
+      }
+
+      return clonedNode;
     }
 
     isSelected(node: TreeNode) {

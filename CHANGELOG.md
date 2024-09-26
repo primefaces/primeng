@@ -1,4 +1,28 @@
 # Changelog
+## [18.0.0-beta.2](https://github.com/primefaces/primeng/tree/18.0.0-beta.2) (2024-09-23)
+[Full Changelog](https://github.com/primefaces/primeng/compare/18.0.0-beta.1...18.0.0-beta.2)
+
+**Fixed bugs:**
+- Date filter on table v18 [\#16354](https://github.com/primefaces/primeng/issues/16354)
+- Fileupload | add fileLabelTemplate [\#16377](https://github.com/primefaces/primeng/issues/16377)
+- Cannot find module '@primeuix/styled' from 'node_modules/primeng/fesm2022/primeng-themes.mjs' [\#16353](https://github.com/primefaces/primeng/issues/16353)
+- Component: Select [primeng v18] [\#16351](https://github.com/primefaces/primeng/issues/16351)
+
+## [17.18.10](https://github.com/primefaces/primeng/tree/17.18.10) (2024-09-11)
+[Full Changelog](https://github.com/primefaces/primeng/compare/17.18.9...17.18.10)
+
+**Fixed bugs:**
+- Accessibility: Slider -> Keyboardtrap [\#16324](https://github.com/primefaces/primeng/issues/16324)
+- MegaMenu: aria-hidden throws console error [\#16248](https://github.com/primefaces/primeng/issues/16248)
+- Icon: Mistake in example documentation code [\#16277](https://github.com/primefaces/primeng/issues/16277)
+- p-tree: Lazy loading icon does not show on child items [\#16282](https://github.com/primefaces/primeng/issues/16282)
+- Docs: dynamicdialog example import missing, build problem [\#16328](https://github.com/primefaces/primeng/issues/16328)
+- Table: Flawed example in paginator documentation [\#16308](https://github.com/primefaces/primeng/issues/16308)
+- Editor: the style of the toolbar is missing up when custom modules used [\#16114](https://github.com/primefaces/primeng/issues/16114)
+- Tooltip on Dropdown causes Errors [\#16321](https://github.com/primefaces/primeng/issues/16321)
+- DynamicDialog | Closing nested dialog makes the underlying dialog scroll back to the top [\#16335](https://github.com/primefaces/primeng/issues/16335)
+- Panel component -> toggle from the outside [\#16326](https://github.com/primefaces/primeng/issues/16326)
+
 ## [17.18.9](https://github.com/primefaces/primeng/tree/17.18.9) (2024-08-15)
 [Full Changelog](https://github.com/primefaces/primeng/compare/17.18.8...17.18.9)
 
@@ -845,6 +869,16 @@
 - TypeError: this.focusedItemInfo.mutate is not a function [\#14119](https://github.com/primefaces/primeng/issues/14119)
 - Upgrade to Angular 17? [\#14063](https://github.com/primefaces/primeng/issues/14063)
 
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [16.9.16-LTS](https://www.npmjs.com/package/primeng/v/16.9.16-lts) (2024-09-20)
+
+**Fixed bugs:**
+- MegaMenu: aria-hidden throws console error [\#16248](https://github.com/primefaces/primeng/issues/16248)
+- Icon: Mistake in example documentation code [\#16277](https://github.com/primefaces/primeng/issues/16277)
+- Table: Flawed example in paginator documentation [\#16308](https://github.com/primefaces/primeng/issues/16308)
+- Editor: the style of the toolbar is missing up when custom modules used [\#16114](https://github.com/primefaces/primeng/issues/16114)
+- Tooltip on Dropdown causes Errors [\#16321](https://github.com/primefaces/primeng/issues/16321)
+- Panel component -> toggle from the outside [\#16326](https://github.com/primefaces/primeng/issues/16326)
+
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [16.9.15-LTS](https://www.npmjs.com/package/primeng/v/16.9.15-lts) (2024-08-15)
 
 **Fixed bugs:**
@@ -1533,6 +1567,15 @@
 - Touch Control - Thumbnails selects photo randomly when tapping. [\#12943](https://github.com/primefaces/primeng/issues/12943)
 - Checkbox in p-treeNode always checked when using custom icon [\#12951](https://github.com/primefaces/primeng/issues/12951)
 - ConfirmDialog: Duplicated AcceptIcons [\#13001](https://github.com/primefaces/primeng/issues/13001)
+
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [15.4.27-LTS](https://www.npmjs.com/package/primeng/v/15.4.27-lts) (2024-09-20)
+
+**Fixed bugs:**
+- Icon: Mistake in example documentation code [\#16277](https://github.com/primefaces/primeng/issues/16277)
+- Table: Flawed example in paginator documentation [\#16308](https://github.com/primefaces/primeng/issues/16308)
+- Editor: the style of the toolbar is missing up when custom modules used [\#16114](https://github.com/primefaces/primeng/issues/16114)
+- Tooltip on Dropdown causes Errors [\#16321](https://github.com/primefaces/primeng/issues/16321)
+- Panel component -> toggle from the outside [\#16326](https://github.com/primefaces/primeng/issues/16326)
 
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [15.4.26-LTS](https://www.npmjs.com/package/primeng/v/15.4.26-lts) (2024-08-15)
 

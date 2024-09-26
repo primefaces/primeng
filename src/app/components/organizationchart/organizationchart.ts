@@ -76,7 +76,7 @@ import { OrganizationChartNodeCollapseEvent, OrganizationChartNodeExpandEvent, O
             </tr>
             <tr [ngClass]="!leaf && node.expanded ? 'p-organizationchart-node-visible' : 'p-organizationchart-node-hidden'" class="p-organizationchart-nodes" [@childState]="'in'" [attr.data-pc-section]="'nodes'">
                 <td *ngFor="let child of node.children" colspan="2" [attr.data-pc-section]="'nodeCell'">
-                    <table class="p-organizationchart-table" pOrganizationChartNode [node]="child" [collapsible]="node.children && node.children.length > 0"></table>
+                    <table class="p-organizationchart-table" pOrganizationChartNode [node]="child" [collapsible]="collapsible && node.children && node.children.length > 0"></table>
                 </td>
             </tr>
         </tbody>

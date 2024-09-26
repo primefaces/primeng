@@ -3084,7 +3084,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     template: `
         <ng-container *ngIf="!dt.expandedRowTemplate">
             <ng-template ngFor let-rowData let-rowIndex="index" [ngForOf]="value" [ngForTrackBy]="dt.rowTrackBy">
-                <ng-container *ngIf="dt.groupHeaderTemplate && !dt.virtualScroll && dt.rowGroupMode === 'subheader' && shouldRenderRowGroupHeader(value, rowData, rowIndex)" role="row">
+                <ng-container *ngIf="dt.groupHeaderTemplate && !dt.virtualScroll && dt.rowGroupMode === 'subheader' && shouldRenderRowGroupHeader(value, rowData, getRowIndex(rowIndex))" role="row">
                     <ng-container
                         *ngTemplateOutlet="dt.groupHeaderTemplate; context: { $implicit: rowData, rowIndex: getRowIndex(rowIndex), columns: columns, editing: dt.editMode === 'row' && dt.isRowEditing(rowData), frozen: frozen }"
                     ></ng-container>
@@ -4169,7 +4169,9 @@ export class EditableColumn implements OnChanges, AfterViewInit, OnDestroy {
     constructor(public dt: Table, public el: ElementRef, public zone: NgZone) {}
 
     public ngOnChanges(changes: SimpleChanges): void {
-        if (this.el.nativeElement && !changes.data?.firstChange) {
+        if (changes.pEditableColumnDisabled?.currentValue === true && DomHandler.hasClass(this.el.nativeElement, 'p-cell-editing')) {
+            this.closeEditingCell(false, new Event('cancel'));
+        } else if (changes.data?.firstChange === false && this.el.nativeElement) {
             this.dt.updateEditingCell(this.el.nativeElement, this.data, this.field, <number>this.rowIndex);
         }
     }
