@@ -15,16 +15,10 @@ import { Code } from '@domain/code';
 })
 export class DisabledDoc {
     code: Code = {
-        basic: `<p-cascadeselect
-    [disabled]="true" 
-    placeholder="Disabled" 
-    [style]="{ minWidth: '14rem' }" />`,
+        basic: `<p-cascadeselect [disabled]="true" placeholder="Disabled" [style]="{ minWidth: '14rem' }" />`,
 
         html: `<div class="card flex justify-center">
-    <p-cascadeselect 
-        [disabled]="true" 
-        placeholder="Disabled" 
-        [style]="{ minWidth: '14rem' }" />
+    <p-cascadeselect [disabled]="true" placeholder="Disabled" [style]="{ minWidth: '14rem' }" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
