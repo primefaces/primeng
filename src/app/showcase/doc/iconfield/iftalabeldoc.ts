@@ -59,6 +59,6 @@ import { IftaLabelModule } from 'primeng/iftalabel';
 })
 export class IconFieldIftaLabelDemo {
   value: string | undefined;
-  }`,
+}`,
     };
 }
