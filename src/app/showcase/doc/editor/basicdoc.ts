@@ -5,10 +5,7 @@ import { Code } from '@domain/code';
     selector: 'editor-basic-demo',
     template: `
         <app-docsectiontext>
-            <p>
-                Editor provides a default toolbar with common options, to customize it define your elements inside the header element. Refer
-                to <a href="http://quilljs.com/docs/modules/toolbar/">Quill documentation</a> for available controls.
-            </p>
+            <p>A model can be bound using the standard <i>ngModel</i> directive.</p>
         </app-docsectiontext>
         <div class="card">
             <p-editor [(ngModel)]="text" [style]="{ height: '320px' }" />

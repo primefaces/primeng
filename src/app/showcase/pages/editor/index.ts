@@ -40,14 +40,14 @@ export class EditorDemo {
             component: BasicDoc,
         },
         {
-            id: 'readonly',
-            label: 'Read Only',
-            component: ReadOnlyDoc,
-        },
-        {
             id: 'reactive-forms',
             label: 'Reactive Forms',
             component: ReactiveFormsDoc,
+        },
+        {
+            id: 'readonly',
+            label: 'ReadOnly',
+            component: ReadOnlyDoc,
         },
         {
             id: 'template',
