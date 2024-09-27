@@ -19,6 +19,7 @@ import { IconFieldStyle } from './style/iconfieldstyle';
         '[class.p-iconfield]': 'true',
         '[class.p-iconfield-left]': "iconPosition === 'left'",
         '[class.p-iconfield-right]': "iconPosition === 'right'",
+        style: 'display: inline-block',
     },
 })
 export class IconField extends BaseComponent {
@@ -26,7 +27,7 @@ export class IconField extends BaseComponent {
      * Position of the icon.
      * @group Props
      */
-    @Input() iconPosition: 'right' | 'left' | undefined
+    @Input() iconPosition: 'right' | 'left' | undefined;
     /**
      * Style class of the component.
      * @group Props
