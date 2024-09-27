@@ -12,13 +12,13 @@ import { Code } from '@domain/code';
             </p>
         </app-docsectiontext>
         <div class="card flex flex-wrap justify-center gap-4">
-            <p-iconfield iconPosition="left">
+            <p-iconfield>
                 <p-inputicon styleClass="pi pi-search" />
                 <input type="text" pInputText placeholder="Search" />
             </p-iconfield>
-            <p-iconfield iconPosition="right">
-                <p-inputicon styleClass="pi pi-spinner pi-spin" />
+            <p-iconfield>
                 <input type="text" pInputText />
+                <p-inputicon styleClass="pi pi-spinner pi-spin" />
             </p-iconfield>
         </div>
         <app-code [code]="code" selector="iconfield-basic-demo"></app-code>
@@ -26,23 +26,23 @@ import { Code } from '@domain/code';
 })
 export class BasicDoc {
     code: Code = {
-        basic: `<p-iconfield iconPosition="left">
+        basic: `<p-iconfield>
     <p-inputicon styleClass="pi pi-search" />
     <input type="text" pInputText placeholder="Search" />
 </p-iconfield>
-<p-iconfield iconPosition="right">
-    <p-inputicon styleClass="pi pi-spinner pi-spin" />
+<p-iconfield>
     <input type="text" pInputText />
+    <p-inputicon styleClass="pi pi-spinner pi-spin" />
 </p-iconfield>`,
 
         html: `<div class="card flex flex-wrap justify-center gap-4">
-    <p-iconfield iconPosition="left">
+    <p-iconfield>
         <p-inputicon styleClass="pi pi-search" />
         <input type="text" pInputText placeholder="Search" />
     </p-iconfield>
-    <p-iconfield iconPosition="right">
-        <p-inputicon styleClass="pi pi-spinner pi-spin" />
+    <p-iconfield>
         <input type="text" pInputText />
+        <p-inputicon styleClass="pi pi-spinner pi-spin" />
     </p-iconfield>
 </div>`,
 

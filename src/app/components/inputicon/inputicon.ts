@@ -10,10 +10,14 @@ import { InputIconStyle } from './style/inputiconstyle';
  */
 @Component({
     selector: 'p-inputicon, p-inputIcon',
-    template: `<span class="p-inputicon" [ngClass]="styleClass"><ng-content></ng-content></span>`,
+    template: `<ng-content></ng-content>`,
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [InputIconStyle],
+    host:{
+        '[class]': 'styleClass',
+        '[class.p-inputicon]': 'true',
+    }
 })
 export class InputIcon extends BaseComponent {
     /**

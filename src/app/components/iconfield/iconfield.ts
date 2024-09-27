@@ -11,10 +11,15 @@ import { IconFieldStyle } from './style/iconfieldstyle';
  */
 @Component({
     selector: 'p-iconfield, p-iconField',
-    template: ` <span class="p-iconfield" [ngClass]="containerClass" [class]="styleClass"><ng-content></ng-content> </span>`,
+    template: ` <ng-content></ng-content>`,
     providers: [IconFieldStyle],
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
+    host: {
+        '[class.p-iconfield]': 'true',
+        '[class.p-iconfield-left]': "iconPosition === 'left'",
+        '[class.p-iconfield-right]': "iconPosition === 'right'",
+    },
 })
 export class IconField extends BaseComponent {
     /**
@@ -29,13 +34,6 @@ export class IconField extends BaseComponent {
     @Input() styleClass: string;
 
     _componentStyle = inject(IconFieldStyle);
-
-    get containerClass() {
-        return {
-            'p-iconfield-left': this.iconPosition === 'left',
-            'p-iconfield-right': this.iconPosition === 'right',
-        };
-    }
 }
 
 @NgModule({

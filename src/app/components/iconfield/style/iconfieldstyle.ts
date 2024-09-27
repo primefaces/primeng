@@ -2,42 +2,32 @@ import { Injectable } from '@angular/core';
 import { BaseStyle } from 'primeng/base';
 
 const theme = ({ dt }) => `
-/* For PrimeNG */
 .p-iconfield {
     position: relative;
 }
 
-.p-iconfield > p-inputicon,
-.p-iconfield > p-input-icon {
+.p-inputicon {
     position: absolute;
     top: 50%;
     margin-top: calc(-1 * (${dt('icon.size')} / 2));
-}
-
-.p-iconfield-left {
     color: ${dt('iconfield.icon.color')};
+    line-height: 1;
 }
 
-.p-iconfield-right {
-    color: ${dt('iconfield.icon.color')};
-}
-
-.p-iconfield.p-iconfield-left > .p-inputtext {
-    padding-left: calc((${dt('form.field.padding.x')} * 2) + ${dt('icon.size')});
-}
-
-.p-iconfield.p-iconfield-right > .p-inputtext {
-    padding-right: calc((${dt('form.field.padding.x')} * 2) + ${dt('icon.size')});
-}
-
-.p-iconfield.p-iconfield-left > p-inputicon,
-.p-iconfield.p-iconfield-left > p-input-icon{
+.p-iconfield .p-inputicon:first-child {
     left: ${dt('form.field.padding.x')};
 }
 
-.p-iconfield.p-iconfield-right > p-inputicon,
-.p-iconfield.p-iconfield-right > p-input-icon {
+.p-iconfield .p-inputicon:last-child {
     right: ${dt('form.field.padding.x')};
+}
+
+.p-iconfield .p-inputtext:not(:first-child) {
+    padding-left: calc((${dt('form.field.padding.x')} * 2) + ${dt('icon.size')});
+}
+
+.p-iconfield .p-inputtext:not(:last-child) {
+    padding-right: calc((${dt('form.field.padding.x')} * 2) + ${dt('icon.size')});
 }
 `;
 
