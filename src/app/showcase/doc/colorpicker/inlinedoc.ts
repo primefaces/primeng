@@ -17,14 +17,10 @@ export class InlineDoc {
     color: string | undefined;
 
     code: Code = {
-        basic: `<p-colorpicker 
-    [(ngModel)]="color1" 
-    [inline]="true" />`,
+        basic: `<p-colorpicker [(ngModel)]="color" [inline]="true" />`,
 
         html: `<div class="card flex justify-center">
-    <p-colorpicker 
-        [(ngModel)]="color" 
-        [inline]="true" />
+    <p-colorpicker [(ngModel)]="color" [inline]="true" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
