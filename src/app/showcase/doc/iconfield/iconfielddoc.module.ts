@@ -14,9 +14,22 @@ import { AccessibilityDoc } from './accessibilitydoc';
 import { StyleDoc } from './styledoc';
 import { FloatLabelDoc } from './floatlabeldoc';
 import { FloatLabelModule } from 'primeng/floatlabel';
+import { IftaLabelModule } from 'primeng/iftalabel';
+import { IftaLabelDoc } from './iftalabeldoc';
 @NgModule({
-    imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, InputTextModule, IconFieldModule, InputIconModule, FormsModule, FloatLabelModule],
-    declarations: [ImportDoc, BasicDoc, TemplateDoc, FloatLabelDoc, AccessibilityDoc, StyleDoc],
+    imports: [
+        CommonModule,
+        RouterModule,
+        AppCodeModule,
+        AppDocModule,
+        InputTextModule,
+        IconFieldModule,
+        InputIconModule,
+        FormsModule,
+        FloatLabelModule,
+        IftaLabelModule,
+    ],
+    declarations: [ImportDoc, BasicDoc, TemplateDoc, FloatLabelDoc, IftaLabelDoc, AccessibilityDoc, StyleDoc],
     exports: [AppDocModule],
 })
 export class IconFieldDocModule {}

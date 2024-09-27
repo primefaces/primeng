@@ -105,8 +105,8 @@ import { FormsModule } from '@angular/forms';
 import { FloatLabelModule } from 'primeng/floatlabel';
 
 @Component({
-    selector: 'iconfield-basic-demo',
-    templateUrl: './iconfield-basic-demo.html',
+    selector: 'iconfield-float-label-demo',
+    templateUrl: './iconfield-float-label-demo.html',
     standalone: true,
     imports: [InputIconModule, IconFieldModule, InputTextModule, FloatLabelModule, FormsModule]
 })
