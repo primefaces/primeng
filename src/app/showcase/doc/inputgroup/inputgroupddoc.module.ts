@@ -16,6 +16,8 @@ import { MultipleDoc } from './multipledoc';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { AccessibilityDoc } from './accessibilitydoc';
+import { SelectModule } from 'primeng/select';
+import { InputNumberModule } from 'primeng/inputnumber';
 
 @NgModule({
     imports: [
@@ -31,6 +33,8 @@ import { AccessibilityDoc } from './accessibilitydoc';
         InputGroupModule,
         InputGroupAddonModule,
         RadioButtonModule,
+        SelectModule,
+        InputNumberModule
     ],
     exports: [AppDocModule],
     declarations: [ImportDoc, BasicDoc, MultipleDoc, ButtonDoc, CheckboxDoc, AccessibilityDoc],
