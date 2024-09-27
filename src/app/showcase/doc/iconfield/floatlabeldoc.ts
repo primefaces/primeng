@@ -110,7 +110,13 @@ import { FloatLabelModule } from 'primeng/floatlabel';
     standalone: true,
     imports: [InputIconModule, IconFieldModule, InputTextModule, FloatLabelModule, FormsModule]
 })
-export class IconFieldFloatLabelDemo {}`,
+export class IconFieldFloatLabelDemo {
+    value1: string | undefined;
+
+    value2: string | undefined;
+
+    value3: string | undefined;
+}`,
     };
 }
 

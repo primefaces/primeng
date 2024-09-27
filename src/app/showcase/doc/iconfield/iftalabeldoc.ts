@@ -57,6 +57,8 @@ import { IftaLabelModule } from 'primeng/iftalabel';
     standalone: true,
     imports: [InputIconModule, IconFieldModule, InputTextModule, IftaLabelModule, FormsModule]
 })
-export class IconFieldIftaLabelDemo {}`,
+export class IconFieldIftaLabelDemo {
+  value: string | undefined;
+  }`,
     };
 }
