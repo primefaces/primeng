@@ -54,7 +54,7 @@ export class InputMaskDemo {
         },
         {
             id: 'slotchar',
-            label: 'Slot Char',
+            label: 'SlotChar',
             component: SlotCharDoc,
         },
         {

@@ -17,16 +17,10 @@ export class DisabledDoc {
     value: string | undefined;
 
     code: Code = {
-        basic: `<p-inputmask 
-    mask="999-99-9999" 
-    [(ngModel)]="value" 
-    [disabled]="true" />`,
+        basic: `<p-inputmask mask="999-99-9999" [(ngModel)]="value" [disabled]="true" />`,
 
         html: `<div class="card flex justify-center">
-    <p-inputmask 
-        mask="999-99-9999" 
-        [(ngModel)]="value" 
-        [disabled]="true" />
+    <p-inputmask mask="999-99-9999" [(ngModel)]="value" [disabled]="true" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

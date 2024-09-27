@@ -20,18 +20,10 @@ export class FilledDoc {
     value: string | undefined;
 
     code: Code = {
-        basic: `<p-inputmask 
-    mask="99-999999" 
-    [(ngModel)]="value" 
-    variant="filled"
-    placeholder="99-999999" />`,
+        basic: `<p-inputmask mask="99-999999" [(ngModel)]="value" variant="filled" placeholder="99-999999" />`,
 
         html: `<div class="card flex justify-center">
-    <p-inputmask 
-        mask="99-999999" 
-        [(ngModel)]="value" 
-        variant="filled"
-        placeholder="99-999999" />
+    <p-inputmask mask="99-999999" [(ngModel)]="value" variant="filled" placeholder="99-999999" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
