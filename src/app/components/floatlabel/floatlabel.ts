@@ -11,14 +11,16 @@ import { FloatLabelStyle } from './style/floatlabelstyle';
  */
 @Component({
     selector: 'p-floatlabel, p-floatLabel',
-    template: `
-        <span [class]="containerClass">
-            <ng-content></ng-content>
-        </span>
-    `,
+    template: ` <ng-content></ng-content> `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     providers: [FloatLabelStyle],
+    host: {
+        '[class.p-floatlabel]': 'true',
+        '[class.p-floatlabel-over]': "variant === 'over'",
+        '[class.p-floatlabel-on]': "variant === 'on'",
+        '[class.p-floatlabel-in]': "variant === 'in'",
+    },
 })
 export class FloatLabel extends BaseComponent {
     _componentStyle = inject(FloatLabelStyle);
@@ -27,15 +29,6 @@ export class FloatLabel extends BaseComponent {
      * @group Props
      */
     @Input() variant: 'in' | 'over' | 'on' = 'over';
-
-    get containerClass() {
-        return {
-            'p-floatlabel': true,
-            'p-floatlabel-over': this.variant === 'over',
-            'p-floatlabel-on': this.variant === 'on',
-            'p-floatlabel-in': this.variant === 'in',
-        };
-    }
 }
 
 @NgModule({

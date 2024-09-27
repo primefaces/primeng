@@ -41,9 +41,13 @@ interface City {
 })
 export class BasicDoc {
     text1: string | undefined;
+
     text2: string | undefined;
+
     number: string | undefined;
+
     selectedCity: City | undefined;
+
     cities: City[] = [
         { name: 'New York', code: 'NY' },
         { name: 'Rome', code: 'RM' },
@@ -112,12 +116,33 @@ import { InputTextModule } from 'primeng/inputtext';
 import { SelectModule } from 'primeng/select';
 import { InputNumberModule } from 'primeng/inputnumber';
 
+interface City {
+    name: string;
+    code: string;
+}
+
 @Component({
     selector: 'input-group-basic-demo',
     templateUrl: './input-group-basic-demo.html',
     standalone: true,
     imports: [FormsModule, InputGroupModule, InputGroupAddonModule, InputTextModule, SelectModule, InputNumberModule]
 })
-export class InputGroupBasicDemo { }`,
+export class InputGroupBasicDemo { 
+    text1: string | undefined;
+
+    text2: string | undefined;
+
+    number: string | undefined;
+
+    selectedCity: City | undefined;
+
+    cities: City[] = [
+        { name: 'New York', code: 'NY' },
+        { name: 'Rome', code: 'RM' },
+        { name: 'London', code: 'LDN' },
+        { name: 'Istanbul', code: 'IST' },
+        { name: 'Paris', code: 'PRS' },
+    ];
+}`,
     };
 }
