@@ -8,7 +8,10 @@ interface City {
     selector: 'basic-doc',
     template: `
         <app-docsectiontext>
-            <p>An InputGroup is created by wrapping the add-ons inside the <i>p-inputGroup</i> element.</p>
+            <p>
+                A group is created by wrapping the input and add-ons with the <i>p-inputgroup</i> component. Each add-on element is defined as
+                a child of <i>p-inputgroup-addon</i> component.
+            </p>
         </app-docsectiontext>
         <div class="card grid grid-cols-1 md:grid-cols-2 gap-4">
             <p-inputgroup>
@@ -26,7 +29,7 @@ interface City {
 
             <p-inputgroup>
                 <p-inputgroup-addon>www</p-inputgroup-addon>
-                <input pInputText  [(ngModel)]="text2" placeholder="Website" />
+                <input pInputText [(ngModel)]="text2" placeholder="Website" />
             </p-inputgroup>
 
             <p-inputgroup>
