@@ -26,7 +26,7 @@ export class IconField extends BaseComponent {
      * Position of the icon.
      * @group Props
      */
-    @Input() iconPosition: 'right' | 'left' = 'left';
+    @Input() iconPosition: 'right' | 'left' | undefined
     /**
      * Style class of the component.
      * @group Props
