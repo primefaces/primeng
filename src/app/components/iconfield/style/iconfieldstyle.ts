@@ -4,6 +4,9 @@ import { BaseStyle } from 'primeng/base';
 const theme = ({ dt }) => `
 .p-iconfield {
     position: relative;
+
+    /* For PrimeNG */
+    display: inline-block;
 }
 
 .p-inputicon {
