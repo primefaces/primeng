@@ -165,13 +165,13 @@ export class TabsStyle extends BaseStyle {
  *
  * Tabs facilitates seamless switching between different views.
  *
- * [Live Demo](https://www.tabview.org/tabs/)
+ * [Live Demo](https://www.primeng.org/tabs/)
  *
- * @module tabviewstyle
+ * @module tabsstyle
  *
  */
 
-export enum TabViewClasses {
+export enum TabsClasses {
     /**
      * Class name of the root element
      */
@@ -210,4 +210,4 @@ export enum TabViewClasses {
     tabpanel = 'p-tabs-panel',
 }
 
-export interface TabViewStyle extends BaseStyle {}
+export interface TabsStyle extends BaseStyle {}

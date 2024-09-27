@@ -5,9 +5,8 @@ import { DynamicDoc } from '@doc/tabs/dynamicdoc';
 import { ControlledDoc } from '@doc/tabs/controlleddoc';
 import { ImportDoc } from '@doc/tabs/importdoc';
 import { TemplateDoc } from '@doc/tabs/customtemplatedoc';
-import { ClosableDoc } from '@doc/tabs/closabledoc';
 import { ScrollableDoc } from '@doc/tabs/scrollabledoc';
-import { LazyDoc } from '@doc/tabs/lazydoc';
+import { TabmenuDoc } from '@doc/tabs/tabmenudoc';
 import { AccessibilityDoc } from '@doc/tabs/accessibilitydoc';
 import { TabsDocModule } from '@doc/tabs/tabsdoc.module';
 
@@ -17,7 +16,7 @@ import { TabsDocModule } from '@doc/tabs/tabsdoc.module';
         header="Tabs"
         description="Tabs is a container component to group content with tabs."
         [docs]="docs"
-        [apiDocs]="['Tabs', 'TabPanel']"
+        [apiDocs]="['Tabs', 'Tab', 'TabList']"
         themeDocs="tabs"
     ></app-doc>`,
     imports: [TabsDocModule],
@@ -46,6 +45,11 @@ export class TabsDemo {
             component: ControlledDoc,
         },
         {
+            id: 'scrollable',
+            label: 'Scrollable',
+            component: ScrollableDoc,
+        },
+        {
             id: 'disabled',
             label: 'Disabled',
             component: DisabledDoc,
@@ -56,21 +60,10 @@ export class TabsDemo {
             component: TemplateDoc,
         },
         {
-            id: 'closable',
-            label: 'Closable',
-            component: ClosableDoc,
+            id: 'tabmenu',
+            label: 'Tab Menu',
+            component: TabmenuDoc,
         },
-        {
-            id: 'scrollable',
-            label: 'Scrollable',
-            component: ScrollableDoc,
-        },
-        {
-            id: 'lazy',
-            label: 'Lazy',
-            component: LazyDoc,
-        },
-
         {
             id: 'accessibility',
             label: 'Accessibility',

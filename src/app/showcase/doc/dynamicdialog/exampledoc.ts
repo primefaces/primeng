@@ -32,49 +32,6 @@ export class ExampleDoc implements OnDestroy {
 
     ref: DynamicDialogRef | undefined;
 
-    show() {
-        this.ref = this.dialogService.open(ProductListDemo, {
-            header: 'Product List',
-            width: '50vw',
-            closable: true,
-            contentStyle: { overflow: 'auto' },
-            breakpoints: {
-                '960px': '75vw',
-                '640px': '90vw',
-            },
-            templates: {
-                footer: Footer,
-            },
-        });
-
-        this.ref.onClose.subscribe((data: any) => {
-            let summary_and_detail;
-            if (data) {
-                const buttonType = data?.buttonType;
-                summary_and_detail = buttonType
-                    ? { summary: 'No Product Selected', detail: `Pressed '${buttonType}' button` }
-                    : { summary: 'Product Selected', detail: data?.name };
-            } else {
-                summary_and_detail = { summary: 'No Product Selected', detail: 'Pressed Close button' };
-            }
-            this.messageService.add({ severity: 'info', ...summary_and_detail, life: 3000 });
-        });
-
-        this.ref.onMaximize.subscribe((value) => {
-            this.messageService.add({
-                severity: 'info',
-                summary: 'Maximized',
-                detail: `maximized: ${value.maximized}`,
-            });
-        });
-    }
-
-    ngOnDestroy() {
-        if (this.ref) {
-            this.ref.close();
-        }
-    }
-
     code: Code = {
         basic: `<p-toast />
 <p-button (click)="show()" icon="pi pi-search" label="Select a Product" />`,
@@ -109,6 +66,7 @@ export class DynamicDialogExampleDemo implements OnDestroy {
         this.ref = this.dialogService.open(ProductListDemo, {
             header: 'Product List',
             width: '50vw',
+            modal: true,
             contentStyle: { overflow: 'auto' },
             breakpoints: {
                 '960px': '75vw',
@@ -144,6 +102,50 @@ export class DynamicDialogExampleDemo implements OnDestroy {
 
         service: ['ProductService'],
     };
+
+    ngOnDestroy() {
+        if (this.ref) {
+            this.ref.close();
+        }
+    }
+
+    show() {
+        this.ref = this.dialogService.open(ProductListDemo, {
+            header: 'Product List',
+            modal: true,
+            width: '50vw',
+            closable: true,
+            contentStyle: { overflow: 'auto' },
+            breakpoints: {
+                '960px': '75vw',
+                '640px': '90vw',
+            },
+            templates: {
+                footer: Footer,
+            },
+        });
+
+        this.ref.onClose.subscribe((data: any) => {
+            let summary_and_detail;
+            if (data) {
+                const buttonType = data?.buttonType;
+                summary_and_detail = buttonType
+                    ? { summary: 'No Product Selected', detail: `Pressed '${buttonType}' button` }
+                    : { summary: 'Product Selected', detail: data?.name };
+            } else {
+                summary_and_detail = { summary: 'No Product Selected', detail: 'Pressed Close button' };
+            }
+            this.messageService.add({ severity: 'info', ...summary_and_detail, life: 3000 });
+        });
+
+        this.ref.onMaximize.subscribe((value) => {
+            this.messageService.add({
+                severity: 'info',
+                summary: 'Maximized',
+                detail: `maximized: ${value.maximized}`,
+            });
+        });
+    }
 
     extFiles = [
         {

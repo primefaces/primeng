@@ -23,6 +23,7 @@ import { ModalDoc } from './modaldoc';
 import { HeadlessDoc } from './headlessdoc';
 import { AccessibilityDoc } from './accessibilitydoc';
 import { WithoutModalDoc } from './withoutmodaldoc';
+
 @NgModule({
     imports: [
         CommonModule,
@@ -52,6 +53,6 @@ import { WithoutModalDoc } from './withoutmodaldoc';
         HeadlessDoc,
         WithoutModalDoc,
     ],
-    exports: [AppDocModule],
+    exports: [AppDocModule, LongContentDoc],
 })
 export class DialogDocModule {}
