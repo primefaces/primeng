@@ -19,6 +19,8 @@ import { StyleDoc } from './styledoc';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { FilledDoc } from './filleddoc';
 import { FluidModule } from 'primeng/fluid';
+import { IftaLabelDoc } from './iftalabeldoc';
+import { IftaLabelModule } from 'primeng/iftalabel';
 
 @NgModule({
     imports: [
@@ -31,6 +33,7 @@ import { FluidModule } from 'primeng/fluid';
         AppDocModule,
         FloatLabelModule,
         FluidModule,
+        IftaLabelModule,
     ],
     exports: [AppDocModule],
     declarations: [
@@ -46,6 +49,7 @@ import { FluidModule } from 'primeng/fluid';
         AccessibilityDoc,
         ReactiveFormsDoc,
         FilledDoc,
+        IftaLabelDoc
     ],
 })
 export class InputMaskDocModule {}
