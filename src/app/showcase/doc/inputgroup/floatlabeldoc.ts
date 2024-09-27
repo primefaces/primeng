@@ -5,7 +5,10 @@ import { Code } from '@domain/code';
     selector: 'float-label-doc',
     template: `
         <app-docsectiontext>
-            <p>An InputGroup is created by wrapping the add-ons inside the <i>p-inputGroup</i> element.</p>
+            <p>
+                FloatLabel visually integrates a label with its form element. Visit
+                <a routerLink="/floatlabel">FloatLabel</a> documentation for more information.
+            </p>
         </app-docsectiontext>
         <div class="card flex flex-col md:items-end md:flex-row gap-4">
             <p-inputgroup>
@@ -107,7 +110,6 @@ import { FormsModule } from '@angular/forms';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { InputTextModule } from 'primeng/inputtext';
-import { SelectModule } from 'primeng/select';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { FloatLabelModule } from 'primeng/floatlabel';
 
@@ -117,6 +119,12 @@ import { FloatLabelModule } from 'primeng/floatlabel';
     standalone: true,
     imports: [FormsModule, InputGroupModule, InputGroupAddonModule, InputTextModule, FloatLabelModule]
 })
-export class InputGroupFloatLabelDemo { }`,
+export class InputGroupFloatLabelDemo { 
+    value1: string | undefined;
+
+    value2: string | undefined;
+
+    value3: string | undefined;
+}`,
     };
 }
