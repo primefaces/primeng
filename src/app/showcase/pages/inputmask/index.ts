@@ -58,7 +58,7 @@ export class InputMaskDemo {
         },
         {
             id: 'floatlabel',
-            label: 'FloatLabel',
+            label: 'Float Label',
             component: FloatlabelDoc,
         },
         {

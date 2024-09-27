@@ -6,38 +6,66 @@ import { Code } from '@domain/code';
     template: `
         <app-docsectiontext>
             <p>
-                A floating label appears on top of the input field when focused. Visit
-                <a routerLink="/floatlabel">FloatLabel</a> documentation for more information.
+                FloatLabel visually integrates a label with its form element. Visit <a routerLink="/floatlabel">FloatLabel</a> documentation
+                for more information.
             </p>
         </app-docsectiontext>
-        <div class="card flex justify-center">
+        <div class="card flex flex-wrap justify-center items-end gap-4">
             <p-floatlabel>
-                <p-inputmask mask="999-99-9999" [(ngModel)]="value" id="ssn_input" />
-                <label for="ssn_input">SSN</label>
+                <p-inputmask id="over_label" [(ngModel)]="value1" mask="999-99-9999" />
+                <label for="over_label">Over Label</label>
+            </p-floatlabel>
+
+            <p-floatlabel variant="in">
+                <p-inputmask id="in_label" [(ngModel)]="value2" mask="999-99-9999" />
+                <label for="in_label">In Label</label>
+            </p-floatlabel>
+
+            <p-floatlabel variant="on">
+                <p-inputmask id="on_label" [(ngModel)]="value3" mask="999-99-9999" />
+                <label for="on_label">On Label</label>
             </p-floatlabel>
         </div>
         <app-code [code]="code" selector="input-mask-floatlabel-demo"></app-code>
     `,
 })
 export class FloatlabelDoc {
-    value: string | undefined;
+    value1: string | undefined;
+
+    value2: string | undefined;
+
+    value3: string | undefined;
 
     code: Code = {
         basic: `<p-floatlabel>
-    <p-inputmask 
-        mask="999-99-9999" 
-        [(ngModel)]="value" 
-        id="ssn_input" />
-    <label for="ssn_input">SSN</label>
+    <p-inputmask id="over_label" [(ngModel)]="value1" mask="999-99-9999" />
+    <label for="over_label">Over Label</label>
+</p-floatlabel>
+
+<p-floatlabel variant="in">
+    <p-inputmask id="in_label" [(ngModel)]="value2" mask="999-99-9999" />
+    <label for="in_label">In Label</label>
+</p-floatlabel>
+
+<p-floatlabel variant="on">
+    <p-inputmask id="on_label" [(ngModel)]="value3" mask="999-99-9999" />
+    <label for="on_label">On Label</label>
 </p-floatlabel>`,
 
-        html: `<div class="card flex justify-center">
+        html: `<div class="card flex flex-wrap justify-center items-end gap-4">
     <p-floatlabel>
-        <p-inputmask 
-            mask="999-99-9999" 
-            [(ngModel)]="value" 
-            id="ssn_input" />
-        <label for="ssn_input">SSN</label>
+        <p-inputmask id="over_label" [(ngModel)]="value1" mask="999-99-9999" />
+        <label for="over_label">Over Label</label>
+    </p-floatlabel>
+
+    <p-floatlabel variant="in">
+        <p-inputmask id="in_label" [(ngModel)]="value2" mask="999-99-9999" />
+        <label for="in_label">In Label</label>
+    </p-floatlabel>
+
+    <p-floatlabel variant="on">
+        <p-inputmask id="on_label" [(ngModel)]="value3" mask="999-99-9999" />
+        <label for="on_label">On Label</label>
     </p-floatlabel>
 </div>`,
 
@@ -53,7 +81,11 @@ import { FloatLabelModule } from "primeng/floatlabel"
     imports: [FormsModule, InputMaskModule, FloatLabelModule]
 })
 export class InputMaskFloatlabelDemo {
-    value: string | undefined;
+    value1: string | undefined;
+
+    value2: string | undefined;
+
+    value3: string | undefined;
 }`,
     };
 }
