@@ -8,6 +8,7 @@ import {
     Directive,
     ElementRef,
     EventEmitter,
+    HostBinding,
     Inject,
     Input,
     NgModule,
@@ -24,9 +25,9 @@ import {
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { SpinnerIcon } from 'primeng/icons/spinner';
-import { RippleModule } from 'primeng/ripple';
+import { Ripple, RippleModule } from 'primeng/ripple';
 import { ObjectUtils } from 'primeng/utils';
-import { AutoFocusModule } from 'primeng/autofocus';
+import { AutoFocus, AutoFocusModule } from 'primeng/autofocus';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ButtonStyle } from './style/buttonstyle';
 import { BadgeModule } from 'primeng/badge';
@@ -367,64 +368,61 @@ export class ButtonDirective extends BaseComponent implements AfterViewInit, OnD
 @Component({
     selector: 'p-button',
     template: `
-        <button
-            [attr.type]="type"
-            [attr.aria-label]="ariaLabel"
-            [ngStyle]="style"
-            [disabled]="disabled || loading"
-            [ngClass]="buttonClass"
-            (click)="onClick.emit($event)"
-            (focus)="onFocus.emit($event)"
-            (blur)="onBlur.emit($event)"
-            pRipple
-            [attr.data-pc-name]="'button'"
-            [attr.data-pc-section]="'root'"
-            [attr.tabindex]="tabindex"
-            pAutoFocus
-            [autofocus]="autofocus"
+        <ng-content></ng-content>
+        <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
+        <ng-container *ngIf="loading">
+            <ng-container *ngIf="!loadingIconTemplate">
+                <span *ngIf="loadingIcon" [ngClass]="iconClass()" [attr.aria-hidden]="true" [attr.data-pc-section]="'loadingicon'"></span>
+                <SpinnerIcon
+                    *ngIf="!loadingIcon"
+                    [styleClass]="spinnerIconClass()"
+                    [spin]="true"
+                    [attr.aria-hidden]="true"
+                    [attr.data-pc-section]="'loadingicon'"
+                />
+            </ng-container>
+            <ng-template
+                [ngIf]="loadingIconTemplate"
+                *ngTemplateOutlet="loadingIconTemplate; context: { class: iconClass() }"
+            ></ng-template>
+        </ng-container>
+        <ng-container *ngIf="!loading">
+            <span *ngIf="icon && !iconTemplate" [class]="icon" [ngClass]="iconClass()" [attr.data-pc-section]="'icon'"></span>
+            <ng-template [ngIf]="!icon && iconTemplate" *ngTemplateOutlet="iconTemplate; context: { class: iconClass() }"></ng-template>
+        </ng-container>
+        <span
+            class="p-button-label"
+            [attr.aria-hidden]="icon && !label"
+            *ngIf="!contentTemplate && label"
+            [attr.data-pc-section]="'label'"
+            >{{ label }}</span
         >
-            <ng-content></ng-content>
-            <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
-            <ng-container *ngIf="loading">
-                <ng-container *ngIf="!loadingIconTemplate">
-                    <span
-                        *ngIf="loadingIcon"
-                        [ngClass]="iconClass()"
-                        [attr.aria-hidden]="true"
-                        [attr.data-pc-section]="'loadingicon'"
-                    ></span>
-                    <SpinnerIcon
-                        *ngIf="!loadingIcon"
-                        [styleClass]="spinnerIconClass()"
-                        [spin]="true"
-                        [attr.aria-hidden]="true"
-                        [attr.data-pc-section]="'loadingicon'"
-                    />
-                </ng-container>
-                <ng-template
-                    [ngIf]="loadingIconTemplate"
-                    *ngTemplateOutlet="loadingIconTemplate; context: { class: iconClass() }"
-                ></ng-template>
-            </ng-container>
-            <ng-container *ngIf="!loading">
-                <span *ngIf="icon && !iconTemplate" [class]="icon" [ngClass]="iconClass()" [attr.data-pc-section]="'icon'"></span>
-                <ng-template [ngIf]="!icon && iconTemplate" *ngTemplateOutlet="iconTemplate; context: { class: iconClass() }"></ng-template>
-            </ng-container>
-            <span
-                class="p-button-label"
-                [attr.aria-hidden]="icon && !label"
-                *ngIf="!contentTemplate && label"
-                [attr.data-pc-section]="'label'"
-                >{{ label }}</span
-            >
-            <p-badge *ngIf="!contentTemplate && badge" [value]="badge" [severity]="badgeSeverity"></p-badge>
-        </button>
+        <p-badge *ngIf="!contentTemplate && badge" [value]="badge" [severity]="badgeSeverity"></p-badge>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
+        '[attr.role]': '"button"',
+        '[attr.type]': 'type',
+        '[attr.aria-label]': 'ariaLabel',
+        '[ngStyle]': 'style',
+        '[disabled]': 'disabled || loading',
+        '[ngClass]': 'buttonClass',
+        '(click)': 'onClick.emit($event)',
+        '(focus)': 'onFocus.emit($event)',
+        '(blur)': 'onBlur.emit($event)',
+        '[attr.data-pc-name]': "'button'",
+        '[attr.data-pc-section]': "'root'",
+        '[attr.tabindex]': 'tabindex',
         '[class.p-disabled]': 'disabled' || 'loading',
     },
+    hostDirectives: [
+        Ripple,
+        {
+            directive: AutoFocus,
+            inputs: ['autofocus'],
+        },
+    ],
     providers: [ButtonStyle],
 })
 export class Button extends BaseComponent implements AfterContentInit {
@@ -594,6 +592,21 @@ export class Button extends BaseComponent implements AfterContentInit {
     }
 
     _componentStyle = inject(ButtonStyle);
+
+    @HostBinding('class') get hostClasses(): string {
+        if (typeof this.buttonClass === 'string') {
+            return this.buttonClass;
+        }
+        if (Array.isArray(this.buttonClass)) {
+            return this.buttonClass.join(' ');
+        }
+        if (typeof this.buttonClass === 'object') {
+            return Object.keys(this.buttonClass)
+                .filter((key) => this.buttonClass[key])
+                .join(' ');
+        }
+        return '';
+    }
 
     ngOnChanges(simpleChanges: SimpleChanges) {
         super.ngOnChanges(simpleChanges);
