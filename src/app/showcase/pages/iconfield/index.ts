@@ -4,6 +4,7 @@ import { BasicDoc } from '@doc/iconfield/basicdoc';
 import { TemplateDoc } from '@doc/iconfield/templatedoc';
 import { AccessibilityDoc } from '@doc/iconfield/accessibilitydoc';
 import { IconFieldDocModule } from '@doc/iconfield/iconfielddoc.module';
+import { FloatLabelDoc } from '@doc/iconfield/floatlabeldoc';
 
 @Component({
     template: ` <app-doc
@@ -34,7 +35,11 @@ export class IconFieldDemo {
             label: 'Template',
             component: TemplateDoc,
         },
-
+        {
+            id: 'floatlabel',
+            label: 'Float Label',
+            component: FloatLabelDoc,
+        },
         {
             id: 'accessibility',
             label: 'Accessibility',

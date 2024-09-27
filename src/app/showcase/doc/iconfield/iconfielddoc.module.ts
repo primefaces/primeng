@@ -12,9 +12,11 @@ import { InputIconModule } from 'src/app/components/inputicon/inputicon';
 import { FormsModule } from '@angular/forms';
 import { AccessibilityDoc } from './accessibilitydoc';
 import { StyleDoc } from './styledoc';
+import { FloatLabelDoc } from './floatlabeldoc';
+import { FloatLabelModule } from 'primeng/floatlabel';
 @NgModule({
-    imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, InputTextModule, IconFieldModule, InputIconModule, FormsModule],
-    declarations: [ImportDoc, BasicDoc, TemplateDoc, AccessibilityDoc, StyleDoc],
+    imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, InputTextModule, IconFieldModule, InputIconModule, FormsModule, FloatLabelModule],
+    declarations: [ImportDoc, BasicDoc, TemplateDoc, FloatLabelDoc, AccessibilityDoc, StyleDoc],
     exports: [AppDocModule],
 })
 export class IconFieldDocModule {}
