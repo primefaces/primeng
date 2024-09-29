@@ -14,6 +14,8 @@ import {
     ViewEncapsulation,
     booleanAttribute,
     inject,
+    input,
+    computed,
 } from '@angular/core';
 import { SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
