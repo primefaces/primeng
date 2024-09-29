@@ -113,8 +113,8 @@ describe('Badge', () => {
 export class TestHostComponent {
     value: string | number | null = '5';
     disabled = false;
-    badgeSize: 'large' | 'xlarge' | undefined;
-    severity: 'success' | 'info' | 'warning' | 'danger' | null | undefined;
+    badgeSize: 'large' | 'xlarge' | 'smalls' | undefined;
+    severity: 'success' | 'info' | 'warn' | 'danger' | null | undefined;
 }
 
 describe('BadgeDirective', () => {
