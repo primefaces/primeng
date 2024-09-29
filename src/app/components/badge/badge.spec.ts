@@ -26,6 +26,14 @@ describe('Badge', () => {
         expect(badgeEl.nativeElement).toBeTruthy();
     });
 
+    it('should apply dot class when value is undefined', () => {
+        badgeRef.setInput('value', null);
+        fixture.detectChanges();
+
+        const badgeElement = fixture.nativeElement.querySelector('span');
+        expect(badgeElement.classList).toContain('p-badge-dot');
+    });
+
     it('should render the badge with a value', () => {
         badgeRef.setInput('value', '5');
         fixture.detectChanges();
@@ -34,20 +42,20 @@ describe('Badge', () => {
         expect(spanElement.textContent).toBe('5');
     });
 
-    it('should apply p-badge-no-gutter class for single character values', () => {
+    it('should apply p-badge-circle class for single character values', () => {
         badgeRef.setInput('value', 'A');
         fixture.detectChanges();
 
         const spanElement = fixture.nativeElement.querySelector('span');
-        expect(spanElement.classList).toContain('p-badge-no-gutter');
+        expect(spanElement.classList).toContain('p-badge-circle');
     });
 
-    it('should not apply p-badge-no-gutter class for multiple character values', () => {
+    it('should not apply p-badge-circle class for multiple character values', () => {
         badgeRef.setInput('value', 'AB');
         fixture.detectChanges();
 
         const spanElement = fixture.nativeElement.querySelector('span');
-        expect(spanElement.classList).not.toContain('p-badge-no-gutter');
+        expect(spanElement.classList).not.toContain('p-badge-circle');
     });
 
     it('should apply the large size class', () => {
@@ -100,13 +108,7 @@ describe('Badge', () => {
 });
 
 @Component({
-    template: `<div
-        pBadge
-        [value]="value"
-        [badgeDisabled]="disabled"
-        [badgeSize]="badgeSize"
-        [severity]="severity"
-    ></div> `,
+    template: `<div pBadge [value]="value" [badgeDisabled]="disabled" [badgeSize]="badgeSize" [severity]="severity"></div> `,
     imports: [BadgeModule],
     standalone: true,
 })
@@ -195,7 +197,7 @@ describe('BadgeDirective', () => {
         fixture.detectChanges();
 
         const badgeElement = fixture.nativeElement.querySelector('span.p-badge');
-        expect(badgeElement.classList).toContain('p-badge-no-gutter');
+        expect(badgeElement.classList).toContain('p-badge-circle');
     });
 
     it('should remove the badge when disabled is set to true', () => {
