@@ -1,4 +1,4 @@
-import { ComponentRef } from '@angular/core';
+import { Component, ComponentRef } from '@angular/core';
 import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { Badge, BadgeModule } from './badge';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -96,5 +96,133 @@ describe('Badge', () => {
 
         const spanElement = fixture.nativeElement.querySelector('span');
         expect(spanElement.classList).toContain('custom-class');
+    });
+});
+
+@Component({
+    template: `<div pBadge [value]="value" [badgeDisabled]="disabled" [badgeSize]="badgeSize" [severity]="severity" [badgeStyle]="badgeStyle" [badgeStyleClass]="badgeStyleClass"></div> `,
+    imports: [BadgeModule],
+    standalone: true
+})
+export class TestHostComponent {
+    value: string | number | null = '5';
+    disabled = false;
+    badgeSize: 'large' | 'xlarge' | undefined;
+    severity: 'success' | 'info' | 'warning' | 'danger' | null | undefined;
+    badgeStyle: { [klass: string]: any } | null | undefined;
+    badgeStyleClass = '';
+}
+
+describe('BadgeDirective', () => {
+    let fixture: ComponentFixture<TestHostComponent>;
+    let component: TestHostComponent;
+
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({ imports: [TestHostComponent] }).compileComponents();
+
+        fixture = TestBed.createComponent(TestHostComponent);
+        component = fixture.componentInstance;
+    });
+
+    it('should render badge with value', () => {
+        component.value = '10';
+        fixture.detectChanges();
+
+        const badgeElement = fixture.nativeElement.querySelector('span.p-badge');
+        expect(badgeElement.textContent).toBe('10');
+    });
+
+    it('should not render the badge when disabled is true', () => {
+        component.disabled = true;
+        fixture.detectChanges();
+
+        const badgeElement = fixture.nativeElement.querySelector('span.p-badge');
+        expect(badgeElement).toBeNull();
+    });
+
+    it('should update the badge value when value changes', () => {
+        component.value = '5';
+        fixture.detectChanges();
+
+        let badgeElement = fixture.nativeElement.querySelector('span.p-badge');
+        expect(badgeElement.textContent).toBe('5');
+
+        component.value = '10';
+        fixture.detectChanges();
+
+        badgeElement = fixture.nativeElement.querySelector('span.p-badge');
+        expect(badgeElement.textContent).toBe('10');
+    });
+
+    it('should apply the correct severity class', () => {
+        component.severity = 'danger';
+        fixture.detectChanges();
+
+        const badgeElement = fixture.nativeElement.querySelector('span.p-badge');
+        expect(badgeElement.classList).toContain('p-badge-danger');
+    });
+
+    it('should apply large size class', () => {
+        component.badgeSize = 'large';
+        fixture.detectChanges();
+
+        const badgeElement = fixture.nativeElement.querySelector('span.p-badge');
+        expect(badgeElement.classList).toContain('p-badge-lg');
+    });
+
+    it('should apply xlarge size class', () => {
+        component.badgeSize = 'xlarge';
+        fixture.detectChanges();
+
+        const badgeElement = fixture.nativeElement.querySelector('span.p-badge');
+        expect(badgeElement.classList).toContain('p-badge-xl');
+    });
+
+    it('should apply dot class when value is undefined', () => {
+        component.value = null;
+        fixture.detectChanges();
+
+        const badgeElement = fixture.nativeElement.querySelector('span.p-badge');
+        expect(badgeElement.classList).toContain('p-badge-dot');
+    });
+
+    it('should apply no gutter class for single character value', () => {
+        component.value = 'A';
+        fixture.detectChanges();
+
+        const badgeElement = fixture.nativeElement.querySelector('span.p-badge');
+        expect(badgeElement.classList).toContain('p-badge-no-gutter');
+    });
+
+    it('should apply custom inline styles', () => {
+        component.badgeStyle = { 'background-color': 'red', 'font-size': '14px' };
+        fixture.detectChanges();
+
+        const badgeElement = fixture.nativeElement.querySelector('span.p-badge');
+        expect(badgeElement.style.backgroundColor).toBe('red');
+        expect(badgeElement.style.fontSize).toBe('14px');
+    });
+
+    it('should apply custom class to the badge', () => {
+        component.badgeStyleClass = 'custom-class';
+        fixture.detectChanges();
+
+        const badgeElement = fixture.nativeElement.querySelector('span.p-badge');
+        expect(badgeElement.classList).toContain('custom-class');
+    });
+
+    it('should remove the badge when disabled is set to true', () => {
+        component.value = '5';
+        component.disabled = false;
+        fixture.detectChanges();
+
+        let badgeElement = fixture.nativeElement.querySelector('span.p-badge');
+        expect(badgeElement).not.toBeNull();
+
+        component.disabled = true;
+        fixture.detectChanges();
+
+        badgeElement = fixture.nativeElement.querySelector('span.p-badge');
+        expect(badgeElement).toBeNull();
     });
 });
