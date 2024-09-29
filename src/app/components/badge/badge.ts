@@ -1,14 +1,11 @@
-import { CommonModule, DOCUMENT } from '@angular/common';
+import { NgClass, NgStyle } from '@angular/common';
 import {
     AfterViewInit,
     ChangeDetectionStrategy,
     Component,
     Directive,
-    ElementRef,
-    Inject,
     Input,
     NgModule,
-    Renderer2,
     OnChanges,
     SimpleChanges,
     ViewEncapsulation,
@@ -289,7 +286,7 @@ export class Badge extends BaseComponent {
 }
 
 @NgModule({
-    imports: [CommonModule],
+    imports: [NgClass, NgStyle],
     exports: [Badge, BadgeDirective, SharedModule],
     declarations: [Badge, BadgeDirective],
 })
