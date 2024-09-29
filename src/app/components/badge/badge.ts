@@ -25,19 +25,6 @@ export class BadgeDirective implements OnChanges, AfterViewInit {
      */
     @Input() public badgeSize: 'large' | 'xlarge' | undefined;
     /**
-     * Size of the badge, valid options are "large" and "xlarge".
-     * @group Props
-     * @deprecated use badgeSize instead.
-     */
-    @Input() public set size(value: 'large' | 'xlarge') {
-        this._size = value;
-        console.warn('size property is deprecated and will removed in v18, use badgeSize instead.');
-    }
-    get size() {
-        return this._size;
-    }
-    _size: 'large' | 'xlarge';
-    /**
      * Severity type of the badge.
      * @group Props
      */
@@ -151,16 +138,6 @@ export class BadgeDirective implements OnChanges, AfterViewInit {
             }
 
             if (this.badgeSize === 'xlarge') {
-                DomHandler.addClass(badge, 'p-badge-xl');
-                DomHandler.removeClass(badge, 'p-badge-lg');
-            }
-        } else if (this.size && !this.badgeSize) {
-            if (this.size === 'large') {
-                DomHandler.addClass(badge, 'p-badge-lg');
-                DomHandler.removeClass(badge, 'p-badge-xl');
-            }
-
-            if (this.size === 'xlarge') {
                 DomHandler.addClass(badge, 'p-badge-xl');
                 DomHandler.removeClass(badge, 'p-badge-lg');
             }
