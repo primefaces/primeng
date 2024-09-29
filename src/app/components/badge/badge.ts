@@ -1,5 +1,5 @@
-import { CommonModule, DOCUMENT } from '@angular/common';
-import { AfterViewInit, ChangeDetectionStrategy, Component, Directive, ElementRef, Inject, Input, NgModule, Renderer2, OnChanges, SimpleChanges, ViewEncapsulation, booleanAttribute } from '@angular/core';
+import { DOCUMENT, NgClass, NgStyle } from '@angular/common';
+import { AfterViewInit, ChangeDetectionStrategy, Component, Directive, ElementRef, Inject, Input, NgModule, Renderer2, OnChanges, SimpleChanges, ViewEncapsulation, booleanAttribute, input, computed } from '@angular/core';
 import { SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { UniqueComponentId } from 'primeng/utils';
@@ -238,7 +238,11 @@ export class BadgeDirective implements OnChanges, AfterViewInit {
  */
 @Component({
     selector: 'p-badge',
-    template: ` <span *ngIf="!badgeDisabled" [ngClass]="containerClass()" [class]="styleClass" [ngStyle]="style">{{ value }}</span> `,
+    template: `
+        @if (!badgeDisabled()) {
+            <span [ngClass]="containerClass()" [class]="styleClass()" [ngStyle]="style()">{{ value() }}</span>
+        }
+    `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./badge.css'],
@@ -251,59 +255,49 @@ export class Badge {
      * Class of the element.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    styleClass = input<string>();
     /**
      * Inline style of the element.
      * @group Props
      */
-    @Input() style: { [klass: string]: any } | null | undefined;
+    style = input<{ [klass: string]: any } | null>();
     /**
      * Size of the badge, valid options are "large" and "xlarge".
      * @group Props
      */
-    @Input() badgeSize: 'large' | 'xlarge' | undefined;
+    badgeSize = input<'large' | 'xlarge'>();
     /**
      * Severity type of the badge.
      * @group Props
      */
-    @Input() severity: 'success' | 'info' | 'warning' | 'danger' | 'help' | 'primary' | 'secondary' | 'contrast' | null | undefined;
+    severity = input<'success' | 'info' | 'warning' | 'danger' | 'help' | 'primary' | 'secondary' | 'contrast' | null>();
     /**
      * Value to display inside the badge.
      * @group Props
      */
-    @Input() value: string | number | null | undefined;
+    value = input<string | number | null>();
     /**
      * When specified, disables the component.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) badgeDisabled: boolean = false;
+    badgeDisabled = input<boolean, boolean>(false, { transform: booleanAttribute });
     /**
-     * Size of the badge, valid options are "large" and "xlarge".
-     * @group Props
-     * @deprecated use badgeSize instead.
+     * Computes the container class for the badge element based on its properties.
+     * @returns An object representing the CSS classes to be applied to the badge container.
      */
-    @Input() public set size(value: 'large' | 'xlarge') {
-        this._size = value;
-        console.warn('size property is deprecated and will removed in v18, use badgeSize instead.');
-    }
-    get size() {
-        return this._size;
-    }
-    _size: 'large' | 'xlarge';
-
-    containerClass() {
+    containerClass = computed<{ [klass: string]: any }>(() => {
         return {
             'p-badge p-component': true,
-            'p-badge-no-gutter': this.value != undefined && String(this.value).length === 1,
-            'p-badge-lg': this.badgeSize === 'large' || this.size === 'large',
-            'p-badge-xl': this.badgeSize === 'xlarge' || this.size === 'xlarge',
-            [`p-badge-${this.severity}`]: this.severity
+            'p-badge-no-gutter': this.value() != undefined && String(this.value()).length === 1,
+            'p-badge-lg': this.badgeSize() === 'large',
+            'p-badge-xl': this.badgeSize() === 'xlarge',
+            [`p-badge-${this.severity()}`]: this.severity()
         };
-    }
+    });
 }
 
 @NgModule({
-    imports: [CommonModule],
+    imports: [NgClass, NgStyle],
     exports: [Badge, BadgeDirective, SharedModule],
     declarations: [Badge, BadgeDirective]
 })
