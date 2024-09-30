@@ -28,6 +28,8 @@ import { LoadingStateDoc } from './loadingstatedoc';
 import { FilledDoc } from './filleddoc';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { SelectModule } from 'primeng/select';
+import { InputGroupModule } from 'primeng/inputgroup';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 @NgModule({
     imports: [
         CommonModule,
@@ -40,6 +42,8 @@ import { SelectModule } from 'primeng/select';
         ButtonModule,
         InputTextModule,
         FloatLabelModule,
+        InputGroupModule,
+        InputGroupAddonModule
     ],
     exports: [AppDocModule],
     declarations: [
