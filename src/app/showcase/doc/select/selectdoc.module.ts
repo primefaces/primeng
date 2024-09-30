@@ -30,6 +30,8 @@ import { FloatLabelModule } from 'primeng/floatlabel';
 import { SelectModule } from 'primeng/select';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { IftaLabelModule } from 'primeng/iftalabel';
+import { IftaLabelDoc } from './iftalabeldoc';
 @NgModule({
     imports: [
         CommonModule,
@@ -42,8 +44,9 @@ import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
         ButtonModule,
         InputTextModule,
         FloatLabelModule,
+        IftaLabelModule,
         InputGroupModule,
-        InputGroupAddonModule
+        InputGroupAddonModule,
     ],
     exports: [AppDocModule],
     declarations: [
@@ -59,6 +62,7 @@ import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
         CustomFilterDoc,
         FilterDoc,
         FloatLabelDoc,
+        IftaLabelDoc,
         StyleDoc,
         AccessibilityDoc,
         ReactiveFormsDoc,
