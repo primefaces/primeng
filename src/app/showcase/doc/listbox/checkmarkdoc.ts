@@ -7,31 +7,25 @@ interface City {
 }
 
 @Component({
-    selector: 'basic-doc',
+    selector: 'checkmark-doc',
     template: `
         <app-docsectiontext>
-            <p>
-                Listbox is used as a controlled component with <i>ngModel</i> property along with an <i>options</i> collection. Label and
-                value of an option are defined with the <i>optionLabel</i> and <i>optionValue</i> properties respectively. Default property
-                name for the <i>optionLabel</i> is <i>label</i> and <i>value</i> for the <i>optionValue</i>. If <i>optionValue</i> is
-                omitted and the object has no <i>value</i> property, the object itself becomes the value of an option. Note that, when
-                options are simple primitive values such as a string array, no <i>optionLabel</i> and <i>optionValue</i> would be necessary.
-            </p>
+            <p>An alternative way to highlight the selected option is displaying a checkmark instead.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-listbox
-                [options]="cities"
                 [(ngModel)]="selectedCity"
+                [options]="cities"
                 optionLabel="name"
-                [style]="{ width: '15rem' }"
-                [listStyle]="{ 'max-height': '220px' }"
+                [checkmark]="true"
+                [highlightOnSelect]="false"
                 class="w-full md:w-56"
             />
         </div>
-        <app-code [code]="code" selector="listbox-basic-demo"></app-code>
+        <app-code [code]="code" selector="listbox-checkmark-demo"></app-code>
     `,
 })
-export class BasicDoc implements OnInit {
+export class CheckmarkDoc implements OnInit {
     cities!: City[];
 
     selectedCity!: City;
@@ -47,10 +41,10 @@ export class BasicDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-listbox [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" [style]="{'width':'15rem'}" [listStyle]="{'max-height': '220px'}" class="w-full md:w-56" />`,
+        basic: `<p-listbox [(ngModel)]="selectedCity" [options]="cities" optionLabel="name" [checkmark]="true" [highlightOnSelect]="false" class="w-full md:w-56"/>`,
 
         html: `<div class="card flex justify-center">
-    <p-listbox [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" [style]="{'width':'15rem'}" [listStyle]="{'max-height': '220px'}" class="w-full md:w-56" />
+       <p-listbox [(ngModel)]="selectedCity" [options]="cities" optionLabel="name" [checkmark]="true" [highlightOnSelect]="false" class="w-full md:w-56" />
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
@@ -63,12 +57,12 @@ interface City {
 }
 
 @Component({
-    selector: 'listbox-basic-demo',
-    templateUrl: './listbox-basic-demo.html',
+    selector: 'listbox-checkmark-demo',
+    templateUrl: './listbox-checkmark-demo.html',
     standalone: true,
     imports: [FormsModule, ListboxModule]
 })
-export class ListboxBasicDemo implements OnInit {
+export class ListboxCheckmarkDemo implements OnInit {
     cities!: City[];
 
     selectedCity!: City;

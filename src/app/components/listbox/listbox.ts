@@ -222,7 +222,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                                     [attr.id]="id + '_' + getOptionIndex(i, scrollerOptions)"
                                     [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }"
                                     [ngClass]="{
-                                        'p-listbox-option-selected': isSelected(option),
+                                        'p-listbox-option-selected': isSelected(option) && highlightOnSelect,
                                         'p-focus': focusedOptionIndex() === getOptionIndex(i, scrollerOptions),
                                         'p-disabled': isOptionDisabled(option),
                                     }"
@@ -254,7 +254,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                                             </ng-template>
                                         </ng-container>
                                     </p-checkbox>
-                                    <ng-container *ngIf="multiple && checkmark">
+                                    <ng-container *ngIf="checkmark">
                                         <ng-container *ngIf="!checkmarkTemplate">
                                             <BlankIcon *ngIf="!isSelected(option)" styleClass="p-listbox-option-check-icon" />
                                             <CheckIcon *ngIf="isSelected(option)" styleClass="p-listbox-option-check-icon" />
@@ -568,11 +568,17 @@ export class Listbox extends BaseComponent implements AfterContentInit, OnInit, 
      */
     @Input({ transform: booleanAttribute }) striped: boolean | undefined = false;
     /**
+     * Whether the selected option will be add highlight class.
+     * @group Props
+     * @defaultValue true
+     */
+    @Input({ transform: booleanAttribute }) highlightOnSelect: boolean = true;
+    /**
      * Whether the selected option will be shown with a check mark.
      * @group Props
      * @defaultValue false
      */
-    @Input({ transform: booleanAttribute }) checkmark: boolean | undefined = false;
+    @Input({ transform: booleanAttribute }) checkmark: boolean = false;
     /**
      * Callback to invoke on value change.
      * @param {ListboxChangeEvent} event - Custom change event.

@@ -20,6 +20,7 @@ interface City {
                 class="ng-invalid ng-dirty"
                 [style]="{ width: '15rem' }"
                 [listStyle]="{ 'max-height': '220px' }"
+                class="w-full md:w-56"
             />
         </div>
         <app-code [code]="code" selector="listbox-invalid-demo"></app-code>
@@ -41,10 +42,10 @@ export class InvalidDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-listbox [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" class="ng-invalid ng-dirty" [style]="{ width: '15rem' }" [listStyle]="{'max-height': '220px'}" />`,
+        basic: `<p-listbox [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" class="ng-invalid ng-dirty" [style]="{ width: '15rem' }" [listStyle]="{'max-height': '220px'}" class="w-full md:w-56" />`,
 
         html: `<div class="card flex justify-center">
-    <p-listbox [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" class="ng-invalid ng-dirty" [style]="{ width: '15rem' }" [listStyle]="{'max-height': '220px'}" />
+    <p-listbox [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" class="ng-invalid ng-dirty" [style]="{ width: '15rem' }" [listStyle]="{'max-height': '220px'}" class="w-full md:w-56" />
 </div>`,
 
         typescript: `import { Component, ngOnInit } from '@angular/core';
