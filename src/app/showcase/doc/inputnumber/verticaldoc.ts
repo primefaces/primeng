@@ -14,7 +14,7 @@ import { Code } from '@domain/code';
                 buttonLayout="vertical"
                 spinnerMode="vertical"
                 inputId="vertical"
-                [style]="{ width: '3rem' }"
+                [inputStyle]="{ width: '3rem' }"
             >
                 <ng-template pTemplate="incrementbuttonicon">
                     <span class="pi pi-plus"></span>
@@ -31,7 +31,7 @@ export class VerticalDoc {
     value1: number = 50;
 
     code: Code = {
-        basic: `<p-inputnumber [(ngModel)]="value1" [showButtons]="true" buttonLayout="vertical" spinnerMode="vertical" inputId="vertical" [style]="{ width: '3rem' }">
+        basic: `<p-inputnumber [(ngModel)]="value1" [showButtons]="true" buttonLayout="vertical" spinnerMode="vertical" inputId="vertical" [inputStyle]="{ width: '3rem' }">
     <ng-template pTemplate="incrementbuttonicon">
         <span class="pi pi-plus"></span>
     </ng-template>
@@ -41,7 +41,7 @@ export class VerticalDoc {
 </p-inputnumber>`,
 
         html: `<div class="card flex justify-center">
-    <p-inputnumber [(ngModel)]="value1" [showButtons]="true" buttonLayout="vertical" spinnerMode="vertical" inputId="vertical" [style]="{ width: '3rem' }">
+    <p-inputnumber [(ngModel)]="value1" [showButtons]="true" buttonLayout="vertical" spinnerMode="vertical" inputId="vertical" [inputStyle]="{ width: '3rem' }">
         <ng-template pTemplate="incrementbuttonicon">
             <span class="pi pi-plus"></span>
         </ng-template>
