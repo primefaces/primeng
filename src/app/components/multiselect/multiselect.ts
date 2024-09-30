@@ -809,7 +809,7 @@ export class MultiSelect extends BaseComponent implements OnInit, AfterViewInit,
      * Applies focus to the filter element when the overlay is shown.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) autofocusFilter: boolean = true;
+    @Input({ transform: booleanAttribute }) autofocusFilter: boolean = false;
     /**
      * Defines how the selected items are displayed.
      * @group Props
