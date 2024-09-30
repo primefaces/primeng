@@ -21,6 +21,8 @@ import { ToggleMaskDoc } from './togglemaskdoc';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { FilledDoc } from './filleddoc';
 import { InputTextModule } from 'primeng/inputtext';
+import { IftaLabelModule } from 'primeng/iftalabel';
+import { IftaLabelDoc } from './iftalabeldoc';
 
 @NgModule({
     imports: [
@@ -34,6 +36,7 @@ import { InputTextModule } from 'primeng/inputtext';
         DividerModule,
         RouterModule,
         FloatLabelModule,
+        IftaLabelModule
     ],
     exports: [AppDocModule],
     declarations: [
@@ -44,6 +47,7 @@ import { InputTextModule } from 'primeng/inputtext';
         ToggleMaskDoc,
         TemplateDoc,
         FloatLabelDoc,
+        IftaLabelDoc,
         InvalidDoc,
         DisabledDoc,
         StyleDoc,

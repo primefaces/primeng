@@ -12,6 +12,7 @@ import { TemplateDoc } from '@doc/password/templatedoc';
 import { ToggleMaskDoc } from '@doc/password/togglemaskdoc';
 import { FilledDoc } from '@doc/password/filleddoc';
 import { PasswordDocModule } from '@doc/password/passworddoc.module';
+import { IftaLabelDoc } from '@doc/password/iftalabeldoc';
 
 @Component({
     template: `<app-doc
@@ -66,6 +67,11 @@ export class PasswordDemo {
             id: 'floatlabel',
             label: 'Float Label',
             component: FloatLabelDoc,
+        },
+        {
+            id: 'iftalabel',
+            label: 'Ifta Label',
+            component: IftaLabelDoc,
         },
         {
             id: 'filled',
