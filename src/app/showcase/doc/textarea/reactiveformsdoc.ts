@@ -30,22 +30,12 @@ export class ReactiveFormsDoc implements OnInit {
 
     code: Code = {
         basic: `<form [formGroup]="formGroup">
-    <textarea 
-        rows="5" 
-        cols="30" 
-        pTextarea 
-        formControlName="text">
-    </textarea>
+    <textarea rows="5" cols="30" pTextarea formControlName="text"></textarea>
 </form>`,
 
         html: `<div class="card flex justify-center">
     <form [formGroup]="formGroup">
-        <textarea 
-            rows="5"
-            cols="30" 
-            pTextarea 
-            formControlName="text">
-        </textarea>
+        <textarea rows="5"cols="30" pTextarea formControlName="text"></textarea>
     </form>
 </div>`,
 

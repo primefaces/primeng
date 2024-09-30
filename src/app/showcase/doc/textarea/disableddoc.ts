@@ -15,20 +15,10 @@ import { Code } from '@domain/code';
 })
 export class DisabledDoc {
     code: Code = {
-        basic: `<textarea 
-    rows="5"
-    cols="30" 
-    pTextarea 
-    [disabled]="true">
-</textarea>`,
+        basic: `<textarea rows="5"cols="30" pTextarea [disabled]="true"></textarea>`,
 
         html: `<div class="card flex justify-center">
-    <textarea 
-        rows="5"
-        cols="30"
-        pTextarea 
-        [disabled]="true">
-    </textarea>
+    <textarea rows="5" cols="30" pTextarea [disabled]="true"></textarea>
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

@@ -17,20 +17,10 @@ export class BasicDoc {
     value!: string;
 
     code: Code = {
-        basic: `<textarea 
-    rows="5"
-    cols="30" 
-    pTextarea 
-    [(ngModel)]="value">
-</textarea>`,
+        basic: `<textarea rows="5" cols="30" pTextarea [(ngModel)]="value"></textarea>`,
 
         html: `<div class="card flex justify-center">
-    <textarea 
-        rows="5"
-        cols="30"
-        pTextarea 
-        [(ngModel)]="value">
-    </textarea>
+    <textarea rows="5" cols="30" pTextarea  [(ngModel)]="value"></textarea>
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
