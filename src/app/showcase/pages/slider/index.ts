@@ -8,6 +8,7 @@ import { RangeDoc } from '@doc/slider/rangedoc';
 import { StepDoc } from '@doc/slider/stepdoc';
 import { VerticalDoc } from '@doc/slider/verticaldoc';
 import { SliderDocModule } from '@doc/slider/sliderdoc.module';
+import { FilterDoc } from '@doc/slider/filterdoc';
 
 @Component({
     template: `<app-doc
@@ -53,6 +54,11 @@ export class SliderDemo {
             id: 'range',
             label: 'Range',
             component: RangeDoc,
+        },
+        {
+            id: 'filter',
+            label: 'Filter',
+            component: FilterDoc,
         },
         {
             id: 'vertical',
