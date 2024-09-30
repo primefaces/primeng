@@ -39,33 +39,13 @@ export class DisabledDoc {
     value2: string = 'Option 1';
 
     code: Code = {
-        basic: `<p-selectbutton 
-    [options]="stateOptions" 
-    [(ngModel)]="value1" 
-    optionLabel="label"
-    optionValue="value" 
-    [disabled]="true" />
+        basic: `<p-selectbutton [options]="stateOptions" [(ngModel)]="value1" optionLabel="label" optionValue="value" [disabled]="true" />
 
-<p-selectbutton 
-    [options]="stateOptions2" 
-    [(ngModel)]="value2" 
-    optionLabel="label" 
-    optionValue="value" 
-    optionDisabled="constant" />`,
+<p-selectbutton [options]="stateOptions2" [(ngModel)]="value2" optionLabel="label" optionValue="value" optionDisabled="constant" />`,
 
         html: `<div class="card flex justify-center">
-    <p-selectbutton 
-        [options]="stateOptions" 
-        [(ngModel)]="value1" 
-        optionLabel="label" 
-        optionValue="value" 
-        [disabled]="true" />
-    <p-selectbutton 
-        [options]="stateOptions2" 
-        [(ngModel)]="value2"
-        optionLabel="label" 
-        optionValue="value" 
-        optionDisabled="constant" />
+    <p-selectbutton [options]="stateOptions" [(ngModel)]="value1" optionLabel="label" optionValue="value" [disabled]="true" />
+    <p-selectbutton [options]="stateOptions2" [(ngModel)]="value2" optionLabel="label" optionValue="value" optionDisabled="constant" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
