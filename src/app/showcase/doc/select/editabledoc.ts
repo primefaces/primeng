@@ -34,20 +34,10 @@ export class EditableDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-select 
-    [options]="cities" 
-    [(ngModel)]="selectedCity" 
-    placeholder="Select a City" 
-    [editable]="true" 
-    optionLabel="name" />`,
+        basic: `<p-select [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City" [editable]="true" optionLabel="name" />`,
 
         html: `<div class="card flex justify-center">
-    <p-select 
-        [options]="cities" 
-        [(ngModel)]="selectedCity" 
-        placeholder="Select a City" 
-        [editable]="true" 
-        optionLabel="name" />
+    <p-select [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City" [editable]="true" optionLabel="name" />
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';

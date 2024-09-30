@@ -45,20 +45,12 @@ export class ReactiveFormsDoc implements OnInit {
 
     code: Code = {
         basic: `<form [formGroup]="formGroup">
-    <p-select 
-        formControlName="selectedCity" 
-        [options]="cities"
-        optionLabel="name"
-        placeholder="Select a City" />
+    <p-select formControlName="selectedCity" [options]="cities" optionLabel="name" placeholder="Select a City" />
 </form>`,
 
         html: `<div class="card flex justify-center">
     <form [formGroup]="formGroup">
-        <p-select 
-            formControlName="selectedCity"
-            [options]="cities"
-            optionLabel="name"
-            placeholder="Select a City" />
+        <p-select formControlName="selectedCity" [options]="cities" optionLabel="name" placeholder="Select a City" />
     </form>
 </div>`,
 

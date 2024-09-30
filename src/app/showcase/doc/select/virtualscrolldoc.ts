@@ -38,20 +38,10 @@ export class VirtualScrollDoc {
     }
 
     code: Code = {
-        basic: `<p-select 
-    [options]="items" 
-    [(ngModel)]="selectedItem" 
-    placeholder="Select Item" 
-    [virtualScroll]="true"
-    [virtualScrollItemSize]="38" />`,
+        basic: `<p-select [options]="items" [(ngModel)]="selectedItem" placeholder="Select Item" [virtualScroll]="true" [virtualScrollItemSize]="38" />`,
 
         html: `<div class="card flex justify-center">
-    <p-select 
-        [options]="items"
-        [(ngModel)]="selectedItem"
-        placeholder="Select Item"
-        [virtualScroll]="true"
-        [virtualScrollItemSize]="38" />
+    <p-select [options]="items" [(ngModel)]="selectedItem" placeholder="Select Item" [virtualScroll]="true" [virtualScrollItemSize]="38" />
 </div>`,
 
         typescript: `import { SelectItem } from 'primeng/api';
