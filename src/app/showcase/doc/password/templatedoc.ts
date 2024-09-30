@@ -13,12 +13,11 @@ import { Code } from '@domain/code';
         <div class="card flex justify-center">
             <p-password [(ngModel)]="value" autocomplete="off">
                 <ng-template pTemplate="header">
-                    <h6>Pick a password</h6>
+                    <div class="font-semibold text-xm mb-4">Pick a password</div>
                 </ng-template>
                 <ng-template pTemplate="footer">
                     <p-divider />
-                    <p class="mt-2">Suggestions</p>
-                    <ul class="pl-2 ml-2 mt-0" style="line-height: 1.5">
+                    <ul class="pl-2 ml-2 my-0 leading-normal">
                         <li>At least one lowercase</li>
                         <li>At least one uppercase</li>
                         <li>At least one numeric</li>
@@ -34,14 +33,13 @@ export class TemplateDoc {
     value!: string;
 
     code: Code = {
-        basic: `<p-password [(ngModel)]="value">
+        basic: `<p-password [(ngModel)]="value" autocomplete="off">
     <ng-template pTemplate="header">
-        <h6>Pick a password</h6>
+        <div class="font-semibold text-xm mb-4">Pick a password</div>
     </ng-template>
     <ng-template pTemplate="footer">
         <p-divider />
-        <p class="mt-2">Suggestions</p>
-        <ul class="pl-2 ml-2 mt-0" style="line-height: 1.5">
+        <ul class="pl-2 ml-2 my-0 leading-normal">
             <li>At least one lowercase</li>
             <li>At least one uppercase</li>
             <li>At least one numeric</li>
@@ -51,21 +49,20 @@ export class TemplateDoc {
 </p-password>`,
 
         html: `<div class="card flex justify-center">
-    <p-password [(ngModel)]="value">
-         <ng-template pTemplate="header">
-             <h6>Pick a password</h6>
-         </ng-template>
-         <ng-template pTemplate="footer">
-             <p-divider />
-             <p class="mt-2">Suggestions</p>
-             <ul class="pl-2 ml-2 mt-0" style="line-height: 1.5">
-                 <li>At least one lowercase</li>
-                 <li>At least one uppercase</li>
-                 <li>At least one numeric</li>
-                 <li>Minimum 8 characters</li>
-             </ul>
-         </ng-template>
-     </p-password>
+    <p-password [(ngModel)]="value" autocomplete="off">
+        <ng-template pTemplate="header">
+            <div class="font-semibold text-xm mb-4">Pick a password</div>
+        </ng-template>
+        <ng-template pTemplate="footer">
+            <p-divider />
+            <ul class="pl-2 ml-2 my-0 leading-normal">
+                <li>At least one lowercase</li>
+                <li>At least one uppercase</li>
+                <li>At least one numeric</li>
+                <li>Minimum 8 characters</li>
+            </ul>
+        </ng-template>
+    </p-password>
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
