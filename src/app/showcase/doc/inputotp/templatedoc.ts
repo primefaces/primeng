@@ -25,7 +25,7 @@ import { Code } from '@domain/code';
                 </ng-template>
             </p-inputotp>
         </div>
-        <app-code [code]="code" selector="input-otp-template-demo"></app-code>,
+        <app-code [code]="code" selector="input-otp-template-demo"></app-code>
     `,
     styles: [
         `
