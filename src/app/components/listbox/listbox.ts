@@ -47,6 +47,7 @@ import { BaseComponent } from 'primeng/basecomponent';
 import { ListBoxStyle } from './style/listboxstyle';
 import { BlankIcon } from 'primeng/icons/blank';
 import { CheckboxModule } from 'primeng/checkbox';
+import { InputIconModule } from 'primeng/inputicon';
 
 export const LISTBOX_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -1583,6 +1584,7 @@ export class Listbox extends BaseComponent implements AfterContentInit, OnInit, 
         CheckboxModule,
         CheckIcon,
         IconFieldModule,
+        InputIconModule,
         InputTextModule,
         BlankIcon,
         FormsModule,
