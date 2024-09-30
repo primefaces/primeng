@@ -6,6 +6,7 @@ import { CustomizedDoc } from '@doc/togglebutton/customizeddoc';
 import { DisabledDoc } from '@doc/togglebutton/disableddoc';
 import { ImportDoc } from '@doc/togglebutton/importdoc';
 import { ToggleButtonDocModule } from '@doc/togglebutton/togglebuttondoc.module';
+import { InvalidDoc } from '@doc/togglebutton/invaliddoc';
 
 @Component({
     template: `<app-doc
@@ -42,11 +43,15 @@ export class ToggleButtonDemo {
             component: CustomizedDoc,
         },
         {
+            id: 'invalid',
+            label: 'Invalid',
+            component: InvalidDoc,
+        },
+        {
             id: 'disabled',
             label: 'Disabled',
             component: DisabledDoc,
         },
-
         {
             id: 'accessibility',
             label: 'Accessibility',

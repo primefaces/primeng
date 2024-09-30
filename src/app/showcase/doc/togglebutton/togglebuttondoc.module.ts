@@ -12,10 +12,11 @@ import { ImportDoc } from './importdoc';
 import { DisabledDoc } from './disableddoc';
 import { ReactiveFormsDoc } from './reactiveformsdoc';
 import { StyleDoc } from './styledoc';
+import { InvalidDoc } from './invaliddoc';
 
 @NgModule({
     imports: [CommonModule, AppCodeModule, AppDocModule, ToggleButtonModule, FormsModule, ReactiveFormsModule, RouterModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, CustomizedDoc, StyleDoc, AccessibilityDoc, ReactiveFormsDoc, DisabledDoc],
+    declarations: [ImportDoc, BasicDoc, CustomizedDoc, InvalidDoc, StyleDoc, AccessibilityDoc, ReactiveFormsDoc, DisabledDoc],
 })
 export class ToggleButtonDocModule {}

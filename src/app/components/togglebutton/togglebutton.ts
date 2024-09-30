@@ -94,12 +94,12 @@ export class ToggleButton extends BaseComponent implements ControlValueAccessor 
      * Label for the on state.
      * @group Props
      */
-    @Input() onLabel: string | undefined;
+    @Input() onLabel: string = "Yes"
     /**
      * Label for the off state.
      * @group Props
      */
-    @Input() offLabel: string | undefined;
+    @Input() offLabel: string = "No"
     /**
      * Icon for the on state.
      * @group Props
