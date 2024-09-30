@@ -14,7 +14,6 @@ import { Code } from '@domain/code';
             <p-inputotp [(ngModel)]="value">
                 <ng-template pTemplate="input" let-token let-events="events">
                     <input
-                        pInputText
                         class="custom-otp-input"
                         (keydown)="events.keydown($event)"
                         (input)="events.input($event)"
@@ -55,7 +54,6 @@ export class TemplateDoc {
         basic: `<p-inputotp [(ngModel)]="value">
     <ng-template pTemplate="input" let-token let-events="events">
         <input 
-            pInputText 
             class="custom-otp-input" 
             (input)="events.input($event)" 
             (keydown)="events.keydown($event)" 
@@ -69,7 +67,6 @@ export class TemplateDoc {
     <p-inputotp [(ngModel)]="value">
         <ng-template pTemplate="input" let-token let-events="events">
             <input 
-                pInputText
                 class="custom-otp-input" 
                 (input)="events.input($event)" 
                 (keydown)="events.keydown($event)" 
