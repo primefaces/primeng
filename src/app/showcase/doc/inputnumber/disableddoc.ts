@@ -17,18 +17,10 @@ export class DisabledDoc {
     value1: number = 50;
 
     code: Code = {
-        basic: `<p-inputnumber 
-    inputId="integeronly" 
-    [disabled]="true" 
-    prefix="%" 
-    [(ngModel)]="value1" />`,
+        basic: `<p-inputnumber inputId="integeronly" [disabled]="true" prefix="%" [(ngModel)]="value1" />`,
 
         html: `<div class="card flex justify-center">
-    <p-inputnumber 
-        inputId="integeronly" 
-        [disabled]="true" 
-        prefix="%" 
-        [(ngModel)]="value1" /> 
+    <p-inputnumber inputId="integeronly" [disabled]="true" prefix="%" [(ngModel)]="value1" /> 
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

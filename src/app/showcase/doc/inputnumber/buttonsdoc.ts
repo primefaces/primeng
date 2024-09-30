@@ -49,76 +49,28 @@ export class ButtonsDoc {
     value3: number = 25;
 
     code: Code = {
-        basic: `<p-inputnumber 
-    [(ngModel)]="value1" 
-    [showButtons]="true" 
-    inputId="stacked" 
-    mode="currency" 
-    currency="USD" />
-
-<p-inputnumber 
-    [(ngModel)]="value2" 
-    mode="decimal" 
-    [showButtons]="true" 
-    inputId="minmax-buttons" 
-    [min]="0" 
-    [max]="100" /> 
-
-<p-inputnumber 
-    [(ngModel)]="value3" 
-    [showButtons]="true" 
-    buttonLayout="horizontal" 
-    inputId="horizontal" 
-    spinnerMode="horizontal" 
-    [step]="0.25"
-    decrementButtonClass="p-button-danger"
-    incrementButtonClass="p-button-success"
-    incrementButtonIcon="pi pi-plus" 
-    decrementButtonIcon="pi pi-minus" 
-    mode="currency" 
-    currency="EUR" />`,
+        basic: `<p-inputnumber [(ngModel)]="value1" [showButtons]="true" inputId="stacked" mode="currency" currency="USD" />
+<p-inputnumber [(ngModel)]="value2" mode="decimal" [showButtons]="true" inputId="minmax-buttons" [min]="0" [max]="100" /> 
+<p-inputnumber [(ngModel)]="value3" [showButtons]="true" buttonLayout="horizontal" inputId="horizontal" spinnerMode="horizontal" [step]="0.25" decrementButtonClass="p-button-danger" incrementButtonClass="p-button-success" incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus" mode="currency" currency="EUR" />`,
 
         html: `<p-fluid class="card flex flex-wrap gap-4">
     <div class="flex-auto">
         <label class="mb-2 block font-bold" for="stacked">
             Stacked
         </label>
-        <p-inputnumber 
-            [(ngModel)]="value1" 
-            [showButtons]="true" 
-            inputId="stacked" 
-            mode="currency" 
-            currency="USD" /> 
+        <p-inputnumber [(ngModel)]="value1" [showButtons]="true" inputId="stacked" mode="currency" currency="USD" /> 
     </div>
     <div class="flex-auto">
         <label class="mb-2 block font-bold" for="minmax-buttons">
             Min-Max Boundaries
         </label>
-        <p-inputnumber 
-            [(ngModel)]="value2"
-            mode="decimal" 
-            [showButtons]="true" 
-            inputId="minmax-buttons" 
-            [min]="0" 
-            [max]="100" />
+        <p-inputnumber [(ngModel)]="value2" mode="decimal" [showButtons]="true" inputId="minmax-buttons" [min]="0" [max]="100" />
     </div>
     <div class="flex-auto">
         <label class="mb-2 block font-bold" for="horizontal">
             Horizontal with Step
         </label>
-        <p-inputnumber
-            [(ngModel)]="value3"
-            [showButtons]="true"
-            buttonLayout="horizontal"
-            inputId="horizontal"
-            spinnerMode="horizontal"
-            [step]="0.25"
-            decrementButtonClass="p-button-danger"
-            incrementButtonClass="p-button-success"
-            incrementButtonIcon="pi pi-plus"
-            decrementButtonIcon="pi pi-minus"
-            mode="currency"
-            currency="EUR" />
+        <p-inputnumber [(ngModel)]="value3" [showButtons]="true" buttonLayout="horizontal" inputId="horizontal" spinnerMode="horizontal" [step]="0.25" decrementButtonClass="p-button-danger" incrementButtonClass="p-button-success" incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus" mode="currency" currency="EUR" />
     </div>
 </p-fluid>`,
 

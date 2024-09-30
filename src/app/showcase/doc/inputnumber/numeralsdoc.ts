@@ -44,62 +44,27 @@ export class NumeralsDoc {
     value4: number = 50;
 
     code: Code = {
-        basic: `<p-inputnumber 
-    inputId="integeronly" 
-    [(ngModel)]="value1" /> 
-
-<p-inputnumber 
-    [(ngModel)]="value2" 
-    mode="decimal" 
-    inputId="withoutgrouping" 
-    [useGrouping]="false" /> 
-
-<p-inputnumber 
-    [(ngModel)]="value3" 
-    inputId="minmaxfraction" 
-    mode="decimal" 
-    [minFractionDigits]="2" 
-    [maxFractionDigits]="5" /> 
-
-<p-inputnumber 
-    [(ngModel)]="value4" 
-    inputId="minmax" 
-    mode="decimal" 
-    [min]="0" 
-    [max]="100" /> `,
+        basic: `<p-inputnumber inputId="integeronly" [(ngModel)]="value1" /> 
+<p-inputnumber [(ngModel)]="value2" mode="decimal" inputId="withoutgrouping" [useGrouping]="false" /> 
+<p-inputnumber [(ngModel)]="value3" inputId="minmaxfraction" mode="decimal" [minFractionDigits]="2" [maxFractionDigits]="5" /> 
+<p-inputnumber [(ngModel)]="value4" inputId="minmax" mode="decimal" [min]="0" [max]="100" />`,
 
         html: `<p-fluid class="card flex flex-wrap gap-4">
     <div class="flex-auto">
         <label for="integeronly">Integer Only</label>
-        <p-inputnumber 
-            inputId="integeronly" 
-            [(ngModel)]="value1" /> 
+        <p-inputnumber inputId="integeronly" [(ngModel)]="value1" /> 
     </div>
     <div class="flex-auto">
         <label for="withoutgrouping">Without Grouping</label>
-        <p-inputnumber 
-            [(ngModel)]="value2" 
-            mode="decimal" 
-            inputId="withoutgrouping" 
-            [useGrouping]="false" /> 
+        <p-inputnumber [(ngModel)]="value2" mode="decimal" inputId="withoutgrouping" [useGrouping]="false" /> 
     </div>
     <div class="flex-auto">
         <label for="minmaxfraction">Min-Max Fraction Digits</label>
-        <p-inputnumber 
-            [(ngModel)]="value3" 
-            inputId="minmaxfraction" 
-            mode="decimal" 
-            [minFractionDigits]="2" 
-            [maxFractionDigits]="5" /> 
+        <p-inputnumber [(ngModel)]="value3" inputId="minmaxfraction" mode="decimal" [minFractionDigits]="2" [maxFractionDigits]="5" /> 
     </div>
     <div class="flex-auto">
         <label for="minmax">Min-Max Boundaries</label>
-        <p-inputnumber 
-            [(ngModel)]="value4" 
-            inputId="minmax" 
-            mode="decimal" 
-            [min]="0" 
-            [max]="100" /> 
+        <p-inputnumber [(ngModel)]="value4" inputId="minmax" mode="decimal" [min]="0" [max]="100" /> 
     </div>
 </p-fluid>`,
 
