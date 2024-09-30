@@ -14,7 +14,7 @@ import { Code } from '@domain/code';
     `,
 })
 export class StepDoc {
-    value!: number;
+    value: number = 20;
 
     code: Code = {
         basic: `<p-slider [(ngModel)]="value" [step]="20" styleClass="w-56" />`,
@@ -34,7 +34,7 @@ import { SliderModule } from 'primeng/slider';
     imports: [FormsModule, SliderModule]
 })
 export class SliderStepDemo {
-    value!: number;
+    value: number = 20;
 }`,
     };
 }
