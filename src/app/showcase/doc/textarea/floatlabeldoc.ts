@@ -10,35 +10,62 @@ import { Code } from '@domain/code';
                 <a routerLink="/floatlabel">FloatLabel</a> documentation for more information.
             </p>
         </app-docsectiontext>
-        <div class="card flex justify-center">
+        <div class="card flex flex-wrap justify-center items-stretch gap-4">
             <p-floatlabel>
-                <textarea id="float-input" rows="5" cols="30" pTextarea></textarea>
-                <label for="float-input">Summary</label>
+                <textarea pTextarea id="over_label" [(ngModel)]="value1" rows="5" cols="30" style="resize: none" class="h-full"></textarea>
+                <label for="over_label">Over Label</label>
+            </p-floatlabel>
+
+            <p-floatlabel variant="in">
+                <textarea pTextarea id="over_label" [(ngModel)]="value2" rows="5" cols="30" style="resize: none" class="h-full"></textarea>
+                <label for="in_label">In Label</label>
+            </p-floatlabel>
+
+            <p-floatlabel variant="on">
+                <textarea pTextarea id="over_label" [(ngModel)]="value3" rows="5" cols="30" style="resize: none" class="h-full"></textarea>
+                <label for="on_label">On Label</label>
             </p-floatlabel>
         </div>
         <app-code [code]="code" selector="input-textarea-floatlabel-demo"></app-code>
     `,
 })
 export class FloatlabelDoc {
+    value1: string = '';
+
+    value2: string = '';
+
+    value3: string = '';
+
     code: Code = {
         basic: `<p-floatlabel>
-    <textarea 
-        id="float-input" 
-        rows="5" cols="30" 
-        pTextarea>
-    </textarea>
-    <label for="float-input">Summary</label>
+    <textarea pTextarea id="over_label" [(ngModel)]="value1" rows="5" cols="30" style="resize: none" class="h-full"></textarea>
+    <label for="over_label">Over Label</label>
+</p-floatlabel>
+
+<p-floatlabel variant="in">
+    <textarea pTextarea id="over_label" [(ngModel)]="value2" rows="5" cols="30" style="resize: none" class="h-full"></textarea>
+    <label for="in_label">In Label</label>
+</p-floatlabel>
+
+<p-floatlabel variant="on">
+    <textarea pTextarea id="over_label" [(ngModel)]="value3" rows="5" cols="30" style="resize: none" class="h-full"></textarea>
+    <label for="on_label">On Label</label>
 </p-floatlabel>`,
 
-        html: `<div class="card flex justify-center">
+        html: `<div class="card flex flex-wrap justify-center items-stretch gap-4">
     <p-floatlabel>
-        <textarea 
-            id="float-input" 
-            rows="5"
-            cols="30" 
-            pTextarea>
-        </textarea>
-        <label for="float-input">Summary</label>
+        <textarea pTextarea id="over_label" [(ngModel)]="value1" rows="5" cols="30" style="resize: none" class="h-full"></textarea>
+        <label for="over_label">Over Label</label>
+    </p-floatlabel>
+
+    <p-floatlabel variant="in">
+        <textarea pTextarea id="over_label" [(ngModel)]="value2" rows="5" cols="30" style="resize: none" class="h-full"></textarea>
+        <label for="in_label">In Label</label>
+    </p-floatlabel>
+
+    <p-floatlabel variant="on">
+        <textarea pTextarea id="over_label" [(ngModel)]="value3" rows="5" cols="30" style="resize: none" class="h-full"></textarea>
+        <label for="on_label">On Label</label>
     </p-floatlabel>
 </div>`,
 
@@ -53,7 +80,12 @@ import { FloatLabelModule } from 'primeng/floatlabel';
     standalone: true,
     imports: [FormsModule, InputTextareaModule, FloatLabelModule]
 })
-export class InputTextareaFloatlabelDemo {
+export class TextareaFloatlabelDemo {
+    value1: string = '';
+
+    value2: string = '';
+
+    value3: string = '';
 }`,
     };
 }
