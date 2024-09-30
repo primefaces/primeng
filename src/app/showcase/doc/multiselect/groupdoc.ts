@@ -79,14 +79,7 @@ export class GroupDoc {
     }
 
     code: Code = {
-        basic: `<p-multiselect 
-    [options]="groupedCities" 
-    [group]="true" 
-    [(ngModel)]="selectedCities" 
-    placeholder="Select Cities"
-    scrollHeight="250px" 
-    display="chip"
-    styleClass="w-full md:w-80">
+        basic: `<p-multiselect [options]="groupedCities" [group]="true" [(ngModel)]="selectedCities" placeholder="Select Cities" scrollHeight="250px" display="chip" styleClass="w-full md:w-80">
         <ng-template let-group pTemplate="group">
             <div class="flex items-center">
                 <img 
@@ -99,14 +92,7 @@ export class GroupDoc {
 </p-multiselect>`,
 
         html: `<div class="card flex justify-center">
-    <p-multiselect 
-        [options]="groupedCities" 
-        [group]="true" 
-        [(ngModel)]="selectedCities" 
-        placeholder="Select Cities" 
-        scrollHeight="250px" 
-        display="chip"
-        styleClass="w-full md:w-80">
+    <p-multiselect [options]="groupedCities" [group]="true" [(ngModel)]="selectedCities" placeholder="Select Cities" scrollHeight="250px" display="chip" styleClass="w-full md:w-80">
             <ng-template let-group pTemplate="group">
                 <div class="flex items-center">
                     <img 
