@@ -49,34 +49,10 @@ export class VirtualScrollDoc {
     }
 
     code: Code = {
-        basic: `<p-listbox
-    [options]="items"
-    [(ngModel)]="selectedItems"
-    [selectAll]="selectAll"
-    optionLabel="label"
-    [style]="{ width: '15rem' }"
-    [virtualScroll]="true"
-    [virtualScrollItemSize]="38"
-    [multiple]="true"
-    [metaKeySelection]="false"
-    (onSelectAllChange)="onSelectAllChange($event)"
-    (onChange)="onChange($event)"
-    scrollHeight="250px" />`,
+        basic: `<p-listbox [options]="items" [(ngModel)]="selectedItems" [selectAll]="selectAll" optionLabel="label" [style]="{ width: '15rem' }" [virtualScroll]="true" [virtualScrollItemSize]="38" [multiple]="true" [metaKeySelection]="false" (onSelectAllChange)="onSelectAllChange($event)" (onChange)="onChange($event)" scrollHeight="250px" />`,
 
         html: `<div class="card flex justify-center">
-    <p-listbox
-        [options]="items"
-        [(ngModel)]="selectedItems"
-        [selectAll]="selectAll"
-        optionLabel="label"
-        [style]="{ width: '15rem' }"
-        [virtualScroll]="true"
-        [virtualScrollItemSize]="38"
-        [multiple]="true"
-        [metaKeySelection]="false"
-        (onSelectAllChange)="onSelectAllChange($event)"
-        (onChange)="onChange($event)"
-        scrollHeight="250px" />
+    <p-listbox [options]="items" [(ngModel)]="selectedItems" [selectAll]="selectAll" optionLabel="label" [style]="{ width: '15rem' }" [virtualScroll]="true" [virtualScrollItemSize]="38" [multiple]="true" [metaKeySelection]="false" (onSelectAllChange)="onSelectAllChange($event)" (onChange)="onChange($event)" scrollHeight="250px" />
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
