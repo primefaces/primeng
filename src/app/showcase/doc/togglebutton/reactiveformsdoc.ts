@@ -30,18 +30,12 @@ export class ReactiveFormsDoc implements OnInit {
 
     code: Code = {
         basic: `<form [formGroup]="formGroup">
-    <p-togglebutton 
-        formControlName="checked" 
-        onLabel="On" 
-        offLabel="Off" />
+    <p-togglebutton formControlName="checked" onLabel="On" offLabel="Off" />
 </form>`,
 
         html: `<div class="card flex justify-center">
     <form [formGroup]="formGroup">
-        <p-togglebutton 
-            formControlName="checked" 
-            onLabel="On" 
-            offLabel="Off" />
+        <p-togglebutton formControlName="checked" onLabel="On" offLabel="Off" />
     </form>
 </div>`,
 
