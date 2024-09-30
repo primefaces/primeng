@@ -21,7 +21,6 @@ import { FilterDoc } from '@doc/slider/filterdoc';
     ></app-doc>`,
     standalone: true,
     imports: [SliderDocModule],
-    styleUrl: './sliderdemo.scss',
 })
 export class SliderDemo {
     docs = [

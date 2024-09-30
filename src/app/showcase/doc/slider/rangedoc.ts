@@ -11,7 +11,7 @@ import { Code } from '@domain/code';
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-slider [(ngModel)]="rangeValues" [range]="true" />
+            <p-slider [(ngModel)]="rangeValues" [range]="true" styleClass="w-56" />
         </div>
         <app-code [code]="code" selector="slider-range-demo"></app-code>
     `,
@@ -20,10 +20,10 @@ export class RangeDoc {
     rangeValues: number[] = [20, 80];
 
     code: Code = {
-        basic: `<p-slider [(ngModel)]="rangeValues" [range]="true" />`,
+        basic: `<p-slider [(ngModel)]="rangeValues" [range]="true" styleClass="w-56" />`,
 
         html: `<div class="card flex justify-center">
-    <p-slider [(ngModel)]="rangeValues" [range]="true" />
+    <p-slider [(ngModel)]="rangeValues" [range]="true" styleClass="w-56" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

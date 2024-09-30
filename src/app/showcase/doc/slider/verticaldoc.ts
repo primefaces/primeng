@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
             <p>Default layout of slider is <i>horizontal</i>, use <i>orientation</i> property for the alternative <i>vertical</i> mode.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-slider [(ngModel)]="value" orientation="vertical" />
+            <p-slider [(ngModel)]="value" orientation="vertical" class="h-56" />
         </div>
         <app-code [code]="code" selector="slider-vertical-demo"></app-code>
     `,
@@ -17,10 +17,10 @@ export class VerticalDoc {
     value!: number;
 
     code: Code = {
-        basic: `<p-slider [(ngModel)]="value" orientation="vertical" />`,
+        basic: `<p-slider [(ngModel)]="value" orientation="vertical" class="h-56" />`,
 
         html: `<div class="card flex justify-center">
-    <p-slider [(ngModel)]="value" orientation="vertical" />
+    <p-slider [(ngModel)]="value" orientation="vertical" class="h-56" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
