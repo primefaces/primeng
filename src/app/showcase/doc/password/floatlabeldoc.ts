@@ -12,7 +12,7 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-floatlabel>
-                <p-password [(ngModel)]="value" [feedback]="false" />
+                <p-password [(ngModel)]="value" [feedback]="false" autocomplete="off" />
                 <label for="password">Password</label>
             </p-floatlabel>
         </div>

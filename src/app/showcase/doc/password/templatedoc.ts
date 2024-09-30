@@ -11,7 +11,7 @@ import { Code } from '@domain/code';
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-password [(ngModel)]="value">
+            <p-password [(ngModel)]="value" autocomplete="off">
                 <ng-template pTemplate="header">
                     <h6>Pick a password</h6>
                 </ng-template>

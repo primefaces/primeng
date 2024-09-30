@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
             <p>Strength meter is displayed as a popup while a value is being entered.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-password [(ngModel)]="value" />
+            <p-password [(ngModel)]="value" autocomplete="off" />
         </div>
         <app-code [code]="code" selector="password-meter-demo"></app-code>
     `,

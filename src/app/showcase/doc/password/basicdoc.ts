@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
             <p>Two-way value binding is defined using <i>ngModel</i>.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-password [(ngModel)]="value" [feedback]="false" />
+            <p-password [(ngModel)]="value" [feedback]="false" autocomplete="off" />
         </div>
         <app-code [code]="code" selector="password-basic-demo"></app-code>
     `,

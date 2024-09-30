@@ -19,6 +19,7 @@ import { Code } from '@domain/code';
                 weakLabel="Too simple"
                 mediumLabel="Average complexity"
                 strongLabel="Complex password"
+                autocomplete="off"
             />
         </div>
         <app-code [code]="code" selector="password-locale-demo"></app-code>
@@ -28,20 +29,10 @@ export class LocaleDoc {
     value!: string;
 
     code: Code = {
-        basic: `<p-password 
-    [(ngModel)]="value" 
-    promptLabel="Choose a password"
-    weakLabel="Too simple" 
-    mediumLabel="Average complexity" 
-    strongLabel="Complex password" />`,
+        basic: `<p-password [(ngModel)]="value" promptLabel="Choose a password" weakLabel="Too simple" mediumLabel="Average complexity" strongLabel="Complex password" />`,
 
         html: `<div class="card flex justify-center">
-    <p-password 
-        [(ngModel)]="value"
-        promptLabel="Choose a password" 
-        weakLabel="Too simple" 
-        mediumLabel="Average complexity" 
-        strongLabel="Complex password" />
+    <p-password [(ngModel)]="value" promptLabel="Choose a password" weakLabel="Too simple" mediumLabel="Average complexity" strongLabel="Complex password" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

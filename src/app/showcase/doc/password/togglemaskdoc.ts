@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
             <p>When <i>toggleMask</i> is present, an icon is displayed to show the value as plain text.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-password [(ngModel)]="value" [toggleMask]="true" />
+            <p-password [(ngModel)]="value" [toggleMask]="true" autocomplete="off" />
         </div>
         <app-code [code]="code" selector="password-toggle-mask-demo"></app-code>
     `,

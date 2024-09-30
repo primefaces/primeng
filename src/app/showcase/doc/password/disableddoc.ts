@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
             <p>When <i>disabled</i> is present, the element cannot be edited and focused.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-password [(ngModel)]="value" [disabled]="true" placeholder="Disabled" />
+            <p-password [(ngModel)]="value" [disabled]="true" placeholder="Disabled" autocomplete="off" />
         </div>
         <app-code [code]="code" selector="password-disabled-demo"></app-code>
     `,
@@ -17,16 +17,10 @@ export class DisabledDoc {
     value!: string;
 
     code: Code = {
-        basic: `<p-password 
-    [(ngModel)]="value" 
-    [disabled]="true" 
-    placeholder="Disabled" />`,
+        basic: `<p-password [(ngModel)]="value" [disabled]="true" placeholder="Disabled" />`,
 
         html: `<div class="card flex justify-center">
-    <p-password 
-        [(ngModel)]="value" 
-        [disabled]="true" 
-        placeholder="Disabled" />
+    <p-password [(ngModel)]="value" [disabled]="true" placeholder="Disabled" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
