@@ -72,18 +72,7 @@ export class SelectDemo {
         {
             id: 'filter',
             label: 'Filter',
-            children: [
-                {
-                    id: 'filterbasic',
-                    label: 'Basic',
-                    component: FilterDoc,
-                },
-                {
-                    id: 'customfilter',
-                    label: 'Custom Filter',
-                    component: CustomFilterDoc,
-                },
-            ],
+            component: FilterDoc,
         },
         {
             id: 'clearicon',
