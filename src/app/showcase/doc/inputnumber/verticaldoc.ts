@@ -15,11 +15,14 @@ import { Code } from '@domain/code';
                 spinnerMode="vertical"
                 inputId="vertical"
                 [style]="{ width: '3rem' }"
-                decrementButtonClass="p-button-secondary"
-                incrementButtonClass="p-button-secondary"
-                incrementButtonIcon="pi pi-plus"
-                decrementButtonIcon="pi pi-minus"
-            />
+            >
+                <ng-template pTemplate="incrementbuttonicon">
+                    <span class="pi pi-plus"></span>
+                </ng-template>
+                <ng-template pTemplate="decrementbuttonicon">
+                    <span class="pi pi-minus"></span>
+                </ng-template>
+            </p-inputnumber>
         </div>
         <app-code [code]="code" selector="input-number-vertical-demo"></app-code>
     `,
@@ -28,10 +31,24 @@ export class VerticalDoc {
     value1: number = 50;
 
     code: Code = {
-        basic: `<p-inputnumber [(ngModel)]="value1" [showButtons]="true" buttonLayout="vertical" spinnerMode="vertical" inputId="vertical" decrementButtonClass="p-button-secondary" incrementButtonClass="p-button-secondary" incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus" />`,
+        basic: `<p-inputnumber [(ngModel)]="value1" [showButtons]="true" buttonLayout="vertical" spinnerMode="vertical" inputId="vertical" [style]="{ width: '3rem' }">
+    <ng-template pTemplate="incrementbuttonicon">
+        <span class="pi pi-plus"></span>
+    </ng-template>
+    <ng-template pTemplate="decrementbuttonicon">
+        <span class="pi pi-minus"></span>
+    </ng-template>
+</p-inputnumber>`,
 
         html: `<div class="card flex justify-center">
-    <p-inputnumber [(ngModel)]="value1" [style]="{'width': '4rem'}" [showButtons]="true" buttonLayout="vertical" spinnerMode="vertical" inputId="vertical" decrementButtonClass="p-button-secondary" incrementButtonClass="p-button-secondary" incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus" />
+    <p-inputnumber [(ngModel)]="value1" [showButtons]="true" buttonLayout="vertical" spinnerMode="vertical" inputId="vertical" [style]="{ width: '3rem' }">
+        <ng-template pTemplate="incrementbuttonicon">
+            <span class="pi pi-plus"></span>
+        </ng-template>
+        <ng-template pTemplate="decrementbuttonicon">
+            <span class="pi pi-minus"></span>
+        </ng-template>
+    </p-inputnumber>
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
