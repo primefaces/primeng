@@ -52,14 +52,9 @@ import { SliderModule } from 'primeng/slider';
 export class SliderReactiveFormsDemo implements OnInit {
     formGroup!: FormGroup;
 
-    stateOptions: any[] = [
-        { label: 'Off', value: 'off' },
-        { label: 'On', value: 'on' }
-    ];
-
     ngOnInit() {
         this.formGroup = new FormGroup({
-            value: new FormControl('on')
+            value: new FormControl(20),
         });
     }
 }`,
