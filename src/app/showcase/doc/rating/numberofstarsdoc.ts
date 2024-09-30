@@ -14,7 +14,7 @@ import { Code } from '@domain/code';
     `,
 })
 export class NumberOfStarsDoc {
-    value!: number;
+    value: number = 5;
 
     code: Code = {
         basic: `<p-rating [(ngModel)]="value" [stars]="10" />`,
@@ -34,7 +34,7 @@ import { RatingModule } from 'primeng/rating';
     imports: [FormsModule, RatingModule]
 })
 export class RatingNumberOfStarsDemo {
-    value!: number;
+    value: number = 5;
 }`,
     };
 }

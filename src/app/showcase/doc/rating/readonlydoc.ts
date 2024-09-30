@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
             <p>When <i>readOnly</i> present, value cannot be edited.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-rating [(ngModel)]="value" [readonly]="true" [cancel]="false" />
+            <p-rating [(ngModel)]="value" [readonly]="true"  />
         </div>
         <app-code [code]="code" selector="rating-readonly-demo"></app-code>
     `,
@@ -17,10 +17,10 @@ export class ReadOnlyDoc {
     value: number = 5;
 
     code: Code = {
-        basic: `<p-rating [(ngModel)]="value" [readonly]="true" [cancel]="false" />`,
+        basic: `<p-rating [(ngModel)]="value" [readonly]="true" />`,
 
         html: `<div class="card flex justify-center">
-    <p-rating [(ngModel)]="value" [readonly]="true" [cancel]="false" />
+    <p-rating [(ngModel)]="value" [readonly]="true" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
