@@ -11,47 +11,61 @@ import { Code } from '@domain/code';
             </p>
         </app-docsectiontext>
         <div class="card">
-            <p-stepper orientation="vertical">
-                <p-stepper-panel header="Header I">
-                    <ng-template pTemplate="content" let-nextCallback="nextCallback" let-index="index">
-                        <div class="flex flex-col h-48">
-                            <div
-                                class="border-2 border-dashed border-surface rounded-border bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium"
-                            >
-                                Content I
+            <p-stepper [value]="1">
+                <p-step-item [value]="1">
+                    <p-step>Header I</p-step>
+                    <p-step-panel>
+                        <ng-template #content let-activateCallback="activateCallback">
+                            <div class="flex flex-col h-48">
+                                <div
+                                    class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium"
+                                >
+                                    Content I
+                                </div>
                             </div>
-                        </div>
-                        <div class="flex py-6">
-                            <p-button label="Next" (onClick)="nextCallback.emit()" /></div
-                    ></ng-template>
-                </p-stepper-panel>
-                <p-stepper-panel header="Header II">
-                    <ng-template pTemplate="content" let-prevCallback="prevCallback" let-nextCallback="nextCallback" let-index="index">
-                        <div class="flex flex-col h-48">
-                            <div
-                                class="border-2 border-dashed border-surface rounded-border bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium"
-                            >
-                                Content II
+                            <div class="py-6">
+                                <p-button label="Next" (onClick)="activateCallback(2)" />
                             </div>
-                        </div>
-                        <div class="flex py-6 gap-2">
-                            <p-button label="Back" severity="secondary" (onClick)="prevCallback.emit()" />
-                            <p-button label="Next" (onClick)="nextCallback.emit()" /></div
-                    ></ng-template>
-                </p-stepper-panel>
-                <p-stepper-panel header="Header III">
-                    <ng-template pTemplate="content" let-prevCallback="prevCallback" let-index="index">
-                        <div class="flex flex-col h-48">
-                            <div
-                                class="border-2 border-dashed border-surface rounded-border bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium"
-                            >
-                                Content III
+                        </ng-template>
+                    </p-step-panel>
+                </p-step-item>
+
+                <p-step-item [value]="2">
+                    <p-step>Header II</p-step>
+                    <p-step-panel>
+                        <ng-template #content let-activateCallback="activateCallback">
+                            <div class="flex flex-col h-48">
+                                <div
+                                    class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium"
+                                >
+                                    Content II
+                                </div>
                             </div>
-                        </div>
-                        <div class="flex py-6">
-                            <p-button label="Back" (onClick)="prevCallback.emit()" /></div
-                    ></ng-template>
-                </p-stepper-panel>
+                            <div class="flex py-6 gap-2">
+                                <p-button label="Back" severity="secondary" (onClick)="activateCallback(1)" />
+                                <p-button label="Next" (onClick)="activateCallback(3)" />
+                            </div>
+                        </ng-template>
+                    </p-step-panel>
+                </p-step-item>
+
+                <p-step-item [value]="3">
+                    <p-step>Header III</p-step>
+                    <p-step-panel>
+                        <ng-template #content let-activateCallback="activateCallback">
+                            <div class="flex flex-col h-48">
+                                <div
+                                    class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium"
+                                >
+                                    Content III
+                                </div>
+                            </div>
+                            <div class="py-6">
+                                <p-button label="Back" severity="secondary" (onClick)="activateCallback(2)" />
+                            </div>
+                        </ng-template>
+                    </p-step-panel>
+                </p-step-item>
             </p-stepper>
         </div>
         <app-code [code]="code" selector="stepper-vertical-demo"></app-code>
@@ -59,90 +73,126 @@ import { Code } from '@domain/code';
 })
 export class VerticalDoc {
     code: Code = {
-        basic: `<p-stepper orientation="vertical">
-    <p-stepper-panel header="Header I">
-        <ng-template pTemplate="content" let-nextCallback="nextCallback" let-index="index">
-            <div class="flex flex-col h-48">
-                <div class="border-2 border-dashed border-surface rounded-border bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium">Content I</div>
-            </div>
-            <div class="flex py-6">
-                <p-button label="Next" (onClick)="nextCallback.emit()" />
-            </div
-        ></ng-template>
-    </p-stepper-panel>
-    <p-stepper-panel header="Header II">
-        <ng-template pTemplate="content" let-prevCallback="prevCallback" let-nextCallback="nextCallback" let-index="index">
-            <div class="flex flex-col h-48">
-                <div class="border-2 border-dashed border-surface rounded-border bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium">
-                    Content II
-                </div>
-            </div>
-            <div class="flex py-6 gap-2">
-                <p-button label="Back" severity="secondary" (onClick)="prevCallback.emit()" />
-                <p-button label="Next" (onClick)="nextCallback.emit()" />
-            </div>
-        </ng-template>
-    </p-stepper-panel>
-    <p-stepper-panel header="Header III">
-        <ng-template pTemplate="content" let-prevCallback="prevCallback" let-index="index">
-            <div class="flex flex-col h-48">
-                <div class="border-2 border-dashed border-surface rounded-border bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium">
-                    Content III
-                </div>
-            </div>
-            <div class="flex py-6">
-                <p-button label="Back" (onClick)="prevCallback.emit()" />
-            </div>
-        </ng-template>
-    </p-stepper-panel>
-</p-stepper>`,
-
-        html: `<div class="card">
-    <p-stepper orientation="vertical">
-        <p-stepper-panel header="Header I">
-            <ng-template pTemplate="content" let-nextCallback="nextCallback" let-index="index">
+        basic: `<p-stepper [value]="1">
+    <p-step-item [value]="1">
+        <p-step>Header I</p-step>
+        <p-step-panel>
+            <ng-template #content let-activateCallback="activateCallback">
                 <div class="flex flex-col h-48">
-                    <div class="border-2 border-dashed border-surface rounded-border bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium">
+                    <div
+                        class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium"
+                    >
                         Content I
                     </div>
                 </div>
-                <div class="flex py-6">
-                    <p-button label="Next" (onClick)="nextCallback.emit()" />
+                <div class="py-6">
+                    <p-button label="Next" (onClick)="activateCallback(2)" />
                 </div>
             </ng-template>
-        </p-stepper-panel>
-        <p-stepper-panel header="Header II">
-            <ng-template pTemplate="content" let-prevCallback="prevCallback" let-nextCallback="nextCallback" let-index="index">
+        </p-step-panel>
+    </p-step-item>
+
+    <p-step-item [value]="2">
+        <p-step>Header II</p-step>
+        <p-step-panel>
+            <ng-template #content let-activateCallback="activateCallback">
                 <div class="flex flex-col h-48">
-                    <div class="border-2 border-dashed border-surface rounded-border bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium">
+                    <div
+                        class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium"
+                    >
                         Content II
                     </div>
                 </div>
                 <div class="flex py-6 gap-2">
-                    <p-button label="Back" severity="secondary" (onClick)="prevCallback.emit()" />
-                    <p-button label="Next" (onClick)="nextCallback.emit()" />
+                    <p-button label="Back" severity="secondary" (onClick)="activateCallback(1)" />
+                    <p-button label="Next" (onClick)="activateCallback(3)" />
                 </div>
             </ng-template>
-        </p-stepper-panel>
-        <p-stepper-panel header="Header III">
-            <ng-template pTemplate="content" let-prevCallback="prevCallback" let-index="index">
+        </p-step-panel>
+    </p-step-item>
+
+    <p-step-item [value]="3">
+        <p-step>Header III</p-step>
+        <p-step-panel>
+            <ng-template #content let-activateCallback="activateCallback">
                 <div class="flex flex-col h-48">
-                    <div class="border-2 border-dashed border-surface rounded-border bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium">
+                    <div
+                        class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium"
+                    >
                         Content III
                     </div>
                 </div>
-                <div class="flex py-6">
-                    <p-button label="Back" (onClick)="prevCallback.emit()" />
+                <div class="py-6">
+                    <p-button label="Back" severity="secondary" (onClick)="activateCallback(2)" />
                 </div>
             </ng-template>
-        </p-stepper-panel>
+        </p-step-panel>
+    </p-step-item>
+</p-stepper>`,
+
+        html: `<div class="card">
+    <p-stepper [value]="1">
+        <p-step-item [value]="1">
+            <p-step>Header I</p-step>
+            <p-step-panel>
+                <ng-template #content let-activateCallback="activateCallback">
+                    <div class="flex flex-col h-48">
+                        <div
+                            class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium"
+                        >
+                            Content I
+                        </div>
+                    </div>
+                    <div class="py-6">
+                        <p-button label="Next" (onClick)="activateCallback(2)" />
+                    </div>
+                </ng-template>
+            </p-step-panel>
+        </p-step-item>
+
+        <p-step-item [value]="2">
+            <p-step>Header II</p-step>
+            <p-step-panel>
+                <ng-template #content let-activateCallback="activateCallback">
+                    <div class="flex flex-col h-48">
+                        <div
+                            class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium"
+                        >
+                            Content II
+                        </div>
+                    </div>
+                    <div class="flex py-6 gap-2">
+                        <p-button label="Back" severity="secondary" (onClick)="activateCallback(1)" />
+                        <p-button label="Next" (onClick)="activateCallback(3)" />
+                    </div>
+                </ng-template>
+            </p-step-panel>
+        </p-step-item>
+
+        <p-step-item [value]="3">
+            <p-step>Header III</p-step>
+            <p-step-panel>
+                <ng-template #content let-activateCallback="activateCallback">
+                    <div class="flex flex-col h-48">
+                        <div
+                            class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium"
+                        >
+                            Content III
+                        </div>
+                    </div>
+                    <div class="py-6">
+                        <p-button label="Back" severity="secondary" (onClick)="activateCallback(2)" />
+                    </div>
+                </ng-template>
+            </p-step-panel>
+        </p-step-item>
     </p-stepper>
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
 import { StepperModule } from 'primeng/stepper';
 import { ButtonModule } from 'primeng/button';
-        
+
 @Component({
     selector: 'stepper-vertical-demo',
     templateUrl: './stepper-vertical-demo.html',

@@ -5,50 +5,62 @@ import { Code } from '@domain/code';
     selector: 'linear-doc',
     template: `
         <app-docsectiontext>
-            <p>When <i>linear</i> property is present, current step must be completed in order to move to the next step.</p>
+            <p>When <i>linear</i> property is set to true, current step must be completed in order to move to the next step.</p>
         </app-docsectiontext>
-        <div class="card">
-            <p-stepper [linear]="true">
-                <p-stepper-panel header="Header I">
-                    <ng-template pTemplate="content" let-nextCallback="nextCallback" let-index="index">
-                        <div class="flex flex-col h-48">
-                            <div
-                                class="border-2 border-dashed border-surface rounded-border bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium"
-                            >
-                                Content I
+        <div class="card flex justify-center">
+            <p-stepper [value]="1" class="basis-[50rem]" [linear]="true">
+                <p-step-list>
+                    <p-step [value]="1">Header I</p-step>
+                    <p-step [value]="2">Header II</p-step>
+                    <p-step [value]="3">Header II</p-step>
+                </p-step-list>
+                <p-step-panels>
+                    <p-step-panel [value]="1">
+                        <ng-template #content let-activateCallback="activateCallback">
+                            <div class="flex flex-col h-48">
+                                <div
+                                    class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium"
+                                >
+                                    Content I
+                                </div>
+                                <div class="flex pt-6 justify-end">
+                                    <p-button label="Next" icon="pi pi-arrow-right" iconPos="right" (onClick)="activateCallback(2)" />
+                                </div>
                             </div>
-                        </div>
-                        <div class="flex pt-6 justify-end">
-                            <p-button label="Next" icon="pi pi-arrow-right" iconPos="right" (onClick)="nextCallback.emit()" /></div
-                    ></ng-template>
-                </p-stepper-panel>
-                <p-stepper-panel header="Header II">
-                    <ng-template pTemplate="content" let-prevCallback="prevCallback" let-nextCallback="nextCallback" let-index="index">
-                        <div class="flex flex-col h-48">
-                            <div
-                                class="border-2 border-dashed border-surface rounded-border bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium"
-                            >
-                                Content II
+                        </ng-template>
+                    </p-step-panel>
+
+                    <p-step-panel [value]="2">
+                        <ng-template #content let-activateCallback="activateCallback">
+                            <div class="flex flex-col h-48">
+                                <div
+                                    class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium"
+                                >
+                                    Content II
+                                </div>
                             </div>
-                        </div>
-                        <div class="flex pt-6 justify-between">
-                            <p-button label="Back" icon="pi pi-arrow-left" (onClick)="prevCallback.emit()" />
-                            <p-button label="Next" icon="pi pi-arrow-right" iconPos="right" (onClick)="nextCallback.emit()" /></div
-                    ></ng-template>
-                </p-stepper-panel>
-                <p-stepper-panel header="Header III">
-                    <ng-template pTemplate="content" let-prevCallback="prevCallback" let-index="index">
-                        <div class="flex flex-col h-48">
-                            <div
-                                class="border-2 border-dashed border-surface rounded-border bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium"
-                            >
-                                Content III
+                            <div class="flex pt-6 justify-between">
+                                <p-button label="Back" severity="secondary" icon="pi pi-arrow-left" (onClick)="activateCallback(1)" />
+                                <p-button label="Next" icon="pi pi-arrow-right" iconPos="right" (onClick)="activateCallback(3)" />
                             </div>
-                        </div>
-                        <div class="flex pt-6 justify-start">
-                            <p-button label="Back" icon="pi pi-arrow-left" (onClick)="prevCallback.emit()" /></div
-                    ></ng-template>
-                </p-stepper-panel>
+                        </ng-template>
+                    </p-step-panel>
+
+                    <p-step-panel [value]="3">
+                        <ng-template #content let-activateCallback="activateCallback">
+                            <div class="flex flex-col h-48">
+                                <div
+                                    class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium"
+                                >
+                                    Content III
+                                </div>
+                            </div>
+                            <div class="flex pt-6 justify-start">
+                                <p-button label="Back" icon="pi pi-arrow-left" iconPos="right" (onClick)="activateCallback(2)" />
+                            </div>
+                        </ng-template>
+                    </p-step-panel>
+                </p-step-panels>
             </p-stepper>
         </div>
         <app-code [code]="code" selector="stepper-linear-demo"></app-code>
@@ -56,85 +68,115 @@ import { Code } from '@domain/code';
 })
 export class LinearDoc {
     code: Code = {
-        basic: `<p-stepper [linear]="true">
-    <p-stepper-panel header="Header I">
-        <ng-template pTemplate="content" let-nextCallback="nextCallback" let-index="index">
-            <div class="flex flex-col h-48">
-                <div class="border-2 border-dashed border-surface rounded-border bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium">
-                    Content I
-                </div>
-            </div>
-            <div class="flex pt-6 justify-end">
-                <p-button label="Next" icon="pi pi-arrow-right" iconPos="right" (onClick)="nextCallback.emit()" />
-            </div>
-        </ng-template>
-    </p-stepper-panel>
-    <p-stepper-panel header="Header II">
-        <ng-template pTemplate="content" let-prevCallback="prevCallback" let-nextCallback="nextCallback" let-index="index">
-            <div class="flex flex-col h-48">
-                <div class="border-2 border-dashed border-surface rounded-border bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium">
-                    Content II
-                </div>
-            </div>
-            <div class="flex pt-6 justify-between">
-                <p-button label="Back" icon="pi pi-arrow-left" (onClick)="prevCallback.emit()" />
-                <p-button label="Next" icon="pi pi-arrow-right" iconPos="right" (onClick)="nextCallback.emit()" />
-            </div>
-        </ng-template>
-    </p-stepper-panel>
-    <p-stepper-panel header="Header III">
-        <ng-template pTemplate="content" let-prevCallback="prevCallback" let-index="index">
-            <div class="flex flex-col h-48">
-                <div class="border-2 border-dashed border-surface rounded-border bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium">
-                    Content III
-                </div>
-            </div>
-            <div class="flex pt-6 justify-start">
-                <p-button label="Back" icon="pi pi-arrow-left" (onClick)="prevCallback.emit()" />
-            </div>
-        </ng-template>
-    </p-stepper-panel>
-</p-stepper>`,
-
-        html: `<div class="card">
-    <p-stepper [linear]="true">
-        <p-stepper-panel header="Header I">
-            <ng-template pTemplate="content" let-nextCallback="nextCallback" let-index="index">
+        basic: `<p-stepper [value]="1" class="basis-[50rem]" [linear]="true">
+    <p-step-list>
+        <p-step [value]="1">Header I</p-step>
+        <p-step [value]="2">Header II</p-step>
+        <p-step [value]="3">Header II</p-step>
+    </p-step-list>
+    <p-step-panels>
+        <p-step-panel [value]="1">
+            <ng-template #content let-activateCallback="activateCallback">
                 <div class="flex flex-col h-48">
-                    <div class="border-2 border-dashed border-surface rounded-border bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium">
+                    <div
+                        class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium"
+                    >
                         Content I
                     </div>
-                </div>
-                <div class="flex pt-6 justify-end">
-                    <p-button label="Next" icon="pi pi-arrow-right" iconPos="right" (onClick)="nextCallback.emit()" />
+                    <div class="flex pt-6 justify-end">
+                        <p-button label="Next" icon="pi pi-arrow-right" iconPos="right" (onClick)="activateCallback(2)" />
+                    </div>
                 </div>
             </ng-template>
-        </p-stepper-panel>
-        <p-stepper-panel header="Header II">
-            <ng-template pTemplate="content" let-prevCallback="prevCallback" let-nextCallback="nextCallback" let-index="index">
+        </p-step-panel>
+
+        <p-step-panel [value]="2">
+            <ng-template #content let-activateCallback="activateCallback">
                 <div class="flex flex-col h-48">
-                    <div class="border-2 border-dashed border-surface rounded-border bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium">
+                    <div
+                        class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium"
+                    >
                         Content II
                     </div>
                 </div>
                 <div class="flex pt-6 justify-between">
-                    <p-button label="Back" icon="pi pi-arrow-left" (onClick)="prevCallback.emit()" />
-                    <p-button label="Next" icon="pi pi-arrow-right" iconPos="right" (onClick)="nextCallback.emit()" />
+                    <p-button label="Back" severity="secondary" icon="pi pi-arrow-left" (onClick)="activateCallback(1)" />
+                    <p-button label="Next" icon="pi pi-arrow-right" iconPos="right" (onClick)="activateCallback(3)" />
                 </div>
             </ng-template>
-        </p-stepper-panel>
-        <p-stepper-panel header="Header III">
-            <ng-template pTemplate="content" let-prevCallback="prevCallback" let-index="index">
+        </p-step-panel>
+
+        <p-step-panel [value]="3">
+            <ng-template #content let-activateCallback="activateCallback">
                 <div class="flex flex-col h-48">
-                    <div class="border-2 border-dashed border-surface rounded-border bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium">
+                    <div
+                        class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium"
+                    >
                         Content III
                     </div>
                 </div>
                 <div class="flex pt-6 justify-start">
-                    <p-button label="Back" icon="pi pi-arrow-left" (onClick)="prevCallback.emit()" />
+                    <p-button label="Back" icon="pi pi-arrow-left" iconPos="right" (onClick)="activateCallback(2)" />
                 </div>
             </ng-template>
-        </p-stepper-panel>
+        </p-step-panel>
+    </p-step-panels>
+</p-stepper>`,
+
+        html: `<div class="card flex justify-center">
+    <p-stepper [value]="1" class="basis-[50rem]" [linear]="true">
+        <p-step-list>
+            <p-step [value]="1">Header I</p-step>
+            <p-step [value]="2">Header II</p-step>
+            <p-step [value]="3">Header II</p-step>
+        </p-step-list>
+        <p-step-panels>
+            <p-step-panel [value]="1">
+                <ng-template #content let-activateCallback="activateCallback">
+                    <div class="flex flex-col h-48">
+                        <div
+                            class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium"
+                        >
+                            Content I
+                        </div>
+                        <div class="flex pt-6 justify-end">
+                            <p-button label="Next" icon="pi pi-arrow-right" iconPos="right" (onClick)="activateCallback(2)" />
+                        </div>
+                    </div>
+                </ng-template>
+            </p-step-panel>
+
+            <p-step-panel [value]="2">
+                <ng-template #content let-activateCallback="activateCallback">
+                    <div class="flex flex-col h-48">
+                        <div
+                            class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium"
+                        >
+                            Content II
+                        </div>
+                    </div>
+                    <div class="flex pt-6 justify-between">
+                        <p-button label="Back" severity="secondary" icon="pi pi-arrow-left" (onClick)="activateCallback(1)" />
+                        <p-button label="Next" icon="pi pi-arrow-right" iconPos="right" (onClick)="activateCallback(3)" />
+                    </div>
+                </ng-template>
+            </p-step-panel>
+
+            <p-step-panel [value]="3">
+                <ng-template #content let-activateCallback="activateCallback">
+                    <div class="flex flex-col h-48">
+                        <div
+                            class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium"
+                        >
+                            Content III
+                        </div>
+                    </div>
+                    <div class="flex pt-6 justify-start">
+                        <p-button label="Back" icon="pi pi-arrow-left" iconPos="right" (onClick)="activateCallback(2)" />
+                    </div>
+                </ng-template>
+            </p-step-panel>
+        </p-step-panels>
     </p-stepper>
 </div>`,
 

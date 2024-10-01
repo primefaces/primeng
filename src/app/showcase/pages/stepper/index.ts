@@ -6,6 +6,7 @@ import { LinearDoc } from '@doc/stepper/lineardoc';
 import { TemplateDoc } from '@doc/stepper/templatedoc';
 import { AccessibilityDoc } from '@doc/stepper/accessibilitydoc';
 import { StepperDocModule } from '@doc/stepper/stepperdoc.module';
+import { StepsOnlyDoc } from '@doc/stepper/stepsonly';
 
 @Component({
     template: `<app-doc
@@ -27,8 +28,8 @@ export class StepperDemo {
             component: ImportDoc,
         },
         {
-            id: 'basic',
-            label: 'Basic',
+            id: 'horizontal',
+            label: 'Horizontal',
             component: BasicDoc,
         },
         {
@@ -40,6 +41,11 @@ export class StepperDemo {
             id: 'linear',
             label: 'Linear',
             component: LinearDoc,
+        },
+        {
+            id: 'steps-only',
+            label: 'Steps Only',
+            component: StepsOnlyDoc,
         },
         {
             id: 'template',
