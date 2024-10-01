@@ -86,7 +86,7 @@ export class DatePickerDemo {
         },
         {
             id: 'buttonbar',
-            label: 'ButtonBar',
+            label: 'Button Bar',
             component: ButtonBarDoc,
         },
         {
@@ -113,11 +113,6 @@ export class DatePickerDemo {
             id: 'datetemplate',
             label: 'Date Template',
             component: DateTemplateDoc,
-        },
-        {
-            id: 'touchui',
-            label: 'TouchUI',
-            component: TouchUIDoc,
         },
         {
             id: 'inline',
