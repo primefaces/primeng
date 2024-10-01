@@ -79,14 +79,6 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
     imports: [Ripple, AutoFocus, SharedModule, CommonModule],
     providers: [TOGGLEBUTTON_VALUE_ACCESSOR, ToggleButtonStyle],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    host: {},
-    hostDirectives: [
-        Ripple,
-        {
-            directive: AutoFocus,
-            inputs: ['autofocus'],
-        },
-    ],
 })
 export class ToggleButton extends BaseComponent implements ControlValueAccessor {
     /**
