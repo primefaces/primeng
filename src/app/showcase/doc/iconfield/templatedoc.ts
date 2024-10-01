@@ -13,7 +13,7 @@ import { Code } from '@domain/code';
         <div class="card flex justify-center">
             <p-iconfield iconPosition="left">
                 <p-inputicon>
-                    <svg width="20" height="20" viewBox="0 0 35 40" fill="none" xmlns="http://www.w3.org/2000/svg" class="block mx-auto">
+                    <svg width="14" height="16" viewBox="0 0 35 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
                             d="M15.1934 0V0V0L0.0391235 5.38288L2.35052 25.3417L15.1934 32.427V32.427V32.427L28.0364 25.3417L30.3478 5.38288L15.1934 0Z"
                             fill="var(--p-primary-color)"
@@ -93,7 +93,7 @@ export class TemplateDoc {
         html: `<div class="card flex justify-center">
     <p-iconfield iconPosition="left">
     <p-inputicon>
-        <svg width="20" height="20" viewBox="0 0 35 40" fill="none" xmlns="http://www.w3.org/2000/svg" class="block mx-auto">
+        <svg width="14" height="16" viewBox="0 0 35 40" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
                 d="M15.1934 0V0V0L0.0391235 5.38288L2.35052 25.3417L15.1934 32.427V32.427V32.427L28.0364 25.3417L30.3478 5.38288L15.1934 0Z"
                 fill="var(--p-primary-color)"
