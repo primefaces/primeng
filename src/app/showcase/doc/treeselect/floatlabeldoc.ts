@@ -11,10 +11,20 @@ import { NodeService } from '@service/nodeservice';
                 <a routerLink="/floatlabel">FloatLabel</a> documentation for more information.
             </p>
         </app-docsectiontext>
-        <div class="card flex justify-center">
-            <p-floatlabel class="md:w-80 w-full">
-                <p-treeselect containerStyleClass="w-full" [(ngModel)]="selectedNodes" [options]="nodes" placeholder="Select Item" />
-                <label for="treeselect">Tree Select</label>
+        <div class="card flex flex-wrap justify-center items-end gap-4">
+            <p-floatlabel class="w-full md:w-80">
+                <p-treeselect [(ngModel)]="value1" inputId="over_label" [options]="nodes" class="w-full" containerStyleClass="w-full" />
+                <label for="over_label">Over Label</label>
+            </p-floatlabel>
+
+            <p-floatlabel class="w-full md:w-80" variant="in">
+                <p-treeselect [(ngModel)]="value2" inputId="in_label" [options]="nodes" class="w-full" containerStyleClass="w-full" />
+                <label for="in_label">In Label</label>
+            </p-floatlabel>
+
+            <p-floatlabel class="w-full md:w-80" variant="on">
+                <p-treeselect [(ngModel)]="value3" inputId="on_label" [options]="nodes" class="w-full" containerStyleClass="w-full" />
+                <label for="on_label">On Label</label>
             </p-floatlabel>
         </div>
         <app-code [code]="code" selector="tree-select-floatlabel-demo"></app-code>
@@ -23,34 +33,46 @@ import { NodeService } from '@service/nodeservice';
 export class FloatLabelDoc {
     nodes!: any[];
 
-    selectedNodes: any;
+    value1: any;
+
+    value2: any;
+
+    value3: any;
 
     constructor(private nodeService: NodeService) {
         this.nodeService.getFiles().then((files) => (this.nodes = files));
     }
 
     code: Code = {
-        basic: `<p-floatlabel class="md:w-80 w-full">
-    <p-treeselect 
-        containerStyleClass="w-full" 
-        [(ngModel)]="selectedNodes" 
-        [options]="nodes" 
-        placeholder="Select Item" />
-    <label for="treeselect">
-        Tree Select
-    </label>
+        basic: `<p-floatlabel class="w-full md:w-80">
+    <p-treeselect [(ngModel)]="value1" inputId="over_label" [options]="nodes" class="w-full" containerStyleClass="w-full" />
+    <label for="over_label">Over Label</label>
+</p-floatlabel>
+
+<p-floatlabel class="w-full md:w-80" variant="in">
+    <p-treeselect [(ngModel)]="value2" inputId="in_label" [options]="nodes" class="w-full" containerStyleClass="w-full" />
+    <label for="in_label">In Label</label>
+</p-floatlabel>
+
+<p-floatlabel class="w-full md:w-80" variant="on">
+    <p-treeselect [(ngModel)]="value3" inputId="on_label" [options]="nodes" class="w-full" containerStyleClass="w-full" />
+    <label for="on_label">On Label</label>
 </p-floatlabel>`,
 
-        html: `<div class="card flex justify-center">
-    <p-floatlabel class="md:w-80 w-full">
-        <p-treeselect 
-            containerStyleClass="w-full" 
-            [(ngModel)]="selectedNodes" 
-            [options]="nodes" 
-            placeholder="Select Item" />
-        <label for="treeselect">
-            Tree Select
-        </label>
+        html: `<div class="card flex flex-wrap justify-center items-end gap-4">
+    <p-floatlabel class="w-full md:w-80">
+        <p-treeselect [(ngModel)]="value1" inputId="over_label" [options]="nodes" class="w-full" containerStyleClass="w-full" />
+        <label for="over_label">Over Label</label>
+    </p-floatlabel>
+
+    <p-floatlabel class="w-full md:w-80" variant="in">
+        <p-treeselect [(ngModel)]="value2" inputId="in_label" [options]="nodes" class="w-full" containerStyleClass="w-full" />
+        <label for="in_label">In Label</label>
+    </p-floatlabel>
+
+    <p-floatlabel class="w-full md:w-80" variant="on">
+        <p-treeselect [(ngModel)]="value3" inputId="on_label" [options]="nodes" class="w-full" containerStyleClass="w-full" />
+        <label for="on_label">On Label</label>
     </p-floatlabel>
 </div>`,
 
@@ -70,7 +92,11 @@ import { FloatLabelModule } from 'primeng/floatlabel';
 export class TreeSelectFloatlabelDemo {
     nodes!: any[];
 
-    selectedNodes: any;
+    value1: any;
+
+    value2: any;
+
+    value3: any;
 
     constructor(private nodeService: NodeService) {
         this.nodeService.getFiles().then((files) => (this.nodes = files));
