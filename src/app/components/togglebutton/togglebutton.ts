@@ -40,6 +40,7 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
             pRipple
             type="button"
             [ngClass]="cx('root')"
+            [class]="styleClass"
             [tabindex]="tabindex"
             [disabled]="disabled"
             (click)="toggle($event)"

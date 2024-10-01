@@ -111,7 +111,7 @@ const theme = ({ dt }) => `
     order: 1;
 }
 
-.p-togglebutton.ng-invalid.ng-dirty {
+p-togglebutton.ng-invalid.ng-dirty > .p-togglebutton {
     border-color: ${dt('togglebutton.invalid.border.color')};
 }
 `;
