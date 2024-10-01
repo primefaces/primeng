@@ -225,7 +225,7 @@ export class Editor extends BaseComponent implements AfterContentInit, ControlVa
         if (this.quill) {
             if (value) {
                 const command = (): void => {
-                    this.quill.setContents(this.quill.clipboard.convert(this.value));
+                    this.quill.setContents(this.quill.clipboard.convert(this.dynamicQuill.version.startsWith('2') ? { html: this.value } : this.value));
                 };
 
                 if (this.isAttachedQuillEditorToDOM) {
@@ -294,16 +294,18 @@ export class Editor extends BaseComponent implements AfterContentInit, ControlVa
             formats: this.formats,
             bounds: this.bounds,
             debug: this.debug,
-            scrollingContainer: this.scrollingContainer,
+            scrollingContainer: this.scrollingContainer
         });
 
+        const isQuill2 = this.dynamicQuill.version.startsWith('2');
+
         if (this.value) {
-            this.quill.setContents(this.quill.clipboard.convert(this.value));
+            this.quill.setContents(this.quill.clipboard.convert(isQuill2 ? { html: this.value } : this.value));
         }
 
         this.quill.on('text-change', (delta: any, oldContents: any, source: any) => {
             if (source === 'user') {
-                let html = DomHandler.findSingle(editorElement, '.ql-editor').innerHTML;
+                let html = isQuill2 ? this.quill.getSemanticHTML() : DomHandler.findSingle(editorElement, '.ql-editor').innerHTML;
                 let text = this.quill.getText().trim();
                 if (html === '<p><br></p>') {
                     html = null;
@@ -313,7 +315,7 @@ export class Editor extends BaseComponent implements AfterContentInit, ControlVa
                     htmlValue: html,
                     textValue: text,
                     delta: delta,
-                    source: source,
+                    source: source
                 });
 
                 this.onModelChange(html);
@@ -325,12 +327,12 @@ export class Editor extends BaseComponent implements AfterContentInit, ControlVa
             this.onSelectionChange.emit({
                 range: range,
                 oldRange: oldRange,
-                source: source,
+                source: source
             });
         });
 
         this.onInit.emit({
-            editor: this.quill,
+            editor: this.quill
         });
     }
 
