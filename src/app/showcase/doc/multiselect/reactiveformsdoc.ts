@@ -16,8 +16,7 @@ interface City {
                 component to a form control.
             </p>
         </app-docsectiontext>
-        <div class="card flex justify-center">
-            <form [formGroup]="formGroup" class="w-full md:w-80">
+            <form [formGroup]="formGroup" class="card flex justify-center w-full md:w-80">
                 <p-multiselect
                     [options]="cities"
                     formControlName="selectedCities"
@@ -27,7 +26,6 @@ interface City {
                     styleClass="w-full md:w-80"
                 />
             </form>
-        </div>
         <app-code [code]="code" selector="multi-select-reactive-forms-demo"></app-code>
     `,
 })
@@ -51,15 +49,9 @@ export class ReactiveFormsDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<form [formGroup]="formGroup" class="w-full md:w-80">
+        basic: `<form [formGroup]="formGroup" class="card flex justify-center w-full md:w-80">
     <p-multiselect [options]="cities" formControlName="selectedCities" optionLabel="name" placeholder="Select Cities" [maxSelectedLabels]="3" styleClass="w-full md:w-80" />
 </form>`,
-
-        html: `<div class="card flex justify-center">
-    <form [formGroup]="formGroup" class="w-full md:w-80">
-        <p-multiselect [options]="cities" formControlName="selectedCities" optionLabel="name" placeholder="Select Cities" [maxSelectedLabels]="3" styleClass="w-full md:w-80" />
-    </form>
-</div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
