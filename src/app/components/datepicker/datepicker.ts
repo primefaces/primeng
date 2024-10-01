@@ -166,6 +166,7 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                             <div class="p-datepicker-header">
                                 <p-button
                                     size="small"
+                                    severity="secondary"
                                     rounded
                                     text
                                     (keydown)="onContainerButtonKeydown($event)"
@@ -217,6 +218,7 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                                 </div>
                                 <p-button
                                     rounded
+                                    severity="secondary"
                                     text
                                     size="small"
                                     (keydown)="onContainerButtonKeydown($event)"
