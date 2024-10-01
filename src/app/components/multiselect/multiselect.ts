@@ -89,7 +89,6 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
             [ngStyle]="{ height: itemSize + 'px' }"
             [ngClass]="{
                 'p-multiselect-option': true,
-                'p-multiselect-option-selected': selected,
                 'p-disabled': disabled,
                 'p-focus': focused,
             }"
