@@ -20,7 +20,7 @@ import {
     QueryList,
     signal,
     TemplateRef,
-    ViewEncapsulation
+    ViewEncapsulation,
 } from '@angular/core';
 
 import { BaseComponent } from 'primeng/basecomponent';
@@ -202,7 +202,7 @@ export class Step extends BaseComponent implements AfterContentInit {
      * @group Props
      */
     disabled: InputSignalWithTransform<any, boolean> = input(false, {
-        transform: (v: any | boolean) => transformToBoolean(v,
+        transform: (v: any | boolean) => transformToBoolean(v),
     });
 
     active = computed(() => this.pcStepper.isStepActive(this.value()));
@@ -286,7 +286,7 @@ export class Step extends BaseComponent implements AfterContentInit {
         '[attr.aria-controls]': 'ariaControls()',
         '[attr.id]': 'id()',
         '[attr.data-p-active]': 'active()',
-        '[attr.data-pc-name]': '"steppanel"'
+        '[attr.data-pc-name]': '"steppanel"',
     },
     animations: [
         trigger('content', [
@@ -366,17 +366,15 @@ export class StepPanel extends BaseComponent implements AfterContentInit {
     selector: 'p-step-panels',
     standalone: true,
     imports: [CommonModule],
-    template: `
-        <ng-content></ng-content>`,
+    template: ` <ng-content></ng-content>`,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
         '[class.p-steppanels]': 'true',
-        '[class.p-component]': 'true'
+        '[class.p-component]': 'true',
     },
 })
-export class StepPanels extends BaseComponent {
-}
+export class StepPanels extends BaseComponent {}
 
 /**
  * Stepper is a component that streamlines a wizard-like workflow, organizing content into coherent steps and visually guiding users through a numbered progression in a multistep process.
@@ -386,8 +384,7 @@ export class StepPanels extends BaseComponent {
     selector: 'p-stepper',
     standalone: true,
     imports: [CommonModule],
-    template: `
-        <ng-content></ng-content>`,
+    template: ` <ng-content></ng-content>`,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     providers: [StepperStyle],
@@ -395,7 +392,7 @@ export class StepPanels extends BaseComponent {
         '[class.p-stepper]': 'true',
         '[class.p-component]': 'true',
         '[attr.role]': '"tablist"',
-        '[attr.id]': 'id()'
+        '[attr.id]': 'id()',
     },
 })
 export class Stepper extends BaseComponent {
@@ -413,7 +410,7 @@ export class Stepper extends BaseComponent {
      * @group Props
      */
     linear: InputSignalWithTransform<any, boolean> = input(false, {
-        transform: (v: any | boolean) => transformToBoolean(v)
+        transform: (v: any | boolean) => transformToBoolean(v),
     });
     /**
      * Transition options of the animation.
@@ -444,6 +441,6 @@ export class Stepper extends BaseComponent {
 
 @NgModule({
     imports: [Stepper, StepList, StepPanels, StepPanel, StepItem, Step, StepperSeparator, SharedModule],
-    exports: [Stepper, StepList, StepPanels, StepPanel, StepItem, Step, StepperSeparator, SharedModule]
+    exports: [Stepper, StepList, StepPanels, StepPanel, StepItem, Step, StepperSeparator, SharedModule],
 })
 export class StepperModule {}
