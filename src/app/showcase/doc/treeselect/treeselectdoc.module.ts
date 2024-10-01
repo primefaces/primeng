@@ -20,6 +20,8 @@ import { VirtualScrollDoc } from './virtualscrolldoc';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { FilledDoc } from './filleddoc';
 import { LazyDoc } from './lazydoc';
+import { IftaLabelModule } from 'primeng/iftalabel';
+import { IftaLabelDoc } from './iftalabeldoc';
 
 @NgModule({
     imports: [
@@ -31,6 +33,7 @@ import { LazyDoc } from './lazydoc';
         ReactiveFormsModule,
         RouterModule,
         FloatLabelModule,
+        IftaLabelModule
     ],
     exports: [AppDocModule],
     declarations: [
@@ -48,6 +51,7 @@ import { LazyDoc } from './lazydoc';
         AccessibilityDoc,
         ReactiveFormsDoc,
         FilledDoc,
+        IftaLabelDoc,
     ],
 })
 export class TreeSelectDocModule {}
