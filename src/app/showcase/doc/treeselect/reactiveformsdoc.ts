@@ -43,22 +43,12 @@ export class ReactiveFormsDoc implements OnInit {
 
     code: Code = {
         basic: `<form [formGroup]="formGroup">
-    <p-treeselect 
-        class="md:w-80 w-full" 
-        containerStyleClass="w-full" 
-        formControlName="selectedNodes" 
-        [options]="nodes" 
-        placeholder="Select Item" />
+    <p-treeselect class="md:w-80 w-full" containerStyleClass="w-full" formControlName="selectedNodes" [options]="nodes" placeholder="Select Item" />
 </form>`,
 
         html: `<div class="card flex justify-center">
     <form [formGroup]="formGroup">
-        <p-treeselect 
-            class="md:w-80 w-full" 
-            containerStyleClass="w-full" 
-            formControlName="selectedNodes" 
-            [options]="nodes" 
-            placeholder="Select Item" />
+        <p-treeselect class="md:w-80 w-full" containerStyleClass="w-full" formControlName="selectedNodes" [options]="nodes" placeholder="Select Item" />
     </form>
 </div>`,
 

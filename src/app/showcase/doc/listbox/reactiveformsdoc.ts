@@ -51,22 +51,12 @@ export class ReactiveFormsDoc implements OnInit {
 
     code: Code = {
         basic: `<form [formGroup]="formGroup">
-    <p-listbox 
-        [options]="cities" 
-        formControlName="selectedCity" 
-        optionLabel="name" 
-        [style]="{ width: '15rem' }" 
-        [listStyle]="{'max-height': '220px'}" />
+    <p-listbox [options]="cities" formControlName="selectedCity" optionLabel="name" [style]="{ width: '15rem' }" [listStyle]="{'max-height': '220px'}" />
 </form>`,
 
         html: `<div class="card flex justify-center">
     <form [formGroup]="formGroup">
-        <p-listbox 
-            [options]="cities" 
-            formControlName="selectedCity" 
-            optionLabel="name" 
-            [style]="{ width: '15rem' }" 
-            [listStyle]="{'max-height': '220px'}" />
+        <p-listbox [options]="cities" formControlName="selectedCity" optionLabel="name" [style]="{ width: '15rem' }" [listStyle]="{'max-height': '220px'}" />
     </form>
 </div>`,
 

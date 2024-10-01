@@ -17,18 +17,10 @@ export class MonthDoc {
     date: Date[] | undefined;
 
     code: Code = {
-        basic: `<p-datepicker 
-    [(ngModel)]="date" 
-    view="month" 
-    dateFormat="mm/yy" 
-    [readonlyInput]="true" />`,
+        basic: `<p-datepicker [(ngModel)]="date" view="month" dateFormat="mm/yy" [readonlyInput]="true" />`,
 
         html: `<div class="card flex justify-center">
-    <p-datepicker 
-        [(ngModel)]="date" 
-        view="month" 
-        dateFormat="mm/yy" 
-        [readonlyInput]="true" />
+    <p-datepicker [(ngModel)]="date" view="month" dateFormat="mm/yy" [readonlyInput]="true" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

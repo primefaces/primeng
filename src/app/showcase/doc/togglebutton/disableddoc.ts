@@ -26,26 +26,10 @@ export class DisabledDoc {
     checked: boolean = false;
 
     code: Code = {
-        basic: `<p-togglebutton
-    disabled="true" 
-    onIcon="pi pi-check" 
-    offIcon="pi pi-times" 
-    [(ngModel)]="checked" 
-    onLabel="Yes"
-    offLabel="No" 
-    styleClass="w-full sm:w-40" 
-    ariaLabel="Confirmation" />`,
+        basic: `<p-togglebutton disabled="true" onIcon="pi pi-check" offIcon="pi pi-times" [(ngModel)]="checked" onLabel="Yes" offLabel="No" styleClass="w-full sm:w-40" ariaLabel="Confirmation" />`,
 
         html: `<div class="card flex justify-center">
-    <p-togglebutton 
-        disabled="true" 
-        onIcon="pi pi-check" 
-        offIcon="pi pi-times" 
-        [(ngModel)]="checked" 
-        onLabel="Yes" 
-        offLabel="No" 
-        styleClass="w-full sm:w-40" 
-        ariaLabel="Confirmation" />
+    <p-togglebutton disabled="true" onIcon="pi pi-check" offIcon="pi pi-times" [(ngModel)]="checked" onLabel="Yes" offLabel="No" styleClass="w-full sm:w-40" ariaLabel="Confirmation" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

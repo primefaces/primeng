@@ -14,7 +14,7 @@ import { TreeNode } from 'primeng/api';
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-treeselect
-                class="w-full"
+                class="w-full md:w-80"
                 containerStyleClass="w-full"
                 [(ngModel)]="selectedNodes"
                 [loading]="loading"
@@ -93,34 +93,10 @@ export class LazyDoc {
     }
 
     code: Code = {
-        basic: `<p-treeselect
-    class="w-full"
-    containerStyleClass="w-full"
-    [(ngModel)]="selectedNodes"
-    [loading]="loading"
-    (onNodeExpand)="onNodeExpand($event)"
-    [options]="nodes"
-    display="chip"
-    [metaKeySelection]="false"
-    selectionMode="checkbox"
-    placeholder="Select Item"
-    [loading]="loading"
-/>`,
+        basic: `<p-treeselect class="w-full md:w-80" containerStyleClass="w-full" [(ngModel)]="selectedNodes" [loading]="loading" (onNodeExpand)="onNodeExpand($event)" [options]="nodes" display="chip" [metaKeySelection]="false" selectionMode="checkbox" placeholder="Select Item" [loading]="loading"/>`,
 
         html: `<div class="card flex justify-center">
-    <p-treeselect
-        class="w-full"
-        containerStyleClass="w-full"
-        [(ngModel)]="selectedNodes"
-        [loading]="loading"
-        (onNodeExpand)="onNodeExpand($event)"
-        [options]="nodes"
-        display="chip"
-        [metaKeySelection]="false"
-        selectionMode="checkbox"
-        placeholder="Select Item"
-        [loading]="loading"
-    />
+    <p-treeselect class="w-full md:w-80" containerStyleClass="w-full" [(ngModel)]="selectedNodes" [loading]="loading" (onNodeExpand)="onNodeExpand($event)" [options]="nodes" display="chip" [metaKeySelection]="false" selectionMode="checkbox" placeholder="Select Item" [loading]="loading"/>
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

@@ -17,16 +17,10 @@ export class YearDoc {
     date: Date[] | undefined;
 
     code: Code = {
-        basic: `<p-datepicker 
-    [(ngModel)]="date" 
-    view="year" 
-    dateFormat="yy" />`,
+        basic: `<p-datepicker [(ngModel)]="date" view="year" dateFormat="yy" />`,
 
         html: `<div class="card flex justify-center">
-    <p-datepicker 
-        [(ngModel)]="date" 
-        view="year" 
-        dateFormat="yy" />
+    <p-datepicker [(ngModel)]="date" view="year" dateFormat="yy" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

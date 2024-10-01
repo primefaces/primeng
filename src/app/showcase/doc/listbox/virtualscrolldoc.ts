@@ -26,6 +26,8 @@ import { Code } from '@domain/code';
                 (onSelectAllChange)="onSelectAllChange($event)"
                 (onChange)="onChange($event)"
                 scrollHeight="250px"
+                [striped]="true"
+                class="w-full md:w-56"
             />
         </div>
         <app-code [code]="code" selector="listbox-virtual-scroll-demo"></app-code>
@@ -49,34 +51,10 @@ export class VirtualScrollDoc {
     }
 
     code: Code = {
-        basic: `<p-listbox
-    [options]="items"
-    [(ngModel)]="selectedItems"
-    [selectAll]="selectAll"
-    optionLabel="label"
-    [style]="{ width: '15rem' }"
-    [virtualScroll]="true"
-    [virtualScrollItemSize]="38"
-    [multiple]="true"
-    [metaKeySelection]="false"
-    (onSelectAllChange)="onSelectAllChange($event)"
-    (onChange)="onChange($event)"
-    scrollHeight="250px" />`,
+        basic: `<p-listbox [options]="items" [(ngModel)]="selectedItems" [selectAll]="selectAll" optionLabel="label" [style]="{ width: '15rem' }" [virtualScroll]="true" [virtualScrollItemSize]="38" [multiple]="true" [metaKeySelection]="false" (onSelectAllChange)="onSelectAllChange($event)" (onChange)="onChange($event)" scrollHeight="250px" [striped]="true" class="w-full md:w-56" />`,
 
         html: `<div class="card flex justify-center">
-    <p-listbox
-        [options]="items"
-        [(ngModel)]="selectedItems"
-        [selectAll]="selectAll"
-        optionLabel="label"
-        [style]="{ width: '15rem' }"
-        [virtualScroll]="true"
-        [virtualScrollItemSize]="38"
-        [multiple]="true"
-        [metaKeySelection]="false"
-        (onSelectAllChange)="onSelectAllChange($event)"
-        (onChange)="onChange($event)"
-        scrollHeight="250px" />
+    <p-listbox [options]="items" [(ngModel)]="selectedItems" [selectAll]="selectAll" optionLabel="label" [style]="{ width: '15rem' }" [virtualScroll]="true" [virtualScrollItemSize]="38" [multiple]="true" [metaKeySelection]="false" (onSelectAllChange)="onSelectAllChange($event)" (onChange)="onChange($event)" scrollHeight="250px" [striped]="true" class="w-full md:w-56" />
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';

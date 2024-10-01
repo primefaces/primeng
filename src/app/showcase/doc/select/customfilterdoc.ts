@@ -25,8 +25,8 @@ interface City {
             >
                 <ng-template pTemplate="filter" let-options="options">
                     <div class="flex gap-1">
-                        <div class="p-inputgroup" (click)="$event.stopPropagation()">
-                            <span class="p-inputgroup-addon"><i class="pi pi-search"></i></span>
+                        <p-inputgroup (click)="$event.stopPropagation()">
+                            <p-inputgroup-addon><i class="pi pi-search"></i></p-inputgroup-addon>
                             <input
                                 type="text"
                                 pInputText
@@ -34,8 +34,8 @@ interface City {
                                 [(ngModel)]="filterValue"
                                 (keyup)="customFilterFunction($event, options)"
                             />
-                        </div>
-                        <button pButton icon="pi pi-times" (click)="resetFunction(options)" severity="secondary"></button>
+                        </p-inputgroup>
+                        <p-button icon="pi pi-times" (click)="resetFunction(options)" severity="secondary" />
                     </div>
                 </ng-template>
                 <ng-template pTemplate="selectedItem" let-selectedOption>
@@ -95,98 +95,106 @@ export class CustomFilterDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-select 
-    [options]="countries" 
+        basic: `<p-select
+    [options]="countries"
     [(ngModel)]="selectedCountry"
     optionLabel="name"
-    [filter]="true" 
+    [filter]="true"
     filterBy="name"
     [showClear]="true"
-    placeholder="Select a Country" 
-    styleClass="w-80">
-        <ng-template pTemplate="filter" let-options="options">
-            <div class="flex gap-1">
-                <div class="p-inputgroup" (click)="$event.stopPropagation()">
-                    <span class="p-inputgroup-addon"><i class="pi pi-search"></i></span>
-                    <input 
-                        type="text"
-                        pInputText
-                        placeholder="Filter" 
-                        [(ngModel)]="filterValue"
-                        (keyup)="customFilterFunction($event, options)" />
-                </div>
-                <button pButton icon="pi pi-times" (click)="resetFunction(options)" severity="secondary"></button>
-            </div>
-        </ng-template>
-        <ng-template pTemplate="selectedItem" let-selectedOption>
-            <div class="flex items-center gap-2">
-                <img 
-                    src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
-                    [class]="'flag flag-' + selectedCountry.code.toLowerCase()"
-                    style="width: 18px" />
-                <div>{{ selectedOption.name }}</div>
-            </div>
-        </ng-template>
-        <ng-template let-country pTemplate="item">
-            <div class="flex items-center gap-2">
-                <img 
-                    src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
-                    [class]="'flag flag-' + country.code.toLowerCase()" 
-                    style="width: 18px" />
-                <div>{{ country.name }}</div>
-            </div>
-        </ng-template>
+    placeholder="Select a Country"
+>
+    <ng-template pTemplate="filter" let-options="options">
+        <div class="flex gap-1">
+            <p-inputgroup (click)="$event.stopPropagation()">
+                <p-inputgroup-addon><i class="pi pi-search"></i></p-inputgroup-addon>
+                <input
+                    type="text"
+                    pInputText
+                    placeholder="Filter"
+                    [(ngModel)]="filterValue"
+                    (keyup)="customFilterFunction($event, options)"
+                />
+            </p-inputgroup>
+            <p-button icon="pi pi-times" (click)="resetFunction(options)" severity="secondary" />
+        </div>
+    </ng-template>
+    <ng-template pTemplate="selectedItem" let-selectedOption>
+        <div class="flex items-center gap-2">
+            <img
+                src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
+                [class]="'flag flag-' + selectedCountry.code.toLowerCase()"
+                style="width: 18px"
+            />
+            <div>{{ selectedOption.name }}</div>
+        </div>
+    </ng-template>
+    <ng-template let-country pTemplate="item">
+        <div class="flex items-center gap-2">
+            <img
+                src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
+                [class]="'flag flag-' + country.code.toLowerCase()"
+                style="width: 18px"
+            />
+            <div>{{ country.name }}</div>
+        </div>
+    </ng-template>
 </p-select>`,
 
         html: `<div class="card flex justify-center">
-<p-select 
-    [options]="countries" 
-    [(ngModel)]="selectedCountry" 
-    optionLabel="name" 
-    [filter]="true" 
-    filterBy="name" 
-    [showClear]="true"
-    placeholder="Select a Country"
-    styleClass="w-80">
+    <p-select
+        [options]="countries"
+        [(ngModel)]="selectedCountry"
+        optionLabel="name"
+        [filter]="true"
+        filterBy="name"
+        [showClear]="true"
+        placeholder="Select a Country"
+    >
         <ng-template pTemplate="filter" let-options="options">
             <div class="flex gap-1">
-                <div class="p-inputgroup" (click)="$event.stopPropagation()">
-                    <span class="p-inputgroup-addon"><i class="pi pi-search"></i></span>
-                    <input 
+                <p-inputgroup (click)="$event.stopPropagation()">
+                    <p-inputgroup-addon><i class="pi pi-search"></i></p-inputgroup-addon>
+                    <input
                         type="text"
                         pInputText
                         placeholder="Filter"
                         [(ngModel)]="filterValue"
-                        (keyup)="customFilterFunction($event, options)" />
-                </div>
-                <button pButton icon="pi pi-times" (click)="resetFunction(options)"></button>
+                        (keyup)="customFilterFunction($event, options)"
+                    />
+                </p-inputgroup>
+                <p-button icon="pi pi-times" (click)="resetFunction(options)" severity="secondary" />
             </div>
         </ng-template>
         <ng-template pTemplate="selectedItem" let-selectedOption>
             <div class="flex items-center gap-2">
-                <img 
+                <img
                     src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
                     [class]="'flag flag-' + selectedCountry.code.toLowerCase()"
-                    style="width: 18px" />
+                    style="width: 18px"
+                />
                 <div>{{ selectedOption.name }}</div>
             </div>
         </ng-template>
         <ng-template let-country pTemplate="item">
             <div class="flex items-center gap-2">
-                <img 
+                <img
                     src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
                     [class]="'flag flag-' + country.code.toLowerCase()"
-                    style="width: 18px" />
+                    style="width: 18px"
+                />
                 <div>{{ country.name }}</div>
             </div>
         </ng-template>
-</p-select>
+    </p-select>
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { DropdownFilterOptions } from 'primeng/dropdown';
 import { FormsModule } from '@angular/forms';
 import { SelectModule } from 'primeng/select';
+import { InputGroupModule } from 'primeng/inputgroup';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 
 interface City {
     name: string;
@@ -196,7 +204,7 @@ interface City {
     selector: 'select-custom-filter-demo',
     templateUrl: './select-custom-filter-demo.html',
     standalone: true,
-    imports: [FormsModule, SelectModule]
+    imports: [FormsModule, SelectModule, InputGroupModule, InputGroupAddonModule]
 })
 export class SelectCustomFilterDemo implements OnInit {
     countries: City[] | undefined;

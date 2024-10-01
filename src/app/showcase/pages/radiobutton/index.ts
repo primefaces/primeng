@@ -34,14 +34,14 @@ export class RadioButtonDemo {
             component: GroupDoc,
         },
         {
-            id: 'dynamic',
-            label: 'Dynamic',
-            component: DynamicDoc,
-        },
-        {
             id: 'reactive-forms',
             label: 'Reactive Forms',
             component: ReactiveFormsDoc,
+        },
+        {
+            id: 'dynamic',
+            label: 'Dynamic',
+            component: DynamicDoc,
         },
         {
             id: 'filled',

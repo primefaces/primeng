@@ -21,6 +21,8 @@ import { VirtualScrollDoc } from './virtualscrolldoc';
 import { LoadingStateDoc } from './loadingstatedoc';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { FilledDoc } from './filleddoc';
+import { IftaLabelModule } from 'primeng/iftalabel';
+import { IftaLabelDoc } from './iftalabeldoc';
 
 @NgModule({
     imports: [
@@ -32,6 +34,7 @@ import { FilledDoc } from './filleddoc';
         ReactiveFormsModule,
         AppDocModule,
         FloatLabelModule,
+        IftaLabelModule,
     ],
     exports: [AppDocModule],
     declarations: [
@@ -43,6 +46,7 @@ import { FilledDoc } from './filleddoc';
         TemplateDoc,
         VirtualScrollDoc,
         FloatLabelDoc,
+        IftaLabelDoc,
         InvalidDoc,
         DisabledDoc,
         StyleDoc,

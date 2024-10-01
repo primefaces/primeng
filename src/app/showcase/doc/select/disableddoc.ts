@@ -13,7 +13,14 @@ interface City {
             <p>When <i>disabled</i> is present, the element cannot be edited and focused.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-select [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City" optionLabel="name" [disabled]="true" />
+            <p-select
+                [options]="cities"
+                [(ngModel)]="selectedCity"
+                placeholder="Select a City"
+                optionLabel="name"
+                [disabled]="true"
+                class="w-full md:w-56"
+            />
         </div>
         <app-code [code]="code" selector="select-disabled-demo"></app-code>
     `,
@@ -34,20 +41,10 @@ export class DisabledDoc {
     }
 
     code: Code = {
-        basic: `<p-select 
-    [options]="cities" 
-    [(ngModel)]="selectedCity" 
-    placeholder="Select a City" 
-    optionLabel="name" 
-    [disabled]="true" />`,
+        basic: `<p-select [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City" optionLabel="name" [disabled]="true" class="w-full md:w-56" />`,
 
         html: `<div class="card flex justify-center">
-    <p-select 
-        [options]="cities" 
-        [(ngModel)]="selectedCity" 
-        placeholder="Select a City" 
-        optionLabel="name" 
-        [disabled]="true" />
+    <p-select [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City" optionLabel="name" [disabled]="true" class="w-full md:w-56" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

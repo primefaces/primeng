@@ -17,6 +17,7 @@ import { ReactiveFormsDoc } from './reactiveformsdoc';
 import { StyleDoc } from './styledoc';
 import { TemplateDoc } from './templatedoc';
 import { VirtualScrollDoc } from './virtualscrolldoc';
+import { CheckmarkDoc } from './checkmarkdoc';
 
 @NgModule({
     imports: [CommonModule, AppCodeModule, RouterModule, ListboxModule, FormsModule, ReactiveFormsModule, AppDocModule],
@@ -34,6 +35,7 @@ import { VirtualScrollDoc } from './virtualscrolldoc';
         AccessibilityDoc,
         ReactiveFormsDoc,
         VirtualScrollDoc,
+        CheckmarkDoc
     ],
 })
 export class ListboxDocModule {}

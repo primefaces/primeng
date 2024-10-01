@@ -11,7 +11,7 @@ import { Code } from '@domain/code';
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <textarea [variant]="'filled'" rows="5" cols="30" pTextarea [(ngModel)]="value"></textarea>
+            <textarea [(ngModel)]="value" [variant]="'filled'" rows="5" cols="30" pTextarea></textarea>
         </div>
         <app-code [code]="code" selector="input-textarea-filled-demo"></app-code>
     `,
@@ -20,22 +20,10 @@ export class FilledDoc {
     value!: string;
 
     code: Code = {
-        basic: `<textarea 
-    variant="filled"
-    rows="5"
-    cols="30" 
-    pTextarea 
-    [(ngModel)]="value">
-</textarea>`,
+        basic: `<textarea [(ngModel)]="value" variant="filled" rows="5" cols="30" pTextarea></textarea>`,
 
         html: `<div class="card flex justify-center">
-    <textarea 
-        variant="filled"
-        rows="5"
-        cols="30"
-        pTextarea 
-        [(ngModel)]="value">
-    </textarea>
+    <textarea [(ngModel)]="value" variant="filled" rows="5" cols="30" pTextarea></textarea>
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

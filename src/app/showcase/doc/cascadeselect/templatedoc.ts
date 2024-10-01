@@ -5,12 +5,10 @@ import { Code } from '@domain/code';
     selector: 'cascade-select-template-demo',
     template: `
         <app-docsectiontext>
-            <p>
-                CascadeSelect is used as a controlled component with <i>ngModel</i> property along with an <i>options</i> collection. To
-                define the label of a group <i>optionGroupLabel</i> property is needed and also <i>optionGroupChildren</i> is required to
-                define the property that refers to the children of a group. Note that order of the <i>optionGroupChildren</i> matters as it
-                should correspond to the data hierarchy.
-            </p>
+        <p>
+            Label of an option is used as the display text of an item by default, for custom content support define an <i>option</i> template that gets the option instance as a parameter. In addition <i>value</i>, <i>dropdownicon</i>,
+            <i>loadingicon</i>, and <i>optiongroupicon</i> slots are provided for further customization.
+        </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-cascadeselect

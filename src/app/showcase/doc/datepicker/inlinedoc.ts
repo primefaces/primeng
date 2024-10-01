@@ -17,18 +17,10 @@ export class InlineDoc {
     date: Date[] | undefined;
 
     code: Code = {
-        basic: `<p-datepicker 
-    class="max-w-full" 
-    [(ngModel)]="date" 
-    [inline]="true" 
-    [showWeek]="true" />`,
+        basic: `<p-datepicker class="max-w-full" [(ngModel)]="date" [inline]="true" [showWeek]="true" />`,
 
         html: `<div class="card flex justify-center">
-    <p-datepicker 
-        class="max-w-full" 
-        [(ngModel)]="date" 
-        [inline]="true" 
-        [showWeek]="true" />
+    <p-datepicker class="max-w-full" [(ngModel)]="date" [inline]="true" [showWeek]="true" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

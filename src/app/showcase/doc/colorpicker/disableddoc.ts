@@ -17,14 +17,10 @@ export class DisabledDoc {
     color: string | undefined;
 
     code: Code = {
-        basic: `<p-colorpicker 
-    [(ngModel)]="color" 
-    [disabled]="true" />`,
+        basic: `<p-colorpicker [(ngModel)]="color" [disabled]="true" />`,
 
         html: `<div class="card flex justify-center">
-    <p-colorpicker 
-        [(ngModel)]="color" 
-        [disabled]="true" />
+    <p-colorpicker [(ngModel)]="color" [disabled]="true" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

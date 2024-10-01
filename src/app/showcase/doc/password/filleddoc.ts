@@ -11,7 +11,7 @@ import { Code } from '@domain/code';
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-password [(ngModel)]="value" [feedback]="false" variant="filled" />
+            <p-password [(ngModel)]="value" [feedback]="false" variant="filled" autocomplete="off" />
         </div>
         <app-code [code]="code" selector="password-filled-demo"></app-code>
     `,
@@ -20,16 +20,10 @@ export class FilledDoc {
     value!: string;
 
     code: Code = {
-        basic: `<p-password 
-    [(ngModel)]="value" 
-    [feedback]="false" 
-    variant="filled" />`,
+        basic: `<p-password [(ngModel)]="value" [feedback]="false" variant="filled" />`,
 
         html: `<div class="card flex justify-center">
-    <p-password 
-        [(ngModel)]="value" 
-        [feedback]="false" 
-        variant="filled" />
+    <p-password [(ngModel)]="value" [feedback]="false" variant="filled" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

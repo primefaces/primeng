@@ -11,6 +11,7 @@ import { MultipleDoc } from '@doc/listbox/multipledoc';
 import { TemplateDoc } from '@doc/listbox/templatedoc';
 import { VirtualScrollDoc } from '@doc/listbox/virtualscrolldoc';
 import { ListboxDocModule } from '@doc/listbox/listboxdoc.module';
+import { CheckmarkDoc } from '@doc/listbox/checkmarkdoc';
 
 @Component({
     template: `<app-doc
@@ -40,6 +41,11 @@ export class ListboxDemo {
             id: 'reactive-forms',
             label: 'Reactive Forms',
             component: ReactiveFormsDoc,
+        },
+        {
+            id: 'checkmark',
+            label: 'Checkmark',
+            component: CheckmarkDoc
         },
         {
             id: 'multiple',

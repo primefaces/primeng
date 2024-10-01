@@ -36,70 +36,62 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-toggleButton, p-togglebutton',
     template: `
-        <span [ngClass]="cx('content')">
-            <ng-container *ngTemplateOutlet="contentTemplate; context: { $implicit: checked }"></ng-container>
-            @if (!contentTemplate) {
-                @if (!iconTemplate) {
-                    @if (onIcon || offIcon) {
-                        <span
-                            [class]="checked ? this.onIcon : this.offIcon"
-                            [ngClass]="{
-                                'p-togglebutton-icon': true,
-                                'p-togglebutton-icon-left': iconPos === 'left',
-                                'p-togglebutton-icon-right': iconPos === 'right',
-                            }"
-                            [attr.data-pc-section]="'icon'"
-                        ></span>
+        <button
+            pRipple
+            type="button"
+            [ngClass]="cx('root')"
+            [class]="styleClass"
+            [tabindex]="tabindex"
+            [disabled]="disabled"
+            (click)="toggle($event)"
+            [attr.aria-labelledby]="ariaLabelledBy"
+            [attr.aria-pressed]="checked"
+            [attr.data-p-checked]="active"
+            [attr.data-p-disabled]="disabled"
+        >
+            <span [ngClass]="cx('content')">
+                <ng-container *ngTemplateOutlet="contentTemplate; context: { $implicit: checked }"></ng-container>
+                @if (!contentTemplate) {
+                    @if (!iconTemplate) {
+                        @if (onIcon || offIcon) {
+                            <span
+                                [class]="checked ? this.onIcon : this.offIcon"
+                                [ngClass]="{
+                                    'p-togglebutton-icon': true,
+                                    'p-togglebutton-icon-left': iconPos === 'left',
+                                    'p-togglebutton-icon-right': iconPos === 'right',
+                                }"
+                                [attr.data-pc-section]="'icon'"
+                            ></span>
+                        }
+                    } @else {
+                        <ng-container *ngTemplateOutlet="iconTemplate; context: { $implicit: checked }"></ng-container>
                     }
-                } @else {
-                    <ng-container *ngTemplateOutlet="iconTemplate; context: { $implicit: checked }"></ng-container>
+                    @if (onLabel || offLabel) {
+                        <span [ngClass]="cx('label')" [attr.data-pc-section]="'label'">{{
+                            checked ? (hasOnLabel ? onLabel : '') : hasOffLabel ? offLabel : ''
+                        }}</span>
+                    }
                 }
-                @if (onLabel || offLabel) {
-                    <span [ngClass]="cx('label')" [attr.data-pc-section]="'label'">{{
-                        checked ? (hasOnLabel ? onLabel : '') : hasOffLabel ? offLabel : ''
-                    }}</span>
-                }
-            }
-        </span>
+            </span>
+        </button>
     `,
     standalone: true,
     imports: [Ripple, AutoFocus, SharedModule, CommonModule],
     providers: [TOGGLEBUTTON_VALUE_ACCESSOR, ToggleButtonStyle],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    host: {
-        role: 'switch',
-        type: 'button',
-        '(click)': 'toggle($event)',
-        '(keydown)': 'onKeyDown($event)',
-        '[attr.tabindex]': 'disabled ? null : tabindex',
-        '[attr.aria-checked]': 'checked',
-        '[attr.aria-labelledby]': 'ariaLabelledBy',
-        '[attr.aria-label]': 'ariaLabel',
-        '[attr.data-pc-name]': 'toggleButton',
-        '[attr.data-pc-section]': 'root',
-        '[class.p-togglebutton.p-component]': 'true',
-        '[class.p-togglebutton-checked]': 'checked',
-        '[class.p-disabled]': 'disabled',
-    },
-    hostDirectives: [
-        Ripple,
-        {
-            directive: AutoFocus,
-            inputs: ['autofocus'],
-        },
-    ],
 })
 export class ToggleButton extends BaseComponent implements ControlValueAccessor {
     /**
      * Label for the on state.
      * @group Props
      */
-    @Input() onLabel: string | undefined;
+    @Input() onLabel: string = 'Yes';
     /**
      * Label for the off state.
      * @group Props
      */
-    @Input() offLabel: string | undefined;
+    @Input() offLabel: string = 'No';
     /**
      * Icon for the on state.
      * @group Props
@@ -255,6 +247,10 @@ export class ToggleButton extends BaseComponent implements ControlValueAccessor 
 
     get hasOffLabel(): boolean {
         return (this.onLabel && this.onLabel.length > 0) as boolean;
+    }
+
+    get active() {
+        return this.checked === true;
     }
 }
 

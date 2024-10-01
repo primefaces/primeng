@@ -17,16 +17,10 @@ export class InvalidDoc {
     value: string | undefined;
 
     code: Code = {
-        basic: `<p-inputmask 
-    mask="999-99-9999" 
-    [(ngModel)]="value" 
-    class="ng-invalid ng-dirty" />`,
+        basic: `<p-inputmask mask="999-99-9999" [(ngModel)]="value" class="ng-invalid ng-dirty" />`,
 
         html: `<div class="card flex justify-center">
-    <p-inputmask 
-        mask="999-99-9999" 
-        [(ngModel)]="value" 
-        class="ng-invalid ng-dirty" />
+    <p-inputmask mask="999-99-9999" [(ngModel)]="value" class="ng-invalid ng-dirty" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

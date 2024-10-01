@@ -20,6 +20,7 @@ interface City {
                 [disabled]="true"
                 [style]="{ width: '15rem' }"
                 [listStyle]="{ 'max-height': '220px' }"
+                class="w-full md:w-56"
             />
         </div>
         <app-code [code]="code" selector="listbox-disabled-demo"></app-code>
@@ -41,22 +42,10 @@ export class DisabledDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-listbox 
-    [options]="cities" 
-    [(ngModel)]="selectedCity" 
-    optionLabel="name" 
-    [disabled]="true" 
-    [style]="{ width: '15rem' }" 
-    [listStyle]="{'max-height': '220px'}" />`,
+        basic: `<p-listbox [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" [disabled]="true" [style]="{ width: '15rem' }" [listStyle]="{'max-height': '220px'}" class="w-full md:w-56" />`,
 
         html: `<div class="card flex justify-center">
-    <p-listbox 
-        [options]="cities" 
-        [(ngModel)]="selectedCity" 
-        optionLabel="name" 
-        [disabled]="true" 
-        [style]="{ width: '15rem' }" 
-        [listStyle]="{'max-height': '220px'}" />
+    <p-listbox [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" [disabled]="true" [style]="{ width: '15rem' }" [listStyle]="{'max-height': '220px'}" class="w-full md:w-56" />
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';

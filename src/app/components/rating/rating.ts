@@ -43,42 +43,6 @@ export const RATING_VALUE_ACCESSOR: any = {
     selector: 'p-rating',
     template: `
         <ng-container *ngIf="!isCustomIcon; else customTemplate">
-            <div
-                *ngIf="cancel"
-                [attr.data-pc-section]="'cancelItem'"
-                (click)="onOptionClick($event, 0)"
-                [ngClass]="{ 'p-focus': focusedOptionIndex() === 0 && isFocusVisibleItem }"
-                class="p-rating-option p-rating-cancel"
-            >
-                <span class="p-hidden-accessible" [attr.data-p-hidden-accessible]="true">
-                    <input
-                        type="radio"
-                        value="0"
-                        [name]="nameattr"
-                        [checked]="value === 0"
-                        [disabled]="disabled"
-                        [readonly]="readonly"
-                        [attr.aria-label]="cancelAriaLabel()"
-                        (focus)="onInputFocus($event, 0)"
-                        (blur)="onInputBlur($event)"
-                        (change)="onChange($event, 0)"
-                        pAutoFocus
-                        [autofocus]="autofocus"
-                    />
-                </span>
-                <span
-                    *ngIf="iconCancelClass"
-                    class="p-rating-icon p-rating-cancel"
-                    [ngClass]="iconCancelClass"
-                    [ngStyle]="iconCancelStyle"
-                ></span>
-                <BanIcon
-                    *ngIf="!iconCancelClass"
-                    [styleClass]="'p-rating-icon p-rating-cancel'"
-                    [ngStyle]="iconCancelStyle"
-                    [attr.data-pc-section]="'cancelIcon'"
-                />
-            </div>
             <ng-template ngFor [ngForOf]="starsArray" let-star let-i="index">
                 <div
                     class="p-rating-option"
@@ -138,9 +102,6 @@ export const RATING_VALUE_ACCESSOR: any = {
             </ng-template>
         </ng-container>
         <ng-template #customTemplate>
-            <span *ngIf="cancel" (click)="onOptionClick($event, 0)" [ngStyle]="iconCancelStyle" [attr.data-pc-section]="'cancelIcon'">
-                <ng-container *ngTemplateOutlet="cancelIconTemplate"></ng-container>
-            </span>
             <span
                 *ngFor="let star of starsArray; let i = index"
                 (click)="onOptionClick($event, star + 1)"
@@ -178,11 +139,6 @@ export class Rating extends BaseComponent implements OnInit, ControlValueAccesso
      */
     @Input({ transform: numberAttribute }) stars: number = 5;
     /**
-     * When specified a cancel icon is displayed to allow removing the value.
-     * @group Props
-     */
-    @Input({ transform: booleanAttribute }) cancel: boolean = true;
-    /**
      * Style class of the on icon.
      * @group Props
      */
@@ -202,16 +158,6 @@ export class Rating extends BaseComponent implements OnInit, ControlValueAccesso
      * @group Props
      */
     @Input() iconOffStyle: { [klass: string]: any } | null | undefined;
-    /**
-     * Style class of the cancel icon.
-     * @group Props
-     */
-    @Input() iconCancelClass: string | undefined;
-    /**
-     * Inline style of the cancel icon.
-     * @group Props
-     */
-    @Input() iconCancelStyle: { [klass: string]: any } | null | undefined;
     /**
      * When present, it specifies that the component should automatically get focus on load.
      * @group Props
@@ -304,8 +250,13 @@ export class Rating extends BaseComponent implements OnInit, ControlValueAccesso
     }
 
     onOptionSelect(event, value) {
-        this.focusedOptionIndex.set(value);
-        this.updateModel(event, value || null);
+        if (this.focusedOptionIndex === value || value === this.value) {
+            this.focusedOptionIndex.set(-1)
+            this.updateModel(event, null);
+        } else {
+            this.focusedOptionIndex.set(value)
+            this.updateModel(event, value || null);
+        }
     }
 
     onChange(event, value) {
@@ -336,10 +287,6 @@ export class Rating extends BaseComponent implements OnInit, ControlValueAccesso
                 value,
             });
         }
-    }
-
-    cancelAriaLabel() {
-        return this.config.translation.clear;
     }
 
     starAriaLabel(value) {

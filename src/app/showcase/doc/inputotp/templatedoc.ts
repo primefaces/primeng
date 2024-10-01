@@ -14,7 +14,6 @@ import { Code } from '@domain/code';
             <p-inputotp [(ngModel)]="value">
                 <ng-template pTemplate="input" let-token let-events="events">
                     <input
-                        pInputText
                         class="custom-otp-input"
                         (keydown)="events.keydown($event)"
                         (input)="events.input($event)"
@@ -25,7 +24,7 @@ import { Code } from '@domain/code';
                 </ng-template>
             </p-inputotp>
         </div>
-        <app-code [code]="code" selector="input-otp-template-demo"></app-code>,
+        <app-code [code]="code" selector="input-otp-template-demo"></app-code>
     `,
     styles: [
         `
@@ -54,28 +53,14 @@ export class TemplateDoc {
     code: Code = {
         basic: `<p-inputotp [(ngModel)]="value">
     <ng-template pTemplate="input" let-token let-events="events">
-        <input 
-            pInputText 
-            class="custom-otp-input" 
-            (input)="events.input($event)" 
-            (keydown)="events.keydown($event)" 
-            type="text" 
-            [attr.value]="token" 
-            [maxLength]="1" />
+        <input class="custom-otp-input" (input)="events.input($event)" (keydown)="events.keydown($event)" type="text" [attr.value]="token" [maxLength]="1" />
     </ng-template>
 </p-inputotp>`,
 
         html: `<div class="card flex justify-center">
     <p-inputotp [(ngModel)]="value">
         <ng-template pTemplate="input" let-token let-events="events">
-            <input 
-                pInputText
-                class="custom-otp-input" 
-                (input)="events.input($event)" 
-                (keydown)="events.keydown($event)" 
-                type="text" 
-                [attr.value]="token" 
-                [maxLength]="1" />
+            <input class="custom-otp-input" (input)="events.input($event)" (keydown)="events.keydown($event)" type="text" [attr.value]="token" [maxLength]="1" />
         </ng-template>
     </p-inputotp>
 </div>`,

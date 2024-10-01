@@ -37,18 +37,10 @@ export class MinMaxDoc {
     }
 
     code: Code = {
-        basic: `<p-datepicker 
-    [(ngModel)]="date" 
-    [minDate]="minDate" 
-    [maxDate]="maxDate" 
-    [readonlyInput]="true" />`,
+        basic: `<p-datepicker [(ngModel)]="date" [minDate]="minDate" [maxDate]="maxDate" [readonlyInput]="true" />`,
 
         html: `<div class="card flex justify-center">
-    <p-datepicker 
-        [(ngModel)]="date" 
-        [minDate]="minDate" 
-        [maxDate]="maxDate" 
-        [readonlyInput]="true" />
+    <p-datepicker [(ngModel)]="date" [minDate]="minDate" [maxDate]="maxDate" [readonlyInput]="true" />
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';

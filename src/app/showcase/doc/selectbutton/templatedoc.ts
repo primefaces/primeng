@@ -14,7 +14,6 @@ import { Code } from '@domain/code';
             <p-selectbutton [options]="justifyOptions" [(ngModel)]="value" optionLabel="justify">
                 <ng-template pTemplate="item" let-item>
                     <i [class]="item.icon"></i>
-                    <span>{{ item.justify }}</span>
                 </ng-template>
             </p-selectbutton>
         </div>
@@ -32,20 +31,14 @@ export class TemplateDoc {
     ];
 
     code: Code = {
-        basic: `<p-selectbutton 
-    [options]="justifyOptions" 
-    [(ngModel)]="value" 
-    optionLabel="justify">
+        basic: `<p-selectbutton [options]="justifyOptions" [(ngModel)]="value" optionLabel="justify">
         <ng-template pTemplate="item" let-item>
             <i [class]="item.icon"></i>
         </ng-template>
 </p-selectbutton>`,
 
         html: `<div class="card flex justify-center">
-    <p-selectbutton 
-        [options]="justifyOptions" 
-        [(ngModel)]="value" 
-        optionLabel="justify">
+    <p-selectbutton [options]="justifyOptions" [(ngModel)]="value" optionLabel="justify">
             <ng-template pTemplate="item" let-item>
                 <i [class]="item.icon"></i>
             </ng-template>

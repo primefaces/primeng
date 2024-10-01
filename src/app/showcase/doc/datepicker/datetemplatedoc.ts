@@ -10,7 +10,8 @@ import { Code } from '@domain/code';
         <div class="card flex justify-center">
             <p-datepicker [(ngModel)]="date">
                 <ng-template pTemplate="date" let-date>
-                    <span [ngStyle]="{ textDecoration: date.day < 21 && date.day > 10 ? 'line-through' : 'inherit' }">{{ date.day }}</span>
+                    <strong *ngIf="date.day > 10 && date.day < 15; else elseBlock" style="text-decoration: line-through">{{ date.day }}</strong>
+                    <ng-template #elseBlock>{{ date.day }}</ng-template>
                 </ng-template>
             </p-datepicker>
         </div>
@@ -23,18 +24,16 @@ export class DateTemplateDoc {
     code: Code = {
         basic: `<p-datepicker [(ngModel)]="date">
     <ng-template pTemplate="date" let-date>
-        <span [ngStyle]="{textDecoration: (date.day < 21 && date.day > 10) ? 'line-through' : 'inherit'}">
-            {{date.day}}
-        </span>
+        <strong *ngIf="date.day > 10 && date.day < 15; else elseBlock" style="text-decoration: line-through">{{ date.day }}</strong>
+        <ng-template #elseBlock>{{ date.day }}</ng-template>
     </ng-template>
 </p-datepicker>`,
 
         html: `<div class="card flex justify-center">
-    <p-datepicker [(ngModel)]="date">
+   <p-datepicker [(ngModel)]="date">
         <ng-template pTemplate="date" let-date>
-            <span [ngStyle]="{ textDecoration: date.day < 21 && date.day > 10 ? 'line-through' : 'inherit' }">
-                {{ date.day }}
-            </span>
+            <strong *ngIf="date.day > 10 && date.day < 15; else elseBlock" style="text-decoration: line-through">{{ date.day }}</strong>
+            <ng-template #elseBlock>{{ date.day }}</ng-template>
         </ng-template>
     </p-datepicker>
 </div>`,

@@ -17,22 +17,10 @@ export class InvalidDoc {
     value!: string;
 
     code: Code = {
-        basic: `<textarea 
-    rows="5" 
-    cols="30" 
-    pTextarea 
-    [(ngModel)]="value" 
-    class="ng-invalid ng-dirty">
-</textarea>`,
+        basic: `<textarea rows="5" cols="30" pTextarea [(ngModel)]="value" class="ng-invalid ng-dirty"></textarea>`,
 
         html: `<div class="card flex justify-center">
-    <textarea 
-        rows="5" 
-        cols="30" 
-        pTextarea 
-        [(ngModel)]="value"
-        class="ng-invalid ng-dirty">
-    </textarea>
+    <textarea rows="5" cols="30" pTextarea [(ngModel)]="value" class="ng-invalid ng-dirty"></textarea>
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

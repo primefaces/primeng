@@ -18,6 +18,7 @@ import { ClearIconDoc } from '@doc/select/clearicondoc';
 import { LoadingStateDoc } from '@doc/select/loadingstatedoc';
 import { FilledDoc } from '@doc/select/filleddoc';
 import { SelectDocModule } from '@doc/select/selectdoc.module';
+import { IftaLabelDoc } from '@doc/select/iftalabeldoc';
 
 @Component({
     template: `<app-doc
@@ -72,18 +73,7 @@ export class SelectDemo {
         {
             id: 'filter',
             label: 'Filter',
-            children: [
-                {
-                    id: 'filterbasic',
-                    label: 'Basic',
-                    component: FilterDoc,
-                },
-                {
-                    id: 'customfilter',
-                    label: 'Custom Filter',
-                    component: CustomFilterDoc,
-                },
-            ],
+            component: FilterDoc,
         },
         {
             id: 'clearicon',
@@ -110,6 +100,11 @@ export class SelectDemo {
             id: 'floatlabel',
             label: 'Float Label',
             component: FloatLabelDoc,
+        },
+        {
+            id: 'iftalabel',
+            label: 'Ifta Label',
+            component: IftaLabelDoc,
         },
         {
             id: 'filled',

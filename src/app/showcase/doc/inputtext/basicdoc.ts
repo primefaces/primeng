@@ -5,7 +5,7 @@ import { Code } from '@domain/code';
     selector: 'basic-doc',
     template: `
         <app-docsectiontext>
-            <p>InputText is used as a controlled input with <i>ngModel</i> properties.</p>
+            <p>InputText is used as a controlled input with <i>ngModel</i> property.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
             <input type="text" pInputText [(ngModel)]="value" />

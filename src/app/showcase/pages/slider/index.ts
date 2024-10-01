@@ -8,6 +8,7 @@ import { RangeDoc } from '@doc/slider/rangedoc';
 import { StepDoc } from '@doc/slider/stepdoc';
 import { VerticalDoc } from '@doc/slider/verticaldoc';
 import { SliderDocModule } from '@doc/slider/sliderdoc.module';
+import { FilterDoc } from '@doc/slider/filterdoc';
 
 @Component({
     template: `<app-doc
@@ -20,7 +21,6 @@ import { SliderDocModule } from '@doc/slider/sliderdoc.module';
     ></app-doc>`,
     standalone: true,
     imports: [SliderDocModule],
-    styleUrl: './sliderdemo.scss',
 })
 export class SliderDemo {
     docs = [
@@ -53,6 +53,11 @@ export class SliderDemo {
             id: 'range',
             label: 'Range',
             component: RangeDoc,
+        },
+        {
+            id: 'filter',
+            label: 'Filter',
+            component: FilterDoc,
         },
         {
             id: 'vertical',

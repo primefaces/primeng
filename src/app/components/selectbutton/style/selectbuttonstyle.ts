@@ -20,13 +20,13 @@ const theme = ({ dt }) => `
     z-index: 1;
 }
 
-.p-selectbutton .p-togglebutton:first-child {
+.p-selectbutton p-togglebutton:first-child .p-togglebutton {
     border-left-width: 1px;
     border-top-left-radius: ${dt('selectbutton.border.radius')};
     border-bottom-left-radius: ${dt('selectbutton.border.radius')};
 }
 
-.p-selectbutton .p-togglebutton:last-child {
+.p-selectbutton p-togglebutton:last-child .p-togglebutton{
     border-top-right-radius: ${dt('selectbutton.border.radius')};
     border-bottom-right-radius: ${dt('selectbutton.border.radius')};
 }

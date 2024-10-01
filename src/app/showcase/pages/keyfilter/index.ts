@@ -10,7 +10,7 @@ import { KeyFilterDocModule } from '@doc/keyfilter/keyfilterdoc.module';
     template: `<app-doc
         docTitle="Angular KeyFilter Component"
         header="KeyFilter"
-        description="KeyFilter is a built-in feature of InputText to restrict user input based on a regular expression."
+        description="KeyFilter is a directive to restrict individual key strokes. In order to restrict the whole input, use InputNumber or InputMask instead."
         [docs]="docs"
         [apiDocs]="['KeyFilter']"
     ></app-doc>`,

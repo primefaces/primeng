@@ -17,16 +17,10 @@ export class BasicDoc {
     checked: boolean = false;
 
     code: Code = {
-        basic: `<p-togglebutton 
-    [(ngModel)]="checked" 
-    onLabel="On" 
-    offLabel="Off" />`,
+        basic: `<p-togglebutton [(ngModel)]="checked" onLabel="On" offLabel="Off" styleClass="w-24" />`,
 
         html: `<div class="card flex justify-center">
-    <p-togglebutton 
-        [(ngModel)]="checked" 
-        onLabel="On" 
-        offLabel="Off" />
+    <p-togglebutton [(ngModel)]="checked" onLabel="On" offLabel="Off" styleClass="w-24" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

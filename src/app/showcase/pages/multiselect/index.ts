@@ -13,6 +13,7 @@ import { TemplateDoc } from '@doc/multiselect/templatedoc';
 import { VirtualScrollDoc } from '@doc/multiselect/virtualscrolldoc';
 import { LoadingStateDoc } from '@doc/multiselect/loadingstatedoc';
 import { FilledDoc } from '@doc/multiselect/filleddoc';
+import { IftaLabelDoc } from '@doc/multiselect/iftalabeldoc';
 import { MultiSelectDocModule } from '@doc/multiselect/multiselectdoc.module';
 
 @Component({
@@ -78,6 +79,11 @@ export class MultiSelectDemo {
             id: 'floatlabel',
             label: 'Float Label',
             component: FloatLabelDoc,
+        },
+        {
+            id: 'iftalabel',
+            label: 'Ifta Label',
+            component: IftaLabelDoc,
         },
         {
             id: 'filled',

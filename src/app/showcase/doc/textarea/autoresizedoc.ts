@@ -15,20 +15,10 @@ import { Code } from '@domain/code';
 })
 export class AutoResizeDoc {
     code: Code = {
-        basic: `<textarea 
-    rows="5"
-    cols="30" 
-    pTextarea 
-    [autoResize]="true">
-</textarea>`,
+        basic: `<textarea rows="5"cols="30" pTextarea [autoResize]="true"></textarea>`,
 
         html: `<div class="card flex justify-center">
-    <textarea 
-        rows="5"
-        cols="30"
-        pTextarea 
-        [autoResize]="true">
-    </textarea>
+    <textarea rows="5" cols="30" pTextarea [autoResize]="true"></textarea>
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

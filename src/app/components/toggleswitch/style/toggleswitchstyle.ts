@@ -90,10 +90,6 @@ const theme = ({ dt }) => `
     outline-offset: ${dt('toggleswitch.focus.ring.offset')};
 }
 
-.p-toggleswitch.p-invalid > .p-toggleswitch-slider {
-    border-color: ${dt('toggleswitch.invalid.border.color')};
-}
-
 .p-toggleswitch.p-disabled {
     opacity: 1;
 }
@@ -105,6 +101,13 @@ const theme = ({ dt }) => `
 .p-toggleswitch.p-disabled .p-toggleswitch-slider:before {
     background: ${dt('toggleswitch.handle.disabled.background')};
 }
+    
+/* For PrimeNG */
+
+p-toggleswitch.ng-invalid.ng-dirty > .p-toggleswitch > .p-toggleswitch-slider {
+    border-color: ${dt('toggleswitch.invalid.border.color')};
+}
+
 `;
 
 const inlineStyles = {

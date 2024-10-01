@@ -13,6 +13,7 @@ import { VirtualScrollDoc } from '@doc/treeselect/virtualscrolldoc';
 import { FilledDoc } from '@doc/treeselect/filleddoc';
 import { LazyDoc } from '@doc/treeselect/lazydoc';
 import { TreeSelectDocModule } from '@doc/treeselect/treeselectdoc.module';
+import { IftaLabelDoc } from '@doc/treeselect/iftalabeldoc';
 
 @Component({
     template: `<app-doc
@@ -72,6 +73,11 @@ export class TreeSelectDemo {
             id: 'floatlabel',
             label: 'Float Label',
             component: FloatLabelDoc,
+        },
+        {
+            id: 'iftalabel',
+            label: 'Ifta Label',
+            component: IftaLabelDoc
         },
         {
             id: 'filled',

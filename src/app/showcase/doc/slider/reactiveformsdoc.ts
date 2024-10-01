@@ -13,7 +13,7 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card flex justify-center">
             <form [formGroup]="formGroup">
-                <p-slider formControlName="value" />
+                <p-slider formControlName="value" styleClass="w-56" />
             </form>
         </div>
         <app-code [code]="code" selector="slider-reactive-forms-demo"></app-code>
@@ -30,12 +30,12 @@ export class ReactiveFormsDoc implements OnInit {
 
     code: Code = {
         basic: `<form [formGroup]="formGroup">
-    <p-slider formControlName="value" />
+    <p-slider formControlName="value" styleClass="w-56" />
 </form>`,
 
         html: `<div class="card flex justify-center">
     <form [formGroup]="formGroup">
-        <p-slider formControlName="value" />
+        <p-slider formControlName="value" styleClass="w-56" />
     </form>
 </div>`,
 
@@ -52,14 +52,9 @@ import { SliderModule } from 'primeng/slider';
 export class SliderReactiveFormsDemo implements OnInit {
     formGroup!: FormGroup;
 
-    stateOptions: any[] = [
-        { label: 'Off', value: 'off' },
-        { label: 'On', value: 'on' }
-    ];
-
     ngOnInit() {
         this.formGroup = new FormGroup({
-            value: new FormControl('on')
+            value: new FormControl(20),
         });
     }
 }`,

@@ -13,6 +13,7 @@ import { Code } from '@domain/code';
                 [virtualScroll]="true"
                 [virtualScrollItemSize]="38"
                 [virtualScrollOptions]="options"
+                class="w-full md:w-56"
             />
         </div>
         <app-code [code]="code" selector="select-lazy-virtualscroll-demo"></app-code>
@@ -65,22 +66,10 @@ export class LazyVirtualScrollDoc {
     }
 
     code: Code = {
-        basic: `<p-select 
-    [options]="items" 
-    [(ngModel)]="selectedItem" 
-    placeholder="Select Item" 
-    [virtualScroll]="true" 
-    [virtualScrollItemSize]="38" 
-    [virtualScrollOptions]="options" />`,
+        basic: `<p-select [options]="items" [(ngModel)]="selectedItem" placeholder="Select Item" [virtualScroll]="true" [virtualScrollItemSize]="38" [virtualScrollOptions]="options" class="w-full md:w-56" />`,
 
         html: `<div class="card flex justify-center">
-    <p-select 
-        [options]="items"
-        [(ngModel)]="selectedItem"
-        placeholder="Select Item"
-        [virtualScroll]="true"
-        [virtualScrollItemSize]="38"
-        [virtualScrollOptions]="options" />
+    <p-select [options]="items" [(ngModel)]="selectedItem" placeholder="Select Item" [virtualScroll]="true" [virtualScrollItemSize]="38" [virtualScrollOptions]="options" class="w-full md:w-56" />
 </div>`,
 
         typescript: `import { SelectItem } from 'primeng/api';

@@ -141,31 +141,6 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
                         >
                         </span>
                         <ng-container *ngTemplateOutlet="headerTemplate; context: { $implicit: value, options: options }"></ng-container>
-                        <div class="p-treeselect-header" *ngIf="filter" (keydown.arrowdown)="onArrowDown($event)">
-                            <div class="p-treeselect-filter-container">
-                                <input
-                                    #filter
-                                    type="search"
-                                    autocomplete="off"
-                                    pInputText
-                                    class="p-treeselect-filter p-component"
-                                    [attr.placeholder]="filterPlaceholder"
-                                    (keydown.enter)="$event.preventDefault()"
-                                    (input)="onFilterInput($event)"
-                                    [value]="filterValue"
-                                />
-                                <SearchIcon *ngIf="!filterIconTemplate" [styleClass]="'p-treeselect-filter-icon'" />
-                                <span *ngIf="filterIconTemplate" class="p-treeselect-filter-icon">
-                                    <ng-template *ngTemplateOutlet="filterIconTemplate"></ng-template>
-                                </span>
-                            </div>
-                            <button class="p-treeselect-close p-link" (click)="hide()">
-                                <TimesIcon *ngIf="!closeIconTemplate" />
-                                <span *ngIf="closeIconTemplate">
-                                    <ng-template *ngTemplateOutlet="closeIconTemplate"></ng-template>
-                                </span>
-                            </button>
-                        </div>
                         <div class="p-treeselect-tree-container" [ngStyle]="{ 'max-height': scrollHeight }">
                             <p-tree
                                 #tree
@@ -181,6 +156,7 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
                                 (onNodeSelect)="onSelect($event)"
                                 [emptyMessage]="emptyMessage"
                                 (onNodeUnselect)="onUnselect($event)"
+                                [filter]="filter"
                                 [filterBy]="filterBy"
                                 [filterMode]="filterMode"
                                 [filterPlaceholder]="filterPlaceholder"

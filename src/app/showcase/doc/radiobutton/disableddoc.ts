@@ -7,20 +7,23 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>When <i>disabled</i> is present, the element cannot be edited and focused.</p>
         </app-docsectiontext>
-        <div class="card flex justify-center">
-            <p-radiobutton [disabled]="true" [(ngModel)]="checked" />
+        <div class="card flex justify-center gap-2">
+            <p-radiobutton [(ngModel)]="value" [value]="1" [disabled]="true" />
+            <p-radiobutton [(ngModel)]="value" [value]="2" [disabled]="true" />
         </div>
         <app-code [code]="code" selector="radio-button-disabled-demo"></app-code>
     `,
 })
 export class DisabledDoc {
-    checked: any;
+    value: number = 2;
 
     code: Code = {
-        basic: `<p-radiobutton [disabled]="true" />`,
+        basic: `<p-radiobutton [(ngModel)]="value" [value]="1" [disabled]="true" />
+<p-radiobutton [(ngModel)]="value" [value]="2" [disabled]="true" />`,
 
-        html: `<div class="card flex justify-center">
-    <p-radiobutton [disabled]="true" />
+        html: `<div class="card flex justify-center gap-2">
+    <p-radiobutton [(ngModel)]="value" [value]="1" [disabled]="true" />
+    <p-radiobutton [(ngModel)]="value" [value]="2" [disabled]="true" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

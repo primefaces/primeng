@@ -15,16 +15,44 @@ interface City {
                 <a routerLink="/floatlabel">FloatLabel</a> documentation for more information.
             </p>
         </app-docsectiontext>
-        <div class="card flex justify-center">
-            <p-floatlabel>
+        <div class="card flex flex-wrap justify-center items-end gap-4">
+            <p-floatlabel class="w-full md:w-80">
                 <p-multiselect
-                    inputId="float-label"
+                    id="over_label"
+                    [(ngModel)]="value1"
                     [options]="cities"
-                    [(ngModel)]="selectedCities"
                     optionLabel="name"
-                    styleClass="w-full md:w-80"
+                    filter
+                    [maxSelectedLabels]="3"
+                    styleClass="w-full"
                 />
-                <label for="float-label">MultiSelect</label>
+                <label for="over_label">Over Label</label>
+            </p-floatlabel>
+
+            <p-floatlabel class="w-full md:w-80" variant="in">
+                <p-multiselect
+                    id="in_label"
+                    [(ngModel)]="value2"
+                    [options]="cities"
+                    optionLabel="name"
+                    filter
+                    [maxSelectedLabels]="3"
+                    styleClass="w-full"
+                />
+                <label for="in_label">In Label</label>
+            </p-floatlabel>
+
+            <p-floatlabel class="w-full md:w-80" variant="on">
+                <p-multiselect
+                    id="on_label"
+                    [(ngModel)]="value3"
+                    [options]="cities"
+                    optionLabel="name"
+                    filter
+                    [maxSelectedLabels]="3"
+                    styleClass="w-full"
+                />
+                <label for="on_label">On Label</label>
             </p-floatlabel>
         </div>
         <app-code [code]="code" selector="multi-select-floatlabel-demo"></app-code>
@@ -33,7 +61,11 @@ interface City {
 export class FloatLabelDoc implements OnInit {
     cities!: City[];
 
-    selectedCities!: City[];
+    value1!: City[];
+
+    value2!: City[];
+
+    value3!: City[];
 
     ngOnInit() {
         this.cities = [
@@ -46,25 +78,35 @@ export class FloatLabelDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-floatlabel>
-    <p-multiselect
-        inputId="float-label"
-        [options]="cities"
-        [(ngModel)]="selectedCities"
-        optionLabel="name"
-        styleClass="w-full md:w-80" />
-    <label for="float-label">MultiSelect</label>
+        basic: `<p-floatlabel class="w-full md:w-80">
+    <p-multiselect id="over_label" [(ngModel)]="value1" [options]="cities" optionLabel="name" filter [maxSelectedLabels]="3" styleClass="w-full" />
+    <label for="over_label">Over Label</label>
+</p-floatlabel>
+
+<p-floatlabel class="w-full md:w-80" variant="in">
+    <p-multiselect id="in_label" [(ngModel)]="value2" [options]="cities" optionLabel="name" filter [maxSelectedLabels]="3" styleClass="w-full" />
+    <label for="in_label">In Label</label>
+</p-floatlabel>
+
+<p-floatlabel class="w-full md:w-80" variant="on">
+    <p-multiselect id="on_label" [(ngModel)]="value3" [options]="cities" optionLabel="name" filter [maxSelectedLabels]="3" styleClass="w-full" />
+    <label for="on_label">On Label</label>
 </p-floatlabel>`,
 
-        html: `<div class="card flex justify-center">
-    <p-floatlabel>
-        <p-multiselect
-            inputId="float-label"
-            [options]="cities"
-            [(ngModel)]="selectedCities"
-            optionLabel="name"
-            styleClass="w-full md:w-80" />
-        <label for="float-label">MultiSelect</label>
+        html: `<div class="card flex flex-wrap justify-center items-end gap-4">
+    <p-floatlabel class="w-full md:w-80">
+        <p-multiselect id="over_label" [(ngModel)]="value1" [options]="cities" optionLabel="name" filter [maxSelectedLabels]="3" styleClass="w-full" />
+        <label for="over_label">Over Label</label>
+    </p-floatlabel>
+
+    <p-floatlabel class="w-full md:w-80" variant="in">
+        <p-multiselect id="in_label" [(ngModel)]="value2" [options]="cities" optionLabel="name" filter [maxSelectedLabels]="3" styleClass="w-full" />
+        <label for="in_label">In Label</label>
+    </p-floatlabel>
+
+    <p-floatlabel class="w-full md:w-80" variant="on">
+        <p-multiselect id="on_label" [(ngModel)]="value3" [options]="cities" optionLabel="name" filter [maxSelectedLabels]="3" styleClass="w-full" />
+        <label for="on_label">On Label</label>
     </p-floatlabel>
 </div>`,
 
@@ -87,7 +129,11 @@ interface City {
 export class MultiSelectFloatlabelDemo implements OnInit {
     cities!: City[];
 
-    selectedCities!: City[];
+    value1!: City[];
+
+    value2!: City[];
+
+    value3!: City[];
 
     ngOnInit() {
         this.cities = [
@@ -95,7 +141,7 @@ export class MultiSelectFloatlabelDemo implements OnInit {
             { name: 'Rome', code: 'RM' },
             { name: 'London', code: 'LDN' },
             { name: 'Istanbul', code: 'IST' },
-            { name: 'Paris', code: 'PRS' }
+            { name: 'Paris', code: 'PRS' },
         ];
     }
 }`,

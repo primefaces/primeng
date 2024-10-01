@@ -20,6 +20,7 @@ interface Country {
                 [listStyle]="{ 'max-height': '250px' }"
                 [style]="{ width: '15rem' }"
                 [listStyle]="{ 'max-height': '220px' }"
+                class="w-full md:w-56"
             >
                 <ng-template let-country pTemplate="item">
                     <div class="flex items-center gap-2">
@@ -63,7 +64,8 @@ export class TemplateDoc implements OnInit {
     optionLabel="name" 
     [listStyle]="{ 'max-height': '250px' }" 
     [style]="{ width: '15rem' }" 
-    [listStyle]="{'max-height': '220px'}">
+    [listStyle]="{'max-height': '220px'}"
+    class="w-full md:w-56">
         <ng-template let-country pTemplate="item">
             <div class="flex items-center gap-2">
                 <img 
@@ -82,7 +84,8 @@ export class TemplateDoc implements OnInit {
         optionLabel="name" 
         [listStyle]="{ 'max-height': '250px' }"
         [style]="{ width: '15rem' }" 
-        [listStyle]="{'max-height': '220px'}">
+        [listStyle]="{'max-height': '220px'}"
+        class="w-full md:w-56">
             <ng-template let-country pTemplate="item">
                 <div class="flex items-center gap-2">
                     <img 

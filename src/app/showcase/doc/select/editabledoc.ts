@@ -13,7 +13,7 @@ interface City {
             <p>When <i>editable</i> is present, the input can also be entered with typing.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-select [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City" [editable]="true" optionLabel="name" />
+            <p-select [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City" [editable]="true" optionLabel="name" class="w-full md:w-56" />
         </div>
         <app-code [code]="code" selector="select-editable-demo"></app-code>
     `,
@@ -34,20 +34,10 @@ export class EditableDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-select 
-    [options]="cities" 
-    [(ngModel)]="selectedCity" 
-    placeholder="Select a City" 
-    [editable]="true" 
-    optionLabel="name" />`,
+        basic: `<p-select [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City" [editable]="true" optionLabel="name" class="w-full md:w-56" />`,
 
         html: `<div class="card flex justify-center">
-    <p-select 
-        [options]="cities" 
-        [(ngModel)]="selectedCity" 
-        placeholder="Select a City" 
-        [editable]="true" 
-        optionLabel="name" />
+    <p-select [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City" [editable]="true" optionLabel="name" class="w-full md:w-56" />
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';

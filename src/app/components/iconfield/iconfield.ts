@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, Input, NgModule, ViewEncapsulation } from '@angular/core';
-
 import { SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { IconFieldStyle } from './style/iconfieldstyle';
@@ -11,7 +10,7 @@ import { IconFieldStyle } from './style/iconfieldstyle';
  */
 @Component({
     selector: 'p-iconfield, p-iconField',
-    template: ` <span class="p-iconfield" [ngClass]="containerClass" [class]="styleClass"><ng-content></ng-content> </span>`,
+    template: ` <div class="p-iconfield" [ngClass]="containerClass" [class]="styleClass"><ng-content></ng-content></div>`,
     providers: [IconFieldStyle],
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -21,7 +20,7 @@ export class IconField extends BaseComponent {
      * Position of the icon.
      * @group Props
      */
-    @Input() iconPosition: 'right' | 'left' = 'left';
+    @Input() iconPosition: 'right' | 'left' | undefined;
     /**
      * Style class of the component.
      * @group Props
@@ -29,7 +28,6 @@ export class IconField extends BaseComponent {
     @Input() styleClass: string;
 
     _componentStyle = inject(IconFieldStyle);
-
     get containerClass() {
         return {
             'p-iconfield-left': this.iconPosition === 'left',

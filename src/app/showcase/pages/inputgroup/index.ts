@@ -6,6 +6,8 @@ import { ButtonDoc } from '@doc/inputgroup/buttondoc';
 import { CheckboxDoc } from '@doc/inputgroup/checkboxdoc';
 import { AccessibilityDoc } from '@doc/inputgroup/accessibilitydoc';
 import { InputGroupDocModule } from '@doc/inputgroup/inputgroupddoc.module';
+import { FloatLabelDoc } from '@doc/inputgroup/floatlabeldoc';
+import { IftaLabelDoc } from '@doc/inputgroup/iftalabeldoc';
 
 @Component({
     template: `<app-doc
@@ -44,6 +46,16 @@ export class InputGroupDemo {
             id: 'checkbox',
             label: 'Checkbox & Radio',
             component: CheckboxDoc,
+        },
+        {
+            id: 'floatlabel',
+            label: 'Float Label',
+            component: FloatLabelDoc,
+        },
+        {
+            id: 'iftalabel',
+            label: 'Ifta Label',
+            component: IftaLabelDoc,
         },
         {
             id: 'accessibility',

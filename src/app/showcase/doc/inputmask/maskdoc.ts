@@ -37,42 +37,24 @@ export class MaskDoc {
 
     code: Code = {
         basic: `<span class="font-bold block mb-2">SSN</span>
-<p-inputmask 
-    mask="999-99-9999" 
-    [(ngModel)]="value1" 
-    placeholder="999-99-9999" />
+<p-inputmask mask="999-99-9999" [(ngModel)]="value1" placeholder="999-99-9999" />
 <span class="font-bold block mb-2">Phone</span>
-<p-inputmask 
-    mask="(999) 999-9999" 
-    [(ngModel)]="value2" 
-    placeholder="(999) 999-9999" />
+<p-inputmask mask="(999) 999-9999" [(ngModel)]="value2" placeholder="(999) 999-9999" />
 <span class="font-bold block mb-2">Serial Number</span>
-<p-inputmask 
-    mask="a*-999-a999" 
-    [(ngModel)]="value3"
-    placeholder="a*-999-a999" />`,
+<p-inputmask mask="a*-999-a999" [(ngModel)]="value3" placeholder="a*-999-a999" />`,
 
         html: `<p-fluid class="card flex flex-wrap gap-4">
     <div class="flex-auto">
         <span class="font-bold block mb-2">SSN</span>
-        <p-inputmask 
-            mask="999-99-9999"
-            [(ngModel)]="value1"
-            placeholder="999-99-9999" />
+        <p-inputmask mask="999-99-9999" [(ngModel)]="value1" placeholder="999-99-9999" />
     </div>
     <div class="flex-auto">
         <span class="font-bold block mb-2">Phone</span>
-        <p-inputmask 
-            mask="(999) 999-9999" 
-            [(ngModel)]="value2"
-            placeholder="(999) 999-9999" />
+        <p-inputmask mask="(999) 999-9999" [(ngModel)]="value2" placeholder="(999) 999-9999" />
     </div>
     <div class="flex-auto">
         <span class="font-bold block mb-2">Serial Number</span>
-        <p-inputmask 
-            mask="a*-999-a999" 
-            [(ngModel)]="value3" 
-            placeholder="a*-999-a999" />
+        <p-inputmask mask="a*-999-a999" [(ngModel)]="value3" placeholder="a*-999-a999" />
     </div>
 </p-fluid>`,
 

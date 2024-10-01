@@ -26,20 +26,10 @@ export class MultipleDoc {
     value!: number;
 
     code: Code = {
-        basic: `<p-selectbutton 
-    [options]="paymentOptions" 
-    [(ngModel)]="value" 
-    [multiple]="true" 
-    optionLabel="name" 
-    optionValue="value" />`,
+        basic: `<p-selectbutton [options]="paymentOptions" [(ngModel)]="value" [multiple]="true" optionLabel="name" optionValue="value" />`,
 
         html: `<div class="card flex justify-center">
-    <p-selectbutton 
-        [options]="paymentOptions" 
-        [(ngModel)]="value" 
-        [multiple]="true" 
-        optionLabel="name" 
-        optionValue="value" />
+    <p-selectbutton [options]="paymentOptions" [(ngModel)]="value" [multiple]="true" optionLabel="name" optionValue="value" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

@@ -16,7 +16,7 @@ interface City {
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-select [options]="cities" [(ngModel)]="selectedCity" variant="filled" optionLabel="name" placeholder="Select a City" />
+            <p-select [options]="cities" [(ngModel)]="selectedCity" variant="filled" optionLabel="name" placeholder="Select a City" class="w-full md:w-56" />
         </div>
         <app-code [code]="code" selector="select-filled-demo"></app-code>
     `,
@@ -37,20 +37,10 @@ export class FilledDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-select 
-    [options]="cities" 
-    [(ngModel)]="selectedCity"
-    variant="filled"
-    optionLabel="name" 
-    placeholder="Select a City" />`,
+        basic: `<p-select [options]="cities" [(ngModel)]="selectedCity" variant="filled" optionLabel="name" placeholder="Select a City" class="w-full md:w-56" />`,
 
         html: `<div class="card flex justify-center">
-    <p-select 
-        [options]="cities" 
-        [(ngModel)]="selectedCity"
-        variant="filled" 
-        optionLabel="name"
-        placeholder="Select a City" />
+    <p-select [options]="cities" [(ngModel)]="selectedCity" variant="filled" optionLabel="name" placeholder="Select a City" class="w-full md:w-56" />
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';

@@ -17,18 +17,10 @@ export class SlotCharDoc {
     value: string | undefined;
 
     code: Code = {
-        basic: `<p-inputmask 
-    [(ngModel)]="value" 
-    mask="99/99/9999" 
-    placeholder="99/99/9999" 
-    slotChar="mm/dd/yyyy" />`,
+        basic: `<p-inputmask [(ngModel)]="value" mask="99/99/9999" placeholder="99/99/9999" slotChar="mm/dd/yyyy" />`,
 
         html: `<div class="card flex justify-center">
-    <p-inputmask 
-        [(ngModel)]="value" 
-        mask="99/99/9999" 
-        placeholder="99/99/9999" 
-        slotChar="mm/dd/yyyy" />
+    <p-inputmask [(ngModel)]="value" mask="99/99/9999" placeholder="99/99/9999" slotChar="mm/dd/yyyy" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

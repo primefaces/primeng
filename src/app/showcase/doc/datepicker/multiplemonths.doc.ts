@@ -17,14 +17,10 @@ export class MultipleMonthDoc {
     date: Date[] | undefined;
 
     code: Code = {
-        basic: `<p-datepicker 
-    [(ngModel)]="date" 
-    [numberOfMonths]="2" />`,
+        basic: `<p-datepicker [(ngModel)]="date" [numberOfMonths]="2" />`,
 
         html: `<div class="card flex justify-center">
-    <p-datepicker 
-        [(ngModel)]="date" 
-        [numberOfMonths]="2" />
+    <p-datepicker [(ngModel)]="date" [numberOfMonths]="2" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

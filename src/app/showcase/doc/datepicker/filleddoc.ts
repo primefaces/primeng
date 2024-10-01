@@ -20,14 +20,10 @@ export class FilledDoc {
     date: Date[] | undefined;
 
     code: Code = {
-        basic: `<p-datepicker 
-    [(ngModel)]="date" 
-    variant="filled" />`,
+        basic: `<p-datepicker [(ngModel)]="date" variant="filled" />`,
 
         html: `<div class="card flex justify-center">
-    <p-datepicker 
-        [(ngModel)]="date" 
-        variant="filled" />
+    <p-datepicker [(ngModel)]="date" variant="filled" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

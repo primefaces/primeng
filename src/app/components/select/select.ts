@@ -64,7 +64,7 @@ export const SELECT_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-selectItem',
     standalone: true,
-    imports: [CommonModule, SharedModule, Ripple],
+    imports: [CommonModule, SharedModule, Ripple, CheckIcon, BlankIcon],
     template: `
         <li
             [id]="id"
@@ -88,8 +88,8 @@ export const SELECT_VALUE_ACCESSOR: any = {
             }"
         >
             <ng-container *ngIf="checkmark">
-                <CheckIcon *ngIf="selected" [styleClass]="'p-select-option-check-icon'" />
-                <BlankIcon *ngIf="!selected" [styleClass]="'p-select-option-blank-icon'" />
+                <CheckIcon *ngIf="selected" styleClass="p-select-option-check-icon" />
+                <BlankIcon *ngIf="!selected" styleClass="p-select-option-blank-icon" />
             </ng-container>
             <span *ngIf="!template">{{ label ?? 'empty' }}</span>
             <ng-container *ngTemplateOutlet="template; context: { $implicit: option }"></ng-container>
@@ -1507,15 +1507,6 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
      */
     public show(isFocus?) {
         this.overlayVisible = true;
-        const focusedOptionIndex =
-            this.focusedOptionIndex() !== -1
-                ? this.focusedOptionIndex()
-                : this.autoOptionFocus
-                  ? this.findFirstFocusedOptionIndex()
-                  : this.editable
-                    ? -1
-                    : this.findSelectedOptionIndex();
-        this.focusedOptionIndex.set(focusedOptionIndex);
 
         if (isFocus) {
             DomHandler.focus(this.focusInputViewChild?.nativeElement);

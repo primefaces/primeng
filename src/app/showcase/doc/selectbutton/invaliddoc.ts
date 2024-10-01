@@ -21,29 +21,17 @@ import { Code } from '@domain/code';
 })
 export class InvalidDoc {
     stateOptions: any[] = [
-        { label: 'Off', value: 'off' },
-        { label: 'On', value: 'on' },
+        { label: 'One-Way', value: 'one-way' },
+        { label: 'Return', value: 'return' },
     ];
 
     value: string = 'off';
 
     code: Code = {
-        basic: `<p-selectbutton
-    [options]="stateOptions"
-    [(ngModel)]="value"
-    optionLabel="label"
-    optionValue="value"
-    class="ng-invalid ng-dirty"
-/>`,
+        basic: `<p-selectbutton [options]="stateOptions" [(ngModel)]="value" optionLabel="label" optionValue="value" class="ng-invalid ng-dirty" />`,
 
         html: `<div class="card flex justify-center">
-    <p-selectbutton 
-        [options]="stateOptions" 
-        [(ngModel)]="value" 
-        optionLabel="label" 
-        optionValue="value" 
-        class="ng-invalid ng-dirty" 
-    />
+    <p-selectbutton [options]="stateOptions" [(ngModel)]="value" optionLabel="label" optionValue="value" class="ng-invalid ng-dirty" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
@@ -57,7 +45,10 @@ import { SelectButtonModule } from 'primeng/selectbutton';
     imports: [FormsModule, SelectButtonModule]
 })
 export class SelectButtonInvalidDemo {
-    stateOptions: any[] = [{label: 'Off', value: 'off'}, {label: 'On', value: 'on'}];
+    stateOptions: any[] = [
+        { label: 'One-Way', value: 'one-way' },
+        { label: 'Return', value: 'return' },
+    ];
 
     value: string = 'off';
 }`,

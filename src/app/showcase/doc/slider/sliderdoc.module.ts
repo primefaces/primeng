@@ -15,10 +15,12 @@ import { RangeDoc } from './rangedoc';
 import { StepDoc } from './stepdoc';
 import { StyleDoc } from './styledoc';
 import { VerticalDoc } from './verticaldoc';
+import { FilterDoc } from './filterdoc';
+import { SelectButtonModule } from 'primeng/selectbutton';
 
 @NgModule({
-    imports: [CommonModule, AppCodeModule, FormsModule, ReactiveFormsModule, SliderModule, AppDocModule, InputTextModule, RouterModule],
+    imports: [CommonModule, AppCodeModule, FormsModule, ReactiveFormsModule, SliderModule, AppDocModule, InputTextModule, SelectButtonModule, RouterModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, InputDoc, StepDoc, RangeDoc, VerticalDoc, StyleDoc, AccessibilityDoc, ReactiveFormsDoc],
+    declarations: [ImportDoc, BasicDoc, InputDoc, StepDoc, RangeDoc, VerticalDoc, FilterDoc, StyleDoc, AccessibilityDoc, ReactiveFormsDoc],
 })
 export class SliderDocModule {}

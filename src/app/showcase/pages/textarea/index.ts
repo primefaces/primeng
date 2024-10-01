@@ -9,6 +9,7 @@ import { InvalidDoc } from '@doc/textarea/invaliddoc';
 import { ImportDoc } from '@doc/textarea/importdoc';
 import { FilledDoc } from '@doc/textarea/filleddoc';
 import { TextareaDocModule } from '@doc/textarea/texteareadoc.module';
+import { IftaLabelDoc } from '@doc/textarea/iftalabeldoc';
 
 @Component({
     standalone: true,
@@ -48,6 +49,11 @@ export class TextareaDemo {
             id: 'floatlabel',
             label: 'Float Label',
             component: FloatlabelDoc,
+        },
+        {
+            id: 'iftalabel',
+            label: 'Ifta Label',
+            component: IftaLabelDoc,
         },
         {
             id: 'filled',

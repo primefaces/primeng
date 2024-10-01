@@ -16,6 +16,12 @@ import { MultipleDoc } from './multipledoc';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { AccessibilityDoc } from './accessibilitydoc';
+import { SelectModule } from 'primeng/select';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { FloatLabelDoc } from './floatlabeldoc';
+import { FloatLabelModule } from 'primeng/floatlabel';
+import { IftaLabelModule } from 'primeng/iftalabel';
+import { IftaLabelDoc } from './iftalabeldoc';
 
 @NgModule({
     imports: [
@@ -31,8 +37,12 @@ import { AccessibilityDoc } from './accessibilitydoc';
         InputGroupModule,
         InputGroupAddonModule,
         RadioButtonModule,
+        SelectModule,
+        InputNumberModule,
+        FloatLabelModule,
+        IftaLabelModule,
     ],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, MultipleDoc, ButtonDoc, CheckboxDoc, AccessibilityDoc],
+    declarations: [ImportDoc, BasicDoc, MultipleDoc, ButtonDoc, CheckboxDoc, FloatLabelDoc, IftaLabelDoc, AccessibilityDoc],
 })
 export class InputGroupDocModule {}

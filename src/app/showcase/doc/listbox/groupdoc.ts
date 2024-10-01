@@ -20,6 +20,7 @@ interface Country {
                 [(ngModel)]="selectedCountry"
                 [listStyle]="{ 'max-height': '250px' }"
                 [style]="{ width: '15rem' }"
+                class="w-full md:w-56"
             >
                 <ng-template let-group pTemplate="group">
                     <div class="flex items-center">
@@ -82,7 +83,8 @@ export class GroupDoc {
     [group]="true" 
     [(ngModel)]="selectedCountry" 
     [listStyle]="{ 'max-height': '250px' }" 
-    [style]="{ width: '15rem' }">
+    [style]="{ width: '15rem' }"
+    class="w-full md:w-56">
         <ng-template let-group pTemplate="group">
             <div class="flex items-center">
                 <img 
@@ -100,7 +102,8 @@ export class GroupDoc {
         [group]="true" 
         [(ngModel)]="selectedCountry" 
         [listStyle]="{ 'max-height': '250px' }" 
-        [style]="{ width: '15rem' }">
+        [style]="{ width: '15rem' }"
+        class="w-full md:w-56">
             <ng-template let-group pTemplate="group">
                 <div class="flex items-center">
                     <img 

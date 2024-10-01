@@ -6,6 +6,7 @@ import {
     ContentChildren,
     ElementRef,
     EventEmitter,
+    HostBinding,
     Injector,
     Input,
     NgModule,
@@ -48,125 +49,71 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-inputNumber, p-inputnumber',
     template: `
-        <span
-            [ngClass]="_rootClass"
-            [ngStyle]="style"
-            [class]="styleClass"
-            [attr.data-pc-name]="'inputnumber'"
-            [attr.data-pc-section]="'root'"
-        >
-            <input
-                pInputText
-                #input
-                [attr.id]="inputId"
-                role="spinbutton"
-                [ngClass]="'p-inputnumber-input'"
-                [ngStyle]="inputStyle"
-                [class]="inputStyleClass"
-                [value]="formattedValue()"
-                [attr.variant]="variant"
-                [attr.aria-valuemin]="min"
-                [attr.aria-valuemax]="max"
-                [attr.aria-valuenow]="value"
-                [disabled]="disabled"
-                [readonly]="readonly"
-                [attr.placeholder]="placeholder"
-                [attr.aria-label]="ariaLabel"
-                [attr.aria-labelledby]="ariaLabelledBy"
-                [attr.title]="title"
-                [attr.size]="size"
-                [attr.name]="name"
-                [attr.autocomplete]="autocomplete"
-                [attr.maxlength]="maxlength"
-                [attr.tabindex]="tabindex"
-                [attr.aria-required]="ariaRequired"
-                [attr.required]="required"
-                [attr.min]="min"
-                [attr.max]="max"
-                inputmode="decimal"
-                (input)="onUserInput($event)"
-                (keydown)="onInputKeyDown($event)"
-                (keypress)="onInputKeyPress($event)"
-                (paste)="onPaste($event)"
-                (click)="onInputClick()"
-                (focus)="onInputFocus($event)"
-                (blur)="onInputBlur($event)"
-                [attr.data-pc-section]="'input'"
-                pAutoFocus
-                [autofocus]="autofocus"
-                [fluid]="hasFluid"
+        <input
+            pInputText
+            #input
+            [attr.id]="inputId"
+            role="spinbutton"
+            [ngClass]="'p-inputnumber-input'"
+            [ngStyle]="inputStyle"
+            [class]="inputStyleClass"
+            [value]="formattedValue()"
+            [variant]="variant"
+            [attr.aria-valuemin]="min"
+            [attr.aria-valuemax]="max"
+            [attr.aria-valuenow]="value"
+            [disabled]="disabled"
+            [readonly]="readonly"
+            [attr.placeholder]="placeholder"
+            [attr.aria-label]="ariaLabel"
+            [attr.aria-labelledby]="ariaLabelledBy"
+            [attr.title]="title"
+            [attr.size]="size"
+            [attr.name]="name"
+            [attr.autocomplete]="autocomplete"
+            [attr.maxlength]="maxlength"
+            [attr.tabindex]="tabindex"
+            [attr.aria-required]="ariaRequired"
+            [attr.required]="required"
+            [attr.min]="min"
+            [attr.max]="max"
+            inputmode="decimal"
+            (input)="onUserInput($event)"
+            (keydown)="onInputKeyDown($event)"
+            (keypress)="onInputKeyPress($event)"
+            (paste)="onPaste($event)"
+            (click)="onInputClick()"
+            (focus)="onInputFocus($event)"
+            (blur)="onInputBlur($event)"
+            [attr.data-pc-section]="'input'"
+            pAutoFocus
+            [autofocus]="autofocus"
+            [fluid]="hasFluid"
+        />
+        <ng-container *ngIf="buttonLayout != 'vertical' && showClear && value">
+            <TimesIcon
+                *ngIf="!clearIconTemplate"
+                [ngClass]="'p-inputnumber-clear-icon'"
+                (click)="clear()"
+                [attr.data-pc-section]="'clearIcon'"
             />
-            <ng-container *ngIf="buttonLayout != 'vertical' && showClear && value">
-                <TimesIcon
-                    *ngIf="!clearIconTemplate"
-                    [ngClass]="'p-inputnumber-clear-icon'"
-                    (click)="clear()"
-                    [attr.data-pc-section]="'clearIcon'"
-                />
-                <span *ngIf="clearIconTemplate" (click)="clear()" class="p-inputnumber-clear-icon" [attr.data-pc-section]="'clearIcon'">
-                    <ng-template *ngTemplateOutlet="clearIconTemplate"></ng-template>
-                </span>
-            </ng-container>
-            <span
-                class="p-inputnumber-button-group"
-                *ngIf="showButtons && buttonLayout === 'stacked'"
-                [attr.data-pc-section]="'buttonGroup'"
-            >
-                <button
-                    type="button"
-                    [ngClass]="_incrementButtonClass"
-                    [class]="incrementButtonClass"
-                    [disabled]="disabled"
-                    tabindex="-1"
-                    (mousedown)="onUpButtonMouseDown($event)"
-                    (mouseup)="onUpButtonMouseUp()"
-                    (mouseleave)="onUpButtonMouseLeave()"
-                    (keydown)="onUpButtonKeyDown($event)"
-                    (keyup)="onUpButtonKeyUp()"
-                    [attr.aria-hidden]="true"
-                    [attr.data-pc-section]="'incrementbutton'"
-                >
-                    <span *ngIf="incrementButtonIcon" [ngClass]="incrementButtonIcon" [attr.data-pc-section]="'incrementbuttonicon'"></span>
-                    <ng-container *ngIf="!incrementButtonIcon">
-                        <AngleUpIcon *ngIf="!incrementButtonIconTemplate" [attr.data-pc-section]="'incrementbuttonicon'" />
-                        <ng-template *ngTemplateOutlet="incrementButtonIconTemplate"></ng-template>
-                    </ng-container>
-                </button>
-
-                <button
-                    type="button"
-                    [ngClass]="_decrementButtonClass"
-                    [class]="decrementButtonClass"
-                    [disabled]="disabled"
-                    tabindex="-1"
-                    [attr.aria-hidden]="true"
-                    (mousedown)="onDownButtonMouseDown($event)"
-                    (mouseup)="onDownButtonMouseUp()"
-                    (mouseleave)="onDownButtonMouseLeave()"
-                    (keydown)="onDownButtonKeyDown($event)"
-                    (keyup)="onDownButtonKeyUp()"
-                    [attr.data-pc-section]="decrementbutton"
-                >
-                    <span *ngIf="decrementButtonIcon" [ngClass]="decrementButtonIcon" [attr.data-pc-section]="'decrementbuttonicon'"></span>
-                    <ng-container *ngIf="!decrementButtonIcon">
-                        <AngleDownIcon *ngIf="!decrementButtonIconTemplate" [attr.data-pc-section]="'decrementbuttonicon'" />
-                        <ng-template *ngTemplateOutlet="decrementButtonIconTemplate"></ng-template>
-                    </ng-container>
-                </button>
+            <span *ngIf="clearIconTemplate" (click)="clear()" class="p-inputnumber-clear-icon" [attr.data-pc-section]="'clearIcon'">
+                <ng-template *ngTemplateOutlet="clearIconTemplate"></ng-template>
             </span>
+        </ng-container>
+        <span class="p-inputnumber-button-group" *ngIf="showButtons && buttonLayout === 'stacked'" [attr.data-pc-section]="'buttonGroup'">
             <button
-                *ngIf="showButtons && buttonLayout !== 'stacked'"
                 type="button"
                 [ngClass]="_incrementButtonClass"
                 [class]="incrementButtonClass"
                 [disabled]="disabled"
                 tabindex="-1"
-                [attr.aria-hidden]="true"
                 (mousedown)="onUpButtonMouseDown($event)"
                 (mouseup)="onUpButtonMouseUp()"
                 (mouseleave)="onUpButtonMouseLeave()"
                 (keydown)="onUpButtonKeyDown($event)"
                 (keyup)="onUpButtonKeyUp()"
+                [attr.aria-hidden]="true"
                 [attr.data-pc-section]="'incrementbutton'"
             >
                 <span *ngIf="incrementButtonIcon" [ngClass]="incrementButtonIcon" [attr.data-pc-section]="'incrementbuttonicon'"></span>
@@ -175,8 +122,8 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
                     <ng-template *ngTemplateOutlet="incrementButtonIconTemplate"></ng-template>
                 </ng-container>
             </button>
+
             <button
-                *ngIf="showButtons && buttonLayout !== 'stacked'"
                 type="button"
                 [ngClass]="_decrementButtonClass"
                 [class]="decrementButtonClass"
@@ -188,7 +135,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
                 (mouseleave)="onDownButtonMouseLeave()"
                 (keydown)="onDownButtonKeyDown($event)"
                 (keyup)="onDownButtonKeyUp()"
-                [attr.data-pc-section]="'decrementbutton'"
+                [attr.data-pc-section]="decrementbutton"
             >
                 <span *ngIf="decrementButtonIcon" [ngClass]="decrementButtonIcon" [attr.data-pc-section]="'decrementbuttonicon'"></span>
                 <ng-container *ngIf="!decrementButtonIcon">
@@ -197,10 +144,57 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
                 </ng-container>
             </button>
         </span>
+        <button
+            *ngIf="showButtons && buttonLayout !== 'stacked'"
+            type="button"
+            [ngClass]="_incrementButtonClass"
+            [class]="incrementButtonClass"
+            [disabled]="disabled"
+            tabindex="-1"
+            [attr.aria-hidden]="true"
+            (mousedown)="onUpButtonMouseDown($event)"
+            (mouseup)="onUpButtonMouseUp()"
+            (mouseleave)="onUpButtonMouseLeave()"
+            (keydown)="onUpButtonKeyDown($event)"
+            (keyup)="onUpButtonKeyUp()"
+            [attr.data-pc-section]="'incrementbutton'"
+        >
+            <span *ngIf="incrementButtonIcon" [ngClass]="incrementButtonIcon" [attr.data-pc-section]="'incrementbuttonicon'"></span>
+            <ng-container *ngIf="!incrementButtonIcon">
+                <AngleUpIcon *ngIf="!incrementButtonIconTemplate" [attr.data-pc-section]="'incrementbuttonicon'" />
+                <ng-template *ngTemplateOutlet="incrementButtonIconTemplate"></ng-template>
+            </ng-container>
+        </button>
+        <button
+            *ngIf="showButtons && buttonLayout !== 'stacked'"
+            type="button"
+            [ngClass]="_decrementButtonClass"
+            [class]="decrementButtonClass"
+            [disabled]="disabled"
+            tabindex="-1"
+            [attr.aria-hidden]="true"
+            (mousedown)="onDownButtonMouseDown($event)"
+            (mouseup)="onDownButtonMouseUp()"
+            (mouseleave)="onDownButtonMouseLeave()"
+            (keydown)="onDownButtonKeyDown($event)"
+            (keyup)="onDownButtonKeyUp()"
+            [attr.data-pc-section]="'decrementbutton'"
+        >
+            <span *ngIf="decrementButtonIcon" [ngClass]="decrementButtonIcon" [attr.data-pc-section]="'decrementbuttonicon'"></span>
+            <ng-container *ngIf="!decrementButtonIcon">
+                <AngleDownIcon *ngIf="!decrementButtonIconTemplate" [attr.data-pc-section]="'decrementbuttonicon'" />
+                <ng-template *ngTemplateOutlet="decrementButtonIconTemplate"></ng-template>
+            </ng-container>
+        </button>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [INPUTNUMBER_VALUE_ACCESSOR, InputNumberStyle],
     encapsulation: ViewEncapsulation.None,
+    host: {
+        '[attr.data-pc-name]': "'inputnumber'",
+        '[attr.data-pc-section]': "'root'",
+        style: 'style',
+    },
 })
 export class InputNumber extends BaseComponent implements OnInit, AfterContentInit, OnChanges, ControlValueAccessor {
     /**
@@ -581,6 +575,21 @@ export class InputNumber extends BaseComponent implements OnInit, AfterContentIn
         this.constructParser();
 
         this.initialized = true;
+    }
+
+    @HostBinding('class') get hostClasses(): string {
+        if (typeof this._rootClass === 'string') {
+            return this._rootClass;
+        }
+        if (Array.isArray(this._rootClass)) {
+            return this._rootClass.join(' ');
+        }
+        if (typeof this._rootClass === 'object') {
+            return Object.keys(this._rootClass)
+                .filter((key) => this._rootClass[key])
+                .join(' ');
+        }
+        return '';
     }
 
     getOptions() {

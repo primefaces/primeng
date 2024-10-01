@@ -22,6 +22,7 @@ import { InvalidDoc } from '@doc/datepicker/invaliddoc';
 import { DisabledDoc } from '@doc/datepicker/disableddoc';
 import { FilledDoc } from '@doc/datepicker/filleddoc';
 import { DatePickerDocModule } from '@doc/datepicker/datepickerdoc.module';
+import { IftaLabelDoc } from '@doc/datepicker/iftalabeldoc';
 
 @Component({
     standalone: true,
@@ -86,7 +87,7 @@ export class DatePickerDemo {
         },
         {
             id: 'buttonbar',
-            label: 'ButtonBar',
+            label: 'Button Bar',
             component: ButtonBarDoc,
         },
         {
@@ -115,11 +116,6 @@ export class DatePickerDemo {
             component: DateTemplateDoc,
         },
         {
-            id: 'touchui',
-            label: 'TouchUI',
-            component: TouchUIDoc,
-        },
-        {
             id: 'inline',
             label: 'Inline',
             component: InlineDoc,
@@ -128,6 +124,11 @@ export class DatePickerDemo {
             id: 'floatlabel',
             label: 'Float Label',
             component: FloatLabelDoc,
+        },
+        {
+            id: 'iftalabel',
+            label: 'Ifta Label',
+            component: IftaLabelDoc,
         },
         {
             id: 'filled',

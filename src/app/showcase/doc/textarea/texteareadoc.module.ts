@@ -19,6 +19,8 @@ import { FilledDoc } from './filleddoc';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { RouterModule } from '@angular/router';
 import { TextareaModule } from 'primeng/textarea';
+import { IftaLabelModule } from 'primeng/iftalabel';
+import { IftaLabelDoc } from './iftalabeldoc';
 
 @NgModule({
     imports: [
@@ -32,6 +34,7 @@ import { TextareaModule } from 'primeng/textarea';
         KeyFilterModule,
         FloatLabelModule,
         RouterModule,
+        IftaLabelModule
     ],
     exports: [AppDocModule],
     declarations: [
@@ -46,6 +49,7 @@ import { TextareaModule } from 'primeng/textarea';
         AccessibilityDoc,
         ReactiveFormsDoc,
         FilledDoc,
+        IftaLabelDoc
     ],
 })
 export class TextareaDocModule {}

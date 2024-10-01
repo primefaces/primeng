@@ -13,6 +13,7 @@ import { AccessibilityDoc } from '@doc/inputnumber/accessibilitydoc';
 import { ReactiveFormsDoc } from '@doc/inputnumber/reactiveformsdoc';
 import { FilledDoc } from '@doc/inputnumber/filleddoc';
 import { InputNumberDocModule } from '@doc/inputnumber/inputnumberdoc.module';
+import { IftaLabelDoc } from '@doc/inputnumber/iftalabeldoc';
 
 @Component({
     template: `<app-doc
@@ -72,6 +73,11 @@ export class InputNumberDemo {
             id: 'floatlabel',
             label: 'Float Label',
             component: FloatlabelDoc,
+        },
+        {
+            id: 'iftalabel',
+            label: 'Ifta Label',
+            component: IftaLabelDoc,
         },
         {
             id: 'filled',

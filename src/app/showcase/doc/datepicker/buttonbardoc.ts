@@ -17,14 +17,10 @@ export class ButtonBarDoc {
     date: Date[] | undefined;
 
     code: Code = {
-        basic: `<p-datepicker 
-    [(ngModel)]="date" 
-    [showButtonBar]="true"/>`,
+        basic: `<p-datepicker [(ngModel)]="date" [showButtonBar]="true" />`,
 
         html: `<div class="card flex justify-center">
-    <p-datepicker 
-        [(ngModel)]="date" 
-        [showButtonBar]="true"/>
+    <p-datepicker [(ngModel)]="date" [showButtonBar]="true" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

@@ -31,22 +31,10 @@ export class DisabledDoc {
     }
 
     code: Code = {
-        basic: `<p-treeselect 
-    class="md:w-80 w-full" 
-    containerStyleClass="w-full" 
-    [(ngModel)]="selectedNodes" 
-    [options]="nodes" 
-    [disabled]="true" 
-    placeholder="TreeSelect" />`,
+        basic: `<p-treeselect class="md:w-80 w-full" containerStyleClass="w-full" [(ngModel)]="selectedNodes" [options]="nodes" [disabled]="true" placeholder="TreeSelect" />`,
 
         html: `<div class="card flex justify-center">
-    <p-treeselect 
-        class="md:w-80 w-full"
-        containerStyleClass="w-full"
-        [(ngModel)]="selectedNodes" 
-        [options]="nodes" 
-        [disabled]="true" 
-        placeholder="TreeSelect" />
+    <p-treeselect class="md:w-80 w-full" containerStyleClass="w-full" [(ngModel)]="selectedNodes" [options]="nodes" [disabled]="true" placeholder="TreeSelect" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

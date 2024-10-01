@@ -40,11 +40,6 @@ export class RatingDemo {
             component: ReactiveFormsDoc,
         },
         {
-            id: 'withoutcancel',
-            label: 'Without Cancel',
-            component: WithoutCancelDoc,
-        },
-        {
             id: 'numberofstars',
             label: 'Number of Stars',
             component: NumberOfStarsDoc,

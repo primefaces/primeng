@@ -19,6 +19,7 @@ interface City {
                 class="ng-dirty ng-invalid"
                 optionLabel="name"
                 placeholder="Select Cities"
+                [maxSelectedLabels]="3"
                 styleClass="w-full md:w-80"
             />
         </div>
@@ -41,20 +42,10 @@ export class InvalidDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-multiselect 
-    [options]="cities" 
-    [(ngModel)]="selectedCities" 
-    class="ng-dirty ng-invalid" 
-    optionLabel="name"
-    styleClass="w-full md:w-80" />`,
+        basic: `<p-multiselect [options]="cities" [(ngModel)]="selectedCities" class="ng-dirty ng-invalid" optionLabel="name" [maxSelectedLabels]="3" styleClass="w-full md:w-80" />`,
 
         html: `<div class="card flex justify-center">
-    <p-multiselect 
-        [options]="cities" 
-        [(ngModel)]="selectedCities" 
-        class="ng-dirty ng-invalid" 
-        optionLabel="name"
-        styleClass="w-full md:w-80" />
+    <p-multiselect [options]="cities" [(ngModel)]="selectedCities" class="ng-dirty ng-invalid" optionLabel="name" [maxSelectedLabels]="3" styleClass="w-full md:w-80" />
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';

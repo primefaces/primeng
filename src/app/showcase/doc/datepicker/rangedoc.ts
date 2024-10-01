@@ -20,16 +20,10 @@ export class RangeDoc {
     rangeDates: Date[] | undefined;
 
     code: Code = {
-        basic: `<p-datepicker 
-    [(ngModel)]="rangeDates" 
-    selectionMode="range" 
-    [readonlyInput]="true" />`,
+        basic: `<p-datepicker [(ngModel)]="rangeDates" selectionMode="range" [readonlyInput]="true" />`,
 
         html: `<div class="card flex justify-center">
-    <p-datepicker 
-        [(ngModel)]="rangeDates" 
-        selectionMode="range" 
-        [readonlyInput]="true" />
+    <p-datepicker [(ngModel)]="rangeDates" selectionMode="range" [readonlyInput]="true" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

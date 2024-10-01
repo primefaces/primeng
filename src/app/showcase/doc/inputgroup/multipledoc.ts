@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
             <p>Multiple add-ons can be placed inside the same group.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-inputgroup class="w-full md:w-[30rem]">
+            <p-inputgroup class="w-full md:!w-[30rem]">
                 <p-inputgroup-addon>
                     <i class="pi pi-clock"></i>
                 </p-inputgroup-addon>
@@ -25,7 +25,7 @@ import { Code } from '@domain/code';
 })
 export class MultipleDoc {
     code: Code = {
-        basic: `<p-inputgroup class="w-full md:w-[30rem]">
+        basic: `<p-inputgroup class="w-full md:!w-[30rem]">
     <p-inputgroup-addon>
         <i class="pi pi-clock"></i>
     </p-inputgroup-addon>
@@ -38,7 +38,7 @@ export class MultipleDoc {
 </p-inputgroup>`,
 
         html: `<div class="card flex justify-center">
-    <p-inputgroup class="w-full md:w-[30rem]">
+    <p-inputgroup class="w-full md:!w-[30rem]">
         <p-inputgroup-addon>
             <i class="pi pi-clock"></i>
         </p-inputgroup-addon>
