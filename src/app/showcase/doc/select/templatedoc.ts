@@ -19,6 +19,7 @@ import { Code } from '@domain/code';
                 optionLabel="name"
                 [showClear]="true"
                 placeholder="Select a country"
+                class="w-full md:w-56"
             >
                 <ng-template pTemplate="selectedItem" let-selectedOption>
                     <div class="flex items-center gap-2" *ngIf="selectedOption">
@@ -66,7 +67,7 @@ export class TemplateDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-select [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" [showClear]="true" placeholder="Select a Country">
+        basic: `<p-select [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" [showClear]="true" placeholder="Select a Country" class="w-full md:w-56">
         <ng-template pTemplate="selectedItem">
             <div class="flex items-center gap-2" *ngIf="selectedCountry">
                 <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + selectedCountry.code.toLowerCase()" style="width: 18px" />
@@ -82,7 +83,7 @@ export class TemplateDoc implements OnInit {
 </p-select>`,
 
         html: `<div class="card flex justify-center">
-    <p-select [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" [showClear]="true" placeholder="Select a Country">
+    <p-select [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" [showClear]="true" placeholder="Select a Country" class="w-full md:w-56">
             <ng-template pTemplate="selectedItem">
                 <div class="flex items-center gap-2" *ngIf="selectedCountry">
                     <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + selectedCountry.code.toLowerCase()" style="width: 18px" />

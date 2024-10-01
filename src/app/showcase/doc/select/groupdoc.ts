@@ -9,7 +9,7 @@ import { Code } from '@domain/code';
             <p>Options can be grouped when a nested data structures is provided.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-select [options]="groupedCities" [(ngModel)]="selectedCity" placeholder="Select a City" [group]="true">
+            <p-select [options]="groupedCities" [(ngModel)]="selectedCity" placeholder="Select a City" [group]="true" class="w-full md:w-56">
                 <ng-template let-group pTemplate="group">
                     <div class="flex items-center">
                         <img
@@ -66,7 +66,7 @@ export class GroupDoc {
     }
 
     code: Code = {
-        basic: `<p-select [options]="groupedCities" [(ngModel)]="selectedCity" placeholder="Select a City" [group]="true">
+        basic: `<p-select [options]="groupedCities" [(ngModel)]="selectedCity" placeholder="Select a City" [group]="true" class="w-full md:w-56">
     <ng-template let-group pTemplate="group">
         <div class="flex items-center">
             <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'mr-2 flag flag-' + group.value" style="width: 20px" />
@@ -76,7 +76,7 @@ export class GroupDoc {
 </p-select>`,
 
         html: `<div class="card flex justify-center">
-    <p-select [options]="groupedCities" [(ngModel)]="selectedCity" placeholder="Select a City" [group]="true">
+    <p-select [options]="groupedCities" [(ngModel)]="selectedCity" placeholder="Select a City" [group]="true" class="w-full md:w-56">
             <ng-template let-group pTemplate="group">
                 <div class="flex items-center">
                     <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'mr-2 flag flag-' + group.value"  style="width: 20px" />

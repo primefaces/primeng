@@ -16,11 +16,15 @@ interface City {
                 to a form control.
             </p>
         </app-docsectiontext>
-        <div class="card flex justify-center">
-            <form [formGroup]="formGroup">
-                <p-select formControlName="selectedCity" [options]="cities" optionLabel="name" placeholder="Select a City" />
-            </form>
-        </div>
+        <form [formGroup]="formGroup" class="card flex justify-center">
+            <p-select
+                formControlName="selectedCity"
+                [options]="cities"
+                optionLabel="name"
+                placeholder="Select a City"
+                class="w-full md:w-56"
+            />
+        </form>
         <app-code [code]="code" selector="select-reactive-forms-demo"></app-code>
     `,
 })
@@ -44,15 +48,9 @@ export class ReactiveFormsDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<form [formGroup]="formGroup">
-    <p-select formControlName="selectedCity" [options]="cities" optionLabel="name" placeholder="Select a City" />
+        basic: `<form [formGroup]="formGroup" class="card flex justify-center">
+    <p-select formControlName="selectedCity" [options]="cities" optionLabel="name" placeholder="Select a City" class="w-full md:w-56" />
 </form>`,
-
-        html: `<div class="card flex justify-center">
-    <form [formGroup]="formGroup">
-        <p-select formControlName="selectedCity" [options]="cities" optionLabel="name" placeholder="Select a City" />
-    </form>
-</div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';

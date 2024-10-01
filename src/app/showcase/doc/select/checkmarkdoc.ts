@@ -20,6 +20,7 @@ interface City {
                 optionLabel="name"
                 [showClear]="true"
                 placeholder="Select a City"
+                class="w-full md:w-56"
             />
         </div>
         <app-code [code]="code" selector="select-checkmark-demo"></app-code>
@@ -41,10 +42,10 @@ export class CheckmarkDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-select [options]="cities" [(ngModel)]="selectedCity" [checkmark]="true" optionLabel="name" [showClear]="true" placeholder="Select a City" />`,
+        basic: `<p-select [options]="cities" [(ngModel)]="selectedCity" [checkmark]="true" optionLabel="name" [showClear]="true" placeholder="Select a City" class="w-full md:w-56" />`,
 
         html: `<div class="card flex justify-center">
-    <p-select [options]="cities" [(ngModel)]="selectedCity" [checkmark]="true" optionLabel="name" [showClear]="true" placeholder="Select a City" />
+    <p-select [options]="cities" [(ngModel)]="selectedCity" [checkmark]="true" optionLabel="name" [showClear]="true" placeholder="Select a City" class="w-full md:w-56" />
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';

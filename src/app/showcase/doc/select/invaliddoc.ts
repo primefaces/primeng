@@ -19,7 +19,7 @@ interface City {
                 optionLabel="name"
                 [showClear]="true"
                 placeholder="Select a City"
-                class="ng-dirty ng-invalid"
+                class="ng-dirty ng-invalid w-full md:w-56"
             />
         </div>
         <app-code [code]="code" selector="select-invalid-demo"></app-code>
@@ -41,10 +41,10 @@ export class InvalidDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-select [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" [showClear]="true" placeholder="Select a City" class="ng-dirty ng-invalid" />`,
+        basic: `<p-select [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" [showClear]="true" placeholder="Select a City" class="ng-dirty ng-invalid w-full md:w-56" />`,
 
         html: `<div class="card flex justify-center">
-    <p-select [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" [showClear]="true" placeholder="Select a City" class="ng-dirty ng-invalid" />
+    <p-select [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" [showClear]="true" placeholder="Select a City" class="ng-dirty ng-invalid w-full md:w-56" />
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
