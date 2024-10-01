@@ -502,19 +502,23 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                 <div class="p-datepicker-buttonbar" *ngIf="showButtonBar">
                     <p-button
                         size="small"
+                        text
+                        severity="secondary"
                         styleClass="p-datepicker-today-button"
                         [label]="getTranslation('today')"
                         (keydown)="onContainerButtonKeydown($event)"
                         (onClick)="onTodayButtonClick($event)"
-                        [ngClass]="[todayButtonStyleClass]"
+                        [ngClass]="todayButtonStyleClass"
                     />
                     <p-button
                         size="small"
+                        text
+                        severity="secondary"
                         styleClass="p-datepicker-clear-button"
                         [label]="getTranslation('clear')"
                         (keydown)="onContainerButtonKeydown($event)"
                         (onClick)="onClearButtonClick($event)"
-                        [ngClass]="[clearButtonStyleClass]"
+                        [ngClass]="clearButtonStyleClass"
                     />
                 </div>
                 <ng-content select="p-footer"></ng-content>
