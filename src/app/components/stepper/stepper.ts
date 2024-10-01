@@ -373,7 +373,7 @@ export class StepPanel extends BaseComponent implements AfterContentInit {
     host: {
         '[class.p-steppanels]': 'true',
         '[class.p-component]': 'true'
-    }
+    },
 })
 export class StepPanels extends BaseComponent {
 }
@@ -396,7 +396,7 @@ export class StepPanels extends BaseComponent {
         '[class.p-component]': 'true',
         '[attr.role]': '"tablist"',
         '[attr.id]': 'id()'
-    }
+    },
 })
 export class Stepper extends BaseComponent {
     /**
