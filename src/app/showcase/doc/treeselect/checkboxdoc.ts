@@ -33,26 +33,10 @@ export class CheckboxDoc {
     }
 
     code: Code = {
-        basic: `<p-treeselect 
-    class="w-full md:w-80" 
-    containerStyleClass="w-full" 
-    [(ngModel)]="selectedNodes" 
-    [options]="nodes" 
-    display="chip" 
-    [metaKeySelection]="false" 
-    selectionMode="checkbox" 
-    placeholder="Select Item" />`,
+        basic: `<p-treeselect class="w-full md:w-80" containerStyleClass="w-full" [(ngModel)]="selectedNodes" [options]="nodes" display="chip" [metaKeySelection]="false" selectionMode="checkbox" placeholder="Select Item" />`,
 
         html: `<div class="card flex justify-center">
-    <p-treeselect 
-        class="w-full md:w-80" 
-        containerStyleClass="w-full" 
-        [(ngModel)]="selectedNodes" 
-        [options]="nodes" 
-        display="chip" 
-        [metaKeySelection]="false" 
-        selectionMode="checkbox" 
-        placeholder="Select Item" />
+    <p-treeselect class="w-full md:w-80" containerStyleClass="w-full" [(ngModel)]="selectedNodes" [options]="nodes" display="chip" [metaKeySelection]="false" selectionMode="checkbox" placeholder="Select Item" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
