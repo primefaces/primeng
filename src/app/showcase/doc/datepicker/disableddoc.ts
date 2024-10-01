@@ -17,14 +17,10 @@ export class DisabledDoc {
     date: Date | undefined;
 
     code: Code = {
-        basic: `<p-datepicker 
-    [(ngModel)]="date" 
-    [disabled]="true" />`,
+        basic: `<p-datepicker [(ngModel)]="date" [disabled]="true" />`,
 
         html: `<div class="card flex justify-center">
-    <p-datepicker 
-        [(ngModel)]="date" 
-        [disabled]="true" />
+    <p-datepicker [(ngModel)]="date" [disabled]="true" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

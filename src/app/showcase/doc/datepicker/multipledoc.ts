@@ -20,16 +20,10 @@ export class MultipleDoc {
     dates: Date[] | undefined;
 
     code: Code = {
-        basic: `<p-datepicker 
-    [(ngModel)]="dates" 
-    selectionMode="multiple" 
-    [readonlyInput]="true" />`,
+        basic: `<p-datepicker [(ngModel)]="dates" selectionMode="multiple" [readonlyInput]="true" />`,
 
         html: `<div class="card flex justify-center">
-    <p-datepicker 
-        [(ngModel)]="dates" 
-        selectionMode="multiple" 
-        [readonlyInput]="true" />
+    <p-datepicker [(ngModel)]="dates" selectionMode="multiple" [readonlyInput]="true" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

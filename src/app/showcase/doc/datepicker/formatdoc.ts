@@ -39,14 +39,10 @@ export class FormatDoc {
     date: Date | undefined;
 
     code: Code = {
-        basic: `<p-datepicker 
-    [(ngModel)]="date" 
-    dateFormat="dd.mm.yy" />`,
+        basic: `<p-datepicker [(ngModel)]="date" dateFormat="dd.mm.yy" />`,
 
         html: `<div class="card flex justify-center">
-    <p-datepicker 
-        [(ngModel)]="date" 
-        dateFormat="dd.mm.yy" />
+    <p-datepicker [(ngModel)]="date" dateFormat="dd.mm.yy" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

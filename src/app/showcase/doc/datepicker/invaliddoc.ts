@@ -17,14 +17,10 @@ export class InvalidDoc {
     date: Date | undefined;
 
     code: Code = {
-        basic: `<p-datepicker 
-    [(ngModel)]="date" 
-    class="ng-invalid ng-dirty" />`,
+        basic: `<p-datepicker [(ngModel)]="date" class="ng-invalid ng-dirty" />`,
 
         html: `<div class="card flex justify-center">
-    <p-datepicker 
-        [(ngModel)]="date" 
-        class="ng-invalid ng-dirty" />
+    <p-datepicker [(ngModel)]="date" class="ng-invalid ng-dirty" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
