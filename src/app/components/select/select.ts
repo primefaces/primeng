@@ -1507,15 +1507,6 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
      */
     public show(isFocus?) {
         this.overlayVisible = true;
-        const focusedOptionIndex =
-            this.focusedOptionIndex() !== -1
-                ? this.focusedOptionIndex()
-                : this.autoOptionFocus
-                  ? this.findFirstFocusedOptionIndex()
-                  : this.editable
-                    ? -1
-                    : this.findSelectedOptionIndex();
-        this.focusedOptionIndex.set(focusedOptionIndex);
 
         if (isFocus) {
             DomHandler.focus(this.focusInputViewChild?.nativeElement);
