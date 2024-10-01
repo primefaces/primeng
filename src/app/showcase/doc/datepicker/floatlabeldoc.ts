@@ -10,32 +10,62 @@ import { Code } from '@domain/code';
                 <a routerLink="/floatlabel">FloatLabel</a> documentation for more information.
             </p>
         </app-docsectiontext>
-        <div class="card flex justify-center">
+        <div class="card flex flex-wrap justify-center items-end gap-4">
             <p-floatlabel>
-                <p-datepicker [(ngModel)]="date" inputId="birth_date" />
-                <label for="birth_date">Birth Date</label>
+                <p-datepicker [(ngModel)]="value1" inputId="over_label" showIcon iconDisplay="input" />
+                <label for="over_label">Over Label</label>
+            </p-floatlabel>
+
+            <p-floatlabel variant="in">
+                <p-datepicker [(ngModel)]="value2" inputId="in_label" showIcon iconDisplay="input" />
+                <label for="in_label">In Label</label>
+            </p-floatlabel>
+
+            <p-floatlabel variant="on">
+                <p-datepicker [(ngModel)]="value3" inputId="on_label" showIcon iconDisplay="input" />
+                <label for="on_label">On Label</label>
             </p-floatlabel>
         </div>
         <app-code [code]="code" selector="datepicker-float-label-demo"></app-code>
     `,
 })
 export class FloatLabelDoc {
-    date: Date | undefined;
+    value1: Date | undefined;
+
+    value2: Date | undefined;
+
+    value3: Date | undefined;
 
     code: Code = {
         basic: `<p-floatlabel>
-    <p-datepicker 
-        [(ngModel)]="date" 
-        inputId="birth_date" />
-    <label for="birth_date">Birth Date</label>
+    <p-datepicker [(ngModel)]="value1" inputId="over_label" showIcon iconDisplay="input" />
+    <label for="over_label">Over Label</label>
+</p-floatlabel>
+
+<p-floatlabel variant="in">
+    <p-datepicker [(ngModel)]="value2" inputId="in_label" showIcon iconDisplay="input" />
+    <label for="in_label">In Label</label>
+</p-floatlabel>
+
+<p-floatlabel variant="on">
+    <p-datepicker [(ngModel)]="value3" inputId="on_label" showIcon iconDisplay="input" />
+    <label for="on_label">On Label</label>
 </p-floatlabel>`,
 
-        html: `<div class="card flex justify-center">
+        html: `<div class="card flex flex-wrap justify-center items-end gap-4">
     <p-floatlabel>
-        <p-datepicker 
-            [(ngModel)]="date" 
-            inputId="birth_date" />
-        <label for="birth_date">Birth Date</label>
+        <p-datepicker [(ngModel)]="value1" inputId="over_label" showIcon iconDisplay="input" />
+        <label for="over_label">Over Label</label>
+    </p-floatlabel>
+
+    <p-floatlabel variant="in">
+        <p-datepicker [(ngModel)]="value2" inputId="in_label" showIcon iconDisplay="input" />
+        <label for="in_label">In Label</label>
+    </p-floatlabel>
+
+    <p-floatlabel variant="on">
+        <p-datepicker [(ngModel)]="value3" inputId="on_label" showIcon iconDisplay="input" />
+        <label for="on_label">On Label</label>
     </p-floatlabel>
 </div>`,
 
@@ -51,7 +81,11 @@ import { FloatLabelModule } from 'primeng/floatlabel';
     imports: [FormsModule, DatePickerModule, FloatLabelModule]
 })
 export class DatePickerFloatLabelDemo {
-    date: Date | undefined;
+    value1: Date | undefined;
+
+    value2: Date | undefined;
+
+    value3: Date | undefined;
 }`,
     };
 }
