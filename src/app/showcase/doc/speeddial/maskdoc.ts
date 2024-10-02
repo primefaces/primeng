@@ -10,6 +10,7 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card p-4">
             <div [style]="{ position: 'relative', height: '350px' }">
+                <p-toast />
                 <p-speeddial [model]="items" direction="up" mask [style]="{ position: 'absolute', right: '1rem', bottom: '1rem' }" />
             </div>
         </div>
@@ -59,6 +60,7 @@ export class MaskDoc implements OnInit {
 
         html: `<div class="card p-4">
     <div [style]="{ position: 'relative', height: '350px' }">
+        <p-toast />
         <p-speeddial [model]="items" direction="up" mask [style]="{ position: 'absolute', right: '1rem', bottom: '1rem' }" />
     </div>
 </div>`,

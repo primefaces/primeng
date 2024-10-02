@@ -14,6 +14,7 @@ import { Router } from '@angular/router';
         </app-docsectiontext>
         <div class="card">
             <div [style]="{ position: 'relative', height: '350px' }">
+                <p-toast />
                 <p-speeddial
                     [model]="items"
                     direction="up"
@@ -87,6 +88,7 @@ export class TooltipDoc implements OnInit {
 
         html: `<div class="card">
     <div [style]="{ position: 'relative', height: '350px' }">
+        <p-toast />
         <p-speeddial [model]="items" direction="up" [style]="{ position: 'absolute', right: 0, bottom: 0 }" [buttonProps]="{ severity: 'help', rounded: true }" [tooltipOptions]="{ tooltipPosition: 'left' }" />
         <p-speeddial [model]="items" direction="up" [style]="{ position: 'absolute', left: 0, bottom: 0 }" [buttonProps]="{ severity: 'danger', rounded: true }" [tooltipOptions]="{ tooltipPosition: 'right' }" />
     </div>
@@ -152,6 +154,5 @@ export class SpeedDialTooltipDemo implements OnInit {
         ];
     }
 }`,
-
     };
 }

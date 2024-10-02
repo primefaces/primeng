@@ -1,28 +1,25 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
 import { Code } from '@domain/code';
+import { Router } from '@angular/router';
 
 @Component({
-    selector: 'custom-doc',
+    selector: 'template-doc',
     template: `
         <app-docsectiontext>
-        <p>
-            SpeedDial offers item customization with the <i>item</i> template that receives the menuitem instance from the model as a parameter. The button has its own <i>button</i> template, additional template named <i>icon</i> is provided to embed
-            icon content for default button.
-        </p>
+            <p>
+                SpeedDial offers item customization with the <i>item</i> template that receives the menuitem instance from the model as a
+                parameter. The button has its own <i>button</i> template, additional template named <i>icon</i> is provided to embed icon
+                content for default button.
+            </p>
         </app-docsectiontext>
         <div class="card">
             <div class="flex items-end justify-center" style="position: 'relative'; height: '400px'">
+                <p-toast />
                 <p-speeddial [model]="items" direction="up" [transitionDelay]="80" style="position: 'absolute'">
                     <ng-template pTemplate="button" let-toggleCallback="toggleCallback">
                         <p-button outlined styleClass="border" (click)="toggleCallback($event)">
-                            <svg
-                                width="31"
-                                height="33"
-                                viewBox="0 0 31 33"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                            >
+                            <svg width="31" height="33" viewBox="0 0 31 33" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path
                                     d="M15.1934 0V0V0L0.0391235 5.38288L2.35052 25.3417L15.1934 32.427V32.427V32.427L28.0364 25.3417L30.3478 5.38288L15.1934 0Z"
                                     fill="var(--p-primary-color)"
@@ -110,43 +107,54 @@ import { Code } from '@domain/code';
                 </p-speeddial>
             </div>
         </div>
-        <app-code [code]="code" selector="speed-dial-custom-demo"></app-code>
+        <app-code [code]="code" selector="speed-dial-template-demo"></app-code>
     `,
     providers: [MessageService],
 })
-export class CustomDoc implements OnInit {
+export class TemplateDoc implements OnInit {
     items: MenuItem[] | undefined;
 
-    constructor(private messageService: MessageService) {}
+    constructor(
+        private messageService: MessageService,
+        private router: Router,
+    ) {}
 
     ngOnInit() {
         this.items = [
             {
+                label: 'Add',
                 icon: 'pi pi-pencil',
                 command: () => {
                     this.messageService.add({ severity: 'info', summary: 'Add', detail: 'Data Added' });
                 },
             },
             {
+                label: 'Update',
                 icon: 'pi pi-refresh',
                 command: () => {
                     this.messageService.add({ severity: 'success', summary: 'Update', detail: 'Data Updated' });
                 },
             },
             {
+                label: 'Delete',
                 icon: 'pi pi-trash',
                 command: () => {
                     this.messageService.add({ severity: 'error', summary: 'Delete', detail: 'Data Deleted' });
                 },
             },
             {
+                label: 'Upload',
                 icon: 'pi pi-upload',
-                routerLink: ['/fileupload'],
+                command: () => {
+                    this.router.navigate(['/fileupload']);
+                },
             },
             {
+                label: 'Website',
                 icon: 'pi pi-external-link',
-                target: '_blank',
-                url: 'http://angular.io',
+                command: () => {
+                    window.open('https://angular.io/', '_blank');
+                },
             },
         ];
     }
@@ -188,6 +196,7 @@ export class CustomDoc implements OnInit {
 
         html: `<div class="card">
     <div class="flex items-end justify-center" style="position: 'relative'; height: '400px'">
+        <p-toast />
         <p-speeddial [model]="items" direction="up" [transitionDelay]="80" style="position: 'absolute'">
             <ng-template pTemplate="button" let-toggleCallback="toggleCallback">
                 <p-button outlined styleClass="border" (click)="toggleCallback($event)">
@@ -291,6 +300,7 @@ import { MenuItem, MessageService } from 'primeng/api';
 import { SpeedDialModule } from 'primeng/speeddial';
 import { ToastModule } from 'primeng/toast';
 import { ButtonModule } from 'primeng/button';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'speed-dial-template-demo',
@@ -302,37 +312,48 @@ import { ButtonModule } from 'primeng/button';
 export class SpeedDialTemplateDemo implements OnInit {
     items: MenuItem[] | undefined;
 
-    constructor(private messageService: MessageService) {}
+    constructor(
+        private messageService: MessageService,
+        private router: Router,
+    ) {}
 
     ngOnInit() {
         this.items = [
             {
+                label: 'Add',
                 icon: 'pi pi-pencil',
                 command: () => {
                     this.messageService.add({ severity: 'info', summary: 'Add', detail: 'Data Added' });
-                }
+                },
             },
             {
+                label: 'Update',
                 icon: 'pi pi-refresh',
                 command: () => {
                     this.messageService.add({ severity: 'success', summary: 'Update', detail: 'Data Updated' });
-                }
+                },
             },
             {
+                label: 'Delete',
                 icon: 'pi pi-trash',
                 command: () => {
                     this.messageService.add({ severity: 'error', summary: 'Delete', detail: 'Data Deleted' });
-                }
+                },
             },
             {
+                label: 'Upload',
                 icon: 'pi pi-upload',
-                routerLink: ['/fileupload']
+                command: () => {
+                    this.router.navigate(['/fileupload']);
+                },
             },
             {
+                label: 'Website',
                 icon: 'pi pi-external-link',
-                target: '_blank',
-                url: 'http://angular.io'
-            }
+                command: () => {
+                    window.open('https://angular.io/', '_blank');
+                },
+            },
         ];
     }
 }`,

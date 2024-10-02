@@ -10,6 +10,7 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card">
             <div style="position: relative; height: 500px">
+                <p-toast />
                 <p-speeddial
                     [model]="items"
                     [radius]="80"
@@ -89,6 +90,7 @@ export class SemiCircleDoc implements OnInit {
 
         html: `<div class="card">
     <div style="position: relative; height: 500px">
+        <p-toast />
         <p-speeddial [model]="items" [radius]="80" type="semi-circle" direction="down" style="position: absolute; left: calc(50% - 2rem); top: 0" />
         <p-speeddial [model]="items" [radius]="80" type="semi-circle" direction="right" style="position: absolute; top: calc(50% - 2rem); left: 0" />
         <p-speeddial [model]="items" [radius]="80" type="semi-circle" direction="left" style="position: absolute; top: calc(50% - 2rem); right: 0" />
@@ -104,31 +106,6 @@ import { ToastModule } from 'primeng/toast';
 @Component({
     selector: 'speed-dial-semi-circle-demo',
     templateUrl: './speed-dial-semi-circle-demo.html',
-    styles: [
-        \`:host ::ng-deep {
-            .speeddial-linear-demo {
-                .p-speeddial-direction-up {
-                    left: calc(50% - 2rem);
-                    bottom: 0;
-                }
-        
-                .p-speeddial-direction-down {
-                    left: calc(50% - 2rem);
-                    top: 0;
-                }
-        
-                .p-speeddial-direction-left {
-                    right: 0;
-                    top: calc(50% - 2rem);
-                }
-        
-                .p-speeddial-direction-right {
-                    left: 0;
-                    top: calc(50% - 2rem);
-                }
-            }
-        }\`
-    ],
     standalone: true,
     imports: [SpeedDialModule, ToastModule],
     providers: [MessageService]

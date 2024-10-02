@@ -10,6 +10,7 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card">
             <div style="position: relative; height: 500px">
+                <p-toast />
                 <p-speeddial
                     [model]="items"
                     [radius]="120"
@@ -89,6 +90,7 @@ export class QuarterCircleDoc implements OnInit {
 
         html: `<div class="card">
     <div style="position: relative; height: 500px">
+        <p-toast />
         <p-speeddial [model]="items" [radius]="120" type="quarter-circle" direction="up-left" [style]="{ position: 'absolute', right: 0, bottom: 0 }" />
         <p-speeddial [model]="items" [radius]="120" type="quarter-circle" direction="up-right" [style]="{ position: 'absolute', left: 0, bottom: 0 }" />
         <p-speeddial [model]="items" [radius]="120" type="quarter-circle" direction="down-left" [style]="{ position: 'absolute', right: 0, top: 0 }" />
@@ -145,6 +147,5 @@ export class SpeedDialQuarterCircleDemo implements OnInit {
         ];
     }
 }`,
-
     };
 }

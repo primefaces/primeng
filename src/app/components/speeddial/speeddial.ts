@@ -405,7 +405,7 @@ export class SpeedDial extends BaseComponent implements AfterViewInit, AfterCont
         if (item.command) {
             item.command({ originalEvent: e, item });
         }
-
+        
         this.hide();
 
         this.isItemClicked = true;
