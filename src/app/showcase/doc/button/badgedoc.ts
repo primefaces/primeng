@@ -9,7 +9,7 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card flex justify-center flex-wrap gap-4">
             <p-button label="Emails" badge="2" styleClass="m-0" />
-            <p-button label="Messages" icon="pi pi-users" badge="2" badgeSeverity="contrast" styleClass="m-0" outlined="true" />
+            <p-button label="Messages" icon="pi pi-users" badge="2" badgeSeverity="contrast" styleClass="m-0" [outlined]="true" />
         </div>
         <app-code [code]="code" selector="button-badge-demo"></app-code>
     `,
@@ -17,11 +17,11 @@ import { Code } from '@domain/code';
 export class BadgeDoc {
     code: Code = {
         basic: `<p-button label="Emails" badge="2" styleClass="m-0" />
-<p-button label="Messages" icon="pi pi-users" badge="2" badgeSeverity="contrast" styleClass="m-0" outlined="true" />`,
+<p-button label="Messages" icon="pi pi-users" badge="2" badgeSeverity="contrast" styleClass="m-0" [outlined]="true" />`,
 
         html: `<div class="card flex justify-center flex-wrap gap-4">
     <p-button label="Emails" badge="2" styleClass="m-0" />
-    <p-button label="Messages" icon="pi pi-users" badge="2" badgeSeverity="contrast" styleClass="m-0" outlined="true" />
+    <p-button label="Messages" icon="pi pi-users" badge="2" badgeSeverity="contrast" styleClass="m-0" [outlined]="true" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
