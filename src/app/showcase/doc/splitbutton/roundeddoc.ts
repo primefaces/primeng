@@ -14,7 +14,7 @@ import { Code } from '@domain/code';
             <p-splitbutton label="Secondary" [model]="items" (onClick)="save('info')" rounded severity="secondary" />
             <p-splitbutton label="Success" [model]="items" (onClick)="save('info')" rounded severity="success" />
             <p-splitbutton label="Info" [model]="items" (onClick)="save('info')" rounded severity="info" />
-            <p-splitbutton label="Warning" [model]="items" (onClick)="save('info')" rounded severity="warning" />
+            <p-splitbutton label="Warning" [model]="items" (onClick)="save('info')" rounded severity="warn" />
             <p-splitbutton label="Help" [model]="items" (onClick)="save('info')" rounded severity="help" />
             <p-splitbutton label="Danger" [model]="items" (onClick)="save('info')" rounded severity="danger" />
         </div>
@@ -62,7 +62,7 @@ export class RoundedDoc {
 <p-splitbutton label="Secondary" [model]="items" (onClick)="save('info')" rounded severity="secondary" />
 <p-splitbutton label="Success" [model]="items" (onClick)="save('info')" rounded severity="success" />
 <p-splitbutton label="Info" [model]="items" (onClick)="save('info')" rounded severity="info" />
-<p-splitbutton label="Warning" [model]="items" (onClick)="save('info')" rounded severity="warning" />
+<p-splitbutton label="Warning" [model]="items" (onClick)="save('info')" rounded severity="warn" />
 <p-splitbutton label="Help" [model]="items" (onClick)="save('info')" rounded severity="help" />
 <p-splitbutton label="Danger" [model]="items" (onClick)="save('info')" rounded severity="danger" />`,
 
@@ -72,7 +72,7 @@ export class RoundedDoc {
     <p-splitbutton label="Secondary" [model]="items" (onClick)="save('info')" rounded severity="secondary" />
     <p-splitbutton label="Success" [model]="items" (onClick)="save('info')" rounded severity="success" />
     <p-splitbutton label="Info" [model]="items" (onClick)="save('info')" rounded severity="info" />
-    <p-splitbutton label="Warning" [model]="items" (onClick)="save('info')" rounded severity="warning" />
+    <p-splitbutton label="Warning" [model]="items" (onClick)="save('info')" rounded severity="warn" />
     <p-splitbutton label="Help" [model]="items" (onClick)="save('info')" rounded severity="help" />
     <p-splitbutton label="Danger" [model]="items" (onClick)="save('info')" rounded severity="danger" />
 </div>`,
