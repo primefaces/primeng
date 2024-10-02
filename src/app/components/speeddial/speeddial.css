@@ -54,7 +54,7 @@
 
     .p-speeddial-mask {
         position: absolute;
-        left: 0;
+        inset-inline-start: 0;
         top: 0;
         width: 100%;
         height: 100%;
@@ -79,6 +79,10 @@
 
     .p-speeddial-opened .p-speeddial-rotate {
         transform: rotate(45deg);
+    }
+
+    .p-speeddial-opened .p-speeddial-rotate:dir(rtl) {
+        transform: rotate(-45deg);
     }
 
     /* Direction */

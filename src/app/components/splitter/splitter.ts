@@ -112,7 +112,7 @@ export class Splitter {
         this._panelSizes = val;
 
         if (this.el && this.el.nativeElement && this.panels.length > 0) {
-            let children = [...this.el.nativeElement.children[0].children].filter((child) => DomHandler.hasClass(child, 'p-splitter-panel'));
+            let children = [...this.el.nativeElement.children[0].children].filter((child) => this.domHandler.hasClass(child, 'p-splitter-panel'));
             let _panelSizes = [];
 
             this.panels.map((panel, i) => {
@@ -183,7 +183,8 @@ export class Splitter {
         @Inject(PLATFORM_ID) private platformId: any,
         private renderer: Renderer2,
         public cd: ChangeDetectorRef,
-        private el: ElementRef
+        private el: ElementRef,
+        private domHandler: DomHandler
     ) {
         this.window = this.document.defaultView as Window;
     }
@@ -214,7 +215,7 @@ export class Splitter {
                 }
 
                 if (!initialized) {
-                    let children = [...this.el.nativeElement.children[0].children].filter((child) => DomHandler.hasClass(child, 'p-splitter-panel'));
+                    let children = [...this.el.nativeElement.children[0].children].filter((child) => this.domHandler.hasClass(child, 'p-splitter-panel'));
                     let _panelSizes = [];
 
                     this.panels.map((panel, i) => {
@@ -234,28 +235,28 @@ export class Splitter {
 
     resizeStart(event: TouchEvent | MouseEvent, index: number, isKeyDown?: boolean) {
         this.gutterElement = (event.currentTarget as HTMLElement) || (event.target as HTMLElement).parentElement;
-        this.size = this.horizontal() ? DomHandler.getWidth((this.containerViewChild as ElementRef).nativeElement) : DomHandler.getHeight((this.containerViewChild as ElementRef).nativeElement);
+        this.size = this.horizontal() ? this.domHandler.getWidth((this.containerViewChild as ElementRef).nativeElement) : this.domHandler.getHeight((this.containerViewChild as ElementRef).nativeElement);
 
         if (!isKeyDown) {
             this.dragging = true;
-            this.startPos = this.horizontal() ? (event instanceof MouseEvent ? event.pageX : event.changedTouches[0].pageX) : event instanceof MouseEvent ? event.pageY : event.changedTouches[0].pageY;
+            this.startPos = this.horizontal() ? (event instanceof MouseEvent ? this.domHandler.getPageX(event) : this.domHandler.getPageX(event.changedTouches[0])) : event instanceof MouseEvent ? event.pageY : event.changedTouches[0].pageY;
         }
 
         this.prevPanelElement = this.gutterElement.previousElementSibling as HTMLElement;
         this.nextPanelElement = this.gutterElement.nextElementSibling as HTMLElement;
 
         if (isKeyDown) {
-            this.prevPanelSize = this.horizontal() ? DomHandler.getOuterWidth(this.prevPanelElement, true) : DomHandler.getOuterHeight(this.prevPanelElement, true);
-            this.nextPanelSize = this.horizontal() ? DomHandler.getOuterWidth(this.nextPanelElement, true) : DomHandler.getOuterHeight(this.nextPanelElement, true);
+            this.prevPanelSize = this.horizontal() ? this.domHandler.getOuterWidth(this.prevPanelElement, true) : this.domHandler.getOuterHeight(this.prevPanelElement, true);
+            this.nextPanelSize = this.horizontal() ? this.domHandler.getOuterWidth(this.nextPanelElement, true) : this.domHandler.getOuterHeight(this.nextPanelElement, true);
         } else {
-            this.prevPanelSize = (100 * (this.horizontal() ? DomHandler.getOuterWidth(this.prevPanelElement, true) : DomHandler.getOuterHeight(this.prevPanelElement, true))) / this.size;
-            this.nextPanelSize = (100 * (this.horizontal() ? DomHandler.getOuterWidth(this.nextPanelElement, true) : DomHandler.getOuterHeight(this.nextPanelElement, true))) / this.size;
+            this.prevPanelSize = (100 * (this.horizontal() ? this.domHandler.getOuterWidth(this.prevPanelElement, true) : this.domHandler.getOuterHeight(this.prevPanelElement, true))) / this.size;
+            this.nextPanelSize = (100 * (this.horizontal() ? this.domHandler.getOuterWidth(this.nextPanelElement, true) : this.domHandler.getOuterHeight(this.nextPanelElement, true))) / this.size;
         }
 
         this.prevPanelIndex = index;
-        DomHandler.addClass(this.gutterElement, 'p-splitter-gutter-resizing');
+        this.domHandler.addClass(this.gutterElement, 'p-splitter-gutter-resizing');
         this.gutterElement.setAttribute('data-p-gutter-resizing', 'true');
-        DomHandler.addClass((this.containerViewChild as ElementRef).nativeElement, 'p-splitter-resizing');
+        this.domHandler.addClass((this.containerViewChild as ElementRef).nativeElement, 'p-splitter-resizing');
         this.containerViewChild.nativeElement.setAttribute('data-p-resizing', 'true');
         this.onResizeStart.emit({ originalEvent: event, sizes: this._panelSizes as number[] });
     }
@@ -272,7 +273,7 @@ export class Splitter {
                 newNextPanelSize = (100 * (this.nextPanelSize + step)) / this.size;
             }
         } else {
-            if (this.horizontal()) newPos = (event.pageX * 100) / this.size - (this.startPos * 100) / this.size;
+            if (this.horizontal()) newPos = (this.domHandler.getPageX(event) * 100) / this.size - (this.startPos * 100) / this.size;
             else newPos = (event.pageY * 100) / this.size - (this.startPos * 100) / this.size;
 
             newPrevPanelSize = (this.prevPanelSize as number) + newPos;
@@ -295,8 +296,8 @@ export class Splitter {
         }
 
         this.onResizeEnd.emit({ originalEvent: event, sizes: this._panelSizes });
-        DomHandler.removeClass(this.gutterElement, 'p-splitter-gutter-resizing');
-        DomHandler.removeClass((this.containerViewChild as ElementRef).nativeElement, 'p-splitter-resizing');
+        this.domHandler.removeClass(this.gutterElement, 'p-splitter-gutter-resizing');
+        this.domHandler.removeClass((this.containerViewChild as ElementRef).nativeElement, 'p-splitter-resizing');
         this.clear();
     }
 
@@ -476,7 +477,7 @@ export class Splitter {
     isNested() {
         if (this.el.nativeElement) {
             let parent = this.el.nativeElement.parentElement;
-            while (parent && !DomHandler.hasClass(parent, 'p-splitter')) {
+            while (parent && !this.domHandler.hasClass(parent, 'p-splitter')) {
                 parent = parent.parentElement;
             }
 
@@ -517,7 +518,7 @@ export class Splitter {
 
         if (stateString) {
             this._panelSizes = JSON.parse(stateString);
-            let children = [...(this.containerViewChild as ElementRef).nativeElement.children].filter((child) => DomHandler.hasClass(child, 'p-splitter-panel'));
+            let children = [...(this.containerViewChild as ElementRef).nativeElement.children].filter((child) => this.domHandler.hasClass(child, 'p-splitter-panel'));
             children.forEach((child, i) => {
                 child.style.flexBasis = 'calc(' + this._panelSizes[i] + '% - ' + (this.panels.length - 1) * this.gutterSize + 'px)';
             });

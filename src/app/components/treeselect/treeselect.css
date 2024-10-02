@@ -72,7 +72,7 @@
         flex-shrink: 0;
         overflow: hidden;
         position: relative;
-        margin-left: auto;
+        margin-inline-start: auto;
     }
 
     .p-treeselect-clear-icon {

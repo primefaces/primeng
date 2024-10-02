@@ -195,28 +195,28 @@ import {
             <div class="p-picklist-buttons p-picklist-transfer-buttons" [attr.data-pc-section]="'buttons'" [attr.data-pc-group-section]="'controls'">
                 <button type="button" [attr.aria-label]="moveToTargetAriaLabel" pButton pRipple class="p-button-icon-only" [disabled]="moveRightDisabled()" (click)="moveRight()" [attr.data-pc-section]="'moveToTargetButton'">
                     <ng-container *ngIf="!moveToTargetIconTemplate">
-                        <AngleRightIcon *ngIf="!viewChanged" [attr.data-pc-section]="'movetotargeticon'" />
+                        <AngleRightIcon *ngIf="!viewChanged" [attr.data-pc-section]="'movetotargeticon'" [styleClass]="'p-rtl-flip-icon'" />
                         <AngleDownIcon *ngIf="viewChanged" [attr.data-pc-section]="'movetotargeticon'" />
                     </ng-container>
                     <ng-template *ngTemplateOutlet="moveToTargetIconTemplate; context: { $implicit: viewChanged }"></ng-template>
                 </button>
                 <button type="button" [attr.aria-label]="moveAllToTargetAriaLabel" pButton pRipple class="p-button-icon-only" [disabled]="moveAllRightDisabled()" (click)="moveAllRight()" [attr.data-pc-section]="'moveAllToTargetButton'">
                     <ng-container *ngIf="!moveAllToTargetIconTemplate">
-                        <AngleDoubleRightIcon *ngIf="!viewChanged" [attr.data-pc-section]="'movealltotargeticon'" />
+                        <AngleDoubleRightIcon *ngIf="!viewChanged" [attr.data-pc-section]="'movealltotargeticon'" [styleClass]="'p-rtl-flip-icon'" />
                         <AngleDoubleDownIcon *ngIf="viewChanged" [attr.data-pc-section]="'movealltotargeticon'" />
                     </ng-container>
                     <ng-template *ngTemplateOutlet="moveAllToTargetIconTemplate; context: { $implicit: viewChanged }"></ng-template>
                 </button>
                 <button type="button" [attr.aria-label]="moveToSourceAriaLabel" pButton pRipple class="p-button-icon-only" [disabled]="moveLeftDisabled()" (click)="moveLeft()" [attr.data-pc-section]="'moveToSourceButton'">
                     <ng-container *ngIf="!moveToSourceIconTemplate">
-                        <AngleLeftIcon *ngIf="!viewChanged" [attr.data-pc-section]="'movedownsourceticon'" />
+                        <AngleLeftIcon *ngIf="!viewChanged" [attr.data-pc-section]="'movedownsourceticon'" [styleClass]="'p-rtl-flip-icon'" />
                         <AngleUpIcon *ngIf="viewChanged" [attr.data-pc-section]="'movedownsourceticon'" />
                     </ng-container>
                     <ng-template *ngTemplateOutlet="moveToSourceIconTemplate; context: { $implicit: viewChanged }"></ng-template>
                 </button>
                 <button type="button" [attr.aria-label]="moveAllToSourceAriaLabel" pButton pRipple class="p-button-icon-only" [disabled]="moveAllLeftDisabled()" (click)="moveAllLeft()" [attr.data-pc-section]="'moveAllToSourceButton'">
                     <ng-container *ngIf="!moveAllToSourceIconTemplate">
-                        <AngleDoubleLeftIcon *ngIf="!viewChanged" [attr.data-pc-section]="'movealltosourceticon'" />
+                        <AngleDoubleLeftIcon *ngIf="!viewChanged" [attr.data-pc-section]="'movealltosourceticon'" [styleClass]="'p-rtl-flip-icon'" />
                         <AngleDoubleUpIcon *ngIf="viewChanged" [attr.data-pc-section]="'movealltosourceticon'" />
                     </ng-container>
                     <ng-template *ngTemplateOutlet="moveAllToSourceIconTemplate; context: { $implicit: viewChanged }"></ng-template>
@@ -792,7 +792,8 @@ export class PickList implements AfterViewChecked, AfterContentInit {
         public el: ElementRef,
         public cd: ChangeDetectorRef,
         public filterService: FilterService,
-        public config: PrimeNGConfig
+        public config: PrimeNGConfig,
+        private domHandler: DomHandler
     ) {
         this.window = this.document.defaultView as Window;
     }
@@ -904,13 +905,13 @@ export class PickList implements AfterViewChecked, AfterContentInit {
 
     ngAfterViewChecked() {
         if (this.movedUp || this.movedDown) {
-            let listItems = DomHandler.find(this.reorderedListElement, 'li.p-highlight');
+            let listItems = this.domHandler.find(this.reorderedListElement, 'li.p-highlight');
             let listItem;
 
             if (this.movedUp) listItem = listItems[0];
             else listItem = listItems[listItems.length - 1];
 
-            DomHandler.scrollInView(this.reorderedListElement, listItem);
+            this.domHandler.scrollInView(this.reorderedListElement, listItem);
             this.movedUp = false;
             this.movedDown = false;
             this.reorderedListElement = null;
@@ -1323,7 +1324,7 @@ export class PickList implements AfterViewChecked, AfterContentInit {
 
     onListFocus(event, listType) {
         let listElement = this.getListElement(listType);
-        const selectedFirstItem = DomHandler.findSingle(listElement, 'li.p-picklist-item.p-highlight') || DomHandler.findSingle(listElement, 'li.p-picklist-item');
+        const selectedFirstItem = this.domHandler.findSingle(listElement, 'li.p-picklist-item.p-highlight') || this.domHandler.findSingle(listElement, 'li.p-picklist-item');
         const findIndex = ObjectUtils.findIndexInList(selectedFirstItem, listElement.children);
         this.focused[listType === this.SOURCE_LIST ? 'sourceList' : 'targetList'] = true;
 
@@ -1348,7 +1349,7 @@ export class PickList implements AfterViewChecked, AfterContentInit {
     getListItems(listType: number) {
         let listElemet = this.getListElement(listType);
 
-        return DomHandler.find(listElemet, 'li.p-picklist-item');
+        return this.domHandler.find(listElemet, 'li.p-picklist-item');
     }
 
     getLatestSelectedVisibleOptionIndex(visibleList: any[], selectedItems: any[]): number {
@@ -1447,7 +1448,7 @@ export class PickList implements AfterViewChecked, AfterContentInit {
     }
 
     scrollInView(id, listType) {
-        const element = DomHandler.findSingle(this.getListElement(listType), `li[id="${id}"]`);
+        const element = this.domHandler.findSingle(this.getListElement(listType), `li[id="${id}"]`);
 
         if (element) {
             element.scrollIntoView && element.scrollIntoView({ block: 'nearest', inline: 'start' });
@@ -1581,14 +1582,14 @@ export class PickList implements AfterViewChecked, AfterContentInit {
     findNextItem(item: any): HTMLElement | null {
         let nextItem = item.nextElementSibling;
 
-        if (nextItem) return !DomHandler.hasClass(nextItem, 'p-picklist-item') || DomHandler.isHidden(nextItem) ? this.findNextItem(nextItem) : nextItem;
+        if (nextItem) return !this.domHandler.hasClass(nextItem, 'p-picklist-item') || this.domHandler.isHidden(nextItem) ? this.findNextItem(nextItem) : nextItem;
         else return null;
     }
 
     findPrevItem(item: any): HTMLElement | null {
         let prevItem = item.previousElementSibling;
 
-        if (prevItem) return !DomHandler.hasClass(prevItem, 'p-picklist-item') || DomHandler.isHidden(prevItem) ? this.findPrevItem(prevItem) : prevItem;
+        if (prevItem) return !this.domHandler.hasClass(prevItem, 'p-picklist-item') || this.domHandler.isHidden(prevItem) ? this.findPrevItem(prevItem) : prevItem;
         else return null;
     }
 
@@ -1626,7 +1627,7 @@ export class PickList implements AfterViewChecked, AfterContentInit {
                 this.renderer.setAttribute(this.el.nativeElement.children[0], this.id, '');
                 this.styleElement = this.renderer.createElement('style');
                 this.renderer.setAttribute(this.styleElement, 'type', 'text/css');
-                DomHandler.setAttribute(this.styleElement, 'nonce', this.config?.csp()?.nonce);
+                this.domHandler.setAttribute(this.styleElement, 'nonce', this.config?.csp()?.nonce);
                 this.renderer.appendChild(this.document.head, this.styleElement);
 
                 let innerHTML = `
@@ -1641,12 +1642,12 @@ export class PickList implements AfterViewChecked, AfterContentInit {
                     }
 
                     .p-picklist[${this.id}] .p-picklist-buttons .p-button {
-                        margin-right: var(--inline-spacing);
+                        margin-inline-end: var(--inline-spacing);
                         margin-bottom: 0;
                     }
 
                     .p-picklist[${this.id}] .p-picklist-buttons .p-button:last-child {
-                        margin-right: 0;
+                        margin-inline-end: 0;
                     }
                 }`;
 

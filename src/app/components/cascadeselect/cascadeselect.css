@@ -42,7 +42,7 @@
     }
 
     .p-cascadeselect-group-icon {
-        margin-left: auto;
+        margin-inline-start: auto;
         display: inline-flex;
     }
 
@@ -73,7 +73,7 @@
 
     .p-cascadeselect-item-active > .p-cascadeselect-sublist {
         display: block;
-        left: 100%;
+        inset-inline-start: 100%;
         top: 0;
     }
 
@@ -94,6 +94,6 @@
     }
 
     .p-overlay-modal .p-cascadeselect-item-active > .p-cascadeselect-sublist {
-        left: 0;
+        inset-inline-start: 0;
     }
 }

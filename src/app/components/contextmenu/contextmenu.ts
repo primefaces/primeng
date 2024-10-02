@@ -119,7 +119,7 @@ import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
                                 <span class="p-menuitem-badge" *ngIf="getItemProp(processedItem, 'badge')" [ngClass]="getItemProp(processedItem, 'badgeStyleClass')">{{ getItemProp(processedItem, 'badge') }}</span>
 
                                 <ng-container *ngIf="isItemGroup(processedItem)">
-                                    <AngleRightIcon *ngIf="!contextMenu.submenuIconTemplate" [styleClass]="'p-submenu-icon'" [attr.data-pc-section]="'submenuicon'" />
+                                    <AngleRightIcon *ngIf="!contextMenu.submenuIconTemplate" [styleClass]="'p-submenu-icon p-rtl-flip-icon'" [attr.data-pc-section]="'submenuicon'" />
                                     <ng-template *ngTemplateOutlet="contextMenu.submenuIconTemplate" [attr.data-pc-section]="'submenuicon'"></ng-template>
                                 </ng-container>
                             </a>
@@ -160,7 +160,7 @@ import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
                                 <span class="p-menuitem-badge" *ngIf="getItemProp(processedItem, 'badge')" [ngClass]="getItemProp(processedItem, 'badgeStyleClass')">{{ getItemProp(processedItem, 'badge') }}</span>
 
                                 <ng-container *ngIf="isItemGroup(processedItem)">
-                                    <AngleRightIcon *ngIf="!contextMenu.submenuIconTemplate" [styleClass]="'p-submenu-icon'" [attr.data-pc-section]="'submenuicon'" />
+                                    <AngleRightIcon *ngIf="!contextMenu.submenuIconTemplate" [styleClass]="'p-submenu-icon p-rtl-flip-icon'" [attr.data-pc-section]="'submenuicon'" />
                                     <ng-template *ngTemplateOutlet="contextMenu.submenuIconTemplate" [attr.data-pc-section]="'submenuicon'"></ng-template>
                                 </ng-container>
                             </a>
@@ -239,7 +239,8 @@ export class ContextMenuSub {
         public renderer: Renderer2,
         private cd: ChangeDetectorRef,
         @Inject(forwardRef(() => ContextMenu)) public contextMenu: ContextMenu,
-        private ref: ViewContainerRef
+        private ref: ViewContainerRef,
+        private domHandler: DomHandler
     ) {}
 
     getItemProp(processedItem: any, name: string, params: any | null = null) {
@@ -325,17 +326,17 @@ export class ContextMenuSub {
 
     position(sublist) {
         const parentItem = sublist.parentElement.parentElement;
-        const containerOffset = DomHandler.getOffset(sublist.parentElement.parentElement);
-        const viewport = DomHandler.getViewport();
-        const sublistWidth = sublist.offsetParent ? sublist.offsetWidth : DomHandler.getHiddenElementOuterWidth(sublist);
-        const itemOuterWidth = DomHandler.getOuterWidth(parentItem.children[0]);
+        const containerOffset = this.domHandler.getOffset(sublist.parentElement.parentElement);
+        const viewport = this.domHandler.getViewport();
+        const sublistWidth = sublist.offsetParent ? sublist.offsetWidth : this.domHandler.getHiddenElementOuterWidth(sublist);
+        const itemOuterWidth = this.domHandler.getOuterWidth(parentItem.children[0]);
 
         sublist.style.top = '0px';
 
-        if (parseInt(containerOffset.left, 10) + itemOuterWidth + sublistWidth > viewport.width - DomHandler.calculateScrollbarWidth()) {
-            sublist.style.left = -1 * sublistWidth + 'px';
+        if (parseInt(containerOffset.left, 10) + itemOuterWidth + sublistWidth > viewport.width - this.domHandler.calculateScrollbarWidth()) {
+            sublist.style.insetInlineStart = -1 * sublistWidth + 'px';
         } else {
-            sublist.style.left = itemOuterWidth + 'px';
+            sublist.style.insetInlineStart = itemOuterWidth + 'px';
         }
     }
 }
@@ -549,7 +550,8 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
         public renderer: Renderer2,
         public cd: ChangeDetectorRef,
         public config: PrimeNGConfig,
-        public overlayService: OverlayService
+        public overlayService: OverlayService,
+        private domHandler: DomHandler
     ) {
         this.window = this.document.defaultView as Window;
         effect(() => {
@@ -569,7 +571,7 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
     }
 
     isMobile() {
-        return DomHandler.isIOS() || DomHandler.isAndroid();
+        return this.domHandler.isIOS() || this.domHandler.isAndroid();
     }
 
     bindTriggerEventListener() {
@@ -716,7 +718,7 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
             this.activeItemPath.set(this.activeItemPath().filter((p) => key !== p.key && key.startsWith(p.key)));
             this.focusedItemInfo.set({ index, level, parentKey, item });
 
-            DomHandler.focus(this.rootmenu.sublistViewChild.nativeElement);
+            this.domHandler.focus(this.rootmenu.sublistViewChild.nativeElement);
         } else {
             grouped ? this.onItemChange(event) : this.hide();
         }
@@ -880,8 +882,8 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
 
     onEnterKey(event: KeyboardEvent) {
         if (this.focusedItemInfo().index !== -1) {
-            const element = DomHandler.findSingle(this.rootmenu.el.nativeElement, `li[id="${`${this.focusedItemId}`}"]`);
-            const anchorElement = element && DomHandler.findSingle(element, 'a[data-pc-section="action"]');
+            const element = this.domHandler.findSingle(this.rootmenu.el.nativeElement, `li[id="${`${this.focusedItemId}`}"]`);
+            const anchorElement = element && this.domHandler.findSingle(element, 'a[data-pc-section="action"]');
 
             anchorElement ? anchorElement.click() : element && element.click();
 
@@ -912,7 +914,7 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
         this.focusedItemInfo.set({ index, level, parentKey, item: processedItem.item });
         this.activeItemPath.set(activeItemPath);
 
-        isFocus && DomHandler.focus(this.rootmenu.sublistViewChild.nativeElement);
+        isFocus && this.domHandler.focus(this.rootmenu.sublistViewChild.nativeElement);
     }
 
     onMenuFocus(event: any) {
@@ -936,7 +938,7 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
                 this.moveOnTop();
                 this.appendOverlay();
                 this.bindGlobalListeners();
-                DomHandler.focus(this.rootmenu.sublistViewChild.nativeElement);
+                this.domHandler.focus(this.rootmenu.sublistViewChild.nativeElement);
                 break;
         }
     }
@@ -952,7 +954,7 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
     appendOverlay() {
         if (this.appendTo) {
             if (this.appendTo === 'body') this.renderer.appendChild(this.document.body, this.containerViewChild.nativeElement);
-            else DomHandler.appendChild(this.containerViewChild.nativeElement, this.appendTo);
+            else this.domHandler.appendChild(this.containerViewChild.nativeElement, this.appendTo);
         }
     }
 
@@ -1001,7 +1003,7 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
         this.activeItemPath.set([]);
         this.focusedItemInfo.set({ index: -1, level: 0, parentKey: '', item: null });
 
-        this.pageX = event.pageX;
+        this.pageX = this.domHandler.getPageX(event);
         this.pageY = event.pageY;
 
         this.onShow.emit();
@@ -1014,12 +1016,12 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
     position() {
         let left = this.pageX + 1;
         let top = this.pageY + 1;
-        let width = this.containerViewChild.nativeElement.offsetParent ? this.containerViewChild.nativeElement.offsetWidth : DomHandler.getHiddenElementOuterWidth(this.containerViewChild.nativeElement);
-        let height = this.containerViewChild.nativeElement.offsetParent ? this.containerViewChild.nativeElement.offsetHeight : DomHandler.getHiddenElementOuterHeight(this.containerViewChild.nativeElement);
-        let viewport = DomHandler.getViewport();
+        let width = this.containerViewChild.nativeElement.offsetParent ? this.containerViewChild.nativeElement.offsetWidth : this.domHandler.getHiddenElementOuterWidth(this.containerViewChild.nativeElement);
+        let height = this.containerViewChild.nativeElement.offsetParent ? this.containerViewChild.nativeElement.offsetHeight : this.domHandler.getHiddenElementOuterHeight(this.containerViewChild.nativeElement);
+        let viewport = this.domHandler.getViewport();
 
         //flip
-        if (left + width - this.document.scrollingElement.scrollLeft > viewport.width) {
+        if (left + width - this.domHandler.getScrollLeft(this.document.scrollingElement) > viewport.width) {
             left -= width;
         }
 
@@ -1029,8 +1031,8 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
         }
 
         //fit
-        if (left < this.document.scrollingElement.scrollLeft) {
-            left = this.document.scrollingElement.scrollLeft;
+        if (left < this.domHandler.getScrollLeft(this.document.scrollingElement)) {
+            left = this.domHandler.getScrollLeft(this.document.scrollingElement);
         }
 
         //fit
@@ -1038,7 +1040,7 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
             top = this.document.scrollingElement.scrollTop;
         }
 
-        this.containerViewChild.nativeElement.style.left = left + 'px';
+        this.containerViewChild.nativeElement.style.insetInlineStart = left + 'px';
         this.containerViewChild.nativeElement.style.top = top + 'px';
     }
 
@@ -1129,7 +1131,7 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
 
     scrollInView(index: number = -1) {
         const id = index !== -1 ? `${this.id}_${index}` : this.focusedItemId;
-        const element = DomHandler.findSingle(this.rootmenu.el.nativeElement, `li[id="${id}"]`);
+        const element = this.domHandler.findSingle(this.rootmenu.el.nativeElement, `li[id="${id}"]`);
 
         if (element) {
             element.scrollIntoView && element.scrollIntoView({ block: 'nearest', inline: 'nearest' });
@@ -1191,7 +1193,7 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
             if (this.appendTo === 'body') {
                 this.renderer.removeChild(this.document.body, this.containerViewChild.nativeElement);
             } else {
-                DomHandler.removeChild(this.containerViewChild.nativeElement, this.appendTo);
+                this.domHandler.removeChild(this.containerViewChild.nativeElement, this.appendTo);
             }
         }
     }

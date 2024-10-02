@@ -507,9 +507,11 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
     constructor(
         @Inject(DOCUMENT) private document: Document,
         @Inject(PLATFORM_ID) private platformId: any,
+        private el: ElementRef,
         private renderer: Renderer2,
         private cd: ChangeDetectorRef,
-        private zone: NgZone
+        private zone: NgZone,
+        private domHandler: DomHandler
     ) {}
 
     ngOnInit() {
@@ -610,16 +612,16 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
 
     viewInit() {
         if (isPlatformBrowser(this.platformId) && !this.initialized) {
-            if (DomHandler.isVisible(this.elementViewChild?.nativeElement)) {
+            if (this.domHandler.isVisible(this.elementViewChild?.nativeElement)) {
                 this.setInitialState();
                 this.setContentEl(this.contentEl);
                 this.init();
                 this.calculateAutoSize();
 
-                this.defaultWidth = DomHandler.getWidth(this.elementViewChild?.nativeElement);
-                this.defaultHeight = DomHandler.getHeight(this.elementViewChild?.nativeElement);
-                this.defaultContentWidth = DomHandler.getWidth(this.contentEl);
-                this.defaultContentHeight = DomHandler.getHeight(this.contentEl);
+                this.defaultWidth = this.domHandler.getWidth(this.elementViewChild?.nativeElement);
+                this.defaultHeight = this.domHandler.getHeight(this.elementViewChild?.nativeElement);
+                this.defaultContentWidth = this.domHandler.getWidth(this.contentEl);
+                this.defaultContentHeight = this.domHandler.getHeight(this.contentEl);
                 this.resizeObserver = new ResizeObserver(() => this.onResize());
                 this.resizeObserver.observe(this.elementViewChild?.nativeElement);
                 this.initialized = true;
@@ -638,7 +640,7 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
     }
 
     setContentEl(el?: HTMLElement) {
-        this.contentEl = el || this.contentViewChild?.nativeElement || DomHandler.findSingle(this.elementViewChild?.nativeElement, '.p-scroller-content');
+        this.contentEl = el || this.contentViewChild?.nativeElement || this.domHandler.findSingle(this.elementViewChild?.nativeElement, '.p-scroller-content');
     }
 
     setInitialState() {
@@ -675,7 +677,8 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
 
         if (valid) {
             const first = this.first;
-            const { scrollTop = 0, scrollLeft = 0 } = this.elementViewChild?.nativeElement;
+            const scrollTop = this.elementViewChild?.nativeElement.scrollTop ?? 0;
+            const scrollLeft = this.domHandler.getScrollLeft(this.elementViewChild?.nativeElement) ?? 0;
             const { numToleratedItems } = this.calculateNumItems();
             const contentPos = this.getContentPosition();
             const itemSize = this.itemSize;
@@ -749,7 +752,8 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
         let lastInViewport: any = 0;
 
         if (this.elementViewChild?.nativeElement) {
-            const { scrollTop, scrollLeft } = this.elementViewChild.nativeElement;
+            const scrollTop = this.elementViewChild.nativeElement.scrollTop;
+            const scrollLeft = this.domHandler.getScrollLeft(this.elementViewChild.nativeElement);
 
             if (this.both) {
                 firstInViewport = { rows: calculateFirstInViewport(scrollTop, (<number[]>this._itemSize)[0]), cols: calculateFirstInViewport(scrollLeft, (<number[]>this._itemSize)[1]) };
@@ -822,11 +826,11 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
                     this.contentEl.style.position = 'relative';
                     (<ElementRef>this.elementViewChild).nativeElement.style.contain = 'none';
 
-                    const [contentWidth, contentHeight] = [DomHandler.getWidth(this.contentEl), DomHandler.getHeight(this.contentEl)];
+                    const [contentWidth, contentHeight] = [this.domHandler.getWidth(this.contentEl), this.domHandler.getHeight(this.contentEl)];
                     contentWidth !== this.defaultContentWidth && ((<ElementRef>this.elementViewChild).nativeElement.style.width = '');
                     contentHeight !== this.defaultContentHeight && ((<ElementRef>this.elementViewChild).nativeElement.style.height = '');
 
-                    const [width, height] = [DomHandler.getWidth((<ElementRef>this.elementViewChild).nativeElement), DomHandler.getHeight((<ElementRef>this.elementViewChild).nativeElement)];
+                    const [width, height] = [this.domHandler.getWidth((<ElementRef>this.elementViewChild).nativeElement), this.domHandler.getHeight((<ElementRef>this.elementViewChild).nativeElement)];
                     (this.both || this.horizontal) && ((<ElementRef>this.elementViewChild).nativeElement.style.width = width < <number>this.defaultWidth ? width + 'px' : this._scrollWidth || this.defaultWidth + 'px');
                     (this.both || this.vertical) && ((<ElementRef>this.elementViewChild).nativeElement.style.height = height < <number>this.defaultHeight ? height + 'px' : this._scrollHeight || this.defaultHeight + 'px');
 
@@ -845,8 +849,8 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
     getContentPosition() {
         if (this.contentEl) {
             const style = getComputedStyle(this.contentEl);
-            const left = parseFloat(style.paddingLeft) + Math.max(parseFloat(style.left) || 0, 0);
-            const right = parseFloat(style.paddingRight) + Math.max(parseFloat(style.right) || 0, 0);
+            const left = parseFloat(style.paddingInlineStart) + Math.max(parseFloat(style.insetInlineStart) || 0, 0);
+            const right = parseFloat(style.paddingInlineEnd) + Math.max(parseFloat(style.insetInlineEnd) || 0, 0);
             const top = parseFloat(style.paddingTop) + Math.max(parseFloat(style.top) || 0, 0);
             const bottom = parseFloat(style.paddingBottom) + Math.max(parseFloat(style.bottom) || 0, 0);
 
@@ -891,7 +895,7 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
         if (this.contentEl && !this._appendOnly) {
             const first = pos ? pos.first : this.first;
             const calculateTranslateVal = (_first: number, _size: number) => _first * _size;
-            const setTransform = (_x = 0, _y = 0) => (this.contentStyle = { ...this.contentStyle, ...{ transform: `translate3d(${_x}px, ${_y}px, 0)` } });
+            const setTransform = (_x = 0, _y = 0) => (this.contentStyle = { ...this.contentStyle, ...{ transform: this.domHandler.isRtl() ? `translate3d(${-_x}px, ${_y}px, 0)` : `translate3d(${_x}px, ${_y}px, 0)` } });
 
             if (this.both) {
                 setTransform(calculateTranslateVal(first.cols, (<number[]>this._itemSize)[1]), calculateTranslateVal(first.rows, (<number[]>this._itemSize)[0]));
@@ -925,7 +929,7 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
         };
 
         const scrollTop = calculateScrollPos((<HTMLElement>target).scrollTop, contentPos.top);
-        const scrollLeft = calculateScrollPos((<HTMLElement>target).scrollLeft, contentPos.left);
+        const scrollLeft = calculateScrollPos(this.domHandler.getScrollLeft(<HTMLElement>target), contentPos.left);
 
         let newFirst = this.both ? { rows: 0, cols: 0 } : 0;
         let newLast = this.last;
@@ -1051,8 +1055,8 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
         }
 
         this.resizeTimeout = setTimeout(() => {
-            if (DomHandler.isVisible(this.elementViewChild?.nativeElement)) {
-                const [width, height] = [DomHandler.getWidth(this.elementViewChild?.nativeElement), DomHandler.getHeight(this.elementViewChild?.nativeElement)];
+            if (this.domHandler.isVisible(this.elementViewChild?.nativeElement)) {
+                const [width, height] = [this.domHandler.getWidth(this.elementViewChild?.nativeElement), this.domHandler.getHeight(this.elementViewChild?.nativeElement)];
                 const [isDiffWidth, isDiffHeight] = [width !== this.defaultWidth, height !== this.defaultHeight];
                 const reinit = this.both ? isDiffWidth || isDiffHeight : this.horizontal ? isDiffWidth : this.vertical ? isDiffHeight : false;
 
@@ -1061,8 +1065,8 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
                         this.d_numToleratedItems = this._numToleratedItems;
                         this.defaultWidth = width;
                         this.defaultHeight = height;
-                        this.defaultContentWidth = DomHandler.getWidth(this.contentEl);
-                        this.defaultContentHeight = DomHandler.getHeight(this.contentEl);
+                        this.defaultContentWidth = this.domHandler.getWidth(this.contentEl);
+                        this.defaultContentHeight = this.domHandler.getHeight(this.contentEl);
 
                         this.init();
                         this.calculateAutoSize();

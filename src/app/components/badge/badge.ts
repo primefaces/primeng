@@ -73,7 +73,8 @@ export class BadgeDirective implements OnChanges, AfterViewInit {
     constructor(
         @Inject(DOCUMENT) private document: Document,
         public el: ElementRef,
-        private renderer: Renderer2
+        private renderer: Renderer2,
+        private domHandler: DomHandler
     ) {}
 
     public ngOnChanges({ value, size, severity, disabled, badgeStyle, badgeStyleClass }: SimpleChanges): void {
@@ -115,21 +116,21 @@ export class BadgeDirective implements OnChanges, AfterViewInit {
         }
 
         if (this.value != null) {
-            if (DomHandler.hasClass(badge, 'p-badge-dot')) {
-                DomHandler.removeClass(badge, 'p-badge-dot');
+            if (this.domHandler.hasClass(badge, 'p-badge-dot')) {
+                this.domHandler.removeClass(badge, 'p-badge-dot');
             }
 
             if (this.value && String(this.value).length === 1) {
-                DomHandler.addClass(badge, 'p-badge-no-gutter');
+                this.domHandler.addClass(badge, 'p-badge-no-gutter');
             } else {
-                DomHandler.removeClass(badge, 'p-badge-no-gutter');
+                this.domHandler.removeClass(badge, 'p-badge-no-gutter');
             }
         } else {
-            if (!DomHandler.hasClass(badge, 'p-badge-dot')) {
-                DomHandler.addClass(badge, 'p-badge-dot');
+            if (!this.domHandler.hasClass(badge, 'p-badge-dot')) {
+                this.domHandler.addClass(badge, 'p-badge-dot');
             }
 
-            DomHandler.removeClass(badge, 'p-badge-no-gutter');
+            this.domHandler.removeClass(badge, 'p-badge-no-gutter');
         }
 
         badge.innerHTML = '';
@@ -146,27 +147,27 @@ export class BadgeDirective implements OnChanges, AfterViewInit {
 
         if (this.badgeSize) {
             if (this.badgeSize === 'large') {
-                DomHandler.addClass(badge, 'p-badge-lg');
-                DomHandler.removeClass(badge, 'p-badge-xl');
+                this.domHandler.addClass(badge, 'p-badge-lg');
+                this.domHandler.removeClass(badge, 'p-badge-xl');
             }
 
             if (this.badgeSize === 'xlarge') {
-                DomHandler.addClass(badge, 'p-badge-xl');
-                DomHandler.removeClass(badge, 'p-badge-lg');
+                this.domHandler.addClass(badge, 'p-badge-xl');
+                this.domHandler.removeClass(badge, 'p-badge-lg');
             }
         } else if (this.size && !this.badgeSize) {
             if (this.size === 'large') {
-                DomHandler.addClass(badge, 'p-badge-lg');
-                DomHandler.removeClass(badge, 'p-badge-xl');
+                this.domHandler.addClass(badge, 'p-badge-lg');
+                this.domHandler.removeClass(badge, 'p-badge-xl');
             }
 
             if (this.size === 'xlarge') {
-                DomHandler.addClass(badge, 'p-badge-xl');
-                DomHandler.removeClass(badge, 'p-badge-lg');
+                this.domHandler.addClass(badge, 'p-badge-xl');
+                this.domHandler.removeClass(badge, 'p-badge-lg');
             }
         } else {
-            DomHandler.removeClass(badge, 'p-badge-lg');
-            DomHandler.removeClass(badge, 'p-badge-xl');
+            this.domHandler.removeClass(badge, 'p-badge-lg');
+            this.domHandler.removeClass(badge, 'p-badge-xl');
         }
     }
 
@@ -183,7 +184,7 @@ export class BadgeDirective implements OnChanges, AfterViewInit {
         this.setSeverity(null, badge);
         this.setSizeClasses(badge);
         this.setValue(badge);
-        DomHandler.addClass(el, 'p-overlay-badge');
+        this.domHandler.addClass(el, 'p-overlay-badge');
         this.renderer.appendChild(el, badge);
         this.badgeEl = badge;
         this.applyStyles();
@@ -208,11 +209,11 @@ export class BadgeDirective implements OnChanges, AfterViewInit {
         }
 
         if (this.severity) {
-            DomHandler.addClass(badge, `p-badge-${this.severity}`);
+            this.domHandler.addClass(badge, `p-badge-${this.severity}`);
         }
 
         if (oldSeverity) {
-            DomHandler.removeClass(badge, `p-badge-${oldSeverity}`);
+            this.domHandler.removeClass(badge, `p-badge-${oldSeverity}`);
         }
     }
 

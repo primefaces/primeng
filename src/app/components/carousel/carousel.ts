@@ -57,7 +57,7 @@ import { DomHandler } from 'primeng/dom';
                         pRipple
                     >
                         <ng-container *ngIf="!previousIconTemplate">
-                            <ChevronLeftIcon *ngIf="!isVertical()" [styleClass]="'carousel-prev-icon'" />
+                            <ChevronLeftIcon *ngIf="!isVertical()" [styleClass]="'carousel-prev-icon p-rtl-flip-icon'" />
                             <ChevronUpIcon *ngIf="isVertical()" [styleClass]="'carousel-prev-icon'" />
                         </ng-container>
                         <span *ngIf="previousIconTemplate" class="p-carousel-prev-icon">
@@ -112,7 +112,7 @@ import { DomHandler } from 'primeng/dom';
                         [attr.aria-label]="ariaNextButtonLabel()"
                     >
                         <ng-container *ngIf="!nextIconTemplate">
-                            <ChevronRightIcon *ngIf="!isVertical()" [styleClass]="'carousel-prev-icon'" />
+                            <ChevronRightIcon *ngIf="!isVertical()" [styleClass]="'carousel-prev-icon p-rtl-flip-icon'" />
                             <ChevronDownIcon *ngIf="isVertical()" [styleClass]="'carousel-prev-icon'" />
                         </ng-container>
                         <span *ngIf="nextIconTemplate" class="p-carousel-prev-icon">
@@ -364,7 +364,8 @@ export class Carousel implements AfterContentInit {
         private renderer: Renderer2,
         @Inject(DOCUMENT) private document: Document,
         @Inject(PLATFORM_ID) private platformId: any,
-        private config: PrimeNGConfig
+        private config: PrimeNGConfig,
+        private domHandler: DomHandler
     ) {
         this.totalShiftedItems = this.page * this.numScroll * -1;
         this.window = this.document.defaultView as Window;
@@ -497,7 +498,7 @@ export class Carousel implements AfterContentInit {
                 this.prevState.value = [...(this._value as any[])];
 
                 if (this.totalDots() > 0 && this.itemsContainer.nativeElement) {
-                    this.itemsContainer.nativeElement.style.transform = this.isVertical() ? `translate3d(0, ${totalShiftedItems * (100 / this._numVisible)}%, 0)` : `translate3d(${totalShiftedItems * (100 / this._numVisible)}%, 0, 0)`;
+                    this.itemsContainer.nativeElement.style.transform = this.isVertical() ? `translate3d(0, ${totalShiftedItems * (100 / this._numVisible)}%, 0)` : `translate3d(${(this.domHandler.isRtl() ? -1 : 1) * totalShiftedItems * (100 / this._numVisible)}%, 0, 0)`;
                 }
 
                 this.isCreated = true;
@@ -528,7 +529,7 @@ export class Carousel implements AfterContentInit {
         if (!this.carouselStyle) {
             this.carouselStyle = this.renderer.createElement('style');
             this.carouselStyle.type = 'text/css';
-            DomHandler.setAttribute(this.carouselStyle, 'nonce', this.config?.csp()?.nonce);
+            this.domHandler.setAttribute(this.carouselStyle, 'nonce', this.config?.csp()?.nonce);
             this.renderer.appendChild(this.document.head, this.carouselStyle);
         }
 
@@ -720,7 +721,7 @@ export class Carousel implements AfterContentInit {
     }
 
     onRightKey() {
-        const indicators = [...DomHandler.find(this.indicatorContent.nativeElement, '[data-pc-section="indicator"]')];
+        const indicators = [...this.domHandler.find(this.indicatorContent.nativeElement, '[data-pc-section="indicator"]')];
         const activeIndex = this.findFocusedIndicatorIndex();
 
         this.changedFocusedIndicator(activeIndex, activeIndex + 1 === indicators.length ? indicators.length - 1 : activeIndex + 1);
@@ -738,17 +739,17 @@ export class Carousel implements AfterContentInit {
     }
 
     onEndKey() {
-        const indicators = [...DomHandler.find(this.indicatorContent.nativeElement, '[data-pc-section="indicator"]r')];
+        const indicators = [...this.domHandler.find(this.indicatorContent.nativeElement, '[data-pc-section="indicator"]r')];
         const activeIndex = this.findFocusedIndicatorIndex();
 
         this.changedFocusedIndicator(activeIndex, indicators.length - 1);
     }
 
     onTabKey() {
-        const indicators = [...DomHandler.find(this.indicatorContent.nativeElement, '[data-pc-section="indicator"]')];
-        const highlightedIndex = indicators.findIndex((ind) => DomHandler.getAttribute(ind, 'data-p-highlight') === true);
+        const indicators = [...this.domHandler.find(this.indicatorContent.nativeElement, '[data-pc-section="indicator"]')];
+        const highlightedIndex = indicators.findIndex((ind) => this.domHandler.getAttribute(ind, 'data-p-highlight') === true);
 
-        const activeIndicator = DomHandler.findSingle(this.indicatorContent.nativeElement, '[data-pc-section="indicator"] > button[tabindex="0"]');
+        const activeIndicator = this.domHandler.findSingle(this.indicatorContent.nativeElement, '[data-pc-section="indicator"] > button[tabindex="0"]');
         const activeIndex = indicators.findIndex((ind) => ind === activeIndicator.parentElement);
 
         indicators[activeIndex].children[0].tabIndex = '-1';
@@ -756,14 +757,14 @@ export class Carousel implements AfterContentInit {
     }
 
     findFocusedIndicatorIndex() {
-        const indicators = [...DomHandler.find(this.indicatorContent.nativeElement, '[data-pc-section="indicator"]')];
-        const activeIndicator = DomHandler.findSingle(this.indicatorContent.nativeElement, '[data-pc-section="indicator"] > button[tabindex="0"]');
+        const indicators = [...this.domHandler.find(this.indicatorContent.nativeElement, '[data-pc-section="indicator"]')];
+        const activeIndicator = this.domHandler.findSingle(this.indicatorContent.nativeElement, '[data-pc-section="indicator"] > button[tabindex="0"]');
 
         return indicators.findIndex((ind) => ind === activeIndicator.parentElement);
     }
 
     changedFocusedIndicator(prevInd, nextInd) {
-        const indicators = [...DomHandler.find(this.indicatorContent.nativeElement, '[data-pc-section="indicator"]')];
+        const indicators = [...this.domHandler.find(this.indicatorContent.nativeElement, '[data-pc-section="indicator"]')];
 
         indicators[prevInd].children[0].tabIndex = '-1';
         indicators[nextInd].children[0].tabIndex = '0';
@@ -805,7 +806,7 @@ export class Carousel implements AfterContentInit {
         }
 
         if (this.itemsContainer) {
-            this.itemsContainer.nativeElement.style.transform = this.isVertical() ? `translate3d(0, ${totalShiftedItems * (100 / this._numVisible)}%, 0)` : `translate3d(${totalShiftedItems * (100 / this._numVisible)}%, 0, 0)`;
+            this.itemsContainer.nativeElement.style.transform = this.isVertical() ? `translate3d(0, ${totalShiftedItems * (100 / this._numVisible)}%, 0)` : `translate3d(${(this.domHandler.isRtl() ? -1 : 1) * totalShiftedItems * (100 / this._numVisible)}%, 0, 0)`;
             this.itemsContainer.nativeElement.style.transition = 'transform 500ms ease 0s';
         }
 
@@ -851,7 +852,7 @@ export class Carousel implements AfterContentInit {
             this.itemsContainer.nativeElement.style.transition = '';
 
             if ((this.page === 0 || this.page === this.totalDots() - 1) && this.isCircular()) {
-                this.itemsContainer.nativeElement.style.transform = this.isVertical() ? `translate3d(0, ${this.totalShiftedItems * (100 / this._numVisible)}%, 0)` : `translate3d(${this.totalShiftedItems * (100 / this._numVisible)}%, 0, 0)`;
+                this.itemsContainer.nativeElement.style.transform = this.isVertical() ? `translate3d(0, ${this.totalShiftedItems * (100 / this._numVisible)}%, 0)` : `translate3d(${(this.domHandler.isRtl() ? -1 : 1) * this.totalShiftedItems * (100 / this._numVisible)}%, 0, 0)`;
             }
         }
     }
@@ -860,7 +861,7 @@ export class Carousel implements AfterContentInit {
         let touchobj = e.changedTouches[0];
 
         this.startPos = {
-            x: touchobj.pageX,
+            x: this.domHandler.getPageX(touchobj),
             y: touchobj.pageY
         };
     }
@@ -876,7 +877,7 @@ export class Carousel implements AfterContentInit {
         if (this.isVertical()) {
             this.changePageOnTouch(e, touchobj.pageY - this.startPos.y);
         } else {
-            this.changePageOnTouch(e, touchobj.pageX - this.startPos.x);
+            this.changePageOnTouch(e, this.domHandler.getPageX(touchobj) - this.startPos.x);
         }
     }
 

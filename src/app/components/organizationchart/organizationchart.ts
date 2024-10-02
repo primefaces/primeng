@@ -252,7 +252,8 @@ export class OrganizationChart implements AfterContentInit {
 
     constructor(
         public el: ElementRef,
-        public cd: ChangeDetectorRef
+        public cd: ChangeDetectorRef,
+        private domHandler: DomHandler
     ) {}
 
     get root(): TreeNode<any> | null {
@@ -283,7 +284,7 @@ export class OrganizationChart implements AfterContentInit {
     onNodeClick(event: Event, node: TreeNode) {
         let eventTarget = <Element>event.target;
 
-        if (eventTarget.className && (DomHandler.hasClass(eventTarget, 'p-node-toggler') || DomHandler.hasClass(eventTarget, 'p-node-toggler-icon'))) {
+        if (eventTarget.className && (this.domHandler.hasClass(eventTarget, 'p-node-toggler') || this.domHandler.hasClass(eventTarget, 'p-node-toggler-icon'))) {
             return;
         } else if (this.selectionMode) {
             if (node.selectable === false) {

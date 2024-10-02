@@ -48,7 +48,7 @@ export const SLIDER_VALUE_ACCESSOR: any = {
             <span
                 *ngIf="range && orientation == 'horizontal'"
                 class="p-slider-range"
-                [ngStyle]="{ left: offset !== null && offset !== undefined ? offset + '%' : handleValues[0] + '%', width: diff ? diff + '%' : handleValues[1] - handleValues[0] + '%' }"
+                [ngStyle]="{ 'inset-inline-start': offset !== null && offset !== undefined ? offset + '%' : handleValues[0] + '%', width: diff ? diff + '%' : handleValues[1] - handleValues[0] + '%' }"
                 [attr.data-pc-section]="'range'"
             ></span>
             <span
@@ -64,7 +64,7 @@ export const SLIDER_VALUE_ACCESSOR: any = {
                 #sliderHandle
                 class="p-slider-handle"
                 [style.transition]="dragging ? 'none' : null"
-                [ngStyle]="{ left: orientation == 'horizontal' ? handleValue + '%' : null, bottom: orientation == 'vertical' ? handleValue + '%' : null }"
+                [ngStyle]="{ 'inset-inline-start': orientation == 'horizontal' ? handleValue + '%' : null, bottom: orientation == 'vertical' ? handleValue + '%' : null }"
                 (touchstart)="onDragStart($event)"
                 (touchmove)="onDrag($event)"
                 (touchend)="onDragEnd($event)"
@@ -87,7 +87,7 @@ export const SLIDER_VALUE_ACCESSOR: any = {
                 #sliderHandleStart
                 [style.transition]="dragging ? 'none' : null"
                 class="p-slider-handle"
-                [ngStyle]="{ left: rangeStartLeft, bottom: rangeStartBottom }"
+                [ngStyle]="{ 'inset-inline-start': rangeStartLeft, bottom: rangeStartBottom }"
                 [ngClass]="{ 'p-slider-handle-active': handleIndex == 0 }"
                 (keydown)="onKeyDown($event, 0)"
                 (mousedown)="onMouseDown($event, 0)"
@@ -111,7 +111,7 @@ export const SLIDER_VALUE_ACCESSOR: any = {
                 #sliderHandleEnd
                 [style.transition]="dragging ? 'none' : null"
                 class="p-slider-handle"
-                [ngStyle]="{ left: rangeEndLeft, bottom: rangeEndBottom }"
+                [ngStyle]="{ 'inset-inline-start': rangeEndLeft, bottom: rangeEndBottom }"
                 [ngClass]="{ 'p-slider-handle-active': handleIndex == 1 }"
                 (keydown)="onKeyDown($event, 1)"
                 (mousedown)="onMouseDown($event, 1)"
@@ -271,7 +271,8 @@ export class Slider implements OnDestroy, ControlValueAccessor {
         public el: ElementRef,
         public renderer: Renderer2,
         private ngZone: NgZone,
-        public cd: ChangeDetectorRef
+        public cd: ChangeDetectorRef,
+        private domHandler: DomHandler
     ) {}
 
     onMouseDown(event: Event, index?: number) {
@@ -293,7 +294,7 @@ export class Slider implements OnDestroy, ControlValueAccessor {
         event.preventDefault();
 
         if (this.animate) {
-            DomHandler.removeClass(this.el.nativeElement.children[0], 'p-slider-animate');
+            this.domHandler.removeClass(this.el.nativeElement.children[0], 'p-slider-animate');
         }
     }
 
@@ -312,7 +313,7 @@ export class Slider implements OnDestroy, ControlValueAccessor {
         }
 
         if (this.orientation === 'horizontal') {
-            this.startx = parseInt((touchobj as any).clientX, 10);
+            this.startx = parseInt(this.domHandler.getClientX(touchobj), 10);
             this.barWidth = this.el.nativeElement.children[0].offsetWidth;
         } else {
             this.starty = parseInt((touchobj as any).clientY, 10);
@@ -320,7 +321,7 @@ export class Slider implements OnDestroy, ControlValueAccessor {
         }
 
         if (this.animate) {
-            DomHandler.removeClass(this.el.nativeElement.children[0], 'p-slider-animate');
+            this.domHandler.removeClass(this.el.nativeElement.children[0], 'p-slider-animate');
         }
 
         event.preventDefault();
@@ -335,7 +336,7 @@ export class Slider implements OnDestroy, ControlValueAccessor {
             handleValue = 0;
 
         if (this.orientation === 'horizontal') {
-            handleValue = Math.floor(((parseInt((touchobj as any).clientX, 10) - (this.startx as number)) * 100) / (this.barWidth as number)) + this.startHandleValue;
+            handleValue = Math.floor(((parseInt(this.domHandler.getClientX(touchobj), 10) - (this.startx as number)) * 100) / (this.barWidth as number)) + this.startHandleValue;
         } else {
             handleValue = Math.floor((((this.starty as number) - parseInt((touchobj as any).clientY, 10)) * 100) / (this.barHeight as number)) + this.startHandleValue;
         }
@@ -356,7 +357,7 @@ export class Slider implements OnDestroy, ControlValueAccessor {
         else this.onSlideEnd.emit({ originalEvent: event, value: this.value as number });
 
         if (this.animate) {
-            DomHandler.addClass(this.el.nativeElement.children[0], 'p-slider-animate');
+            this.domHandler.addClass(this.el.nativeElement.children[0], 'p-slider-animate');
         }
     }
 
@@ -482,7 +483,7 @@ export class Slider implements OnDestroy, ControlValueAccessor {
                                 else this.onSlideEnd.emit({ originalEvent: event, value: this.value as number });
 
                                 if (this.animate) {
-                                    DomHandler.addClass(this.el.nativeElement.children[0], 'p-slider-animate');
+                                    this.domHandler.addClass(this.el.nativeElement.children[0], 'p-slider-animate');
                                 }
                             });
                         }
@@ -585,15 +586,15 @@ export class Slider implements OnDestroy, ControlValueAccessor {
     }
 
     updateDomData(): void {
-        let rect = this.el.nativeElement.children[0].getBoundingClientRect();
-        this.initX = rect.left + DomHandler.getWindowScrollLeft();
-        this.initY = rect.top + DomHandler.getWindowScrollTop();
+        let rect = this.domHandler.getBoundingClientRect(this.el.nativeElement.children[0]);
+        this.initX = rect.left + this.domHandler.getWindowScrollLeft();
+        this.initY = rect.top + this.domHandler.getWindowScrollTop();
         this.barWidth = this.el.nativeElement.children[0].offsetWidth;
         this.barHeight = this.el.nativeElement.children[0].offsetHeight;
     }
 
     calculateHandleValue(event: Event): number {
-        if (this.orientation === 'horizontal') return (((event as MouseEvent).pageX - (this.initX as number)) * 100) / (this.barWidth as number);
+        if (this.orientation === 'horizontal') return ((this.domHandler.getPageX(event as MouseEvent) - (this.initX as number)) * 100) / (this.barWidth as number);
         else return (((this.initY as number) + (this.barHeight as number) - (event as MouseEvent).pageY) * 100) / (this.barHeight as number);
     }
 

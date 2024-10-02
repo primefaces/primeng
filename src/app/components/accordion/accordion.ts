@@ -59,7 +59,7 @@ import { UniqueComponentId } from 'primeng/utils';
                         </ng-container>
                         <ng-container *ngIf="!selected">
                             <span *ngIf="accordion.expandIcon" [class]="accordion.expandIcon" [ngClass]="iconClass" [attr.aria-hidden]="true"></span>
-                            <ChevronRightIcon *ngIf="!accordion.expandIcon" [ngClass]="iconClass" [attr.aria-hidden]="true" />
+                            <ChevronRightIcon *ngIf="!accordion.expandIcon" [ngClass]="iconClass" [styleClass]="'p-rtl-flip-icon'" [attr.aria-hidden]="true" />
                         </ng-container>
                     </ng-container>
                     <ng-template *ngTemplateOutlet="iconTemplate; context: { $implicit: selected }"></ng-template>
@@ -443,7 +443,8 @@ export class Accordion implements BlockableUI, AfterContentInit, OnDestroy {
 
     constructor(
         public el: ElementRef,
-        public changeDetector: ChangeDetectorRef
+        public changeDetector: ChangeDetectorRef,
+        private domHandler: DomHandler
     ) {}
 
     @HostListener('keydown', ['$event'])
@@ -501,7 +502,7 @@ export class Accordion implements BlockableUI, AfterContentInit, OnDestroy {
 
     changeFocusedTab(element) {
         if (element) {
-            DomHandler.focus(element);
+            this.domHandler.focus(element);
 
             if (this.selectOnFocus) {
                 this.tabs.forEach((tab, i) => {
@@ -538,16 +539,16 @@ export class Accordion implements BlockableUI, AfterContentInit, OnDestroy {
 
     findNextHeaderAction(tabElement, selfCheck = false) {
         const nextTabElement = selfCheck ? tabElement : tabElement.nextElementSibling;
-        const headerElement = DomHandler.findSingle(nextTabElement, '[data-pc-section="header"]');
+        const headerElement = this.domHandler.findSingle(nextTabElement, '[data-pc-section="header"]');
 
-        return headerElement ? (DomHandler.getAttribute(headerElement, 'data-p-disabled') ? this.findNextHeaderAction(headerElement.parentElement.parentElement) : DomHandler.findSingle(headerElement, '[data-pc-section="headeraction"]')) : null;
+        return headerElement ? (this.domHandler.getAttribute(headerElement, 'data-p-disabled') ? this.findNextHeaderAction(headerElement.parentElement.parentElement) : this.domHandler.findSingle(headerElement, '[data-pc-section="headeraction"]')) : null;
     }
 
     findPrevHeaderAction(tabElement, selfCheck = false) {
         const prevTabElement = selfCheck ? tabElement : tabElement.previousElementSibling;
-        const headerElement = DomHandler.findSingle(prevTabElement, '[data-pc-section="header"]');
+        const headerElement = this.domHandler.findSingle(prevTabElement, '[data-pc-section="header"]');
 
-        return headerElement ? (DomHandler.getAttribute(headerElement, 'data-p-disabled') ? this.findPrevHeaderAction(headerElement.parentElement.parentElement) : DomHandler.findSingle(headerElement, '[data-pc-section="headeraction"]')) : null;
+        return headerElement ? (this.domHandler.getAttribute(headerElement, 'data-p-disabled') ? this.findPrevHeaderAction(headerElement.parentElement.parentElement) : this.domHandler.findSingle(headerElement, '[data-pc-section="headeraction"]')) : null;
     }
 
     findFirstHeaderAction() {

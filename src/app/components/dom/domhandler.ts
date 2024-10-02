@@ -1,29 +1,26 @@
-/**
- * @dynamic is for runtime initializing DomHandler.browser
- *
- * If delete below comment, we can see this error message:
- *  Metadata collected contains an error that will be reported at runtime:
- *  Only initialized variables and constants can be referenced
- *  because the value of this variable is needed by the template compiler.
- */
-// @dynamic
+import { Directionality } from "@angular/cdk/bidi";
+import { Injectable } from "@angular/core";
+
+@Injectable({ providedIn: "root" })
 export class DomHandler {
-    public static zindex: number = 1000;
+    public zindex: number = 1000;
 
-    private static calculatedScrollbarWidth: number = null;
+    private calculatedScrollbarWidth: number = null;
 
-    private static calculatedScrollbarHeight: number = null;
+    private calculatedScrollbarHeight: number = null;
 
-    private static browser: any;
+    private browser: any;
 
-    public static addClass(element: any, className: string): void {
+    constructor(private dir: Directionality) {}
+
+    public addClass(element: any, className: string): void {
         if (element && className) {
             if (element.classList) element.classList.add(className);
             else element.className += ' ' + className;
         }
     }
 
-    public static addMultipleClasses(element: any, className: string): void {
+    public addMultipleClasses(element: any, className: string): void {
         if (element && className) {
             if (element.classList) {
                 let styles: string[] = className.trim().split(' ');
@@ -39,14 +36,14 @@ export class DomHandler {
         }
     }
 
-    public static removeClass(element: any, className: string): void {
+    public removeClass(element: any, className: string): void {
         if (element && className) {
             if (element.classList) element.classList.remove(className);
             else element.className = element.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
         }
     }
 
-    public static removeMultipleClasses(element, classNames) {
+    public removeMultipleClasses(element, classNames) {
         if (element && classNames) {
             [classNames]
                 .flat()
@@ -55,7 +52,7 @@ export class DomHandler {
         }
     }
 
-    public static hasClass(element: any, className: string): boolean {
+    public hasClass(element: any, className: string): boolean {
         if (element && className) {
             if (element.classList) return element.classList.contains(className);
             else return new RegExp('(^| )' + className + '( |$)', 'gi').test(element.className);
@@ -64,21 +61,21 @@ export class DomHandler {
         return false;
     }
 
-    public static siblings(element: any): any {
+    public siblings(element: any): any {
         return Array.prototype.filter.call(element.parentNode.children, function (child) {
             return child !== element;
         });
     }
 
-    public static find(element: any, selector: string): any[] {
+    public find(element: any, selector: string): any[] {
         return Array.from(element.querySelectorAll(selector));
     }
 
-    public static findSingle(element: any, selector: string): any {
+    public findSingle(element: any, selector: string): any {
         return this.isElement(element) ? element.querySelector(selector) : null;
     }
 
-    public static index(element: any): number {
+    public index(element: any): number {
         let children = element.parentNode.childNodes;
         let num = 0;
         for (var i = 0; i < children.length; i++) {
@@ -88,7 +85,7 @@ export class DomHandler {
         return -1;
     }
 
-    public static indexWithinGroup(element: any, attributeName: string): number {
+    public indexWithinGroup(element: any, attributeName: string): number {
         let children = element.parentNode ? element.parentNode.childNodes : [];
         let num = 0;
         for (var i = 0; i < children.length; i++) {
@@ -98,16 +95,16 @@ export class DomHandler {
         return -1;
     }
 
-    public static appendOverlay(overlay: any, target: any, appendTo: any = 'self') {
+    public appendOverlay(overlay: any, target: any, appendTo: any = 'self') {
         if (appendTo !== 'self' && overlay && target) {
             this.appendChild(overlay, target);
         }
     }
 
-    public static alignOverlay(overlay: any, target: any, appendTo: any = 'self', calculateMinWidth: boolean = true) {
+    public alignOverlay(overlay: any, target: any, appendTo: any = 'self', calculateMinWidth: boolean = true) {
         if (overlay && target) {
             if (calculateMinWidth) {
-                overlay.style.minWidth = `${DomHandler.getOuterWidth(target)}px`;
+                overlay.style.minWidth = `${this.getOuterWidth(target)}px`;
             }
 
             if (appendTo === 'self') {
@@ -118,7 +115,7 @@ export class DomHandler {
         }
     }
 
-    public static relativePosition(element: any, target: any, gutter: boolean = true): void {
+    public relativePosition(element: any, target: any, gutter: boolean = true): void {
         const getClosestRelativeElement = (el) => {
             if (!el) return;
 
@@ -126,13 +123,13 @@ export class DomHandler {
         };
 
         const elementDimensions = element.offsetParent ? { width: element.offsetWidth, height: element.offsetHeight } : this.getHiddenElementDimensions(element);
-        const targetHeight = target.offsetHeight ?? target.getBoundingClientRect().height;
-        const targetOffset = target.getBoundingClientRect();
+        const targetHeight = target.offsetHeight ?? this.getBoundingClientRect(target).height;
+        const targetOffset = this.getBoundingClientRect(target);
         const windowScrollTop = this.getWindowScrollTop();
         const windowScrollLeft = this.getWindowScrollLeft();
         const viewport = this.getViewport();
         const relativeElement = getClosestRelativeElement(element);
-        const relativeElementOffset = relativeElement?.getBoundingClientRect() || { top: -1 * windowScrollTop, left: -1 * windowScrollLeft };
+        const relativeElementOffset = this.getBoundingClientRect(relativeElement) || { top: -1 * windowScrollTop, left: -1 * windowScrollLeft };
         let top: number, left: number;
 
         if (targetOffset.top + targetHeight + elementDimensions.height > viewport.height) {
@@ -160,17 +157,17 @@ export class DomHandler {
         }
 
         element.style.top = top + 'px';
-        element.style.left = left + 'px';
+        element.style.insetInlineStart = left + 'px';
         gutter && (element.style.marginTop = origin === 'bottom' ? 'calc(var(--p-anchor-gutter) * -1)' : 'calc(var(--p-anchor-gutter))');
     }
 
-    public static absolutePosition(element: any, target: any, gutter: boolean = true): void {
+    public absolutePosition(element: any, target: any, gutter: boolean = true): void {
         const elementDimensions = element.offsetParent ? { width: element.offsetWidth, height: element.offsetHeight } : this.getHiddenElementDimensions(element);
         const elementOuterHeight = elementDimensions.height;
         const elementOuterWidth = elementDimensions.width;
-        const targetOuterHeight = target.offsetHeight ?? target.getBoundingClientRect().height;
-        const targetOuterWidth = target.offsetWidth ?? target.getBoundingClientRect().width;
-        const targetOffset = target.getBoundingClientRect();
+        const targetOuterHeight = target.offsetHeight ?? this.getBoundingClientRect(target).height;
+        const targetOuterWidth = target.offsetWidth ?? this.getBoundingClientRect(target).width;
+        const targetOffset = this.getBoundingClientRect(target);
         const windowScrollTop = this.getWindowScrollTop();
         const windowScrollLeft = this.getWindowScrollLeft();
         const viewport = this.getViewport();
@@ -188,19 +185,20 @@ export class DomHandler {
             element.style.transformOrigin = 'top';
         }
 
+        
         if (targetOffset.left + elementOuterWidth > viewport.width) left = Math.max(0, targetOffset.left + windowScrollLeft + targetOuterWidth - elementOuterWidth);
         else left = targetOffset.left + windowScrollLeft;
 
         element.style.top = top + 'px';
-        element.style.left = left + 'px';
+        element.style.insetInlineStart = left + 'px';
         gutter && (element.style.marginTop = origin === 'bottom' ? 'calc(var(--p-anchor-gutter) * -1)' : 'calc(var(--p-anchor-gutter))');
     }
 
-    static getParents(element: any, parents: any = []): any {
+    getParents(element: any, parents: any = []): any {
         return element['parentNode'] === null ? parents : this.getParents(element.parentNode, parents.concat([element.parentNode]));
     }
 
-    static getScrollableParents(element: any) {
+    getScrollableParents(element: any) {
         let scrollableParents = [];
 
         if (element) {
@@ -232,7 +230,7 @@ export class DomHandler {
         return scrollableParents;
     }
 
-    public static getHiddenElementOuterHeight(element: any): number {
+    public getHiddenElementOuterHeight(element: any): number {
         element.style.visibility = 'hidden';
         element.style.display = 'block';
         let elementHeight = element.offsetHeight;
@@ -242,7 +240,7 @@ export class DomHandler {
         return elementHeight;
     }
 
-    public static getHiddenElementOuterWidth(element: any): number {
+    public getHiddenElementOuterWidth(element: any): number {
         element.style.visibility = 'hidden';
         element.style.display = 'block';
         let elementWidth = element.offsetWidth;
@@ -252,7 +250,7 @@ export class DomHandler {
         return elementWidth;
     }
 
-    public static getHiddenElementDimensions(element: any): any {
+    public getHiddenElementDimensions(element: any): any {
         let dimensions: any = {};
         element.style.visibility = 'hidden';
         element.style.display = 'block';
@@ -264,13 +262,19 @@ export class DomHandler {
         return dimensions;
     }
 
-    public static scrollInView(container, item) {
+    public getBoundingClientRect(element) {
+        if (!element) return undefined;
+        const rect = element.getBoundingClientRect();
+        return this.isRtl() ? new DOMRect(document.body.clientWidth - rect.right, rect.y, rect.width, rect.height) : rect;
+    }
+
+    public scrollInView(container, item) {
         let borderTopValue: string = getComputedStyle(container).getPropertyValue('borderTopWidth');
         let borderTop: number = borderTopValue ? parseFloat(borderTopValue) : 0;
         let paddingTopValue: string = getComputedStyle(container).getPropertyValue('paddingTop');
         let paddingTop: number = paddingTopValue ? parseFloat(paddingTopValue) : 0;
-        let containerRect = container.getBoundingClientRect();
-        let itemRect = item.getBoundingClientRect();
+        let containerRect = this.getBoundingClientRect(container);
+        let itemRect = this.getBoundingClientRect(item);
         let offset = itemRect.top + document.body.scrollTop - (containerRect.top + document.body.scrollTop) - borderTop - paddingTop;
         let scroll = container.scrollTop;
         let elementHeight = container.clientHeight;
@@ -283,7 +287,7 @@ export class DomHandler {
         }
     }
 
-    public static fadeIn(element, duration: number): void {
+    public fadeIn(element, duration: number): void {
         element.style.opacity = 0;
 
         let last = +new Date();
@@ -301,7 +305,7 @@ export class DomHandler {
         tick();
     }
 
-    public static fadeOut(element, ms) {
+    public fadeOut(element, ms) {
         var opacity = 1,
             interval = 50,
             duration = ms,
@@ -319,17 +323,49 @@ export class DomHandler {
         }, interval);
     }
 
-    public static getWindowScrollTop(): number {
+    public getWindowScrollTop(): number {
         let doc = document.documentElement;
-        return (window.pageYOffset || doc.scrollTop) - (doc.clientTop || 0);
+        return (window.scrollY || doc.scrollTop) - (doc.clientTop || 0);
     }
 
-    public static getWindowScrollLeft(): number {
+    public getWindowScrollLeft(): number {
         let doc = document.documentElement;
-        return (window.pageXOffset || doc.scrollLeft) - (doc.clientLeft || 0);
+        return (this.getWindowScrollX() || this.getScrollLeft(doc)) - (this.getClientLeft(doc) || 0);
     }
 
-    public static matches(element, selector: string): boolean {
+    public getClientLeft(element) {
+        return this.isRtl() ? element.offsetWidth - element.clientWidth - element.clientLeft : element.clientLeft;
+    }
+
+    public getWindowScrollX() {
+        return Math.abs(window.scrollX);
+    }
+
+    public getScrollLeft(element) {
+        return Math.abs(element?.scrollLeft);
+    }
+
+    public setScrollLeft(element, value) {
+        element.scrollLeft = this.isRtl() ? -value : value;
+    }
+
+    public getOffsetLeft(element) {
+        return this.isRtl() ? element.offsetParent.offsetWidth - element.offsetLeft : element.offsetLeft;
+    }
+
+    public getPageX(event) {
+        return this.isRtl() ? document.body.scrollWidth - event.pageX : event.pageX;
+    }
+
+    public getClientX(event) {
+        return this.isRtl() ? document.body.clientWidth - event.clientX : event.clientX;
+    }
+
+    public getOffsetX(event) {
+        return this.isRtl() ? (event.target.offsetParent?.offsetWidth ?? event.target.parentElement.clientWidth) - event.offsetX : event.offsetX;
+    }
+
+    public matches(element, selector: string): boolean {
         var p = Element.prototype;
         var f =
             p['matches'] ||
@@ -342,44 +378,44 @@ export class DomHandler {
         return f.call(element, selector);
     }
 
-    public static getOuterWidth(el, margin?) {
+    public getOuterWidth(el, margin?) {
         let width = el.offsetWidth;
 
         if (margin) {
             let style = getComputedStyle(el);
-            width += parseFloat(style.marginLeft) + parseFloat(style.marginRight);
+            width += parseFloat(style.marginInlineStart) + parseFloat(style.marginInlineEnd);
         }
 
         return width;
     }
 
-    public static getHorizontalPadding(el) {
+    public getHorizontalPadding(el) {
         let style = getComputedStyle(el);
-        return parseFloat(style.paddingLeft) + parseFloat(style.paddingRight);
+        return parseFloat(style.paddingInlineStart) + parseFloat(style.paddingInlineEnd);
     }
 
-    public static getHorizontalMargin(el) {
+    public getHorizontalMargin(el) {
         let style = getComputedStyle(el);
-        return parseFloat(style.marginLeft) + parseFloat(style.marginRight);
+        return parseFloat(style.marginInlineStart) + parseFloat(style.marginInlineEnd);
     }
 
-    public static innerWidth(el) {
+    public innerWidth(el) {
         let width = el.offsetWidth;
         let style = getComputedStyle(el);
 
-        width += parseFloat(style.paddingLeft) + parseFloat(style.paddingRight);
+        width += parseFloat(style.paddingInlineStart) + parseFloat(style.paddingInlineEnd);
         return width;
     }
 
-    public static width(el) {
+    public width(el) {
         let width = el.offsetWidth;
         let style = getComputedStyle(el);
 
-        width -= parseFloat(style.paddingLeft) + parseFloat(style.paddingRight);
+        width -= parseFloat(style.paddingInlineStart) + parseFloat(style.paddingInlineEnd);
         return width;
     }
 
-    public static getInnerHeight(el) {
+    public getInnerHeight(el) {
         let height = el.offsetHeight;
         let style = getComputedStyle(el);
 
@@ -387,7 +423,7 @@ export class DomHandler {
         return height;
     }
 
-    public static getOuterHeight(el, margin?) {
+    public getOuterHeight(el, margin?) {
         let height = el.offsetHeight;
 
         if (margin) {
@@ -398,7 +434,7 @@ export class DomHandler {
         return height;
     }
 
-    public static getHeight(el): number {
+    public getHeight(el): number {
         let height = el.offsetHeight;
         let style = getComputedStyle(el);
 
@@ -407,16 +443,16 @@ export class DomHandler {
         return height;
     }
 
-    public static getWidth(el): number {
+    public getWidth(el): number {
         let width = el.offsetWidth;
         let style = getComputedStyle(el);
 
-        width -= parseFloat(style.paddingLeft) + parseFloat(style.paddingRight) + parseFloat(style.borderLeftWidth) + parseFloat(style.borderRightWidth);
+        width -= parseFloat(style.paddingInlineStart) + parseFloat(style.paddingInlineEnd) + parseFloat(style.borderInlineStartWidth) + parseFloat(style.borderInlineEndWidth);
 
         return width;
     }
 
-    public static getViewport(): any {
+    public getViewport(): any {
         let win = window,
             d = document,
             e = d.documentElement,
@@ -427,28 +463,28 @@ export class DomHandler {
         return { width: w, height: h };
     }
 
-    public static getOffset(el) {
-        var rect = el.getBoundingClientRect();
+    public getOffset(el) {
+        var rect = this.getBoundingClientRect(el);
 
         return {
-            top: rect.top + (window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0),
-            left: rect.left + (window.pageXOffset || document.documentElement.scrollLeft || document.body.scrollLeft || 0)
+            top: rect.top + (window.scrollY || document.documentElement.scrollTop || document.body.scrollTop || 0),
+            left: rect.left + (this.getWindowScrollX() || this.getScrollLeft(document.documentElement) || this.getScrollLeft(document.body) || 0)
         };
     }
 
-    public static replaceElementWith(element: any, replacementElement: any): any {
+    public replaceElementWith(element: any, replacementElement: any): any {
         let parentNode = element.parentNode;
         if (!parentNode) throw `Can't replace element`;
         return parentNode.replaceChild(replacementElement, element);
     }
 
-    public static getUserAgent(): string {
+    public getUserAgent(): string {
         if (navigator && this.isClient()) {
             return navigator.userAgent;
         }
     }
 
-    public static isIE() {
+    public isIE() {
         var ua = window.navigator.userAgent;
 
         var msie = ua.indexOf('MSIE ');
@@ -474,43 +510,43 @@ export class DomHandler {
         return false;
     }
 
-    public static isIOS() {
+    public isIOS() {
         return /iPad|iPhone|iPod/.test(navigator.userAgent) && !window['MSStream'];
     }
 
-    public static isAndroid() {
+    public isAndroid() {
         return /(android)/i.test(navigator.userAgent);
     }
 
-    public static isTouchDevice() {
+    public isTouchDevice() {
         return 'ontouchstart' in window || navigator.maxTouchPoints > 0;
     }
 
-    public static appendChild(element: any, target: any) {
+    public appendChild(element: any, target: any) {
         if (this.isElement(target)) target.appendChild(element);
         else if (target && target.el && target.el.nativeElement) target.el.nativeElement.appendChild(element);
         else throw 'Cannot append ' + target + ' to ' + element;
     }
 
-    public static removeChild(element: any, target: any) {
+    public removeChild(element: any, target: any) {
         if (this.isElement(target)) target.removeChild(element);
         else if (target.el && target.el.nativeElement) target.el.nativeElement.removeChild(element);
         else throw 'Cannot remove ' + element + ' from ' + target;
     }
 
-    public static removeElement(element: Element) {
+    public removeElement(element: Element) {
         if (!('remove' in Element.prototype)) element.parentNode.removeChild(element);
         else element.remove();
     }
 
-    public static isElement(obj: any) {
+    public isElement(obj: any) {
         return typeof HTMLElement === 'object' ? obj instanceof HTMLElement : obj && typeof obj === 'object' && obj !== null && obj.nodeType === 1 && typeof obj.nodeName === 'string';
     }
 
-    public static calculateScrollbarWidth(el?: HTMLElement): number {
+    public calculateScrollbarWidth(el?: HTMLElement): number {
         if (el) {
             let style = getComputedStyle(el);
-            return el.offsetWidth - el.clientWidth - parseFloat(style.borderLeftWidth) - parseFloat(style.borderRightWidth);
+            return el.offsetWidth - el.clientWidth - parseFloat(style.borderInlineStartWidth) - parseFloat(style.borderInlineEndWidth);
         } else {
             if (this.calculatedScrollbarWidth !== null) return this.calculatedScrollbarWidth;
 
@@ -527,7 +563,7 @@ export class DomHandler {
         }
     }
 
-    public static calculateScrollbarHeight(): number {
+    public calculateScrollbarHeight(): number {
         if (this.calculatedScrollbarHeight !== null) return this.calculatedScrollbarHeight;
 
         let scrollDiv = document.createElement('div');
@@ -542,11 +578,11 @@ export class DomHandler {
         return scrollbarHeight;
     }
 
-    public static invokeElementMethod(element: any, methodName: string, args?: any[]): void {
+    public invokeElementMethod(element: any, methodName: string, args?: any[]): void {
         (element as any)[methodName].apply(element, args);
     }
 
-    public static clearSelection(): void {
+    public clearSelection(): void {
         if (window.getSelection) {
             if (window.getSelection().empty) {
                 window.getSelection().empty();
@@ -562,7 +598,7 @@ export class DomHandler {
         }
     }
 
-    public static getBrowser() {
+    public getBrowser() {
         if (!this.browser) {
             let matched = this.resolveUserAgent();
             this.browser = {};
@@ -582,7 +618,7 @@ export class DomHandler {
         return this.browser;
     }
 
-    public static resolveUserAgent() {
+    public resolveUserAgent() {
         let ua = navigator.userAgent.toLowerCase();
         let match =
             /(chrome)[ \/]([\w.]+)/.exec(ua) || /(webkit)[ \/]([\w.]+)/.exec(ua) || /(opera)(?:.*version|)[ \/]([\w.]+)/.exec(ua) || /(msie) ([\w.]+)/.exec(ua) || (ua.indexOf('compatible') < 0 && /(mozilla)(?:.*? rv:([\w.]+)|)/.exec(ua)) || [];
@@ -593,7 +629,7 @@ export class DomHandler {
         };
     }
 
-    public static isInteger(value): boolean {
+    public isInteger(value): boolean {
         if (Number.isInteger) {
             return Number.isInteger(value);
         } else {
@@ -601,23 +637,23 @@ export class DomHandler {
         }
     }
 
-    public static isHidden(element: HTMLElement): boolean {
+    public isHidden(element: HTMLElement): boolean {
         return !element || element.offsetParent === null;
     }
 
-    public static isVisible(element: HTMLElement) {
+    public isVisible(element: HTMLElement) {
         return element && element.offsetParent != null;
     }
 
-    public static isExist(element: HTMLElement) {
+    public isExist(element: HTMLElement) {
         return element !== null && typeof element !== 'undefined' && element.nodeName && element.parentNode;
     }
 
-    public static focus(element: HTMLElement, options?: FocusOptions): void {
+    public focus(element: HTMLElement, options?: FocusOptions): void {
         element && document.activeElement !== element && element.focus(options);
     }
 
-    public static getFocusableSelectorString(selector = ''): string {
+    public getFocusableSelectorString(selector = ''): string {
         return `button:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden])${selector},
         [href][clientHeight][clientWidth]:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden])${selector},
         input:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden])${selector},
@@ -629,7 +665,7 @@ export class DomHandler {
         .p-button:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden])${selector}`;
     }
 
-    public static getFocusableElements(element, selector = ''): any[] {
+    public getFocusableElements(element, selector = ''): any[] {
         let focusableElements = this.find(element, this.getFocusableSelectorString(selector));
 
         let visibleFocusableElements = [];
@@ -642,7 +678,7 @@ export class DomHandler {
         return visibleFocusableElements;
     }
 
-    public static getFocusableElement(element, selector = ''): any | null {
+    public getFocusableElement(element, selector = ''): any | null {
         let focusableElement = this.findSingle(element, this.getFocusableSelectorString(selector));
 
         if (focusableElement) {
@@ -653,20 +689,20 @@ export class DomHandler {
         return null;
     }
 
-    public static getFirstFocusableElement(element, selector = '') {
+    public getFirstFocusableElement(element, selector = '') {
         const focusableElements = this.getFocusableElements(element, selector);
 
         return focusableElements.length > 0 ? focusableElements[0] : null;
     }
 
-    public static getLastFocusableElement(element, selector) {
+    public getLastFocusableElement(element, selector) {
         const focusableElements = this.getFocusableElements(element, selector);
 
         return focusableElements.length > 0 ? focusableElements[focusableElements.length - 1] : null;
     }
 
-    public static getNextFocusableElement(element: HTMLElement, reverse = false) {
-        const focusableElements = DomHandler.getFocusableElements(element);
+    public getNextFocusableElement(element: HTMLElement, reverse = false) {
+        const focusableElements = this.getFocusableElements(element);
         let index = 0;
         if (focusableElements && focusableElements.length > 0) {
             const focusedIndex = focusableElements.indexOf(focusableElements[0].ownerDocument.activeElement);
@@ -685,12 +721,12 @@ export class DomHandler {
         return focusableElements[index];
     }
 
-    static generateZIndex() {
+    generateZIndex() {
         this.zindex = this.zindex || 999;
         return ++this.zindex;
     }
 
-    public static getSelection() {
+    public getSelection() {
         if (window.getSelection) return window.getSelection().toString();
         else if (document.getSelection) return document.getSelection().toString();
         else if (document['selection']) return document['selection'].createRange().text;
@@ -698,7 +734,7 @@ export class DomHandler {
         return null;
     }
 
-    public static getTargetElement(target: any, el?: HTMLElement) {
+    public getTargetElement(target: any, el?: HTMLElement) {
         if (!target) return null;
 
         switch (target) {
@@ -730,11 +766,11 @@ export class DomHandler {
         }
     }
 
-    public static isClient() {
+    public isClient() {
         return !!(typeof window !== 'undefined' && window.document && window.document.createElement);
     }
 
-    public static getAttribute(element, name) {
+    public getAttribute(element, name) {
         if (element) {
             const value = element.getAttribute(name);
 
@@ -752,21 +788,21 @@ export class DomHandler {
         return undefined;
     }
 
-    public static calculateBodyScrollbarWidth() {
+    public calculateBodyScrollbarWidth() {
         return window.innerWidth - document.documentElement.offsetWidth;
     }
 
-    public static blockBodyScroll(className = 'p-overflow-hidden') {
+    public blockBodyScroll(className = 'p-overflow-hidden') {
         document.body.style.setProperty('--scrollbar-width', this.calculateBodyScrollbarWidth() + 'px');
         this.addClass(document.body, className);
     }
 
-    public static unblockBodyScroll(className = 'p-overflow-hidden') {
+    public unblockBodyScroll(className = 'p-overflow-hidden') {
         document.body.style.removeProperty('--scrollbar-width');
         this.removeClass(document.body, className);
     }
 
-    public static createElement(type, attributes = {}, ...children) {
+    public createElement(type, attributes = {}, ...children) {
         if (type) {
             const element = document.createElement(type);
 
@@ -779,13 +815,13 @@ export class DomHandler {
         return undefined;
     }
 
-    public static setAttribute(element, attribute = '', value) {
+    public setAttribute(element, attribute = '', value) {
         if (this.isElement(element) && value !== null && value !== undefined) {
             element.setAttribute(attribute, value);
         }
     }
 
-    public static setAttributes(element, attributes = {}) {
+    public setAttributes(element, attributes = {}) {
         if (this.isElement(element)) {
             const computedStyles = (rule, value) => {
                 const styles = element?.$attrs?.[rule] ? [element?.$attrs?.[rule]] : [];
@@ -827,7 +863,7 @@ export class DomHandler {
         }
     }
 
-    public static isFocusableElement(element, selector = '') {
+    public isFocusableElement(element, selector = '') {
         return this.isElement(element)
             ? element.matches(`button:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden])${selector},
                 [href][clientHeight][clientWidth]:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden])${selector},
@@ -837,5 +873,9 @@ export class DomHandler {
                 [tabIndex]:not([tabIndex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden])${selector},
                 [contenteditable]:not([tabIndex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden])${selector}`)
             : false;
+    }
+
+    public isRtl() {
+      return this.dir.value === "rtl";
     }
 }

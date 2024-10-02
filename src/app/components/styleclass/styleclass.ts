@@ -16,7 +16,8 @@ export class StyleClass implements OnDestroy {
     constructor(
         public el: ElementRef,
         public renderer: Renderer2,
-        private zone: NgZone
+        private zone: NgZone,
+        private domHandler: DomHandler
     ) {}
     /**
      * Selector to define the target element. Available selectors are '@next', '@prev', '@parent' and '@grandparent'.
@@ -124,8 +125,8 @@ export class StyleClass implements OnDestroy {
     }
 
     toggle() {
-        if (DomHandler.hasClass(this.target, this.toggleClass as string)) DomHandler.removeClass(this.target, this.toggleClass as string);
-        else DomHandler.addClass(this.target, this.toggleClass as string);
+        if (this.domHandler.hasClass(this.target, this.toggleClass as string)) this.domHandler.removeClass(this.target, this.toggleClass as string);
+        else this.domHandler.addClass(this.target, this.toggleClass as string);
     }
 
     enter() {
@@ -135,21 +136,21 @@ export class StyleClass implements OnDestroy {
 
                 if (this.enterActiveClass === 'slidedown') {
                     (this.target as HTMLElement).style.height = '0px';
-                    DomHandler.removeClass(this.target, 'hidden');
+                    this.domHandler.removeClass(this.target, 'hidden');
                     (this.target as HTMLElement).style.maxHeight = (this.target as HTMLElement).scrollHeight + 'px';
-                    DomHandler.addClass(this.target, 'hidden');
+                    this.domHandler.addClass(this.target, 'hidden');
                     (this.target as HTMLElement).style.height = '';
                 }
 
-                DomHandler.addClass(this.target, this.enterActiveClass);
+                this.domHandler.addClass(this.target, this.enterActiveClass);
                 if (this.enterClass || this.enterFromClass) {
-                    DomHandler.removeClass(this.target, this.enterClass || this.enterFromClass);
+                    this.domHandler.removeClass(this.target, this.enterClass || this.enterFromClass);
                 }
 
                 this.enterListener = this.renderer.listen(this.target, 'animationend', () => {
-                    DomHandler.removeClass(this.target, this.enterActiveClass as string);
+                    this.domHandler.removeClass(this.target, this.enterActiveClass as string);
                     if (this.enterToClass) {
-                        DomHandler.addClass(this.target, this.enterToClass);
+                        this.domHandler.addClass(this.target, this.enterToClass);
                     }
                     this.enterListener && this.enterListener();
 
@@ -161,11 +162,11 @@ export class StyleClass implements OnDestroy {
             }
         } else {
             if (this.enterClass || this.enterFromClass) {
-                DomHandler.removeClass(this.target, this.enterClass || this.enterFromClass);
+                this.domHandler.removeClass(this.target, this.enterClass || this.enterFromClass);
             }
 
             if (this.enterToClass) {
-                DomHandler.addClass(this.target, this.enterToClass);
+                this.domHandler.addClass(this.target, this.enterToClass);
             }
         }
 
@@ -182,15 +183,15 @@ export class StyleClass implements OnDestroy {
         if (this.leaveActiveClass) {
             if (!this.animating) {
                 this.animating = true;
-                DomHandler.addClass(this.target, this.leaveActiveClass);
+                this.domHandler.addClass(this.target, this.leaveActiveClass);
                 if (this.leaveClass || this.leaveFromClass) {
-                    DomHandler.removeClass(this.target, this.leaveClass || this.leaveFromClass);
+                    this.domHandler.removeClass(this.target, this.leaveClass || this.leaveFromClass);
                 }
 
                 this.leaveListener = this.renderer.listen(this.target, 'animationend', () => {
-                    DomHandler.removeClass(this.target, this.leaveActiveClass as string);
+                    this.domHandler.removeClass(this.target, this.leaveActiveClass as string);
                     if (this.leaveToClass) {
-                        DomHandler.addClass(this.target, this.leaveToClass);
+                        this.domHandler.addClass(this.target, this.leaveToClass);
                     }
                     this.leaveListener && this.leaveListener();
                     this.animating = false;
@@ -198,11 +199,11 @@ export class StyleClass implements OnDestroy {
             }
         } else {
             if (this.leaveClass || this.leaveFromClass) {
-                DomHandler.removeClass(this.target, this.leaveClass || this.leaveFromClass);
+                this.domHandler.removeClass(this.target, this.leaveClass || this.leaveFromClass);
             }
 
             if (this.leaveToClass) {
-                DomHandler.addClass(this.target, this.leaveToClass);
+                this.domHandler.addClass(this.target, this.leaveToClass);
             }
         }
 

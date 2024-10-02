@@ -1,5 +1,19 @@
 .p-colorpicker-panel .p-colorpicker-color {
-    background: transparent url("./images/color.png") no-repeat left top; 
+    position: relative;
+}
+
+.p-colorpicker-panel .p-colorpicker-color::before {
+    content: '';
+    background: transparent url("./images/color.png") no-repeat left top;
+    position: absolute;
+    inset-block-start: 0;
+    inset-block-end: 0;
+    inset-inline-start: 0;
+    inset-inline-end: 0;
+}
+
+.p-colorpicker-panel .p-colorpicker-color:dir(rtl)::before {
+    transform: scaleX(-1);
 }
 
 .p-colorpicker-panel .p-colorpicker-hue {

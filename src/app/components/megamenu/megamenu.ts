@@ -116,7 +116,7 @@ import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
                                 <ng-container *ngIf="isItemGroup(processedItem)">
                                     <ng-container *ngIf="!megaMenu.submenuIconTemplate">
                                         <AngleDownIcon [styleClass]="'p-submenu-icon'" [attr.data-pc-section]="'submenuicon'" *ngIf="orientation === 'horizontal'" />
-                                        <AngleRightIcon [styleClass]="'p-submenu-icon'" [attr.data-pc-section]="'submenuicon'" *ngIf="orientation === 'vertical'" />
+                                        <AngleRightIcon [styleClass]="'p-submenu-icon p-rtl-flip-icon'" [attr.data-pc-section]="'submenuicon'" *ngIf="orientation === 'vertical'" />
                                     </ng-container>
                                     <ng-template *ngTemplateOutlet="megaMenu.submenuIconTemplate" [attr.data-pc-section]="'submenuicon'"></ng-template>
                                 </ng-container>
@@ -154,7 +154,7 @@ import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
                                 <ng-container *ngIf="isItemGroup(processedItem)">
                                     <ng-container *ngIf="!megaMenu.submenuIconTemplate">
                                         <AngleDownIcon [styleClass]="'p-submenu-icon'" [attr.data-pc-section]="'submenuicon'" *ngIf="orientation === 'horizontal'" />
-                                        <AngleRightIcon [styleClass]="'p-submenu-icon'" [attr.data-pc-section]="'submenuicon'" *ngIf="orientation === 'vertical'" />
+                                        <AngleRightIcon [styleClass]="'p-submenu-icon p-rtl-flip-icon'" [attr.data-pc-section]="'submenuicon'" *ngIf="orientation === 'vertical'" />
                                     </ng-container>
                                     <ng-template *ngTemplateOutlet="megaMenu.submenuIconTemplate" [attr.data-pc-section]="'submenuicon'"></ng-template>
                                 </ng-container>
@@ -534,7 +534,8 @@ export class MegaMenu implements AfterContentInit, OnDestroy, OnInit {
         public el: ElementRef,
         public renderer: Renderer2,
         public config: PrimeNGConfig,
-        public cd: ChangeDetectorRef
+        public cd: ChangeDetectorRef,
+        private domHandler: DomHandler
     ) {
         effect(() => {
             const activeItem = this.activeItem();
@@ -622,7 +623,7 @@ export class MegaMenu implements AfterContentInit, OnDestroy, OnInit {
             this.focusedItemInfo.set({ index, key, parentKey, item });
 
             this.dirty = !root;
-            DomHandler.focus(this.rootmenu?.menubarViewChild?.nativeElement);
+            this.domHandler.focus(this.rootmenu?.menubarViewChild?.nativeElement);
         } else {
             if (grouped) {
                 this.onItemChange(event);
@@ -631,20 +632,20 @@ export class MegaMenu implements AfterContentInit, OnDestroy, OnInit {
                 this.hide(originalEvent);
                 this.changeFocusedItemInfo(originalEvent, rootProcessedItem ? rootProcessedItem.index : -1);
 
-                DomHandler.focus(this.rootmenu?.menubarViewChild?.nativeElement);
+                this.domHandler.focus(this.rootmenu?.menubarViewChild?.nativeElement);
             }
         }
     }
 
     onItemMouseEnter(event: any) {
-        if (!DomHandler.isTouchDevice()) {
+        if (!this.domHandler.isTouchDevice()) {
             this.onItemChange(event);
         }
     }
 
     scrollInView(index: number = -1) {
         const id = index !== -1 ? `${this.id}_${index}` : this.focusedItemId;
-        const element = DomHandler.findSingle(this.rootmenu?.el.nativeElement, `li[id="${id}"]`);
+        const element = this.domHandler.findSingle(this.rootmenu?.el.nativeElement, `li[id="${id}"]`);
 
         if (element) {
             element.scrollIntoView && element.scrollIntoView({ block: 'nearest', inline: 'nearest' });
@@ -665,14 +666,14 @@ export class MegaMenu implements AfterContentInit, OnDestroy, OnInit {
         this.focusedItemInfo.set({ index, key, parentKey, item });
 
         grouped && (this.dirty = true);
-        isFocus && DomHandler.focus(this.rootmenu?.menubarViewChild?.nativeElement);
+        isFocus && this.domHandler.focus(this.rootmenu?.menubarViewChild?.nativeElement);
     }
 
     hide(event?, isFocus?: boolean) {
         this.activeItem.set(null);
         this.focusedItemInfo.set({ index: -1, key: '', parentKey: '', item: null });
 
-        isFocus && DomHandler.focus(this.rootmenu?.menubarViewChild?.nativeElement);
+        isFocus && this.domHandler.focus(this.rootmenu?.menubarViewChild?.nativeElement);
         this.dirty = false;
     }
 
@@ -999,8 +1000,8 @@ export class MegaMenu implements AfterContentInit, OnDestroy, OnInit {
 
     onEnterKey(event: KeyboardEvent) {
         if (this.focusedItemInfo().index !== -1) {
-            const element = DomHandler.findSingle(this.rootmenu?.el?.nativeElement, `li[id="${`${this.focusedItemId}`}"]`);
-            const anchorElement = element && DomHandler.findSingle(element, 'a[data-pc-section="action"]');
+            const element = this.domHandler.findSingle(this.rootmenu?.el?.nativeElement, `li[id="${`${this.focusedItemId}`}"]`);
+            const anchorElement = element && this.domHandler.findSingle(element, 'a[data-pc-section="action"]');
 
             anchorElement ? anchorElement.click() : element && element.click();
 

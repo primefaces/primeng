@@ -360,7 +360,8 @@ export class InputMask implements OnInit, ControlValueAccessor {
         @Inject(PLATFORM_ID) private platformId: any,
         public el: ElementRef,
         public cd: ChangeDetectorRef,
-        public config: PrimeNGConfig
+        public config: PrimeNGConfig,
+        private domHandler: DomHandler
     ) {}
 
     ngOnInit() {
@@ -610,7 +611,7 @@ export class InputMask implements OnInit, ControlValueAccessor {
             end;
         let iPhone;
         if (isPlatformBrowser(this.platformId)) {
-            iPhone = /iphone/i.test(DomHandler.getUserAgent());
+            iPhone = /iphone/i.test(this.domHandler.getUserAgent());
         }
         this.oldVal = this.inputViewChild?.nativeElement.value;
 
@@ -682,7 +683,7 @@ export class InputMask implements OnInit, ControlValueAccessor {
                     this.writeBuffer();
                     next = this.seekNext(p);
 
-                    if (DomHandler.isClient() && /android/i.test(DomHandler.getUserAgent())) {
+                    if (this.domHandler.isClient() && /android/i.test(this.domHandler.getUserAgent())) {
                         let proxy = () => {
                             this.caret(next);
                         };

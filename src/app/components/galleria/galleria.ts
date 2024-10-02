@@ -291,7 +291,8 @@ export class Galleria implements OnChanges, OnDestroy {
         @Inject(PLATFORM_ID) public platformId: any,
         public element: ElementRef,
         public cd: ChangeDetectorRef,
-        public config: PrimeNGConfig
+        public config: PrimeNGConfig,
+        private domHandler: DomHandler
     ) {}
 
     ngAfterContentInit() {
@@ -361,12 +362,12 @@ export class Galleria implements OnChanges, OnDestroy {
             case 'visible':
                 this.enableModality();
                 setTimeout(() => {
-                    DomHandler.focus(DomHandler.findSingle(this.container.nativeElement, '[data-pc-section="closebutton"]'));
+                    this.domHandler.focus(this.domHandler.findSingle(this.container.nativeElement, '[data-pc-section="closebutton"]'));
                 }, 25);
                 break;
 
             case 'void':
-                DomHandler.addClass(this.mask?.nativeElement, 'p-component-overlay-leave');
+                this.domHandler.addClass(this.mask?.nativeElement, 'p-component-overlay-leave');
                 break;
         }
     }
@@ -380,7 +381,7 @@ export class Galleria implements OnChanges, OnDestroy {
     }
 
     enableModality() {
-        DomHandler.blockBodyScroll();
+        this.domHandler.blockBodyScroll();
         this.cd.markForCheck();
 
         if (this.mask) {
@@ -389,7 +390,7 @@ export class Galleria implements OnChanges, OnDestroy {
     }
 
     disableModality() {
-        DomHandler.unblockBodyScroll();
+        this.domHandler.unblockBodyScroll();
         this.maskVisible = false;
         this.cd.markForCheck();
 
@@ -400,7 +401,7 @@ export class Galleria implements OnChanges, OnDestroy {
 
     ngOnDestroy() {
         if (this.fullScreen) {
-            DomHandler.removeClass(this.document.body, 'p-overflow-hidden');
+            this.domHandler.removeClass(this.document.body, 'p-overflow-hidden');
         }
 
         if (this.mask) {
@@ -683,7 +684,7 @@ export class GalleriaItemSlot {
                     (focus)="onButtonFocus('left')"
                     (blur)="onButtonBlur('left')"
                 >
-                    <ChevronLeftIcon *ngIf="!galleria.itemPreviousIconTemplate" [styleClass]="'p-galleria-item-prev-icon'" />
+                    <ChevronLeftIcon *ngIf="!galleria.itemPreviousIconTemplate" [styleClass]="'p-galleria-item-prev-icon p-rtl-flip-icon'" />
                     <ng-template *ngTemplateOutlet="galleria.itemPreviousIconTemplate"></ng-template>
                 </button>
                 <div [id]="id + '_item_' + activeIndex" role="group" [attr.aria-label]="ariaSlideNumber(activeIndex + 1)" [attr.aria-roledescription]="ariaSlideLabel()" [style.width]="'100%'">
@@ -700,7 +701,7 @@ export class GalleriaItemSlot {
                     (focus)="onButtonFocus('right')"
                     (blur)="onButtonBlur('right')"
                 >
-                    <ChevronRightIcon *ngIf="!galleria.itemNextIconTemplate" [styleClass]="'p-galleria-item-next-icon'" />
+                    <ChevronRightIcon *ngIf="!galleria.itemNextIconTemplate" [styleClass]="'p-galleria-item-next-icon p-rtl-flip-icon'" />
                     <ng-template *ngTemplateOutlet="galleria.itemNextIconTemplate"></ng-template>
                 </button>
                 <div class="p-galleria-caption" *ngIf="captionFacet">
@@ -905,7 +906,7 @@ export class GalleriaItem implements OnChanges {
                     [attr.aria-label]="ariaPrevButtonLabel()"
                 >
                     <ng-container *ngIf="!galleria.previousThumbnailIconTemplate">
-                        <ChevronLeftIcon *ngIf="!isVertical" [styleClass]="'p-galleria-thumbnail-prev-icon'" />
+                        <ChevronLeftIcon *ngIf="!isVertical" [styleClass]="'p-galleria-thumbnail-prev-icon p-rtl-flip-icon'" />
                         <ChevronUpIcon *ngIf="isVertical" [styleClass]="'p-galleria-thumbnail-prev-icon'" />
                     </ng-container>
                     <ng-template *ngTemplateOutlet="galleria.previousThumbnailIconTemplate"></ng-template>
@@ -951,7 +952,7 @@ export class GalleriaItem implements OnChanges {
                     [attr.aria-label]="ariaNextButtonLabel()"
                 >
                     <ng-container *ngIf="!galleria.nextThumbnailIconTemplate">
-                        <ChevronRightIcon *ngIf="!isVertical" [ngClass]="'p-galleria-thumbnail-next-icon'" />
+                        <ChevronRightIcon *ngIf="!isVertical" [ngClass]="'p-galleria-thumbnail-next-icon p-rtl-flip-icon'" />
                         <ChevronDownIcon *ngIf="isVertical" [ngClass]="'p-galleria-thumbnail-next-icon'" />
                     </ng-container>
                     <ng-template *ngTemplateOutlet="galleria.nextThumbnailIconTemplate"></ng-template>
@@ -1031,10 +1032,12 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, AfterVie
 
     constructor(
         public galleria: Galleria,
+        private el: ElementRef,
         @Inject(DOCUMENT) private document: Document,
         @Inject(PLATFORM_ID) private platformId: any,
         private renderer: Renderer2,
-        private cd: ChangeDetectorRef
+        private cd: ChangeDetectorRef,
+        private domHandler: DomHandler
     ) {}
 
     ngOnInit() {
@@ -1066,11 +1069,11 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, AfterVie
             }
 
             if (this.itemsContainer && this.itemsContainer.nativeElement) {
-                this.itemsContainer.nativeElement.style.transform = this.isVertical ? `translate3d(0, ${totalShiftedItems * (100 / this.d_numVisible)}%, 0)` : `translate3d(${totalShiftedItems * (100 / this.d_numVisible)}%, 0, 0)`;
+                this.itemsContainer.nativeElement.style.transform = this.isVertical ? `translate3d(0, ${totalShiftedItems * (100 / this.d_numVisible)}%, 0)` : `translate3d(${(this.domHandler.isRtl() ? -1 : 1) * totalShiftedItems * (100 / this.d_numVisible)}%, 0, 0)`;
             }
 
             if (this._oldactiveIndex !== this._activeIndex) {
-                DomHandler.removeClass(this.itemsContainer.nativeElement, 'p-items-hidden');
+                this.domHandler.removeClass(this.itemsContainer.nativeElement, 'p-items-hidden');
                 this.itemsContainer.nativeElement.style.transition = 'transform 500ms ease 0s';
             }
 
@@ -1127,7 +1130,7 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, AfterVie
         }
 
         this.thumbnailsStyle.innerHTML = innerHTML;
-        DomHandler.setAttribute(this.thumbnailsStyle, 'nonce', this.galleria.config?.csp()?.nonce);
+        this.domHandler.setAttribute(this.thumbnailsStyle, 'nonce', this.galleria.config?.csp()?.nonce);
     }
 
     calculatePosition() {
@@ -1255,7 +1258,7 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, AfterVie
     }
 
     onRightKey() {
-        const indicators = DomHandler.find(this.itemsContainer.nativeElement, '[data-pc-section="thumbnailitem"]');
+        const indicators = this.domHandler.find(this.itemsContainer.nativeElement, '[data-pc-section="thumbnailitem"]');
         const activeIndex = this.findFocusedIndicatorIndex();
 
         this.changedFocusedIndicator(activeIndex, activeIndex + 1 === indicators.length ? indicators.length - 1 : activeIndex + 1);
@@ -1274,17 +1277,17 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, AfterVie
     }
 
     onEndKey() {
-        const indicators = DomHandler.find(this.itemsContainer.nativeElement, '[data-pc-section="thumbnailitem"]');
+        const indicators = this.domHandler.find(this.itemsContainer.nativeElement, '[data-pc-section="thumbnailitem"]');
         const activeIndex = this.findFocusedIndicatorIndex();
 
         this.changedFocusedIndicator(activeIndex, indicators.length - 1);
     }
 
     onTabKey() {
-        const indicators = [...DomHandler.find(this.itemsContainer.nativeElement, '[data-pc-section="thumbnailitem"]')];
-        const highlightedIndex = indicators.findIndex((ind) => DomHandler.getAttribute(ind, 'data-p-active') === true);
+        const indicators = [...this.domHandler.find(this.itemsContainer.nativeElement, '[data-pc-section="thumbnailitem"]')];
+        const highlightedIndex = indicators.findIndex((ind) => this.domHandler.getAttribute(ind, 'data-p-active') === true);
 
-        const activeIndicator = DomHandler.findSingle(this.itemsContainer.nativeElement, '[tabindex="0"]');
+        const activeIndicator = this.domHandler.findSingle(this.itemsContainer.nativeElement, '[tabindex="0"]');
 
         const activeIndex = indicators.findIndex((ind) => ind === activeIndicator.parentElement);
 
@@ -1293,14 +1296,14 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, AfterVie
     }
 
     findFocusedIndicatorIndex() {
-        const indicators = [...DomHandler.find(this.itemsContainer.nativeElement, '[data-pc-section="thumbnailitem"]')];
-        const activeIndicator = DomHandler.findSingle(this.itemsContainer.nativeElement, '[data-pc-section="thumbnailitem"] > [tabindex="0"]');
+        const indicators = [...this.domHandler.find(this.itemsContainer.nativeElement, '[data-pc-section="thumbnailitem"]')];
+        const activeIndicator = this.domHandler.findSingle(this.itemsContainer.nativeElement, '[data-pc-section="thumbnailitem"] > [tabindex="0"]');
 
         return indicators.findIndex((ind) => ind === activeIndicator.parentElement);
     }
 
     changedFocusedIndicator(prevInd, nextInd) {
-        const indicators = DomHandler.find(this.itemsContainer.nativeElement, '[data-pc-section="thumbnailitem"]');
+        const indicators = this.domHandler.find(this.itemsContainer.nativeElement, '[data-pc-section="thumbnailitem"]');
 
         indicators[prevInd].children[0].tabIndex = '-1';
         indicators[nextInd].children[0].tabIndex = '0';
@@ -1325,8 +1328,8 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, AfterVie
         }
 
         if (this.itemsContainer) {
-            DomHandler.removeClass(this.itemsContainer.nativeElement, 'p-items-hidden');
-            this.itemsContainer.nativeElement.style.transform = this.isVertical ? `translate3d(0, ${totalShiftedItems * (100 / this.d_numVisible)}%, 0)` : `translate3d(${totalShiftedItems * (100 / this.d_numVisible)}%, 0, 0)`;
+            this.domHandler.removeClass(this.itemsContainer.nativeElement, 'p-items-hidden');
+            this.itemsContainer.nativeElement.style.transform = this.isVertical ? `translate3d(0, ${totalShiftedItems * (100 / this.d_numVisible)}%, 0)` : `translate3d(${(this.domHandler.isRtl() ? -1 : 1) * totalShiftedItems * (100 / this.d_numVisible)}%, 0, 0)`;
             this.itemsContainer.nativeElement.style.transition = 'transform 500ms ease 0s';
         }
 
@@ -1361,7 +1364,7 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, AfterVie
 
     onTransitionEnd() {
         if (this.itemsContainer && this.itemsContainer.nativeElement) {
-            DomHandler.addClass(this.itemsContainer.nativeElement, 'p-items-hidden');
+            this.domHandler.addClass(this.itemsContainer.nativeElement, 'p-items-hidden');
             this.itemsContainer.nativeElement.style.transition = '';
         }
     }
@@ -1372,7 +1375,7 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, AfterVie
         if (this.isVertical) {
             this.changePageOnTouch(e, touchobj.pageY - (<{ x: number; y: number }>this.startPos).y);
         } else {
-            this.changePageOnTouch(e, touchobj.pageX - (<{ x: number; y: number }>this.startPos).x);
+            this.changePageOnTouch(e, this.domHandler.getPageX(touchobj) - (<{ x: number; y: number }>this.startPos).x);
         }
     }
 
@@ -1386,7 +1389,7 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, AfterVie
         let touchobj = e.changedTouches[0];
 
         this.startPos = {
-            x: touchobj.pageX,
+            x: this.domHandler.getPageX(touchobj),
             y: touchobj.pageY
         };
     }

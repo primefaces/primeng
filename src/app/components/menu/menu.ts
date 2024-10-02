@@ -31,7 +31,7 @@ import {
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { MenuItem, OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
-import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
+import { ConnectedOverlayScrollHandler, ConnectedOverlayScrollHandlerFactory, DomHandler } from 'primeng/dom';
 import { RippleModule } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
@@ -386,7 +386,9 @@ export class Menu implements OnDestroy {
         public renderer: Renderer2,
         private cd: ChangeDetectorRef,
         public config: PrimeNGConfig,
-        public overlayService: OverlayService
+        public overlayService: OverlayService,
+        private domHandler: DomHandler,
+        private scrollHandlerFactory: ConnectedOverlayScrollHandlerFactory
     ) {
         this.id = this.id || UniqueComponentId();
     }
@@ -467,7 +469,7 @@ export class Menu implements OnDestroy {
                     this.bindDocumentClickListener();
                     this.bindDocumentResizeListener();
                     this.bindScrollListener();
-                    DomHandler.focus(this.listViewChild.nativeElement);
+                    this.domHandler.focus(this.listViewChild.nativeElement);
                     this.preventDocumentDefault = true;
                 }
                 break;
@@ -490,14 +492,14 @@ export class Menu implements OnDestroy {
     }
 
     alignOverlay() {
-        if (this.relativeAlign) DomHandler.relativePosition(this.container, this.target);
-        else DomHandler.absolutePosition(this.container, this.target);
+        if (this.relativeAlign) this.domHandler.relativePosition(this.container, this.target);
+        else this.domHandler.absolutePosition(this.container, this.target);
     }
 
     appendOverlay() {
         if (this.appendTo) {
             if (this.appendTo === 'body') this.renderer.appendChild(this.document.body, this.container);
-            else DomHandler.appendChild(this.container, this.appendTo);
+            else this.domHandler.appendChild(this.container, this.appendTo);
         }
     }
 
@@ -523,7 +525,7 @@ export class Menu implements OnDestroy {
     }
 
     onWindowResize() {
-        if (this.visible && !DomHandler.isTouchDevice()) {
+        if (this.visible && !this.domHandler.isTouchDevice()) {
             this.hide();
         }
     }
@@ -598,7 +600,7 @@ export class Menu implements OnDestroy {
             case 'Escape':
             case 'Tab':
                 if (this.popup) {
-                    DomHandler.focus(this.target);
+                    this.domHandler.focus(this.target);
                     this.hide();
                 }
                 this.overlayVisible && this.hide();
@@ -617,7 +619,7 @@ export class Menu implements OnDestroy {
 
     onArrowUpKey(event) {
         if (event.altKey && this.popup) {
-            DomHandler.focus(this.target);
+            this.domHandler.focus(this.target);
             this.hide();
             event.preventDefault();
         } else {
@@ -634,15 +636,15 @@ export class Menu implements OnDestroy {
     }
 
     onEndKey(event) {
-        this.changeFocusedOptionIndex(DomHandler.find(this.containerViewChild.nativeElement, 'li[data-pc-section="menuitem"][data-p-disabled="false"]').length - 1);
+        this.changeFocusedOptionIndex(this.domHandler.find(this.containerViewChild.nativeElement, 'li[data-pc-section="menuitem"][data-p-disabled="false"]').length - 1);
         event.preventDefault();
     }
 
     onEnterKey(event) {
-        const element = DomHandler.findSingle(this.containerViewChild.nativeElement, `li[id="${`${this.focusedOptionIndex()}`}"]`);
-        const anchorElement = element && DomHandler.findSingle(element, 'a');
+        const element = this.domHandler.findSingle(this.containerViewChild.nativeElement, `li[id="${`${this.focusedOptionIndex()}`}"]`);
+        const anchorElement = element && this.domHandler.findSingle(element, 'a');
 
-        this.popup && DomHandler.focus(this.target);
+        this.popup && this.domHandler.focus(this.target);
         anchorElement ? anchorElement.click() : element && element.click();
 
         event.preventDefault();
@@ -653,21 +655,21 @@ export class Menu implements OnDestroy {
     }
 
     findNextOptionIndex(index) {
-        const links = DomHandler.find(this.containerViewChild.nativeElement, 'li[data-pc-section="menuitem"][data-p-disabled="false"]');
+        const links = this.domHandler.find(this.containerViewChild.nativeElement, 'li[data-pc-section="menuitem"][data-p-disabled="false"]');
         const matchedOptionIndex = [...links].findIndex((link) => link.id === index);
 
         return matchedOptionIndex > -1 ? matchedOptionIndex + 1 : 0;
     }
 
     findPrevOptionIndex(index) {
-        const links = DomHandler.find(this.containerViewChild.nativeElement, 'li[data-pc-section="menuitem"][data-p-disabled="false"]');
+        const links = this.domHandler.find(this.containerViewChild.nativeElement, 'li[data-pc-section="menuitem"][data-p-disabled="false"]');
         const matchedOptionIndex = [...links].findIndex((link) => link.id === index);
 
         return matchedOptionIndex > -1 ? matchedOptionIndex - 1 : 0;
     }
 
     changeFocusedOptionIndex(index) {
-        const links = DomHandler.find(this.containerViewChild.nativeElement, 'li[data-pc-section="menuitem"][data-p-disabled="false"]');
+        const links = this.domHandler.find(this.containerViewChild.nativeElement, 'li[data-pc-section="menuitem"][data-p-disabled="false"]');
 
         if (links.length > 0) {
             let order = index >= links.length ? links.length - 1 : index < 0 ? 0 : index;
@@ -760,7 +762,7 @@ export class Menu implements OnDestroy {
 
     bindScrollListener() {
         if (!this.scrollHandler && isPlatformBrowser(this.platformId)) {
-            this.scrollHandler = new ConnectedOverlayScrollHandler(this.target, () => {
+            this.scrollHandler = this.scrollHandlerFactory.create(this.target, () => {
                 if (this.visible) {
                     this.hide();
                 }

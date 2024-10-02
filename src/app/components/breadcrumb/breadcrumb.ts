@@ -73,7 +73,7 @@ import { BreadcrumbItemClickEvent } from './breadcrumb.interface';
                     </a>
                 </li>
                 <li *ngIf="model && home" class="p-menuitem-separator" [attr.data-pc-section]="'separator'">
-                    <ChevronRightIcon *ngIf="!separatorTemplate" />
+                    <ChevronRightIcon *ngIf="!separatorTemplate" [styleClass]="'p-rtl-flip-icon'" />
                     <ng-template *ngTemplateOutlet="separatorTemplate"></ng-template>
                 </li>
                 <ng-template ngFor let-item let-end="last" [ngForOf]="model">
@@ -140,7 +140,7 @@ import { BreadcrumbItemClickEvent } from './breadcrumb.interface';
                         </a>
                     </li>
                     <li *ngIf="!end" class="p-menuitem-separator" [attr.data-pc-section]="'separator'">
-                        <ChevronRightIcon *ngIf="!separatorTemplate" />
+                        <ChevronRightIcon *ngIf="!separatorTemplate" [styleClass]="'p-rtl-flip-icon'" />
                         <ng-template *ngTemplateOutlet="separatorTemplate"></ng-template>
                     </li>
                 </ng-template>

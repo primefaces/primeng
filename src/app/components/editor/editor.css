@@ -2,3 +2,30 @@
     width: auto;
     height: auto;
 }
+
+.ql-toolbar:dir(rtl) {
+    button {
+        float: inline-start;
+
+        &.ql-blockquote,
+        &.ql-list,
+        &.ql-indent,
+        &.ql-direction,
+        &.ql-align,
+        &.ql-link {
+            transform: scaleX(-1);
+        }
+    }
+
+    .ql-picker-label {
+        padding-left: unset;
+        padding-right: unset;
+        padding-inline-start: 8px;
+        padding-inline-end: 2px;
+
+        &:not(.ql-color-picker):not(.ql-icon-picker) > svg {
+            right: unset;
+            inset-inline-end: 0;
+        }
+    }
+}
