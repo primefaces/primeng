@@ -368,61 +368,61 @@ export class ButtonDirective extends BaseComponent implements AfterViewInit, OnD
 @Component({
     selector: 'p-button',
     template: `
-        <ng-content></ng-content>
-        <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
-        <ng-container *ngIf="loading">
-            <ng-container *ngIf="!loadingIconTemplate">
-                <span *ngIf="loadingIcon" [ngClass]="iconClass()" [attr.aria-hidden]="true" [attr.data-pc-section]="'loadingicon'"></span>
-                <SpinnerIcon
-                    *ngIf="!loadingIcon"
-                    [styleClass]="spinnerIconClass()"
-                    [spin]="true"
-                    [attr.aria-hidden]="true"
-                    [attr.data-pc-section]="'loadingicon'"
-                />
-            </ng-container>
-            <ng-template
-                [ngIf]="loadingIconTemplate"
-                *ngTemplateOutlet="loadingIconTemplate; context: { class: iconClass() }"
-            ></ng-template>
-        </ng-container>
-        <ng-container *ngIf="!loading">
-            <span *ngIf="icon && !iconTemplate" [class]="icon" [ngClass]="iconClass()" [attr.data-pc-section]="'icon'"></span>
-            <ng-template [ngIf]="!icon && iconTemplate" *ngTemplateOutlet="iconTemplate; context: { class: iconClass() }"></ng-template>
-        </ng-container>
-        <span
-            class="p-button-label"
-            [attr.aria-hidden]="icon && !label"
-            *ngIf="!contentTemplate && label"
-            [attr.data-pc-section]="'label'"
-            >{{ label }}</span
+        <button
+            [attr.type]="type"
+            [attr.aria-label]="ariaLabel"
+            [ngStyle]="style"
+            [disabled]="disabled || loading"
+            [ngClass]="buttonClass"
+            (click)="onClick.emit($event)"
+            (focus)="onFocus.emit($event)"
+            (blur)="onBlur.emit($event)"
+            pRipple
+            [attr.data-pc-name]="'button'"
+            [attr.data-pc-section]="'root'"
+            [attr.tabindex]="tabindex"
+            pAutoFocus
+            [autofocus]="autofocus"
         >
-        <p-badge *ngIf="!contentTemplate && badge" [value]="badge" [severity]="badgeSeverity"></p-badge>
+            <ng-content></ng-content>
+            <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
+            <ng-container *ngIf="loading">
+                <ng-container *ngIf="!loadingIconTemplate">
+                    <span
+                        *ngIf="loadingIcon"
+                        [ngClass]="iconClass()"
+                        [attr.aria-hidden]="true"
+                        [attr.data-pc-section]="'loadingicon'"
+                    ></span>
+                    <SpinnerIcon
+                        *ngIf="!loadingIcon"
+                        [styleClass]="spinnerIconClass()"
+                        [spin]="true"
+                        [attr.aria-hidden]="true"
+                        [attr.data-pc-section]="'loadingicon'"
+                    />
+                </ng-container>
+                <ng-template
+                    [ngIf]="loadingIconTemplate"
+                    *ngTemplateOutlet="loadingIconTemplate; context: { class: iconClass() }"
+                ></ng-template>
+            </ng-container>
+            <ng-container *ngIf="!loading">
+                <span *ngIf="icon && !iconTemplate" [class]="icon" [ngClass]="iconClass()" [attr.data-pc-section]="'icon'"></span>
+                <ng-template [ngIf]="!icon && iconTemplate" *ngTemplateOutlet="iconTemplate; context: { class: iconClass() }"></ng-template>
+            </ng-container>
+            <span
+                class="p-button-label"
+                [attr.aria-hidden]="icon && !label"
+                *ngIf="!contentTemplate && label"
+                [attr.data-pc-section]="'label'"
+                >{{ label }}</span
+            >
+            <p-badge *ngIf="!contentTemplate && badge" [value]="badge" [severity]="badgeSeverity"></p-badge>
+        </button>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    host: {
-        '[attr.role]': '"button"',
-        '[attr.type]': 'type',
-        '[attr.aria-label]': 'ariaLabel',
-        '[ngStyle]': 'style',
-        '[disabled]': 'disabled || loading',
-        '[ngClass]': 'buttonClass',
-        '(click)': 'onClick.emit($event)',
-        '(focus)': 'onFocus.emit($event)',
-        '(blur)': 'onBlur.emit($event)',
-        '[attr.data-pc-name]': "'button'",
-        '[attr.data-pc-section]': "'root'",
-        '[attr.tabindex]': 'tabindex',
-        '[class.p-disabled]': 'disabled' || 'loading',
-    },
-    hostDirectives: [
-        Ripple,
-        {
-            directive: AutoFocus,
-            inputs: ['autofocus'],
-        },
-    ],
     providers: [ButtonStyle],
 })
 export class Button extends BaseComponent implements AfterContentInit {
@@ -593,21 +593,6 @@ export class Button extends BaseComponent implements AfterContentInit {
 
     _componentStyle = inject(ButtonStyle);
 
-    @HostBinding('class') get hostClasses(): string {
-        if (typeof this.buttonClass === 'string') {
-            return this.buttonClass;
-        }
-        if (Array.isArray(this.buttonClass)) {
-            return this.buttonClass.join(' ');
-        }
-        if (typeof this.buttonClass === 'object') {
-            return Object.keys(this.buttonClass)
-                .filter((key) => this.buttonClass[key])
-                .join(' ');
-        }
-        return '';
-    }
-
     ngOnChanges(simpleChanges: SimpleChanges) {
         super.ngOnChanges(simpleChanges);
         const { buttonProps } = simpleChanges;
@@ -643,7 +628,6 @@ export class Button extends BaseComponent implements AfterContentInit {
             'p-button p-component': true,
             'p-button-icon-only': (this.icon || this.iconTemplate || this.loadingIcon || this.loadingIconTemplate) && !this.label,
             'p-button-vertical': (this.iconPos === 'top' || this.iconPos === 'bottom') && this.label,
-            'p-disabled': this.disabled || this.loading,
             'p-button-loading': this.loading,
             'p-button-loading-label-only': this.loading && !this.icon && this.label && !this.loadingIcon && this.iconPos === 'left',
             'p-button-link': this.link,
