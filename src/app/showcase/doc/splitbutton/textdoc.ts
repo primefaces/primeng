@@ -17,6 +17,7 @@ import { Code } from '@domain/code';
             <p-splitbutton label="Warning" [model]="items" (onClick)="save('info')" text severity="warn" />
             <p-splitbutton label="Help" [model]="items" (onClick)="save('info')" text severity="help" />
             <p-splitbutton label="Danger" [model]="items" (onClick)="save('info')" text severity="danger" />
+            <p-splitbutton label="Contrast" [model]="items" (onClick)="save('info')" text severity="contrast" />
         </div>
         <app-code [code]="code" selector="split-button-text-demo"></app-code>
     `,
@@ -64,7 +65,8 @@ export class TextDoc {
 <p-splitbutton label="Info" [model]="items" (onClick)="save('info')" text severity="info" />
 <p-splitbutton label="Warning" [model]="items" (onClick)="save('info')" text severity="warn" />
 <p-splitbutton label="Help" [model]="items" (onClick)="save('info')" text severity="help" />
-<p-splitbutton label="Danger" [model]="items" (onClick)="save('info')" text severity="danger" />`,
+<p-splitbutton label="Danger" [model]="items" (onClick)="save('info')" text severity="danger" />
+<p-splitbutton label="Contrast" [model]="items" (onClick)="save('info')" text severity="contrast" />`,
 
         html: `<div class="card flex justify-center flex-wrap gap-4">
     <p-toast />
@@ -75,6 +77,7 @@ export class TextDoc {
     <p-splitbutton label="Warning" [model]="items" (onClick)="save('info')" text severity="warn" />
     <p-splitbutton label="Help" [model]="items" (onClick)="save('info')" text severity="help" />
     <p-splitbutton label="Danger" [model]="items" (onClick)="save('info')" text severity="danger" />
+    <p-splitbutton label="Contrast" [model]="items" (onClick)="save('info')" text severity="contrast" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
