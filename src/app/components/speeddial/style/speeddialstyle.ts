@@ -3,7 +3,7 @@ import { BaseStyle } from 'primeng/base';
 
 const theme = ({ dt }) => `
 .p-speeddial {
-    position: absolute;
+    position: static;
     display: flex;
     gap: ${dt('speeddial.gap')};
 }
