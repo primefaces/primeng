@@ -14,6 +14,7 @@ import {
     NgModule,
     NgZone,
     OnDestroy,
+    OnInit,
     Output,
     PLATFORM_ID,
     QueryList,
@@ -24,7 +25,7 @@ import {
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { OverlayModeType, OverlayOnBeforeHideEvent, OverlayOnBeforeShowEvent, OverlayOnHideEvent, OverlayOnShowEvent, OverlayOptions, OverlayService, PrimeNGConfig, PrimeTemplate, ResponsiveOverlayOptions, SharedModule } from 'primeng/api';
-import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
+import { ConnectedOverlayScrollHandler, ConnectedOverlayScrollHandlerFactory, DomHandler } from 'primeng/dom';
 import { ObjectUtils, ZIndexUtils } from 'primeng/utils';
 import { VoidListener } from 'primeng/ts-helpers';
 
@@ -365,22 +366,7 @@ export class Overlay implements AfterContentInit, OnDestroy {
 
     private window: Window | null;
 
-    protected transformOptions: any = {
-        default: 'scaleY(0.8)',
-        center: 'scale(0.7)',
-        top: 'translate3d(0px, -100%, 0px)',
-        'top-start': 'translate3d(0px, -100%, 0px)',
-        'top-end': 'translate3d(0px, -100%, 0px)',
-        bottom: 'translate3d(0px, 100%, 0px)',
-        'bottom-start': 'translate3d(0px, 100%, 0px)',
-        'bottom-end': 'translate3d(0px, 100%, 0px)',
-        left: 'translate3d(-100%, 0px, 0px)',
-        'left-start': 'translate3d(-100%, 0px, 0px)',
-        'left-end': 'translate3d(-100%, 0px, 0px)',
-        right: 'translate3d(100%, 0px, 0px)',
-        'right-start': 'translate3d(100%, 0px, 0px)',
-        'right-end': 'translate3d(100%, 0px, 0px)'
-    };
+    protected transformOptions: any;
 
     get modal() {
         if (isPlatformBrowser(this.platformId)) {
@@ -413,7 +399,7 @@ export class Overlay implements AfterContentInit, OnDestroy {
     }
 
     get targetEl() {
-        return DomHandler.getTargetElement(this.target, this.el?.nativeElement);
+        return this.domHandler.getTargetElement(this.target, this.el?.nativeElement);
     }
 
     constructor(
@@ -424,9 +410,28 @@ export class Overlay implements AfterContentInit, OnDestroy {
         private config: PrimeNGConfig,
         public overlayService: OverlayService,
         public cd: ChangeDetectorRef,
-        private zone: NgZone
+        private zone: NgZone,
+        private domHandler: DomHandler,
+        private scrollHandlerFactory: ConnectedOverlayScrollHandlerFactory
     ) {
         this.window = this.document.defaultView;
+
+        this.transformOptions = {
+            default: 'scaleY(0.8)',
+            center: 'scale(0.7)',
+            top: 'translate3d(0px, -100%, 0px)',
+            'top-start': 'translate3d(0px, -100%, 0px)',
+            'top-end': 'translate3d(0px, -100%, 0px)',
+            bottom: 'translate3d(0px, 100%, 0px)',
+            'bottom-start': 'translate3d(0px, 100%, 0px)',
+            'bottom-end': 'translate3d(0px, 100%, 0px)',
+            'inset-inline-start': this.domHandler.isRtl() ? 'translate3d(100%, 0px, 0px)' : 'translate3d(-100%, 0px, 0px)',
+            'left-start': this.domHandler.isRtl() ? 'translate3d(100%, 0px, 0px)' : 'translate3d(-100%, 0px, 0px)',
+            'left-end': this.domHandler.isRtl() ? 'translate3d(100%, 0px, 0px)' : 'translate3d(-100%, 0px, 0px)',
+            'inset-inline-end': this.domHandler.isRtl() ? 'translate3d(-100%, 0px, 0px)' : 'translate3d(100%, 0px, 0px)',
+            'right-start': this.domHandler.isRtl() ? 'translate3d(-100%, 0px, 0px)' : 'translate3d(100%, 0px, 0px)',
+            'right-end': this.domHandler.isRtl() ? 'translate3d(-100%, 0px, 0px)' : 'translate3d(100%, 0px, 0px)'
+        };
     }
 
     ngAfterContentInit() {
@@ -447,8 +452,8 @@ export class Overlay implements AfterContentInit, OnDestroy {
         this.onVisibleChange(true);
         this.handleEvents('onShow', { overlay: overlay || this.overlayEl, target: this.targetEl, mode: this.overlayMode });
 
-        isFocus && DomHandler.focus(this.targetEl);
-        this.modal && DomHandler.addClass(this.document?.body, 'p-overflow-hidden');
+        isFocus && this.domHandler.focus(this.targetEl);
+        this.modal && this.domHandler.addClass(this.document?.body, 'p-overflow-hidden');
     }
 
     hide(overlay?: HTMLElement, isFocus: boolean = false) {
@@ -457,13 +462,13 @@ export class Overlay implements AfterContentInit, OnDestroy {
         } else {
             this.onVisibleChange(false);
             this.handleEvents('onHide', { overlay: overlay || this.overlayEl, target: this.targetEl, mode: this.overlayMode });
-            isFocus && DomHandler.focus(this.targetEl);
-            this.modal && DomHandler.removeClass(this.document?.body, 'p-overflow-hidden');
+            isFocus && this.domHandler.focus(this.targetEl);
+            this.modal && this.domHandler.removeClass(this.document?.body, 'p-overflow-hidden');
         }
     }
 
     alignOverlay() {
-        !this.modal && DomHandler.alignOverlay(this.overlayEl, this.targetEl, this.appendTo);
+        !this.modal && this.domHandler.alignOverlay(this.overlayEl, this.targetEl, this.appendTo);
     }
 
     onVisibleChange(visible: boolean) {
@@ -493,7 +498,7 @@ export class Overlay implements AfterContentInit, OnDestroy {
                     ZIndexUtils.set(this.overlayMode, this.overlayEl, this.baseZIndex + this.config?.zIndex[this.overlayMode]);
                 }
 
-                DomHandler.appendOverlay(this.overlayEl, this.appendTo === 'body' ? this.document.body : this.appendTo, this.appendTo);
+                this.domHandler.appendOverlay(this.overlayEl, this.appendTo === 'body' ? this.document.body : this.appendTo, this.appendTo);
                 this.alignOverlay();
 
                 break;
@@ -501,7 +506,7 @@ export class Overlay implements AfterContentInit, OnDestroy {
             case 'void':
                 this.handleEvents('onBeforeHide', { overlay: this.overlayEl, target: this.targetEl, mode: this.overlayMode });
 
-                this.modal && DomHandler.addClass(this.overlayEl, 'p-component-overlay-leave');
+                this.modal && this.domHandler.addClass(this.overlayEl, 'p-component-overlay-leave');
 
                 break;
         }
@@ -527,7 +532,7 @@ export class Overlay implements AfterContentInit, OnDestroy {
                     this.modalVisible = false;
                     this.unbindListeners();
 
-                    DomHandler.appendOverlay(this.overlayEl, this.targetEl, this.appendTo);
+                    this.domHandler.appendOverlay(this.overlayEl, this.targetEl, this.appendTo);
                     ZIndexUtils.clear(container);
                     this.cd.markForCheck();
 
@@ -561,7 +566,7 @@ export class Overlay implements AfterContentInit, OnDestroy {
 
     bindScrollListener() {
         if (!this.scrollHandler) {
-            this.scrollHandler = new ConnectedOverlayScrollHandler(this.targetEl, (event: any) => {
+            this.scrollHandler = this.scrollHandlerFactory.create(this.targetEl, (event: any) => {
                 const valid = this.listener ? this.listener(event, { type: 'scroll', mode: this.overlayMode, valid: true }) : true;
 
                 valid && this.hide(event, true);
@@ -600,7 +605,7 @@ export class Overlay implements AfterContentInit, OnDestroy {
     bindDocumentResizeListener() {
         if (!this.documentResizeListener) {
             this.documentResizeListener = this.renderer.listen(this.window, 'resize', (event) => {
-                const valid = this.listener ? this.listener(event, { type: 'resize', mode: this.overlayMode, valid: !DomHandler.isTouchDevice() }) : !DomHandler.isTouchDevice();
+                const valid = this.listener ? this.listener(event, { type: 'resize', mode: this.overlayMode, valid: !this.domHandler.isTouchDevice() }) : !this.domHandler.isTouchDevice();
 
                 valid && this.hide(event, true);
             });
@@ -625,7 +630,7 @@ export class Overlay implements AfterContentInit, OnDestroy {
                     return;
                 }
 
-                const valid = this.listener ? this.listener(event, { type: 'keydown', mode: this.overlayMode, valid: !DomHandler.isTouchDevice() }) : !DomHandler.isTouchDevice();
+                const valid = this.listener ? this.listener(event, { type: 'keydown', mode: this.overlayMode, valid: !this.domHandler.isTouchDevice() }) : !this.domHandler.isTouchDevice();
 
                 if (valid) {
                     this.zone.run(() => {
@@ -647,7 +652,7 @@ export class Overlay implements AfterContentInit, OnDestroy {
         this.hide(this.overlayEl, true);
 
         if (this.overlayEl) {
-            DomHandler.appendOverlay(this.overlayEl, this.targetEl, this.appendTo);
+            this.domHandler.appendOverlay(this.overlayEl, this.targetEl, this.appendTo);
             ZIndexUtils.clear(this.overlayEl);
         }
 

@@ -885,7 +885,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
         return this.modelValue() != null && this.hasSelectedOption() && this.showClear && !this.disabled && !this.loading;
     }
 
-    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public config: PrimeNGConfig, public overlayService: OverlayService, private zone: NgZone) {
+    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public config: PrimeNGConfig, public overlayService: OverlayService, private zone: NgZone, private domHandler: DomHandler) {
       
         effect(() => {
             this.filled = ObjectUtils.isNotEmpty(this.modelValue());
@@ -1072,7 +1072,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
         }
 
         if (!this.overlayViewChild || !this.overlayViewChild.overlayViewChild?.nativeElement.contains(event.target)) {
-            DomHandler.focus(this.inputEL.nativeElement);
+            this.domHandler.focus(this.inputEL.nativeElement);
         }
     }
 
@@ -1082,7 +1082,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
         if (this.overlayVisible) {
             this.hide(true);
         } else {
-            DomHandler.focus(this.inputEL.nativeElement);
+            this.domHandler.focus(this.inputEL.nativeElement);
             query = this.inputEL.nativeElement.value;
 
             if (this.dropdownMode === 'blank') this.search(event, '', 'dropdown');
@@ -1323,7 +1323,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
         this.focusedOptionIndex.set(-1);
         if (this.multiple) {
             if (ObjectUtils.isEmpty(target.value) && this.hasSelectedOption()) {
-                DomHandler.focus(this.multiContainerEL.nativeElement);
+                this.domHandler.focus(this.multiContainerEL.nativeElement);
                 this.focusedMultipleOptionIndex.set(this.modelValue().length);
             } else {
                 event.stopPropagation(); // To prevent onArrowLeftKeyOnMultiple method
@@ -1422,7 +1422,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
         this.focusedMultipleOptionIndex.set(optionIndex);
         if (optionIndex > this.modelValue().length - 1) {
             this.focusedMultipleOptionIndex.set(-1);
-            DomHandler.focus(this.inputEL.nativeElement);
+            this.domHandler.focus(this.inputEL.nativeElement);
         }
     }
 
@@ -1480,7 +1480,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
 
         this.updateModel(value);
         this.onUnselect.emit({ originalEvent: event, value: removedOption });
-        DomHandler.focus(this.inputEL.nativeElement);
+        this.domHandler.focus(this.inputEL.nativeElement);
     }
 
     updateModel(value) {
@@ -1512,7 +1512,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
     scrollInView(index = -1) {
         const id = index !== -1 ? `${this.id}_${index}` : this.focusedOptionId;
         if (this.itemsViewChild && this.itemsViewChild.nativeElement) {
-            const element = DomHandler.findSingle(this.itemsViewChild.nativeElement, `li[id="${id}"]`);
+            const element = this.domHandler.findSingle(this.itemsViewChild.nativeElement, `li[id="${id}"]`);
             if (element) {
                 element.scrollIntoView && element.scrollIntoView({ block: 'nearest', inline: 'nearest' });
             } else if (!this.virtualScrollerDisabled) {
@@ -1539,9 +1539,9 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
         this.overlayVisible = true;
         const focusedOptionIndex = this.focusedOptionIndex() !== -1 ? this.focusedOptionIndex() : this.autoOptionFocus ? this.findFirstFocusedOptionIndex() : -1;
         this.focusedOptionIndex.set(focusedOptionIndex);
-        isFocus && DomHandler.focus(this.inputEL.nativeElement);
+        isFocus && this.domHandler.focus(this.inputEL.nativeElement);
         if (isFocus) {
-            DomHandler.focus(this.inputEL.nativeElement);
+            this.domHandler.focus(this.inputEL.nativeElement);
         }
         this.onShow.emit();
         this.cd.markForCheck();
@@ -1552,7 +1552,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
             this.dirty = isFocus;
             this.overlayVisible = false;
             this.focusedOptionIndex.set(-1);
-            isFocus && DomHandler.focus(this.inputEL.nativeElement);
+            isFocus && this.domHandler.focus(this.inputEL.nativeElement);
             this.onHide.emit();
             this.cd.markForCheck();
         };
@@ -1644,7 +1644,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
 
     onOverlayAnimationStart(event: AnimationEvent) {
         if (event.toState === 'visible') {
-            this.itemsWrapper = DomHandler.findSingle(this.overlayViewChild.overlayViewChild?.nativeElement, this.virtualScroll ? '.p-scroller' : '.p-autocomplete-panel');
+            this.itemsWrapper = this.domHandler.findSingle(this.overlayViewChild.overlayViewChild?.nativeElement, this.virtualScroll ? '.p-scroller' : '.p-autocomplete-panel');
 
             if (this.virtualScroll) {
                 this.scroller?.setContentEl(this.itemsViewChild?.nativeElement);
@@ -1658,7 +1658,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
                         this.scroller?.scrollToIndex(selectedIndex);
                     }
                 } else {
-                    let selectedListItem = DomHandler.findSingle(this.itemsWrapper, '.p-autocomplete-item.p-highlight');
+                    let selectedListItem = this.domHandler.findSingle(this.itemsWrapper, '.p-autocomplete-item.p-highlight');
 
                     if (selectedListItem) {
                         selectedListItem.scrollIntoView({ block: 'nearest', inline: 'center' });

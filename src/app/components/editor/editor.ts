@@ -196,6 +196,7 @@ export class Editor implements AfterContentInit, ControlValueAccessor {
 
     constructor(
         public el: ElementRef,
+        private domHandler: DomHandler,
         @Inject(PLATFORM_ID) private platformId: object
     ) {
         /**
@@ -301,9 +302,17 @@ export class Editor implements AfterContentInit, ControlValueAccessor {
             this.quill.setContents(this.quill.clipboard.convert(isQuill2 ? { html: this.value } : this.value));
         }
 
+        if (this.domHandler.isRtl()) {
+            this.quill.format('align', 'right');
+            this.quill.format('direction', 'rtl');
+        } else {
+            this.quill.format('align', 'left');
+            this.quill.format('direction', 'ltr');
+        }
+
         this.quill.on('text-change', (delta: any, oldContents: any, source: any) => {
             if (source === 'user') {
-                let html = isQuill2 ? this.quill.getSemanticHTML() : DomHandler.findSingle(editorElement, '.ql-editor').innerHTML;
+                let html = isQuill2 ? this.quill.getSemanticHTML() : this.domHandler.findSingle(editorElement, '.ql-editor').innerHTML;
                 let text = this.quill.getText().trim();
                 if (html === '<p><br></p>') {
                     html = null;
@@ -337,8 +346,8 @@ export class Editor implements AfterContentInit, ControlValueAccessor {
     private initQuillElements(): void {
         if (!this.quillElements) {
             this.quillElements = {
-                editorElement: DomHandler.findSingle(this.el.nativeElement, 'div.p-editor-content'),
-                toolbarElement: DomHandler.findSingle(this.el.nativeElement, 'div.p-editor-toolbar')
+                editorElement: this.domHandler.findSingle(this.el.nativeElement, 'div.p-editor-content'),
+                toolbarElement: this.domHandler.findSingle(this.el.nativeElement, 'div.p-editor-toolbar')
             };
         }
     }

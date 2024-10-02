@@ -1024,7 +1024,8 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         public cd: ChangeDetectorRef,
         public zone: NgZone,
         public filterService: FilterService,
-        public config: PrimeNGConfig
+        public config: PrimeNGConfig,
+        private domHandler: DomHandler
     ) {
         effect(() => {
             const modelValue = this.modelValue();
@@ -1083,9 +1084,9 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         }
 
         if (this.selectedOptionUpdated && this.itemsWrapper) {
-            let selectedItem = DomHandler.findSingle(this.overlayViewChild?.overlayViewChild?.nativeElement, 'li.p-highlight');
+            let selectedItem = this.domHandler.findSingle(this.overlayViewChild?.overlayViewChild?.nativeElement, 'li.p-highlight');
             if (selectedItem) {
-                DomHandler.scrollInView(this.itemsWrapper, selectedItem);
+                this.domHandler.scrollInView(this.itemsWrapper, selectedItem);
             }
             this.selectedOptionUpdated = false;
         }
@@ -1378,7 +1379,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         this.focusedOptionIndex.set(focusedOptionIndex);
 
         if (isFocus) {
-            DomHandler.focus(this.focusInputViewChild?.nativeElement);
+            this.domHandler.focus(this.focusInputViewChild?.nativeElement);
         }
 
         this.cd.markForCheck();
@@ -1386,7 +1387,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
 
     onOverlayAnimationStart(event: AnimationEvent) {
         if (event.toState === 'visible') {
-            this.itemsWrapper = DomHandler.findSingle(this.overlayViewChild?.overlayViewChild?.nativeElement, this.virtualScroll ? '.p-scroller' : '.p-dropdown-items-wrapper');
+            this.itemsWrapper = this.domHandler.findSingle(this.overlayViewChild?.overlayViewChild?.nativeElement, this.virtualScroll ? '.p-scroller' : '.p-dropdown-items-wrapper');
             this.virtualScroll && this.scroller?.setContentEl(this.itemsViewChild?.nativeElement);
 
             if (this.options && this.options.length) {
@@ -1396,7 +1397,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
                         this.scroller?.scrollToIndex(selectedIndex);
                     }
                 } else {
-                    let selectedListItem = DomHandler.findSingle(this.itemsWrapper, '.p-dropdown-item.p-highlight');
+                    let selectedListItem = this.domHandler.findSingle(this.itemsWrapper, '.p-dropdown-item.p-highlight');
 
                     if (selectedListItem) {
                         selectedListItem.scrollIntoView({ block: 'nearest', inline: 'nearest' });
@@ -1431,7 +1432,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         this.searchValue = '';
 
         if (this.overlayOptions?.mode === 'modal') {
-            DomHandler.unblockBodyScroll();
+            this.domHandler.unblockBodyScroll();
         }
         if (this.filter && this.resetFilterOnHide) {
             this.resetFilter();
@@ -1439,12 +1440,12 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         if (isFocus) {
             if (this.focusInputViewChild) {
                 setTimeout(() => {
-                    DomHandler.focus(this.focusInputViewChild?.nativeElement);
+                    this.domHandler.focus(this.focusInputViewChild?.nativeElement);
                 });
             }
             if (this.editable && this.editableInputViewChild) {
                 setTimeout(() => {
-                    DomHandler.focus(this.editableInputViewChild?.nativeElement);
+                    this.domHandler.focus(this.editableInputViewChild?.nativeElement);
                 });
             }
         }
@@ -1643,7 +1644,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         const id = index !== -1 ? `${this.id}_${index}` : this.focusedOptionId;
 
         if (this.itemsViewChild && this.itemsViewChild.nativeElement) {
-            const element = DomHandler.findSingle(this.itemsViewChild.nativeElement, `li[id="${id}"]`);
+            const element = this.domHandler.findSingle(this.itemsViewChild.nativeElement, `li[id="${id}"]`);
             if (element) {
                 element.scrollIntoView && element.scrollIntoView({ block: 'nearest', inline: 'nearest' });
             } else if (!this.virtualScrollerDisabled) {
@@ -1820,7 +1821,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     onTabKey(event, pressedInInputText = false) {
         if (!pressedInInputText) {
             if (this.overlayVisible && this.hasFocusableElements()) {
-                DomHandler.focus(event.shiftKey ? this.lastHiddenFocusableElementOnOverlay.nativeElement : this.firstHiddenFocusableElementOnOverlay.nativeElement);
+                this.domHandler.focus(event.shiftKey ? this.lastHiddenFocusableElementOnOverlay.nativeElement : this.firstHiddenFocusableElementOnOverlay.nativeElement);
                 event.preventDefault();
             } else {
                 if (this.focusedOptionIndex() !== -1 && this.overlayVisible) {
@@ -1834,21 +1835,21 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     }
 
     onFirstHiddenFocus(event) {
-        const focusableEl = event.relatedTarget === this.focusInputViewChild?.nativeElement ? DomHandler.getFirstFocusableElement(this.overlayViewChild.el?.nativeElement, ':not(.p-hidden-focusable)') : this.focusInputViewChild?.nativeElement;
-        DomHandler.focus(focusableEl);
+        const focusableEl = event.relatedTarget === this.focusInputViewChild?.nativeElement ? this.domHandler.getFirstFocusableElement(this.overlayViewChild.el?.nativeElement, ':not(.p-hidden-focusable)') : this.focusInputViewChild?.nativeElement;
+        this.domHandler.focus(focusableEl);
     }
 
     onLastHiddenFocus(event) {
         const focusableEl =
             event.relatedTarget === this.focusInputViewChild?.nativeElement
-                ? DomHandler.getLastFocusableElement(this.overlayViewChild?.overlayViewChild?.nativeElement, ':not([data-p-hidden-focusable="true"])')
+                ? this.domHandler.getLastFocusableElement(this.overlayViewChild?.overlayViewChild?.nativeElement, ':not([data-p-hidden-focusable="true"])')
                 : this.focusInputViewChild?.nativeElement;
 
-        DomHandler.focus(focusableEl);
+        this.domHandler.focus(focusableEl);
     }
 
     hasFocusableElements() {
-        return DomHandler.getFocusableElements(this.overlayViewChild.overlayViewChild.nativeElement, ':not([data-p-hidden-focusable="true"]):not([class="p-dropdown-items-wrapper"])').length > 0;
+        return this.domHandler.getFocusableElements(this.overlayViewChild.overlayViewChild.nativeElement, ':not([data-p-hidden-focusable="true"]):not([class="p-dropdown-items-wrapper"])').length > 0;
     }
 
     onBackspaceKey(event: KeyboardEvent, pressedInInputText = false) {
@@ -1922,8 +1923,8 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     }
 
     applyFocus(): void {
-        if (this.editable) DomHandler.findSingle(this.el.nativeElement, '.p-dropdown-label.p-inputtext').focus();
-        else DomHandler.focus(this.focusInputViewChild?.nativeElement);
+        if (this.editable) this.domHandler.findSingle(this.el.nativeElement, '.p-dropdown-label.p-inputtext').focus();
+        else this.domHandler.focus(this.focusInputViewChild?.nativeElement);
     }
     /**
      * Applies focus.

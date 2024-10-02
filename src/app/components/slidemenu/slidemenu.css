@@ -7,7 +7,7 @@
     .p-slidemenu-overlay {
         position: absolute;
         top: 0;
-        left: 0;
+        inset-inline-start: 0;
     }
 
     .p-slidemenu .p-menuitem-active {
@@ -56,16 +56,16 @@
     }
 
     .p-slidemenu .p-menuitem-link .p-submenu-icon:not(svg) {
-        margin-left: auto;
+        margin-inline-start: auto;
     }
 
     .p-slidemenu .p-menuitem-link .p-icon-wrapper {
-        margin-left: auto;
+        margin-inline-start: auto;
     }
 
     .p-slidemenu .p-menuitem-active > p-slidemenusub > .p-submenu-list {
         display: block;
-        left: 100%;
+        inset-inline-start: 100%;
         top: 0;
     }
 

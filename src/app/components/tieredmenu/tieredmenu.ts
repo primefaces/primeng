@@ -30,7 +30,7 @@ import {
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { MenuItem, OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
-import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
+import { ConnectedOverlayScrollHandler, ConnectedOverlayScrollHandlerFactory, DomHandler } from 'primeng/dom';
 import { AngleRightIcon } from 'primeng/icons/angleright';
 import { RippleModule } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
@@ -115,7 +115,7 @@ import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
                                 <span class="p-menuitem-badge" *ngIf="getItemProp(processedItem, 'badge')" [ngClass]="getItemProp(processedItem, 'badgeStyleClass')">{{ getItemProp(processedItem, 'badge') }}</span>
 
                                 <ng-container *ngIf="isItemGroup(processedItem)">
-                                    <AngleRightIcon *ngIf="!tieredMenu.submenuIconTemplate" [styleClass]="'p-submenu-icon'" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" />
+                                    <AngleRightIcon *ngIf="!tieredMenu.submenuIconTemplate" [styleClass]="'p-submenu-icon p-rtl-flip-icon'" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" />
                                     <ng-template *ngTemplateOutlet="tieredMenu.submenuIconTemplate" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true"></ng-template>
                                 </ng-container>
                             </a>
@@ -157,7 +157,7 @@ import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
                                 <span class="p-menuitem-badge" *ngIf="getItemProp(processedItem, 'badge')" [ngClass]="getItemProp(processedItem, 'badgeStyleClass')">{{ getItemProp(processedItem, 'badge') }}</span>
 
                                 <ng-container *ngIf="isItemGroup(processedItem)">
-                                    <AngleRightIcon *ngIf="!tieredMenu.submenuIconTemplate" [styleClass]="'p-submenu-icon'" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" />
+                                    <AngleRightIcon *ngIf="!tieredMenu.submenuIconTemplate" [styleClass]="'p-submenu-icon p-rtl-flip-icon'" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" />
                                     <ng-template *ngTemplateOutlet="tieredMenu.submenuIconTemplate" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true"></ng-template>
                                 </ng-container>
                             </a>
@@ -233,6 +233,7 @@ export class TieredMenuSub {
     constructor(
         public el: ElementRef,
         public renderer: Renderer2,
+        private domHandler: DomHandler,
         @Inject(forwardRef(() => TieredMenu)) public tieredMenu: TieredMenu
     ) {
         effect(() => {
@@ -248,15 +249,15 @@ export class TieredMenuSub {
             const sublist = this.sublistViewChild && this.sublistViewChild.nativeElement;
             if (sublist) {
                 const parentItem = sublist.parentElement.parentElement;
-                const containerOffset = DomHandler.getOffset(parentItem);
-                const viewport = DomHandler.getViewport();
-                const sublistWidth = sublist.offsetParent ? sublist.offsetWidth : DomHandler.getOuterWidth(sublist);
-                const itemOuterWidth = DomHandler.getOuterWidth(parentItem.children[0]);
+                const containerOffset = this.domHandler.getOffset(parentItem);
+                const viewport = this.domHandler.getViewport();
+                const sublistWidth = sublist.offsetParent ? sublist.offsetWidth : this.domHandler.getOuterWidth(sublist);
+                const itemOuterWidth = this.domHandler.getOuterWidth(parentItem.children[0]);
                 const sublistFlippedClass = 'p-submenu-list-flipped';
-                if (parseInt(containerOffset.left, 10) + itemOuterWidth + sublistWidth > viewport.width - DomHandler.calculateScrollbarWidth()) {
-                    DomHandler.addClass(sublist, sublistFlippedClass);
-                } else if (DomHandler.hasClass(sublist, sublistFlippedClass)) {
-                    DomHandler.removeClass(sublist, sublistFlippedClass);
+                if (parseInt(containerOffset.left, 10) + itemOuterWidth + sublistWidth > viewport.width - this.domHandler.calculateScrollbarWidth()) {
+                    this.domHandler.addClass(sublist, sublistFlippedClass);
+                } else if (this.domHandler.hasClass(sublist, sublistFlippedClass)) {
+                    this.domHandler.removeClass(sublist, sublistFlippedClass);
                 }
             }
         }
@@ -561,7 +562,9 @@ export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
         public renderer: Renderer2,
         public cd: ChangeDetectorRef,
         public config: PrimeNGConfig,
-        public overlayService: OverlayService
+        public overlayService: OverlayService,
+        private domHandler: DomHandler,
+        private scrollHandlerFactory: ConnectedOverlayScrollHandlerFactory
     ) {
         effect(() => {
             const path = this.activeItemPath();
@@ -690,7 +693,7 @@ export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
             this.focusedItemInfo.set({ index, level, parentKey, item });
 
             this.dirty = true;
-            DomHandler.focus(this.rootmenu.sublistViewChild.nativeElement);
+            this.domHandler.focus(this.rootmenu.sublistViewChild.nativeElement);
         } else {
             if (grouped) {
                 this.onItemChange(event);
@@ -699,13 +702,13 @@ export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
                 this.hide(originalEvent);
                 this.changeFocusedItemIndex(originalEvent, rootProcessedItem ? rootProcessedItem.index : -1);
 
-                DomHandler.focus(this.rootmenu.sublistViewChild.nativeElement);
+                this.domHandler.focus(this.rootmenu.sublistViewChild.nativeElement);
             }
         }
     }
 
     onItemMouseEnter(event: any) {
-        if (!DomHandler.isTouchDevice()) {
+        if (!this.domHandler.isTouchDevice()) {
             if (this.autoDisplay) {
                 this.dirty = true;
             }
@@ -870,8 +873,8 @@ export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
 
     onEnterKey(event: KeyboardEvent) {
         if (this.focusedItemInfo().index !== -1) {
-            const element = DomHandler.findSingle(this.rootmenu.el.nativeElement, `li[id="${`${this.focusedItemId}`}"]`);
-            const anchorElement = element && DomHandler.findSingle(element, 'a[data-pc-section="action"]');
+            const element = this.domHandler.findSingle(this.rootmenu.el.nativeElement, `li[id="${`${this.focusedItemId}`}"]`);
+            const anchorElement = element && this.domHandler.findSingle(element, 'a[data-pc-section="action"]');
 
             anchorElement ? anchorElement.click() : element && element.click();
 
@@ -900,7 +903,7 @@ export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
         this.activeItemPath.set(activeItemPath);
 
         grouped && (this.dirty = true);
-        isFocus && DomHandler.focus(this.rootmenu.sublistViewChild.nativeElement);
+        isFocus && this.domHandler.focus(this.rootmenu.sublistViewChild.nativeElement);
     }
 
     onMenuFocus(event: any) {
@@ -929,7 +932,7 @@ export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
                     this.bindOutsideClickListener();
                     this.bindResizeListener();
                     this.bindScrollListener();
-                    DomHandler.focus(this.rootmenu.sublistViewChild.nativeElement);
+                    this.domHandler.focus(this.rootmenu.sublistViewChild.nativeElement);
                     this.scrollInView();
                 }
                 break;
@@ -942,8 +945,8 @@ export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
     }
 
     alignOverlay() {
-        if (this.relativeAlign) DomHandler.relativePosition(this.container, this.target);
-        else DomHandler.absolutePosition(this.container, this.target);
+        if (this.relativeAlign) this.domHandler.relativePosition(this.container, this.target);
+        else this.domHandler.absolutePosition(this.container, this.target);
     }
 
     onOverlayAnimationEnd(event: AnimationEvent) {
@@ -957,7 +960,7 @@ export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
     appendOverlay() {
         if (this.appendTo) {
             if (this.appendTo === 'body') this.renderer.appendChild(this.document.body, this.container);
-            else DomHandler.appendChild(this.container, this.appendTo);
+            else this.domHandler.appendChild(this.container, this.appendTo);
         }
     }
 
@@ -985,7 +988,7 @@ export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
         this.activeItemPath.set([]);
         this.focusedItemInfo.set({ index: -1, level: 0, parentKey: '' });
 
-        isFocus && DomHandler.focus(this.relatedTarget || this.target || this.rootmenu.sublistViewChild.nativeElement);
+        isFocus && this.domHandler.focus(this.relatedTarget || this.target || this.rootmenu.sublistViewChild.nativeElement);
         this.dirty = false;
     }
 
@@ -1013,7 +1016,7 @@ export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
 
         this.focusedItemInfo.set({ index: -1, level: 0, parentKey: '' });
 
-        isFocus && DomHandler.focus(this.rootmenu.sublistViewChild.nativeElement);
+        isFocus && this.domHandler.focus(this.rootmenu.sublistViewChild.nativeElement);
 
         this.cd.markForCheck();
     }
@@ -1100,7 +1103,7 @@ export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
 
     scrollInView(index: number = -1) {
         const id = index !== -1 ? `${this.id}_${index}` : this.focusedItemId;
-        const element = DomHandler.findSingle(this.rootmenu.el.nativeElement, `li[id="${id}"]`);
+        const element = this.domHandler.findSingle(this.rootmenu.el.nativeElement, `li[id="${id}"]`);
 
         if (element) {
             element.scrollIntoView && element.scrollIntoView({ block: 'nearest', inline: 'nearest' });
@@ -1109,7 +1112,7 @@ export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
 
     bindScrollListener() {
         if (!this.scrollHandler) {
-            this.scrollHandler = new ConnectedOverlayScrollHandler(this.target, (event) => {
+            this.scrollHandler = this.scrollHandlerFactory.create(this.target, (event) => {
                 if (this.visible) {
                     this.hide(event, true);
                 }
@@ -1130,7 +1133,7 @@ export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
         if (isPlatformBrowser(this.platformId)) {
             if (!this.resizeListener) {
                 this.resizeListener = this.renderer.listen(this.document.defaultView, 'resize', (event) => {
-                    if (!DomHandler.isTouchDevice()) {
+                    if (!this.domHandler.isTouchDevice()) {
                         this.hide(event, true);
                     }
                 });

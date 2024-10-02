@@ -56,7 +56,8 @@ export class Draggable implements AfterViewInit, OnDestroy {
     constructor(
         public el: ElementRef,
         public zone: NgZone,
-        private renderer: Renderer2
+        private renderer: Renderer2,
+        private domHandler: DomHandler
     ) {}
 
     @Input() get pDraggableDisabled(): boolean {
@@ -152,7 +153,7 @@ export class Draggable implements AfterViewInit, OnDestroy {
     }
 
     allowDrag(): boolean {
-        if (this.dragHandle && this.handle) return DomHandler.matches(this.handle, this.dragHandle);
+        if (this.dragHandle && this.handle) return this.domHandler.matches(this.handle, this.dragHandle);
         else return true;
     }
 
@@ -202,7 +203,8 @@ export class Droppable implements AfterViewInit, OnDestroy {
     constructor(
         public el: ElementRef,
         public zone: NgZone,
-        private renderer: Renderer2
+        private renderer: Renderer2,
+        private domHandler: DomHandler
     ) {}
 
     dragOverListener: VoidListener;
@@ -237,7 +239,7 @@ export class Droppable implements AfterViewInit, OnDestroy {
     @HostListener('drop', ['$event'])
     drop(event: DragEvent) {
         if (this.allowDrop(event)) {
-            DomHandler.removeClass(this.el.nativeElement, 'p-draggable-enter');
+            this.domHandler.removeClass(this.el.nativeElement, 'p-draggable-enter');
             event.preventDefault();
             this.onDrop.emit(event);
         }
@@ -251,7 +253,7 @@ export class Droppable implements AfterViewInit, OnDestroy {
             (event.dataTransfer as DataTransfer).dropEffect = this.dropEffect;
         }
 
-        DomHandler.addClass(this.el.nativeElement, 'p-draggable-enter');
+        this.domHandler.addClass(this.el.nativeElement, 'p-draggable-enter');
         this.onDragEnter.emit(event);
     }
 
@@ -260,7 +262,7 @@ export class Droppable implements AfterViewInit, OnDestroy {
         event.preventDefault();
 
         if (!this.el.nativeElement.contains(event.relatedTarget)) {
-            DomHandler.removeClass(this.el.nativeElement, 'p-draggable-enter');
+            this.domHandler.removeClass(this.el.nativeElement, 'p-draggable-enter');
             this.onDragLeave.emit(event);
         }
     }

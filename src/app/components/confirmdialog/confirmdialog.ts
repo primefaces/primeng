@@ -326,12 +326,20 @@ export class ConfirmDialog implements AfterContentInit, OnInit, OnDestroy {
             case 'top-left':
             case 'bottom-left':
             case 'left':
-                this.transformOptions = 'translate3d(-100%, 0px, 0px)';
+                if (this.domHandler.isRtl()) {
+                    this.transformOptions = 'translate3d(100%, 0px, 0px)';
+                } else {
+                    this.transformOptions = 'translate3d(-100%, 0px, 0px)';
+                }
                 break;
             case 'top-right':
             case 'bottom-right':
             case 'right':
-                this.transformOptions = 'translate3d(100%, 0px, 0px)';
+                if (this.domHandler.isRtl()) {
+                    this.transformOptions = 'translate3d(-100%, 0px, 0px)';
+                } else {
+                    this.transformOptions = 'translate3d(100%, 0px, 0px)';
+                }
                 break;
             case 'bottom':
                 this.transformOptions = 'translate3d(0px, 100%, 0px)';
@@ -449,7 +457,8 @@ export class ConfirmDialog implements AfterContentInit, OnInit, OnDestroy {
         public zone: NgZone,
         private cd: ChangeDetectorRef,
         public config: PrimeNGConfig,
-        @Inject(DOCUMENT) private document: Document
+        @Inject(DOCUMENT) private document: Document,
+        private domHandler: DomHandler
     ) {
         this.subscription = this.confirmationService.requireConfirmation$.subscribe((confirmation) => {
             if (!confirmation) {
@@ -521,7 +530,7 @@ export class ConfirmDialog implements AfterContentInit, OnInit, OnDestroy {
             case 'visible':
                 this.container = event.element;
                 this.wrapper = this.container?.parentElement;
-                this.contentContainer = DomHandler.findSingle(this.container, '.p-dialog-content');
+                this.contentContainer = this.domHandler.findSingle(this.container, '.p-dialog-content');
                 this.container?.setAttribute(this.id, '');
                 this.appendContainer();
                 this.moveOnTop();
@@ -547,27 +556,27 @@ export class ConfirmDialog implements AfterContentInit, OnInit, OnDestroy {
     getElementToFocus() {
         switch (this.option('defaultFocus')) {
             case 'accept':
-                return DomHandler.findSingle(this.container, '.p-confirm-dialog-accept');
+                return this.domHandler.findSingle(this.container, '.p-confirm-dialog-accept');
 
             case 'reject':
-                return DomHandler.findSingle(this.container, '.p-confirm-dialog-reject');
+                return this.domHandler.findSingle(this.container, '.p-confirm-dialog-reject');
 
             case 'close':
-                return DomHandler.findSingle(this.container, '.p-dialog-header-close');
+                return this.domHandler.findSingle(this.container, '.p-dialog-header-close');
 
             case 'none':
                 return null;
 
             //backward compatibility
             default:
-                return DomHandler.findSingle(this.container, '.p-confirm-dialog-accept');
+                return this.domHandler.findSingle(this.container, '.p-confirm-dialog-accept');
         }
     }
 
     appendContainer() {
         if (this.appendTo) {
             if (this.appendTo === 'body') this.document.body.appendChild(this.wrapper as HTMLElement);
-            else DomHandler.appendChild(this.wrapper, this.appendTo);
+            else this.domHandler.appendChild(this.wrapper, this.appendTo);
         }
     }
 
@@ -579,7 +588,7 @@ export class ConfirmDialog implements AfterContentInit, OnInit, OnDestroy {
 
     enableModality() {
         if (this.option('blockScroll')) {
-            DomHandler.addClass(this.document.body, 'p-overflow-hidden');
+            this.domHandler.addClass(this.document.body, 'p-overflow-hidden');
         }
 
         if (this.option('dismissableMask')) {
@@ -595,7 +604,7 @@ export class ConfirmDialog implements AfterContentInit, OnInit, OnDestroy {
         this.maskVisible = false;
 
         if (this.option('blockScroll')) {
-            DomHandler.removeClass(this.document.body, 'p-overflow-hidden');
+            this.domHandler.removeClass(this.document.body, 'p-overflow-hidden');
         }
 
         if (this.dismissableMask) {
@@ -611,7 +620,7 @@ export class ConfirmDialog implements AfterContentInit, OnInit, OnDestroy {
         if (!this.styleElement) {
             this.styleElement = this.document.createElement('style');
             this.styleElement.type = 'text/css';
-            DomHandler.setAttribute(this.styleElement, 'nonce', this.config?.csp()?.nonce);
+            this.domHandler.setAttribute(this.styleElement, 'nonce', this.config?.csp()?.nonce);
             this.document.head.appendChild(this.styleElement);
             let innerHTML = '';
             for (let breakpoint in this.breakpoints) {
@@ -678,7 +687,7 @@ export class ConfirmDialog implements AfterContentInit, OnInit, OnDestroy {
                 if (event.which === 9 && this.focusTrap) {
                     event.preventDefault();
 
-                    let focusableElements = DomHandler.getFocusableElements(this.container as HTMLDivElement);
+                    let focusableElements = this.domHandler.getFocusableElements(this.container as HTMLDivElement);
 
                     if (focusableElements && focusableElements.length > 0) {
                         if (!focusableElements[0].ownerDocument.activeElement) {

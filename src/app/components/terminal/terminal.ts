@@ -68,7 +68,8 @@ export class Terminal implements AfterViewInit, AfterViewChecked, OnDestroy {
     constructor(
         public el: ElementRef,
         public terminalService: TerminalService,
-        public cd: ChangeDetectorRef
+        public cd: ChangeDetectorRef,
+        private domHandler: DomHandler
     ) {
         this.subscription = terminalService.responseHandler.subscribe((response) => {
             this.commands[this.commands.length - 1].response = response;
@@ -77,7 +78,7 @@ export class Terminal implements AfterViewInit, AfterViewChecked, OnDestroy {
     }
 
     ngAfterViewInit() {
-        this.container = DomHandler.find(this.el.nativeElement, '.p-terminal')[0];
+        this.container = this.domHandler.find(this.el.nativeElement, '.p-terminal')[0];
     }
 
     ngAfterViewChecked() {

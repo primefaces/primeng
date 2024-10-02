@@ -60,7 +60,8 @@ export class AppDocSectionNavComponent implements OnInit, OnDestroy {
         private location: Location,
         private zone: NgZone,
         private renderer: Renderer2,
-        private router: Router
+        private router: Router,
+        private domHandler: DomHandler
     ) {}
 
     ngOnInit(): void {
@@ -96,7 +97,7 @@ export class AppDocSectionNavComponent implements OnInit, OnDestroy {
     }
 
     getLabels() {
-        return [...Array.from(this.document.querySelectorAll(':is(h1,h2,h3).doc-section-label'))].filter((el: any) => DomHandler.isVisible(el));
+        return [...Array.from(this.document.querySelectorAll(':is(h1,h2,h3).doc-section-label'))].filter((el: any) => this.domHandler.isVisible(el));
     }
 
     onScroll() {
@@ -105,14 +106,14 @@ export class AppDocSectionNavComponent implements OnInit, OnDestroy {
                 this.zone.run(() => {
                     if (typeof document !== 'undefined') {
                         const labels = this.getLabels();
-                        const windowScrollTop = DomHandler.getWindowScrollTop();
+                        const windowScrollTop = this.domHandler.getWindowScrollTop();
 
                         labels.forEach((label) => {
-                            const { top } = DomHandler.getOffset(label);
+                            const { top } = this.domHandler.getOffset(label);
                             const threshold = this.getThreshold(label);
 
                             if (top - threshold <= windowScrollTop) {
-                                const link = DomHandler.findSingle(label, 'a');
+                                const link = this.domHandler.findSingle(label, 'a');
                                 this.activeId = link.id;
                             }
                         });
@@ -124,7 +125,7 @@ export class AppDocSectionNavComponent implements OnInit, OnDestroy {
             this.scrollEndTimer = setTimeout(() => {
                 this.isScrollBlocked = false;
 
-                const activeItem = DomHandler.findSingle(this.nav.nativeElement, '.active-navbar-item');
+                const activeItem = this.domHandler.findSingle(this.nav.nativeElement, '.active-navbar-item');
 
                 activeItem && activeItem.scrollIntoView({ block: 'nearest', inline: 'start' });
             }, 50);
@@ -144,13 +145,13 @@ export class AppDocSectionNavComponent implements OnInit, OnDestroy {
     getThreshold(label) {
         if (typeof document !== undefined) {
             if (!this.topbarHeight) {
-                const topbar = DomHandler.findSingle(document.body, '.layout-topbar');
+                const topbar = this.domHandler.findSingle(document.body, '.layout-topbar');
 
-                this.topbarHeight = topbar ? DomHandler.getHeight(topbar) : 0;
+                this.topbarHeight = topbar ? this.domHandler.getHeight(topbar) : 0;
             }
         }
 
-        return this.topbarHeight + DomHandler.getHeight(label) * 3.5;
+        return this.topbarHeight + this.domHandler.getHeight(label) * 3.5;
     }
 
     scrollToLabelById(id) {

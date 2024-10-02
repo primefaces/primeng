@@ -152,7 +152,8 @@ export class ScrollPanel implements AfterViewInit, AfterContentInit, OnDestroy {
         public zone: NgZone,
         public cd: ChangeDetectorRef,
         @Inject(DOCUMENT) private document: Document,
-        private renderer: Renderer2
+        private renderer: Renderer2,
+        private domHandler: DomHandler
     ) {
         this.contentId = UniqueComponentId() + '_content';
     }
@@ -201,7 +202,7 @@ export class ScrollPanel implements AfterViewInit, AfterContentInit, OnDestroy {
 
         let containerStyles: { [klass: string]: any } = window.getComputedStyle(container),
             xBarStyles = window.getComputedStyle(xBar),
-            pureContainerHeight = DomHandler.getHeight(container) - parseInt(xBarStyles['height'], 10);
+            pureContainerHeight = this.domHandler.getHeight(container) - parseInt(xBarStyles['height'], 10);
 
         if (containerStyles['max-height'] != 'none' && pureContainerHeight == 0) {
             if (content.offsetHeight + parseInt(xBarStyles['height'], 10) > parseInt(containerStyles['max-height'], 10)) {
@@ -235,32 +236,32 @@ export class ScrollPanel implements AfterViewInit, AfterContentInit, OnDestroy {
         this.requestAnimationFrame(() => {
             if ((this.scrollXRatio as number) >= 1) {
                 xBar.setAttribute('data-p-scrollpanel-hidden', 'true');
-                DomHandler.addClass(xBar, 'p-scrollpanel-hidden');
+                this.domHandler.addClass(xBar, 'p-scrollpanel-hidden');
             } else {
                 xBar.setAttribute('data-p-scrollpanel-hidden', 'false');
-                DomHandler.removeClass(xBar, 'p-scrollpanel-hidden');
+                this.domHandler.removeClass(xBar, 'p-scrollpanel-hidden');
                 const xBarWidth = Math.max((this.scrollXRatio as number) * 100, 10);
-                const xBarLeft = (content.scrollLeft * (100 - xBarWidth)) / (totalWidth - ownWidth);
-                xBar.style.cssText = 'width:' + xBarWidth + '%; left:' + xBarLeft + '%;bottom:' + bottom + 'px;';
+                const xBarLeft = (this.domHandler.getScrollLeft(content) * (100 - xBarWidth)) / (totalWidth - ownWidth);
+                xBar.style.cssText = 'width:' + xBarWidth + '%; inset-inline-start:' + xBarLeft + '%;bottom:' + bottom + 'px;';
             }
 
             if ((this.scrollYRatio as number) >= 1) {
                 yBar.setAttribute('data-p-scrollpanel-hidden', 'true');
-                DomHandler.addClass(yBar, 'p-scrollpanel-hidden');
+                this.domHandler.addClass(yBar, 'p-scrollpanel-hidden');
             } else {
                 yBar.setAttribute('data-p-scrollpanel-hidden', 'false');
-                DomHandler.removeClass(yBar, 'p-scrollpanel-hidden');
+                this.domHandler.removeClass(yBar, 'p-scrollpanel-hidden');
                 const yBarHeight = Math.max((this.scrollYRatio as number) * 100, 10);
                 const yBarTop = (content.scrollTop * (100 - yBarHeight)) / (totalHeight - ownHeight);
-                yBar.style.cssText = 'height:' + yBarHeight + '%; top: calc(' + yBarTop + '% - ' + xBar.clientHeight + 'px);right:' + right + 'px;';
+                yBar.style.cssText = 'height:' + yBarHeight + '%; top: calc(' + yBarTop + '% - ' + xBar.clientHeight + 'px);inset-inline-end:' + right + 'px;';
             }
         });
         this.cd.markForCheck();
     }
 
     onScroll(event) {
-        if (this.lastScrollLeft !== event.target.scrollLeft) {
-            this.lastScrollLeft = event.target.scrollLeft;
+        if (this.lastScrollLeft !== this.domHandler.getScrollLeft(event.target)) {
+            this.lastScrollLeft = this.domHandler.getScrollLeft(event.target);
             this.orientation = 'horizontal';
         } else if (this.lastScrollTop !== event.target.scrollTop) {
             this.lastScrollTop = event.target.scrollTop;
@@ -329,7 +330,11 @@ export class ScrollPanel implements AfterViewInit, AfterContentInit, OnDestroy {
     }
 
     repeat(bar, step) {
-        this.contentViewChild.nativeElement[bar] += step;
+        if (bar === 'scrollLeft') {
+            this.domHandler.setScrollLeft(this.containerViewChild.nativeElement, this.domHandler.getScrollLeft(this.containerViewChild.nativeElement) + step);
+        } else {
+            this.contentViewChild.nativeElement[bar] += step;
+        }
         this.moveBar();
     }
 
@@ -380,10 +385,10 @@ export class ScrollPanel implements AfterViewInit, AfterContentInit, OnDestroy {
         this.lastPageY = e.pageY;
 
         this.yBarViewChild.nativeElement.setAttribute('data-p-scrollpanel-grabbed', 'true');
-        DomHandler.addClass((this.yBarViewChild as ElementRef).nativeElement, 'p-scrollpanel-grabbed');
+        this.domHandler.addClass((this.yBarViewChild as ElementRef).nativeElement, 'p-scrollpanel-grabbed');
 
         this.document.body.setAttribute('data-p-scrollpanel-grabbed', 'true');
-        DomHandler.addClass(this.document.body, 'p-scrollpanel-grabbed');
+        this.domHandler.addClass(this.document.body, 'p-scrollpanel-grabbed');
         this.bindDocumentMouseListeners();
         e.preventDefault();
     }
@@ -391,13 +396,13 @@ export class ScrollPanel implements AfterViewInit, AfterContentInit, OnDestroy {
     onXBarMouseDown(e: MouseEvent) {
         this.isXBarClicked = true;
         this.xBarViewChild.nativeElement.focus();
-        this.lastPageX = e.pageX;
+        this.lastPageX = this.domHandler.getPageX(e);
 
         this.xBarViewChild.nativeElement.setAttribute('data-p-scrollpanel-grabbed', 'false');
-        DomHandler.addClass((this.xBarViewChild as ElementRef).nativeElement, 'p-scrollpanel-grabbed');
+        this.domHandler.addClass((this.xBarViewChild as ElementRef).nativeElement, 'p-scrollpanel-grabbed');
 
         this.document.body.setAttribute('data-p-scrollpanel-grabbed', 'false');
-        DomHandler.addClass(this.document.body, 'p-scrollpanel-grabbed');
+        this.domHandler.addClass(this.document.body, 'p-scrollpanel-grabbed');
 
         this.bindDocumentMouseListeners();
         e.preventDefault();
@@ -415,11 +420,12 @@ export class ScrollPanel implements AfterViewInit, AfterContentInit, OnDestroy {
     }
 
     onMouseMoveForXBar(e: MouseEvent) {
-        let deltaX = e.pageX - (this.lastPageX as number);
-        this.lastPageX = e.pageX;
+        let deltaX = this.domHandler.getPageX(e) - (this.lastPageX as number);
+        this.lastPageX = this.domHandler.getPageX(e);
 
         this.requestAnimationFrame(() => {
-            (this.contentViewChild as ElementRef).nativeElement.scrollLeft += deltaX / (this.scrollXRatio as number);
+            const element = (this.contentViewChild as ElementRef).nativeElement;
+            this.domHandler.setScrollLeft(element, this.domHandler.getScrollLeft(element) + deltaX / this.scrollXRatio);
         });
     }
 
@@ -458,11 +464,11 @@ export class ScrollPanel implements AfterViewInit, AfterContentInit, OnDestroy {
 
     onDocumentMouseUp(e: Event) {
         this.yBarViewChild.nativeElement.setAttribute('data-p-scrollpanel-grabbed', 'false');
-        DomHandler.removeClass((this.yBarViewChild as ElementRef).nativeElement, 'p-scrollpanel-grabbed');
+        this.domHandler.removeClass((this.yBarViewChild as ElementRef).nativeElement, 'p-scrollpanel-grabbed');
         this.xBarViewChild.nativeElement.setAttribute('data-p-scrollpanel-grabbed', 'false');
-        DomHandler.removeClass((this.xBarViewChild as ElementRef).nativeElement, 'p-scrollpanel-grabbed');
+        this.domHandler.removeClass((this.xBarViewChild as ElementRef).nativeElement, 'p-scrollpanel-grabbed');
         this.document.body.setAttribute('data-p-scrollpanel-grabbed', 'false');
-        DomHandler.removeClass(this.document.body, 'p-scrollpanel-grabbed');
+        this.domHandler.removeClass(this.document.body, 'p-scrollpanel-grabbed');
 
         this.unbindDocumentMouseListeners();
         this.isXBarClicked = false;

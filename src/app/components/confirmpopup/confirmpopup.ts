@@ -22,7 +22,7 @@ import {
 } from '@angular/core';
 import { Confirmation, ConfirmationService, OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
-import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
+import { ConnectedOverlayScrollHandler, ConnectedOverlayScrollHandlerFactory, DomHandler } from 'primeng/dom';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { ZIndexUtils } from 'primeng/utils';
 import { Subscription } from 'rxjs';
@@ -201,7 +201,9 @@ export class ConfirmPopup implements AfterContentInit, OnDestroy {
         private cd: ChangeDetectorRef,
         public config: PrimeNGConfig,
         public overlayService: OverlayService,
-        @Inject(DOCUMENT) private document: Document
+        @Inject(DOCUMENT) private document: Document,
+        private domHandler: DomHandler,
+        private scrollHandlerFactory: ConnectedOverlayScrollHandlerFactory
     ) {
         this.window = this.document.defaultView as Window;
         this.subscription = this.confirmationService.requireConfirmation$.subscribe((confirmation) => {
@@ -281,10 +283,10 @@ export class ConfirmPopup implements AfterContentInit, OnDestroy {
     getElementToFocus() {
         switch (this.defaultFocus) {
             case 'accept':
-                return DomHandler.findSingle(this.container, '.p-confirm-popup-accept');
+                return this.domHandler.findSingle(this.container, '.p-confirm-popup-accept');
 
             case 'reject':
-                return DomHandler.findSingle(this.container, '.p-confirm-popup-reject');
+                return this.domHandler.findSingle(this.container, '.p-confirm-popup-reject');
 
             case 'none':
                 return null;
@@ -299,10 +301,10 @@ export class ConfirmPopup implements AfterContentInit, OnDestroy {
         if (!this.confirmation) {
             return;
         }
-        DomHandler.absolutePosition(this.container, this.confirmation?.target, false);
+        this.domHandler.absolutePosition(this.container, this.confirmation?.target, false);
 
-        const containerOffset = DomHandler.getOffset(this.container);
-        const targetOffset = DomHandler.getOffset(this.confirmation?.target);
+        const containerOffset = this.domHandler.getOffset(this.container);
+        const targetOffset = this.domHandler.getOffset(this.confirmation?.target);
         let arrowLeft = 0;
 
         if (containerOffset.left < targetOffset.left) {
@@ -311,7 +313,7 @@ export class ConfirmPopup implements AfterContentInit, OnDestroy {
         (this.container as HTMLDivElement).style.setProperty('--overlayArrowLeft', `${arrowLeft}px`);
 
         if (containerOffset.top < targetOffset.top) {
-            DomHandler.addClass(this.container, 'p-confirm-popup-flipped');
+            this.domHandler.addClass(this.container, 'p-confirm-popup-flipped');
         }
     }
 
@@ -363,7 +365,7 @@ export class ConfirmPopup implements AfterContentInit, OnDestroy {
 
     bindDocumentClickListener() {
         if (!this.documentClickListener) {
-            let documentEvent = DomHandler.isIOS() ? 'touchstart' : 'click';
+            let documentEvent = this.domHandler.isIOS() ? 'touchstart' : 'click';
             const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : this.document;
 
             this.documentClickListener = this.renderer.listen(documentTarget, documentEvent, (event) => {
@@ -385,7 +387,7 @@ export class ConfirmPopup implements AfterContentInit, OnDestroy {
     }
 
     onWindowResize() {
-        if (this.visible && !DomHandler.isTouchDevice()) {
+        if (this.visible && !this.domHandler.isTouchDevice()) {
             this.hide();
         }
     }
@@ -405,7 +407,7 @@ export class ConfirmPopup implements AfterContentInit, OnDestroy {
 
     bindScrollListener() {
         if (!this.scrollHandler) {
-            this.scrollHandler = new ConnectedOverlayScrollHandler(this.confirmation?.target, () => {
+            this.scrollHandler = this.scrollHandlerFactory.create(this.confirmation?.target, () => {
                 if (this.visible) {
                     this.hide();
                 }

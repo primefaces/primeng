@@ -21,9 +21,13 @@
         position: absolute;
         top: 0;
         bottom: 0;
-        left: 0;
-        right: 0;
+        inset-inline-start: 0;
+        inset-inline-end: 0;
         margin: auto;
+    }
+
+    .p-progress-spinner-svg:dir(rtl) {
+        animation-name: p-progress-spinner-rotate-rtl;
     }
 
     .p-progress-spinner-circle {
@@ -33,11 +37,21 @@
         animation: p-progress-spinner-dash 1.5s ease-in-out infinite, p-progress-spinner-color 6s ease-in-out infinite;
         stroke-linecap: round;
     }
+
+    .p-progress-spinner-circle:dir(rtl) {
+        animation-name: p-progress-spinner-dash-rtl, p-progress-spinner-color;
+    }
 }
 
 @keyframes p-progress-spinner-rotate {
     100% {
         transform: rotate(360deg);
+    }
+}
+
+@keyframes p-progress-spinner-rotate-rtl {
+    100% {
+        transform: rotate(-360deg);
     }
 }
 
@@ -53,6 +67,21 @@
     100% {
         stroke-dasharray: 89, 200;
         stroke-dashoffset: -124px;
+    }
+}
+
+@keyframes p-progress-spinner-dash-rtl {
+    0% {
+        stroke-dasharray: 89, 200;
+        stroke-dashoffset: -124px;
+    }
+    50% {
+        stroke-dasharray: 89, 200;
+        stroke-dashoffset: -35px;
+    }
+    100% {
+        stroke-dasharray: 1, 200;
+        stroke-dashoffset: 0;
     }
 }
 

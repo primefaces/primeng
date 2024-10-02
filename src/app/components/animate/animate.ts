@@ -30,7 +30,8 @@ export class Animate implements OnInit, AfterViewInit {
     constructor(
         private host: ElementRef,
         public el: ElementRef,
-        public renderer: Renderer2
+        public renderer: Renderer2,
+        private domHandler: DomHandler
     ) {}
 
     ngOnInit() {
@@ -59,13 +60,13 @@ export class Animate implements OnInit, AfterViewInit {
 
     enter() {
         this.host.nativeElement.style.visibility = 'visible';
-        DomHandler.addClass(this.host.nativeElement, this.enterClass as string);
+        this.domHandler.addClass(this.host.nativeElement, this.enterClass as string);
     }
 
     leave() {
-        DomHandler.removeClass(this.host.nativeElement, this.enterClass as string);
+        this.domHandler.removeClass(this.host.nativeElement, this.enterClass as string);
         if (this.leaveClass) {
-            DomHandler.addClass(this.host.nativeElement, this.leaveClass);
+            this.domHandler.addClass(this.host.nativeElement, this.leaveClass);
         }
 
         const animationDuration = this.host.nativeElement.style.animationDuration || 500;

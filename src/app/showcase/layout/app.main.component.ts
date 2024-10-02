@@ -32,7 +32,8 @@ import { AppTopBarComponent } from './topbar/app.topbar.component';
 export class AppMainComponent {
     constructor(
         @Inject(DOCUMENT) private document: Document,
-        private configService: AppConfigService
+        private configService: AppConfigService,
+        private domHandler: DomHandler
     ) {}
 
     get isNewsActive(): boolean {
@@ -79,6 +80,6 @@ export class AppMainComponent {
 
     hideMenu() {
         this.configService.hideMenu();
-        DomHandler.unblockBodyScroll('blocked-scroll');
+        this.domHandler.unblockBodyScroll('blocked-scroll');
     }
 }

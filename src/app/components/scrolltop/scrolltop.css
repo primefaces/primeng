@@ -2,7 +2,7 @@
     .p-scrolltop {
         position: fixed;
         bottom: 20px;
-        right: 20px;
+        inset-inline-end: 20px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -13,6 +13,6 @@
     }
 
     .p-scrolltop-sticky.p-link {
-        margin-left: auto;
+        margin-inline-start: auto;
     }
 }

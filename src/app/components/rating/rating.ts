@@ -197,7 +197,8 @@ export class Rating implements OnInit, ControlValueAccessor {
 
     constructor(
         private cd: ChangeDetectorRef,
-        private config: PrimeNGConfig
+        private config: PrimeNGConfig,
+        private domHandler: DomHandler
     ) {}
 
     ngOnInit() {
@@ -230,9 +231,9 @@ export class Rating implements OnInit, ControlValueAccessor {
         if (!this.readonly && !this.disabled) {
             this.onOptionSelect(event, value);
             this.isFocusVisibleItem = false;
-            const firstFocusableEl = DomHandler.getFirstFocusableElement(event.currentTarget, '');
+            const firstFocusableEl = this.domHandler.getFirstFocusableElement(event.currentTarget, '');
 
-            firstFocusableEl && DomHandler.focus(firstFocusableEl);
+            firstFocusableEl && this.domHandler.focus(firstFocusableEl);
         }
     }
 

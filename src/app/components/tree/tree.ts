@@ -86,7 +86,7 @@ import {
                 <div
                     class="p-treenode-content"
                     [ngStyle]="{
-                        'padding-left': level * indentation + 'rem'
+                        'padding-inline-start': level * indentation + 'rem'
                     }"
                     (click)="onNodeClick($event)"
                     (contextmenu)="onNodeRightClick($event)"
@@ -103,7 +103,7 @@ import {
                     <button type="button" [attr.data-pc-section]="'toggler'" class="p-tree-toggler p-link" (click)="toggle($event)" pRipple tabindex="-1">
                         <ng-container *ngIf="!tree.togglerIconTemplate">
                             <ng-container *ngIf="!node.loading">
-                                <ChevronRightIcon *ngIf="!node.expanded" [styleClass]="'p-tree-toggler-icon'" />
+                                <ChevronRightIcon *ngIf="!node.expanded" [styleClass]="'p-tree-toggler-icon p-rtl-flip-icon'" />
                                 <ChevronDownIcon *ngIf="node.expanded" [styleClass]="'p-tree-toggler-icon'" />
                             </ng-container>
                             <ng-container *ngIf="loadingMode === 'icon' && node.loading">
@@ -276,7 +276,7 @@ export class UITreeNode implements OnInit {
         return this.tree.selectionMode === 'checkbox' ? this.isSelected() : undefined;
     }
 
-    constructor(@Inject(forwardRef(() => Tree)) tree: Tree) {
+    constructor(private domHandler: DomHandler, @Inject(forwardRef(() => Tree)) tree: Tree) {
         this.tree = tree as Tree;
     }
 
@@ -535,7 +535,7 @@ export class UITreeNode implements OnInit {
 
     onDropNodeDragLeave(event: any) {
         if (this.tree.droppableNodes) {
-            let rect = event.currentTarget.getBoundingClientRect();
+            let rect = this.domHandler.getBoundingClientRect(event.currentTarget);
             if (event.x > rect.left + rect.width || event.x < rect.left || event.y >= Math.floor(rect.top + rect.height) || event.y < rect.top) {
                 this.draghoverNode = false;
             }
@@ -680,7 +680,7 @@ export class UITreeNode implements OnInit {
     }
 
     setAllNodesTabIndexes() {
-        const nodes = DomHandler.find(this.tree.el.nativeElement, '.p-treenode');
+        const nodes = this.domHandler.find(this.tree.el.nativeElement, '.p-treenode');
 
         const hasSelectedNode = [...nodes].some((node) => node.getAttribute('aria-selected') === 'true' || node.getAttribute('aria-checked') === 'true');
 
@@ -701,7 +701,7 @@ export class UITreeNode implements OnInit {
 
     setTabIndexForSelectionMode(event, nodeTouched) {
         if (this.tree.selectionMode !== null) {
-            const elements = [...DomHandler.find(this.tree.el.nativeElement, '.p-treenode')];
+            const elements = [...this.domHandler.find(this.tree.el.nativeElement, '.p-treenode')];
 
             event.currentTarget.tabIndex = nodeTouched === false ? -1 : 0;
 
@@ -723,7 +723,7 @@ export class UITreeNode implements OnInit {
     }
 
     findLastVisibleDescendant(nodeElement: any): any {
-        const listElement = <HTMLElement>Array.from(nodeElement.children).find((el) => DomHandler.hasClass(el, 'p-treenode'));
+        const listElement = <HTMLElement>Array.from(nodeElement.children).find((el) => this.domHandler.hasClass(el, 'p-treenode'));
         const childrenListElement = listElement.children[1];
         if (childrenListElement && childrenListElement.children.length > 0) {
             const lastChildElement = childrenListElement.children[childrenListElement.children.length - 1];
@@ -754,8 +754,8 @@ export class UITreeNode implements OnInit {
 
     focusVirtualNode() {
         this.timeout = setTimeout(() => {
-            let node = DomHandler.findSingle(document.body, `[data-id="${<TreeNode>this.node?.key ?? <TreeNode>this.node?.data}"]`);
-            DomHandler.focus(node);
+            let node = this.domHandler.findSingle(document.body, `[data-id="${<TreeNode>this.node?.key ?? <TreeNode>this.node?.data}"]`);
+            this.domHandler.focus(node);
         }, 1);
     }
 }
@@ -1197,7 +1197,8 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
         public el: ElementRef,
         @Optional() public dragDropService: TreeDragDropService,
         public config: PrimeNGConfig,
-        private cd: ChangeDetectorRef
+        private cd: ChangeDetectorRef,
+        private domHandler: DomHandler
     ) {}
 
     ngOnInit() {
@@ -1310,7 +1311,7 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
 
     onNodeClick(event: Event, node: TreeNode) {
         let eventTarget = <Element>event.target;
-        if (DomHandler.hasClass(eventTarget, 'p-tree-toggler') || DomHandler.hasClass(eventTarget, 'p-tree-toggler-icon')) {
+        if (this.domHandler.hasClass(eventTarget, 'p-tree-toggler') || this.domHandler.hasClass(eventTarget, 'p-tree-toggler-icon')) {
             return;
         } else if (this.selectionMode) {
             if (node.selectable === false) {
@@ -1643,7 +1644,7 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
 
     onDragLeave(event: DragEvent) {
         if (this.droppableNodes) {
-            let rect = (event.currentTarget as HTMLElement).getBoundingClientRect();
+            let rect = this.domHandler.getBoundingClientRect(event.currentTarget as HTMLElement);
             if (event.x > rect.left + rect.width || event.x < rect.left || event.y > rect.top + rect.height || event.y < rect.top) {
                 this.dragHover = false;
             }
@@ -1762,7 +1763,7 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
             if (this.wrapperViewChild.nativeElement.scrollTo) {
                 this.wrapperViewChild.nativeElement.scrollTo(options);
             } else {
-                this.wrapperViewChild.nativeElement.scrollLeft = options.left;
+                this.domHandler.setScrollLeft(this.wrapperViewChild.nativeElement, options.left);
                 this.wrapperViewChild.nativeElement.scrollTop = options.top;
             }
         }

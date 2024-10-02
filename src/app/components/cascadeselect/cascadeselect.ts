@@ -75,8 +75,8 @@ export const CASCADESELECT_VALUE_ACCESSOR: any = {
                         <ng-template #defaultOptionTemplate>
                             <span class="p-cascadeselect-item-text" [attr.data-pc-section]="'text'">{{ getOptionLabelToRender(processedOption) }}</span>
                         </ng-template>
-                        <span class="p-cascadeselect-group-icon" *ngIf="isOptionGroup(processedOption)" [attr.data-pc-section]="'groupIcon'">
-                            <AngleRightIcon *ngIf="!groupIconTemplate" />
+                        <span class="p-cascadeselect-group-icon p-rtl-flip-icon" *ngIf="isOptionGroup(processedOption)" [attr.data-pc-section]="'groupIcon'">
+                            <AngleRightIcon *ngIf="!groupIconTemplate" [styleClass]="'p-rtl-flip-icon'" />
                             <ng-template *ngTemplateOutlet="groupIconTemplate"></ng-template>
                         </span>
                     </div>
@@ -144,7 +144,8 @@ export class CascadeSelectSub implements OnInit {
 
     constructor(
         private el: ElementRef,
-        public config: PrimeNGConfig
+        public config: PrimeNGConfig,
+        private domHandler: DomHandler
     ) {}
 
     ngOnInit() {
@@ -221,13 +222,13 @@ export class CascadeSelectSub implements OnInit {
 
     position() {
         const parentItem = this.el.nativeElement.parentElement;
-        const containerOffset = DomHandler.getOffset(parentItem);
-        const viewport = DomHandler.getViewport();
-        const sublistWidth = this.el.nativeElement.children[0].offsetParent ? this.el.nativeElement.children[0].offsetWidth : DomHandler.getHiddenElementOuterWidth(this.el.nativeElement.children[0]);
-        const itemOuterWidth = DomHandler.getOuterWidth(parentItem.children[0]);
+        const containerOffset = this.domHandler.getOffset(parentItem);
+        const viewport = this.domHandler.getViewport();
+        const sublistWidth = this.el.nativeElement.children[0].offsetParent ? this.el.nativeElement.children[0].offsetWidth : this.domHandler.getHiddenElementOuterWidth(this.el.nativeElement.children[0]);
+        const itemOuterWidth = this.domHandler.getOuterWidth(parentItem.children[0]);
 
-        if (parseInt(containerOffset.left, 10) + itemOuterWidth + sublistWidth > viewport.width - DomHandler.calculateScrollbarWidth()) {
-            this.el.nativeElement.children[0].style.left = '-200%';
+        if (parseInt(containerOffset.left, 10) + itemOuterWidth + sublistWidth > viewport.width - this.domHandler.calculateScrollbarWidth()) {
+            this.el.nativeElement.children[0].style.insetInlineStart = '-200%';
         }
     }
 }
@@ -1030,7 +1031,7 @@ export class CascadeSelect implements OnInit, AfterContentInit {
 
     scrollInView(index = -1) {
         const id = index !== -1 ? `${this.id}_${index}` : this.focusedOptionId;
-        const element = DomHandler.findSingle(this.panelViewChild?.nativeElement, `li[id="${id}"]`);
+        const element = this.domHandler.findSingle(this.panelViewChild?.nativeElement, `li[id="${id}"]`);
 
         if (element) {
             element.scrollIntoView && element.scrollIntoView({ block: 'nearest', inline: 'start' });
@@ -1064,7 +1065,7 @@ export class CascadeSelect implements OnInit, AfterContentInit {
         this.activeOptionPath.set(activeOptionPath);
 
         grouped ? this.onOptionGroupSelect({ originalEvent, value, isFocus: false }) : this.onOptionSelect({ originalEvent, value, isFocus });
-        isFocus && DomHandler.focus(this.focusInputViewChild.nativeElement);
+        isFocus && this.domHandler.focus(this.focusInputViewChild.nativeElement);
     }
 
     onOptionSelect(event) {
@@ -1235,7 +1236,7 @@ export class CascadeSelect implements OnInit, AfterContentInit {
             this.activeOptionPath.set([]);
             this.focusedOptionInfo.set({ index: -1, level: 0, parentKey: '' });
 
-            isFocus && DomHandler.focus(this.focusInputViewChild.nativeElement);
+            isFocus && this.domHandler.focus(this.focusInputViewChild.nativeElement);
             this.onHide.emit(event);
         };
 
@@ -1262,7 +1263,7 @@ export class CascadeSelect implements OnInit, AfterContentInit {
 
         this.focusedOptionInfo.set(focusedOptionInfo);
 
-        isFocus && DomHandler.focus(this.focusInputViewChild.nativeElement);
+        isFocus && this.domHandler.focus(this.focusInputViewChild.nativeElement);
     }
 
     clear(event?: MouseEvent) {
@@ -1310,7 +1311,8 @@ export class CascadeSelect implements OnInit, AfterContentInit {
         private el: ElementRef,
         private cd: ChangeDetectorRef,
         private config: PrimeNGConfig,
-        public overlayService: OverlayService
+        public overlayService: OverlayService,
+        private domHandler: DomHandler
     ) {
         effect(() => {
             const activeOptionPath = this.activeOptionPath();

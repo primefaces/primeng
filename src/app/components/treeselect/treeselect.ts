@@ -565,7 +565,8 @@ export class TreeSelect implements AfterContentInit {
         public config: PrimeNGConfig,
         public cd: ChangeDetectorRef,
         public el: ElementRef,
-        public overlayService: OverlayService
+        public overlayService: OverlayService,
+        private domHandler: DomHandler
     ) {}
 
     ngOnInit() {
@@ -639,7 +640,7 @@ export class TreeSelect implements AfterContentInit {
                     ObjectUtils.isNotEmpty(this.filterValue) && this.treeViewChild?._filter(<any>this.filterValue);
                     this.filterInputAutoFocus && this.filterViewChild?.nativeElement.focus();
                 } else {
-                    let focusableElements = DomHandler.getFocusableElements(this.panelEl.nativeElement);
+                    let focusableElements = this.domHandler.getFocusableElements(this.panelEl.nativeElement);
 
                     if (focusableElements && focusableElements.length > 0) {
                         focusableElements[0].focus();
@@ -650,7 +651,7 @@ export class TreeSelect implements AfterContentInit {
     }
 
     onOverlayBeforeHide(event: Event) {
-        let focusableElements = DomHandler.getFocusableElements(this.containerEl.nativeElement);
+        let focusableElements = this.domHandler.getFocusableElements(this.containerEl.nativeElement);
 
         if (focusableElements && focusableElements.length > 0) {
             focusableElements[0].focus();
@@ -670,9 +671,9 @@ export class TreeSelect implements AfterContentInit {
 
         if (
             !this.overlayViewChild?.el?.nativeElement?.contains(event.target) &&
-            !DomHandler.hasClass(event.target, 'p-treeselect-close') &&
-            !DomHandler.hasClass(event.target, 'p-checkbox-box') &&
-            !DomHandler.hasClass(event.target, 'p-checkbox-icon')
+            !this.domHandler.hasClass(event.target, 'p-treeselect-close') &&
+            !this.domHandler.hasClass(event.target, 'p-checkbox-box') &&
+            !this.domHandler.hasClass(event.target, 'p-checkbox-icon')
         ) {
             if (this.overlayVisible) {
                 this.hide();
@@ -738,7 +739,7 @@ export class TreeSelect implements AfterContentInit {
 
     onArrowDown(event: KeyboardEvent) {
         if (this.overlayVisible && this.panelEl?.nativeElement) {
-            let focusableElements = DomHandler.getFocusableElements(this.panelEl.nativeElement, '.p-treenode');
+            let focusableElements = this.domHandler.getFocusableElements(this.panelEl.nativeElement, '.p-treenode');
 
             if (focusableElements && focusableElements.length > 0) {
                 focusableElements[0].focus();
@@ -750,16 +751,16 @@ export class TreeSelect implements AfterContentInit {
 
     onFirstHiddenFocus(event) {
         const focusableEl =
-            event.relatedTarget === this.focusInput?.nativeElement ? DomHandler.getFirstFocusableElement(this.overlayViewChild?.overlayViewChild?.nativeElement, ':not([data-p-hidden-focusable="true"])') : this.focusInput?.nativeElement;
+            event.relatedTarget === this.focusInput?.nativeElement ? this.domHandler.getFirstFocusableElement(this.overlayViewChild?.overlayViewChild?.nativeElement, ':not([data-p-hidden-focusable="true"])') : this.focusInput?.nativeElement;
 
-        DomHandler.focus(focusableEl);
+        this.domHandler.focus(focusableEl);
     }
 
     onLastHiddenFocus(event) {
         const focusableEl =
-            event.relatedTarget === this.focusInput?.nativeElement ? DomHandler.getLastFocusableElement(this.overlayViewChild?.overlayViewChild?.nativeElement, ':not([data-p-hidden-focusable="true"])') : this.focusInput?.nativeElement;
+            event.relatedTarget === this.focusInput?.nativeElement ? this.domHandler.getLastFocusableElement(this.overlayViewChild?.overlayViewChild?.nativeElement, ':not([data-p-hidden-focusable="true"])') : this.focusInput?.nativeElement;
 
-        DomHandler.focus(focusableEl);
+        this.domHandler.focus(focusableEl);
     }
 
     show() {
@@ -791,7 +792,7 @@ export class TreeSelect implements AfterContentInit {
     onTabKey(event, pressedInInputText = false) {
         if (!pressedInInputText) {
             if (this.overlayVisible && this.hasFocusableElements()) {
-                DomHandler.focus(event.shiftKey ? this.lastHiddenFocusableElementOnOverlay.nativeElement : this.firstHiddenFocusableElementOnOverlay.nativeElement);
+                this.domHandler.focus(event.shiftKey ? this.lastHiddenFocusableElementOnOverlay.nativeElement : this.firstHiddenFocusableElementOnOverlay.nativeElement);
 
                 event.preventDefault();
             } else {
@@ -801,7 +802,7 @@ export class TreeSelect implements AfterContentInit {
     }
 
     hasFocusableElements() {
-        return DomHandler.getFocusableElements(this.overlayViewChild.overlayViewChild.nativeElement, ':not([data-p-hidden-focusable="true"])').length > 0;
+        return this.domHandler.getFocusableElements(this.overlayViewChild.overlayViewChild.nativeElement, ':not([data-p-hidden-focusable="true"])').length > 0;
     }
 
     resetFilter() {

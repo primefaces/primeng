@@ -401,12 +401,20 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
             case 'topleft':
             case 'bottomleft':
             case 'left':
-                this.transformOptions = 'translate3d(-100%, 0px, 0px)';
+                if (this.domHandler.isRtl()) {
+                    this.transformOptions = 'translate3d(100%, 0px, 0px)';
+                } else {
+                    this.transformOptions = 'translate3d(-100%, 0px, 0px)';
+                }
                 break;
             case 'topright':
             case 'bottomright':
             case 'right':
-                this.transformOptions = 'translate3d(100%, 0px, 0px)';
+                if (this.domHandler.isRtl()) {
+                    this.transformOptions = 'translate3d(-100%, 0px, 0px)';
+                } else {
+                    this.transformOptions = 'translate3d(100%, 0px, 0px)';
+                }
                 break;
             case 'bottom':
                 this.transformOptions = 'translate3d(0px, 100%, 0px)';
@@ -554,7 +562,8 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
         public renderer: Renderer2,
         public zone: NgZone,
         private cd: ChangeDetectorRef,
-        public config: PrimeNGConfig
+        public config: PrimeNGConfig,
+        private domHandler: DomHandler
     ) {
         this.window = this.document.defaultView as Window;
     }
@@ -633,7 +642,7 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
     focus(focusParentElement = this.contentViewChild?.nativeElement) {
         const timeoutDuration = this.parseDurationToMilliseconds(this.transitionOptions);
 
-        let focusable = DomHandler.getFocusableElement(focusParentElement, '[autofocus]');
+        let focusable = this.domHandler.getFocusableElement(focusParentElement, '[autofocus]');
 
         if (focusable) {
             this.zone.runOutsideAngular(() => {
@@ -641,7 +650,7 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
             });
             return;
         }
-        const focusableElement = DomHandler.getFocusableElement(focusParentElement);
+        const focusableElement = this.domHandler.getFocusableElement(focusParentElement);
 
         if (focusableElement) {
             this.zone.runOutsideAngular(() => {
@@ -668,7 +677,7 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
         }
 
         if (this.modal) {
-            DomHandler.blockBodyScroll();
+            this.domHandler.blockBodyScroll();
         }
     }
 
@@ -682,7 +691,7 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
             const scrollBlockers = document.querySelectorAll('.p-dialog-mask-scrollblocker');
 
             if (this.modal && scrollBlockers && scrollBlockers.length == 1) {
-                DomHandler.unblockBodyScroll();
+                this.domHandler.unblockBodyScroll();
             }
 
             if (!(this.cd as ViewRef).destroyed) {
@@ -696,9 +705,9 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
 
         if (!this.modal && !this.blockScroll) {
             if (this.maximized) {
-                DomHandler.blockBodyScroll();
+                this.domHandler.blockBodyScroll();
             } else {
-                DomHandler.unblockBodyScroll();
+                this.domHandler.unblockBodyScroll();
             }
         }
 
@@ -724,7 +733,7 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
             if (!this.styleElement) {
                 this.styleElement = this.renderer.createElement('style');
                 this.styleElement.type = 'text/css';
-                DomHandler.setAttribute(this.styleElement, 'nonce', this.config?.csp()?.nonce);
+                this.domHandler.setAttribute(this.styleElement, 'nonce', this.config?.csp()?.nonce);
                 this.renderer.appendChild(this.document.head, this.styleElement);
                 let innerHTML = '';
                 for (let breakpoint in this.breakpoints) {
@@ -743,44 +752,44 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
     }
 
     initDrag(event: MouseEvent) {
-        if (DomHandler.hasClass(event.target, 'p-dialog-header-icon') || DomHandler.hasClass(event.target, 'p-dialog-header-close-icon') || DomHandler.hasClass((<HTMLElement>event.target).parentElement, 'p-dialog-header-icon')) {
+        if (this.domHandler.hasClass(event.target, 'p-dialog-header-icon') || this.domHandler.hasClass(event.target, 'p-dialog-header-close-icon') || this.domHandler.hasClass((<HTMLElement>event.target).parentElement, 'p-dialog-header-icon')) {
             return;
         }
 
         if (this.draggable) {
             this.dragging = true;
-            this.lastPageX = event.pageX;
+            this.lastPageX = this.domHandler.getPageX(event);
             this.lastPageY = event.pageY;
 
             (this.container as HTMLDivElement).style.margin = '0';
-            DomHandler.addClass(this.document.body, 'p-unselectable-text');
+            this.domHandler.addClass(this.document.body, 'p-unselectable-text');
         }
     }
 
     onDrag(event: MouseEvent) {
         if (this.dragging) {
-            const containerWidth = DomHandler.getOuterWidth(this.container);
-            const containerHeight = DomHandler.getOuterHeight(this.container);
-            const deltaX = event.pageX - (this.lastPageX as number);
+            const containerWidth = this.domHandler.getOuterWidth(this.container);
+            const containerHeight = this.domHandler.getOuterHeight(this.container);
+            const deltaX = this.domHandler.getPageX(event) - (this.lastPageX as number);
             const deltaY = event.pageY - (this.lastPageY as number);
-            const offset = this.container.getBoundingClientRect();
+            const offset = this.domHandler.getBoundingClientRect(this.container);
 
             const containerComputedStyle = getComputedStyle(this.container);
 
-            const leftMargin = parseFloat(containerComputedStyle.marginLeft);
+            const leftMargin = parseFloat(containerComputedStyle.marginInlineStart);
             const topMargin = parseFloat(containerComputedStyle.marginTop);
 
             const leftPos = offset.left + deltaX - leftMargin;
             const topPos = offset.top + deltaY - topMargin;
-            const viewport = DomHandler.getViewport();
+            const viewport = this.domHandler.getViewport();
 
             this.container.style.position = 'fixed';
 
             if (this.keepInViewport) {
                 if (leftPos >= this.minX && leftPos + containerWidth < viewport.width) {
-                    this._style.left = `${leftPos}px`;
-                    this.lastPageX = event.pageX;
-                    this.container.style.left = `${leftPos}px`;
+                    this._style.insetInlineStart = `${leftPos}px`;
+                    this.lastPageX = this.domHandler.getPageX(event);
+                    this.container.style.insetInlineStart = `${leftPos}px`;
                 }
 
                 if (topPos >= this.minY && topPos + containerHeight < viewport.height) {
@@ -789,8 +798,8 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
                     this.container.style.top = `${topPos}px`;
                 }
             } else {
-                this.lastPageX = event.pageX;
-                this.container.style.left = `${leftPos}px`;
+                this.lastPageX = this.domHandler.getPageX(event);
+                this.container.style.insetInlineStart = `${leftPos}px`;
                 this.lastPageY = event.pageY;
                 this.container.style.top = `${topPos}px`;
             }
@@ -800,7 +809,7 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
     endDrag(event: DragEvent) {
         if (this.dragging) {
             this.dragging = false;
-            DomHandler.removeClass(this.document.body, 'p-unselectable-text');
+            this.domHandler.removeClass(this.document.body, 'p-unselectable-text');
             this.cd.detectChanges();
             this.onDragEnd.emit(event);
         }
@@ -808,7 +817,7 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
 
     resetPosition() {
         (this.container as HTMLDivElement).style.position = '';
-        (this.container as HTMLDivElement).style.left = '';
+        (this.container as HTMLDivElement).style.insetInlineStart = '';
         (this.container as HTMLDivElement).style.top = '';
         (this.container as HTMLDivElement).style.margin = '';
     }
@@ -821,27 +830,27 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
     initResize(event: MouseEvent) {
         if (this.resizable) {
             this.resizing = true;
-            this.lastPageX = event.pageX;
+            this.lastPageX = this.domHandler.getPageX(event);
             this.lastPageY = event.pageY;
-            DomHandler.addClass(this.document.body, 'p-unselectable-text');
+            this.domHandler.addClass(this.document.body, 'p-unselectable-text');
             this.onResizeInit.emit(event);
         }
     }
 
     onResize(event: MouseEvent) {
         if (this.resizing) {
-            let deltaX = event.pageX - (this.lastPageX as number);
+            let deltaX = this.domHandler.getPageX(event) - (this.lastPageX as number);
             let deltaY = event.pageY - (this.lastPageY as number);
-            let containerWidth = DomHandler.getOuterWidth(this.container);
-            let containerHeight = DomHandler.getOuterHeight(this.container);
-            let contentHeight = DomHandler.getOuterHeight(this.contentViewChild?.nativeElement);
+            let containerWidth = this.domHandler.getOuterWidth(this.container);
+            let containerHeight = this.domHandler.getOuterHeight(this.container);
+            let contentHeight = this.domHandler.getOuterHeight(this.contentViewChild?.nativeElement);
             let newWidth = containerWidth + deltaX;
             let newHeight = containerHeight + deltaY;
             let minWidth = (this.container as HTMLDivElement).style.minWidth;
             let minHeight = (this.container as HTMLDivElement).style.minHeight;
-            let offset = (this.container as HTMLDivElement).getBoundingClientRect();
-            let viewport = DomHandler.getViewport();
-            let hasBeenDragged = !parseInt((this.container as HTMLDivElement).style.top) || !parseInt((this.container as HTMLDivElement).style.left);
+            let offset = this.domHandler.getBoundingClientRect(this.container);
+            let viewport = this.domHandler.getViewport();
+            let hasBeenDragged = !parseInt((this.container as HTMLDivElement).style.top) || !parseInt((this.container as HTMLDivElement).style.insetInlineStart);
 
             if (hasBeenDragged) {
                 newWidth += deltaX;
@@ -862,7 +871,7 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
                 }
             }
 
-            this.lastPageX = event.pageX;
+            this.lastPageX = this.domHandler.getPageX(event);
             this.lastPageY = event.pageY;
         }
     }
@@ -870,7 +879,7 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
     resizeEnd(event: MouseEvent) {
         if (this.resizing) {
             this.resizing = false;
-            DomHandler.removeClass(this.document.body, 'p-unselectable-text');
+            this.domHandler.removeClass(this.document.body, 'p-unselectable-text');
             this.onResizeEnd.emit(event);
         }
     }
@@ -965,7 +974,7 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
     appendContainer() {
         if (this.appendTo) {
             if (this.appendTo === 'body') this.renderer.appendChild(this.document.body, this.wrapper);
-            else DomHandler.appendChild(this.wrapper, this.appendTo);
+            else this.domHandler.appendChild(this.wrapper, this.appendTo);
         }
     }
 
@@ -990,7 +999,7 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
                 }
 
                 if (!this.modal && this.blockScroll) {
-                    DomHandler.addClass(this.document.body, 'p-overflow-hidden');
+                    this.domHandler.addClass(this.document.body, 'p-overflow-hidden');
                 }
 
                 if (this.focusOnShow) {
@@ -1000,7 +1009,7 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
 
             case 'void':
                 if (this.wrapper && this.modal) {
-                    DomHandler.addClass(this.wrapper, 'p-component-overlay-leave');
+                    this.domHandler.addClass(this.wrapper, 'p-component-overlay-leave');
                 }
                 break;
         }
@@ -1026,7 +1035,7 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
         this.maskVisible = false;
 
         if (this.maximized) {
-            DomHandler.removeClass(this.document.body, 'p-overflow-hidden');
+            this.domHandler.removeClass(this.document.body, 'p-overflow-hidden');
             this.document.body.style.removeProperty('--scrollbar-width');
             this.maximized = false;
         }
@@ -1036,7 +1045,7 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
         }
 
         if (this.blockScroll) {
-            DomHandler.removeClass(this.document.body, 'p-overflow-hidden');
+            this.domHandler.removeClass(this.document.body, 'p-overflow-hidden');
         }
 
         if (this.container && this.autoZIndex) {

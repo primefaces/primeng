@@ -36,7 +36,7 @@ import { FormsModule } from '@angular/forms';
 import { BlockableUI, FilterMatchMode, FilterMetadata, FilterOperator, FilterService, LazyLoadMeta, OverlayService, PrimeNGConfig, PrimeTemplate, ScrollerOptions, SelectItem, SharedModule, SortMeta, TableState, TranslationKeys } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { CalendarModule } from 'primeng/calendar';
-import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
+import { ConnectedOverlayScrollHandler, ConnectedOverlayScrollHandlerFactory, DomHandler } from 'primeng/dom';
 import { DropdownModule } from 'primeng/dropdown';
 import { ArrowDownIcon } from 'primeng/icons/arrowdown';
 import { ArrowUpIcon } from 'primeng/icons/arrowup';
@@ -1177,7 +1177,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         public filterService: FilterService,
         public overlayService: OverlayService,
         public config: PrimeNGConfig,
-        private readonly domSanitizer: DomSanitizer
+        private readonly domSanitizer: DomSanitizer,
+        private domHandler: DomHandler
     ) {
         this.window = this.document.defaultView as Window;
     }
@@ -1704,7 +1705,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         let target = <HTMLElement>event.originalEvent.target;
         let targetNode = target.nodeName;
         let parentNode = target.parentElement && target.parentElement.nodeName;
-        if (targetNode == 'INPUT' || targetNode == 'BUTTON' || targetNode == 'A' || parentNode == 'INPUT' || parentNode == 'BUTTON' || parentNode == 'A' || DomHandler.hasClass(event.originalEvent.target, 'p-clickable')) {
+        if (targetNode == 'INPUT' || targetNode == 'BUTTON' || targetNode == 'A' || parentNode == 'INPUT' || parentNode == 'BUTTON' || parentNode == 'A' || this.domHandler.hasClass(event.originalEvent.target, 'p-clickable')) {
             return;
         }
 
@@ -1714,7 +1715,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
             this.preventSelectionSetterPropagation = true;
             if (this.isMultipleSelectionMode() && event.originalEvent.shiftKey && this.anchorRowIndex != null) {
-                DomHandler.clearSelection();
+                this.domHandler.clearSelection();
                 if (this.rangeRowIndex != null) {
                     this.clearSelectionRange(event.originalEvent);
                 }
@@ -2388,7 +2389,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             if (this.wrapperViewChild.nativeElement.scrollTo) {
                 this.wrapperViewChild.nativeElement.scrollTo(options);
             } else {
-                this.wrapperViewChild.nativeElement.scrollLeft = options.left;
+                this.domHandler.setScrollLeft(this.wrapperViewChild.nativeElement, options.left);
                 this.wrapperViewChild.nativeElement.scrollTop = options.top;
             }
         }
@@ -2403,14 +2404,14 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     }
 
     isEditingCellValid() {
-        return this.editingCell && DomHandler.find(this.editingCell, '.ng-invalid.ng-dirty').length === 0;
+        return this.editingCell && this.domHandler.find(this.editingCell, '.ng-invalid.ng-dirty').length === 0;
     }
 
     bindDocumentEditListener() {
         if (!this.documentEditListener) {
             this.documentEditListener = this.renderer.listen(this.document, 'click', (event) => {
                 if (this.editingCell && !this.selfClick && this.isEditingCellValid()) {
-                    DomHandler.removeClass(this.editingCell, 'p-cell-editing');
+                    this.domHandler.removeClass(this.editingCell, 'p-cell-editing');
                     this.editingCell = null;
                     this.onEditComplete.emit({ field: this.editingCellField, data: this.editingCellData, originalEvent: event, index: <number>this.editingCellRowIndex });
                     this.editingCellField = null;
@@ -2442,7 +2443,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     }
 
     saveRowEdit(rowData: any, rowElement: HTMLTableRowElement) {
-        if (DomHandler.find(rowElement, '.ng-invalid.ng-dirty').length === 0) {
+        if (this.domHandler.find(rowElement, '.ng-invalid.ng-dirty').length === 0) {
             let dataKeyValue = String(ObjectUtils.resolveFieldData(rowData, this.dataKey));
             delete this.editingRowKeys[dataKeyValue];
         }
@@ -2504,33 +2505,33 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     }
 
     onColumnResizeBegin(event: any) {
-        let containerLeft = DomHandler.getOffset(this.containerViewChild?.nativeElement).left;
+        let containerLeft = this.domHandler.getOffset(this.containerViewChild?.nativeElement).left;
         this.resizeColumnElement = event.target.parentElement;
         this.columnResizing = true;
         if (event.type == 'touchstart') {
-            this.lastResizerHelperX = event.changedTouches[0].clientX - containerLeft + this.containerViewChild?.nativeElement.scrollLeft;
+            this.lastResizerHelperX = this.domHandler.getClientX(event.changedTouches[0]) - containerLeft + this.domHandler.getScrollLeft(this.containerViewChild?.nativeElement);
         } else {
-            this.lastResizerHelperX = event.pageX - containerLeft + this.containerViewChild?.nativeElement.scrollLeft;
+            this.lastResizerHelperX = this.domHandler.getPageX(event) - containerLeft + this.domHandler.getScrollLeft(this.containerViewChild?.nativeElement);
         }
         this.onColumnResize(event);
         event.preventDefault();
     }
 
     onColumnResize(event: any) {
-        let containerLeft = DomHandler.getOffset(this.containerViewChild?.nativeElement).left;
-        DomHandler.addClass(this.containerViewChild?.nativeElement, 'p-unselectable-text');
+        let containerLeft = this.domHandler.getOffset(this.containerViewChild?.nativeElement).left;
+        this.domHandler.addClass(this.containerViewChild?.nativeElement, 'p-unselectable-text');
         (<ElementRef>this.resizeHelperViewChild).nativeElement.style.height = this.containerViewChild?.nativeElement.offsetHeight + 'px';
         (<ElementRef>this.resizeHelperViewChild).nativeElement.style.top = 0 + 'px';
         if (event.type == 'touchmove') {
-            (<ElementRef>this.resizeHelperViewChild).nativeElement.style.left = event.changedTouches[0].clientX - containerLeft + this.containerViewChild?.nativeElement.scrollLeft + 'px';
+            (<ElementRef>this.resizeHelperViewChild).nativeElement.style.insetInlineStart = this.domHandler.getClientX(event.changedTouches[0]) - containerLeft + this.domHandler.getScrollLeft(this.containerViewChild?.nativeElement) + 'px';
         } else {
-            (<ElementRef>this.resizeHelperViewChild).nativeElement.style.left = event.pageX - containerLeft + this.containerViewChild?.nativeElement.scrollLeft + 'px';
+            (<ElementRef>this.resizeHelperViewChild).nativeElement.style.insetInlineStart = this.domHandler.getPageX(event) - containerLeft + this.domHandler.getScrollLeft(this.containerViewChild?.nativeElement) + 'px';
         }
         (<ElementRef>this.resizeHelperViewChild).nativeElement.style.display = 'block';
     }
 
     onColumnResizeEnd() {
-        let delta = this.resizeHelperViewChild?.nativeElement.offsetLeft - <number>this.lastResizerHelperX;
+        let delta = this.domHandler.getOffsetLeft(this.resizeHelperViewChild?.nativeElement) - <number>this.lastResizerHelperX;
         let columnWidth = this.resizeColumnElement.offsetWidth;
         let newColumnWidth = columnWidth + delta;
         let minWidth = this.resizeColumnElement.style.minWidth.replace(/[^\d.]/g, '') || 15;
@@ -2562,21 +2563,21 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         }
 
         (<ElementRef>this.resizeHelperViewChild).nativeElement.style.display = 'none';
-        DomHandler.removeClass(this.containerViewChild?.nativeElement, 'p-unselectable-text');
+        this.domHandler.removeClass(this.containerViewChild?.nativeElement, 'p-unselectable-text');
     }
 
     private _totalTableWidth(): number[] {
         let widths = [];
-        const tableHead = DomHandler.findSingle(this.containerViewChild.nativeElement, '.p-datatable-thead');
-        let headers = DomHandler.find(tableHead, 'tr > th');
-        headers.forEach((header) => widths.push(DomHandler.getOuterWidth(header)));
+        const tableHead = this.domHandler.findSingle(this.containerViewChild.nativeElement, '.p-datatable-thead');
+        let headers = this.domHandler.find(tableHead, 'tr > th');
+        headers.forEach((header) => widths.push(this.domHandler.getOuterWidth(header)));
 
         return widths;
     }
 
     onColumnDragStart(event: any, columnElement: any) {
-        this.reorderIconWidth = DomHandler.getHiddenElementOuterWidth(this.reorderIndicatorUpViewChild?.nativeElement);
-        this.reorderIconHeight = DomHandler.getHiddenElementOuterHeight(this.reorderIndicatorDownViewChild?.nativeElement);
+        this.reorderIconWidth = this.domHandler.getHiddenElementOuterWidth(this.reorderIndicatorUpViewChild?.nativeElement);
+        this.reorderIconHeight = this.domHandler.getHiddenElementOuterHeight(this.reorderIndicatorDownViewChild?.nativeElement);
         this.draggedColumn = columnElement;
         event.dataTransfer.setData('text', 'b'); // For firefox
     }
@@ -2584,12 +2585,12 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     onColumnDragEnter(event: any, dropHeader: any) {
         if (this.reorderableColumns && this.draggedColumn && dropHeader) {
             event.preventDefault();
-            let containerOffset = DomHandler.getOffset(this.containerViewChild?.nativeElement);
-            let dropHeaderOffset = DomHandler.getOffset(dropHeader);
+            let containerOffset = this.domHandler.getOffset(this.containerViewChild?.nativeElement);
+            let dropHeaderOffset = this.domHandler.getOffset(dropHeader);
 
             if (this.draggedColumn != dropHeader) {
-                let dragIndex = DomHandler.indexWithinGroup(this.draggedColumn, 'preorderablecolumn');
-                let dropIndex = DomHandler.indexWithinGroup(dropHeader, 'preorderablecolumn');
+                let dragIndex = this.domHandler.indexWithinGroup(this.draggedColumn, 'preorderablecolumn');
+                let dropIndex = this.domHandler.indexWithinGroup(dropHeader, 'preorderablecolumn');
                 let targetLeft = dropHeaderOffset.left - containerOffset.left;
                 let targetTop = containerOffset.top - dropHeaderOffset.top;
                 let columnCenter = dropHeaderOffset.left + dropHeader.offsetWidth / 2;
@@ -2597,13 +2598,13 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                 (<ElementRef>this.reorderIndicatorUpViewChild).nativeElement.style.top = dropHeaderOffset.top - containerOffset.top - (<number>this.reorderIconHeight - 1) + 'px';
                 (<ElementRef>this.reorderIndicatorDownViewChild).nativeElement.style.top = dropHeaderOffset.top - containerOffset.top + dropHeader.offsetHeight + 'px';
 
-                if (event.pageX > columnCenter) {
-                    (<ElementRef>this.reorderIndicatorUpViewChild).nativeElement.style.left = targetLeft + dropHeader.offsetWidth - Math.ceil(<number>this.reorderIconWidth / 2) + 'px';
-                    (<ElementRef>this.reorderIndicatorDownViewChild).nativeElement.style.left = targetLeft + dropHeader.offsetWidth - Math.ceil(<number>this.reorderIconWidth / 2) + 'px';
+                if (this.domHandler.getPageX(event) > columnCenter) {
+                    (<ElementRef>this.reorderIndicatorUpViewChild).nativeElement.style.insetInlineStart = targetLeft + dropHeader.offsetWidth - Math.ceil(<number>this.reorderIconWidth / 2) + 'px';
+                    (<ElementRef>this.reorderIndicatorDownViewChild).nativeElement.style.insetInlineStart = targetLeft + dropHeader.offsetWidth - Math.ceil(<number>this.reorderIconWidth / 2) + 'px';
                     this.dropPosition = 1;
                 } else {
-                    (<ElementRef>this.reorderIndicatorUpViewChild).nativeElement.style.left = targetLeft - Math.ceil(<number>this.reorderIconWidth / 2) + 'px';
-                    (<ElementRef>this.reorderIndicatorDownViewChild).nativeElement.style.left = targetLeft - Math.ceil(<number>this.reorderIconWidth / 2) + 'px';
+                    (<ElementRef>this.reorderIndicatorUpViewChild).nativeElement.style.insetInlineStart = targetLeft - Math.ceil(<number>this.reorderIconWidth / 2) + 'px';
+                    (<ElementRef>this.reorderIndicatorDownViewChild).nativeElement.style.insetInlineStart = targetLeft - Math.ceil(<number>this.reorderIconWidth / 2) + 'px';
                     this.dropPosition = -1;
                 }
                 (<ElementRef>this.reorderIndicatorUpViewChild).nativeElement.style.display = 'block';
@@ -2623,8 +2624,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     onColumnDrop(event: Event, dropColumn: any) {
         event.preventDefault();
         if (this.draggedColumn) {
-            let dragIndex = DomHandler.indexWithinGroup(this.draggedColumn, 'preorderablecolumn');
-            let dropIndex = DomHandler.indexWithinGroup(dropColumn, 'preorderablecolumn');
+            let dragIndex = this.domHandler.indexWithinGroup(this.draggedColumn, 'preorderablecolumn');
+            let dropIndex = this.domHandler.indexWithinGroup(dropColumn, 'preorderablecolumn');
             let allowDrop = dragIndex != dropIndex;
             if (allowDrop && ((dropIndex - dragIndex == 1 && this.dropPosition === -1) || (dragIndex - dropIndex == 1 && this.dropPosition === 1))) {
                 allowDrop = false;
@@ -2671,7 +2672,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     }
 
     resizeTableCells(newColumnWidth: number, nextColumnWidth: number | null) {
-        let colIndex = DomHandler.index(this.resizeColumnElement);
+        let colIndex = this.domHandler.index(this.resizeColumnElement);
         let width = this.columnResizeMode === 'expand' ? this._initialColWidths : this._totalTableWidth();
         this.updateStyleElement(width, colIndex, newColumnWidth, nextColumnWidth);
     }
@@ -2703,23 +2704,23 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     onRowDragOver(event: MouseEvent, index: number, rowElement: any) {
         if (this.rowDragging && this.draggedRowIndex !== index) {
-            let rowY = DomHandler.getOffset(rowElement).top;
+            let rowY = this.domHandler.getOffset(rowElement).top;
             let pageY = event.pageY;
-            let rowMidY = rowY + DomHandler.getOuterHeight(rowElement) / 2;
+            let rowMidY = rowY + this.domHandler.getOuterHeight(rowElement) / 2;
             let prevRowElement = rowElement.previousElementSibling;
 
             if (pageY < rowMidY) {
-                DomHandler.removeClass(rowElement, 'p-datatable-dragpoint-bottom');
+                this.domHandler.removeClass(rowElement, 'p-datatable-dragpoint-bottom');
 
                 this.droppedRowIndex = index;
-                if (prevRowElement) DomHandler.addClass(prevRowElement, 'p-datatable-dragpoint-bottom');
-                else DomHandler.addClass(rowElement, 'p-datatable-dragpoint-top');
+                if (prevRowElement) this.domHandler.addClass(prevRowElement, 'p-datatable-dragpoint-bottom');
+                else this.domHandler.addClass(rowElement, 'p-datatable-dragpoint-top');
             } else {
-                if (prevRowElement) DomHandler.removeClass(prevRowElement, 'p-datatable-dragpoint-bottom');
-                else DomHandler.addClass(rowElement, 'p-datatable-dragpoint-top');
+                if (prevRowElement) this.domHandler.removeClass(prevRowElement, 'p-datatable-dragpoint-bottom');
+                else this.domHandler.addClass(rowElement, 'p-datatable-dragpoint-top');
 
                 this.droppedRowIndex = index + 1;
-                DomHandler.addClass(rowElement, 'p-datatable-dragpoint-bottom');
+                this.domHandler.addClass(rowElement, 'p-datatable-dragpoint-bottom');
             }
         }
     }
@@ -2727,11 +2728,11 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     onRowDragLeave(event: Event, rowElement: any) {
         let prevRowElement = rowElement.previousElementSibling;
         if (prevRowElement) {
-            DomHandler.removeClass(prevRowElement, 'p-datatable-dragpoint-bottom');
+            this.domHandler.removeClass(prevRowElement, 'p-datatable-dragpoint-bottom');
         }
 
-        DomHandler.removeClass(rowElement, 'p-datatable-dragpoint-bottom');
-        DomHandler.removeClass(rowElement, 'p-datatable-dragpoint-top');
+        this.domHandler.removeClass(rowElement, 'p-datatable-dragpoint-bottom');
+        this.domHandler.removeClass(rowElement, 'p-datatable-dragpoint-top');
     }
 
     onRowDragEnd(event: Event) {
@@ -2908,12 +2909,12 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     saveColumnWidths(state: any) {
         let widths: any[] = [];
-        let headers = DomHandler.find(this.containerViewChild?.nativeElement, '.p-datatable-thead > tr > th');
-        headers.forEach((header) => widths.push(DomHandler.getOuterWidth(header)));
+        let headers = this.domHandler.find(this.containerViewChild?.nativeElement, '.p-datatable-thead > tr > th');
+        headers.forEach((header) => widths.push(this.domHandler.getOuterWidth(header)));
         state.columnWidths = widths.join(',');
 
         if (this.columnResizeMode === 'expand') {
-            state.tableWidth = DomHandler.getOuterWidth(this.tableViewChild?.nativeElement);
+            state.tableWidth = this.domHandler.getOuterWidth(this.tableViewChild?.nativeElement);
         }
     }
 
@@ -2998,7 +2999,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     createStyleElement() {
         this.styleElement = this.renderer.createElement('style');
         this.styleElement.type = 'text/css';
-        DomHandler.setAttribute(this.styleElement, 'nonce', this.config?.csp()?.nonce);
+        this.domHandler.setAttribute(this.styleElement, 'nonce', this.config?.csp()?.nonce);
         this.renderer.appendChild(this.document.head, this.styleElement);
     }
 
@@ -3011,7 +3012,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             if (!this.responsiveStyleElement) {
                 this.responsiveStyleElement = this.renderer.createElement('style');
                 this.responsiveStyleElement.type = 'text/css';
-                DomHandler.setAttribute(this.responsiveStyleElement, 'nonce', this.config?.csp()?.nonce);
+                this.domHandler.setAttribute(this.responsiveStyleElement, 'nonce', this.config?.csp()?.nonce);
                 this.renderer.appendChild(this.document.head, this.responsiveStyleElement);
 
                 let innerHTML = `
@@ -3034,8 +3035,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
         #${this.id}.p-datatable-gridlines > .p-datatable-wrapper > .p-datatable-table > .p-datatable-tbody > tr > td:last-child {
             border-top: 0;
-            border-right: 0;
-            border-left: 0;
+            border-inline-end: 0;
+            border-inline-start: 0;
         }
 
         #${this.id}-table > .p-datatable-tbody > tr > td > .p-column-title {
@@ -3211,7 +3212,8 @@ export class TableBody implements AfterViewInit, OnDestroy {
         public dt: Table,
         public tableService: TableService,
         public cd: ChangeDetectorRef,
-        public el: ElementRef
+        public el: ElementRef,
+        private domHandler: DomHandler
     ) {
         this.subscription = this.dt.tableService.valueSource$.subscribe(() => {
             if (this.dt.virtualScroll) {
@@ -3278,12 +3280,12 @@ export class TableBody implements AfterViewInit, OnDestroy {
     }
 
     updateFrozenRowStickyPosition() {
-        this.el.nativeElement.style.top = DomHandler.getOuterHeight(this.el.nativeElement.previousElementSibling) + 'px';
+        this.el.nativeElement.style.top = this.domHandler.getOuterHeight(this.el.nativeElement.previousElementSibling) + 'px';
     }
 
     updateFrozenRowGroupHeaderStickyPosition() {
         if (this.el.nativeElement.previousElementSibling) {
-            let tableHeaderHeight = DomHandler.getOuterHeight(this.el.nativeElement.previousElementSibling);
+            let tableHeaderHeight = this.domHandler.getOuterHeight(this.el.nativeElement.previousElementSibling);
             this.dt.rowGroupHeaderStyleObject.top = tableHeaderHeight + 'px';
         }
     }
@@ -3340,7 +3342,8 @@ export class FrozenColumn implements AfterViewChecked {
 
     constructor(
         private el: ElementRef,
-        private zone: NgZone
+        private zone: NgZone,
+        private domHandler: DomHandler
     ) {}
 
     ngAfterViewChecked() {
@@ -3362,25 +3365,25 @@ export class FrozenColumn implements AfterViewChecked {
                 let right = 0;
                 let next = this.el.nativeElement.nextElementSibling;
                 if (next) {
-                    right = DomHandler.getOuterWidth(next) + (parseFloat(next.style.right) || 0);
+                    right = this.domHandler.getOuterWidth(next) + (parseFloat(next.style.insetInlineEnd) || 0);
                 }
-                this.el.nativeElement.style.right = right + 'px';
+                this.el.nativeElement.style.insetInlineEnd = right + 'px';
             } else {
                 let left = 0;
                 let prev = this.el.nativeElement.previousElementSibling;
                 if (prev) {
-                    left = DomHandler.getOuterWidth(prev) + (parseFloat(prev.style.left) || 0);
+                    left = this.domHandler.getOuterWidth(prev) + (parseFloat(prev.style.insetInlineStart) || 0);
                 }
-                this.el.nativeElement.style.left = left + 'px';
+                this.el.nativeElement.style.insetInlineStart = left + 'px';
             }
 
             const filterRow = this.el.nativeElement?.parentElement?.nextElementSibling;
 
             if (filterRow) {
-                let index = DomHandler.index(this.el.nativeElement);
+                let index = this.domHandler.index(this.el.nativeElement);
                 if (filterRow.children && filterRow.children[index]) {
-                    filterRow.children[index].style.left = this.el.nativeElement.style.left;
-                    filterRow.children[index].style.right = this.el.nativeElement.style.right;
+                    filterRow.children[index].style.insetInlineStart = this.el.nativeElement.style.insetInlineStart;
+                    filterRow.children[index].style.insetInlineEnd = this.el.nativeElement.style.insetInlineEnd;
                 }
             }
         }
@@ -3408,7 +3411,7 @@ export class SortableColumn implements OnInit, OnDestroy {
 
     subscription: Subscription | undefined;
 
-    constructor(public dt: Table) {
+    constructor(public dt: Table, private domHandler: DomHandler) {
         if (this.isEnabled()) {
             this.subscription = this.dt.tableService.sortSource$.subscribe((sortMeta) => {
                 this.updateSortState();
@@ -3436,7 +3439,7 @@ export class SortableColumn implements OnInit, OnDestroy {
                 field: this.field
             });
 
-            DomHandler.clearSelection();
+            this.domHandler.clearSelection();
         }
     }
 
@@ -3456,7 +3459,7 @@ export class SortableColumn implements OnInit, OnDestroy {
         return this.isFilterElementIconOrButton(element) || this.isFilterElementIconOrButton(element?.parentElement?.parentElement);
     }
     private isFilterElementIconOrButton(element: HTMLElement) {
-        return DomHandler.hasClass(element, 'pi-filter-icon') || DomHandler.hasClass(element, 'p-column-filter-menu-button');
+        return this.domHandler.hasClass(element, 'pi-filter-icon') || this.domHandler.hasClass(element, 'p-column-filter-menu-button');
     }
 
     ngOnDestroy() {
@@ -3470,9 +3473,9 @@ export class SortableColumn implements OnInit, OnDestroy {
     selector: 'p-sortIcon',
     template: `
         <ng-container *ngIf="!dt.sortIconTemplate">
-            <SortAltIcon [styleClass]="'p-sortable-column-icon'" *ngIf="sortOrder === 0" />
-            <SortAmountUpAltIcon [styleClass]="'p-sortable-column-icon'" *ngIf="sortOrder === 1" />
-            <SortAmountDownIcon [styleClass]="'p-sortable-column-icon'" *ngIf="sortOrder === -1" />
+            <SortAltIcon [styleClass]="'p-sortable-column-icon p-rtl-flip-icon'" *ngIf="sortOrder === 0" />
+            <SortAmountUpAltIcon [styleClass]="'p-sortable-column-icon p-rtl-flip-icon'" *ngIf="sortOrder === 1" />
+            <SortAmountDownIcon [styleClass]="'p-sortable-column-icon p-rtl-flip-icon'" *ngIf="sortOrder === -1" />
         </ng-container>
         <span *ngIf="dt.sortIconTemplate" class="p-sortable-column-icon">
             <ng-template *ngTemplateOutlet="dt.sortIconTemplate; context: { $implicit: sortOrder }"></ng-template>
@@ -3579,7 +3582,8 @@ export class SelectableRow implements OnInit, OnDestroy {
     constructor(
         public dt: Table,
         public tableService: TableService,
-        private el: ElementRef
+        private el: ElementRef,
+        private domHandler: DomHandler
     ) {
         if (this.isEnabled()) {
             this.subscription = this.dt.tableService.selectionSource$.subscribe(() => {
@@ -3705,7 +3709,7 @@ export class SelectableRow implements OnInit, OnDestroy {
 
         if (event.ctrlKey && event.shiftKey) {
             const data = this.dt.dataToRender(this.dt.rows);
-            const lastSelectableRowIndex = DomHandler.getAttribute(lastRow, 'index');
+            const lastSelectableRowIndex = this.domHandler.getAttribute(lastRow, 'index');
 
             this.dt.anchorRowIndex = lastSelectableRowIndex;
             this.dt.selection = data.slice(this.index, data.length);
@@ -3721,7 +3725,7 @@ export class SelectableRow implements OnInit, OnDestroy {
 
         if (event.ctrlKey && event.shiftKey) {
             const data = this.dt.dataToRender(this.dt.rows);
-            const firstSelectableRowIndex = DomHandler.getAttribute(firstRow, 'index');
+            const firstSelectableRowIndex = this.domHandler.getAttribute(firstRow, 'index');
 
             this.dt.anchorRowIndex = this.dt.anchorRowIndex || firstSelectableRowIndex;
             this.dt.selection = data.slice(0, this.index + 1);
@@ -3763,17 +3767,17 @@ export class SelectableRow implements OnInit, OnDestroy {
     focusRowChange(firstFocusableRow, currentFocusedRow) {
         firstFocusableRow.tabIndex = '-1';
         currentFocusedRow.tabIndex = '0';
-        DomHandler.focus(currentFocusedRow);
+        this.domHandler.focus(currentFocusedRow);
     }
 
     findLastSelectableRow() {
-        const rows = DomHandler.find(this.dt.el.nativeElement, '.p-selectable-row');
+        const rows = this.domHandler.find(this.dt.el.nativeElement, '.p-selectable-row');
 
         return rows ? rows[rows.length - 1] : null;
     }
 
     findFirstSelectableRow() {
-        const firstRow = DomHandler.findSingle(this.dt.el.nativeElement, '.p-selectable-row');
+        const firstRow = this.domHandler.findSingle(this.dt.el.nativeElement, '.p-selectable-row');
 
         return firstRow;
     }
@@ -3781,7 +3785,7 @@ export class SelectableRow implements OnInit, OnDestroy {
     findNextSelectableRow(row: HTMLTableRowElement): HTMLTableRowElement | null {
         let nextRow = <HTMLTableRowElement>row.nextElementSibling;
         if (nextRow) {
-            if (DomHandler.hasClass(nextRow, 'p-selectable-row')) return nextRow;
+            if (this.domHandler.hasClass(nextRow, 'p-selectable-row')) return nextRow;
             else return this.findNextSelectableRow(nextRow);
         } else {
             return null;
@@ -3791,7 +3795,7 @@ export class SelectableRow implements OnInit, OnDestroy {
     findPrevSelectableRow(row: HTMLTableRowElement): HTMLTableRowElement | null {
         let prevRow = <HTMLTableRowElement>row.previousElementSibling;
         if (prevRow) {
-            if (DomHandler.hasClass(prevRow, 'p-selectable-row')) return prevRow;
+            if (this.domHandler.hasClass(prevRow, 'p-selectable-row')) return prevRow;
             else return this.findPrevSelectableRow(prevRow);
         } else {
             return null;
@@ -3978,13 +3982,14 @@ export class ResizableColumn implements AfterViewInit, OnDestroy {
         private renderer: Renderer2,
         public dt: Table,
         public el: ElementRef,
-        public zone: NgZone
+        public zone: NgZone,
+        private domHandler: DomHandler
     ) {}
 
     ngAfterViewInit() {
         if (isPlatformBrowser(this.platformId)) {
             if (this.isEnabled()) {
-                DomHandler.addClass(this.el.nativeElement, 'p-resizable-column');
+                this.domHandler.addClass(this.el.nativeElement, 'p-resizable-column');
                 this.resizer = this.renderer.createElement('span');
                 this.renderer.addClass(this.resizer, 'p-column-resizer');
                 this.renderer.appendChild(this.el.nativeElement, this.resizer);
@@ -4093,7 +4098,8 @@ export class ReorderableColumn implements AfterViewInit, OnDestroy {
         private renderer: Renderer2,
         public dt: Table,
         public el: ElementRef,
-        public zone: NgZone
+        public zone: NgZone,
+        private domHandler: DomHandler
     ) {}
 
     ngAfterViewInit() {
@@ -4146,7 +4152,7 @@ export class ReorderableColumn implements AfterViewInit, OnDestroy {
     }
 
     onMouseDown(event: any) {
-        if (event.target.nodeName === 'INPUT' || event.target.nodeName === 'TEXTAREA' || DomHandler.hasClass(event.target, 'p-column-resizer')) this.el.nativeElement.draggable = false;
+        if (event.target.nodeName === 'INPUT' || event.target.nodeName === 'TEXTAREA' || this.domHandler.hasClass(event.target, 'p-column-resizer')) this.el.nativeElement.draggable = false;
         else this.el.nativeElement.draggable = true;
     }
 
@@ -4204,11 +4210,12 @@ export class EditableColumn implements OnChanges, AfterViewInit, OnDestroy {
     constructor(
         public dt: Table,
         public el: ElementRef,
-        public zone: NgZone
+        public zone: NgZone,
+        private domHandler: DomHandler
     ) {}
 
     public ngOnChanges(changes: SimpleChanges): void {
-        if (changes.pEditableColumnDisabled?.currentValue === true && DomHandler.hasClass(this.el.nativeElement, 'p-cell-editing')) {
+        if (changes.pEditableColumnDisabled?.currentValue === true && this.domHandler.hasClass(this.el.nativeElement, 'p-cell-editing')) {
             this.closeEditingCell(false, new Event('cancel'));
         } else if (changes.data?.firstChange === false && this.el.nativeElement) {
             this.dt.updateEditingCell(this.el.nativeElement, this.data, this.field, <number>this.rowIndex);
@@ -4217,7 +4224,7 @@ export class EditableColumn implements OnChanges, AfterViewInit, OnDestroy {
 
     ngAfterViewInit() {
         if (this.isEnabled()) {
-            DomHandler.addClass(this.el.nativeElement, 'p-editable-column');
+            this.domHandler.addClass(this.el.nativeElement, 'p-editable-column');
         }
     }
 
@@ -4243,12 +4250,12 @@ export class EditableColumn implements OnChanges, AfterViewInit, OnDestroy {
 
     openCell() {
         this.dt.updateEditingCell(this.el.nativeElement, this.data, this.field, <number>this.rowIndex);
-        DomHandler.addClass(this.el.nativeElement, 'p-cell-editing');
+        this.domHandler.addClass(this.el.nativeElement, 'p-cell-editing');
         this.dt.onEditInit.emit({ field: this.field, data: this.data, index: <number>this.rowIndex });
         this.zone.runOutsideAngular(() => {
             setTimeout(() => {
                 let focusCellSelector = this.pFocusCellSelector || 'input, textarea, select';
-                let focusableElement = DomHandler.findSingle(this.el.nativeElement, focusCellSelector);
+                let focusableElement = this.domHandler.findSingle(this.el.nativeElement, focusCellSelector);
 
                 if (focusableElement) {
                     focusableElement.focus();
@@ -4280,7 +4287,7 @@ export class EditableColumn implements OnChanges, AfterViewInit, OnDestroy {
             });
         }
 
-        DomHandler.removeClass(this.dt.editingCell, 'p-cell-editing');
+        this.domHandler.removeClass(this.dt.editingCell, 'p-cell-editing');
         this.dt.editingCell = null;
         this.dt.editingCellData = null;
         this.dt.editingCellField = null;
@@ -4340,7 +4347,7 @@ export class EditableColumn implements OnChanges, AfterViewInit, OnDestroy {
         if (this.isEnabled()) {
             let currentCell = this.findCell(event.target);
             if (currentCell) {
-                let cellIndex = DomHandler.index(currentCell);
+                let cellIndex = this.domHandler.index(currentCell);
                 let targetCell = this.findNextEditableColumnByIndex(currentCell, cellIndex);
 
                 if (targetCell) {
@@ -4348,8 +4355,8 @@ export class EditableColumn implements OnChanges, AfterViewInit, OnDestroy {
                         this.closeEditingCell(true, event);
                     }
 
-                    DomHandler.invokeElementMethod(event.target, 'blur');
-                    DomHandler.invokeElementMethod(targetCell, 'click');
+                    this.domHandler.invokeElementMethod(event.target, 'blur');
+                    this.domHandler.invokeElementMethod(targetCell, 'click');
                 }
 
                 event.preventDefault();
@@ -4362,7 +4369,7 @@ export class EditableColumn implements OnChanges, AfterViewInit, OnDestroy {
         if (this.isEnabled()) {
             let currentCell = this.findCell(event.target);
             if (currentCell) {
-                let cellIndex = DomHandler.index(currentCell);
+                let cellIndex = this.domHandler.index(currentCell);
                 let targetCell = this.findPrevEditableColumnByIndex(currentCell, cellIndex);
 
                 if (targetCell) {
@@ -4370,8 +4377,8 @@ export class EditableColumn implements OnChanges, AfterViewInit, OnDestroy {
                         this.closeEditingCell(true, event);
                     }
 
-                    DomHandler.invokeElementMethod(event.target, 'blur');
-                    DomHandler.invokeElementMethod(targetCell, 'click');
+                    this.domHandler.invokeElementMethod(event.target, 'blur');
+                    this.domHandler.invokeElementMethod(targetCell, 'click');
                 }
 
                 event.preventDefault();
@@ -4396,7 +4403,7 @@ export class EditableColumn implements OnChanges, AfterViewInit, OnDestroy {
     findCell(element: any) {
         if (element) {
             let cell = element;
-            while (cell && !DomHandler.hasClass(cell, 'p-cell-editing')) {
+            while (cell && !this.domHandler.hasClass(cell, 'p-cell-editing')) {
                 cell = cell.parentElement;
             }
 
@@ -4416,8 +4423,8 @@ export class EditableColumn implements OnChanges, AfterViewInit, OnDestroy {
                     this.closeEditingCell(true, event);
                 }
 
-                DomHandler.invokeElementMethod(event.target, 'blur');
-                DomHandler.invokeElementMethod(targetCell, 'click');
+                this.domHandler.invokeElementMethod(event.target, 'blur');
+                this.domHandler.invokeElementMethod(targetCell, 'click');
                 event.preventDefault();
             }
         }
@@ -4433,8 +4440,8 @@ export class EditableColumn implements OnChanges, AfterViewInit, OnDestroy {
                     this.closeEditingCell(true, event);
                 }
 
-                DomHandler.invokeElementMethod(event.target, 'blur');
-                DomHandler.invokeElementMethod(targetCell, 'click');
+                this.domHandler.invokeElementMethod(event.target, 'blur');
+                this.domHandler.invokeElementMethod(targetCell, 'click');
                 event.preventDefault();
             } else {
                 if (this.dt.isEditingCellValid()) {
@@ -4455,7 +4462,7 @@ export class EditableColumn implements OnChanges, AfterViewInit, OnDestroy {
         }
 
         if (prevCell) {
-            if (DomHandler.hasClass(prevCell, 'p-editable-column')) return prevCell;
+            if (this.domHandler.hasClass(prevCell, 'p-editable-column')) return prevCell;
             else return this.findPreviousEditableColumn(prevCell);
         } else {
             return null;
@@ -4473,7 +4480,7 @@ export class EditableColumn implements OnChanges, AfterViewInit, OnDestroy {
         }
 
         if (nextCell) {
-            if (DomHandler.hasClass(nextCell, 'p-editable-column')) return nextCell;
+            if (this.domHandler.hasClass(nextCell, 'p-editable-column')) return nextCell;
             else return this.findNextEditableColumn(nextCell);
         } else {
             return null;
@@ -4486,7 +4493,7 @@ export class EditableColumn implements OnChanges, AfterViewInit, OnDestroy {
         if (nextRow) {
             let nextCell = nextRow.children[index];
 
-            if (nextCell && DomHandler.hasClass(nextCell, 'p-editable-column')) {
+            if (nextCell && this.domHandler.hasClass(nextCell, 'p-editable-column')) {
                 return nextCell;
             }
 
@@ -4502,7 +4509,7 @@ export class EditableColumn implements OnChanges, AfterViewInit, OnDestroy {
         if (prevRow) {
             let prevCell = prevRow.children[index];
 
-            if (prevCell && DomHandler.hasClass(prevCell, 'p-editable-column')) {
+            if (prevCell && this.domHandler.hasClass(prevCell, 'p-editable-column')) {
                 return prevCell;
             }
 
@@ -4686,7 +4693,8 @@ export class TableRadioButton {
 
     constructor(
         public dt: Table,
-        public cd: ChangeDetectorRef
+        public cd: ChangeDetectorRef,
+        private domHandler: DomHandler
     ) {
         this.subscription = this.dt.tableService.selectionSource$.subscribe(() => {
             this.checked = this.dt.isSelected(this.value);
@@ -4711,7 +4719,7 @@ export class TableRadioButton {
 
             this.inputViewChild?.nativeElement?.focus();
         }
-        DomHandler.clearSelection();
+        this.domHandler.clearSelection();
     }
 
     onFocus() {
@@ -4787,7 +4795,8 @@ export class TableCheckbox {
     constructor(
         public dt: Table,
         public tableService: TableService,
-        public cd: ChangeDetectorRef
+        public cd: ChangeDetectorRef,
+        private domHandler: DomHandler
     ) {
         this.subscription = this.dt.tableService.selectionSource$.subscribe(() => {
             this.checked = this.dt.isSelected(this.value) && !this.disabled;
@@ -4810,7 +4819,7 @@ export class TableCheckbox {
                 this.value
             );
         }
-        DomHandler.clearSelection();
+        this.domHandler.clearSelection();
     }
 
     onFocus() {
@@ -4871,7 +4880,8 @@ export class TableHeaderCheckbox {
     constructor(
         public dt: Table,
         public tableService: TableService,
-        public cd: ChangeDetectorRef
+        public cd: ChangeDetectorRef,
+        private domHandler: DomHandler
     ) {
         this.valueChangeSubscription = this.dt.tableService.valueSource$.subscribe(() => {
             this.checked = this.updateCheckedState();
@@ -4894,7 +4904,7 @@ export class TableHeaderCheckbox {
             }
         }
 
-        DomHandler.clearSelection();
+        this.domHandler.clearSelection();
     }
 
     onFocus() {
@@ -4941,10 +4951,10 @@ export class TableHeaderCheckbox {
     }
 })
 export class ReorderableRowHandle implements AfterViewInit {
-    constructor(public el: ElementRef) {}
+    constructor(public el: ElementRef, private domHandler: DomHandler) {}
 
     ngAfterViewInit() {
-        DomHandler.addClass(this.el.nativeElement, 'p-datatable-reorderablerow-handle');
+        this.domHandler.addClass(this.el.nativeElement, 'p-datatable-reorderablerow-handle');
     }
 }
 
@@ -5481,7 +5491,9 @@ export class ColumnFilter implements AfterContentInit {
         public renderer: Renderer2,
         public config: PrimeNGConfig,
         public overlayService: OverlayService,
-        private cd: ChangeDetectorRef
+        private cd: ChangeDetectorRef,
+        private domHandler: DomHandler,
+        private scrollHandlerFactory: ConnectedOverlayScrollHandlerFactory
     ) {
         this.window = this.document.defaultView as Window;
     }
@@ -5615,7 +5627,7 @@ export class ColumnFilter implements AfterContentInit {
 
     addConstraint() {
         (<FilterMetadata[]>this.dt.filters[<string>this.field]).push({ value: null, matchMode: this.getDefaultMatchMode(), operator: this.getDefaultOperator() });
-        DomHandler.focus(this.clearButtonViewChild.nativeElement);
+        this.domHandler.focus(this.clearButtonViewChild.nativeElement);
     }
 
     removeConstraint(filterMeta: FilterMetadata) {
@@ -5623,7 +5635,7 @@ export class ColumnFilter implements AfterContentInit {
         if (!this.showApplyButton) {
             this.dt._filter();
         }
-        DomHandler.focus(this.clearButtonViewChild.nativeElement);
+        this.domHandler.focus(this.clearButtonViewChild.nativeElement);
     }
 
     onOperatorChange(value: any) {
@@ -5650,7 +5662,7 @@ export class ColumnFilter implements AfterContentInit {
 
             case 'ArrowDown':
                 if (this.overlayVisible) {
-                    let focusable = DomHandler.getFocusableElements(<HTMLElement>this.overlay);
+                    let focusable = this.domHandler.getFocusableElements(<HTMLElement>this.overlay);
                     if (focusable) {
                         focusable[0].focus();
                     }
@@ -5674,14 +5686,14 @@ export class ColumnFilter implements AfterContentInit {
     findNextItem(item: HTMLLIElement): any {
         let nextItem = <HTMLLIElement>item.nextElementSibling;
 
-        if (nextItem) return DomHandler.hasClass(nextItem, 'p-column-filter-separator') ? this.findNextItem(nextItem) : nextItem;
+        if (nextItem) return this.domHandler.hasClass(nextItem, 'p-column-filter-separator') ? this.findNextItem(nextItem) : nextItem;
         else return item.parentElement?.firstElementChild;
     }
 
     findPrevItem(item: HTMLLIElement): any {
         let prevItem = <HTMLLIElement>item.previousElementSibling;
 
-        if (prevItem) return DomHandler.hasClass(prevItem, 'p-column-filter-separator') ? this.findPrevItem(prevItem) : prevItem;
+        if (prevItem) return this.domHandler.hasClass(prevItem, 'p-column-filter-separator') ? this.findPrevItem(prevItem) : prevItem;
         else return item.parentElement?.lastElementChild;
     }
 
@@ -5695,7 +5707,7 @@ export class ColumnFilter implements AfterContentInit {
                 this.overlay = event.element;
                 this.renderer.appendChild(this.document.body, this.overlay);
                 ZIndexUtils.set('overlay', this.overlay, this.config.zIndex.overlay);
-                DomHandler.absolutePosition(this.overlay, this.icon?.nativeElement);
+                this.domHandler.absolutePosition(this.overlay, this.icon?.nativeElement);
                 this.bindDocumentClickListener();
                 this.bindDocumentResizeListener();
                 this.bindScrollListener();
@@ -5734,7 +5746,7 @@ export class ColumnFilter implements AfterContentInit {
 
     focusOnFirstElement() {
         if (this.overlay) {
-            DomHandler.focus(DomHandler.getFirstFocusableElement(this.overlay, ''));
+            this.domHandler.focus(this.domHandler.getFirstFocusableElement(this.overlay, ''));
         }
     }
 
@@ -5769,15 +5781,15 @@ export class ColumnFilter implements AfterContentInit {
 
     isOutsideClicked(event: any): boolean {
         return !(
-            DomHandler.hasClass(this.overlay?.nextElementSibling, 'p-overlay') ||
+            this.domHandler.hasClass(this.overlay?.nextElementSibling, 'p-overlay') ||
             this.overlay?.isSameNode(event.target) ||
             this.overlay?.contains(event.target) ||
             this.icon?.nativeElement.isSameNode(event.target) ||
             this.icon?.nativeElement.contains(event.target) ||
-            DomHandler.hasClass(event.target, 'p-column-filter-add-button') ||
-            DomHandler.hasClass(event.target.parentElement, 'p-column-filter-add-button') ||
-            DomHandler.hasClass(event.target, 'p-column-filter-remove-button') ||
-            DomHandler.hasClass(event.target.parentElement, 'p-column-filter-remove-button')
+            this.domHandler.hasClass(event.target, 'p-column-filter-add-button') ||
+            this.domHandler.hasClass(event.target.parentElement, 'p-column-filter-add-button') ||
+            this.domHandler.hasClass(event.target, 'p-column-filter-remove-button') ||
+            this.domHandler.hasClass(event.target.parentElement, 'p-column-filter-remove-button')
         );
     }
 
@@ -5788,7 +5800,7 @@ export class ColumnFilter implements AfterContentInit {
             this.documentClickListener = this.renderer.listen(documentTarget, 'mousedown', (event) => {
                 let isDateDialog = false;
                 document.querySelectorAll('[role="dialog"]').forEach((d) => {
-                    if (DomHandler.hasClass(d, 'p-datepicker')) isDateDialog = true;
+                    if (this.domHandler.hasClass(d, 'p-datepicker')) isDateDialog = true;
                 });
                 const targetIsColumnFilterMenuButton = event.target.closest('.p-column-filter-menu-button');
                 if (this.overlayVisible && this.isOutsideClicked(event) && (targetIsColumnFilterMenuButton || !isDateDialog)) {
@@ -5811,7 +5823,7 @@ export class ColumnFilter implements AfterContentInit {
     bindDocumentResizeListener() {
         if (!this.documentResizeListener) {
             this.documentResizeListener = this.renderer.listen(this.window, 'resize', (event) => {
-                if (this.overlayVisible && !DomHandler.isTouchDevice()) {
+                if (this.overlayVisible && !this.domHandler.isTouchDevice()) {
                     this.hide();
                 }
             });
@@ -5827,7 +5839,7 @@ export class ColumnFilter implements AfterContentInit {
 
     bindScrollListener() {
         if (!this.scrollHandler) {
-            this.scrollHandler = new ConnectedOverlayScrollHandler(this.icon?.nativeElement, () => {
+            this.scrollHandler = this.scrollHandlerFactory.create(this.icon?.nativeElement, () => {
                 if (this.overlayVisible) {
                     this.hide();
                 }

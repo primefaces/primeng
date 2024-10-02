@@ -45,7 +45,7 @@ import { filter } from 'rxjs/operators';
         <div [ngClass]="{ 'p-tabmenu p-component': true, 'p-tabmenu-scrollable': scrollable }" [ngStyle]="style" [class]="styleClass">
             <div class="p-tabmenu-nav-container">
                 <button *ngIf="scrollable && !backwardIsDisabled" #prevBtn class="p-tabmenu-nav-prev p-tabmenu-nav-btn p-link" (click)="navBackward()" type="button" role="navigation" pRipple>
-                    <ChevronLeftIcon *ngIf="!previousIconTemplate" [attr.aria-hidden]="true" />
+                    <ChevronLeftIcon *ngIf="!previousIconTemplate" [attr.aria-hidden]="true" [styleClass]="'p-rtl-flip-icon'" />
                     <ng-template *ngTemplateOutlet="previousIconTemplate"></ng-template>
                 </button>
                 <div #content class="p-tabmenu-nav-content" (scroll)="onScroll($event)">
@@ -120,7 +120,7 @@ import { filter } from 'rxjs/operators';
                     </ul>
                 </div>
                 <button *ngIf="scrollable && !forwardIsDisabled" #nextBtn class="p-tabmenu-nav-next p-tabmenu-nav-btn p-link" (click)="navForward()" type="button" role="navigation" pRipple>
-                    <ChevronRightIcon *ngIf="!previousIconTemplate" [attr.aria-hidden]="true" />
+                    <ChevronRightIcon *ngIf="!previousIconTemplate" [attr.aria-hidden]="true" [styleClass]="'p-rtl-flip-icon'" />
                     <ng-template *ngTemplateOutlet="nextIconTemplate"></ng-template>
                 </button>
             </div>
@@ -251,7 +251,8 @@ export class TabMenu implements AfterContentInit, AfterViewInit, AfterViewChecke
         @Inject(PLATFORM_ID) private platformId: any,
         private router: Router,
         private route: ActivatedRoute,
-        private cd: ChangeDetectorRef
+        private cd: ChangeDetectorRef,
+        private domHandler: DomHandler
     ) {
         this.router.events.pipe(filter((event) => event instanceof NavigationEnd)).subscribe((event: NavigationEnd) => {
             this.cd.markForCheck();
@@ -408,7 +409,7 @@ export class TabMenu implements AfterContentInit, AfterViewInit, AfterViewChecke
 
     onTabKeyDown(tabLinks) {
         tabLinks.forEach((item) => {
-            item.nativeElement.tabIndex = DomHandler.getAttribute(item.nativeElement.parentElement, 'data-p-highlight') ? '0' : '-1';
+            item.nativeElement.tabIndex = this.domHandler.getAttribute(item.nativeElement.parentElement, 'data-p-highlight') ? '0' : '-1';
         });
     }
 
@@ -421,7 +422,7 @@ export class TabMenu implements AfterContentInit, AfterViewInit, AfterViewChecke
 
         let nextItem = items[i];
 
-        if (nextItem) return DomHandler.getAttribute(nextItem.nativeElement, 'data-p-disabled') ? this.findNextItem(items, i) : { nextItem: nextItem.nativeElement, i };
+        if (nextItem) return this.domHandler.getAttribute(nextItem.nativeElement, 'data-p-disabled') ? this.findNextItem(items, i) : { nextItem: nextItem.nativeElement, i };
         else return null;
     }
 
@@ -434,29 +435,30 @@ export class TabMenu implements AfterContentInit, AfterViewInit, AfterViewChecke
 
         let prevItem = items[i];
 
-        if (prevItem) return DomHandler.getAttribute(prevItem.nativeElement, 'data-p-disabled') ? this.findPrevItem(items, i) : { prevItem: prevItem.nativeElement, i };
+        if (prevItem) return this.domHandler.getAttribute(prevItem.nativeElement, 'data-p-disabled') ? this.findPrevItem(items, i) : { prevItem: prevItem.nativeElement, i };
         else return null;
     }
 
     updateInkBar() {
-        const tabHeader = DomHandler.findSingle(this.navbar?.nativeElement, 'li.p-highlight');
+        const tabHeader = this.domHandler.findSingle(this.navbar?.nativeElement, 'li.p-highlight');
         if (tabHeader) {
-            (this.inkbar as ElementRef).nativeElement.style.width = DomHandler.getWidth(tabHeader) + 'px';
-            (this.inkbar as ElementRef).nativeElement.style.left = DomHandler.getOffset(tabHeader).left - DomHandler.getOffset(this.navbar?.nativeElement).left + 'px';
+            (this.inkbar as ElementRef).nativeElement.style.width = this.domHandler.getWidth(tabHeader) + 'px';
+            (this.inkbar as ElementRef).nativeElement.style.insetInlineStart = this.domHandler.getOffset(tabHeader).left - this.domHandler.getOffset(this.navbar?.nativeElement).left + 'px';
         }
     }
 
     getVisibleButtonWidths() {
-        return [this.prevBtn?.nativeElement, this.nextBtn?.nativeElement].reduce((acc, el) => (el ? acc + DomHandler.getWidth(el) : acc), 0);
+        return [this.prevBtn?.nativeElement, this.nextBtn?.nativeElement].reduce((acc, el) => (el ? acc + this.domHandler.getWidth(el) : acc), 0);
     }
 
     updateButtonState() {
         const content = this.content?.nativeElement;
-        const { scrollLeft, scrollWidth } = content;
-        const width = DomHandler.getWidth(content);
+        const scrollWidth = content.scrollWidth;
+        const scrollLeft = this.domHandler.getScrollLeft(content);
+        const width = this.domHandler.getWidth(content);
 
         this.backwardIsDisabled = scrollLeft === 0;
-        this.forwardIsDisabled = parseInt(scrollLeft) === scrollWidth - width;
+        this.forwardIsDisabled = Math.round(scrollLeft) === scrollWidth - width;
     }
 
     updateScrollBar(index: number): void {
@@ -479,17 +481,17 @@ export class TabMenu implements AfterContentInit, AfterViewInit, AfterViewChecke
 
     navBackward() {
         const content = this.content?.nativeElement;
-        const width = DomHandler.getWidth(content) - this.getVisibleButtonWidths();
-        const pos = content.scrollLeft - width;
-        content.scrollLeft = pos <= 0 ? 0 : pos;
+        const width = this.domHandler.getWidth(content) - this.getVisibleButtonWidths();
+        const pos = this.domHandler.getScrollLeft(content) - width;
+        this.domHandler.setScrollLeft(content, pos <= 0 ? 0 : pos);
     }
 
     navForward() {
         const content = this.content?.nativeElement;
-        const width = DomHandler.getWidth(content) - this.getVisibleButtonWidths();
-        const pos = content.scrollLeft + width;
+        const width = this.domHandler.getWidth(content) - this.getVisibleButtonWidths();
+        const pos = this.domHandler.getScrollLeft(content) + width;
         const lastPos = content.scrollWidth - width;
-        content.scrollLeft = pos >= lastPos ? lastPos : pos;
+        this.domHandler.setScrollLeft(content, pos >= lastPos ? lastPos : pos);
     }
 
     private autoScrollForActiveItem(): void {

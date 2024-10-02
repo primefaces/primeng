@@ -186,10 +186,18 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
 
         switch (value) {
             case 'left':
-                this.transformOptions = 'translate3d(-100%, 0px, 0px)';
+                if (this.domHandler.isRtl()) {
+                    this.transformOptions = 'translate3d(100%, 0px, 0px)';
+                } else {
+                    this.transformOptions = 'translate3d(-100%, 0px, 0px)';
+                }
                 break;
             case 'right':
-                this.transformOptions = 'translate3d(100%, 0px, 0px)';
+                if (this.domHandler.isRtl()) {
+                    this.transformOptions = 'translate3d(-100%, 0px, 0px)';
+                } else {
+                    this.transformOptions = 'translate3d(100%, 0px, 0px)';
+                }
                 break;
             case 'bottom':
                 this.transformOptions = 'translate3d(0px, 100%, 0px)';
@@ -240,7 +248,7 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
 
     container: Nullable<HTMLDivElement>;
 
-    transformOptions: any = 'translate3d(-100%, 0px, 0px)';
+    transformOptions: any;
 
     mask: Nullable<HTMLDivElement>;
 
@@ -265,8 +273,11 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
         public el: ElementRef,
         public renderer: Renderer2,
         public cd: ChangeDetectorRef,
-        public config: PrimeNGConfig
-    ) {}
+        public config: PrimeNGConfig,
+        private domHandler: DomHandler
+    ) {
+        this.transformOptions = this.domHandler.isRtl() ? 'translate3d(100%, 0px, 0px)' : 'translate3d(-100%, 0px, 0px)';
+    }
 
     ngAfterViewInit() {
         this.initialized = true;
@@ -341,7 +352,7 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
         if (!this.mask) {
             this.mask = this.renderer.createElement('div');
             this.renderer.setStyle(this.mask, 'zIndex', zIndex);
-            DomHandler.addMultipleClasses(this.mask, 'p-component-overlay p-sidebar-mask p-component-overlay p-component-overlay-enter');
+            this.domHandler.addMultipleClasses(this.mask, 'p-component-overlay p-sidebar-mask p-component-overlay p-component-overlay-enter');
 
             if (this.dismissible) {
                 this.maskClickListener = this.renderer.listen(this.mask, 'click', (event: any) => {
@@ -353,14 +364,14 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
 
             this.renderer.appendChild(this.document.body, this.mask);
             if (this.blockScroll) {
-                DomHandler.blockBodyScroll();
+                this.domHandler.blockBodyScroll();
             }
         }
     }
 
     disableModality() {
         if (this.mask) {
-            DomHandler.addClass(this.mask, 'p-component-overlay-leave');
+            this.domHandler.addClass(this.mask, 'p-component-overlay-leave');
             this.animationEndListener = this.renderer.listen(this.mask, 'animationend', this.destroyModal.bind(this));
         }
     }
@@ -373,7 +384,7 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
         }
 
         if (this.blockScroll) {
-            DomHandler.unblockBodyScroll();
+            this.domHandler.unblockBodyScroll();
         }
 
         this.unbindAnimationEndListener();
@@ -407,7 +418,7 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
     appendContainer() {
         if (this.appendTo) {
             if (this.appendTo === 'body') this.renderer.appendChild(this.document.body, this.container);
-            else DomHandler.appendChild(this.container, this.appendTo);
+            else this.domHandler.appendChild(this.container, this.appendTo);
         }
     }
 

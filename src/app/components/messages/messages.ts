@@ -78,7 +78,7 @@ import { Subscription, timer } from 'rxjs';
     animations: [
         trigger('messageAnimation', [
             transition(':enter', [style({ opacity: 0, transform: 'translateY(-25%)' }), animate('{{showTransitionParams}}')]),
-            transition(':leave', [animate('{{hideTransitionParams}}', style({ height: 0, marginTop: 0, marginBottom: 0, marginLeft: 0, marginRight: 0, opacity: 0 }))])
+            transition(':leave', [animate('{{hideTransitionParams}}', style({ height: 0, marginTop: 0, marginBottom: 0, marginInlineStart: 0, marginInlineEnd: 0, opacity: 0 }))])
         ])
     ],
     changeDetection: ChangeDetectionStrategy.OnPush,

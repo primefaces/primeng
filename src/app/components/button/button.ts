@@ -157,11 +157,12 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
 
     constructor(
         public el: ElementRef,
-        @Inject(DOCUMENT) private document: Document
+        @Inject(DOCUMENT) private document: Document,
+        private domHandler: DomHandler
     ) {}
 
     ngAfterViewInit() {
-        DomHandler.addMultipleClasses(this.htmlElement, this.getStyleClass().join(' '));
+        this.domHandler.addMultipleClasses(this.htmlElement, this.getStyleClass().join(' '));
 
         this.createIcon();
         this.createLabel();
@@ -234,7 +235,7 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
     }
 
     createLabel() {
-        const created = DomHandler.findSingle(this.htmlElement, '.p-button-label');
+        const created = this.domHandler.findSingle(this.htmlElement, '.p-button-label');
         if (!created && this.label) {
             let labelElement = this.document.createElement('span');
             if (this.icon && !this.label) {
@@ -249,7 +250,7 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
     }
 
     createIcon() {
-        const created = DomHandler.findSingle(this.htmlElement, '.p-button-icon');
+        const created = this.domHandler.findSingle(this.htmlElement, '.p-button-icon');
         if (!created && (this.icon || this.loading)) {
             let iconElement = this.document.createElement('span');
             iconElement.className = 'p-button-icon';
@@ -257,13 +258,13 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
             let iconPosClass = this.label ? 'p-button-icon-' + this.iconPos : null;
 
             if (iconPosClass) {
-                DomHandler.addClass(iconElement, iconPosClass);
+                this.domHandler.addClass(iconElement, iconPosClass);
             }
 
             let iconClass = this.getIconClass();
 
             if (iconClass) {
-                DomHandler.addMultipleClasses(iconElement, iconClass);
+                this.domHandler.addMultipleClasses(iconElement, iconClass);
             }
 
             this.htmlElement.insertBefore(iconElement, this.htmlElement.firstChild);
@@ -271,7 +272,7 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
     }
 
     updateLabel() {
-        let labelElement = DomHandler.findSingle(this.htmlElement, '.p-button-label');
+        let labelElement = this.domHandler.findSingle(this.htmlElement, '.p-button-label');
 
         if (!this.label) {
             labelElement && this.htmlElement.removeChild(labelElement);
@@ -282,8 +283,8 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
     }
 
     updateIcon() {
-        let iconElement = DomHandler.findSingle(this.htmlElement, '.p-button-icon');
-        let labelElement = DomHandler.findSingle(this.htmlElement, '.p-button-label');
+        let iconElement = this.domHandler.findSingle(this.htmlElement, '.p-button-icon');
+        let labelElement = this.domHandler.findSingle(this.htmlElement, '.p-button-label');
 
         if (iconElement) {
             if (this.iconPos) {

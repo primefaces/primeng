@@ -416,7 +416,8 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
         public el: ElementRef,
         public cd: ChangeDetectorRef,
         public filterService: FilterService,
-        public config: PrimeNGConfig
+        public config: PrimeNGConfig,
+        private domHandler: DomHandler
     ) {}
 
     ngOnInit() {
@@ -484,14 +485,14 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
 
     ngAfterViewChecked() {
         if (this.movedUp || this.movedDown) {
-            let listItems = DomHandler.find(this.listViewChild?.nativeElement, 'li.p-highlight');
+            let listItems = this.domHandler.find(this.listViewChild?.nativeElement, 'li.p-highlight');
             let listItem;
 
             if (listItems.length > 0) {
                 if (this.movedUp) listItem = listItems[0];
                 else listItem = listItems[listItems.length - 1];
 
-                DomHandler.scrollInView(this.listViewChild?.nativeElement, listItem);
+                this.domHandler.scrollInView(this.listViewChild?.nativeElement, listItem);
             }
             this.movedUp = false;
             this.movedDown = false;
@@ -691,7 +692,7 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
     }
 
     onListFocus(event) {
-        const focusableEl = DomHandler.findSingle(this.listViewChild.nativeElement, '[data-p-highlight="true"]') || DomHandler.findSingle(this.listViewChild.nativeElement, '[data-pc-section="item"]');
+        const focusableEl = this.domHandler.findSingle(this.listViewChild.nativeElement, '[data-p-highlight="true"]') || this.domHandler.findSingle(this.listViewChild.nativeElement, '[data-pc-section="item"]');
 
         if (focusableEl) {
             const findIndex = ObjectUtils.findIndexInList(focusableEl, this.listViewChild.nativeElement.children);
@@ -802,7 +803,7 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
             this.d_selection = [...this.value].slice(focusedIndex, visibleOptions.length - 1);
             this.selectionChange.emit(this.d_selection);
         } else {
-            this.changeFocusedOptionIndex(DomHandler.find(this.listViewChild.nativeElement, '[data-pc-section="item"]').length - 1);
+            this.changeFocusedOptionIndex(this.domHandler.find(this.listViewChild.nativeElement, '[data-pc-section="item"]').length - 1);
         }
 
         event.preventDefault();
@@ -835,14 +836,14 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
     }
 
     findNextOptionIndex(index) {
-        const items = DomHandler.find(this.listViewChild.nativeElement, '[data-pc-section="item"]');
+        const items = this.domHandler.find(this.listViewChild.nativeElement, '[data-pc-section="item"]');
         const matchedOptionIndex = [...items].findIndex((link) => link.id === index);
 
         return matchedOptionIndex > -1 ? matchedOptionIndex + 1 : 0;
     }
 
     findPrevOptionIndex(index) {
-        const items = DomHandler.find(this.listViewChild.nativeElement, '[data-pc-section="item"]');
+        const items = this.domHandler.find(this.listViewChild.nativeElement, '[data-pc-section="item"]');
         const matchedOptionIndex = [...items].findIndex((link) => link.id === index);
 
         return matchedOptionIndex > -1 ? matchedOptionIndex - 1 : 0;
@@ -865,7 +866,7 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
     }
 
     changeFocusedOptionIndex(index) {
-        const items = DomHandler.find(this.listViewChild.nativeElement, '[data-pc-section="item"]');
+        const items = this.domHandler.find(this.listViewChild.nativeElement, '[data-pc-section="item"]');
 
         let order = index >= items.length ? items.length - 1 : index < 0 ? 0 : index;
 
@@ -876,7 +877,7 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
     }
 
     scrollInView(id) {
-        const element = DomHandler.findSingle(this.listViewChild.nativeElement, `[data-pc-section="item"][id="${id}"]`);
+        const element = this.domHandler.findSingle(this.listViewChild.nativeElement, `[data-pc-section="item"][id="${id}"]`);
 
         if (element) {
             element.scrollIntoView && element.scrollIntoView({ block: 'nearest', inline: 'nearest' });
@@ -886,14 +887,14 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
     findNextItem(item: any): HTMLElement | null {
         let nextItem = item.nextElementSibling;
 
-        if (nextItem) return !DomHandler.hasClass(nextItem, 'p-orderlist-item') || DomHandler.isHidden(nextItem) ? this.findNextItem(nextItem) : nextItem;
+        if (nextItem) return !this.domHandler.hasClass(nextItem, 'p-orderlist-item') || this.domHandler.isHidden(nextItem) ? this.findNextItem(nextItem) : nextItem;
         else return null;
     }
 
     findPrevItem(item: any): HTMLElement | null {
         let prevItem = item.previousElementSibling;
 
-        if (prevItem) return !DomHandler.hasClass(prevItem, 'p-orderlist-item') || DomHandler.isHidden(prevItem) ? this.findPrevItem(prevItem) : prevItem;
+        if (prevItem) return !this.domHandler.hasClass(prevItem, 'p-orderlist-item') || this.domHandler.isHidden(prevItem) ? this.findPrevItem(prevItem) : prevItem;
         else return null;
     }
 
@@ -913,7 +914,7 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
                 this.renderer.setAttribute(this.el.nativeElement.children[0], this.id, '');
                 this.styleElement = this.renderer.createElement('style');
                 this.renderer.setAttribute(this.styleElement, 'type', 'text/css');
-                DomHandler.setAttribute(this.styleElement, 'nonce', this.config?.csp()?.nonce);
+                this.domHandler.setAttribute(this.styleElement, 'nonce', this.config?.csp()?.nonce);
                 this.renderer.appendChild(this.document.head, this.styleElement);
 
                 let innerHTML = `
@@ -928,12 +929,12 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
                         }
 
                         .p-orderlist[${this.id}] .p-orderlist-controls .p-button {
-                            margin-right: var(--inline-spacing);
+                            margin-inline-end: var(--inline-spacing);
                             margin-bottom: 0;
                         }
 
                         .p-orderlist[${this.id}] .p-orderlist-controls .p-button:last-child {
-                            margin-right: 0;
+                            margin-inline-end: 0;
                         }
                     }
                 `;

@@ -1,6 +1,7 @@
 import { NgModule, Component, ElementRef, AfterViewInit, OnDestroy, Input, Output, EventEmitter, ChangeDetectionStrategy, ViewEncapsulation, Inject, PLATFORM_ID, NgZone, booleanAttribute } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import Chart from 'chart.js/auto';
+import { DomHandler } from 'primeng/dom';
 /**
  * Chart groups a collection of contents in tabs.
  * @group Components
@@ -110,7 +111,8 @@ export class UIChart implements AfterViewInit, OnDestroy {
     constructor(
         @Inject(PLATFORM_ID) private platformId: any,
         public el: ElementRef,
-        private zone: NgZone
+        private zone: NgZone,
+        private domHandler: DomHandler
     ) {}
 
     ngAfterViewInit() {
@@ -133,6 +135,19 @@ export class UIChart implements AfterViewInit, OnDestroy {
         if (isPlatformBrowser(this.platformId)) {
             let opts = this.options || {};
             opts.responsive = this.responsive;
+
+            if (this.domHandler.isRtl()) {
+                opts.scales ??= {};
+                opts.scales.x ??= {};
+                opts.scales.x.reverse = true;
+                opts.scales.y ??= {};
+                opts.scales.y.position = 'right';
+                opts.plugins ??= {};
+                opts.plugins.tooltip ??= {};
+                opts.plugins.tooltip.rtl = true;
+                opts.plugins.legend ??= {};
+                opts.plugins.legend.rtl = true;
+            }
 
             // allows chart to resize in responsive mode
             if (opts.responsive && (this.height || this.width)) {

@@ -32,7 +32,8 @@ export class AppTopBarComponent implements OnDestroy {
         private el: ElementRef,
         private renderer: Renderer2,
         private router: Router,
-        private configService: AppConfigService
+        private configService: AppConfigService,
+        private domHandler: DomHandler
     ) {
         this.window = this.document.defaultView as Window;
 
@@ -49,10 +50,10 @@ export class AppTopBarComponent implements OnDestroy {
     toggleMenu() {
         if (this.configService.state.menuActive) {
             this.configService.hideMenu();
-            DomHandler.unblockBodyScroll('blocked-scroll');
+            this.domHandler.unblockBodyScroll('blocked-scroll');
         } else {
             this.configService.showMenu();
-            DomHandler.blockBodyScroll('blocked-scroll');
+            this.domHandler.blockBodyScroll('blocked-scroll');
         }
     }
 

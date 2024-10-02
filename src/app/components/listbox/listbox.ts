@@ -663,7 +663,8 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
         public cd: ChangeDetectorRef,
         public filterService: FilterService,
         public config: PrimeNGConfig,
-        private renderer: Renderer2
+        private renderer: Renderer2,
+        private domHandler: DomHandler
     ) {}
 
     ngOnInit() {
@@ -863,7 +864,7 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
         if (this.disabled || this.readonly) {
             return;
         }
-        DomHandler.focus(this.headerCheckboxViewChild.nativeElement);
+        this.domHandler.focus(this.headerCheckboxViewChild.nativeElement);
 
         if (this.selectAll !== null) {
             this.onSelectAllChange.emit({
@@ -919,8 +920,8 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
     }
 
     onFirstHiddenFocus(event: FocusEvent) {
-        DomHandler.focus(this.listViewChild.nativeElement);
-        const firstFocusableEl = DomHandler.getFirstFocusableElement(this.el.nativeElement, ':not([data-p-hidden-focusable="true"])');
+        this.domHandler.focus(this.listViewChild.nativeElement);
+        const firstFocusableEl = this.domHandler.getFirstFocusableElement(this.el.nativeElement, ':not([data-p-hidden-focusable="true"])');
         this.lastHiddenFocusableElement.nativeElement.tabIndex = ObjectUtils.isEmpty(firstFocusableEl) ? '-1' : undefined;
         this.firstHiddenFocusableElement.nativeElement.tabIndex = -1;
     }
@@ -929,12 +930,12 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
         const relatedTarget = event.relatedTarget;
 
         if (relatedTarget === this.listViewChild.nativeElement) {
-            const firstFocusableEl = DomHandler.getFirstFocusableElement(this.el.nativeElement, ':not(.p-hidden-focusable)');
+            const firstFocusableEl = this.domHandler.getFirstFocusableElement(this.el.nativeElement, ':not(.p-hidden-focusable)');
 
-            DomHandler.focus(firstFocusableEl);
+            this.domHandler.focus(firstFocusableEl);
             this.firstHiddenFocusableElement.nativeElement.tabIndex = undefined;
         } else {
-            DomHandler.focus(this.firstHiddenFocusableElement.nativeElement);
+            this.domHandler.focus(this.firstHiddenFocusableElement.nativeElement);
         }
         this.lastHiddenFocusableElement.nativeElement.tabIndex = -1;
     }
@@ -995,7 +996,7 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
     }
 
     onHeaderCheckboxTabKeyDown(event) {
-        DomHandler.focus(this.listViewChild.nativeElement);
+        this.domHandler.focus(this.listViewChild.nativeElement);
         event.preventDefault();
     }
 
@@ -1312,7 +1313,7 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
 
     scrollInView(index = -1) {
         const id = index !== -1 ? `${this.id}_${index}` : this.focusedOptionId;
-        const element = DomHandler.findSingle(this.listViewChild.nativeElement, `li[id="${id}"]`);
+        const element = this.domHandler.findSingle(this.listViewChild.nativeElement, `li[id="${id}"]`);
 
         if (element) {
             element.scrollIntoView && element.scrollIntoView({ block: 'nearest', inline: 'nearest' });

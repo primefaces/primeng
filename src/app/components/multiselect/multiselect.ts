@@ -1195,7 +1195,8 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
         public zone: NgZone,
         public filterService: FilterService,
         public config: PrimeNGConfig,
-        public overlayService: OverlayService
+        public overlayService: OverlayService,
+        private domHandler: DomHandler
     ) {
         effect(() => {
             const modelValue = this.modelValue();
@@ -1382,7 +1383,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
         this.updateModel(value, originalEvent);
         index !== -1 && this.focusedOptionIndex.set(index);
 
-        isFocus && DomHandler.focus(this.focusInputViewChild?.nativeElement);
+        isFocus && this.domHandler.focus(this.focusInputViewChild?.nativeElement);
 
         this.onChange.emit({
             originalEvent: { ...event, selected: !event.selected },
@@ -1800,7 +1801,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
     onTabKey(event, pressedInInputText = false) {
         if (!pressedInInputText) {
             if (this.overlayVisible && this.hasFocusableElements()) {
-                DomHandler.focus(event.shiftKey ? this.lastHiddenFocusableElementOnOverlay.nativeElement : this.firstHiddenFocusableElementOnOverlay.nativeElement);
+                this.domHandler.focus(event.shiftKey ? this.lastHiddenFocusableElementOnOverlay.nativeElement : this.firstHiddenFocusableElementOnOverlay.nativeElement);
 
                 event.preventDefault();
             } else {
@@ -1846,10 +1847,10 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
     onFirstHiddenFocus(event) {
         const focusableEl =
             event.relatedTarget === this.focusInputViewChild?.nativeElement
-                ? DomHandler.getFirstFocusableElement(this.overlayViewChild?.overlayViewChild?.nativeElement, ':not([data-p-hidden-focusable="true"])')
+                ? this.domHandler.getFirstFocusableElement(this.overlayViewChild?.overlayViewChild?.nativeElement, ':not([data-p-hidden-focusable="true"])')
                 : this.focusInputViewChild?.nativeElement;
 
-        DomHandler.focus(focusableEl);
+        this.domHandler.focus(focusableEl);
     }
 
     onInputFocus(event: Event) {
@@ -1885,10 +1886,10 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
     onLastHiddenFocus(event) {
         const focusableEl =
             event.relatedTarget === this.focusInputViewChild?.nativeElement
-                ? DomHandler.getLastFocusableElement(this.overlayViewChild?.overlayViewChild?.nativeElement, ':not([data-p-hidden-focusable="true"])')
+                ? this.domHandler.getLastFocusableElement(this.overlayViewChild?.overlayViewChild?.nativeElement, ':not([data-p-hidden-focusable="true"])')
                 : this.focusInputViewChild?.nativeElement;
 
-        DomHandler.focus(focusableEl);
+        this.domHandler.focus(focusableEl);
     }
 
     onOptionMouseEnter(event, index) {
@@ -1968,7 +1969,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
         }
 
         this.onChange.emit({ originalEvent: event, value: this.value });
-        DomHandler.focus(this.headerCheckboxViewChild?.nativeElement);
+        this.domHandler.focus(this.headerCheckboxViewChild?.nativeElement);
         this.headerCheckboxFocus = true;
 
         event.preventDefault();
@@ -1989,7 +1990,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
     scrollInView(index = -1) {
         const id = index !== -1 ? `${this.id}_${index}` : this.focusedOptionId;
         if (this.itemsViewChild && this.itemsViewChild.nativeElement) {
-            const element = DomHandler.findSingle(this.itemsViewChild.nativeElement, `li[id="${id}"]`);
+            const element = this.domHandler.findSingle(this.itemsViewChild.nativeElement, `li[id="${id}"]`);
             if (element) {
                 element.scrollIntoView && element.scrollIntoView({ block: 'nearest', inline: 'nearest' });
             } else if (!this.virtualScrollerDisabled) {
@@ -2046,7 +2047,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
         this.focusedOptionIndex.set(focusedOptionIndex);
 
         if (isFocus) {
-            DomHandler.focus(this.focusInputViewChild?.nativeElement);
+            this.domHandler.focus(this.focusInputViewChild?.nativeElement);
         }
 
         this.cd.markForCheck();
@@ -2064,10 +2065,10 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
             this.resetFilter();
         }
         if (this.overlayOptions?.mode === 'modal') {
-            DomHandler.unblockBodyScroll();
+            this.domHandler.unblockBodyScroll();
         }
 
-        isFocus && DomHandler.focus(this.focusInputViewChild?.nativeElement);
+        isFocus && this.domHandler.focus(this.focusInputViewChild?.nativeElement);
         this.onPanelHide.emit();
         this.cd.markForCheck();
     }
@@ -2075,7 +2076,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
     onOverlayAnimationStart(event: AnimationEvent) {
         switch (event.toState) {
             case 'visible':
-                this.itemsWrapper = DomHandler.findSingle(this.overlayViewChild?.overlayViewChild?.nativeElement, this.virtualScroll ? '.p-scroller' : '.p-multiselect-items-wrapper');
+                this.itemsWrapper = this.domHandler.findSingle(this.overlayViewChild?.overlayViewChild?.nativeElement, this.virtualScroll ? '.p-scroller' : '.p-multiselect-items-wrapper');
                 this.virtualScroll && this.scroller?.setContentEl(this.itemsViewChild?.nativeElement);
 
                 if (this._options() && this._options().length) {
@@ -2085,7 +2086,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
                             this.scroller?.scrollToIndex(selectedIndex);
                         }
                     } else {
-                        let selectedListItem = DomHandler.findSingle(this.itemsWrapper, '[data-p-highlight="true"]');
+                        let selectedListItem = this.domHandler.findSingle(this.itemsWrapper, '[data-p-highlight="true"]');
 
                         if (selectedListItem) {
                             selectedListItem.scrollIntoView({ block: 'nearest', inline: 'nearest' });
@@ -2154,14 +2155,14 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
     findNextItem(item: any): HTMLElement | null {
         let nextItem = item.nextElementSibling;
 
-        if (nextItem) return DomHandler.hasClass(nextItem.children[0], 'p-disabled') || DomHandler.isHidden(nextItem.children[0]) || DomHandler.hasClass(nextItem, 'p-multiselect-item-group') ? this.findNextItem(nextItem) : nextItem.children[0];
+        if (nextItem) return this.domHandler.hasClass(nextItem.children[0], 'p-disabled') || this.domHandler.isHidden(nextItem.children[0]) || this.domHandler.hasClass(nextItem, 'p-multiselect-item-group') ? this.findNextItem(nextItem) : nextItem.children[0];
         else return null;
     }
 
     findPrevItem(item: any): HTMLElement | null {
         let prevItem = item.previousElementSibling;
 
-        if (prevItem) return DomHandler.hasClass(prevItem.children[0], 'p-disabled') || DomHandler.isHidden(prevItem.children[0]) || DomHandler.hasClass(prevItem, 'p-multiselect-item-group') ? this.findPrevItem(prevItem) : prevItem.children[0];
+        if (prevItem) return this.domHandler.hasClass(prevItem.children[0], 'p-disabled') || this.domHandler.isHidden(prevItem.children[0]) || this.domHandler.hasClass(prevItem, 'p-multiselect-item-group') ? this.findPrevItem(prevItem) : prevItem.children[0];
         else return null;
     }
 
@@ -2260,7 +2261,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
     }
 
     hasFocusableElements() {
-        return DomHandler.getFocusableElements(this.overlayViewChild.overlayViewChild.nativeElement, ':not([data-p-hidden-focusable="true"])').length > 0;
+        return this.domHandler.getFocusableElements(this.overlayViewChild.overlayViewChild.nativeElement, ':not([data-p-hidden-focusable="true"])').length > 0;
     }
 
     hasFilter() {

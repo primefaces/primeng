@@ -536,7 +536,8 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
         public zone: NgZone,
         private http: HttpClient,
         public cd: ChangeDetectorRef,
-        public config: PrimeNGConfig
+        public config: PrimeNGConfig,
+        private domHandler: DomHandler
     ) {}
 
     ngAfterContentInit() {
@@ -914,7 +915,7 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
 
     onDragOver(e: DragEvent) {
         if (!this.disabled) {
-            DomHandler.addClass(this.content?.nativeElement, 'p-fileupload-highlight');
+            this.domHandler.addClass(this.content?.nativeElement, 'p-fileupload-highlight');
             this.dragHighlight = true;
             e.stopPropagation();
             e.preventDefault();
@@ -923,13 +924,13 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
 
     onDragLeave(event: DragEvent) {
         if (!this.disabled) {
-            DomHandler.removeClass(this.content?.nativeElement, 'p-fileupload-highlight');
+            this.domHandler.removeClass(this.content?.nativeElement, 'p-fileupload-highlight');
         }
     }
 
     onDrop(event: any) {
         if (!this.disabled) {
-            DomHandler.removeClass(this.content?.nativeElement, 'p-fileupload-highlight');
+            this.domHandler.removeClass(this.content?.nativeElement, 'p-fileupload-highlight');
             event.stopPropagation();
             event.preventDefault();
 

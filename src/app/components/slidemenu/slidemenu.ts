@@ -47,8 +47,8 @@ import { CaretLeftIcon } from 'primeng/icons/caretleft';
             [id]="menuId + '_list'"
             [ngStyle]="{
                 'width.px': menuWidth,
-                'left.px': root ? slideMenu.left : slideMenu.menuWidth,
-                'transition-property': root ? 'left' : 'none',
+                'inset-inline-start.px': root ? slideMenu.left : slideMenu.menuWidth,
+                'transition-property': root ? 'inset-inline-start' : 'none',
                 'transition-duration': effectDuration + 'ms',
                 'transition-timing-function': easing
             }"
@@ -124,7 +124,7 @@ import { CaretLeftIcon } from 'primeng/icons/caretleft';
                             <span class="p-menuitem-badge" *ngIf="getItemProp(processedItem, 'badge')" [ngClass]="getItemProp(processedItem, 'badgeStyleClass')">{{ getItemProp(processedItem, 'badge') }}</span>
 
                             <ng-container *ngIf="isItemGroup(processedItem)">
-                                <AngleRightIcon *ngIf="!slideMenu.submenuIconTemplate" [styleClass]="'p-submenu-icon'" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" />
+                                <AngleRightIcon *ngIf="!slideMenu.submenuIconTemplate" [styleClass]="'p-submenu-icon p-rtl-flip-icon'" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" />
                                 <ng-template *ngTemplateOutlet="slideMenu.submenuIconTemplate" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true"></ng-template>
                             </ng-container>
                         </a>
@@ -167,7 +167,7 @@ import { CaretLeftIcon } from 'primeng/icons/caretleft';
                             <span class="p-menuitem-badge" *ngIf="getItemProp(processedItem, 'badge')" [ngClass]="getItemProp(processedItem, 'badgeStyleClass')">{{ getItemProp(processedItem, 'badge') }}</span>
 
                             <ng-container *ngIf="isItemGroup(processedItem)">
-                                <AngleRightIcon *ngIf="!slideMenu.submenuIconTemplate" [styleClass]="'p-submenu-icon'" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" />
+                                <AngleRightIcon *ngIf="!slideMenu.submenuIconTemplate" [styleClass]="'p-submenu-icon p-rtl-flip-icon'" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" />
                                 <ng-template *ngTemplateOutlet="slideMenu.submenuIconTemplate" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true"></ng-template>
                             </ng-container>
                         </a>
@@ -249,6 +249,7 @@ export class SlideMenuSub {
         public el: ElementRef,
         public renderer: Renderer2,
         private cd: ChangeDetectorRef,
+        private domHandler: DomHandler,
         @Inject(forwardRef(() => SlideMenu)) public slideMenu: SlideMenu
     ) {}
 
@@ -606,7 +607,8 @@ export class SlideMenu implements OnInit, AfterContentInit, OnDestroy {
         public renderer: Renderer2,
         public cd: ChangeDetectorRef,
         public config: PrimeNGConfig,
-        public overlayService: OverlayService
+        public overlayService: OverlayService,
+        private domHandler: DomHandler
     ) {
         this.window = this.document.defaultView as Window;
         effect(() => {
@@ -833,10 +835,18 @@ export class SlideMenu implements OnInit, AfterContentInit, OnDestroy {
     animate(to: string) {
         switch (to) {
             case 'right':
-                this.left -= this.menuWidth;
+                if (this.domHandler.isRtl()) {
+                    this.left += this.menuWidth;
+                } else {
+                    this.left -= this.menuWidth;
+                }
                 break;
             case 'left':
-                this.left += this.menuWidth;
+                if (this.domHandler.isRtl()) {
+                    this.left -= this.menuWidth;
+                } else {
+                    this.left += this.menuWidth;
+                }
                 break;
 
             default:
@@ -963,8 +973,8 @@ export class SlideMenu implements OnInit, AfterContentInit, OnDestroy {
             if (grouped) {
                 this.onArrowRightKey(event);
             } else {
-                const element = DomHandler.findSingle(this.rootmenu.el.nativeElement, `li[id="${`${this.focusedItemId}`}"]`);
-                const anchorElement = element && DomHandler.findSingle(element, 'a[data-pc-section="action"]');
+                const element = this.domHandler.findSingle(this.rootmenu.el.nativeElement, `li[id="${`${this.focusedItemId}`}"]`);
+                const anchorElement = element && this.domHandler.findSingle(element, 'a[data-pc-section="action"]');
 
                 anchorElement ? anchorElement.click() : element && element.click();
 
@@ -991,7 +1001,7 @@ export class SlideMenu implements OnInit, AfterContentInit, OnDestroy {
         grouped && activeItemPath.push(processedItem);
         this.focusedItemInfo.set({ index, level, parentKey, item });
         this.activeItemPath.set(activeItemPath);
-        isFocus && DomHandler.focus(this.rootmenu.sublistViewChild.nativeElement);
+        isFocus && this.domHandler.focus(this.rootmenu.sublistViewChild.nativeElement);
     }
 
     onMenuFocus() {
@@ -1038,14 +1048,14 @@ export class SlideMenu implements OnInit, AfterContentInit, OnDestroy {
         }
         if (!this.transitionEndListener) {
             this.transitionEndListener = this.renderer.listen(this.rootmenu.sublistViewChild.nativeElement, 'transitionend', (event) => {
-                const activeMenu = DomHandler.findSingle(this.rootmenu.el.nativeElement, `ul[data-pc-state="active"]`);
-                const activeLevel = DomHandler.getAttribute(activeMenu.firstElementChild, 'aria-level') - 1;
+                const activeMenu = this.domHandler.findSingle(this.rootmenu.el.nativeElement, `ul[data-pc-state="active"]`);
+                const activeLevel = this.domHandler.getAttribute(activeMenu.firstElementChild, 'aria-level') - 1;
                 this.activeLevel.set(activeLevel);
 
                 if (!this.left) {
                     this.rootmenu.sublistViewChild.nativeElement.focus();
                 } else {
-                    const activeLevel = DomHandler.getAttribute(activeMenu.firstElementChild, 'aria-level') - 1;
+                    const activeLevel = this.domHandler.getAttribute(activeMenu.firstElementChild, 'aria-level') - 1;
                     this.activeLevel.set(activeLevel);
 
                     if (this.focusedItemInfo().level > this.activeLevel()) {
@@ -1085,7 +1095,7 @@ export class SlideMenu implements OnInit, AfterContentInit, OnDestroy {
                     this.bindOutsideClickListener();
                     this.bindResizeListener();
 
-                    DomHandler.focus(this.rootmenu.sublistViewChild.nativeElement);
+                    this.domHandler.focus(this.rootmenu.sublistViewChild.nativeElement);
                     this.scrollInView();
                 }
                 break;
@@ -1098,8 +1108,8 @@ export class SlideMenu implements OnInit, AfterContentInit, OnDestroy {
     }
 
     alignOverlay() {
-        if (this.relativeAlign) DomHandler.relativePosition(this.container, this.target);
-        else DomHandler.absolutePosition(this.container, this.target);
+        if (this.relativeAlign) this.domHandler.relativePosition(this.container, this.target);
+        else this.domHandler.absolutePosition(this.container, this.target);
     }
 
     onOverlayAnimationEnd(event: AnimationEvent) {
@@ -1113,7 +1123,7 @@ export class SlideMenu implements OnInit, AfterContentInit, OnDestroy {
     appendOverlay() {
         if (this.appendTo) {
             if (this.appendTo === 'body') this.renderer.appendChild(this.document.body, this.containerViewChild.nativeElement);
-            else DomHandler.appendChild(this.container, this.appendTo);
+            else this.domHandler.appendChild(this.container, this.appendTo);
         }
     }
 
@@ -1138,7 +1148,7 @@ export class SlideMenu implements OnInit, AfterContentInit, OnDestroy {
             this.onHide.emit({});
             this.visible = false;
         }
-        isFocus && DomHandler.focus(this.target || this.rootmenu.sublistViewChild.nativeElement);
+        isFocus && this.domHandler.focus(this.target || this.rootmenu.sublistViewChild.nativeElement);
     }
 
     /**
@@ -1164,7 +1174,7 @@ export class SlideMenu implements OnInit, AfterContentInit, OnDestroy {
         this.focusedItemInfo.set({ index: this.findFirstFocusedItemIndex(), level: 0, parentKey: '' });
 
         if (!this.popup) {
-            isFocus && DomHandler.focus(this.rootmenu.sublistViewChild.nativeElement);
+            isFocus && this.domHandler.focus(this.rootmenu.sublistViewChild.nativeElement);
         }
         this.cd.markForCheck();
     }
@@ -1254,7 +1264,7 @@ export class SlideMenu implements OnInit, AfterContentInit, OnDestroy {
 
     scrollInView(index: number = -1) {
         const id = index !== -1 ? `${this.id}_${index}` : this.focusedItemId;
-        const element = DomHandler.findSingle(this.rootmenu.el.nativeElement, `li[id="${id}"]`);
+        const element = this.domHandler.findSingle(this.rootmenu.el.nativeElement, `li[id="${id}"]`);
 
         if (element) {
             element.scrollIntoView && element.scrollIntoView({ block: 'nearest', inline: 'nearest' });
@@ -1265,7 +1275,7 @@ export class SlideMenu implements OnInit, AfterContentInit, OnDestroy {
         if (isPlatformBrowser(this.platformId)) {
             if (!this.resizeListener) {
                 this.resizeListener = this.renderer.listen(this.document.defaultView, 'resize', (event) => {
-                    if (!DomHandler.isTouchDevice()) {
+                    if (!this.domHandler.isTouchDevice()) {
                         this.hide(event, true);
                     }
                 });

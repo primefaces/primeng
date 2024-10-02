@@ -27,6 +27,8 @@ export class AutoFocus {
 
     host: ElementRef = inject(ElementRef);
 
+    constructor(private domHandler: DomHandler) {}
+
     ngAfterContentChecked() {
         // This sets the `attr.autofocus` which is different than the Input `autofocus` attribute.
         if (this.autofocus === false) {
@@ -49,7 +51,7 @@ export class AutoFocus {
     autoFocus() {
         if (isPlatformBrowser(this.platformId) && this.autofocus) {
             setTimeout(() => {
-                const focusableElements = DomHandler.getFocusableElements(this.host?.nativeElement);
+                const focusableElements = this.domHandler.getFocusableElements(this.host?.nativeElement);
 
                 if (focusableElements.length === 0) {
                     this.host.nativeElement.focus();

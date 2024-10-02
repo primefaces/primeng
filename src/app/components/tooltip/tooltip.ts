@@ -1,7 +1,7 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { AfterViewInit, Directive, ElementRef, HostListener, Inject, Input, NgModule, NgZone, OnDestroy, PLATFORM_ID, Renderer2, SimpleChanges, TemplateRef, ViewContainerRef, booleanAttribute, numberAttribute } from '@angular/core';
 import { PrimeNGConfig, TooltipOptions } from 'primeng/api';
-import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
+import { ConnectedOverlayScrollHandler, ConnectedOverlayScrollHandlerFactory, DomHandler } from 'primeng/dom';
 import { Nullable } from 'primeng/ts-helpers';
 import { UniqueComponentId, ZIndexUtils } from 'primeng/utils';
 
@@ -172,7 +172,9 @@ export class Tooltip implements AfterViewInit, OnDestroy {
         public zone: NgZone,
         public config: PrimeNGConfig,
         private renderer: Renderer2,
-        private viewContainer: ViewContainerRef
+        private viewContainer: ViewContainerRef,
+        private domHandler: DomHandler,
+        private scrollHandlerFactory: ConnectedOverlayScrollHandlerFactory
     ) {}
 
     ngAfterViewInit() {
@@ -314,7 +316,7 @@ export class Tooltip implements AfterViewInit, OnDestroy {
 
     onMouseLeave(e: MouseEvent) {
         if (!this.isAutoHide()) {
-            const valid = DomHandler.hasClass(e.relatedTarget, 'p-tooltip') || DomHandler.hasClass(e.relatedTarget, 'p-tooltip-text') || DomHandler.hasClass(e.relatedTarget, 'p-tooltip-arrow');
+            const valid = this.domHandler.hasClass(e.relatedTarget, 'p-tooltip') || this.domHandler.hasClass(e.relatedTarget, 'p-tooltip-text') || this.domHandler.hasClass(e.relatedTarget, 'p-tooltip-arrow');
             !valid && this.deactivate();
         } else {
             this.deactivate();
@@ -402,8 +404,8 @@ export class Tooltip implements AfterViewInit, OnDestroy {
         this.container.appendChild(this.tooltipText);
 
         if (this.getOption('appendTo') === 'body') document.body.appendChild(this.container);
-        else if (this.getOption('appendTo') === 'target') DomHandler.appendChild(this.container, this.el.nativeElement);
-        else DomHandler.appendChild(this.container, this.getOption('appendTo'));
+        else if (this.getOption('appendTo') === 'target') this.domHandler.appendChild(this.container, this.el.nativeElement);
+        else this.domHandler.appendChild(this.container, this.getOption('appendTo'));
 
         this.container.style.display = 'inline-block';
 
@@ -454,7 +456,7 @@ export class Tooltip implements AfterViewInit, OnDestroy {
             this.align();
         }
 
-        DomHandler.fadeIn(this.container, 250);
+        this.domHandler.fadeIn(this.container, 250);
 
         if (this.getOption('tooltipZIndex') === 'auto') ZIndexUtils.set('tooltip', this.container, this.config.zIndex.tooltip);
         else this.container.style.zIndex = this.getOption('tooltipZIndex');
@@ -551,9 +553,9 @@ export class Tooltip implements AfterViewInit, OnDestroy {
 
     getHostOffset() {
         if (this.getOption('appendTo') === 'body' || this.getOption('appendTo') === 'target') {
-            let offset = this.el.nativeElement.getBoundingClientRect();
-            let targetLeft = offset.left + DomHandler.getWindowScrollLeft();
-            let targetTop = offset.top + DomHandler.getWindowScrollTop();
+            let offset = this.domHandler.getBoundingClientRect(this.el.nativeElement);
+            let targetLeft = offset.left + this.domHandler.getWindowScrollLeft();
+            let targetTop = offset.top + this.domHandler.getWindowScrollTop();
 
             return { left: targetLeft, top: targetTop };
         } else {
@@ -566,40 +568,40 @@ export class Tooltip implements AfterViewInit, OnDestroy {
         const el = this.activeElement;
 
         const hostOffset = this.getHostOffset();
-        const left = hostOffset.left + DomHandler.getOuterWidth(el);
-        const top = hostOffset.top + (DomHandler.getOuterHeight(el) - DomHandler.getOuterHeight(this.container)) / 2;
-        this.container.style.left = left + this.getOption('positionLeft') + 'px';
+        const left = hostOffset.left + this.domHandler.getOuterWidth(el);
+        const top = hostOffset.top + (this.domHandler.getOuterHeight(el) - this.domHandler.getOuterHeight(this.container)) / 2;
+        this.container.style.insetInlineStart = left + this.getOption('positionLeft') + 'px';
         this.container.style.top = top + this.getOption('positionTop') + 'px';
     }
 
     private get activeElement(): HTMLElement {
-        return this.el.nativeElement.nodeName.includes('P-') ? DomHandler.findSingle(this.el.nativeElement, '.p-component') || this.el.nativeElement : this.el.nativeElement;
+        return this.el.nativeElement.nodeName.includes('P-') ? this.domHandler.findSingle(this.el.nativeElement, '.p-component') || this.el.nativeElement : this.el.nativeElement;
     }
 
     alignLeft() {
         this.preAlign('left');
         let hostOffset = this.getHostOffset();
-        let left = hostOffset.left - DomHandler.getOuterWidth(this.container);
-        let top = hostOffset.top + (DomHandler.getOuterHeight(this.el.nativeElement) - DomHandler.getOuterHeight(this.container)) / 2;
-        this.container.style.left = left + this.getOption('positionLeft') + 'px';
+        let left = hostOffset.left - this.domHandler.getOuterWidth(this.container);
+        let top = hostOffset.top + (this.domHandler.getOuterHeight(this.el.nativeElement) - this.domHandler.getOuterHeight(this.container)) / 2;
+        this.container.style.insetInlineStart = left + this.getOption('positionLeft') + 'px';
         this.container.style.top = top + this.getOption('positionTop') + 'px';
     }
 
     alignTop() {
         this.preAlign('top');
         let hostOffset = this.getHostOffset();
-        let left = hostOffset.left + (DomHandler.getOuterWidth(this.el.nativeElement) - DomHandler.getOuterWidth(this.container)) / 2;
-        let top = hostOffset.top - DomHandler.getOuterHeight(this.container);
-        this.container.style.left = left + this.getOption('positionLeft') + 'px';
+        let left = hostOffset.left + (this.domHandler.getOuterWidth(this.el.nativeElement) - this.domHandler.getOuterWidth(this.container)) / 2;
+        let top = hostOffset.top - this.domHandler.getOuterHeight(this.container);
+        this.container.style.insetInlineStart = left + this.getOption('positionLeft') + 'px';
         this.container.style.top = top + this.getOption('positionTop') + 'px';
     }
 
     alignBottom() {
         this.preAlign('bottom');
         let hostOffset = this.getHostOffset();
-        let left = hostOffset.left + (DomHandler.getOuterWidth(this.el.nativeElement) - DomHandler.getOuterWidth(this.container)) / 2;
-        let top = hostOffset.top + DomHandler.getOuterHeight(this.el.nativeElement);
-        this.container.style.left = left + this.getOption('positionLeft') + 'px';
+        let left = hostOffset.left + (this.domHandler.getOuterWidth(this.el.nativeElement) - this.domHandler.getOuterWidth(this.container)) / 2;
+        let top = hostOffset.top + this.domHandler.getOuterHeight(this.el.nativeElement);
+        this.container.style.insetInlineStart = left + this.getOption('positionLeft') + 'px';
         this.container.style.top = top + this.getOption('positionTop') + 'px';
     }
 
@@ -612,11 +614,11 @@ export class Tooltip implements AfterViewInit, OnDestroy {
     }
 
     getTarget(el: Element) {
-        return DomHandler.hasClass(el, 'p-inputwrapper') ? DomHandler.findSingle(el, 'input') : el;
+        return this.domHandler.hasClass(el, 'p-inputwrapper') ? this.domHandler.findSingle(el, 'input') : el;
     }
 
     preAlign(position: string) {
-        this.container.style.left = -999 + 'px';
+        this.container.style.insetInlineStart = -999 + 'px';
         this.container.style.top = -999 + 'px';
 
         let defaultClassName = 'p-tooltip p-component p-tooltip-' + position;
@@ -624,12 +626,12 @@ export class Tooltip implements AfterViewInit, OnDestroy {
     }
 
     isOutOfBounds(): boolean {
-        let offset = this.container.getBoundingClientRect();
+        let offset = this.domHandler.getBoundingClientRect(this.container);
         let targetTop = offset.top;
         let targetLeft = offset.left;
-        let width = DomHandler.getOuterWidth(this.container);
-        let height = DomHandler.getOuterHeight(this.container);
-        let viewport = DomHandler.getViewport();
+        let width = this.domHandler.getOuterWidth(this.container);
+        let height = this.domHandler.getOuterHeight(this.container);
+        let viewport = this.domHandler.getViewport();
 
         return targetLeft + width > viewport.width || targetLeft < 0 || targetTop < 0 || targetTop + height > viewport.height;
     }
@@ -654,7 +656,7 @@ export class Tooltip implements AfterViewInit, OnDestroy {
 
     bindScrollListener() {
         if (!this.scrollHandler) {
-            this.scrollHandler = new ConnectedOverlayScrollHandler(this.el.nativeElement, () => {
+            this.scrollHandler = this.scrollHandlerFactory.create(this.el.nativeElement, () => {
                 if (this.container) {
                     this.hide();
                 }
@@ -692,7 +694,7 @@ export class Tooltip implements AfterViewInit, OnDestroy {
         if (this.container && this.container.parentElement) {
             if (this.getOption('appendTo') === 'body') document.body.removeChild(this.container);
             else if (this.getOption('appendTo') === 'target') this.el.nativeElement.removeChild(this.container);
-            else DomHandler.removeChild(this.container, this.getOption('appendTo'));
+            else this.domHandler.removeChild(this.container, this.getOption('appendTo'));
         }
 
         this.unbindDocumentResizeListener();

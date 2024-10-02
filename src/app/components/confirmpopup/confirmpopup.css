@@ -3,7 +3,7 @@
         position: absolute;
         margin-top: 10px;
         top: 0;
-        left: 0;
+        inset-inline-start: 0;
     }
 
     .p-confirm-popup-flipped {
@@ -14,7 +14,7 @@
     .p-confirm-popup:after,
     .p-confirm-popup:before {
         bottom: 100%;
-        left: calc(var(--overlayArrowLeft, 0) + 1.25rem);
+        inset-inline-start: calc(var(--overlayArrowLeft, 0) + 1.25rem);
         content: ' ';
         height: 0;
         width: 0;
@@ -24,12 +24,12 @@
 
     .p-confirm-popup:after {
         border-width: 8px;
-        margin-left: -8px;
+        margin-inline-start: -8px;
     }
 
     .p-confirm-popup:before {
         border-width: 10px;
-        margin-left: -10px;
+        margin-inline-start: -10px;
     }
 
     .p-confirm-popup-flipped:after,

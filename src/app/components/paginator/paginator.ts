@@ -52,7 +52,7 @@ import { PaginatorState } from './paginator.interface';
                 [ngClass]="{ 'p-disabled': isFirstPage() || empty() }"
                 [attr.aria-label]="getAriaLabel('firstPageLabel')"
             >
-                <AngleDoubleLeftIcon *ngIf="!firstPageLinkIconTemplate" [styleClass]="'p-paginator-icon'" />
+                <AngleDoubleLeftIcon *ngIf="!firstPageLinkIconTemplate" [styleClass]="'p-paginator-icon p-rtl-flip-icon'" />
                 <span class="p-paginator-icon" *ngIf="firstPageLinkIconTemplate">
                     <ng-template *ngTemplateOutlet="firstPageLinkIconTemplate"></ng-template>
                 </span>
@@ -66,7 +66,7 @@ import { PaginatorState } from './paginator.interface';
                 [ngClass]="{ 'p-disabled': isFirstPage() || empty() }"
                 [attr.aria-label]="getAriaLabel('prevPageLabel')"
             >
-                <AngleLeftIcon *ngIf="!previousPageLinkIconTemplate" [styleClass]="'p-paginator-icon'" />
+                <AngleLeftIcon *ngIf="!previousPageLinkIconTemplate" [styleClass]="'p-paginator-icon p-rtl-flip-icon'" />
                 <span class="p-paginator-icon" *ngIf="previousPageLinkIconTemplate">
                     <ng-template *ngTemplateOutlet="previousPageLinkIconTemplate"></ng-template>
                 </span>
@@ -115,7 +115,7 @@ import { PaginatorState } from './paginator.interface';
                 [ngClass]="{ 'p-disabled': isLastPage() || empty() }"
                 [attr.aria-label]="getAriaLabel('nextPageLabel')"
             >
-                <AngleRightIcon *ngIf="!nextPageLinkIconTemplate" [styleClass]="'p-paginator-icon'" />
+                <AngleRightIcon *ngIf="!nextPageLinkIconTemplate" [styleClass]="'p-paginator-icon p-rtl-flip-icon'" />
                 <span class="p-paginator-icon" *ngIf="nextPageLinkIconTemplate">
                     <ng-template *ngTemplateOutlet="nextPageLinkIconTemplate"></ng-template>
                 </span>
@@ -130,7 +130,7 @@ import { PaginatorState } from './paginator.interface';
                 [ngClass]="{ 'p-disabled': isLastPage() || empty() }"
                 [attr.aria-label]="getAriaLabel('lastPageLabel')"
             >
-                <AngleDoubleRightIcon *ngIf="!lastPageLinkIconTemplate" [styleClass]="'p-paginator-icon'" />
+                <AngleDoubleRightIcon *ngIf="!lastPageLinkIconTemplate" [styleClass]="'p-paginator-icon p-rtl-flip-icon'" />
                 <span class="p-paginator-icon" *ngIf="lastPageLinkIconTemplate">
                     <ng-template *ngTemplateOutlet="lastPageLinkIconTemplate"></ng-template>
                 </span>

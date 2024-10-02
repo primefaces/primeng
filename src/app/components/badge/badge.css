@@ -13,10 +13,15 @@
     .p-overlay-badge .p-badge {
         position: absolute;
         top: 0;
-        right: 0;
+        inset-inline-end: 0;
         transform: translate(50%, -50%);
         transform-origin: 100% 0;
         margin: 0;
+    }
+
+    .p-overlay-badge .p-badge:dir(rtl) {
+        transform: translate(-50%, -50%);
+        transform-origin: 0 0;
     }
 
     .p-badge-dot {

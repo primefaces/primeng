@@ -124,7 +124,8 @@ export class Steps implements OnInit, OnDestroy {
     constructor(
         private router: Router,
         private route: ActivatedRoute,
-        private cd: ChangeDetectorRef
+        private cd: ChangeDetectorRef,
+        private domHandler: DomHandler
     ) {}
 
     subscription: Subscription | undefined;
@@ -182,7 +183,7 @@ export class Steps implements OnInit, OnDestroy {
 
             case 'Tab':
                 if (i !== this.activeIndex) {
-                    const siblings = DomHandler.find(this.listViewChild.nativeElement, '[data-pc-section="menuitem"]');
+                    const siblings = this.domHandler.find(this.listViewChild.nativeElement, '[data-pc-section="menuitem"]');
                     siblings[i].children[0].tabIndex = '-1';
                     siblings[this.activeIndex].children[0].tabIndex = '0';
                 }
@@ -231,12 +232,12 @@ export class Steps implements OnInit, OnDestroy {
         return prevItem ? prevItem.children[0] : null;
     }
     findFirstItem() {
-        const firstSibling = DomHandler.findSingle(this.listViewChild.nativeElement, '[data-pc-section="menuitem"]');
+        const firstSibling = this.domHandler.findSingle(this.listViewChild.nativeElement, '[data-pc-section="menuitem"]');
 
         return firstSibling ? firstSibling.children[0] : null;
     }
     findLastItem() {
-        const siblings = DomHandler.find(this.listViewChild.nativeElement, '[data-pc-section="menuitem"]');
+        const siblings = this.domHandler.find(this.listViewChild.nativeElement, '[data-pc-section="menuitem"]');
 
         return siblings ? siblings[siblings.length - 1].children[0] : null;
     }

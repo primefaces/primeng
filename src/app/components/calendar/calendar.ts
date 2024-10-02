@@ -26,7 +26,7 @@ import {
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
-import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
+import { ConnectedOverlayScrollHandler, ConnectedOverlayScrollHandlerFactory, DomHandler } from 'primeng/dom';
 import { RippleModule } from 'primeng/ripple';
 import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
 import { Subscription } from 'rxjs';
@@ -151,7 +151,7 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
                 }"
                 [@overlayAnimation]="
                     touchUI
-                        ? { value: 'visibleTouchUI', params: { showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions } }
+                        ? { value: isRtl ? 'visibleTouchUIRtl' : 'visibleTouchUI', params: { showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions } }
                         : { value: 'visible', params: { showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions } }
                 "
                 [attr.aria-label]="getTranslation('chooseDate')"
@@ -170,7 +170,7 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
                         <div class="p-datepicker-group" *ngFor="let month of months; let i = index">
                             <div class="p-datepicker-header">
                                 <button (keydown)="onContainerButtonKeydown($event)" class="p-datepicker-prev p-link" (click)="onPrevButtonClick($event)" *ngIf="i === 0" type="button" [attr.aria-label]="prevIconAriaLabel" pRipple>
-                                    <ChevronLeftIcon [styleClass]="'p-datepicker-prev-icon'" *ngIf="!previousIconTemplate" />
+                                    <ChevronLeftIcon [styleClass]="'p-datepicker-prev-icon p-rtl-flip-icon'" *ngIf="!previousIconTemplate" />
                                     <span *ngIf="previousIconTemplate" class="p-datepicker-prev-icon">
                                         <ng-template *ngTemplateOutlet="previousIconTemplate"></ng-template>
                                     </span>
@@ -212,7 +212,7 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
                                     [attr.aria-label]="nextIconAriaLabel"
                                     pRipple
                                 >
-                                    <ChevronRightIcon [styleClass]="'p-datepicker-next-icon'" *ngIf="!nextIconTemplate" />
+                                    <ChevronRightIcon [styleClass]="'p-datepicker-next-icon p-rtl-flip-icon'" *ngIf="!nextIconTemplate" />
                                     <span *ngIf="nextIconTemplate" class="p-datepicker-next-icon">
                                         <ng-template *ngTemplateOutlet="nextIconTemplate"></ng-template>
                                     </span>
@@ -297,7 +297,7 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
                         </span>
                     </div>
                 </ng-container>
-                <div class="p-timepicker" *ngIf="(showTime || timeOnly) && currentView === 'date'">
+                <div class="p-timepicker p-rtl-flip-order" *ngIf="(showTime || timeOnly) && currentView === 'date'">
                     <div class="p-hour-picker">
                         <button
                             class="p-link"
@@ -445,6 +445,13 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
                     opacity: 1
                 })
             ),
+            state(
+                'visibleTouchUIRtl',
+                style({
+                    transform: 'translate(50%,-50%)',
+                    opacity: 1
+                })
+            ),
             transition('void => visible', [style({ opacity: 0, transform: 'scaleY(0.8)' }), animate('{{showTransitionParams}}', style({ opacity: 1, transform: '*' }))]),
             transition('visible => void', [animate('{{hideTransitionParams}}', style({ opacity: 0 }))]),
             transition('void => visibleTouchUI', [style({ opacity: 0, transform: 'translate3d(-50%, -40%, 0) scale(0.9)' }), animate('{{showTransitionParams}}')]),
@@ -456,7 +463,17 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
                         transform: 'translate3d(-50%, -40%, 0) scale(0.9)'
                     })
                 )
-            ])
+            ]),
+            transition('void => visibleTouchUIRtl', [style({ opacity: 0, transform: 'translate3d(50%, -40%, 0) scale(0.9)' }), animate('{{showTransitionParams}}')]),
+            transition('visibleTouchUIRtl => void', [
+              animate(
+                  '{{hideTransitionParams}}',
+                  style({
+                      opacity: 0,
+                      transform: 'translate3d(50%, -40%, 0) scale(0.9)'
+                  })
+              )
+          ])
         ])
     ],
     host: {
@@ -1151,6 +1168,8 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
     _focusKey: Nullable<string> = null;
 
+    isRtl: boolean;
+
     private window: Window;
 
     get locale() {
@@ -1176,12 +1195,15 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         public cd: ChangeDetectorRef,
         private zone: NgZone,
         private config: PrimeNGConfig,
-        public overlayService: OverlayService
+        public overlayService: OverlayService,
+        private domHandler: DomHandler,
+        private scrollHandlerFactory: ConnectedOverlayScrollHandlerFactory
     ) {
         this.window = this.document.defaultView as Window;
     }
 
     ngOnInit() {
+        this.isRtl = this.domHandler.isRtl();
         this.attributeSelector = UniqueComponentId();
         this.panelId = this.attributeSelector + '_panel';
         const date = this.defaultDate || new Date();
@@ -1272,7 +1294,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
                 this.initFocusableCell();
                 if (this.numberOfMonths === 1) {
                     if (this.contentViewChild && this.contentViewChild.nativeElement) {
-                        this.contentViewChild.nativeElement.style.width = DomHandler.getOuterWidth(this.containerViewChild?.nativeElement) + 'px';
+                        this.contentViewChild.nativeElement.style.width = this.domHandler.getOuterWidth(this.containerViewChild?.nativeElement) + 'px';
                     }
                 }
             }
@@ -2028,7 +2050,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
                     this.trapFocus(event);
                 }
                 if (this.inline) {
-                    const headerElements = DomHandler.findSingle(this.containerViewChild?.nativeElement, '.p-datepicker-header');
+                    const headerElements = this.domHandler.findSingle(this.containerViewChild?.nativeElement, '.p-datepicker-header');
                     const element = event.target;
                     if (this.timeOnly) {
                         return;
@@ -2069,7 +2091,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
                 event.preventDefault();
             }
         } else if (event.keyCode === 9 && this.contentViewChild) {
-            DomHandler.getFocusableElements(this.contentViewChild.nativeElement).forEach((el) => (el.tabIndex = '-1'));
+            this.domHandler.getFocusableElements(this.contentViewChild.nativeElement).forEach((el) => (el.tabIndex = '-1'));
             if (this.overlayVisible) {
                 this.overlayVisible = false;
             }
@@ -2084,11 +2106,11 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
             //down arrow
             case 40: {
                 cellContent.tabIndex = '-1';
-                let cellIndex = DomHandler.index(cell);
+                let cellIndex = this.domHandler.index(cell);
                 let nextRow = cell.parentElement.nextElementSibling;
                 if (nextRow) {
                     let focusCell = nextRow.children[cellIndex].children[0];
-                    if (DomHandler.hasClass(focusCell, 'p-disabled')) {
+                    if (this.domHandler.hasClass(focusCell, 'p-disabled')) {
                         this.navigationState = { backward: false };
                         this.navForward(event);
                     } else {
@@ -2106,11 +2128,11 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
             //up arrow
             case 38: {
                 cellContent.tabIndex = '-1';
-                let cellIndex = DomHandler.index(cell);
+                let cellIndex = this.domHandler.index(cell);
                 let prevRow = cell.parentElement.previousElementSibling;
                 if (prevRow) {
                     let focusCell = prevRow.children[cellIndex].children[0];
-                    if (DomHandler.hasClass(focusCell, 'p-disabled')) {
+                    if (this.domHandler.hasClass(focusCell, 'p-disabled')) {
                         this.navigationState = { backward: true };
                         this.navBackward(event);
                     } else {
@@ -2131,7 +2153,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
                 let prevCell = cell.previousElementSibling;
                 if (prevCell) {
                     let focusCell = prevCell.children[0];
-                    if (DomHandler.hasClass(focusCell, 'p-disabled') || DomHandler.hasClass(focusCell.parentElement, 'p-datepicker-weeknumber')) {
+                    if (this.domHandler.hasClass(focusCell, 'p-disabled') || this.domHandler.hasClass(focusCell.parentElement, 'p-datepicker-weeknumber')) {
                         this.navigateToMonth(true, groupIndex);
                     } else {
                         focusCell.tabIndex = '0';
@@ -2150,7 +2172,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
                 let nextCell = cell.nextElementSibling;
                 if (nextCell) {
                     let focusCell = nextCell.children[0];
-                    if (DomHandler.hasClass(focusCell, 'p-disabled')) {
+                    if (this.domHandler.hasClass(focusCell, 'p-disabled')) {
                         this.navigateToMonth(false, groupIndex);
                     } else {
                         focusCell.tabIndex = '0';
@@ -2213,7 +2235,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
                 cellContent.tabIndex = '-1';
                 const firstDayDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
                 const firstDayDateKey = this.formatDateKey(firstDayDate);
-                const firstDayCell = DomHandler.findSingle(cellContent.offsetParent, `span[data-date='${firstDayDateKey}']:not(.p-disabled):not(.p-ink)`);
+                const firstDayCell = this.domHandler.findSingle(cellContent.offsetParent, `span[data-date='${firstDayDateKey}']:not(.p-disabled):not(.p-ink)`);
                 if (firstDayCell) {
                     firstDayCell.tabIndex = '0';
                     firstDayCell.focus();
@@ -2226,7 +2248,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
                 cellContent.tabIndex = '-1';
                 const lastDayDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
                 const lastDayDateKey = this.formatDateKey(lastDayDate);
-                const lastDayCell = DomHandler.findSingle(cellContent.offsetParent, `span[data-date='${lastDayDateKey}']:not(.p-disabled):not(.p-ink)`);
+                const lastDayCell = this.domHandler.findSingle(cellContent.offsetParent, `span[data-date='${lastDayDateKey}']:not(.p-disabled):not(.p-ink)`);
                 if (lastDayDate) {
                     lastDayCell.tabIndex = '0';
                     lastDayCell.focus();
@@ -2248,7 +2270,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
             case 40: {
                 cell.tabIndex = '-1';
                 var cells = cell.parentElement.children;
-                var cellIndex = DomHandler.index(cell);
+                var cellIndex = this.domHandler.index(cell);
                 let nextCell = cells[event.which === 40 ? cellIndex + 3 : cellIndex - 3];
                 if (nextCell) {
                     nextCell.tabIndex = '0';
@@ -2330,7 +2352,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
             case 40: {
                 cell.tabIndex = '-1';
                 var cells = cell.parentElement.children;
-                var cellIndex = DomHandler.index(cell);
+                var cellIndex = this.domHandler.index(cell);
                 let nextCell = cells[event.which === 40 ? cellIndex + 2 : cellIndex - 2];
                 if (nextCell) {
                     nextCell.tabIndex = '0';
@@ -2410,11 +2432,11 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
             } else {
                 let prevMonthContainer = this.contentViewChild.nativeElement.children[groupIndex - 1];
                 if (focusKey) {
-                    const firstDayCell = DomHandler.findSingle(prevMonthContainer, focusKey);
+                    const firstDayCell = this.domHandler.findSingle(prevMonthContainer, focusKey);
                     firstDayCell.tabIndex = '0';
                     firstDayCell.focus();
                 } else {
-                    let cells = DomHandler.find(prevMonthContainer, '.p-datepicker-calendar td span:not(.p-disabled):not(.p-ink)');
+                    let cells = this.domHandler.find(prevMonthContainer, '.p-datepicker-calendar td span:not(.p-disabled):not(.p-ink)');
                     let focusCell = cells[cells.length - 1];
                     focusCell.tabIndex = '0';
                     focusCell.focus();
@@ -2428,11 +2450,11 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
             } else {
                 let nextMonthContainer = this.contentViewChild.nativeElement.children[groupIndex + 1];
                 if (focusKey) {
-                    const firstDayCell = DomHandler.findSingle(nextMonthContainer, focusKey);
+                    const firstDayCell = this.domHandler.findSingle(nextMonthContainer, focusKey);
                     firstDayCell.tabIndex = '0';
                     firstDayCell.focus();
                 } else {
-                    let focusCell = DomHandler.findSingle(nextMonthContainer, '.p-datepicker-calendar td span:not(.p-disabled):not(.p-ink)');
+                    let focusCell = this.domHandler.findSingle(nextMonthContainer, '.p-datepicker-calendar td span:not(.p-disabled):not(.p-ink)');
                     focusCell.tabIndex = '0';
                     focusCell.focus();
                 }
@@ -2447,18 +2469,18 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
             if (this.navigationState.button) {
                 this.initFocusableCell();
 
-                if (this.navigationState.backward) DomHandler.findSingle(this.contentViewChild.nativeElement, '.p-datepicker-prev').focus();
-                else DomHandler.findSingle(this.contentViewChild.nativeElement, '.p-datepicker-next').focus();
+                if (this.navigationState.backward) this.domHandler.findSingle(this.contentViewChild.nativeElement, '.p-datepicker-prev').focus();
+                else this.domHandler.findSingle(this.contentViewChild.nativeElement, '.p-datepicker-next').focus();
             } else {
                 if (this.navigationState.backward) {
                     let cells;
 
                     if (this.currentView === 'month') {
-                        cells = DomHandler.find(this.contentViewChild.nativeElement, '.p-monthpicker .p-monthpicker-month:not(.p-disabled)');
+                        cells = this.domHandler.find(this.contentViewChild.nativeElement, '.p-monthpicker .p-monthpicker-month:not(.p-disabled)');
                     } else if (this.currentView === 'year') {
-                        cells = DomHandler.find(this.contentViewChild.nativeElement, '.p-yearpicker .p-yearpicker-year:not(.p-disabled)');
+                        cells = this.domHandler.find(this.contentViewChild.nativeElement, '.p-yearpicker .p-yearpicker-year:not(.p-disabled)');
                     } else {
-                        cells = DomHandler.find(this.contentViewChild.nativeElement, this._focusKey || '.p-datepicker-calendar td span:not(.p-disabled):not(.p-ink)');
+                        cells = this.domHandler.find(this.contentViewChild.nativeElement, this._focusKey || '.p-datepicker-calendar td span:not(.p-disabled):not(.p-ink)');
                     }
 
                     if (cells && cells.length > 0) {
@@ -2466,11 +2488,11 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
                     }
                 } else {
                     if (this.currentView === 'month') {
-                        cell = DomHandler.findSingle(this.contentViewChild.nativeElement, '.p-monthpicker .p-monthpicker-month:not(.p-disabled)');
+                        cell = this.domHandler.findSingle(this.contentViewChild.nativeElement, '.p-monthpicker .p-monthpicker-month:not(.p-disabled)');
                     } else if (this.currentView === 'year') {
-                        cell = DomHandler.findSingle(this.contentViewChild.nativeElement, '.p-yearpicker .p-yearpicker-year:not(.p-disabled)');
+                        cell = this.domHandler.findSingle(this.contentViewChild.nativeElement, '.p-yearpicker .p-yearpicker-year:not(.p-disabled)');
                     } else {
-                        cell = DomHandler.findSingle(this.contentViewChild.nativeElement, this._focusKey || '.p-datepicker-calendar td span:not(.p-disabled):not(.p-ink)');
+                        cell = this.domHandler.findSingle(this.contentViewChild.nativeElement, this._focusKey || '.p-datepicker-calendar td span:not(.p-disabled):not(.p-ink)');
                     }
                 }
 
@@ -2493,31 +2515,31 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         let cell!: any;
 
         if (this.currentView === 'month') {
-            let cells = DomHandler.find(contentEl, '.p-monthpicker .p-monthpicker-month:not(.p-disabled)');
-            let selectedCell = DomHandler.findSingle(contentEl, '.p-monthpicker .p-monthpicker-month.p-highlight');
+            let cells = this.domHandler.find(contentEl, '.p-monthpicker .p-monthpicker-month:not(.p-disabled)');
+            let selectedCell = this.domHandler.findSingle(contentEl, '.p-monthpicker .p-monthpicker-month.p-highlight');
             cells.forEach((cell) => (cell.tabIndex = -1));
             cell = selectedCell || cells[0];
 
             if (cells.length === 0) {
-                let disabledCells = DomHandler.find(contentEl, '.p-monthpicker .p-monthpicker-month.p-disabled[tabindex = "0"]');
+                let disabledCells = this.domHandler.find(contentEl, '.p-monthpicker .p-monthpicker-month.p-disabled[tabindex = "0"]');
                 disabledCells.forEach((cell) => (cell.tabIndex = -1));
             }
         } else if (this.currentView === 'year') {
-            let cells = DomHandler.find(contentEl, '.p-yearpicker .p-yearpicker-year:not(.p-disabled)');
-            let selectedCell = DomHandler.findSingle(contentEl, '.p-yearpicker .p-yearpicker-year.p-highlight');
+            let cells = this.domHandler.find(contentEl, '.p-yearpicker .p-yearpicker-year:not(.p-disabled)');
+            let selectedCell = this.domHandler.findSingle(contentEl, '.p-yearpicker .p-yearpicker-year.p-highlight');
             cells.forEach((cell) => (cell.tabIndex = -1));
             cell = selectedCell || cells[0];
 
             if (cells.length === 0) {
-                let disabledCells = DomHandler.find(contentEl, '.p-yearpicker .p-yearpicker-year.p-disabled[tabindex = "0"]');
+                let disabledCells = this.domHandler.find(contentEl, '.p-yearpicker .p-yearpicker-year.p-disabled[tabindex = "0"]');
                 disabledCells.forEach((cell) => (cell.tabIndex = -1));
             }
         } else {
-            cell = DomHandler.findSingle(contentEl, 'span.p-highlight');
+            cell = this.domHandler.findSingle(contentEl, 'span.p-highlight');
             if (!cell) {
-                let todayCell = DomHandler.findSingle(contentEl, 'td.p-datepicker-today span:not(.p-disabled):not(.p-ink)');
+                let todayCell = this.domHandler.findSingle(contentEl, 'td.p-datepicker-today span:not(.p-disabled):not(.p-ink)');
                 if (todayCell) cell = todayCell;
-                else cell = DomHandler.findSingle(contentEl, '.p-datepicker-calendar td span:not(.p-disabled):not(.p-ink)');
+                else cell = this.domHandler.findSingle(contentEl, '.p-datepicker-calendar td span:not(.p-disabled):not(.p-ink)');
             }
         }
 
@@ -2537,7 +2559,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     }
 
     trapFocus(event: any) {
-        let focusableElements = DomHandler.getFocusableElements(this.contentViewChild.nativeElement);
+        let focusableElements = this.domHandler.getFocusableElements(this.contentViewChild.nativeElement);
 
         if (focusableElements && focusableElements.length > 0) {
             if (!focusableElements[0].ownerDocument.activeElement) {
@@ -3015,6 +3037,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         switch (event.toState) {
             case 'visible':
             case 'visibleTouchUI':
+            case 'visibleTouchUIRtl':
                 if (!this.inline) {
                     this.overlay = event.element;
                     this.overlay?.setAttribute(this.attributeSelector as string, '');
@@ -3041,6 +3064,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         switch (event.toState) {
             case 'visible':
             case 'visibleTouchUI':
+            case 'visibleTouchUIRtl':
                 if (!this.inline) {
                     this.bindDocumentClickListener();
                     this.bindDocumentResizeListener();
@@ -3059,7 +3083,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     appendOverlay() {
         if (this.appendTo) {
             if (this.appendTo === 'body') this.document.body.appendChild(<HTMLElement>this.overlay);
-            else DomHandler.appendChild(this.overlay, this.appendTo);
+            else this.domHandler.appendChild(this.overlay, this.appendTo);
         }
     }
 
@@ -3076,20 +3100,20 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
             if (this.appendTo) {
                 if (this.view === 'date') {
                     if (!this.overlay.style.width) {
-                        this.overlay.style.width = DomHandler.getOuterWidth(this.overlay) + 'px';
+                        this.overlay.style.width = this.domHandler.getOuterWidth(this.overlay) + 'px';
                     }
                     if (!this.overlay.style.minWidth) {
-                        this.overlay.style.minWidth = DomHandler.getOuterWidth(this.inputfieldViewChild?.nativeElement) + 'px';
+                        this.overlay.style.minWidth = this.domHandler.getOuterWidth(this.inputfieldViewChild?.nativeElement) + 'px';
                     }
                 } else {
                     if (!this.overlay.style.width) {
-                        this.overlay.style.width = DomHandler.getOuterWidth(this.inputfieldViewChild?.nativeElement) + 'px';
+                        this.overlay.style.width = this.domHandler.getOuterWidth(this.inputfieldViewChild?.nativeElement) + 'px';
                     }
                 }
 
-                DomHandler.absolutePosition(this.overlay, this.inputfieldViewChild?.nativeElement);
+                this.domHandler.absolutePosition(this.overlay, this.inputfieldViewChild?.nativeElement);
             } else {
-                DomHandler.relativePosition(this.overlay, this.inputfieldViewChild?.nativeElement);
+                this.domHandler.relativePosition(this.overlay, this.inputfieldViewChild?.nativeElement);
             }
         }
     }
@@ -3099,20 +3123,20 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
             this.mask = this.renderer.createElement('div');
             this.renderer.setStyle(this.mask, 'zIndex', String(parseInt(element.style.zIndex) - 1));
             let maskStyleClass = 'p-component-overlay p-datepicker-mask p-datepicker-mask-scrollblocker p-component-overlay p-component-overlay-enter';
-            DomHandler.addMultipleClasses(this.mask, maskStyleClass);
+            this.domHandler.addMultipleClasses(this.mask, maskStyleClass);
 
             this.maskClickListener = this.renderer.listen(this.mask, 'click', (event: any) => {
                 this.disableModality();
                 this.overlayVisible = false;
             });
             this.renderer.appendChild(this.document.body, this.mask);
-            DomHandler.blockBodyScroll();
+            this.domHandler.blockBodyScroll();
         }
     }
 
     disableModality() {
         if (this.mask) {
-            DomHandler.addClass(this.mask, 'p-component-overlay-leave');
+            this.domHandler.addClass(this.mask, 'p-component-overlay-leave');
             if (!this.animationEndListener) {
                 this.animationEndListener = this.renderer.listen(this.mask, 'animationend', this.destroyMask.bind(this));
             }
@@ -3128,14 +3152,14 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         let hasBlockerMasks!: boolean;
         for (let i = 0; i < bodyChildren.length; i++) {
             let bodyChild = bodyChildren[i];
-            if (DomHandler.hasClass(bodyChild, 'p-datepicker-mask-scrollblocker')) {
+            if (this.domHandler.hasClass(bodyChild, 'p-datepicker-mask-scrollblocker')) {
                 hasBlockerMasks = true;
                 break;
             }
         }
 
         if (!hasBlockerMasks) {
-            DomHandler.unblockBodyScroll();
+            this.domHandler.unblockBodyScroll();
         }
 
         this.unbindAnimationEndListener();
@@ -3548,7 +3572,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
             if (!this.responsiveStyleElement) {
                 this.responsiveStyleElement = this.renderer.createElement('style');
                 (<HTMLStyleElement>this.responsiveStyleElement).type = 'text/css';
-                DomHandler.setAttribute(this.responsiveStyleElement, 'nonce', this.config?.csp()?.nonce);
+                this.domHandler.setAttribute(this.responsiveStyleElement, 'nonce', this.config?.csp()?.nonce);
                 this.renderer.appendChild(this.document.body, this.responsiveStyleElement);
             }
 
@@ -3632,7 +3656,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
     bindScrollListener() {
         if (!this.scrollHandler) {
-            this.scrollHandler = new ConnectedOverlayScrollHandler(this.containerViewChild?.nativeElement, () => {
+            this.scrollHandler = this.scrollHandlerFactory.create(this.containerViewChild?.nativeElement, () => {
                 if (this.overlayVisible) {
                     this.hideOverlay();
                 }
@@ -3654,12 +3678,12 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
     isNavIconClicked(event: Event) {
         return (
-            DomHandler.hasClass(event.target, 'p-datepicker-prev') || DomHandler.hasClass(event.target, 'p-datepicker-prev-icon') || DomHandler.hasClass(event.target, 'p-datepicker-next') || DomHandler.hasClass(event.target, 'p-datepicker-next-icon')
+            this.domHandler.hasClass(event.target, 'p-datepicker-prev') || this.domHandler.hasClass(event.target, 'p-datepicker-prev-icon') || this.domHandler.hasClass(event.target, 'p-datepicker-next') || this.domHandler.hasClass(event.target, 'p-datepicker-next-icon')
         );
     }
 
     onWindowResize() {
-        if (this.overlayVisible && !DomHandler.isTouchDevice()) {
+        if (this.overlayVisible && !this.domHandler.isTouchDevice()) {
             this.hideOverlay();
         }
     }

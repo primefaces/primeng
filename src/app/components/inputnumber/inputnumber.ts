@@ -522,7 +522,8 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
         public el: ElementRef,
         private cd: ChangeDetectorRef,
         private readonly injector: Injector,
-        public config: PrimeNGConfig
+        public config: PrimeNGConfig,
+        private domHandler: DomHandler
     ) {}
 
     ngOnChanges(simpleChange: SimpleChanges) {
@@ -1250,7 +1251,7 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
     onInputClick() {
         const currentValue = this.input?.nativeElement.value;
 
-        if (!this.readonly && currentValue !== DomHandler.getSelection()) {
+        if (!this.readonly && currentValue !== this.domHandler.getSelection()) {
             this.initCursor();
         }
     }

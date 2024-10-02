@@ -41,7 +41,8 @@ export class AppMenuComponent implements OnDestroy {
     constructor(
         private configService: AppConfigService,
         private el: ElementRef,
-        private router: Router
+        private router: Router,
+        private domHandler: DomHandler
     ) {
         this.menu = MenuData.data;
 
@@ -53,7 +54,7 @@ export class AppMenuComponent implements OnDestroy {
             this.routerSubscription = this.router.events.subscribe((event) => {
                 if (event instanceof NavigationEnd && this.configService.state.menuActive) {
                     this.configService.hideMenu();
-                    DomHandler.unblockBodyScroll('blocked-scroll');
+                    this.domHandler.unblockBodyScroll('blocked-scroll');
                 }
             });
         });
@@ -64,14 +65,14 @@ export class AppMenuComponent implements OnDestroy {
     }
 
     scrollToActiveItem() {
-        let activeItem = DomHandler.findSingle(this.el.nativeElement, '.router-link-active');
+        let activeItem = this.domHandler.findSingle(this.el.nativeElement, '.router-link-active');
         if (activeItem && !this.isInViewport(activeItem)) {
             activeItem.scrollIntoView({ block: 'center' });
         }
     }
 
     isInViewport(element) {
-        const rect = element.getBoundingClientRect();
+        const rect = this.domHandler.getBoundingClientRect(element);
         return rect.top >= 0 && rect.left >= 0 && rect.bottom <= (window.innerHeight || (document.documentElement.clientHeight && rect.right <= (window.innerWidth || document.documentElement.clientWidth)));
     }
 

@@ -1,5 +1,6 @@
 import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { AfterViewInit, ChangeDetectorRef, ContentChild, Directive, ElementRef, EmbeddedViewRef, EventEmitter, Inject, NgModule, OnDestroy, Output, PLATFORM_ID, Renderer2, TemplateRef, ViewContainerRef } from '@angular/core';
+import { DomHandler } from 'primeng/dom';
 import { Nullable } from 'primeng/ts-helpers';
 /**
  * Defer postpones the loading the content that is initially not in the viewport until it becomes visible on scroll.
@@ -33,7 +34,8 @@ export class DeferredLoader implements AfterViewInit, OnDestroy {
         public el: ElementRef,
         public renderer: Renderer2,
         public viewContainer: ViewContainerRef,
-        private cd: ChangeDetectorRef
+        private cd: ChangeDetectorRef,
+        private domHandler: DomHandler
     ) {
         this.window = this.document.defaultView as Window;
     }
@@ -60,7 +62,7 @@ export class DeferredLoader implements AfterViewInit, OnDestroy {
         if (this.isLoaded()) {
             return false;
         } else {
-            let rect = this.el.nativeElement.getBoundingClientRect();
+            let rect = this.domHandler.getBoundingClientRect(this.el.nativeElement);
             let docElement = this.document.documentElement;
             let winHeight = docElement.clientHeight;
 
