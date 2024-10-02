@@ -55,17 +55,11 @@ export class BasicDoc {
     }
 
     code: Code = {
-        basic: `<p-splitbutton 
-    label="Save" 
-    (onClick)="save()" 
-    [model]="items" />`,
+        basic: `<p-splitbutton label="Save" (onClick)="save()" [model]="items" />`,
 
         html: `<div class="card flex justify-center">
     <p-toast />
-    <p-splitbutton 
-        label="Save" 
-        (onClick)="save()" 
-        [model]="items" />
+    <p-splitbutton label="Save" (onClick)="save()" [model]="items" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
