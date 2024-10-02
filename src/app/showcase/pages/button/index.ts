@@ -107,8 +107,8 @@ export class ButtonDemo {
             component: IconOnlyDoc,
         },
         {
-            id: 'badges',
-            label: 'Badges',
+            id: 'badge',
+            label: 'Badge',
             component: BadgeDoc,
         },
         {
