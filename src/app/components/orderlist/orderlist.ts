@@ -59,7 +59,7 @@ import { FormsModule } from '@angular/forms';
                     [disabled]="moveDisabled()"
                     pButton
                     pRipple
-                    class="p-button-icon-only"
+                    severity="secondary"
                     (click)="moveUp()"
                     [attr.aria-label]="moveUpAriaLabel"
                     [attr.data-pc-section]="'moveUpButton'"
@@ -72,7 +72,7 @@ import { FormsModule } from '@angular/forms';
                     [disabled]="moveDisabled()"
                     pButton
                     pRipple
-                    class="p-button-icon-only"
+                    severity="secondary"
                     (click)="moveTop()"
                     [attr.aria-label]="moveTopAriaLabel"
                     [attr.data-pc-section]="'moveTopButton'"
@@ -85,7 +85,7 @@ import { FormsModule } from '@angular/forms';
                     [disabled]="moveDisabled()"
                     pButton
                     pRipple
-                    class="p-button-icon-only"
+                    severity="secondary"
                     (click)="moveDown()"
                     [attr.aria-label]="moveDownAriaLabel"
                     [attr.data-pc-section]="'moveDownButton'"
@@ -98,7 +98,7 @@ import { FormsModule } from '@angular/forms';
                     [disabled]="moveDisabled()"
                     pButton
                     pRipple
-                    class="p-button-icon-only"
+                    severity="secondary"
                     (click)="moveBottom()"
                     [attr.aria-label]="moveBottomAriaLabel"
                     [attr.data-pc-section]="'moveBottomButton'"
