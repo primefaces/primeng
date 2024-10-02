@@ -55,6 +55,11 @@ export class SplitButtonDemo {
             component: SeverityDoc,
         },
         {
+            id: 'disabled',
+            label: 'Disabled',
+            component: DisabledDoc,
+        },
+        {
             id: 'raised',
             label: 'Raised',
             component: RaisedDoc,
@@ -85,16 +90,10 @@ export class SplitButtonDemo {
             component: SizesDoc,
         },
         {
-            id: 'disabled',
-            label: 'Disabled',
-            component: DisabledDoc,
-        },
-        {
             id: 'template',
             label: 'Template',
             component: TemplateDoc,
         },
-
         {
             id: 'accessibility',
             label: 'Accessibility',
