@@ -257,7 +257,8 @@ export class Image implements AfterContentInit {
         @Inject(DOCUMENT) private document: Document,
         private config: PrimeNGConfig,
         private cd: ChangeDetectorRef,
-        public el: ElementRef
+        public el: ElementRef,
+        private domHandler: DomHandler
     ) {}
 
     ngAfterContentInit() {
@@ -298,7 +299,7 @@ export class Image implements AfterContentInit {
         if (this.preview) {
             this.maskVisible = true;
             this.previewVisible = true;
-            DomHandler.blockBodyScroll();
+            this.domHandler.blockBodyScroll();
         }
     }
 
@@ -315,7 +316,7 @@ export class Image implements AfterContentInit {
             case 'Escape':
                 this.onMaskClick();
                 setTimeout(() => {
-                    DomHandler.focus(this.previewButton.nativeElement);
+                    this.domHandler.focus(this.previewButton.nativeElement);
                 }, 25);
                 event.preventDefault();
 
@@ -359,12 +360,12 @@ export class Image implements AfterContentInit {
                 this.moveOnTop();
 
                 setTimeout(() => {
-                    DomHandler.focus(this.closeButton.nativeElement);
+                    this.domHandler.focus(this.closeButton.nativeElement);
                 }, 25);
                 break;
 
             case 'void':
-                DomHandler.addClass(this.wrapper, 'p-component-overlay-leave');
+                this.domHandler.addClass(this.wrapper, 'p-component-overlay-leave');
                 break;
         }
     }
@@ -392,12 +393,12 @@ export class Image implements AfterContentInit {
     appendContainer() {
         if (this.appendTo) {
             if (this.appendTo === 'body') this.document.body.appendChild(this.wrapper as HTMLElement);
-            else DomHandler.appendChild(this.wrapper, this.appendTo);
+            else this.domHandler.appendChild(this.wrapper, this.appendTo);
         }
     }
 
     imagePreviewStyle() {
-        return { transform: 'rotate(' + this.rotate + 'deg) scale(' + this.scale + ')' };
+        return { transform: 'rotate(' + ((this.domHandler.isRtl() ? -1 : 1) * this.rotate) + 'deg) scale(' + this.scale + ')' };
     }
 
     get zoomImageAriaLabel() {
@@ -419,7 +420,7 @@ export class Image implements AfterContentInit {
         this.previewVisible = false;
         this.rotate = 0;
         this.scale = this.zoomSettings.default;
-        DomHandler.unblockBodyScroll();
+        this.domHandler.unblockBodyScroll();
     }
 
     imageError(event: Event) {

@@ -22,7 +22,7 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { OverlayService, PrimeNGConfig, TranslationKeys } from 'primeng/api';
-import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
+import { ConnectedOverlayScrollHandler, ConnectedOverlayScrollHandlerFactory, DomHandler } from 'primeng/dom';
 import { AutoFocusModule } from 'primeng/autofocus';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { ZIndexUtils } from 'primeng/utils';
@@ -237,7 +237,9 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
         public renderer: Renderer2,
         public cd: ChangeDetectorRef,
         public config: PrimeNGConfig,
-        public overlayService: OverlayService
+        public overlayService: OverlayService,
+        private domHandler: DomHandler,
+        private scrollHandlerFactory: ConnectedOverlayScrollHandlerFactory
     ) {
         this.window = this.document.defaultView as Window;
     }
@@ -294,7 +296,7 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
 
     pickHue(event: MouseEvent | TouchEvent, position?: any) {
         let pageY = position ? position.pageY : (event as MouseEvent).pageY;
-        let top: number = this.hueViewChild?.nativeElement.getBoundingClientRect().top + ((this.document as any).defaultView.pageYOffset || this.document.documentElement.scrollTop || this.document.body.scrollTop || 0);
+        let top: number = this.domHandler.getBoundingClientRect(this.hueViewChild?.nativeElement).top + ((this.document as any).defaultView.pageYOffset || this.document.documentElement.scrollTop || this.document.body.scrollTop || 0);
         this.value = this.validateHSB({
             h: Math.floor((360 * (150 - Math.max(0, Math.min(150, pageY - top)))) / 150),
             s: this.value.s,
@@ -340,11 +342,11 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
     }
 
     pickColor(event: MouseEvent | TouchEvent, position?: any) {
-        let pageX = position ? position.pageX : (event as MouseEvent).pageX;
+        let pageX = position ? this.domHandler.getPageX(position) : this.domHandler.getPageX(event as MouseEvent);
         let pageY = position ? position.pageY : (event as MouseEvent).pageY;
-        let rect = this.colorSelectorViewChild?.nativeElement.getBoundingClientRect();
+        let rect = this.domHandler.getBoundingClientRect(this.colorSelectorViewChild?.nativeElement);
         let top = rect.top + ((this.document as any).defaultView.pageYOffset || this.document.documentElement.scrollTop || this.document.body.scrollTop || 0);
-        let left = rect.left + this.document.body.scrollLeft;
+        let left = rect.left + this.domHandler.getScrollLeft(this.document.body);
         let saturation = Math.floor((100 * Math.max(0, Math.min(150, pageX - left))) / 150);
         let brightness = Math.floor((100 * (150 - Math.max(0, Math.min(150, pageY - top)))) / 150);
         this.value = this.validateHSB({
@@ -421,7 +423,7 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
 
     updateUI() {
         if (this.colorHandleViewChild && this.hueHandleViewChild?.nativeElement) {
-            this.colorHandleViewChild.nativeElement.style.left = Math.floor((150 * this.value.s) / 100) + 'px';
+            this.colorHandleViewChild.nativeElement.style.insetInlineStart = Math.floor((150 * this.value.s) / 100) + 'px';
             this.colorHandleViewChild.nativeElement.style.top = Math.floor((150 * (100 - this.value.b)) / 100) + 'px';
             this.hueHandleViewChild.nativeElement.style.top = Math.floor(150 - (150 * this.value.h) / 360) + 'px';
         }
@@ -486,7 +488,7 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
     appendOverlay() {
         if (this.appendTo) {
             if (this.appendTo === 'body') this.renderer.appendChild(this.document.body, this.overlay);
-            else DomHandler.appendChild(this.overlay, this.appendTo);
+            else this.domHandler.appendChild(this.overlay, this.appendTo);
         }
     }
 
@@ -497,8 +499,8 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
     }
 
     alignOverlay() {
-        if (this.appendTo) DomHandler.absolutePosition(this.overlay, this.inputViewChild?.nativeElement);
-        else DomHandler.relativePosition(this.overlay, this.inputViewChild?.nativeElement);
+        if (this.appendTo) this.domHandler.absolutePosition(this.overlay, this.inputViewChild?.nativeElement);
+        else this.domHandler.relativePosition(this.overlay, this.inputViewChild?.nativeElement);
     }
 
     hide() {
@@ -636,14 +638,14 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
     }
 
     onWindowResize() {
-        if (this.overlayVisible && !DomHandler.isTouchDevice()) {
+        if (this.overlayVisible && !this.domHandler.isTouchDevice()) {
             this.hide();
         }
     }
 
     bindScrollListener() {
         if (!this.scrollHandler) {
-            this.scrollHandler = new ConnectedOverlayScrollHandler(this.containerViewChild?.nativeElement, () => {
+            this.scrollHandler = this.scrollHandlerFactory.create(this.containerViewChild?.nativeElement, () => {
                 if (this.overlayVisible) {
                     this.hide();
                 }

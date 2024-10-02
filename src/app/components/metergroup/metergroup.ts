@@ -144,9 +144,11 @@ export class MeterGroup implements AfterContentInit {
 
     @ViewChild('container', { read: ElementRef }) container: ElementRef;
 
+    constructor(private domHandler: DomHandler) {}
+
     ngAfterViewInit() {
         const _container = this.container.nativeElement;
-        const height = DomHandler.getOuterHeight(_container);
+        const height = this.domHandler.getOuterHeight(_container);
         this.vertical && (_container.style.height = height + 'px');
     }
 

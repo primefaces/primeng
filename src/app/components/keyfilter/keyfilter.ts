@@ -116,10 +116,11 @@ export class KeyFilter implements Validator {
     constructor(
         @Inject(DOCUMENT) private document: Document,
         @Inject(PLATFORM_ID) private platformId: any,
-        public el: ElementRef
+        public el: ElementRef,
+        private domHandler: DomHandler
     ) {
         if (isPlatformBrowser(this.platformId)) {
-            this.isAndroid = DomHandler.isAndroid();
+            this.isAndroid = this.domHandler.isAndroid();
         } else {
             this.isAndroid = false;
         }
@@ -127,7 +128,7 @@ export class KeyFilter implements Validator {
 
     isNavKeyPress(e: KeyboardEvent) {
         let k = e.keyCode;
-        k = DomHandler.getBrowser().safari ? (SAFARI_KEYS as any)[k] || k : k;
+        k = this.domHandler.getBrowser().safari ? (SAFARI_KEYS as any)[k] || k : k;
 
         return (k >= 33 && k <= 40) || k == KEYS.RETURN || k == KEYS.TAB || k == KEYS.ESC;
     }
@@ -135,12 +136,12 @@ export class KeyFilter implements Validator {
     isSpecialKey(e: KeyboardEvent) {
         let k = e.keyCode || e.charCode;
 
-        return k == 9 || k == 13 || k == 27 || k == 16 || k == 17 || (k >= 18 && k <= 20) || (DomHandler.getBrowser().opera && !e.shiftKey && (k == 8 || (k >= 33 && k <= 35) || (k >= 36 && k <= 39) || (k >= 44 && k <= 45)));
+        return k == 9 || k == 13 || k == 27 || k == 16 || k == 17 || (k >= 18 && k <= 20) || (this.domHandler.getBrowser().opera && !e.shiftKey && (k == 8 || (k >= 33 && k <= 35) || (k >= 36 && k <= 39) || (k >= 44 && k <= 45)));
     }
 
     getKey(e: KeyboardEvent) {
         let k = e.keyCode || e.charCode;
-        return DomHandler.getBrowser().safari ? (SAFARI_KEYS as any)[k] || k : k;
+        return this.domHandler.getBrowser().safari ? (SAFARI_KEYS as any)[k] || k : k;
     }
 
     getCharCode(e: KeyboardEvent) {
@@ -208,7 +209,7 @@ export class KeyFilter implements Validator {
             return;
         }
 
-        let browser = DomHandler.getBrowser();
+        let browser = this.domHandler.getBrowser();
         let k = this.getKey(e);
 
         if (browser.mozilla && (e.ctrlKey || e.altKey)) {

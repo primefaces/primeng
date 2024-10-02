@@ -1,6 +1,7 @@
 import { CommonModule, DOCUMENT } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Inject, Input, NgModule, Output, Renderer2, ViewEncapsulation, booleanAttribute, forwardRef, numberAttribute } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { DomHandler } from 'primeng/dom';
 import { VoidListener } from 'primeng/ts-helpers';
 
 export const KNOB_VALUE_ACCESSOR: any = {
@@ -36,7 +37,7 @@ export const KNOB_VALUE_ACCESSOR: any = {
                 [attr.data-pc-section]="'svg'"
             >
                 <path [attr.d]="rangePath()" [attr.stroke-width]="strokeWidth" [attr.stroke]="rangeColor" class="p-knob-range"></path>
-                <path [attr.d]="valuePath()" [attr.stroke-width]="strokeWidth" [attr.stroke]="valueColor" class="p-knob-value"></path>
+                <path [attr.d]="valuePath()" [attr.stroke-width]="strokeWidth" [attr.stroke]="valueColor" class="p-knob-value p-rtl-flip-svg"></path>
                 <text *ngIf="showValue" [attr.x]="50" [attr.y]="57" text-anchor="middle" [attr.fill]="textColor" class="p-knob-text" [attr.name]="name">{{ valueToDisplay() }}</text>
             </svg>
         </div>
@@ -175,7 +176,8 @@ export class Knob {
         @Inject(DOCUMENT) private document: Document,
         private renderer: Renderer2,
         private cd: ChangeDetectorRef,
-        private el: ElementRef
+        private el: ElementRef,
+        private domHandler: DomHandler
     ) {}
 
     mapRange(x: number, inMin: number, inMax: number, outMin: number, outMax: number) {
@@ -184,7 +186,7 @@ export class Knob {
 
     onClick(event: MouseEvent) {
         if (!this.disabled && !this.readonly) {
-            this.updateValue(event.offsetX, event.offsetY);
+            this.updateValue(this.domHandler.getOffsetX(event), event.offsetY);
         }
     }
 
@@ -257,17 +259,17 @@ export class Knob {
 
     onMouseMove(event: MouseEvent) {
         if (!this.disabled && !this.readonly) {
-            this.updateValue(event.offsetX, event.offsetY);
+            this.updateValue(this.domHandler.getOffsetX(event), event.offsetY);
             event.preventDefault();
         }
     }
 
     onTouchMove(event: Event) {
         if (!this.disabled && !this.readonly && event instanceof TouchEvent && event.touches.length === 1) {
-            const rect = this.el.nativeElement.children[0].getBoundingClientRect();
+            const rect = this.domHandler.getBoundingClientRect(this.el.nativeElement.children[0]);
             const touch = event.targetTouches.item(0);
             if (touch) {
-                const offsetX = touch.clientX - rect.left;
+                const offsetX = this.domHandler.getClientX(touch) - rect.left;
                 const offsetY = touch.clientY - rect.top;
                 this.updateValue(offsetX, offsetY);
             }

@@ -123,7 +123,8 @@ export class ScrollTop implements OnInit, OnDestroy {
         private renderer: Renderer2,
         public el: ElementRef,
         private cd: ChangeDetectorRef,
-        public config: PrimeNGConfig
+        public config: PrimeNGConfig,
+        private domHandler: DomHandler
     ) {
         this.window = this.document.defaultView;
     }
@@ -189,7 +190,7 @@ export class ScrollTop implements OnInit, OnDestroy {
     bindDocumentScrollListener() {
         if (isPlatformBrowser(this.platformId)) {
             this.documentScrollListener = this.renderer.listen(this.window, 'scroll', () => {
-                this.checkVisibility(DomHandler.getWindowScrollTop());
+                this.checkVisibility(this.domHandler.getWindowScrollTop());
             });
         }
     }

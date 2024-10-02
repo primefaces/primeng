@@ -102,7 +102,8 @@ export class BlockUI implements AfterViewInit, OnDestroy {
         public cd: ChangeDetectorRef,
         public config: PrimeNGConfig,
         private renderer: Renderer2,
-        @Inject(PLATFORM_ID) public platformId: any
+        @Inject(PLATFORM_ID) public platformId: any,
+        private domHandler: DomHandler
     ) {}
 
     ngAfterViewInit() {
@@ -137,7 +138,7 @@ export class BlockUI implements AfterViewInit, OnDestroy {
                 this.target.getBlockableElement().style.position = 'relative';
             } else {
                 this.renderer.appendChild(this.document.body, (this.mask as ElementRef).nativeElement);
-                DomHandler.blockBodyScroll();
+                this.domHandler.blockBodyScroll();
             }
 
             if (this.autoZIndex) {
@@ -149,7 +150,7 @@ export class BlockUI implements AfterViewInit, OnDestroy {
     unblock() {
         if (isPlatformBrowser(this.platformId) && this.mask && !this.animationEndListener) {
             this.animationEndListener = this.renderer.listen(this.mask.nativeElement, 'animationend', this.destroyModal.bind(this));
-            DomHandler.addClass(this.mask.nativeElement, 'p-component-overlay-leave');
+            this.domHandler.addClass(this.mask.nativeElement, 'p-component-overlay-leave');
         }
     }
 
@@ -157,9 +158,9 @@ export class BlockUI implements AfterViewInit, OnDestroy {
         this._blocked = false;
         if (this.mask && isPlatformBrowser(this.platformId)) {
             ZIndexUtils.clear(this.mask.nativeElement);
-            DomHandler.removeClass(this.mask.nativeElement, 'p-component-overlay-leave');
+            this.domHandler.removeClass(this.mask.nativeElement, 'p-component-overlay-leave');
             this.renderer.removeChild(this.el.nativeElement, this.mask.nativeElement);
-            DomHandler.unblockBodyScroll();
+            this.domHandler.unblockBodyScroll();
         }
         this.unbindAnimationEndListener();
         this.cd.markForCheck();

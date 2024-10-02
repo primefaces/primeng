@@ -83,7 +83,7 @@ import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
                                 <ng-container *ngIf="isItemGroup(processedItem)">
                                     <ng-container *ngIf="!panelMenu.submenuIconTemplate">
                                         <AngleDownIcon [styleClass]="'p-submenu-icon'" *ngIf="isItemActive(processedItem)" [ngStyle]="getItemProp(processedItem, 'iconStyle')" />
-                                        <AngleRightIcon [styleClass]="'p-submenu-icon'" *ngIf="!isItemActive(processedItem)" [ngStyle]="getItemProp(processedItem, 'iconStyle')" />
+                                        <AngleRightIcon [styleClass]="'p-submenu-icon p-rtl-flip-icon'" *ngIf="!isItemActive(processedItem)" [ngStyle]="getItemProp(processedItem, 'iconStyle')" />
                                     </ng-container>
                                     <ng-template *ngTemplateOutlet="panelMenu.submenuIconTemplate"></ng-template>
                                 </ng-container>
@@ -114,7 +114,7 @@ import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
                                 <ng-container *ngIf="isItemGroup(processedItem)">
                                     <ng-container *ngIf="!panelMenu.submenuIconTemplate">
                                         <AngleDownIcon *ngIf="isItemActive(processedItem)" [styleClass]="'p-submenu-icon'" [ngStyle]="getItemProp(processedItem, 'iconStyle')" />
-                                        <AngleRightIcon *ngIf="!isItemActive(processedItem)" [styleClass]="'p-submenu-icon'" [ngStyle]="getItemProp(processedItem, 'iconStyle')" />
+                                        <AngleRightIcon *ngIf="!isItemActive(processedItem)" [styleClass]="'p-submenu-icon p-rtl-flip-icon'" [ngStyle]="getItemProp(processedItem, 'iconStyle')" />
                                     </ng-container>
                                     <ng-template *ngTemplateOutlet="panelMenu.submenuIconTemplate"></ng-template>
                                 </ng-container>
@@ -354,7 +354,7 @@ export class PanelMenuList implements OnChanges {
         return focusedItem && focusedItem.item?.id ? focusedItem.item.id : ObjectUtils.isNotEmpty(this.focusedItem()) ? `${this.panelId}_${this.focusedItem().key}` : undefined;
     }
 
-    constructor(private el: ElementRef) {}
+    constructor(private el: ElementRef, private domHandler: DomHandler) {}
 
     ngOnChanges(changes: SimpleChanges) {
         this.processedItems.set(this.createProcessedItems(changes?.items?.currentValue || this.items || []));
@@ -480,7 +480,7 @@ export class PanelMenuList implements OnChanges {
     }
 
     scrollInView() {
-        const element = DomHandler.findSingle(this.subMenuViewChild.listViewChild.nativeElement, `li[id="${`${this.focusedItemId}`}"]`);
+        const element = this.domHandler.findSingle(this.subMenuViewChild.listViewChild.nativeElement, `li[id="${`${this.focusedItemId}`}"]`);
 
         if (element) {
             element.scrollIntoView && element.scrollIntoView({ block: 'nearest', inline: 'nearest' });
@@ -633,8 +633,8 @@ export class PanelMenuList implements OnChanges {
 
     onEnterKey(event) {
         if (ObjectUtils.isNotEmpty(this.focusedItem())) {
-            const element = DomHandler.findSingle(this.subMenuViewChild.listViewChild.nativeElement, `li[id="${`${this.focusedItemId}`}"]`);
-            const anchorElement = element && (DomHandler.findSingle(element, '[data-pc-section="action"]') || DomHandler.findSingle(element, 'a,button'));
+            const element = this.domHandler.findSingle(this.subMenuViewChild.listViewChild.nativeElement, `li[id="${`${this.focusedItemId}`}"]`);
+            const anchorElement = element && (this.domHandler.findSingle(element, '[data-pc-section="action"]') || this.domHandler.findSingle(element, 'a,button'));
 
             anchorElement ? anchorElement.click() : element && element.click();
         }
@@ -758,7 +758,7 @@ export class PanelMenuList implements OnChanges {
                                     <ng-container *ngIf="isItemGroup(item)">
                                         <ng-container *ngIf="!submenuIconTemplate">
                                             <ChevronDownIcon [styleClass]="'p-submenu-icon'" *ngIf="isItemActive(item)" />
-                                            <ChevronRightIcon [styleClass]="'p-submenu-icon'" *ngIf="!isItemActive(item)" />
+                                            <ChevronRightIcon [styleClass]="'p-submenu-icon p-rtl-flip-icon'" *ngIf="!isItemActive(item)" />
                                         </ng-container>
                                         <ng-template *ngTemplateOutlet="submenuIconTemplate"></ng-template>
                                     </ng-container>
@@ -789,7 +789,7 @@ export class PanelMenuList implements OnChanges {
                                 <ng-container *ngIf="isItemGroup(item)">
                                     <ng-container *ngIf="!submenuIconTemplate">
                                         <ChevronDownIcon [styleClass]="'p-submenu-icon'" *ngIf="isItemActive(item)" />
-                                        <ChevronRightIcon [styleClass]="'p-submenu-icon'" *ngIf="!isItemActive(item)" />
+                                        <ChevronRightIcon [styleClass]="'p-submenu-icon p-rtl-flip-icon'" *ngIf="!isItemActive(item)" />
                                     </ng-container>
                                     <ng-template *ngTemplateOutlet="submenuIconTemplate"></ng-template>
                                 </ng-container>
@@ -925,7 +925,7 @@ export class PanelMenu implements AfterContentInit {
         });
     }
 
-    constructor(private cd: ChangeDetectorRef) {}
+    constructor(private cd: ChangeDetectorRef, private domHandler: DomHandler) {}
 
     /**
      * Collapses open panels.
@@ -996,27 +996,27 @@ export class PanelMenu implements AfterContentInit {
     updateFocusedHeader(event) {
         const { originalEvent, focusOnNext, selfCheck } = event;
         const panelElement = originalEvent.currentTarget.closest('[data-pc-section="panel"]');
-        const header = selfCheck ? DomHandler.findSingle(panelElement, '[data-pc-section="header"]') : focusOnNext ? this.findNextHeader(panelElement) : this.findPrevHeader(panelElement);
+        const header = selfCheck ? this.domHandler.findSingle(panelElement, '[data-pc-section="header"]') : focusOnNext ? this.findNextHeader(panelElement) : this.findPrevHeader(panelElement);
 
         header ? this.changeFocusedHeader(originalEvent, header) : focusOnNext ? this.onHeaderHomeKey(originalEvent) : this.onHeaderEndKey(originalEvent);
     }
 
     changeFocusedHeader(event, element) {
-        element && DomHandler.focus(element);
+        element && this.domHandler.focus(element);
     }
 
     findNextHeader(panelElement, selfCheck = false) {
         const nextPanelElement = selfCheck ? panelElement : panelElement.nextElementSibling;
-        const headerElement = DomHandler.findSingle(nextPanelElement, '[data-pc-section="header"]');
+        const headerElement = this.domHandler.findSingle(nextPanelElement, '[data-pc-section="header"]');
 
-        return headerElement ? (DomHandler.getAttribute(headerElement, 'data-p-disabled') ? this.findNextHeader(headerElement.parentElement) : headerElement) : null;
+        return headerElement ? (this.domHandler.getAttribute(headerElement, 'data-p-disabled') ? this.findNextHeader(headerElement.parentElement) : headerElement) : null;
     }
 
     findPrevHeader(panelElement, selfCheck = false) {
         const prevPanelElement = selfCheck ? panelElement : panelElement.previousElementSibling;
-        const headerElement = DomHandler.findSingle(prevPanelElement, '[data-pc-section="header"]');
+        const headerElement = this.domHandler.findSingle(prevPanelElement, '[data-pc-section="header"]');
 
-        return headerElement ? (DomHandler.getAttribute(headerElement, 'data-p-disabled') ? this.findPrevHeader(headerElement.parentElement) : headerElement) : null;
+        return headerElement ? (this.domHandler.getAttribute(headerElement, 'data-p-disabled') ? this.findPrevHeader(headerElement.parentElement) : headerElement) : null;
     }
 
     findFirstHeader() {
@@ -1049,7 +1049,7 @@ export class PanelMenu implements AfterContentInit {
         item.expanded = !item.expanded;
         this.changeActiveItem(event, item, index);
         this.animating = true;
-        DomHandler.focus(event.currentTarget as HTMLElement);
+        this.domHandler.focus(event.currentTarget as HTMLElement);
     }
 
     onHeaderKeyDown(event, item, index) {
@@ -1081,17 +1081,17 @@ export class PanelMenu implements AfterContentInit {
     }
 
     onHeaderArrowDownKey(event) {
-        const rootList = DomHandler.getAttribute(event.currentTarget, 'data-p-highlight') === true ? DomHandler.findSingle(event.currentTarget.nextElementSibling, '[data-pc-section="menu"]') : null;
+        const rootList = this.domHandler.getAttribute(event.currentTarget, 'data-p-highlight') === true ? this.domHandler.findSingle(event.currentTarget.nextElementSibling, '[data-pc-section="menu"]') : null;
 
-        rootList ? DomHandler.focus(rootList) : this.updateFocusedHeader({ originalEvent: event, focusOnNext: true });
+        rootList ? this.domHandler.focus(rootList) : this.updateFocusedHeader({ originalEvent: event, focusOnNext: true });
         event.preventDefault();
     }
 
     onHeaderArrowUpKey(event) {
         const prevHeader = this.findPrevHeader(event.currentTarget.parentElement) || this.findLastHeader();
-        const rootList = DomHandler.getAttribute(prevHeader, 'data-p-highlight') === true ? DomHandler.findSingle(prevHeader.nextElementSibling, '[data-pc-section="menu"]') : null;
+        const rootList = this.domHandler.getAttribute(prevHeader, 'data-p-highlight') === true ? this.domHandler.findSingle(prevHeader.nextElementSibling, '[data-pc-section="menu"]') : null;
 
-        rootList ? DomHandler.focus(rootList) : this.updateFocusedHeader({ originalEvent: event, focusOnNext: false });
+        rootList ? this.domHandler.focus(rootList) : this.updateFocusedHeader({ originalEvent: event, focusOnNext: false });
         event.preventDefault();
     }
 
@@ -1106,7 +1106,7 @@ export class PanelMenu implements AfterContentInit {
     }
 
     onHeaderEnterKey(event, item, index) {
-        const headerAction = DomHandler.findSingle(event.currentTarget, '[data-pc-section="headeraction"]');
+        const headerAction = this.domHandler.findSingle(event.currentTarget, '[data-pc-section="headeraction"]');
 
         headerAction ? headerAction.click() : this.onHeaderClick(event, item, index);
         event.preventDefault();

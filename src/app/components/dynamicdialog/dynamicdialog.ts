@@ -289,6 +289,7 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
         private dialogRef: DynamicDialogRef,
         public zone: NgZone,
         public primeNGConfig: PrimeNGConfig,
+        private domHandler: DomHandler,
         @SkipSelf() @Optional() private parentDialog: DynamicDialogComponent
     ) {}
 
@@ -302,7 +303,7 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
             if (!this.styleElement) {
                 this.styleElement = this.renderer.createElement('style');
                 this.styleElement.type = 'text/css';
-                DomHandler.setAttribute(this.styleElement, 'nonce', this.primeNGConfig?.csp()?.nonce);
+                this.domHandler.setAttribute(this.styleElement, 'nonce', this.primeNGConfig?.csp()?.nonce);
                 this.renderer.appendChild(this.document.head, this.styleElement);
                 let innerHTML = '';
                 for (let breakpoint in this.breakpoints) {
@@ -375,7 +376,7 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
 
             case 'void':
                 if (this.wrapper && this.config.modal !== false) {
-                    DomHandler.addClass(this.wrapper, 'p-component-overlay-leave');
+                    this.domHandler.addClass(this.wrapper, 'p-component-overlay-leave');
                 }
                 break;
         }
@@ -425,7 +426,7 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
         }
 
         if (this.dynamicDialogCount === 1) {
-            DomHandler.addClass(this.document.body, 'p-overflow-hidden');
+            this.domHandler.addClass(this.document.body, 'p-overflow-hidden');
         }
     }
 
@@ -435,7 +436,7 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
                 this.unbindMaskClickListener();
             }
             if (this.dynamicDialogCount === 1) {
-                DomHandler.removeClass(this.document.body, 'p-overflow-hidden');
+                this.domHandler.removeClass(this.document.body, 'p-overflow-hidden');
             }
 
             if (!(this.cd as ViewRef).destroyed) {
@@ -445,20 +446,20 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
     }
 
     focus(focusParentElement = this.contentViewChild.nativeElement) {
-        const focusableElements = DomHandler.getFocusableElements(focusParentElement);
+        const focusableElements = this.domHandler.getFocusableElements(focusParentElement);
 
         if (!focusableElements.length) {
             return;
         }
 
-        let focusable = DomHandler.getFocusableElement(focusParentElement, '[autofocus]');
+        let focusable = this.domHandler.getFocusableElement(focusParentElement, '[autofocus]');
         if (focusable) {
             this.zone.runOutsideAngular(() => {
                 setTimeout(() => focusable.focus(), 5);
             });
             return;
         }
-        const focusableElement = DomHandler.getFocusableElement(focusParentElement);
+        const focusableElement = this.domHandler.getFocusableElement(focusParentElement);
         if (focusableElement) {
             this.zone.runOutsideAngular(() => {
                 setTimeout(() => focusableElement.focus(), 5);
@@ -475,9 +476,9 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
         this.maximized = !this.maximized;
 
         if (this.maximized) {
-            DomHandler.addClass(this.document.body, 'p-overflow-hidden');
+            this.domHandler.addClass(this.document.body, 'p-overflow-hidden');
         } else {
-            DomHandler.removeClass(this.document.body, 'p-overflow-hidden');
+            this.domHandler.removeClass(this.document.body, 'p-overflow-hidden');
         }
 
         this.dialogRef.maximize({ maximized: this.maximized });
@@ -490,27 +491,27 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
             }
 
             this.resizing = true;
-            this.lastPageX = event.pageX;
+            this.lastPageX = this.domHandler.getPageX(event);
             this.lastPageY = event.pageY;
-            DomHandler.addClass(this.document.body, 'p-unselectable-text');
+            this.domHandler.addClass(this.document.body, 'p-unselectable-text');
             this.dialogRef.resizeInit(event);
         }
     }
 
     onResize(event: MouseEvent) {
         if (this.resizing) {
-            let deltaX = event.pageX - (this.lastPageX as number);
+            let deltaX = this.domHandler.getPageX(event) - (this.lastPageX as number);
             let deltaY = event.pageY - (this.lastPageY as number);
-            let containerWidth = DomHandler.getOuterWidth(this.container);
-            let containerHeight = DomHandler.getOuterHeight(this.container);
-            let contentHeight = DomHandler.getOuterHeight((<ElementRef>this.contentViewChild).nativeElement);
+            let containerWidth = this.domHandler.getOuterWidth(this.container);
+            let containerHeight = this.domHandler.getOuterHeight(this.container);
+            let contentHeight = this.domHandler.getOuterHeight((<ElementRef>this.contentViewChild).nativeElement);
             let newWidth = containerWidth + deltaX;
             let newHeight = containerHeight + deltaY;
             let minWidth = (this.container as HTMLDivElement).style.minWidth;
             let minHeight = (this.container as HTMLDivElement).style.minHeight;
-            let offset = (this.container as HTMLDivElement).getBoundingClientRect();
-            let viewport = DomHandler.getViewport();
-            let hasBeenDragged = !parseInt((this.container as HTMLDivElement).style.top) || !parseInt((this.container as HTMLDivElement).style.left);
+            let offset = this.domHandler.getBoundingClientRect(this.container);
+            let viewport = this.domHandler.getViewport();
+            let hasBeenDragged = !parseInt((this.container as HTMLDivElement).style.top) || !parseInt((this.container as HTMLDivElement).style.insetInlineStart);
 
             if (hasBeenDragged) {
                 newWidth += deltaX;
@@ -531,7 +532,7 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
                 }
             }
 
-            this.lastPageX = event.pageX;
+            this.lastPageX = this.domHandler.getPageX(event);
             this.lastPageY = event.pageY;
         }
     }
@@ -539,45 +540,45 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
     resizeEnd(event: MouseEvent) {
         if (this.resizing) {
             this.resizing = false;
-            DomHandler.removeClass(this.document.body, 'p-unselectable-text');
+            this.domHandler.removeClass(this.document.body, 'p-unselectable-text');
             this.dialogRef.resizeEnd(event);
         }
     }
 
     initDrag(event: MouseEvent) {
-        if (DomHandler.hasClass(event.target, 'p-dialog-header-icon') || DomHandler.hasClass((<HTMLElement>event.target).parentElement, 'p-dialog-header-icon')) {
+        if (this.domHandler.hasClass(event.target, 'p-dialog-header-icon') || this.domHandler.hasClass((<HTMLElement>event.target).parentElement, 'p-dialog-header-icon')) {
             return;
         }
 
         if (this.config.draggable) {
             this.dragging = true;
-            this.lastPageX = event.pageX;
+            this.lastPageX = this.domHandler.getPageX(event);
             this.lastPageY = event.pageY;
 
             (this.container as HTMLDivElement).style.margin = '0';
-            DomHandler.addClass(this.document.body, 'p-unselectable-text');
+            this.domHandler.addClass(this.document.body, 'p-unselectable-text');
             this.dialogRef.dragStart(event);
         }
     }
 
     onDrag(event: MouseEvent) {
         if (this.dragging) {
-            let containerWidth = DomHandler.getOuterWidth(this.container);
-            let containerHeight = DomHandler.getOuterHeight(this.container);
-            let deltaX = event.pageX - (this.lastPageX as number);
+            let containerWidth = this.domHandler.getOuterWidth(this.container);
+            let containerHeight = this.domHandler.getOuterHeight(this.container);
+            let deltaX = this.domHandler.getPageX(event) - (this.lastPageX as number);
             let deltaY = event.pageY - (this.lastPageY as number);
-            let offset = (this.container as HTMLDivElement).getBoundingClientRect();
+            let offset = this.domHandler.getBoundingClientRect(this.container);
             let leftPos = offset.left + deltaX;
             let topPos = offset.top + deltaY;
-            let viewport = DomHandler.getViewport();
+            let viewport = this.domHandler.getViewport();
 
             (this.container as HTMLDivElement).style.position = 'fixed';
 
             if (this.keepInViewport) {
                 if (leftPos >= this.minX && leftPos + containerWidth < viewport.width) {
-                    this._style.left = leftPos + 'px';
-                    this.lastPageX = event.pageX;
-                    (this.container as HTMLDivElement).style.left = leftPos + 'px';
+                    this._style.insetInlineStart = leftPos + 'px';
+                    this.lastPageX = this.domHandler.getPageX(event);
+                    (this.container as HTMLDivElement).style.insetInlineStart = leftPos + 'px';
                 }
 
                 if (topPos >= this.minY && topPos + containerHeight < viewport.height) {
@@ -586,8 +587,8 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
                     (this.container as HTMLDivElement).style.top = topPos + 'px';
                 }
             } else {
-                this.lastPageX = event.pageX;
-                (this.container as HTMLDivElement).style.left = leftPos + 'px';
+                this.lastPageX = this.domHandler.getPageX(event);
+                (this.container as HTMLDivElement).style.insetInlineStart = leftPos + 'px';
                 this.lastPageY = event.pageY;
                 (this.container as HTMLDivElement).style.top = topPos + 'px';
             }
@@ -597,7 +598,7 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
     endDrag(event: MouseEvent) {
         if (this.dragging) {
             this.dragging = false;
-            DomHandler.removeClass(this.document.body, 'p-unselectable-text');
+            this.domHandler.removeClass(this.document.body, 'p-unselectable-text');
             this.dialogRef.dragEnd(event);
             this.cd.detectChanges();
         }
@@ -605,7 +606,7 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
 
     resetPosition() {
         (this.container as HTMLDivElement).style.position = '';
-        (this.container as HTMLDivElement).style.left = '';
+        (this.container as HTMLDivElement).style.insetInlineStart = '';
         (this.container as HTMLDivElement).style.top = '';
         (this.container as HTMLDivElement).style.margin = '';
     }

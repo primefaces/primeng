@@ -65,7 +65,8 @@ export class AnimateOnScroll implements OnInit, AfterViewInit {
         @Inject(PLATFORM_ID) private platformId: any,
         private host: ElementRef,
         public el: ElementRef,
-        public renderer: Renderer2
+        public renderer: Renderer2,
+        private domHandler: DomHandler
     ) {}
 
     ngOnInit() {
@@ -109,7 +110,7 @@ export class AnimateOnScroll implements OnInit, AfterViewInit {
             ([entry]) => {
                 if (entry.boundingClientRect.top > 0 && !entry.isIntersecting) {
                     this.host.nativeElement.style.opacity = this.enterClass ? '0' : '';
-                    DomHandler.removeMultipleClasses(this.host.nativeElement, [this.enterClass, this.leaveClass]);
+                    this.domHandler.removeMultipleClasses(this.host.nativeElement, [this.enterClass, this.leaveClass]);
 
                     this.resetObserver.unobserve(this.host.nativeElement);
                 }
@@ -123,8 +124,8 @@ export class AnimateOnScroll implements OnInit, AfterViewInit {
     enter() {
         if (this.animationState !== 'enter' && this.enterClass) {
             this.host.nativeElement.style.opacity = '';
-            DomHandler.removeMultipleClasses(this.host.nativeElement, this.leaveClass);
-            DomHandler.addMultipleClasses(this.host.nativeElement, this.enterClass);
+            this.domHandler.removeMultipleClasses(this.host.nativeElement, this.leaveClass);
+            this.domHandler.addMultipleClasses(this.host.nativeElement, this.enterClass);
 
             this.once && this.unbindIntersectionObserver();
 
@@ -136,8 +137,8 @@ export class AnimateOnScroll implements OnInit, AfterViewInit {
     leave() {
         if (this.animationState !== 'leave' && this.leaveClass) {
             this.host.nativeElement.style.opacity = this.enterClass ? '0' : '';
-            DomHandler.removeMultipleClasses(this.host.nativeElement, this.enterClass);
-            DomHandler.addMultipleClasses(this.host.nativeElement, this.leaveClass);
+            this.domHandler.removeMultipleClasses(this.host.nativeElement, this.enterClass);
+            this.domHandler.addMultipleClasses(this.host.nativeElement, this.leaveClass);
 
             this.bindAnimationEvents();
             this.animationState = 'leave';
@@ -147,7 +148,7 @@ export class AnimateOnScroll implements OnInit, AfterViewInit {
     bindAnimationEvents() {
         if (!this.animationEndListener) {
             this.animationEndListener = this.renderer.listen(this.host.nativeElement, 'animationend', () => {
-                DomHandler.removeMultipleClasses(this.host.nativeElement, [this.enterClass, this.leaveClass]);
+                this.domHandler.removeMultipleClasses(this.host.nativeElement, [this.enterClass, this.leaveClass]);
                 !this.once && this.resetObserver.observe(this.host.nativeElement);
                 this.unbindAnimationEvents();
             });

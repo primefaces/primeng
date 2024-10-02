@@ -1,6 +1,6 @@
 .p-overflow-hidden {
     overflow: hidden;
-    padding-right: var(--scrollbar-width);
+    padding-inline-end: var(--scrollbar-width);
 }
 
 @layer primeng {
@@ -52,7 +52,7 @@
     .p-component-overlay {
         position: fixed;
         top: 0;
-        left: 0;
+        inset-inline-start: 0;
         width: 100%;
         height: 100%;
     }
@@ -95,7 +95,7 @@
     }
 
     .p-link {
-        text-align: left;
+        text-align: start;
         background-color: transparent;
         margin: 0;
         padding: 0;
@@ -155,6 +155,24 @@
         -webkit-animation: p-icon-spin 2s infinite linear;
         animation: p-icon-spin 2s infinite linear;
     }
+
+    .p-icon-spin:dir(rtl) {
+        -webkit-animation-name: p-icon-spin-rtl;
+        animation-name: p-icon-spin-rtl;
+    }
+
+    .p-rtl-flip-icon:dir(rtl) {
+        transform: scaleX(-1);
+    }
+
+    .p-rtl-flip-svg:dir(rtl) {
+        transform: rotateY(180deg);
+        transform-origin: center;
+    }
+
+    .p-rtl-flip-order:dir(rtl) {
+        flex-direction: row-reverse;
+    }
 }
 
 @-webkit-keyframes p-icon-spin {
@@ -168,6 +186,17 @@
     }
 }
 
+@-webkit-keyframes p-icon-spin-rtl {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(-359deg);
+        transform: rotate(-359deg);
+    }
+}
+
 @keyframes p-icon-spin {
     0% {
         -webkit-transform: rotate(0deg);
@@ -176,5 +205,16 @@
     100% {
         -webkit-transform: rotate(359deg);
         transform: rotate(359deg);
+    }
+}
+
+@keyframes p-icon-spin-rtl {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(-359deg);
+        transform: rotate(-359deg);
     }
 }

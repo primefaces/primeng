@@ -25,7 +25,7 @@ import {
     ViewRef
 } from '@angular/core';
 import { OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
-import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
+import { ConnectedOverlayScrollHandler, ConnectedOverlayScrollHandlerFactory, DomHandler } from 'primeng/dom';
 import { TimesIcon } from 'primeng/icons/times';
 import { RippleModule } from 'primeng/ripple';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
@@ -214,7 +214,9 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
         public cd: ChangeDetectorRef,
         private zone: NgZone,
         public config: PrimeNGConfig,
-        public overlayService: OverlayService
+        public overlayService: OverlayService,
+        private domHandler: DomHandler,
+        private scrollHandlerFactory: ConnectedOverlayScrollHandlerFactory
     ) {}
 
     ngAfterContentInit() {
@@ -240,7 +242,7 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
     bindDocumentClickListener() {
         if (isPlatformBrowser(this.platformId)) {
             if (!this.documentClickListener && this.dismissable) {
-                let documentEvent = DomHandler.isIOS() ? 'touchstart' : 'click';
+                let documentEvent = this.domHandler.isIOS() ? 'touchstart' : 'click';
                 const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : this.document;
 
                 this.documentClickListener = this.renderer.listen(documentTarget, documentEvent, (event) => {
@@ -315,7 +317,7 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
 
     onContentClick(event: MouseEvent) {
         const targetElement = event.target as HTMLElement;
-        this.selfClick = event.offsetX < targetElement.clientWidth && event.offsetY < targetElement.clientHeight;
+        this.selfClick = this.domHandler.getOffsetX(event) < targetElement.clientWidth && event.offsetY < targetElement.clientHeight;
     }
 
     hasTargetChanged(event: any, target: any) {
@@ -325,7 +327,7 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
     appendContainer() {
         if (this.appendTo) {
             if (this.appendTo === 'body') this.renderer.appendChild(this.document.body, this.container);
-            else DomHandler.appendChild(this.container, this.appendTo);
+            else this.domHandler.appendChild(this.container, this.appendTo);
         }
     }
 
@@ -340,20 +342,19 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
             ZIndexUtils.set('overlay', this.container, this.baseZIndex + this.config.zIndex.overlay);
         }
 
-        DomHandler.absolutePosition(this.container, this.target, false);
+        this.domHandler.absolutePosition(this.container, this.target, false);
 
-        const containerOffset = DomHandler.getOffset(this.container);
-        const targetOffset = DomHandler.getOffset(this.target);
-        const borderRadius = this.document.defaultView?.getComputedStyle(this.container!).getPropertyValue('border-radius');
+        const containerOffset = this.domHandler.getOffset(this.container);
+        const targetOffset = this.domHandler.getOffset(this.target);
         let arrowLeft = 0;
 
         if (containerOffset.left < targetOffset.left) {
-            arrowLeft = targetOffset.left - containerOffset.left - parseFloat(borderRadius!) * 2;
+            arrowLeft = targetOffset.left - containerOffset.left;
         }
         this.container?.style.setProperty('--overlayArrowLeft', `${arrowLeft}px`);
 
         if (containerOffset.top < targetOffset.top) {
-            DomHandler.addClass(this.container, 'p-overlaypanel-flipped');
+            this.domHandler.addClass(this.container, 'p-overlaypanel-flipped');
 
             if (this.showCloseIcon) {
                 this.renderer.setStyle(this.container, 'margin-top', '-30px');
@@ -419,7 +420,7 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
     }
 
     focus() {
-        let focusable = DomHandler.findSingle(this.container, '[autofocus]');
+        let focusable = this.domHandler.findSingle(this.container, '[autofocus]');
         if (focusable) {
             this.zone.runOutsideAngular(() => {
                 setTimeout(() => focusable.focus(), 5);
@@ -446,7 +447,7 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
     }
 
     onWindowResize() {
-        if (this.overlayVisible && !DomHandler.isTouchDevice()) {
+        if (this.overlayVisible && !this.domHandler.isTouchDevice()) {
             this.hide();
         }
     }
@@ -470,7 +471,7 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
     bindScrollListener() {
         if (isPlatformBrowser(this.platformId)) {
             if (!this.scrollHandler) {
-                this.scrollHandler = new ConnectedOverlayScrollHandler(this.target, () => {
+                this.scrollHandler = this.scrollHandlerFactory.create(this.target, () => {
                     if (this.overlayVisible) {
                         this.hide();
                     }

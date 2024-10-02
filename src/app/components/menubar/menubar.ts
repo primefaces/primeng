@@ -132,7 +132,7 @@ export class MenubarService {
                                 <ng-container *ngIf="isItemGroup(processedItem)">
                                     <ng-container *ngIf="!submenuIconTemplate">
                                         <AngleDownIcon [styleClass]="'p-submenu-icon'" *ngIf="root" [attr.data-pc-section]="'submenuicon'" />
-                                        <AngleRightIcon [styleClass]="'p-submenu-icon'" *ngIf="!root" [attr.data-pc-section]="'submenuicon'" />
+                                        <AngleRightIcon [styleClass]="'p-submenu-icon p-rtl-flip-icon'" *ngIf="!root" [attr.data-pc-section]="'submenuicon'" />
                                     </ng-container>
                                     <ng-template *ngTemplateOutlet="submenuIconTemplate" [attr.data-pc-section]="'submenuicon'"></ng-template>
                                 </ng-container>
@@ -170,7 +170,7 @@ export class MenubarService {
                                 <ng-container *ngIf="isItemGroup(processedItem)">
                                     <ng-container *ngIf="!menubar.submenuIconTemplate">
                                         <AngleDownIcon [styleClass]="'p-submenu-icon'" [attr.data-pc-section]="'submenuicon'" *ngIf="root" />
-                                        <AngleRightIcon [styleClass]="'p-submenu-icon'" [attr.data-pc-section]="'submenuicon'" *ngIf="!root" />
+                                        <AngleRightIcon [styleClass]="'p-submenu-icon p-rtl-flip-icon'" [attr.data-pc-section]="'submenuicon'" *ngIf="!root" />
                                     </ng-container>
                                     <ng-template *ngTemplateOutlet="menubar.submenuIconTemplate" [attr.data-pc-section]="'submenuicon'"></ng-template>
                                 </ng-container>
@@ -559,7 +559,8 @@ export class Menubar implements AfterContentInit, OnDestroy, OnInit {
         public renderer: Renderer2,
         public cd: ChangeDetectorRef,
         public config: PrimeNGConfig,
-        private menubarService: MenubarService
+        private menubarService: MenubarService,
+        private domHandler: DomHandler
     ) {
         effect(() => {
             const path = this.activeItemPath();
@@ -658,7 +659,7 @@ export class Menubar implements AfterContentInit, OnDestroy, OnInit {
             this.focusedItemInfo.set({ index, level, parentKey, item });
 
             this.dirty = !root;
-            DomHandler.focus(this.rootmenu.menubarViewChild.nativeElement);
+            this.domHandler.focus(this.rootmenu.menubarViewChild.nativeElement);
         } else {
             if (grouped) {
                 this.onItemChange(event);
@@ -668,13 +669,13 @@ export class Menubar implements AfterContentInit, OnDestroy, OnInit {
                 this.changeFocusedItemIndex(originalEvent, rootProcessedItem ? rootProcessedItem.index : -1);
 
                 this.mobileActive = false;
-                DomHandler.focus(this.rootmenu.menubarViewChild.nativeElement);
+                this.domHandler.focus(this.rootmenu.menubarViewChild.nativeElement);
             }
         }
     }
 
     onItemMouseEnter(event: any) {
-        if (!DomHandler.isTouchDevice()) {
+        if (!this.domHandler.isTouchDevice()) {
             if (!this.mobileActive) {
                 this.onItemChange(event);
             }
@@ -692,7 +693,7 @@ export class Menubar implements AfterContentInit, OnDestroy, OnInit {
 
     scrollInView(index: number = -1) {
         const id = index !== -1 ? `${this.id}_${index}` : this.focusedItemId;
-        const element = DomHandler.findSingle(this.rootmenu.el.nativeElement, `li[id="${id}"]`);
+        const element = this.domHandler.findSingle(this.rootmenu.el.nativeElement, `li[id="${id}"]`);
 
         if (element) {
             element.scrollIntoView && element.scrollIntoView({ block: 'nearest', inline: 'nearest' });
@@ -713,7 +714,7 @@ export class Menubar implements AfterContentInit, OnDestroy, OnInit {
         this.activeItemPath.set(activeItemPath);
 
         grouped && (this.dirty = true);
-        isFocus && DomHandler.focus(this.rootmenu.menubarViewChild.nativeElement);
+        isFocus && this.domHandler.focus(this.rootmenu.menubarViewChild.nativeElement);
     }
 
     toggle(event: MouseEvent) {
@@ -736,21 +737,21 @@ export class Menubar implements AfterContentInit, OnDestroy, OnInit {
     hide(event?, isFocus?: boolean) {
         if (this.mobileActive) {
             setTimeout(() => {
-                DomHandler.focus(this.menubutton.nativeElement);
+                this.domHandler.focus(this.menubutton.nativeElement);
             }, 0);
         }
 
         this.activeItemPath.set([]);
         this.focusedItemInfo.set({ index: -1, level: 0, parentKey: '', item: null });
 
-        isFocus && DomHandler.focus(this.rootmenu?.menubarViewChild.nativeElement);
+        isFocus && this.domHandler.focus(this.rootmenu?.menubarViewChild.nativeElement);
         this.dirty = false;
     }
 
     show() {
         const processedItem = this.findVisibleItem(this.findFirstFocusedItemIndex());
         this.focusedItemInfo.set({ index: this.findFirstFocusedItemIndex(), level: 0, parentKey: '', item: processedItem?.item });
-        DomHandler.focus(this.rootmenu?.menubarViewChild.nativeElement);
+        this.domHandler.focus(this.rootmenu?.menubarViewChild.nativeElement);
     }
 
     onMenuFocus(event: any) {
@@ -1048,8 +1049,8 @@ export class Menubar implements AfterContentInit, OnDestroy, OnInit {
 
     onEnterKey(event: KeyboardEvent) {
         if (this.focusedItemInfo().index !== -1) {
-            const element = DomHandler.findSingle(this.rootmenu.el.nativeElement, `li[id="${`${this.focusedItemId}`}"]`);
-            const anchorElement = element && DomHandler.findSingle(element, 'a[data-pc-section="action"]');
+            const element = this.domHandler.findSingle(this.rootmenu.el.nativeElement, `li[id="${`${this.focusedItemId}`}"]`);
+            const anchorElement = element && this.domHandler.findSingle(element, 'a[data-pc-section="action"]');
 
             anchorElement ? anchorElement.click() : element && element.click();
         }
@@ -1082,7 +1083,7 @@ export class Menubar implements AfterContentInit, OnDestroy, OnInit {
         if (isPlatformBrowser(this.platformId)) {
             if (!this.resizeListener) {
                 this.resizeListener = this.renderer.listen(this.document.defaultView, 'resize', (event) => {
-                    if (!DomHandler.isTouchDevice()) {
+                    if (!this.domHandler.isTouchDevice()) {
                         this.hide(event, true);
                     }
 

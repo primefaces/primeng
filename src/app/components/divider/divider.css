@@ -10,7 +10,7 @@
         position: absolute;
         display: block;
         top: 50%;
-        left: 0;
+        inset-inline-start: 0;
         width: 100%;
         content: '';
     }
@@ -43,7 +43,7 @@
         position: absolute;
         display: block;
         top: 0;
-        left: 50%;
+        inset-inline-start: 50%;
         height: 100%;
         content: '';
     }
@@ -65,7 +65,7 @@
     }
 
     .p-divider-solid.p-divider-vertical:before {
-        border-left-style: solid;
+        border-inline-start-style: solid;
     }
 
     .p-divider-dashed.p-divider-horizontal:before {
@@ -73,7 +73,7 @@
     }
 
     .p-divider-dashed.p-divider-vertical:before {
-        border-left-style: dashed;
+        border-inline-start-style: dashed;
     }
 
     .p-divider-dotted.p-divider-horizontal:before {
@@ -81,6 +81,6 @@
     }
 
     .p-divider-dotted.p-divider-vertical:before {
-        border-left-style: dotted;
+        border-inline-start-style: dotted;
     }
 }

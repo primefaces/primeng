@@ -8,19 +8,25 @@
         content: '';
         animation: p-skeleton-animation 1.2s infinite;
         height: 100%;
-        left: 0;
+        inset-inline-start: 0;
         position: absolute;
-        right: 0;
+        inset-inline-end: 0;
         top: 0;
         transform: translateX(-100%);
         z-index: 1;
+    }
+
+    .p-skeleton:dir(rtl)::after {
+        animation-name: p-skeleton-animation-rtl;
+        transform: translateX(100%);
     }
 
     .p-skeleton.p-skeleton-circle {
         border-radius: 50%;
     }
 
-    .p-skeleton-none::after {
+    .p-skeleton-none::after,
+    .p-skeleton-none:dir(rtl)::after {
         animation: none;
     }
 }
@@ -32,4 +38,13 @@
     to {
         transform: translateX(100%);
     }
+}
+
+@keyframes p-skeleton-animation-rtl {
+  from {
+      transform: translateX(100%);
+  }
+  to {
+      transform: translateX(-100%);
+  }
 }

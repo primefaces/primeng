@@ -17,7 +17,8 @@ export class DialogService {
     constructor(
         private appRef: ApplicationRef,
         private injector: Injector,
-        @Inject(DOCUMENT) private document: Document
+        @Inject(DOCUMENT) private document: Document,
+        private domHandler: DomHandler
     ) {}
     /**
      * Displays the dialog using the dynamic dialog object options.
@@ -71,7 +72,7 @@ export class DialogService {
         if (!config.appendTo || config.appendTo === 'body') {
             this.document.body.appendChild(domElem);
         } else {
-            DomHandler.appendChild(domElem, config.appendTo);
+            this.domHandler.appendChild(domElem, config.appendTo);
         }
 
         this.dialogComponentRefMap.set(dialogRef, componentRef);

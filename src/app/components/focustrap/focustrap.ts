@@ -25,6 +25,8 @@ export class FocusTrap {
 
     document: Document = inject(DOCUMENT);
 
+    domHandler = inject(DomHandler);
+
     firstHiddenFocusableElement!: HTMLElement;
 
     lastHiddenFocusableElement!: HTMLElement;
@@ -62,7 +64,7 @@ export class FocusTrap {
         const tabindex = '0';
 
         const createFocusableElement = (onFocus) => {
-            return DomHandler.createElement('span', {
+            return this.domHandler.createElement('span', {
                 class: 'p-hidden-accessible p-hidden-focusable',
                 tabindex,
                 role: 'presentation',
@@ -85,17 +87,17 @@ export class FocusTrap {
     onFirstHiddenElementFocus(event) {
         const { currentTarget, relatedTarget } = event;
         const focusableElement =
-            relatedTarget === this.lastHiddenFocusableElement || !this.host.nativeElement?.contains(relatedTarget) ? DomHandler.getFirstFocusableElement(currentTarget.parentElement, ':not(.p-hidden-focusable)') : this.lastHiddenFocusableElement;
+            relatedTarget === this.lastHiddenFocusableElement || !this.host.nativeElement?.contains(relatedTarget) ? this.domHandler.getFirstFocusableElement(currentTarget.parentElement, ':not(.p-hidden-focusable)') : this.lastHiddenFocusableElement;
 
-        DomHandler.focus(focusableElement);
+        this.domHandler.focus(focusableElement);
     }
 
     onLastHiddenElementFocus(event) {
         const { currentTarget, relatedTarget } = event;
         const focusableElement =
-            relatedTarget === this.firstHiddenFocusableElement || !this.host.nativeElement?.contains(relatedTarget) ? DomHandler.getLastFocusableElement(currentTarget.parentElement, ':not(.p-hidden-focusable)') : this.firstHiddenFocusableElement;
+            relatedTarget === this.firstHiddenFocusableElement || !this.host.nativeElement?.contains(relatedTarget) ? this.domHandler.getLastFocusableElement(currentTarget.parentElement, ':not(.p-hidden-focusable)') : this.firstHiddenFocusableElement;
 
-        DomHandler.focus(focusableElement);
+        this.domHandler.focus(focusableElement);
     }
 }
 

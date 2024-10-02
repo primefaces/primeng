@@ -32,7 +32,7 @@ import {
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
-import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
+import { ConnectedOverlayScrollHandler, ConnectedOverlayScrollHandlerFactory, DomHandler } from 'primeng/dom';
 import { EyeIcon } from 'primeng/icons/eye';
 import { EyeSlashIcon } from 'primeng/icons/eyeslash';
 import { TimesIcon } from 'primeng/icons/times';
@@ -99,7 +99,7 @@ export class PasswordDirective implements OnDestroy, DoCheck {
 
     panel: Nullable<HTMLDivElement>;
 
-    meter: Nullable<Meter>;
+    meter: Nullable<HTMLDivElement>;
 
     info: Nullable<HTMLDivElement>;
 
@@ -115,7 +115,9 @@ export class PasswordDirective implements OnDestroy, DoCheck {
         private renderer: Renderer2,
         public el: ElementRef,
         public zone: NgZone,
-        public config: PrimeNGConfig
+        public config: PrimeNGConfig,
+        private domHandler: DomHandler,
+        private scrollHandlerFactory: ConnectedOverlayScrollHandlerFactory
     ) {}
 
     ngDoCheck() {
@@ -159,23 +161,23 @@ export class PasswordDirective implements OnDestroy, DoCheck {
                 this.createPanel();
             }
 
-            this.renderer.setStyle(this.panel, 'zIndex', String(++DomHandler.zindex));
+            this.renderer.setStyle(this.panel, 'zIndex', String(++this.domHandler.zindex));
             this.renderer.setStyle(this.panel, 'display', 'block');
             this.zone.runOutsideAngular(() => {
                 setTimeout(() => {
-                    DomHandler.addClass(this.panel, 'p-connected-overlay-visible');
+                    this.domHandler.addClass(this.panel, 'p-connected-overlay-visible');
                     this.bindScrollListener();
                     this.bindDocumentResizeListener();
                 }, 1);
             });
-            DomHandler.absolutePosition(this.panel, this.el.nativeElement);
+            this.domHandler.absolutePosition(this.panel, this.el.nativeElement);
         }
     }
 
     hideOverlay() {
         if (this.feedback && this.panel) {
-            DomHandler.addClass(this.panel, 'p-connected-overlay-hidden');
-            DomHandler.removeClass(this.panel, 'p-connected-overlay-visible');
+            this.domHandler.addClass(this.panel, 'p-connected-overlay-hidden');
+            this.domHandler.removeClass(this.panel, 'p-connected-overlay-visible');
             this.unbindScrollListener();
             this.unbindDocumentResizeListener();
 
@@ -202,31 +204,35 @@ export class PasswordDirective implements OnDestroy, DoCheck {
         if (this.feedback) {
             let value = (e.target as HTMLInputElement).value,
                 label = null,
-                meterPos = null;
+                meterPosX = null,
+                meterPosY = null;
+
+            meterPosX = this.domHandler.isRtl() ? '100%' : '0px';
 
             if (value.length === 0) {
                 label = this.promptLabel;
-                meterPos = '0px 0px';
+                meterPosY = '0px';
             } else {
                 var score = this.testStrength(value);
 
                 if (score < 30) {
                     label = this.weakLabel;
-                    meterPos = '0px -10px';
+                    meterPosY = '-10px';
                 } else if (score >= 30 && score < 80) {
                     label = this.mediumLabel;
-                    meterPos = '0px -20px';
+                    meterPosY = '-20px';
                 } else if (score >= 80) {
                     label = this.strongLabel;
-                    meterPos = '0px -30px';
+                    meterPosY = '-30px';
                 }
             }
 
-            if (!this.panel || !DomHandler.hasClass(this.panel, 'p-connected-overlay-visible')) {
+            if (!this.panel || !this.domHandler.hasClass(this.panel, 'p-connected-overlay-visible')) {
                 this.showOverlay();
             }
 
-            this.renderer.setStyle(this.meter, 'backgroundPosition', meterPos);
+            this.renderer.setStyle(this.meter, 'backgroundPositionX', meterPosX);
+            this.renderer.setStyle(this.meter, 'backgroundPositionY', meterPosY);
             (this.info as HTMLDivElement).textContent = label;
         }
     }
@@ -265,8 +271,8 @@ export class PasswordDirective implements OnDestroy, DoCheck {
 
     bindScrollListener() {
         if (!this.scrollHandler) {
-            this.scrollHandler = new ConnectedOverlayScrollHandler(this.el.nativeElement, () => {
-                if (DomHandler.hasClass(this.panel, 'p-connected-overlay-visible')) {
+            this.scrollHandler = this.scrollHandlerFactory.create(this.el.nativeElement, () => {
+                if (this.domHandler.hasClass(this.panel, 'p-connected-overlay-visible')) {
                     this.hideOverlay();
                 }
             });
@@ -298,7 +304,7 @@ export class PasswordDirective implements OnDestroy, DoCheck {
     }
 
     onWindowResize() {
-        if (!DomHandler.isTouchDevice()) {
+        if (!this.domHandler.isTouchDevice()) {
             this.hideOverlay();
         }
     }
@@ -629,7 +635,9 @@ export class Password implements AfterContentInit, OnInit {
         private cd: ChangeDetectorRef,
         private config: PrimeNGConfig,
         public el: ElementRef,
-        public overlayService: OverlayService
+        public overlayService: OverlayService,
+        private domHandler: DomHandler,
+        private scrollHandlerFactory: ConnectedOverlayScrollHandlerFactory
     ) {}
 
     ngAfterContentInit() {
@@ -711,10 +719,10 @@ export class Password implements AfterContentInit, OnInit {
 
     alignOverlay() {
         if (this.appendTo) {
-            (this.overlay as HTMLElement).style.minWidth = DomHandler.getOuterWidth(this.input.nativeElement) + 'px';
-            DomHandler.absolutePosition(this.overlay, this.input.nativeElement);
+            (this.overlay as HTMLElement).style.minWidth = this.domHandler.getOuterWidth(this.input.nativeElement) + 'px';
+            this.domHandler.absolutePosition(this.overlay, this.input.nativeElement);
         } else {
-            DomHandler.relativePosition(this.overlay, this.input.nativeElement);
+            this.domHandler.relativePosition(this.overlay, this.input.nativeElement);
         }
     }
 
@@ -844,7 +852,7 @@ export class Password implements AfterContentInit, OnInit {
     bindScrollListener() {
         if (isPlatformBrowser(this.platformId)) {
             if (!this.scrollHandler) {
-                this.scrollHandler = new ConnectedOverlayScrollHandler(this.input.nativeElement, () => {
+                this.scrollHandler = this.scrollHandlerFactory.create(this.input.nativeElement, () => {
                     if (this.overlayVisible) {
                         this.overlayVisible = false;
                     }
@@ -860,7 +868,7 @@ export class Password implements AfterContentInit, OnInit {
             if (!this.resizeListener) {
                 const window = this.document.defaultView as Window;
                 this.resizeListener = this.renderer.listen(window, 'resize', () => {
-                    if (this.overlayVisible && !DomHandler.isTouchDevice()) {
+                    if (this.overlayVisible && !this.domHandler.isTouchDevice()) {
                         this.overlayVisible = false;
                     }
                 });

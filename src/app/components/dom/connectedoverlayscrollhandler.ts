@@ -1,19 +1,14 @@
+import { Injectable } from '@angular/core';
 import { DomHandler } from './domhandler';
 
 export class ConnectedOverlayScrollHandler {
-    element: any;
+    private scrollableParents: any;
 
-    listener: any;
-
-    scrollableParents: any;
-
-    constructor(element: any, listener: any = () => {}) {
-        this.element = element;
-        this.listener = listener;
+    constructor(private element: any, private listener: any = () => {}, private domHandler: DomHandler) {
     }
 
     bindScrollListener() {
-        this.scrollableParents = DomHandler.getScrollableParents(this.element);
+        this.scrollableParents = this.domHandler.getScrollableParents(this.element);
         for (let i = 0; i < this.scrollableParents.length; i++) {
             this.scrollableParents[i].addEventListener('scroll', this.listener);
         }
@@ -33,4 +28,13 @@ export class ConnectedOverlayScrollHandler {
         this.listener = null;
         this.scrollableParents = null;
     }
+}
+
+@Injectable({ providedIn: "root" })
+export class ConnectedOverlayScrollHandlerFactory {
+  constructor(private domHandler: DomHandler) {}
+
+  create(element: any, listener: any = () => {}): ConnectedOverlayScrollHandler {
+    return new ConnectedOverlayScrollHandler(element, listener, this.domHandler);
+  }
 }
