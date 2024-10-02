@@ -178,7 +178,6 @@ const theme = ({ dt }) => `
 .p-stepitem:last-of-type .p-steppanel {
     padding-inline-start: ${dt('stepper.step.number.size')};
 }
-
 /* For PrimeNG */
 .p-steppanel {
     overflow: hidden;

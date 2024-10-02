@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { StepperModule } from 'primeng/stepper';
 import { AppDocModule } from '@layout/doc/app.doc.module';
 import { AppCodeModule } from '@layout/doc/app.code.component';
 import { AccessibilityDoc } from './accessibilitydoc';
@@ -17,6 +16,8 @@ import { IconFieldModule } from 'primeng/iconfield';
 import { InputTextModule } from 'primeng/inputtext';
 import { ToggleButtonModule } from 'primeng/togglebutton';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { StepperModule } from 'primeng/stepper';
+import { StepsOnlyDoc } from '@doc/stepper/stepsonly';
 
 @NgModule({
     imports: [
@@ -35,6 +36,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
         ToggleButtonModule,
     ],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, VerticalDoc, LinearDoc, TemplateDoc, AccessibilityDoc],
+    declarations: [ImportDoc, BasicDoc, VerticalDoc, LinearDoc, TemplateDoc, AccessibilityDoc, StepsOnlyDoc],
 })
 export class StepperDocModule {}

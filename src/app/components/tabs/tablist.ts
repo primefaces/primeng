@@ -18,7 +18,7 @@ import { ChevronRightIcon } from 'primeng/icons/chevronright';
 import { RippleModule } from 'primeng/ripple';
 import { BaseComponent } from 'primeng/basecomponent';
 import { Tabs } from './tabs';
-import { DomHandler } from '../dom/domhandler';
+import { DomHandler } from 'primeng/dom';
 
 /**
  * TabList is a helper component for Tabs component.
