@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { TextDoc } from '@doc/splitbutton/textdoc';
 import { BasicDoc } from '@doc/splitbutton/basicdoc';
+import { IconsDoc } from '@doc/splitbutton/iconsdoc';
 import { ImportDoc } from '@doc/splitbutton/importdoc';
 import { NestedDoc } from '@doc/splitbutton/nesteddoc';
 import { RaisedDoc } from '@doc/splitbutton/raiseddoc';
@@ -37,6 +38,11 @@ export class SplitButtonDemo {
             id: 'basic',
             label: 'Basic',
             component: BasicDoc,
+        },
+        {
+            id: 'icons',
+            label: 'Icons',
+            component: IconsDoc,
         },
         {
             id: 'nested',
