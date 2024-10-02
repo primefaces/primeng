@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
 import { Code } from '@domain/code';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'tooltip-doc',
@@ -12,10 +13,21 @@ import { Code } from '@domain/code';
             </p>
         </app-docsectiontext>
         <div class="card">
-            <div style="height: 350px; position: relative;" class="speeddial-tooltip-demo">
-                <p-toast />
-                <p-speeddial [model]="leftTooltipItems" className="speeddial-right" direction="up" />
-                <p-speeddial [model]="tooltipItems" className="speeddial-left" direction="up" />
+            <div [style]="{ position: 'relative', height: '350px' }">
+                <p-speeddial
+                    [model]="items"
+                    direction="up"
+                    [style]="{ position: 'absolute', right: 0, bottom: 0 }"
+                    [buttonProps]="{ severity: 'help', rounded: true }"
+                    [tooltipOptions]="{ tooltipPosition: 'left' }"
+                />
+                <p-speeddial
+                    [model]="items"
+                    direction="up"
+                    [style]="{ position: 'absolute', left: 0, bottom: 0 }"
+                    [buttonProps]="{ severity: 'danger', rounded: true }"
+                    [tooltipOptions]="{ tooltipPosition: 'right' }"
+                />
             </div>
         </div>
         <app-code [code]="code" selector="speed-dial-tooltip-demo"></app-code>
@@ -23,100 +35,45 @@ import { Code } from '@domain/code';
     providers: [MessageService],
 })
 export class TooltipDoc implements OnInit {
-    tooltipItems: MenuItem[] | undefined;
+    items: MenuItem[] | undefined;
 
-    leftTooltipItems: MenuItem[] | undefined;
-
-    constructor(private messageService: MessageService) {}
+    constructor(
+        private messageService: MessageService,
+        private router: Router,
+    ) {}
 
     ngOnInit() {
-        this.tooltipItems = [
+        this.items = [
             {
-                tooltipOptions: {
-                    tooltipLabel: 'Add',
-                },
+                label: 'Add',
                 icon: 'pi pi-pencil',
                 command: () => {
                     this.messageService.add({ severity: 'info', summary: 'Add', detail: 'Data Added' });
                 },
             },
             {
-                tooltipOptions: {
-                    tooltipLabel: 'Update',
-                },
+                label: 'Update',
                 icon: 'pi pi-refresh',
                 command: () => {
                     this.messageService.add({ severity: 'success', summary: 'Update', detail: 'Data Updated' });
                 },
             },
             {
-                tooltipOptions: {
-                    tooltipLabel: 'Delete',
-                },
+                label: 'Delete',
                 icon: 'pi pi-trash',
                 command: () => {
                     this.messageService.add({ severity: 'error', summary: 'Delete', detail: 'Data Deleted' });
                 },
             },
             {
-                tooltipOptions: {
-                    tooltipLabel: 'Upload',
-                },
+                label: 'Upload',
                 icon: 'pi pi-upload',
-            },
-            {
-                tooltipOptions: {
-                    tooltipLabel: 'Angular Website',
-                },
-                icon: 'pi pi-external-link',
-                target: '_blank',
-                url: 'http://angular.io',
-            },
-        ];
-
-        this.leftTooltipItems = [
-            {
-                tooltipOptions: {
-                    tooltipLabel: 'Add',
-                    tooltipPosition: 'left',
-                },
-                icon: 'pi pi-pencil',
                 command: () => {
-                    this.messageService.add({ severity: 'info', summary: 'Add', detail: 'Data Added' });
+                    this.router.navigate(['/fileupload']);
                 },
             },
             {
-                tooltipOptions: {
-                    tooltipLabel: 'Update',
-                    tooltipPosition: 'left',
-                },
-                icon: 'pi pi-refresh',
-                command: () => {
-                    this.messageService.add({ severity: 'success', summary: 'Update', detail: 'Data Updated' });
-                },
-            },
-            {
-                tooltipOptions: {
-                    tooltipLabel: 'Delete',
-                    tooltipPosition: 'left',
-                },
-                icon: 'pi pi-trash',
-                command: () => {
-                    this.messageService.add({ severity: 'error', summary: 'Delete', detail: 'Data Deleted' });
-                },
-            },
-            {
-                icon: 'pi pi-upload',
-                tooltipOptions: {
-                    tooltipLabel: 'Upload',
-                    tooltipPosition: 'left',
-                },
-            },
-            {
-                tooltipOptions: {
-                    tooltipLabel: 'Angular Website',
-                    tooltipPosition: 'left',
-                },
+                label: 'Angular Website',
                 icon: 'pi pi-external-link',
                 target: '_blank',
                 url: 'http://angular.io',
@@ -125,26 +82,13 @@ export class TooltipDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-speeddial 
-    [model]="leftTooltipItems" 
-    className="speeddial-right" 
-    direction="up" />
-<p-speeddial 
-    [model]="tooltipItems" 
-    className="speeddial-left" 
-    direction="up" />`,
+        basic: `<p-speeddial [model]="items" direction="up" [style]="{ position: 'absolute', right: 0, bottom: 0 }" [buttonProps]="{ severity: 'help', rounded: true }" [tooltipOptions]="{ tooltipPosition: 'left' }" />
+                <p-speeddial [model]="items" direction="up" [style]="{ position: 'absolute', left: 0, bottom: 0 }" [buttonProps]="{ severity: 'danger', rounded: true }" [tooltipOptions]="{ tooltipPosition: 'right' }" />`,
 
         html: `<div class="card">
-    <div style="height: 350px; position: relative;" class="speeddial-tooltip-demo">
-        <p-toast />
-        <p-speeddial 
-            [model]="leftTooltipItems" 
-            className="speeddial-right" 
-            direction="up" />
-        <p-speeddial 
-            [model]="tooltipItems" 
-            className="speeddial-left" 
-            direction="up" />
+    <div [style]="{ position: 'relative', height: '350px' }">
+        <p-speeddial [model]="items" direction="up" [style]="{ position: 'absolute', right: 0, bottom: 0 }" [buttonProps]="{ severity: 'help', rounded: true }" [tooltipOptions]="{ tooltipPosition: 'left' }" />
+        <p-speeddial [model]="items" direction="up" [style]="{ position: 'absolute', left: 0, bottom: 0 }" [buttonProps]="{ severity: 'danger', rounded: true }" [tooltipOptions]="{ tooltipPosition: 'right' }" />
     </div>
 </div>`,
 
@@ -152,146 +96,62 @@ export class TooltipDoc implements OnInit {
 import { MenuItem, MessageService } from 'primeng/api';
 import { SpeedDialModule } from 'primeng/speeddial';
 import { ToastModule } from 'primeng/toast';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'speed-dial-tooltip-demo',
     templateUrl: './speed-dial-tooltip-demo.html',
-    styles: [
-        \`:host ::ng-deep {
-            .speeddial-tooltip-demo {
-                .p-speeddial-direction-up {
-                    &.speeddial-left {
-                        left: 0;
-                        bottom: 0;
-                    }
-        
-                    &.speeddial-right {
-                        right: 0;
-                        bottom: 0;
-                    }
-                }
-            }
-        }\`
-    ],
     standalone: true,
     imports: [SpeedDialModule, ToastModule],
     providers: [MessageService]
 })
 export class SpeedDialTooltipDemo implements OnInit {
-    tooltipItems: MenuItem[] | undefined;
+      items: MenuItem[] | undefined;
 
-    leftTooltipItems: MenuItem[] | undefined;
-
-    constructor(private messageService: MessageService) {}
+    constructor(
+        private messageService: MessageService,
+        private router: Router,
+    ) {}
 
     ngOnInit() {
-        this.tooltipItems = [
+        this.items = [
             {
-                tooltipOptions: {
-                    tooltipLabel: 'Add'
-                },
+                label: 'Add',
                 icon: 'pi pi-pencil',
                 command: () => {
                     this.messageService.add({ severity: 'info', summary: 'Add', detail: 'Data Added' });
-                }
+                },
             },
             {
-                tooltipOptions: {
-                    tooltipLabel: 'Update'
-                },
+                label: 'Update',
                 icon: 'pi pi-refresh',
                 command: () => {
                     this.messageService.add({ severity: 'success', summary: 'Update', detail: 'Data Updated' });
-                }
+                },
             },
             {
-                tooltipOptions: {
-                    tooltipLabel: 'Delete'
-                },
+                label: 'Delete',
                 icon: 'pi pi-trash',
                 command: () => {
                     this.messageService.add({ severity: 'error', summary: 'Delete', detail: 'Data Deleted' });
-                }
+                },
             },
             {
-                tooltipOptions: {
-                    tooltipLabel: 'Upload'
-                },
-                icon: 'pi pi-upload'
-            },
-            {
-                tooltipOptions: {
-                    tooltipLabel: 'Angular Website'
-                },
-                icon: 'pi pi-external-link',
-                url: 'http://angular.io'
-            }
-        ];
-
-        this.leftTooltipItems = [
-            {
-                tooltipOptions: {
-                    tooltipLabel: 'Add',
-                    tooltipPosition: 'left'
-                },
-                icon: 'pi pi-pencil',
-                command: () => {
-                    this.messageService.add({ severity: 'info', summary: 'Add', detail: 'Data Added' });
-                }
-            },
-            {
-                tooltipOptions: {
-                    tooltipLabel: 'Update',
-                    tooltipPosition: 'left'
-                },
-                icon: 'pi pi-refresh',
-                command: () => {
-                    this.messageService.add({ severity: 'success', summary: 'Update', detail: 'Data Updated' });
-                }
-            },
-            {
-                tooltipOptions: {
-                    tooltipLabel: 'Delete',
-                    tooltipPosition: 'left'
-                },
-                icon: 'pi pi-trash',
-                command: () => {
-                    this.messageService.add({ severity: 'error', summary: 'Delete', detail: 'Data Deleted' });
-                }
-            },
-            {
+                label: 'Upload',
                 icon: 'pi pi-upload',
-                tooltipOptions: {
-                    tooltipLabel: 'Upload',
-                    tooltipPosition: 'left'
-                }
+                command: () => {
+                    this.router.navigate(['/fileupload']);
+                },
             },
             {
-                tooltipOptions: {
-                    tooltipLabel: 'Angular Website',
-                    tooltipPosition: 'left'
-                },
+                label: 'Angular Website',
                 icon: 'pi pi-external-link',
-                url: 'http://angular.io'
-            }
+                target: '_blank',
+                url: 'http://angular.io',
+            },
         ];
     }
 }`,
 
-        scss: `:host ::ng-deep {
-    .speeddial-tooltip-demo {
-        .p-speeddial-direction-up {
-            &.speeddial-left {
-                left: 0;
-                bottom: 0;
-            }
-
-            &.speeddial-right {
-                right: 0;
-                bottom: 0;
-            }
-        }
-    }
-}`,
     };
 }

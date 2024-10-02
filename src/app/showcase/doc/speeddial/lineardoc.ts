@@ -127,28 +127,5 @@ export class SpeedDialLinearDemo implements OnInit {
     }
 }`,
 
-        scss: `:host ::ng-deep {
-    .speeddial-linear-demo {
-        .p-speeddial-direction-up {
-            left: calc(50% - 2rem);
-            bottom: 0;
-        }
-
-        .p-speeddial-direction-down {
-            left: calc(50% - 2rem);
-            top: 0;
-        }
-
-        .p-speeddial-direction-left {
-            right: 0;
-            top: calc(50% - 2rem);
-        }
-
-        .p-speeddial-direction-right {
-            left: 0;
-            top: calc(50% - 2rem);
-        }
-    }
-}`,
     };
 }

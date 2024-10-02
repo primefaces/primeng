@@ -21,7 +21,7 @@ import {
     signal,
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { MenuItem, PrimeTemplate, SharedModule } from 'primeng/api';
+import { MenuItem, PrimeTemplate, SharedModule, TooltipOptions } from 'primeng/api';
 import { ButtonModule, ButtonProps } from 'primeng/button';
 import { DomHandler } from 'primeng/dom';
 import { PlusIcon } from 'primeng/icons/plus';
@@ -87,7 +87,7 @@ import { BaseComponent } from 'primeng/basecomponent';
                     [ngStyle]="getItemStyle(i)"
                     class="p-speeddial-item"
                     pTooltip
-                    [tooltipOptions]="item.tooltipOptions"
+                    [tooltipOptions]="item.tooltipOptions || getTooltipOptions(item)"
                     [ngClass]="{ 'p-hidden': item.visible === false, 'p-focus': focusedOptionId == id + '_' + i }"
                     [id]="id + '_' + i"
                     [attr.aria-controls]="id + '_item'"
@@ -251,6 +251,11 @@ export class SpeedDial extends BaseComponent implements AfterViewInit, AfterCont
      */
     @Input() ariaLabelledBy: string | undefined;
     /**
+     * Whether to display the tooltip on items. The modifiers of Tooltip can be used like an object in it. Valid keys are 'event' and 'position'.
+     * @group Props
+     */
+    @Input() tooltipOptions: TooltipOptions;
+    /**
      * Used to pass all properties of the ButtonProps to the Button component.
      * @group Props
      */
@@ -321,6 +326,10 @@ export class SpeedDial extends BaseComponent implements AfterViewInit, AfterCont
     get listStyles() {
         const _style = this._componentStyle?.inlineStyles['list'];
         return _style ? _style({ props: this }) : {};
+    }
+
+    getTooltipOptions(item: MenuItem) {
+        return { ...this.tooltipOptions, tooltipLabel: item.label, disabled: !this.tooltipOptions };
     }
 
     ngOnInit() {

@@ -9,12 +9,35 @@ import { Code } from '@domain/code';
             <p>When <i>type</i> is defined as <i>quarter-circle</i>, items are displayed in a half-circle around the button.</p>
         </app-docsectiontext>
         <div class="card">
-            <div style="height: 500px; position: relative;" class="speeddial-circle-demo">
-                <p-toast />
-                <p-speeddial [model]="items" radius="120" direction="up-left" type="quarter-circle" buttonClassName="p-button-success" />
-                <p-speeddial [model]="items" radius="120" direction="up-right" type="quarter-circle" buttonClassName="p-button-success" />
-                <p-speeddial [model]="items" radius="120" direction="down-left" type="quarter-circle" buttonClassName="p-button-success" />
-                <p-speeddial [model]="items" radius="120" direction="down-right" type="quarter-circle" buttonClassName="p-button-success" />
+            <div style="position: relative; height: 500px">
+                <p-speeddial
+                    [model]="items"
+                    [radius]="120"
+                    type="quarter-circle"
+                    direction="up-left"
+                    [style]="{ position: 'absolute', right: 0, bottom: 0 }"
+                />
+                <p-speeddial
+                    [model]="items"
+                    [radius]="120"
+                    type="quarter-circle"
+                    direction="up-right"
+                    [style]="{ position: 'absolute', left: 0, bottom: 0 }"
+                />
+                <p-speeddial
+                    [model]="items"
+                    [radius]="120"
+                    type="quarter-circle"
+                    direction="down-left"
+                    [style]="{ position: 'absolute', right: 0, top: 0 }"
+                />
+                <p-speeddial
+                    [model]="items"
+                    [radius]="120"
+                    type="quarter-circle"
+                    direction="down-right"
+                    [style]="{ position: 'absolute', left: 0, top: 0 }"
+                />
             </div>
         </div>
         <app-code [code]="code" selector="speed-dial-quarter-circle-demo"></app-code>
@@ -59,58 +82,17 @@ export class QuarterCircleDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-speeddial 
-    [model]="items" 
-    radius="120"
-    direction="up-left" 
-    type="quarter-circle" 
-    buttonClassName="p-button-success" />
-<p-speeddial 
-    [model]="items" 
-    radius="120" 
-    direction="up-right"
-    type="quarter-circle" 
-    buttonClassName="p-button-success" />
-<p-speeddial 
-    [model]="items" 
-    radius="120" 
-    direction="down-left" 
-    type="quarter-circle" 
-    buttonClassName="p-button-success" />
-<p-speeddial 
-    [model]="items" 
-    radius="120" 
-    direction="down-right" 
-    type="quarter-circle" 
-    buttonClassName="p-button-success" />`,
+        basic: `<p-speeddial [model]="items" [radius]="120" type="quarter-circle" direction="up-left" [style]="{ position: 'absolute', right: 0, bottom: 0 }" />
+<p-speeddial [model]="items" [radius]="120" type="quarter-circle" direction="up-right" [style]="{ position: 'absolute', left: 0, bottom: 0 }" />
+<p-speeddial [model]="items" [radius]="120" type="quarter-circle" direction="down-left" [style]="{ position: 'absolute', right: 0, top: 0 }" />
+<p-speeddial [model]="items" [radius]="120" type="quarter-circle" direction="down-right" [style]="{ position: 'absolute', left: 0, top: 0 }" />`,
 
         html: `<div class="card">
-    <div style="height: 500px; position: relative;" class="speeddial-circle-demo">
-        <p-toast />
-        <p-speeddial 
-            [model]="items" 
-            radius="120" 
-            direction="up-left" 
-            type="quarter-circle" 
-            buttonClassName="p-button-success" />
-        <p-speeddial 
-            [model]="items" 
-            radius="120" 
-            direction="up-right" 
-            type="quarter-circle" 
-            buttonClassName="p-button-success" />
-        <p-speeddial 
-            [model]="items" 
-            radius="120" 
-            direction="down-left" 
-            type="quarter-circle" 
-            buttonClassName="p-button-success" />
-        <p-speeddial 
-            [model]="items" 
-            radius="120" 
-            direction="down-right" 
-            type="quarter-circle" 
-            buttonClassName="p-button-success" />
+    <div style="position: relative; height: 500px">
+        <p-speeddial [model]="items" [radius]="120" type="quarter-circle" direction="up-left" [style]="{ position: 'absolute', right: 0, bottom: 0 }" />
+        <p-speeddial [model]="items" [radius]="120" type="quarter-circle" direction="up-right" [style]="{ position: 'absolute', left: 0, bottom: 0 }" />
+        <p-speeddial [model]="items" [radius]="120" type="quarter-circle" direction="down-left" [style]="{ position: 'absolute', right: 0, top: 0 }" />
+        <p-speeddial [model]="items" [radius]="120" type="quarter-circle" direction="down-right" [style]="{ position: 'absolute', left: 0, top: 0 }" />
     </div>
 </div>`,
 
@@ -122,33 +104,6 @@ import { ToastModule } from 'primeng/toast';
 @Component({
     selector: 'speed-dial-quarter-circle-demo',
     templateUrl: './speed-dial-quarter-circle-demo.html',
-    styles: [
-        \`:host ::ng-deep {
-            .speeddial-circle-demo {
-                .p-speeddial-quarter-circle {
-                    &.p-speeddial-direction-up-left {
-                        right: 0;
-                        bottom: 0;
-                    }
-        
-                    &.p-speeddial-direction-up-right {
-                        left: 0;
-                        bottom: 0;
-                    }
-        
-                    &.p-speeddial-direction-down-left {
-                        right: 0;
-                        top: 0;
-                    }
-        
-                    &.p-speeddial-direction-down-right {
-                        left: 0;
-                        top: 0;
-                    }
-                }
-            }
-        }\`
-    ],
     standalone: true,
     imports: [SpeedDialModule, ToastModule],
     providers: [MessageService]
@@ -191,30 +146,5 @@ export class SpeedDialQuarterCircleDemo implements OnInit {
     }
 }`,
 
-        scss: `:host ::ng-deep {
-    .speeddial-circle-demo {
-        .p-speeddial-quarter-circle {
-            &.p-speeddial-direction-up-left {
-                right: 0;
-                bottom: 0;
-            }
-
-            &.p-speeddial-direction-up-right {
-                left: 0;
-                bottom: 0;
-            }
-
-            &.p-speeddial-direction-down-left {
-                right: 0;
-                top: 0;
-            }
-
-            &.p-speeddial-direction-down-right {
-                left: 0;
-                top: 0;
-            }
-        }
-    }
-}`,
     };
 }

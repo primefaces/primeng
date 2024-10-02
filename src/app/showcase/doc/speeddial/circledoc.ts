@@ -12,9 +12,15 @@ import { Code } from '@domain/code';
             </p>
         </app-docsectiontext>
         <div class="card">
-            <div style="height: 500px" class="flex items-center justify-center">
+            <div style="position:relative; height: 500px;" class="flex items-center justify-center">
                 <p-toast />
-                <p-speeddial [model]="items" type="circle" [radius]="80" buttonClassName="p-button-warning" />
+                <p-speeddial
+                    [model]="items"
+                    [radius]="80"
+                    type="circle"
+                    [style]="{ position: 'absolute' }"
+                    [buttonProps]="{ severity: 'warn', rounded: true }"
+                />
             </div>
         </div>
         <app-code [code]="code" selector="speed-dial-circle-demo"></app-code>
@@ -59,20 +65,12 @@ export class CircleDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-speeddial 
-    [model]="items" 
-    type="circle" 
-    [radius]="80" 
-    buttonClassName="p-button-warning" />`,
+        basic: `<p-speeddial [model]="items" [radius]="80" type="circle" [style]="{ position: 'absolute' }" [buttonProps]="{ severity: 'warn', rounded: true }" />`,
 
         html: `<div class="card">
-    <div style="height: 500px" class="flex items-center justify-center">
+    <div style="position:relative; height: 500px;" class="flex items-center justify-center">
         <p-toast />
-        <p-speeddial 
-            [model]="items" 
-            type="circle" 
-            [radius]="80"
-            buttonClassName="p-button-warning" />
+        <p-speeddial [model]="items" [radius]="80" type="circle" [style]="{ position: 'absolute' }" [buttonProps]="{ severity: 'warn', rounded: true }" />
     </div>
 </div>`,
 
