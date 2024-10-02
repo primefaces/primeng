@@ -18,9 +18,22 @@ export interface SpeedDialTemplates {
          * Index of the item.
          */
         index: number;
-    }): TemplateRef<{ $implicit: MenuItem[]; index: number }>;
+        /**
+         * Item click function
+         */
+        toggleCallback: Function;
+    }): TemplateRef<{ $implicit: MenuItem[]; index: number; toggleCallback: Function }>;
     /**
      * Custom template of button.
      */
-    button(): TemplateRef<any>;
+    button(context: {
+        /**
+         * Button click function
+         */
+        toggleCallback: Function;
+    }): TemplateRef<{ toggleCallback: Function }>;
+    /**
+     * Custom template of icon.
+     */
+    icon(): TemplateRef<any>;
 }

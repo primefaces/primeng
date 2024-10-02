@@ -48,27 +48,30 @@ import { BaseComponent } from 'primeng/basecomponent';
             [attr.data-pc-name]="'speeddial'"
             [attr.data-pc-section]="'root'"
         >
-            <button
-                pButton
-                [style]="buttonStyle"
-                [icon]="buttonIconClass"
-                [class]="buttonClass()"
-                [disabled]="disabled"
-                [attr.aria-expanded]="visible"
-                [attr.aria-haspopup]="true"
-                [attr.aria-controls]="id + '_list'"
-                [attr.aria-label]="ariaLabel"
-                [attr.aria-labelledby]="ariaLabelledBy"
-                (click)="onButtonClick($event)"
-                (keydown)="onTogglerKeydown($event)"
-                [attr.data-pc-name]="'button'"
-                [buttonProps]="buttonProps"
-            >
-                <PlusIcon *ngIf="!showIcon && !buttonTemplate" />
-                <ng-container *ngIf="buttonTemplate">
-                    <ng-container *ngTemplateOutlet="buttonTemplate"></ng-container>
-                </ng-container>
-            </button>
+            <ng-container *ngIf="!buttonTemplate">
+                <button
+                    pButton
+                    [style]="buttonStyle"
+                    [icon]="buttonIconClass"
+                    [class]="buttonClass()"
+                    [disabled]="disabled"
+                    [attr.aria-expanded]="visible"
+                    [attr.aria-haspopup]="true"
+                    [attr.aria-controls]="id + '_list'"
+                    [attr.aria-label]="ariaLabel"
+                    [attr.aria-labelledby]="ariaLabelledBy"
+                    (click)="onButtonClick($event)"
+                    (keydown)="onTogglerKeydown($event)"
+                    [attr.data-pc-name]="'button'"
+                    [buttonProps]="buttonProps"
+                >
+                    <PlusIcon *ngIf="!showIcon && !iconTemplate" />
+                    <ng-container *ngTemplateOutlet="iconTemplate"></ng-container>
+                </button>
+            </ng-container>
+            <ng-container *ngIf="buttonTemplate">
+                <ng-container *ngTemplateOutlet="buttonTemplate; context: { toggleCallback: onButtonClick.bind(this) }"></ng-container>
+            </ng-container>
             <ul
                 #list
                 class="p-speeddial-list"
@@ -95,7 +98,9 @@ import { BaseComponent } from 'primeng/basecomponent';
                     [attr.data-pc-section]="'menuitem'"
                 >
                     <ng-container *ngIf="itemTemplate">
-                        <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: item, index: i }"></ng-container>
+                        <ng-container
+                            *ngTemplateOutlet="itemTemplate; context: { $implicit: item, index: i, toggleCallback: onItemClick.bind(this) }"
+                        ></ng-container>
                     </ng-container>
                     <ng-container *ngIf="!itemTemplate">
                         <button
@@ -299,6 +304,8 @@ export class SpeedDial extends BaseComponent implements AfterViewInit, AfterCont
 
     buttonTemplate: TemplateRef<any> | undefined;
 
+    iconTemplate: TemplateRef<any> | undefined;
+
     itemTemplate: TemplateRef<any> | undefined;
 
     isItemClicked: boolean = false;
@@ -359,6 +366,9 @@ export class SpeedDial extends BaseComponent implements AfterViewInit, AfterCont
             switch (item.getType()) {
                 case 'button':
                     this.buttonTemplate = item.template;
+                    break;
+                case 'icon':
+                    this.iconTemplate = item.template;
                     break;
                 case 'item':
                     this.itemTemplate = item.template;
