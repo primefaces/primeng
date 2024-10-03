@@ -149,6 +149,10 @@ import { FormsModule } from '@angular/forms';
                     [metaKeySelection]="metaKeySelection"
                     [scrollHeight]="scrollHeight"
                     [autoOptionFocus]="autoOptionFocus"
+                    [filter]="filterBy"
+                    [filterBy]="filterBy"
+                    [filterLocale]="filterLocale"
+                    [filterPlaceHolder]="sourceFilterPlaceholder"
                 >
                     <ng-container *ngIf="sourceHeaderTemplate">
                         <ng-template pTemplate="header">
@@ -250,6 +254,10 @@ import { FormsModule } from '@angular/forms';
                     [metaKeySelection]="metaKeySelection"
                     [scrollHeight]="scrollHeight"
                     [autoOptionFocus]="autoOptionFocus"
+                    [filter]="filterBy"
+                    [filterBy]="filterBy"
+                    [filterLocale]="filterLocale"
+                    [filterPlaceHolder]="targetFilterPlaceholder"
                 >
                     <ng-container *ngIf="targetHeaderTemplate">
                         <ng-template pTemplate="header">
