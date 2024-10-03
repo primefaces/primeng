@@ -13,7 +13,6 @@ import { ProductService } from '@service/productservice';
             <p-orderlist
                 [value]="products"
                 [listStyle]="{ 'max-height': '30rem' }"
-                header="List of Products"
                 filterBy="name"
                 filterPlaceholder="Filter by name"
             >
@@ -74,7 +73,6 @@ export class FilterDoc implements OnInit {
         basic: `<p-orderlist
     [value]="products"
     [listStyle]="{ 'max-height': '30rem' }"
-    header="List of Products"
     filterBy="name"
     filterPlaceholder="Filter by name"
 >
@@ -106,7 +104,6 @@ export class FilterDoc implements OnInit {
     <p-orderlist
         [value]="products"
         [listStyle]="{ 'max-height': '30rem' }"
-        header="List of Products"
         filterBy="name"
         filterPlaceholder="Filter by name"
     >
