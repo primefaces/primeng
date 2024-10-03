@@ -98,6 +98,11 @@ export class TreeDemo {
             component: TemplateDoc,
         },
         {
+            id: 'filter',
+            label: 'Filter',
+            component: FilterDoc,
+        },
+        {
             id: 'dragdrop',
             label: 'DragDrop',
             component: DragDropDoc,
@@ -107,12 +112,6 @@ export class TreeDemo {
             label: 'Context Menu',
             component: ContextMenuDoc,
         },
-        {
-            id: 'filter',
-            label: 'Filter',
-            component: FilterDoc,
-        },
-
         {
             id: 'accessibility',
             label: 'Accessibility',
