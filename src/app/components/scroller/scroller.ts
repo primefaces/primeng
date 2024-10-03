@@ -1229,8 +1229,8 @@ export class Scroller extends BaseComponent implements OnInit, AfterContentInit,
                 if (this.d_loading && this.showLoader && (!this._lazy || this._loading === undefined)) {
                     this.d_loading = false;
                     this.page = this.getPageByFirst();
-                    this.cd.detectChanges();
                 }
+                this.cd.detectChanges();
             }, this._delay);
         } else {
             !this.d_loading && this.onScrollChange(event);
