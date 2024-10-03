@@ -113,10 +113,9 @@ import { FormsModule } from '@angular/forms';
                     [multiple]="true"
                     [options]="value"
                     [(ngModel)]="d_selection"
-                    [style]="{ width: '15rem' }"
                     optionLabel="name"
                     [id]="id + '_list'"
-                    [ngStyle]="listStyle"
+                    [listStyle]="listStyle"
                     [striped]="stripedRows"
                     [tabindex]="tabindex"
                     (onFocus)="onListFocus($event)"
@@ -127,10 +126,21 @@ import { FormsModule } from '@angular/forms';
                     [metaKeySelection]="metaKeySelection"
                     [scrollHeight]="scrollHeight"
                     [autoOptionFocus]="autoOptionFocus"
+                    [filter]="filterBy"
+                    [filterBy]="filterBy"
+                    [filterLocale]="filterLocale"
+                    [filterPlaceHolder]="filterPlaceholder"
                 >
                     <ng-container *ngIf="headerTemplate">
                         <ng-template pTemplate="header">
                             <ng-template *ngTemplateOutlet="headerTemplate"></ng-template>
+                        </ng-template>
+                    </ng-container>
+                    <ng-container *ngIf="itemTemplate">
+                        <ng-template pTemplate="item" let-option let-selected="selected" let-index="index">
+                            <ng-template
+                                *ngTemplateOutlet="itemTemplate; context: { $implicit: option, selected: selected, index: index }"
+                            ></ng-template>
                         </ng-template>
                     </ng-container>
                 </p-listbox>
@@ -440,6 +450,10 @@ export class OrderList extends BaseComponent implements AfterContentInit {
         (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
             switch (item.getType()) {
                 case 'item':
+                    this.itemTemplate = item.template;
+                    break;
+
+                case 'option':
                     this.itemTemplate = item.template;
                     break;
 
