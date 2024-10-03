@@ -9,7 +9,7 @@ import { BadgeModule } from 'primeng/badge';
  * @group Components
  */
 @Component({
-    selector: 'p-overlayBadge',
+    selector: 'p-overlayBadge, p-overlay-badge, p-overlaybadge',
     template: `
         <div class="p-overlaybadge">
             <ng-content></ng-content>
