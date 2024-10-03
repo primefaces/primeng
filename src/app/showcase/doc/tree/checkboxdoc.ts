@@ -9,8 +9,8 @@ import { NodeService } from '@service/nodeservice';
         <app-docsectiontext>
             <p>Selection of multiple nodes via checkboxes is enabled by configuring <i>selectionMode</i> as <i>checkbox</i>.</p>
         </app-docsectiontext>
-        <div class="card flex flex-col items-center justify-center">
-            <p-tree [value]="files" selectionMode="checkbox" class="w-full md:w-[30rem]" [(selection)]="selectedFiles" />
+        <div class="card">
+            <p-tree [value]="files" selectionMode="checkbox" styleClass="w-full md:w-[30rem]" [(selection)]="selectedFiles" />
         </div>
         <app-code [code]="code" selector="tree-checkbox-demo"></app-code>
     `,
@@ -27,18 +27,10 @@ export class CheckboxDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-tree 
-    [value]="files" 
-    selectionMode="checkbox" 
-    class="w-full md:w-[30rem]" 
-    [(selection)]="selectedFiles" />`,
+        basic: `<p-tree [value]="files" selectionMode="checkbox" styleClass="w-full md:w-[30rem]" [(selection)]="selectedFiles" />`,
 
-        html: `<div class="card flex flex-col items-center justify-center">
-    <p-tree 
-        [value]="files" 
-        selectionMode="checkbox" 
-        class="w-full md:w-[30rem]" 
-        [(selection)]="selectedFiles" />
+        html: `<div class="card">
+    <p-tree [value]="files" selectionMode="checkbox" styleClass="w-full md:w-[30rem]" [(selection)]="selectedFiles" />
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';

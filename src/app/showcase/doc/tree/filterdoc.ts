@@ -15,9 +15,19 @@ import { NodeService } from '@service/nodeservice';
                 other hand, in <i>strict</i> mode when the query matches a node, filtering continues on all descendants.
             </p>
         </app-docsectiontext>
-        <div class="card flex flex-wrap justify-center gap-8">
-            <p-tree [value]="files" class="w-full md:w-[30rem]" [filter]="true" filterPlaceholder="Lenient Filter" />
-            <p-tree [value]="files" class="w-full md:w-[30rem]" [filter]="true" filterMode="strict" filterPlaceholder="Strict Filter" />
+        <div class="card flex flex-wrap gap-4">
+            <div class="flex-auto md:flex md:justify-start md:items-center flex-col">
+                <p-tree [value]="files" styleClass="w-full md:w-[30rem]" [filter]="true" filterPlaceholder="Lenient Filter" />
+            </div>
+            <div class="flex-auto md:flex md:justify-start md:items-center flex-col">
+                <p-tree
+                    [value]="files"
+                    styleClass="w-full md:w-[30rem]"
+                    [filter]="true"
+                    filterMode="strict"
+                    filterPlaceholder="Strict Filter"
+                />
+            </div>
         </div>
         <app-code [code]="code" selector="tree-filter-demo"></app-code>
     `,
@@ -32,30 +42,16 @@ export class FilterDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-tree 
-    [value]="files" 
-    class="w-full md:w-[30rem]" 
-    [filter]="true" 
-    filterPlaceholder="Lenient Filter" />
-<p-tree 
-    [value]="files" 
-    class="w-full md:w-[30rem]" 
-    [filter]="true" 
-    filterMode="strict" 
-    filterPlaceholder="Strict Filter" />`,
+        basic: `<p-tree [value]="files" styleClass="w-full md:w-[30rem]" [filter]="true" filterPlaceholder="Lenient Filter" />
+   <p-tree [value]="files" styleClass="w-full md:w-[30rem]" [filter]="true" filterMode="strict" filterPlaceholder="Strict Filter" />`,
 
-        html: `<div class="card flex flex-wrap justify-center gap-8">
-    <p-tree 
-        [value]="files" 
-        class="w-full md:w-[30rem]" 
-        [filter]="true" 
-        filterPlaceholder="Lenient Filter" />
-    <p-tree 
-        [value]="files"
-        class="w-full md:w-[30rem]" 
-        [filter]="true" 
-        filterMode="strict" 
-        filterPlaceholder="Strict Filter" />
+        html: `<div class="card flex flex-wrap gap-4">
+    <div class="flex-auto md:flex md:justify-start md:items-center flex-col">
+        <p-tree [value]="files" styleClass="w-full md:w-[30rem]" [filter]="true" filterPlaceholder="Lenient Filter" />
+    </div>
+    <div class="flex-auto md:flex md:justify-start md:items-center flex-col">
+        <p-tree [value]="files" styleClass="w-full md:w-[30rem]" [filter]="true" filterMode="strict" filterPlaceholder="Strict Filter" />
+    </div>
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';

@@ -17,7 +17,7 @@ import { NodeService } from '@service/nodeservice';
                 indicate selection.
             </p>
         </app-docsectiontext>
-        <div class="card flex flex-col items-center justify-center">
+        <div class="card">
             <div class="flex items-center mb-6 gap-2">
                 <p-toggleswitch inputId="input-metakey" [(ngModel)]="metaKeySelection" />
                 <label for="input-metakey">MetaKey</label>
@@ -25,7 +25,7 @@ import { NodeService } from '@service/nodeservice';
             <p-tree
                 [metaKeySelection]="metaKeySelection"
                 [value]="files"
-                class="w-full md:w-[30rem]"
+                styleclass="w-full md:w-[30rem]"
                 selectionMode="multiple"
                 [(selection)]="selectedFiles"
             />
@@ -51,24 +51,14 @@ export class MultipleDoc implements OnInit {
     <p-toggleswitch inputId="input-metakey" [(ngModel)]="metaKeySelection" />
     <label for="input-metakey">MetaKey</label>
 </div>
-<p-tree 
-    [metaKeySelection]="metaKeySelection" 
-    [value]="files" 
-    class="w-full md:w-[30rem]" 
-    selectionMode="multiple" 
-    [(selection)]="selectedFiles" />`,
+<p-tree [metaKeySelection]="metaKeySelection" [value]="files" styleClass="w-full md:w-[30rem]" selectionMode="multiple" [(selection)]="selectedFiles" />`,
 
-        html: `<div class="card flex flex-col items-center justify-center">
+        html: `<div class="card">
     <div class="flex items-center mb-6 gap-2">
         <p-toggleswitch inputId="input-metakey" [(ngModel)]="metaKeySelection" />
         <label for="input-metakey">MetaKey</label>
     </div>
-    <p-tree 
-        [metaKeySelection]="metaKeySelection" 
-        [value]="files" 
-        class="w-full md:w-[30rem]" 
-        selectionMode="multiple" 
-        [(selection)]="selectedFiles" />
+    <p-tree [metaKeySelection]="metaKeySelection" [value]="files" styleClass="w-full md:w-[30rem]" selectionMode="multiple" [(selection)]="selectedFiles" />
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';

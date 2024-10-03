@@ -14,7 +14,7 @@ import { NodeService } from '@service/nodeservice';
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-tree
-                class="w-full md:w-[30rem]"
+                styleClass="w-full md:w-[30rem]"
                 scrollHeight="250px"
                 [virtualScroll]="true"
                 [lazy]="true"
@@ -71,26 +71,10 @@ export class LazyVirtualScrollDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-tree 
-    class="w-full md:w-[30rem]" 
-    scrollHeight="250px" 
-    [virtualScroll]="true" 
-    [lazy]="true" 
-    [virtualScrollItemSize]="46" 
-    [value]="files" 
-    (onNodeExpand)="nodeExpand($event)" 
-    [loading]="loading" />`,
+        basic: `<p-tree styleClass="w-full md:w-[30rem]" scrollHeight="250px" [virtualScroll]="true" [lazy]="true" [virtualScrollItemSize]="46" [value]="files" (onNodeExpand)="nodeExpand($event)" [loading]="loading" />`,
 
         html: `<div class="card flex justify-center">
-    <p-tree 
-        class="w-full md:w-[30rem]" 
-        scrollHeight="250px" 
-        [virtualScroll]="true" 
-        [lazy]="true" 
-        [virtualScrollItemSize]="46" 
-        [value]="files" 
-        (onNodeExpand)="nodeExpand($event)" 
-        [loading]="loading" />
+    <p-tree styleClass="w-full md:w-[30rem]" scrollHeight="250px" [virtualScroll]="true" [lazy]="true" [virtualScrollItemSize]="46" [value]="files" (onNodeExpand)="nodeExpand($event)" [loading]="loading" />
 </div>`,
 
         typescript: `import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
