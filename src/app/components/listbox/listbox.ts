@@ -368,7 +368,7 @@ export class Listbox extends BaseComponent implements AfterContentInit, OnInit, 
      * When enabled, the hovered option will be focused.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) focusOnHover: boolean | undefined;
+    @Input({ transform: booleanAttribute }) focusOnHover: boolean | undefined = true;
     /**
      * Text to display when filtering.
      * @group Props
