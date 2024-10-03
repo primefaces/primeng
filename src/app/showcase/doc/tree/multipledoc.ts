@@ -25,7 +25,7 @@ import { NodeService } from '@service/nodeservice';
             <p-tree
                 [metaKeySelection]="metaKeySelection"
                 [value]="files"
-                styleclass="w-full md:w-[30rem]"
+                styleClass="w-full md:w-[30rem]"
                 selectionMode="multiple"
                 [(selection)]="selectedFiles"
             />

@@ -252,6 +252,10 @@ export class UITreeNode extends BaseComponent implements OnInit {
         return this.tree._componentStyle.classes.nodeContent({ instance: this });
     }
 
+    get selectable() {
+        return this.node.selectable === false ? false : this.tree.selectionMode != null;
+    }
+
     ngOnInit() {
         super.ngOnInit();
         (<TreeNode>this.node).parent = this.parentNode;
