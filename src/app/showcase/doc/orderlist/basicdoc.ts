@@ -21,6 +21,15 @@ import { ProductService } from '@service/productservice';
         </div>
         <app-code [code]="code" selector="orderlist-basic-demo" [extFiles]="extFiles"></app-code>
     `,
+    styles: [
+        `
+            @media (min-width: 576px) {
+                :host ::ng-deep .p-listbox {
+                    width: 14rem;
+                }
+            }
+        `,
+    ],
 })
 export class BasicDoc implements OnInit {
     products!: Product[];
@@ -73,7 +82,15 @@ import { OrderListModule } from 'primeng/orderlist';
     templateUrl: './orderlist-basic-demo.html',
     standalone: true,
     imports: [OrderListModule],
-    providers: [ProductService]
+    providers: [ProductService],
+    styles: [
+    \`@media (min-width: 576px) {
+            :host ::ng-deep .p-listbox {
+                width: 14rem;
+            }
+        }\`
+    ],
+      
 })
 export class OrderlistBasicDemo implements OnInit {
     products!: Product[];

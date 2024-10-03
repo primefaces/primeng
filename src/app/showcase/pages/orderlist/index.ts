@@ -18,7 +18,6 @@ import { TemplateDoc } from '@doc/orderlist/templatedoc';
     ></app-doc>`,
     standalone: true,
     imports: [OrderlistDocModule],
-    styleUrl: './orderlistdemo.scss',
 })
 export class OrderListDemo {
     docs = [
