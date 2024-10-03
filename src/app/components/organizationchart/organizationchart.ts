@@ -141,7 +141,7 @@ import { BaseComponent } from 'primeng/basecomponent';
                         class="p-organizationchart-table"
                         pOrganizationChartNode
                         [node]="child"
-                        [collapsible]="node.children && node.children.length > 0"
+                        [collapsible]="node.children && node.children.length > 0 && collapsible"
                     ></table>
                 </td>
             </tr>
@@ -225,7 +225,7 @@ export class OrganizationChartNode implements OnDestroy {
  * @group Components
  */
 @Component({
-    selector: 'p-organizationChart, p-organization-chart',
+    selector: 'p-organizationChart, p-organization-chart, p-organizationchart',
     template: `
         <div
             [ngStyle]="style"
