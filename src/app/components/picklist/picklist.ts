@@ -78,7 +78,7 @@ import { FormsModule } from '@angular/forms';
                     [attr.aria-label]="moveUpAriaLabel"
                     pButton
                     pRipple
-                    class="p-button-icon-only"
+                    severity="secondary"
                     [disabled]="sourceMoveDisabled()"
                     (click)="moveUp(sourcelist, source, selectedItemsSource, onSourceReorder, SOURCE_LIST)"
                     [attr.data-pc-section]="'sourceMoveUpButton'"
@@ -91,7 +91,7 @@ import { FormsModule } from '@angular/forms';
                     [attr.aria-label]="moveTopAriaLabel"
                     pButton
                     pRipple
-                    class="p-button-icon-only"
+                    severity="secondary"
                     [disabled]="sourceMoveDisabled()"
                     (click)="moveTop(sourcelist, source, selectedItemsSource, onSourceReorder, SOURCE_LIST)"
                     [attr.data-pc-section]="'sourceMoveTopButton'"
@@ -104,7 +104,7 @@ import { FormsModule } from '@angular/forms';
                     [attr.aria-label]="moveDownAriaLabel"
                     pButton
                     pRipple
-                    class="p-button-icon-only"
+                    severity="secondary"
                     [disabled]="sourceMoveDisabled()"
                     (click)="moveDown(sourcelist, source, selectedItemsSource, onSourceReorder, SOURCE_LIST)"
                     [attr.data-pc-section]="'sourceMoveDownButton'"
@@ -117,7 +117,7 @@ import { FormsModule } from '@angular/forms';
                     [attr.aria-label]="moveBottomAriaLabel"
                     pButton
                     pRipple
-                    class="p-button-icon-only"
+                    severity="secondary"
                     [disabled]="sourceMoveDisabled()"
                     (click)="moveBottom(sourcelist, source, selectedItemsSource, onSourceReorder, SOURCE_LIST)"
                     [attr.data-pc-section]="'sourceMoveBottomButton'"
@@ -167,7 +167,7 @@ import { FormsModule } from '@angular/forms';
                     [attr.aria-label]="moveToTargetAriaLabel"
                     pButton
                     pRipple
-                    class="p-button-icon-only"
+                    severity="secondary"
                     [disabled]="moveRightDisabled()"
                     (click)="moveRight()"
                     [attr.data-pc-section]="'moveToTargetButton'"
@@ -183,7 +183,7 @@ import { FormsModule } from '@angular/forms';
                     [attr.aria-label]="moveAllToTargetAriaLabel"
                     pButton
                     pRipple
-                    class="p-button-icon-only"
+                    severity="secondary"
                     [disabled]="moveAllRightDisabled()"
                     (click)="moveAllRight()"
                     [attr.data-pc-section]="'moveAllToTargetButton'"
@@ -199,7 +199,7 @@ import { FormsModule } from '@angular/forms';
                     [attr.aria-label]="moveToSourceAriaLabel"
                     pButton
                     pRipple
-                    class="p-button-icon-only"
+                    severity="secondary"
                     [disabled]="moveLeftDisabled()"
                     (click)="moveLeft()"
                     [attr.data-pc-section]="'moveToSourceButton'"
@@ -215,7 +215,7 @@ import { FormsModule } from '@angular/forms';
                     [attr.aria-label]="moveAllToSourceAriaLabel"
                     pButton
                     pRipple
-                    class="p-button-icon-only"
+                    severity="secondary"
                     [disabled]="moveAllLeftDisabled()"
                     (click)="moveAllLeft()"
                     [attr.data-pc-section]="'moveAllToSourceButton'"
@@ -269,7 +269,7 @@ import { FormsModule } from '@angular/forms';
                     [attr.aria-label]="moveUpAriaLabel"
                     pButton
                     pRipple
-                    class="p-button-icon-only"
+                    severity="secondary"
                     [disabled]="targetMoveDisabled()"
                     (click)="moveUp(targetlist, target, selectedItemsTarget, onTargetReorder, TARGET_LIST)"
                     [attr.data-pc-section]="'targetMoveUpButton'"
@@ -282,7 +282,7 @@ import { FormsModule } from '@angular/forms';
                     [attr.aria-label]="moveTopAriaLabel"
                     pButton
                     pRipple
-                    class="p-button-icon-only"
+                    severity="secondary"
                     [disabled]="targetMoveDisabled()"
                     (click)="moveTop(targetlist, target, selectedItemsTarget, onTargetReorder, TARGET_LIST)"
                     [attr.data-pc-section]="'targetMoveTopButton'"
@@ -295,7 +295,7 @@ import { FormsModule } from '@angular/forms';
                     [attr.aria-label]="moveDownAriaLabel"
                     pButton
                     pRipple
-                    class="p-button-icon-only"
+                    severity="secondary"
                     [disabled]="targetMoveDisabled()"
                     (click)="moveDown(targetlist, target, selectedItemsTarget, onTargetReorder, TARGET_LIST)"
                     [attr.data-pc-section]="'targetMoveDownButton'"
@@ -308,7 +308,7 @@ import { FormsModule } from '@angular/forms';
                     [attr.aria-label]="moveBottomAriaLabel"
                     pButton
                     pRipple
-                    class="p-button-icon-only"
+                    severity="secondary"
                     [disabled]="targetMoveDisabled()"
                     (click)="moveBottom(targetlist, target, selectedItemsTarget, onTargetReorder, TARGET_LIST)"
                     [attr.data-pc-section]="'targetMoveBottomButton'"
