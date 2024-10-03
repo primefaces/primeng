@@ -11,10 +11,11 @@ import { ImportDoc } from './importdoc';
 import { StyleDoc } from './styledoc';
 import { AccessibilityDoc } from './accessibilitydoc';
 import { TagModule } from 'primeng/tag';
+import { TemplateDoc } from './templatedoc';
 
 @NgModule({
     imports: [CommonModule, AppCodeModule, AppDocModule, OrderListModule, RouterModule, TagModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, FilterDoc, DragDropDoc, StyleDoc, AccessibilityDoc],
+    declarations: [ImportDoc, BasicDoc, FilterDoc, DragDropDoc,TemplateDoc, StyleDoc, AccessibilityDoc],
 })
 export class OrderlistDocModule {}
