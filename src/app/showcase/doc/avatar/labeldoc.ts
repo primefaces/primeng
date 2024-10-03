@@ -49,8 +49,8 @@ export class LabelDoc {
 
 <p-overlay-badge value="4" severity="danger" class="inline-flex">
     <p-avatar label="U" size="xlarge" />
-</p-overlay-badge>
-                `,
+</p-overlay-badge>`,
+
         html: `<div class="card">
     <div class="flex flex-wrap gap-8">
         <div class="flex-auto">
