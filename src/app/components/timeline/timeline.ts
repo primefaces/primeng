@@ -4,6 +4,7 @@ import {
     ChangeDetectionStrategy,
     Component,
     ContentChildren,
+    HostBinding,
     inject,
     Input,
     NgModule,
@@ -22,44 +23,41 @@ import { BaseComponent } from 'primeng/basecomponent';
 @Component({
     selector: 'p-timeline',
     template: `
-        <div
-            [class]="styleClass"
-            [ngStyle]="style"
-            [ngClass]="{
-                'p-timeline p-component': true,
-                'p-timeline-left': align === 'left',
-                'p-timeline-right': align === 'right',
-                'p-timeline-top': align === 'top',
-                'p-timeline-bottom': align === 'bottom',
-                'p-timeline-alternate': align === 'alternate',
-                'p-timeline-vertical': layout === 'vertical',
-                'p-timeline-horizontal': layout === 'horizontal',
-            }"
-            [attr.data-pc-name]="'timeline'"
-            [attr.data-pc-section]="'root'"
-        >
-            <div *ngFor="let event of value; let last = last" class="p-timeline-event" [attr.data-pc-section]="'event'">
-                <div class="p-timeline-event-opposite" [attr.data-pc-section]="'opposite'">
-                    <ng-container *ngTemplateOutlet="oppositeTemplate; context: { $implicit: event }"></ng-container>
-                </div>
-                <div class="p-timeline-event-separator" [attr.data-pc-section]="'separator'">
-                    <ng-container *ngIf="markerTemplate; else marker">
-                        <ng-container *ngTemplateOutlet="markerTemplate; context: { $implicit: event }"></ng-container>
-                    </ng-container>
-                    <ng-template #marker>
-                        <div class="p-timeline-event-marker" [attr.data-pc-section]="'marker'"></div>
-                    </ng-template>
-                    <div *ngIf="!last" class="p-timeline-event-connector"></div>
-                </div>
-                <div class="p-timeline-event-content" [attr.data-pc-section]="'content'">
-                    <ng-container *ngTemplateOutlet="contentTemplate; context: { $implicit: event }"></ng-container>
-                </div>
+        <div *ngFor="let event of value; let last = last" class="p-timeline-event" [attr.data-pc-section]="'event'">
+            <div class="p-timeline-event-opposite" [attr.data-pc-section]="'opposite'">
+                <ng-container *ngTemplateOutlet="oppositeTemplate; context: { $implicit: event }"></ng-container>
+            </div>
+            <div class="p-timeline-event-separator" [attr.data-pc-section]="'separator'">
+                <ng-container *ngIf="markerTemplate; else marker">
+                    <ng-container *ngTemplateOutlet="markerTemplate; context: { $implicit: event }"></ng-container>
+                </ng-container>
+                <ng-template #marker>
+                    <div class="p-timeline-event-marker" [attr.data-pc-section]="'marker'"></div>
+                </ng-template>
+                <div *ngIf="!last" class="p-timeline-event-connector"></div>
+            </div>
+            <div class="p-timeline-event-content" [attr.data-pc-section]="'content'">
+                <ng-container *ngTemplateOutlet="contentTemplate; context: { $implicit: event }"></ng-container>
             </div>
         </div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     providers: [TimelineStyle],
+    host: {
+        '[class.p-timeline]': 'true',
+        '[class.p-component]': 'true',
+        '[class.p-timeline-left]': "align === 'left'",
+        '[class.p-timeline-right]': "align === 'right'",
+        '[class.p-timeline-top]': "align === 'top'",
+        '[class.p-timeline-bottom]': "align === 'bottom'",
+        '[class.p-timeline-alternate]': "align === 'alternate'",
+        '[class.p-timeline-vertical]': "layout === 'vertical'",
+        '[class.p-timeline-horizontal]': "layout === 'horizontal'",
+        '[style]': 'style',
+        '[attr.data-pc-section]': "'root'",
+        '[attr.data-pc-name]': "'timeline'",
+    },
 })
 export class Timeline extends BaseComponent implements AfterContentInit, BlockableUI {
     /**
@@ -97,6 +95,10 @@ export class Timeline extends BaseComponent implements AfterContentInit, Blockab
     markerTemplate: Nullable<TemplateRef<any>>;
 
     _componentStyle = inject(TimelineStyle);
+
+    @HostBinding('class') get hostClass() {
+        return this.styleClass;
+    }
 
     constructor() {
         super();
