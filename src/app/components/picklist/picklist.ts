@@ -79,6 +79,7 @@ import { FormsModule } from '@angular/forms';
                     pButton
                     pRipple
                     severity="secondary"
+                    class="p-button-icon-only"
                     [disabled]="sourceMoveDisabled()"
                     (click)="moveUp(sourcelist, source, selectedItemsSource, onSourceReorder, SOURCE_LIST)"
                     [attr.data-pc-section]="'sourceMoveUpButton'"
@@ -92,6 +93,7 @@ import { FormsModule } from '@angular/forms';
                     pButton
                     pRipple
                     severity="secondary"
+                    class="p-button-icon-only"
                     [disabled]="sourceMoveDisabled()"
                     (click)="moveTop(sourcelist, source, selectedItemsSource, onSourceReorder, SOURCE_LIST)"
                     [attr.data-pc-section]="'sourceMoveTopButton'"
@@ -105,6 +107,7 @@ import { FormsModule } from '@angular/forms';
                     pButton
                     pRipple
                     severity="secondary"
+                    class="p-button-icon-only"
                     [disabled]="sourceMoveDisabled()"
                     (click)="moveDown(sourcelist, source, selectedItemsSource, onSourceReorder, SOURCE_LIST)"
                     [attr.data-pc-section]="'sourceMoveDownButton'"
@@ -118,6 +121,7 @@ import { FormsModule } from '@angular/forms';
                     pButton
                     pRipple
                     severity="secondary"
+                    class="p-button-icon-only"
                     [disabled]="sourceMoveDisabled()"
                     (click)="moveBottom(sourcelist, source, selectedItemsSource, onSourceReorder, SOURCE_LIST)"
                     [attr.data-pc-section]="'sourceMoveBottomButton'"
@@ -172,6 +176,7 @@ import { FormsModule } from '@angular/forms';
                     pButton
                     pRipple
                     severity="secondary"
+                    class="p-button-icon-only"
                     [disabled]="moveRightDisabled()"
                     (click)="moveRight()"
                     [attr.data-pc-section]="'moveToTargetButton'"
@@ -188,6 +193,7 @@ import { FormsModule } from '@angular/forms';
                     pButton
                     pRipple
                     severity="secondary"
+                    class="p-button-icon-only"
                     [disabled]="moveAllRightDisabled()"
                     (click)="moveAllRight()"
                     [attr.data-pc-section]="'moveAllToTargetButton'"
@@ -204,6 +210,7 @@ import { FormsModule } from '@angular/forms';
                     pButton
                     pRipple
                     severity="secondary"
+                    class="p-button-icon-only"
                     [disabled]="moveLeftDisabled()"
                     (click)="moveLeft()"
                     [attr.data-pc-section]="'moveToSourceButton'"
@@ -220,6 +227,7 @@ import { FormsModule } from '@angular/forms';
                     pButton
                     pRipple
                     severity="secondary"
+                    class="p-button-icon-only"
                     [disabled]="moveAllLeftDisabled()"
                     (click)="moveAllLeft()"
                     [attr.data-pc-section]="'moveAllToSourceButton'"
@@ -278,6 +286,7 @@ import { FormsModule } from '@angular/forms';
                     pButton
                     pRipple
                     severity="secondary"
+                    class="p-button-icon-only"
                     [disabled]="targetMoveDisabled()"
                     (click)="moveUp(targetlist, target, selectedItemsTarget, onTargetReorder, TARGET_LIST)"
                     [attr.data-pc-section]="'targetMoveUpButton'"
@@ -291,6 +300,7 @@ import { FormsModule } from '@angular/forms';
                     pButton
                     pRipple
                     severity="secondary"
+                    class="p-button-icon-only"
                     [disabled]="targetMoveDisabled()"
                     (click)="moveTop(targetlist, target, selectedItemsTarget, onTargetReorder, TARGET_LIST)"
                     [attr.data-pc-section]="'targetMoveTopButton'"
@@ -304,6 +314,7 @@ import { FormsModule } from '@angular/forms';
                     pButton
                     pRipple
                     severity="secondary"
+                    class="p-button-icon-only"
                     [disabled]="targetMoveDisabled()"
                     (click)="moveDown(targetlist, target, selectedItemsTarget, onTargetReorder, TARGET_LIST)"
                     [attr.data-pc-section]="'targetMoveDownButton'"
@@ -317,6 +328,7 @@ import { FormsModule } from '@angular/forms';
                     pButton
                     pRipple
                     severity="secondary"
+                    class="p-button-icon-only"
                     [disabled]="targetMoveDisabled()"
                     (click)="moveBottom(targetlist, target, selectedItemsTarget, onTargetReorder, TARGET_LIST)"
                     [attr.data-pc-section]="'targetMoveBottomButton'"
@@ -1689,19 +1701,11 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
                         flex-direction: column;
                     }
 
-                    .p-picklist[${this.id}] .p-picklist-buttons {
-                        padding: var(--content-padding);
+                    .p-picklist[${this.id}] .p-picklist-controls {
                         flex-direction: row;
                     }
 
-                    .p-picklist[${this.id}] .p-picklist-buttons .p-button {
-                        margin-right: var(--inline-spacing);
-                        margin-bottom: 0;
-                    }
-
-                    .p-picklist[${this.id}] .p-picklist-buttons .p-button:last-child {
-                        margin-right: 0;
-                    }
+                  
                 }`;
 
                 this.renderer.setProperty(this.styleElement, 'innerHTML', innerHTML);
