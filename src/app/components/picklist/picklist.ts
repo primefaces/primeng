@@ -842,6 +842,10 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
                     this.itemTemplate = item.template;
                     break;
 
+                case 'option':
+                    this.itemTemplate = item.template;
+                    break;
+
                 case 'sourceHeader':
                     this.sourceHeaderTemplate = item.template;
                     break;
