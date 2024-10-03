@@ -8,13 +8,15 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>Styling a specific node is configured with <i>class</i> and <i>style</i> options of a TreeNode.</p></app-docsectiontext
         >
-        <div class="card flex justify-center overflow-x-auto">
+        <div class="card overflow-x-auto">
             <p-organization-chart [value]="data" [collapsible]="true">
                 <ng-template let-node pTemplate="person">
-                    <div class="p-2 text-center">
-                        <img [src]="node.data.image" class="mb-4 w-12 h-12" />
-                        <div class="font-bold">{{ node.data.name }}</div>
-                        <div>{{ node.data.title }}</div>
+                    <div class="flex flex-col">
+                        <div class="flex flex-col items-center">
+                            <img [src]="node.data.image" class="mb-4 w-12 h-12" />
+                            <span class="font-bold mb-2">{{ node.data.name }}</span>
+                            <span>{{ node.data.title }}</span>
+                        </div>
                     </div>
                 </ng-template>
             </p-organization-chart>
@@ -27,7 +29,7 @@ export class ColoredDoc {
         {
             expanded: true,
             type: 'person',
-            styleClass: 'bg-indigo-500 text-white',
+            styleClass: '!bg-indigo-100 !text-indigo-900 rounded-xl',
             data: {
                 image: 'https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png',
                 name: 'Amy Elsner',
@@ -37,7 +39,7 @@ export class ColoredDoc {
                 {
                     expanded: true,
                     type: 'person',
-                    styleClass: 'bg-purple-500 text-white',
+                    styleClass: '!bg-purple-100 !text-purple-900 rounded-xl',
                     data: {
                         image: 'https://primefaces.org/cdn/primeng/images/demo/avatar/annafali.png',
                         name: 'Anna Fali',
@@ -46,20 +48,18 @@ export class ColoredDoc {
                     children: [
                         {
                             label: 'Sales',
-                            styleClass: 'bg-purple-500 text-white',
-                            style: ' border-radius: 12px',
+                            styleClass: '!bg-purple-100 !text-purple-900 rounded-xl',
                         },
                         {
                             label: 'Marketing',
-                            styleClass: 'bg-purple-500 text-white',
-                            style: ' border-radius: 12px',
+                            styleClass: '!bg-purple-100 !text-purple-900 rounded-xl',
                         },
                     ],
                 },
                 {
                     expanded: true,
                     type: 'person',
-                    styleClass: 'bg-teal-500 text-white',
+                    styleClass: '!bg-teal-100 !text-teal-900 rounded-xl',
                     data: {
                         image: 'https://primefaces.org/cdn/primeng/images/demo/avatar/stephenshaw.png',
                         name: 'Stephen Shaw',
@@ -68,11 +68,11 @@ export class ColoredDoc {
                     children: [
                         {
                             label: 'Development',
-                            styleClass: 'bg-teal-500 text-white',
+                            styleClass: '!bg-teal-100 !text-teal-900 rounded-xl',
                         },
                         {
                             label: 'UI/UX Design',
-                            styleClass: 'bg-teal-500 text-white',
+                            styleClass: '!bg-teal-100 !text-teal-900 rounded-xl',
                         },
                     ],
                 },
@@ -83,32 +83,24 @@ export class ColoredDoc {
     code: Code = {
         basic: `<p-organization-chart [value]="data" [collapsible]="true">
     <ng-template let-node pTemplate="person">
-        <div class="p-2 text-center">
-            <img 
-                [src]="node.data.image" 
-                class="mb-4 w-12 h-12" />
-            <div class="font-bold">
-                {{ node.data.name }}
-            </div>
-            <div>
-                {{ node.data.title }}
+        <div class="flex flex-col">
+            <div class="flex flex-col items-center">
+                <img [src]="node.data.image" class="mb-4 w-12 h-12" />
+                <span class="font-bold mb-2">{{ node.data.name }}</span>
+                <span>{{ node.data.title }}</span>
             </div>
         </div>
     </ng-template>
 </p-organization-chart>`,
 
-        html: `<div class="card flex justify-center overflow-x-auto">
+        html: `<div class="card overflow-x-auto">
     <p-organization-chart [value]="data" [collapsible]="true">
         <ng-template let-node pTemplate="person">
-            <div class="p-2 text-center">
-                <img 
-                    [src]="node.data.image" 
-                    class="mb-4 w-12 h-12" />
-                <div class="font-bold">
-                    {{ node.data.name }}
-                </div>
-                <div>
-                    {{ node.data.title }}
+            <div class="flex flex-col">
+                <div class="flex flex-col items-center">
+                    <img [src]="node.data.image" class="mb-4 w-12 h-12" />
+                    <span class="font-bold mb-2">{{ node.data.name }}</span>
+                    <span>{{ node.data.title }}</span>
                 </div>
             </div>
         </ng-template>
@@ -126,61 +118,59 @@ import { OrganizationChartModule } from 'primeng/organizationchart';
     imports: [OrganizationChartModule]
 })
 export class OrganizationChartColoredDemo {
-    data: TreeNode[] = [
+     data: TreeNode[] = [
         {
             expanded: true,
             type: 'person',
-            styleClass: 'bg-indigo-500 text-white',
+            styleClass: '!bg-indigo-100 !text-indigo-900 rounded-xl',
             data: {
                 image: 'https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png',
                 name: 'Amy Elsner',
-                title: 'CEO'
+                title: 'CEO',
             },
             children: [
                 {
                     expanded: true,
                     type: 'person',
-                    styleClass: 'bg-purple-500 text-white',
+                    styleClass: '!bg-purple-100 !text-purple-900 rounded-xl',
                     data: {
                         image: 'https://primefaces.org/cdn/primeng/images/demo/avatar/annafali.png',
                         name: 'Anna Fali',
-                        title: 'CMO'
+                        title: 'CMO',
                     },
                     children: [
                         {
                             label: 'Sales',
-                            styleClass: 'bg-purple-500 text-white',
-                            style: ' border-radius: 12px'
+                            styleClass: '!bg-purple-100 !text-purple-900 rounded-xl',
                         },
                         {
                             label: 'Marketing',
-                            styleClass: 'bg-purple-500 text-white',
-                            style: ' border-radius: 12px'
-                        }
-                    ]
+                            styleClass: '!bg-purple-100 !text-purple-900 rounded-xl',
+                        },
+                    ],
                 },
                 {
                     expanded: true,
                     type: 'person',
-                    styleClass: 'bg-teal-500 text-white',
+                    styleClass: '!bg-teal-100 !text-teal-900 rounded-xl',
                     data: {
                         image: 'https://primefaces.org/cdn/primeng/images/demo/avatar/stephenshaw.png',
                         name: 'Stephen Shaw',
-                        title: 'CTO'
+                        title: 'CTO',
                     },
                     children: [
                         {
                             label: 'Development',
-                            styleClass: 'bg-teal-500 text-white'
+                            styleClass: '!bg-teal-100 !text-teal-900 rounded-xl',
                         },
                         {
                             label: 'UI/UX Design',
-                            styleClass: 'bg-teal-500 text-white'
-                        }
-                    ]
-                }
-            ]
-        }
+                            styleClass: '!bg-teal-100 !text-teal-900 rounded-xl',
+                        },
+                    ],
+                },
+            ],
+        },
     ];
 }`,
     };

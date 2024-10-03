@@ -8,18 +8,17 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>Custom content instead of a node <i>label</i> is defined using the <i>pTemplate</i> property.</p>
         </app-docsectiontext>
-        <div class="card flex justify-center overflow-x-auto">
+        <div class="card overflow-x-auto">
             <p-organization-chart [value]="data" [collapsible]="true">
                 <ng-template let-node pTemplate="default">
-                    <div class="p-2 text-center">
+                    <div class="flex flex-col items-center">
                         <img
                             src="https://primefaces.org/cdn/primeng/images/flag/flag_placeholder.png"
                             [alt]="node.label"
                             [class]="'flag' + ' flag-' + node.data"
                             width="32"
                         />
-                        <div>{{ node.data.name }}</div>
-                        <div class="p-2">{{ node.label }}</div>
+                        <div class="mt-4 font-medium text-lg">{{ node.label }}</div>
                     </div>
                 </ng-template>
             </p-organization-chart>
@@ -71,37 +70,29 @@ export class TemplateDoc {
     code: Code = {
         basic: `<p-organization-chart [value]="data" [collapsible]="true">
     <ng-template let-node pTemplate="default">
-        <div class="p-2 text-center">
-            <img 
-                src="https://primefaces.org/cdn/primeng/images/flag/flag_placeholder.png" 
-                [alt]="node.label" 
-                [class]="'flag' + ' flag-' + node.data" 
-                width="32" />
-            <div>
-                {{ node.data.name }}
-            </div>
-            <div class="p-2">
-                {{ node.label }}
-            </div>
+        <div class="flex flex-col items-center">
+            <img
+                src="https://primefaces.org/cdn/primeng/images/flag/flag_placeholder.png"
+                [alt]="node.label"
+                [class]="'flag' + ' flag-' + node.data"
+                width="32"
+            />
+            <div class="mt-4 font-medium text-lg">{{ node.label }}</div>
         </div>
     </ng-template>
 </p-organization-chart>`,
 
-        html: `<div class="card flex justify-center">
+        html: `<div class="card overflow-x-auto">
     <p-organization-chart [value]="data" [collapsible]="true">
         <ng-template let-node pTemplate="default">
-            <div class="p-2 text-center">
-                <img 
-                    src="https://primefaces.org/cdn/primeng/images/flag/flag_placeholder.png" 
-                    [alt]="node.label" 
-                    [class]="'flag' + ' flag-' + node.data" 
-                    width="32" />
-                <div>
-                    {{ node.data.name }}
-                </div>
-                <div class="p-2">
-                    {{ node.label }}
-                </div>
+            <div class="flex flex-col items-center">
+                <img
+                    src="https://primefaces.org/cdn/primeng/images/flag/flag_placeholder.png"
+                    [alt]="node.label"
+                    [class]="'flag' + ' flag-' + node.data"
+                    width="32"
+                />
+                <div class="mt-4 font-medium text-lg">{{ node.label }}</div>
             </div>
         </ng-template>
     </p-organization-chart>
