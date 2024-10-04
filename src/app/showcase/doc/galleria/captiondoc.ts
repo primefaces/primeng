@@ -22,7 +22,7 @@ import { PhotoService } from '@service/photoservice';
                     <img [src]="item.thumbnailImageSrc" style="display: block;" />
                 </ng-template>
                 <ng-template pTemplate="caption" let-item>
-                    <h4 class="text-xl mb-2 font-bold">{{ item.title }}</h4>
+                    <div class="text-xl mb-2 font-bold">{{ item.title }}</div>
                     <p class="text-white">{{ item.alt }}</p>
                 </ng-template>
             </p-galleria>
@@ -36,12 +36,12 @@ export class CaptionDoc implements OnInit {
     responsiveOptions: any[] = [
         {
             breakpoint: '1300px',
-            numVisible: 4
+            numVisible: 4,
         },
         {
             breakpoint: '575px',
-            numVisible: 1
-        }
+            numVisible: 1,
+        },
     ];
 
     constructor(private photoService: PhotoService) {}
@@ -59,9 +59,7 @@ export class CaptionDoc implements OnInit {
         <img [src]="item.thumbnailImageSrc" style="display: block;" />
     </ng-template>
     <ng-template pTemplate="caption" let-item>
-        <h4 class="text-xl mb-2 font-bold">
-            {{ item.title }}
-        </h4>
+        <div class="text-xl mb-2 font-bold">{{ item.title }}</div>
         <p class="text-white">{{ item.alt }}</p>
     </ng-template>
 </p-galleria>`,
@@ -74,9 +72,7 @@ export class CaptionDoc implements OnInit {
             <img [src]="item.thumbnailImageSrc" style="display: block;" />
         </ng-template>
         <ng-template pTemplate="caption" let-item>
-            <h4 class="text-xl mb-2 font-bold">
-                {{ item.title }}
-                </h4>
+            <div class="text-xl mb-2 font-bold">{{ item.title }}</div>
             <p class="text-white">{{ item.alt }}</p>
         </ng-template>
     </p-galleria>

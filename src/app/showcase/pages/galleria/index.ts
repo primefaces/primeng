@@ -71,7 +71,7 @@ export class GalleriaDemo {
                 },
                 {
                     id: 'template',
-                    label: 'Templating',
+                    label: 'Template',
                     component: TemplateDoc,
                 },
             ],
