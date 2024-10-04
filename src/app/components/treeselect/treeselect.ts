@@ -911,12 +911,12 @@ export class TreeSelect implements AfterContentInit {
 
         if (this.value) {
             if (this.selectionMode === 'single') {
-                let areNodesEqual = (this.value.key && this.value.key === node.key) || this.value == node;
+                let areNodesEqual = (this.value.key !== undefined && this.value.key === node.key) || this.value === node;
                 index = areNodesEqual ? 0 : -1;
             } else {
                 for (let i = 0; i < this.value.length; i++) {
                     let selectedNode = this.value[i];
-                    let areNodesEqual = (selectedNode.key && selectedNode.key === node.key) || selectedNode == node;
+                    let areNodesEqual = (selectedNode.key !== undefined && selectedNode.key === node.key) || selectedNode === node;
                     if (areNodesEqual) {
                         index = i;
                         break;

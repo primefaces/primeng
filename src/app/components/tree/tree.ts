@@ -1438,12 +1438,12 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
         let index: number = -1;
         if (this.selectionMode && this.selection) {
             if (this.isSingleSelectionMode()) {
-                let areNodesEqual = (this.selection.key && this.selection.key === node.key) || this.selection == node;
+                let areNodesEqual = (this.selection.key !== undefined && this.selection.key === node.key) || this.selection == node;
                 index = areNodesEqual ? 0 : -1;
             } else {
                 for (let i = 0; i < this.selection.length; i++) {
                     let selectedNode = this.selection[i];
-                    let areNodesEqual = (selectedNode.key && selectedNode.key === node.key) || selectedNode == node;
+                    let areNodesEqual = (selectedNode.key !== undefined && selectedNode.key === node.key) || selectedNode == node;
                     if (areNodesEqual) {
                         index = i;
                         break;
