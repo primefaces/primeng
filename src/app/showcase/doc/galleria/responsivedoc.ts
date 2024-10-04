@@ -48,40 +48,22 @@ export class ResponsiveDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-galleria 
-    [(value)]="images" 
-    [responsiveOptions]="responsiveOptions" 
-    [containerStyle]="{ 'max-width': '640px' }" 
-    [numVisible]="7" 
-    [circular]="true">
-        <ng-template pTemplate="item" let-item>
-            <img 
-                [src]="item.itemImageSrc" 
-                style="width: 100%; display: block;" />
-        </ng-template>
-        <ng-template pTemplate="thumbnail" let-item>
-                <img 
-                    [src]="item.thumbnailImageSrc" 
-                    style="width: 100%; display: block;" />
-        </ng-template>
+        basic: `<p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="7" [circular]="true">
+    <ng-template pTemplate="item" let-item>
+        <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
+    </ng-template>
+    <ng-template pTemplate="thumbnail" let-item>
+        <img [src]="item.thumbnailImageSrc" style="width: 100%; display: block;" />
+    </ng-template>
 </p-galleria>`,
         html: `<div class="card">
-    <p-galleria 
-        [(value)]="images" 
-        [responsiveOptions]="responsiveOptions" 
-        [containerStyle]="{ 'max-width': '640px' }" 
-        [numVisible]="7" 
-        [circular]="true"> 
-            <ng-template pTemplate="item" let-item>
-                <img 
-                    [src]="item.itemImageSrc" 
-                    style="width: 100%; display: block;"/>
-            </ng-template>
-            <ng-template pTemplate="thumbnail" let-item>
-                    <img 
-                        [src]="item.thumbnailImageSrc" 
-                        style="width: 100%; display: block;" />
-            </ng-template>
+    <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="7" [circular]="true"> 
+        <ng-template pTemplate="item" let-item>
+            <img [src]="item.itemImageSrc" style="width: 100%; display: block;"/>
+        </ng-template>
+        <ng-template pTemplate="thumbnail" let-item>
+            <img [src]="item.thumbnailImageSrc" style="width: 100%; display: block;" />
+        </ng-template>
     </p-galleria>
 </div>`,
         typescript: `import { Component, OnInit } from '@angular/core';

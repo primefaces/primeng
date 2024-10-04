@@ -67,15 +67,11 @@ export class ThumbnailDoc implements OnInit {
 
     responsiveOptions: any[] = [
         {
-            breakpoint: '1024px',
-            numVisible: 5,
+            breakpoint: '1300px',
+            numVisible: 4,
         },
         {
-            breakpoint: '768px',
-            numVisible: 3,
-        },
-        {
-            breakpoint: '560px',
+            breakpoint: '575px',
             numVisible: 1,
         },
     ];
@@ -89,23 +85,11 @@ export class ThumbnailDoc implements OnInit {
     code: Code = {
         basic: `<div class="flex flex-wrap gap-4 mb-8">
     <div *ngFor="let option of positionOptions" class="flex items-center">
-        <p-radiobutton
-            [name]="option.label"
-            [value]="option.value"
-            [label]="option.label"
-            [(ngModel)]="position"
-            [inputId]="label"
-        />
+        <p-radiobutton [name]="option.label" [value]="option.value" [label]="option.label" [(ngModel)]="position" [inputId]="label" />
         <label [for]="option.label" class="ml-2"> {{ option.label }} </label>
     </div>
 </div>
-<p-galleria
-    [(value)]="images"
-    [thumbnailsPosition]="position"
-    [responsiveOptions]="responsiveOptions"
-    [containerStyle]="{ 'max-width': '640px' }"
-    [numVisible]="5"
->
+<p-galleria [(value)]="images" [thumbnailsPosition]="position" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5" >
     <ng-template pTemplate="item" let-item>
         <img [src]="item.itemImageSrc" style="width: 100%; display: block" />
     </ng-template>
@@ -118,23 +102,11 @@ export class ThumbnailDoc implements OnInit {
         html: `<div class="card">
     <div class="flex flex-wrap gap-4 mb-8">
         <div *ngFor="let option of positionOptions" class="flex items-center">
-            <p-radiobutton
-                [name]="option.label"
-                [value]="option.value"
-                [label]="option.label"
-                [(ngModel)]="position"
-                [inputId]="label"
-            />
+            <p-radiobutton [name]="option.label" [value]="option.value" [label]="option.label" [(ngModel)]="position" [inputId]="label" />
             <label [for]="option.label" class="ml-2"> {{ option.label }} </label>
         </div>
     </div>
-    <p-galleria
-        [(value)]="images"
-        [thumbnailsPosition]="position"
-        [responsiveOptions]="responsiveOptions"
-        [containerStyle]="{ 'max-width': '640px' }"
-        [numVisible]="5"
-    >
+    <p-galleria [(value)]="images" [thumbnailsPosition]="position" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5">
         <ng-template pTemplate="item" let-item>
             <img [src]="item.itemImageSrc" style="width: 100%; display: block" />
         </ng-template>
@@ -184,17 +156,13 @@ export class GalleriaThumbnailDemo implements OnInit {
 
     responsiveOptions: any[] = [
         {
-            breakpoint: '1024px',
-            numVisible: 5
+            breakpoint: '1300px',
+            numVisible: 4,
         },
         {
-            breakpoint: '768px',
-            numVisible: 3
+            breakpoint: '575px',
+            numVisible: 1,
         },
-        {
-            breakpoint: '560px',
-            numVisible: 1
-        }
     ];
 
     constructor(private photoService: PhotoService) {}

@@ -16,7 +16,6 @@ import { PhotoService } from '@service/photoservice';
                 [(value)]="images"
                 [showIndicators]="true"
                 [showThumbnails]="false"
-                [responsiveOptions]="responsiveOptions"
                 [containerStyle]="{ 'max-width': '640px' }"
             >
                 <ng-template pTemplate="item" let-item>
@@ -30,21 +29,6 @@ import { PhotoService } from '@service/photoservice';
 export class ClickEventDoc implements OnInit {
     images: any[] | undefined;
 
-    responsiveOptions: any[] = [
-        {
-            breakpoint: '1024px',
-            numVisible: 5,
-        },
-        {
-            breakpoint: '768px',
-            numVisible: 3,
-        },
-        {
-            breakpoint: '560px',
-            numVisible: 1,
-        },
-    ];
-
     constructor(private photoService: PhotoService) {}
 
     ngOnInit() {
@@ -54,23 +38,13 @@ export class ClickEventDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-galleria 
-    [(value)]="images" 
-    [showIndicators]="true" 
-    [showThumbnails]="false" 
-    [responsiveOptions]="responsiveOptions" 
-    [containerStyle]="{ 'max-width': '640px' }">
+        basic: `<p-galleria [(value)]="images" [showIndicators]="true" [showThumbnails]="false" [containerStyle]="{ 'max-width': '640px' }">
     <ng-template pTemplate="item" let-item>
         <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
     </ng-template>
 </p-galleria>`,
         html: `<div class="card">
-    <p-galleria 
-        [(value)]="images" 
-        [showIndicators]="true" 
-        [showThumbnails]="false" 
-        [responsiveOptions]="responsiveOptions" 
-        [containerStyle]="{ 'max-width': '640px' }">
+    <p-galleria [(value)]="images" [showIndicators]="true" [showThumbnails]="false" [containerStyle]="{ 'max-width': '640px' }">
             <ng-template pTemplate="item" let-item>
                 <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
             </ng-template>
@@ -89,21 +63,6 @@ import { GalleriaModule } from 'primeng/galleria';
 })
 export class GalleriaIndicatorClickEventDemo implements OnInit {
     images: any[] | undefined;
-
-    responsiveOptions: any[] = [
-        {
-            breakpoint: '1024px',
-            numVisible: 5
-        },
-        {
-            breakpoint: '768px',
-            numVisible: 3
-        },
-        {
-            breakpoint: '560px',
-            numVisible: 1
-        }
-    ];
 
     constructor(private photoService: PhotoService) {}
 
