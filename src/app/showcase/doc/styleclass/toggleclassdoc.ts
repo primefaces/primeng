@@ -20,16 +20,10 @@ import { Code } from '@domain/code';
 })
 export class ToggleClassDoc {
     code: Code = {
-        basic: `<p-button 
-    label="Toggle p-disabled" 
-    pStyleClass="@next" 
-    toggleClass="p-disabled" />
+        basic: `<p-button label="Toggle p-disabled" pStyleClass="@next" toggleClass="p-disabled" />
 <input type="text" pInputText class="block mt-4" />`,
         html: `<div class="card flex flex-col items-center">
-    <p-button 
-        label="Toggle p-disabled"
-        pStyleClass="@next" 
-        toggleClass="p-disabled" />
+    <p-button label="Toggle p-disabled" pStyleClass="@next" toggleClass="p-disabled" />
     <input type="text" pInputText class="block mt-4">
 </div>`,
         typescript: `import { Component } from '@angular/core';
