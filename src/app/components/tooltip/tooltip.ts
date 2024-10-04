@@ -160,9 +160,7 @@ export class Tooltip implements AfterViewInit, OnDestroy {
 
     blurListener: Nullable<Function>;
 
-    touchStartListener: Nullable<Function>;
-
-    touchEndListener: EventListener;
+    touchStartListener: EventListener;
 
     scrollHandler: any;
 
@@ -207,15 +205,7 @@ export class Tooltip implements AfterViewInit, OnDestroy {
                 }
 
                 //Mobile touch event support
-                this.touchStartListener = this.onTouchStart.bind(this);
-                let target = this.el.nativeElement.querySelector('.p-component');
-
-                if (!target) {
-                    target = this.getTarget(this.el.nativeElement);
-                }
-                target.addEventListener('touchstart', this.touchStartListener);
-
-
+                this.bindTouchStartListener()
 
             });
         }
@@ -350,15 +340,17 @@ export class Tooltip implements AfterViewInit, OnDestroy {
     }
 
     onTouchStart(e: TouchEvent) {
-        this.activate();
-    }
-
-    onTouchEnd(_: Window, e: TouchEvent) {
         const targetElement = this.getTarget(this.el.nativeElement);
-        if (!targetElement.contains(e.target as Node)) {
+        const hasTouchedTooltip = targetElement.contains(e.target as Node);
+
+        if(!this.active && hasTouchedTooltip) {
+            this.activate();
+        }
+        else {
             this.deactivate();
         }
     }
+
 
     @HostListener('document:keydown.escape', ['$event'])
     onPressEscape() {
@@ -697,17 +689,18 @@ export class Tooltip implements AfterViewInit, OnDestroy {
         }
     }
 
-    bindTouchEndListener() {
+    bindTouchStartListener() {
+        //We attach the event to the window to be able to detect when the user touches outside the component
         this.zone.runOutsideAngular(() => {
-            this.touchEndListener = this.onTouchEnd.bind(this);
-            window.addEventListener('touchend', this.touchEndListener);
+            this.touchStartListener = this.onTouchStart.bind(this);
+            window.addEventListener('touchstart', this.touchStartListener);
         })
     }
 
-    unbindTouchEndListener() {
-        if(this.touchEndListener) {
-            window.removeEventListener('touchend', this.touchEndListener);
-            this.touchEndListener = null;
+    unbindTouchStartListener() {
+        if(this.touchStartListener) {
+            window.removeEventListener('touchstart', this.touchStartListener);
+            this.touchStartListener = null;
         }
     }
 
@@ -732,8 +725,7 @@ export class Tooltip implements AfterViewInit, OnDestroy {
             target = this.getTarget(this.el.nativeElement);
         }
 
-        target.removeEventListener('touchstart', this.touchStartListener);
-        this.unbindTouchEndListener()
+        this.unbindTouchStartListener()
 
         this.unbindDocumentResizeListener();
     }
