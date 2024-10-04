@@ -21,7 +21,14 @@ import { Code } from '@domain/code';
 })
 export class IconDoc {
     code: Code = {
-        basic: `<p-tag icon="pi pi-user" value="Primary" />`,
+        basic: `<p-tag icon="pi pi-user" value="Primary" />
+<p-tag icon="pi pi-search" severity="secondary" value="Secondary" />
+<p-tag icon="pi pi-check" severity="success" value="Success" />
+<p-tag icon="pi pi-info-circle" severity="info" value="Info" />
+<p-tag icon="pi pi-exclamation-triangle" severity="warn" value="Warn" />
+<p-tag icon="pi pi-times" severity="danger" value="Danger" />
+<p-tag icon="pi pi-cog" severity="contrast" value="Contrast" />`,
+
         html: `<div class="card flex flex-wrap justify-center gap-2">
     <p-tag icon="pi pi-user" value="Primary" />
     <p-tag icon="pi pi-search" severity="secondary" value="Secondary" />

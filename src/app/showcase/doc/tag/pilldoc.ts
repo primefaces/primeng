@@ -21,7 +21,13 @@ import { Code } from '@domain/code';
 })
 export class PillDoc {
     code: Code = {
-        basic: `<p-tag value="Primary" [rounded]="true" />`,
+        basic: `<p-tag value="Primary" [rounded]="true" />
+<p-tag severity="secondary" value="Secondary" [rounded]="true" />
+<p-tag severity="success" value="Success" [rounded]="true" />
+<p-tag severity="info" value="Info" [rounded]="true" />
+<p-tag severity="warn" value="Warn" [rounded]="true" />
+<p-tag severity="danger" value="Danger" [rounded]="true" />
+<p-tag severity="contrast" value="Contrast" [rounded]="true" />`,
         html: `<div class="card flex justify-center gap-2">
     <p-tag value="Primary" [rounded]="true" />
     <p-tag severity="secondary" value="Secondary" [rounded]="true" />
