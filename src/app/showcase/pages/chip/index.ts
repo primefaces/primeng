@@ -42,8 +42,8 @@ export class ChipDemo {
             component: ImageDoc,
         },
         {
-            id: 'custom',
-            label: 'Custom Content',
+            id: 'template',
+            label: 'Template',
             component: TemplateDoc,
         },
 
