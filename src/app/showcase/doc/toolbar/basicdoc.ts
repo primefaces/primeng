@@ -14,9 +14,9 @@ import { Code } from '@domain/code';
         <div class="card">
             <p-toolbar>
                 <div class="p-toolbar-group-start">
-                    <p-button icon="pi pi-plus" class="mr-2" text />
-                    <p-button icon="pi pi-print" class="mr-2" text />
-                    <p-button icon="pi pi-upload" text />
+                    <p-button icon="pi pi-plus" class="mr-2" text severity="secondary" />
+                    <p-button icon="pi pi-print" class="mr-2" text severity="secondary" />
+                    <p-button icon="pi pi-upload" text severity="secondary"/>
                 </div>
                 <div class="p-toolbar-group-center">
                     <p-iconfield iconPosition="left">
@@ -51,9 +51,9 @@ export class BasicDoc implements OnInit {
     code: Code = {
         basic: ` <p-toolbar>
     <div class="p-toolbar-group-start">
-        <p-button icon="pi pi-plus" class="mr-2" text />
-        <p-button icon="pi pi-print" class="mr-2" text />
-        <p-button icon="pi pi-upload" text />
+        <p-button icon="pi pi-plus" class="mr-2" text severity="secondary" />
+        <p-button icon="pi pi-print" class="mr-2" text severity="secondary" />
+        <p-button icon="pi pi-upload" text severity="secondary" />
     </div>
     <div class="p-toolbar-group-center">
         <p-iconfield iconPosition="left">
@@ -69,9 +69,9 @@ export class BasicDoc implements OnInit {
         html: `<div class="card">
   <p-toolbar>
         <div class="p-toolbar-group-start">
-            <p-button icon="pi pi-plus" class="mr-2" text />
-            <p-button icon="pi pi-print" class="mr-2" text />
-            <p-button icon="pi pi-upload" text />
+            <p-button icon="pi pi-plus" class="mr-2" text severity="secondary" />
+            <p-button icon="pi pi-print" class="mr-2" text severity="secondary" />
+            <p-button icon="pi pi-upload" text severity="secondary" />
         </div>
         <div class="p-toolbar-group-center">
             <p-iconfield iconPosition="left">
