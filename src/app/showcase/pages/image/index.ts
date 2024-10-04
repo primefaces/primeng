@@ -37,17 +37,6 @@ export class ImageDemo {
             component: PreviewDoc,
         },
         {
-            id: 'templates',
-            label: 'Indicator',
-            component: TemplateDoc,
-        },
-        {
-            id: 'preview-image-source',
-            label: 'Image Source',
-            component: PreviewImageSourceDoc,
-        },
-
-        {
             id: 'accessibility',
             label: 'Accessibility',
             component: AccessibilityDoc,

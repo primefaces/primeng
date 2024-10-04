@@ -18,18 +18,10 @@ import { Code } from '@domain/code';
 })
 export class PreviewDoc {
     code: Code = {
-        basic: `<p-image 
-    src="https://primefaces.org/cdn/primeng/images/galleria/galleria10.jpg" 
-    alt="Image" 
-    width="250" 
-    [preview]="true" />`,
+        basic: `<p-image src="https://primefaces.org/cdn/primeng/images/galleria/galleria10.jpg" alt="Image" width="250" [preview]="true" />`,
 
         html: `<div class="card flex justify-center">
-    <p-image 
-        src="https://primefaces.org/cdn/primeng/images/galleria/galleria10.jpg"
-        alt="Image" 
-        width="250" 
-        [preview]="true" />
+    <p-image src="https://primefaces.org/cdn/primeng/images/galleria/galleria10.jpg" alt="Image" width="250" [preview]="true" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
