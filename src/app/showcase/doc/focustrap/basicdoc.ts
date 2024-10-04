@@ -20,6 +20,7 @@ import { Code } from '@domain/code';
                         [(ngModel)]="name"
                         type="text"
                         placeholder="Name"
+                        pAutoFocus
                         [autofocus]="true"
                         [fluid]="true"
                     />
@@ -56,16 +57,7 @@ export class BasicDoc {
         <p-inputicon>
             <i class="pi pi-user"></i>
         </p-inputicon>
-        <input
-            type="text"
-            pInputText
-            id="input"
-            [(ngModel)]="name"
-            type="text"
-            placeholder="Name"
-            [autofocus]="true"
-            [fluid]="true"
-        />
+        <input type="text" pInputText id="input" [(ngModel)]="name" type="text" placeholder="Name" pAutoFocus [autofocus]="true" [fluid]="true" />
     </p-iconfield>
 
     <p-iconfield>
@@ -88,16 +80,7 @@ export class BasicDoc {
             <p-inputicon>
                 <i class="pi pi-user"></i>
             </p-inputicon>
-            <input
-                type="text"
-                pInputText
-                id="input"
-                [(ngModel)]="name"
-                type="text"
-                placeholder="Name"
-                [autofocus]="true"
-                [fluid]="true"
-            />
+            <input type="text" pInputText id="input" [(ngModel)]="name" type="text" placeholder="Name" pAutoFocus [autofocus]="true" [fluid]="true" />
         </p-iconfield>
 
         <p-iconfield>
@@ -122,12 +105,13 @@ import { InputTextModule } from 'primeng/inputtext';
 import { CheckboxModule } from 'primeng/checkbox'; 
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
+import { AutoFocusModule } from 'primeng/autofocus';
 
 @Component({
     selector: 'focus-trap-basic-demo',
     templateUrl: './focus-trap-basic-demo.html',
     standalone: true,
-    imports: [FocusTrapModule, ButtonModule, FormsModule, InputTextModule, CheckboxModule, IconFieldModule, InputIconModule]
+    imports: [FocusTrapModule, ButtonModule, FormsModule, InputTextModule, CheckboxModule, IconFieldModule, InputIconModule, AutoFocusModule]
 })
 export class FocusTrapBasicDemo {
     name: string = '';

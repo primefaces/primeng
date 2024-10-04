@@ -13,6 +13,7 @@ import { FloatLabelModule } from 'primeng/floatlabel';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { CheckboxModule } from 'primeng/checkbox';
+import { AutoFocusModule } from 'primeng/autofocus';
 
 @NgModule({
     imports: [
@@ -28,6 +29,7 @@ import { CheckboxModule } from 'primeng/checkbox';
         IconFieldModule,
         InputIconModule,
         CheckboxModule,
+        AutoFocusModule
     ],
     declarations: [ImportDoc, BasicDoc],
     exports: [AppDocModule],
