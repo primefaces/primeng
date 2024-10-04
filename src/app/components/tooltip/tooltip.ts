@@ -160,6 +160,10 @@ export class Tooltip implements AfterViewInit, OnDestroy {
 
     blurListener: Nullable<Function>;
 
+    touchStartListener: Nullable<Function>;
+
+    touchEndListener: EventListener;
+
     scrollHandler: any;
 
     resizeListener: any;
@@ -201,6 +205,18 @@ export class Tooltip implements AfterViewInit, OnDestroy {
                     target.addEventListener('focus', this.focusListener);
                     target.addEventListener('blur', this.blurListener);
                 }
+
+                //Mobile touch event support
+                this.touchStartListener = this.onTouchStart.bind(this);
+                let target = this.el.nativeElement.querySelector('.p-component');
+
+                if (!target) {
+                    target = this.getTarget(this.el.nativeElement);
+                }
+                target.addEventListener('touchstart', this.touchStartListener);
+
+
+
             });
         }
     }
@@ -331,6 +347,17 @@ export class Tooltip implements AfterViewInit, OnDestroy {
 
     onInputClick(e: Event) {
         this.deactivate();
+    }
+
+    onTouchStart(e: TouchEvent) {
+        this.activate();
+    }
+
+    onTouchEnd(_: Window, e: TouchEvent) {
+        const targetElement = this.getTarget(this.el.nativeElement);
+        if (!targetElement.contains(e.target as Node)) {
+            this.deactivate();
+        }
     }
 
     @HostListener('document:keydown.escape', ['$event'])
@@ -670,6 +697,20 @@ export class Tooltip implements AfterViewInit, OnDestroy {
         }
     }
 
+    bindTouchEndListener() {
+        this.zone.runOutsideAngular(() => {
+            this.touchEndListener = this.onTouchEnd.bind(this);
+            window.addEventListener('touchend', this.touchEndListener);
+        })
+    }
+
+    unbindTouchEndListener() {
+        if(this.touchEndListener) {
+            window.removeEventListener('touchend', this.touchEndListener);
+            this.touchEndListener = null;
+        }
+    }
+
     unbindEvents() {
         const tooltipEvent = this.getOption('tooltipEvent');
 
@@ -685,6 +726,15 @@ export class Tooltip implements AfterViewInit, OnDestroy {
                 target = this.getTarget(this.el.nativeElement);
             }
         }
+
+        let target = this.el.nativeElement.querySelector('.p-component');
+        if (!target) {
+            target = this.getTarget(this.el.nativeElement);
+        }
+
+        target.removeEventListener('touchstart', this.touchStartListener);
+        this.unbindTouchEndListener()
+
         this.unbindDocumentResizeListener();
     }
 
