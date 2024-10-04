@@ -720,11 +720,6 @@ export class Tooltip implements AfterViewInit, OnDestroy {
             }
         }
 
-        let target = this.el.nativeElement.querySelector('.p-component');
-        if (!target) {
-            target = this.getTarget(this.el.nativeElement);
-        }
-
         this.unbindTouchStartListener()
 
         this.unbindDocumentResizeListener();
