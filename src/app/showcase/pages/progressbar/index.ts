@@ -37,16 +37,15 @@ export class ProgressBarDemo {
             component: DynamicDoc,
         },
         {
-            id: 'indeterminate',
-            label: 'Indeterminate',
-            component: IndeterminateDoc,
-        },
-        {
             id: 'template',
             label: 'Template',
             component: TemplateDoc,
         },
-
+        {
+            id: 'indeterminate',
+            label: 'Indeterminate',
+            component: IndeterminateDoc,
+        },
         {
             id: 'accessibility',
             label: 'Accessibility',
