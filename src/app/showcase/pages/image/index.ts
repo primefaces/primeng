@@ -3,7 +3,6 @@ import { AccessibilityDoc } from '@doc/Image/accessibilitydoc';
 import { BasicDoc } from '@doc/Image/basicdoc';
 import { ImportDoc } from '@doc/Image/importdoc';
 import { PreviewDoc } from '@doc/Image/previewdoc';
-import { PreviewImageSourceDoc } from '@doc/Image/previewimagesourcedoc';
 import { TemplateDoc } from '@doc/Image/templatedoc';
 import { ImageDocModule } from '@doc/Image/imagedoc.module';
 
@@ -35,6 +34,11 @@ export class ImageDemo {
             id: 'preview',
             label: 'Preview',
             component: PreviewDoc,
+        },
+        {
+            id: 'template',
+            label: 'Template',
+            component: TemplateDoc,
         },
         {
             id: 'accessibility',
