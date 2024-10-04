@@ -13,20 +13,20 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card">
             <p-toolbar>
-                <div class="p-toolbar-group-start">
+                <ng-template pTemplate="start">
                     <p-button icon="pi pi-plus" class="mr-2" text severity="secondary" />
                     <p-button icon="pi pi-print" class="mr-2" text severity="secondary" />
-                    <p-button icon="pi pi-upload" text severity="secondary"/>
-                </div>
-                <div class="p-toolbar-group-center">
+                    <p-button icon="pi pi-upload" text severity="secondary" />
+                </ng-template>
+                <ng-template pTemplate="center">
                     <p-iconfield iconPosition="left">
                         <p-inputicon styleClass="pi pi-search" />
                         <input type="text" pInputText placeholder="Search" />
                     </p-iconfield>
-                </div>
-                <div class="p-toolbar-group-end">
+                </ng-template>
+                <ng-template pTemplate="end">
                     <p-splitbutton label="Save" [model]="items" />
-                </div>
+                </ng-template>
             </p-toolbar>
         </div>
         <app-code [code]="code" selector="toolbar-basic-demo"></app-code>
@@ -49,39 +49,39 @@ export class BasicDoc implements OnInit {
     }
 
     code: Code = {
-        basic: ` <p-toolbar>
-    <div class="p-toolbar-group-start">
+        basic: `<p-toolbar>
+    <ng-template pTemplate="start">
         <p-button icon="pi pi-plus" class="mr-2" text severity="secondary" />
         <p-button icon="pi pi-print" class="mr-2" text severity="secondary" />
         <p-button icon="pi pi-upload" text severity="secondary" />
-    </div>
-    <div class="p-toolbar-group-center">
+    </ng-template>
+    <ng-template pTemplate="center">
         <p-iconfield iconPosition="left">
             <p-inputicon styleClass="pi pi-search" />
             <input type="text" pInputText placeholder="Search" />
         </p-iconfield>
-    </div>
-    <div class="p-toolbar-group-end">
+    </ng-template>
+    <ng-template pTemplate="end">
         <p-splitbutton label="Save" [model]="items" />
-    </div>
+    </ng-template>
 </p-toolbar>`,
 
         html: `<div class="card">
-  <p-toolbar>
-        <div class="p-toolbar-group-start">
+    <p-toolbar>
+        <ng-template pTemplate="start">
             <p-button icon="pi pi-plus" class="mr-2" text severity="secondary" />
             <p-button icon="pi pi-print" class="mr-2" text severity="secondary" />
             <p-button icon="pi pi-upload" text severity="secondary" />
-        </div>
-        <div class="p-toolbar-group-center">
+        </ng-template>
+        <ng-template pTemplate="center">
             <p-iconfield iconPosition="left">
                 <p-inputicon styleClass="pi pi-search" />
                 <input type="text" pInputText placeholder="Search" />
             </p-iconfield>
-        </div>
-        <div class="p-toolbar-group-end">
+        </ng-template>
+        <ng-template pTemplate="end">
             <p-splitbutton label="Save" [model]="items" />
-        </div>
+        </ng-template>
     </p-toolbar>
 </div>`,
 

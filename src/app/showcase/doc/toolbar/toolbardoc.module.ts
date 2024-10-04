@@ -12,7 +12,7 @@ import { AccessibilityDoc } from './accessibilitydoc';
 import { BasicDoc } from './basicdoc';
 import { ImportDoc } from './importdoc';
 import { StyleDoc } from './styledoc';
-import { TemplateDoc } from './templatedoc';
+import { CustomDoc } from './customdoc';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 
@@ -31,6 +31,6 @@ import { InputIconModule } from 'primeng/inputicon';
         InputIconModule,
     ],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, TemplateDoc, StyleDoc, AccessibilityDoc],
+    declarations: [ImportDoc, BasicDoc, CustomDoc, StyleDoc, AccessibilityDoc],
 })
 export class ToolbarDocModule {}
