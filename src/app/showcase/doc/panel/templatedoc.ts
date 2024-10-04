@@ -25,7 +25,7 @@ import { Code } from '@domain/code';
                     </div>
                 </ng-template>
                 <ng-template pTemplate="icons">
-                    <p-button icon="pi pi-cog" severity="secondary" rounded text (click)="toggle()" />
+                    <p-button icon="pi pi-cog" severity="secondary" rounded text (click)="menu.toggle($event)" />
                     <p-menu #menu id="config_menu" [model]="items" [popup]="true" />
                 </ng-template>
                 <p class="m-0">
@@ -80,7 +80,7 @@ export class TemplateDoc implements OnInit {
         </div>
     </ng-template>
     <ng-template pTemplate="icons">
-        <p-button icon="pi pi-cog" severity="secondary" rounded text (click)="toggle()" />
+        <p-button icon="pi pi-cog" severity="secondary" rounded text (click)="menu.toggle($event)" />
         <p-menu #menu id="config_menu" [model]="items" [popup]="true" />
     </ng-template>
     <p class="m-0">
@@ -109,7 +109,7 @@ export class TemplateDoc implements OnInit {
             </div>
         </ng-template>
         <ng-template pTemplate="icons">
-            <p-button icon="pi pi-cog" severity="secondary" rounded text (click)="toggle()" />
+            <p-button icon="pi pi-cog" severity="secondary" rounded text (click)="menu.toggle($event)" />
             <p-menu #menu id="config_menu" [model]="items" [popup]="true" />
         </ng-template>
         <p class="m-0">
