@@ -4,7 +4,6 @@ import { SizeDoc } from '@doc/badge/sizedoc';
 import { BasicDoc } from '@doc/badge/basicdoc';
 import { ButtonDoc } from '@doc/badge/buttondoc';
 import { DirectiveDoc } from '@doc/badge/directivedoc';
-import { PositionDoc } from '@doc/badge/positiondoc';
 import { SeverityDoc } from '@doc/badge/severitydoc';
 import { AccessibilityDoc } from '@doc/badge/accessibilitydoc';
 import { OverlayDoc } from '@doc/badge/overlaydoc';
@@ -50,21 +49,15 @@ export class BadgeDemo {
             component: SizeDoc,
         },
         {
-            id: 'position',
-            label: 'Position',
-            component: PositionDoc,
+            id: 'overlay',
+            label: 'Overlay',
+            component: OverlayDoc,
         },
         {
             id: 'button',
             label: 'Button',
             component: ButtonDoc,
         },
-        {
-            id: 'overlay',
-            label: 'Overlay',
-            component: OverlayDoc,
-        },
-
         {
             id: 'accessibility',
             label: 'Accessibility',

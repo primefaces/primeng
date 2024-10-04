@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
             <p>Content of the badge is specified using the <i>value</i> property.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <i class="pi pi-bell text-3xl" pBadge value="2"></i>
+            <i class="pi pi-bell !text-3xl" pBadge value="2"></i>
         </div>
         <app-code [code]="code" selector="badge-directive-demo"></app-code>
     `,

@@ -18,23 +18,10 @@ import { Code } from '@domain/code';
 })
 export class ButtonDoc {
     code: Code = {
-        basic: `<p-button 
-    label="Emails" 
-    icon="pi pi-bell" 
-    label="Notifications" 
-    badge="2" />`,
+        basic: `<p-button label="Emails" icon="pi pi-bell" label="Notifications" badge="2" />`,
         html: `<div class="card flex justify-center flex-wrap gap-4">
-    <p-button 
-        label="Emails" 
-        badge="2"
-        label="Notifications"
-        icon="pi pi-bell" />
-    <p-button 
-        label="Inbox" 
-        icon="pi pi-inbox"
-        badge="2" 
-        badgeSeverity="contrast"
-        outlined/>
+    <p-button label="Emails" badge="2" label="Notifications" icon="pi pi-bell" />
+    <p-button label="Inbox" icon="pi pi-inbox" badge="2" badgeSeverity="contrast" outlined/>
 </div>`,
         typescript: `import { Component } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
