@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
             <p>Scrollbar visuals can be styled for a unified look across different platforms.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-scroll-panel [style]="{ width: '100%', height: '200px' }" styleClass="custombar">
+            <p-scroll-panel [style]="{ width: '100%', height: '200px' }" >
                 <p>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
                     aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis
@@ -66,7 +66,7 @@ import { Code } from '@domain/code';
 })
 export class CusstomDoc {
     code: Code = {
-        basic: `<p-scroll-panel [style]="{ width: '100%', height: '200px' }" styleClass="custombar">
+        basic: `<p-scroll-panel [style]="{ width: '100%', height: '200px' }" >
     <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit...
     </p>
@@ -88,7 +88,7 @@ export class CusstomDoc {
 </p-scroll-panel>`,
 
         html: `<div class="card">
-    <p-scroll-panel [style]="{ width: '100%', height: '200px' }" styleClass="custombar">
+    <p-scroll-panel [style]="{ width: '100%', height: '200px' }" >
         <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
             et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
