@@ -15,9 +15,11 @@ import { Code } from '@domain/code';
                 <ng-template pTemplate="display">
                     <span>Click to Edit</span>
                 </ng-template>
-                <ng-template pTemplate="content">
-                    <input type="text" pInputText autofocus />
-                    <button pButton icon="pi pi-times" text severity="danger"></button>
+                <ng-template pTemplate="content" let-closeCallback="closeCallback">
+                    <span class="inline-flex items-center gap-2">
+                        <input type="text" pInputText pAutoFocus [autofocus]="true"/>
+                        <button (click)="closeCallback($event)" pButton icon="pi pi-times" text severity="danger"></button>
+                    </span>
                 </ng-template>
             </p-inplace>
         </div>
@@ -30,9 +32,11 @@ export class InputDoc {
     <ng-template pTemplate="display">
         <span>Click to Edit</span>
     </ng-template>
-    <ng-template pTemplate="content">
-        <input type="text" pInputText autofocus />
-        <button pButton icon="pi pi-times" text severity="danger"></button>
+    <ng-template pTemplate="content" let-closeCallback="closeCallback">
+        <span class="inline-flex items-center gap-2">
+            <input type="text" pInputText autofocus />
+            <button (click)="closeCallback($event)" pButton icon="pi pi-times" text severity="danger"></button>
+        </span>
     </ng-template>
 </p-inplace>`,
         html: `<div class="card">
@@ -40,21 +44,24 @@ export class InputDoc {
         <ng-template pTemplate="display">
             <span>Click to Edit</span>
         </ng-template>
-        <ng-template pTemplate="content">
-            <input type="text" pInputText autofocus />
-            <button pButton icon="pi pi-times" text severity="danger"></button>
+        <ng-template pTemplate="content" let-closeCallback="closeCallback">
+            <span class="inline-flex items-center gap-2">
+                <input type="text" pInputText autofocus />
+                <button (click)="closeCallback($event)" pButton icon="pi pi-times" text severity="danger"></button>
+            </span>
         </ng-template>
     </p-inplace>
 </div>`,
         typescript: `import { Component } from '@angular/core';
 import { InplaceModule } from 'primeng/inplace';
 import { InputTextModule } from 'primeng/inputtext';
+import { AutoFocusModule } from 'primeng/autofocus';
 
 @Component({
     selector: 'inplace-input-demo',
     templateUrl: './inplace-input-demo.html',
     standalone: true,
-    imports: [InplaceModule, InputTextModule]
+    imports: [InplaceModule, InputTextModule, AutoFocusModule]
 })
 export class InplaceInputDemo {}`,
     };

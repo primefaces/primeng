@@ -59,7 +59,7 @@ export class InplaceContent {}
             </div>
             <div class="p-inplace-content" *ngIf="active">
                 <ng-content select="[pInplaceContent]"></ng-content>
-                <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
+                <ng-container *ngTemplateOutlet="contentTemplate; context: { closeCallback: onDeactivateClick.bind(this) }"></ng-container>
 
                 <ng-container *ngIf="closable">
                     <button

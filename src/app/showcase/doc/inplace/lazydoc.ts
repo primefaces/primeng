@@ -45,7 +45,7 @@ export class LazyDoc {
     constructor(private productService: ProductService) {}
 
     loadData() {
-        this.productService.getProductsSmall().then((products) => (this.products = products));
+        this.productService.getProductsMini().then((products) => (this.products = products));
     }
 
     code: Code = {
@@ -120,7 +120,7 @@ export class InplaceLazyDemo {
     constructor(private productService: ProductService) {}
 
     loadData() {
-        this.productService.getProductsSmall().then((products) => (this.products = products));
+        this.productService.getProductsMini().then((products) => (this.products = products));
     }
 }`,
         data: `

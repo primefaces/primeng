@@ -13,12 +13,12 @@ import { Code } from '@domain/code';
                     <span>View Content</span>
                 </ng-template>
                 <ng-template pTemplate="content">
-                    <span>
+                    <p class="m-0">
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
                         aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
                         Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
                         sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                    </span>
+                    </p>
                 </ng-template>
             </p-inplace>
         </div>
@@ -32,9 +32,9 @@ export class BasicDoc {
         <span>View Content</span>
     </ng-template>
     <ng-template pTemplate="content">
-        <span>
+        <p class="m-0">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit...
-        </span>
+        </p>
     </ng-template>
 </p-inplace>`,
         html: `<div class="card">
@@ -43,7 +43,7 @@ export class BasicDoc {
             <span>View Content</span>
         </ng-template>
         <ng-template pTemplate="content">
-            <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</span>
+            <p class="m-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
         </ng-template>
     </p-inplace>
 </div>`,
