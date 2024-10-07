@@ -75,28 +75,14 @@ export class BasicDoc {
     code: Code = {
         basic: `<p-toast />
 <p-confirmpopup />
-<p-button 
-    (onClick)="confirm1($event)" 
-    label="Save" 
-    [outlined]="true" />
-<p-button 
-    (onClick)="confirm2($event)" 
-    label="Delete" 
-    severity="danger" 
-    [outlined]="true" />`,
+<p-button (onClick)="confirm1($event)" label="Save" [outlined]="true" />
+<p-button (onClick)="confirm2($event)" label="Delete" severity="danger" [outlined]="true" />`,
 
         html: `<div class="card flex justify-center gap-2">
     <p-toast />
     <p-confirmpopup />
-    <p-button 
-        (onClick)="confirm1($event)" 
-        label="Save" 
-        [outlined]="true" />
-    <p-button 
-        (onClick)="confirm2($event)" 
-        label="Delete" 
-        severity="danger" 
-        [outlined]="true" />
+    <p-button (onClick)="confirm1($event)" label="Save" [outlined]="true" />
+    <p-button (onClick)="confirm2($event)" label="Delete" severity="danger" [outlined]="true" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
