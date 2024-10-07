@@ -107,7 +107,7 @@ export class TableDemo {
         },
         {
             id: 'paginator',
-            label: 'Paginator',
+            label: 'Pagination',
             children: [
                 {
                     id: 'paginator-basic',
