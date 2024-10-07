@@ -102,7 +102,7 @@ export class TableDemo {
         },
         {
             id: 'table-style',
-            label: 'Style',
+            label: 'Conditional Style',
             component: StyleDoc,
         },
         {
