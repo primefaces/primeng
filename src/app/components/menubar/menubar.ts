@@ -531,7 +531,7 @@ export class Menubar extends BaseComponent implements AfterContentInit, OnDestro
      * @defaultValue true
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) autoDisplay: boolean | undefined = true;
+    @Input({ transform: booleanAttribute }) autoDisplay: boolean | undefined = false;
     /**
      * Whether to hide a root submenu when mouse leaves.
      * @group Props
