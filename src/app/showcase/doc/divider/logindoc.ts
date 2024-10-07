@@ -9,23 +9,31 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card">
             <div class="flex flex-col md:flex-row">
-                <div class="w-full md:w-5/12 flex flex-col items-center justify-center gap-4 py-8">
-                    <div class="flex flex-wrap justify-center items-center gap-2">
-                        <label class="w-24">Username</label>
-                        <input pInputText id="username" type="text" class="w-48" />
+                <div class="w-full md:w-5/12 flex flex-col items-center justify-center gap-3 py-5">
+                    <div class="flex flex-col gap-2">
+                        <label for="username">Username</label>
+                        <input pInputText id="username" type="text" />
                     </div>
-                    <div class="flex flex-wrap justify-center items-center gap-2">
-                        <label class="w-24">Password</label>
-                        <input pInputText id="password" type="password" class="w-48" />
+                    <div class="flex flex-col gap-2">
+                        <label for="password">Password</label>
+                        <input pInputText id="password" type="password" />
                     </div>
-                    <p-button label="Login" icon="pi pi-user" styleClass="w-40 mx-auto" />
+                    <div class="flex">
+                        <p-button label="Login" icon="pi pi-user" class="w-full max-w-[17.35rem]" styleClass="w-full mx-auto" />
+                    </div>
                 </div>
                 <div class="w-full md:w-2/12">
-                    <p-divider layout="vertical" styleClass="hidden md:flex"><b>OR</b></p-divider>
-                    <p-divider layout="horizontal" styleClass="flex md:hidden" [align]="'center'"><b>OR</b></p-divider>
+                    <p-divider layout="vertical" class="!hidden md:!flex"><b>OR</b></p-divider>
+                    <p-divider layout="horizontal" class="!flex md:!hidden" align="center"><b>OR</b></p-divider>
                 </div>
-                <div class="w-full md:w-5/12 flex items-center justify-center py-8">
-                    <p-button label="Sign Up" icon="pi pi-user-plus" styleClass="p-button-success w-40" />
+                <div class="w-full md:w-5/12 flex items-center justify-center py-5">
+                    <p-button
+                        label="Sign Up"
+                        icon="pi pi-user-plus"
+                        severity="success"
+                        class="w-full max-w-[17.35rem]"
+                        styleClass="w-full mx-auto"
+                    />
                 </div>
             </div>
         </div>
@@ -35,53 +43,49 @@ import { Code } from '@domain/code';
 export class LoginDoc {
     code: Code = {
         basic: `<div class="flex flex-col md:flex-row">
-    <div class="w-full md:w-5/12 flex flex-col items-center justify-center gap-4 py-8">
-        <div class="flex flex-wrap justify-center items-center gap-2">
-            <label class="w-24">Username</label>
-            <input pInputText id="username" type="text" class="w-48" />
+    <div class="w-full md:w-5/12 flex flex-col items-center justify-center gap-3 py-5">
+        <div class="flex flex-col gap-2">
+            <label for="username">Username</label>
+            <input pInputText id="username" type="text" />
         </div>
-        <div class="flex flex-wrap justify-center items-center gap-2">
-            <label class="w-24">Password</label>
-            <input pInputText id="password" type="password" class="w-48" />
+        <div class="flex flex-col gap-2">
+            <label for="password">Password</label>
+            <input pInputText id="password" type="password" />
         </div>
-        <p-button label="Login" icon="pi pi-user" styleClass="w-40 mx-auto" />
+        <div class="flex">
+            <p-button label="Login" icon="pi pi-user" class="w-full max-w-[17.35rem]" styleClass="w-full mx-auto" />
+        </div>
     </div>
     <div class="w-full md:w-2/12">
-        <p-divider layout="vertical" styleClass="hidden md:flex">
-            <b>OR</b>
-        </p-divider>
-        <p-divider layout="horizontal" styleClass="flex md:hidden" [align]="'center'">
-            <b>OR</b>
-        </p-divider>
+        <p-divider layout="vertical" class="!hidden md:!flex"><b>OR</b></p-divider>
+        <p-divider layout="horizontal" class="!flex md:!hidden" align="center"><b>OR</b></p-divider>
     </div>
-    <div class="w-full md:w-5/12 flex items-center justify-center py-8">
-        <p-button label="Sign Up" icon="pi pi-user-plus" styleClass="p-button-success w-40" />
+    <div class="w-full md:w-5/12 flex items-center justify-center py-5">
+        <p-button label="Sign Up" icon="pi pi-user-plus" severity="success" class="w-full max-w-[17.35rem]" styleClass="w-full mx-auto" />
     </div>
 </div>`,
 
         html: `<div class="card">
     <div class="flex flex-col md:flex-row">
-        <div class="w-full md:w-5/12 flex flex-col items-center justify-center gap-4 py-8">
-            <div class="flex flex-wrap justify-center items-center gap-2">
-                <label class="w-24">Username</label>
-                <input pInputText id="username" type="text" class="w-48" />
+        <div class="w-full md:w-5/12 flex flex-col items-center justify-center gap-3 py-5">
+            <div class="flex flex-col gap-2">
+                <label for="username">Username</label>
+                <input pInputText id="username" type="text" />
             </div>
-            <div class="flex flex-wrap justify-center items-center gap-2">
-                <label class="w-24">Password</label>
-                <input pInputText id="password" type="password" class="w-48" />
+            <div class="flex flex-col gap-2">
+                <label for="password">Password</label>
+                <input pInputText id="password" type="password" />
             </div>
-            <p-button label="Login" icon="pi pi-user" styleClass="w-40 mx-auto" />
+            <div class="flex">
+                <p-button label="Login" icon="pi pi-user" class="w-full max-w-[17.35rem]" styleClass="w-full mx-auto" />
+            </div>
         </div>
         <div class="w-full md:w-2/12">
-            <p-divider layout="vertical" styleClass="hidden md:flex">
-                <b>OR</b>
-            </p-divider>
-            <p-divider layout="horizontal" styleClass="flex md:hidden" [align]="'center'">
-                <b>OR</b>
-            </p-divider>
+            <p-divider layout="vertical" class="!hidden md:!flex"><b>OR</b></p-divider>
+            <p-divider layout="horizontal" class="!flex md:!hidden" align="center"><b>OR</b></p-divider>
         </div>
-        <div class="w-full md:w-5/12 flex items-center justify-center py-8">
-            <p-button label="Sign Up" icon="pi pi-user-plus" styleClass="p-button-success w-40" />
+        <div class="w-full md:w-5/12 flex items-center justify-center py-5">
+            <p-button label="Sign Up" icon="pi pi-user-plus" severity="success" class="w-full max-w-[17.35rem]" styleClass="w-full mx-auto" />
         </div>
     </div>
 </div>`,

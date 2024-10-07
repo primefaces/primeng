@@ -34,9 +34,9 @@ import { DividerStyle } from './style/dividerstyle';
         '[attr.data-pc-name]': "'divider'",
         '[attr.role]': '"separator"',
         '[style.justifyContent]':
-            'layout === "horizontal" ? (align === "center" || align === null ? "center" : (align === "left" ? "flex-start" : (align === "right" ? "flex-end" : null))) : null',
+            'layout === "horizontal" ? (align === "center" || align === undefined ? "center" : (align === "left" ? "flex-start" : (align === "right" ? "flex-end" : null))) : null',
         '[style.alignItems]':
-            'layout === "vertical" ? (align === "center" || align === null ? "center" : (align === "top" ? "flex-start" : (align === "bottom" ? "flex-end" : null))) : null',
+            'layout === "vertical" ? (align === "center" || align === undefined ? "center" : (align === "top" ? "flex-start" : (align === "bottom" ? "flex-end" : null))) : null',
     },
     providers: [DividerStyle],
 })
