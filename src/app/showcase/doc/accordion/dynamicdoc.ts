@@ -5,42 +5,54 @@ import { Code } from '@domain/code';
     selector: 'dynamic-doc',
     template: `
         <app-docsectiontext>
-            <p>AccordionTabs can be generated dynamically using the standard <i>ngFor</i> directive.</p>
+            <p>AccordionPanel can be generated dynamically using the standard <i>&#64;for</i> block.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-accordion [activeIndex]="0">
-                <p-accordion-tab [header]="tab.title" *ngFor="let tab of tabs">
-                    <p class="m-0">
-                        {{ tab.content }}
-                    </p>
-                </p-accordion-tab>
-            </p-accordion>
+            <div class="card">
+                <p-accordion [value]="['0']">
+                    @for (tab of tabs; track tab.title) {
+                        <p-accordion-panel [value]="tab.value">
+                            <p-accordion-header>{{ tab.title }}</p-accordion-header>
+                            <p-accordion-content>
+                                <p class="m-0">{{ tab.content }}</p>
+                            </p-accordion-content>
+                        </p-accordion-panel>
+                    }
+                </p-accordion>
+            </div>
         </div>
         <app-code [code]="code" selector="accordion-dynamic-demo"></app-code>
     `,
 })
 export class DynamicDoc {
     tabs = [
-        { title: 'Title 1', content: 'Content 1' },
-        { title: 'Title 2', content: 'Content 2' },
-        { title: 'Title 3', content: 'Content 3' },
+        { title: 'Title 1', content: 'Content 1', value: '0' },
+        { title: 'Title 2', content: 'Content 2', value: '1' },
+        { title: 'Title 3', content: 'Content 3', value: '2' },
     ];
+
     code: Code = {
-        basic: `<p-accordion [activeIndex]="0">
-    <p-accordion-tab [header]="tab.title" *ngFor="let tab of tabs">
-        <p class="m-0">
-            {{ tab.content }}
-        </p>
-    </p-accordion-tab>
+        basic: `<p-accordion [value]="0">
+    @for (tab of tabs; track tab.title) {
+        <p-accordion-panel [value]="tab.value">
+            <p-accordion-header>{{ tab.title }}</p-accordion-header>
+            <p-accordion-content>
+                <p class="m-0">{{ tab.content }}</p>
+            </p-accordion-content>
+        </p-accordion-panel>
+    }
 </p-accordion>`,
 
         html: `<div class="card">
-    <p-accordion [activeIndex]="0">
-        <p-accordion-tab [header]="tab.title" *ngFor="let tab of tabs">
-            <p class="m-0">
-                {{ tab.content }}
-            </p>
-        </p-accordion-tab>
+    <p-accordion [value]="0">
+        @for (tab of tabs; track tab.title) {
+            <p-accordion-panel [value]="tab.value">
+                <p-accordion-header>{{ tab.title }}</p-accordion-header>
+                <p-accordion-content>
+                    <p class="m-0">{{ tab.content }}</p>
+                </p-accordion-content>
+            </p-accordion-panel>
+        }
     </p-accordion>
 </div>`,
 
@@ -56,9 +68,9 @@ import { CommonModule } from '@angular/common';
 })
 export class AccordionDynamicDemo {
     tabs = [
-        { title: 'Title 1', content: 'Content 1' },
-        { title: 'Title 2', content: 'Content 2' },
-        { title: 'Title 3', content: 'Content 3' }
+        { title: 'Title 1', content: 'Content 1', value: '0' },
+        { title: 'Title 2', content: 'Content 2', value: '1' },
+        { title: 'Title 3', content: 'Content 3', value: '2' },
     ];
 }`,
     };

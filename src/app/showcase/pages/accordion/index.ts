@@ -58,7 +58,6 @@ export class AccordionDemo {
             label: 'Template',
             component: TemplateDoc,
         },
-
         {
             id: 'accessibility',
             label: 'Accessibility',

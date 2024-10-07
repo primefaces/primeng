@@ -109,7 +109,8 @@ const theme = ({ dt }) => `
 .p-accordionheader:has(.p-accordionheader-toggle-icon.icon-start) {
     justify-content: flex-start;
     gap: ${dt('accordion.header.padding')};
-}`;
+}
+`;
 
 const classes = {
     root: 'p-accordion p-component',

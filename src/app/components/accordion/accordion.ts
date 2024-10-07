@@ -2,36 +2,295 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { CommonModule } from '@angular/common';
 import {
     AfterContentInit,
+    booleanAttribute,
     ChangeDetectionStrategy,
     Component,
+    computed,
+    ContentChild,
     ContentChildren,
     EventEmitter,
+    forwardRef,
     HostBinding,
     HostListener,
+    inject,
     Input,
+    input,
+    InputSignalWithTransform,
+    model,
     NgModule,
+    numberAttribute,
     OnDestroy,
     Output,
     QueryList,
+    signal,
     TemplateRef,
     ViewEncapsulation,
-    booleanAttribute,
-    forwardRef,
-    inject,
-    numberAttribute,
 } from '@angular/core';
 import { BlockableUI, Header, PrimeTemplate, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { ChevronDownIcon } from 'primeng/icons/chevrondown';
 import { Subscription } from 'rxjs';
 import { AccordionTabCloseEvent, AccordionTabOpenEvent } from './accordion.interface';
-import { UniqueComponentId } from 'primeng/utils';
+import { transformToBoolean, UniqueComponentId } from 'primeng/utils';
 import { AccordionStyle } from './style/accordionstyle';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ChevronUpIcon } from 'primeng/icons/chevronup';
+import { Ripple } from 'primeng/ripple';
+
+function valueEquals(currentValue: any, value: any): boolean {
+    if (Array.isArray(currentValue)) {
+        return currentValue.includes(value);
+    }
+    return currentValue === value;
+}
+
+@Component({
+    selector: 'p-accordion-panel',
+    imports: [CommonModule],
+    standalone: true,
+    template: `<ng-content />`,
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    encapsulation: ViewEncapsulation.None,
+    host: {
+        '[class.p-accordionpanel]': 'true',
+        '[class.p-accordionpanel-active]': 'active()',
+        '[class.p-disabled]': 'disabled()',
+        '[attr.data-pc-name]': '"accordionpanel"',
+        '[attr.data-p-disabled]': 'disabled()',
+        '[attr.data-p-active]': 'active()',
+    },
+})
+export class AccordionPanel extends BaseComponent {
+    pcAccordion = inject(forwardRef(() => Accordion));
+
+    value = model<undefined | null | string | number | string[] | number[]>(undefined);
+
+    disabled: InputSignalWithTransform<any, boolean> = input(false, { transform: (v: any) => transformToBoolean(v) });
+
+    active = computed(() =>
+        this.pcAccordion.multiple() ? valueEquals(this.pcAccordion.value(), this.value()) : this.pcAccordion.value() === this.value(),
+    );
+}
+
+@Component({
+    selector: 'p-accordion-header',
+    imports: [CommonModule, ChevronDownIcon, ChevronUpIcon, Ripple],
+    standalone: true,
+    template: `
+        <ng-content />
+        @if (toggleIconTemplate) {
+            <ng-template *ngTemplateOutlet="toggleIconTemplate; context: { $implicit: active() }"></ng-template>
+        } @else {
+            <ng-container *ngIf="active()">
+                <span
+                    *ngIf="pcAccordion.collapseIcon"
+                    [class]="pcAccordion.collapseIcon"
+                    [ngClass]="pcAccordion.iconClass"
+                    [attr.aria-hidden]="true"
+                ></span>
+                <ChevronDownIcon *ngIf="!pcAccordion.collapseIcon" [ngClass]="pcAccordion.iconClass" [attr.aria-hidden]="true" />
+            </ng-container>
+            <ng-container *ngIf="!active()">
+                <span
+                    *ngIf="pcAccordion.expandIcon"
+                    [class]="pcAccordion.expandIcon"
+                    [ngClass]="pcAccordion.iconClass"
+                    [attr.aria-hidden]="true"
+                ></span>
+                <ChevronUpIcon *ngIf="!pcAccordion.expandIcon" [ngClass]="pcAccordion.iconClass" [attr.aria-hidden]="true" />
+            </ng-container>
+        }
+    `,
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    encapsulation: ViewEncapsulation.None,
+    host: {
+        '[class.p-accordionheader]': 'true',
+        '[attr.id]': 'id()',
+        '[attr.aria-expanded]': 'active()',
+        '[attr.aria-controls]': 'ariaControls()',
+        '[attr.role]': '"button"',
+        '[attr.tabindex]': '"0"',
+        '[attr.data-p-active]': 'active()',
+        '[attr.data-p-disabled]': 'disabled()',
+        '[attr.data-pc-name]': '"accordionheader"',
+        '[style.user-select]': '"none"',
+    },
+    hostDirectives: [Ripple],
+})
+export class AccordionHeader extends BaseComponent {
+    pcAccordion = inject(forwardRef(() => Accordion));
+
+    pcAccordionPanel = inject(forwardRef(() => AccordionPanel));
+    @ContentChild('toggleicon') toggleIconTemplate: TemplateRef<any>;
+    id = computed(() => `${this.pcAccordion.id()}_accordionheader_${this.pcAccordionPanel.value()}`);
+    active = computed(() => this.pcAccordionPanel.active());
+    disabled = computed(() => this.pcAccordionPanel.disabled());
+    ariaControls = computed(() => `${this.pcAccordion.id()}_accordioncontent_${this.pcAccordionPanel.value()}`);
+
+    @HostListener('click', ['$event']) onClick() {
+        this.changeActiveValue();
+    }
+
+    @HostListener('focus', ['$event']) onFocus() {
+        this.pcAccordion.selectOnFocus() && this.changeActiveValue();
+    }
+
+    @HostListener('keydown', ['$event']) onKeydown(event: KeyboardEvent) {
+        switch (event.code) {
+            case 'ArrowDown':
+                this.arrowDownKey(event);
+                break;
+            case 'ArrowUp':
+                this.arrowUpKey(event);
+                break;
+            case 'Home':
+                this.onHomeKey(event);
+                break;
+            case 'End':
+                this.onEndKey(event);
+                break;
+            case 'Enter':
+            case 'Space':
+            case 'NumpadEnter':
+                this.onEnterKey(event);
+                break;
+            default:
+                break;
+        }
+    }
+
+    changeActiveValue() {
+        this.pcAccordion.updateValue(this.pcAccordionPanel.value());
+    }
+
+    private findPanel(headerElement) {
+        return headerElement?.closest('[data-pc-name="accordionpanel"]');
+    }
+
+    private findHeader(panelElement) {
+        return DomHandler.findSingle(panelElement, '[data-pc-name="accordionheader"]');
+    }
+
+    private findNextPanel(panelElement, selfCheck = false) {
+        const element = selfCheck ? panelElement : panelElement.nextElementSibling;
+
+        return element
+            ? DomHandler.getAttribute(element, 'data-p-disabled')
+                ? this.findNextPanel(element)
+                : this.findHeader(element)
+            : null;
+    }
+
+    private findPrevPanel(panelElement, selfCheck = false) {
+        const element = selfCheck ? panelElement : panelElement.previousElementSibling;
+
+        return element
+            ? DomHandler.getAttribute(element, 'data-p-disabled')
+                ? this.findPrevPanel(element)
+                : this.findHeader(element)
+            : null;
+    }
+
+    private findFirstPanel() {
+        return this.findNextPanel(this.pcAccordion.el.nativeElement.firstElementChild, true);
+    }
+
+    private findLastPanel() {
+        return this.findPrevPanel(this.pcAccordion.el.nativeElement.lastElementChild, true);
+    }
+
+    private changeFocusedPanel(event, element) {
+        DomHandler.focus(element);
+    }
+
+    private arrowDownKey(event: KeyboardEvent) {
+        const nextPanel = this.findNextPanel(this.findPanel(event.currentTarget));
+        nextPanel ? this.changeFocusedPanel(event, nextPanel) : this.onHomeKey(event);
+        event.preventDefault();
+    }
+
+    private arrowUpKey(event: KeyboardEvent) {
+        const prevPanel = this.findPrevPanel(this.findPanel(event.currentTarget));
+
+        prevPanel ? this.changeFocusedPanel(event, prevPanel) : this.onEndKey(event);
+        event.preventDefault();
+    }
+
+    private onHomeKey(event: KeyboardEvent) {
+        const firstPanel = this.findFirstPanel();
+
+        this.changeFocusedPanel(event, firstPanel);
+        event.preventDefault();
+    }
+
+    private onEndKey(event: KeyboardEvent) {
+        const lastPanel = this.findLastPanel();
+
+        this.changeFocusedPanel(event, lastPanel);
+        event.preventDefault();
+    }
+
+    private onEnterKey(event: KeyboardEvent) {
+        this.changeActiveValue();
+        event.preventDefault();
+    }
+}
+@Component({
+    selector: 'p-accordion-content',
+    imports: [CommonModule],
+    standalone: true,
+    template: ` <div class="p-accordioncontent-content">
+        <ng-content />
+    </div>`,
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    encapsulation: ViewEncapsulation.None,
+    host: {
+        '[class.p-accordioncontent]': 'true',
+        '[attr.id]': 'id()',
+        '[attr.role]': '"region"',
+        '[attr.data-pc-name]': '"accordioncontent"',
+        '[attr.data-p-active]': 'active()',
+        '[attr.aria-labelledby]': 'ariaLabelledby()',
+        '[@content]': `active()
+                   ? { value: 'visible', params: { transitionParams: pcAccordion.transitionOptions } }
+                   : { value: 'hidden', params: { transitionParams: pcAccordion.transitionOptions } }`,
+    },
+    animations: [
+        trigger('content', [
+            state(
+                'hidden',
+                style({
+                    height: '0',
+                    visibility: 'hidden',
+                }),
+            ),
+            state(
+                'visible',
+                style({
+                    height: '*',
+                    visibility: 'visible',
+                }),
+            ),
+            transition('visible <=> hidden', [animate('{{transitionParams}}')]),
+            transition('void => *', animate(0)),
+        ]),
+    ],
+})
+export class AccordionContent extends BaseComponent {
+    pcAccordion = inject(forwardRef(() => Accordion));
+
+    pcAccordionPanel = inject(forwardRef(() => AccordionPanel));
+
+    active = computed(() => this.pcAccordionPanel.active());
+
+    ariaLabelledby = computed(() => `${this.pcAccordion.id()}_accordionheader_${this.pcAccordionPanel.value()}`);
+
+    id = computed(() => `${this.pcAccordion.id()}_accordioncontent_${this.pcAccordionPanel.value()}`);
+}
 
 /**
  * AccordionTab is a helper component for Accordion.
+ * @deprecated Use AccordionPanel, AccordionHeader, AccordionContent instead.
  * @group Components
  */
 @Component({
@@ -47,7 +306,7 @@ import { ChevronUpIcon } from 'primeng/icons/chevronup';
             [attr.aria-level]="headerAriaLevel"
             [class.p-disabled]="disabled"
             [attr.data-p-disabled]="disabled"
-            [attr.data-pc-section]="'header'"
+            [attr.data-pc-section]="'accordionheader'"
             (click)="toggle($event)"
             (keydown)="onKeydown($event)"
             [ngClass]="headerStyleClass"
@@ -55,7 +314,6 @@ import { ChevronUpIcon } from 'primeng/icons/chevronup';
             [attr.tabindex]="disabled ? null : 0"
             [attr.id]="getTabHeaderActionId(id)"
             [attr.aria-controls]="getTabContentId(id)"
-            [attr.data-pc-section]="'headeraction'"
         >
             @if (!hasHeaderFacet && !headerTemplate) {
                 {{ header }}
@@ -64,7 +322,7 @@ import { ChevronUpIcon } from 'primeng/icons/chevronup';
                     <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
                 }
                 @if (hasHeaderFacet) {
-                    <ng-content select="p-header"></ng-content>
+                    <ng-content select="p-header" />
                 }
             }
             @if (iconTemplate) {
@@ -104,7 +362,7 @@ import { ChevronUpIcon } from 'primeng/icons/chevronup';
             [attr.data-pc-section]="'toggleablecontent'"
         >
             <div class="p-accordioncontent-content" [ngClass]="contentStyleClass" [ngStyle]="contentStyle">
-                <ng-content></ng-content>
+                <ng-content />
                 <ng-container *ngIf="contentTemplate && (cache ? loaded : selected)">
                     <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
                 </ng-container>
@@ -134,7 +392,7 @@ import { ChevronUpIcon } from 'primeng/icons/chevronup';
     host: {
         '[class.p-accordionpanel]': 'true',
         '[class.p-accordionpanel-active]': 'selected',
-        '[attr.data-pc-name]': 'accordiontab',
+        '[attr.data-pc-name]': '"accordiontab"',
     },
     providers: [AccordionStyle],
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -263,6 +521,11 @@ export class AccordionTab extends BaseComponent implements AfterContentInit, OnD
 
     _componentStyle = inject(AccordionStyle);
 
+    ngOnInit() {
+        super.ngOnInit();
+        console.log('AccordionTab is deprecated as of v18, please use the new structure instead.');
+    }
+
     ngAfterContentInit() {
         this.templates.forEach((item) => {
             switch (item.getType()) {
@@ -296,7 +559,7 @@ export class AccordionTab extends BaseComponent implements AfterContentInit, OnD
             this.selected = false;
             this.accordion.onClose.emit({ originalEvent: event, index: index });
         } else {
-            if (!this.accordion.multiple) {
+            if (!this.accordion.multiple()) {
                 for (var i = 0; i < this.accordion.tabs.length; i++) {
                     if (this.accordion.tabs[i].selected) {
                         this.accordion.tabs[i].selected = false;
@@ -368,7 +631,7 @@ export class AccordionTab extends BaseComponent implements AfterContentInit, OnD
     selector: 'p-accordion',
     standalone: true,
     imports: [CommonModule, AccordionTab, SharedModule],
-    template: ` <ng-content></ng-content> `,
+    template: ` <ng-content /> `,
     host: {
         '[class.p-accordion]': 'true',
         '[class.p-component]': 'true',
@@ -386,9 +649,10 @@ export class Accordion extends BaseComponent implements BlockableUI, AfterConten
     }
     /**
      * When enabled, multiple tabs can be activated at the same time.
+     * @defaultValue false
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) multiple: boolean = false;
+    multiple = input(false, { transform: (v: any) => transformToBoolean(v) });
     /**
      * Inline style of the tab header and content.
      * @group Props
@@ -410,12 +674,11 @@ export class Accordion extends BaseComponent implements BlockableUI, AfterConten
      */
     @Input() collapseIcon: string | undefined;
     /**
-     * Index of the active tab or an array of indexes in multiple mode.
+     * When enabled, the focused tab is activated.
+     * @defaultValue false
      * @group Props
      */
-    @Input() get activeIndex(): number | number[] | null | undefined {
-        return this._activeIndex;
-    }
+    selectOnFocus = input(false, { transform: (v: any) => transformToBoolean(v) });
     set activeIndex(val: number | number[] | null | undefined) {
         this._activeIndex = val;
         if (this.preventActiveIndexPropagation) {
@@ -426,17 +689,17 @@ export class Accordion extends BaseComponent implements BlockableUI, AfterConten
         this.updateSelectionState();
     }
     /**
-     * When enabled, the focused tab is activated.
+     * Transition options of the animation.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) selectOnFocus: boolean = false;
+    @Input() transitionOptions: string = '400ms cubic-bezier(0.86, 0, 0.07, 1)';
     /**
-     * The aria-level that each accordion header will have. The default value is 2 as per W3C specifications
-     * @group Props
+     * Returns the active index.
+     * @param {number | number[]} value - New index.
+     * @deprecated use native valueChange emitter of the value model.
+     * @group Emits
      */
-    @Input() get headerAriaLevel(): number {
-        return this._headerAriaLevel;
-    }
+    @Output() activeIndexChange: EventEmitter<number | number[]> = new EventEmitter<number | number[]>();
     set headerAriaLevel(val: number) {
         if (typeof val === 'number' && val > 0) {
             this._headerAriaLevel = val;
@@ -444,6 +707,7 @@ export class Accordion extends BaseComponent implements BlockableUI, AfterConten
             this._headerAriaLevel = 2;
         }
     }
+    value = model<undefined | null | string | number | string[] | number[]>(undefined);
     /**
      * Callback to invoke when an active tab is collapsed by clicking on the header.
      * @param {AccordionTabCloseEvent} event - Custom tab close event.
@@ -456,12 +720,7 @@ export class Accordion extends BaseComponent implements BlockableUI, AfterConten
      * @group Emits
      */
     @Output() onOpen: EventEmitter<AccordionTabOpenEvent> = new EventEmitter();
-    /**
-     * Returns the active index.
-     * @param {number | number[]} value - New index.
-     * @group Emits
-     */
-    @Output() activeIndexChange: EventEmitter<number | number[]> = new EventEmitter<number | number[]>();
+    id = signal(UniqueComponentId());
 
     @ContentChildren(AccordionTab, { descendants: true }) tabList: QueryList<AccordionTab> | undefined;
 
@@ -476,6 +735,24 @@ export class Accordion extends BaseComponent implements BlockableUI, AfterConten
     public tabs: AccordionTab[] = [];
 
     _componentStyle = inject(AccordionStyle);
+
+    /**
+     * Index of the active tab or an array of indexes in multiple mode.
+     * @deprecated use value property with new architecture instead.
+     * @group Props
+     */
+    @Input() get activeIndex(): number | number[] | null | undefined {
+        return this._activeIndex;
+    }
+
+    /**
+     * The aria-level that each accordion header will have. The default value is 2 as per W3C specifications
+     * @deprecated use AccoridonHeader component and bind attribute to the host.
+     * @group Props
+     */
+    @Input() get headerAriaLevel(): number {
+        return this._headerAriaLevel;
+    }
 
     @HostListener('keydown', ['$event'])
     onKeydown(event) {
@@ -502,26 +779,18 @@ export class Accordion extends BaseComponent implements BlockableUI, AfterConten
         }
     }
 
-    focusedElementIsAccordionHeader() {
-        return document.activeElement.tagName.toLowerCase() === 'a' && document.activeElement.classList.contains('p-accordion-header-link');
-    }
-
     onTabArrowDownKey(event) {
-        if (this.focusedElementIsAccordionHeader()) {
-            const nextHeaderAction = this.findNextHeaderAction(event.target.parentElement.parentElement.parentElement);
-            nextHeaderAction ? this.changeFocusedTab(nextHeaderAction) : this.onTabHomeKey(event);
+        const nextHeaderAction = this.findNextHeaderAction(event.target.parentElement);
+        nextHeaderAction ? this.changeFocusedTab(nextHeaderAction) : this.onTabHomeKey(event);
 
-            event.preventDefault();
-        }
+        event.preventDefault();
     }
 
     onTabArrowUpKey(event) {
-        if (this.focusedElementIsAccordionHeader()) {
-            const prevHeaderAction = this.findPrevHeaderAction(event.target.parentElement.parentElement.parentElement);
-            prevHeaderAction ? this.changeFocusedTab(prevHeaderAction) : this.onTabEndKey(event);
+        const prevHeaderAction = this.findPrevHeaderAction(event.target.parentElement);
+        prevHeaderAction ? this.changeFocusedTab(prevHeaderAction) : this.onTabEndKey(event);
 
-            event.preventDefault();
-        }
+        event.preventDefault();
     }
 
     onTabHomeKey(event) {
@@ -534,11 +803,11 @@ export class Accordion extends BaseComponent implements BlockableUI, AfterConten
         if (element) {
             DomHandler.focus(element);
 
-            if (this.selectOnFocus) {
+            if (this.selectOnFocus()) {
                 this.tabs.forEach((tab, i) => {
-                    let selected = this.multiple ? this._activeIndex.includes(i) : i === this._activeIndex;
+                    let selected = this.multiple() ? this._activeIndex.includes(i) : i === this._activeIndex;
 
-                    if (this.multiple) {
+                    if (this.multiple()) {
                         if (!this._activeIndex) {
                             this._activeIndex = [];
                         }
@@ -569,35 +838,33 @@ export class Accordion extends BaseComponent implements BlockableUI, AfterConten
 
     findNextHeaderAction(tabElement, selfCheck = false) {
         const nextTabElement = selfCheck ? tabElement : tabElement.nextElementSibling;
-        const headerElement = DomHandler.findSingle(nextTabElement, '[data-pc-section="header"]');
+        const headerElement = DomHandler.findSingle(nextTabElement, '[data-pc-section="accordionheader"]');
 
         return headerElement
             ? DomHandler.getAttribute(headerElement, 'data-p-disabled')
-                ? this.findNextHeaderAction(headerElement.parentElement.parentElement)
-                : DomHandler.findSingle(headerElement, '[data-pc-section="headeraction"]')
+                ? this.findNextHeaderAction(headerElement.parentElement)
+                : DomHandler.findSingle(headerElement.parentElement, '[data-pc-section="accordionheader"]')
             : null;
     }
 
     findPrevHeaderAction(tabElement, selfCheck = false) {
         const prevTabElement = selfCheck ? tabElement : tabElement.previousElementSibling;
-        const headerElement = DomHandler.findSingle(prevTabElement, '[data-pc-section="header"]');
+        const headerElement = DomHandler.findSingle(prevTabElement, '[data-pc-section="accordionheader"]');
 
         return headerElement
             ? DomHandler.getAttribute(headerElement, 'data-p-disabled')
-                ? this.findPrevHeaderAction(headerElement.parentElement.parentElement)
-                : DomHandler.findSingle(headerElement, '[data-pc-section="headeraction"]')
+                ? this.findPrevHeaderAction(headerElement.parentElement)
+                : DomHandler.findSingle(headerElement.parentElement, '[data-pc-section="accordionheader"]')
             : null;
     }
 
     findFirstHeaderAction() {
-        const firstEl = this.el.nativeElement.firstElementChild.childNodes[0];
+        const firstEl = this.el.nativeElement.firstElementChild;
         return this.findNextHeaderAction(firstEl, true);
     }
 
     findLastHeaderAction() {
-        const childNodes = this.el.nativeElement.firstElementChild.childNodes;
-        const lastEl = childNodes[childNodes.length - 1];
-
+        const lastEl = this.el.nativeElement.lastElementChild;
         return this.findPrevHeaderAction(lastEl, true);
     }
 
@@ -633,7 +900,7 @@ export class Accordion extends BaseComponent implements BlockableUI, AfterConten
     updateSelectionState() {
         if (this.tabs && this.tabs.length && this._activeIndex != null) {
             for (let i = 0; i < this.tabs.length; i++) {
-                let selected = this.multiple ? this._activeIndex.includes(i) : i === this._activeIndex;
+                let selected = this.multiple() ? this._activeIndex.includes(i) : i === this._activeIndex;
                 let changed = selected !== this.tabs[i].selected;
 
                 if (changed) {
@@ -646,7 +913,7 @@ export class Accordion extends BaseComponent implements BlockableUI, AfterConten
     }
 
     isTabActive(index) {
-        return this.multiple ? this._activeIndex && (<number[]>this._activeIndex).includes(index) : this._activeIndex === index;
+        return this.multiple() ? this._activeIndex && (<number[]>this._activeIndex).includes(index) : this._activeIndex === index;
     }
 
     getTabProp(tab, name) {
@@ -654,10 +921,10 @@ export class Accordion extends BaseComponent implements BlockableUI, AfterConten
     }
 
     updateActiveIndex() {
-        let index: number | number[] | null = this.multiple ? [] : null;
+        let index: number | number[] | null = this.multiple() ? [] : null;
         this.tabs.forEach((tab, i) => {
             if (tab.selected) {
-                if (this.multiple) {
+                if (this.multiple()) {
                     (index as number[]).push(i);
                 } else {
                     index = i;
@@ -670,6 +937,28 @@ export class Accordion extends BaseComponent implements BlockableUI, AfterConten
         this.activeIndexChange.emit(index as number[] | number);
     }
 
+    updateValue(value: string | number) {
+        const currentValue = this.value();
+        if (this.multiple()) {
+            const newValue = Array.isArray(currentValue) ? [...currentValue] : [];
+            const index = newValue.indexOf(value);
+
+            if (index !== -1) {
+                newValue.splice(index, 1);
+            } else {
+                newValue.push(value);
+            }
+
+            this.value.set(newValue as typeof this.value extends (...args: any) => infer R ? R : never);
+        } else {
+            if (currentValue === value) {
+                this.value.set(undefined);
+            } else {
+                this.value.set(value);
+            }
+        }
+    }
+
     ngOnDestroy() {
         if (this.tabListSubscription) {
             this.tabListSubscription.unsubscribe();
@@ -680,7 +969,7 @@ export class Accordion extends BaseComponent implements BlockableUI, AfterConten
 }
 
 @NgModule({
-    imports: [Accordion, AccordionTab],
-    exports: [Accordion, AccordionTab, SharedModule],
+    imports: [Accordion, AccordionTab, AccordionPanel, AccordionHeader, AccordionContent],
+    exports: [Accordion, AccordionTab, SharedModule, AccordionPanel, AccordionHeader, AccordionContent],
 })
 export class AccordionModule {}
