@@ -44,11 +44,11 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
             [ngClass]="{
                 'p-drawer': true,
                 'p-drawer-active': visible,
-                'p-drawer-left': position === 'left' && !fullScreen,
-                'p-drawer-right': position === 'right' && !fullScreen,
-                'p-drawer-top': position === 'top' && !fullScreen,
-                'p-drawer-bottom': position === 'bottom' && !fullScreen,
-                'p-drawer-full': fullScreen,
+                'p-drawer-left': position === 'left' && (!fullScreen || position !== 'full'),
+                'p-drawer-right': position === 'right' && (!fullScreen || position !== 'full'),
+                'p-drawer-top': position === 'top' && (!fullScreen || position !== 'full'),
+                'p-drawer-bottom': position === 'bottom' && (!fullScreen || position !== 'full'),
+                'p-drawer-full': fullScreen || position === 'full',
             }"
             *ngIf="visible"
             [@panelState]="{ value: 'visible', params: { transform: transformOptions, transition: transitionOptions } }"
@@ -193,7 +193,10 @@ export class Drawer extends BaseComponent implements AfterViewInit, AfterContent
     }
     set position(value: string) {
         this._position = value;
-
+        if (value === 'full') {
+            this.transformOptions = 'none';
+            return;
+        }
         switch (value) {
             case 'left':
                 this.transformOptions = 'translate3d(-100%, 0px, 0px)';

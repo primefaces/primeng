@@ -5,10 +5,7 @@ import { Code } from '@domain/code';
     selector: 'size-doc',
     template: `
         <app-docsectiontext>
-            <p>
-                Drawer dimension can be defined with <i>style</i> or <i>styleClass</i> properties which can also be responsive when used
-                with a CSS utility library like PrimeFlex.
-            </p>
+            <p>Drawer dimension can be defined with <i>style</i> or <i>class</i> properties, this responsive example utilizes Tailwind.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-drawer header="Drawer" [(visible)]="visible" styleClass="!w-full md:!w-80 lg:!w-[30rem]">
