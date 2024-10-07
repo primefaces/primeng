@@ -55,11 +55,6 @@ export class MessageDemo {
             component: DynamicDoc,
         },
         {
-            id: 'closable',
-            label: 'Closable',
-            component: ClosableDoc,
-        },
-        {
             id: 'life',
             label: 'Life',
             component: LifeDoc,

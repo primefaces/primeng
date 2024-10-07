@@ -12,14 +12,13 @@ import { InputTextModule } from 'primeng/inputtext';
 import { FormDoc } from './formdoc';
 import { ButtonModule } from 'primeng/button';
 import { DynamicDoc } from './dynamicdoc';
-import { ClosableDoc } from './closabledoc';
 import { LifeDoc } from './lifedoc';
 import { AccessibilityDoc } from './accessibilitydoc';
 import { SeverityDoc } from './severitydoc';
 
 @NgModule({
     imports: [CommonModule, AppCodeModule, RouterModule, MessageModule, AppDocModule, AvatarModule, InputTextModule, ButtonModule],
-    declarations: [BasicDoc, SeverityDoc, ImportDoc, IconDoc, FormDoc, DynamicDoc, ClosableDoc, LifeDoc, AccessibilityDoc],
+    declarations: [BasicDoc, SeverityDoc, ImportDoc, IconDoc, FormDoc, DynamicDoc, LifeDoc, AccessibilityDoc],
     exports: [AppDocModule],
 })
 export class MessageDocModule {}

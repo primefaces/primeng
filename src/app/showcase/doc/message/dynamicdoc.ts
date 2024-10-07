@@ -31,7 +31,7 @@ export class DynamicDoc {
 
     addMessages() {
         this.messages.set([
-            { severity: 'info', content: 'Dynamic Info Message', closable: true },
+            { severity: 'info', content: 'Dynamic Info Message' },
             { severity: 'success', content: 'Dynamic Success Message' },
             { severity: 'warn', content: 'Dynamic Warn Message' },
         ]);
