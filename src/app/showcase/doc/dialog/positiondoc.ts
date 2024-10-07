@@ -77,58 +77,18 @@ export class PositionDoc {
 
     code: Code = {
         basic: `<div class="flex flex-wrap justify-center gap-2 mb-2">
-    <p-button 
-        (click)="showDialog('left')" 
-        icon="pi pi-arrow-right" 
-        label="Left" 
-        severity="secondary" 
-        styleClass="min-w-40"/>
-    <p-button 
-        (click)="showDialog('right')" 
-        icon="pi pi-arrow-left" 
-        label="Right" 
-        severity="secondary" 
-        styleClass="min-w-40"/>
+    <p-button (click)="showDialog('left')" icon="pi pi-arrow-right" label="Left" severity="secondary" styleClass="min-w-40" />
+    <p-button (click)="showDialog('right')" icon="pi pi-arrow-left" label="Right" severity="secondary" styleClass="min-w-40" />
 </div>
 <div class="flex flex-wrap justify-center gap-2 mb-2">
-    <p-button 
-        (click)="showDialog('topleft')" 
-        icon="pi pi-arrow-down-right" 
-        label="TopLeft" 
-        severity="secondary" 
-        styleClass="min-w-40"/>
-    <p-button 
-        (click)="showDialog('top')" 
-        icon="pi pi-arrow-down" 
-        label="Top" 
-        severity="secondary" 
-        styleClass="min-w-40"/>
-    <p-button 
-        (click)="showDialog('topright')" 
-        icon="pi pi-arrow-down-left" 
-        label="TopRight" 
-        severity="secondary" 
-        styleClass="min-w-40"/>
+    <p-button (click)="showDialog('topleft')" icon="pi pi-arrow-down-right" label="TopLeft" severity="secondary" styleClass="min-w-40" />
+    <p-button (click)="showDialog('top')" icon="pi pi-arrow-down" label="Top" severity="secondary" styleClass="min-w-40" />
+    <p-button (click)="showDialog('topright')" icon="pi pi-arrow-down-left" label="TopRight" severity="secondary" styleClass="min-w-40" />
 </div>
 <div class="flex flex-wrap justify-center gap-2">
-    <p-button 
-        (click)="showDialog('bottomleft')" 
-        icon="pi pi-arrow-up-right" 
-        label="BottomLeft" 
-        severity="secondary" 
-        styleClass="min-w-40"/>
-    <p-button 
-        (click)="showDialog('bottom')" 
-        icon="pi pi-arrow-up" 
-        label="Bottom" 
-        severity="secondary" 
-        styleClass="min-w-40"/>
-    <p-button 
-        (click)="showDialog('bottomright')" 
-        icon="pi pi-arrow-up-left" 
-        label="BottomRight" 
-        severity="secondary" 
-        styleClass="min-w-40"/>
+    <p-button (click)="showDialog('bottomleft')" icon="pi pi-arrow-up-right" label="BottomLeft" severity="secondary" styleClass="min-w-40" />
+    <p-button (click)="showDialog('bottom')" icon="pi pi-arrow-up" label="Bottom" severity="secondary" styleClass="min-w-40" />
+    <p-button (click)="showDialog('bottomright')" icon="pi pi-arrow-up-left" label="BottomRight" severity="secondary" styleClass="min-w-40" />
 </div>
 <p-dialog header="Edit Profile" [modal]="true" [(visible)]="visible" [position]="position" [style]="{ width: '25rem' }">
     <span class="text-surface-500 dark:text-surface-400 block mb-8">Update your information.</span>
@@ -148,58 +108,18 @@ export class PositionDoc {
 
         html: `<div class="card">
     <div class="flex flex-wrap justify-center gap-2 mb-2">
-        <p-button 
-            (click)="showDialog('left')" 
-            icon="pi pi-arrow-right" 
-            label="Left" 
-            severity="secondary" 
-            styleClass="min-w-40"/>
-        <p-button 
-            (click)="showDialog('right')" 
-            icon="pi pi-arrow-left" 
-            label="Right" 
-            severity="secondary" 
-            styleClass="min-w-40"/>
+        <p-button (click)="showDialog('left')" icon="pi pi-arrow-right" label="Left" severity="secondary" styleClass="min-w-40" />
+        <p-button (click)="showDialog('right')" icon="pi pi-arrow-left" label="Right" severity="secondary" styleClass="min-w-40" />
     </div>
     <div class="flex flex-wrap justify-center gap-2 mb-2">
-        <p-button 
-            (click)="showDialog('topleft')" 
-            icon="pi pi-arrow-down-right" 
-            label="TopLeft" 
-            severity="secondary" 
-            styleClass="min-w-40"/>
-        <p-button 
-            (click)="showDialog('top')" 
-            icon="pi pi-arrow-down" 
-            label="Top" 
-            severity="secondary" 
-            styleClass="min-w-40"/>
-        <p-button 
-            (click)="showDialog('topright')" 
-            icon="pi pi-arrow-down-left" 
-            label="TopRight" 
-            severity="secondary" 
-            styleClass="min-w-40"/>
+        <p-button (click)="showDialog('topleft')" icon="pi pi-arrow-down-right" label="TopLeft" severity="secondary" styleClass="min-w-40" />
+        <p-button (click)="showDialog('top')" icon="pi pi-arrow-down" label="Top" severity="secondary" styleClass="min-w-40" />
+        <p-button (click)="showDialog('topright')" icon="pi pi-arrow-down-left" label="TopRight" severity="secondary" styleClass="min-w-40" />
     </div>
     <div class="flex flex-wrap justify-center gap-2">
-        <p-button 
-            (click)="showDialog('bottomleft')" 
-            icon="pi pi-arrow-up-right" 
-            label="BottomLeft" 
-            severity="secondary" 
-            styleClass="min-w-40"/>
-        <p-button 
-            (click)="showDialog('bottom')" 
-            icon="pi pi-arrow-up" 
-            label="Bottom" 
-            severity="secondary" 
-            styleClass="min-w-40"/>
-        <p-button 
-            (click)="showDialog('bottomright')" 
-            icon="pi pi-arrow-up-left" 
-            label="BottomRight" 
-            severity="secondary" 
-            styleClass="min-w-40"/>
+        <p-button (click)="showDialog('bottomleft')" icon="pi pi-arrow-up-right" label="BottomLeft" severity="secondary" styleClass="min-w-40" />
+        <p-button (click)="showDialog('bottom')" icon="pi pi-arrow-up" label="Bottom" severity="secondary" styleClass="min-w-40" />
+        <p-button (click)="showDialog('bottomright')" icon="pi pi-arrow-up-left" label="BottomRight" severity="secondary" styleClass="min-w-40" />
     </div>
     <p-dialog header="Edit Profile" [modal]="true" [(visible)]="visible" [position]="position" [style]="{ width: '25rem' }">
         <span class="text-surface-500 dark:text-surface-400 block mb-8">Update your information.</span>
