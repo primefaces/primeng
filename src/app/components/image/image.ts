@@ -79,6 +79,9 @@ import { FocusTrapModule } from 'primeng/focustrap';
                     (@animation.done)="onAnimationEnd($event)"
                 >
                     <img [attr.src]="previewImageSrc ? previewImageSrc : src" [attr.srcset]="previewImageSrcSet" [attr.sizes]="previewImageSizes" class="p-image-preview" [ngStyle]="imagePreviewStyle()" (click)="onPreviewImageClick()" />
+                    <div class="p-image-description">
+                        <ng-template *ngTemplateOutlet="imageDescriptionTemplate"></ng-template>
+                    </div>
                 </div>
             </div>
         </span>
@@ -224,6 +227,8 @@ export class Image implements AfterContentInit {
 
     closeIconTemplate: TemplateRef<any> | undefined;
 
+    imageDescriptionTemplate: TemplateRef<any> | undefined;
+
     maskVisible: boolean = false;
 
     previewVisible: boolean = false;
@@ -285,6 +290,10 @@ export class Image implements AfterContentInit {
 
                 case 'closeicon':
                     this.closeIconTemplate = item.template;
+                    break;
+
+                case 'imagedescription':
+                    this.imageDescriptionTemplate = item.template;
                     break;
 
                 default:
