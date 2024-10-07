@@ -18,20 +18,10 @@ import { Code } from '@domain/code';
 })
 export class EventDoc {
     code: Code = {
-        basic: `<input 
-    type="text" 
-    pInputText
-    pTooltip="Enter your username" 
-    tooltipEvent="focus" 
-    placeholder="focus to display tooltip" />`,
+        basic: `<input type="text" pInputTextpTooltip="Enter your username" tooltipEvent="focus" placeholder="focus to display tooltip" />`,
 
         html: `<div class="card flex justify-center">
-    <input 
-        type="text" 
-        pInputText 
-        pTooltip="Enter your username" 
-        tooltipEvent="focus" 
-        placeholder="focus to display tooltip">
+    <input type="text" pInputText pTooltip="Enter your username" tooltipEvent="focus" placeholder="focus to display tooltip">
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

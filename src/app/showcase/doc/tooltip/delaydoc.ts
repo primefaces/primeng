@@ -15,18 +15,10 @@ import { Code } from '@domain/code';
 })
 export class DelayDoc {
     code: Code = {
-        basic: `<p-button
-    pTooltip="Confirm to proceed" 
-    showDelay="1000" 
-    hideDelay="300" 
-    label="Save" />`,
+        basic: `<p-button pTooltip="Confirm to proceed" showDelay="1000" hideDelay="300" label="Save" />`,
 
         html: `<div class="card flex justify-center">
-    <p-button 
-        pTooltip="Confirm to proceed" 
-        showDelay="1000"
-        hideDelay="300" 
-        label="Save" />
+    <p-button pTooltip="Confirm to proceed" showDelay="1000" hideDelay="300" label="Save" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

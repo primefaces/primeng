@@ -20,11 +20,7 @@ import { Code } from '@domain/code';
 })
 export class CustomDoc {
     code: Code = {
-        basic: `<p-button 
-    [pTooltip]="tooltipContent" 
-    severity="secondary" 
-    tooltipPosition="bottom" 
-    label="Button" />
+        basic: `<p-button [pTooltip]="tooltipContent" severity="secondary" tooltipPosition="bottom" label="Button" />
 <ng-template #tooltipContent>
     <div class="flex items-center">
         <span> <b>PrimeNG</b> rocks! </span>
@@ -32,16 +28,12 @@ export class CustomDoc {
 </ng-template>`,
 
         html: `<div class="card flex justify-center">
-    <p-button 
-        [pTooltip]="tooltipContent"
-        severity="secondary" 
-        tooltipPosition="bottom" 
-        label="Button" />
-            <ng-template #tooltipContent>
-                <div class="flex items-center">
-                    <span> <b>PrimeNG</b> rocks! </span>
-                </div>
-            </ng-template>
+    <p-button [pTooltip]="tooltipContent" severity="secondary" tooltipPosition="bottom" label="Button" />
+        <ng-template #tooltipContent>
+            <div class="flex items-center">
+                <span> <b>PrimeNG</b> rocks! </span>
+            </div>
+        </ng-template>
 </div>`,
         typescript: `import { Component } from '@angular/core';
 import { TooltipModule } from 'primeng/tooltip';
