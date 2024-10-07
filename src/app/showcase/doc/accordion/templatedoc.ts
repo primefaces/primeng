@@ -5,7 +5,7 @@ import { Code } from '@domain/code';
     selector: 'template-doc',
     template: `
         <app-docsectiontext>
-            <p>Accordion is customized <i>header</i> and <i>toggleicon</i> templates.</p>
+            <p>Accordion is customized <i>toggleicon</i> template.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <p-accordion value="0">

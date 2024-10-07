@@ -121,10 +121,15 @@ export class AccordionHeader extends BaseComponent {
     pcAccordion = inject(forwardRef(() => Accordion));
 
     pcAccordionPanel = inject(forwardRef(() => AccordionPanel));
+
     @ContentChild('toggleicon') toggleIconTemplate: TemplateRef<any>;
+
     id = computed(() => `${this.pcAccordion.id()}_accordionheader_${this.pcAccordionPanel.value()}`);
+
     active = computed(() => this.pcAccordionPanel.active());
+
     disabled = computed(() => this.pcAccordionPanel.disabled());
+
     ariaControls = computed(() => `${this.pcAccordion.id()}_accordioncontent_${this.pcAccordionPanel.value()}`);
 
     @HostListener('click', ['$event']) onClick() {
@@ -157,6 +162,18 @@ export class AccordionHeader extends BaseComponent {
             default:
                 break;
         }
+    }
+
+    @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
+
+    ngAfterContentInit() {
+        this.templates.forEach((item) => {
+            switch (item.getType()) {
+                case 'toggleicon':
+                    this.toggleIconTemplate = item.template;
+                    break;
+            }
+        });
     }
 
     changeActiveValue() {
