@@ -85,7 +85,8 @@ import { ProductService } from '@service/productservice';
                                     icon="pi pi-shopping-cart"
                                     [label]="'Buy Now | $' + selectedProduct.price"
                                     [disabled]="selectedProduct.inventoryStatus === 'OUTOFSTOCK'"
-                                    class="flex-auto whitespace-nowrap"
+                                    class="flex-auto"
+                                    styleClass="w-full whitespace-nowrap"
                                     (onClick)="hidePopover()"
                                 />
                                 <p-button icon="pi pi-heart" outlined (onClick)="hidePopover()" />
@@ -226,7 +227,8 @@ export class DataTableDoc implements OnInit {
                         icon="pi pi-shopping-cart"
                         [label]="'Buy Now | $' + selectedProduct.price"
                         [disabled]="selectedProduct.inventoryStatus === 'OUTOFSTOCK'"
-                        class="flex-auto whitespace-nowrap"
+                        class="flex-auto"
+                        styleClass="w-full whitespace-nowrap"
                         (onClick)="hidePopover()"
                     />
                     <p-button icon="pi pi-heart" outlined (onClick)="hidePopover()" />
@@ -310,7 +312,8 @@ export class DataTableDoc implements OnInit {
                             icon="pi pi-shopping-cart"
                             [label]="'Buy Now | $' + selectedProduct.price"
                             [disabled]="selectedProduct.inventoryStatus === 'OUTOFSTOCK'"
-                            class="flex-auto whitespace-nowrap"
+                            class="flex-auto"
+                            styleClass="w-full whitespace-nowrap"
                             (onClick)="hidePopover()"
                         />
                         <p-button icon="pi pi-heart" outlined (onClick)="hidePopover()" />
