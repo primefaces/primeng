@@ -113,13 +113,15 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                                     [tabindex]="closeTabindex"
                                     [buttonProps]="closeButtonProps"
                                 >
-                                    <ng-container *ngIf="!_closeIconTemplate && !closeButtonProps?.icon">
-                                        <span *ngIf="closeIcon" [ngClass]="closeIcon"></span>
-                                        <TimesIcon *ngIf="!closeIcon" />
-                                    </ng-container>
-                                    <span *ngIf="_closeIconTemplate">
-                                        <ng-template *ngTemplateOutlet="_closeIconTemplate"></ng-template>
-                                    </span>
+                                    <ng-template pTemplate="icon">
+                                        <ng-container *ngIf="!_closeIconTemplate && !closeButtonProps?.icon">
+                                            <span *ngIf="closeIcon" [ngClass]="closeIcon"></span>
+                                            <TimesIcon *ngIf="!closeIcon" />
+                                        </ng-container>
+                                        <span *ngIf="_closeIconTemplate">
+                                            <ng-template *ngTemplateOutlet="_closeIconTemplate"></ng-template>
+                                        </span>
+                                    </ng-template>
                                 </p-button>
                             } @else {
                                 <ng-container *ngTemplateOutlet="_headerTemplate"></ng-container>
