@@ -32,7 +32,7 @@ import { PhotoService } from '@service/photoservice';
             <div class="dock-window">
                 <p-dock [model]="dockItems" position="bottom">
                     <ng-template pTemplate="item" let-item>
-                        <a [pTooltip]="item.label" tooltipPosition="top" href="#" class="p-dock-item-link">
+                        <a [pTooltip]="item.label" tooltipPosition="top" class="p-dock-item-link">
                             <img [alt]="item.label" [src]="item.icon" style="width: 100%" />
                         </a>
                     </ng-template>
@@ -408,7 +408,7 @@ export class AdvancedDoc implements OnInit, OnDestroy {
 <div class="dock-window dock-advanced">
     <p-dock [model]="dockItems" position="bottom">
         <ng-template pTemplate="item" let-item>
-            <a [pTooltip]="item.label" tooltipPosition="top" href="#" class="p-dock-item-link">
+            <a [pTooltip]="item.label" tooltipPosition="top" class="p-dock-item-link">
                 <img [alt]="item.label" [src]="item.icon" style="width: 100%" />
             </a>
         </ng-template>
@@ -416,38 +416,15 @@ export class AdvancedDoc implements OnInit, OnDestroy {
 
     <p-toast position="top-center" key="tc" />
 
-    <p-dialog 
-        [(visible)]="displayFinder" 
-        [breakpoints]="{ '960px': '50vw' }" 
-        [style]="{ width: '30vw', height: '18rem' }" 
-        [draggable]="false" 
-        [resizable]="false">
-            <p-tree [value]="nodes" />
+    <p-dialog [(visible)]="displayFinder" [breakpoints]="{ '960px': '50vw' }" [style]="{ width: '30vw', height: '18rem' }" [draggable]="false" [resizable]="false">
+        <p-tree [value]="nodes" />
     </p-dialog>
 
-    <p-dialog 
-        [maximizable]="true" 
-        [(visible)]="displayTerminal" 
-        [breakpoints]="{ '960px': '50vw' }" 
-        [style]="{ width: '30vw' }" 
-        [draggable]="false" 
-        [resizable]="false">
-            <p-terminal 
-                welcomeMessage="Welcome to PrimeNG (cmd: 'date', 'greet {0}', 'random')" 
-                prompt="primeng $" />
+    <p-dialog [maximizable]="true" [(visible)]="displayTerminal" [breakpoints]="{ '960px': '50vw' }" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false">
+        <p-terminal welcomeMessage="Welcome to PrimeNG (cmd: 'date', 'greet {0}', 'random')" prompt="primeng $" />
     </p-dialog>
 
-    <p-galleria
-        [(value)]="images"
-        [showThumbnails]="false"
-        [showThumbnailNavigators]="false"
-        [showItemNavigators]="true"
-        [(visible)]="displayGalleria"
-        [circular]="true"
-        [responsiveOptions]="responsiveOptions"
-        [containerStyle]="{ 'max-width': '850px' }"
-        [circular]="true"
-        [fullScreen]="true">
+    <p-galleria [(value)]="images" [showThumbnails]="false" [showThumbnailNavigators]="false" [showItemNavigators]="true" [(visible)]="displayGalleria" [circular]="true" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '850px' }" [circular]="true" [fullScreen]="true">
         <ng-template pTemplate="item" let-item>
             <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
         </ng-template>
@@ -471,7 +448,7 @@ export class AdvancedDoc implements OnInit, OnDestroy {
     <div class="dock-window dock-advanced">
         <p-dock [model]="dockItems" position="bottom">
             <ng-template pTemplate="item" let-item>
-                <a [pTooltip]="item.label" tooltipPosition="top" href="#" class="p-dock-item-link">
+                <a [pTooltip]="item.label" tooltipPosition="top" class="p-dock-item-link">
                     <img [alt]="item.label" [src]="item.icon" style="width: 100%" />
                 </a>
             </ng-template>
@@ -479,25 +456,12 @@ export class AdvancedDoc implements OnInit, OnDestroy {
 
         <p-toast position="top-center" key="tc" />
 
-        <p-dialog 
-            [(visible)]="displayFinder" 
-            [breakpoints]="{ '960px': '50vw' }" 
-            [style]="{ width: '30vw', height: '18rem' }" 
-            [draggable]="false" 
-            [resizable]="false">
-                <p-tree [value]="nodes" />
+        <p-dialog [(visible)]="displayFinder" [breakpoints]="{ '960px': '50vw' }" [style]="{ width: '30vw', height: '18rem' }" [draggable]="false" [resizable]="false">
+            <p-tree [value]="nodes" />
         </p-dialog>
 
-        <p-dialog 
-            [maximizable]="true" 
-            [(visible)]="displayTerminal" 
-            [breakpoints]="{ '960px': '50vw' }" 
-            [style]="{ width: '30vw' }" 
-            [draggable]="false" 
-            [resizable]="false">
-                <p-terminal 
-                    welcomeMessage="Welcome to PrimeNG (cmd: 'date', 'greet {0}', 'random')" 
-                    prompt="primeng $" />
+        <p-dialog [maximizable]="true" [(visible)]="displayTerminal" [breakpoints]="{ '960px': '50vw' }" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false">
+            <p-terminal welcomeMessage="Welcome to PrimeNG (cmd: 'date', 'greet {0}', 'random')" prompt="primeng $" />
         </p-dialog>
 
         <p-galleria
