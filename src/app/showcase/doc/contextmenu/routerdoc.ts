@@ -8,8 +8,8 @@ import { Router } from '@angular/router';
     template: `
         <app-docsectiontext>
             <p>
-                ContextMenu can be attached to a particular element whose local template variable name is defined using the
-                <i>target</i> property.
+                Items with navigation are defined with templating to be able to use a <i>routerLink</i> directive, an external link or
+                programmatic navigation.
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
@@ -97,7 +97,7 @@ export class RouterDoc implements OnInit {
             {
                 label: 'Router Link',
                 icon: 'pi pi-palette',
-                route: '/guides/csslayer',
+                route: '/theming',
             },
             {
                 label: 'Programmatic',
@@ -115,82 +115,10 @@ export class RouterDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<span
-    #span
-    class="inline-flex items-center justify-center border-2 border-primary rounded w-16 h-16"
-    aria-haspopup="true"
->
+        basic: `<span #span class="inline-flex items-center justify-center border-2 border-primary rounded w-16 h-16" aria-haspopup="true">
     <svg width="31" height="33" viewBox="0 0 31 33" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path
-            d="..."
-            fill="var(--p-primary-color)"
-        />
-        <mask
-            id="mask0_1_52"
-            style="mask-type:luminance"
-            maskUnits="userSpaceOnUse"
-            x="0"
-            y="0"
-            width="31"
-            height="33"
-        >
-            <path
-                d="..."
-                fill="var(--high-contrast-text-color)"
-            />
-        </mask>
-        <g mask="url(#mask0_1_52)">
-            <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
-                d="..."
-                fill="var(--p-primary-color)"
-            />
-        </g>
-        <path
-            d="..."
-            fill="var(--high-contrast-text-color)"
-        />
-        <path
-            d="..."
-            fill="var(--high-contrast-text-color)"
-        />
-        <path
-            fill-rule="evenodd"
-            clip-rule="evenodd"
-            d="..."
-            fill="var(--high-contrast-text-color)"
-        />
-        <path
-            d="..."
-            fill="var(--high-contrast-text-color)"
-        />
-        <path
-            d="..."
-            fill="var(--high-contrast-text-color)"
-        />
-        <path
-            fill-rule="evenodd"
-            clip-rule="evenodd"
-            d="..."
-            fill="var(--high-contrast-text-color)"
-        />
-        <path
-            d="..."
-            fill="var(--high-contrast-text-color)"
-        />
-        <path
-            d="..."
-            fill="var(--high-contrast-text-color)"
-        />
-        <path
-            d="..."
-            fill="var(--high-contrast-text-color)"
-        />
-        <path
-            d="..."
-            fill="var(--high-contrast-text-color)"
-        />
+        <path d="..." fill="var(--p-primary-color)" />
+        <path d="..." fill="var(--high-contrast-text-color)"/>
     </svg>
 </span>
 <p-contextmenu [target]="span" [model]="items">
@@ -211,11 +139,7 @@ export class RouterDoc implements OnInit {
 </p-contextmenu>`,
 
         html: `<div class="card flex justify-center">
-    <span
-        #span
-        class="inline-flex items-center justify-center border-2 border-primary rounded w-16 h-16"
-        aria-haspopup="true"
-    >
+    <span #span class="inline-flex items-center justify-center border-2 border-primary rounded w-16 h-16" aria-haspopup="true">
           <svg
             width="31"
             height="33"
@@ -322,7 +246,7 @@ export class ContextMenuRouterDemo implements OnInit {
             {
                 label: 'Router Link',
                 icon: 'pi pi-palette',
-                route: '/guides/csslayer'
+                route: '/theming'
             },
             {
                 label: 'Programmatic',
