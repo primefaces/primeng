@@ -131,7 +131,7 @@ export class StatefulDoc {
     ) {}
 
     loadDemoData() {
-        this.customerService.getCustomersMini().then((data) => {
+        this.customerService.getCustomersSmall().then((data) => {
             this.customers = data;
             this.cd.markForCheck();
         });
@@ -390,7 +390,7 @@ export class TableStatefulDemo implements OnInit{
     constructor(private customerService: CustomerService) {}
 
     ngOnInit() {
-        this.customerService.getCustomersMini().then((data) => (this.customers = data));
+        this.customerService.getCustomersSmall().then((data) => (this.customers = data));
     }
 
     getSeverity(status: string) {

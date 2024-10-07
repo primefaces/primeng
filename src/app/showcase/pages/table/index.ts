@@ -366,11 +366,6 @@ export class TableDemo {
             ],
         },
         {
-            id: 'styling',
-            label: 'Styling',
-            component: StylingDoc,
-        },
-        {
             id: 'accessibility',
             label: 'Accessibility',
             component: AccessibilityDoc,
