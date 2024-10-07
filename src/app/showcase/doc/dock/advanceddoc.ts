@@ -46,6 +46,7 @@ import { PhotoService } from '@service/photoservice';
                     [style]="{ width: '30vw', height: '18rem' }"
                     [draggable]="false"
                     [resizable]="false"
+                    header="Finder"
                 >
                     <p-tree [value]="nodes" />
                 </p-dialog>
@@ -57,6 +58,7 @@ import { PhotoService } from '@service/photoservice';
                     [style]="{ width: '30vw' }"
                     [draggable]="false"
                     [resizable]="false"
+                    header="Terminal"
                 >
                     <p-terminal welcomeMessage="Welcome to PrimeNG (cmd: 'date', 'greet {0}', 'random')" prompt="primeng $" />
                 </p-dialog>
@@ -69,9 +71,9 @@ import { PhotoService } from '@service/photoservice';
                     [(visible)]="displayGalleria"
                     [circular]="true"
                     [responsiveOptions]="responsiveOptions"
-                    [containerStyle]="{ 'max-width': '850px' }"
                     [circular]="true"
                     [fullScreen]="true"
+                    [containerStyle]="{ width: '400px' }"
                 >
                     <ng-template pTemplate="item" let-item>
                         <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
@@ -405,7 +407,7 @@ export class AdvancedDoc implements OnInit, OnDestroy {
         <i class="pi pi-bars px-2"></i>
     </ng-template>
 </p-menubar>
-<div class="dock-window dock-advanced">
+<div class="dock-window">
     <p-dock [model]="dockItems" position="bottom">
         <ng-template pTemplate="item" let-item>
             <a [pTooltip]="item.label" tooltipPosition="top" class="p-dock-item-link">
@@ -416,23 +418,48 @@ export class AdvancedDoc implements OnInit, OnDestroy {
 
     <p-toast position="top-center" key="tc" />
 
-    <p-dialog [(visible)]="displayFinder" [breakpoints]="{ '960px': '50vw' }" [style]="{ width: '30vw', height: '18rem' }" [draggable]="false" [resizable]="false">
+    <p-dialog
+        [(visible)]="displayFinder"
+        [breakpoints]="{ '960px': '50vw' }"
+        [style]="{ width: '30vw', height: '18rem' }"
+        [draggable]="false"
+        [resizable]="false"
+        header="Finder"
+    >
         <p-tree [value]="nodes" />
     </p-dialog>
 
-    <p-dialog [maximizable]="true" [(visible)]="displayTerminal" [breakpoints]="{ '960px': '50vw' }" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false">
+    <p-dialog
+        [maximizable]="true"
+        [(visible)]="displayTerminal"
+        [breakpoints]="{ '960px': '50vw' }"
+        [style]="{ width: '30vw' }"
+        [draggable]="false"
+        [resizable]="false"
+        header="Terminal"
+    >
         <p-terminal welcomeMessage="Welcome to PrimeNG (cmd: 'date', 'greet {0}', 'random')" prompt="primeng $" />
     </p-dialog>
 
-    <p-galleria [(value)]="images" [showThumbnails]="false" [showThumbnailNavigators]="false" [showItemNavigators]="true" [(visible)]="displayGalleria" [circular]="true" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '850px' }" [circular]="true" [fullScreen]="true">
+    <p-galleria
+        [(value)]="images"
+        [showThumbnails]="false"
+        [showThumbnailNavigators]="false"
+        [showItemNavigators]="true"
+        [(visible)]="displayGalleria"
+        [circular]="true"
+        [responsiveOptions]="responsiveOptions"
+        [circular]="true"
+        [fullScreen]="true"
+        [containerStyle]="{ width: '400px' }"
+    >
         <ng-template pTemplate="item" let-item>
             <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
         </ng-template>
-    </p-galleria>
-</div>`,
+    </p-galleria>`,
 
         html: `<div class="card">
-    <p-menubar [model]="menubarItems">
+   <p-menubar [model]="menubarItems">
         <ng-template pTemplate="start">
             <i class="pi pi-apple px-2"></i>
         </ng-template>
@@ -445,7 +472,7 @@ export class AdvancedDoc implements OnInit, OnDestroy {
             <i class="pi pi-bars px-2"></i>
         </ng-template>
     </p-menubar>
-    <div class="dock-window dock-advanced">
+    <div class="dock-window">
         <p-dock [model]="dockItems" position="bottom">
             <ng-template pTemplate="item" let-item>
                 <a [pTooltip]="item.label" tooltipPosition="top" class="p-dock-item-link">
@@ -456,11 +483,26 @@ export class AdvancedDoc implements OnInit, OnDestroy {
 
         <p-toast position="top-center" key="tc" />
 
-        <p-dialog [(visible)]="displayFinder" [breakpoints]="{ '960px': '50vw' }" [style]="{ width: '30vw', height: '18rem' }" [draggable]="false" [resizable]="false">
+        <p-dialog
+            [(visible)]="displayFinder"
+            [breakpoints]="{ '960px': '50vw' }"
+            [style]="{ width: '30vw', height: '18rem' }"
+            [draggable]="false"
+            [resizable]="false"
+            header="Finder"
+        >
             <p-tree [value]="nodes" />
         </p-dialog>
 
-        <p-dialog [maximizable]="true" [(visible)]="displayTerminal" [breakpoints]="{ '960px': '50vw' }" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false">
+        <p-dialog
+            [maximizable]="true"
+            [(visible)]="displayTerminal"
+            [breakpoints]="{ '960px': '50vw' }"
+            [style]="{ width: '30vw' }"
+            [draggable]="false"
+            [resizable]="false"
+            header="Terminal"
+        >
             <p-terminal welcomeMessage="Welcome to PrimeNG (cmd: 'date', 'greet {0}', 'random')" prompt="primeng $" />
         </p-dialog>
 
@@ -472,15 +514,14 @@ export class AdvancedDoc implements OnInit, OnDestroy {
             [(visible)]="displayGalleria"
             [circular]="true"
             [responsiveOptions]="responsiveOptions"
-            [containerStyle]="{ 'max-width': '850px' }"
             [circular]="true"
             [fullScreen]="true"
+            [containerStyle]="{ width: '400px' }"
         >
             <ng-template pTemplate="item" let-item>
                 <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
             </ng-template>
         </p-galleria>
-    </div>
 </div>`,
 
         typescript: `import { Component, OnDestroy, OnInit } from '@angular/core';
