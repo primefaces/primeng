@@ -32,18 +32,10 @@ export class AnimationDoc {
     }
 
     code: Code = {
-        basic: `<p-toast 
-    [showTransformOptions]="'translateY(100%)'" 
-    [showTransitionOptions]="'1000ms'" 
-    [hideTransitionOptions]="'1000ms'" 
-    [showTransformOptions]="'translateX(100%)'" />
+        basic: `<p-toast [showTransformOptions]="'translateY(100%)'" [showTransitionOptions]="'1000ms'" [hideTransitionOptions]="'1000ms'" [showTransformOptions]="'translateX(100%)'" />
 <p-button pRipple (click)="show()" label="Show" />`,
         html: `<div class="card flex justify-center">
-    <p-toast 
-        [showTransformOptions]="'translateY(100%)'" 
-        [showTransitionOptions]="'1000ms'" 
-        [hideTransitionOptions]="'1000ms'" 
-        [showTransformOptions]="'translateX(100%)'" />
+    <p-toast [showTransformOptions]="'translateY(100%)'" [showTransitionOptions]="'1000ms'" [hideTransitionOptions]="'1000ms'" [showTransformOptions]="'translateX(100%)'" />
     <p-button pRipple (click)="show()" label="Show" />
 </div>`,
         typescript: `import { Component } from '@angular/core';

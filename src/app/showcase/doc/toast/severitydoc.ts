@@ -53,80 +53,21 @@ export class SeverityDoc {
 
     code: Code = {
         basic: `<p-toast />
-<p-button 
-    type="button" 
-    pRipple 
-    (click)="showSuccess()" 
-    label="Success" 
-    severity="success" />
-<p-button 
-    type="button"
-    pRipple 
-    (click)="showInfo()" 
-    label="Info" 
-    severity="info" />
-<p-button 
-    type="button" 
-    pRipple 
-    (click)="showWarn()" 
-    label="Warn" 
-    severity="warn" />
-<p-button 
-    type="button" 
-    pRipple 
-    (click)="showError()" 
-    label="Error" 
-    severity="danger" />
-<p-button 
-    type="button" 
-    pRipple 
-    (click)="showSecondary()" 
-    label="Secondary" 
-    severity="secondary" />
-<p-button 
-    type="button" 
-    pRipple 
-    (click)="showContrast()" 
-    label="Contrast" 
-    severity="contrast" />`,
+<p-button type="button" pRipple (click)="showSuccess()" label="Success" severity="success" />
+<p-button type="button" pRipple (click)="showInfo()" label="Info" severity="info" />
+<p-button type="button" pRipple (click)="showWarn()" label="Warn" severity="warn" />
+<p-button type="button" pRipple (click)="showError()" label="Error" severity="danger" />
+<p-button type="button" pRipple (click)="showSecondary()" label="Secondary" severity="secondary" />
+<p-button type="button" pRipple (click)="showContrast()" label="Contrast" severity="contrast" />`,
+
         html: `<div class="card flex justify-center gap-2">
     <p-toast />
-    <p-button 
-        type="button" 
-        pRipple 
-        (click)="showSuccess()" 
-        label="Success" 
-        severity="success" />
-    <p-button 
-        type="button"
-        pRipple 
-        (click)="showInfo()" 
-        label="Info" 
-        severity="info" />
-    <p-button 
-        type="button" 
-        pRipple 
-        (click)="showWarn()" 
-        label="Warn" 
-        severity="warn" />
-    <p-button 
-        type="button" 
-        pRipple 
-        (click)="showError()" 
-        label="Error" 
-        severity="danger" />
-    <p-button 
-        type="button" 
-        pRipple 
-        (click)="showSecondary()" 
-        label="Secondary" 
-        severity="secondary" />
-    <p-button 
-        type="button" 
-        pRipple 
-        (click)="showContrast()" 
-        label="Contrast" 
-        severity="contrast" />
+    <p-button type="button" pRipple (click)="showSuccess()" label="Success" severity="success" />
+    <p-button type="button" pRipple (click)="showInfo()" label="Info" severity="info" />
+    <p-button type="button" pRipple (click)="showWarn()" label="Warn" severity="warn" />
+    <p-button type="button" pRipple (click)="showError()" label="Error" severity="danger" />
+    <p-button type="button" pRipple (click)="showSecondary()" label="Secondary" severity="secondary" />
+    <p-button type="button" pRipple (click)="showContrast()" label="Contrast" severity="contrast" />
 </div>`,
         typescript: `import { Component } from '@angular/core';
 import { MessageService } from 'primeng/api';

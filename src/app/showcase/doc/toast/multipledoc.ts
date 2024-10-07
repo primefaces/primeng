@@ -30,18 +30,10 @@ export class MultipleDoc {
 
     code: Code = {
         basic: `<p-toast />
-<p-button
-    pRipple 
-    (click)="show()" 
-    label="Multiple" 
-    severity="warning" />`,
+<p-button pRipple (click)="show()" label="Multiple" severity="warning" />`,
         html: `<div class="card flex justify-center">
     <p-toast />
-    <p-button 
-        pRipple 
-        (click)="show()" 
-        label="Multiple" 
-        severity="warning" />
+    <p-button pRipple (click)="show()" label="Multiple" severity="warning" />
 </div>`,
         typescript: `import { Component } from '@angular/core';
 import { MessageService } from 'primeng/api';
