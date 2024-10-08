@@ -20,7 +20,7 @@ import {
     numberAttribute,
 } from '@angular/core';
 import { FilterService, PrimeTemplate, SharedModule } from 'primeng/api';
-import { ButtonModule } from 'primeng/button';
+import { ButtonModule, ButtonProps } from 'primeng/button';
 import { DomHandler } from 'primeng/dom';
 import { AngleDoubleDownIcon } from 'primeng/icons/angledoubledown';
 import { AngleDoubleLeftIcon } from 'primeng/icons/angledoubleleft';
@@ -83,6 +83,7 @@ import { FormsModule } from '@angular/forms';
                     [disabled]="sourceMoveDisabled()"
                     (click)="moveUp(sourcelist, source, selectedItemsSource, onSourceReorder, SOURCE_LIST)"
                     [attr.data-pc-section]="'sourceMoveUpButton'"
+                    [buttonProps]="getButtonProps('moveup')"
                 >
                     <AngleUpIcon *ngIf="!moveUpIconTemplate" [attr.data-pc-section]="'moveupicon'" />
                     <ng-template *ngTemplateOutlet="moveUpIconTemplate"></ng-template>
@@ -97,6 +98,7 @@ import { FormsModule } from '@angular/forms';
                     [disabled]="sourceMoveDisabled()"
                     (click)="moveTop(sourcelist, source, selectedItemsSource, onSourceReorder, SOURCE_LIST)"
                     [attr.data-pc-section]="'sourceMoveTopButton'"
+                    [buttonProps]="getButtonProps('movetop')"
                 >
                     <AngleDoubleUpIcon *ngIf="!moveTopIconTemplate" [attr.data-pc-section]="'movetopicon'" />
                     <ng-template *ngTemplateOutlet="moveTopIconTemplate"></ng-template>
@@ -111,6 +113,7 @@ import { FormsModule } from '@angular/forms';
                     [disabled]="sourceMoveDisabled()"
                     (click)="moveDown(sourcelist, source, selectedItemsSource, onSourceReorder, SOURCE_LIST)"
                     [attr.data-pc-section]="'sourceMoveDownButton'"
+                    [buttonProps]="getButtonProps('movedown')"
                 >
                     <AngleDownIcon *ngIf="!moveDownIconTemplate" [attr.data-pc-section]="'movedownicon'" />
                     <ng-template *ngTemplateOutlet="moveDownIconTemplate"></ng-template>
@@ -125,6 +128,7 @@ import { FormsModule } from '@angular/forms';
                     [disabled]="sourceMoveDisabled()"
                     (click)="moveBottom(sourcelist, source, selectedItemsSource, onSourceReorder, SOURCE_LIST)"
                     [attr.data-pc-section]="'sourceMoveBottomButton'"
+                    [buttonProps]="getButtonProps('movebottom')"
                 >
                     <AngleDoubleDownIcon *ngIf="!moveBottomIconTemplate" [attr.data-pc-section]="'movebottomicon'" />
                     <ng-template *ngTemplateOutlet="moveBottomIconTemplate"></ng-template>
@@ -180,6 +184,7 @@ import { FormsModule } from '@angular/forms';
                     [disabled]="moveRightDisabled()"
                     (click)="moveRight()"
                     [attr.data-pc-section]="'moveToTargetButton'"
+                    [buttonProps]="getButtonProps('movetotarget')"
                 >
                     <ng-container *ngIf="!moveToTargetIconTemplate">
                         <AngleRightIcon *ngIf="!viewChanged" [attr.data-pc-section]="'movetotargeticon'" />
@@ -197,6 +202,7 @@ import { FormsModule } from '@angular/forms';
                     [disabled]="moveAllRightDisabled()"
                     (click)="moveAllRight()"
                     [attr.data-pc-section]="'moveAllToTargetButton'"
+                    [buttonProps]="getButtonProps('movealltotarget')"
                 >
                     <ng-container *ngIf="!moveAllToTargetIconTemplate">
                         <AngleDoubleRightIcon *ngIf="!viewChanged" [attr.data-pc-section]="'movealltotargeticon'" />
@@ -214,6 +220,7 @@ import { FormsModule } from '@angular/forms';
                     [disabled]="moveLeftDisabled()"
                     (click)="moveLeft()"
                     [attr.data-pc-section]="'moveToSourceButton'"
+                    [buttonProps]="getButtonProps('movetosource')"
                 >
                     <ng-container *ngIf="!moveToSourceIconTemplate">
                         <AngleLeftIcon *ngIf="!viewChanged" [attr.data-pc-section]="'movedownsourceticon'" />
@@ -231,6 +238,7 @@ import { FormsModule } from '@angular/forms';
                     [disabled]="moveAllLeftDisabled()"
                     (click)="moveAllLeft()"
                     [attr.data-pc-section]="'moveAllToSourceButton'"
+                    [buttonProps]="getButtonProps('movealltosource')"
                 >
                     <ng-container *ngIf="!moveAllToSourceIconTemplate">
                         <AngleDoubleLeftIcon *ngIf="!viewChanged" [attr.data-pc-section]="'movealltosourceticon'" />
@@ -290,6 +298,7 @@ import { FormsModule } from '@angular/forms';
                     [disabled]="targetMoveDisabled()"
                     (click)="moveUp(targetlist, target, selectedItemsTarget, onTargetReorder, TARGET_LIST)"
                     [attr.data-pc-section]="'targetMoveUpButton'"
+                    [buttonProps]="getButtonProps('moveup')"
                 >
                     <AngleUpIcon *ngIf="!moveUpIconTemplate" [attr.data-pc-section]="'moveupicon'" />
                     <ng-template *ngTemplateOutlet="moveUpIconTemplate"></ng-template>
@@ -304,6 +313,7 @@ import { FormsModule } from '@angular/forms';
                     [disabled]="targetMoveDisabled()"
                     (click)="moveTop(targetlist, target, selectedItemsTarget, onTargetReorder, TARGET_LIST)"
                     [attr.data-pc-section]="'targetMoveTopButton'"
+                    [buttonProps]="getButtonProps('movetop')"
                 >
                     <AngleDoubleUpIcon *ngIf="!moveTopIconTemplate" [attr.data-pc-section]="'movetopicon'" />
                     <ng-template *ngTemplateOutlet="moveTopIconTemplate"></ng-template>
@@ -318,6 +328,7 @@ import { FormsModule } from '@angular/forms';
                     [disabled]="targetMoveDisabled()"
                     (click)="moveDown(targetlist, target, selectedItemsTarget, onTargetReorder, TARGET_LIST)"
                     [attr.data-pc-section]="'targetMoveDownButton'"
+                    [buttonProps]="getButtonProps('movedown')"
                 >
                     <AngleDownIcon *ngIf="!moveDownIconTemplate" [attr.data-pc-section]="'movedownicon'" />
                     <ng-template *ngTemplateOutlet="moveDownIconTemplate"></ng-template>
@@ -332,6 +343,7 @@ import { FormsModule } from '@angular/forms';
                     [disabled]="targetMoveDisabled()"
                     (click)="moveBottom(targetlist, target, selectedItemsTarget, onTargetReorder, TARGET_LIST)"
                     [attr.data-pc-section]="'targetMoveBottomButton'"
+                    [buttonProps]="getButtonProps('movebottom')"
                 >
                     <AngleDoubleDownIcon *ngIf="!moveBottomIconTemplate" [attr.data-pc-section]="'movebottomicon'" />
                     <ng-template *ngTemplateOutlet="moveBottomIconTemplate"></ng-template>
@@ -540,6 +552,51 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
      * @group Props
      */
     @Input({ transform: booleanAttribute }) autoOptionFocus: boolean = true;
+    /**
+     * Used to pass all properties of the ButtonProps to the Button component.
+     * @group Props
+     */
+    @Input() buttonProps: ButtonProps = { severity: 'secondary' };
+    /**
+     * Used to pass all properties of the ButtonProps to the move up button inside the component.
+     * @group Props
+     */
+    @Input() moveUpButtonProps: ButtonProps;
+    /**
+     * 	Used to pass all properties of the ButtonProps to the move top button inside the component.
+     * @group Props
+     */
+    @Input() moveTopButtonProps: ButtonProps;
+    /**
+     * 	Used to pass all properties of the ButtonProps to the move down button inside the component.
+     * @group Props
+     */
+    @Input() moveDownButtonProps: ButtonProps;
+    /**
+     * 	Used to pass all properties of the ButtonProps to the move bottom button inside the component.
+     * @group Props
+     */
+    @Input() moveBottomButtonProps: ButtonProps;
+    /**
+     * 	Used to pass all properties of the ButtonProps to the move to target button inside the component.
+     * @group Props
+     */
+    @Input() moveToTargetProps: ButtonProps;
+    /**
+     * 	Used to pass all properties of the ButtonProps to the move all to target button inside the component.
+     * @group Props
+     */
+    @Input() moveAllToTargetProps: ButtonProps;
+    /**
+     *  Used to pass all properties of the ButtonProps to the move to source button inside the component.
+     * @group Props
+     */
+    @Input() moveToSourceProps: ButtonProps;
+    /**
+     *  Used to pass all properties of the ButtonProps to the move all to source button inside the component.
+     * @group Props
+     */
+    @Input() moveAllToSourceProps: ButtonProps;
 
     /**
      * Indicates the width of the screen at which the component should change its behavior.
@@ -641,6 +698,31 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
     @ViewChild('targetFilter') targetFilterViewChild: Nullable<ElementRef>;
 
     @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<PrimeTemplate>>;
+
+
+
+    getButtonProps(direction: string) {
+        switch (direction) {
+            case 'moveup':
+                return { ...this.buttonProps, ...this.moveUpButtonProps };
+            case 'movetop':
+                return { ...this.buttonProps, ...this.moveTopButtonProps };
+            case 'movedown':
+                return { ...this.buttonProps, ...this.moveDownButtonProps };
+            case 'movebottom':
+                return { ...this.buttonProps, ...this.moveBottomButtonProps };
+            case 'movetotarget':
+                return { ...this.buttonProps, ...this.moveToTargetProps };
+            case 'movealltotarget':
+                return { ...this.buttonProps, ...this.moveAllToTargetProps };
+            case 'movetosource':
+                return { ...this.buttonProps, ...this.moveToSourceProps };
+            case 'movealltosource':
+                return { ...this.buttonProps, ...this.moveAllToSourceProps };
+            default:
+                return this.buttonProps;
+        }
+    }
 
     get moveUpAriaLabel() {
         return this.upButtonAriaLabel
@@ -835,6 +917,7 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
             };
         }
     }
+
     ngAfterContentInit() {
         (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
             switch (item.getType()) {
