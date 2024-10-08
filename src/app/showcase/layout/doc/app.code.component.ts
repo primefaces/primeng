@@ -92,7 +92,12 @@ import { useCodeSandbox, useStackBlitz } from './codeeditor';
                 </button>
             </div>
 
-            <pre *ngIf="lang === 'basic'" class="language-markup"><code #codeElement>
+            <pre *ngIf="lang === 'basic' && importCode" class="language-javascript"><code #codeElement>
+{{code.basic}}
+
+</code></pre>
+
+            <pre *ngIf="lang === 'basic' && !importCode" class="language-markup"><code #codeElement>
 {{code.basic}}
 
 </code></pre>
@@ -140,6 +145,8 @@ export class AppCodeComponent {
     @Input({ transform: booleanAttribute }) hideCodeSandbox: boolean = true;
 
     @Input({ transform: booleanAttribute }) hideStackBlitz: boolean = true;
+
+    @Input({ transform: booleanAttribute }) importCode: boolean = false;
 
     @ViewChild('codeElement') codeElement: ElementRef;
 
