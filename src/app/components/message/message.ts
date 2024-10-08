@@ -62,22 +62,6 @@ import { TimesIcon } from 'primeng/icons/times';
                     @if (iconTemplate) {
                         <ng-container *ngTemplateOutlet="iconTemplate"></ng-container>
                     }
-                    @if (!icon && !iconTemplate) {
-                        @switch (_defaultIcon) {
-                            @case ('success') {
-                                <CheckIcon [styleClass]="cx('icon')" />
-                            }
-                            @case ('error') {
-                                <TimesCircleIcon [styleClass]="cx('icon')" />
-                            }
-                            @case ('warn') {
-                                <ExclamationTriangleIcon [styleClass]="cx('icon')" />
-                            }
-                            @default {
-                                <InfoCircleIcon [styleClass]="cx('icon')" />
-                            }
-                        }
-                    }
                     @if (icon) {
                         <i class="p-message-icon" [ngClass]="icon"></i>
                     }
