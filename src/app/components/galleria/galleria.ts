@@ -695,70 +695,66 @@ export class GalleriaItemSlot {
 @Component({
     selector: 'p-galleriaItem',
     template: `
-        <div class="p-galleria-items-container">
-            <div class="p-galleria-items">
-                <button
-                    *ngIf="showItemNavigators"
-                    type="button"
-                    role="navigation"
-                    [ngClass]="{ 'p-galleria-prev-button p-galleria-nav-button': true, 'p-disabled': this.isNavBackwardDisabled() }"
-                    (click)="navBackward($event)"
-                    [disabled]="isNavBackwardDisabled()"
-                    (focus)="onButtonFocus('left')"
-                    (blur)="onButtonBlur('left')"
-                >
-                    <ChevronLeftIcon *ngIf="!galleria.itemPreviousIconTemplate" [styleClass]="'p-galleria-prev-icon'" />
-                    <ng-template *ngTemplateOutlet="galleria.itemPreviousIconTemplate"></ng-template>
-                </button>
-                <div
-                    [id]="id + '_item_' + activeIndex"
-                    role="group"
-                    class="p-galleria-item"
-                    [attr.aria-label]="ariaSlideNumber(activeIndex + 1)"
-                    [attr.aria-roledescription]="ariaSlideLabel()"
-                >
-                    <p-galleriaItemSlot
-                        type="item"
-                        [item]="activeItem"
-                        [templates]="templates"
-                        class="p-galleria-item"
-                    ></p-galleriaItemSlot>
-                </div>
-                <button
-                    *ngIf="showItemNavigators"
-                    type="button"
-                    [ngClass]="{ 'p-galleria-next-button p-galleria-nav-button': true, 'p-disabled': this.isNavForwardDisabled() }"
-                    (click)="navForward($event)"
-                    [disabled]="isNavForwardDisabled()"
-                    role="navigation"
-                    (focus)="onButtonFocus('right')"
-                    (blur)="onButtonBlur('right')"
-                >
-                    <ChevronRightIcon *ngIf="!galleria.itemNextIconTemplate" [styleClass]="'p-galleria-next-icon'" />
-                    <ng-template *ngTemplateOutlet="galleria.itemNextIconTemplate"></ng-template>
-                </button>
-                <div class="p-galleria-caption" *ngIf="captionFacet">
-                    <p-galleriaItemSlot type="caption" [item]="activeItem" [templates]="templates"></p-galleriaItemSlot>
-                </div>
+        <div class="p-galleria-items">
+            <button
+                *ngIf="showItemNavigators"
+                type="button"
+                role="navigation"
+                [ngClass]="{ 'p-galleria-prev-button p-galleria-nav-button': true, 'p-disabled': this.isNavBackwardDisabled() }"
+                (click)="navBackward($event)"
+                [disabled]="isNavBackwardDisabled()"
+                (focus)="onButtonFocus('left')"
+                (blur)="onButtonBlur('left')"
+            >
+                <ChevronLeftIcon *ngIf="!galleria.itemPreviousIconTemplate" [styleClass]="'p-galleria-prev-icon'" />
+                <ng-template *ngTemplateOutlet="galleria.itemPreviousIconTemplate"></ng-template>
+            </button>
+            <div
+                [id]="id + '_item_' + activeIndex"
+                role="group"
+                class="p-galleria-item"
+                [attr.aria-label]="ariaSlideNumber(activeIndex + 1)"
+                [attr.aria-roledescription]="ariaSlideLabel()"
+            >
+                <p-galleriaItemSlot type="item" [item]="activeItem" [templates]="templates" class="p-galleria-item"></p-galleriaItemSlot>
             </div>
-            <ul *ngIf="showIndicators" class="p-galleria-indicator-list">
-                <li
-                    *ngFor="let item of value; let index = index"
-                    tabindex="0"
-                    (click)="onIndicatorClick(index)"
-                    (mouseenter)="onIndicatorMouseEnter(index)"
-                    (keydown)="onIndicatorKeyDown($event, index)"
-                    [ngClass]="{ 'p-galleria-indicator': true, 'p-galleria-indicator-active': isIndicatorItemActive(index) }"
-                    [attr.aria-label]="ariaPageLabel(index + 1)"
-                    [attr.aria-selected]="activeIndex === index"
-                    [attr.aria-controls]="id + '_item_' + index"
-                >
-                    <button type="button" tabIndex="-1" class="p-galleria-indicator-button" *ngIf="!indicatorFacet"></button>
-                    <p-galleriaItemSlot type="indicator" [index]="index" [templates]="templates"></p-galleriaItemSlot>
-                </li>
-            </ul>
+            <button
+                *ngIf="showItemNavigators"
+                type="button"
+                [ngClass]="{ 'p-galleria-next-button p-galleria-nav-button': true, 'p-disabled': this.isNavForwardDisabled() }"
+                (click)="navForward($event)"
+                [disabled]="isNavForwardDisabled()"
+                role="navigation"
+                (focus)="onButtonFocus('right')"
+                (blur)="onButtonBlur('right')"
+            >
+                <ChevronRightIcon *ngIf="!galleria.itemNextIconTemplate" [styleClass]="'p-galleria-next-icon'" />
+                <ng-template *ngTemplateOutlet="galleria.itemNextIconTemplate"></ng-template>
+            </button>
+            <div class="p-galleria-caption" *ngIf="captionFacet">
+                <p-galleriaItemSlot type="caption" [item]="activeItem" [templates]="templates"></p-galleriaItemSlot>
+            </div>
         </div>
+        <ul *ngIf="showIndicators" class="p-galleria-indicator-list">
+            <li
+                *ngFor="let item of value; let index = index"
+                tabindex="0"
+                (click)="onIndicatorClick(index)"
+                (mouseenter)="onIndicatorMouseEnter(index)"
+                (keydown)="onIndicatorKeyDown($event, index)"
+                [ngClass]="{ 'p-galleria-indicator': true, 'p-galleria-indicator-active': isIndicatorItemActive(index) }"
+                [attr.aria-label]="ariaPageLabel(index + 1)"
+                [attr.aria-selected]="activeIndex === index"
+                [attr.aria-controls]="id + '_item_' + index"
+            >
+                <button type="button" tabIndex="-1" class="p-galleria-indicator-button" *ngIf="!indicatorFacet"></button>
+                <p-galleriaItemSlot type="indicator" [index]="index" [templates]="templates"></p-galleriaItemSlot>
+            </li>
+        </ul>
     `,
+    host: {
+        class: 'p-galleria-items-container',
+    },
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GalleriaItem implements OnChanges {
