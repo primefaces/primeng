@@ -19,7 +19,7 @@ import { Code } from '@domain/code';
                         [text]="message.content"
                         [ngClass]="{ 'mt-4': !first }"
                         [closable]="message?.closable"
-                    ></p-message>
+                    />
                 }
             </div>
         </div>
@@ -48,7 +48,7 @@ export class DynamicDoc {
 </div>
 <div class="flex flex-col">
     @for (message of messages(); track message; let first = $first) {
-        <p-message [severity]="message.severity" [text]="message.content" [ngClass]="{ 'mt-4': !first }"></p-message>
+        <p-message [severity]="message.severity" [text]="message.content" [ngClass]="{ 'mt-4': !first }" />
     }
 </div>`,
 
@@ -59,7 +59,7 @@ export class DynamicDoc {
     </div>
     <div class="flex flex-col">
         @for (message of messages(); track message; let first = $first) {
-            <p-message [severity]="message.severity" [text]="message.content" [ngClass]="{ 'mt-4': !first }"></p-message>
+            <p-message [severity]="message.severity" [text]="message.content" [ngClass]="{ 'mt-4': !first }" />
         }
     </div>
 </div>`,
