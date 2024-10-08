@@ -218,11 +218,6 @@ export class TableDemo {
                     label: 'Row',
                     component: RowEditDoc,
                 },
-                {
-                    id: 'filter-sort-edit',
-                    label: 'Filter & Sort Cell Edit',
-                    component: FilterSortEditDoc,
-                },
             ],
         },
         // {
