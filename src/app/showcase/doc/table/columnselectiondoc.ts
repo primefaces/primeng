@@ -7,7 +7,7 @@ import { ProductService } from '@service/productservice';
 @Component({
     selector: 'column-selection-doc',
     template: ` <app-docsectiontext>
-            <p>Selection using custom elements.</p>
+            <p>Row selection with an element inside a column is implemented with templating.</p>
         </app-docsectiontext>
         <p-deferred-demo (load)="loadDemoData()">
             <div class="card">
@@ -29,7 +29,7 @@ import { ProductService } from '@service/productservice';
                             <td>{{ product.category }}</td>
                             <td>{{ product.quantity }}</td>
                             <td>
-                                <button type="button" pButton pRipple icon="pi pi-plus" (click)="selectProduct(product)"></button>
+                                <p-button icon="pi pi-search" (click)="selectProduct(product)" severity="secondary" rounded />
                             </td>
                         </tr>
                     </ng-template>
@@ -81,13 +81,7 @@ export class ColumnSelectionDoc {
             <td>{{ product.category }}</td>
             <td>{{ product.quantity }}</td>
             <td>
-                <button 
-                    type="button" 
-                    pButton 
-                    pRipple 
-                    icon="pi pi-plus" 
-                    (click)="selectProduct(product)">
-                </button>
+                <p-button icon="pi pi-search" (click)="selectProduct(product)" severity="secondary" rounded />
             </td>
         </tr>
     </ng-template>
@@ -111,13 +105,7 @@ export class ColumnSelectionDoc {
                 <td>{{ product.category }}</td>
                 <td>{{ product.quantity }}</td>
                 <td>
-                    <button 
-                        type="button" 
-                        pButton 
-                        pRipple 
-                        icon="pi pi-plus" 
-                        (click)="selectProduct(product)">
-                    </button>
+                    <p-button icon="pi pi-search" (click)="selectProduct(product)" severity="secondary" rounded />
                 </td>
             </tr>
         </ng-template>

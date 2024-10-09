@@ -188,16 +188,16 @@ export class TableDemo {
                     component: CheckboxSelectionDoc,
                 },
                 {
+                    id: 'column-selection',
+                    label: 'Column',
+                    component: ColumnSelectionDoc,
+                },
+                {
                     id: 'selection-events',
                     label: 'Events',
                     component: SelectionEventsDoc,
                 },
             ],
-        },
-        {
-            id: 'column-selection',
-            label: 'Column Selection',
-            component: ColumnSelectionDoc,
         },
         {
             id: 'row-expansion',
