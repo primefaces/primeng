@@ -18,8 +18,8 @@ interface Column {
                 <p-table [value]="products" [tableStyle]="{ 'min-width': '60rem' }">
                     <ng-template pTemplate="caption">
                         <div class="flex items-center justify-between">
-                            Products
-                            <p-button icon="pi pi-refresh" />
+                            <span class="text-xl font-bold">Products</span>
+                            <p-button icon="pi pi-refresh" rounded raised />
                         </div>
                     </ng-template>
                     <ng-template pTemplate="header">
@@ -39,8 +39,7 @@ interface Column {
                                 <img
                                     [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image"
                                     [alt]="product.name"
-                                    width="100"
-                                    class="shadow-lg"
+                                    class="w-24 rounded"
                                 />
                             </td>
                             <td>{{ product.price | currency: 'USD' }}</td>
@@ -51,11 +50,7 @@ interface Column {
                             </td>
                         </tr>
                     </ng-template>
-                    <ng-template pTemplate="summary">
-                        <div class="flex items-center justify-between">
-                            In total there are {{ products ? products.length : 0 }} products.
-                        </div>
-                    </ng-template>
+                    <ng-template pTemplate="footer"> In total there are {{ products ? products.length : 0 }} products. </ng-template>
                 </p-table>
             </div>
         </p-deferred-demo>
@@ -98,11 +93,11 @@ export class TemplateDoc {
     }
 
     code: Code = {
-        basic: `<p-table [value]="products" [tableStyle]="{'min-width': '60rem'}">
+        basic: `<p-table [value]="products" [tableStyle]="{ 'min-width': '60rem' }">
     <ng-template pTemplate="caption">
         <div class="flex items-center justify-between">
-            Products
-            <p-button icon="pi pi-refresh" />
+            <span class="text-xl font-bold">Products</span>
+            <p-button icon="pi pi-refresh" rounded raised />
         </div>
     </ng-template>
     <ng-template pTemplate="header">
@@ -117,26 +112,30 @@ export class TemplateDoc {
     </ng-template>
     <ng-template pTemplate="body" let-product>
         <tr>
-            <td>{{product.name}}</td>
-            <td><img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.name" width="100" class="shadow-lg" /></td>
-            <td>{{product.price | currency:'USD'}}</td>
-            <td>{{product.category}}</td>
+            <td>{{ product.name }}</td>
+            <td>
+                <img
+                    [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image"
+                    [alt]="product.name"
+                    class="w-24 rounded"
+                />
+            </td>
+            <td>{{ product.price | currency: 'USD' }}</td>
+            <td>{{ product.category }}</td>
             <td><p-rating [(ngModel)]="product.rating" [readonly]="true" [cancel]="false" /></td>
-            <td><p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" /></td>
+            <td>
+                <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" />
+            </td>
         </tr>
     </ng-template>
-    <ng-template pTemplate="summary">
-        <div class="flex items-center justify-between">
-            In total there are {{products ? products.length : 0 }} products.
-        </div>
-    </ng-template>
+    <ng-template pTemplate="footer"> In total there are {{ products ? products.length : 0 }} products. </ng-template>
 </p-table>`,
         html: `<div class="card">
-    <p-table [value]="products" [tableStyle]="{'min-width': '60rem'}">
+    <p-table [value]="products" [tableStyle]="{ 'min-width': '60rem' }">
         <ng-template pTemplate="caption">
             <div class="flex items-center justify-between">
-                Products
-                <p-button icon="pi pi-refresh" />
+                <span class="text-xl font-bold">Products</span>
+                <p-button icon="pi pi-refresh" rounded raised />
             </div>
         </ng-template>
         <ng-template pTemplate="header">
@@ -151,19 +150,23 @@ export class TemplateDoc {
         </ng-template>
         <ng-template pTemplate="body" let-product>
             <tr>
-                <td>{{product.name}}</td>
-                <td><img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.name" width="100" class="shadow-lg" /></td>
-                <td>{{product.price | currency:'USD'}}</td>
-                <td>{{product.category}}</td>
+                <td>{{ product.name }}</td>
+                <td>
+                    <img
+                        [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image"
+                        [alt]="product.name"
+                        class="w-24 rounded"
+                    />
+                </td>
+                <td>{{ product.price | currency: 'USD' }}</td>
+                <td>{{ product.category }}</td>
                 <td><p-rating [(ngModel)]="product.rating" [readonly]="true" [cancel]="false" /></td>
-                <td><p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" /></td>
+                <td>
+                    <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" />
+                </td>
             </tr>
         </ng-template>
-        <ng-template pTemplate="summary">
-            <div class="flex items-center justify-between">
-                In total there are {{products ? products.length : 0 }} products.
-            </div>
-        </ng-template>
+        <ng-template pTemplate="footer"> In total there are {{ products ? products.length : 0 }} products. </ng-template>
     </p-table>
 </div>`,
         typescript: `import { Component, OnInit } from '@angular/core';
