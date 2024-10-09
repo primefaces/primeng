@@ -4,10 +4,13 @@ import { Product } from '@domain/product';
 import { ProductService } from '@service/productservice';
 
 @Component({
-    selector: 'filter-doc',
+    selector: 'template-doc',
     template: `
         <app-docsectiontext>
-            <p>Filter value is checked against the property of an object configured with the <i>filterBy</i> property.</p>
+            <p>
+                For custom content support define an <i>option</i> template that gets the item instance as a parameter. In addition
+                <i>sourceheader</i> and <i>targetheader</i> templates are provided for further customization.
+            </p>
         </app-docsectiontext>
         <div class="card">
             <p-picklist
@@ -19,11 +22,10 @@ import { ProductService } from '@service/productservice';
                 [responsive]="true"
                 [sourceStyle]="{ height: '30rem' }"
                 [targetStyle]="{ height: '30rem' }"
-                filterBy="name"
                 sourceFilterPlaceholder="Search by name"
                 targetFilterPlaceholder="Search by name"
                 breakpoint="1400px"
-                scrollHeight="30rem"
+                scrollHeight="20rem"
             >
                 <ng-template let-option let-selected="selected" pTemplate="option">
                     <div class="flex flex-wrap p-1 items-center gap-4 w-full">
@@ -48,10 +50,10 @@ import { ProductService } from '@service/productservice';
                 </ng-template>
             </p-picklist>
         </div>
-        <app-code [code]="code" selector="picklist-filter-demo" [extFiles]="extFiles"></app-code>
+        <app-code [code]="code" selector="picklist-template-demo" [extFiles]="extFiles"></app-code>
     `,
 })
-export class FilterDoc {
+export class TemplateDoc {
     sourceProducts!: Product[];
 
     targetProducts!: Product[];
@@ -83,7 +85,7 @@ export class FilterDoc {
     sourceFilterPlaceholder="Search by name"
     targetFilterPlaceholder="Search by name"
     breakpoint="1400px"
-    scrollHeight="30rem"
+    scrollHeight="480px"
 >
     <ng-template let-option let-selected="selected" pTemplate="option">
         <div class="flex flex-wrap p-1 items-center gap-4 w-full">
@@ -122,7 +124,7 @@ export class FilterDoc {
             sourceFilterPlaceholder="Search by name"
             targetFilterPlaceholder="Search by name"
             breakpoint="1400px"
-            scrollHeight="30rem"
+            scrollHeight="480px"
         >
             <ng-template let-option let-selected="selected" pTemplate="option">
                 <div class="flex flex-wrap p-1 items-center gap-4 w-full">
@@ -155,13 +157,13 @@ import { PickListModule } from 'primeng/picklist';
 import { CommonModule } from '@angular/common';
 
 @Component({
-    selector: 'picklist-filter-demo',
-    templateUrl: './picklist-filter-demo.html',
+    selector: 'picklist-template-demo',
+    templateUrl: './picklist-template-demo.html',
     standalone: true,
     imports: [PickListModule, CommonModule],
     providers: [ProductService]
 })
-export class PicklistFilterDemo {
+export class PicklistTemplateDemo {
     sourceProducts!: Product[];
 
     targetProducts!: Product[];
