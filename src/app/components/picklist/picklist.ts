@@ -167,6 +167,13 @@ import { FormsModule } from '@angular/forms';
                             <ng-template *ngTemplateOutlet="headerTemplate"></ng-template>
                         </ng-template>
                     </ng-container>
+                    <ng-container *ngIf="itemTemplate">
+                        <ng-template pTemplate="item" let-item let-index="index" let-selected="selected">
+                            <ng-container
+                                *ngTemplateOutlet="itemTemplate; context: { $implicit: item, index: index, selected: selected }"
+                            ></ng-container>
+                        </ng-template>
+                    </ng-container>
                 </p-listbox>
             </div>
             <div
@@ -278,6 +285,13 @@ import { FormsModule } from '@angular/forms';
                     <ng-container *ngIf="targetHeaderTemplate">
                         <ng-template pTemplate="header">
                             <ng-template *ngTemplateOutlet="headerTemplate"></ng-template>
+                        </ng-template>
+                    </ng-container>
+                    <ng-container *ngIf="itemTemplate">
+                        <ng-template pTemplate="item" let-item let-index="index" let-selected="selected">
+                            <ng-container
+                                *ngTemplateOutlet="itemTemplate; context: { $implicit: item, index: index, selected: selected }"
+                            ></ng-container>
                         </ng-template>
                     </ng-container>
                 </p-listbox>
@@ -698,8 +712,6 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
     @ViewChild('targetFilter') targetFilterViewChild: Nullable<ElementRef>;
 
     @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<PrimeTemplate>>;
-
-
 
     getButtonProps(direction: string) {
         switch (direction) {

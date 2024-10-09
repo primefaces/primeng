@@ -25,22 +25,8 @@ import { ProductService } from '@service/productservice';
                 [targetStyle]="{ height: '30rem' }"
                 breakpoint="1400px"
             >
-                <ng-template let-product pTemplate="item">
-                    <div class="flex flex-wrap p-2 items-center gap-4">
-                        <img
-                            class="w-16 shadow shrink-0 rounded-border"
-                            src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}"
-                            alt="{item.name}"
-                        />
-                        <div class="flex-1 flex flex-col gap-2">
-                            <span class="font-bold">{{ product.name }}</span>
-                            <div class="flex items-center gap-2">
-                                <i class="pi pi-tag text-sm"></i>
-                                <span>{{ product.category }}</span>
-                            </div>
-                        </div>
-                        <span class="font-bold text-surface-900 dark:text-surface-0">{{ '$' + product.price }}</span>
-                    </div>
+                <ng-template let-item pTemplate="item">
+                    {{ item.name }}
                 </ng-template>
             </p-picklist>
         </div>
@@ -66,71 +52,17 @@ export class BasicDoc {
     }
 
     code: Code = {
-        basic: `<p-picklist 
-    [source]="sourceProducts" 
-    [target]="targetProducts" 
-    sourceHeader="Available" 
-    targetHeader="Selected" 
-    [dragdrop]="true" 
-    [responsive]="true" 
-    [sourceStyle]="{ height: '30rem' }"
-    [targetStyle]="{ height: '30rem' }"
-    breakpoint="1400px">
-        <ng-template let-product pTemplate="item">
-            <div class="flex flex-wrap p-2 items-center gap-4">
-                <img 
-                    class="w-16 shadow shrink-0 rounded-border" 
-                    src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" 
-                    alt="{item.name}" />
-                <div class="flex-1 flex flex-col gap-2">
-                    <span class="font-bold">{{ product.name }}</span>
-                    <div class="flex items-center gap-2">
-                        <i class="pi pi-tag text-sm"></i>
-                        <span>
-                            {{ product.category }}
-                        </span>
-                    </div>
-                </div>
-                <span class="font-bold text-surface-900 dark:text-surface-0">
-                    {{ '$' + product.price }}
-                </span>
-            </div>
-        </ng-template>
+        basic: `<p-picklist [source]="sourceProducts" [target]="targetProducts" sourceHeader="Available" targetHeader="Selected" [dragdrop]="true" [responsive]="true" [sourceStyle]="{ height: '30rem' }" [targetStyle]="{ height: '30rem' }" breakpoint="1400px">
+    <ng-template let-item pTemplate="item">
+        {{ item.name }}
+    </ng-template>
 </p-picklist>`,
 
         html: `<div class="card">
-    <p-picklist 
-        [source]="sourceProducts" 
-        [target]="targetProducts" 
-        sourceHeader="Available"
-        targetHeader="Selected" 
-        [dragdrop]="true" 
-        [responsive]="true"
-        [sourceStyle]="{ height: '30rem' }" 
-        [targetStyle]="{ height: '30rem' }" 
-        breakpoint="1400px">
-            <ng-template let-product pTemplate="item">
-                <div class="flex flex-wrap p-2 items-center gap-4">
-                    <img 
-                        class="w-16 shadow shrink-0 rounded-border" 
-                        src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}"
-                        alt="{item.name}" />
-                    <div class="flex-1 flex flex-col gap-2">
-                        <span class="font-bold">
-                            {{ product.name }}
-                        </span>
-                        <div class="flex items-center gap-2">
-                            <i class="pi pi-tag text-sm"></i>
-                            <span>
-                                {{ product.category }}
-                            </span>
-                        </div>
-                    </div>
-                    <span class="font-bold text-surface-900 dark:text-surface-0">
-                        {{ '$' + product.price }}
-                    </span>
-                </div>
-            </ng-template>
+    <p-picklist [source]="sourceProducts" [target]="targetProducts" sourceHeader="Available" targetHeader="Selected" [dragdrop]="true" [responsive]="true" [sourceStyle]="{ height: '30rem' }" [targetStyle]="{ height: '30rem' }" breakpoint="1400px">
+        <ng-template let-item pTemplate="item">
+            {{ item.name }}
+        </ng-template>
     </p-picklist>
 </div>`,
 

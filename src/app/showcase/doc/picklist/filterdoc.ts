@@ -23,22 +23,27 @@ import { ProductService } from '@service/productservice';
                 sourceFilterPlaceholder="Search by name"
                 targetFilterPlaceholder="Search by name"
                 breakpoint="1400px"
+                scrollHeight="480px"
             >
-                <ng-template let-product pTemplate="item">
-                    <div class="flex flex-wrap p-2 items-center gap-4">
+                <ng-template let-option let-selected="selected" pTemplate="option">
+                    <div class="flex flex-wrap p-1 items-center gap-4 w-full">
                         <img
-                            class="w-16 shadow shrink-0 rounded-border"
-                            src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}"
-                            alt="{item.name}"
+                            class="w-12 shrink-0 rounded"
+                            src="https://primefaces.org/cdn/primeng/images/demo/product/{{ option.image }}"
+                            [alt]="option.name"
                         />
-                        <div class="flex-1 flex flex-col gap-2">
-                            <span class="font-bold">{{ product.name }}</span>
-                            <div class="flex align-products-center gap-2">
-                                <i class="pi pi-tag text-sm"></i>
-                                <span>{{ product.category }}</span>
-                            </div>
+                        <div class="flex-1 flex flex-col">
+                            <span class="font-medium text-sm">{{ option.name }}</span>
+                            <span
+                                [ngClass]="{
+                                    'text-surface-500': !selected,
+                                    'dark:text-surface-400': !selected,
+                                    'text-inherit': selected,
+                                }"
+                                >{{ option.category }}</span
+                            >
                         </div>
-                        <span class="font-bold text-surface-900 dark:text-surface-0">{{ '$' + product.price }}</span>
+                        <span class="font-bold sm:ml-8">{{ '$' + option.price }}</span>
                     </div>
                 </ng-template>
             </p-picklist>
@@ -65,80 +70,82 @@ export class FilterDoc {
     }
 
     code: Code = {
-        basic: `<p-picklist 
-    [source]="sourceProducts" 
-    [target]="targetProducts" 
-    sourceHeader="Available" 
-    targetHeader="Selected" 
-    [dragdrop]="true" 
-    [responsive]="true" 
+        basic: `<p-picklist
+    [source]="sourceProducts"
+    [target]="targetProducts"
+    sourceHeader="Available"
+    targetHeader="Selected"
+    [dragdrop]="true"
+    [responsive]="true"
     [sourceStyle]="{ height: '30rem' }"
-    [targetStyle]="{ height: '30rem' }" 
-    filterBy="name" 
-    sourceFilterPlaceholder="Search by name" 
-    targetFilterPlaceholder="Search by name" 
-    breakpoint="1400px">
-        <ng-template let-product pTemplate="item">
-            <div class="flex flex-wrap p-2 items-center gap-4">
-                <img 
-                    class="w-16 shadow shrink-0 rounded-border" 
-                    src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" 
-                    alt="{item.name}" />
-                <div class="flex-1 flex flex-col gap-2">
-                    <span class="font-bold">
-                        {{ product.name }}
-                    </span>
-                    <div class="flex align-products-center gap-2">
-                        <i class="pi pi-tag text-sm"></i>
-                        <span>
-                            {{ product.category }}
-                        </span>
-                    </div>
-                </div>
-                <span class="font-bold text-surface-900 dark:text-surface-0">
-                    {{ '$' + product.price }}
-                </span>
+    [targetStyle]="{ height: '30rem' }"
+    filterBy="name"
+    sourceFilterPlaceholder="Search by name"
+    targetFilterPlaceholder="Search by name"
+    breakpoint="1400px"
+    scrollHeight="480px"
+>
+    <ng-template let-option let-selected="selected" pTemplate="option">
+        <div class="flex flex-wrap p-1 items-center gap-4 w-full">
+            <img
+                class="w-12 shrink-0 rounded"
+                src="https://primefaces.org/cdn/primeng/images/demo/product/{{ option.image }}"
+                [alt]="option.name"
+            />
+            <div class="flex-1 flex flex-col">
+                <span class="font-medium text-sm">{{ option.name }}</span>
+                <span
+                    [ngClass]="{
+                        'text-surface-500': !selected,
+                        'dark:text-surface-400': !selected,
+                        'text-inherit': selected,
+                    }"
+                    >{{ option.category }}</span
+                >
             </div>
-        </ng-template>
+            <span class="font-bold sm:ml-8">{{ '$' + option.price }}</span>
+        </div>
+    </ng-template>
 </p-picklist>`,
 
         html: `<div class="card">
-    <p-picklist 
-        [source]="sourceProducts" 
-        [target]="targetProducts" 
-        sourceHeader="Available" 
-        targetHeader="Selected" 
-        [dragdrop]="true" 
-        [responsive]="true" 
-        [sourceStyle]="{ height: '30rem' }"
-        [targetStyle]="{ height: '30rem' }" 
-        filterBy="name" 
-        sourceFilterPlaceholder="Search by name" 
-        targetFilterPlaceholder="Search by name" 
-        breakpoint="1400px">
-            <ng-template let-product pTemplate="item">
-                <div class="flex flex-wrap p-2 items-center gap-4">
-                    <img 
-                        class="w-16 shadow shrink-0 rounded-border" 
-                        src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" 
-                        alt="{item.name}" />
-                    <div class="flex-1 flex flex-col gap-2">
-                        <span class="font-bold">
-                            {{ product.name }}
-                        </span>
-                        <div class="flex align-products-center gap-2">
-                            <i class="pi pi-tag text-sm"></i>
-                            <span>
-                                {{ product.category }}
-                            </span>
-                        </div>
+    <p-picklist
+            [source]="sourceProducts"
+            [target]="targetProducts"
+            sourceHeader="Available"
+            targetHeader="Selected"
+            [dragdrop]="true"
+            [responsive]="true"
+            [sourceStyle]="{ height: '30rem' }"
+            [targetStyle]="{ height: '30rem' }"
+            filterBy="name"
+            sourceFilterPlaceholder="Search by name"
+            targetFilterPlaceholder="Search by name"
+            breakpoint="1400px"
+            scrollHeight="480px"
+        >
+            <ng-template let-option let-selected="selected" pTemplate="option">
+                <div class="flex flex-wrap p-1 items-center gap-4 w-full">
+                    <img
+                        class="w-12 shrink-0 rounded"
+                        src="https://primefaces.org/cdn/primeng/images/demo/product/{{ option.image }}"
+                        [alt]="option.name"
+                    />
+                    <div class="flex-1 flex flex-col">
+                        <span class="font-medium text-sm">{{ option.name }}</span>
+                        <span
+                            [ngClass]="{
+                                'text-surface-500': !selected,
+                                'dark:text-surface-400': !selected,
+                                'text-inherit': selected,
+                            }"
+                            >{{ option.category }}</span
+                        >
                     </div>
-                    <span class="font-bold text-surface-900 dark:text-surface-0">
-                        {{ '$' + product.price }}
-                    </span>
+                    <span class="font-bold sm:ml-8">{{ '$' + option.price }}</span>
                 </div>
             </ng-template>
-    </p-picklist>
+        </p-picklist>
 </div>`,
 
         typescript: `import { Component, ChangeDetectorRef } from '@angular/core';
