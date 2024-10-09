@@ -17,8 +17,6 @@ import { ProductService } from '@service/productservice';
             <p-picklist
                 [source]="sourceProducts"
                 [target]="targetProducts"
-                sourceHeader="Available"
-                targetHeader="Selected"
                 [dragdrop]="true"
                 [responsive]="true"
                 [sourceStyle]="{ height: '30rem' }"
@@ -52,14 +50,14 @@ export class BasicDoc {
     }
 
     code: Code = {
-        basic: `<p-picklist [source]="sourceProducts" [target]="targetProducts" sourceHeader="Available" targetHeader="Selected" [dragdrop]="true" [responsive]="true" [sourceStyle]="{ height: '30rem' }" [targetStyle]="{ height: '30rem' }" breakpoint="1400px">
+        basic: `<p-picklist [source]="sourceProducts" [target]="targetProducts" [dragdrop]="true" [responsive]="true" [sourceStyle]="{ height: '30rem' }" [targetStyle]="{ height: '30rem' }" breakpoint="1400px">
     <ng-template let-item pTemplate="item">
         {{ item.name }}
     </ng-template>
 </p-picklist>`,
 
         html: `<div class="card">
-    <p-picklist [source]="sourceProducts" [target]="targetProducts" sourceHeader="Available" targetHeader="Selected" [dragdrop]="true" [responsive]="true" [sourceStyle]="{ height: '30rem' }" [targetStyle]="{ height: '30rem' }" breakpoint="1400px">
+    <p-picklist [source]="sourceProducts" [target]="targetProducts" [dragdrop]="true" [responsive]="true" [sourceStyle]="{ height: '30rem' }" [targetStyle]="{ height: '30rem' }" breakpoint="1400px">
         <ng-template let-item pTemplate="item">
             {{ item.name }}
         </ng-template>

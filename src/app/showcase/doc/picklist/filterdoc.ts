@@ -13,8 +13,6 @@ import { ProductService } from '@service/productservice';
             <p-picklist
                 [source]="sourceProducts"
                 [target]="targetProducts"
-                sourceHeader="Available"
-                targetHeader="Selected"
                 [dragdrop]="true"
                 [responsive]="true"
                 [sourceStyle]="{ height: '30rem' }"
@@ -73,8 +71,6 @@ export class FilterDoc {
         basic: `<p-picklist
     [source]="sourceProducts"
     [target]="targetProducts"
-    sourceHeader="Available"
-    targetHeader="Selected"
     [dragdrop]="true"
     [responsive]="true"
     [sourceStyle]="{ height: '30rem' }"
@@ -110,42 +106,40 @@ export class FilterDoc {
 
         html: `<div class="card">
     <p-picklist
-            [source]="sourceProducts"
-            [target]="targetProducts"
-            sourceHeader="Available"
-            targetHeader="Selected"
-            [dragdrop]="true"
-            [responsive]="true"
-            [sourceStyle]="{ height: '30rem' }"
-            [targetStyle]="{ height: '30rem' }"
-            filterBy="name"
-            sourceFilterPlaceholder="Search by name"
-            targetFilterPlaceholder="Search by name"
-            breakpoint="1400px"
-            scrollHeight="30rem"
-        >
-            <ng-template let-option let-selected="selected" pTemplate="option">
-                <div class="flex flex-wrap p-1 items-center gap-4 w-full">
-                    <img
-                        class="w-12 shrink-0 rounded"
-                        src="https://primefaces.org/cdn/primeng/images/demo/product/{{ option.image }}"
-                        [alt]="option.name"
-                    />
-                    <div class="flex-1 flex flex-col">
-                        <span class="font-medium text-sm">{{ option.name }}</span>
-                        <span
-                            [ngClass]="{
-                                'text-surface-500': !selected,
-                                'dark:text-surface-400': !selected,
-                                'text-inherit': selected,
-                            }"
-                            >{{ option.category }}</span
-                        >
-                    </div>
-                    <span class="font-bold sm:ml-8">{{ '$' + option.price }}</span>
+        [source]="sourceProducts"
+        [target]="targetProducts"
+        [dragdrop]="true"
+        [responsive]="true"
+        [sourceStyle]="{ height: '30rem' }"
+        [targetStyle]="{ height: '30rem' }"
+        filterBy="name"
+        sourceFilterPlaceholder="Search by name"
+        targetFilterPlaceholder="Search by name"
+        breakpoint="1400px"
+        scrollHeight="30rem"
+    >
+        <ng-template let-option let-selected="selected" pTemplate="option">
+            <div class="flex flex-wrap p-1 items-center gap-4 w-full">
+                <img
+                    class="w-12 shrink-0 rounded"
+                    src="https://primefaces.org/cdn/primeng/images/demo/product/{{ option.image }}"
+                    [alt]="option.name"
+                />
+                <div class="flex-1 flex flex-col">
+                    <span class="font-medium text-sm">{{ option.name }}</span>
+                    <span
+                        [ngClass]="{
+                            'text-surface-500': !selected,
+                            'dark:text-surface-400': !selected,
+                            'text-inherit': selected,
+                        }"
+                        >{{ option.category }}</span
+                    >
                 </div>
-            </ng-template>
-        </p-picklist>
+                <span class="font-bold sm:ml-8">{{ '$' + option.price }}</span>
+            </div>
+        </ng-template>
+    </p-picklist>
 </div>`,
 
         typescript: `import { Component, ChangeDetectorRef } from '@angular/core';
