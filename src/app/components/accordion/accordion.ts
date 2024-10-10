@@ -70,33 +70,6 @@ export interface AccordionToggleIconTemplateContext {
      */
     active: boolean;
 }
-/**
- * Deneme template context'i broo
- * @group Interface
- */
-export interface AccordionDenemeTemplateContext {
-    /**
-     * This is a void function.
-     */
-    onClick: () => void;
-
-    /**
-     * This is a function accepts event parameter which is FocusEvent.
-     * @param {FocusEvent} event - default focus event bro.
-     * @returns this is a return `value`
-     */
-    onBlur: (event: FocusEvent) => void;
-
-    /**
-     * This is a number property.
-     */
-    numberValue: number;
-
-    /**
-     * This is a string property.
-     */
-    stringValue: string;
-}
 
 /**
  * AccordionPanel is a helper component for Accordion component.
@@ -136,17 +109,6 @@ export class AccordionPanel extends BaseComponent {
     active = computed(() =>
         this.pcAccordion.multiple() ? this.valueEquals(this.pcAccordion.value(), this.value()) : this.pcAccordion.value() === this.value(),
     );
-    /**
-     * A description about the accordion deneme template context.
-     * @param {AccordionDenemeTemplateContext} context - Context of the template
-     * @example
-     * ```html
-     * <ng-template #denemetemplate let-onClickCallback="onClickCallback" let-onBlurCallback="onBlurCallback"> </ng-template>
-     * ```
-     * @see {@link AccordionDenemeTemplateContext}
-     * @group Templates
-     */
-    @ContentChild('denemetemplate') denemetemplate: TemplateRef<AccordionDenemeTemplateContext> | undefined;
 
     valueEquals(currentValue: any, value: any): boolean {
         if (Array.isArray(currentValue)) {
