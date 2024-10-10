@@ -9,10 +9,10 @@ import { NodeService } from '@service/nodeservice';
         <app-docsectiontext>
             <p>Nodes can be reordered within the same tree and also can be transferred between other trees using drag&drop.</p>
         </app-docsectiontext>
-        <div class="card flex justify-center">
+        <div class="card">
             <p-tree
-                class="w-full md:w-[30rem]"
                 [value]="files"
+                styleClass="w-full md:w-[30rem]"
                 [draggableNodes]="true"
                 [droppableNodes]="true"
                 draggableScope="self"
@@ -33,22 +33,10 @@ export class DragDropDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-tree 
-    class="w-full md:w-[30rem]" 
-    [value]="files" 
-    [draggableNodes]="true" 
-    [droppableNodes]="true" 
-    draggableScope="self" 
-    droppableScope="self" />`,
+        basic: `<p-tree [value]="files" styleClass="w-full md:w-[30rem]" [draggableNodes]="true" [droppableNodes]="true" draggableScope="self" droppableScope="self" />`,
 
-        html: `<div class="card flex justify-center">
-    <p-tree 
-        class="w-full md:w-[30rem]" 
-        [value]="files" 
-        [draggableNodes]="true" 
-        [droppableNodes]="true" 
-        draggableScope="self" 
-        droppableScope="self" />
+        html: `<div class="card">
+    <p-tree [value]="files" styleClass="w-full md:w-[30rem]" [draggableNodes]="true" [droppableNodes]="true" draggableScope="self" droppableScope="self" />
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';

@@ -12,12 +12,12 @@ import { Code } from '@domain/code';
             </p>
         </app-docsectiontext>
         <div class="card">
-            <div style="height: 500px; position: relative;" class="speeddial-linear-demo">
+            <div style="height: 500px; position: relative;">
                 <p-toast />
-                <p-speeddial [model]="items" direction="up" />
-                <p-speeddial [model]="items" direction="down" />
-                <p-speeddial [model]="items" direction="left" />
-                <p-speeddial [model]="items" direction="right" />
+                <p-speeddial [model]="items" direction="up" style="position: absolute; left: calc(50% - 2rem); bottom: 0" />
+                <p-speeddial [model]="items" direction="down" style="position: absolute; left: calc(50% - 2rem); top: 0" />
+                <p-speeddial [model]="items" direction="left" style="position: absolute; top: calc(50% - 2rem); right: 0" />
+                <p-speeddial [model]="items" direction="right" style="position: absolute; top: calc(50% - 2rem); left: 0" />
             </div>
         </div>
         <app-code [code]="code" selector="speed-dial-linear-demo"></app-code>
@@ -62,18 +62,18 @@ export class LinearDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-speeddial [model]="items" direction="up" />
-<p-speeddial [model]="items" direction="down" />
-<p-speeddial [model]="items" direction="left" />
-<p-speeddial [model]="items" direction="right" />`,
+        basic: `<p-speeddial [model]="items" direction="up" style="position: absolute; left: calc(50% - 2rem); bottom: 0" />
+<p-speeddial [model]="items" direction="down" style="position: absolute; left: calc(50% - 2rem); top: 0" />
+<p-speeddial [model]="items" direction="left" style="position: absolute; top: calc(50% - 2rem); right: 0" />
+<p-speeddial [model]="items" direction="right" style="position: absolute; top: calc(50% - 2rem); left: 0" />`,
 
         html: `<div class="card">
-    <div style="height: 500px; position: relative;" class="speeddial-linear-demo">
+    <div style="height: 500px; position: relative;">
         <p-toast />
-        <p-speeddial [model]="items" direction="up" />
-        <p-speeddial [model]="items" direction="down" />
-        <p-speeddial [model]="items" direction="left" />
-        <p-speeddial [model]="items" direction="right" />
+        <p-speeddial [model]="items" direction="up" style="position: absolute; left: calc(50% - 2rem); bottom: 0" />
+        <p-speeddial [model]="items" direction="down" style="position: absolute; left: calc(50% - 2rem); top: 0" />
+        <p-speeddial [model]="items" direction="left" style="position: absolute; top: calc(50% - 2rem); right: 0" />
+        <p-speeddial [model]="items" direction="right" style="position: absolute; top: calc(50% - 2rem); left: 0" />
     </div>
 </div>`,
 
@@ -85,31 +85,6 @@ import { ToastModule } from 'primeng/toast';
 @Component({
     selector: 'speed-dial-linear-demo',
     templateUrl: './speed-dial-linear-demo.html',
-    styles: [
-        \`:host ::ng-deep {
-            .speeddial-linear-demo {
-                .p-speeddial-direction-up {
-                    left: calc(50% - 2rem);
-                    bottom: 0;
-                }
-        
-                .p-speeddial-direction-down {
-                    left: calc(50% - 2rem);
-                    top: 0;
-                }
-        
-                .p-speeddial-direction-left {
-                    right: 0;
-                    top: calc(50% - 2rem);
-                }
-        
-                .p-speeddial-direction-right {
-                    left: 0;
-                    top: calc(50% - 2rem);
-                }
-            }
-        }\`
-    ],
     standalone: true,
     imports: [SpeedDialModule, ToastModule],
     providers: [MessageService]
@@ -152,28 +127,5 @@ export class SpeedDialLinearDemo implements OnInit {
     }
 }`,
 
-        scss: `:host ::ng-deep {
-    .speeddial-linear-demo {
-        .p-speeddial-direction-up {
-            left: calc(50% - 2rem);
-            bottom: 0;
-        }
-
-        .p-speeddial-direction-down {
-            left: calc(50% - 2rem);
-            top: 0;
-        }
-
-        .p-speeddial-direction-left {
-            right: 0;
-            top: calc(50% - 2rem);
-        }
-
-        .p-speeddial-direction-right {
-            left: 0;
-            top: calc(50% - 2rem);
-        }
-    }
-}`,
     };
 }

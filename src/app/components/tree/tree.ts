@@ -118,7 +118,7 @@ import { BaseComponent } from 'primeng/basecomponent';
                                 <ChevronDownIcon *ngIf="node.expanded" [styleClass]="'p-tree-node-toggle-icon'" />
                             </ng-container>
                             <ng-container *ngIf="loadingMode === 'icon' && node.loading">
-                                <SpinnerIcon [spin]="true" [styleClass]="'p-tree-node-toggle-icon'" />
+                                <SpinnerIcon [styleClass]="'pi-spin p-tree-node-toggle-icon'" />
                             </ng-container>
                         </ng-container>
                         <span *ngIf="tree.togglerIconTemplate" class="p-tree-node-toggle-icon">
@@ -250,6 +250,10 @@ export class UITreeNode extends BaseComponent implements OnInit {
 
     get nodeContentClass() {
         return this.tree._componentStyle.classes.nodeContent({ instance: this });
+    }
+
+    get selectable() {
+        return this.node.selectable === false ? false : this.tree.selectionMode != null;
     }
 
     ngOnInit() {

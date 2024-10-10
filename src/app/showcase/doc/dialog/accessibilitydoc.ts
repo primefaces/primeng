@@ -75,19 +75,10 @@ import { Code } from '@domain/code';
 })
 export class AccessibilityDoc {
     code: Code = {
-        html: `<p-button
-    icon="pi pi-external-link" 
-    (click)="visible = true" 
-    aria-controls="{{visible ? 'dialog' : null}}" 
-    aria-expanded="{{visible ? true : false}}" />
+        html: `<p-button icon="pi pi-external-link" (click)="visible = true" aria-controls="{{visible ? 'dialog' : null}}" aria-expanded="{{visible ? true : false}}" />
     
-<p-dialog 
-    id="dialog" 
-    header="Header" 
-    [(visible)]="visible" 
-    [style]="{ width: '50vw' }" 
-    (onHide)="visible = false">
-        <p>Content</p>
+<p-dialog id="dialog" header="Header" [(visible)]="visible" [style]="{ width: '50vw' }" (onHide)="visible = false">
+    <p>Content</p>
 </p-dialog>`,
     };
 }

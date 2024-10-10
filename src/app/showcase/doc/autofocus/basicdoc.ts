@@ -18,19 +18,9 @@ import { Code } from '@domain/code';
 })
 export class BasicDoc {
     code: Code = {
-        basic: `<input 
-    type="text" 
-    pInputText
-    pAutoFocus 
-    [autofocus]="true" 
-    placeholder="Automatically focused" />`,
+        basic: `<input type="text" pInputText pAutoFocus [autofocus]="true" placeholder="Automatically focused" />`,
         html: `<div class="card flex justify-center">
-    <input 
-        type="text" 
-        pInputText 
-        pAutoFocus 
-        [autofocus]="true" 
-        placeholder="Automatically focused" /> 
+    <input type="text" pInputText pAutoFocus [autofocus]="true" placeholder="Automatically focused" /> 
 </div>`,
         typescript: `import { Component } from '@angular/core';
 import { AutoFocusModule } from 'primeng/autofocus';

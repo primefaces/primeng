@@ -10,11 +10,11 @@ import { Code } from '@domain/code';
         <div class="card">
             <div class="flex flex-wrap mb-4 gap-2">
                 <input pInputText placeholder="Username" aria-label="username" class="ng-invalid ng-dirty" />
-                <p-message severity="error">Username is required</p-message>
+                <p-message severity="error" styleClass="h-full">Username is required</p-message>
             </div>
             <div class="flex flex-wrap gap-2">
                 <input pInputText placeholder="Email" aria-label="email" class="ng-invalid ng-dirty" />
-                <p-message severity="error" icon="pi pi-times-circle" />
+                <p-message severity="error" styleClass="h-full" icon="pi pi-times-circle" />
             </div>
         </div>
         <app-code [code]="code" selector="message-form-demo"></app-code>
@@ -24,21 +24,21 @@ export class FormDoc {
     code: Code = {
         basic: `<div class="flex flex-wrap mb-4 gap-2">
     <input pInputText placeholder="Username" aria-label="username" class="ng-invalid ng-dirty" />
-    <p-message severity="error">Username is required</p-message>
+    <p-message severity="error" styleClass="h-full">Username is required</p-message>
 </div>
 <div class="flex flex-wrap gap-2">
     <input pInputText placeholder="Email" aria-label="email" class="ng-invalid ng-dirty" />
-    <p-message severity="error" icon="pi pi-times-circle" />
+    <p-message severity="error" styleClass="h-full" icon="pi pi-times-circle" />
 </div>`,
 
         html: `<div class="card">
     <div class="flex flex-wrap mb-4 gap-2">
         <input pInputText placeholder="Username" aria-label="username" class="ng-invalid ng-dirty" />
-        <p-message severity="error">Username is required</p-message>
+        <p-message severity="error" styleClass="h-full">Username is required</p-message>
     </div>
     <div class="flex flex-wrap gap-2">
         <input pInputText placeholder="Email" aria-label="email" class="ng-invalid ng-dirty" />
-        <p-message severity="error" icon="pi pi-times-circle" />
+        <p-message severity="error" styleClass="h-full" icon="pi pi-times-circle" />
     </div>
 </div>`,
 

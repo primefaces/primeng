@@ -21,7 +21,7 @@ import {
     signal,
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { MenuItem, PrimeTemplate, SharedModule } from 'primeng/api';
+import { MenuItem, PrimeTemplate, SharedModule, TooltipOptions } from 'primeng/api';
 import { ButtonModule, ButtonProps } from 'primeng/button';
 import { DomHandler } from 'primeng/dom';
 import { PlusIcon } from 'primeng/icons/plus';
@@ -48,27 +48,30 @@ import { BaseComponent } from 'primeng/basecomponent';
             [attr.data-pc-name]="'speeddial'"
             [attr.data-pc-section]="'root'"
         >
-            <button
-                pButton
-                [style]="buttonStyle"
-                [icon]="buttonIconClass"
-                [class]="buttonClass()"
-                [disabled]="disabled"
-                [attr.aria-expanded]="visible"
-                [attr.aria-haspopup]="true"
-                [attr.aria-controls]="id + '_list'"
-                [attr.aria-label]="ariaLabel"
-                [attr.aria-labelledby]="ariaLabelledBy"
-                (click)="onButtonClick($event)"
-                (keydown)="onTogglerKeydown($event)"
-                [attr.data-pc-name]="'button'"
-                [buttonProps]="buttonProps"
-            >
-                <PlusIcon *ngIf="!showIcon && !buttonTemplate" />
-                <ng-container *ngIf="buttonTemplate">
-                    <ng-container *ngTemplateOutlet="buttonTemplate"></ng-container>
-                </ng-container>
-            </button>
+            <ng-container *ngIf="!buttonTemplate">
+                <button
+                    pButton
+                    [style]="buttonStyle"
+                    [icon]="buttonIconClass"
+                    [class]="buttonClass()"
+                    [disabled]="disabled"
+                    [attr.aria-expanded]="visible"
+                    [attr.aria-haspopup]="true"
+                    [attr.aria-controls]="id + '_list'"
+                    [attr.aria-label]="ariaLabel"
+                    [attr.aria-labelledby]="ariaLabelledBy"
+                    (click)="onButtonClick($event)"
+                    (keydown)="onTogglerKeydown($event)"
+                    [attr.data-pc-name]="'button'"
+                    [buttonProps]="buttonProps"
+                >
+                    <PlusIcon *ngIf="!showIcon && !iconTemplate" />
+                    <ng-container *ngTemplateOutlet="iconTemplate"></ng-container>
+                </button>
+            </ng-container>
+            <ng-container *ngIf="buttonTemplate">
+                <ng-container *ngTemplateOutlet="buttonTemplate; context: { toggleCallback: onButtonClick.bind(this) }"></ng-container>
+            </ng-container>
             <ul
                 #list
                 class="p-speeddial-list"
@@ -87,7 +90,7 @@ import { BaseComponent } from 'primeng/basecomponent';
                     [ngStyle]="getItemStyle(i)"
                     class="p-speeddial-item"
                     pTooltip
-                    [tooltipOptions]="item.tooltipOptions"
+                    [tooltipOptions]="item.tooltipOptions || getTooltipOptions(item)"
                     [ngClass]="{ 'p-hidden': item.visible === false, 'p-focus': focusedOptionId == id + '_' + i }"
                     [id]="id + '_' + i"
                     [attr.aria-controls]="id + '_item'"
@@ -95,7 +98,9 @@ import { BaseComponent } from 'primeng/basecomponent';
                     [attr.data-pc-section]="'menuitem'"
                 >
                     <ng-container *ngIf="itemTemplate">
-                        <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: item, index: i }"></ng-container>
+                        <ng-container
+                            *ngTemplateOutlet="itemTemplate; context: { $implicit: item, index: i, toggleCallback: onItemClick.bind(this) }"
+                        ></ng-container>
                     </ng-container>
                     <ng-container *ngIf="!itemTemplate">
                         <button
@@ -251,6 +256,11 @@ export class SpeedDial extends BaseComponent implements AfterViewInit, AfterCont
      */
     @Input() ariaLabelledBy: string | undefined;
     /**
+     * Whether to display the tooltip on items. The modifiers of Tooltip can be used like an object in it. Valid keys are 'event' and 'position'.
+     * @group Props
+     */
+    @Input() tooltipOptions: TooltipOptions;
+    /**
      * Used to pass all properties of the ButtonProps to the Button component.
      * @group Props
      */
@@ -294,6 +304,8 @@ export class SpeedDial extends BaseComponent implements AfterViewInit, AfterCont
 
     buttonTemplate: TemplateRef<any> | undefined;
 
+    iconTemplate: TemplateRef<any> | undefined;
+
     itemTemplate: TemplateRef<any> | undefined;
 
     isItemClicked: boolean = false;
@@ -323,6 +335,10 @@ export class SpeedDial extends BaseComponent implements AfterViewInit, AfterCont
         return _style ? _style({ props: this }) : {};
     }
 
+    getTooltipOptions(item: MenuItem) {
+        return { ...this.tooltipOptions, tooltipLabel: item.label, disabled: !this.tooltipOptions };
+    }
+
     ngOnInit() {
         super.ngOnInit();
         this.id = this.id || UniqueComponentId();
@@ -350,6 +366,9 @@ export class SpeedDial extends BaseComponent implements AfterViewInit, AfterCont
             switch (item.getType()) {
                 case 'button':
                     this.buttonTemplate = item.template;
+                    break;
+                case 'icon':
+                    this.iconTemplate = item.template;
                     break;
                 case 'item':
                     this.itemTemplate = item.template;
@@ -386,7 +405,7 @@ export class SpeedDial extends BaseComponent implements AfterViewInit, AfterCont
         if (item.command) {
             item.command({ originalEvent: e, item });
         }
-
+        
         this.hide();
 
         this.isItemClicked = true;

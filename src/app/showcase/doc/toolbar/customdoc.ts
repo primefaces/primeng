@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Code } from '@domain/code';
 
 @Component({
-    selector: 'template-doc',
+    selector: 'custom-doc',
     template: `
         <app-docsectiontext>
             <p>Content can also be placed using the <i>start</i>, <i>center</i> and <i>end</i> templates.</p>
@@ -17,7 +17,7 @@ import { Code } from '@domain/code';
                             viewBox="0 0 31 33"
                             fill="none"
                             xmlns="http://www.w3.org/2000/svg"
-                            class="block mx-auto"
+                            style="width: 2rem; margin-right: 1rem"
                         >
                             <path
                                 d="M15.1934 0V0V0L0.0391235 5.38288L2.35052 25.3417L15.1934 32.427V32.427V32.427L28.0364 25.3417L30.3478 5.38288L15.1934 0Z"
@@ -93,15 +93,15 @@ import { Code } from '@domain/code';
                 </ng-template>
             </p-toolbar>
         </div>
-        <app-code [code]="code" selector="toolbar-template-demo"></app-code>
+        <app-code [code]="code" selector="toolbar-custom-demo"></app-code>
     `,
 })
-export class TemplateDoc {
+export class CustomDoc {
     code: Code = {
         basic: `<p-toolbar [style]="{ 'border-radius': '3rem', 'padding': '1rem 1rem 1rem 1.5rem' }">
     <ng-template pTemplate="start">
         <div class="flex items-center gap-2">
-            <svg width="31" height="33" viewBox="0 0 31 33" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg width="31" height="33" viewBox="0 0 31 33" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 2rem; margin-right: 1rem" >
                 <path
                     d="..."
                     fill="var(--p-primary-color)"
@@ -194,7 +194,7 @@ export class TemplateDoc {
   <p-toolbar [style]="{ 'border-radius': '3rem', 'padding': '1rem 1rem 1rem 1.5rem' }">
         <ng-template pTemplate="start">
             <div class="flex items-center gap-2">
-                 <svg width="31" height="33" viewBox="0 0 31 33" fill="none" xmlns="http://www.w3.org/2000/svg" class="block mx-auto">
+                 <svg width="31" height="33" viewBox="0 0 31 33" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 2rem; margin-right: 1rem">
                     <path
                         d="M15.1934 0V0V0L0.0391235 5.38288L2.35052 25.3417L15.1934 32.427V32.427V32.427L28.0364 25.3417L30.3478 5.38288L15.1934 0Z"
                         fill="var(--p-primary-color)"
@@ -277,12 +277,12 @@ import { SharedModule } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 
 @Component({
-    selector: 'toolbar-template-demo',
-    templateUrl: './toolbar-template-demo.html',
+    selector: 'toolbar-custom-demo',
+    templateUrl: './toolbar-custom-demo.html',
     standalone: true,
     imports: [ToolbarModule, AvatarModule, SharedModule, ButtonModule]
 })
-export class ToolbarTemplateDemo {
+export class ToolbarCustomDemo {
    
 }`,
     };

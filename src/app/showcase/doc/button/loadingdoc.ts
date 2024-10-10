@@ -28,18 +28,10 @@ export class LoadingDoc {
     }
 
     code: Code = {
-        basic: `<p-button 
-    label="Search" 
-    icon="pi pi-check" 
-    [loading]="loading" 
-    (onClick)="load()" />`,
+        basic: `<p-button label="Search" icon="pi pi-check" [loading]="loading" (onClick)="load()" />`,
 
         html: `<div class="card flex justify-center gap-4">
-    <p-button 
-        label="Search" 
-        icon="pi pi-check" 
-        [loading]="loading" 
-        (onClick)="load()" />
+    <p-button label="Search" icon="pi pi-check" [loading]="loading" (onClick)="load()" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

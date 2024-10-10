@@ -14,9 +14,10 @@ import { ImportDoc } from './importdoc';
 import { InputDoc } from './inputdoc';
 import { StyleDoc } from './styledoc';
 import { LazyDoc } from './lazydoc';
+import { AutoFocusModule } from 'primeng/autofocus';
 
 @NgModule({
-    imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, InplaceModule, InputTextModule, TableModule],
+    imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, InplaceModule, InputTextModule, TableModule, AutoFocusModule],
     declarations: [BasicDoc, DataDoc, ImageDoc, ImportDoc, InputDoc, StyleDoc, LazyDoc, AccessibilityDoc],
     exports: [AppDocModule],
 })

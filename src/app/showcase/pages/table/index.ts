@@ -102,12 +102,12 @@ export class TableDemo {
         },
         {
             id: 'table-style',
-            label: 'Style',
+            label: 'Conditional Style',
             component: StyleDoc,
         },
         {
             id: 'paginator',
-            label: 'Paginator',
+            label: 'Pagination',
             children: [
                 {
                     id: 'paginator-basic',
@@ -188,16 +188,16 @@ export class TableDemo {
                     component: CheckboxSelectionDoc,
                 },
                 {
+                    id: 'column-selection',
+                    label: 'Column',
+                    component: ColumnSelectionDoc,
+                },
+                {
                     id: 'selection-events',
                     label: 'Events',
                     component: SelectionEventsDoc,
                 },
             ],
-        },
-        {
-            id: 'column-selection',
-            label: 'Column Selection',
-            component: ColumnSelectionDoc,
         },
         {
             id: 'row-expansion',
@@ -217,11 +217,6 @@ export class TableDemo {
                     id: 'row-edit',
                     label: 'Row',
                     component: RowEditDoc,
-                },
-                {
-                    id: 'filter-sort-edit',
-                    label: 'Filter & Sort Cell Edit',
-                    component: FilterSortEditDoc,
                 },
             ],
         },
@@ -364,11 +359,6 @@ export class TableDemo {
                     component: ProductsDoc,
                 },
             ],
-        },
-        {
-            id: 'styling',
-            label: 'Styling',
-            component: StylingDoc,
         },
         {
             id: 'accessibility',

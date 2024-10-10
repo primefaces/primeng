@@ -9,8 +9,8 @@ import { NodeService } from '@service/nodeservice';
         <app-docsectiontext>
             <p>Tree requires a collection of <i>TreeNode</i> instances as a value.</p>
         </app-docsectiontext>
-        <div class="card flex justify-center">
-            <p-tree class="w-full md:w-[30rem]" [value]="files" selectionMode="single" [(selection)]="selectedFile" [contextMenu]="cm" />
+        <div class="card">
+            <p-tree [value]="files" styleClass="w-full md:w-[30rem]" selectionMode="single" [(selection)]="selectedFile" [contextMenu]="cm" />
             <p-contextmenu #cm [model]="items" />
             <p-toast />
         </div>
@@ -48,22 +48,12 @@ export class ContextMenuDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-tree 
-    class="w-full md:w-[30rem]" 
-    [value]="files" 
-    selectionMode="single" 
-    [(selection)]="selectedFile" 
-    [contextMenu]="cm" />
+        basic: `<p-tree [value]="files" styleClass="w-full md:w-[30rem]" selectionMode="single" [(selection)]="selectedFile" [contextMenu]="cm" />
 <p-contextmenu #cm [model]="items" />
 <p-toast />`,
 
-        html: `<div class="card flex justify-center">
-    <p-tree 
-        class="w-full md:w-[30rem]" 
-        [value]="files"
-        selectionMode="single" 
-        [(selection)]="selectedFile" 
-        [contextMenu]="cm" />
+        html: `<div class="card">
+    <p-tree [value]="files" styleClass="w-full md:w-[30rem]" selectionMode="single" [(selection)]="selectedFile" [contextMenu]="cm" />
     <p-contextmenu #cm [model]="items" />
     <p-toast />
 </div>`,

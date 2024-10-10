@@ -4,6 +4,7 @@ import { BasicDoc } from '@doc/picklist/basicdoc';
 import { ImportDoc } from '@doc/picklist/importdoc';
 import { AccessibilityDoc } from '@doc/picklist/accessibilitydoc';
 import { PicklistDocModule } from '@doc/picklist/picklistdoc.module';
+import { TemplateDoc } from '@doc/picklist/templatedoc';
 
 @Component({
     template: `<app-doc
@@ -35,7 +36,11 @@ export class PickListDemo {
             label: 'Filter',
             component: FilterDoc,
         },
-
+        {
+            id: 'template',
+            label: 'Template',
+            component: TemplateDoc,
+        },
         {
             id: 'accessibility',
             label: 'Accessibility',

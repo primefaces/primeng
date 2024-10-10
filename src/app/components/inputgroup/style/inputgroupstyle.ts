@@ -41,7 +41,7 @@ const theme = ({ dt }) => `
     border-right: 1px solid ${dt('inputgroup.addon.border.color')};
 }
 
-.p-inputgroup > .p-component,
+.p-inputgroup > .p-component, .p-inputgroup > p-button > .p-button,
 .p-inputgroup > .p-inputwrapper > .p-inputtext,
 .p-inputgroup > .p-floatlabel > .p-component,
 .p-inputgroup > .p-iftalabel > .p-component {
@@ -71,7 +71,7 @@ const theme = ({ dt }) => `
 }
 
 .p-inputgroupaddon:first-child,
-.p-inputgroup .p-button:first-child,
+.p-inputgroup p-button:first-child > .p-button,
 .p-inputgroup input:first-child,
 .p-inputgroup > .p-inputwrapper:first-child,
 .p-inputgroup > .p-inputwrapper:first-child > .p-inputtext {
@@ -86,7 +86,7 @@ const theme = ({ dt }) => `
 }
 
 .p-inputgroupaddon:last-child,
-.p-inputgroup .p-button:last-child,
+.p-inputgroup p-button:last-child > .p-button,
 .p-inputgroup input:last-child,
 .p-inputgroup > .p-inputwrapper:last-child,
 .p-inputgroup > .p-inputwrapper:last-child > .p-inputtext {
@@ -106,6 +106,12 @@ const theme = ({ dt }) => `
 
 .p-inputgroup-fluid .p-button.p-button-icon-only {
     width: 2.5rem;
+}
+
+/*For PrimeNG*/
+
+.p-inputgroup p-button:first-child, .p-inputgroup p-button:last-child {
+    display:inline-flex;
 }
 `;
 

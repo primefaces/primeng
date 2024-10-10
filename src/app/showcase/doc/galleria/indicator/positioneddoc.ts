@@ -35,7 +35,6 @@ import { PhotoService } from '@service/photoservice';
                 [showIndicators]="true"
                 [showThumbnails]="false"
                 [showIndicatorsOnItem]="showIndicatorsOnItem"
-                [responsiveOptions]="responsiveOptions"
                 [containerStyle]="{ 'max-width': '640px', 'margin-top': '2em' }"
             >
                 <ng-template pTemplate="item" let-item>
@@ -72,21 +71,6 @@ export class PositionedDoc implements OnInit {
         },
     ];
 
-    responsiveOptions: any[] = [
-        {
-            breakpoint: '1024px',
-            numVisible: 5,
-        },
-        {
-            breakpoint: '768px',
-            numVisible: 3,
-        },
-        {
-            breakpoint: '560px',
-            numVisible: 1,
-        },
-    ];
-
     constructor(private photoService: PhotoService) {}
 
     ngOnInit() {
@@ -96,47 +80,22 @@ export class PositionedDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-galleria
-    [(value)]="images"
-    [indicatorsPosition]="position"
-    [showIndicators]="true"
-    [showThumbnails]="false"
-    [showIndicatorsOnItem]="showIndicatorsOnItem"
-    [responsiveOptions]="responsiveOptions"
-    [containerStyle]="{ 'max-width': '640px', 'margin-top': '2em' }"
->
+        basic: `<p-galleria [(value)]="images" [indicatorsPosition]="position" [showIndicators]="true" [showThumbnails]="false" [showIndicatorsOnItem]="showIndicatorsOnItem" [containerStyle]="{ 'max-width': '640px', 'margin-top': '2em' }" >
     <ng-template pTemplate="item" let-item>
         <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
     </ng-template>
 </p-galleria>`,
         html: `<div class="card">
     <div class="flex flex-wrap gap-4 mb-8">
-        <p-radiobutton 
-            *ngFor="let option of positionOptions;" 
-            [name]="option.label" 
-            [value]="option.value" 
-            [label]="option.label" 
-            [(ngModel)]="position" [inputId]="label" />
+        <p-radiobutton *ngFor="let option of positionOptions;" [name]="option.label" [value]="option.value" [label]="option.label" [(ngModel)]="position" [inputId]="label" />
     </div>
     <div class="flex items-center">
-        <p-checkbox 
-            [(ngModel)]="showIndicatorsOnItem" 
-            [binary]="true" 
-            inputId="binary" 
-            label="Inside" 
-            ngClass="mt-4" />
+        <p-checkbox [(ngModel)]="showIndicatorsOnItem" [binary]="true" inputId="binary" label="Inside" ngClass="mt-4" />
     </div>
-    <p-galleria 
-        [(value)]="images" 
-        [indicatorsPosition]="position" 
-        [showIndicators]="true" 
-        [showThumbnails]="false" 
-        [showIndicatorsOnItem]="showIndicatorsOnItem" 
-        [responsiveOptions]="responsiveOptions" 
-        [containerStyle]="{'width': '100%','margin-top': '2em'}">
-            <ng-template pTemplate="item" let-item>
-                <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
-            </ng-template>
+    <p-galleria [(value)]="images" [indicatorsPosition]="position" [showIndicators]="true" [showThumbnails]="false" [showIndicatorsOnItem]="showIndicatorsOnItem" [containerStyle]="{'width': '100%','margin-top': '2em'}">
+        <ng-template pTemplate="item" let-item>
+            <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
+        </ng-template>
     </p-galleria>
 </div>`,
         typescript: `import { Component, OnInit } from '@angular/core';
@@ -176,21 +135,6 @@ export class GalleriaIndicatorPositionedDemo implements OnInit {
         {
             label: 'Right',
             value: 'right'
-        }
-    ];
-
-    responsiveOptions: any[] = [
-        {
-            breakpoint: '1024px',
-            numVisible: 5
-        },
-        {
-            breakpoint: '768px',
-            numVisible: 3
-        },
-        {
-            breakpoint: '560px',
-            numVisible: 1
         }
     ];
 

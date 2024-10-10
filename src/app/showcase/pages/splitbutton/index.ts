@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { TextDoc } from '@doc/splitbutton/textdoc';
 import { BasicDoc } from '@doc/splitbutton/basicdoc';
+import { IconsDoc } from '@doc/splitbutton/iconsdoc';
 import { ImportDoc } from '@doc/splitbutton/importdoc';
 import { NestedDoc } from '@doc/splitbutton/nesteddoc';
 import { RaisedDoc } from '@doc/splitbutton/raiseddoc';
@@ -39,6 +40,11 @@ export class SplitButtonDemo {
             component: BasicDoc,
         },
         {
+            id: 'icons',
+            label: 'Icons',
+            component: IconsDoc,
+        },
+        {
             id: 'nested',
             label: 'Nested',
             component: NestedDoc,
@@ -47,6 +53,11 @@ export class SplitButtonDemo {
             id: 'severity',
             label: 'Severity',
             component: SeverityDoc,
+        },
+        {
+            id: 'disabled',
+            label: 'Disabled',
+            component: DisabledDoc,
         },
         {
             id: 'raised',
@@ -79,16 +90,10 @@ export class SplitButtonDemo {
             component: SizesDoc,
         },
         {
-            id: 'disabled',
-            label: 'Disabled',
-            component: DisabledDoc,
-        },
-        {
             id: 'template',
             label: 'Template',
             component: TemplateDoc,
         },
-
         {
             id: 'accessibility',
             label: 'Accessibility',

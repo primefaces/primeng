@@ -43,24 +43,9 @@ export class ScrollerDemo {
             component: HorizontalDoc,
         },
         {
-            id: 'grid grid-cols-12 gap-4',
+            id: 'grid',
             label: 'Grid',
             component: GridDoc,
-        },
-        {
-            id: 'programmatic',
-            label: 'Programmatic',
-            component: ProgrammaticDoc,
-        },
-        {
-            id: 'loader',
-            label: 'Loader',
-            component: LoaderDoc,
-        },
-        {
-            id: 'template',
-            label: 'Template',
-            component: TemplateDoc,
         },
         {
             id: 'delay',
@@ -68,16 +53,20 @@ export class ScrollerDemo {
             component: DelayDoc,
         },
         {
-            id: 'lazy-load',
-            label: 'Lazy Load',
+            id: 'loading',
+            label: 'Loading',
+            component: LoaderDoc,
+        },
+        {
+            id: 'lazy',
+            label: 'Lazy',
             component: LazyLoadDoc,
         },
         {
-            id: 'scroll-options',
-            label: 'Scroll Options',
-            component: ScrollOptionsDoc,
+            id: 'programmatic',
+            label: 'Programmatic',
+            component: ProgrammaticDoc,
         },
-
         {
             id: 'accessibility',
             label: 'Accessibility',

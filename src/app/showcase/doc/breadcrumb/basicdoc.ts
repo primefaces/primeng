@@ -32,16 +32,10 @@ export class BasicDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-breadcrumb 
-    class="max-w-full" 
-    [model]="items" 
-    [home]="home" />`,
+        basic: `<p-breadcrumb class="max-w-full" [model]="items" [home]="home" />`,
 
         html: `<div class="card flex justify-center">
-    <p-breadcrumb 
-        class="max-w-full" 
-        [model]="items" 
-        [home]="home" />
+    <p-breadcrumb class="max-w-full" [model]="items" [home]="home" />
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';

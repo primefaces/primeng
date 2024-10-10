@@ -8,6 +8,7 @@ import { DynamicDoc } from '@doc/message/dynamicdoc';
 import { ClosableDoc } from '@doc/message/closabledoc';
 import { LifeDoc } from '@doc/message/lifedoc';
 import { AccessibilityDoc } from '@doc/message/accessibilitydoc';
+import { SeverityDoc } from '@doc/message/severitydoc';
 
 @Component({
     template: `<app-doc
@@ -34,6 +35,11 @@ export class MessageDemo {
             component: BasicDoc,
         },
         {
+            id: 'severity',
+            label: 'Severity',
+            component: SeverityDoc
+        },
+        {
             id: 'icon',
             label: 'Icon',
             component: IconDoc,
@@ -47,11 +53,6 @@ export class MessageDemo {
             id: 'dynamic',
             label: 'Dynamic',
             component: DynamicDoc,
-        },
-        {
-            id: 'closable',
-            label: 'Closable',
-            component: ClosableDoc,
         },
         {
             id: 'life',

@@ -4,18 +4,16 @@ import { Product } from '@domain/product';
 import { ProductService } from '@service/productservice';
 
 @Component({
-    selector: 'filter-doc',
+    selector: 'template-doc',
     template: `
         <app-docsectiontext>
-            <p>Filter value is checked against the property of an object configured with the <i>filterBy</i> property</p>
+            <p>
+                For custom content support define an <i>option</i> template that gets the item instance as a parameter. In addition
+                <i>header</i> template is provided for further customization.
+            </p>
         </app-docsectiontext>
         <div class="card xl:flex xl:justify-center">
-            <p-orderlist
-                [value]="products"
-                [listStyle]="{ 'max-height': '30rem' }"
-                filterBy="name"
-                filterPlaceholder="Filter by name"
-            >
+            <p-orderlist [value]="products" dataKey="id" breakpoint="575px" scrollHeight="20rem">
                 <ng-template let-option let-selected="selected" pTemplate="option">
                     <div class="flex flex-wrap p-1 items-center gap-4 w-full">
                         <img
@@ -40,10 +38,10 @@ import { ProductService } from '@service/productservice';
                 </ng-template>
             </p-orderlist>
         </div>
-        <app-code [code]="code" selector="orderlist-filter-demo" [extFiles]="extFiles"></app-code>
+        <app-code [code]="code" selector="orderlist-template-demo" [extFiles]="extFiles"></app-code>
     `,
 })
-export class FilterDoc implements OnInit {
+export class TemplateDoc implements OnInit {
     products!: Product[];
 
     constructor(
@@ -72,9 +70,9 @@ export class FilterDoc implements OnInit {
     code: Code = {
         basic: `<p-orderlist
     [value]="products"
-    [listStyle]="{ 'max-height': '30rem' }"
-    filterBy="name"
-    filterPlaceholder="Filter by name"
+    dataKey="id" 
+    breakpoint="575px" 
+    scrollHeight="20rem"
 >
     <ng-template let-option let-selected="selected" pTemplate="option">
         <div class="flex flex-wrap p-1 items-center gap-4 w-full">
@@ -103,9 +101,9 @@ export class FilterDoc implements OnInit {
         html: `<div class="card xl:flex xl:justify-center">
     <p-orderlist
         [value]="products"
-        [listStyle]="{ 'max-height': '30rem' }"
-        filterBy="name"
-        filterPlaceholder="Filter by name"
+        dataKey="id" 
+        breakpoint="575px" 
+        scrollHeight="20rem"
     >
         <ng-template let-option let-selected="selected" pTemplate="option">
             <div class="flex flex-wrap p-1 items-center gap-4 w-full">
@@ -138,13 +136,13 @@ import { ProductService } from '@service/productservice';
 import { OrderListModule } from 'primeng/orderlist';
 
 @Component({
-    selector: 'orderlist-filter-demo',
-    templateUrl: './orderlist-filter-demo.html',
+    selector: 'orderlist-template-demo',
+    templateUrl: './orderlist-template-demo.html',
     standalone: true,
     imports: [OrderListModule],
     providers: [ProductService]
 })
-export class OrderlistFilterDemo implements OnInit {
+export class OrderlistTemplateDemo implements OnInit {
     products!: Product[];
 
     constructor(private productService: ProductService) {}

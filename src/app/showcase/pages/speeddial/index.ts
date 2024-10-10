@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import { AccessibilityDoc } from '@doc/speeddial/accessibilitydoc';
 import { CircleDoc } from '@doc/speeddial/circledoc';
-import { CustomDoc } from '@doc/speeddial/customdoc';
 import { ImportDoc } from '@doc/speeddial/importdoc';
 import { LinearDoc } from '@doc/speeddial/lineardoc';
 import { MaskDoc } from '@doc/speeddial/maskdoc';
 import { QuarterCircleDoc } from '@doc/speeddial/quartercircledoc';
 import { SemiCircleDoc } from '@doc/speeddial/semicircledoc';
 import { TooltipDoc } from '@doc/speeddial/tooltipdoc';
+import { TemplateDoc } from '@doc/speeddial/templatedoc';
 import { SpeedDialDocModule } from '@doc/speeddial/speeddialdoc.module';
 
 @Component({
@@ -61,9 +61,9 @@ export class SpeedDialDemo {
             component: MaskDoc,
         },
         {
-            id: 'custom',
-            label: 'Custom',
-            component: CustomDoc,
+            id: 'template',
+            label: 'Template',
+            component: TemplateDoc,
         },
 
         {

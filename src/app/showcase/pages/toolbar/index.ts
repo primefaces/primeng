@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { ImportDoc } from '@doc/toolbar/importdoc';
 import { BasicDoc } from '@doc/toolbar/basicdoc';
-import { TemplateDoc } from '@doc/toolbar/templatedoc';
+
 import { AccessibilityDoc } from '@doc/toolbar/accessibilitydoc';
 import { ToolbarDocModule } from '@doc/toolbar/toolbardoc.module';
+import { CustomDoc } from '@doc/toolbar/customdoc';
 
 @Component({
     template: `<app-doc
@@ -30,11 +31,10 @@ export class ToolbarDemo {
             component: BasicDoc,
         },
         {
-            id: 'template',
-            label: 'Template',
-            component: TemplateDoc,
+            id: 'custom',
+            label: 'Custom',
+            component: CustomDoc
         },
-
         {
             id: 'accessibility',
             label: 'Accessibility',

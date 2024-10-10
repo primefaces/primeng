@@ -63,16 +63,6 @@ export class CarouselDemo {
             component: CircularDoc,
         },
         {
-            id: 'numscroll',
-            label: 'Num Scroll',
-            component: NumScrollDoc,
-        },
-        {
-            id: 'custom',
-            label: 'Custom Content',
-            component: TemplateDoc,
-        },
-        {
             id: 'responsive',
             label: 'Responsive',
             component: ResponsiveDoc,

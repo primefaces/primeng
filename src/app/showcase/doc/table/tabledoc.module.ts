@@ -85,6 +85,7 @@ import { FilterAdvancedDoc } from './filteradvanceddoc';
 import { SelectModule } from 'primeng/select';
 import { ToggleSwitchModule } from 'primeng/toggleswitch';
 import { TextareaModule } from 'primeng/textarea';
+import { BadgeModule } from 'primeng/badge';
 
 @NgModule({
     imports: [
@@ -120,6 +121,7 @@ import { TextareaModule } from 'primeng/textarea';
         IconFieldModule,
         InputIconModule,
         ToggleSwitchModule,
+        BadgeModule
     ],
     declarations: [
         ImportDoc,

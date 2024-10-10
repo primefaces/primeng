@@ -8,8 +8,8 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>Custom node content instead of a node label is defined with the <i>pTemplate</i> property.</p>
         </app-docsectiontext>
-        <div class="card flex justify-center">
-            <p-tree [value]="nodes" class="w-full md:w-[30rem]">
+        <div class="card">
+            <p-tree [value]="nodes" styleClass="w-full md:w-[30rem]">
                 <ng-template let-node pTemplate="url">
                     <a
                         [href]="node.data"
@@ -56,7 +56,7 @@ export class TemplateDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-tree [value]="nodes" class="w-full md:w-[30rem]">
+        basic: `<p-tree [value]="nodes" styleClass="w-full md:w-[30rem]">
     <ng-template let-node pTemplate="url">
         <a [href]="node.data" target="_blank" rel="noopener noreferrer" class="text-surface-700 dark:text-surface-100 hover:text-primary">
             {{ node.label }}
@@ -67,8 +67,8 @@ export class TemplateDoc implements OnInit {
     </ng-template>
 </p-tree>`,
 
-        html: `<div class="card flex justify-center">
-    <p-tree [value]="nodes" class="w-full md:w-[30rem]">
+        html: `<div class="card">
+    <p-tree [value]="nodes" styleClass="w-full md:w-[30rem]">
         <ng-template let-node pTemplate="url">
             <a [href]="node.data" target="_blank" rel="noopener noreferrer" class="text-surface-700 dark:text-surface-100 hover:text-primary">
                {{ node.label }}

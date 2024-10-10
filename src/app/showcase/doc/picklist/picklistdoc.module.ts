@@ -10,10 +10,11 @@ import { FilterDoc } from './filterdoc';
 import { ImportDoc } from './importdoc';
 import { StyleDoc } from './styledoc';
 import { TemplatesDoc } from './templatesdoc';
+import { TemplateDoc } from './templatedoc';
 
 @NgModule({
     imports: [CommonModule, AppCodeModule, AppDocModule, PickListModule, RouterModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, FilterDoc, TemplatesDoc, StyleDoc, AccessibilityDoc],
+    declarations: [ImportDoc, BasicDoc, FilterDoc, TemplateDoc, TemplatesDoc, StyleDoc, AccessibilityDoc],
 })
 export class PicklistDocModule {}

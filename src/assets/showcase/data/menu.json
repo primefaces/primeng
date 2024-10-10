@@ -420,12 +420,12 @@
                             "routerLink": "/focustrap"
                         },
                         {
-                            "name": "Inplace",
-                            "routerLink": "/inplace"
-                        },
-                        {
                             "name": "Fluid",
                             "routerLink": "/fluid"
+                        },
+                        {
+                            "name": "Inplace",
+                            "routerLink": "/inplace"
                         },
                         {
                             "name": "MeterGroup",

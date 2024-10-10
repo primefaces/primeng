@@ -10,10 +10,10 @@ import { Code } from '@domain/code';
         <div class="card">
             <p-splitter [style]="{ height: '300px' }" styleClass="mb-8" layout="vertical">
                 <ng-template pTemplate>
-                    <div class="col flex items-center justify-center">Panel 1</div>
+                    <div class="flex items-center justify-center h-full">Panel 1</div>
                 </ng-template>
                 <ng-template pTemplate>
-                    <div class="col flex items-center justify-center">Panel 2</div>
+                    <div class="flex items-center justify-center h-full">Panel 2</div>
                 </ng-template>
             </p-splitter>
         </div>
@@ -22,37 +22,23 @@ import { Code } from '@domain/code';
 })
 export class VerticalDoc {
     code: Code = {
-        basic: `<p-splitter 
-    [style]="{ height: '300px' }" 
-    styleClass="mb-8" 
-    layout="vertical">
-        <ng-template pTemplate>
-            <div class="col flex items-center justify-center">
-                Panel 1
-            </div>
-        </ng-template>
-        <ng-template pTemplate>
-            <div class="col flex items-center justify-center">
-                Panel 2
-            </div>
-        </ng-template>
+        basic: `<p-splitter [style]="{ height: '300px' }" styleClass="mb-8" layout="vertical">
+    <ng-template pTemplate>
+        <div class="flex items-center justify-center h-full">Panel 1</div>
+    </ng-template>
+    <ng-template pTemplate>
+        <div class="flex items-center justify-center h-full">Panel 2</div>
+    </ng-template>
 </p-splitter>`,
 
         html: `<div class="card">
-    <p-splitter 
-        [style]="{ height: '300px' }" 
-        styleClass="mb-8" 
-        layout="vertical">
-            <ng-template pTemplate>
-                <div class="col flex items-center justify-center">
-                    Panel 1
-                </div>
-            </ng-template>
-            <ng-template pTemplate>
-                <div class="col flex items-center justify-center">
-                    Panel 2
-                </div>
-            </ng-template>
+    <p-splitter [style]="{ height: '300px' }" styleClass="mb-8" layout="vertical">
+        <ng-template pTemplate>
+            <div class="flex items-center justify-center h-full">Panel 1</div>
+        </ng-template>
+        <ng-template pTemplate>
+            <div class="flex items-center justify-center h-full">Panel 2</div>
+        </ng-template>
     </p-splitter>
 </div>`,
 

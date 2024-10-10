@@ -15,7 +15,7 @@ import { CustomerService } from '@service/customerservice';
         <p-deferred-demo (load)="loadDemoData()">
             <div class="card">
                 <div class="flex justify-center">
-                    <button type="button" (click)="showDialog()" pButton icon="pi pi-external-link" label="View"></button>
+                    <button type="button" (click)="showDialog()" pButton icon="pi pi-external-link" label="Show"></button>
                 </div>
                 <p-dialog
                     header="Header"
@@ -46,15 +46,7 @@ import { CustomerService } from '@service/customerservice';
                         </ng-template>
                     </p-table>
                     <ng-template pTemplate="footer">
-                        <button
-                            type="button"
-                            pButton
-                            pRipple
-                            icon="pi pi-times"
-                            (click)="dialogVisible = false"
-                            label="Dismiss"
-                            class="p-button-text"
-                        ></button>
+                        <p-button label="Ok" icon="pi pi-check" (onClick)="dialogVisible = false" />
                     </ng-template>
                 </p-dialog>
             </div>
@@ -84,141 +76,75 @@ export class FlexibleScrollDoc {
 
     code: Code = {
         basic: `<div class="flex justify-center">
-    <button 
-        type="button" 
-        (click)="showDialog()" 
-        pButton 
-        icon="pi pi-external-link" 
-        label="View">
-    </button>
+    <button type="button" (click)="showDialog()" pButton icon="pi pi-external-link" label="Show"></button>
 </div>
-<p-dialog 
-    header="Header" 
-    [resizable]="false" 
-    [modal]="true" 
-    [maximizable]="true" 
-    appendTo="body" 
-    [(visible)]="dialogVisible" 
-    [style]="{width: '75vw'}" 
-    [contentStyle]="{height: '300px'}">
-        <p-table 
-            [value]="customers" 
-            [scrollable]="true" 
-            scrollHeight="flex" 
-            [tableStyle]="{'min-width': '50rem'}">
-                <ng-template pTemplate="header">
-                    <tr>
-                        <th>
-                            Name
-                        </th>
-                        <th>
-                            Country
-                        </th>
-                        <th>
-                            Company
-                        </th>
-                        <th>
-                            Representative
-                        </th>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="body" let-customer>
-                    <tr>
-                        <td>
-                            {{customer.name}}
-                        </td>
-                        <td>
-                            {{customer.country.name}}
-                        </td>
-                        <td>
-                            {{customer.company}}
-                        </td>
-                        <td>
-                            {{customer.representative.name}}
-                        </td>
-                    </tr>
-                </ng-template>
-        </p-table>
-        <ng-template pTemplate="footer">
-            <button 
-                type="button" 
-                pButton 
-                pRipple 
-                icon="pi pi-times" 
-                (click)="dialogVisible=false" 
-                label="Dismiss" 
-                class="p-button-text">
-            </button>
+<p-dialog
+    header="Header"
+    [resizable]="false"
+    [modal]="true"
+    [maximizable]="true"
+    appendTo="body"
+    [(visible)]="dialogVisible"
+    [style]="{ width: '75vw' }"
+    [contentStyle]="{ height: '300px' }"
+>
+    <p-table [value]="customers" [scrollable]="true" scrollHeight="flex" [tableStyle]="{ 'min-width': '50rem' }">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Name</th>
+                <th>Country</th>
+                <th>Company</th>
+                <th>Representative</th>
+            </tr>
         </ng-template>
+        <ng-template pTemplate="body" let-customer>
+            <tr>
+                <td>{{ customer.name }}</td>
+                <td>{{ customer.country.name }}</td>
+                <td>{{ customer.company }}</td>
+                <td>{{ customer.representative.name }}</td>
+            </tr>
+        </ng-template>
+    </p-table>
+    <ng-template pTemplate="footer">
+        <p-button label="Ok" icon="pi pi-check" (onClick)="dialogVisible = false" />
+    </ng-template>
 </p-dialog>`,
         html: `<div class="card">
     <div class="flex justify-center">
-        <button 
-            type="button" 
-            (click)="showDialog()" 
-            pButton 
-            icon="pi pi-external-link" 
-            label="View">
-        </button>
+        <button type="button" (click)="showDialog()" pButton icon="pi pi-external-link" label="Show"></button>
     </div>
-    <p-dialog 
-        header="Header" 
-        [resizable]="false" 
-        [modal]="true" 
-        [maximizable]="true" 
-        appendTo="body" 
-        [(visible)]="dialogVisible" 
-        [style]="{width: '75vw'}" 
-        [contentStyle]="{height: '300px'}">
-            <p-table 
-                [value]="customers" 
-                [scrollable]="true"
-                scrollHeight="flex" 
-                [tableStyle]="{'min-width': '50rem'}">
-                    <ng-template pTemplate="header">
-                        <tr>
-                            <th>
-                                Name
-                            </th>
-                            <th>
-                                Country
-                            </th>
-                            <th>
-                                Company
-                            </th>
-                            <th>
-                                Representative
-                            </th>
-                        </tr>
-                    </ng-template>
-                    <ng-template pTemplate="body" let-customer>
-                        <tr>
-                            <td>
-                                {{customer.name}}
-                            </td>
-                            <td>
-                                {{customer.country.name}}
-                            </td>
-                            <td>
-                                {{customer.company}}
-                            </td>
-                            <td>
-                                {{customer.representative.name}}
-                            </td>
-                        </tr>
-                    </ng-template>
-            </p-table>
-            <ng-template pTemplate="footer">
-                <button 
-                    type="button"
-                    pButton
-                    pRipple 
-                    icon="pi pi-times" 
-                    (click)="dialogVisible=false" 
-                    label="Dismiss" 
-                    class="p-button-text">
-                </button>
+    <p-dialog
+        header="Header"
+        [resizable]="false"
+        [modal]="true"
+        [maximizable]="true"
+        appendTo="body"
+        [(visible)]="dialogVisible"
+        [style]="{ width: '75vw' }"
+        [contentStyle]="{ height: '300px' }"
+    >
+        <p-table [value]="customers" [scrollable]="true" scrollHeight="flex" [tableStyle]="{ 'min-width': '50rem' }">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Name</th>
+                    <th>Country</th>
+                    <th>Company</th>
+                    <th>Representative</th>
+                </tr>
             </ng-template>
+            <ng-template pTemplate="body" let-customer>
+                <tr>
+                    <td>{{ customer.name }}</td>
+                    <td>{{ customer.country.name }}</td>
+                    <td>{{ customer.company }}</td>
+                    <td>{{ customer.representative.name }}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+        <ng-template pTemplate="footer">
+            <p-button label="Ok" icon="pi pi-check" (onClick)="dialogVisible = false" />
+        </ng-template>
     </p-dialog>
 </div>`,
         typescript: `import { Component, OnInit } from '@angular/core';

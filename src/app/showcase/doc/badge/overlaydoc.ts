@@ -8,40 +8,40 @@ import { Code } from '@domain/code';
             <p>A badge can be added to any element by encapsulating the content with the <i>OverlayBadge</i> component.</p>
         </app-docsectiontext>
         <div class="card flex flex-wrap justify-center gap-6">
-            <p-overlayBadge value="2">
+            <p-overlaybadge value="2">
                 <i class="pi pi-bell" style="font-size: 2rem"></i>
-            </p-overlayBadge>
-            <p-overlayBadge value="4" severity="danger">
+            </p-overlaybadge>
+            <p-overlaybadge value="4" severity="danger">
                 <i class="pi pi-calendar" style="font-size: 2rem"></i>
-            </p-overlayBadge>
-            <p-overlayBadge severity="danger">
+            </p-overlaybadge>
+            <p-overlaybadge severity="danger">
                 <i class="pi pi-envelope" style="font-size: 2rem"></i>
-            </p-overlayBadge>
+            </p-overlaybadge>
         </div>
         <app-code [code]="code" selector="badge-overlay-demo"></app-code>
     `,
 })
 export class OverlayDoc {
     code: Code = {
-        basic: `<p-overlayBadge value="2">
+        basic: `<p-overlaybadge value="2">
     <i class="pi pi-bell" style="font-size: 2rem"></i>
-</p-overlayBadge>
-<p-overlayBadge value="4" severity="danger">
+</p-overlaybadge>
+<p-overlaybadge value="4" severity="danger">
     <i class="pi pi-calendar" style="font-size: 2rem"></i>
-</p-overlayBadge>
-<p-overlayBadge severity="danger">
+</p-overlaybadge>
+<p-overlaybadge severity="danger">
     <i class="pi pi-envelope" style="font-size: 2rem"></i>
-</p-overlayBadge>`,
+</p-overlaybadge>`,
         html: `<div class="card flex flex-wrap justify-center gap-6">
-    <p-overlayBadge value="2">
+    <p-overlaybadge value="2">
         <i class="pi pi-bell" style="font-size: 2rem"></i>
-    </p-overlayBadge>
-    <p-overlayBadge value="4" severity="danger">
+    </p-overlaybadge>
+    <p-overlaybadge value="4" severity="danger">
         <i class="pi pi-calendar" style="font-size: 2rem"></i>
-    </p-overlayBadge>
-    <p-overlayBadge severity="danger">
+    </p-overlaybadge>
+    <p-overlaybadge severity="danger">
         <i class="pi pi-envelope" style="font-size: 2rem"></i>
-    </p-overlayBadge>
+    </p-overlaybadge>
 </div>`,
         typescript: `import { Component } from '@angular/core';
 import { OverlayBadgeModule } from 'primeng/overlaybadge';

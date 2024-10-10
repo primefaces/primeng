@@ -29,8 +29,8 @@ import { PhotoService } from '@service/photoservice';
                     <img [src]="item.itemImageSrc" [ngStyle]="{ width: !fullscreen ? '100%' : '', display: !fullscreen ? 'block' : '' }" />
                 </ng-template>
                 <ng-template pTemplate="thumbnail" let-item>
-                    <div class="grid grid-cols-12 gap-4 grid-nogutter justify-center">
-                        <img [src]="item.thumbnailImageSrc" />
+                    <div class="grid gap-4 justify-center">
+                        <img [src]="item.thumbnailImageSrc" style="display: block" />
                     </div>
                 </ng-template>
                 <ng-template pTemplate="footer" let-item>
@@ -76,17 +76,13 @@ export class AdvancedDoc implements OnInit, OnDestroy {
 
     responsiveOptions: any[] = [
         {
-            breakpoint: '1024px',
-            numVisible: 5,
+            breakpoint: '1300px',
+            numVisible: 4
         },
         {
-            breakpoint: '768px',
-            numVisible: 3,
-        },
-        {
-            breakpoint: '560px',
-            numVisible: 1,
-        },
+            breakpoint: '575px',
+            numVisible: 1
+        }
     ];
 
     ngOnInit() {
@@ -177,79 +173,46 @@ export class AdvancedDoc implements OnInit, OnDestroy {
     }
 
     code: Code = {
-        basic: `<p-galleria
-    #galleria
-    [(value)]="images"
-    [(activeIndex)]="activeIndex"
-    [numVisible]="5"
-    [showThumbnails]="showThumbnails"
-    [showItemNavigators]="true"
-    [showItemNavigatorsOnHover]="true"
-    [circular]="true"
-    [autoPlay]="true"
-    [transitionInterval]="3000"
-    [containerStyle]="{ 'max-width': '640px' }"
-    [containerClass]="galleriaClass()">
+        basic: `<p-galleria #galleria [(value)]="images" [(activeIndex)]="activeIndex" [numVisible]="5" [showThumbnails]="showThumbnails" [showItemNavigators]="true" [showItemNavigatorsOnHover]="true" [circular]="true" [autoPlay]="true" [transitionInterval]="3000" [containerStyle]="{ 'max-width': '640px' }" [containerClass]="galleriaClass()">
     <ng-template pTemplate="item" let-item>
-        <img 
-            [src]="item.itemImageSrc" 
-            [ngStyle]="{ width: !fullscreen ? '100%' : '', display: !fullscreen ? 'block' : '' }" />
+        <img [src]="item.itemImageSrc" [ngStyle]="{ width: !fullscreen ? '100%' : '', display: !fullscreen ? 'block' : '' }" />
     </ng-template>
     <ng-template pTemplate="thumbnail" let-item>
-        <div class="grid grid-cols-12 gap-4 grid-nogutter justify-center">
-            <img [src]="item.thumbnailImageSrc" />
+        <div class="grid gap-4 justify-center">
+            <img [src]="item.thumbnailImageSrc" style="display: block" />
         </div>
     </ng-template>
     <ng-template pTemplate="footer" let-item>
         <div class="custom-galleria-footer">
-            <button type="button" pButton icon="pi pi-list" (click)="onThumbnailButtonClick()">
-            </button>
+            <button type="button" pButton icon="pi pi-list" (click)="onThumbnailButtonClick()"></button>
             <span *ngIf="images" class="title-container">
                 <span>{{ activeIndex + 1 }}/{{ images.length }}</span>
                 <span class="title">{{ images[activeIndex].title }}</span>
                 <span>{{ images[activeIndex].alt }}</span>
             </span>
-            <button type="button" pButton [icon]="fullScreenIcon()" (click)="toggleFullScreen()" class="fullscreen-button">
-            </button>
+            <button type="button" pButton [icon]="fullScreenIcon()" (click)="toggleFullScreen()" class="fullscreen-button"></button>
         </div>
     </ng-template>
 </p-galleria>`,
         html: `<div class="card">
-    <p-galleria
-        #galleria
-        [(value)]="images"
-        [(activeIndex)]="activeIndex"
-        [numVisible]="5"
-        [showThumbnails]="showThumbnails"
-        [showItemNavigators]="true"
-        [showItemNavigatorsOnHover]="true"
-        [circular]="true"
-        [autoPlay]="true"
-        [transitionInterval]="3000"
-        [containerStyle]="{ 'max-width': '640px' }"
-        [containerClass]="galleriaClass()"
-    >
+    <p-galleria #galleria [(value)]="images" [(activeIndex)]="activeIndex" [numVisible]="5" [showThumbnails]="showThumbnails" [showItemNavigators]="true" [showItemNavigatorsOnHover]="true" [circular]="true" [autoPlay]="true" [transitionInterval]="3000" [containerStyle]="{ 'max-width': '640px' }" [containerClass]="galleriaClass()">
         <ng-template pTemplate="item" let-item>
-            <img 
-                [src]="item.itemImageSrc" 
-                [ngStyle]="{ width: !fullscreen ? '100%' : '', display: !fullscreen ? 'block' : '' }" />
+            <img [src]="item.itemImageSrc" [ngStyle]="{ width: !fullscreen ? '100%' : '', display: !fullscreen ? 'block' : '' }" />
         </ng-template>
         <ng-template pTemplate="thumbnail" let-item>
-            <div class="grid grid-cols-12 gap-4 grid-nogutter justify-center">
-                <img [src]="item.thumbnailImageSrc" />
+            <div class="grid gap-4 justify-center">
+                <img [src]="item.thumbnailImageSrc" style="display: block" />
             </div>
         </ng-template>
         <ng-template pTemplate="footer" let-item>
             <div class="custom-galleria-footer">
-                <button type="button" pButton icon="pi pi-list" (click)="onThumbnailButtonClick()">
-                </button>
+                <button type="button" pButton icon="pi pi-list" (click)="onThumbnailButtonClick()"></button>
                 <span *ngIf="images" class="title-container">
                     <span>{{ activeIndex + 1 }}/{{ images.length }}</span>
                     <span class="title">{{ images[activeIndex].title }}</span>
                     <span>{{ images[activeIndex].alt }}</span>
                 </span>
-                <button type="button" pButton [icon]="fullScreenIcon()" (click)="toggleFullScreen()" class="fullscreen-button">
-                </button>
+                <button type="button" pButton [icon]="fullScreenIcon()" (click)="toggleFullScreen()" class="fullscreen-button"></button>
             </div>
         </ng-template>
     </p-galleria>`,
@@ -348,15 +311,11 @@ export class GalleriaAdvancedDemo implements OnInit, OnDestroy {
 
     responsiveOptions: any[] = [
         {
-            breakpoint: '1024px',
-            numVisible: 5
+            breakpoint: '1300px',
+            numVisible: 4
         },
         {
-            breakpoint: '768px',
-            numVisible: 3
-        },
-        {
-            breakpoint: '560px',
+            breakpoint: '575px',
             numVisible: 1
         }
     ];

@@ -299,15 +299,17 @@ export class TableService {
                             "
                             [ngClass]="cx('virtualScrollerSpacer')"
                         ></tbody>
-                        <tfoot role="rowgroup" *ngIf="footerGroupedTemplate || footerTemplate" #tfoot [ngClass]="cx('footer')">
-                            <ng-container
-                                *ngTemplateOutlet="
-                                    footerGroupedTemplate || footerTemplate;
-                                    context: {
-                                        $implicit: scrollerOptions.columns,
-                                    }
-                                "
-                            ></ng-container>
+                        <tfoot role="rowgroup" *ngIf="footerGroupedTemplate || footerTemplate" #tfoot>
+                            <div class="p-datatable-footer">
+                                <ng-container
+                                    *ngTemplateOutlet="
+                                        footerGroupedTemplate || footerTemplate;
+                                        context: {
+                                            $implicit: scrollerOptions.columns,
+                                        }
+                                    "
+                                ></ng-container>
+                            </div>
                         </tfoot>
                     </table>
                 </ng-template>

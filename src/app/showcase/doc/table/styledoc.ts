@@ -20,20 +20,12 @@ import { ProductService } from '@service/productservice';
                         </tr>
                     </ng-template>
                     <ng-template pTemplate="body" let-product>
-                        <tr [ngClass]="{ 'row-accessories': product.category === 'Accessories' }">
+                        <tr [ngClass]="rowClass(product)" [ngStyle]="rowStyle(product)">
                             <td>{{ product.code }}</td>
                             <td>{{ product.name }}</td>
                             <td>{{ product.category }}</td>
                             <td>
-                                <div
-                                    [ngClass]="{
-                                        outofstock: product.quantity === 0,
-                                        lowstock: product.quantity > 0 && product.quantity < 10,
-                                        instock: product.quantity > 10,
-                                    }"
-                                >
-                                    {{ product.quantity }}
-                                </div>
+                                <p-badge [value]="product.quantity" [severity]="stockSeverity(product)" />
                             </td>
                         </tr>
                     </ng-template>
@@ -42,29 +34,6 @@ import { ProductService } from '@service/productservice';
         </p-deferred-demo>
         <app-code [code]="code" selector="table-style-demo" [extFiles]="extFiles"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    styles: [
-        `
-            .outofstock {
-                font-weight: 700;
-                color: #ff5252;
-                text-decoration: line-through;
-            }
-
-            .lowstock {
-                font-weight: 700;
-                color: #ffa726;
-            }
-
-            .instock {
-                font-weight: 700;
-                color: #66bb6a;
-            }
-
-            :host ::ng-deep .row-accessories {
-                background-color: rgba(0, 0, 0, 0.15) !important;
-            }
-        `,
-    ],
 })
 export class StyleDoc {
     products!: Product[];
@@ -75,14 +44,30 @@ export class StyleDoc {
     ) {}
 
     loadDemoData() {
-        this.productService.getProductsMini().then((data) => {
+        this.productService.getProductsSmall().then((data) => {
             this.products = data;
             this.cd.markForCheck();
         });
     }
 
+    rowClass(product: Product) {
+        return { '!bg-primary !text-primary-contrast': product.category === 'Fitness' };
+    }
+
+    rowStyle(product: Product) {
+        if (product.quantity === 0) {
+            return { fontWeight: 'bold', fontStyle: 'italic' };
+        }
+    }
+
+    stockSeverity(product: Product) {
+        if (product.quantity === 0) return 'danger';
+        else if (product.quantity > 0 && product.quantity < 10) return 'warn';
+        else return 'success';
+    }
+
     code: Code = {
-        basic: `<p-table [value]="products" [tableStyle]="{'min-width': '50rem'}">
+        basic: `<p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
     <ng-template pTemplate="header">
         <tr>
             <th>Code</th>
@@ -92,20 +77,18 @@ export class StyleDoc {
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-product>
-        <tr [ngClass]="{'row-accessories': product.category === 'Accessories'}">
-            <td>{{product.code}}</td>
-            <td>{{product.name}}</td>
-            <td>{{product.category}}</td>
+        <tr [ngClass]="rowClass(product)" [ngStyle]="rowStyle(product)">
+            <td>{{ product.code }}</td>
+            <td>{{ product.name }}</td>
+            <td>{{ product.category }}</td>
             <td>
-                <div [ngClass]="{'outofstock': product.quantity === 0, 'lowstock': (product.quantity > 0 && product.quantity < 10),'instock': product.quantity > 10}">
-                    {{product.quantity}}
-                </div>
+                <p-badge [value]="product.quantity" [severity]="stockSeverity(product)" />
             </td>
         </tr>
     </ng-template>
 </p-table>`,
         html: `<div class="card">
-    <p-table [value]="products" [tableStyle]="{'min-width': '50rem'}">
+    <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
         <ng-template pTemplate="header">
             <tr>
                 <th>Code</th>
@@ -115,14 +98,12 @@ export class StyleDoc {
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-product>
-            <tr [ngClass]="{'row-accessories': product.category === 'Accessories'}">
-                <td>{{product.code}}</td>
-                <td>{{product.name}}</td>
-                <td>{{product.category}}</td>
+            <tr [ngClass]="rowClass(product)" [ngStyle]="rowStyle(product)">
+                <td>{{ product.code }}</td>
+                <td>{{ product.name }}</td>
+                <td>{{ product.category }}</td>
                 <td>
-                    <div [ngClass]="{'outofstock': product.quantity === 0, 'lowstock': (product.quantity > 0 && product.quantity < 10),'instock': product.quantity > 10}">
-                        {{product.quantity}}
-                    </div>
+                    <p-badge [value]="product.quantity" [severity]="stockSeverity(product)" />
                 </td>
             </tr>
         </ng-template>
@@ -133,65 +114,46 @@ import { Product } from '@domain/product';
 import { ProductService } from '@service/productservice';
 import { TableModule } from 'primeng/table';
 import { CommonModule } from '@angular/common';
+import { BadgeModule } from 'primeng/badge';
 
 @Component({
     selector: 'table-style-demo',
     templateUrl: 'table-style-demo.html',
-    styles: [
-        \`.outofstock {
-            font-weight: 700;
-            color: #ff5252;
-            text-decoration: line-through;
-        }
-
-        .lowstock {
-            font-weight: 700;
-            color: #ffa726;
-        }
-
-        .instock {
-            font-weight: 700;
-            color: #66bb6a;
-        }
-
-        :host ::ng-deep .row-accessories {
-            background-color: rgba(0, 0, 0, 0.15) !important;
-        }\`
-    ],
     standalone: true,
-    imports: [TableModule, CommonModule],
+    imports: [TableModule, CommonModule, BadgeModule],
     providers: [ProductService]
 })
 export class TableStyleDemo implements OnInit{
     products!: Product[];
 
-    constructor(private productService: ProductService) {}
+    constructor(
+        private productService: ProductService,
+        private cd: ChangeDetectorRef,
+    ) {}
 
-    ngOnInit() {
-        this.productService.getProductsMini().then((data) => {
+    loadDemoData() {
+        this.productService.getProductsSmall().then((data) => {
             this.products = data;
+            this.cd.markForCheck();
         });
     }
-}`,
-        scss: `
-.outofstock {
-    font-weight: 700;
-    color: #ff5252;
-    text-decoration: line-through;
-}
 
-.lowstock {
-    font-weight: 700;
-    color: #ffa726;
-}
+    rowClass(product: Product) {
+        return { '!bg-primary !text-primary-contrast': product.category === 'Fitness' };
+    }
 
-.instock {
-    font-weight: 700;
-    color: #66bb6a;
-}
+    rowStyle(product: Product) {
+        if (product.quantity === 0) {
+            return { fontWeight: 'bold', fontStyle: 'italic' };
+        }
+    }
 
-:host ::ng-deep .row-accessories {
-    background-color: rgba(0, 0, 0, 0.15) !important;
+    stockSeverity(product: Product) {
+        if (product.quantity === 0) return 'danger';
+        else if (product.quantity > 0 && product.quantity < 10) return 'warn';
+        else return 'success';
+    }
+
 }`,
         service: ['ProductService'],
     };

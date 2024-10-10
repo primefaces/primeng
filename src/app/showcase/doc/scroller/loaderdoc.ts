@@ -21,7 +21,7 @@ import { Code } from '@domain/code';
                     [style]="{ width: '200px', height: '200px' }"
                 >
                     <ng-template pTemplate="item" let-item let-options="options">
-                        <div class="flex items-center p-2" [ngClass]="{ 'surface-ground': options.odd }" style="height: 50px;">
+                        <div class="flex items-center p-2" [ngClass]="{ 'bg-surface-100 dark:bg-surface-700': options.odd }" style="height: 50px;">
                             {{ item }}
                         </div>
                     </ng-template>
@@ -37,12 +37,12 @@ import { Code } from '@domain/code';
                     [style]="{ width: '200px', height: '200px' }"
                 >
                     <ng-template pTemplate="item" let-item let-options="options">
-                        <div class="flex items-center p-2" [ngClass]="{ 'surface-ground': options.odd }" style="height: 50px;">
+                        <div class="flex items-center p-2" [ngClass]="{ 'bg-surface-100 dark:bg-surface-700': options.odd }" style="height: 50px;">
                             {{ item }}
                         </div>
                     </ng-template>
                     <ng-template pTemplate="loader" let-options="options">
-                        <div class="flex items-center p-2" [ngClass]="{ 'surface-ground': options.odd }" style="height: 50px;">
+                        <div class="flex items-center p-2" [ngClass]="{ 'bg-surface-100 dark:bg-surface-700': options.odd }" style="height: 50px;">
                             <p-skeleton [width]="options.even ? '60%' : '50%'" height="1.3rem"></p-skeleton>
                         </div>
                     </ng-template>
@@ -71,7 +71,7 @@ export class LoaderDoc {
         <ng-template pTemplate="item" let-item let-options="options">
             <div 
                 class="flex items-center p-2" 
-                [ngClass]="{ 'surface-ground' : options.odd }" 
+                [ngClass]="{ 'bg-surface-100 dark:bg-surface-700' : options.odd }" 
                 style="height: 50px;">
                     {{ item }}
             </div>
@@ -89,7 +89,7 @@ export class LoaderDoc {
             <ng-template pTemplate="item" let-item let-options="options">
                 <div 
                     class="flex items-center p-2" 
-                    [ngClass]="{ 'surface-ground' : options.odd }" 
+                    [ngClass]="{ 'bg-surface-100 dark:bg-surface-700' : options.odd }" 
                     style="height: 50px;">
                         {{ item }}
                 </div>

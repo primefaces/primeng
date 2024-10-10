@@ -20,7 +20,7 @@ import {
     numberAttribute,
 } from '@angular/core';
 import { FilterService, PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
-import { ButtonModule } from 'primeng/button';
+import { ButtonModule, ButtonProps } from 'primeng/button';
 import { DomHandler } from 'primeng/dom';
 import { AngleDoubleDownIcon } from 'primeng/icons/angledoubledown';
 import { AngleDoubleUpIcon } from 'primeng/icons/angledoubleup';
@@ -59,10 +59,10 @@ import { FormsModule } from '@angular/forms';
                     [disabled]="moveDisabled()"
                     pButton
                     pRipple
-                    class="p-button-icon-only"
                     (click)="moveUp()"
                     [attr.aria-label]="moveUpAriaLabel"
                     [attr.data-pc-section]="'moveUpButton'"
+                    [buttonProps]="getButtonProps('up')"
                 >
                     <AngleUpIcon *ngIf="!moveUpIconTemplate" [attr.data-pc-section]="'moveupicon'" />
                     <ng-template *ngTemplateOutlet="moveUpIconTemplate"></ng-template>
@@ -72,10 +72,10 @@ import { FormsModule } from '@angular/forms';
                     [disabled]="moveDisabled()"
                     pButton
                     pRipple
-                    class="p-button-icon-only"
                     (click)="moveTop()"
                     [attr.aria-label]="moveTopAriaLabel"
                     [attr.data-pc-section]="'moveTopButton'"
+                    [buttonProps]="getButtonProps('top')"
                 >
                     <AngleDoubleUpIcon *ngIf="!moveTopIconTemplate" [attr.data-pc-section]="'movetopicon'" />
                     <ng-template *ngTemplateOutlet="moveTopIconTemplate"></ng-template>
@@ -85,10 +85,10 @@ import { FormsModule } from '@angular/forms';
                     [disabled]="moveDisabled()"
                     pButton
                     pRipple
-                    class="p-button-icon-only"
                     (click)="moveDown()"
                     [attr.aria-label]="moveDownAriaLabel"
                     [attr.data-pc-section]="'moveDownButton'"
+                    [buttonProps]="getButtonProps('down')"
                 >
                     <AngleDownIcon *ngIf="!moveDownIconTemplate" [attr.data-pc-section]="'movedownicon'" />
                     <ng-template *ngTemplateOutlet="moveDownIconTemplate"></ng-template>
@@ -98,10 +98,10 @@ import { FormsModule } from '@angular/forms';
                     [disabled]="moveDisabled()"
                     pButton
                     pRipple
-                    class="p-button-icon-only"
                     (click)="moveBottom()"
                     [attr.aria-label]="moveBottomAriaLabel"
                     [attr.data-pc-section]="'moveBottomButton'"
+                    [buttonProps]="getButtonProps('bottom')"
                 >
                     <AngleDoubleDownIcon *ngIf="!moveBottomIconTemplate" [attr.data-pc-section]="'movebottomicon'" />
                     <ng-template *ngTemplateOutlet="moveBottomIconTemplate"></ng-template>
@@ -113,10 +113,9 @@ import { FormsModule } from '@angular/forms';
                     [multiple]="true"
                     [options]="value"
                     [(ngModel)]="d_selection"
-                    [style]="{ width: '15rem' }"
                     optionLabel="name"
                     [id]="id + '_list'"
-                    [ngStyle]="listStyle"
+                    [listStyle]="listStyle"
                     [striped]="stripedRows"
                     [tabindex]="tabindex"
                     (onFocus)="onListFocus($event)"
@@ -127,10 +126,21 @@ import { FormsModule } from '@angular/forms';
                     [metaKeySelection]="metaKeySelection"
                     [scrollHeight]="scrollHeight"
                     [autoOptionFocus]="autoOptionFocus"
+                    [filter]="filterBy"
+                    [filterBy]="filterBy"
+                    [filterLocale]="filterLocale"
+                    [filterPlaceHolder]="filterPlaceholder"
                 >
                     <ng-container *ngIf="headerTemplate">
                         <ng-template pTemplate="header">
                             <ng-template *ngTemplateOutlet="headerTemplate"></ng-template>
+                        </ng-template>
+                    </ng-container>
+                    <ng-container *ngIf="itemTemplate">
+                        <ng-template pTemplate="item" let-option let-selected="selected" let-index="index">
+                            <ng-template
+                                *ngTemplateOutlet="itemTemplate; context: { $implicit: option, selected: selected, index: index }"
+                            ></ng-template>
                         </ng-template>
                     </ng-container>
                 </p-listbox>
@@ -300,6 +310,36 @@ export class OrderList extends BaseComponent implements AfterContentInit {
     get value(): any[] | undefined {
         return this._value;
     }
+    
+    /**
+     * Used to pass all properties of the ButtonProps to the Button component.
+     * @group Props
+     */
+    @Input() buttonProps: ButtonProps = { severity: 'secondary' };
+
+    /**
+     * Used to pass all properties of the ButtonProps to the move up button inside the component.
+     * @group Props
+     */
+    @Input() moveUpButtonProps: ButtonProps;
+
+    /**
+     * Used to pass all properties of the ButtonProps to the move top button inside the component.
+     * @group Props
+     */
+    @Input() moveTopButtonProps : ButtonProps;
+
+    /**
+     * Used to pass all properties of the ButtonProps to the move down button inside the component.
+     * @group Props
+     */
+    @Input() moveDownButtonProps : ButtonProps;
+
+    /**
+     * Used to pass all properties of the ButtonProps to the move bottom button inside the component.
+     * @group Props
+     */
+    @Input() moveBottomButtonProps : ButtonProps;
 
     /**
      * Callback to invoke on selection change.
@@ -422,6 +462,21 @@ export class OrderList extends BaseComponent implements AfterContentInit {
         super();
     }
 
+    getButtonProps(direction: string) {
+        switch (direction) {
+            case 'up':
+                return { ...this.buttonProps, ...this.moveUpButtonProps };
+            case 'top':
+                return { ...this.buttonProps, ...this.moveTopButtonProps };
+            case 'down':
+                return { ...this.buttonProps, ...this.moveDownButtonProps };
+            case 'bottom':
+                return { ...this.buttonProps, ...this.moveBottomButtonProps };
+            default:
+                return this.buttonProps;
+        }
+    }
+
     ngOnInit() {
         super.ngOnInit();
         if (this.responsive) {
@@ -440,6 +495,10 @@ export class OrderList extends BaseComponent implements AfterContentInit {
         (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
             switch (item.getType()) {
                 case 'item':
+                    this.itemTemplate = item.template;
+                    break;
+
+                case 'option':
                     this.itemTemplate = item.template;
                     break;
 

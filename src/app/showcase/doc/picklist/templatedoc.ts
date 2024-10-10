@@ -1,20 +1,29 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { Code } from '@domain/code';
 import { Product } from '@domain/product';
 import { ProductService } from '@service/productservice';
 
 @Component({
-    selector: 'filter-doc',
+    selector: 'template-doc',
     template: `
         <app-docsectiontext>
-            <p>Filter value is checked against the property of an object configured with the <i>filterBy</i> property</p>
+            <p>
+                For custom content support define an <i>option</i> template that gets the item instance as a parameter. In addition
+                <i>sourceheader</i> and <i>targetheader</i> templates are provided for further customization.
+            </p>
         </app-docsectiontext>
-        <div class="card xl:flex xl:justify-center">
-            <p-orderlist
-                [value]="products"
-                [listStyle]="{ 'max-height': '30rem' }"
-                filterBy="name"
-                filterPlaceholder="Filter by name"
+        <div class="card">
+            <p-picklist
+                [source]="sourceProducts"
+                [target]="targetProducts"
+                [dragdrop]="true"
+                [responsive]="true"
+                [sourceStyle]="{ height: '30rem' }"
+                [targetStyle]="{ height: '30rem' }"
+                sourceFilterPlaceholder="Search by name"
+                targetFilterPlaceholder="Search by name"
+                breakpoint="1400px"
+                scrollHeight="20rem"
             >
                 <ng-template let-option let-selected="selected" pTemplate="option">
                     <div class="flex flex-wrap p-1 items-center gap-4 w-full">
@@ -27,7 +36,6 @@ import { ProductService } from '@service/productservice';
                             <span class="font-medium text-sm">{{ option.name }}</span>
                             <span
                                 [ngClass]="{
-                                    'text-sm': true,
                                     'text-surface-500': !selected,
                                     'dark:text-surface-400': !selected,
                                     'text-inherit': selected,
@@ -38,43 +46,42 @@ import { ProductService } from '@service/productservice';
                         <span class="font-bold sm:ml-8">{{ '$' + option.price }}</span>
                     </div>
                 </ng-template>
-            </p-orderlist>
+            </p-picklist>
         </div>
-        <app-code [code]="code" selector="orderlist-filter-demo" [extFiles]="extFiles"></app-code>
+        <app-code [code]="code" selector="picklist-template-demo" [extFiles]="extFiles"></app-code>
     `,
 })
-export class FilterDoc implements OnInit {
-    products!: Product[];
+export class TemplateDoc {
+    sourceProducts!: Product[];
+
+    targetProducts!: Product[];
 
     constructor(
-        private productService: ProductService,
+        private carService: ProductService,
         private cdr: ChangeDetectorRef,
     ) {}
 
     ngOnInit() {
-        this.productService.getProductsSmall().then((cars) => {
-            this.products = cars;
-            this.cdr.detectChanges();
+        this.carService.getProductsSmall().then((products) => {
+            this.sourceProducts = products;
+            this.cdr.markForCheck();
         });
-    }
-
-    getSeverity(status: string) {
-        switch (status) {
-            case 'INSTOCK':
-                return 'success';
-            case 'LOWSTOCK':
-                return 'warning';
-            case 'OUTOFSTOCK':
-                return 'danger';
-        }
+        this.targetProducts = [];
     }
 
     code: Code = {
-        basic: `<p-orderlist
-    [value]="products"
-    [listStyle]="{ 'max-height': '30rem' }"
+        basic: `<p-picklist
+    [source]="sourceProducts"
+    [target]="targetProducts"
+    [dragdrop]="true"
+    [responsive]="true"
+    [sourceStyle]="{ height: '30rem' }"
+    [targetStyle]="{ height: '30rem' }"
     filterBy="name"
-    filterPlaceholder="Filter by name"
+    sourceFilterPlaceholder="Search by name"
+    targetFilterPlaceholder="Search by name"
+    breakpoint="1400px"
+    scrollHeight="480px"
 >
     <ng-template let-option let-selected="selected" pTemplate="option">
         <div class="flex flex-wrap p-1 items-center gap-4 w-full">
@@ -87,7 +94,6 @@ export class FilterDoc implements OnInit {
                 <span class="font-medium text-sm">{{ option.name }}</span>
                 <span
                     [ngClass]="{
-                        'text-sm': true,
                         'text-surface-500': !selected,
                         'dark:text-surface-400': !selected,
                         'text-inherit': selected,
@@ -98,14 +104,21 @@ export class FilterDoc implements OnInit {
             <span class="font-bold sm:ml-8">{{ '$' + option.price }}</span>
         </div>
     </ng-template>
-</p-orderlist>`,
+</p-picklist>`,
 
-        html: `<div class="card xl:flex xl:justify-center">
-    <p-orderlist
-        [value]="products"
-        [listStyle]="{ 'max-height': '30rem' }"
+        html: `<div class="card">
+    <p-picklist
+        [source]="sourceProducts"
+        [target]="targetProducts"
+        [dragdrop]="true"
+        [responsive]="true"
+        [sourceStyle]="{ height: '30rem' }"
+        [targetStyle]="{ height: '30rem' }"
         filterBy="name"
-        filterPlaceholder="Filter by name"
+        sourceFilterPlaceholder="Search by name"
+        targetFilterPlaceholder="Search by name"
+        breakpoint="1400px"
+        scrollHeight="480px"
     >
         <ng-template let-option let-selected="selected" pTemplate="option">
             <div class="flex flex-wrap p-1 items-center gap-4 w-full">
@@ -118,7 +131,6 @@ export class FilterDoc implements OnInit {
                     <span class="font-medium text-sm">{{ option.name }}</span>
                     <span
                         [ngClass]="{
-                            'text-sm': true,
                             'text-surface-500': !selected,
                             'dark:text-surface-400': !selected,
                             'text-inherit': selected,
@@ -129,39 +141,38 @@ export class FilterDoc implements OnInit {
                 <span class="font-bold sm:ml-8">{{ '$' + option.price }}</span>
             </div>
         </ng-template>
-    </p-orderlist>
+    </p-picklist>
 </div>`,
 
-        typescript: `import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, ChangeDetectorRef } from '@angular/core';
 import { Product } from '@domain/product';
 import { ProductService } from '@service/productservice';
-import { OrderListModule } from 'primeng/orderlist';
+import { PickListModule } from 'primeng/picklist';
+import { CommonModule } from '@angular/common';
 
 @Component({
-    selector: 'orderlist-filter-demo',
-    templateUrl: './orderlist-filter-demo.html',
+    selector: 'picklist-template-demo',
+    templateUrl: './picklist-template-demo.html',
     standalone: true,
-    imports: [OrderListModule],
+    imports: [PickListModule, CommonModule],
     providers: [ProductService]
 })
-export class OrderlistFilterDemo implements OnInit {
-    products!: Product[];
+export class PicklistTemplateDemo {
+    sourceProducts!: Product[];
 
-    constructor(private productService: ProductService) {}
+    targetProducts!: Product[];
+
+    constructor(
+      private carService: ProductService,
+      private cdr: ChangeDetectorRef
+    ) {}
 
     ngOnInit() {
-        this.productService.getProductsSmall().then((cars) => (this.products = cars));
-    }
-
-    getSeverity(status: string) {
-        switch (status) {
-            case 'INSTOCK':
-                return 'success';
-            case 'LOWSTOCK':
-                return 'warning';
-            case 'OUTOFSTOCK':
-                return 'danger';
-        }
+        this.carService.getProductsSmall().then(products => {
+            this.sourceProducts = products;
+            this.cdr.markForCheck();
+        });
+        this.targetProducts = [];
     }
 }`,
 

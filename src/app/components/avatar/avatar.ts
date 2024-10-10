@@ -39,6 +39,7 @@ import { AvatarStyle } from './style/avatarstyle';
         '[attr.data-pc-name]': 'avatar',
         '[attr.aria-label]': 'ariaLabel',
         '[attr.aria-labelledby]': 'ariaLabelledBy',
+        '[style]': 'style',
     },
     providers: [AvatarStyle],
 })

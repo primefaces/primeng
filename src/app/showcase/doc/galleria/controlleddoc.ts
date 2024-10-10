@@ -48,15 +48,11 @@ export class ControlledDoc implements OnInit {
 
     responsiveOptions: any[] = [
         {
-            breakpoint: '1024px',
-            numVisible: 5,
+            breakpoint: '1300px',
+            numVisible: 4,
         },
         {
-            breakpoint: '768px',
-            numVisible: 3,
-        },
-        {
-            breakpoint: '560px',
+            breakpoint: '575px',
             numVisible: 1,
         },
     ];
@@ -80,13 +76,7 @@ export class ControlledDoc implements OnInit {
     <p-button type="button" icon="pi pi-minus" (click)="prev()" />
     <p-button type="button" icon="pi pi-plus" (click)="next()" severity="secondary" styleClass="ml-2" />
 </div>
-<p-galleria
-        [(value)]="images"
-        [responsiveOptions]="responsiveOptions"
-        [containerStyle]="{ 'max-width': '640px' }"
-        [numVisible]="5"
-        [(activeIndex)]="activeIndex"
->
+<p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5" [(activeIndex)]="activeIndex">
     <ng-template pTemplate="item" let-item>
         <img [src]="item.itemImageSrc" style="width: 100%;" />
     </ng-template>
@@ -99,13 +89,7 @@ export class ControlledDoc implements OnInit {
         <p-button type="button" icon="pi pi-minus" (click)="prev()" />
         <p-button type="button" icon="pi pi-plus" (click)="next()" severity="secondary" styleClass="ml-2" />
     </div>
-    <p-galleria
-        [(value)]="images"
-        [responsiveOptions]="responsiveOptions"
-        [containerStyle]="{ 'max-width': '640px' }"
-        [numVisible]="5"
-        [(activeIndex)]="activeIndex"
-    >
+    <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5" [(activeIndex)]="activeIndex">
         <ng-template pTemplate="item" let-item>
             <img [src]="item.itemImageSrc" style="width: 100%;" />
         </ng-template>
@@ -143,18 +127,14 @@ export class GalleriaControlledDemo implements OnInit {
 
     responsiveOptions: any[] = [
         {
-            breakpoint: '1024px',
-            numVisible: 5
+            breakpoint: '1300px',
+            numVisible: 4
         },
         {
-            breakpoint: '768px',
-            numVisible: 3
-        },
-        {
-            breakpoint: '560px',
+            breakpoint: '575px',
             numVisible: 1
         }
-    ];
+        ];
 
     constructor(private photoService: PhotoService) {}
 

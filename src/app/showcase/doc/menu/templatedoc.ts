@@ -12,8 +12,8 @@ import { Code } from '@domain/code';
                 <i>end</i> are provided to embed content before or after the menu.
             </p>
         </app-docsectiontext>
-        <div class="card flex justify-center">
-            <p-menu [model]="items" styleClass="w-full md:w-60">
+        <div class="card">
+            <p-menu [model]="items" class="flex justify-center" styleClass="w-full md:w-60">
                 <ng-template pTemplate="start">
                     <span class="inline-flex items-center gap-1 px-2 py-2">
                         <svg
@@ -166,7 +166,7 @@ export class TemplateDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-menu [model]="items" styleClass="w-full md:w-60">
+        basic: `<p-menu [model]="items" class="flex justify-center" styleClass="w-full md:w-60">
     <ng-template pTemplate="start">
         <span class="inline-flex items-center gap-1 px-2 py-2">
             <svg width="33" height="35" viewBox="0 0 33 35" fill="none" xmlns="http://www.w3.org/2000/svg" class="block mx-auto">
@@ -227,8 +227,8 @@ export class TemplateDoc implements OnInit {
     </ng-template>
 </p-menu>`,
 
-        html: `<div class="card flex justify-center">
-    <p-menu [model]="items" styleClass="w-full md:w-60">
+        html: `<div class="card">
+    <p-menu [model]="items" class="flex justify-center" styleClass="w-full md:w-60">
         <ng-template pTemplate="start">
             <span class="inline-flex items-center gap-1 px-2 py-2">
                  <svg

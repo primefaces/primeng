@@ -65,13 +65,13 @@ export class GalleriaDemo {
                     component: HoverEventDoc,
                 },
                 {
-                    id: 'positioned',
-                    label: 'Positioned',
+                    id: 'position',
+                    label: 'Position',
                     component: PositionedDoc,
                 },
                 {
                     id: 'template',
-                    label: 'Templating',
+                    label: 'Template',
                     component: TemplateDoc,
                 },
             ],

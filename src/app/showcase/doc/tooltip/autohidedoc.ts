@@ -19,30 +19,12 @@ import { Code } from '@domain/code';
 })
 export class AutoHideDoc {
     code: Code = {
-        basic: `<input 
-    type="text"
-    pInputText 
-    pTooltip="Enter your username" 
-    [autoHide]="false" 
-    placeholder="autoHide: false" />
-<input 
-    type="text" 
-    pInputText 
-    pTooltip="Enter your username" 
-    placeholder="autoHide: true" />`,
+        basic: `<input type="text"pInputText pTooltip="Enter your username" [autoHide]="false" placeholder="autoHide: false" />
+<input type="text" pInputText pTooltip="Enter your username" placeholder="autoHide: true" />`,
 
         html: `<div class="card flex flex-wrap justify-center gap-2">
-    <input 
-        type="text" 
-        pInputText 
-        pTooltip="Enter your username" 
-        [autoHide]="false" 
-        placeholder="autoHide: false" />
-    <input 
-        type="text" 
-        pInputText 
-        pTooltip="Enter your username" 
-        placeholder="autoHide: true">
+    <input type="text" pInputText pTooltip="Enter your username" [autoHide]="false" placeholder="autoHide: false" />
+    <input type="text" pInputText pTooltip="Enter your username" placeholder="autoHide: true">
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

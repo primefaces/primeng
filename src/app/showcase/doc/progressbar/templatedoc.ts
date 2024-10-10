@@ -21,13 +21,13 @@ export class TemplateDoc {
     code: Code = {
         basic: `<p-progressbar [value]="50">
     <ng-template pTemplate="content" let-value> 
-    <span>{{value}}/100</span>    
+        <span>{{value}}/100</span>    
     </ng-template>
 </p-progressbar>`,
         html: `<div class="card">
      <p-progressbar [value]="50">
          <ng-template pTemplate="content" let-value> 
-         <span>{{value}}/100</span>        
+            <span>{{value}}/100</span>        
          </ng-template>
      </p-progressbar>
 </div>`,

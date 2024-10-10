@@ -10,6 +10,32 @@ export interface ImageTemplates {
      */
     indicator(): TemplateRef<any>;
     /**
+     * Custom template of image.
+     */
+    image(context: {
+        /**
+         * Style class of the image element.
+         */
+        class: any;
+        /**
+         * Style of the image element.
+         */
+        style: any;
+        /**
+         * Image click function.
+         */
+        errorCallback: Function;
+    }): TemplateRef<{ class: any; style: any; errorCallback: Function }>;
+    /**
+     * Custom preview template.
+     */
+    preview(context: {
+        /**
+         * Preview click function.
+         */
+        errorCallback: Function;
+    }): TemplateRef<{ errorCallback: Function }>;
+    /**
      * Custom template of rotaterighticon.
      */
     rotaterighticon(): TemplateRef<any>;

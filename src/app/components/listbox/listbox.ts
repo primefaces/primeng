@@ -267,7 +267,11 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                                     <ng-container
                                         *ngTemplateOutlet="
                                             itemTemplate;
-                                            context: { $implicit: option, index: getOptionIndex(i, scrollerOptions) }
+                                            context: {
+                                                $implicit: option,
+                                                index: getOptionIndex(i, scrollerOptions),
+                                                selected: isSelected(option),
+                                            }
                                         "
                                     ></ng-container>
                                 </li>
@@ -364,7 +368,7 @@ export class Listbox extends BaseComponent implements AfterContentInit, OnInit, 
      * When enabled, the hovered option will be focused.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) focusOnHover: boolean | undefined;
+    @Input({ transform: booleanAttribute }) focusOnHover: boolean | undefined = true;
     /**
      * Text to display when filtering.
      * @group Props
@@ -792,6 +796,10 @@ export class Listbox extends BaseComponent implements AfterContentInit, OnInit, 
         this.templates.forEach((item) => {
             switch (item.getType()) {
                 case 'item':
+                    this.itemTemplate = item.template;
+                    break;
+
+                case 'option':
                     this.itemTemplate = item.template;
                     break;
 

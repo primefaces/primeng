@@ -18,6 +18,7 @@ import { SizesDoc } from './sizesdoc';
 import { StyleDoc } from './styledoc';
 import { TextDoc } from './textdoc';
 import { TemplateDoc } from './templatedoc';
+import { IconsDoc } from './iconsdoc';
 
 @NgModule({
     imports: [CommonModule, AppCodeModule, AppDocModule, SplitButtonModule, ToastModule],
@@ -25,6 +26,7 @@ import { TemplateDoc } from './templatedoc';
     declarations: [
         ImportDoc,
         BasicDoc,
+        IconsDoc,
         NestedDoc,
         SeverityDoc,
         RaisedDoc,

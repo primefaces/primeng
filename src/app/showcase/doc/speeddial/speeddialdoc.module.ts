@@ -8,7 +8,6 @@ import { AppDocModule } from '@layout/doc/app.doc.module';
 import { AppCodeModule } from '@layout/doc/app.code.component';
 import { AccessibilityDoc } from './accessibilitydoc';
 import { CircleDoc } from './circledoc';
-import { CustomDoc } from './customdoc';
 import { ImportDoc } from './importdoc';
 import { LinearDoc } from './lineardoc';
 import { MaskDoc } from './maskdoc';
@@ -16,6 +15,7 @@ import { QuarterCircleDoc } from './quartercircledoc';
 import { SemiCircleDoc } from './semicircledoc';
 import { StyleDoc } from './styledoc';
 import { TooltipDoc } from './tooltipdoc';
+import { TemplateDoc } from './templatedoc';
 
 @NgModule({
     imports: [CommonModule, AppCodeModule, AppDocModule, SpeedDialModule, MessagesModule, ToastModule, TooltipModule],
@@ -28,7 +28,7 @@ import { TooltipDoc } from './tooltipdoc';
         QuarterCircleDoc,
         TooltipDoc,
         MaskDoc,
-        CustomDoc,
+        TemplateDoc,
         StyleDoc,
         AccessibilityDoc,
     ],

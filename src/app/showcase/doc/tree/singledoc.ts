@@ -12,8 +12,8 @@ import { NodeService } from '@service/nodeservice';
                 to manage the selection value binding.
             </p>
         </app-docsectiontext>
-        <div class="card flex justify-center">
-            <p-tree [value]="files" class="w-full md:w-[30rem]" selectionMode="single" [(selection)]="selectedFile" />
+        <div class="card">
+            <p-tree [value]="files" styleClass="w-full md:w-[30rem]" selectionMode="single" [(selection)]="selectedFile" />
         </div>
         <app-code [code]="code" selector="tree-single-demo"></app-code>
     `,
@@ -30,18 +30,10 @@ export class SingleDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-tree 
-    [value]="files" 
-    class="w-full md:w-[30rem]" 
-    selectionMode="single" 
-    [(selection)]="selectedFile" />`,
+        basic: `<p-tree [value]="files" styleClass="w-full md:w-[30rem]" selectionMode="single" [(selection)]="selectedFile" />`,
 
-        html: `<div class="card flex justify-center">
-    <p-tree 
-        [value]="files" 
-        class="w-full md:w-[30rem]" 
-        selectionMode="single" 
-        [(selection)]="selectedFile" />
+        html: `<div class="card">
+    <p-tree [value]="files" styleClass="w-full md:w-[30rem]" selectionMode="single" [(selection)]="selectedFile" />
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';

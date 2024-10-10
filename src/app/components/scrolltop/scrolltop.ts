@@ -45,11 +45,13 @@ import { ScrollTopStyle } from './style/scrolltopstyle';
             type="button"
             [buttonProps]="buttonProps"
         >
-            <ng-container *ngIf="!iconTemplate">
-                <span *ngIf="icon" [class]="icon" [ngClass]="'p-scrolltop-icon'"></span>
-                <ChevronUpIcon *ngIf="!icon" [styleClass]="'p-scrolltop-icon'" [ngStyle]="{ 'font-size': '1rem', scale: '1.5' }" />
-            </ng-container>
-            <ng-template [ngIf]="!icon" *ngTemplateOutlet="iconTemplate; context: { styleClass: 'p-scrolltop-icon' }"></ng-template>
+            <ng-template pTemplate="icon">
+                <ng-container *ngIf="!iconTemplate">
+                    <span *ngIf="icon" [class]="icon" [ngClass]="'p-scrolltop-icon'"></span>
+                    <ChevronUpIcon *ngIf="!icon" [styleClass]="'p-scrolltop-icon'" [ngStyle]="{ 'font-size': '1rem', scale: '1.5' }" />
+                </ng-container>
+                <ng-template [ngIf]="!icon" *ngTemplateOutlet="iconTemplate; context: { styleClass: 'p-scrolltop-icon' }"></ng-template>
+            </ng-template>
         </p-button>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -125,7 +127,7 @@ export class ScrollTop extends BaseComponent implements OnInit, OnDestroy {
      * Used to pass all properties of the ButtonProps to the Button component.
      * @group Props
      */
-    @Input() buttonProps: ButtonProps;
+    @Input() buttonProps: ButtonProps = { rounded: true };
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 

@@ -23,7 +23,7 @@ import { Code } from '@domain/code';
                     <div
                         class="flex items-center p-2"
                         style="writing-mode: vertical-lr; width: 50px;"
-                        [ngClass]="{ 'surface-ground': options.odd }"
+                        [ngClass]="{ 'bg-surface-100 dark:bg-surface-700': options.odd }"
                     >
                         {{ item }}
                     </div>
@@ -50,11 +50,12 @@ export class HorizontalDoc {
     styleClass="border border-surface" 
     [style]="{'width': '200px', 'height': '200px'}">
         <ng-template pTemplate="item" let-item let-options="options">
-            <div 
+            <div
                 class="flex items-center p-2"
-                style="writing-mode: vertical-lr; width: 50px;" 
-                [ngClass]="{ 'surface-ground': options.odd }">
-                    {{ item }}
+                style="writing-mode: vertical-lr; width: 50px;"
+                [ngClass]="{ 'bg-surface-100 dark:bg-surface-700': options.odd }"
+            >
+                {{ item }}
             </div>
         </ng-template>
 </p-scroller>`,
@@ -68,11 +69,12 @@ export class HorizontalDoc {
         styleClass="border border-surface" 
         [style]="{'width': '200px', 'height': '200px'}">
             <ng-template pTemplate="item" let-item let-options="options">
-                <div 
+                <div
                     class="flex items-center p-2"
-                    style="writing-mode: vertical-lr; width: 50px;" 
-                    [ngClass]="{ 'surface-ground': options.odd }">
-                        {{ item }}
+                    style="writing-mode: vertical-lr; width: 50px;"
+                    [ngClass]="{ 'bg-surface-100 dark:bg-surface-700': options.odd }"
+                >
+                    {{ item }}
                 </div>
             </ng-template>
     </p-scroller>

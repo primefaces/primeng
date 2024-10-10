@@ -29,8 +29,7 @@ export class RaisedDoc {
 <p-button label="Warn" [raised]="true" severity="warn" />
 <p-button label="Help" [raised]="true" severity="help" />
 <p-button label="Danger" [raised]="true" severity="danger" />
-<p-button label="Contrast" [raised]="true" severity="contrast" />
-`,
+<p-button label="Contrast" [raised]="true" severity="contrast" />`,
 
         html: `<div class="card flex flex-wrap gap-4 justify-center">
     <p-button label="Primary" [raised]="true" />

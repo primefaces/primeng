@@ -47,17 +47,16 @@ import { FieldsetStyle } from './style/fieldsetstyle';
         >
             <legend class="p-fieldset-legend" [attr.data-pc-section]="'legend'">
                 <ng-container *ngIf="toggleable; else legendContent">
-                    <p-button
+                    <button
                         [attr.id]="id + '_header'"
                         tabindex="0"
                         role="button"
                         [attr.aria-controls]="id + '_content'"
                         [attr.aria-expanded]="!collapsed"
                         [attr.aria-label]="buttonAriaLabel"
-                        (onClick)="toggle($event)"
+                        (click)="toggle($event)"
                         (keydown)="onKeyDown($event)"
-                        styleClass="p-fieldset-toggle-button"
-                        [buttonProps]="toggleButtonProps"
+                        class="p-fieldset-toggle-button"
                     >
                         <ng-container *ngIf="collapsed">
                             <PlusIcon
@@ -81,7 +80,7 @@ import { FieldsetStyle } from './style/fieldsetstyle';
                             </span>
                         </ng-container>
                         <ng-container *ngTemplateOutlet="legendContent"></ng-container>
-                    </p-button>
+                    </button>
                 </ng-container>
                 <ng-template #legendContent>
                     <span class="p-fieldset-legend-label" [attr.data-pc-section]="'legendtitle'">{{ legend }}</span>
@@ -164,11 +163,6 @@ export class Fieldset extends BaseComponent implements AfterContentInit, Blockab
      * @group Props
      */
     @Input() transitionOptions: string = '400ms cubic-bezier(0.86, 0, 0.07, 1)';
-    /**
-     * Used to pass all properties of the buttonProps to the Button component.
-     * @group Props
-     */
-    @Input() toggleButtonProps;
     /**
      * Emits when the collapsed state changes.
      * @param {boolean} value - New value.

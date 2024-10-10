@@ -31,7 +31,7 @@ interface ExportColumn {
                     [tableStyle]="{ 'min-width': '50rem' }"
                 >
                     <ng-template pTemplate="caption">
-                        <div style="text-align: left">
+                        <div class="text-end pb-4">
                             <p-button icon="pi pi-external-link" label="Export" (click)="dt.exportCSV()" />
                         </div>
                     </ng-template>
@@ -95,7 +95,7 @@ export class ExportDoc {
     [exportHeader]="'customExportHeader'" 
     [tableStyle]="{ 'min-width': '50rem' }">
         <ng-template pTemplate="caption">
-            <div style="text-align: left">
+            <div class="text-end pb-4">
                 <p-button 
                     icon="pi pi-external-link" 
                     label="Export" 
@@ -127,7 +127,7 @@ export class ExportDoc {
         [exportHeader]="'customExportHeader'" 
         [tableStyle]="{ 'min-width': '50rem' }">
             <ng-template pTemplate="caption">
-                <div style="text-align: left">
+                <div class="text-end pb-4">
                     <p-button 
                         icon="pi pi-external-link" 
                         label="Export" 

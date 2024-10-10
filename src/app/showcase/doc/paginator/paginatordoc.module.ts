@@ -13,7 +13,6 @@ import { ImagesDoc } from './imagesdoc';
 import { ImportDoc } from './importdoc';
 import { StyleDoc } from './styledoc';
 import { TemplateDoc } from './templatedoc';
-import { LocaleDoc } from './localedoc';
 import { CurrentPageReportDoc } from './currentpagereportdoc';
 import { FormsModule } from '@angular/forms';
 import { InputNumberModule } from 'primeng/inputnumber';
@@ -34,6 +33,6 @@ import { SelectModule } from 'primeng/select';
         SelectModule,
     ],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, TemplateDoc, ImagesDoc, StyleDoc, AccessibilityDoc, LocaleDoc, CurrentPageReportDoc],
+    declarations: [ImportDoc, BasicDoc, TemplateDoc, ImagesDoc, StyleDoc, AccessibilityDoc, CurrentPageReportDoc],
 })
 export class PaginatorDocModule {}

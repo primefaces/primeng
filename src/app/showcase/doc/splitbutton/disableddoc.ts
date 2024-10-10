@@ -56,43 +56,12 @@ export class DisabledDoc {
     }
 
     code: Code = {
-        basic: `<p-splitbutton 
-    label="Save" 
-    icon="pi pi-plus" 
-    (onClick)="save('info')" 
-    [model]="items" 
-    [disabled]="true" />`,
+        basic: `<p-splitbutton label="Save" icon="pi pi-plus" (onClick)="save('info')" [model]="items" [disabled]="true" />`,
 
         html: `<div class="card flex justify-center">
     <p-toast />
-    <p-splitbutton 
-        label="Save" 
-        icon="pi pi-plus" 
-        (onClick)="save('info')" 
-        [model]="items" 
-        [disabled]="true" />
-</div>
-
-<div class="card flex justify-center">
-    <p-toast />
-    <p-splitbutton 
-        label="Save" 
-        icon="pi pi-plus" 
-        (onClick)="save('info')" 
-        [model]="items" 
-        [menuButtonDisabled]="true" />
-</div>
-
-<div class="card flex justify-center">
-    <p-toast />
-    <p-splitbutton 
-        label="Save"
-        icon="pi pi-plus"
-        (onClick)="save('info')" 
-        [model]="items" 
-        [buttonDisabled]="true" />
-</div>
-`,
+    <p-splitbutton label="Save" icon="pi pi-plus" (onClick)="save('info')" [model]="items" [disabled]="true" />
+</div>`,
 
         typescript: `import { Component } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';

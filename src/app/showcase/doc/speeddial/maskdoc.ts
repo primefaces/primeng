@@ -8,10 +8,10 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>Adding <i>mask</i> property displays a modal layer behind the popup items.</p>
         </app-docsectiontext>
-        <div class="card">
-            <div style="height: 350px; position: relative;" class="speeddial-mask-demo">
+        <div class="card p-4">
+            <div [style]="{ position: 'relative', height: '350px' }">
                 <p-toast />
-                <p-speeddial [model]="items" direction="up" [mask]="true" />
+                <p-speeddial [model]="items" direction="up" mask [style]="{ position: 'absolute', right: '1rem', bottom: '1rem' }" />
             </div>
         </div>
         <app-code [code]="code" selector="speed-dial-mask-demo"></app-code>
@@ -56,18 +56,12 @@ export class MaskDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-speeddial 
-    [model]="items" 
-    direction="up" 
-    [mask]="true" />`,
+        basic: `<p-speeddial [model]="items" direction="up" mask [style]="{ position: 'absolute', right: '1rem', bottom: '1rem' }" />`,
 
-        html: `<div class="card">
-    <div style="height: 350px; position: relative;" class="speeddial-mask-demo">
+        html: `<div class="card p-4">
+    <div [style]="{ position: 'relative', height: '350px' }">
         <p-toast />
-        <p-speeddial 
-            [model]="items" 
-            direction="up" 
-            [mask]="true" />
+        <p-speeddial [model]="items" direction="up" mask [style]="{ position: 'absolute', right: '1rem', bottom: '1rem' }" />
     </div>
 </div>`,
 
@@ -79,16 +73,6 @@ import { ToastModule } from 'primeng/toast';
 @Component({
     selector: 'speed-dial-mask-demo',
     templateUrl: './speed-dial-mask-demo.html',
-    styles: [
-        \`:host ::ng-deep {
-            .speeddial-mask-demo {
-                .p-speeddial-direction-up {
-                    right: 0;
-                    bottom: 0;
-                }
-            }
-        }\`
-    ],
     standalone: true,
     imports: [SpeedDialModule, ToastModule],
     providers: [MessageService]
@@ -128,15 +112,6 @@ export class SpeedDialMaskDemo implements OnInit {
                 url: 'http://angular.io'
             }
         ];
-    }
-}`,
-
-        scss: `:host ::ng-deep {
-    .speeddial-mask-demo {
-        .p-speeddial-direction-up {
-            right: 0;
-            bottom: 0;
-        }
     }
 }`,
     };

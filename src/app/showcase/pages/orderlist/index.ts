@@ -5,6 +5,7 @@ import { ImportDoc } from '@doc/orderlist/importdoc';
 import { DragDropDoc } from '@doc/orderlist/dragdropdoc';
 import { AccessibilityDoc } from '@doc/orderlist/accessibilitydoc';
 import { OrderlistDocModule } from '@doc/orderlist/orderlistdoc.module';
+import { TemplateDoc } from '@doc/orderlist/templatedoc';
 
 @Component({
     template: `<app-doc
@@ -17,7 +18,6 @@ import { OrderlistDocModule } from '@doc/orderlist/orderlistdoc.module';
     ></app-doc>`,
     standalone: true,
     imports: [OrderlistDocModule],
-    styleUrl: './orderlistdemo.scss',
 })
 export class OrderListDemo {
     docs = [
@@ -41,7 +41,11 @@ export class OrderListDemo {
             label: 'DragDrop',
             component: DragDropDoc,
         },
-
+        {
+            id: 'template',
+            label: 'Template',
+            component: TemplateDoc,
+        },
         {
             id: 'accessibility',
             label: 'Accessibility',

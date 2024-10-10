@@ -27,7 +27,7 @@ import { CustomerService } from '@service/customerservice';
                         </tr>
                     </ng-template>
                     <ng-template pTemplate="frozenbody" let-customer let-index="rowIndex">
-                        <tr>
+                        <tr class="font-bold">
                             <td>{{ customer.name }}</td>
                             <td>{{ customer.country.name }}</td>
                             <td>{{ customer.company }}</td>
@@ -136,7 +136,7 @@ export class FrozenRowsDoc {
             </tr>
         </ng-template>
         <ng-template pTemplate="frozenbody" let-customer let-index="rowIndex">
-            <tr>
+            <tr class="font-bold">
                 <td>{{customer.name}}</td>
                 <td>{{customer.country.name}}</td>
                 <td>{{customer.company}}</td>
@@ -190,7 +190,7 @@ export class FrozenRowsDoc {
                 </tr>
             </ng-template>
             <ng-template pTemplate="frozenbody" let-customer let-index="rowIndex">
-                <tr>
+                <tr class="font-bold">
                     <td>{{customer.name}}</td>
                     <td>{{customer.country.name}}</td>
                     <td>{{customer.company}}</td>

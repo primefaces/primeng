@@ -17,7 +17,7 @@ import { Code } from '@domain/code';
                 src="https://primefaces.org/cdn/primeng/images/demo/nature/nature2.jpg"
                 alt="Logo"
                 aria-haspopup="true"
-                class="max-w-full"
+                class="w-full md:w-[30rem] rounded shadow-lg"
             />
             <p-contextmenu [target]="img" [model]="items" />
         </div>
@@ -35,21 +35,11 @@ export class BasicDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<img 
-    #img 
-    src="https://primefaces.org/cdn/primeng/images/demo/nature/nature2.jpg" 
-    alt="Logo" 
-    aria-haspopup="true" 
-    class="max-w-full" />
+        basic: `<img #img src="https://primefaces.org/cdn/primeng/images/demo/nature/nature2.jpg" alt="Logo" aria-haspopup="true" class="w-full md:w-[30rem] rounded shadow-lg" />
 <p-contextmenu [target]="img" [model]="items" />`,
 
         html: `<div class="card flex justify-center">
-    <img 
-        #img 
-        src="https://primefaces.org/cdn/primeng/images/demo/nature/nature2.jpg" 
-        alt="Logo"
-        aria-haspopup="true" 
-        class="max-w-full" />
+    <img #img src="https://primefaces.org/cdn/primeng/images/demo/nature/nature2.jpg" alt="Logo" aria-haspopup="true" class="w-full md:w-[30rem] rounded shadow-lg" />
     <p-contextmenu [target]="img" [model]="items" />
 </div>`,
 

@@ -62,19 +62,9 @@ export class PositionDoc {
         basic: `<p-toast position="top-left" key="tl" />
 <p-toast position="bottom-left" key="bl" />
 <p-toast position="bottom-right" key="br" />
-
-<p-button 
-    pRipple 
-    (click)="showTopLeft()" 
-    label="Top Left" />
-<p-button 
-    pRipple 
-    (click)="showBottomLeft()" 
-    label="Bottom Left" />
-<p-button 
-    pRipple 
-    (click)="showBottomRight()" 
-    label="Bottom Right" />`,
+<p-button pRipple (click)="showTopLeft()" label="Top Left" />
+<p-button pRipple (click)="showBottomLeft()" label="Bottom Left" />
+<p-button pRipple (click)="showBottomRight()" label="Bottom Right" />`,
 
         html: `<div class="card flex justify-center">
     <p-toast position="top-left" key="tl" />

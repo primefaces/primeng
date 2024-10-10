@@ -20,6 +20,7 @@ import { BadgeDoc } from './badgedoc';
 import { TemplateDoc } from './templatedoc';
 import { AvatarGroupStyleDoc } from './avatargroupstyledoc';
 import { AccessibilityDoc } from './accessibilitydoc';
+import { OverlayBadgeModule } from 'primeng/overlaybadge';
 
 @NgModule({
     imports: [
@@ -32,6 +33,7 @@ import { AccessibilityDoc } from './accessibilitydoc';
         AvatarModule,
         AvatarGroupModule,
         BadgeModule,
+        OverlayBadgeModule
     ],
     declarations: [
         ImportDoc,

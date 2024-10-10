@@ -18,7 +18,7 @@ import { Code } from '@domain/code';
         <app-code [code]="code" selector="message-severity-demo"></app-code>
     `,
 })
-export class BasicDoc {
+export class SeverityDoc {
     code: Code = {
         basic: `<p-message severity="success">Success Message</p-message>
 <p-message severity="info">Info Message</p-message>

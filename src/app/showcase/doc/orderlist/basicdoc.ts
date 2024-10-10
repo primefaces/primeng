@@ -12,29 +12,24 @@ import { ProductService } from '@service/productservice';
                 <i>pTemplate</i> property that receives an object in the list as parameter.
             </p>
         </app-docsectiontext>
-        <div class="card xl:flex xl:justify-center">
-            <p-orderlist [value]="products" [listStyle]="{ height: '25rem' }" header="List of Products">
-                <ng-template let-product pTemplate="item">
-                    <div class="flex flex-wrap p-2 items-center gap-4">
-                        <img
-                            src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}"
-                            [alt]="product.name"
-                            class="w-16 shadow shrink-0 rounded-border"
-                        />
-                        <div class="flex-1 flex flex-col gap-2">
-                            <span class="font-bold">{{ product.name }}</span>
-                            <div class="flex items-center gap-2">
-                                <i class="pi pi-tag text-sm"></i>
-                                <span>{{ product.category }}</span>
-                            </div>
-                        </div>
-                        <span class="font-bold text-surface-900 dark:text-surface-0">{{ '$' + product.price }}</span>
-                    </div>
+        <div class="card sm:flex sm:justify-center">
+            <p-orderlist [value]="products" dataKey="id" breakpoint="575px">
+                <ng-template pTemplate="option" let-option>
+                    {{ option.name }}
                 </ng-template>
             </p-orderlist>
         </div>
         <app-code [code]="code" selector="orderlist-basic-demo" [extFiles]="extFiles"></app-code>
     `,
+    styles: [
+        `
+            @media (min-width: 576px) {
+                :host ::ng-deep .p-listbox {
+                    width: 14rem;
+                }
+            }
+        `,
+    ],
 })
 export class BasicDoc implements OnInit {
     products!: Product[];
@@ -63,57 +58,17 @@ export class BasicDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-orderlist 
-    [value]="products" 
-    [listStyle]="{ height: '25rem' }" 
-    header="List of Products">
-        <ng-template let-product pTemplate="item">
-            <div class="flex flex-wrap p-2 items-center gap-4">
-                <img 
-                    src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" 
-                    [alt]="product.name" 
-                    class="w-16 shadow shrink-0 rounded-border" />
-                        <div class="flex-1 flex flex-col gap-2">
-                            <span class="font-bold">{{ product.name }}</span>
-                            <div class="flex items-center gap-2">
-                                <i class="pi pi-tag text-sm"></i>
-                                <span>
-                                    {{ product.category }}
-                                </span>
-                            </div>
-                        </div>
-                <span class="font-bold text-surface-900 dark:text-surface-0">
-                    {{ '$' + product.price }}
-                </span>
-            </div>
-        </ng-template>
+        basic: `<p-orderlist [value]="products" dataKey="id" breakpoint="575px">
+    <ng-template pTemplate="option" let-option>
+        {{ option.name }}
+    </ng-template>
 </p-orderlist>`,
 
-        html: `<div class="card xl:flex xl:justify-center">
-    <p-orderlist 
-        [value]="products" 
-        [listStyle]="{ height: '25rem' }" 
-        header="List of Products">
-            <ng-template let-product pTemplate="item">
-                <div class="flex flex-wrap p-2 items-center gap-4">
-                    <img 
-                        src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" 
-                        [alt]="product.name" 
-                        class="w-16 shadow shrink-0 rounded-border" />
-                            <div class="flex-1 flex flex-col gap-2">
-                                <span class="font-bold">{{ product.name }}</span>
-                                <div class="flex items-center gap-2">
-                                    <i class="pi pi-tag text-sm"></i>
-                                    <span>
-                                        {{ product.category }}
-                                    </span>
-                                </div>
-                            </div>
-                    <span class="font-bold text-surface-900 dark:text-surface-0">
-                        {{ '$' + product.price }}
-                    </span>
-                </div>
-            </ng-template>
+        html: `<div class="card sm:flex sm:justify-center">
+    <p-orderlist [value]="products" dataKey="id" breakpoint="575px">
+        <ng-template pTemplate="option" let-option>
+            {{ option.name }}
+        </ng-template>
     </p-orderlist>
 </div>`,
 
@@ -127,7 +82,15 @@ import { OrderListModule } from 'primeng/orderlist';
     templateUrl: './orderlist-basic-demo.html',
     standalone: true,
     imports: [OrderListModule],
-    providers: [ProductService]
+    providers: [ProductService],
+    styles: [
+    \`@media (min-width: 576px) {
+            :host ::ng-deep .p-listbox {
+                width: 14rem;
+            }
+        }\`
+    ],
+      
 })
 export class OrderlistBasicDemo implements OnInit {
     products!: Product[];

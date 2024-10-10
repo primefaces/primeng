@@ -96,7 +96,9 @@ import { ProductService } from '@service/productservice';
                                         pInitEditableRow
                                         icon="pi pi-pencil"
                                         (click)="onRowEditInit(product)"
-                                        class="p-button-rounded p-button-text"
+                                        text
+                                        rounded
+                                        severity="secondary"
                                     ></button>
                                     <button
                                         *ngIf="editing"
@@ -106,7 +108,9 @@ import { ProductService } from '@service/productservice';
                                         pSaveEditableRow
                                         icon="pi pi-check"
                                         (click)="onRowEditSave(product)"
-                                        class="p-button-rounded p-button-text p-button-success mr-2"
+                                        text
+                                        rounded
+                                        severity="secondary"
                                     ></button>
                                     <button
                                         *ngIf="editing"
@@ -116,7 +120,9 @@ import { ProductService } from '@service/productservice';
                                         pCancelEditableRow
                                         icon="pi pi-times"
                                         (click)="onRowEditCancel(product, ri)"
-                                        class="p-button-rounded p-button-text p-button-danger"
+                                        text
+                                        rounded
+                                        severity="secondary"
                                     ></button>
                                 </div>
                             </td>
@@ -255,35 +261,42 @@ export class RowEditDoc {
             </td>
             <td>
                 <div class="flex items-center justify-center gap-2">
-                    <button 
-                        *ngIf="!editing" 
-                        pButton 
-                        pRipple 
-                        type="button" 
-                        pInitEditableRow 
-                        icon="pi pi-pencil" 
-                        (click)="onRowEditInit(product)" 
-                        class="p-button-rounded p-button-text">
-                    </button>
-                    <button 
-                        *ngIf="editing" 
-                        pButton 
-                        pRipple 
-                        type="button" 
-                        pSaveEditableRow 
-                        icon="pi pi-check" 
-                        (click)="onRowEditSave(product)" 
-                        class="p-button-rounded p-button-text p-button-success mr-2">
-                    </button>
-                    <button 
-                        *ngIf="editing" 
-                        pButton pRipple 
-                        type="button" 
-                        pCancelEditableRow 
-                        icon="pi pi-times" 
-                        (click)="onRowEditCancel(product, ri)" 
-                        class="p-button-rounded p-button-text p-button-danger">
-                    </button>
+                    <button
+                        *ngIf="!editing"
+                        pButton
+                        pRipple
+                        type="button"
+                        pInitEditableRow
+                        icon="pi pi-pencil"
+                        (click)="onRowEditInit(product)"
+                        text
+                        rounded
+                        severity="secondary"
+                    ></button>
+                    <button
+                        *ngIf="editing"
+                        pButton
+                        pRipple
+                        type="button"
+                        pSaveEditableRow
+                        icon="pi pi-check"
+                        (click)="onRowEditSave(product)"
+                        text
+                        rounded
+                        severity="secondary"
+                    ></button>
+                    <button
+                        *ngIf="editing"
+                        pButton
+                        pRipple
+                        type="button"
+                        pCancelEditableRow
+                        icon="pi pi-times"
+                        (click)="onRowEditCancel(product, ri)"
+                        text
+                        rounded
+                        severity="secondary"
+                    ></button>
                 </div>
             </td>
         </tr>
@@ -358,35 +371,42 @@ export class RowEditDoc {
                 </td>
                 <td>
             <div class="flex items-center justify-center gap-2">
-                <button 
-                    *ngIf="!editing" 
-                    pButton 
-                    pRipple 
-                    type="button" 
-                    pInitEditableRow 
-                    icon="pi pi-pencil" 
-                    (click)="onRowEditInit(product)" 
-                    class="p-button-rounded p-button-text">
-                </button>
-                <button 
-                    *ngIf="editing" 
-                    pButton 
-                    pRipple 
-                    type="button" 
-                    pSaveEditableRow 
-                    icon="pi pi-check" 
-                    (click)="onRowEditSave(product)" 
-                    class="p-button-rounded p-button-text p-button-success mr-2">
-                </button>
-                <button 
-                    *ngIf="editing" 
-                    pButton pRipple 
-                    type="button" 
-                    pCancelEditableRow 
-                    icon="pi pi-times" 
-                    (click)="onRowEditCancel(product, ri)" 
-                    class="p-button-rounded p-button-text p-button-danger">
-                </button>
+                <button
+                    *ngIf="!editing"
+                    pButton
+                    pRipple
+                    type="button"
+                    pInitEditableRow
+                    icon="pi pi-pencil"
+                    (click)="onRowEditInit(product)"
+                    text
+                    rounded
+                    severity="secondary"
+                ></button>
+                <button
+                    *ngIf="editing"
+                    pButton
+                    pRipple
+                    type="button"
+                    pSaveEditableRow
+                    icon="pi pi-check"
+                    (click)="onRowEditSave(product)"
+                    text
+                    rounded
+                    severity="secondary"
+                ></button>
+                <button
+                    *ngIf="editing"
+                    pButton
+                    pRipple
+                    type="button"
+                    pCancelEditableRow
+                    icon="pi pi-times"
+                    (click)="onRowEditCancel(product, ri)"
+                    text
+                    rounded
+                    severity="secondary"
+                ></button>
             </div>
                 </td>
             </tr>

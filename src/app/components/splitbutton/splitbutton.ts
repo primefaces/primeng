@@ -102,8 +102,11 @@ type SplitButtonIconPosition = 'left' | 'right';
                 [attr.aria-expanded]="menuButtonProps?.['ariaExpanded'] || isExpanded()"
                 [attr.aria-controls]="menuButtonProps?.['ariaControls'] || ariaId"
             >
-                <ChevronDownIcon *ngIf="!dropdownIconTemplate" />
-                <ng-template *ngTemplateOutlet="dropdownIconTemplate"></ng-template>
+                <span *ngIf="dropdownIcon" [class]="dropdownIcon"></span>
+                <ng-container *ngIf="!dropdownIcon">
+                    <ChevronDownIcon *ngIf="!dropdownIconTemplate" />
+                    <ng-template *ngTemplateOutlet="dropdownIconTemplate"></ng-template>
+                </ng-container>
             </button>
             <p-tieredmenu
                 [id]="ariaId"
@@ -210,7 +213,11 @@ export class SplitButton extends BaseComponent {
      * @group Props
      */
     @Input() menuStyleClass: string | undefined;
-
+    /**
+     * Name of the dropdown icon.
+     * @group Props
+     */
+    @Input() dropdownIcon: string | undefined;
     /**
      *  Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
      * @group Props

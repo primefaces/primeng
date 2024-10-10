@@ -79,6 +79,7 @@ import { CustomerService } from '@service/customerservice';
                                             placeholder="Any"
                                             (onChange)="filter($event.value)"
                                             optionLabel="name"
+                                            style="min-width: 14rem"
                                         >
                                             <ng-template let-option pTemplate="item">
                                                 <div class="inline-block align-middle">
@@ -104,6 +105,7 @@ import { CustomerService } from '@service/customerservice';
                                             (onChange)="filter($event.value)"
                                             placeholder="Select One"
                                             [showClear]="true"
+                                            style="min-width: 12rem" 
                                         >
                                             <ng-template let-option pTemplate="item">
                                                 <p-tag [value]="option.value" [severity]="getSeverity(option.value)" />
@@ -237,161 +239,29 @@ export class FilterBasicDoc {
     }
 
     code: Code = {
-        basic: `<p-table
-        #dt2
-        [value]="customers"
-        dataKey="id"
-        [rows]="10"
-        [rowsPerPageOptions]="[10, 25, 50]"
-        [loading]="loading"
-        [paginator]="true"
-        [globalFilterFields]="['name', 'country.name', 'representative.name', 'status']"
-        [tableStyle]="{ 'min-width': '75rem' }"
-    >
-        <ng-template pTemplate="caption">
-            <div class="flex">
-                <p-iconfield iconPosition="left" class="ml-auto">
-                    <p-inputicon>
-                        <i class="pi pi-search"></i>
-                    </p-inputicon>
-                    <input 
-                        pInputText 
-                        type="text" 
-                        (input)="dt2.filterGlobal($event.target.value, 'contains')" 
-                        placeholder="Search keyword" />
-                </p-iconfield>
-            </div>
-        </ng-template>
-        <ng-template pTemplate="header">
-            <tr>
-                <th style="width:22%">Name</th>
-                <th style="width:22%">Country</th>
-                <th style="width:22%">Agent</th>
-                <th style="width:22%">Status</th>
-                <th style="width:12%">Verified</th>
-            </tr>
-            <tr>
-                <th>
-                    <p-columnFilter 
-                        type="text" 
-                        field="name" 
-                        placeholder="Search by name" 
-                        ariaLabel="Filter Name" />
-                </th>
-                <th>
-                    <p-columnFilter 
-                        type="text" 
-                        field="country.name" 
-                        placeholder="Search by country" 
-                        ariaLabel="Filter Country" />
-                </th>
-                <th>
-                    <p-columnFilter field="representative" matchMode="in" [showMenu]="false">
-                        <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                            <p-multiselect 
-                                [(ngModel)]="value" 
-                                [options]="representatives" 
-                                placeholder="Any" 
-                                (onChange)="filter($event.value)" 
-                                optionLabel="name">
-                                    <ng-template let-option pTemplate="item">
-                                        <div class="inline-block align-middle">
-                                            <img 
-                                                [alt]="option.label" 
-                                                src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ option.image }}"
-                                                width="24" 
-                                                class="align-middle" />
-                                            <span class="ml-1 mt-1">{{ option.name }}</span>
-                                        </div>
-                                    </ng-template>
-                            </p-multiselect>
-                        </ng-template>
-                    </p-columnFilter>
-                </th>
-                <th>
-                    <p-columnFilter field="status" matchMode="equals" [showMenu]="false">
-                        <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                            <p-select 
-                                [(ngModel)]="value" 
-                                [options]="statuses" 
-                                (onChange)="filter($event.value)" 
-                                placeholder="Select One" 
-                                [showClear]="true">
-                                    <ng-template let-option pTemplate="item">
-                                        <p-tag [value]="option.value" [severity]="getSeverity(option.value)" />
-                                    </ng-template>
-                            </p-select>
-                        </ng-template>
-                    </p-columnFilter>
-                </th>
-                <th>
-                    <p-columnFilter type="boolean" field="verified">
-                </th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-customer>
-            <tr>
-                <td>
-                    {{ customer.name }}
-                </td>
-                <td>
-                    <img 
-                        src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" 
-                        [class]="'flag flag-' + customer.country.code" 
-                        style="width: 20px" />
-                    <span class="ml-1 align-middle">
-                        {{ customer.country.name }}
-                    </span>
-                </td>
-                <td>
-                    <img 
-                        [alt]="customer.representative.name" 
-                        src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}" 
-                        width="32" 
-                        style="vertical-align: middle" />
-                    <span class="ml-1 align-middle">
-                        {{ customer.representative.name }}
-                    </span>
-                </td>
-                <td>
-                    <p-tag 
-                        [value]="customer.status" 
-                        [severity]="getSeverity(customer.status)" />
-                </td>
-                <td>
-                    <i class="pi" [ngClass]="{ 'text-green-500 pi-check-circle': customer.verified, 'text-red-500 pi-times-circle': !customer.verified }"></i>
-                </td>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="emptymessage">
-            <tr>
-                <td colspan="5">No customers found.</td>
-            </tr>
-        </ng-template>
-</p-table>`,
-        html: `<div class="card">
-    <p-table
-        #dt2
-        [value]="customers"
-        dataKey="id"
-        [rows]="10"
-        [rowsPerPageOptions]="[10, 25, 50]"
-        [loading]="loading"
-        [paginator]="true"
-        [globalFilterFields]="['name', 'country.name', 'representative.name', 'status']"
-        [tableStyle]="{ 'min-width': '75rem' }"
-    >
+        basic: ` <p-table
+    #dt2
+    [value]="customers"
+    dataKey="id"
+    [rows]="10"
+    [rowsPerPageOptions]="[10, 25, 50]"
+    [loading]="loading"
+    [paginator]="true"
+    [globalFilterFields]="['name', 'country.name', 'representative.name', 'status']"
+    [tableStyle]="{ 'min-width': '75rem' }"
+>
     <ng-template pTemplate="caption">
         <div class="flex">
             <p-iconfield iconPosition="left" class="ml-auto">
                 <p-inputicon>
                     <i class="pi pi-search"></i>
                 </p-inputicon>
-                <input 
-                    pInputText 
-                    type="text" 
-                    (input)="dt2.filterGlobal($event.target.value, 'contains')" 
-                    placeholder="Search keyword" />
+                <input
+                    pInputText
+                    type="text"
+                    (input)="dt2.filterGlobal($event.target.value, 'contains')"
+                    placeholder="Search keyword"
+                />
             </p-iconfield>
         </div>
     </ng-template>
@@ -405,39 +275,43 @@ export class FilterBasicDoc {
         </tr>
         <tr>
             <th>
-                <p-columnFilter 
+                <p-columnFilter
                     type="text"
-                    field="name" 
-                    placeholder="Search by name" 
-                    ariaLabel="Filter Name" />
+                    field="name"
+                    placeholder="Search by name"
+                    ariaLabel="Filter Name"
+                ></p-columnFilter>
             </th>
             <th>
-                <p-columnFilter 
+                <p-columnFilter
                     type="text"
                     field="country.name"
-                    placeholder="Search by country" 
-                    ariaLabel="Filter Country" />
+                    placeholder="Search by country"
+                    ariaLabel="Filter Country"
+                ></p-columnFilter>
             </th>
             <th>
                 <p-columnFilter field="representative" matchMode="in" [showMenu]="false">
                     <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                        <p-multiselect 
-                            [(ngModel)]="value" 
-                            [options]="representatives" 
-                            placeholder="Any" 
-                            (onChange)="filter($event.value)" 
-                            optionLabel="name">
-                                <ng-template let-option pTemplate="item">
-                                    <div class="inline-block align-middle">
-                                        <img 
-                                            [alt]="option.label" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ option.image }}"
-                                            width="24" 
-                                            class="align-middle" />
-                                        <span class="ml-1 mt-1">
-                                            {{ option.name }}
-                                        </span>
-                                    </div>
-                                </ng-template>
+                        <p-multiselect
+                            [(ngModel)]="value"
+                            [options]="representatives"
+                            placeholder="Any"
+                            (onChange)="filter($event.value)"
+                            optionLabel="name"
+                            style="min-width: 14rem"
+                        >
+                            <ng-template let-option pTemplate="item">
+                                <div class="inline-block align-middle">
+                                    <img
+                                        [alt]="option.label"
+                                        src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ option.image }}"
+                                        width="24"
+                                        class="align-middle"
+                                    />
+                                    <span class="ml-1 mt-1">{{ option.name }}</span>
+                                </div>
+                            </ng-template>
                         </p-multiselect>
                     </ng-template>
                 </p-columnFilter>
@@ -445,21 +319,23 @@ export class FilterBasicDoc {
             <th>
                 <p-columnFilter field="status" matchMode="equals" [showMenu]="false">
                     <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                        <p-select 
-                            [(ngModel)]="value" 
+                        <p-select
+                            [(ngModel)]="value"
                             [options]="statuses"
-                            (onChange)="filter($event.value)" 
-                            placeholder="Select One" 
-                            [showClear]="true">
-                                <ng-template let-option pTemplate="item">
-                                    <p-tag [value]="option.value" [severity]="getSeverity(option.value)" />
-                                </ng-template>
+                            (onChange)="filter($event.value)"
+                            placeholder="Select One"
+                            [showClear]="true"
+                            style="min-width: 12rem" 
+                        >
+                            <ng-template let-option pTemplate="item">
+                                <p-tag [value]="option.value" [severity]="getSeverity(option.value)" />
+                            </ng-template>
                         </p-select>
                     </ng-template>
                 </p-columnFilter>
             </th>
             <th>
-                <p-columnFilter type="boolean" field="verified" />
+                <p-columnFilter type="boolean" field="verified"></p-columnFilter>
             </th>
         </tr>
     </ng-template>
@@ -469,31 +345,33 @@ export class FilterBasicDoc {
                 {{ customer.name }}
             </td>
             <td>
-                <img 
-                    src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" 
-                    [class]="'flag flag-' + customer.country.code" 
-                    style="width: 20px" />
-                <span class="ml-1 align-middle">
-                    {{ customer.country.name }}
-                </span>
+                <img
+                    src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
+                    [class]="'flag flag-' + customer.country.code"
+                    style="width: 20px"
+                />
+                <span class="ml-1 align-middle">{{ customer.country.name }}</span>
             </td>
             <td>
-                <img 
+                <img
                     [alt]="customer.representative.name"
                     src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}"
-                    width="32" 
-                    style="vertical-align: middle" />
-                <span class="ml-1 align-middle">
-                    {{ customer.representative.name }}
-                </span>
+                    width="32"
+                    style="vertical-align: middle"
+                />
+                <span class="ml-1 align-middle">{{ customer.representative.name }}</span>
             </td>
             <td>
-                <p-tag 
-                    [value]="customer.status" 
-                    [severity]="getSeverity(customer.status)" />
+                <p-tag [value]="customer.status" [severity]="getSeverity(customer.status)" />
             </td>
             <td>
-                <i class="pi" [ngClass]="{ 'text-green-500 pi-check-circle': customer.verified, 'text-red-500 pi-times-circle': !customer.verified }"></i>
+                <i
+                    class="pi"
+                    [ngClass]="{
+                        'text-green-500 pi-check-circle': customer.verified,
+                        'text-red-500 pi-times-circle': !customer.verified,
+                    }"
+                ></i>
             </td>
         </tr>
     </ng-template>
@@ -502,7 +380,150 @@ export class FilterBasicDoc {
             <td colspan="5">No customers found.</td>
         </tr>
     </ng-template>
-    </p-table>
+</p-table>`,
+        html: `<div class="card">
+   <p-table
+    #dt2
+    [value]="customers"
+    dataKey="id"
+    [rows]="10"
+    [rowsPerPageOptions]="[10, 25, 50]"
+    [loading]="loading"
+    [paginator]="true"
+    [globalFilterFields]="['name', 'country.name', 'representative.name', 'status']"
+    [tableStyle]="{ 'min-width': '75rem' }"
+>
+    <ng-template pTemplate="caption">
+        <div class="flex">
+            <p-iconfield iconPosition="left" class="ml-auto">
+                <p-inputicon>
+                    <i class="pi pi-search"></i>
+                </p-inputicon>
+                <input
+                    pInputText
+                    type="text"
+                    (input)="dt2.filterGlobal($event.target.value, 'contains')"
+                    placeholder="Search keyword"
+                />
+            </p-iconfield>
+        </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+        <tr>
+            <th style="width:22%">Name</th>
+            <th style="width:22%">Country</th>
+            <th style="width:22%">Agent</th>
+            <th style="width:22%">Status</th>
+            <th style="width:12%">Verified</th>
+        </tr>
+        <tr>
+            <th>
+                <p-columnFilter
+                    type="text"
+                    field="name"
+                    placeholder="Search by name"
+                    ariaLabel="Filter Name"
+                ></p-columnFilter>
+            </th>
+            <th>
+                <p-columnFilter
+                    type="text"
+                    field="country.name"
+                    placeholder="Search by country"
+                    ariaLabel="Filter Country"
+                ></p-columnFilter>
+            </th>
+            <th>
+                <p-columnFilter field="representative" matchMode="in" [showMenu]="false">
+                    <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                        <p-multiselect
+                            [(ngModel)]="value"
+                            [options]="representatives"
+                            placeholder="Any"
+                            (onChange)="filter($event.value)"
+                            optionLabel="name"
+                            style="min-width: 14rem"
+                        >
+                            <ng-template let-option pTemplate="item">
+                                <div class="inline-block align-middle">
+                                    <img
+                                        [alt]="option.label"
+                                        src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ option.image }}"
+                                        width="24"
+                                        class="align-middle"
+                                    />
+                                    <span class="ml-1 mt-1">{{ option.name }}</span>
+                                </div>
+                            </ng-template>
+                        </p-multiselect>
+                    </ng-template>
+                </p-columnFilter>
+            </th>
+            <th>
+                <p-columnFilter field="status" matchMode="equals" [showMenu]="false">
+                    <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                        <p-select
+                            [(ngModel)]="value"
+                            [options]="statuses"
+                            (onChange)="filter($event.value)"
+                            placeholder="Select One"
+                            [showClear]="true"
+                            style="min-width: 12rem" 
+                        >
+                            <ng-template let-option pTemplate="item">
+                                <p-tag [value]="option.value" [severity]="getSeverity(option.value)" />
+                            </ng-template>
+                        </p-select>
+                    </ng-template>
+                </p-columnFilter>
+            </th>
+            <th>
+                <p-columnFilter type="boolean" field="verified"></p-columnFilter>
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-customer>
+        <tr>
+            <td>
+                {{ customer.name }}
+            </td>
+            <td>
+                <img
+                    src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
+                    [class]="'flag flag-' + customer.country.code"
+                    style="width: 20px"
+                />
+                <span class="ml-1 align-middle">{{ customer.country.name }}</span>
+            </td>
+            <td>
+                <img
+                    [alt]="customer.representative.name"
+                    src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}"
+                    width="32"
+                    style="vertical-align: middle"
+                />
+                <span class="ml-1 align-middle">{{ customer.representative.name }}</span>
+            </td>
+            <td>
+                <p-tag [value]="customer.status" [severity]="getSeverity(customer.status)" />
+            </td>
+            <td>
+                <i
+                    class="pi"
+                    [ngClass]="{
+                        'text-green-500 pi-check-circle': customer.verified,
+                        'text-red-500 pi-times-circle': !customer.verified,
+                    }"
+                ></i>
+            </td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+        <tr>
+            <td colspan="5">No customers found.</td>
+        </tr>
+    </ng-template>
+</p-table>
 </div>`,
         typescript: `import { Component, OnInit } from '@angular/core';
 import { Table } from 'primeng/table';

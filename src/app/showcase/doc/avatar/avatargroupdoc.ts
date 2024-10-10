@@ -8,58 +8,35 @@ import { Code } from '@domain/code';
             <p>Grouping is available by wrapping multiple Avatar components inside an <i>AvatarGroup</i>.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-avatarGroup styleClass="mb-4">
+            <p-avatar-group>
                 <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" size="large" shape="circle" />
                 <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/asiyajavayant.png" size="large" shape="circle" />
                 <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/onyamalimba.png" size="large" shape="circle" />
                 <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/ionibowcher.png" size="large" shape="circle" />
                 <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/xuxuefeng.png" size="large" shape="circle" />
-                <p-avatar label="+2" shape="circle" size="large" [style]="{ 'background-color': '#9c27b0', color: '#ffffff' }" />
-            </p-avatarGroup>
+                <p-avatar label="+2" shape="circle" size="large" />
+            </p-avatar-group>
         </div>
         <app-code [code]="code" selector="avatar-group-demo"></app-code>
     `,
 })
 export class GroupDoc {
     code: Code = {
-        basic: `<p-avatarGroup styleClass="mb-4">
-    <p-avatar 
-        image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" 
-        size="large" 
-        shape="circle" />
-    <p-avatar 
-        image="https://primefaces.org/cdn/primeng/images/demo/avatar/asiyajavayant.png" 
-        size="large" 
-        shape="circle" />
-</p-avatarGroup>`,
+        basic: `<p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" size="large" shape="circle" />
+<p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/asiyajavayant.png" size="large" shape="circle" />
+<p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/onyamalimba.png" size="large" shape="circle" />
+<p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/ionibowcher.png" size="large" shape="circle" />
+<p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/xuxuefeng.png" size="large" shape="circle" />
+<p-avatar label="+2" shape="circle" size="large" />`,
         html: `<div class="card flex justify-center">
-    <p-avatarGroup styleClass="mb-4">
-        <p-avatar 
-            image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" 
-            size="large" 
-            shape="circle" />
-        <p-avatar 
-            image="https://primefaces.org/cdn/primeng/images/demo/avatar/asiyajavayant.png" 
-            size="large" 
-            shape="circle" />
-        <p-avatar 
-            image="https://primefaces.org/cdn/primeng/images/demo/avatar/onyamalimba.png" 
-            size="large" 
-            shape="circle" />
-        <p-avatar 
-            image="https://primefaces.org/cdn/primeng/images/demo/avatar/ionibowcher.png" 
-            size="large" 
-            shape="circle" />
-        <p-avatar 
-            image="https://primefaces.org/cdn/primeng/images/demo/avatar/xuxuefeng.png" 
-            size="large" 
-            shape="circle" />
-        <p-avatar 
-            label="+2" 
-            shape="circle"
-            size="large" 
-            [style]="{ 'background-color': '#9c27b0', color: '#ffffff' }" />
-    </p-avatarGroup>
+    <p-avatar-group>
+        <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" size="large" shape="circle" />
+        <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/asiyajavayant.png" size="large" shape="circle" />
+        <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/onyamalimba.png" size="large" shape="circle" />
+        <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/ionibowcher.png" size="large" shape="circle" />
+        <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/xuxuefeng.png" size="large" shape="circle" />
+        <p-avatar label="+2" shape="circle" size="large" />
+    </p-avatar-group>
 </div>`,
         typescript: `import { Component } from '@angular/core';
 import { AvatarModule } from 'primeng/avatar';

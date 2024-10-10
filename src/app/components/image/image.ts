@@ -43,18 +43,23 @@ import { BaseComponent } from 'primeng/basecomponent';
     selector: 'p-image',
     template: `
         <span [ngClass]="containerClass()" [class]="styleClass" [ngStyle]="style">
-            <img
-                [attr.src]="src"
-                [attr.srcset]="srcSet"
-                [attr.sizes]="sizes"
-                [attr.alt]="alt"
-                [attr.width]="width"
-                [attr.height]="height"
-                [attr.loading]="loading"
-                [ngStyle]="imageStyle"
-                [class]="imageClass"
-                (error)="imageError($event)"
-            />
+            <ng-container *ngIf="!imageTemplate">
+                <img
+                    [attr.src]="src"
+                    [attr.srcset]="srcSet"
+                    [attr.sizes]="sizes"
+                    [attr.alt]="alt"
+                    [attr.width]="width"
+                    [attr.height]="height"
+                    [attr.loading]="loading"
+                    [ngStyle]="imageStyle"
+                    [class]="imageClass"
+                    (error)="imageError($event)"
+                />
+            </ng-container>
+
+            <ng-container *ngTemplateOutlet="imageTemplate; context: { errorCallback: imageError.bind(this) }"></ng-container>
+
             <button
                 *ngIf="preview"
                 [attr.aria-label]="zoomImageAriaLabel"
@@ -141,14 +146,23 @@ import { BaseComponent } from 'primeng/basecomponent';
                     (@animation.start)="onAnimationStart($event)"
                     (@animation.done)="onAnimationEnd($event)"
                 >
-                    <img
-                        [attr.src]="previewImageSrc ? previewImageSrc : src"
-                        [attr.srcset]="previewImageSrcSet"
-                        [attr.sizes]="previewImageSizes"
-                        class="p-image-original"
-                        [ngStyle]="imagePreviewStyle()"
-                        (click)="onPreviewImageClick()"
-                    />
+                    <ng-container *ngIf="!previewTemplate">
+                        <img
+                            [attr.src]="previewImageSrc ? previewImageSrc : src"
+                            [attr.srcset]="previewImageSrcSet"
+                            [attr.sizes]="previewImageSizes"
+                            class="p-image-original"
+                            [ngStyle]="imagePreviewStyle()"
+                            (click)="onPreviewImageClick()"
+                        />
+                    </ng-container>
+                    <ng-container
+                        *ngTemplateOutlet="
+                            previewTemplate;
+                            context: { class:'p-image-original' ,style: imagePreviewStyle(), previewCallback: onPreviewImageClick.bind(this) }
+                        "
+                    >
+                    </ng-container>
                 </div>
             </div>
         </span>
@@ -281,6 +295,10 @@ export class Image extends BaseComponent implements AfterContentInit {
 
     indicatorTemplate: TemplateRef<any> | undefined;
 
+    imageTemplate: TemplateRef<any> | undefined;
+
+    previewTemplate: TemplateRef<any> | undefined;
+
     rotateRightIconTemplate: TemplateRef<any> | undefined;
 
     rotateLeftIconTemplate: TemplateRef<any> | undefined;
@@ -331,6 +349,14 @@ export class Image extends BaseComponent implements AfterContentInit {
             switch (item.getType()) {
                 case 'indicator':
                     this.indicatorTemplate = item.template;
+                    break;
+
+                case 'image':
+                    this.imageTemplate = item.template;
+                    break;
+
+                case 'preview':
+                    this.previewTemplate = item.template;
                     break;
 
                 case 'rotaterighticon':

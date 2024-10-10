@@ -36,28 +36,14 @@ export class StickyDoc {
     code: Code = {
         basic: `<p-toast />
 <div class="flex flex-wrap gap-2">
-    <p-button 
-        pRipple 
-        (click)="show()" 
-        label="Sticky" />
-    <p-button 
-        pRipple 
-        (click)="clear()" 
-        label="Clear"
-        severity="secondary" />
+    <p-button pRipple (click)="show()" label="Sticky" />
+    <p-button pRipple (click)="clear()" label="Clear" severity="secondary" />
 </div>`,
         html: `<div class="card flex justify-center">
     <p-toast />
     <div class="flex flex-wrap gap-2">
-        <p-button 
-            pRipple 
-            (click)="show()"
-            label="Sticky" />
-        <p-button 
-            pRipple 
-            (click)="clear()" 
-            label="Clear"
-            severity="secondary" />
+        <p-button pRipple (click)="show()" label="Sticky" />
+        <p-button pRipple (click)="clear()" label="Clear" severity="secondary" />
     </div>
 </div>`,
         typescript: `import { Component } from '@angular/core';

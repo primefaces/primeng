@@ -55,28 +55,13 @@ export class ToastDemo {
             component: MultipleDoc,
         },
         {
-            id: 'target',
-            label: 'Target',
-            component: TargetDoc,
-        },
-        {
-            id: 'life',
-            label: 'Life',
-            component: LifeDoc,
-        },
-        {
-            id: 'clear',
-            label: 'Clear',
-            component: ClearDoc,
-        },
-        {
             id: 'sticky',
             label: 'Sticky',
             component: StickyDoc,
         },
         {
             id: 'templating',
-            label: 'Templating',
+            label: 'Template',
             component: TemplateDoc,
         },
         {

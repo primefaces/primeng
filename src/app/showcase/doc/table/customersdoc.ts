@@ -207,7 +207,7 @@ import { Table } from 'primeng/table';
                                 <p-progressbar [value]="customer.activity" [showValue]="false" />
                             </td>
                             <td style="text-align: center">
-                                <p-button severity="secondary" icon="pi pi-cog" />
+                                <p-button rounded icon="pi pi-cog" />
                             </td>
                         </tr>
                     </ng-template>
@@ -443,7 +443,7 @@ export class CustomersDoc {
                 <p-progressbar [value]="customer.activity" [showValue]="false" />
             </td>
             <td style="text-align: center">
-                <p-button severity="secondary" icon="pi pi-cog"/>
+                <p-button rounded icon="pi pi-cog" />
             </td>
         </tr>
     </ng-template>
@@ -598,7 +598,7 @@ export class CustomersDoc {
                 <p-progressbar [value]="customer.activity" [showValue]="false" />
             </td>
             <td style="text-align: center">
-                <p-button severity="secondary" icon="pi pi-cog"/>
+                <p-button rounded icon="pi pi-cog" />
             </td>
         </tr>
     </ng-template>

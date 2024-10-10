@@ -48,11 +48,6 @@ export class AvatarDemo {
             component: ImageDoc,
         },
         {
-            id: 'size',
-            label: 'Sizes',
-            component: SizeDoc,
-        },
-        {
             id: 'avatargroup',
             label: 'AvatarGroup',
             component: GroupDoc,
@@ -61,26 +56,6 @@ export class AvatarDemo {
             id: 'shape',
             label: 'Shape',
             component: ShapeDoc,
-        },
-        {
-            id: 'badge',
-            label: 'Badge',
-            component: BadgeDoc,
-        },
-        {
-            id: 'templating',
-            label: 'Custom Content',
-            component: TemplateDoc,
-        },
-        {
-            id: 'stylingofavatar',
-            label: 'Styling of Avatar',
-            component: AvatarStyleDoc,
-        },
-        {
-            id: 'stylingofavatargroup',
-            label: 'Styling of AvatarGroup',
-            component: AvatarGroupStyleDoc,
         },
         {
             id: 'accessibility',

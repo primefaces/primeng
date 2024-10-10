@@ -48,12 +48,6 @@ export class InplaceDemo {
             component: LazyDoc,
         },
         {
-            id: 'data',
-            label: 'Data',
-            component: DataDoc,
-        },
-
-        {
             id: 'accessibility',
             label: 'Accessibility',
             component: AccessibilityDoc,

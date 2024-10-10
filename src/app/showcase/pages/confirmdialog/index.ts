@@ -48,7 +48,6 @@ export class ConfirmDialogDemo {
             label: 'Headless',
             component: HeadlessDoc,
         },
-
         {
             id: 'accessibility',
             label: 'Accessibility',

@@ -73,7 +73,7 @@ export class MultipleColumnsSortDoc {
     </ng-template>
     <ng-template pTemplate="body" let-product>
         <tr>
-            <td>{ {product.code }}</td>
+            <td>{{product.code }}</td>
             <td>{{ product.name }}</td>
             <td>{{ product.category }}</td>
             <td>{{ product.quantity }}</td>

@@ -32,17 +32,17 @@ export class ItemWithoutThumbnailsDoc implements OnInit {
 
     responsiveOptions: any[] = [
         {
-            breakpoint: '1024px',
-            numVisible: 5,
+            breakpoint: '991px',
+            numVisible: 4
         },
         {
-            breakpoint: '768px',
-            numVisible: 3,
+            breakpoint: '767px',
+            numVisible: 3
         },
         {
-            breakpoint: '560px',
-            numVisible: 1,
-        },
+            breakpoint: '575px',
+            numVisible: 1
+        }
     ];
 
     constructor(private photoService: PhotoService) {}
@@ -54,30 +54,16 @@ export class ItemWithoutThumbnailsDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-galleria 
-    [(value)]="images" 
-    [numVisible]="5" 
-    [circular]="true" 
-    [showItemNavigators]="true" 
-    [showThumbnails]="false" 
-    [responsiveOptions]="responsiveOptions" 
-    [containerStyle]="{ 'max-width': '640px' }">
+        basic: `<p-galleria [(value)]="images" [numVisible]="5" [circular]="true" [showItemNavigators]="true" [showThumbnails]="false" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }">
+    <ng-template pTemplate="item" let-item>
+        <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
+    </ng-template>
+</p-galleria>`,
+        html: `<div class="card">
+    <p-galleria [(value)]="images" [numVisible]="5" [circular]="true" [showItemNavigators]="true" [showThumbnails]="false" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }">
         <ng-template pTemplate="item" let-item>
             <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
         </ng-template>
-</p-galleria>`,
-        html: `<div class="card">
-    <p-galleria 
-        [(value)]="images" 
-        [numVisible]="5" 
-        [circular]="true" 
-        [showItemNavigators]="true" 
-        [showThumbnails]="false" 
-        [responsiveOptions]="responsiveOptions" 
-        [containerStyle]="{ 'max-width': '640px' }">
-            <ng-template pTemplate="item" let-item>
-                <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
-            </ng-template>
     </p-galleria>
 </div>`,
         typescript: `import { Component, OnInit } from '@angular/core';
@@ -96,15 +82,15 @@ export class GalleriaItemWithoutThumbnailsDemo implements OnInit {
 
     responsiveOptions: any[] = [
         {
-            breakpoint: '1024px',
-            numVisible: 5
+            breakpoint: '991px',
+            numVisible: 4
         },
         {
-            breakpoint: '768px',
+            breakpoint: '767px',
             numVisible: 3
         },
         {
-            breakpoint: '560px',
+            breakpoint: '575px',
             numVisible: 1
         }
     ];

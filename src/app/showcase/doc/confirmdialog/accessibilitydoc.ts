@@ -90,28 +90,15 @@ this.confirmationService.confirm({
     reject: () => rejectFunc()
 });
 
-<p-button (click)="confirm1()" icon="pi pi-check" label="Confirm"></p-button>
+<p-button (click)="confirm1()" icon="pi pi-check" label="Confirm" />
 
-<p-confirmdialog></p-confirmdialog>
+<p-confirmdialog />
         `,
     };
 
     code2: Code = {
-        html: `<p-confirmdialog 
-    id="dialog" 
-    [visible]="visible" 
-    (onHide)="visible = false" 
-    message="Are you sure you want to proceed?" 
-    header="Confirmation" 
-    icon="pi pi-exclamation-triangle"
-></p-confirmdialog>
+        html: `<p-confirmdialog id="dialog" [visible]="visible" (onHide)="visible = false" message="Are you sure you want to proceed?" header="Confirmation" icon="pi pi-exclamation-triangle" />
 
-<p-button 
-    (click)="visible = true" 
-    icon="pi pi-check" 
-    label="Confirm" 
-    aria-controls="{{visible ? 'dialog' : null}} 
-    aria-expanded="{{visible ? true : false}}"
-></p-button>`,
+<p-button (click)="visible = true" icon="pi pi-check" label="Confirm" aria-controls="{{visible ? 'dialog' : null}} aria-expanded="{{visible ? true : false}}" />`,
     };
 }

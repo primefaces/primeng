@@ -19,7 +19,7 @@ import { PhotoService } from '@service/photoservice';
                 [numVisible]="5"
             >
                 <ng-template pTemplate="item" let-item>
-                    <img [src]="item.itemImageSrc" />
+                    <img [src]="item.itemImageSrc" style="width:100%" />
                 </ng-template>
                 <ng-template pTemplate="thumbnail" let-item>
                     <img [src]="item.thumbnailImageSrc" />
@@ -40,45 +40,33 @@ export class BasicDoc implements OnInit {
         this.photoService.getImages().then((images) => (this.images = images));
         this.responsiveOptions = [
             {
-                breakpoint: '1024px',
-                numVisible: 5,
+                breakpoint: '1300px',
+                numVisible: 4
             },
             {
-                breakpoint: '768px',
-                numVisible: 3,
-            },
-            {
-                breakpoint: '560px',
-                numVisible: 1,
-            },
+                breakpoint: '575px',
+                numVisible: 1
+            }
         ];
     }
 
     code: Code = {
-        basic: `<p-galleria 
-    [(value)]="images" 
-    [responsiveOptions]="responsiveOptions" 
-    [containerStyle]="{ 'max-width': '640px' }" 
-    [numVisible]="5">
-        <ng-template pTemplate="item" let-item>
-            <img [src]="item.itemImageSrc" />
-        </ng-template>
-        <ng-template pTemplate="thumbnail" let-item>
-                <img [src]="item.thumbnailImageSrc" />
-        </ng-template>
+        basic: `<p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5">
+    <ng-template pTemplate="item" let-item>
+        <img [src]="item.itemImageSrc" style="width:100%" />
+    </ng-template>
+    <ng-template pTemplate="thumbnail" let-item>
+        <img [src]="item.thumbnailImageSrc" />
+    </ng-template>
 </p-galleria>`,
         html: `<div class="card">
-    <p-galleria 
-        [(value)]="images" 
-        [responsiveOptions]="responsiveOptions" 
-        [containerStyle]="{ 'max-width': '640px' }" 
-        [numVisible]="5">
-            <ng-template pTemplate="item" let-item>
-                <img [src]="item.itemImageSrc" />
-            </ng-template>
-            <ng-template pTemplate="thumbnail" let-item>
-                    <img [src]="item.thumbnailImageSrc" />
-            </ng-template>
+    <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5">
+        <ng-template pTemplate="item" let-item>
+            <img [src]="item.itemImageSrc" style="width:100%" />
+        </ng-template>
+        <ng-template pTemplate="thumbnail" let-item>
+            <img [src]="item.thumbnailImageSrc" />
+        </ng-template>
     </p-galleria>
 </div>`,
         typescript: `import { Component, OnInit } from '@angular/core';
@@ -103,15 +91,11 @@ export class GalleriaBasicDemo implements OnInit {
         this.photoService.getImages().then((images) => (this.images = images));
         this.responsiveOptions = [
             {
-                breakpoint: '1024px',
-                numVisible: 5
+                breakpoint: '1300px',
+                numVisible: 4
             },
             {
-                breakpoint: '768px',
-                numVisible: 3
-            },
-            {
-                breakpoint: '560px',
+                breakpoint: '575px',
                 numVisible: 1
             }
         ];

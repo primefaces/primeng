@@ -7,7 +7,7 @@ import { BaseComponent } from 'primeng/basecomponent';
  * @group Components
  */
 @Component({
-    selector: 'p-avatarGroup',
+    selector: 'p-avatarGroup, p-avatar-group, p-avatargroup',
     template: ` <ng-content></ng-content> `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,

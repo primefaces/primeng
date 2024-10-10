@@ -24,7 +24,13 @@ import { Code } from '@domain/code';
 })
 export class SeverityDoc {
     code: Code = {
-        basic: `<p-tag severity="success" value="Success"/>`,
+        basic: `<p-tag value="Primary" />
+<p-tag severity="secondary" value="Secondary" />
+<p-tag severity="success" value="Success" />
+<p-tag severity="info" value="Info" />
+<p-tag severity="warn" value="Warn" />
+<p-tag severity="danger" value="Danger" />
+<p-tag severity="contrast" value="Contrast" />`,
         html: `<div class="card flex justify-center gap-2">
     <p-tag value="Primary"/>
     <p-tag severity="secondary" value="Secondary"/>

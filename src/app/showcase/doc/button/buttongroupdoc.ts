@@ -8,29 +8,29 @@ import { Code } from '@domain/code';
             <p>Multiple buttons are grouped when wrapped inside an element with <i>ButtonGroup</i> component.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-buttonGroup>
+            <p-buttongroup>
                 <p-button label="Save" icon="pi pi-check" />
                 <p-button label="Delete" icon="pi pi-trash" />
                 <p-button label="Cancel" icon="pi pi-times" />
-            </p-buttonGroup>
+            </p-buttongroup>
         </div>
         <app-code [code]="code" selector="button-group-demo"></app-code>
     `,
 })
 export class ButtonGroupDoc {
     code: Code = {
-        basic: `<p-buttonGroup>
+        basic: `<p-buttongroup>
     <p-button label="Save" icon="pi pi-check" />
     <p-button label="Delete" icon="pi pi-trash" />
     <p-button label="Cancel" icon="pi pi-times" />
-</p-buttonGroup>`,
+</p-buttongroup>`,
 
         html: `<div class="card flex justify-center">
-    <p-buttonGroup>
+    <p-buttongroup>
         <p-button label="Save" icon="pi pi-check" />
         <p-button label="Delete" icon="pi pi-trash" />
         <p-button label="Cancel" icon="pi pi-times" />
-    </p-buttonGroup>
+    </p-buttongroup>
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

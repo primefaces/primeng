@@ -3,7 +3,6 @@ import { AccessibilityDoc } from '@doc/paginator/accessibilitydoc';
 import { BasicDoc } from '@doc/paginator/basicdoc';
 import { ImportDoc } from '@doc/paginator/importdoc';
 import { TemplateDoc } from '@doc/paginator/templatedoc';
-import { LocaleDoc } from '@doc/paginator/localedoc';
 import { CurrentPageReportDoc } from '@doc/paginator/currentpagereportdoc';
 import { PaginatorDocModule } from '@doc/paginator/paginatordoc.module';
 
@@ -36,11 +35,6 @@ export class PaginatorDemo {
             id: 'basic',
             label: 'Basic',
             component: BasicDoc,
-        },
-        {
-            id: 'locale',
-            label: 'Locale',
-            component: LocaleDoc,
         },
         {
             id: 'template',

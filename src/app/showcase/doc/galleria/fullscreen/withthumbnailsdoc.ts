@@ -62,45 +62,22 @@ export class WithThumbnailsDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-galleria 
-    [(value)]="images" 
-    [(visible)]="displayBasic"
-    [responsiveOptions]="responsiveOptions" 
-    [containerStyle]="{ 'max-width': '50%' }" 
-    [numVisible]="9" 
-    [circular]="true" 
-    [fullScreen]="true" 
-    [showItemNavigators]="true">
-        <ng-template pTemplate="item" let-item>
-            <img 
-                [src]="item.itemImageSrc" 
-                style="width: 100%; display: block;" />
-        </ng-template>
-        <ng-template pTemplate="thumbnail" let-item>
-                <img 
-                    [src]="item.thumbnailImageSrc" 
-                    style="display: block;" />
-        </ng-template>
+        basic: `<p-galleria [(value)]="images" [(visible)]="displayBasic"[responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '50%' }" [numVisible]="9" [circular]="true" [fullScreen]="true" [showItemNavigators]="true">
+    <ng-template pTemplate="item" let-item>
+        <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
+    </ng-template>
+    <ng-template pTemplate="thumbnail" let-item>
+            <img [src]="item.thumbnailImageSrc" style="display: block;" />
+    </ng-template>
 </p-galleria>`,
         html: `<div class="card flex justify-center">
-    <p-button 
-        icon="pi pi-external-link" 
-        label="Show" 
-        (click)="displayBasic = true" />
-    <p-galleria 
-        [(value)]="images" 
-        [(visible)]="displayBasic" 
-        [responsiveOptions]="responsiveOptions" 
-        [containerStyle]="{'max-width': '50%'}" 
-        [numVisible]="9"
-        [circular]="true" 
-        [fullScreen]="true" 
-        [showItemNavigators]="true">
+    <p-button icon="pi pi-external-link" label="Show" (click)="displayBasic = true" />
+    <p-galleria [(value)]="images" [(visible)]="displayBasic" [responsiveOptions]="responsiveOptions" [containerStyle]="{'max-width': '50%'}" [numVisible]="9" [circular]="true" [fullScreen]="true" [showItemNavigators]="true">
             <ng-template pTemplate="item" let-item>
                 <img [src]="item.itemImageSrc" style="width: 100%; display: block;"/>
             </ng-template>
             <ng-template pTemplate="thumbnail" let-item>
-                    <img [src]="item.thumbnailImageSrc" style="display: block;"/>
+                <img [src]="item.thumbnailImageSrc" style="display: block;"/>
             </ng-template>
     </p-galleria>
 </div>`,
