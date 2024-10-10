@@ -30,20 +30,78 @@ import { BlockableUI, Header, PrimeTemplate, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { ChevronDownIcon } from 'primeng/icons/chevrondown';
 import { Subscription } from 'rxjs';
-import { AccordionTabCloseEvent, AccordionTabOpenEvent } from './accordion.interface';
 import { transformToBoolean, UniqueComponentId } from 'primeng/utils';
 import { AccordionStyle } from './style/accordionstyle';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ChevronUpIcon } from 'primeng/icons/chevronup';
 import { Ripple } from 'primeng/ripple';
 
-function valueEquals(currentValue: any, value: any): boolean {
-    if (Array.isArray(currentValue)) {
-        return currentValue.includes(value);
-    }
-    return currentValue === value;
+/**
+ * Custom tab open event.
+ * @see {@link onOpen}
+ * @group Events
+ */
+export interface AccordionTabOpenEvent {
+    /**
+     * Browser event.
+     */
+    originalEvent: Event;
+    /**
+     * Opened tab index.
+     */
+    index: number;
 }
 
+/**
+ * Custom tab close event.
+ * @see {@link onClose}
+ * @extends {AccordionTabOpenEvent}
+ * @group Events
+ */
+export interface AccordionTabCloseEvent extends AccordionTabOpenEvent {}
+
+/**
+ * Toggle icon template context.
+ * @group Interface
+ */
+export interface AccordionToggleIconTemplateContext {
+    /**
+     * Represents the active status of the panel.
+     */
+    active: boolean;
+}
+/**
+ * Deneme template context'i broo
+ * @group Interface
+ */
+export interface AccordionDenemeTemplateContext {
+    /**
+     * This is a void function.
+     */
+    onClick: () => void;
+
+    /**
+     * This is a function accepts event parameter which is FocusEvent.
+     * @param {FocusEvent} event - default focus event bro.
+     * @returns this is a return `value`
+     */
+    onBlur: (event: FocusEvent) => void;
+
+    /**
+     * This is a number property.
+     */
+    numberValue: number;
+
+    /**
+     * This is a string property.
+     */
+    stringValue: string;
+}
+
+/**
+ * AccordionPanel is a helper component for Accordion component.
+ * @group Components
+ */
 @Component({
     selector: 'p-accordion-panel',
     imports: [CommonModule],
@@ -62,24 +120,53 @@ function valueEquals(currentValue: any, value: any): boolean {
 })
 export class AccordionPanel extends BaseComponent {
     pcAccordion = inject(forwardRef(() => Accordion));
-
+    /**
+     * Value of the active tab.
+     * @defaultValue undefined
+     * @group Props
+     */
     value = model<undefined | null | string | number | string[] | number[]>(undefined);
-
+    /**
+     * Disables the tab when enabled.
+     * @defaultValue false
+     * @group Props
+     */
     disabled: InputSignalWithTransform<any, boolean> = input(false, { transform: (v: any) => transformToBoolean(v) });
 
     active = computed(() =>
-        this.pcAccordion.multiple() ? valueEquals(this.pcAccordion.value(), this.value()) : this.pcAccordion.value() === this.value(),
+        this.pcAccordion.multiple() ? this.valueEquals(this.pcAccordion.value(), this.value()) : this.pcAccordion.value() === this.value(),
     );
-}
+    /**
+     * A description about the accordion deneme template context.
+     * @param {AccordionDenemeTemplateContext} context - Context of the template
+     * @example
+     * ```html
+     * <ng-template #denemetemplate let-onClickCallback="onClickCallback" let-onBlurCallback="onBlurCallback"> </ng-template>
+     * ```
+     * @see {@link AccordionDenemeTemplateContext}
+     * @group Templates
+     */
+    @ContentChild('denemetemplate') denemetemplate: TemplateRef<AccordionDenemeTemplateContext> | undefined;
 
+    valueEquals(currentValue: any, value: any): boolean {
+        if (Array.isArray(currentValue)) {
+            return currentValue.includes(value);
+        }
+        return currentValue === value;
+    }
+}
+/**
+ * AccordionHeader is a helper component for Accordion component.
+ * @group Components
+ */
 @Component({
     selector: 'p-accordion-header',
     imports: [CommonModule, ChevronDownIcon, ChevronUpIcon, Ripple],
     standalone: true,
     template: `
         <ng-content />
-        @if (toggleIconTemplate) {
-            <ng-template *ngTemplateOutlet="toggleIconTemplate; context: { $implicit: active() }"></ng-template>
+        @if (toggleicon) {
+            <ng-template *ngTemplateOutlet="toggleicon; context: { active: active() }"></ng-template>
         } @else {
             <ng-container *ngIf="active()">
                 <span
@@ -122,8 +209,6 @@ export class AccordionHeader extends BaseComponent {
 
     pcAccordionPanel = inject(forwardRef(() => AccordionPanel));
 
-    @ContentChild('toggleicon') toggleIconTemplate: TemplateRef<any>;
-
     id = computed(() => `${this.pcAccordion.id()}_accordionheader_${this.pcAccordionPanel.value()}`);
 
     active = computed(() => this.pcAccordionPanel.active());
@@ -163,6 +248,17 @@ export class AccordionHeader extends BaseComponent {
                 break;
         }
     }
+    /**
+     * A template reference variable that represents the toggle icon in a UI component.
+     * @param {AccordionToggleIconTemplateContext} context - Context of the template
+     * @example
+     * ```html
+     * <ng-template #toggleicon let-active="active"> </ng-template>
+     * ```
+     * @see {@link AccordionToggleIconTemplateContext}
+     * @group Templates
+     */
+    @ContentChild('toggleicon') toggleicon: TemplateRef<AccordionToggleIconTemplateContext> | undefined;
 
     @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
 
@@ -170,7 +266,7 @@ export class AccordionHeader extends BaseComponent {
         this.templates.forEach((item) => {
             switch (item.getType()) {
                 case 'toggleicon':
-                    this.toggleIconTemplate = item.template;
+                    this.toggleicon = item.template;
                     break;
             }
         });
@@ -252,6 +348,7 @@ export class AccordionHeader extends BaseComponent {
         event.preventDefault();
     }
 }
+
 @Component({
     selector: 'p-accordion-content',
     imports: [CommonModule],
@@ -269,8 +366,8 @@ export class AccordionHeader extends BaseComponent {
         '[attr.data-p-active]': 'active()',
         '[attr.aria-labelledby]': 'ariaLabelledby()',
         '[@content]': `active()
-                   ? { value: 'visible', params: { transitionParams: pcAccordion.transitionOptions } }
-                   : { value: 'hidden', params: { transitionParams: pcAccordion.transitionOptions } }`,
+            ? { value: 'visible', params: { transitionParams: pcAccordion.transitionOptions } }
+            : { value: 'hidden', params: { transitionParams: pcAccordion.transitionOptions } }`,
     },
     animations: [
         trigger('content', [
@@ -665,6 +762,12 @@ export class Accordion extends BaseComponent implements BlockableUI, AfterConten
         return this.style;
     }
     /**
+     * Value of the active tab.
+     * @defaultValue undefined
+     * @group Props
+     */
+    value = model<undefined | null | string | number | string[] | number[]>(undefined);
+    /**
      * When enabled, multiple tabs can be activated at the same time.
      * @defaultValue false
      * @group Props
@@ -717,6 +820,7 @@ export class Accordion extends BaseComponent implements BlockableUI, AfterConten
      * @group Emits
      */
     @Output() activeIndexChange: EventEmitter<number | number[]> = new EventEmitter<number | number[]>();
+
     set headerAriaLevel(val: number) {
         if (typeof val === 'number' && val > 0) {
             this._headerAriaLevel = val;
@@ -724,7 +828,6 @@ export class Accordion extends BaseComponent implements BlockableUI, AfterConten
             this._headerAriaLevel = 2;
         }
     }
-    value = model<undefined | null | string | number | string[] | number[]>(undefined);
     /**
      * Callback to invoke when an active tab is collapsed by clicking on the header.
      * @param {AccordionTabCloseEvent} event - Custom tab close event.
@@ -737,6 +840,7 @@ export class Accordion extends BaseComponent implements BlockableUI, AfterConten
      * @group Emits
      */
     @Output() onOpen: EventEmitter<AccordionTabOpenEvent> = new EventEmitter();
+
     id = signal(UniqueComponentId());
 
     @ContentChildren(AccordionTab, { descendants: true }) tabList: QueryList<AccordionTab> | undefined;
