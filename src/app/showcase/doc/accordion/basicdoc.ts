@@ -50,6 +50,7 @@ import { Code } from '@domain/code';
                 </p-accordion-panel>
             </p-accordion>
         </div>
+        <app-code [code]="code" selector="accordion-basic-demo"></app-code>
     `,
 })
 export class BasicDoc {

@@ -27,7 +27,6 @@ async function themedoc() {
 
     const project = await app.convert();
     await app.generateJson(project, `./api-generator/themedoc.json`);
-    // console.log(project);
     if (project) {
         let doc = {};
 

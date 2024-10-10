@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input, Input } from '@angular/core';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 import APIDoc from 'src/app/showcase/doc/apidoc/index.json';
@@ -12,29 +12,31 @@ import { ObjectUtils } from 'primeng/utils';
                 <h1>{{ header }} {{ !header.toLowerCase().includes('api') ? 'API' : null }}</h1>
                 <p>API defines helper props, events and others for the PrimeNG {{ header }} module.</p>
             </div>
-            <app-docsection [apiDocs]="_docs"></app-docsection>
+            <app-docsection [apiDocs]="_docs()"></app-docsection>
         </div>
-        <app-docsection-nav [docs]="_docs"></app-docsection-nav>`,
+        <app-docsection-nav [docs]="_docs()"></app-docsection-nav>`,
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppDocApiSection {
     @Input() header!: string;
 
-    @Input() docs!: any[];
+    // @Input() docs!: any[];
+    docs = input<any[] | undefined>([]);
 
-    _docs!: any[];
+    _docs = computed(() => this.docs() && this.createDocs());
+
+    // docs = input<any[] | undefined>();
+
+    // _docs!: any[];
 
     constructor(
         private location: Location,
         private router: Router,
-        private cd: ChangeDetectorRef,
     ) {}
 
     ngOnInit() {
         if (!this.router.url.includes('#api')) {
             this.location.go(this.location.path().split('#')[0]);
-        }
-        if (this.docs) {
-            this._docs = this.createDocs();
         }
     }
 
@@ -63,11 +65,11 @@ export class AppDocApiSection {
     createDocs() {
         const newDocs = [];
 
-        for (const docName of this.docs) {
+        for (const docName of this.docs()) {
             const moduleName = docName.toLowerCase();
-            let module = APIDoc[moduleName] ? APIDoc[moduleName] : APIDoc[this.docs[0].toLowerCase()].components[docName];
+            let module = APIDoc[moduleName] ? APIDoc[moduleName] : APIDoc[this.docs()[0].toLowerCase()].components[docName];
             let newDoc = {
-                id: `api.${this.isInterface(module) ? this.docs[0].toLowerCase() + '.interfaces' : moduleName}`,
+                id: `api.${this.isInterface(module) ? this.docs()[0].toLowerCase() + '.interfaces' : moduleName}`,
                 isInterface: this.isInterface(module),
                 label: docName,
                 description: this.getDescription(module, docName),
@@ -90,7 +92,11 @@ export class AppDocApiSection {
                         : module.emits
                           ? module.emits
                           : undefined;
+
                 let templates = module.interfaces ? module.interfaces.templates : undefined;
+
+                let _templates = module.templates ? module.templates : undefined;
+
                 let events = module.interfaces ? module.interfaces.events : undefined;
                 let methods =
                     module.components && module.components[docName]
@@ -187,13 +193,23 @@ export class AppDocApiSection {
                     });
                 }
 
+                if (_templates && _templates.values.length) {
+                    newDoc.children.push({
+                        id: `api.${docName.toLowerCase()}.templates`,
+                        label: 'Templates',
+                        description: _templates.description ?? `Templates of ${docName} component.`,
+                        component: AppDocApiTable,
+                        data: this.setEmitData(_templates.values),
+                    });
+                }
+
                 if (interfaces && interfaces.values && interfaces.values.length) {
                     newDoc.children.push({
-                        id: `api.${this.docs[0].toLowerCase()}.interfaces`,
+                        id: `api.${this.docs()[0].toLowerCase()}.interfaces`,
                         label: 'Interfaces',
                         component: AppDocApiTable,
                         description: interfaces.description,
-                        data: this.setEventsData(this.docs[0].toLowerCase(), interfaces.values, 'interfaces'),
+                        data: this.setEventsData(this.docs()[0].toLowerCase(), interfaces.values, 'interfaces'),
                     });
                 }
 
@@ -218,14 +234,15 @@ export class AppDocApiSection {
                 }
 
                 if (interfaces) {
+                    // @todo refactor and remove .interfaces.ts files
                     if (interfaces.interfaces && interfaces.interfaces.values && interfaces.interfaces.values.length) {
                         newDoc.children.push({
-                            id: `api.${this.docs[0].toLowerCase()}.interfaces`,
+                            id: `api.${this.docs()[0].toLowerCase()}.interfaces`,
                             label: 'Interfaces',
                             component: AppDocApiTable,
                             isInterface: interfaces.isInterface ?? false,
                             description: interfaces.interfaces.description,
-                            data: this.setEventsData(this.docs[0], interfaces.interfaces.values, 'interfaces'),
+                            data: this.setEventsData(this.docs()[0], interfaces.interfaces.values, 'interfaces'),
                         });
 
                         if (interfaces.types && interfaces.types.values && interfaces.types.values.length) {
@@ -257,7 +274,7 @@ export class AppDocApiSection {
         } else {
             if (mergedInterfaces.length) {
                 newDocs[0].children.push({
-                    id: `api.${this.docs[0].toLowerCase()}.interfaces`,
+                    id: `api.${this.docs()[0].toLowerCase()}.interfaces`,
                     label: 'Interfaces',
                     component: AppDocApiTable,
                     description: 'Defines the custom interfaces used by the module.',

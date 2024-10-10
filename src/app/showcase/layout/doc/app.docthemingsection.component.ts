@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, Input, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, signal } from '@angular/core';
 import ThemeDoc from 'src/app/showcase/doc/apidoc/themedoc.json';
 import APIDoc from 'src/app/showcase/doc/apidoc/index.json';
 
@@ -40,12 +40,6 @@ export class AppDocThemingSectionComponent {
     classDoc = signal<any>([]);
 
     navItems = signal<any>([]);
-
-    _navItems = computed(() => {
-        const tokens = this.tokensDoc();
-        const classes = this.classDoc();
-        return;
-    });
 
     ngOnInit() {
         this.createDocs();

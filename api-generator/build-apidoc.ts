@@ -34,7 +34,12 @@ async function main() {
         disableSources: false,
         logLevel: 'Error',
         sort: ['source-order'],
-        exclude: ['node_modules', 'src/app/components/**/*spec.ts', 'src/app/components/**/*public_api.ts'],
+        exclude: [
+            'node_modules',
+            'src/app/components/**/*spec.ts',
+            'src/app/components/**/*public_api.ts',
+            'src/app/components/**/*interface.ts',
+        ],
     });
 
     const project = await app.convert();
@@ -50,6 +55,33 @@ async function main() {
         const getDeprecatedText = (signature) => {
             const deprecatedTag = signature?.comment?.getTag('@deprecated');
             return deprecatedTag ? parseText(deprecatedTag.content[0].text) : undefined;
+        };
+
+        const parameters = (template) => {
+            const _parameters = [];
+            if (template.comment && template.comment.blockTags) {
+                template.comment.blockTags.forEach((tag) => {
+                    if (tag.tag === '@param') {
+                        let type = 'unknown';
+                        if (template.type && template.type.typeArguments) {
+                            const typeArg = template.type.typeArguments.find((arg) => arg.declaration && arg.declaration.children);
+                            if (typeArg) {
+                                const paramType = typeArg.declaration.children.find((child) => child.name === tag.name);
+                                if (paramType && paramType.type) {
+                                    type = paramType.type.name;
+                                }
+                            }
+                        }
+                        _parameters.push({
+                            name: tag.name,
+                            description: tag.content.map((c) => c.text).join(' '),
+                            type: type,
+                        });
+                    }
+                });
+            }
+
+            return _parameters;
         };
 
         const modules = project.groups.find((g) => g.title === 'Modules');
@@ -69,8 +101,28 @@ async function main() {
                         const module_templates_group = module.groups.find((g) => g.title === 'Templates');
                         const module_interface_group = module.groups.find((g) => g.title === 'Interface');
                         const module_service_group = module.groups.find((g) => g.title === 'Service');
-                        const module_types_group = module.groups.find((g) => g.title === 'Types');
                         const module_enums_group = module.groups.find((g) => g.title === 'Enumerations');
+
+                        const module_types_group = module.groups.find((g) => g.title === 'Types');
+
+                        if (isProcessable(module_types_group)) {
+                            const types = {
+                                description: staticMessages['types'],
+                                values: [],
+                            };
+
+                            module_types_group.children.forEach((type) => {
+                                types.values.push({
+                                    name: type.name,
+                                    description: type.comment && type.comment.summary.map((s) => s.text || '').join(' '),
+                                    type: type.type && type.type.toString(),
+                                    parameters: parameters(type),
+                                    deprecated: getDeprecatedText(type),
+                                });
+                            });
+
+                            // doc[name]['components'][componentName]['templates'] = templates;
+                        }
 
                         if (isProcessable(module_enums_group)) {
                             const classes = {
@@ -93,6 +145,7 @@ async function main() {
 
                             doc[name]['classes'] = classes;
                         }
+
                         if (isProcessable(module_components_group)) {
                             module_components_group.children.forEach((component) => {
                                 const componentName = component.name;
@@ -111,6 +164,18 @@ async function main() {
                                     };
 
                                     component_props_group.children.forEach((prop) => {
+                                        let defaultValue = prop.defaultValue ? prop.defaultValue.replace(/^'|'$/g, '') : undefined;
+
+                                        // Check for @defaultValue tag in comment blockTags
+                                        if (prop.comment && prop.comment.blockTags) {
+                                            const defaultValueTag = prop.comment.blockTags.find((tag) => tag.tag === '@defaultValue');
+                                            if (defaultValueTag) {
+                                                defaultValue = defaultValueTag.content
+                                                    .map((c) => c.text.replace(/```ts\n|```/g, '').trim())
+                                                    .join(' ');
+                                            }
+                                        }
+
                                         props.values.push({
                                             name: prop.name,
                                             optional: prop.flags.isOptional,
@@ -122,11 +187,7 @@ async function main() {
                                                       ? prop.type.toString()
                                                       : null,
                                             default:
-                                                prop.type && prop.type.name === 'boolean' && !prop.defaultValue
-                                                    ? 'false'
-                                                    : prop.defaultValue
-                                                      ? prop.defaultValue.replace(/^'|'$/g, '')
-                                                      : undefined,
+                                                prop.type && prop.type.name === 'boolean' && !prop.defaultValue ? 'false' : defaultValue,
                                             description: (
                                                 prop.getSignature?.comment?.summary ||
                                                 prop.setSignature?.comment?.summary ||
@@ -140,6 +201,7 @@ async function main() {
                                                 getDeprecatedText(prop),
                                         });
                                     });
+
                                     doc[name]['components'][componentName]['props'] = props;
                                 }
 
@@ -220,6 +282,55 @@ async function main() {
                                     });
 
                                     doc[name]['components'][componentName]['events'] = events;
+                                }
+
+                                const component_templates_group = component.groups.find((g) => g.title === 'Templates');
+                                if (isProcessable(component_templates_group)) {
+                                    const templates = {
+                                        description: staticMessages['templates'],
+                                        values: [],
+                                    };
+
+                                    component_templates_group.children.forEach((template) => {
+                                        const templateType = template.type && template.type.toString();
+                                        let contextType = 'unknown';
+
+                                        // Regex ile TemplateRef<ContextType> kısmını yakalamak
+                                        const match = templateType && templateType.match(/TemplateRef<(.+)>/);
+                                        if (match && match[1]) {
+                                            contextType = match[1];
+                                        }
+
+                                        templates.values.push({
+                                            name: template.name,
+                                            description: template.comment && template.comment.summary.map((s) => s.text || '').join(' '),
+                                            type: templateType,
+                                            parameters: parameters(template).map((param) =>
+                                                param.name === 'context' ? { ...param, type: contextType } : param,
+                                            ),
+                                            deprecated: getDeprecatedText(template),
+                                        });
+                                    });
+
+                                    doc[name]['components'][componentName]['templates'] = templates;
+                                }
+
+                                const component_types_group = component.groups.find((g) => g.title === 'Types');
+                                if (isProcessable(component_types_group)) {
+                                    const types = {
+                                        description: staticMessages['types'],
+                                        values: [],
+                                    };
+                                    component_types_group.children.forEach((type) => {
+                                        types.values.push({
+                                            name: type.name,
+                                            description: type.comment && type.comment.summary.map((s) => s.text || '').join(' '),
+                                            type: type.type && type.type.toString(),
+                                            parameters: parameters(type),
+                                            deprecated: getDeprecatedText(type),
+                                        });
+                                    });
+                                    doc[name]['components'][componentName]['types'] = types;
                                 }
                             });
                         }
@@ -372,12 +483,90 @@ async function main() {
                                 description: staticMessages['types'],
                                 values: [],
                             };
-
                             module_types_group.children.forEach((t) => {
+                                const parameters =
+                                    t.signatures && t.signatures[0]?.parameters
+                                        ? t.signatures[0].parameters.map((param) => ({
+                                              name: param.name,
+                                              description: param.comment && param.comment.summary.map((s) => s.text || '').join(' '),
+                                              type: param.type && param.type.name,
+                                          }))
+                                        : [];
+
+                                const returnType =
+                                    t.signatures && t.signatures[0]?.type
+                                        ? t.signatures[0].type.name
+                                        : t.type &&
+                                          t.type.declaration &&
+                                          t.type.declaration.signatures &&
+                                          t.type.declaration.signatures[0]?.type.name;
+
+                                const returnDescription =
+                                    t.comment && t.comment.blockTags
+                                        ? t.comment.blockTags
+                                              .filter((tag) => tag.tag === '@returns')
+                                              .map((tag) => tag.content.map((content) => content.text).join(' '))
+                                              .join(' ')
+                                        : '';
+
+                                const typeChildren =
+                                    t.children && t.children.length
+                                        ? t.children.map((child) => {
+                                              const childSignatures =
+                                                  child.type && child.type.declaration && child.type.declaration.signatures;
+                                              const childParameters =
+                                                  childSignatures && childSignatures[0]?.parameters
+                                                      ? childSignatures[0].parameters.map((param) => ({
+                                                            name: param.name,
+                                                            description:
+                                                                param.comment && param.comment.summary.map((s) => s.text || '').join(' '),
+                                                            type: param.type && param.type.name,
+                                                        }))
+                                                      : [];
+
+                                              const childReturnType =
+                                                  childSignatures && childSignatures[0]?.type ? childSignatures[0].type.name : undefined;
+
+                                              const childReturnDescription =
+                                                  child.comment && child.comment.blockTags
+                                                      ? child.comment.blockTags
+                                                            .filter((tag) => tag.tag === '@returns')
+                                                            .map((tag) => tag.content.map((content) => content.text).join(' '))
+                                                            .join(' ')
+                                                      : '';
+
+                                              return {
+                                                  name: child.name,
+                                                  description: child.comment && child.comment.summary.map((s) => s.text || '').join(' '),
+                                                  type:
+                                                      childParameters.length || childReturnType
+                                                          ? 'function'
+                                                          : child.type && child.type.name,
+                                                  parameters: childParameters.length ? childParameters : undefined,
+                                                  returns: childReturnType
+                                                      ? {
+                                                            type: childReturnType,
+                                                            description: childReturnDescription,
+                                                        }
+                                                      : undefined,
+                                                  deprecated: getDeprecatedText(child),
+                                              };
+                                          })
+                                        : [];
+
                                 types.values.push({
                                     name: t.name,
-                                    value: getTypesValue(t),
-                                    description: t.comment.summary && t.comment.summary.map((s) => s.text || '').join(' '),
+                                    description: t.comment && t.comment.summary.map((s) => s.text || '').join(' '),
+                                    type: parameters.length || returnType ? 'function' : t.type && t.type.name,
+                                    children: typeChildren.length ? typeChildren : undefined,
+                                    parameters: parameters.length ? parameters : undefined,
+                                    returns: returnType
+                                        ? {
+                                              type: returnType,
+                                              description: returnDescription,
+                                          }
+                                        : undefined,
+                                    deprecated: getDeprecatedText(t),
                                 });
                             });
 
