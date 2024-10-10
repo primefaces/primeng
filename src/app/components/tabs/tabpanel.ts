@@ -1,12 +1,4 @@
-import {
-    ChangeDetectionStrategy,
-    Component,
-    computed,
-    forwardRef,
-    inject,
-    model,
-    ViewEncapsulation,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, forwardRef, inject, model, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ObjectUtils } from 'primeng/utils';
@@ -37,7 +29,11 @@ import { Tabs } from './tabs';
 })
 export class TabPanel extends BaseComponent {
     pcTabs = inject(forwardRef(() => Tabs));
-
+    /**
+     * Value of the active tab.
+     * @defaultValue undefined
+     * @group Props
+     */
     value = model<string | number | undefined>(undefined);
 
     id = computed(() => `${this.pcTabs.id()}_tabpanel_${this.value()}`);

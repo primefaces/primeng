@@ -1,12 +1,16 @@
 import {
+    AfterContentInit,
+    AfterViewInit,
     ChangeDetectionStrategy,
     Component,
     computed,
     ContentChild,
+    ContentChildren,
     effect,
     ElementRef,
     forwardRef,
     inject,
+    QueryList,
     signal,
     TemplateRef,
     ViewChild,
@@ -19,6 +23,7 @@ import { RippleModule } from 'primeng/ripple';
 import { BaseComponent } from 'primeng/basecomponent';
 import { Tabs } from './tabs';
 import { DomHandler } from 'primeng/dom';
+import { PrimeTemplate } from 'primeng/api';
 
 /**
  * TabList is a helper component for Tabs component.
@@ -78,9 +83,18 @@ import { DomHandler } from 'primeng/dom';
         '[attr.data-pc-name]': '"tablist"',
     },
 })
-export class TabList extends BaseComponent {
+export class TabList extends BaseComponent implements AfterViewInit, AfterContentInit {
+    /**
+     * A template reference variable that represents the previous icon in a UI component.
+     * @type {TemplateRef<any> | undefined}
+     * @group Templates
+     */
     @ContentChild('previcon') prevIconTemplate: TemplateRef<any> | undefined;
-
+    /**
+     * A template reference variable that represents the next icon in a UI component.
+     * @type {TemplateRef<any> | undefined}
+     * @group Templates
+     */
     @ContentChild('nexticon') nextIconTemplate: TemplateRef<any> | undefined;
 
     @ViewChild('content') content: ElementRef<HTMLDivElement>;
@@ -92,6 +106,8 @@ export class TabList extends BaseComponent {
     @ViewChild('inkbar') inkbar: ElementRef<HTMLSpanElement>;
 
     @ViewChild('tabs') tabs: ElementRef<HTMLDivElement>;
+
+    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
 
     pcTabs = inject(forwardRef(() => Tabs));
 
@@ -106,14 +122,6 @@ export class TabList extends BaseComponent {
     tabindex = computed(() => this.pcTabs.tabindex());
 
     scrollable = computed(() => this.pcTabs.scrollable());
-    valueChangeEffect = effect(() => {
-        this.pcTabs.value();
-        if (isPlatformBrowser(this.platformId)) {
-            setTimeout(() => {
-                this.updateInkBar();
-            });
-        }
-    });
 
     get prevButtonAriaLabel() {
         return this.config.translation.aria.previous;
@@ -123,12 +131,37 @@ export class TabList extends BaseComponent {
         return this.config.translation.aria.next;
     }
 
+    constructor() {
+        super();
+        effect(() => {
+            this.pcTabs.value();
+            if (isPlatformBrowser(this.platformId)) {
+                setTimeout(() => {
+                    this.updateInkBar();
+                });
+            }
+        });
+    }
+
     ngAfterViewInit() {
         super.ngAfterViewInit();
         if (this.showNavigators() && isPlatformBrowser(this.platformId)) {
             this.updateButtonState();
             this.bindResizeObserver();
         }
+    }
+
+    ngAfterContentInit() {
+        this.templates.forEach((t) => {
+            switch (t.getType()) {
+                case 'previcon':
+                    this.prevIconTemplate = t.template;
+                    break;
+                case 'nexticon':
+                    this.nextIconTemplate = t.template;
+                    break;
+            }
+        });
     }
 
     ngOnDestroy() {
