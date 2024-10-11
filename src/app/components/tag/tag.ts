@@ -10,6 +10,7 @@ import {
     ViewEncapsulation,
     booleanAttribute,
     inject,
+    computed,
 } from '@angular/core';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
@@ -91,13 +92,13 @@ export class Tag extends BaseComponent {
         });
     }
 
-    containerClass() {
+    containerClass = computed<{ [klass: string]: any }>(() => {
         return {
             'p-tag p-component': true,
             [`p-tag-${this.severity()}`]: this.severity(),
             'p-tag-rounded': this.rounded(),
         };
-    }
+    });
 }
 
 @NgModule({
