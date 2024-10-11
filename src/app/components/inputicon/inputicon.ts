@@ -13,10 +13,10 @@ import { InputIconStyle } from './style/inputiconstyle';
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [InputIconStyle],
-    host:{
+    host: {
         '[class]': 'styleClass()',
         '[class.p-inputicon]': 'true',
-    }
+    },
 })
 export class InputIcon extends BaseComponent {
     /**

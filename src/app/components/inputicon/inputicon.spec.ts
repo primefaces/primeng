@@ -36,5 +36,4 @@ describe('InputIcon', () => {
         expect(inputIconHostElement.classList).toContain('custom-class');
         expect(inputIconHostElement.classList).toContain('p-inputicon');
     });
-
 });
