@@ -3,7 +3,7 @@ import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { InputIcon, InputIconModule } from './inputicon';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
-fdescribe('InputIcon', () => {
+describe('InputIcon', () => {
     let inputIcon: InputIcon;
     let fixture: ComponentFixture<InputIcon>;
     let inputIconRef: ComponentRef<InputIcon>;
