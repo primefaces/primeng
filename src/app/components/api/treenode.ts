@@ -79,4 +79,12 @@ export interface TreeNode<T = any> {
      * Defines if the node is loading.
      */
     loading?: boolean;
+    /**
+     * Defines if the node is the last child.
+     */
+    lastChild?: boolean;
+    /**
+     * Index of the node relative to its level.
+     */
+    index?: number;
 }
