@@ -28,7 +28,7 @@ import { DividerStyle } from './style/dividerstyle';
         '[class.p-divider-right]': 'layout() === "horizontal" && align() === "right"',
         '[class.p-divider-top]': 'layout() === "vertical" && align() === "top"',
         '[class.p-divider-bottom]': 'layout() === "vertical" && align() === "bottom"',
-        '[style]': 'inlineStyles',
+        '[style]': 'style()',
         '[attr.aria-orientation]': 'layout()',
         '[attr.data-pc-name]': "'divider'",
         '[attr.role]': '"separator"',
