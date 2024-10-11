@@ -21,11 +21,17 @@ import { AvatarStyle } from './style/avatarstyle';
     selector: 'p-avatar',
     template: `
         <ng-content></ng-content>
-        <span class="p-avatar-text" *ngIf="label; else iconTemplate">{{ label }}</span>
-        <ng-template #iconTemplate><span [class]="icon" [ngClass]="'p-avatar-icon'" *ngIf="icon; else imageTemplate"></span></ng-template>
-        <ng-template #imageTemplate>
-            <img [src]="image" *ngIf="image" (error)="imageError($event)" [attr.aria-label]="ariaLabel"
-        /></ng-template>
+        @if (label) {
+          <span class="p-avatar-text">{{ label }}</span>
+        } @else {
+          @if (icon) {
+            <span [class]="icon" [ngClass]="'p-avatar-icon'"></span>
+          } @else {
+            @if (image) {
+              <img [src]="image" (error)="imageError($event)" [attr.aria-label]="ariaLabel" />
+            }
+          }
+        }
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
