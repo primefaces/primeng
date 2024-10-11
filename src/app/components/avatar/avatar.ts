@@ -22,15 +22,15 @@ import { AvatarStyle } from './style/avatarstyle';
     template: `
         <ng-content></ng-content>
         @if (label()) {
-          <span class="p-avatar-text">{{ label() }}</span>
+            <span class="p-avatar-text">{{ label() }}</span>
         } @else {
-          @if (icon()) {
-            <span [class]="icon()" [ngClass]="'p-avatar-icon'"></span>
-          } @else {
-            @if (image()) {
-              <img [src]="image()" (error)="imageError($event)" [attr.aria-label]="ariaLabel()" />
+            @if (icon()) {
+                <span [class]="icon()" [ngClass]="'p-avatar-icon'"></span>
+            } @else {
+                @if (image()) {
+                    <img [src]="image()" (error)="imageError($event)" [attr.aria-label]="ariaLabel()" />
+                }
             }
-          }
         }
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,

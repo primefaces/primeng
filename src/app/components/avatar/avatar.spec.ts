@@ -86,7 +86,6 @@ describe('Avatar', () => {
         avatarRef.setInput('size', 'large');
         fixture.detectChanges();
 
-
         expect(fixture.nativeElement.classList).toContain('p-avatar-lg');
 
         avatarRef.setInput('size', 'xlarge');
@@ -131,5 +130,4 @@ describe('Avatar', () => {
         expect(avatar.size()).toBe('normal');
         expect(avatar.shape()).toBe('square');
     });
-
 });
