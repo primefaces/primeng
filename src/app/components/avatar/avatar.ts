@@ -5,7 +5,7 @@ import {
     EventEmitter,
     HostBinding,
     inject,
-    Input,
+    input,
     NgModule,
     Output,
     ViewEncapsulation,
@@ -21,14 +21,14 @@ import { AvatarStyle } from './style/avatarstyle';
     selector: 'p-avatar',
     template: `
         <ng-content></ng-content>
-        @if (label) {
-          <span class="p-avatar-text">{{ label }}</span>
+        @if (label()) {
+          <span class="p-avatar-text">{{ label() }}</span>
         } @else {
-          @if (icon) {
-            <span [class]="icon" [ngClass]="'p-avatar-icon'"></span>
+          @if (icon()) {
+            <span [class]="icon()" [ngClass]="'p-avatar-icon'"></span>
           } @else {
-            @if (image) {
-              <img [src]="image" (error)="imageError($event)" [attr.aria-label]="ariaLabel" />
+            @if (image()) {
+              <img [src]="image()" (error)="imageError($event)" [attr.aria-label]="ariaLabel()" />
             }
           }
         }
@@ -38,14 +38,14 @@ import { AvatarStyle } from './style/avatarstyle';
     host: {
         '[class.p-avatar]': 'true',
         '[class.p-component]': 'true',
-        '[class.p-avatar-circle]': 'shape === "circle"',
-        '[class.p-avatar-lg]': 'size === "large"',
-        '[class.p-avatar-xl]': 'size === "xlarge"',
-        '[class.p-avatar-image]': 'image != null',
+        '[class.p-avatar-circle]': 'shape() === "circle"',
+        '[class.p-avatar-lg]': 'size() === "large"',
+        '[class.p-avatar-xl]': 'size() === "xlarge"',
+        '[class.p-avatar-image]': 'image() != null',
         '[attr.data-pc-name]': 'avatar',
-        '[attr.aria-label]': 'ariaLabel',
-        '[attr.aria-labelledby]': 'ariaLabelledBy',
-        '[style]': 'style',
+        '[attr.aria-label]': 'ariaLabel()',
+        '[attr.aria-labelledby]': 'ariaLabelledBy()',
+        '[style]': 'style()',
     },
     providers: [AvatarStyle],
 })
@@ -54,47 +54,47 @@ export class Avatar extends BaseComponent {
      * Defines the text to display.
      * @group Props
      */
-    @Input() label: string | undefined;
+    label = input<string>();
     /**
      * Defines the icon to display.
      * @group Props
      */
-    @Input() icon: string | undefined;
+    icon = input<string>();
     /**
      * Defines the image to display.
      * @group Props
      */
-    @Input() image: string | undefined;
+    image = input<string>();
     /**
      * Size of the element.
      * @group Props
      */
-    @Input() size: 'normal' | 'large' | 'xlarge' | undefined = 'normal';
+    size = input<'normal' | 'large' | 'xlarge'>('normal');
     /**
      * Shape of the element.
      * @group Props
      */
-    @Input() shape: 'square' | 'circle' | undefined = 'square';
+    shape = input<'square' | 'circle'>('square');
     /**
      * Inline style of the element.
      * @group Props
      */
-    @Input() style: { [klass: string]: any } | null | undefined;
+    style = input<{ [klass: string]: any } | null>();
     /**
      * Class of the element.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    styleClass = input<string>();
     /**
      * Establishes a string value that labels the component.
      * @group Props
      */
-    @Input() ariaLabel: string | undefined;
+    ariaLabel = input<string>();
     /**
      * Establishes relationships between the component and label(s) where its value should be one or more element IDs.
      * @group Props
      */
-    @Input() ariaLabelledBy: string | undefined;
+    ariaLabelledBy = input<string>();
     /**
      * This event is triggered if an error occurs while loading an image file.
      * @param {Event} event - Browser event.
@@ -109,7 +109,7 @@ export class Avatar extends BaseComponent {
     }
 
     @HostBinding('class') get hostClass(): any {
-        return this.styleClass;
+        return this.styleClass();
     }
 }
 
