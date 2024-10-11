@@ -197,7 +197,7 @@ input.p-select-label {
 
 .p-dropdown.ng-invalid.ng-dirty,
 .p-select.ng-invalid.ng-dirty {
-    outline: 1px solid ${dt('selectbutton.invalid.border.color')};
+    outline: 1px solid ${dt('select.invalid.border.color')};
     outline-offset: 0;
 }
 
