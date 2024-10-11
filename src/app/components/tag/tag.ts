@@ -87,7 +87,7 @@ export class Tag extends BaseComponent {
     iconTemplate = computed<TemplateRef<any> | undefined>(() => {
         const templates = this.templates();
         if (templates && templates.length === 1) {
-            return templates.find((item) => item.getType() === 'icon').template
+            return templates.find((item) => item.getType() === 'icon').template;
         }
         return undefined;
     });
