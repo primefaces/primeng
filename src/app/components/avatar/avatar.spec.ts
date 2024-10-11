@@ -4,7 +4,7 @@ import { Avatar, AvatarModule } from './avatar';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { By } from '@angular/platform-browser';
 
-fdescribe('Avatar', () => {
+describe('Avatar', () => {
     let avatar: Avatar;
     let fixture: ComponentFixture<Avatar>;
     let avatarRef: ComponentRef<Avatar>;
