@@ -1,4 +1,4 @@
-import { NgClass, NgStyle } from '@angular/common';
+import { NgClass, NgStyle, NgTemplateOutlet } from '@angular/common';
 import {
     ChangeDetectionStrategy,
     Component,
@@ -86,9 +86,8 @@ export class Tag extends BaseComponent {
      */
     iconTemplate = computed<TemplateRef<any> | undefined>(() => {
         const templates = this.templates();
-        if (templates && templates.length > 0) {
-            const content = templates.find((item) => item.getType() === 'icon');
-            if (content) return content.template;
+        if (templates && templates.length === 1) {
+            return templates.find((item) => item.getType() === 'icon').template
         }
         return undefined;
     });
@@ -109,7 +108,7 @@ export class Tag extends BaseComponent {
 }
 
 @NgModule({
-    imports: [NgClass, NgStyle, SharedModule],
+    imports: [NgClass, NgStyle, NgTemplateOutlet, SharedModule],
     exports: [Tag, SharedModule],
     declarations: [Tag],
 })
