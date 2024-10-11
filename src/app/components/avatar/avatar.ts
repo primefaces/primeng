@@ -2,12 +2,12 @@ import { CommonModule } from '@angular/common';
 import {
     ChangeDetectionStrategy,
     Component,
-    EventEmitter,
+    OutputEmitterRef,
     HostBinding,
     inject,
     input,
     NgModule,
-    Output,
+    output,
     ViewEncapsulation,
 } from '@angular/core';
 import { BaseComponent } from 'primeng/basecomponent';
@@ -100,7 +100,7 @@ export class Avatar extends BaseComponent {
      * @param {Event} event - Browser event.
      * @group Emits
      */
-    @Output() onImageError: EventEmitter<Event> = new EventEmitter<Event>();
+    onImageError: OutputEmitterRef<Event> = output<Event>();
 
     _componentStyle = inject(AvatarStyle);
 
