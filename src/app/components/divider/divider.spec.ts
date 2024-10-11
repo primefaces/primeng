@@ -19,7 +19,6 @@ describe('Divider', () => {
     it('should display by default', () => {
         fixture.detectChanges();
 
-        const dividerEl = fixture.debugElement.query(By.css('.p-divider'));
-        expect(dividerEl.nativeElement).toBeTruthy();
+        expect(fixture.nativeElement.classList).toContain('p-divider');
     });
 });
