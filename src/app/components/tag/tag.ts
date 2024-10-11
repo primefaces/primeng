@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { NgClass, NgStyle } from '@angular/common';
 import {
     ChangeDetectionStrategy,
     Component,
@@ -23,18 +23,18 @@ import { TagStyle } from './style/tagstyle';
     selector: 'p-tag',
     template: `
         <span [ngClass]="containerClass()" [class]="styleClass" [ngStyle]="style">
-          <ng-content></ng-content>
-          @if (!iconTemplate) {
-            @if (icon) {
-              <span class="p-tag-icon" [ngClass]="icon"></span>
+            <ng-content></ng-content>
+            @if (!iconTemplate) {
+                @if (icon) {
+                    <span class="p-tag-icon" [ngClass]="icon"></span>
+                }
             }
-          }
-          @if (iconTemplate) {
-            <span class="p-tag-icon">
-              <ng-template *ngTemplateOutlet="iconTemplate"></ng-template>
-            </span>
-          }
-          <span class="p-tag-label">{{ value }}</span>
+            @if (iconTemplate) {
+                <span class="p-tag-icon">
+                    <ng-template *ngTemplateOutlet="iconTemplate"></ng-template>
+                </span>
+            }
+            <span class="p-tag-label">{{ value }}</span>
         </span>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -109,7 +109,7 @@ export class Tag extends BaseComponent {
 }
 
 @NgModule({
-    imports: [CommonModule, SharedModule],
+    imports: [NgClass, NgStyle, SharedModule],
     exports: [Tag, SharedModule],
     declarations: [Tag],
 })
