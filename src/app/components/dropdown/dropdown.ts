@@ -649,6 +649,11 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
      */
     @Input({ transform: booleanAttribute }) autofocusFilter: boolean = true;
     /**
+     * Determines if the panel will be shown when the input is focused and receives a character key down event.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) autoShowPanelOnPrintableCharacterKeyDown: boolean = true;
+    /**
      * When present, it specifies that the component should be disabled.
      * @group Props
      */
@@ -1551,7 +1556,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
 
             default:
                 if (!event.metaKey && ObjectUtils.isPrintableCharacter(event.key)) {
-                    !this.overlayVisible && this.show();
+                    !this.overlayVisible && this.autoShowPanelOnPrintableCharacterKeyDown && this.show();
                     !this.editable && this.searchOptions(event, event.key);
                 }
 
