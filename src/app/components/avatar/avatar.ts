@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { NgClass } from '@angular/common';
 import {
     ChangeDetectionStrategy,
     Component,
@@ -108,13 +108,13 @@ export class Avatar extends BaseComponent {
         this.onImageError.emit(event);
     }
 
-    @HostBinding('class') get hostClass(): any {
+    @HostBinding('class') get hostClass(): string {
         return this.styleClass();
     }
 }
 
 @NgModule({
-    imports: [CommonModule],
+    imports: [NgClass],
     exports: [Avatar],
     declarations: [Avatar],
 })
