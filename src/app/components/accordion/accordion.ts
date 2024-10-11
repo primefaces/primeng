@@ -39,7 +39,7 @@ import { Ripple } from 'primeng/ripple';
 /**
  * Custom tab open event.
  * @see {@link onOpen}
- * @group Events
+ * @group Interface
  */
 export interface AccordionTabOpenEvent {
     /**
@@ -56,7 +56,7 @@ export interface AccordionTabOpenEvent {
  * Custom tab close event.
  * @see {@link onClose}
  * @extends {AccordionTabOpenEvent}
- * @group Events
+ * @group Interface
  */
 export interface AccordionTabCloseEvent extends AccordionTabOpenEvent {}
 

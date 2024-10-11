@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, input, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, effect, input, Input } from '@angular/core';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 import APIDoc from 'src/app/showcase/doc/apidoc/index.json';
@@ -20,19 +20,16 @@ import { ObjectUtils } from 'primeng/utils';
 export class AppDocApiSection {
     @Input() header!: string;
 
-    // @Input() docs!: any[];
     docs = input<any[] | undefined>([]);
 
     _docs = computed(() => this.docs() && this.createDocs());
 
-    // docs = input<any[] | undefined>();
-
-    // _docs!: any[];
-
     constructor(
         private location: Location,
         private router: Router,
-    ) {}
+    ) {
+        effect(() => console.log(this._docs()));
+    }
 
     ngOnInit() {
         if (!this.router.url.includes('#api')) {
@@ -221,6 +218,8 @@ export class AppDocApiSection {
                         data: this.setTypesData(moduleName, types.values),
                         description: APIDoc[moduleName].types.description || null,
                     });
+
+                    console.log(moduleName, types);
                 }
 
                 if (events && events.values.length) {

@@ -12,7 +12,7 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-accordion value="0">
-                <p-accordion-panel value="0" [disabled]="true">
+                <p-accordion-panel value="0">
                     <p-accordion-header>Header I</p-accordion-header>
                     <p-accordion-content>
                         <p class="m-0">

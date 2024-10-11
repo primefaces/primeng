@@ -35,7 +35,7 @@ import { PrimeTemplate, SharedModule } from 'primeng/api';
  * @property {() => void} activateCallback - Callback function to activate a step.
  * @property {number} value - The value associated with the step.
  * @property {boolean} active - A flag indicating whether the step is active.
- * @group Types
+ * @group Interface
  */
 export interface StepContentTemplateContext {
     activateCallback: () => void;
@@ -49,7 +49,7 @@ export interface StepContentTemplateContext {
  * @property {(index: number) => void} activateCallback - Callback function to activate a step.
  * @property {number} value - The value associated with the step.
  * @property {boolean} active - A flag indicating whether the step is active.
- * @group Types
+ * @group Interface
  */
 export interface StepPanelContentTemplateContext {
     activateCallback: (index: number) => void;

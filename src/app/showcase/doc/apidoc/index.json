@@ -23,23 +23,6 @@
                             "description": "Disables the tab when enabled."
                         }
                     ]
-                },
-                "templates": {
-                    "description": "Defines the templates used by the component.",
-                    "values": [
-                        {
-                            "name": "denemetemplate",
-                            "description": "A description about the accordion deneme template context.",
-                            "type": "TemplateRef<AccordionDenemeTemplateContext>",
-                            "parameters": [
-                                {
-                                    "name": "context",
-                                    "description": "Context of the template",
-                                    "type": "AccordionDenemeTemplateContext"
-                                }
-                            ]
-                        }
-                    ]
                 }
             },
             "AccordionHeader": {
@@ -310,8 +293,8 @@
                 }
             }
         },
-        "events": {
-            "description": "Defines the custom events used by the component's emitters.",
+        "interfaces": {
+            "description": "Defines the custom interfaces used by the module.",
             "values": [
                 {
                     "name": "AccordionTabOpenEvent",
@@ -352,12 +335,7 @@
                             "description": "Opened tab index."
                         }
                     ]
-                }
-            ]
-        },
-        "interfaces": {
-            "description": "Defines the custom interfaces used by the module.",
-            "values": [
+                },
                 {
                     "name": "AccordionToggleIconTemplateContext",
                     "description": "Toggle icon template context.",
@@ -368,40 +346,6 @@
                             "readonly": false,
                             "type": "boolean",
                             "description": "Represents the active status of the panel."
-                        }
-                    ]
-                },
-                {
-                    "name": "AccordionDenemeTemplateContext",
-                    "description": "Deneme template context'i broo",
-                    "props": [
-                        {
-                            "name": "onClick",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "Function",
-                            "description": "This is a void function."
-                        },
-                        {
-                            "name": "onBlur",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "Function",
-                            "description": "This is a function accepts event parameter which is FocusEvent."
-                        },
-                        {
-                            "name": "numberValue",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "number",
-                            "description": "This is a number property."
-                        },
-                        {
-                            "name": "stringValue",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "string",
-                            "description": "This is a string property."
                         }
                     ]
                 }
@@ -11359,13 +11303,6 @@
                             "type": "string",
                             "default": "400ms cubic-bezier(0.86, 0, 0.07, 1)",
                             "description": "Transition options of the panel animation."
-                        },
-                        {
-                            "name": "toggleButtonProps",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "any",
-                            "description": "Used to pass all properties of the buttonProps to the Button component."
                         }
                     ]
                 },
@@ -14451,7 +14388,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "boolean",
-                            "default": "false",
+                            "default": "true",
                             "description": "When enabled, the hovered option will be focused."
                         },
                         {
@@ -16802,6 +16739,42 @@
                             "readonly": false,
                             "type": "any[]",
                             "description": "Array of values to be displayed in the component.\nIt represents the data source for the list of items."
+                        },
+                        {
+                            "name": "buttonProps",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "ButtonProps",
+                            "default": "...",
+                            "description": "Used to pass all properties of the ButtonProps to the Button component."
+                        },
+                        {
+                            "name": "moveUpButtonProps",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "ButtonProps",
+                            "description": "Used to pass all properties of the ButtonProps to the move up button inside the component."
+                        },
+                        {
+                            "name": "moveTopButtonProps",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "ButtonProps",
+                            "description": "Used to pass all properties of the ButtonProps to the move top button inside the component."
+                        },
+                        {
+                            "name": "moveDownButtonProps",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "ButtonProps",
+                            "description": "Used to pass all properties of the ButtonProps to the move down button inside the component."
+                        },
+                        {
+                            "name": "moveBottomButtonProps",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "ButtonProps",
+                            "description": "Used to pass all properties of the ButtonProps to the move bottom button inside the component."
                         }
                     ]
                 },
@@ -18946,6 +18919,70 @@
                             "description": "Whether to focus on the first visible or selected element."
                         },
                         {
+                            "name": "buttonProps",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "ButtonProps",
+                            "default": "...",
+                            "description": "Used to pass all properties of the ButtonProps to the Button component."
+                        },
+                        {
+                            "name": "moveUpButtonProps",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "ButtonProps",
+                            "description": "Used to pass all properties of the ButtonProps to the move up button inside the component."
+                        },
+                        {
+                            "name": "moveTopButtonProps",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "ButtonProps",
+                            "description": "Used to pass all properties of the ButtonProps to the move top button inside the component."
+                        },
+                        {
+                            "name": "moveDownButtonProps",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "ButtonProps",
+                            "description": "Used to pass all properties of the ButtonProps to the move down button inside the component."
+                        },
+                        {
+                            "name": "moveBottomButtonProps",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "ButtonProps",
+                            "description": "Used to pass all properties of the ButtonProps to the move bottom button inside the component."
+                        },
+                        {
+                            "name": "moveToTargetProps",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "ButtonProps",
+                            "description": "Used to pass all properties of the ButtonProps to the move to target button inside the component."
+                        },
+                        {
+                            "name": "moveAllToTargetProps",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "ButtonProps",
+                            "description": "Used to pass all properties of the ButtonProps to the move all to target button inside the component."
+                        },
+                        {
+                            "name": "moveToSourceProps",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "ButtonProps",
+                            "description": "Used to pass all properties of the ButtonProps to the move to source button inside the component."
+                        },
+                        {
+                            "name": "moveAllToSourceProps",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "ButtonProps",
+                            "description": "Used to pass all properties of the ButtonProps to the move all to source button inside the component."
+                        },
+                        {
                             "name": "breakpoint",
                             "optional": false,
                             "readonly": false,
@@ -20023,6 +20060,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "ButtonProps",
+                            "default": "...",
                             "description": "Used to pass all properties of the ButtonProps to the Button component."
                         }
                     ]
@@ -21493,6 +21531,13 @@
                             "description": "Identifier of the underlying input element."
                         },
                         {
+                            "name": "tooltipOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "TooltipOptions",
+                            "description": "Whether to display the tooltip on items. The modifiers of Tooltip can be used like an object in it. Valid keys are 'event' and 'position'."
+                        },
+                        {
                             "name": "buttonProps",
                             "optional": false,
                             "readonly": false,
@@ -21726,6 +21771,13 @@
                             "readonly": false,
                             "type": "string",
                             "description": "Style class of the overlay menu."
+                        },
+                        {
+                            "name": "dropdownIcon",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Name of the dropdown icon."
                         },
                         {
                             "name": "appendTo",
@@ -22121,62 +22173,60 @@
                 }
             }
         },
-        "types": {
-            "description": "Defines the custom types used by the module.",
+        "interfaces": {
+            "description": "Defines the custom interfaces used by the module.",
             "values": [
                 {
                     "name": "StepContentTemplateContext",
                     "description": "Context interface for the StepPanel content template.",
-                    "children": [
+                    "props": [
                         {
                             "name": "activateCallback",
-                            "description": "Callback function to activate a step.",
-                            "type": "function",
-                            "returns": {
-                                "type": "void",
-                                "description": ""
-                            }
+                            "optional": false,
+                            "readonly": false,
+                            "type": "Function",
+                            "description": "Callback function to activate a step."
                         },
                         {
                             "name": "value",
-                            "description": "The value associated with the step.",
-                            "type": "number"
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number",
+                            "description": "The value associated with the step."
                         },
                         {
                             "name": "active",
-                            "description": "A flag indicating whether the step is active.",
-                            "type": "boolean"
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "description": "A flag indicating whether the step is active."
                         }
                     ]
                 },
                 {
                     "name": "StepPanelContentTemplateContext",
                     "description": "Context interface for the StepPanel content template.",
-                    "children": [
+                    "props": [
                         {
                             "name": "activateCallback",
-                            "description": "Callback function to activate a step.",
-                            "type": "function",
-                            "parameters": [
-                                {
-                                    "name": "index",
-                                    "type": "number"
-                                }
-                            ],
-                            "returns": {
-                                "type": "void",
-                                "description": ""
-                            }
+                            "optional": false,
+                            "readonly": false,
+                            "type": "Function",
+                            "description": "Callback function to activate a step."
                         },
                         {
                             "name": "value",
-                            "description": "The value associated with the step.",
-                            "type": "number"
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number",
+                            "description": "The value associated with the step."
                         },
                         {
                             "name": "active",
-                            "description": "A flag indicating whether the step is active.",
-                            "type": "boolean"
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "description": "A flag indicating whether the step is active."
                         }
                     ]
                 }
