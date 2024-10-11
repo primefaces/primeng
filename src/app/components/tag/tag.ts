@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import {
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     ContentChildren,
     Input,
@@ -24,14 +23,18 @@ import { TagStyle } from './style/tagstyle';
     selector: 'p-tag',
     template: `
         <span [ngClass]="containerClass()" [class]="styleClass" [ngStyle]="style">
-            <ng-content></ng-content>
-            <ng-container *ngIf="!iconTemplate">
-                <span class="p-tag-icon" [ngClass]="icon" *ngIf="icon"></span>
-            </ng-container>
-            <span class="p-tag-icon" *ngIf="iconTemplate">
-                <ng-template *ngTemplateOutlet="iconTemplate"></ng-template>
+          <ng-content></ng-content>
+          @if (!iconTemplate) {
+            @if (icon) {
+              <span class="p-tag-icon" [ngClass]="icon"></span>
+            }
+          }
+          @if (iconTemplate) {
+            <span class="p-tag-icon">
+              <ng-template *ngTemplateOutlet="iconTemplate"></ng-template>
             </span>
-            <span class="p-tag-label">{{ value }}</span>
+          }
+          <span class="p-tag-label">{{ value }}</span>
         </span>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
