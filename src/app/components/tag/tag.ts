@@ -3,7 +3,7 @@ import {
     ChangeDetectionStrategy,
     Component,
     ContentChildren,
-    Input,
+    input,
     NgModule,
     QueryList,
     TemplateRef,
@@ -22,11 +22,11 @@ import { TagStyle } from './style/tagstyle';
 @Component({
     selector: 'p-tag',
     template: `
-        <span [ngClass]="containerClass()" [class]="styleClass" [ngStyle]="style">
+        <span [ngClass]="containerClass()" [class]="styleClass()" [ngStyle]="style()">
             <ng-content></ng-content>
             @if (!iconTemplate) {
-                @if (icon) {
-                    <span class="p-tag-icon" [ngClass]="icon"></span>
+                @if (icon()) {
+                    <span class="p-tag-icon" [ngClass]="icon()"></span>
                 }
             }
             @if (iconTemplate) {
@@ -34,7 +34,7 @@ import { TagStyle } from './style/tagstyle';
                     <ng-template *ngTemplateOutlet="iconTemplate"></ng-template>
                 </span>
             }
-            <span class="p-tag-label">{{ value }}</span>
+            <span class="p-tag-label">{{ value() }}</span>
         </span>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -47,45 +47,37 @@ export class Tag extends BaseComponent {
      * Inline style of the component.
      * @group Props
      */
-    @Input() get style(): { [klass: string]: any } | null | undefined {
-        return this._style;
-    }
-    set style(value: { [klass: string]: any } | null | undefined) {
-        this._style = value;
-        this.cd.markForCheck();
-    }
+    style = input<{ [klass: string]: any } | null>();
     /**
      * Style class of the component.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    styleClass = input<string>();
     /**
      * Severity type of the tag.
      * @group Props
      */
-    @Input() severity: 'success' | 'secondary' | 'info' | 'warn' | 'danger' | 'contrast' | undefined;
+    severity = input<'success' | 'secondary' | 'info' | 'warn' | 'danger' | 'contrast'>();
     /**
      * Value to display inside the tag.
      * @group Props
      */
-    @Input() value: string | undefined;
+    value = input<string>();
     /**
      * Icon of the tag to display next to the value.
      * @group Props
      * @deprecated since 15.4.2. Use 'icon' template.
      */
-    @Input() icon: string | undefined;
+    icon = input<string>();
     /**
      * Whether the corners of the tag are rounded.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) rounded: boolean | undefined;
+    rounded = input<boolean, any>(undefined, { transform: booleanAttribute });
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
     iconTemplate: TemplateRef<any> | undefined;
-
-    _style: { [klass: string]: any } | null | undefined;
 
     _componentStyle = inject(TagStyle);
 
@@ -102,8 +94,8 @@ export class Tag extends BaseComponent {
     containerClass() {
         return {
             'p-tag p-component': true,
-            [`p-tag-${this.severity}`]: this.severity,
-            'p-tag-rounded': this.rounded,
+            [`p-tag-${this.severity()}`]: this.severity(),
+            'p-tag-rounded': this.rounded(),
         };
     }
 }
