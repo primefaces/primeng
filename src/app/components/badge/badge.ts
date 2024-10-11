@@ -1,19 +1,18 @@
-import { CommonModule, DOCUMENT } from '@angular/common';
+import { NgClass, NgStyle } from '@angular/common';
 import {
     AfterViewInit,
     ChangeDetectionStrategy,
     Component,
     Directive,
-    ElementRef,
-    Inject,
     Input,
     NgModule,
-    Renderer2,
     OnChanges,
     SimpleChanges,
     ViewEncapsulation,
     booleanAttribute,
     inject,
+    input,
+    computed,
 } from '@angular/core';
 import { SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
@@ -226,7 +225,11 @@ export class BadgeDirective extends BaseComponent implements OnChanges, AfterVie
  */
 @Component({
     selector: 'p-badge',
-    template: ` <span *ngIf="!badgeDisabled" [ngClass]="containerClass()" [class]="styleClass" [ngStyle]="style">{{ value }}</span> `,
+    template: `
+        @if (!badgeDisabled()) {
+            <span [ngClass]="containerClass()" [class]="styleClass()" [ngStyle]="style()">{{ value() }}</span>
+        }
+    `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     providers: [BadgeStyle],
@@ -236,63 +239,54 @@ export class Badge extends BaseComponent {
      * Class of the element.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    styleClass = input<string>();
     /**
      * Inline style of the element.
      * @group Props
      */
-    @Input() style: { [klass: string]: any } | null | undefined;
+    style = input<{ [klass: string]: any } | null>();
     /**
      * Size of the badge, valid options are "large" and "xlarge".
      * @group Props
      */
-    @Input() badgeSize: 'small' | 'large' | 'xlarge' | null | undefined;
+    badgeSize = input<'small' | 'large' | 'xlarge' | null>();
     /**
      * Severity type of the badge.
      * @group Props
      */
-    @Input() severity: 'success' | 'info' | 'warn' | 'danger' | 'help' | 'primary' | 'secondary' | 'contrast' | null | undefined;
+    severity = input<'success' | 'info' | 'warn' | 'danger' | 'help' | 'primary' | 'secondary' | 'contrast' | null>();
     /**
      * Value to display inside the badge.
      * @group Props
      */
-    @Input() value: string | number | null | undefined;
+    value = input<string | number | null>();
     /**
      * When specified, disables the component.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) badgeDisabled: boolean = false;
-    /**
-     * Size of the badge, valid options are "large" and "xlarge".
-     * @group Props
-     * @deprecated use badgeSize instead.
-     */
-    @Input() public set size(value: 'large' | 'xlarge' | 'small' | undefined | null) {
-        this._size = value;
-        !this.badgeSize && this.size && console.log('size property is deprecated and will removed in v18, use badgeSize instead.');
-    }
-    get size() {
-        return this._size;
-    }
-    _size: 'large' | 'xlarge' | 'small' | undefined | null;
+    badgeDisabled = input<boolean, boolean>(false, { transform: booleanAttribute });
 
     _componentStyle = inject(BadgeStyle);
 
-    containerClass() {
+    /**
+     * Computes the container class for the badge element based on its properties.
+     * @returns An object representing the CSS classes to be applied to the badge container.
+     */
+    containerClass = computed<{ [klass: string]: any }>(() => {
         return {
             'p-badge p-component': true,
-            'p-badge-circle': ObjectUtils.isNotEmpty(this.value) && String(this.value).length === 1,
-            'p-badge-lg': this.badgeSize === 'large' || this.size === 'large',
-            'p-badge-xl': this.badgeSize === 'xlarge' || this.size === 'xlarge',
-            'p-badge-sm': this.badgeSize === 'small' || this.size === 'small',
-            'p-badge-dot': ObjectUtils.isEmpty(this.value),
-            [`p-badge-${this.severity}`]: this.severity,
+            'p-badge-circle': ObjectUtils.isNotEmpty(this.value()) && String(this.value()).length === 1,
+            'p-badge-lg': this.badgeSize() === 'large',
+            'p-badge-xl': this.badgeSize() === 'xlarge',
+            'p-badge-sm': this.badgeSize() === 'small',
+            'p-badge-dot': ObjectUtils.isEmpty(this.value()),
+            [`p-badge-${this.severity()}`]: this.severity(),
         };
-    }
+    });
 }
 
 @NgModule({
-    imports: [CommonModule],
+    imports: [NgClass, NgStyle],
     exports: [Badge, BadgeDirective, SharedModule],
     declarations: [Badge, BadgeDirective],
 })
