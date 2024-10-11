@@ -2,10 +2,10 @@ import { NgClass, NgStyle } from '@angular/common';
 import {
     ChangeDetectionStrategy,
     Component,
-    ContentChildren,
+    contentChildren,
     input,
     NgModule,
-    QueryList,
+    Signal,
     TemplateRef,
     ViewEncapsulation,
     booleanAttribute,
@@ -25,15 +25,14 @@ import { TagStyle } from './style/tagstyle';
     template: `
         <span [ngClass]="containerClass()" [class]="styleClass()" [ngStyle]="style()">
             <ng-content></ng-content>
-            @if (!iconTemplate) {
+            @if (iconTemplate()) {
+                <span class="p-tag-icon">
+                    <ng-template *ngTemplateOutlet="iconTemplate()"></ng-template>
+                </span>
+            } @else {
                 @if (icon()) {
                     <span class="p-tag-icon" [ngClass]="icon()"></span>
                 }
-            }
-            @if (iconTemplate) {
-                <span class="p-tag-icon">
-                    <ng-template *ngTemplateOutlet="iconTemplate"></ng-template>
-                </span>
             }
             <span class="p-tag-label">{{ value() }}</span>
         </span>
@@ -75,23 +74,29 @@ export class Tag extends BaseComponent {
      * @group Props
      */
     rounded = input<boolean, any>(undefined, { transform: booleanAttribute });
-
-    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
-
-    iconTemplate: TemplateRef<any> | undefined;
-
-    _componentStyle = inject(TagStyle);
-
-    ngAfterContentInit() {
-        this.templates?.forEach((item) => {
-            switch (item.getType()) {
-                case 'icon':
-                    this.iconTemplate = item.template;
-                    break;
-            }
-        });
-    }
-
+    /**
+     * Collection of PrimeTemplate instances found within the content of this component.
+     * These templates can be used to customize the content of the tag.
+     */
+    templates: Signal<readonly PrimeTemplate[]> = contentChildren<PrimeTemplate>(PrimeTemplate);
+    /**
+     * Computes the icon template based on the available `PrimeTemplate` instances.
+     *
+     * @returns {TemplateRef<any> | undefined} The template reference for the icon, or undefined if not found.
+     */
+    iconTemplate = computed<TemplateRef<any> | undefined>(() => {
+        const templates = this.templates();
+        if (templates && templates.length > 0) {
+            const content = templates.find((item) => item.getType() === 'icon');
+            if (content) return content.template;
+        }
+        return undefined;
+    });
+    /**
+     * Computes the CSS classes to be applied to the container element of the tag.
+     *
+     * @returns {Object} An object where the keys are the class names and the values are booleans indicating whether the class should be applied.
+     */
     containerClass = computed<{ [klass: string]: any }>(() => {
         return {
             'p-tag p-component': true,
@@ -99,6 +104,8 @@ export class Tag extends BaseComponent {
             'p-tag-rounded': this.rounded(),
         };
     });
+
+    _componentStyle = inject(TagStyle);
 }
 
 @NgModule({
