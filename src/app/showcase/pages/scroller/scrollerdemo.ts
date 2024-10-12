@@ -37,46 +37,46 @@ export class ScrollerDemo {
             id: 'grid',
             label: 'Grid',
             component: GridDoc
-        },
-        {
-            id: 'programmatic',
-            label: 'Programmatic',
-            component: ProgrammaticDoc
-        },
-        {
-            id: 'loader',
-            label: 'Loader',
-            component: LoaderDoc
-        },
-        {
-            id: 'template',
-            label: 'Template',
-            component: TemplateDoc
-        },
-        {
-            id: 'delay',
-            label: 'Delay',
-            component: DelayDoc
-        },
-        {
-            id: 'lazy-load',
-            label: 'Lazy Load',
-            component: LazyLoadDoc
-        },
-        {
-            id: 'scroll-options',
-            label: 'Scroll Options',
-            component: ScrollOptionsDoc
-        },
-        {
-            id: 'style',
-            label: 'Style',
-            component: StyleDoc
-        },
-        {
-            id: 'accessibility',
-            label: 'Accessibility',
-            component: AccessibilityDoc
         }
+        //        {
+        //            id: 'programmatic',
+        //            label: 'Programmatic',
+        //            component: ProgrammaticDoc
+        //        },
+        //        {
+        //            id: 'loader',
+        //            label: 'Loader',
+        //            component: LoaderDoc
+        //        },
+        //        {
+        //            id: 'template',
+        //            label: 'Template',
+        //            component: TemplateDoc
+        //        },
+        //        {
+        //            id: 'delay',
+        //            label: 'Delay',
+        //            component: DelayDoc
+        //        },
+        //        {
+        //            id: 'lazy-load',
+        //            label: 'Lazy Load',
+        //            component: LazyLoadDoc
+        //        },
+        //        {
+        //            id: 'scroll-options',
+        //            label: 'Scroll Options',
+        //            component: ScrollOptionsDoc
+        //        },
+        //        {
+        //            id: 'style',
+        //            label: 'Style',
+        //            component: StyleDoc
+        //        },
+        //        {
+        //            id: 'accessibility',
+        //            label: 'Accessibility',
+        //            component: AccessibilityDoc
+        //        }
     ];
 }
