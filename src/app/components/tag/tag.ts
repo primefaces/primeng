@@ -89,7 +89,7 @@ export class Tag extends BaseComponent {
         if (content && content.length === 1) {
             return content[0].template;
         }
-        if (content.length > 1) {
+        if (content && content.length > 1) {
             console.warn('Multiple templates with the type "icon" found. Only one "icon" template is allowed.');
         }
         return undefined;
