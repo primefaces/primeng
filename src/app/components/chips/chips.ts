@@ -27,7 +27,7 @@ import { TimesCircleIcon } from 'primeng/icons/timescircle';
 import { InputTextModule } from 'primeng/inputtext';
 import { Nullable } from 'primeng/ts-helpers';
 import { UniqueComponentId } from 'primeng/utils';
-import { ChipsAddEvent, ChipsClickEvent, ChipsRemoveEvent } from './chips.interface';
+import { ChipsAddEvent, ChipsClickEvent, ChipsContextMenuEvent, ChipsRemoveEvent } from './chips.interface';
 
 export const CHIPS_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -81,6 +81,7 @@ export const CHIPS_VALUE_ACCESSOR: any = {
                     [attr.data-p-focused]="focusedIndex === i"
                     [ngClass]="{ 'p-chips-token': true, 'p-focus': focusedIndex === i }"
                     (click)="onItemClick($event, item)"
+                    (contextmenu)="onItemContextMenu($event, item)"
                     [attr.data-pc-section]="'token'"
                 >
                     <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: item }"></ng-container>
@@ -269,6 +270,12 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
      */
     @Output() onChipClick: EventEmitter<ChipsClickEvent> = new EventEmitter<ChipsClickEvent>();
     /**
+     * Callback to invoke on chip contextmenu.
+     * @param {ChipsClickEvent} event - Custom chip contextmenu event.
+     * @group Emits
+     */
+    @Output() onChipContextMenu: EventEmitter<ChipsContextMenuEvent> = new EventEmitter<ChipsContextMenuEvent>();
+    /**
      * Callback to invoke on clear token clicked.
      * @group Emits
      */
@@ -432,6 +439,13 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
 
     onItemClick(event: Event, item: any) {
         this.onChipClick.emit({
+            originalEvent: event,
+            value: item
+        });
+    }
+
+    onItemContextMenu(event: Event, item: any) {
+        this.onChipContextMenu.emit({
             originalEvent: event,
             value: item
         });
