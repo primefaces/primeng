@@ -85,9 +85,12 @@ export class Tag extends BaseComponent {
      * @returns {TemplateRef<any> | undefined} The template reference for the icon, or undefined if not found.
      */
     iconTemplate = computed<TemplateRef<any> | undefined>(() => {
-        const templates = this.templates();
-        if (templates && templates.length === 1) {
-            return templates.find((item) => item.getType() === 'icon').template;
+        const content = this.templates()?.filter((item) => item.getType() === 'icon');
+        if (content && content.length === 1) {
+            return content[0].template;
+        }
+        if (content.length > 1) {
+            console.warn('Multiple templates with the type "icon" found. Only one "icon" template is allowed.');
         }
         return undefined;
     });
