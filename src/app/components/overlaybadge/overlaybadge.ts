@@ -20,7 +20,7 @@ import { BadgeModule } from 'primeng/badge';
                 [severity]="severity"
                 [value]="value"
                 [badgeDisabled]="badgeDisabled"
-                [size]="size"
+                [badgeSize]="size"
             />
         </div>
     `,
@@ -85,4 +85,4 @@ export class OverlayBadge extends BaseComponent {
     exports: [OverlayBadge, SharedModule, BadgeModule],
     declarations: [OverlayBadge],
 })
-export class OverlayBadgeModule {}
+export class OverlayBadgeModule { }
