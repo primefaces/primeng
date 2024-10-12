@@ -763,7 +763,7 @@ export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, B
             tab.selected = false;
             for (let i = 0; i < this.tabs.length; i++) {
                 let tabPanel = this.tabs[i];
-                if (!tabPanel.closed && !tab.disabled && tabPanel!=tab) {
+                if (!tabPanel.closed && !tab.disabled && tabPanel != tab) {
                     tabPanel.selected = true;
                     break;
                 }
