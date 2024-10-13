@@ -1,15 +1,5 @@
 import { NgClass } from '@angular/common';
-import {
-    ChangeDetectionStrategy,
-    Component,
-    OutputEmitterRef,
-    HostBinding,
-    inject,
-    input,
-    NgModule,
-    output,
-    ViewEncapsulation,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, OutputEmitterRef, inject, input, NgModule, output, ViewEncapsulation } from '@angular/core';
 import { BaseComponent } from 'primeng/basecomponent';
 import { AvatarStyle } from './style/avatarstyle';
 
@@ -46,6 +36,7 @@ import { AvatarStyle } from './style/avatarstyle';
         '[attr.aria-label]': 'ariaLabel()',
         '[attr.aria-labelledby]': 'ariaLabelledBy()',
         '[style]': 'style()',
+        '[class]': 'styleClass()',
     },
     providers: [AvatarStyle],
 })
@@ -106,10 +97,6 @@ export class Avatar extends BaseComponent {
 
     imageError(event: Event) {
         this.onImageError.emit(event);
-    }
-
-    @HostBinding('class') get hostClass(): string {
-        return this.styleClass();
     }
 }
 
