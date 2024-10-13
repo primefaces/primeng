@@ -154,26 +154,39 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
         this.recalculateSize();
     }
     private recalculateSize() {
-        if (typeof this._getItemSize !== 'function') return;
+        if (typeof this._getItemSize !== 'function' || !this._items) return;
 
+        this._itemsPosition.y = Array.from({ length: this._items.length });
+
+        let i = 0,
+            yPos = 0;
         if (this.isBoth(this._items)) {
-            this._gridItemsPos = Array.from({ length: this._items.length }, () => []);
-            for (let i = 0, yPos = 0; i < this._items.length; i++) {
-                let sizes: { y: number; x?: number } = { y: 0 };
-                for (let j = 0, xPos = 0; j < this._items[i].length; j++) {
-                    this._gridItemsPos[i][j] = { x: xPos, y: yPos };
+            const xPositionsMap: Record<number, number> = {};
+            while (i < this._items.length) {
+                let maxRowHeight = 0;
 
-                    sizes = this._getItemSize(this._items[i][j]);
-                    xPos += sizes.x || 0;
+                let j = 0,
+                    xPos = 0;
+                while (j < this._items[i].length) {
+                    const size = this._getItemSize(this._items[i][j]);
+                    xPositionsMap[j] = xPos > (xPositionsMap[j] ?? 0) ? xPos : xPositionsMap[j] ?? 0;
+                    xPos += size.x || 0;
+                    maxRowHeight = size.y > maxRowHeight ? size.y : maxRowHeight;
+
+                    j++;
                 }
-                yPos += sizes.y;
-            }
-        } else {
-            this._itemsPosition = Array.from({ length: this._items.length });
-            for (let i = 0, itemPos = 0; i < this._items.length; i++) {
-                this._itemsPosition[i] = itemPos;
+                this._itemsPosition.y[i] = yPos;
+                yPos += maxRowHeight;
 
-                itemPos += this._getItemSize(this._items[i]).y;
+                i++;
+            }
+            this._itemsPosition.x = Object.values(xPositionsMap);
+        } else {
+            while (i < this._items.length) {
+                const size = this._getItemSize(this._items[i]);
+                this._itemsPosition.y[i] = yPos;
+                yPos += size.y;
+                i++;
             }
         }
     }
@@ -409,9 +422,7 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
 
     _itemSize: number[] | number | ((item: unknown) => { y: number; x?: number }) = [];
 
-    _itemsPosition: number[] = [];
-
-    _gridItemsPos: { y: number; x: number }[][];
+    _itemsPosition: { y: number[]; x: number[] } = { y: [], x: [] };
 
     _scrollHeight: string | undefined;
 
@@ -703,7 +714,7 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
     }
 
     private isBoth(items: typeof this.items): items is unknown[][] {
-        return this.both && !!items;
+        return this.both && items.length && Array.isArray(items[0]);
     }
 
     scrollToIndex(index: number | number[], behavior: ScrollBehavior = 'auto') {
@@ -722,13 +733,13 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
 
             if (this.both) {
                 newFirst = { rows: calculateFirst(index[0], numToleratedItems[0]), cols: calculateFirst(index[1], numToleratedItems[1]) };
-                const pos = this._gridItemsPos[index[0]][index[1]];
+                const pos = { y: this._itemsPosition.y[index[0]], x: this._itemsPosition.x[index[1]] };
                 scrollTo(pos.x + contentPos.left, pos.y + contentPos.top);
                 isScrollChanged = this.lastScrollPos.top !== scrollTop || this.lastScrollPos.left !== scrollLeft;
                 isRangeChanged = newFirst.rows !== first.rows || newFirst.cols !== first.cols;
             } else {
                 newFirst = calculateFirst(index as number, numToleratedItems);
-                const pos = this._itemsPosition[index as number];
+                const pos = this._itemsPosition.y[index as number];
                 this.horizontal ? scrollTo(pos + contentPos.left, scrollTop) : scrollTo(scrollLeft, pos + contentPos.top);
                 isScrollChanged = this.lastScrollPos !== (this.horizontal ? scrollLeft : scrollTop);
                 isRangeChanged = newFirst !== first;
@@ -749,30 +760,34 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
             if (isToStart) {
                 if (this.both) {
                     if (viewport.first.rows - first.rows > (<any>index)[0]) {
-                        const gridPos = this._gridItemsPos[viewport.first.rows - 1][viewport.first.cols];
-                        scrollTo(gridPos.x, gridPos.y);
+                        const y = this._itemsPosition.y[viewport.first.rows - 1];
+                        const x = this._itemsPosition.x[viewport.first.cols];
+                        scrollTo(x, y);
                     } else if (viewport.first.cols - first.cols > (<any>index)[1]) {
-                        const gridPos = this._gridItemsPos[viewport.first.rows][viewport.first.cols - 1];
-                        scrollTo(gridPos.x, gridPos.y);
+                        const y = this._itemsPosition.y[viewport.first.rows];
+                        const x = this._itemsPosition.x[viewport.first.cols - 1];
+                        scrollTo(x, y);
                     }
                 } else {
                     if (viewport.first - first > index) {
-                        const pos = this._itemsPosition[viewport.first - 1];
+                        const pos = this._itemsPosition.y[viewport.first - 1];
                         this.horizontal ? scrollTo(pos, 0) : scrollTo(0, pos);
                     }
                 }
             } else if (isToEnd) {
                 if (this.both) {
                     if (viewport.last.rows - first.rows <= (<any>index)[0] + 1) {
-                        const gridPos = this._gridItemsPos[viewport.first.rows + 1][viewport.first.cols];
-                        scrollTo(gridPos.x, gridPos.y);
+                        const y = this._itemsPosition.y[viewport.first.rows + 1];
+                        const x = this._itemsPosition.x[viewport.first.cols];
+                        scrollTo(x, y);
                     } else if (viewport.last.cols - first.cols <= (<any>index)[1] + 1) {
-                        const gridPos = this._gridItemsPos[viewport.first.rows][viewport.first.cols + 1];
-                        scrollTo(gridPos.x, gridPos.y);
+                        const y = this._itemsPosition.y[viewport.first.rows];
+                        const x = this._itemsPosition.x[viewport.first.cols + 1];
+                        scrollTo(x, y);
                     }
                 } else {
                     if (viewport.last - first <= index + 1) {
-                        const pos = this._itemsPosition[viewport.first + 1];
+                        const pos = this._itemsPosition.y[viewport.first + 1];
                         this.horizontal ? scrollTo(pos, 0) : scrollTo(0, pos);
                     }
                 }
@@ -782,27 +797,31 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
         }
     }
 
-    private binarySearchFirst(pos: number, positions: number[], left = 0, right = positions.length): number {
-        const middle = Math.floor((left + right) / 2);
-        const currPos = positions[middle];
-        const nextPos = positions[middle + 1];
-        if (currPos === undefined || nextPos === undefined || currPos === pos || (currPos < pos && nextPos > pos)) return middle;
-        if (pos < currPos) return this.binarySearchFirst(pos, positions, left, middle);
-        if (pos > currPos) return this.binarySearchFirst(pos, positions, middle, right);
+    private binarySearchFirst(pos: number, positions: number[]): number {
+        let left = 0,
+            right = positions.length,
+            prevMiddle = 0;
+        while (true) {
+            const middle = Math.floor((left + right) / 2);
+            const currPos = positions[middle];
+            const nextPos = positions[middle + 1];
+
+            if (currPos === undefined || nextPos === undefined || currPos === pos || (currPos < pos && nextPos > pos) || middle === prevMiddle) return middle;
+            if (pos < currPos) right = middle;
+            else left = middle;
+            prevMiddle = middle;
+        }
     }
 
     private getFirstInViewport(scrollPos: number): number {
-        return this.binarySearchFirst(scrollPos, this._itemsPosition);
+        return this.binarySearchFirst(scrollPos, this._itemsPosition.y);
     }
 
     private getGridFirstInViewport(scrollTop: number, scrollLeft: number): { firstRowIdx: number; firstColIdx: number } {
-        const ys = [];
-        for (let i = 0; i < this._gridItemsPos.length; i++) ys.push(this._gridItemsPos[i][0].y);
-        const firstRowIdx = this.binarySearchFirst(scrollTop, ys);
-        const xs = [];
-        for (let i = 0; i < this._gridItemsPos[firstRowIdx].length; i++) xs.push(this._gridItemsPos[firstRowIdx][i].x);
+        const firstRowIdx = this.binarySearchFirst(scrollTop, this._itemsPosition.y);
+        const firstColIdx = this.binarySearchFirst(scrollLeft, this._itemsPosition.x);
 
-        return { firstColIdx: this.binarySearchFirst(scrollLeft, xs), firstRowIdx };
+        return { firstRowIdx, firstColIdx };
     }
 
     getRenderedRange() {
@@ -953,11 +972,12 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
             const setProp = (_name: string, _value: any, _cpos: number = 0) => (this.spacerStyle = { ...this.spacerStyle, ...{ [`${_name}`]: _value + _cpos + 'px' } });
 
             if (this.isBoth(this._items)) {
-                const sizes = this._gridItemsPos[Math.max(0, this._items.length - 1)][Math.max((this._items[0]?.length || 0) - 1, 0)];
-                setProp('height', sizes.y, contentPos.y);
-                setProp('width', sizes.x, contentPos.x);
+                const itemPosY = this._itemsPosition.y[Math.max(0, this._items.length - 1)];
+                const itemPosX = this._itemsPosition.x[Math.max((this._items[0]?.length || 0) - 1, 0)];
+                setProp('height', itemPosY, contentPos.y);
+                setProp('width', itemPosX, contentPos.x);
             } else {
-                const size = this._itemsPosition[this._items.length - 1];
+                const size = this._itemsPosition.y[this._items.length - 1];
                 this.horizontal ? setProp('width', size, contentPos.x) : setProp('height', size, contentPos.y);
             }
         }
@@ -969,10 +989,9 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
             const setTransform = (_x = 0, _y = 0) => (this.contentStyle = { ...this.contentStyle, ...{ transform: `translate3d(${_x}px, ${_y}px, 0)` } });
 
             if (this.both) {
-                const translateVal = this._gridItemsPos[first.rows][first.cols];
-                setTransform(translateVal.x, translateVal.y);
+                setTransform(this._itemsPosition.x[first.cols], this._itemsPosition.y[first.rows]);
             } else {
-                const translateVal = this._itemsPosition[first];
+                const translateVal = this._itemsPosition.y[first];
                 this.horizontal ? setTransform(translateVal, 0) : setTransform(0, translateVal);
             }
         }
