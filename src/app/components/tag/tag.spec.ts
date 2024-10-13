@@ -18,7 +18,7 @@ import { By } from '@angular/platform-browser';
 })
 class TestHostComponent {}
 
-fdescribe('Tag', () => {
+describe('Tag', () => {
     let tag: Tag;
     let fixture: ComponentFixture<Tag>;
     let tagRef: ComponentRef<Tag>;
