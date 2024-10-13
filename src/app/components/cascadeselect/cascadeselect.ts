@@ -1,5 +1,5 @@
 import { AnimationEvent } from '@angular/animations';
-import { CommonModule, DOCUMENT } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import {
     AfterContentInit,
     booleanAttribute,
@@ -28,7 +28,7 @@ import {
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { OverlayOptions, OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
-import { AngleRightIcon } from 'primeng/icons/angleright';
+import { AngleEndIcon } from 'primeng/icons/angleend';
 import { AutoFocusModule } from 'primeng/autofocus';
 
 import { ChevronDownIcon } from 'primeng/icons/chevrondown';
@@ -38,7 +38,6 @@ import { RippleModule } from 'primeng/ripple';
 import { Nullable } from 'primeng/ts-helpers';
 import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
 import { CascadeSelectBeforeHideEvent, CascadeSelectBeforeShowEvent, CascadeSelectChangeEvent, CascadeSelectHideEvent, CascadeSelectShowEvent } from './cascadeselect.interface';
-import { AngleLeftIcon } from '../icons/angleleft/angleleft';
 
 export const CASCADESELECT_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -81,11 +80,7 @@ export const CASCADESELECT_VALUE_ACCESSOR: any = {
                         </ng-template>
                         <span class="p-cascadeselect-group-icon" *ngIf="isOptionGroup(processedOption)"
                               [attr.data-pc-section]="'groupIcon'">
-                            @if (isRTL) {
-                                <AngleLeftIcon *ngIf="!groupIconTemplate" />
-                            } @else {
-                                <AngleRightIcon *ngIf="!groupIconTemplate" />
-                            }
+                            <AngleEndIcon *ngIf="!groupIconTemplate" />
                             <ng-template *ngTemplateOutlet="groupIconTemplate"></ng-template>
                         </span>
                     </div>
@@ -152,7 +147,6 @@ export class CascadeSelectSub implements OnInit {
     }
 
     constructor(
-        @Inject(DOCUMENT) private document: Document,
         private el: ElementRef,
         public config: PrimeNGConfig
     ) {}
@@ -161,10 +155,6 @@ export class CascadeSelectSub implements OnInit {
         if (!this.root) {
             this.position();
         }
-    }
-
-    public get isRTL() {
-        return this.document.documentElement.dir === 'rtl';
     }
 
     onOptionClick(event, option: any) {
@@ -1398,7 +1388,7 @@ export class CascadeSelect implements OnInit, AfterContentInit {
 }
 
 @NgModule({
-    imports: [CommonModule, OverlayModule, SharedModule, RippleModule, AutoFocusModule, ChevronDownIcon, AngleRightIcon, AngleLeftIcon, TimesIcon],
+    imports: [CommonModule, OverlayModule, SharedModule, RippleModule, AutoFocusModule, ChevronDownIcon, AngleEndIcon, TimesIcon],
     exports: [CascadeSelect, OverlayModule, CascadeSelectSub, SharedModule],
     declarations: [CascadeSelect, CascadeSelectSub]
 })

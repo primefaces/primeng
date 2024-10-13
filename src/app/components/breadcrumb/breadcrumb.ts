@@ -1,11 +1,10 @@
-import { CommonModule, DOCUMENT } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import {
     AfterContentInit,
     ChangeDetectionStrategy,
     Component,
     ContentChildren,
     EventEmitter,
-    Inject,
     Input,
     NgModule,
     Output,
@@ -15,8 +14,7 @@ import {
 } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { MenuItem, PrimeTemplate, SharedModule } from 'primeng/api';
-import { ChevronRightIcon } from 'primeng/icons/chevronright';
-import { ChevronLeftIcon } from 'primeng/icons/chevronleft';
+import { ChevronEndIcon } from 'primeng/icons/chevronend';
 import { HomeIcon } from 'primeng/icons/home';
 import { TooltipModule } from 'primeng/tooltip';
 import { BreadcrumbItemClickEvent } from './breadcrumb.interface';
@@ -87,11 +85,7 @@ import { BreadcrumbItemClickEvent } from './breadcrumb.interface';
                     </a>
                 </li>
                 <li *ngIf="model && home" class="p-menuitem-separator" [attr.data-pc-section]="'separator'">
-                    @if(isRTL()) {
-                    <ChevronLeftIcon *ngIf="!separatorTemplate" />
-                    } @else {
-                    <ChevronRightIcon *ngIf="!separatorTemplate" />
-                    }
+                    <ChevronEndIcon *ngIf="!separatorTemplate" />
                     <ng-template *ngTemplateOutlet="separatorTemplate"></ng-template>
                 </li>
                 <ng-template ngFor let-item let-end="last" [ngForOf]="model">
@@ -158,11 +152,7 @@ import { BreadcrumbItemClickEvent } from './breadcrumb.interface';
                         </a>
                     </li>
                     <li *ngIf="!end" class="p-menuitem-separator" [attr.data-pc-section]="'separator'">
-                        @if(isRTL()) {
-                            <ChevronLeftIcon *ngIf="!separatorTemplate" />
-                        } @else {
-                            <ChevronRightIcon *ngIf="!separatorTemplate" />
-                        }
+                        <ChevronEndIcon *ngIf="!separatorTemplate" />
                         <ng-template *ngTemplateOutlet="separatorTemplate"></ng-template>
                     </li>
                 </ng-template>
@@ -216,12 +206,7 @@ export class Breadcrumb implements AfterContentInit {
     itemTemplate: TemplateRef<any> | undefined;
 
     constructor(
-        @Inject(DOCUMENT) private readonly document: Document,
         private router: Router) {}
-
-    public isRTL(): boolean {
-        return this.document.documentElement.dir === 'rtl';
-    }
 
     onClick(event: MouseEvent, item: MenuItem) {
         if (item.disabled) {
@@ -279,7 +264,7 @@ export class Breadcrumb implements AfterContentInit {
 }
 
 @NgModule({
-    imports: [CommonModule, RouterModule, TooltipModule, ChevronRightIcon, ChevronLeftIcon, HomeIcon, SharedModule],
+    imports: [CommonModule, RouterModule, TooltipModule, ChevronEndIcon, HomeIcon, SharedModule],
     exports: [Breadcrumb, RouterModule, TooltipModule, SharedModule],
     declarations: [Breadcrumb]
 })

@@ -41,7 +41,7 @@ import { ObjectUtils } from 'primeng/utils';
 import { Subscription } from 'rxjs';
 import { CheckIcon } from 'primeng/icons/check';
 import { ChevronDownIcon } from 'primeng/icons/chevrondown';
-import { ChevronRightIcon } from 'primeng/icons/chevronright';
+import { ChevronEndIcon } from 'primeng/icons/chevronend';
 import { MinusIcon } from 'primeng/icons/minus';
 import { PlusIcon } from 'primeng/icons/plus';
 import { SearchIcon } from 'primeng/icons/search';
@@ -59,7 +59,6 @@ import {
     TreeScrollEvent,
     TreeScrollIndexChangeEvent
 } from './tree.interface';
-import { ChevronLeftIcon } from '../icons/chevronleft/chevronleft';
 
 @Component({
     selector: 'p-treeNode',
@@ -113,11 +112,7 @@ import { ChevronLeftIcon } from '../icons/chevronleft/chevronleft';
                             (click)="toggle($event)" pRipple tabindex="-1">
                         <ng-container *ngIf="!tree.togglerIconTemplate">
                             <ng-container *ngIf="!node.loading">
-                                @if (isRTL) {
-                                    <ChevronLeftIcon *ngIf="!node.expanded" [styleClass]="'p-tree-toggler-icon'" />
-                                } @else {
-                                    <ChevronRightIcon *ngIf="!node.expanded" [styleClass]="'p-tree-toggler-icon'" />
-                                }
+                                <ChevronEndIcon *ngIf="!node.expanded" [styleClass]="'p-tree-toggler-icon'" />
                                 <ChevronDownIcon *ngIf="node.expanded" [styleClass]="'p-tree-toggler-icon'" />
                             </ng-container>
                             <ng-container *ngIf="loadingMode === 'icon' && node.loading">
@@ -319,10 +314,6 @@ export class UITreeNode implements OnInit {
             this.setAllNodesTabIndexes();
             this.tree.syncNodeOption(<TreeNode>this.node, <TreeNode<any>[]>this.tree.value, 'parent', this.tree.getNodeWithKey(<string>this.parentNode.key, <TreeNode<any>[]>this.tree.value));
         }
-    }
-
-    public get isRTL() {
-        return this.document.documentElement.dir === 'rtl';
     }
 
     getIcon() {
@@ -1875,7 +1866,7 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
 }
 
 @NgModule({
-    imports: [CommonModule, SharedModule, RippleModule, ScrollerModule, CheckIcon, ChevronDownIcon, ChevronRightIcon, ChevronLeftIcon, MinusIcon, SearchIcon, SpinnerIcon, PlusIcon],
+    imports: [CommonModule, SharedModule, RippleModule, ScrollerModule, CheckIcon, ChevronDownIcon, ChevronEndIcon, MinusIcon, SearchIcon, SpinnerIcon, PlusIcon],
     exports: [Tree, SharedModule, ScrollerModule],
     declarations: [Tree, UITreeNode]
 })

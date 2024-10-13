@@ -6552,12 +6552,7 @@
   .p-accordion .p-accordion-header .p-accordion-header-link:hover {
     border-bottom-color: #e2e8f0;
   }
-  .p-accordion .p-accordion-header .p-accordion-header-link .p-accordion-toggle-icon {
-    transform: rotate(90deg);
-  }
-  .p-accordion .p-accordion-header.p-highlight .p-accordion-toggle-icon {
-    transform: rotate(-180deg);
-  }
+
   .p-accordion .p-accordion-header:not(.p-disabled) .p-accordion-header-link:focus-visible {
     outline-offset: -2px;
   }

@@ -28,11 +28,9 @@ import { RouterModule } from '@angular/router';
 import { MenuItem, PrimeTemplate, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { AngleDownIcon } from 'primeng/icons/angledown';
-import { AngleRightIcon } from 'primeng/icons/angleright';
-import { AngleLeftIcon } from 'primeng/icons/angleleft';
+import { AngleEndIcon } from 'primeng/icons/angleend';
 import { ChevronDownIcon } from 'primeng/icons/chevrondown';
-import { ChevronRightIcon } from 'primeng/icons/chevronright';
-import { ChevronLeftIcon } from '../icons/chevronleft/chevronleft';
+import { ChevronEndIcon } from 'primeng/icons/chevronend';
 import { TooltipModule } from 'primeng/tooltip';
 import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
 
@@ -90,17 +88,10 @@ import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
                                                 [ngStyle]="getItemProp(processedItem, 'iconStyle')"
                                             />
                                         } @else {
-                                            @if (isRTL()) {
-                                                <AngleLeftIcon
-                                                    [styleClass]="'p-submenu-icon'"
-                                                    [ngStyle]="getItemProp(processedItem, 'iconStyle')"
-                                                />
-                                            } @else {
-                                                <AngleRightIcon
-                                                    [styleClass]="'p-submenu-icon'"
-                                                    [ngStyle]="getItemProp(processedItem, 'iconStyle')"
-                                                />
-                                            }
+                                            <AngleEndIcon
+                                                [styleClass]="'p-submenu-icon'"
+                                                [ngStyle]="getItemProp(processedItem, 'iconStyle')"
+                                            />
                                         }
                                     </ng-container>
                                     <ng-template *ngTemplateOutlet="panelMenu.submenuIconTemplate"></ng-template>
@@ -140,13 +131,10 @@ import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
                                             <AngleDownIcon [styleClass]="'p-submenu-icon'"
                                                            [ngStyle]="getItemProp(processedItem, 'iconStyle')" />
                                         } @else {
-                                            @if (isRTL) {
-                                                <AngleLeftIcon [styleClass]="'p-submenu-icon'"
-                                                               [ngStyle]="getItemProp(processedItem, 'iconStyle')" />
-                                            } @else {
-                                                <AngleRightIcon [styleClass]="'p-submenu-icon'"
-                                                                [ngStyle]="getItemProp(processedItem, 'iconStyle')" />
-                                            }
+                                            <AngleEndIcon
+                                                [styleClass]="'p-submenu-icon'"
+                                                [ngStyle]="getItemProp(processedItem, 'iconStyle')"
+                                            />
                                         }
                                     </ng-container>
                                     <ng-template *ngTemplateOutlet="panelMenu.submenuIconTemplate"></ng-template>
@@ -245,10 +233,6 @@ export class PanelMenuSub {
         @Inject(forwardRef(() => PanelMenu)) public panelMenu: PanelMenu,
         public el: ElementRef
     ) {}
-
-    public isRTL(): boolean {
-        return this.document.documentElement.dir === 'rtl';
-    }
 
     getItemId(processedItem) {
         return processedItem.item?.id ?? `${this.panelId}_${processedItem.key}`;
@@ -805,11 +789,7 @@ export class PanelMenuList implements OnChanges {
                                             @if (isItemActive(item)) {
                                                 <ChevronDownIcon [styleClass]="'p-submenu-icon'" />
                                             } @else {
-                                                @if (isRTL()) {
-                                                    <ChevronLeftIcon [styleClass]="'p-submenu-icon'" />
-                                                } @else {
-                                                    <ChevronRightIcon [styleClass]="'p-submenu-icon'" />
-                                                }
+                                                <ChevronEndIcon [styleClass]="'p-submenu-icon'" />
                                             }
                                         </ng-container>
                                         <ng-template *ngTemplateOutlet="submenuIconTemplate"></ng-template>
@@ -848,11 +828,7 @@ export class PanelMenuList implements OnChanges {
                                         @if (isItemActive(item)) {
                                             <ChevronDownIcon [styleClass]="'p-submenu-icon'" />
                                         } @else {
-                                            @if (isRTL()) {
-                                                <ChevronLeftIcon [styleClass]="'p-submenu-icon'" />
-                                            } @else {
-                                                <ChevronRightIcon [styleClass]="'p-submenu-icon'" />
-                                            }
+                                            <ChevronEndIcon [styleClass]="'p-submenu-icon'" />
                                         }
                                     </ng-container>
                                     <ng-template *ngTemplateOutlet="submenuIconTemplate"></ng-template>
@@ -995,13 +971,8 @@ export class PanelMenu implements AfterContentInit {
     }
 
     constructor(
-        @Inject(DOCUMENT) private readonly document: Document,
         private cd: ChangeDetectorRef
     ) {}
-
-    public isRTL(): boolean {
-        return this.document.documentElement.dir === 'rtl';
-    }
 
     /**
      * Collapses open panels.
@@ -1189,7 +1160,7 @@ export class PanelMenu implements AfterContentInit {
     }
 }
 @NgModule({
-    imports: [CommonModule, RouterModule, TooltipModule, SharedModule, AngleDownIcon, AngleRightIcon, AngleLeftIcon, ChevronDownIcon, ChevronRightIcon, ChevronLeftIcon],
+    imports: [CommonModule, RouterModule, TooltipModule, SharedModule, AngleDownIcon, AngleEndIcon, ChevronDownIcon, ChevronEndIcon],
     exports: [PanelMenu, RouterModule, TooltipModule, SharedModule],
     declarations: [PanelMenu, PanelMenuSub, PanelMenuList]
 })

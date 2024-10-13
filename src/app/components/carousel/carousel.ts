@@ -25,8 +25,8 @@ import {
 } from '@angular/core';
 import { Footer, Header, PrimeTemplate, SharedModule } from 'primeng/api';
 import { ChevronDownIcon } from 'primeng/icons/chevrondown';
-import { ChevronLeftIcon } from 'primeng/icons/chevronleft';
-import { ChevronRightIcon } from 'primeng/icons/chevronright';
+import { ChevronStartIcon } from 'primeng/icons/chevronstart';
+import { ChevronEndIcon } from 'primeng/icons/chevronend';
 import { ChevronUpIcon } from 'primeng/icons/chevronup';
 import { RippleModule } from 'primeng/ripple';
 import { UniqueComponentId } from 'primeng/utils';
@@ -57,7 +57,7 @@ import { DomHandler } from 'primeng/dom';
                         pRipple
                     >
                         <ng-container *ngIf="!previousIconTemplate">
-                            <ChevronLeftIcon *ngIf="!isVertical()" [styleClass]="'carousel-prev-icon'" />
+                            <ChevronStartIcon *ngIf="!isVertical()" [styleClass]="'carousel-prev-icon'" />
                             <ChevronUpIcon *ngIf="isVertical()" [styleClass]="'carousel-prev-icon'" />
                         </ng-container>
                         <span *ngIf="previousIconTemplate" class="p-carousel-prev-icon">
@@ -112,7 +112,7 @@ import { DomHandler } from 'primeng/dom';
                         [attr.aria-label]="ariaNextButtonLabel()"
                     >
                         <ng-container *ngIf="!nextIconTemplate">
-                            <ChevronRightIcon *ngIf="!isVertical()" [styleClass]="'carousel-prev-icon'" />
+                            <ChevronEndIcon *ngIf="!isVertical()" [styleClass]="'carousel-prev-icon'" />
                             <ChevronDownIcon *ngIf="isVertical()" [styleClass]="'carousel-prev-icon'" />
                         </ng-container>
                         <span *ngIf="nextIconTemplate" class="p-carousel-prev-icon">
@@ -940,7 +940,7 @@ export class Carousel implements AfterContentInit {
 }
 
 @NgModule({
-    imports: [CommonModule, SharedModule, RippleModule, ChevronRightIcon, ChevronLeftIcon, ChevronDownIcon, ChevronUpIcon],
+    imports: [CommonModule, SharedModule, RippleModule, ChevronEndIcon, ChevronStartIcon, ChevronDownIcon, ChevronUpIcon],
     exports: [CommonModule, Carousel, SharedModule],
     declarations: [Carousel]
 })

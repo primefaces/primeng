@@ -29,8 +29,7 @@ import { RouterModule } from '@angular/router';
 import { MenuItem, PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { AngleDownIcon } from 'primeng/icons/angledown';
-import { AngleRightIcon } from 'primeng/icons/angleright';
-import { AngleLeftIcon } from 'primeng/icons/angleleft';
+import { AngleEndIcon } from 'primeng/icons/angleend';
 import { BarsIcon } from 'primeng/icons/bars';
 import { RippleModule } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
@@ -144,17 +143,10 @@ export class MenubarService {
                                                 [attr.data-pc-section]="'submenuicon'"
                                             />
                                         } @else {
-                                            @if (isRTL()) {
-                                                <AngleLeftIcon
-                                                    [styleClass]="'p-submenu-icon'"
-                                                    [attr.data-pc-section]="'submenuicon'"
-                                                />
-                                            } @else {
-                                                <AngleRightIcon
-                                                    [styleClass]="'p-submenu-icon'"
-                                                    [attr.data-pc-section]="'submenuicon'"
-                                                />
-                                            }
+                                            <AngleEndIcon
+                                                [styleClass]="'p-submenu-icon'"
+                                                [attr.data-pc-section]="'submenuicon'"
+                                            />
                                         }
                                     </ng-container>
                                     <ng-template *ngTemplateOutlet="submenuIconTemplate"
@@ -204,17 +196,10 @@ export class MenubarService {
                                                 [attr.data-pc-section]="'submenuicon'"
                                             />
                                         } @else {
-                                            @if (isRTL()) {
-                                                <AngleLeftIcon
-                                                    [styleClass]="'p-submenu-icon'"
-                                                    [attr.data-pc-section]="'submenuicon'"
-                                                />
-                                            } @else {
-                                                <AngleRightIcon
-                                                    [styleClass]="'p-submenu-icon'"
-                                                    [attr.data-pc-section]="'submenuicon'"
-                                                />
-                                            }
+                                            <AngleEndIcon
+                                                [styleClass]="'p-submenu-icon'"
+                                                [attr.data-pc-section]="'submenuicon'"
+                                            />
                                         }
                                     </ng-container>
                                     <ng-template *ngTemplateOutlet="menubar.submenuIconTemplate"
@@ -295,7 +280,6 @@ export class MenubarSub implements OnInit, OnDestroy {
     mouseLeaveSubscriber: Subscription | undefined;
 
     constructor(
-        @Inject(DOCUMENT) private document: Document,
         public el: ElementRef,
         public renderer: Renderer2,
         private cd: ChangeDetectorRef,
@@ -306,10 +290,6 @@ export class MenubarSub implements OnInit, OnDestroy {
         this.mouseLeaveSubscriber = this.menubarService.mouseLeft$.subscribe(() => {
             this.cd.markForCheck();
         });
-    }
-
-    public isRTL(): boolean {
-        return this.document.documentElement.dir === 'rtl';
     }
 
     onItemClick(event: any, processedItem: any) {
@@ -1181,7 +1161,7 @@ export class Menubar implements AfterContentInit, OnDestroy, OnInit {
 }
 
 @NgModule({
-    imports: [CommonModule, RouterModule, RippleModule, TooltipModule, SharedModule, BarsIcon, AngleDownIcon, AngleRightIcon, AngleLeftIcon],
+    imports: [CommonModule, RouterModule, RippleModule, TooltipModule, SharedModule, BarsIcon, AngleDownIcon, AngleEndIcon],
     exports: [Menubar, RouterModule, TooltipModule, SharedModule],
     declarations: [Menubar, MenubarSub]
 })

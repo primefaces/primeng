@@ -30,12 +30,12 @@ import {
 import { RouterModule } from '@angular/router';
 import { MenuItem, OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
-import { AngleRightIcon } from 'primeng/icons/angleright';
+import { AngleEndIcon } from 'primeng/icons/angleend';
 import { RippleModule } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
 import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
-import { CaretLeftIcon } from 'primeng/icons/caretleft';
+import { CaretStartIcon } from 'primeng/icons/caretstart';
 
 @Component({
     selector: 'p-slideMenuSub',
@@ -124,7 +124,7 @@ import { CaretLeftIcon } from 'primeng/icons/caretleft';
                             <span class="p-menuitem-badge" *ngIf="getItemProp(processedItem, 'badge')" [ngClass]="getItemProp(processedItem, 'badgeStyleClass')">{{ getItemProp(processedItem, 'badge') }}</span>
 
                             <ng-container *ngIf="isItemGroup(processedItem)">
-                                <AngleRightIcon *ngIf="!slideMenu.submenuIconTemplate" [styleClass]="'p-submenu-icon'" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" />
+                                <AngleEndIcon *ngIf="!slideMenu.submenuIconTemplate" [styleClass]="'p-submenu-icon'" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" />
                                 <ng-template *ngTemplateOutlet="slideMenu.submenuIconTemplate" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true"></ng-template>
                             </ng-container>
                         </a>
@@ -167,7 +167,7 @@ import { CaretLeftIcon } from 'primeng/icons/caretleft';
                             <span class="p-menuitem-badge" *ngIf="getItemProp(processedItem, 'badge')" [ngClass]="getItemProp(processedItem, 'badgeStyleClass')">{{ getItemProp(processedItem, 'badge') }}</span>
 
                             <ng-container *ngIf="isItemGroup(processedItem)">
-                                <AngleRightIcon *ngIf="!slideMenu.submenuIconTemplate" [styleClass]="'p-submenu-icon'" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" />
+                                <AngleEndIcon *ngIf="!slideMenu.submenuIconTemplate" [styleClass]="'p-submenu-icon'" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" />
                                 <ng-template *ngTemplateOutlet="slideMenu.submenuIconTemplate" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true"></ng-template>
                             </ng-container>
                         </a>
@@ -389,7 +389,7 @@ export class SlideMenuSub {
                     (keydown)="onNavigationKeyDown($event)"
                     [attr.data-pc-section]="'navigation'"
                 >
-                    <CaretLeftIcon *ngIf="!backIconTemplate" [styleClass]="'p-slidemenu-backward-icon'" [ngStyle]="{ 'vertical-align': 'middle' }" />
+                    <CaretStartIcon *ngIf="!backIconTemplate" [styleClass]="'p-slidemenu-backward-icon'" [ngStyle]="{ 'vertical-align': 'middle' }" />
                     <ng-template *ngTemplateOutlet="backIconTemplate"></ng-template>
                     <span>{{ backLabel }}</span>
                 </a>
@@ -1338,7 +1338,7 @@ export class SlideMenu implements OnInit, AfterContentInit, OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule, RouterModule, RippleModule, TooltipModule, AngleRightIcon, SharedModule, CaretLeftIcon],
+    imports: [CommonModule, RouterModule, RippleModule, TooltipModule, AngleEndIcon, SharedModule, CaretStartIcon],
     exports: [SlideMenu, RouterModule, TooltipModule, SharedModule],
     declarations: [SlideMenu, SlideMenuSub]
 })

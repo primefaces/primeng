@@ -28,8 +28,8 @@ import {
 } from '@angular/core';
 import { BlockableUI, PrimeTemplate, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
-import { ChevronLeftIcon } from 'primeng/icons/chevronleft';
-import { ChevronRightIcon } from 'primeng/icons/chevronright';
+import { ChevronStartIcon } from 'primeng/icons/chevronstart';
+import { ChevronEndIcon } from 'primeng/icons/chevronend';
 import { TimesIcon } from 'primeng/icons/times';
 import { RippleModule } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
@@ -290,9 +290,9 @@ export class TabPanel implements AfterContentInit, OnDestroy {
                     pRipple
                 >
                     @if (isRTL) {
-                        <ChevronRightIcon *ngIf="!previousIconTemplate" [attr.aria-hidden]="true" />
+                        <ChevronEndIcon *ngIf="!previousIconTemplate" [attr.aria-hidden]="true" />
                     } @else {
-                        <ChevronLeftIcon *ngIf="!previousIconTemplate" [attr.aria-hidden]="true" />
+                        <ChevronStartIcon *ngIf="!previousIconTemplate" [attr.aria-hidden]="true" />
                     }
                     <ng-template *ngTemplateOutlet="previousIconTemplate"></ng-template>
                 </button>
@@ -360,9 +360,9 @@ export class TabPanel implements AfterContentInit, OnDestroy {
                     pRipple
                 >
                     @if (isRTL) {
-                        <ChevronLeftIcon *ngIf="!nextIconTemplate" [attr.aria-hidden]="true" />
+                        <ChevronStartIcon *ngIf="!nextIconTemplate" [attr.aria-hidden]="true" />
                     } @else {
-                        <ChevronRightIcon *ngIf="!nextIconTemplate" [attr.aria-hidden]="true" />
+                        <ChevronEndIcon *ngIf="!nextIconTemplate" [attr.aria-hidden]="true" />
                     }
                     <ng-template *ngTemplateOutlet="nextIconTemplate"></ng-template>
                 </button>
@@ -896,7 +896,7 @@ export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, B
 }
 
 @NgModule({
-    imports: [CommonModule, SharedModule, TooltipModule, RippleModule, TimesIcon, ChevronLeftIcon, ChevronRightIcon],
+    imports: [CommonModule, SharedModule, TooltipModule, RippleModule, TimesIcon, ChevronStartIcon, ChevronEndIcon],
     exports: [TabView, TabPanel, SharedModule],
     declarations: [TabView, TabPanel]
 })

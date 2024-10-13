@@ -29,8 +29,7 @@ import { RouterModule } from '@angular/router';
 import { MegaMenuItem, PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { AngleDownIcon } from 'primeng/icons/angledown';
-import { AngleRightIcon } from 'primeng/icons/angleright';
-import { AngleLeftIcon } from 'primeng/icons/angleleft';
+import { AngleEndIcon } from 'primeng/icons/angleend';
 import { RippleModule } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
 import { VoidListener } from 'primeng/ts-helpers';
@@ -131,17 +130,10 @@ import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
                                                 />
                                             }
                                             @case ('vertical') {
-                                                @if (isRTL()) {
-                                                    <AngleLeftIcon
-                                                        [styleClass]="'p-submenu-icon'"
-                                                        [attr.data-pc-section]="'submenuicon'"
-                                                    />
-                                                } @else {
-                                                    <AngleRightIcon
-                                                        [styleClass]="'p-submenu-icon'"
-                                                        [attr.data-pc-section]="'submenuicon'"
-                                                    />
-                                                }
+                                                <AngleEndIcon
+                                                    [styleClass]="'p-submenu-icon'"
+                                                    [attr.data-pc-section]="'submenuicon'"
+                                                />
                                             }
                                         }
                                     </ng-container>
@@ -194,17 +186,10 @@ import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
                                                 />
                                             }
                                             @case ('vertical') {
-                                                @if (isRTL()) {
-                                                    <AngleLeftIcon
-                                                        [styleClass]="'p-submenu-icon'"
-                                                        [attr.data-pc-section]="'submenuicon'"
-                                                    />
-                                                } @else {
-                                                    <AngleRightIcon
-                                                        [styleClass]="'p-submenu-icon'"
-                                                        [attr.data-pc-section]="'submenuicon'"
-                                                    />
-                                                }
+                                                <AngleDownIcon
+                                                    [styleClass]="'p-submenu-icon'"
+                                                    [attr.data-pc-section]="'submenuicon'"
+                                                />
                                             }
                                         }
                                     </ng-container>
@@ -290,14 +275,9 @@ export class MegaMenuSub {
     @ViewChild('menubar', { static: true }) menubarViewChild: ElementRef;
 
     constructor(
-        @Inject(DOCUMENT) private readonly document: Document,
         public el: ElementRef,
         @Inject(forwardRef(() => MegaMenu)) public megaMenu: MegaMenu
     ) {}
-
-    public isRTL(): boolean {
-        return this.document.documentElement.dir === 'rtl';
-    }
 
     onItemClick(event: any, processedItem: any) {
         this.getItemProp(processedItem, 'command', { originalEvent: event, item: processedItem.item });
@@ -1143,7 +1123,7 @@ export class MegaMenu implements AfterContentInit, OnDestroy, OnInit {
 }
 
 @NgModule({
-    imports: [CommonModule, RouterModule, RippleModule, TooltipModule, SharedModule, AngleDownIcon, AngleRightIcon, AngleLeftIcon],
+    imports: [CommonModule, RouterModule, RippleModule, TooltipModule, SharedModule, AngleDownIcon, AngleEndIcon],
     exports: [MegaMenu, RouterModule, TooltipModule, SharedModule],
     declarations: [MegaMenu, MegaMenuSub]
 })

@@ -2,8 +2,8 @@ import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Carousel } from './carousel';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { ChevronRightIcon } from 'primeng/icons/chevronright';
-import { ChevronLeftIcon } from 'primeng/icons/chevronleft';
+import { ChevronEndIcon } from 'primeng/icons/chevronend';
+import { ChevronStartIcon } from 'primeng/icons/chevronstart';
 
 describe('Carousel', () => {
     let carousel: Carousel;
@@ -11,7 +11,7 @@ describe('Carousel', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule, ChevronRightIcon, ChevronLeftIcon],
+            imports: [NoopAnimationsModule, ChevronEndIcon, ChevronStartIcon],
             declarations: [Carousel]
         });
 

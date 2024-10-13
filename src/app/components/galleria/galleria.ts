@@ -31,8 +31,8 @@ import {
 } from '@angular/core';
 import { PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
-import { ChevronLeftIcon } from 'primeng/icons/chevronleft';
-import { ChevronRightIcon } from 'primeng/icons/chevronright';
+import { ChevronStartIcon } from 'primeng/icons/chevronstart';
+import { ChevronEndIcon } from 'primeng/icons/chevronend';
 import { TimesIcon } from 'primeng/icons/times';
 import { WindowMaximizeIcon } from 'primeng/icons/windowmaximize';
 import { WindowMinimizeIcon } from 'primeng/icons/windowminimize';
@@ -683,7 +683,7 @@ export class GalleriaItemSlot {
                     (focus)="onButtonFocus('left')"
                     (blur)="onButtonBlur('left')"
                 >
-                    <ChevronLeftIcon *ngIf="!galleria.itemPreviousIconTemplate" [styleClass]="'p-galleria-item-prev-icon'" />
+                    <ChevronStartIcon *ngIf="!galleria.itemPreviousIconTemplate" [styleClass]="'p-galleria-item-prev-icon'" />
                     <ng-template *ngTemplateOutlet="galleria.itemPreviousIconTemplate"></ng-template>
                 </button>
                 <div [id]="id + '_item_' + activeIndex" role="group" [attr.aria-label]="ariaSlideNumber(activeIndex + 1)" [attr.aria-roledescription]="ariaSlideLabel()" [style.width]="'100%'">
@@ -700,7 +700,7 @@ export class GalleriaItemSlot {
                     (focus)="onButtonFocus('right')"
                     (blur)="onButtonBlur('right')"
                 >
-                    <ChevronRightIcon *ngIf="!galleria.itemNextIconTemplate" [styleClass]="'p-galleria-item-next-icon'" />
+                    <ChevronEndIcon *ngIf="!galleria.itemNextIconTemplate" [styleClass]="'p-galleria-item-next-icon'" />
                     <ng-template *ngTemplateOutlet="galleria.itemNextIconTemplate"></ng-template>
                 </button>
                 <div class="p-galleria-caption" *ngIf="captionFacet">
@@ -905,7 +905,7 @@ export class GalleriaItem implements OnChanges {
                     [attr.aria-label]="ariaPrevButtonLabel()"
                 >
                     <ng-container *ngIf="!galleria.previousThumbnailIconTemplate">
-                        <ChevronLeftIcon *ngIf="!isVertical" [styleClass]="'p-galleria-thumbnail-prev-icon'" />
+                        <ChevronStartIcon *ngIf="!isVertical" [styleClass]="'p-galleria-thumbnail-prev-icon'" />
                         <ChevronUpIcon *ngIf="isVertical" [styleClass]="'p-galleria-thumbnail-prev-icon'" />
                     </ng-container>
                     <ng-template *ngTemplateOutlet="galleria.previousThumbnailIconTemplate"></ng-template>
@@ -951,7 +951,7 @@ export class GalleriaItem implements OnChanges {
                     [attr.aria-label]="ariaNextButtonLabel()"
                 >
                     <ng-container *ngIf="!galleria.nextThumbnailIconTemplate">
-                        <ChevronRightIcon *ngIf="!isVertical" [ngClass]="'p-galleria-thumbnail-next-icon'" />
+                        <ChevronEndIcon *ngIf="!isVertical" [ngClass]="'p-galleria-thumbnail-next-icon'" />
                         <ChevronDownIcon *ngIf="isVertical" [ngClass]="'p-galleria-thumbnail-next-icon'" />
                     </ng-container>
                     <ng-template *ngTemplateOutlet="galleria.nextThumbnailIconTemplate"></ng-template>
@@ -1451,7 +1451,7 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, AfterVie
 }
 
 @NgModule({
-    imports: [CommonModule, SharedModule, RippleModule, TimesIcon, ChevronRightIcon, ChevronLeftIcon, WindowMaximizeIcon, WindowMinimizeIcon, FocusTrapModule],
+    imports: [CommonModule, SharedModule, RippleModule, TimesIcon, ChevronEndIcon, ChevronStartIcon, WindowMaximizeIcon, WindowMinimizeIcon, FocusTrapModule],
     exports: [CommonModule, Galleria, GalleriaContent, GalleriaItemSlot, GalleriaItem, GalleriaThumbnails, SharedModule],
     declarations: [Galleria, GalleriaContent, GalleriaItemSlot, GalleriaItem, GalleriaThumbnails]
 })

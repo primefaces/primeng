@@ -31,12 +31,11 @@ import {
 import { RouterModule } from '@angular/router';
 import { MenuItem, OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
-import { AngleRightIcon } from 'primeng/icons/angleright';
+import { AngleEndIcon } from 'primeng/icons/angleend';
 import { RippleModule } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
-import { AngleLeftIcon } from '../icons/angleleft/angleleft';
 
 @Component({
     selector: 'p-tieredMenuSub',
@@ -121,17 +120,12 @@ import { AngleLeftIcon } from '../icons/angleleft/angleleft';
                                       [ngClass]="getItemProp(processedItem, 'badgeStyleClass')">{{ getItemProp(processedItem, 'badge') }}</span>
 
                                 <ng-container *ngIf="isItemGroup(processedItem)">
-                                    @if (isRTL()) {
-                                        <AngleLeftIcon *ngIf="!tieredMenu.submenuIconTemplate"
-                                                       [styleClass]="'p-submenu-icon'"
-                                                       [attr.data-pc-section]="'submenuicon'"
-                                                       [attr.aria-hidden]="true" />
-                                    } @else {
-                                        <AngleRightIcon *ngIf="!tieredMenu.submenuIconTemplate"
-                                                        [styleClass]="'p-submenu-icon'"
-                                                        [attr.data-pc-section]="'submenuicon'"
-                                                        [attr.aria-hidden]="true" />
-                                    }
+                                    <AngleEndIcon
+                                        *ngIf="!tieredMenu.submenuIconTemplate"
+                                        [styleClass]="'p-submenu-icon'"
+                                        [attr.data-pc-section]="'submenuicon'"
+                                        [attr.aria-hidden]="true"
+                                    />
                                     <ng-template *ngTemplateOutlet="tieredMenu.submenuIconTemplate"
                                                  [attr.data-pc-section]="'submenuicon'"
                                                  [attr.aria-hidden]="true"></ng-template>
@@ -178,17 +172,12 @@ import { AngleLeftIcon } from '../icons/angleleft/angleleft';
                                       [ngClass]="getItemProp(processedItem, 'badgeStyleClass')">{{ getItemProp(processedItem, 'badge') }}</span>
 
                                 <ng-container *ngIf="isItemGroup(processedItem)">
-                                    @if (isRTL()) {
-                                        <AngleLeftIcon *ngIf="!tieredMenu.submenuIconTemplate"
-                                                       [styleClass]="'p-submenu-icon'"
-                                                       [attr.data-pc-section]="'submenuicon'"
-                                                       [attr.aria-hidden]="true" />
-                                    } @else {
-                                        <AngleRightIcon *ngIf="!tieredMenu.submenuIconTemplate"
-                                                        [styleClass]="'p-submenu-icon'"
-                                                        [attr.data-pc-section]="'submenuicon'"
-                                                        [attr.aria-hidden]="true" />
-                                    }
+                                    <AngleEndIcon
+                                        *ngIf="!tieredMenu.submenuIconTemplate"
+                                        [styleClass]="'p-submenu-icon'"
+                                        [attr.data-pc-section]="'submenuicon'"
+                                        [attr.aria-hidden]="true"
+                                    />
                                     <ng-template *ngTemplateOutlet="tieredMenu.submenuIconTemplate"
                                                  [attr.data-pc-section]="'submenuicon'"
                                                  [attr.aria-hidden]="true"></ng-template>
@@ -265,7 +254,6 @@ export class TieredMenuSub {
     @ViewChild('sublist', { static: true }) sublistViewChild: ElementRef;
 
     constructor(
-        @Inject(DOCUMENT) private readonly document: Document,
         public el: ElementRef,
         public renderer: Renderer2,
         @Inject(forwardRef(() => TieredMenu)) public tieredMenu: TieredMenu
@@ -276,10 +264,6 @@ export class TieredMenuSub {
                 this.positionSubmenu();
             }
         });
-    }
-
-    public isRTL(): boolean {
-        return this.document.documentElement.dir === 'rtl';
     }
 
     positionSubmenu() {
@@ -1233,7 +1217,7 @@ export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule, RouterModule, RippleModule, TooltipModule, AngleRightIcon, AngleLeftIcon, SharedModule],
+    imports: [CommonModule, RouterModule, RippleModule, TooltipModule, AngleEndIcon, SharedModule],
     exports: [TieredMenu, RouterModule, TooltipModule, SharedModule],
     declarations: [TieredMenu, TieredMenuSub]
 })

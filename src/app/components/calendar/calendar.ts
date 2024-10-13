@@ -30,8 +30,8 @@ import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { RippleModule } from 'primeng/ripple';
 import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
 import { Subscription } from 'rxjs';
-import { ChevronLeftIcon } from 'primeng/icons/chevronleft';
-import { ChevronRightIcon } from 'primeng/icons/chevronright';
+import { ChevronStartIcon } from 'primeng/icons/chevronstart';
+import { ChevronEndIcon } from 'primeng/icons/chevronend';
 import { ChevronUpIcon } from 'primeng/icons/chevronup';
 import { ChevronDownIcon } from 'primeng/icons/chevrondown';
 import { TimesIcon } from 'primeng/icons/times';
@@ -173,17 +173,10 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
                                 <button (keydown)="onContainerButtonKeydown($event)" class="p-datepicker-prev p-link"
                                         (click)="onPrevButtonClick($event)" *ngIf="i === 0" type="button"
                                         [attr.aria-label]="prevIconAriaLabel" pRipple>
-                                    @if (isRTL) {
-                                        <ChevronRightIcon
-                                            [styleClass]="'p-datepicker-prev-icon'"
-                                            *ngIf="!previousIconTemplate"
-                                        />
-                                    } @else {
-                                        <ChevronLeftIcon
-                                            [styleClass]="'p-datepicker-prev-icon'"
-                                            *ngIf="!previousIconTemplate"
-                                        />
-                                    }
+                                    <ChevronStartIcon
+                                        [styleClass]="'p-datepicker-prev-icon'"
+                                        *ngIf="!previousIconTemplate"
+                                    />
                                     <span *ngIf="previousIconTemplate" class="p-datepicker-prev-icon">
                                         <ng-template *ngTemplateOutlet="previousIconTemplate"></ng-template>
                                     </span>
@@ -227,17 +220,10 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
                                     [attr.aria-label]="nextIconAriaLabel"
                                     pRipple
                                 >
-                                    @if (isRTL) {
-                                        <ChevronLeftIcon
-                                            [styleClass]="'p-datepicker-next-icon'"
-                                            *ngIf="!nextIconTemplate"
-                                        />
-                                    } @else {
-                                        <ChevronRightIcon
-                                            [styleClass]="'p-datepicker-next-icon'"
-                                            *ngIf="!nextIconTemplate"
-                                        />
-                                    }
+                                    <ChevronEndIcon
+                                        [styleClass]="'p-datepicker-next-icon'"
+                                        *ngIf="!nextIconTemplate"
+                                    />
                                     <span *ngIf="nextIconTemplate" class="p-datepicker-next-icon">
                                         <ng-template *ngTemplateOutlet="nextIconTemplate"></ng-template>
                                     </span>
@@ -1319,10 +1305,6 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
                 }
             }
         }
-    }
-
-    public get isRTL() : boolean {
-        return this.document.documentElement.dir === 'rtl';
     }
 
     getTranslation(option: string) {
@@ -3745,7 +3727,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 }
 
 @NgModule({
-    imports: [CommonModule, ButtonModule, SharedModule, RippleModule, ChevronLeftIcon, ChevronRightIcon, ChevronUpIcon, ChevronDownIcon, TimesIcon, CalendarIcon, AutoFocusModule],
+    imports: [CommonModule, ButtonModule, SharedModule, RippleModule, ChevronStartIcon, ChevronEndIcon, ChevronUpIcon, ChevronDownIcon, TimesIcon, CalendarIcon, AutoFocusModule],
     exports: [Calendar, ButtonModule, SharedModule],
     declarations: [Calendar]
 })

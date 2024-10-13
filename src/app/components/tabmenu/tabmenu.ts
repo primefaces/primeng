@@ -27,8 +27,8 @@ import {
 import { ActivatedRoute, NavigationEnd, Router, RouterModule } from '@angular/router';
 import { MenuItem, PrimeTemplate, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
-import { ChevronLeftIcon } from 'primeng/icons/chevronleft';
-import { ChevronRightIcon } from 'primeng/icons/chevronright';
+import { ChevronStartIcon } from 'primeng/icons/chevronstart';
+import { ChevronEndIcon } from 'primeng/icons/chevronend';
 import { RippleModule } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
 import { Nullable } from 'primeng/ts-helpers';
@@ -45,7 +45,7 @@ import { filter } from 'rxjs/operators';
         <div [ngClass]="{ 'p-tabmenu p-component': true, 'p-tabmenu-scrollable': scrollable }" [ngStyle]="style" [class]="styleClass">
             <div class="p-tabmenu-nav-container">
                 <button *ngIf="scrollable && !backwardIsDisabled" #prevBtn class="p-tabmenu-nav-prev p-tabmenu-nav-btn p-link" (click)="navBackward()" type="button" role="navigation" pRipple>
-                    <ChevronLeftIcon *ngIf="!previousIconTemplate" [attr.aria-hidden]="true" />
+                    <ChevronStartIcon *ngIf="!previousIconTemplate" [attr.aria-hidden]="true" />
                     <ng-template *ngTemplateOutlet="previousIconTemplate"></ng-template>
                 </button>
                 <div #content class="p-tabmenu-nav-content" (scroll)="onScroll($event)">
@@ -120,7 +120,7 @@ import { filter } from 'rxjs/operators';
                     </ul>
                 </div>
                 <button *ngIf="scrollable && !forwardIsDisabled" #nextBtn class="p-tabmenu-nav-next p-tabmenu-nav-btn p-link" (click)="navForward()" type="button" role="navigation" pRipple>
-                    <ChevronRightIcon *ngIf="!previousIconTemplate" [attr.aria-hidden]="true" />
+                    <ChevronEndIcon *ngIf="!previousIconTemplate" [attr.aria-hidden]="true" />
                     <ng-template *ngTemplateOutlet="nextIconTemplate"></ng-template>
                 </button>
             </div>
@@ -528,7 +528,7 @@ export class TabMenu implements AfterContentInit, AfterViewInit, AfterViewChecke
 }
 
 @NgModule({
-    imports: [CommonModule, RouterModule, SharedModule, RippleModule, TooltipModule, ChevronLeftIcon, ChevronRightIcon],
+    imports: [CommonModule, RouterModule, SharedModule, RippleModule, TooltipModule, ChevronStartIcon, ChevronEndIcon],
     exports: [TabMenu, RouterModule, SharedModule, TooltipModule],
     declarations: [TabMenu]
 })

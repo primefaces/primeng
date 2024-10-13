@@ -26,12 +26,12 @@ import { FilterService, PrimeNGConfig, PrimeTemplate, SharedModule } from 'prime
 import { ButtonModule } from 'primeng/button';
 import { DomHandler } from 'primeng/dom';
 import { AngleDoubleDownIcon } from 'primeng/icons/angledoubledown';
-import { AngleDoubleLeftIcon } from 'primeng/icons/angledoubleleft';
-import { AngleDoubleRightIcon } from 'primeng/icons/angledoubleright';
+import { AngleDoubleStartIcon } from 'primeng/icons/angledoublestart';
+import { AngleDoubleEndIcon } from 'primeng/icons/angledoubleend';
 import { AngleDoubleUpIcon } from 'primeng/icons/angledoubleup';
 import { AngleDownIcon } from 'primeng/icons/angledown';
-import { AngleLeftIcon } from 'primeng/icons/angleleft';
-import { AngleRightIcon } from 'primeng/icons/angleright';
+import { AngleStartIcon } from 'primeng/icons/anglestart';
+import { AngleEndIcon } from 'primeng/icons/angleend';
 import { AngleUpIcon } from 'primeng/icons/angleup';
 import { HomeIcon } from 'primeng/icons/home';
 import { SearchIcon } from 'primeng/icons/search';
@@ -195,44 +195,28 @@ import {
             <div class="p-picklist-buttons p-picklist-transfer-buttons" [attr.data-pc-section]="'buttons'" [attr.data-pc-group-section]="'controls'">
                 <button type="button" [attr.aria-label]="moveToTargetAriaLabel" pButton pRipple class="p-button-icon-only" [disabled]="moveRightDisabled()" (click)="moveRight()" [attr.data-pc-section]="'moveToTargetButton'">
                     <ng-container *ngIf="!moveToTargetIconTemplate">
-                        @if(isRTL) {
-                            <AngleLeftIcon *ngIf="!viewChanged" [attr.data-pc-section]="'movetotargeticon'" />
-                        } @else {
-                            <AngleRightIcon *ngIf="!viewChanged" [attr.data-pc-section]="'movetotargeticon'" />
-                        }
+                        <AngleEndIcon *ngIf="!viewChanged" [attr.data-pc-section]="'movetotargeticon'" />
                         <AngleDownIcon *ngIf="viewChanged" [attr.data-pc-section]="'movetotargeticon'" />
                     </ng-container>
                     <ng-template *ngTemplateOutlet="moveToTargetIconTemplate; context: { $implicit: viewChanged }"></ng-template>
                 </button>
                 <button type="button" [attr.aria-label]="moveAllToTargetAriaLabel" pButton pRipple class="p-button-icon-only" [disabled]="moveAllRightDisabled()" (click)="moveAllRight()" [attr.data-pc-section]="'moveAllToTargetButton'">
                     <ng-container *ngIf="!moveAllToTargetIconTemplate">
-                        @if(isRTL) {
-                            <AngleDoubleLeftIcon *ngIf="!viewChanged" [attr.data-pc-section]="'movealltotargeticon'" />
-                        } @else {
-                            <AngleDoubleRightIcon *ngIf="!viewChanged" [attr.data-pc-section]="'movealltotargeticon'" />
-                        }
+                        <AngleDoubleEndIcon *ngIf="!viewChanged" [attr.data-pc-section]="'movealltotargeticon'" />
                         <AngleDoubleDownIcon *ngIf="viewChanged" [attr.data-pc-section]="'movealltotargeticon'" />
                     </ng-container>
                     <ng-template *ngTemplateOutlet="moveAllToTargetIconTemplate; context: { $implicit: viewChanged }"></ng-template>
                 </button>
                 <button type="button" [attr.aria-label]="moveToSourceAriaLabel" pButton pRipple class="p-button-icon-only" [disabled]="moveLeftDisabled()" (click)="moveLeft()" [attr.data-pc-section]="'moveToSourceButton'">
                     <ng-container *ngIf="!moveToSourceIconTemplate">
-                        @if(isRTL) {
-                            <AngleRightIcon *ngIf="!viewChanged" [attr.data-pc-section]="'movedownsourceticon'" />
-                        } @else {
-                            <AngleLeftIcon *ngIf="!viewChanged" [attr.data-pc-section]="'movedownsourceticon'" />
-                        }
+                        <AngleStartIcon *ngIf="!viewChanged" [attr.data-pc-section]="'movedownsourceticon'" />
                         <AngleUpIcon *ngIf="viewChanged" [attr.data-pc-section]="'movedownsourceticon'" />
                     </ng-container>
                     <ng-template *ngTemplateOutlet="moveToSourceIconTemplate; context: { $implicit: viewChanged }"></ng-template>
                 </button>
                 <button type="button" [attr.aria-label]="moveAllToSourceAriaLabel" pButton pRipple class="p-button-icon-only" [disabled]="moveAllLeftDisabled()" (click)="moveAllLeft()" [attr.data-pc-section]="'moveAllToSourceButton'">
                     <ng-container *ngIf="!moveAllToSourceIconTemplate">
-                        @if(isRTL) {
-                            <AngleDoubleRightIcon *ngIf="!viewChanged" [attr.data-pc-section]="'movealltosourceticon'" />
-                        } @else {
-                            <AngleDoubleLeftIcon *ngIf="!viewChanged" [attr.data-pc-section]="'movealltosourceticon'" />
-                        }
+                        <AngleDoubleStartIcon *ngIf="!viewChanged" [attr.data-pc-section]="'movealltosourceticon'"/>
                         <AngleDoubleUpIcon *ngIf="viewChanged" [attr.data-pc-section]="'movealltosourceticon'" />
                     </ng-container>
                     <ng-template *ngTemplateOutlet="moveAllToSourceIconTemplate; context: { $implicit: viewChanged }"></ng-template>
@@ -931,10 +915,6 @@ export class PickList implements AfterViewChecked, AfterContentInit {
             this.movedDown = false;
             this.reorderedListElement = null;
         }
-    }
-
-    public isRTL(): boolean {
-        return this.document.documentElement.dir === 'rtl';
     }
 
     onItemClick(event: Event | any, item: any, selectedItems: any[], listType: number, callback: EventEmitter<any>, itemId?: string) {
@@ -1722,7 +1702,7 @@ const DragConfig = {
 };
 
 @NgModule({
-    imports: [CommonModule, ButtonModule, SharedModule, RippleModule, DragDropModule, AngleDoubleDownIcon, AngleDoubleLeftIcon, AngleDoubleRightIcon, AngleDoubleUpIcon, AngleDownIcon, AngleLeftIcon, AngleRightIcon, AngleUpIcon, SearchIcon, HomeIcon],
+    imports: [CommonModule, ButtonModule, SharedModule, RippleModule, DragDropModule, AngleDoubleDownIcon, AngleDoubleStartIcon, AngleDoubleEndIcon, AngleDoubleUpIcon, AngleDownIcon, AngleStartIcon, AngleEndIcon, AngleUpIcon, SearchIcon, HomeIcon],
     exports: [PickList, SharedModule, DragDropModule],
     declarations: [PickList],
     providers: [{ provide: CDK_DRAG_CONFIG, useValue: DragConfig }]
