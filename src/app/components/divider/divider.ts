@@ -1,4 +1,4 @@
-import { NgModule, Component, ChangeDetectionStrategy, ViewEncapsulation, input, inject, HostBinding } from '@angular/core';
+import { NgModule, Component, ChangeDetectionStrategy, ViewEncapsulation, input, inject } from '@angular/core';
 import { BaseComponent } from 'primeng/basecomponent';
 import { DividerStyle } from './style/dividerstyle';
 /**
@@ -29,6 +29,7 @@ import { DividerStyle } from './style/dividerstyle';
         '[class.p-divider-top]': 'layout() === "vertical" && align() === "top"',
         '[class.p-divider-bottom]': 'layout() === "vertical" && align() === "bottom"',
         '[style]': 'style()',
+        '[class]': 'styleClass()',
         '[attr.aria-orientation]': 'layout()',
         '[attr.data-pc-name]': "'divider'",
         '[attr.role]': '"separator"',
@@ -67,10 +68,6 @@ export class Divider extends BaseComponent {
     align = input<'left' | 'right' | 'top' | 'center' | 'bottom'>();
 
     _componentStyle = inject(DividerStyle);
-
-    @HostBinding('class') get hostClass() {
-        return this.styleClass();
-    }
 }
 
 @NgModule({
