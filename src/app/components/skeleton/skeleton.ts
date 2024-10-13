@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, Input, NgModule, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input, NgModule, ViewEncapsulation } from '@angular/core';
 import { BaseComponent } from 'primeng/basecomponent';
 import { SkeletonStyle } from './style/skeletonstyle';
 
@@ -12,8 +13,8 @@ import { SkeletonStyle } from './style/skeletonstyle';
     template: `
         <div
             [ngClass]="containerClass()"
-            [class]="styleClass"
-            [ngStyle]="containerStyle"
+            [class]="styleClass()"
+            [ngStyle]="containerStyle()"
             [attr.data-pc-name]="'skeleton'"
             [attr.aria-hidden]="true"
             [attr.data-pc-section]="'root'"
@@ -29,61 +30,62 @@ export class Skeleton extends BaseComponent {
      * Class of the element.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    styleClass = input<string>();
     /**
      * Inline style of the element.
      * @group Props
      */
-    @Input() style: { [klass: string]: any } | null | undefined;
+    style = input<{ [klass: string]: any } | null>();
     /**
      * Shape of the element.
      * @group Props
      */
-    @Input() shape: string = 'rectangle';
+    shape = input<string>('rectangle');
     /**
      * Type of the animation.
      * @gruop Props
      */
-    @Input() animation: string = 'wave';
+    animation = input<string>('wave');
     /**
      * Border radius of the element, defaults to value from theme.
      * @group Props
      */
-    @Input() borderRadius: string | undefined;
+    borderRadius = input<string>();
     /**
      * Size of the skeleton.
      * @group Props
      */
-    @Input() size: string | undefined;
+    size = input<string>();
     /**
      * Width of the element.
      * @group Props
      */
-    @Input() width: string = '100%';
+    width = input<string>('100%');
     /**
      * Height of the element.
      * @group Props
      */
-    @Input() height: string = '1rem';
+    height = input<string>('1rem');
 
     _componentStyle = inject(SkeletonStyle);
 
-    containerClass() {
+    containerClass = computed<{ [klass: string]: boolean }>(() => {
         return {
             'p-skeleton p-component': true,
-            'p-skeleton-circle': this.shape === 'circle',
-            'p-skeleton-animation-none': this.animation === 'none',
+            'p-skeleton-circle': this.shape() === 'circle',
+            'p-skeleton-animation-none': this.animation() === 'none',
         };
-    }
+    });
 
-    get containerStyle() {
-        const inlineStyles = this._componentStyle?.inlineStyles['root'];
-        let style;
-        if (this.size) style = { ...this.style, ...inlineStyles, width: this.size, height: this.size, borderRadius: this.borderRadius };
-        else style = { ...inlineStyles, width: this.width, height: this.height, borderRadius: this.borderRadius, ...this.style };
-
-        return style;
-    }
+    containerStyle = computed<{ [klass: string]: any }>(() => {
+        const customStyles = {
+            ...this._componentStyle?.inlineStyles['root'],
+            width: this.size() ? this.size() : this.width(),
+            height: this.size() ? this.size() : this.height(),
+            borderRadius: this.borderRadius(),
+        };
+        return this.size() ? { ...this.style(), ...customStyles } : { ...customStyles, ...this.style() };
+    });
 }
 
 @NgModule({
