@@ -360,7 +360,7 @@ export class PanelMenuList implements OnChanges {
 
     @Input() items: any[];
 
-    @Input() itemTemplate: HTMLElement | undefined;
+    @Input() itemTemplate: TemplateRef<any> | undefined;
 
     @Input({ transform: booleanAttribute }) parentExpanded: boolean | undefined;
 
@@ -919,6 +919,7 @@ export class PanelMenuList implements OnChanges {
                             <p-panel-menu-list
                                 [panelId]="getPanelId(i, item)"
                                 [items]="getItemProp(item, 'items')"
+                                [itemTemplate]="itemTemplate"
                                 [transitionOptions]="transitionOptions"
                                 [root]="true"
                                 [activeItem]="activeItem()"
