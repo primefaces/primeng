@@ -134,10 +134,10 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
      * The height/width (or their getter function) of item according to orientation.
      * @group Props
      */
-    @Input() get itemSize(): number[] | number | ((item: unknown) => { y: number; x?: number }) {
+    @Input() get itemSize(): number[] | number | ((item: unknown) => { mainAxis: number; crossAxis?: number }) {
         return this._itemSize;
     }
-    set itemSize(val: number[] | number | ((item: unknown) => { y: number; x?: number })) {
+    set itemSize(val: number[] | number | ((item: unknown) => { mainAxis: number; crossAxis?: number })) {
         this._itemSize = val;
         this._getItemSize = typeof val === 'function' ? val : () => (Array.isArray(val) ? { mainAxis: val[0] ?? this.defaultHeight, crossAxis: val[1] } : { mainAxis: val });
         this.recalculateSize();
@@ -420,7 +420,7 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
 
     _items: unknown[][] | unknown[] | null | undefined;
 
-    _itemSize: number[] | number | ((item: unknown) => { y: number; x?: number }) = [];
+    _itemSize: number[] | number | ((item: unknown) => { mainAxis: number; crossAxis?: number }) = [];
 
     _itemsPositions: { mainAxis: number[]; crossAxis: number[] } = { mainAxis: [], crossAxis: [] };
 
@@ -846,16 +846,16 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
         };
     }
 
-    private getNumItemsInViewport(viewportSize: number, scrollPos: number): number {
-        const first = this.getFirstInViewport(scrollPos);
-        const last = this.getFirstInViewport(scrollPos + viewportSize);
-        return last - first;
-    }
-
-    private getNumItemsInViewportGrid(params: { scrollTop: number; scrollLeft: number; viewportHeight: number; viewportWidth: number }) {
-        const first = this.getFirstInViewport(params.scrollTop, params.scrollLeft);
-        const last = this.getFirstInViewport(params.scrollTop + params.viewportHeight, params.scrollLeft + params.viewportWidth);
-        return { cols: last.firstColIdx - first.firstColIdx, rows: last.firstRowIdx - first.firstRowIdx };
+    private getNumItemsInViewport<T>(viewportMainAxisSize: number, scrollMainAxisPos: number, viewportCrossAxisSize?: T, scrollCrossAxisPos?: T): T extends number ? { cols: number; rows: number } : number {
+        if (typeof viewportCrossAxisSize === 'number' && typeof scrollCrossAxisPos === 'number') {
+            const first = this.getFirstInViewport(scrollMainAxisPos, scrollCrossAxisPos);
+            const last = this.getFirstInViewport(scrollMainAxisPos + viewportMainAxisSize, scrollCrossAxisPos + viewportCrossAxisSize);
+            return { cols: last.firstColIdx - first.firstColIdx, rows: last.firstRowIdx - first.firstRowIdx } as T extends number ? { cols: number; rows: number } : number;
+        } else {
+            const first = this.getFirstInViewport(scrollMainAxisPos);
+            const last = this.getFirstInViewport(scrollMainAxisPos + viewportMainAxisSize);
+            return (last - first) as T extends number ? { cols: number; rows: number } : number;
+        }
     }
 
     calculateNumItems() {
@@ -864,9 +864,7 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
         const contentHeight = (this.elementViewChild?.nativeElement ? this.elementViewChild.nativeElement.offsetHeight - contentPos.top : 0) || 0;
         const calculateNumToleratedItems = (_numItems: number) => Math.ceil(_numItems / 2);
         const { scrollTop, scrollLeft } = this.elementViewChild?.nativeElement || { scrollTop: 0, scrollLeft: 0 };
-        const numItemsInViewport: any = this.both
-            ? this.getNumItemsInViewportGrid({ scrollTop, scrollLeft, viewportHeight: contentHeight, viewportWidth: contentWidth })
-            : this.getNumItemsInViewport(this.horizontal ? contentWidth : contentHeight, this.horizontal ? scrollLeft : scrollTop);
+        const numItemsInViewport: any = this.both ? this.getNumItemsInViewport(contentHeight, scrollTop, contentWidth, scrollLeft) : this.getNumItemsInViewport(this.horizontal ? contentWidth : contentHeight, this.horizontal ? scrollLeft : scrollTop);
 
         const numToleratedItems = this.d_numToleratedItems || (this.both ? [calculateNumToleratedItems(numItemsInViewport.rows), calculateNumToleratedItems(numItemsInViewport.cols)] : calculateNumToleratedItems(numItemsInViewport));
 
