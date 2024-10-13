@@ -916,17 +916,16 @@ export class PanelMenuList implements OnChanges {
                         [ngClass]="{ 'p-panelmenu-expanded': isItemActive(item) }"
                     >
                         <div class="p-panelmenu-content" [attr.data-pc-section]="'menucontent'">
-                            <p-panelmenu-list
+                            <p-panel-menu-list
                                 [panelId]="getPanelId(i, item)"
                                 [items]="getItemProp(item, 'items')"
-                                [itemTemplate]="itemTemplate"
                                 [transitionOptions]="transitionOptions"
                                 [root]="true"
                                 [activeItem]="activeItem()"
                                 [tabindex]="tabindex"
                                 [parentExpanded]="isItemActive(item)"
                                 (headerFocus)="updateFocusedHeader($event)"
-                            ></p-panelmenu-list>
+                            ></p-panel-menu-list>
                         </div>
                     </div>
                 </div>
