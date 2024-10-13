@@ -1,5 +1,4 @@
-import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject, Input, NgModule, ViewEncapsulation } from '@angular/core';
+import { NgClass, NgStyle } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, inject, input, NgModule, ViewEncapsulation } from '@angular/core';
 import { BaseComponent } from 'primeng/basecomponent';
 import { SkeletonStyle } from './style/skeletonstyle';
@@ -89,7 +88,7 @@ export class Skeleton extends BaseComponent {
 }
 
 @NgModule({
-    imports: [CommonModule],
+    imports: [NgClass, NgStyle],
     exports: [Skeleton],
     declarations: [Skeleton],
 })
