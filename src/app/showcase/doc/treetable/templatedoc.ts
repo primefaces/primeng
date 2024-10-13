@@ -31,7 +31,7 @@ interface Column {
                                 <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
                                 {{ rowData[col.field] }}
                                 <ng-container *ngIf="last">
-                                    <p-button icon="pi pi-search" rounded="true" [style]="{ 'margin-right': '.5em' }" />
+                                    <p-button icon="pi pi-search" rounded="true" [style]="{ 'margin-inline-end': '.5em' }" />
                                     <p-button icon="pi pi-pencil" rounded="true" severity="success" />
                                 </ng-container>
                             </td>
@@ -81,7 +81,7 @@ export class TemplateDoc {
                     <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
                     {{ rowData[col.field] }}
                     <ng-container *ngIf="last">
-                        <p-button icon="pi pi-search" rounded="true" [style]="{ 'margin-right': '.5em' }" />
+                        <p-button icon="pi pi-search" rounded="true" [style]="{ 'margin-inline-end': '.5em' }" />
                         <p-button icon="pi pi-pencil" rounded="true" severity="success" />
                     </ng-container>
                 </td>
@@ -110,7 +110,7 @@ export class TemplateDoc {
                 <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
                 {{ rowData[col.field] }}
                 <ng-container *ngIf="last">
-                    <p-button icon="pi pi-search" rounded="true" [style]="{ 'margin-right': '.5em' }" />
+                    <p-button icon="pi pi-search" rounded="true" [style]="{ 'margin-inline-end': '.5em' }" />
                     <p-button icon="pi pi-pencil" rounded="true" severity="success" />
                 </ng-container>
             </td>

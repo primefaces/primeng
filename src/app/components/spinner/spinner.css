@@ -9,7 +9,7 @@
 
     .ui-spinner-input {
         vertical-align: middle;
-        padding-right: 1.5em;
+        padding-inline-end: 1.5em;
     }
 
     .ui-spinner-button {
@@ -31,7 +31,7 @@
         top: 50%;
         left: 50%;
         margin-top: -0.5em;
-        margin-left: -0.5em;
+        margin-inline-start: -0.5em;
         width: 1em;
     }
 
@@ -49,7 +49,7 @@
     }
 
     .ui-fluid .ui-spinner .ui-spinner-input {
-        padding-right: 2em;
+        padding-inline-end: 2em;
         width: 100%;
     }
 

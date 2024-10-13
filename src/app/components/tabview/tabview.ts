@@ -1,4 +1,4 @@
-import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
 import {
     AfterContentInit,
     AfterViewChecked,
@@ -276,7 +276,8 @@ export class TabPanel implements AfterContentInit, OnDestroy {
 @Component({
     selector: 'p-tabView',
     template: `
-        <div [ngClass]="{ 'p-tabview p-component': true, 'p-tabview-scrollable': scrollable }" [ngStyle]="style" [class]="styleClass" [attr.data-pc-name]="'tabview'">
+        <div [ngClass]="{ 'p-tabview p-component': true, 'p-tabview-scrollable': scrollable }" [ngStyle]="style"
+             [class]="styleClass" [attr.data-pc-name]="'tabview'">
             <div #elementToObserve class="p-tabview-nav-container">
                 <button
                     *ngIf="scrollable && !backwardIsDisabled && autoHideButtons"
@@ -288,13 +289,21 @@ export class TabPanel implements AfterContentInit, OnDestroy {
                     type="button"
                     pRipple
                 >
-                    <ChevronLeftIcon *ngIf="!previousIconTemplate" [attr.aria-hidden]="true" />
+                    @if (isRTL) {
+                        <ChevronRightIcon *ngIf="!previousIconTemplate" [attr.aria-hidden]="true" />
+                    } @else {
+                        <ChevronLeftIcon *ngIf="!previousIconTemplate" [attr.aria-hidden]="true" />
+                    }
                     <ng-template *ngTemplateOutlet="previousIconTemplate"></ng-template>
                 </button>
-                <div #content class="p-tabview-nav-content" (scroll)="onScroll($event)" [attr.data-pc-section]="'navcontent'">
+                <div #content class="p-tabview-nav-content" (scroll)="onScroll($event)"
+                     [attr.data-pc-section]="'navcontent'">
                     <ul #navbar class="p-tabview-nav" role="tablist" [attr.data-pc-section]="'nav'">
                         <ng-template ngFor let-tab [ngForOf]="tabs" let-i="index">
-                            <li role="presentation" [ngClass]="{ 'p-highlight': tab.selected, 'p-disabled': tab.disabled }" [attr.data-p-disabled]="tab.disabled" [ngStyle]="tab.headerStyle" [class]="tab.headerStyleClass" *ngIf="!tab.closed">
+                            <li role="presentation"
+                                [ngClass]="{ 'p-highlight': tab.selected, 'p-disabled': tab.disabled }"
+                                [attr.data-p-disabled]="tab.disabled" [ngStyle]="tab.headerStyle"
+                                [class]="tab.headerStyleClass" *ngIf="!tab.closed">
                                 <a
                                     role="tab"
                                     class="p-tabview-nav-link"
@@ -314,26 +323,30 @@ export class TabPanel implements AfterContentInit, OnDestroy {
                                     pRipple
                                 >
                                     <ng-container *ngIf="!tab.headerTemplate">
-                                        <span class="p-tabview-left-icon" [ngClass]="tab.leftIcon" *ngIf="tab.leftIcon && !tab.leftIconTemplate"></span>
+                                        <span class="p-tabview-left-icon" [ngClass]="tab.leftIcon"
+                                              *ngIf="tab.leftIcon && !tab.leftIconTemplate"></span>
                                         <span *ngIf="tab.leftIconTemplate" class="p-tabview-left-icon">
                                             <ng-template *ngTemplateOutlet="tab.leftIconTemplate"></ng-template>
                                         </span>
                                         <span class="p-tabview-title">{{ tab.header }}</span>
-                                        <span class="p-tabview-right-icon" [ngClass]="tab.rightIcon" *ngIf="tab.rightIcon && !tab.rightIconTemplate"></span>
+                                        <span class="p-tabview-right-icon" [ngClass]="tab.rightIcon"
+                                              *ngIf="tab.rightIcon && !tab.rightIconTemplate"></span>
                                         <span *ngIf="tab.rightIconTemplate" class="p-tabview-right-icon">
                                             <ng-template *ngTemplateOutlet="tab.rightIconTemplate"></ng-template>
                                         </span>
                                     </ng-container>
                                     <ng-container *ngTemplateOutlet="tab.headerTemplate"></ng-container>
                                     <ng-container *ngIf="tab.closable">
-                                        <TimesIcon *ngIf="!tab.closeIconTemplate" [styleClass]="'p-tabview-close'" (click)="close($event, tab)" />
+                                        <TimesIcon *ngIf="!tab.closeIconTemplate" [styleClass]="'p-tabview-close'"
+                                                   (click)="close($event, tab)" />
                                         <span class="tab.closeIconTemplate" *ngIf="tab.closeIconTemplate"></span>
                                         <ng-template *ngTemplateOutlet="tab.closeIconTemplate"></ng-template>
                                     </ng-container>
                                 </a>
                             </li>
                         </ng-template>
-                        <li #inkbar class="p-tabview-ink-bar" role="presentation" aria-hidden="true" [attr.data-pc-section]="'inkbar'"></li>
+                        <li #inkbar class="p-tabview-ink-bar" role="presentation" aria-hidden="true"
+                            [attr.data-pc-section]="'inkbar'"></li>
                     </ul>
                 </div>
                 <button
@@ -346,7 +359,11 @@ export class TabPanel implements AfterContentInit, OnDestroy {
                     type="button"
                     pRipple
                 >
-                    <ChevronRightIcon *ngIf="!nextIconTemplate" [attr.aria-hidden]="true" />
+                    @if (isRTL) {
+                        <ChevronLeftIcon *ngIf="!nextIconTemplate" [attr.aria-hidden]="true" />
+                    } @else {
+                        <ChevronRightIcon *ngIf="!nextIconTemplate" [attr.aria-hidden]="true" />
+                    }
                     <ng-template *ngTemplateOutlet="nextIconTemplate"></ng-template>
                 </button>
             </div>
@@ -496,6 +513,7 @@ export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, B
     @ViewChild('elementToObserve') elementToObserve: ElementRef;
 
     constructor(
+        @Inject(DOCUMENT) private readonly document: Document,
         @Inject(PLATFORM_ID) private platformId: any,
         public el: ElementRef,
         public cd: ChangeDetectorRef,
@@ -522,6 +540,10 @@ export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, B
                     break;
             }
         });
+    }
+
+    public get isRTL(): boolean {
+        return this.document.documentElement.dir === 'rtl';
     }
 
     callResizeObserver() {

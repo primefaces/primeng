@@ -9,7 +9,7 @@ import { AutoFocusModule } from 'primeng/autofocus';
 
 import { ButtonProps, MenuButtonProps } from './splitbutton.interface';
 
-type SplitButtonIconPosition = 'left' | 'right';
+type SplitButtonIconPosition = 'start' | 'end';
 /**
  * SplitButton groups a set of commands in an overlay with a default command.
  * @group Components
@@ -155,7 +155,7 @@ export class SplitButton {
      * Position of the icon.
      * @group Props
      */
-    @Input() iconPos: SplitButtonIconPosition = 'left';
+    @Input() iconPos: SplitButtonIconPosition = 'start';
     /**
      * Text of the button.
      * @group Props

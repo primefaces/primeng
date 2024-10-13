@@ -16,8 +16,8 @@ import { Code } from '@domain/code';
                 Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
             </p>
 
-            <p-divider align="left" type="solid">
-                <b>Left</b>
+            <p-divider align="start" type="solid">
+                <b>Start</b>
             </p-divider>
 
             <p class="m-0">
@@ -34,8 +34,8 @@ import { Code } from '@domain/code';
                 officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.
             </p>
 
-            <p-divider align="right" type="dashed">
-                <b>Right</b>
+            <p-divider align="end" type="dashed">
+                <b>End</b>
             </p-divider>
 
             <p class="m-0">

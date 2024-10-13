@@ -25,7 +25,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        margin-left: auto;
+        margin-inline-start: auto;
     }
 
     .p-sidebar-left {

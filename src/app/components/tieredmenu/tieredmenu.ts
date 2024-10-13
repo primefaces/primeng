@@ -36,6 +36,7 @@ import { RippleModule } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
+import { AngleLeftIcon } from '../icons/angleleft/angleleft';
 
 @Component({
     selector: 'p-tieredMenuSub',
@@ -85,7 +86,9 @@ import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
                     [pTooltip]="getItemProp(processedItem, 'tooltip')"
                     [tooltipOptions]="getItemProp(processedItem, 'tooltipOptions')"
                 >
-                    <div [attr.data-pc-section]="'content'" class="p-menuitem-content" (click)="onItemClick($event, processedItem)" (mouseenter)="onItemMouseEnter({ $event, processedItem })">
+                    <div [attr.data-pc-section]="'content'" class="p-menuitem-content"
+                         (click)="onItemClick($event, processedItem)"
+                         (mouseenter)="onItemMouseEnter({ $event, processedItem })">
                         <ng-container *ngIf="!itemTemplate">
                             <a
                                 *ngIf="!getItemProp(processedItem, 'routerLink')"
@@ -106,17 +109,32 @@ import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
                                     [attr.tabindex]="-1"
                                 >
                                 </span>
-                                <span *ngIf="getItemProp(processedItem, 'escape'); else htmlLabel" class="p-menuitem-text" [attr.data-pc-section]="'label'">
+                                <span *ngIf="getItemProp(processedItem, 'escape'); else htmlLabel"
+                                      class="p-menuitem-text" [attr.data-pc-section]="'label'">
                                     {{ getItemLabel(processedItem) }}
                                 </span>
                                 <ng-template #htmlLabel>
-                                    <span class="p-menuitem-text" [innerHTML]="getItemLabel(processedItem)" [attr.data-pc-section]="'label'"></span>
+                                    <span class="p-menuitem-text" [innerHTML]="getItemLabel(processedItem)"
+                                          [attr.data-pc-section]="'label'"></span>
                                 </ng-template>
-                                <span class="p-menuitem-badge" *ngIf="getItemProp(processedItem, 'badge')" [ngClass]="getItemProp(processedItem, 'badgeStyleClass')">{{ getItemProp(processedItem, 'badge') }}</span>
+                                <span class="p-menuitem-badge" *ngIf="getItemProp(processedItem, 'badge')"
+                                      [ngClass]="getItemProp(processedItem, 'badgeStyleClass')">{{ getItemProp(processedItem, 'badge') }}</span>
 
                                 <ng-container *ngIf="isItemGroup(processedItem)">
-                                    <AngleRightIcon *ngIf="!tieredMenu.submenuIconTemplate" [styleClass]="'p-submenu-icon'" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" />
-                                    <ng-template *ngTemplateOutlet="tieredMenu.submenuIconTemplate" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true"></ng-template>
+                                    @if (isRTL()) {
+                                        <AngleLeftIcon *ngIf="!tieredMenu.submenuIconTemplate"
+                                                       [styleClass]="'p-submenu-icon'"
+                                                       [attr.data-pc-section]="'submenuicon'"
+                                                       [attr.aria-hidden]="true" />
+                                    } @else {
+                                        <AngleRightIcon *ngIf="!tieredMenu.submenuIconTemplate"
+                                                        [styleClass]="'p-submenu-icon'"
+                                                        [attr.data-pc-section]="'submenuicon'"
+                                                        [attr.aria-hidden]="true" />
+                                    }
+                                    <ng-template *ngTemplateOutlet="tieredMenu.submenuIconTemplate"
+                                                 [attr.data-pc-section]="'submenuicon'"
+                                                 [attr.aria-hidden]="true"></ng-template>
                                 </ng-container>
                             </a>
                             <a
@@ -148,22 +166,38 @@ import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
                                     [attr.tabindex]="-1"
                                 >
                                 </span>
-                                <span *ngIf="getItemProp(processedItem, 'escape'); else htmlLabel" class="p-menuitem-text" [attr.data-pc-section]="'label'">
+                                <span *ngIf="getItemProp(processedItem, 'escape'); else htmlLabel"
+                                      class="p-menuitem-text" [attr.data-pc-section]="'label'">
                                     {{ getItemLabel(processedItem) }}
                                 </span>
                                 <ng-template #htmlLabel>
-                                    <span class="p-menuitem-text" [innerHTML]="getItemLabel(processedItem)" [attr.data-pc-section]="'label'"></span>
+                                    <span class="p-menuitem-text" [innerHTML]="getItemLabel(processedItem)"
+                                          [attr.data-pc-section]="'label'"></span>
                                 </ng-template>
-                                <span class="p-menuitem-badge" *ngIf="getItemProp(processedItem, 'badge')" [ngClass]="getItemProp(processedItem, 'badgeStyleClass')">{{ getItemProp(processedItem, 'badge') }}</span>
+                                <span class="p-menuitem-badge" *ngIf="getItemProp(processedItem, 'badge')"
+                                      [ngClass]="getItemProp(processedItem, 'badgeStyleClass')">{{ getItemProp(processedItem, 'badge') }}</span>
 
                                 <ng-container *ngIf="isItemGroup(processedItem)">
-                                    <AngleRightIcon *ngIf="!tieredMenu.submenuIconTemplate" [styleClass]="'p-submenu-icon'" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" />
-                                    <ng-template *ngTemplateOutlet="tieredMenu.submenuIconTemplate" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true"></ng-template>
+                                    @if (isRTL()) {
+                                        <AngleLeftIcon *ngIf="!tieredMenu.submenuIconTemplate"
+                                                       [styleClass]="'p-submenu-icon'"
+                                                       [attr.data-pc-section]="'submenuicon'"
+                                                       [attr.aria-hidden]="true" />
+                                    } @else {
+                                        <AngleRightIcon *ngIf="!tieredMenu.submenuIconTemplate"
+                                                        [styleClass]="'p-submenu-icon'"
+                                                        [attr.data-pc-section]="'submenuicon'"
+                                                        [attr.aria-hidden]="true" />
+                                    }
+                                    <ng-template *ngTemplateOutlet="tieredMenu.submenuIconTemplate"
+                                                 [attr.data-pc-section]="'submenuicon'"
+                                                 [attr.aria-hidden]="true"></ng-template>
                                 </ng-container>
                             </a>
                         </ng-container>
                         <ng-container *ngIf="itemTemplate">
-                            <ng-template *ngTemplateOutlet="itemTemplate; context: { $implicit: processedItem.item, hasSubmenu: getItemProp(processedItem, 'items') }"></ng-template>
+                            <ng-template
+                                *ngTemplateOutlet="itemTemplate; context: { $implicit: processedItem.item, hasSubmenu: getItemProp(processedItem, 'items') }"></ng-template>
                         </ng-container>
                     </div>
 
@@ -231,6 +265,7 @@ export class TieredMenuSub {
     @ViewChild('sublist', { static: true }) sublistViewChild: ElementRef;
 
     constructor(
+        @Inject(DOCUMENT) private readonly document: Document,
         public el: ElementRef,
         public renderer: Renderer2,
         @Inject(forwardRef(() => TieredMenu)) public tieredMenu: TieredMenu
@@ -241,6 +276,10 @@ export class TieredMenuSub {
                 this.positionSubmenu();
             }
         });
+    }
+
+    public isRTL(): boolean {
+        return this.document.documentElement.dir === 'rtl';
     }
 
     positionSubmenu() {
@@ -1194,7 +1233,7 @@ export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule, RouterModule, RippleModule, TooltipModule, AngleRightIcon, SharedModule],
+    imports: [CommonModule, RouterModule, RippleModule, TooltipModule, AngleRightIcon, AngleLeftIcon, SharedModule],
     exports: [TieredMenu, RouterModule, TooltipModule, SharedModule],
     declarations: [TieredMenu, TieredMenuSub]
 })

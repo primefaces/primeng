@@ -16,6 +16,14 @@
             </div>
         </section>
 
+        <!-- Text Direction -->
+        <section class="py-4 flex align-items-center justify-content-between border-bottom-1 surface-border">
+            <span class="text-xl font-semibold">Text Direction</span>
+            <p-selectButton [options]="textDirections" [(ngModel)]="textDirection" (onChange)="onTextDirectionChange($event)"
+                optionLabel="label" optionValue="value" allowEmpty="false"></p-selectButton>
+        </section>
+
+        <!-- Input Style -->
         <section class="py-4 flex align-items-center justify-content-between border-bottom-1 surface-border">
             <span class="text-xl font-semibold">Input Style</span>
             <p-selectButton [options]="inputStyles" [(ngModel)]="inputStyle" (onChange)="onInputStyleChange($event)"

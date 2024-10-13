@@ -56,11 +56,11 @@
     }
 
     .p-slidemenu .p-menuitem-link .p-submenu-icon:not(svg) {
-        margin-left: auto;
+        margin-inline-start: auto;
     }
 
     .p-slidemenu .p-menuitem-link .p-icon-wrapper {
-        margin-left: auto;
+        margin-inline-start: auto;
     }
 
     .p-slidemenu .p-menuitem-active > p-slidemenusub > .p-submenu-list {

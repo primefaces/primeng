@@ -394,24 +394,24 @@ export class AdvancedDoc implements OnInit, OnDestroy {
 
     <p-toast position="top-center" key="tc" />
 
-    <p-dialog 
-        [(visible)]="displayFinder" 
-        [breakpoints]="{ '960px': '50vw' }" 
-        [style]="{ width: '30vw', height: '18rem' }" 
-        [draggable]="false" 
+    <p-dialog
+        [(visible)]="displayFinder"
+        [breakpoints]="{ '960px': '50vw' }"
+        [style]="{ width: '30vw', height: '18rem' }"
+        [draggable]="false"
         [resizable]="false">
             <p-tree [value]="nodes" />
     </p-dialog>
 
-    <p-dialog 
-        [maximizable]="true" 
-        [(visible)]="displayTerminal" 
-        [breakpoints]="{ '960px': '50vw' }" 
-        [style]="{ width: '30vw' }" 
-        [draggable]="false" 
+    <p-dialog
+        [maximizable]="true"
+        [(visible)]="displayTerminal"
+        [breakpoints]="{ '960px': '50vw' }"
+        [style]="{ width: '30vw' }"
+        [draggable]="false"
         [resizable]="false">
-            <p-terminal 
-                welcomeMessage="Welcome to PrimeNG (cmd: 'date', 'greet {0}', 'random')" 
+            <p-terminal
+                welcomeMessage="Welcome to PrimeNG (cmd: 'date', 'greet {0}', 'random')"
                 prompt="primeng $" />
     </p-dialog>
 
@@ -455,24 +455,24 @@ export class AdvancedDoc implements OnInit, OnDestroy {
 
         <p-toast position="top-center" key="tc" />
 
-        <p-dialog 
-            [(visible)]="displayFinder" 
-            [breakpoints]="{ '960px': '50vw' }" 
-            [style]="{ width: '30vw', height: '18rem' }" 
-            [draggable]="false" 
+        <p-dialog
+            [(visible)]="displayFinder"
+            [breakpoints]="{ '960px': '50vw' }"
+            [style]="{ width: '30vw', height: '18rem' }"
+            [draggable]="false"
             [resizable]="false">
                 <p-tree [value]="nodes" />
         </p-dialog>
 
-        <p-dialog 
-            [maximizable]="true" 
-            [(visible)]="displayTerminal" 
-            [breakpoints]="{ '960px': '50vw' }" 
-            [style]="{ width: '30vw' }" 
-            [draggable]="false" 
+        <p-dialog
+            [maximizable]="true"
+            [(visible)]="displayTerminal"
+            [breakpoints]="{ '960px': '50vw' }"
+            [style]="{ width: '30vw' }"
+            [draggable]="false"
             [resizable]="false">
-                <p-terminal 
-                    welcomeMessage="Welcome to PrimeNG (cmd: 'date', 'greet {0}', 'random')" 
+                <p-terminal
+                    welcomeMessage="Welcome to PrimeNG (cmd: 'date', 'greet {0}', 'random')"
                     prompt="primeng $" />
         </p-dialog>
 
@@ -508,7 +508,7 @@ import { ToastModule } from 'primeng/toast';
 import { DialogModule } from 'primeng/dialog';
 import { TreeModule } from 'primeng/tree';
 import { GalleriaModule } from 'primeng/galleria';
-        
+
 
 @Component({
     selector: 'dock-advanced-demo',
@@ -525,86 +525,86 @@ import { GalleriaModule } from 'primeng/galleria';
                 background-repeat: no-repeat;
                 background-size: cover;
             }
-        
+
             .p-dock {
                 z-index: 1000;
             }
-        
+
             .dock-advanced {
                 .p-dialog-mask,
                 .p-toast {
                     position: absolute;
                 }
-        
+
                 .p-dialog {
                     .p-dialog-header {
                         padding: .2rem;
                     }
-        
+
                     .p-dialog-content {
                         padding: 0;
                     }
-        
+
                     p {
                         margin-top: 0;
                     }
-        
+
                     .p-terminal {
                         background-color: #212121;
                         color: #ffffff;
                         border: 0 none;
                         min-height: 18rem;
                         height: 100%;
-        
+
                         .p-terminal-command {
                             color: #80CBC4;
                         }
-        
+
                         .p-terminal-prompt {
                             color: #FFD54F;
                         }
-        
+
                         .p-terminal-response {
                             color: #9FA8DA;
                         }
                     }
-        
+
                     .p-tree {
                         height: 100%;
                         border-radius: 0;
-                        border-left-width: 0;
-                        border-right-width: 0;
+                        border-inline-start-width: 0;
+                        border-inline-end-width: 0;
                         border-bottom-width: 0;
                     }
                 }
-        
+
                 .p-toast {
                     top: 20px;
                 }
             }
-        
+
             .p-menubar {
                 padding-top: 0;
                 padding-bottom: 0;
                 border-radius: 0;
-        
+
                 .p-menuitem:first-child {
                     font-weight: bold;
                     padding: 0 1rem;
                 }
-        
+
                 .p-menuitem-link {
                     padding: 0.5rem .75rem;
                 }
-        
+
                 .p-menubar-root-list > .p-menuitem > .p-menuitem-link {
                     padding: 0.5rem .75rem;
-        
+
                     > .p-submenu-icon {
                         display: none;
                     }
                 }
-        
+
                 .p-menubar-end {
                     span, i {
                         padding: 0 .75rem;
@@ -612,13 +612,13 @@ import { GalleriaModule } from 'primeng/galleria';
                 }
             }
         }
-        
+
         .dark-tooltip {
             .p-tooltip {
                 .p-tooltip-arrow {
                     border-top-color: var(--surface-900);
                 }
-        
+
                 .p-tooltip-text {
                     background-color: var(--surface-900);
                 }
@@ -982,8 +982,8 @@ export class DockAdvancedDemo implements OnInit {
             .p-tree {
                 height: 100%;
                 border-radius: 0;
-                border-left-width: 0;
-                border-right-width: 0;
+                border-inline-start-width: 0;
+                border-inline-end-width: 0;
                 border-bottom-width: 0;
             }
         }

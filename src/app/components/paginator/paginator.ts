@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, DOCUMENT } from '@angular/common';
 import {
     AfterContentInit,
     ChangeDetectionStrategy,
@@ -7,6 +7,7 @@ import {
     ContentChildren,
     ElementRef,
     EventEmitter,
+    Inject,
     Input,
     NgModule,
     OnChanges,
@@ -52,7 +53,11 @@ import { PaginatorState } from './paginator.interface';
                 [ngClass]="{ 'p-disabled': isFirstPage() || empty() }"
                 [attr.aria-label]="getAriaLabel('firstPageLabel')"
             >
-                <AngleDoubleLeftIcon *ngIf="!firstPageLinkIconTemplate" [styleClass]="'p-paginator-icon'" />
+                @if (isRTL) {
+                    <AngleDoubleRightIcon *ngIf="!firstPageLinkIconTemplate" [styleClass]="'p-paginator-icon'" />
+                } @else {
+                    <AngleDoubleLeftIcon *ngIf="!firstPageLinkIconTemplate" [styleClass]="'p-paginator-icon'" />
+                }
                 <span class="p-paginator-icon" *ngIf="firstPageLinkIconTemplate">
                     <ng-template *ngTemplateOutlet="firstPageLinkIconTemplate"></ng-template>
                 </span>
@@ -66,7 +71,11 @@ import { PaginatorState } from './paginator.interface';
                 [ngClass]="{ 'p-disabled': isFirstPage() || empty() }"
                 [attr.aria-label]="getAriaLabel('prevPageLabel')"
             >
-                <AngleLeftIcon *ngIf="!previousPageLinkIconTemplate" [styleClass]="'p-paginator-icon'" />
+                @if (isRTL) {
+                    <AngleRightIcon *ngIf="!previousPageLinkIconTemplate" [styleClass]="'p-paginator-icon'" />
+                } @else {
+                    <AngleLeftIcon *ngIf="!previousPageLinkIconTemplate" [styleClass]="'p-paginator-icon'" />
+                }
                 <span class="p-paginator-icon" *ngIf="previousPageLinkIconTemplate">
                     <ng-template *ngTemplateOutlet="previousPageLinkIconTemplate"></ng-template>
                 </span>
@@ -115,7 +124,11 @@ import { PaginatorState } from './paginator.interface';
                 [ngClass]="{ 'p-disabled': isLastPage() || empty() }"
                 [attr.aria-label]="getAriaLabel('nextPageLabel')"
             >
-                <AngleRightIcon *ngIf="!nextPageLinkIconTemplate" [styleClass]="'p-paginator-icon'" />
+                @if(isRTL) {
+                    <AngleLeftIcon *ngIf="!nextPageLinkIconTemplate" [styleClass]="'p-paginator-icon'" />
+                } @else {
+                    <AngleRightIcon *ngIf="!nextPageLinkIconTemplate" [styleClass]="'p-paginator-icon'" />
+                }
                 <span class="p-paginator-icon" *ngIf="nextPageLinkIconTemplate">
                     <ng-template *ngTemplateOutlet="nextPageLinkIconTemplate"></ng-template>
                 </span>
@@ -130,7 +143,11 @@ import { PaginatorState } from './paginator.interface';
                 [ngClass]="{ 'p-disabled': isLastPage() || empty() }"
                 [attr.aria-label]="getAriaLabel('lastPageLabel')"
             >
-                <AngleDoubleRightIcon *ngIf="!lastPageLinkIconTemplate" [styleClass]="'p-paginator-icon'" />
+                @if(isRTL) {
+                    <AngleDoubleLeftIcon *ngIf="!lastPageLinkIconTemplate" [styleClass]="'p-paginator-icon'" />
+                } @else {
+                    <AngleDoubleRightIcon *ngIf="!lastPageLinkIconTemplate" [styleClass]="'p-paginator-icon'" />
+                }
                 <span class="p-paginator-icon" *ngIf="lastPageLinkIconTemplate">
                     <ng-template *ngTemplateOutlet="lastPageLinkIconTemplate"></ng-template>
                 </span>
@@ -320,12 +337,17 @@ export class Paginator implements OnInit, AfterContentInit, OnChanges {
     _page: number = 0;
 
     constructor(
+        @Inject(DOCUMENT) private readonly document: Document,
         private cd: ChangeDetectorRef,
         private config: PrimeNGConfig
     ) {}
 
     ngOnInit() {
         this.updatePaginatorState();
+    }
+
+    public isRTL(): boolean {
+        return this.document.documentElement.dir === 'rtl';
     }
 
     getAriaLabel(labelType: keyof Aria): string | undefined {

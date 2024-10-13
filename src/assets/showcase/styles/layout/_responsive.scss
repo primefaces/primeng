@@ -13,9 +13,9 @@
 }
 
 @media screen and (max-width: 1199px) {
-    .layout-topbar-inner {   
-        padding-left: 2rem;
-        padding-right: 2rem;
+    .layout-topbar-inner {
+        padding-inline-start: 2rem;
+        padding-inline-end: 2rem;
 
         .menu-button {
             display: block;
@@ -23,7 +23,7 @@
 
         .layout-topbar-logo-container {
             width: auto;
-            margin-right: 0;
+            margin-inline-end: 0;
         }
 
         .DocSearch-Button {
@@ -109,18 +109,18 @@
     }
 
     .layout-content {
-        padding-left: 2rem;
-        padding-right: 2rem;
+        padding-inline-start: 2rem;
+        padding-inline-end: 2rem;
     }
 
     .layout-footer {
-        padding-left: 2rem;
-        padding-right: 2rem;
+        padding-inline-start: 2rem;
+        padding-inline-end: 2rem;
     }
 
     .blocked-scroll {
         overflow: hidden;
-        padding-right: var(--scrollbar-width);
+        padding-inline-end: var(--scrollbar-width);
     }
 }
 
@@ -132,8 +132,8 @@
 
 @media screen and (max-width: 575px) {
     .layout-topbar-inner {
-        padding-left: 1rem;
-        padding-right: 1rem;
+        padding-inline-start: 1rem;
+        padding-inline-end: 1rem;
 
         .layout-topbar-logo {
             display: none;
@@ -145,13 +145,13 @@
     }
 
     .layout-content {
-        padding-left: 1rem;
-        padding-right: 1rem;
+        padding-inline-start: 1rem;
+        padding-inline-end: 1rem;
     }
 
     .layout-footer {
-        padding-left: 1rem;
-        padding-right: 1rem;
+        padding-inline-start: 1rem;
+        padding-inline-end: 1rem;
     }
 
     .doc-tabmenu {
@@ -166,8 +166,8 @@
     }
 
     .layout-news {
-        padding-left: 1rem;
-        padding-right: 1rem;
+        padding-inline-start: 1rem;
+        padding-inline-end: 1rem;
         font-size: 12px;
 
         > i {

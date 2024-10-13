@@ -17,7 +17,7 @@
 
     .p-slider-horizontal .p-slider-range {
         top: 0;
-        left: 0;
+        inset-inline-start: 0;
         height: 100%;
     }
 
@@ -30,12 +30,12 @@
     }
 
     .p-slider-vertical .p-slider-handle {
-        left: 50%;
+        inset-inline-start: 50%;
     }
 
     .p-slider-vertical .p-slider-range {
         bottom: 0;
-        left: 0;
+        inset-inline-start: 0;
         width: 100%;
     }
 }

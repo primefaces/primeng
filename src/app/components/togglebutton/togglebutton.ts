@@ -42,7 +42,7 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
                 <span
                     *ngIf="onIcon || offIcon"
                     [class]="checked ? this.onIcon : this.offIcon"
-                    [ngClass]="{ 'p-button-icon': true, 'p-button-icon-left': iconPos === 'left', 'p-button-icon-right': iconPos === 'right' }"
+                    [ngClass]="{ 'p-button-icon': true, 'p-button-icon-start': iconPos === 'start', 'p-button-icon-end': iconPos === 'end' }"
                     [attr.data-pc-section]="'icon'"
                 ></span>
             } @else {

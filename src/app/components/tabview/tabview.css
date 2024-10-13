@@ -59,11 +59,11 @@
     }
 
     .p-tabview-nav-prev {
-        left: 0;
+        inset-inline-start: 0;
     }
 
     .p-tabview-nav-next {
-        right: 0;
+        inset-inline-end: 0;
     }
 
     .p-tabview-nav-content::-webkit-scrollbar {

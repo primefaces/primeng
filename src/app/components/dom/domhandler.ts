@@ -118,6 +118,11 @@ export class DomHandler {
         }
     }
 
+    public static documentIsRTL(): boolean {
+        const direction: string = document.documentElement.dir;
+        return direction === 'rtl';
+    }
+
     public static relativePosition(element: any, target: any, gutter: boolean = true): void {
         const getClosestRelativeElement = (el) => {
             if (!el) return;
@@ -128,12 +133,12 @@ export class DomHandler {
         const elementDimensions = element.offsetParent ? { width: element.offsetWidth, height: element.offsetHeight } : this.getHiddenElementDimensions(element);
         const targetHeight = target.offsetHeight ?? target.getBoundingClientRect().height;
         const targetOffset = target.getBoundingClientRect();
-        const windowScrollTop = this.getWindowScrollTop();
-        const windowScrollLeft = this.getWindowScrollLeft();
+        const windowScrollTop: number = this.getWindowScrollTop();
+        const windowScrollLeft: number = this.getWindowScrollLeft();
         const viewport = this.getViewport();
         const relativeElement = getClosestRelativeElement(element);
         const relativeElementOffset = relativeElement?.getBoundingClientRect() || { top: -1 * windowScrollTop, left: -1 * windowScrollLeft };
-        let top: number, left: number;
+        let top: number, start: number;
 
         if (targetOffset.top + targetHeight + elementDimensions.height > viewport.height) {
             top = targetOffset.top - relativeElementOffset.top - elementDimensions.height;
@@ -150,17 +155,17 @@ export class DomHandler {
         const targetLeftOffsetInSpaceOfRelativeElement = targetOffset.left - relativeElementOffset.left;
         if (elementDimensions.width > viewport.width) {
             // element wider then viewport and cannot fit on screen (align at left side of viewport)
-            left = (targetOffset.left - relativeElementOffset.left) * -1;
+                start = (targetOffset.left - relativeElementOffset.left) * -1;
         } else if (horizontalOverflow > 0) {
             // element wider then viewport but can be fit on screen (align at right side of viewport)
-            left = targetLeftOffsetInSpaceOfRelativeElement - horizontalOverflow;
+            start = targetLeftOffsetInSpaceOfRelativeElement - horizontalOverflow;
         } else {
             // element fits on screen (align with target)
-            left = targetOffset.left - relativeElementOffset.left;
+            start = targetOffset.left - relativeElementOffset.left;
         }
 
         element.style.top = top + 'px';
-        element.style.left = left + 'px';
+        element.style.insetInlineStart = start + 'px';
         gutter && (element.style.marginTop = origin === 'bottom' ? 'calc(var(--p-anchor-gutter) * -1)' : 'calc(var(--p-anchor-gutter))');
     }
 
@@ -174,7 +179,7 @@ export class DomHandler {
         const windowScrollTop = this.getWindowScrollTop();
         const windowScrollLeft = this.getWindowScrollLeft();
         const viewport = this.getViewport();
-        let top: number, left: number;
+        let top: number, start: number;
 
         if (targetOffset.top + targetOuterHeight + elementOuterHeight > viewport.height) {
             top = targetOffset.top + windowScrollTop - elementOuterHeight;
@@ -188,11 +193,15 @@ export class DomHandler {
             element.style.transformOrigin = 'top';
         }
 
-        if (targetOffset.left + elementOuterWidth > viewport.width) left = Math.max(0, targetOffset.left + windowScrollLeft + targetOuterWidth - elementOuterWidth);
-        else left = targetOffset.left + windowScrollLeft;
+        if (targetOffset.left + elementOuterWidth > viewport.width) start = Math.max(0, targetOffset.left + windowScrollLeft + targetOuterWidth - elementOuterWidth);
+        else start = targetOffset.left + windowScrollLeft;
+
+        // if (DomHandler.documentIsRTL()) {
+        //     start += targetOuterWidth;
+        // }
 
         element.style.top = top + 'px';
-        element.style.left = left + 'px';
+        element.style.insetInlineStart = start + 'px';
         gutter && (element.style.marginTop = origin === 'bottom' ? 'calc(var(--p-anchor-gutter) * -1)' : 'calc(var(--p-anchor-gutter))');
     }
 

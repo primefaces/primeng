@@ -26,7 +26,7 @@ import { SpinnerIcon } from 'primeng/icons/spinner';
 import { Ripple } from 'primeng/ripple';
 import { ObjectUtils } from 'primeng/utils';
 
-type ButtonIconPosition = 'left' | 'right' | 'top' | 'bottom';
+type ButtonIconPosition = 'start' | 'end' | 'top' | 'bottom';
 
 const INTERNAL_BUTTON_CLASSES = {
     button: 'p-button',
@@ -53,7 +53,7 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
      * Position of the icon.
      * @group Props
      */
-    @Input() iconPos: ButtonIconPosition = 'left';
+    @Input() iconPos: ButtonIconPosition = 'start';
     /**
      * Uses to pass attributes to the loading icon's DOM element.
      * @group Props
@@ -363,7 +363,7 @@ export class Button implements AfterContentInit {
      * Position of the icon.
      * @group Props
      */
-    @Input() iconPos: ButtonIconPosition = 'left';
+    @Input() iconPos: ButtonIconPosition = 'start';
     /**
      * Name of the icon.
      * @group Props
@@ -505,8 +505,8 @@ export class Button implements AfterContentInit {
     iconClass() {
         const iconClasses = {
             'p-button-icon': true,
-            'p-button-icon-left': this.iconPos === 'left' && this.label,
-            'p-button-icon-right': this.iconPos === 'right' && this.label,
+            'p-button-icon-start': this.iconPos === 'start' && this.label,
+            'p-button-icon-end': this.iconPos === 'end' && this.label,
             'p-button-icon-top': this.iconPos === 'top' && this.label,
             'p-button-icon-bottom': this.iconPos === 'bottom' && this.label
         };
@@ -526,7 +526,7 @@ export class Button implements AfterContentInit {
             'p-button-icon-only': (this.icon || this.iconTemplate || this.loadingIcon || this.loadingIconTemplate) && !this.label,
             'p-button-vertical': (this.iconPos === 'top' || this.iconPos === 'bottom') && this.label,
             'p-button-loading': this.loading,
-            'p-button-loading-label-only': this.loading && !this.icon && this.label && !this.loadingIcon && this.iconPos === 'left',
+            'p-button-loading-label-only': this.loading && !this.icon && this.label && !this.loadingIcon && this.iconPos === 'start',
             'p-button-link': this.link,
             [`p-button-${this.severity}`]: this.severity,
             'p-button-raised': this.raised,

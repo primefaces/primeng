@@ -41,7 +41,7 @@ import { Code } from '@domain/code';
                 background: transparent;
                 outline-offset: -2px;
                 outline-color: transparent;
-                border-right: 0 none;
+                border-inline-end: 0 none;
                 transition: outline-color 0.3s;
                 color: var(--text-color);
             }
@@ -52,16 +52,16 @@ import { Code } from '@domain/code';
 
             .custom-otp-input:first-child,
             .custom-otp-input:nth-child(5) {
-                border-top-left-radius: 12px;
-                border-bottom-left-radius: 12px;
+                border-start-start-radius: 12px;
+                border-end-start-radius: 12px;
             }
 
             .custom-otp-input:nth-child(3),
             .custom-otp-input:last-child {
-                border-top-right-radius: 12px;
-                border-bottom-right-radius: 12px;
-                border-right-width: 1px;
-                border-right-style: solid;
+                border-start-end-radius: 12px;
+                border-end-end-radius: 12px;
+                border-inline-end-width: 1px;
+                border-inline-end-style: solid;
                 border-color: var(--surface-400);
             }
         `
@@ -76,13 +76,13 @@ export class SampleDoc {
     <p class="text-color-secondary block mb-5">Please enter the code sent to your phone.</p>
     <p-inputOtp [(ngModel)]="value" [length]="6" style="gap: 0">
         <ng-template pTemplate="input" let-token let-events="events" let-index="index">
-            <input 
+            <input
                 pInputText
-                type="text" 
-                [maxLength]="1" 
-                (input)="events.input($event)" 
-                (keydown)="events.keydown($event)" 
-                [attr.value]="token" 
+                type="text"
+                [maxLength]="1"
+                (input)="events.input($event)"
+                (keydown)="events.keydown($event)"
+                [attr.value]="token"
                 class="custom-otp-input" />
             <div *ngIf="index === 3" class="px-3">
                 <i class="pi pi-minus"></i>
@@ -101,13 +101,13 @@ export class SampleDoc {
         <p class="text-color-secondary block mb-5">Please enter the code sent to your phone.</p>
         <p-inputOtp [(ngModel)]="value" [length]="6" style="gap: 0">
             <ng-template pTemplate="input" let-token let-events="events" let-index="index">
-                <input 
-                    pInputText 
-                    type="text" 
-                    [maxLength]="1" 
-                    (input)="events.input($event)" 
-                    (keydown)="events.keydown($event)" 
-                    [attr.value]="token" 
+                <input
+                    pInputText
+                    type="text"
+                    [maxLength]="1"
+                    (input)="events.input($event)"
+                    (keydown)="events.keydown($event)"
+                    [attr.value]="token"
                     class="custom-otp-input" />
                 <div *ngIf="index === 3" class="px-3">
                     <i class="pi pi-minus"></i>
@@ -145,7 +145,7 @@ import { ButtonModule } from 'primeng/button';
             background: transparent;
             outline-offset: -2px;
             outline-color: transparent;
-            border-right: 0 none;
+            border-inline-end: 0 none;
             transition: outline-color 0.3s;
             color: var(--text-color);
         }
@@ -156,16 +156,16 @@ import { ButtonModule } from 'primeng/button';
 
         .custom-otp-input:first-child,
         .custom-otp-input:nth-child(5) {
-            border-top-left-radius: 12px;
-            border-bottom-left-radius: 12px;
+            border-start-start-radius: 12px;
+            border-end-start-radius: 12px;
         }
 
         .custom-otp-input:nth-child(3),
         .custom-otp-input:last-child {
-            border-top-right-radius: 12px;
-            border-bottom-right-radius: 12px;
-            border-right-width: 1px;
-            border-right-style: solid;
+            border-start-end-radius: 12px;
+            border-end-end-radius: 12px;
+            border-inline-end-width: 1px;
+            border-inline-end-style: solid;
             border-color: var(--surface-400);
         }
         \`

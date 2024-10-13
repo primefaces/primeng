@@ -47,36 +47,36 @@ import { RippleModule } from 'primeng/ripple';
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                margin-right: 1rem;
+                margin-inline-end: 1rem;
                 user-select: none;
                 padding: 0;
-        
+
                 &.primary-box {
                     background-color: var(--primary-color);
                     padding: 0;
                     color: var(--primary-color-text);
                 }
-        
+
                 &.styled-box-green {
                     .p-ink {
                         background: rgba(#4baf50, 0.3);
                     }
                 }
-        
+
                 &.styled-box-orange {
                     .p-ink {
                         background: rgba(#ffc106, 0.3);
                     }
                 }
-        
+
                 &.styled-box-purple {
                     .p-ink {
                         background: rgba(#9c27b0, 0.3);
                     }
                 }
-        
+
                 &:last-child {
-                    margin-right: 0;
+                    margin-inline-end: 0;
                 }
             }
         }\`
@@ -91,7 +91,7 @@ export class RippleCustomDemo {
         display: flex;
         align-items: center;
         justify-content: center;
-        margin-right: 1rem;
+        margin-inline-end: 1rem;
         user-select: none;
         padding: 0;
 
@@ -120,7 +120,7 @@ export class RippleCustomDemo {
         }
 
         &:last-child {
-            margin-right: 0;
+            margin-inline-end: 0;
         }
     }
 }`

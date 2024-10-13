@@ -12,7 +12,7 @@
     }
 
     .p-message-close.p-link {
-        margin-left: auto;
+        margin-inline-start: auto;
         overflow: hidden;
         position: relative;
     }

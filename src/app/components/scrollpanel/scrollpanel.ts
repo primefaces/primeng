@@ -252,7 +252,7 @@ export class ScrollPanel implements AfterViewInit, AfterContentInit, OnDestroy {
                 DomHandler.removeClass(yBar, 'p-scrollpanel-hidden');
                 const yBarHeight = Math.max((this.scrollYRatio as number) * 100, 10);
                 const yBarTop = (content.scrollTop * (100 - yBarHeight)) / (totalHeight - ownHeight);
-                yBar.style.cssText = 'height:' + yBarHeight + '%; top: calc(' + yBarTop + '% - ' + xBar.clientHeight + 'px);right:' + right + 'px;';
+                yBar.style.cssText = 'height:' + yBarHeight + '%; top: calc(' + yBarTop + '% - ' + xBar.clientHeight + 'px);inset-inline-end:' + right + 'px;';
             }
         });
         this.cd.markForCheck();

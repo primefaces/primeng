@@ -30,6 +30,7 @@ import { MegaMenuItem, PrimeNGConfig, PrimeTemplate, SharedModule } from 'primen
 import { DomHandler } from 'primeng/dom';
 import { AngleDownIcon } from 'primeng/icons/angledown';
 import { AngleRightIcon } from 'primeng/icons/angleright';
+import { AngleLeftIcon } from 'primeng/icons/angleleft';
 import { RippleModule } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
 import { VoidListener } from 'primeng/ts-helpers';
@@ -52,7 +53,9 @@ import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
             (focus)="menuFocus.emit($event)"
             (blur)="menuBlur.emit($event)"
         >
-            <li *ngIf="submenu" [ngClass]="getSubmenuHeaderClass(submenu)" [ngStyle]="getItemProp(submenu, 'style')" role="presentation">{{ getItemLabel(submenu) }}</li>
+            <li *ngIf="submenu" [ngClass]="getSubmenuHeaderClass(submenu)" [ngStyle]="getItemProp(submenu, 'style')"
+                role="presentation">{{ getItemLabel(submenu) }}
+            </li>
             <ng-template ngFor let-processedItem [ngForOf]="items" let-index="index">
                 <li
                     *ngIf="isItemVisible(processedItem) && getItemProp(processedItem, 'separator')"
@@ -84,7 +87,9 @@ import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
                     pTooltip
                     [tooltipOptions]="getItemProp(processedItem, 'tooltipOptions')"
                 >
-                    <div class="p-menuitem-content" [attr.data-pc-section]="'content'" (click)="onItemClick($event, processedItem)" (mouseenter)="onItemMouseEnter({ $event, processedItem })">
+                    <div class="p-menuitem-content" [attr.data-pc-section]="'content'"
+                         (click)="onItemClick($event, processedItem)"
+                         (mouseenter)="onItemMouseEnter({ $event, processedItem })">
                         <ng-container *ngIf="!itemTemplate">
                             <a
                                 *ngIf="!getItemProp(processedItem, 'routerLink')"
@@ -105,20 +110,43 @@ import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
                                     [attr.tabindex]="-1"
                                 >
                                 </span>
-                                <span *ngIf="getItemProp(processedItem, 'escape'); else htmlLabel" class="p-menuitem-text" [attr.data-pc-section]="'label'">
+                                <span *ngIf="getItemProp(processedItem, 'escape'); else htmlLabel"
+                                      class="p-menuitem-text" [attr.data-pc-section]="'label'">
                                     {{ getItemLabel(processedItem) }}
                                 </span>
                                 <ng-template #htmlLabel>
-                                    <span class="p-menuitem-text" [innerHTML]="getItemLabel(processedItem)" [attr.data-pc-section]="'label'"></span>
+                                    <span class="p-menuitem-text" [innerHTML]="getItemLabel(processedItem)"
+                                          [attr.data-pc-section]="'label'"></span>
                                 </ng-template>
-                                <span class="p-menuitem-badge" *ngIf="getItemProp(processedItem, 'badge')" [ngClass]="getItemProp(processedItem, 'badgeStyleClass')">{{ getItemProp(processedItem, 'badge') }}</span>
+                                <span class="p-menuitem-badge" *ngIf="getItemProp(processedItem, 'badge')"
+                                      [ngClass]="getItemProp(processedItem, 'badgeStyleClass')">{{ getItemProp(processedItem, 'badge') }}</span>
 
                                 <ng-container *ngIf="isItemGroup(processedItem)">
                                     <ng-container *ngIf="!megaMenu.submenuIconTemplate">
-                                        <AngleDownIcon [styleClass]="'p-submenu-icon'" [attr.data-pc-section]="'submenuicon'" *ngIf="orientation === 'horizontal'" />
-                                        <AngleRightIcon [styleClass]="'p-submenu-icon'" [attr.data-pc-section]="'submenuicon'" *ngIf="orientation === 'vertical'" />
+                                        @switch (orientation) {
+                                            @case ('horizontal') {
+                                                <AngleDownIcon
+                                                    [styleClass]="'p-submenu-icon'"
+                                                    [attr.data-pc-section]="'submenuicon'"
+                                                />
+                                            }
+                                            @case ('vertical') {
+                                                @if (isRTL()) {
+                                                    <AngleLeftIcon
+                                                        [styleClass]="'p-submenu-icon'"
+                                                        [attr.data-pc-section]="'submenuicon'"
+                                                    />
+                                                } @else {
+                                                    <AngleRightIcon
+                                                        [styleClass]="'p-submenu-icon'"
+                                                        [attr.data-pc-section]="'submenuicon'"
+                                                    />
+                                                }
+                                            }
+                                        }
                                     </ng-container>
-                                    <ng-template *ngTemplateOutlet="megaMenu.submenuIconTemplate" [attr.data-pc-section]="'submenuicon'"></ng-template>
+                                    <ng-template *ngTemplateOutlet="megaMenu.submenuIconTemplate"
+                                                 [attr.data-pc-section]="'submenuicon'"></ng-template>
                                 </ng-container>
                             </a>
                             <a
@@ -148,23 +176,50 @@ import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
                                     [attr.data-pc-section]="'icon'"
                                     [attr.tabindex]="-1"
                                 ></span>
-                                <span class="p-menuitem-text" *ngIf="getItemProp(processedItem, 'escape'); else htmlRouteLabel">{{ getItemLabel(processedItem) }}</span>
-                                <ng-template #htmlRouteLabel><span class="p-menuitem-text" [innerHTML]="getItemLabel(processedItem)" [attr.data-pc-section]="'label'"></span></ng-template>
-                                <span class="p-menuitem-badge" *ngIf="getItemProp(processedItem, 'badge')" [ngClass]="getItemProp(processedItem, 'badgeStyleClass')">{{ getItemProp(processedItem, 'badge') }}</span>
+                                <span class="p-menuitem-text"
+                                      *ngIf="getItemProp(processedItem, 'escape'); else htmlRouteLabel">{{ getItemLabel(processedItem) }}</span>
+                                <ng-template #htmlRouteLabel><span class="p-menuitem-text"
+                                                                   [innerHTML]="getItemLabel(processedItem)"
+                                                                   [attr.data-pc-section]="'label'"></span>
+                                </ng-template>
+                                <span class="p-menuitem-badge" *ngIf="getItemProp(processedItem, 'badge')"
+                                      [ngClass]="getItemProp(processedItem, 'badgeStyleClass')">{{ getItemProp(processedItem, 'badge') }}</span>
                                 <ng-container *ngIf="isItemGroup(processedItem)">
                                     <ng-container *ngIf="!megaMenu.submenuIconTemplate">
-                                        <AngleDownIcon [styleClass]="'p-submenu-icon'" [attr.data-pc-section]="'submenuicon'" *ngIf="orientation === 'horizontal'" />
-                                        <AngleRightIcon [styleClass]="'p-submenu-icon'" [attr.data-pc-section]="'submenuicon'" *ngIf="orientation === 'vertical'" />
+                                        @switch (orientation) {
+                                            @case ('horizontal') {
+                                                <AngleDownIcon
+                                                    [styleClass]="'p-submenu-icon'"
+                                                    [attr.data-pc-section]="'submenuicon'"
+                                                />
+                                            }
+                                            @case ('vertical') {
+                                                @if (isRTL()) {
+                                                    <AngleLeftIcon
+                                                        [styleClass]="'p-submenu-icon'"
+                                                        [attr.data-pc-section]="'submenuicon'"
+                                                    />
+                                                } @else {
+                                                    <AngleRightIcon
+                                                        [styleClass]="'p-submenu-icon'"
+                                                        [attr.data-pc-section]="'submenuicon'"
+                                                    />
+                                                }
+                                            }
+                                        }
                                     </ng-container>
-                                    <ng-template *ngTemplateOutlet="megaMenu.submenuIconTemplate" [attr.data-pc-section]="'submenuicon'"></ng-template>
+                                    <ng-template *ngTemplateOutlet="megaMenu.submenuIconTemplate"
+                                                 [attr.data-pc-section]="'submenuicon'"></ng-template>
                                 </ng-container>
                             </a>
                         </ng-container>
                         <ng-container *ngIf="itemTemplate">
-                            <ng-template *ngTemplateOutlet="itemTemplate; context: { $implicit: processedItem.item }"></ng-template>
+                            <ng-template
+                                *ngTemplateOutlet="itemTemplate; context: { $implicit: processedItem.item }"></ng-template>
                         </ng-container>
                     </div>
-                    <div *ngIf="isItemVisible(processedItem) && isItemGroup(processedItem)" class="p-megamenu-panel" [attr.data-pc-section]="'panel'">
+                    <div *ngIf="isItemVisible(processedItem) && isItemGroup(processedItem)" class="p-megamenu-panel"
+                         [attr.data-pc-section]="'panel'">
                         <div class="p-megamenu-grid" [attr.data-pc-section]="'grid'">
                             <div *ngFor="let col of processedItem.items" [ngClass]="getColumnClass(processedItem)">
                                 <p-megaMenuSub
@@ -235,9 +290,14 @@ export class MegaMenuSub {
     @ViewChild('menubar', { static: true }) menubarViewChild: ElementRef;
 
     constructor(
+        @Inject(DOCUMENT) private readonly document: Document,
         public el: ElementRef,
         @Inject(forwardRef(() => MegaMenu)) public megaMenu: MegaMenu
     ) {}
+
+    public isRTL(): boolean {
+        return this.document.documentElement.dir === 'rtl';
+    }
 
     onItemClick(event: any, processedItem: any) {
         this.getItemProp(processedItem, 'command', { originalEvent: event, item: processedItem.item });
@@ -1083,7 +1143,7 @@ export class MegaMenu implements AfterContentInit, OnDestroy, OnInit {
 }
 
 @NgModule({
-    imports: [CommonModule, RouterModule, RippleModule, TooltipModule, SharedModule, AngleDownIcon, AngleRightIcon],
+    imports: [CommonModule, RouterModule, RippleModule, TooltipModule, SharedModule, AngleDownIcon, AngleRightIcon, AngleLeftIcon],
     exports: [MegaMenu, RouterModule, TooltipModule, SharedModule],
     declarations: [MegaMenu, MegaMenuSub]
 })

@@ -1,5 +1,5 @@
 import { AnimationEvent } from '@angular/animations';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DOCUMENT } from '@angular/common';
 import {
     AfterContentInit,
     booleanAttribute,
@@ -9,7 +9,7 @@ import {
     ContentChildren,
     ElementRef,
     EventEmitter,
-    forwardRef,
+    forwardRef, Inject,
     Input,
     NgModule,
     Output,

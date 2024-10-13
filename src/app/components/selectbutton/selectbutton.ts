@@ -43,7 +43,7 @@ export const SELECTBUTTON_VALUE_ACCESSOR: any = {
                 [autofocus]="autofocus"
             >
                 <ng-container *ngIf="!itemTemplate; else customcontent">
-                    <span [ngClass]="'p-button-icon p-button-icon-left'" [class]="option.icon" *ngIf="option.icon" [attr.data-pc-section]="'icon'"></span>
+                    <span [ngClass]="'p-button-icon p-button-icon-start'" [class]="option.icon" *ngIf="option.icon" [attr.data-pc-section]="'icon'"></span>
                     <span class="p-button-label" [attr.data-pc-section]="'label'">{{ getOptionLabel(option) }}</span>
                 </ng-container>
                 <ng-template #customcontent>

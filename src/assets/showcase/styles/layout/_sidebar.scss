@@ -1,6 +1,6 @@
 .layout-sidebar {
     position: sticky;
-    left: 0;
+    inset-inline-start: 0;
     top: 6rem;
     height: calc(100vh - 9rem);
     user-select: none;
@@ -9,7 +9,7 @@
     flex-direction: column;
     padding: 0 0 0 0;
     flex: 0 0 250px;
-    margin-right: 4rem;
+    margin-inline-end: 4rem;
     overflow: auto;
 
     .logo {
@@ -18,7 +18,8 @@
     }
 
     nav {
-        padding: 0 1rem 0 0;
+        padding: 0;
+        padding-inline-end: 1rem;
         margin: 0;
         flex-grow: 1;
     }
@@ -30,8 +31,8 @@
 
         > li {
             margin-bottom: .25rem;
-            
-            > button, 
+
+            > button,
             > a {
                 display: flex;
                 width: 100%;
@@ -47,7 +48,7 @@
                     width: 2rem;
                     height: 2rem;
                     border-radius: var(--border-radius);
-                    margin-right: .5rem;
+                    margin-inline-end: .5rem;
                     border: 1px solid var(--surface-border);
                     display: inline-flex;
                     align-items: center;
@@ -55,16 +56,16 @@
                     transition: all .2s;
                     position: relative;
                     background-color: transparent;
-    
+
                     i {
                         color: var(--surface-700);
                         transition: all .2s;
                     }
                 }
-    
+
                 .menu-toggle-icon {
                     color: var(--surface-700);
-                    margin-left: auto;
+                    margin-inline-start: auto;
                 }
 
                 &:hover {
@@ -83,7 +84,7 @@
 
                 &.router-link-active {
                     color: var(--primary-color-default);
-        
+
                     > .menu-icon {
                         i {
                             color: var(--primary-color-default);
@@ -93,17 +94,18 @@
 
                 @include focus-visible(inset);
             }
-            
+
             > div {
                 ol {
-                    margin: 0 0 0 1rem;
+                    margin: 0;
+                    margin-inline-start: 1rem;
                     padding: .25rem 0;
                     list-style: none;
 
                     li {
                         a {
                             color: var(--surface-700);
-                            border-left: 1px solid var(--surface-border);
+                            border-inline-start: 1px solid var(--surface-border);
                             transition: all .2s;
                             font-weight: 450;
                             display: flex;
@@ -117,15 +119,15 @@
                                 outline: 0 none;
                                 box-shadow: inset var(--focus-ring);
                             }
-            
+
                             &:hover {
                                 color: var(--surface-900);
-                                border-left-color: var(--surface-500);
+                                border-inline-start-color: var(--surface-500);
                             }
 
                             &.router-link-active {
                                 color: var(--primary-color-default);
-                                border-left-color: var(--primary-color-default);
+                                border-inline-start-color: var(--primary-color-default);
                             }
                         }
 
@@ -148,10 +150,10 @@
 
         .p-tag {
             position: absolute;
-            right: 0;
+            inset-inline-end: 0;
             top: 50%;
             transform: translateY(-50%);
-            
+
             .p-tag-value {
                 line-height: 1;
             }

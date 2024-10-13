@@ -3034,8 +3034,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
         #${this.id}.p-datatable-gridlines > .p-datatable-wrapper > .p-datatable-table > .p-datatable-tbody > tr > td:last-child {
             border-top: 0;
-            border-right: 0;
-            border-left: 0;
+            border-inline-end: 0;
+            border-inline-start: 0;
         }
 
         #${this.id}-table > .p-datatable-tbody > tr > td > .p-column-title {
@@ -5194,7 +5194,7 @@ export class ReorderableRow implements AfterViewInit {
                                     [attr.aria-label]="removeRuleButtonLabel"
                                     [label]="removeRuleButtonLabel"
                                 >
-                                    <TrashIcon *ngIf="!removeRuleIconTemplate" [styleClass]="'p-button-icon-left'" />
+                                    <TrashIcon *ngIf="!removeRuleIconTemplate" [styleClass]="'p-button-icon-start'" />
                                     <ng-template *ngTemplateOutlet="removeRuleIconTemplate"></ng-template>
                                 </button>
                             </div>
@@ -5202,7 +5202,7 @@ export class ReorderableRow implements AfterViewInit {
                     </div>
                     <div class="p-column-filter-add-rule" *ngIf="isShowAddConstraint">
                         <button type="button" pButton [label]="addRuleButtonLabel" [attr.aria-label]="addRuleButtonLabel" class="p-column-filter-add-button p-button-text p-button-sm" (click)="addConstraint()" pRipple>
-                            <PlusIcon *ngIf="!addRuleIconTemplate" [styleClass]="'p-button-icon-left'" />
+                            <PlusIcon *ngIf="!addRuleIconTemplate" [styleClass]="'p-button-icon-start'" />
                             <ng-template *ngTemplateOutlet="addRuleIconTemplate"></ng-template>
                         </button>
                     </div>

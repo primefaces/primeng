@@ -1,19 +1,22 @@
-import { Inject, Injectable, PLATFORM_ID, effect, signal } from '@angular/core';
+import { Inject, Injectable, PLATFORM_ID, Renderer2, effect, signal } from '@angular/core';
 import { Subject } from 'rxjs';
-import { AppConfig } from '../domain/appconfig';
-import { AppState } from '../domain/appstate';
-import { isPlatformBrowser } from '@angular/common';
+import { AppConfig, TextDirection } from '@domain/appconfig';
+import { AppState } from '@domain/appstate';
+import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 
 @Injectable({
     providedIn: 'root'
 })
 export class AppConfigService {
+    private static readonly DIRECTION = 'direction';
+
     _config: AppConfig = {
         theme: 'aura-light-blue',
         darkMode: false,
         ripple: true,
         scale: 14,
-        tableTheme: 'lara-light-blue'
+        tableTheme: 'lara-light-blue',
+        direction: 'ltr'
     };
 
     state: AppState = {
@@ -28,7 +31,16 @@ export class AppConfigService {
 
     configUpdate$ = this.configUpdate.asObservable();
 
-    constructor(@Inject(PLATFORM_ID) private platformId: any) {
+    constructor(
+        @Inject(PLATFORM_ID) private platformId: any,
+        @Inject(DOCUMENT) private readonly document,
+        private readonly renderer: Renderer2
+    ) {
+        // Get direction from session storage and update config
+        if (isPlatformBrowser(this.platformId)) {
+            const direction: string = sessionStorage.getItem(AppConfigService.DIRECTION) ?? this._config.direction;
+            this.config.update(config => ({...config, direction: direction === 'ltr' ? 'ltr' : 'rtl'}))
+        }
         effect(() => {
             const config = this.config();
             if (isPlatformBrowser(this.platformId)) {
@@ -39,34 +51,35 @@ export class AppConfigService {
                 }
                 this.changeScale(config.scale);
                 this.onConfigUpdate();
+                this.changeDirection();
             }
         });
     }
 
-    updateStyle(config: AppConfig) {
+    public updateStyle(config: AppConfig): boolean {
         return config.theme !== this._config.theme || config.darkMode !== this._config.darkMode || config.tableTheme !== this._config.tableTheme;
     }
 
-    onConfigUpdate() {
+    public onConfigUpdate(): void {
         const config = this.config();
         config.tableTheme = !config.darkMode ? config.tableTheme.replace('light', 'dark') : config.tableTheme.replace('dark', 'light');
         this._config = { ...config };
         this.configUpdate.next(this.config());
     }
 
-    showMenu() {
+    public showMenu(): void {
         this.state.menuActive = true;
     }
 
-    hideMenu() {
+    public hideMenu(): void {
         this.state.menuActive = false;
     }
 
-    showConfig() {
+    public showConfig(): void {
         this.state.configActive = true;
     }
 
-    hideConfig() {
+    public hideConfig(): void {
         this.state.configActive = false;
     }
 
@@ -127,7 +140,16 @@ export class AppConfigService {
 
     changeScale(value: number) {
         if (isPlatformBrowser(this.platformId)) {
-            document.documentElement.style.fontSize = `${value}px`;
+            this.renderer.setStyle(this.document.documentElement, 'font-size', `${value}px`);
+        }
+    }
+
+    public changeDirection(): void {
+        const config = this.config();
+        console.log('change direction', config.direction);
+        if (isPlatformBrowser(this.platformId)) {
+            sessionStorage.setItem(AppConfigService.DIRECTION, config.direction);
+            this.renderer.setAttribute(this.document.documentElement, 'dir', config.direction);
         }
     }
 }

@@ -47,7 +47,7 @@ import { Code } from '@domain/code';
                             </div>
                         </div>
                         <div class="flex pt-4 justify-content-end">
-                            <p-button (onClick)="nextCallback.emit()" label="Next" icon="pi pi-arrow-right" iconPos="right" />
+                            <p-button (onClick)="nextCallback.emit()" label="Next" icon="pi pi-arrow-right" iconPos="end" />
                         </div>
                     </ng-template>
                 </p-stepperPanel>
@@ -83,7 +83,7 @@ import { Code } from '@domain/code';
                         </div>
                         <div class="flex pt-4 justify-content-between">
                             <p-button (onClick)="prevCallback.emit()" label="Back" severity="secondary" icon="pi pi-arrow-left" />
-                            <p-button (onClick)="nextCallback.emit()" label="Next" icon="pi pi-arrow-right" iconPos="right" />
+                            <p-button (onClick)="nextCallback.emit()" label="Next" icon="pi pi-arrow-right" iconPos="end" />
                         </div>
                     </ng-template>
                 </p-stepperPanel>
@@ -194,7 +194,7 @@ export class TemplateDoc {
                 </div>
             </div>
             <div class="flex pt-4 justify-content-end">
-                <p-button (onClick)="nextCallback.emit()" label="Next" icon="pi pi-arrow-right" iconPos="right" />
+                <p-button (onClick)="nextCallback.emit()" label="Next" icon="pi pi-arrow-right" iconPos="end" />
             </div>
         </ng-template>
     </p-stepperPanel>
@@ -230,7 +230,7 @@ export class TemplateDoc {
             </div>
             <div class="flex pt-4 justify-content-between">
                 <p-button (onClick)="prevCallback.emit()" label="Back" severity="secondary" icon="pi pi-arrow-left" />
-                <p-button (onClick)="nextCallback.emit()" label="Next" icon="pi pi-arrow-right" iconPos="right" />
+                <p-button (onClick)="nextCallback.emit()" label="Next" icon="pi pi-arrow-right" iconPos="end" />
             </div>
         </ng-template>
     </p-stepperPanel>
@@ -302,7 +302,7 @@ export class TemplateDoc {
                     </div>
                 </div>
                 <div class="flex pt-4 justify-content-end">
-                    <p-button (onClick)="nextCallback.emit()" label="Next" icon="pi pi-arrow-right" iconPos="right" />
+                    <p-button (onClick)="nextCallback.emit()" label="Next" icon="pi pi-arrow-right" iconPos="end" />
                 </div>
             </ng-template>
         </p-stepperPanel>
@@ -338,7 +338,7 @@ export class TemplateDoc {
                 </div>
                 <div class="flex pt-4 justify-content-between">
                     <p-button (onClick)="prevCallback.emit()" label="Back" severity="secondary" icon="pi pi-arrow-left" />
-                    <p-button (onClick)="nextCallback.emit()" label="Next" icon="pi pi-arrow-right" iconPos="right" />
+                    <p-button (onClick)="nextCallback.emit()" label="Next" icon="pi pi-arrow-right" iconPos="end" />
                 </div>
             </ng-template>
         </p-stepperPanel>
@@ -396,7 +396,7 @@ import { CommonModule } from '@angular/common';
     styles: [
         \`.p-stepper {
             flex-basis: 40rem;
-        } 
+        }
         \`
     ]
 })

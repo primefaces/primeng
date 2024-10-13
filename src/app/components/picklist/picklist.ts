@@ -195,28 +195,44 @@ import {
             <div class="p-picklist-buttons p-picklist-transfer-buttons" [attr.data-pc-section]="'buttons'" [attr.data-pc-group-section]="'controls'">
                 <button type="button" [attr.aria-label]="moveToTargetAriaLabel" pButton pRipple class="p-button-icon-only" [disabled]="moveRightDisabled()" (click)="moveRight()" [attr.data-pc-section]="'moveToTargetButton'">
                     <ng-container *ngIf="!moveToTargetIconTemplate">
-                        <AngleRightIcon *ngIf="!viewChanged" [attr.data-pc-section]="'movetotargeticon'" />
+                        @if(isRTL) {
+                            <AngleLeftIcon *ngIf="!viewChanged" [attr.data-pc-section]="'movetotargeticon'" />
+                        } @else {
+                            <AngleRightIcon *ngIf="!viewChanged" [attr.data-pc-section]="'movetotargeticon'" />
+                        }
                         <AngleDownIcon *ngIf="viewChanged" [attr.data-pc-section]="'movetotargeticon'" />
                     </ng-container>
                     <ng-template *ngTemplateOutlet="moveToTargetIconTemplate; context: { $implicit: viewChanged }"></ng-template>
                 </button>
                 <button type="button" [attr.aria-label]="moveAllToTargetAriaLabel" pButton pRipple class="p-button-icon-only" [disabled]="moveAllRightDisabled()" (click)="moveAllRight()" [attr.data-pc-section]="'moveAllToTargetButton'">
                     <ng-container *ngIf="!moveAllToTargetIconTemplate">
-                        <AngleDoubleRightIcon *ngIf="!viewChanged" [attr.data-pc-section]="'movealltotargeticon'" />
+                        @if(isRTL) {
+                            <AngleDoubleLeftIcon *ngIf="!viewChanged" [attr.data-pc-section]="'movealltotargeticon'" />
+                        } @else {
+                            <AngleDoubleRightIcon *ngIf="!viewChanged" [attr.data-pc-section]="'movealltotargeticon'" />
+                        }
                         <AngleDoubleDownIcon *ngIf="viewChanged" [attr.data-pc-section]="'movealltotargeticon'" />
                     </ng-container>
                     <ng-template *ngTemplateOutlet="moveAllToTargetIconTemplate; context: { $implicit: viewChanged }"></ng-template>
                 </button>
                 <button type="button" [attr.aria-label]="moveToSourceAriaLabel" pButton pRipple class="p-button-icon-only" [disabled]="moveLeftDisabled()" (click)="moveLeft()" [attr.data-pc-section]="'moveToSourceButton'">
                     <ng-container *ngIf="!moveToSourceIconTemplate">
-                        <AngleLeftIcon *ngIf="!viewChanged" [attr.data-pc-section]="'movedownsourceticon'" />
+                        @if(isRTL) {
+                            <AngleRightIcon *ngIf="!viewChanged" [attr.data-pc-section]="'movedownsourceticon'" />
+                        } @else {
+                            <AngleLeftIcon *ngIf="!viewChanged" [attr.data-pc-section]="'movedownsourceticon'" />
+                        }
                         <AngleUpIcon *ngIf="viewChanged" [attr.data-pc-section]="'movedownsourceticon'" />
                     </ng-container>
                     <ng-template *ngTemplateOutlet="moveToSourceIconTemplate; context: { $implicit: viewChanged }"></ng-template>
                 </button>
                 <button type="button" [attr.aria-label]="moveAllToSourceAriaLabel" pButton pRipple class="p-button-icon-only" [disabled]="moveAllLeftDisabled()" (click)="moveAllLeft()" [attr.data-pc-section]="'moveAllToSourceButton'">
                     <ng-container *ngIf="!moveAllToSourceIconTemplate">
-                        <AngleDoubleLeftIcon *ngIf="!viewChanged" [attr.data-pc-section]="'movealltosourceticon'" />
+                        @if(isRTL) {
+                            <AngleDoubleRightIcon *ngIf="!viewChanged" [attr.data-pc-section]="'movealltosourceticon'" />
+                        } @else {
+                            <AngleDoubleLeftIcon *ngIf="!viewChanged" [attr.data-pc-section]="'movealltosourceticon'" />
+                        }
                         <AngleDoubleUpIcon *ngIf="viewChanged" [attr.data-pc-section]="'movealltosourceticon'" />
                     </ng-container>
                     <ng-template *ngTemplateOutlet="moveAllToSourceIconTemplate; context: { $implicit: viewChanged }"></ng-template>
@@ -915,6 +931,10 @@ export class PickList implements AfterViewChecked, AfterContentInit {
             this.movedDown = false;
             this.reorderedListElement = null;
         }
+    }
+
+    public isRTL(): boolean {
+        return this.document.documentElement.dir === 'rtl';
     }
 
     onItemClick(event: Event | any, item: any, selectedItems: any[], listType: number, callback: EventEmitter<any>, itemId?: string) {
@@ -1641,12 +1661,12 @@ export class PickList implements AfterViewChecked, AfterContentInit {
                     }
 
                     .p-picklist[${this.id}] .p-picklist-buttons .p-button {
-                        margin-right: var(--inline-spacing);
+                        margin-inline-end: var(--inline-spacing);
                         margin-bottom: 0;
                     }
 
                     .p-picklist[${this.id}] .p-picklist-buttons .p-button:last-child {
-                        margin-right: 0;
+                        margin-inline-end: 0;
                     }
                 }`;
 

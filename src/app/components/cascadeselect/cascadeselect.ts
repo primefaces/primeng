@@ -1,5 +1,5 @@
 import { AnimationEvent } from '@angular/animations';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DOCUMENT } from '@angular/common';
 import {
     AfterContentInit,
     booleanAttribute,
@@ -38,6 +38,7 @@ import { RippleModule } from 'primeng/ripple';
 import { Nullable } from 'primeng/ts-helpers';
 import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
 import { CascadeSelectBeforeHideEvent, CascadeSelectBeforeShowEvent, CascadeSelectChangeEvent, CascadeSelectHideEvent, CascadeSelectShowEvent } from './cascadeselect.interface';
+import { AngleLeftIcon } from '../icons/angleleft/angleleft';
 
 export const CASCADESELECT_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -68,15 +69,23 @@ export const CASCADESELECT_VALUE_ACCESSOR: any = {
                     [attr.aria-selected]="isOptionGroup(processedOption) ? undefined : isOptionSelected(processedOption)"
                     [attr.aria-posinset]="i + 1"
                 >
-                    <div class="p-cascadeselect-item-content" (click)="onOptionClick($event, processedOption)" [attr.tabindex]="0" pRipple [attr.data-pc-section]="'content'">
+                    <div class="p-cascadeselect-item-content" (click)="onOptionClick($event, processedOption)"
+                         [attr.tabindex]="0" pRipple [attr.data-pc-section]="'content'">
                         <ng-container *ngIf="optionTemplate; else defaultOptionTemplate">
-                            <ng-container *ngTemplateOutlet="optionTemplate; context: { $implicit: processedOption.option }"></ng-container>
+                            <ng-container
+                                *ngTemplateOutlet="optionTemplate; context: { $implicit: processedOption.option }"></ng-container>
                         </ng-container>
                         <ng-template #defaultOptionTemplate>
-                            <span class="p-cascadeselect-item-text" [attr.data-pc-section]="'text'">{{ getOptionLabelToRender(processedOption) }}</span>
+                            <span class="p-cascadeselect-item-text"
+                                  [attr.data-pc-section]="'text'">{{ getOptionLabelToRender(processedOption) }}</span>
                         </ng-template>
-                        <span class="p-cascadeselect-group-icon" *ngIf="isOptionGroup(processedOption)" [attr.data-pc-section]="'groupIcon'">
-                            <AngleRightIcon *ngIf="!groupIconTemplate" />
+                        <span class="p-cascadeselect-group-icon" *ngIf="isOptionGroup(processedOption)"
+                              [attr.data-pc-section]="'groupIcon'">
+                            @if (isRTL) {
+                                <AngleLeftIcon *ngIf="!groupIconTemplate" />
+                            } @else {
+                                <AngleRightIcon *ngIf="!groupIconTemplate" />
+                            }
                             <ng-template *ngTemplateOutlet="groupIconTemplate"></ng-template>
                         </span>
                     </div>
@@ -143,6 +152,7 @@ export class CascadeSelectSub implements OnInit {
     }
 
     constructor(
+        @Inject(DOCUMENT) private document: Document,
         private el: ElementRef,
         public config: PrimeNGConfig
     ) {}
@@ -151,6 +161,10 @@ export class CascadeSelectSub implements OnInit {
         if (!this.root) {
             this.position();
         }
+    }
+
+    public get isRTL() {
+        return this.document.documentElement.dir === 'rtl';
     }
 
     onOptionClick(event, option: any) {
@@ -1310,7 +1324,7 @@ export class CascadeSelect implements OnInit, AfterContentInit {
         private el: ElementRef,
         private cd: ChangeDetectorRef,
         private config: PrimeNGConfig,
-        public overlayService: OverlayService
+        public overlayService: OverlayService,
     ) {
         effect(() => {
             const activeOptionPath = this.activeOptionPath();
@@ -1384,7 +1398,7 @@ export class CascadeSelect implements OnInit, AfterContentInit {
 }
 
 @NgModule({
-    imports: [CommonModule, OverlayModule, SharedModule, RippleModule, AutoFocusModule, ChevronDownIcon, AngleRightIcon, TimesIcon],
+    imports: [CommonModule, OverlayModule, SharedModule, RippleModule, AutoFocusModule, ChevronDownIcon, AngleRightIcon, AngleLeftIcon, TimesIcon],
     exports: [CascadeSelect, OverlayModule, CascadeSelectSub, SharedModule],
     declarations: [CascadeSelect, CascadeSelectSub]
 })

@@ -1,4 +1,9 @@
 @layer primeng {
+    p-inputmask,
+    .p-inputmask {
+        direction: ltr;
+    }
+
     .p-inputmask-clear-icon {
         position: absolute;
         top: 50%;

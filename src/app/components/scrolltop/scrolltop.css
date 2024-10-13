@@ -13,6 +13,6 @@
     }
 
     .p-scrolltop-sticky.p-link {
-        margin-left: auto;
+        margin-inline-start: auto;
     }
 }

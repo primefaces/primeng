@@ -49,6 +49,7 @@ export const INPUT_OTP_VALUE_ACCESSOR: any = {
             </ng-container>
         </ng-container>
     `,
+    styleUrls: ['./inputotp.css'],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {

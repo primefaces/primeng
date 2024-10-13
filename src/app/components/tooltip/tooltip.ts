@@ -20,7 +20,7 @@ export class Tooltip implements AfterViewInit, OnDestroy {
      * Position of the tooltip.
      * @group Props
      */
-    @Input() tooltipPosition: 'right' | 'left' | 'top' | 'bottom' | string | undefined;
+    @Input() tooltipPosition: 'start' | 'end' | 'top' | 'bottom' | string | undefined;
     /**
      * Event to show the tooltip.
      * @group Props
@@ -116,7 +116,7 @@ export class Tooltip implements AfterViewInit, OnDestroy {
 
     _tooltipOptions = {
         tooltipLabel: null,
-        tooltipPosition: 'right',
+        tooltipPosition: 'end',
         tooltipEvent: 'hover',
         appendTo: 'body',
         positionStyle: null,
@@ -517,7 +517,7 @@ export class Tooltip implements AfterViewInit, OnDestroy {
                 }
                 break;
 
-            case 'left':
+            case 'start':
                 this.alignLeft();
                 if (this.isOutOfBounds()) {
                     this.alignRight();
@@ -532,7 +532,7 @@ export class Tooltip implements AfterViewInit, OnDestroy {
                 }
                 break;
 
-            case 'right':
+            case 'end':
                 this.alignRight();
                 if (this.isOutOfBounds()) {
                     this.alignLeft();
@@ -568,7 +568,7 @@ export class Tooltip implements AfterViewInit, OnDestroy {
         const hostOffset = this.getHostOffset();
         const left = hostOffset.left + DomHandler.getOuterWidth(el);
         const top = hostOffset.top + (DomHandler.getOuterHeight(el) - DomHandler.getOuterHeight(this.container)) / 2;
-        this.container.style.left = left + this.getOption('positionLeft') + 'px';
+        this.container.style.insetInlineStart = left + this.getOption('positionLeft') + 'px';
         this.container.style.top = top + this.getOption('positionTop') + 'px';
     }
 
@@ -581,7 +581,7 @@ export class Tooltip implements AfterViewInit, OnDestroy {
         let hostOffset = this.getHostOffset();
         let left = hostOffset.left - DomHandler.getOuterWidth(this.container);
         let top = hostOffset.top + (DomHandler.getOuterHeight(this.el.nativeElement) - DomHandler.getOuterHeight(this.container)) / 2;
-        this.container.style.left = left + this.getOption('positionLeft') + 'px';
+        this.container.style.insetInlineStart = left + this.getOption('positionLeft') + 'px';
         this.container.style.top = top + this.getOption('positionTop') + 'px';
     }
 
@@ -590,7 +590,7 @@ export class Tooltip implements AfterViewInit, OnDestroy {
         let hostOffset = this.getHostOffset();
         let left = hostOffset.left + (DomHandler.getOuterWidth(this.el.nativeElement) - DomHandler.getOuterWidth(this.container)) / 2;
         let top = hostOffset.top - DomHandler.getOuterHeight(this.container);
-        this.container.style.left = left + this.getOption('positionLeft') + 'px';
+        this.container.style.insetInlineStart = left + this.getOption('positionLeft') + 'px';
         this.container.style.top = top + this.getOption('positionTop') + 'px';
     }
 
@@ -599,7 +599,7 @@ export class Tooltip implements AfterViewInit, OnDestroy {
         let hostOffset = this.getHostOffset();
         let left = hostOffset.left + (DomHandler.getOuterWidth(this.el.nativeElement) - DomHandler.getOuterWidth(this.container)) / 2;
         let top = hostOffset.top + DomHandler.getOuterHeight(this.el.nativeElement);
-        this.container.style.left = left + this.getOption('positionLeft') + 'px';
+        this.container.style.insetInlineStart = left + this.getOption('positionLeft') + 'px';
         this.container.style.top = top + this.getOption('positionTop') + 'px';
     }
 
@@ -616,7 +616,7 @@ export class Tooltip implements AfterViewInit, OnDestroy {
     }
 
     preAlign(position: string) {
-        this.container.style.left = -999 + 'px';
+        this.container.style.insetInlineStart = -999 + 'px';
         this.container.style.top = -999 + 'px';
 
         let defaultClassName = 'p-tooltip p-component p-tooltip-' + position;

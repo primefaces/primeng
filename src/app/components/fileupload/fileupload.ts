@@ -84,10 +84,10 @@ import { FileBeforeUploadEvent, FileProgressEvent, FileRemoveEvent, FileSelectEv
                             [attr.title]="''"
                             [attr.data-pc-section]="'input'"
                         />
-                        <span *ngIf="chooseIcon" [ngClass]="'p-button-icon p-button-icon-left'" [class]="chooseIcon" [attr.aria-label]="true" [attr.data-pc-section]="'chooseicon'"></span>
+                        <span *ngIf="chooseIcon" [ngClass]="'p-button-icon p-button-icon-start'" [class]="chooseIcon" [attr.aria-label]="true" [attr.data-pc-section]="'chooseicon'"></span>
                         <ng-container *ngIf="!chooseIcon">
-                            <PlusIcon *ngIf="!chooseIconTemplate" [styleClass]="'p-button-icon p-button-icon-left'" [attr.aria-label]="true" [attr.data-pc-section]="'chooseicon'" />
-                            <span *ngIf="chooseIconTemplate" class="p-button-icon p-button-icon-left" [attr.aria-label]="true" [attr.data-pc-section]="'chooseicon'">
+                            <PlusIcon *ngIf="!chooseIconTemplate" [styleClass]="'p-button-icon p-button-icon-start'" [attr.aria-label]="true" [attr.data-pc-section]="'chooseicon'" />
+                            <span *ngIf="chooseIconTemplate" class="p-button-icon p-button-icon-start" [attr.aria-label]="true" [attr.data-pc-section]="'chooseicon'">
                                 <ng-template *ngTemplateOutlet="chooseIconTemplate"></ng-template>
                             </span>
                         </ng-container>
@@ -95,19 +95,19 @@ import { FileBeforeUploadEvent, FileProgressEvent, FileRemoveEvent, FileSelectEv
                     </span>
 
                     <p-button *ngIf="!auto && showUploadButton" type="button" [label]="uploadButtonLabel" (onClick)="upload()" [disabled]="!hasFiles() || isFileLimitExceeded()" [styleClass]="uploadStyleClass">
-                        <span *ngIf="uploadIcon" [ngClass]="uploadIcon" [attr.aria-hidden]="true" class="p-button-icon p-button-icon-left"></span>
+                        <span *ngIf="uploadIcon" [ngClass]="uploadIcon" [attr.aria-hidden]="true" class="p-button-icon p-button-icon-start"></span>
                         <ng-container *ngIf="!uploadIcon">
-                            <UploadIcon *ngIf="!uploadIconTemplate" [styleClass]="'p-button-icon p-button-icon-left'" />
-                            <span *ngIf="uploadIconTemplate" class="p-button-icon p-button-icon-left" [attr.aria-hidden]="true">
+                            <UploadIcon *ngIf="!uploadIconTemplate" [styleClass]="'p-button-icon p-button-icon-start'" />
+                            <span *ngIf="uploadIconTemplate" class="p-button-icon p-button-icon-start" [attr.aria-hidden]="true">
                                 <ng-template *ngTemplateOutlet="uploadIconTemplate"></ng-template>
                             </span>
                         </ng-container>
                     </p-button>
                     <p-button *ngIf="!auto && showCancelButton" type="button" [label]="cancelButtonLabel" (onClick)="clear()" [disabled]="!hasFiles() || uploading" [styleClass]="cancelStyleClass">
-                        <span *ngIf="cancelIcon" [ngClass]="cancelIcon" class="p-button-icon p-button-icon-left"></span>
+                        <span *ngIf="cancelIcon" [ngClass]="cancelIcon" class="p-button-icon p-button-icon-start"></span>
                         <ng-container *ngIf="!cancelIcon">
-                            <TimesIcon *ngIf="!cancelIconTemplate" [styleClass]="'p-button-icon p-button-icon-left'" [attr.aria-hidden]="true" />
-                            <span *ngIf="cancelIconTemplate" class="p-button-icon p-button-icon-left" [attr.aria-hidden]="true">
+                            <TimesIcon *ngIf="!cancelIconTemplate" [styleClass]="'p-button-icon p-button-icon-start'" [attr.aria-hidden]="true" />
+                            <span *ngIf="cancelIconTemplate" class="p-button-icon p-button-icon-start" [attr.aria-hidden]="true">
                                 <ng-template *ngTemplateOutlet="cancelIconTemplate"></ng-template>
                             </span>
                         </ng-container>
@@ -172,19 +172,19 @@ import { FileBeforeUploadEvent, FileProgressEvent, FileRemoveEvent, FileSelectEv
                 [attr.data-pc-section]="'choosebutton'"
             >
                 <ng-container *ngIf="hasFiles() && !auto; else chooseSection">
-                    <span *ngIf="uploadIcon" class="p-button-icon p-button-icon-left" [ngClass]="uploadIcon"></span>
+                    <span *ngIf="uploadIcon" class="p-button-icon p-button-icon-start" [ngClass]="uploadIcon"></span>
                     <ng-container *ngIf="!uploadIcon">
-                        <UploadIcon *ngIf="!uploadIconTemplate" [styleClass]="'p-button-icon p-button-icon-left'" />
-                        <span *ngIf="uploadIconTemplate" class="p-button-icon p-button-icon-left">
+                        <UploadIcon *ngIf="!uploadIconTemplate" [styleClass]="'p-button-icon p-button-icon-start'" />
+                        <span *ngIf="uploadIconTemplate" class="p-button-icon p-button-icon-start">
                             <ng-template *ngTemplateOutlet="uploadIconTemplate"></ng-template>
                         </span>
                     </ng-container>
                 </ng-container>
                 <ng-template #chooseSection>
-                    <span *ngIf="chooseIcon" class="p-button-icon p-button-icon-left pi" [ngClass]="chooseIcon"></span>
+                    <span *ngIf="chooseIcon" class="p-button-icon p-button-icon-start pi" [ngClass]="chooseIcon"></span>
                     <ng-container *ngIf="!chooseIcon">
-                        <PlusIcon [styleClass]="'p-button-icon p-button-icon-left pi'" *ngIf="!chooseIconTemplate" [attr.aria-hidden]="true" [attr.data-pc-section]="'uploadicon'" />
-                        <span *ngIf="chooseIconTemplate" class="p-button-icon p-button-icon-left pi" [attr.aria-hidden]="true" [attr.data-pc-section]="'uploadicon'">
+                        <PlusIcon [styleClass]="'p-button-icon p-button-icon-start pi'" *ngIf="!chooseIconTemplate" [attr.aria-hidden]="true" [attr.data-pc-section]="'uploadicon'" />
+                        <span *ngIf="chooseIconTemplate" class="p-button-icon p-button-icon-start pi" [attr.aria-hidden]="true" [attr.data-pc-section]="'uploadicon'">
                             <ng-template *ngTemplateOutlet="chooseIconTemplate"></ng-template>
                         </span>
                     </ng-container>

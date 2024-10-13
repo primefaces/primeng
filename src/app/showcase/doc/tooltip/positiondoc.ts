@@ -8,8 +8,8 @@ import { Code } from '@domain/code';
             <p>Position of the tooltip is specified using <i>tooltipPosition</i> attribute. Valid values are <i>top</i>, <i>bottom</i>, <i>right</i> and <i>left</i>. Default position of the tooltip is <i>right</i>.</p>
         </app-docsectiontext>
         <div class="card flex flex-wrap justify-content-center gap-2">
-            <input type="text" pInputText pTooltip="Enter your username" tooltipPosition="right" placeholder="Right" />
-            <input type="text" pInputText pTooltip="Enter your username" tooltipPosition="left" placeholder="Left" />
+            <input type="text" pInputText pTooltip="Enter your username" tooltipPosition="end" placeholder="End" />
+            <input type="text" pInputText pTooltip="Enter your username" tooltipPosition="start" placeholder="Start" />
             <input type="text" pInputText pTooltip="Enter your username" tooltipPosition="top" placeholder="Top" />
             <input type="text" pInputText pTooltip="Enter your username" tooltipPosition="bottom" placeholder="Bottom" />
         </div>
@@ -22,14 +22,14 @@ export class PositionDoc {
     type="text" 
     pInputText 
     pTooltip="Enter your username" 
-    tooltipPosition="right" 
-    placeholder="Right" />
+    tooltipPosition="end" 
+    placeholder="End" />
 <input 
     type="text" 
     pInputText 
     pTooltip="Enter your username" 
-    tooltipPosition="left" 
-    placeholder="Left" />
+    tooltipPosition="start" 
+    placeholder="Start" />
 <input 
     type="text" 
     pInputText 
@@ -48,14 +48,14 @@ export class PositionDoc {
         type="text" 
         pInputText 
         pTooltip="Enter your username"
-        tooltipPosition="right" 
-        placeholder="Right" />
+        tooltipPosition="end" 
+        placeholder="End" />
     <input 
         type="text" 
         pInputText 
         pTooltip="Enter your username" 
-        tooltipPosition="left" 
-        placeholder="Left">
+        tooltipPosition="start" 
+        placeholder="Start">
     <input 
         type="text" 
         pInputText 

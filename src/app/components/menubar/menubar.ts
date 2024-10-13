@@ -30,6 +30,7 @@ import { MenuItem, PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/ap
 import { DomHandler } from 'primeng/dom';
 import { AngleDownIcon } from 'primeng/icons/angledown';
 import { AngleRightIcon } from 'primeng/icons/angleright';
+import { AngleLeftIcon } from 'primeng/icons/angleleft';
 import { BarsIcon } from 'primeng/icons/bars';
 import { RippleModule } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
@@ -100,7 +101,9 @@ export class MenubarService {
                     pTooltip
                     [tooltipOptions]="getItemProp(processedItem, 'tooltipOptions')"
                 >
-                    <div class="p-menuitem-content" [attr.data-pc-section]="'content'" (click)="onItemClick($event, processedItem)" (mouseenter)="onItemMouseEnter({ $event, processedItem })">
+                    <div class="p-menuitem-content" [attr.data-pc-section]="'content'"
+                         (click)="onItemClick($event, processedItem)"
+                         (mouseenter)="onItemMouseEnter({ $event, processedItem })">
                         <ng-container *ngIf="!itemTemplate">
                             <a
                                 *ngIf="!getItemProp(processedItem, 'routerLink')"
@@ -121,20 +124,41 @@ export class MenubarService {
                                     [attr.tabindex]="-1"
                                 >
                                 </span>
-                                <span *ngIf="getItemProp(processedItem, 'escape'); else htmlLabel" class="p-menuitem-text" [attr.data-pc-section]="'label'" [id]="getItemLabelId(processedItem)">
+                                <span *ngIf="getItemProp(processedItem, 'escape'); else htmlLabel"
+                                      class="p-menuitem-text" [attr.data-pc-section]="'label'"
+                                      [id]="getItemLabelId(processedItem)">
                                     {{ getItemLabel(processedItem) }}
                                 </span>
                                 <ng-template #htmlLabel>
-                                    <span class="p-menuitem-text" [innerHTML]="getItemLabel(processedItem)" [attr.data-pc-section]="'label'" [id]="getItemLabelId(processedItem)"></span>
+                                    <span class="p-menuitem-text" [innerHTML]="getItemLabel(processedItem)"
+                                          [attr.data-pc-section]="'label'" [id]="getItemLabelId(processedItem)"></span>
                                 </ng-template>
-                                <span class="p-menuitem-badge" *ngIf="getItemProp(processedItem, 'badge')" [ngClass]="getItemProp(processedItem, 'badgeStyleClass')">{{ getItemProp(processedItem, 'badge') }}</span>
+                                <span class="p-menuitem-badge" *ngIf="getItemProp(processedItem, 'badge')"
+                                      [ngClass]="getItemProp(processedItem, 'badgeStyleClass')">{{ getItemProp(processedItem, 'badge') }}</span>
 
                                 <ng-container *ngIf="isItemGroup(processedItem)">
                                     <ng-container *ngIf="!submenuIconTemplate">
-                                        <AngleDownIcon [styleClass]="'p-submenu-icon'" *ngIf="root" [attr.data-pc-section]="'submenuicon'" />
-                                        <AngleRightIcon [styleClass]="'p-submenu-icon'" *ngIf="!root" [attr.data-pc-section]="'submenuicon'" />
+                                        @if (root) {
+                                            <AngleDownIcon
+                                                [styleClass]="'p-submenu-icon'"
+                                                [attr.data-pc-section]="'submenuicon'"
+                                            />
+                                        } @else {
+                                            @if (isRTL()) {
+                                                <AngleLeftIcon
+                                                    [styleClass]="'p-submenu-icon'"
+                                                    [attr.data-pc-section]="'submenuicon'"
+                                                />
+                                            } @else {
+                                                <AngleRightIcon
+                                                    [styleClass]="'p-submenu-icon'"
+                                                    [attr.data-pc-section]="'submenuicon'"
+                                                />
+                                            }
+                                        }
                                     </ng-container>
-                                    <ng-template *ngTemplateOutlet="submenuIconTemplate" [attr.data-pc-section]="'submenuicon'"></ng-template>
+                                    <ng-template *ngTemplateOutlet="submenuIconTemplate"
+                                                 [attr.data-pc-section]="'submenuicon'"></ng-template>
                                 </ng-container>
                             </a>
                             <a
@@ -164,20 +188,43 @@ export class MenubarService {
                                     [attr.data-pc-section]="'icon'"
                                     [attr.tabindex]="-1"
                                 ></span>
-                                <span class="p-menuitem-text" *ngIf="getItemProp(processedItem, 'escape'); else htmlRouteLabel">{{ getItemLabel(processedItem) }}</span>
-                                <ng-template #htmlRouteLabel><span class="p-menuitem-text" [innerHTML]="getItemLabel(processedItem)" [attr.data-pc-section]="'label'"></span></ng-template>
-                                <span class="p-menuitem-badge" *ngIf="getItemProp(processedItem, 'badge')" [ngClass]="getItemProp(processedItem, 'badgeStyleClass')">{{ getItemProp(processedItem, 'badge') }}</span>
+                                <span class="p-menuitem-text"
+                                      *ngIf="getItemProp(processedItem, 'escape'); else htmlRouteLabel">{{ getItemLabel(processedItem) }}</span>
+                                <ng-template #htmlRouteLabel><span class="p-menuitem-text"
+                                                                   [innerHTML]="getItemLabel(processedItem)"
+                                                                   [attr.data-pc-section]="'label'"></span>
+                                </ng-template>
+                                <span class="p-menuitem-badge" *ngIf="getItemProp(processedItem, 'badge')"
+                                      [ngClass]="getItemProp(processedItem, 'badgeStyleClass')">{{ getItemProp(processedItem, 'badge') }}</span>
                                 <ng-container *ngIf="isItemGroup(processedItem)">
                                     <ng-container *ngIf="!menubar.submenuIconTemplate">
-                                        <AngleDownIcon [styleClass]="'p-submenu-icon'" [attr.data-pc-section]="'submenuicon'" *ngIf="root" />
-                                        <AngleRightIcon [styleClass]="'p-submenu-icon'" [attr.data-pc-section]="'submenuicon'" *ngIf="!root" />
+                                        @if (root) {
+                                            <AngleDownIcon
+                                                [styleClass]="'p-submenu-icon'"
+                                                [attr.data-pc-section]="'submenuicon'"
+                                            />
+                                        } @else {
+                                            @if (isRTL()) {
+                                                <AngleLeftIcon
+                                                    [styleClass]="'p-submenu-icon'"
+                                                    [attr.data-pc-section]="'submenuicon'"
+                                                />
+                                            } @else {
+                                                <AngleRightIcon
+                                                    [styleClass]="'p-submenu-icon'"
+                                                    [attr.data-pc-section]="'submenuicon'"
+                                                />
+                                            }
+                                        }
                                     </ng-container>
-                                    <ng-template *ngTemplateOutlet="menubar.submenuIconTemplate" [attr.data-pc-section]="'submenuicon'"></ng-template>
+                                    <ng-template *ngTemplateOutlet="menubar.submenuIconTemplate"
+                                                 [attr.data-pc-section]="'submenuicon'"></ng-template>
                                 </ng-container>
                             </a>
                         </ng-container>
                         <ng-container *ngIf="itemTemplate">
-                            <ng-template *ngTemplateOutlet="itemTemplate; context: { $implicit: processedItem.item, root: root }"></ng-template>
+                            <ng-template
+                                *ngTemplateOutlet="itemTemplate; context: { $implicit: processedItem.item, root: root }"></ng-template>
                         </ng-container>
                     </div>
                     <p-menubarSub
@@ -248,6 +295,7 @@ export class MenubarSub implements OnInit, OnDestroy {
     mouseLeaveSubscriber: Subscription | undefined;
 
     constructor(
+        @Inject(DOCUMENT) private document: Document,
         public el: ElementRef,
         public renderer: Renderer2,
         private cd: ChangeDetectorRef,
@@ -258,6 +306,10 @@ export class MenubarSub implements OnInit, OnDestroy {
         this.mouseLeaveSubscriber = this.menubarService.mouseLeft$.subscribe(() => {
             this.cd.markForCheck();
         });
+    }
+
+    public isRTL(): boolean {
+        return this.document.documentElement.dir === 'rtl';
     }
 
     onItemClick(event: any, processedItem: any) {
@@ -1129,7 +1181,7 @@ export class Menubar implements AfterContentInit, OnDestroy, OnInit {
 }
 
 @NgModule({
-    imports: [CommonModule, RouterModule, RippleModule, TooltipModule, SharedModule, BarsIcon, AngleDownIcon, AngleRightIcon],
+    imports: [CommonModule, RouterModule, RippleModule, TooltipModule, SharedModule, BarsIcon, AngleDownIcon, AngleRightIcon, AngleLeftIcon],
     exports: [Menubar, RouterModule, TooltipModule, SharedModule],
     declarations: [Menubar, MenubarSub]
 })

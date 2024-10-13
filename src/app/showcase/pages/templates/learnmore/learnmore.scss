@@ -105,8 +105,8 @@
             img {
                 width: 100%;
                 height: auto;
-                border-top-right-radius: 1rem;
-                border-top-left-radius: 1rem;
+                border-start-end-radius: 1rem;
+                border-start-start-radius: 1rem;
                 margin-bottom: -0.25rem;
                 box-shadow: 0px 0px 120px 0px rgba(0, 0, 0, 0.08);
             }
@@ -155,8 +155,8 @@
                 }
 
                 img {
-                    border-top-right-radius: 0.5rem;
-                    border-top-left-radius: 0.5rem;
+                    border-start-end-radius: 0.5rem;
+                    border-start-start-radius: 0.5rem;
                 }
             }
         }
@@ -560,8 +560,8 @@
             &-bottom {
                 padding: 1.5rem;
                 background: var(--surface-900);
-                border-bottom-left-radius: inherit;
-                border-bottom-right-radius: inherit;
+                border-end-start-radius: inherit;
+                border-end-end-radius: inherit;
                 display: flex;
                 flex-direction: column;
                 gap: 1rem;
@@ -998,7 +998,7 @@
             position: relative;
             z-index: 15;
             width: 29rem;
-            margin-left: 10rem;
+            margin-inline-start: 10rem;
             margin-top: 9.81rem;
             border-radius: 1.5rem;
             border: 1px solid rgba(255, 255, 255, 0.24);
@@ -1138,7 +1138,7 @@
             height: 32.25rem;
 
             &-card {
-                margin-left: 3.5rem;
+                margin-inline-start: 3.5rem;
                 margin-top: 7.81rem;
                 padding: 2rem 1.5rem;
                 border-radius: 1.25rem;
@@ -1177,7 +1177,7 @@
 
             &-card {
                 width: 100%;
-                margin-left: 0rem;
+                margin-inline-start: 0rem;
                 margin-top: 0rem;
                 padding: 2rem 1.5rem;
                 border-radius: 1.25rem;

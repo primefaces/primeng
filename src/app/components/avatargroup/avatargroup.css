@@ -1,6 +1,6 @@
 @layer primeng {
     .p-avatar-group p-avatar + p-avatar {
-        margin-left: -1rem;
+        margin-inline-start: -1rem;
     }
 
     .p-avatar-group {

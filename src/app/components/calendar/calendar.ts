@@ -132,7 +132,8 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
                             'p-datepicker-icon': showOnFocus
                         }"
                     />
-                    <ng-container *ngTemplateOutlet="inputIconTemplate; context: { clickCallBack: onButtonClick.bind(this) }"></ng-container>
+                    <ng-container
+                        *ngTemplateOutlet="inputIconTemplate; context: { clickCallBack: onButtonClick.bind(this) }"></ng-container>
                 </ng-container>
             </ng-template>
             <div
@@ -169,8 +170,20 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
                     <div class="p-datepicker-group-container">
                         <div class="p-datepicker-group" *ngFor="let month of months; let i = index">
                             <div class="p-datepicker-header">
-                                <button (keydown)="onContainerButtonKeydown($event)" class="p-datepicker-prev p-link" (click)="onPrevButtonClick($event)" *ngIf="i === 0" type="button" [attr.aria-label]="prevIconAriaLabel" pRipple>
-                                    <ChevronLeftIcon [styleClass]="'p-datepicker-prev-icon'" *ngIf="!previousIconTemplate" />
+                                <button (keydown)="onContainerButtonKeydown($event)" class="p-datepicker-prev p-link"
+                                        (click)="onPrevButtonClick($event)" *ngIf="i === 0" type="button"
+                                        [attr.aria-label]="prevIconAriaLabel" pRipple>
+                                    @if (isRTL) {
+                                        <ChevronRightIcon
+                                            [styleClass]="'p-datepicker-prev-icon'"
+                                            *ngIf="!previousIconTemplate"
+                                        />
+                                    } @else {
+                                        <ChevronLeftIcon
+                                            [styleClass]="'p-datepicker-prev-icon'"
+                                            *ngIf="!previousIconTemplate"
+                                        />
+                                    }
                                     <span *ngIf="previousIconTemplate" class="p-datepicker-prev-icon">
                                         <ng-template *ngTemplateOutlet="previousIconTemplate"></ng-template>
                                     </span>
@@ -199,8 +212,10 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
                                         {{ getYear(month) }}
                                     </button>
                                     <span class="p-datepicker-decade" *ngIf="currentView === 'year'">
-                                        <ng-container *ngIf="!decadeTemplate">{{ yearPickerValues()[0] }} - {{ yearPickerValues()[yearPickerValues().length - 1] }}</ng-container>
-                                        <ng-container *ngTemplateOutlet="decadeTemplate; context: { $implicit: yearPickerValues }"></ng-container>
+                                        <ng-container *ngIf="!decadeTemplate">{{ yearPickerValues()[0] }}
+                                            - {{ yearPickerValues()[yearPickerValues().length - 1] }}</ng-container>
+                                        <ng-container
+                                            *ngTemplateOutlet="decadeTemplate; context: { $implicit: yearPickerValues }"></ng-container>
                                     </span>
                                 </div>
                                 <button
@@ -212,7 +227,17 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
                                     [attr.aria-label]="nextIconAriaLabel"
                                     pRipple
                                 >
-                                    <ChevronRightIcon [styleClass]="'p-datepicker-next-icon'" *ngIf="!nextIconTemplate" />
+                                    @if (isRTL) {
+                                        <ChevronLeftIcon
+                                            [styleClass]="'p-datepicker-next-icon'"
+                                            *ngIf="!nextIconTemplate"
+                                        />
+                                    } @else {
+                                        <ChevronRightIcon
+                                            [styleClass]="'p-datepicker-next-icon'"
+                                            *ngIf="!nextIconTemplate"
+                                        />
+                                    }
                                     <span *ngIf="nextIconTemplate" class="p-datepicker-next-icon">
                                         <ng-template *ngTemplateOutlet="nextIconTemplate"></ng-template>
                                     </span>
@@ -225,7 +250,8 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
                                             <th *ngIf="showWeek" class="p-datepicker-weekheader p-disabled">
                                                 <span>{{ getTranslation('weekHeader') }}</span>
                                             </th>
-                                            <th scope="col" *ngFor="let weekDay of weekDays; let begin = first; let end = last">
+                                            <th scope="col"
+                                                *ngFor="let weekDay of weekDays; let begin = first; let end = last">
                                                 <span>{{ weekDay }}</span>
                                             </th>
                                         </tr>
@@ -237,7 +263,8 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
                                                     {{ month.weekNumbers[j] }}
                                                 </span>
                                             </td>
-                                            <td *ngFor="let date of week" [attr.aria-label]="date.day" [ngClass]="{ 'p-datepicker-other-month': date.otherMonth, 'p-datepicker-today': date.today }">
+                                            <td *ngFor="let date of week" [attr.aria-label]="date.day"
+                                                [ngClass]="{ 'p-datepicker-other-month': date.otherMonth, 'p-datepicker-today': date.today }">
                                                 <ng-container *ngIf="date.otherMonth ? showOtherMonths : true">
                                                     <span
                                                         [ngClass]="{ 'p-highlight p-datepicker-current-day': isSelected(date) && date.selectable, 'p-disabled': !date.selectable }"
@@ -247,15 +274,19 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
                                                         (keydown)="onDateCellKeydown($event, date, i)"
                                                         pRipple
                                                     >
-                                                        <ng-container *ngIf="!dateTemplate && (date.selectable || !disabledDateTemplate)">{{ date.day }}</ng-container>
+                                                        <ng-container
+                                                            *ngIf="!dateTemplate && (date.selectable || !disabledDateTemplate)">{{ date.day }}</ng-container>
                                                         <ng-container *ngIf="date.selectable || !disabledDateTemplate">
-                                                            <ng-container *ngTemplateOutlet="dateTemplate; context: { $implicit: date }"></ng-container>
+                                                            <ng-container
+                                                                *ngTemplateOutlet="dateTemplate; context: { $implicit: date }"></ng-container>
                                                         </ng-container>
                                                         <ng-container *ngIf="!date.selectable">
-                                                            <ng-container *ngTemplateOutlet="disabledDateTemplate; context: { $implicit: date }"></ng-container>
+                                                            <ng-container
+                                                                *ngTemplateOutlet="disabledDateTemplate; context: { $implicit: date }"></ng-container>
                                                         </ng-container>
                                                     </span>
-                                                    <div *ngIf="isSelected(date)" class="p-hidden-accessible" aria-live="polite">
+                                                    <div *ngIf="isSelected(date)" class="p-hidden-accessible"
+                                                         aria-live="polite">
                                                         {{ date.day }}
                                                     </div>
                                                 </ng-container>
@@ -316,7 +347,8 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
                             <ChevronUpIcon *ngIf="!incrementIconTemplate" />
                             <ng-template *ngTemplateOutlet="incrementIconTemplate"></ng-template>
                         </button>
-                        <span><ng-container *ngIf="currentHour < 10">0</ng-container>{{ currentHour }}</span>
+                        <span><ng-container *ngIf="currentHour < 10">0</ng-container>
+                            {{ currentHour }}</span>
                         <button
                             class="p-link"
                             type="button"
@@ -356,7 +388,8 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
                             <ChevronUpIcon *ngIf="!incrementIconTemplate" />
                             <ng-template *ngTemplateOutlet="incrementIconTemplate"></ng-template>
                         </button>
-                        <span><ng-container *ngIf="currentMinute < 10">0</ng-container>{{ currentMinute }}</span>
+                        <span><ng-container *ngIf="currentMinute < 10">0</ng-container>
+                            {{ currentMinute }}</span>
                         <button
                             class="p-link"
                             type="button"
@@ -396,7 +429,8 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
                             <ChevronUpIcon *ngIf="!incrementIconTemplate" />
                             <ng-template *ngTemplateOutlet="incrementIconTemplate"></ng-template>
                         </button>
-                        <span><ng-container *ngIf="currentSecond < 10">0</ng-container>{{ currentSecond }}</span>
+                        <span><ng-container *ngIf="currentSecond < 10">0</ng-container>
+                            {{ currentSecond }}</span>
                         <button
                             class="p-link"
                             type="button"
@@ -416,20 +450,28 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
                         </button>
                     </div>
                     <div class="p-ampm-picker" *ngIf="hourFormat == '12'">
-                        <button class="p-link" type="button" (keydown)="onContainerButtonKeydown($event)" (click)="toggleAMPM($event)" (keydown.enter)="toggleAMPM($event)" [attr.aria-label]="getTranslation('am')" pRipple>
+                        <button class="p-link" type="button" (keydown)="onContainerButtonKeydown($event)"
+                                (click)="toggleAMPM($event)" (keydown.enter)="toggleAMPM($event)"
+                                [attr.aria-label]="getTranslation('am')" pRipple>
                             <ChevronUpIcon *ngIf="!incrementIconTemplate" />
                             <ng-template *ngTemplateOutlet="incrementIconTemplate"></ng-template>
                         </button>
                         <span>{{ pm ? 'PM' : 'AM' }}</span>
-                        <button class="p-link" type="button" (keydown)="onContainerButtonKeydown($event)" (click)="toggleAMPM($event)" (keydown.enter)="toggleAMPM($event)" [attr.aria-label]="getTranslation('pm')" pRipple>
+                        <button class="p-link" type="button" (keydown)="onContainerButtonKeydown($event)"
+                                (click)="toggleAMPM($event)" (keydown.enter)="toggleAMPM($event)"
+                                [attr.aria-label]="getTranslation('pm')" pRipple>
                             <ChevronDownIcon *ngIf="!decrementIconTemplate" />
                             <ng-template *ngTemplateOutlet="decrementIconTemplate"></ng-template>
                         </button>
                     </div>
                 </div>
                 <div class="p-datepicker-buttonbar" *ngIf="showButtonBar">
-                    <button type="button" [label]="getTranslation('today')" (keydown)="onContainerButtonKeydown($event)" (click)="onTodayButtonClick($event)" pButton pRipple [ngClass]="[todayButtonStyleClass]"></button>
-                    <button type="button" [label]="getTranslation('clear')" (keydown)="onContainerButtonKeydown($event)" (click)="onClearButtonClick($event)" pButton pRipple [ngClass]="[clearButtonStyleClass]"></button>
+                    <button type="button" [label]="getTranslation('today')" (keydown)="onContainerButtonKeydown($event)"
+                            (click)="onTodayButtonClick($event)" pButton pRipple
+                            [ngClass]="[todayButtonStyleClass]"></button>
+                    <button type="button" [label]="getTranslation('clear')" (keydown)="onContainerButtonKeydown($event)"
+                            (click)="onClearButtonClick($event)" pButton pRipple
+                            [ngClass]="[clearButtonStyleClass]"></button>
                 </div>
                 <ng-content select="p-footer"></ng-content>
                 <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
@@ -1277,6 +1319,10 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
                 }
             }
         }
+    }
+
+    public get isRTL() : boolean {
+        return this.document.documentElement.dir === 'rtl';
     }
 
     getTranslation(option: string) {

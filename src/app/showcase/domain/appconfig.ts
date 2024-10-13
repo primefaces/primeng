@@ -5,4 +5,7 @@ export interface AppConfig {
     ripple?: boolean;
     scale?: number;
     tableTheme?: string;
+    direction?: TextDirection;
 }
+
+export type TextDirection = 'ltr' | 'rtl';

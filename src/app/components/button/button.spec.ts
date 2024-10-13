@@ -33,13 +33,13 @@ describe('Button', () => {
         expect(buttonEl.nativeElement.children.length).toEqual(1);
     });
 
-    it('should display the icon and icon to be on the left by default ', () => {
+    it('should display the icon and icon to be on the start by default ', () => {
         button.label = 'PrimeNG';
         button.icon = 'pi pi-times';
         fixture.detectChanges();
 
         const buttonEl = fixture.debugElement.query(By.css('.p-button'));
-        expect(buttonEl.nativeElement.children[0].className).toContain('p-button-icon-left');
+        expect(buttonEl.nativeElement.children[0].className).toContain('p-button-icon-start');
     });
 
     it('should display the icon', () => {
@@ -50,25 +50,25 @@ describe('Button', () => {
         expect(buttonEl.nativeElement.className).toContain('p-button-icon-only');
     });
 
-    it('should display the icon on the right and have a label', () => {
+    it('should display the icon on the end and have a label', () => {
         button.label = 'PrimeNG';
         button.icon = 'pi pi-times';
-        button.iconPos = 'right';
+        button.iconPos = 'end';
         fixture.detectChanges();
 
         const buttonEl = fixture.debugElement.query(By.css('.p-button'));
-        expect(buttonEl.nativeElement.children[0].className).toContain('p-button-icon-right');
+        expect(buttonEl.nativeElement.children[0].className).toContain('p-button-icon-end');
         expect(buttonEl.nativeElement.children[1].textContent).toContain('PrimeNG');
     });
 
-    it('should display the icon on the right', () => {
+    it('should display the icon on the end', () => {
         button.icon = 'pi pi-times';
         button.label = 'PRIMENG';
-        button.iconPos = 'right';
+        button.iconPos = 'end';
         fixture.detectChanges();
 
         const buttonEl = fixture.debugElement.query(By.css('.p-button'));
-        expect(buttonEl.nativeElement.children[0].className).toContain('p-button-icon-right');
+        expect(buttonEl.nativeElement.children[0].className).toContain('p-button-icon-end');
     });
 
     it('should enabled by default', () => {

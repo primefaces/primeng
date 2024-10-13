@@ -126,7 +126,7 @@ import { MinusIcon } from 'primeng/icons/minus';
             <ng-template pTemplate="caption">
                 <div style="text-align:left">
                     <p-treeTableHeaderCheckbox></p-treeTableHeaderCheckbox>
-                    <span style="margin-left: .25em; vertical-align: middle">Toggle All</span>
+                    <span style="margin-inline-start: .25em; vertical-align: middle">Toggle All</span>
                 </div>
             </ng-template>
             <ng-template pTemplate="header" let-columns>

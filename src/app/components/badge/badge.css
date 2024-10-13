@@ -13,10 +13,17 @@
     .p-overlay-badge .p-badge {
         position: absolute;
         top: 0;
-        right: 0;
-        transform: translate(50%, -50%);
+        inset-inline-end: 0;
         transform-origin: 100% 0;
         margin: 0;
+    }
+
+    html[dir="ltr"] .p-overlay-badge .p-badge {
+        transform: translate(50%, -50%);
+    }
+
+    html[dir="rtl"] .p-overlay-badge .p-badge {
+        transform: translate(-50%, -50%);
     }
 
     .p-badge-dot {
