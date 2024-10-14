@@ -26,6 +26,7 @@ export class AppComponent {
             prefix: 'p',
             darkModeSelector: 'system',
             cssLayer: false
+            }
         });
     }
 }`,
