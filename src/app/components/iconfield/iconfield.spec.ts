@@ -53,4 +53,3 @@ describe('IconField', () => {
         expect(iconFieldEl.classList.contains('custom-style')).toBeTrue();
     });
 });
-
