@@ -3,7 +3,7 @@ import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { IconFieldModule, IconField } from './iconfield';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
-fdescribe('IconField', () => {
+describe('IconField', () => {
     let iconField: IconField;
     let fixture: ComponentFixture<IconField>;
     let iconFieldRef: ComponentRef<IconField>;
