@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import {
     AfterContentInit,
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     ContentChildren,
     EventEmitter,
@@ -45,44 +44,50 @@ export class InplaceContent {}
             [class]="styleClass"
             [attr.aria-live]="'polite'"
         >
-            <div
-                class="p-inplace-display"
-                (click)="onActivateClick($event)"
-                tabindex="0"
-                role="button"
-                (keydown)="onKeydown($event)"
-                [ngClass]="{ 'p-disabled': disabled }"
-                *ngIf="!active"
-            >
-                <ng-content select="[pInplaceDisplay]"></ng-content>
-                <ng-container *ngTemplateOutlet="displayTemplate"></ng-container>
-            </div>
-            <div class="p-inplace-content" *ngIf="active">
-                <ng-content select="[pInplaceContent]"></ng-content>
-                <ng-container *ngTemplateOutlet="contentTemplate; context: { closeCallback: onDeactivateClick.bind(this) }"></ng-container>
-
-                <ng-container *ngIf="closable">
-                    <button
-                        *ngIf="closeIcon"
-                        type="button"
-                        [icon]="closeIcon"
-                        pButton
-                        (click)="onDeactivateClick($event)"
-                        [attr.aria-label]="closeAriaLabel"
-                    ></button>
-                    <button
-                        *ngIf="!closeIcon"
-                        type="button"
-                        pButton
-                        [ngClass]="'p-button-icon-only'"
-                        (click)="onDeactivateClick($event)"
-                        [attr.aria-label]="closeAriaLabel"
-                    >
-                        <TimesIcon *ngIf="!closeIconTemplate" />
-                        <ng-template *ngTemplateOutlet="closeIconTemplate"></ng-template>
-                    </button>
-                </ng-container>
-            </div>
+            @if (!active) {
+                <div
+                    class="p-inplace-display"
+                    (click)="onActivateClick($event)"
+                    tabindex="0"
+                    role="button"
+                    (keydown)="onKeydown($event)"
+                    [ngClass]="{ 'p-disabled': disabled }"
+                >
+                    <ng-content select="[pInplaceDisplay]"></ng-content>
+                    <ng-container *ngTemplateOutlet="displayTemplate"></ng-container>
+                </div>
+            } @else {
+                <div class="p-inplace-content">
+                    <ng-content select="[pInplaceContent]"></ng-content>
+                    <ng-container
+                        *ngTemplateOutlet="contentTemplate; context: { closeCallback: onDeactivateClick.bind(this) }"
+                    ></ng-container>
+                    @if (closable) {
+                        @if (closeIcon) {
+                            <button
+                                type="button"
+                                [icon]="closeIcon"
+                                pButton
+                                (click)="onDeactivateClick($event)"
+                                [attr.aria-label]="closeAriaLabel"
+                            ></button>
+                        } @else {
+                            <button
+                                type="button"
+                                pButton
+                                [ngClass]="'p-button-icon-only'"
+                                (click)="onDeactivateClick($event)"
+                                [attr.aria-label]="closeAriaLabel"
+                            >
+                                @if (!closeIconTemplate) {
+                                    <TimesIcon />
+                                }
+                                <ng-template *ngTemplateOutlet="closeIconTemplate"></ng-template>
+                            </button>
+                        }
+                    }
+                </div>
+            }
         </div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
