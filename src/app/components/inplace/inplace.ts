@@ -152,8 +152,6 @@ export class Inplace extends BaseComponent implements AfterContentInit {
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
-    hover!: boolean;
-
     displayTemplate: TemplateRef<any> | undefined;
 
     contentTemplate: TemplateRef<any> | undefined;
@@ -207,7 +205,6 @@ export class Inplace extends BaseComponent implements AfterContentInit {
     deactivate(event?: Event) {
         if (!this.disabled()) {
             this.active.set(false);
-            this.hover = false;
             this.onDeactivate.emit(event);
             this.cd.markForCheck();
         }
