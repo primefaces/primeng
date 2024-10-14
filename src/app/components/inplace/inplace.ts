@@ -1,14 +1,14 @@
 import { CommonModule } from '@angular/common';
 import {
-    AfterContentInit,
+    computed,
     ChangeDetectionStrategy,
     Component,
-    ContentChildren,
+    contentChildren,
     OutputEmitterRef,
     input,
     NgModule,
     output,
-    QueryList,
+    Signal,
     TemplateRef,
     ViewEncapsulation,
     booleanAttribute,
@@ -55,13 +55,13 @@ export class InplaceContent {}
                     [ngClass]="{ 'p-disabled': disabled() }"
                 >
                     <ng-content select="[pInplaceDisplay]"></ng-content>
-                    <ng-container *ngTemplateOutlet="displayTemplate"></ng-container>
+                    <ng-container *ngTemplateOutlet="displayTemplate()"></ng-container>
                 </div>
             } @else {
                 <div class="p-inplace-content">
                     <ng-content select="[pInplaceContent]"></ng-content>
                     <ng-container
-                        *ngTemplateOutlet="contentTemplate; context: { closeCallback: onDeactivateClick.bind(this) }"
+                        *ngTemplateOutlet="contentTemplate(); context: { closeCallback: onDeactivateClick.bind(this) }"
                     ></ng-container>
                     @if (closable()) {
                         @if (closeIcon()) {
@@ -80,10 +80,10 @@ export class InplaceContent {}
                                 (click)="onDeactivateClick($event)"
                                 [attr.aria-label]="closeAriaLabel()"
                             >
-                                @if (!closeIconTemplate) {
+                                @if (!closeIconTemplate()) {
                                     <TimesIcon />
                                 }
-                                <ng-template *ngTemplateOutlet="closeIconTemplate"></ng-template>
+                                <ng-template *ngTemplateOutlet="closeIconTemplate()"></ng-template>
                             </button>
                         }
                     }
@@ -96,7 +96,7 @@ export class InplaceContent {}
 
     providers: [InplaceStyle],
 })
-export class Inplace extends BaseComponent implements AfterContentInit {
+export class Inplace extends BaseComponent {
     /**
      * Whether the content is displayed or not.
      * @group Props
@@ -150,33 +150,22 @@ export class Inplace extends BaseComponent implements AfterContentInit {
      */
     onDeactivate: OutputEmitterRef<Event> = output<Event>();
 
-    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
+    templates: Signal<readonly PrimeTemplate[]> = contentChildren(PrimeTemplate);
 
-    displayTemplate: TemplateRef<any> | undefined;
+    private mappedTemplates = computed<{ [key: string]: TemplateRef<any> }>(() => {
+        return (this.templates() || []).reduce((prev, item) => {
+            prev[item.getType()] = item.template;
+            return prev;
+        }, {});
+    });
 
-    contentTemplate: TemplateRef<any> | undefined;
+    displayTemplate = computed<TemplateRef<any> | undefined>(() => this.mappedTemplates()['display']);
 
-    closeIconTemplate: TemplateRef<any> | undefined;
+    contentTemplate = computed<TemplateRef<any> | undefined>(() => this.mappedTemplates()['content']);
+
+    closeIconTemplate = computed<TemplateRef<any> | undefined>(() => this.mappedTemplates()['closeicon']);
 
     _componentStyle = inject(InplaceStyle);
-
-    ngAfterContentInit() {
-        this.templates?.forEach((item) => {
-            switch (item.getType()) {
-                case 'display':
-                    this.displayTemplate = item.template;
-                    break;
-
-                case 'closeicon':
-                    this.closeIconTemplate = item.template;
-                    break;
-
-                case 'content':
-                    this.contentTemplate = item.template;
-                    break;
-            }
-        });
-    }
 
     onActivateClick(event: MouseEvent) {
         if (!this.preventClick()) this.activate(event);
