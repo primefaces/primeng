@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { NgClass, NgStyle, NgTemplateOutlet } from '@angular/common';
 import {
     computed,
     ChangeDetectionStrategy,
@@ -206,7 +206,7 @@ export class Inplace extends BaseComponent {
 }
 
 @NgModule({
-    imports: [CommonModule, ButtonModule, SharedModule, TimesIcon],
+    imports: [NgClass, NgStyle, NgTemplateOutlet, ButtonModule, SharedModule, TimesIcon],
     exports: [Inplace, InplaceDisplay, InplaceContent, ButtonModule, SharedModule],
     declarations: [Inplace, InplaceDisplay, InplaceContent],
 })
