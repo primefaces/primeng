@@ -194,7 +194,6 @@ export class Inplace extends BaseComponent implements AfterContentInit {
         if (!this.disabled()) {
             this.active.set(true);
             this.onActivate.emit(event);
-            this.cd.markForCheck();
         }
     }
     /**
@@ -206,7 +205,6 @@ export class Inplace extends BaseComponent implements AfterContentInit {
         if (!this.disabled()) {
             this.active.set(false);
             this.onDeactivate.emit(event);
-            this.cd.markForCheck();
         }
     }
 
