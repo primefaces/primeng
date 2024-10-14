@@ -4,10 +4,10 @@ import {
     ChangeDetectionStrategy,
     Component,
     ContentChildren,
-    EventEmitter,
+    OutputEmitterRef,
     input,
     NgModule,
-    Output,
+    output,
     QueryList,
     TemplateRef,
     ViewEncapsulation,
@@ -142,13 +142,13 @@ export class Inplace extends BaseComponent implements AfterContentInit {
      * @param {Event} event - Browser event.
      * @group Emits
      */
-    @Output() onActivate: EventEmitter<Event> = new EventEmitter<Event>();
+    onActivate: OutputEmitterRef<Event> = output<Event>();
     /**
      * Callback to invoke when inplace is closed.
      * @param {Event} event - Browser event.
      * @group Emits
      */
-    @Output() onDeactivate: EventEmitter<Event> = new EventEmitter<Event>();
+    onDeactivate: OutputEmitterRef<Event> = output<Event>();
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
