@@ -1,3 +1,4 @@
+import { ComponentRef } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -8,6 +9,7 @@ import { Inplace } from './inplace';
 describe('Inplace', () => {
     let inplace: Inplace;
     let fixture: ComponentFixture<Inplace>;
+    let inplaceRef: ComponentRef<Inplace>;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -17,6 +19,7 @@ describe('Inplace', () => {
 
         fixture = TestBed.createComponent(Inplace);
         inplace = fixture.componentInstance;
+        inplaceRef = fixture.componentRef;
     });
 
     it('should display by default', () => {
@@ -27,10 +30,10 @@ describe('Inplace', () => {
     });
 
     it('should change style styleClass and closable', () => {
-        inplace.style = { height: '300px' };
-        inplace.styleClass = 'Primeng ROCKS!';
-        inplace.closable = true;
-        inplace.active = true;
+        inplaceRef.setInput('style', { height: '300px' });
+        inplaceRef.setInput('styleClass', 'Primeng ROCKS!');
+        inplaceRef.setInput('closable', true);
+        inplaceRef.setInput('active', true);
         fixture.detectChanges();
 
         const inplaceEl = fixture.debugElement.query(By.css('div'));
@@ -42,7 +45,7 @@ describe('Inplace', () => {
     });
 
     it('should call activate and deactivate', () => {
-        inplace.closable = true;
+        inplaceRef.setInput('closable', true);
         fixture.detectChanges();
 
         const activateSpy = spyOn(inplace, 'activate').and.callThrough();
@@ -51,19 +54,19 @@ describe('Inplace', () => {
         displayEl.nativeElement.click();
         fixture.detectChanges();
 
-        expect(inplace.active).toEqual(true);
+        expect(inplace.active()).toEqual(true);
         expect(activateSpy).toHaveBeenCalled();
         const closableButtonEl = fixture.debugElement.query(By.css('button'));
         closableButtonEl.nativeElement.click();
         fixture.detectChanges();
 
-        expect(inplace.active).toEqual(false);
+        expect(inplace.active()).toEqual(false);
         expect(deactivateSpy).toHaveBeenCalled();
     });
 
     it('should disabled', () => {
-        inplace.closable = true;
-        inplace.disabled = true;
+        inplaceRef.setInput('closable', true);
+        inplaceRef.setInput('disabled', true);
         fixture.detectChanges();
 
         const activateSpy = spyOn(inplace, 'activate').and.callThrough();
@@ -72,9 +75,9 @@ describe('Inplace', () => {
         displayEl.nativeElement.click();
         fixture.detectChanges();
 
-        expect(inplace.active).toEqual(false);
+        expect(inplace.active()).toEqual(false);
         expect(activateSpy).toHaveBeenCalled();
-        inplace.active = true;
+        inplace.active.set(true);
         fixture.detectChanges();
 
         inplace.cd.detectChanges();
@@ -82,7 +85,7 @@ describe('Inplace', () => {
         closableButtonEl.nativeElement.click();
         fixture.detectChanges();
 
-        expect(inplace.active).toEqual(true);
+        expect(inplace.active()).toEqual(true);
         expect(deactivateSpy).toHaveBeenCalled();
     });
 });

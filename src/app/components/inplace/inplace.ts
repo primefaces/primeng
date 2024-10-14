@@ -5,7 +5,7 @@ import {
     Component,
     ContentChildren,
     EventEmitter,
-    Input,
+    input,
     NgModule,
     Output,
     QueryList,
@@ -13,6 +13,7 @@ import {
     ViewEncapsulation,
     booleanAttribute,
     inject,
+    model,
 } from '@angular/core';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
@@ -39,19 +40,19 @@ export class InplaceContent {}
     selector: 'p-inplace',
     template: `
         <div
-            [ngClass]="{ 'p-inplace p-component': true, 'p-inplace-closable': closable }"
-            [ngStyle]="style"
-            [class]="styleClass"
+            [ngClass]="{ 'p-inplace p-component': true, 'p-inplace-closable': closable() }"
+            [ngStyle]="style()"
+            [class]="styleClass()"
             [attr.aria-live]="'polite'"
         >
-            @if (!active) {
+            @if (!active()) {
                 <div
                     class="p-inplace-display"
                     (click)="onActivateClick($event)"
                     tabindex="0"
                     role="button"
                     (keydown)="onKeydown($event)"
-                    [ngClass]="{ 'p-disabled': disabled }"
+                    [ngClass]="{ 'p-disabled': disabled() }"
                 >
                     <ng-content select="[pInplaceDisplay]"></ng-content>
                     <ng-container *ngTemplateOutlet="displayTemplate"></ng-container>
@@ -62,14 +63,14 @@ export class InplaceContent {}
                     <ng-container
                         *ngTemplateOutlet="contentTemplate; context: { closeCallback: onDeactivateClick.bind(this) }"
                     ></ng-container>
-                    @if (closable) {
-                        @if (closeIcon) {
+                    @if (closable()) {
+                        @if (closeIcon()) {
                             <button
                                 type="button"
-                                [icon]="closeIcon"
+                                [icon]="closeIcon()"
                                 pButton
                                 (click)="onDeactivateClick($event)"
-                                [attr.aria-label]="closeAriaLabel"
+                                [attr.aria-label]="closeAriaLabel()"
                             ></button>
                         } @else {
                             <button
@@ -77,7 +78,7 @@ export class InplaceContent {}
                                 pButton
                                 [ngClass]="'p-button-icon-only'"
                                 (click)="onDeactivateClick($event)"
-                                [attr.aria-label]="closeAriaLabel"
+                                [attr.aria-label]="closeAriaLabel()"
                             >
                                 @if (!closeIconTemplate) {
                                     <TimesIcon />
@@ -100,42 +101,42 @@ export class Inplace extends BaseComponent implements AfterContentInit {
      * Whether the content is displayed or not.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) active: boolean | undefined = false;
+    active = model<boolean>(false);
     /**
      * Displays a button to switch back to display mode.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) closable: boolean | undefined = false;
+    closable = input<boolean, any>(false, { transform: booleanAttribute });
     /**
      * When present, it specifies that the element should be disabled.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) disabled: boolean | undefined = false;
+    disabled = input<boolean, any>(false, { transform: booleanAttribute });
     /**
      * Allows to prevent clicking.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) preventClick: boolean | undefined;
+    preventClick = input<boolean, any>(undefined, { transform: booleanAttribute });
     /**
      * Inline style of the element.
      * @group Props
      */
-    @Input() style: { [klass: string]: any } | null | undefined;
+    style = input<{ [klass: string]: any } | null>();
     /**
      * Class of the element.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    styleClass = input<string>();
     /**
      * Icon to display in the close button.
      * @group Props
      */
-    @Input() closeIcon: string | undefined;
+    closeIcon = input<string>();
     /**
      * Establishes a string value that labels the close button.
      * @group Props
      */
-    @Input() closeAriaLabel: string | undefined;
+    closeAriaLabel = input<string>();
     /**
      * Callback to invoke when inplace is opened.
      * @param {Event} event - Browser event.
@@ -180,11 +181,11 @@ export class Inplace extends BaseComponent implements AfterContentInit {
     }
 
     onActivateClick(event: MouseEvent) {
-        if (!this.preventClick) this.activate(event);
+        if (!this.preventClick()) this.activate(event);
     }
 
     onDeactivateClick(event: MouseEvent) {
-        if (!this.preventClick) this.deactivate(event);
+        if (!this.preventClick()) this.deactivate(event);
     }
     /**
      * Activates the content.
@@ -192,8 +193,8 @@ export class Inplace extends BaseComponent implements AfterContentInit {
      * @group Method
      */
     activate(event?: Event) {
-        if (!this.disabled) {
-            this.active = true;
+        if (!this.disabled()) {
+            this.active.set(true);
             this.onActivate.emit(event);
             this.cd.markForCheck();
         }
@@ -204,8 +205,8 @@ export class Inplace extends BaseComponent implements AfterContentInit {
      * @group Method
      */
     deactivate(event?: Event) {
-        if (!this.disabled) {
-            this.active = false;
+        if (!this.disabled()) {
+            this.active.set(false);
             this.hover = false;
             this.onDeactivate.emit(event);
             this.cd.markForCheck();
