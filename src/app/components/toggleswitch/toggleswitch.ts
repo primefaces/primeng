@@ -1,18 +1,18 @@
 import { CommonModule } from '@angular/common';
 import {
+    booleanAttribute,
     ChangeDetectionStrategy,
     Component,
     ElementRef,
     EventEmitter,
+    forwardRef,
+    inject,
     Input,
     NgModule,
+    numberAttribute,
     Output,
     ViewChild,
     ViewEncapsulation,
-    booleanAttribute,
-    forwardRef,
-    inject,
-    numberAttribute,
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { AutoFocusModule } from 'primeng/autofocus';
@@ -34,34 +34,32 @@ export const TOGGLESWITCH_VALUE_ACCESSOR: any = {
     template: `
         <div
             [ngClass]="cx('root')"
-            [ngStyle]="sx('root')"
-            [style]="style"
+            [style]="sx('root')"
+            [ngStyle]="style"
             [class]="styleClass"
             (click)="onClick($event)"
             [attr.data-pc-name]="'toggleswitch'"
             [attr.data-pc-section]="'root'"
         >
-            <div class="p-hidden-accessible" [attr.data-pc-section]="'hiddenInputWrapper'" [attr.data-p-hidden-accessible]="true">
-                <input
-                    #input
-                    [attr.id]="inputId"
-                    type="checkbox"
-                    role="switch"
-                    [ngClass]="cx('input')"
-                    [checked]="checked()"
-                    [disabled]="disabled"
-                    [attr.aria-checked]="checked()"
-                    [attr.aria-labelledby]="ariaLabelledBy"
-                    [attr.aria-label]="ariaLabel"
-                    [attr.name]="name"
-                    [attr.tabindex]="tabindex"
-                    (focus)="onFocus()"
-                    (blur)="onBlur()"
-                    [attr.data-pc-section]="'hiddenInput'"
-                    pAutoFocus
-                    [autofocus]="autofocus"
-                />
-            </div>
+            <input
+                #input
+                [attr.id]="inputId"
+                type="checkbox"
+                role="switch"
+                [ngClass]="cx('input')"
+                [checked]="checked()"
+                [disabled]="disabled"
+                [attr.aria-checked]="checked()"
+                [attr.aria-labelledby]="ariaLabelledBy"
+                [attr.aria-label]="ariaLabel"
+                [attr.name]="name"
+                [attr.tabindex]="tabindex"
+                (focus)="onFocus()"
+                (blur)="onBlur()"
+                [attr.data-pc-section]="'hiddenInput'"
+                pAutoFocus
+                [autofocus]="autofocus"
+            />
             <span [ngClass]="cx('slider')" [attr.data-pc-section]="'slider'"></span>
         </div>
     `,
