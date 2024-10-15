@@ -1,18 +1,18 @@
 import { NgClass, NgStyle } from '@angular/common';
 import {
     AfterViewInit,
+    booleanAttribute,
     ChangeDetectionStrategy,
     Component,
+    computed,
     Directive,
+    inject,
     Input,
+    input,
     NgModule,
     OnChanges,
     SimpleChanges,
     ViewEncapsulation,
-    booleanAttribute,
-    inject,
-    input,
-    computed,
 } from '@angular/core';
 import { SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
@@ -250,6 +250,11 @@ export class Badge extends BaseComponent {
      * @group Props
      */
     badgeSize = input<'small' | 'large' | 'xlarge' | null>();
+    /**
+     * Size of the badge, valid options are "large" and "xlarge".
+     * @group Props
+     */
+    size = input<'small' | 'large' | 'xlarge' | null>();
     /**
      * Severity type of the badge.
      * @group Props
