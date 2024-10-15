@@ -11,7 +11,7 @@ import { Code } from '@domain/code';
                 <i>NoopAnimationsModule</i> instead.
             </p>
             <p>
-                Starting from Angular 17, you can also use the <i>provideAnimationAsync</i> function for configuring animations in a more
+                Starting from Angular 17, you can also use the <i>provideAnimationsAsync</i> function for configuring animations in a more
                 efficient way, especially in larger applications where optimizing load times is crucial.
             </p>
         </app-docsectiontext>
@@ -25,12 +25,12 @@ export class AnimationsDoc {
     code: Code = {
         typescript: `// app.config.ts
 import { ApplicationConfig } from '@angular/core';
-import { provideAnimationAsync } from '@angular/platform-browser/animations/async';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 export const appConfig: ApplicationConfig = {
     providers: [
         // Other providers...
-        provideAnimationAsync(),
+        provideAnimationsAsync(),
     ],
 };`,
     };
