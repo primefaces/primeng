@@ -1,38 +1,34 @@
-import { AnimationEvent, animate, style, transition, trigger } from '@angular/animations';
-import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { animate, AnimationEvent, style, transition, trigger } from '@angular/animations';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
     AfterContentInit,
+    booleanAttribute,
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     ContentChildren,
     Directive,
     DoCheck,
     ElementRef,
     EventEmitter,
+    forwardRef,
     HostListener,
-    Inject,
+    inject,
     Input,
     NgModule,
     NgZone,
+    numberAttribute,
     OnDestroy,
     OnInit,
     Output,
-    PLATFORM_ID,
     Pipe,
     PipeTransform,
     QueryList,
-    Renderer2,
     TemplateRef,
     ViewChild,
     ViewEncapsulation,
-    booleanAttribute,
-    forwardRef,
-    inject,
-    numberAttribute,
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
+import { OverlayService, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { EyeIcon } from 'primeng/icons/eye';
 import { EyeSlashIcon } from 'primeng/icons/eyeslash';
@@ -377,6 +373,7 @@ export const Password_VALUE_ACCESSOR: any = {
                 [attr.aria-labelledBy]="ariaLabelledBy"
                 [attr.id]="inputId"
                 pInputText
+                [disabled]="disabled"
                 [ngClass]="disabled | mapper: inputFieldClass"
                 [ngStyle]="inputStyle"
                 [class]="inputStyleClass"
