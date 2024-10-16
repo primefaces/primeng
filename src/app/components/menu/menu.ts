@@ -1,37 +1,34 @@
-import { AnimationEvent, animate, style, transition, trigger } from '@angular/animations';
-import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { animate, AnimationEvent, style, transition, trigger } from '@angular/animations';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
+    booleanAttribute,
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
+    computed,
     ContentChildren,
     ElementRef,
     EventEmitter,
+    forwardRef,
     Inject,
+    inject,
     Input,
     NgModule,
+    numberAttribute,
     OnDestroy,
     Output,
-    PLATFORM_ID,
     Pipe,
     PipeTransform,
+    PLATFORM_ID,
     QueryList,
-    Renderer2,
+    signal,
     TemplateRef,
     ViewChild,
     ViewEncapsulation,
     ViewRef,
-    booleanAttribute,
-    computed,
-    effect,
-    forwardRef,
-    inject,
-    numberAttribute,
-    signal,
 } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
-import { MenuItem, OverlayService, PrimeNGConfig, PrimeTemplate } from 'primeng/api';
+import { MenuItem, OverlayService, PrimeTemplate } from 'primeng/api';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { RippleModule } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
@@ -190,6 +187,7 @@ export class MenuItemContent {
                         [ngClass]="{ 'p-hidden': submenu.visible === false }"
                         role="separator"
                     ></li>
+
                     <li
                         class="p-menu-submenu-label"
                         [attr.data-automationid]="submenu.automationId"
