@@ -13,7 +13,8 @@ import { UniqueComponentId, ZIndexUtils } from 'primeng/utils';
     selector: '[pTooltip]',
     host: {
         class: 'p-element'
-    }
+    },
+    standalone: true
 })
 export class Tooltip implements AfterViewInit, OnDestroy {
     /**
@@ -739,8 +740,7 @@ export class Tooltip implements AfterViewInit, OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule],
-    exports: [Tooltip],
-    declarations: [Tooltip]
+    imports: [CommonModule, Tooltip],
+    exports: [Tooltip]
 })
 export class TooltipModule {}
