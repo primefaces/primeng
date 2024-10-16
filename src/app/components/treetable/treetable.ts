@@ -2,6 +2,7 @@ import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
 import {
     AfterContentInit,
     AfterViewInit,
+    booleanAttribute,
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
@@ -11,10 +12,12 @@ import {
     EventEmitter,
     HostListener,
     Inject,
+    inject,
     Injectable,
     Input,
     NgModule,
     NgZone,
+    numberAttribute,
     OnChanges,
     OnDestroy,
     OnInit,
@@ -26,9 +29,6 @@ import {
     TemplateRef,
     ViewChild,
     ViewEncapsulation,
-    booleanAttribute,
-    inject,
-    numberAttribute,
 } from '@angular/core';
 import {
     BlockableUI,
@@ -136,7 +136,7 @@ export class TreeTableService {
             }"
         >
             <div class="p-treetable-loading" *ngIf="loading && showLoader">
-                <div class="p-treetable-mask p-overlay-mask">
+                <div class="p-overlay-mask p-treetable-mask">
                     <i *ngIf="loadingIcon" [class]="'p-treetable-loading-icon pi-spin ' + loadingIcon"></i>
                     <ng-container *ngIf="!loadingIcon">
                         <SpinnerIcon *ngIf="!loadingIconTemplate" [spin]="true" [styleClass]="'p-treetable-loading-icon'" />
