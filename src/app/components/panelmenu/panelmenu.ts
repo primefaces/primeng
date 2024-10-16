@@ -360,7 +360,7 @@ export class PanelMenuList implements OnChanges {
 
     @Input() items: any[];
 
-    @Input() itemTemplate: HTMLElement | undefined;
+    @Input() itemTemplate: TemplateRef<any> | undefined;
 
     @Input({ transform: booleanAttribute }) parentExpanded: boolean | undefined;
 
@@ -571,13 +571,25 @@ export class PanelMenuList implements OnChanges {
 
     onItemToggle(event) {
         const { processedItem, expanded } = event;
-        processedItem.expanded = !processedItem.expanded;
 
+        // Update the original item object's 'expanded' property
+        if (processedItem.item) {
+            processedItem.item.expanded = !processedItem.item.expanded;
+        }
+
+        // Recreate processedItems with updated 'expanded' states
+        this.processedItems.set(
+            this.createProcessedItems(this.items || [], 0, {}, '')
+        );
+
+        // Update activeItemPath
         const activeItemPath = this.activeItemPath().filter((p) => p.parentKey !== processedItem.parentKey);
-        expanded && activeItemPath.push(processedItem);
-
+        if (expanded) {
+            activeItemPath.push(processedItem);
+        }
         this.activeItemPath.set(activeItemPath);
-        this.processedItems.update((value) => value.map((i) => (i === processedItem ? processedItem : i)));
+
+        // Update focusedItem
         this.focusedItem.set(processedItem);
     }
 
@@ -916,7 +928,7 @@ export class PanelMenuList implements OnChanges {
                         [ngClass]="{ 'p-panelmenu-expanded': isItemActive(item) }"
                     >
                         <div class="p-panelmenu-content" [attr.data-pc-section]="'menucontent'">
-                            <p-panelmenu-list
+                            <p-panelMenuList
                                 [panelId]="getPanelId(i, item)"
                                 [items]="getItemProp(item, 'items')"
                                 [itemTemplate]="itemTemplate"
@@ -926,7 +938,7 @@ export class PanelMenuList implements OnChanges {
                                 [tabindex]="tabindex"
                                 [parentExpanded]="isItemActive(item)"
                                 (headerFocus)="updateFocusedHeader($event)"
-                            ></p-panelmenu-list>
+                            ></p-panelMenuList>
                         </div>
                     </div>
                 </div>
