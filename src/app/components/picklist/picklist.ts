@@ -1,23 +1,23 @@
 import { CDK_DRAG_CONFIG, CdkDragDrop, DragDropModule, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
-import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
     AfterContentInit,
     AfterViewChecked,
+    booleanAttribute,
     ChangeDetectionStrategy,
     Component,
     ContentChildren,
     ElementRef,
     EventEmitter,
+    inject,
     Input,
     NgModule,
+    numberAttribute,
     Output,
     QueryList,
     TemplateRef,
     ViewChild,
     ViewEncapsulation,
-    booleanAttribute,
-    inject,
-    numberAttribute,
 } from '@angular/core';
 import { FilterService, PrimeTemplate, SharedModule } from 'primeng/api';
 import { ButtonModule, ButtonProps } from 'primeng/button';
@@ -52,6 +52,7 @@ import { PickListStyle } from './style/pickliststyle';
 import { BaseComponent } from 'primeng/basecomponent';
 import { Listbox, ListboxModule } from 'primeng/listbox';
 import { FormsModule } from '@angular/forms';
+
 /**
  * PickList is used to reorder items between different lists.
  * @group Components
@@ -1796,15 +1797,13 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
 
                 let innerHTML = `
                 @media screen and (max-width: ${this.breakpoint}) {
-                    .p-picklist[${this.id}] {
+                    .p-picklist[${this.attrSelector}] {
                         flex-direction: column;
                     }
 
-                    .p-picklist[${this.id}] .p-picklist-controls {
+                    .p-picklist[${this.attrSelector}] .p-picklist-controls {
                         flex-direction: row;
                     }
-
-                  
                 }`;
 
                 this.renderer.setProperty(this.styleElement, 'innerHTML', innerHTML);
