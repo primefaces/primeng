@@ -77,7 +77,7 @@ export class TreeSelectDemo {
         {
             id: 'iftalabel',
             label: 'Ifta Label',
-            component: IftaLabelDoc
+            component: IftaLabelDoc,
         },
         {
             id: 'filled',

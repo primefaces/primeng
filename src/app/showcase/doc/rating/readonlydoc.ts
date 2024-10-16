@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
             <p>When <i>readOnly</i> present, value cannot be edited.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-rating [(ngModel)]="value" [readonly]="true"  />
+            <p-rating [(ngModel)]="value" [readonly]="true" />
         </div>
         <app-code [code]="code" selector="rating-readonly-demo"></app-code>
     `,

@@ -1,15 +1,15 @@
-import { AnimationEvent, animate, style, transition, trigger } from '@angular/animations';
-import { CommonModule, DOCUMENT } from '@angular/common';
+import { animate, AnimationEvent, style, transition, trigger } from '@angular/animations';
+import { CommonModule } from '@angular/common';
 import {
     AfterContentInit,
+    booleanAttribute,
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     ContentChildren,
     ElementRef,
     EventEmitter,
     HostListener,
-    Inject,
+    inject,
     Input,
     NgModule,
     Output,
@@ -17,11 +17,9 @@ import {
     TemplateRef,
     ViewChild,
     ViewEncapsulation,
-    booleanAttribute,
-    inject,
 } from '@angular/core';
 import { SafeUrl } from '@angular/platform-browser';
-import { PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
+import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { EyeIcon } from 'primeng/icons/eye';
 import { RefreshIcon } from 'primeng/icons/refresh';
@@ -159,7 +157,11 @@ import { BaseComponent } from 'primeng/basecomponent';
                     <ng-container
                         *ngTemplateOutlet="
                             previewTemplate;
-                            context: { class:'p-image-original' ,style: imagePreviewStyle(), previewCallback: onPreviewImageClick.bind(this) }
+                            context: {
+                                class: 'p-image-original',
+                                style: imagePreviewStyle(),
+                                previewCallback: onPreviewImageClick.bind(this),
+                            }
                         "
                     >
                     </ng-container>

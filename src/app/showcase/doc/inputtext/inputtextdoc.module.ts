@@ -34,7 +34,7 @@ import { RouterModule } from '@angular/router';
         KeyFilterModule,
         FloatLabelModule,
         IftaLabelModule,
-        RouterModule
+        RouterModule,
     ],
     declarations: [
         BasicDoc,

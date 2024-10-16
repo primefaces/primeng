@@ -35,7 +35,7 @@ import { CheckmarkDoc } from './checkmarkdoc';
         AccessibilityDoc,
         ReactiveFormsDoc,
         VirtualScrollDoc,
-        CheckmarkDoc
+        CheckmarkDoc,
     ],
 })
 export class ListboxDocModule {}

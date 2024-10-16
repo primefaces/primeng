@@ -14,7 +14,7 @@ import { Code } from '@domain/code';
     `,
 })
 export class VerticalDoc {
-    value: number = 50
+    value: number = 50;
 
     code: Code = {
         basic: `<p-slider [(ngModel)]="value" orientation="vertical" styleClass="h-56" />`,

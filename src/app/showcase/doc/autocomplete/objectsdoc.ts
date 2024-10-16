@@ -17,7 +17,12 @@ interface AutoCompleteCompleteEvent {
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-autocomplete [(ngModel)]="selectedCountry" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" optionLabel="name" />
+            <p-autocomplete
+                [(ngModel)]="selectedCountry"
+                [suggestions]="filteredCountries"
+                (completeMethod)="filterCountry($event)"
+                optionLabel="name"
+            />
         </div>
         <app-code [code]="code" selector="autocomplete-objects-demo"></app-code>`,
 })

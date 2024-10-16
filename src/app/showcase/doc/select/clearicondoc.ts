@@ -13,7 +13,14 @@ interface City {
             <p>When <i>showClear</i> is enabled, a clear icon is added to reset the Select.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-select [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" [showClear]="true" placeholder="Select a City" class="w-full md:w-56"/>
+            <p-select
+                [options]="cities"
+                [(ngModel)]="selectedCity"
+                optionLabel="name"
+                [showClear]="true"
+                placeholder="Select a City"
+                class="w-full md:w-56"
+            />
         </div>
         <app-code [code]="code" selector="select-clear-icon-demo"></app-code>
     `,

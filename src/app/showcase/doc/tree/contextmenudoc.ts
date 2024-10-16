@@ -10,7 +10,13 @@ import { NodeService } from '@service/nodeservice';
             <p>Tree requires a collection of <i>TreeNode</i> instances as a value.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-tree [value]="files" styleClass="w-full md:w-[30rem]" selectionMode="single" [(selection)]="selectedFile" [contextMenu]="cm" />
+            <p-tree
+                [value]="files"
+                styleClass="w-full md:w-[30rem]"
+                selectionMode="single"
+                [(selection)]="selectedFile"
+                [contextMenu]="cm"
+            />
             <p-contextmenu #cm [model]="items" />
             <p-toast />
         </div>

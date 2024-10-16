@@ -13,7 +13,13 @@ import { NodeService } from '@service/nodeservice';
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-tree styleClass="w-full md:w-[30rem]" scrollHeight="250px" [virtualScroll]="true" [virtualScrollItemSize]="46" [value]="files" />
+            <p-tree
+                styleClass="w-full md:w-[30rem]"
+                scrollHeight="250px"
+                [virtualScroll]="true"
+                [virtualScrollItemSize]="46"
+                [value]="files"
+            />
         </div>
         <app-code [code]="code" selector="tree-virtual-scroll-demo"></app-code>
     `,

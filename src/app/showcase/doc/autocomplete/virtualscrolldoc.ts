@@ -17,7 +17,15 @@ interface AutoCompleteCompleteEvent {
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-autocomplete [(ngModel)]="selectedItem" [virtualScroll]="true" [suggestions]="filteredItems" [virtualScrollItemSize]="34" (completeMethod)="filterItems($event)" optionLabel="label" [dropdown]="true" />
+            <p-autocomplete
+                [(ngModel)]="selectedItem"
+                [virtualScroll]="true"
+                [suggestions]="filteredItems"
+                [virtualScrollItemSize]="34"
+                (completeMethod)="filterItems($event)"
+                optionLabel="label"
+                [dropdown]="true"
+            />
         </div>
         <app-code [code]="code" selector="autocomplete-virtual-scroll-demo"></app-code>`,
 })

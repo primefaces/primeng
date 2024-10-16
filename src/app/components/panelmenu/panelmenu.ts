@@ -2,27 +2,27 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { CommonModule } from '@angular/common';
 import {
     AfterContentInit,
+    booleanAttribute,
     ChangeDetectionStrategy,
     Component,
+    computed,
     ContentChildren,
     ElementRef,
     EventEmitter,
+    forwardRef,
     Inject,
+    inject,
     Input,
     NgModule,
+    numberAttribute,
     OnChanges,
     Output,
     QueryList,
+    signal,
     SimpleChanges,
     TemplateRef,
     ViewChild,
     ViewEncapsulation,
-    booleanAttribute,
-    computed,
-    forwardRef,
-    inject,
-    numberAttribute,
-    signal,
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { MenuItem, PrimeTemplate, SharedModule } from 'primeng/api';
@@ -578,9 +578,7 @@ export class PanelMenuList implements OnChanges {
         }
 
         // Recreate processedItems with updated 'expanded' states
-        this.processedItems.set(
-            this.createProcessedItems(this.items || [], 0, {}, '')
-        );
+        this.processedItems.set(this.createProcessedItems(this.items || [], 0, {}, ''));
 
         // Update activeItemPath
         const activeItemPath = this.activeItemPath().filter((p) => p.parentKey !== processedItem.parentKey);

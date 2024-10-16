@@ -105,7 +105,7 @@ import { CustomerService } from '@service/customerservice';
                                             (onChange)="filter($event.value)"
                                             placeholder="Select One"
                                             [showClear]="true"
-                                            style="min-width: 12rem" 
+                                            style="min-width: 12rem"
                                         >
                                             <ng-template let-option pTemplate="item">
                                                 <p-tag [value]="option.value" [severity]="getSeverity(option.value)" />

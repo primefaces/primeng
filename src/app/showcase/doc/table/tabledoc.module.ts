@@ -121,7 +121,7 @@ import { BadgeModule } from 'primeng/badge';
         IconFieldModule,
         InputIconModule,
         ToggleSwitchModule,
-        BadgeModule
+        BadgeModule,
     ],
     declarations: [
         ImportDoc,

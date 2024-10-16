@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
             <p>SelectButton requires a value to bind and a collection of options.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-selectbutton [options]="stateOptions" [(ngModel)]="value" optionLabel="label" optionValue="value" aria-labelledby="basic"/>
+            <p-selectbutton [options]="stateOptions" [(ngModel)]="value" optionLabel="label" optionValue="value" aria-labelledby="basic" />
         </div>
         <app-code [code]="code" selector="select-button-basic-demo"></app-code>
     `,

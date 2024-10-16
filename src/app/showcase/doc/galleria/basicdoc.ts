@@ -41,12 +41,12 @@ export class BasicDoc implements OnInit {
         this.responsiveOptions = [
             {
                 breakpoint: '1300px',
-                numVisible: 4
+                numVisible: 4,
             },
             {
                 breakpoint: '575px',
-                numVisible: 1
-            }
+                numVisible: 1,
+            },
         ];
     }
 

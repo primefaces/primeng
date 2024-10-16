@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { Component } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { Code } from '@domain/code';
-import { CountryService } from '@service/countryservice';
 
 interface AutoCompleteCompleteEvent {
     originalEvent: Event;
@@ -18,11 +17,7 @@ interface AutoCompleteCompleteEvent {
         </app-docsectiontext>
         <div class="card flex justify-center">
             <form [formGroup]="formGroup">
-                <p-autocomplete
-                    formControlName="selectedCountry"
-                    [suggestions]="items"
-                    (completeMethod)="search($event)"
-                />
+                <p-autocomplete formControlName="selectedCountry" [suggestions]="items" (completeMethod)="search($event)" />
             </form>
         </div>
         <app-code [code]="code" selector="autocomplete-reactive-forms-demo"></app-code>`,

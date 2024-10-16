@@ -251,10 +251,10 @@ export class Rating extends BaseComponent implements OnInit, ControlValueAccesso
 
     onOptionSelect(event, value) {
         if (this.focusedOptionIndex === value || value === this.value) {
-            this.focusedOptionIndex.set(-1)
+            this.focusedOptionIndex.set(-1);
             this.updateModel(event, null);
         } else {
-            this.focusedOptionIndex.set(value)
+            this.focusedOptionIndex.set(value);
             this.updateModel(event, value || null);
         }
     }

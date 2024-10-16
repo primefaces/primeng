@@ -13,7 +13,7 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { SliderModule } from 'primeng/slider';
 import { TabMenuModule } from 'primeng/tabmenu';
-import { Subscription, debounceTime } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { AppConfigService } from '@service/appconfigservice';
 import { DividerModule } from 'primeng/divider';
 import { AvatarModule } from 'primeng/avatar';
@@ -227,7 +227,7 @@ import { KnobModule } from 'primeng/knob';
                                         'w-full': !isSlimMenu,
                                     }"
                                 >
-                                    <a  class="cursor-pointer block p-0 m-0 leading-none">
+                                    <a class="cursor-pointer block p-0 m-0 leading-none">
                                         <i [class]="isSlimMenu ? 'pi pi-window-maximize' : 'pi pi-window-minimize'"></i>
                                         <span [class]="isSlimMenu ? 'hidden' : 'font-medium leading-8'">・</span>
                                         <span [class]="isSlimMenu ? 'hidden' : 'font-medium leading-none'"> Slim Mode</span>

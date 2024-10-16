@@ -78,7 +78,7 @@ import { TableRowCollapseEvent, TableRowExpandEvent } from 'primeng/table';
                         <tr>
                             <td colspan="7">
                                 <div class="p-4">
-                                <h5>Orders for {{ product.name }}</h5>
+                                    <h5>Orders for {{ product.name }}</h5>
                                     <p-table [value]="product.orders" dataKey="id">
                                         <ng-template pTemplate="header">
                                             <tr>

@@ -23,7 +23,6 @@ interface City {
     `,
 })
 export class BasicDoc implements OnInit {
-
     cities: City[];
 
     selectedCity: City | undefined;

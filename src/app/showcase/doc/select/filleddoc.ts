@@ -16,7 +16,14 @@ interface City {
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-select [options]="cities" [(ngModel)]="selectedCity" variant="filled" optionLabel="name" placeholder="Select a City" class="w-full md:w-56" />
+            <p-select
+                [options]="cities"
+                [(ngModel)]="selectedCity"
+                variant="filled"
+                optionLabel="name"
+                placeholder="Select a City"
+                class="w-full md:w-56"
+            />
         </div>
         <app-code [code]="code" selector="select-filled-demo"></app-code>
     `,

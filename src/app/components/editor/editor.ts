@@ -1,23 +1,20 @@
 import { CommonModule, isPlatformServer } from '@angular/common';
 import {
     AfterContentInit,
+    afterNextRender,
     ChangeDetectionStrategy,
     Component,
     ContentChild,
     ContentChildren,
-    ElementRef,
     EventEmitter,
-    Inject,
+    forwardRef,
+    inject,
     Input,
     NgModule,
     Output,
-    PLATFORM_ID,
     QueryList,
     TemplateRef,
     ViewEncapsulation,
-    afterNextRender,
-    forwardRef,
-    inject,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Header, PrimeTemplate, SharedModule } from 'primeng/api';
@@ -225,7 +222,9 @@ export class Editor extends BaseComponent implements AfterContentInit, ControlVa
         if (this.quill) {
             if (value) {
                 const command = (): void => {
-                    this.quill.setContents(this.quill.clipboard.convert(this.dynamicQuill.version.startsWith('2') ? { html: this.value } : this.value));
+                    this.quill.setContents(
+                        this.quill.clipboard.convert(this.dynamicQuill.version.startsWith('2') ? { html: this.value } : this.value),
+                    );
                 };
 
                 if (this.isAttachedQuillEditorToDOM) {
@@ -294,7 +293,7 @@ export class Editor extends BaseComponent implements AfterContentInit, ControlVa
             formats: this.formats,
             bounds: this.bounds,
             debug: this.debug,
-            scrollingContainer: this.scrollingContainer
+            scrollingContainer: this.scrollingContainer,
         });
 
         const isQuill2 = this.dynamicQuill.version.startsWith('2');
@@ -315,7 +314,7 @@ export class Editor extends BaseComponent implements AfterContentInit, ControlVa
                     htmlValue: html,
                     textValue: text,
                     delta: delta,
-                    source: source
+                    source: source,
                 });
 
                 this.onModelChange(html);
@@ -327,12 +326,12 @@ export class Editor extends BaseComponent implements AfterContentInit, ControlVa
             this.onSelectionChange.emit({
                 range: range,
                 oldRange: oldRange,
-                source: source
+                source: source,
             });
         });
 
         this.onInit.emit({
-            editor: this.quill
+            editor: this.quill,
         });
     }
 

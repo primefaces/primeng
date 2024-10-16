@@ -2,22 +2,22 @@ import { CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
     AfterContentInit,
+    booleanAttribute,
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
     ContentChildren,
     ElementRef,
     EventEmitter,
+    inject,
     Input,
     NgModule,
+    numberAttribute,
     Output,
     QueryList,
     TemplateRef,
     ViewChild,
     ViewEncapsulation,
-    booleanAttribute,
-    inject,
-    numberAttribute,
 } from '@angular/core';
 import { FilterService, PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
 import { ButtonModule, ButtonProps } from 'primeng/button';
@@ -35,6 +35,7 @@ import { OrderListStyle } from './style/orderliststyle';
 import { BaseComponent } from 'primeng/basecomponent';
 import { Listbox, ListboxModule } from 'primeng/listbox';
 import { FormsModule } from '@angular/forms';
+
 /**
  * OrderList is used to managed the order of a collection.
  * @group Components
@@ -310,7 +311,7 @@ export class OrderList extends BaseComponent implements AfterContentInit {
     get value(): any[] | undefined {
         return this._value;
     }
-    
+
     /**
      * Used to pass all properties of the ButtonProps to the Button component.
      * @group Props
@@ -327,19 +328,19 @@ export class OrderList extends BaseComponent implements AfterContentInit {
      * Used to pass all properties of the ButtonProps to the move top button inside the component.
      * @group Props
      */
-    @Input() moveTopButtonProps : ButtonProps;
+    @Input() moveTopButtonProps: ButtonProps;
 
     /**
      * Used to pass all properties of the ButtonProps to the move down button inside the component.
      * @group Props
      */
-    @Input() moveDownButtonProps : ButtonProps;
+    @Input() moveDownButtonProps: ButtonProps;
 
     /**
      * Used to pass all properties of the ButtonProps to the move bottom button inside the component.
      * @group Props
      */
-    @Input() moveBottomButtonProps : ButtonProps;
+    @Input() moveBottomButtonProps: ButtonProps;
 
     /**
      * Callback to invoke on selection change.

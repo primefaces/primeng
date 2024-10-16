@@ -9,7 +9,13 @@ import { Code } from '@domain/code';
             <p>Options can be grouped when a nested data structures is provided.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-select [options]="groupedCities" [(ngModel)]="selectedCity" placeholder="Select a City" [group]="true" class="w-full md:w-56">
+            <p-select
+                [options]="groupedCities"
+                [(ngModel)]="selectedCity"
+                placeholder="Select a City"
+                [group]="true"
+                class="w-full md:w-56"
+            >
                 <ng-template let-group pTemplate="group">
                     <div class="flex items-center">
                         <img

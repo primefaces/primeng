@@ -2,23 +2,23 @@ import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
     AfterContentInit,
     AfterViewInit,
+    booleanAttribute,
     ChangeDetectionStrategy,
     Component,
     ContentChildren,
     ElementRef,
     EventEmitter,
+    inject,
     Input,
     NgModule,
+    numberAttribute,
     OnDestroy,
     Output,
     QueryList,
+    signal,
     TemplateRef,
     ViewChild,
     ViewEncapsulation,
-    booleanAttribute,
-    inject,
-    numberAttribute,
-    signal,
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { MenuItem, PrimeTemplate, SharedModule, TooltipOptions } from 'primeng/api';
@@ -405,7 +405,7 @@ export class SpeedDial extends BaseComponent implements AfterViewInit, AfterCont
         if (item.command) {
             item.command({ originalEvent: e, item });
         }
-        
+
         this.hide();
 
         this.isItemClicked = true;

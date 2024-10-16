@@ -126,6 +126,5 @@ export class SpeedDialLinearDemo implements OnInit {
         ];
     }
 }`,
-
     };
 }
