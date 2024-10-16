@@ -1179,7 +1179,7 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
         this.listViewTargetChild.cd.markForCheck();
     }
 
-    moveUp(listElement: HTMLElement, list: any[], selectedItems: any[], callback: EventEmitter<any>, listType: number) {
+    moveUp(listElement: any, list: any[], selectedItems: any[], callback: EventEmitter<any>, listType: number) {
         if (selectedItems && selectedItems.length) {
             selectedItems = this.sortByIndexInList(selectedItems, list);
             for (let i = 0; i < selectedItems.length; i++) {
@@ -1209,7 +1209,7 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
         }
     }
 
-    moveTop(listElement: HTMLElement, list: any[], selectedItems: any[], callback: EventEmitter<any>, listType: number) {
+    moveTop(listElement: any, list: any[], selectedItems: any[], callback: EventEmitter<any>, listType: number) {
         if (selectedItems && selectedItems.length) {
             selectedItems = this.sortByIndexInList(selectedItems, list);
             for (let i = 0; i < selectedItems.length; i++) {
@@ -1236,7 +1236,7 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
         }
     }
 
-    moveDown(listElement: HTMLElement, list: any[], selectedItems: any[], callback: EventEmitter<any>, listType: number) {
+    moveDown(listElement: any, list: any[], selectedItems: any[], callback: EventEmitter<any>, listType: number) {
         if (selectedItems && selectedItems.length) {
             selectedItems = this.sortByIndexInList(selectedItems, list);
             for (let i = selectedItems.length - 1; i >= 0; i--) {
@@ -1266,7 +1266,7 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
         }
     }
 
-    moveBottom(listElement: HTMLElement, list: any[], selectedItems: any[], callback: EventEmitter<any>, listType: number) {
+    moveBottom(listElement: any, list: any[], selectedItems: any[], callback: EventEmitter<any>, listType: number) {
         if (selectedItems && selectedItems.length) {
             selectedItems = this.sortByIndexInList(selectedItems, list);
             for (let i = selectedItems.length - 1; i >= 0; i--) {
