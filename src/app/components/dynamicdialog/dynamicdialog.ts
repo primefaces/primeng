@@ -43,12 +43,37 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
 @Component({
     selector: 'p-dynamicDialog',
     template: `
-        <div #mask [ngStyle]="sx('mask')" [class]="ddconfig.maskStyleClass" [ngClass]="maskClass">
+        <div
+            #mask
+            [ngStyle]="{
+                position: 'fixed',
+                height: '100%',
+                width: '100%',
+                left: 0,
+                top: 0,
+                display: 'flex',
+                'justify-content':
+                    position === 'left' || position === 'topleft' || position === 'bottomleft'
+                        ? 'flex-start'
+                        : position === 'right' || position === 'topright' || position === 'bottomright'
+                          ? 'flex-end'
+                          : 'center',
+                'align-items':
+                    position === 'top' || position === 'topleft' || position === 'topright'
+                        ? 'flex-start'
+                        : position === 'bottom' || position === 'bottomleft' || position === 'bottomright'
+                          ? 'flex-end'
+                          : 'center',
+                'pointer-events': ddconfig.modal ? 'auto' : 'none',
+            }"
+            [class]="ddconfig.maskStyleClass"
+            [ngClass]="maskClass"
+        >
             <div
                 *ngIf="visible"
                 #container
-                [ngClass]="cx('root')"
-                [ngStyle]="sx('root')"
+                [ngClass]="{ 'p-dialog p-component': true, 'p-dialog-maximized': maximizable && maximized }"
+                [ngStyle]="{ display: 'flex', 'flex-direction': 'column', 'pointer-events': 'auto' }"
                 [style]="ddconfig.style"
                 [class]="ddconfig.styleClass"
                 [@animation]="{
@@ -68,15 +93,20 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                 [attr.aria-labelledby]="ariaLabelledBy"
                 [attr.aria-modal]="true"
             >
-                <div *ngIf="ddconfig.resizable" [ngClass]="cx('resizeHandle')" style="z-index: 90;" (mousedown)="initResize($event)"></div>
-                <div #titlebar [ngClass]="cx('header')" (mousedown)="initDrag($event)" *ngIf="ddconfig.showHeader === false ? false : true">
+                <div
+                    *ngIf="ddconfig.resizable"
+                    [ngClass]="'p-resizable-handle'"
+                    style="z-index: 90;"
+                    (mousedown)="initResize($event)"
+                ></div>
+                <div #titlebar [ngClass]="'p-dialog-header'" (mousedown)="initDrag($event)" *ngIf="ddconfig.showHeader !== false">
                     <ng-container *ngComponentOutlet="headerTemplate"></ng-container>
                     <ng-container *ngIf="!headerTemplate">
-                        <span [ngClass]="cx('title')" [id]="ariaLabelledBy">{{ ddconfig.header }}</span>
-                        <div [ngClass]="cx('headerActions')">
+                        <span [ngClass]="'p-dialog-title'" [id]="ariaLabelledBy">{{ ddconfig.header }}</span>
+                        <div [ngClass]="'p-dialog-header-actions'">
                             <p-button
                                 *ngIf="ddconfig.maximizable"
-                                [styleClass]="cx('pcMaximizeButton')"
+                                [styleClass]="'p-dialog-maximize-button'"
                                 (onClick)="maximize()"
                                 (keydown.enter)="maximize()"
                                 [tabindex]="maximizable ? '0' : '-1'"
@@ -94,7 +124,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                             </p-button>
                             <p-button
                                 *ngIf="closable"
-                                [styleClass]="cx('pcCloseButton')"
+                                [styleClass]="'p-dialog-close-button'"
                                 [ariaLabel]="closeAriaLabel"
                                 (onClick)="hide()"
                                 (keydown.enter)="hide()"
@@ -112,11 +142,11 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                         </div>
                     </ng-container>
                 </div>
-                <div #content [ngClass]="cx('content')" [ngStyle]="ddconfig.contentStyle">
+                <div #content [ngClass]="'p-dialog-content'" [ngStyle]="ddconfig.contentStyle">
                     <ng-template pDynamicDialogContent *ngIf="!contentTemplate"></ng-template>
                     <ng-container *ngComponentOutlet="contentTemplate"></ng-container>
                 </div>
-                <div #footer [ngClass]="cx('footer')" *ngIf="ddconfig.footer || footerTemplate">
+                <div #footer [ngClass]="'p-dialog-footer'" *ngIf="ddconfig.footer || footerTemplate">
                     <ng-container *ngIf="!footerTemplate">
                         {{ ddconfig.footer }}
                     </ng-container>
@@ -331,7 +361,7 @@ export class DynamicDialogComponent extends BaseComponent implements AfterViewIn
                 for (let breakpoint in this.breakpoints) {
                     innerHTML += `
                         @media screen and (max-width: ${breakpoint}) {
-                            .p-dialog[${this.id}]:not(.p-dialog-maximized) {
+                            .p-dialog[${this.attrSelector}]:not(.p-dialog-maximized) {
                                 width: ${this.breakpoints[breakpoint]} !important;
                             }
                         }
@@ -351,6 +381,7 @@ export class DynamicDialogComponent extends BaseComponent implements AfterViewIn
     }
 
     ngAfterViewInit() {
+        super.ngAfterViewInit();
         this.loadChildComponent(this.childComponentType!);
         this.ariaLabelledBy = this.getAriaLabelledBy();
         this.cd.detectChanges();
