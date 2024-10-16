@@ -21,6 +21,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { BreadcrumbItemClickEvent } from './breadcrumb.interface';
 import { BreadCrumbStyle } from './style/breadcrumbstyle';
 import { BaseComponent } from 'primeng/basecomponent';
+
 /**
  * Breadcrumb provides contextual information about page hierarchy.
  * @group Components
@@ -55,9 +56,8 @@ import { BaseComponent } from 'primeng/basecomponent';
                         [target]="home.target"
                         [attr.title]="home.title"
                         [attr.tabindex]="home.disabled ? null : '0'"
-                        [attr.ariaCurrentWhenActive]="isCurrentUrl(home)"
                     >
-                        <span *ngIf="home.icon" class="p-breadcrumb-item-icon" [ngClass]="home.icon" [ngStyle]="home.iprivateyle"></span>
+                        <span *ngIf="home.icon" class="p-breadcrumb-item-icon" [ngClass]="home.icon" [ngStyle]="home?.style"></span>
                         <HomeIcon *ngIf="!home.icon" [styleClass]="'p-breadcrumb-item-icon'" />
                         <ng-container *ngIf="home.label">
                             <span *ngIf="home.escape !== false; else htmlHomeLabel" class="p-breadcrumb-item-label">{{ home.label }}</span>
@@ -75,7 +75,6 @@ import { BaseComponent } from 'primeng/basecomponent';
                         [target]="home.target"
                         [attr.title]="home.title"
                         [attr.tabindex]="home.disabled ? null : '0'"
-                        [attr.ariaCurrentWhenActive]="isCurrentUrl(home)"
                         [fragment]="home.fragment"
                         [queryParamsHandling]="home.queryParamsHandling"
                         [preserveFragment]="home.preserveFragment"
@@ -109,55 +108,52 @@ import { BaseComponent } from 'primeng/basecomponent';
                         [tooltipOptions]="item.tooltipOptions"
                         [attr.data-pc-section]="'menuitem'"
                     >
-                        <a
-                            *ngIf="!item.routerLink"
-                            [attr.href]="item.url ? item.url : null"
-                            class="p-breadcrumb-item-link"
-                            (click)="onClick($event, item)"
-                            [target]="item.target"
-                            [attr.title]="item.title"
-                            [attr.tabindex]="item.disabled ? null : '0'"
-                            [attr.ariaCurrentWhenActive]="isCurrentUrl(item)"
-                        >
-                            <ng-container *ngIf="!itemTemplate">
-                                <span
-                                    *ngIf="item.icon"
-                                    class="p-breadcrumb-item-icon"
-                                    [ngClass]="item.icon"
-                                    [ngStyle]="item.iconStyle"
-                                ></span>
-                                <ng-container *ngIf="item.label">
-                                    <span *ngIf="item.escape !== false; else htmlLabel" class="p-breadcrumb-item-label'">{{
-                                        item.label
-                                    }}</span>
-                                    <ng-template #htmlLabel
-                                        ><span class="p-breadcrumb-item-label'" [innerHTML]="item.label"></span
-                                    ></ng-template>
+                        @if (itemTemplate) {
+                            <ng-template *ngTemplateOutlet="itemTemplate; context: { $implicit: item }"></ng-template>
+                        } @else {
+                            <a
+                                *ngIf="!item.routerLink"
+                                [attr.href]="item.url ? item.url : null"
+                                class="p-breadcrumb-item-link"
+                                (click)="onClick($event, item)"
+                                [target]="item.target"
+                                [attr.title]="item.title"
+                                [attr.tabindex]="item.disabled ? null : '0'"
+                            >
+                                <ng-container *ngIf="!itemTemplate">
+                                    <span
+                                        *ngIf="item.icon"
+                                        class="p-breadcrumb-item-icon"
+                                        [ngClass]="item.icon"
+                                        [ngStyle]="item.iconStyle"
+                                    ></span>
+                                    <ng-container *ngIf="item.label">
+                                        <span *ngIf="item.escape !== false; else htmlLabel" class="p-breadcrumb-item-label'">{{
+                                            item.label
+                                        }}</span>
+                                        <ng-template #htmlLabel
+                                            ><span class="p-breadcrumb-item-label'" [innerHTML]="item.label"></span
+                                        ></ng-template>
+                                    </ng-container>
                                 </ng-container>
-                            </ng-container>
-                            <ng-container *ngIf="itemTemplate">
-                                <ng-template *ngTemplateOutlet="itemTemplate; context: { $implicit: item }"></ng-template>
-                            </ng-container>
-                        </a>
-                        <a
-                            *ngIf="item.routerLink"
-                            [routerLink]="item.routerLink"
-                            [queryParams]="item.queryParams"
-                            [routerLinkActiveOptions]="item.routerLinkActiveOptions || { exact: false }"
-                            class="p-breadcrumb-item-link"
-                            (click)="onClick($event, item)"
-                            [target]="item.target"
-                            [attr.title]="item.title"
-                            [attr.tabindex]="item.disabled ? null : '0'"
-                            [fragment]="item.fragment"
-                            [queryParamsHandling]="item.queryParamsHandling"
-                            [preserveFragment]="item.preserveFragment"
-                            [skipLocationChange]="item.skipLocationChange"
-                            [replaceUrl]="item.replaceUrl"
-                            [state]="item.state"
-                            [attr.ariaCurrentWhenActive]="isCurrentUrl(item)"
-                        >
-                            <ng-container *ngIf="!itemTemplate">
+                            </a>
+                            <a
+                                *ngIf="item.routerLink"
+                                [routerLink]="item.routerLink"
+                                [queryParams]="item.queryParams"
+                                [routerLinkActiveOptions]="item.routerLinkActiveOptions || { exact: false }"
+                                class="p-breadcrumb-item-link"
+                                (click)="onClick($event, item)"
+                                [target]="item.target"
+                                [attr.title]="item.title"
+                                [attr.tabindex]="item.disabled ? null : '0'"
+                                [fragment]="item.fragment"
+                                [queryParamsHandling]="item.queryParamsHandling"
+                                [preserveFragment]="item.preserveFragment"
+                                [skipLocationChange]="item.skipLocationChange"
+                                [replaceUrl]="item.replaceUrl"
+                                [state]="item.state"
+                            >
                                 <span
                                     *ngIf="item.icon"
                                     class="p-breadcrumb-item-icon"
@@ -172,11 +168,8 @@ import { BaseComponent } from 'primeng/basecomponent';
                                         ><span class="p-breadcrumb-item-label'" [innerHTML]="item.label"></span
                                     ></ng-template>
                                 </ng-container>
-                            </ng-container>
-                            <ng-container *ngIf="itemTemplate">
-                                <ng-template *ngTemplateOutlet="itemTemplate; context: { $implicit: item }"></ng-template>
-                            </ng-container>
-                        </a>
+                            </a>
+                        }
                     </li>
                     <li *ngIf="!end" class="p-breadcrumb-separator" [attr.data-pc-section]="'separator'">
                         <ChevronRightIcon *ngIf="!separatorTemplate" />
@@ -280,13 +273,6 @@ export class Breadcrumb extends BaseComponent implements AfterContentInit {
                     break;
             }
         });
-    }
-
-    isCurrentUrl(item) {
-        const { routerLink } = item;
-        const lastPath = this.router ? this.router.url : '';
-
-        return routerLink === lastPath ? 'page' : undefined;
     }
 }
 
