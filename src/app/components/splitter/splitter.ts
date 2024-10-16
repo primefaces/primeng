@@ -1,28 +1,24 @@
-import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     ContentChildren,
     ElementRef,
     EventEmitter,
-    Inject,
     Input,
     NgModule,
     Output,
-    PLATFORM_ID,
     QueryList,
-    Renderer2,
     ViewChild,
     ViewEncapsulation,
     inject,
     numberAttribute,
 } from '@angular/core';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
+import { BaseComponent } from 'primeng/basecomponent';
 import { DomHandler } from 'primeng/dom';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { SplitterResizeEndEvent, SplitterResizeStartEvent } from './splitter.interface';
-import { BaseComponent } from 'primeng/basecomponent';
 import { SplitterStyle } from './style/splitterstyle';
 /**
  * Splitter is utilized to separate and resize panels.
@@ -134,7 +130,7 @@ export class Splitter extends BaseComponent {
      * Minimum size of the elements relative to 100%.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) minSizes: number[] = [];
+    @Input() minSizes: number[] = [];
     /**
      * Size of the elements relative to 100%.
      * @group Props

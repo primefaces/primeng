@@ -10,20 +10,20 @@ import { Code } from '@domain/code';
         <div class="card">
             <p-splitter [style]="{ height: '300px' }" [panelSizes]="[20, 80]" [minSizes]="[10, 0]" styleClass="mb-8">
                 <ng-template pTemplate>
-                    <div class="col flex items-center justify-center">Panel 1</div>
+                    <div class="flex items-center justify-center flex-1">Panel 1</div>
                 </ng-template>
                 <ng-template pTemplate>
-                    <p-splitter layout="vertical" [panelSizes]="[15, 85]">
+                    <p-splitter class="w-full" layout="vertical" [panelSizes]="[15, 85]">
                         <ng-template pTemplate>
-                            <div style="flex-grow: 1;" class="flex items-center justify-center">Panel 2</div>
+                            <div class="flex items-center justify-center flex-1">Panel 2</div>
                         </ng-template>
                         <ng-template pTemplate>
-                            <p-splitter [panelSizes]="[20, 80]">
+                            <p-splitter class="w-full" [panelSizes]="[20, 80]">
                                 <ng-template pTemplate>
-                                    <div class="col flex items-center justify-center">Panel 3</div>
+                                    <div class="flex items-center justify-center flex-1">Panel 3</div>
                                 </ng-template>
                                 <ng-template pTemplate>
-                                    <div class="col flex items-center justify-center">Panel 4</div>
+                                    <div class="flex items-center justify-center flex-1">Panel 4</div>
                                 </ng-template>
                             </p-splitter>
                         </ng-template>
@@ -42,26 +42,26 @@ export class NestedDoc {
     [minSizes]="[10, 0]" 
     styleClass="mb-8">
         <ng-template pTemplate>
-            <div class="col flex items-center justify-center">
+            <div class="flex items-center justify-center flex-1">
                 Panel 1
             </div>
         </ng-template>
         <ng-template pTemplate>
-            <p-splitter layout="vertical" [panelSizes]="[15, 85]">
+            <p-splitter class="w-full" layout="vertical" [panelSizes]="[15, 85]">
                 <ng-template pTemplate>
-                    <div style="flex-grow: 1;" class="flex items-center justify-center">
+                    <div style="flex-grow: 1;" class="flex items-center justify-center flex-1">
                         Panel 2
                     </div>
                 </ng-template>
                 <ng-template pTemplate>
-                    <p-splitter [panelSizes]="[20, 80]">
+                    <p-splitter class="w-full" [panelSizes]="[20, 80]">
                         <ng-template pTemplate>
-                            <div class="col flex items-center justify-center">
+                            <div class="flex items-center justify-center flex-1">
                                 Panel 3
                             </div>
                         </ng-template>
                         <ng-template pTemplate>
-                            <div class="col flex items-center justify-center">
+                            <div class="flex items-center justify-center flex-1">
                                 Panel 4
                             </div>
                         </ng-template>
@@ -78,26 +78,26 @@ export class NestedDoc {
         [minSizes]="[10, 0]" 
         styleClass="mb-8">
             <ng-template pTemplate>
-                <div class="col flex items-center justify-center">
+                <div class="flex items-center justify-center flex-1">
                     Panel 1
                 </div>
             </ng-template>
             <ng-template pTemplate>
-                <p-splitter layout="vertical" [panelSizes]="[15, 85]">
+                <p-splitter class="w-full" layout="vertical" [panelSizes]="[15, 85]">
                     <ng-template pTemplate>
-                        <div style="flex-grow: 1;" class="flex items-center justify-center">
+                        <div style="flex-grow: 1;" class="flex items-center justify-center flex-1">
                             Panel 2
                         </div>
                     </ng-template>
                     <ng-template pTemplate>
-                        <p-splitter [panelSizes]="[20, 80]">
+                        <p-splitter class="w-full" [panelSizes]="[20, 80]">
                             <ng-template pTemplate>
-                                <div class="col flex items-center justify-center">
+                                <div class="flex items-center justify-center flex-1">
                                     Panel 3
                                 </div>
                             </ng-template>
                             <ng-template pTemplate>
-                                <div class="col flex items-center justify-center">
+                                <div class="flex items-center justify-center flex-1">
                                     Panel 4
                                 </div>
                             </ng-template>
