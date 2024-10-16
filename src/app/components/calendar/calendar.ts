@@ -420,7 +420,7 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
                             <ChevronUpIcon *ngIf="!incrementIconTemplate" />
                             <ng-template *ngTemplateOutlet="incrementIconTemplate"></ng-template>
                         </button>
-                        <span>{{ pm ? 'PM' : 'AM' }}</span>
+                        <span>{{ pm ? getTranslation('pm') : getTranslation('am') }}</span>
                         <button class="p-link" type="button" (keydown)="onContainerButtonKeydown($event)" (click)="toggleAMPM($event)" (keydown.enter)="toggleAMPM($event)" [attr.aria-label]="getTranslation('pm')" pRipple>
                             <ChevronDownIcon *ngIf="!decrementIconTemplate" />
                             <ng-template *ngTemplateOutlet="decrementIconTemplate"></ng-template>
