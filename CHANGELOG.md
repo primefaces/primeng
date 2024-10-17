@@ -1,4 +1,33 @@
 # Changelog
+## [18.0.0-beta.3](https://github.com/primefaces/primeng/tree/18.0.0-beta.3) (2024-10-16)
+[Full Changelog](https://github.com/primefaces/primeng/compare/18.0.0-beta.2...18.0.0-beta.3)
+
+**Breaking Changes:**
+- Stepper Rework [\#16445](https://github.com/primefaces/primeng/issues/16445)
+- Accordion Rework [\#16470](https://github.com/primefaces/primeng/issues/16470)
+
+**Deprecated:**
+- Deprecate TabMenu [\#16441](https://github.com/primefaces/primeng/issues/16441)
+- Deprecate AccordionTab [\#16490](https://github.com/primefaces/primeng/issues/16490)
+
+**New Features:**
+- New Component | Tabs [\#16437](https://github.com/primefaces/primeng/issues/16437)
+
+**Fixed bugs:**
+- TreeTable | Fix loading [\#16416](https://github.com/primefaces/primeng/issues/16416)
+- PrimeNG v18 Bug - PanelMenu not working [\#16511](https://github.com/primefaces/primeng/issues/16511)
+- Component: Nested DynamicDialog v18.beta1 [\#16413](https://github.com/primefaces/primeng/issues/16413)
+- Component: Datepicker v18. Layout after changing month [\#16436](https://github.com/primefaces/primeng/issues/16436)
+- PasswordModule UI is different from InputTextModule UI when fields are disabled [\#16393](https://github.com/primefaces/primeng/issues/16393)
+- Primeng v18.beta-2 | Firefox - Switching to dark theme doesn't work [\#16471](https://github.com/primefaces/primeng/issues/16471)
+- v18 Tabs and TabMenu in same module only generate styles for TabMenu [\#16395](https://github.com/primefaces/primeng/issues/16395)
+- PickList v18: The direction of the controls remains upright on narrow screens [\#16481](https://github.com/primefaces/primeng/issues/16481)
+- Breadcrumb v18: Nested links when using template [\#16478](https://github.com/primefaces/primeng/issues/16478)
+- Select component style issues [\#16485](https://github.com/primefaces/primeng/issues/16485)
+- ToggleSwitch v18: Missing hover styles [\#16482](https://github.com/primefaces/primeng/issues/16482)
+- TreeSelect v18: TreeNodes missing hover styles [\#16484](https://github.com/primefaces/primeng/issues/16484)
+- 'p-buttonGroup' is not a known element in 18.0.0-beta.2 [\#16488](https://github.com/primefaces/primeng/issues/16488)
+- 18.0.0-beta2 - ComponentStyles are not exported -> extended Components fail [\#16509](https://github.com/primefaces/primeng/issues/16509)
 
 ## [17.18.11](https://github.com/primefaces/primeng/tree/17.18.11) (2024-09-26)
 
