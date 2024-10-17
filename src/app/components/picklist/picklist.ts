@@ -663,7 +663,7 @@ export class PickList implements AfterViewChecked, AfterContentInit {
     }
 
     get moveBottomAriaLabel() {
-        return this.bottomButtonAriaLabel ? this.bottomButtonAriaLabel : this.config.translation.aria ? this.config.translation.aria.moveDown : undefined;
+        return this.bottomButtonAriaLabel ? this.bottomButtonAriaLabel : this.config.translation.aria ? this.config.translation.aria.moveBottom : undefined;
     }
 
     get moveToTargetAriaLabel() {
