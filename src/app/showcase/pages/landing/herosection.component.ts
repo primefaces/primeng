@@ -13,7 +13,7 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { SliderModule } from 'primeng/slider';
 import { TabMenuModule } from 'primeng/tabmenu';
-import { Subscription, debounceTime } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { AppConfigService } from '@service/appconfigservice';
 import { DividerModule } from 'primeng/divider';
 import { AvatarModule } from 'primeng/avatar';
@@ -199,14 +199,14 @@ import { KnobModule } from 'primeng/knob';
                                             hidden: isSlimMenu,
                                             'font-medium leading-8': !isSlimMenu,
                                         }"
-                                    >・</span
+                                        >・</span
                                     >
                                     <span
                                         [ngClass]="{
                                             hidden: isSlimMenu,
                                             'font-medium leading-none': !isSlimMenu,
                                         }"
-                                    >{{ navItem.title }}</span
+                                        >{{ navItem.title }}</span
                                     >
                                 </div>
                             </div>
@@ -228,10 +228,11 @@ import { KnobModule } from 'primeng/knob';
                                     }"
                                 >
                                     <a class="cursor-pointer block p-0 m-0 leading-none">
-                                    <a class="cursor-pointer block p-0 m-0 leading-none">
-                                        <i [class]="isSlimMenu ? 'pi pi-window-maximize' : 'pi pi-window-minimize'"></i>
-                                        <span [class]="isSlimMenu ? 'hidden' : 'font-medium leading-8'">・</span>
-                                        <span [class]="isSlimMenu ? 'hidden' : 'font-medium leading-none'"> Slim Mode</span>
+                                        <a class="cursor-pointer block p-0 m-0 leading-none">
+                                            <i [class]="isSlimMenu ? 'pi pi-window-maximize' : 'pi pi-window-minimize'"></i>
+                                            <span [class]="isSlimMenu ? 'hidden' : 'font-medium leading-8'">・</span>
+                                            <span [class]="isSlimMenu ? 'hidden' : 'font-medium leading-none'"> Slim Mode</span>
+                                        </a>
                                     </a>
                                 </div>
                                 <div
@@ -326,7 +327,7 @@ import { KnobModule } from 'primeng/knob';
                                                 <p-overlayBadge severity="success" styleClass="w-fit">
                                                     <p-avatar
                                                         [image]="data.image"
-                                                        size="small"
+                                                        size="normal"
                                                         styleClass="rounded-md w-10 h-10 overflow-hidden flex"
                                                     />
                                                 </p-overlayBadge>
@@ -360,7 +361,7 @@ import { KnobModule } from 'primeng/knob';
                                                 <p-overlayBadge severity="danger" styleClass="w-fit">
                                                     <p-avatar
                                                         [image]="data.image"
-                                                        size="small"
+                                                        size="normal"
                                                         styleClass="rounded-md overflow-hidden w-10 h-10 flex"
                                                     />
                                                 </p-overlayBadge>
@@ -677,9 +678,7 @@ export class HeroSectionComponent implements OnInit, OnDestroy {
             { icon: 'pi pi-user', title: 'Customers' },
             { icon: 'pi pi-video', title: 'Movies' },
         ];
-        this.sampleAppsSidebarNavsMore = [
-            { icon: 'pi pi-cog', title: 'Settings' },
-        ];
+        this.sampleAppsSidebarNavsMore = [{ icon: 'pi pi-cog', title: 'Settings' }];
 
         this.selectedSampleAppsSidebarNav = 'Overview';
         this.selectButtonValue = { label: 'Styled', value: 1 };
