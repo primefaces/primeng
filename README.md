@@ -9,4 +9,4 @@
 
 ### Website
 
-Visit the [PrimeNG Website](https://v18.primeng.org) for general information, demos and documentation.
+PrimeNG is a rich set of open source UI Components for Angular. Visit the [PrimeNG website](https://primeng.org/) for interactive demos, comprehensive documentation and additional resources.
