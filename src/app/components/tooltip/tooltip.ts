@@ -160,6 +160,8 @@ export class Tooltip implements AfterViewInit, OnDestroy {
 
     blurListener: Nullable<Function>;
 
+    touchStartListener: EventListener;
+
     scrollHandler: any;
 
     resizeListener: any;
@@ -201,6 +203,10 @@ export class Tooltip implements AfterViewInit, OnDestroy {
                     target.addEventListener('focus', this.focusListener);
                     target.addEventListener('blur', this.blurListener);
                 }
+
+                //Mobile touch event support
+                this.bindTouchStartListener()
+
             });
         }
     }
@@ -332,6 +338,19 @@ export class Tooltip implements AfterViewInit, OnDestroy {
     onInputClick(e: Event) {
         this.deactivate();
     }
+
+    onTouchStart(e: TouchEvent) {
+        const targetElement = this.getTarget(this.el.nativeElement);
+        const hasTouchedTooltip = targetElement.contains(e.target as Node);
+
+        if(!this.active && hasTouchedTooltip) {
+            this.activate();
+        }
+        else {
+            this.deactivate();
+        }
+    }
+
 
     @HostListener('document:keydown.escape', ['$event'])
     onPressEscape() {
@@ -670,6 +689,21 @@ export class Tooltip implements AfterViewInit, OnDestroy {
         }
     }
 
+    bindTouchStartListener() {
+        //We attach the event to the window to be able to detect when the user touches outside the component
+        this.zone.runOutsideAngular(() => {
+            this.touchStartListener = this.onTouchStart.bind(this);
+            window.addEventListener('touchstart', this.touchStartListener);
+        })
+    }
+
+    unbindTouchStartListener() {
+        if(this.touchStartListener) {
+            window.removeEventListener('touchstart', this.touchStartListener);
+            this.touchStartListener = null;
+        }
+    }
+
     unbindEvents() {
         const tooltipEvent = this.getOption('tooltipEvent');
 
@@ -685,6 +719,9 @@ export class Tooltip implements AfterViewInit, OnDestroy {
                 target = this.getTarget(this.el.nativeElement);
             }
         }
+
+        this.unbindTouchStartListener()
+
         this.unbindDocumentResizeListener();
     }
 
