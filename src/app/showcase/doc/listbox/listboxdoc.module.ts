@@ -17,10 +17,11 @@ import { ReactiveFormsDoc } from './reactiveformsdoc';
 import { StyleDoc } from './styledoc';
 import { TemplateDoc } from './templatedoc';
 import { VirtualScrollDoc } from './virtualscrolldoc';
+import { LazyLoadDoc } from './lazyloaddoc';
 
 @NgModule({
     imports: [CommonModule, AppCodeModule, RouterModule, ListboxModule, FormsModule, ReactiveFormsModule, AppDocModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, MultipleDoc, TemplateDoc, InvalidDoc, DisabledDoc, FilterDoc, GroupDoc, StyleDoc, AccessibilityDoc, ReactiveFormsDoc, VirtualScrollDoc]
+    declarations: [ImportDoc, BasicDoc, MultipleDoc, TemplateDoc, InvalidDoc, DisabledDoc, FilterDoc, GroupDoc, StyleDoc, AccessibilityDoc, ReactiveFormsDoc, VirtualScrollDoc, LazyLoadDoc]
 })
 export class ListboxDocModule {}
