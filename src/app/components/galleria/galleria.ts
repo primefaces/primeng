@@ -675,13 +675,13 @@ export class GalleriaItemSlot {
                 <button
                     *ngIf="showItemNavigators"
                     type="button"
-                    role="navigation"
                     [ngClass]="{ 'p-galleria-item-prev p-galleria-item-nav p-link': true, 'p-galleria-item-nav-focused': leftButtonFocused, 'p-disabled': this.isNavBackwardDisabled() }"
                     (click)="navBackward($event)"
                     [disabled]="isNavBackwardDisabled()"
                     pRipple
                     (focus)="onButtonFocus('left')"
                     (blur)="onButtonBlur('left')"
+                    [attr.aria-label]="ariaPreviousNavigationLabel()"
                 >
                     <ChevronLeftIcon *ngIf="!galleria.itemPreviousIconTemplate" [styleClass]="'p-galleria-item-prev-icon'" />
                     <ng-template *ngTemplateOutlet="galleria.itemPreviousIconTemplate"></ng-template>
@@ -696,9 +696,9 @@ export class GalleriaItemSlot {
                     (click)="navForward($event)"
                     [disabled]="isNavForwardDisabled()"
                     pRipple
-                    role="navigation"
                     (focus)="onButtonFocus('right')"
                     (blur)="onButtonBlur('right')"
+                    [attr.aria-label]="ariaNextNavigationLabel()"
                 >
                     <ChevronRightIcon *ngIf="!galleria.itemNextIconTemplate" [styleClass]="'p-galleria-item-next-icon'" />
                     <ng-template *ngTemplateOutlet="galleria.itemNextIconTemplate"></ng-template>
@@ -887,6 +887,14 @@ export class GalleriaItem implements OnChanges {
 
     ariaPageLabel(value) {
         return this.galleria.config.translation.aria ? this.galleria.config.translation.aria.pageLabel.replace(/{page}/g, value) : undefined;
+    }
+
+    ariaNextNavigationLabel() {
+        return this.galleria.config.translation.aria ? this.galleria.config.translation.aria.next : undefined;
+    }
+
+    ariaPreviousNavigationLabel() {
+        return this.galleria.config.translation.aria ? this.galleria.config.translation.aria.previous : undefined;
     }
 }
 
