@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { Code } from '@domain/code';
 
 interface AutoCompleteCompleteEvent {
@@ -67,6 +67,18 @@ export class AutocompleteReactiveFormsDemo implements OnInit {
     search(event: AutoCompleteCompleteEvent) {
         this.items = [...Array(10).keys()].map((item) => event.query + '-' + item);
     }
+
+    ngOnInit() {
+        this.formGroup = new FormGroup({
+            selectedCountry: new FormControl(undefined),
+        });
+    }
 }`,
     };
+
+    ngOnInit() {
+        this.formGroup = new FormGroup({
+            selectedCountry: new FormControl(undefined),
+        });
+    }
 }
