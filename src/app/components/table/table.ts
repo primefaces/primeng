@@ -2908,7 +2908,13 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     saveColumnWidths(state: any) {
         let widths: any[] = [];
-        let headers = DomHandler.find(this.containerViewChild?.nativeElement, '.p-datatable-thead > tr > th');
+        let headers = [];
+        const container = this.containerViewChild?.nativeElement;
+
+        if (container) {
+            headers = DomHandler.find(container, '.p-datatable-thead > tr > th');
+        }
+
         headers.forEach((header) => widths.push(DomHandler.getOuterWidth(header)));
         state.columnWidths = widths.join(',');
 
