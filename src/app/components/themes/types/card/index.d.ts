@@ -41,6 +41,17 @@ export interface CardDesignTokens extends ColorSchemeDesignToken<CardDesignToken
         shadow?: string;
     };
     /**
+     * Used to pass tokens of the caption section
+     */
+    caption?: {
+        /**
+         * Gap of caption
+         *
+         * @designToken card.caption.gap
+         */
+        gap?: string;
+    };
+    /**
      * Used to pass tokens of the body section
      */
     body?: {
@@ -58,20 +69,43 @@ export interface CardDesignTokens extends ColorSchemeDesignToken<CardDesignToken
         gap?: string;
     };
     /**
-     * Used to pass tokens of the caption section
+     * Used to pass tokens of the content section
      */
-    caption?: {
+    content?: {
         /**
-         * Gap of caption
+         * Padding of content
          *
-         * @designToken card.caption.gap
+         * @designToken card.content.padding
+         */
+        padding?: string;
+        /**
+         * Gap of content
+         *
+         * @designToken card.content.gap
          */
         gap?: string;
+    };
+    /**
+     * Used to pass tokens of the footer section
+     */
+    footer?: {
+        /**
+         * Padding of footer
+         *
+         * @designToken card.footer.padding
+         */
+        padding?: string;
     };
     /**
      * Used to pass tokens of the title section
      */
     title?: {
+        /**
+         * Padding of title
+         *
+         * @designToken card.title.padding
+         */
+        padding?: string;
         /**
          * Font size of title
          *
@@ -84,11 +118,35 @@ export interface CardDesignTokens extends ColorSchemeDesignToken<CardDesignToken
          * @designToken card.title.font.weight
          */
         fontWeight?: string;
+        /**
+         * Color of title
+         *
+         * @designToken card.title.color
+         */
+        color?: string;
     };
     /**
      * Used to pass tokens of the subtitle section
      */
     subtitle?: {
+        /**
+         * Padding of subtitle
+         *
+         * @designToken card.subtitle.padding
+         */
+        padding?: string;
+        /**
+         * Font size of subtitle
+         *
+         * @designToken card.subtitle.font.size
+         */
+        fontSize?: string;
+        /**
+         * Font weight of subtitle
+         *
+         * @designToken card.subtitle.font.weight
+         */
+        fontWeight?: string;
         /**
          * Color of subtitle
          *

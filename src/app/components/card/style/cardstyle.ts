@@ -24,12 +24,26 @@ const theme = ({ dt }) => `
     gap: ${dt('card.body.gap')};
 }
 
+.p-card-content{
+    padding: ${dt('card.content.padding')};
+    gap: ${dt('card.content.gap')};
+}
+
+.p-card-footer {
+    padding: ${dt('card.footer.padding')};
+}
+
 .p-card-title {
+    padding: ${dt('card.title.padding')};
     font-size: ${dt('card.title.font.size')};
     font-weight: ${dt('card.title.font.weight')};
+    color: ${dt('card.title.color')};
 }
 
 .p-card-subtitle {
+    padding: ${dt('card.subtitle.padding')};
+    font-size: ${dt('card.subtitle.font.size')};
+    font-weight: ${dt('card.subtitle.font.weight')};
     color: ${dt('card.subtitle.color')};
 }
 `;
