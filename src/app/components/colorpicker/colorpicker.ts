@@ -26,6 +26,7 @@ import { ZIndexUtils } from 'primeng/utils';
 import { ColorPickerChangeEvent } from './colorpicker.interface';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ColorPickerStyle } from './style/colorpickerstyle';
+import { styleClassAttribute } from "primeng/base";
 
 export const COLORPICKER_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -132,7 +133,7 @@ export class ColorPicker extends BaseComponent implements ControlValueAccessor, 
      * Style class of the component.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    @Input({ transform: styleClassAttribute }) styleClass: string | undefined;
     /**
      * Whether to display as an overlay or not.
      * @group Props

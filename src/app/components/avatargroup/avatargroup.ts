@@ -2,6 +2,7 @@ import { NgModule, Component, ChangeDetectionStrategy, ViewEncapsulation, Input,
 import { CommonModule } from '@angular/common';
 import { AvatarGroupStyle } from './style/avatargroupstyle';
 import { BaseComponent } from 'primeng/basecomponent';
+import { styleClassAttribute } from "primeng/base";
 /**
  * AvatarGroup is a helper component for Avatar.
  * @group Components
@@ -22,7 +23,7 @@ export class AvatarGroup extends BaseComponent {
      * Style class of the component
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    @Input({ transform: styleClassAttribute }) styleClass: string | undefined;
     /**
      * Inline style of the component.
      * @group Props

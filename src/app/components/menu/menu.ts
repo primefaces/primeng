@@ -37,6 +37,7 @@ import { UniqueComponentId, ZIndexUtils } from 'primeng/utils';
 import { MenuStyle } from './style/menustyle';
 import { BaseComponent } from 'primeng/basecomponent';
 import { BadgeModule } from 'primeng/badge';
+import { styleClassAttribute } from "primeng/base";
 
 @Pipe({
     name: 'safeHtml',
@@ -303,7 +304,7 @@ export class Menu extends BaseComponent implements OnDestroy {
      * Style class of the component.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    @Input({ transform: styleClassAttribute }) styleClass: string | undefined;
     /**
      * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
      * @group Props

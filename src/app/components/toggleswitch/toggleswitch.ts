@@ -19,6 +19,7 @@ import { AutoFocusModule } from 'primeng/autofocus';
 import { ToggleSwitchChangeEvent } from './toggleswitch.interface';
 import { ToggleSwitchStyle } from './style/toggleswitchstyle';
 import { BaseComponent } from 'primeng/basecomponent';
+import { styleClassAttribute } from "primeng/base";
 
 export const TOGGLESWITCH_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -77,7 +78,7 @@ export class ToggleSwitch extends BaseComponent {
      * Style class of the component.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    @Input({ transform: styleClassAttribute }) styleClass: string | undefined;
     /**
      * Index of the element in tabbing order.
      * @group Props

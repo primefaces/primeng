@@ -47,6 +47,7 @@ import {
 import { FileUploadStyle } from './style/fileuploadstyle';
 import { BaseComponent } from 'primeng/basecomponent';
 import { MessageModule } from 'primeng/message';
+import { styleClassAttribute } from "primeng/base";
 /**
  * FileUpload is an advanced uploader with dragdrop support, multi file uploads, auto uploading, progress tracking and validations.
  * @group Components
@@ -364,7 +365,7 @@ export class FileUpload extends BaseComponent implements AfterViewInit, AfterCon
      * Class of the element.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    @Input({ transform: styleClassAttribute }) styleClass: string | undefined;
     /**
      * Width of the image thumbnail in pixels.
      * @group Props

@@ -35,6 +35,7 @@ import { OrderListStyle } from './style/orderliststyle';
 import { BaseComponent } from 'primeng/basecomponent';
 import { Listbox, ListboxModule } from 'primeng/listbox';
 import { FormsModule } from '@angular/forms';
+import { styleClassAttribute } from "primeng/base";
 
 /**
  * OrderList is used to managed the order of a collection.
@@ -169,7 +170,7 @@ export class OrderList extends BaseComponent implements AfterContentInit {
      * Style class of the component.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    @Input({ transform: styleClassAttribute }) styleClass: string | undefined;
 
     /**
      * Index of the element in tabbing order.

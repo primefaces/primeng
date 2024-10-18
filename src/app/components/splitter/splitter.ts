@@ -24,6 +24,7 @@ import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { SplitterResizeEndEvent, SplitterResizeStartEvent } from './splitter.interface';
 import { BaseComponent } from 'primeng/basecomponent';
 import { SplitterStyle } from './style/splitterstyle';
+import { styleClassAttribute } from "primeng/base";
 /**
  * Splitter is utilized to separate and resize panels.
  * @group Components
@@ -89,7 +90,7 @@ export class Splitter extends BaseComponent {
      * Style class of the component.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    @Input({ transform: styleClassAttribute }) styleClass: string | undefined;
     /**
      * Style class of the panel.
      * @group Props

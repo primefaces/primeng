@@ -23,6 +23,7 @@ import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ToggleButtonStyle } from './style/togglebuttonstyle';
+import { styleClassAttribute } from "primeng/base";
 
 export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -126,7 +127,7 @@ export class ToggleButton extends BaseComponent implements ControlValueAccessor 
      * Style class of the element.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    @Input({ transform: styleClassAttribute }) styleClass: string | undefined;
     @HostBinding('class') get hostClass() {
         return this.styleClass || '';
     }

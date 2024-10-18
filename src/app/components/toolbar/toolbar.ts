@@ -15,6 +15,7 @@ import {
 import { BlockableUI, PrimeTemplate } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ToolbarStyle } from './style/toolbarstyle';
+import { styleClassAttribute } from "primeng/base";
 
 /**
  * Toolbar is a grouping component for buttons and other content.
@@ -58,7 +59,7 @@ export class Toolbar extends BaseComponent implements AfterContentInit, Blockabl
      * Style class of the component.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    @Input({ transform: styleClassAttribute }) styleClass: string | undefined;
     /**
      * Defines a string value that labels an interactive element.
      * @group Props

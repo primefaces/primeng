@@ -36,6 +36,7 @@ import { DomHandler } from 'primeng/dom';
 import { ToastStyle } from './style/toaststyle';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ButtonModule } from 'primeng/button';
+import { styleClassAttribute } from "primeng/base";
 
 @Component({
     selector: 'p-toastItem',
@@ -299,7 +300,7 @@ export class Toast extends BaseComponent implements OnInit, AfterContentInit, On
      * Inline class of the component.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    @Input({ transform: styleClassAttribute }) styleClass: string | undefined;
 
     /**
      * Position of the toast in viewport.
