@@ -37,6 +37,7 @@ import { ZIndexUtils } from 'primeng/utils';
 import { Subscription } from 'rxjs';
 import { ConfirmPopupStyle } from './style/confirmpopupstyle';
 import { BaseComponent } from 'primeng/basecomponent';
+import { styleClassAttribute } from "primeng/base";
 
 /**
  * ConfirmPopup displays a confirmation overlay displayed relatively to its target.
@@ -170,7 +171,7 @@ export class ConfirmPopup extends BaseComponent implements AfterContentInit, OnD
      * Style class of the component.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    @Input({ transform: styleClassAttribute }) styleClass: string | undefined;
     /**
      * Defines if the component is visible.
      * @group Props

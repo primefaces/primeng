@@ -23,6 +23,7 @@ import { Nullable } from 'primeng/ts-helpers';
 import { UniqueComponentId } from 'primeng/utils';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ScrollPanelStyle } from './style/scrollpanelstyle';
+import { styleClassAttribute } from "primeng/base";
 
 /**
  * ScrollPanel is a cross browser, lightweight and themable alternative to native browser scrollbar.
@@ -90,7 +91,7 @@ export class ScrollPanel extends BaseComponent implements AfterViewInit, AfterCo
      * Style class of the component.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    @Input({ transform: styleClassAttribute }) styleClass: string | undefined;
     /**
      * Step factor to scroll the content while pressing the arrow keys.
      * @group Props

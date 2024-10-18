@@ -20,6 +20,7 @@ import { ButtonModule } from 'primeng/button';
 import { TimesIcon } from 'primeng/icons/times';
 import { BaseComponent } from 'primeng/basecomponent';
 import { InplaceStyle } from './style/inplacestyle';
+import { styleClassAttribute } from "primeng/base";
 
 @Component({
     selector: 'p-inplacedisplay, p-inplaceDisplay',
@@ -120,7 +121,7 @@ export class Inplace extends BaseComponent implements AfterContentInit {
      * Class of the element.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    @Input({ transform: styleClassAttribute }) styleClass: string | undefined;
     /**
      * Icon to display in the close button.
      * @group Props

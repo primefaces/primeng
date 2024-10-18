@@ -20,6 +20,7 @@ import { TimesCircleIcon } from 'primeng/icons/timescircle';
 import { ChipProps } from './chip.interface';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ChipStyle } from './style/chipstyle';
+import { styleClassAttribute } from "primeng/base";
 /**
  * Chip represents people using icons, labels and images.
  * @group Components
@@ -116,7 +117,7 @@ export class Chip extends BaseComponent implements AfterContentInit {
      * Class of the element.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    @Input({ transform: styleClassAttribute }) styleClass: string | undefined;
     /**
      * Whether to display a remove icon.
      * @group Props

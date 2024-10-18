@@ -21,6 +21,7 @@ import { DomHandler } from 'primeng/dom';
 import { ZIndexUtils } from 'primeng/utils';
 import { BaseComponent } from 'primeng/basecomponent';
 import { BlockUiStyle } from './style/blockuistyle';
+import { styleClassAttribute } from "primeng/base";
 /**
  * BlockUI can either block other components or the whole page.
  * @group Components
@@ -66,7 +67,7 @@ export class BlockUI extends BaseComponent implements AfterViewInit, OnDestroy {
      * Class of the element.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    @Input({ transform: styleClassAttribute }) styleClass: string | undefined;
     /**
      * Current blocked state as a boolean.
      * @group Props

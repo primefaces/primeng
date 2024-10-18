@@ -22,6 +22,7 @@ import { BlockableUI, Footer, Header, PrimeTemplate, ScrollerOptions, SharedModu
 import { Scroller, ScrollerModule } from 'primeng/scroller';
 import { Nullable } from 'primeng/ts-helpers';
 import { VirtualScrollerLazyLoadEvent } from './virtualscroller.interface';
+import { styleClassAttribute } from "primeng/base";
 /**
  * VirtualScroller is a performant approach to handle huge data efficiently.
  * @group Components
@@ -92,7 +93,7 @@ export class VirtualScroller implements AfterContentInit, BlockableUI {
      * Style class of the component.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    @Input({ transform: styleClassAttribute }) styleClass: string | undefined;
     /**
      * Max height of the content area in inline mode.
      * @group Props

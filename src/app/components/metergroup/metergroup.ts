@@ -19,6 +19,7 @@ import { DomHandler } from 'primeng/dom';
 import { MeterItem } from './metergroup.interface';
 import { BaseComponent } from 'primeng/basecomponent';
 import { MeterGroupStyle } from './style/metergroupstyle';
+import { styleClassAttribute } from "primeng/base";
 
 @Component({
     selector: 'p-meterGroupLabel, p-metergroup-label',
@@ -189,7 +190,7 @@ export class MeterGroup extends BaseComponent implements AfterContentInit {
      * Style class of the element.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    @Input({ transform: styleClassAttribute }) styleClass: string | undefined;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 

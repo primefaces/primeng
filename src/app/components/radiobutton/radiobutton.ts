@@ -23,6 +23,7 @@ import { AutoFocusModule } from 'primeng/autofocus';
 import { BaseComponent } from 'primeng/basecomponent';
 import { RadioButtonStyle } from './style/radiobuttonstyle';
 import { RadioButtonClickEvent } from './radiobutton.interface';
+import { styleClassAttribute } from "primeng/base";
 
 export const RADIO_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -163,7 +164,7 @@ export class RadioButton extends BaseComponent implements ControlValueAccessor, 
      * Style class of the component.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    @Input({ transform: styleClassAttribute }) styleClass: string | undefined;
     /**
      * When present, it specifies that the component should automatically get focus on load.
      * @group Props

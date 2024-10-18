@@ -36,6 +36,7 @@ import { Nullable } from 'primeng/ts-helpers';
 import { InputNumberInputEvent } from './inputnumber.interface';
 import { BaseComponent } from 'primeng/basecomponent';
 import { InputNumberStyle } from './style/inputnumberstyle';
+import { styleClassAttribute } from "primeng/base";
 
 export const INPUTNUMBER_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -221,7 +222,7 @@ export class InputNumber extends BaseComponent implements OnInit, AfterContentIn
      * Style class of the component.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    @Input({ transform: styleClassAttribute }) styleClass: string | undefined;
     /**
      * Inline style of the component.
      * @group Props
@@ -391,7 +392,7 @@ export class InputNumber extends BaseComponent implements OnInit, AfterContentIn
      * Style class of the input field.
      * @group Props
      */
-    @Input() inputStyleClass: string | undefined;
+    @Input({ transform: styleClassAttribute }) inputStyleClass: string | undefined;
     /**
      * When enabled, a clear icon is displayed to clear the value.
      * @group Props

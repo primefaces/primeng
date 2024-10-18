@@ -37,6 +37,7 @@ import { ButtonModule } from 'primeng/button';
 import { ButtonProps } from 'primeng/button';
 import { CarouselStyle } from './style/carouselstyle';
 import { BaseComponent } from 'primeng/basecomponent';
+import { styleClassAttribute } from "primeng/base";
 
 /**
  * Carousel is a content slider featuring various customization options.
@@ -309,7 +310,7 @@ export class Carousel extends BaseComponent implements AfterContentInit {
      * Style class of the viewport container.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    @Input({ transform: styleClassAttribute }) styleClass: string | undefined;
     /**
      * Used to pass all properties of the ButtonProps to the Button component.
      * @group Props

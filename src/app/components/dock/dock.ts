@@ -25,6 +25,7 @@ import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
 import { DomHandler } from 'primeng/dom';
 import { DockStyle } from './style/dockstyle';
 import { BaseComponent } from 'primeng/basecomponent';
+import { styleClassAttribute } from "primeng/base";
 /**
  * Dock is a navigation component consisting of menuitems.
  * @group Components
@@ -141,7 +142,7 @@ export class Dock extends BaseComponent implements AfterContentInit {
      * Class of the element.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    @Input({ transform: styleClassAttribute }) styleClass: string | undefined;
     /**
      * MenuModel instance to define the action items.
      * @group Props

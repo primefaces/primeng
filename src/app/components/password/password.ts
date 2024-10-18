@@ -40,6 +40,7 @@ import { AutoFocusModule } from 'primeng/autofocus';
 import { Subscription } from 'rxjs';
 import { BaseComponent } from 'primeng/basecomponent';
 import { PasswordStyle } from './style/passwordstyle';
+import { styleClassAttribute } from "primeng/base";
 
 type Meter = {
     strength: string;
@@ -558,12 +559,12 @@ export class Password extends BaseComponent implements AfterContentInit, OnInit 
      * Style class of the input field.
      * @group Props
      */
-    @Input() inputStyleClass: string | undefined;
+    @Input({ transform: styleClassAttribute }) inputStyleClass: string | undefined;
     /**
      * Style class of the element.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    @Input({ transform: styleClassAttribute }) styleClass: string | undefined;
     /**
      * Inline style of the component.
      * @group Props

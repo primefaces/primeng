@@ -3,9 +3,8 @@ import { ChangeDetectorRef, Directive, ElementRef, inject, Injector, Input, PLAT
 import { getKeyValue } from '@primeuix/utils/object';
 import { PrimeNGConfig } from 'primeng/api';
 import { Base, BaseStyle } from 'primeng/base';
-import { DomHandler } from 'primeng/dom';
 import { Theme, ThemeService } from 'primeng/themes';
-import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
+import { UniqueComponentId } from 'primeng/utils';
 import { BaseComponentStyle } from './style/basecomponentstyle';
 
 @Directive({ standalone: true, providers: [BaseComponentStyle, BaseStyle] })
@@ -165,27 +164,11 @@ export class BaseComponent {
         ThemeService.on('theme:change', callback);
     }
 
-    cx(arg: string, flat?: boolean): string {
+    cx(arg: string, rest?: string): string {
         const classes = this.parent ? this.parent.componentStyle?.classes?.[arg] : this.componentStyle?.classes?.[arg];
 
         if (typeof classes === 'function') {
-            if(flat){
-                const result = classes({ instance: this })
-                if(typeof result === 'string'){
-                    return result;
-                }else if(Array.isArray(result)){
-                    return result.join(' ');
-                }else if(result){
-                    return Object.keys(result)
-                        .filter(key => result[key])
-                        .join(' ');
-                }else{
-                    return ""
-                }
-
-            }else {
-                return classes({instance: this});
-            }
+            return classes({instance: this});
         }
         return typeof classes === 'string' ? classes : arg;
     }

@@ -38,6 +38,7 @@ import {
 } from './dataview.interface';
 import { DataViewStyle } from './style/dataviewstyle';
 import { BaseComponent } from 'primeng/basecomponent';
+import { styleClassAttribute } from "primeng/base";
 /**
  * DataView displays data in grid or list layout with pagination and sorting features.
  * @group Components
@@ -239,7 +240,7 @@ export class DataView extends BaseComponent implements OnInit, AfterContentInit,
      * Style class of the component.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    @Input({ transform: styleClassAttribute }) styleClass: string | undefined;
     /**
      * Style class of the grid.
      * @group Props

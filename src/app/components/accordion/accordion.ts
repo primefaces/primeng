@@ -35,6 +35,7 @@ import { AccordionStyle } from './style/accordionstyle';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ChevronUpIcon } from 'primeng/icons/chevronup';
 import { Ripple } from 'primeng/ripple';
+import { styleClassAttribute } from "primeng/base";
 
 /**
  * Custom tab open event.
@@ -744,7 +745,7 @@ export class Accordion extends BaseComponent implements BlockableUI, AfterConten
      * Class of the element.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    @Input({ transform: styleClassAttribute }) styleClass: string | undefined;
     /**
      * Icon of a collapsed tab.
      * @group Props

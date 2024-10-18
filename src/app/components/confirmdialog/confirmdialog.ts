@@ -33,6 +33,7 @@ import { Subscription } from 'rxjs';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ConfirmDialogStyle } from './style/confirmdialogstyle';
 import { Dialog, DialogModule } from 'primeng/dialog';
+import { styleClassAttribute } from "primeng/base";
 
 const showAnimation = animation([
     style({ transform: '{{transform}}', opacity: 0 }),
@@ -169,7 +170,7 @@ export class ConfirmDialog extends BaseComponent implements AfterContentInit, On
      * Class of the element.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    @Input({ transform: styleClassAttribute }) styleClass: string | undefined;
     /**
      * Specify the CSS class(es) for styling the mask element
      * @group Props

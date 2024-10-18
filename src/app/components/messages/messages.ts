@@ -28,6 +28,7 @@ import { Subscription, timer } from 'rxjs';
 import { MessagesStyle } from './style/messagesstyle';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ButtonModule } from 'primeng/button';
+import { styleClassAttribute } from "primeng/base";
 /**
  * Messages is used to display alerts inline.
  * @group Components
@@ -177,7 +178,7 @@ export class Messages extends BaseComponent implements AfterContentInit, OnDestr
      * Style class of the component.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    @Input({ transform: styleClassAttribute }) styleClass: string | undefined;
     /**
      * Whether displaying services messages are enabled.
      * @group Props

@@ -25,6 +25,7 @@ import { FieldsetAfterToggleEvent, FieldsetBeforeToggleEvent } from './fieldset.
 import { ButtonModule } from 'primeng/button';
 import { BaseComponent } from 'primeng/basecomponent';
 import { FieldsetStyle } from './style/fieldsetstyle';
+import { styleClassAttribute } from "primeng/base";
 
 /**
  * Fieldset is a grouping component with the optional content toggle feature.
@@ -157,7 +158,7 @@ export class Fieldset extends BaseComponent implements AfterContentInit, Blockab
      * Style class of the component.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    @Input({ transform: styleClassAttribute }) styleClass: string | undefined;
     /**
      * Transition options of the panel animation.
      * @group Props

@@ -38,6 +38,7 @@ import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
 import { TieredMenuStyle } from './style/tieredmenustyle';
 import { BaseComponent } from 'primeng/basecomponent';
 import { nestedPosition } from '@primeuix/utils/dom';
+import { styleClassAttribute } from "primeng/base";
 
 @Component({
     selector: 'p-tieredMenuSub, p-tieredmenu-sub',
@@ -477,7 +478,7 @@ export class TieredMenu extends BaseComponent implements OnInit, AfterContentIni
      * Style class of the component.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    @Input({ transform: styleClassAttribute }) styleClass: string | undefined;
     /**
      * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element.
      * @group Props

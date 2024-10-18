@@ -30,6 +30,7 @@ import { ZIndexUtils } from 'primeng/utils';
 import { ButtonModule, ButtonProps } from 'primeng/button';
 import { BaseComponent } from 'primeng/basecomponent';
 import { DrawerStyle } from './style/drawerstyle';
+import { styleClassAttribute } from "primeng/base";
 
 const showAnimation = animation([style({ transform: '{{transform}}', opacity: 0 }), animate('{{transition}}')]);
 
@@ -120,7 +121,7 @@ export class Sidebar extends BaseComponent implements AfterViewInit, AfterConten
      * Style class of the component.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    @Input({ transform: styleClassAttribute }) styleClass: string | undefined;
     /**
      * Aria label of the close icon.
      * @group Props

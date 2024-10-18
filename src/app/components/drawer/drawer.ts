@@ -28,6 +28,7 @@ import { ZIndexUtils } from 'primeng/utils';
 import { DrawerStyle } from './style/drawerstyle';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ButtonModule, ButtonProps } from 'primeng/button';
+import { styleClassAttribute } from "primeng/base";
 
 const showAnimation = animation([style({ transform: '{{transform}}', opacity: 0 }), animate('{{transition}}')]);
 
@@ -128,7 +129,7 @@ export class Drawer extends BaseComponent implements AfterViewInit, AfterContent
      * Style class of the component.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    @Input({ transform: styleClassAttribute }) styleClass: string | undefined;
     /**
      * Aria label of the close icon.
      * @group Props

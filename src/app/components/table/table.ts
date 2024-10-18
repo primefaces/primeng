@@ -97,6 +97,7 @@ import { BaseComponent } from 'primeng/basecomponent';
 import { RadioButton, RadioButtonClickEvent, RadioButtonModule } from 'primeng/radiobutton';
 import { SelectModule } from 'primeng/select';
 import { DatePickerModule } from 'primeng/datepicker';
+import { styleClassAttribute } from "primeng/base";
 
 @Injectable()
 export class TableService {
@@ -398,7 +399,7 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
      * Style class of the component.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    @Input({ transform: styleClassAttribute }) styleClass: string | undefined;
     /**
      * Inline style of the table.
      * @group Props
@@ -5362,7 +5363,7 @@ export class ReorderableRow implements AfterViewInit {
             <p-button
                 #icon
                 *ngIf="showMenuButton"
-                [styleClass]="cx('pcColumnFilterButton', true)"
+                [styleClass]="cx('pcColumnFilterButton')"
                 [attr.aria-haspopup]="true"
                 [ariaLabel]="filterMenuButtonAriaLabel"
                 [attr.aria-controls]="overlayVisible ? overlayId : null"

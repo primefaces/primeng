@@ -15,6 +15,7 @@ import {
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { TagStyle } from './style/tagstyle';
+import { styleClassAttribute } from "primeng/base";
 
 /**
  * Tag component is used to categorize content.
@@ -55,7 +56,7 @@ export class Tag extends BaseComponent {
      * Style class of the component.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    @Input({ transform: styleClassAttribute }) styleClass: string | undefined;
     /**
      * Severity type of the tag.
      * @group Props

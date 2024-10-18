@@ -36,6 +36,7 @@ import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
 import { ContextMenuStyle } from './style/contextmenustyle';
 import { BaseComponent } from 'primeng/basecomponent';
 import { BadgeModule } from 'primeng/badge';
+import { styleClassAttribute } from "primeng/base";
 
 @Component({
     selector: 'p-contextMenuSub, p-contextmenu-sub',
@@ -481,7 +482,7 @@ export class ContextMenu extends BaseComponent implements OnInit, AfterContentIn
      * Style class of the component.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    @Input({ transform: styleClassAttribute }) styleClass: string | undefined;
     /**
      * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element.
      * @group Props

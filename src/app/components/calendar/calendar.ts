@@ -49,6 +49,7 @@ import { AutoFocusModule } from 'primeng/autofocus';
 import { InputTextModule } from 'primeng/inputtext';
 import { CalendarStyle } from './style/calendarstyle';
 import { BaseComponent } from 'primeng/basecomponent';
+import { styleClassAttribute } from "primeng/base";
 
 export const CALENDAR_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -564,7 +565,7 @@ export class Calendar extends BaseComponent implements OnInit, OnDestroy, Contro
      * Style class of the component.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    @Input({ transform: styleClassAttribute }) styleClass: string | undefined;
     /**
      * Inline style of the input field.
      * @group Props
@@ -584,7 +585,7 @@ export class Calendar extends BaseComponent implements OnInit, OnDestroy, Contro
      * Style class of the input field.
      * @group Props
      */
-    @Input() inputStyleClass: string | undefined;
+    @Input({ transform: styleClassAttribute }) inputStyleClass: string | undefined;
     /**
      * Placeholder text for the input.
      * @group Props

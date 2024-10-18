@@ -41,6 +41,7 @@ import { debounce, filter } from 'rxjs/operators';
 import { MenuBarStyle } from './style/menubarstyle';
 import { BaseComponent } from 'primeng/basecomponent';
 import { BadgeModule } from 'primeng/badge';
+import { styleClassAttribute } from "primeng/base";
 
 @Injectable()
 export class MenubarService {
@@ -515,7 +516,7 @@ export class Menubar extends BaseComponent implements AfterContentInit, OnDestro
      * Class of the element.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    @Input({ transform: styleClassAttribute }) styleClass: string | undefined;
     /**
      * Whether to automatically manage layering.
      * @group Props

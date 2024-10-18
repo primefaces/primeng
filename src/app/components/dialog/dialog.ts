@@ -36,6 +36,7 @@ import { UniqueComponentId, ZIndexUtils } from 'primeng/utils';
 import { ButtonModule, ButtonProps } from 'primeng/button';
 import { DialogStyle } from './style/dialogstyle';
 import { BaseComponent } from 'primeng/basecomponent';
+import { styleClassAttribute } from "primeng/base";
 
 const showAnimation = animation([style({ transform: '{{transform}}', opacity: 0 }), animate('{{transition}}')]);
 
@@ -254,7 +255,7 @@ export class Dialog extends BaseComponent implements AfterContentInit, OnInit, O
      * Style class of the component.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    @Input({ transform: styleClassAttribute }) styleClass: string | undefined;
     /**
      * Style class of the mask.
      * @group Props

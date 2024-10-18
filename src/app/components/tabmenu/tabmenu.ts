@@ -33,6 +33,7 @@ import { ObjectUtils } from 'primeng/utils';
 import { TabMenuStyle } from './style/tabmenustyle';
 import { BaseComponent } from 'primeng/basecomponent';
 import { BadgeModule } from 'primeng/badge';
+import { styleClassAttribute } from "primeng/base";
 
 /**
  * TabMenu is a navigation component that displays items as tab headers.
@@ -226,7 +227,7 @@ export class TabMenu extends BaseComponent implements AfterContentInit, AfterVie
      * Class of the element.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    @Input({ transform: styleClassAttribute }) styleClass: string | undefined;
     /**
      * Defines a string value that labels an interactive element.
      * @group Props
