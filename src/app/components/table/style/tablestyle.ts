@@ -323,6 +323,10 @@ const theme = ({ dt }) => `
 }
 */
 
+.p-button.p-button-text.p-datatable-column-filter-button-active {
+    color: ${dt('datatable.filter.button.active.color')};
+}
+
 .p-datatable-tbody > tr {
     outline-color: transparent;
     background: ${dt('datatable.row.background')};
@@ -641,7 +645,10 @@ const classes = {
         'p-datatable-popover-filter': instance.display === 'menu',
     }),
     filterElementContainer: 'p-datatable-filter-element-container',
-    pcColumnFilterButton: 'p-datatable-column-filter-button',
+    pcColumnFilterButton: ({instance}) => ({
+        'p-datatable-column-filter-button': true,
+        'p-datatable-column-filter-button-active': instance.hasFilter
+    }),
     pcColumnFilterClearButton: 'p-datatable-column-filter-clear-button',
     filterOverlay: ({ instance }) => ({
         'p-datatable-filter-overlay p-component': true,

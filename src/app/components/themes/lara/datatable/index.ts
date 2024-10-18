@@ -124,6 +124,11 @@ export default {
             padding: '{list.option.padding}',
             borderRadius: '{list.option.border.radius}',
         },
+        button: {
+            active:{
+                color: '{primary.active.color}'
+            }
+        }
     },
     paginatorTop: {
         borderColor: '{datatable.border.color}',

@@ -5362,7 +5362,7 @@ export class ReorderableRow implements AfterViewInit {
             <p-button
                 #icon
                 *ngIf="showMenuButton"
-                [styleClass]="cx('pcColumnFilterButton')"
+                [styleClass]="cx('pcColumnFilterButton', true)"
                 [attr.aria-haspopup]="true"
                 [ariaLabel]="filterMenuButtonAriaLabel"
                 [attr.aria-controls]="overlayVisible ? overlayId : null"

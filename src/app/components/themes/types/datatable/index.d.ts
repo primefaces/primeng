@@ -801,6 +801,12 @@ export interface DataTableDesignTokens extends ColorSchemeDesignToken<DataTableD
              */
             borderRadius?: string;
         };
+
+        button?: {
+            active?:{
+                color?: string;
+            }
+        }
     };
     /**
      * Used to pass tokens of the paginator top section

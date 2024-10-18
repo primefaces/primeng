@@ -165,13 +165,28 @@ export class BaseComponent {
         ThemeService.on('theme:change', callback);
     }
 
-    cx(arg: string, rest?: string): string {
+    cx(arg: string, flat?: boolean): string {
         const classes = this.parent ? this.parent.componentStyle?.classes?.[arg] : this.componentStyle?.classes?.[arg];
 
         if (typeof classes === 'function') {
-            return classes({ instance: this });
-        }
+            if(flat){
+                const result = classes({ instance: this })
+                if(typeof result === 'string'){
+                    return result;
+                }else if(Array.isArray(result)){
+                    return result.join(' ');
+                }else if(result){
+                    return Object.keys(result)
+                        .filter(key => result[key])
+                        .join(' ');
+                }else{
+                    return ""
+                }
 
+            }else {
+                return classes({instance: this});
+            }
+        }
         return typeof classes === 'string' ? classes : arg;
     }
 
