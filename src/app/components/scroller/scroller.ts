@@ -425,7 +425,7 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
 
     d_numToleratedItems: any;
 
-    contentEl: any;
+    contentEl: HTMLElement | null | undefined;
 
     contentTemplate: Nullable<TemplateRef<any>>;
 
@@ -461,7 +461,7 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
 
     initialized: boolean = false;
 
-    resizeObserver: any;
+    resizeObserver: ResizeObserver | null | undefined;
 
     defaultWidth: number | undefined;
 
@@ -1061,8 +1061,10 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
                         this.d_numToleratedItems = this._numToleratedItems;
                         this.defaultWidth = width;
                         this.defaultHeight = height;
-                        this.defaultContentWidth = DomHandler.getWidth(this.contentEl);
-                        this.defaultContentHeight = DomHandler.getHeight(this.contentEl);
+                        if (this.contentEl) {
+                            this.defaultContentWidth = DomHandler.getWidth(this.contentEl);
+                            this.defaultContentHeight = DomHandler.getHeight(this.contentEl);
+                        }
 
                         this.init();
                         this.calculateAutoSize();
