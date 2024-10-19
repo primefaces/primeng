@@ -5,18 +5,19 @@ import {
     ChangeDetectorRef,
     Component,
     ContentChild,
-    ContentChildren,
+    contentChildren,
     ElementRef,
     OutputEmitterRef,
     input,
     NgModule,
     output,
-    QueryList,
+    Signal,
     TemplateRef,
     ViewChild,
     ViewEncapsulation,
     booleanAttribute,
     numberAttribute,
+    computed,
 } from '@angular/core';
 import { BlockableUI, Footer, Header, PrimeTemplate, ScrollerOptions, SharedModule } from 'primeng/api';
 import { Scroller, ScrollerModule } from 'primeng/scroller';
@@ -36,10 +37,10 @@ import { VirtualScrollerLazyLoadEvent } from './virtualscroller.interface';
             [attr.data-pc-name]="'virtualscroller'"
             [attr.data-pc-section]="'root'"
         >
-            @if (header || headerTemplate) {
+            @if (header || headerTemplate()) {
                 <div class="p-virtualscroller-header">
                     <ng-content select="p-header"></ng-content>
-                    <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
+                    <ng-container *ngTemplateOutlet="headerTemplate()"></ng-container>
                 </div>
             }
             <div #content class="p-virtualscroller-content" [attr.data-pc-section]="'content'">
@@ -57,7 +58,7 @@ import { VirtualScrollerLazyLoadEvent } from './virtualscroller.interface';
                         <div [ngStyle]="{ height: itemSize() + 'px' }" class="p-virtualscroller-item">
                             <ng-container
                                 *ngTemplateOutlet="
-                                    item ? itemTemplate : loadingItemTemplate;
+                                    item ? itemTemplate() : loadingItemTemplate();
                                     context: { $implicit: item, options: scrollerOptions }
                                 "
                             ></ng-container>
@@ -65,10 +66,10 @@ import { VirtualScrollerLazyLoadEvent } from './virtualscroller.interface';
                     </ng-template>
                 </p-scroller>
             </div>
-            @if (footer || footerTemplate) {
+            @if (footer || footerTemplate()) {
                 <div class="p-virtualscroller-footer" [attr.data-pc-section]="'footer'">
                     <ng-content select="p-footer"></ng-content>
-                    <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
+                    <ng-container *ngTemplateOutlet="footerTemplate()"></ng-container>
                 </div>
             }
         </div>
@@ -76,7 +77,7 @@ import { VirtualScrollerLazyLoadEvent } from './virtualscroller.interface';
     changeDetection: ChangeDetectionStrategy.Default,
     encapsulation: ViewEncapsulation.None,
 })
-export class VirtualScroller implements AfterContentInit, BlockableUI {
+export class VirtualScroller implements BlockableUI {
     /**
      * An array of objects to display.
      * @group Props
@@ -128,50 +129,31 @@ export class VirtualScroller implements AfterContentInit, BlockableUI {
 
     @ContentChild(Footer) footer: Footer | undefined;
 
-    @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<PrimeTemplate>>;
+    templates: Signal<readonly PrimeTemplate[]> = contentChildren(PrimeTemplate);
 
     @ViewChild('scroller') scroller: Nullable<Scroller>;
 
-    itemTemplate: Nullable<TemplateRef<any>>;
+    itemTemplate = computed<Nullable<TemplateRef<any>>>(() => this.mappedTemplates()['item']);
 
-    headerTemplate: Nullable<TemplateRef<any>>;
+    headerTemplate = computed<Nullable<TemplateRef<any>>>(() => this.mappedTemplates()['header']);
 
-    footerTemplate: Nullable<TemplateRef<any>>;
+    footerTemplate = computed<Nullable<TemplateRef<any>>>(() => this.mappedTemplates()['footer']);
 
-    loadingItemTemplate: Nullable<TemplateRef<any>>;
+    loadingItemTemplate = computed<Nullable<TemplateRef<any>>>(() => this.mappedTemplates()['loadingItem']);
 
     virtualScrollTimeout: any;
+
+    private mappedTemplates = computed<{ [key: string]: TemplateRef<any> }>(() => {
+        return (this.templates() || []).reduce((prev, item) => {
+            prev[item.getType()] = item.template;
+            return prev;
+        }, {});
+    });
 
     constructor(
         public el: ElementRef,
         public cd: ChangeDetectorRef,
     ) {}
-
-    ngAfterContentInit() {
-        (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
-            switch (item.getType()) {
-                case 'item':
-                    this.itemTemplate = item.template;
-                    break;
-
-                case 'loadingItem':
-                    this.loadingItemTemplate = item.template;
-                    break;
-
-                case 'header':
-                    this.headerTemplate = item.template;
-                    break;
-
-                case 'footer':
-                    this.footerTemplate = item.template;
-                    break;
-
-                default:
-                    this.itemTemplate = item.template;
-                    break;
-            }
-        });
-    }
 
     onLazyItemLoad(event: VirtualScrollerLazyLoadEvent) {
         if (this.virtualScrollTimeout) {
