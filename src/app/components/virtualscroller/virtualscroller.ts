@@ -1,10 +1,9 @@
 import { NgClass, NgStyle, NgTemplateOutlet } from '@angular/common';
 import {
-    AfterContentInit,
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
-    ContentChild,
+    contentChild,
     contentChildren,
     ElementRef,
     OutputEmitterRef,
@@ -13,11 +12,12 @@ import {
     output,
     Signal,
     TemplateRef,
-    ViewChild,
+    viewChild,
     ViewEncapsulation,
     booleanAttribute,
     numberAttribute,
     computed,
+    inject,
 } from '@angular/core';
 import { BlockableUI, Footer, Header, PrimeTemplate, ScrollerOptions, SharedModule } from 'primeng/api';
 import { Scroller, ScrollerModule } from 'primeng/scroller';
@@ -37,7 +37,7 @@ import { VirtualScrollerLazyLoadEvent } from './virtualscroller.interface';
             [attr.data-pc-name]="'virtualscroller'"
             [attr.data-pc-section]="'root'"
         >
-            @if (header || headerTemplate()) {
+            @if (header() || headerTemplate()) {
                 <div class="p-virtualscroller-header">
                     <ng-content select="p-header"></ng-content>
                     <ng-container *ngTemplateOutlet="headerTemplate()"></ng-container>
@@ -66,7 +66,7 @@ import { VirtualScrollerLazyLoadEvent } from './virtualscroller.interface';
                     </ng-template>
                 </p-scroller>
             </div>
-            @if (footer || footerTemplate()) {
+            @if (footer() || footerTemplate()) {
                 <div class="p-virtualscroller-footer" [attr.data-pc-section]="'footer'">
                     <ng-content select="p-footer"></ng-content>
                     <ng-container *ngTemplateOutlet="footerTemplate()"></ng-container>
@@ -125,13 +125,13 @@ export class VirtualScroller implements BlockableUI {
      */
     onLazyLoad: OutputEmitterRef<VirtualScrollerLazyLoadEvent> = output<VirtualScrollerLazyLoadEvent>();
 
-    @ContentChild(Header) header: Header | undefined;
+    header = contentChild<Header | undefined>(Header);
 
-    @ContentChild(Footer) footer: Footer | undefined;
+    footer = contentChild<Footer | undefined>(Footer);
 
     templates: Signal<readonly PrimeTemplate[]> = contentChildren(PrimeTemplate);
 
-    @ViewChild('scroller') scroller: Nullable<Scroller>;
+    scroller = viewChild<Nullable<Scroller>>('scroller');
 
     itemTemplate = computed<Nullable<TemplateRef<any>>>(() => this.mappedTemplates()['item']);
 
@@ -150,10 +150,9 @@ export class VirtualScroller implements BlockableUI {
         }, {});
     });
 
-    constructor(
-        public el: ElementRef,
-        public cd: ChangeDetectorRef,
-    ) {}
+    el = inject(ElementRef);
+
+    cd = inject(ChangeDetectorRef);
 
     onLazyItemLoad(event: VirtualScrollerLazyLoadEvent) {
         if (this.virtualScrollTimeout) {
@@ -174,7 +173,7 @@ export class VirtualScroller implements BlockableUI {
     }
 
     scrollToIndex(index: number, mode?: ScrollBehavior): void {
-        this.scroller?.scrollToIndex(index, mode);
+        this.scroller()?.scrollToIndex(index, mode);
     }
 }
 
