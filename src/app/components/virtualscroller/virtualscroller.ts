@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { NgClass, NgStyle, NgTemplateOutlet } from '@angular/common';
 import {
     AfterContentInit,
     ChangeDetectionStrategy,
@@ -36,10 +36,12 @@ import { VirtualScrollerLazyLoadEvent } from './virtualscroller.interface';
             [attr.data-pc-name]="'virtualscroller'"
             [attr.data-pc-section]="'root'"
         >
-            <div class="p-virtualscroller-header" *ngIf="header || headerTemplate">
-                <ng-content select="p-header"></ng-content>
-                <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
-            </div>
+            @if (header || headerTemplate) {
+                <div class="p-virtualscroller-header">
+                    <ng-content select="p-header"></ng-content>
+                    <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
+                </div>
+            }
             <div #content class="p-virtualscroller-content" [attr.data-pc-section]="'content'">
                 <p-scroller
                     #scroller
@@ -63,10 +65,12 @@ import { VirtualScrollerLazyLoadEvent } from './virtualscroller.interface';
                     </ng-template>
                 </p-scroller>
             </div>
-            <div class="p-virtualscroller-footer" *ngIf="footer || footerTemplate" [attr.data-pc-section]="'footer'">
-                <ng-content select="p-footer"></ng-content>
-                <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
-            </div>
+            @if (footer || footerTemplate) {
+                <div class="p-virtualscroller-footer" [attr.data-pc-section]="'footer'">
+                    <ng-content select="p-footer"></ng-content>
+                    <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
+                </div>
+            }
         </div>
     `,
     changeDetection: ChangeDetectionStrategy.Default,
@@ -193,7 +197,7 @@ export class VirtualScroller implements AfterContentInit, BlockableUI {
 }
 
 @NgModule({
-    imports: [CommonModule, SharedModule, ScrollerModule],
+    imports: [NgClass, NgStyle, NgTemplateOutlet, SharedModule, ScrollerModule],
     exports: [VirtualScroller, SharedModule, ScrollerModule],
     declarations: [VirtualScroller],
 })
