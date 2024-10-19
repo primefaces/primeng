@@ -1,33 +1,32 @@
-import { CommonModule, DOCUMENT } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import {
     AfterContentInit,
     AfterViewInit,
+    booleanAttribute,
     ChangeDetectionStrategy,
     Component,
+    computed,
+    contentChild,
     ContentChildren,
     Directive,
-    ElementRef,
     EventEmitter,
-    HostBinding,
-    Inject,
+    inject,
     Input,
     NgModule,
+    numberAttribute,
     OnDestroy,
     Output,
     QueryList,
     SimpleChanges,
     TemplateRef,
     ViewEncapsulation,
-    booleanAttribute,
-    inject,
-    numberAttribute,
 } from '@angular/core';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { SpinnerIcon } from 'primeng/icons/spinner';
-import { Ripple, RippleModule } from 'primeng/ripple';
+import { RippleModule } from 'primeng/ripple';
 import { ObjectUtils } from 'primeng/utils';
-import { AutoFocus, AutoFocusModule } from 'primeng/autofocus';
+import { AutoFocusModule } from 'primeng/autofocus';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ButtonStyle } from './style/buttonstyle';
 import { BadgeModule } from 'primeng/badge';
@@ -43,33 +42,54 @@ const INTERNAL_BUTTON_CLASSES = {
     loading: 'p-button-loading',
     labelOnly: 'p-button-loading-label-only',
 } as const;
+
+@Directive({
+    selector: '[pButtonLabel]',
+    providers: [ButtonStyle],
+    host: {
+        '[class.p-button-label]': 'true',
+    },
+})
+export class ButtonLabel extends BaseComponent {
+    _componentStyle = inject(ButtonStyle);
+}
+
+@Directive({
+    selector: '[pButtonIcon]',
+    providers: [ButtonStyle],
+    host: {
+        '[class.p-button-icon]': 'true',
+    },
+})
+export class ButtonIcon extends BaseComponent {
+    _componentStyle = inject(ButtonStyle);
+}
 /**
  * Button directive is an extension to button component.
  * @group Components
  */
 @Directive({
     selector: '[pButton]',
-
     providers: [ButtonStyle],
+    host: {
+        '[class.p-button-icon-only]': 'isIconOnly()',
+        '[class.p-button-text]': 'isTextButton()',
+    },
 })
 export class ButtonDirective extends BaseComponent implements AfterViewInit, OnDestroy {
     /**
      * Position of the icon.
+     * @deprecated utilize pButtonIcon and pButtonLabel directives.
      * @group Props
      */
     @Input() iconPos: ButtonIconPosition = 'left';
     /**
      * Uses to pass attributes to the loading icon's DOM element.
+     * @deprecated
      * @group Props
      */
     @Input() loadingIcon: string | undefined;
-    /**
-     * Text of the button.
-     * @group Props
-     */
-    @Input() get label(): string | undefined {
-        return this._label as string;
-    }
+    private labelSignal = contentChild(ButtonLabel);
     set label(val: string) {
         this._label = val;
 
@@ -79,13 +99,7 @@ export class ButtonDirective extends BaseComponent implements AfterViewInit, OnD
             this.setStyleClass();
         }
     }
-    /**
-     * Name of the icon.
-     * @group Props
-     */
-    @Input() get icon(): string {
-        return this._icon as string;
-    }
+    private iconSignal = contentChild(ButtonIcon);
     set icon(val: string) {
         this._icon = val;
 
@@ -110,13 +124,7 @@ export class ButtonDirective extends BaseComponent implements AfterViewInit, OnD
         }
     }
     _buttonProps!: ButtonProps;
-    /**
-     * Used to pass all properties of the ButtonProps to the Button component.
-     * @group Props
-     */
-    @Input() get buttonProps(): ButtonProps {
-        return this._buttonProps;
-    }
+    isIconOnly = computed(() => !!(!this.labelSignal() && this.iconSignal()));
     set buttonProps(val: ButtonProps) {
         this._buttonProps = val;
 
@@ -174,6 +182,34 @@ export class ButtonDirective extends BaseComponent implements AfterViewInit, OnD
     }
 
     private _internalClasses: string[] = Object.values(INTERNAL_BUTTON_CLASSES);
+    isTextButton = computed(() => !!(!this.iconSignal() && this.labelSignal() && this.text));
+
+    /**
+     * Text of the button.
+     * @deprecated use pButtonLabel directive instead.
+     * @group Props
+     */
+    @Input() get label(): string | undefined {
+        return this._label as string;
+    }
+
+    /**
+     * Name of the icon.
+     * @deprecated use pButtonIcon directive instead
+     * @group Props
+     */
+    @Input() get icon(): string {
+        return this._icon as string;
+    }
+
+    /**
+     * Used to pass all properties of the ButtonProps to the Button component.
+     * @deprecated assign props directly to the button element.
+     * @group Props
+     */
+    @Input() get buttonProps(): ButtonProps {
+        return this._buttonProps;
+    }
 
     spinnerIcon = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" class="p-icon-spin">
         <g clip-path="url(#clip0_417_21408)">
@@ -532,7 +568,7 @@ export class Button extends BaseComponent implements AfterContentInit {
      * @group Props
      * @defaultValue secondary
      */
-    @Input() badgeSeverity: 'success' | 'info' | 'warning' | 'danger' | 'help' | 'primary' | 'secondary' | 'contrast' | null | undefined =
+    @Input() badgeSeverity: 'success' | 'info' | 'warn' | 'danger' | 'help' | 'primary' | 'secondary' | 'contrast' | null | undefined =
         'secondary';
     /**
      * Used to define a string that autocomplete attribute the current element.
@@ -668,7 +704,7 @@ export class Button extends BaseComponent implements AfterContentInit {
 
 @NgModule({
     imports: [CommonModule, RippleModule, SharedModule, AutoFocusModule, SpinnerIcon, BadgeModule],
-    exports: [ButtonDirective, Button, SharedModule],
-    declarations: [ButtonDirective, Button],
+    exports: [ButtonDirective, Button, ButtonLabel, ButtonIcon, SharedModule],
+    declarations: [ButtonDirective, Button, ButtonLabel, ButtonIcon],
 })
 export class ButtonModule {}
