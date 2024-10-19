@@ -7,10 +7,10 @@ import {
     ContentChild,
     ContentChildren,
     ElementRef,
-    EventEmitter,
+    OutputEmitterRef,
     input,
     NgModule,
-    Output,
+    output,
     QueryList,
     TemplateRef,
     ViewChild,
@@ -122,7 +122,7 @@ export class VirtualScroller implements AfterContentInit, BlockableUI {
      * @param {VirtualScrollerLazyLoadEvent} event - custom lazy load event.
      * @group Emits
      */
-    @Output() onLazyLoad: EventEmitter<VirtualScrollerLazyLoadEvent> = new EventEmitter<VirtualScrollerLazyLoadEvent>();
+    onLazyLoad: OutputEmitterRef<VirtualScrollerLazyLoadEvent> = output<VirtualScrollerLazyLoadEvent>();
 
     @ContentChild(Header) header: Header | undefined;
 
