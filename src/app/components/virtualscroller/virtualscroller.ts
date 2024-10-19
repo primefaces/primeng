@@ -8,7 +8,7 @@ import {
     ContentChildren,
     ElementRef,
     EventEmitter,
-    Input,
+    input,
     NgModule,
     Output,
     QueryList,
@@ -31,8 +31,8 @@ import { VirtualScrollerLazyLoadEvent } from './virtualscroller.interface';
     template: `
         <div
             [ngClass]="'p-virtualscroller p-component'"
-            [ngStyle]="style"
-            [class]="styleClass"
+            [ngStyle]="style()"
+            [class]="styleClass()"
             [attr.data-pc-name]="'virtualscroller'"
             [attr.data-pc-section]="'root'"
         >
@@ -45,16 +45,16 @@ import { VirtualScrollerLazyLoadEvent } from './virtualscroller.interface';
             <div #content class="p-virtualscroller-content" [attr.data-pc-section]="'content'">
                 <p-scroller
                     #scroller
-                    [items]="value"
+                    [items]="value()"
                     styleClass="p-virtualscroller-list"
-                    [style]="{ height: scrollHeight }"
-                    [itemSize]="itemSize"
-                    [lazy]="lazy"
+                    [style]="{ height: scrollHeight() }"
+                    [itemSize]="itemSize()"
+                    [lazy]="lazy()"
                     (onLazyLoad)="onLazyItemLoad($event)"
-                    [options]="options"
+                    [options]="options()"
                 >
                     <ng-template pTemplate="item" let-item let-scrollerOptions="options">
-                        <div [ngStyle]="{ height: itemSize + 'px' }" class="p-virtualscroller-item">
+                        <div [ngStyle]="{ height: itemSize() + 'px' }" class="p-virtualscroller-item">
                             <ng-container
                                 *ngTemplateOutlet="
                                     item ? itemTemplate : loadingItemTemplate;
@@ -81,42 +81,42 @@ export class VirtualScroller implements AfterContentInit, BlockableUI {
      * An array of objects to display.
      * @group Props
      */
-    @Input() value: any[] | undefined;
+    value = input<any[]>();
     /**
      * Height of an item in the list.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) itemSize: number | undefined;
+    itemSize = input<number, any>(undefined, { transform: numberAttribute });
     /**
      * Inline style of the component.
      * @group Props
      */
-    @Input() style: { [klass: string]: any } | null | undefined;
+    style = input<{ [klass: string]: any } | null>();
     /**
      * Style class of the component.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    styleClass = input<string>();
     /**
      * Max height of the content area in inline mode.
      * @group Props
      */
-    @Input() scrollHeight: any;
+    scrollHeight = input<any>();
     /**
      * Defines if data is loaded and interacted with in lazy manner.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) lazy: boolean | undefined;
+    lazy = input<boolean, any>(undefined, { transform: booleanAttribute });
     /**
      * Whether to use the scroller feature. The properties of scroller component can be used like an object in it.
      * @group Props
      */
-    @Input() options: ScrollerOptions | undefined;
+    options = input<ScrollerOptions>();
     /**
      * Threshold in milliseconds to delay lazy loading during scrolling.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) delay: number = 250;
+    delay = input<number, any>(250, { transform: numberAttribute });
     /**
      * Callback to invoke in lazy mode to load new data.
      * @param {VirtualScrollerLazyLoadEvent} event - custom lazy load event.
@@ -184,7 +184,7 @@ export class VirtualScroller implements AfterContentInit, BlockableUI {
                 rows: <number>event.last - <number>event.first,
                 forceUpdate: () => this.cd.detectChanges(),
             });
-        }, this.delay);
+        }, this.delay());
     }
 
     getBlockableElement(): HTMLElement {
