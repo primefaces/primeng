@@ -20,6 +20,7 @@ import { BlockableUI, Footer, Header, PrimeTemplate, SharedModule } from 'primen
 import { BaseComponent } from 'primeng/basecomponent';
 import { ObjectUtils } from 'primeng/utils';
 import { CardStyle } from './style/cardstyle';
+import { styleClassAttribute } from "primeng/base";
 /**
  * Card is a flexible container component.
  * @group Components
@@ -81,7 +82,7 @@ export class Card extends BaseComponent implements AfterContentInit, BlockableUI
      * Class of the element.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    @Input({ transform: styleClassAttribute }) styleClass: string | undefined;
 
     @ContentChild(Header) headerFacet: TemplateRef<any> | undefined;
 

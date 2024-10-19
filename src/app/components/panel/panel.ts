@@ -29,6 +29,7 @@ import { PanelAfterToggleEvent, PanelBeforeToggleEvent } from './panel.interface
 import { ButtonModule } from 'primeng/button';
 import { PanelStyle } from './style/panelstyle';
 import { BaseComponent } from 'primeng/basecomponent';
+import { styleClassAttribute } from "primeng/base";
 
 /**
  * Panel is a container with the optional content toggle feature.
@@ -189,7 +190,7 @@ export class Panel extends BaseComponent implements AfterContentInit, BlockableU
      * Style class of the component.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    @Input({ transform: styleClassAttribute }) styleClass: string | undefined;
     /**
      * Position of the icons.
      * @group Props

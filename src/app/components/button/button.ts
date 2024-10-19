@@ -31,6 +31,7 @@ import { BaseComponent } from 'primeng/basecomponent';
 import { ButtonStyle } from './style/buttonstyle';
 import { BadgeModule } from 'primeng/badge';
 import { ButtonProps } from './button.interface';
+import { styleClassAttribute } from "primeng/base";
 
 type ButtonIconPosition = 'left' | 'right' | 'top' | 'bottom';
 
@@ -556,7 +557,7 @@ export class Button extends BaseComponent implements AfterContentInit {
      * Class of the element.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    @Input({ transform: styleClassAttribute }) styleClass: string | undefined;
     /**
      * Style class of the badge.
      * @group Props

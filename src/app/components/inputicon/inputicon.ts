@@ -3,6 +3,7 @@ import { ChangeDetectionStrategy, Component, inject, Input, NgModule, ViewEncaps
 import { SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { InputIconStyle } from './style/inputiconstyle';
+import { styleClassAttribute } from "primeng/base";
 
 /**
  * InputIcon displays an icon.
@@ -24,7 +25,7 @@ export class InputIcon extends BaseComponent {
      * Style class of the element.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    @Input({ transform: styleClassAttribute }) styleClass: string | undefined;
 
     _componentStyle = inject(InputIconStyle);
 }

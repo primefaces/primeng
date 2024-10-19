@@ -22,6 +22,7 @@ import { ButtonModule } from 'primeng/button';
 import { ButtonProps } from 'primeng/button';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ScrollTopStyle } from './style/scrolltopstyle';
+import { styleClassAttribute } from "primeng/base";
 
 /**
  * ScrollTop gets displayed after a certain scroll position and used to navigates to the top of the page quickly.
@@ -82,7 +83,7 @@ export class ScrollTop extends BaseComponent implements OnInit, OnDestroy {
      * Class of the element.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    @Input({ transform: styleClassAttribute }) styleClass: string | undefined;
     /**
      * Inline style of the element.
      * @group Props

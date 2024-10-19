@@ -16,3 +16,19 @@ export default {
         this._loadedStyleNames.clear();
     },
 };
+
+export function styleClassAttribute(value: any): string | undefined{
+    if(typeof value === 'string'){
+        return value;
+    }else if(Array.isArray(value)){
+        return value.join(' ');
+    }else if(value){
+        return Object.keys(value)
+            .filter(key => value[key])
+            .join(' ');
+    }else{
+        return value
+    }
+}
+
+

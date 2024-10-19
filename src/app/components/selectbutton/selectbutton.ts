@@ -23,6 +23,7 @@ import { ToggleButton } from 'primeng/togglebutton';
 import { BaseComponent } from 'primeng/basecomponent';
 import { SelectButtonStyle } from './style/selectbuttonstyle';
 import { CommonModule } from '@angular/common';
+import { styleClassAttribute } from "primeng/base";
 
 export const SELECTBUTTON_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -120,7 +121,7 @@ export class SelectButton extends BaseComponent implements ControlValueAccessor 
      * Style class of the component.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    @Input({ transform: styleClassAttribute }) styleClass: string | undefined;
     /**
      * Establishes relationships between the component and label(s) where its value should be one or more element IDs.
      * @group Props

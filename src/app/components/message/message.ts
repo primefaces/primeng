@@ -25,6 +25,7 @@ import { Ripple } from 'primeng/ripple';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { TimesIcon } from 'primeng/icons/times';
+import { styleClassAttribute } from "primeng/base";
 /**
  * Message groups a collection of contents in tabs.
  * @group Components
@@ -145,7 +146,7 @@ export class Message extends BaseComponent {
      * Style class of the component.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    @Input({ transform: styleClassAttribute }) styleClass: string | undefined;
     /**
      * Whether the message can be closed manually using the close icon.
      * @group Props

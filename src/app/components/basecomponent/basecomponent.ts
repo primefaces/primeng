@@ -3,9 +3,8 @@ import { ChangeDetectorRef, Directive, ElementRef, inject, Injector, Input, PLAT
 import { getKeyValue } from '@primeuix/utils/object';
 import { PrimeNGConfig } from 'primeng/api';
 import { Base, BaseStyle } from 'primeng/base';
-import { DomHandler } from 'primeng/dom';
 import { Theme, ThemeService } from 'primeng/themes';
-import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
+import { UniqueComponentId } from 'primeng/utils';
 import { BaseComponentStyle } from './style/basecomponentstyle';
 
 @Directive({ standalone: true, providers: [BaseComponentStyle, BaseStyle] })
@@ -169,9 +168,8 @@ export class BaseComponent {
         const classes = this.parent ? this.parent.componentStyle?.classes?.[arg] : this.componentStyle?.classes?.[arg];
 
         if (typeof classes === 'function') {
-            return classes({ instance: this });
+            return classes({instance: this});
         }
-
         return typeof classes === 'string' ? classes : arg;
     }
 

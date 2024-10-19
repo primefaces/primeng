@@ -58,6 +58,7 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { FormsModule } from '@angular/forms';
 import { TreeStyle } from './style/treestyle';
 import { BaseComponent } from 'primeng/basecomponent';
+import { styleClassAttribute } from "primeng/base";
 
 @Component({
     selector: 'p-treeNode',
@@ -930,7 +931,7 @@ export class Tree extends BaseComponent implements OnInit, AfterContentInit, OnC
      * Style class of the component.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    @Input({ transform: styleClassAttribute }) styleClass: string | undefined;
     /**
      * Context menu instance.
      * @group Props

@@ -50,6 +50,7 @@ import {
 import { ChipModule } from 'primeng/chip';
 import { AutoCompleteStyle } from './style/autocompletestyle';
 import { BaseComponent } from 'primeng/basecomponent';
+import { styleClassAttribute } from "primeng/base";
 
 export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -373,7 +374,7 @@ export class AutoComplete extends BaseComponent implements AfterViewChecked, Aft
      * Style class of the component.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    @Input({ transform: styleClassAttribute }) styleClass: string | undefined;
     /**
      * Style class of the overlay panel element.
      * @group Props
@@ -393,7 +394,7 @@ export class AutoComplete extends BaseComponent implements AfterViewChecked, Aft
      * Inline style of the input field.
      * @group Props
      */
-    @Input() inputStyleClass: string | undefined;
+    @Input({ transform: styleClassAttribute }) inputStyleClass: string | undefined;
     /**
      * Hint text for the input field.
      * @group Props

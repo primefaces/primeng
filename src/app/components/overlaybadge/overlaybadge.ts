@@ -4,6 +4,7 @@ import { SharedModule } from 'primeng/api';
 import { OverlayBadgeStyle } from './style/overlaybadgestyle';
 import { BaseComponent } from 'primeng/basecomponent';
 import { BadgeModule } from 'primeng/badge';
+import { styleClassAttribute } from "primeng/base";
 
 /**
  * OverlayPanel is a container component positioned as connected to its target.
@@ -33,7 +34,7 @@ export class OverlayBadge extends BaseComponent {
      * Class of the element.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    @Input({ transform: styleClassAttribute }) styleClass: string | undefined;
     /**
      * Inline style of the element.
      * @group Props

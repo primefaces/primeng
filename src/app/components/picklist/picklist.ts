@@ -52,6 +52,7 @@ import { PickListStyle } from './style/pickliststyle';
 import { BaseComponent } from 'primeng/basecomponent';
 import { Listbox, ListboxModule } from 'primeng/listbox';
 import { FormsModule } from '@angular/forms';
+import { styleClassAttribute } from "primeng/base";
 
 /**
  * PickList is used to reorder items between different lists.
@@ -495,7 +496,7 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
      * Style class of the component.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    @Input({ transform: styleClassAttribute }) styleClass: string | undefined;
     /**
      * Inline style of the source list element.
      * @group Props

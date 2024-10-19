@@ -35,6 +35,7 @@ import { VoidListener } from 'primeng/ts-helpers';
 import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
 import { MegaMenuStyle } from './style/megamenustyle';
 import { BadgeModule } from 'primeng/badge';
+import { styleClassAttribute } from "primeng/base";
 
 @Component({
     selector: 'p-megaMenuSub, p-megamenu-sub',
@@ -506,7 +507,7 @@ export class MegaMenu extends BaseComponent implements AfterContentInit, OnDestr
      * Class of the element.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    @Input({ transform: styleClassAttribute }) styleClass: string | undefined;
     /**
      * Defines the orientation.
      * @group Props

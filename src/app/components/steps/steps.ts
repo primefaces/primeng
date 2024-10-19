@@ -24,6 +24,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { Subscription } from 'rxjs';
 import { StepsStyle } from './style/stepsstyle';
 import { BaseComponent } from 'primeng/basecomponent';
+import { styleClassAttribute } from "primeng/base";
 /**
  * Steps components is an indicator for the steps in a wizard workflow.
  * @group Components
@@ -130,7 +131,7 @@ export class Steps extends BaseComponent implements OnInit, OnDestroy {
      * Style class of the component.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    @Input({ transform: styleClassAttribute }) styleClass: string | undefined;
     /**
      * Whether to apply 'router-link-active-exact' class if route exactly matches the item path.
      * @group Props
