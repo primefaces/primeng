@@ -1,6 +1,5 @@
 import { Component, ComponentRef } from '@angular/core';
 import { TestBed, ComponentFixture } from '@angular/core/testing';
-import { SharedModule } from '../api/shared';
 import { Tag } from './tag';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { By } from '@angular/platform-browser';
@@ -15,7 +14,7 @@ import { By } from '@angular/platform-browser';
         </p-tag>
     `,
     standalone: true,
-    imports: [Tag, SharedModule],
+    imports: [Tag],
 })
 class TestHostComponent {}
 
