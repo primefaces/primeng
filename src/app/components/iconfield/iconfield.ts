@@ -25,7 +25,7 @@ export class IconField extends BaseComponent {
      * Position of the icon.
      * @group Props
      */
-    iconPosition = input<'right' | 'left'>();
+    iconPosition = input<'right' | 'left'>('left');
     /**
      * Style class of the component.
      * @group Props
