@@ -47,6 +47,7 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
             [tabindex]="tabindex()"
             [disabled]="disabled()"
             (click)="toggle($event)"
+            (keydown)="onKeyDown($event)"
             [attr.aria-label]="ariaLabel()"
             [attr.aria-labelledby]="ariaLabelledBy()"
             [attr.aria-pressed]="checked()"
