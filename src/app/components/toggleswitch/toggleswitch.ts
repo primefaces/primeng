@@ -9,11 +9,14 @@ import {
     inject,
     input,
     model,
+    signal,
+    computed,
     NgModule,
     numberAttribute,
     Output,
     ViewChild,
     ViewEncapsulation,
+    WritableSignal,
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { AutoFocusModule } from 'primeng/autofocus';
@@ -138,9 +141,9 @@ export class ToggleSwitch extends BaseComponent {
 
     @ViewChild('input') input!: ElementRef;
 
-    modelValue: any = false;
+    modelValue: WritableSignal<boolean> = signal<boolean>(false);
 
-    focused: boolean = false;
+    focused: WritableSignal<boolean> = signal<boolean>(false);
 
     onModelChange: Function = () => {};
 
@@ -150,30 +153,24 @@ export class ToggleSwitch extends BaseComponent {
 
     onClick(event: Event) {
         if (!this.disabled() && !this.readonly()) {
-            this.modelValue = this.checked() ? this.falseValue() : this.trueValue();
-
-            this.onModelChange(this.modelValue);
-            this.onChange.emit({
-                originalEvent: event,
-                checked: this.modelValue,
-            });
-
+            this.modelValue.set(this.checked() ? this.falseValue() : this.trueValue());
+            this.onModelChange(this.modelValue());
+            this.onChange.emit({ originalEvent: event, checked: this.modelValue() });
             this.input.nativeElement.focus();
         }
     }
 
     onFocus() {
-        this.focused = true;
+        this.focused.set(true);
     }
 
     onBlur() {
-        this.focused = false;
+        this.focused.set(false);
         this.onModelTouched();
     }
 
     writeValue(value: any): void {
-        this.modelValue = value;
-        this.cd.markForCheck();
+        this.modelValue.set(value);
     }
 
     registerOnChange(fn: Function): void {
@@ -188,9 +185,7 @@ export class ToggleSwitch extends BaseComponent {
         this.disabled.set(val);
     }
 
-    checked() {
-        return this.modelValue === this.trueValue();
-    }
+    checked = computed<boolean>(() => this.modelValue() === this.trueValue());
 }
 
 @NgModule({
