@@ -1,6 +1,6 @@
 import { ComponentRef } from '@angular/core';
 import { TestBed, ComponentFixture } from '@angular/core/testing';
-import { InputIcon, InputIconModule } from './inputicon';
+import { InputIcon } from './inputicon';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('InputIcon', () => {
@@ -10,7 +10,7 @@ describe('InputIcon', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule, InputIconModule],
+            imports: [NoopAnimationsModule, InputIcon],
         });
 
         fixture = TestBed.createComponent(InputIcon);

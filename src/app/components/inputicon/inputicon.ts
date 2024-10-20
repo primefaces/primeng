@@ -1,9 +1,4 @@
-import { ChangeDetectionStrategy, Component,HostBinding,
-    inject,
-    input,
-    NgModule,
-    ViewEncapsulation
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, input, NgModule, ViewEncapsulation } from '@angular/core';
 import { BaseComponent } from 'primeng/basecomponent';
 import { InputIconStyle } from './style/inputiconstyle';
 
