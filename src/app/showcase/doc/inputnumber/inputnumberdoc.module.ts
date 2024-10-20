@@ -35,7 +35,7 @@ import { IftaLabelModule } from 'primeng/iftalabel';
         AppDocModule,
         FloatLabelModule,
         FluidModule,
-        IftaLabelModule
+        IftaLabelModule,
     ],
     exports: [AppDocModule],
     declarations: [

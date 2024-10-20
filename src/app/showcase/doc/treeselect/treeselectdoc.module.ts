@@ -33,7 +33,7 @@ import { IftaLabelDoc } from './iftalabeldoc';
         ReactiveFormsModule,
         RouterModule,
         FloatLabelModule,
-        IftaLabelModule
+        IftaLabelModule,
     ],
     exports: [AppDocModule],
     declarations: [

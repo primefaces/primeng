@@ -27,10 +27,10 @@ interface UploadEvent {
                 maxFileSize="1000000"
                 mode="advanced"
             >
-                <ng-template pTemplate="empty">
+                <ng-template #empty>
                     <div>Drag and drop files to here to upload.</div>
                 </ng-template>
-                <ng-template pTemplate="content">
+                <ng-template #content>
                     <ul *ngIf="uploadedFiles.length">
                         <li *ngFor="let file of uploadedFiles">{{ file.name }} - {{ file.size }} bytes</li>
                     </ul>
@@ -64,10 +64,10 @@ export class AdvancedDoc {
     maxFileSize="1000000"
     mode="advanced"
 >
-    <ng-template pTemplate="empty">
+    <ng-template #empty>
         <div>Drag and drop files to here to upload.</div>
     </ng-template>
-    <ng-template pTemplate="content">
+    <ng-template #content>
         <ul *ngIf="uploadedFiles.length">
             <li *ngFor="let file of uploadedFiles">{{ file.name }} - {{ file.size }} bytes</li>
         </ul>
@@ -84,10 +84,10 @@ export class AdvancedDoc {
         maxFileSize="1000000"
         mode="advanced"
     >
-        <ng-template pTemplate="empty">
+        <ng-template #empty>
             <div>Drag and drop files to here to upload.</div>
         </ng-template>
-        <ng-template pTemplate="content">
+        <ng-template #content>
             <ul *ngIf="uploadedFiles.length">
                 <li *ngFor="let file of uploadedFiles">{{ file.name }} - {{ file.size }} bytes</li>
             </ul>
@@ -96,7 +96,7 @@ export class AdvancedDoc {
 </div>`,
         typescript: `import { Component } from '@angular/core';
 import { MessageService } from 'primeng/api';
-import { FileUploadModule } from 'primeng/fileupload';
+import { FileUpload } from 'primeng/fileupload';
 import { ToastModule } from 'primeng/toast';
 import { CommonModule } from '@angular/common';
 
@@ -109,7 +109,7 @@ interface UploadEvent {
     selector: 'file-upload-advanced-demo',
     templateUrl: './file-upload-advanced-demo.html',
     standalone: true,
-    imports: [FileUploadModule, ToastModule, CommonModule],
+    imports: [FileUpload, ToastModule, CommonModule],
     providers: [MessageService]
 })
 export class FileUploadAdvancedDemo {

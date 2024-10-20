@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { Code } from '@domain/code';
 import { Product } from '@domain/product';
 import { ProductService } from '@service/productservice';
@@ -42,29 +42,6 @@ export class StyleDoc {
         private productService: ProductService,
         private cd: ChangeDetectorRef,
     ) {}
-
-    loadDemoData() {
-        this.productService.getProductsSmall().then((data) => {
-            this.products = data;
-            this.cd.markForCheck();
-        });
-    }
-
-    rowClass(product: Product) {
-        return { '!bg-primary !text-primary-contrast': product.category === 'Fitness' };
-    }
-
-    rowStyle(product: Product) {
-        if (product.quantity === 0) {
-            return { fontWeight: 'bold', fontStyle: 'italic' };
-        }
-    }
-
-    stockSeverity(product: Product) {
-        if (product.quantity === 0) return 'danger';
-        else if (product.quantity > 0 && product.quantity < 10) return 'warn';
-        else return 'success';
-    }
 
     code: Code = {
         basic: `<p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
@@ -157,6 +134,29 @@ export class TableStyleDemo implements OnInit{
 }`,
         service: ['ProductService'],
     };
+
+    loadDemoData() {
+        this.productService.getProductsSmall().then((data) => {
+            this.products = data;
+            this.cd.markForCheck();
+        });
+    }
+
+    rowClass(product: Product) {
+        return { '!bg-primary !text-primary-contrast': product.category === 'Fitness' };
+    }
+
+    rowStyle(product: Product) {
+        if (product.quantity === 0) {
+            return { fontWeight: 'bold', fontStyle: 'italic' };
+        }
+    }
+
+    stockSeverity(product: Product) {
+        if (product.quantity === 0) return 'danger';
+        else if (product.quantity > 0 && product.quantity < 10) return 'warn';
+        else return 'success';
+    }
 
     extFiles = [
         {

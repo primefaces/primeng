@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { Code } from '@domain/code';
 import { NodeService } from '@service/nodeservice';
@@ -63,17 +63,17 @@ export class SizeDoc {
 
     code: Code = {
         basic: `<div class="flex justify-center mb-4">
-    <p-selectbutton 
-        [options]="sizes" 
-        [(ngModel)]="selectedSize" 
-        [multiple]="false" 
-        optionLabel="name" 
+    <p-selectbutton
+        [options]="sizes"
+        [(ngModel)]="selectedSize"
+        [multiple]="false"
+        optionLabel="name"
         optionValue="class" />
 </div>
-<p-treetable 
-    [value]="files" 
-    [scrollable]="true" 
-    [tableStyle]="{'min-width':'50rem'}" 
+<p-treetable
+    [value]="files"
+    [scrollable]="true"
+    [tableStyle]="{'min-width':'50rem'}"
     [styleClass]="selectedSize">
         <ng-template pTemplate="header">
             <tr>
@@ -96,17 +96,17 @@ export class SizeDoc {
 
         html: `<div class="card">
     <div class="flex justify-center mb-4">
-        <p-selectbutton 
-            [options]="sizes" 
-            [(ngModel)]="selectedSize" 
-            [multiple]="false" 
-            optionLabel="name" 
+        <p-selectbutton
+            [options]="sizes"
+            [(ngModel)]="selectedSize"
+            [multiple]="false"
+            optionLabel="name"
             optionValue="class" />
     </div>
-    <p-treetable 
-        [value]="files" 
-        [scrollable]="true" 
-        [tableStyle]="{'min-width':'50rem'}" 
+    <p-treetable
+        [value]="files"
+        [scrollable]="true"
+        [tableStyle]="{'min-width':'50rem'}"
         [styleClass]="selectedSize">
             <ng-template pTemplate="header">
                 <tr>
@@ -132,14 +132,14 @@ export class SizeDoc {
 import { TreeNode } from 'primeng/api';
 import { NodeService } from '@service/nodeservice';
 import { TreeTableModule } from 'primeng/treetable';
-import { SelectButtonModule } from 'primeng/selectbutton';
+import { SelectButton } from 'primeng/selectbutton';
 import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'tree-table-size-demo',
     templateUrl: './tree-table-size-demo.html',
     standalone: true,
-    imports: [TreeTableModule, SelectButtonModule, FormsModule],
+    imports: [TreeTableModule, SelectButton, FormsModule],
     providers: [NodeService]
 })
 export class TreeTableSizeDemo implements OnInit {

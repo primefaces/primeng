@@ -42,13 +42,13 @@ export class CheckboxDoc {
         typescript: `import { Component } from '@angular/core';
 import { NodeService } from '@service/nodeservice';
 import { FormsModule } from '@angular/forms';
-import { TreeSelectModule } from 'primeng/treeselect';
+import { TreeSelect } from 'primeng/treeselect';
 
 @Component({
     selector: 'tree-select-checkbox-demo',
     templateUrl: './tree-select-checkbox-demo.html',
     standalone: true,
-    imports: [FormsModule, TreeSelectModule],
+    imports: [FormsModule, TreeSelect],
     providers: [NodeService]
 })
 export class TreeSelectCheckboxDemo {

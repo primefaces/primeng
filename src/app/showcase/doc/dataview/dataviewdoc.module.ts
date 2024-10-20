@@ -3,9 +3,9 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
-import { DataViewModule } from 'primeng/dataview';
-import { RatingModule } from 'primeng/rating';
-import { TagModule } from 'primeng/tag';
+import { DataView } from 'primeng/dataview';
+import { Rating } from 'primeng/rating';
+import { Tag } from 'primeng/tag';
 import { AppDocModule } from '@layout/doc/app.doc.module';
 import { AppCodeModule } from '@layout/doc/app.code.component';
 import { AccessibilityDoc } from './accessibilitydoc';
@@ -16,24 +16,24 @@ import { PaginationDoc } from './paginationdoc';
 import { SortingDoc } from './sortingdoc';
 import { StyleDoc } from './styledoc';
 import { LoadingDoc } from './loadingdoc';
-import { SkeletonModule } from 'primeng/skeleton';
+import { Skeleton } from 'primeng/skeleton';
 import { Select } from 'primeng/select';
-import { SelectButtonModule } from 'primeng/selectbutton';
+import { SelectButton } from 'primeng/selectbutton';
 
 @NgModule({
     imports: [
         CommonModule,
         AppCodeModule,
-        SelectButtonModule,
+        SelectButton,
         AppDocModule,
-        DataViewModule,
+        DataView,
         Select,
         ButtonModule,
         RouterModule,
-        RatingModule,
-        TagModule,
+        Rating,
+        Tag,
         FormsModule,
-        SkeletonModule,
+        Skeleton,
     ],
     exports: [AppDocModule],
     declarations: [ImportDoc, BasicDoc, PaginationDoc, SortingDoc, LayoutDoc, LoadingDoc, StyleDoc, AccessibilityDoc],

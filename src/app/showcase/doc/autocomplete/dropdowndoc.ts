@@ -17,12 +17,7 @@ interface AutoCompleteCompleteEvent {
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-autocomplete
-                [(ngModel)]="value"
-                [dropdown]="true"
-                [suggestions]="items"
-                (completeMethod)="search($event)"
-            />
+            <p-autocomplete [(ngModel)]="value" [dropdown]="true" [suggestions]="items" (completeMethod)="search($event)" />
         </div>
         <app-code [code]="code" selector="autocomplete-dropdown-demo"></app-code>`,
 })
@@ -30,13 +25,6 @@ export class DropdownDoc {
     items: any[] | undefined;
 
     value: any;
-
-    search(event: AutoCompleteCompleteEvent) {
-        let _items = [...Array(10).keys()];
-
-        this.items = event.query ? [...Array(10).keys()].map((item) => event.query + '-' + item) : _items;
-    }
-
     code: Code = {
         basic: `<p-autocomplete [(ngModel)]="value" [dropdown]="true" [suggestions]="items" (completeMethod)="search($event)" />`,
 
@@ -66,9 +54,15 @@ export class AutocompleteDropdownDemo implements OnInit {
 
     search(event: AutoCompleteCompleteEvent) {
     let _items = [...Array(10).keys()];
-    
+
     this.items = event.query ? [...Array(10).keys()].map((item) => event.query + '-' + item) : _items;
     }
 }`,
     };
+
+    search(event: AutoCompleteCompleteEvent) {
+        let _items = [...Array(10).keys()];
+
+        this.items = event.query ? [...Array(10).keys()].map((item) => event.query + '-' + item) : _items;
+    }
 }

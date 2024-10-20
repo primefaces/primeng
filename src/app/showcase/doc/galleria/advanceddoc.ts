@@ -77,12 +77,12 @@ export class AdvancedDoc implements OnInit, OnDestroy {
     responsiveOptions: any[] = [
         {
             breakpoint: '1300px',
-            numVisible: 4
+            numVisible: 4,
         },
         {
             breakpoint: '575px',
-            numVisible: 1
-        }
+            numVisible: 1,
+        },
     ];
 
     ngOnInit() {

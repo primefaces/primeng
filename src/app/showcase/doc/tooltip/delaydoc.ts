@@ -22,14 +22,14 @@ export class DelayDoc {
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { TooltipModule } from 'primeng/tooltip';
+import { Tooltip } from 'primeng/tooltip';
 import { ButtonModule } from 'primeng/button';
 
 @Component({
     selector: 'tooltip-delay-demo',
     templateUrl: './tooltip-delay-demo.html',
     standalone: true,
-    imports: [TooltipModule, ButtonModule]
+    imports: [Tooltip, ButtonModule]
 })
 export class TooltipDelayDemo {}`,
     };

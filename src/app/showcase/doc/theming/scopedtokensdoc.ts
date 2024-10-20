@@ -54,7 +54,7 @@ export class ScopedTokensDoc {
     code = {
         typescript: `import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ToggleSwitchModule } from 'primeng/toggleswitch';
+import { ToggleSwitch } from 'primeng/toggleswitch';
 
 @Component({
     template: \` 
@@ -62,7 +62,7 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
         <p-toggleswitch [(ngModel)]="checked2" [dt]="amberSwitch"/>
     \`,
     standalone: true,
-    imports: [ToggleSwitchModule, FormsModule]
+    imports: [ToggleSwitch, FormsModule]
 })
 export class AppComponent {
     checked1: boolean = true;

@@ -12,12 +12,7 @@ import { PhotoService } from '@service/photoservice';
             </p>
         </app-docsectiontext>
         <div class="card">
-            <p-galleria
-                [(value)]="images"
-                [showIndicators]="true"
-                [showThumbnails]="false"
-                [containerStyle]="{ 'max-width': '640px' }"
-            >
+            <p-galleria [(value)]="images" [showIndicators]="true" [showThumbnails]="false" [containerStyle]="{ 'max-width': '640px' }">
                 <ng-template pTemplate="item" let-item>
                     <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
                 </ng-template>

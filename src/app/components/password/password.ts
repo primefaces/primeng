@@ -1,46 +1,40 @@
-import { AnimationEvent, animate, style, transition, trigger } from '@angular/animations';
-import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { animate, AnimationEvent, style, transition, trigger } from '@angular/animations';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
-    AfterContentInit,
+    booleanAttribute,
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
-    ContentChildren,
+    ContentChild,
     Directive,
     DoCheck,
     ElementRef,
     EventEmitter,
+    forwardRef,
     HostListener,
-    Inject,
+    inject,
     Input,
     NgModule,
     NgZone,
+    numberAttribute,
     OnDestroy,
     OnInit,
     Output,
-    PLATFORM_ID,
     Pipe,
     PipeTransform,
-    QueryList,
-    Renderer2,
     TemplateRef,
     ViewChild,
     ViewEncapsulation,
-    booleanAttribute,
-    forwardRef,
-    inject,
-    numberAttribute,
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
+import { OverlayService, TranslationKeys } from 'primeng/api';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { EyeIcon } from 'primeng/icons/eye';
 import { EyeSlashIcon } from 'primeng/icons/eyeslash';
 import { TimesIcon } from 'primeng/icons/times';
-import { InputTextModule } from 'primeng/inputtext';
+import { InputText } from 'primeng/inputtext';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { ZIndexUtils } from 'primeng/utils';
-import { AutoFocusModule } from 'primeng/autofocus';
+import { AutoFocus } from 'primeng/autofocus';
 import { Subscription } from 'rxjs';
 import { BaseComponent } from 'primeng/basecomponent';
 import { PasswordStyle } from './style/passwordstyle';
@@ -55,6 +49,7 @@ type Meter = {
  */
 @Directive({
     selector: '[pPassword]',
+    standalone: true,
     host: {
         class: 'p-password p-inputtext p-component p-inputwrapper',
         '[class.p-inputwrapper-filled]': 'filled',
@@ -350,6 +345,7 @@ type Mapper<T, G> = (item: T, ...args: any[]) => G;
 @Pipe({
     name: 'mapper',
     pure: true,
+    standalone: true,
 })
 export class MapperPipe implements PipeTransform {
     public transform<T, G>(value: T, mapper: Mapper<T, G>, ...args: unknown[]): G {
@@ -368,6 +364,8 @@ export const Password_VALUE_ACCESSOR: any = {
  */
 @Component({
     selector: 'p-password',
+    standalone: true,
+    imports: [CommonModule, InputText, AutoFocus, TimesIcon, EyeSlashIcon, EyeIcon, MapperPipe],
     template: `
         <div [ngClass]="rootClass" [ngStyle]="style" [class]="styleClass" [attr.data-pc-name]="'password'" [attr.data-pc-section]="'root'">
             <input
@@ -377,6 +375,7 @@ export const Password_VALUE_ACCESSOR: any = {
                 [attr.aria-labelledBy]="ariaLabelledBy"
                 [attr.id]="inputId"
                 pInputText
+                [disabled]="disabled"
                 [ngClass]="disabled | mapper: inputFieldClass"
                 [ngStyle]="inputStyle"
                 [class]="inputStyleClass"
@@ -476,7 +475,7 @@ export const Password_VALUE_ACCESSOR: any = {
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
 })
-export class Password extends BaseComponent implements AfterContentInit, OnInit {
+export class Password extends BaseComponent implements OnInit {
     /**
      * Defines a string that labels the input for accessibility.
      * @group Props
@@ -632,19 +631,17 @@ export class Password extends BaseComponent implements AfterContentInit, OnInit 
 
     @ViewChild('input') input!: ElementRef;
 
-    contentTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('content') contentTemplate: Nullable<TemplateRef<any>>;
 
-    footerTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('footerT') footerTemplate: Nullable<TemplateRef<any>>;
 
-    headerTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('header') headerTemplate: Nullable<TemplateRef<any>>;
 
-    clearIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('clearicon') clearIconTemplate: Nullable<TemplateRef<any>>;
 
-    hideIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('headericon') hideIconTemplate: Nullable<TemplateRef<any>>;
 
-    showIconTemplate: Nullable<TemplateRef<any>>;
-
-    @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
+    @ContentChild('showicon') showIconTemplate: Nullable<TemplateRef<any>>;
 
     overlayVisible: boolean = false;
 
@@ -682,43 +679,7 @@ export class Password extends BaseComponent implements AfterContentInit, OnInit 
         return this.fluid || !!fluidComponent;
     }
 
-    constructor(public overlayService: OverlayService) {
-        super();
-    }
-
-    ngAfterContentInit() {
-        this.templates.forEach((item) => {
-            switch (item.getType()) {
-                case 'content':
-                    this.contentTemplate = item.template;
-                    break;
-
-                case 'header':
-                    this.headerTemplate = item.template;
-                    break;
-
-                case 'footer':
-                    this.footerTemplate = item.template;
-                    break;
-
-                case 'clearicon':
-                    this.clearIconTemplate = item.template;
-                    break;
-
-                case 'hideicon':
-                    this.hideIconTemplate = item.template;
-                    break;
-
-                case 'showicon':
-                    this.showIconTemplate = item.template;
-                    break;
-
-                default:
-                    this.contentTemplate = item.template;
-                    break;
-            }
-        });
-    }
+    overlayService = inject(OverlayService);
 
     ngOnInit() {
         super.ngOnInit();
@@ -1017,8 +978,7 @@ export class Password extends BaseComponent implements AfterContentInit, OnInit 
 }
 
 @NgModule({
-    imports: [CommonModule, InputTextModule, AutoFocusModule, TimesIcon, EyeSlashIcon, EyeIcon],
-    exports: [PasswordDirective, Password, SharedModule],
-    declarations: [PasswordDirective, Password, MapperPipe],
+    imports: [Password, PasswordDirective],
+    exports: [PasswordDirective, Password],
 })
 export class PasswordModule {}

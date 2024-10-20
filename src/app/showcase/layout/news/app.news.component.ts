@@ -1,19 +1,19 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, afterNextRender } from '@angular/core';
+import { afterNextRender, ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AppConfigService } from '@service/appconfigservice';
-import { StyleClassModule } from 'primeng/styleclass';
+import { StyleClass } from 'primeng/styleclass';
 import News from '../../data/news.json';
+import { AppConfigService } from '@service/appconfigservice';
 
 @Component({
     selector: 'app-news',
     standalone: true,
     templateUrl: './app.news.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [CommonModule, FormsModule, StyleClassModule],
+    imports: [CommonModule, FormsModule, StyleClass],
 })
 export class AppNewsComponent {
-    storageKey: string = 'primeng-v18';
+    storageKey: string = 'primeng';
 
     announcement: any;
 

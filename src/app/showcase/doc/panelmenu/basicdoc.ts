@@ -107,13 +107,13 @@ export class BasicDoc implements OnInit {
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
-import { PanelMenuModule } from 'primeng/panelmenu';
+import { PanelMenu } from 'primeng/panelmenu';
 
 @Component({
     selector: 'panel-menu-basic-demo',
     templateUrl: './panel-menu-basic-demo.html',
     standalone: true,
-    imports: [PanelMenuModule]
+    imports: [PanelMenu]
 })
 export class PanelMenuBasicDemo implements OnInit {
     items: MenuItem[];

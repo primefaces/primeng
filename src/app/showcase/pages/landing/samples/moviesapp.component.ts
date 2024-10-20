@@ -2,16 +2,16 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { SelectButtonModule } from 'primeng/selectbutton';
-import { SliderModule } from 'primeng/slider';
+import { SelectButton } from 'primeng/selectbutton';
+import { Slider } from 'primeng/slider';
 import { AvatarModule } from 'primeng/avatar';
 import { TooltipModule } from 'primeng/tooltip';
-import { IconFieldModule } from 'primeng/iconfield';
-import { InputIconModule } from 'primeng/inputicon';
+import { IconField } from 'primeng/iconfield';
+import { InputIcon } from 'primeng/inputicon';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
-import { ProgressBarModule } from 'primeng/progressbar';
-import { CarouselModule } from 'primeng/carousel';
+import { ProgressBar } from 'primeng/progressbar';
+import { Carousel } from 'primeng/carousel';
 import { OverlayBadgeModule } from 'primeng/overlaybadge';
 
 @Component({
@@ -20,17 +20,17 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
     imports: [
         CommonModule,
         RouterModule,
-        SelectButtonModule,
-        SliderModule,
+        SelectButton,
+        Slider,
         FormsModule,
         AvatarModule,
         TooltipModule,
-        IconFieldModule,
-        InputIconModule,
+        IconField,
+        InputIcon,
         ButtonModule,
         InputTextModule,
-        ProgressBarModule,
-        CarouselModule,
+        ProgressBar,
+        Carousel,
         OverlayBadgeModule,
     ],
     template: `
@@ -41,7 +41,7 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
                 <p-selectbutton [(ngModel)]="value" [options]="options" aria-labelledby="basic" />
                 <div class="flex gap-2.5 items-center">
                     <p-iconfield iconPosition="left">
-                        <p-inputicon class="pi pi-search"> </p-inputicon>
+                        <p-inputicon class="pi pi-search"></p-inputicon>
                         <input type="text" pInputText [(ngModel)]="search" placeholder="Search" />
                     </p-iconfield>
                     <p-button severity="secondary" outlined>

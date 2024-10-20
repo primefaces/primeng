@@ -69,15 +69,15 @@ export class NumeralsDoc {
 </p-fluid>`,
 
         typescript: `import { Component } from '@angular/core';
-import { InputNumberModule } from 'primeng/inputnumber';
+import { InputNumber } from 'primeng/inputnumber';
 import { FormsModule } from '@angular/forms';
-import { FluidModule } from 'primeng/fluid';
+import { Fluid } from 'primeng/fluid';
 
 @Component({
     selector: 'input-number-numerals-demo',
     templateUrl: './input-number-numerals-demo.html',
     standalone: true,
-    imports: [FormsModule, InputNumberModule, FluidModule]
+    imports: [FormsModule, InputNumber, Fluid]
 })
 export class InputNumberNumeralsDemo {
     value1: number = 42723;

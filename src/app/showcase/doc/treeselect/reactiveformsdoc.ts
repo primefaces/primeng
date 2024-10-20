@@ -60,7 +60,7 @@ import { NodeService } from '@service/nodeservice';
     selector: 'tree-select-reactive-forms-demo',
     templateUrl: './tree-select-reactive-forms-demo.html',
     standalone: true,
-    imports: [ReactiveFormsModule, TreeSelectModule],
+    imports: [ReactiveFormsModule, TreeSelect],
     providers: [NodeService]
 })
 export class TreeSelectReactiveFormsDemo implements OnInit {

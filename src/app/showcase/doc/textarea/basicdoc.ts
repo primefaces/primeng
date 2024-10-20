@@ -24,14 +24,14 @@ export class BasicDoc {
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { InputTextareaModule } from 'primeng/inputtextarea';
+import { Textarea } from 'primeng/textearea';;
 import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'input-textarea-basic-demo',
     templateUrl: './input-textarea-basic-demo.html',
     standalone: true,
-    imports: [FormsModule, InputTextareaModule]
+    imports: [FormsModule, Textarea]
 })
 
 export class InputTextareaBasicDemo {

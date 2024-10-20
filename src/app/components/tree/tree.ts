@@ -1,11 +1,10 @@
 import { CommonModule } from '@angular/common';
 import {
-    AfterContentInit,
     booleanAttribute,
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
-    ContentChildren,
+    contentChild,
+    ContentChild,
     ElementRef,
     EventEmitter,
     forwardRef,
@@ -18,16 +17,15 @@ import {
     OnInit,
     Optional,
     Output,
-    QueryList,
     SimpleChanges,
     TemplateRef,
     ViewChild,
     ViewEncapsulation,
 } from '@angular/core';
-import { BlockableUI, PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys, TreeDragDropService, TreeNode } from 'primeng/api';
+import { BlockableUI, TranslationKeys, TreeDragDropService, TreeNode } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
-import { RippleModule } from 'primeng/ripple';
-import { Scroller, ScrollerModule } from 'primeng/scroller';
+import { Ripple } from 'primeng/ripple';
+import { Scroller } from 'primeng/scroller';
 import { ScrollerOptions } from 'primeng/api';
 import { ObjectUtils } from 'primeng/utils';
 import { Subscription } from 'rxjs';
@@ -51,18 +49,20 @@ import {
     TreeScrollEvent,
     TreeScrollIndexChangeEvent,
 } from './tree.interface';
-import { InputTextModule } from 'primeng/inputtext';
-import { InputIconModule } from 'primeng/inputicon';
-import { IconFieldModule } from 'primeng/iconfield';
-import { CheckboxModule } from 'primeng/checkbox';
+import { InputText } from 'primeng/inputtext';
+import { InputIcon } from 'primeng/inputicon';
+import { IconField } from 'primeng/iconfield';
+import { Checkbox } from 'primeng/checkbox';
 import { FormsModule } from '@angular/forms';
 import { TreeStyle } from './style/treestyle';
 import { BaseComponent } from 'primeng/basecomponent';
 
 @Component({
     selector: 'p-treeNode',
+    standalone: true,
+    imports: [CommonModule, Ripple, Checkbox, FormsModule, ChevronRightIcon, ChevronDownIcon, SpinnerIcon],
     template: `
-        <ng-template [ngIf]="node">
+        @if (node) {
             <li
                 *ngIf="tree.droppableNodes"
                 class="p-treenode-droppoint"
@@ -138,7 +138,7 @@ import { BaseComponent } from 'primeng/basecomponent';
                         [tabindex]="-1"
                     >
                         <ng-container *ngIf="tree.checkboxIconTemplate">
-                            <ng-template pTemplate="icon">
+                            <ng-template #icon>
                                 <ng-template
                                     *ngTemplateOutlet="
                                         tree.checkboxIconTemplate;
@@ -155,9 +155,9 @@ import { BaseComponent } from 'primeng/basecomponent';
 
                     <span [class]="getIcon()" *ngIf="node.icon || node.expandedIcon || node.collapsedIcon"></span>
                     <span class="p-tree-node-label">
-                        <span *ngIf="!tree.getTemplateForNode(node)">{{ node.label }}</span>
-                        <span *ngIf="tree.getTemplateForNode(node)">
-                            <ng-container *ngTemplateOutlet="tree.getTemplateForNode(node); context: { $implicit: node }"></ng-container>
+                        <span *ngIf="!tree.nodeTemplate">{{ node.label }}</span>
+                        <span *ngIf="tree.nodeTemplate">
+                            <ng-container *ngTemplateOutlet="tree.nodeTemplate; context: { $implicit: node }"></ng-container>
                         </span>
                     </span>
                 </div>
@@ -197,7 +197,7 @@ import { BaseComponent } from 'primeng/basecomponent';
                 (dragenter)="onDropPointDragEnter($event, 1)"
                 (dragleave)="onDropPointDragLeave($event)"
             ></li>
-        </ng-template>
+        }
     `,
     encapsulation: ViewEncapsulation.None,
 })
@@ -766,6 +766,25 @@ export class UITreeNode extends BaseComponent implements OnInit {
  */
 @Component({
     selector: 'p-tree',
+    standalone: true,
+    imports: [
+        CommonModule,
+        Ripple,
+        Scroller,
+        CheckIcon,
+        ChevronDownIcon,
+        ChevronRightIcon,
+        MinusIcon,
+        SearchIcon,
+        SpinnerIcon,
+        PlusIcon,
+        InputText,
+        IconField,
+        InputIcon,
+        Checkbox,
+        FormsModule,
+        UITreeNode,
+    ],
     template: `
         <div
             [ngClass]="containerClass"
@@ -786,24 +805,29 @@ export class UITreeNode extends BaseComponent implements OnInit {
                 </ng-container>
             </div>
             <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
-            <p-iconfield *ngIf="filter">
-                <input
-                    #filter
-                    pInputText
-                    type="search"
-                    autocomplete="off"
-                    class="p-tree-filter-input"
-                    [attr.placeholder]="filterPlaceholder"
-                    (keydown.enter)="$event.preventDefault()"
-                    (input)="_filter($event.target.value)"
-                />
-                <p-inputicon>
-                    <SearchIcon *ngIf="!filterIconTemplate" class="p-tree-filter-icon" />
-                    <span *ngIf="filterIconTemplate">
-                        <ng-template *ngTemplateOutlet="filterIconTemplate"></ng-template>
-                    </span>
-                </p-inputicon>
-            </p-iconfield>
+            @if (filterTemplate) {
+                <ng-container *ngTemplateOutlet="filterTemplate; context: { $implicit: filterOptions }"></ng-container>
+            } @else {
+                <p-iconField *ngIf="filter">
+                    <input
+                        #filter
+                        pInputText
+                        type="search"
+                        autocomplete="off"
+                        class="p-tree-filter-input"
+                        [attr.placeholder]="filterPlaceholder"
+                        (keydown.enter)="$event.preventDefault()"
+                        (input)="_filter($event.target.value)"
+                    />
+                    <p-inputIcon>
+                        <SearchIcon *ngIf="!filterIconTemplate" class="p-tree-filter-icon" />
+                        <span *ngIf="filterIconTemplate">
+                            <ng-template *ngTemplateOutlet="filterIconTemplate"></ng-template>
+                        </span>
+                    </p-inputIcon>
+                </p-iconField>
+            }
+
             <ng-container *ngIf="getRootNode()?.length">
                 <p-scroller
                     #scroller
@@ -820,7 +844,7 @@ export class UITreeNode extends BaseComponent implements OnInit {
                     (onLazyLoad)="onLazyLoad.emit($event)"
                     [options]="virtualScrollOptions"
                 >
-                    <ng-template pTemplate="content" let-items let-scrollerOptions="options">
+                    <ng-template #content let-items let-scrollerOptions="options">
                         <ul
                             *ngIf="items"
                             class="p-tree-root-children"
@@ -853,7 +877,7 @@ export class UITreeNode extends BaseComponent implements OnInit {
                         </ul>
                     </ng-template>
                     <ng-container *ngIf="loaderTemplate">
-                        <ng-template pTemplate="loader" let-scrollerOptions="options">
+                        <ng-template #loader let-scrollerOptions="options">
                             <ng-container *ngTemplateOutlet="loaderTemplate; context: { options: scrollerOptions }"></ng-container>
                         </ng-template>
                     </ng-container>
@@ -900,7 +924,8 @@ export class UITreeNode extends BaseComponent implements OnInit {
     encapsulation: ViewEncapsulation.None,
     providers: [TreeStyle],
 })
-export class Tree extends BaseComponent implements OnInit, AfterContentInit, OnChanges, OnDestroy, BlockableUI {
+export class Tree extends BaseComponent implements OnInit, OnChanges, OnDestroy, BlockableUI {
+    @ContentChild('filter') filterTemplate: TemplateRef<any>;
     /**
      * An array of treenodes.
      * @group Props
@@ -1021,6 +1046,11 @@ export class Tree extends BaseComponent implements OnInit, AfterContentInit, OnC
      * @group Props
      */
     @Input() filterMode: string = 'lenient';
+    /**
+     * Mode for filtering valid values are "lenient" and "strict". Default is lenient.
+     * @group Props
+     */
+    @Input() filterOptions: any;
     /**
      * Placeholder text to show when filter input is empty.
      * @group Props
@@ -1162,8 +1192,51 @@ export class Tree extends BaseComponent implements OnInit, AfterContentInit, OnC
      * @group Emits
      */
     @Output() onFilter: EventEmitter<TreeFilterEvent> = new EventEmitter<TreeFilterEvent>();
-
-    @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<any>>;
+    /**
+     * Node template.
+     * @group Templates
+     */
+    @ContentChild('node') nodeTemplate: TemplateRef<any> | undefined;
+    /**
+     * Header template.
+     * @group Templates
+     */
+    @ContentChild('header') headerTemplate: TemplateRef<any> | undefined;
+    /**
+     * Footer template.
+     * @group Templates
+     */
+    @ContentChild('footer') footerTemplate: TemplateRef<any> | undefined;
+    /**
+     * Loader template.
+     * @group Templates
+     */
+    @ContentChild('loader') loaderTemplate: TemplateRef<any> | undefined;
+    /**
+     * Empty message template.
+     * @group Templates
+     */
+    @ContentChild('empty') emptyMessageTemplate: TemplateRef<any> | undefined;
+    /**
+     * Toggler icon template.
+     * @group Templates
+     */
+    @ContentChild('togglericon') togglerIconTemplate: TemplateRef<any> | undefined;
+    /**
+     * Checkbox icon template.
+     * @group Templates
+     */
+    @ContentChild('checkboxicon') checkboxIconTemplate: TemplateRef<any> | undefined;
+    /**
+     * Loading icon template.
+     * @group Templates
+     */
+    @ContentChild('loadingicon') loadingIconTemplate: TemplateRef<any> | undefined;
+    /**
+     * Filter icon template.
+     * @group Templates
+     */
+    @ContentChild('filtericon') filterIconTemplate: TemplateRef<any> | undefined;
 
     @ViewChild('filter') filterViewChild: Nullable<ElementRef>;
 
@@ -1172,22 +1245,6 @@ export class Tree extends BaseComponent implements OnInit, AfterContentInit, OnC
     @ViewChild('wrapper') wrapperViewChild: Nullable<ElementRef>;
 
     serializedValue: Nullable<TreeNode<any>[]>;
-
-    headerTemplate: Nullable<TemplateRef<any>>;
-
-    footerTemplate: Nullable<TemplateRef<any>>;
-
-    loaderTemplate: Nullable<TemplateRef<any>>;
-
-    emptyMessageTemplate: Nullable<TemplateRef<any>>;
-
-    togglerIconTemplate: Nullable<TemplateRef<any>>;
-
-    checkboxIconTemplate: Nullable<TemplateRef<any>>;
-
-    loadingIconTemplate: Nullable<TemplateRef<any>>;
-
-    filterIconTemplate: Nullable<TemplateRef<any>>;
 
     public nodeTouched: boolean | undefined | null;
 
@@ -1215,6 +1272,12 @@ export class Tree extends BaseComponent implements OnInit, AfterContentInit, OnC
 
     ngOnInit() {
         super.ngOnInit();
+        if (this.filterBy) {
+            this.filterOptions = {
+                filter: (value) => this._filter(value),
+                reset: () => this.resetFilter(),
+            };
+        }
         if (this.droppableNodes) {
             this.dragStartSubscription = this.dragDropService.dragStart$.subscribe((event) => {
                 this.dragNodeTree = event.tree;
@@ -1251,52 +1314,6 @@ export class Tree extends BaseComponent implements OnInit, AfterContentInit, OnC
 
     get emptyMessageLabel(): string {
         return this.emptyMessage || this.config.getTranslation(TranslationKeys.EMPTY_MESSAGE);
-    }
-
-    ngAfterContentInit() {
-        if ((this.templates as QueryList<PrimeTemplate>).length) {
-            this._templateMap = {};
-        }
-
-        (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
-            switch (item.getType()) {
-                case 'header':
-                    this.headerTemplate = item.template;
-                    break;
-
-                case 'empty':
-                    this.emptyMessageTemplate = item.template;
-                    break;
-
-                case 'footer':
-                    this.footerTemplate = item.template;
-                    break;
-
-                case 'loader':
-                    this.loaderTemplate = item.template;
-                    break;
-
-                case 'togglericon':
-                    this.togglerIconTemplate = item.template;
-                    break;
-
-                case 'checkboxicon':
-                    this.checkboxIconTemplate = item.template;
-                    break;
-
-                case 'loadingicon':
-                    this.loadingIconTemplate = item.template;
-                    break;
-
-                case 'filtericon':
-                    this.filterIconTemplate = item.template;
-                    break;
-
-                default:
-                    this._templateMap[<any>item.name] = item.template;
-                    break;
-            }
-        });
     }
 
     updateSerializedValue() {
@@ -1828,25 +1845,7 @@ export class Tree extends BaseComponent implements OnInit, AfterContentInit, OnC
     }
 }
 @NgModule({
-    imports: [
-        CommonModule,
-        SharedModule,
-        RippleModule,
-        ScrollerModule,
-        CheckIcon,
-        ChevronDownIcon,
-        ChevronRightIcon,
-        MinusIcon,
-        SearchIcon,
-        SpinnerIcon,
-        PlusIcon,
-        InputTextModule,
-        IconFieldModule,
-        InputIconModule,
-        CheckboxModule,
-        FormsModule,
-    ],
-    exports: [Tree, SharedModule, ScrollerModule],
-    declarations: [Tree, UITreeNode],
+    imports: [Tree],
+    exports: [Tree],
 })
 export class TreeModule {}

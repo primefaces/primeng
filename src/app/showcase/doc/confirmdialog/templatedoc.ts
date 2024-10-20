@@ -20,14 +20,14 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-toast />
-            <p-confirmdialog>
-                <ng-template pTemplate="message" let-message>
+            <p-confirmDialog>
+                <ng-template #message let-message>
                     <div class="flex flex-col items-center w-full gap-4 border-b border-surface-200 dark:border-surface-700">
                         <i [ngClass]="message.icon" class="!text-6xl text-primary-500"></i>
                         <p>{{ message.message }}</p>
                     </div>
                 </ng-template>
-            </p-confirmdialog>
+            </p-confirmDialog>
             <p-button (click)="confirm()" label="Save" />
         </div>
         <app-code [code]="code" selector="confirm-dialog-template-demo"></app-code>
@@ -67,32 +67,32 @@ export class TemplateDoc {
 
     code: Code = {
         basic: `<p-toast />
-<p-confirmdialog>
-    <ng-template pTemplate="message" let-message>
+<p-confirmDialog>
+    <ng-template #message let-message>
         <div class="flex flex-col items-center w-full gap-4 border-b border-surface-200 dark:border-surface-700">
             <i [ngClass]="message.icon" class="!text-6xl text-primary-500"></i>
             <p>{{ message.message }}</p>
         </div>
     </ng-template>
-</p-confirmdialog>
+</p-confirmDialog>
 <p-button (click)="confirm()" label="Save" />`,
 
         html: `<div class="card flex justify-center">
     <p-toast />
-    <p-confirmdialog>
-        <ng-template pTemplate="message" let-message>
+    <p-confirmDialog>
+        <ng-template #message let-message>
             <div class="flex flex-col items-center w-full gap-4 border-b border-surface-200 dark:border-surface-700">
                 <i [ngClass]="message.icon" class="!text-6xl text-primary-500"></i>
                 <p>{{ message.message }}</p>
             </div>
         </ng-template>
-    </p-confirmdialog>
+    </p-confirmDialog>
     <p-button (click)="confirm()" label="Save" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmDialog } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
 import { ButtonModule } from 'primeng/button';
         
@@ -100,7 +100,7 @@ import { ButtonModule } from 'primeng/button';
     selector: 'confirm-dialog-template-demo',
     templateUrl: './confirm-dialog-template-demo.html',
     standalone: true,
-    imports: [ConfirmDialogModule, ToastModule, ButtonModule],
+    imports: [ConfirmDialog, ToastModule, ButtonModule],
     providers: [ConfirmationService, MessageService]
 })
 export class ConfirmDialogTemplateDemo {

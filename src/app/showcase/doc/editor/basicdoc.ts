@@ -25,13 +25,13 @@ export class BasicDoc {
 
         typescript: `import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { EditorModule } from 'primeng/editor';
+import { Editor } from 'primeng/editor';
 
 @Component({
     selector: 'editor-basic-demo',
     templateUrl: './editor-basic-demo.html',
     standalone: true,
-    imports: [FormsModule, EditorModule]
+    imports: [FormsModule, Editor]
 })
 export class EditorBasicDemo {
     text: string | undefined;

@@ -75,13 +75,13 @@ export class LazyVirtualScrollDoc {
         typescript: `import { SelectItem } from 'primeng/api';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SelectModule } from 'primeng/select';
+import { Select } from 'primeng/select';
 
 @Component({
     selector: 'select-lazy-virtualscroll-demo',
     templateUrl: './select-lazy-virtualscroll-demo.html',
     standalone: true,
-    imports: [FormsModule, SelectModule]
+    imports: [FormsModule, Select]
 })
 export class SelectLazyVirtualscrollDemo {
     items: SelectItem[];

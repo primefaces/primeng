@@ -10,7 +10,9 @@ import { Code } from '@domain/code';
         <div class="card flex justify-center">
             <p-datepicker [(ngModel)]="date">
                 <ng-template pTemplate="date" let-date>
-                    <strong *ngIf="date.day > 10 && date.day < 15; else elseBlock" style="text-decoration: line-through">{{ date.day }}</strong>
+                    <strong *ngIf="date.day > 10 && date.day < 15; else elseBlock" style="text-decoration: line-through">{{
+                        date.day
+                    }}</strong>
                     <ng-template #elseBlock>{{ date.day }}</ng-template>
                 </ng-template>
             </p-datepicker>

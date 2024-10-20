@@ -33,7 +33,7 @@ export class ToolbarDemo {
         {
             id: 'custom',
             label: 'Custom',
-            component: CustomDoc
+            component: CustomDoc,
         },
         {
             id: 'accessibility',
