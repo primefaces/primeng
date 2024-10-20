@@ -149,7 +149,7 @@ export class ToggleSwitch extends BaseComponent {
     _componentStyle = inject(ToggleSwitchStyle);
 
     onClick(event: Event) {
-        if (!this.disabled && !this.readonly()) {
+        if (!this.disabled() && !this.readonly()) {
             this.modelValue = this.checked() ? this.falseValue() : this.trueValue();
 
             this.onModelChange(this.modelValue);
