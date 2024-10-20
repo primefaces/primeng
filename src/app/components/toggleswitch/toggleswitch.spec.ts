@@ -4,7 +4,7 @@ import { By } from '@angular/platform-browser';
 import { ToggleSwitch } from './toggleswitch';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
-fdescribe('ToggleSwitch', () => {
+describe('ToggleSwitch', () => {
     let toggleSwitch: ToggleSwitch;
     let fixture: ComponentFixture<ToggleSwitch>;
     let toggleSwitchRef: ComponentRef<ToggleSwitch>;
