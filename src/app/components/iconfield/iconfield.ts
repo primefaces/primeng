@@ -14,8 +14,8 @@ import { IconFieldStyle } from './style/iconfieldstyle';
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
-        class: 'p-iconfield',
         '[class]': 'styleClass()',
+        '[class.p-iconfield]': 'true',
         '[class.p-iconfield-left]': 'iconPosition() === "left"',
         '[class.p-iconfield-right]': 'iconPosition() === "right"',
     },
