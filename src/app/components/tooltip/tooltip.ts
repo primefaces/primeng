@@ -30,7 +30,6 @@ import { BaseComponent } from 'primeng/basecomponent';
     selector: '[pTooltip]',
     standalone: true,
     providers: [TooltipStyle],
-    standalone: true,
 })
 export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
     /**
