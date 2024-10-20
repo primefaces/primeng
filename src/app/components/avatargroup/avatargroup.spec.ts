@@ -1,6 +1,6 @@
 import { Component, ComponentRef } from '@angular/core';
 import { TestBed, ComponentFixture } from '@angular/core/testing';
-import { AvatarGroup, AvatarGroupModule } from './avatargroup';
+import { AvatarGroup } from './avatargroup';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 @Component({
@@ -10,7 +10,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
         </p-avatar-group>
     `,
     standalone: true,
-    imports: [AvatarGroupModule],
+    imports: [AvatarGroup],
 })
 class TestHostComponent {}
 
@@ -22,7 +22,7 @@ describe('AvatarGroup', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule, AvatarGroupModule, TestHostComponent],
+            imports: [NoopAnimationsModule, AvatarGroup, TestHostComponent],
         });
 
         fixture = TestBed.createComponent(AvatarGroup);
