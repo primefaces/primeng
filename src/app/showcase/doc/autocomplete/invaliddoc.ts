@@ -41,7 +41,7 @@ export class InvalidDoc {
 
         typescript: `import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AutoCompleteModule } from 'primeng/autocomplete';
+import { AutoComplete } from 'primeng/autocomplete';
 
 interface AutoCompleteCompleteEvent {
     originalEvent: Event;
@@ -52,7 +52,7 @@ interface AutoCompleteCompleteEvent {
     selector: 'autocomplete-invalid-demo',
     templateUrl: './autocomplete-invalid-demo.html',
     standalone: true,
-    imports: [FormsModule, AutoCompleteModule]
+    imports: [FormsModule, AutoComplete]
 })
 export class AutocompleteInvalidDemo {
     items: any[] | undefined;

@@ -113,7 +113,7 @@ export class TemplateDoc {
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { TimelineModule } from 'primeng/timeline';
+import { Timeline } from 'primeng/timeline';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
 
@@ -129,7 +129,7 @@ interface EventItem {
     selector: 'timeline-template-demo',
     templateUrl: './timeline-template-demo.html',
     standalone: true,
-    imports: [TimelineModule, CardModule, ButtonModule]
+    imports: [Timeline, CardModule, ButtonModule]
 })
 export class TimelineTemplateDemo {
     events: EventItem[];

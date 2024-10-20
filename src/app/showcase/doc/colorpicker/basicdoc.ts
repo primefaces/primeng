@@ -25,13 +25,13 @@ export class BasicDoc {
 
         typescript: `import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ColorPickerModule } from 'primeng/colorpicker';
+import { ColorPicker } from 'primeng/colorpicker';
 
 @Component({
     selector: 'color-picker-basic-demo',
     templateUrl: './color-picker-basic-demo.html',
     standalone: true,
-    imports: [FormsModule, ColorPickerModule]
+    imports: [FormsModule, ColorPicker]
 })
 export class ColorPickerBasicDemo {
     color: string | undefined;

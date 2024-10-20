@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { PanelModule } from 'primeng/panel';
+import { Panel } from 'primeng/panel';
 import { AppDocModule } from '@layout/doc/app.doc.module';
 import { AppCodeModule } from '@layout/doc/app.code.component';
 import { AvatarModule } from 'primeng/avatar';
@@ -15,7 +15,7 @@ import { ToggleableDoc } from './toggleabledoc';
 import { AccessibilityDoc } from './accessibilitydoc';
 
 @NgModule({
-    imports: [CommonModule, AppCodeModule, AppDocModule, PanelModule, RouterModule, AvatarModule, ButtonModule, MenuModule],
+    imports: [CommonModule, AppCodeModule, AppDocModule, Panel, RouterModule, AvatarModule, ButtonModule, MenuModule],
     exports: [AppDocModule],
     declarations: [ImportDoc, BasicDoc, ToggleableDoc, TemplateDoc, StyleDoc, AccessibilityDoc],
 })

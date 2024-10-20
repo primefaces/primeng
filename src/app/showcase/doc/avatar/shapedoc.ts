@@ -26,13 +26,13 @@ export class ShapeDoc {
     <p-avatar label="T" />
 </div>`,
         typescript: `import { Component } from '@angular/core';
-import { AvatarModule } from 'primeng/avatar';
+import { Avatar } from 'primeng/avatar';
 
 @Component({
     selector: 'avatar-shape-demo',
     templateUrl: './avatar-shape-demo.html',
     standalone: true,
-    imports: [AvatarModule]
+    imports: [Avatar]
 })
 export class AvatarShapeDemo {}`,
     };

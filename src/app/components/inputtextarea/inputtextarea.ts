@@ -1,22 +1,22 @@
 import {
-    NgModule,
-    Directive,
-    HostListener,
-    Input,
-    Output,
-    EventEmitter,
-    Optional,
     AfterViewInit,
-    OnInit,
-    OnDestroy,
     booleanAttribute,
+    Directive,
+    EventEmitter,
+    HostListener,
     inject,
+    Input,
+    NgModule,
+    OnDestroy,
+    OnInit,
+    Optional,
+    Output
 } from '@angular/core';
-import { NgModel, NgControl } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+import { NgControl, NgModel } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { BaseComponent } from 'primeng/basecomponent';
 import { TextareaStyle } from './style/textareastyle';
+
 /**
  * InputTextarea adds styling and autoResize functionality to standard textarea element.
  * @group Components
@@ -24,6 +24,7 @@ import { TextareaStyle } from './style/textareastyle';
  */
 @Directive({
     selector: '[pInputTextarea]',
+    standalone: true,
     host: {
         class: 'p-textarea p-component',
         '[class.p-filled]': 'filled',
@@ -148,8 +149,7 @@ export class InputTextarea extends BaseComponent implements OnInit, AfterViewIni
 }
 
 @NgModule({
-    imports: [CommonModule],
+    imports: [InputTextarea],
     exports: [InputTextarea],
-    declarations: [InputTextarea],
 })
-export class InputTextareaModule {}
+export class Textarea {}

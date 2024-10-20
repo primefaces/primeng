@@ -9,7 +9,7 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card">
             <p-toolbar [style]="{ 'border-radius': '3rem', padding: '1rem 1rem 1rem 1.5rem' }">
-                <ng-template pTemplate="start">
+                <ng-template #start>
                     <div class="flex items-center gap-2">
                         <svg
                             width="31"
@@ -82,7 +82,7 @@ import { Code } from '@domain/code';
                     </div>
                 </ng-template>
 
-                <ng-template pTemplate="end">
+                <ng-template #end>
                     <div class="flex items-center gap-2">
                         <p-button label="Share" severity="contrast" size="small" />
                         <p-avatar
@@ -99,7 +99,7 @@ import { Code } from '@domain/code';
 export class CustomDoc {
     code: Code = {
         basic: `<p-toolbar [style]="{ 'border-radius': '3rem', 'padding': '1rem 1rem 1rem 1.5rem' }">
-    <ng-template pTemplate="start">
+    <ng-template #start>
         <div class="flex items-center gap-2">
             <svg width="31" height="33" viewBox="0 0 31 33" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 2rem; margin-right: 1rem" >
                 <path
@@ -179,7 +179,7 @@ export class CustomDoc {
         </div>
     </ng-template>
 
-    <ng-template pTemplate="end">
+    <ng-template #end>
         <div class="flex items-center gap-2">
             <p-button label="Share" severity="contrast" size="small" />
             <p-avatar
@@ -192,7 +192,7 @@ export class CustomDoc {
 
         html: `<div class="card">
   <p-toolbar [style]="{ 'border-radius': '3rem', 'padding': '1rem 1rem 1rem 1.5rem' }">
-        <ng-template pTemplate="start">
+        <ng-template #start>
             <div class="flex items-center gap-2">
                  <svg width="31" height="33" viewBox="0 0 31 33" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 2rem; margin-right: 1rem">
                     <path
@@ -258,7 +258,7 @@ export class CustomDoc {
             </div>
         </ng-template>
 
-        <ng-template pTemplate="end">
+        <ng-template #end>
             <div class="flex items-center gap-2">
                 <p-button label="Share" severity="contrast" size="small" />
                 <p-avatar
@@ -271,7 +271,7 @@ export class CustomDoc {
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { ToolbarModule } from 'primeng/toolbar';
+import { Toolbar } from 'primeng/toolbar';
 import { AvatarModule } from 'primeng/avatar';
 import { SharedModule } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
@@ -280,7 +280,7 @@ import { ButtonModule } from 'primeng/button';
     selector: 'toolbar-custom-demo',
     templateUrl: './toolbar-custom-demo.html',
     standalone: true,
-    imports: [ToolbarModule, AvatarModule, SharedModule, ButtonModule]
+    imports: [Toolbar, AvatarModule, ButtonModule]
 })
 export class ToolbarCustomDemo {
    

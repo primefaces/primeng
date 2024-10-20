@@ -178,6 +178,18 @@ export class AccordionHeader extends BaseComponent {
     disabled = computed(() => this.pcAccordionPanel.disabled());
 
     ariaControls = computed(() => `${this.pcAccordion.id()}_accordioncontent_${this.pcAccordionPanel.value()}`);
+    /**
+     * A template reference variable that represents the toggle icon in a UI component.
+     * @param {AccordionToggleIconTemplateContext} context - Context of the template
+     * @example
+     * ```html
+     * <ng-template #toggleicon let-active="active"> </ng-template>
+     * ```
+     * @see {@link AccordionToggleIconTemplateContext}
+     * @group Templates
+     */
+    @ContentChild('toggleicon') toggleicon: TemplateRef<AccordionToggleIconTemplateContext> | undefined;
+    @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
 
     @HostListener('click', ['$event']) onClick() {
         this.changeActiveValue();
@@ -210,19 +222,6 @@ export class AccordionHeader extends BaseComponent {
                 break;
         }
     }
-    /**
-     * A template reference variable that represents the toggle icon in a UI component.
-     * @param {AccordionToggleIconTemplateContext} context - Context of the template
-     * @example
-     * ```html
-     * <ng-template #toggleicon let-active="active"> </ng-template>
-     * ```
-     * @see {@link AccordionToggleIconTemplateContext}
-     * @group Templates
-     */
-    @ContentChild('toggleicon') toggleicon: TemplateRef<AccordionToggleIconTemplateContext> | undefined;
-
-    @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
@@ -391,13 +390,13 @@ export class AccordionContent extends BaseComponent {
             [attr.id]="getTabHeaderActionId(id)"
             [attr.aria-controls]="getTabContentId(id)"
         >
-            @if (!hasHeaderFacet && !headerTemplate) {
+            @if (!headerTemplate) {
                 {{ header }}
             } @else {
                 @if (headerTemplate) {
                     <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
                 }
-                @if (hasHeaderFacet) {
+                @if (headerFacet) {
                     <ng-content select="p-header" />
                 }
             }
@@ -584,12 +583,26 @@ export class AccordionTab extends BaseComponent implements AfterContentInit, OnD
             return 'p-accordionheader-toggle-icon icon-start';
         }
     }
-
-    contentTemplate: TemplateRef<any> | undefined;
-
-    headerTemplate: TemplateRef<any> | undefined;
-
-    iconTemplate: TemplateRef<any> | undefined;
+    /**
+     * Content template for the content of the drawer.
+     * @group Templates
+     */
+    @ContentChild('header') headerTemplate: TemplateRef<any> | undefined;
+    /**
+     * Header template for the header of the drawer.
+     * @group Templates
+     */
+    @ContentChild('footer') footerTemplate: TemplateRef<any> | undefined;
+    /**
+     * Template for the header icon.
+     * @group Templates
+     */
+    @ContentChild('icon') iconTemplate: TemplateRef<any> | undefined;
+    /**
+     * Content template for the footer of the drawer.
+     * @group Templates
+     */
+    @ContentChild('content') contentTemplate: TemplateRef<any> | undefined;
 
     loaded: boolean = false;
 
@@ -666,10 +679,6 @@ export class AccordionTab extends BaseComponent implements AfterContentInit, OnD
             }
         }
         return index;
-    }
-
-    get hasHeaderFacet(): boolean {
-        return (this.headerFacet as QueryList<Header>) && (this.headerFacet as QueryList<Header>).length > 0;
     }
 
     onKeydown(event: KeyboardEvent) {
@@ -1052,7 +1061,7 @@ export class Accordion extends BaseComponent implements BlockableUI, AfterConten
 }
 
 @NgModule({
-    imports: [Accordion, AccordionTab, AccordionPanel, AccordionHeader, AccordionContent],
+    imports: [Accordion, AccordionTab, SharedModule, AccordionPanel, AccordionHeader, AccordionContent],
     exports: [Accordion, AccordionTab, SharedModule, AccordionPanel, AccordionHeader, AccordionContent],
 })
 export class AccordionModule {}

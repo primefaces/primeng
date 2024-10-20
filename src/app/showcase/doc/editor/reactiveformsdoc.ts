@@ -41,13 +41,13 @@ export class ReactiveFormsDoc implements OnInit {
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { EditorModule } from 'primeng/editor';
+import { Editor } from 'primeng/editor';
 
 @Component({
     selector: 'editor-reactive-forms-demo',
     templateUrl: './editor-reactive-forms-demo.html',
     standalone: true,
-    imports: [ReactiveFormsModule, EditorModule],
+    imports: [ReactiveFormsModule, Editor],
   })
 export class EditorReactiveFormsDemo implements OnInit {
     formGroup: FormGroup | undefined;

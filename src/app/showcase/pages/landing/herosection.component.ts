@@ -6,14 +6,15 @@ import { MenuItem, SelectItem } from 'primeng/api';
 import { BadgeModule } from 'primeng/badge';
 import { CalendarModule } from 'primeng/calendar';
 import { ChartModule } from 'primeng/chart';
-import { ChipModule } from 'primeng/chip';
+import { Chip } from 'primeng/chip';
 import { DropdownModule } from 'primeng/dropdown';
-import { InputNumberModule } from 'primeng/inputnumber';
-import { RadioButtonModule } from 'primeng/radiobutton';
-import { SelectButtonModule } from 'primeng/selectbutton';
-import { SliderModule } from 'primeng/slider';
+import { InputNumber } from 'primeng/inputnumber';
+import { InputSwitchModule } from 'primeng/inputswitch';
+import { RadioButton } from 'primeng/radiobutton';
+import { SelectButton } from 'primeng/selectbutton';
+import { Slider } from 'primeng/slider';
 import { TabMenuModule } from 'primeng/tabmenu';
-import { Subscription, debounceTime } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { AppConfigService } from '@service/appconfigservice';
 import { DividerModule } from 'primeng/divider';
 import { AvatarModule } from 'primeng/avatar';
@@ -35,15 +36,16 @@ import { KnobModule } from 'primeng/knob';
     imports: [
         CommonModule,
         RouterModule,
-        InputNumberModule,
+        InputNumber,
         DropdownModule,
-        RadioButtonModule,
+        RadioButton,
         CalendarModule,
         ChartModule,
-        ChipModule,
+        Chip,
+        InputSwitchModule,
+        SelectButton,
+        Slider,
         ToggleSwitchModule,
-        SelectButtonModule,
-        SliderModule,
         BadgeModule,
         TabMenuModule,
         FormsModule,
@@ -227,10 +229,12 @@ import { KnobModule } from 'primeng/knob';
                                         'w-full': !isSlimMenu,
                                     }"
                                 >
-                                    <a  class="cursor-pointer block p-0 m-0 leading-none">
-                                        <i [class]="isSlimMenu ? 'pi pi-window-maximize' : 'pi pi-window-minimize'"></i>
-                                        <span [class]="isSlimMenu ? 'hidden' : 'font-medium leading-8'">・</span>
-                                        <span [class]="isSlimMenu ? 'hidden' : 'font-medium leading-none'"> Slim Mode</span>
+                                    <a class="cursor-pointer block p-0 m-0 leading-none">
+                                        <a class="cursor-pointer block p-0 m-0 leading-none">
+                                            <i [class]="isSlimMenu ? 'pi pi-window-maximize' : 'pi pi-window-minimize'"></i>
+                                            <span [class]="isSlimMenu ? 'hidden' : 'font-medium leading-8'">・</span>
+                                            <span [class]="isSlimMenu ? 'hidden' : 'font-medium leading-none'"> Slim Mode</span>
+                                        </a>
                                     </a>
                                 </div>
                                 <div
@@ -325,7 +329,7 @@ import { KnobModule } from 'primeng/knob';
                                                 <p-overlayBadge severity="success" styleClass="w-fit">
                                                     <p-avatar
                                                         [image]="data.image"
-                                                        size="small"
+                                                        size="normal"
                                                         styleClass="rounded-md w-10 h-10 overflow-hidden flex"
                                                     />
                                                 </p-overlayBadge>
@@ -359,7 +363,7 @@ import { KnobModule } from 'primeng/knob';
                                                 <p-overlayBadge severity="danger" styleClass="w-fit">
                                                     <p-avatar
                                                         [image]="data.image"
-                                                        size="small"
+                                                        size="normal"
                                                         styleClass="rounded-md overflow-hidden w-10 h-10 flex"
                                                     />
                                                 </p-overlayBadge>

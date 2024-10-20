@@ -1,33 +1,33 @@
 import {
-    NgModule,
-    Component,
-    ElementRef,
-    Input,
-    Output,
-    EventEmitter,
     AfterContentInit,
-    ContentChildren,
-    ContentChild,
-    QueryList,
-    TemplateRef,
-    forwardRef,
-    ViewChild,
-    ChangeDetectionStrategy,
-    ViewEncapsulation,
-    OnInit,
-    OnDestroy,
-    computed,
-    signal,
     booleanAttribute,
-    numberAttribute,
+    ChangeDetectionStrategy,
+    Component,
+    computed,
+    ContentChild,
+    ContentChildren,
+    ElementRef,
+    EventEmitter,
+    forwardRef,
     inject,
+    Input,
+    NgModule,
+    numberAttribute,
+    OnDestroy,
+    OnInit,
+    Output,
+    QueryList,
+    signal,
+    TemplateRef,
+    ViewChild,
+    ViewEncapsulation,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SharedModule, PrimeTemplate, Footer, Header, FilterService, TranslationKeys, PrimeNGConfig, ScrollerOptions } from 'primeng/api';
+import { FilterService, Footer, Header, PrimeTemplate, ScrollerOptions, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor, FormsModule } from '@angular/forms';
-import { RippleModule } from 'primeng/ripple';
+import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Ripple } from 'primeng/ripple';
 import { Subscription } from 'rxjs';
 import { SearchIcon } from 'primeng/icons/search';
 import { CheckIcon } from 'primeng/icons/check';
@@ -40,14 +40,14 @@ import {
     ListboxFilterOptions,
     ListboxSelectAllChangeEvent,
 } from './listbox.interface';
-import { Scroller, ScrollerModule } from 'primeng/scroller';
-import { IconFieldModule } from 'primeng/iconfield';
-import { InputTextModule } from 'primeng/inputtext';
+import { Scroller, ScrollerLazyLoadEvent } from 'primeng/scroller';
+import { IconField } from 'primeng/iconfield';
+import { InputText } from 'primeng/inputtext';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ListBoxStyle } from './style/listboxstyle';
 import { BlankIcon } from 'primeng/icons/blank';
-import { CheckboxModule } from 'primeng/checkbox';
-import { InputIconModule } from 'primeng/inputicon';
+import { Checkbox } from 'primeng/checkbox';
+import { InputIcon } from 'primeng/inputicon';
 
 export const LISTBOX_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -60,6 +60,8 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
  */
 @Component({
     selector: 'p-listbox',
+    standalone: true,
+    imports: [CommonModule, Ripple, Scroller, InputIcon, SearchIcon, Checkbox, CheckIcon, IconField, InputText, BlankIcon, FormsModule],
     template: `
         <div [attr.id]="id" [ngClass]="containerClass" [ngStyle]="style" [class]="styleClass" (focusout)="onFocusout($event)">
             <span
@@ -82,7 +84,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                 <div
                     *ngIf="checkbox && multiple && showToggleAll"
                     class="p-checkbox p-component"
-                    [ngClass]="{ 'p-checkbox-disabled': disabled || toggleAllDisabled }"
+                    [ngClass]="{ 'p-checkbox-disabled': disabled }"
                     (click)="onToggleAll($event)"
                     (keydown)="onHeaderCheckboxKeyDown($event)"
                 >
@@ -92,9 +94,9 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                             type="checkbox"
                             readonly="readonly"
                             [attr.checked]="allSelected()"
-                            [disabled]="disabled || toggleAllDisabled"
+                            [disabled]="disabled"
                             (focus)="onHeaderCheckboxFocus($event)"
-                            (blur)="onHeaderCheckboxBlur($event)"
+                            (blur)="onHeaderCheckboxBlur()"
                             [attr.aria-label]="toggleAllAriaLabel"
                         />
                     </div>
@@ -102,13 +104,13 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                         *ngIf="checkbox && multiple"
                         styleClass="p-listbox-option-check-icon"
                         [ngModel]="allSelected()"
-                        [disabled]="disabled || toggleAllDisabled"
+                        [disabled]="disabled"
                         [tabindex]="-1"
                         [variant]="config.inputStyle() === 'filled' ? 'filled' : 'outlined'"
                         [binary]="true"
                     >
                         <ng-container *ngIf="checkIconTemplate">
-                            <ng-template pTemplate="icon">
+                            <ng-template #icon>
                                 <ng-template *ngTemplateOutlet="checkIconTemplate; context: { $implicit: allSelected() }"></ng-template>
                             </ng-template>
                         </ng-container>
@@ -168,16 +170,16 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                     [options]="virtualScrollOptions"
                     (onLazyLoad)="onLazyLoad.emit($event)"
                 >
-                    <ng-template pTemplate="content" let-items let-scrollerOptions="options">
+                    <ng-template #content let-items let-scrollerOptions="options">
                         <ng-container
                             *ngTemplateOutlet="buildInItems; context: { $implicit: items, options: scrollerOptions }"
                         ></ng-container>
                     </ng-template>
-                    <ng-container *ngIf="loaderTemplate">
-                        <ng-template pTemplate="loader" let-scrollerOptions="options">
+                    @if (loaderTemplate) {
+                        <ng-template #loader let-scrollerOptions="options">
                             <ng-container *ngTemplateOutlet="loaderTemplate; context: { options: scrollerOptions }"></ng-container>
                         </ng-template>
-                    </ng-container>
+                    }
                 </p-scroller>
                 <ng-container *ngIf="!virtualScroll">
                     <ng-container *ngTemplateOutlet="buildInItems; context: { $implicit: visibleOptions(), options: {} }"></ng-container>
@@ -194,7 +196,6 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                         [style]="scrollerOptions.contentStyle"
                         [attr.aria-activedescendant]="focused ? focusedOptionId : undefined"
                         [attr.aria-label]="ariaLabel"
-                        [attr.aria-multiselectable]="multiple"
                         [attr.aria-disabled]="disabled"
                         (focus)="onListFocus($event)"
                         (blur)="onListBlur($event)"
@@ -247,7 +248,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                                         [binary]="true"
                                     >
                                         <ng-container *ngIf="checkIconTemplate">
-                                            <ng-template pTemplate="icon">
+                                            <ng-template #icon>
                                                 <ng-template
                                                     *ngTemplateOutlet="checkIconTemplate; context: { $implicit: isSelected(option) }"
                                                 ></ng-template>
@@ -278,16 +279,18 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                             </ng-container>
                         </ng-template>
                         <li *ngIf="hasFilter() && isEmpty()" class="p-listbox-empty-message" role="option">
-                            <ng-container *ngIf="!emptyFilterTemplate && !emptyTemplate; else emptyFilter">
+                            @if (!emptyFilterTemplate && !emptyTemplate) {
                                 {{ emptyFilterMessageText }}
-                            </ng-container>
-                            <ng-container #emptyFilter *ngTemplateOutlet="emptyFilterTemplate || emptyTemplate"></ng-container>
+                            } @else {
+                                <ng-container #emptyFilter *ngTemplateOutlet="emptyFilterTemplate || emptyTemplate"></ng-container>
+                            }
                         </li>
                         <li *ngIf="!hasFilter() && isEmpty()" class="p-listbox-empty-message" role="option">
-                            <ng-container *ngIf="!emptyTemplate; else empty">
+                            @if (!emptyTemplate) {
                                 {{ emptyMessage }}
-                            </ng-container>
-                            <ng-container #empty *ngTemplateOutlet="emptyTemplate"></ng-container>
+                            } @else {
+                                <ng-container #empty *ngTemplateOutlet="emptyTemplate"></ng-container>
+                            }
                         </li>
                     </ul>
                 </ng-template>
@@ -625,6 +628,12 @@ export class Listbox extends BaseComponent implements AfterContentInit, OnInit, 
      * @group Emits
      */
     @Output() onSelectAllChange: EventEmitter<ListboxSelectAllChangeEvent> = new EventEmitter<ListboxSelectAllChangeEvent>();
+    /**
+     * Emits on lazy load.
+     * @param {ScrollerLazyLoadEvent} event - Scroller lazy load event.
+     * @group Emits
+     */
+    @Output() onLazyLoad: EventEmitter<ScrollerLazyLoadEvent> = new EventEmitter<ScrollerLazyLoadEvent>();
 
     @ViewChild('headerchkbox') headerCheckboxViewChild: Nullable<ElementRef>;
 
@@ -643,26 +652,71 @@ export class Listbox extends BaseComponent implements AfterContentInit, OnInit, 
     @ContentChild(Footer) footerFacet: Nullable<TemplateRef<any>>;
 
     @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
+    /**
+     * Custom item template.
+     * @group Templates
+     */
+    @ContentChild('item') itemTemplate: TemplateRef<any> | undefined;
 
-    public itemTemplate: TemplateRef<any> | undefined;
+    /**
+     * Custom group template.
+     * @group Templates
+     */
+    @ContentChild('group') groupTemplate: TemplateRef<any> | undefined;
 
-    public groupTemplate: TemplateRef<any> | undefined;
+    /**
+     * Custom header template.
+     * @group Templates
+     */
+    @ContentChild('header') headerTemplate: TemplateRef<any> | undefined;
 
-    public headerTemplate: TemplateRef<any> | undefined;
+    /**
+     * Custom filter template.
+     * @group Templates
+     */
+    @ContentChild('filter') filterTemplate: TemplateRef<any> | undefined;
 
-    public filterTemplate: TemplateRef<any> | undefined;
+    /**
+     * Custom footer template.
+     * @group Templates
+     */
+    @ContentChild('footer') footerTemplate: TemplateRef<any> | undefined;
 
-    public footerTemplate: TemplateRef<any> | undefined;
+    /**
+     * Custom empty filter message template.
+     * @group Templates
+     */
+    @ContentChild('emptyfilter') emptyFilterTemplate: TemplateRef<any> | undefined;
 
-    public emptyFilterTemplate: TemplateRef<any> | undefined;
+    /**
+     * Custom empty message template.
+     * @group Templates
+     */
+    @ContentChild('empty') emptyTemplate: TemplateRef<any> | undefined;
 
-    public emptyTemplate: TemplateRef<any> | undefined;
+    /**
+     * Custom filter icon template.
+     * @group Templates
+     */
+    @ContentChild('filtericon') filterIconTemplate: TemplateRef<any> | undefined;
 
-    filterIconTemplate: TemplateRef<any> | undefined;
+    /**
+     * Custom check icon template.
+     * @group Templates
+     */
+    @ContentChild('checkicon') checkIconTemplate: TemplateRef<any> | undefined;
 
-    checkIconTemplate: TemplateRef<any> | undefined;
+    /**
+     * Custom checkmark icon template.
+     * @group Templates
+     */
+    @ContentChild('checkmark') checkmarkTemplate: TemplateRef<any> | undefined;
 
-    checkmarkTemplate: TemplateRef<any> | undefined;
+    /**
+     * Custom loader template.
+     * @group Templates
+     */
+    @ContentChild('loader') loaderTemplate: TemplateRef<any> | undefined;
 
     public _filterValue = signal<string | null | undefined>(null);
 
@@ -837,6 +891,10 @@ export class Listbox extends BaseComponent implements AfterContentInit, OnInit, 
 
                 case 'checkmark':
                     this.checkmarkTemplate = item.template;
+                    break;
+
+                case 'loader':
+                    this.loaderTemplate = item.template;
                     break;
 
                 default:
@@ -1119,7 +1177,7 @@ export class Listbox extends BaseComponent implements AfterContentInit, OnInit, 
         event.preventDefault();
     }
 
-    onFilterChange(event: KeyboardEvent) {
+    onFilterChange(event: Event) {
         let value: string = (event.target as HTMLInputElement).value?.trim();
         this._filterValue.set(value);
         this.focusedOptionIndex.set(-1);
@@ -1589,21 +1647,7 @@ export class Listbox extends BaseComponent implements AfterContentInit, OnInit, 
 }
 
 @NgModule({
-    imports: [
-        CommonModule,
-        SharedModule,
-        RippleModule,
-        ScrollerModule,
-        SearchIcon,
-        CheckboxModule,
-        CheckIcon,
-        IconFieldModule,
-        InputIconModule,
-        InputTextModule,
-        BlankIcon,
-        FormsModule,
-    ],
-    exports: [Listbox, SharedModule, ScrollerModule],
-    declarations: [Listbox],
+    imports: [Listbox, SharedModule],
+    exports: [Listbox, SharedModule],
 })
 export class ListboxModule {}

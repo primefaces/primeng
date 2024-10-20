@@ -1,10 +1,10 @@
 import { CommonModule, DOCUMENT } from '@angular/common';
-import { Component, ElementRef, Inject, Input, OnDestroy, Renderer2, afterNextRender, booleanAttribute } from '@angular/core';
+import { afterNextRender, booleanAttribute, Component, ElementRef, Inject, Input, OnDestroy, Renderer2 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import docsearch from '@docsearch/js';
 import { DomHandler } from 'primeng/dom';
-import { StyleClassModule } from 'primeng/styleclass';
+import { StyleClass } from 'primeng/styleclass';
 import Versions from '../../data/versions.json';
 import { AppConfigService } from '@service/appconfigservice';
 import { AppConfiguratorComponent } from '@layout/configurator/app.configurator.component';
@@ -13,7 +13,7 @@ import { AppConfiguratorComponent } from '@layout/configurator/app.configurator.
     selector: 'app-topbar',
     standalone: true,
     templateUrl: './app.topbar.component.html',
-    imports: [CommonModule, FormsModule, StyleClassModule, RouterModule, AppConfiguratorComponent],
+    imports: [CommonModule, FormsModule, StyleClass, RouterModule, AppConfiguratorComponent],
 })
 export class AppTopBarComponent implements OnDestroy {
     @Input({ transform: booleanAttribute }) showConfigurator = true;

@@ -9,6 +9,8 @@ import { AvatarStyle } from './style/avatarstyle';
  */
 @Component({
     selector: 'p-avatar',
+    standalone: true,
+    imports: [NgClass],
     template: `
         <ng-content></ng-content>
         @if (label()) {
@@ -101,8 +103,7 @@ export class Avatar extends BaseComponent {
 }
 
 @NgModule({
-    imports: [NgClass],
+    imports: [Avatar],
     exports: [Avatar],
-    declarations: [Avatar],
 })
 export class AvatarModule {}

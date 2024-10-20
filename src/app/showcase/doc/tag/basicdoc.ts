@@ -20,13 +20,13 @@ export class BasicDoc {
     <p-tag value="New" />
 </div>`,
         typescript: `import { Component } from '@angular/core';
-import { TagModule } from 'primeng/tag';
+import { Tag } from 'primeng/tag';
 
 @Component({
     selector: 'tag-basic-demo',
     templateUrl: './tag-basic-demo.html',
     standalone: true,
-    imports: [TagModule]
+    imports: [Tag]
 })
 export class TagBasicDemo {}`,
     };

@@ -2,15 +2,14 @@ import { CommonModule } from '@angular/common';
 import {
     AfterContentInit,
     ChangeDetectionStrategy,
-    Component,
-    ContentChildren,
-    HostBinding,
+    Component, ContentChild,
+    ContentChildren, HostBinding,
     inject,
     Input,
     NgModule,
     QueryList,
     TemplateRef,
-    ViewEncapsulation,
+    ViewEncapsulation
 } from '@angular/core';
 import { BlockableUI, PrimeTemplate, SharedModule } from 'primeng/api';
 import { Nullable } from 'primeng/ts-helpers';
@@ -22,6 +21,8 @@ import { BaseComponent } from 'primeng/basecomponent';
  */
 @Component({
     selector: 'p-timeline',
+    standalone: true,
+    imports: [CommonModule],
     template: `
         <div *ngFor="let event of value; let last = last" class="p-timeline-event" [attr.data-pc-section]="'event'">
             <div class="p-timeline-event-opposite" [attr.data-pc-section]="'opposite'">
@@ -85,23 +86,30 @@ export class Timeline extends BaseComponent implements AfterContentInit, Blockab
      * @group Props
      */
     @Input() layout: 'vertical' | 'horizontal' = 'vertical';
+    /**
+     * Custom content template.
+     * @group Templates
+     */
+    @ContentChild('content') contentTemplate: Nullable<TemplateRef<any>>;
+
+    /**
+     * Custom opposite item template.
+     * @group Templates
+     */
+    @ContentChild('opposite') oppositeTemplate: Nullable<TemplateRef<any>>;
+
+    /**
+     * Custom marker template.
+     * @group Templates
+     */
+    @ContentChild('marker') markerTemplate: Nullable<TemplateRef<any>>;
 
     @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<any>>;
-
-    contentTemplate: Nullable<TemplateRef<any>>;
-
-    oppositeTemplate: Nullable<TemplateRef<any>>;
-
-    markerTemplate: Nullable<TemplateRef<any>>;
 
     _componentStyle = inject(TimelineStyle);
 
     @HostBinding('class') get hostClass() {
         return this.styleClass;
-    }
-
-    constructor() {
-        super();
     }
 
     getBlockableElement(): HTMLElement {
@@ -128,8 +136,7 @@ export class Timeline extends BaseComponent implements AfterContentInit, Blockab
 }
 
 @NgModule({
-    imports: [CommonModule],
+    imports: [Timeline, SharedModule],
     exports: [Timeline, SharedModule],
-    declarations: [Timeline],
 })
 export class TimelineModule {}

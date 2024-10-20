@@ -54,14 +54,6 @@ export class BlockUIDemo {
     blockedPanel: boolean = false;
 
     blockedDocument: boolean = false;
-
-    blockDocument() {
-        this.blockedDocument = true;
-        setTimeout(() => {
-            this.blockedDocument = false;
-        }, 3000);
-    }
-
     docs = [
         {
             id: 'import',
@@ -85,4 +77,11 @@ export class BlockUIDemo {
             component: AccessibilityDoc,
         },
     ];
+
+    blockDocument() {
+        this.blockedDocument = true;
+        setTimeout(() => {
+            this.blockedDocument = false;
+        }, 3000);
+    }
 }

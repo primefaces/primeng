@@ -11,10 +11,10 @@ import { ProductService } from '@service/productservice';
         </app-docsectiontext>
         <div class="card">
             <p-inplace (onActivate)="loadData()">
-                <ng-template pTemplate="display">
+                <ng-template #display>
                     <span>View Data</span>
                 </ng-template>
-                <ng-template pTemplate="content">
+                <ng-template #content>
                     <p-table [value]="products" responsiveLayout="scroll">
                         <ng-template pTemplate="header">
                             <tr>
@@ -44,16 +44,12 @@ export class LazyDoc {
 
     constructor(private productService: ProductService) {}
 
-    loadData() {
-        this.productService.getProductsMini().then((products) => (this.products = products));
-    }
-
     code: Code = {
         basic: `<p-inplace (onActivate)="loadData()">
-    <ng-template pTemplate="display">
+    <ng-template #display>
         <span>View Data</span>
     </ng-template>
-    <ng-template pTemplate="content">
+    <ng-template #content>
         <p-table [value]="products" responsiveLayout="scroll">
             <ng-template pTemplate="header">
                 <tr>
@@ -76,10 +72,10 @@ export class LazyDoc {
 </p-inplace>`,
         html: `<div class="card">
     <p-inplace (onActivate)="loadData()">
-        <ng-template pTemplate="display">
+        <ng-template #display>
             <span>View Data</span>
         </ng-template>
-        <ng-template pTemplate="content">
+        <ng-template #content>
             <p-table [value]="products" responsiveLayout="scroll">
                 <ng-template pTemplate="header">
                     <tr>
@@ -124,7 +120,7 @@ export class InplaceLazyDemo {
     }
 }`,
         data: `
-/* ProductService */        
+/* ProductService */
 {
 id: '1000',
 code: 'f230fh0g3',
@@ -140,6 +136,10 @@ rating: 5
 ...`,
         service: ['ProductService'],
     };
+
+    loadData() {
+        this.productService.getProductsMini().then((products) => (this.products = products));
+    }
 
     extFiles = [
         {

@@ -7,6 +7,7 @@ interface Column {
     field: string;
     header: string;
 }
+
 @Component({
     selector: 'dynamic-doc',
     template: ` <app-docsectiontext>
@@ -15,14 +16,14 @@ interface Column {
         <p-deferred-demo (load)="loadDemoData()">
             <div class="card">
                 <p-table [columns]="cols" [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
-                    <ng-template pTemplate="header" let-columns>
+                    <ng-template #header let-columns>
                         <tr>
                             <th *ngFor="let col of columns">
                                 {{ col.header }}
                             </th>
                         </tr>
                     </ng-template>
-                    <ng-template pTemplate="body" let-rowData let-columns="columns">
+                    <ng-template #body let-rowData let-columns="columns">
                         <tr>
                             <td *ngFor="let col of columns">
                                 {{ rowData[col.field] }}
@@ -61,14 +62,14 @@ export class DynamicDoc {
 
     code: Code = {
         basic: `<p-table [columns]="cols" [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
-    <ng-template pTemplate="header" let-columns>
+    <ng-template #header let-columns>
         <tr>
             <th *ngFor="let col of columns">
                 {{ col.header }}
             </th>
         </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-rowData let-columns="columns">
+    <ng-template #body let-rowData let-columns="columns">
         <tr>
             <td *ngFor="let col of columns">
                 {{ rowData[col.field] }}
@@ -78,14 +79,14 @@ export class DynamicDoc {
 </p-table>`,
         html: `<div class="card">
     <p-table [columns]="cols" [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
-        <ng-template pTemplate="header" let-columns>
+        <ng-template #header let-columns>
             <tr>
                 <th *ngFor="let col of columns">
                     {{ col.header }}
                 </th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-rowData let-columns="columns">
+        <ng-template #body let-rowData let-columns="columns">
             <tr>
                 <td *ngFor="let col of columns">
                     {{ rowData[col.field] }}

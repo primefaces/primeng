@@ -7,6 +7,6 @@ import { Code } from '@domain/code';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { BreadcrumbModule } from 'primeng/breadcrumb';`,
+        typescript: `import { Breadcrumb } from 'primeng/breadcrumb';`,
     };
 }

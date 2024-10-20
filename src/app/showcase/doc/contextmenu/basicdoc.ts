@@ -45,13 +45,13 @@ export class BasicDoc implements OnInit {
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
-import { ContextMenuModule } from 'primeng/contextmenu';
+import { ContextMenu } from 'primeng/contextmenu';
 
 @Component({
     selector: 'context-menu-basic-demo',
     templateUrl: './context-menu-basic-demo.html',
     standalone: true,
-    imports: [ContextMenuModule]
+    imports: [ContextMenu]
 })
 export class ContextMenuBasicDemo implements OnInit {
     items: MenuItem[] | undefined;

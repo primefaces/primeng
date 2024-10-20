@@ -34,13 +34,13 @@ export class MultipleDoc {
 
         typescript: `import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SelectButtonModule } from 'primeng/selectbutton';
+import { SelectButton } from 'primeng/selectbutton';
 
 @Component({
     selector: 'select-button-multiple-demo',
     templateUrl: './select-button-multiple-demo.html',
     standalone: true,
-    imports: [FormsModule, SelectButtonModule]
+    imports: [FormsModule, SelectButton]
 })
 export class SelectButtonMultipleDemo {
     value!: number;

@@ -5,13 +5,13 @@ import { AppDocModule } from '@layout/doc/app.doc.module';
 import { AppCodeModule } from '@layout/doc/app.code.component';
 import { ToggleClassDoc } from './toggleclassdoc';
 import { ImportDoc } from './importdoc';
-import { StyleClassModule } from 'primeng/styleclass';
+import { StyleClass } from 'primeng/styleclass';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { AnimationDoc } from './animationdoc';
 
 @NgModule({
-    imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, StyleClassModule, ButtonModule, InputTextModule],
+    imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, StyleClass, ButtonModule, InputTextModule],
     declarations: [ImportDoc, ToggleClassDoc, AnimationDoc],
     exports: [AppDocModule],
 })

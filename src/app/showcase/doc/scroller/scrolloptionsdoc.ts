@@ -13,7 +13,7 @@ import { Code } from '@domain/code';
 export class ScrollOptionsDoc {
     code: Code = {
         html: `
-<ng-template pTemplate="item" let-item let-scrollOptions="options">
+<ng-template #item let-item let-scrollOptions="options">
     // item: Current item.
     // scrollOptions.index: Index of the item.
     // scrollOptions.count: Total numbers of items.
@@ -22,7 +22,7 @@ export class ScrollOptionsDoc {
     // scrollOptions.even: Whether the index is even.
     // scrollOptions.odd: Whether the index is odd.
 </ng-template>
-<ng-template pTemplate="loader" let-scrollOptions="options">
+<ng-template #loader let-scrollOptions="options">
     // scrollOptions.index: Index of the item.
     // scrollOptions.count: Total numbers of items.
     // scrollOptions.first: Whether this is the first item.
@@ -31,7 +31,7 @@ export class ScrollOptionsDoc {
     // scrollOptions.odd: Whether the index is odd.
     // scrollOptions.numCols: Total number of columns in a row in 'both' orientation mode in view.
 </ng-template>
-<ng-template pTemplate="loadericon" let-scrollOptions="options">
+<ng-template #loadericon let-scrollOptions="options">
     // scrollOptions.styleClass: Style class of the default icon.
 </ng-template>`,
     };

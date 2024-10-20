@@ -24,14 +24,14 @@ export class BasicDoc {
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { ToggleSwitchModule } from 'primeng/toggleswitch';
+import { ToggleSwitch } from 'primeng/toggleswitch';
 import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'toggle-switch-basic-demo',
     templateUrl: './toggle-switch-basic-demo.html',
     standalone: true,
-    imports: [FormsModule, ToggleSwitchModule]
+    imports: [FormsModule, ToggleSwitch]
 })
 export class ToggleSwitchBasicDemo {
     checked: boolean = false;

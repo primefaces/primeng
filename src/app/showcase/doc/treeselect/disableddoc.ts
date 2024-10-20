@@ -40,13 +40,13 @@ export class DisabledDoc {
         typescript: `import { Component } from '@angular/core';
 import { NodeService } from '@service/nodeservice';
 import { FormsModule } from '@angular/forms';
-import { TreeSelectModule } from 'primeng/treeselect';
+import { TreeSelect } from 'primeng/treeselect';
 
 @Component({
     selector: 'tree-select-disabled-demo',
     templateUrl: './tree-select-disabled-demo.html',
     standalone: true,
-    imports: [FormsModule, TreeSelectModule],
+    imports: [FormsModule, TreeSelect],
     providers: [NodeService]
 })
 export class TreeSelectDisabledDemo {

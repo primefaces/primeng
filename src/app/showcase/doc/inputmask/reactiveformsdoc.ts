@@ -37,13 +37,13 @@ export class ReactiveFormsDoc implements OnInit {
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { InputMaskModule } from 'primeng/inputmask';
+import { InputMask } from 'primeng/inputmask';
 
 @Component({
     selector: 'input-mask-reactive-forms-demo',
     templateUrl: './input-mask-reactive-forms-demo.html',
     standalone: true,
-    imports: [ReactiveFormsModule, InputMaskModule]
+    imports: [ReactiveFormsModule, InputMask]
 })
 export class InputMaskReactiveFormsDemo implements OnInit {
     formGroup: FormGroup | undefined;

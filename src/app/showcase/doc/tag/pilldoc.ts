@@ -38,13 +38,13 @@ export class PillDoc {
     <p-tag severity="contrast" value="Contrast" [rounded]="true" />
 </div>`,
         typescript: `import { Component } from '@angular/core';
-import { TagModule } from 'primeng/tag';
+import { Tag } from 'primeng/tag';
 
 @Component({
     selector: 'tag-pill-demo',
     templateUrl: './tag-pill-demo.html',
     standalone: true,
-    imports: [TagModule]
+    imports: [Tag]
 })
 export class TagPillDemo {}`,
     };

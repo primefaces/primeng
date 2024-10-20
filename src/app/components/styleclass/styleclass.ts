@@ -1,13 +1,24 @@
-import { CommonModule } from '@angular/common';
-import { Directive, ElementRef, HostListener, Input, NgModule, NgZone, OnDestroy, Renderer2, booleanAttribute } from '@angular/core';
+import {
+    booleanAttribute,
+    Directive,
+    ElementRef,
+    HostListener,
+    Input,
+    NgModule,
+    NgZone,
+    OnDestroy,
+    Renderer2
+} from '@angular/core';
 import { DomHandler } from 'primeng/dom';
 import { VoidListener } from 'primeng/ts-helpers';
+
 /**
  * StyleClass manages css classes declaratively to during enter/leave animations or just to toggle classes on an element.
  * @group Components
  */
 @Directive({
     selector: '[pStyleClass]',
+    standalone: true,
 })
 export class StyleClass implements OnDestroy {
     constructor(
@@ -295,8 +306,7 @@ export class StyleClass implements OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule],
+    imports: [StyleClass],
     exports: [StyleClass],
-    declarations: [StyleClass],
 })
 export class StyleClassModule {}

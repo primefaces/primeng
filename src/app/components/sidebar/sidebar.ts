@@ -3,13 +3,16 @@ import { CommonModule } from '@angular/common';
 import {
     AfterContentInit,
     AfterViewInit,
+    booleanAttribute,
     ChangeDetectionStrategy,
     Component,
     ContentChildren,
     ElementRef,
     EventEmitter,
+    inject,
     Input,
     NgModule,
+    numberAttribute,
     OnDestroy,
     Output,
     QueryList,
@@ -17,14 +20,11 @@ import {
     TemplateRef,
     ViewChild,
     ViewEncapsulation,
-    booleanAttribute,
-    inject,
-    numberAttribute,
 } from '@angular/core';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { TimesIcon } from 'primeng/icons/times';
-import { RippleModule } from 'primeng/ripple';
+import { Ripple } from 'primeng/ripple';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { ZIndexUtils } from 'primeng/utils';
 import { ButtonModule, ButtonProps } from 'primeng/button';
@@ -425,7 +425,7 @@ export class Sidebar extends BaseComponent implements AfterViewInit, AfterConten
 }
 
 @NgModule({
-    imports: [CommonModule, RippleModule, SharedModule, TimesIcon, ButtonModule],
+    imports: [CommonModule, Ripple, SharedModule, TimesIcon, ButtonModule],
     exports: [Sidebar, SharedModule],
     declarations: [Sidebar],
 })

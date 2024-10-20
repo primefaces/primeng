@@ -49,14 +49,14 @@ export class ReactiveDoc {
 
         typescript: `import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { KnobModule } from 'primeng/knob';
+import { Knob } from 'primeng/knob';
 import { ButtonModule } from 'primeng/button';
 
 @Component({
     selector: 'knob-reactive-demo',
     templateUrl: './knob-reactive-demo.html',
     standalone: true,
-    imports: [FormsModule, KnobModule, ButtonModule]
+    imports: [FormsModule, Knob, ButtonModule]
 })
 export class KnobReactiveDemo {
     value: number = 0;

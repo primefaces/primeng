@@ -50,14 +50,14 @@ export class DynamicDoc implements OnInit {
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
-import { RadioButtonModule } from 'primeng/radiobutton';
+import { RadioButton } from 'primeng/radiobutton';
 import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'radio-button-dynamic-demo',
     templateUrl: './radio-button-dynamic-demo.html',
     standalone: true,
-    imports: [FormsModule, RadioButtonModule]
+    imports: [FormsModule, RadioButton]
 })
 export class RadioButtonDynamicDemo implements OnInit{
     selectedCategory: any = null;

@@ -19,7 +19,7 @@ import { NodeService } from '@service/nodeservice';
         </app-docsectiontext>
         <div class="card">
             <div class="flex items-center mb-6 gap-2">
-                <p-toggleswitch inputId="input-metakey" [(ngModel)]="metaKeySelection" />
+                <p-inputSwitch inputId="input-metakey" [(ngModel)]="metaKeySelection" />
                 <label for="input-metakey">MetaKey</label>
             </div>
             <p-tree
@@ -48,14 +48,14 @@ export class MultipleDoc implements OnInit {
 
     code: Code = {
         basic: `<div class="flex items-center mb-6 gap-2">
-    <p-toggleswitch inputId="input-metakey" [(ngModel)]="metaKeySelection" />
+    <p-inputSwitch inputId="input-metakey" [(ngModel)]="metaKeySelection" />
     <label for="input-metakey">MetaKey</label>
 </div>
 <p-tree [metaKeySelection]="metaKeySelection" [value]="files" styleClass="w-full md:w-[30rem]" selectionMode="multiple" [(selection)]="selectedFiles" />`,
 
         html: `<div class="card">
     <div class="flex items-center mb-6 gap-2">
-        <p-toggleswitch inputId="input-metakey" [(ngModel)]="metaKeySelection" />
+        <p-inputSwitch inputId="input-metakey" [(ngModel)]="metaKeySelection" />
         <label for="input-metakey">MetaKey</label>
     </div>
     <p-tree [metaKeySelection]="metaKeySelection" [value]="files" styleClass="w-full md:w-[30rem]" selectionMode="multiple" [(selection)]="selectedFiles" />
@@ -64,15 +64,15 @@ export class MultipleDoc implements OnInit {
         typescript: `import { Component, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { NodeService } from '@service/nodeservice';
-import { TreeModule } from 'primeng/tree';
-import { ToggleSwitchModule } from 'primeng/toggleswitch';
+import { Tree } from 'primeng/tree';
+import { InputSwitchModule } from 'primeng/inputswitch';
 import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'tree-multiple-demo',
     templateUrl: './tree-multiple-demo.html',
     standalone: true,
-    imports: [TreeModule, ToggleSwitchModule, FormsModule],
+    imports: [Tree, InputSwitchModule, FormsModule],
     providers: [NodeService]
 })
 export class TreeMultipleDemo implements OnInit {

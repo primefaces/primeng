@@ -32,13 +32,13 @@ export class CustomDoc {
         [style]="{ width: '50px', height: '50px' }" />
 </div>`,
         typescript: `import { Component } from '@angular/core';
-import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { ProgressSpinner } from 'primeng/progressspinner';
 
 @Component({
     selector: 'progress-spinner-custom-demo',
     templateUrl: './progress-spinner-custom-demo.html',
     standalone: true,
-    imports: [ProgressSpinnerModule]
+    imports: [ProgressSpinner]
 })
 export class ProgressSpinnerCustomDemo {}`,
     };

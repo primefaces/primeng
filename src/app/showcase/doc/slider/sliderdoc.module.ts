@@ -19,7 +19,17 @@ import { FilterDoc } from './filterdoc';
 import { SelectButtonModule } from 'primeng/selectbutton';
 
 @NgModule({
-    imports: [CommonModule, AppCodeModule, FormsModule, ReactiveFormsModule, SliderModule, AppDocModule, InputTextModule, SelectButtonModule, RouterModule],
+    imports: [
+        CommonModule,
+        AppCodeModule,
+        FormsModule,
+        ReactiveFormsModule,
+        SliderModule,
+        AppDocModule,
+        InputTextModule,
+        SelectButtonModule,
+        RouterModule,
+    ],
     exports: [AppDocModule],
     declarations: [ImportDoc, BasicDoc, InputDoc, StepDoc, RangeDoc, VerticalDoc, FilterDoc, StyleDoc, AccessibilityDoc, ReactiveFormsDoc],
 })

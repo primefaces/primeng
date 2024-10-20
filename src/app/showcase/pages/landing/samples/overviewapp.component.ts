@@ -51,7 +51,7 @@ import { TooltipModule } from 'primeng/tooltip';
                 </div>
                 <div class="flex gap-2 whitespace-nowrap flex-nowrap">
                     <p-iconfield iconPosition="left">
-                        <p-inputicon class="pi pi-search"> </p-inputicon>
+                        <p-inputicon class="pi pi-search"></p-inputicon>
                         <input type="text" pInputText placeholder="Search" />
                     </p-iconfield>
                     <p-button severity="secondary" outlined>
@@ -121,7 +121,7 @@ import { TooltipModule } from 'primeng/tooltip';
                             [tableStyle]="{ 'min-width': '50rem' }"
                             [showFirstLastIcon]="false"
                         >
-                            <ng-template pTemplate="header">
+                            <ng-template #header>
                                 <tr>
                                     <th class="w-1/12">Id</th>
                                     <th class="w-1/4">Name</th>
@@ -131,7 +131,7 @@ import { TooltipModule } from 'primeng/tooltip';
                                     <th class="w-1/6">Amount</th>
                                 </tr>
                             </ng-template>
-                            <ng-template pTemplate="body" let-item>
+                            <ng-template #body let-item>
                                 <tr>
                                     <td class="w-1/12">
                                         <div class="text-muted-color">{{ item.id }}</div>
@@ -188,7 +188,7 @@ import { TooltipModule } from 'primeng/tooltip';
                                 <p-menu #menu id="overlay_menu" [model]="menuItems" [popup]="true" styleClass="ml-6" />
                             </div>
                             <p-metergroup [value]="metersData" labelPosition="end">
-                                <ng-template pTemplate="label">
+                                <ng-template #label>
                                     <div class="flex flex-col gap-6 mt-4">
                                         <ng-container *ngFor="let val of metersData; let index = index">
                                             <div class="flex items-center gap-2">

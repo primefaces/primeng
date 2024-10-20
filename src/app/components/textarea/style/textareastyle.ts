@@ -85,7 +85,7 @@ const classes = {
 
 @Injectable()
 export class TextareaStyle extends BaseStyle {
-    name = 'textarea';
+    name = 'primeng/textearea';
 
     theme = theme;
 

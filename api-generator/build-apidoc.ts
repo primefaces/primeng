@@ -34,17 +34,11 @@ async function main() {
         disableSources: false,
         logLevel: 'Error',
         sort: ['source-order'],
-        exclude: [
-            'node_modules',
-            'src/app/components/**/*spec.ts',
-            'src/app/components/**/*public_api.ts',
-            'src/app/components/**/*interface.ts',
-        ],
+        exclude: ['node_modules', 'src/app/components/**/*spec.ts', 'src/app/components/**/*public_api.ts'],
     });
 
     const project = await app.convert();
     await app.generateJson(project, `./api-generator/typedoc.json`);
-
     if (project) {
         let doc = {};
 
@@ -85,7 +79,6 @@ async function main() {
         };
 
         const modules = project.groups.find((g) => g.title === 'Modules');
-
         if (isProcessable(modules)) {
             modules.children.forEach((module) => {
                 const name = module.name.replace(/.*\//, '');
@@ -483,6 +476,7 @@ async function main() {
                                 description: staticMessages['types'],
                                 values: [],
                             };
+
                             module_types_group.children.forEach((t) => {
                                 const parameters =
                                     t.signatures && t.signatures[0]?.parameters
@@ -556,17 +550,8 @@ async function main() {
 
                                 types.values.push({
                                     name: t.name,
-                                    description: t.comment && t.comment.summary.map((s) => s.text || '').join(' '),
-                                    type: parameters.length || returnType ? 'function' : t.type && t.type.name,
-                                    children: typeChildren.length ? typeChildren : undefined,
-                                    parameters: parameters.length ? parameters : undefined,
-                                    returns: returnType
-                                        ? {
-                                              type: returnType,
-                                              description: returnDescription,
-                                          }
-                                        : undefined,
-                                    deprecated: getDeprecatedText(t),
+                                    value: getTypesValue(t),
+                                    description: t.comment.summary && t.comment.summary.map((s) => s.text || '').join(' '),
                                 });
                             });
 

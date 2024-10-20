@@ -1,28 +1,22 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { CommonModule, DOCUMENT, isPlatformServer } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import {
-    AfterContentInit,
+    booleanAttribute,
     ChangeDetectionStrategy,
     Component,
     ContentChild,
-    ContentChildren,
-    ElementRef,
     EventEmitter,
-    Inject,
+    inject,
     Input,
     NgModule,
     Output,
-    PLATFORM_ID,
-    QueryList,
     TemplateRef,
-    ViewEncapsulation,
-    booleanAttribute,
-    inject,
+    ViewEncapsulation
 } from '@angular/core';
-import { BlockableUI, Footer, PrimeTemplate, SharedModule } from 'primeng/api';
+import { BlockableUI, Footer } from 'primeng/api';
 import { MinusIcon } from 'primeng/icons/minus';
 import { PlusIcon } from 'primeng/icons/plus';
-import { RippleModule } from 'primeng/ripple';
+import { Ripple } from 'primeng/ripple';
 import { Nullable } from 'primeng/ts-helpers';
 import { UniqueComponentId } from 'primeng/utils';
 import { PanelAfterToggleEvent, PanelBeforeToggleEvent } from './panel.interface';
@@ -36,6 +30,8 @@ import { BaseComponent } from 'primeng/basecomponent';
  */
 @Component({
     selector: 'p-panel',
+    standalone: true,
+    imports: [CommonModule, Ripple, PlusIcon, MinusIcon, ButtonModule],
     template: `
         <div
             [attr.id]="id"
@@ -161,10 +157,9 @@ import { BaseComponent } from 'primeng/basecomponent';
     ],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-
     providers: [PanelStyle],
 })
-export class Panel extends BaseComponent implements AfterContentInit, BlockableUI {
+export class Panel extends BaseComponent implements BlockableUI {
     /**
      * Defines if content of panel can be expanded and collapsed.
      * @group Props
@@ -249,19 +244,36 @@ export class Panel extends BaseComponent implements AfterContentInit, BlockableU
 
     @ContentChild(Footer) footerFacet: Nullable<TemplateRef<any>>;
 
-    @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<PrimeTemplate>>;
-
-    public iconTemplate: Nullable<TemplateRef<any>>;
-
     animating: Nullable<boolean>;
+    /**
+     * Defines template option for header.
+     * @group Templates
+     */
+    @ContentChild('header') headerTemplate: TemplateRef<any> | undefined;
 
-    headerTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Defines template option for icon.
+     * @group Templates
+     */
+    @ContentChild('icon') iconTemplate: TemplateRef<any> | undefined;
 
-    contentTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Defines template option for content.
+     * @group Templates
+     */
+    @ContentChild('content') contentTemplate: TemplateRef<any> | undefined;
 
-    footerTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Defines template option for footer.
+     * @group Templates
+     */
+    @ContentChild('footer') footerTemplate: TemplateRef<any> | undefined;
 
-    headerIconTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Defines template option for headerIcon.
+     * @group Templates
+     */
+    @ContentChild('headerIcon') headerIconTemplate: TemplateRef<any> | undefined;
 
     readonly id = UniqueComponentId();
 
@@ -270,36 +282,6 @@ export class Panel extends BaseComponent implements AfterContentInit, BlockableU
     }
 
     _componentStyle = inject(PanelStyle);
-
-    ngAfterContentInit() {
-        (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
-            switch (item.getType()) {
-                case 'header':
-                    this.headerTemplate = item.template;
-                    break;
-
-                case 'content':
-                    this.contentTemplate = item.template;
-                    break;
-
-                case 'footer':
-                    this.footerTemplate = item.template;
-                    break;
-
-                case 'icons':
-                    this.iconTemplate = item.template;
-                    break;
-
-                case 'headericons':
-                    this.headerIconTemplate = item.template;
-                    break;
-
-                default:
-                    this.contentTemplate = item.template;
-                    break;
-            }
-        });
-    }
 
     onHeaderClick(event: MouseEvent) {
         if (this.toggler === 'header') {
@@ -357,8 +339,7 @@ export class Panel extends BaseComponent implements AfterContentInit, BlockableU
 }
 
 @NgModule({
-    imports: [CommonModule, SharedModule, RippleModule, PlusIcon, MinusIcon, ButtonModule],
-    exports: [Panel, SharedModule],
-    declarations: [Panel],
+    imports: [Panel],
+    exports: [Panel],
 })
 export class PanelModule {}
