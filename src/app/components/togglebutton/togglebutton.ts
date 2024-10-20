@@ -4,7 +4,7 @@ import {
     ChangeDetectionStrategy,
     Component,
     ContentChildren,
-    EventEmitter,
+    OutputEmitterRef,
     forwardRef,
     computed,
     inject,
@@ -13,7 +13,7 @@ import {
     signal,
     NgModule,
     numberAttribute,
-    Output,
+    output,
     QueryList,
     TemplateRef,
     WritableSignal,
@@ -162,7 +162,7 @@ export class ToggleButton extends BaseComponent implements ControlValueAccessor 
      * @param {ToggleButtonChangeEvent} event - Custom change event.
      * @group Emits
      */
-    @Output() onChange: EventEmitter<ToggleButtonChangeEvent> = new EventEmitter<ToggleButtonChangeEvent>();
+    onChange: OutputEmitterRef<ToggleButtonChangeEvent> = output<ToggleButtonChangeEvent>();
 
     @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
 
