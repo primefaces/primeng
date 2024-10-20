@@ -59,13 +59,13 @@ export class VirtualScrollDoc {
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ListboxModule } from 'primeng/listbox';
+import { Listbox } from 'primeng/listbox';
 
 @Component({
     selector: 'listbox-virtual-scroll-demo',
     templateUrl: './listbox-virtual-scroll-demo.html',
     standalone: true,
-    imports: [FormsModule, ListboxModule]
+    imports: [FormsModule, Listbox]
 })
 export class ListboxVirtualScrollDemo {
     items = Array.from({ length: 100000 }, (_, i) => ({ label: \`Item #\${i}\`, value: i }))

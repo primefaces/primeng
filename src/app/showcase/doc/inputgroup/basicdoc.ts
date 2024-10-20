@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Code } from '@domain/code';
+
 interface City {
     name: string;
     code: string;
@@ -9,8 +10,8 @@ interface City {
     template: `
         <app-docsectiontext>
             <p>
-                A group is created by wrapping the input and add-ons with the <i>p-inputgroup</i> component. Each add-on element is defined as
-                a child of <i>p-inputgroup-addon</i> component.
+                A group is created by wrapping the input and add-ons with the <i>p-inputgroup</i> component. Each add-on element is defined
+                as a child of <i>p-inputgroup-addon</i> component.
             </p>
         </app-docsectiontext>
         <div class="card grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -130,7 +131,7 @@ interface City {
     standalone: true,
     imports: [FormsModule, InputGroupModule, InputGroupAddonModule, InputTextModule, SelectModule, InputNumberModule]
 })
-export class InputGroupBasicDemo { 
+export class InputGroupBasicDemo {
     text1: string | undefined;
 
     text2: string | undefined;

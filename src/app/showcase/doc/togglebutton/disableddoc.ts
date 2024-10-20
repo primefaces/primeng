@@ -34,13 +34,13 @@ export class DisabledDoc {
 
         typescript: `import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ToggleButtonModule } from 'primeng/togglebutton';
+import { ToggleButton } from 'primeng/togglebutton';
         
 @Component({
     selector: 'toggle-button-disabled-demo',
     templateUrl: './toggle-button-disabled-demo.html',
     standalone: true,
-    imports: [FormsModule, ToggleButtonModule]
+    imports: [FormsModule, ToggleButton]
 })
 export class ToggleButtonDisabledDemo {
     checked: boolean = false;

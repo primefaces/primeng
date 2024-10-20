@@ -19,7 +19,7 @@ import { Code } from '@domain/code';
                 styleClass="border border-surface"
                 [style]="{ width: '200px', height: '200px' }"
             >
-                <ng-template pTemplate="item" let-item let-options="options">
+                <ng-template #item let-item let-options="options">
                     <div class="flex flex-col align-items-strech" [ngClass]="{ 'surface-ground': options.odd }">
                         <div class="flex items-center px-2" style="height: 25px">Item: {{ item }}</div>
                         <div class="flex items-center px-2" style="height: 25px">Index: {{ options.index }}</div>
@@ -30,7 +30,7 @@ import { Code } from '@domain/code';
                         <div class="flex items-center px-2" style="height: 25px">Odd: {{ options.odd }}</div>
                     </div>
                 </ng-template>
-                <ng-template pTemplate="loader" let-options="options">
+                <ng-template #loader let-options="options">
                     <div class="flex flex-col items-stretch" [ngClass]="{ 'surface-ground': options.odd }">
                         <div class="flex items-center px-2" style="height: 25px"><p-skeleton width="60%" height="1.2rem"></p-skeleton></div>
                         <div class="flex items-center px-2" style="height: 25px"><p-skeleton width="50%" height="1.2rem"></p-skeleton></div>
@@ -63,7 +63,7 @@ export class TemplateDoc {
     [delay]="250" 
     styleClass="border border-surface" 
     [style]="{'width': '200px', 'height': '200px'}">
-        <ng-template pTemplate="item" let-item let-options="options">
+        <ng-template #item let-item let-options="options">
             <div class="flex flex-col align-items-strech" [ngClass]="{'surface-ground': options.odd}">
                 <div class="flex items-center px-2" style="height: 25px">
                     Item: {{item}}
@@ -88,7 +88,7 @@ export class TemplateDoc {
                 </div>
             </div>
         </ng-template>
-        <ng-template pTemplate="loader" let-options="options">
+        <ng-template #loader let-options="options">
             <div class="flex flex-col align-items-strech" [ngClass]="{'surface-ground': options.odd}">
                 <div class="flex items-center px-2" style="height: 25px">
                     <p-skeleton width="60%" height="1.2rem" />
@@ -123,7 +123,7 @@ export class TemplateDoc {
         [delay]="250" 
         styleClass="border border-surface" 
         [style]="{'width': '200px', 'height': '200px'}">
-            <ng-template pTemplate="item" let-item let-options="options">
+            <ng-template #item let-item let-options="options">
                 <div class="flex flex-col align-items-strech" [ngClass]="{'surface-ground': options.odd}">
                     <div class="flex items-center px-2" style="height: 25px">
                         Item: {{item}}
@@ -148,7 +148,7 @@ export class TemplateDoc {
                     </div>
                 </div>
             </ng-template>
-            <ng-template pTemplate="loader" let-options="options">
+            <ng-template #loader let-options="options">
                 <div class="flex flex-col align-items-strech" [ngClass]="{'surface-ground': options.odd}">
                     <div class="flex items-center px-2" style="height: 25px">
                         <p-skeleton width="60%" height="1.2rem" />
@@ -177,8 +177,8 @@ export class TemplateDoc {
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
-import { ScrollerModule } from 'primeng/scroller';
-import { SkeletonModule } from 'primeng/skeleton';
+import { Scroller } from 'primeng/scroller';
+import { Skeleton } from 'primeng/skeleton';
 
 @Component({
     selector: 'scroller-template-demo',
@@ -195,7 +195,7 @@ import { SkeletonModule } from 'primeng/skeleton';
         }\`
     ],
     standalone: true,
-    imports: [ScrollerModule, SkeletonModule]
+    imports: [Scroller, Skeleton]
 })
 export class ScrollerTemplateDemo implements OnInit {
     items!: string[];

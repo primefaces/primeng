@@ -6,6 +6,7 @@ import {
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
+    ContentChild,
     ContentChildren,
     ElementRef,
     EventEmitter,
@@ -19,14 +20,14 @@ import {
     TemplateRef,
     ViewChild,
     ViewChildren,
-    ViewEncapsulation,
+    ViewEncapsulation
 } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { MenuItem, PrimeTemplate, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { ChevronLeftIcon } from 'primeng/icons/chevronleft';
 import { ChevronRightIcon } from 'primeng/icons/chevronright';
-import { RippleModule } from 'primeng/ripple';
+import { Ripple } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
 import { Nullable } from 'primeng/ts-helpers';
 import { ObjectUtils } from 'primeng/utils';
@@ -40,6 +41,8 @@ import { BadgeModule } from 'primeng/badge';
  */
 @Component({
     selector: 'p-tabMenu, p-tabmenu',
+    standalone: true,
+    imports: [CommonModule, RouterModule, Ripple, TooltipModule, ChevronLeftIcon, ChevronRightIcon, BadgeModule],
     template: `
         <div [ngClass]="{ 'p-tabmenu p-component': true, 'p-tabmenu-scrollable': scrollable }" [ngStyle]="style" [class]="styleClass">
             <div class="p-tabmenu-nav-container">
@@ -258,13 +261,23 @@ export class TabMenu extends BaseComponent implements AfterContentInit, AfterVie
 
     @ViewChildren('tab') tab: Nullable<QueryList<ElementRef>>;
 
+    /**
+     * Template of the menu item.
+     * @group Templates
+     */
+    @ContentChild('item') itemTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Template of the previous icon.
+     * @group Templates
+     */
+    @ContentChild('previousicon') previousIconTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Template of the next icon.
+     * @group Templates
+     */
+    @ContentChild('nexticon') nextIconTemplate: Nullable<TemplateRef<any>>;
+
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
-
-    itemTemplate: Nullable<TemplateRef<any>>;
-
-    previousIconTemplate: Nullable<TemplateRef<any>>;
-
-    nextIconTemplate: Nullable<TemplateRef<any>>;
 
     tabChanged: boolean | undefined;
 
@@ -591,8 +604,7 @@ export class TabMenu extends BaseComponent implements AfterContentInit, AfterVie
 }
 
 @NgModule({
-    imports: [CommonModule, RouterModule, SharedModule, RippleModule, TooltipModule, ChevronLeftIcon, ChevronRightIcon, BadgeModule],
-    exports: [TabMenu, RouterModule, SharedModule, TooltipModule],
-    declarations: [TabMenu],
+    imports: [TabMenu, SharedModule],
+    exports: [TabMenu, SharedModule],
 })
 export class TabMenuModule {}

@@ -41,7 +41,7 @@ export class DisabledDoc {
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { AutoCompleteModule } from 'primeng/autocomplete';
+import { AutoComplete } from 'primeng/autocomplete';
 import { FormsModule } from '@angular/forms';
 
 interface AutoCompleteCompleteEvent {
@@ -53,7 +53,7 @@ interface AutoCompleteCompleteEvent {
     selector: 'autocomplete-disabled-demo',
     templateUrl: './autocomplete-disabled-demo.html',
     standalone: true,
-    imports: [FormsModule, AutoCompleteModule]
+    imports: [FormsModule, AutoComplete]
 })
 export class AutocompleteDisabledDemo {
     items: any[] | undefined;

@@ -39,13 +39,13 @@ export class SingleDoc implements OnInit {
         typescript: `import { Component, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { NodeService } from '@service/nodeservice';
-import { TreeModule } from 'primeng/tree';
+import { Tree } from 'primeng/tree';
 
 @Component({
     selector: 'tree-single-demo',
     templateUrl: './tree-single-demo.html',
     standalone: true,
-    imports: [TreeModule],
+    imports: [Tree],
     providers: [NodeService]
 })
 export class TreeSingleDemo implements OnInit {

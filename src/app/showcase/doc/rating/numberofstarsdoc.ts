@@ -25,13 +25,13 @@ export class NumberOfStarsDoc {
 
         typescript: `import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RatingModule } from 'primeng/rating';
+import { Rating } from 'primeng/rating';
 
 @Component({
     selector: 'rating-number-of-stars-demo',
     templateUrl: './rating-number-of-stars-demo.html',
     standalone: true,
-    imports: [FormsModule, RatingModule]
+    imports: [FormsModule, Rating]
 })
 export class RatingNumberOfStarsDemo {
     value: number = 5;

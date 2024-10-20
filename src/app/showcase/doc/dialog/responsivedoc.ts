@@ -72,14 +72,14 @@ export class ResponsiveDoc {
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { DialogModule } from 'primeng/dialog';
+import { Dialog } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
 
 @Component({
     selector: 'dialog-responsive-demo',
     templateUrl: './dialog-responsive-demo.html',
     standalone: true,
-    imports: [DialogModule, ButtonModule]
+    imports: [Dialog, ButtonModule]
 })
 export class DialogResponsiveDemo {
     visible: boolean = false;

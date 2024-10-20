@@ -19,7 +19,12 @@ import { Code } from '@domain/code';
                     <img src="https://primefaces.org/cdn/primeng/images/galleria/galleria11.jpg" alt="image" width="250" />
                 </ng-template>
                 <ng-template pTemplate="preview" let-style="style" let-previewCallback="previewCallback">
-                    <img src="https://primefaces.org/cdn/primeng/images/galleria/galleria11.jpg" alt="image" [style]="style" (click)="previewCallback()" />
+                    <img
+                        src="https://primefaces.org/cdn/primeng/images/galleria/galleria11.jpg"
+                        alt="image"
+                        [style]="style"
+                        (click)="previewCallback()"
+                    />
                 </ng-template>
             </p-image>
         </div>

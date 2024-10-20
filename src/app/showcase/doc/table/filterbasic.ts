@@ -105,7 +105,7 @@ import { CustomerService } from '@service/customerservice';
                                             (onChange)="filter($event.value)"
                                             placeholder="Select One"
                                             [showClear]="true"
-                                            style="min-width: 12rem" 
+                                            style="min-width: 12rem"
                                         >
                                             <ng-template let-option pTemplate="item">
                                                 <p-tag [value]="option.value" [severity]="getSeverity(option.value)" />
@@ -219,25 +219,6 @@ export class FilterBasicDoc {
         table.clear();
     }
 
-    getSeverity(status: string) {
-        switch (status) {
-            case 'unqualified':
-                return 'danger';
-
-            case 'qualified':
-                return 'success';
-
-            case 'new':
-                return 'info';
-
-            case 'negotiation':
-                return 'warn';
-
-            case 'renewal':
-                return null;
-        }
-    }
-
     code: Code = {
         basic: ` <p-table
     #dt2
@@ -325,7 +306,7 @@ export class FilterBasicDoc {
                             (onChange)="filter($event.value)"
                             placeholder="Select One"
                             [showClear]="true"
-                            style="min-width: 12rem" 
+                            style="min-width: 12rem"
                         >
                             <ng-template let-option pTemplate="item">
                                 <p-tag [value]="option.value" [severity]="getSeverity(option.value)" />
@@ -468,7 +449,7 @@ export class FilterBasicDoc {
                             (onChange)="filter($event.value)"
                             placeholder="Select One"
                             [showClear]="true"
-                            style="min-width: 12rem" 
+                            style="min-width: 12rem"
                         >
                             <ng-template let-option pTemplate="item">
                                 <p-tag [value]="option.value" [severity]="getSeverity(option.value)" />
@@ -637,6 +618,25 @@ export class TableFilterBasicDemo implements OnInit {
 ...`,
         service: ['CustomerService'],
     };
+
+    getSeverity(status: string) {
+        switch (status) {
+            case 'unqualified':
+                return 'danger';
+
+            case 'qualified':
+                return 'success';
+
+            case 'new':
+                return 'info';
+
+            case 'negotiation':
+                return 'warn';
+
+            case 'renewal':
+                return null;
+        }
+    }
 
     extFiles = [
         {

@@ -27,13 +27,13 @@ export class BasicDoc {
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { MeterGroupModule } from 'primeng/metergroup';
+import { MeterGroup } from 'primeng/metergroup';
 
 @Component({
     selector: 'meter-group-basic-demo',
     templateUrl: './meter-group-basic-demo.html',
     standalone: true,
-    imports: [MeterGroupModule]
+    imports: [MeterGroup]
 })
 export class MeterGroupBasicDemo {
     value = [

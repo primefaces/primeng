@@ -4,6 +4,7 @@ import {
     AfterContentInit,
     ChangeDetectionStrategy,
     Component,
+    ContentChild,
     ContentChildren,
     ElementRef,
     EventEmitter,
@@ -28,10 +29,10 @@ import {
     signal,
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { MenuItem, OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
+import { MenuItem, OverlayService } from 'primeng/api';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { AngleRightIcon } from 'primeng/icons/angleright';
-import { RippleModule } from 'primeng/ripple';
+import { Ripple } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
@@ -40,7 +41,9 @@ import { BaseComponent } from 'primeng/basecomponent';
 import { nestedPosition } from '@primeuix/utils/dom';
 
 @Component({
-    selector: 'p-tieredMenuSub, p-tieredmenu-sub',
+    selector: 'p-tieredMenuSub, p-tieredmenusub',
+    standalone: true,
+    imports: [CommonModule, RouterModule, Ripple, TooltipModule, AngleRightIcon],
     template: `
         <ul
             #sublist
@@ -224,7 +227,7 @@ import { nestedPosition } from '@primeuix/utils/dom';
                         </ng-container>
                     </div>
 
-                    <p-tieredmenu-sub
+                    <p-tieredmenusub
                         *ngIf="isItemVisible(processedItem) && isItemGroup(processedItem)"
                         [items]="processedItem.items"
                         [itemTemplate]="itemTemplate"
@@ -237,7 +240,7 @@ import { nestedPosition } from '@primeuix/utils/dom';
                         (itemClick)="itemClick.emit($event)"
                         (itemMouseEnter)="onItemMouseEnter($event)"
                         [inlineStyles]="{ display: isItemActive(processedItem) ? 'flex' : 'none' }"
-                    ></p-tieredmenu-sub>
+                    ></p-tieredmenusub>
                 </li>
             </ng-template>
         </ul>
@@ -399,6 +402,8 @@ export class TieredMenuSub {
  */
 @Component({
     selector: 'p-tieredMenu, p-tieredmenu',
+    standalone: true,
+    imports: [CommonModule, TieredMenuSub, RouterModule, Ripple, TooltipModule, AngleRightIcon],
     template: `
         <div
             #container
@@ -418,7 +423,7 @@ export class TieredMenuSub {
             (@overlayAnimation.done)="onOverlayAnimationEnd($event)"
             *ngIf="!popup || visible"
         >
-            <p-tieredmenu-sub
+            <p-tieredMenuSub
                 #rootmenu
                 [root]="true"
                 [items]="processedItems"
@@ -438,7 +443,7 @@ export class TieredMenuSub {
                 (menuBlur)="onMenuBlur($event)"
                 (menuKeydown)="onKeyDown($event)"
                 (itemMouseEnter)="onItemMouseEnter($event)"
-            ></p-tieredmenu-sub>
+            ></p-tieredMenuSub>
         </div>
     `,
     animations: [
@@ -451,7 +456,7 @@ export class TieredMenuSub {
     encapsulation: ViewEncapsulation.None,
     providers: [TieredMenuStyle],
 })
-export class TieredMenu extends BaseComponent implements OnInit, AfterContentInit, OnDestroy {
+export class TieredMenu extends BaseComponent implements OnInit, OnDestroy {
     /**
      * An array of menuitems.
      * @group Props
@@ -545,15 +550,19 @@ export class TieredMenu extends BaseComponent implements OnInit, AfterContentIni
      */
     @Output() onHide: EventEmitter<any> = new EventEmitter<any>();
 
-    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
-
     @ViewChild('rootmenu') rootmenu: TieredMenuSub | undefined;
 
     @ViewChild('container') containerViewChild: ElementRef<any> | undefined;
-
-    submenuIconTemplate: Nullable<TemplateRef<any>>;
-
-    itemTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Template of the submenu icon.
+     * @group Templates
+     */
+    @ContentChild('submenuicon') submenuIconTemplate: TemplateRef<any>;
+    /**
+     * Template of the item.
+     * @group Templates
+     */
+    @ContentChild('item') itemTemplate: TemplateRef<any>;
 
     container: HTMLDivElement | undefined;
 
@@ -630,24 +639,6 @@ export class TieredMenu extends BaseComponent implements OnInit, AfterContentIni
     ngOnInit() {
         super.ngOnInit();
         this.id = this.id || UniqueComponentId();
-    }
-
-    ngAfterContentInit() {
-        this.templates?.forEach((item) => {
-            switch (item.getType()) {
-                case 'submenuicon':
-                    this.submenuIconTemplate = item.template;
-                    break;
-
-                case 'item':
-                    this.itemTemplate = item.template;
-                    break;
-
-                default:
-                    this.itemTemplate = item.template;
-                    break;
-            }
-        });
     }
 
     createProcessedItems(items: any, level: number = 0, parent: any = {}, parentKey: any = '') {
@@ -1271,8 +1262,7 @@ export class TieredMenu extends BaseComponent implements OnInit, AfterContentIni
 }
 
 @NgModule({
-    imports: [CommonModule, RouterModule, RippleModule, TooltipModule, AngleRightIcon, SharedModule],
-    exports: [TieredMenu, RouterModule, TooltipModule, SharedModule],
-    declarations: [TieredMenu, TieredMenuSub],
+    imports: [TieredMenu],
+    exports: [TieredMenu],
 })
 export class TieredMenuModule {}

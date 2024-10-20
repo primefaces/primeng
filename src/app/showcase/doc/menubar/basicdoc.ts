@@ -75,13 +75,13 @@ export class BasicDoc implements OnInit {
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
-import { MenubarModule } from 'primeng/menubar';
+import { Menubar } from 'primeng/menubar';
 
 @Component({
     selector: 'menubar-basic-demo',
     templateUrl: './menubar-basic-demo.html',
     standalone: true,
-    imports: [MenubarModule]
+    imports: [Menubar]
 })
 export class MenubarBasicDemo implements OnInit {
     items: MenuItem[] | undefined;

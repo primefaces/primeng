@@ -9,7 +9,7 @@ import { Code } from '@domain/code';
         <p-deferred-demo (load)="loadDemoData()">
             <div class="card">
                 <p-table [value]="sales" [tableStyle]="{ 'min-width': '50rem' }">
-                    <ng-template pTemplate="header">
+                    <ng-template #header>
                         <tr>
                             <th rowspan="3">Product</th>
                             <th colspan="4">Sale Rate</th>
@@ -25,7 +25,7 @@ import { Code } from '@domain/code';
                             <th>This Year</th>
                         </tr>
                     </ng-template>
-                    <ng-template pTemplate="body" let-sale>
+                    <ng-template #body let-sale>
                         <tr>
                             <td>{{ sale.product }}</td>
                             <td>{{ sale.lastYearSale }}%</td>
@@ -34,7 +34,7 @@ import { Code } from '@domain/code';
                             <td>{{ sale.thisYearProfit | currency: 'USD' }}</td>
                         </tr>
                     </ng-template>
-                    <ng-template pTemplate="footer">
+                    <ng-template #footer>
                         <tr>
                             <td colspan="3" class="text-right">Totals</td>
                             <td>{{ lastYearTotal | currency: 'USD' }}</td>
@@ -56,47 +56,9 @@ export class ColumnGroupDoc {
 
     constructor(private cd: ChangeDetectorRef) {}
 
-    loadDemoData() {
-        this.sales = [
-            { product: 'Bamboo Watch', lastYearSale: 51, thisYearSale: 40, lastYearProfit: 54406, thisYearProfit: 43342 },
-            { product: 'Black Watch', lastYearSale: 83, thisYearSale: 9, lastYearProfit: 423132, thisYearProfit: 312122 },
-            { product: 'Blue Band', lastYearSale: 38, thisYearSale: 5, lastYearProfit: 12321, thisYearProfit: 8500 },
-            { product: 'Blue T-Shirt', lastYearSale: 49, thisYearSale: 22, lastYearProfit: 745232, thisYearProfit: 65323 },
-            { product: 'Brown Purse', lastYearSale: 17, thisYearSale: 79, lastYearProfit: 643242, thisYearProfit: 500332 },
-            { product: 'Chakra Bracelet', lastYearSale: 52, thisYearSale: 65, lastYearProfit: 421132, thisYearProfit: 150005 },
-            { product: 'Galaxy Earrings', lastYearSale: 82, thisYearSale: 12, lastYearProfit: 131211, thisYearProfit: 100214 },
-            { product: 'Game Controller', lastYearSale: 44, thisYearSale: 45, lastYearProfit: 66442, thisYearProfit: 53322 },
-            { product: 'Gaming Set', lastYearSale: 90, thisYearSale: 56, lastYearProfit: 765442, thisYearProfit: 296232 },
-            { product: 'Gold Phone Case', lastYearSale: 75, thisYearSale: 54, lastYearProfit: 21212, thisYearProfit: 12533 },
-        ];
-
-        this.calculateLastYearTotal();
-        this.calculateThisYearTotal();
-
-        this.cd.markForCheck();
-    }
-
-    calculateLastYearTotal() {
-        let total = 0;
-        for (let sale of this.sales) {
-            total += sale.lastYearProfit;
-        }
-
-        this.lastYearTotal = total;
-    }
-
-    calculateThisYearTotal() {
-        let total = 0;
-        for (let sale of this.sales) {
-            total += sale.thisYearProfit;
-        }
-
-        this.thisYearTotal = total;
-    }
-
     code: Code = {
         basic: `<p-table [value]="sales" [tableStyle]="{'min-width': '50rem'}">
-    <ng-template pTemplate="header">
+    <ng-template #header>
         <tr>
             <th rowspan="3">Product</th>
             <th colspan="4">Sale Rate</th>
@@ -112,7 +74,7 @@ export class ColumnGroupDoc {
             <th>This Year</th>
         </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-sale>
+    <ng-template #body let-sale>
         <tr>
             <td>{{sale.product}}</td>
             <td>{{sale.lastYearSale}}%</td>
@@ -121,7 +83,7 @@ export class ColumnGroupDoc {
             <td>{{sale.thisYearProfit | currency: 'USD'}}</td>
         </tr>
     </ng-template>
-    <ng-template pTemplate="footer">
+    <ng-template #footer>
         <tr>
             <td colspan="3" class="text-right">Totals</td>
             <td>{{lastYearTotal | currency: 'USD'}}</td>
@@ -131,7 +93,7 @@ export class ColumnGroupDoc {
 </p-table>`,
         html: `<div class="card">
     <p-table [value]="sales" [tableStyle]="{'min-width': '50rem'}">
-        <ng-template pTemplate="header">
+        <ng-template #header>
             <tr>
                 <th rowspan="3">Product</th>
                 <th colspan="4">Sale Rate</th>
@@ -147,7 +109,7 @@ export class ColumnGroupDoc {
                 <th>This Year</th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-sale>
+        <ng-template #body let-sale>
             <tr>
                 <td>{{sale.product}}</td>
                 <td>{{sale.lastYearSale}}%</td>
@@ -156,7 +118,7 @@ export class ColumnGroupDoc {
                 <td>{{sale.thisYearProfit | currency: 'USD'}}</td>
             </tr>
         </ng-template>
-        <ng-template pTemplate="footer">
+        <ng-template #footer>
             <tr>
                 <td colspan="3" class="text-right">Totals</td>
                 <td>{{lastYearTotal | currency: 'USD'}}</td>
@@ -232,4 +194,96 @@ export class TableColumnGroupDemo implements OnInit {
 },
 ...`,
     };
+
+    calculateLastYearTotal() {
+        let total = 0;
+        for (let sale of this.sales) {
+            total += sale.lastYearProfit;
+        }
+
+        this.lastYearTotal = total;
+    }
+
+    calculateThisYearTotal() {
+        let total = 0;
+        for (let sale of this.sales) {
+            total += sale.thisYearProfit;
+        }
+
+        this.thisYearTotal = total;
+    }
+
+    loadDemoData() {
+        this.sales = [
+            {
+                product: 'Bamboo Watch',
+                lastYearSale: 51,
+                thisYearSale: 40,
+                lastYearProfit: 54406,
+                thisYearProfit: 43342,
+            },
+            {
+                product: 'Black Watch',
+                lastYearSale: 83,
+                thisYearSale: 9,
+                lastYearProfit: 423132,
+                thisYearProfit: 312122,
+            },
+            { product: 'Blue Band', lastYearSale: 38, thisYearSale: 5, lastYearProfit: 12321, thisYearProfit: 8500 },
+            {
+                product: 'Blue T-Shirt',
+                lastYearSale: 49,
+                thisYearSale: 22,
+                lastYearProfit: 745232,
+                thisYearProfit: 65323,
+            },
+            {
+                product: 'Brown Purse',
+                lastYearSale: 17,
+                thisYearSale: 79,
+                lastYearProfit: 643242,
+                thisYearProfit: 500332,
+            },
+            {
+                product: 'Chakra Bracelet',
+                lastYearSale: 52,
+                thisYearSale: 65,
+                lastYearProfit: 421132,
+                thisYearProfit: 150005,
+            },
+            {
+                product: 'Galaxy Earrings',
+                lastYearSale: 82,
+                thisYearSale: 12,
+                lastYearProfit: 131211,
+                thisYearProfit: 100214,
+            },
+            {
+                product: 'Game Controller',
+                lastYearSale: 44,
+                thisYearSale: 45,
+                lastYearProfit: 66442,
+                thisYearProfit: 53322,
+            },
+            {
+                product: 'Gaming Set',
+                lastYearSale: 90,
+                thisYearSale: 56,
+                lastYearProfit: 765442,
+                thisYearProfit: 296232,
+            },
+            {
+                product: 'Gold Phone Case',
+                lastYearSale: 75,
+                thisYearSale: 54,
+                lastYearProfit: 21212,
+                thisYearProfit: 12533,
+            },
+        ];
+
+        this.calculateLastYearTotal();
+        this.calculateThisYearTotal();
+
+        this.cd.markForCheck();
+    }
 }

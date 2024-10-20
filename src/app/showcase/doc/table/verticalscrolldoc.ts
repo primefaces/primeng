@@ -14,7 +14,7 @@ import { CustomerService } from '@service/customerservice';
         <p-deferred-demo (load)="loadDemoData()">
             <div class="card">
                 <p-table [value]="customers" [scrollable]="true" scrollHeight="400px" [tableStyle]="{ 'min-width': '50rem' }">
-                    <ng-template pTemplate="header">
+                    <ng-template #header>
                         <tr>
                             <th>Name</th>
                             <th>Country</th>
@@ -22,7 +22,7 @@ import { CustomerService } from '@service/customerservice';
                             <th>Representative</th>
                         </tr>
                     </ng-template>
-                    <ng-template pTemplate="body" let-customer let-index="index">
+                    <ng-template #body let-customer let-index="index">
                         <tr>
                             <td>{{ customer.name }}</td>
                             <td>{{ customer.country.name }}</td>
@@ -52,12 +52,12 @@ export class VerticalScrollDoc {
     }
 
     code: Code = {
-        basic: `<p-table 
-    [value]="customers" 
-    [scrollable]="true" 
-    scrollHeight="400px" 
+        basic: `<p-table
+    [value]="customers"
+    [scrollable]="true"
+    scrollHeight="400px"
     [tableStyle]="{'min-width': '50rem'}">
-        <ng-template pTemplate="header">
+        <ng-template #header>
             <tr>
                 <th>Name</th>
                 <th>Country</th>
@@ -65,7 +65,7 @@ export class VerticalScrollDoc {
                 <th>Representative</th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-customer>
+        <ng-template #body let-customer>
             <tr>
                 <td>{{customer.name}}</td>
                 <td>{{customer.country.name}}</td>
@@ -75,12 +75,12 @@ export class VerticalScrollDoc {
         </ng-template>
 </p-table>`,
         html: `<div class="card">
-    <p-table 
-        [value]="customers" 
-        [scrollable]="true" 
-        scrollHeight="400px" 
+    <p-table
+        [value]="customers"
+        [scrollable]="true"
+        scrollHeight="400px"
         [tableStyle]="{'min-width': '50rem'}">
-            <ng-template pTemplate="header">
+            <ng-template #header>
                 <tr>
                     <th>Name</th>
                     <th>Country</th>
@@ -88,7 +88,7 @@ export class VerticalScrollDoc {
                     <th>Representative</th>
                 </tr>
             </ng-template>
-            <ng-template pTemplate="body" let-customer>
+            <ng-template #body let-customer>
                 <tr>
                     <td>{{customer.name}}</td>
                     <td>{{customer.country.name}}</td>

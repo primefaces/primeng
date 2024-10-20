@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { Code } from '@domain/code';
 import { Product } from '@domain/product';
 import { ProductService } from '@service/productservice';
@@ -13,10 +13,10 @@ import { ProductService } from '@service/productservice';
             </p>
         </app-docsectiontext>
         <div class="card">
-            <p-dataview #dv [value]="products">
-                <ng-template pTemplate="list" let-products>
+            <p-dataview #dv [value]="products()">
+                <ng-template #list let-items>
                     <div class="grid grid-cols-12 gap-4 grid-nogutter">
-                        <div class="col-span-12" *ngFor="let item of products; let first = first" class="col-span-12">
+                        <div class="col-span-12" *ngFor="let item of items; let first = first" class="col-span-12">
                             <div
                                 class="flex flex-col sm:flex-row sm:items-center p-6 gap-4"
                                 [ngClass]="{ 'border-t border-surface-200 dark:border-surface-700': !first }"
@@ -79,35 +79,14 @@ import { ProductService } from '@service/productservice';
     `,
 })
 export class BasicDoc {
-    products!: Product[];
+    products = signal<any>([]);
 
-    constructor(private productService: ProductService) {}
-
-    ngOnInit() {
-        this.productService.getProducts().then((data) => (this.products = data.slice(0, 5)));
-    }
-
-    getSeverity(product: Product) {
-        switch (product.inventoryStatus) {
-            case 'INSTOCK':
-                return 'success';
-
-            case 'LOWSTOCK':
-                return 'warn';
-
-            case 'OUTOFSTOCK':
-                return 'danger';
-
-            default:
-                return null;
-        }
-    }
-
+    productService = inject(ProductService);
     code: Code = {
-        basic: `<p-dataview #dv [value]="products">
-    <ng-template pTemplate="list" let-products>
+        basic: `<p-dataview #dv [value]="products()">
+    <ng-template #list let-items>
         <div class="grid grid-cols-12 gap-4 grid-nogutter">
-            <div class="col-span-12" *ngFor="let item of products; let first = first" class="col-span-12">
+            <div class="col-span-12" *ngFor="let item of items; let first = first" class="col-span-12">
                 <div
                     class="flex flex-col sm:flex-row sm:items-center p-6 gap-4"
                     [ngClass]="{ 'border-t border-surface-200 dark:border-surface-700': !first }"
@@ -167,10 +146,10 @@ export class BasicDoc {
 </p-dataview>`,
 
         html: `<div class="card">
-  <p-dataview #dv [value]="products">
-        <ng-template pTemplate="list" let-products>
+    <p-dataview #dv [value]="products()">
+        <ng-template #list let-items>
             <div class="grid grid-cols-12 gap-4 grid-nogutter">
-                <div class="col-span-12" *ngFor="let item of products; let first = first" class="col-span-12">
+                <div class="col-span-12" *ngFor="let item of items; let first = first" class="col-span-12">
                     <div
                         class="flex flex-col sm:flex-row sm:items-center p-6 gap-4"
                         [ngClass]="{ 'border-t border-surface-200 dark:border-surface-700': !first }"
@@ -233,28 +212,31 @@ export class BasicDoc {
         typescript: `import { Component } from '@angular/core';
 import { Product } from '@domain/product';
 import { ProductService } from '@service/productservice';
-import { DataViewModule } from 'primeng/dataview';
+import { DataView } from 'primeng/dataview';
 import { ButtonModule } from 'primeng/button';
-import { TagModule } from 'primeng/tag';
+import { Tag } from 'primeng/tag';
 import { CommonModule } from '@angular/common';
+import { signal } from '@angular/core';
 
 @Component({
     selector: 'data-view-basic-demo',
     templateUrl: './data-view-basic-demo.html',
     standalone: true,
-    imports: [DataViewModule, ButtonModule, TagModule, CommonModule],
+    imports: [DataView, ButtonModule, Tag, CommonModule],
     providers: [ProductService]
 })
 export class DataViewBasicDemo {
-    products!: Product[];
+    products = signal<any>([]);
 
-    constructor(private productService: ProductService) {}
-
+    productService = inject(ProductService);
     ngOnInit() {
-        this.productService.getProducts().then((data) => (this.products = data.slice(0, 5)));
+        this.productService.getProducts().then((data) => {
+            const d = data.slice(0, 5);
+            this.products.set([...d])
+        });
     }
 
-    getSeverity (product: Product) {
+    getSeverity(product: Product) {
         switch (product.inventoryStatus) {
             case 'INSTOCK':
                 return 'success';
@@ -268,11 +250,12 @@ export class DataViewBasicDemo {
             default:
                 return null;
         }
-    };
+    }
+
 }`,
 
         data: `
-/* ProductService */        
+/* ProductService */
 {
     id: '1000',
     code: 'f230fh0g3',
@@ -289,6 +272,29 @@ export class DataViewBasicDemo {
 
         service: ['ProductService'],
     };
+
+    getSeverity(product: Product) {
+        switch (product.inventoryStatus) {
+            case 'INSTOCK':
+                return 'success';
+
+            case 'LOWSTOCK':
+                return 'warn';
+
+            case 'OUTOFSTOCK':
+                return 'danger';
+
+            default:
+                return null;
+        }
+    }
+
+    ngOnInit() {
+        this.productService.getProducts().then((data) => {
+            const d = data.slice(0, 5);
+            this.products.set([...d]);
+        });
+    }
 
     extFiles = [
         {

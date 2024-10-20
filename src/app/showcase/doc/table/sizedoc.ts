@@ -20,7 +20,7 @@ import { ProductService } from '@service/productservice';
                     />
                 </div>
                 <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }" [size]="selectedSize">
-                    <ng-template pTemplate="header">
+                    <ng-template #header>
                         <tr>
                             <th>Code</th>
                             <th>Name</th>
@@ -28,7 +28,7 @@ import { ProductService } from '@service/productservice';
                             <th>Quantity</th>
                         </tr>
                     </ng-template>
-                    <ng-template pTemplate="body" let-product>
+                    <ng-template #body let-product>
                         <tr>
                             <td>{{ product.code }}</td>
                             <td>{{ product.name }}</td>
@@ -69,15 +69,15 @@ export class SizeDoc {
 
     code: Code = {
         basic: `<div class="flex justify-center mb-4">
-    <p-selectbutton 
-        [options]="sizes" 
-        [(ngModel)]="selectedSize" 
-        [multiple]="false" 
-        optionLabel="name" 
+    <p-selectbutton
+        [options]="sizes"
+        [(ngModel)]="selectedSize"
+        [multiple]="false"
+        optionLabel="name"
         optionValue="class" />
 </div>
 <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }" [styleClass]="selectedSize.class">
-    <ng-template pTemplate="header">
+    <ng-template #header>
         <tr>
             <th>Code</th>
             <th>Name</th>
@@ -85,7 +85,7 @@ export class SizeDoc {
             <th>Quantity</th>
         </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-product>
+    <ng-template #body let-product>
         <tr>
             <td>{{ product.code }}</td>
             <td>{{ product.name }}</td>
@@ -96,15 +96,15 @@ export class SizeDoc {
 </p-table>`,
         html: `<div class="card">
     <div class="flex justify-center mb-4">
-        <p-selectbutton 
-            [options]="sizes" 
-            [(ngModel)]="selectedSize" 
-            [multiple]="false" 
-            optionLabel="name" 
+        <p-selectbutton
+            [options]="sizes"
+            [(ngModel)]="selectedSize"
+            [multiple]="false"
+            optionLabel="name"
             optionValue="class" />
     </div>
     <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }" [styleClass]="selectedSize.class">
-        <ng-template pTemplate="header">
+        <ng-template #header>
             <tr>
                 <th>Code</th>
                 <th>Name</th>
@@ -112,7 +112,7 @@ export class SizeDoc {
                 <th>Quantity</th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-product>
+        <ng-template #body let-product>
             <tr>
                 <td>{{ product.code }}</td>
                 <td>{{ product.name }}</td>
@@ -126,14 +126,14 @@ export class SizeDoc {
 import { Product } from '@domain/product';
 import { ProductService } from '@service/productservice';
 import { TableModule } from 'primeng/table';
-import { SelectButtonModule } from 'primeng/selectbutton';
+import { SelectButton } from 'primeng/selectbutton';
 import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'table-size-demo',
     templateUrl: 'table-size-demo.html',
     standalone: true,
-    imports: [TableModule, SelectButtonModule, CommonModule],
+    imports: [TableModule, SelectButton, CommonModule],
     providers: [ProductService]
 })
 export class TableSizeDemo {
@@ -155,7 +155,7 @@ export class TableSizeDemo {
             { name: 'Normal', class: '' },
             { name: 'Large',  class: 'p-datatable-lg' }
         ];
-    } 
+    }
 }`,
         data: `{
     id: '1000',

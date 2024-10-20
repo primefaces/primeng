@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '@domain/code';
 
 @Component({
@@ -43,14 +43,14 @@ export class FormDoc {
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { MessageModule } from 'primeng/message';
+import { Message } from 'primeng/message';
 import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
     selector: 'message-form-demo',
     templateUrl: './message-form-demo.html',
     standalone: true,
-    imports: [MessageModule, InputTextModule]
+    imports: [Message, InputTextModule]
 })
 export class MessageFormDemo {}`,
     };

@@ -1,37 +1,35 @@
-import { AnimationEvent, animate, style, transition, trigger } from '@angular/animations';
+import { animate, AnimationEvent, style, transition, trigger } from '@angular/animations';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
-    AfterContentInit,
+    booleanAttribute,
     ChangeDetectionStrategy,
     Component,
-    ContentChildren,
+    ContentChild,
+    effect,
     ElementRef,
     EventEmitter,
+    forwardRef,
     Inject,
+    inject,
     Input,
     NgModule,
+    numberAttribute,
     OnDestroy,
     OnInit,
     Output,
-    QueryList,
+    signal,
     TemplateRef,
     ViewChild,
     ViewEncapsulation,
     ViewRef,
-    booleanAttribute,
-    effect,
-    forwardRef,
-    inject,
-    numberAttribute,
-    signal,
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { MenuItem, OverlayService, PrimeTemplate, SharedModule } from 'primeng/api';
+import { MenuItem, OverlayService } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { AngleRightIcon } from 'primeng/icons/angleright';
-import { RippleModule } from 'primeng/ripple';
+import { Ripple } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
-import { Nullable, VoidListener } from 'primeng/ts-helpers';
+import { VoidListener } from 'primeng/ts-helpers';
 import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
 import { ContextMenuStyle } from './style/contextmenustyle';
 import { BaseComponent } from 'primeng/basecomponent';
@@ -39,6 +37,8 @@ import { BadgeModule } from 'primeng/badge';
 
 @Component({
     selector: 'p-contextMenuSub, p-contextmenu-sub',
+    standalone: true,
+    imports: [CommonModule, RouterModule, Ripple, TooltipModule, AngleRightIcon, BadgeModule],
     template: `
         <ul
             *ngIf="root ? true : visible"
@@ -235,7 +235,7 @@ import { BadgeModule } from 'primeng/badge';
                         [level]="level + 1"
                         (itemClick)="itemClick.emit($event)"
                         (itemMouseEnter)="onItemMouseEnter($event)"
-                    ></p-contextmenu-sub>
+                    />
                 </li>
             </ng-template>
         </ul>
@@ -399,6 +399,8 @@ export class ContextMenuSub extends BaseComponent {
  */
 @Component({
     selector: 'p-contextMenu, p-contextmenu',
+    standalone: true,
+    imports: [CommonModule, ContextMenuSub, RouterModule, Ripple, TooltipModule, AngleRightIcon, BadgeModule],
     template: `
         <div
             #container
@@ -432,7 +434,7 @@ export class ContextMenuSub extends BaseComponent {
                 (menuBlur)="onMenuBlur($event)"
                 (menuKeydown)="onKeyDown($event)"
                 (itemMouseEnter)="onItemMouseEnter($event)"
-            ></p-contextmenu-sub>
+            />
         </div>
     `,
     animations: [
@@ -445,7 +447,7 @@ export class ContextMenuSub extends BaseComponent {
     encapsulation: ViewEncapsulation.None,
     providers: [ContextMenuStyle],
 })
-export class ContextMenu extends BaseComponent implements OnInit, AfterContentInit, OnDestroy {
+export class ContextMenu extends BaseComponent implements OnInit, OnDestroy {
     /**
      * An array of menuitems.
      * @group Props
@@ -528,15 +530,9 @@ export class ContextMenu extends BaseComponent implements OnInit, AfterContentIn
      */
     @Output() onHide: EventEmitter<null> = new EventEmitter<null>();
 
-    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
-
     @ViewChild('rootmenu') rootmenu: ContextMenuSub | undefined;
 
     @ViewChild('container') containerViewChild: ElementRef<any> | undefined;
-
-    submenuIconTemplate: Nullable<TemplateRef<any>>;
-
-    itemTemplate: Nullable<TemplateRef<any>>;
 
     container: HTMLDivElement | undefined;
 
@@ -683,22 +679,17 @@ export class ContextMenu extends BaseComponent implements OnInit, AfterContentIn
             }
         }
     }
+    /**
+     * Defines template option for item.
+     * @group Templates
+     */
+    @ContentChild('item') itemTemplate: TemplateRef<any> | undefined;
 
-    ngAfterContentInit() {
-        this.templates?.forEach((item) => {
-            switch (item.getType()) {
-                case 'submenuicon':
-                    this.submenuIconTemplate = item.template;
-                    break;
-                case 'item':
-                    this.itemTemplate = item.template;
-                    break;
-                default:
-                    this.itemTemplate = item.template;
-                    break;
-            }
-        });
-    }
+    /**
+     * Defines template option for submenuIcon.
+     * @group Templates
+     */
+    @ContentChild('submenuicon') submenuIconTemplate: TemplateRef<any> | undefined;
 
     createProcessedItems(items: any, level: number = 0, parent: any = {}, parentKey: any = '') {
         const processedItems = [];
@@ -1293,8 +1284,7 @@ export class ContextMenu extends BaseComponent implements OnInit, AfterContentIn
 }
 
 @NgModule({
-    imports: [CommonModule, RouterModule, RippleModule, TooltipModule, AngleRightIcon, SharedModule, BadgeModule],
-    exports: [ContextMenu, RouterModule, TooltipModule, SharedModule],
-    declarations: [ContextMenu, ContextMenuSub],
+    imports: [ContextMenu],
+    exports: [ContextMenu],
 })
 export class ContextMenuModule {}

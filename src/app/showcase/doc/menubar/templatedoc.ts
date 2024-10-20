@@ -10,7 +10,7 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card">
             <p-menubar [model]="items">
-                <ng-template pTemplate="start">
+                <ng-template #start>
                     <svg width="31" height="33" viewBox="0 0 31 33" fill="none" xmlns="http://www.w3.org/2000/svg" class="block mx-auto">
                         <path
                             d="M15.1934 0V0V0L0.0391235 5.38288L2.35052 25.3417L15.1934 32.427V32.427V32.427L28.0364 25.3417L30.3478 5.38288L15.1934 0Z"
@@ -70,7 +70,7 @@ import { Code } from '@domain/code';
                         />
                     </svg>
                 </ng-template>
-                <ng-template pTemplate="item" let-item let-root="root">
+                <ng-template #item let-item let-root="root">
                     <a pRipple class="flex items-center p-menubar-item-link">
                         <span [class]="item.icon"></span>
                         <span class="ml-2">{{ item.label }}</span>
@@ -83,7 +83,7 @@ import { Code } from '@domain/code';
                         <i *ngIf="item.items" [ngClass]="['pi', root ? 'pi-angle-down ml-2' : 'pi-angle-right ml-auto']"></i>
                     </a>
                 </ng-template>
-                <ng-template pTemplate="end">
+                <ng-template #end>
                     <div class="flex items-center gap-2">
                         <input type="text" pInputText placeholder="Search" class="w-32 sm:w-auto" />
                         <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
@@ -157,7 +157,7 @@ export class TemplateDoc implements OnInit {
 
     code: Code = {
         basic: `<p-menubar [model]="items">
-    <ng-template pTemplate="start">
+    <ng-template #start>
         <svg width="33" height="35" viewBox="0 0 33 35" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="..." fill="var(--primary-color)" />
             <mask id="mask0_1_36" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="31" height="33">
@@ -188,7 +188,7 @@ export class TemplateDoc implements OnInit {
             <path d="..." fill="var(--primary-color-text)" />
         </svg>
     </ng-template>
-    <ng-template pTemplate="item" let-item let-root="root">
+    <ng-template  #item let-item let-root="root">
         <a pRipple class="flex items-center p-menubar-item-link">
             <span [class]="item.icon"></span>
             <span class="ml-2">{{ item.label }}</span>
@@ -197,7 +197,7 @@ export class TemplateDoc implements OnInit {
             <i *ngIf="item.items" [ngClass]="['pi', root ? 'pi-angle-down ml-2' : 'pi-angle-right ml-auto']"></i>
         </a>
     </ng-template>
-    <ng-template pTemplate="end">
+    <ng-template #end>
         <div class="flex items-center gap-2">
             <input type="text" pInputText placeholder="Search" class="w-32 sm:w-auto" />
             <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
@@ -207,24 +207,11 @@ export class TemplateDoc implements OnInit {
 
         html: `<div class="card">
     <p-menubar [model]="items">
-        <ng-template pTemplate="start">
-              <svg
-                width="31"
-                height="33"
-                viewBox="0 0 31 33"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                class="block mx-auto"
-            >
-                <path
-                    d="M15.1934 0V0V0L0.0391235 5.38288L2.35052 25.3417L15.1934 32.427V32.427V32.427L28.0364 25.3417L30.3478 5.38288L15.1934 0Z"
-                    fill="var(--p-primary-color)"
-                />
-                <mask id="mask0_1_52" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="31" height="33">
-                    <path
-                        d="M15.1934 0V0V0L0.0391235 5.38288L2.35052 25.3417L15.1934 32.427V32.427V32.427L28.0364 25.3417L30.3478 5.38288L15.1934 0Z"
-                        fill="var(--ground-background)"
-                    />
+        <ng-template #start>
+            <svg width="33" height="35" viewBox="0 0 33 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M15.1934 0V0V0L0.0391235 5.38288L2.35052 25.3417L15.1934 32.427V32.427V32.427L28.0364 25.3417L30.3478 5.38288L15.1934 0Z" fill="var(--primary-color)" />
+                <mask id="mask0_1_36" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="31" height="33">
+                    <path d="M15.1934 0V0V0L0.0391235 5.38288L2.35052 25.3417L15.1934 32.427V32.427V32.427L28.0364 25.3417L30.3478 5.38288L15.1934 0Z" fill="var(--primary-color-text)" />
                 </mask>
                 <g mask="url(#mask0_1_52)">
                     <path
@@ -274,7 +261,7 @@ export class TemplateDoc implements OnInit {
                 />
             </svg>
         </ng-template>
-        <ng-template pTemplate="item" let-item let-root="root">
+        <ng-template  #item let-item let-root="root">
             <a pRipple class="flex items-center p-menubar-item-link">
                 <span [class]="item.icon"></span>
                 <span class="ml-2">{{ item.label }}</span>
@@ -283,7 +270,7 @@ export class TemplateDoc implements OnInit {
                 <i *ngIf="item.items" [ngClass]="['pi', root ? 'pi-angle-down ml-2' : 'pi-angle-right ml-auto']"></i>
             </a>
         </ng-template>
-        <ng-template pTemplate="end">
+        <ng-template #end>
             <div class="flex items-center gap-2">
                 <input type="text" pInputText placeholder="Search" class="w-32 sm:w-auto" />
                 <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
@@ -294,18 +281,18 @@ export class TemplateDoc implements OnInit {
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
-import { MenubarModule } from 'primeng/menubar';
+import { Menubar } from 'primeng/menubar';
 import { BadgeModule } from 'primeng/badge';
 import { AvatarModule } from 'primeng/avatar';
 import { InputTextModule } from 'primeng/inputtext';
 import { CommonModule } from '@angular/common';
-import { RippleModule } from 'primeng/ripple';
+import { Ripple } from 'primeng/ripple';
 
 @Component({
     selector: 'menubar-template-demo',
     templateUrl: './menubar-template-demo.html',
     standalone: true,
-    imports: [MenubarModule, BadgeModule, AvatarModule, InputTextModule, RippleModule, CommonModule]
+    imports: [Menubar, BadgeModule, AvatarModule, InputTextModule, Ripple, CommonModule]
 })
 export class MenubarTemplateDemo implements OnInit {
     items: MenuItem[] | undefined;

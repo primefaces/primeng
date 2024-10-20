@@ -13,7 +13,13 @@ import { NodeService } from '@service/nodeservice';
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-tree styleClass="w-full md:w-[30rem]" scrollHeight="250px" [virtualScroll]="true" [virtualScrollItemSize]="46" [value]="files" />
+            <p-tree
+                styleClass="w-full md:w-[30rem]"
+                scrollHeight="250px"
+                [virtualScroll]="true"
+                [virtualScrollItemSize]="46"
+                [value]="files"
+            />
         </div>
         <app-code [code]="code" selector="tree-virtual-scroll-demo"></app-code>
     `,
@@ -53,13 +59,13 @@ export class VirtualScrollDoc implements OnInit {
         typescript: `import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { NodeService } from '@service/nodeservice';
-import { TreeModule } from 'primeng/tree';
+import { Tree } from 'primeng/tree';
 
 @Component({
     selector: 'tree-virtual-scroll-demo',
     templateUrl: './tree-virtual-scroll-demo.html',
     standalone: true,
-    imports: [TreeModule],
+    imports: [Tree],
     providers: [NodeService]
 })
 export class TreeVirtualScrollDemo implements OnInit {

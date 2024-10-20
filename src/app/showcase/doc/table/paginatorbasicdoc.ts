@@ -8,7 +8,8 @@ import { CustomerService } from '@service/customerservice';
     template: ` <app-docsectiontext>
             <p>
                 Pagination is enabled by setting <i>paginator</i> property to <i>true</i> and defining a rows property to specify the number
-                of rows per page. For server side pagination, see the <a [routerLink]="['/table#lazy']">lazy loading</a> example.
+                of rows per page. For server side pagination, see the <a [routerLink]="['/table#lazy']">lazy loading</a>
+                example.
             </p>
         </app-docsectiontext>
         <p-deferred-demo (load)="loadDemoData()">
@@ -20,7 +21,7 @@ import { CustomerService } from '@service/customerservice';
                     [tableStyle]="{ 'min-width': '50rem' }"
                     [rowsPerPageOptions]="[5, 10, 20]"
                 >
-                    <ng-template pTemplate="header">
+                    <ng-template #header>
                         <tr>
                             <th style="width:25%">Name</th>
                             <th style="width:25%">Country</th>
@@ -28,7 +29,7 @@ import { CustomerService } from '@service/customerservice';
                             <th style="width:25%">Representative</th>
                         </tr>
                     </ng-template>
-                    <ng-template pTemplate="body" let-customer>
+                    <ng-template #body let-customer>
                         <tr>
                             <td>{{ customer.name }}</td>
                             <td>{{ customer.country.name }}</td>
@@ -65,7 +66,7 @@ export class PaginatorBasicDoc {
     [tableStyle]="{ 'min-width': '50rem' }"
     [rowsPerPageOptions]="[5, 10, 20]"
 >
-    <ng-template pTemplate="header">
+    <ng-template #header>
         <tr>
             <th style="width:25%">Name</th>
             <th style="width:25%">Country</th>
@@ -73,7 +74,7 @@ export class PaginatorBasicDoc {
             <th style="width:25%">Representative</th>
         </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-customer>
+    <ng-template #body let-customer>
         <tr>
             <td>{{ customer.name }}</td>
             <td>{{ customer.country.name }}</td>
@@ -90,7 +91,7 @@ export class PaginatorBasicDoc {
         [tableStyle]="{ 'min-width': '50rem' }"
         [rowsPerPageOptions]="[5, 10, 20]"
     >
-        <ng-template pTemplate="header">
+        <ng-template #header>
             <tr>
                 <th style="width:25%">Name</th>
                 <th style="width:25%">Country</th>
@@ -98,7 +99,7 @@ export class PaginatorBasicDoc {
                 <th style="width:25%">Representative</th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-customer>
+        <ng-template #body let-customer>
             <tr>
                 <td>{{ customer.name }}</td>
                 <td>{{ customer.country.name }}</td>

@@ -1,19 +1,18 @@
 import { CommonModule } from '@angular/common';
 import {
+    booleanAttribute,
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     ElementRef,
     EventEmitter,
+    forwardRef,
+    inject,
     Input,
     NgModule,
+    numberAttribute,
     Output,
     ViewChild,
     ViewEncapsulation,
-    booleanAttribute,
-    forwardRef,
-    inject,
-    numberAttribute,
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { AutoFocusModule } from 'primeng/autofocus';
@@ -31,7 +30,7 @@ export const INPUTSWITCH_VALUE_ACCESSOR: any = {
  * @group Components
  */
 @Component({
-    selector: 'p-inputSwitch',
+    selector: 'p-inputSwitch, p-inputswitch',
     template: `
         <div
             [ngClass]="cx('root')"

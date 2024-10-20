@@ -1,9 +1,10 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewChild } from '@angular/core';
 import { Code } from '@domain/code';
 import { Product } from '@domain/product';
 import { ProductService } from '@service/productservice';
 import { SortEvent } from 'primeng/api';
 import { Table } from 'primeng/table';
+
 @Component({
     selector: 'removable-sort-doc',
     template: ` <app-docsectiontext>
@@ -12,15 +13,27 @@ import { Table } from 'primeng/table';
         <p-deferred-demo (load)="loadDemoData()">
             <div class="card">
                 <p-table #dt [value]="products" (sortFunction)="customSort($event)" [customSort]="true">
-                    <ng-template pTemplate="header">
+                    <ng-template #header>
                         <tr>
-                            <th pSortableColumn="code">Code <p-sortIcon field="code" /></th>
-                            <th pSortableColumn="name">Name <p-sortIcon field="name" /></th>
-                            <th pSortableColumn="category">Category <p-sortIcon field="category" /></th>
-                            <th pSortableColumn="quantity">Quantity <p-sortIcon field="quantity" /></th>
+                            <th pSortableColumn="code">
+                                Code
+                                <p-sortIcon field="code" />
+                            </th>
+                            <th pSortableColumn="name">
+                                Name
+                                <p-sortIcon field="name" />
+                            </th>
+                            <th pSortableColumn="category">
+                                Category
+                                <p-sortIcon field="category" />
+                            </th>
+                            <th pSortableColumn="quantity">
+                                Quantity
+                                <p-sortIcon field="quantity" />
+                            </th>
                         </tr>
                     </ng-template>
-                    <ng-template pTemplate="body" let-product>
+                    <ng-template #body let-product>
                         <tr>
                             <td>{{ product.code }}</td>
                             <td>{{ product.name }}</td>
@@ -83,7 +96,7 @@ export class RemovableSortDoc {
 
     code: Code = {
         basic: `<p-table #dt [value]="products" (sortFunction)="customSort($event)" [customSort]="true">
-    <ng-template pTemplate="header">
+    <ng-template #header>
         <tr>
             <th pSortableColumn="code">
                 Code <p-sortIcon field="code" />
@@ -99,7 +112,7 @@ export class RemovableSortDoc {
             </th>
         </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-product>
+    <ng-template #body let-product>
         <tr>
             <td>{{ product.code }}</td>
             <td>{{ product.name }}</td>
@@ -111,7 +124,7 @@ export class RemovableSortDoc {
 
         html: `<div class="card">
     <p-table #dt [value]="products" (sortFunction)="customSort($event)" [customSort]="true">
-        <ng-template pTemplate="header">
+        <ng-template #header>
             <tr>
                 <th pSortableColumn="code">
                     Code <p-sortIcon field="code" />
@@ -127,7 +140,7 @@ export class RemovableSortDoc {
                 </th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-product>
+        <ng-template #body let-product>
             <tr>
                 <td>{{ product.code }}</td>
                 <td>{{ product.name }}</td>

@@ -59,14 +59,14 @@ export class CommandDoc implements OnInit {
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
-import { MenuModule } from 'primeng/menu';
+import { Menu } from 'primeng/menu';
 import { ToastModule } from 'primeng/toast';
 
 @Component({
     selector: 'menu-command-demo',
     templateUrl: './menu-command-demo.html',
     standalone: true,
-    imports: [MenuModule, ToastModule],
+    imports: [Menu, ToastModule],
     providers: [MessageService]
 })
 export class MenuCommandDemo implements OnInit {

@@ -41,13 +41,13 @@ export class ReactiveFormsDoc implements OnInit {
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { InputNumberModule } from 'primeng/inputnumber';
+import { InputNumber } from 'primeng/inputnumber';
 
 @Component({
     selector: 'input-number-reactive-forms-demo',
     templateUrl: './input-number-reactive-forms-demo.html',
     standalone: true,
-    imports: [ReactiveFormsModule, InputNumberModule],
+    imports: [ReactiveFormsModule, InputNumber],
 })
 export class InputNumberReactiveFormsDemo implements OnInit {
     formGroup!: FormGroup;

@@ -4,6 +4,7 @@ import { SharedModule } from 'primeng/api';
 import { OverlayBadgeStyle } from './style/overlaybadgestyle';
 import { BaseComponent } from 'primeng/basecomponent';
 import { BadgeModule } from 'primeng/badge';
+
 /**
  * OverlayPanel is a container component positioned as connected to its target.
  * @group Components
@@ -20,7 +21,6 @@ import { BadgeModule } from 'primeng/badge';
                 [severity]="severity"
                 [value]="value"
                 [badgeDisabled]="badgeDisabled"
-                [size]="size"
             />
         </div>
     `,
@@ -48,7 +48,7 @@ export class OverlayBadge extends BaseComponent {
      * Severity type of the badge.
      * @group Props
      */
-    @Input() severity: 'success' | 'info' | 'warning' | 'danger' | 'help' | 'primary' | 'secondary' | 'contrast' | null | undefined;
+    @Input() severity: 'success' | 'info' | 'danger' | 'help' | 'primary' | 'secondary' | 'contrast' | 'warn' | null | undefined;
     /**
      * Value to display inside the badge.
      * @group Props

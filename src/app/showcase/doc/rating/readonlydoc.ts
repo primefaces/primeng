@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
             <p>When <i>readOnly</i> present, value cannot be edited.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-rating [(ngModel)]="value" [readonly]="true"  />
+            <p-rating [(ngModel)]="value" [readonly]="true" />
         </div>
         <app-code [code]="code" selector="rating-readonly-demo"></app-code>
     `,
@@ -25,13 +25,13 @@ export class ReadOnlyDoc {
 
         typescript: `import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RatingModule } from 'primeng/rating';
+import { Rating } from 'primeng/rating';
 
 @Component({
     selector: 'rating-readonly-demo',
     templateUrl: './rating-readonly-demo.html',
     standalone: true,
-    imports: [FormsModule, RatingModule]
+    imports: [FormsModule, Rating]
 })
 export class RatingReadonlyDemo {
     value: number = 3;

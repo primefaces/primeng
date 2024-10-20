@@ -60,14 +60,14 @@ export class GroupDoc implements OnInit {
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
-import { MenuModule } from 'primeng/menu';
+import { Menu } from 'primeng/menu';
 import { ToastModule } from 'primeng/toast';
         
 @Component({
     selector: 'menu-group-demo',
     templateUrl: './menu-group-demo.html',
     standalone: true,
-    imports: [MenuModule, ToastModule]
+    imports: [Menu, ToastModule]
 })
 export class MenuGroupDemo implements OnInit {
     items: MenuItem[] | undefined;

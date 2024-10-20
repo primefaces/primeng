@@ -1,5 +1,5 @@
 import { animate, AnimationEvent, state, style, transition, trigger } from '@angular/animations';
-import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
     AfterContentInit,
     booleanAttribute,
@@ -19,23 +19,26 @@ import {
     QueryList,
     TemplateRef,
     ViewEncapsulation,
-    ViewRef,
+    ViewRef
 } from '@angular/core';
-import { OverlayService, PrimeTemplate, SharedModule } from 'primeng/api';
+import { OverlayService, PrimeTemplate } from 'primeng/api';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { TimesIcon } from 'primeng/icons/times';
-import { RippleModule } from 'primeng/ripple';
+import { Ripple } from 'primeng/ripple';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { ZIndexUtils } from 'primeng/utils';
 import { Subscription } from 'rxjs';
 import { PopoverStyle } from './style/popoverstyle';
 import { BaseComponent } from 'primeng/basecomponent';
+
 /**
  * Popover is a container component that can overlay other components on page.
  * @group Components
  */
 @Component({
     selector: 'p-popover',
+    standalone: true,
+    imports: [CommonModule, Ripple, TimesIcon],
     template: `
         <div
             *ngIf="render"
@@ -518,8 +521,7 @@ export class Popover extends BaseComponent implements AfterContentInit, OnDestro
 }
 
 @NgModule({
-    imports: [CommonModule, RippleModule, SharedModule, TimesIcon],
-    exports: [Popover, SharedModule],
-    declarations: [Popover],
+    imports: [Popover],
+    exports: [Popover],
 })
 export class PopoverModule {}

@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { BreadcrumbModule } from 'primeng/breadcrumb';
+import { Breadcrumb } from 'primeng/breadcrumb';
 import { AppDocModule } from '@layout/doc/app.doc.module';
 import { AppCodeModule } from '@layout/doc/app.code.component';
 import { StyleDoc } from './styledoc';
@@ -12,7 +12,7 @@ import { TemplateDoc } from './templatedoc';
 import { RouterDoc } from './routerdoc';
 
 @NgModule({
-    imports: [CommonModule, AppCodeModule, RouterModule, BreadcrumbModule, AppDocModule],
+    imports: [CommonModule, AppCodeModule, RouterModule, Breadcrumb, AppDocModule],
     declarations: [BasicDoc, TemplateDoc, RouterDoc, ImportDoc, StyleDoc, AccessibilityDoc],
     exports: [AppDocModule],
 })

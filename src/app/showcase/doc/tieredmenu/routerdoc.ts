@@ -13,8 +13,8 @@ import { Router } from '@angular/router';
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-tieredmenu [model]="items">
-                <ng-template pTemplate="item" let-item let-hasSubmenu="hasSubmenu">
+            <p-tieredMenu [model]="items">
+                <ng-template #item let-item let-hasSubmenu="hasSubmenu">
                     <ng-container *ngIf="item.route; else withoutRoute">
                         <a [routerLink]="item.route" [href]="item.href" class="p-tieredmenu-item-link">
                             <span class="item.icon"></span>
@@ -38,7 +38,7 @@ import { Router } from '@angular/router';
                         </ng-template>
                     </ng-template>
                 </ng-template>
-            </p-tieredmenu>
+            </p-tieredMenu>
         </div>
         <app-code [code]="code" selector="tiered-menu-router-demo"></app-code>
     `,
@@ -89,8 +89,8 @@ export class RouterDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-tieredmenu [model]="items">
-        <ng-template pTemplate="item" let-item let-hasSubmenu="hasSubmenu">
+        basic: `<p-tieredMenu [model]="items">
+        <ng-template #item let-item let-hasSubmenu="hasSubmenu">
             <ng-container *ngIf="item.route; else withoutRoute">
                 <a [routerLink]="item.route" [href]="item.href" class="p-tieredmenu-item-link">
                     <span class="item.icon"></span>
@@ -114,11 +114,11 @@ export class RouterDoc implements OnInit {
                 </ng-template>
             </ng-template>
         </ng-template>
-</p-tieredmenu>`,
+</p-tieredMenu>`,
 
         html: `<div class="card flex justify-center">
-    <p-tieredmenu [model]="items">
-        <ng-template pTemplate="item" let-item let-hasSubmenu="hasSubmenu">
+    <p-tieredMenu [model]="items">
+        <ng-template #item let-item let-hasSubmenu="hasSubmenu">
             <ng-container *ngIf="item.route; else withoutRoute">
                 <a [routerLink]="item.route" [href]="item.href" class="p-tieredmenu-item-link">
                     <span class="item.icon"></span>
@@ -142,20 +142,20 @@ export class RouterDoc implements OnInit {
                 </ng-template>
             </ng-template>
         </ng-template>
-    </p-tieredmenu>
+    </p-tieredMenu>
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { Router } from '@angular/router';
-import { TieredMenuModule } from 'primeng/tieredmenu';
+import { TieredMenu } from 'primeng/tieredmenu';
 import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'tiered-menu-router-demo',
     templateUrl: './tiered-menu-router-demo.html',
     standalone: true,
-    imports: [TieredMenuModule, CommonModule]
+    imports: [TieredMenu, CommonModule]
 })
 export class TieredMenuRouterDemo implements OnInit {
 
