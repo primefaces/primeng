@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { NgClass, NgStyle } from '@angular/common';
 import {
     booleanAttribute,
     ChangeDetectionStrategy,
@@ -194,7 +194,7 @@ export class ToggleSwitch extends BaseComponent {
 }
 
 @NgModule({
-    imports: [CommonModule, AutoFocusModule],
+    imports: [NgClass, NgStyle, AutoFocusModule],
     exports: [ToggleSwitch],
     declarations: [ToggleSwitch],
 })
