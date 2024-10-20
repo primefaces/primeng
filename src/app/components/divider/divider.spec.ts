@@ -9,10 +9,7 @@ describe('Divider', () => {
     let dividerRef: ComponentRef<Divider>;
 
     beforeEach(() => {
-        TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule, Divider],
-        });
-
+        TestBed.configureTestingModule({ imports: [NoopAnimationsModule, Divider] });
         fixture = TestBed.createComponent(Divider);
         divider = fixture.componentInstance;
         dividerRef = fixture.componentRef;
