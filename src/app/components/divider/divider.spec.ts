@@ -1,6 +1,6 @@
 import { ComponentRef } from '@angular/core';
 import { TestBed, ComponentFixture } from '@angular/core/testing';
-import { Divider, DividerModule } from './divider';
+import { Divider } from './divider';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('Divider', () => {
@@ -10,7 +10,7 @@ describe('Divider', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule, DividerModule],
+            imports: [NoopAnimationsModule, Divider],
         });
 
         fixture = TestBed.createComponent(Divider);

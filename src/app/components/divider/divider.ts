@@ -7,6 +7,7 @@ import { DividerStyle } from './style/dividerstyle';
  */
 @Component({
     selector: 'p-divider',
+    standalone: true,
     template: `
         <div class="p-divider-content">
             <ng-content></ng-content>
@@ -71,8 +72,7 @@ export class Divider extends BaseComponent {
 }
 
 @NgModule({
-    imports: [],
+    imports: [Divider],
     exports: [Divider],
-    declarations: [Divider],
 })
 export class DividerModule {}
