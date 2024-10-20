@@ -8,7 +8,7 @@ import {
     Input,
     NgModule,
     Output,
-    ViewEncapsulation,
+    ViewEncapsulation
 } from '@angular/core';
 import { BaseComponent } from 'primeng/basecomponent';
 import { AvatarStyle } from './style/avatarstyle';
@@ -19,6 +19,8 @@ import { AvatarStyle } from './style/avatarstyle';
  */
 @Component({
     selector: 'p-avatar',
+    standalone: true,
+    imports: [CommonModule],
     template: `
         <ng-content></ng-content>
         <span class="p-avatar-text" *ngIf="label; else iconTemplate">{{ label }}</span>
@@ -108,8 +110,7 @@ export class Avatar extends BaseComponent {
 }
 
 @NgModule({
-    imports: [CommonModule],
+    imports: [Avatar],
     exports: [Avatar],
-    declarations: [Avatar],
 })
 export class AvatarModule {}

@@ -52,7 +52,7 @@ export class FilledDoc implements OnInit {
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SelectModule } from 'primeng/select';
+import { Select } from 'primeng/select';
 
 interface City {
     name: string;
@@ -63,7 +63,7 @@ interface City {
     selector: 'select-filled-demo',
     templateUrl: './select-filled-demo.html',
     standalone: true,
-    imports: [FormsModule, SelectModule]
+    imports: [FormsModule, Select]
 })
 export class SelectFilledDemo implements OnInit {
     cities: City[] | undefined;

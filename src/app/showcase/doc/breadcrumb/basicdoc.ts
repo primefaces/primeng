@@ -40,13 +40,13 @@ export class BasicDoc implements OnInit {
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
-import { BreadcrumbModule } from 'primeng/breadcrumb';
+import { Breadcrumb } from 'primeng/breadcrumb';
 
 @Component({
     selector: 'breadcrumb-basic-demo',
     templateUrl: './breadcrumb-basic-demo.html',
     standalone: true,
-    imports: [BreadcrumbModule]
+    imports: [Breadcrumb]
 })
 export class BreadcrumbBasicDemo implements OnInit {
     items: MenuItem[] | undefined;

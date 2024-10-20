@@ -70,13 +70,13 @@ export class MultipleDoc {
 
         typescript: `import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { CheckboxModule } from 'primeng/checkbox';
+import { Checkbox } from 'primeng/checkbox';
 
 @Component({
     selector: 'checkbox-multiple-demo',
     templateUrl: './checkbox-multiple-demo.html',
     standalone: true,
-    imports: [FormsModule, CheckboxModule]
+    imports: [FormsModule, Checkbox]
 })
 export class CheckboxMultipleDemo {
     pizza: string[] = [];

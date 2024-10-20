@@ -1,6 +1,7 @@
 import { DomHandler } from 'primeng/dom';
-import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { Directive, ElementRef, Input, NgModule, inject, booleanAttribute, PLATFORM_ID, SimpleChanges } from '@angular/core';
+import { DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { booleanAttribute, Directive, inject, Input, NgModule, PLATFORM_ID, SimpleChanges } from '@angular/core';
+import { BaseComponent } from 'primeng/basecomponent';
 
 /**
  * Focus Trap keeps focus within a certain DOM element while tabbing.
@@ -8,8 +9,9 @@ import { Directive, ElementRef, Input, NgModule, inject, booleanAttribute, PLATF
  */
 @Directive({
     selector: '[pFocusTrap]',
+    standalone: true,
 })
-export class FocusTrap {
+export class FocusTrap extends BaseComponent {
     /**
      * When set as true, focus wouldn't be managed.
      * @group Props
@@ -18,8 +20,6 @@ export class FocusTrap {
 
     platformId = inject(PLATFORM_ID);
 
-    host: ElementRef = inject(ElementRef);
-
     document: Document = inject(DOCUMENT);
 
     firstHiddenFocusableElement!: HTMLElement;
@@ -27,12 +27,14 @@ export class FocusTrap {
     lastHiddenFocusableElement!: HTMLElement;
 
     ngOnInit() {
+        super.ngOnInit();
         if (isPlatformBrowser(this.platformId) && !this.pFocusTrapDisabled) {
             !this.firstHiddenFocusableElement && !this.lastHiddenFocusableElement && this.createHiddenFocusableElements();
         }
     }
 
     ngOnChanges(changes: SimpleChanges) {
+        super.ngOnChanges(changes);
         if (changes.pFocusTrapDisabled && isPlatformBrowser(this.platformId)) {
             if (changes.pFocusTrapDisabled.currentValue) {
                 this.removeHiddenFocusableElements();
@@ -76,14 +78,14 @@ export class FocusTrap {
         this.firstHiddenFocusableElement.setAttribute('data-pc-section', 'firstfocusableelement');
         this.lastHiddenFocusableElement.setAttribute('data-pc-section', 'lastfocusableelement');
 
-        this.host.nativeElement.prepend(this.firstHiddenFocusableElement);
-        this.host.nativeElement.append(this.lastHiddenFocusableElement);
+        this.el.nativeElement.prepend(this.firstHiddenFocusableElement);
+        this.el.nativeElement.append(this.lastHiddenFocusableElement);
     }
 
     onFirstHiddenElementFocus(event) {
         const { currentTarget, relatedTarget } = event;
         const focusableElement =
-            relatedTarget === this.lastHiddenFocusableElement || !this.host.nativeElement?.contains(relatedTarget)
+            relatedTarget === this.lastHiddenFocusableElement || !this.el.nativeElement?.contains(relatedTarget)
                 ? DomHandler.getFirstFocusableElement(currentTarget.parentElement, ':not(.p-hidden-focusable)')
                 : this.lastHiddenFocusableElement;
 
@@ -93,7 +95,7 @@ export class FocusTrap {
     onLastHiddenElementFocus(event) {
         const { currentTarget, relatedTarget } = event;
         const focusableElement =
-            relatedTarget === this.firstHiddenFocusableElement || !this.host.nativeElement?.contains(relatedTarget)
+            relatedTarget === this.firstHiddenFocusableElement || !this.el.nativeElement?.contains(relatedTarget)
                 ? DomHandler.getLastFocusableElement(currentTarget.parentElement, ':not(.p-hidden-focusable)')
                 : this.firstHiddenFocusableElement;
 
@@ -102,8 +104,7 @@ export class FocusTrap {
 }
 
 @NgModule({
-    imports: [CommonModule],
+    imports: [FocusTrap],
     exports: [FocusTrap],
-    declarations: [FocusTrap],
 })
 export class FocusTrapModule {}

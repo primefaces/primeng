@@ -1,4 +1,4 @@
-import { CDK_DRAG_CONFIG, CdkDragDrop, DragDropModule, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { CdkDragDrop, DragDropModule, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
     AfterContentInit,
@@ -6,6 +6,7 @@ import {
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
+    ContentChild,
     ContentChildren,
     ElementRef,
     EventEmitter,
@@ -17,10 +18,10 @@ import {
     QueryList,
     TemplateRef,
     ViewChild,
-    ViewEncapsulation,
+    ViewEncapsulation
 } from '@angular/core';
 import { FilterService, PrimeTemplate, SharedModule } from 'primeng/api';
-import { ButtonModule, ButtonProps } from 'primeng/button';
+import { ButtonDirective, ButtonProps } from 'primeng/button';
 import { DomHandler } from 'primeng/dom';
 import { AngleDoubleDownIcon } from 'primeng/icons/angledoubledown';
 import { AngleDoubleLeftIcon } from 'primeng/icons/angledoubleleft';
@@ -32,7 +33,7 @@ import { AngleRightIcon } from 'primeng/icons/angleright';
 import { AngleUpIcon } from 'primeng/icons/angleup';
 import { HomeIcon } from 'primeng/icons/home';
 import { SearchIcon } from 'primeng/icons/search';
-import { RippleModule } from 'primeng/ripple';
+import { Ripple } from 'primeng/ripple';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
 import {
@@ -46,11 +47,11 @@ import {
     PickListSourceSelectEvent,
     PickListTargetFilterEvent,
     PickListTargetReorderEvent,
-    PickListTargetSelectEvent,
+    PickListTargetSelectEvent
 } from './picklist.interface';
 import { PickListStyle } from './style/pickliststyle';
 import { BaseComponent } from 'primeng/basecomponent';
-import { Listbox, ListboxModule } from 'primeng/listbox';
+import { Listbox } from 'primeng/listbox';
 import { FormsModule } from '@angular/forms';
 
 /**
@@ -59,6 +60,25 @@ import { FormsModule } from '@angular/forms';
  */
 @Component({
     selector: 'p-pickList, p-picklist',
+    standalone: true,
+    imports: [
+        CommonModule,
+        ButtonDirective,
+        Ripple,
+        DragDropModule,
+        AngleDoubleDownIcon,
+        AngleDoubleLeftIcon,
+        AngleDoubleRightIcon,
+        AngleDoubleUpIcon,
+        AngleDownIcon,
+        AngleLeftIcon,
+        AngleRightIcon,
+        AngleUpIcon,
+        SearchIcon,
+        HomeIcon,
+        Listbox,
+        FormsModule,
+    ],
     template: `
         <div
             [class]="styleClass"
@@ -164,12 +184,12 @@ import { FormsModule } from '@angular/forms';
                     [filterPlaceHolder]="sourceFilterPlaceholder"
                 >
                     <ng-container *ngIf="sourceHeaderTemplate">
-                        <ng-template pTemplate="header">
+                        <ng-template #header>
                             <ng-template *ngTemplateOutlet="headerTemplate"></ng-template>
                         </ng-template>
                     </ng-container>
                     <ng-container *ngIf="itemTemplate">
-                        <ng-template pTemplate="item" let-item let-index="index" let-selected="selected">
+                        <ng-template #item let-item let-index="index" let-selected="selected">
                             <ng-container
                                 *ngTemplateOutlet="itemTemplate; context: { $implicit: item, index: index, selected: selected }"
                             ></ng-container>
@@ -284,12 +304,12 @@ import { FormsModule } from '@angular/forms';
                     [filterPlaceHolder]="targetFilterPlaceholder"
                 >
                     <ng-container *ngIf="targetHeaderTemplate">
-                        <ng-template pTemplate="header">
+                        <ng-template #header>
                             <ng-template *ngTemplateOutlet="headerTemplate"></ng-template>
                         </ng-template>
                     </ng-container>
                     <ng-container *ngIf="itemTemplate">
-                        <ng-template pTemplate="item" let-item let-index="index" let-selected="selected">
+                        <ng-template #item let-item let-index="index" let-selected="selected">
                             <ng-container
                                 *ngTemplateOutlet="itemTemplate; context: { $implicit: item, index: index, selected: selected }"
                             ></ng-container>
@@ -815,28 +835,6 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
 
     _breakpoint: string = '960px';
 
-    public itemTemplate: TemplateRef<any> | undefined;
-
-    moveTopIconTemplate: Nullable<TemplateRef<any>>;
-
-    moveUpIconTemplate: Nullable<TemplateRef<any>>;
-
-    moveDownIconTemplate: Nullable<TemplateRef<any>>;
-
-    moveBottomIconTemplate: Nullable<TemplateRef<any>>;
-
-    moveToTargetIconTemplate: Nullable<TemplateRef<any>>;
-
-    moveAllToTargetIconTemplate: Nullable<TemplateRef<any>>;
-
-    moveToSourceIconTemplate: Nullable<TemplateRef<any>>;
-
-    moveAllToSourceIconTemplate: Nullable<TemplateRef<any>>;
-
-    targetFilterIconTemplate: Nullable<TemplateRef<any>>;
-
-    sourceFilterIconTemplate: Nullable<TemplateRef<any>>;
-
     public visibleOptionsSource: any[] | undefined | null;
 
     public visibleOptionsTarget: any[] | undefined | null;
@@ -862,22 +860,6 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
     filterValueTarget: Nullable<string>;
 
     fromListType: Nullable<number>;
-
-    emptyMessageSourceTemplate: Nullable<TemplateRef<any>>;
-
-    emptyFilterMessageSourceTemplate: Nullable<TemplateRef<any>>;
-
-    emptyMessageTargetTemplate: Nullable<TemplateRef<any>>;
-
-    emptyFilterMessageTargetTemplate: Nullable<TemplateRef<any>>;
-
-    sourceHeaderTemplate: Nullable<TemplateRef<any>>;
-
-    targetHeaderTemplate: Nullable<TemplateRef<any>>;
-
-    sourceFilterTemplate: Nullable<TemplateRef<any>>;
-
-    targetFilterTemplate: Nullable<TemplateRef<any>>;
 
     sourceFilterOptions: Nullable<PickListFilterOptions>;
 
@@ -906,10 +888,7 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
 
     mediaChangeListener: VoidListener;
 
-    constructor(public filterService: FilterService) {
-        super();
-        this.window = this.document.defaultView as Window;
-    }
+    filterService = inject(FilterService);
 
     ngOnInit() {
         super.ngOnInit();
@@ -930,6 +909,120 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
             };
         }
     }
+
+    /**
+     * Custom item template.
+     * @group Templates
+     */
+    @ContentChild('item') itemTemplate: TemplateRef<any>;
+
+    /**
+     * Custom source header template.
+     * @group Templates
+     */
+    @ContentChild('sourceHeader') sourceHeaderTemplate: TemplateRef<any>;
+
+    /**
+     * Custom target header template.
+     * @group Templates
+     */
+    @ContentChild('targetHeader') targetHeaderTemplate: TemplateRef<any>;
+
+    /**
+     * Custom source filter template.
+     * @group Templates
+     */
+    @ContentChild('sourceFilter') sourceFilterTemplate: TemplateRef<{ options: PickListFilterOptions }>;
+
+    /**
+     * Custom target filter template.
+     * @group Templates
+     */
+    @ContentChild('targetFilter') targetFilterTemplate: TemplateRef<{ options: PickListFilterOptions }>;
+
+    /**
+     * Custom empty message when source is empty template.
+     * @group Templates
+     */
+    @ContentChild('emptymessagesource') emptyMessageSourceTemplate: TemplateRef<any>;
+
+    /**
+     * Custom empty filter message when source is empty template.
+     * @group Templates
+     */
+    @ContentChild('emptyfiltermessagesource') emptyFilterMessageSourceTemplate: TemplateRef<any>;
+
+    /**
+     * Custom empty message when target is empty template.
+     * @group Templates
+     */
+    @ContentChild('emptymessagetarget') emptyMessageTargetTemplate: TemplateRef<any>;
+
+    /**
+     * Custom empty filter message when target is empty template.
+     * @group Templates
+     */
+    @ContentChild('emptyfiltermessagetarget') emptyFilterMessageTargetTemplate: TemplateRef<any>;
+
+    /**
+     * Custom move up icon template.
+     * @group Templates
+     */
+    @ContentChild('moveupicon') moveUpIconTemplate: TemplateRef<{ $implicit: boolean }>;
+
+    /**
+     * Custom move top icon template.
+     * @group Templates
+     */
+    @ContentChild('movetopicon') moveTopIconTemplate: TemplateRef<{ $implicit: boolean }>;
+
+    /**
+     * Custom move down icon template.
+     * @group Templates
+     */
+    @ContentChild('movedownicon') moveDownIconTemplate: TemplateRef<{ $implicit: boolean }>;
+
+    /**
+     * Custom move bottom icon template.
+     * @group Templates
+     */
+    @ContentChild('movebottomicon') moveBottomIconTemplate: TemplateRef<{ $implicit: boolean }>;
+
+    /**
+     * Custom move to target icon template.
+     * @group Templates
+     */
+    @ContentChild('movetotargeticon') moveToTargetIconTemplate: TemplateRef<{ $implicit: boolean }>;
+
+    /**
+     * Custom move all to target icon template.
+     * @group Templates
+     */
+    @ContentChild('movealltotargeticon') moveAllToTargetIconTemplate: TemplateRef<{ $implicit: boolean }>;
+
+    /**
+     * Custom move to source icon template.
+     * @group Templates
+     */
+    @ContentChild('movetosourceicon') moveToSourceIconTemplate: TemplateRef<{ $implicit: boolean }>;
+
+    /**
+     * Custom move all to source icon template.
+     * @group Templates
+     */
+    @ContentChild('movealltosourceicon') moveAllToSourceIconTemplate: TemplateRef<{ $implicit: boolean }>;
+
+    /**
+     * Custom target filter icon template.
+     * @group Templates
+     */
+    @ContentChild('targetfiltericon') targetFilterIconTemplate: TemplateRef<{ options: PickListFilterOptions }>;
+
+    /**
+     * Custom source filter icon template.
+     * @group Templates
+     */
+    @ContentChild('sourcefiltericon') sourceFilterIconTemplate: TemplateRef<{ options: PickListFilterOptions }>;
 
     ngAfterContentInit() {
         (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
@@ -1761,7 +1854,7 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
 
     initMedia() {
         if (isPlatformBrowser(this.platformId)) {
-            this.media = this.window.matchMedia(`(max-width: ${this.breakpoint})`);
+            this.media = this.document.defaultView.matchMedia(`(max-width: ${this.breakpoint})`);
             this.viewChanged = this.media.matches;
             this.bindMediaChangeListener();
         }
@@ -1855,32 +1948,8 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
     }
 }
 
-const DragConfig = {
-    zIndex: 1200,
-};
-
 @NgModule({
-    imports: [
-        CommonModule,
-        ButtonModule,
-        SharedModule,
-        RippleModule,
-        DragDropModule,
-        AngleDoubleDownIcon,
-        AngleDoubleLeftIcon,
-        AngleDoubleRightIcon,
-        AngleDoubleUpIcon,
-        AngleDownIcon,
-        AngleLeftIcon,
-        AngleRightIcon,
-        AngleUpIcon,
-        SearchIcon,
-        HomeIcon,
-        ListboxModule,
-        FormsModule,
-    ],
-    exports: [PickList, SharedModule, DragDropModule, ListboxModule],
-    declarations: [PickList],
-    providers: [{ provide: CDK_DRAG_CONFIG, useValue: DragConfig }],
+    imports: [PickList, SharedModule],
+    exports: [PickList, SharedModule],
 })
 export class PickListModule {}

@@ -37,13 +37,13 @@ export class TemplateDoc {
     </p-chip>
 </div>`,
         typescript: `import { Component } from '@angular/core';
-import { ChipModule } from 'primeng/chip';
+import { Chip } from 'primeng/chip';
 
 @Component({
     selector: 'chip-template-demo',
     templateUrl: './chip-template-demo.html',
     standalone: true,
-    imports: [ChipModule]
+    imports: [Chip]
 })
 export class ChipTemplateDemo {}`,
     };

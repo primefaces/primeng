@@ -431,9 +431,9 @@ export class TemplateDoc {
 import { ButtonModule } from 'primeng/button';
 import { StepperModule } from 'primeng/stepper';
 import { InputTextModule } from 'primeng/inputtext';
-import { ToggleButtonModule } from 'primeng/togglebutton';
-import { IconFieldModule } from 'primeng/iconfield';
-import { InputIconModule } from 'primeng/inputicon';
+import { ToggleButton } from 'primeng/togglebutton';
+import { IconField } from 'primeng/iconfield';
+import { InputIcon } from 'primeng/inputicon';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -444,9 +444,9 @@ import { CommonModule } from '@angular/common';
       StepperModule,
       ButtonModule,
       InputTextModule,
-      ToggleButtonModule,
-      IconFieldModule,
-      InputIconModule,
+      ToggleButton,
+      IconField,
+      InputIcon,
       CommonModule
     ]
 })

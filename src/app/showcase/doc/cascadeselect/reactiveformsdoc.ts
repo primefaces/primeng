@@ -128,13 +128,13 @@ export class ReactiveFormsDoc implements OnInit {
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { CascadeSelectModule } from 'primeng/cascadeselect';
+import { CascadeSelect } from 'primeng/cascadeselect';
 
 @Component({
     selector: 'cascade-select-reactive-forms-demo',
     templateUrl: './cascade-select-reactive-forms-demo.html',
     standalone: true,
-    imports: [ReactiveFormsModule, CascadeSelectModule]
+    imports: [ReactiveFormsModule, CascadeSelect]
 })
 export class CascadeSelectReactiveFormsDemo implements OnInit {
     countries: any[] | undefined;

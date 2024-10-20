@@ -247,7 +247,7 @@ export class PositionDoc {
 
         typescript: `import { Component } from '@angular/core';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmDialog } from 'primeng/confirmdialog';
 import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
              
@@ -255,7 +255,7 @@ import { ToastModule } from 'primeng/toast';
     selector: 'confirm-dialog-position-demo',
     templateUrl: './confirm-dialog-position-demo.html',
     standalone: true,
-    imports: [ConfirmDialogModule, ButtonModule, ToastModule],
+    imports: [ConfirmDialog, ButtonModule, ToastModule],
     providers: [ConfirmationService, MessageService]
 })
 export class ConfirmDialogPositionDemo {

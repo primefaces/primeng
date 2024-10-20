@@ -120,14 +120,14 @@ export class ThumbnailDoc implements OnInit {
         typescript: `import { Component, OnInit } from '@angular/core';
 import { PhotoService } from '@service/photoservice';
 import { GalleriaModule } from 'primeng/galleria';
-import { RadioButtonModule } from 'primeng/radiobutton';
+import { RadioButton } from 'primeng/radiobutton';
 import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'galleria-thumbnail-demo',
     templateUrl: './galleria-thumbnail-demo.html',
     standalone: true,
-    imports: [GalleriaModule, RadioButtonModule, FormsModule],
+    imports: [GalleriaModule, RadioButton, FormsModule],
     providers: [PhotoService]
 })
 export class GalleriaThumbnailDemo implements OnInit {

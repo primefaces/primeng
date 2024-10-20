@@ -21,7 +21,7 @@ import { ProductService } from '@service/productservice';
                     (onRowUnselect)="onRowUnselect($event)"
                     [tableStyle]="{ 'min-width': '50rem' }"
                 >
-                    <ng-template pTemplate="header">
+                    <ng-template #header>
                         <tr>
                             <th>Code</th>
                             <th>Name</th>
@@ -29,7 +29,7 @@ import { ProductService } from '@service/productservice';
                             <th>Quantity</th>
                         </tr>
                     </ng-template>
-                    <ng-template pTemplate="body" let-product>
+                    <ng-template #body let-product>
                         <tr [pSelectableRow]="product">
                             <td>{{ product.code }}</td>
                             <td>{{ product.name }}</td>
@@ -72,15 +72,15 @@ export class SelectionEventsDoc {
 
     code: Code = {
         basic: `<p-toast />
-<p-table 
-    [value]="products" 
-    selectionMode="single" 
-    [(selection)]="selectedProduct" 
-    dataKey="code" 
-    (onRowSelect)="onRowSelect($event)" 
-    (onRowUnselect)="onRowUnselect($event)" 
+<p-table
+    [value]="products"
+    selectionMode="single"
+    [(selection)]="selectedProduct"
+    dataKey="code"
+    (onRowSelect)="onRowSelect($event)"
+    (onRowUnselect)="onRowUnselect($event)"
     [tableStyle]="{'min-width': '50rem'}">
-        <ng-template pTemplate="header">
+        <ng-template #header>
             <tr>
                 <th>Code</th>
                 <th>Name</th>
@@ -88,7 +88,7 @@ export class SelectionEventsDoc {
                 <th>Quantity</th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-product>
+        <ng-template #body let-product>
             <tr [pSelectableRow]="product">
                 <td>{{product.code}}</td>
                 <td>{{product.name}}</td>
@@ -99,15 +99,15 @@ export class SelectionEventsDoc {
 </p-table>`,
         html: `<div class="card">
     <p-toast />
-    <p-table 
-        [value]="products" 
-        selectionMode="single" 
-        [(selection)]="selectedProduct" 
+    <p-table
+        [value]="products"
+        selectionMode="single"
+        [(selection)]="selectedProduct"
         dataKey="code"
-        (onRowSelect)="onRowSelect($event)" 
-        (onRowUnselect)="onRowUnselect($event)" 
+        (onRowSelect)="onRowSelect($event)"
+        (onRowUnselect)="onRowUnselect($event)"
         [tableStyle]="{'min-width': '50rem'}">
-            <ng-template pTemplate="header">
+            <ng-template #header>
                 <tr>
                     <th>Code</th>
                     <th>Name</th>
@@ -115,7 +115,7 @@ export class SelectionEventsDoc {
                     <th>Quantity</th>
                 </tr>
             </ng-template>
-            <ng-template pTemplate="body" let-product>
+            <ng-template #body let-product>
                 <tr [pSelectableRow]="product">
                     <td>{{product.code}}</td>
                     <td>{{product.name}}</td>

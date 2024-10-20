@@ -73,7 +73,7 @@ export class WithoutModalDoc {
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { DialogModule } from 'primeng/dialog';
+import { Dialog } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 
@@ -81,7 +81,7 @@ import { InputTextModule } from 'primeng/inputtext';
     selector: 'dialog-without-modal-demo',
     templateUrl: './dialog-without-modal-demo.html',
     standalone: true,
-    imports: [DialogModule, ButtonModule, InputTextModule]
+    imports: [Dialog, ButtonModule, InputTextModule]
 })
 export class DialogWithoutModalDemo {
     visible: boolean = false;

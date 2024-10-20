@@ -12,7 +12,7 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card">
             <p-editor [(ngModel)]="text" [style]="{ height: '320px' }">
-                <ng-template pTemplate="header">
+                <ng-template #header>
                     <span class="ql-formats">
                         <button type="button" class="ql-bold" aria-label="Bold"></button>
                         <button type="button" class="ql-italic" aria-label="Italic"></button>
@@ -29,7 +29,7 @@ export class CustomToolbarDoc {
 
     code: Code = {
         basic: `<p-editor [(ngModel)]="text" [style]="{ height: '320px' }">
-    <ng-template pTemplate="header">
+    <ng-template #header>
         <span class="ql-formats">
             <button type="button" class="ql-bold" aria-label="Bold"></button>
             <button type="button" class="ql-italic" aria-label="Italic"></button>
@@ -40,7 +40,7 @@ export class CustomToolbarDoc {
 
         html: `<div class="card">
     <p-editor [(ngModel)]="text" [style]="{ height: '320px' }">
-        <ng-template pTemplate="header">
+        <ng-template #header>
             <span class="ql-formats">
                 <button type="button" class="ql-bold" aria-label="Bold"></button>
                 <button type="button" class="ql-italic" aria-label="Italic"></button>

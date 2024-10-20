@@ -6,11 +6,11 @@ import {
     ChangeDetectionStrategy,
     Component,
     computed,
+    ContentChild,
     ContentChildren,
     ElementRef,
     EventEmitter,
     forwardRef,
-    Inject,
     inject,
     Input,
     NgModule,
@@ -38,6 +38,8 @@ import { BaseComponent } from 'primeng/basecomponent';
 
 @Component({
     selector: 'p-panelMenuSub, p-panelmenu-sub',
+    imports: [CommonModule, RouterModule, TooltipModule, AngleDownIcon, AngleRightIcon, ChevronDownIcon, ChevronRightIcon],
+    standalone: true,
     template: `
         <ul
             #list
@@ -212,14 +214,14 @@ import { BaseComponent } from 'primeng/basecomponent';
     ],
     encapsulation: ViewEncapsulation.None,
 })
-export class PanelMenuSub {
+export class PanelMenuSub extends BaseComponent {
     @Input() panelId: string | undefined;
 
     @Input() focusedItemId: string | undefined;
 
     @Input() items: any[];
 
-    @Input() itemTemplate: HTMLElement | undefined;
+    @Input() itemTemplate: TemplateRef<any> | undefined;
 
     @Input({ transform: numberAttribute }) level: number = 0;
 
@@ -243,10 +245,7 @@ export class PanelMenuSub {
 
     @ViewChild('list') listViewChild: ElementRef;
 
-    constructor(
-        @Inject(forwardRef(() => PanelMenu)) public panelMenu: PanelMenu,
-        public el: ElementRef,
-    ) {}
+    panelMenu: PanelMenu = inject(forwardRef(() => PanelMenu));
 
     getItemId(processedItem) {
         return processedItem.item?.id ?? `${this.panelId}_${processedItem.key}`;
@@ -331,6 +330,8 @@ export class PanelMenuSub {
 
 @Component({
     selector: 'p-panelMenuList, p-panel-menu-list',
+    imports: [CommonModule, PanelMenuSub, RouterModule, TooltipModule, AngleDownIcon, AngleRightIcon, ChevronDownIcon, ChevronRightIcon],
+    standalone: true,
     template: `
         <p-panelmenu-sub
             #submenu
@@ -353,7 +354,7 @@ export class PanelMenuSub {
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
 })
-export class PanelMenuList implements OnChanges {
+export class PanelMenuList extends BaseComponent implements OnChanges {
     @Input() panelId: string | undefined;
 
     @Input() id: string | undefined;
@@ -405,8 +406,6 @@ export class PanelMenuList implements OnChanges {
               ? `${this.panelId}_${this.focusedItem().key}`
               : undefined;
     }
-
-    constructor(private el: ElementRef) {}
 
     ngOnChanges(changes: SimpleChanges) {
         this.processedItems.set(this.createProcessedItems(changes?.items?.currentValue || this.items || []));
@@ -797,6 +796,8 @@ export class PanelMenuList implements OnChanges {
  */
 @Component({
     selector: 'p-panelMenu, p-panelmenu',
+    imports: [CommonModule, PanelMenuList, RouterModule, TooltipModule, AngleDownIcon, AngleRightIcon, ChevronDownIcon, ChevronRightIcon],
+    standalone: true,
     template: `
         <div [class]="styleClass" [ngStyle]="style" [ngClass]="'p-panelmenu p-component'" #container>
             <ng-container *ngFor="let item of model; let f = first; let l = last; let i = index">
@@ -1005,10 +1006,16 @@ export class PanelMenu extends BaseComponent implements AfterContentInit {
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
     @ViewChild('container') containerViewChild: ElementRef | undefined;
-
-    submenuIconTemplate: TemplateRef<any> | undefined;
-
-    itemTemplate: TemplateRef<any> | undefined;
+    /**
+     * Template option of submenuicon.
+     * @group Templates
+     */
+    @ContentChild('submenuicon') submenuIconTemplate: TemplateRef<any> | undefined;
+    /**
+     * Template option of item.
+     * @group Templates
+     */
+    @ContentChild('item') itemTemplate: TemplateRef<any> | undefined;
 
     public animating: boolean | undefined;
 
@@ -1249,8 +1256,7 @@ export class PanelMenu extends BaseComponent implements AfterContentInit {
     }
 }
 @NgModule({
-    imports: [CommonModule, RouterModule, TooltipModule, SharedModule, AngleDownIcon, AngleRightIcon, ChevronDownIcon, ChevronRightIcon],
-    exports: [PanelMenu, RouterModule, TooltipModule, SharedModule],
-    declarations: [PanelMenu, PanelMenuSub, PanelMenuList],
+    imports: [PanelMenu, SharedModule],
+    exports: [PanelMenu, SharedModule],
 })
 export class PanelMenuModule {}

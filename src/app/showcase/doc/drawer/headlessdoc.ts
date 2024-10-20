@@ -10,7 +10,7 @@ import { Drawer } from 'primeng/drawer';
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-drawer #drawerRef [(visible)]="visible">
-                <ng-template pTemplate="headless">
+                <ng-template #headless>
                     <div class="flex flex-col h-full">
                         <div class="flex items-center justify-between px-6 pt-4 shrink-0">
                             <span class="inline-flex items-center gap-2">
@@ -324,7 +324,7 @@ export class HeadlessDoc {
 
     code: Code = {
         basic: `<p-drawer #drawerRef [(visible)]="visible">
-    <ng-template pTemplate="headless">
+    <ng-template #headless>
         <div class="flex flex-col h-full">
             <div class="flex items-center justify-between px-6 pt-4 shrink-0">
                 <span class="inline-flex items-center gap-2">
@@ -571,7 +571,7 @@ export class HeadlessDoc {
 
         html: `<div class="card flex justify-center">
 <p-drawer #drawerRef [(visible)]="visible">
-    <ng-template pTemplate="headless">
+    <ng-template #headless>
         <div class="flex flex-col h-full">
             <div class="flex items-center justify-between px-6 pt-4 shrink-0">
                 <span class="inline-flex items-center gap-2">
@@ -800,16 +800,16 @@ export class HeadlessDoc {
         typescript: `import { Component, ViewChild } from '@angular/core';
 import { DrawerModule } from 'primeng/drawer';
 import { ButtonModule } from 'primeng/button';
-import { RippleModule } from 'primeng/ripple';
+import { Ripple } from 'primeng/ripple';
 import { AvatarModule } from 'primeng/avatar';
-import { StyleClassModule } from 'primeng/styleclass';
+import { StyleClass } from 'primeng/styleclass';
 import { Drawer } from 'primeng/drawer';
 
 @Component({
     selector: 'drawer-headless-demo',
     templateUrl: './drawer-headless-demo.html',
     standalone: true,
-    imports: [DrawerModule, ButtonModule, RippleModule, AvatarModule, StyleClassModule]
+    imports: [DrawerModule, ButtonModule, Ripple, AvatarModule, StyleClass]
 })
 export class DrawerHeadlessDemo {
     @ViewChild('drawerRef') drawerRef!: Drawer;

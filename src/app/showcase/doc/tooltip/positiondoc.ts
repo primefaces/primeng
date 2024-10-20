@@ -34,14 +34,14 @@ export class PositionDoc {
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { TooltipModule } from 'primeng/tooltip';
+import { Tooltip } from 'primeng/tooltip';
 import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
     selector: 'tooltip-position-demo',
     templateUrl: './tooltip-position-demo.html',
     standalone: true,
-    imports: [TooltipModule, InputTextModule]
+    imports: [Tooltip, InputTextModule]
 })
 export class TooltipPositionDemo {}`,
     };

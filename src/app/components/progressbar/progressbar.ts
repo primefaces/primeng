@@ -1,18 +1,16 @@
 import { CommonModule } from '@angular/common';
 import {
+    booleanAttribute,
     ChangeDetectionStrategy,
     Component,
-    TemplateRef,
-    ContentChildren,
+    ContentChild,
+    inject,
     Input,
     NgModule,
-    ViewEncapsulation,
-    booleanAttribute,
     numberAttribute,
-    inject,
+    TemplateRef,
+    ViewEncapsulation
 } from '@angular/core';
-import { PrimeTemplate } from 'primeng/api';
-import { QueryList } from '@angular/core';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ProgressBarStyle } from './style/progressbarstyle';
 
@@ -22,6 +20,8 @@ import { ProgressBarStyle } from './style/progressbarstyle';
  */
 @Component({
     selector: 'p-progressBar, p-progressbar',
+    standalone: true,
+    imports: [CommonModule],
     template: `
         <div
             role="progressbar"
@@ -117,29 +117,17 @@ export class ProgressBar extends BaseComponent {
      * @group Props
      */
     @Input() color: string | undefined;
-
-    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
-
-    contentTemplate: TemplateRef<any> | undefined;
+    /**
+     * Template of the content.
+     * @group templates
+     */
+    @ContentChild('content') contentTemplate: TemplateRef<any> | undefined;
 
     _componentStyle = inject(ProgressBarStyle);
-
-    ngAfterContentInit() {
-        this.templates?.forEach((item) => {
-            switch (item.getType()) {
-                case 'content':
-                    this.contentTemplate = item.template;
-                    break;
-                default:
-                    this.contentTemplate = item.template;
-            }
-        });
-    }
 }
 
 @NgModule({
-    imports: [CommonModule],
+    imports: [ProgressBar],
     exports: [ProgressBar],
-    declarations: [ProgressBar],
 })
 export class ProgressBarModule {}

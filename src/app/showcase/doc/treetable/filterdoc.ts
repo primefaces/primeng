@@ -21,10 +21,10 @@ interface Column {
         </app-docsectiontext>
         <div class="card">
             <div class="flex justify-center mb-6">
-                <p-selectbutton [options]="filterModes" [(ngModel)]="filterMode" optionLabel="label" optionValue="value" />
+                <p-selectButton [options]="filterModes" [(ngModel)]="filterMode" optionLabel="label" optionValue="value" />
             </div>
             <p-deferred-demo (load)="loadDemoData()">
-                <p-treetable
+                <p-treeTable
                     #tt
                     [value]="files"
                     [columns]="cols"
@@ -34,17 +34,15 @@ interface Column {
                 >
                     <ng-template pTemplate="caption">
                         <div class="flex justify-end items-center">
-                            <p-iconfield iconPosition="left" class="ml-auto">
-                                <p-inputicon>
-                                    <i class="pi pi-search"></i>
-                                </p-inputicon>
+                            <div class="p-input-icon-left">
+                                <i class="pi pi-search"></i>
                                 <input
                                     type="text"
                                     pInputText
                                     placeholder="Global Search"
                                     (input)="tt.filterGlobal($event.target.value, 'contains')"
                                 />
-                            </p-iconfield>
+                            </div>
                         </div>
                     </ng-template>
                     <ng-template pTemplate="header" let-columns>
@@ -62,7 +60,7 @@ interface Column {
                     <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
                         <tr [ttRow]="rowNode">
                             <td *ngFor="let col of cols; let i = index">
-                                <p-treetableToggler [rowNode]="rowNode" *ngIf="i === 0" />
+                                <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
                                 {{ rowData[col.field] }}
                             </td>
                         </tr>
@@ -72,7 +70,7 @@ interface Column {
                             <td [attr.colspan]="cols?.length">No data found.</td>
                         </tr>
                     </ng-template>
-                </p-treetable>
+                </p-treeTable>
             </p-deferred-demo>
         </div>
         <app-code [code]="code" selector="tree-table-filter-demo"></app-code>
@@ -103,13 +101,13 @@ export class FilterDoc {
     }
 
     code: Code = {
-        basic: `<p-selectbutton 
+        basic: `<p-selectButton 
     [options]="filterModes" 
     [(ngModel)]="filterMode" 
     optionLabel="label" 
     optionValue="value" />
 
-<p-treetable 
+<p-treeTable 
     #tt 
     [value]="files" 
     [columns]="cols" 
@@ -146,7 +144,7 @@ export class FilterDoc {
         <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
             <tr [ttRow]="rowNode">
                 <td *ngFor="let col of cols; let i = index">
-                    <p-treetableToggler [rowNode]="rowNode" *ngIf="i === 0" />
+                    <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
                     {{ rowData[col.field] }}
                 </td>
             </tr>
@@ -156,17 +154,17 @@ export class FilterDoc {
                 <td [attr.colspan]="cols.length">No data found.</td>
             </tr>
         </ng-template>
-</p-treetable>`,
+</p-treeTable>`,
 
         html: `<div class="card">
     <div class="flex justify-center mb-6">
-        <p-selectbutton 
+        <p-selectButton 
             [options]="filterModes" 
             [(ngModel)]="filterMode" 
             optionLabel="label" 
             optionValue="value" />
     </div>
-    <p-treetable 
+    <p-treeTable 
         #tt 
         [value]="files" 
         [columns]="cols" 
@@ -203,7 +201,7 @@ export class FilterDoc {
             <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
                 <tr [ttRow]="rowNode">
                     <td *ngFor="let col of cols; let i = index">
-                        <p-treetableToggler [rowNode]="rowNode" *ngIf="i === 0" />
+                        <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
                         {{ rowData[col.field] }}
                     </td>
                 </tr>
@@ -213,18 +211,16 @@ export class FilterDoc {
                     <td [attr.colspan]="cols.length">No data found.</td>
                 </tr>
             </ng-template>
-    </p-treetable>
+    </p-treeTable>
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { NodeService } from '@service/nodeservice';
-import { SelectButtonModule } from 'primeng/selectbutton';
+import { SelectButton } from 'primeng/selectbutton';
 import { FormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { CommonModule } from '@angular/common';
-import { IconFieldModule } from 'primeng/iconfield';
-import { InputIconModule } from 'primeng/inputicon';
 
 interface Column {
     field: string;
@@ -235,7 +231,7 @@ interface Column {
     selector: 'tree-table-filter-demo',
     templateUrl: './tree-table-filter-demo.html',
     standalone: true,
-    imports: [TreeTableModule, SelectButtonModule, FormsModule, InputTextModule, CommonModule, IconFieldModule, InputIconModule],
+    imports: [TreeTableModule, SelectButton, FormsModule, InputTextModule, CommonModule],
     providers: [NodeService]
 })
 export class TreeTableFilterDemo implements OnInit{

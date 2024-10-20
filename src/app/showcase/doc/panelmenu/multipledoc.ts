@@ -110,13 +110,13 @@ export class MultipleDoc implements OnInit {
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
-import { PanelMenuModule } from 'primeng/panelmenu';
+import { PanelMenu } from 'primeng/panelmenu';
 
 @Component({
     selector: 'panel-menu-multiple-demo',
     templateUrl: './panel-menu-multiple-demo.html',
     standalone: true,
-    imports: [PanelMenuModule]
+    imports: [PanelMenu]
 })
 export class PanelMenuMultipleDemo implements OnInit {
     items: MenuItem[];

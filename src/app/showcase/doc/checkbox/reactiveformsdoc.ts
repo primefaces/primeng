@@ -44,13 +44,13 @@ export class ReactiveFormsDoc implements OnInit {
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { CheckboxModule } from 'primeng/checkbox';
+import { Checkbox } from 'primeng/checkbox';
 
 @Component({
     selector: 'checkbox-reactive-forms-demo',
     templateUrl: './checkbox-reactive-forms-demo.html',
     standalone: true,
-    imports: [ReactiveFormsModule, CheckboxModule]
+    imports: [ReactiveFormsModule, Checkbox]
 })
 export class CheckboxReactiveFormsDemo implements OnInit{
     formGroup: FormGroup | undefined;

@@ -7,6 +7,7 @@ import {
     Component,
     computed,
     contentChild,
+    ContentChild,
     ContentChildren,
     Directive,
     EventEmitter,
@@ -24,9 +25,9 @@ import {
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { SpinnerIcon } from 'primeng/icons/spinner';
-import { RippleModule } from 'primeng/ripple';
+import { Ripple } from 'primeng/ripple';
 import { ObjectUtils } from 'primeng/utils';
-import { AutoFocusModule } from 'primeng/autofocus';
+import { AutoFocus } from 'primeng/autofocus';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ButtonStyle } from './style/buttonstyle';
 import { BadgeModule } from 'primeng/badge';
@@ -46,6 +47,7 @@ const INTERNAL_BUTTON_CLASSES = {
 @Directive({
     selector: '[pButtonLabel]',
     providers: [ButtonStyle],
+    standalone: true,
     host: {
         '[class.p-button-label]': 'true',
     },
@@ -57,6 +59,7 @@ export class ButtonLabel extends BaseComponent {
 @Directive({
     selector: '[pButtonIcon]',
     providers: [ButtonStyle],
+    standalone: true,
     host: {
         '[class.p-button-icon]': 'true',
     },
@@ -70,6 +73,7 @@ export class ButtonIcon extends BaseComponent {
  */
 @Directive({
     selector: '[pButton]',
+    standalone: true,
     providers: [ButtonStyle],
     host: {
         '[class.p-button-icon-only]': 'isIconOnly()',
@@ -85,11 +89,11 @@ export class ButtonDirective extends BaseComponent implements AfterViewInit, OnD
     @Input() iconPos: ButtonIconPosition = 'left';
     /**
      * Uses to pass attributes to the loading icon's DOM element.
-     * @deprecated
+     * @deprecated utilize pButonIcon instead.
      * @group Props
      */
     @Input() loadingIcon: string | undefined;
-    private labelSignal = contentChild(ButtonLabel);
+
     set label(val: string) {
         this._label = val;
 
@@ -99,7 +103,7 @@ export class ButtonDirective extends BaseComponent implements AfterViewInit, OnD
             this.setStyleClass();
         }
     }
-    private iconSignal = contentChild(ButtonIcon);
+
     set icon(val: string) {
         this._icon = val;
 
@@ -124,7 +128,13 @@ export class ButtonDirective extends BaseComponent implements AfterViewInit, OnD
         }
     }
     _buttonProps!: ButtonProps;
+
+    private iconSignal = contentChild(ButtonIcon);
+
+    private labelSignal = contentChild(ButtonLabel);
+
     isIconOnly = computed(() => !!(!this.labelSignal() && this.iconSignal()));
+
     set buttonProps(val: ButtonProps) {
         this._buttonProps = val;
 
@@ -182,6 +192,7 @@ export class ButtonDirective extends BaseComponent implements AfterViewInit, OnD
     }
 
     private _internalClasses: string[] = Object.values(INTERNAL_BUTTON_CLASSES);
+
     isTextButton = computed(() => !!(!this.iconSignal() && this.labelSignal() && this.text));
 
     /**
@@ -403,6 +414,8 @@ export class ButtonDirective extends BaseComponent implements AfterViewInit, OnD
  */
 @Component({
     selector: 'p-button',
+    standalone: true,
+    imports: [CommonModule, Ripple, AutoFocus, SpinnerIcon, BadgeModule],
     template: `
         <button
             [attr.type]="type"
@@ -601,12 +614,21 @@ export class Button extends BaseComponent implements AfterContentInit {
      * @group Emits
      */
     @Output() onBlur: EventEmitter<FocusEvent> = new EventEmitter<FocusEvent>();
-
-    contentTemplate: TemplateRef<any> | undefined;
-
-    loadingIconTemplate: TemplateRef<any> | undefined;
-
-    iconTemplate: TemplateRef<any> | undefined;
+    /**
+     * Template of the content.
+     * @group Templates
+     **/
+    @ContentChild('content') contentTemplate: TemplateRef<any> | undefined;
+    /**
+     * Template of the loading.
+     * @group Templates
+     **/
+    @ContentChild('loading') loadingIconTemplate: TemplateRef<any> | undefined;
+    /**
+     * Template of the icon.
+     * @group Templates
+     **/
+    @ContentChild('icon') iconTemplate: TemplateRef<any> | undefined;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
@@ -703,8 +725,7 @@ export class Button extends BaseComponent implements AfterContentInit {
 }
 
 @NgModule({
-    imports: [CommonModule, RippleModule, SharedModule, AutoFocusModule, SpinnerIcon, BadgeModule],
+    imports: [CommonModule, ButtonDirective, Button, SharedModule, ButtonLabel, ButtonIcon, SharedModule],
     exports: [ButtonDirective, Button, ButtonLabel, ButtonIcon, SharedModule],
-    declarations: [ButtonDirective, Button, ButtonLabel, ButtonIcon],
 })
 export class ButtonModule {}

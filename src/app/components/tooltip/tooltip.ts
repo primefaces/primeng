@@ -28,6 +28,7 @@ import { BaseComponent } from 'primeng/basecomponent';
  */
 @Directive({
     selector: '[pTooltip]',
+    standalone: true,
     providers: [TooltipStyle],
     standalone: true,
 })

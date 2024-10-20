@@ -58,13 +58,13 @@ export class DocumentDoc implements OnInit {
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
-import { ContextMenuModule } from 'primeng/contextmenu';
+import { ContextMenu } from 'primeng/contextmenu';
 
 @Component({
     selector: 'context-menu-document-demo',
     templateUrl: './context-menu-document-demo.html',
     standalone: true,
-    imports: [ContextMenuModule]
+    imports: [ContextMenu]
 })
 export class ContextMenuDocumentDemo implements OnInit {
     items: MenuItem[] | undefined;
@@ -103,11 +103,11 @@ export class ContextMenuDocumentDemo implements OnInit {
         module: `
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { ContextMenuModule } from 'primeng/contextmenu';
+import { ContextMenu } from 'primeng/contextmenu';
 import { ContextMenuDemo } from './contextmenudemo';
 
 @NgModule({
-    imports: [CommonModule, ContextMenuModule],
+    imports: [CommonModule, ContextMenu],
     declarations: [ContextMenuDemo]
 })
 export class ContextMenuDemoModule {}`,

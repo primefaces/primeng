@@ -1,36 +1,34 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { HttpClient, HttpEvent, HttpEventType, HttpHeaders } from '@angular/common/http';
 import {
-    AfterContentInit,
     AfterViewInit,
+    booleanAttribute,
     ChangeDetectionStrategy,
     Component,
-    ContentChildren,
+    ContentChild,
     ElementRef,
     EventEmitter,
+    inject,
     Input,
     NgModule,
     NgZone,
+    numberAttribute,
     OnDestroy,
     OnInit,
     Output,
-    QueryList,
     TemplateRef,
     ViewChild,
-    ViewEncapsulation,
-    booleanAttribute,
-    inject,
-    numberAttribute,
+    ViewEncapsulation
 } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { BlockableUI, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
-import { ButtonModule } from 'primeng/button';
+import { BlockableUI, TranslationKeys } from 'primeng/api';
+import { Button } from 'primeng/button';
 import { DomHandler } from 'primeng/dom';
 import { PlusIcon } from 'primeng/icons/plus';
 import { TimesIcon } from 'primeng/icons/times';
 import { UploadIcon } from 'primeng/icons/upload';
-import { ProgressBarModule } from 'primeng/progressbar';
-import { RippleModule } from 'primeng/ripple';
+import { ProgressBar } from 'primeng/progressbar';
+import { Ripple } from 'primeng/ripple';
 import { VoidListener } from 'primeng/ts-helpers';
 import { Subscription } from 'rxjs';
 import {
@@ -42,17 +40,20 @@ import {
     FileUploadErrorEvent,
     FileUploadEvent,
     FileUploadHandlerEvent,
-    RemoveUploadedFileEvent,
+    RemoveUploadedFileEvent
 } from './fileupload.interface';
 import { FileUploadStyle } from './style/fileuploadstyle';
 import { BaseComponent } from 'primeng/basecomponent';
-import { MessageModule } from 'primeng/message';
+import { Message } from 'primeng/message';
+
 /**
  * FileUpload is an advanced uploader with dragdrop support, multi file uploads, auto uploading, progress tracking and validations.
  * @group Components
  */
 @Component({
     selector: 'p-fileupload, p-fileUpload',
+    standalone: true,
+    imports: [CommonModule, Button, ProgressBar, Message, Ripple, PlusIcon, UploadIcon, TimesIcon],
     template: `
         <div
             [ngClass]="'p-fileupload p-fileupload-advanced p-component'"
@@ -188,7 +189,7 @@ import { MessageModule } from 'primeng/message';
                                     severity="danger"
                                     [styleClass]="'p-fileupload-file-remove-button ' + removeStyleClass"
                                 >
-                                    <ng-template pTemplate="icon">
+                                    <ng-template #icon>
                                         <TimesIcon *ngIf="!cancelIconTemplate" />
                                         <ng-template *ngTemplateOutlet="cancelIconTemplate"></ng-template>
                                     </ng-template>
@@ -234,7 +235,7 @@ import { MessageModule } from 'primeng/message';
                 (keydown)="onBasicKeydown($event)"
                 tabindex="0"
             >
-                <ng-template pTemplate="icon">
+                <ng-template #icon>
                     @if (hasFiles() && !auto) {
                         <span *ngIf="uploadIcon" class="p-button-icon p-button-icon-left" [ngClass]="uploadIcon"></span>
                         <ng-container *ngIf="!uploadIcon">
@@ -279,7 +280,7 @@ import { MessageModule } from 'primeng/message';
     encapsulation: ViewEncapsulation.None,
     providers: [FileUploadStyle],
 })
-export class FileUpload extends BaseComponent implements AfterViewInit, AfterContentInit, OnInit, OnDestroy, BlockableUI {
+export class FileUpload extends BaseComponent implements AfterViewInit, OnInit, OnDestroy, BlockableUI {
     /**
      * Name of the request parameter to identify the files at backend.
      * @group Props
@@ -517,7 +518,59 @@ export class FileUpload extends BaseComponent implements AfterViewInit, AfterCon
      */
     @Output() onRemoveUploadedFile: EventEmitter<RemoveUploadedFileEvent> = new EventEmitter<RemoveUploadedFileEvent>();
 
-    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
+    /**
+     * Template for file.
+     * @group Templates
+     */
+    @ContentChild('file') public fileTemplate: TemplateRef<any> | undefined;
+
+    /**
+     * Template for header.
+     * @group Templates
+     */
+    @ContentChild('header') public headerTemplate: TemplateRef<any> | undefined;
+
+    /**
+     * Template for content.
+     * @group Templates
+     */
+    @ContentChild('content') public contentTemplate: TemplateRef<any> | undefined;
+
+    /**
+     * Template for toolbar.
+     * @group Templates
+     */
+    @ContentChild('toolbar') public toolbarTemplate: TemplateRef<any> | undefined;
+
+    /**
+     * Template for choose icon.
+     * @group Templates
+     */
+    @ContentChild('chooseicon') chooseIconTemplate: TemplateRef<any> | undefined;
+
+    /**
+     * Template for file label.
+     * @group Templates
+     */
+    @ContentChild('filelabel') fileLabelTemplate: TemplateRef<any> | undefined;
+
+    /**
+     * Template for upload icon.
+     * @group Templates
+     */
+    @ContentChild('uploadicon') uploadIconTemplate: TemplateRef<any> | undefined;
+
+    /**
+     * Template for cancel icon.
+     * @group Templates
+     */
+    @ContentChild('cancelicon') cancelIconTemplate: TemplateRef<any> | undefined;
+
+    /**
+     * Template for empty state.
+     * @group Templates
+     */
+    @ContentChild('empty') emptyTemplate: TemplateRef<any> | undefined;
 
     @ViewChild('advancedfileinput') advancedFileInput: ElementRef | undefined | any;
 
@@ -561,24 +614,6 @@ export class FileUpload extends BaseComponent implements AfterViewInit, AfterCon
 
     public msgs: any[] | undefined;
 
-    public fileTemplate: TemplateRef<any> | undefined;
-
-    public headerTemplate: TemplateRef<any> | undefined;
-
-    public contentTemplate: TemplateRef<any> | undefined;
-
-    public toolbarTemplate: TemplateRef<any> | undefined;
-
-    chooseIconTemplate: TemplateRef<any> | undefined;
-
-    fileLabelTemplate: TemplateRef<any> | undefined;
-
-    uploadIconTemplate: TemplateRef<any> | undefined;
-
-    cancelIconTemplate: TemplateRef<any> | undefined;
-
-    emptyTemplate: TemplateRef<any> | undefined;
-
     public uploadedFileCount: number = 0;
 
     focus: boolean | undefined;
@@ -600,52 +635,6 @@ export class FileUpload extends BaseComponent implements AfterViewInit, AfterCon
     http: HttpClient = inject(HttpClient);
 
     _componentStyle = inject(FileUploadStyle);
-
-    ngAfterContentInit() {
-        this.templates?.forEach((item) => {
-            switch (item.getType()) {
-                case 'header':
-                    this.headerTemplate = item.template;
-                    break;
-
-                case 'file':
-                    this.fileTemplate = item.template;
-                    break;
-
-                case 'filelabel':
-                    this.fileLabelTemplate = item.template;
-                    break;
-
-                case 'content':
-                    this.contentTemplate = item.template;
-                    break;
-
-                case 'toolbar':
-                    this.toolbarTemplate = item.template;
-                    break;
-
-                case 'chooseicon':
-                    this.chooseIconTemplate = item.template;
-                    break;
-
-                case 'uploadicon':
-                    this.uploadIconTemplate = item.template;
-                    break;
-
-                case 'cancelicon':
-                    this.cancelIconTemplate = item.template;
-                    break;
-
-                case 'empty':
-                    this.emptyTemplate = item.template;
-                    break;
-
-                default:
-                    this.fileTemplate = item.template;
-                    break;
-            }
-        });
-    }
 
     ngOnInit() {
         super.ngOnInit();
@@ -1095,8 +1084,7 @@ export class FileUpload extends BaseComponent implements AfterViewInit, AfterCon
 }
 
 @NgModule({
-    imports: [CommonModule, SharedModule, ButtonModule, ProgressBarModule, MessageModule, RippleModule, PlusIcon, UploadIcon, TimesIcon],
-    exports: [FileUpload, SharedModule, ButtonModule, ProgressBarModule, MessageModule],
-    declarations: [FileUpload],
+    imports: [FileUpload],
+    exports: [FileUpload],
 })
 export class FileUploadModule {}

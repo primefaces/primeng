@@ -13,7 +13,7 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-breadcrumb class="max-w-full" [model]="items">
-                <ng-template pTemplate="item" let-item>
+                <ng-template #item let-item>
                     <ng-container *ngIf="item.route; else elseBlock">
                         <a [routerLink]="item.route" class="p-breadcrumb-item-link">
                             <span [ngClass]="[item.icon ? item.icon : '', 'text-color']"></span>
@@ -47,7 +47,7 @@ export class RouterDoc implements OnInit {
 
     code: Code = {
         basic: `<p-breadcrumb class="max-w-full" [model]="items">
-    <ng-template pTemplate="item" let-item>
+    <ng-template #item let-item>
         <ng-container *ngIf="item.route; else elseBlock">
             <a [routerLink]="item.route" class="p-breadcrumb-item-link">
                 <span [ngClass]="[item.icon ? item.icon : '', 'text-color']"></span>
@@ -64,7 +64,7 @@ export class RouterDoc implements OnInit {
 
         html: `<div class="card flex justify-center">
     <p-breadcrumb class="max-w-full" [model]="items">
-        <ng-template pTemplate="item" let-item>
+        <ng-template #item let-item>
             <ng-container *ngIf="item.route; else elseBlock">
                 <a [routerLink]="item.route" class="p-breadcrumb-item-link">
                     <span [ngClass]="[item.icon ? item.icon : '', 'text-color']"></span>
@@ -82,14 +82,14 @@ export class RouterDoc implements OnInit {
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
-import { BreadcrumbModule } from 'primeng/breadcrumb';
+import { Breadcrumb } from 'primeng/breadcrumb';
 import { RouterModule } from '@angular/router';
 
 @Component({
     selector: 'breadcrumb-router-demo',
     templateUrl: './breadcrumb-router-demo.html',
     standalone: true,
-    imports: [BreadcrumbModule, RouterModule]
+    imports: [Breadcrumb, RouterModule]
 })
 export class BreadcrumbRouterDemo implements OnInit {
     items: MenuItem[] | undefined;

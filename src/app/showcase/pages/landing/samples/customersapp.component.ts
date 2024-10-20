@@ -1,24 +1,24 @@
-import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Inject, PLATFORM_ID, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { ChartModule } from 'primeng/chart';
 import { DropdownModule } from 'primeng/dropdown';
-import { SelectButtonModule } from 'primeng/selectbutton';
+import { InputSwitchModule } from 'primeng/inputswitch';
+import { SelectButton } from 'primeng/selectbutton';
 import { DividerModule } from 'primeng/divider';
 import { AvatarModule } from 'primeng/avatar';
 import { TooltipModule } from 'primeng/tooltip';
-import { IconFieldModule } from 'primeng/iconfield';
-import { InputIconModule } from 'primeng/inputicon';
+import { IconField } from 'primeng/iconfield';
+import { InputIcon } from 'primeng/inputicon';
 import { ButtonModule } from 'primeng/button';
-import { TableModule } from 'primeng/table';
+import { Table, TableCheckbox, TableHeaderCheckbox } from 'primeng/table';
 import { InputTextModule } from 'primeng/inputtext';
-import { TagModule } from 'primeng/tag';
-import { KnobModule } from 'primeng/knob';
+import { Tag } from 'primeng/tag';
+import { Knob } from 'primeng/knob';
 import { OverlayBadgeModule } from 'primeng/overlaybadge';
 import { DrawerModule } from 'primeng/drawer';
 import { DomSanitizer } from '@angular/platform-browser';
-import { AppConfigService } from '@service/appconfigservice';
 import { ToggleSwitchModule } from 'primeng/toggleswitch';
 import { PopoverModule } from 'primeng/popover';
 
@@ -30,18 +30,21 @@ import { PopoverModule } from 'primeng/popover';
         RouterModule,
         DropdownModule,
         ChartModule,
-        SelectButtonModule,
+        InputSwitchModule,
+        SelectButton,
         FormsModule,
         DividerModule,
         AvatarModule,
         TooltipModule,
-        IconFieldModule,
-        InputIconModule,
+        IconField,
+        InputIcon,
         ButtonModule,
-        TableModule,
+        Table,
+        TableHeaderCheckbox,
+        TableCheckbox,
         InputTextModule,
-        TagModule,
-        KnobModule,
+        Tag,
+        Knob,
         OverlayBadgeModule,
         DrawerModule,
         ToggleSwitchModule,
@@ -72,9 +75,11 @@ import { PopoverModule } from 'primeng/popover';
             </div>
             <div class="flex-1 last:[&>td]:border-0 rounded-lg border border-surface w-full overflow-auto">
                 <p-table [value]="tableData" [(selection)]="selectedRows" dataKey="id" [rows]="10">
-                    <ng-template pTemplate="header">
+                    <ng-template #header>
                         <tr>
-                            <th style="width: 1rem"><p-tableHeaderCheckbox /></th>
+                            <th style="width: 1rem">
+                                <p-tableHeaderCheckbox />
+                            </th>
                             <th>Name</th>
                             <th>Title</th>
                             <th>Company Name</th>
@@ -84,7 +89,7 @@ import { PopoverModule } from 'primeng/popover';
                             <th>More</th>
                         </tr>
                     </ng-template>
-                    <ng-template pTemplate="body" let-data>
+                    <ng-template #body let-data>
                         <tr>
                             <td style="width: 1rem">
                                 <p-tableCheckbox [value]="data" />

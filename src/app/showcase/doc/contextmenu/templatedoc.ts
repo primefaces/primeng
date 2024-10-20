@@ -40,8 +40,8 @@ import { ContextMenu } from 'primeng/contextmenu';
                 </li>
             </ul>
 
-            <p-contextmenu #cm [model]="items" (onHide)="onHide()">
-                <ng-template pTemplate="item" let-item>
+            <p-contextMenu #cm [model]="items" (onHide)="onHide()">
+                <ng-template #item let-item>
                     <a pRipple class="flex items-center p-contextmenu-item-link">
                         <span [class]="item.icon"></span>
                         <span class="ml-2">{{ item.label }}</span>
@@ -54,7 +54,7 @@ import { ContextMenu } from 'primeng/contextmenu';
                         <i *ngIf="item.items" class="pi pi-angle-right ml-auto"></i>
                     </a>
                 </ng-template>
-            </p-contextmenu>
+            </p-contextMenu>
         </div>
 
         <app-code [code]="code" selector="context-menu-template-demo"></app-code>
@@ -201,8 +201,8 @@ export class TemplateDoc implements OnInit {
     </li>
 </ul>
 
-<p-contextmenu #cm [model]="items" (onHide)="onHide()">
-    <ng-template pTemplate="item" let-item>
+<p-contextMenu #cm [model]="items" (onHide)="onHide()">
+    <ng-template #item let-item>
         <a pRipple class="flex items-center p-contextmenu-item-link">
             <span [class]="item.icon"></span>
             <span class="ml-2">{{ item.label }}</span>
@@ -215,7 +215,7 @@ export class TemplateDoc implements OnInit {
             <i *ngIf="item.items" class="pi pi-angle-right ml-auto"></i>
         </a>
     </ng-template>
-</p-contextmenu>`,
+</p-contextMenu>`,
 
         html: `<div class="card flex md:justify-center">
     <ul
@@ -245,8 +245,8 @@ export class TemplateDoc implements OnInit {
             </li>
         </ul>
 
-    <p-contextmenu #cm [model]="items" (onHide)="onHide()">
-        <ng-template pTemplate="item" let-item>
+    <p-contextMenu #cm [model]="items" (onHide)="onHide()">
+        <ng-template #item let-item>
             <a pRipple class="flex items-center p-contextmenu-item-link">
                 <span [class]="item.icon"></span>
                 <span class="ml-2">{{ item.label }}</span>
@@ -259,22 +259,22 @@ export class TemplateDoc implements OnInit {
                 <i *ngIf="item.items" class="pi pi-angle-right ml-auto"></i>
             </a>
         </ng-template>
-    </p-contextmenu>
+    </p-contextMenu>
 </div>`,
 
         typescript: `import { Component, OnInit, ViewChild } from '@angular/core';
 import { ContextMenu } from 'primeng/contextmenu';
 import { MenuItem } from 'primeng/api';
-import { ContextMenuModule } from 'primeng/contextmenu';
+import { ContextMenu } from 'primeng/contextmenu';
 import { CommonModule } from '@angular/common';
-import { RippleModule } from 'primeng/ripple';
+import { Ripple } from 'primeng/ripple';
 import { BadgeModule } from 'primeng/badge';
 
 @Component({
     selector: 'context-menu-template-demo',
     templateUrl: './context-menu-template-demo.html',
     standalone: true,
-    imports: [ContextMenuModule, CommonModule, RippleModule, BadgeModule]
+    imports: [ContextMenu, CommonModule, Ripple, BadgeModule]
 })
 export class ContextMenuTemplateDemo implements OnInit {
     items: MenuItem[] | undefined;

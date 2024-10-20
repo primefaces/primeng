@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
         </app-docsectiontext>
         <div class="card">
             <p-menubar [model]="items">
-                <ng-template pTemplate="item" let-item>
+                <ng-template #item let-item>
                     <ng-container *ngIf="item.route; else urlRef">
                         <a [routerLink]="item.route" class="p-menubar-item-link">
                             <span [class]="item.icon"></span>
@@ -87,7 +87,7 @@ export class RouterDoc implements OnInit {
 
     code: Code = {
         basic: `<p-menubar [model]="items">
-    <ng-template pTemplate="item" let-item>
+    <ng-template  #item let-item>
         <ng-container *ngIf="item.route; else urlRef">
             <a [routerLink]="item.route" class="p-menubar-item-link">
                 <span [class]="item.icon"></span>
@@ -112,7 +112,7 @@ export class RouterDoc implements OnInit {
 
         html: `<div class="card">
     <p-menubar [model]="items">
-        <ng-template pTemplate="item" let-item>
+        <ng-template  #item let-item>
             <ng-container *ngIf="item.route; else urlRef">
                 <a [routerLink]="item.route" class="p-menubar-item-link">
                     <span [class]="item.icon"></span>
@@ -138,7 +138,7 @@ export class RouterDoc implements OnInit {
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
-import { MenubarModule } from 'primeng/menubar';
+import { Menubar } from 'primeng/menubar';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 
@@ -146,7 +146,7 @@ import { Router } from '@angular/router';
     selector: 'menubar-router-demo',
     templateUrl: './menubar-router-demo.html',
     standalone: true,
-    imports: [MenubarModule, CommonModule],
+    imports: [Menubar, CommonModule],
 })
 export class MenubarRouterDemo implements OnInit {
     items: MenuItem[] | undefined;

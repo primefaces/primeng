@@ -17,7 +17,7 @@ import {
     ViewEncapsulation,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { Header, PrimeTemplate, SharedModule } from 'primeng/api';
+import { Header, PrimeTemplate } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { Nullable } from 'primeng/ts-helpers';
 import { EditorInitEvent, EditorSelectionChangeEvent, EditorTextChangeEvent } from './editor.interface';
@@ -35,6 +35,8 @@ export const EDITOR_VALUE_ACCESSOR: any = {
  */
 @Component({
     selector: 'p-editor',
+    standalone: true,
+    imports: [CommonModule],
     template: `
         <div [ngClass]="'p-editor-container'" [class]="styleClass">
             <div class="p-editor-toolbar" *ngIf="toolbar || headerTemplate">
@@ -346,8 +348,7 @@ export class Editor extends BaseComponent implements AfterContentInit, ControlVa
 }
 
 @NgModule({
-    imports: [CommonModule],
-    exports: [Editor, SharedModule],
-    declarations: [Editor],
+    imports: [Editor],
+    exports: [Editor],
 })
 export class EditorModule {}
