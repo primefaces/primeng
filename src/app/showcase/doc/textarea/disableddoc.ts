@@ -22,14 +22,14 @@ export class DisabledDoc {
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { InputTextareaModule } from 'primeng/inputtextarea';
+import { Textarea } from 'primeng/textearea';;
 import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'input-textarea-disabled-demo',
     templateUrl: './input-textarea-disabled-demo.html',
     standalone: true,
-    imports: [FormsModule, InputTextareaModule]
+    imports: [FormsModule, Textarea]
 })
 export class InputTextareaDisabledDemo {
 }`,

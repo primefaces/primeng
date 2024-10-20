@@ -49,7 +49,7 @@ export class ClearIconDoc implements OnInit {
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SelectModule } from 'primeng/select';
+import { Select } from 'primeng/select';
 
 interface City {
     name: string;
@@ -60,7 +60,7 @@ interface City {
     selector: 'select-clear-icon-demo',
     templateUrl: './select-clear-icon-demo.html',
     standalone: true,
-    imports: [FormsModule, SelectModule]
+    imports: [FormsModule, Select]
 })
 export class SelectClearIconDemo implements OnInit {
     cities: City[] | undefined;

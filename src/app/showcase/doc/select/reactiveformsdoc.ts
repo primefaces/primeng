@@ -54,7 +54,7 @@ export class ReactiveFormsDoc implements OnInit {
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { SelectModule } from 'primeng/select';
+import { Select } from 'primeng/select';
 
 interface City {
     name: string;
@@ -65,7 +65,7 @@ interface City {
     selector: 'select-reactive-forms-demo',
     templateUrl: './select-reactive-forms-demo.html',
     standalone: true,
-    imports: [ReactiveFormsModule, SelectModule]
+    imports: [ReactiveFormsModule, Select]
 })
 export class SelectReactiveFormsDemo implements OnInit {
     cities: City[] | undefined;

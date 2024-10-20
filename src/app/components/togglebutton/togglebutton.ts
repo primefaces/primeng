@@ -3,7 +3,7 @@ import {
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
-    contentChildren,
+    contentChild,
     OutputEmitterRef,
     forwardRef,
     computed,
@@ -22,7 +22,6 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Ripple } from 'primeng/ripple';
 import { ToggleButtonChangeEvent } from './togglebutton.interface';
 import { Nullable } from 'primeng/ts-helpers';
-import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ToggleButtonStyle } from './style/togglebuttonstyle';
@@ -38,6 +37,8 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
  */
 @Component({
     selector: 'p-toggleButton, p-togglebutton',
+    standalone: true,
+    imports: [Ripple, AutoFocus, CommonModule],
     template: `
         <button
             pRipple
@@ -164,12 +165,16 @@ export class ToggleButton extends BaseComponent implements ControlValueAccessor 
      * @group Emits
      */
     onChange: OutputEmitterRef<ToggleButtonChangeEvent> = output<ToggleButtonChangeEvent>();
-
-    templates: Signal<readonly PrimeTemplate[]> = contentChildren(PrimeTemplate);
-
-    iconTemplate = computed<Nullable<TemplateRef<any>>>(() => this.mappedTemplates()['icon']);
-
-    contentTemplate = computed<Nullable<TemplateRef<any>>>(() => this.mappedTemplates()['content']);
+    /**
+     * Custom icon template.
+     * @group Templates
+     */
+    iconTemplate = contentChild<Nullable<TemplateRef<any>>>('icon');
+    /**
+     * Custom content template.
+     * @group Templates
+     */
+    contentTemplate = contentChild<Nullable<TemplateRef<any>>>('content');
 
     checked: WritableSignal<boolean> = signal<boolean>(false);
 
@@ -178,13 +183,6 @@ export class ToggleButton extends BaseComponent implements ControlValueAccessor 
     onModelTouched: Function = () => {};
 
     _componentStyle = inject(ToggleButtonStyle);
-
-    private mappedTemplates = computed<{ [key: string]: TemplateRef<any> }>(() => {
-        return (this.templates() || []).reduce((prev, item) => {
-            prev[item.getType()] = item.template;
-            return prev;
-        }, {});
-    });
 
     toggle(event: Event) {
         if (!this.disabled() && !(this.allowEmpty() === false && this.checked())) {
@@ -237,6 +235,6 @@ export class ToggleButton extends BaseComponent implements ControlValueAccessor 
 
 @NgModule({
     imports: [ToggleButton],
-    exports: [ToggleButton, SharedModule],
+    exports: [ToggleButton],
 })
 export class ToggleButtonModule {}

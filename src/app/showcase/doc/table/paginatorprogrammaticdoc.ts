@@ -41,7 +41,7 @@ import { CustomerService } from '@service/customerservice';
                     (onPage)="pageChange($event)"
                     [rowsPerPageOptions]="[10, 25, 50]"
                 >
-                    <ng-template pTemplate="header">
+                    <ng-template #header>
                         <tr>
                             <th style="width:25%">Name</th>
                             <th style="width:25%">Country</th>
@@ -49,7 +49,7 @@ import { CustomerService } from '@service/customerservice';
                             <th style="width:25%">Representative</th>
                         </tr>
                     </ng-template>
-                    <ng-template pTemplate="body" let-customer>
+                    <ng-template #body let-customer>
                         <tr>
                             <td>{{ customer.name }}</td>
                             <td>{{ customer.country.name }}</td>
@@ -110,22 +110,22 @@ export class PaginatorProgrammaticDoc {
 
     code: Code = {
         basic: `<div class="mb-4">
-    <p-button 
-        type="button" 
-        icon="pi pi-chevron-left" 
-        (click)="prev()" 
-        [disabled]="isFirstPage()" 
+    <p-button
+        type="button"
+        icon="pi pi-chevron-left"
+        (click)="prev()"
+        [disabled]="isFirstPage()"
         styleClass="p-button-text" />
-    <p-button 
-        type="button" 
-        icon="pi pi-refresh" 
-        (click)="reset()" 
+    <p-button
+        type="button"
+        icon="pi pi-refresh"
+        (click)="reset()"
         styleClass="p-button-text" />
-    <p-button 
-        type="button" 
-        icon="pi pi-chevron-right" 
-        (click)="next()" 
-        [disabled]="isLastPage()" 
+    <p-button
+        type="button"
+        icon="pi pi-chevron-right"
+        (click)="next()"
+        [disabled]="isLastPage()"
         styleClass="p-button-text" />
 </div>
 <p-table
@@ -139,7 +139,7 @@ export class PaginatorProgrammaticDoc {
     (onPage)="pageChange($event)"
     [rowsPerPageOptions]="[10, 25, 50]"
 >
-    <ng-template pTemplate="header">
+    <ng-template #header>
         <tr>
             <th style="width:25%">Name</th>
             <th style="width:25%">Country</th>
@@ -147,7 +147,7 @@ export class PaginatorProgrammaticDoc {
             <th style="width:25%">Representative</th>
         </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-customer>
+    <ng-template #body let-customer>
         <tr>
             <td>{{ customer.name }}</td>
             <td>{{ customer.country.name }}</td>
@@ -155,30 +155,30 @@ export class PaginatorProgrammaticDoc {
             <td>{{ customer.representative.name }}</td>
         </tr>
     </ng-template>
-    <ng-template pTemplate="paginatorleft">
+    <ng-template #paginatorleft>
         <p-button type="button" icon="pi pi-plus" styleClass="p-button-text" />
     </ng-template>
-    <ng-template pTemplate="paginatorright">
+    <ng-template #paginatorright>
         <p-button type="button" icon="pi pi-cloud" styleClass="p-button-text" />
     </ng-template>
 </p-table>`,
         html: `<div class="mb-4">
-    <p-button 
-        type="button" 
-        icon="pi pi-chevron-left" 
-        (click)="prev()" 
-        [disabled]="isFirstPage()" 
-        styleClass="p-button-text" />
-    <p-button 
+    <p-button
         type="button"
-        icon="pi pi-refresh" 
-        (click)="reset()" 
+        icon="pi pi-chevron-left"
+        (click)="prev()"
+        [disabled]="isFirstPage()"
         styleClass="p-button-text" />
-    <p-button 
-        type="button" 
-        icon="pi pi-chevron-right" 
-        (click)="next()" 
-        [disabled]="isLastPage()" 
+    <p-button
+        type="button"
+        icon="pi pi-refresh"
+        (click)="reset()"
+        styleClass="p-button-text" />
+    <p-button
+        type="button"
+        icon="pi pi-chevron-right"
+        (click)="next()"
+        [disabled]="isLastPage()"
         styleClass="p-button-text" />
 </div>
 <div class="card">
@@ -193,7 +193,7 @@ export class PaginatorProgrammaticDoc {
         (onPage)="pageChange($event)"
         [rowsPerPageOptions]="[10, 25, 50]"
     >
-        <ng-template pTemplate="header">
+        <ng-template #header>
             <tr>
                 <th style="width:25%">Name</th>
                 <th style="width:25%">Country</th>
@@ -201,7 +201,7 @@ export class PaginatorProgrammaticDoc {
                 <th style="width:25%">Representative</th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-customer>
+        <ng-template #body let-customer>
             <tr>
                 <td>{{ customer.name }}</td>
                 <td>{{ customer.country.name }}</td>
@@ -209,10 +209,10 @@ export class PaginatorProgrammaticDoc {
                 <td>{{ customer.representative.name }}</td>
             </tr>
         </ng-template>
-        <ng-template pTemplate="paginatorleft">
+        <ng-template #paginatorleft>
             <p-button type="button" icon="pi pi-plus" styleClass="p-button-text" />
         </ng-template>
-        <ng-template pTemplate="paginatorright">
+        <ng-template #paginatorright>
             <p-button type="button" icon="pi pi-cloud" styleClass="p-button-text" />
         </ng-template>
     </p-table>

@@ -32,13 +32,6 @@ export class FilterDoc {
         { label: 'Brightness', value: 1 },
         { label: 'Sepia', value: 2 },
     ];
-
-    get filterStyle() {
-        return {
-            filter: `contrast(${this.filterValues[0]}%) brightness(${this.filterValues[1]}%) sepia(${this.filterValues[2]}%)`,
-        };
-    }
-
     code: Code = {
         basic: `<img alt="user header" class="w-full md:w-80 rounded mb-6" src="https://primefaces.org/cdn/primevue/images/card-vue.jpg" [style]="filterStyle" />
 <p-selectbutton [(ngModel)]="filter" [options]="filterOptions" optionLabel="label" optionValue="value" class="mb-4" />
@@ -67,7 +60,7 @@ export class SliderFilterDemo {
     filter: number = 0;
 
     filterValues: number[] = [100, 100, 0];
-    
+
     filterOptions: any = [
         { label: 'Contrast', value: 0 },
         { label: 'Brightness', value: 1 },
@@ -81,4 +74,10 @@ export class SliderFilterDemo {
     }
 }`,
     };
+
+    get filterStyle() {
+        return {
+            filter: `contrast(${this.filterValues[0]}%) brightness(${this.filterValues[1]}%) sepia(${this.filterValues[2]}%)`,
+        };
+    }
 }

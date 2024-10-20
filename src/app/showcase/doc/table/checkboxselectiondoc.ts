@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { Code } from '@domain/code';
 import { Product } from '@domain/product';
 import { ProductService } from '@service/productservice';
@@ -14,7 +14,7 @@ import { ProductService } from '@service/productservice';
         <p-deferred-demo (load)="loadDemoData()">
             <div class="card">
                 <p-table [value]="products" [(selection)]="selectedProducts" dataKey="code" [tableStyle]="{ 'min-width': '50rem' }">
-                    <ng-template pTemplate="header">
+                    <ng-template #header>
                         <tr>
                             <th style="width: 4rem">
                                 <p-tableHeaderCheckbox />
@@ -25,7 +25,7 @@ import { ProductService } from '@service/productservice';
                             <th>Quantity</th>
                         </tr>
                     </ng-template>
-                    <ng-template pTemplate="body" let-product>
+                    <ng-template #body let-product>
                         <tr>
                             <td>
                                 <p-tableCheckbox [value]="product" />
@@ -60,12 +60,12 @@ export class CheckboxSelectionDoc {
     }
 
     code: Code = {
-        basic: `<p-table 
-    [value]="products" 
-    [(selection)]="selectedProducts" 
-    dataKey="code" 
+        basic: `<p-table
+    [value]="products"
+    [(selection)]="selectedProducts"
+    dataKey="code"
     [tableStyle]="{'min-width': '50rem'}">
-        <ng-template pTemplate="header">
+        <ng-template #header>
             <tr>
                 <th style="width: 4rem"><p-tableHeaderCheckbox /></th>
                 <th>Code</th>
@@ -74,7 +74,7 @@ export class CheckboxSelectionDoc {
                 <th>Quantity</th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-product>
+        <ng-template #body let-product>
             <tr>
                 <td>
                     <p-tableCheckbox [value]="product" />
@@ -87,12 +87,12 @@ export class CheckboxSelectionDoc {
         </ng-template>
 </p-table>`,
         html: `<div class="card">
-    <p-table 
-        [value]="products" 
-        [(selection)]="selectedProducts" 
-        dataKey="code" 
+    <p-table
+        [value]="products"
+        [(selection)]="selectedProducts"
+        dataKey="code"
         [tableStyle]="{'min-width': '50rem'}">
-            <ng-template pTemplate="header">
+            <ng-template #header>
                 <tr>
                     <th style="width: 4rem"><p-tableHeaderCheckbox /></th>
                     <th>Code</th>
@@ -101,7 +101,7 @@ export class CheckboxSelectionDoc {
                     <th>Quantity</th>
                 </tr>
             </ng-template>
-            <ng-template pTemplate="body" let-product>
+            <ng-template #body let-product>
                 <tr>
                     <td>
                         <p-tableCheckbox [value]="product" />

@@ -71,15 +71,15 @@ export class SeverityDoc {
 </div>`,
         typescript: `import { Component } from '@angular/core';
 import { MessageService } from 'primeng/api';
-import { ToastModule } from 'primeng/toast';
+import { Toast } from 'primeng/toast';
 import { ButtonModule } from 'primeng/button';
-import { RippleModule } from 'primeng/ripple';
+import { Ripple } from 'primeng/ripple';
 
 @Component({
     selector: 'toast-severity-demo',
     templateUrl: './toast-severity-demo.html',
     standalone: true,
-    imports: [ToastModule, ButtonModule, RippleModule],
+    imports: [Toast, ButtonModule, Ripple],
     providers: [MessageService]
 })
 export class ToastSeverityDemo {

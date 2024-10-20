@@ -11,7 +11,7 @@ import { ProductService } from '@service/productservice';
         <p-deferred-demo (load)="loadDemoData()">
             <div class="card">
                 <p-table [value]="products" [(selection)]="selectedProduct" dataKey="code" [tableStyle]="{ 'min-width': '50rem' }">
-                    <ng-template pTemplate="header">
+                    <ng-template #header>
                         <tr>
                             <th style="width: 4rem"></th>
                             <th>Code</th>
@@ -20,7 +20,7 @@ import { ProductService } from '@service/productservice';
                             <th>Quantity</th>
                         </tr>
                     </ng-template>
-                    <ng-template pTemplate="body" let-product>
+                    <ng-template #body let-product>
                         <tr>
                             <td>
                                 <p-tableRadioButton [value]="product" />
@@ -55,12 +55,12 @@ export class RadioButtonSelectionDoc {
     }
 
     code: Code = {
-        basic: `<p-table 
-    [value]="products" 
+        basic: `<p-table
+    [value]="products"
     [(selection)]="selectedProduct"
-    dataKey="code" 
+    dataKey="code"
     [tableStyle]="{'min-width': '50rem'}">
-        <ng-template pTemplate="header">
+        <ng-template #header>
             <tr>
                 <th style="width: 4rem"></th>
                 <th>Code</th>
@@ -69,7 +69,7 @@ export class RadioButtonSelectionDoc {
                 <th>Quantity</th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-product>
+        <ng-template #body let-product>
             <tr>
                 <td>
                     <p-tableRadioButton [value]="product" />
@@ -82,12 +82,12 @@ export class RadioButtonSelectionDoc {
         </ng-template>
 </p-table>`,
         html: `<div class="card">
-    <p-table 
-        [value]="products" 
-        [(selection)]="selectedProduct" 
-        dataKey="code" 
+    <p-table
+        [value]="products"
+        [(selection)]="selectedProduct"
+        dataKey="code"
         [tableStyle]="{'min-width': '50rem'}">
-            <ng-template pTemplate="header">
+            <ng-template #header>
                 <tr>
                     <th style="width: 4rem"></th>
                     <th>Code</th>
@@ -96,7 +96,7 @@ export class RadioButtonSelectionDoc {
                     <th>Quantity</th>
                 </tr>
             </ng-template>
-            <ng-template pTemplate="body" let-product>
+            <ng-template #body let-product>
                 <tr>
                     <td>
                         <p-tableRadioButton [value]="product" />
@@ -134,7 +134,7 @@ export class TableRadioButtonSelectionDemo implements OnInit{
         this.productService.getProductsMini().then((data) => {
             this.products = data;
         });
-    } 
+    }
 }`,
         data: `{
     id: '1000',

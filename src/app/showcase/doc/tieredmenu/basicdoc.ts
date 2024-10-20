@@ -98,13 +98,13 @@ export class BasicDoc implements OnInit {
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
-import { TieredMenuModule } from 'primeng/tieredmenu';
+import { TieredMenu } from 'primeng/tieredmenu';
 
 @Component({
     selector: 'tiered-menu-basic-demo',
     templateUrl: './tiered-menu-basic-demo.html',
     standalone: true,
-    imports: [TieredMenuModule]
+    imports: [TieredMenu]
 })
 export class TieredMenuBasicDemo implements OnInit {
     items: MenuItem[] | undefined;

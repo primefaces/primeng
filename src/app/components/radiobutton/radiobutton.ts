@@ -1,25 +1,25 @@
 import { CommonModule } from '@angular/common';
 import {
+    booleanAttribute,
     ChangeDetectionStrategy,
     Component,
     ElementRef,
     EventEmitter,
+    forwardRef,
+    inject,
     Injectable,
     Injector,
     Input,
     NgModule,
+    numberAttribute,
     OnDestroy,
     OnInit,
     Output,
     ViewChild,
-    booleanAttribute,
-    forwardRef,
-    inject,
-    numberAttribute,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
 import { Nullable } from 'primeng/ts-helpers';
-import { AutoFocusModule } from 'primeng/autofocus';
+import { AutoFocus } from 'primeng/autofocus';
 import { BaseComponent } from 'primeng/basecomponent';
 import { RadioButtonStyle } from './style/radiobuttonstyle';
 import { RadioButtonClickEvent } from './radiobutton.interface';
@@ -68,6 +68,8 @@ export class RadioControlRegistry {
  */
 @Component({
     selector: 'p-radioButton, p-radiobutton',
+    standalone: true,
+    imports: [CommonModule, AutoFocus],
     template: `
         <div
             [ngStyle]="style"
@@ -296,14 +298,13 @@ export class RadioButton extends BaseComponent implements ControlValueAccessor, 
     private throwNameError() {
         throw new Error(`
           If you define both a name and a formControlName attribute on your radio button, their values
-          must match. Ex: <p-radiobutton formControlName="food" name="food"></p-radiobutton>
+          must match. Ex: <p-radioButton formControlName="food" name="food"></p-radioButton>
         `);
     }
 }
 
 @NgModule({
-    imports: [CommonModule, AutoFocusModule],
+    imports: [RadioButton],
     exports: [RadioButton],
-    declarations: [RadioButton],
 })
 export class RadioButtonModule {}

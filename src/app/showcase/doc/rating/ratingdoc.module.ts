@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { RatingModule } from 'primeng/rating';
+import { Rating } from 'primeng/rating';
 import { AppDocModule } from '@layout/doc/app.doc.module';
 import { AppCodeModule } from '@layout/doc/app.code.component';
 import { ReactiveFormsDoc } from './reactiveformsdoc';
@@ -17,7 +17,7 @@ import { TemplateDoc } from './templatedoc';
 import { WithoutCancelDoc } from './withoutcanceldoc';
 
 @NgModule({
-    imports: [CommonModule, AppCodeModule, AppDocModule, RatingModule, FormsModule, ReactiveFormsModule, RouterModule],
+    imports: [CommonModule, AppCodeModule, AppDocModule, Rating, FormsModule, ReactiveFormsModule, RouterModule],
     exports: [AppDocModule],
     declarations: [
         ImportDoc,

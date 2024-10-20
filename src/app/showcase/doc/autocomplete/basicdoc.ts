@@ -24,11 +24,6 @@ export class BasicDoc {
     items: any[] | undefined;
 
     value: any;
-
-    search(event: AutoCompleteCompleteEvent) {
-        this.items = [...Array(10).keys()].map((item) => event.query + '-' + item);
-    }
-
     code: Code = {
         basic: `<p-autocomplete [(ngModel)]="value" [suggestions]="items" (completeMethod)="search($event)" />`,
 
@@ -38,7 +33,7 @@ export class BasicDoc {
 
         typescript: `import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AutoCompleteModule } from 'primeng/autocomplete';
+import { AutoComplete } from 'primeng/autocomplete';
 
 interface AutoCompleteCompleteEvent {
     originalEvent: Event;
@@ -48,7 +43,7 @@ interface AutoCompleteCompleteEvent {
 @Component({
     selector: 'autocomplete-basic-demo',
     templateUrl: './autocomplete-basic-demo.html',
-    imports: [AutoCompleteModule, FormsModule],
+    imports: [AutoComplete, FormsModule],
     standalone: true,
 })
 export class AutocompleteBasicDemo {
@@ -61,4 +56,8 @@ export class AutocompleteBasicDemo {
     }
 }`,
     };
+
+    search(event: AutoCompleteCompleteEvent) {
+        this.items = [...Array(10).keys()].map((item) => event.query + '-' + item);
+    }
 }

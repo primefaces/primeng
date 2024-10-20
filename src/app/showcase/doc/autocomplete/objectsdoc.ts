@@ -64,7 +64,7 @@ export class ObjectsDoc implements OnInit {
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { CountryService } from '@service/countryservice';
-import { AutoCompleteModule } from 'primeng/autocomplete';
+import { AutoComplete } from 'primeng/autocomplete';
 import { FormsModule } from '@angular/forms';
 
 interface AutoCompleteCompleteEvent {
@@ -76,7 +76,7 @@ interface AutoCompleteCompleteEvent {
     selector: 'autocomplete-objects-demo',
     templateUrl: './autocomplete-objects-demo.html',
     standalone: true,
-    imports: [AutoCompleteModule, FormsModule],
+    imports: [AutoComplete, FormsModule],
     providers: [CountryService]
 
 })

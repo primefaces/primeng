@@ -39,14 +39,14 @@ export class GroupDoc {
     </p-avatar-group>
 </div>`,
         typescript: `import { Component } from '@angular/core';
-import { AvatarModule } from 'primeng/avatar';
-import { AvatarGroupModule } from 'primeng/avatargroup';
+import { Avatar } from 'primeng/avatar';
+import { AvatarGroup } from 'primeng/avatargroup';
 
 @Component({
     selector: 'avatar-group-demo',
     templateUrl: './avatar-group-demo.html',
     standalone: true,
-    imports: [AvatarModule, AvatarGroupModule]
+    imports: [Avatar, AvatarGroup]
 })
 export class AvatarGroupDemo {}`,
     };

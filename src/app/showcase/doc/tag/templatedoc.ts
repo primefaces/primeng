@@ -44,13 +44,13 @@ export class TemplateDoc {
     </p-tag>
 </div>`,
         typescript: `import { Component } from '@angular/core';
-import { TagModule } from 'primeng/tag';
+import { Tag } from 'primeng/tag';
 
 @Component({
     selector: 'tag-template-demo',
     templateUrl: './tag-template-demo.html',
     standalone: true,
-    imports: [TagModule]
+    imports: [Tag]
 })
 export class TagTemplateDemo {}`,
     };

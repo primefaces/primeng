@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { Code } from '@domain/code';
 import { Product } from '@domain/product';
 import { ProductService } from '@service/productservice';
@@ -13,10 +13,10 @@ import { ProductService } from '@service/productservice';
             </p>
         </app-docsectiontext>
         <div class="card">
-            <p-dataview #dv [value]="products" [rows]="5" [paginator]="true">
-                <ng-template pTemplate="list" let-products>
+            <p-dataview #dv [value]="products()" [rows]="5" [paginator]="true">
+                <ng-template #list let-items>
                     <div class="grid grid-cols-12 gap-4 grid-nogutter">
-                        <div class="col-span-12" *ngFor="let item of products; let first = first" class="col-span-12">
+                        <div class="col-span-12" *ngFor="let item of items; let first = first" class="col-span-12">
                             <div
                                 class="flex flex-col sm:flex-row sm:items-center p-6 gap-4"
                                 [ngClass]="{ 'border-t border-surface-200 dark:border-surface-700': !first }"
@@ -79,35 +79,14 @@ import { ProductService } from '@service/productservice';
     `,
 })
 export class PaginationDoc {
-    products!: Product[];
+    products = signal<any>([]);
 
     constructor(private productService: ProductService) {}
-
-    ngOnInit() {
-        this.productService.getProducts().then((data) => (this.products = data));
-    }
-
-    getSeverity(product: Product) {
-        switch (product.inventoryStatus) {
-            case 'INSTOCK':
-                return 'success';
-
-            case 'LOWSTOCK':
-                return 'warn';
-
-            case 'OUTOFSTOCK':
-                return 'danger';
-
-            default:
-                return null;
-        }
-    }
-
     code: Code = {
-        basic: `<p-dataview #dv [value]="products" [rows]="5" [paginator]="true">
-    <ng-template pTemplate="list" let-products>
+        basic: `<p-dataview [value]="products()" [rows]="5" [paginator]="true">
+    <ng-template #list let-items>
         <div class="grid grid-cols-12 gap-4 grid-nogutter">
-            <div class="col-span-12" *ngFor="let item of products; let first = first" class="col-span-12">
+            <div class="col-span-12" *ngFor="let item of items; let first = first" class="col-span-12">
                 <div
                     class="flex flex-col sm:flex-row sm:items-center p-6 gap-4"
                     [ngClass]="{ 'border-t border-surface-200 dark:border-surface-700': !first }"
@@ -167,10 +146,10 @@ export class PaginationDoc {
 </p-dataview>`,
 
         html: `<div class="card">
-    <p-dataview #dv [value]="products" [rows]="5" [paginator]="true">
-        <ng-template pTemplate="list" let-products>
+    <p-dataview #dv [value]="products()" [rows]="5" [paginator]="true">
+        <ng-template pTemplate="list" let-items>
             <div class="grid grid-cols-12 gap-4 grid-nogutter">
-                <div class="col-span-12" *ngFor="let item of products; let first = first" class="col-span-12">
+                <div class="col-span-12" *ngFor="let item of items; let first = first" class="col-span-12">
                     <div
                         class="flex flex-col sm:flex-row sm:items-center p-6 gap-4"
                         [ngClass]="{ 'border-t border-surface-200 dark:border-surface-700': !first }"
@@ -233,25 +212,28 @@ export class PaginationDoc {
         typescript: `import { Component } from '@angular/core';
 import { Product } from '@domain/product';
 import { ProductService } from '@service/productservice';
-import { DataViewModule } from 'primeng/dataview';
+import { DataView } from 'primeng/dataview';
 import { ButtonModule } from 'primeng/button';
-import { TagModule } from 'primeng/tag';
+import { Tag } from 'primeng/tag';
 import { CommonModule } from '@angular/common';
+import { signal } from '@angular/core';
 
 @Component({
     selector: 'data-view-pagination-demo',
     templateUrl: './data-view-pagination-demo.html',
     standalone: true,
-    imports: [DataViewModule, ButtonModule, TagModule, CommonModule],
+    imports: [DataView, ButtonModule, Tag, CommonModule],
     providers: [ProductService]
 })
 export class DataViewPaginationDemo {
-    products!: Product[];
+    products = signal<any>([]);
 
     constructor(private productService: ProductService) {}
 
     ngOnInit() {
-        this.productService.getProducts().then((data) => (this.products = data));
+        this.productService.getProducts().then((data) => {
+            this.products.set(data);
+        });
     }
 
     getSeverity(product: Product) {
@@ -272,7 +254,7 @@ export class DataViewPaginationDemo {
 }`,
 
         data: `
-/* ProductService */        
+/* ProductService */
 {
     id: '1000',
     code: 'f230fh0g3',
@@ -289,6 +271,28 @@ export class DataViewPaginationDemo {
 
         service: ['ProductService'],
     };
+
+    getSeverity(product: Product) {
+        switch (product.inventoryStatus) {
+            case 'INSTOCK':
+                return 'success';
+
+            case 'LOWSTOCK':
+                return 'warn';
+
+            case 'OUTOFSTOCK':
+                return 'danger';
+
+            default:
+                return null;
+        }
+    }
+
+    ngOnInit() {
+        this.productService.getProducts().then((data) => {
+            this.products.set(data);
+        });
+    }
 
     extFiles = [
         {

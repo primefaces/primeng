@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { PickListModule } from 'primeng/picklist';
+import { PickList } from 'primeng/picklist';
 import { AppDocModule } from '@layout/doc/app.doc.module';
 import { AppCodeModule } from '@layout/doc/app.code.component';
 import { AccessibilityDoc } from './accessibilitydoc';
@@ -13,7 +13,7 @@ import { TemplatesDoc } from './templatesdoc';
 import { TemplateDoc } from './templatedoc';
 
 @NgModule({
-    imports: [CommonModule, AppCodeModule, AppDocModule, PickListModule, RouterModule],
+    imports: [CommonModule, AppCodeModule, AppDocModule, PickList, RouterModule],
     exports: [AppDocModule],
     declarations: [ImportDoc, BasicDoc, FilterDoc, TemplateDoc, TemplatesDoc, StyleDoc, AccessibilityDoc],
 })

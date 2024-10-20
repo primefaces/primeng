@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/
 import { Code } from '@domain/code';
 import { Product } from '@domain/product';
 import { ProductService } from '@service/productservice';
+
 @Component({
     selector: 'basic-doc',
     template: ` <app-docsectiontext>
@@ -10,7 +11,7 @@ import { ProductService } from '@service/productservice';
         <p-deferred-demo (load)="loadDemoData()">
             <div class="card">
                 <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
-                    <ng-template pTemplate="header">
+                    <ng-template #header>
                         <tr>
                             <th>Code</th>
                             <th>Name</th>
@@ -18,7 +19,7 @@ import { ProductService } from '@service/productservice';
                             <th>Quantity</th>
                         </tr>
                     </ng-template>
-                    <ng-template pTemplate="body" let-product>
+                    <ng-template #body let-product>
                         <tr>
                             <td>{{ product.code }}</td>
                             <td>{{ product.name }}</td>
@@ -49,7 +50,7 @@ export class BasicDoc {
 
     code: Code = {
         basic: `<p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
-    <ng-template pTemplate="header">
+    <ng-template #header>
         <tr>
             <th>Code</th>
             <th>Name</th>
@@ -57,7 +58,7 @@ export class BasicDoc {
             <th>Quantity</th>
         </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-product>
+    <ng-template #body let-product>
         <tr>
             <td>{{ product.code }}</td>
             <td>{{ product.name }}</td>
@@ -69,7 +70,7 @@ export class BasicDoc {
 
         html: `<div class="card">
     <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
-        <ng-template pTemplate="header">
+        <ng-template #header>
             <tr>
                 <th>Code</th>
                 <th>Name</th>
@@ -77,7 +78,7 @@ export class BasicDoc {
                 <th>Quantity</th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-product>
+        <ng-template #body let-product>
             <tr>
                 <td>{{ product.code }}</td>
                 <td>{{ product.name }}</td>

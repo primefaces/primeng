@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { Code } from '@domain/code';
 import { Product } from '@domain/product';
 import { ProductService } from '@service/productservice';
@@ -10,17 +10,17 @@ import { ProductService } from '@service/productservice';
             <p>While data is being loaded. <a routerLink="/skeleton">Skeleton</a> component may be used to indicate the busy state.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-dataview #dv [value]="products" [layout]="layout">
-                <ng-template pTemplate="header">
+            <p-dataview #dv [value]="products()" [layout]="layout">
+                <ng-template #header>
                     <div class="flex justify-end">
                         <p-selectbutton [(ngModel)]="layout" [options]="options" [allowEmpty]="false">
-                            <ng-template pTemplate="item" let-option>
+                            <ng-template #item let-option>
                                 <i [class]="option === 'list' ? 'pi pi-bars' : 'pi pi-table'"></i>
                             </ng-template>
                         </p-selectbutton>
                     </div>
                 </ng-template>
-                <ng-template pTemplate="list" let-products>
+                <ng-template #list let-items>
                     <div class="flex flex-col">
                         <div *ngFor="let i of counterArray(6); let first = first">
                             <div
@@ -47,7 +47,7 @@ import { ProductService } from '@service/productservice';
                         </div>
                     </div>
                 </ng-template>
-                <ng-template let-product pTemplate="grid" let-products>
+                <ng-template #grid let-items>
                     <div class="grid grid-cols-12 gap-4">
                         <div *ngFor="let i of counterArray(6); let first = first" class="col-span-12 sm:col-span-6 xl:col-span-4 p-2">
                             <div class="p-6 border border-surface-200 dark:border-surface-700 bg-surface-0 dark:bg-surface-900 rounded">
@@ -76,48 +76,23 @@ import { ProductService } from '@service/productservice';
 export class LoadingDoc {
     layout: string = 'grid';
 
-    products!: Product[];
+    products = signal<any>([]);
 
     options: string[] = ['list', 'grid'];
 
     constructor(private productService: ProductService) {}
-
-    ngOnInit() {
-        this.productService.getProducts().then((data) => (this.products = data.slice(0, 12)));
-    }
-
-    getSeverity(product: Product) {
-        switch (product.inventoryStatus) {
-            case 'INSTOCK':
-                return 'success';
-
-            case 'LOWSTOCK':
-                return 'warning';
-
-            case 'OUTOFSTOCK':
-                return 'danger';
-
-            default:
-                return null;
-        }
-    }
-
-    counterArray(n: number): any[] {
-        return Array(n);
-    }
-
     code: Code = {
-        basic: `<p-dataview #dv [value]="products" [layout]="layout">
+        basic: `<p-dataview #dv [value]="products()" [layout]="layout">
     <ng-template pTemplate="header">
         <div class="flex justify-end">
             <p-selectbutton [(ngModel)]="layout" [options]="options" [allowEmpty]="false">
-                <ng-template pTemplate="item" let-option>
+                <ng-template #item let-option>
                     <i [class]="option === 'list' ? 'pi pi-bars' : 'pi pi-table'"></i>
                 </ng-template>
             </p-selectbutton>
         </div>
     </ng-template>
-    <ng-template pTemplate="list" let-products>
+    <ng-template pTemplate="list" let-items>
         <div class="flex flex-col">
             <div *ngFor="let i of counterArray(6); let first = first">
                 <div
@@ -146,7 +121,7 @@ export class LoadingDoc {
             </div>
         </div>
     </ng-template>
-    <ng-template let-product pTemplate="grid" let-products>
+    <ng-template #grid let-items>
         <div class="grid grid-cols-12 gap-4">
             <div
                 *ngFor="let i of counterArray(6); let first = first"
@@ -214,7 +189,7 @@ export class LoadingDoc {
                 </div>
             </div>
         </ng-template>
-        <ng-template let-product pTemplate="grid" let-products>
+        <ng-template #>
             <div class="grid grid-cols-12 gap-4">
                 <div
                     *ngFor="let i of counterArray(6); let first = first"
@@ -246,29 +221,30 @@ export class LoadingDoc {
         typescript: `import { Component } from '@angular/core';
 import { Product } from '@domain/product';
 import { ProductService } from '@service/productservice';
-import { DataViewModule } from 'primeng/dataview';
+import { DataView } from 'primeng/dataview';
 import { CommonModule } from '@angular/common';
-import { SkeletonModule } from 'primeng/skeleton';
-import { SelectButtonModule } from 'primeng/selectbutton';
+import { Skeleton } from 'primeng/skeleton';
+import { SelectButton } from 'primeng/selectbutton';
+import { signal } from '@angular/core';
 
 @Component({
     selector: 'data-view-loading-demo',
     templateUrl: './data-view-loading-demo.html',
     standalone: true,
-    imports: [DataViewModule, CommonModule, SkeletonModule, SelectButtonModule],
+    imports: [DataView, CommonModule, Skeleton, SelectButton],
     providers: [ProductService]
 })
 export class DataViewLoadingDemo {
     layout: string = 'grid';
 
-    products!: Product[];
+    products = signal<any>([]);
 
-    options : string[] = ['list', 'grid'];
+    options: string[] = ['list', 'grid'];
 
     constructor(private productService: ProductService) {}
 
     ngOnInit() {
-        this.productService.getProducts().then((data) => (this.products = data.slice(0, 12)));
+        this.productService.getProducts().then((data) => (this.products.set([...data.slice(0,12)])));
     }
 
     getSeverity(product: Product) {
@@ -294,7 +270,7 @@ export class DataViewLoadingDemo {
 }`,
 
         data: `
-/* ProductService */        
+/* ProductService */
 {
     id: '1000',
     code: 'f230fh0g3',
@@ -311,6 +287,30 @@ export class DataViewLoadingDemo {
 
         service: ['ProductService'],
     };
+
+    getSeverity(product: Product) {
+        switch (product.inventoryStatus) {
+            case 'INSTOCK':
+                return 'success';
+
+            case 'LOWSTOCK':
+                return 'warning';
+
+            case 'OUTOFSTOCK':
+                return 'danger';
+
+            default:
+                return null;
+        }
+    }
+
+    counterArray(n: number): any[] {
+        return Array(n);
+    }
+
+    ngOnInit() {
+        this.productService.getProducts().then((data) => this.products.set([...data.slice(0, 12)]));
+    }
 
     extFiles = [
         {

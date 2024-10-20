@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, OnDestroy, afterNextRender } from '@angular/core';
+import { afterNextRender, Component, ElementRef, OnDestroy } from '@angular/core';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
-import { AutoCompleteModule } from 'primeng/autocomplete';
+import { AutoComplete } from 'primeng/autocomplete';
 import { DomHandler } from 'primeng/dom';
-import { StyleClassModule } from 'primeng/styleclass';
+import { StyleClass } from 'primeng/styleclass';
 import { Subscription } from 'rxjs';
 import { default as MenuData } from 'src/assets/showcase/data/menu.json';
 import { AppConfigService } from '@service/appconfigservice';
@@ -31,7 +31,7 @@ export interface MenuItem {
         '[class.active]': 'isActive',
     },
     standalone: true,
-    imports: [CommonModule, StyleClassModule, RouterModule, AutoCompleteModule, AppMenuItemComponent],
+    imports: [CommonModule, StyleClass, RouterModule, AutoComplete, AppMenuItemComponent],
 })
 export class AppMenuComponent implements OnDestroy {
     menu!: MenuItem[];

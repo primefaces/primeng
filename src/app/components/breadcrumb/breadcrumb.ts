@@ -3,6 +3,7 @@ import {
     AfterContentInit,
     ChangeDetectionStrategy,
     Component,
+    ContentChild,
     ContentChildren,
     EventEmitter,
     inject,
@@ -11,7 +12,7 @@ import {
     Output,
     QueryList,
     TemplateRef,
-    ViewEncapsulation,
+    ViewEncapsulation
 } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { MenuItem, PrimeTemplate, SharedModule } from 'primeng/api';
@@ -28,6 +29,8 @@ import { BaseComponent } from 'primeng/basecomponent';
  */
 @Component({
     selector: 'p-breadcrumb',
+    standalone: true,
+    imports: [CommonModule, RouterModule, TooltipModule, ChevronRightIcon, HomeIcon],
     template: `
         <nav
             [class]="styleClass"
@@ -218,10 +221,6 @@ export class Breadcrumb extends BaseComponent implements AfterContentInit {
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
-    separatorTemplate: TemplateRef<any> | undefined;
-
-    itemTemplate: TemplateRef<any> | undefined;
-
     _componentStyle = inject(BreadCrumbStyle);
 
     constructor(private router: Router) {
@@ -257,6 +256,18 @@ export class Breadcrumb extends BaseComponent implements AfterContentInit {
         }
     }
 
+    /**
+     * Defines template option for item.
+     * @group Templates
+     */
+    @ContentChild('item') itemTemplate: TemplateRef<any> | undefined;
+
+    /**
+     * Defines template option for separator.
+     * @group Templates
+     */
+    @ContentChild('separator') separatorTemplate: TemplateRef<any> | undefined;
+
     ngAfterContentInit() {
         this.templates?.forEach((item) => {
             switch (item.getType()) {
@@ -277,8 +288,7 @@ export class Breadcrumb extends BaseComponent implements AfterContentInit {
 }
 
 @NgModule({
-    imports: [CommonModule, RouterModule, TooltipModule, ChevronRightIcon, HomeIcon, SharedModule],
-    exports: [Breadcrumb, RouterModule, TooltipModule, SharedModule],
-    declarations: [Breadcrumb],
+    imports: [Breadcrumb, SharedModule],
+    exports: [Breadcrumb, SharedModule],
 })
 export class BreadcrumbModule {}

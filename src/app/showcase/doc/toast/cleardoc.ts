@@ -14,8 +14,6 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card flex justify-center gap-2">
             <p-toast key="myKey" />
-            <p-button pRipple (click)="show()" label="Show" />
-            <p-button pRipple (click)="clear()" label="Clear" severity="secondary" />
         </div>
         <app-code [code]="code" selector="toast-clear-demo"></app-code>
     `,
@@ -34,38 +32,34 @@ export class ClearDoc {
 
     code: Code = {
         basic: `<p-toast key="myKey" />
-<p-button 
-    pRipple 
-    (click)="show()" 
+<p-button
+    (click)="show()"
     label="Show" />
-<p-button 
-    pRipple 
-    (click)="clear()" 
-    label="Clear" 
+<p-button
+    (click)="clear()"
+    label="Clear"
     severity="secondary" />`,
         html: `<div class="card flex justify-center gap-2">
     <p-toast key="myKey" />
-    <p-button 
-        pRipple 
-        (click)="show()" 
+    <p-button
+        (click)="show()"
         label="Show" />
-    <p-button 
-        pRipple 
-        (click)="clear()" 
-        label="Clear" 
+    <p-button
+        (click)="clear()"
+        label="Clear"
         severity="secondary" />
 </div>`,
         typescript: `import { Component } from '@angular/core';
 import { MessageService } from 'primeng/api';
-import { ToastModule } from 'primeng/toast';
+import { Toast } from 'primeng/toast';
 import { ButtonModule } from 'primeng/button';
-import { RippleModule } from 'primeng/ripple';
+import { Ripple } from 'primeng/ripple';
 
 @Component({
     selector: 'toast-clear-demo',
     templateUrl: './toast-clear-demo.html',
     standalone: true,
-    imports: [ToastModule, ButtonModule, RippleModule],
+    imports: [Toast, ButtonModule, Ripple],
     providers: [MessageService]
 })
 export class ToastClearDemo {

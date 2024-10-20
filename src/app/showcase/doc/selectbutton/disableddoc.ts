@@ -50,13 +50,13 @@ export class DisabledDoc {
 
         typescript: `import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SelectButtonModule } from 'primeng/selectbutton';
+import { SelectButton } from 'primeng/selectbutton';
 
 @Component({
     selector: 'select-button-disabled-demo',
     templateUrl: './select-button-disabled-demo.html',
     standalone: true,
-    imports: [FormsModule, SelectButtonModule]
+    imports: [FormsModule, SelectButton]
 })
 export class SelectButtonDisabledDemo {
     stateOptions: any[] = [

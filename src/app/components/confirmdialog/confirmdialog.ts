@@ -1,38 +1,35 @@
 import { animate, animation, style, transition, trigger, useAnimation } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import {
-    AfterContentInit,
+    booleanAttribute,
     ChangeDetectionStrategy,
     Component,
     ContentChild,
-    ContentChildren,
     ElementRef,
     EventEmitter,
+    inject,
     Input,
     NgModule,
     NgZone,
+    numberAttribute,
     OnDestroy,
     OnInit,
     Output,
-    QueryList,
     TemplateRef,
     ViewEncapsulation,
-    booleanAttribute,
-    inject,
-    numberAttribute,
 } from '@angular/core';
-import { ConfirmEventType, Confirmation, ConfirmationService, Footer, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
-import { ButtonModule } from 'primeng/button';
+import { Confirmation, ConfirmationService, ConfirmEventType, Footer, TranslationKeys } from 'primeng/api';
+import { Button } from 'primeng/button';
 import { DomHandler } from 'primeng/dom';
 import { CheckIcon } from 'primeng/icons/check';
 import { TimesIcon } from 'primeng/icons/times';
-import { RippleModule } from 'primeng/ripple';
+import { Ripple } from 'primeng/ripple';
 import { Nullable } from 'primeng/ts-helpers';
 import { UniqueComponentId } from 'primeng/utils';
 import { Subscription } from 'rxjs';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ConfirmDialogStyle } from './style/confirmdialogstyle';
-import { Dialog, DialogModule } from 'primeng/dialog';
+import { Dialog } from 'primeng/dialog';
 
 const showAnimation = animation([
     style({ transform: '{{transform}}', opacity: 0 }),
@@ -46,6 +43,8 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
  */
 @Component({
     selector: 'p-confirmDialog, p-confirmdialog',
+    standalone: true,
+    imports: [CommonModule, Button, Ripple, TimesIcon, CheckIcon, Dialog],
     template: `
         <p-dialog
             #dialog
@@ -61,7 +60,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
             [position]="position"
         >
             @if (headlessTemplate) {
-                <ng-template pTemplate="headless">
+                <ng-template #headless>
                     <ng-container
                         *ngTemplateOutlet="
                             headlessTemplate;
@@ -80,7 +79,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                     </div>
                 }
 
-                <ng-template pTemplate="content">
+                <ng-template #content>
                     @if (iconTemplate) {
                         <ng-template *ngTemplateOutlet="iconTemplate"></ng-template>
                     } @else if (!iconTemplate && !messageTemplate) {
@@ -93,7 +92,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                     }
                 </ng-template>
             }
-            <ng-template pTemplate="footer">
+            <ng-template #footer>
                 @if (footer || footerTemplate) {
                     <ng-content select="p-footer"></ng-content>
                     <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
@@ -138,7 +137,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
     encapsulation: ViewEncapsulation.None,
     providers: [ConfirmDialogStyle],
 })
-export class ConfirmDialog extends BaseComponent implements AfterContentInit, OnInit, OnDestroy {
+export class ConfirmDialog extends BaseComponent implements OnInit, OnDestroy {
     /**
      * Title text of the dialog.
      * @group Props
@@ -352,57 +351,21 @@ export class ConfirmDialog extends BaseComponent implements AfterContentInit, On
 
     @ContentChild(Footer) footer: Nullable<TemplateRef<any>>;
 
-    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
-
     _componentStyle = inject(ConfirmDialogStyle);
 
-    ngAfterContentInit() {
-        this.templates?.forEach((item) => {
-            switch (item.getType()) {
-                case 'header':
-                    this.headerTemplate = item.template;
-                    break;
+    @ContentChild('header') headerTemplate: Nullable<TemplateRef<any>>;
 
-                case 'footer':
-                    this.footerTemplate = item.template;
-                    break;
+    @ContentChild('footer') footerTemplate: Nullable<TemplateRef<any>>;
 
-                case 'message':
-                    this.messageTemplate = item.template;
-                    break;
+    @ContentChild('reject') rejectIconTemplate: Nullable<TemplateRef<any>>;
 
-                case 'icon':
-                    this.iconTemplate = item.template;
-                    break;
+    @ContentChild('accept') acceptIconTemplate: Nullable<TemplateRef<any>>;
 
-                case 'rejecticon':
-                    this.rejectIconTemplate = item.template;
-                    break;
+    @ContentChild('message') messageTemplate: Nullable<TemplateRef<any>>;
 
-                case 'accepticon':
-                    this.acceptIconTemplate = item.template;
-                    break;
+    @ContentChild('icon') iconTemplate: Nullable<TemplateRef<any>>;
 
-                case 'headless':
-                    this.headlessTemplate = item.template;
-                    break;
-            }
-        });
-    }
-
-    headerTemplate: Nullable<TemplateRef<any>>;
-
-    footerTemplate: Nullable<TemplateRef<any>>;
-
-    rejectIconTemplate: Nullable<TemplateRef<any>>;
-
-    acceptIconTemplate: Nullable<TemplateRef<any>>;
-
-    messageTemplate: Nullable<TemplateRef<any>>;
-
-    iconTemplate: Nullable<TemplateRef<any>>;
-
-    headlessTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('headless') headlessTemplate: Nullable<TemplateRef<any>>;
 
     confirmation: Nullable<Confirmation>;
 
@@ -604,8 +567,7 @@ export class ConfirmDialog extends BaseComponent implements AfterContentInit, On
 }
 
 @NgModule({
-    imports: [CommonModule, ButtonModule, RippleModule, TimesIcon, CheckIcon, DialogModule],
-    exports: [ConfirmDialog, ButtonModule, SharedModule],
-    declarations: [ConfirmDialog],
+    imports: [ConfirmDialog],
+    exports: [ConfirmDialog],
 })
 export class ConfirmDialogModule {}

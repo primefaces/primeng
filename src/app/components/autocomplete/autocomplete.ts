@@ -7,6 +7,7 @@ import {
     ChangeDetectionStrategy,
     Component,
     computed,
+    ContentChild,
     ContentChildren,
     effect,
     ElementRef,
@@ -26,14 +27,14 @@ import {
     ViewEncapsulation,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { AutoFocus } from 'primeng/autofocus';
+import { Button } from 'primeng/button';
 import { OverlayOptions, OverlayService, PrimeTemplate, ScrollerOptions, SharedModule, TranslationKeys } from 'primeng/api';
-import { AutoFocusModule } from 'primeng/autofocus';
-import { ButtonModule } from 'primeng/button';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
-import { InputTextModule } from 'primeng/inputtext';
-import { Overlay, OverlayModule } from 'primeng/overlay';
-import { RippleModule } from 'primeng/ripple';
-import { Scroller, ScrollerModule } from 'primeng/scroller';
+import { InputText } from 'primeng/inputtext';
+import { Overlay } from 'primeng/overlay';
+import { Ripple } from 'primeng/ripple';
+import { Scroller } from 'primeng/scroller';
 import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
 import { TimesCircleIcon } from 'primeng/icons/timescircle';
 import { SpinnerIcon } from 'primeng/icons/spinner';
@@ -47,7 +48,7 @@ import {
     AutoCompleteSelectEvent,
     AutoCompleteUnselectEvent,
 } from './autocomplete.interface';
-import { ChipModule } from 'primeng/chip';
+import { Chip } from 'primeng/chip';
 import { AutoCompleteStyle } from './style/autocompletestyle';
 import { BaseComponent } from 'primeng/basecomponent';
 
@@ -62,6 +63,21 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
  */
 @Component({
     selector: 'p-autoComplete, p-autocomplete',
+    standalone: true,
+    imports: [
+        CommonModule,
+        Overlay,
+        InputText,
+        Button,
+        Ripple,
+        Scroller,
+        AutoFocus,
+        TimesCircleIcon,
+        SpinnerIcon,
+        TimesIcon,
+        ChevronDownIcon,
+        Chip,
+    ],
     template: `
         <div
             #container
@@ -153,7 +169,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                         [removable]="true"
                     >
                         <ng-container *ngIf="!removeIconTemplate">
-                            <ng-template pTemplate="removeicon">
+                            <ng-template #removeicon>
                                 <span class="p-autocomplete-chip-icon" (click)="!readonly ? removeOption($event, i) : ''">
                                     <TimesCircleIcon [styleClass]="'p-autocomplete-chip-icon'" [attr.aria-hidden]="true" />
                                 </span>
@@ -253,13 +269,13 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                         (onLazyLoad)="onLazyLoad.emit($event)"
                         [options]="virtualScrollOptions"
                     >
-                        <ng-template pTemplate="content" let-items let-scrollerOptions="options">
+                        <ng-template #content let-items let-scrollerOptions="options">
                             <ng-container
                                 *ngTemplateOutlet="buildInItems; context: { $implicit: items, options: scrollerOptions }"
                             ></ng-container>
                         </ng-template>
                         <ng-container *ngIf="loaderTemplate">
-                            <ng-template pTemplate="loader" let-scrollerOptions="options">
+                            <ng-template #loader let-scrollerOptions="options">
                                 <ng-container *ngTemplateOutlet="loaderTemplate; context: { options: scrollerOptions }"></ng-container>
                             </ng-template>
                         </ng-container>
@@ -329,10 +345,11 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                                 [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }"
                                 role="option"
                             >
-                                <ng-container *ngIf="!emptyTemplate; else empty">
+                                @if (!emptyTemplate) {
                                     {{ searchResultMessageText }}
-                                </ng-container>
-                                <ng-container #empty *ngTemplateOutlet="emptyTemplate"></ng-container>
+                                } @else {
+                                    <ng-container *ngTemplateOutlet="emptyTemplate"></ng-container>
+                                }
                             </li>
                         </ul>
                     </ng-template>
@@ -786,27 +803,71 @@ export class AutoComplete extends BaseComponent implements AfterViewChecked, Aft
 
     itemsWrapper: Nullable<HTMLDivElement>;
 
-    itemTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom item template.
+     * @group Templates
+     */
+    @ContentChild('item') itemTemplate: Nullable<TemplateRef<any>>;
 
-    emptyTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom empty message template.
+     * @group Templates
+     */
+    @ContentChild('empty') emptyTemplate: Nullable<TemplateRef<any>>;
 
-    headerTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom header template.
+     * @group Templates
+     */
+    @ContentChild('header') headerTemplate: Nullable<TemplateRef<any>>;
 
-    footerTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom footer template.
+     * @group Templates
+     */
+    @ContentChild('footer') footerTemplate: Nullable<TemplateRef<any>>;
 
-    selectedItemTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom selected item template.
+     * @group Templates
+     */
+    @ContentChild('selecteditem') selectedItemTemplate: Nullable<TemplateRef<any>>;
 
-    groupTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom group item template.
+     * @group Templates
+     */
+    @ContentChild('group') groupTemplate: Nullable<TemplateRef<any>>;
 
-    loaderTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom loader template.
+     * @group Templates
+     */
+    @ContentChild('loader') loaderTemplate: Nullable<TemplateRef<any>>;
 
-    removeIconTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom remove icon template.
+     * @group Templates
+     */
+    @ContentChild('removeicon') removeIconTemplate: Nullable<TemplateRef<any>>;
 
-    loadingIconTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom loading icon template.
+     * @group Templates
+     */
+    @ContentChild('loadingicon') loadingIconTemplate: Nullable<TemplateRef<any>>;
 
-    clearIconTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom clear icon template.
+     * @group Templates
+     */
+    @ContentChild('clearicon') clearIconTemplate: Nullable<TemplateRef<any>>;
 
-    dropdownIconTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom dropdown icon template.
+     * @group Templates
+     */
+    @ContentChild('dropdownicon') dropdownIconTemplate: Nullable<TemplateRef<any>>;
 
     value: string | any;
 
@@ -1794,22 +1855,7 @@ export class AutoComplete extends BaseComponent implements AfterViewChecked, Aft
 }
 
 @NgModule({
-    imports: [
-        CommonModule,
-        OverlayModule,
-        InputTextModule,
-        ButtonModule,
-        SharedModule,
-        RippleModule,
-        ScrollerModule,
-        AutoFocusModule,
-        TimesCircleIcon,
-        SpinnerIcon,
-        TimesIcon,
-        ChevronDownIcon,
-        ChipModule,
-    ],
-    exports: [AutoComplete, OverlayModule, SharedModule, ScrollerModule, AutoFocusModule],
-    declarations: [AutoComplete],
+    imports: [AutoComplete, SharedModule],
+    exports: [AutoComplete, SharedModule],
 })
 export class AutoCompleteModule {}

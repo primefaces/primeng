@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { MenubarModule } from 'primeng/menubar';
+import { Menubar } from 'primeng/menubar';
 import { AppDocModule } from '@layout/doc/app.doc.module';
 import { AppCodeModule } from '@layout/doc/app.code.component';
 import { TemplateDoc } from './templatedoc';
@@ -11,7 +11,7 @@ import { StyleDoc } from './styledoc';
 import { InputTextModule } from 'primeng/inputtext';
 import { AccessibilityDoc } from './accessibilitydoc';
 import { BadgeModule } from 'primeng/badge';
-import { RippleModule } from 'primeng/ripple';
+import { Ripple } from 'primeng/ripple';
 import { AvatarModule } from 'primeng/avatar';
 import { CommandDoc } from './commanddoc';
 import { ToastModule } from 'primeng/toast';
@@ -22,11 +22,11 @@ import { RouterDoc } from './routerdoc';
         CommonModule,
         AppCodeModule,
         RouterModule,
-        MenubarModule,
+        Menubar,
         InputTextModule,
         AppDocModule,
         BadgeModule,
-        RippleModule,
+        Ripple,
         AvatarModule,
         ToastModule,
     ],

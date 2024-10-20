@@ -9,6 +9,8 @@ import { ProgressSpinnerStyle } from './style/progressspinnerstyle';
  */
 @Component({
     selector: 'p-progressSpinner, p-progress-spinner',
+    standalone: true,
+    imports: [CommonModule],
     template: `
         <div
             class="p-progressspinner"
@@ -40,7 +42,6 @@ import { ProgressSpinnerStyle } from './style/progressspinnerstyle';
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-
     providers: [ProgressSpinnerStyle],
 })
 export class ProgressSpinner extends BaseComponent {
@@ -79,8 +80,7 @@ export class ProgressSpinner extends BaseComponent {
 }
 
 @NgModule({
-    imports: [CommonModule],
+    imports: [ProgressSpinner],
     exports: [ProgressSpinner],
-    declarations: [ProgressSpinner],
 })
 export class ProgressSpinnerModule {}

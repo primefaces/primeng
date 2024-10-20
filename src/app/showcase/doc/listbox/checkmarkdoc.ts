@@ -29,17 +29,6 @@ export class CheckmarkDoc implements OnInit {
     cities!: City[];
 
     selectedCity!: City;
-
-    ngOnInit() {
-        this.cities = [
-            { name: 'New York', code: 'NY' },
-            { name: 'Rome', code: 'RM' },
-            { name: 'London', code: 'LDN' },
-            { name: 'Istanbul', code: 'IST' },
-            { name: 'Paris', code: 'PRS' },
-        ];
-    }
-
     code: Code = {
         basic: `<p-listbox [(ngModel)]="selectedCity" [options]="cities" optionLabel="name" [checkmark]="true" [highlightOnSelect]="false" class="w-full md:w-56"/>`,
 
@@ -66,7 +55,7 @@ export class ListboxCheckmarkDemo implements OnInit {
     cities!: City[];
 
     selectedCity!: City;
-    
+
     ngOnInit() {
         this.cities = [
             { name: 'New York', code: 'NY' },
@@ -78,4 +67,14 @@ export class ListboxCheckmarkDemo implements OnInit {
     }
 }`,
     };
+
+    ngOnInit() {
+        this.cities = [
+            { name: 'New York', code: 'NY' },
+            { name: 'Rome', code: 'RM' },
+            { name: 'London', code: 'LDN' },
+            { name: 'Istanbul', code: 'IST' },
+            { name: 'Paris', code: 'PRS' },
+        ];
+    }
 }
