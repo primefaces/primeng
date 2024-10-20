@@ -3,7 +3,7 @@ import {
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
-    ContentChildren,
+    contentChildren,
     OutputEmitterRef,
     forwardRef,
     computed,
@@ -14,7 +14,7 @@ import {
     NgModule,
     numberAttribute,
     output,
-    QueryList,
+    Signal,
     TemplateRef,
     WritableSignal,
 } from '@angular/core';
@@ -54,9 +54,9 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
             [attr.data-p-disabled]="disabled()"
         >
             <span [ngClass]="cx('content')">
-                <ng-container *ngTemplateOutlet="contentTemplate; context: { $implicit: checked() }"></ng-container>
-                @if (!contentTemplate) {
-                    @if (!iconTemplate) {
+                <ng-container *ngTemplateOutlet="contentTemplate(); context: { $implicit: checked() }"></ng-container>
+                @if (!contentTemplate()) {
+                    @if (!iconTemplate()) {
                         @if (onIcon() || offIcon()) {
                             <span
                                 [class]="checked() ? onIcon() : offIcon()"
@@ -69,7 +69,7 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
                             ></span>
                         }
                     } @else {
-                        <ng-container *ngTemplateOutlet="iconTemplate; context: { $implicit: checked() }"></ng-container>
+                        <ng-container *ngTemplateOutlet="iconTemplate(); context: { $implicit: checked() }"></ng-container>
                     }
                     @if (onLabel() || offLabel()) {
                         <span [ngClass]="cx('label')" [attr.data-pc-section]="'label'">
@@ -164,11 +164,11 @@ export class ToggleButton extends BaseComponent implements ControlValueAccessor 
      */
     onChange: OutputEmitterRef<ToggleButtonChangeEvent> = output<ToggleButtonChangeEvent>();
 
-    @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
+    templates: Signal<readonly PrimeTemplate[]> = contentChildren(PrimeTemplate);
 
-    iconTemplate: Nullable<TemplateRef<any>>;
+    iconTemplate = computed<Nullable<TemplateRef<any>>>(() => this.mappedTemplates()['icon']);
 
-    contentTemplate: Nullable<TemplateRef<any>>;
+    contentTemplate = computed<Nullable<TemplateRef<any>>>(() => this.mappedTemplates()['content']);
 
     checked: WritableSignal<boolean> = signal<boolean>(false);
 
@@ -178,21 +178,12 @@ export class ToggleButton extends BaseComponent implements ControlValueAccessor 
 
     _componentStyle = inject(ToggleButtonStyle);
 
-    ngAfterContentInit() {
-        this.templates.forEach((item) => {
-            switch (item.getType()) {
-                case 'content':
-                    this.contentTemplate = item.template;
-                    break;
-                case 'icon':
-                    this.iconTemplate = item.template;
-                    break;
-                default:
-                    this.contentTemplate = item.template;
-                    break;
-            }
-        });
-    }
+    private mappedTemplates = computed<{ [key: string]: TemplateRef<any> }>(() => {
+        return (this.templates() || []).reduce((prev, item) => {
+            prev[item.getType()] = item.template;
+            return prev;
+        }, {});
+    });
 
     toggle(event: Event) {
         if (!this.disabled() && !(this.allowEmpty() === false && this.checked())) {
