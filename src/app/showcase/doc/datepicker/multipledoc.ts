@@ -28,13 +28,13 @@ export class MultipleDoc {
 
         typescript: `import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DatePickerModule } from 'primeng/datepicker';
+import { DatePicker } from 'primeng/datepicker';
 
 @Component({
     selector: 'datepicker-multiple-demo',
     templateUrl: './datepicker-multiple-demo.html',
     standalone: true,
-    imports: [FormsModule, DatePickerModule]
+    imports: [FormsModule, DatePicker]
 })
 export class DatePickerMultipleDemo {
     dates: Date[] | undefined;

@@ -66,7 +66,7 @@ export class VirtualScrollDoc {
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { AutoCompleteModule } from 'primeng/autocomplete';
+import { AutoComplete } from 'primeng/autocomplete';
 import { FormsModule } from '@angular/forms';
 
 interface AutoCompleteCompleteEvent {
@@ -78,7 +78,7 @@ interface AutoCompleteCompleteEvent {
     selector: 'autocomplete-virtual-scroll-demo',
     templateUrl: './autocomplete-virtual-scroll-demo.html',
     standalone: true,
-    imports: [FormsModule, AutoCompleteModule]
+    imports: [FormsModule, AutoComplete]
 })
 export class AutocompleteVirtualScrollDemo {
     selectedItem: any;

@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { ProgressSpinner } from 'primeng/progressspinner';
 import { AppDocModule } from '@layout/doc/app.doc.module';
 import { AppCodeModule } from '@layout/doc/app.code.component';
 import { BasicDoc } from './basicdoc';
@@ -11,7 +11,7 @@ import { StyleDoc } from './styledoc';
 import { AccessibilityDoc } from './accessibilitydoc';
 
 @NgModule({
-    imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, ProgressSpinnerModule],
+    imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, ProgressSpinner],
     declarations: [BasicDoc, ImportDoc, CustomDoc, StyleDoc, AccessibilityDoc],
     exports: [AppDocModule],
 })

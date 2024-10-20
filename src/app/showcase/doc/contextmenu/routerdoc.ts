@@ -67,8 +67,8 @@ import { Router } from '@angular/router';
                     <path d="M11.4013 8.27235L8.00893 7.94938L10.2705 5.68861H12.5321L11.4013 8.27235Z" fill="var(--ground-background)" />
                 </svg>
             </span>
-            <p-contextmenu [target]="span" [model]="items">
-                <ng-template pTemplate="item" let-item>
+            <p-contextMenu [target]="span" [model]="items">
+                <ng-template #item let-item>
                     <ng-container *ngIf="item.route; else elseBlock">
                         <a [routerLink]="item.route" class="p-contextmenu-item-link">
                             <span [class]="item.icon"></span>
@@ -82,7 +82,7 @@ import { Router } from '@angular/router';
                         </a>
                     </ng-template>
                 </ng-template>
-            </p-contextmenu>
+            </p-contextMenu>
         </div>
         <app-code [code]="code" selector="context-menu-router-demo"></app-code>
     `,
@@ -92,28 +92,6 @@ export class RouterDoc implements OnInit {
 
     constructor(private router: Router) {}
 
-    ngOnInit() {
-        this.items = [
-            {
-                label: 'Router Link',
-                icon: 'pi pi-palette',
-                route: '/theming',
-            },
-            {
-                label: 'Programmatic',
-                icon: 'pi pi-link',
-                command: () => {
-                    this.router.navigate(['/installation']);
-                },
-            },
-            {
-                label: 'External',
-                icon: 'pi pi-home',
-                url: 'https://angular.io//',
-            },
-        ];
-    }
-
     code: Code = {
         basic: `<span #span class="inline-flex items-center justify-center border-2 border-primary rounded w-16 h-16" aria-haspopup="true">
     <svg width="31" height="33" viewBox="0 0 31 33" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -121,8 +99,8 @@ export class RouterDoc implements OnInit {
         <path d="..." fill="var(--high-contrast-text-color)"/>
     </svg>
 </span>
-<p-contextmenu [target]="span" [model]="items">
-    <ng-template pTemplate="item" let-item>
+<p-contextMenu [target]="span" [model]="items">
+    <ng-template #item let-item>
         <ng-container *ngIf="item.route; else elseBlock">
             <a [routerLink]="item.route" class="p-contextmenu-item-link">
                 <span [class]="item.icon"></span>
@@ -136,7 +114,7 @@ export class RouterDoc implements OnInit {
             </a>
         </ng-template>
     </ng-template>
-</p-contextmenu>`,
+</p-contextMenu>`,
 
         html: `<div class="card flex justify-center">
     <span #span class="inline-flex items-center justify-center border-2 border-primary rounded w-16 h-16" aria-haspopup="true">
@@ -206,8 +184,8 @@ export class RouterDoc implements OnInit {
             />
         </svg>
     </span>
-    <p-contextmenu [target]="span" [model]="items">
-        <ng-template pTemplate="item" let-item>
+    <p-contextMenu [target]="span" [model]="items">
+        <ng-template #item let-item>
             <ng-container *ngIf="item.route; else elseBlock">
                 <a [routerLink]="item.route" class="p-contextmenu-item-link">
                     <span [class]="item.icon"></span>
@@ -221,12 +199,12 @@ export class RouterDoc implements OnInit {
                 </a>
             </ng-template>
         </ng-template>
-    </p-contextmenu>
+    </p-contextMenu>
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
-import { ContextMenuModule } from 'primeng/contextmenu';
+import { ContextMenu } from 'primeng/contextmenu';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
@@ -234,7 +212,7 @@ import { CommonModule } from '@angular/common';
     selector: 'context-menu-router-demo',
     templateUrl: './context-menu-router-demo.html',
     standalone: true,
-    imports: [ContextMenuModule, CommonModule],
+    imports: [ContextMenu, CommonModule],
 })
 export class ContextMenuRouterDemo implements OnInit {
     items: MenuItem[] | undefined;
@@ -264,4 +242,26 @@ export class ContextMenuRouterDemo implements OnInit {
     }
 }`,
     };
+
+    ngOnInit() {
+        this.items = [
+            {
+                label: 'Router Link',
+                icon: 'pi pi-palette',
+                route: '/theming',
+            },
+            {
+                label: 'Programmatic',
+                icon: 'pi pi-link',
+                command: () => {
+                    this.router.navigate(['/installation']);
+                },
+            },
+            {
+                label: 'External',
+                icon: 'pi pi-home',
+                url: 'https://angular.io//',
+            },
+        ];
+    }
 }

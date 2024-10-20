@@ -30,13 +30,13 @@ export class DisabledDoc {
 
         typescript: `import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { CheckboxModule } from 'primeng/checkbox';
+import { Checkbox } from 'primeng/checkbox';
 
 @Component({
     selector: 'checkbox-disabled-demo',
     templateUrl: './checkbox-disabled-demo.html',
     standalone: true,
-    imports: [FormsModule, CheckboxModule]
+    imports: [FormsModule, Checkbox]
 })
 export class CheckboxDisabledDemo {
     checked1: boolean = false;

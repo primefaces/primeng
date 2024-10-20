@@ -102,13 +102,13 @@ export class LazyDoc {
         typescript: `import { Component } from '@angular/core';
 import { NodeService } from '@service/nodeservice';
 import { FormsModule } from '@angular/forms';
-import { TreeSelectModule } from 'primeng/treeselect';
+import { TreeSelect } from 'primeng/treeselect';
 
 @Component({
     selector: 'tree-select-lazy-demo',
     templateUrl: './tree-select-lazy-demo.html',
     standalone: true,
-    imports: [FormsModule, TreeSelectModule]
+    imports: [FormsModule, TreeSelect]
   })
 export class TreeSelectLazyDemo {
     selectedNodes: TreeNode[] = [];

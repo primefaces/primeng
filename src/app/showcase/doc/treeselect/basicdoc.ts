@@ -43,13 +43,13 @@ export class BasicDoc {
         typescript: `import { Component } from '@angular/core';
 import { NodeService } from '@service/nodeservice';
 import { FormsModule } from '@angular/forms';
-import { TreeSelectModule } from 'primeng/treeselect';
+import { TreeSelect } from 'primeng/treeselect';
 
 @Component({
     selector: 'tree-select-basic-demo',
     templateUrl: './tree-select-basic-demo.html',
     standalone: true,
-    imports: [FormsModule, TreeSelectModule],
+    imports: [FormsModule, TreeSelect],
     providers: [NodeService]
   })
 export class TreeSelectBasicDemo {

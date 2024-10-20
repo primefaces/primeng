@@ -52,14 +52,14 @@ to get a random number.</p>
 </div>`,
         typescript: `import { Component, OnDestroy } from '@angular/core';
 import { TerminalService } from 'primeng/terminal';
-import { TerminalModule } from 'primeng/terminal';
+import { Terminal } from 'primeng/terminal';
 import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'terminal-basic-demo',
     templateUrl: './terminal-basic-demo.html',
     standalone: true,
-    imports: [TerminalModule],
+    imports: [Terminal],
     providers: [TerminalService]
 })
 export class TerminalBasicDemo implements OnDestroy {

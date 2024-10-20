@@ -10,8 +10,8 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-toast />
-            <p-confirmdialog #cd>
-                <ng-template pTemplate="headless" let-message let-onAccept="onAccept" let-onReject="onReject">
+            <p-confirmDialog #cd>
+                <ng-template #headless let-message let-onAccept="onAccept" let-onReject="onReject">
                     <div class="flex flex-col items-center p-8 bg-surface-0 dark:bg-surface-900 rounded">
                         <div class="rounded-full bg-primary text-primary-contrast inline-flex justify-center items-center h-24 w-24 -mt-20">
                             <i class="pi pi-question !text-5xl"></i>
@@ -24,7 +24,7 @@ import { Code } from '@domain/code';
                         </div>
                     </div>
                 </ng-template>
-            </p-confirmdialog>
+            </p-confirmDialog>
             <p-button (click)="confirm()" label="Save" />
         </div>
         <app-code [code]="code" selector="confirm-dialog-headless-demo"></app-code>
@@ -52,8 +52,8 @@ export class HeadlessDoc {
 
     code: Code = {
         basic: `<p-toast />
-<p-confirmdialog #cd>
-    <ng-template pTemplate="headless" let-message let-onAccept="onAccept" let-onReject="onReject">
+<p-confirmDialog #cd>
+    <ng-template #headless let-message let-onAccept="onAccept" let-onReject="onReject">
         <div class="flex flex-col items-center p-8 bg-surface-0 dark:bg-surface-900 rounded">
             <div
                 class="rounded-full bg-primary text-primary-contrast inline-flex justify-center items-center h-24 w-24 -mt-20"
@@ -68,13 +68,13 @@ export class HeadlessDoc {
             </div>
         </div>
     </ng-template>
-</p-confirmdialog>
+</p-confirmDialog>
 <p-button (click)="confirm()" label="Save"/>`,
 
         html: `<div class="card flex justify-center">
     <p-toast />
-    <p-confirmdialog #cd>
-        <ng-template pTemplate="headless" let-message let-onAccept="onAccept" let-onReject="onReject">
+    <p-confirmDialog #cd>
+        <ng-template #headless let-message let-onAccept="onAccept" let-onReject="onReject">
             <div class="flex flex-col items-center p-8 bg-surface-0 dark:bg-surface-900 rounded">
                 <div
                     class="rounded-full bg-primary text-primary-contrast inline-flex justify-center items-center h-24 w-24 -mt-20"
@@ -89,13 +89,13 @@ export class HeadlessDoc {
                 </div>
             </div>
         </ng-template>
-    </p-confirmdialog>
+    </p-confirmDialog>
     <p-button (click)="confirm()" label="Save"/>
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmDialog } from 'primeng/confirmdialog';
 import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
   
@@ -103,7 +103,7 @@ import { ToastModule } from 'primeng/toast';
     selector: 'confirm-dialog-headless-demo',
     templateUrl: './confirm-dialog-headless-demo.html',
     standalone: true,
-    imports: [ConfirmDialogModule, ButtonModule, ToastModule],
+    imports: [ConfirmDialog, ButtonModule, ToastModule],
     providers: [ConfirmationService, MessageService]
 })
 export class ConfirmDialogHeadlessDemo {

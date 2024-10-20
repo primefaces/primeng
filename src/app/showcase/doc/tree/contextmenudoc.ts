@@ -67,7 +67,7 @@ export class ContextMenuDoc implements OnInit {
         typescript: `import { Component, OnInit } from '@angular/core';
 import { MenuItem, MessageService, TreeNode } from 'primeng/api';
 import { NodeService } from '@service/nodeservice';
-import { TreeModule } from 'primeng/tree';
+import { Tree } from 'primeng/tree';
 import { ContextMenuModule } from 'primeng/contextmenu';
 import { ToastModule } from 'primeng/toast';
 
@@ -75,7 +75,7 @@ import { ToastModule } from 'primeng/toast';
     selector: 'tree-context-menu-demo',
     templateUrl: './tree-context-menu-demo.html',
     standalone: true,
-    imports: [TreeModule, ContextMenuModule, ToastModule],
+    imports: [Tree, ContextMenuModule, ToastModule],
     providers: [MessageService, NodeService]
 })
 export class TreeContextMenuDemo implements OnInit {

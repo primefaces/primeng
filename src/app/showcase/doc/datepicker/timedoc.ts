@@ -60,14 +60,14 @@ export class TimeDoc {
 
         typescript: `import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DatePickerModule } from 'primeng/datepicker';
-import { FluidModule } from 'primeng/fluid';
+import { DatePicker } from 'primeng/datepicker';
+import { Fluid } from 'primeng/fluid';
 
 @Component({
     selector: 'datepicker-time-demo',
     templateUrl: './datepicker-time-demo.html',
     standalone: true,
-    imports: [FormsModule, DatePickerModule, FluidModule]
+    imports: [FormsModule, DatePicker, Fluid]
 })
 export class DatePickerTimeDemo {
 

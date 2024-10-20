@@ -14,7 +14,7 @@ import { RouterModule } from '@angular/router';
 import { SortSingleColumnDoc } from './sortsinglecolumndoc';
 import { FilterDoc } from './filterdoc';
 import { InputTextModule } from 'primeng/inputtext';
-import { SelectButtonModule } from 'primeng/selectbutton';
+import { SelectButton } from 'primeng/selectbutton';
 import { FormsModule } from '@angular/forms';
 import { SelectionSingleDoc } from './selectionsingledoc';
 import { SelectionMultipleDoc } from './selectionmultipledoc';
@@ -45,7 +45,7 @@ import { ControlledDoc } from './controlleddoc';
 import { DeferredDemo } from '../../demo/deferreddemo';
 import { SortMultipleColumnsDoc } from './sortmultiplecolumnsdoc';
 import { ScrollFlexibleDoc } from './flexiblescrolldoc';
-import { DialogModule } from 'primeng/dialog';
+import { Dialog } from 'primeng/dialog';
 import { SortRemovableDoc } from './sortremovabledoc';
 import { ToggleSwitchModule } from 'primeng/toggleswitch';
 import { IconFieldModule } from 'primeng/iconfield';
@@ -60,12 +60,12 @@ import { InputIconModule } from 'primeng/inputicon';
         ButtonModule,
         RouterModule,
         InputTextModule,
-        SelectButtonModule,
+        SelectButton,
         FormsModule,
         ToastModule,
         MultiSelectModule,
         ContextMenuModule,
-        DialogModule,
+        Dialog,
         DeferredDemo,
         ToggleSwitchModule,
         IconFieldModule,

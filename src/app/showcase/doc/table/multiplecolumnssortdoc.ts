@@ -15,15 +15,27 @@ import { ProductService } from '@service/productservice';
         <p-deferred-demo (load)="loadDemoData()">
             <div class="card">
                 <p-table [value]="products" [tableStyle]="{ 'min-width': '60rem' }" sortMode="multiple">
-                    <ng-template pTemplate="header">
+                    <ng-template #header>
                         <tr>
-                            <th pSortableColumn="code" style="width:20%">Code <p-sortIcon field="code" /></th>
-                            <th pSortableColumn="name" style="width:20%">Name <p-sortIcon field="name" /></th>
-                            <th pSortableColumn="category" style="width:20%">Category <p-sortIcon field="category" /></th>
-                            <th pSortableColumn="quantity" style="width:20%">Quantity <p-sortIcon field="quantity" /></th>
+                            <th pSortableColumn="code" style="width:20%">
+                                Code
+                                <p-sortIcon field="code" />
+                            </th>
+                            <th pSortableColumn="name" style="width:20%">
+                                Name
+                                <p-sortIcon field="name" />
+                            </th>
+                            <th pSortableColumn="category" style="width:20%">
+                                Category
+                                <p-sortIcon field="category" />
+                            </th>
+                            <th pSortableColumn="quantity" style="width:20%">
+                                Quantity
+                                <p-sortIcon field="quantity" />
+                            </th>
                         </tr>
                     </ng-template>
-                    <ng-template pTemplate="body" let-product>
+                    <ng-template #body let-product>
                         <tr>
                             <td>{{ product.code }}</td>
                             <td>{{ product.name }}</td>
@@ -55,7 +67,7 @@ export class MultipleColumnsSortDoc {
 
     code: Code = {
         basic: `<p-table [value]="products1" [tableStyle]="{'min-width': '60rem'}">
-    <ng-template pTemplate="header">
+    <ng-template #header>
         <tr>
             <th pSortableColumn="code" style="width:20%">
                 Code <p-sortIcon field="code" />
@@ -71,7 +83,7 @@ export class MultipleColumnsSortDoc {
             </th>
         </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-product>
+    <ng-template #body let-product>
         <tr>
             <td>{{product.code }}</td>
             <td>{{ product.name }}</td>
@@ -82,7 +94,7 @@ export class MultipleColumnsSortDoc {
 </p-table>`,
         html: `<div class="card">
     <p-table [value]="products1" [tableStyle]="{'min-width': '60rem'}">
-        <ng-template pTemplate="header">
+        <ng-template #header>
             <tr>
                 <th pSortableColumn="code" style="width:20%">
                     Code <p-sortIcon field="code" />
@@ -98,7 +110,7 @@ export class MultipleColumnsSortDoc {
                 </th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-product>
+        <ng-template #body let-product>
             <tr>
                 <td>{{ product.code }}</td>
                 <td>{{ product.name }}</td>

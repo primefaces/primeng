@@ -1,13 +1,11 @@
 import { AnimationEvent } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import {
-    AfterContentInit,
     booleanAttribute,
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     computed,
-    ContentChildren,
+    ContentChild,
     effect,
     ElementRef,
     EventEmitter,
@@ -18,7 +16,6 @@ import {
     numberAttribute,
     OnInit,
     Output,
-    QueryList,
     signal,
     SimpleChanges,
     TemplateRef,
@@ -26,14 +23,15 @@ import {
     ViewEncapsulation,
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { OverlayOptions, OverlayService, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
+import { OverlayOptions, OverlayService, SharedModule, TranslationKeys } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { AngleRightIcon } from 'primeng/icons/angleright';
-import { AutoFocusModule } from 'primeng/autofocus';
+import { AutoFocus } from 'primeng/autofocus';
+
 import { ChevronDownIcon } from 'primeng/icons/chevrondown';
 import { TimesIcon } from 'primeng/icons/times';
-import { Overlay, OverlayModule } from 'primeng/overlay';
-import { RippleModule } from 'primeng/ripple';
+import { Overlay } from 'primeng/overlay';
+import { Ripple } from 'primeng/ripple';
 import { Nullable } from 'primeng/ts-helpers';
 import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
 import {
@@ -54,6 +52,8 @@ export const CASCADESELECT_VALUE_ACCESSOR: any = {
 
 @Component({
     selector: 'p-cascadeSelectSub, p-cascadeselect-sub',
+    standalone: true,
+    imports: [CommonModule, Overlay, Ripple, AutoFocus, AngleRightIcon],
     template: `
         <ul
             class="p-cascadeselect-list"
@@ -82,7 +82,9 @@ export const CASCADESELECT_VALUE_ACCESSOR: any = {
                         [attr.data-pc-section]="'content'"
                     >
                         <ng-container *ngIf="optionTemplate; else defaultOptionTemplate">
-                            <ng-container *ngTemplateOutlet="optionTemplate; context: { $implicit: processedOption.option }"></ng-container>
+                            <ng-container
+                                *ngTemplateOutlet="optionTemplate; context: { $implicit: processedOption?.option }"
+                            ></ng-container>
                         </ng-container>
                         <ng-template #defaultOptionTemplate>
                             <span class="p-cascadeselect-option-text" [attr.data-pc-section]="'text'">{{
@@ -134,7 +136,7 @@ export class CascadeSelectSub extends BaseComponent implements OnInit {
 
     @Input() focusedOptionId: string | undefined;
 
-    @Input() options: string[] | string | undefined | null;
+    @Input() options: any[] | string[] | string | undefined | null;
 
     @Input() optionGroupChildren: string[] | string | undefined | null;
 
@@ -253,6 +255,8 @@ export class CascadeSelectSub extends BaseComponent implements OnInit {
  */
 @Component({
     selector: 'p-cascadeSelect, p-cascadeselect',
+    standalone: true,
+    imports: [CommonModule, Overlay, Ripple, AutoFocus, CascadeSelectSub, ChevronDownIcon, AngleRightIcon, TimesIcon],
     template: ` <div
         #container
         [ngClass]="containerClass"
@@ -354,7 +358,7 @@ export class CascadeSelectSub extends BaseComponent implements OnInit {
             (onBeforeHide)="onBeforeHide.emit($event)"
             (onHide)="hide($event)"
         >
-            <ng-template pTemplate="content">
+            <ng-template #content>
                 <div
                     #panel
                     class="p-cascadeselect-overlay p-component"
@@ -394,7 +398,7 @@ export class CascadeSelectSub extends BaseComponent implements OnInit {
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
 })
-export class CascadeSelect extends BaseComponent implements OnInit, AfterContentInit {
+export class CascadeSelect extends BaseComponent implements OnInit {
     /**
      * Unique identifier of the component
      * @group Props
@@ -478,12 +482,12 @@ export class CascadeSelect extends BaseComponent implements OnInit, AfterContent
      * Property name or getter function to use as the label of an option group.
      * @group Props
      */
-    @Input() optionGroupLabel: string | string[] | undefined;
+    @Input() optionGroupLabel: string | undefined;
     /**
      * Property name or getter function to retrieve the items of a group.
      * @group Props
      */
-    @Input() optionGroupChildren: string | string[] | undefined;
+    @Input() optionGroupChildren: string | undefined;
     /**
      * Default text to display when no option is selected.
      * @group Props
@@ -664,8 +668,41 @@ export class CascadeSelect extends BaseComponent implements OnInit, AfterContent
     @ViewChild('panel') panelViewChild: Nullable<ElementRef>;
 
     @ViewChild('overlay') overlayViewChild: Nullable<Overlay>;
+    /**
+     * Content template for displaying the selected value.
+     * @group Templates
+     */
+    @ContentChild('value') valueTemplate: Nullable<TemplateRef<any>>;
 
-    @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
+    /**
+     * Content template for customizing the option display.
+     * @group Templates
+     */
+    @ContentChild('option') optionTemplate: Nullable<TemplateRef<any>>;
+
+    /**
+     * Content template for customizing the trigger icon.
+     * @group Templates
+     */
+    @ContentChild('triggericon') triggerIconTemplate: Nullable<TemplateRef<any>>;
+
+    /**
+     * Content template for customizing the loading icon.
+     * @group Templates
+     */
+    @ContentChild('loadingicon') loadingIconTemplate: Nullable<TemplateRef<any>>;
+
+    /**
+     * Content template for customizing the group icon.
+     * @group Templates
+     */
+    @ContentChild('optiongroupicon') groupIconTemplate: Nullable<TemplateRef<any>>;
+
+    /**
+     * Content template for customizing the clear icon.
+     * @group Templates
+     */
+    @ContentChild('clearicon') clearIconTemplate: Nullable<TemplateRef<any>>;
 
     _showTransitionOptions: string = '';
 
@@ -682,18 +719,6 @@ export class CascadeSelect extends BaseComponent implements OnInit, AfterContent
     searchValue: string | undefined;
 
     searchTimeout: any;
-
-    valueTemplate: Nullable<TemplateRef<any>>;
-
-    optionTemplate: Nullable<TemplateRef<any>>;
-
-    triggerIconTemplate: Nullable<TemplateRef<any>>;
-
-    loadingIconTemplate: Nullable<TemplateRef<any>>;
-
-    groupIconTemplate: Nullable<TemplateRef<any>>;
-
-    clearIconTemplate: Nullable<TemplateRef<any>>;
 
     onModelChange: Function = () => {};
 
@@ -1406,36 +1431,6 @@ export class CascadeSelect extends BaseComponent implements OnInit, AfterContent
         this.autoUpdateModel();
     }
 
-    ngAfterContentInit() {
-        this.templates.forEach((item) => {
-            switch (item.getType()) {
-                case 'value':
-                    this.valueTemplate = item.template;
-                    break;
-
-                case 'option':
-                    this.optionTemplate = item.template;
-                    break;
-
-                case 'triggericon':
-                    this.triggerIconTemplate = item.template;
-                    break;
-
-                case 'loadingicon':
-                    this.loadingIconTemplate = item.template;
-                    break;
-
-                case 'clearicon':
-                    this.clearIconTemplate = item.template;
-                    break;
-
-                case 'optiongroupicon':
-                    this.groupIconTemplate = item.template;
-                    break;
-            }
-        });
-    }
-
     onOverlayAnimationDone(event: AnimationEvent) {
         switch (event.toState) {
             case 'void':
@@ -1465,8 +1460,7 @@ export class CascadeSelect extends BaseComponent implements OnInit, AfterContent
 }
 
 @NgModule({
-    imports: [CommonModule, OverlayModule, SharedModule, RippleModule, AutoFocusModule, ChevronDownIcon, AngleRightIcon, TimesIcon],
-    exports: [CascadeSelect, OverlayModule, CascadeSelectSub, SharedModule],
-    declarations: [CascadeSelect, CascadeSelectSub],
+    imports: [CascadeSelect, SharedModule],
+    exports: [CascadeSelect, SharedModule],
 })
 export class CascadeSelectModule {}

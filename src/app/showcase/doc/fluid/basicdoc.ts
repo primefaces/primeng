@@ -78,13 +78,13 @@ export class BasicDoc {
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { FluidModule } from 'primeng/fluid';
+import { Fluid } from 'primeng/fluid';
 
 @Component({
     selector: 'fluid-basic-demo',
     templateUrl: './fluid-basic-demo.html',
     standalone: true,
-    imports: [FluidModule]
+    imports: [Fluid]
 })
 export class FluidBasicDemo {
 

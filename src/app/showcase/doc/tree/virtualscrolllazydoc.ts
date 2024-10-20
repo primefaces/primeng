@@ -80,13 +80,13 @@ export class LazyVirtualScrollDoc implements OnInit {
         typescript: `import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { NodeService } from '@service/nodeservice';
-import { TreeModule } from 'primeng/tree';
+import { Tree } from 'primeng/tree';
 
 @Component({
     selector: 'tree-virtual-scroll-lazy-demo',
     templateUrl: './tree-virtual-scroll-lazy-demo.html',
     standalone: true,
-    imports: [TreeModule],
+    imports: [Tree],
     providers: [NodeService]
 })
 export class TreeVirtualScrollLazyDemo implements OnInit {

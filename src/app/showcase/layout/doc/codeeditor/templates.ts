@@ -397,109 +397,109 @@ const getAngularApp = (props: Props = {}) => {
 
     const imports_ts = `// Import PrimeNG modules
     import { AccordionModule } from 'primeng/accordion';
-    import { AutoCompleteModule } from 'primeng/autocomplete';
+    import { AutoComplete } from 'primeng/autocomplete';
     import { AvatarModule } from 'primeng/avatar';
     import { AvatarGroupModule } from 'primeng/avatargroup';
     import { BadgeModule } from 'primeng/badge';
     import { BreadcrumbModule } from 'primeng/breadcrumb';
     import { ButtonModule } from 'primeng/button';
     import { CalendarModule } from 'primeng/calendar';
-    import { DatePickerModule } from 'primeng/datepicker';
-    import { CarouselModule } from 'primeng/carousel';
-    import { CascadeSelectModule } from 'primeng/cascadeselect';
+    import { DatePicker } from 'primeng/datepicker';
+    import { Carousel } from 'primeng/carousel';
+    import { CascadeSelect } from 'primeng/cascadeselect';
     import { ChartModule } from 'primeng/chart';
-    import { CheckboxModule } from 'primeng/checkbox';
-    import { ChipModule } from 'primeng/chip';
+    import { Checkbox } from 'primeng/checkbox';
+    import { Chip } from 'primeng/chip';
     import { ChipsModule } from 'primeng/chips';
-    import { ConfirmDialogModule } from 'primeng/confirmdialog';
+    import { ConfirmDialog } from 'primeng/confirmdialog';
     import { ConfirmPopupModule } from 'primeng/confirmpopup';
-    import { ColorPickerModule } from 'primeng/colorpicker';
+    import { ColorPicker } from 'primeng/colorpicker';
     import { ContextMenuModule } from 'primeng/contextmenu';
-    import { DataViewModule } from 'primeng/dataview';
-    import { VirtualScrollerModule } from 'primeng/virtualscroller';
-    import { DialogModule } from 'primeng/dialog';
+    import { DataView } from 'primeng/dataview';
+    import { VirtualScroller } from 'primeng/virtualscroller';
+    import { Dialog } from 'primeng/dialog';
     import { DividerModule } from 'primeng/divider';
     import { DockModule } from 'primeng/dock';
     import { DrawerModule } from 'primeng/drawer';
     import { DragDropModule } from 'primeng/dragdrop';
     import { DropdownModule } from 'primeng/dropdown';
-    import { SelectModule } from 'primeng/select';
-    import { DynamicDialogModule } from 'primeng/dynamicdialog';
+    import { Select } from 'primeng/select';
+    import { DynamicDialog } from 'primeng/dynamicdialog';
     import { DeferModule } from 'primeng/defer';
     import { EditorModule } from 'primeng/editor';
     import { FieldsetModule } from 'primeng/fieldset';
-    import { FileUploadModule } from 'primeng/fileupload';
-    import { FocusTrapModule } from 'primeng/focustrap';
+    import { FileUpload } from 'primeng/fileupload';
+    import { FocusTrap } from 'primeng/focustrap';
     import { GalleriaModule } from 'primeng/galleria';
     import { InplaceModule } from 'primeng/inplace';
-    import { InputMaskModule } from 'primeng/inputmask';
+    import { InputMask } from 'primeng/inputmask';
     import { InputSwitchModule } from 'primeng/inputswitch';
-    import { ToggleSwitchModule } from 'primeng/toggleswitch';
+    import { ToggleSwitch } from 'primeng/toggleswitch';
     import { InputTextModule } from 'primeng/inputtext';
-    import { InputNumberModule } from 'primeng/inputnumber';
-    import { InputTextareaModule } from 'primeng/inputtextarea';
+    import { InputNumber } from 'primeng/inputnumber';
+    import { Textarea } from 'primeng/textearea';;
     import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
-    import { InputGroupModule } from 'primeng/inputgroup';
-    import { InputOtpModule } from 'primeng/inputotp';
-    import { ImageModule } from 'primeng/image';
-    import { KnobModule } from 'primeng/knob';
-    import { ListboxModule } from 'primeng/listbox';
+    import { InputGroup } from 'primeng/inputgroup';
+    import { InputOtp } from 'primeng/inputotp';
+    import { Image } from 'primeng/image';
+    import { Knob } from 'primeng/knob';
+    import { Listbox } from 'primeng/listbox';
     import { MegaMenuModule } from 'primeng/megamenu';
     import { MenuModule } from 'primeng/menu';
     import { MenubarModule } from 'primeng/menubar';
-    import { MessageModule } from 'primeng/message';
+    import { Message } from 'primeng/message';
     import { MessagesModule } from 'primeng/messages';
     import { MultiSelectModule } from 'primeng/multiselect';
-    import { MeterGroupModule } from 'primeng/metergroup';
-    import { OrderListModule } from 'primeng/orderlist';
+    import { MeterGroup } from 'primeng/metergroup';
+    import { OrderList } from 'primeng/orderlist';
     import { OrganizationChartModule } from 'primeng/organizationchart';
     import { OverlayPanelModule } from 'primeng/overlaypanel';
     import { PaginatorModule } from 'primeng/paginator';
     import { PanelModule } from 'primeng/panel';
     import { PanelMenuModule } from 'primeng/panelmenu';
     import { PasswordModule } from 'primeng/password';
-    import { PickListModule } from 'primeng/picklist';
-    import { ProgressBarModule } from 'primeng/progressbar';
-    import { RadioButtonModule } from 'primeng/radiobutton';
-    import { RatingModule } from 'primeng/rating';
-    import { ScrollerModule } from 'primeng/scroller';
+    import { PickList } from 'primeng/picklist';
+    import { ProgressBar } from 'primeng/progressbar';
+    import { RadioButton } from 'primeng/radiobutton';
+    import { Rating } from 'primeng/rating';
+    import { Scroller } from 'primeng/scroller';
     import { ScrollPanelModule } from 'primeng/scrollpanel';
-    import { ScrollTopModule } from 'primeng/scrolltop';
-    import { SelectButtonModule } from 'primeng/selectbutton';
+    import { ScrollTop } from 'primeng/scrolltop';
+    import { SelectButton } from 'primeng/selectbutton';
     import { SidebarModule } from 'primeng/sidebar';
-    import { SkeletonModule } from 'primeng/skeleton';
-    import { SliderModule } from 'primeng/slider';
+    import { Skeleton } from 'primeng/skeleton';
+    import { Slider } from 'primeng/slider';
     import { SpeedDialModule } from 'primeng/speeddial';
     import { SpinnerModule } from 'primeng/spinner';
-    import { SplitButtonModule } from 'primeng/splitbutton';
+    import { SplitButton } from 'primeng/splitbutton';
     import { SplitterModule } from 'primeng/splitter';
     import { StepperModule } from 'primeng/stepper';
     import { StepsModule } from 'primeng/steps';
     import { TabMenuModule } from 'primeng/tabmenu';
     import { TableModule } from 'primeng/table';
     import { TabViewModule } from 'primeng/tabview';
-    import { TagModule } from 'primeng/tag';
-    import { TerminalModule } from 'primeng/terminal';
+    import { Tag } from 'primeng/tag';
+    import { Terminal } from 'primeng/terminal';
     import { TieredMenuModule } from 'primeng/tieredmenu';
-    import { TimelineModule } from 'primeng/timeline';
+    import { Timeline } from 'primeng/timeline';
     import { ToastModule } from 'primeng/toast';
-    import { ToggleButtonModule } from 'primeng/togglebutton';
+    import { ToggleButton } from 'primeng/togglebutton';
     import { ToolbarModule } from 'primeng/toolbar';
     import { TooltipModule } from 'primeng/tooltip';
-    import { TriStateCheckboxModule } from 'primeng/tristatecheckbox';
-    import { TreeModule } from 'primeng/tree';
-    import { TreeSelectModule } from 'primeng/treeselect';
+    import { TriStateCheckbox } from 'primeng/tristatecheckbox';
+    import { Tree } from 'primeng/tree';
+    import { TreeSelect } from 'primeng/treeselect';
     import { TreeTableModule } from 'primeng/treetable';
     import { AnimateModule } from 'primeng/animate';
     import { AnimateOnScrollModule } from 'primeng/animateonscroll';
     import { CardModule } from 'primeng/card';
-    import { BlockUIModule } from 'primeng/blockui';
-    import { ProgressSpinnerModule } from 'primeng/progressspinner';
-    import { RippleModule } from 'primeng/ripple';
-    import { FloatLabelModule } from 'primeng/floatlabel';
-    import { IconFieldModule } from 'primeng/iconfield';
-    import { InputIconModule } from 'primeng/inputicon';
-    import { StyleClassModule } from 'primeng/styleclass';
+    import { BlockUI } from 'primeng/blockui';
+    import { ProgressSpinner } from 'primeng/progressspinner';
+    import { Ripple } from 'primeng/ripple';
+    import { FloatLabel } from 'primeng/floatlabel';
+    import { IconField } from 'primeng/iconfield';
+    import { InputIcon } from 'primeng/inputicon';
+    import { StyleClass } from 'primeng/styleclass';
     import { AutoFocusModule } from 'primeng/autofocus';
     import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     import { HttpClientModule } from '@angular/common/http';
@@ -507,7 +507,7 @@ const getAngularApp = (props: Props = {}) => {
     import { OverlayBadgeModule } from 'primeng/overlaybadge';
 
     ${serviceImports}
-    
+
     @NgModule({
       imports: [
         AvatarModule,
@@ -517,105 +517,105 @@ const getAngularApp = (props: Props = {}) => {
         HttpClientModule,
         ReactiveFormsModule,
         AccordionModule,
-        AutoCompleteModule,
+        AutoComplete,
         BadgeModule,
         BreadcrumbModule,
-        BlockUIModule,
+        BlockUI,
         ButtonModule,
         CalendarModule,
-        DatePickerModule,
-        CarouselModule,
-        CascadeSelectModule,
+        DatePicker,
+        Carousel,
+        CascadeSelect,
         ChartModule,
-        CheckboxModule,
+        Checkbox,
         ChipsModule,
-        ChipModule,
-        ColorPickerModule,
-        ConfirmDialogModule,
+        Chip,
+        ColorPicker,
+        ConfirmDialog,
         ConfirmPopupModule,
         ContextMenuModule,
-        VirtualScrollerModule,
-        DataViewModule,
-        DialogModule,
+        VirtualScroller,
+        DataView,
+        Dialog,
         DividerModule,
         DrawerModule,
         DockModule,
         DragDropModule,
         DropdownModule,
-        SelectModule,
-        DynamicDialogModule,
+        Select,
+        DynamicDialog,
         DeferModule,
         EditorModule,
         FieldsetModule,
-        FileUploadModule,
-        FocusTrapModule,
+        FileUpload,
+        FocusTrap,
         GalleriaModule,
         InplaceModule,
-        InputMaskModule,
+        InputMask,
         InputSwitchModule,
         InputTextModule,
-        InputTextareaModule,
-        InputNumberModule,
-        InputGroupModule,
+        Textarea,
+        InputNumber,
+        InputGroup,
         InputGroupAddonModule,
-        InputOtpModule,
-        ImageModule,
-        KnobModule,
-        ListboxModule,
+        InputOtp,
+        Image,
+        Knob,
+        Listbox,
         MegaMenuModule,
         MenuModule,
         MenubarModule,
-        MessageModule,
+        Message,
         MessagesModule,
         MultiSelectModule,
-        MeterGroupModule,
+        MeterGroup,
         OrganizationChartModule,
-        OrderListModule,
+        OrderList,
         OverlayPanelModule,
         PaginatorModule,
         PanelModule,
         PanelMenuModule,
         PasswordModule,
-        PickListModule,
-        ProgressSpinnerModule,
-        ProgressBarModule,
-        RadioButtonModule,
-        RatingModule,
-        SelectButtonModule,
+        PickList,
+        ProgressSpinner,
+        ProgressBar,
+        RadioButton,
+        Rating,
+        SelectButton,
         SidebarModule,
-        ScrollerModule,
+        Scroller,
         ScrollPanelModule,
-        ScrollTopModule,
-        SkeletonModule,
+        ScrollTop,
+        Skeleton,
         SlideMenuModule,
-        SliderModule,
+        Slider,
         SpeedDialModule,
         SpinnerModule,
         SplitterModule,
         StepperModule,
-        SplitButtonModule,
+        SplitButton,
         StepsModule,
         TableModule,
         TabMenuModule,
         TabViewModule,
-        TagModule,
-        TerminalModule,
+        Tag,
+        Terminal,
         TieredMenuModule,
-        TimelineModule,
+        Timeline,
         ToastModule,
-        ToggleButtonModule,
-        ToggleSwitchModule,
+        ToggleButton,
+        ToggleSwitch,
         ToolbarModule,
         TooltipModule,
-        TreeModule,
-        TreeSelectModule,
+        Tree,
+        TreeSelect,
         TreeTableModule,
         AnimateModule,
         CardModule,
-        RippleModule,
-        StyleClassModule,
-        IconFieldModule,
-        InputIconModule,
+        Ripple,
+        StyleClass,
+        IconField,
+        InputIcon,
         AutoFocusModule,
         OverlayBadgeModule
       ],
@@ -627,106 +627,106 @@ const getAngularApp = (props: Props = {}) => {
         HttpClientModule,
         ReactiveFormsModule,
         AccordionModule,
-        AutoCompleteModule,
+        AutoComplete,
         BadgeModule,
         BreadcrumbModule,
-        BlockUIModule,
+        BlockUI,
         ButtonModule,
         CalendarModule,
-        DatePickerModule,
-        CarouselModule,
-        CascadeSelectModule,
+        DatePicker,
+        Carousel,
+        CascadeSelect,
         ChartModule,
-        CheckboxModule,
+        Checkbox,
         ChipsModule,
-        ChipModule,
-        ColorPickerModule,
-        ConfirmDialogModule,
+        Chip,
+        ColorPicker,
+        ConfirmDialog,
         ConfirmPopupModule,
         ContextMenuModule,
-        VirtualScrollerModule,
-        DataViewModule,
-        DialogModule,
+        VirtualScroller,
+        DataView,
+        Dialog,
         DividerModule,
         DrawerModule,
         DeferModule,
         DockModule,
         DragDropModule,
         DropdownModule,
-        SelectModule,
-        DynamicDialogModule,
+        Select,
+        DynamicDialog,
         EditorModule,
         FieldsetModule,
-        FileUploadModule,
-        FocusTrapModule,
+        FileUpload,
+        FocusTrap,
         GalleriaModule,
         InplaceModule,
-        InputMaskModule,
+        InputMask,
         InputSwitchModule,
         InputTextModule,
-        InputTextareaModule,
-        InputNumberModule,
-        InputGroupModule,
+        Textarea,
+        InputNumber,
+        InputGroup,
         InputGroupAddonModule,
-        InputOtpModule,
-        ImageModule,
-        KnobModule,
-        ListboxModule,
+        InputOtp,
+        Image,
+        Knob,
+        Listbox,
         MegaMenuModule,
         MenuModule,
         MenubarModule,
-        MessageModule,
+        Message,
         MessagesModule,
         MultiSelectModule,
-        MeterGroupModule,
+        MeterGroup,
         OrganizationChartModule,
-        OrderListModule,
+        OrderList,
         OverlayPanelModule,
         PaginatorModule,
         PanelModule,
         PanelMenuModule,
         PasswordModule,
-        PickListModule,
-        ProgressSpinnerModule,
-        ProgressBarModule,
-        RadioButtonModule,
-        RatingModule,
-        SelectButtonModule,
+        PickList,
+        ProgressSpinner,
+        ProgressBar,
+        RadioButton,
+        Rating,
+        SelectButton,
         SidebarModule,
-        ScrollerModule,
+        Scroller,
         ScrollPanelModule,
-        ScrollTopModule,
-        SkeletonModule,
+        ScrollTop,
+        Skeleton,
         SlideMenuModule,
-        SliderModule,
+        Slider,
         SpeedDialModule,
         SpinnerModule,
         SplitterModule,
         StepperModule,
-        SplitButtonModule,
+        SplitButton,
         StepsModule,
         TableModule,
         TabMenuModule,
         TabViewModule,
-        TagModule,
-        TerminalModule,
+        Tag,
+        Terminal,
         TieredMenuModule,
-        TimelineModule,
+        Timeline,
         ToastModule,
-        ToggleButtonModule,
-        ToggleSwitchModule,
+        ToggleButton,
+        ToggleSwitch,
         ToolbarModule,
         TooltipModule,
-        TreeModule,
-        TreeSelectModule,
+        Tree,
+        TreeSelect,
         TreeTableModule,
         AnimateModule,
         CardModule,
-        RippleModule,
-        StyleClassModule,
-        FloatLabelModule,
-        IconFieldModule,
-        InputIconModule,
+        Ripple,
+        StyleClass,
+        FloatLabel,
+        IconField,
+        InputIcon,
         AutoFocusModule,
         OverlayBadgeModule
       ],

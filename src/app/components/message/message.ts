@@ -1,18 +1,17 @@
 import { CommonModule } from '@angular/common';
 import {
+    booleanAttribute,
     ChangeDetectionStrategy,
     Component,
-    ContentChildren,
+    ContentChild,
     EventEmitter,
+    inject,
     Input,
     NgModule,
     Output,
-    QueryList,
-    TemplateRef,
-    ViewEncapsulation,
-    booleanAttribute,
-    inject,
     signal,
+    TemplateRef,
+    ViewEncapsulation
 } from '@angular/core';
 import { BaseComponent } from 'primeng/basecomponent';
 import { CheckIcon } from 'primeng/icons/check';
@@ -20,11 +19,10 @@ import { ExclamationTriangleIcon } from 'primeng/icons/exclamationtriangle';
 import { InfoCircleIcon } from 'primeng/icons/infocircle';
 import { TimesCircleIcon } from 'primeng/icons/timescircle';
 import { MessageStyle } from './style/messagestyle';
-import { ButtonModule } from 'primeng/button';
 import { Ripple } from 'primeng/ripple';
-import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { TimesIcon } from 'primeng/icons/times';
+
 /**
  * Message groups a collection of contents in tabs.
  * @group Components
@@ -32,17 +30,7 @@ import { TimesIcon } from 'primeng/icons/times';
 @Component({
     selector: 'p-message',
     standalone: true,
-    imports: [
-        CommonModule,
-        SharedModule,
-        ButtonModule,
-        CheckIcon,
-        ExclamationTriangleIcon,
-        TimesIcon,
-        InfoCircleIcon,
-        TimesCircleIcon,
-        Ripple,
-    ],
+    imports: [CommonModule, CheckIcon, ExclamationTriangleIcon, TimesIcon, InfoCircleIcon, TimesCircleIcon, Ripple],
     template: `
         @if (visible()) {
             <div
@@ -196,11 +184,23 @@ export class Message extends BaseComponent {
 
     _componentStyle = inject(MessageStyle);
 
-    containerTemplate!: TemplateRef<any> | undefined;
+    /**
+     * Custom template of the message container.
+     * @group Templates
+     */
+    @ContentChild('container') containerTemplate: TemplateRef<any> | undefined;
 
-    iconTemplate!: TemplateRef<any> | undefined;
+    /**
+     * Custom template of the message icon.
+     * @group Templates
+     */
+    @ContentChild('icon') iconTemplate: TemplateRef<any> | undefined;
 
-    closeIconTemplate!: TemplateRef<any> | undefined;
+    /**
+     * Custom template of the close icon.
+     * @group Templates
+     */
+    @ContentChild('closeicon') closeIconTemplate: TemplateRef<any> | undefined;
 
     get _defaultIcon() {
         return this.severity ? this.severity : 'info';
@@ -223,31 +223,10 @@ export class Message extends BaseComponent {
         this.visible.set(false);
         this.onClose.emit({ originalEvent: event });
     }
-
-    @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
-
-    ngAfterContentInit() {
-        this.templates.forEach((item) => {
-            switch (item.getType()) {
-                case 'container':
-                    this.containerTemplate = item.template;
-                    break;
-                case 'icon':
-                    this.iconTemplate = item.template;
-                    break;
-                case 'closeicon':
-                    this.closeIconTemplate = item.template;
-                    break;
-                default:
-                    this.containerTemplate = item.template;
-                    break;
-            }
-        });
-    }
 }
 
 @NgModule({
     imports: [Message],
-    exports: [Message, SharedModule],
+    exports: [Message],
 })
 export class MessageModule {}

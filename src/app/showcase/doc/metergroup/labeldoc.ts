@@ -38,13 +38,13 @@ export class LabelDoc {
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { MeterGroupModule } from 'primeng/metergroup';
+import { MeterGroup } from 'primeng/metergroup';
 
 @Component({
     selector: 'meter-group-label-demo',
     templateUrl: './meter-group-label-demo.html',
     standalone: true,
-    imports: [MeterGroupModule]
+    imports: [MeterGroup]
 })
 export class MeterGroupLabelDemo {
     value = [

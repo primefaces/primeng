@@ -3,7 +3,7 @@ import {
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
-    ContentChildren,
+    ContentChild,
     EventEmitter,
     forwardRef,
     HostBinding,
@@ -12,14 +12,12 @@ import {
     NgModule,
     numberAttribute,
     Output,
-    QueryList,
     TemplateRef,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Ripple } from 'primeng/ripple';
 import { ToggleButtonChangeEvent } from './togglebutton.interface';
 import { Nullable } from 'primeng/ts-helpers';
-import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ToggleButtonStyle } from './style/togglebuttonstyle';
@@ -35,6 +33,8 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
  */
 @Component({
     selector: 'p-toggleButton, p-togglebutton',
+    standalone: true,
+    imports: [Ripple, AutoFocus, CommonModule],
     template: `
         <button
             pRipple
@@ -76,8 +76,6 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
             </span>
         </button>
     `,
-    standalone: true,
-    imports: [Ripple, AutoFocus, SharedModule, CommonModule],
     providers: [TOGGLEBUTTON_VALUE_ACCESSOR, ToggleButtonStyle],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -161,12 +159,16 @@ export class ToggleButton extends BaseComponent implements ControlValueAccessor 
      * @group Emits
      */
     @Output() onChange: EventEmitter<ToggleButtonChangeEvent> = new EventEmitter<ToggleButtonChangeEvent>();
-
-    @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
-
-    iconTemplate: Nullable<TemplateRef<any>>;
-
-    contentTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom icon template.
+     * @group Templates
+     */
+    @ContentChild('icon') iconTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom content template.
+     * @group Templates
+     */
+    @ContentChild('content') contentTemplate: Nullable<TemplateRef<any>>;
 
     checked: boolean = false;
 
@@ -175,22 +177,6 @@ export class ToggleButton extends BaseComponent implements ControlValueAccessor 
     onModelTouched: Function = () => {};
 
     _componentStyle = inject(ToggleButtonStyle);
-
-    ngAfterContentInit() {
-        this.templates.forEach((item) => {
-            switch (item.getType()) {
-                case 'content':
-                    this.contentTemplate = item.template;
-                    break;
-                case 'icon':
-                    this.iconTemplate = item.template;
-                    break;
-                default:
-                    this.contentTemplate = item.template;
-                    break;
-            }
-        });
-    }
 
     toggle(event: Event) {
         if (!this.disabled && !(this.allowEmpty === false && this.checked)) {
@@ -256,6 +242,6 @@ export class ToggleButton extends BaseComponent implements ControlValueAccessor 
 
 @NgModule({
     imports: [ToggleButton],
-    exports: [ToggleButton, SharedModule],
+    exports: [ToggleButton],
 })
 export class ToggleButtonModule {}

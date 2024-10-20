@@ -68,7 +68,6 @@ const presets = {
                     [(ngModel)]="selectedPreset"
                     (ngModelChange)="onPresetChange($event)"
                     [allowEmpty]="false"
-                    styleClass="inline-flex"
                 />
             </div>
             <div class="config-panel-settings">

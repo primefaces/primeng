@@ -41,13 +41,13 @@ export class PreviewImageSourceDoc {
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { ImageModule } from 'primeng/image';
+import { Image } from 'primeng/image';
         
 @Component({
     selector: 'image-preview-source-demo',
     templateUrl: './image-preview-source-demo.html',
     standalone: true,
-    imports: [ImageModule]
+    imports: [Image]
 })
 export class ImagePreviewSourceDemo {
 

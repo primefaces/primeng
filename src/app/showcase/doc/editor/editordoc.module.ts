@@ -8,7 +8,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { ImportDoc } from './importdoc';
 import { QuillDoc } from './quilldoc';
 import { BasicDoc } from './basicdoc';
-import { EditorModule } from 'primeng/editor';
+import { Editor } from 'primeng/editor';
 import { ReadOnlyDoc } from './readonlydoc';
 import { CustomToolbarDoc } from './customtoolbardoc';
 import { StyleDoc } from './styledoc';
@@ -16,7 +16,7 @@ import { AccessibilityDoc } from './accessibilitydoc';
 import { ReactiveFormsDoc } from './reactiveformsdoc';
 
 @NgModule({
-    imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, EditorModule, FormsModule, DropdownModule, ReactiveFormsModule],
+    imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, Editor, FormsModule, DropdownModule, ReactiveFormsModule],
     exports: [AppDocModule],
     declarations: [ImportDoc, QuillDoc, BasicDoc, ReadOnlyDoc, CustomToolbarDoc, StyleDoc, AccessibilityDoc, ReactiveFormsDoc],
 })

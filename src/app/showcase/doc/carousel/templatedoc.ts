@@ -11,10 +11,10 @@ import { ProductService } from '@service/productservice';
         </app-docsectiontext>
         <div class="card">
             <p-carousel [value]="products" [numVisible]="3" [numScroll]="1" [responsiveOptions]="responsiveOptions">
-                <ng-template pTemplate="header">
+                <ng-template #header>
                     <p>Header content</p>
                 </ng-template>
-                <ng-template let-product pTemplate="item">
+                <ng-template let-product #item>
                     <div class="border border-surface-200 dark:border-surface-700 rounded m-2 p-4">
                         <div class="mb-4">
                             <div class="relative mx-auto">
@@ -42,7 +42,7 @@ import { ProductService } from '@service/productservice';
                         </div>
                     </div>
                 </ng-template>
-                <ng-template pTemplate="footer">
+                <ng-template #footer>
                     <p>Footer content</p>
                 </ng-template>
             </p-carousel>
@@ -97,25 +97,25 @@ export class TemplateDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-carousel 
-    [value]="products" 
-    [numVisible]="3" 
-    [numScroll]="1" 
+        basic: `<p-carousel
+    [value]="products"
+    [numVisible]="3"
+    [numScroll]="1"
     [responsiveOptions]="responsiveOptions">
-        <ng-template pTemplate="header">
+        <ng-template #header>
             <p>Header content</p>
         </ng-template>
-        <ng-template let-product pTemplate="item">
+        <ng-template let-product #item>
             <div class="border border-surface-200 dark:border-surface-700 rounded m-2 p-4">
                 <div class="mb-4">
                     <div class="relative mx-auto">
-                        <img 
-                            src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" 
-                            [alt]="product.name" 
+                        <img
+                            src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}"
+                            [alt]="product.name"
                             class="w-full rounded-border" />
-                        <p-tag 
-                            [value]="product.inventoryStatus" 
-                            [severity]="getSeverity(product.inventoryStatus)" 
+                        <p-tag
+                            [value]="product.inventoryStatus"
+                            [severity]="getSeverity(product.inventoryStatus)"
                             class="absolute"
                             styleClass="dark:!bg-surface-900"
                             [ngStyle]="{ 'left.px': 5, 'top.px': 5 }" />
@@ -135,30 +135,30 @@ export class TemplateDoc implements OnInit {
                 </div>
             </div>
         </ng-template>
-        <ng-template pTemplate="footer">
+        <ng-template #footer>
             <p>Footer content</p>
         </ng-template>
 </p-carousel>`,
         html: `<div class="card">
-    <p-carousel 
-        [value]="products" 
-        [numVisible]="3" 
-        [numScroll]="1" 
+    <p-carousel
+        [value]="products"
+        [numVisible]="3"
+        [numScroll]="1"
         [responsiveOptions]="responsiveOptions">
-            <ng-template pTemplate="header">
+            <ng-template #header>
                 <p>Header content</p>
             </ng-template>
-            <ng-template let-product pTemplate="item">
+            <ng-template let-product #item>
                 <div class="border border-surface-200 dark:border-surface-700 rounded m-2 p-4">
                     <div class="mb-4">
                         <div class="relative mx-auto">
-                            <img 
-                                src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" 
-                                [alt]="product.name" 
+                            <img
+                                src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}"
+                                [alt]="product.name"
                                 class="w-full rounded-border" />
-                            <p-tag 
-                                [value]="product.inventoryStatus" 
-                                [severity]="getSeverity(product.inventoryStatus)" 
+                            <p-tag
+                                [value]="product.inventoryStatus"
+                                [severity]="getSeverity(product.inventoryStatus)"
                                 class="absolute"
                                 styleClass="dark:!bg-surface-900"
                                 [ngStyle]="{ 'left.px': 5, 'top.px': 5 }" />
@@ -176,7 +176,7 @@ export class TemplateDoc implements OnInit {
                     </div>
                 </div>
             </ng-template>
-            <ng-template pTemplate="footer">
+            <ng-template #footer>
                 <p>Footer content</p>
             </ng-template>
     </p-carousel>
@@ -184,15 +184,15 @@ export class TemplateDoc implements OnInit {
         typescript: `import { Component, OnInit } from '@angular/core';
 import { Product } from '@domain/product';
 import { ProductService } from '@service/productservice';
-import { CarouselModule } from 'primeng/carousel';
+import { Carousel } from 'primeng/carousel';
 import { ButtonModule } from 'primeng/button';
-import { TagModule } from 'primeng/tag';
+import { Tag } from 'primeng/tag';
 
 @Component({
     selector: 'carousel-template-demo',
     templateUrl: './carousel-template-demo.html',
     standalone: true,
-    imports: [CarouselModule, ButtonModule, TagModule],
+    imports: [Carousel, ButtonModule, Tag],
     providers: [ProductService]
 })
 export class CarouselTemplateDemo implements OnInit{
@@ -239,7 +239,7 @@ export class CarouselTemplateDemo implements OnInit{
 }`,
 
         data: `
-/* ProductService */        
+/* ProductService */
 {
     id: '1000',
     code: 'f230fh0g3',

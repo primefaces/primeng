@@ -25,13 +25,13 @@ export class MonthDoc {
 
         typescript: `import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DatePickerModule } from 'primeng/datepicker';
+import { DatePicker } from 'primeng/datepicker';
 
 @Component({
     selector: 'datepicker-month-demo',
     templateUrl: './datepicker-month-demo.html',
     standalone: true,
-    imports: [FormsModule, DatePickerModule]
+    imports: [FormsModule, DatePicker]
 })
 export class DatePickerMonthDemo {
     date: Date[] | undefined;

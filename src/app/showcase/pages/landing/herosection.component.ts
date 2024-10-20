@@ -6,12 +6,13 @@ import { MenuItem, SelectItem } from 'primeng/api';
 import { BadgeModule } from 'primeng/badge';
 import { CalendarModule } from 'primeng/calendar';
 import { ChartModule } from 'primeng/chart';
-import { ChipModule } from 'primeng/chip';
+import { Chip } from 'primeng/chip';
 import { DropdownModule } from 'primeng/dropdown';
-import { InputNumberModule } from 'primeng/inputnumber';
-import { RadioButtonModule } from 'primeng/radiobutton';
-import { SelectButtonModule } from 'primeng/selectbutton';
-import { SliderModule } from 'primeng/slider';
+import { InputNumber } from 'primeng/inputnumber';
+import { InputSwitchModule } from 'primeng/inputswitch';
+import { RadioButton } from 'primeng/radiobutton';
+import { SelectButton } from 'primeng/selectbutton';
+import { Slider } from 'primeng/slider';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { Subscription } from 'rxjs';
 import { AppConfigService } from '@service/appconfigservice';
@@ -35,15 +36,16 @@ import { KnobModule } from 'primeng/knob';
     imports: [
         CommonModule,
         RouterModule,
-        InputNumberModule,
+        InputNumber,
         DropdownModule,
-        RadioButtonModule,
+        RadioButton,
         CalendarModule,
         ChartModule,
-        ChipModule,
+        Chip,
+        InputSwitchModule,
+        SelectButton,
+        Slider,
         ToggleSwitchModule,
-        SelectButtonModule,
-        SliderModule,
         BadgeModule,
         TabMenuModule,
         FormsModule,

@@ -19,7 +19,7 @@ import {
     WritableSignal,
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { AutoFocusModule } from 'primeng/autofocus';
+import { AutoFocus } from 'primeng/autofocus';
 import { ToggleSwitchChangeEvent } from './toggleswitch.interface';
 import { ToggleSwitchStyle } from './style/toggleswitchstyle';
 import { BaseComponent } from 'primeng/basecomponent';
@@ -35,6 +35,8 @@ export const TOGGLESWITCH_VALUE_ACCESSOR: any = {
  */
 @Component({
     selector: 'p-toggleswitch, p-toggleSwitch',
+    standalone: true,
+    imports: [NgClass, NgStyle, AutoFocus],
     template: `
         <div
             [ngClass]="cx('root')"
@@ -189,8 +191,7 @@ export class ToggleSwitch extends BaseComponent {
 }
 
 @NgModule({
-    imports: [NgClass, NgStyle, AutoFocusModule],
+    imports: [ToggleSwitch],
     exports: [ToggleSwitch],
-    declarations: [ToggleSwitch],
 })
 export class ToggleSwitchModule {}

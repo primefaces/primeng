@@ -25,13 +25,13 @@ export class BasicDoc {
 
         typescript: `import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { KnobModule } from 'primeng/knob';
+import { Knob } from 'primeng/knob';
 
 @Component({
     selector: 'knob-basic-demo',
     templateUrl: './knob-basic-demo.html',
     standalone: true,
-    imports: [FormsModule, KnobModule]
+    imports: [FormsModule, Knob]
 })
 export class KnobBasicDemo {
     value!: number;

@@ -50,7 +50,7 @@ export class DisabledDoc implements OnInit {
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ListboxModule } from 'primeng/listbox';
+import { Listbox } from 'primeng/listbox';
 
 interface City {
     name: string,
@@ -61,7 +61,7 @@ interface City {
     selector: 'listbox-disabled-demo',
     templateUrl: './listbox-disabled-demo.html',
     standalone: true,
-    imports: [FormsModule, ListboxModule]
+    imports: [FormsModule, Listbox]
 })
 export class ListboxDisabledDemo implements OnInit {
     cities!: City[];

@@ -31,7 +31,7 @@ import { ProductService } from '@service/productservice';
                     dataKey="id"
                     [tableStyle]="{ 'min-width': '50rem' }"
                 >
-                    <ng-template pTemplate="header">
+                    <ng-template #header>
                         <tr>
                             <th>Code</th>
                             <th>Name</th>
@@ -39,7 +39,7 @@ import { ProductService } from '@service/productservice';
                             <th>Quantity</th>
                         </tr>
                     </ng-template>
-                    <ng-template pTemplate="body" let-product>
+                    <ng-template #body let-product>
                         <tr [pSelectableRow]="product">
                             <td>{{ product.code }}</td>
                             <td>{{ product.name }}</td>
@@ -74,13 +74,13 @@ export class SingleSelectionDoc {
 
     code: Code = {
         basic: `<p-toggleswitch [(ngModel)]="metaKey" inputId="input-metakey" />
-    <p-table 
-        [value]="products" 
-        selectionMode="single" 
-        [(selection)]="selectedProduct" 
-        [metaKeySelection]="metaKey" dataKey="id" 
+    <p-table
+        [value]="products"
+        selectionMode="single"
+        [(selection)]="selectedProduct"
+        [metaKeySelection]="metaKey" dataKey="id"
         [tableStyle]="{ 'min-width': '50rem' }">
-            <ng-template pTemplate="header">
+            <ng-template #header>
                 <tr>
                     <th>Code</th>
                     <th>Name</th>
@@ -88,7 +88,7 @@ export class SingleSelectionDoc {
                     <th>Quantity</th>
                 </tr>
             </ng-template>
-            <ng-template pTemplate="body" let-product>
+            <ng-template #body let-product>
                 <tr [pSelectableRow]="product">
                     <td>{{ product.code }}</td>
                     <td>{{ product.name }}</td>
@@ -104,7 +104,7 @@ export class SingleSelectionDoc {
         <label for="input-metakey">MetaKey</label>
     </div>
     <p-table [value]="products" selectionMode="single" [(selection)]="selectedProduct" [metaKeySelection]="metaKey" dataKey="id" [tableStyle]="{ 'min-width': '50rem' }">
-        <ng-template pTemplate="header">
+        <ng-template #header>
             <tr>
                 <th>Code</th>
                 <th>Name</th>
@@ -112,7 +112,7 @@ export class SingleSelectionDoc {
                 <th>Quantity</th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-product>
+        <ng-template #body let-product>
             <tr [pSelectableRow]="product">
                 <td>{{ product.code }}</td>
                 <td>{{ product.name }}</td>
@@ -150,7 +150,7 @@ export class TableSingleSelectionDemo implements OnInit{
         this.productService.getProductsMini().then((data) => {
             this.products = data;
         });
-    } 
+    }
 }`,
         data: `{
     id: '1000',

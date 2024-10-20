@@ -28,13 +28,13 @@ export class IconDoc {
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { MeterGroupModule } from 'primeng/metergroup';
+import { MeterGroup } from 'primeng/metergroup';
 
 @Component({
     selector: 'meter-group-icon-demo',
     templateUrl: './meter-group-icon-demo.html',
     standalone: true,
-    imports: [MeterGroupModule]
+    imports: [MeterGroup]
 })
 export class MeterGroupIconDemo {
     value = [

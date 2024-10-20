@@ -8,7 +8,7 @@ import { BasicDoc } from './basicdoc';
 import { StyleDoc } from './styledoc';
 import { TemplateDoc } from './templatedoc';
 import { VerticalDoc } from './verticaldoc';
-import { MegaMenuModule } from 'primeng/megamenu';
+import { MegaMenu } from 'primeng/megamenu';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { AccessibilityDoc } from './accessibilitydoc';
@@ -17,7 +17,7 @@ import { CommandDoc } from './commanddoc';
 import { RouterDoc } from './routerdoc';
 
 @NgModule({
-    imports: [CommonModule, AppCodeModule, RouterModule, MegaMenuModule, InputTextModule, ButtonModule, AppDocModule, AvatarModule],
+    imports: [CommonModule, AppCodeModule, RouterModule, MegaMenu, InputTextModule, ButtonModule, AppDocModule, AvatarModule],
     declarations: [BasicDoc, ImportDoc, StyleDoc, TemplateDoc, VerticalDoc, CommandDoc, RouterDoc, AccessibilityDoc],
     exports: [AppDocModule],
 })

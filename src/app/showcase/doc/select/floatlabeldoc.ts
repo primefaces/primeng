@@ -88,8 +88,8 @@ export class FloatLabelDoc implements OnInit {
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SelectModule } from 'primeng/select';
-import { FloatLabelModule } from "primeng/floatlabel"
+import { Select } from 'primeng/select';
+import { FloatLabel } from "primeng/floatlabel"
 
 interface City {
     name: string;
@@ -100,7 +100,7 @@ interface City {
     selector: 'select-floatlabel-demo',
     templateUrl: './select-floatlabel-demo.html',
     standalone: true,
-    imports: [FormsModule, SelectModule, FloatLabelModule]
+    imports: [FormsModule, Select, FloatLabel]
 })
 export class SelectFloatlabelDemo implements OnInit {
     cities: City[] | undefined;

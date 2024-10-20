@@ -41,13 +41,13 @@ export class ReactiveFormsDoc implements OnInit {
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { ToggleButtonModule } from 'primeng/togglebutton';
+import { ToggleButton } from 'primeng/togglebutton';
 
 @Component({
     selector: 'toggle-button-reactive-forms-demo',
     templateUrl: './toggle-button-reactive-forms-demo.html',
     standalone: true,
-    imports: [ReactiveFormsModule, ToggleButtonModule]
+    imports: [ReactiveFormsModule, ToggleButton]
 })
 export class ToggleButtonReactiveFormsDemo implements OnInit {
     formGroup!: FormGroup;

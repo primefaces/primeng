@@ -28,17 +28,6 @@ export class IftaLabelDoc implements OnInit {
     cities: City[] | undefined;
 
     selectedCity: City | undefined;
-
-    ngOnInit() {
-        this.cities = [
-            { name: 'New York', code: 'NY' },
-            { name: 'Rome', code: 'RM' },
-            { name: 'London', code: 'LDN' },
-            { name: 'Istanbul', code: 'IST' },
-            { name: 'Paris', code: 'PRS' },
-        ];
-    }
-
     code: Code = {
         basic: `<p-iftalabel class="w-full md:w-56">
     <p-select [(ngModel)]="selectedCity" inputId="dd-city" [options]="cities" optionLabel="name" styleClass="w-full" />
@@ -84,4 +73,14 @@ export class SelectIftaLabelDemo implements OnInit {
     }
 }`,
     };
+
+    ngOnInit() {
+        this.cities = [
+            { name: 'New York', code: 'NY' },
+            { name: 'Rome', code: 'RM' },
+            { name: 'London', code: 'LDN' },
+            { name: 'Istanbul', code: 'IST' },
+            { name: 'Paris', code: 'PRS' },
+        ];
+    }
 }

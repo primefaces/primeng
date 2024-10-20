@@ -1,32 +1,33 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
     AfterViewInit,
+    booleanAttribute,
     ChangeDetectionStrategy,
     Component,
-    ContentChildren,
+    ContentChild,
     ElementRef,
+    inject,
     Input,
     NgModule,
+    numberAttribute,
     OnDestroy,
-    QueryList,
     TemplateRef,
     ViewChild,
-    ViewEncapsulation,
-    booleanAttribute,
-    inject,
-    numberAttribute,
+    ViewEncapsulation
 } from '@angular/core';
-import { PrimeTemplate } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { ZIndexUtils } from 'primeng/utils';
 import { BaseComponent } from 'primeng/basecomponent';
 import { BlockUiStyle } from './style/blockuistyle';
+
 /**
  * BlockUI can either block other components or the whole page.
  * @group Components
  */
 @Component({
     selector: 'p-blockUI, p-blockui',
+    standalone: true,
+    imports: [CommonModule],
     template: `
         <div
             #mask
@@ -43,7 +44,6 @@ import { BlockUiStyle } from './style/blockuistyle';
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-
     providers: [BlockUiStyle],
 })
 export class BlockUI extends BaseComponent implements AfterViewInit, OnDestroy {
@@ -82,16 +82,17 @@ export class BlockUI extends BaseComponent implements AfterViewInit, OnDestroy {
             this._blocked = val;
         }
     }
-
-    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
+    /**
+     * template of the content
+     * @group Templates
+     */
+    @ContentChild('content') contentTemplate: TemplateRef<any> | undefined;
 
     @ViewChild('mask') mask: ElementRef | undefined;
 
     _blocked: boolean = false;
 
     animationEndListener: VoidFunction | null | undefined;
-
-    contentTemplate: TemplateRef<any> | undefined;
 
     _componentStyle = inject(BlockUiStyle);
 
@@ -106,20 +107,6 @@ export class BlockUI extends BaseComponent implements AfterViewInit, OnDestroy {
         if (this.target && !this.target.getBlockableElement) {
             throw 'Target of BlockUI must implement BlockableUI interface';
         }
-    }
-
-    ngAfterContentInit() {
-        (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
-            switch (item.getType()) {
-                case 'content':
-                    this.contentTemplate = item.template;
-                    break;
-
-                default:
-                    this.contentTemplate = item.template;
-                    break;
-            }
-        });
     }
 
     block() {
@@ -175,8 +162,7 @@ export class BlockUI extends BaseComponent implements AfterViewInit, OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule],
+    imports: [BlockUI],
     exports: [BlockUI],
-    declarations: [BlockUI],
 })
 export class BlockUIModule {}
