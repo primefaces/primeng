@@ -70,15 +70,15 @@ export class FloatlabelDoc {
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { InputNumberModule } from 'primeng/inputnumber';
+import { InputNumber } from 'primeng/inputnumber';
 import { FormsModule } from '@angular/forms';
-import { FloatLabelModule } from 'primeng/floatlabel';
+import { FloatLabel } from 'primeng/floatlabel';
 
 @Component({
     selector: 'input-number-float-label-demo',
     templateUrl: './input-number-float-label-demo.html',
     standalone: true,
-    imports: [FormsModule, InputNumberModule, FloatLabelModule]
+    imports: [FormsModule, InputNumber, FloatLabel]
 })
 export class InputNumberFloatLabelDemo {
     value1: number | undefined;

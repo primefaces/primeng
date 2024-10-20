@@ -19,7 +19,13 @@ import { Code } from '@domain/code';
                 [style]="{ width: '200px', height: '200px' }"
             >
                 <ng-template pTemplate="item" let-item let-options="options">
-                    <div class="flex items-center p-2" [ngClass]="{ 'bg-surface-100 dark:bg-surface-700': options.odd }" style="height: 50px;">{{ item }}</div>
+                    <div
+                        class="flex items-center p-2"
+                        [ngClass]="{ 'bg-surface-100 dark:bg-surface-700': options.odd }"
+                        style="height: 50px;"
+                    >
+                        {{ item }}
+                    </div>
                 </ng-template>
             </p-scroller>
         </div>

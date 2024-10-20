@@ -1,31 +1,32 @@
 import { CommonModule } from '@angular/common';
 import {
-    AfterContentInit,
+    booleanAttribute,
     ChangeDetectionStrategy,
     Component,
-    ContentChildren,
+    ContentChild,
     EventEmitter,
+    inject,
     Input,
     NgModule,
     Output,
-    QueryList,
-    TemplateRef,
-    ViewEncapsulation,
-    inject,
-    booleanAttribute,
     SimpleChanges,
+    TemplateRef,
+    ViewEncapsulation
 } from '@angular/core';
-import { PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
+import { TranslationKeys } from 'primeng/api';
 import { TimesCircleIcon } from 'primeng/icons/timescircle';
 import { ChipProps } from './chip.interface';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ChipStyle } from './style/chipstyle';
+
 /**
  * Chip represents people using icons, labels and images.
  * @group Components
  */
 @Component({
     selector: 'p-chip',
+    standalone: true,
+    imports: [CommonModule, TimesCircleIcon],
     template: `
         <div
             [ngClass]="containerClass()"
@@ -83,10 +84,9 @@ import { ChipStyle } from './style/chipstyle';
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-
     providers: [ChipStyle],
 })
-export class Chip extends BaseComponent implements AfterContentInit {
+export class Chip extends BaseComponent {
     /**
      * Defines the text to display.
      * @group Props
@@ -142,8 +142,6 @@ export class Chip extends BaseComponent implements AfterContentInit {
 
     visible: boolean = true;
 
-    removeIconTemplate: TemplateRef<any> | undefined;
-
     get removeAriaLabel() {
         return this.config.getTranslation(TranslationKeys.ARIA)['removeLabel'];
     }
@@ -167,7 +165,7 @@ export class Chip extends BaseComponent implements AfterContentInit {
 
     _componentStyle = inject(ChipStyle);
 
-    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
+    @ContentChild('removeicon') removeIconTemplate: TemplateRef<any> | undefined;
 
     ngOnChanges(simpleChanges: SimpleChanges) {
         super.ngOnChanges(simpleChanges);
@@ -201,20 +199,6 @@ export class Chip extends BaseComponent implements AfterContentInit {
         }
     }
 
-    ngAfterContentInit() {
-        (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
-            switch (item.getType()) {
-                case 'removeicon':
-                    this.removeIconTemplate = item.template;
-                    break;
-
-                default:
-                    this.removeIconTemplate = item.template;
-                    break;
-            }
-        });
-    }
-
     containerClass() {
         return {
             'p-chip p-component': true,
@@ -238,8 +222,7 @@ export class Chip extends BaseComponent implements AfterContentInit {
 }
 
 @NgModule({
-    imports: [CommonModule, TimesCircleIcon, SharedModule],
-    exports: [Chip, SharedModule],
-    declarations: [Chip],
+    imports: [Chip],
+    exports: [Chip],
 })
 export class ChipModule {}

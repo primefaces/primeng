@@ -87,18 +87,18 @@ export class BasicDoc implements OnInit {
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
-import { ToolbarModule } from 'primeng/toolbar';
+import { Toolbar } from 'primeng/toolbar';
 import { ButtonModule } from 'primeng/button';
-import { SplitButtonModule } from 'primeng/splitbutton';
+import { SplitButton } from 'primeng/splitbutton';
 import { InputTextModule } from 'primeng/inputtext';
-import { IconFieldModule } from 'primeng/iconfield';
-import { InputIconModule } from 'primeng/inputicon';
+import { IconField } from 'primeng/iconfield';
+import { InputIcon } from 'primeng/inputicon';
 
 @Component({
     selector: 'toolbar-basic-demo',
     templateUrl: './toolbar-basic-demo.html',
     standalone: true,
-    imports: [ToolbarModule, ButtonModule, SplitButtonModule, InputTextModule, IconFieldModule, InputIconModule]
+    imports: [Toolbar, ButtonModule, SplitButton, InputTextModule, IconField, InputIcon]
 })
 export class ToolbarBasicDemo implements OnInit {
     items: MenuItem[] | undefined;

@@ -86,6 +86,7 @@ import { SelectModule } from 'primeng/select';
 import { ToggleSwitchModule } from 'primeng/toggleswitch';
 import { TextareaModule } from 'primeng/textarea';
 import { BadgeModule } from 'primeng/badge';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
     imports: [
@@ -97,6 +98,7 @@ import { BadgeModule } from 'primeng/badge';
         DialogModule,
         ConfirmDialogModule,
         MultiSelectModule,
+        RouterModule,
         ContextMenuModule,
         SelectModule,
         ButtonModule,
@@ -121,7 +123,7 @@ import { BadgeModule } from 'primeng/badge';
         IconFieldModule,
         InputIconModule,
         ToggleSwitchModule,
-        BadgeModule
+        BadgeModule,
     ],
     declarations: [
         ImportDoc,

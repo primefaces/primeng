@@ -123,14 +123,14 @@
                 </button>
             </li>
             <li *ngIf="showConfigurator" class="relative">
-                <button 
+                <button
                     type="button"
                     class="topbar-item config-item"
-                    pStyleClass="@next" 
-                    enterFromClass="hidden" 
-                    enterActiveClass="animate-scalein" 
-                    leaveToClass="hidden" 
-                    leaveActiveClass="animate-fadeout" 
+                    enterActiveClass="animate-scalein"
+                    enterFromClass="hidden"
+                    leaveActiveClass="animate-fadeout"
+                    leaveToClass="hidden"
+                    pStyleClass="@next"
                     [hideOnOutsideClick]="true"
                 >
                     <i class="pi pi-palette"></i>
@@ -149,7 +149,7 @@
                     <ul >
                         <li role="none" *ngFor="let v of versions">
                             <a [href]="v.url">
-                                <span>{{v.version}}</span>
+                                <span>{{ v.version }}</span>
                             </a>
                         </li>
                     </ul>

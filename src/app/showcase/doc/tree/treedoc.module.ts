@@ -19,7 +19,6 @@ import { ImportDoc } from './importdoc';
 import { LazyDoc } from './lazydoc';
 import { MultipleDoc } from './multipledoc';
 import { SingleDoc } from './singledoc';
-import { StyleDoc } from './styledoc';
 import { TemplateDoc } from './templatedoc';
 import { VirtualScrollDoc } from './virtualscrolldoc';
 import { LazyVirtualScrollDoc } from './virtualscrolllazydoc';
@@ -53,7 +52,6 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
         DragDropDoc,
         ContextMenuDoc,
         FilterDoc,
-        StyleDoc,
         AccessibilityDoc,
     ],
 })

@@ -28,13 +28,13 @@ export class MinMaxDoc {
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { MeterGroupModule } from 'primeng/metergroup';
+import { MeterGroup } from 'primeng/metergroup';
 
 @Component({
     selector: 'meter-group-min-max-demo',
     templateUrl: './meter-group-min-max-demo.html',
     standalone: true,
-    imports: [MeterGroupModule]
+    imports: [MeterGroup]
 })
 export class MeterGroupMinMaxDemo{
    

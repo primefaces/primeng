@@ -36,7 +36,7 @@ import { IftaLabelDoc } from './iftalabeldoc';
         DividerModule,
         RouterModule,
         FloatLabelModule,
-        IftaLabelModule
+        IftaLabelModule,
     ],
     exports: [AppDocModule],
     declarations: [

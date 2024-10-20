@@ -24,14 +24,14 @@ export class InvalidDoc {
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { InputMaskModule } from 'primeng/inputmask';
+import { InputMask } from 'primeng/inputmask';
 import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'input-mask-invalid-demo',
     templateUrl: './input-mask-invalid-demo.html',
     standalone: true,
-    imports: [FormsModule, InputMaskModule]
+    imports: [FormsModule, InputMask]
 })
 export class InputMaskInvalidDemo {
     value: string | undefined;

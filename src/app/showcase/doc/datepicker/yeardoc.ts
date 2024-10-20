@@ -25,13 +25,13 @@ export class YearDoc {
 
         typescript: `import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DatePickerModule } from 'primeng/datepicker';
+import { DatePicker } from 'primeng/datepicker';
 
 @Component({
     selector: 'datepicker-year-demo',
     templateUrl: './datepicker-year-demo.html',
     standalone: true,
-    imports: [FormsModule, DatePickerModule]
+    imports: [FormsModule, DatePicker]
 })
 export class DatePickerYearDemo {
     date: Date[] | undefined;

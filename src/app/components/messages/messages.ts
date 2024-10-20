@@ -2,10 +2,12 @@ import { animate, style, transition, trigger } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import {
     AfterContentInit,
+    booleanAttribute,
     ChangeDetectionStrategy,
     Component,
     ContentChildren,
     EventEmitter,
+    inject,
     Input,
     NgModule,
     OnDestroy,
@@ -13,21 +15,20 @@ import {
     Output,
     QueryList,
     TemplateRef,
-    ViewEncapsulation,
-    booleanAttribute,
-    inject,
+    ViewEncapsulation
 } from '@angular/core';
-import { ToastMessageOptions, MessageService, PrimeTemplate } from 'primeng/api';
+import { MessageService, PrimeTemplate, ToastMessageOptions } from 'primeng/api';
 import { CheckIcon } from 'primeng/icons/check';
 import { ExclamationTriangleIcon } from 'primeng/icons/exclamationtriangle';
 import { InfoCircleIcon } from 'primeng/icons/infocircle';
 import { TimesIcon } from 'primeng/icons/times';
 import { TimesCircleIcon } from 'primeng/icons/timescircle';
-import { RippleModule } from 'primeng/ripple';
+import { Ripple } from 'primeng/ripple';
 import { Subscription, timer } from 'rxjs';
 import { MessagesStyle } from './style/messagesstyle';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ButtonModule } from 'primeng/button';
+
 /**
  * Messages is used to display alerts inline.
  * @group Components
@@ -362,7 +363,7 @@ export class Messages extends BaseComponent implements AfterContentInit, OnDestr
 }
 
 @NgModule({
-    imports: [CommonModule, RippleModule, CheckIcon, InfoCircleIcon, TimesCircleIcon, ExclamationTriangleIcon, TimesIcon, ButtonModule],
+    imports: [CommonModule, Ripple, CheckIcon, InfoCircleIcon, TimesCircleIcon, ExclamationTriangleIcon, TimesIcon, ButtonModule],
     exports: [Messages],
     declarations: [Messages],
 })

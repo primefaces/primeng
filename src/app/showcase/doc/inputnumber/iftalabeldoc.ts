@@ -5,7 +5,10 @@ import { Code } from '@domain/code';
     selector: 'ifta-label-doc',
     template: `
         <app-docsectiontext>
-        <p>IftaLabel is used to create infield top aligned labels. Visit <a routerLink="/iftalabel">IftaLabel</a> documentation for more information.</p>
+            <p>
+                IftaLabel is used to create infield top aligned labels. Visit <a routerLink="/iftalabel">IftaLabel</a> documentation for
+                more information.
+            </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-iftalabel>

@@ -101,14 +101,14 @@ export class CommandDoc implements OnInit {
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
-import { PanelMenuModule } from 'primeng/panelmenu';
+import { PanelMenu } from 'primeng/panelmenu';
 import { ToastModule } from 'primeng/toast';
 
 @Component({
     selector: 'panel-menu-command-demo',
     templateUrl: './panel-menu-command-demo.html',
     standalone: true,
-    imports: [PanelMenuModule, ToastModule],
+    imports: [PanelMenu, ToastModule],
     providers: [MessageService]
 })
 export class PanelMenuCommandDemo implements OnInit {

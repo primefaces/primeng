@@ -65,7 +65,7 @@ export class MultipleDoc {
 
         typescript: `import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AutoCompleteModule } from 'primeng/autocomplete';
+import { AutoComplete } from 'primeng/autocomplete';
 
 interface AutoCompleteCompleteEvent {
     originalEvent: Event;
@@ -76,7 +76,7 @@ interface AutoCompleteCompleteEvent {
     selector: 'autocomplete-multiple-demo',
     templateUrl: './autocomplete-multiple-demo.html',
     standalone: true,
-    imports: [FormsModule, AutoCompleteModule]
+    imports: [FormsModule, AutoComplete]
 })
 export class AutocompleteMultipleDemo {
     value1: any[] | undefined;

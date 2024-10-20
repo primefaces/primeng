@@ -34,14 +34,14 @@ export class InputDoc {
 
         typescript: `import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SliderModule } from 'primeng/slider';
+import { Slider } from 'primeng/slider';
 import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
     selector: 'slider-input-demo',
     templateUrl: './slider-input-demo.html',
     standalone: true,
-    imports: [FormsModule, SliderModule, InputTextModule]
+    imports: [FormsModule, Slider, InputTextModule]
 })
 export class SliderInputDemo {
     value: number = 50;

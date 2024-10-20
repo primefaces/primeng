@@ -1,25 +1,22 @@
 import { CommonModule } from '@angular/common';
 import {
-    AfterContentInit,
+    booleanAttribute,
     ChangeDetectionStrategy,
     Component,
-    ContentChildren,
+    ContentChild,
     EventEmitter,
+    forwardRef,
+    inject,
     Input,
     NgModule,
     Output,
-    QueryList,
     TemplateRef,
     ViewEncapsulation,
-    booleanAttribute,
-    forwardRef,
-    inject,
 } from '@angular/core';
-import { PrimeTemplate, SharedModule } from 'primeng/api';
-import { InputTextModule } from 'primeng/inputtext';
+import { InputText } from 'primeng/inputtext';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Nullable } from 'primeng/ts-helpers';
-import { AutoFocusModule } from 'primeng/autofocus';
+import { AutoFocus } from 'primeng/autofocus';
 import { InputOtpChangeEvent } from './inputotp.interface';
 import { InputOtpStyle } from './style/inputotpstyle';
 import { BaseComponent } from 'primeng/basecomponent';
@@ -36,6 +33,8 @@ export const INPUT_OTP_VALUE_ACCESSOR: any = {
  */
 @Component({
     selector: 'p-inputOtp, p-inputotp',
+    standalone: true,
+    imports: [CommonModule, InputText, AutoFocus],
     template: `
         <ng-container *ngFor="let i of getRange(length); trackBy: trackByFn">
             <ng-container *ngIf="!inputTemplate">
@@ -78,7 +77,7 @@ export const INPUT_OTP_VALUE_ACCESSOR: any = {
         class: 'p-inputotp p-component',
     },
 })
-export class InputOtp extends BaseComponent implements AfterContentInit {
+export class InputOtp extends BaseComponent {
     /**
      * When present, it specifies that the component should have invalid state style.
      * @group Props
@@ -146,10 +145,11 @@ export class InputOtp extends BaseComponent implements AfterContentInit {
      * @group Emits
      */
     @Output() onBlur: EventEmitter<Event> = new EventEmitter();
-
-    @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<PrimeTemplate>>;
-
-    inputTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Template of the input element.
+     * @group Templates
+     */
+    @ContentChild('input') inputTemplate: Nullable<TemplateRef<any>>;
 
     tokens: any = [];
 
@@ -168,19 +168,6 @@ export class InputOtp extends BaseComponent implements AfterContentInit {
     }
 
     _componentStyle = inject(InputOtpStyle);
-
-    ngAfterContentInit() {
-        (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
-            switch (item.getType()) {
-                case 'input':
-                    this.inputTemplate = item.template;
-                    break;
-                default:
-                    this.inputTemplate = item.template;
-                    break;
-            }
-        });
-    }
 
     getToken(index) {
         return this.tokens[index];
@@ -381,8 +368,7 @@ export class InputOtp extends BaseComponent implements AfterContentInit {
 }
 
 @NgModule({
-    imports: [CommonModule, SharedModule, InputTextModule, AutoFocusModule],
-    exports: [InputOtp, SharedModule],
-    declarations: [InputOtp],
+    imports: [InputOtp],
+    exports: [InputOtp],
 })
 export class InputOtpModule {}

@@ -13,7 +13,6 @@ import {
     inject,
 } from '@angular/core';
 import { NgModel, NgControl } from '@angular/forms';
-import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { BaseComponent } from 'primeng/basecomponent';
 import { TextareaStyle } from './style/textareastyle';
@@ -23,6 +22,7 @@ import { TextareaStyle } from './style/textareastyle';
  */
 @Directive({
     selector: '[pTextarea]',
+    standalone: true,
     host: {
         class: 'p-textarea p-component',
         '[class.p-filled]': 'filled',
@@ -146,8 +146,7 @@ export class Textarea extends BaseComponent implements OnInit, AfterViewInit, On
 }
 
 @NgModule({
-    imports: [CommonModule],
+    imports: [Textarea],
     exports: [Textarea],
-    declarations: [Textarea],
 })
 export class TextareaModule {}

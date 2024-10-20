@@ -101,14 +101,14 @@ export class PopupDoc implements OnInit {
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
-import { TieredMenuModule } from 'primeng/tieredmenu';
+import { TieredMenu } from 'primeng/tieredmenu';
 import { ButtonModule } from 'primeng/button';
 
 @Component({
     selector: 'tiered-menu-popup-demo',
     templateUrl: './tiered-menu-popup-demo.html',
     standalone: true,
-    imports: [TieredMenuModule, ButtonModule]
+    imports: [TieredMenu, ButtonModule]
 })
 export class TieredMenuPopupDemo implements OnInit {
     items: MenuItem[] | undefined;

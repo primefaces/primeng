@@ -25,6 +25,8 @@ import { TerminalStyle } from './style/terminalstyle';
  */
 @Component({
     selector: 'p-terminal',
+    standalone: true,
+    imports: [CommonModule, FormsModule],
     template: `
         <div [ngClass]="'p-terminal p-component'" [ngStyle]="style" [class]="styleClass" (click)="focus(in)">
             <div class="p-terminal-welcome-message" *ngIf="welcomeMessage">{{ welcomeMessage }}</div>
@@ -51,7 +53,6 @@ import { TerminalStyle } from './style/terminalstyle';
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-
     providers: [TerminalStyle],
 })
 export class Terminal extends BaseComponent implements AfterViewInit, AfterViewChecked, OnDestroy {
@@ -138,8 +139,7 @@ export class Terminal extends BaseComponent implements AfterViewInit, AfterViewC
 }
 
 @NgModule({
-    imports: [CommonModule, FormsModule],
     exports: [Terminal],
-    declarations: [Terminal],
+    imports: [Terminal],
 })
 export class TerminalModule {}

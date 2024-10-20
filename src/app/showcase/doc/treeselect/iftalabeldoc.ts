@@ -24,11 +24,6 @@ export class IftaLabelDoc {
     nodes!: any[];
 
     selectedValue: any;
-
-    constructor(private nodeService: NodeService) {
-        this.nodeService.getFiles().then((files) => (this.nodes = files));
-    }
-
     code: Code = {
         basic: `<p-iftalabel class="w-full md:w-80">
     <p-treeselect [(ngModel)]="selectedValue" inputId="t_file" [options]="nodes" class="w-full" containerStyleClass="w-full" />
@@ -96,4 +91,8 @@ export class TreeSelectIftaLabelDemo {
 },
 ...`,
     };
+
+    constructor(private nodeService: NodeService) {
+        this.nodeService.getFiles().then((files) => (this.nodes = files));
+    }
 }

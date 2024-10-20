@@ -33,7 +33,7 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
         AvatarModule,
         AvatarGroupModule,
         BadgeModule,
-        OverlayBadgeModule
+        OverlayBadgeModule,
     ],
     declarations: [
         ImportDoc,

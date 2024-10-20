@@ -1,6 +1,6 @@
-import { CommonModule } from '@angular/common';
 import {
     AfterViewInit,
+    booleanAttribute,
     Directive,
     ElementRef,
     EventEmitter,
@@ -10,17 +10,18 @@ import {
     NgZone,
     OnDestroy,
     Output,
-    Renderer2,
-    booleanAttribute,
+    Renderer2
 } from '@angular/core';
 import { DomHandler } from 'primeng/dom';
 import { VoidListener } from 'primeng/ts-helpers';
+
 /**
  * pDraggable directive apply draggable behavior to any element.
  * @group Components
  */
 @Directive({
     selector: '[pDraggable]',
+    standalone: true,
 })
 export class Draggable implements AfterViewInit, OnDestroy {
     @Input('pDraggable') scope: string | undefined;
@@ -177,6 +178,7 @@ export class Draggable implements AfterViewInit, OnDestroy {
  */
 @Directive({
     selector: '[pDroppable]',
+    standalone: true,
 })
 export class Droppable implements AfterViewInit, OnDestroy {
     @Input('pDroppable') scope: string | string[] | undefined;
@@ -292,8 +294,7 @@ export class Droppable implements AfterViewInit, OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule],
+    imports: [Draggable, Droppable],
     exports: [Draggable, Droppable],
-    declarations: [Draggable, Droppable],
 })
 export class DragDropModule {}

@@ -24,14 +24,14 @@ export class SlotCharDoc {
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { InputMaskModule } from 'primeng/inputmask';
+import { InputMask } from 'primeng/inputmask';
 import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'input-mask-slot-char-demo',
     templateUrl: './input-mask-slot-char-demo.html',
     standalone: true,
-    imports: [FormsModule, InputMaskModule]
+    imports: [FormsModule, InputMask]
 })
 export class InputMaskSlotCharDemo {
     value: string | undefined;

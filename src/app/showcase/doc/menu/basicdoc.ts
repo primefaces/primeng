@@ -33,13 +33,13 @@ export class BasicDoc implements OnInit {
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
-import { MenuModule } from 'primeng/menu';
+import { Menu } from 'primeng/menu';
 
 @Component({
     selector: 'menu-basic-demo',
     templateUrl: './menu-basic-demo.html',
     standalone: true,
-    imports: [MenuModule]
+    imports: [Menu]
 })
 export class MenuBasicDemo implements OnInit {
     items: MenuItem[] | undefined;

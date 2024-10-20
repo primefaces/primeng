@@ -11,10 +11,10 @@ import { VerticalDoc } from './verticaldoc';
 import { LinearDoc } from './lineardoc';
 import { TemplateDoc } from './templatedoc';
 import { PasswordModule } from 'primeng/password';
-import { InputIconModule } from 'primeng/inputicon';
-import { IconFieldModule } from 'primeng/iconfield';
+import { InputIcon } from 'primeng/inputicon';
+import { IconField } from 'primeng/iconfield';
 import { InputTextModule } from 'primeng/inputtext';
-import { ToggleButtonModule } from 'primeng/togglebutton';
+import { ToggleButton } from 'primeng/togglebutton';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StepperModule } from 'primeng/stepper';
 import { StepsOnlyDoc } from '@doc/stepper/stepsonly';
@@ -30,10 +30,10 @@ import { StepsOnlyDoc } from '@doc/stepper/stepsonly';
         ReactiveFormsModule,
         ButtonModule,
         PasswordModule,
-        InputIconModule,
-        IconFieldModule,
+        InputIcon,
+        IconField,
         InputTextModule,
-        ToggleButtonModule,
+        ToggleButton,
     ],
     exports: [AppDocModule],
     declarations: [ImportDoc, BasicDoc, VerticalDoc, LinearDoc, TemplateDoc, AccessibilityDoc, StepsOnlyDoc],

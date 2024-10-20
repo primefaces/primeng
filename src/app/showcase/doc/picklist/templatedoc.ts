@@ -55,20 +55,6 @@ export class TemplateDoc {
     sourceProducts!: Product[];
 
     targetProducts!: Product[];
-
-    constructor(
-        private carService: ProductService,
-        private cdr: ChangeDetectorRef,
-    ) {}
-
-    ngOnInit() {
-        this.carService.getProductsSmall().then((products) => {
-            this.sourceProducts = products;
-            this.cdr.markForCheck();
-        });
-        this.targetProducts = [];
-    }
-
     code: Code = {
         basic: `<p-picklist
     [source]="sourceProducts"
@@ -177,7 +163,7 @@ export class PicklistTemplateDemo {
 }`,
 
         data: `
-/* ProductService */        
+/* ProductService */
 {
     id: '1000',
     code: 'f230fh0g3',
@@ -194,7 +180,6 @@ export class PicklistTemplateDemo {
 
         service: ['ProductService'],
     };
-
     extFiles = [
         {
             path: 'src/domain/product.ts',
@@ -213,4 +198,17 @@ export interface Product {
 }`,
         },
     ];
+
+    constructor(
+        private carService: ProductService,
+        private cdr: ChangeDetectorRef,
+    ) {}
+
+    ngOnInit() {
+        this.carService.getProductsSmall().then((products) => {
+            this.sourceProducts = products;
+            this.cdr.markForCheck();
+        });
+        this.targetProducts = [];
+    }
 }

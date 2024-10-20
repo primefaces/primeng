@@ -15,7 +15,7 @@ import { Router } from '@angular/router';
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-menu [model]="items">
-                <ng-template pTemplate="item" let-item>
+                <ng-template #item let-item>
                     <ng-container *ngIf="item.route; else elseBlock">
                         <a [routerLink]="item.route" class="p-menu-item-link">
                             <span [class]="item.icon"></span>
@@ -68,7 +68,7 @@ export class RouterDoc implements OnInit {
 
     code: Code = {
         basic: `<p-menu [model]="items">
-    <ng-template pTemplate="item" let-item>
+    <ng-template #item let-item>
         <ng-container *ngIf="item.route; else elseBlock">
             <a [routerLink]="item.route" class="p-menu-item-link">
                 <span [class]="item.icon"></span>
@@ -86,7 +86,7 @@ export class RouterDoc implements OnInit {
 
         html: `<div class="card flex justify-center">
     <p-menu [model]="items">
-        <ng-template pTemplate="item" let-item>
+        <ng-template #item let-item>
             <ng-container *ngIf="item.route; else elseBlock">
                 <a [routerLink]="item.route" class="p-menu-item-link">
                     <span [class]="item.icon"></span>
@@ -106,13 +106,13 @@ export class RouterDoc implements OnInit {
         typescript: `import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { Router } from '@angular/router';
-import { MenuModule } from 'primeng/menu';
+import { Menu } from 'primeng/menu';
 
 @Component({
     selector: 'menu-router-demo',
     templateUrl: './menu-router-demo.html',
     standalone: true,
-    imports: [MenuModule]
+    imports: [Menu]
 })
 export class MenuRouterDemo implements OnInit {
     items: MenuItem[] | undefined;

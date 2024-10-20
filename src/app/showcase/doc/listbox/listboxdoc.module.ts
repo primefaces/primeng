@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { ListboxModule } from 'primeng/listbox';
+import { Listbox } from 'primeng/listbox';
 import { AppDocModule } from '@layout/doc/app.doc.module';
 import { AppCodeModule } from '@layout/doc/app.code.component';
 import { AccessibilityDoc } from './accessibilitydoc';
@@ -20,7 +20,7 @@ import { VirtualScrollDoc } from './virtualscrolldoc';
 import { CheckmarkDoc } from './checkmarkdoc';
 
 @NgModule({
-    imports: [CommonModule, AppCodeModule, RouterModule, ListboxModule, FormsModule, ReactiveFormsModule, AppDocModule],
+    imports: [CommonModule, AppCodeModule, RouterModule, Listbox, FormsModule, ReactiveFormsModule, AppDocModule],
     exports: [AppDocModule],
     declarations: [
         ImportDoc,
@@ -35,7 +35,7 @@ import { CheckmarkDoc } from './checkmarkdoc';
         AccessibilityDoc,
         ReactiveFormsDoc,
         VirtualScrollDoc,
-        CheckmarkDoc
+        CheckmarkDoc,
     ],
 })
 export class ListboxDocModule {}

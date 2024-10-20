@@ -1,4 +1,3 @@
-
 import { Component } from '@angular/core';
 import { Code } from '@domain/code';
 
@@ -119,5 +118,3 @@ export class IconFieldFloatLabelDemo {
 }`,
     };
 }
-
-	

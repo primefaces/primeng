@@ -28,10 +28,6 @@ export class DynamicDoc {
         { name: 'Research', key: 'R' },
     ];
 
-    ngOnInit() {
-        this.selectedCategories = [this.categories[1]];
-    }
-
     code: Code = {
         basic: `<div *ngFor="let category of categories" class="flex items-center">
     <p-checkbox [inputId]="category.key" name="group" [value]="category" [(ngModel)]="selectedCategories" />
@@ -73,4 +69,8 @@ export class CheckboxDynamicDemo {
     }
 }`,
     };
+
+    ngOnInit() {
+        this.selectedCategories = [this.categories[1]];
+    }
 }

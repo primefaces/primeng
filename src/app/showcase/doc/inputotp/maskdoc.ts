@@ -24,14 +24,14 @@ export class MaskDoc {
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { InputOtpModule } from 'primeng/inputotp';
+import { InputOtp } from 'primeng/inputotp';
 import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'input-otp-mask-demo',
     templateUrl: './input-otp-mask-demo.html',
     standalone: true,
-    imports: [FormsModule, InputOtpModule]
+    imports: [FormsModule, InputOtp]
 })
 export class InputOtpMaskDemo {
     value: any;

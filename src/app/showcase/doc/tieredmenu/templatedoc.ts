@@ -12,8 +12,8 @@ import { Code } from '@domain/code';
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-tieredmenu [model]="items">
-                <ng-template pTemplate="item" let-item let-hasSubmenu="hasSubmenu">
+            <p-tieredMenu [model]="items">
+                <ng-template #item let-item let-hasSubmenu="hasSubmenu">
                     <a pRipple class="flex items-center p-tieredmenu-item-link">
                         <span [class]="item.icon" class="p-tieredmenu-item-icon"></span>
                         <span class="ml-2">{{ item.label }}</span>
@@ -26,7 +26,7 @@ import { Code } from '@domain/code';
                         <i *ngIf="hasSubmenu" class="pi pi-angle-right ml-auto"></i>
                     </a>
                 </ng-template>
-            </p-tieredmenu>
+            </p-tieredMenu>
         </div>
         <app-code [code]="code" selector="tiered-menu-template-demo"></app-code>
     `,
@@ -117,8 +117,8 @@ export class TemplateDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-tieredmenu [model]="items">
-    <ng-template pTemplate="item" let-item let-hasSubmenu="hasSubmenu">
+        basic: `<p-tieredMenu [model]="items">
+    <ng-template #item let-item let-hasSubmenu="hasSubmenu">
     <a pRipple class="flex items-center p-tieredmenu-item-link">
     <span [class]="item.icon" class="p-tieredmenu-item-icon"></span>
             <span class="ml-2">{{ item.label }}</span>
@@ -129,11 +129,11 @@ export class TemplateDoc implements OnInit {
             <i *ngIf="hasSubmenu" class="pi pi-angle-right ml-auto"></i>
         </a>
     </ng-template>
-</p-tieredmenu>`,
+</p-tieredMenu>`,
 
         html: `<div class="card flex justify-center">
-    <p-tieredmenu [model]="items">
-        <ng-template pTemplate="item" let-item let-hasSubmenu="hasSubmenu">
+    <p-tieredMenu [model]="items">
+        <ng-template #item let-item let-hasSubmenu="hasSubmenu">
         <a pRipple class="flex items-center p-tieredmenu-item-link">
         <span [class]="item.icon" class="p-tieredmenu-item-icon"></span>
                 <span class="ml-2">{{ item.label }}</span>
@@ -144,21 +144,21 @@ export class TemplateDoc implements OnInit {
                 <i *ngIf="hasSubmenu" class="pi pi-angle-right ml-auto"></i>
             </a>
         </ng-template>
-    </p-tieredmenu>
+    </p-tieredMenu>
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
-import { TieredMenuModule } from 'primeng/tieredmenu';
+import { TieredMenu } from 'primeng/tieredmenu';
 import { BadgeModule } from 'primeng/badge';
 import { CommonModule } from '@angular/common';
-import { RippleModule } from 'primeng/ripple';
+import { Ripple } from 'primeng/ripple';
 
 @Component({
     selector: 'tiered-menu-template-demo',
     templateUrl: './tiered-menu-template-demo.html',
     standalone: true,
-    imports: [TieredMenuModule, BadgeModule, RippleModule, CommonModule]
+    imports: [TieredMenu, BadgeModule, Ripple, CommonModule]
 })
 export class TieredMenuTemplateDemo implements OnInit {
     items: MenuItem[] | undefined;

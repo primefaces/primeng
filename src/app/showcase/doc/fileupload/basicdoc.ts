@@ -69,7 +69,7 @@ export class BasicDoc {
 </div>`,
         typescript: `import { Component } from '@angular/core';
 import { MessageService } from 'primeng/api';
-import { FileUploadModule } from 'primeng/fileupload';
+import { FileUpload } from 'primeng/fileupload';
 import { ToastModule } from 'primeng/toast';
 import { ButtonModule } from 'primeng/button';
 
@@ -82,7 +82,7 @@ interface UploadEvent {
     selector: 'file-upload-basic-demo',
     templateUrl: './file-upload-basic-demo.html',
     standalone: true,
-    imports: [FileUploadModule, ToastModule, ButtonModule],
+    imports: [FileUpload, ToastModule, ButtonModule],
     providers: [MessageService]
 })
 export class FileUploadBasicDemo {

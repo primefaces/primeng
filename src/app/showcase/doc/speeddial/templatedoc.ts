@@ -113,52 +113,6 @@ import { Router } from '@angular/router';
 })
 export class TemplateDoc implements OnInit {
     items: MenuItem[] | undefined;
-
-    constructor(
-        private messageService: MessageService,
-        private router: Router,
-    ) {}
-
-    ngOnInit() {
-        this.items = [
-            {
-                label: 'Add',
-                icon: 'pi pi-pencil',
-                command: () => {
-                    this.messageService.add({ severity: 'info', summary: 'Add', detail: 'Data Added' });
-                },
-            },
-            {
-                label: 'Update',
-                icon: 'pi pi-refresh',
-                command: () => {
-                    this.messageService.add({ severity: 'success', summary: 'Update', detail: 'Data Updated' });
-                },
-            },
-            {
-                label: 'Delete',
-                icon: 'pi pi-trash',
-                command: () => {
-                    this.messageService.add({ severity: 'error', summary: 'Delete', detail: 'Data Deleted' });
-                },
-            },
-            {
-                label: 'Upload',
-                icon: 'pi pi-upload',
-                command: () => {
-                    this.router.navigate(['/fileupload']);
-                },
-            },
-            {
-                label: 'Website',
-                icon: 'pi pi-external-link',
-                command: () => {
-                    window.open('https://angular.io/', '_blank');
-                },
-            },
-        ];
-    }
-
     code: Code = {
         basic: `<p-speeddial [model]="items" direction="up" [transitionDelay]="80" style="position: 'absolute'">
     <ng-template pTemplate="button" let-toggleCallback="toggleCallback">
@@ -358,4 +312,49 @@ export class SpeedDialTemplateDemo implements OnInit {
     }
 }`,
     };
+
+    constructor(
+        private messageService: MessageService,
+        private router: Router,
+    ) {}
+
+    ngOnInit() {
+        this.items = [
+            {
+                label: 'Add',
+                icon: 'pi pi-pencil',
+                command: () => {
+                    this.messageService.add({ severity: 'info', summary: 'Add', detail: 'Data Added' });
+                },
+            },
+            {
+                label: 'Update',
+                icon: 'pi pi-refresh',
+                command: () => {
+                    this.messageService.add({ severity: 'success', summary: 'Update', detail: 'Data Updated' });
+                },
+            },
+            {
+                label: 'Delete',
+                icon: 'pi pi-trash',
+                command: () => {
+                    this.messageService.add({ severity: 'error', summary: 'Delete', detail: 'Data Deleted' });
+                },
+            },
+            {
+                label: 'Upload',
+                icon: 'pi pi-upload',
+                command: () => {
+                    this.router.navigate(['/fileupload']);
+                },
+            },
+            {
+                label: 'Website',
+                icon: 'pi pi-external-link',
+                command: () => {
+                    window.open('https://angular.io/', '_blank');
+                },
+            },
+        ];
+    }
 }

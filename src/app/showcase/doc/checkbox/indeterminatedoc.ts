@@ -25,13 +25,13 @@ export class IndeterminateDoc {
 
         typescript: `import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { CheckboxModule } from 'primeng/checkbox';
+import { Checkbox } from 'primeng/checkbox';
 
 @Component({
     selector: 'checkbox-indeterminate-demo',
     templateUrl: './checkbox-indeterminate-demo.html',
     standalone: true,
-    imports: [FormsModule, CheckboxModule]
+    imports: [FormsModule, Checkbox]
 })
 export class CheckboxIndeterminateDemo {
     checked: boolean = false;

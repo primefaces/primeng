@@ -29,7 +29,7 @@ import { AutoFocusModule } from 'primeng/autofocus';
         IconFieldModule,
         InputIconModule,
         CheckboxModule,
-        AutoFocusModule
+        AutoFocusModule,
     ],
     declarations: [ImportDoc, BasicDoc],
     exports: [AppDocModule],

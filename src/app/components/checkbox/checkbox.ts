@@ -3,7 +3,7 @@ import {
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
-    ContentChildren,
+    ContentChild,
     ElementRef,
     EventEmitter,
     forwardRef,
@@ -12,7 +12,6 @@ import {
     NgModule,
     numberAttribute,
     Output,
-    QueryList,
     signal,
     SimpleChanges,
     TemplateRef,
@@ -20,8 +19,7 @@ import {
     ViewEncapsulation,
 } from '@angular/core';
 import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
-import { PrimeTemplate, SharedModule } from 'primeng/api';
-import { AutoFocusModule } from 'primeng/autofocus';
+import { AutoFocus } from 'primeng/autofocus';
 import { CheckIcon } from 'primeng/icons/check';
 import { Nullable } from 'primeng/ts-helpers';
 import { ObjectUtils } from 'primeng/utils';
@@ -41,6 +39,8 @@ export const CHECKBOX_VALUE_ACCESSOR: any = {
  */
 @Component({
     selector: 'p-checkbox',
+    standalone: true,
+    imports: [CommonModule, AutoFocus, CheckIcon, MinusIcon],
     template: `
         <div
             [style]="style"
@@ -215,8 +215,6 @@ export class Checkbox extends BaseComponent implements ControlValueAccessor {
 
     @ViewChild('input') inputViewChild: Nullable<ElementRef>;
 
-    @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<PrimeTemplate>>;
-
     get checked() {
         return this._indeterminate() ? false : this.binary ? this.model === this.trueValue : ObjectUtils.contains(this.value, this.model);
     }
@@ -231,8 +229,11 @@ export class Checkbox extends BaseComponent implements ControlValueAccessor {
     }
 
     _indeterminate = signal<any>(undefined);
-
-    checkboxIconTemplate: TemplateRef<any>;
+    /**
+     * The template of the checkbox icon.
+     * @group Templates
+     */
+    @ContentChild('checkboxicon') checkboxIconTemplate: TemplateRef<any>;
 
     model: any;
 
@@ -249,16 +250,6 @@ export class Checkbox extends BaseComponent implements ControlValueAccessor {
         if (changes.indeterminate) {
             this._indeterminate.set(changes.indeterminate.currentValue);
         }
-    }
-
-    ngAfterContentInit() {
-        this.templates.forEach((item) => {
-            switch (item.getType()) {
-                case 'icon':
-                    this.checkboxIconTemplate = item.template;
-                    break;
-            }
-        });
     }
 
     updateModel(event) {
@@ -340,8 +331,7 @@ export class Checkbox extends BaseComponent implements ControlValueAccessor {
 }
 
 @NgModule({
-    imports: [CommonModule, AutoFocusModule, CheckIcon, MinusIcon],
-    exports: [Checkbox, SharedModule],
-    declarations: [Checkbox],
+    imports: [Checkbox],
+    exports: [Checkbox],
 })
 export class CheckboxModule {}
