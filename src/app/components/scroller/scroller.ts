@@ -850,18 +850,18 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
         if (typeof viewportCrossAxisSize === 'number' && typeof scrollCrossAxisPos === 'number') {
             const first = this.getFirstInViewport(scrollMainAxisPos, scrollCrossAxisPos);
             const last = this.getFirstInViewport(scrollMainAxisPos + viewportMainAxisSize, scrollCrossAxisPos + viewportCrossAxisSize);
-            return { cols: last.firstColIdx - first.firstColIdx, rows: last.firstRowIdx - first.firstRowIdx } as T extends number ? { cols: number; rows: number } : number;
+            return { cols: last.firstColIdx - first.firstColIdx + 1, rows: last.firstRowIdx - first.firstRowIdx + 1 } as T extends number ? { cols: number; rows: number } : number;
         } else {
             const first = this.getFirstInViewport(scrollMainAxisPos);
             const last = this.getFirstInViewport(scrollMainAxisPos + viewportMainAxisSize);
-            return (last - first) as T extends number ? { cols: number; rows: number } : number;
+            return (last - first + 1) as T extends number ? { cols: number; rows: number } : number;
         }
     }
 
     calculateNumItems() {
         const contentPos = this.getContentPosition();
-        const contentWidth = (this.elementViewChild?.nativeElement ? this.elementViewChild.nativeElement.offsetWidth - contentPos.left : 0) || 0;
-        const contentHeight = (this.elementViewChild?.nativeElement ? this.elementViewChild.nativeElement.offsetHeight - contentPos.top : 0) || 0;
+        const contentWidth = (this.elementViewChild?.nativeElement ? this.elementViewChild.nativeElement.clientWidth - contentPos.left : 0) || 0;
+        const contentHeight = (this.elementViewChild?.nativeElement ? this.elementViewChild.nativeElement.clientHeight - contentPos.top : 0) || 0;
         const calculateNumToleratedItems = (_numItems: number) => Math.ceil(_numItems / 2);
         const { scrollTop, scrollLeft } = this.elementViewChild?.nativeElement || { scrollTop: 0, scrollLeft: 0 };
         const numItemsInViewport: any = this.both ? this.getNumItemsInViewport(contentHeight, scrollTop, contentWidth, scrollLeft) : this.getNumItemsInViewport(this.horizontal ? contentWidth : contentHeight, this.horizontal ? scrollLeft : scrollTop);
