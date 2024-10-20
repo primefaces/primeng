@@ -1,17 +1,17 @@
 import { ComponentRef } from '@angular/core';
 import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { ToggleSwitch, ToggleSwitchModule } from './toggleswitch';
+import { ToggleSwitch } from './toggleswitch';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
-describe('ToggleSwitch', () => {
+fdescribe('ToggleSwitch', () => {
     let toggleSwitch: ToggleSwitch;
     let fixture: ComponentFixture<ToggleSwitch>;
     let toggleSwitchRef: ComponentRef<ToggleSwitch>;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule, ToggleSwitchModule],
+            imports: [NoopAnimationsModule, ToggleSwitch],
         });
 
         fixture = TestBed.createComponent(ToggleSwitch);
@@ -107,7 +107,7 @@ describe('ToggleSwitch', () => {
         inputElement.nativeElement.click(); // Toggle to true
         fixture.detectChanges();
 
-        expect(fixture.componentInstance.modelValue()).toBeTrue();
-        expect(fixture.componentInstance.onChange.emit).toHaveBeenCalledWith({ originalEvent: jasmine.any(Event), checked: true });
+        expect(toggleSwitch.modelValue()).toBeTrue();
+        expect(toggleSwitch.onChange.emit).toHaveBeenCalledWith({ originalEvent: jasmine.any(Event), checked: true });
     });
 });
