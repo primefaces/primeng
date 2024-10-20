@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { NgClass, NgTemplateOutlet } from '@angular/common';
 import {
     booleanAttribute,
     ChangeDetectionStrategy,
@@ -14,7 +14,6 @@ import {
     NgModule,
     numberAttribute,
     output,
-    Signal,
     TemplateRef,
     WritableSignal,
 } from '@angular/core';
@@ -38,7 +37,7 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-toggleButton, p-togglebutton',
     standalone: true,
-    imports: [Ripple, AutoFocus, CommonModule],
+    imports: [Ripple, AutoFocus, NgClass, NgTemplateOutlet],
     template: `
         <button
             pRipple
@@ -83,8 +82,6 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
         </button>
     `,
     host: { '[class]': 'styleClass()' },
-    standalone: true,
-    imports: [Ripple, AutoFocus, SharedModule, CommonModule],
     providers: [TOGGLEBUTTON_VALUE_ACCESSOR, ToggleButtonStyle],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
