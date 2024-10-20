@@ -1,6 +1,7 @@
-import { Component, ComponentRef, signal } from '@angular/core';
+import { Component, ComponentRef } from '@angular/core';
 import { TestBed, ComponentFixture } from '@angular/core/testing';
-import { Tag, TagModule } from './tag';
+import { SharedModule } from '../api/shared';
+import { Tag } from './tag';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { By } from '@angular/platform-browser';
 
@@ -14,7 +15,7 @@ import { By } from '@angular/platform-browser';
         </p-tag>
     `,
     standalone: true,
-    imports: [TagModule],
+    imports: [Tag, SharedModule],
 })
 class TestHostComponent {}
 
@@ -25,7 +26,7 @@ describe('Tag', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule, TagModule, TestHostComponent],
+            imports: [NoopAnimationsModule, Tag, TestHostComponent],
         });
 
         fixture = TestBed.createComponent(Tag);
