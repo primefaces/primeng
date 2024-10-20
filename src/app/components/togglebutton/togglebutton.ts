@@ -68,9 +68,9 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
                         <ng-container *ngTemplateOutlet="iconTemplate; context: { $implicit: checked }"></ng-container>
                     }
                     @if (onLabel || offLabel) {
-                        <span [ngClass]="cx('label')" [attr.data-pc-section]="'label'">{{
-                            checked ? (hasOnLabel ? onLabel : '') : hasOffLabel ? offLabel : ''
-                        }}</span>
+                        <span [ngClass]="cx('label')" [attr.data-pc-section]="'label'">
+                            {{ checked ? (hasOnLabel ? onLabel : '') : hasOffLabel ? offLabel : '' }}
+                        </span>
                     }
                 }
             </span>
