@@ -1,6 +1,6 @@
 import { ComponentRef } from '@angular/core';
 import { TestBed, ComponentFixture } from '@angular/core/testing';
-import { Skeleton, SkeletonModule } from './skeleton';
+import { Skeleton } from './skeleton';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { By } from '@angular/platform-browser';
 
@@ -11,7 +11,7 @@ describe('Skeleton', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule, SkeletonModule],
+            imports: [NoopAnimationsModule, Skeleton],
         });
 
         fixture = TestBed.createComponent(Skeleton);
