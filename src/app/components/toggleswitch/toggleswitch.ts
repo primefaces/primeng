@@ -14,7 +14,7 @@ import {
     NgModule,
     numberAttribute,
     output,
-    ViewChild,
+    viewChild,
     ViewEncapsulation,
     WritableSignal,
 } from '@angular/core';
@@ -139,7 +139,7 @@ export class ToggleSwitch extends BaseComponent {
      */
     onChange: OutputEmitterRef<ToggleSwitchChangeEvent> = output<ToggleSwitchChangeEvent>();
 
-    @ViewChild('input') input!: ElementRef;
+    input = viewChild.required<ElementRef>('input');
 
     modelValue: WritableSignal<boolean> = signal<boolean>(false);
 
@@ -156,7 +156,7 @@ export class ToggleSwitch extends BaseComponent {
             this.modelValue.set(this.checked() ? this.falseValue() : this.trueValue());
             this.onModelChange(this.modelValue());
             this.onChange.emit({ originalEvent: event, checked: this.modelValue() });
-            this.input.nativeElement.focus();
+            this.input().nativeElement.focus();
         }
     }
 
