@@ -1,6 +1,6 @@
 import { ComponentRef } from '@angular/core';
 import { TestBed, ComponentFixture } from '@angular/core/testing';
-import { Avatar, AvatarModule } from './avatar';
+import { Avatar } from './avatar';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { By } from '@angular/platform-browser';
 
@@ -11,7 +11,7 @@ describe('Avatar', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule, AvatarModule],
+            imports: [NoopAnimationsModule, Avatar],
         });
 
         fixture = TestBed.createComponent(Avatar);
