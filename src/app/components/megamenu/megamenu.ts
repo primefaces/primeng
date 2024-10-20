@@ -1,35 +1,32 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
-    AfterContentInit,
+    booleanAttribute,
     ChangeDetectionStrategy,
     Component,
-    ContentChildren,
+    ContentChild,
+    effect,
     ElementRef,
     EventEmitter,
-    Inject,
+    forwardRef,
+    inject,
     Input,
     NgModule,
+    numberAttribute,
     OnDestroy,
     OnInit,
     Output,
-    QueryList,
+    signal,
     TemplateRef,
     ViewChild,
     ViewEncapsulation,
-    booleanAttribute,
-    effect,
-    forwardRef,
-    inject,
-    numberAttribute,
-    signal,
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { MegaMenuItem, PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
+import { MegaMenuItem } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { DomHandler } from 'primeng/dom';
 import { AngleDownIcon } from 'primeng/icons/angledown';
 import { AngleRightIcon } from 'primeng/icons/angleright';
-import { RippleModule } from 'primeng/ripple';
+import { Ripple } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
 import { VoidListener } from 'primeng/ts-helpers';
 import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
@@ -38,6 +35,8 @@ import { BadgeModule } from 'primeng/badge';
 
 @Component({
     selector: 'p-megaMenuSub, p-megamenu-sub',
+    standalone: true,
+    imports: [CommonModule, RouterModule, Ripple, TooltipModule, AngleDownIcon, AngleRightIcon, BadgeModule],
     template: `
         <ul
             *ngIf="isSubmenuVisible(submenu)"
@@ -257,7 +256,7 @@ import { BadgeModule } from 'primeng/badge';
     `,
     encapsulation: ViewEncapsulation.None,
 })
-export class MegaMenuSub {
+export class MegaMenuSub extends BaseComponent {
     @Input() id: string | undefined;
 
     @Input() items: any[] | undefined;
@@ -298,10 +297,7 @@ export class MegaMenuSub {
 
     @ViewChild('menubar', { static: true }) menubarViewChild: ElementRef;
 
-    constructor(
-        public el: ElementRef,
-        @Inject(forwardRef(() => MegaMenu)) public megaMenu: MegaMenu,
-    ) {}
+    megaMenu: MegaMenu = inject(forwardRef(() => MegaMenu));
 
     onItemClick(event: any, processedItem: any) {
         this.getItemProp(processedItem, 'command', { originalEvent: event, item: processedItem.item });
@@ -434,6 +430,8 @@ export class MegaMenuSub {
  */
 @Component({
     selector: 'p-megaMenu, p-megamenu',
+    standalone: true,
+    imports: [CommonModule, RouterModule, MegaMenuSub, Ripple, TooltipModule, AngleDownIcon, AngleRightIcon, BadgeModule],
     template: `
         <div
             [ngClass]="{
@@ -485,7 +483,7 @@ export class MegaMenuSub {
     encapsulation: ViewEncapsulation.None,
     providers: [MegaMenuStyle],
 })
-export class MegaMenu extends BaseComponent implements AfterContentInit, OnDestroy, OnInit {
+export class MegaMenu extends BaseComponent implements OnDestroy, OnInit {
     /**
      * An array of menuitems.
      * @group Props
@@ -537,22 +535,35 @@ export class MegaMenu extends BaseComponent implements AfterContentInit, OnDestr
      * @group Props
      */
     @Input({ transform: numberAttribute }) tabindex: number = 0;
-
-    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
+    /**
+     * Defines template option for start.
+     * @group Templates
+     */
+    @ContentChild('start') startTemplate: TemplateRef<any> | undefined;
+    /**
+     * Defines template option for end.
+     * @group Templates
+     */
+    @ContentChild('end') endTemplate: TemplateRef<any> | undefined;
+    /**
+     * Defines template option for menu icon.
+     * @group Templates
+     */
+    @ContentChild('menuicon') menuIconTemplate: TemplateRef<any> | undefined;
+    /**
+     * Defines template option for submenu icon.
+     * @group Templates
+     */
+    @ContentChild('submenuicon') submenuIconTemplate: TemplateRef<any> | undefined;
+    /**
+     * Defines template option for submenu icon.
+     * @group Templates
+     */
+    @ContentChild('item') itemTemplate: TemplateRef<any> | undefined;
 
     @ViewChild('menubutton') menubutton: ElementRef | undefined;
 
     @ViewChild('rootmenu') rootmenu: MegaMenuSub | undefined;
-
-    startTemplate: TemplateRef<any> | undefined;
-
-    endTemplate: TemplateRef<any> | undefined;
-
-    menuIconTemplate: TemplateRef<any> | undefined;
-
-    submenuIconTemplate: TemplateRef<any> | undefined;
-
-    itemTemplate: TemplateRef<any> | undefined;
 
     outsideClickListener: VoidListener;
 
@@ -625,36 +636,6 @@ export class MegaMenu extends BaseComponent implements AfterContentInit, OnDestr
     ngOnInit(): void {
         super.ngOnInit();
         this.id = this.id || UniqueComponentId();
-    }
-
-    ngAfterContentInit() {
-        this.templates?.forEach((item) => {
-            switch (item.getType()) {
-                case 'start':
-                    this.startTemplate = item.template;
-                    break;
-
-                case 'end':
-                    this.endTemplate = item.template;
-                    break;
-
-                case 'menuicon':
-                    this.menuIconTemplate = item.template;
-                    break;
-
-                case 'submenuicon':
-                    this.submenuIconTemplate = item.template;
-                    break;
-
-                case 'item':
-                    this.itemTemplate = item.template;
-                    break;
-
-                default:
-                    this.itemTemplate = item.template;
-                    break;
-            }
-        });
     }
 
     createProcessedItems(items, level = 0, parent = {}, parentKey = '', columnIndex?) {
@@ -1208,8 +1189,7 @@ export class MegaMenu extends BaseComponent implements AfterContentInit, OnDestr
 }
 
 @NgModule({
-    imports: [CommonModule, RouterModule, RippleModule, TooltipModule, SharedModule, AngleDownIcon, AngleRightIcon, BadgeModule],
-    exports: [MegaMenu, RouterModule, TooltipModule, SharedModule],
-    declarations: [MegaMenu, MegaMenuSub],
+    imports: [MegaMenu],
+    exports: [MegaMenu],
 })
 export class MegaMenuModule {}

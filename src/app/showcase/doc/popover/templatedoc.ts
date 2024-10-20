@@ -9,7 +9,7 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-popover #op>
-                <ng-template pTemplate="content">
+                <ng-template #content>
                     <h4>Custom Content</h4>
                 </ng-template>
             </p-popover>
@@ -21,7 +21,7 @@ import { Code } from '@domain/code';
 export class TemplateDoc {
     code: Code = {
         basic: `<p-popover #op>
-    <ng-template pTemplate="content">
+    <ng-template #content>
         <h4>Custom Content</h4>
     </ng-template>
 </p-popover>
@@ -30,7 +30,7 @@ export class TemplateDoc {
         html: `
 <div class="card flex justify-center">
     <p-popover #op>
-        <ng-template pTemplate="content">
+        <ng-template #content>
             <h4>Custom Content</h4>
         </ng-template>
     </p-popover>

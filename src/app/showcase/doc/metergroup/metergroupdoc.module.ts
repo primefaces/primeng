@@ -7,7 +7,7 @@ import { AppCodeModule } from '@layout/doc/app.code.component';
 import { ImportDoc } from './importdoc';
 import { BasicDoc } from './basicdoc';
 import { ButtonModule } from 'primeng/button';
-import { MeterGroupModule } from 'primeng/metergroup';
+import { MeterGroup } from 'primeng/metergroup';
 import { MultipleDoc } from './multipledoc';
 import { IconDoc } from './icondoc';
 import { LabelDoc } from './labeldoc';
@@ -17,8 +17,9 @@ import { MinMaxDoc } from './minmaxdoc';
 import { TemplateDoc } from './templatedoc';
 import { AccessibilityDoc } from './accessibilitydoc';
 import { CardModule } from 'primeng/card';
+
 @NgModule({
-    imports: [CommonModule, AppCodeModule, FormsModule, RouterModule, ButtonModule, AppDocModule, MeterGroupModule, CardModule],
+    imports: [CommonModule, AppCodeModule, FormsModule, RouterModule, ButtonModule, AppDocModule, MeterGroup, CardModule],
     declarations: [BasicDoc, ImportDoc, MultipleDoc, IconDoc, LabelDoc, VerticalDoc, MinMaxDoc, TemplateDoc, StyleDoc, AccessibilityDoc],
     exports: [AppDocModule],
 })

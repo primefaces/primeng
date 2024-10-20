@@ -1,35 +1,33 @@
-import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     ContentChildren,
     ElementRef,
     EventEmitter,
-    Inject,
+    inject,
     Input,
     NgModule,
-    Output,
-    PLATFORM_ID,
-    QueryList,
-    Renderer2,
-    ViewChild,
-    ViewEncapsulation,
-    inject,
     numberAttribute,
+    Output,
+    QueryList,
+    ViewChild,
+    ViewEncapsulation
 } from '@angular/core';
-import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { SplitterResizeEndEvent, SplitterResizeStartEvent } from './splitter.interface';
 import { BaseComponent } from 'primeng/basecomponent';
 import { SplitterStyle } from './style/splitterstyle';
+
 /**
  * Splitter is utilized to separate and resize panels.
  * @group Components
  */
 @Component({
     selector: 'p-splitter',
+    standalone: true,
+    imports: [CommonModule],
     template: `
         <div
             #container
@@ -172,8 +170,6 @@ export class Splitter extends BaseComponent {
      */
     @Output() onResizeStart: EventEmitter<SplitterResizeStartEvent> = new EventEmitter<SplitterResizeStartEvent>();
 
-    @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
-
     @ViewChild('container', { static: false }) containerViewChild: Nullable<ElementRef>;
 
     nested: boolean = false;
@@ -219,16 +215,11 @@ export class Splitter extends BaseComponent {
         this.nested = this.isNested();
     }
 
+    @ContentChildren('panel') templates: QueryList<any>;
+
     ngAfterContentInit() {
-        this.templates.forEach((item) => {
-            switch (item.getType()) {
-                case 'panel':
-                    this.panels.push(item.template);
-                    break;
-                default:
-                    this.panels.push(item.template);
-                    break;
-            }
+        this.templates.toArray().forEach((item) => {
+            this.panels.push(item.template);
         });
     }
 
@@ -611,8 +602,7 @@ export class Splitter extends BaseComponent {
 }
 
 @NgModule({
-    imports: [CommonModule],
-    exports: [Splitter, SharedModule],
-    declarations: [Splitter],
+    imports: [Splitter],
+    exports: [Splitter],
 })
 export class SplitterModule {}

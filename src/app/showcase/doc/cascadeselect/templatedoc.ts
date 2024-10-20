@@ -5,10 +5,11 @@ import { Code } from '@domain/code';
     selector: 'cascade-select-template-demo',
     template: `
         <app-docsectiontext>
-        <p>
-            Label of an option is used as the display text of an item by default, for custom content support define an <i>option</i> template that gets the option instance as a parameter. In addition <i>value</i>, <i>dropdownicon</i>,
-            <i>loadingicon</i>, and <i>optiongroupicon</i> slots are provided for further customization.
-        </p>
+            <p>
+                Label of an option is used as the display text of an item by default, for custom content support define an
+                <i>option</i> template that gets the option instance as a parameter. In addition <i>value</i>, <i>dropdownicon</i>,
+                <i>loadingicon</i>, and <i>optiongroupicon</i> slots are provided for further customization.
+            </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-cascadeselect

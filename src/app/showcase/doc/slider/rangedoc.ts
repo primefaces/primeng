@@ -28,13 +28,13 @@ export class RangeDoc {
 
         typescript: `import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SliderModule } from 'primeng/slider';
+import { Slider } from 'primeng/slider';
 
 @Component({
     selector: 'slider-range-demo',
     templateUrl: './slider-range-demo.html',
     standalone: true,
-    imports: [FormsModule, SliderModule]
+    imports: [FormsModule, Slider]
 })
 export class SliderRangeDemo {
     rangeValues: number[] = [20, 80];

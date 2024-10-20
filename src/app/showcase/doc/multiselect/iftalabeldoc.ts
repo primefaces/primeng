@@ -36,17 +36,6 @@ export class IftaLabelDoc implements OnInit {
     cities!: City[];
 
     selectedCities!: City[];
-
-    ngOnInit() {
-        this.cities = [
-            { name: 'New York', code: 'NY' },
-            { name: 'Rome', code: 'RM' },
-            { name: 'London', code: 'LDN' },
-            { name: 'Istanbul', code: 'IST' },
-            { name: 'Paris', code: 'PRS' },
-        ];
-    }
-
     code: Code = {
         basic: `<p-iftalabel class="w-full md:w-80">
     <p-multiselect [(ngModel)]="selectedCities" inputId="ms_cities" [options]="cities" optionLabel="name" [filter]="true" [maxSelectedLabels]="3" styleClass="w-full" />
@@ -92,4 +81,14 @@ export class MultiSelectIftalabelDemo implements OnInit {
     }
 }`,
     };
+
+    ngOnInit() {
+        this.cities = [
+            { name: 'New York', code: 'NY' },
+            { name: 'Rome', code: 'RM' },
+            { name: 'London', code: 'LDN' },
+            { name: 'Istanbul', code: 'IST' },
+            { name: 'Paris', code: 'PRS' },
+        ];
+    }
 }

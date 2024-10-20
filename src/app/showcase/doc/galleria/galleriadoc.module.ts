@@ -26,22 +26,12 @@ import { ItemWithoutThumbnailsDoc } from './navigator/itemwithoutthumbnailsdoc';
 import { ResponsiveDoc } from './responsivedoc';
 import { StyleDoc } from './styledoc';
 import { ThumbnailDoc } from './thumbnaildoc';
-import { RadioButtonModule } from 'primeng/radiobutton';
-import { CheckboxModule } from 'primeng/checkbox';
+import { RadioButton } from 'primeng/radiobutton';
+import { Checkbox } from 'primeng/checkbox';
 import { AccessibilityDoc } from './accessibilitydoc';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        RouterModule,
-        AppCodeModule,
-        AppDocModule,
-        GalleriaModule,
-        FormsModule,
-        ButtonModule,
-        RadioButtonModule,
-        CheckboxModule,
-    ],
+    imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, GalleriaModule, FormsModule, ButtonModule, RadioButton, Checkbox],
     declarations: [
         AdvancedDoc,
         AutoPlayDoc,

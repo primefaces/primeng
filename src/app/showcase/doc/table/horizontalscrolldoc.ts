@@ -11,7 +11,7 @@ import { CustomerService } from '@service/customerservice';
         <p-deferred-demo (load)="loadDemoData()">
             <div class="card">
                 <p-table [value]="customers" [scrollable]="true" scrollHeight="400px">
-                    <ng-template pTemplate="header">
+                    <ng-template #header>
                         <tr>
                             <th style="min-width:100px">Id</th>
                             <th style="min-width:200px">Name</th>
@@ -24,7 +24,7 @@ import { CustomerService } from '@service/customerservice';
                             <th style="min-width:200px">Representative</th>
                         </tr>
                     </ng-template>
-                    <ng-template pTemplate="body" let-customer>
+                    <ng-template #body let-customer>
                         <tr>
                             <td>{{ customer.id }}</td>
                             <td>{{ customer.name }}</td>
@@ -37,7 +37,7 @@ import { CustomerService } from '@service/customerservice';
                             <td>{{ customer.representative.name }}</td>
                         </tr>
                     </ng-template>
-                    <ng-template pTemplate="footer">
+                    <ng-template #footer>
                         <tr>
                             <td>Id</td>
                             <td>Name</td>
@@ -77,7 +77,7 @@ export class HorizontalScrollDoc {
 
     code: Code = {
         basic: `<p-table [value]="customers" [scrollable]="true" scrollHeight="400px">
-    <ng-template pTemplate="header">
+    <ng-template #header>
         <tr>
             <th style="min-width:100px">Id</th>
             <th style="min-width:200px">Name</th>
@@ -90,7 +90,7 @@ export class HorizontalScrollDoc {
             <th style="min-width:200px">Representative</th>
         </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-customer>
+    <ng-template #body let-customer>
         <tr>
             <td>{{customer.id}}</td>
             <td>{{customer.name}}</td>
@@ -103,7 +103,7 @@ export class HorizontalScrollDoc {
             <td>{{customer.representative.name}}</td>
         </tr>
     </ng-template>
-    <ng-template pTemplate="footer">
+    <ng-template #footer>
         <tr>
             <td>Id</td>
             <td>Name</td>
@@ -119,7 +119,7 @@ export class HorizontalScrollDoc {
 </p-table>`,
         html: `<div class="card">
     <p-table [value]="customers" [scrollable]="true" scrollHeight="400px">
-        <ng-template pTemplate="header">
+        <ng-template #header>
             <tr>
                 <th style="min-width:100px">Id</th>
                 <th style="min-width:200px">Name</th>
@@ -132,7 +132,7 @@ export class HorizontalScrollDoc {
                 <th style="min-width:200px">Representative</th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-customer>
+        <ng-template #body let-customer>
             <tr>
                 <td>{{customer.id}}</td>
                 <td>{{customer.name}}</td>
@@ -145,7 +145,7 @@ export class HorizontalScrollDoc {
                 <td>{{customer.representative.name}}</td>
             </tr>
         </ng-template>
-        <ng-template pTemplate="footer">
+        <ng-template #footer>
             <tr>
                 <td>Id</td>
                 <td>Name</td>
@@ -163,7 +163,7 @@ export class HorizontalScrollDoc {
         typescript: `import { Component, OnInit } from '@angular/core';
 import { Customer } from '@domain/customer';
 import { CustomerService } from '@service/customerservice';
-import { TableModule } from 'primeng/table';
+import { Table } from 'primeng/table';
 import { HttpClientModule } from '@angular/common/http';
 
 @Component({

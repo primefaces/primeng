@@ -24,14 +24,14 @@ export class DisabledDoc {
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { InputNumberModule } from 'primeng/inputnumber';
+import { InputNumber } from 'primeng/inputnumber';
 import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'input-number-disabled-demo',
     templateUrl: './input-number-disabled-demo.html',
     standalone: true,
-    imports: [FormsModule, InputNumberModule]
+    imports: [FormsModule, InputNumber]
 })
 export class InputNumberDisabledDemo {
     value1: number = 50;

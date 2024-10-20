@@ -1,29 +1,25 @@
-import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
+    booleanAttribute,
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     ElementRef,
     EventEmitter,
-    Inject,
+    forwardRef,
+    inject,
     Input,
     NgModule,
     NgZone,
+    numberAttribute,
     OnDestroy,
     Output,
-    PLATFORM_ID,
-    Renderer2,
     ViewChild,
     ViewEncapsulation,
-    booleanAttribute,
-    forwardRef,
-    inject,
-    numberAttribute,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { DomHandler } from 'primeng/dom';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
-import { AutoFocusModule } from 'primeng/autofocus';
+import { AutoFocus } from 'primeng/autofocus';
 import { SliderChangeEvent, SliderSlideEndEvent } from './slider.interface';
 import { SliderStyle } from './style/sliderstyle';
 import { BaseComponent } from 'primeng/basecomponent';
@@ -39,6 +35,8 @@ export const SLIDER_VALUE_ACCESSOR: any = {
  */
 @Component({
     selector: 'p-slider',
+    standalone: true,
+    imports: [CommonModule, AutoFocus],
     template: `
         <div
             [ngStyle]="style"
@@ -741,8 +739,7 @@ export class Slider extends BaseComponent implements OnDestroy, ControlValueAcce
 }
 
 @NgModule({
-    imports: [CommonModule, AutoFocusModule],
+    imports: [Slider],
     exports: [Slider],
-    declarations: [Slider],
 })
 export class SliderModule {}

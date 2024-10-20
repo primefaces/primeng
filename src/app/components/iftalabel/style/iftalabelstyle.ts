@@ -66,7 +66,7 @@ const theme = ({ dt }) => `
 `;
 
 const classes = {
-    root: 'p-iftalabel'
+    root: 'p-iftalabel',
 };
 
 @Injectable()

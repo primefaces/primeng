@@ -13,7 +13,14 @@ interface City {
             <p>When <i>showClear</i> is enabled, a clear icon is added to reset the Select.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-select [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" [showClear]="true" placeholder="Select a City" class="w-full md:w-56"/>
+            <p-select
+                [options]="cities"
+                [(ngModel)]="selectedCity"
+                optionLabel="name"
+                [showClear]="true"
+                placeholder="Select a City"
+                class="w-full md:w-56"
+            />
         </div>
         <app-code [code]="code" selector="select-clear-icon-demo"></app-code>
     `,
@@ -42,7 +49,7 @@ export class ClearIconDoc implements OnInit {
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SelectModule } from 'primeng/select';
+import { Select } from 'primeng/select';
 
 interface City {
     name: string;
@@ -53,7 +60,7 @@ interface City {
     selector: 'select-clear-icon-demo',
     templateUrl: './select-clear-icon-demo.html',
     standalone: true,
-    imports: [FormsModule, SelectModule]
+    imports: [FormsModule, Select]
 })
 export class SelectClearIconDemo implements OnInit {
     cities: City[] | undefined;

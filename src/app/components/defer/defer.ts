@@ -1,30 +1,29 @@
-import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser } from '@angular/common';
 import {
     AfterViewInit,
-    ChangeDetectorRef,
     ContentChild,
     Directive,
-    ElementRef,
     EmbeddedViewRef,
     EventEmitter,
-    Inject,
+    inject,
     NgModule,
     OnDestroy,
     Output,
-    PLATFORM_ID,
-    Renderer2,
     TemplateRef,
-    ViewContainerRef,
+    ViewContainerRef
 } from '@angular/core';
+import { BaseComponent } from 'primeng/basecomponent';
 import { Nullable } from 'primeng/ts-helpers';
+
 /**
  * Defer postpones the loading the content that is initially not in the viewport until it becomes visible on scroll.
  * @group Components
  */
 @Directive({
     selector: '[pDefer]',
+    standalone: true,
 })
-export class DeferredLoader implements AfterViewInit, OnDestroy {
+export class Defer extends BaseComponent implements AfterViewInit, OnDestroy {
     /**
      * Callback to invoke when deferred content is loaded.
      * @param {Event} event - Browser event.
@@ -38,18 +37,7 @@ export class DeferredLoader implements AfterViewInit, OnDestroy {
 
     view: Nullable<EmbeddedViewRef<any>>;
 
-    window: Window;
-
-    constructor(
-        @Inject(DOCUMENT) private document: Document,
-        @Inject(PLATFORM_ID) private platformId: any,
-        public el: ElementRef,
-        public renderer: Renderer2,
-        public viewContainer: ViewContainerRef,
-        private cd: ChangeDetectorRef,
-    ) {
-        this.window = this.document.defaultView as Window;
-    }
+    viewContainer: ViewContainerRef = inject(ViewContainerRef);
 
     ngAfterViewInit() {
         if (isPlatformBrowser(this.platformId)) {
@@ -58,7 +46,7 @@ export class DeferredLoader implements AfterViewInit, OnDestroy {
             }
 
             if (!this.isLoaded()) {
-                this.documentScrollListener = this.renderer.listen(this.window, 'scroll', () => {
+                this.documentScrollListener = this.renderer.listen(this.document.defaultView, 'scroll', () => {
                     if (this.shouldLoad()) {
                         this.load();
                         this.documentScrollListener && this.documentScrollListener();
@@ -101,8 +89,7 @@ export class DeferredLoader implements AfterViewInit, OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule],
-    exports: [DeferredLoader],
-    declarations: [DeferredLoader],
+    imports: [Defer],
+    exports: [Defer],
 })
 export class DeferModule {}

@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
             <p>A cancel icon is displayed to reset the value by default, set <i>cancel</i> as false to remove this option.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-rating [(ngModel)]="value"/>
+            <p-rating [(ngModel)]="value" />
         </div>
         <app-code [code]="code" selector="rating-without-cancel-demo"></app-code>
     `,
@@ -25,13 +25,13 @@ export class WithoutCancelDoc {
 
         typescript: `import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RatingModule } from 'primeng/rating';
+import { Rating } from 'primeng/rating';
 
 @Component({
     selector: 'rating-without-cancel-demo',
     templateUrl: './rating-without-cancel-demo.html',
     standalone: true,
-    imports: [FormsModule, RatingModule]
+    imports: [FormsModule, Rating]
 })
 export class RatingWithoutCancelDemo {
     value!: number;

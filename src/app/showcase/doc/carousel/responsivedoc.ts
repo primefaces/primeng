@@ -10,13 +10,14 @@ import { ProductService } from '@service/productservice';
             <p>
                 Carousel supports specific configuration per screen size with the <i>responsiveOptions</i> property that takes an array of
                 objects where each object defines the max-width <i>breakpoint</i>, <i>numVisible</i> for the number of items items per page
-                and <i>numScroll</i> for number of items to scroll. When <i>responsiveOptions</i> is defined, the <i>numScroll</i> and
+                and <i>numScroll</i> for number of items to scroll. When <i>responsiveOptions</i> is defined, the <i>numScroll</i>
+                and
                 <i>numVisible</i> properties of the Carousel are used as default when there is breakpoint that applies.
             </p>
         </app-docsectiontext>
         <div class="card">
             <p-carousel [value]="products" [numVisible]="3" [numScroll]="1" [responsiveOptions]="responsiveOptions">
-                <ng-template let-product pTemplate="item">
+                <ng-template let-product #item>
                     <div class="border border-surface-200 dark:border-surface-700 rounded m-2 p-4">
                         <div class="mb-4">
                             <div class="relative mx-auto">
@@ -59,64 +60,23 @@ export class ResponsiveDoc implements OnInit {
         private cdr: ChangeDetectorRef,
     ) {}
 
-    ngOnInit() {
-        this.productService.getProductsSmall().then((products) => {
-            this.products = products;
-            this.cdr.detectChanges();
-        });
-
-        this.responsiveOptions = [
-            {
-                breakpoint: '1400px',
-                numVisible: 2,
-                numScroll: 1,
-            },
-            {
-                breakpoint: '1199px',
-                numVisible: 3,
-                numScroll: 1,
-            },
-            {
-                breakpoint: '767px',
-                numVisible: 2,
-                numScroll: 1,
-            },
-            {
-                breakpoint: '575px',
-                numVisible: 1,
-                numScroll: 1,
-            },
-        ];
-    }
-
-    getSeverity(status: string) {
-        switch (status) {
-            case 'INSTOCK':
-                return 'success';
-            case 'LOWSTOCK':
-                return 'warn';
-            case 'OUTOFSTOCK':
-                return 'danger';
-        }
-    }
-
     code: Code = {
-        basic: `<p-carousel 
-    [value]="products" 
-    [numVisible]="3" 
-    [numScroll]="1" 
+        basic: `<p-carousel
+    [value]="products"
+    [numVisible]="3"
+    [numScroll]="1"
     [responsiveOptions]="responsiveOptions">
-        <ng-template let-product pTemplate="item">
+        <ng-template let-product #item>
             <div class="border border-surface-200 dark:border-surface-700 rounded m-2 p-4">
                 <div class="mb-4">
                     <div class="relative mx-auto">
-                        <img 
-                            src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" 
-                            [alt]="product.name" 
+                        <img
+                            src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}"
+                            [alt]="product.name"
                             class="w-full rounded-border" />
-                        <p-tag 
-                            [value]="product.inventoryStatus" 
-                            [severity]="getSeverity(product.inventoryStatus)" 
+                        <p-tag
+                            [value]="product.inventoryStatus"
+                            [severity]="getSeverity(product.inventoryStatus)"
                             class="absolute"
                             styleClass="dark:!bg-surface-900"
                             [ngStyle]="{ 'left.px': 5, 'top.px': 5 }" />
@@ -138,22 +98,22 @@ export class ResponsiveDoc implements OnInit {
         </ng-template>
 </p-carousel>`,
         html: `<div class="card">
-    <p-carousel 
-        [value]="products" 
-        [numVisible]="3" 
-        [numScroll]="1" 
+    <p-carousel
+        [value]="products"
+        [numVisible]="3"
+        [numScroll]="1"
         [responsiveOptions]="responsiveOptions">
-            <ng-template let-product pTemplate="item">
+            <ng-template let-product #item>
                 <div class="border border-surface-200 dark:border-surface-700 rounded m-2 p-4">
                     <div class="mb-4">
                         <div class="relative mx-auto">
-                            <img 
-                                src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" 
-                                [alt]="product.name" 
+                            <img
+                                src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}"
+                                [alt]="product.name"
                                 class="w-full rounded-border" />
-                            <p-tag 
-                                [value]="product.inventoryStatus" 
-                                [severity]="getSeverity(product.inventoryStatus)" 
+                            <p-tag
+                                [value]="product.inventoryStatus"
+                                [severity]="getSeverity(product.inventoryStatus)"
                                 class="absolute"
                                 styleClass="dark:!bg-surface-900"
                                 [ngStyle]="{ 'left.px': 5, 'top.px': 5 }" />
@@ -178,15 +138,15 @@ export class ResponsiveDoc implements OnInit {
         typescript: `import { Component, OnInit } from '@angular/core';
 import { Product } from '@domain/product';
 import { ProductService } from '@service/productservice';
-import { CarouselModule } from 'primeng/carousel';
+import { Carousel } from 'primeng/carousel';
 import { ButtonModule } from 'primeng/button';
-import { TagModule } from 'primeng/tag';
+import { Tag } from 'primeng/tag';
 
 @Component({
     selector: 'carousel-responsive-demo',
     templateUrl: './carousel-responsive-demo.html',
     standalone: true,
-    imports: [CarouselModule, ButtonModule, TagModule],
+    imports: [Carousel, ButtonModule, Tag],
     providers: [ProductService]
 })
 export class CarouselResponsiveDemo {
@@ -201,7 +161,7 @@ export class CarouselResponsiveDemo {
             this.products = products;
         });
 
-      
+
         this.responsiveOptions = [
             {
                 breakpoint: '1400px',
@@ -239,7 +199,7 @@ export class CarouselResponsiveDemo {
 }`,
 
         data: `
-/* ProductService */        
+/* ProductService */
 {
     id: '1000',
     code: 'f230fh0g3',
@@ -255,6 +215,47 @@ export class CarouselResponsiveDemo {
 ...`,
         service: ['ProductService'],
     };
+
+    getSeverity(status: string) {
+        switch (status) {
+            case 'INSTOCK':
+                return 'success';
+            case 'LOWSTOCK':
+                return 'warn';
+            case 'OUTOFSTOCK':
+                return 'danger';
+        }
+    }
+
+    ngOnInit() {
+        this.productService.getProductsSmall().then((products) => {
+            this.products = products;
+            this.cdr.detectChanges();
+        });
+
+        this.responsiveOptions = [
+            {
+                breakpoint: '1400px',
+                numVisible: 2,
+                numScroll: 1,
+            },
+            {
+                breakpoint: '1199px',
+                numVisible: 3,
+                numScroll: 1,
+            },
+            {
+                breakpoint: '767px',
+                numVisible: 2,
+                numScroll: 1,
+            },
+            {
+                breakpoint: '575px',
+                numVisible: 1,
+                numScroll: 1,
+            },
+        ];
+    }
 
     extFiles = [
         {

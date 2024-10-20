@@ -44,7 +44,7 @@ export class IconFieldDemo {
         {
             id: 'iftalabel',
             label: 'Ifta Label',
-            component: IftaLabelDoc
+            component: IftaLabelDoc,
         },
         {
             id: 'accessibility',

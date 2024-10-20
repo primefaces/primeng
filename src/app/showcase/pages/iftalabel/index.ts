@@ -38,7 +38,7 @@ export class IftaLabelDemo {
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc
+            component: AccessibilityDoc,
         },
     ];
 }

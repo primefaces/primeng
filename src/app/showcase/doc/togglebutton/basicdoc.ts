@@ -25,13 +25,13 @@ export class BasicDoc {
 
         typescript: `import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ToggleButtonModule } from 'primeng/togglebutton';
+import { ToggleButton } from 'primeng/togglebutton';
 
 @Component({
     selector: 'toggle-button-basic-demo',
     templateUrl: './toggle-button-basic-demo.html',
     standalone: true,
-    imports: [FormsModule, ToggleButtonModule]
+    imports: [FormsModule, ToggleButton]
 })
 export class ToggleButtonBasicDemo {
     checked: boolean = false;

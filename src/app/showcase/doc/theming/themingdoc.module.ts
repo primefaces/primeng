@@ -7,7 +7,7 @@ import { AppDocModule } from '@layout/doc/app.doc.module';
 import { AppCodeModule } from '@layout/doc/app.code.component';
 import { ArchitectureDoc } from './architecturedoc';
 import { TabsModule } from 'primeng/tabs';
-import { ToggleSwitchModule } from 'primeng/toggleswitch';
+import { ToggleSwitch } from 'primeng/toggleswitch';
 import { FormsModule } from '@angular/forms';
 import { BootstrapDoc } from './bootstrapdoc';
 import { CaseDoc } from './casedoc';
@@ -39,17 +39,7 @@ import { UsePresetDoc } from './usepresetdoc';
 import { SurfaceDoc } from './surfacedoc';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        RouterModule,
-        TabsModule,
-        AppCodeModule,
-        AppDocModule,
-        ButtonModule,
-        PanelModule,
-        ToggleSwitchModule,
-        FormsModule,
-    ],
+    imports: [CommonModule, RouterModule, TabsModule, AppCodeModule, AppDocModule, ButtonModule, PanelModule, ToggleSwitch, FormsModule],
     declarations: [
         ArchitectureDoc,
         BootstrapDoc,

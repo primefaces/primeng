@@ -64,13 +64,13 @@ export class FormatDoc {
 
         typescript: `import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ColorPickerModule } from 'primeng/colorpicker';
+import { ColorPicker } from 'primeng/colorpicker';
 
 @Component({
     selector: 'color-picker-format-demo',
     templateUrl: './color-picker-format-demo.html',
     standalone: true,
-    imports: [FormsModule, ColorPickerModule]
+    imports: [FormsModule, ColorPicker]
 })
 export class ColorPickerFormatDemo {
     color: string = '#6466f1';

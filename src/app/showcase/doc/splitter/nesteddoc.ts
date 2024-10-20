@@ -9,20 +9,20 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card">
             <p-splitter [style]="{ height: '300px' }" [panelSizes]="[20, 80]" [minSizes]="[10, 0]" styleClass="mb-8">
-                <ng-template pTemplate>
+                <ng-template #panel>
                     <div class="col flex items-center justify-center">Panel 1</div>
                 </ng-template>
-                <ng-template pTemplate>
+                <ng-template #panel>
                     <p-splitter layout="vertical" [panelSizes]="[15, 85]">
-                        <ng-template pTemplate>
+                        <ng-template #panel>
                             <div style="flex-grow: 1;" class="flex items-center justify-center">Panel 2</div>
                         </ng-template>
-                        <ng-template pTemplate>
+                        <ng-template #panel>
                             <p-splitter [panelSizes]="[20, 80]">
-                                <ng-template pTemplate>
+                                <ng-template #panel>
                                     <div class="col flex items-center justify-center">Panel 3</div>
                                 </ng-template>
-                                <ng-template pTemplate>
+                                <ng-template #panel>
                                     <div class="col flex items-center justify-center">Panel 4</div>
                                 </ng-template>
                             </p-splitter>

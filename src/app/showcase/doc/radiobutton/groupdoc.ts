@@ -81,14 +81,14 @@ export class GroupDoc {
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { RadioButtonModule } from 'primeng/radiobutton';
+import { RadioButton } from 'primeng/radiobutton';
 import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'radio-button-group-demo',
     templateUrl: './radio-button-group-demo.html',
     standalone: true,
-    imports: [FormsModule, RadioButtonModule]
+    imports: [FormsModule, RadioButton]
 })
 export class RadioButtonGroupDemo {
     ingredient!: string;

@@ -5,7 +5,6 @@ import { UniqueComponentId } from 'primeng/utils';
 @Component({
     selector: 'StarIcon',
     standalone: true,
-    imports: [BaseIcon],
     template: `
         <svg
             width="14"

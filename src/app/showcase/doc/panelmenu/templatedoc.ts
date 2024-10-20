@@ -9,8 +9,8 @@ import { Code } from '@domain/code';
             <p>PanelMenu requires a collection of menuitems as its <i>model</i>.</p>
         </app-docsectiontext>
         <div class="card flex flex-col items-center">
-            <p-panelmenu [model]="items" styleClass="w-full md:w-80">
-                <ng-template pTemplate="item" let-item>
+            <p-panelMenu [model]="items" styleClass="w-full md:w-80">
+                <ng-template #item let-item>
                     <a pRipple class="flex items-center px-4 py-2 cursor-pointer group">
                         <i [class]="item.icon + ' text-primary group-hover:text-inherit'"></i>
                         <span class="ml-2">{{ item.label }}</span>
@@ -22,7 +22,7 @@ import { Code } from '@domain/code';
                         >
                     </a>
                 </ng-template>
-            </p-panelmenu>
+            </p-panelMenu>
         </div>
         <app-code [code]="code" selector="panel-menu-template-demo"></app-code>
     `,
@@ -116,8 +116,8 @@ export class TemplateDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-panelmenu [model]="items" styleClass="w-full md:w-80">
-    <ng-template pTemplate="item" let-item>
+        basic: `<p-panelMenu [model]="items" styleClass="w-full md:w-80">
+    <ng-template #item let-item>
         <a pRipple class="flex items-center px-4 py-2 cursor-pointer group">
             <i [class]="item.icon + ' text-primary group-hover:text-inherit'"></i>
             <span class="ml-2">
@@ -130,11 +130,11 @@ export class TemplateDoc implements OnInit {
             </span>
         </a>
     </ng-template>
-</p-panelmenu>`,
+</p-panelMenu>`,
 
         html: `<div class="card flex flex-col items-center">
-    <p-panelmenu [model]="items" styleClass="w-full md:w-80">
-        <ng-template pTemplate="item" let-item>
+    <p-panelMenu [model]="items" styleClass="w-full md:w-80">
+        <ng-template #item let-item>
             <a pRipple class="flex items-center px-4 py-2 cursor-pointer group">
                 <i [class]="item.icon + ' text-primary group-hover:text-inherit'"></i>
                 <span class="ml-2">
@@ -147,21 +147,21 @@ export class TemplateDoc implements OnInit {
                 </span>
             </a>
         </ng-template>
-    </p-panelmenu>
+    </p-panelMenu>
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
-import { PanelMenuModule } from 'primeng/panelmenu';
+import { PanelMenu } from 'primeng/panelmenu';
 import { BadgeModule } from 'primeng/badge';
-import { RippleModule } from 'primeng/ripple';
+import { Ripple } from 'primeng/ripple';
 import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'panel-menu-template-demo',
     templateUrl: './panel-menu-template-demo.html',
     standalone: true,
-    imports: [PanelMenuModule, BadgeModule, RippleModule, CommonModule]
+    imports: [PanelMenu, BadgeModule, Ripple, CommonModule]
 })
 export class PanelMenuTemplateDemo implements OnInit {
     items: MenuItem[];

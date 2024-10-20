@@ -7,9 +7,9 @@ export default {
         positionX: '{form.field.padding.x}',
         top: '{form.field.padding.y}',
         fontSize: '0.875rem',
-        fontWeight: '400'
+        fontWeight: '400',
     },
     input: {
-        paddingTop: '1.5rem'
-    }
+        paddingTop: '1.5rem',
+    },
 };

@@ -2,11 +2,11 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { FileUploadModule } from 'primeng/fileupload';
+import { FileUpload } from 'primeng/fileupload';
 import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
-import { TagModule } from 'primeng/tag';
-import { ProgressBarModule } from 'primeng/progressbar';
+import { Tag } from 'primeng/tag';
+import { ProgressBar } from 'primeng/progressbar';
 import { AppDocModule } from '@layout/doc/app.doc.module';
 import { AppCodeModule } from '@layout/doc/app.code.component';
 import { AdvancedDoc } from './advanceddoc';
@@ -25,10 +25,10 @@ import { BadgeModule } from 'primeng/badge';
         AppCodeModule,
         AppDocModule,
         ButtonModule,
-        TagModule,
-        ProgressBarModule,
+        Tag,
+        ProgressBar,
         ToastModule,
-        FileUploadModule,
+        FileUpload,
         BadgeModule,
         RouterModule,
     ],

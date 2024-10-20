@@ -19,9 +19,10 @@ import { StyleDoc } from './styledoc';
 import { TextDoc } from './textdoc';
 import { TemplateDoc } from './templatedoc';
 import { IconsDoc } from './iconsdoc';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
-    imports: [CommonModule, AppCodeModule, AppDocModule, SplitButtonModule, ToastModule],
+    imports: [CommonModule, AppCodeModule, AppDocModule, SplitButtonModule, ToastModule, RouterModule],
     exports: [AppDocModule],
     declarations: [
         ImportDoc,

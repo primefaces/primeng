@@ -49,7 +49,7 @@ export class DisabledDoc {
 
         typescript: `import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SelectModule } from 'primeng/select';
+import { Select } from 'primeng/select';
 
 interface City {
     name: string;
@@ -60,7 +60,7 @@ interface City {
     selector: 'select-disabled-demo',
     templateUrl: './select-disabled-demo.html',
     standalone: true,
-    imports: [FormsModule, SelectModule]
+    imports: [FormsModule, Select]
 })
 export class SelectDisabledDemo {
     cities: City[] | undefined;

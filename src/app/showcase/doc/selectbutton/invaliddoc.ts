@@ -36,13 +36,13 @@ export class InvalidDoc {
 
         typescript: `import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SelectButtonModule } from 'primeng/selectbutton';
+import { SelectButton } from 'primeng/selectbutton';
         
 @Component({
     selector: 'select-button-invalid-demo',
     templateUrl: './select-button-invalid-demo.html',
     standalone: true,
-    imports: [FormsModule, SelectButtonModule]
+    imports: [FormsModule, SelectButton]
 })
 export class SelectButtonInvalidDemo {
     stateOptions: any[] = [

@@ -57,13 +57,13 @@ export class FilterDoc implements OnInit {
         typescript: `import { Component, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { NodeService } from '@service/nodeservice';
-import { TreeModule } from 'primeng/tree';
+import { Tree } from 'primeng/tree';
 
 @Component({
     selector: 'tree-filter-demo',
     templateUrl: './tree-filter-demo.html',
     standalone: true,
-    imports: [TreeModule],
+    imports: [Tree],
     providers: [NodeService]
 })
 export class TreeFilterDemo implements OnInit {

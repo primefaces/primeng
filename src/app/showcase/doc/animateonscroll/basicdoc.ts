@@ -258,13 +258,13 @@ export class BasicDoc {
     </div>
 </div>`,
         typescript: `import { Component } from '@angular/core';
-import { AnimateOnScrollModule } from 'primeng/animateonscroll';
+import { AnimateOnScroll } from 'primeng/animateonscroll';
 
 @Component({
     selector: 'animate-on-scroll-basic-demo',
     templateUrl: './animate-on-scroll-basic-demo.html',
     standalone: true,
-    imports: [AnimateOnScrollModule],
+    imports: [AnimateOnScroll],
     styles: [
         \`
             :host {

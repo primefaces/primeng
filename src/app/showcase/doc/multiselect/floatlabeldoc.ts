@@ -113,7 +113,7 @@ export class FloatLabelDoc implements OnInit {
         typescript: `import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MultiSelectModule } from 'primeng/multiselect';
-import { FloatLabelModule } from 'primeng/floatlabel';
+import { FloatLabel } from 'primeng/floatlabel';
 
 interface City {
     name: string,
@@ -124,7 +124,7 @@ interface City {
     selector: 'multi-select-floatlabel-demo',
     templateUrl: './multi-select-floatlabel-demo.html',
     standalone: true,
-    imports: [FormsModule, MultiSelectModule, FloatLabelModule]
+    imports: [FormsModule, MultiSelectModule, FloatLabel]
 })
 export class MultiSelectFloatlabelDemo implements OnInit {
     cities!: City[];

@@ -179,17 +179,6 @@ export class RowEditDoc {
         delete this.clonedProducts[product.id as string];
     }
 
-    getSeverity(status: string) {
-        switch (status) {
-            case 'INSTOCK':
-                return 'success';
-            case 'LOWSTOCK':
-                return 'warn';
-            case 'OUTOFSTOCK':
-                return 'danger';
-        }
-    }
-
     code: Code = {
         basic: `<p-toast></p-toast>
 <p-table [value]="products" dataKey="id" editMode="row" [tableStyle]="{'min-width': '50rem'}">
@@ -207,9 +196,9 @@ export class RowEditDoc {
             <td>
                 <p-cellEditor>
                     <ng-template pTemplate="input">
-                        <input 
-                            pInputText 
-                            type="text" 
+                        <input
+                            pInputText
+                            type="text"
                             [(ngModel)]="product.code" />
                     </ng-template>
                     <ng-template pTemplate="output">
@@ -220,9 +209,9 @@ export class RowEditDoc {
             <td>
                 <p-cellEditor>
                     <ng-template pTemplate="input">
-                        <input 
-                            pInputText type="text" 
-                            [(ngModel)]="product.name" 
+                        <input
+                            pInputText type="text"
+                            [(ngModel)]="product.name"
                             required />
                     </ng-template>
                     <ng-template pTemplate="output">
@@ -233,15 +222,15 @@ export class RowEditDoc {
             <td>
                 <p-cellEditor>
                     <ng-template pTemplate="input">
-                        <p-select 
-                            [options]="statuses" 
-                            appendTo="body" 
-                            [(ngModel)]="product.inventoryStatus" 
+                        <p-select
+                            [options]="statuses"
+                            appendTo="body"
+                            [(ngModel)]="product.inventoryStatus"
                             [style]="{'width':'100%'}" />
                     </ng-template>
                     <ng-template pTemplate="output">
-                        <p-tag 
-                            [value]="product.inventoryStatus" 
+                        <p-tag
+                            [value]="product.inventoryStatus"
                             [severity]="getSeverity(product.inventoryStatus)" />
                     </ng-template>
                 </p-cellEditor>
@@ -249,9 +238,9 @@ export class RowEditDoc {
             <td>
                 <p-cellEditor>
                     <ng-template pTemplate="input">
-                        <input 
-                            pInputText 
-                            type="text" 
+                        <input
+                            pInputText
+                            type="text"
                             [(ngModel)]="product.price" />
                     </ng-template>
                     <ng-template pTemplate="output">
@@ -319,8 +308,8 @@ export class RowEditDoc {
                 <td>
                     <p-cellEditor>
                         <ng-template pTemplate="input">
-                            <input 
-                                pInputText type="text" 
+                            <input
+                                pInputText type="text"
                                 [(ngModel)]="product.code" />
                         </ng-template>
                         <ng-template pTemplate="output">
@@ -331,9 +320,9 @@ export class RowEditDoc {
                 <td>
                     <p-cellEditor>
                         <ng-template pTemplate="input">
-                            <input 
-                                pInputText type="text" 
-                                [(ngModel)]="product.name" 
+                            <input
+                                pInputText type="text"
+                                [(ngModel)]="product.name"
                                 required />
                         </ng-template>
                         <ng-template pTemplate="output">
@@ -344,15 +333,15 @@ export class RowEditDoc {
                 <td>
                     <p-cellEditor>
                         <ng-template pTemplate="input">
-                            <p-select 
-                                [options]="statuses" 
-                                appendTo="body" 
-                                [(ngModel)]="product.inventoryStatus" 
+                            <p-select
+                                [options]="statuses"
+                                appendTo="body"
+                                [(ngModel)]="product.inventoryStatus"
                                 [style]="{'width':'100%'}" />
                         </ng-template>
                         <ng-template pTemplate="output">
-                            <p-tag 
-                                [value]="product.inventoryStatus" 
+                            <p-tag
+                                [value]="product.inventoryStatus"
                                 [severity]="getSeverity(product.inventoryStatus)" />
                         </ng-template>
                     </p-cellEditor>
@@ -360,8 +349,8 @@ export class RowEditDoc {
                 <td>
                     <p-cellEditor>
                         <ng-template pTemplate="input">
-                            <input 
-                                pInputText type="text" 
+                            <input
+                                pInputText type="text"
                                 [(ngModel)]="product.price" />
                         </ng-template>
                         <ng-template pTemplate="output">
@@ -498,6 +487,17 @@ export class TableRowEditDemo implements OnInit{
 ...`,
         service: ['ProductService'],
     };
+
+    getSeverity(status: string) {
+        switch (status) {
+            case 'INSTOCK':
+                return 'success';
+            case 'LOWSTOCK':
+                return 'warn';
+            case 'OUTOFSTOCK':
+                return 'danger';
+        }
+    }
 
     extFiles = [
         {

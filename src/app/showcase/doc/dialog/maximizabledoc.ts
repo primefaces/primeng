@@ -67,13 +67,13 @@ export class MaximizableDoc {
 
         typescript: `import { Component } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
-import { DialogModule } from 'primeng/dialog';
+import { Dialog } from 'primeng/dialog';
 
 @Component({
     selector: 'dialog-maximizable-demo',
     templateUrl: './dialog-maximizable-demo.html',
     standalone: true,
-    imports: [DialogModule, ButtonModule]
+    imports: [Dialog, ButtonModule]
 })
 export class DialogMaximizableDemo {
     visible: boolean = false;

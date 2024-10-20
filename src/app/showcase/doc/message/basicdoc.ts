@@ -22,13 +22,13 @@ export class BasicDoc {
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { MessageModule } from 'primeng/message';
+import { Message } from 'primeng/message';
 
 @Component({
     selector: 'message-basic-demo',
     templateUrl: './message-basic-demo.html',
     standalone: true,
-    imports: [MessageModule]
+    imports: [Message]
 })
 export class MessageBasicDemo {}`,
     };

@@ -175,7 +175,7 @@ export class TemplateDoc {
 import { PaginatorModule } from 'primeng/paginator';
 import { ButtonModule } from 'primeng/button';
 import { DividerModule } from 'primeng/divider';
-import { SliderModule } from 'primeng/slider';
+import { Slider } from 'primeng/slider';
 import { FormsModule } from '@angular/forms';
         
 interface PageEvent {
@@ -189,7 +189,7 @@ interface PageEvent {
     selector: 'paginator-template-demo',
     templateUrl: './paginator-template-demo.html',
     standalone: true,
-    imports: [PaginatorModule, ButtonModule, DividerModule, SliderModule, FormsModule]
+    imports: [PaginatorModule, ButtonModule, DividerModule, Slider, FormsModule]
 })
 export class PaginatorTemplateDemo {
     first1: number = 0;

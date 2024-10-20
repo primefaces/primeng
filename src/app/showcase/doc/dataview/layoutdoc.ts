@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { Code } from '@domain/code';
 import { Product } from '@domain/product';
 import { ProductService } from '@service/productservice';
@@ -13,18 +13,18 @@ import { ProductService } from '@service/productservice';
             </p>
         </app-docsectiontext>
         <div class="card">
-            <p-dataview #dv [value]="products" [layout]="layout">
-                <ng-template pTemplate="header">
+            <p-dataview #dv [value]="products()" [layout]="layout">
+                <ng-template #header>
                     <div class="flex justify-end">
                         <p-selectbutton [(ngModel)]="layout" [options]="options" [allowEmpty]="false">
-                            <ng-template pTemplate="item" let-item>
+                            <ng-template #item let-item>
                                 <i class="pi " [ngClass]="{ 'pi-bars': item === 'list', 'pi-table': item === 'grid' }"></i>
                             </ng-template>
                         </p-selectbutton>
                     </div>
                 </ng-template>
-                <ng-template pTemplate="list" let-products>
-                    <div *ngFor="let item of products; let first = first">
+                <ng-template #list let-items>
+                    <div *ngFor="let item of items; let first = first">
                         <div
                             class="flex flex-col sm:flex-row sm:items-center p-6 gap-4"
                             [ngClass]="{ 'border-t border-surface-200 dark:border-surface-700': !first }"
@@ -77,9 +77,9 @@ import { ProductService } from '@service/productservice';
                         </div>
                     </div>
                 </ng-template>
-                <ng-template let-product pTemplate="grid" let-products>
+                <ng-template #grid let-items>
                     <div class="grid grid-cols-12 gap-4">
-                        <div *ngFor="let product of products" class="col-span-12 sm:col-span-6 md:col-span-4 xl:col-span-6 p-2">
+                        <div *ngFor="let product of items" class="col-span-12 sm:col-span-6 md:col-span-4 xl:col-span-6 p-2">
                             <div
                                 class="p-6 border border-surface-200 dark:border-surface-700 bg-surface-0 dark:bg-surface-900 rounded flex flex-col"
                             >
@@ -143,49 +143,26 @@ import { ProductService } from '@service/productservice';
     `,
 })
 export class LayoutDoc {
-    layout: string = 'grid';
+    layout: 'grid' | 'list' = 'grid';
 
-    products!: Product[];
+    products = signal<any>([]);
 
     options = ['list', 'grid'];
 
     constructor(private productService: ProductService) {}
-
-    ngOnInit() {
-        this.productService.getProducts().then((data) => {
-            this.products = data.slice(0, 12);
-        });
-    }
-
-    getSeverity(product: Product) {
-        switch (product.inventoryStatus) {
-            case 'INSTOCK':
-                return 'success';
-
-            case 'LOWSTOCK':
-                return 'warn';
-
-            case 'OUTOFSTOCK':
-                return 'danger';
-
-            default:
-                return null;
-        }
-    }
-
     code: Code = {
-        basic: `<p-dataview #dv [value]="products" [layout]="layout">
-    <ng-template pTemplate="header">
+        basic: `<p-dataview #dv [value]="products()" [layout]="layout">
+    <ng-template #header>
         <div class="flex justify-end">
             <p-selectbutton [(ngModel)]="layout" [options]="options" [allowEmpty]="false">
-                <ng-template pTemplate="item" let-item>
+                <ng-template #item let-item>
                     <i class="pi " [ngClass]="{ 'pi-bars': item === 'list', 'pi-table': item === 'grid' }"></i>
                 </ng-template>
             </p-selectbutton>
         </div>
     </ng-template>
-    <ng-template pTemplate="list" let-products>
-        <div *ngFor="let item of products; let first = first">
+    <ng-template #list let-items>
+        <div *ngFor="let item of items; let first = first">
             <div
                 class="flex flex-col sm:flex-row sm:items-center p-6 gap-4"
                 [ngClass]="{ 'border-t border-surface-200 dark:border-surface-700': !first }"
@@ -208,9 +185,7 @@ export class LayoutDoc {
                 <div class="flex flex-col md:flex-row justify-between md:items-center flex-1 gap-6">
                     <div class="flex flex-row md:flex-col justify-between items-start gap-2">
                         <div>
-                            <span class="font-medium text-surface-500 dark:text-surface-400 text-sm">{{
-                                item.category
-                            }}</span>
+                            <span class="font-medium text-surface-500 dark:text-surface-400 text-sm">{{ item.category }}</span>
                             <div class="text-lg font-medium mt-2">{{ item.name }}</div>
                         </div>
                         <div class="bg-surface-100 p-1" style="border-radius: 30px">
@@ -224,7 +199,7 @@ export class LayoutDoc {
                         </div>
                     </div>
                     <div class="flex flex-col md:items-end gap-8">
-                        <span class="text-xl font-semibold">{{ item.price | currency : 'USD' }}</span>
+                        <span class="text-xl font-semibold">{{ item.price | currency: 'USD' }}</span>
                         <div class="flex flex-row-reverse md:flex-row gap-2">
                             <button pButton icon="pi pi-heart" [outlined]="true"></button>
                             <button
@@ -240,12 +215,9 @@ export class LayoutDoc {
             </div>
         </div>
     </ng-template>
-    <ng-template let-product pTemplate="grid" let-products>
+    <ng-template #grid let-items>
         <div class="grid grid-cols-12 gap-4">
-            <div
-                *ngFor="let product of products"
-                class="col-span-12 sm:col-span-6 md:col-span-4 xl:col-span-6 p-2"
-            >
+            <div *ngFor="let product of items" class="col-span-12 sm:col-span-6 md:col-span-4 xl:col-span-6 p-2">
                 <div
                     class="p-6 border border-surface-200 dark:border-surface-700 bg-surface-0 dark:bg-surface-900 rounded flex flex-col"
                 >
@@ -253,10 +225,7 @@ export class LayoutDoc {
                         <div class="relative mx-auto">
                             <img
                                 class="rounded w-full"
-                                [src]="
-                                    'https://primefaces.org/cdn/primeng/images/demo/product/' +
-                                    product.image
-                                "
+                                [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image"
                                 [alt]="product.name"
                                 style="max-width: 300px"
                             />
@@ -283,17 +252,13 @@ export class LayoutDoc {
                                     class="bg-surface-0 flex products-center gap-2 justify-center py-1 px-2"
                                     style="border-radius: 30px; box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.04), 0px 1px 2px 0px rgba(0, 0, 0, 0.06)"
                                 >
-                                    <span class="text-surface-900 font-medium text-sm">{{
-                                        product.rating
-                                    }}</span>
+                                    <span class="text-surface-900 font-medium text-sm">{{ product.rating }}</span>
                                     <i class="pi pi-star-fill text-yellow-500"></i>
                                 </div>
                             </div>
                         </div>
                         <div class="flex flex-col gap-6 mt-6">
-                            <span class="text-2xl font-semibold">{{
-                                product.price | currency : 'USD'
-                            }}</span>
+                            <span class="text-2xl font-semibold">{{ product.price | currency: 'USD' }}</span>
                             <div class="flex gap-2">
                                 <button
                                     pButton
@@ -313,18 +278,18 @@ export class LayoutDoc {
 </p-dataview>`,
 
         html: `<div class="card">
-     <p-dataview #dv [value]="products" [layout]="layout">
-        <ng-template pTemplate="header">
+    <p-dataview #dv [value]="products()" [layout]="layout">
+        <ng-template #header>
             <div class="flex justify-end">
                 <p-selectbutton [(ngModel)]="layout" [options]="options" [allowEmpty]="false">
-                    <ng-template pTemplate="item" let-item>
+                    <ng-template #item let-item>
                         <i class="pi " [ngClass]="{ 'pi-bars': item === 'list', 'pi-table': item === 'grid' }"></i>
                     </ng-template>
                 </p-selectbutton>
             </div>
         </ng-template>
-        <ng-template pTemplate="list" let-products>
-            <div *ngFor="let item of products; let first = first">
+        <ng-template #list let-items>
+            <div *ngFor="let item of items; let first = first">
                 <div
                     class="flex flex-col sm:flex-row sm:items-center p-6 gap-4"
                     [ngClass]="{ 'border-t border-surface-200 dark:border-surface-700': !first }"
@@ -347,9 +312,7 @@ export class LayoutDoc {
                     <div class="flex flex-col md:flex-row justify-between md:items-center flex-1 gap-6">
                         <div class="flex flex-row md:flex-col justify-between items-start gap-2">
                             <div>
-                                <span class="font-medium text-surface-500 dark:text-surface-400 text-sm">{{
-                                    item.category
-                                }}</span>
+                                <span class="font-medium text-surface-500 dark:text-surface-400 text-sm">{{ item.category }}</span>
                                 <div class="text-lg font-medium mt-2">{{ item.name }}</div>
                             </div>
                             <div class="bg-surface-100 p-1" style="border-radius: 30px">
@@ -363,7 +326,7 @@ export class LayoutDoc {
                             </div>
                         </div>
                         <div class="flex flex-col md:items-end gap-8">
-                            <span class="text-xl font-semibold">{{ item.price | currency : 'USD' }}</span>
+                            <span class="text-xl font-semibold">{{ item.price | currency: 'USD' }}</span>
                             <div class="flex flex-row-reverse md:flex-row gap-2">
                                 <button pButton icon="pi pi-heart" [outlined]="true"></button>
                                 <button
@@ -379,12 +342,9 @@ export class LayoutDoc {
                 </div>
             </div>
         </ng-template>
-        <ng-template let-product pTemplate="grid" let-products>
+        <ng-template #grid let-items>
             <div class="grid grid-cols-12 gap-4">
-                <div
-                    *ngFor="let product of products"
-                    class="col-span-12 sm:col-span-6 md:col-span-4 xl:col-span-6 p-2"
-                >
+                <div *ngFor="let product of items" class="col-span-12 sm:col-span-6 md:col-span-4 xl:col-span-6 p-2">
                     <div
                         class="p-6 border border-surface-200 dark:border-surface-700 bg-surface-0 dark:bg-surface-900 rounded flex flex-col"
                     >
@@ -392,10 +352,7 @@ export class LayoutDoc {
                             <div class="relative mx-auto">
                                 <img
                                     class="rounded w-full"
-                                    [src]="
-                                        'https://primefaces.org/cdn/primeng/images/demo/product/' +
-                                        product.image
-                                    "
+                                    [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image"
                                     [alt]="product.name"
                                     style="max-width: 300px"
                                 />
@@ -422,17 +379,13 @@ export class LayoutDoc {
                                         class="bg-surface-0 flex products-center gap-2 justify-center py-1 px-2"
                                         style="border-radius: 30px; box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.04), 0px 1px 2px 0px rgba(0, 0, 0, 0.06)"
                                     >
-                                        <span class="text-surface-900 font-medium text-sm">{{
-                                            product.rating
-                                        }}</span>
+                                        <span class="text-surface-900 font-medium text-sm">{{ product.rating }}</span>
                                         <i class="pi pi-star-fill text-yellow-500"></i>
                                     </div>
                                 </div>
                             </div>
                             <div class="flex flex-col gap-6 mt-6">
-                                <span class="text-2xl font-semibold">{{
-                                    product.price | currency : 'USD'
-                                }}</span>
+                                <span class="text-2xl font-semibold">{{ product.price | currency: 'USD' }}</span>
                                 <div class="flex gap-2">
                                     <button
                                         pButton
@@ -455,22 +408,23 @@ export class LayoutDoc {
         typescript: `import { Component } from '@angular/core';
 import { Product } from '@domain/product';
 import { ProductService } from '@service/productservice';
-import { DataViewModule } from 'primeng/dataview';
-import { TagModule } from 'primeng/tag';
-import { RatingModule } from 'primeng/rating';
+import { DataView } from 'primeng/dataview';
+import { Tag } from 'primeng/tag';
+import { Rating } from 'primeng/rating';
 import { ButtonModule } from 'primeng/button';
 import { SelectButton } from 'primeng/selectbutton';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { signal } from '@angular/core';
 
 @Component({
     selector: 'data-view-layout-demo',
     templateUrl: './data-view-layout-demo.html',
     standalone: true,
     imports: [
-      DataViewModule,
-      TagModule,
-      RatingModule,
+      DataView,
+      Tag,
+      Rating,
       ButtonModule,
       CommonModule,
       SelectButton,
@@ -481,7 +435,7 @@ import { FormsModule } from '@angular/forms';
 export class DataViewLayoutDemo {
     layout: string = 'grid';
 
-    products!: Product[];
+    products = signal<any>([]);
 
     options = ['list', 'grid'];
 
@@ -489,7 +443,7 @@ export class DataViewLayoutDemo {
 
     ngOnInit() {
         this.productService.getProducts().then((data) => {
-            this.products = data.slice(0, 12);
+            this.products.set([...data.slice(0,12)]);
         });
     }
 
@@ -511,7 +465,7 @@ export class DataViewLayoutDemo {
 }`,
 
         data: `
-/* ProductService */        
+/* ProductService */
 {
     id: '1000',
     code: 'f230fh0g3',
@@ -528,6 +482,28 @@ export class DataViewLayoutDemo {
 
         service: ['ProductService'],
     };
+
+    getSeverity(product: Product) {
+        switch (product.inventoryStatus) {
+            case 'INSTOCK':
+                return 'success';
+
+            case 'LOWSTOCK':
+                return 'warn';
+
+            case 'OUTOFSTOCK':
+                return 'danger';
+
+            default:
+                return null;
+        }
+    }
+
+    ngOnInit() {
+        this.productService.getProducts().then((data) => {
+            this.products.set([...data.slice(0, 12)]);
+        });
+    }
 
     extFiles = [
         {

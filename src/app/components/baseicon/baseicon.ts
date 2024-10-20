@@ -1,26 +1,19 @@
-import {
-    Component,
-    Input,
-    ChangeDetectionStrategy,
-    ViewEncapsulation,
-    ElementRef,
-    HostBinding,
-    booleanAttribute,
-    inject,
-} from '@angular/core';
+import { booleanAttribute, ChangeDetectionStrategy, Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { ObjectUtils } from 'primeng/utils';
 import { BaseComponent } from 'primeng/basecomponent';
+import { BaseIconStyle } from './style/baseiconstyle';
 
 @Component({
     template: ` <ng-content></ng-content> `,
     standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
+    providers: [BaseIconStyle],
     host: {
         class: 'p-component p-iconwrapper',
     },
 })
-export class BaseIcon extends BaseComponent {
+export class BaseIcon extends BaseComponent implements OnInit {
     @Input() label: string;
 
     @Input({ transform: booleanAttribute }) spin: boolean = false;

@@ -4,7 +4,7 @@ import { AppDocModule } from '@layout/doc/app.doc.module';
 import { AppCodeModule } from '@layout/doc/app.code.component';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { CheckboxModule } from 'primeng/checkbox';
+import { Checkbox } from 'primeng/checkbox';
 import { ColorsDoc } from './accessibility/colorsdoc';
 import { FormControlsDoc } from './accessibility/formcontrolsdoc';
 import { IntroductionDoc } from './accessibility/introductiondoc';
@@ -26,7 +26,7 @@ import { MigrationOverviewDoc } from './migration/migrationoverviewdoc';
 import { RenamedComponentsDoc } from './migration/renamedcomponentsdoc';
 
 @NgModule({
-    imports: [CommonModule, AppCodeModule, AppDocModule, RouterModule, FormsModule, CheckboxModule, InputSwitchModule],
+    imports: [CommonModule, AppCodeModule, AppDocModule, RouterModule, FormsModule, Checkbox, InputSwitchModule],
     exports: [AppDocModule],
     declarations: [
         ColorsDoc,

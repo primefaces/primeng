@@ -25,13 +25,13 @@ export class StepDoc {
 
         typescript: `import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SliderModule } from 'primeng/slider';
+import { Slider } from 'primeng/slider';
 
 @Component({
     selector: 'slider-step-demo',
     templateUrl: './slider-step-demo.html',
     standalone: true,
-    imports: [FormsModule, SliderModule]
+    imports: [FormsModule, Slider]
 })
 export class SliderStepDemo {
     value: number = 20;

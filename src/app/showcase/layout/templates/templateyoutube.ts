@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input, NgModule, ViewEncapsulation } from '@angular/core';
 import { SharedModule } from 'primeng/api';
-import { DialogModule } from 'primeng/dialog';
+import { Dialog } from 'primeng/dialog';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
@@ -95,7 +95,7 @@ export class TemplateYoutube {
 }
 
 @NgModule({
-    imports: [CommonModule, SharedModule, DialogModule],
+    imports: [CommonModule, SharedModule, Dialog],
     exports: [TemplateYoutube, SharedModule],
     declarations: [TemplateYoutube],
 })

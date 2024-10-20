@@ -8,13 +8,13 @@ import { CarService } from '@service/carservice';
     template: `
         <div class="card">
             <p-inplace>
-                <ng-template pTemplate="display">
+                <ng-template #display>
                     <div class="inline-flex items-center">
                         <span class="pi pi-table" style="vertical-align: middle"></span>
                         <span class="ml-2">View Data</span>
                     </div>
                 </ng-template>
-                <ng-template pTemplate="content">
+                <ng-template #content>
                     <p-table [value]="cars" responsiveLayout="scroll">
                         <ng-template pTemplate="header">
                             <tr>
@@ -50,13 +50,13 @@ export class DataDoc {
 
     code: Code = {
         basic: `<p-inplace>
-    <ng-template pTemplate="display">
+    <ng-template #header>
         <div class="inline-flex items-center">
             <span class="pi pi-table" style="vertical-align: middle"></span>
             <span class="ml-2">View Data</span>
         </div>
     </ng-template>
-    <ng-template pTemplate="content">
+    <ng-template #content>
         <p-table [value]="cars" responsiveLayout="scroll">
             <ng-template pTemplate="header">
                 <tr>
@@ -85,7 +85,7 @@ export class DataDoc {
                 <span class="ml-2">View Data</span>
             </div>
         </ng-template>
-        <ng-template pTemplate="content">
+        <ng-template #content>
             <p-table [value]="cars" responsiveLayout="scroll">
                 <ng-template pTemplate="header">
                     <tr>
