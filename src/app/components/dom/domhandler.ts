@@ -123,6 +123,10 @@ export class DomHandler {
         return direction === 'rtl';
     }
 
+    public static documentIsLTR(): boolean {
+        return !DomHandler.documentIsRTL();
+    }
+
     public static relativePosition(element: any, target: any, gutter: boolean = true): void {
         const getClosestRelativeElement = (el) => {
             if (!el) return;
@@ -132,12 +136,12 @@ export class DomHandler {
 
         const elementDimensions = element.offsetParent ? { width: element.offsetWidth, height: element.offsetHeight } : this.getHiddenElementDimensions(element);
         const targetHeight = target.offsetHeight ?? target.getBoundingClientRect().height;
-        const targetOffset = target.getBoundingClientRect();
+        const targetOffset = this.getClientRect(target);
         const windowScrollTop: number = this.getWindowScrollTop();
-        const windowScrollLeft: number = this.getWindowScrollLeft();
+        const windowScrollStart: number = this.getWindowScrollStart();
         const viewport = this.getViewport();
         const relativeElement = getClosestRelativeElement(element);
-        const relativeElementOffset = relativeElement?.getBoundingClientRect() || { top: -1 * windowScrollTop, left: -1 * windowScrollLeft };
+        const relativeElementOffset = this.getClientRect(relativeElement) || { top: -1 * windowScrollTop, start: -1 * windowScrollStart };
         let top: number, start: number;
 
         if (targetOffset.top + targetHeight + elementDimensions.height > viewport.height) {
@@ -151,17 +155,17 @@ export class DomHandler {
             element.style.transformOrigin = 'top';
         }
 
-        const horizontalOverflow = targetOffset.left + elementDimensions.width - viewport.width;
-        const targetLeftOffsetInSpaceOfRelativeElement = targetOffset.left - relativeElementOffset.left;
+        const horizontalOverflow = targetOffset.start + elementDimensions.width - viewport.width;
+        const targetLeftOffsetInSpaceOfRelativeElement = targetOffset.start - relativeElementOffset.start;
         if (elementDimensions.width > viewport.width) {
-            // element wider then viewport and cannot fit on screen (align at left side of viewport)
-                start = (targetOffset.left - relativeElementOffset.left) * -1;
+            // element wider than viewport and cannot fit on screen (align at left side of viewport)
+                start = (targetOffset.start - relativeElementOffset.start) * -1;
         } else if (horizontalOverflow > 0) {
-            // element wider then viewport but can be fit on screen (align at right side of viewport)
+            // element wider than viewport but can be fit on screen (align at right side of viewport)
             start = targetLeftOffsetInSpaceOfRelativeElement - horizontalOverflow;
         } else {
             // element fits on screen (align with target)
-            start = targetOffset.left - relativeElementOffset.left;
+            start = targetOffset.start - relativeElementOffset.start;
         }
 
         element.style.top = top + 'px';
@@ -175,9 +179,9 @@ export class DomHandler {
         const elementOuterWidth = elementDimensions.width;
         const targetOuterHeight = target.offsetHeight ?? target.getBoundingClientRect().height;
         const targetOuterWidth = target.offsetWidth ?? target.getBoundingClientRect().width;
-        const targetOffset = target.getBoundingClientRect();
+        const targetOffset = this.getClientRect(target);
         const windowScrollTop = this.getWindowScrollTop();
-        const windowScrollLeft = this.getWindowScrollLeft();
+        const windowScrollStart = this.getWindowScrollStart();
         const viewport = this.getViewport();
         let top: number, start: number;
 
@@ -193,8 +197,8 @@ export class DomHandler {
             element.style.transformOrigin = 'top';
         }
 
-        if (targetOffset.left + elementOuterWidth > viewport.width) start = Math.max(0, targetOffset.left + windowScrollLeft + targetOuterWidth - elementOuterWidth);
-        else start = targetOffset.left + windowScrollLeft;
+        if (targetOffset.start + elementOuterWidth > viewport.width) start = Math.max(0, targetOffset.start + windowScrollStart + targetOuterWidth - elementOuterWidth);
+        else start = targetOffset.start + windowScrollStart;
 
         // if (DomHandler.documentIsRTL()) {
         //     start += targetOuterWidth;
@@ -329,18 +333,22 @@ export class DomHandler {
     }
 
     public static getWindowScrollTop(): number {
-        let doc = document.documentElement;
+        const doc = document.documentElement;
         return (window.pageYOffset || doc.scrollTop) - (doc.clientTop || 0);
     }
 
-    public static getWindowScrollLeft(): number {
+    public static getWindowScrollStart(): number {
         let doc = document.documentElement;
-        return (window.pageXOffset || doc.scrollLeft) - (doc.clientLeft || 0);
+        const scrollLeft: number = (window.pageXOffset || doc.scrollLeft) - (doc.clientLeft || 0);
+        if (this.documentIsLTR()) return scrollLeft;
+        const totalWidth = doc.scrollWidth;
+        const viewportWidth = window.innerWidth;
+        return totalWidth - viewportWidth - scrollLeft;
     }
 
     public static matches(element, selector: string): boolean {
-        var p = Element.prototype;
-        var f =
+        const p = Element.prototype;
+        const f =
             p['matches'] ||
             p.webkitMatchesSelector ||
             p['mozMatchesSelector'] ||
@@ -436,13 +444,27 @@ export class DomHandler {
         return { width: w, height: h };
     }
 
-    public static getOffset(el) {
-        var rect = el.getBoundingClientRect();
+    public static getOffset(el: any): {top: number, start: number} {
+        const rect = el.getBoundingClientRect();
+        const start: number = this.documentIsLTR() ? rect.left : window.innerWidth - rect.right;
+        const end: number = this.documentIsLTR() ? rect.right : window.innerWidth - rect.left;
 
         return {
             top: rect.top + (window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0),
-            left: rect.left + (window.pageXOffset || document.documentElement.scrollLeft || document.body.scrollLeft || 0)
+            start: start + (window.pageXOffset || document.documentElement.scrollLeft || document.body.scrollLeft || 0),
         };
+    }
+
+    public static getClientRect(el): {top: number, bottom: number, start: number, end: number} {
+        const rect = el.getBoundingClientRect();
+        const start: number = this.documentIsLTR() ? rect.left : window.innerWidth - rect.right;
+        const end: number = this.documentIsLTR() ? rect.right : window.innerWidth - rect.left;
+        return {
+            top: rect.top,
+            bottom: rect.bottom,
+            start,
+            end
+        }
     }
 
     public static replaceElementWith(element: any, replacementElement: any): any {

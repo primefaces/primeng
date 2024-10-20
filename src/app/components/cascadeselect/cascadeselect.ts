@@ -230,7 +230,7 @@ export class CascadeSelectSub implements OnInit {
         const sublistWidth = this.el.nativeElement.children[0].offsetParent ? this.el.nativeElement.children[0].offsetWidth : DomHandler.getHiddenElementOuterWidth(this.el.nativeElement.children[0]);
         const itemOuterWidth = DomHandler.getOuterWidth(parentItem.children[0]);
 
-        if (parseInt(containerOffset.left, 10) + itemOuterWidth + sublistWidth > viewport.width - DomHandler.calculateScrollbarWidth()) {
+        if (containerOffset.start + itemOuterWidth + sublistWidth > viewport.width - DomHandler.calculateScrollbarWidth()) {
             this.el.nativeElement.children[0].style.left = '-200%';
         }
     }

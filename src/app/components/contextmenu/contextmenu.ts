@@ -332,7 +332,7 @@ export class ContextMenuSub {
 
         sublist.style.top = '0px';
 
-        if (parseInt(containerOffset.left, 10) + itemOuterWidth + sublistWidth > viewport.width - DomHandler.calculateScrollbarWidth()) {
+        if (containerOffset.start + itemOuterWidth + sublistWidth > viewport.width - DomHandler.calculateScrollbarWidth()) {
             sublist.style.insetInlineStart = -1 * sublistWidth + 'px';
         } else {
             sublist.style.insetInlineStart = itemOuterWidth + 'px';
@@ -1012,15 +1012,15 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
     }
 
     position() {
-        let left = this.pageX + 1;
+        let start = this.pageX + 1;
         let top = this.pageY + 1;
         let width = this.containerViewChild.nativeElement.offsetParent ? this.containerViewChild.nativeElement.offsetWidth : DomHandler.getHiddenElementOuterWidth(this.containerViewChild.nativeElement);
         let height = this.containerViewChild.nativeElement.offsetParent ? this.containerViewChild.nativeElement.offsetHeight : DomHandler.getHiddenElementOuterHeight(this.containerViewChild.nativeElement);
         let viewport = DomHandler.getViewport();
 
         //flip
-        if (left + width - this.document.scrollingElement.scrollLeft > viewport.width) {
-            left -= width;
+        if (start + width - this.document.scrollingElement.scrollLeft > viewport.width) {
+            start -= width;
         }
 
         //flip
@@ -1029,8 +1029,8 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
         }
 
         //fit
-        if (left < this.document.scrollingElement.scrollLeft) {
-            left = this.document.scrollingElement.scrollLeft;
+        if (start < this.document.scrollingElement.scrollLeft) {
+            start = this.document.scrollingElement.scrollLeft;
         }
 
         //fit
@@ -1038,7 +1038,11 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
             top = this.document.scrollingElement.scrollTop;
         }
 
-        this.containerViewChild.nativeElement.style.insetInlineStart = left + 'px';
+        if (DomHandler.documentIsRTL()) {
+            start = this.window.innerWidth - start;
+        }
+
+        this.containerViewChild.nativeElement.style.insetInlineStart = start + 'px';
         this.containerViewChild.nativeElement.style.top = top + 'px';
     }
 

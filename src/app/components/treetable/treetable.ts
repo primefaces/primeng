@@ -1379,13 +1379,13 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
     }
 
     onColumnResizeBegin(event: MouseEvent) {
-        let containerLeft = DomHandler.getOffset(this.containerViewChild?.nativeElement).left;
+        let containerLeft = DomHandler.getOffset(this.containerViewChild?.nativeElement).start;
         this.lastResizerHelperX = event.pageX - containerLeft + this.containerViewChild?.nativeElement.scrollLeft;
         event.preventDefault();
     }
 
     onColumnResize(event: MouseEvent) {
-        let containerLeft = DomHandler.getOffset(this.containerViewChild?.nativeElement).left;
+        let containerLeft = DomHandler.getOffset(this.containerViewChild?.nativeElement).start;
         DomHandler.addClass(this.containerViewChild?.nativeElement, 'p-unselectable-text');
         (<ElementRef>this.resizeHelperViewChild).nativeElement.style.height = this.containerViewChild?.nativeElement.offsetHeight + 'px';
         (<ElementRef>this.resizeHelperViewChild).nativeElement.style.top = 0 + 'px';
@@ -1522,9 +1522,9 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
             let dropHeaderOffset = DomHandler.getOffset(dropHeader);
 
             if (this.draggedColumn != dropHeader) {
-                let targetLeft = dropHeaderOffset.left - containerOffset.left;
+                let targetLeft = dropHeaderOffset.start - containerOffset.start;
                 let targetTop = containerOffset.top - dropHeaderOffset.top;
-                let columnCenter = dropHeaderOffset.left + dropHeader.offsetWidth / 2;
+                let columnCenter = dropHeaderOffset.start + dropHeader.offsetWidth / 2;
 
                 (<ElementRef>this.reorderIndicatorUpViewChild).nativeElement.style.top = dropHeaderOffset.top - containerOffset.top - (<number>this.reorderIconHeight - 1) + 'px';
                 (<ElementRef>this.reorderIndicatorDownViewChild).nativeElement.style.top = dropHeaderOffset.top - containerOffset.top + dropHeader.offsetHeight + 'px';

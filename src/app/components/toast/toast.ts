@@ -347,7 +347,7 @@ export class Toast implements OnInit, AfterContentInit, OnDestroy {
 
     headlessTemplate: TemplateRef<any> | undefined;
 
-    _position: ToastPositionType = 'top-right';
+    _position: ToastPositionType = 'top-end';
 
     constructor(
         @Inject(DOCUMENT) private document: Document,

@@ -2504,7 +2504,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     }
 
     onColumnResizeBegin(event: any) {
-        let containerLeft = DomHandler.getOffset(this.containerViewChild?.nativeElement).left;
+        let containerLeft = DomHandler.getOffset(this.containerViewChild?.nativeElement).start;
         this.resizeColumnElement = event.target.parentElement;
         this.columnResizing = true;
         if (event.type == 'touchstart') {
@@ -2517,7 +2517,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     }
 
     onColumnResize(event: any) {
-        let containerLeft = DomHandler.getOffset(this.containerViewChild?.nativeElement).left;
+        let containerLeft = DomHandler.getOffset(this.containerViewChild?.nativeElement).start;
         DomHandler.addClass(this.containerViewChild?.nativeElement, 'p-unselectable-text');
         (<ElementRef>this.resizeHelperViewChild).nativeElement.style.height = this.containerViewChild?.nativeElement.offsetHeight + 'px';
         (<ElementRef>this.resizeHelperViewChild).nativeElement.style.top = 0 + 'px';
@@ -2590,9 +2590,9 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             if (this.draggedColumn != dropHeader) {
                 let dragIndex = DomHandler.indexWithinGroup(this.draggedColumn, 'preorderablecolumn');
                 let dropIndex = DomHandler.indexWithinGroup(dropHeader, 'preorderablecolumn');
-                let targetLeft = dropHeaderOffset.left - containerOffset.left;
+                let targetLeft = dropHeaderOffset.start - containerOffset.start;
                 let targetTop = containerOffset.top - dropHeaderOffset.top;
-                let columnCenter = dropHeaderOffset.left + dropHeader.offsetWidth / 2;
+                let columnCenter = dropHeaderOffset.start + dropHeader.offsetWidth / 2;
 
                 (<ElementRef>this.reorderIndicatorUpViewChild).nativeElement.style.top = dropHeaderOffset.top - containerOffset.top - (<number>this.reorderIconHeight - 1) + 'px';
                 (<ElementRef>this.reorderIndicatorDownViewChild).nativeElement.style.top = dropHeaderOffset.top - containerOffset.top + dropHeader.offsetHeight + 'px';

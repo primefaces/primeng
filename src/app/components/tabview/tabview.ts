@@ -832,7 +832,7 @@ export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, B
                 }
 
                 (this.inkbar as ElementRef).nativeElement.style.width = DomHandler.getWidth(tabHeader) + 'px';
-                (this.inkbar as ElementRef).nativeElement.style.left = DomHandler.getOffset(tabHeader).left - DomHandler.getOffset(this.navbar.nativeElement).left + 'px';
+                (this.inkbar as ElementRef).nativeElement.style.left = DomHandler.getOffset(tabHeader).start - DomHandler.getOffset(this.navbar.nativeElement).start + 'px';
             }
         }
     }

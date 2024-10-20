@@ -4638,10 +4638,10 @@
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
     border-radius: 6px;
   }
-  .p-tooltip.p-tooltip-right .p-tooltip-arrow {
+  .p-tooltip.p-tooltip-end .p-tooltip-arrow {
     border-inline-end-color: #3f3f46;
   }
-  .p-tooltip.p-tooltip-left .p-tooltip-arrow {
+  .p-tooltip.p-tooltip-start .p-tooltip-arrow {
     border-inline-start-color: #3f3f46;
   }
   .p-tooltip.p-tooltip-top .p-tooltip-arrow {

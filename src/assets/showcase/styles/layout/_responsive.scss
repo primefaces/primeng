@@ -48,11 +48,10 @@
 
     .layout-sidebar {
         top: 0;
-        left: 0;
+        inset-inline-start: 0;
         position: fixed;
         z-index: 1102;
         height: 100%;
-        transform: translateX(-100%);
         background-color: var(--mobile-menu-bg);
         backdrop-filter: blur(20px);
         width: 300px;
@@ -64,6 +63,20 @@
 
         &.active {
             opacity: 1;
+        }
+    }
+
+    .layout-sidebar,
+    html[dir="ltr"] .layout-sidebar {
+        transform: translateX(-100%);
+        &.active {
+            transform: translateX(0);
+        }
+    }
+
+    html[dir="rtl"] .layout-sidebar {
+        transform: translateX(100%);
+        &.active {
             transform: translateX(0);
         }
     }

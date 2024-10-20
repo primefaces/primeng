@@ -149,7 +149,7 @@ describe('DomHandler', () => {
         element.appendChild(childEl2);
         element.appendChild(childEl3);
         spyOn(DomHandler, 'getWindowScrollTop').and.returnValue(0);
-        spyOn(DomHandler, 'getWindowScrollLeft').and.returnValue(0);
+        spyOn(DomHandler, 'getWindowScrollStart').and.returnValue(0);
         DomHandler.relativePosition(element.children[2], element);
         expect(childEl3.style.top).toEqual('0px');
         expect(childEl3.style.left).toEqual('0px');
@@ -199,7 +199,7 @@ describe('DomHandler', () => {
         element.appendChild(childEl2);
         element.appendChild(childEl3);
         spyOn(DomHandler, 'getWindowScrollTop').and.returnValue(0);
-        spyOn(DomHandler, 'getWindowScrollLeft').and.returnValue(0);
+        spyOn(DomHandler, 'getWindowScrollStart').and.returnValue(0);
         DomHandler.absolutePosition(element.children[2], element);
         expect(childEl3.style.top).toEqual('0px');
         expect(childEl3.style.left).toEqual('0px');

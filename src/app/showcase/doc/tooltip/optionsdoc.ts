@@ -18,23 +18,23 @@ export class OptionsDoc {
         showDelay: 150,
         autoHide: false,
         tooltipEvent: 'hover',
-        tooltipPosition: 'left'
+        tooltipPosition: 'start'
     };
 
     code: Code = {
-        basic: `<input 
-    type="text" 
-    pInputText 
-    pTooltip="Enter your username" 
-    [tooltipOptions]="tooltipOptions" 
+        basic: `<input
+    type="text"
+    pInputText
+    pTooltip="Enter your username"
+    [tooltipOptions]="tooltipOptions"
     placeholder="hover to display tooltip" />`,
 
         html: `<div class="card flex justify-content-center">
-    <input 
-        type="text" 
-        pInputText 
-        pTooltip="Enter your username" 
-        [tooltipOptions]="tooltipOptions" 
+    <input
+        type="text"
+        pInputText
+        pTooltip="Enter your username"
+        [tooltipOptions]="tooltipOptions"
         placeholder="hover to display tooltip" />
 </div>`,
 
@@ -53,7 +53,7 @@ export class TooltipOptionsDemo {
         showDelay: 150,
         autoHide: false,
         tooltipEvent: 'hover',
-        tooltipPosition: 'left'
+        tooltipPosition: 'start'
     };
 }`
     };

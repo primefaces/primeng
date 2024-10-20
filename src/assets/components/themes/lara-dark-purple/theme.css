@@ -5404,11 +5404,11 @@
         border-radius: 6px;
     }
 
-    .p-tooltip.p-tooltip-right .p-tooltip-arrow {
+    .p-tooltip.p-tooltip-end .p-tooltip-arrow {
         border-inline-end-color: #424b57;
     }
 
-    .p-tooltip.p-tooltip-left .p-tooltip-arrow {
+    .p-tooltip.p-tooltip-start .p-tooltip-arrow {
         border-inline-start-color: #424b57;
     }
 

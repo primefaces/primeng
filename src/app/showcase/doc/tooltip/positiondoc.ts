@@ -5,7 +5,7 @@ import { Code } from '@domain/code';
     selector: 'position-doc',
     template: `
         <app-docsectiontext>
-            <p>Position of the tooltip is specified using <i>tooltipPosition</i> attribute. Valid values are <i>top</i>, <i>bottom</i>, <i>right</i> and <i>left</i>. Default position of the tooltip is <i>right</i>.</p>
+            <p>Position of the tooltip is specified using <i>tooltipPosition</i> attribute. Valid values are <i>top</i>, <i>bottom</i>, <i>end</i> and <i>start</i>. Default position of the tooltip is <i>end</i>.</p>
         </app-docsectiontext>
         <div class="card flex flex-wrap justify-content-center gap-2">
             <input type="text" pInputText pTooltip="Enter your username" tooltipPosition="end" placeholder="End" />
@@ -18,55 +18,55 @@ import { Code } from '@domain/code';
 })
 export class PositionDoc {
     code: Code = {
-        basic: `<input 
-    type="text" 
-    pInputText 
-    pTooltip="Enter your username" 
-    tooltipPosition="end" 
+        basic: `<input
+    type="text"
+    pInputText
+    pTooltip="Enter your username"
+    tooltipPosition="end"
     placeholder="End" />
-<input 
-    type="text" 
-    pInputText 
-    pTooltip="Enter your username" 
-    tooltipPosition="start" 
+<input
+    type="text"
+    pInputText
+    pTooltip="Enter your username"
+    tooltipPosition="start"
     placeholder="Start" />
-<input 
-    type="text" 
-    pInputText 
-    pTooltip="Enter your username" 
-    tooltipPosition="top" 
+<input
+    type="text"
+    pInputText
+    pTooltip="Enter your username"
+    tooltipPosition="top"
     placeholder="Top" />
-<input 
-    type="text" 
-    pInputText 
-    pTooltip="Enter your username" 
-    tooltipPosition="bottom" 
+<input
+    type="text"
+    pInputText
+    pTooltip="Enter your username"
+    tooltipPosition="bottom"
     placeholder="Bottom" />`,
 
         html: `<div class="card flex flex-wrap justify-content-center gap-2">
-    <input 
-        type="text" 
-        pInputText 
+    <input
+        type="text"
+        pInputText
         pTooltip="Enter your username"
-        tooltipPosition="end" 
+        tooltipPosition="end"
         placeholder="End" />
-    <input 
-        type="text" 
-        pInputText 
-        pTooltip="Enter your username" 
-        tooltipPosition="start" 
+    <input
+        type="text"
+        pInputText
+        pTooltip="Enter your username"
+        tooltipPosition="start"
         placeholder="Start">
-    <input 
-        type="text" 
-        pInputText 
-        pTooltip="Enter your username" 
-        tooltipPosition="top" 
+    <input
+        type="text"
+        pInputText
+        pTooltip="Enter your username"
+        tooltipPosition="top"
         placeholder="Top">
-    <input 
-        type="text" 
-        pInputText 
-        pTooltip="Enter your username" 
-        tooltipPosition="bottom" 
+    <input
+        type="text"
+        pInputText
+        pTooltip="Enter your username"
+        tooltipPosition="bottom"
         placeholder="Bottom">
 </div>`,
 

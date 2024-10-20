@@ -5435,11 +5435,11 @@
         border-radius: 6px;
     }
 
-    .p-tooltip.p-tooltip-right .p-tooltip-arrow {
+    .p-tooltip.p-tooltip-end .p-tooltip-arrow {
         border-inline-end-color: #3f3f46;
     }
 
-    .p-tooltip.p-tooltip-left .p-tooltip-arrow {
+    .p-tooltip.p-tooltip-start .p-tooltip-arrow {
         border-inline-start-color: #3f3f46;
     }
 

@@ -496,6 +496,10 @@ export class Carousel implements AfterContentInit {
                 this.prevState.numVisible = this._numVisible;
                 this.prevState.value = [...(this._value as any[])];
 
+                // if (DomHandler.documentIsRTL()) {
+                //     totalShiftedItems *= -1;
+                // }
+
                 if (this.totalDots() > 0 && this.itemsContainer.nativeElement) {
                     this.itemsContainer.nativeElement.style.transform = this.isVertical() ? `translate3d(0, ${totalShiftedItems * (100 / this._numVisible)}%, 0)` : `translate3d(${totalShiftedItems * (100 / this._numVisible)}%, 0, 0)`;
                 }
@@ -804,6 +808,10 @@ export class Carousel implements AfterContentInit {
             this.isRemainingItemsAdded = true;
         }
 
+        if (DomHandler.documentIsRTL()) {
+            totalShiftedItems *= -1;
+        }
+
         if (this.itemsContainer) {
             this.itemsContainer.nativeElement.style.transform = this.isVertical() ? `translate3d(0, ${totalShiftedItems * (100 / this._numVisible)}%, 0)` : `translate3d(${totalShiftedItems * (100 / this._numVisible)}%, 0, 0)`;
             this.itemsContainer.nativeElement.style.transition = 'transform 500ms ease 0s';
@@ -849,6 +857,10 @@ export class Carousel implements AfterContentInit {
     onTransitionEnd() {
         if (this.itemsContainer) {
             this.itemsContainer.nativeElement.style.transition = '';
+
+            // if (DomHandler.documentIsRTL()) {
+            //     this.totalShiftedItems *= -1;
+            // }
 
             if ((this.page === 0 || this.page === this.totalDots() - 1) && this.isCircular()) {
                 this.itemsContainer.nativeElement.style.transform = this.isVertical() ? `translate3d(0, ${this.totalShiftedItems * (100 / this._numVisible)}%, 0)` : `translate3d(${this.totalShiftedItems * (100 / this._numVisible)}%, 0, 0)`;

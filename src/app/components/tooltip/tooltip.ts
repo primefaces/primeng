@@ -75,7 +75,7 @@ export class Tooltip implements AfterViewInit, OnDestroy {
      * Specifies the additional horizontal offset of the tooltip from its default position.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) positionLeft: number | undefined;
+    @Input({ transform: numberAttribute }) positionStart: number | undefined;
     /**
      * Whether to hide tooltip when hovering over tooltip content.
      * @group Props
@@ -127,7 +127,7 @@ export class Tooltip implements AfterViewInit, OnDestroy {
         showDelay: null,
         hideDelay: null,
         positionTop: null,
-        positionLeft: null,
+        positionStart: null,
         life: null,
         autoHide: true,
         hideOnEscape: true,
@@ -250,8 +250,8 @@ export class Tooltip implements AfterViewInit, OnDestroy {
             this.setOption({ positionTop: simpleChange.positionTop.currentValue });
         }
 
-        if (simpleChange.positionLeft) {
-            this.setOption({ positionLeft: simpleChange.positionLeft.currentValue });
+        if (simpleChange.positionStart) {
+            this.setOption({ positionStart: simpleChange.positionStart.currentValue });
         }
 
         if (simpleChange.disabled) {
@@ -494,10 +494,10 @@ export class Tooltip implements AfterViewInit, OnDestroy {
                 if (this.isOutOfBounds()) {
                     this.alignBottom();
                     if (this.isOutOfBounds()) {
-                        this.alignRight();
+                        this.alignEnd();
 
                         if (this.isOutOfBounds()) {
-                            this.alignLeft();
+                            this.alignStart();
                         }
                     }
                 }
@@ -508,19 +508,19 @@ export class Tooltip implements AfterViewInit, OnDestroy {
                 if (this.isOutOfBounds()) {
                     this.alignTop();
                     if (this.isOutOfBounds()) {
-                        this.alignRight();
+                        this.alignEnd();
 
                         if (this.isOutOfBounds()) {
-                            this.alignLeft();
+                            this.alignStart();
                         }
                     }
                 }
                 break;
 
             case 'start':
-                this.alignLeft();
+                this.alignStart();
                 if (this.isOutOfBounds()) {
-                    this.alignRight();
+                    this.alignEnd();
 
                     if (this.isOutOfBounds()) {
                         this.alignTop();
@@ -533,9 +533,9 @@ export class Tooltip implements AfterViewInit, OnDestroy {
                 break;
 
             case 'end':
-                this.alignRight();
+                this.alignEnd();
                 if (this.isOutOfBounds()) {
-                    this.alignLeft();
+                    this.alignStart();
 
                     if (this.isOutOfBounds()) {
                         this.alignTop();
@@ -549,26 +549,26 @@ export class Tooltip implements AfterViewInit, OnDestroy {
         }
     }
 
-    getHostOffset() {
+    getHostOffset(): {start: number, top: number} {
         if (this.getOption('appendTo') === 'body' || this.getOption('appendTo') === 'target') {
-            let offset = this.el.nativeElement.getBoundingClientRect();
-            let targetLeft = offset.left + DomHandler.getWindowScrollLeft();
-            let targetTop = offset.top + DomHandler.getWindowScrollTop();
+            const offset = DomHandler.getClientRect(this.el.nativeElement);
+            const targetStart = offset.start + DomHandler.getWindowScrollStart();
+            const targetTop = offset.top + DomHandler.getWindowScrollTop();
 
-            return { left: targetLeft, top: targetTop };
+            return { start: targetStart, top: targetTop };
         } else {
-            return { left: 0, top: 0 };
+            return { start: 0, top: 0 };
         }
     }
 
-    alignRight() {
-        this.preAlign('right');
+    alignEnd() {
+        this.preAlign('end');
         const el = this.activeElement;
 
         const hostOffset = this.getHostOffset();
-        const left = hostOffset.left + DomHandler.getOuterWidth(el);
+        const start = hostOffset.start + DomHandler.getOuterWidth(el);
         const top = hostOffset.top + (DomHandler.getOuterHeight(el) - DomHandler.getOuterHeight(this.container)) / 2;
-        this.container.style.insetInlineStart = left + this.getOption('positionLeft') + 'px';
+        this.container.style.insetInlineStart = start + this.getOption('positionStart') + 'px';
         this.container.style.top = top + this.getOption('positionTop') + 'px';
     }
 
@@ -576,30 +576,30 @@ export class Tooltip implements AfterViewInit, OnDestroy {
         return this.el.nativeElement.nodeName.includes('P-') ? DomHandler.findSingle(this.el.nativeElement, '.p-component') || this.el.nativeElement : this.el.nativeElement;
     }
 
-    alignLeft() {
-        this.preAlign('left');
+    alignStart() {
+        this.preAlign('start');
         let hostOffset = this.getHostOffset();
-        let left = hostOffset.left - DomHandler.getOuterWidth(this.container);
+        let start = hostOffset.start - DomHandler.getOuterWidth(this.container);
         let top = hostOffset.top + (DomHandler.getOuterHeight(this.el.nativeElement) - DomHandler.getOuterHeight(this.container)) / 2;
-        this.container.style.insetInlineStart = left + this.getOption('positionLeft') + 'px';
+        this.container.style.insetInlineStart = start + this.getOption('positionStart') + 'px';
         this.container.style.top = top + this.getOption('positionTop') + 'px';
     }
 
     alignTop() {
         this.preAlign('top');
         let hostOffset = this.getHostOffset();
-        let left = hostOffset.left + (DomHandler.getOuterWidth(this.el.nativeElement) - DomHandler.getOuterWidth(this.container)) / 2;
+        let start = hostOffset.start + (DomHandler.getOuterWidth(this.el.nativeElement) - DomHandler.getOuterWidth(this.container)) / 2;
         let top = hostOffset.top - DomHandler.getOuterHeight(this.container);
-        this.container.style.insetInlineStart = left + this.getOption('positionLeft') + 'px';
+        this.container.style.insetInlineStart = start + this.getOption('positionStart') + 'px';
         this.container.style.top = top + this.getOption('positionTop') + 'px';
     }
 
     alignBottom() {
         this.preAlign('bottom');
         let hostOffset = this.getHostOffset();
-        let left = hostOffset.left + (DomHandler.getOuterWidth(this.el.nativeElement) - DomHandler.getOuterWidth(this.container)) / 2;
+        let start = hostOffset.start + (DomHandler.getOuterWidth(this.el.nativeElement) - DomHandler.getOuterWidth(this.container)) / 2;
         let top = hostOffset.top + DomHandler.getOuterHeight(this.el.nativeElement);
-        this.container.style.insetInlineStart = left + this.getOption('positionLeft') + 'px';
+        this.container.style.insetInlineStart = start + this.getOption('positionStart') + 'px';
         this.container.style.top = top + this.getOption('positionTop') + 'px';
     }
 

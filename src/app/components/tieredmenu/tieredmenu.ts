@@ -276,7 +276,7 @@ export class TieredMenuSub {
                 const sublistWidth = sublist.offsetParent ? sublist.offsetWidth : DomHandler.getOuterWidth(sublist);
                 const itemOuterWidth = DomHandler.getOuterWidth(parentItem.children[0]);
                 const sublistFlippedClass = 'p-submenu-list-flipped';
-                if (parseInt(containerOffset.left, 10) + itemOuterWidth + sublistWidth > viewport.width - DomHandler.calculateScrollbarWidth()) {
+                if (containerOffset.start + itemOuterWidth + sublistWidth > viewport.width - DomHandler.calculateScrollbarWidth()) {
                     DomHandler.addClass(sublist, sublistFlippedClass);
                 } else if (DomHandler.hasClass(sublist, sublistFlippedClass)) {
                     DomHandler.removeClass(sublist, sublistFlippedClass);
