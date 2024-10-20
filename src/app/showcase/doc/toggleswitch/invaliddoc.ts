@@ -24,14 +24,14 @@ export class InvalidDoc {
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { ToggleSwitchModule } from 'primeng/toggleswitch';
+import { ToggleSwitch } from 'primeng/toggleswitch';
 import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'toggle-switch-invalid-demo',
     templateUrl: './toggle-switch-invalid-demo.html',
     standalone: true,
-    imports: [FormsModule, ToggleSwitchModule]
+    imports: [FormsModule, ToggleSwitch]
 })
 export class ToggleSwitchInvalidDemo {
     checked: boolean = false;

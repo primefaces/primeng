@@ -10,8 +10,6 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card flex justify-center gap-2">
             <p-toast [life]="10000" />
-            <p-button pRipple (click)="showLife()" label="Show Life" />
-            <p-button pRipple (click)="showLifeLong()" label="Show Life Long" />
         </div>
         <app-code [code]="code" selector="toast-life-demo"></app-code>
     `,
@@ -30,36 +28,32 @@ export class LifeDoc {
 
     code: Code = {
         basic: `<p-toast [life]="10000" />
-<p-button 
-    pRipple 
-    (click)="showLife()" 
+<p-button
+    (click)="showLife()"
     label="Show Life" />
-<p-button 
-    pRipple 
-    (click)="showLifeLong()" 
+<p-button
+    (click)="showLifeLong()"
     label="Show Life Long" />`,
         html: `<div class="card flex justify-center">
     <p-toast [life]="10000" />
-    <p-button 
-        pRipple 
-        (click)="showLife()" 
+    <p-button
+        (click)="showLife()"
         label="Show Life" />
     <p-button
-        pRipple 
-        (click)="showLifeLong()" 
+        (click)="showLifeLong()"
         label="Show Life Long" />
 </div>`,
         typescript: `import { Component } from '@angular/core';
 import { MessageService } from 'primeng/api';
-import { ToastModule } from 'primeng/toast';
+import { Toast } from 'primeng/toast';
 import { ButtonModule } from 'primeng/button';
-import { RippleModule } from 'primeng/ripple';
+import { Ripple } from 'primeng/ripple';
 
 @Component({
     selector: 'toast-life-demo',
     templateUrl: './toast-life-demo.html',
     standalone: true,
-    imports: [ToastModule, ButtonModule, RippleModule],
+    imports: [Toast, ButtonModule, Ripple],
     providers: [MessageService]
 })
 export class ToastLifeDemo {

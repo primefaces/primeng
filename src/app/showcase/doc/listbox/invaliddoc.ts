@@ -50,7 +50,7 @@ export class InvalidDoc implements OnInit {
 
         typescript: `import { Component, ngOnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ListboxModule } from 'primeng/listbox';
+import { Listbox } from 'primeng/listbox';
 
 interface City {
     name: string,
@@ -61,7 +61,7 @@ interface City {
     selector: 'listbox-invalid-demo',
     templateUrl: './listbox-invalid-demo.html',
     standalone: true,
-    imports: [FormsModule, ListboxModule]
+    imports: [FormsModule, Listbox]
 })
 export class ListboxInvalidDemo implements OnInit {
     cities!: City[];

@@ -25,13 +25,13 @@ export class InvalidDoc {
 
         typescript: `import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { CheckboxModule } from 'primeng/checkbox';
+import { Checkbox } from 'primeng/checkbox';
 
 @Component({
     selector: 'checkbox-invalid-demo',
     templateUrl: './checkbox-invalid-demo.html',
     standalone: true,
-    imports: [FormsModule, CheckboxModule]
+    imports: [FormsModule, Checkbox]
 })
 export class CheckboxInvalidDemo {
     checked: boolean = false;

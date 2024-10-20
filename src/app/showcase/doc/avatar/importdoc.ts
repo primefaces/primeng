@@ -7,7 +7,7 @@ import { Code } from '@domain/code';
 })
 export class ImportDoc {
     code: Code = {
-        html: `import { AvatarModule } from 'primeng/avatar';
-import { AvatarGroupModule } from 'primeng/avatargroup';`,
+        html: `import { Avatar } from 'primeng/avatar';
+import { AvatarGroup } from 'primeng/avatargroup';`,
     };
 }

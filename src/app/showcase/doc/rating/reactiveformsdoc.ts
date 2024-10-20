@@ -41,13 +41,13 @@ export class ReactiveFormsDoc implements OnInit {
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { RatingModule } from 'primeng/rating';
+import { Rating } from 'primeng/rating';
 
 @Component({
     selector: 'rating-reactive-forms-demo',
     templateUrl: './rating-reactive-forms-demo.html',
     standalone: true,
-    imports: [ReactiveFormsModule, RatingModule]
+    imports: [ReactiveFormsModule, Rating]
 })
 export class RatingReactiveFormsDemo implements OnInit {
     formGroup!: FormGroup;

@@ -118,41 +118,6 @@ export class DataTableDoc implements OnInit {
             this.cdr.markForCheck();
         });
     }
-
-    displayProduct(event, product) {
-        if (this.selectedProduct?.id === product.id) {
-            this.op.hide();
-            this.selectedProduct = null;
-        } else {
-            this.selectedProduct = product;
-            this.op.show(event);
-
-            if (this.op.container) {
-                this.op.align();
-            }
-        }
-    }
-
-    hidePopover() {
-        this.op.hide();
-    }
-
-    getSeverity(product) {
-        switch (product.inventoryStatus) {
-            case 'INSTOCK':
-                return 'success';
-
-            case 'LOWSTOCK':
-                return 'warn';
-
-            case 'OUTOFSTOCK':
-                return 'danger';
-
-            default:
-                return null;
-        }
-    }
-
     code: Code = {
         basic: `<p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }" [paginator]="true" [rows]="5">
     <ng-template pTemplate="header">
@@ -397,6 +362,40 @@ export class PopoverDataTableDemo implements OnInit {
 }`,
         service: ['ProductService'],
     };
+
+    displayProduct(event, product) {
+        if (this.selectedProduct?.id === product.id) {
+            this.op.hide();
+            this.selectedProduct = null;
+        } else {
+            this.selectedProduct = product;
+            this.op.show(event);
+
+            if (this.op.container) {
+                this.op.align();
+            }
+        }
+    }
+
+    hidePopover() {
+        this.op.hide();
+    }
+
+    getSeverity(product) {
+        switch (product.inventoryStatus) {
+            case 'INSTOCK':
+                return 'success';
+
+            case 'LOWSTOCK':
+                return 'warn';
+
+            case 'OUTOFSTOCK':
+                return 'danger';
+
+            default:
+                return null;
+        }
+    }
 
     extFiles = [
         {

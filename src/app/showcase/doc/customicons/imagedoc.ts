@@ -12,10 +12,10 @@ import { Code } from '@domain/code';
 })
 export class ImageDoc {
     code: Code = {
-        basic: `<p-select>
-    <ng-template pTemplate="dropdownicon">
+        basic: `<p-dropdown>
+    <ng-template #dropdownicon>
         <img alt="dropdown icon" src="/assets/icons/arrow_down.png">
     </ng-template>
-</p-select>`,
+</p-dropdown>`,
     };
 }

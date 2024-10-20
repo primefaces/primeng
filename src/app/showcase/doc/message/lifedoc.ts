@@ -38,14 +38,14 @@ export class LifeDoc {
 </div>`,
 
         typescript: `import { Component, signal } from '@angular/core';
-import { MessageModule } from 'primeng/message';
+import { Message } from 'primeng/message';
 import { ButtonModule } from 'primeng/button';
 
 @Component({
     selector: 'message-life-demo',
     templateUrl: './message-life-demo.html',
     standalone: true,
-    imports: [MessageModule, ButtonModule]
+    imports: [Message, ButtonModule]
 })
 export class MessageLifeDemo {
     visible = signal(false);

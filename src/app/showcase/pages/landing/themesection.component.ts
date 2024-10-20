@@ -1,21 +1,21 @@
 import { CommonModule } from '@angular/common';
 import { Component, Inject, PLATFORM_ID, ViewChild } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
-import { ProgressBarModule } from 'primeng/progressbar';
-import { Table, TableModule } from 'primeng/table';
-import { TagModule } from 'primeng/tag';
+import { ProgressBar } from 'primeng/progressbar';
+import { Table } from 'primeng/table';
+import { Tag } from 'primeng/tag';
 import { Customer } from '@domain/customer';
-import { AppComponent } from '../../layout/app.component';
+import { AppComponent } from '@layout/app.component';
 import { AppConfigService } from '@service/appconfigservice';
 import { CustomerService } from '@service/customerservice';
 import { InputTextModule } from 'primeng/inputtext';
-import { IconFieldModule } from 'primeng/iconfield';
-import { InputIconModule } from 'primeng/inputicon';
+import { IconField } from 'primeng/iconfield';
+import { InputIcon } from 'primeng/inputicon';
 
 @Component({
     selector: 'theme-section',
     standalone: true,
-    imports: [CommonModule, TableModule, ButtonModule, TagModule, ProgressBarModule, InputTextModule, IconFieldModule, InputIconModule],
+    imports: [CommonModule, Table, ButtonModule, Tag, ProgressBar, InputTextModule, IconField, InputIcon],
     template: `
         <section class="landing-themes py-20">
             <div class="section-header">Components</div>
@@ -33,7 +33,7 @@ import { InputIconModule } from 'primeng/inputicon';
                         [paginator]="true"
                         [globalFilterFields]="['name', 'country.name', 'representative.name', 'status']"
                     >
-                        <ng-template pTemplate="caption">
+                        <ng-template #caption>
                             <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center">
                                 <span class="text-xl font-bold">Customers</span>
                                 <p-iconfield class="mt-4 sm:mt-0 w-full sm:w-auto">
@@ -50,7 +50,7 @@ import { InputIconModule } from 'primeng/inputicon';
                                 </p-iconfield>
                             </div>
                         </ng-template>
-                        <ng-template pTemplate="header">
+                        <ng-template #header>
                             <tr>
                                 <th style="width: 3rem">
                                     <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
@@ -100,7 +100,7 @@ import { InputIconModule } from 'primeng/inputicon';
                                 <th style="width: 8rem"></th>
                             </tr>
                         </ng-template>
-                        <ng-template pTemplate="body" let-customer>
+                        <ng-template #body let-customer>
                             <tr class="p-selectable-row">
                                 <td>
                                     <p-tableCheckbox [value]="customer"></p-tableCheckbox>
@@ -156,7 +156,7 @@ import { InputIconModule } from 'primeng/inputicon';
                                 </td>
                             </tr>
                         </ng-template>
-                        <ng-template pTemplate="emptymessage">
+                        <ng-template #emptymessage>
                             <tr>
                                 <td colspan="8">No customers found.</td>
                             </tr>

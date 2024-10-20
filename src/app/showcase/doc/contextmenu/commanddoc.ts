@@ -170,9 +170,9 @@ export class CommandDoc implements OnInit {
 import { ContextMenu } from 'primeng/contextmenu';
 import { MenuItem, MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
-import { ContextMenuModule } from 'primeng/contextmenu';
+import { ContextMenu } from 'primeng/contextmenu';
 import { CommonModule } from '@angular/common';
-import { TagModule } from 'primeng/tag';
+import { Tag } from 'primeng/tag';
 
 interface Users {
     id: number;
@@ -185,7 +185,7 @@ interface Users {
     selector: 'context-menu-command-demo',
     templateUrl: './context-menu-command-demo.html',
     standalone: true,
-    imports: [ContextMenuModule, ToastModule, CommonModule, TagModule],
+    imports: [ContextMenu, ToastModule, CommonModule, Tag],
     providers: [MessageService]
 })
 export class ContextMenuCommandDemo implements OnInit {

@@ -12,8 +12,8 @@ import { ProductService } from '@service/productservice';
             </p>
         </app-docsectiontext>
         <div class="card xl:flex xl:justify-center">
-            <p-orderlist [value]="products" [listStyle]="{ 'max-height': '30rem' }" header="List of Products" [dragdrop]="true">
-                <ng-template let-product pTemplate="item">
+            <p-orderList [value]="products" [listStyle]="{ 'max-height': '30rem' }" header="List of Products" [dragdrop]="true">
+                <ng-template let-product #item>
                     <div class="flex flex-wrap p-2 items-center gap-4">
                         <img
                             src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}"
@@ -30,7 +30,7 @@ import { ProductService } from '@service/productservice';
                         <span class="font-bold text-surface-900 dark:text-surface-0">{{ '$' + product.price }}</span>
                     </div>
                 </ng-template>
-            </p-orderlist>
+            </p-orderList>
         </div>
         <app-code [code]="code" selector="orderlist-drag-drop-demo" [extFiles]="extFiles"></app-code>
     `,
@@ -62,12 +62,12 @@ export class DragDropDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-orderlist 
+        basic: `<p-orderList 
     [value]="products" 
     [listStyle]="{ 'max-height': '30rem' }" 
     header="List of Products" 
     [dragdrop]="true">
-        <ng-template let-product pTemplate="item">
+        <ng-template let-product #item>
             <div class="flex flex-wrap p-2 items-center gap-4">
                 <img 
                     src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" 
@@ -87,15 +87,15 @@ export class DragDropDoc implements OnInit {
                 </span>
             </div>
         </ng-template>
-</p-orderlist>`,
+</p-orderList>`,
 
         html: `<div class="card xl:flex xl:justify-center">
-    <p-orderlist 
+    <p-orderList 
         [value]="products" 
         [listStyle]="{ 'max-height': '30rem' }"
         header="List of Products" 
         [dragdrop]="true">
-            <ng-template let-product pTemplate="item">
+            <ng-template let-product #item>
                 <div class="flex flex-wrap p-2 items-center gap-4">
                     <img 
                         src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" 
@@ -115,19 +115,19 @@ export class DragDropDoc implements OnInit {
                     </span>
                 </div>
             </ng-template>
-    </p-orderlist>
+    </p-orderList>
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { Product } from '@domain/product';
 import { ProductService } from '@service/productservice';
-import { OrderListModule } from 'primeng/orderlist';
+import { OrderList } from 'primeng/orderlist';
 
 @Component({
     selector: 'orderlist-drag-drop-demo',
     templateUrl: './orderlist-drag-drop-demo.html',
     standalone: true,
-    imports: [OrderListModule],
+    imports: [OrderList],
     providers: [ProductService]
 })
 export class OrderlistDragDropDemo implements OnInit {

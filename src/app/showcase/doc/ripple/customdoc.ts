@@ -65,13 +65,13 @@ export class CustomDoc {
     </div>
 </div>`,
         typescript: `import { Component } from '@angular/core';
-import { RippleModule } from 'primeng/ripple';
+import { Ripple } from 'primeng/ripple';
 
 @Component({
     selector: 'ripple-custom-demo',
     templateUrl: './ripple-custom-demo.html',
     standalone: true,
-    imports: [RippleModule],
+    imports: [Ripple],
     styles: [
         \` :host {
                 .box {

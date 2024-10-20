@@ -27,7 +27,7 @@ export class ToggleClassDoc {
     <input type="text" pInputText class="block mt-4">
 </div>`,
         typescript: `import { Component } from '@angular/core';
-import { StyleClassModule } from 'primeng/styleclass';
+import { StyleClass } from 'primeng/styleclass';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 
@@ -35,7 +35,7 @@ import { ButtonModule } from 'primeng/button';
     selector: 'style-class-toggle-class-demo',
     templateUrl: './style-class-toggle-class-demo.html',
     standalone: true,
-    imports: [StyleClassModule, InputTextModule, ButtonModule]
+    imports: [StyleClass, InputTextModule, ButtonModule]
 })
 export class StyleClassToggleClassDemo {}`,
     };

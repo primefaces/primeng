@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { DialogModule } from 'primeng/dialog';
+import { Dialog } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
@@ -30,7 +30,7 @@ import { WithoutModalDoc } from './withoutmodaldoc';
         AppCodeModule,
         RouterModule,
         FormsModule,
-        DialogModule,
+        Dialog,
         ButtonModule,
         DropdownModule,
         AppDocModule,

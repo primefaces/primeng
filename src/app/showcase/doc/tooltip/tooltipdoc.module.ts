@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { TooltipModule } from 'primeng/tooltip';
+import { Tooltip } from 'primeng/tooltip';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { AppDocModule } from '@layout/doc/app.doc.module';
@@ -17,7 +17,7 @@ import { AccessibilityDoc } from './accessibilitydoc';
 import { CustomDoc } from './customdoc';
 
 @NgModule({
-    imports: [CommonModule, AppCodeModule, RouterModule, TooltipModule, ButtonModule, InputTextModule, AppDocModule],
+    imports: [CommonModule, AppCodeModule, RouterModule, Tooltip, ButtonModule, InputTextModule, AppDocModule],
     declarations: [ImportDoc, StyleDoc, PositionDoc, EventDoc, AutoHideDoc, DelayDoc, CustomDoc, OptionsDoc, AccessibilityDoc],
     exports: [AppDocModule],
 })

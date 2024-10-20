@@ -67,14 +67,14 @@ export class EventDoc implements OnInit {
         typescript: `import { Component, OnInit } from '@angular/core';
 import { MessageService, TreeNode } from 'primeng/api';
 import { NodeService } from '@service/nodeservice';
-import { TreeModule } from 'primeng/tree';
+import { Tree } from 'primeng/tree';
 import { ToastModule } from 'primeng/toast';
 
 @Component({
     selector: 'tree-events-demo',
     templateUrl: './tree-events-demo.html',
     standalone: true,
-    imports: [TreeModule, ToastModule],
+    imports: [Tree, ToastModule],
     providers: [MessageService, NodeService]
 })
 export class TreeEventsDemo implements OnInit {

@@ -43,35 +43,11 @@ import { ProductService } from '@service/productservice';
 })
 export class TemplateDoc implements OnInit {
     products!: Product[];
-
-    constructor(
-        private productService: ProductService,
-        private cdr: ChangeDetectorRef,
-    ) {}
-
-    ngOnInit() {
-        this.productService.getProductsSmall().then((cars) => {
-            this.products = cars;
-            this.cdr.detectChanges();
-        });
-    }
-
-    getSeverity(status: string) {
-        switch (status) {
-            case 'INSTOCK':
-                return 'success';
-            case 'LOWSTOCK':
-                return 'warning';
-            case 'OUTOFSTOCK':
-                return 'danger';
-        }
-    }
-
     code: Code = {
         basic: `<p-orderlist
     [value]="products"
-    dataKey="id" 
-    breakpoint="575px" 
+    dataKey="id"
+    breakpoint="575px"
     scrollHeight="20rem"
 >
     <ng-template let-option let-selected="selected" pTemplate="option">
@@ -101,8 +77,8 @@ export class TemplateDoc implements OnInit {
         html: `<div class="card xl:flex xl:justify-center">
     <p-orderlist
         [value]="products"
-        dataKey="id" 
-        breakpoint="575px" 
+        dataKey="id"
+        breakpoint="575px"
         scrollHeight="20rem"
     >
         <ng-template let-option let-selected="selected" pTemplate="option">
@@ -164,7 +140,7 @@ export class OrderlistTemplateDemo implements OnInit {
 }`,
 
         data: `
-/* ProductService */        
+/* ProductService */
 {
     id: '1000',
     code: 'f230fh0g3',
@@ -181,7 +157,6 @@ export class OrderlistTemplateDemo implements OnInit {
 
         service: ['ProductService'],
     };
-
     extFiles = [
         {
             path: 'src/domain/product.ts',
@@ -200,4 +175,27 @@ export interface Product {
 }`,
         },
     ];
+
+    constructor(
+        private productService: ProductService,
+        private cdr: ChangeDetectorRef,
+    ) {}
+
+    ngOnInit() {
+        this.productService.getProductsSmall().then((cars) => {
+            this.products = cars;
+            this.cdr.detectChanges();
+        });
+    }
+
+    getSeverity(status: string) {
+        switch (status) {
+            case 'INSTOCK':
+                return 'success';
+            case 'LOWSTOCK':
+                return 'warning';
+            case 'OUTOFSTOCK':
+                return 'danger';
+        }
+    }
 }

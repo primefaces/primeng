@@ -1,11 +1,10 @@
 import { AnimationEvent } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import {
-    AfterContentInit,
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
-    ContentChildren,
+    ContentChild,
     ElementRef,
     EventEmitter,
     forwardRef,
@@ -13,28 +12,27 @@ import {
     Input,
     NgModule,
     Output,
-    QueryList,
     TemplateRef,
     ViewChild,
     ViewEncapsulation,
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { OverlayOptions, PrimeTemplate, ScrollerOptions, SharedModule, TreeNode } from 'primeng/api';
+import { OverlayOptions, ScrollerOptions, TreeNode } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { ChevronDownIcon } from 'primeng/icons/chevrondown';
 import { SearchIcon } from 'primeng/icons/search';
 import { TimesIcon } from 'primeng/icons/times';
-import { Overlay, OverlayModule } from 'primeng/overlay';
-import { RippleModule } from 'primeng/ripple';
-import { Tree, TreeFilterEvent, TreeModule, TreeNodeSelectEvent, TreeNodeUnSelectEvent } from 'primeng/tree';
+import { Overlay } from 'primeng/overlay';
+import { Ripple } from 'primeng/ripple';
+import { Tree, TreeFilterEvent, TreeNodeSelectEvent, TreeNodeUnSelectEvent } from 'primeng/tree';
 import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
 import { Nullable } from 'primeng/ts-helpers';
-import { AutoFocusModule } from 'primeng/autofocus';
+import { AutoFocus } from 'primeng/autofocus';
 import { TreeSelectNodeCollapseEvent, TreeSelectNodeExpandEvent } from './treeselect.interface';
-import { ChipModule } from 'primeng/chip';
+import { Chip } from 'primeng/chip';
 import { BaseComponent } from 'primeng/basecomponent';
 import { TreeSelectStyle } from './style/treeselectstyle';
-import { InputTextModule } from 'primeng/inputtext';
+import { InputText } from 'primeng/inputtext';
 
 export const TREESELECT_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -47,6 +45,8 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
  */
 @Component({
     selector: 'p-treeSelect, p-treeselect',
+    standalone: true,
+    imports: [CommonModule, Overlay, Ripple, InputText, Tree, AutoFocus, SearchIcon, TimesIcon, ChevronDownIcon, Chip],
     template: `
         <div #container [ngClass]="containerClass" [class]="containerStyleClass" [ngStyle]="containerStyle" (click)="onClick($event)">
             <div class="p-hidden-accessible">
@@ -215,7 +215,7 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
     providers: [TREESELECT_VALUE_ACCESSOR, TreeSelectStyle],
     encapsulation: ViewEncapsulation.None,
 })
-export class TreeSelect extends BaseComponent implements AfterContentInit {
+export class TreeSelect extends BaseComponent {
     /**
      * Identifier of the underlying input element.
      * @group Props
@@ -508,8 +508,6 @@ export class TreeSelect extends BaseComponent implements AfterContentInit {
 
     _hideTransitionOptions: string | undefined;
 
-    @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<PrimeTemplate>>;
-
     @ViewChild('container') containerEl: Nullable<ElementRef>;
 
     @ViewChild('focusInput') focusInput: Nullable<ElementRef>;
@@ -531,28 +529,71 @@ export class TreeSelect extends BaseComponent implements AfterContentInit {
     filterValue: Nullable<string> = null;
 
     serializedValue: Nullable<any[]>;
+    /**
+     * Custom value template.
+     * @group Templates
+     */
+    @ContentChild('value') valueTemplate: Nullable<TemplateRef<any>>;
 
-    valueTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom header template.
+     * @group Templates
+     */
+    @ContentChild('header') headerTemplate: Nullable<TemplateRef<any>>;
 
-    headerTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom empty message template.
+     * @group Templates
+     */
+    @ContentChild('empty') emptyTemplate: Nullable<TemplateRef<any>>;
 
-    emptyTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom footer template.
+     * @group Templates
+     */
+    @ContentChild('footer') footerTemplate: Nullable<TemplateRef<any>>;
 
-    footerTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom clear icon template.
+     * @group Templates
+     */
+    @ContentChild('clearicon') clearIconTemplate: Nullable<TemplateRef<any>>;
 
-    clearIconTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom trigger icon template.
+     * @group Templates
+     */
+    @ContentChild('triggericon') triggerIconTemplate: Nullable<TemplateRef<any>>;
 
-    triggerIconTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom filter icon template.
+     * @group Templates
+     */
+    @ContentChild('filtericon') filterIconTemplate: Nullable<TemplateRef<any>>;
 
-    filterIconTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom close icon template.
+     * @group Templates
+     */
+    @ContentChild('closeicon') closeIconTemplate: Nullable<TemplateRef<any>>;
 
-    closeIconTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom item toggler icon template.
+     * @group Templates
+     */
+    @ContentChild('itemtogglericon') itemTogglerIconTemplate: Nullable<TemplateRef<any>>;
 
-    itemTogglerIconTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom item checkbox icon template.
+     * @group Templates
+     */
+    @ContentChild('itemcheckboxicon') itemCheckboxIconTemplate: Nullable<TemplateRef<any>>;
 
-    itemCheckboxIconTemplate: Nullable<TemplateRef<any>>;
-
-    itemLoadingIconTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom item loading icon template.
+     * @group Templates
+     */
+    @ContentChild('itemloadingicon') itemLoadingIconTemplate: Nullable<TemplateRef<any>>;
 
     focused: Nullable<boolean>;
 
@@ -580,65 +621,6 @@ export class TreeSelect extends BaseComponent implements AfterContentInit {
         super.ngOnInit();
         this.listId = UniqueComponentId() + '_list';
         this.updateTreeState();
-    }
-
-    ngAfterContentInit() {
-        if ((this.templates as QueryList<PrimeTemplate>).length) {
-            this.templateMap = {};
-        }
-
-        (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
-            switch (item.getType()) {
-                case 'value':
-                    this.valueTemplate = item.template;
-                    break;
-
-                case 'header':
-                    this.headerTemplate = item.template;
-                    break;
-
-                case 'empty':
-                    this.emptyTemplate = item.template;
-                    break;
-
-                case 'footer':
-                    this.footerTemplate = item.template;
-                    break;
-
-                case 'clearicon':
-                    this.clearIconTemplate = item.template;
-                    break;
-
-                case 'triggericon':
-                    this.triggerIconTemplate = item.template;
-                    break;
-
-                case 'filtericon':
-                    this.filterIconTemplate = item.template;
-                    break;
-
-                case 'closeicon':
-                    this.closeIconTemplate = item.template;
-                    break;
-
-                case 'itemtogglericon':
-                    this.itemTogglerIconTemplate = item.template;
-                    break;
-
-                case 'itemcheckboxicon':
-                    this.itemCheckboxIconTemplate = item.template;
-                    break;
-
-                case 'itemloadingicon':
-                    this.itemLoadingIconTemplate = item.template;
-                    break;
-
-                default: //TODO: @deprecated Used "value" template instead
-                    if (item.name) this.templateMap[item.name] = item.template;
-                    else this.valueTemplate = item.template;
-                    break;
-            }
-        });
     }
 
     onOverlayAnimationStart(event: AnimationEvent) {
@@ -1037,20 +1019,7 @@ export class TreeSelect extends BaseComponent implements AfterContentInit {
 }
 
 @NgModule({
-    imports: [
-        CommonModule,
-        OverlayModule,
-        RippleModule,
-        InputTextModule,
-        SharedModule,
-        TreeModule,
-        AutoFocusModule,
-        SearchIcon,
-        TimesIcon,
-        ChevronDownIcon,
-        ChipModule,
-    ],
-    exports: [TreeSelect, OverlayModule, SharedModule, TreeModule],
-    declarations: [TreeSelect],
+    imports: [TreeSelect],
+    exports: [TreeSelect],
 })
 export class TreeSelectModule {}

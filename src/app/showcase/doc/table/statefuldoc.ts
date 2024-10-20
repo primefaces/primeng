@@ -31,7 +31,7 @@ import { CustomerService } from '@service/customerservice';
                     stateStorage="session"
                     stateKey="statedemo-session"
                 >
-                    <ng-template pTemplate="caption">
+                    <ng-template caption>
                         <p-iconfield iconPosition="left">
                             <p-inputicon>
                                 <i class="pi pi-search"></i>
@@ -44,17 +44,27 @@ import { CustomerService } from '@service/customerservice';
                             />
                         </p-iconfield>
                     </ng-template>
-                    <ng-template pTemplate="header">
+                    <ng-template header>
                         <tr>
-                            <th pSortableColumn="name" style="width:25%">Name <p-sortIcon field="name" /></th>
-                            <th pSortableColumn="country.name" style="width:25%">Country <p-sortIcon field="country.name" /></th>
-                            <th pSortableColumn="representative.name" style="width:25%">
-                                Representative <p-sortIcon field="representative.name" />
+                            <th pSortableColumn="name" style="width:25%">
+                                Name
+                                <p-sortIcon field="name" />
                             </th>
-                            <th pSortableColumn="status" style="width:25%">Status <p-sortIcon field="status" /></th>
+                            <th pSortableColumn="country.name" style="width:25%">
+                                Country
+                                <p-sortIcon field="country.name" />
+                            </th>
+                            <th pSortableColumn="representative.name" style="width:25%">
+                                Representative
+                                <p-sortIcon field="representative.name" />
+                            </th>
+                            <th pSortableColumn="status" style="width:25%">
+                                Status
+                                <p-sortIcon field="status" />
+                            </th>
                         </tr>
                     </ng-template>
-                    <ng-template pTemplate="body" let-customer>
+                    <ng-template body let-customer>
                         <tr [pSelectableRow]="customer">
                             <td>
                                 {{ customer.name }}
@@ -82,7 +92,7 @@ import { CustomerService } from '@service/customerservice';
                             </td>
                         </tr>
                     </ng-template>
-                    <ng-template pTemplate="body" let-customer>
+                    <ng-template body let-customer>
                         <tr [pSelectableRow]="customer">
                             <td>
                                 {{ customer.name }}
@@ -109,7 +119,7 @@ import { CustomerService } from '@service/customerservice';
                             </td>
                         </tr>
                     </ng-template>
-                    <ng-template pTemplate="emptymessage">
+                    <ng-template emptymessage>
                         <tr>
                             <td colspan="4">No customers found.</td>
                         </tr>
@@ -130,32 +140,6 @@ export class StatefulDoc {
         private cd: ChangeDetectorRef,
     ) {}
 
-    loadDemoData() {
-        this.customerService.getCustomersSmall().then((data) => {
-            this.customers = data;
-            this.cd.markForCheck();
-        });
-    }
-
-    getSeverity(status: string) {
-        switch (status) {
-            case 'unqualified':
-                return 'danger';
-
-            case 'qualified':
-                return 'success';
-
-            case 'new':
-                return 'info';
-
-            case 'negotiation':
-                return 'warn';
-
-            case 'renewal':
-                return null;
-        }
-    }
-
     code: Code = {
         basic: `<p-table
     #dt1
@@ -170,7 +154,7 @@ export class StatefulDoc {
     stateStorage="session"
     stateKey="statedemo-session"
 >
-    <ng-template pTemplate="caption">
+    <ng-template caption>
         <p-iconfield iconPosition="left">
             <p-inputicon>
                 <i class="pi pi-search"></i>
@@ -183,7 +167,7 @@ export class StatefulDoc {
             />
         </p-iconfield>
     </ng-template>
-    <ng-template pTemplate="header">
+    <ng-template header>
         <tr>
             <th pSortableColumn="name" style="width:25%">Name <p-sortIcon field="name" /></th>
             <th pSortableColumn="country.name" style="width:25%">
@@ -195,7 +179,7 @@ export class StatefulDoc {
             <th pSortableColumn="status" style="width:25%">Status <p-sortIcon field="status" /></th>
         </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-customer>
+    <ng-template body let-customer>
         <tr [pSelectableRow]="customer">
             <td>
                 {{ customer.name }}
@@ -225,7 +209,7 @@ export class StatefulDoc {
             </td>
         </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-customer>
+    <ng-template body let-customer>
         <tr [pSelectableRow]="customer">
             <td>
                 {{ customer.name }}
@@ -254,7 +238,7 @@ export class StatefulDoc {
             </td>
         </tr>
     </ng-template>
-    <ng-template pTemplate="emptymessage">
+    <ng-template emptymessage>
         <tr>
             <td colspan="4">No customers found.</td>
         </tr>
@@ -274,7 +258,7 @@ export class StatefulDoc {
         stateStorage="session"
         stateKey="statedemo-session"
     >
-        <ng-template pTemplate="caption">
+        <ng-template caption>
             <p-iconfield iconPosition="left">
                 <p-inputicon>
                     <i class="pi pi-search"></i>
@@ -287,7 +271,7 @@ export class StatefulDoc {
                 />
             </p-iconfield>
         </ng-template>
-        <ng-template pTemplate="header">
+        <ng-template header>
             <tr>
                 <th pSortableColumn="name" style="width:25%">Name <p-sortIcon field="name" /></th>
                 <th pSortableColumn="country.name" style="width:25%">
@@ -299,7 +283,7 @@ export class StatefulDoc {
                 <th pSortableColumn="status" style="width:25%">Status <p-sortIcon field="status" /></th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-customer>
+        <ng-template body let-customer>
             <tr [pSelectableRow]="customer">
                 <td>
                     {{ customer.name }}
@@ -329,7 +313,7 @@ export class StatefulDoc {
                 </td>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-customer>
+        <ng-template body let-customer>
             <tr [pSelectableRow]="customer">
                 <td>
                     {{ customer.name }}
@@ -358,7 +342,7 @@ export class StatefulDoc {
                 </td>
             </tr>
         </ng-template>
-        <ng-template pTemplate="emptymessage">
+        <ng-template emptymessage>
             <tr>
                 <td colspan="4">No customers found.</td>
             </tr>
@@ -371,15 +355,15 @@ import { CustomerService } from '@service/customerservice';
 import { TableModule } from 'primeng/table';
 import { HttpClientModule } from '@angular/common/http';
 import { InputTextModule } from 'primeng/inputtext';
-import { IconFieldModule } from 'primeng/iconfield';
-import { InputIconModule } from 'primeng/inputicon';
-import { TagModule } from 'primeng/tag';
+import { IconField } from 'primeng/iconfield';
+import { InputIcon } from 'primeng/inputicon';
+import { Tag } from 'primeng/tag';
 
 @Component({
     selector: 'table-stateful-demo',
     templateUrl: 'table-stateful-demo.html',
     standalone: true,
-    imports: [TableModule, HttpClientModule, InputTextModule, TagModule, IconFieldModule, InputIconModule],
+    imports: [TableModule, HttpClientModule, InputTextModule, Tag, IconField, InputIcon],
     providers: [CustomerService]
 })
 export class TableStatefulDemo implements OnInit{
@@ -433,6 +417,32 @@ export class TableStatefulDemo implements OnInit{
 ...`,
         service: ['CustomerService'],
     };
+
+    getSeverity(status: string) {
+        switch (status) {
+            case 'unqualified':
+                return 'danger';
+
+            case 'qualified':
+                return 'success';
+
+            case 'new':
+                return 'info';
+
+            case 'negotiation':
+                return 'warn';
+
+            case 'renewal':
+                return null;
+        }
+    }
+
+    loadDemoData() {
+        this.customerService.getCustomersSmall().then((data) => {
+            this.customers = data;
+            this.cd.markForCheck();
+        });
+    }
 
     extFiles = [
         {

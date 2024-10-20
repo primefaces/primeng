@@ -1,6 +1,4 @@
-import { NgClass } from '@angular/common';
-import { ChangeDetectionStrategy, Component, computed, inject, input, NgModule, ViewEncapsulation } from '@angular/core';
-import { SharedModule } from 'primeng/api';
+import { ChangeDetectionStrategy, Component, inject, input, NgModule, ViewEncapsulation } from '@angular/core';
 import { BaseComponent } from 'primeng/basecomponent';
 import { IconFieldStyle } from './style/iconfieldstyle';
 
@@ -10,10 +8,16 @@ import { IconFieldStyle } from './style/iconfieldstyle';
  */
 @Component({
     selector: 'p-iconfield, p-iconField',
-    template: ` <div class="p-iconfield" [ngClass]="containerClass()" [class]="styleClass()"><ng-content></ng-content></div>`,
+    standalone: true,
+    template: ` <ng-content></ng-content>`,
     providers: [IconFieldStyle],
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
+    host: {
+        class: 'p-iconfield',
+        '[class.p-iconfield-left]': 'iconPosition() === "left"',
+        '[class.p-iconfield-right]': 'iconPosition() === "right"',
+    },
 })
 export class IconField extends BaseComponent {
     /**
@@ -27,24 +31,11 @@ export class IconField extends BaseComponent {
      */
     styleClass = input<string>();
 
-    /**
-     * Computes the container class based on the icon position.
-     * @returns An object with the container class.
-     * @group Methods
-     */
-    containerClass = computed(() => {
-        return {
-            'p-iconfield-left': this.iconPosition() === 'left',
-            'p-iconfield-right': this.iconPosition() === 'right',
-        };
-    });
-
     _componentStyle = inject(IconFieldStyle);
 }
 
 @NgModule({
-    imports: [NgClass],
-    exports: [IconField, SharedModule],
-    declarations: [IconField],
+    imports: [IconField],
+    exports: [IconField],
 })
 export class IconFieldModule {}

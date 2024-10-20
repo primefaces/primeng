@@ -11,12 +11,24 @@ import { ProductService } from '@service/productservice';
         <p-deferred-demo (load)="loadDemoData()">
             <div class="card">
                 <p-table [value]="products" dataKey="id" [tableStyle]="{ 'min-width': '50rem' }">
-                    <ng-template pTemplate="header">
+                    <ng-template #header>
                         <tr>
-                            <th pSortableColumn="code" style="width:25%">Code <p-sortIcon field="code" /></th>
-                            <th pSortableColumn="name" style="width:25%">Name <p-sortIcon field="name" /></th>
-                            <th pSortableColumn="category" style="width:25%">Quantity <p-sortIcon field="quantity" /></th>
-                            <th pSortableColumn="quantity" style="width:25%">Price <p-sortIcon field="price" /></th>
+                            <th pSortableColumn="code" style="width:25%">
+                                Code
+                                <p-sortIcon field="code" />
+                            </th>
+                            <th pSortableColumn="name" style="width:25%">
+                                Name
+                                <p-sortIcon field="name" />
+                            </th>
+                            <th pSortableColumn="category" style="width:25%">
+                                Quantity
+                                <p-sortIcon field="quantity" />
+                            </th>
+                            <th pSortableColumn="quantity" style="width:25%">
+                                Price
+                                <p-sortIcon field="price" />
+                            </th>
                         </tr>
                         <tr>
                             <th>
@@ -33,44 +45,44 @@ import { ProductService } from '@service/productservice';
                             </th>
                         </tr>
                     </ng-template>
-                    <ng-template pTemplate="body" let-product let-editing="editing">
+                    <ng-template #body let-product let-editing="editing">
                         <tr>
                             <td [pEditableColumn]="product.code" pEditableColumnField="code">
                                 <p-cellEditor>
-                                    <ng-template pTemplate="input">
+                                    <ng-template #input>
                                         <input pInputText type="text" [(ngModel)]="product.code" />
                                     </ng-template>
-                                    <ng-template pTemplate="output">
+                                    <ng-template #output>
                                         {{ product.code }}
                                     </ng-template>
                                 </p-cellEditor>
                             </td>
                             <td [pEditableColumn]="product.name" pEditableColumnField="name">
                                 <p-cellEditor>
-                                    <ng-template pTemplate="input">
+                                    <ng-template #input>
                                         <input pInputText type="text" [(ngModel)]="product.name" required />
                                     </ng-template>
-                                    <ng-template pTemplate="output">
+                                    <ng-template #output>
                                         {{ product.name }}
                                     </ng-template>
                                 </p-cellEditor>
                             </td>
                             <td [pEditableColumn]="product.quantity" pEditableColumnField="quantity">
                                 <p-cellEditor>
-                                    <ng-template pTemplate="input">
+                                    <ng-template #input>
                                         <input pInputText [(ngModel)]="product.quantity" (keydown.enter)="onEdit($event)" />
                                     </ng-template>
-                                    <ng-template pTemplate="output">
+                                    <ng-template #output>
                                         {{ product.quantity }}
                                     </ng-template>
                                 </p-cellEditor>
                             </td>
                             <td [pEditableColumn]="product.price" pEditableColumnField="price">
                                 <p-cellEditor>
-                                    <ng-template pTemplate="input">
+                                    <ng-template #input>
                                         <input pInputText type="text" [(ngModel)]="product.price" (keydown.enter)="onEdit($event)" />
                                     </ng-template>
-                                    <ng-template pTemplate="output">
+                                    <ng-template #output>
                                         {{ product.price | currency: 'USD' }}
                                     </ng-template>
                                 </p-cellEditor>
@@ -129,7 +141,7 @@ export class FilterSortEditDoc {
 
     code: Code = {
         basic: `<p-table [value]="products" dataKey="id" [tableStyle]="{ 'min-width': '50rem' }">
-    <ng-template pTemplate="header">
+    <ng-template #header>
         <tr>
             <th pSortableColumn="code" style="width:25%">
                 Code <p-sortIcon field="code" />
@@ -159,44 +171,44 @@ export class FilterSortEditDoc {
             </th>
         </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-product let-editing="editing">
+    <ng-template #body let-product let-editing="editing">
         <tr>
             <td [pEditableColumn]="product.code" pEditableColumnField="code">
                 <p-cellEditor>
-                    <ng-template pTemplate="input">
+                    <ng-template #input>
                         <input pInputText type="text" [(ngModel)]="product.code" />
                     </ng-template>
-                    <ng-template pTemplate="output">
+                    <ng-template #output>
                         {{ product.code }}
                     </ng-template>
                 </p-cellEditor>
             </td>
             <td [pEditableColumn]="product.name" pEditableColumnField="name">
                 <p-cellEditor>
-                    <ng-template pTemplate="input">
+                    <ng-template #input>
                         <input pInputText type="text" [(ngModel)]="product.name" required />
                     </ng-template>
-                    <ng-template pTemplate="output">
+                    <ng-template #output>
                         {{ product.name }}
                     </ng-template>
                 </p-cellEditor>
             </td>
             <td [pEditableColumn]="product.quantity" pEditableColumnField="quantity">
                 <p-cellEditor>
-                    <ng-template pTemplate="input">
+                    <ng-template #input>
                         <input pInputText [(ngModel)]="product.quantity" (keydown.enter)="onEdit($event)" />
                     </ng-template>
-                    <ng-template pTemplate="output">
+                    <ng-template #output>
                         {{ product.quantity }}
                     </ng-template>
                 </p-cellEditor>
             </td>
             <td [pEditableColumn]="product.price" pEditableColumnField="price">
                 <p-cellEditor>
-                    <ng-template pTemplate="input">
+                    <ng-template #input>
                         <input pInputText type="text" [(ngModel)]="product.price" (keydown.enter)="onEdit($event)" />
                     </ng-template>
-                    <ng-template pTemplate="output">
+                    <ng-template #output>
                         {{ product.price | currency : 'USD' }}
                     </ng-template>
                 </p-cellEditor>
@@ -206,7 +218,7 @@ export class FilterSortEditDoc {
 </p-table>`,
         html: `<div class="card">
     <p-table [value]="products" dataKey="id" [tableStyle]="{ 'min-width': '50rem' }">
-        <ng-template pTemplate="header">
+        <ng-template #header>
             <tr>
                 <th pSortableColumn="code" style="width:25%">
                     Code <p-sortIcon field="code" />
@@ -236,44 +248,44 @@ export class FilterSortEditDoc {
                 </th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-product let-editing="editing">
+        <ng-template #body let-product let-editing="editing">
             <tr>
                 <td [pEditableColumn]="product.code" pEditableColumnField="code">
                     <p-cellEditor>
-                        <ng-template pTemplate="input">
+                        <ng-template #input>
                             <input pInputText type="text" [(ngModel)]="product.code" />
                         </ng-template>
-                        <ng-template pTemplate="output">
+                        <ng-template #output>
                             {{ product.code }}
                         </ng-template>
                     </p-cellEditor>
                 </td>
                 <td [pEditableColumn]="product.name" pEditableColumnField="name">
                     <p-cellEditor>
-                        <ng-template pTemplate="input">
+                        <ng-template #input>
                             <input pInputText type="text" [(ngModel)]="product.name" required />
                         </ng-template>
-                        <ng-template pTemplate="output">
+                        <ng-template #output>
                             {{ product.name }}
                         </ng-template>
                     </p-cellEditor>
                 </td>
                 <td [pEditableColumn]="product.quantity" pEditableColumnField="quantity">
                     <p-cellEditor>
-                        <ng-template pTemplate="input">
+                        <ng-template #input>
                             <input pInputText [(ngModel)]="product.quantity" (keydown.enter)="onEdit($event)" />
                         </ng-template>
-                        <ng-template pTemplate="output">
+                        <ng-template #output>
                             {{ product.quantity }}
                         </ng-template>
                     </p-cellEditor>
                 </td>
                 <td [pEditableColumn]="product.price" pEditableColumnField="price">
                     <p-cellEditor>
-                        <ng-template pTemplate="input">
+                        <ng-template #input>
                             <input pInputText type="text" [(ngModel)]="product.price" (keydown.enter)="onEdit($event)" />
                         </ng-template>
-                        <ng-template pTemplate="output">
+                        <ng-template #output>
                             {{ product.price | currency : 'USD' }}
                         </ng-template>
                     </p-cellEditor>

@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppDocModule } from '@layout/doc/app.doc.module';
 import { AppCodeModule } from '@layout/doc/app.code.component';
-import { ColorPickerModule } from 'primeng/colorpicker';
+import { ColorPicker } from 'primeng/colorpicker';
 import { ImportDoc } from './importdoc';
 import { BasicDoc } from './basicdoc';
 import { InlineDoc } from './inlinedoc';
@@ -15,7 +15,7 @@ import { AccessibilityDoc } from './accessibilitydoc';
 import { ReactiveFormsDoc } from './reactiveformsdoc';
 
 @NgModule({
-    imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, FormsModule, ReactiveFormsModule, ColorPickerModule],
+    imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, FormsModule, ReactiveFormsModule, ColorPicker],
     exports: [AppDocModule],
     declarations: [ImportDoc, BasicDoc, InlineDoc, FormatDoc, DisabledDoc, StyleDoc, AccessibilityDoc, ReactiveFormsDoc],
 })

@@ -4,7 +4,7 @@ import {
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
-    ContentChildren,
+    ContentChild,
     ElementRef,
     EventEmitter,
     forwardRef,
@@ -16,16 +16,15 @@ import {
     OnDestroy,
     OnInit,
     Output,
-    QueryList,
     TemplateRef,
     ViewChild,
     ViewEncapsulation,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { OverlayService, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
-import { ButtonModule } from 'primeng/button';
+import { OverlayService, TranslationKeys } from 'primeng/api';
+import { Button } from 'primeng/button';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
-import { RippleModule } from 'primeng/ripple';
+import { Ripple } from 'primeng/ripple';
 import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
 import { Subscription } from 'rxjs';
 import { ChevronLeftIcon } from 'primeng/icons/chevronleft';
@@ -36,16 +35,16 @@ import { TimesIcon } from 'primeng/icons/times';
 import { CalendarIcon } from 'primeng/icons/calendar';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import {
-    NavigationState,
+    DatePickerMonthChangeEvent,
     DatePickerResponsiveOptions,
     DatePickerTypeView,
+    DatePickerYearChangeEvent,
     LocaleSettings,
     Month,
-    DatePickerMonthChangeEvent,
-    DatePickerYearChangeEvent,
+    NavigationState,
 } from './datepicker.interface';
-import { AutoFocusModule } from 'primeng/autofocus';
-import { InputTextModule } from 'primeng/inputtext';
+import { AutoFocus } from 'primeng/autofocus';
+import { InputText } from 'primeng/inputtext';
 import { DatePickerStyle } from './style/datepickerstyle';
 import { BaseComponent } from 'primeng/basecomponent';
 
@@ -60,6 +59,20 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
  */
 @Component({
     selector: 'p-datePicker, p-datepicker',
+    standalone: true,
+    imports: [
+        CommonModule,
+        Button,
+        Ripple,
+        ChevronLeftIcon,
+        ChevronRightIcon,
+        ChevronUpIcon,
+        ChevronDownIcon,
+        TimesIcon,
+        CalendarIcon,
+        AutoFocus,
+        InputText,
+    ],
     template: `
         <span #container [ngClass]="rootClass" [ngStyle]="style" [class]="styleClass">
             <ng-template [ngIf]="!inline">
@@ -1079,8 +1092,6 @@ export class DatePicker extends BaseComponent implements OnInit, OnDestroy, Cont
      */
     @Output() onShow: EventEmitter<any> = new EventEmitter<any>();
 
-    @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
-
     @ViewChild('container', { static: false }) containerViewChild: Nullable<ElementRef>;
 
     @ViewChild('inputfield', { static: false }) inputfieldViewChild: Nullable<ElementRef>;
@@ -1172,29 +1183,77 @@ export class DatePicker extends BaseComponent implements OnInit, OnDestroy, Cont
         return this._componentStyle.classes.day({ instance: this, date: date });
     }
 
-    dateTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom template for date cells.
+     * @group Templates
+     */
+    @ContentChild('date') dateTemplate: Nullable<TemplateRef<any>>;
 
-    headerTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom template for header section.
+     * @group Templates
+     */
+    @ContentChild('header') headerTemplate: Nullable<TemplateRef<any>>;
 
-    footerTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom template for footer section.
+     * @group Templates
+     */
+    @ContentChild('footer') footerTemplate: Nullable<TemplateRef<any>>;
 
-    disabledDateTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom template for disabled date cells.
+     * @group Templates
+     */
+    @ContentChild('disabledDate') disabledDateTemplate: Nullable<TemplateRef<any>>;
 
-    decadeTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom template for decade view.
+     * @group Templates
+     */
+    @ContentChild('decade') decadeTemplate: Nullable<TemplateRef<any>>;
 
-    previousIconTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom template for previous month icon.
+     * @group Templates
+     */
+    @ContentChild('previousicon') previousIconTemplate: Nullable<TemplateRef<any>>;
 
-    nextIconTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom template for next month icon.
+     * @group Templates
+     */
+    @ContentChild('nexticon') nextIconTemplate: Nullable<TemplateRef<any>>;
 
-    triggerIconTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom template for trigger icon.
+     * @group Templates
+     */
+    @ContentChild('triggericon') triggerIconTemplate: Nullable<TemplateRef<any>>;
 
-    clearIconTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom template for clear icon.
+     * @group Templates
+     */
+    @ContentChild('clearicon') clearIconTemplate: Nullable<TemplateRef<any>>;
 
-    decrementIconTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom template for decrement icon.
+     * @group Templates
+     */
+    @ContentChild('decrementicon') decrementIconTemplate: Nullable<TemplateRef<any>>;
 
-    incrementIconTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom template for increment icon.
+     * @group Templates
+     */
+    @ContentChild('incrementicon') incrementIconTemplate: Nullable<TemplateRef<any>>;
 
-    inputIconTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom template for input icon.
+     * @group Templates
+     */
+    @ContentChild('inputicon') inputIconTemplate: Nullable<TemplateRef<any>>;
 
     _disabledDates!: Array<Date>;
 
@@ -1313,64 +1372,6 @@ export class DatePicker extends BaseComponent implements OnInit, OnDestroy, Cont
         });
 
         this.initialized = true;
-    }
-
-    ngAfterContentInit() {
-        this.templates.forEach((item) => {
-            switch (item.getType()) {
-                case 'date':
-                    this.dateTemplate = item.template;
-                    break;
-
-                case 'decade':
-                    this.decadeTemplate = item.template;
-                    break;
-
-                case 'disabledDate':
-                    this.disabledDateTemplate = item.template;
-                    break;
-
-                case 'header':
-                    this.headerTemplate = item.template;
-                    break;
-
-                case 'inputicon':
-                    this.inputIconTemplate = item.template;
-                    break;
-
-                case 'previousicon':
-                    this.previousIconTemplate = item.template;
-                    break;
-
-                case 'nexticon':
-                    this.nextIconTemplate = item.template;
-                    break;
-
-                case 'triggericon':
-                    this.triggerIconTemplate = item.template;
-                    break;
-
-                case 'clearicon':
-                    this.clearIconTemplate = item.template;
-                    break;
-
-                case 'decrementicon':
-                    this.decrementIconTemplate = item.template;
-                    break;
-
-                case 'incrementicon':
-                    this.incrementIconTemplate = item.template;
-                    break;
-
-                case 'footer':
-                    this.footerTemplate = item.template;
-                    break;
-
-                default:
-                    this.dateTemplate = item.template;
-                    break;
-            }
-        });
     }
 
     ngAfterViewInit() {
@@ -3964,21 +3965,7 @@ export class DatePicker extends BaseComponent implements OnInit, OnDestroy, Cont
 }
 
 @NgModule({
-    imports: [
-        CommonModule,
-        ButtonModule,
-        SharedModule,
-        RippleModule,
-        ChevronLeftIcon,
-        ChevronRightIcon,
-        ChevronUpIcon,
-        ChevronDownIcon,
-        TimesIcon,
-        CalendarIcon,
-        AutoFocusModule,
-        InputTextModule,
-    ],
-    exports: [DatePicker, ButtonModule, SharedModule],
-    declarations: [DatePicker],
+    imports: [DatePicker],
+    exports: [DatePicker],
 })
 export class DatePickerModule {}

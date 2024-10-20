@@ -3,8 +3,9 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { DividerModule } from 'primeng/divider';
+import { DropdownModule } from 'primeng/dropdown';
 import { PaginatorModule } from 'primeng/paginator';
-import { SliderModule } from 'primeng/slider';
+import { Slider } from 'primeng/slider';
 import { AppDocModule } from '@layout/doc/app.doc.module';
 import { AppCodeModule } from '@layout/doc/app.code.component';
 import { AccessibilityDoc } from './accessibilitydoc';
@@ -15,8 +16,8 @@ import { StyleDoc } from './styledoc';
 import { TemplateDoc } from './templatedoc';
 import { CurrentPageReportDoc } from './currentpagereportdoc';
 import { FormsModule } from '@angular/forms';
-import { InputNumberModule } from 'primeng/inputnumber';
-import { SelectModule } from 'primeng/select';
+import { InputNumber } from 'primeng/inputnumber';
+import { Select } from 'primeng/select';
 
 @NgModule({
     imports: [
@@ -27,10 +28,11 @@ import { SelectModule } from 'primeng/select';
         ButtonModule,
         DividerModule,
         FormsModule,
-        InputNumberModule,
-        SliderModule,
+        InputNumber,
+        Slider,
         RouterModule,
-        SelectModule,
+        Select,
+        DropdownModule,
     ],
     exports: [AppDocModule],
     declarations: [ImportDoc, BasicDoc, TemplateDoc, ImagesDoc, StyleDoc, AccessibilityDoc, CurrentPageReportDoc],

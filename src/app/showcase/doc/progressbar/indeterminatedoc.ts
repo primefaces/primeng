@@ -23,13 +23,13 @@ export class IndeterminateDoc {
 </div>`,
         typescript: `import { Component } from '@angular/core';
 import { MessageService } from 'primeng/api';
-import { ProgressBarModule } from 'primeng/progressbar';
+import { ProgressBar } from 'primeng/progressbar';
 
 @Component({
     selector: 'progress-bar-indeterminate-demo',
     templateUrl: './progress-bar-indeterminate-demo.html',
     standalone: true,
-    imports: [ProgressBarModule],
+    imports: [ProgressBar],
     providers: [MessageService]
 })
 export class ProgressBarIndeterminateDemo {}`,

@@ -25,12 +25,6 @@ export class DeferDemo {
     carService = inject(CarService);
 
     messageService = inject(MessageService);
-
-    initData() {
-        this.messageService.add({ severity: 'success', summary: 'Data Initialized', detail: 'Render Completed' });
-        this.carService.getCarsSmall().then((cars) => (this.cars = cars));
-    }
-
     docs = [
         {
             id: 'import',
@@ -48,4 +42,9 @@ export class DeferDemo {
             component: DataTableDoc,
         },
     ];
+
+    initData() {
+        this.messageService.add({ severity: 'success', summary: 'Data Initialized', detail: 'Render Completed' });
+        this.carService.getCarsSmall().then((cars) => (this.cars = cars));
+    }
 }

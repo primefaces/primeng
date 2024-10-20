@@ -24,7 +24,7 @@ interface Column {
         <p-deferred-demo (load)="loadDemoData()">
             <div class="card">
                 <p-table [value]="products" [columns]="cols" [reorderableColumns]="true" [tableStyle]="{ 'min-width': '50rem' }">
-                    <ng-template pTemplate="header" let-columns>
+                    <ng-template #header let-columns>
                         <tr>
                             <th style="width:3rem"></th>
                             <th *ngFor="let col of columns" pReorderableColumn>
@@ -32,7 +32,7 @@ interface Column {
                             </th>
                         </tr>
                     </ng-template>
-                    <ng-template pTemplate="body" let-rowData let-columns="columns" let-index="rowIndex">
+                    <ng-template #body let-rowData let-columns="columns" let-index="rowIndex">
                         <tr [pReorderableRow]="index">
                             <td>
                                 <span class="pi pi-bars" pReorderableRowHandle></span>
@@ -73,12 +73,12 @@ export class ReorderDoc {
     }
 
     code: Code = {
-        basic: `<p-table 
-    [value]="products" 
-    [columns]="cols" 
-    [reorderableColumns]="true" 
+        basic: `<p-table
+    [value]="products"
+    [columns]="cols"
+    [reorderableColumns]="true"
     [tableStyle]="{'min-width': '50rem'}">
-        <ng-template pTemplate="header" let-columns>
+        <ng-template #header let-columns>
             <tr>
                 <th style="width:3rem"></th>
                 <th *ngFor="let col of columns" pReorderableColumn>
@@ -86,10 +86,10 @@ export class ReorderDoc {
                 </th>
             </tr>
         </ng-template>
-        <ng-template 
-            pTemplate="body" 
-            let-rowData 
-            let-columns="columns" 
+        <ng-template
+            #body
+            let-rowData
+            let-columns="columns"
             let-index="rowIndex">
                 <tr [pReorderableRow]="index">
                     <td>
@@ -102,12 +102,12 @@ export class ReorderDoc {
         </ng-template>
 </p-table>`,
         html: `<div class="card">
-    <p-table 
-        [value]="products" 
-        [columns]="cols" 
-        [reorderableColumns]="true" 
+    <p-table
+        [value]="products"
+        [columns]="cols"
+        [reorderableColumns]="true"
         [tableStyle]="{'min-width': '50rem'}">
-            <ng-template pTemplate="header" let-columns>
+            <ng-template #header let-columns>
                 <tr>
                     <th style="width:3rem"></th>
                     <th *ngFor="let col of columns" pReorderableColumn>
@@ -115,10 +115,10 @@ export class ReorderDoc {
                     </th>
                 </tr>
             </ng-template>
-            <ng-template 
-                pTemplate="body" 
-                let-rowData 
-                let-columns="columns" 
+            <ng-template
+                #body
+                let-rowData
+                let-columns="columns"
                 let-index="rowIndex">
                     <tr [pReorderableRow]="index">
                         <td>

@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { TerminalModule } from 'primeng/terminal';
+import { Terminal } from 'primeng/terminal';
 import { AppDocModule } from '@layout/doc/app.doc.module';
 import { AppCodeModule } from '@layout/doc/app.code.component';
 import { AccessibilityDoc } from './accessibilitydoc';
@@ -10,7 +10,7 @@ import { ImportDoc } from './importdoc';
 import { StyleDoc } from './styledoc';
 
 @NgModule({
-    imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, TerminalModule],
+    imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, Terminal],
     declarations: [ImportDoc, BasicDoc, StyleDoc, AccessibilityDoc],
     exports: [AppDocModule],
 })

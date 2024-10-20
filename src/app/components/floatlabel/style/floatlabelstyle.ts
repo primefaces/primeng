@@ -101,8 +101,8 @@ const classes = {
         {
             'p-floatlabel-over': props.variant === 'over',
             'p-floatlabel-on': props.variant === 'on',
-            'p-floatlabel-in': props.variant === 'in'
-        }
+            'p-floatlabel-in': props.variant === 'in',
+        },
     ],
 };
 

@@ -20,7 +20,7 @@ import { Code } from '@domain/code';
             </div>
             <div class="dock-window">
                 <p-dock [model]="items" [position]="position">
-                    <ng-template pTemplate="item" let-item>
+                    <ng-template #item let-item>
                         <img [src]="item.icon" [alt]="item.label" width="100%" />
                     </ng-template>
                 </p-dock>
@@ -76,7 +76,7 @@ export class BasicDoc implements OnInit {
 
     code: Code = {
         basic: `<p-dock [model]="items" [position]="position">
-    <ng-template pTemplate="item" let-item>
+    <ng-template #item let-item>
         <img [src]="item.icon" [alt]="item.label" width="100%" />
     </ng-template>
 </p-dock>`,
@@ -96,7 +96,7 @@ export class BasicDoc implements OnInit {
     </div>
     <div class="dock-window">
         <p-dock [model]="items" [position]="position">
-            <ng-template pTemplate="item" let-item>
+            <ng-template #item let-item>
                 <img [src]="item.icon" [alt]="item.label" width="100%" />
             </ng-template>
         </p-dock>
@@ -105,8 +105,8 @@ export class BasicDoc implements OnInit {
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
-import { DockModule } from 'primeng/dock';
-import { RadioButtonModule } from 'primeng/radiobutton';
+import { Dock } from 'primeng/dock';
+import { RadioButton } from 'primeng/radiobutton';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -128,7 +128,7 @@ import { FormsModule } from '@angular/forms';
         }\`
     ],
     standalone: true,
-    imports: [DockModule, RadioButtonModule, CommonModule, FormsModule]
+    imports: [Dock, RadioButton, CommonModule, FormsModule]
 })
 export class DockBasicDemo implements OnInit {
     items: MenuItem[] | undefined;

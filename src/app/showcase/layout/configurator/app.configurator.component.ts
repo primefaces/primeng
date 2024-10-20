@@ -12,10 +12,12 @@ import { $t, updatePreset, updateSurfacePalette } from 'primeng/themes';
 import { Aura } from 'primeng/themes/aura';
 import { Lara } from 'primeng/themes/lara';
 import { Nora } from 'primeng/themes/nora';
+import { Material } from 'primeng/themes/material';
 import { ToggleSwitchModule } from 'primeng/toggleswitch';
 
 const presets = {
     Aura,
+    Material,
     Lara,
     Nora,
 };

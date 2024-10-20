@@ -1,7 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, NgModule, ViewEncapsulation } from '@angular/core';
-import { SharedModule } from 'primeng/api';
-import { RouterModule } from '@angular/router';
 import { BaseComponent } from 'primeng/basecomponent';
 import { FluidStyle } from './style/fluidstyle';
 
@@ -12,6 +10,8 @@ import { FluidStyle } from './style/fluidstyle';
 @Component({
     selector: 'p-fluid',
     template: ` <ng-content></ng-content> `,
+    standalone: true,
+    imports: [CommonModule],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     providers: [FluidStyle],
@@ -27,8 +27,7 @@ export class Fluid extends BaseComponent {
 }
 
 @NgModule({
-    imports: [CommonModule, SharedModule, RouterModule],
-    exports: [Fluid, SharedModule],
-    declarations: [Fluid],
+    imports: [Fluid],
+    exports: [Fluid],
 })
 export class FluidModule {}

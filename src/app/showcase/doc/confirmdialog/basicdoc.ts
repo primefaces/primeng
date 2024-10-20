@@ -98,7 +98,7 @@ export class BasicDoc {
 
         typescript: `import { Component } from '@angular/core';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmDialog } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
 import { ButtonModule } from 'primeng/button';
                   
@@ -106,7 +106,7 @@ import { ButtonModule } from 'primeng/button';
     selector: 'confirm-dialog-basic-demo',
     templateUrl: './confirm-dialog-basic-demo.html',
     standalone: true,
-    imports: [ConfirmDialogModule, ToastModule, ButtonModule],
+    imports: [ConfirmDialog, ToastModule, ButtonModule],
     providers: [ConfirmationService, MessageService]
 })
 export class ConfirmDialogBasicDemo {
