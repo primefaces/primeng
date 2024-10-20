@@ -10,11 +10,13 @@ import {
     inject,
     input,
     model,
+    signal,
     NgModule,
     numberAttribute,
     Output,
     QueryList,
     TemplateRef,
+    WritableSignal,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Ripple } from 'primeng/ripple';
@@ -47,17 +49,17 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
             (click)="toggle($event)"
             [attr.aria-label]="ariaLabel()"
             [attr.aria-labelledby]="ariaLabelledBy()"
-            [attr.aria-pressed]="checked"
-            [attr.data-p-checked]="active"
+            [attr.aria-pressed]="checked()"
+            [attr.data-p-checked]="active()"
             [attr.data-p-disabled]="disabled()"
         >
             <span [ngClass]="cx('content')">
-                <ng-container *ngTemplateOutlet="contentTemplate; context: { $implicit: checked }"></ng-container>
+                <ng-container *ngTemplateOutlet="contentTemplate; context: { $implicit: checked() }"></ng-container>
                 @if (!contentTemplate) {
                     @if (!iconTemplate) {
                         @if (onIcon() || offIcon()) {
                             <span
-                                [class]="checked ? onIcon() : offIcon()"
+                                [class]="checked() ? onIcon() : offIcon()"
                                 [ngClass]="{
                                     'p-togglebutton-icon': true,
                                     'p-togglebutton-icon-left': iconPos() === 'left',
@@ -67,11 +69,11 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
                             ></span>
                         }
                     } @else {
-                        <ng-container *ngTemplateOutlet="iconTemplate; context: { $implicit: checked }"></ng-container>
+                        <ng-container *ngTemplateOutlet="iconTemplate; context: { $implicit: checked() }"></ng-container>
                     }
                     @if (onLabel() || offLabel()) {
                         <span [ngClass]="cx('label')" [attr.data-pc-section]="'label'">
-                            {{ checked ? (hasOnLabel() ? onLabel() : '') : hasOffLabel() ? offLabel() : '' }}
+                            {{ checked() ? (hasOnLabel() ? onLabel() : '') : hasOffLabel() ? offLabel() : '' }}
                         </span>
                     }
                 }
@@ -168,7 +170,7 @@ export class ToggleButton extends BaseComponent implements ControlValueAccessor 
 
     contentTemplate: Nullable<TemplateRef<any>>;
 
-    checked: boolean = false;
+    checked: WritableSignal<boolean> = signal<boolean>(false);
 
     onModelChange: Function = () => {};
 
@@ -193,16 +195,11 @@ export class ToggleButton extends BaseComponent implements ControlValueAccessor 
     }
 
     toggle(event: Event) {
-        if (!this.disabled() && !(this.allowEmpty() === false && this.checked)) {
-            this.checked = !this.checked;
-            this.onModelChange(this.checked);
+        if (!this.disabled() && !(this.allowEmpty() === false && this.checked())) {
+            this.checked.set(!this.checked());
+            this.onModelChange(this.checked());
             this.onModelTouched();
-            this.onChange.emit({
-                originalEvent: event,
-                checked: this.checked,
-            });
-
-            this.cd.markForCheck();
+            this.onChange.emit({ originalEvent: event, checked: this.checked() });
         }
     }
 
@@ -224,8 +221,7 @@ export class ToggleButton extends BaseComponent implements ControlValueAccessor 
     }
 
     writeValue(value: any): void {
-        this.checked = value;
-        this.cd.markForCheck();
+        this.checked.set(value);
     }
 
     registerOnChange(fn: Function): void {
@@ -238,16 +234,13 @@ export class ToggleButton extends BaseComponent implements ControlValueAccessor 
 
     setDisabledState(val: boolean): void {
         this.disabled.set(val);
-        this.cd.markForCheck();
     }
 
     hasOnLabel = computed<boolean>(() => this.onLabel() && this.onLabel().length > 0);
 
     hasOffLabel = computed<boolean>(() => this.offLabel() && this.offLabel().length > 0);
 
-    get active() {
-        return this.checked === true;
-    }
+    active = computed<boolean>(() => this.checked() === true);
 }
 
 @NgModule({
