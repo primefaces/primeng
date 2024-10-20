@@ -55,7 +55,7 @@ import { VirtualScrollerLazyLoadEvent } from './virtualscroller.interface';
                     [options]="options()"
                 >
                     <ng-template #item let-item let-scrollerOptions="options">
-                        <div [ngStyle]="{ height: itemSize() + 'px' }" class="p-virtualscroller-item">
+                        <div [style.height.px]="itemSize()" class="p-virtualscroller-item">
                             <ng-container
                                 *ngTemplateOutlet="
                                     item ? itemTemplate() : loadingItemTemplate();
