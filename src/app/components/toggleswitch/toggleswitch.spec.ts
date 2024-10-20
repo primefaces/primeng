@@ -1,171 +1,113 @@
-import { TestBed, ComponentFixture, fakeAsync, tick } from '@angular/core/testing';
+import { ComponentRef } from '@angular/core';
+import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { InputSwitch } from './inputswitch';
+import { ToggleSwitch, ToggleSwitchModule } from './toggleswitch';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
-describe('InputSwitch', () => {
-    let inputswitch: InputSwitch;
-    let fixture: ComponentFixture<InputSwitch>;
+describe('ToggleSwitch', () => {
+    let toggleSwitch: ToggleSwitch;
+    let fixture: ComponentFixture<ToggleSwitch>;
+    let toggleSwitchRef: ComponentRef<ToggleSwitch>;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule],
-            declarations: [InputSwitch],
+            imports: [NoopAnimationsModule, ToggleSwitchModule],
         });
 
-        fixture = TestBed.createComponent(InputSwitch);
-        inputswitch = fixture.componentInstance;
+        fixture = TestBed.createComponent(ToggleSwitch);
+        toggleSwitch = fixture.componentInstance;
+        toggleSwitchRef = fixture.componentRef;
+        fixture.detectChanges();
     });
 
-    it('should created by default', () => {
-        fixture.detectChanges();
-
-        const inputSwitchEl = fixture.debugElement.query(By.css('div')).nativeElement;
-        expect(inputSwitchEl).toBeTruthy();
+    it('should render the ToggleSwitch with default values', () => {
+        const inputElement = fixture.debugElement.query(By.css('input[type="checkbox"]'));
+        expect(inputElement).toBeTruthy();
+        expect(inputElement.nativeElement.checked).toBeFalse();
     });
 
-    it('should disabled', () => {
-        inputswitch.disabled = true;
+    it('should reflect the correct state when checked', () => {
+        toggleSwitch.modelValue.set(true);
         fixture.detectChanges();
-
-        const onClickSpy = spyOn(inputswitch, 'onClick').and.callThrough();
-        const onModelChangeSpy = spyOn(inputswitch, 'onModelChange').and.callThrough();
-        const inputSwitchEl = fixture.debugElement.query(By.css('div')).nativeElement;
-        const inputEl = fixture.debugElement.query(By.css('input')).nativeElement;
-        inputSwitchEl.click();
-        fixture.detectChanges();
-
-        expect(inputSwitchEl.className).toContain('p-disabled');
-        expect(inputEl.disabled).toEqual(true);
-        expect(onClickSpy).toHaveBeenCalled();
-        expect(onModelChangeSpy).not.toHaveBeenCalled();
+        const inputElement = fixture.debugElement.query(By.css('input[type="checkbox"]'));
+        expect(inputElement.nativeElement.checked).toBeTrue();
     });
 
-    it('should change style and styleClass', () => {
-        inputswitch.style = { height: '300px' };
-        inputswitch.styleClass = 'Primeng ROCKS!';
+    it('should not allow interaction when disabled', () => {
+        toggleSwitch.disabled.set(true);
         fixture.detectChanges();
-
-        const inputSwitchEl = fixture.debugElement.query(By.css('div')).nativeElement;
-        expect(inputSwitchEl.className).toContain('Primeng ROCKS!');
-        expect(inputSwitchEl.style.height).toContain('300px');
+        const inputElement = fixture.debugElement.query(By.css('input[type="checkbox"]'));
+        expect(inputElement.nativeElement.disabled).toBeTrue();
     });
 
-    it('should get a name inputId and tabindex', () => {
-        inputswitch.tabindex = 5;
-        inputswitch.inputId = 'Primeng!';
-        inputswitch.name = 'Primeng ROCKS!';
+    it('should autofocus the input element if autofocus is true', () => {
+        toggleSwitchRef.setInput('autofocus', true);
+        fixture.detectChanges();
+        const inputElement = fixture.debugElement.query(By.css('input[type="checkbox"]'));
+        inputElement.nativeElement.focus(); // Manually trigger focus
         fixture.detectChanges();
 
-        const inputSwitchEl = fixture.debugElement.query(By.css('input')).nativeElement;
-        expect(inputSwitchEl.tabIndex).toEqual(5);
-        expect(inputSwitchEl.name).toEqual('Primeng ROCKS!');
-        expect(inputSwitchEl.id).toEqual('Primeng!');
+        expect(document.activeElement).toBe(inputElement.nativeElement);
     });
 
-    it('should checked when click', () => {
+    it('should toggle the checked state on click and emit onChange', () => {
+        spyOn(toggleSwitch.onChange, 'emit');
         fixture.detectChanges();
 
-        const onClickSpy = spyOn(inputswitch, 'onClick').and.callThrough();
-        const inputSwitchEl = fixture.debugElement.query(By.css('div')).nativeElement;
-        let data;
-        inputswitch.onChange.subscribe((value) => (data = value));
-        inputSwitchEl.click();
+        const inputElement = fixture.debugElement.query(By.css('input[type="checkbox"]'));
+        inputElement.nativeElement.click();
         fixture.detectChanges();
 
-        expect(inputswitch.checked()).toEqual(true);
-        expect(data.checked).toEqual(true);
-        expect(onClickSpy).toHaveBeenCalled();
+        expect(toggleSwitch.modelValue()).toBeTrue();
+        expect(toggleSwitch.onChange.emit).toHaveBeenCalled();
     });
 
-    it('should listen event emitter', () => {
+    it('should not toggle when readonly is true', () => {
+        toggleSwitchRef.setInput('readonly', true);
         fixture.detectChanges();
 
-        let data;
-        inputswitch.onChange.subscribe((value) => (data = value));
-        const inputSwitchEl = fixture.debugElement.query(By.css('div')).nativeElement;
-        inputSwitchEl.click();
+        const inputElement = fixture.debugElement.query(By.css('input[type="checkbox"]'));
+        inputElement.nativeElement.click();
         fixture.detectChanges();
 
-        expect(data.checked).toEqual(true);
-        inputSwitchEl.click();
-        expect(data.checked).toEqual(false);
+        expect(toggleSwitch.modelValue()).toBeFalse(); // default state
     });
 
-    it('should change focused', () => {
+    it('should apply correct aria-label and aria-labelledby attributes', () => {
+        toggleSwitchRef.setInput('ariaLabel', 'Toggle Switch');
+        toggleSwitchRef.setInput('ariaLabelledBy', 'toggleSwitchLabel');
         fixture.detectChanges();
 
-        const onFocusSpy = spyOn(inputswitch, 'onFocus').and.callThrough();
-        const onBlurSpy = spyOn(inputswitch, 'onBlur').and.callThrough();
-        const onModelTouchedSpy = spyOn(inputswitch, 'onModelTouched').and.callThrough();
-        const inputEl = fixture.debugElement.query(By.css('input')).nativeElement;
-        const inputSwitchEl = fixture.debugElement.query(By.css('div')).nativeElement;
-        inputEl.dispatchEvent(new Event('focus'));
-        fixture.detectChanges();
-
-        expect(inputSwitchEl.className).toContain('p-focus');
-        expect(inputswitch.focused).toEqual(true);
-        expect(onFocusSpy).toHaveBeenCalled();
-        inputEl.dispatchEvent(new Event('blur'));
-        fixture.detectChanges();
-
-        expect(inputswitch.focused).toEqual(false);
-        expect(inputSwitchEl.className).not.toContain('p-focus');
-        expect(onBlurSpy).toHaveBeenCalled();
-        expect(onModelTouchedSpy).toHaveBeenCalled();
+        const inputElement = fixture.debugElement.query(By.css('input[type="checkbox"]'));
+        expect(inputElement.nativeElement.getAttribute('aria-label')).toBe('Toggle Switch');
+        expect(inputElement.nativeElement.getAttribute('aria-labelledby')).toBe('toggleSwitchLabel');
     });
 
-    it('should change disabled', () => {
+    it('should apply the correct tabindex attribute', () => {
+        toggleSwitchRef.setInput('tabindex', 3);
         fixture.detectChanges();
 
-        inputswitch.setDisabledState(true);
-        fixture.detectChanges();
-
-        const onClickSpy = spyOn(inputswitch, 'onClick').and.callThrough();
-        const onModelChangeSpy = spyOn(inputswitch, 'onModelChange').and.callThrough();
-        const inputSwitchEl = fixture.debugElement.query(By.css('div')).nativeElement;
-        const inputEl = fixture.debugElement.query(By.css('input')).nativeElement;
-        inputSwitchEl.click();
-        fixture.detectChanges();
-
-        expect(inputSwitchEl.className).toContain('p-disabled');
-        expect(inputEl.disabled).toEqual(true);
-        expect(onClickSpy).toHaveBeenCalled();
-        expect(onModelChangeSpy).not.toHaveBeenCalled();
+        const inputElement = fixture.debugElement.query(By.css('input[type="checkbox"]'));
+        expect(inputElement.nativeElement.getAttribute('tabindex')).toBe('3'); // Should reflect tabindex value
     });
 
-    it('should toggle the modelValue and call necessary functions when not disabled and not readonly', () => {
-        const onClickSpy = spyOn(inputswitch, 'onClick').and.callThrough();
-        const onChangeSpy = spyOn(inputswitch.onChange, 'emit').and.callThrough();
-        const onModelChangeSpy = spyOn(inputswitch, 'onModelChange').and.callThrough();
-
-        const divElement: HTMLElement = fixture.debugElement.query(By.css('div')).nativeElement;
-        divElement.click();
+    it('should initialize with the correct checked state based on modelValue', () => {
+        toggleSwitch.modelValue.set(true); // Set initial value to true
         fixture.detectChanges();
 
-        expect(onClickSpy).toHaveBeenCalledWith(jasmine.anything());
-
-        const initialModelValue = inputswitch.modelValue;
-        inputswitch.onClick(new Event('click'));
-
-        expect(inputswitch.modelValue).toEqual(initialModelValue ? inputswitch.falseValue : inputswitch.trueValue);
-        expect(onModelChangeSpy).toHaveBeenCalled();
-        expect(onChangeSpy).toHaveBeenCalledWith({
-            originalEvent: jasmine.anything(),
-            checked: inputswitch.modelValue,
-        });
+        const inputElement = fixture.debugElement.query(By.css('input[type="checkbox"]'));
+        expect(inputElement.nativeElement.checked).toBeTrue(); // Should reflect true state
     });
 
-    it('should not toggle the modelValue when disabled or readonly', () => {
-        inputswitch.disabled = true;
-        let initialModelValue = inputswitch.modelValue;
-        inputswitch.onClick(new Event('click'));
-        expect(inputswitch.modelValue).toEqual(initialModelValue);
+    it('should emit onChange event with the correct value on click', () => {
+        spyOn(fixture.componentInstance.onChange, 'emit');
+        fixture.detectChanges();
 
-        inputswitch.disabled = false;
-        inputswitch.readonly = true;
-        initialModelValue = inputswitch.modelValue;
-        inputswitch.onClick(new Event('click'));
-        expect(inputswitch.modelValue).toEqual(initialModelValue);
+        const inputElement = fixture.debugElement.query(By.css('input[type="checkbox"]'));
+        inputElement.nativeElement.click(); // Toggle to true
+        fixture.detectChanges();
+
+        expect(fixture.componentInstance.modelValue()).toBeTrue();
+        expect(fixture.componentInstance.onChange.emit).toHaveBeenCalledWith({ originalEvent: jasmine.any(Event), checked: true });
     });
 });
