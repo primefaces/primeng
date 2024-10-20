@@ -3,16 +3,14 @@ import {
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
-    contentChildren,
+    contentChild,
     inject,
     input,
     NgModule,
-    Signal,
     TemplateRef,
     ViewEncapsulation,
-    computed
+    computed,
 } from '@angular/core';
-import { PrimeTemplate } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { TagStyle } from './style/tagstyle';
 
@@ -76,30 +74,10 @@ export class Tag extends BaseComponent {
      */
     rounded = input<boolean, any>(undefined, { transform: booleanAttribute });
     /**
-     * Collection of PrimeTemplate instances found within the content of this component.
-     * These templates can be used to customize the content of the tag.
+     * Template reference for the icon to be displayed inside the tag.
+     * This template can be used to customize the icon content.
      */
-    templates: Signal<readonly PrimeTemplate[]> = contentChildren<PrimeTemplate>(PrimeTemplate);
-    /**
-     * Computes the icon template based on the available `PrimeTemplate` instances.
-     *
-     * @returns {TemplateRef<any> | undefined} The template reference for the icon, or undefined if not found.
-     */
-    iconTemplate = computed<TemplateRef<any> | undefined>(() => {
-        const templates = this.templates();
-        const iconContent = templates?.filter((item) => item.getType() === 'icon');
-        const notIconContent = templates?.filter((item) => item.getType() !== 'icon');
-        if (iconContent && iconContent.length === 1) {
-            return iconContent[0].template;
-        }
-        if (iconContent && iconContent.length > 1) {
-            console.warn('Multiple templates with the type "icon" found. Only one "icon" template is allowed.');
-        }
-        if (notIconContent && notIconContent.length > 1) {
-            console.warn('Multiple templates with types other than "icon" found. Only one non-icon template is allowed.');
-        }
-        return undefined;
-    });
+    iconTemplate = contentChild<TemplateRef<any> | undefined>('icon');
     /**
      * Computes the CSS classes to be applied to the container element of the tag.
      *

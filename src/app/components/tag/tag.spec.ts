@@ -9,7 +9,7 @@ import { By } from '@angular/platform-browser';
     template: `
         <p-tag class="custom-content">Test Content</p-tag>
         <p-tag class="custom-icon-template" icon="pi pi-user">
-            <ng-template pTemplate="icon">
+            <ng-template #icon>
                 <span class="my-icon"></span>
             </ng-template>
         </p-tag>
