@@ -113,12 +113,12 @@ export class ToggleSwitch extends BaseComponent {
      * Value in checked state.
      * @group Props
      */
-    trueValue = input<boolean, any>(true, { transform: booleanAttribute });
+    trueValue = input<any>(true);
     /**
      * Value in unchecked state.
      * @group Props
      */
-    falseValue = input<boolean, any>(false, { transform: booleanAttribute });
+    falseValue = input<any>(false);
     /**
      * Used to define a string that autocomplete attribute the current element.
      * @group Props
@@ -143,7 +143,7 @@ export class ToggleSwitch extends BaseComponent {
 
     input = viewChild.required<ElementRef>('input');
 
-    modelValue: WritableSignal<boolean> = signal<boolean>(false);
+    modelValue: WritableSignal<any> = signal<any>(false);
 
     focused: WritableSignal<boolean> = signal<boolean>(false);
 
