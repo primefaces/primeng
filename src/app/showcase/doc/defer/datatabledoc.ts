@@ -110,14 +110,14 @@ export class DataTableDoc {
 import { MessageService } from 'primeng/api';
 import { Car } from '@domain/car';
 import { CarService } from '@service/carservice';
-import { DeferModule } from 'primeng/defer';
+import { Defer } from 'primeng/defer';
 import { ToastModule } from 'primeng/toast';
 
 @Component({
     selector: 'defer-data-table-demo',
     templateUrl: './defer-data-table-demo.html',
     standalone: true,
-    imports: [DeferModule, ToastModule],
+    imports: [Defer, ToastModule],
     providers: [MessageService, CarService]
 })
 export class DeferDataTableDemo {

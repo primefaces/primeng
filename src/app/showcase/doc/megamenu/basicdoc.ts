@@ -156,13 +156,13 @@ export class BasicDoc implements OnInit {
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { MegaMenuItem } from 'primeng/api';
-import { MegaMenuModule } from 'primeng/megamenu';
+import { MegaMenu } from 'primeng/megamenu';
 
 @Component({
     selector: 'mega-menu-basic-demo',
     templateUrl: './mega-menu-basic-demo.html',
     standalone: true,
-    imports: [MegaMenuModule]
+    imports: [MegaMenu]
 })
 export class MegaMenuBasicDemo implements OnInit {
     items: MegaMenuItem[] | undefined;

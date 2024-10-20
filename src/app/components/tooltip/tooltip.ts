@@ -1,22 +1,19 @@
-import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser } from '@angular/common';
 import {
     AfterViewInit,
+    booleanAttribute,
     Directive,
     ElementRef,
     HostListener,
-    Inject,
+    inject,
     Input,
     NgModule,
     NgZone,
+    numberAttribute,
     OnDestroy,
-    PLATFORM_ID,
-    Renderer2,
     SimpleChanges,
     TemplateRef,
     ViewContainerRef,
-    booleanAttribute,
-    inject,
-    numberAttribute,
 } from '@angular/core';
 import { TooltipOptions } from 'primeng/api';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
@@ -31,6 +28,7 @@ import { BaseComponent } from 'primeng/basecomponent';
  */
 @Directive({
     selector: '[pTooltip]',
+    standalone: true,
     providers: [TooltipStyle],
 })
 export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
@@ -764,8 +762,7 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule],
+    imports: [Tooltip],
     exports: [Tooltip],
-    declarations: [Tooltip],
 })
 export class TooltipModule {}

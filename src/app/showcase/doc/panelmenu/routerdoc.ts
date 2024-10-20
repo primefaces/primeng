@@ -13,8 +13,8 @@ import { Router } from '@angular/router';
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-panelmenu [model]="items" styleClass="w-full md:w-80">
-                <ng-template pTemplate="item" let-item>
+            <p-panelMenu [model]="items" styleClass="w-full md:w-80">
+                <ng-template #item let-item>
                     <ng-container *ngIf="item.route; else urlRef">
                         <a
                             [routerLink]="item.route"
@@ -42,7 +42,7 @@ import { Router } from '@angular/router';
                         </ng-template>
                     </ng-template>
                 </ng-template>
-            </p-panelmenu>
+            </p-panelMenu>
         </div>
         <app-code [code]="code" selector="panel-menu-router-demo"></app-code>
     `,
@@ -98,8 +98,8 @@ export class RouterDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-panelmenu [model]="items" styleClass="w-full md:w-80">
-    <ng-template pTemplate="item" let-item>
+        basic: `<p-panelMenu [model]="items" styleClass="w-full md:w-80">
+    <ng-template #item let-item>
         <ng-container *ngIf="item.route; else urlRef">
             <a [routerLink]="item.route" class="flex align-items-center 
                 cursor-pointer text-color px-3 py-2">
@@ -122,11 +122,11 @@ export class RouterDoc implements OnInit {
             </ng-template>
         </ng-template>
     </ng-template>
-</p-panelmenu>`,
+</p-panelMenu>`,
 
         html: `<div class="card flex justify-center">
-    <p-panelmenu [model]="items" styleClass="w-full md:w-80">
-        <ng-template pTemplate="item" let-item>
+    <p-panelMenu [model]="items" styleClass="w-full md:w-80">
+        <ng-template #item let-item>
             <ng-container *ngIf="item.route; else urlRef">
                 <a [routerLink]="item.route" class="flex align-items-center 
                     cursor-pointer text-color px-3 py-2">
@@ -149,19 +149,19 @@ export class RouterDoc implements OnInit {
                 </ng-template>
             </ng-template>
         </ng-template>
-    </p-panelmenu>
+    </p-panelMenu>
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
-import { PanelMenuModule } from 'primeng/panelmenu';
+import { PanelMenu } from 'primeng/panelmenu';
 import { Router } from '@angular/router';
 
 @Component({
     selector: 'panel-menu-router-demo',
     templateUrl: './panel-menu-router-demo.html',
     standalone: true,
-    imports: [PanelMenuModule],
+    imports: [PanelMenu],
     providers: [MessageService]
 })
 export class PanelMenuRouterDemo implements OnInit {

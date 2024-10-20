@@ -1,16 +1,16 @@
 import { CommonModule } from '@angular/common';
 import {
+    booleanAttribute,
     ChangeDetectionStrategy,
     Component,
     EventEmitter,
-    Input,
-    NgModule,
-    Output,
-    ViewEncapsulation,
-    booleanAttribute,
     forwardRef,
     inject,
+    Input,
+    NgModule,
     numberAttribute,
+    Output,
+    ViewEncapsulation,
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { VoidListener } from 'primeng/ts-helpers';
@@ -29,6 +29,8 @@ export const KNOB_VALUE_ACCESSOR: any = {
  */
 @Component({
     selector: 'p-knob',
+    standalone: true,
+    imports: [CommonModule],
     template: `
         <div [ngClass]="containerClass" [class]="styleClass" [ngStyle]="style" [attr.data-pc-name]="'knob'" [attr.data-pc-section]="'root'">
             <svg
@@ -438,8 +440,7 @@ export class Knob extends BaseComponent {
 }
 
 @NgModule({
-    imports: [CommonModule],
+    imports: [Knob],
     exports: [Knob],
-    declarations: [Knob],
 })
 export class KnobModule {}

@@ -2,9 +2,9 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
-import { RippleModule } from 'primeng/ripple';
-import { ProgressBarModule } from 'primeng/progressbar';
-import { ToastModule } from 'primeng/toast';
+import { Ripple } from 'primeng/ripple';
+import { ProgressBar } from 'primeng/progressbar';
+import { Toast } from 'primeng/toast';
 import { AppDocModule } from '@layout/doc/app.doc.module';
 import { AppCodeModule } from '@layout/doc/app.code.component';
 import { AvatarModule } from 'primeng/avatar';
@@ -25,17 +25,7 @@ import { HeadlessDoc } from './headlessdoc';
 import { AccessibilityDoc } from './accessibilitydoc';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        RouterModule,
-        AppCodeModule,
-        AppDocModule,
-        ToastModule,
-        ButtonModule,
-        RippleModule,
-        AvatarModule,
-        ProgressBarModule,
-    ],
+    imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, Toast, ButtonModule, Ripple, AvatarModule, ProgressBar],
     declarations: [
         AnimationDoc,
         BasicDoc,

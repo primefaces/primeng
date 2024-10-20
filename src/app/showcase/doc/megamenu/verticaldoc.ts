@@ -159,13 +159,13 @@ export class VerticalDoc implements OnInit {
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { MegaMenuItem } from 'primeng/api';
-import { MegaMenuModule } from 'primeng/megamenu';
+import { MegaMenu } from 'primeng/megamenu';
 
 @Component({
     selector: 'mega-menu-vertical-demo',
     templateUrl: './mega-menu-vertical-demo.html',
     standalone: true,
-    imports: [MegaMenuModule]
+    imports: [MegaMenu]
 })
 export class MegaMenuVerticalDemo implements OnInit {
     items: MegaMenuItem[] | undefined;

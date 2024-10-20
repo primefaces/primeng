@@ -6,9 +6,9 @@ import {
     AfterViewInit,
     booleanAttribute,
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     computed,
+    ContentChild,
     ContentChildren,
     effect,
     ElementRef,
@@ -23,24 +23,21 @@ import {
     OnInit,
     Output,
     QueryList,
-    Renderer2,
     Signal,
     signal,
-    SimpleChanges,
     TemplateRef,
     ViewChild,
     ViewEncapsulation,
     ViewRef,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { FilterService, OverlayOptions, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
-import { AutoFocus, AutoFocusModule } from 'primeng/autofocus';
+import { FilterService, OverlayOptions, PrimeTemplate, ScrollerOptions, SharedModule, TranslationKeys } from 'primeng/api';
+import { AutoFocus } from 'primeng/autofocus';
 import { DomHandler } from 'primeng/dom';
-import { Overlay, OverlayModule } from 'primeng/overlay';
-import { Ripple, RippleModule } from 'primeng/ripple';
-import { Scroller, ScrollerModule } from 'primeng/scroller';
-import { ScrollerOptions } from 'primeng/api';
-import { TooltipModule } from 'primeng/tooltip';
+import { Overlay } from 'primeng/overlay';
+import { Ripple } from 'primeng/ripple';
+import { Scroller } from 'primeng/scroller';
+import { Tooltip } from 'primeng/tooltip';
 import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
 import { TimesIcon } from 'primeng/icons/times';
 import { CheckIcon } from 'primeng/icons/check';
@@ -49,9 +46,9 @@ import { ChevronDownIcon } from 'primeng/icons/chevrondown';
 import { SearchIcon } from 'primeng/icons/search';
 import { SelectChangeEvent, SelectFilterEvent, SelectFilterOptions, SelectLazyLoadEvent } from './select.interface';
 import { Nullable } from 'primeng/ts-helpers';
-import { InputTextModule } from 'primeng/inputtext';
-import { IconFieldModule } from 'primeng/iconfield';
-import { InputIconModule } from 'primeng/inputicon';
+import { InputText } from 'primeng/inputtext';
+import { IconField } from 'primeng/iconfield';
+import { InputIcon } from 'primeng/inputicon';
 import { SelectStyle } from './style/selectstyle';
 import { BaseComponent } from 'primeng/basecomponent';
 
@@ -125,8 +122,6 @@ export class SelectItem extends BaseComponent {
 
     @Output() onMouseEnter: EventEmitter<any> = new EventEmitter();
 
-    ngOnInit() {}
-
     onOptionClick(event: Event) {
         this.onClick.emit(event);
     }
@@ -146,9 +141,8 @@ export class SelectItem extends BaseComponent {
     imports: [
         CommonModule,
         SelectItem,
-        OverlayModule,
-        SharedModule,
-        TooltipModule,
+        Overlay,
+        Tooltip,
         Ripple,
         AutoFocus,
         TimesIcon,
@@ -156,10 +150,10 @@ export class SelectItem extends BaseComponent {
         SearchIcon,
         BlankIcon,
         CheckIcon,
-        InputTextModule,
-        IconFieldModule,
-        InputIconModule,
-        ScrollerModule,
+        InputText,
+        IconField,
+        InputIcon,
+        Scroller,
     ],
     template: `
         <span
@@ -273,7 +267,7 @@ export class SelectItem extends BaseComponent {
             (onAnimationStart)="onOverlayAnimationStart($event)"
             (onHide)="hide()"
         >
-            <ng-template pTemplate="content">
+            <ng-template #content>
                 <div [ngClass]="'p-select-overlay p-component'" [ngStyle]="panelStyle" [class]="panelStyleClass">
                     <span
                         #firstHiddenFocusableEl
@@ -330,13 +324,13 @@ export class SelectItem extends BaseComponent {
                             (onLazyLoad)="onLazyLoad.emit($event)"
                             [options]="virtualScrollOptions"
                         >
-                            <ng-template pTemplate="content" let-items let-scrollerOptions="options">
+                            <ng-template #content let-items let-scrollerOptions="options">
                                 <ng-container
                                     *ngTemplateOutlet="buildInItems; context: { $implicit: items, options: scrollerOptions }"
                                 ></ng-container>
                             </ng-template>
                             <ng-container *ngIf="loaderTemplate">
-                                <ng-template pTemplate="loader" let-scrollerOptions="options">
+                                <ng-template #loader let-scrollerOptions="options">
                                     <ng-container *ngTemplateOutlet="loaderTemplate; context: { options: scrollerOptions }"></ng-container>
                                 </ng-template>
                             </ng-container>
@@ -394,10 +388,11 @@ export class SelectItem extends BaseComponent {
                                     [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }"
                                     role="option"
                                 >
-                                    <ng-container *ngIf="!emptyFilterTemplate && !emptyTemplate; else emptyFilter">
+                                    @if (!emptyFilterTemplate && !emptyTemplate) {
                                         {{ emptyFilterMessageLabel }}
-                                    </ng-container>
-                                    <ng-container #emptyFilter *ngTemplateOutlet="emptyFilterTemplate || emptyTemplate"></ng-container>
+                                    } @else {
+                                        <ng-container #emptyFilter *ngTemplateOutlet="emptyFilterTemplate || emptyTemplate"></ng-container>
+                                    }
                                 </li>
                                 <li
                                     *ngIf="!filterValue && isEmpty()"
@@ -405,10 +400,11 @@ export class SelectItem extends BaseComponent {
                                     [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }"
                                     role="option"
                                 >
-                                    <ng-container *ngIf="!emptyTemplate; else empty">
+                                    @if (!emptyTemplate) {
                                         {{ emptyMessageLabel }}
-                                    </ng-container>
-                                    <ng-container #empty *ngTemplateOutlet="emptyTemplate"></ng-container>
+                                    } @else {
+                                        <ng-container #empty *ngTemplateOutlet="emptyTemplate"></ng-container>
+                                    }
                                 </li>
                             </ul>
                         </ng-template>
@@ -933,31 +929,101 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
 
     itemsWrapper: Nullable<HTMLDivElement>;
 
-    itemTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom item template.
+     * @group Templates
+     */
+    @ContentChild('item') itemTemplate: Nullable<TemplateRef<any>>;
 
-    groupTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom group template.
+     * @group Templates
+     */
+    @ContentChild('group') groupTemplate: Nullable<TemplateRef<any>>;
 
-    loaderTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom loader template.
+     * @group Templates
+     */
+    @ContentChild('loader') loaderTemplate: Nullable<TemplateRef<any>>;
 
-    selectedItemTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom selected item template.
+     * @group Templates
+     */
+    @ContentChild('selectedItem') selectedItemTemplate: Nullable<TemplateRef<any>>;
 
-    headerTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom header template.
+     * @group Templates
+     */
+    @ContentChild('header') headerTemplate: Nullable<TemplateRef<any>>;
 
-    filterTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom filter template.
+     * @group Templates
+     */
+    @ContentChild('filter') filterTemplate: Nullable<TemplateRef<any>>;
 
-    footerTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom footer template.
+     * @group Templates
+     */
+    @ContentChild('footer') footerTemplate: Nullable<TemplateRef<any>>;
 
-    emptyFilterTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom empty filter template.
+     * @group Templates
+     */
+    @ContentChild('emptyfilter') emptyFilterTemplate: Nullable<TemplateRef<any>>;
 
-    emptyTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom empty template.
+     * @group Templates
+     */
+    @ContentChild('empty') emptyTemplate: Nullable<TemplateRef<any>>;
 
-    dropdownIconTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom dropdown icon template.
+     * @group Templates
+     */
+    @ContentChild('dropdownicon') dropdownIconTemplate: Nullable<TemplateRef<any>>;
 
-    loadingIconTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom loading icon template.
+     * @group Templates
+     */
+    @ContentChild('loadingicon') loadingIconTemplate: Nullable<TemplateRef<any>>;
 
-    clearIconTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom clear icon template.
+     * @group Templates
+     */
+    @ContentChild('clearicon') clearIconTemplate: Nullable<TemplateRef<any>>;
 
-    filterIconTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom filter icon template.
+     * @group Templates
+     */
+    @ContentChild('filtericon') filterIconTemplate: Nullable<TemplateRef<any>>;
+
+    /**
+     * Custom on icon template.
+     * @group Templates
+     */
+    @ContentChild('onicon') onIconTemplate: Nullable<TemplateRef<any>>;
+
+    /**
+     * Custom off icon template.
+     * @group Templates
+     */
+    @ContentChild('officon') offIconTemplate: Nullable<TemplateRef<any>>;
+
+    /**
+     * Custom cancel icon template.
+     * @group Templates
+     */
+    @ContentChild('cancelicon') cancelIconTemplate: Nullable<TemplateRef<any>>;
 
     filterOptions: SelectFilterOptions | undefined;
 
@@ -1487,7 +1553,7 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
         return !this._options() || (this.visibleOptions() && this.visibleOptions().length === 0);
     }
 
-    onEditableInput(event: KeyboardEvent) {
+    onEditableInput(event: Event) {
         const value = (event.target as HTMLInputElement).value;
         this.searchValue = '';
         const matched = this.searchOptions(event, value);
@@ -1610,7 +1676,7 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
         this.preventModelTouched = false;
     }
 
-    onKeyDown(event: KeyboardEvent, search: boolean) {
+    onKeyDown(event: KeyboardEvent, search: boolean = false) {
         if (this.disabled || this.readonly || this.loading) {
             return;
         }

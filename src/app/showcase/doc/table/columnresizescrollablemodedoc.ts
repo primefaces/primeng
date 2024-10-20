@@ -15,7 +15,7 @@ import { CustomerService } from '@service/customerservice';
                     [resizableColumns]="true"
                     [tableStyle]="{ 'min-width': '50rem' }"
                 >
-                    <ng-template pTemplate="header">
+                    <ng-template #header>
                         <tr>
                             <th pResizableColumn>Name</th>
                             <th pResizableColumn>Country</th>
@@ -23,7 +23,7 @@ import { CustomerService } from '@service/customerservice';
                             <th pResizableColumn>Representative</th>
                         </tr>
                     </ng-template>
-                    <ng-template pTemplate="body" let-customer>
+                    <ng-template #body let-customer>
                         <tr>
                             <td>{{ customer.name }}</td>
                             <td>{{ customer.country.name }}</td>
@@ -53,14 +53,14 @@ export class ColumnResizeScrollableModeDoc {
     }
 
     code: Code = {
-        basic: `<p-table 
-    [value]="customers" 
-    [scrollable]="true" 
-    scrollHeight="400px" 
-    [resizableColumns]="true" 
-    styleClass="p-datatable-gridlines" 
+        basic: `<p-table
+    [value]="customers"
+    [scrollable]="true"
+    scrollHeight="400px"
+    [resizableColumns]="true"
+    styleClass="p-datatable-gridlines"
     [tableStyle]="{'min-width': '50rem'}">
-        <ng-template pTemplate="header">
+        <ng-template #header>
             <tr>
                 <th pResizableColumn>Name</th>
                 <th pResizableColumn>Country</th>
@@ -68,7 +68,7 @@ export class ColumnResizeScrollableModeDoc {
                 <th pResizableColumn>Representative</th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-customer>
+        <ng-template #body let-customer>
             <tr>
                 <td>{{customer.name}}</td>
                 <td>{{customer.country.name}}</td>
@@ -77,14 +77,14 @@ export class ColumnResizeScrollableModeDoc {
             </tr>
         </ng-template>
 </p-table>`,
-        html: `<p-table 
-    [value]="customers" 
-    [scrollable]="true" 
-    scrollHeight="400px" 
-    [resizableColumns]="true" 
-    styleClass="p-datatable-gridlines" 
+        html: `<p-table
+    [value]="customers"
+    [scrollable]="true"
+    scrollHeight="400px"
+    [resizableColumns]="true"
+    styleClass="p-datatable-gridlines"
     [tableStyle]="{'min-width': '50rem'}">
-        <ng-template pTemplate="header">
+        <ng-template #header>
             <tr>
                 <th pResizableColumn>Name</th>
                 <th pResizableColumn>Country</th>
@@ -92,7 +92,7 @@ export class ColumnResizeScrollableModeDoc {
                 <th pResizableColumn>Representative</th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-customer>
+        <ng-template #body let-customer>
             <tr>
                 <td>{{customer.name}}</td>
                 <td>{{customer.country.name}}</td>

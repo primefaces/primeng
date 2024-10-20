@@ -17,7 +17,7 @@ import { ProductService } from '@service/productservice';
                     columnResizeMode="expand"
                     [tableStyle]="{ 'min-width': '50rem' }"
                 >
-                    <ng-template pTemplate="header">
+                    <ng-template #header>
                         <tr>
                             <th pResizableColumn>Code</th>
                             <th pResizableColumn>Name</th>
@@ -25,7 +25,7 @@ import { ProductService } from '@service/productservice';
                             <th pResizableColumn>Quantity</th>
                         </tr>
                     </ng-template>
-                    <ng-template pTemplate="body" let-product>
+                    <ng-template #body let-product>
                         <tr>
                             <td>{{ product.code }}</td>
                             <td>{{ product.name }}</td>
@@ -55,13 +55,13 @@ export class ColumnResizeExpandModeDoc {
     }
 
     code: Code = {
-        basic: `<p-table 
-    [value]="products" 
-    [resizableColumns]="true" 
-    columnResizeMode="expand" 
-    styleClass="p-datatable-gridlines" 
+        basic: `<p-table
+    [value]="products"
+    [resizableColumns]="true"
+    columnResizeMode="expand"
+    styleClass="p-datatable-gridlines"
     [tableStyle]="{'min-width': '50rem'}">
-        <ng-template pTemplate="header">
+        <ng-template #header>
             <tr>
                 <th pResizableColumn>Code</th>
                 <th pResizableColumn>Name</th>
@@ -69,7 +69,7 @@ export class ColumnResizeExpandModeDoc {
                 <th pResizableColumn>Quantity</th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-product>
+        <ng-template #body let-product>
             <tr>
                 <td>{{product.code}}</td>
                 <td>{{product.name}}</td>
@@ -79,13 +79,13 @@ export class ColumnResizeExpandModeDoc {
         </ng-template>
 </p-table>`,
         html: `<div class="card">
-    <p-table 
-        [value]="products" 
-        [resizableColumns]="true" 
-        columnResizeMode="expand" 
-        styleClass="p-datatable-gridlines" 
+    <p-table
+        [value]="products"
+        [resizableColumns]="true"
+        columnResizeMode="expand"
+        styleClass="p-datatable-gridlines"
         [tableStyle]="{'min-width': '50rem'}">
-            <ng-template pTemplate="header">
+            <ng-template #header>
                 <tr>
                     <th pResizableColumn>Code</th>
                     <th pResizableColumn>Name</th>
@@ -93,7 +93,7 @@ export class ColumnResizeExpandModeDoc {
                     <th pResizableColumn>Quantity</th>
                 </tr>
             </ng-template>
-            <ng-template pTemplate="body" let-product>
+            <ng-template #body let-product>
                 <tr>
                     <td>{{product.code}}</td>
                     <td>{{product.name}}</td>

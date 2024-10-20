@@ -27,13 +27,13 @@ export class BasicDoc {
     <p-scrolltop />
 </div>`,
         typescript: `import { Component } from '@angular/core';
-import { ScrollTopModule } from 'primeng/scrolltop';
+import { ScrollTop } from 'primeng/scrolltop';
 
 @Component({
     selector: 'scroll-top-basic-demo',
     templateUrl: './scroll-top-basic-demo.html',
     standalone: true,
-    imports: [ScrollTopModule]
+    imports: [ScrollTop]
 })
 export class ScrollTopBasicDemo {}`,
     };

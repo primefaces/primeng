@@ -14,7 +14,7 @@ import { Code } from '@domain/code';
     `,
 })
 export class DisabledDoc {
-    value: string | undefined = "Disabled"
+    value: string | undefined = 'Disabled';
 
     code: Code = {
         basic: `<input pInputText [disabled]="true" [(ngModel)]="value" />`,

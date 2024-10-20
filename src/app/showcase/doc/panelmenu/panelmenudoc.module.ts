@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { PanelMenuModule } from 'primeng/panelmenu';
+import { PanelMenu } from 'primeng/panelmenu';
 import { AppDocModule } from '@layout/doc/app.doc.module';
 import { AppCodeModule } from '@layout/doc/app.code.component';
 import { AccessibilityDoc } from './accessibilitydoc';
@@ -18,7 +18,7 @@ import { ToastModule } from 'primeng/toast';
 import { RouterDoc } from './routerdoc';
 
 @NgModule({
-    imports: [CommonModule, AppCodeModule, RouterModule, PanelMenuModule, AppDocModule, ButtonModule, BadgeModule, ToastModule],
+    imports: [CommonModule, AppCodeModule, RouterModule, PanelMenu, AppDocModule, ButtonModule, BadgeModule, ToastModule],
     declarations: [BasicDoc, ImportDoc, MultipleDoc, ControlledDoc, TemplateDoc, CommandDoc, StyleDoc, AccessibilityDoc, RouterDoc],
     exports: [AppDocModule],
 })

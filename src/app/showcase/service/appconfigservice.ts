@@ -30,13 +30,11 @@ export class AppConfigService {
             const state = this.appState();
 
             if (isPlatformBrowser(this.platformId)) {
-                (document as any).startViewTransition(() => {
-                    if (state.darkTheme) {
-                        this.document.documentElement.classList.add('p-dark');
-                    } else {
-                        this.document.documentElement.classList.remove('p-dark');
-                    }
-                });
+                if (state.darkTheme) {
+                    this.document.documentElement.classList.add('p-dark');
+                } else {
+                    this.document.documentElement.classList.remove('p-dark');
+                }
             }
         });
     }

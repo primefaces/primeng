@@ -1,21 +1,22 @@
 import { NgClass, NgStyle, NgTemplateOutlet } from '@angular/common';
 import {
-    computed,
+    booleanAttribute,
     ChangeDetectionStrategy,
     Component,
+    ContentChild,
     contentChildren,
     OutputEmitterRef,
+    inject,
     input,
     NgModule,
     output,
     Signal,
     TemplateRef,
     ViewEncapsulation,
-    booleanAttribute,
-    inject,
-    model,
+    computed,
+    model
 } from '@angular/core';
-import { PrimeTemplate, SharedModule } from 'primeng/api';
+import { PrimeTemplate } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { TimesIcon } from 'primeng/icons/times';
 import { BaseComponent } from 'primeng/basecomponent';
@@ -23,12 +24,14 @@ import { InplaceStyle } from './style/inplacestyle';
 
 @Component({
     selector: 'p-inplacedisplay, p-inplaceDisplay',
+    standalone: true,
     template: '<ng-content></ng-content>',
 })
 export class InplaceDisplay {}
 
 @Component({
     selector: 'p-inplacecontent, p-inplaceContent',
+    standalone: true,
     template: '<ng-content></ng-content>',
 })
 export class InplaceContent {}
@@ -38,6 +41,8 @@ export class InplaceContent {}
  */
 @Component({
     selector: 'p-inplace',
+    standalone: true,
+    imports: [NgClass, NgStyle, NgTemplateOutlet, ButtonModule, TimesIcon],
     template: `
         <div
             [ngClass]="{ 'p-inplace p-component': true, 'p-inplace-closable': closable() }"
@@ -69,13 +74,13 @@ export class InplaceContent {}
                                 type="button"
                                 [icon]="closeIcon()"
                                 pButton
-                                (click)="onDeactivateClick($event)"
+                                pRipple(click)="onDeactivateClick($event)"
                                 [attr.aria-label]="closeAriaLabel()"
                             ></button>
                         } @else {
                             <button
                                 type="button"
-                                pButton
+                                pButtonpRipple
                                 [ngClass]="'p-button-icon-only'"
                                 (click)="onDeactivateClick($event)"
                                 [attr.aria-label]="closeAriaLabel()"
@@ -93,7 +98,6 @@ export class InplaceContent {}
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-
     providers: [InplaceStyle],
 })
 export class Inplace extends BaseComponent {
@@ -159,11 +163,21 @@ export class Inplace extends BaseComponent {
         }, {});
     });
 
-    displayTemplate = computed<TemplateRef<any> | undefined>(() => this.mappedTemplates()['display']);
-
-    contentTemplate = computed<TemplateRef<any> | undefined>(() => this.mappedTemplates()['content']);
-
-    closeIconTemplate = computed<TemplateRef<any> | undefined>(() => this.mappedTemplates()['closeicon']);
+    @ContentChild('display') displayTemplate = computed<TemplateRef<any> | undefined>(() => this.mappedTemplates()['display']);
+    /**
+     * Display template of the element.
+     * @group Templates
+     */
+    @ContentChild('content') contentTemplate = computed<TemplateRef<any> | undefined>(() => this.mappedTemplates()['content']);
+    /**
+     * Content template of the element.
+     * @group Templates
+     */
+    @ContentChild('closeicon') closeIconTemplate = computed<TemplateRef<any> | undefined>(() => this.mappedTemplates()['closeicon']);
+    /**
+     * Close icon template of the element.
+     * @group Templates
+     */
 
     _componentStyle = inject(InplaceStyle);
 
@@ -206,8 +220,7 @@ export class Inplace extends BaseComponent {
 }
 
 @NgModule({
-    imports: [NgClass, NgStyle, NgTemplateOutlet, ButtonModule, SharedModule, TimesIcon],
-    exports: [Inplace, InplaceDisplay, InplaceContent, ButtonModule, SharedModule],
-    declarations: [Inplace, InplaceDisplay, InplaceContent],
+    imports: [Inplace, InplaceContent, InplaceDisplay],
+    exports: [Inplace, InplaceContent, InplaceDisplay],
 })
 export class InplaceModule {}

@@ -26,7 +26,7 @@ import { MessageService, PrimeNGConfig } from 'primeng/api';
                 (onSelect)="onSelectedFiles($event)"
             >
                 <ng-template
-                    pTemplate="header"
+                    #header
                     let-files
                     let-chooseCallback="chooseCallback"
                     let-clearCallback="clearCallback"
@@ -63,7 +63,7 @@ import { MessageService, PrimeNGConfig } from 'primeng/api';
                     </div>
                 </ng-template>
                 <ng-template
-                    pTemplate="content"
+                    #content
                     let-files
                     let-uploadedFiles="uploadedFiles"
                     let-removeFileCallback="removeFileCallback"
@@ -122,8 +122,8 @@ import { MessageService, PrimeNGConfig } from 'primeng/api';
                         </div>
                     </div>
                 </ng-template>
-                <ng-template pTemplate="file"> </ng-template>
-                <ng-template pTemplate="empty">
+                <ng-template #file></ng-template>
+                <ng-template #empty>
                     <div class="flex items-center justify-center flex-col">
                         <i class="pi pi-cloud-upload !border-2 !rounded-full !p-8 !text-4xl !text-muted-color"></i>
                         <p class="mt-6 mb-0">Drag and drop files to here to upload.</p>
@@ -205,7 +205,7 @@ export class TemplateDoc {
     (onSelect)="onSelectedFiles($event)"
 >
     <ng-template
-        pTemplate="header"
+        #header
         let-files
         let-chooseCallback="chooseCallback"
         let-clearCallback="clearCallback"
@@ -247,7 +247,7 @@ export class TemplateDoc {
         </div>
     </ng-template>
     <ng-template
-        pTemplate="content"
+        #content
         let-files
         let-uploadedFiles="uploadedFiles"
         let-removeFileCallback="removeFileCallback"
@@ -320,8 +320,8 @@ export class TemplateDoc {
             </div>
         </div>
     </ng-template>
-    <ng-template pTemplate="file"> </ng-template>
-    <ng-template pTemplate="empty">
+    <ng-template #file> </ng-template>
+    <ng-template #empty>
         <div class="flex items-center justify-center flex-col">
             <i class="pi pi-cloud-upload !border-2 !rounded-full !p-8 !text-4xl !text-muted-color"></i>
             <p class="mt-6 mb-0">Drag and drop files to here to upload.</p>
@@ -340,7 +340,7 @@ export class TemplateDoc {
         (onSelect)="onSelectedFiles($event)"
     >
         <ng-template
-            pTemplate="header"
+            #header
             let-files
             let-chooseCallback="chooseCallback"
             let-clearCallback="clearCallback"
@@ -382,7 +382,7 @@ export class TemplateDoc {
             </div>
         </ng-template>
         <ng-template
-            pTemplate="content"
+            #content
             let-files
             let-uploadedFiles="uploadedFiles"
             let-removeFileCallback="removeFileCallback"
@@ -455,8 +455,8 @@ export class TemplateDoc {
                 </div>
             </div>
         </ng-template>
-        <ng-template pTemplate="file"> </ng-template>
-        <ng-template pTemplate="empty">
+        <ng-template #file> </ng-template>
+        <ng-template #empty>
             <div class="flex items-center justify-center flex-col">
                 <i class="pi pi-cloud-upload !border-2 !rounded-full !p-8 !text-4xl !text-muted-color"></i>
                 <p class="mt-6 mb-0">Drag and drop files to here to upload.</p>
@@ -467,19 +467,19 @@ export class TemplateDoc {
 
         typescript: `import { Component } from '@angular/core';
 import { MessageService, PrimeNGConfig} from 'primeng/api';
-import { FileUploadModule } from 'primeng/fileupload';
+import { FileUpload } from 'primeng/fileupload';
 import { ButtonModule } from 'primeng/button';
 import { CommonModule } from '@angular/common';
 import { BadgeModule } from 'primeng/badge';
 import { HttpClientModule } from '@angular/common/http';
-import { ProgressBarModule } from 'primeng/progressbar';
+import { ProgressBar } from 'primeng/progressbar';
 import { ToastModule } from 'primeng/toast';
 
 @Component({
     selector: 'file-upload-template-demo',
     templateUrl: './file-upload-template-demo.html',
     standalone: true,
-    imports: [FileUploadModule, ButtonModule, BadgeModule, ProgressBarModule, ToastModule, HttpClientModule, CommonModule],
+    imports: [FileUpload, ButtonModule, BadgeModule, ProgressBar, ToastModule, HttpClientModule, CommonModule],
     providers: [MessageService]
 })
 export class FileUploadTemplateDemo {

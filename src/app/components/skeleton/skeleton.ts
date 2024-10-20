@@ -9,6 +9,8 @@ import { SkeletonStyle } from './style/skeletonstyle';
  */
 @Component({
     selector: 'p-skeleton',
+    standalone: true,
+    imports: [CommonModule],
     template: `
         <div
             [ngClass]="containerClass()"
@@ -21,7 +23,6 @@ import { SkeletonStyle } from './style/skeletonstyle';
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-
     providers: [SkeletonStyle],
 })
 export class Skeleton extends BaseComponent {
@@ -87,8 +88,7 @@ export class Skeleton extends BaseComponent {
 }
 
 @NgModule({
-    imports: [CommonModule],
+    imports: [Skeleton],
     exports: [Skeleton],
-    declarations: [Skeleton],
 })
 export class SkeletonModule {}

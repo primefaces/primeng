@@ -100,14 +100,14 @@ export class QuarterCircleDoc implements OnInit {
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
-import { SpeedDialModule } from 'primeng/speeddial';
+import { SpeedDial } from 'primeng/speeddial';
 import { ToastModule } from 'primeng/toast';
 
 @Component({
     selector: 'speed-dial-quarter-circle-demo',
     templateUrl: './speed-dial-quarter-circle-demo.html',
     standalone: true,
-    imports: [SpeedDialModule, ToastModule],
+    imports: [SpeedDial, ToastModule],
     providers: [MessageService]
 })
 export class SpeedDialQuarterCircleDemo implements OnInit {

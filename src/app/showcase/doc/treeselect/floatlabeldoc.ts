@@ -79,14 +79,14 @@ export class FloatLabelDoc {
         typescript: `import { Component } from '@angular/core';
 import { NodeService } from '@service/nodeservice';
 import { FormsModule } from '@angular/forms';
-import { TreeSelectModule } from 'primeng/treeselect';
-import { FloatLabelModule } from 'primeng/floatlabel';
+import { TreeSelect } from 'primeng/treeselect';
+import { FloatLabel } from 'primeng/floatlabel';
 
 @Component({
     selector: 'tree-select-floatlabel-demo',
     templateUrl: './tree-select-floatlabel-demo.html',
     standalone: true,
-    imports: [FormsModule, TreeSelectModule, FloatLabelModule],
+    imports: [FormsModule, TreeSelect, FloatLabel],
     providers: [NodeService]
 })
 export class TreeSelectFloatlabelDemo {

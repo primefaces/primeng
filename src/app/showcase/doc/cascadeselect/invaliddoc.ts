@@ -113,13 +113,13 @@ export class InvalidDoc {
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { CascadeSelectModule } from 'primeng/cascadeselect';
+import { CascadeSelect } from 'primeng/cascadeselect';
 
 @Component({
     selector: 'cascade-select-invalid-demo',
     templateUrl: './cascade-select-invalid-demo.html',
     standalone: true,
-    imports: [FormsModule, CascadeSelectModule]
+    imports: [FormsModule, CascadeSelect]
 })
 export class CascadeSelectInvalidDemo implements OnInit {
     countries: any[] | undefined;

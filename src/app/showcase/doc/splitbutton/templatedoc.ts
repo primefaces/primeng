@@ -53,18 +53,6 @@ export class TemplateDoc {
         ];
     }
 
-    save() {
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Data Saved' });
-    }
-
-    update() {
-        this.messageService.add({ severity: 'success', summary: 'Updated', detail: 'Data Updated' });
-    }
-
-    delete() {
-        this.messageService.add({ severity: 'warn', summary: 'Delete', detail: 'Data Deleted' });
-    }
-
     code: Code = {
         basic: `<p-splitbutton label="Save" (onClick)="save()" severity="contrast" [model]="items">
         <ng-template pTemplate="content">
@@ -80,9 +68,9 @@ export class TemplateDoc {
     <p-splitbutton label="Save" (onClick)="save()" severity="contrast" [model]="items">
         <ng-template pTemplate="content">
             <span class="flex items-center font-bold">
-                <img 
-                    alt="logo" 
-                    src="https://primefaces.org/cdn/primeng/images/logo.svg" 
+                <img
+                    alt="logo"
+                    src="https://primefaces.org/cdn/primeng/images/logo.svg"
                     style="height: 1rem; margin-right: 0.5rem" />
                 <span>PrimeNG</span>
             </span>
@@ -104,7 +92,7 @@ import { ToastModule } from 'primeng/toast';
 })
 export class SplitButtonTemplateDemo {
     items: MenuItem[];
-    
+
     constructor(private messageService: MessageService) {
         this.items = [
             {
@@ -138,4 +126,16 @@ export class SplitButtonTemplateDemo {
     }
 }`,
     };
+
+    save() {
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Data Saved' });
+    }
+
+    update() {
+        this.messageService.add({ severity: 'success', summary: 'Updated', detail: 'Data Updated' });
+    }
+
+    delete() {
+        this.messageService.add({ severity: 'warn', summary: 'Delete', detail: 'Data Deleted' });
+    }
 }

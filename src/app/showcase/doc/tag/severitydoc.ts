@@ -41,13 +41,13 @@ export class SeverityDoc {
     <p-tag severity="contrast" value="Contrast"/>
 </div>`,
         typescript: `import { Component } from '@angular/core';
-import { TagModule } from 'primeng/tag';
+import { Tag } from 'primeng/tag';
 
 @Component({
     selector: 'tag-severity-demo',
     templateUrl: './tag-severity-demo.html',
     standalone: true,
-    imports: [TagModule]
+    imports: [Tag]
 })
 export class TagSeverityDemo {}`,
     };

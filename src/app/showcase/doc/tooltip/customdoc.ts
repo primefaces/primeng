@@ -162,14 +162,14 @@ export class CustomDoc {
     </ng-template>
 </div>`,
         typescript: `import { Component } from '@angular/core';
-import { TooltipModule } from 'primeng/tooltip';
+import { Tooltip } from 'primeng/tooltip';
 import { ButtonModule } from 'primeng/button';
 
 @Component({
     selector: 'tooltip-custom-demo',
     templateUrl: './tooltip-custom-demo.html',
     standalone: true,
-    imports: [TooltipModule, ButtonModule]
+    imports: [Tooltip, ButtonModule]
 })
 export class TooltipCustomDemo {
   

@@ -1,36 +1,37 @@
 import { CommonModule } from '@angular/common';
 import {
-    AfterContentInit,
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
-    ContentChildren,
+    ContentChild,
     ElementRef,
     EventEmitter,
     inject,
     Input,
     NgModule,
     Output,
-    QueryList,
     TemplateRef,
     ViewChild,
-    ViewEncapsulation,
+    ViewEncapsulation
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { MenuItem, PrimeTemplate, SharedModule } from 'primeng/api';
-import { RippleModule } from 'primeng/ripple';
+import { MenuItem } from 'primeng/api';
+import { Ripple } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
 import { Nullable } from 'primeng/ts-helpers';
 import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
 import { DomHandler } from 'primeng/dom';
 import { DockStyle } from './style/dockstyle';
 import { BaseComponent } from 'primeng/basecomponent';
+
 /**
  * Dock is a navigation component consisting of menuitems.
  * @group Components
  */
 @Component({
     selector: 'p-dock',
+    standalone: true,
+    imports: [CommonModule, RouterModule, Ripple, TooltipModule],
     template: `
         <div [ngClass]="containerClass" [ngStyle]="style" [class]="styleClass" [attr.data-pc-name]="'dock'">
             <div class="p-dock-list-container">
@@ -126,7 +127,7 @@ import { BaseComponent } from 'primeng/basecomponent';
     encapsulation: ViewEncapsulation.None,
     providers: [DockStyle],
 })
-export class Dock extends BaseComponent implements AfterContentInit {
+export class Dock extends BaseComponent {
     /**
      * Current id state as a string.
      * @group Props
@@ -175,11 +176,7 @@ export class Dock extends BaseComponent implements AfterContentInit {
      */
     @Output() onBlur: EventEmitter<FocusEvent> = new EventEmitter<FocusEvent>();
 
-    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
-
     @ViewChild('list', { static: false }) listViewChild: Nullable<ElementRef>;
-
-    itemTemplate: TemplateRef<any> | undefined;
 
     currentIndex: number;
 
@@ -205,19 +202,7 @@ export class Dock extends BaseComponent implements AfterContentInit {
         this.id = this.id || UniqueComponentId();
     }
 
-    ngAfterContentInit() {
-        this.templates?.forEach((item) => {
-            switch (item.getType()) {
-                case 'item':
-                    this.itemTemplate = item.template;
-                    break;
-
-                default:
-                    this.itemTemplate = item.template;
-                    break;
-            }
-        });
-    }
+    @ContentChild('item') itemTemplate: TemplateRef<any> | undefined;
 
     getItemId(item, index) {
         return item && item?.id ? item.id : `${index}`;
@@ -388,8 +373,7 @@ export class Dock extends BaseComponent implements AfterContentInit {
 }
 
 @NgModule({
-    imports: [CommonModule, RouterModule, RippleModule, TooltipModule],
-    exports: [Dock, SharedModule, TooltipModule, RouterModule],
-    declarations: [Dock],
+    imports: [Dock],
+    exports: [Dock],
 })
 export class DockModule {}

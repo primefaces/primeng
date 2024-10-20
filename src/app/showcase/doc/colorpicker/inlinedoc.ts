@@ -25,13 +25,13 @@ export class InlineDoc {
 
         typescript: `import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ColorPickerModule } from 'primeng/colorpicker';
+import { ColorPicker } from 'primeng/colorpicker';
 
 @Component({
     selector: 'color-picker-inline-demo',
     templateUrl: './color-picker-inline-demo.html',
     standalone: true,
-    imports: [FormsModule, ColorPickerModule]
+    imports: [FormsModule, ColorPicker]
 })
 export class ColorPickerInlineDemo {
     color: string | undefined;

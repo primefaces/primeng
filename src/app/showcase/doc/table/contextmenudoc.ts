@@ -26,7 +26,7 @@ import { ProductService } from '@service/productservice';
                     dataKey="code"
                     [tableStyle]="{ 'min-width': '50rem' }"
                 >
-                    <ng-template pTemplate="header">
+                    <ng-template #header>
                         <tr>
                             <th>Code</th>
                             <th>Name</th>
@@ -34,7 +34,7 @@ import { ProductService } from '@service/productservice';
                             <th>Price</th>
                         </tr>
                     </ng-template>
-                    <ng-template pTemplate="body" let-product>
+                    <ng-template #body let-product>
                         <tr [pContextMenuRow]="product">
                             <td>{{ product.code }}</td>
                             <td>{{ product.name }}</td>
@@ -86,13 +86,13 @@ export class ContextMenuDoc {
 
     code: Code = {
         basic: `<p-contextmenu #cm [model]="items" />
-<p-table 
-    [value]="products" 
-    [(contextMenuSelection)]="selectedProduct" 
-    [contextMenu]="cm" 
-    dataKey="code" 
+<p-table
+    [value]="products"
+    [(contextMenuSelection)]="selectedProduct"
+    [contextMenu]="cm"
+    dataKey="code"
     [tableStyle]="{'min-width': '50rem'}">
-        <ng-template pTemplate="header">
+        <ng-template #header>
             <tr>
                 <th>Code</th>
                 <th>Name</th>
@@ -100,7 +100,7 @@ export class ContextMenuDoc {
                 <th>Price</th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-product>
+        <ng-template #body let-product>
             <tr [pContextMenuRow]="product">
                 <td>{{product.code}}</td>
                 <td>{{product.name}}</td>
@@ -111,13 +111,13 @@ export class ContextMenuDoc {
 </p-table>`,
         html: `<div class="card">
     <p-contextmenu #cm [model]="items" />
-    <p-table 
-        [value]="products" 
-        [(contextMenuSelection)]="selectedProduct" 
-        [contextMenu]="cm" 
-        dataKey="code" 
+    <p-table
+        [value]="products"
+        [(contextMenuSelection)]="selectedProduct"
+        [contextMenu]="cm"
+        dataKey="code"
         [tableStyle]="{'min-width': '50rem'}">
-            <ng-template pTemplate="header">
+            <ng-template #header>
                 <tr>
                     <th>Code</th>
                     <th>Name</th>
@@ -125,7 +125,7 @@ export class ContextMenuDoc {
                     <th>Price</th>
                 </tr>
             </ng-template>
-            <ng-template pTemplate="body" let-product>
+            <ng-template #body let-product>
                 <tr [pContextMenuRow]="product">
                     <td>{{product.code}}</td>
                     <td>{{product.name}}</td>

@@ -1,25 +1,25 @@
-import { AnimationEvent, animate, state, style, transition, trigger } from '@angular/animations';
+import { animate, AnimationEvent, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
     ChangeDetectionStrategy,
     Component,
+    ContentChild,
     ContentChildren,
+    inject,
     Input,
     NgModule,
+    numberAttribute,
     OnDestroy,
     OnInit,
     QueryList,
     TemplateRef,
-    ViewEncapsulation,
-    inject,
-    numberAttribute,
+    ViewEncapsulation
 } from '@angular/core';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { ChevronUpIcon } from 'primeng/icons/chevronup';
 import { ZIndexUtils } from 'primeng/utils';
-import { ButtonModule } from 'primeng/button';
-import { ButtonProps } from 'primeng/button';
+import { Button, ButtonProps } from 'primeng/button';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ScrollTopStyle } from './style/scrolltopstyle';
 
@@ -29,6 +29,8 @@ import { ScrollTopStyle } from './style/scrolltopstyle';
  */
 @Component({
     selector: 'p-scrollTop, p-scrolltop',
+    standalone: true,
+    imports: [CommonModule, ChevronUpIcon, Button],
     template: `
         <p-button
             *ngIf="visible"
@@ -128,10 +130,13 @@ export class ScrollTop extends BaseComponent implements OnInit, OnDestroy {
      * @group Props
      */
     @Input() buttonProps: ButtonProps = { rounded: true };
+    /**
+     * Template of the icon.
+     * @group Templates
+     */
+    @ContentChild('icon') iconTemplate: TemplateRef<any> | undefined;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
-
-    iconTemplate: TemplateRef<any> | undefined;
 
     documentScrollListener: VoidFunction | null | undefined;
 
@@ -241,8 +246,7 @@ export class ScrollTop extends BaseComponent implements OnInit, OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule, ChevronUpIcon, SharedModule, ButtonModule],
+    imports: [ScrollTop, SharedModule],
     exports: [ScrollTop, SharedModule],
-    declarations: [ScrollTop],
 })
 export class ScrollTopModule {}

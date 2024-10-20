@@ -76,14 +76,14 @@ export class CircleDoc implements OnInit {
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
-import { SpeedDialModule } from 'primeng/speeddial';
+import { SpeedDial } from 'primeng/speeddial';
 import { ToastModule } from 'primeng/toast';
 
 @Component({
     selector: 'speed-dial-circle-demo',
     templateUrl: './speed-dial-circle-demo.html',
     standalone: true,
-    imports: [SpeedDialModule, ToastModule],
+    imports: [SpeedDial, ToastModule],
     providers: [MessageService]
 })
 export class SpeedDialCircleDemo implements OnInit {

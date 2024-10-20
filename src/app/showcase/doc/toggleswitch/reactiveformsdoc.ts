@@ -37,13 +37,13 @@ export class ReactiveFormsDoc implements OnInit {
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { ToggleSwitchModule } from 'primeng/toggleswitch';
+import { ToggleSwitch } from 'primeng/toggleswitch';
 
 @Component({
     selector: 'toggle-switch-reactive-forms-demo',
     templateUrl: './toggle-switch-reactive-forms-demo.html',
     standalone: true,
-    imports: [ReactiveFormsModule, ToggleSwitchModule]
+    imports: [ReactiveFormsModule, ToggleSwitch]
 })
 export class ToggleSwitchReactiveFormsDemo implements OnInit {
     formGroup: FormGroup | undefined;

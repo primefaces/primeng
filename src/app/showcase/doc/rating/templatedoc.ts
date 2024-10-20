@@ -55,13 +55,13 @@ export class TemplateDoc {
 
         typescript: `import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RatingModule } from 'primeng/rating';
+import { Rating } from 'primeng/rating';
 
 @Component({
     selector: 'rating-template-demo',
     templateUrl: './rating-template-demo.html',
     standalone: true,
-    imports: [FormsModule, RatingModule]
+    imports: [FormsModule, Rating]
 })
 export class RatingTemplateDemo {
     value!: number;

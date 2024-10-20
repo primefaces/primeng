@@ -5,7 +5,6 @@ import { ImportDoc } from '@doc/message/importdoc';
 import { MessageDocModule } from '@doc/message/messagedoc.module';
 import { FormDoc } from '@doc/message/formdoc';
 import { DynamicDoc } from '@doc/message/dynamicdoc';
-import { ClosableDoc } from '@doc/message/closabledoc';
 import { LifeDoc } from '@doc/message/lifedoc';
 import { AccessibilityDoc } from '@doc/message/accessibilitydoc';
 import { SeverityDoc } from '@doc/message/severitydoc';
@@ -37,7 +36,7 @@ export class MessageDemo {
         {
             id: 'severity',
             label: 'Severity',
-            component: SeverityDoc
+            component: SeverityDoc,
         },
         {
             id: 'icon',

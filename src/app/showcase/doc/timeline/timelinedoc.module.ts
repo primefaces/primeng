@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { AppDocModule } from '@layout/doc/app.doc.module';
 import { AppCodeModule } from '@layout/doc/app.code.component';
-import { TimelineModule } from 'primeng/timeline';
+import { Timeline } from 'primeng/timeline';
 import { ImportDoc } from './importdoc';
 import { BasicDoc } from './basicdoc';
 import { AlignmentDoc } from './alignmentdoc';
@@ -16,7 +16,7 @@ import { RouterModule } from '@angular/router';
 import { AccessibilityDoc } from './accessibilitydoc';
 
 @NgModule({
-    imports: [CommonModule, AppCodeModule, AppDocModule, TimelineModule, CardModule, ButtonModule, RouterModule],
+    imports: [CommonModule, AppCodeModule, AppDocModule, Timeline, CardModule, ButtonModule, RouterModule],
     exports: [AppDocModule],
     declarations: [ImportDoc, BasicDoc, AlignmentDoc, OppositeDoc, TemplateDoc, HorizontalDoc, StyleDoc, AccessibilityDoc],
 })

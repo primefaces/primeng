@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { Component } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { Code } from '@domain/code';
-import { CountryService } from '@service/countryservice';
 
 interface AutoCompleteCompleteEvent {
     originalEvent: Event;
@@ -18,11 +17,7 @@ interface AutoCompleteCompleteEvent {
         </app-docsectiontext>
         <div class="card flex justify-center">
             <form [formGroup]="formGroup">
-                <p-autocomplete
-                    formControlName="selectedCountry"
-                    [suggestions]="items"
-                    (completeMethod)="search($event)"
-                />
+                <p-autocomplete formControlName="selectedCountry" [suggestions]="items" (completeMethod)="search($event)" />
             </form>
         </div>
         <app-code [code]="code" selector="autocomplete-reactive-forms-demo"></app-code>`,
@@ -31,11 +26,6 @@ export class ReactiveFormsDoc {
     items: any[] | undefined;
 
     formGroup: FormGroup | undefined;
-
-    search(event: AutoCompleteCompleteEvent) {
-        this.items = [...Array(10).keys()].map((item) => event.query + '-' + item);
-    }
-
     code: Code = {
         basic: `<form [formGroup]="formGroup">
     <p-autocomplete formControlName="selectedCountry" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name" />
@@ -50,7 +40,7 @@ export class ReactiveFormsDoc {
         typescript: `import { Component, OnInit } from '@angular/core';
 import { CountryService } from '@service/countryservice';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { AutoCompleteModule } from 'primeng/autocomplete';
+import { AutoComplete } from 'primeng/autocomplete';
 
 interface AutoCompleteCompleteEvent {
     originalEvent: Event;
@@ -61,7 +51,7 @@ interface AutoCompleteCompleteEvent {
     selector: 'autocomplete-reactive-forms-demo',
     templateUrl: './autocomplete-reactive-forms-demo.html',
     standalone: true,
-    imports: [ReactiveFormsModule, AutoCompleteModule],
+    imports: [ReactiveFormsModule, AutoComplete],
     providers: [CountryService]
 })
 export class AutocompleteReactiveFormsDemo implements OnInit {
@@ -72,6 +62,22 @@ export class AutocompleteReactiveFormsDemo implements OnInit {
     search(event: AutoCompleteCompleteEvent) {
         this.items = [...Array(10).keys()].map((item) => event.query + '-' + item);
     }
+
+    ngOnInit() {
+        this.formGroup = new FormGroup({
+            selectedCountry: new FormControl(undefined),
+        });
+    }
 }`,
     };
+
+    search(event: AutoCompleteCompleteEvent) {
+        this.items = [...Array(10).keys()].map((item) => event.query + '-' + item);
+    }
+
+    ngOnInit() {
+        this.formGroup = new FormGroup({
+            selectedCountry: new FormControl(undefined),
+        });
+    }
 }

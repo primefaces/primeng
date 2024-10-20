@@ -137,13 +137,13 @@ export class ListDoc {
     </div>
 </div>`,
         typescript: `import { Component } from '@angular/core';
-import { SkeletonModule } from 'primeng/skeleton';
+import { Skeleton } from 'primeng/skeleton';
 
 @Component({
     selector: 'skeleton-list-demo,
     templateUrl: './skeleton-list-demo.html',
     standalone: true,
-    imports: [SkeletonModule]
+    imports: [Skeleton]
 })
 export class SkeletonListDemo {}`,
     };

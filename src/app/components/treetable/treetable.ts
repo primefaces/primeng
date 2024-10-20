@@ -2,6 +2,7 @@ import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
 import {
     AfterContentInit,
     AfterViewInit,
+    booleanAttribute,
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
@@ -11,10 +12,12 @@ import {
     EventEmitter,
     HostListener,
     Inject,
+    inject,
     Injectable,
     Input,
     NgModule,
     NgZone,
+    numberAttribute,
     OnChanges,
     OnDestroy,
     OnInit,
@@ -26,9 +29,6 @@ import {
     TemplateRef,
     ViewChild,
     ViewEncapsulation,
-    booleanAttribute,
-    inject,
-    numberAttribute,
 } from '@angular/core';
 import {
     BlockableUI,
@@ -54,8 +54,8 @@ import { SortAmountDownIcon } from 'primeng/icons/sortamountdown';
 import { SortAmountUpAltIcon } from 'primeng/icons/sortamountupalt';
 import { SpinnerIcon } from 'primeng/icons/spinner';
 import { PaginatorModule } from 'primeng/paginator';
-import { RippleModule } from 'primeng/ripple';
-import { Scroller, ScrollerModule } from 'primeng/scroller';
+import { Ripple } from 'primeng/ripple';
+import { Scroller } from 'primeng/scroller';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { ObjectUtils } from 'primeng/utils';
 import { Subject, Subscription } from 'rxjs';
@@ -74,7 +74,7 @@ import {
     TreeTablePaginatorState,
     TreeTableSortEvent,
 } from './treetable.interface';
-import { CheckboxModule } from 'primeng/checkbox';
+import { Checkbox } from 'primeng/checkbox';
 import { FormsModule } from '@angular/forms';
 import { TreeTableStyle } from './style/treetablestyle';
 import { BaseComponent } from 'primeng/basecomponent';
@@ -136,7 +136,7 @@ export class TreeTableService {
             }"
         >
             <div class="p-treetable-loading" *ngIf="loading && showLoader">
-                <div class="p-treetable-mask p-overlay-mask">
+                <div class="p-overlay-mask p-treetable-mask">
                     <i *ngIf="loadingIcon" [class]="'p-treetable-loading-icon pi-spin ' + loadingIcon"></i>
                     <ng-container *ngIf="!loadingIcon">
                         <SpinnerIcon *ngIf="!loadingIconTemplate" [spin]="true" [styleClass]="'p-treetable-loading-icon'" />
@@ -2475,11 +2475,11 @@ export class TTBody {
             (onLazyLoad)="tt.onLazyItemLoad($event)"
             [options]="tt.virtualScrollOptions"
         >
-            <ng-template pTemplate="content" let-items let-scrollerOptions="options">
+            <ng-template #content let-items let-scrollerOptions="options">
                 <ng-container *ngTemplateOutlet="buildInItems; context: { $implicit: items, options: scrollerOptions }"></ng-container>
             </ng-template>
             <ng-container *ngIf="loaderTemplate">
-                <ng-template pTemplate="loader" let-scrollerOptions="options">
+                <ng-template #loader let-scrollerOptions="options">
                     <ng-container *ngTemplateOutlet="loaderTemplate; context: { options: scrollerOptions }"></ng-container>
                 </ng-template>
             </ng-container>
@@ -3963,8 +3963,8 @@ export class TreeTableToggler {
     imports: [
         CommonModule,
         PaginatorModule,
-        RippleModule,
-        ScrollerModule,
+        Ripple,
+        Scroller,
         SpinnerIcon,
         ArrowDownIcon,
         ArrowUpIcon,
@@ -3975,7 +3975,7 @@ export class TreeTableToggler {
         MinusIcon,
         ChevronDownIcon,
         ChevronRightIcon,
-        CheckboxModule,
+        Checkbox,
         FormsModule,
     ],
     exports: [
@@ -3994,7 +3994,7 @@ export class TreeTableToggler {
         TTHeaderCheckbox,
         TTEditableColumn,
         TreeTableCellEditor,
-        ScrollerModule,
+        Scroller,
     ],
     declarations: [
         TreeTable,

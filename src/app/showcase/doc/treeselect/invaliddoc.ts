@@ -39,13 +39,13 @@ export class InvalidDoc {
         typescript: `import { Component } from '@angular/core';
 import { NodeService } from '@service/nodeservice';
 import { FormsModule } from '@angular/forms';
-import { TreeSelectModule } from 'primeng/treeselect';
+import { TreeSelect } from 'primeng/treeselect';
 
 @Component({
     selector: 'tree-select-invalid-demo',
     templateUrl: './tree-select-invalid-demo.html',
     standalone: true,
-    imports: [FormsModule, TreeSelectModule],
+    imports: [FormsModule, TreeSelect],
     providers: [NodeService]
 })
 export class TreeSelectInvalidDemo {

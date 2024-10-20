@@ -3,6 +3,7 @@ import {
     AfterContentInit,
     ChangeDetectionStrategy,
     Component,
+    ContentChild,
     ContentChildren,
     ElementRef,
     inject,
@@ -22,6 +23,8 @@ import { ToolbarStyle } from './style/toolbarstyle';
  */
 @Component({
     selector: 'p-toolbar',
+    standalone: true,
+    imports: [CommonModule],
     template: `
         <div
             [ngClass]="'p-toolbar p-component'"
@@ -45,10 +48,9 @@ import { ToolbarStyle } from './style/toolbarstyle';
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-
     providers: [ToolbarStyle],
 })
-export class Toolbar extends BaseComponent implements AfterContentInit, BlockableUI {
+export class Toolbar extends BaseComponent implements BlockableUI {
     /**
      * Inline style of the component.
      * @group Props
@@ -65,44 +67,32 @@ export class Toolbar extends BaseComponent implements AfterContentInit, Blockabl
      */
     @Input() ariaLabelledBy: string | undefined;
 
-    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
-
-    startTemplate: TemplateRef<any> | undefined;
-
-    endTemplate: TemplateRef<any> | undefined;
-
-    centerTemplate: TemplateRef<any> | undefined;
-
     _componentStyle = inject(ToolbarStyle);
 
     getBlockableElement(): HTMLElement {
         return this.el.nativeElement.children[0];
     }
+    /**
+     * Defines template option for start.
+     * @group Templates
+     */
+    @ContentChild('start') startTemplate: TemplateRef<any> | undefined;
 
-    ngAfterContentInit() {
-        (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
-            switch (item.getType()) {
-                case 'start':
-                case 'left':
-                    this.startTemplate = item.template;
-                    break;
+    /**
+     * Defines template option for end.
+     * @group Templates
+     */
+    @ContentChild('end') endTemplate: TemplateRef<any> | undefined;
 
-                case 'end':
-                case 'right':
-                    this.endTemplate = item.template;
-                    break;
-
-                case 'center':
-                    this.centerTemplate = item.template;
-                    break;
-            }
-        });
-    }
+    /**
+     * Defines template option for center.
+     * @group Templates
+     */
+    @ContentChild('center') centerTemplate: TemplateRef<any> | undefined;
 }
 
 @NgModule({
-    imports: [CommonModule],
+    imports: [Toolbar],
     exports: [Toolbar],
-    declarations: [Toolbar],
 })
 export class ToolbarModule {}

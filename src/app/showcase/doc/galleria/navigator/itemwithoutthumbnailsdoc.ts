@@ -33,16 +33,16 @@ export class ItemWithoutThumbnailsDoc implements OnInit {
     responsiveOptions: any[] = [
         {
             breakpoint: '991px',
-            numVisible: 4
+            numVisible: 4,
         },
         {
             breakpoint: '767px',
-            numVisible: 3
+            numVisible: 3,
         },
         {
             breakpoint: '575px',
-            numVisible: 1
-        }
+            numVisible: 1,
+        },
     ];
 
     constructor(private photoService: PhotoService) {}

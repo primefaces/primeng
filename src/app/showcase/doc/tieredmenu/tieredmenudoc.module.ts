@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { TieredMenuModule } from 'primeng/tieredmenu';
+import { TieredMenu } from 'primeng/tieredmenu';
 import { ButtonModule } from 'primeng/button';
 import { AppDocModule } from '@layout/doc/app.doc.module';
 import { AppCodeModule } from '@layout/doc/app.code.component';
@@ -16,20 +16,10 @@ import { RouterDoc } from './routerdoc';
 import { StyleDoc } from './styledoc';
 import { AccessibilityDoc } from './accessibilitydoc';
 import { MessageService } from 'primeng/api';
-import { FloatLabelModule } from 'primeng/floatlabel';
+import { FloatLabel } from 'primeng/floatlabel';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        AppCodeModule,
-        RouterModule,
-        TieredMenuModule,
-        ButtonModule,
-        AppDocModule,
-        BadgeModule,
-        ToastModule,
-        FloatLabelModule,
-    ],
+    imports: [CommonModule, AppCodeModule, RouterModule, TieredMenu, ButtonModule, AppDocModule, BadgeModule, ToastModule, FloatLabel],
     declarations: [BasicDoc, ImportDoc, PopupDoc, StyleDoc, AccessibilityDoc, TemplateDoc, CommandDoc, RouterDoc],
     exports: [AppDocModule],
     providers: [MessageService],

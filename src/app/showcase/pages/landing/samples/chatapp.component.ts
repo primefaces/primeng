@@ -5,15 +5,15 @@ import { RouterModule } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { BadgeModule } from 'primeng/badge';
 import { ChartModule } from 'primeng/chart';
-import { SelectButtonModule } from 'primeng/selectbutton';
+import { InputSwitchModule } from 'primeng/inputswitch';
+import { SelectButton } from 'primeng/selectbutton';
 import { AvatarModule } from 'primeng/avatar';
-import { IconFieldModule } from 'primeng/iconfield';
-import { InputIconModule } from 'primeng/inputicon';
+import { IconField } from 'primeng/iconfield';
+import { InputIcon } from 'primeng/inputicon';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { MenuModule } from 'primeng/menu';
-import { ToggleSwitchModule } from 'primeng/toggleswitch';
-import { TextareaModule } from 'primeng/textarea';
+import { Textarea } from 'primeng/textarea';
 
 @Component({
     selector: 'chat-app',
@@ -22,17 +22,17 @@ import { TextareaModule } from 'primeng/textarea';
         CommonModule,
         RouterModule,
         ChartModule,
-        SelectButtonModule,
+        InputSwitchModule,
+        SelectButton,
         BadgeModule,
         FormsModule,
         AvatarModule,
-        IconFieldModule,
-        InputIconModule,
+        IconField,
+        InputIcon,
         ButtonModule,
         InputTextModule,
         MenuModule,
-        TextareaModule,
-        ToggleSwitchModule,
+        Textarea,
     ],
     template: `
         <div class="w-4/12 xl:w-3/12 min-w-40 overflow-auto flex flex-col gap-6">
@@ -43,13 +43,13 @@ import { TextareaModule } from 'primeng/textarea';
                 </div>
             </div>
             <div class="px-5">
-                <p-iconfield iconPosition="left">
-                    <p-inputicon class="pi pi-search"> </p-inputicon>
+                <p-iconField iconPosition="left">
+                    <p-inputIcon class="pi pi-search"> </p-inputIcon>
                     <input type="text" pInputText [(ngModel)]="search" placeholder="Search" class="w-full" />
-                </p-iconfield>
+                </p-iconField>
             </div>
             <div class="w-full px-5">
-                <p-selectbutton [(ngModel)]="value" [options]="options" aria-labelledby="basic" class="w-full" styleClass="w-full" />
+                <p-selectButton [(ngModel)]="value" [options]="options" aria-labelledby="basic" class="w-full" styleClass="w-full" />
             </div>
             <div class="flex-1 flex flex-col">
                 <div
@@ -187,7 +187,7 @@ import { TextareaModule } from 'primeng/textarea';
                     <p-button icon="pi pi-face-smile" text />
                     <p-button icon="pi pi-paperclip" text />
                     <textarea
-                        pTextarea
+                        pInputTextarea
                         class="ml-1 flex-1 border-0 shadow-none max-h-32 min-h-9 bg-emphasis overflow-auto"
                         autoResize
                         rows="1"
@@ -228,17 +228,17 @@ import { TextareaModule } from 'primeng/textarea';
                 <div class="flex items-center gap-2">
                     <i class="pi pi-bell text-color"></i>
                     <div class="leading-6 font-medium text-color flex-1">Notification</div>
-                    <p-toggleswitch [(ngModel)]="notification" />
+                    <p-inputSwitch [(ngModel)]="notification" />
                 </div>
                 <div class="flex items-center gap-2">
                     <i class="pi pi-volume-down text-color"></i>
                     <div class="leading-6 font-medium text-color flex-1">Sound</div>
-                    <p-toggleswitch [(ngModel)]="sound" />
+                    <p-inputSwitch [(ngModel)]="sound" />
                 </div>
                 <div class="flex items-center gap-2">
                     <i class="pi pi-download text-color"></i>
                     <div class="leading-6 font-medium text-color flex-1">Save to downloads</div>
-                    <p-toggleswitch [(ngModel)]="download" />
+                    <p-inputSwitch [(ngModel)]="download" />
                 </div>
             </div>
             <div class="mt-6">
@@ -266,7 +266,7 @@ import { TextareaModule } from 'primeng/textarea';
                 </div>
             </div>
             <div class="mt-5">
-                <p-selectbutton [(ngModel)]="media" [options]="mediaOptions" class="w-full" styleClass="flex-1" />
+                <p-selectButton [(ngModel)]="media" [options]="mediaOptions" class="w-full" styleClass="flex-1" />
 
                 <div class="mt-3 mb-5 grid grid-cols-3 gap-2">
                     <div

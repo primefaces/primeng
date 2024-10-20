@@ -1,21 +1,21 @@
-import { AnimationEvent, animate, style, transition, trigger } from '@angular/animations';
+import { animate, AnimationEvent, style, transition, trigger } from '@angular/animations';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
+    booleanAttribute,
     ChangeDetectionStrategy,
     Component,
     ElementRef,
     EventEmitter,
+    forwardRef,
+    inject,
     Input,
     NgModule,
+    numberAttribute,
     OnDestroy,
     Output,
     TemplateRef,
     ViewChild,
     ViewEncapsulation,
-    booleanAttribute,
-    forwardRef,
-    inject,
-    numberAttribute,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { OverlayService, TranslationKeys } from 'primeng/api';
@@ -38,6 +38,8 @@ export const COLORPICKER_VALUE_ACCESSOR: any = {
  */
 @Component({
     selector: 'p-colorPicker, p-colorpicker',
+    standalone: true,
+    imports: [CommonModule, AutoFocusModule],
     template: `
         <div
             #container
@@ -843,8 +845,7 @@ export class ColorPicker extends BaseComponent implements ControlValueAccessor, 
 }
 
 @NgModule({
-    imports: [CommonModule, AutoFocusModule],
+    imports: [ColorPicker],
     exports: [ColorPicker],
-    declarations: [ColorPicker],
 })
 export class ColorPickerModule {}

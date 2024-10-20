@@ -57,14 +57,14 @@ export class BasicDoc {
 </div>`,
         typescript: `import { Component, Input } from '@angular/core';
 import { MessageService } from 'primeng/api';
-import { DeferModule } from 'primeng/defer';
+import { Defer } from 'primeng/defer';
 import { ToastModule } from 'primeng/toast';
 
 @Component({
     selector: 'defer-basic-demo',
     templateUrl: './defer-basic-demo.html',
     standalone: true,
-    imports: [DeferModule, ToastModule],
+    imports: [Defer, ToastModule],
     providers: [MessageService]
 })
 export class DeferBasicDemo {

@@ -100,7 +100,6 @@
 /styleclass
 /support
 /table
-/tabmenu
 /tabs
 /tag
 /team

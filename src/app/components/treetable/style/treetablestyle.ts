@@ -173,7 +173,7 @@ const theme = ({ dt }) => `
 
 /* Loader */
 .p-treetable-mask {
-    position: absolute;
+    position: absolute !important;
     display: flex;
     align-items: center;
     justify-content: center;

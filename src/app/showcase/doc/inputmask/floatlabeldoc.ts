@@ -70,15 +70,15 @@ export class FloatlabelDoc {
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { InputMaskModule } from 'primeng/inputmask';
+import { InputMask } from 'primeng/inputmask';
 import { FormsModule } from '@angular/forms';
-import { FloatLabelModule } from "primeng/floatlabel"
+import { FloatLabel } from "primeng/floatlabel"
 
 @Component({
     selector: 'input-mask-floatlabel-demo',
     templateUrl: './input-mask-floatlabel-demo.html',
     standalone: true,
-    imports: [FormsModule, InputMaskModule, FloatLabelModule]
+    imports: [FormsModule, InputMask, FloatLabel]
 })
 export class InputMaskFloatlabelDemo {
     value1: string | undefined;

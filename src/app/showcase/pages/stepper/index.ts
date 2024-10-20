@@ -14,7 +14,7 @@ import { StepsOnlyDoc } from '@doc/stepper/stepsonly';
         header="Stepper"
         description="The Stepper component displays a wizard-like workflow by guiding users through the multi-step progression."
         [docs]="docs"
-        [apiDocs]="['Stepper', 'StepperPanel']"
+        [apiDocs]="['Stepper', 'StepItem', 'StepPanel']"
         themeDocs="stepper"
     ></app-doc>`,
     standalone: true,

@@ -12,10 +12,10 @@ import { Code } from '@domain/code';
 })
 export class MaterialDoc {
     code: Code = {
-        basic: `<p-select>
-    <ng-template pTemplate="dropdownicon">
+        basic: `<p-dropdown>
+    <ng-template #dropdownicon>
         <span class="material-icons">arrow_drop_down</span>
     </ng-template>
-</p-select>`,
+</p-dropdown>`,
     };
 }

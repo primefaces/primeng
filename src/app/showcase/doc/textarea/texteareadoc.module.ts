@@ -34,7 +34,7 @@ import { IftaLabelDoc } from './iftalabeldoc';
         KeyFilterModule,
         FloatLabelModule,
         RouterModule,
-        IftaLabelModule
+        IftaLabelModule,
     ],
     exports: [AppDocModule],
     declarations: [
@@ -49,7 +49,7 @@ import { IftaLabelDoc } from './iftalabeldoc';
         AccessibilityDoc,
         ReactiveFormsDoc,
         FilledDoc,
-        IftaLabelDoc
+        IftaLabelDoc,
     ],
 })
 export class TextareaDocModule {}

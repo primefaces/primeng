@@ -26,13 +26,13 @@ export class IconDoc {
     <p-chip label="Microsoft" icon="pi pi-microsoft" [removable]="true" />
 </div>`,
         typescript: `import { Component } from '@angular/core';
-import { ChipModule } from 'primeng/chip';
+import { Chip } from 'primeng/chip';
 
 @Component({
     selector: 'chip-icon-demo',
     templateUrl: './chip-icon-demo.html',
     standalone: true,
-    imports: [ChipModule]
+    imports: [Chip]
 })
 export class ChipIconDemo {}`,
     };

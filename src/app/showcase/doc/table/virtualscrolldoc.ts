@@ -27,14 +27,14 @@ interface Column {
                     [virtualScroll]="true"
                     [virtualScrollItemSize]="46"
                 >
-                    <ng-template pTemplate="header" let-columns>
+                    <ng-template #header let-columns>
                         <tr>
                             <th *ngFor="let col of columns" style="width: 20%;">
                                 {{ col.header }}
                             </th>
                         </tr>
                     </ng-template>
-                    <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" let-columns="columns">
+                    <ng-template #body let-rowData let-rowIndex="rowIndex" let-columns="columns">
                         <tr style="height:46px">
                             <td *ngFor="let col of columns">
                                 {{ rowData[col.field] }}
@@ -70,21 +70,21 @@ export class VirtualScrollDoc {
     }
 
     code: Code = {
-        basic: `<p-table 
-    [columns]="cols" 
-    [value]="cars" 
-    [scrollable]="true" 
-    scrollHeight="400px" 
+        basic: `<p-table
+    [columns]="cols"
+    [value]="cars"
+    [scrollable]="true"
+    scrollHeight="400px"
     [virtualScroll]="true"
     [virtualScrollItemSize]="46">
-        <ng-template pTemplate="header" let-columns>
+        <ng-template #header let-columns>
             <tr>
                 <th *ngFor="let col of columns" style="width: 20%;">
                     {{ col.header }}
                 </th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" let-columns="columns">
+        <ng-template #body let-rowData let-rowIndex="rowIndex" let-columns="columns">
             <tr style="height:46px">
                 <td *ngFor="let col of columns">
                     {{ rowData[col.field] }}
@@ -93,21 +93,21 @@ export class VirtualScrollDoc {
         </ng-template>
 </p-table>`,
         html: `<div class="card">
-    <p-table 
-        [columns]="cols" 
-        [value]="cars" 
-        [scrollable]="true" 
-        scrollHeight="400px" 
-        [virtualScroll]="true" 
+    <p-table
+        [columns]="cols"
+        [value]="cars"
+        [scrollable]="true"
+        scrollHeight="400px"
+        [virtualScroll]="true"
         [virtualScrollItemSize]="46">
-            <ng-template pTemplate="header" let-columns>
+            <ng-template #header let-columns>
                 <tr>
                     <th *ngFor="let col of columns" style="width: 20%;">
                         {{ col.header }}
                     </th>
                 </tr>
             </ng-template>
-            <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" let-columns="columns">
+            <ng-template #body let-rowData let-rowIndex="rowIndex" let-columns="columns">
                 <tr style="height:46px">
                     <td *ngFor="let col of columns">
                         {{ rowData[col.field] }}
