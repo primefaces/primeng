@@ -29,18 +29,6 @@ import { Code } from '@domain/code';
 export class DynamicDoc {
     messages = signal<any[]>([]);
 
-    addMessages() {
-        this.messages.set([
-            { severity: 'info', content: 'Dynamic Info Message' },
-            { severity: 'success', content: 'Dynamic Success Message' },
-            { severity: 'warn', content: 'Dynamic Warn Message' },
-        ]);
-    }
-
-    clearMessages() {
-        this.messages.set([]);
-    }
-
     code: Code = {
         basic: `<div class="flex gap-2">
     <p-button label="Show" (onClick)="addMessages()" />
@@ -65,14 +53,14 @@ export class DynamicDoc {
 </div>`,
 
         typescript: `import { Component, signal } from '@angular/core';
-import { MessageModule } from 'primeng/message';
+import { Message } from 'primeng/message';
 import { ButtonModule } from 'primeng/button';
 
 @Component({
     selector: 'message-dynamic-demo',
     templateUrl: './message-dynamic-demo.html',
     standalone: true,
-    imports: [MessageModule, ButtonModule]
+    imports: [Message, ButtonModule]
 })
 export class MessageDynamicDemo {
     messages = signal<any[]>([]);
@@ -90,4 +78,16 @@ export class MessageDynamicDemo {
     }
 }`,
     };
+
+    clearMessages() {
+        this.messages.set([]);
+    }
+
+    addMessages() {
+        this.messages.set([
+            { severity: 'info', content: 'Dynamic Info Message' },
+            { severity: 'success', content: 'Dynamic Success Message' },
+            { severity: 'warn', content: 'Dynamic Warn Message' },
+        ]);
+    }
 }

@@ -41,13 +41,13 @@ export class ReactiveFormsDoc implements OnInit {
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { KnobModule } from 'primeng/knob';
+import { Knob } from 'primeng/knob';
 
 @Component({
     selector: 'knob-reactive-forms-demo',
     templateUrl: './knob-reactive-forms-demo.html',
     standalone: true,
-    imports: [ReactiveFormsModule, KnobModule]
+    imports: [ReactiveFormsModule, Knob]
 })
 export class KnobReactiveFormsDemo implements OnInit {
     formGroup!: FormGroup;

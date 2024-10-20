@@ -117,13 +117,13 @@ export class ShapesDoc {
     </div>
 </div>`,
         typescript: `import { Component } from '@angular/core';
-import { SkeletonModule } from 'primeng/skeleton';
+import { Skeleton } from 'primeng/skeleton';
 
 @Component({
     selector: 'skeleton-shapes-demo',
     templateUrl: './skeleton-shapes-demo.html',
     standalone: true,
-    imports: [SkeletonModule]
+    imports: [Skeleton]
 })
 export class SkeletonShapesDemo {}`,
     };

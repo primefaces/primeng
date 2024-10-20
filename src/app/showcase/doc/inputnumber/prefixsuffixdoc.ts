@@ -73,15 +73,15 @@ export class PrefixSuffixDoc {
 </p-fluid>`,
 
         typescript: `import { Component } from '@angular/core';
-import { InputNumberModule } from 'primeng/inputnumber';
+import { InputNumber } from 'primeng/inputnumber';
 import { FormsModule } from '@angular/forms';
-import { FluidModule } from 'primeng/fluid';
+import { Fluid } from 'primeng/fluid';
 
 @Component({
     selector: 'input-number-prefix-suffix-demo',
     templateUrl: './input-number-prefix-suffix-demo.html',
     standalone: true,
-    imports: [FormsModule, InputNumberModule, FluidModule]
+    imports: [FormsModule, InputNumber, Fluid]
 })
 export class InputNumberPrefixSuffixDemo {
     value1: number = 20;

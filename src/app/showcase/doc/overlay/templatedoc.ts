@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '@domain/code';
 
 @Component({
@@ -13,7 +13,7 @@ import { Code } from '@domain/code';
                 [responsive]="{ breakpoint: '640px', direction: 'bottom', contentStyleClass: 'h-20rem' }"
                 contentStyleClass="p-6 bg-surface-0 dark:bg-surface-900 shadow rounded-border"
             >
-                <ng-template pTemplate="content" let-option> Content - {{ option.mode }} </ng-template>
+                <ng-template #content let-option> Content - {{ option.mode }} </ng-template>
             </p-overlay>
         </div>
         <app-code [code]="code" selector="overlay-template-demo"></app-code>`,
@@ -28,7 +28,7 @@ export class OverlayTemplateDemo {
     code: Code = {
         basic: `<p-button (click)="toggle()" label="Show Overlay"></p-button>
 <p-overlay [(visible)]="overlayVisible" [responsive]="{ breakpoint: '640px', direction: 'bottom', contentStyleClass: 'h-20rem' }" contentStyleClass="p-6 bg-surface-0 dark:bg-surface-900 shadow rounded-border">
-    <ng-template pTemplate="content" let-option>
+    <ng-template #content let-option>
         Content - {{option.mode}}
     </ng-template>
 </p-overlay>`,
@@ -36,7 +36,7 @@ export class OverlayTemplateDemo {
 <div class="card flex justify-center">
     <p-button (click)="toggle()" label="Show Overlay"></p-button>
     <p-overlay [(visible)]="overlayVisible" [responsive]="{ breakpoint: '640px', direction: 'bottom', contentStyleClass: 'h-20rem' }" contentStyleClass="p-6 bg-surface-0 dark:bg-surface-900 shadow rounded-border">
-        <ng-template pTemplate="content" let-option>
+        <ng-template #content let-option>
             Content - {{option.mode}}
         </ng-template>
     </p-overlay>
@@ -46,7 +46,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'overlay-template-demo',
-    templateUrl: './overlay-template-demo.html' 
+    templateUrl: './overlay-template-demo.html'
 })
 export class OverlayTemplateDemo {
     overlayVisible: boolean = false;

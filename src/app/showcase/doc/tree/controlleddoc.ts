@@ -73,7 +73,7 @@ import { ButtonModule } from 'primeng/button';
     selector: 'tree-controlled-demo',
     templateUrl: './tree-controlled-demo.html',
     standalone: true,
-    imports: [TreeModule, ButtonModule],
+    imports: [Tree, ButtonModule],
     providers: [NodeService]
 })
 export class TreeControlledDemo implements OnInit {

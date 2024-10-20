@@ -39,31 +39,31 @@ export class AutoDoc {
     }
 
     code: Code = {
-        basic: `<p-fileupload 
-    mode="basic" 
-    name="demo[]" 
-    chooseIcon="pi pi-upload" 
-    url="https://www.primefaces.org/cdn/api/upload.php" 
-    accept="image/*" maxFileSize="1000000" 
-    (onUpload)="onBasicUploadAuto($event)" 
-    [auto]="true" 
+        basic: `<p-fileupload
+    mode="basic"
+    name="demo[]"
+    chooseIcon="pi pi-upload"
+    url="https://www.primefaces.org/cdn/api/upload.php"
+    accept="image/*" maxFileSize="1000000"
+    (onUpload)="onBasicUploadAuto($event)"
+    [auto]="true"
     chooseLabel="Browse" />`,
         html: `<div class="card flex justify-center">
     <p-toast />
-    <p-fileupload 
-        mode="basic" 
-        name="demo[]" 
-        chooseIcon="pi pi-upload" 
-        url="https://www.primefaces.org/cdn/api/upload.php" 
-        accept="image/*" maxFileSize="1000000" 
-        (onUpload)="onBasicUploadAuto($event)" 
-        [auto]="true" 
+    <p-fileupload
+        mode="basic"
+        name="demo[]"
+        chooseIcon="pi pi-upload"
+        url="https://www.primefaces.org/cdn/api/upload.php"
+        accept="image/*" maxFileSize="1000000"
+        (onUpload)="onBasicUploadAuto($event)"
+        [auto]="true"
         chooseLabel="Browse" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
 import { MessageService } from 'primeng/api';
-import { FileUploadModule } from 'primeng/fileupload';
+import { FileUpload } from 'primeng/fileupload';
 import { ToastModule } from 'primeng/toast';
 
 interface UploadEvent {
@@ -75,7 +75,7 @@ interface UploadEvent {
     selector: 'file-upload-auto-demo',
     templateUrl: './file-upload-auto-demo.html',
     standalone: true,
-    imports: [FileUploadModule, ToastModule],
+    imports: [FileUpload, ToastModule],
     providers: [MessageService]
 })
 export class FileUploadAutoDemo {

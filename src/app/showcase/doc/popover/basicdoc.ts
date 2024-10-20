@@ -150,8 +150,8 @@ export class BasicDoc {
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { PopoverModule } from 'primeng/popover';
-import { InputGroupModule } from 'primeng/inputgroup';
+import { Popover } from 'primeng/popover';
+import { InputGroup } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
@@ -161,7 +161,7 @@ import { CommonModule } from '@angular/common';
     selector: 'popover-basic-demo',
     templateUrl: './popover-basic-demo.html',
     standalone: true,
-    imports: [PopoverModule, InputGroupModule, InputGroupAddonModule, ButtonModule, InputTextModule, CommonModule]
+    imports: [Popover, InputGroup, InputGroupAddonModule, ButtonModule, InputTextModule, CommonModule]
 })
 export class PopoverBasicDemo {
     members = [

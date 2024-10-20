@@ -157,8 +157,8 @@ export class TemplateDoc {
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { InputIconModule } from 'primeng/inputicon';
-import { IconFieldModule } from 'primeng/iconfield';
+import { InputIcon } from 'primeng/inputicon';
+import { IconField } from 'primeng/iconfield';
 import { InputTextModule } from 'primeng/inputtext';
 import { FormsModule } from '@angular/forms';
 
@@ -166,7 +166,7 @@ import { FormsModule } from '@angular/forms';
     selector: 'iconfield-template-demo',
     templateUrl: './iconfield-template-demo.html',
     standalone: true,
-    imports: [InputIconModule, IconFieldModule, InputTextModule, FormsModule]
+    imports: [InputIcon, IconField, InputTextModule, FormsModule]
 })
 export class IconFieldTemplateDemo {}`,
     };

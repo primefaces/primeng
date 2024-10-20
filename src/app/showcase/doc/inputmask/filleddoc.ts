@@ -27,14 +27,14 @@ export class FilledDoc {
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { InputMaskModule } from 'primeng/inputmask';
+import { InputMask } from 'primeng/inputmask';
 import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'input-mask-filled-demo',
     templateUrl: './input-mask-filled-demo.html',
     standalone: true,
-    imports: [FormsModule, InputMaskModule]
+    imports: [FormsModule, InputMask]
 })
 export class InputMaskFilledDemo {
     value: string | undefined;

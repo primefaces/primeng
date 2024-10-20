@@ -77,17 +77,17 @@ export class CheckboxDoc {
 
         typescript: `import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputGroupModule } from 'primeng/inputgroup';
+import { InputGroup } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { InputTextModule } from 'primeng/inputtext';
-import { CheckboxModule } from 'primeng/checkbox';
-import { RadioButtonModule } from 'primeng/radiobutton';
+import { Checkbox } from 'primeng/checkbox';
+import { RadioButton } from 'primeng/radiobutton';
 
 @Component({
     selector: 'input-group-checkbox-demo',
     templateUrl: './input-group-checkbox-demo.html',
     standalone: true,
-    imports: [FormsModule, InputGroupModule, InputGroupAddonModule, InputTextModule, CheckboxModule, RadioButtonModule]
+    imports: [FormsModule, InputGroup, InputGroupAddonModule, InputTextModule, Checkbox, RadioButton]
 })
 export class InputGroupCheckboxDemo {
     radioValue1: boolean = false;

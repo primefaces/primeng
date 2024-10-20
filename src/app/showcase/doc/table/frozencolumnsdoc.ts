@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { Code } from '@domain/code';
 import { Customer } from '@domain/customer';
 import { CustomerService } from '@service/customerservice';
@@ -22,7 +22,7 @@ import { CustomerService } from '@service/customerservice';
                 />
 
                 <p-table [value]="customers" [scrollable]="true" scrollHeight="400px" styleClass="mt-4">
-                    <ng-template pTemplate="header">
+                    <ng-template #header>
                         <tr>
                             <th style="min-width:200px" pFrozenColumn class="font-bold">Name</th>
                             <th style="min-width:100px">Id</th>
@@ -43,7 +43,7 @@ import { CustomerService } from '@service/customerservice';
                             </th>
                         </tr>
                     </ng-template>
-                    <ng-template pTemplate="body" let-customer>
+                    <ng-template #body let-customer>
                         <tr>
                             <td pFrozenColumn class="font-bold">{{ customer.name }}</td>
                             <td style="min-width:100px">{{ customer.id }}</td>
@@ -86,15 +86,15 @@ export class FrozenColumnsDoc {
     }
 
     code: Code = {
-        basic: `<p-togglebutton 
-    [(ngModel)]="balanceFrozen" 
+        basic: `<p-togglebutton
+    [(ngModel)]="balanceFrozen"
     [onIcon]="'pi pi-lock'"
-    offIcon="pi pi-lock-open" 
-    [onLabel]="'Balance'" 
+    offIcon="pi pi-lock-open"
+    [onLabel]="'Balance'"
     offLabel="Balance" />
 
 <p-table [value]="customers" [scrollable]="true" scrollHeight="400px" styleClass="mt-4">
-    <ng-template pTemplate="header">
+    <ng-template #header>
         <tr>
             <th style="min-width:200px" pFrozenColumn>Name</th>
             <th style="min-width:100px">Id</th>
@@ -107,7 +107,7 @@ export class FrozenColumnsDoc {
             <th style="min-width:200px" alignFrozen="right" pFrozenColumn [frozen]="balanceFrozen">Balance</th>
         </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-customer>
+    <ng-template #body let-customer>
         <tr>
             <td pFrozenColumn>{{customer.name}}</td>
             <td style="min-width:100px">{{customer.id}}</td>
@@ -122,15 +122,15 @@ export class FrozenColumnsDoc {
     </ng-template>
 </p-table>`,
         html: `<div class="card">
-    <p-togglebutton 
-        [(ngModel)]="balanceFrozen" 
-        [onIcon]="'pi pi-lock'" 
-        offIcon="pi pi-lock-open" 
+    <p-togglebutton
+        [(ngModel)]="balanceFrozen"
+        [onIcon]="'pi pi-lock'"
+        offIcon="pi pi-lock-open"
         [onLabel]="'Balance'"
         offLabel="Balance" />
 
     <p-table [value]="customers" [scrollable]="true" scrollHeight="400px" styleClass="mt-4">
-        <ng-template pTemplate="header">
+        <ng-template #header>
             <tr>
                 <th style="min-width:200px" pFrozenColumn>Name</th>
                 <th style="min-width:100px">Id</th>
@@ -143,7 +143,7 @@ export class FrozenColumnsDoc {
                 <th style="min-width:200px" alignFrozen="right" pFrozenColumn [frozen]="balanceFrozen">Balance</th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-customer>
+        <ng-template #body let-customer>
             <tr>
                 <td pFrozenColumn>{{customer.name}}</td>
                 <td style="min-width:100px">{{customer.id}}</td>
@@ -162,7 +162,7 @@ export class FrozenColumnsDoc {
 import { Customer } from '@domain/customer';
 import { CustomerService } from '@service/customerservice';
 import { TableModule } from 'primeng/table';
-import { ToggleButtonModule } from 'primeng/togglebutton';
+import { ToggleButton } from 'primeng/togglebutton';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -170,7 +170,7 @@ import { HttpClientModule } from '@angular/common/http';
     selector: 'table-frozen-columns-demo',
     templateUrl: 'table-frozen-columns-demo.html',
     standalone: true,
-    imports: [TableModule, ToggleButtonModule, FormsModule, HttpClientModule],
+    imports: [TableModule, ToggleButton, FormsModule, HttpClientModule],
     providers: [CustomerService],
     styles: [
         \`:host ::ng-deep  .p-frozen-column {
@@ -196,7 +196,7 @@ export class TableFrozenColumnsDemo implements OnInit{
 
     formatCurrency(value: number) {
         return value.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
-    } 
+    }
 }`,
         scss: `
 :host ::ng-deep  .p-frozen-column {

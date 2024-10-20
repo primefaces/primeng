@@ -51,14 +51,14 @@ export class PopupDoc implements OnInit {
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
-import { MenuModule } from 'primeng/menu';
+import { Menu } from 'primeng/menu';
 import { ButtonModule } from 'primeng/button';
 
 @Component({
     selector: 'menu-popup-demo',
     templateUrl: './menu-popup-demo.html',
     standalone: true,
-    imports: [MenuModule, ButtonModule]
+    imports: [Menu, ButtonModule]
 })
 export class MenuPopupDemo implements OnInit {
     items: MenuItem[] | undefined;

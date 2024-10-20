@@ -10,25 +10,25 @@ export default {
         focus: {
             top: '-1.25rem',
             fontSize: '0.875rem',
-            fontWeight: '400'
-        }
+            fontWeight: '400',
+        },
     },
     in: {
         input: {
-            paddingTop: '1.875rem'
+            paddingTop: '1.875rem',
         },
         focus: {
-            top: '{form.field.padding.y}'
-        }
+            top: '{form.field.padding.y}',
+        },
     },
     on: {
         input: {
             paddingTop: '1.25rem',
-            paddingBottom: '1.25rem'
+            paddingBottom: '1.25rem',
         },
         focus: {
             background: '{form.field.background}',
-            padding: '0 0.125rem'
-        }
-    }
+            padding: '0 0.125rem',
+        },
+    },
 };

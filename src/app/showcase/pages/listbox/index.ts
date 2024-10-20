@@ -45,7 +45,7 @@ export class ListboxDemo {
         {
             id: 'checkmark',
             label: 'Checkmark',
-            component: CheckmarkDoc
+            component: CheckmarkDoc,
         },
         {
             id: 'multiple',

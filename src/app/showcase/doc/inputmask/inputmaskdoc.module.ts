@@ -49,7 +49,7 @@ import { IftaLabelModule } from 'primeng/iftalabel';
         AccessibilityDoc,
         ReactiveFormsDoc,
         FilledDoc,
-        IftaLabelDoc
+        IftaLabelDoc,
     ],
 })
 export class InputMaskDocModule {}

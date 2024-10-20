@@ -14,7 +14,7 @@ import {
     signal,
     TemplateRef,
     ViewChild,
-    ViewEncapsulation,
+    ViewEncapsulation
 } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { ChevronLeftIcon } from 'primeng/icons/chevronleft';
@@ -123,14 +123,6 @@ export class TabList extends BaseComponent implements AfterViewInit, AfterConten
 
     scrollable = computed(() => this.pcTabs.scrollable());
 
-    get prevButtonAriaLabel() {
-        return this.config.translation.aria.previous;
-    }
-
-    get nextButtonAriaLabel() {
-        return this.config.translation.aria.next;
-    }
-
     constructor() {
         super();
         effect(() => {
@@ -141,6 +133,14 @@ export class TabList extends BaseComponent implements AfterViewInit, AfterConten
                 });
             }
         });
+    }
+
+    get prevButtonAriaLabel() {
+        return this.config.translation.aria.previous;
+    }
+
+    get nextButtonAriaLabel() {
+        return this.config.translation.aria.next;
     }
 
     ngAfterViewInit() {

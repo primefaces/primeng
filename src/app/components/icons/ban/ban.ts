@@ -5,7 +5,6 @@ import { UniqueComponentId } from 'primeng/utils';
 @Component({
     selector: 'BanIcon',
     standalone: true,
-    imports: [BaseIcon],
     template: `
         <svg
             width="14"

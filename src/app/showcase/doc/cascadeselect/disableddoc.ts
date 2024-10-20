@@ -23,13 +23,13 @@ export class DisabledDoc {
 
         typescript: `import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { CascadeSelectModule } from 'primeng/cascadeselect';
+import { CascadeSelect } from 'primeng/cascadeselect';
 
 @Component({
     selector: 'cascade-select-disabled-demo',
     templateUrl: './cascade-select-disabled-demo.html',
     standalone: true,
-    imports: [FormsModule, CascadeSelectModule]
+    imports: [FormsModule, CascadeSelect]
 })
 export class CascadeSelectDisabledDemo {
    

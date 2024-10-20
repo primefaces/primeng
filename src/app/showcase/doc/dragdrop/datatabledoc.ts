@@ -258,7 +258,7 @@ import { ProductService } from '@service/productservice';
 import { DragDropModule } from 'primeng/dragdrop';
 import { TableModule } from 'primeng/table';
 import { CommonModule } from '@angular/common';
-import { TagModule } from 'primeng/tag';
+import { Tag } from 'primeng/tag';
 
 @Component({
     selector: 'drag-drop-data-table-demo',
@@ -334,7 +334,7 @@ import { TagModule } from 'primeng/tag';
         }\`
     ],
     standalone: true,
-    imports: [DragDropModule, TableModule, TagModule, CommonModule],
+    imports: [DragDropModule, TableModule, Tag, CommonModule],
     providers: [ProductService]
 })
 export class DragDropDataTableDemo implements OnInit {

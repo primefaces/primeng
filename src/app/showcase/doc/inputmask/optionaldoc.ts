@@ -27,14 +27,14 @@ export class OptionalDoc {
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { InputMaskModule } from 'primeng/inputmask';
+import { InputMask } from 'primeng/inputmask';
 import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'input-mask-optional-demo',
     templateUrl: './input-mask-optional-demo.html',
     standalone: true,
-    imports: [FormsModule, InputMaskModule]
+    imports: [FormsModule, InputMask]
 })
 export class InputMaskOptionalDemo {
     value: string | undefined;

@@ -55,7 +55,7 @@ export class BasicDoc implements OnInit {
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ListboxModule } from 'primeng/listbox';
+import { Listbox } from 'primeng/listbox';
 
 interface City {
     name: string,
@@ -66,7 +66,7 @@ interface City {
     selector: 'listbox-basic-demo',
     templateUrl: './listbox-basic-demo.html',
     standalone: true,
-    imports: [FormsModule, ListboxModule]
+    imports: [FormsModule, Listbox]
 })
 export class ListboxBasicDemo implements OnInit {
     cities!: City[];

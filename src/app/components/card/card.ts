@@ -1,31 +1,30 @@
 import { CommonModule } from '@angular/common';
 import {
-    AfterContentInit,
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     ContentChild,
     ContentChildren,
-    ElementRef,
+    inject,
     Input,
     NgModule,
     QueryList,
-    SimpleChange,
-    TemplateRef,
-    ViewEncapsulation,
-    inject,
     signal,
+    TemplateRef,
+    ViewEncapsulation
 } from '@angular/core';
-import { BlockableUI, Footer, Header, PrimeTemplate, SharedModule } from 'primeng/api';
+import { BlockableUI, Footer, Header, PrimeTemplate } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ObjectUtils } from 'primeng/utils';
 import { CardStyle } from './style/cardstyle';
+
 /**
  * Card is a flexible container component.
  * @group Components
  */
 @Component({
     selector: 'p-card',
+    standalone: true,
+    imports: [CommonModule],
     template: `
         <div [ngClass]="'p-card p-component'" [ngStyle]="_style()" [class]="styleClass" [attr.data-pc-name]="'card'">
             <div class="p-card-header" *ngIf="headerFacet || headerTemplate">
@@ -54,10 +53,9 @@ import { CardStyle } from './style/cardstyle';
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-
     providers: [CardStyle],
 })
-export class Card extends BaseComponent implements AfterContentInit, BlockableUI {
+export class Card extends BaseComponent implements BlockableUI {
     /**
      * Header of the card.
      * @group Props
@@ -89,49 +87,19 @@ export class Card extends BaseComponent implements AfterContentInit, BlockableUI
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
-    headerTemplate: TemplateRef<any> | undefined;
+    @ContentChild('header') headerTemplate: TemplateRef<any> | undefined;
 
-    titleTemplate: TemplateRef<any> | undefined;
+    @ContentChild('title') titleTemplate: TemplateRef<any> | undefined;
 
-    subtitleTemplate: TemplateRef<any> | undefined;
+    @ContentChild('subtitle') subtitleTemplate: TemplateRef<any> | undefined;
 
-    contentTemplate: TemplateRef<any> | undefined;
+    @ContentChild('content') contentTemplate: TemplateRef<any> | undefined;
 
-    footerTemplate: TemplateRef<any> | undefined;
+    @ContentChild('footer') footerTemplate: TemplateRef<any> | undefined;
 
     _style = signal<{ [klass: string]: any } | null | undefined>(null);
 
     _componentStyle = inject(CardStyle);
-
-    ngAfterContentInit() {
-        (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
-            switch (item.getType()) {
-                case 'header':
-                    this.headerTemplate = item.template;
-                    break;
-
-                case 'title':
-                    this.titleTemplate = item.template;
-                    break;
-
-                case 'subtitle':
-                    this.subtitleTemplate = item.template;
-                    break;
-
-                case 'content':
-                    this.contentTemplate = item.template;
-                    break;
-
-                case 'footer':
-                    this.footerTemplate = item.template;
-                    break;
-
-                default:
-                    this.contentTemplate = item.template;
-                    break;
-            }
-        });
-    }
 
     getBlockableElement(): HTMLElement {
         return this.el.nativeElement.children[0];
@@ -139,8 +107,7 @@ export class Card extends BaseComponent implements AfterContentInit, BlockableUI
 }
 
 @NgModule({
-    imports: [CommonModule],
-    exports: [Card, SharedModule],
-    declarations: [Card],
+    imports: [Card],
+    exports: [Card],
 })
 export class CardModule {}

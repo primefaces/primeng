@@ -17,37 +17,7 @@ import { Code } from '@domain/code';
     providers: [MessageService],
 })
 export class IconsDoc {
-    constructor(private messageService: MessageService) {
-        this.items = [
-            {
-                label: 'Update',
-                icon: 'pi pi-refresh',
-                command: () => {
-                    this.messageService.add({ severity: 'success', summary: 'Updated', detail: 'Data Updated', life: 3000 });
-                },
-            },
-            {
-                label: 'Delete',
-                icon: 'pi pi-times',
-                command: () => {
-                    this.messageService.add({ severity: 'warn', summary: 'Delete', detail: 'Data Deleted', life: 3000 });
-                },
-            },
-            {
-                separator: true,
-            },
-            {
-                label: 'Quit',
-                icon: 'pi pi-power-off',
-                command: () => {
-                    window.open('https://angular.io/', '_blank');
-                },
-            },
-        ];
-    }
-
     items: MenuItem[];
-
     code: Code = {
         basic: `<p-splitbutton label="Save" icon="pi pi-check" dropdownIcon="pi pi-cog" [model]="items" />`,
 
@@ -99,4 +69,33 @@ export class SplitButtonIconsDemo {
     }
 }`,
     };
+
+    constructor(private messageService: MessageService) {
+        this.items = [
+            {
+                label: 'Update',
+                icon: 'pi pi-refresh',
+                command: () => {
+                    this.messageService.add({ severity: 'success', summary: 'Updated', detail: 'Data Updated', life: 3000 });
+                },
+            },
+            {
+                label: 'Delete',
+                icon: 'pi pi-times',
+                command: () => {
+                    this.messageService.add({ severity: 'warn', summary: 'Delete', detail: 'Data Deleted', life: 3000 });
+                },
+            },
+            {
+                separator: true,
+            },
+            {
+                label: 'Quit',
+                icon: 'pi pi-power-off',
+                command: () => {
+                    window.open('https://angular.io/', '_blank');
+                },
+            },
+        ];
+    }
 }

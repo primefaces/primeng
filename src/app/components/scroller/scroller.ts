@@ -4,6 +4,7 @@ import {
     AfterViewChecked,
     ChangeDetectionStrategy,
     Component,
+    ContentChild,
     ContentChildren,
     ElementRef,
     EventEmitter,
@@ -18,13 +19,18 @@ import {
     SimpleChanges,
     TemplateRef,
     ViewChild,
-    ViewEncapsulation,
+    ViewEncapsulation
 } from '@angular/core';
 import { PrimeTemplate, ScrollerOptions, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { SpinnerIcon } from 'primeng/icons/spinner';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
-import { ScrollerLazyLoadEvent, ScrollerScrollEvent, ScrollerScrollIndexChangeEvent, ScrollerToType } from './scroller.interface';
+import {
+    ScrollerLazyLoadEvent,
+    ScrollerScrollEvent,
+    ScrollerScrollIndexChangeEvent,
+    ScrollerToType
+} from './scroller.interface';
 import { ScrollerStyle } from './style/scrollerstyle';
 import { BaseComponent } from 'primeng/basecomponent';
 
@@ -34,6 +40,8 @@ import { BaseComponent } from 'primeng/basecomponent';
  */
 @Component({
     selector: 'p-scroller',
+    imports: [CommonModule, SpinnerIcon],
+    standalone: true,
     template: `
         <ng-container *ngIf="!_disabled; else disabledContainer">
             <div
@@ -65,7 +73,7 @@ import { BaseComponent } from 'primeng/basecomponent';
                         [ngStyle]="contentStyle"
                         [attr.data-pc-section]="'content'"
                     >
-                        <ng-container *ngFor="let item of loadedItems; let index = index; trackBy: _trackBy || index">
+                        <ng-container *ngFor="let item of loadedItems; let index = index; trackBy: _trackBy">
                             <ng-container
                                 *ngTemplateOutlet="itemTemplate; context: { $implicit: item, options: getOptions(index) }"
                             ></ng-container>
@@ -85,7 +93,7 @@ import { BaseComponent } from 'primeng/basecomponent';
                                 *ngTemplateOutlet="
                                     loaderTemplate;
                                     context: {
-                                        options: getLoaderOptions(index, both && { numCols: _numItemsInViewport.cols }),
+                                        options: getLoaderOptions(index, both && { numCols: numItemsInViewport.cols }),
                                     }
                                 "
                             ></ng-container>
@@ -456,14 +464,29 @@ export class Scroller extends BaseComponent implements OnInit, AfterContentInit,
     d_numToleratedItems: any;
 
     contentEl: any;
+    /**
+     * Content template of the component.
+     * @group Templates
+     */
+    @ContentChild('content') contentTemplate: Nullable<TemplateRef<any>>;
 
-    contentTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Item template of the component.
+     * @group Templates
+     */
+    @ContentChild('item') itemTemplate: Nullable<TemplateRef<any>>;
 
-    itemTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Loader template of the component.
+     * @group Templates
+     */
+    @ContentChild('loader') loaderTemplate: Nullable<TemplateRef<any>>;
 
-    loaderTemplate: Nullable<TemplateRef<any>>;
-
-    loaderIconTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Loader icon template of the component.
+     * @group Templates
+     */
+    @ContentChild('loadericon') loaderIconTemplate: Nullable<TemplateRef<any>>;
 
     first: any = 0;
 
@@ -1343,8 +1366,7 @@ export class Scroller extends BaseComponent implements OnInit, AfterContentInit,
 }
 
 @NgModule({
-    imports: [CommonModule, SharedModule, SpinnerIcon],
+    imports: [Scroller, SharedModule],
     exports: [Scroller, SharedModule],
-    declarations: [Scroller],
 })
 export class ScrollerModule {}

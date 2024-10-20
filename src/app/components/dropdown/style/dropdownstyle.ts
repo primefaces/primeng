@@ -1,5 +1,15 @@
 import { Injectable } from '@angular/core';
 import { BaseStyle } from 'primeng/base';
+/**
+ *
+ * Dropdown also known as Select, is used to choose an item from a collection of options.
+ *
+ * [Live Demo](https://www.primeng.org/select/)
+ *
+ * @module dropdownstyle
+ *
+ */
+import type { SelectStyle } from 'primeng/select';
 
 const theme = ({ dt }) => `
 .p-select {
@@ -197,7 +207,7 @@ input.p-select-label {
 
 .p-dropdown.ng-invalid.ng-dirty,
 .p-select.ng-invalid.ng-dirty {
-    outline: 1px solid ${dt('selectbutton.invalid.border.color')};
+    outline: 1px solid ${dt('select.invalid.border.color')};
     outline-offset: 0;
 }
 
@@ -257,17 +267,6 @@ export class DropdownStyle extends BaseStyle {
 
     classes = classes;
 }
-
-/**
- *
- * Dropdown also known as Select, is used to choose an item from a collection of options.
- *
- * [Live Demo](https://www.primeng.org/select/)
- *
- * @module dropdownstyle
- *
- */
-import type { SelectStyle } from 'primeng/select';
 
 export enum DropdownClasses {}
 

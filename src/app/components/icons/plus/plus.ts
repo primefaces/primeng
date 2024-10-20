@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { BaseIcon } from 'primeng/baseicon';
 import { UniqueComponentId } from 'primeng/utils';
+
 @Component({
     selector: 'PlusIcon',
     standalone: true,
-    imports: [BaseIcon],
     template: `
         <svg
             width="14"

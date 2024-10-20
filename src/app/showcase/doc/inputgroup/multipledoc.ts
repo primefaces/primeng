@@ -53,7 +53,7 @@ export class MultipleDoc {
 
         typescript: `import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputGroupModule } from 'primeng/inputgroup';
+import { InputGroup } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { InputTextModule } from 'primeng/inputtext';
 
@@ -61,7 +61,7 @@ import { InputTextModule } from 'primeng/inputtext';
     selector: 'input-group-multiple-demo',
     templateUrl: './input-group-multiple-demo.html',
     standalone: true,
-    imports: [FormsModule, InputGroupModule, InputGroupAddonModule, InputTextModule]
+    imports: [FormsModule, InputGroup, InputGroupAddonModule, InputTextModule]
 })
 export class InputGroupMultipleDemo {
 }`,

@@ -4,26 +4,26 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { MessageService, PrimeNGConfig } from 'primeng/api';
 import { BadgeModule } from 'primeng/badge';
-import { ChipModule } from 'primeng/chip';
-import { InputNumberModule } from 'primeng/inputnumber';
-import { RadioButtonModule } from 'primeng/radiobutton';
-import { SelectButtonModule } from 'primeng/selectbutton';
-import { SliderModule } from 'primeng/slider';
+import { Chip } from 'primeng/chip';
+import { InputNumber } from 'primeng/inputnumber';
+import { InputSwitchModule } from 'primeng/inputswitch';
+import { RadioButton } from 'primeng/radiobutton';
+import { SelectButton } from 'primeng/selectbutton';
+import { Slider } from 'primeng/slider';
 import { DividerModule } from 'primeng/divider';
 import { AvatarModule } from 'primeng/avatar';
 import { TooltipModule } from 'primeng/tooltip';
 import { ButtonModule } from 'primeng/button';
-import { TableModule } from 'primeng/table';
 import { InputTextModule } from 'primeng/inputtext';
 import { MenuModule } from 'primeng/menu';
-import { TagModule } from 'primeng/tag';
+import { Tag } from 'primeng/tag';
 import { AvatarGroupModule } from 'primeng/avatargroup';
-import { FileUploadModule } from 'primeng/fileupload';
-import { InputOtpModule } from 'primeng/inputotp';
-import { AutoCompleteModule } from 'primeng/autocomplete';
+import { FileUpload } from 'primeng/fileupload';
+import { InputOtp } from 'primeng/inputotp';
+import { AutoComplete } from 'primeng/autocomplete';
 import { OverlayBadgeModule } from 'primeng/overlaybadge';
-import { CheckboxModule } from 'primeng/checkbox';
-import { SelectModule } from 'primeng/select';
+import { Checkbox } from 'primeng/checkbox';
+import { Select } from 'primeng/select';
 import { ToggleSwitchModule } from 'primeng/toggleswitch';
 
 @Component({
@@ -32,28 +32,28 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
     imports: [
         CommonModule,
         RouterModule,
-        InputNumberModule,
-        SelectModule,
-        RadioButtonModule,
-        ChipModule,
-        SelectButtonModule,
-        SliderModule,
+        InputNumber,
+        Select,
+        RadioButton,
+        Chip,
+        InputSwitchModule,
+        SelectButton,
+        Slider,
         BadgeModule,
         FormsModule,
         DividerModule,
         AvatarModule,
         TooltipModule,
         ButtonModule,
-        TableModule,
         InputTextModule,
         MenuModule,
-        TagModule,
+        Tag,
         AvatarGroupModule,
-        InputOtpModule,
-        AutoCompleteModule,
-        FileUploadModule,
+        InputOtp,
+        AutoComplete,
+        FileUpload,
         OverlayBadgeModule,
-        CheckboxModule,
+        Checkbox,
         ToggleSwitchModule,
     ],
     template: `
@@ -279,7 +279,7 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
                             (onSelect)="onSelectedFiles($event)"
                         >
                             <ng-template
-                                pTemplate="header"
+                                #header
                                 let-chooseCallback="chooseCallback"
                                 let-clearCallback="clearCallback"
                                 let-uploadCallback="uploadCallback"
@@ -330,16 +330,17 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
                             </ng-template>
 
                             <ng-template
-                                pTemplate="content"
+                                #content
                                 let-chooseCallback="chooseCallback"
                                 let-clearCallback="clearCallback"
                                 let-uploadCallback="uploadCallback"
+                                let-removeCallback="removeCallback"
                             >
                                 <div *ngIf="files.length > 0" class="px-4 py-0">
                                     <h5 class="m-0 mb-2">Pending</h5>
                                     <div class="flex flex-wrap gap-2 grow overflow-auto max-h-[210px]">
                                         <div
-                                            *ngFor="let file of files"
+                                            *ngFor="let file of files; let i = index"
                                             class="card max-w-[120px] !p-2 m-0 flex flex-col border-1 surface-border items-center gap-2 text-center"
                                         >
                                             <div>
@@ -350,10 +351,10 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
                                             }}</span>
                                             <span class="text-sm text-muted-color">{{ formatSize(file.size) }}</span>
                                             <div class="grow flex flex-col gap-2 justify-end">
-                                                <p-badge value="Pending" severity="warning" />
+                                                <p-badge value="Pending" severity="warn" />
                                                 <p-button
                                                     icon="pi pi-times text-sm leading-none"
-                                                    (click)="onRemoveTemplatingFile(file, removeFileCallback, index)"
+                                                    (click)="onRemoveTemplatingFile(file, removeCallback, i)"
                                                     class="!text-sm !leading-none"
                                                     label="Cancel"
                                                     text
@@ -383,7 +384,6 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
                                                 <p-badge value="Completed" class="mt-3" severity="success" />
                                                 <p-button
                                                     icon="pi pi-times text-sm leading-none"
-                                                    (click)="removeUploadedFileCallback(index)"
                                                     class="!text-sm !leading-none"
                                                     label="Cancel"
                                                     text
@@ -635,7 +635,7 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
                         <p-inputotp
                             [(ngModel)]="forgotPasswordOTP"
                             [length]="6"
-                            integerOnly
+                            [integerOnly]="true"
                             class="w-full [&>*]:flex-1 [&>*]:min-h-14 [&>*]:text-2xl"
                         />
                     </div>

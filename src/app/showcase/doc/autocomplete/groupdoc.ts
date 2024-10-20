@@ -23,7 +23,7 @@ interface AutoCompleteCompleteEvent {
                 (completeMethod)="filterGroupedCity($event)"
                 placeholder="Hint: type 'a'"
             >
-                <ng-template let-group pTemplate="group">
+                <ng-template let-group #content>
                     <div class="flex items-center">
                         <img
                             src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
@@ -106,7 +106,7 @@ export class GroupDoc implements OnInit {
     [suggestions]="filteredGroups" 
     (completeMethod)="filterGroupedCity($event)" 
     placeholder="Hint: type 'a'">
-        <ng-template let-group pTemplate="group">
+        <ng-template let-group #content>
             <div class="flex items-center">
                 <img 
                     src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" 
@@ -124,7 +124,7 @@ export class GroupDoc implements OnInit {
         [suggestions]="filteredGroups" 
         (completeMethod)="filterGroupedCity($event)" 
         placeholder="Hint: type 'a'">
-            <ng-template let-group pTemplate="group">
+            <ng-template let-group #content>
                 <div class="flex items-center">
                     <img 
                         src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
@@ -138,7 +138,7 @@ export class GroupDoc implements OnInit {
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { FilterService, SelectItemGroup } from 'primeng/api';
-import { AutoCompleteModule } from 'primeng/autocomplete';
+import { AutoComplete } from 'primeng/autocomplete';
 import { FormsModule } from '@angular/forms';
 
 interface AutoCompleteCompleteEvent {
@@ -150,7 +150,7 @@ interface AutoCompleteCompleteEvent {
     selector: 'autocomplete-grouped-demo',
     templateUrl: './autocomplete-grouped-demo.html',
     standalone: true,
-    imports: [AutoCompleteModule, FormsModule],
+    imports: [AutoComplete, FormsModule],
   })
 export class AutocompleteGroupedDemo implements OnInit {
     selectedCity: any;

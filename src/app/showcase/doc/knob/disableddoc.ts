@@ -25,13 +25,13 @@ export class DisabledDoc {
 
         typescript: `import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { KnobModule } from 'primeng/knob';
+import { Knob } from 'primeng/knob';
 
 @Component({
     selector: 'knob-disabled-demo',
     templateUrl: './knob-disabled-demo.html',
     standalone: true,
-    imports: [FormsModule, KnobModule]
+    imports: [FormsModule, Knob]
 })
 export class KnobDisabledDemo {
     value: number = 75;

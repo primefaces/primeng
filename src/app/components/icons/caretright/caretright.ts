@@ -4,7 +4,6 @@ import { BaseIcon } from 'primeng/baseicon';
 @Component({
     selector: 'CaretRightIcon',
     standalone: true,
-    imports: [BaseIcon],
     template: `
         <svg
             width="14"

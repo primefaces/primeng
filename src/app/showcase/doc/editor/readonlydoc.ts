@@ -25,13 +25,13 @@ export class ReadOnlyDoc {
 
         typescript: `import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { EditorModule } from 'primeng/editor';
+import { Editor } from 'primeng/editor';
 
 @Component({
     selector: 'editor-readonly-demo',
     templateUrl: './editor-readonly-demo.html',
     standalone: true,
-    imports: [FormsModule, EditorModule]
+    imports: [FormsModule, Editor]
 })
 export class EditorReadonlyDemo {
     text: string = 'Always bet on Prime!';

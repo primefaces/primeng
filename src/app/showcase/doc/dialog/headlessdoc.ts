@@ -10,7 +10,7 @@ import { Code } from '@domain/code';
         <div class="card flex justify-center">
             <p-button (click)="showDialog()" icon="pi pi-user" label="Login" />
             <p-dialog maskStyleClass="backdrop-blur-sm" [(visible)]="visible" styleClass="!border-0 !bg-transparent">
-                <ng-template pTemplate="headless">
+                <ng-template #headless>
                     <div
                         class="flex flex-col px-8 py-8 gap-6 rounded-2xl"
                         style="border-radius: 12px; background-image: radial-gradient(circle at left top, var(--p-primary-400), var(--p-primary-700))"
@@ -131,7 +131,7 @@ export class HeadlessDoc {
     code: Code = {
         basic: `<p-button (click)="showDialog()" icon="pi pi-user" label="Login" />
 <p-dialog maskStyleClass="backdrop-blur-sm" [(visible)]="visible" styleClass="!border-0 !bg-transparent">
-    <ng-template pTemplate="headless">
+    <ng-template #headless>
         <div
             class="flex flex-col px-8 py-8 gap-6 rounded-2xl"
             style="border-radius: 12px; background-image: radial-gradient(circle at left top, var(--p-primary-400), var(--p-primary-700))"
@@ -251,7 +251,7 @@ export class HeadlessDoc {
         html: `<div class="card flex justify-center">
   <p-button (click)="showDialog()" icon="pi pi-user" label="Login" />
 <p-dialog maskStyleClass="backdrop-blur-sm" [(visible)]="visible" styleClass="!border-0 !bg-transparent">
-    <ng-template pTemplate="headless">
+    <ng-template #headless>
         <div
             class="flex flex-col px-8 py-8 gap-6 rounded-2xl"
             style="border-radius: 12px; background-image: radial-gradient(circle at left top, var(--p-primary-400), var(--p-primary-700))"
@@ -370,7 +370,7 @@ export class HeadlessDoc {
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { DialogModule } from 'primeng/dialog';
+import { Dialog } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
         
@@ -378,7 +378,7 @@ import { InputTextModule } from 'primeng/inputtext';
     selector: 'dialog-headless-demo',
     templateUrl: './dialog-headless-demo.html',
     standalone: true,
-    imports: [DialogModule, ButtonModule, InputTextModule]
+    imports: [Dialog, ButtonModule, InputTextModule]
 })
 export class DialogHeadlessDemo {
     visible: boolean = false;

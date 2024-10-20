@@ -16,7 +16,13 @@ interface AutoCompleteCompleteEvent {
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-autocomplete [(ngModel)]="selectedCountry" [forceSelection]="true" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" optionLabel="name" />
+            <p-autocomplete
+                [(ngModel)]="selectedCountry"
+                [forceSelection]="true"
+                [suggestions]="filteredCountries"
+                (completeMethod)="filterCountry($event)"
+                optionLabel="name"
+            />
         </div>
         <app-code [code]="code" selector="autocomplete-force-selection-demo"></app-code>`,
 })
@@ -62,7 +68,7 @@ export class ForceSelectionDoc implements OnInit {
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { CountryService } from '@service/countryservice';
-import { AutoCompleteModule } from 'primeng/autocomplete';
+import { AutoComplete } from 'primeng/autocomplete';
 import { FormsModule } from '@angular/forms';
 
 interface AutoCompleteCompleteEvent {
@@ -74,7 +80,7 @@ interface AutoCompleteCompleteEvent {
     selector: 'autocomplete-force-selection-demo',
     templateUrl: './autocomplete-force-selection-demo.html',
     standalone: true,
-    imports: [FormsModule, AutoCompleteModule],
+    imports: [FormsModule, AutoComplete],
     providers: [CountryService]
 })
 export class AutocompleteForceSelectionDemo implements OnInit {
