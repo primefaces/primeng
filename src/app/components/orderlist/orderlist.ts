@@ -4,8 +4,8 @@ import {
     AfterContentInit,
     booleanAttribute,
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
+    ContentChild,
     ContentChildren,
     ElementRef,
     EventEmitter,
@@ -17,31 +17,45 @@ import {
     QueryList,
     TemplateRef,
     ViewChild,
-    ViewEncapsulation,
+    ViewEncapsulation
 } from '@angular/core';
-import { FilterService, PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
-import { ButtonModule, ButtonProps } from 'primeng/button';
+import { FilterService, PrimeTemplate, SharedModule } from 'primeng/api';
+import { ButtonDirective, ButtonProps } from 'primeng/button';
 import { DomHandler } from 'primeng/dom';
 import { AngleDoubleDownIcon } from 'primeng/icons/angledoubledown';
 import { AngleDoubleUpIcon } from 'primeng/icons/angledoubleup';
 import { AngleDownIcon } from 'primeng/icons/angledown';
 import { AngleUpIcon } from 'primeng/icons/angleup';
 import { SearchIcon } from 'primeng/icons/search';
-import { RippleModule } from 'primeng/ripple';
+import { Ripple } from 'primeng/ripple';
 import { Nullable } from 'primeng/ts-helpers';
 import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
 import { OrderListFilterEvent, OrderListFilterOptions, OrderListSelectionChangeEvent } from './orderlist.interface';
 import { OrderListStyle } from './style/orderliststyle';
 import { BaseComponent } from 'primeng/basecomponent';
-import { Listbox, ListboxModule } from 'primeng/listbox';
+import { Listbox } from 'primeng/listbox';
 import { FormsModule } from '@angular/forms';
 
 /**
- * OrderList is used to managed the order of a collection.
+ * OrderList is used to manage the order of a collection.
  * @group Components
  */
 @Component({
     selector: 'p-orderList, p-orderlist',
+    standalone: true,
+    imports: [
+        CommonModule,
+        ButtonDirective,
+        Ripple,
+        DragDropModule,
+        AngleDoubleDownIcon,
+        AngleDoubleUpIcon,
+        AngleUpIcon,
+        AngleDownIcon,
+        SearchIcon,
+        Listbox,
+        FormsModule,
+    ],
     template: `
         <div
             [ngClass]="{
@@ -60,6 +74,7 @@ import { FormsModule } from '@angular/forms';
                     [disabled]="moveDisabled()"
                     pButton
                     pRipple
+                    class="p-button-icon-only"
                     (click)="moveUp()"
                     [attr.aria-label]="moveUpAriaLabel"
                     [attr.data-pc-section]="'moveUpButton'"
@@ -73,6 +88,7 @@ import { FormsModule } from '@angular/forms';
                     [disabled]="moveDisabled()"
                     pButton
                     pRipple
+                    class="p-button-icon-only"
                     (click)="moveTop()"
                     [attr.aria-label]="moveTopAriaLabel"
                     [attr.data-pc-section]="'moveTopButton'"
@@ -86,6 +102,7 @@ import { FormsModule } from '@angular/forms';
                     [disabled]="moveDisabled()"
                     pButton
                     pRipple
+                    class="p-button-icon-only"
                     (click)="moveDown()"
                     [attr.aria-label]="moveDownAriaLabel"
                     [attr.data-pc-section]="'moveDownButton'"
@@ -99,6 +116,7 @@ import { FormsModule } from '@angular/forms';
                     [disabled]="moveDisabled()"
                     pButton
                     pRipple
+                    class="p-button-icon-only"
                     (click)="moveBottom()"
                     [attr.aria-label]="moveBottomAriaLabel"
                     [attr.data-pc-section]="'moveBottomButton'"
@@ -133,12 +151,12 @@ import { FormsModule } from '@angular/forms';
                     [filterPlaceHolder]="filterPlaceholder"
                 >
                     <ng-container *ngIf="headerTemplate">
-                        <ng-template pTemplate="header">
+                        <ng-template #header>
                             <ng-template *ngTemplateOutlet="headerTemplate"></ng-template>
                         </ng-template>
                     </ng-container>
                     <ng-container *ngIf="itemTemplate">
-                        <ng-template pTemplate="item" let-option let-selected="selected" let-index="index">
+                        <ng-template #item let-option let-selected="selected" let-index="index">
                             <ng-template
                                 *ngTemplateOutlet="itemTemplate; context: { $implicit: option, selected: selected, index: index }"
                             ></ng-template>
@@ -388,17 +406,67 @@ export class OrderList extends BaseComponent implements AfterContentInit {
 
     @ViewChild('filter') filterViewChild: Nullable<ElementRef>;
 
+    /**
+     * Custom item template.
+     * @group Templates
+     */
+    @ContentChild('item') itemTemplate: TemplateRef<any> | undefined;
+
+    /**
+     * Custom empty template.
+     * @group Templates
+     */
+    @ContentChild('empty') emptyMessageTemplate: TemplateRef<any> | undefined;
+
+    /**
+     * Custom empty filter template.
+     * @group Templates
+     */
+    @ContentChild('emptyfilter') emptyFilterMessageTemplate: TemplateRef<any> | undefined;
+
+    /**
+     * Custom filter template.
+     * @group Templates
+     */
+    @ContentChild('filter') filterTemplate: TemplateRef<any> | undefined;
+
+    /**
+     * Custom header template.
+     * @group Templates
+     */
+    @ContentChild('header') headerTemplate: TemplateRef<any> | undefined;
+
+    /**
+     * Custom move up icon template.
+     * @group Templates
+     */
+    @ContentChild('moveupicon') moveUpIconTemplate: TemplateRef<any> | undefined;
+
+    /**
+     * Custom move top icon template.
+     * @group Templates
+     */
+    @ContentChild('movetopicon') moveTopIconTemplate: TemplateRef<any> | undefined;
+
+    /**
+     * Custom move down icon template.
+     * @group Templates
+     */
+    @ContentChild('movedownicon') moveDownIconTemplate: TemplateRef<any> | undefined;
+
+    /**
+     * Custom move bottom icon template.
+     * @group Templates
+     */
+    @ContentChild('movebottomicon') moveBottomIconTemplate: TemplateRef<any> | undefined;
+
+    /**
+     * Custom filter icon template.
+     * @group Templates
+     */
+    @ContentChild('filtericon') filterIconTemplate: TemplateRef<any> | undefined;
+
     @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<PrimeTemplate>>;
-
-    public itemTemplate: Nullable<TemplateRef<any>>;
-
-    public headerTemplate: Nullable<TemplateRef<any>>;
-
-    public emptyMessageTemplate: Nullable<TemplateRef<any>>;
-
-    public emptyFilterMessageTemplate: Nullable<TemplateRef<any>>;
-
-    public filterTemplate: Nullable<TemplateRef<any>>;
 
     get moveUpAriaLabel() {
         return this.config.translation.aria ? this.config.translation.aria.moveUp : undefined;
@@ -417,16 +485,6 @@ export class OrderList extends BaseComponent implements AfterContentInit {
     }
 
     _componentStyle = inject(OrderListStyle);
-
-    moveUpIconTemplate: Nullable<TemplateRef<any>>;
-
-    moveTopIconTemplate: Nullable<TemplateRef<any>>;
-
-    moveDownIconTemplate: Nullable<TemplateRef<any>>;
-
-    moveBottomIconTemplate: Nullable<TemplateRef<any>>;
-
-    filterIconTemplate: Nullable<TemplateRef<any>>;
 
     filterOptions: Nullable<OrderListFilterOptions>;
 
@@ -454,14 +512,7 @@ export class OrderList extends BaseComponent implements AfterContentInit {
 
     public _value: any[] | undefined;
 
-    constructor(
-        public el: ElementRef,
-        public cd: ChangeDetectorRef,
-        public filterService: FilterService,
-        public config: PrimeNGConfig,
-    ) {
-        super();
-    }
+    filterService = inject(FilterService);
 
     getButtonProps(direction: string) {
         switch (direction) {
@@ -1042,21 +1093,7 @@ export class OrderList extends BaseComponent implements AfterContentInit {
 }
 
 @NgModule({
-    imports: [
-        CommonModule,
-        ButtonModule,
-        SharedModule,
-        RippleModule,
-        DragDropModule,
-        AngleDoubleDownIcon,
-        AngleDoubleUpIcon,
-        AngleUpIcon,
-        AngleDownIcon,
-        SearchIcon,
-        ListboxModule,
-        FormsModule,
-    ],
-    exports: [OrderList, SharedModule, DragDropModule, ListboxModule],
-    declarations: [OrderList],
+    imports: [OrderList, SharedModule],
+    exports: [OrderList, SharedModule],
 })
 export class OrderListModule {}

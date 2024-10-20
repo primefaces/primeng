@@ -25,13 +25,13 @@ export class ReadonlyDoc {
 
         typescript: `import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { KnobModule } from 'primeng/knob';
+import { Knob } from 'primeng/knob';
 
 @Component({
     selector: 'knob-readonly-demo',
     templateUrl: './knob-readonly-demo.html',
     standalone: true,
-    imports: [FormsModule, KnobModule]
+    imports: [FormsModule, Knob]
 })
 export class KnobReadonlyDemo {
     value: number = 50;

@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { AppDocModule } from '@layout/doc/app.doc.module';
 import { AppCodeModule } from '@layout/doc/app.code.component';
-import { KnobModule } from 'primeng/knob';
+import { Knob } from 'primeng/knob';
 import { ImportDoc } from './importdoc';
 import { BasicDoc } from './basicdoc';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -22,7 +22,7 @@ import { ReactiveFormsDoc } from './reactiveformsdoc';
 import { ReactiveDoc } from './reactivedoc';
 
 @NgModule({
-    imports: [CommonModule, RouterModule, FormsModule, ReactiveFormsModule, ButtonModule, AppCodeModule, AppDocModule, KnobModule],
+    imports: [CommonModule, RouterModule, FormsModule, ReactiveFormsModule, ButtonModule, AppCodeModule, AppDocModule, Knob],
     exports: [AppDocModule],
     declarations: [
         ImportDoc,

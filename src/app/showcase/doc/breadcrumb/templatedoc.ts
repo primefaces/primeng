@@ -13,12 +13,12 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-breadcrumb class="max-w-full" [model]="items" [home]="home">
-                <ng-template pTemplate="item" let-item>
+                <ng-template #item let-item>
                     <a class="cursor-pointer" [routerLink]="item.url">
                         <i [class]="item.icon"></i>
                     </a>
                 </ng-template>
-                <ng-template pTemplate="separator"> / </ng-template>
+                <ng-template #separator> / </ng-template>
             </p-breadcrumb>
         </div>
         <app-code [code]="code" selector="breadcrumb-template-demo"></app-code>
@@ -43,35 +43,35 @@ export class TemplateDoc implements OnInit {
 
     code: Code = {
         basic: `<p-breadcrumb class="max-w-full" [model]="items" [home]="home">
-    <ng-template pTemplate="item" let-item>
+    <ng-template #item let-item>
         <a class="cursor-pointer" [routerLink]="item.url">
             <i [class]="item.icon"></i>
         </a>
     </ng-template>
-    <ng-template pTemplate="separator"> / </ng-template>
+    <ng-template #separator> / </ng-template>
 </p-breadcrumb>`,
 
         html: `<div class="card flex justify-center">
     <p-breadcrumb class="max-w-full" [model]="items" [home]="home">
-        <ng-template pTemplate="item" let-item>
+        <ng-template #item let-item>
             <a class="cursor-pointer" [routerLink]="item.url">
                 <i [class]="item.icon"></i>
             </a>
         </ng-template>
-        <ng-template pTemplate="separator"> / </ng-template>
+        <ng-template #separator> / </ng-template>
     </p-breadcrumb>
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
-import { BreadcrumbModule } from 'primeng/breadcrumb';
+import { Breadcrumb } from 'primeng/breadcrumb';
 import { RouterModule } from '@angular/router';
 
 @Component({
     selector: 'breadcrumb-template-demo',
     templateUrl: './breadcrumb-template-demo.html',
     standalone: true,
-    imports: [BreadcrumbModule, RouterModule]
+    imports: [Breadcrumb, RouterModule]
 })
 export class BreadcrumbTemplateDemo implements OnInit {
     items: MenuItem[] | undefined;

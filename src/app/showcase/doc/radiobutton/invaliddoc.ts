@@ -24,14 +24,14 @@ export class InvalidDoc {
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { RadioButtonModule } from 'primeng/radiobutton';
+import { RadioButton } from 'primeng/radiobutton';
 import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'radio-button-invalid-demo',
     templateUrl: './radio-button-invalid-demo.html',
     standalone: true,
-    imports: [FormsModule, RadioButtonModule]
+    imports: [FormsModule, RadioButton]
 })
 export class RadioButtonInvalidDemo { }`,
     };

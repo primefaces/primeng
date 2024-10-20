@@ -5,6 +5,7 @@ import {
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
+    ContentChild,
     ContentChildren,
     ElementRef,
     EventEmitter,
@@ -16,7 +17,7 @@ import {
     QueryList,
     TemplateRef,
     ViewChild,
-    ViewEncapsulation,
+    ViewEncapsulation
 } from '@angular/core';
 import { SafeUrl } from '@angular/platform-browser';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
@@ -29,7 +30,7 @@ import { TimesIcon } from 'primeng/icons/times';
 import { UndoIcon } from 'primeng/icons/undo';
 import { ZIndexUtils } from 'primeng/utils';
 import { Nullable } from 'primeng/ts-helpers';
-import { FocusTrapModule } from 'primeng/focustrap';
+import { FocusTrap } from 'primeng/focustrap';
 import { ImageStyle } from './style/imagestyle';
 import { BaseComponent } from 'primeng/basecomponent';
 
@@ -39,6 +40,8 @@ import { BaseComponent } from 'primeng/basecomponent';
  */
 @Component({
     selector: 'p-image',
+    standalone: true,
+    imports: [CommonModule, RefreshIcon, EyeIcon, UndoIcon, SearchMinusIcon, SearchPlusIcon, TimesIcon, FocusTrap],
     template: `
         <span [ngClass]="containerClass()" [class]="styleClass" [ngStyle]="style">
             <ng-container *ngIf="!imageTemplate">
@@ -66,7 +69,6 @@ import { BaseComponent } from 'primeng/basecomponent';
                 (click)="onImageClick()"
                 #previewButton
                 [ngStyle]="{ height: height + 'px', width: width + 'px' }"
-                style="border: 'none';"
             >
                 <ng-container *ngIf="indicatorTemplate; else defaultTemplate">
                     <ng-container *ngTemplateOutlet="indicatorTemplate"></ng-container>
@@ -293,23 +295,55 @@ export class Image extends BaseComponent implements AfterContentInit {
 
     @ViewChild('closeButton') closeButton: ElementRef | undefined;
 
+    /**
+     * Custom template of indicator.
+     * @group Templates
+     */
+    @ContentChild('indicator') indicatorTemplate: TemplateRef<any> | undefined;
+
+    /**
+     * Custom template of rotaterighticon.
+     * @group Templates
+     */
+    @ContentChild('rotaterighticon') rotateRightIconTemplate: TemplateRef<any> | undefined;
+
+    /**
+     * Custom template of rotatelefticon.
+     * @group Templates
+     */
+    @ContentChild('rotatelefticon') rotateLeftIconTemplate: TemplateRef<any> | undefined;
+
+    /**
+     * Custom template of zoomouticon.
+     * @group Templates
+     */
+    @ContentChild('zoomouticon') zoomOutIconTemplate: TemplateRef<any> | undefined;
+
+    /**
+     * Custom template of zoominicon.
+     * @group Templates
+     */
+    @ContentChild('zoominicon') zoomInIconTemplate: TemplateRef<any> | undefined;
+
+    /**
+     * Custom template of closeicon.
+     * @group Templates
+     */
+    @ContentChild('closeicon') closeIconTemplate: TemplateRef<any> | undefined;
+
+    /**
+     * Custom template of preview.
+     * @group Templates
+     */
+    @ContentChild('preview') previewTemplate: TemplateRef<any> | undefined;
+
+    /**
+     * Custom template of image.
+     * @group Templates
+     */
+    @ContentChild('image') imageTemplate: TemplateRef<any> | undefined;
+
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
-
-    indicatorTemplate: TemplateRef<any> | undefined;
-
-    imageTemplate: TemplateRef<any> | undefined;
-
-    previewTemplate: TemplateRef<any> | undefined;
-
-    rotateRightIconTemplate: TemplateRef<any> | undefined;
-
-    rotateLeftIconTemplate: TemplateRef<any> | undefined;
-
-    zoomOutIconTemplate: TemplateRef<any> | undefined;
-
-    zoomInIconTemplate: TemplateRef<any> | undefined;
-
-    closeIconTemplate: TemplateRef<any> | undefined;
 
     maskVisible: boolean = false;
 
@@ -548,8 +582,7 @@ export class Image extends BaseComponent implements AfterContentInit {
 }
 
 @NgModule({
-    imports: [CommonModule, SharedModule, RefreshIcon, EyeIcon, UndoIcon, SearchMinusIcon, SearchPlusIcon, TimesIcon, FocusTrapModule],
+    imports: [Image, SharedModule],
     exports: [Image, SharedModule],
-    declarations: [Image],
 })
 export class ImageModule {}

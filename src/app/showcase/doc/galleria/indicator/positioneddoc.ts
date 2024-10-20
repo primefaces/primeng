@@ -101,15 +101,15 @@ export class PositionedDoc implements OnInit {
         typescript: `import { Component, OnInit } from '@angular/core';
 import { PhotoService } from '@service/photoservice';
 import { GalleriaModule } from 'primeng/galleria';
-import { RadioButtonModule } from 'primeng/radiobutton';
-import { CheckboxModule } from 'primeng/checkbox';
+import { RadioButton } from 'primeng/radiobutton';
+import { Checkbox } from 'primeng/checkbox';
 import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'galleria-indicator-positioned-demo',
     templateUrl: './galleria-indicator-positioned-demo.html',
     standalone: true,
-    imports: [GalleriaModule, RadioButtonModule, CheckboxModule, FormsModule],
+    imports: [GalleriaModule, RadioButton, Checkbox, FormsModule],
     providers: [PhotoService]
 })
 export class GalleriaIndicatorPositionedDemo implements OnInit {

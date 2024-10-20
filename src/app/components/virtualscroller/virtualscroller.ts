@@ -20,7 +20,7 @@ import {
     inject,
 } from '@angular/core';
 import { BlockableUI, Footer, Header, PrimeTemplate, ScrollerOptions, SharedModule } from 'primeng/api';
-import { Scroller, ScrollerModule } from 'primeng/scroller';
+import { Scroller } from 'primeng/scroller';
 import { Nullable } from 'primeng/ts-helpers';
 import { VirtualScrollerLazyLoadEvent } from './virtualscroller.interface';
 /**
@@ -28,7 +28,7 @@ import { VirtualScrollerLazyLoadEvent } from './virtualscroller.interface';
  * @group Components
  */
 @Component({
-    selector: 'p-virtualScroller',
+    selector: 'p-virtualscroller',
     template: `
         <div
             [ngClass]="'p-virtualscroller p-component'"
@@ -54,7 +54,7 @@ import { VirtualScrollerLazyLoadEvent } from './virtualscroller.interface';
                     (onLazyLoad)="onLazyItemLoad($event)"
                     [options]="options()"
                 >
-                    <ng-template pTemplate="item" let-item let-scrollerOptions="options">
+                    <ng-template #item let-item let-scrollerOptions="options">
                         <div [ngStyle]="{ height: itemSize() + 'px' }" class="p-virtualscroller-item">
                             <ng-container
                                 *ngTemplateOutlet="
@@ -178,8 +178,8 @@ export class VirtualScroller implements BlockableUI {
 }
 
 @NgModule({
-    imports: [NgClass, NgStyle, NgTemplateOutlet, SharedModule, ScrollerModule],
-    exports: [VirtualScroller, SharedModule, ScrollerModule],
+    imports: [NgClass, NgStyle, NgTemplateOutlet, SharedModule, Scroller],
+    exports: [VirtualScroller, SharedModule, Scroller],
     declarations: [VirtualScroller],
 })
 export class VirtualScrollerModule {}

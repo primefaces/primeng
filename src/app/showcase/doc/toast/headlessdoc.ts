@@ -10,7 +10,7 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-toast position="top-center" key="confirm" (onClose)="onClose()" [baseZIndex]="5000">
-                <ng-template let-message pTemplate="headless" let-closeFn="closeFn">
+                <ng-template let-message #headless let-closeFn="closeFn">
                     <section class="flex flex-col p-4 gap-4 w-full bg-primary/70 rounded-xl">
                         <div class="flex items-center gap-5">
                             <i class="pi pi-cloud-upload text-white dark:text-black text-2xl"></i>
@@ -27,7 +27,7 @@ import { Code } from '@domain/code';
                     </section>
                 </ng-template>
             </p-toast>
-            <p-button pRipple (click)="showConfirm()" label="Confirm" />
+            <p-button (click)="showConfirm()" label="Confirm" />
         </div>
         <app-code [code]="code" selector="toast-headless-demo"></app-code>
     `,
@@ -91,7 +91,7 @@ export class HeadlessDoc {
 
     code: Code = {
         basic: `<p-toast position="top-center" key="confirm" (onClose)="onClose()" [baseZIndex]="5000">
-    <ng-template let-message pTemplate="headless" let-closeFn="closeFn">
+    <ng-template let-message #headless let-closeFn="closeFn">
         <section class="flex flex-col p-4 gap-4 w-full bg-primary/70 rounded-xl">
             <div class="flex items-center gap-5">
                 <i class="pi pi-cloud-upload text-white dark:text-black text-2xl"></i>
@@ -113,10 +113,10 @@ export class HeadlessDoc {
         </section>
     </ng-template>
 </p-toast>
-<p-button pRipple (click)="showConfirm()" label="Confirm" />`,
+<p-button (click)="showConfirm()" label="Confirm" />`,
         html: `<div class="card flex justify-center">
     <p-toast position="top-center" key="confirm" (onClose)="onClose()" [baseZIndex]="5000">
-        <ng-template let-message pTemplate="headless" let-closeFn="closeFn">
+        <ng-template let-message #headless let-closeFn="closeFn">
             <section class="flex flex-col p-4 gap-4 w-full bg-primary/70 rounded-xl">
                 <div class="flex items-center gap-5">
                     <i class="pi pi-cloud-upload text-white dark:text-black text-2xl"></i>
@@ -138,22 +138,22 @@ export class HeadlessDoc {
             </section>
         </ng-template>
     </p-toast>
-    <p-button pRipple (click)="showConfirm()" label="Confirm" />
+    <p-button (click)="showConfirm()" label="Confirm" />
 </div>`,
         typescript: `import { ChangeDetectorRef, Component } from '@angular/core';
 import { MessageService } from 'primeng/api';
-import { ToastModule } from 'primeng/toast';
+import { Toast } from 'primeng/toast';
 import { ButtonModule } from 'primeng/button';
-import { RippleModule } from 'primeng/ripple';
-import { ProgressBarModule } from 'primeng/progressbar';
+import { Ripple } from 'primeng/ripple';
+import { ProgressBar } from 'primeng/progressbar';
 
 @Component({
     selector: 'toast-headless-demo',
     templateUrl: './toast-headless-demo.html',
     standalone: true,
-    imports: [ToastModule, ButtonModule, RippleModule, ProgressBarModule],
+    imports: [Toast, ButtonModule, Ripple, ProgressBar],
     providers: [MessageService]
-})  
+})
 export class ToastHeadlessDemo {
 
     visible: boolean = false;

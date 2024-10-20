@@ -27,14 +27,14 @@ export class DisabledDoc {
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { RadioButtonModule } from 'primeng/radiobutton';
+import { RadioButton } from 'primeng/radiobutton';
 import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'radio-button-disabled-demo',
     templateUrl: './radio-button-disabled-demo.html',
     standalone: true,
-    imports: [FormsModule, RadioButtonModule]
+    imports: [FormsModule, RadioButton]
 })
 export class RadioButtonDisabledDemo { }`,
     };

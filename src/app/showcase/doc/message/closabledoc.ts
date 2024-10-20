@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '@domain/code';
 
 @Component({
@@ -22,13 +22,13 @@ export class ClosableDoc {
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { MessageModule } from 'primeng/message';
+import { Message } from 'primeng/message';
 
 @Component({
     selector: 'message-closable-demo',
     templateUrl: './message-closable-demo.html',
     standalone: true,
-    imports: [MessageModule]
+    imports: [Message]
 })
 export class MessageClosableDemo {}`,
     };

@@ -18,7 +18,7 @@ import { CustomerService } from '@service/customerservice';
                     sortMode="single"
                     [tableStyle]="{ 'min-width': '75rem' }"
                 >
-                    <ng-template pTemplate="header">
+                    <ng-template #header>
                         <tr>
                             <th style="width:3rem">#</th>
                             <th>Representative</th>
@@ -29,7 +29,7 @@ import { CustomerService } from '@service/customerservice';
                             <th>Date</th>
                         </tr>
                     </ng-template>
-                    <ng-template pTemplate="body" let-customer let-rowIndex="rowIndex" let-rowgroup="rowgroup" let-rowspan="rowspan">
+                    <ng-template #body let-customer let-rowIndex="rowIndex" let-rowgroup="rowgroup" let-rowspan="rowspan">
                         <tr>
                             <td>{{ rowIndex }}</td>
                             <td *ngIf="rowgroup" [attr.rowspan]="rowspan">
@@ -118,14 +118,14 @@ export class RowspanGroupingDoc {
     }
 
     code: Code = {
-        basic: `<p-table 
-    [value]="customers" 
-    rowGroupMode="rowspan" 
-    groupRowsBy="representative.name" 
-    sortField="representative.name" 
-    sortMode="single"  
+        basic: `<p-table
+    [value]="customers"
+    rowGroupMode="rowspan"
+    groupRowsBy="representative.name"
+    sortField="representative.name"
+    sortMode="single"
     [tableStyle]="{'min-width': '75rem'}">
-        <ng-template pTemplate="header">
+        <ng-template #header>
             <tr>
                 <th style="width:3rem">#</th>
                 <th>Representative</th>
@@ -136,19 +136,19 @@ export class RowspanGroupingDoc {
                 <th>Date</th>
             </tr>
         </ng-template>
-        <ng-template 
-            pTemplate="body"
-            let-customer 
-            let-rowIndex="rowIndex" 
-            let-rowgroup="rowgroup" 
+        <ng-template
+            #body
+            let-customer
+            let-rowIndex="rowIndex"
+            let-rowgroup="rowgroup"
             let-rowspan="rowspan">
                 <tr>
                     <td>{{rowIndex}}</td>
                     <td *ngIf="rowgroup" [attr.rowspan]="rowspan">
-                        <img 
+                        <img
                             [alt]="customer.representative.name"
-                            src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{customer.representative.image}}" 
-                            width="32" 
+                            src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{customer.representative.image}}"
+                            width="32"
                             style="vertical-align: middle" />
                         <span class="font-bold ml-2">{{customer.representative.name}}</span>
                     </td>
@@ -156,9 +156,9 @@ export class RowspanGroupingDoc {
                         {{customer.name}}
                     </td>
                     <td>
-                        <img 
-                            src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" 
-                            [class]="'flag flag-' + customer.country.code" 
+                        <img
+                            src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
+                            [class]="'flag flag-' + customer.country.code"
                             style="width: 20px" />
                         <span class="ml-1 align-middle">{{customer.country.name}}</span>
                     </td>
@@ -175,14 +175,14 @@ export class RowspanGroupingDoc {
         </ng-template>
 </p-table>`,
         html: `<div class="card">
-    <p-table 
-        [value]="customers" 
-        rowGroupMode="rowspan" 
-        groupRowsBy="representative.name" 
-        sortField="representative.name" 
-        sortMode="single" 
+    <p-table
+        [value]="customers"
+        rowGroupMode="rowspan"
+        groupRowsBy="representative.name"
+        sortField="representative.name"
+        sortMode="single"
         [tableStyle]="{'min-width': '75rem'}">
-            <ng-template pTemplate="header">
+            <ng-template #header>
                 <tr>
                     <th style="width:3rem">#</th>
                     <th>Representative</th>
@@ -193,18 +193,18 @@ export class RowspanGroupingDoc {
                     <th>Date</th>
                 </tr>
             </ng-template>
-            <ng-template 
-                pTemplate="body" 
-                let-customer 
-                let-rowIndex="rowIndex" 
-                let-rowgroup="rowgroup" 
+            <ng-template
+                #body
+                let-customer
+                let-rowIndex="rowIndex"
+                let-rowgroup="rowgroup"
                 let-rowspan="rowspan">
                     <tr>
                         <td>{{rowIndex}}</td>
                         <td *ngIf="rowgroup" [attr.rowspan]="rowspan">
-                            <img 
-                                [alt]="customer.representative.name" 
-                                src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{customer.representative.image}}" 
+                            <img
+                                [alt]="customer.representative.name"
+                                src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{customer.representative.image}}"
                                 width="32" style="vertical-align: middle" />
                             <span class="font-bold ml-2">{{customer.representative.name}}</span>
                         </td>
@@ -212,9 +212,9 @@ export class RowspanGroupingDoc {
                             {{customer.name}}
                         </td>
                         <td>
-                            <img 
-                                src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" 
-                                [class]="'flag flag-' + customer.country.code" 
+                            <img
+                                src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
+                                [class]="'flag flag-' + customer.country.code"
                                 style="width: 20px" />
                             <span class="ml-1 align-middle">{{customer.country.name}}</span>
                         </td>
@@ -236,14 +236,14 @@ import { Customer } from '@domain/customer';
 import { CustomerService } from '@service/customerservice';
 import { TableModule } from 'primeng/table';
 import { HttpClientModule } from '@angular/common/http';
-import { TagModule } from 'primeng/tag';
+import { Tag } from 'primeng/tag';
 import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'table-rowspan-grouping-demo',
     templateUrl: 'table-rowspan-grouping-demo.html',
     standalone: true,
-    imports: [TableModule, HttpClientModule, TagModule, CommonModule],
+    imports: [TableModule, HttpClientModule, Tag, CommonModule],
     providers: [CustomerService]
 })
 export class TableRowspanGroupingDemo implements OnInit{

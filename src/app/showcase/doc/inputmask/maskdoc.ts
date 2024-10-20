@@ -59,15 +59,15 @@ export class MaskDoc {
 </p-fluid>`,
 
         typescript: `import { Component } from '@angular/core';
-import { InputMaskModule } from 'primeng/inputmask';
+import { InputMask } from 'primeng/inputmask';
 import { FormsModule } from '@angular/forms';
-import { FluidModule } from 'primeng/fluid';
+import { Fluid } from 'primeng/fluid';
 
 @Component({
     selector: 'input-mask-mask-demo',
     templateUrl: './input-mask-mask-demo.html',
     standalone: true,
-    imports: [FormsModule, InputMaskModule, FluidModule]
+    imports: [FormsModule, InputMask, Fluid]
 })
 export class InputMaskMaskDemo {
     value1: string | undefined;

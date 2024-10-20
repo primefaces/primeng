@@ -1,8 +1,10 @@
-import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import {
+    booleanAttribute,
     Directive,
     ElementRef,
     EventEmitter,
+    forwardRef,
     HostListener,
     Inject,
     Input,
@@ -10,8 +12,6 @@ import {
     Output,
     PLATFORM_ID,
     Provider,
-    booleanAttribute,
-    forwardRef,
 } from '@angular/core';
 import { AbstractControl, NG_VALIDATORS, Validator } from '@angular/forms';
 import { DomHandler } from 'primeng/dom';
@@ -80,6 +80,7 @@ const SAFARI_KEYS: SafariKeys = {
  */
 @Directive({
     selector: '[pKeyFilter]',
+    standalone: true,
     providers: [KEYFILTER_VALIDATOR],
 })
 export class KeyFilter implements Validator {
@@ -292,8 +293,7 @@ export class KeyFilter implements Validator {
 }
 
 @NgModule({
-    imports: [CommonModule],
+    imports: [KeyFilter],
     exports: [KeyFilter],
-    declarations: [KeyFilter],
 })
 export class KeyFilterModule {}

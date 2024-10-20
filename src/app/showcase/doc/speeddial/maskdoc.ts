@@ -67,14 +67,14 @@ export class MaskDoc implements OnInit {
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
-import { SpeedDialModule } from 'primeng/speeddial';
+import { SpeedDial } from 'primeng/speeddial';
 import { ToastModule } from 'primeng/toast';
 
 @Component({
     selector: 'speed-dial-mask-demo',
     templateUrl: './speed-dial-mask-demo.html',
     standalone: true,
-    imports: [SpeedDialModule, ToastModule],
+    imports: [SpeedDial, ToastModule],
     providers: [MessageService]
 })
 export class SpeedDialMaskDemo implements OnInit {

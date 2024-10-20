@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { MegaMenuItem } from 'primeng/api';
+import { Component } from '@angular/core';
 import { Code } from '@domain/code';
 
 @Component({
@@ -16,8 +15,8 @@ import { Code } from '@domain/code';
 })
 export class RouterDoc {
     code: Code = {
-        basic: `<p-megamenu [model]="items">
-    <ng-template pTemplate="item" let-item>
+        basic: `<p-megaMenu [model]="items">
+    <ng-template #item let-item>
         <ng-container *ngIf="item.route; else elseBlock">
             <a [routerLink]="item.route" class="p-menuitem-link">
                 <span [class]="item.icon"></span>
@@ -31,6 +30,6 @@ export class RouterDoc {
             </a>
         </ng-template>
     </ng-template>
-</p-megamenu>`,
+</p-megaMenu>`,
     };
 }

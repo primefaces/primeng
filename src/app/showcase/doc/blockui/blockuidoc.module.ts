@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { BlockUIModule } from 'primeng/blockui';
+import { BlockUI } from 'primeng/blockui';
 import { ButtonModule } from 'primeng/button';
 import { PanelModule } from 'primeng/panel';
 import { AppDocModule } from '@layout/doc/app.doc.module';
@@ -13,7 +13,7 @@ import { ImportDoc } from './importdoc';
 import { StyleDoc } from './styledoc';
 
 @NgModule({
-    imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, PanelModule, ButtonModule, BlockUIModule],
+    imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, PanelModule, ButtonModule, BlockUI],
     declarations: [ImportDoc, BasicDoc, DocumentDoc, StyleDoc, AccessibilityDoc],
     exports: [AppDocModule],
 })

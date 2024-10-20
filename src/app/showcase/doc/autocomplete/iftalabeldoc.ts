@@ -26,11 +26,6 @@ export class IftaLabelDoc {
     items: any[] | undefined;
 
     value: any;
-
-    search(event: AutoCompleteCompleteEvent) {
-        this.items = [...Array(10).keys()].map((item) => event.query + '-' + item);
-    }
-
     code: Code = {
         basic: `<p-iftalabel>
     <p-autocomplete [(ngModel)]="value" [suggestions]="items" (completeMethod)="search($event)" inputId="ac" />
@@ -53,7 +48,7 @@ interface AutoCompleteCompleteEvent {
     originalEvent: Event;
     query: string;
 }
-    
+
 @Component({
     selector: 'autocomplete-ifta-label-demo',
     templateUrl: './autocomplete-ifta-label-demo.html',
@@ -70,4 +65,8 @@ export class AutocompleteIftaLabelDemo {
     }
 }`,
     };
+
+    search(event: AutoCompleteCompleteEvent) {
+        this.items = [...Array(10).keys()].map((item) => event.query + '-' + item);
+    }
 }

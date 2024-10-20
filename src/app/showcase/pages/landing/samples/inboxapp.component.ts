@@ -4,15 +4,15 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { DividerModule } from 'primeng/divider';
 import { AvatarModule } from 'primeng/avatar';
-import { IconFieldModule } from 'primeng/iconfield';
-import { InputIconModule } from 'primeng/inputicon';
+import { IconField } from 'primeng/iconfield';
+import { InputIcon } from 'primeng/inputicon';
 import { ButtonModule } from 'primeng/button';
-import { TableModule } from 'primeng/table';
+import { Table } from 'primeng/table';
 import { InputTextModule } from 'primeng/inputtext';
 import { MenuModule } from 'primeng/menu';
-import { TagModule } from 'primeng/tag';
-import { ProgressBarModule } from 'primeng/progressbar';
-import { CheckboxModule } from 'primeng/checkbox';
+import { Tag } from 'primeng/tag';
+import { ProgressBar } from 'primeng/progressbar';
+import { Checkbox } from 'primeng/checkbox';
 import { OverlayBadgeModule } from 'primeng/overlaybadge';
 
 @Component({
@@ -24,15 +24,15 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
         FormsModule,
         DividerModule,
         AvatarModule,
-        IconFieldModule,
-        InputIconModule,
+        IconField,
+        InputIcon,
         ButtonModule,
-        TableModule,
+        Table,
         InputTextModule,
         MenuModule,
-        TagModule,
-        ProgressBarModule,
-        CheckboxModule,
+        Tag,
+        ProgressBar,
+        Checkbox,
         OverlayBadgeModule,
     ],
     template: `
@@ -65,7 +65,7 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
                     <div class="border border-surface rounded-border px-4 pb-4 pt-3 mb-4">
                         <div class="font-medium text-color mb-4">Free Version</div>
                         <p-progressbar [value]="75">
-                            <ng-template pTemplate="content" let-value>
+                            <ng-template #content let-value>
                                 <span
                                     class="w-full text-center text-sm font-normal text-surface-0 leading-5 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
                                     >4 days left</span
@@ -79,7 +79,7 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
         </div>
         <div class="flex-1 h-full overflow-hidden flex border border-surface rounded-2xl">
             <p-table [value]="tableData" [(selection)]="selectedRows" dataKey="id" class="w-full">
-                <ng-template pTemplate="caption">
+                <ng-template #caption>
                     <div class="flex xl:items-center justify-between gap-2 flex-col xl:flex-row">
                         <div class="flex items-center gap-2">
                             <p-checkbox [binary]="true" class="mr-1" />
@@ -91,7 +91,7 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
                         </div>
                         <div class="flex items-center gap-2">
                             <p-iconfield iconPosition="left" class="w-6/12 xl:max-w-36">
-                                <p-inputicon class="pi pi-search"> </p-inputicon>
+                                <p-inputicon class="pi pi-search"></p-inputicon>
                                 <input type="text" pInputText [(ngModel)]="search" placeholder="Search" class="w-full" />
                             </p-iconfield>
                             <p-button icon="pi pi-filter" outlined severity="secondary" />
@@ -103,7 +103,7 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
                         </div>
                     </div>
                 </ng-template>
-                <ng-template pTemplate="body" let-data>
+                <ng-template #body let-data>
                     <tr>
                         <td style="width: 1rem">
                             <p-tableCheckbox [value]="data" />
