@@ -38,7 +38,12 @@ export class UseStyle {
                 nonce,
             });
 
-            first ? this.document.head.prepend(styleRef) : this.document.head.appendChild(styleRef);
+            const head = this.document.head || this.document.getElementsByTagName('head')[0];
+            if (first) {
+                head.insertBefore(styleRef, head.firstChild);
+            } else {
+                head.appendChild(styleRef);
+            }
             DomHandler.setAttribute(styleRef, 'data-primeng-style-id', name);
         }
 
