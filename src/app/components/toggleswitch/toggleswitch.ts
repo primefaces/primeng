@@ -7,7 +7,8 @@ import {
     EventEmitter,
     forwardRef,
     inject,
-    Input,
+    input,
+    model,
     NgModule,
     numberAttribute,
     Output,
@@ -35,30 +36,30 @@ export const TOGGLESWITCH_VALUE_ACCESSOR: any = {
         <div
             [ngClass]="cx('root')"
             [style]="sx('root')"
-            [ngStyle]="style"
-            [class]="styleClass"
+            [ngStyle]="style()"
+            [class]="styleClass()"
             (click)="onClick($event)"
             [attr.data-pc-name]="'toggleswitch'"
             [attr.data-pc-section]="'root'"
         >
             <input
                 #input
-                [attr.id]="inputId"
+                [attr.id]="inputId()"
                 type="checkbox"
                 role="switch"
                 [ngClass]="cx('input')"
                 [checked]="checked()"
-                [disabled]="disabled"
+                [disabled]="disabled()"
                 [attr.aria-checked]="checked()"
-                [attr.aria-labelledby]="ariaLabelledBy"
-                [attr.aria-label]="ariaLabel"
-                [attr.name]="name"
-                [attr.tabindex]="tabindex"
+                [attr.aria-labelledby]="ariaLabelledBy()"
+                [attr.aria-label]="ariaLabel()"
+                [attr.name]="name()"
+                [attr.tabindex]="tabindex()"
                 (focus)="onFocus()"
                 (blur)="onBlur()"
                 [attr.data-pc-section]="'hiddenInput'"
                 pAutoFocus
-                [autofocus]="autofocus"
+                [autofocus]="autofocus()"
             />
             <span [ngClass]="cx('slider')" [attr.data-pc-section]="'slider'"></span>
         </div>
@@ -72,62 +73,62 @@ export class ToggleSwitch extends BaseComponent {
      * Inline style of the component.
      * @group Props
      */
-    @Input() style: { [klass: string]: any } | null | undefined;
+    style = input<{ [klass: string]: any } | null>();
     /**
      * Style class of the component.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    styleClass = input<string>();
     /**
      * Index of the element in tabbing order.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) tabindex: number | undefined;
+    tabindex = input<number, any>(undefined, { transform: numberAttribute });
     /**
      * Identifier of the input element.
      * @group Props
      */
-    @Input() inputId: string | undefined;
+    inputId = input<string>();
     /**
      * Name of the input element.
      * @group Props
      */
-    @Input() name: string | undefined;
+    name = input<string>();
     /**
      * When present, it specifies that the element should be disabled.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) disabled: boolean | undefined;
+    disabled = model<boolean>();
     /**
      * When present, it specifies that the component cannot be edited.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) readonly: boolean | undefined;
+    readonly = input<boolean, any>(undefined, { transform: booleanAttribute });
     /**
      * Value in checked state.
      * @group Props
      */
-    @Input() trueValue: any = true;
+    trueValue = input<boolean, any>(true, { transform: booleanAttribute });
     /**
      * Value in unchecked state.
      * @group Props
      */
-    @Input() falseValue: any = false;
+    falseValue = input<boolean, any>(false, { transform: booleanAttribute });
     /**
      * Used to define a string that autocomplete attribute the current element.
      * @group Props
      */
-    @Input() ariaLabel: string | undefined;
+    ariaLabel = input<string>();
     /**
      * Establishes relationships between the component and label(s) where its value should be one or more element IDs.
      * @group Props
      */
-    @Input() ariaLabelledBy: string | undefined;
+    ariaLabelledBy = input<string>();
     /**
      * When present, it specifies that the component should automatically get focus on load.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) autofocus: boolean | undefined;
+    autofocus = input<boolean, any>(undefined, { transform: booleanAttribute });
     /**
      * Callback to invoke when the on value change.
      * @param {ToggleSwitchChangeEvent} event - Custom change event.
@@ -148,8 +149,8 @@ export class ToggleSwitch extends BaseComponent {
     _componentStyle = inject(ToggleSwitchStyle);
 
     onClick(event: Event) {
-        if (!this.disabled && !this.readonly) {
-            this.modelValue = this.checked() ? this.falseValue : this.trueValue;
+        if (!this.disabled && !this.readonly()) {
+            this.modelValue = this.checked() ? this.falseValue() : this.trueValue();
 
             this.onModelChange(this.modelValue);
             this.onChange.emit({
@@ -184,12 +185,11 @@ export class ToggleSwitch extends BaseComponent {
     }
 
     setDisabledState(val: boolean): void {
-        this.disabled = val;
-        this.cd.markForCheck();
+        this.disabled.set(val);
     }
 
     checked() {
-        return this.modelValue === this.trueValue;
+        return this.modelValue === this.trueValue();
     }
 }
 
