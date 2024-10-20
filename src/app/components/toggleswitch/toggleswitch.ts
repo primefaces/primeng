@@ -4,7 +4,7 @@ import {
     ChangeDetectionStrategy,
     Component,
     ElementRef,
-    EventEmitter,
+    OutputEmitterRef,
     forwardRef,
     inject,
     input,
@@ -13,7 +13,7 @@ import {
     computed,
     NgModule,
     numberAttribute,
-    Output,
+    output,
     ViewChild,
     ViewEncapsulation,
     WritableSignal,
@@ -137,7 +137,7 @@ export class ToggleSwitch extends BaseComponent {
      * @param {ToggleSwitchChangeEvent} event - Custom change event.
      * @group Emits
      */
-    @Output() onChange: EventEmitter<ToggleSwitchChangeEvent> = new EventEmitter<ToggleSwitchChangeEvent>();
+    onChange: OutputEmitterRef<ToggleSwitchChangeEvent> = output<ToggleSwitchChangeEvent>();
 
     @ViewChild('input') input!: ElementRef;
 
