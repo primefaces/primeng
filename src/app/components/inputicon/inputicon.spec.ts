@@ -9,10 +9,7 @@ describe('InputIcon', () => {
     let inputIconRef: ComponentRef<InputIcon>;
 
     beforeEach(() => {
-        TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule, InputIcon],
-        });
-
+        TestBed.configureTestingModule({ imports: [NoopAnimationsModule, InputIcon] });
         fixture = TestBed.createComponent(InputIcon);
         inputIcon = fixture.componentInstance;
         inputIconRef = fixture.componentRef;
