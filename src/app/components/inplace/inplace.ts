@@ -3,23 +3,20 @@ import {
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
-    ContentChild,
-    contentChildren,
+    contentChild,
     OutputEmitterRef,
     inject,
     input,
     NgModule,
     output,
-    Signal,
     TemplateRef,
     ViewEncapsulation,
-    computed,
-    model
+    model,
 } from '@angular/core';
-import { PrimeTemplate } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { TimesIcon } from 'primeng/icons/times';
 import { BaseComponent } from 'primeng/basecomponent';
+import { Ripple } from 'primeng//ripple';
 import { InplaceStyle } from './style/inplacestyle';
 
 @Component({
@@ -42,7 +39,7 @@ export class InplaceContent {}
 @Component({
     selector: 'p-inplace',
     standalone: true,
-    imports: [NgClass, NgStyle, NgTemplateOutlet, ButtonModule, TimesIcon],
+    imports: [NgClass, NgStyle, NgTemplateOutlet, ButtonModule, TimesIcon, Ripple],
     template: `
         <div
             [ngClass]="{ 'p-inplace p-component': true, 'p-inplace-closable': closable() }"
@@ -74,14 +71,16 @@ export class InplaceContent {}
                                 type="button"
                                 [icon]="closeIcon()"
                                 pButton
-                                pRipple(click)="onDeactivateClick($event)"
+                                pRipple
+                                (click)="onDeactivateClick($event)"
                                 [attr.aria-label]="closeAriaLabel()"
                             ></button>
                         } @else {
                             <button
                                 type="button"
-                                pButtonpRipple
-                                [ngClass]="'p-button-icon-only'"
+                                pButton
+                                pRipple
+                                class="p-button-icon-only"
                                 (click)="onDeactivateClick($event)"
                                 [attr.aria-label]="closeAriaLabel()"
                             >
@@ -153,31 +152,21 @@ export class Inplace extends BaseComponent {
      * @group Emits
      */
     onDeactivate: OutputEmitterRef<Event> = output<Event>();
-
-    templates: Signal<readonly PrimeTemplate[]> = contentChildren(PrimeTemplate);
-
-    private mappedTemplates = computed<{ [key: string]: TemplateRef<any> }>(() => {
-        return (this.templates() || []).reduce((prev, item) => {
-            prev[item.getType()] = item.template;
-            return prev;
-        }, {});
-    });
-
-    @ContentChild('display') displayTemplate = computed<TemplateRef<any> | undefined>(() => this.mappedTemplates()['display']);
     /**
      * Display template of the element.
      * @group Templates
      */
-    @ContentChild('content') contentTemplate = computed<TemplateRef<any> | undefined>(() => this.mappedTemplates()['content']);
+    displayTemplate = contentChild<TemplateRef<any> | undefined>('display');
     /**
      * Content template of the element.
      * @group Templates
      */
-    @ContentChild('closeicon') closeIconTemplate = computed<TemplateRef<any> | undefined>(() => this.mappedTemplates()['closeicon']);
+    contentTemplate = contentChild<TemplateRef<any> | undefined>('content');
     /**
      * Close icon template of the element.
      * @group Templates
      */
+    closeIconTemplate = contentChild<TemplateRef<any> | undefined>('closeicon');
 
     _componentStyle = inject(InplaceStyle);
 

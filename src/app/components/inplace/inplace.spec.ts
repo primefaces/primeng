@@ -2,22 +2,20 @@ import { Component, ComponentRef, TemplateRef } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { TimesIcon } from 'primeng/icons/times';
-import { ButtonModule } from '../button/button';
-import { Inplace, InplaceModule } from './inplace';
+import { Inplace } from './inplace';
 
 @Component({
     template: `
         <p-inplace class="custom-template" [(active)]="active" [closable]="closable">
-            <ng-template pTemplate="closeicon">
+            <ng-template #closeicon>
                 <span class="my-icon"></span>
             </ng-template>
-            <ng-template pTemplate="display">Display</ng-template>
-            <ng-template pTemplate="content">Content</ng-template>
+            <ng-template #display>Display</ng-template>
+            <ng-template #content>Content</ng-template>
         </p-inplace>
     `,
     standalone: true,
-    imports: [InplaceModule],
+    imports: [Inplace],
 })
 class TestHostComponent {
     closable = false;
@@ -32,7 +30,7 @@ describe('Inplace', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule, ButtonModule, TimesIcon, InplaceModule, TestHostComponent],
+            imports: [NoopAnimationsModule, Inplace, TestHostComponent],
         });
 
         fixture = TestBed.createComponent(Inplace);
