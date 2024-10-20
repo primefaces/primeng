@@ -1,6 +1,4 @@
-import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject, Input, NgModule, ViewEncapsulation } from '@angular/core';
-import { SharedModule } from 'primeng/api';
+import { ChangeDetectionStrategy, Component, inject, input, NgModule, ViewEncapsulation } from '@angular/core';
 import { BaseComponent } from 'primeng/basecomponent';
 import { FloatLabelStyle } from './style/floatlabelstyle';
 
@@ -11,16 +9,15 @@ import { FloatLabelStyle } from './style/floatlabelstyle';
 @Component({
     selector: 'p-floatlabel, p-floatLabel',
     standalone: true,
-    imports: [CommonModule],
     template: ` <ng-content></ng-content> `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     providers: [FloatLabelStyle],
     host: {
         '[class.p-floatlabel]': 'true',
-        '[class.p-floatlabel-over]': "variant === 'over'",
-        '[class.p-floatlabel-on]': "variant === 'on'",
-        '[class.p-floatlabel-in]': "variant === 'in'",
+        '[class.p-floatlabel-over]': "variant() === 'over'",
+        '[class.p-floatlabel-on]': "variant() === 'on'",
+        '[class.p-floatlabel-in]': "variant() === 'in'",
     },
 })
 export class FloatLabel extends BaseComponent {
@@ -29,11 +26,11 @@ export class FloatLabel extends BaseComponent {
      * Defines the positioning of the label relative to the input.
      * @group Props
      */
-    @Input() variant: 'in' | 'over' | 'on' = 'over';
+    variant = input<'in' | 'over' | 'on'>('over');
 }
 
 @NgModule({
-    imports: [FloatLabel, CommonModule, SharedModule],
-    exports: [FloatLabel, SharedModule],
+    imports: [FloatLabel],
+    exports: [FloatLabel],
 })
 export class FloatLabelModule {}
