@@ -346,7 +346,7 @@ export class MultiSelectItem extends BaseComponent {
             (onAnimationStart)="onOverlayAnimationStart($event)"
             (onHide)="hide()"
         >
-            <ng-template #content>
+            <ng-template pTemplate="content">
                 <div
                     [attr.id]="id + '_list'"
                     [ngClass]="'p-multiselect-overlay p-component'"
