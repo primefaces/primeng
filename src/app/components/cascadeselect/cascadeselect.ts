@@ -366,6 +366,7 @@ export class CascadeSelectSub extends BaseComponent implements OnInit {
                     [ngStyle]="panelStyle"
                     [attr.data-pc-section]="'panel'"
                 >
+                    <ng-template *ngTemplateOutlet="headerTemplate"></ng-template>
                     <div class="p-cascadeselect-list-container" [attr.data-pc-section]="'wrapper'">
                         <p-cascadeselect-sub
                             [options]="processedOptions"
@@ -390,6 +391,7 @@ export class CascadeSelectSub extends BaseComponent implements OnInit {
                     <span role="status" aria-live="polite" class="p-hidden-accessible">
                         {{ selectedMessageText }}
                     </span>
+                    <ng-template *ngTemplateOutlet="footerTemplate"></ng-template>
                 </div>
             </ng-template>
         </p-overlay>
@@ -679,6 +681,18 @@ export class CascadeSelect extends BaseComponent implements OnInit {
      * @group Templates
      */
     @ContentChild('option') optionTemplate: Nullable<TemplateRef<any>>;
+
+    /**
+     * Content template for customizing the header.
+     * @group Templates
+     */
+    @ContentChild('header') headerTemplate: Nullable<TemplateRef<any>>;
+
+    /**
+     * Content template for customizing the footer.
+     * @group Templates
+     */
+    @ContentChild('footer') footerTemplate: Nullable<TemplateRef<any>>;
 
     /**
      * Content template for customizing the trigger icon.
