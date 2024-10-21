@@ -288,14 +288,12 @@ async function main() {
                                         const templateType = template.type && template.type.toString();
                                         let contextType = 'unknown';
 
-                                        // Regex ile TemplateRef<ContextType> kısmını yakalamak
                                         const match = templateType && templateType.match(/TemplateRef<(.+)>/);
                                         if (match && match[1]) {
                                             contextType = match[1];
                                         }
-
                                         templates.values.push({
-                                            name: template.name,
+                                            name: template.name.replace(/Template$/, '').toLowerCase(),
                                             description: template.comment && template.comment.summary.map((s) => s.text || '').join(' '),
                                             type: templateType,
                                             parameters: parameters(template).map((param) =>

@@ -127,8 +127,8 @@ export class AccordionPanel extends BaseComponent {
     standalone: true,
     template: `
         <ng-content />
-        @if (toggleicon) {
-            <ng-template *ngTemplateOutlet="toggleicon; context: { active: active() }"></ng-template>
+        @if (toggleIconTemplate) {
+            <ng-template *ngTemplateOutlet="toggleIconTemplate; context: { active: active() }"></ng-template>
         } @else {
             <ng-container *ngIf="active()">
                 <span
@@ -179,7 +179,7 @@ export class AccordionHeader extends BaseComponent {
 
     ariaControls = computed(() => `${this.pcAccordion.id()}_accordioncontent_${this.pcAccordionPanel.value()}`);
     /**
-     * A template reference variable that represents the toggle icon in a UI component.
+     * Toggle icon template.
      * @param {AccordionToggleIconTemplateContext} context - Context of the template
      * @example
      * ```html
@@ -188,7 +188,8 @@ export class AccordionHeader extends BaseComponent {
      * @see {@link AccordionToggleIconTemplateContext}
      * @group Templates
      */
-    @ContentChild('toggleicon') toggleicon: TemplateRef<AccordionToggleIconTemplateContext> | undefined;
+    @ContentChild('toggleicon') toggleIconTemplate: TemplateRef<AccordionToggleIconTemplateContext> | undefined;
+
     @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
 
     @HostListener('click', ['$event']) onClick() {
@@ -227,7 +228,7 @@ export class AccordionHeader extends BaseComponent {
         this.templates.forEach((item) => {
             switch (item.getType()) {
                 case 'toggleicon':
-                    this.toggleicon = item.template;
+                    this.toggleIconTemplate = item.template;
                     break;
             }
         });
