@@ -1668,6 +1668,11 @@
                 "description": "Shadow of root"
             },
             {
+                "token": "caption.gap",
+                "variable": "--p-card-caption-gap",
+                "description": "Gap of caption"
+            },
+            {
                 "token": "body.padding",
                 "variable": "--p-card-body-padding",
                 "description": "Padding of body"
@@ -1678,9 +1683,24 @@
                 "description": "Gap of body"
             },
             {
-                "token": "caption.gap",
-                "variable": "--p-card-caption-gap",
-                "description": "Gap of caption"
+                "token": "content.padding",
+                "variable": "--p-card-content-padding",
+                "description": "Padding of content"
+            },
+            {
+                "token": "content.gap",
+                "variable": "--p-card-content-gap",
+                "description": "Gap of content"
+            },
+            {
+                "token": "footer.padding",
+                "variable": "--p-card-footer-padding",
+                "description": "Padding of footer"
+            },
+            {
+                "token": "title.padding",
+                "variable": "--p-card-title-padding",
+                "description": "Padding of title"
             },
             {
                 "token": "title.fontSize",
@@ -1691,6 +1711,26 @@
                 "token": "title.fontWeight",
                 "variable": "--p-card-title-font-weight",
                 "description": "Font weight of title"
+            },
+            {
+                "token": "title.color",
+                "variable": "--p-card-title-color",
+                "description": "Color of title"
+            },
+            {
+                "token": "subtitle.padding",
+                "variable": "--p-card-subtitle-padding",
+                "description": "Padding of subtitle"
+            },
+            {
+                "token": "subtitle.fontSize",
+                "variable": "--p-card-subtitle-font-size",
+                "description": "Font size of subtitle"
+            },
+            {
+                "token": "subtitle.fontWeight",
+                "variable": "--p-card-subtitle-font-weight",
+                "description": "Font weight of subtitle"
             },
             {
                 "token": "subtitle.color",
