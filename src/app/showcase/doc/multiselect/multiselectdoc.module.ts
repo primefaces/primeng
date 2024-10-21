@@ -23,6 +23,7 @@ import { FloatLabelModule } from 'primeng/floatlabel';
 import { FilledDoc } from './filleddoc';
 import { IftaLabelModule } from 'primeng/iftalabel';
 import { IftaLabelDoc } from './iftalabeldoc';
+import { ButtonModule } from 'primeng/button';
 
 @NgModule({
     imports: [
@@ -35,6 +36,7 @@ import { IftaLabelDoc } from './iftalabeldoc';
         AppDocModule,
         FloatLabelModule,
         IftaLabelModule,
+        ButtonModule
     ],
     exports: [AppDocModule],
     declarations: [

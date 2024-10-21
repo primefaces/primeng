@@ -346,7 +346,7 @@ export class MultiSelectItem extends BaseComponent {
             (onAnimationStart)="onOverlayAnimationStart($event)"
             (onHide)="hide()"
         >
-            <ng-template pTemplate="content">
+            <ng-template #content>
                 <div
                     [attr.id]="id + '_list'"
                     [ngClass]="'p-multiselect-overlay p-component'"
@@ -363,9 +363,9 @@ export class MultiSelectItem extends BaseComponent {
                         [attr.data-p-hidden-focusable]="true"
                     >
                     </span>
+                    <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
                     <div class="p-multiselect-header" *ngIf="showHeader">
                         <ng-content select="p-header"></ng-content>
-                        <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
                         <ng-container *ngIf="filterTemplate; else builtInFilterElement">
                             <ng-container *ngTemplateOutlet="filterTemplate; context: { options: filterOptions }"></ng-container>
                         </ng-container>
