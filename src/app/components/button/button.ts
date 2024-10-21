@@ -178,6 +178,11 @@ export class ButtonDirective extends BaseComponent implements AfterViewInit, OnD
      * @group Props
      */
     @Input({ transform: booleanAttribute }) plain: boolean = false;
+    /**
+     * Spans 100% width of the container when enabled.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) fluid: boolean | undefined;
 
     public _label: string | undefined;
 
@@ -316,9 +321,20 @@ export class ButtonDirective extends BaseComponent implements AfterViewInit, OnD
             styleClass.push('p-button-lg');
         }
 
+        if(this.hasFluid){
+            styleClass.push('p-button-fluid')
+        }
+
         return styleClass;
     }
 
+    get hasFluid() {
+        const nativeElement = this.el.nativeElement;
+        const fluidComponent = nativeElement.closest('p-fluid');
+
+        return ObjectUtils.isEmpty(this.fluid) ? !!fluidComponent : this.fluid;
+    }
+    
     setStyleClass() {
         const styleClass = this.getStyleClass();
         this.htmlElement.classList.remove(...this._internalClasses);
@@ -594,6 +610,11 @@ export class Button extends BaseComponent implements AfterContentInit {
      */
     @Input({ transform: booleanAttribute }) autofocus: boolean | undefined;
     /**
+     * Spans 100% width of the container when enabled.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) fluid: boolean | undefined;
+    /**
      * Callback to execute when button is clicked.
      * This event is intended to be used with the <p-button> component. Using a regular <button> element, use (click).
      * @param {MouseEvent} event - Mouse event.
@@ -649,6 +670,13 @@ export class Button extends BaseComponent implements AfterContentInit {
         }
     }
 
+    get hasFluid() {
+        const nativeElement = this.el.nativeElement;
+        const fluidComponent = nativeElement.closest('p-fluid');
+
+        return ObjectUtils.isEmpty(this.fluid) ? !!fluidComponent : this.fluid;
+    }
+
     _componentStyle = inject(ButtonStyle);
 
     ngOnChanges(simpleChanges: SimpleChanges) {
@@ -697,6 +725,7 @@ export class Button extends BaseComponent implements AfterContentInit {
             'p-button-sm': this.size === 'small',
             'p-button-lg': this.size === 'large',
             'p-button-plain': this.plain,
+            'p-button-fluid': this.hasFluid,
             [`${this.styleClass}`]: this.styleClass,
         };
     }
