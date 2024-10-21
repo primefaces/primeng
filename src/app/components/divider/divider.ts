@@ -1,5 +1,4 @@
-import { NgModule, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, inject, HostBinding } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { NgModule, Component, ChangeDetectionStrategy, ViewEncapsulation, input, inject } from '@angular/core';
 import { BaseComponent } from 'primeng/basecomponent';
 import { DividerStyle } from './style/dividerstyle';
 /**
@@ -8,6 +7,7 @@ import { DividerStyle } from './style/dividerstyle';
  */
 @Component({
     selector: 'p-divider',
+    standalone: true,
     template: `
         <div class="p-divider-content">
             <ng-content></ng-content>
@@ -18,25 +18,26 @@ import { DividerStyle } from './style/dividerstyle';
     host: {
         '[class.p-divider]': 'true',
         '[class.p-component]': 'true',
-        '[class.p-divider-horizontal]': 'layout === "horizontal"',
-        '[class.p-divider-vertical]': 'layout === "vertical"',
-        '[class.p-divider-solid]': 'type === "solid"',
-        '[class.p-divider-dashed]': 'type === "dashed"',
-        '[class.p-divider-dotted]': 'type === "dotted"',
-        '[class.p-divider-left]': 'layout === "horizontal" && (!align || align === "left")',
+        '[class.p-divider-horizontal]': 'layout() === "horizontal"',
+        '[class.p-divider-vertical]': 'layout() === "vertical"',
+        '[class.p-divider-solid]': 'type() === "solid"',
+        '[class.p-divider-dashed]': 'type() === "dashed"',
+        '[class.p-divider-dotted]': 'type() === "dotted"',
+        '[class.p-divider-left]': 'layout() === "horizontal" && (!align() || align() === "left")',
         '[class.p-divider-center]':
-            '(layout === "horizontal" && align === "center") || (layout === "vertical" && (!align || align === "center"))',
-        '[class.p-divider-right]': 'layout === "horizontal" && align === "right"',
-        '[class.p-divider-top]': 'layout === "vertical" && align === "top"',
-        '[class.p-divider-bottom]': 'layout === "vertical" && align === "bottom"',
-        '[style]': 'inlineStyles',
-        '[attr.aria-orientation]': 'layout',
+            '(layout() === "horizontal" && align() === "center") || (layout() === "vertical" && (!align()|| align() === "center"))',
+        '[class.p-divider-right]': 'layout() === "horizontal" && align() === "right"',
+        '[class.p-divider-top]': 'layout() === "vertical" && align() === "top"',
+        '[class.p-divider-bottom]': 'layout() === "vertical" && align() === "bottom"',
+        '[style]': 'style()',
+        '[class]': 'styleClass()',
+        '[attr.aria-orientation]': 'layout()',
         '[attr.data-pc-name]': "'divider'",
         '[attr.role]': '"separator"',
         '[style.justifyContent]':
-            'layout === "horizontal" ? (align === "center" || align === undefined ? "center" : (align === "left" ? "flex-start" : (align === "right" ? "flex-end" : null))) : null',
+            'layout() === "horizontal" ? (align() === "center" || align() === undefined ? "center" : (align() === "left" ? "flex-start" : (align() === "right" ? "flex-end" : null))) : null',
         '[style.alignItems]':
-            'layout === "vertical" ? (align === "center" || align === undefined ? "center" : (align === "top" ? "flex-start" : (align === "bottom" ? "flex-end" : null))) : null',
+            'layout() === "vertical" ? (align() === "center" || align() === undefined ? "center" : (align() === "top" ? "flex-start" : (align() === "bottom" ? "flex-end" : null))) : null',
     },
     providers: [DividerStyle],
 })
@@ -45,38 +46,33 @@ export class Divider extends BaseComponent {
      * Inline style of the component.
      * @group Props
      */
-    @Input() style: { [klass: string]: any } | null | undefined;
+    style = input<{ [klass: string]: any } | null>();
     /**
      * Style class of the component.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    styleClass = input<string>();
     /**
      * Specifies the orientation.
      * @group Props
      */
-    @Input() layout: 'horizontal' | 'vertical' | undefined = 'horizontal';
+    layout = input<'horizontal' | 'vertical'>('horizontal');
     /**
      * Border style type.
      * @group Props
      */
-    @Input() type: 'solid' | 'dashed' | 'dotted' | undefined = 'solid';
+    type = input<'solid' | 'dashed' | 'dotted'>('solid');
     /**
      * Alignment of the content.
      * @group Props
      */
-    @Input() align: 'left' | 'center' | 'right' | 'top' | 'center' | 'bottom' | undefined;
+    align = input<'left' | 'right' | 'top' | 'center' | 'bottom'>();
 
     _componentStyle = inject(DividerStyle);
-
-    @HostBinding('class') get hostClass() {
-        return this.styleClass;
-    }
 }
 
 @NgModule({
-    imports: [CommonModule],
+    imports: [Divider],
     exports: [Divider],
-    declarations: [Divider],
 })
 export class DividerModule {}
