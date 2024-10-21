@@ -103,9 +103,9 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
                 [attr.aria-expanded]="overlayVisible ?? false"
                 [attr.aria-label]="'treeselect trigger'"
             >
-                <ChevronDownIcon *ngIf="!triggerIconTemplate" [styleClass]="'p-treeselect-dropdown-icon'" />
-                <span *ngIf="triggerIconTemplate" class="p-treeselect-dropdown-icon">
-                    <ng-template *ngTemplateOutlet="triggerIconTemplate"></ng-template>
+                <ChevronDownIcon *ngIf="!triggerIconTemplate && !dropdownIconTemplate" [styleClass]="'p-treeselect-dropdown-icon'" />
+                <span *ngIf="triggerIconTemplate || dropdownIconTemplate" class="p-treeselect-dropdown-icon">
+                    <ng-template *ngTemplateOutlet="triggerIconTemplate || dropdownIconTemplate"></ng-template>
                 </span>
             </div>
             <p-overlay
@@ -564,6 +564,12 @@ export class TreeSelect extends BaseComponent {
      * @group Templates
      */
     @ContentChild('triggericon') triggerIconTemplate: Nullable<TemplateRef<any>>;
+
+    /**
+     * Custom dropdown icon template.
+     * @group Templates
+     */
+    @ContentChild('dropdownicon') dropdownIconTemplate: Nullable<TemplateRef<any>>;
 
     /**
      * Custom filter icon template.
