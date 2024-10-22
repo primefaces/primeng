@@ -34,13 +34,7 @@
                             "name": "toggleicon",
                             "description": "Toggle icon template.",
                             "type": "TemplateRef<AccordionToggleIconTemplateContext>",
-                            "parameters": [
-                                {
-                                    "name": "context",
-                                    "description": "Context of the template",
-                                    "type": "AccordionToggleIconTemplateContext"
-                                }
-                            ]
+                            "parameters": []
                         }
                     ]
                 }
@@ -23213,7 +23207,7 @@
                     "description": "Toggle icon template context.",
                     "props": [
                         {
-                            "name": "collapsed",
+                            "name": "$implicit",
                             "optional": false,
                             "readonly": false,
                             "type": "boolean",

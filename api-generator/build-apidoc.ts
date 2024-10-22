@@ -95,7 +95,6 @@ async function main() {
                         const module_interface_group = module.groups.find((g) => g.title === 'Interface');
                         const module_service_group = module.groups.find((g) => g.title === 'Service');
                         const module_enums_group = module.groups.find((g) => g.title === 'Enumerations');
-
                         const module_types_group = module.groups.find((g) => g.title === 'Types');
 
                         if (isProcessable(module_types_group)) {

@@ -180,7 +180,7 @@ export class AccordionHeader extends BaseComponent {
     ariaControls = computed(() => `${this.pcAccordion.id()}_accordioncontent_${this.pcAccordionPanel.value()}`);
     /**
      * Toggle icon template.
-     * @param {AccordionToggleIconTemplateContext} context - Context of the template
+     * @type {TemplateRef<AccordionToggleIconTemplateContext>} context - Context of the template
      * @example
      * ```html
      * <ng-template #toggleicon let-active="active"> </ng-template>

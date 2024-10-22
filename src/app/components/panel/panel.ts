@@ -51,13 +51,14 @@ export interface PanelAfterToggleEvent extends PanelBeforeToggleEvent {}
 
 /**
  * Toggle icon template context.
+ * @param {boolean} $implicit - Collapsed state as a boolean, implicit value.
  * @group Interface
  */
 export interface PanelHeaderIconsTemplateContext {
     /**
      * Collapsed state as a boolean, implicit value.
      */
-    collapsed: boolean;
+    $implicit: boolean;
 }
 
 /**
@@ -289,25 +290,42 @@ export class Panel extends BaseComponent implements BlockableUI {
 
     /**
      * Defines template option for icon.
+     * @example
+     * ```html
+     * <ng-template #icon> </ng-template>
+     * ```
      * @group Templates
      */
     @ContentChild('icon') iconTemplate: TemplateRef<any> | undefined;
 
     /**
      * Defines template option for content.
+     * @example
+     * ```html
+     * <ng-template #content> </ng-template>
+     * ```
      * @group Templates
      */
     @ContentChild('content') contentTemplate: TemplateRef<any> | undefined;
 
     /**
      * Defines template option for footer.
+     * @example
+     * ```html
+     * <ng-template #footer> </ng-template>
+     * ```
      * @group Templates
      */
     @ContentChild('footer') footerTemplate: TemplateRef<any> | undefined;
 
     /**
      * Defines template option for headerIcon.
-     * @type {TemplateRef<PanelHeaderIconsTemplateContext>}
+     * @type {TemplateRef<PanelHeaderIconsTemplateContext>} context - context of the template.
+     * @example
+     * ```html
+     * <ng-template #headericons let-collapsed> </ng-template>
+     * ```
+     * @see {@link PanelHeaderIconsTemplateContext}
      * @group Templates
      */
     @ContentChild('headericons') headerIconsTemplate: TemplateRef<PanelHeaderIconsTemplateContext> | undefined;
