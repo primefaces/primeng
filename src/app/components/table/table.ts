@@ -720,7 +720,7 @@ export class SelectableRowDblClick implements OnInit, OnDestroy {
     selector: '[pContextMenuRow]',
     standalone: true,
     host: {
-        '[class.p-highlight-contextmenu]': 'selected',
+        '[class.p-datatable-contextmenu-row-selected]': 'isSelectedWithContextMenu',
         '[attr.tabindex]': 'isEnabled() ? 0 : undefined',
     },
 })
@@ -745,6 +745,14 @@ export class ContextMenuRow {
                 this.selected = this.dt.equals(this.data, data);
             });
         }
+    }
+
+    get isSelectedWithContextMenu() {
+        if (this.data && this.dt.contextMenuSelection) {
+            return this.dt.equals(this.data, this.dt.contextMenuSelection);
+        }
+
+        return false;
     }
 
     @HostListener('contextmenu', ['$event'])
