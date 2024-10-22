@@ -11,7 +11,7 @@ import { Code } from '@domain/code';
         <div class="card">
             <div style="height: 350px; position: relative;" class="speeddial-mask-demo">
                 <p-toast />
-                <p-speedDial [model]="items" direction="up" [mask]="true" />
+                <p-speedDial [model]="items" direction="top" [mask]="true" />
             </div>
         </div>
         <app-code [code]="code" selector="speed-dial-mask-demo"></app-code>
@@ -56,17 +56,17 @@ export class MaskDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-speedDial 
-    [model]="items" 
-    direction="up" 
+        basic: `<p-speedDial
+    [model]="items"
+    direction="top"
     [mask]="true" />`,
 
         html: `<div class="card">
     <div style="height: 350px; position: relative;" class="speeddial-mask-demo">
         <p-toast />
-        <p-speedDial 
-            [model]="items" 
-            direction="up" 
+        <p-speedDial
+            [model]="items"
+            direction="top"
             [mask]="true" />
     </div>
 </div>`,
@@ -82,8 +82,8 @@ import { ToastModule } from 'primeng/toast';
     styles: [
         \`:host ::ng-deep {
             .speeddial-mask-demo {
-                .p-speeddial-direction-up {
-                    right: 0;
+                .p-speeddial-direction-top {
+                    inset-inline-start: 0;
                     bottom: 0;
                 }
             }
@@ -133,8 +133,8 @@ export class SpeedDialMaskDemo implements OnInit {
 
         scss: `:host ::ng-deep {
     .speeddial-mask-demo {
-        .p-speeddial-direction-up {
-            right: 0;
+        .p-speeddial-direction-top {
+            inset-inline-start: 0;
             bottom: 0;
         }
     }

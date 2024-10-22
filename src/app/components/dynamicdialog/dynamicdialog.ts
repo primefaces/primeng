@@ -44,14 +44,14 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
             [ngClass]="{
                 'p-dialog-mask': true,
                 'p-component-overlay p-component-overlay-enter p-dialog-mask-scrollblocker': config.modal !== false,
-                'p-dialog-left': position === 'left',
-                'p-dialog-right': position === 'right',
+                'p-dialog-start': position === 'start',
+                'p-dialog-end': position === 'end',
                 'p-dialog-top': position === 'top',
                 'p-dialog-bottom': position === 'bottom',
-                'p-dialog-top-left': position === 'topleft' || position === 'top-left',
-                'p-dialog-top-right': position === 'topright' || position === 'top-right',
-                'p-dialog-bottom-left': position === 'bottomleft' || position === 'bottom-left',
-                'p-dialog-bottom-right': position === 'bottomright' || position === 'bottom-right'
+                'p-dialog-top-start': position === 'topstart' || position === 'top-start',
+                'p-dialog-top-end': position === 'topend' || position === 'top-end',
+                'p-dialog-bottom-start': position === 'bottomstart' || position === 'bottom-start',
+                'p-dialog-bottom-end': position === 'bottomend' || position === 'bottom-end'
             }"
             [class]="config.maskStyleClass"
         >
@@ -508,16 +508,16 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
             let newHeight = containerHeight + deltaY;
             let minWidth = (this.container as HTMLDivElement).style.minWidth;
             let minHeight = (this.container as HTMLDivElement).style.minHeight;
-            let offset = (this.container as HTMLDivElement).getBoundingClientRect();
+            let offset = DomHandler.getOffset(this.container as HTMLDivElement);
             let viewport = DomHandler.getViewport();
-            let hasBeenDragged = !parseInt((this.container as HTMLDivElement).style.top) || !parseInt((this.container as HTMLDivElement).style.left);
+            let hasBeenDragged = !parseInt((this.container as HTMLDivElement).style.top) || !parseInt((this.container as HTMLDivElement).style.insetInlineStart);
 
             if (hasBeenDragged) {
                 newWidth += deltaX;
                 newHeight += deltaY;
             }
 
-            if ((!minWidth || newWidth > parseInt(minWidth)) && offset.left + newWidth < viewport.width) {
+            if ((!minWidth || newWidth > parseInt(minWidth)) && offset.start + newWidth < viewport.width) {
                 this._style.width = newWidth + 'px';
                 (this.container as HTMLDivElement).style.width = this._style.width;
             }
@@ -566,18 +566,18 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
             let containerHeight = DomHandler.getOuterHeight(this.container);
             let deltaX = event.pageX - (this.lastPageX as number);
             let deltaY = event.pageY - (this.lastPageY as number);
-            let offset = (this.container as HTMLDivElement).getBoundingClientRect();
-            let leftPos = offset.left + deltaX;
+            let offset = DomHandler.getOffset(this.container as HTMLDivElement);
+            let startPos = offset.start + deltaX;
             let topPos = offset.top + deltaY;
             let viewport = DomHandler.getViewport();
 
             (this.container as HTMLDivElement).style.position = 'fixed';
 
             if (this.keepInViewport) {
-                if (leftPos >= this.minX && leftPos + containerWidth < viewport.width) {
-                    this._style.left = leftPos + 'px';
+                if (startPos >= this.minX && startPos + containerWidth < viewport.width) {
+                    this._style.insetInlineStart = startPos + 'px';
                     this.lastPageX = event.pageX;
-                    (this.container as HTMLDivElement).style.left = leftPos + 'px';
+                    (this.container as HTMLDivElement).style.insetInlineStart = startPos + 'px';
                 }
 
                 if (topPos >= this.minY && topPos + containerHeight < viewport.height) {
@@ -587,7 +587,7 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
                 }
             } else {
                 this.lastPageX = event.pageX;
-                (this.container as HTMLDivElement).style.left = leftPos + 'px';
+                (this.container as HTMLDivElement).style.insetInlineStart = startPos + 'px';
                 this.lastPageY = event.pageY;
                 (this.container as HTMLDivElement).style.top = topPos + 'px';
             }
@@ -605,7 +605,7 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
 
     resetPosition() {
         (this.container as HTMLDivElement).style.position = '';
-        (this.container as HTMLDivElement).style.left = '';
+        (this.container as HTMLDivElement).style.insetInlineStart = '';
         (this.container as HTMLDivElement).style.top = '';
         (this.container as HTMLDivElement).style.margin = '';
     }

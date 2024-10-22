@@ -617,7 +617,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
      * Position of the tooltip.
      * @group Props
      */
-    @Input() tooltipPosition: 'top' | 'left' | 'right' | 'bottom' = 'right';
+    @Input() tooltipPosition: 'top' | 'start' | 'end' | 'bottom' = 'end';
     /**
      * Type of CSS position.
      * @group Props

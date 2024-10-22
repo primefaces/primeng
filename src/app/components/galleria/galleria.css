@@ -27,13 +27,13 @@
     }
 
     .p-galleria-item-prev {
-        left: 0;
+        inset-inline-start: 0;
         border-start-start-radius: 0;
         border-end-start-radius: 0;
     }
 
     .p-galleria-item-next {
-        right: 0;
+        inset-inline-end: 0;
         border-start-end-radius: 0;
         border-end-end-radius: 0;
     }
@@ -69,7 +69,7 @@
     .p-galleria-caption {
         position: absolute;
         bottom: 0;
-        left: 0;
+        inset-inline-start: 0;
         width: 100%;
     }
 
@@ -133,39 +133,39 @@
 
     /* Positions */
     /* Thumbnails */
-    .p-galleria-thumbnails-left .p-galleria-content,
-    .p-galleria-thumbnails-right .p-galleria-content {
+    .p-galleria-thumbnails-start .p-galleria-content,
+    .p-galleria-thumbnails-end .p-galleria-content {
         flex-direction: row;
     }
 
-    .p-galleria-thumbnails-left .p-galleria-item-wrapper,
-    .p-galleria-thumbnails-right .p-galleria-item-wrapper {
+    .p-galleria-thumbnails-start .p-galleria-item-wrapper,
+    .p-galleria-thumbnails-end .p-galleria-item-wrapper {
         flex-direction: row;
     }
 
-    .p-galleria-thumbnails-left p-galleriaitem,
+    .p-galleria-thumbnails-start p-galleriaitem,
     .p-galleria-thumbnails-top p-galleriaitem {
         order: 2;
     }
 
-    .p-galleria-thumbnails-left p-galleriathumbnails,
+    .p-galleria-thumbnails-start p-galleriathumbnails,
     .p-galleria-thumbnails-top p-galleriathumbnails {
         order: 1;
     }
 
-    .p-galleria-thumbnails-left .p-galleria-thumbnail-container,
-    .p-galleria-thumbnails-right .p-galleria-thumbnail-container {
+    .p-galleria-thumbnails-start .p-galleria-thumbnail-container,
+    .p-galleria-thumbnails-end .p-galleria-thumbnail-container {
         flex-direction: column;
         flex-grow: 1;
     }
 
-    .p-galleria-thumbnails-left .p-galleria-thumbnail-items,
-    .p-galleria-thumbnails-right .p-galleria-thumbnail-items {
+    .p-galleria-thumbnails-start .p-galleria-thumbnail-items,
+    .p-galleria-thumbnails-end .p-galleria-thumbnail-items {
         flex-direction: column;
         height: 100%;
     }
-    .p-galleria-thumbnails-left .p-galleria-thumbnail-wrapper,
-    .p-galleria-thumbnails-right .p-galleria-thumbnail-wrapper {
+    .p-galleria-thumbnails-start .p-galleria-thumbnail-wrapper,
+    .p-galleria-thumbnails-end .p-galleria-thumbnail-wrapper {
         height: 100%;
     }
 
@@ -181,24 +181,24 @@
         align-items: center;
     }
 
-    .p-galleria-indicators-left .p-galleria-item-wrapper,
-    .p-galleria-indicators-right .p-galleria-item-wrapper {
+    .p-galleria-indicators-start .p-galleria-item-wrapper,
+    .p-galleria-indicators-end .p-galleria-item-wrapper {
         flex-direction: row;
         align-items: center;
     }
 
-    .p-galleria-indicators-left .p-galleria-item-container,
+    .p-galleria-indicators-start .p-galleria-item-container,
     .p-galleria-indicators-top .p-galleria-item-container {
         order: 2;
     }
 
-    .p-galleria-indicators-left .p-galleria-indicators,
+    .p-galleria-indicators-start .p-galleria-indicators,
     .p-galleria-indicators-top .p-galleria-indicators {
         order: 1;
     }
 
-    .p-galleria-indicators-left .p-galleria-indicators,
-    .p-galleria-indicators-right .p-galleria-indicators {
+    .p-galleria-indicators-start .p-galleria-indicators,
+    .p-galleria-indicators-end .p-galleria-indicators {
         flex-direction: column;
     }
 
@@ -210,13 +210,13 @@
 
     .p-galleria-indicator-onitem.p-galleria-indicators-top .p-galleria-indicators {
         top: 0;
-        left: 0;
+        inset-inline-start: 0;
         width: 100%;
         align-items: flex-start;
     }
 
-    .p-galleria-indicator-onitem.p-galleria-indicators-right .p-galleria-indicators {
-        right: 0;
+    .p-galleria-indicator-onitem.p-galleria-indicators-end .p-galleria-indicators {
+        inset-inline-end: 0;
         top: 0;
         height: 100%;
         align-items: flex-end;
@@ -224,13 +224,13 @@
 
     .p-galleria-indicator-onitem.p-galleria-indicators-bottom .p-galleria-indicators {
         bottom: 0;
-        left: 0;
+        inset-inline-start: 0;
         width: 100%;
         align-items: flex-end;
     }
 
-    .p-galleria-indicator-onitem.p-galleria-indicators-left .p-galleria-indicators {
-        left: 0;
+    .p-galleria-indicator-onitem.p-galleria-indicators-start .p-galleria-indicators {
+        inset-inline-start: 0;
         top: 0;
         height: 100%;
         align-items: flex-start;
@@ -240,7 +240,7 @@
     .p-galleria-mask {
         position: fixed;
         top: 0;
-        left: 0;
+        inset-inline-start: 0;
         width: 100%;
         height: 100%;
         display: flex;
@@ -253,7 +253,7 @@
     .p-galleria-close {
         position: absolute;
         top: 0;
-        right: 0;
+        inset-inline-end: 0;
         display: flex;
         justify-content: center;
         align-items: center;

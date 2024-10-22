@@ -12,7 +12,7 @@ export interface TooltipOptions {
     /**
      * Position of tooltip.
      */
-    tooltipPosition?: 'right' | 'left' | 'top' | 'bottom';
+    tooltipPosition?: 'end' | 'start' | 'top' | 'bottom';
     /**
      * Event to show the tooltip.
      */
@@ -50,7 +50,7 @@ export interface TooltipOptions {
     /**
      * Specifies the additional horizontal offset of the tooltip from its default position.
      */
-    positionLeft?: number;
+    positionStart?: number;
     /**
      * Delay to show the tooltip in milliseconds.
      */

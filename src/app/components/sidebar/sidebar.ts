@@ -43,8 +43,8 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
             [ngClass]="{
                 'p-sidebar': true,
                 'p-sidebar-active': visible,
-                'p-sidebar-left': position === 'left' && !fullScreen,
-                'p-sidebar-right': position === 'right' && !fullScreen,
+                'p-sidebar-start': position === 'start' && !fullScreen,
+                'p-sidebar-end': position === 'end' && !fullScreen,
                 'p-sidebar-top': position === 'top' && !fullScreen,
                 'p-sidebar-bottom': position === 'bottom' && !fullScreen,
                 'p-sidebar-full': fullScreen
@@ -175,7 +175,7 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
         this._visible = val;
     }
     /**
-     * Specifies the position of the sidebar, valid values are "left", "right", "bottom" and "top".
+     * Specifies the position of the sidebar, valid values are "start", "end", "bottom" and "top".
      * @group Props
      */
     @Input() get position(): string {
@@ -185,11 +185,11 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
         this._position = value;
 
         switch (value) {
-            case 'left':
-                this.transformOptions = 'translate3d(-100%, 0px, 0px)';
+            case 'start':
+                this.transformOptions = this.isRTL ? 'translate3d(100%, 0px, 0px)' : 'translate3d(-100%, 0px, 0px)';
                 break;
-            case 'right':
-                this.transformOptions = 'translate3d(100%, 0px, 0px)';
+            case 'end':
+                this.transformOptions = this.isRTL ? 'translate3d(-100%, 0px, 0px)' : 'translate3d(100%, 0px, 0px)';
                 break;
             case 'bottom':
                 this.transformOptions = 'translate3d(0px, 100%, 0px)';
@@ -234,13 +234,13 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
 
     _visible: boolean | undefined;
 
-    _position: string = 'left';
+    _position: string = 'start';
 
     _fullScreen: boolean = false;
 
     container: Nullable<HTMLDivElement>;
 
-    transformOptions: any = 'translate3d(-100%, 0px, 0px)';
+    transformOptions: any = this.isRTL ? 'translate3d(100%, 0px, 0px)' : 'translate3d(-100%, 0px, 0px)';
 
     mask: Nullable<HTMLDivElement>;
 
@@ -296,6 +296,10 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
                     break;
             }
         });
+    }
+
+    private get isRTL(): boolean {
+        return this.document.documentElement.dir === 'rtl';
     }
 
     onKeyDown(event: KeyboardEvent) {

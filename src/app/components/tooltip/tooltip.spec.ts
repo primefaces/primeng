@@ -13,7 +13,7 @@ import { Tooltip, TooltipModule } from './tooltip';
     `
 })
 class TestTooltipComponent {
-    position: string = 'right';
+    position: string = 'end';
 
     event: string = 'hover';
 

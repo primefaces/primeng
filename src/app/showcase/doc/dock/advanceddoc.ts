@@ -102,7 +102,7 @@ export class AdvancedDoc implements OnInit, OnDestroy {
                     tooltipLabel: 'Finder',
                     tooltipPosition: 'top',
                     positionTop: -15,
-                    positionLeft: 15,
+                    positionStart: 15,
                     showDelay: 1000
                 },
                 icon: 'https://primefaces.org/cdn/primeng/images/dock/finder.svg',
@@ -116,7 +116,7 @@ export class AdvancedDoc implements OnInit, OnDestroy {
                     tooltipLabel: 'Terminal',
                     tooltipPosition: 'top',
                     positionTop: -15,
-                    positionLeft: 15,
+                    positionStart: 15,
                     showDelay: 1000
                 },
                 icon: 'https://primefaces.org/cdn/primeng/images/dock/terminal.svg',
@@ -130,7 +130,7 @@ export class AdvancedDoc implements OnInit, OnDestroy {
                     tooltipLabel: 'App Store',
                     tooltipPosition: 'top',
                     positionTop: -15,
-                    positionLeft: 15,
+                    positionStart: 15,
                     showDelay: 1000
                 },
                 icon: 'https://primefaces.org/cdn/primeng/images/dock/appstore.svg',
@@ -144,7 +144,7 @@ export class AdvancedDoc implements OnInit, OnDestroy {
                     tooltipLabel: 'Safari',
                     tooltipPosition: 'top',
                     positionTop: -15,
-                    positionLeft: 15,
+                    positionStart: 15,
                     showDelay: 1000
                 },
                 icon: 'https://primefaces.org/cdn/primeng/images/dock/safari.svg',
@@ -158,7 +158,7 @@ export class AdvancedDoc implements OnInit, OnDestroy {
                     tooltipLabel: 'Photos',
                     tooltipPosition: 'top',
                     positionTop: -15,
-                    positionLeft: 15,
+                    positionStart: 15,
                     showDelay: 1000
                 },
                 icon: 'https://primefaces.org/cdn/primeng/images/dock/photos.svg',
@@ -172,7 +172,7 @@ export class AdvancedDoc implements OnInit, OnDestroy {
                     tooltipLabel: 'GitHub',
                     tooltipPosition: 'top',
                     positionTop: -15,
-                    positionLeft: 15,
+                    positionStart: 15,
                     showDelay: 1000
                 },
                 icon: 'https://primefaces.org/cdn/primeng/images/dock/github.svg'
@@ -183,7 +183,7 @@ export class AdvancedDoc implements OnInit, OnDestroy {
                     tooltipLabel: 'Trash',
                     tooltipPosition: 'top',
                     positionTop: -15,
-                    positionLeft: 15,
+                    positionStart: 15,
                     showDelay: 1000
                 },
                 icon: 'https://primefaces.org/cdn/primeng/images/dock/trash.png',

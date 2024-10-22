@@ -221,8 +221,8 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
     margin: 0;
 }
 
-.p-toast.p-toast-top-right,
-.p-toast.p-toast-top-left {
+.p-toast.p-toast-top-end,
+.p-toast.p-toast-top-start {
     top: 7rem;
 }
 

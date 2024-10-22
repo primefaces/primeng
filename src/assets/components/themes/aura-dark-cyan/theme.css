@@ -3091,35 +3091,35 @@
         color: #ffffff;
     }
 
-    .p-speeddial-direction-up .p-speeddial-item {
+    .p-speeddial-direction-top .p-speeddial-item {
         margin: 0.25rem 0;
     }
 
-    .p-speeddial-direction-up .p-speeddial-item:first-child {
+    .p-speeddial-direction-top .p-speeddial-item:first-child {
         margin-bottom: 0.5rem;
     }
 
-    .p-speeddial-direction-down .p-speeddial-item {
+    .p-speeddial-direction-bottom .p-speeddial-item {
         margin: 0.25rem 0;
     }
 
-    .p-speeddial-direction-down .p-speeddial-item:first-child {
+    .p-speeddial-direction-bottom .p-speeddial-item:first-child {
         margin-top: 0.5rem;
     }
 
-    .p-speeddial-direction-left .p-speeddial-item {
+    .p-speeddial-direction-start .p-speeddial-item {
         margin: 0 0.25rem;
     }
 
-    .p-speeddial-direction-left .p-speeddial-item:first-child {
+    .p-speeddial-direction-start .p-speeddial-item:first-child {
         margin-inline-end: 0.5rem;
     }
 
-    .p-speeddial-direction-right .p-speeddial-item {
+    .p-speeddial-direction-end .p-speeddial-item {
         margin: 0 0.25rem;
     }
 
-    .p-speeddial-direction-right .p-speeddial-item:first-child {
+    .p-speeddial-direction-end .p-speeddial-item:first-child {
         margin-inline-start: 0.5rem;
     }
 
@@ -7245,7 +7245,7 @@
         margin-inline-end: 0.5rem;
     }
 
-    .p-galleria.p-galleria-indicators-left .p-galleria-indicator, .p-galleria.p-galleria-indicators-right .p-galleria-indicator {
+    .p-galleria.p-galleria-indicators-start .p-galleria-indicator, .p-galleria.p-galleria-indicators-end .p-galleria-indicator {
         margin-bottom: 0.5rem;
     }
 

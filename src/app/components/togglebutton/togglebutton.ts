@@ -7,7 +7,7 @@ import { Nullable } from 'primeng/ts-helpers';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { AutoFocusModule } from 'primeng/autofocus';
 
-type ToggleButtonIconPosition = 'left' | 'right';
+type ToggleButtonIconPosition = 'start' | 'end';
 
 export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,

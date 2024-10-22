@@ -19,12 +19,12 @@ export class IconField {
      * Position of the icon.
      * @group Props
      */
-    @Input() iconPosition: 'right' | 'left' = 'left';
+    @Input() iconPosition: 'end' | 'start' = 'start';
 
     get containerClass() {
         return {
-            'p-icon-field-left': this.iconPosition === 'left',
-            'p-icon-field-right': this.iconPosition === 'right'
+            'p-icon-field-left': this.iconPosition === 'start',
+            'p-icon-field-right': this.iconPosition === 'end'
         };
     }
 }

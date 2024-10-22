@@ -56,14 +56,14 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                 'p-dialog-mask': true,
                 'p-component-overlay p-component-overlay-enter': this.modal,
                 'p-dialog-mask-scrollblocker': this.modal || this.blockScroll,
-                'p-dialog-left': position === 'left',
-                'p-dialog-right': position === 'right',
+                'p-dialog-start': position === 'start',
+                'p-dialog-end': position === 'end',
                 'p-dialog-top': position === 'top',
-                'p-dialog-top-left': position === 'topleft' || position === 'top-left',
-                'p-dialog-top-right': position === 'topright' || position === 'top-right',
+                'p-dialog-top-start': position === 'topstart' || position === 'top-start',
+                'p-dialog-top-end': position === 'topend' || position === 'top-right',
                 'p-dialog-bottom': position === 'bottom',
-                'p-dialog-bottom-left': position === 'bottomleft' || position === 'bottom-left',
-                'p-dialog-bottom-right': position === 'bottomright' || position === 'bottom-right'
+                'p-dialog-bottom-start': position === 'bottomstart' || position === 'bottom-start',
+                'p-dialog-bottom-end': position === 'bottomend' || position === 'bottom-end'
             }"
         >
             <div
@@ -391,22 +391,22 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
      * Position of the dialog.
      * @group Props
      */
-    @Input() get position(): 'center' | 'top' | 'bottom' | 'left' | 'right' | 'topleft' | 'topright' | 'bottomleft' | 'bottomright' {
+    @Input() get position(): 'center' | 'top' | 'bottom' | 'start' | 'end' | 'topstart' | 'topend' | 'bottomstart' | 'bottomend' {
         return this._position;
     }
-    set position(value: 'center' | 'top' | 'bottom' | 'left' | 'right' | 'topleft' | 'topright' | 'bottomleft' | 'bottomright') {
+    set position(value: 'center' | 'top' | 'bottom' | 'start' | 'end' | 'topstart' | 'topend' | 'bottomstart' | 'bottomend') {
         this._position = value;
 
         switch (value) {
-            case 'topleft':
-            case 'bottomleft':
-            case 'left':
-                this.transformOptions = 'translate3d(-100%, 0px, 0px)';
+            case 'topstart':
+            case 'bottomstart':
+            case 'start':
+                this.transformOptions = DomHandler.documentIsLTR() ? 'translate3d(-100%, 0px, 0px)' : 'translate3d(100%, 0px, 0px)';
                 break;
-            case 'topright':
-            case 'bottomright':
-            case 'right':
-                this.transformOptions = 'translate3d(100%, 0px, 0px)';
+            case 'topend':
+            case 'bottomend':
+            case 'end':
+                this.transformOptions = DomHandler.documentIsLTR() ? 'translate3d(100%, 0px, 0px)' : 'translate3d(-100%, 0px, 0px)';
                 break;
             case 'bottom':
                 this.transformOptions = 'translate3d(0px, 100%, 0px)';
@@ -533,7 +533,7 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
 
     _style: any = {};
 
-    _position: 'center' | 'top' | 'bottom' | 'left' | 'right' | 'topleft' | 'topright' | 'bottomleft' | 'bottomright' = 'center';
+    _position: 'center' | 'top' | 'bottom' | 'start' | 'end' | 'topstart' | 'topend' | 'bottomstart' | 'bottomend' = 'center';
 
     originalStyle: any;
 

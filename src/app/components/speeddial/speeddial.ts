@@ -187,7 +187,7 @@ export class SpeedDial implements AfterViewInit, AfterContentInit, OnDestroy {
      * Specifies the opening direction of actions.
      * @gruop Props
      */
-    @Input() direction: 'up' | 'down' | 'left' | 'right' | 'up-left' | 'up-right' | 'down-left' | 'down-right' | undefined = 'up';
+    @Input() direction: 'top' | 'bottom' | 'start' | 'end' | 'top-start' | 'top-end' | 'bottom-start' | 'bottom-end' | undefined = 'top';
     /**
      * Transition delay step for each action item.
      * @group Props
@@ -443,9 +443,9 @@ export class SpeedDial implements AfterViewInit, AfterContentInit, OnDestroy {
     }
 
     onArrowUp(event) {
-        if (this.direction === 'up') {
+        if (this.direction === 'top') {
             this.navigateNextItem(event);
-        } else if (this.direction === 'down') {
+        } else if (this.direction === 'bottom') {
             this.navigatePrevItem(event);
         } else {
             this.navigateNextItem(event);
@@ -453,9 +453,9 @@ export class SpeedDial implements AfterViewInit, AfterContentInit, OnDestroy {
     }
 
     onArrowDown(event) {
-        if (this.direction === 'up') {
+        if (this.direction === 'top') {
             this.navigatePrevItem(event);
-        } else if (this.direction === 'down') {
+        } else if (this.direction === 'bottom') {
             this.navigateNextItem(event);
         } else {
             this.navigatePrevItem(event);
@@ -463,12 +463,12 @@ export class SpeedDial implements AfterViewInit, AfterContentInit, OnDestroy {
     }
 
     onArrowLeft(event) {
-        const leftValidDirections = ['left', 'up-right', 'down-left'];
-        const rightValidDirections = ['right', 'up-left', 'down-right'];
+        const startValidDirections = ['start', 'top-end', 'bottom-start'];
+        const endValidDirections = ['end', 'top-start', 'bottom-end'];
 
-        if (leftValidDirections.includes(this.direction)) {
+        if (startValidDirections.includes(this.direction)) {
             this.navigateNextItem(event);
-        } else if (rightValidDirections.includes(this.direction)) {
+        } else if (endValidDirections.includes(this.direction)) {
             this.navigatePrevItem(event);
         } else {
             this.navigatePrevItem(event);
@@ -476,12 +476,12 @@ export class SpeedDial implements AfterViewInit, AfterContentInit, OnDestroy {
     }
 
     onArrowRight(event) {
-        const leftValidDirections = ['left', 'up-right', 'down-left'];
-        const rightValidDirections = ['right', 'up-left', 'down-right'];
+        const startValidDirections = ['start', 'top-end', 'bottom-start'];
+        const endValidDirections = ['end', 'top-start', 'bottom-end'];
 
-        if (leftValidDirections.includes(this.direction)) {
+        if (startValidDirections.includes(this.direction)) {
             this.navigatePrevItem(event);
-        } else if (rightValidDirections.includes(this.direction)) {
+        } else if (endValidDirections.includes(this.direction)) {
             this.navigateNextItem(event);
         } else {
             this.navigateNextItem(event);
@@ -625,7 +625,7 @@ export class SpeedDial implements AfterViewInit, AfterContentInit, OnDestroy {
                 const step = (2 * Math.PI) / length;
 
                 return {
-                    left: `calc(${radius * Math.cos(step * index)}px + var(--item-diff-x, 0px))`,
+                    insetInlineStart: `calc(${radius * Math.cos(step * index)}px + var(--item-diff-x, 0px))`,
                     top: `calc(${radius * Math.sin(step * index)}px + var(--item-diff-y, 0px))`
                 };
             } else if (type === 'semi-circle') {
@@ -633,28 +633,28 @@ export class SpeedDial implements AfterViewInit, AfterContentInit, OnDestroy {
                 const step = Math.PI / (length - 1);
                 const x = `calc(${radius * Math.cos(step * index)}px + var(--item-diff-x, 0px))`;
                 const y = `calc(${radius * Math.sin(step * index)}px + var(--item-diff-y, 0px))`;
-                if (direction === 'up') {
-                    return { left: x, bottom: y };
-                } else if (direction === 'down') {
-                    return { left: x, top: y };
-                } else if (direction === 'left') {
-                    return { right: y, top: x };
-                } else if (direction === 'right') {
-                    return { left: y, top: x };
+                if (direction === 'top') {
+                    return { insetInlineStart: x, bottom: y };
+                } else if (direction === 'bottom') {
+                    return { insetInlineStart: x, top: y };
+                } else if (direction === 'start') {
+                    return { insetInlineEnd: y, top: x };
+                } else if (direction === 'end') {
+                    return { insetInlineStart: y, top: x };
                 }
             } else if (type === 'quarter-circle') {
                 const direction = this.direction;
                 const step = Math.PI / (2 * (length - 1));
                 const x = `calc(${radius * Math.cos(step * index)}px + var(--item-diff-x, 0px))`;
                 const y = `calc(${radius * Math.sin(step * index)}px + var(--item-diff-y, 0px))`;
-                if (direction === 'up-left') {
-                    return { right: x, bottom: y };
-                } else if (direction === 'up-right') {
-                    return { left: x, bottom: y };
-                } else if (direction === 'down-left') {
-                    return { right: y, top: x };
-                } else if (direction === 'down-right') {
-                    return { left: y, top: x };
+                if (direction === 'top-start') {
+                    return { insetInlineEnd: x, bottom: y };
+                } else if (direction === 'top-end') {
+                    return { insetInlineStart: x, bottom: y };
+                } else if (direction === 'bottom-start') {
+                    return { insetInlineEnd: y, top: x };
+                } else if (direction === 'bottom-end') {
+                    return { insetInlineStart: y, top: x };
                 }
             }
         }

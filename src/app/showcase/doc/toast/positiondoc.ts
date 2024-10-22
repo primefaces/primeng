@@ -13,9 +13,9 @@ import { Code } from '@domain/code';
             <p-toast position="bottom-start" key="bl" />
             <p-toast position="bottom-end" key="br" />
 
-            <p-button (onClick)="showTopLeft()" label="Top Start" />
-            <p-button (onClick)="showBottomLeft()" label="Bottom Start" severity="warning" />
-            <p-button (onClick)="showBottomRight()" label="Bottom End" severity="help" />
+            <p-button (onClick)="showTopStart()" label="Top Start" />
+            <p-button (onClick)="showBottomStart()" label="Bottom Start" severity="warning" />
+            <p-button (onClick)="showBottomEnd()" label="Bottom End" severity="help" />
         </div>
         <app-code [code]="code" selector="toast-position-demo"></app-code>
     `,
@@ -24,50 +24,50 @@ import { Code } from '@domain/code';
 export class PositionDoc {
     constructor(private messageService: MessageService) {}
 
-    showTopLeft() {
+    showTopStart() {
         this.messageService.add({ severity: 'info', summary: 'Info Message', detail: 'Message Content', key: 'tl', life: 3000 });
     }
 
-    showBottomLeft() {
+    showBottomStart() {
         this.messageService.add({ severity: 'warn', summary: 'Warn Message', detail: 'Message Content', key: 'bl', life: 3000 });
     }
 
-    showBottomRight() {
+    showBottomEnd() {
         this.messageService.add({ severity: 'success', summary: 'Success Message', detail: 'Message Content', key: 'br', life: 3000 });
     }
 
     code: Code = {
-        basic: `<p-toast position="top-left" key="tl" />
-<p-toast position="bottom-left" key="bl" />
-<p-toast position="bottom-right" key="br" />
+        basic: `<p-toast position="top-start" key="tl" />
+<p-toast position="bottom-start" key="bl" />
+<p-toast position="bottom-end" key="br" />
 
 <p-button
-    (onClick)="showTopLeft()"
-    label="Top Left" />
+    (onClick)="showTopStart()"
+    label="Top Start" />
 <p-button
-    (onClick)="showBottomLeft()"
-    label="Bottom Left"
+    (onClick)="showBottomStart()"
+    label="Bottom Start"
     severity="warning" />
 <p-button
-    (onClick)="showBottomRight()"
-    label="Bottom Right"
+    (onClick)="showBottomEnd()"
+    label="Bottom End"
     severity="help" />`,
 
         html: `<div class="card flex justify-content-center gap-2">
-    <p-toast position="top-left" key="tl" />
-    <p-toast position="bottom-left" key="bl" />
-    <p-toast position="bottom-right" key="br" />
+    <p-toast position="top-start" key="tl" />
+    <p-toast position="bottom-start" key="bl" />
+    <p-toast position="bottom-end" key="br" />
 
     <p-button
-        (onClick)="showTopLeft()"
-        label="Top Left" />
+        (onClick)="showTopStart()"
+        label="Top Start" />
     <p-button
-        (onClick)="showBottomLeft()"
-        label="Bottom Left"
+        (onClick)="showBottomStart()"
+        label="Bottom Start"
         severity="warning" />
     <p-button
-        (onClick)="showBottomRight()"
-        label="Bottom Right"
+        (onClick)="showBottomEnd()"
+        label="Bottom End"
         severity="help" />
 </div>`,
 
@@ -87,15 +87,15 @@ import { RippleModule } from 'primeng/ripple';
 export class ToastPositionDemo {
     constructor(private messageService: MessageService) {}
 
-    showTopLeft() {
+    showTopStart() {
         this.messageService.add({ severity: 'info', summary: 'Info Message', detail: 'Message Content', key: 'tl', life: 3000 });
     }
 
-    showBottomLeft() {
+    showBottomStart() {
         this.messageService.add({ severity: 'warn', summary: 'Warn Message', detail: 'Message Content', key: 'bl', life: 3000 });
     }
 
-    showBottomRight() {
+    showBottomEnd() {
         this.messageService.add({ severity: 'success', summary: 'Success Message', detail: 'Message Content', key: 'br', life: 3000 });
     }
 }`

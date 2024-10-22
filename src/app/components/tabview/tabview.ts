@@ -107,7 +107,7 @@ export class TabPanel implements AfterContentInit, OnDestroy {
      * Position of the tooltip.
      * @group Props
      */
-    @Input() tooltipPosition: 'top' | 'bottom' | 'left' | 'right' | undefined = 'top';
+    @Input() tooltipPosition: 'top' | 'bottom' | 'start' | 'end' | undefined = 'top';
     /**
      * Type of CSS position.
      * @group Props
@@ -165,27 +165,27 @@ export class TabPanel implements AfterContentInit, OnDestroy {
         });
     }
     /**
-     * Left icon of the tabPanel.
+     * Start icon of the tabPanel.
      * @group Props
-     * @deprecated since v15.4.2, use `lefticon` template instead.
+     * @deprecated since v15.4.2, use `starticon` template instead.
      */
-    @Input() get leftIcon(): string {
-        return this._leftIcon;
+    @Input() get startIcon(): string {
+        return this._startIcon;
     }
-    set leftIcon(leftIcon: string) {
-        this._leftIcon = leftIcon;
+    set startIcon(startIcon: string) {
+        this._startIcon = startIcon;
         this.tabView.cd.markForCheck();
     }
     /**
-     * Left icon of the tabPanel.
+     * End icon of the tabPanel.
      * @group Props
-     * @deprecated since v15.4.2, use `righticon` template instead.
+     * @deprecated since v15.4.2, use `endicon` template instead.
      */
-    @Input() get rightIcon(): string | undefined {
-        return this._rightIcon;
+    @Input() get endIcon(): string | undefined {
+        return this._endIcon;
     }
-    set rightIcon(rightIcon: string | undefined) {
-        this._rightIcon = rightIcon;
+    set endIcon(endIcon: string | undefined) {
+        this._endIcon = endIcon;
         this.tabView.cd.markForCheck();
     }
 
@@ -205,9 +205,9 @@ export class TabPanel implements AfterContentInit, OnDestroy {
 
     _header!: string;
 
-    _leftIcon!: string;
+    _startIcon!: string;
 
-    _rightIcon: string | undefined = undefined;
+    _endIcon: string | undefined = undefined;
 
     loaded: boolean = false;
 
@@ -217,9 +217,9 @@ export class TabPanel implements AfterContentInit, OnDestroy {
 
     headerTemplate: TemplateRef<any> | undefined;
 
-    leftIconTemplate: TemplateRef<any> | undefined;
+    startIconTemplate: TemplateRef<any> | undefined;
 
-    rightIconTemplate: TemplateRef<any> | undefined;
+    endIconTemplate: TemplateRef<any> | undefined;
 
     closeIconTemplate: TemplateRef<any> | undefined;
 
@@ -246,12 +246,12 @@ export class TabPanel implements AfterContentInit, OnDestroy {
                     this.contentTemplate = item.template;
                     break;
 
-                case 'righticon':
-                    this.rightIconTemplate = item.template;
+                case 'endicon':
+                    this.endIconTemplate = item.template;
                     break;
 
-                case 'lefticon':
-                    this.leftIconTemplate = item.template;
+                case 'starticon':
+                    this.startIconTemplate = item.template;
                     break;
 
                 case 'closeicon':
@@ -323,16 +323,16 @@ export class TabPanel implements AfterContentInit, OnDestroy {
                                     pRipple
                                 >
                                     <ng-container *ngIf="!tab.headerTemplate">
-                                        <span class="p-tabview-left-icon" [ngClass]="tab.leftIcon"
-                                              *ngIf="tab.leftIcon && !tab.leftIconTemplate"></span>
-                                        <span *ngIf="tab.leftIconTemplate" class="p-tabview-left-icon">
-                                            <ng-template *ngTemplateOutlet="tab.leftIconTemplate"></ng-template>
+                                        <span class="p-tabview-left-icon" [ngClass]="tab.startIcon"
+                                              *ngIf="tab.startIcon && !tab.startIconTemplate"></span>
+                                        <span *ngIf="tab.startIconTemplate" class="p-tabview-left-icon">
+                                            <ng-template *ngTemplateOutlet="tab.startIconTemplate"></ng-template>
                                         </span>
                                         <span class="p-tabview-title">{{ tab.header }}</span>
-                                        <span class="p-tabview-right-icon" [ngClass]="tab.rightIcon"
-                                              *ngIf="tab.rightIcon && !tab.rightIconTemplate"></span>
-                                        <span *ngIf="tab.rightIconTemplate" class="p-tabview-right-icon">
-                                            <ng-template *ngTemplateOutlet="tab.rightIconTemplate"></ng-template>
+                                        <span class="p-tabview-right-icon" [ngClass]="tab.endIcon"
+                                              *ngIf="tab.endIcon && !tab.endIconTemplate"></span>
+                                        <span *ngIf="tab.endIconTemplate" class="p-tabview-right-icon">
+                                            <ng-template *ngTemplateOutlet="tab.endIconTemplate"></ng-template>
                                         </span>
                                     </ng-container>
                                     <ng-container *ngTemplateOutlet="tab.headerTemplate"></ng-container>
@@ -832,7 +832,7 @@ export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, B
                 }
 
                 (this.inkbar as ElementRef).nativeElement.style.width = DomHandler.getWidth(tabHeader) + 'px';
-                (this.inkbar as ElementRef).nativeElement.style.left = DomHandler.getOffset(tabHeader).start - DomHandler.getOffset(this.navbar.nativeElement).start + 'px';
+                (this.inkbar as ElementRef).nativeElement.style.insetInlineStart = DomHandler.getOffset(tabHeader).start - DomHandler.getOffset(this.navbar.nativeElement).start + 'px';
             }
         }
     }

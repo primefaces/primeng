@@ -1,22 +1,22 @@
 :host ::ng-deep {
     .speeddial-linear-demo {
-        .p-speeddial-direction-up {
-            left: calc(50% - 2rem);
+        .p-speeddial-direction-top {
+            inset-inline-start: calc(50% - 2rem);
             bottom: 0;
         }
 
-        .p-speeddial-direction-down {
-            left: calc(50% - 2rem);
+        .p-speeddial-direction-bottom {
+            inset-inline-start: calc(50% - 2rem);
             top: 0;
         }
 
-        .p-speeddial-direction-left {
-            right: 0;
+        .p-speeddial-direction-start {
+            inset-inline-end: 0;
             top: calc(50% - 2rem);
         }
 
-        .p-speeddial-direction-right {
-            left: 0;
+        .p-speeddial-direction-end {
+            inset-inline-start: 0;
             top: calc(50% - 2rem);
         }
     }
@@ -24,78 +24,78 @@
     .speeddial-circle-demo {
         .p-speeddial-circle {
             top: calc(50% - 2rem);
-            left: calc(50% - 2rem);
+            inset-inline-start: calc(50% - 2rem);
         }
 
         .p-speeddial-semi-circle {
-            &.p-speeddial-direction-up {
-                left: calc(50% - 2rem);
+            &.p-speeddial-direction-top {
+                inset-inline-start: calc(50% - 2rem);
                 bottom: 0;
             }
 
-            &.p-speeddial-direction-down {
-                left: calc(50% - 2rem);
+            &.p-speeddial-direction-bottom {
+                inset-inline-start: calc(50% - 2rem);
                 top: 0;
             }
 
-            &.p-speeddial-direction-left {
-                right: 0;
+            &.p-speeddial-direction-start {
+                inset-inline-end: 0;
                 top: calc(50% - 2rem);
             }
 
-            &.p-speeddial-direction-right {
-                left: 0;
+            &.p-speeddial-direction-end {
+                inset-inline-start: 0;
                 top: calc(50% - 2rem);
             }
         }
 
         .p-speeddial-quarter-circle {
-            &.p-speeddial-direction-up-left {
-                right: 0;
+            &.p-speeddial-direction-top-start {
+                inset-inline-end: 0;
                 bottom: 0;
             }
 
-            &.p-speeddial-direction-up-right {
-                left: 0;
+            &.p-speeddial-direction-top-end {
+                inset-inline-start: 0;
                 bottom: 0;
             }
 
-            &.p-speeddial-direction-down-left {
-                right: 0;
+            &.p-speeddial-direction-bottom-start {
+                inset-inline-end: 0;
                 top: 0;
             }
 
-            &.p-speeddial-direction-down-right {
-                left: 0;
+            &.p-speeddial-direction-bottom-end {
+                inset-inline-start: 0;
                 top: 0;
             }
         }
     }
 
     .speeddial-tooltip-demo {
-        .p-speeddial-direction-up {
-            &.speeddial-left {
-                left: 0;
+        .p-speeddial-direction-top {
+            &.speeddial-start {
+                inset-inline-start: 0;
                 bottom: 0;
             }
 
-            &.speeddial-right {
-                right: 0;
+            &.speeddial-end {
+                inset-inline-end: 0;
                 bottom: 0;
             }
         }
     }
 
     .speeddial-delay-demo {
-        .p-speeddial-direction-up {
-            left: calc(50% - 2rem);
+        .p-speeddial-direction-top {
+            inset-inline-start: calc(50% - 2rem);
             bottom: 0;
         }
     }
 
     .speeddial-mask-demo {
-        .p-speeddial-direction-up {
-            right: 0;
+        .p-speeddial-direction-top {
+            inset-inline-end: 0;
             bottom: 0;
         }
     }

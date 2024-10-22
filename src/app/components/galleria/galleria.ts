@@ -176,7 +176,7 @@ export class Galleria implements OnChanges, OnDestroy {
      * Position of thumbnails.
      * @group Props
      */
-    @Input() thumbnailsPosition: 'bottom' | 'top' | 'left' | 'right' | undefined = 'bottom';
+    @Input() thumbnailsPosition: 'bottom' | 'top' | 'start' | 'end' | undefined = 'bottom';
     /**
      * Height of the viewport in vertical thumbnail.
      * @group Props
@@ -196,7 +196,7 @@ export class Galleria implements OnChanges, OnDestroy {
      * Position of indicators.
      * @group Props
      */
-    @Input() indicatorsPosition: 'bottom' | 'top' | 'left' | 'right' | undefined = 'bottom';
+    @Input() indicatorsPosition: 'bottom' | 'top' | 'start' | 'end' | undefined = 'bottom';
     /**
      * Base zIndex value to use in layering.
      * @group Props
@@ -575,14 +575,14 @@ export class GalleriaContent implements DoCheck {
     }
 
     getPositionClass(preClassName: string, position: string) {
-        const positions = ['top', 'left', 'bottom', 'right'];
+        const positions = ['top', 'start', 'bottom', 'end'];
         const pos = positions.find((item) => item === position);
 
         return pos ? `${preClassName}-${pos}` : '';
     }
 
     isVertical() {
-        return this.galleria.thumbnailsPosition === 'left' || this.galleria.thumbnailsPosition === 'right';
+        return this.galleria.thumbnailsPosition === 'start' || this.galleria.thumbnailsPosition === 'end';
     }
 
     onActiveIndexChange(index: number) {
@@ -1066,7 +1066,7 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, AfterVie
             }
 
             if (this.itemsContainer && this.itemsContainer.nativeElement) {
-                this.itemsContainer.nativeElement.style.transform = this.isVertical ? `translate3d(0, ${totalShiftedItems * (100 / this.d_numVisible)}%, 0)` : `translate3d(${totalShiftedItems * (100 / this.d_numVisible)}%, 0, 0)`;
+                this.itemsContainer.nativeElement.style.transform = this.calcTransform(totalShiftedItems);
             }
 
             if (this._oldactiveIndex !== this._activeIndex) {
@@ -1326,11 +1326,21 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, AfterVie
 
         if (this.itemsContainer) {
             DomHandler.removeClass(this.itemsContainer.nativeElement, 'p-items-hidden');
-            this.itemsContainer.nativeElement.style.transform = this.isVertical ? `translate3d(0, ${totalShiftedItems * (100 / this.d_numVisible)}%, 0)` : `translate3d(${totalShiftedItems * (100 / this.d_numVisible)}%, 0, 0)`;
+            this.itemsContainer.nativeElement.style.transform = this.calcTransform(totalShiftedItems);
             this.itemsContainer.nativeElement.style.transition = 'transform 500ms ease 0s';
         }
 
         this.totalShiftedItems = totalShiftedItems;
+    }
+
+    private calcTransform(totalShiftedItems: number): string {
+        if (this.isVertical)
+            return `translate3d(0, ${totalShiftedItems * (100 / this.d_numVisible)}%, 0)`;
+
+        let horizontalTransform = totalShiftedItems * (100 / this.d_numVisible);
+        if (DomHandler.documentIsRTL() && horizontalTransform != 0)
+            horizontalTransform *= -1;
+        return `translate3d(${horizontalTransform}%, 0, 0)`;
     }
 
     stopTheSlideShow() {

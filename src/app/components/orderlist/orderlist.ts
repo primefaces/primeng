@@ -42,7 +42,7 @@ import { OrderListFilterEvent, OrderListFilterOptions, OrderListSelectionChangeE
     selector: 'p-orderList',
     template: `
         <div
-            [ngClass]="{ 'p-orderlist p-component': true, 'p-orderlist-striped': stripedRows, 'p-orderlist-controls-left': controlsPosition === 'left', 'p-orderlist-controls-right': controlsPosition === 'right' }"
+            [ngClass]="{ 'p-orderlist p-component': true, 'p-orderlist-striped': stripedRows, 'p-orderlist-controls-left': controlsPosition === 'start', 'p-orderlist-controls-right': controlsPosition === 'end' }"
             [ngStyle]="style"
             [class]="styleClass"
             [attr.data-pc-section]="'root'"
@@ -235,7 +235,7 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
      * Defines the location of the buttons with respect to the list.
      * @group Props
      */
-    @Input() controlsPosition: 'left' | 'right' = 'left';
+    @Input() controlsPosition: 'start' | 'end' = 'start';
 
     /**
      * Defines a string that labels the filter input.

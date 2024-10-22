@@ -9,18 +9,18 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card flex flex-column align-items-center gap-2">
             <div class="flex flex-wrap gap-2">
-                <p-button (onClick)="showDialog('left')" icon="pi pi-arrow-right" label="Left" severity="secondary" />
-                <p-button (onClick)="showDialog('right')" icon="pi pi-arrow-left" label="Right" severity="secondary" />
+                <p-button (onClick)="showDialog('start')" icon="pi pi-arrow-right" label="Start" severity="secondary" />
+                <p-button (onClick)="showDialog('end')" icon="pi pi-arrow-left" label="End" severity="secondary" />
             </div>
             <div class="flex flex-wrap gap-2">
-                <p-button (onClick)="showDialog('top-left')" icon="pi pi-arrow-down-right" label="TopLeft" severity="secondary" />
+                <p-button (onClick)="showDialog('top-start')" icon="pi pi-arrow-down-right" label="TopStart" severity="secondary" />
                 <p-button (onClick)="showDialog('top')" icon="pi pi-arrow-down" label="Top" severity="secondary" />
-                <p-button (onClick)="showDialog('top-right')" icon="pi pi-arrow-down-left" label="TopRight" severity="secondary" />
+                <p-button (onClick)="showDialog('top-end')" icon="pi pi-arrow-down-left" label="TopEnd" severity="secondary" />
             </div>
             <div class="flex flex-wrap gap-2">
-                <p-button (onClick)="showDialog('bottom-left')" icon="pi pi-arrow-up-right" label="BottomLeft" severity="secondary" />
+                <p-button (onClick)="showDialog('bottom-start')" icon="pi pi-arrow-up-right" label="BottomStart" severity="secondary" />
                 <p-button (onClick)="showDialog('bottom')" icon="pi pi-arrow-up" label="Bottom" severity="secondary" />
-                <p-button (onClick)="showDialog('bottom-right')" icon="pi pi-arrow-up-left" label="BottomRight" severity="secondary" />
+                <p-button (onClick)="showDialog('bottom-end')" icon="pi pi-arrow-up-left" label="BottomEnd" severity="secondary" />
             </div>
             <p-dialog header="Edit Profile" [modal]="true" [(visible)]="visible" [position]="position" [style]="{ width: '25rem' }">
                 <span class="p-text-secondary block mb-5">Update your information.</span>
@@ -53,56 +53,56 @@ export class PositionDoc {
 
     code: Code = {
         basic: `<div class="flex flex-wrap gap-2">
-    <p-button 
-        (onClick)="showDialog('left')" 
-        icon="pi pi-arrow-right" 
-        label="Left" 
+    <p-button
+        (onClick)="showDialog('start')"
+        icon="pi pi-arrow-right"
+        label="Start"
         severity="secondary" />
-    <p-button 
-        (onClick)="showDialog('right')" 
-        icon="pi pi-arrow-left" 
-        label="Right" 
+    <p-button
+        (onClick)="showDialog('end')"
+        icon="pi pi-arrow-left"
+        label="End"
         severity="secondary" />
 </div>
 <div class="flex flex-wrap gap-2">
-    <p-button 
-        (onClick)="showDialog('top-left')" 
-        icon="pi pi-arrow-down-right" 
-        label="TopLeft" 
+    <p-button
+        (onClick)="showDialog('top-start')"
+        icon="pi pi-arrow-down-right"
+        label="TopStart"
         severity="secondary" />
-    <p-button 
+    <p-button
         (onClick)="showDialog('top')"
-        icon="pi pi-arrow-down" 
-        label="Top" 
+        icon="pi pi-arrow-down"
+        label="Top"
         severity="secondary" />
-    <p-button 
-        (onClick)="showDialog('top-right')" 
-        icon="pi pi-arrow-down-left" 
-        label="TopRight" 
+    <p-button
+        (onClick)="showDialog('top-end')"
+        icon="pi pi-arrow-down-left"
+        label="TopEnd"
         severity="secondary" />
 </div>
 <div class="flex flex-wrap gap-2">
-    <p-button 
-        (onClick)="showDialog('bottom-left')" 
-        icon="pi pi-arrow-up-right" 
-        label="BottomLeft" 
+    <p-button
+        (onClick)="showDialog('bottom-start')"
+        icon="pi pi-arrow-up-right"
+        label="BottomStart"
         severity="secondary" />
-    <p-button 
-        (onClick)="showDialog('bottom')" 
-        icon="pi pi-arrow-up" 
-        label="Bottom" 
+    <p-button
+        (onClick)="showDialog('bottom')"
+        icon="pi pi-arrow-up"
+        label="Bottom"
         severity="secondary" />
-    <p-button 
-        (onClick)="showDialog('bottom-right')" 
-        icon="pi pi-arrow-up-left" 
-        label="BottomRight" 
+    <p-button
+        (onClick)="showDialog('bottom-end')"
+        icon="pi pi-arrow-up-left"
+        label="BottomEnd"
         severity="secondary" />
 </div>
-<p-dialog 
-    header="Edit Profile" 
+<p-dialog
+    header="Edit Profile"
     [modal]="true"
-    [(visible)]="visible" 
-    [position]="position" 
+    [(visible)]="visible"
+    [position]="position"
     [style]="{ width: '25rem' }">
         <span class="p-text-secondary block mb-5">
             Update your information.
@@ -127,56 +127,56 @@ export class PositionDoc {
 
         html: `<div class="card flex flex-column align-items-center gap-2">
     <div class="flex flex-wrap gap-2">
-        <p-button 
-            (onClick)="showDialog('left')" 
-            icon="pi pi-arrow-right" 
-            label="Left" 
+        <p-button
+            (onClick)="showDialog('start')"
+            icon="pi pi-arrow-right"
+            label="Start"
             severity="secondary" />
-        <p-button 
-            (onClick)="showDialog('right')" 
-            icon="pi pi-arrow-left" 
-            label="Right" 
-            severity="secondary" />
-    </div>
-    <div class="flex flex-wrap gap-2">
-        <p-button 
-            (onClick)="showDialog('top-left')" 
-            icon="pi pi-arrow-down-right" 
-            label="TopLeft" 
-            severity="secondary" />
-        <p-button 
-            (onClick)="showDialog('top')" 
-            icon="pi pi-arrow-down" 
-            label="Top" 
-            severity="secondary" />
-        <p-button 
-            (onClick)="showDialog('top-right')" 
-            icon="pi pi-arrow-down-left" 
-            label="TopRight" 
+        <p-button
+            (onClick)="showDialog('end')"
+            icon="pi pi-arrow-left"
+            label="End"
             severity="secondary" />
     </div>
     <div class="flex flex-wrap gap-2">
-        <p-button 
-            (onClick)="showDialog('bottom-left')" 
-            icon="pi pi-arrow-up-right" 
-            label="BottomLeft" 
+        <p-button
+            (onClick)="showDialog('top-start')"
+            icon="pi pi-arrow-down-right"
+            label="TopStart"
             severity="secondary" />
-        <p-button 
-            (onClick)="showDialog('bottom')" 
-            icon="pi pi-arrow-up" 
-            label="Bottom" 
+        <p-button
+            (onClick)="showDialog('top')"
+            icon="pi pi-arrow-down"
+            label="Top"
             severity="secondary" />
-        <p-button 
-            (onClick)="showDialog('bottom-right')" 
-            icon="pi pi-arrow-up-left" 
-            label="BottomRight" 
+        <p-button
+            (onClick)="showDialog('top-end')"
+            icon="pi pi-arrow-down-left"
+            label="TopEnd"
             severity="secondary" />
     </div>
-    <p-dialog 
-        header="Edit Profile" 
+    <div class="flex flex-wrap gap-2">
+        <p-button
+            (onClick)="showDialog('bottom-start')"
+            icon="pi pi-arrow-up-right"
+            label="BottomStart"
+            severity="secondary" />
+        <p-button
+            (onClick)="showDialog('bottom')"
+            icon="pi pi-arrow-up"
+            label="Bottom"
+            severity="secondary" />
+        <p-button
+            (onClick)="showDialog('bottom-end')"
+            icon="pi pi-arrow-up-left"
+            label="BottomEnd"
+            severity="secondary" />
+    </div>
+    <p-dialog
+        header="Edit Profile"
         [modal]="true"
-        [(visible)]="visible" 
-        [position]="position" 
+        [(visible)]="visible"
+        [position]="position"
         [style]="{ width: '25rem' }">
             <span class="p-text-secondary block mb-5">
                 Update your information.
@@ -204,7 +204,7 @@ export class PositionDoc {
 import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
-        
+
 @Component({
     selector: 'dialog-position-demo',
     templateUrl: './dialog-position-demo.html',

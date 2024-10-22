@@ -122,7 +122,7 @@ export class Dock implements AfterContentInit {
      * Position of element.
      * @group Props
      */
-    @Input() position: 'bottom' | 'top' | 'left' | 'right' = 'bottom';
+    @Input() position: 'bottom' | 'top' | 'start' | 'end' = 'bottom';
     /**
      * Defines a string that labels the input for accessibility.
      * @group Props
@@ -239,13 +239,13 @@ export class Dock implements AfterContentInit {
     onListKeyDown(event) {
         switch (event.code) {
             case 'ArrowDown': {
-                if (this.position === 'left' || this.position === 'right') this.onArrowDownKey();
+                if (this.position === 'start' || this.position === 'end') this.onArrowDownKey();
                 event.preventDefault();
                 break;
             }
 
             case 'ArrowUp': {
-                if (this.position === 'left' || this.position === 'right') this.onArrowUpKey();
+                if (this.position === 'start' || this.position === 'end') this.onArrowUpKey();
                 event.preventDefault();
                 break;
             }

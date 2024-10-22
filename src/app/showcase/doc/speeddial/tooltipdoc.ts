@@ -11,8 +11,8 @@ import { Code } from '@domain/code';
         <div class="card">
             <div style="height: 350px; position: relative;" class="speeddial-tooltip-demo">
                 <p-toast />
-                <p-speedDial [model]="leftTooltipItems" className="speeddial-right" direction="up" />
-                <p-speedDial [model]="tooltipItems" className="speeddial-left" direction="up" />
+                <p-speedDial [model]="startTooltipItems" className="speeddial-end" direction="top" />
+                <p-speedDial [model]="tooltipItems" className="speeddial-start" direction="top" />
             </div>
         </div>
         <app-code [code]="code" selector="speed-dial-tooltip-demo"></app-code>
@@ -22,7 +22,7 @@ import { Code } from '@domain/code';
 export class TooltipDoc implements OnInit {
     tooltipItems: MenuItem[] | undefined;
 
-    leftTooltipItems: MenuItem[] | undefined;
+    startTooltipItems: MenuItem[] | undefined;
 
     constructor(private messageService: MessageService) {}
 
@@ -71,11 +71,11 @@ export class TooltipDoc implements OnInit {
             }
         ];
 
-        this.leftTooltipItems = [
+        this.startTooltipItems = [
             {
                 tooltipOptions: {
                     tooltipLabel: 'Add',
-                    tooltipPosition: 'left'
+                    tooltipPosition: 'start'
                 },
                 icon: 'pi pi-pencil',
                 command: () => {
@@ -85,7 +85,7 @@ export class TooltipDoc implements OnInit {
             {
                 tooltipOptions: {
                     tooltipLabel: 'Update',
-                    tooltipPosition: 'left'
+                    tooltipPosition: 'start'
                 },
                 icon: 'pi pi-refresh',
                 command: () => {
@@ -95,7 +95,7 @@ export class TooltipDoc implements OnInit {
             {
                 tooltipOptions: {
                     tooltipLabel: 'Delete',
-                    tooltipPosition: 'left'
+                    tooltipPosition: 'start'
                 },
                 icon: 'pi pi-trash',
                 command: () => {
@@ -106,13 +106,13 @@ export class TooltipDoc implements OnInit {
                 icon: 'pi pi-upload',
                 tooltipOptions: {
                     tooltipLabel: 'Upload',
-                    tooltipPosition: 'left'
+                    tooltipPosition: 'start'
                 }
             },
             {
                 tooltipOptions: {
                     tooltipLabel: 'Angular Website',
-                    tooltipPosition: 'left'
+                    tooltipPosition: 'start'
                 },
                 icon: 'pi pi-external-link',
                 target: '_blank',
@@ -122,26 +122,26 @@ export class TooltipDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-speedDial 
-    [model]="leftTooltipItems" 
-    className="speeddial-right" 
-    direction="up" />
-<p-speedDial 
-    [model]="tooltipItems" 
-    className="speeddial-left" 
-    direction="up" />`,
+        basic: `<p-speedDial
+    [model]="startTooltipItems"
+    className="speeddial-end"
+    direction="top" />
+<p-speedDial
+    [model]="tooltipItems"
+    className="speeddial-start"
+    direction="top" />`,
 
         html: `<div class="card">
     <div style="height: 350px; position: relative;" class="speeddial-tooltip-demo">
         <p-toast />
-        <p-speedDial 
-            [model]="leftTooltipItems" 
-            className="speeddial-right" 
-            direction="up" />
-        <p-speedDial 
-            [model]="tooltipItems" 
-            className="speeddial-left" 
-            direction="up" />
+        <p-speedDial
+            [model]="startTooltipItems"
+            className="speeddial-end"
+            direction="top" />
+        <p-speedDial
+            [model]="tooltipItems"
+            className="speeddial-start"
+            direction="top" />
     </div>
 </div>`,
 
@@ -157,13 +157,13 @@ import { ToastModule } from 'primeng/toast';
         \`:host ::ng-deep {
             .speeddial-tooltip-demo {
                 .p-speeddial-direction-up {
-                    &.speeddial-left {
-                        left: 0;
+                    &.speeddial-start {
+                        inset-inline-start: 0;
                         bottom: 0;
                     }
-        
-                    &.speeddial-right {
-                        right: 0;
+
+                    &.speeddial-end {
+                        inset-inline-end: 0;
                         bottom: 0;
                     }
                 }
@@ -177,7 +177,7 @@ import { ToastModule } from 'primeng/toast';
 export class SpeedDialTooltipDemo implements OnInit {
     tooltipItems: MenuItem[] | undefined;
 
-    leftTooltipItems: MenuItem[] | undefined;
+    startTooltipItems: MenuItem[] | undefined;
 
     constructor(private messageService: MessageService) {}
 
@@ -225,11 +225,11 @@ export class SpeedDialTooltipDemo implements OnInit {
             }
         ];
 
-        this.leftTooltipItems = [
+        this.startTooltipItems = [
             {
                 tooltipOptions: {
                     tooltipLabel: 'Add',
-                    tooltipPosition: 'left'
+                    tooltipPosition: 'start'
                 },
                 icon: 'pi pi-pencil',
                 command: () => {
@@ -239,7 +239,7 @@ export class SpeedDialTooltipDemo implements OnInit {
             {
                 tooltipOptions: {
                     tooltipLabel: 'Update',
-                    tooltipPosition: 'left'
+                    tooltipPosition: 'start'
                 },
                 icon: 'pi pi-refresh',
                 command: () => {
@@ -249,7 +249,7 @@ export class SpeedDialTooltipDemo implements OnInit {
             {
                 tooltipOptions: {
                     tooltipLabel: 'Delete',
-                    tooltipPosition: 'left'
+                    tooltipPosition: 'start'
                 },
                 icon: 'pi pi-trash',
                 command: () => {
@@ -260,13 +260,13 @@ export class SpeedDialTooltipDemo implements OnInit {
                 icon: 'pi pi-upload',
                 tooltipOptions: {
                     tooltipLabel: 'Upload',
-                    tooltipPosition: 'left'
+                    tooltipPosition: 'start'
                 }
             },
             {
                 tooltipOptions: {
                     tooltipLabel: 'Angular Website',
-                    tooltipPosition: 'left'
+                    tooltipPosition: 'start'
                 },
                 icon: 'pi pi-external-link',
                 url: 'http://angular.io'
@@ -278,13 +278,13 @@ export class SpeedDialTooltipDemo implements OnInit {
         scss: `:host ::ng-deep {
     .speeddial-tooltip-demo {
         .p-speeddial-direction-up {
-            &.speeddial-left {
-                left: 0;
+            &.speeddial-start {
+                inset-inline-start: 0;
                 bottom: 0;
             }
 
-            &.speeddial-right {
-                right: 0;
+            &.speeddial-end {
+                inset-inline-end: 0;
                 bottom: 0;
             }
         }

@@ -11,7 +11,7 @@ import { Code } from '@domain/code';
         <div class="card">
             <div style="height: 500px" class="flex justify-content-center">
                 <p-toast />
-                <p-speedDial [model]="items" direction="up" transitionDelay="80" showIcon="pi pi-bars" hideIcon="pi pi-times" buttonClassName="p-button-outlined" />
+                <p-speedDial [model]="items" direction="top" transitionDelay="80" showIcon="pi pi-bars" hideIcon="pi pi-times" buttonClassName="p-button-outlined" />
             </div>
         </div>
         <app-code [code]="code" selector="speed-dial-custom-demo"></app-code>
@@ -56,23 +56,23 @@ export class CustomDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-speedDial 
-    [model]="items" 
-    direction="up" 
-    transitionDelay="80" 
-    showIcon="pi pi-bars" 
-    hideIcon="pi pi-times" 
+        basic: `<p-speedDial
+    [model]="items"
+    direction="top"
+    transitionDelay="80"
+    showIcon="pi pi-bars"
+    hideIcon="pi pi-times"
     buttonClassName="p-button-outlined" />`,
 
         html: `<div class="card">
     <div style="height: 500px" class="flex justify-content-center">
         <p-toast />
-        <p-speedDial 
-            [model]="items" 
-            direction="up" 
-            transitionDelay="80" 
-            showIcon="pi pi-bars" 
-            hideIcon="pi pi-times" 
+        <p-speedDial
+            [model]="items"
+            direction="top"
+            transitionDelay="80"
+            showIcon="pi pi-bars"
+            hideIcon="pi pi-times"
             buttonClassName="p-button-outlined" />
     </div>
 </div>`,

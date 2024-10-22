@@ -696,7 +696,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
      * Position of the tooltip.
      * @group Props
      */
-    @Input() tooltipPosition: 'top' | 'left' | 'right' | 'bottom' = 'right';
+    @Input() tooltipPosition: 'top' | 'start' | 'end' | 'bottom' = 'end';
     /**
      * Type of CSS position.
      * @group Props

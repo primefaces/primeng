@@ -64,12 +64,12 @@ describe('Sidebar', () => {
 
         tick(150);
         const containerEl = fixture.debugElement.query(By.css('div')).nativeElement;
-        expect(containerEl.className).toContain('p-sidebar-left');
-        sidebar.position = 'right';
+        expect(containerEl.className).toContain('p-sidebar-start');
+        sidebar.position = 'end';
         fixture.detectChanges();
 
         sidebar.cd.detectChanges();
-        expect(containerEl.className).toContain('p-sidebar-right');
+        expect(containerEl.className).toContain('p-sidebar-end');
         sidebar.position = 'bottom';
         fixture.detectChanges();
 

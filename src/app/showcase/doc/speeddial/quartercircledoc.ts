@@ -11,10 +11,10 @@ import { Code } from '@domain/code';
         <div class="card">
             <div style="height: 500px; position: relative;" class="speeddial-circle-demo">
                 <p-toast />
-                <p-speedDial [model]="items" radius="120" direction="up-left" type="quarter-circle" buttonClassName="p-button-success" />
-                <p-speedDial [model]="items" radius="120" direction="up-right" type="quarter-circle" buttonClassName="p-button-success" />
-                <p-speedDial [model]="items" radius="120" direction="down-left" type="quarter-circle" buttonClassName="p-button-success" />
-                <p-speedDial [model]="items" radius="120" direction="down-right" type="quarter-circle" buttonClassName="p-button-success" />
+                <p-speedDial [model]="items" radius="120" direction="top-start" type="quarter-circle" buttonClassName="p-button-success" />
+                <p-speedDial [model]="items" radius="120" direction="top-end" type="quarter-circle" buttonClassName="p-button-success" />
+                <p-speedDial [model]="items" radius="120" direction="bottom-start" type="quarter-circle" buttonClassName="p-button-success" />
+                <p-speedDial [model]="items" radius="120" direction="bottom-end" type="quarter-circle" buttonClassName="p-button-success" />
             </div>
         </div>
         <app-code [code]="code" selector="speed-dial-quarter-circle-demo"></app-code>
@@ -59,57 +59,57 @@ export class QuarterCircleDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-speedDial 
-    [model]="items" 
+        basic: `<p-speedDial
+    [model]="items"
     radius="120"
-    direction="up-left" 
-    type="quarter-circle" 
+    direction="top-start"
+    type="quarter-circle"
     buttonClassName="p-button-success" />
-<p-speedDial 
-    [model]="items" 
-    radius="120" 
-    direction="up-right"
-    type="quarter-circle" 
+<p-speedDial
+    [model]="items"
+    radius="120"
+    direction="top-end"
+    type="quarter-circle"
     buttonClassName="p-button-success" />
-<p-speedDial 
-    [model]="items" 
-    radius="120" 
-    direction="down-left" 
-    type="quarter-circle" 
+<p-speedDial
+    [model]="items"
+    radius="120"
+    direction="bottom-start"
+    type="quarter-circle"
     buttonClassName="p-button-success" />
-<p-speedDial 
-    [model]="items" 
-    radius="120" 
-    direction="down-right" 
-    type="quarter-circle" 
+<p-speedDial
+    [model]="items"
+    radius="120"
+    direction="bottom-end"
+    type="quarter-circle"
     buttonClassName="p-button-success" />`,
 
         html: `<div class="card">
     <div style="height: 500px; position: relative;" class="speeddial-circle-demo">
         <p-toast />
-        <p-speedDial 
-            [model]="items" 
-            radius="120" 
-            direction="up-left" 
-            type="quarter-circle" 
+        <p-speedDial
+            [model]="items"
+            radius="120"
+            direction="top-start"
+            type="quarter-circle"
             buttonClassName="p-button-success" />
-        <p-speedDial 
-            [model]="items" 
-            radius="120" 
-            direction="up-right" 
-            type="quarter-circle" 
+        <p-speedDial
+            [model]="items"
+            radius="120"
+            direction="top-end"
+            type="quarter-circle"
             buttonClassName="p-button-success" />
-        <p-speedDial 
-            [model]="items" 
-            radius="120" 
-            direction="down-left" 
-            type="quarter-circle" 
+        <p-speedDial
+            [model]="items"
+            radius="120"
+            direction="bottom-start"
+            type="quarter-circle"
             buttonClassName="p-button-success" />
-        <p-speedDial 
-            [model]="items" 
-            radius="120" 
-            direction="down-right" 
-            type="quarter-circle" 
+        <p-speedDial
+            [model]="items"
+            radius="120"
+            direction="bottom-end"
+            type="quarter-circle"
             buttonClassName="p-button-success" />
     </div>
 </div>`,
@@ -126,23 +126,23 @@ import { ToastModule } from 'primeng/toast';
         \`:host ::ng-deep {
             .speeddial-circle-demo {
                 .p-speeddial-quarter-circle {
-                    &.p-speeddial-direction-up-left {
-                        right: 0;
+                    &.p-speeddial-direction-top-start {
+                        inset-inline-end: 0;
                         bottom: 0;
                     }
-        
-                    &.p-speeddial-direction-up-right {
-                        left: 0;
+
+                    &.p-speeddial-direction-top-end {
+                        inset-inline-start: 0;
                         bottom: 0;
                     }
-        
-                    &.p-speeddial-direction-down-left {
-                        right: 0;
+
+                    &.p-speeddial-direction-bottom-start {
+                        inset-inline-end: 0;
                         top: 0;
                     }
-        
-                    &.p-speeddial-direction-down-right {
-                        left: 0;
+
+                    &.p-speeddial-direction-bottom-end {
+                        inset-inline-start: 0;
                         top: 0;
                     }
                 }
@@ -194,23 +194,23 @@ export class SpeedDialQuarterCircleDemo implements OnInit {
         scss: `:host ::ng-deep {
     .speeddial-circle-demo {
         .p-speeddial-quarter-circle {
-            &.p-speeddial-direction-up-left {
-                right: 0;
+            &.p-speeddial-direction-top-start {
+                inset-inline-end: 0;
                 bottom: 0;
             }
 
-            &.p-speeddial-direction-up-right {
-                left: 0;
+            &.p-speeddial-direction-top-end {
+                inset-inline-start: 0;
                 bottom: 0;
             }
 
-            &.p-speeddial-direction-down-left {
-                right: 0;
+            &.p-speeddial-direction-bottom-start {
+                inset-inline-end: 0;
                 top: 0;
             }
 
-            &.p-speeddial-direction-down-right {
-                left: 0;
+            &.p-speeddial-direction-bottom-end {
+                inset-inline-start: 0;
                 top: 0;
             }
         }

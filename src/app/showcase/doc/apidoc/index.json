@@ -10895,7 +10895,7 @@
                             "optional": true,
                             "readonly": false,
                             "type": "string",
-                            "description": "Position of the dialog, options are \"center\", \"top\", \"bottom\", \"left\", \"right\", \"top-left\", \"top-right\", \"bottom-left\" or \"bottom-right\"."
+                            "description": "Position of the dialog, options are \"center\", \"top\", \"bottom\", \"start\", \"end\", \"top-start\", \"top-end\", \"bottom-start\" or \"bottom-end\"."
                         },
                         {
                             "name": "closeAriaLabel",

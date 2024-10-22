@@ -323,15 +323,15 @@ export class ConfirmDialog implements AfterContentInit, OnInit, OnDestroy {
         this._position = value;
 
         switch (value) {
-            case 'top-left':
-            case 'bottom-left':
-            case 'left':
-                this.transformOptions = 'translate3d(-100%, 0px, 0px)';
+            case 'top-start':
+            case 'bottom-start':
+            case 'start':
+                this.transformOptions = DomHandler.documentIsLTR() ? 'translate3d(-100%, 0px, 0px)' : this.transformOptions = 'translate3d(100%, 0px, 0px)';
                 break;
-            case 'top-right':
-            case 'bottom-right':
-            case 'right':
-                this.transformOptions = 'translate3d(100%, 0px, 0px)';
+            case 'top-end':
+            case 'bottom-end':
+            case 'end':
+                this.transformOptions = DomHandler.documentIsLTR() ? 'translate3d(100%, 0px, 0px)' : this.transformOptions = 'translate3d(-100%, 0px, 0px)';
                 break;
             case 'bottom':
                 this.transformOptions = 'translate3d(0px, 100%, 0px)';
@@ -658,7 +658,7 @@ export class ConfirmDialog implements AfterContentInit, OnInit, OnDestroy {
     }
 
     getPositionClass() {
-        const positions = ['left', 'right', 'top', 'top-left', 'top-right', 'bottom', 'bottom-left', 'bottom-right'];
+        const positions = ['start', 'end', 'top', 'top-start', 'top-end', 'bottom', 'bottom-start', 'bottom-end'];
         const pos = positions.find((item) => item === this.position);
 
         return pos ? `p-dialog-${pos}` : '';

@@ -1,3 +1,4 @@
+
 /**
  * @dynamic is for runtime initializing DomHandler.browser
  *
@@ -119,8 +120,7 @@ export class DomHandler {
     }
 
     public static documentIsRTL(): boolean {
-        const direction: string = document.documentElement.dir;
-        return direction === 'rtl';
+        return  document.documentElement.dir === 'rtl';
     }
 
     public static documentIsLTR(): boolean {
