@@ -251,40 +251,37 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                 (onAnimationStart)="onOverlayAnimationStart($event)"
                 (onHide)="hide()"
             >
-                <div
-                    [ngClass]="panelClass"
-                    [style.max-height]="virtualScroll ? 'auto' : scrollHeight"
-                    [ngStyle]="panelStyle"
-                    [class]="panelStyleClass"
-                >
+                <div [ngClass]="panelClass" [ngStyle]="panelStyle" [class]="panelStyleClass">
                     <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
-                    <p-scroller
-                        *ngIf="virtualScroll"
-                        #scroller
-                        [items]="visibleOptions()"
-                        [style]="{ height: scrollHeight }"
-                        [itemSize]="virtualScrollItemSize || _itemSize"
-                        [autoSize]="true"
-                        [lazy]="lazy"
-                        (onLazyLoad)="onLazyLoad.emit($event)"
-                        [options]="virtualScrollOptions"
-                    >
-                        <ng-template #content let-items let-scrollerOptions="options">
-                            <ng-container
-                                *ngTemplateOutlet="buildInItems; context: { $implicit: items, options: scrollerOptions }"
-                            ></ng-container>
-                        </ng-template>
-                        <ng-container *ngIf="loaderTemplate">
-                            <ng-template #loader let-scrollerOptions="options">
-                                <ng-container *ngTemplateOutlet="loaderTemplate; context: { options: scrollerOptions }"></ng-container>
+                    <div class="p-autocomplete-list-container" [style.max-height]="virtualScroll ? 'auto' : scrollHeight">
+                        <p-scroller
+                            *ngIf="virtualScroll"
+                            #scroller
+                            [items]="visibleOptions()"
+                            [style]="{ height: scrollHeight }"
+                            [itemSize]="virtualScrollItemSize || _itemSize"
+                            [autoSize]="true"
+                            [lazy]="lazy"
+                            (onLazyLoad)="onLazyLoad.emit($event)"
+                            [options]="virtualScrollOptions"
+                        >
+                            <ng-template #content let-items let-scrollerOptions="options">
+                                <ng-container
+                                    *ngTemplateOutlet="buildInItems; context: { $implicit: items, options: scrollerOptions }"
+                                ></ng-container>
                             </ng-template>
+                            <ng-container *ngIf="loaderTemplate">
+                                <ng-template #loader let-scrollerOptions="options">
+                                    <ng-container *ngTemplateOutlet="loaderTemplate; context: { options: scrollerOptions }"></ng-container>
+                                </ng-template>
+                            </ng-container>
+                        </p-scroller>
+                        <ng-container *ngIf="!virtualScroll">
+                            <ng-container
+                                *ngTemplateOutlet="buildInItems; context: { $implicit: visibleOptions(), options: {} }"
+                            ></ng-container>
                         </ng-container>
-                    </p-scroller>
-                    <ng-container *ngIf="!virtualScroll">
-                        <ng-container
-                            *ngTemplateOutlet="buildInItems; context: { $implicit: visibleOptions(), options: {} }"
-                        ></ng-container>
-                    </ng-container>
+                    </div>
 
                     <ng-template #buildInItems let-items let-scrollerOptions="options">
                         <ul
