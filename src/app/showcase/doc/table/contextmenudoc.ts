@@ -85,7 +85,7 @@ export class ContextMenuDoc {
     }
 
     code: Code = {
-        basic: `<p-contextmenu #cm [model]="items"  (onHide)="selectedProduct = null" />
+        basic: `<p-contextmenu #cm [model]="items" (onHide)="selectedProduct = null" />
 <p-table
     [value]="products"
     [(contextMenuSelection)]="selectedProduct"
