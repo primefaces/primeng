@@ -12,7 +12,7 @@ import { Code } from '@domain/code';
                 <ul class="m-0 p-0 list-none">
                     <li class="mb-3">
                         <div class="flex">
-                            <p-skeleton shape="circle" size="4rem" styleClass="mr-2" />
+                            <p-skeleton shape="circle" size="4rem" styleClass="me-2" />
                             <div style="flex: 1">
                                 <p-skeleton width="100%" styleClass="mb-2" />
                                 <p-skeleton width="75%" />
@@ -21,7 +21,7 @@ import { Code } from '@domain/code';
                     </li>
                     <li class="mb-3">
                         <div class="flex">
-                            <p-skeleton shape="circle" size="4rem" styleClass="mr-2" />
+                            <p-skeleton shape="circle" size="4rem" styleClass="me-2" />
                             <div style="flex: 1">
                                 <p-skeleton width="100%" styleClass="mb-2" />
                                 <p-skeleton width="75%" />
@@ -30,7 +30,7 @@ import { Code } from '@domain/code';
                     </li>
                     <li class="mb-3">
                         <div class="flex">
-                            <p-skeleton shape="circle" size="4rem" styleClass="mr-2" />
+                            <p-skeleton shape="circle" size="4rem" styleClass="me-2" />
                             <div style="flex: 1">
                                 <p-skeleton width="100%" styleClass="mb-2" />
                                 <p-skeleton width="75%" />
@@ -39,7 +39,7 @@ import { Code } from '@domain/code';
                     </li>
                     <li>
                         <div class="flex">
-                            <p-skeleton shape="circle" size="4rem" styleClass="mr-2" />
+                            <p-skeleton shape="circle" size="4rem" styleClass="me-2" />
                             <div style="flex: 1">
                                 <p-skeleton width="100%" styleClass="mb-2" />
                                 <p-skeleton width="75%" />
@@ -58,7 +58,7 @@ export class ListDoc {
     <ul class="m-0 p-0 list-none">
         <li class="mb-3">
             <div class="flex">
-                <p-skeleton shape="circle" size="4rem" styleClass="mr-2" />
+                <p-skeleton shape="circle" size="4rem" styleClass="me-2" />
                 <div style="flex: 1">
                     <p-skeleton width="100%" styleClass="mb-2" />
                     <p-skeleton width="75%" />
@@ -67,7 +67,7 @@ export class ListDoc {
         </li>
         <li class="mb-3">
             <div class="flex">
-                <p-skeleton shape="circle" size="4rem" styleClass="mr-2" />
+                <p-skeleton shape="circle" size="4rem" styleClass="me-2" />
                 <div style="flex: 1">
                     <p-skeleton width="100%" styleClass="mb-2" />
                     <p-skeleton width="75%" />
@@ -76,7 +76,7 @@ export class ListDoc {
         </li>
         <li class="mb-3">
             <div class="flex">
-                <p-skeleton shape="circle" size="4rem" styleClass="mr-2" />
+                <p-skeleton shape="circle" size="4rem" styleClass="me-2" />
                 <div style="flex: 1">
                     <p-skeleton width="100%" styleClass="mb-2" />
                     <p-skeleton width="75%" />
@@ -85,7 +85,7 @@ export class ListDoc {
         </li>
         <li>
             <div class="flex">
-                <p-skeleton shape="circle" size="4rem" styleClass="mr-2" />
+                <p-skeleton shape="circle" size="4rem" styleClass="me-2" />
                 <div style="flex: 1">
                     <p-skeleton width="100%" styleClass="mb-2" />
                     <p-skeleton width="75%" />
@@ -99,7 +99,7 @@ export class ListDoc {
         <ul class="m-0 p-0 list-none">
             <li class="mb-3">
                 <div class="flex">
-                    <p-skeleton shape="circle" size="4rem" styleClass="mr-2" />
+                    <p-skeleton shape="circle" size="4rem" styleClass="me-2" />
                     <div style="flex: 1">
                         <p-skeleton width="100%" styleClass="mb-2" />
                         <p-skeleton width="75%" />
@@ -108,7 +108,7 @@ export class ListDoc {
             </li>
             <li class="mb-3">
                 <div class="flex">
-                    <p-skeleton shape="circle" size="4rem" styleClass="mr-2" />
+                    <p-skeleton shape="circle" size="4rem" styleClass="me-2" />
                     <div style="flex: 1">
                         <p-skeleton width="100%" styleClass="mb-2" />
                         <p-skeleton width="75%" />
@@ -117,7 +117,7 @@ export class ListDoc {
             </li>
             <li class="mb-3">
                 <div class="flex">
-                    <p-skeleton shape="circle" size="4rem" styleClass="mr-2" />
+                    <p-skeleton shape="circle" size="4rem" styleClass="me-2" />
                     <div style="flex: 1">
                         <p-skeleton width="100%" styleClass="mb-2" />
                         <p-skeleton width="75%" />
@@ -126,7 +126,7 @@ export class ListDoc {
             </li>
             <li>
                 <div class="flex">
-                    <p-skeleton shape="circle" size="4rem" styleClass="mr-2" />
+                    <p-skeleton shape="circle" size="4rem" styleClass="me-2" />
                     <div style="flex: 1">
                         <p-skeleton width="100%" styleClass="mb-2" />
                         <p-skeleton width="75%" />

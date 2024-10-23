@@ -100,9 +100,7 @@ export class MenubarService {
                     pTooltip
                     [tooltipOptions]="getItemProp(processedItem, 'tooltipOptions')"
                 >
-                    <div class="p-menuitem-content" [attr.data-pc-section]="'content'"
-                         (click)="onItemClick($event, processedItem)"
-                         (mouseenter)="onItemMouseEnter({ $event, processedItem })">
+                    <div class="p-menuitem-content" [attr.data-pc-section]="'content'" (click)="onItemClick($event, processedItem)" (mouseenter)="onItemMouseEnter({ $event, processedItem })">
                         <ng-container *ngIf="!itemTemplate">
                             <a
                                 *ngIf="!getItemProp(processedItem, 'routerLink')"
@@ -123,34 +121,23 @@ export class MenubarService {
                                     [attr.tabindex]="-1"
                                 >
                                 </span>
-                                <span *ngIf="getItemProp(processedItem, 'escape'); else htmlLabel"
-                                      class="p-menuitem-text" [attr.data-pc-section]="'label'"
-                                      [id]="getItemLabelId(processedItem)">
+                                <span *ngIf="getItemProp(processedItem, 'escape'); else htmlLabel" class="p-menuitem-text" [attr.data-pc-section]="'label'" [id]="getItemLabelId(processedItem)">
                                     {{ getItemLabel(processedItem) }}
                                 </span>
                                 <ng-template #htmlLabel>
-                                    <span class="p-menuitem-text" [innerHTML]="getItemLabel(processedItem)"
-                                          [attr.data-pc-section]="'label'" [id]="getItemLabelId(processedItem)"></span>
+                                    <span class="p-menuitem-text" [innerHTML]="getItemLabel(processedItem)" [attr.data-pc-section]="'label'" [id]="getItemLabelId(processedItem)"></span>
                                 </ng-template>
-                                <span class="p-menuitem-badge" *ngIf="getItemProp(processedItem, 'badge')"
-                                      [ngClass]="getItemProp(processedItem, 'badgeStyleClass')">{{ getItemProp(processedItem, 'badge') }}</span>
+                                <span class="p-menuitem-badge" *ngIf="getItemProp(processedItem, 'badge')" [ngClass]="getItemProp(processedItem, 'badgeStyleClass')">{{ getItemProp(processedItem, 'badge') }}</span>
 
                                 <ng-container *ngIf="isItemGroup(processedItem)">
                                     <ng-container *ngIf="!submenuIconTemplate">
                                         @if (root) {
-                                            <AngleDownIcon
-                                                [styleClass]="'p-submenu-icon'"
-                                                [attr.data-pc-section]="'submenuicon'"
-                                            />
+                                            <AngleDownIcon [styleClass]="'p-submenu-icon'" [attr.data-pc-section]="'submenuicon'" />
                                         } @else {
-                                            <AngleEndIcon
-                                                [styleClass]="'p-submenu-icon'"
-                                                [attr.data-pc-section]="'submenuicon'"
-                                            />
+                                            <AngleEndIcon [styleClass]="'p-submenu-icon'" [attr.data-pc-section]="'submenuicon'" />
                                         }
                                     </ng-container>
-                                    <ng-template *ngTemplateOutlet="submenuIconTemplate"
-                                                 [attr.data-pc-section]="'submenuicon'"></ng-template>
+                                    <ng-template *ngTemplateOutlet="submenuIconTemplate" [attr.data-pc-section]="'submenuicon'"></ng-template>
                                 </ng-container>
                             </a>
                             <a
@@ -180,36 +167,23 @@ export class MenubarService {
                                     [attr.data-pc-section]="'icon'"
                                     [attr.tabindex]="-1"
                                 ></span>
-                                <span class="p-menuitem-text"
-                                      *ngIf="getItemProp(processedItem, 'escape'); else htmlRouteLabel">{{ getItemLabel(processedItem) }}</span>
-                                <ng-template #htmlRouteLabel><span class="p-menuitem-text"
-                                                                   [innerHTML]="getItemLabel(processedItem)"
-                                                                   [attr.data-pc-section]="'label'"></span>
-                                </ng-template>
-                                <span class="p-menuitem-badge" *ngIf="getItemProp(processedItem, 'badge')"
-                                      [ngClass]="getItemProp(processedItem, 'badgeStyleClass')">{{ getItemProp(processedItem, 'badge') }}</span>
+                                <span class="p-menuitem-text" *ngIf="getItemProp(processedItem, 'escape'); else htmlRouteLabel">{{ getItemLabel(processedItem) }}</span>
+                                <ng-template #htmlRouteLabel><span class="p-menuitem-text" [innerHTML]="getItemLabel(processedItem)" [attr.data-pc-section]="'label'"></span> </ng-template>
+                                <span class="p-menuitem-badge" *ngIf="getItemProp(processedItem, 'badge')" [ngClass]="getItemProp(processedItem, 'badgeStyleClass')">{{ getItemProp(processedItem, 'badge') }}</span>
                                 <ng-container *ngIf="isItemGroup(processedItem)">
                                     <ng-container *ngIf="!menubar.submenuIconTemplate">
                                         @if (root) {
-                                            <AngleDownIcon
-                                                [styleClass]="'p-submenu-icon'"
-                                                [attr.data-pc-section]="'submenuicon'"
-                                            />
+                                            <AngleDownIcon [styleClass]="'p-submenu-icon'" [attr.data-pc-section]="'submenuicon'" />
                                         } @else {
-                                            <AngleEndIcon
-                                                [styleClass]="'p-submenu-icon'"
-                                                [attr.data-pc-section]="'submenuicon'"
-                                            />
+                                            <AngleEndIcon [styleClass]="'p-submenu-icon'" [attr.data-pc-section]="'submenuicon'" />
                                         }
                                     </ng-container>
-                                    <ng-template *ngTemplateOutlet="menubar.submenuIconTemplate"
-                                                 [attr.data-pc-section]="'submenuicon'"></ng-template>
+                                    <ng-template *ngTemplateOutlet="menubar.submenuIconTemplate" [attr.data-pc-section]="'submenuicon'"></ng-template>
                                 </ng-container>
                             </a>
                         </ng-container>
                         <ng-container *ngIf="itemTemplate">
-                            <ng-template
-                                *ngTemplateOutlet="itemTemplate; context: { $implicit: processedItem.item, root: root }"></ng-template>
+                            <ng-template *ngTemplateOutlet="itemTemplate; context: { $implicit: processedItem.item, root: root }"></ng-template>
                         </ng-container>
                     </div>
                     <p-menubarSub

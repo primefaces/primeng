@@ -15,22 +15,22 @@ import { Router } from '@angular/router';
                     <ng-container *ngIf="item.route; else withoutRoute">
                         <a [routerLink]="item.route" [href]="item.href" class="p-menuitem-link">
                             <span class="item.icon"></span>
-                            <span class="ml-2">{{ item.label }}</span>
+                            <span class="ms-2">{{ item.label }}</span>
                         </a>
                     </ng-container>
                     <ng-template #withoutRoute>
                         <ng-container *ngIf="item.url; else withoutUrl">
                             <a [href]="item.url" [target]="item.target" class="p-menuitem-link">
                                 <span [class]="item.icon"></span>
-                                <span class="ml-2">{{ item.label }}</span>
-                                <span *ngIf="hasSubmenu" class="pi pi-angle-right ml-auto"></span>
+                                <span class="ms-2">{{ item.label }}</span>
+                                <span *ngIf="hasSubmenu" class="pi pi-angle-right ms-auto"></span>
                             </a>
                         </ng-container>
                         <ng-template #withoutUrl>
                             <a class="p-menuitem-link">
                                 <span [class]="item.icon"></span>
-                                <span class="ml-2">{{ item.label }}</span>
-                                <span *ngIf="hasSubmenu" class="pi pi-angle-right ml-auto"></span>
+                                <span class="ms-2">{{ item.label }}</span>
+                                <span *ngIf="hasSubmenu" class="pi pi-angle-right ms-auto"></span>
                             </a>
                         </ng-template>
                     </ng-template>
@@ -91,22 +91,22 @@ export class RouterDoc implements OnInit {
             <ng-container *ngIf="item.route; else withoutRoute">
                 <a [routerLink]="item.route" [href]="item.href" class="p-menuitem-link">
                     <span class="item.icon"></span>
-                    <span class="ml-2">{{ item.label }}</span>
+                    <span class="ms-2">{{ item.label }}</span>
                 </a>
             </ng-container>
             <ng-template #withoutRoute>
                 <ng-container *ngIf="item.url; else withoutUrl">
                     <a [href]="item.url" [target]="item.target" class="p-menuitem-link">
                         <span [class]="item.icon"></span>
-                        <span class="ml-2">{{ item.label }}</span>
-                        <span *ngIf="hasSubmenu" class="pi pi-angle-right ml-auto"></span>
+                        <span class="ms-2">{{ item.label }}</span>
+                        <span *ngIf="hasSubmenu" class="pi pi-angle-right ms-auto"></span>
                     </a>
                 </ng-container>
                 <ng-template #withoutUrl>
                     <a class="p-menuitem-link">
                         <span [class]="item.icon"></span>
-                        <span class="ml-2">{{ item.label }}</span>
-                        <span *ngIf="hasSubmenu" class="pi pi-angle-right ml-auto"></span>
+                        <span class="ms-2">{{ item.label }}</span>
+                        <span *ngIf="hasSubmenu" class="pi pi-angle-right ms-auto"></span>
                     </a>
                 </ng-template>
             </ng-template>
@@ -119,22 +119,22 @@ export class RouterDoc implements OnInit {
             <ng-container *ngIf="item.route; else withoutRoute">
                 <a [routerLink]="item.route" [href]="item.href" class="p-menuitem-link">
                     <span class="item.icon"></span>
-                    <span class="ml-2">{{ item.label }}</span>
+                    <span class="ms-2">{{ item.label }}</span>
                 </a>
             </ng-container>
             <ng-template #withoutRoute>
                 <ng-container *ngIf="item.url; else withoutUrl">
                     <a [href]="item.url" [target]="item.target" class="p-menuitem-link">
                         <span [class]="item.icon"></span>
-                        <span class="ml-2">{{ item.label }}</span>
-                        <span *ngIf="hasSubmenu" class="pi pi-angle-right ml-auto"></span>
+                        <span class="ms-2">{{ item.label }}</span>
+                        <span *ngIf="hasSubmenu" class="pi pi-angle-right ms-auto"></span>
                     </a>
                 </ng-container>
                 <ng-template #withoutUrl>
                     <a class="p-menuitem-link">
                         <span [class]="item.icon"></span>
-                        <span class="ml-2">{{ item.label }}</span>
-                        <span *ngIf="hasSubmenu" class="pi pi-angle-right ml-auto"></span>
+                        <span class="ms-2">{{ item.label }}</span>
+                        <span *ngIf="hasSubmenu" class="pi pi-angle-right ms-auto"></span>
                     </a>
                 </ng-template>
             </ng-template>

@@ -67,13 +67,13 @@ import { Sidebar } from 'primeng/sidebar';
                                     <ul class="list-none p-0 m-0 overflow-hidden">
                                         <li>
                                             <a pRipple class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
-                                                <i class="pi pi-home mr-2"></i>
+                                                <i class="pi pi-home me-2"></i>
                                                 <span class="font-medium">Dashboard</span>
                                             </a>
                                         </li>
                                         <li>
                                             <a pRipple class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
-                                                <i class="pi pi-bookmark mr-2"></i>
+                                                <i class="pi pi-bookmark me-2"></i>
                                                 <span class="font-medium">Bookmarks</span>
                                             </a>
                                         </li>
@@ -87,11 +87,11 @@ import { Sidebar } from 'primeng/sidebar';
                                                 leaveActiveClass="slideup"
                                                 class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple"
                                             >
-                                                <i class="pi pi-chart-line mr-2"></i>
+                                                <i class="pi pi-chart-line me-2"></i>
                                                 <span class="font-medium">Reports</span>
-                                                <i class="pi pi-chevron-down ml-auto"></i>
+                                                <i class="pi pi-chevron-down ms-auto"></i>
                                             </a>
-                                            <ul class="list-none py-0 pl-3 pr-0 m-0 hidden overflow-y-hidden transition-all transition-duration-400 transition-ease-in-out">
+                                            <ul class="list-none py-0 ps-3 pe-0 m-0 hidden overflow-y-hidden transition-all transition-duration-400 transition-ease-in-out">
                                                 <li>
                                                     <a
                                                         pRipple
@@ -102,20 +102,20 @@ import { Sidebar } from 'primeng/sidebar';
                                                         leaveActiveClass="slideup"
                                                         class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple"
                                                     >
-                                                        <i class="pi pi-chart-line mr-2"></i>
+                                                        <i class="pi pi-chart-line me-2"></i>
                                                         <span class="font-medium">Revenue</span>
-                                                        <i class="pi pi-chevron-down ml-auto"></i>
+                                                        <i class="pi pi-chevron-down ms-auto"></i>
                                                     </a>
-                                                    <ul class="list-none py-0 pl-3 pr-0 m-0 hidden overflow-y-hidden transition-all transition-duration-400 transition-ease-in-out">
+                                                    <ul class="list-none py-0 ps-3 pe-0 m-0 hidden overflow-y-hidden transition-all transition-duration-400 transition-ease-in-out">
                                                         <li>
                                                             <a pRipple class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
-                                                                <i class="pi pi-table mr-2"></i>
+                                                                <i class="pi pi-table me-2"></i>
                                                                 <span class="font-medium">View</span>
                                                             </a>
                                                         </li>
                                                         <li>
                                                             <a pRipple class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
-                                                                <i class="pi pi-search mr-2"></i>
+                                                                <i class="pi pi-search me-2"></i>
                                                                 <span class="font-medium">Search</span>
                                                             </a>
                                                         </li>
@@ -123,7 +123,7 @@ import { Sidebar } from 'primeng/sidebar';
                                                 </li>
                                                 <li>
                                                     <a pRipple class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
-                                                        <i class="pi pi-chart-line mr-2"></i>
+                                                        <i class="pi pi-chart-line me-2"></i>
                                                         <span class="font-medium">Expenses</span>
                                                     </a>
                                                 </li>
@@ -131,26 +131,26 @@ import { Sidebar } from 'primeng/sidebar';
                                         </li>
                                         <li>
                                             <a pRipple class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
-                                                <i class="pi pi-users mr-2"></i>
+                                                <i class="pi pi-users me-2"></i>
                                                 <span class="font-medium">Team</span>
                                             </a>
                                         </li>
                                         <li>
                                             <a pRipple class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
-                                                <i class="pi pi-comments mr-2"></i>
+                                                <i class="pi pi-comments me-2"></i>
                                                 <span class="font-medium">Messages</span>
-                                                <span class="inline-flex align-items-center justify-content-center ml-auto bg-primary border-circle" style="min-width: 1.5rem; height: 1.5rem">3</span>
+                                                <span class="inline-flex align-items-center justify-content-center ms-auto bg-primary border-circle" style="min-width: 1.5rem; height: 1.5rem">3</span>
                                             </a>
                                         </li>
                                         <li>
                                             <a pRipple class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
-                                                <i class="pi pi-calendar mr-2"></i>
+                                                <i class="pi pi-calendar me-2"></i>
                                                 <span class="font-medium">Calendar</span>
                                             </a>
                                         </li>
                                         <li>
                                             <a pRipple class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
-                                                <i class="pi pi-cog mr-2"></i>
+                                                <i class="pi pi-cog me-2"></i>
                                                 <span class="font-medium">Settings</span>
                                             </a>
                                         </li>
@@ -174,19 +174,19 @@ import { Sidebar } from 'primeng/sidebar';
                                     <ul class="list-none p-0 m-0 overflow-hidden">
                                         <li>
                                             <a pRipple class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
-                                                <i class="pi pi-folder mr-2"></i>
+                                                <i class="pi pi-folder me-2"></i>
                                                 <span class="font-medium">Projects</span>
                                             </a>
                                         </li>
                                         <li>
                                             <a pRipple class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
-                                                <i class="pi pi-chart-bar mr-2"></i>
+                                                <i class="pi pi-chart-bar me-2"></i>
                                                 <span class="font-medium">Performance</span>
                                             </a>
                                         </li>
                                         <li>
                                             <a pRipple class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
-                                                <i class="pi pi-cog mr-2"></i>
+                                                <i class="pi pi-cog me-2"></i>
                                                 <span class="font-medium">Settings</span>
                                             </a>
                                         </li>
@@ -277,13 +277,13 @@ export class HeadlessDoc {
                         <ul class="list-none p-0 m-0 overflow-hidden">
                             <li>
                                 <a pRipple class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
-                                    <i class="pi pi-home mr-2"></i>
+                                    <i class="pi pi-home me-2"></i>
                                     <span class="font-medium">Dashboard</span>
                                 </a>
                             </li>
                             <li>
                                 <a pRipple class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
-                                    <i class="pi pi-bookmark mr-2"></i>
+                                    <i class="pi pi-bookmark me-2"></i>
                                     <span class="font-medium">Bookmarks</span>
                                 </a>
                             </li>
@@ -297,11 +297,11 @@ export class HeadlessDoc {
                                     leaveActiveClass="slideup"
                                     class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple"
                                 >
-                                    <i class="pi pi-chart-line mr-2"></i>
+                                    <i class="pi pi-chart-line me-2"></i>
                                     <span class="font-medium">Reports</span>
-                                    <i class="pi pi-chevron-down ml-auto"></i>
+                                    <i class="pi pi-chevron-down ms-auto"></i>
                                 </a>
-                                <ul class="list-none py-0 pl-3 pr-0 m-0 hidden overflow-y-hidden transition-all transition-duration-400 transition-ease-in-out">
+                                <ul class="list-none py-0 ps-3 pe-0 m-0 hidden overflow-y-hidden transition-all transition-duration-400 transition-ease-in-out">
                                     <li>
                                         <a
                                             pRipple
@@ -312,20 +312,20 @@ export class HeadlessDoc {
                                             leaveActiveClass="slideup"
                                             class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple"
                                         >
-                                            <i class="pi pi-chart-line mr-2"></i>
+                                            <i class="pi pi-chart-line me-2"></i>
                                             <span class="font-medium">Revenue</span>
-                                            <i class="pi pi-chevron-down ml-auto"></i>
+                                            <i class="pi pi-chevron-down ms-auto"></i>
                                         </a>
-                                        <ul class="list-none py-0 pl-3 pr-0 m-0 hidden overflow-y-hidden transition-all transition-duration-400 transition-ease-in-out">
+                                        <ul class="list-none py-0 ps-3 pe-0 m-0 hidden overflow-y-hidden transition-all transition-duration-400 transition-ease-in-out">
                                             <li>
                                                 <a pRipple class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
-                                                    <i class="pi pi-table mr-2"></i>
+                                                    <i class="pi pi-table me-2"></i>
                                                     <span class="font-medium">View</span>
                                                 </a>
                                             </li>
                                             <li>
                                                 <a pRipple class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
-                                                    <i class="pi pi-search mr-2"></i>
+                                                    <i class="pi pi-search me-2"></i>
                                                     <span class="font-medium">Search</span>
                                                 </a>
                                             </li>
@@ -333,7 +333,7 @@ export class HeadlessDoc {
                                     </li>
                                     <li>
                                         <a pRipple class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
-                                            <i class="pi pi-chart-line mr-2"></i>
+                                            <i class="pi pi-chart-line me-2"></i>
                                             <span class="font-medium">Expenses</span>
                                         </a>
                                     </li>
@@ -341,26 +341,26 @@ export class HeadlessDoc {
                             </li>
                             <li>
                                 <a pRipple class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
-                                    <i class="pi pi-users mr-2"></i>
+                                    <i class="pi pi-users me-2"></i>
                                     <span class="font-medium">Team</span>
                                 </a>
                             </li>
                             <li>
                                 <a pRipple class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
-                                    <i class="pi pi-comments mr-2"></i>
+                                    <i class="pi pi-comments me-2"></i>
                                     <span class="font-medium">Messages</span>
-                                    <span class="inline-flex align-items-center justify-content-center ml-auto bg-primary border-circle" style="min-width: 1.5rem; height: 1.5rem">3</span>
+                                    <span class="inline-flex align-items-center justify-content-center ms-auto bg-primary border-circle" style="min-width: 1.5rem; height: 1.5rem">3</span>
                                 </a>
                             </li>
                             <li>
                                 <a pRipple class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
-                                    <i class="pi pi-calendar mr-2"></i>
+                                    <i class="pi pi-calendar me-2"></i>
                                     <span class="font-medium">Calendar</span>
                                 </a>
                             </li>
                             <li>
                                 <a pRipple class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
-                                    <i class="pi pi-cog mr-2"></i>
+                                    <i class="pi pi-cog me-2"></i>
                                     <span class="font-medium">Settings</span>
                                 </a>
                             </li>
@@ -384,19 +384,19 @@ export class HeadlessDoc {
                         <ul class="list-none p-0 m-0 overflow-hidden">
                             <li>
                                 <a pRipple class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
-                                    <i class="pi pi-folder mr-2"></i>
+                                    <i class="pi pi-folder me-2"></i>
                                     <span class="font-medium">Projects</span>
                                 </a>
                             </li>
                             <li>
                                 <a pRipple class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
-                                    <i class="pi pi-chart-bar mr-2"></i>
+                                    <i class="pi pi-chart-bar me-2"></i>
                                     <span class="font-medium">Performance</span>
                                 </a>
                             </li>
                             <li>
                                 <a pRipple class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
-                                    <i class="pi pi-cog mr-2"></i>
+                                    <i class="pi pi-cog me-2"></i>
                                     <span class="font-medium">Settings</span>
                                 </a>
                             </li>
@@ -475,13 +475,13 @@ export class HeadlessDoc {
                         <ul class="list-none p-0 m-0 overflow-hidden">
                             <li>
                                 <a pRipple class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
-                                    <i class="pi pi-home mr-2"></i>
+                                    <i class="pi pi-home me-2"></i>
                                     <span class="font-medium">Dashboard</span>
                                 </a>
                             </li>
                             <li>
                                 <a pRipple class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
-                                    <i class="pi pi-bookmark mr-2"></i>
+                                    <i class="pi pi-bookmark me-2"></i>
                                     <span class="font-medium">Bookmarks</span>
                                 </a>
                             </li>
@@ -495,11 +495,11 @@ export class HeadlessDoc {
                                     leaveActiveClass="slideup"
                                     class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple"
                                 >
-                                    <i class="pi pi-chart-line mr-2"></i>
+                                    <i class="pi pi-chart-line me-2"></i>
                                     <span class="font-medium">Reports</span>
-                                    <i class="pi pi-chevron-down ml-auto"></i>
+                                    <i class="pi pi-chevron-down ms-auto"></i>
                                 </a>
-                                <ul class="list-none py-0 pl-3 pr-0 m-0 hidden overflow-y-hidden transition-all transition-duration-400 transition-ease-in-out">
+                                <ul class="list-none py-0 ps-3 pe-0 m-0 hidden overflow-y-hidden transition-all transition-duration-400 transition-ease-in-out">
                                     <li>
                                         <a
                                             pRipple
@@ -510,20 +510,20 @@ export class HeadlessDoc {
                                             leaveActiveClass="slideup"
                                             class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple"
                                         >
-                                            <i class="pi pi-chart-line mr-2"></i>
+                                            <i class="pi pi-chart-line me-2"></i>
                                             <span class="font-medium">Revenue</span>
-                                            <i class="pi pi-chevron-down ml-auto"></i>
+                                            <i class="pi pi-chevron-down ms-auto"></i>
                                         </a>
-                                        <ul class="list-none py-0 pl-3 pr-0 m-0 hidden overflow-y-hidden transition-all transition-duration-400 transition-ease-in-out">
+                                        <ul class="list-none py-0 ps-3 pe-0 m-0 hidden overflow-y-hidden transition-all transition-duration-400 transition-ease-in-out">
                                             <li>
                                                 <a pRipple class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
-                                                    <i class="pi pi-table mr-2"></i>
+                                                    <i class="pi pi-table me-2"></i>
                                                     <span class="font-medium">View</span>
                                                 </a>
                                             </li>
                                             <li>
                                                 <a pRipple class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
-                                                    <i class="pi pi-search mr-2"></i>
+                                                    <i class="pi pi-search me-2"></i>
                                                     <span class="font-medium">Search</span>
                                                 </a>
                                             </li>
@@ -531,7 +531,7 @@ export class HeadlessDoc {
                                     </li>
                                     <li>
                                         <a pRipple class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
-                                            <i class="pi pi-chart-line mr-2"></i>
+                                            <i class="pi pi-chart-line me-2"></i>
                                             <span class="font-medium">Expenses</span>
                                         </a>
                                     </li>
@@ -539,26 +539,26 @@ export class HeadlessDoc {
                             </li>
                             <li>
                                 <a pRipple class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
-                                    <i class="pi pi-users mr-2"></i>
+                                    <i class="pi pi-users me-2"></i>
                                     <span class="font-medium">Team</span>
                                 </a>
                             </li>
                             <li>
                                 <a pRipple class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
-                                    <i class="pi pi-comments mr-2"></i>
+                                    <i class="pi pi-comments me-2"></i>
                                     <span class="font-medium">Messages</span>
-                                    <span class="inline-flex align-items-center justify-content-center ml-auto bg-primary border-circle" style="min-width: 1.5rem; height: 1.5rem">3</span>
+                                    <span class="inline-flex align-items-center justify-content-center ms-auto bg-primary border-circle" style="min-width: 1.5rem; height: 1.5rem">3</span>
                                 </a>
                             </li>
                             <li>
                                 <a pRipple class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
-                                    <i class="pi pi-calendar mr-2"></i>
+                                    <i class="pi pi-calendar me-2"></i>
                                     <span class="font-medium">Calendar</span>
                                 </a>
                             </li>
                             <li>
                                 <a pRipple class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
-                                    <i class="pi pi-cog mr-2"></i>
+                                    <i class="pi pi-cog me-2"></i>
                                     <span class="font-medium">Settings</span>
                                 </a>
                             </li>
@@ -582,19 +582,19 @@ export class HeadlessDoc {
                         <ul class="list-none p-0 m-0 overflow-hidden">
                             <li>
                                 <a pRipple class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
-                                    <i class="pi pi-folder mr-2"></i>
+                                    <i class="pi pi-folder me-2"></i>
                                     <span class="font-medium">Projects</span>
                                 </a>
                             </li>
                             <li>
                                 <a pRipple class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
-                                    <i class="pi pi-chart-bar mr-2"></i>
+                                    <i class="pi pi-chart-bar me-2"></i>
                                     <span class="font-medium">Performance</span>
                                 </a>
                             </li>
                             <li>
                                 <a pRipple class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
-                                    <i class="pi pi-cog mr-2"></i>
+                                    <i class="pi pi-cog me-2"></i>
                                     <span class="font-medium">Settings</span>
                                 </a>
                             </li>

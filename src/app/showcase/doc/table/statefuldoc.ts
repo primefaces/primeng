@@ -52,12 +52,12 @@ import { CustomerService } from '@service/customerservice';
                             <td>
                                 <span class="p-column-title">Country</span>
                                 <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px" />
-                                <span class="ml-1 vertical-align-middle">{{ customer.country.name }}</span>
+                                <span class="ms-1 vertical-align-middle">{{ customer.country.name }}</span>
                             </td>
                             <td>
                                 <span class="p-column-title">Representative</span>
                                 <img [alt]="customer.representative.name" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}" width="32" style="vertical-align: middle" />
-                                <span class="ml-1 vertical-align-middle">{{ customer.representative.name }}</span>
+                                <span class="ms-1 vertical-align-middle">{{ customer.representative.name }}</span>
                             </td>
                             <td>
                                 <span class="p-column-title">Status</span>
@@ -74,12 +74,12 @@ import { CustomerService } from '@service/customerservice';
                             <td>
                                 <span class="p-column-title">Country</span>
                                 <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px" />
-                                <span class="ml-1 vertical-align-middle">{{ customer.country.name }}</span>
+                                <span class="ms-1 vertical-align-middle">{{ customer.country.name }}</span>
                             </td>
                             <td>
                                 <span class="p-column-title">Representative</span>
                                 <img [alt]="customer.representative.name" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}" width="32" style="vertical-align: middle" />
-                                <span class="ml-1 vertical-align-middle">{{ customer.representative.name }}</span>
+                                <span class="ms-1 vertical-align-middle">{{ customer.representative.name }}</span>
                             </td>
                             <td>
                                 <span class="p-column-title">Status</span>
@@ -186,7 +186,7 @@ export class StatefulDoc {
                         src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
                         [class]="'flag flag-' + customer.country.code"
                         style="width: 20px" />
-                    <span class="ml-1 vertical-align-middle">{{ customer.country.name }}</span>
+                    <span class="ms-1 vertical-align-middle">{{ customer.country.name }}</span>
                 </td>
                 <td>
                     <span class="p-column-title">Representative</span>
@@ -195,7 +195,7 @@ export class StatefulDoc {
                         src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}"
                         width="32"
                         style="vertical-align: middle" />
-                    <span class="ml-1 vertical-align-middle">{{ customer.representative.name }}</span>
+                    <span class="ms-1 vertical-align-middle">{{ customer.representative.name }}</span>
                 </td>
                 <td>
                     <span class="p-column-title">Status</span>
@@ -215,7 +215,7 @@ export class StatefulDoc {
                         src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
                         [class]="'flag flag-' + customer.country.code"
                         style="width: 20px" />
-                    <span class="ml-1 vertical-align-middle">{{ customer.country.name }}</span>
+                    <span class="ms-1 vertical-align-middle">{{ customer.country.name }}</span>
                 </td>
                 <td>
                     <span class="p-column-title">Representative</span>
@@ -224,7 +224,7 @@ export class StatefulDoc {
                         src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}"
                         width="32"
                         style="vertical-align: middle" />
-                    <span class="ml-1 vertical-align-middle">{{ customer.representative.name }}</span>
+                    <span class="ms-1 vertical-align-middle">{{ customer.representative.name }}</span>
                 </td>
                 <td>
                     <span class="p-column-title">Status</span>
@@ -291,7 +291,7 @@ export class StatefulDoc {
                         src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
                         [class]="'flag flag-' + customer.country.code"
                         style="width: 20px" />
-                    <span class="ml-1 vertical-align-middle">{{ customer.country.name }}</span>
+                    <span class="ms-1 vertical-align-middle">{{ customer.country.name }}</span>
                 </td>
                 <td>
                     <span class="p-column-title">Representative</span>
@@ -300,7 +300,7 @@ export class StatefulDoc {
                         src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}"
                         width="32"
                         style="vertical-align: middle" />
-                    <span class="ml-1 vertical-align-middle">{{ customer.representative.name }}</span>
+                    <span class="ms-1 vertical-align-middle">{{ customer.representative.name }}</span>
                 </td>
                 <td>
                     <span class="p-column-title">Status</span>
@@ -320,7 +320,7 @@ export class StatefulDoc {
                         src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
                         [class]="'flag flag-' + customer.country.code"
                         style="width: 20px" />
-                    <span class="ml-1 vertical-align-middle">{{ customer.country.name }}</span>
+                    <span class="ms-1 vertical-align-middle">{{ customer.country.name }}</span>
                 </td>
                 <td>
                     <span class="p-column-title">Representative</span>
@@ -329,7 +329,7 @@ export class StatefulDoc {
                         src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}"
                         width="32"
                         style="vertical-align: middle" />
-                    <span class="ml-1 vertical-align-middle">{{ customer.representative.name }}</span>
+                    <span class="ms-1 vertical-align-middle">{{ customer.representative.name }}</span>
                 </td>
                 <td>
                     <span class="p-column-title">Status</span>

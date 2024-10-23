@@ -1,13 +1,4 @@
-import {
-    Component,
-    Input,
-    ChangeDetectionStrategy,
-    ViewEncapsulation,
-    ElementRef,
-    HostBinding,
-    booleanAttribute,
-    Inject
-} from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy, ViewEncapsulation, ElementRef, HostBinding, booleanAttribute, Inject } from '@angular/core';
 import { ObjectUtils } from 'primeng/utils';
 import { DOCUMENT } from '@angular/common';
 
@@ -33,10 +24,7 @@ export class BaseIcon {
 
     ariaHidden: boolean;
 
-    constructor(
-        @Inject(DOCUMENT) private readonly document: Document,
-    ) {
-    }
+    constructor(@Inject(DOCUMENT) private readonly document: Document) {}
 
     ngOnInit() {
         this.getAttributes();

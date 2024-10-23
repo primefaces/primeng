@@ -21,7 +21,7 @@ import { ContextMenu } from 'primeng/contextmenu';
                                 <span>{{ product.category }}</span>
                             </div>
                         </div>
-                        <span class="font-bold text-900 ml-5">&#36;{{ product.price }}</span>
+                        <span class="font-bold text-900 ms-5">&#36;{{ product.price }}</span>
                     </div>
                 </li>
             </ul>
@@ -30,10 +30,10 @@ import { ContextMenu } from 'primeng/contextmenu';
                 <ng-template pTemplate="item" let-item>
                     <a pRipple class="flex align-items-center p-menuitem-link">
                         <span class="item.icon"></span>
-                        <span class="ml-2">{{ item.label }}</span>
-                        <p-badge *ngIf="item.badge" class="ml-auto" [value]="item.badge" />
-                        <span *ngIf="item.shortcut" class="ml-auto border-1 surface-border border-round surface-100 text-xs p-1">{{ item.shortcut }}</span>
-                        <i *ngIf="item.items" class="pi pi-angle-right ml-auto"></i>
+                        <span class="ms-2">{{ item.label }}</span>
+                        <p-badge *ngIf="item.badge" class="ms-auto" [value]="item.badge" />
+                        <span *ngIf="item.shortcut" class="ms-auto border-1 surface-border border-round surface-100 text-xs p-1">{{ item.shortcut }}</span>
+                        <i *ngIf="item.items" class="pi pi-angle-right ms-auto"></i>
                     </a>
                 </ng-template>
             </p-contextMenu>
@@ -157,14 +157,14 @@ export class TemplateDoc implements OnInit {
 
     code: Code = {
         basic: `<ul class="m-0 p-0 list-none border-1 surface-border border-round p-3 flex flex-column gap-2 w-full md:w-30rem">
-    <li 
-        *ngFor="let product of data" 
-        class="p-2 hover:surface-hover border-round border-1 border-transparent transition-all transition-duration-200" 
+    <li
+        *ngFor="let product of data"
+        class="p-2 hover:surface-hover border-round border-1 border-transparent transition-all transition-duration-200"
         (contextmenu)="onContextMenu($event)">
             <div class="flex flex-wrap p-2 align-items-center gap-3">
-                <img 
-                    class="w-4rem flex-shrink-0 border-round" 
-                    src="https://primefaces.org/cdn/primeng/images/product/{{ product.image }}" 
+                <img
+                    class="w-4rem flex-shrink-0 border-round"
+                    src="https://primefaces.org/cdn/primeng/images/product/{{ product.image }}"
                     alt="product.name" />
                 <div class="flex-1 flex flex-column gap-1">
                     <span class="font-bold">
@@ -177,7 +177,7 @@ export class TemplateDoc implements OnInit {
                         </span>
                     </div>
                 </div>
-                <span class="font-bold text-900 ml-5">
+                <span class="font-bold text-900 ms-5">
                 &#36;{{ product.price }}
                 </span>
             </div>
@@ -188,26 +188,26 @@ export class TemplateDoc implements OnInit {
     <ng-template pTemplate="item" let-item>
         <a pRipple class="flex align-items-center p-menuitem-link">
             <span class="item.icon"></span>
-            <span class="ml-2">{{ item.label }}</span>
-            <p-badge *ngIf="item.badge" class="ml-auto" [value]="item.badge" />
-            <span *ngIf="item.shortcut" class="ml-auto border-1 surface-border border-round surface-100 text-xs p-1">
+            <span class="ms-2">{{ item.label }}</span>
+            <p-badge *ngIf="item.badge" class="ms-auto" [value]="item.badge" />
+            <span *ngIf="item.shortcut" class="ms-auto border-1 surface-border border-round surface-100 text-xs p-1">
                 {{ item.shortcut }}
             </span>
-            <i *ngIf="item.items" class="pi pi-angle-right ml-auto"></i>
+            <i *ngIf="item.items" class="pi pi-angle-right ms-auto"></i>
         </a>
     </ng-template>
 </p-contextMenu>`,
 
         html: `<div class="card flex justify-content-center">
     <ul class="m-0 p-0 list-none border-1 surface-border border-round p-3 flex flex-column gap-2 w-full md:w-30rem">
-        <li 
-            *ngFor="let product of data" 
-            class="p-2 hover:surface-hover border-round border-1 border-transparent transition-all transition-duration-200" 
+        <li
+            *ngFor="let product of data"
+            class="p-2 hover:surface-hover border-round border-1 border-transparent transition-all transition-duration-200"
             (contextmenu)="onContextMenu($event)">
                 <div class="flex flex-wrap p-2 align-items-center gap-3">
-                    <img 
-                        class="w-4rem flex-shrink-0 border-round" 
-                        src="https://primefaces.org/cdn/primeng/images/product/{{ product.image }}" 
+                    <img
+                        class="w-4rem flex-shrink-0 border-round"
+                        src="https://primefaces.org/cdn/primeng/images/product/{{ product.image }}"
                         alt="product.name" />
                         <div class="flex-1 flex flex-column gap-1">
                             <span class="font-bold">
@@ -220,7 +220,7 @@ export class TemplateDoc implements OnInit {
                                 </span>
                             </div>
                         </div>
-                        <span class="font-bold text-900 ml-5">
+                        <span class="font-bold text-900 ms-5">
                         &#36;{{ product.price }}
                         </span>
                 </div>
@@ -231,12 +231,12 @@ export class TemplateDoc implements OnInit {
         <ng-template pTemplate="item" let-item>
             <a pRipple class="flex align-items-center p-menuitem-link">
                 <span class="item.icon"></span>
-                <span class="ml-2">{{ item.label }}</span>
-                <p-badge *ngIf="item.badge" class="ml-auto" [value]="item.badge" />
-                <span *ngIf="item.shortcut" class="ml-auto border-1 surface-border border-round surface-100 text-xs p-1">
+                <span class="ms-2">{{ item.label }}</span>
+                <p-badge *ngIf="item.badge" class="ms-auto" [value]="item.badge" />
+                <span *ngIf="item.shortcut" class="ms-auto border-1 surface-border border-round surface-100 text-xs p-1">
                     {{ item.shortcut }}
                 </span>
-                <i *ngIf="item.items" class="pi pi-angle-right ml-auto"></i>
+                <i *ngIf="item.items" class="pi pi-angle-right ms-auto"></i>
             </a>
         </ng-template>
     </p-contextMenu>

@@ -23,5 +23,4 @@ import { BaseIcon } from 'primeng/baseicon';
         }
     `
 })
-export class AngleStartIcon extends BaseIcon {
-}
+export class AngleStartIcon extends BaseIcon {}

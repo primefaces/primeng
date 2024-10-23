@@ -35,8 +35,8 @@ export class TemplateDoc {
             target: event.target as EventTarget,
             message: 'Please confirm to proceed moving forward.',
             icon: 'pi pi-exclamation-circle',
-            acceptIcon: 'pi pi-check mr-1',
-            rejectIcon: 'pi pi-times mr-1',
+            acceptIcon: 'pi pi-check me-1',
+            rejectIcon: 'pi pi-times me-1',
             acceptLabel: 'Confirm',
             rejectLabel: 'Cancel',
             rejectButtonStyleClass: 'p-button-outlined p-button-sm',
@@ -90,14 +90,14 @@ import { ButtonModule } from 'primeng/button';
 })
 export class ConfirmPopupTemplateDemo {
     constructor(private confirmationService: ConfirmationService, private messageService: MessageService) {}
-    
+
     confirm(event: Event) {
         this.confirmationService.confirm({
             target: event.target as EventTarget,
             message: 'Please confirm to proceed moving forward.',
             icon: 'pi pi-exclamation-circle',
-            acceptIcon: 'pi pi-check mr-1',
-            rejectIcon: 'pi pi-times mr-1',
+            acceptIcon: 'pi pi-check me-1',
+            rejectIcon: 'pi pi-times me-1',
             acceptLabel: 'Confirm',
             rejectLabel: 'Cancel',
             rejectButtonStyleClass: 'p-button-outlined p-button-sm',

@@ -12,7 +12,7 @@ import { Component } from '@angular/core';
             <div class="flex justify-content-center mt-4">
                 <a href="https://blocks.primeng.org" target="_blank" class="font-semibold p-3 border-round flex align-items-center linkbox active" style="z-index: 99">
                     <span>Explore All</span>
-                    <i class="pi pi-arrow-right ml-2"></i>
+                    <i class="pi pi-arrow-right ms-2"></i>
                 </a>
             </div>
             <section class="prime-blocks blocks-animation flex justify-content-center align-items-center flex-column">
@@ -109,10 +109,10 @@ import { Component } from '@angular/core';
                         </div>
                     </div>
                 </div>
-                <div class="flex ml-8">
+                <div class="flex ms-8">
                     <div class="prime-block p-1 flex align-self-stretch flex-column">
                         <div class="block-header py-3 px-4 flex justify-content-between align-items-center">
-                            <div class="logo pr-5">
+                            <div class="logo pe-5">
                                 <img width="20" height="18" src="https://primefaces.org/cdn/primeng/images/landing/blocks/logo-1.svg" alt="block logo" />
                             </div>
                             <div class="flex-auto sidebar-menu flex">
@@ -133,12 +133,12 @@ import { Component } from '@angular/core';
                                         <span class="text my-2">26 %</span>
                                         <div class="box box-orange"></div>
                                     </div>
-                                    <div class="block-item block-item-active animation-2 ml-3 mr-3 w-4rem">
+                                    <div class="block-item block-item-active animation-2 ms-3 me-3 w-4rem">
                                         <div class="bar w-1rem"></div>
                                         <span class="text my-2">6 %</span>
                                         <div class="box box-pink"></div>
                                     </div>
-                                    <div class="block-item mr-3 w-4rem">
+                                    <div class="block-item me-3 w-4rem">
                                         <div class="bar w-4rem"></div>
                                         <span class="text my-2">62 %</span>
                                         <div class="box box-green"></div>
@@ -179,7 +179,7 @@ import { Component } from '@angular/core';
                                     <div class="block-item w-3 flex justify-content-between flex-column">
                                         <div class="bar w-full"></div>
                                         <div class="flex align-items-center mt-3">
-                                            <div class="circle circle-small circle-highlight mr-2"></div>
+                                            <div class="circle circle-small circle-highlight me-2"></div>
                                             <div class="bar w-2rem"></div>
                                         </div>
                                         <div class="bar bar-button w-4rem mt-4"></div>
@@ -187,11 +187,11 @@ import { Component } from '@angular/core';
                                     <div class="block-item block-item-active animation-3 mx-3 w-3 flex justify-content-between flex-column">
                                         <div class="bar w-full"></div>
                                         <div class="flex align-items-center mt-3">
-                                            <div class="circle circle-small circle-highlight mr-2"></div>
+                                            <div class="circle circle-small circle-highlight me-2"></div>
                                             <div class="bar w-2rem"></div>
                                         </div>
                                         <div class="flex align-items-center mt-3">
-                                            <div class="circle circle-small circle-highlight mr-2"></div>
+                                            <div class="circle circle-small circle-highlight me-2"></div>
                                             <div class="bar w-3rem"></div>
                                         </div>
                                         <div class="bar bar-button w-4rem mt-4"></div>
@@ -199,15 +199,15 @@ import { Component } from '@angular/core';
                                     <div class="block-item w-3 flex justify-content-between flex-column">
                                         <div class="bar w-full"></div>
                                         <div class="flex align-items-center mt-3">
-                                            <div class="circle circle-small circle-highlight mr-2"></div>
+                                            <div class="circle circle-small circle-highlight me-2"></div>
                                             <div class="bar w-2rem"></div>
                                         </div>
                                         <div class="flex align-items-center mt-3">
-                                            <div class="circle circle-small circle-highlight mr-2"></div>
+                                            <div class="circle circle-small circle-highlight me-2"></div>
                                             <div class="bar w-2rem"></div>
                                         </div>
                                         <div class="flex align-items-center mt-3">
-                                            <div class="circle circle-small circle-highlight mr-2"></div>
+                                            <div class="circle circle-small circle-highlight me-2"></div>
                                             <div class="bar w-2rem"></div>
                                         </div>
                                         <div class="bar bar-button w-4rem mt-4"></div>
@@ -217,7 +217,7 @@ import { Component } from '@angular/core';
                         </div>
                     </div>
                 </div>
-                <div class="flex -mr-8">
+                <div class="flex -me-8">
                     <div class="prime-block flex align-self-stretch p-1">
                         <div class="block-sidebar w-1 p-3">
                             <div class="logo">
@@ -315,7 +315,7 @@ import { Component } from '@angular/core';
                                 </div>
                                 <div class="block-item block-item-col flex">
                                     <div class="flex">
-                                        <div class="circle circle-small circle-highlight -mr-1"></div>
+                                        <div class="circle circle-small circle-highlight -me-1"></div>
                                         <div class="bar w-3rem mx-3"></div>
                                     </div>
                                     <div class="bar w-3rem mx-3"></div>
@@ -324,7 +324,7 @@ import { Component } from '@angular/core';
                                 </div>
                                 <div class="block-item block-item-col flex">
                                     <div class="flex">
-                                        <div class="circle circle-small circle-highlight -mr-1"></div>
+                                        <div class="circle circle-small circle-highlight -me-1"></div>
                                         <div class="bar w-3rem mx-3"></div>
                                     </div>
                                     <div class="bar w-3rem mx-3"></div>
@@ -333,7 +333,7 @@ import { Component } from '@angular/core';
                                 </div>
                                 <div class="block-item block-item-col flex">
                                     <div class="flex">
-                                        <div class="circle circle-small circle-highlight -mr-1"></div>
+                                        <div class="circle circle-small circle-highlight -me-1"></div>
                                         <div class="bar w-3rem mx-3"></div>
                                     </div>
                                     <div class="bar w-3rem mx-3"></div>
@@ -347,7 +347,7 @@ import { Component } from '@angular/core';
                 <div class="flex">
                     <div class="prime-block p-1 flex align-self-stretch flex-column">
                         <div class="block-header py-3 px-4 flex justify-content-between align-items-center">
-                            <div class="logo pr-5">
+                            <div class="logo pe-5">
                                 <img src="https://primefaces.org/cdn/primeng/images/landing/blocks/logo-1.svg" width="20" height="18" alt="block logo" />
                             </div>
                             <div class="flex-auto sidebar-menu flex">
@@ -369,8 +369,8 @@ import { Component } from '@angular/core';
                                     <div class="bar w-6rem mt-2"></div>
                                     <div class="bar w-4rem mt-2"></div>
                                     <div class="flex">
-                                        <div class="bar bar-highlight bar-button w-4rem mr-2 mt-4"></div>
-                                        <div class="bar bar-button w-4rem mr-2 mt-4"></div>
+                                        <div class="bar bar-highlight bar-button w-4rem me-2 mt-4"></div>
+                                        <div class="bar bar-button w-4rem me-2 mt-4"></div>
                                     </div>
                                 </div>
                             </div>

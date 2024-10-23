@@ -1334,12 +1334,10 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, AfterVie
     }
 
     private calcTransform(totalShiftedItems: number): string {
-        if (this.isVertical)
-            return `translate3d(0, ${totalShiftedItems * (100 / this.d_numVisible)}%, 0)`;
+        if (this.isVertical) return `translate3d(0, ${totalShiftedItems * (100 / this.d_numVisible)}%, 0)`;
 
         let horizontalTransform = totalShiftedItems * (100 / this.d_numVisible);
-        if (DomHandler.documentIsRTL() && horizontalTransform != 0)
-            horizontalTransform *= -1;
+        if (DomHandler.documentIsRTL() && horizontalTransform != 0) horizontalTransform *= -1;
         return `translate3d(${horizontalTransform}%, 0, 0)`;
     }
 

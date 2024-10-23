@@ -41,8 +41,8 @@ export class TemplateDoc {
         this.confirmationService.confirm({
             header: 'Confirmation',
             message: 'Please confirm to proceed moving forward.',
-            acceptIcon: 'pi pi-check mr-2',
-            rejectIcon: 'pi pi-times mr-2',
+            acceptIcon: 'pi pi-check me-2',
+            rejectIcon: 'pi pi-times me-2',
             rejectButtonStyleClass: 'p-button-sm',
             acceptButtonStyleClass: 'p-button-outlined p-button-sm',
             accept: () => {
@@ -84,7 +84,7 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
 import { ButtonModule } from 'primeng/button';
-        
+
 @Component({
     selector: 'confirm-dialog-template-demo',
     templateUrl: './confirm-dialog-template-demo.html',
@@ -99,8 +99,8 @@ export class ConfirmDialogTemplateDemo {
         this.confirmationService.confirm({
             header: 'Confirmation',
             message: 'Please confirm to proceed moving forward.',
-            acceptIcon: 'pi pi-check mr-2',
-            rejectIcon: 'pi pi-times mr-2',
+            acceptIcon: 'pi pi-check me-2',
+            rejectIcon: 'pi pi-times me-2',
             rejectButtonStyleClass: 'p-button-sm',
             acceptButtonStyleClass: 'p-button-outlined p-button-sm',
             accept: () => {

@@ -23,9 +23,9 @@ import { CustomerService } from '@service/customerservice';
                     <ng-template pTemplate="groupheader" let-customer let-rowIndex="rowIndex" let-expanded="expanded">
                         <tr>
                             <td colspan="5">
-                                <button type="button" pButton pRipple [pRowToggler]="customer" class="p-button-text p-button-rounded p-button-plain mr-2" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
+                                <button type="button" pButton pRipple [pRowToggler]="customer" class="p-button-text p-button-rounded p-button-plain me-2" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
                                 <img [alt]="customer.representative.name" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}" width="32" style="vertical-align: middle" />
-                                <span class="font-bold ml-2">{{ customer.representative.name }}</span>
+                                <span class="font-bold ms-2">{{ customer.representative.name }}</span>
                             </td>
                         </tr>
                     </ng-template>
@@ -42,7 +42,7 @@ import { CustomerService } from '@service/customerservice';
                             </td>
                             <td>
                                 <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px" />
-                                <span class="ml-1 vertical-align-middle">{{ customer.country.name }}</span>
+                                <span class="ms-1 vertical-align-middle">{{ customer.country.name }}</span>
                             </td>
                             <td>
                                 {{ customer.company }}
@@ -135,7 +135,7 @@ export class ExpandableRowGroupDoc {
                         pButton
                         pRipple
                         [pRowToggler]="customer"
-                        class="p-button-text p-button-rounded p-button-plain mr-2"
+                        class="p-button-text p-button-rounded p-button-plain me-2"
                         [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'">
                     </button>
                     <img
@@ -143,7 +143,7 @@ export class ExpandableRowGroupDoc {
                         src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{customer.representative.image}}"
                         width="32"
                         style="vertical-align: middle" />
-                    <span class="font-bold ml-2">{{customer.representative.name}}</span>
+                    <span class="font-bold ms-2">{{customer.representative.name}}</span>
                 </td>
             </tr>
         </ng-template>
@@ -163,7 +163,7 @@ export class ExpandableRowGroupDoc {
                         src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
                         [class]="'flag flag-' + customer.country.code"
                         style="width: 20px">
-                    <span class="ml-1 vertical-align-middle">{{customer.country.name}}</span>
+                    <span class="ms-1 vertical-align-middle">{{customer.country.name}}</span>
                 </td>
                 <td>
                     {{customer.company}}
@@ -203,7 +203,7 @@ export class ExpandableRowGroupDoc {
                             pButton
                             pRipple
                             [pRowToggler]="customer"
-                            class="p-button-text p-button-rounded p-button-plain mr-2"
+                            class="p-button-text p-button-rounded p-button-plain me-2"
                             [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'">
                         </button>
                         <img
@@ -211,7 +211,7 @@ export class ExpandableRowGroupDoc {
                             src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{customer.representative.image}}"
                             width="32"
                             style="vertical-align: middle" />
-                        <span class="font-bold ml-2">{{customer.representative.name}}</span>
+                        <span class="font-bold ms-2">{{customer.representative.name}}</span>
                     </td>
                 </tr>
             </ng-template>
@@ -231,7 +231,7 @@ export class ExpandableRowGroupDoc {
                             src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
                             [class]="'flag flag-' + customer.country.code"
                             style="width: 20px">
-                        <span class="ml-1 vertical-align-middle">{{customer.country.name}}</span>
+                        <span class="ms-1 vertical-align-middle">{{customer.country.name}}</span>
                     </td>
                     <td>
                         {{customer.company}}

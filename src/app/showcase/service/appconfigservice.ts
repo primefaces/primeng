@@ -39,7 +39,7 @@ export class AppConfigService {
         // Get direction from session storage and update config
         if (isPlatformBrowser(this.platformId)) {
             const direction: string = sessionStorage.getItem(AppConfigService.DIRECTION) ?? this._config.direction;
-            this.config.update(config => ({...config, direction: direction === 'ltr' ? 'ltr' : 'rtl'}))
+            this.config.update((config) => ({ ...config, direction: direction === 'ltr' ? 'ltr' : 'rtl' }));
         }
         effect(() => {
             const config = this.config();

@@ -22,7 +22,7 @@ import { MessageService, PrimeNGConfig } from 'primeng/api';
                             <p-button (onClick)="uploadEvent(uploadCallback)" icon="pi pi-cloud-upload" [rounded]="true" [outlined]="true" severity="success" [disabled]="!files || files.length === 0" />
                             <p-button (onClick)="clearCallback()" icon="pi pi-times" [rounded]="true" [outlined]="true" severity="danger" [disabled]="!files || files.length === 0" />
                         </div>
-                        <p-progressBar [value]="totalSizePercent" [showValue]="false" styleClass="md:w-20rem h-1rem w-full md:ml-auto" [ngClass]="{ 'exceeded-progress-bar': totalSizePercent > 100 }">
+                        <p-progressBar [value]="totalSizePercent" [showValue]="false" styleClass="md:w-20rem h-1rem w-full md:ms-auto" [ngClass]="{ 'exceeded-progress-bar': totalSizePercent > 100 }">
                             <span class="white-space-nowrap">{{ totalSize }}B / 1Mb</span>
                         </p-progressBar>
                     </div>
@@ -138,7 +138,7 @@ export class TemplateDoc {
                 <p-button (onClick)="uploadEvent(uploadCallback)" icon="pi pi-cloud-upload" [rounded]="true" [outlined]="true" severity="success" [disabled]="!files || files.length === 0" />
                 <p-button (onClick)="clearCallback()" icon="pi pi-times" [rounded]="true" [outlined]="true" severity="danger" [disabled]="!files || files.length === 0" />
             </div>
-            <p-progressBar [value]="totalSizePercent" [showValue]="false" styleClass="md:w-20rem h-1rem w-full md:ml-auto" [ngClass]="{ 'exceeded-progress-bar': totalSizePercent > 100 }">
+            <p-progressBar [value]="totalSizePercent" [showValue]="false" styleClass="md:w-20rem h-1rem w-full md:ms-auto" [ngClass]="{ 'exceeded-progress-bar': totalSizePercent > 100 }">
                 <span class="white-space-nowrap">{{ totalSize }}B / 1Mb</span>
             </p-progressBar>
         </div>
@@ -191,7 +191,7 @@ export class TemplateDoc {
                     <p-button (onClick)="uploadEvent(uploadCallback)" icon="pi pi-cloud-upload" [rounded]="true" [outlined]="true" severity="success" [disabled]="!files || files.length === 0" />
                     <p-button (onClick)="clearCallback()" icon="pi pi-times" [rounded]="true" [outlined]="true" severity="danger" [disabled]="!files || files.length === 0" />
                 </div>
-                <p-progressBar [value]="totalSizePercent" [showValue]="false" styleClass="md:w-20rem h-1rem w-full md:ml-auto" [ngClass]="{ 'exceeded-progress-bar': totalSizePercent > 100 }">
+                <p-progressBar [value]="totalSizePercent" [showValue]="false" styleClass="md:w-20rem h-1rem w-full md:ms-auto" [ngClass]="{ 'exceeded-progress-bar': totalSizePercent > 100 }">
                     <span class="white-space-nowrap">{{ totalSize }}B / 1Mb</span>
                 </p-progressBar>
             </div>

@@ -13,10 +13,10 @@ import { Code } from '@domain/code';
                 <ng-template pTemplate="item" let-item let-hasSubmenu="hasSubmenu">
                     <a pRipple class="flex align-items-center p-menuitem-link">
                         <span [class]="item.icon" class="p-menuitem-icon"></span>
-                        <span class="ml-2">{{ item.label }}</span>
-                        <p-badge *ngIf="item.badge" class="ml-auto" [value]="item.badge" />
-                        <span *ngIf="item.shortcut" class="ml-auto border-1 surface-border border-round surface-100 text-xs p-1">{{ item.shortcut }}</span>
-                        <i *ngIf="hasSubmenu" class="pi pi-angle-right ml-auto text-primary"></i>
+                        <span class="ms-2">{{ item.label }}</span>
+                        <p-badge *ngIf="item.badge" class="ms-auto" [value]="item.badge" />
+                        <span *ngIf="item.shortcut" class="ms-auto border-1 surface-border border-round surface-100 text-xs p-1">{{ item.shortcut }}</span>
+                        <i *ngIf="hasSubmenu" class="pi pi-angle-right ms-auto text-primary"></i>
                     </a>
                 </ng-template>
             </p-tieredMenu>
@@ -114,12 +114,12 @@ export class TemplateDoc implements OnInit {
     <ng-template pTemplate="item" let-item let-hasSubmenu="hasSubmenu">
     <a pRipple class="flex align-items-center p-menuitem-link">
     <span [class]="item.icon" class="p-menuitem-icon"></span>
-            <span class="ml-2">{{ item.label }}</span>
-            <p-badge *ngIf="item.badge" class="ml-auto" [value]="item.badge" />
-            <span *ngIf="item.shortcut" class="ml-auto border-1 surface-border border-round surface-100 text-xs p-1">
+            <span class="ms-2">{{ item.label }}</span>
+            <p-badge *ngIf="item.badge" class="ms-auto" [value]="item.badge" />
+            <span *ngIf="item.shortcut" class="ms-auto border-1 surface-border border-round surface-100 text-xs p-1">
                 {{ item.shortcut }}
             </span>
-            <i *ngIf="hasSubmenu" class="pi pi-angle-right ml-auto text-primary"></i>
+            <i *ngIf="hasSubmenu" class="pi pi-angle-right ms-auto text-primary"></i>
         </a>
     </ng-template>
 </p-tieredMenu>`,
@@ -129,12 +129,12 @@ export class TemplateDoc implements OnInit {
         <ng-template pTemplate="item" let-item let-hasSubmenu="hasSubmenu">
         <a pRipple class="flex align-items-center p-menuitem-link">
         <span [class]="item.icon" class="p-menuitem-icon"></span>
-                <span class="ml-2">{{ item.label }}</span>
-                <p-badge *ngIf="item.badge" class="ml-auto" [value]="item.badge" />
-                <span *ngIf="item.shortcut" class="ml-auto border-1 surface-border border-round surface-100 text-xs p-1">
+                <span class="ms-2">{{ item.label }}</span>
+                <p-badge *ngIf="item.badge" class="ms-auto" [value]="item.badge" />
+                <span *ngIf="item.shortcut" class="ms-auto border-1 surface-border border-round surface-100 text-xs p-1">
                     {{ item.shortcut }}
                 </span>
-                <i *ngIf="hasSubmenu" class="pi pi-angle-right ml-auto text-primary"></i>
+                <i *ngIf="hasSubmenu" class="pi pi-angle-right ms-auto text-primary"></i>
             </a>
         </ng-template>
     </p-tieredMenu>

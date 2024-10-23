@@ -25,7 +25,7 @@ import { Code } from '@domain/code';
                     </div>
                 </ng-template>
                 <ng-template pTemplate="icons">
-                    <button class="p-panel-header-icon p-link mr-2" (click)="menu.toggle($event)">
+                    <button class="p-panel-header-icon p-link me-2" (click)="menu.toggle($event)">
                         <span class="pi pi-cog"></span>
                     </button>
                     <p-menu #menu id="config_menu" [model]="items" [popup]="true" />
@@ -66,9 +66,9 @@ export class TemplateDoc implements OnInit {
         basic: `<p-panel [toggleable]="true">
     <ng-template pTemplate="header">
         <div class="flex align-items-center gap-2">
-            <p-avatar 
-                image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" 
-                size="large" 
+            <p-avatar
+                image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"
+                size="large"
                 shape="circle" />
             <span class="font-bold">
                 Amy Elsner
@@ -87,7 +87,7 @@ export class TemplateDoc implements OnInit {
         </div>
     </ng-template>
     <ng-template pTemplate="icons">
-        <button class="p-panel-header-icon p-link mr-2" (click)="menu.toggle($event)">
+        <button class="p-panel-header-icon p-link me-2" (click)="menu.toggle($event)">
             <span class="pi pi-cog"></span>
         </button>
         <p-menu #menu id="config_menu" [model]="items" [popup]="true" />
@@ -101,9 +101,9 @@ export class TemplateDoc implements OnInit {
     <p-panel [toggleable]="true">
     <ng-template pTemplate="header">
         <div class="flex align-items-center gap-2">
-            <p-avatar 
-                image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" 
-                size="large" 
+            <p-avatar
+                image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"
+                size="large"
                 shape="circle" />
             <span class="font-bold">
                 Amy Elsner
@@ -122,7 +122,7 @@ export class TemplateDoc implements OnInit {
         </div>
     </ng-template>
     <ng-template pTemplate="icons">
-        <button class="p-panel-header-icon p-link mr-2" (click)="menu.toggle($event)">
+        <button class="p-panel-header-icon p-link me-2" (click)="menu.toggle($event)">
             <span class="pi pi-cog"></span>
         </button>
         <p-menu #menu id="config_menu" [model]="items" [popup]="true" />

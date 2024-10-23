@@ -39,9 +39,7 @@ import { PaginatorState } from './paginator.interface';
 @Component({
     selector: 'p-paginator',
     template: `
-        <div [class]="styleClass" [ngStyle]="style" [ngClass]="'p-paginator p-component'"
-             *ngIf="alwaysShow ? true : pageLinks && pageLinks.length > 1" [attr.data-pc-section]="'paginator'"
-             [attr.data-pc-section]="'root'">
+        <div [class]="styleClass" [ngStyle]="style" [ngClass]="'p-paginator p-component'" *ngIf="alwaysShow ? true : pageLinks && pageLinks.length > 1" [attr.data-pc-section]="'paginator'" [attr.data-pc-section]="'root'">
             <div class="p-paginator-left-content" *ngIf="templateLeft" [attr.data-pc-section]="'start'">
                 <ng-container *ngTemplateOutlet="templateLeft; context: { $implicit: paginatorState }"></ng-container>
             </div>
@@ -103,8 +101,7 @@ import { PaginatorState } from './paginator.interface';
                 <ng-template pTemplate="selectedItem">{{ currentPageReport }}</ng-template>
                 <ng-container *ngIf="jumpToPageItemTemplate">
                     <ng-template let-item pTemplate="item">
-                        <ng-container
-                            *ngTemplateOutlet="jumpToPageItemTemplate; context: { $implicit: item }"></ng-container>
+                        <ng-container *ngTemplateOutlet="jumpToPageItemTemplate; context: { $implicit: item }"></ng-container>
                     </ng-template>
                 </ng-container>
                 <ng-template pTemplate="dropdownicon" *ngIf="dropdownIconTemplate">
@@ -140,8 +137,7 @@ import { PaginatorState } from './paginator.interface';
                     <ng-template *ngTemplateOutlet="lastPageLinkIconTemplate"></ng-template>
                 </span>
             </button>
-            <p-inputNumber *ngIf="showJumpToPageInput" [ngModel]="currentPage()" class="p-paginator-page-input"
-                           [disabled]="empty()" (ngModelChange)="changePage($event - 1)"></p-inputNumber>
+            <p-inputNumber *ngIf="showJumpToPageInput" [ngModel]="currentPage()" class="p-paginator-page-input" [disabled]="empty()" (ngModelChange)="changePage($event - 1)"></p-inputNumber>
             <p-dropdown
                 [options]="rowsPerPageItems"
                 [(ngModel)]="rows"
@@ -155,8 +151,7 @@ import { PaginatorState } from './paginator.interface';
             >
                 <ng-container *ngIf="dropdownItemTemplate">
                     <ng-template let-item pTemplate="item">
-                        <ng-container
-                            *ngTemplateOutlet="dropdownItemTemplate; context: { $implicit: item }"></ng-container>
+                        <ng-container *ngTemplateOutlet="dropdownItemTemplate; context: { $implicit: item }"></ng-container>
                     </ng-template>
                 </ng-container>
                 <ng-template pTemplate="dropdownicon" *ngIf="dropdownIconTemplate">
@@ -332,8 +327,7 @@ export class Paginator implements OnInit, AfterContentInit, OnChanges {
     constructor(
         private cd: ChangeDetectorRef,
         private config: PrimeNGConfig
-    ) {
-    }
+    ) {}
 
     ngOnInit() {
         this.updatePaginatorState();
@@ -572,5 +566,4 @@ export class Paginator implements OnInit, AfterContentInit, OnChanges {
     exports: [Paginator, DropdownModule, InputNumberModule, FormsModule, SharedModule],
     declarations: [Paginator]
 })
-export class PaginatorModule {
-}
+export class PaginatorModule {}

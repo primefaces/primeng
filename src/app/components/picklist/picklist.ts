@@ -216,7 +216,7 @@ import {
                 </button>
                 <button type="button" [attr.aria-label]="moveAllToSourceAriaLabel" pButton pRipple class="p-button-icon-only" [disabled]="moveAllLeftDisabled()" (click)="moveAllLeft()" [attr.data-pc-section]="'moveAllToSourceButton'">
                     <ng-container *ngIf="!moveAllToSourceIconTemplate">
-                        <AngleDoubleStartIcon *ngIf="!viewChanged" [attr.data-pc-section]="'movealltosourceticon'"/>
+                        <AngleDoubleStartIcon *ngIf="!viewChanged" [attr.data-pc-section]="'movealltosourceticon'" />
                         <AngleDoubleUpIcon *ngIf="viewChanged" [attr.data-pc-section]="'movealltosourceticon'" />
                     </ng-container>
                     <ng-template *ngTemplateOutlet="moveAllToSourceIconTemplate; context: { $implicit: viewChanged }"></ng-template>

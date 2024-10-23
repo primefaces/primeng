@@ -52,9 +52,7 @@ import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
             (focus)="menuFocus.emit($event)"
             (blur)="menuBlur.emit($event)"
         >
-            <li *ngIf="submenu" [ngClass]="getSubmenuHeaderClass(submenu)" [ngStyle]="getItemProp(submenu, 'style')"
-                role="presentation">{{ getItemLabel(submenu) }}
-            </li>
+            <li *ngIf="submenu" [ngClass]="getSubmenuHeaderClass(submenu)" [ngStyle]="getItemProp(submenu, 'style')" role="presentation">{{ getItemLabel(submenu) }}</li>
             <ng-template ngFor let-processedItem [ngForOf]="items" let-index="index">
                 <li
                     *ngIf="isItemVisible(processedItem) && getItemProp(processedItem, 'separator')"
@@ -86,9 +84,7 @@ import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
                     pTooltip
                     [tooltipOptions]="getItemProp(processedItem, 'tooltipOptions')"
                 >
-                    <div class="p-menuitem-content" [attr.data-pc-section]="'content'"
-                         (click)="onItemClick($event, processedItem)"
-                         (mouseenter)="onItemMouseEnter({ $event, processedItem })">
+                    <div class="p-menuitem-content" [attr.data-pc-section]="'content'" (click)="onItemClick($event, processedItem)" (mouseenter)="onItemMouseEnter({ $event, processedItem })">
                         <ng-container *ngIf="!itemTemplate">
                             <a
                                 *ngIf="!getItemProp(processedItem, 'routerLink')"
@@ -109,36 +105,26 @@ import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
                                     [attr.tabindex]="-1"
                                 >
                                 </span>
-                                <span *ngIf="getItemProp(processedItem, 'escape'); else htmlLabel"
-                                      class="p-menuitem-text" [attr.data-pc-section]="'label'">
+                                <span *ngIf="getItemProp(processedItem, 'escape'); else htmlLabel" class="p-menuitem-text" [attr.data-pc-section]="'label'">
                                     {{ getItemLabel(processedItem) }}
                                 </span>
                                 <ng-template #htmlLabel>
-                                    <span class="p-menuitem-text" [innerHTML]="getItemLabel(processedItem)"
-                                          [attr.data-pc-section]="'label'"></span>
+                                    <span class="p-menuitem-text" [innerHTML]="getItemLabel(processedItem)" [attr.data-pc-section]="'label'"></span>
                                 </ng-template>
-                                <span class="p-menuitem-badge" *ngIf="getItemProp(processedItem, 'badge')"
-                                      [ngClass]="getItemProp(processedItem, 'badgeStyleClass')">{{ getItemProp(processedItem, 'badge') }}</span>
+                                <span class="p-menuitem-badge" *ngIf="getItemProp(processedItem, 'badge')" [ngClass]="getItemProp(processedItem, 'badgeStyleClass')">{{ getItemProp(processedItem, 'badge') }}</span>
 
                                 <ng-container *ngIf="isItemGroup(processedItem)">
                                     <ng-container *ngIf="!megaMenu.submenuIconTemplate">
                                         @switch (orientation) {
                                             @case ('horizontal') {
-                                                <AngleDownIcon
-                                                    [styleClass]="'p-submenu-icon'"
-                                                    [attr.data-pc-section]="'submenuicon'"
-                                                />
+                                                <AngleDownIcon [styleClass]="'p-submenu-icon'" [attr.data-pc-section]="'submenuicon'" />
                                             }
                                             @case ('vertical') {
-                                                <AngleEndIcon
-                                                    [styleClass]="'p-submenu-icon'"
-                                                    [attr.data-pc-section]="'submenuicon'"
-                                                />
+                                                <AngleEndIcon [styleClass]="'p-submenu-icon'" [attr.data-pc-section]="'submenuicon'" />
                                             }
                                         }
                                     </ng-container>
-                                    <ng-template *ngTemplateOutlet="megaMenu.submenuIconTemplate"
-                                                 [attr.data-pc-section]="'submenuicon'"></ng-template>
+                                    <ng-template *ngTemplateOutlet="megaMenu.submenuIconTemplate" [attr.data-pc-section]="'submenuicon'"></ng-template>
                                 </ng-container>
                             </a>
                             <a
@@ -168,43 +154,29 @@ import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
                                     [attr.data-pc-section]="'icon'"
                                     [attr.tabindex]="-1"
                                 ></span>
-                                <span class="p-menuitem-text"
-                                      *ngIf="getItemProp(processedItem, 'escape'); else htmlRouteLabel">{{ getItemLabel(processedItem) }}</span>
-                                <ng-template #htmlRouteLabel><span class="p-menuitem-text"
-                                                                   [innerHTML]="getItemLabel(processedItem)"
-                                                                   [attr.data-pc-section]="'label'"></span>
-                                </ng-template>
-                                <span class="p-menuitem-badge" *ngIf="getItemProp(processedItem, 'badge')"
-                                      [ngClass]="getItemProp(processedItem, 'badgeStyleClass')">{{ getItemProp(processedItem, 'badge') }}</span>
+                                <span class="p-menuitem-text" *ngIf="getItemProp(processedItem, 'escape'); else htmlRouteLabel">{{ getItemLabel(processedItem) }}</span>
+                                <ng-template #htmlRouteLabel><span class="p-menuitem-text" [innerHTML]="getItemLabel(processedItem)" [attr.data-pc-section]="'label'"></span> </ng-template>
+                                <span class="p-menuitem-badge" *ngIf="getItemProp(processedItem, 'badge')" [ngClass]="getItemProp(processedItem, 'badgeStyleClass')">{{ getItemProp(processedItem, 'badge') }}</span>
                                 <ng-container *ngIf="isItemGroup(processedItem)">
                                     <ng-container *ngIf="!megaMenu.submenuIconTemplate">
                                         @switch (orientation) {
                                             @case ('horizontal') {
-                                                <AngleDownIcon
-                                                    [styleClass]="'p-submenu-icon'"
-                                                    [attr.data-pc-section]="'submenuicon'"
-                                                />
+                                                <AngleDownIcon [styleClass]="'p-submenu-icon'" [attr.data-pc-section]="'submenuicon'" />
                                             }
                                             @case ('vertical') {
-                                                <AngleDownIcon
-                                                    [styleClass]="'p-submenu-icon'"
-                                                    [attr.data-pc-section]="'submenuicon'"
-                                                />
+                                                <AngleDownIcon [styleClass]="'p-submenu-icon'" [attr.data-pc-section]="'submenuicon'" />
                                             }
                                         }
                                     </ng-container>
-                                    <ng-template *ngTemplateOutlet="megaMenu.submenuIconTemplate"
-                                                 [attr.data-pc-section]="'submenuicon'"></ng-template>
+                                    <ng-template *ngTemplateOutlet="megaMenu.submenuIconTemplate" [attr.data-pc-section]="'submenuicon'"></ng-template>
                                 </ng-container>
                             </a>
                         </ng-container>
                         <ng-container *ngIf="itemTemplate">
-                            <ng-template
-                                *ngTemplateOutlet="itemTemplate; context: { $implicit: processedItem.item }"></ng-template>
+                            <ng-template *ngTemplateOutlet="itemTemplate; context: { $implicit: processedItem.item }"></ng-template>
                         </ng-container>
                     </div>
-                    <div *ngIf="isItemVisible(processedItem) && isItemGroup(processedItem)" class="p-megamenu-panel"
-                         [attr.data-pc-section]="'panel'">
+                    <div *ngIf="isItemVisible(processedItem) && isItemGroup(processedItem)" class="p-megamenu-panel" [attr.data-pc-section]="'panel'">
                         <div class="p-megamenu-grid" [attr.data-pc-section]="'grid'">
                             <div *ngFor="let col of processedItem.items" [ngClass]="getColumnClass(processedItem)">
                                 <p-megaMenuSub

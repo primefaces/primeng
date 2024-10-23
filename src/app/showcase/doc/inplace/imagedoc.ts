@@ -12,7 +12,7 @@ import { Code } from '@domain/code';
                 <ng-template pTemplate="display">
                     <div class="inline-flex align-items-center">
                         <span class="pi pi-image" style="vertical-align: middle"></span>
-                        <span class="ml-2">View Picture</span>
+                        <span class="ms-2">View Picture</span>
                     </div>
                 </ng-template>
                 <ng-template pTemplate="content">
@@ -29,12 +29,12 @@ export class ImageDoc {
     <ng-template pTemplate="display">
         <div class="inline-flex align-items-center">
             <span class="pi pi-image" style="vertical-align: middle"></span>
-            <span class="ml-2">View Picture</span>
+            <span class="ms-2">View Picture</span>
         </div>
     </ng-template>
     <ng-template pTemplate="content">
-        <img 
-            src="https://primefaces.org/cdn/primeng/images/demo/galleria/galleria5.jpg" 
+        <img
+            src="https://primefaces.org/cdn/primeng/images/demo/galleria/galleria5.jpg"
             alt="Nature" />
     </ng-template>
 </p-inplace>`,
@@ -43,12 +43,12 @@ export class ImageDoc {
         <ng-template pTemplate="display">
             <div class="inline-flex align-items-center">
                 <span class="pi pi-image" style="vertical-align: middle"></span>
-                <span class="ml-2">View Picture</span>
+                <span class="ms-2">View Picture</span>
             </div>
         </ng-template>
         <ng-template pTemplate="content">
-            <img 
-                src="https://primefaces.org/cdn/primeng/images/demo/galleria/galleria5.jpg" 
+            <img
+                src="https://primefaces.org/cdn/primeng/images/demo/galleria/galleria5.jpg"
                 alt="Nature" />
         </ng-template>
     </p-inplace>

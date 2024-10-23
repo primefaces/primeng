@@ -27,18 +27,18 @@ import { Code } from '@domain/code';
             <div class="w-full xl:w-6 p-3">
                 <h5 class="mt-3">Square</h5>
                 <div class="flex align-items-end">
-                    <p-skeleton size="2rem" styleClass="mr-2" />
-                    <p-skeleton size="3rem" styleClass="mr-2" />
-                    <p-skeleton size="4rem" styleClass="mr-2" />
+                    <p-skeleton size="2rem" styleClass="me-2" />
+                    <p-skeleton size="3rem" styleClass="me-2" />
+                    <p-skeleton size="4rem" styleClass="me-2" />
                     <p-skeleton size="5rem" />
                 </div>
             </div>
             <div class="field w-full xl:w-6 p-3">
                 <h5 class="mt-3">Circle</h5>
                 <div class="flex align-items-end">
-                    <p-skeleton shape="circle" size="2rem" styleClass="mr-2" />
-                    <p-skeleton shape="circle" size="3rem" styleClass="mr-2" />
-                    <p-skeleton shape="circle" size="4rem" styleClass="mr-2" />
+                    <p-skeleton shape="circle" size="2rem" styleClass="me-2" />
+                    <p-skeleton shape="circle" size="3rem" styleClass="me-2" />
+                    <p-skeleton shape="circle" size="4rem" styleClass="me-2" />
                     <p-skeleton shape="circle" size="5rem" />
                 </div>
             </div>
@@ -63,15 +63,15 @@ export class ShapesDoc {
 <p-skeleton width="10rem" height="4rem" borderRadius="16px" />
 
 <h5 class="mt-3">Square</h5>
-<p-skeleton size="2rem" styleClass="mr-2" />
-<p-skeleton size="3rem" styleClass="mr-2" />
-<p-skeleton size="4rem" styleClass="mr-2" />
+<p-skeleton size="2rem" styleClass="me-2" />
+<p-skeleton size="3rem" styleClass="me-2" />
+<p-skeleton size="4rem" styleClass="me-2" />
 <p-skeleton size="5rem" />
 
 <h5 class="mt-3">Circle</h5>
-<p-skeleton shape="circle" size="2rem" styleClass="mr-2" />
-<p-skeleton shape="circle" size="3rem" styleClass="mr-2" />
-<p-skeleton shape="circle" size="4rem" styleClass="mr-2" />
+<p-skeleton shape="circle" size="2rem" styleClass="me-2" />
+<p-skeleton shape="circle" size="3rem" styleClass="me-2" />
+<p-skeleton shape="circle" size="4rem" styleClass="me-2" />
 <p-skeleton shape="circle" size="5rem" />`,
         html: `<div class="grid grid-nogutter">
     <div class="w-full xl:w-6 p-3">
@@ -93,18 +93,18 @@ export class ShapesDoc {
     <div class="w-full xl:w-6 p-3">
         <h5 class="mt-3">Square</h5>
         <div class="flex align-items-end">
-            <p-skeleton size="2rem" styleClass="mr-2" />
-            <p-skeleton size="3rem" styleClass="mr-2" />
-            <p-skeleton size="4rem" styleClass="mr-2" />
+            <p-skeleton size="2rem" styleClass="me-2" />
+            <p-skeleton size="3rem" styleClass="me-2" />
+            <p-skeleton size="4rem" styleClass="me-2" />
             <p-skeleton size="5rem" />
         </div>
     </div>
     <div class="field w-full xl:w-6 p-3">
         <h5 class="mt-3">Circle</h5>
         <div class="flex align-items-end">
-            <p-skeleton shape="circle" size="2rem" styleClass="mr-2" />
-            <p-skeleton shape="circle" size="3rem" styleClass="mr-2" />
-            <p-skeleton shape="circle" size="4rem" styleClass="mr-2" />
+            <p-skeleton shape="circle" size="2rem" styleClass="me-2" />
+            <p-skeleton shape="circle" size="3rem" styleClass="me-2" />
+            <p-skeleton shape="circle" size="4rem" styleClass="me-2" />
             <p-skeleton shape="circle" size="5rem" />
         </div>
     </div>

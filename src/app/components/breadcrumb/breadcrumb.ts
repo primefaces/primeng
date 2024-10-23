@@ -1,17 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {
-    AfterContentInit,
-    ChangeDetectionStrategy,
-    Component,
-    ContentChildren,
-    EventEmitter,
-    Input,
-    NgModule,
-    Output,
-    QueryList,
-    TemplateRef,
-    ViewEncapsulation
-} from '@angular/core';
+import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChildren, EventEmitter, Input, NgModule, Output, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { MenuItem, PrimeTemplate, SharedModule } from 'primeng/api';
 import { ChevronEndIcon } from 'primeng/icons/chevronend';
@@ -205,8 +193,7 @@ export class Breadcrumb implements AfterContentInit {
 
     itemTemplate: TemplateRef<any> | undefined;
 
-    constructor(
-        private router: Router) {}
+    constructor(private router: Router) {}
 
     onClick(event: MouseEvent, item: MenuItem) {
         if (item.disabled) {

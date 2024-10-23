@@ -15,7 +15,7 @@ import { CustomerService } from '../../service/customerservice';
                     <ng-template pTemplate="caption">
                         <div class="flex">
                             <p-button label="Clear" [outlined]="true" icon="pi pi-filter-slash" (onClick)="clear(dt1)" />
-                            <span class="p-input-icon-left ml-auto">
+                            <span class="p-input-icon-left ms-auto">
                                 <i class="pi pi-search"></i>
                                 <input pInputText type="text" [(ngModel)]="searchValue" (input)="dt1.filterGlobal($event.target.value, 'contains')" placeholder="Search keyword" />
                             </span>
@@ -49,7 +49,7 @@ import { CustomerService } from '../../service/customerservice';
                                                 <ng-template let-option pTemplate="item">
                                                     <div class="inline-block vertical-align-middle">
                                                         <img [alt]="option.label" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ option.image }}" width="24" class="vertical-align-middle" />
-                                                        <span class="ml-1 mt-1">{{ option.name }}</span>
+                                                        <span class="ms-1 mt-1">{{ option.name }}</span>
                                                     </div>
                                                 </ng-template>
                                             </p-multiSelect>
@@ -112,11 +112,11 @@ import { CustomerService } from '../../service/customerservice';
                             </td>
                             <td>
                                 <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px" />
-                                <span class="ml-1 vertical-align-middle">{{ customer.country.name }}</span>
+                                <span class="ms-1 vertical-align-middle">{{ customer.country.name }}</span>
                             </td>
                             <td>
                                 <img [alt]="customer.representative.name" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}" width="32" style="vertical-align: middle" />
-                                <span class="ml-1 vertical-align-middle">{{ customer.representative.name }}</span>
+                                <span class="ms-1 vertical-align-middle">{{ customer.representative.name }}</span>
                             </td>
                             <td>
                                 {{ customer.date | date: 'MM/dd/yyyy' }}
@@ -234,7 +234,7 @@ export class FilterAdvancedDoc {
     <ng-template pTemplate="caption">
         <div class="flex">
             <p-button label="Clear" [outlined]="true" icon="pi pi-filter-slash" (onClick)="clear(dt1)" />
-            <span class="p-input-icon-left ml-auto">
+            <span class="p-input-icon-left ms-auto">
                 <i class="pi pi-search"></i>
                 <input pInputText type="text" [(ngModel)]="searchValue" (input)="dt1.filterGlobal($event.target.value, 'contains')" placeholder="Search keyword" />
             </span>
@@ -268,7 +268,7 @@ export class FilterAdvancedDoc {
                                 <ng-template let-option pTemplate="item">
                                     <div class="inline-block vertical-align-middle">
                                         <img [alt]="option.label" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ option.image }}" width="24" class="vertical-align-middle" />
-                                        <span class="ml-1 mt-1">{{ option.name }}</span>
+                                        <span class="ms-1 mt-1">{{ option.name }}</span>
                                     </div>
                                 </ng-template>
                             </p-multiSelect>
@@ -331,11 +331,11 @@ export class FilterAdvancedDoc {
             </td>
             <td>
                 <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px" />
-                <span class="ml-1 vertical-align-middle">{{ customer.country.name }}</span>
+                <span class="ms-1 vertical-align-middle">{{ customer.country.name }}</span>
             </td>
             <td>
                 <img [alt]="customer.representative.name" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}" width="32" style="vertical-align: middle" />
-                <span class="ml-1 vertical-align-middle">{{ customer.representative.name }}</span>
+                <span class="ms-1 vertical-align-middle">{{ customer.representative.name }}</span>
             </td>
             <td>
                 {{ customer.date | date: 'MM/dd/yyyy' }}
@@ -374,7 +374,7 @@ export class FilterAdvancedDoc {
         <ng-template pTemplate="caption">
             <div class="flex">
                 <p-button label="Clear" [outlined]="true" icon="pi pi-filter-slash" (onClick)="clear(dt1)" />
-                <span class="p-input-icon-left ml-auto">
+                <span class="p-input-icon-left ms-auto">
                     <i class="pi pi-search"></i>
                     <input pInputText type="text" [(ngModel)]="searchValue" (input)="dt1.filterGlobal($event.target.value, 'contains')" placeholder="Search keyword" />
                 </span>
@@ -408,7 +408,7 @@ export class FilterAdvancedDoc {
                                     <ng-template let-option pTemplate="item">
                                         <div class="inline-block vertical-align-middle">
                                             <img [alt]="option.label" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ option.image }}" width="24" class="vertical-align-middle" />
-                                            <span class="ml-1 mt-1">{{ option.name }}</span>
+                                            <span class="ms-1 mt-1">{{ option.name }}</span>
                                         </div>
                                     </ng-template>
                                 </p-multiSelect>
@@ -471,11 +471,11 @@ export class FilterAdvancedDoc {
                 </td>
                 <td>
                     <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px" />
-                    <span class="ml-1 vertical-align-middle">{{ customer.country.name }}</span>
+                    <span class="ms-1 vertical-align-middle">{{ customer.country.name }}</span>
                 </td>
                 <td>
                     <img [alt]="customer.representative.name" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}" width="32" style="vertical-align: middle" />
-                    <span class="ml-1 vertical-align-middle">{{ customer.representative.name }}</span>
+                    <span class="ms-1 vertical-align-middle">{{ customer.representative.name }}</span>
                 </td>
                 <td>
                     {{ customer.date | date: 'MM/dd/yyyy' }}
@@ -510,7 +510,7 @@ import { CustomerService } from '../service/customerservice';
     selector: 'table-filter-advanced-demo',
     templateUrl: 'table-filter-advanced-demo.html',
     standalone: true,
-    imports: [TableModule, HttpClientModule, CommonModule, InputTextModule, TagModule, 
+    imports: [TableModule, HttpClientModule, CommonModule, InputTextModule, TagModule,
     DropdownModule, MultiSelectModule, ProgressBarModule, ButtonModule ],
     providers: [CustomerService]
 })
@@ -589,7 +589,7 @@ export class TableFilterAdvancedDemo implements OnInit {
     .p-progressbar {
         height: .5rem;
         background-color: #D8DADC;
-    
+
         .p-progressbar-value {
             background-color: #607D8B;
         }

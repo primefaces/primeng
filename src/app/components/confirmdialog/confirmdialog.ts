@@ -326,12 +326,12 @@ export class ConfirmDialog implements AfterContentInit, OnInit, OnDestroy {
             case 'top-start':
             case 'bottom-start':
             case 'start':
-                this.transformOptions = DomHandler.documentIsLTR() ? 'translate3d(-100%, 0px, 0px)' : this.transformOptions = 'translate3d(100%, 0px, 0px)';
+                this.transformOptions = DomHandler.documentIsLTR() ? 'translate3d(-100%, 0px, 0px)' : (this.transformOptions = 'translate3d(100%, 0px, 0px)');
                 break;
             case 'top-end':
             case 'bottom-end':
             case 'end':
-                this.transformOptions = DomHandler.documentIsLTR() ? 'translate3d(100%, 0px, 0px)' : this.transformOptions = 'translate3d(-100%, 0px, 0px)';
+                this.transformOptions = DomHandler.documentIsLTR() ? 'translate3d(100%, 0px, 0px)' : (this.transformOptions = 'translate3d(-100%, 0px, 0px)');
                 break;
             case 'bottom':
                 this.transformOptions = 'translate3d(0px, 100%, 0px)';

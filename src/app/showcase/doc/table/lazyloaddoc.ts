@@ -59,7 +59,7 @@ import { CustomerService } from '@service/customerservice';
                                             <ng-template let-option pTemplate="item">
                                                 <div class="inline-block vertical-align-middle">
                                                     <img [alt]="option.label" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ option.image }}" width="24" class="vertical-align-middle" />
-                                                    <span class="ml-1 mt-1">{{ option.name }}</span>
+                                                    <span class="ms-1 mt-1">{{ option.name }}</span>
                                                 </div>
                                             </ng-template>
                                         </p-multiSelect>
@@ -207,7 +207,7 @@ export class LazyLoadDoc implements OnInit {
                             <ng-template let-option pTemplate="item">
                                 <div class="inline-block vertical-align-middle">
                                     <img [alt]="option.label" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ option.image }}" width="24" class="vertical-align-middle" />
-                                    <span class="ml-1 mt-1">{{ option.name }}</span>
+                                    <span class="ms-1 mt-1">{{ option.name }}</span>
                                 </div>
                             </ng-template>
                         </p-multiSelect>
@@ -273,7 +273,7 @@ export class LazyLoadDoc implements OnInit {
                                 <ng-template let-option pTemplate="item">
                                     <div class="inline-block vertical-align-middle">
                                         <img [alt]="option.label" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ option.image }}" width="24" class="vertical-align-middle" />
-                                        <span class="ml-1 mt-1">{{ option.name }}</span>
+                                        <span class="ms-1 mt-1">{{ option.name }}</span>
                                     </div>
                                 </ng-template>
                             </p-multiSelect>

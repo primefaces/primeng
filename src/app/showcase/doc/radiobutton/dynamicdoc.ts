@@ -11,7 +11,7 @@ import { Code } from '@domain/code';
             <div class="flex flex-column gap-3">
                 <div *ngFor="let category of categories" class="field-checkbox">
                     <p-radioButton [inputId]="category.key" name="category" [value]="category" [(ngModel)]="selectedCategory" />
-                    <label [for]="category.key" class="ml-2">{{ category.name }}</label>
+                    <label [for]="category.key" class="ms-2">{{ category.name }}</label>
                 </div>
             </div>
         </div>
@@ -35,12 +35,12 @@ export class DynamicDoc implements OnInit {
     code: Code = {
         basic: `<div class="flex flex-column gap-3">
     <div *ngFor="let category of categories" class="field-checkbox">
-        <p-radioButton 
+        <p-radioButton
             [inputId]="category.key"
-            name="category" 
-            [value]="category" 
+            name="category"
+            [value]="category"
             [(ngModel)]="selectedCategory" />
-        <label [for]="category.key" class="ml-2">
+        <label [for]="category.key" class="ms-2">
             {{ category.name }}
         </label>
     </div>
@@ -49,12 +49,12 @@ export class DynamicDoc implements OnInit {
         html: `<div class="card flex justify-content-center">
     <div class="flex flex-column gap-3">
         <div *ngFor="let category of categories" class="field-checkbox">
-            <p-radioButton 
-                [inputId]="category.key" 
-                name="category" 
-                [value]="category" 
+            <p-radioButton
+                [inputId]="category.key"
+                name="category"
+                [value]="category"
                 [(ngModel)]="selectedCategory" />
-            <label [for]="category.key" class="ml-2">
+            <label [for]="category.key" class="ms-2">
                 {{ category.name }}
             </label>
         </div>

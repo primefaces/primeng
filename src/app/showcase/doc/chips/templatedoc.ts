@@ -9,7 +9,7 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card p-fluid">
             <p-chips [(ngModel)]="values">
-                <ng-template let-item pTemplate="item"> {{ item }} - (active) <i class="pi pi-user ml-2"></i></ng-template>
+                <ng-template let-item pTemplate="item"> {{ item }} - (active) <i class="pi pi-user ms-2"></i></ng-template>
             </p-chips>
         </div>
         <app-code [code]="code" selector="chips-template-demo"></app-code>
@@ -21,14 +21,14 @@ export class TemplateDoc {
     code: Code = {
         basic: `<p-chips [(ngModel)]="values">
     <ng-template let-item pTemplate="item">
-        {{ item }} - (active) <i class="pi pi-user ml-2"></i> 
+        {{ item }} - (active) <i class="pi pi-user ms-2"></i>
      </ng-template>
 </p-chips>`,
 
         html: `<div class="card p-fluid">
     <p-chips [(ngModel)]="values">
         <ng-template let-item pTemplate="item">
-            {{ item }} - (active) <i class="pi pi-user ml-2"></i>
+            {{ item }} - (active) <i class="pi pi-user ms-2"></i>
         </ng-template>
     </p-chips>
 </div>`,

@@ -10,7 +10,7 @@ import { Code } from '@domain/code';
         <div class="card">
             <div class="border-round border-1 surface-border p-4 surface-card">
                 <div class="flex mb-3">
-                    <p-skeleton shape="circle" size="4rem" styleClass="mr-2" />
+                    <p-skeleton shape="circle" size="4rem" styleClass="me-2" />
                     <div>
                         <p-skeleton width="10rem" styleClass="mb-2" />
                         <p-skeleton width="5rem" styleClass="mb-2" />
@@ -31,7 +31,7 @@ export class CardDoc {
     code: Code = {
         basic: `<div class="border-round border-1 surface-border p-4 surface-card">
     <div class="flex mb-3">
-        <p-skeleton shape="circle" size="4rem" styleClass="mr-2" />
+        <p-skeleton shape="circle" size="4rem" styleClass="me-2" />
         <div>
             <p-skeleton width="10rem" styleClass="mb-2" />
             <p-skeleton width="5rem" styleClass="mb-2" />
@@ -47,7 +47,7 @@ export class CardDoc {
         html: `<div class="card">
     <div class="border-round border-1 surface-border p-4 surface-card">
         <div class="flex mb-3">
-            <p-skeleton shape="circle" size="4rem" styleClass="mr-2" />
+            <p-skeleton shape="circle" size="4rem" styleClass="me-2" />
             <div>
                 <p-skeleton width="10rem" styleClass="mb-2" />
                 <p-skeleton width="5rem" styleClass="mb-2" />

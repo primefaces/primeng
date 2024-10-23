@@ -41,9 +41,7 @@ import { DomHandler } from 'primeng/dom';
 @Component({
     selector: 'p-carousel',
     template: `
-        <div [attr.id]="id"
-             [ngClass]="{ 'p-carousel p-component': true, 'p-carousel-vertical': isVertical(), 'p-carousel-horizontal': !isVertical() }"
-             [ngStyle]="style" [class]="styleClass" role="region">
+        <div [attr.id]="id" [ngClass]="{ 'p-carousel p-component': true, 'p-carousel-vertical': isVertical(), 'p-carousel-horizontal': !isVertical() }" [ngStyle]="style" [class]="styleClass" role="region">
             <div class="p-carousel-header" *ngIf="headerFacet || headerTemplate">
                 <ng-content select="p-header"></ng-content>
                 <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
@@ -67,10 +65,7 @@ import { DomHandler } from 'primeng/dom';
                             <ng-template *ngTemplateOutlet="previousIconTemplate"></ng-template>
                         </span>
                     </button>
-                    <div class="p-carousel-items-content"
-                         [ngStyle]="{ height: isVertical() ? verticalViewPortHeight : 'auto' }"
-                         (touchend)="onTouchEnd($event)" (touchstart)="onTouchStart($event)"
-                         (touchmove)="onTouchMove($event)">
+                    <div class="p-carousel-items-content" [ngStyle]="{ height: isVertical() ? verticalViewPortHeight : 'auto' }" (touchend)="onTouchEnd($event)" (touchstart)="onTouchStart($event)" (touchmove)="onTouchMove($event)">
                         <div #itemsContainer class="p-carousel-items-container" (transitionend)="onTransitionEnd()">
                             <div
                                 *ngFor="let item of clonedItemsForStarting; let index = index"
@@ -84,8 +79,7 @@ import { DomHandler } from 'primeng/dom';
                                 [attr.aria-label]="ariaSlideNumber(index)"
                                 [attr.aria-roledescription]="ariaSlideLabel()"
                             >
-                                <ng-container
-                                    *ngTemplateOutlet="itemTemplate; context: { $implicit: item }"></ng-container>
+                                <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: item }"></ng-container>
                             </div>
                             <div
                                 *ngFor="let item of value; let index = index"
@@ -94,8 +88,7 @@ import { DomHandler } from 'primeng/dom';
                                 [attr.aria-label]="ariaSlideNumber(index)"
                                 [attr.aria-roledescription]="ariaSlideLabel()"
                             >
-                                <ng-container
-                                    *ngTemplateOutlet="itemTemplate; context: { $implicit: item }"></ng-container>
+                                <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: item }"></ng-container>
                             </div>
                             <div
                                 *ngFor="let item of clonedItemsForFinishing; let index = index"
@@ -106,8 +99,7 @@ import { DomHandler } from 'primeng/dom';
                                     'p-carousel-item-end': clonedItemsForFinishing.length - 1 === index
                                 }"
                             >
-                                <ng-container
-                                    *ngTemplateOutlet="itemTemplate; context: { $implicit: item }"></ng-container>
+                                <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: item }"></ng-container>
                             </div>
                         </div>
                     </div>
@@ -129,11 +121,8 @@ import { DomHandler } from 'primeng/dom';
                         </span>
                     </button>
                 </div>
-                <ul #indicatorContent [ngClass]="'p-carousel-indicators p-reset'" [class]="indicatorsContentClass"
-                    [ngStyle]="indicatorsContentStyle" *ngIf="showIndicators" (keydown)="onIndicatorKeydown($event)">
-                    <li *ngFor="let totalDot of totalDotsArray(); let i = index"
-                        [ngClass]="{ 'p-carousel-indicator': true, 'p-highlight': _page === i }"
-                        [attr.data-pc-section]="'indicator'">
+                <ul #indicatorContent [ngClass]="'p-carousel-indicators p-reset'" [class]="indicatorsContentClass" [ngStyle]="indicatorsContentStyle" *ngIf="showIndicators" (keydown)="onIndicatorKeydown($event)">
+                    <li *ngFor="let totalDot of totalDotsArray(); let i = index" [ngClass]="{ 'p-carousel-indicator': true, 'p-highlight': _page === i }" [attr.data-pc-section]="'indicator'">
                         <button
                             type="button"
                             [ngClass]="'p-link'"
@@ -826,8 +815,6 @@ export class Carousel implements AfterContentInit {
             this.isRemainingItemsAdded = true;
         }
 
-
-
         if (this.itemsContainer) {
             this.itemsContainer.nativeElement.style.transform = this.calcTransfer(totalShiftedItems);
             this.itemsContainer.nativeElement.style.transition = 'transform 500ms ease 0s';
@@ -842,12 +829,10 @@ export class Carousel implements AfterContentInit {
     }
 
     private calcTransfer(totalShiftedItems: number): string {
-        if (this.isVertical())
-            return `translate3d(0, ${totalShiftedItems * (100 / this._numVisible)}%, 0)`;
+        if (this.isVertical()) return `translate3d(0, ${totalShiftedItems * (100 / this._numVisible)}%, 0)`;
 
         let horizontalTransform = totalShiftedItems * (100 / this._numVisible);
-        if (DomHandler.documentIsRTL() && horizontalTransform != 0)
-            horizontalTransform *= -1;
+        if (DomHandler.documentIsRTL() && horizontalTransform != 0) horizontalTransform *= -1;
         return `translate3d(${horizontalTransform}%, 0, 0)`;
     }
 
@@ -885,7 +870,7 @@ export class Carousel implements AfterContentInit {
             this.itemsContainer.nativeElement.style.transition = '';
 
             if ((this.page === 0 || this.page === this.totalDots() - 1) && this.isCircular()) {
-                this.itemsContainer.nativeElement.style.transform = this.calcTransfer(this.totalShiftedItems)
+                this.itemsContainer.nativeElement.style.transform = this.calcTransfer(this.totalShiftedItems);
             }
         }
     }
@@ -979,5 +964,4 @@ export class Carousel implements AfterContentInit {
     exports: [CommonModule, Carousel, SharedModule],
     declarations: [Carousel]
 })
-export class CarouselModule {
-}
+export class CarouselModule {}

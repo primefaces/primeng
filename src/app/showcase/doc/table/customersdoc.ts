@@ -46,21 +46,21 @@ import { Table } from 'primeng/table';
                                 <div class="flex justify-content-between align-items-center">
                                     Name
                                     <p-sortIcon field="name" />
-                                    <p-columnFilter type="text" field="name" display="menu" class="ml-auto" />
+                                    <p-columnFilter type="text" field="name" display="menu" class="ms-auto" />
                                 </div>
                             </th>
                             <th pSortableColumn="country.name" style="min-width: 14rem">
                                 <div class="flex justify-content-between align-items-center">
                                     Country
                                     <p-sortIcon field="country.name" />
-                                    <p-columnFilter type="text" field="country.name" display="menu" class="ml-auto" />
+                                    <p-columnFilter type="text" field="country.name" display="menu" class="ms-auto" />
                                 </div>
                             </th>
                             <th pSortableColumn="representative.name" style="min-width: 14rem">
                                 <div class="flex justify-content-between align-items-center">
                                     Agent
                                     <p-sortIcon field="representative.name" />
-                                    <p-columnFilter field="representative" matchMode="in" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false" class="ml-auto">
+                                    <p-columnFilter field="representative" matchMode="in" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false" class="ms-auto">
                                         <ng-template pTemplate="header">
                                             <div class="px-3 pt-3 pb-0">
                                                 <span class="font-bold">Agent Picker</span>
@@ -71,7 +71,7 @@ import { Table } from 'primeng/table';
                                                 <ng-template let-option pTemplate="item">
                                                     <div class="inline-block vertical-align-middle">
                                                         <img [alt]="option.label" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ option.image }}" width="24" class="vertical-align-middle" />
-                                                        <span class="ml-1 mt-1">{{ option.name }}</span>
+                                                        <span class="ms-1 mt-1">{{ option.name }}</span>
                                                     </div>
                                                 </ng-template>
                                             </p-multiSelect>
@@ -83,21 +83,21 @@ import { Table } from 'primeng/table';
                                 <div class="flex justify-content-between align-items-center">
                                     Date
                                     <p-sortIcon field="date" />
-                                    <p-columnFilter type="date" field="date" display="menu" class="ml-auto" />
+                                    <p-columnFilter type="date" field="date" display="menu" class="ms-auto" />
                                 </div>
                             </th>
                             <th pSortableColumn="balance" style="min-width: 10rem">
                                 <div class="flex justify-content-between align-items-center">
                                     Balance
                                     <p-sortIcon field="balance" />
-                                    <p-columnFilter type="numeric" field="balance" display="menu" currency="USD" class="ml-auto" />
+                                    <p-columnFilter type="numeric" field="balance" display="menu" currency="USD" class="ms-auto" />
                                 </div>
                             </th>
                             <th pSortableColumn="status" style="min-width: 10rem">
                                 <div class="flex justify-content-between align-items-center">
                                     Status
                                     <p-sortIcon field="status" />
-                                    <p-columnFilter field="status" matchMode="equals" display="menu" class="ml-auto">
+                                    <p-columnFilter field="status" matchMode="equals" display="menu" class="ms-auto">
                                         <ng-template pTemplate="filter" let-value let-filter="filterCallback">
                                             <p-dropdown [ngModel]="value" [options]="statuses" (onChange)="filter($event.value)" placeholder="Any">
                                                 <ng-template let-option pTemplate="item">
@@ -112,7 +112,7 @@ import { Table } from 'primeng/table';
                                 <div class="flex justify-content-between align-items-center">
                                     Activity
                                     <p-sortIcon field="activity" />
-                                    <p-columnFilter field="activity" matchMode="between" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false" class="ml-auto">
+                                    <p-columnFilter field="activity" matchMode="between" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false" class="ms-auto">
                                         <ng-template pTemplate="filter" let-filter="filterCallback">
                                             <p-slider [(ngModel)]="activityValues" [range]="true" (onSlideEnd)="filter($event.values)" styleClass="m-3"></p-slider>
                                             <div class="flex align-items-center justify-content-between px-2">
@@ -138,12 +138,12 @@ import { Table } from 'primeng/table';
                             <td>
                                 <span class="p-column-title">Country</span>
                                 <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px" />
-                                <span class="ml-1 vertical-align-middle">{{ customer.country.name }}</span>
+                                <span class="ms-1 vertical-align-middle">{{ customer.country.name }}</span>
                             </td>
                             <td>
                                 <span class="p-column-title">Representative</span>
                                 <img [alt]="customer.representative.name" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}" width="32" style="vertical-align: middle" />
-                                <span class="ml-1 vertical-align-middle">{{ customer.representative.name }}</span>
+                                <span class="ms-1 vertical-align-middle">{{ customer.representative.name }}</span>
                             </td>
                             <td>
                                 <span class="p-column-title">Date</span>
@@ -289,21 +289,21 @@ export class CustomersDoc {
                 <div class="flex justify-content-between align-items-center">
                     Name
                     <p-sortIcon field="name" />
-                    <p-columnFilter type="text" field="name" display="menu" class="ml-auto" />
+                    <p-columnFilter type="text" field="name" display="menu" class="ms-auto" />
                 </div>
             </th>
             <th pSortableColumn="country.name" style="min-width: 14rem">
                 <div class="flex justify-content-between align-items-center">
                     Country
                     <p-sortIcon field="country.name" />
-                    <p-columnFilter type="text" field="country.name" display="menu" class="ml-auto" />
+                    <p-columnFilter type="text" field="country.name" display="menu" class="ms-auto" />
                 </div>
             </th>
             <th pSortableColumn="representative.name" style="min-width: 14rem">
                 <div class="flex justify-content-between align-items-center">
                     Agent
                     <p-sortIcon field="representative.name" />
-                    <p-columnFilter field="representative" matchMode="in" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false" class="ml-auto">
+                    <p-columnFilter field="representative" matchMode="in" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false" class="ms-auto">
                         <ng-template pTemplate="header">
                             <div class="px-3 pt-3 pb-0">
                                 <span class="font-bold">Agent Picker</span>
@@ -314,7 +314,7 @@ export class CustomersDoc {
                                 <ng-template let-option pTemplate="item">
                                     <div class="inline-block vertical-align-middle">
                                         <img [alt]="option.label" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ option.image }}" width="24" class="vertical-align-middle" />
-                                        <span class="ml-1 mt-1">{{ option.name }}</span>
+                                        <span class="ms-1 mt-1">{{ option.name }}</span>
                                     </div>
                                 </ng-template>
                             </p-multiSelect>
@@ -326,21 +326,21 @@ export class CustomersDoc {
                 <div class="flex justify-content-between align-items-center">
                     Date
                     <p-sortIcon field="date" />
-                    <p-columnFilter type="date" field="date" display="menu" class="ml-auto" />
+                    <p-columnFilter type="date" field="date" display="menu" class="ms-auto" />
                 </div>
             </th>
             <th pSortableColumn="balance" style="min-width: 10rem">
                 <div class="flex justify-content-between align-items-center">
                     Balance
                     <p-sortIcon field="balance" />
-                    <p-columnFilter type="numeric" field="balance" display="menu" currency="USD" class="ml-auto" />
+                    <p-columnFilter type="numeric" field="balance" display="menu" currency="USD" class="ms-auto" />
                 </div>
             </th>
             <th pSortableColumn="status" style="min-width: 10rem">
                 <div class="flex justify-content-between align-items-center">
                     Status
                     <p-sortIcon field="status" />
-                    <p-columnFilter field="status" matchMode="equals" display="menu" class="ml-auto">
+                    <p-columnFilter field="status" matchMode="equals" display="menu" class="ms-auto">
                         <ng-template pTemplate="filter" let-value let-filter="filterCallback">
                             <p-dropdown [ngModel]="value" [options]="statuses" (onChange)="filter($event.value)" placeholder="Any">
                                 <ng-template let-option pTemplate="item">
@@ -355,7 +355,7 @@ export class CustomersDoc {
                 <div class="flex justify-content-between align-items-center">
                     Activity
                     <p-sortIcon field="activity" />
-                    <p-columnFilter field="activity" matchMode="between" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false" class="ml-auto">
+                    <p-columnFilter field="activity" matchMode="between" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false" class="ms-auto">
                         <ng-template pTemplate="filter" let-filter="filterCallback">
                             <p-slider [(ngModel)]="activityValues" [range]="true" (onSlideEnd)="filter($event.values)" styleClass="m-3"></p-slider>
                             <div class="flex align-items-center justify-content-between px-2">
@@ -381,12 +381,12 @@ export class CustomersDoc {
             <td>
                 <span class="p-column-title">Country</span>
                 <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px" />
-                <span class="ml-1 vertical-align-middle">{{ customer.country.name }}</span>
+                <span class="ms-1 vertical-align-middle">{{ customer.country.name }}</span>
             </td>
             <td>
                 <span class="p-column-title">Representative</span>
                 <img [alt]="customer.representative.name" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}" width="32" style="vertical-align: middle" />
-                <span class="ml-1 vertical-align-middle">{{ customer.representative.name }}</span>
+                <span class="ms-1 vertical-align-middle">{{ customer.representative.name }}</span>
             </td>
             <td>
                 <span class="p-column-title">Date</span>
@@ -451,21 +451,21 @@ export class CustomersDoc {
                 <div class="flex justify-content-between align-items-center">
                     Name
                     <p-sortIcon field="name" />
-                    <p-columnFilter type="text" field="name" display="menu" class="ml-auto" />
+                    <p-columnFilter type="text" field="name" display="menu" class="ms-auto" />
                 </div>
             </th>
             <th pSortableColumn="country.name" style="min-width: 14rem">
                 <div class="flex justify-content-between align-items-center">
                     Country
                     <p-sortIcon field="country.name" />
-                    <p-columnFilter type="text" field="country.name" display="menu" class="ml-auto" />
+                    <p-columnFilter type="text" field="country.name" display="menu" class="ms-auto" />
                 </div>
             </th>
             <th pSortableColumn="representative.name" style="min-width: 14rem">
                 <div class="flex justify-content-between align-items-center">
                     Agent
                     <p-sortIcon field="representative.name" />
-                    <p-columnFilter field="representative" matchMode="in" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false" class="ml-auto">
+                    <p-columnFilter field="representative" matchMode="in" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false" class="ms-auto">
                         <ng-template pTemplate="header">
                             <div class="px-3 pt-3 pb-0">
                                 <span class="font-bold">Agent Picker</span>
@@ -476,7 +476,7 @@ export class CustomersDoc {
                                 <ng-template let-option pTemplate="item">
                                     <div class="inline-block vertical-align-middle">
                                         <img [alt]="option.label" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ option.image }}" width="24" class="vertical-align-middle" />
-                                        <span class="ml-1 mt-1">{{ option.name }}</span>
+                                        <span class="ms-1 mt-1">{{ option.name }}</span>
                                     </div>
                                 </ng-template>
                             </p-multiSelect>
@@ -488,21 +488,21 @@ export class CustomersDoc {
                 <div class="flex justify-content-between align-items-center">
                     Date
                     <p-sortIcon field="date" />
-                    <p-columnFilter type="date" field="date" display="menu" class="ml-auto" />
+                    <p-columnFilter type="date" field="date" display="menu" class="ms-auto" />
                 </div>
             </th>
             <th pSortableColumn="balance" style="min-width: 10rem">
                 <div class="flex justify-content-between align-items-center">
                     Balance
                     <p-sortIcon field="balance" />
-                    <p-columnFilter type="numeric" field="balance" display="menu" currency="USD" class="ml-auto" />
+                    <p-columnFilter type="numeric" field="balance" display="menu" currency="USD" class="ms-auto" />
                 </div>
             </th>
             <th pSortableColumn="status" style="min-width: 10rem">
                 <div class="flex justify-content-between align-items-center">
                     Status
                     <p-sortIcon field="status" />
-                    <p-columnFilter field="status" matchMode="equals" display="menu" class="ml-auto">
+                    <p-columnFilter field="status" matchMode="equals" display="menu" class="ms-auto">
                         <ng-template pTemplate="filter" let-value let-filter="filterCallback">
                             <p-dropdown [ngModel]="value" [options]="statuses" (onChange)="filter($event.value)" placeholder="Any">
                                 <ng-template let-option pTemplate="item">
@@ -517,7 +517,7 @@ export class CustomersDoc {
                 <div class="flex justify-content-between align-items-center">
                     Activity
                     <p-sortIcon field="activity" />
-                    <p-columnFilter field="activity" matchMode="between" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false" class="ml-auto">
+                    <p-columnFilter field="activity" matchMode="between" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false" class="ms-auto">
                         <ng-template pTemplate="filter" let-filter="filterCallback">
                             <p-slider [(ngModel)]="activityValues" [range]="true" (onSlideEnd)="filter($event.values)" styleClass="m-3"></p-slider>
                             <div class="flex align-items-center justify-content-between px-2">
@@ -543,12 +543,12 @@ export class CustomersDoc {
             <td>
                 <span class="p-column-title">Country</span>
                 <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px" />
-                <span class="ml-1 vertical-align-middle">{{ customer.country.name }}</span>
+                <span class="ms-1 vertical-align-middle">{{ customer.country.name }}</span>
             </td>
             <td>
                 <span class="p-column-title">Representative</span>
                 <img [alt]="customer.representative.name" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}" width="32" style="vertical-align: middle" />
-                <span class="ml-1 vertical-align-middle">{{ customer.representative.name }}</span>
+                <span class="ms-1 vertical-align-middle">{{ customer.representative.name }}</span>
             </td>
             <td>
                 <span class="p-column-title">Date</span>

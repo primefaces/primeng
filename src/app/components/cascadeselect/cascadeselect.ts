@@ -68,18 +68,14 @@ export const CASCADESELECT_VALUE_ACCESSOR: any = {
                     [attr.aria-selected]="isOptionGroup(processedOption) ? undefined : isOptionSelected(processedOption)"
                     [attr.aria-posinset]="i + 1"
                 >
-                    <div class="p-cascadeselect-item-content" (click)="onOptionClick($event, processedOption)"
-                         [attr.tabindex]="0" pRipple [attr.data-pc-section]="'content'">
+                    <div class="p-cascadeselect-item-content" (click)="onOptionClick($event, processedOption)" [attr.tabindex]="0" pRipple [attr.data-pc-section]="'content'">
                         <ng-container *ngIf="optionTemplate; else defaultOptionTemplate">
-                            <ng-container
-                                *ngTemplateOutlet="optionTemplate; context: { $implicit: processedOption.option }"></ng-container>
+                            <ng-container *ngTemplateOutlet="optionTemplate; context: { $implicit: processedOption.option }"></ng-container>
                         </ng-container>
                         <ng-template #defaultOptionTemplate>
-                            <span class="p-cascadeselect-item-text"
-                                  [attr.data-pc-section]="'text'">{{ getOptionLabelToRender(processedOption) }}</span>
+                            <span class="p-cascadeselect-item-text" [attr.data-pc-section]="'text'">{{ getOptionLabelToRender(processedOption) }}</span>
                         </ng-template>
-                        <span class="p-cascadeselect-group-icon" *ngIf="isOptionGroup(processedOption)"
-                              [attr.data-pc-section]="'groupIcon'">
+                        <span class="p-cascadeselect-group-icon" *ngIf="isOptionGroup(processedOption)" [attr.data-pc-section]="'groupIcon'">
                             <AngleEndIcon *ngIf="!groupIconTemplate" />
                             <ng-template *ngTemplateOutlet="groupIconTemplate"></ng-template>
                         </span>
@@ -1314,7 +1310,7 @@ export class CascadeSelect implements OnInit, AfterContentInit {
         private el: ElementRef,
         private cd: ChangeDetectorRef,
         private config: PrimeNGConfig,
-        public overlayService: OverlayService,
+        public overlayService: OverlayService
     ) {
         effect(() => {
             const activeOptionPath = this.activeOptionPath();

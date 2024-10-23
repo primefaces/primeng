@@ -28,7 +28,7 @@ import { CustomerService } from '@service/customerservice';
                 >
                     <ng-template pTemplate="caption">
                         <div class="flex">
-                            <p-iconField iconPosition="start" class="ml-auto">
+                            <p-iconField iconPosition="start" class="ms-auto">
                                 <p-inputIcon>
                                     <i class="pi pi-search"></i>
                                 </p-inputIcon>
@@ -58,7 +58,7 @@ import { CustomerService } from '@service/customerservice';
                                             <ng-template let-option pTemplate="item">
                                                 <div class="inline-block vertical-align-middle">
                                                     <img [alt]="option.label" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ option.image }}" width="24" class="vertical-align-middle" />
-                                                    <span class="ml-1 mt-1">{{ option.name }}</span>
+                                                    <span class="ms-1 mt-1">{{ option.name }}</span>
                                                 </div>
                                             </ng-template>
                                         </p-multiSelect>
@@ -88,11 +88,11 @@ import { CustomerService } from '@service/customerservice';
                             </td>
                             <td>
                                 <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px" />
-                                <span class="ml-1 vertical-align-middle">{{ customer.country.name }}</span>
+                                <span class="ms-1 vertical-align-middle">{{ customer.country.name }}</span>
                             </td>
                             <td>
                                 <img [alt]="customer.representative.name" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}" width="32" style="vertical-align: middle" />
-                                <span class="ml-1 vertical-align-middle">{{ customer.representative.name }}</span>
+                                <span class="ms-1 vertical-align-middle">{{ customer.representative.name }}</span>
                             </td>
                             <td>
                                 <p-tag [value]="customer.status" [severity]="getSeverity(customer.status)" />
@@ -199,7 +199,7 @@ export class FilterBasicDoc {
     >
         <ng-template pTemplate="caption">
             <div class="flex">
-                <p-iconField iconPosition="start" class="ml-auto">
+                <p-iconField iconPosition="start" class="ms-auto">
                     <p-inputIcon>
                         <i class="pi pi-search"></i>
                     </p-inputIcon>
@@ -250,7 +250,7 @@ export class FilterBasicDoc {
                                                 src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ option.image }}"
                                                 width="24"
                                                 class="vertical-align-middle" />
-                                            <span class="ml-1 mt-1">{{ option.name }}</span>
+                                            <span class="ms-1 mt-1">{{ option.name }}</span>
                                         </div>
                                     </ng-template>
                             </p-multiSelect>
@@ -290,7 +290,7 @@ export class FilterBasicDoc {
                         src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
                         [class]="'flag flag-' + customer.country.code"
                         style="width: 20px" />
-                    <span class="ml-1 vertical-align-middle">
+                    <span class="ms-1 vertical-align-middle">
                         {{ customer.country.name }}
                     </span>
                 </td>
@@ -300,7 +300,7 @@ export class FilterBasicDoc {
                         src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}"
                         width="32"
                         style="vertical-align: middle" />
-                    <span class="ml-1 vertical-align-middle">
+                    <span class="ms-1 vertical-align-middle">
                         {{ customer.representative.name }}
                     </span>
                 </td>
@@ -334,7 +334,7 @@ export class FilterBasicDoc {
     >
     <ng-template pTemplate="caption">
         <div class="flex">
-            <p-iconField iconPosition="start" class="ml-auto">
+            <p-iconField iconPosition="start" class="ms-auto">
                 <p-inputIcon>
                     <i class="pi pi-search"></i>
                 </p-inputIcon>
@@ -384,7 +384,7 @@ export class FilterBasicDoc {
                                             [alt]="option.label" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ option.image }}"
                                             width="24"
                                             class="vertical-align-middle" />
-                                        <span class="ml-1 mt-1">
+                                        <span class="ms-1 mt-1">
                                             {{ option.name }}
                                         </span>
                                     </div>
@@ -426,7 +426,7 @@ export class FilterBasicDoc {
                     src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
                     [class]="'flag flag-' + customer.country.code"
                     style="width: 20px" />
-                <span class="ml-1 vertical-align-middle">
+                <span class="ms-1 vertical-align-middle">
                     {{ customer.country.name }}
                 </span>
             </td>
@@ -436,7 +436,7 @@ export class FilterBasicDoc {
                     src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}"
                     width="32"
                     style="vertical-align: middle" />
-                <span class="ml-1 vertical-align-middle">
+                <span class="ms-1 vertical-align-middle">
                     {{ customer.representative.name }}
                 </span>
             </td>

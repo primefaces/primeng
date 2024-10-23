@@ -27,7 +27,7 @@ import { ProductService } from '@service/productservice';
                             <div class="mt-0 font-semibold text-xl">{{ '$' + product.price }}</div>
                             <span>
                                 <p-button icon="pi pi-heart" severity="secondary" [outlined]="true" />
-                                <p-button icon="pi pi-shopping-cart" styleClass="ml-2" />
+                                <p-button icon="pi pi-shopping-cart" styleClass="ms-2" />
                             </span>
                         </div>
                     </div>
@@ -87,10 +87,10 @@ export class TemplateDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-carousel 
-    [value]="products" 
-    [numVisible]="3" 
-    [numScroll]="1" 
+        basic: `<p-carousel
+    [value]="products"
+    [numVisible]="3"
+    [numScroll]="1"
     [responsiveOptions]="responsiveOptions">
         <ng-template pTemplate="header">
             <p>Header content</p>
@@ -99,14 +99,14 @@ export class TemplateDoc implements OnInit {
             <div class="border-1 surface-border border-round m-2 p-3">
                 <div class="mb-3">
                     <div class="relative mx-auto">
-                        <img 
-                            src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" 
-                            [alt]="product.name" 
+                        <img
+                            src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}"
+                            [alt]="product.name"
                             class="w-full border-round" />
-                        <p-tag 
-                            [value]="product.inventoryStatus" 
-                            [severity]="getSeverity(product.inventoryStatus)" 
-                            class="absolute" 
+                        <p-tag
+                            [value]="product.inventoryStatus"
+                            [severity]="getSeverity(product.inventoryStatus)"
+                            class="absolute"
                             [ngStyle]="{ 'left.px': 5, 'top.px': 5 }" />
                     </div>
                 </div>
@@ -119,7 +119,7 @@ export class TemplateDoc implements OnInit {
                     </div>
                     <span>
                         <p-button icon="pi pi-heart" severity="secondary" [outlined]="true" />
-                        <p-button icon="pi pi-shopping-cart" styleClass="ml-2" />
+                        <p-button icon="pi pi-shopping-cart" styleClass="ms-2" />
                     </span>
                 </div>
             </div>
@@ -129,10 +129,10 @@ export class TemplateDoc implements OnInit {
         </ng-template>
 </p-carousel>`,
         html: `<div class="card">
-    <p-carousel 
-        [value]="products" 
-        [numVisible]="3" 
-        [numScroll]="1" 
+    <p-carousel
+        [value]="products"
+        [numVisible]="3"
+        [numScroll]="1"
         [responsiveOptions]="responsiveOptions">
             <ng-template pTemplate="header">
                 <p>Header content</p>
@@ -141,14 +141,14 @@ export class TemplateDoc implements OnInit {
                 <div class="border-1 surface-border border-round m-2 p-3">
                     <div class="mb-3">
                         <div class="relative mx-auto">
-                            <img 
-                                src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" 
-                                [alt]="product.name" 
+                            <img
+                                src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}"
+                                [alt]="product.name"
                                 class="w-full border-round" />
-                            <p-tag 
-                                [value]="product.inventoryStatus" 
-                                [severity]="getSeverity(product.inventoryStatus)" 
-                                class="absolute" 
+                            <p-tag
+                                [value]="product.inventoryStatus"
+                                [severity]="getSeverity(product.inventoryStatus)"
+                                class="absolute"
                                 [ngStyle]="{ 'left.px': 5, 'top.px': 5 }" />
                         </div>
                     </div>
@@ -159,7 +159,7 @@ export class TemplateDoc implements OnInit {
                         </div>
                         <span>
                             <p-button icon="pi pi-heart" severity="secondary" [outlined]="true" />
-                            <p-button icon="pi pi-shopping-cart" styleClass="ml-2" />
+                            <p-button icon="pi pi-shopping-cart" styleClass="ms-2" />
                         </span>
                     </div>
                 </div>
@@ -227,7 +227,7 @@ export class CarouselTemplateDemo implements OnInit{
 }`,
 
         data: `
-/* ProductService */        
+/* ProductService */
 {
     id: '1000',
     code: 'f230fh0g3',

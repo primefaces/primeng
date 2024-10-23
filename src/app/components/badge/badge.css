@@ -18,11 +18,12 @@
         margin: 0;
     }
 
-    html[dir="ltr"] .p-overlay-badge .p-badge {
+    .p-overlay-badge .p-badge,
+    [dir="ltr"] .p-overlay-badge .p-badge {
         transform: translate(50%, -50%);
     }
 
-    html[dir="rtl"] .p-overlay-badge .p-badge {
+    [dir="rtl"] .p-overlay-badge .p-badge {
         transform: translate(-50%, -50%);
     }
 

@@ -134,7 +134,7 @@
                     leaveActiveClass="fadeout" [hideOnOutsideClick]="true" type="button"
                     class="p-link flex align-items-center surface-card h-2rem px-2 hover:surface-hover border-1 border-solid surface-border transition-all transition-duration-300 hover:border-primary">
                     <span class="text-900">{{ versions ? versions[0].version : 'Latest' }}</span>
-                    <span class="ml-2 pi pi-angle-down text-600"></span>
+                    <span class="ms-2 pi pi-angle-down text-600"></span>
                 </button>
                 <div
                     class="p-3 surface-overlay hidden absolute top-auto border-round shadow-2 origin-top w-12rem right-0 mt-1">
@@ -142,7 +142,7 @@
                         <li role="none" *ngFor="let v of versions">
                             <a [href]="v.url" class="block p-2 border-round hover:surface-hover w-full">
                                 <span class="font-bold text-900">{{v.name}}</span>
-                                <span class="ml-2 text-700">({{v.version}})</span>
+                                <span class="ms-2 text-700">({{v.version}})</span>
                             </a>
                         </li>
                     </ul>

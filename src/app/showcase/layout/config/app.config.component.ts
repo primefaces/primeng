@@ -57,7 +57,7 @@ export class AppConfigComponent {
     }
 
     public set textDirection(direction: TextDirection) {
-        this.configService.config.update((config) => ({...config, direction}))
+        this.configService.config.update((config) => ({ ...config, direction }));
     }
 
     get inputStyle(): string {

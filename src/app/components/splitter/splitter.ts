@@ -1,22 +1,5 @@
 import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
-import {
-    ChangeDetectionStrategy,
-    ChangeDetectorRef,
-    Component,
-    ContentChildren,
-    ElementRef,
-    EventEmitter,
-    Inject,
-    Input,
-    NgModule,
-    Output,
-    PLATFORM_ID,
-    QueryList,
-    Renderer2,
-    ViewChild,
-    ViewEncapsulation,
-    numberAttribute
-} from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, ElementRef, EventEmitter, Inject, Input, NgModule, Output, PLATFORM_ID, QueryList, Renderer2, ViewChild, ViewEncapsulation, numberAttribute } from '@angular/core';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
@@ -29,11 +12,9 @@ import { SplitterResizeEndEvent, SplitterResizeStartEvent } from './splitter.int
 @Component({
     selector: 'p-splitter',
     template: `
-        <div #container [ngClass]="containerClass()" [class]="styleClass" [ngStyle]="style"
-             [attr.data-pc-name]="'splitter'" [attr.data-p-gutter-resizing]="false" [attr.data-pc-section]="'root'">
+        <div #container [ngClass]="containerClass()" [class]="styleClass" [ngStyle]="style" [attr.data-pc-name]="'splitter'" [attr.data-p-gutter-resizing]="false" [attr.data-pc-section]="'root'">
             <ng-template ngFor let-panel [ngForOf]="panels" let-i="index">
-                <div [ngClass]="panelContainerClass()" [class]="panelStyleClass" [ngStyle]="panelStyle" tabindex="-1"
-                     [attr.data-pc-name]="'splitter'" [attr.data-pc-section]="'root'">
+                <div [ngClass]="panelContainerClass()" [class]="panelStyleClass" [ngStyle]="panelStyle" tabindex="-1" [attr.data-pc-name]="'splitter'" [attr.data-pc-section]="'root'">
                     <ng-container *ngTemplateOutlet="panel"></ng-container>
                 </div>
                 <div
@@ -297,8 +278,7 @@ export class Splitter {
         } else {
             if (this.horizontal()) newPos = (event.pageX * 100) / this.size - (this.startPos * 100) / this.size;
             else newPos = (event.pageY * 100) / this.size - (this.startPos * 100) / this.size;
-            if (DomHandler.documentIsRTL())
-                newPos *= -1;
+            if (DomHandler.documentIsRTL()) newPos *= -1;
             newPrevPanelSize = (this.prevPanelSize as number) + newPos;
             newNextPanelSize = (this.nextPanelSize as number) - newPos;
         }
@@ -582,5 +562,4 @@ export class Splitter {
     exports: [Splitter, SharedModule],
     declarations: [Splitter]
 })
-export class SplitterModule {
-}
+export class SplitterModule {}

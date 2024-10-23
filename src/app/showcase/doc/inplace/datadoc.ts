@@ -11,7 +11,7 @@ import { CarService } from '@service/carservice';
                 <ng-template pTemplate="display">
                     <div class="inline-flex align-items-center">
                         <span class="pi pi-table" style="vertical-align: middle"></span>
-                        <span class="ml-2">View Data</span>
+                        <span class="ms-2">View Data</span>
                     </div>
                 </ng-template>
                 <ng-template pTemplate="content">
@@ -53,7 +53,7 @@ export class DataDoc {
     <ng-template pTemplate="display">
         <div class="inline-flex align-items-center">
             <span class="pi pi-table" style="vertical-align: middle"></span>
-            <span class="ml-2">View Data</span>
+            <span class="ms-2">View Data</span>
         </div>
     </ng-template>
     <ng-template pTemplate="content">
@@ -82,7 +82,7 @@ export class DataDoc {
         <ng-template pTemplate="display">
             <div class="inline-flex align-items-center">
                 <span class="pi pi-table" style="vertical-align: middle"></span>
-                <span class="ml-2">View Data</span>
+                <span class="ms-2">View Data</span>
             </div>
         </ng-template>
         <ng-template pTemplate="content">
@@ -127,7 +127,7 @@ export class InplaceDataDemo {
 
     ngOnInit() {
         this.carService.getCarsSmall().then((cars) => (this.cars = cars));
-    } 
+    }
 }`,
         service: ['CarService']
     };

@@ -11,7 +11,7 @@ import { NodeService } from '@service/nodeservice';
         </app-docsectiontext>
         <div class="card flex flex-column align-items-center justify-content-center">
             <div class="mb-3">
-                <p-button icon="pi pi-plus" label="Expand all" (onClick)="expandAll()" class="mr-2" />
+                <p-button icon="pi pi-plus" label="Expand all" (onClick)="expandAll()" class="me-2" />
                 <p-button icon="pi pi-minus" label="Collapse all" (onClick)="collapseAll()" />
             </div>
             <p-tree [value]="files" class="w-full md:w-30rem" />
@@ -51,28 +51,28 @@ export class ControlledDoc implements OnInit {
 
     code: Code = {
         basic: `<div class="mb-3">
-    <p-button 
-        icon="pi pi-plus" 
-        label="Expand all" 
-        (onClick)="expandAll()" 
-        class="mr-2" />
-    <p-button 
-        icon="pi pi-minus" 
-        label="Collapse all" 
+    <p-button
+        icon="pi pi-plus"
+        label="Expand all"
+        (onClick)="expandAll()"
+        class="me-2" />
+    <p-button
+        icon="pi pi-minus"
+        label="Collapse all"
         (onClick)="collapseAll()" />
 </div>
 <p-tree [value]="files" class="w-full md:w-30rem" />`,
 
         html: `<div class="card flex flex-column align-items-center justify-content-center">
     <div class="mb-3">
-        <p-button 
-            icon="pi pi-plus" 
-            label="Expand all" 
-            (onClick)="expandAll()" 
-            class="mr-2" />
         <p-button
-            icon="pi pi-minus" 
-            label="Collapse all" 
+            icon="pi pi-plus"
+            label="Expand all"
+            (onClick)="expandAll()"
+            class="me-2" />
+        <p-button
+            icon="pi pi-minus"
+            label="Collapse all"
             (onClick)="collapseAll()" />
     </div>
     <p-tree [value]="files" class="w-full md:w-30rem" />

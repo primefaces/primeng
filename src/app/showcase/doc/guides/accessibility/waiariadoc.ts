@@ -32,7 +32,7 @@ import { Code } from '@domain/code';
             <app-code [code]="code4" [hideToggleCode]="true"></app-code>
             <p class="doc-section-description mt-3">A working sample is the PrimeNG checkbox that is tabbable, keyboard accessible and is compliant with a screen reader. Instead of ARIA roles it relies on a hidden native checkbox.</p>
             <div class="card flex align-items-center">
-                <label for="binary" class="mr-2">Remember Me</label>
+                <label for="binary" class="me-2">Remember Me</label>
                 <p-checkbox inputId="binary" [binary]="true"></p-checkbox>
             </div>
         </app-docsectiontext>

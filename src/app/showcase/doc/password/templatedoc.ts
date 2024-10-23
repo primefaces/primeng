@@ -15,7 +15,7 @@ import { Code } from '@domain/code';
                 <ng-template pTemplate="footer">
                     <p-divider />
                     <p class="mt-2">Suggestions</p>
-                    <ul class="pl-2 ml-2 mt-0" style="line-height: 1.5">
+                    <ul class="ps-2 ms-2 mt-0" style="line-height: 1.5">
                         <li>At least one lowercase</li>
                         <li>At least one uppercase</li>
                         <li>At least one numeric</li>
@@ -38,7 +38,7 @@ export class TemplateDoc {
     <ng-template pTemplate="footer">
         <p-divider />
         <p class="mt-2">Suggestions</p>
-        <ul class="pl-2 ml-2 mt-0" style="line-height: 1.5">
+        <ul class="ps-2 ms-2 mt-0" style="line-height: 1.5">
             <li>At least one lowercase</li>
             <li>At least one uppercase</li>
             <li>At least one numeric</li>
@@ -55,7 +55,7 @@ export class TemplateDoc {
          <ng-template pTemplate="footer">
              <p-divider />
              <p class="mt-2">Suggestions</p>
-             <ul class="pl-2 ml-2 mt-0" style="line-height: 1.5">
+             <ul class="ps-2 ms-2 mt-0" style="line-height: 1.5">
                  <li>At least one lowercase</li>
                  <li>At least one uppercase</li>
                  <li>At least one numeric</li>

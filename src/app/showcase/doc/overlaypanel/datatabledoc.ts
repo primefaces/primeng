@@ -27,7 +27,7 @@ interface TableRowSelectEvent {
                 </div>
                 <div class="flex align-items-center justify-content-between mt-3 mb-2">
                     <span class="text-900 font-medium text-xl">{{ selectedProduct.name }}</span>
-                    <span class="text-900 text-xl ml-3">{{ '$' + selectedProduct.price }}</span>
+                    <span class="text-900 text-xl ms-3">{{ '$' + selectedProduct.price }}</span>
                 </div>
                 <span class="text-600">{{ selectedProduct.category }}</span>
             </div>
@@ -82,21 +82,21 @@ export class DataTableDoc implements OnInit {
 
     code: Code = {
         basic: `<p-toast />
-<p-button 
-    (onClick)="op.toggle($event)" 
-    icon="pi pi-search" 
+<p-button
+    (onClick)="op.toggle($event)"
+    icon="pi pi-search"
     [label]="selectedProduct ? selectedProduct.name : 'Select a Product'" />
 <div *ngIf="selectedProduct" class="p-5 surface-card shadow-2 border-round">
     <div class="relative">
-        <img 
-            src="https://primefaces.org/cdn/primeng/images/demo/product/{{ selectedProduct.image }}" 
+        <img
+            src="https://primefaces.org/cdn/primeng/images/demo/product/{{ selectedProduct.image }}"
             [alt]="selectedProduct.name" />
     </div>
     <div class="flex align-items-center justify-content-between mt-3 mb-2">
         <span class="text-900 font-medium text-xl">
             {{ selectedProduct.name }}
         </span>
-        <span class="text-900 text-xl ml-3">
+        <span class="text-900 text-xl ms-3">
             {{ '$' + selectedProduct.price }}
         </span>
     </div>
@@ -106,13 +106,13 @@ export class DataTableDoc implements OnInit {
 </div>
 <p-overlayPanel #op [style]="{ width: '450px' }" [showCloseIcon]="true">
     <ng-template pTemplate="content">
-        <p-table 
-            [value]="products" 
-            selectionMode="single" 
-            [(selection)]="selectedProduct" 
-            (onRowSelect)="onRowSelect($event, op)" 
-            [paginator]="true" 
-            [rows]="5" 
+        <p-table
+            [value]="products"
+            selectionMode="single"
+            [(selection)]="selectedProduct"
+            (onRowSelect)="onRowSelect($event, op)"
+            [paginator]="true"
+            [rows]="5"
             responsiveLayout="scroll">
                 <ng-template pTemplate="header">
                     <tr>
@@ -131,9 +131,9 @@ export class DataTableDoc implements OnInit {
                             {{ product.name }}
                         </td>
                         <td>
-                            <img 
-                                src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" 
-                                [alt]="product.image" 
+                            <img
+                                src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}"
+                                [alt]="product.image"
                                 class="w-5rem shadow-2" />
                         </td>
                         <td>{{ product.price }}</td>
@@ -145,21 +145,21 @@ export class DataTableDoc implements OnInit {
 
         html: `<div class="card flex flex-column align-items-center gap-3">
 <p-toast />
-<p-button 
-    (onClick)="op.toggle($event)" 
-    icon="pi pi-search" 
+<p-button
+    (onClick)="op.toggle($event)"
+    icon="pi pi-search"
     [label]="selectedProduct ? selectedProduct.name : 'Select a Product'" />
 <div *ngIf="selectedProduct" class="p-5 surface-card shadow-2 border-round">
     <div class="relative">
-        <img 
-            src="https://primefaces.org/cdn/primeng/images/demo/product/{{ selectedProduct.image }}" 
+        <img
+            src="https://primefaces.org/cdn/primeng/images/demo/product/{{ selectedProduct.image }}"
             [alt]="selectedProduct.name" />
     </div>
     <div class="flex align-items-center justify-content-between mt-3 mb-2">
         <span class="text-900 font-medium text-xl">
             {{ selectedProduct.name }}
         </span>
-        <span class="text-900 text-xl ml-3">
+        <span class="text-900 text-xl ms-3">
             {{ '$' + selectedProduct.price }}
         </span>
     </div>
@@ -169,13 +169,13 @@ export class DataTableDoc implements OnInit {
 </div>
 <p-overlayPanel #op [style]="{ width: '450px' }" [showCloseIcon]="true">
     <ng-template pTemplate="content">
-        <p-table 
-            [value]="products" 
-            selectionMode="single" 
-            [(selection)]="selectedProduct" 
-            (onRowSelect)="onRowSelect($event, op)" 
-            [paginator]="true" 
-            [rows]="5" 
+        <p-table
+            [value]="products"
+            selectionMode="single"
+            [(selection)]="selectedProduct"
+            (onRowSelect)="onRowSelect($event, op)"
+            [paginator]="true"
+            [rows]="5"
             responsiveLayout="scroll">
                 <ng-template pTemplate="header">
                     <tr>
@@ -194,9 +194,9 @@ export class DataTableDoc implements OnInit {
                             {{ product.name }}
                         </td>
                         <td>
-                            <img 
-                                src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" 
-                                [alt]="product.image" 
+                            <img
+                                src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}"
+                                [alt]="product.image"
                                 class="w-5rem shadow-2" />
                         </td>
                         <td>{{ product.price }}</td>
@@ -233,7 +233,7 @@ interface TableRowSelectEvent {
 export class OverlayPanelDataTableDemo implements OnInit {
 
     constructor(private productService: ProductService, private messageService: MessageService, private cdr: ChangeDetectorRef) {}
-    
+
     products: Product[] | undefined;
 
     selectedProduct: Product | undefined;

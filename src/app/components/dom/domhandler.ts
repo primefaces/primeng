@@ -1,4 +1,3 @@
-
 /**
  * @dynamic is for runtime initializing DomHandler.browser
  *
@@ -120,7 +119,7 @@ export class DomHandler {
     }
 
     public static documentIsRTL(): boolean {
-        return  document.documentElement.dir === 'rtl';
+        return document.documentElement.dir === 'rtl';
     }
 
     public static documentIsLTR(): boolean {
@@ -159,7 +158,7 @@ export class DomHandler {
         const targetLeftOffsetInSpaceOfRelativeElement = targetOffset.start - relativeElementOffset.start;
         if (elementDimensions.width > viewport.width) {
             // element wider than viewport and cannot fit on screen (align at left side of viewport)
-                start = (targetOffset.start - relativeElementOffset.start) * -1;
+            start = (targetOffset.start - relativeElementOffset.start) * -1;
         } else if (horizontalOverflow > 0) {
             // element wider than viewport but can be fit on screen (align at right side of viewport)
             start = targetLeftOffsetInSpaceOfRelativeElement - horizontalOverflow;
@@ -444,18 +443,18 @@ export class DomHandler {
         return { width: w, height: h };
     }
 
-    public static getOffset(el: any): {top: number, start: number} {
+    public static getOffset(el: any): { top: number; start: number } {
         const rect = el.getBoundingClientRect();
         const start: number = this.documentIsLTR() ? rect.left : window.innerWidth - rect.right;
         const end: number = this.documentIsLTR() ? rect.right : window.innerWidth - rect.left;
 
         return {
             top: rect.top + (window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0),
-            start: start + (window.pageXOffset || document.documentElement.scrollLeft || document.body.scrollLeft || 0),
+            start: start + (window.pageXOffset || document.documentElement.scrollLeft || document.body.scrollLeft || 0)
         };
     }
 
-    public static getClientRect(el): {top: number, bottom: number, start: number, end: number} {
+    public static getClientRect(el): { top: number; bottom: number; start: number; end: number } {
         const rect = el.getBoundingClientRect();
         const start: number = this.documentIsLTR() ? rect.left : window.innerWidth - rect.right;
         const end: number = this.documentIsLTR() ? rect.right : window.innerWidth - rect.left;
@@ -464,7 +463,7 @@ export class DomHandler {
             bottom: rect.bottom,
             start,
             end
-        }
+        };
     }
 
     public static replaceElementWith(element: any, replacementElement: any): any {

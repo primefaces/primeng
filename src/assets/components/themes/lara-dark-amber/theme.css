@@ -1404,11 +1404,12 @@
         transition-duration: 0.2s;
     }
 
-    html[dir="ltr"] .p-inputswitch.p-inputswitch-checked .p-inputswitch-slider:before {
+    .p-inputswitch.p-inputswitch-checked .p-inputswitch-slider:before,
+    [dir="ltr"] .p-inputswitch.p-inputswitch-checked .p-inputswitch-slider:before {
         transform: translateX(1.25rem);
     }
 
-    html[dir="rtl"] .p-inputswitch.p-inputswitch-checked .p-inputswitch-slider:before {
+    [dir="rtl"] .p-inputswitch.p-inputswitch-checked .p-inputswitch-slider:before {
         transform: translateX(-1.25rem);
     }
 

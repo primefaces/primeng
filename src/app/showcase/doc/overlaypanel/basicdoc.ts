@@ -36,7 +36,7 @@ import { Code } from '@domain/code';
                                     <span class="font-medium">{{ member.name }}</span>
                                     <div class="text-sm text-color-secondary">{{ member.email }}</div>
                                 </div>
-                                <div class="flex align-items-center gap-2 text-color-secondary ml-auto text-sm">
+                                <div class="flex align-items-center gap-2 text-color-secondary ms-auto text-sm">
                                     <span>{{ member.role }}</span>
                                     <i class="pi pi-angle-down"></i>
                                 </div>
@@ -85,7 +85,7 @@ export class BasicDoc {
                             <span class="font-medium">{{ member.name }}</span>
                             <div class="text-sm text-color-secondary">{{ member.email }}</div>
                         </div>
-                        <div class="flex align-items-center gap-2 text-color-secondary ml-auto text-sm">
+                        <div class="flex align-items-center gap-2 text-color-secondary ms-auto text-sm">
                             <span>{{ member.role }}</span>
                             <i class="pi pi-angle-down"></i>
                         </div>
@@ -124,7 +124,7 @@ export class BasicDoc {
                             <span class="font-medium">{{ member.name }}</span>
                             <div class="text-sm text-color-secondary">{{ member.email }}</div>
                         </div>
-                        <div class="flex align-items-center gap-2 text-color-secondary ml-auto text-sm">
+                        <div class="flex align-items-center gap-2 text-color-secondary ms-auto text-sm">
                             <span>{{ member.role }}</span>
                             <i class="pi pi-angle-down"></i>
                         </div>

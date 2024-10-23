@@ -19,9 +19,9 @@ import { Subscription } from 'rxjs';
             <div class="section-header">Themes</div>
             <p class="section-detail">Crafted on a design-agnostic infrastructure, choose from a vast amount of themes such as Material, Bootstrap, Tailwind, PrimeOne or develop your own.</p>
             <div class="flex flex-wrap justify-content-center">
-                <button type="button" class="font-medium linkbox mr-3 mt-4" [ngClass]="{ active: tableTheme.startsWith('lara') }" (click)="changeTableTheme(isDarkMode ? 'lara-dark-blue' : 'lara-light-blue')">PrimeOne</button>
-                <button type="button" class="font-medium linkbox mr-3 mt-4" [ngClass]="{ active: tableTheme.startsWith('md') }" (click)="changeTableTheme(isDarkMode ? 'md-dark-indigo' : 'md-light-indigo')">Material</button>
-                <button type="button" class="font-medium linkbox mr-3 mt-4" [ngClass]="{ active: tableTheme.startsWith('bootstrap') }" (click)="changeTableTheme(isDarkMode ? 'bootstrap4-dark-blue' : 'bootstrap4-light-blue')">Bootstrap</button>
+                <button type="button" class="font-medium linkbox me-3 mt-4" [ngClass]="{ active: tableTheme.startsWith('lara') }" (click)="changeTableTheme(isDarkMode ? 'lara-dark-blue' : 'lara-light-blue')">PrimeOne</button>
+                <button type="button" class="font-medium linkbox me-3 mt-4" [ngClass]="{ active: tableTheme.startsWith('md') }" (click)="changeTableTheme(isDarkMode ? 'md-dark-indigo' : 'md-light-indigo')">Material</button>
+                <button type="button" class="font-medium linkbox me-3 mt-4" [ngClass]="{ active: tableTheme.startsWith('bootstrap') }" (click)="changeTableTheme(isDarkMode ? 'bootstrap4-dark-blue' : 'bootstrap4-light-blue')">Bootstrap</button>
             </div>
             <div
                 class="themes-main flex mt-7 justify-content-center px-5 lg:px-8"
@@ -112,7 +112,7 @@ import { Subscription } from 'rxjs';
                                 <td style="width: 14%; min-width: 14rem">
                                     <span class="p-column-title">Country</span>
                                     <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" width="30" height="20" alt="country flag" />
-                                    <span class="ml-2 image-text">{{ customer.country.name }}</span>
+                                    <span class="ms-2 image-text">{{ customer.country.name }}</span>
                                 </td>
                                 <td style="width: 14%; min-width: 14rem">
                                     <span class="p-column-title">Representative</span>
@@ -124,7 +124,7 @@ import { Subscription } from 'rxjs';
                                         style="vertical-align: middle"
                                         alt="representative"
                                     />
-                                    <span class="ml-2 image-text">{{ customer.representative.name }}</span>
+                                    <span class="ms-2 image-text">{{ customer.representative.name }}</span>
                                 </td>
                                 <td style="width: 14%; min-width: 8rem">
                                     <span class="p-column-title">Date</span>

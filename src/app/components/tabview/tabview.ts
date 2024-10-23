@@ -276,8 +276,7 @@ export class TabPanel implements AfterContentInit, OnDestroy {
 @Component({
     selector: 'p-tabView',
     template: `
-        <div [ngClass]="{ 'p-tabview p-component': true, 'p-tabview-scrollable': scrollable }" [ngStyle]="style"
-             [class]="styleClass" [attr.data-pc-name]="'tabview'">
+        <div [ngClass]="{ 'p-tabview p-component': true, 'p-tabview-scrollable': scrollable }" [ngStyle]="style" [class]="styleClass" [attr.data-pc-name]="'tabview'">
             <div #elementToObserve class="p-tabview-nav-container">
                 <button
                     *ngIf="scrollable && !backwardIsDisabled && autoHideButtons"
@@ -296,14 +295,10 @@ export class TabPanel implements AfterContentInit, OnDestroy {
                     }
                     <ng-template *ngTemplateOutlet="previousIconTemplate"></ng-template>
                 </button>
-                <div #content class="p-tabview-nav-content" (scroll)="onScroll($event)"
-                     [attr.data-pc-section]="'navcontent'">
+                <div #content class="p-tabview-nav-content" (scroll)="onScroll($event)" [attr.data-pc-section]="'navcontent'">
                     <ul #navbar class="p-tabview-nav" role="tablist" [attr.data-pc-section]="'nav'">
                         <ng-template ngFor let-tab [ngForOf]="tabs" let-i="index">
-                            <li role="presentation"
-                                [ngClass]="{ 'p-highlight': tab.selected, 'p-disabled': tab.disabled }"
-                                [attr.data-p-disabled]="tab.disabled" [ngStyle]="tab.headerStyle"
-                                [class]="tab.headerStyleClass" *ngIf="!tab.closed">
+                            <li role="presentation" [ngClass]="{ 'p-highlight': tab.selected, 'p-disabled': tab.disabled }" [attr.data-p-disabled]="tab.disabled" [ngStyle]="tab.headerStyle" [class]="tab.headerStyleClass" *ngIf="!tab.closed">
                                 <a
                                     role="tab"
                                     class="p-tabview-nav-link"
@@ -323,30 +318,26 @@ export class TabPanel implements AfterContentInit, OnDestroy {
                                     pRipple
                                 >
                                     <ng-container *ngIf="!tab.headerTemplate">
-                                        <span class="p-tabview-left-icon" [ngClass]="tab.startIcon"
-                                              *ngIf="tab.startIcon && !tab.startIconTemplate"></span>
+                                        <span class="p-tabview-left-icon" [ngClass]="tab.startIcon" *ngIf="tab.startIcon && !tab.startIconTemplate"></span>
                                         <span *ngIf="tab.startIconTemplate" class="p-tabview-left-icon">
                                             <ng-template *ngTemplateOutlet="tab.startIconTemplate"></ng-template>
                                         </span>
                                         <span class="p-tabview-title">{{ tab.header }}</span>
-                                        <span class="p-tabview-right-icon" [ngClass]="tab.endIcon"
-                                              *ngIf="tab.endIcon && !tab.endIconTemplate"></span>
+                                        <span class="p-tabview-right-icon" [ngClass]="tab.endIcon" *ngIf="tab.endIcon && !tab.endIconTemplate"></span>
                                         <span *ngIf="tab.endIconTemplate" class="p-tabview-right-icon">
                                             <ng-template *ngTemplateOutlet="tab.endIconTemplate"></ng-template>
                                         </span>
                                     </ng-container>
                                     <ng-container *ngTemplateOutlet="tab.headerTemplate"></ng-container>
                                     <ng-container *ngIf="tab.closable">
-                                        <TimesIcon *ngIf="!tab.closeIconTemplate" [styleClass]="'p-tabview-close'"
-                                                   (click)="close($event, tab)" />
+                                        <TimesIcon *ngIf="!tab.closeIconTemplate" [styleClass]="'p-tabview-close'" (click)="close($event, tab)" />
                                         <span class="tab.closeIconTemplate" *ngIf="tab.closeIconTemplate"></span>
                                         <ng-template *ngTemplateOutlet="tab.closeIconTemplate"></ng-template>
                                     </ng-container>
                                 </a>
                             </li>
                         </ng-template>
-                        <li #inkbar class="p-tabview-ink-bar" role="presentation" aria-hidden="true"
-                            [attr.data-pc-section]="'inkbar'"></li>
+                        <li #inkbar class="p-tabview-ink-bar" role="presentation" aria-hidden="true" [attr.data-pc-section]="'inkbar'"></li>
                     </ul>
                 </div>
                 <button

@@ -67,14 +67,14 @@
     }
 
     .layout-sidebar,
-    html[dir="ltr"] .layout-sidebar {
+    [dir="ltr"] .layout-sidebar {
         transform: translateX(-100%);
         &.active {
             transform: translateX(0);
         }
     }
 
-    html[dir="rtl"] .layout-sidebar {
+    [dir="rtl"] .layout-sidebar {
         transform: translateX(100%);
         &.active {
             transform: translateX(0);

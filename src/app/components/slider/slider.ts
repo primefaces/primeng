@@ -346,7 +346,6 @@ export class Slider implements OnDestroy, ControlValueAccessor {
 
         this.setValueFromHandle(event, handleValue);
 
-
         event.preventDefault();
     }
 
@@ -600,11 +599,9 @@ export class Slider implements OnDestroy, ControlValueAccessor {
     calculateHandleValue(event: Event): number {
         if (this.orientation === 'horizontal') {
             let result: number = (((event as MouseEvent).pageX - (this.initX as number)) * 100) / (this.barWidth as number);
-            if (this.isRTL)
-                result = 100 - result;
+            if (this.isRTL) result = 100 - result;
             return result;
-        }
-        else return (((this.initY as number) + (this.barHeight as number) - (event as MouseEvent).pageY) * 100) / (this.barHeight as number);
+        } else return (((this.initY as number) + (this.barHeight as number) - (event as MouseEvent).pageY) * 100) / (this.barHeight as number);
     }
 
     updateHandleValue(): void {

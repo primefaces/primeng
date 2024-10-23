@@ -549,7 +549,7 @@ export class Tooltip implements AfterViewInit, OnDestroy {
         }
     }
 
-    getHostOffset(): {start: number, top: number} {
+    getHostOffset(): { start: number; top: number } {
         if (this.getOption('appendTo') === 'body' || this.getOption('appendTo') === 'target') {
             const offset = DomHandler.getClientRect(this.el.nativeElement);
             const targetStart = offset.start + DomHandler.getWindowScrollStart();

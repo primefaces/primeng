@@ -1294,10 +1294,11 @@
     border-radius: 50%;
     transition-duration: 0.2s;
   }
-  html[dir="ltr"] .p-inputswitch.p-inputswitch-checked .p-inputswitch-slider:before {
+  .p-inputswitch.p-inputswitch-checked .p-inputswitch-slider:before,
+    [dir="ltr"] .p-inputswitch.p-inputswitch-checked .p-inputswitch-slider:before {
     transform: translateX(1.5rem);
   }
-    html[dir="rtl"] .p-inputswitch.p-inputswitch-checked .p-inputswitch-slider:before {
+    [dir="rtl"] .p-inputswitch.p-inputswitch-checked .p-inputswitch-slider:before {
         transform: translateX(-1.5rem);
     }
   .p-inputswitch.p-focus .p-inputswitch-slider {
