@@ -1,13 +1,4 @@
-import { CommonModule } from '@angular/common';
-import {
-    ChangeDetectionStrategy,
-    Component,
-    HostBinding,
-    inject,
-    Input,
-    NgModule,
-    ViewEncapsulation
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, input, NgModule, ViewEncapsulation } from '@angular/core';
 import { BaseComponent } from 'primeng/basecomponent';
 import { InputIconStyle } from './style/inputiconstyle';
 
@@ -18,13 +9,12 @@ import { InputIconStyle } from './style/inputiconstyle';
 @Component({
     selector: 'p-inputicon, p-inputIcon',
     standalone: true,
-    imports: [CommonModule],
     template: `<ng-content></ng-content>`,
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [InputIconStyle],
     host: {
-        '[class]': 'styleClass',
+        '[class]': 'styleClass()',
         '[class.p-inputicon]': 'true',
     },
 })
@@ -33,11 +23,7 @@ export class InputIcon extends BaseComponent {
      * Style class of the element.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
-
-    @HostBinding('class') get hostClasses(): string {
-        return this.styleClass;
-    }
+    styleClass = input<string>();
 
     _componentStyle = inject(InputIconStyle);
 }
