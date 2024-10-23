@@ -3,6 +3,7 @@ export default {
         background: '{form.field.background}',
         disabledBackground: '{form.field.disabled.background}',
         filledBackground: '{form.field.filled.background}',
+        filledHoverBackground: '{form.field.filled.hover.background}',
         filledFocusBackground: '{form.field.filled.focus.background}',
         borderColor: '{form.field.border.color}',
         hoverBorderColor: '{form.field.hover.border.color}',
@@ -20,18 +21,18 @@ export default {
             style: '{form.field.focus.ring.style}',
             color: '{form.field.focus.ring.color}',
             offset: '{form.field.focus.ring.offset}',
-            shadow: '{form.field.focus.ring.shadow}',
+            shadow: '{form.field.focus.ring.shadow}'
         },
         transitionDuration: '{form.field.transition.duration}',
         sm: {
             fontSize: '0.875rem',
             paddingX: '0.625rem',
-            paddingY: '0.5rem',
+            paddingY: '0.5rem'
         },
         lg: {
             fontSize: '1.125rem',
             paddingX: '0.875rem',
-            paddingY: '0.75rem',
-        },
-    },
+            paddingY: '0.75rem'
+        }
+    }
 };
