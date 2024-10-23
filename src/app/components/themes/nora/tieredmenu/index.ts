@@ -5,11 +5,11 @@ export default {
         color: '{content.color}',
         borderRadius: '{content.border.radius}',
         shadow: '{overlay.navigation.shadow}',
-        transitionDuration: '{transition.duration}'
+        transitionDuration: '{transition.duration}',
     },
     list: {
         padding: '{navigation.list.padding}',
-        gap: '{navigation.list.gap}'
+        gap: '{navigation.list.gap}',
     },
     item: {
         focusBackground: '{navigation.item.focus.background}',
@@ -23,28 +23,25 @@ export default {
         icon: {
             color: '{navigation.item.icon.color}',
             focusColor: '{navigation.item.icon.focus.color}',
-            activeColor: '{navigation.item.icon.active.color}'
-        }
+            activeColor: '{navigation.item.icon.active.color}',
+        },
     },
     submenu: {
-        mobileIndent: '1rem'
-    },
-    submenu: {
-        mobileIndent: '1rem'
+        mobileIndent: '1rem',
     },
     submenuLabel: {
         padding: '{navigation.submenu.label.padding}',
         fontWeight: '{navigation.submenu.label.font.weight}',
         background: '{navigation.submenu.label.background.}',
-        color: '{navigation.submenu.label.color}'
+        color: '{navigation.submenu.label.color}',
     },
     submenuIcon: {
         size: '{navigation.submenu.icon.size}',
         color: '{navigation.submenu.icon.color}',
         focusColor: '{navigation.submenu.icon.focus.color}',
-        activeColor: '{navigation.submenu.icon.active.color}'
+        activeColor: '{navigation.submenu.icon.active.color}',
     },
     separator: {
-        borderColor: '{content.border.color}'
-    }
+        borderColor: '{content.border.color}',
+    },
 };
