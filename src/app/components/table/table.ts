@@ -87,8 +87,10 @@ export class TableService {
     private valueSource = new Subject<any>();
     private totalRecordsSource = new Subject<any>();
     private columnsSource = new Subject();
+    private isHeaderCheckboxSelection = new Subject<any>();
 
     sortSource$ = this.sortSource.asObservable();
+    isHeaderCheckboxSelection$ = this.isHeaderCheckboxSelection.asObservable();
     selectionSource$ = this.selectionSource.asObservable();
     contextMenuSource$ = this.contextMenuSource.asObservable();
     valueSource$ = this.valueSource.asObservable();
@@ -117,6 +119,10 @@ export class TableService {
 
     onColumnsChange(columns: any[]) {
         this.columnsSource.next(columns);
+    }
+
+    onHeaderCheckboxSelection(value) {
+        this.isHeaderCheckboxSelection.next(value);
     }
 }
 /**
@@ -4790,15 +4796,26 @@ export class TableCheckbox {
 
     subscription: Subscription;
 
+    tableHeaderCheckboxSubscription: Subscription;
+
+    isTableHeaderCheckboxSelection: boolean = false;
+
     constructor(
         public dt: Table,
         public tableService: TableService,
         public cd: ChangeDetectorRef
     ) {
         this.subscription = this.dt.tableService.selectionSource$.subscribe(() => {
-            this.checked = this.dt.isSelected(this.value) && !this.disabled;
+            setTimeout(() => {
+                this.checked = this.isTableHeaderCheckboxSelection ? this.dt.isSelected(this.value) && !this.disabled : this.dt.isSelected(this.value);
+                this.cd.markForCheck();
+            });
+
             this.ariaLabel = this.ariaLabel || this.dt.config.translation.aria ? (this.checked ? this.dt.config.translation.aria.selectRow : this.dt.config.translation.aria.unselectRow) : undefined;
-            this.cd.markForCheck();
+        });
+
+        this.tableHeaderCheckboxSubscription = this.dt.tableService.isHeaderCheckboxSelection$.subscribe((val) => {
+            this.isTableHeaderCheckboxSelection = val;
         });
     }
 
@@ -4815,6 +4832,7 @@ export class TableCheckbox {
                 },
                 this.value
             );
+            this.tableService.onHeaderCheckboxSelection(false);
         }
         DomHandler.clearSelection();
     }
@@ -4830,6 +4848,10 @@ export class TableCheckbox {
     ngOnDestroy() {
         if (this.subscription) {
             this.subscription.unsubscribe();
+        }
+
+        if (this.tableHeaderCheckboxSubscription) {
+            this.tableHeaderCheckboxSubscription.unsubscribe();
         }
     }
 }
@@ -4874,6 +4896,8 @@ export class TableHeaderCheckbox {
 
     valueChangeSubscription: Subscription;
 
+    tableHeaderCheckboxSubscription: Subscription;
+
     constructor(
         public dt: Table,
         public tableService: TableService,
@@ -4896,6 +4920,7 @@ export class TableHeaderCheckbox {
     onClick(event: Event) {
         if (!this.disabled) {
             if (this.dt.value && this.dt.value.length > 0) {
+                this.tableService.onHeaderCheckboxSelection(true);
                 this.dt.toggleRowsWithCheckbox(event, !this.checked);
             }
         }
