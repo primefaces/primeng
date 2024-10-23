@@ -14,6 +14,7 @@ import { FilledDoc } from '@doc/treeselect/filleddoc';
 import { LazyDoc } from '@doc/treeselect/lazydoc';
 import { TreeSelectDocModule } from '@doc/treeselect/treeselectdoc.module';
 import { IftaLabelDoc } from '@doc/treeselect/iftalabeldoc';
+import { TemplateDoc } from '@doc/treeselect/templatedoc';
 
 @Component({
     template: `<app-doc
@@ -68,6 +69,11 @@ export class TreeSelectDemo {
             id: 'filter',
             label: 'Filter',
             component: FilterDoc,
+        },
+        {
+            id: 'template',
+            label: 'Template',
+            component: TemplateDoc,
         },
         {
             id: 'floatlabel',

@@ -46,8 +46,8 @@ const theme = ({ dt }) => `
     border-left: 0 none;
     color: ${dt('autocomplete.dropdown.color')};
     transition: background ${dt('autocomplete.transition.duration')}, color ${dt('autocomplete.transition.duration')}, border-color ${dt('autocomplete.transition.duration')}, outline-color ${dt('autocomplete.transition.duration')}, box-shadow ${dt(
-        'autocomplete.transition.duration',
-    )};
+    'autocomplete.transition.duration'
+)};
     outline-color: transparent;
 }
 
@@ -75,7 +75,6 @@ const theme = ({ dt }) => `
 
 .p-autocomplete-overlay {
     position: absolute;
-    overflow: auto;
     top: 0;
     left: 0;
     background: ${dt('autocomplete.overlay.background')};
@@ -85,9 +84,12 @@ const theme = ({ dt }) => `
     box-shadow: ${dt('autocomplete.overlay.shadow')};
 }
 
+.p-autocomplete-list-container {
+    overflow: auto;
+}
+
 .p-autocomplete-list {
     margin: 0;
-    padding: 0;
     list-style-type: none;
     display: flex;
     flex-direction: column;
@@ -149,8 +151,8 @@ const theme = ({ dt }) => `
     border-radius: ${dt('autocomplete.border.radius')};
     width: 100%;
     transition: background ${dt('autocomplete.transition.duration')}, color ${dt('autocomplete.transition.duration')}, border-color ${dt('autocomplete.transition.duration')}, outline-color ${dt('autocomplete.transition.duration')}, box-shadow ${dt(
-        'autocomplete.transition.duration',
-    )};
+    'autocomplete.transition.duration'
+)};
     outline-color: transparent;
     box-shadow: ${dt('autocomplete.shadow')};
 }
@@ -168,6 +170,10 @@ const theme = ({ dt }) => `
 
 .p-variant-filled.p-autocomplete-input-multiple {
     background: ${dt('autocomplete.filled.background')};
+}
+
+.p-autocomplete:not(.p-disabled):hover .p-variant-filled.p-autocomplete-input-multiple {
+    background: ${dt('autocomplete.filled.hover.background')};
 }
 
 .p-autocomplete:not(.p-disabled).p-focus .p-variant-filled.p-autocomplete-input-multiple  {
@@ -192,8 +198,8 @@ const theme = ({ dt }) => `
 }
 
 .p-autocomplete-chip-item.p-focus .p-autocomplete-chip {
-    background: ${dt('inputchips.chip.focus.background')};
-    color: ${dt('inputchips.chip.focus.color')};
+    background: ${dt('autocomplete.chip.focus.background')};
+    color: ${dt('autocomplete.chip.focus.color')};
 }
 
 .p-autocomplete-input-chip {

@@ -407,7 +407,7 @@ export class ContextMenuSub extends BaseComponent {
             [attr.data-pc-section]="'root'"
             [attr.data-pc-name]="'contextmenu'"
             [attr.id]="id"
-            [ngClass]="{ 'p-contextmenu p-component': true }"
+            [ngClass]="{ 'p-contextmenu p-component': true, 'p-contextmenu-mobile': queryMatches }"
             [class]="styleClass"
             [ngStyle]="style"
             [@overlayAnimation]="{ value: 'visible' }"
@@ -505,6 +505,11 @@ export class ContextMenu extends BaseComponent implements OnInit, OnDestroy {
      */
     @Input() id: string | undefined;
     /**
+     * The breakpoint to define the maximum width boundary.
+     * @group Props
+     */
+    @Input() breakpoint: string = '960px';
+    /**
      * Defines a string value that labels an interactive element.
      * @group Props
      */
@@ -576,6 +581,12 @@ export class ContextMenu extends BaseComponent implements OnInit, OnDestroy {
 
     pressTimer: any;
 
+    private matchMediaListener: () => void;
+
+    private query: MediaQueryList;
+
+    public queryMatches: boolean;
+
     _componentStyle = inject(ContextMenuStyle);
 
     get visibleItems() {
@@ -616,6 +627,7 @@ export class ContextMenu extends BaseComponent implements OnInit, OnDestroy {
     ngOnInit() {
         super.ngOnInit();
         this.id = this.id || UniqueComponentId();
+        this.bindMatchMediaListener();
         this.bindTriggerEventListener();
     }
 
@@ -713,6 +725,30 @@ export class ContextMenu extends BaseComponent implements OnInit, OnDestroy {
         return processedItems;
     }
 
+    bindMatchMediaListener() {
+        if (isPlatformBrowser(this.platformId)) {
+            if (!this.matchMediaListener) {
+                const query = window.matchMedia(`(max-width: ${this.breakpoint})`);
+
+                this.query = query;
+                this.queryMatches = query.matches;
+
+                this.matchMediaListener = () => {
+                    this.queryMatches = query.matches;
+                };
+
+                query.addEventListener('change', this.matchMediaListener);
+            }
+        }
+    }
+
+    unbindMatchMediaListener() {
+        if (this.matchMediaListener) {
+            this.query.removeEventListener('change', this.matchMediaListener);
+            this.matchMediaListener = null;
+        }
+    }
+
     getItemProp(item: any, name: string) {
         return item ? ObjectUtils.getItemValue(item[name]) : undefined;
     }
@@ -778,7 +814,7 @@ export class ContextMenu extends BaseComponent implements OnInit, OnDestroy {
     }
 
     onItemMouseEnter(event: any) {
-        this.onItemChange(event);
+        this.onItemChange(event,'hover');
     }
 
     onKeyDown(event: KeyboardEvent) {
@@ -956,7 +992,7 @@ export class ContextMenu extends BaseComponent implements OnInit, OnDestroy {
         event.preventDefault();
     }
 
-    onItemChange(event: any) {
+    onItemChange(event: any, type?: string | undefined) {
         const { processedItem, isFocus } = event;
         if (ObjectUtils.isEmpty(processedItem)) return;
 
@@ -969,9 +1005,13 @@ export class ContextMenu extends BaseComponent implements OnInit, OnDestroy {
             this.submenuVisible.set(true);
         }
         this.focusedItemInfo.set({ index, level, parentKey, item: processedItem.item });
-        this.activeItemPath.set(activeItemPath);
-
         isFocus && DomHandler.focus(this.rootmenu.sublistViewChild.nativeElement);
+
+        if (type === 'hover' && this.queryMatches) {
+            return;
+        }
+        
+        this.activeItemPath.set(activeItemPath);
     }
 
     onMenuFocus(event: any) {
@@ -1278,6 +1318,7 @@ export class ContextMenu extends BaseComponent implements OnInit, OnDestroy {
     ngOnDestroy() {
         this.unbindGlobalListeners();
         this.unbindTriggerEventListener();
+        this.unbindMatchMediaListener();
         this.removeAppendedElements();
         super.ngOnDestroy();
     }

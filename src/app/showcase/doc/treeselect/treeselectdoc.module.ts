@@ -22,6 +22,8 @@ import { FilledDoc } from './filleddoc';
 import { LazyDoc } from './lazydoc';
 import { IftaLabelModule } from 'primeng/iftalabel';
 import { IftaLabelDoc } from './iftalabeldoc';
+import { TemplateDoc } from './templatedoc';
+import { ButtonModule } from 'primeng/button';
 
 @NgModule({
     imports: [
@@ -34,6 +36,7 @@ import { IftaLabelDoc } from './iftalabeldoc';
         RouterModule,
         FloatLabelModule,
         IftaLabelModule,
+        ButtonModule
     ],
     exports: [AppDocModule],
     declarations: [
@@ -52,6 +55,7 @@ import { IftaLabelDoc } from './iftalabeldoc';
         ReactiveFormsDoc,
         FilledDoc,
         IftaLabelDoc,
+        TemplateDoc
     ],
 })
 export class TreeSelectDocModule {}

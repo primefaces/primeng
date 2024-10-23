@@ -17,11 +17,10 @@ import { Code } from '@domain/code';
                 [options]="countries"
                 [(ngModel)]="selectedCountry"
                 optionLabel="name"
-                [showClear]="true"
                 placeholder="Select a country"
                 class="w-full md:w-56"
             >
-                <ng-template pTemplate="selectedItem" let-selectedOption>
+                <ng-template #selectedItem let-selectedOption>
                     <div class="flex items-center gap-2" *ngIf="selectedOption">
                         <img
                             src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
@@ -31,7 +30,7 @@ import { Code } from '@domain/code';
                         <div>{{ selectedOption.name }}</div>
                     </div>
                 </ng-template>
-                <ng-template let-country pTemplate="item">
+                <ng-template let-country #item>
                     <div class="flex items-center gap-2">
                         <img
                             src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
@@ -39,6 +38,17 @@ import { Code } from '@domain/code';
                             style="width: 18px"
                         />
                         <div>{{ country.name }}</div>
+                    </div>
+                </ng-template>
+                <ng-template #dropdownicon>
+                    <i class="pi pi-map"></i>
+                </ng-template>
+                <ng-template #header>
+                    <div class="font-medium p-3">Available Countries</div>
+                </ng-template>
+                <ng-template #footer>
+                    <div class="p-3">
+                        <p-button label="Add New" fluid severity="secondary" text size="small" icon="pi pi-plus" />
                     </div>
                 </ng-template>
             </p-select>
@@ -67,47 +77,86 @@ export class TemplateDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-select [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" [showClear]="true" placeholder="Select a Country" class="w-full md:w-56">
-        <ng-template pTemplate="selectedItem">
-            <div class="flex items-center gap-2" *ngIf="selectedCountry">
-                <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + selectedCountry.code.toLowerCase()" style="width: 18px" />
-                <div>{{ selectedCountry.name }}</div>
+        basic: `<p-select [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" placeholder="Select a country" class="w-full md:w-56">
+        <ng-template #selectedItem let-selectedOption>
+            <div class="flex items-center gap-2" *ngIf="selectedOption">
+                <img
+                    src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
+                    [class]="'flag flag-' + selectedOption.code.toLowerCase()"
+                    style="width: 18px"
+                />
+                <div>{{ selectedOption.name }}</div>
             </div>
         </ng-template>
-        <ng-template let-country pTemplate="item">
+        <ng-template let-country #item>
             <div class="flex items-center gap-2">
-                <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" style="width: 18px" />
+                <img
+                    src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
+                    [class]="'flag flag-' + country.code.toLowerCase()"
+                    style="width: 18px"
+                />
                 <div>{{ country.name }}</div>
+            </div>
+        </ng-template>
+        <ng-template #dropdownicon>
+            <i class="pi pi-map"></i>
+        </ng-template>
+        <ng-template #header>
+            <div class="font-medium p-3">Available Countries</div>
+        </ng-template>
+        <ng-template #footer>
+            <div class="p-3">
+                <p-button label="Add New" fluid severity="secondary" text size="small" icon="pi pi-plus" />
             </div>
         </ng-template>
 </p-select>`,
 
         html: `<div class="card flex justify-center">
-    <p-select [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" [showClear]="true" placeholder="Select a Country" class="w-full md:w-56">
-            <ng-template pTemplate="selectedItem">
-                <div class="flex items-center gap-2" *ngIf="selectedCountry">
-                    <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + selectedCountry.code.toLowerCase()" style="width: 18px" />
-                    <div>{{ selectedCountry.name }}</div>
-                </div>
-            </ng-template>
-            <ng-template let-country pTemplate="item">
-                <div class="flex items-center gap-2">
-                    <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" style="width: 18px" />
-                    <div>{{ country.name }}</div>
-                </div>
-            </ng-template>
+    <p-select [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" placeholder="Select a country" class="w-full md:w-56">
+        <ng-template #selectedItem let-selectedOption>
+            <div class="flex items-center gap-2" *ngIf="selectedOption">
+                <img
+                    src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
+                    [class]="'flag flag-' + selectedOption.code.toLowerCase()"
+                    style="width: 18px"
+                />
+                <div>{{ selectedOption.name }}</div>
+            </div>
+        </ng-template>
+        <ng-template let-country #item>
+            <div class="flex items-center gap-2">
+                <img
+                    src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
+                    [class]="'flag flag-' + country.code.toLowerCase()"
+                    style="width: 18px"
+                />
+                <div>{{ country.name }}</div>
+            </div>
+        </ng-template>
+        <ng-template #dropdownicon>
+            <i class="pi pi-map"></i>
+        </ng-template>
+        <ng-template #header>
+            <div class="font-medium p-3">Available Countries</div>
+        </ng-template>
+        <ng-template #footer>
+            <div class="p-3">
+                <p-button label="Add New" fluid severity="secondary" text size="small" icon="pi pi-plus" />
+            </div>
+        </ng-template>
     </p-select>
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { SelectModule } from 'primeng/select';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
     selector: 'select-group-demo',
     templateUrl: './select-group-demo.html',
     standalone: true,
-    imports: [FormsModule, SelectModule]
+    imports: [FormsModule, SelectModule, ButtonModule]
 })
 export class SelectTemplateDemo implements OnInit {
     countries: any[] | undefined;

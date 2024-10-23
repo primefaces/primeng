@@ -19,6 +19,7 @@ import { LoadingDoc } from './loadingdoc';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { IftaLabelDoc } from './iftalabeldoc';
 import { IftaLabelModule } from 'primeng/iftalabel';
+import { ButtonModule } from 'primeng/button';
 
 @NgModule({
     imports: [
@@ -31,6 +32,7 @@ import { IftaLabelModule } from 'primeng/iftalabel';
         ReactiveFormsModule,
         FloatLabelModule,
         IftaLabelModule,
+        ButtonModule
     ],
     exports: [AppDocModule],
     declarations: [

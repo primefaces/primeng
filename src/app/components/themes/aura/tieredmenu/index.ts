@@ -29,6 +29,9 @@ export default {
     submenu: {
         mobileIndent: '1rem'
     },
+    submenu: {
+        mobileIndent: '1rem'
+    },
     submenuLabel: {
         padding: '{navigation.submenu.label.padding}',
         fontWeight: '{navigation.submenu.label.font.weight}',

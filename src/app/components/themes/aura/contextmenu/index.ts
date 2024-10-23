@@ -29,6 +29,9 @@ export default {
     submenu: {
         mobileIndent: '1rem'
     },
+    submenu: {
+        mobileIndent: '1rem'
+    },
     submenuIcon: {
         size: '{navigation.submenu.icon.size}',
         color: '{navigation.submenu.icon.color}',

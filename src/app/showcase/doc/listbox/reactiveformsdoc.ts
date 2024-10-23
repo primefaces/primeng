@@ -16,17 +16,9 @@ interface City {
                 component to a form control.
             </p>
         </app-docsectiontext>
-        <div class="card flex justify-center">
-            <form [formGroup]="formGroup">
-                <p-listbox
-                    [options]="cities"
-                    formControlName="selectedCity"
-                    optionLabel="name"
-                    [style]="{ width: '15rem' }"
-                    [listStyle]="{ 'max-height': '220px' }"
-                />
-            </form>
-        </div>
+        <form [formGroup]="formGroup" class="card flex justify-center">
+            <p-listbox [options]="cities" formControlName="selectedCity" optionLabel="name" class="w-full md:w-56" />
+        </form>
         <app-code [code]="code" selector="listbox-reactive-forms-demo"></app-code>
     `,
 })
@@ -50,15 +42,13 @@ export class ReactiveFormsDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<form [formGroup]="formGroup">
-    <p-listbox [options]="cities" formControlName="selectedCity" optionLabel="name" [style]="{ width: '15rem' }" [listStyle]="{'max-height': '220px'}" />
+        basic: `<form [formGroup]="formGroup" class="card flex justify-center">
+    <p-listbox [options]="cities" formControlName="selectedCity" optionLabel="name" class="w-full md:w-56" />
 </form>`,
 
-        html: `<div class="card flex justify-center">
-    <form [formGroup]="formGroup">
-        <p-listbox [options]="cities" formControlName="selectedCity" optionLabel="name" [style]="{ width: '15rem' }" [listStyle]="{'max-height': '220px'}" />
-    </form>
-</div>`,
+        html: `<form [formGroup]="formGroup" class="card flex justify-center">
+    <p-listbox [options]="cities" formControlName="selectedCity" optionLabel="name" class="w-full md:w-56" />
+</form>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
