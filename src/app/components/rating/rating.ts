@@ -1,15 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, EventEmitter, forwardRef, Input, NgModule, numberAttribute, OnInit, Output, QueryList, signal, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
-import { BanIcon } from 'primeng/icons/ban';
-import { StarIcon } from 'primeng/icons/star';
-import { StarFillIcon } from 'primeng/icons/starfill';
-import { Nullable } from 'primeng/ts-helpers';
+import { PrimeNGConfig, PrimeTemplate, SharedModule } from 'primengrtl/api';
+import { BanIcon } from 'primengrtl/icons/ban';
+import { StarIcon } from 'primengrtl/icons/star';
+import { StarFillIcon } from 'primengrtl/icons/starfill';
+import { Nullable } from 'primengrtl/ts-helpers';
 import { RatingRateEvent } from './rating.interface';
-import { DomHandler } from 'primeng/dom';
-import { UniqueComponentId } from 'primeng/utils';
-import { AutoFocusModule } from 'primeng/autofocus';
+import { DomHandler } from 'primengrtl/dom';
+import { UniqueComponentId } from 'primengrtl/utils';
+import { AutoFocusModule } from 'primengrtl/autofocus';
 
 export const RATING_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,

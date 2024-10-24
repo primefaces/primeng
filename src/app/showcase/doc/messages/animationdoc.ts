@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Message } from 'primeng/api';
+import { Message } from 'primengrtl/api';
 import { Code } from '@domain/code';
 
 @Component({
@@ -25,21 +25,21 @@ export class AnimationDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-messages 
-    [(value)]="messages" 
-    [showTransitionOptions]="'500ms'" 
-    [hideTransitionOptions]="'500ms'" 
+        basic: `<p-messages
+    [(value)]="messages"
+    [showTransitionOptions]="'500ms'"
+    [hideTransitionOptions]="'500ms'"
     [enableService]="false" />`,
         html: `<div class="card">
-    <p-messages 
-        [(value)]="messages" 
-        [showTransitionOptions]="'500ms'" 
-        [hideTransitionOptions]="'500ms'" 
+    <p-messages
+        [(value)]="messages"
+        [showTransitionOptions]="'500ms'"
+        [hideTransitionOptions]="'500ms'"
         [enableService]="false" />
 </div>`,
         typescript: `import { Component, OnInit } from '@angular/core';
-import { Message } from 'primeng/api';
-import { MessagesModule } from 'primeng/messages';
+import { Message } from 'primengrtl/api';
+import { MessagesModule } from 'primengrtl/messages';
 
 @Component({
     selector: 'messages-animation-demo',

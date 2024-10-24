@@ -26,17 +26,17 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { OverlayOptions, OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
-import { DomHandler } from 'primeng/dom';
-import { AngleEndIcon } from 'primeng/icons/angleend';
-import { AutoFocusModule } from 'primeng/autofocus';
+import { OverlayOptions, OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys } from 'primengrtl/api';
+import { DomHandler } from 'primengrtl/dom';
+import { AngleEndIcon } from 'primengrtl/icons/angleend';
+import { AutoFocusModule } from 'primengrtl/autofocus';
 
-import { ChevronDownIcon } from 'primeng/icons/chevrondown';
-import { TimesIcon } from 'primeng/icons/times';
-import { Overlay, OverlayModule } from 'primeng/overlay';
-import { RippleModule } from 'primeng/ripple';
-import { Nullable } from 'primeng/ts-helpers';
-import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
+import { ChevronDownIcon } from 'primengrtl/icons/chevrondown';
+import { TimesIcon } from 'primengrtl/icons/times';
+import { Overlay, OverlayModule } from 'primengrtl/overlay';
+import { RippleModule } from 'primengrtl/ripple';
+import { Nullable } from 'primengrtl/ts-helpers';
+import { ObjectUtils, UniqueComponentId } from 'primengrtl/utils';
 import { CascadeSelectBeforeHideEvent, CascadeSelectBeforeShowEvent, CascadeSelectChangeEvent, CascadeSelectHideEvent, CascadeSelectShowEvent } from './cascadeselect.interface';
 
 export const CASCADESELECT_VALUE_ACCESSOR: any = {

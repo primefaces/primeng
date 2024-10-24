@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/
 import { Code } from '@domain/code';
 import { Customer, Representative } from '@domain/customer';
 import { CustomerService } from '@service/customerservice';
-import { Table } from 'primeng/table';
+import { Table } from 'primengrtl/table';
 
 @Component({
     selector: 'customers-doc',
@@ -581,18 +581,18 @@ export class CustomersDoc {
         typescript: `import { Component, OnInit } from '@angular/core';
 import { Customer, Representative } from '@domain/customer';
 import { CustomerService } from '@service/customerservice';
-import { TableModule } from 'primeng/table';
-import { TagModule } from 'primeng/tag';
-import { ButtonModule } from 'primeng/button';
-import { InputIconModule } from 'primeng/inputicon';
-import { IconFieldModule } from 'primeng/iconfield';
+import { TableModule } from 'primengrtl/table';
+import { TagModule } from 'primengrtl/tag';
+import { ButtonModule } from 'primengrtl/button';
+import { InputIconModule } from 'primengrtl/inputicon';
+import { IconFieldModule } from 'primengrtl/iconfield';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
-import { MultiSelectModule } from 'primeng/multiselect';
-import { InputTextModule } from 'primeng/inputtext';
-import { DropdownModule } from 'primeng/dropdown';
-import { SliderModule } from 'primeng/slider';
-import { ProgressBarModule } from 'primeng/progressbar';
+import { MultiSelectModule } from 'primengrtl/multiselect';
+import { InputTextModule } from 'primengrtl/inputtext';
+import { DropdownModule } from 'primengrtl/dropdown';
+import { SliderModule } from 'primengrtl/slider';
+import { ProgressBarModule } from 'primengrtl/progressbar';
 
 @Component({
     selector: 'table-customers-demo',

@@ -34,25 +34,25 @@ export class LoadingStateDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-multiSelect 
-    [options]="cities" 
-    [(ngModel)]="selectedCities" 
+        basic: `<p-multiSelect
+    [options]="cities"
+    [(ngModel)]="selectedCities"
     [loading]="true"
-    optionLabel="name" 
+    optionLabel="name"
     placeholder="Loading..." />`,
 
         html: `<div class="card flex justify-content-center">
-    <p-multiSelect 
-        [options]="cities" 
-        [(ngModel)]="selectedCities" 
+    <p-multiSelect
+        [options]="cities"
+        [(ngModel)]="selectedCities"
         [loading]="true"
-        optionLabel="name" 
+        optionLabel="name"
         placeholder="Loading..." />
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MultiSelectModule } from 'primeng/multiselect';
+import { MultiSelectModule } from 'primengrtl/multiselect';
 
 interface City {
     name: string,

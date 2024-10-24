@@ -17,20 +17,20 @@ export class OptionalDoc {
     value: string | undefined;
 
     code: Code = {
-        basic: `<p-inputMask 
-    mask="(999) 999-9999? x99999" 
-    [(ngModel)]="value" 
+        basic: `<p-inputMask
+    mask="(999) 999-9999? x99999"
+    [(ngModel)]="value"
     placeholder="(999) 999-9999? x99999" />`,
 
         html: `<div class="card flex justify-content-center">
-    <p-inputMask 
-        mask="(999) 999-9999? x99999" 
-        [(ngModel)]="value" 
+    <p-inputMask
+        mask="(999) 999-9999? x99999"
+        [(ngModel)]="value"
         placeholder="(999) 999-9999? x99999" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { InputMaskModule } from 'primeng/inputmask';
+import { InputMaskModule } from 'primengrtl/inputmask';
 import { FormsModule } from '@angular/forms';
 
 @Component({

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FilterMatchMode, FilterService, SelectItem } from 'primeng/api';
+import { FilterMatchMode, FilterService, SelectItem } from 'primengrtl/api';
 import { Car } from '@domain/car';
 import { Code } from '@domain/code';
 import { CarService } from '@service/carservice';
@@ -86,10 +86,10 @@ export class TableIntegrationDoc implements OnInit {
         </tr>
         <tr>
             <th *ngFor="let col of columns">
-                <p-columnFilter 
-                    type="text" 
-                    [field]="col.field" 
-                    [matchModeOptions]="matchModeOptions" 
+                <p-columnFilter
+                    type="text"
+                    [field]="col.field"
+                    [matchModeOptions]="matchModeOptions"
                     [matchMode]="'custom-equals'" />
             </th>
         </tr>
@@ -110,10 +110,10 @@ export class TableIntegrationDoc implements OnInit {
             </tr>
             <tr>
                 <th *ngFor="let col of columns">
-                    <p-columnFilter 
-                        type="text" 
-                        [field]="col.field" 
-                        [matchModeOptions]="matchModeOptions" 
+                    <p-columnFilter
+                        type="text"
+                        [field]="col.field"
+                        [matchModeOptions]="matchModeOptions"
                         [matchMode]="'custom-equals'" />
                 </th>
             </tr>
@@ -126,10 +126,10 @@ export class TableIntegrationDoc implements OnInit {
     </p-table>
 </div>`,
         typescript: `import { Component, OnInit } from '@angular/core';
-import { FilterMatchMode, FilterService, SelectItem } from 'primeng/api';
+import { FilterMatchMode, FilterService, SelectItem } from 'primengrtl/api';
 import { Car } from '@domain/car';
 import { CarService } from '@service/carservice';
-import { TableModule } from 'primeng/table';
+import { TableModule } from 'primengrtl/table';
 import { CommonModule } from '@angular/common';
 
 @Component({

@@ -32,8 +32,8 @@ import { Code } from '@domain/code';
 })
 export class TemplateDoc {
     code: Code = {
-        basic: `<p-toolbar 
-    styleClass="bg-gray-900 shadow-2" 
+        basic: `<p-toolbar
+    styleClass="bg-gray-900 shadow-2"
     [style]="{ 'border-radius': '3rem', 'background-image': 'linear-gradient(to right, var(--bluegray-500), var(--bluegray-800))' }">
         <ng-template pTemplate="start">
             <img src="https://primefaces.org/cdn/primeng/images/primeng.svg" />
@@ -53,8 +53,8 @@ export class TemplateDoc {
         </ng-template>
         <ng-template pTemplate="end">
             <div class="flex align-items-center gap-2">
-                <p-avatar 
-                    image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" 
+                <p-avatar
+                    image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"
                     shape="circle" />
                 <span class="font-bold text-bluegray-50">
                     Amy Elsner
@@ -64,8 +64,8 @@ export class TemplateDoc {
 </p-toolbar>`,
 
         html: `<div class="card">
-<p-toolbar 
-    styleClass="bg-gray-900 shadow-2" 
+<p-toolbar
+    styleClass="bg-gray-900 shadow-2"
     [style]="{ 'border-radius': '3rem', 'background-image': 'linear-gradient(to right, var(--bluegray-500), var(--bluegray-800))' }">
     <ng-template pTemplate="start">
         <img src="https://primefaces.org/cdn/primeng/images/primeng.svg" />
@@ -85,8 +85,8 @@ export class TemplateDoc {
     </ng-template>
     <ng-template pTemplate="end">
         <div class="flex align-items-center gap-2">
-            <p-avatar 
-                image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" 
+            <p-avatar
+                image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"
                 shape="circle" />
             <span class="font-bold text-bluegray-50">
                 Amy Elsner
@@ -97,8 +97,8 @@ export class TemplateDoc {
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { ToolbarModule } from 'primeng/toolbar';
-import { AvatarModule } from 'primeng/avatar';
+import { ToolbarModule } from 'primengrtl/toolbar';
+import { AvatarModule } from 'primengrtl/avatar';
 
 @Component({
     selector: 'toolbar-template-demo',
@@ -107,7 +107,7 @@ import { AvatarModule } from 'primeng/avatar';
     imports: [ToolbarModule, AvatarModule]
 })
 export class ToolbarTemplateDemo {
-   
+
 }`
     };
 }

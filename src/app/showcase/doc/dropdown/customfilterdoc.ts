@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Code } from '@domain/code';
-import { DropdownFilterOptions } from 'primeng/dropdown';
+import { DropdownFilterOptions } from 'primengrtl/dropdown';
 
 interface City {
     name: string;
@@ -73,23 +73,23 @@ export class CustomFilterDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-dropdown 
-    [options]="countries" 
+        basic: `<p-dropdown
+    [options]="countries"
     [(ngModel)]="selectedCountry"
     optionLabel="name"
-    [filter]="true" 
+    [filter]="true"
     filterBy="name"
     [showClear]="true"
-    placeholder="Select a Country" 
+    placeholder="Select a Country"
     styleClass="w-20rem">
         <ng-template pTemplate="filter" let-options="options">
             <div class="flex gap-1">
                 <div class="p-inputgroup" (click)="$event.stopPropagation()">
                     <span class="p-inputgroup-addon"><i class="pi pi-search"></i></span>
-                    <input 
+                    <input
                         type="text"
                         pInputText
-                        placeholder="Filter" 
+                        placeholder="Filter"
                         [(ngModel)]="filterValue"
                         (keyup)="customFilterFunction($event, options)" />
                 </div>
@@ -98,7 +98,7 @@ export class CustomFilterDoc implements OnInit {
         </ng-template>
         <ng-template pTemplate="selectedItem" let-selectedOption>
             <div class="flex align-items-center gap-2">
-                <img 
+                <img
                     src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
                     [class]="'flag flag-' + selectedCountry.code.toLowerCase()"
                     style="width: 18px" />
@@ -107,9 +107,9 @@ export class CustomFilterDoc implements OnInit {
         </ng-template>
         <ng-template let-country pTemplate="item">
             <div class="flex align-items-center gap-2">
-                <img 
+                <img
                     src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
-                    [class]="'flag flag-' + country.code.toLowerCase()" 
+                    [class]="'flag flag-' + country.code.toLowerCase()"
                     style="width: 18px" />
                 <div>{{ country.name }}</div>
             </div>
@@ -117,12 +117,12 @@ export class CustomFilterDoc implements OnInit {
 </p-dropdown>`,
 
         html: `<div class="card flex justify-content-center">
-<p-dropdown 
-    [options]="countries" 
-    [(ngModel)]="selectedCountry" 
-    optionLabel="name" 
-    [filter]="true" 
-    filterBy="name" 
+<p-dropdown
+    [options]="countries"
+    [(ngModel)]="selectedCountry"
+    optionLabel="name"
+    [filter]="true"
+    filterBy="name"
     [showClear]="true"
     placeholder="Select a Country"
     styleClass="w-20rem">
@@ -130,7 +130,7 @@ export class CustomFilterDoc implements OnInit {
             <div class="flex gap-1">
                 <div class="p-inputgroup" (click)="$event.stopPropagation()">
                     <span class="p-inputgroup-addon"><i class="pi pi-search"></i></span>
-                    <input 
+                    <input
                         type="text"
                         pInputText
                         placeholder="Filter"
@@ -142,7 +142,7 @@ export class CustomFilterDoc implements OnInit {
         </ng-template>
         <ng-template pTemplate="selectedItem" let-selectedOption>
             <div class="flex align-items-center gap-2">
-                <img 
+                <img
                     src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
                     [class]="'flag flag-' + selectedCountry.code.toLowerCase()"
                     style="width: 18px" />
@@ -151,7 +151,7 @@ export class CustomFilterDoc implements OnInit {
         </ng-template>
         <ng-template let-country pTemplate="item">
             <div class="flex align-items-center gap-2">
-                <img 
+                <img
                     src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
                     [class]="'flag flag-' + country.code.toLowerCase()"
                     style="width: 18px" />
@@ -162,9 +162,9 @@ export class CustomFilterDoc implements OnInit {
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
-import { DropdownFilterOptions } from 'primeng/dropdown';
+import { DropdownFilterOptions } from 'primengrtl/dropdown';
 import { FormsModule } from '@angular/forms';
-import { DropdownModule } from 'primeng/dropdown';
+import { DropdownModule } from 'primengrtl/dropdown';
 
 interface City {
     name: string;

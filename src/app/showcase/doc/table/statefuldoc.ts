@@ -347,12 +347,12 @@ export class StatefulDoc {
         typescript: `import { Component, OnInit } from '@angular/core';
 import { Customer } from '@domain/customer';
 import { CustomerService } from '@service/customerservice';
-import { TableModule } from 'primeng/table';
+import { TableModule } from 'primengrtl/table';
 import { HttpClientModule } from '@angular/common/http';
-import { InputTextModule } from 'primeng/inputtext';
-import { IconFieldModule } from 'primeng/iconfield';
-import { InputIconModule } from 'primeng/inputicon';
-import { TagModule } from 'primeng/tag';
+import { InputTextModule } from 'primengrtl/inputtext';
+import { IconFieldModule } from 'primengrtl/iconfield';
+import { InputIconModule } from 'primengrtl/inputicon';
+import { TagModule } from 'primengrtl/tag';
 
 @Component({
     selector: 'table-stateful-demo',

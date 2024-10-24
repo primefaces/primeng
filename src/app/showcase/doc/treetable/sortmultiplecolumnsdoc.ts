@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { TreeNode } from 'primeng/api';
+import { TreeNode } from 'primengrtl/api';
 import { Code } from '@domain/code';
 import { NodeService } from '@service/nodeservice';
 
@@ -58,11 +58,11 @@ export class SortMultipleColumnsDoc {
     }
 
     code: Code = {
-        basic: `<p-treeTable 
-    [value]="files" 
-    [columns]="cols" 
-    sortMode="multiple" 
-    [scrollable]="true" 
+        basic: `<p-treeTable
+    [value]="files"
+    [columns]="cols"
+    sortMode="multiple"
+    [scrollable]="true"
     [tableStyle]="{'min-width':'50rem'}">
         <ng-template pTemplate="header" let-columns>
             <tr>
@@ -83,11 +83,11 @@ export class SortMultipleColumnsDoc {
 </p-treeTable>`,
 
         html: `<div class="card">
-    <p-treeTable 
-        [value]="files" 
-        [columns]="cols" 
-        sortMode="multiple" 
-        [scrollable]="true" 
+    <p-treeTable
+        [value]="files"
+        [columns]="cols"
+        sortMode="multiple"
+        [scrollable]="true"
         [tableStyle]="{'min-width':'50rem'}">
             <ng-template pTemplate="header" let-columns>
                 <tr>
@@ -109,9 +109,9 @@ export class SortMultipleColumnsDoc {
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
-import { TreeNode } from 'primeng/api';
+import { TreeNode } from 'primengrtl/api';
 import { NodeService } from '@service/nodeservice';
-import { TreeTableModule } from 'primeng/treetable';
+import { TreeTableModule } from 'primengrtl/treetable';
 import { CommonModule } from '@angular/common';
 
 interface Column {

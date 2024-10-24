@@ -28,20 +28,20 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { OverlayOptions, OverlayService, PrimeNGConfig, PrimeTemplate, ScrollerOptions, SharedModule, TranslationKeys } from 'primeng/api';
-import { AutoFocusModule } from 'primeng/autofocus';
-import { ButtonModule } from 'primeng/button';
-import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
-import { InputTextModule } from 'primeng/inputtext';
-import { Overlay, OverlayModule } from 'primeng/overlay';
-import { RippleModule } from 'primeng/ripple';
-import { Scroller, ScrollerModule } from 'primeng/scroller';
-import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
-import { TimesCircleIcon } from 'primeng/icons/timescircle';
-import { SpinnerIcon } from 'primeng/icons/spinner';
-import { TimesIcon } from 'primeng/icons/times';
-import { ChevronDownIcon } from 'primeng/icons/chevrondown';
-import { Nullable } from 'primeng/ts-helpers';
+import { OverlayOptions, OverlayService, PrimeNGConfig, PrimeTemplate, ScrollerOptions, SharedModule, TranslationKeys } from 'primengrtl/api';
+import { AutoFocusModule } from 'primengrtl/autofocus';
+import { ButtonModule } from 'primengrtl/button';
+import { ConnectedOverlayScrollHandler, DomHandler } from 'primengrtl/dom';
+import { InputTextModule } from 'primengrtl/inputtext';
+import { Overlay, OverlayModule } from 'primengrtl/overlay';
+import { RippleModule } from 'primengrtl/ripple';
+import { Scroller, ScrollerModule } from 'primengrtl/scroller';
+import { ObjectUtils, UniqueComponentId } from 'primengrtl/utils';
+import { TimesCircleIcon } from 'primengrtl/icons/timescircle';
+import { SpinnerIcon } from 'primengrtl/icons/spinner';
+import { TimesIcon } from 'primengrtl/icons/times';
+import { ChevronDownIcon } from 'primengrtl/icons/chevrondown';
+import { Nullable } from 'primengrtl/ts-helpers';
 import { AutoCompleteCompleteEvent, AutoCompleteDropdownClickEvent, AutoCompleteLazyLoadEvent, AutoCompleteSelectEvent, AutoCompleteUnselectEvent } from './autocomplete.interface';
 
 export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {

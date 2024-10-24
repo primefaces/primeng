@@ -15,21 +15,21 @@ import { Code } from '@domain/code';
 })
 export class LoadingDoc {
     code: Code = {
-        basic: `<p-cascadeSelect 
-    [loading]="true" 
+        basic: `<p-cascadeSelect
+    [loading]="true"
     [style]="{ minWidth: '14rem' }"
     placeholder="Loading..." />`,
 
         html: `<div class="card flex justify-content-center">
-    <p-cascadeSelect 
+    <p-cascadeSelect
         [loading]="true"
-        [style]="{ minWidth: '14rem' }" 
+        [style]="{ minWidth: '14rem' }"
         placeholder="Loading..." />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { CascadeSelectModule } from 'primeng/cascadeselect';
+import { CascadeSelectModule } from 'primengrtl/cascadeselect';
 
 @Component({
     selector: 'cascade-select-loading-demo',

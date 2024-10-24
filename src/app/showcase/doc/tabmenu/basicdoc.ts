@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuItem } from 'primeng/api';
+import { MenuItem } from 'primengrtl/api';
 import { Code } from '@domain/code';
 
 @Component({
@@ -34,8 +34,8 @@ export class BasicDoc implements OnInit {
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
-import { MenuItem } from 'primeng/api';
-import { TabMenuModule } from 'primeng/tabmenu';
+import { MenuItem } from 'primengrtl/api';
+import { TabMenuModule } from 'primengrtl/tabmenu';
 
 @Component({
     selector: 'tab-menu-basic-demo',

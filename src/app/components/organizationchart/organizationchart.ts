@@ -19,11 +19,11 @@ import {
     booleanAttribute,
     forwardRef
 } from '@angular/core';
-import { PrimeTemplate, SharedModule, TreeNode } from 'primeng/api';
-import { DomHandler } from 'primeng/dom';
-import { ChevronDownIcon } from 'primeng/icons/chevrondown';
-import { ChevronUpIcon } from 'primeng/icons/chevronup';
-import { Nullable } from 'primeng/ts-helpers';
+import { PrimeTemplate, SharedModule, TreeNode } from 'primengrtl/api';
+import { DomHandler } from 'primengrtl/dom';
+import { ChevronDownIcon } from 'primengrtl/icons/chevrondown';
+import { ChevronUpIcon } from 'primengrtl/icons/chevronup';
+import { Nullable } from 'primengrtl/ts-helpers';
 import { Subject, Subscription } from 'rxjs';
 import { OrganizationChartNodeCollapseEvent, OrganizationChartNodeExpandEvent, OrganizationChartNodeSelectEvent, OrganizationChartNodeUnSelectEvent } from './organizationchart.interface';
 @Component({

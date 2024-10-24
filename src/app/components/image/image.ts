@@ -20,17 +20,17 @@ import {
     booleanAttribute
 } from '@angular/core';
 import { SafeUrl } from '@angular/platform-browser';
-import { PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
-import { DomHandler } from 'primeng/dom';
-import { EyeIcon } from 'primeng/icons/eye';
-import { RefreshIcon } from 'primeng/icons/refresh';
-import { SearchMinusIcon } from 'primeng/icons/searchminus';
-import { SearchPlusIcon } from 'primeng/icons/searchplus';
-import { TimesIcon } from 'primeng/icons/times';
-import { UndoIcon } from 'primeng/icons/undo';
-import { ZIndexUtils } from 'primeng/utils';
-import { Nullable } from 'primeng/ts-helpers';
-import { FocusTrapModule } from 'primeng/focustrap';
+import { PrimeNGConfig, PrimeTemplate, SharedModule } from 'primengrtl/api';
+import { DomHandler } from 'primengrtl/dom';
+import { EyeIcon } from 'primengrtl/icons/eye';
+import { RefreshIcon } from 'primengrtl/icons/refresh';
+import { SearchMinusIcon } from 'primengrtl/icons/searchminus';
+import { SearchPlusIcon } from 'primengrtl/icons/searchplus';
+import { TimesIcon } from 'primengrtl/icons/times';
+import { UndoIcon } from 'primengrtl/icons/undo';
+import { ZIndexUtils } from 'primengrtl/utils';
+import { Nullable } from 'primengrtl/ts-helpers';
+import { FocusTrapModule } from 'primengrtl/focustrap';
 
 /**
  * Displays an image with preview and tranformation options. For multiple image, see Galleria.

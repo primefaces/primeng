@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MessageService } from 'primeng/api';
+import { MessageService } from 'primengrtl/api';
 import { Code } from '@domain/code';
 
 @Component({
@@ -72,10 +72,10 @@ export class PositionDoc {
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { MessageService } from 'primeng/api';
-import { ToastModule } from 'primeng/toast';
-import { ButtonModule } from 'primeng/button';
-import { RippleModule } from 'primeng/ripple';
+import { MessageService } from 'primengrtl/api';
+import { ToastModule } from 'primengrtl/toast';
+import { ButtonModule } from 'primengrtl/button';
+import { RippleModule } from 'primengrtl/ripple';
 
 @Component({
     selector: 'toast-position-demo',

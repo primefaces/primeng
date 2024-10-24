@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuItem } from 'primeng/api';
+import { MenuItem } from 'primengrtl/api';
 import { Code } from '@domain/code';
 
 @Component({
@@ -80,12 +80,12 @@ export class BasicDoc implements OnInit {
 
         html: `<div class="card">
     <div class="flex flex-wrap gap-3 mb-5">
-        <p-radioButton 
-            *ngFor="let option of positionOptions" 
-            [name]="option.label" 
-            [value]="option.value" 
-            [label]="option.label" 
-            [(ngModel)]="position" 
+        <p-radioButton
+            *ngFor="let option of positionOptions"
+            [name]="option.label"
+            [value]="option.value"
+            [label]="option.label"
+            [(ngModel)]="position"
             [inputId]="label" />
     </div>
     <div class="dock-window">
@@ -98,9 +98,9 @@ export class BasicDoc implements OnInit {
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
-import { MenuItem } from 'primeng/api';
-import { DockModule } from 'primeng/dock';
-import { RadioButtonModule } from 'primeng/radiobutton';
+import { MenuItem } from 'primengrtl/api';
+import { DockModule } from 'primengrtl/dock';
+import { RadioButtonModule } from 'primengrtl/radiobutton';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -116,7 +116,7 @@ import { FormsModule } from '@angular/forms';
             background-repeat: no-repeat;
             background-size: cover;
         }
-    
+
         .p-dock {
             z-index: 1000;
         }\`

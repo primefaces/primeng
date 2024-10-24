@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { TreeNode } from 'primeng/api';
+import { TreeNode } from 'primengrtl/api';
 import { Code } from '@domain/code';
 import { NodeService } from '@service/nodeservice';
 
@@ -66,19 +66,19 @@ export class ColumnToggleDoc {
     }
 
     code: Code = {
-        basic: `<p-treeTable 
-    [value]="files" 
-    [columns]="selectedColumns" 
-    [scrollable]="true" 
+        basic: `<p-treeTable
+    [value]="files"
+    [columns]="selectedColumns"
+    [scrollable]="true"
     [tableStyle]="{'min-width':'50rem'}">
         <ng-template pTemplate="caption">
             <div style="text-align:left">
-                <p-multiSelect 
-                    [options]="cols" 
+                <p-multiSelect
+                    [options]="cols"
                     [(ngModel)]="selectedColumns"
-                    optionLabel="header" 
-                    selectedItemsLabel="{0} columns selected" 
-                    [style]="{ width: '20em' }" 
+                    optionLabel="header"
+                    selectedItemsLabel="{0} columns selected"
+                    [style]="{ width: '20em' }"
                     defaultLabel="Choose Columns" display="chip" />
             </div>
         </ng-template>
@@ -100,20 +100,20 @@ export class ColumnToggleDoc {
 </p-treeTable>`,
 
         html: `<div class="card">
-    <p-treeTable 
-        [value]="files" 
-        [columns]="selectedColumns" 
-        [scrollable]="true" 
+    <p-treeTable
+        [value]="files"
+        [columns]="selectedColumns"
+        [scrollable]="true"
         [tableStyle]="{'min-width':'50rem'}">
             <ng-template pTemplate="caption">
                 <div style="text-align:left">
-                    <p-multiSelect 
-                        [options]="cols" 
-                        [(ngModel)]="selectedColumns" 
-                        optionLabel="header" 
-                        selectedItemsLabel="{0} columns selected" 
-                        [style]="{ width: '20em' }" 
-                        defaultLabel="Choose Columns" 
+                    <p-multiSelect
+                        [options]="cols"
+                        [(ngModel)]="selectedColumns"
+                        optionLabel="header"
+                        selectedItemsLabel="{0} columns selected"
+                        [style]="{ width: '20em' }"
+                        defaultLabel="Choose Columns"
                         display="chip" />
                 </div>
             </ng-template>
@@ -136,10 +136,10 @@ export class ColumnToggleDoc {
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
-import { TreeNode } from 'primeng/api';
+import { TreeNode } from 'primengrtl/api';
 import { NodeService } from '@service/nodeservice';
-import { TreeTableModule } from 'primeng/treetable';
-import { MultiSelectModule } from 'primeng/multiselect';
+import { TreeTableModule } from 'primengrtl/treetable';
+import { MultiSelectModule } from 'primengrtl/multiselect';
 import { CommonModule } from '@angular/common';
 
 interface Column {

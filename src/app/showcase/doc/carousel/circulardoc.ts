@@ -160,9 +160,9 @@ export class CircularDoc implements OnInit {
         typescript: `import { Component, OnInit } from '@angular/core';
 import { Product } from '@domain/product';
 import { ProductService } from '@service/productservice';
-import { CarouselModule } from 'primeng/carousel';
-import { ButtonModule } from 'primeng/button';
-import { TagModule } from 'primeng/tag';
+import { CarouselModule } from 'primengrtl/carousel';
+import { ButtonModule } from 'primengrtl/button';
+import { TagModule } from 'primengrtl/tag';
 
 @Component({
     selector: 'carousel-circular-demo',

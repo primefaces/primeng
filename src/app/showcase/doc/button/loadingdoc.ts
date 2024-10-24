@@ -28,22 +28,22 @@ export class LoadingDoc {
     }
 
     code: Code = {
-        basic: `<p-button 
-    label="Search" 
-    icon="pi pi-check" 
-    [loading]="loading" 
+        basic: `<p-button
+    label="Search"
+    icon="pi pi-check"
+    [loading]="loading"
     (onClick)="load()" />`,
 
         html: `<div class="card flex justify-content-center gap-3">
-    <p-button 
-        label="Search" 
-        icon="pi pi-check" 
-        [loading]="loading" 
+    <p-button
+        label="Search"
+        icon="pi pi-check"
+        [loading]="loading"
         (onClick)="load()" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
+import { ButtonModule } from 'primengrtl/button';
 
 @Component({
     selector: 'button-loading-demo',

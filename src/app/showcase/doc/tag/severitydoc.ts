@@ -32,7 +32,7 @@ export class SeverityDoc {
     <p-tag severity="contrast" value="Contrast"/>
 </div>`,
         typescript: `import { Component } from '@angular/core';
-import { TagModule } from 'primeng/tag';
+import { TagModule } from 'primengrtl/tag';
 
 @Component({
     selector: 'tag-severity-demo',

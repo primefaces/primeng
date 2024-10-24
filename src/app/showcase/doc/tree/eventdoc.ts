@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MessageService, TreeNode } from 'primeng/api';
+import { MessageService, TreeNode } from 'primengrtl/api';
 import { Code } from '@domain/code';
 import { NodeService } from '@service/nodeservice';
 
@@ -57,34 +57,34 @@ export class EventDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-tree 
-    [value]="files" 
-    class="w-full md:w-30rem" 
-    selectionMode="single" 
+        basic: `<p-tree
+    [value]="files"
+    class="w-full md:w-30rem"
+    selectionMode="single"
     [(selection)]="selectedFile"
     (onNodeExpand)="nodeExpand($event)"
-    (onNodeCollapse)="nodeCollapse($event)" 
+    (onNodeCollapse)="nodeCollapse($event)"
     (onNodeSelect)="nodeSelect($event)"
     (onNodeUnselect)="nodeUnselect($event)" />`,
 
         html: `<div class="card flex justify-content-center">
     <p-toast />
-    <p-tree 
-        [value]="files" 
-        class="w-full md:w-30rem" 
-        selectionMode="single" 
+    <p-tree
+        [value]="files"
+        class="w-full md:w-30rem"
+        selectionMode="single"
         [(selection)]="selectedFile"
-        (onNodeExpand)="nodeExpand($event)" 
-        (onNodeCollapse)="nodeCollapse($event)" 
+        (onNodeExpand)="nodeExpand($event)"
+        (onNodeCollapse)="nodeCollapse($event)"
         (onNodeSelect)="nodeSelect($event)"
         (onNodeUnselect)="nodeUnselect($event)" />
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
-import { MessageService, TreeNode } from 'primeng/api';
+import { MessageService, TreeNode } from 'primengrtl/api';
 import { NodeService } from '@service/nodeservice';
-import { TreeModule } from 'primeng/tree';
-import { ToastModule } from 'primeng/toast';
+import { TreeModule } from 'primengrtl/tree';
+import { ToastModule } from 'primengrtl/toast';
 
 @Component({
     selector: 'tree-events-demo',

@@ -24,20 +24,20 @@ export class LabelDoc {
         { label: 'System', color: '#c084fc', value: 10 }
     ];
     code: Code = {
-        basic: `<p-meterGroup 
-    [value]="value" 
-    labelPosition="start" 
+        basic: `<p-meterGroup
+    [value]="value"
+    labelPosition="start"
     labelOrientation="vertical" />`,
 
         html: `<div class="card">
-    <p-meterGroup 
-        [value]="value" 
-        labelPosition="start" 
+    <p-meterGroup
+        [value]="value"
+        labelPosition="start"
         labelOrientation="vertical" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { MeterGroupModule } from 'primeng/metergroup';
+import { MeterGroupModule } from 'primengrtl/metergroup';
 
 @Component({
     selector: 'meter-group-label-demo',

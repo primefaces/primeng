@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MegaMenuItem } from 'primeng/api';
+import { MegaMenuItem } from 'primengrtl/api';
 import { Code } from '@domain/code';
 
 @Component({

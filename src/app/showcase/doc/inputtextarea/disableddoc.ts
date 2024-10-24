@@ -15,24 +15,24 @@ import { Code } from '@domain/code';
 })
 export class DisabledDoc {
     code: Code = {
-        basic: `<textarea 
+        basic: `<textarea
     rows="5"
-    cols="30" 
-    pInputTextarea 
+    cols="30"
+    pInputTextarea
     [disabled]="true">
 </textarea>`,
 
         html: `<div class="card flex justify-content-center">
-    <textarea 
+    <textarea
         rows="5"
         cols="30"
-        pInputTextarea 
+        pInputTextarea
         [disabled]="true">
     </textarea>
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { InputTextareaModule } from 'primeng/inputtextarea';
+import { InputTextareaModule } from 'primengrtl/inputtextarea';
 import { FormsModule } from '@angular/forms';
 
 @Component({

@@ -32,52 +32,52 @@ export class TimeDoc {
     time: Date[] | undefined;
 
     code: Code = {
-        basic: `<p-calendar 
-    inputId="calendar-12h" 
-    [(ngModel)]="datetime12h" 
-    [showTime]="true" 
+        basic: `<p-calendar
+    inputId="calendar-12h"
+    [(ngModel)]="datetime12h"
+    [showTime]="true"
     [hourFormat]="12" />
 
-<p-calendar 
-    inputId="calendar-24h" 
-    [(ngModel)]="datetime24h" 
-    [showTime]="true" 
+<p-calendar
+    inputId="calendar-24h"
+    [(ngModel)]="datetime24h"
+    [showTime]="true"
     [hourFormat]="24" />
 
-<p-calendar 
-    inputId="calendar-timeonly" 
-    [(ngModel)]="time" 
+<p-calendar
+    inputId="calendar-timeonly"
+    [(ngModel)]="time"
     [timeOnly]="true" />`,
 
         html: `<div class="card flex flex-wrap gap-3 p-fluid">
     <div class="flex-auto">
         <label for="calendar-12h" class="font-bold block mb-2"> 12h Format </label>
-        <p-calendar 
-            inputId="calendar-12h" 
-            [(ngModel)]="datetime12h" 
-            [showTime]="true" 
+        <p-calendar
+            inputId="calendar-12h"
+            [(ngModel)]="datetime12h"
+            [showTime]="true"
             [hourFormat]="12"/>
     </div>
     <div class="flex-auto">
         <label for="calendar-24h" class="font-bold block mb-2"> 24h Format </label>
-        <p-calendar 
-            inputId="calendar-24h" 
-            [(ngModel)]="datetime24h" 
-            [showTime]="true" 
+        <p-calendar
+            inputId="calendar-24h"
+            [(ngModel)]="datetime24h"
+            [showTime]="true"
             [hourFormat]="24"/>
     </div>
     <div class="flex-auto">
         <label for="calendar-timeonly" class="font-bold block mb-2"> Time Only </label>
-        <p-calendar 
-            inputId="calendar-timeonly" 
-            [(ngModel)]="time" 
+        <p-calendar
+            inputId="calendar-timeonly"
+            [(ngModel)]="time"
             [timeOnly]="true" />
     </div>
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { CalendarModule } from 'primeng/calendar';
+import { CalendarModule } from 'primengrtl/calendar';
 
 @Component({
     selector: 'calendar-time-demo',

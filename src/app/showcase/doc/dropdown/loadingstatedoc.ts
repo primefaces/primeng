@@ -34,17 +34,17 @@ export class LoadingStateDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-dropdown 
-    [options]="cities" 
-    [(ngModel)]="selectedCity" 
+        basic: `<p-dropdown
+    [options]="cities"
+    [(ngModel)]="selectedCity"
     [loading]="true"
-    optionLabel="name" 
+    optionLabel="name"
     placeholder="Select a City" />`,
 
         html: `<div class="card flex justify-content-center">
-    <p-dropdown 
-        [options]="cities" 
-        [(ngModel)]="selectedCity" 
+    <p-dropdown
+        [options]="cities"
+        [(ngModel)]="selectedCity"
         [loading]="true"
         optionLabel="name"
         placeholder="Select a City" />
@@ -52,7 +52,7 @@ export class LoadingStateDoc implements OnInit {
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DropdownModule } from 'primeng/dropdown';
+import { DropdownModule } from 'primengrtl/dropdown';
 
 interface City {
     name: string;

@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { InputNumberModule } from 'primeng/inputnumber';
+import { InputNumberModule } from 'primengrtl/inputnumber';
 import { AppDocModule } from '@layout/doc/app.doc.module';
 import { AppCodeModule } from '@layout/doc/app.code.component';
 import { AccessibilityDoc } from './accessibilitydoc';
@@ -18,7 +18,7 @@ import { PrefixSuffixDoc } from './prefixsuffixdoc';
 import { ReactiveFormsDoc } from './reactiveformsdoc';
 import { StyleDoc } from './styledoc';
 import { VerticalDoc } from './verticaldoc';
-import { FloatLabelModule } from 'primeng/floatlabel';
+import { FloatLabelModule } from 'primengrtl/floatlabel';
 import { FilledDoc } from './filleddoc';
 
 @NgModule({

@@ -37,23 +37,23 @@ export class MinMaxDoc {
     }
 
     code: Code = {
-        basic: `<p-calendar 
-    [(ngModel)]="date" 
-    [minDate]="minDate" 
-    [maxDate]="maxDate" 
+        basic: `<p-calendar
+    [(ngModel)]="date"
+    [minDate]="minDate"
+    [maxDate]="maxDate"
     [readonlyInput]="true" />`,
 
         html: `<div class="card flex justify-content-center">
-    <p-calendar 
-        [(ngModel)]="date" 
-        [minDate]="minDate" 
-        [maxDate]="maxDate" 
+    <p-calendar
+        [(ngModel)]="date"
+        [minDate]="minDate"
+        [maxDate]="maxDate"
         [readonlyInput]="true" />
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { CalendarModule } from 'primeng/calendar';
+import { CalendarModule } from 'primengrtl/calendar';
 
 @Component({
     selector: 'calendar-minmax-demo',

@@ -24,12 +24,12 @@ import {
     ViewEncapsulation,
     ViewRef
 } from '@angular/core';
-import { OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
-import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
-import { TimesIcon } from 'primeng/icons/times';
-import { RippleModule } from 'primeng/ripple';
-import { Nullable, VoidListener } from 'primeng/ts-helpers';
-import { ZIndexUtils } from 'primeng/utils';
+import { OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule } from 'primengrtl/api';
+import { ConnectedOverlayScrollHandler, DomHandler } from 'primengrtl/dom';
+import { TimesIcon } from 'primengrtl/icons/times';
+import { RippleModule } from 'primengrtl/ripple';
+import { Nullable, VoidListener } from 'primengrtl/ts-helpers';
+import { ZIndexUtils } from 'primengrtl/utils';
 import { Subscription } from 'rxjs';
 /**
  * OverlayPanel is a container component positioned as connected to its target.

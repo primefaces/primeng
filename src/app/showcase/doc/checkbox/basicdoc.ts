@@ -17,21 +17,21 @@ export class BasicDoc {
     checked: boolean = false;
 
     code: Code = {
-        basic: `<p-checkbox 
-    [(ngModel)]="checked" 
-    [binary]="true" 
+        basic: `<p-checkbox
+    [(ngModel)]="checked"
+    [binary]="true"
     inputId="binary" />`,
 
         html: `<div class="card flex justify-content-center">
-    <p-checkbox 
-        [(ngModel)]="checked" 
-        [binary]="true" 
+    <p-checkbox
+        [(ngModel)]="checked"
+        [binary]="true"
         inputId="binary" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { CheckboxModule } from 'primeng/checkbox';
+import { CheckboxModule } from 'primengrtl/checkbox';
 
 @Component({
     selector: 'checkbox-basic-demo',

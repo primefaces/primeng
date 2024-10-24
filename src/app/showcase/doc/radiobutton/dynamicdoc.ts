@@ -62,7 +62,7 @@ export class DynamicDoc implements OnInit {
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
-import { RadioButtonModule } from 'primeng/radiobutton';
+import { RadioButtonModule } from 'primengrtl/radiobutton';
 import { FormsModule } from '@angular/forms';
 
 @Component({

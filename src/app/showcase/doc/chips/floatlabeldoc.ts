@@ -34,8 +34,8 @@ export class FloatLabelDoc {
 
         typescript: `import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ChipsModule } from 'primeng/chips';
-import { FloatLabelModule } from 'primeng/floatlabel';
+import { ChipsModule } from 'primengrtl/chips';
+import { FloatLabelModule } from 'primengrtl/floatlabel';
 
 @Component({
     selector: 'chips-float-label-demo',

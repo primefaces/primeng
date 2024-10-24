@@ -45,17 +45,17 @@ export class FilterDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-dropdown 
+        basic: `<p-dropdown
     [options]="countries"
     [(ngModel)]="selectedCountry"
     optionLabel="name"
     [filter]="true"
-    filterBy="name" 
+    filterBy="name"
     [showClear]="true"
     placeholder="Select a Country">
         <ng-template pTemplate="selectedItem" let-selectedOption>
             <div class="flex align-items-center gap-2">
-                <img 
+                <img
                     src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
                     [class]="'flag flag-' + selectedCountry.code.toLowerCase()"
                     style="width: 18px" />
@@ -64,7 +64,7 @@ export class FilterDoc implements OnInit {
         </ng-template>
         <ng-template let-country pTemplate="item">
             <div class="flex align-items-center gap-2">
-                <img 
+                <img
                     src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
                     [class]="'flag flag-' + country.code.toLowerCase()"
                     style="width: 18px" />
@@ -74,7 +74,7 @@ export class FilterDoc implements OnInit {
 </p-dropdown>`,
 
         html: `<div class="card flex justify-content-center">
-    <p-dropdown 
+    <p-dropdown
         [options]="countries"
         [(ngModel)]="selectedCountry"
         optionLabel="name"
@@ -84,7 +84,7 @@ export class FilterDoc implements OnInit {
         placeholder="Select a Country">
             <ng-template pTemplate="selectedItem" let-selectedOption>
                 <div class="flex align-items-center gap-2">
-                    <img 
+                    <img
                         src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
                         [class]="'flag flag-' + selectedCountry.code.toLowerCase()"
                         style="width: 18px" />
@@ -93,7 +93,7 @@ export class FilterDoc implements OnInit {
             </ng-template>
             <ng-template let-country pTemplate="item">
                 <div class="flex align-items-center gap-2">
-                    <img 
+                    <img
                         src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
                         [class]="'flag flag-' + country.code.toLowerCase()"
                         style="width: 18px" />
@@ -105,7 +105,7 @@ export class FilterDoc implements OnInit {
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DropdownModule } from 'primeng/dropdown';
+import { DropdownModule } from 'primengrtl/dropdown';
 
 @Component({
     selector: 'dropdown-filter-demo',

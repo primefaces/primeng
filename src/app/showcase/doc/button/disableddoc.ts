@@ -22,7 +22,7 @@ export class DisabledDoc {
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
+import { ButtonModule } from 'primengrtl/button';
 
 @Component({
     selector: 'button-disabled-demo',

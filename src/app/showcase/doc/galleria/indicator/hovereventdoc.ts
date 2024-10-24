@@ -45,25 +45,25 @@ export class HoverEventDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-galleria 
-    [(value)]="images" 
-    [showIndicators]="true" 
-    [showThumbnails]="false" 
-    [changeItemOnIndicatorHover]="true" 
-    [responsiveOptions]="responsiveOptions" 
-    [containerStyle]="{ 'max-width': '640px' }"> 
+        basic: `<p-galleria
+    [(value)]="images"
+    [showIndicators]="true"
+    [showThumbnails]="false"
+    [changeItemOnIndicatorHover]="true"
+    [responsiveOptions]="responsiveOptions"
+    [containerStyle]="{ 'max-width': '640px' }">
         <ng-template pTemplate="item" let-item>
             <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
         </ng-template>
 </p-galleria>`,
         html: `<div class="card">
-    <p-galleria 
-        [(value)]="images" 
-        [showIndicators]="true" 
-        [showThumbnails]="false" 
-        [changeItemOnIndicatorHover]="true" 
-        [responsiveOptions]="responsiveOptions" 
-        [containerStyle]="{ 'max-width': '640px' }"> 
+    <p-galleria
+        [(value)]="images"
+        [showIndicators]="true"
+        [showThumbnails]="false"
+        [changeItemOnIndicatorHover]="true"
+        [responsiveOptions]="responsiveOptions"
+        [containerStyle]="{ 'max-width': '640px' }">
             <ng-template pTemplate="item" let-item>
                 <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
             </ng-template>
@@ -71,7 +71,7 @@ export class HoverEventDoc implements OnInit {
 </div>`,
         typescript: `import { Component, OnInit } from '@angular/core';
 import { PhotoService } from '@service/photoservice';
-import { GalleriaModule } from 'primeng/galleria';
+import { GalleriaModule } from 'primengrtl/galleria';
 
 @Component({
     selector: 'galleria-indicator-hover-event-demo',

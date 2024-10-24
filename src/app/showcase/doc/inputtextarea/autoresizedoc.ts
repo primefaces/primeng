@@ -15,24 +15,24 @@ import { Code } from '@domain/code';
 })
 export class AutoResizeDoc {
     code: Code = {
-        basic: `<textarea 
+        basic: `<textarea
     rows="5"
-    cols="30" 
-    pInputTextarea 
+    cols="30"
+    pInputTextarea
     [autoResize]="true">
 </textarea>`,
 
         html: `<div class="card flex justify-content-center">
-    <textarea 
+    <textarea
         rows="5"
         cols="30"
-        pInputTextarea 
+        pInputTextarea
         [autoResize]="true">
     </textarea>
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { InputTextareaModule } from 'primeng/inputtextarea';
+import { InputTextareaModule } from 'primengrtl/inputtextarea';
 import { FormsModule } from '@angular/forms';
 
 @Component({

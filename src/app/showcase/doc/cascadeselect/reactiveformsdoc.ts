@@ -106,32 +106,32 @@ export class ReactiveFormsDoc implements OnInit {
 
     code: Code = {
         basic: `<form [formGroup]="formGroup">
-    <p-cascadeSelect 
-        formControlName="selectedCity" 
-        [options]="countries" 
-        optionLabel="cname" 
-        optionGroupLabel="name" 
-        [optionGroupChildren]="['states', 'cities']" 
+    <p-cascadeSelect
+        formControlName="selectedCity"
+        [options]="countries"
+        optionLabel="cname"
+        optionGroupLabel="name"
+        [optionGroupChildren]="['states', 'cities']"
         [style]="{ minWidth: '14rem' }"
         placeholder="Select a City" />
 </form>`,
 
         html: `<div class="card flex justify-content-center">
     <form [formGroup]="formGroup">
-        <p-cascadeSelect 
+        <p-cascadeSelect
             formControlName="selectedCity"
             [options]="countries"
             optionLabel="cname"
-            optionGroupLabel="name" 
+            optionGroupLabel="name"
             [optionGroupChildren]="['states', 'cities']"
-            [style]="{ minWidth: '14rem' }" 
+            [style]="{ minWidth: '14rem' }"
             placeholder="Select a City" />
     </form>
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { CascadeSelectModule } from 'primeng/cascadeselect';
+import { CascadeSelectModule } from 'primengrtl/cascadeselect';
 
 @Component({
     selector: 'cascade-select-reactive-forms-demo',

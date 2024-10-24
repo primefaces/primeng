@@ -1,5 +1,5 @@
 import { Component, OnDestroy } from '@angular/core';
-import { TerminalService } from 'primeng/terminal';
+import { TerminalService } from 'primengrtl/terminal';
 import { Subscription } from 'rxjs';
 import { Code } from '@domain/code';
 
@@ -34,19 +34,19 @@ export class BasicDoc implements OnDestroy {
     }
 
     code: Code = {
-        basic: `<p>Enter "<strong>date</strong>" to display the current date, 
-"<strong>greet &#123;0&#125;</strong>" for a message and "<strong>random</strong>" 
+        basic: `<p>Enter "<strong>date</strong>" to display the current date,
+"<strong>greet &#123;0&#125;</strong>" for a message and "<strong>random</strong>"
 to get a random number.</p>
 <p-terminal welcomeMessage="Welcome to PrimeNG" prompt="primeng $" />`,
         html: `<div class="card">
     <p>Enter "<strong>date</strong>" to display the current date,
-    "<strong>greet &#123;0&#125;</strong>" for a message and "<strong>random</strong>" 
+    "<strong>greet &#123;0&#125;</strong>" for a message and "<strong>random</strong>"
     to get a random number.</p>
     <p-terminal welcomeMessage="Welcome to PrimeNG" prompt="primeng $" />
 </div>`,
         typescript: `import { Component, OnDestroy } from '@angular/core';
-import { TerminalService } from 'primeng/terminal';
-import { TerminalModule } from 'primeng/terminal';
+import { TerminalService } from 'primengrtl/terminal';
+import { TerminalModule } from 'primengrtl/terminal';
 import { Subscription } from 'rxjs';
 
 @Component({

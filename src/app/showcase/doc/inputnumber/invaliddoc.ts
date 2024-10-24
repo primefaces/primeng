@@ -17,20 +17,20 @@ export class InvalidDoc {
     value1!: number;
 
     code: Code = {
-        basic: `<p-inputNumber 
-    inputId="integeronly" 
-    class="ng-invalid ng-dirty" 
+        basic: `<p-inputNumber
+    inputId="integeronly"
+    class="ng-invalid ng-dirty"
     [(ngModel)]="value1" />`,
 
         html: `<div class="card flex justify-content-center">
-    <p-inputNumber 
+    <p-inputNumber
         inputId="integeronly"
-        class="ng-invalid ng-dirty" 
+        class="ng-invalid ng-dirty"
         [(ngModel)]="value1" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { InputNumberModule } from 'primeng/inputnumber';
+import { InputNumberModule } from 'primengrtl/inputnumber';
 import { FormsModule } from '@angular/forms';
 
 @Component({

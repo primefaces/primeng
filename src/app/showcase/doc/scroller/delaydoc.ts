@@ -44,47 +44,47 @@ export class DelayDoc {
     }
 
     code: Code = {
-        basic: `<p-scroller 
-    [items]="items" 
-    [itemSize]="50" 
-    styleClass="border-1 surface-border" 
+        basic: `<p-scroller
+    [items]="items"
+    [itemSize]="50"
+    styleClass="border-1 surface-border"
     [style]="{'width': '200px', 'height': '200px'}">
         <ng-template pTemplate="item" let-item let-options="options">
-            <div 
-                class="flex align-items-center p-2" 
-                [ngClass]="{ 'surface-ground': options.odd }" 
+            <div
+                class="flex align-items-center p-2"
+                [ngClass]="{ 'surface-ground': options.odd }"
                 style="height: 50px;">
                     {{ item }}
             </div>
         </ng-template>
 </p-scroller>
 
-<p-scroller 
-    [items]="items" 
-    [itemSize]="50" 
+<p-scroller
+    [items]="items"
+    [itemSize]="50"
     [delay]="150"
-    styleClass="border-1 surface-border" 
+    styleClass="border-1 surface-border"
     [style]="{'width': '200px', 'height': '200px'}">
         <ng-template pTemplate="item" let-item let-options="options">
-            <div 
-                class="flex align-items-center p-2" 
-                [ngClass]="{ 'surface-ground': options.odd }" 
+            <div
+                class="flex align-items-center p-2"
+                [ngClass]="{ 'surface-ground': options.odd }"
                 style="height: 50px;">
                     {{ item }}
             </div>
         </ng-template>
 </p-scroller>
 
-<p-scroller 
-    [items]="items" 
-    [itemSize]="50" 
-    [delay]="500" 
-    styleClass="border-1 surface-border" 
+<p-scroller
+    [items]="items"
+    [itemSize]="50"
+    [delay]="500"
+    styleClass="border-1 surface-border"
     [style]="{'width': '200px', 'height': '200px'}">
         <ng-template pTemplate="item" let-item let-options="options">
-            <div 
-                class="flex align-items-center p-2" 
-                [ngClass]="{ 'surface-ground': options.odd }" 
+            <div
+                class="flex align-items-center p-2"
+                [ngClass]="{ 'surface-ground': options.odd }"
                 style="height: 50px;">
                     {{ item }}
             </div>
@@ -94,15 +94,15 @@ export class DelayDoc {
         html: `<div class="card flex flex-wrap justify-content-center gap-3">
     <div>
         <span class="font-bold block mb-2">No Delay</span>
-        <p-scroller 
-            [items]="items" 
-            [itemSize]="50" 
-            styleClass="border-1 surface-border" 
+        <p-scroller
+            [items]="items"
+            [itemSize]="50"
+            styleClass="border-1 surface-border"
             [style]="{'width': '200px', 'height': '200px'}">
                 <ng-template pTemplate="item" let-item let-options="options">
-                    <div 
-                        class="flex align-items-center p-2" 
-                        [ngClass]="{ 'surface-ground': options.odd }" 
+                    <div
+                        class="flex align-items-center p-2"
+                        [ngClass]="{ 'surface-ground': options.odd }"
                         style="height: 50px;">
                             {{ item }}
                     </div>
@@ -111,16 +111,16 @@ export class DelayDoc {
     </div>
     <div>
         <span class="font-bold block mb-2">150ms</span>
-        <p-scroller 
-            [items]="items" 
-            [itemSize]="50" 
-            [delay]="150" 
-            styleClass="border-1 surface-border" 
+        <p-scroller
+            [items]="items"
+            [itemSize]="50"
+            [delay]="150"
+            styleClass="border-1 surface-border"
             [style]="{'width': '200px', 'height': '200px'}">
                 <ng-template pTemplate="item" let-item let-options="options">
-                    <div 
-                        class="flex align-items-center p-2" 
-                        [ngClass]="{ 'surface-ground': options.odd }" 
+                    <div
+                        class="flex align-items-center p-2"
+                        [ngClass]="{ 'surface-ground': options.odd }"
                         style="height: 50px;">
                             {{ item }}
                     </div>
@@ -129,16 +129,16 @@ export class DelayDoc {
     </div>
     <div>
         <span class="font-bold block mb-2">500ms</span>
-        <p-scroller 
-            [items]="items" 
-            [itemSize]="50" 
-            [delay]="500" 
-            styleClass="border-1 surface-border" 
+        <p-scroller
+            [items]="items"
+            [itemSize]="50"
+            [delay]="500"
+            styleClass="border-1 surface-border"
             [style]="{'width': '200px', 'height': '200px'}">
                 <ng-template pTemplate="item" let-item let-options="options">
-                    <div 
-                        class="flex align-items-center p-2" 
-                        [ngClass]="{ 'surface-ground': options.odd }" 
+                    <div
+                        class="flex align-items-center p-2"
+                        [ngClass]="{ 'surface-ground': options.odd }"
                         style="height: 50px;">
                             {{ item }}
                     </div>
@@ -148,7 +148,7 @@ export class DelayDoc {
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
-import { ScrollerModule } from 'primeng/scroller';
+import { ScrollerModule } from 'primengrtl/scroller';
 
 @Component({
     selector: 'scroller-delay-demo',

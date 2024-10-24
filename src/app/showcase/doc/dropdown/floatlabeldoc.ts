@@ -38,17 +38,17 @@ export class FloatLabelDoc implements OnInit {
 
     code: Code = {
         basic: `<p-floatLabel>
-    <p-dropdown 
+    <p-dropdown
         [options]="cities"
         [(ngModel)]="selectedCity"
-        optionLabel="name" 
+        optionLabel="name"
         inputId="float-label" />
     <label for="float-label">Select a City</label>
 </p-floatLabel>`,
 
         html: `<div class="card flex justify-content-center">
     <p-floatLabel>
-        <p-dropdown 
+        <p-dropdown
             [options]="cities"
             [(ngModel)]="selectedCity"
             optionLabel="name"
@@ -59,7 +59,7 @@ export class FloatLabelDoc implements OnInit {
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DropdownModule } from 'primeng/dropdown';
+import { DropdownModule } from 'primengrtl/dropdown';
 import { FloatLabelModule } from "primeng/floatlabel"
 
 interface City {

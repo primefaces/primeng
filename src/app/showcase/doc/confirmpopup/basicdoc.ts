@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ConfirmationService, MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primengrtl/api';
 import { Code } from '@domain/code';
 
 @Component({
@@ -56,35 +56,35 @@ export class BasicDoc {
     code: Code = {
         basic: `<p-toast />
 <p-confirmPopup />
-<p-button 
-    (click)="confirm1($event)" 
-    label="Save" 
+<p-button
+    (click)="confirm1($event)"
+    label="Save"
     [outlined]="true" />
-<p-button 
-    (click)="confirm2($event)" 
-    label="Delete" 
-    severity="danger" 
+<p-button
+    (click)="confirm2($event)"
+    label="Delete"
+    severity="danger"
     [outlined]="true" />`,
 
         html: `<div class="card flex justify-content-center gap-2">
     <p-toast />
     <p-confirmPopup />
-    <p-button 
-        (click)="confirm1($event)" 
-        label="Save" 
+    <p-button
+        (click)="confirm1($event)"
+        label="Save"
         [outlined]="true" />
-    <p-button 
-        (click)="confirm2($event)" 
-        label="Delete" 
-        severity="danger" 
+    <p-button
+        (click)="confirm2($event)"
+        label="Delete"
+        severity="danger"
         [outlined]="true" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { ConfirmationService, MessageService } from 'primeng/api';
-import { ButtonModule } from 'primeng/button';
-import { ToastModule } from 'primeng/toast';
-import { ConfirmPopupModule } from 'primeng/confirmpopup';
+import { ConfirmationService, MessageService } from 'primengrtl/api';
+import { ButtonModule } from 'primengrtl/button';
+import { ToastModule } from 'primengrtl/toast';
+import { ConfirmPopupModule } from 'primengrtl/confirmpopup';
 
 @Component({
     selector: 'confirm-popup-basic-demo',
@@ -95,7 +95,7 @@ import { ConfirmPopupModule } from 'primeng/confirmpopup';
 })
 export class ConfirmPopupBasicDemo {
     constructor(private confirmationService: ConfirmationService, private messageService: MessageService) {}
-    
+
     confirm1(event: Event) {
         this.confirmationService.confirm({
             target: event.target as EventTarget,

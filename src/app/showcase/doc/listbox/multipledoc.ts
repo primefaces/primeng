@@ -37,29 +37,29 @@ export class MultipleDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-listbox 
-    [options]="cities" 
-    [(ngModel)]="selectedCities" 
-    optionLabel="name" 
-    [style]="{'width':'15rem'}" 
-    [multiple]="true" 
-    [metaKeySelection]="false" 
+        basic: `<p-listbox
+    [options]="cities"
+    [(ngModel)]="selectedCities"
+    optionLabel="name"
+    [style]="{'width':'15rem'}"
+    [multiple]="true"
+    [metaKeySelection]="false"
     [listStyle]="{'max-height': '220px'}" />`,
 
         html: `<div class="card flex justify-content-center">
-    <p-listbox 
-        [options]="cities" 
-        [(ngModel)]="selectedCities" 
-        optionLabel="name" 
-        [style]="{'width':'15rem'}" 
-        [multiple]="true" 
-        [metaKeySelection]="false" 
+    <p-listbox
+        [options]="cities"
+        [(ngModel)]="selectedCities"
+        optionLabel="name"
+        [style]="{'width':'15rem'}"
+        [multiple]="true"
+        [metaKeySelection]="false"
         [listStyle]="{'max-height': '220px'}" />
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ListboxModule } from 'primeng/listbox';
+import { ListboxModule } from 'primengrtl/listbox';
 
 interface City {
     name: string,
@@ -76,7 +76,7 @@ export class ListboxMultipleDemo implements OnInit {
     cities!: City[];
 
     selectedCities!: City[];
-    
+
     ngOnInit() {
         this.cities = [
             { name: 'New York', code: 'NY' },

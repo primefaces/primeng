@@ -38,20 +38,20 @@ export class FloatLabelDoc implements OnInit {
 
     code: Code = {
         basic: `<p-floatLabel>
-    <p-multiSelect 
-        inputId="float-label" 
-        [options]="cities" 
-        [(ngModel)]="selectedCities" 
+    <p-multiSelect
+        inputId="float-label"
+        [options]="cities"
+        [(ngModel)]="selectedCities"
         optionLabel="name" />
     <label for="float-label">MultiSelect</label>
 </p-floatLabel>`,
 
         html: `<div class="card flex justify-content-center">
     <p-floatLabel>
-        <p-multiSelect 
-            inputId="float-label" 
-            [options]="cities" 
-            [(ngModel)]="selectedCities" 
+        <p-multiSelect
+            inputId="float-label"
+            [options]="cities"
+            [(ngModel)]="selectedCities"
             optionLabel="name" />
         <label for="float-label">MultiSelect</label>
     </p-floatLabel>
@@ -59,8 +59,8 @@ export class FloatLabelDoc implements OnInit {
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MultiSelectModule } from 'primeng/multiselect';
-import { FloatLabelModule } from 'primeng/floatlabel';
+import { MultiSelectModule } from 'primengrtl/multiselect';
+import { FloatLabelModule } from 'primengrtl/floatlabel';
 
 interface City {
     name: string,

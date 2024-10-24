@@ -34,23 +34,23 @@ export class InvalidDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-multiSelect 
-        [options]="cities" 
-        [(ngModel)]="selectedCities" 
-        class="ng-dirty ng-invalid" 
+        basic: `<p-multiSelect
+        [options]="cities"
+        [(ngModel)]="selectedCities"
+        class="ng-dirty ng-invalid"
         optionLabel="name" />`,
 
         html: `<div class="card flex justify-content-center">
-    <p-multiSelect 
-        [options]="cities" 
-        [(ngModel)]="selectedCities" 
-        class="ng-dirty ng-invalid" 
+    <p-multiSelect
+        [options]="cities"
+        [(ngModel)]="selectedCities"
+        class="ng-dirty ng-invalid"
         optionLabel="name" />
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MultiSelectModule } from 'primeng/multiselect';
+import { MultiSelectModule } from 'primengrtl/multiselect';
 
 interface City {
     name: string,

@@ -28,14 +28,14 @@ import {
     signal
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { MenuItem, OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
-import { DomHandler } from 'primeng/dom';
-import { AngleEndIcon } from 'primeng/icons/angleend';
-import { RippleModule } from 'primeng/ripple';
-import { TooltipModule } from 'primeng/tooltip';
-import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
-import { Nullable, VoidListener } from 'primeng/ts-helpers';
-import { CaretStartIcon } from 'primeng/icons/caretstart';
+import { MenuItem, OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule } from 'primengrtl/api';
+import { DomHandler } from 'primengrtl/dom';
+import { AngleEndIcon } from 'primengrtl/icons/angleend';
+import { RippleModule } from 'primengrtl/ripple';
+import { TooltipModule } from 'primengrtl/tooltip';
+import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primengrtl/utils';
+import { Nullable, VoidListener } from 'primengrtl/ts-helpers';
+import { CaretStartIcon } from 'primengrtl/icons/caretstart';
 
 @Component({
     selector: 'p-slideMenuSub',

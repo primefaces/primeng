@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Scroller } from 'primeng/scroller';
+import { Scroller } from 'primengrtl/scroller';
 import { Code } from '@domain/code';
 
 @Component({
@@ -34,16 +34,16 @@ export class ProgrammaticDoc implements OnInit {
 
     code: Code = {
         basic: `<p-button label="Reset" (onClick)="reset()" />
-<p-scroller 
-    #sc [items]="items" 
-    [itemSize]="50" 
-    scrollHeight="200px" 
-    styleClass="border-1 surface-border" 
+<p-scroller
+    #sc [items]="items"
+    [itemSize]="50"
+    scrollHeight="200px"
+    styleClass="border-1 surface-border"
     [style]="{'width': '200px', 'height': '200px'}">
         <ng-template pTemplate="item" let-item let-options="options">
-            <div 
-                class="flex align-items-center p-2" 
-                [ngClass]="{ 'surface-ground': options.odd }" 
+            <div
+                class="flex align-items-center p-2"
+                [ngClass]="{ 'surface-ground': options.odd }"
                 style="height: 50px;">
                     {{ item }}
             </div>
@@ -52,17 +52,17 @@ export class ProgrammaticDoc implements OnInit {
 
         html: `<div class="card flex flex-column align-items-center gap-3">
     <p-button label="Reset" (onClick)="reset()" />
-    <p-scroller 
-        #sc 
-        [items]="items" 
-        [itemSize]="50" 
-        scrollHeight="200px" 
-        styleClass="border-1 surface-border" 
+    <p-scroller
+        #sc
+        [items]="items"
+        [itemSize]="50"
+        scrollHeight="200px"
+        styleClass="border-1 surface-border"
         [style]="{'width': '200px', 'height': '200px'}">
             <ng-template pTemplate="item" let-item let-options="options">
-                <div 
-                class="flex align-items-center p-2" 
-                [ngClass]="{ 'surface-ground': options.odd }" 
+                <div
+                class="flex align-items-center p-2"
+                [ngClass]="{ 'surface-ground': options.odd }"
                 style="height: 50px;">
                     {{ item }}
                 </div>
@@ -71,8 +71,8 @@ export class ProgrammaticDoc implements OnInit {
 </div>`,
 
         typescript: `import { Component, OnInit, ViewChild } from '@angular/core';
-import { Scroller } from 'primeng/scroller';
-import { ScrollerModule } from 'primeng/scroller';
+import { Scroller } from 'primengrtl/scroller';
+import { ScrollerModule } from 'primengrtl/scroller';
 
 @Component({
     selector: 'scroller-programmatic-demo',
@@ -91,7 +91,7 @@ export class ScrollerProgrammaticDemo implements OnInit {
 
     reset() {
         this.sc.scrollToIndex(0, 'smooth');
-    } 
+    }
 }`
     };
 }

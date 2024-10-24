@@ -15,20 +15,20 @@ import { Code } from '@domain/code';
 })
 export class BasicDoc {
     code: Code = {
-        basic: `<p-image 
-    src="https://primefaces.org/cdn/primeng/images/galleria/galleria10.jpg" 
-    alt="Image" 
+        basic: `<p-image
+    src="https://primefaces.org/cdn/primeng/images/galleria/galleria10.jpg"
+    alt="Image"
     width="250" />`,
 
         html: `<div class="card flex justify-content-center">
-    <p-image 
+    <p-image
         src="https://primefaces.org/cdn/primeng/images/galleria/galleria10.jpg"
         alt="Image"
         width="250" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { ImageModule } from 'primeng/image';
+import { ImageModule } from 'primengrtl/image';
 
 @Component({
     selector: 'image-basic-demo',

@@ -17,22 +17,22 @@ export class SlotCharDoc {
     value: string | undefined;
 
     code: Code = {
-        basic: `<p-inputMask 
-    [(ngModel)]="value" 
-    mask="99/99/9999" 
-    placeholder="99/99/9999" 
+        basic: `<p-inputMask
+    [(ngModel)]="value"
+    mask="99/99/9999"
+    placeholder="99/99/9999"
     slotChar="mm/dd/yyyy" />`,
 
         html: `<div class="card flex justify-content-center">
-    <p-inputMask 
-        [(ngModel)]="value" 
-        mask="99/99/9999" 
-        placeholder="99/99/9999" 
+    <p-inputMask
+        [(ngModel)]="value"
+        mask="99/99/9999"
+        placeholder="99/99/9999"
         slotChar="mm/dd/yyyy" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { InputMaskModule } from 'primeng/inputmask';
+import { InputMaskModule } from 'primengrtl/inputmask';
 import { FormsModule } from '@angular/forms';
 
 @Component({

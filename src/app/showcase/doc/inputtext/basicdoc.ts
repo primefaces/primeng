@@ -24,7 +24,7 @@ export class BasicDoc {
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { InputTextModule } from 'primeng/inputtext';
+import { InputTextModule } from 'primengrtl/inputtext';
 import { FormsModule } from '@angular/forms';
 
 @Component({

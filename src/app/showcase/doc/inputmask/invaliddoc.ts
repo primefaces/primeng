@@ -17,20 +17,20 @@ export class InvalidDoc {
     value: string | undefined;
 
     code: Code = {
-        basic: `<p-inputMask 
-    mask="999-99-9999" 
-    [(ngModel)]="value" 
+        basic: `<p-inputMask
+    mask="999-99-9999"
+    [(ngModel)]="value"
     class="ng-invalid ng-dirty" />`,
 
         html: `<div class="card flex justify-content-center">
-    <p-inputMask 
-        mask="999-99-9999" 
-        [(ngModel)]="value" 
+    <p-inputMask
+        mask="999-99-9999"
+        [(ngModel)]="value"
         class="ng-invalid ng-dirty" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { InputMaskModule } from 'primeng/inputmask';
+import { InputMaskModule } from 'primengrtl/inputmask';
 import { FormsModule } from '@angular/forms';
 
 @Component({

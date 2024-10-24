@@ -1,5 +1,5 @@
 import { TemplateRef } from '@angular/core';
-import { ScrollerOptions } from 'primeng/api';
+import { ScrollerOptions } from 'primengrtl/api';
 import { Dropdown } from './dropdown';
 /**
  * Filter callbacks of the dropdown.

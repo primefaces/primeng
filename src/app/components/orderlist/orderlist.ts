@@ -22,17 +22,17 @@ import {
     booleanAttribute,
     numberAttribute
 } from '@angular/core';
-import { FilterService, PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
-import { ButtonModule } from 'primeng/button';
-import { DomHandler } from 'primeng/dom';
-import { AngleDoubleDownIcon } from 'primeng/icons/angledoubledown';
-import { AngleDoubleUpIcon } from 'primeng/icons/angledoubleup';
-import { AngleDownIcon } from 'primeng/icons/angledown';
-import { AngleUpIcon } from 'primeng/icons/angleup';
-import { SearchIcon } from 'primeng/icons/search';
-import { RippleModule } from 'primeng/ripple';
-import { Nullable } from 'primeng/ts-helpers';
-import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
+import { FilterService, PrimeNGConfig, PrimeTemplate, SharedModule } from 'primengrtl/api';
+import { ButtonModule } from 'primengrtl/button';
+import { DomHandler } from 'primengrtl/dom';
+import { AngleDoubleDownIcon } from 'primengrtl/icons/angledoubledown';
+import { AngleDoubleUpIcon } from 'primengrtl/icons/angledoubleup';
+import { AngleDownIcon } from 'primengrtl/icons/angledown';
+import { AngleUpIcon } from 'primengrtl/icons/angleup';
+import { SearchIcon } from 'primengrtl/icons/search';
+import { RippleModule } from 'primengrtl/ripple';
+import { Nullable } from 'primengrtl/ts-helpers';
+import { ObjectUtils, UniqueComponentId } from 'primengrtl/utils';
 import { OrderListFilterEvent, OrderListFilterOptions, OrderListSelectionChangeEvent } from './orderlist.interface';
 /**
  * OrderList is used to managed the order of a collection.

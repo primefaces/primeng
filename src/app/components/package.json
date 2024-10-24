@@ -1,16 +1,16 @@
 {
-    "name": "primeng",
-    "version": "17.18.11",
+    "name": "primengrtl",
+    "version": "1.0.0",
     "repository": {
         "type": "git",
-        "url": "https://github.com/primefaces/primeng"
+        "url": "https://github.com/aaasadi/primeng"
     },
     "keywords": [
         "angular"
     ],
     "license": "MIT",
     "bugs": {
-        "url": "https://github.com/primefaces/primeng/issues"
+        "url": "https://github.com/aaasadi/primeng/issues"
     },
     "exports": {
         "./resources/": "./resources/"

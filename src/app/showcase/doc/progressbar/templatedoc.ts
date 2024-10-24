@@ -20,19 +20,19 @@ import { Code } from '@domain/code';
 export class TemplateDoc {
     code: Code = {
         basic: `<p-progressBar [value]="50">
-    <ng-template pTemplate="content" let-value> 
-    <span>{{value}}/100</span>    
+    <ng-template pTemplate="content" let-value>
+    <span>{{value}}/100</span>
     </ng-template>
 </p-progressBar>`,
         html: `<div class="card">
      <p-progressBar [value]="50">
-         <ng-template pTemplate="content" let-value> 
-         <span>{{value}}/100</span>        
+         <ng-template pTemplate="content" let-value>
+         <span>{{value}}/100</span>
          </ng-template>
      </p-progressBar>
 </div>`,
         typescript: `import { Component } from '@angular/core';
-import { ProgressBarModule } from 'primeng/progressbar';
+import { ProgressBarModule } from 'primengrtl/progressbar';
 
 @Component({
     selector: 'progress-bar-template-demo',

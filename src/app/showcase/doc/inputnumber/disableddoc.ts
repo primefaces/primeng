@@ -17,22 +17,22 @@ export class DisabledDoc {
     value1: number = 50;
 
     code: Code = {
-        basic: `<p-inputNumber 
-    inputId="integeronly" 
-    [disabled]="true" 
-    prefix="%" 
+        basic: `<p-inputNumber
+    inputId="integeronly"
+    [disabled]="true"
+    prefix="%"
     [(ngModel)]="value1" />`,
 
         html: `<div class="card flex justify-content-center">
-    <p-inputNumber 
-        inputId="integeronly" 
-        [disabled]="true" 
-        prefix="%" 
-        [(ngModel)]="value1" /> 
+    <p-inputNumber
+        inputId="integeronly"
+        [disabled]="true"
+        prefix="%"
+        [(ngModel)]="value1" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { InputNumberModule } from 'primeng/inputnumber';
+import { InputNumberModule } from 'primengrtl/inputnumber';
 import { FormsModule } from '@angular/forms';
 
 @Component({

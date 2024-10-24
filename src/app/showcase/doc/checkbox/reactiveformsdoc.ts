@@ -28,18 +28,18 @@ export class ReactiveFormsDoc implements OnInit {
 
     code: Code = {
         basic: `<form class="flex align-items-center gap-1" [formGroup]="formGroup">
-    <p-checkbox 
-        formControlName="city" 
-        value="New York" 
+    <p-checkbox
+        formControlName="city"
+        value="New York"
         inputId="ny" />
     <label for="ny">New York</label>
 </form>`,
 
         html: `<div class="card">
     <form class="flex align-items-center gap-1" [formGroup]="formGroup">
-        <p-checkbox 
-            formControlName="city" 
-            value="New York" 
+        <p-checkbox
+            formControlName="city"
+            value="New York"
             inputId="ny" />
         <label for="ny">New York</label>
     </form>
@@ -47,7 +47,7 @@ export class ReactiveFormsDoc implements OnInit {
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { CheckboxModule } from 'primeng/checkbox';
+import { CheckboxModule } from 'primengrtl/checkbox';
 
 @Component({
     selector: 'checkbox-reactive-forms-demo',

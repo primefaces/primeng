@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuItem } from 'primeng/api';
+import { MenuItem } from 'primengrtl/api';
 import { Code } from '@domain/code';
 import { Router } from '@angular/router';
 
@@ -173,8 +173,8 @@ export class RouterDoc implements OnInit {
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
-import { MenuItem } from 'primeng/api';
-import { ContextMenuModule } from 'primeng/contextmenu';
+import { MenuItem } from 'primengrtl/api';
+import { ContextMenuModule } from 'primengrtl/contextmenu';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 

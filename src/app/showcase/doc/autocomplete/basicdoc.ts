@@ -31,13 +31,13 @@ export class BasicDoc {
     }
 
     code: Code = {
-        basic: `<p-autoComplete 
-    [(ngModel)]="selectedItem" 
-    [suggestions]="suggestions" 
+        basic: `<p-autoComplete
+    [(ngModel)]="selectedItem"
+    [suggestions]="suggestions"
     (completeMethod)="search($event)" />`,
 
         html: `<div class="card flex justify-content-center">
-    <p-autoComplete 
+    <p-autoComplete
         [(ngModel)]="selectedItem"
         [suggestions]="suggestions"
         (completeMethod)="search($event)" />
@@ -45,7 +45,7 @@ export class BasicDoc {
 
         typescript: `import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AutoCompleteModule } from 'primeng/autocomplete';
+import { AutoCompleteModule } from 'primengrtl/autocomplete';
 
 interface AutoCompleteCompleteEvent {
     originalEvent: Event;

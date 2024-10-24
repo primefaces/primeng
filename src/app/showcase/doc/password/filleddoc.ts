@@ -17,20 +17,20 @@ export class FilledDoc {
     value!: string;
 
     code: Code = {
-        basic: `<p-password 
-    [(ngModel)]="value" 
-    [feedback]="false" 
+        basic: `<p-password
+    [(ngModel)]="value"
+    [feedback]="false"
     variant="filled" />`,
 
         html: `<div class="card flex justify-content-center">
-    <p-password 
-        [(ngModel)]="value" 
-        [feedback]="false" 
+    <p-password
+        [(ngModel)]="value"
+        [feedback]="false"
         variant="filled" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { PasswordModule } from 'primeng/password';
+import { PasswordModule } from 'primengrtl/password';
 import { FormsModule } from '@angular/forms';
 
 @Component({

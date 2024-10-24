@@ -28,8 +28,8 @@ export class ReactiveFormsDoc implements OnInit {
 
     code: Code = {
         basic: `<form [formGroup]="formGroup" class="flex flex-column align-items-center gap-3">
-    <p-triStateCheckbox 
-        formControlName="checked" 
+    <p-triStateCheckbox
+        formControlName="checked"
         inputId="checked" />
     <label for="checked">
         {{ formGroup.value.checked === null ? 'null' : formGroup.value.checked }}
@@ -38,8 +38,8 @@ export class ReactiveFormsDoc implements OnInit {
 
         html: `<div class="card flex justify-content-center">
     <form [formGroup]="formGroup" class="flex flex-column align-items-center gap-3">
-        <p-triStateCheckbox 
-            formControlName="checked" 
+        <p-triStateCheckbox
+            formControlName="checked"
             inputId="checked" />
         <label for="checked">
             {{ formGroup.value.checked === null ? 'null' : formGroup.value.checked }}
@@ -49,7 +49,7 @@ export class ReactiveFormsDoc implements OnInit {
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { TriStateCheckboxModule } from 'primeng/tristatecheckbox';
+import { TriStateCheckboxModule } from 'primengrtl/tristatecheckbox';
 
 @Component({
     selector: 'tri-state-checkbox-reactive-forms-demo',

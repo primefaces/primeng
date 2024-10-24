@@ -65,11 +65,11 @@ export class SingleSelectionDoc {
 
     code: Code = {
         basic: `<p-inputSwitch [(ngModel)]="metaKey" inputId="input-metakey" />
-    <p-table 
-        [value]="products" 
-        selectionMode="single" 
-        [(selection)]="selectedProduct" 
-        [metaKeySelection]="metaKey" dataKey="id" 
+    <p-table
+        [value]="products"
+        selectionMode="single"
+        [(selection)]="selectedProduct"
+        [metaKeySelection]="metaKey" dataKey="id"
         [tableStyle]="{ 'min-width': '50rem' }">
             <ng-template pTemplate="header">
                 <tr>
@@ -116,8 +116,8 @@ export class SingleSelectionDoc {
         typescript: `import { Component, OnInit } from '@angular/core';
 import { Product } from '@domain/product';
 import { ProductService } from '@service/productservice';
-import { TableModule } from 'primeng/table';
-import { InputSwitchModule } from 'primeng/inputswitch';
+import { TableModule } from 'primengrtl/table';
+import { InputSwitchModule } from 'primengrtl/inputswitch';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
@@ -141,7 +141,7 @@ export class TableSingleSelectionDemo implements OnInit{
         this.productService.getProductsMini().then((data) => {
             this.products = data;
         });
-    } 
+    }
 }`,
         data: `{
     id: '1000',

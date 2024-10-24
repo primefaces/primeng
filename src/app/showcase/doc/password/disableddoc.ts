@@ -17,20 +17,20 @@ export class DisabledDoc {
     value!: string;
 
     code: Code = {
-        basic: `<p-password 
-    [(ngModel)]="value" 
-    [disabled]="true" 
+        basic: `<p-password
+    [(ngModel)]="value"
+    [disabled]="true"
     placeholder="Disabled" />`,
 
         html: `<div class="card flex justify-content-center">
-    <p-password 
-        [(ngModel)]="value" 
-        [disabled]="true" 
+    <p-password
+        [(ngModel)]="value"
+        [disabled]="true"
         placeholder="Disabled" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { PasswordModule } from 'primeng/password';
+import { PasswordModule } from 'primengrtl/password';
 import { FormsModule } from '@angular/forms';
 
 @Component({

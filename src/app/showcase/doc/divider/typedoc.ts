@@ -78,7 +78,7 @@ export class TypeDoc {
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { DividerModule } from 'primeng/divider';
+import { DividerModule } from 'primengrtl/divider';
 
 @Component({
     selector: 'divider-type-demo',

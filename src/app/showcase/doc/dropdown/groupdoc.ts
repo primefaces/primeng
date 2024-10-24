@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { SelectItemGroup } from 'primeng/api';
+import { SelectItemGroup } from 'primengrtl/api';
 import { Code } from '@domain/code';
 
 @Component({
@@ -96,10 +96,10 @@ export class GroupDoc {
     </p-dropdown>
 </div>`,
 
-        typescript: `import { SelectItemGroup } from 'primeng/api';
+        typescript: `import { SelectItemGroup } from 'primengrtl/api';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DropdownModule } from 'primeng/dropdown';
+import { DropdownModule } from 'primengrtl/dropdown';
 
 @Component({
     selector: 'dropdown-group-demo',

@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
-import { MessageService } from 'primeng/api';
+import { MessageService } from 'primengrtl/api';
 import { Code } from '@domain/code';
 import { Product } from '@domain/product';
 import { ProductService } from '@service/productservice';
@@ -64,13 +64,13 @@ export class SelectionEventsDoc {
 
     code: Code = {
         basic: `<p-toast />
-<p-table 
-    [value]="products" 
-    selectionMode="single" 
-    [(selection)]="selectedProduct" 
-    dataKey="code" 
-    (onRowSelect)="onRowSelect($event)" 
-    (onRowUnselect)="onRowUnselect($event)" 
+<p-table
+    [value]="products"
+    selectionMode="single"
+    [(selection)]="selectedProduct"
+    dataKey="code"
+    (onRowSelect)="onRowSelect($event)"
+    (onRowUnselect)="onRowUnselect($event)"
     [tableStyle]="{'min-width': '50rem'}">
         <ng-template pTemplate="header">
             <tr>
@@ -91,13 +91,13 @@ export class SelectionEventsDoc {
 </p-table>`,
         html: `<div class="card">
     <p-toast />
-    <p-table 
-        [value]="products" 
-        selectionMode="single" 
-        [(selection)]="selectedProduct" 
+    <p-table
+        [value]="products"
+        selectionMode="single"
+        [(selection)]="selectedProduct"
         dataKey="code"
-        (onRowSelect)="onRowSelect($event)" 
-        (onRowUnselect)="onRowUnselect($event)" 
+        (onRowSelect)="onRowSelect($event)"
+        (onRowUnselect)="onRowUnselect($event)"
         [tableStyle]="{'min-width': '50rem'}">
             <ng-template pTemplate="header">
                 <tr>
@@ -118,11 +118,11 @@ export class SelectionEventsDoc {
     </p-table>
 </div>`,
         typescript: `import { Component, Input, OnInit } from '@angular/core';
-import { MessageService } from 'primeng/api';
+import { MessageService } from 'primengrtl/api';
 import { Product } from '@domain/product';
 import { ProductService } from '@service/productservice';
-import { TableModule } from 'primeng/table';
-import { ToastModule } from 'primeng/toast';
+import { TableModule } from 'primengrtl/table';
+import { ToastModule } from 'primengrtl/toast';
 
 @Component({
     selector: 'table-selection-events-demo',

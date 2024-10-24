@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
-import { Table } from 'primeng/table';
+import { Table } from 'primengrtl/table';
 import { Code } from '@domain/code';
 import { Customer, Representative } from '@domain/customer';
 import { CustomerService } from '@service/customerservice';
@@ -458,16 +458,16 @@ export class FilterBasicDoc {
     </p-table>
 </div>`,
         typescript: `import { Component, OnInit } from '@angular/core';
-import { Table } from 'primeng/table';
+import { Table } from 'primengrtl/table';
 import { Customer, Representative } from '@domain/customer';
 import { CustomerService } from '@service/customerservice';
-import { TagModule } from 'primeng/tag';
-import { IconFieldModule } from 'primeng/iconfield';
-import { InputIconModule } from 'primeng/inputicon';
+import { TagModule } from 'primengrtl/tag';
+import { IconFieldModule } from 'primengrtl/iconfield';
+import { InputIconModule } from 'primengrtl/inputicon';
 import { HttpClientModule } from '@angular/common/http';
-import { InputTextModule } from 'primeng/inputtext';
-import { MultiSelectModule } from 'primeng/multiselect';
-import { DropdownModule } from 'primeng/dropdown';
+import { InputTextModule } from 'primengrtl/inputtext';
+import { MultiSelectModule } from 'primengrtl/multiselect';
+import { DropdownModule } from 'primengrtl/dropdown';
 import { CommonModule } from '@angular/common';
 
 @Component({

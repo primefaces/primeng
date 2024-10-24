@@ -56,17 +56,17 @@ export class FilterDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-orderList 
-    [value]="products" 
-    [listStyle]="{ 'max-height': '30rem' }" 
+        basic: `<p-orderList
+    [value]="products"
+    [listStyle]="{ 'max-height': '30rem' }"
     header="List of Products"
-    filterBy="name" 
+    filterBy="name"
     filterPlaceholder="Filter by name">
         <ng-template let-product pTemplate="item">
             <div class="flex flex-wrap p-2 align-items-center gap-3">
-                <img 
-                    src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" 
-                    [alt]="product.name" 
+                <img
+                    src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}"
+                    [alt]="product.name"
                     class="w-4rem shadow-2 flex-shrink-0 border-round" />
                     <div class="flex-1 flex flex-column gap-2">
                         <span class="font-bold">{{ product.name }}</span>
@@ -83,17 +83,17 @@ export class FilterDoc implements OnInit {
 </p-orderList>`,
 
         html: `<div class="card xl:flex xl:justify-content-center">
-    <p-orderList 
-        [value]="products" 
-        [listStyle]="{ 'max-height': '30rem' }" 
-        header="List of Products" 
-        filterBy="name" 
+    <p-orderList
+        [value]="products"
+        [listStyle]="{ 'max-height': '30rem' }"
+        header="List of Products"
+        filterBy="name"
         filterPlaceholder="Filter by name">
             <ng-template let-product pTemplate="item">
                 <div class="flex flex-wrap p-2 align-items-center gap-3">
-                    <img 
-                        src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" 
-                        [alt]="product.name" 
+                    <img
+                        src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}"
+                        [alt]="product.name"
                         class="w-4rem shadow-2 flex-shrink-0 border-round" />
                             <div class="flex-1 flex flex-column gap-2">
                                 <span class="font-bold">{{ product.name }}</span>
@@ -113,7 +113,7 @@ export class FilterDoc implements OnInit {
         typescript: `import { Component, OnInit } from '@angular/core';
 import { Product } from '@domain/product';
 import { ProductService } from '@service/productservice';
-import { OrderListModule } from 'primeng/orderlist';
+import { OrderListModule } from 'primengrtl/orderlist';
 
 @Component({
     selector: 'orderlist-filter-demo',
@@ -144,7 +144,7 @@ export class OrderlistFilterDemo implements OnInit {
 }`,
 
         data: `
-/* ProductService */        
+/* ProductService */
 {
     id: '1000',
     code: 'f230fh0g3',

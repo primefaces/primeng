@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MenuItem, MessageService } from 'primeng/api';
+import { MenuItem, MessageService } from 'primengrtl/api';
 import { Code } from '@domain/code';
 
 @Component({
@@ -59,16 +59,16 @@ export class TemplateDoc {
     }
 
     code: Code = {
-        basic: `<p-splitButton 
-    label="Save" 
-    (onClick)="save('info')" 
-    severity="contrast" 
+        basic: `<p-splitButton
+    label="Save"
+    (onClick)="save('info')"
+    severity="contrast"
     [model]="items">
         <ng-template pTemplate="content">
             <span class="flex align-items-center font-bold">
-                <img 
-                    alt="logo" 
-                    src="https://primefaces.org/cdn/primeng/images/logo.svg" 
+                <img
+                    alt="logo"
+                    src="https://primefaces.org/cdn/primeng/images/logo.svg"
                     style="height: 1rem; margin-inline-end: 0.5rem" />
                 <span>PrimeNG</span>
             </span>
@@ -77,16 +77,16 @@ export class TemplateDoc {
 
         html: `<div class="card flex justify-content-center">
     <p-toast />
-    <p-splitButton 
-        label="Save" 
-        (onClick)="save('info')" 
-        severity="contrast" 
+    <p-splitButton
+        label="Save"
+        (onClick)="save('info')"
+        severity="contrast"
         [model]="items">
             <ng-template pTemplate="content">
                 <span class="flex align-items-center font-bold">
-                    <img 
-                        alt="logo" 
-                        src="https://primefaces.org/cdn/primeng/images/logo.svg" 
+                    <img
+                        alt="logo"
+                        src="https://primefaces.org/cdn/primeng/images/logo.svg"
                         style="height: 1rem; margin-inline-end: 0.5rem" />
                     <span>PrimeNG</span>
                 </span>
@@ -95,9 +95,9 @@ export class TemplateDoc {
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { MenuItem, MessageService } from 'primeng/api';
-import { SplitButtonModule } from 'primeng/splitbutton';
-import { ToastModule } from 'primeng/toast';
+import { MenuItem, MessageService } from 'primengrtl/api';
+import { SplitButtonModule } from 'primengrtl/splitbutton';
+import { ToastModule } from 'primengrtl/toast';
 
 @Component({
     selector: 'split-button-template-demo',
@@ -108,7 +108,7 @@ import { ToastModule } from 'primeng/toast';
 })
 export class SplitButtonTemplateDemo {
     items: MenuItem[];
-    
+
     constructor(private messageService: MessageService) {
         this.items = [
             {

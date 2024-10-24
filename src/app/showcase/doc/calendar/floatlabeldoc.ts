@@ -21,16 +21,16 @@ export class FloatLabelDoc {
 
     code: Code = {
         basic: `<p-floatLabel>
-    <p-calendar 
-        [(ngModel)]="date" 
+    <p-calendar
+        [(ngModel)]="date"
         inputId="birth_date" />
     <label for="birth_date">Birth Date</label>
 </p-floatLabel>`,
 
         html: `<div class="card flex justify-content-center">
     <p-floatLabel>
-        <p-calendar 
-            [(ngModel)]="date" 
+        <p-calendar
+            [(ngModel)]="date"
             inputId="birth_date" />
         <label for="birth_date">Birth Date</label>
     </p-floatLabel>
@@ -38,8 +38,8 @@ export class FloatLabelDoc {
 
         typescript: `import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { CalendarModule } from 'primeng/calendar';
-import { FloatLabelModule } from 'primeng/floatlabel';
+import { CalendarModule } from 'primengrtl/calendar';
+import { FloatLabelModule } from 'primengrtl/floatlabel';
 
 @Component({
     selector: 'calendar-float-label-demo',

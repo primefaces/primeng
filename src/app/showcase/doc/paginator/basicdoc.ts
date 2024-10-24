@@ -34,24 +34,24 @@ export class BasicDoc {
     }
 
     code: Code = {
-        basic: `<p-paginator 
-    (onPageChange)="onPageChange($event)" 
+        basic: `<p-paginator
+    (onPageChange)="onPageChange($event)"
     [first]="first"
-    [rows]="rows" 
-    [totalRecords]="120" 
+    [rows]="rows"
+    [totalRecords]="120"
     [rowsPerPageOptions]="[10, 20, 30]" />`,
 
         html: `<div class="card flex justify-content-center">
-    <p-paginator 
-        (onPageChange)="onPageChange($event)" 
-        [first]="first" 
-        [rows]="rows" 
-        [totalRecords]="120" 
+    <p-paginator
+        (onPageChange)="onPageChange($event)"
+        [first]="first"
+        [rows]="rows"
+        [totalRecords]="120"
         [rowsPerPageOptions]="[10, 20, 30]" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { PaginatorModule } from 'primeng/paginator';
+import { PaginatorModule } from 'primengrtl/paginator';
 
 interface PageEvent {
     first: number;

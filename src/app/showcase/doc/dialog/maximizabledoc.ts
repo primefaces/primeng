@@ -28,12 +28,12 @@ export class MaximizableDoc {
 
     code: Code = {
         basic: `<p-button (onClick)="showDialog()" label="Show" />
-<p-dialog 
-    header="Header" 
+<p-dialog
+    header="Header"
     [modal]="true"
-    [(visible)]="visible" 
-    [style]="{ width: '50rem' }" 
-    [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" 
+    [(visible)]="visible"
+    [style]="{ width: '50rem' }"
+    [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
     [maximizable]="true">
         <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit...
@@ -42,12 +42,12 @@ export class MaximizableDoc {
 
         html: `<div class="card flex justify-content-center">
     <p-button (onClick)="showDialog()" label="Show" />
-    <p-dialog 
-        header="Header" 
-        [modal]="true" 
-        [(visible)]="visible" 
-        [style]="{ width: '50rem' }" 
-        [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" 
+    <p-dialog
+        header="Header"
+        [modal]="true"
+        [(visible)]="visible"
+        [style]="{ width: '50rem' }"
+        [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
         [maximizable]="true">
             <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
@@ -57,8 +57,8 @@ export class MaximizableDoc {
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { DialogModule } from 'primeng/dialog';
+import { ButtonModule } from 'primengrtl/button';
+import { DialogModule } from 'primengrtl/dialog';
 
 @Component({
     selector: 'dialog-maximizable-demo',

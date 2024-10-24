@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MessageService } from 'primeng/api';
+import { MessageService } from 'primengrtl/api';
 import { Code } from '@domain/code';
 
 interface UploadEvent {
@@ -29,31 +29,31 @@ export class BasicDoc {
     }
 
     code: Code = {
-        basic: `<p-fileUpload 
-    mode="basic" 
-    chooseLabel="Choose" 
+        basic: `<p-fileUpload
+    mode="basic"
+    chooseLabel="Choose"
     chooseIcon="pi pi-upload"
-    name="demo[]" 
-    url="https://www.primefaces.org/cdn/api/upload.php" 
-    accept="image/*" 
-    maxFileSize="1000000" 
+    name="demo[]"
+    url="https://www.primefaces.org/cdn/api/upload.php"
+    accept="image/*"
+    maxFileSize="1000000"
     (onUpload)="onUpload($event)" />`,
         html: `<div class="card flex justify-content-center">
     <p-toast />
-    <p-fileUpload 
-        mode="basic" 
-        chooseLabel="Choose" 
+    <p-fileUpload
+        mode="basic"
+        chooseLabel="Choose"
         chooseIcon="pi pi-upload"
-        name="demo[]" 
-        url="https://www.primefaces.org/cdn/api/upload.php" 
-        accept="image/*" 
-        maxFileSize="1000000" 
+        name="demo[]"
+        url="https://www.primefaces.org/cdn/api/upload.php"
+        accept="image/*"
+        maxFileSize="1000000"
         (onUpload)="onUpload($event)" />
 </div>`,
         typescript: `import { Component } from '@angular/core';
-import { MessageService } from 'primeng/api';
-import { FileUploadModule } from 'primeng/fileupload';
-import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primengrtl/api';
+import { FileUploadModule } from 'primengrtl/fileupload';
+import { ToastModule } from 'primengrtl/toast';
 
 interface UploadEvent {
     originalEvent: Event;

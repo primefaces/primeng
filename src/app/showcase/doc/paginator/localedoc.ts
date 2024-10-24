@@ -43,67 +43,67 @@ export class LocaleDoc {
 
     code: Code = {
         basic: `<div class="flex-auto">
-    <p-paginator 
-        (onPageChange)="onPageChange($event)" 
-        [first]="first" 
-        [rows]="rows" 
-        [totalRecords]="120" 
-        [rowsPerPageOptions]="[10, 20, 30]" />
-</div>
-
-<div class="flex-auto">
-    <p-paginator 
-        locale="en-US" 
-        (onPageChange)="onPageChange($event)" 
+    <p-paginator
+        (onPageChange)="onPageChange($event)"
         [first]="first"
-        [rows]="rows" 
-        [totalRecords]="120" 
+        [rows]="rows"
+        [totalRecords]="120"
         [rowsPerPageOptions]="[10, 20, 30]" />
 </div>
 
 <div class="flex-auto">
-    <p-paginator 
-        locale="fa-IR" 
-        (onPageChange)="onPageChange($event)" 
-        [first]="first" 
-        [rows]="rows" 
-        [totalRecords]="120" 
+    <p-paginator
+        locale="en-US"
+        (onPageChange)="onPageChange($event)"
+        [first]="first"
+        [rows]="rows"
+        [totalRecords]="120"
+        [rowsPerPageOptions]="[10, 20, 30]" />
+</div>
+
+<div class="flex-auto">
+    <p-paginator
+        locale="fa-IR"
+        (onPageChange)="onPageChange($event)"
+        [first]="first"
+        [rows]="rows"
+        [totalRecords]="120"
         [rowsPerPageOptions]="[10, 20, 30]" />
 </div>
 `,
 
         html: `<div class="card flex justify-content-center">
-    <p-paginator 
+    <p-paginator
         (onPageChange)="onPageChange($event)"
-        [first]="first" 
-        [rows]="rows" 
-        [totalRecords]="120" 
+        [first]="first"
+        [rows]="rows"
+        [totalRecords]="120"
         [rowsPerPageOptions]="[10, 20, 30]" />
 </div>
 
 <div class="card flex justify-content-center">
-    <p-paginator 
-        locale="en-US" 
+    <p-paginator
+        locale="en-US"
         (onPageChange)="onPageChange($event)"
         [first]="first"
-        [rows]="rows" 
-        [totalRecords]="120" 
+        [rows]="rows"
+        [totalRecords]="120"
         [rowsPerPageOptions]="[10, 20, 30]" />
 </div>
 
 <div class="card flex justify-content-center">
-    <p-paginator 
-        locale="fa-IR" 
-        (onPageChange)="onPageChange($event)" 
+    <p-paginator
+        locale="fa-IR"
+        (onPageChange)="onPageChange($event)"
         [first]="first"
-        [rows]="rows" 
-        [totalRecords]="120" 
+        [rows]="rows"
+        [totalRecords]="120"
         [rowsPerPageOptions]="[10, 20, 30]" />
 </div>
 `,
 
         typescript: `import { Component } from '@angular/core';
-import { PaginatorModule } from 'primeng/paginator';
+import { PaginatorModule } from 'primengrtl/paginator';
 
 interface PageEvent {
     first: number;

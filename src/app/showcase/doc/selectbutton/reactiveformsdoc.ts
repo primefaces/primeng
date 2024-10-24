@@ -32,26 +32,26 @@ export class ReactiveFormsDoc implements OnInit {
 
     code: Code = {
         basic: `<form [formGroup]="formGroup">
-    <p-selectButton 
-        [options]="stateOptions" 
-        formControlName="value" 
-        optionLabel="label" 
+    <p-selectButton
+        [options]="stateOptions"
+        formControlName="value"
+        optionLabel="label"
         optionValue="value" />
 </form>`,
 
         html: `<div class="card flex justify-content-center">
     <form [formGroup]="formGroup">
-        <p-selectButton 
-            [options]="stateOptions" 
-            formControlName="value" 
-            optionLabel="label" 
+        <p-selectButton
+            [options]="stateOptions"
+            formControlName="value"
+            optionLabel="label"
             optionValue="value" />
     </form>
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { SelectButtonModule } from 'primeng/selectbutton';
+import { SelectButtonModule } from 'primengrtl/selectbutton';
 
 @Component({
     selector: 'select-button-reactive-forms-demo',

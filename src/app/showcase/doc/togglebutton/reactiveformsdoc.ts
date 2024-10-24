@@ -27,24 +27,24 @@ export class ReactiveFormsDoc implements OnInit {
 
     code: Code = {
         basic: `<form [formGroup]="formGroup">
-    <p-toggleButton 
-        formControlName="checked" 
-        onLabel="On" 
+    <p-toggleButton
+        formControlName="checked"
+        onLabel="On"
         offLabel="Off" />
 </form>`,
 
         html: `<div class="card flex justify-content-center">
     <form [formGroup]="formGroup">
-        <p-toggleButton 
-            formControlName="checked" 
-            onLabel="On" 
+        <p-toggleButton
+            formControlName="checked"
+            onLabel="On"
             offLabel="Off" />
     </form>
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { ToggleButtonModule } from 'primeng/togglebutton';
+import { ToggleButtonModule } from 'primengrtl/togglebutton';
 
 @Component({
     selector: 'toggle-button-reactive-forms-demo',

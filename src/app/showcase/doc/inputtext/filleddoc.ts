@@ -17,22 +17,22 @@ export class FilledDoc {
     value: string;
 
     code: Code = {
-        basic: `<input 
-    type="text" 
-    pInputText 
-    [(ngModel)]="value" 
+        basic: `<input
+    type="text"
+    pInputText
+    [(ngModel)]="value"
     variant="filled" />`,
 
         html: `<div class="card flex justify-content-center">
-    <input 
-        type="text" 
-        pInputText 
-        [(ngModel)]="value" 
+    <input
+        type="text"
+        pInputText
+        [(ngModel)]="value"
         variant="filled" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { InputTextModule } from 'primeng/inputtext';
+import { InputTextModule } from 'primengrtl/inputtext';
 import { FormsModule } from '@angular/forms';
 
 @Component({

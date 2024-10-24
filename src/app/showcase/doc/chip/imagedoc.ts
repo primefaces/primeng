@@ -18,31 +18,31 @@ import { Code } from '@domain/code';
 })
 export class ImageDoc {
     code: Code = {
-        basic: `<p-chip 
-    label="Amy Elsner" 
-    image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" 
+        basic: `<p-chip
+    label="Amy Elsner"
+    image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"
     alt="Avatar image" />`,
         html: `<div class="card flex align-items-center gap-2 flex-wrap">
-    <p-chip 
-        label="Amy Elsner" 
-        image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" 
+    <p-chip
+        label="Amy Elsner"
+        image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"
         alt="Avatar image" />
-    <p-chip 
-        label="Asiya Javayant" 
-        image="https://primefaces.org/cdn/primeng/images/demo/avatar/asiyajavayant.png" 
+    <p-chip
+        label="Asiya Javayant"
+        image="https://primefaces.org/cdn/primeng/images/demo/avatar/asiyajavayant.png"
         alt="Avatar image" />
-    <p-chip 
-        label="Onyama Limba" 
-        image="https://primefaces.org/cdn/primeng/images/demo/avatar/onyamalimba.png" 
+    <p-chip
+        label="Onyama Limba"
+        image="https://primefaces.org/cdn/primeng/images/demo/avatar/onyamalimba.png"
         alt="Avatar image" />
-    <p-chip 
-        label="Xuxue Feng" 
-        image="https://primefaces.org/cdn/primeng/images/demo/avatar/xuxuefeng.png" 
-        alt="Avatar image" 
+    <p-chip
+        label="Xuxue Feng"
+        image="https://primefaces.org/cdn/primeng/images/demo/avatar/xuxuefeng.png"
+        alt="Avatar image"
         [removable]="true" />
 </div>`,
         typescript: `import { Component } from '@angular/core';
-import { ChipModule } from 'primeng/chip';
+import { ChipModule } from 'primengrtl/chip';
 
 @Component({
     selector: 'chip-image-demo',

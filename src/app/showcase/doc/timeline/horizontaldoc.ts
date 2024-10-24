@@ -79,7 +79,7 @@ export class HorizontalDoc {
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { TimelineModule } from 'primeng/timeline';
+import { TimelineModule } from 'primengrtl/timeline';
 
 @Component({
     selector: 'timeline-horizontal-demo',

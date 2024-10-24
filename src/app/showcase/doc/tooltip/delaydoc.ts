@@ -16,22 +16,22 @@ import { Code } from '@domain/code';
 export class DelayDoc {
     code: Code = {
         basic: `<p-button
-    pTooltip="Confirm to proceed" 
-    showDelay="1000" 
-    hideDelay="300" 
+    pTooltip="Confirm to proceed"
+    showDelay="1000"
+    hideDelay="300"
     label="Save" />`,
 
         html: `<div class="card flex justify-content-center">
-    <p-button 
-        pTooltip="Confirm to proceed" 
+    <p-button
+        pTooltip="Confirm to proceed"
         showDelay="1000"
-        hideDelay="300" 
+        hideDelay="300"
         label="Save" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { TooltipModule } from 'primeng/tooltip';
-import { ButtonModule } from 'primeng/button';
+import { TooltipModule } from 'primengrtl/tooltip';
+import { ButtonModule } from 'primengrtl/button';
 
 @Component({
     selector: 'tooltip-delay-demo',

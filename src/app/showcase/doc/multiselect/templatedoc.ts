@@ -61,16 +61,16 @@ export class TemplateDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-multiSelect 
-    [options]="countries" 
-    [(ngModel)]="selectedCountries" 
-    placeholder="Select Countries" 
+        basic: `<p-multiSelect
+    [options]="countries"
+    [(ngModel)]="selectedCountries"
+    placeholder="Select Countries"
     optionLabel="name">
         <ng-template let-value pTemplate="selectedItems">
             <div class="inline-flex align-items-center gap-2 px-1" *ngFor="let option of value">
-                <img 
-                    src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" 
-                    [class]="'flag flag-' + option.code.toLowerCase()" 
+                <img
+                    src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
+                    [class]="'flag flag-' + option.code.toLowerCase()"
                     style="width: 18px" />
                 <div>{{ option.name }},</div>
             </div>
@@ -78,9 +78,9 @@ export class TemplateDoc implements OnInit {
         </ng-template>
         <ng-template let-country pTemplate="item">
             <div class="flex align-items-center gap-2">
-                <img 
-                    src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" 
-                    [class]="'flag flag-' + country.code.toLowerCase()" 
+                <img
+                    src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
+                    [class]="'flag flag-' + country.code.toLowerCase()"
                     style="width: 18px" />
                 <div>{{ country.name }}</div>
             </div>
@@ -89,23 +89,23 @@ export class TemplateDoc implements OnInit {
             <div class="py-2 px-3">
                 <b>
                     {{ selectedCountries ? selectedCountries.length : 0 }}
-                </b> 
+                </b>
                 item{{ (selectedCountries ? selectedCountries.length : 0) > 1 ? 's' : '' }} selected.
             </div>
         </ng-template>
 </p-multiSelect>`,
 
         html: `<div class="card flex justify-content-center">
-    <p-multiSelect 
-        [options]="countries" 
-        [(ngModel)]="selectedCountries" 
-        placeholder="Select a Country" 
+    <p-multiSelect
+        [options]="countries"
+        [(ngModel)]="selectedCountries"
+        placeholder="Select a Country"
         optionLabel="name">
             <ng-template let-value pTemplate="selectedItems">
                 <div class="inline-flex align-items-center gap-2 px-1" *ngFor="let option of value">
-                    <img 
-                        src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" 
-                        [class]="'flag flag-' + option.code.toLowerCase()" 
+                    <img
+                        src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
+                        [class]="'flag flag-' + option.code.toLowerCase()"
                         style="width: 18px" />
                     <div>{{ option.name }},</div>
                 </div>
@@ -113,9 +113,9 @@ export class TemplateDoc implements OnInit {
             </ng-template>
             <ng-template let-country pTemplate="item">
                 <div class="flex align-items-center gap-2">
-                    <img 
-                        src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" 
-                        [class]="'flag flag-' + country.code.toLowerCase()" 
+                    <img
+                        src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
+                        [class]="'flag flag-' + country.code.toLowerCase()"
                         style="width: 18px" />
                     <div>{{ country.name }}</div>
                 </div>
@@ -124,7 +124,7 @@ export class TemplateDoc implements OnInit {
                 <div class="py-2 px-3">
                     <b>
                     {{ selectedCountries ? selectedCountries.length : 0 }}
-                    </b> 
+                    </b>
                     item{{ (selectedCountries ? selectedCountries.length : 0) > 1 ? 's' : '' }} selected.
                 </div>
             </ng-template>
@@ -133,7 +133,7 @@ export class TemplateDoc implements OnInit {
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MultiSelectModule } from 'primeng/multiselect';
+import { MultiSelectModule } from 'primengrtl/multiselect';
 
 interface Country {
     name: string;

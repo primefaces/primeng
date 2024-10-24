@@ -24,21 +24,21 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
-import { ButtonModule } from 'primeng/button';
-import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
-import { RippleModule } from 'primeng/ripple';
-import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
+import { OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys } from 'primengrtl/api';
+import { ButtonModule } from 'primengrtl/button';
+import { ConnectedOverlayScrollHandler, DomHandler } from 'primengrtl/dom';
+import { RippleModule } from 'primengrtl/ripple';
+import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primengrtl/utils';
 import { Subscription } from 'rxjs';
-import { ChevronStartIcon } from 'primeng/icons/chevronstart';
-import { ChevronEndIcon } from 'primeng/icons/chevronend';
-import { ChevronUpIcon } from 'primeng/icons/chevronup';
-import { ChevronDownIcon } from 'primeng/icons/chevrondown';
-import { TimesIcon } from 'primeng/icons/times';
-import { CalendarIcon } from 'primeng/icons/calendar';
-import { Nullable, VoidListener } from 'primeng/ts-helpers';
+import { ChevronStartIcon } from 'primengrtl/icons/chevronstart';
+import { ChevronEndIcon } from 'primengrtl/icons/chevronend';
+import { ChevronUpIcon } from 'primengrtl/icons/chevronup';
+import { ChevronDownIcon } from 'primengrtl/icons/chevrondown';
+import { TimesIcon } from 'primengrtl/icons/times';
+import { CalendarIcon } from 'primengrtl/icons/calendar';
+import { Nullable, VoidListener } from 'primengrtl/ts-helpers';
 import { CalendarMonthChangeEvent, CalendarResponsiveOptions, CalendarTypeView, CalendarYearChangeEvent, LocaleSettings, Month, NavigationState } from './calendar.interface';
-import { AutoFocusModule } from 'primeng/autofocus';
+import { AutoFocusModule } from 'primengrtl/autofocus';
 
 export const CALENDAR_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,

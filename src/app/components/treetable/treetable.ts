@@ -29,23 +29,23 @@ import {
     booleanAttribute,
     numberAttribute
 } from '@angular/core';
-import { BlockableUI, FilterMetadata, FilterService, PrimeNGConfig, PrimeTemplate, ScrollerOptions, SharedModule, SortMeta, TreeNode, TreeTableNode } from 'primeng/api';
-import { DomHandler } from 'primeng/dom';
-import { ArrowDownIcon } from 'primeng/icons/arrowdown';
-import { ArrowUpIcon } from 'primeng/icons/arrowup';
-import { CheckIcon } from 'primeng/icons/check';
-import { ChevronDownIcon } from 'primeng/icons/chevrondown';
-import { ChevronEndIcon } from 'primeng/icons/chevronend';
-import { MinusIcon } from 'primeng/icons/minus';
-import { SortAltIcon } from 'primeng/icons/sortalt';
-import { SortAmountDownIcon } from 'primeng/icons/sortamountdown';
-import { SortAmountUpAltIcon } from 'primeng/icons/sortamountupalt';
-import { SpinnerIcon } from 'primeng/icons/spinner';
-import { PaginatorModule } from 'primeng/paginator';
-import { RippleModule } from 'primeng/ripple';
-import { Scroller, ScrollerModule } from 'primeng/scroller';
-import { Nullable, VoidListener } from 'primeng/ts-helpers';
-import { ObjectUtils } from 'primeng/utils';
+import { BlockableUI, FilterMetadata, FilterService, PrimeNGConfig, PrimeTemplate, ScrollerOptions, SharedModule, SortMeta, TreeNode, TreeTableNode } from 'primengrtl/api';
+import { DomHandler } from 'primengrtl/dom';
+import { ArrowDownIcon } from 'primengrtl/icons/arrowdown';
+import { ArrowUpIcon } from 'primengrtl/icons/arrowup';
+import { CheckIcon } from 'primengrtl/icons/check';
+import { ChevronDownIcon } from 'primengrtl/icons/chevrondown';
+import { ChevronEndIcon } from 'primengrtl/icons/chevronend';
+import { MinusIcon } from 'primengrtl/icons/minus';
+import { SortAltIcon } from 'primengrtl/icons/sortalt';
+import { SortAmountDownIcon } from 'primengrtl/icons/sortamountdown';
+import { SortAmountUpAltIcon } from 'primengrtl/icons/sortamountupalt';
+import { SpinnerIcon } from 'primengrtl/icons/spinner';
+import { PaginatorModule } from 'primengrtl/paginator';
+import { RippleModule } from 'primengrtl/ripple';
+import { Scroller, ScrollerModule } from 'primengrtl/scroller';
+import { Nullable, VoidListener } from 'primengrtl/ts-helpers';
+import { ObjectUtils } from 'primengrtl/utils';
 import { Subject, Subscription } from 'rxjs';
 import {
     TreeTableColResizeEvent,

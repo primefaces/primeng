@@ -21,15 +21,15 @@ import {
     numberAttribute
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Aria, PrimeNGConfig, PrimeTemplate, SelectItem, SharedModule } from 'primeng/api';
-import { DropdownChangeEvent, DropdownModule } from 'primeng/dropdown';
-import { AngleDoubleStartIcon } from 'primeng/icons/angledoublestart';
-import { AngleDoubleEndIcon } from 'primeng/icons/angledoubleend';
-import { AngleStartIcon } from 'primeng/icons/anglestart';
-import { AngleEndIcon } from 'primeng/icons/angleend';
-import { InputNumberModule } from 'primeng/inputnumber';
-import { RippleModule } from 'primeng/ripple';
-import { Nullable } from 'primeng/ts-helpers';
+import { Aria, PrimeNGConfig, PrimeTemplate, SelectItem, SharedModule } from 'primengrtl/api';
+import { DropdownChangeEvent, DropdownModule } from 'primengrtl/dropdown';
+import { AngleDoubleStartIcon } from 'primengrtl/icons/angledoublestart';
+import { AngleDoubleEndIcon } from 'primengrtl/icons/angledoubleend';
+import { AngleStartIcon } from 'primengrtl/icons/anglestart';
+import { AngleEndIcon } from 'primengrtl/icons/angleend';
+import { InputNumberModule } from 'primengrtl/inputnumber';
+import { RippleModule } from 'primengrtl/ripple';
+import { Nullable } from 'primengrtl/ts-helpers';
 import { PaginatorState } from './paginator.interface';
 
 /**

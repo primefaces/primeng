@@ -31,22 +31,22 @@ import {
     ViewRef
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { FilterService, OverlayOptions, PrimeNGConfig, PrimeTemplate, SelectItem, SharedModule, TranslationKeys } from 'primeng/api';
-import { AutoFocusModule } from 'primeng/autofocus';
-import { DomHandler } from 'primeng/dom';
-import { Overlay, OverlayModule } from 'primeng/overlay';
-import { RippleModule } from 'primeng/ripple';
-import { Scroller, ScrollerModule } from 'primeng/scroller';
-import { ScrollerOptions } from 'primeng/api';
-import { TooltipModule } from 'primeng/tooltip';
-import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
-import { TimesIcon } from 'primeng/icons/times';
-import { CheckIcon } from 'primeng/icons/check';
-import { BlankIcon } from 'primeng/icons/blank';
-import { ChevronDownIcon } from 'primeng/icons/chevrondown';
-import { SearchIcon } from 'primeng/icons/search';
+import { FilterService, OverlayOptions, PrimeNGConfig, PrimeTemplate, SelectItem, SharedModule, TranslationKeys } from 'primengrtl/api';
+import { AutoFocusModule } from 'primengrtl/autofocus';
+import { DomHandler } from 'primengrtl/dom';
+import { Overlay, OverlayModule } from 'primengrtl/overlay';
+import { RippleModule } from 'primengrtl/ripple';
+import { Scroller, ScrollerModule } from 'primengrtl/scroller';
+import { ScrollerOptions } from 'primengrtl/api';
+import { TooltipModule } from 'primengrtl/tooltip';
+import { ObjectUtils, UniqueComponentId } from 'primengrtl/utils';
+import { TimesIcon } from 'primengrtl/icons/times';
+import { CheckIcon } from 'primengrtl/icons/check';
+import { BlankIcon } from 'primengrtl/icons/blank';
+import { ChevronDownIcon } from 'primengrtl/icons/chevrondown';
+import { SearchIcon } from 'primengrtl/icons/search';
 import { DropdownChangeEvent, DropdownFilterEvent, DropdownFilterOptions, DropdownLazyLoadEvent } from './dropdown.interface';
-import { Nullable } from 'primeng/ts-helpers';
+import { Nullable } from 'primengrtl/ts-helpers';
 
 export const DROPDOWN_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,

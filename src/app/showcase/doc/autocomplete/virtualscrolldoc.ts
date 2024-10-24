@@ -70,7 +70,7 @@ export class VirtualScrollDoc {
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { AutoCompleteModule } from 'primeng/autocomplete';
+import { AutoCompleteModule } from 'primengrtl/autocomplete';
 import { FormsModule } from '@angular/forms';
 
 interface AutoCompleteCompleteEvent {

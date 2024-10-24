@@ -41,33 +41,33 @@ export class CurrencyDoc {
     value4: number = 5002;
 
     code: Code = {
-        basic: `<p-inputNumber 
-    [(ngModel)]="value1" 
-    inputId="currency-us" 
-    mode="currency" 
-    currency="USD" 
-    locale="en-US" /> 
+        basic: `<p-inputNumber
+    [(ngModel)]="value1"
+    inputId="currency-us"
+    mode="currency"
+    currency="USD"
+    locale="en-US" />
 
-<p-inputNumber 
-    [(ngModel)]="value2" 
+<p-inputNumber
+    [(ngModel)]="value2"
     mode="currency"
     inputId="currency-germany"
-    currency="EUR" 
-    locale="de-DE" /> 
+    currency="EUR"
+    locale="de-DE" />
 
-<p-inputNumber 
+<p-inputNumber
     [(ngModel)]="value3"
-    mode="currency" 
-    inputId="currency-india" 
-    currency="INR" 
-    currencyDisplay="code" 
-    locale="en-IN" /> 
+    mode="currency"
+    inputId="currency-india"
+    currency="INR"
+    currencyDisplay="code"
+    locale="en-IN" />
 
-<p-inputNumber 
+<p-inputNumber
     [(ngModel)]="value4"
     mode="currency"
-    inputId="currency-japan" 
-    currency="JPY" 
+    inputId="currency-japan"
+    currency="JPY"
     locale="jp-JP" /> `,
 
         html: `
@@ -76,51 +76,51 @@ export class CurrencyDoc {
         <label class="block font-bold mb-2" for="currency-us">
             United States
         </label>
-        <p-inputNumber 
-            [(ngModel)]="value1" 
-            inputId="currency-us" 
-            mode="currency" 
-            currency="USD" 
-            locale="en-US" /> 
+        <p-inputNumber
+            [(ngModel)]="value1"
+            inputId="currency-us"
+            mode="currency"
+            currency="USD"
+            locale="en-US" />
     </div>
     <div class="flex-auto">
         <label class="block font-bold mb-2" for="currency-germany">
             Germany
         </label>
-        <p-inputNumber 
-            [(ngModel)]="value2" 
+        <p-inputNumber
+            [(ngModel)]="value2"
             mode="currency"
             inputId="currency-germany"
-            currency="EUR" 
-            locale="de-DE" /> 
+            currency="EUR"
+            locale="de-DE" />
     </div>
     <div class="flex-auto">
         <label class="block font-bold mb-2" for="currency-india">
             India
         </label>
-        <p-inputNumber 
+        <p-inputNumber
             [(ngModel)]="value3"
-            mode="currency" 
-            inputId="currency-india" 
-            currency="INR" 
-            currencyDisplay="code" 
-            locale="en-IN" /> 
+            mode="currency"
+            inputId="currency-india"
+            currency="INR"
+            currencyDisplay="code"
+            locale="en-IN" />
     </div>
     <div class="flex-auto">
         <label class="block font-bold mb-2" for="currency-japan">
             Japan
         </label>
-        <p-inputNumber 
+        <p-inputNumber
             [(ngModel)]="value4"
-            mode="currency" 
-            inputId="currency-japan" 
-            currency="JPY" 
-            locale="jp-JP" /> 
+            mode="currency"
+            inputId="currency-japan"
+            currency="JPY"
+            locale="jp-JP" />
     </div>
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { InputNumberModule } from 'primeng/inputnumber';
+import { InputNumberModule } from 'primengrtl/inputnumber';
 import { FormsModule } from '@angular/forms';
 
 @Component({

@@ -15,22 +15,22 @@ import { Code } from '@domain/code';
 })
 export class PreviewDoc {
     code: Code = {
-        basic: `<p-image 
-    src="https://primefaces.org/cdn/primeng/images/galleria/galleria10.jpg" 
-    alt="Image" 
-    width="250" 
+        basic: `<p-image
+    src="https://primefaces.org/cdn/primeng/images/galleria/galleria10.jpg"
+    alt="Image"
+    width="250"
     [preview]="true" />`,
 
         html: `<div class="card flex justify-content-center">
-    <p-image 
+    <p-image
         src="https://primefaces.org/cdn/primeng/images/galleria/galleria10.jpg"
-        alt="Image" 
-        width="250" 
+        alt="Image"
+        width="250"
         [preview]="true" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { ImageModule } from 'primeng/image';
+import { ImageModule } from 'primengrtl/image';
 
 @Component({
     selector: 'image-preview-demo',

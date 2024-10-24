@@ -38,28 +38,28 @@ export class PrefixSuffixDoc {
     value4: number = 20;
 
     code: Code = {
-        basic: `<p-inputNumber 
-    [(ngModel)]="value1" 
-    inputId="mile" 
-    suffix=" mi" /> 
+        basic: `<p-inputNumber
+    [(ngModel)]="value1"
+    inputId="mile"
+    suffix=" mi" />
 
-<p-inputNumber 
-    [(ngModel)]="value2" 
-    inputId="percent" 
-    prefix="%" /> 
+<p-inputNumber
+    [(ngModel)]="value2"
+    inputId="percent"
+    prefix="%" />
 
-<p-inputNumber 
+<p-inputNumber
     [(ngModel)]="value3"
-    inputId="expiry" 
+    inputId="expiry"
     prefix="Expires in "
-    suffix=" days" /> 
+    suffix=" days" />
 
-<p-inputNumber 
-    [(ngModel)]="value4" 
-    prefix="↑ " 
-    inputId="temperature" 
-    suffix="℃" 
-    [min]="0" 
+<p-inputNumber
+    [(ngModel)]="value4"
+    prefix="↑ "
+    inputId="temperature"
+    suffix="℃"
+    [min]="0"
     [max]="40" />`,
 
         html: `<div class="card flex flex-wrap gap-3 p-fluid">
@@ -67,46 +67,46 @@ export class PrefixSuffixDoc {
         <label class="font-bold block mb-2" for="mile">
             Mile
         </label>
-        <p-inputNumber 
-            [(ngModel)]="value1" 
-            inputId="mile" 
-            suffix=" mi" /> 
+        <p-inputNumber
+            [(ngModel)]="value1"
+            inputId="mile"
+            suffix=" mi" />
     </div>
     <div class="flex-auto">
         <label class="font-bold block mb-2" for="percent">
             Percent
         </label>
-        <p-inputNumber 
+        <p-inputNumber
             [(ngModel)]="value2"
             inputId="percent"
-            prefix="%" /> 
+            prefix="%" />
     </div>
     <div class="flex-auto">
         <label class="font-bold block mb-2" for="expiry">
             Expiry
         </label>
-        <p-inputNumber 
+        <p-inputNumber
             [(ngModel)]="value3"
-            inputId="expiry" 
+            inputId="expiry"
             prefix="Expires in "
-            suffix=" days" /> 
+            suffix=" days" />
     </div>
     <div class="flex-auto">
         <label class="font-bold block mb-2" for="temperature">
             Temperature
         </label>
-        <p-inputNumber 
+        <p-inputNumber
             [(ngModel)]="value4"
             prefix="↑ "
             inputId="temperature"
-            suffix="℃" 
-            [min]="0" 
+            suffix="℃"
+            [min]="0"
             [max]="40" />
     </div>
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { InputNumberModule } from 'primeng/inputnumber';
+import { InputNumberModule } from 'primengrtl/inputnumber';
 import { FormsModule } from '@angular/forms';
 
 @Component({

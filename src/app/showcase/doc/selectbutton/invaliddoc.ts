@@ -22,26 +22,26 @@ export class InvalidDoc {
     value: string = 'off';
 
     code: Code = {
-        basic: `<p-selectButton 
-    [options]="stateOptions" 
-    [(ngModel)]="value" 
-    optionLabel="label" 
-    optionValue="value" 
+        basic: `<p-selectButton
+    [options]="stateOptions"
+    [(ngModel)]="value"
+    optionLabel="label"
+    optionValue="value"
     class="ng-invalid ng-dirty" />`,
 
         html: `<div class="card flex justify-content-center">
-    <p-selectButton 
-        [options]="stateOptions" 
-        [(ngModel)]="value" 
-        optionLabel="label" 
-        optionValue="value" 
+    <p-selectButton
+        [options]="stateOptions"
+        [(ngModel)]="value"
+        optionLabel="label"
+        optionValue="value"
         class="ng-invalid ng-dirty" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SelectButtonModule } from 'primeng/selectbutton';
-        
+import { SelectButtonModule } from 'primengrtl/selectbutton';
+
 @Component({
     selector: 'select-button-invalid-demo',
     templateUrl: './select-button-invalid-demo.html',

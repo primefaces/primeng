@@ -66,27 +66,27 @@ export class FlexibleScrollDoc {
 
     code: Code = {
         basic: `<div class="flex justify-content-center">
-    <button 
-        type="button" 
-        (click)="showDialog()" 
-        pButton 
-        icon="pi pi-external-link" 
+    <button
+        type="button"
+        (click)="showDialog()"
+        pButton
+        icon="pi pi-external-link"
         label="View">
     </button>
 </div>
-<p-dialog 
-    header="Header" 
-    [resizable]="false" 
-    [modal]="true" 
-    [maximizable]="true" 
-    appendTo="body" 
-    [(visible)]="dialogVisible" 
-    [style]="{width: '75vw'}" 
+<p-dialog
+    header="Header"
+    [resizable]="false"
+    [modal]="true"
+    [maximizable]="true"
+    appendTo="body"
+    [(visible)]="dialogVisible"
+    [style]="{width: '75vw'}"
     [contentStyle]="{height: '300px'}">
-        <p-table 
-            [value]="customers" 
-            [scrollable]="true" 
-            scrollHeight="flex" 
+        <p-table
+            [value]="customers"
+            [scrollable]="true"
+            scrollHeight="flex"
             [tableStyle]="{'min-width': '50rem'}">
                 <ng-template pTemplate="header">
                     <tr>
@@ -122,40 +122,40 @@ export class FlexibleScrollDoc {
                 </ng-template>
         </p-table>
         <ng-template pTemplate="footer">
-            <button 
-                type="button" 
-                pButton 
-                pRipple 
-                icon="pi pi-times" 
-                (click)="dialogVisible=false" 
-                label="Dismiss" 
+            <button
+                type="button"
+                pButton
+                pRipple
+                icon="pi pi-times"
+                (click)="dialogVisible=false"
+                label="Dismiss"
                 class="p-button-text">
             </button>
         </ng-template>
 </p-dialog>`,
         html: `<div class="card">
     <div class="flex justify-content-center">
-        <button 
-            type="button" 
-            (click)="showDialog()" 
-            pButton 
-            icon="pi pi-external-link" 
+        <button
+            type="button"
+            (click)="showDialog()"
+            pButton
+            icon="pi pi-external-link"
             label="View">
         </button>
     </div>
-    <p-dialog 
-        header="Header" 
-        [resizable]="false" 
-        [modal]="true" 
-        [maximizable]="true" 
-        appendTo="body" 
-        [(visible)]="dialogVisible" 
-        [style]="{width: '75vw'}" 
+    <p-dialog
+        header="Header"
+        [resizable]="false"
+        [modal]="true"
+        [maximizable]="true"
+        appendTo="body"
+        [(visible)]="dialogVisible"
+        [style]="{width: '75vw'}"
         [contentStyle]="{height: '300px'}">
-            <p-table 
-                [value]="customers" 
+            <p-table
+                [value]="customers"
                 [scrollable]="true"
-                scrollHeight="flex" 
+                scrollHeight="flex"
                 [tableStyle]="{'min-width': '50rem'}">
                     <ng-template pTemplate="header">
                         <tr>
@@ -191,13 +191,13 @@ export class FlexibleScrollDoc {
                     </ng-template>
             </p-table>
             <ng-template pTemplate="footer">
-                <button 
+                <button
                     type="button"
                     pButton
-                    pRipple 
-                    icon="pi pi-times" 
-                    (click)="dialogVisible=false" 
-                    label="Dismiss" 
+                    pRipple
+                    icon="pi pi-times"
+                    (click)="dialogVisible=false"
+                    label="Dismiss"
                     class="p-button-text">
                 </button>
             </ng-template>
@@ -206,7 +206,7 @@ export class FlexibleScrollDoc {
         typescript: `import { Component, OnInit } from '@angular/core';
 import { Customer } from '@domain/customer';
 import { CustomerService } from '@service/customerservice';
-import { ButtonModule } from 'primeng/button';
+import { ButtonModule } from 'primengrtl/button';
 import { HttpClientModule } from '@angular/common/http';
 
 @Component({

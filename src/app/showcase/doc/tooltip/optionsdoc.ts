@@ -39,8 +39,8 @@ export class OptionsDoc {
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { TooltipModule } from 'primeng/tooltip';
-import { InputTextModule } from 'primeng/inputtext';
+import { TooltipModule } from 'primengrtl/tooltip';
+import { InputTextModule } from 'primengrtl/inputtext';
 
 @Component({
     selector: 'tooltip-options-demo',

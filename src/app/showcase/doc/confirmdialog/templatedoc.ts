@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ConfirmationService, MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primengrtl/api';
 import { Code } from '@domain/code';
 
 @Component({
@@ -80,10 +80,10 @@ export class TemplateDoc {
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { ConfirmationService, MessageService } from 'primeng/api';
-import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { ToastModule } from 'primeng/toast';
-import { ButtonModule } from 'primeng/button';
+import { ConfirmationService, MessageService } from 'primengrtl/api';
+import { ConfirmDialogModule } from 'primengrtl/confirmdialog';
+import { ToastModule } from 'primengrtl/toast';
+import { ButtonModule } from 'primengrtl/button';
 
 @Component({
     selector: 'confirm-dialog-template-demo',

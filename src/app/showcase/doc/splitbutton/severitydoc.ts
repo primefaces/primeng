@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MenuItem, MessageService } from 'primeng/api';
+import { MenuItem, MessageService } from 'primengrtl/api';
 import { Code } from '@domain/code';
 
 @Component({
@@ -58,83 +58,83 @@ export class SeverityDoc {
     }
 
     code: Code = {
-        basic: `<p-splitButton 
-    label="Save" 
-    (onClick)="save('info')" 
+        basic: `<p-splitButton
+    label="Save"
+    (onClick)="save('info')"
     [model]="items" />
-<p-splitButton 
-    label="Save" 
-    (onClick)="save('info')" 
-    [model]="items" 
+<p-splitButton
+    label="Save"
+    (onClick)="save('info')"
+    [model]="items"
     severity="secondary" />
-<p-splitButton 
-    label="Save" 
-    (onClick)="save('success')" 
-    [model]="items" 
+<p-splitButton
+    label="Save"
+    (onClick)="save('success')"
+    [model]="items"
     severity="success" />
-<p-splitButton 
-    label="Save" 
-    (onClick)="save('info')" 
-    [model]="items" 
+<p-splitButton
+    label="Save"
+    (onClick)="save('info')"
+    [model]="items"
     severity="info" />
-<p-splitButton 
-    label="Save" 
-    (onClick)="save('warn')" 
-    [model]="items" 
+<p-splitButton
+    label="Save"
+    (onClick)="save('warn')"
+    [model]="items"
     severity="warning" />
-<p-splitButton 
-    label="Save" 
-    (onClick)="save('info')" 
-    [model]="items" 
+<p-splitButton
+    label="Save"
+    (onClick)="save('info')"
+    [model]="items"
     severity="help" />
-<p-splitButton 
-    label="Save" 
-    (onClick)="save('error')" 
-    [model]="items" 
+<p-splitButton
+    label="Save"
+    (onClick)="save('error')"
+    [model]="items"
     severity="danger" />`,
 
         html: `<div class="card flex justify-content-center flex-wrap gap-3">
     <p-toast />
-    <p-splitButton 
-        label="Save" 
-        (onClick)="save('info')" 
+    <p-splitButton
+        label="Save"
+        (onClick)="save('info')"
         [model]="items" />
-    <p-splitButton 
-        label="Save" 
-        (onClick)="save('info')" 
-        [model]="items" 
+    <p-splitButton
+        label="Save"
+        (onClick)="save('info')"
+        [model]="items"
         severity="secondary" />
-    <p-splitButton 
-        label="Save" 
-        (onClick)="save('success')" 
-        [model]="items" 
+    <p-splitButton
+        label="Save"
+        (onClick)="save('success')"
+        [model]="items"
         severity="success" />
-    <p-splitButton 
-        label="Save" 
-        (onClick)="save('info')" 
-        [model]="items" 
+    <p-splitButton
+        label="Save"
+        (onClick)="save('info')"
+        [model]="items"
         severity="info" />
-    <p-splitButton 
-        label="Save" 
-        (onClick)="save('warn')" 
-        [model]="items" 
+    <p-splitButton
+        label="Save"
+        (onClick)="save('warn')"
+        [model]="items"
         severity="warning" />
-    <p-splitButton 
-        label="Save" 
-        (onClick)="save('info')" 
-        [model]="items" 
+    <p-splitButton
+        label="Save"
+        (onClick)="save('info')"
+        [model]="items"
         severity="help" />
-    <p-splitButton 
-        label="Save" 
-        (onClick)="save('error')" 
+    <p-splitButton
+        label="Save"
+        (onClick)="save('error')"
         [model]="items"
         severity="danger" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { MenuItem, MessageService } from 'primeng/api';
-import { SplitButtonModule } from 'primeng/splitbutton';
-import { ToastModule } from 'primeng/toast';
+import { MenuItem, MessageService } from 'primengrtl/api';
+import { SplitButtonModule } from 'primengrtl/splitbutton';
+import { ToastModule } from 'primengrtl/toast';
 
 @Component({
     selector: 'split-button-severity-demo',

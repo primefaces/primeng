@@ -11,7 +11,7 @@ import { Code } from '@domain/code';
 export class AppendToDoc {
     code: Code = {
         typescript: `
-import { PrimeNGConfig, OverlayOptions } from 'primeng/api';
+import { PrimeNGConfig, OverlayOptions } from 'primengrtl/api';
 
 this.primengConfig.overlayOptions: OverlayOptions = {
     appendTo: 'body'

@@ -17,19 +17,19 @@ export class DisabledDoc {
     checked: boolean = false;
 
     code: Code = {
-        basic: `<p-checkbox 
-    [disabled]="true" 
+        basic: `<p-checkbox
+    [disabled]="true"
     [(ngModel)]="checked" />`,
 
         html: `<div class="card flex justify-content-center">
-    <p-checkbox 
-        [disabled]="true" 
+    <p-checkbox
+        [disabled]="true"
         [(ngModel)]="checked" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { CheckboxModule } from 'primeng/checkbox';
+import { CheckboxModule } from 'primengrtl/checkbox';
 
 @Component({
     selector: 'checkbox-disabled-demo',

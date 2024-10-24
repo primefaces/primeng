@@ -29,11 +29,11 @@ export class BasicDoc {
     }
 
     code: Code = {
-        basic: `<p-scroller 
-    [items]="items" 
-    [itemSize]="50" 
-    scrollHeight="200px" 
-    styleClass="border-1 surface-border" 
+        basic: `<p-scroller
+    [items]="items"
+    [itemSize]="50"
+    scrollHeight="200px"
+    styleClass="border-1 surface-border"
     [style]="{'width': '200px', 'height': '200px'}">
         <ng-template pTemplate="item" let-item let-options="options">
             <div class="flex align-items-center p-2" [ngClass]="{ 'surface-ground': options.odd }" style="height: 50px;">
@@ -43,11 +43,11 @@ export class BasicDoc {
 </p-scroller>`,
 
         html: `<div class="card flex justify-content-center">
-    <p-scroller 
-        [items]="items" 
-        [itemSize]="50" 
-        scrollHeight="200px" 
-        styleClass="border-1 surface-border" 
+    <p-scroller
+        [items]="items"
+        [itemSize]="50"
+        scrollHeight="200px"
+        styleClass="border-1 surface-border"
         [style]="{'width': '200px', 'height': '200px'}">
             <ng-template pTemplate="item" let-item let-options="options">
                 <div class="flex align-items-center p-2" [ngClass]="{ 'surface-ground': options.odd }" style="height: 50px;">
@@ -58,7 +58,7 @@ export class BasicDoc {
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
-import { ScrollerModule } from 'primeng/scroller';
+import { ScrollerModule } from 'primengrtl/scroller';
 
 @Component({
     selector: 'scroller-basic-demo',

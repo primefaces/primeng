@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, ViewChild } from '@angular/core';
-import { SortEvent, TreeNode } from 'primeng/api';
+import { SortEvent, TreeNode } from 'primengrtl/api';
 import { Code } from '@domain/code';
 import { NodeService } from '@service/nodeservice';
-import { TreeTable } from 'primeng/treetable';
+import { TreeTable } from 'primengrtl/treetable';
 
 interface Column {
     field: string;
@@ -112,13 +112,13 @@ export class SortRemovableDoc {
     }
 
     code: Code = {
-        basic: `<p-treeTable 
-    [value]="files" 
-    [columns]="cols" 
-    selectionMode="single" 
-    [(selection)]="selectedNode" 
-    dataKey="name" 
-    [scrollable]="true" 
+        basic: `<p-treeTable
+    [value]="files"
+    [columns]="cols"
+    selectionMode="single"
+    [(selection)]="selectedNode"
+    dataKey="name"
+    [scrollable]="true"
     [tableStyle]="{'min-width':'50rem'}">
         <ng-template pTemplate="header" let-columns>
             <tr>
@@ -142,13 +142,13 @@ export class SortRemovableDoc {
         <p-inputSwitch [(ngModel)]="metaKeySelection" />
         <span>Metakey</span>
     </div>
-    <p-treeTable 
-        [value]="files" 
-        [columns]="cols" 
-        selectionMode="single" 
-        [(selection)]="selectedNode" 
-        dataKey="name" 
-        [scrollable]="true" 
+    <p-treeTable
+        [value]="files"
+        [columns]="cols"
+        selectionMode="single"
+        [(selection)]="selectedNode"
+        dataKey="name"
+        [scrollable]="true"
         [tableStyle]="{'min-width':'50rem'}">
             <ng-template pTemplate="header" let-columns>
                 <tr>
@@ -169,10 +169,10 @@ export class SortRemovableDoc {
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
-import { TreeNode } from 'primeng/api';
+import { TreeNode } from 'primengrtl/api';
 import { NodeService } from '@service/nodeservice';
-import { TreeTableModule } from 'primeng/treetable';
-import { InputSwitchModule } from 'primeng/inputswitch';
+import { TreeTableModule } from 'primengrtl/treetable';
+import { InputSwitchModule } from 'primengrtl/inputswitch';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 

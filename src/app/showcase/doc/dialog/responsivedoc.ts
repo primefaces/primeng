@@ -31,13 +31,13 @@ export class ResponsiveDoc {
 
     code: Code = {
         basic: `<p-button (onClick)="showDialog()" label="Show" />
-<p-dialog 
-    header="Header" 
-    [(visible)]="visible" 
-    [modal]="true" 
-    [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" 
-    [style]="{ width: '50vw' }" 
-    [draggable]="false" 
+<p-dialog
+    header="Header"
+    [(visible)]="visible"
+    [modal]="true"
+    [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+    [style]="{ width: '50vw' }"
+    [draggable]="false"
     [resizable]="false">
         <p>
             Lorem ipsum dolor sit amet...
@@ -46,13 +46,13 @@ export class ResponsiveDoc {
 
         html: `<div class="card flex justify-content-center">
     <p-button (onClick)="showDialog()" label="Show" />
-    <p-dialog 
-        header="Header" 
-        [(visible)]="visible" 
-        [modal]="true" 
-        [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" 
-        [style]="{ width: '50vw' }" 
-        [draggable]="false" 
+    <p-dialog
+        header="Header"
+        [(visible)]="visible"
+        [modal]="true"
+        [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+        [style]="{ width: '50vw' }"
+        [draggable]="false"
         [resizable]="false">
             <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
@@ -62,8 +62,8 @@ export class ResponsiveDoc {
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { DialogModule } from 'primeng/dialog';
-import { ButtonModule } from 'primeng/button';
+import { DialogModule } from 'primengrtl/dialog';
+import { ButtonModule } from 'primengrtl/button';
 
 @Component({
     selector: 'dialog-responsive-demo',

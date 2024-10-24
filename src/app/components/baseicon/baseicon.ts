@@ -1,5 +1,5 @@
 import { Component, Input, ChangeDetectionStrategy, ViewEncapsulation, ElementRef, HostBinding, booleanAttribute, Inject } from '@angular/core';
-import { ObjectUtils } from 'primeng/utils';
+import { ObjectUtils } from 'primengrtl/utils';
 import { DOCUMENT } from '@angular/common';
 
 @Component({

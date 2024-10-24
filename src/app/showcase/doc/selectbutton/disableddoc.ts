@@ -30,38 +30,38 @@ export class DisabledDoc {
     value2: string = 'Option 1';
 
     code: Code = {
-        basic: `<p-selectButton 
-    [options]="stateOptions" 
-    [(ngModel)]="value1" 
+        basic: `<p-selectButton
+    [options]="stateOptions"
+    [(ngModel)]="value1"
     optionLabel="label"
-    optionValue="value" 
+    optionValue="value"
     [disabled]="true" />
 
-<p-selectButton 
-    [options]="stateOptions2" 
-    [(ngModel)]="value2" 
-    optionLabel="label" 
-    optionValue="value" 
+<p-selectButton
+    [options]="stateOptions2"
+    [(ngModel)]="value2"
+    optionLabel="label"
+    optionValue="value"
     optionDisabled="constant" />`,
 
         html: `<div class="card flex justify-content-center">
-    <p-selectButton 
-        [options]="stateOptions" 
-        [(ngModel)]="value1" 
-        optionLabel="label" 
-        optionValue="value" 
+    <p-selectButton
+        [options]="stateOptions"
+        [(ngModel)]="value1"
+        optionLabel="label"
+        optionValue="value"
         [disabled]="true" />
-    <p-selectButton 
-        [options]="stateOptions2" 
+    <p-selectButton
+        [options]="stateOptions2"
         [(ngModel)]="value2"
-        optionLabel="label" 
-        optionValue="value" 
+        optionLabel="label"
+        optionValue="value"
         optionDisabled="constant" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SelectButtonModule } from 'primeng/selectbutton';
+import { SelectButtonModule } from 'primengrtl/selectbutton';
 
 @Component({
     selector: 'select-button-disabled-demo',

@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
-import { MessageService } from 'primeng/api';
+import { MessageService } from 'primengrtl/api';
 import { Code } from '@domain/code';
 
 @Component({
@@ -75,10 +75,10 @@ export class HeadlessDoc {
     }
 
     code: Code = {
-        basic: `<p-toast 
-    position="top-center" 
-    key="confirm" 
-    (onClose)="onClose()" 
+        basic: `<p-toast
+    position="top-center"
+    key="confirm"
+    (onClose)="onClose()"
     [baseZIndex]="5000">
         <ng-template let-message pTemplate="headless" let-closeFn="closeFn">
             <section class="flex p-3 gap-3 w-full bg-black-alpha-90 shadow-2" style="border-radius: 10px">
@@ -91,24 +91,24 @@ export class HeadlessDoc {
                         {{ message.detail }}
                     </p>
                     <div class="flex flex-column gap-2">
-                        <p-progressBar 
-                            [value]="progress" 
-                            [showValue]="false" 
+                        <p-progressBar
+                            [value]="progress"
+                            [showValue]="false"
                             [style]="{ height: '4px' }" />
                         <label class="text-right text-xs text-white">
                             {{ progress }}% uploaded...
                         </label>
                     </div>
                     <div class="flex gap-3 mb-3">
-                        <p-button 
-                            label="Another Upload?" 
+                        <p-button
+                            label="Another Upload?"
                             [text]="true"
-                            styleClass="p-0" 
+                            styleClass="p-0"
                             (onClick)="closeFn($event)" />
-                        <p-button 
-                            label="Cancel" 
+                        <p-button
+                            label="Cancel"
                             [text]="true"
-                            styleClass="text-white p-0" 
+                            styleClass="text-white p-0"
                             (onClick)="closeFn($event)" />
                     </div>
                 </div>
@@ -117,10 +117,10 @@ export class HeadlessDoc {
 </p-toast>
 <p-button (onClick)="showConfirm()" label="Confirm" />`,
         html: `<div class="card flex justify-content-center">
-    <p-toast 
-        position="top-center" 
-        key="confirm" 
-        (onClose)="onClose()" 
+    <p-toast
+        position="top-center"
+        key="confirm"
+        (onClose)="onClose()"
         [baseZIndex]="5000">
             <ng-template let-message pTemplate="headless" let-closeFn="closeFn">
                 <section class="flex p-3 gap-3 w-full bg-black-alpha-90 shadow-2" style="border-radius: 10px">
@@ -133,24 +133,24 @@ export class HeadlessDoc {
                             {{ message.detail }}
                         </p>
                         <div class="flex flex-column gap-2">
-                            <p-progressBar 
-                                [value]="progress" 
-                                [showValue]="false" 
+                            <p-progressBar
+                                [value]="progress"
+                                [showValue]="false"
                                 [style]="{ height: '4px' }" />
                             <label class="text-right text-xs text-white">
                                 {{ progress }}% uploaded...
                             </label>
                         </div>
                         <div class="flex gap-3 mb-3">
-                            <p-button 
-                                label="Another Upload?" 
-                                [text]="true" 
-                                styleClass="p-0" 
+                            <p-button
+                                label="Another Upload?"
+                                [text]="true"
+                                styleClass="p-0"
                                 (onClick)="closeFn($event)" />
-                            <p-button 
-                                label="Cancel" 
-                                [text]="true" 
-                                styleClass="text-white p-0" 
+                            <p-button
+                                label="Cancel"
+                                [text]="true"
+                                styleClass="text-white p-0"
                                 (onClick)="closeFn($event)" />
                         </div>
                     </div>
@@ -160,11 +160,11 @@ export class HeadlessDoc {
     <p-button (onClick)="showConfirm()" label="Confirm" />
 </div>`,
         typescript: `import { ChangeDetectorRef, Component } from '@angular/core';
-import { MessageService } from 'primeng/api';
-import { ToastModule } from 'primeng/toast';
-import { ButtonModule } from 'primeng/button';
-import { RippleModule } from 'primeng/ripple';
-import { ProgressBarModule } from 'primeng/progressbar';
+import { MessageService } from 'primengrtl/api';
+import { ToastModule } from 'primengrtl/toast';
+import { ButtonModule } from 'primengrtl/button';
+import { RippleModule } from 'primengrtl/ripple';
+import { ProgressBarModule } from 'primengrtl/progressbar';
 
 @Component({
     selector: 'toast-headless-demo',
@@ -172,7 +172,7 @@ import { ProgressBarModule } from 'primeng/progressbar';
     standalone: true,
     imports: [ToastModule, ButtonModule, RippleModule, ProgressBarModule],
     providers: [MessageService]
-})  
+})
 export class ToastHeadlessDemo {
 
     visible: boolean = false;

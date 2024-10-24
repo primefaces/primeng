@@ -24,7 +24,7 @@ export class InvalidDoc {
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { PasswordModule } from 'primeng/password';
+import { PasswordModule } from 'primengrtl/password';
 import { FormsModule } from '@angular/forms';
 
 @Component({

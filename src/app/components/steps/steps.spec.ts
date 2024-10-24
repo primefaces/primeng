@@ -3,9 +3,9 @@ import { By } from '@angular/platform-browser';
 import { Steps, StepsModule } from './steps';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
-import { Toast } from 'primeng/toast';
+import { Toast } from 'primengrtl/toast';
 import { RouterTestingModule } from '@angular/router/testing';
-import { MenuItem } from 'primeng/api';
+import { MenuItem } from 'primengrtl/api';
 
 @Component({
     template: `<p-steps [model]="items"></p-steps> `

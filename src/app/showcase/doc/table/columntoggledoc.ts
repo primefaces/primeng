@@ -75,18 +75,18 @@ export class ColumnToggleDoc {
     }
 
     code: Code = {
-        basic: `<p-table 
-    [columns]="selectedColumns" 
-    [value]="products" 
+        basic: `<p-table
+    [columns]="selectedColumns"
+    [value]="products"
     [tableStyle]="{'min-width': '50rem'}">
         <ng-template pTemplate="caption">
-            <p-multiSelect 
-                display="chip" 
-                [options]="cols" 
-                [(ngModel)]="selectedColumns" 
+            <p-multiSelect
+                display="chip"
+                [options]="cols"
+                [(ngModel)]="selectedColumns"
                 optionLabel="header"
-                selectedItemsLabel="{0} columns selected" 
-                [style]="{'min-width': '200px'}" 
+                selectedItemsLabel="{0} columns selected"
+                [style]="{'min-width': '200px'}"
                 placeholder="Choose Columns" />
         </ng-template>
         <ng-template pTemplate="header" let-columns>
@@ -107,18 +107,18 @@ export class ColumnToggleDoc {
         </ng-template>
 </p-table>`,
         html: `<div class="card">
-    <p-table 
-        [columns]="selectedColumns" 
-        [value]="products" 
+    <p-table
+        [columns]="selectedColumns"
+        [value]="products"
         [tableStyle]="{'min-width': '50rem'}">
             <ng-template pTemplate="caption">
-                <p-multiSelect 
-                    display="chip" 
-                    [options]="cols" 
-                    [(ngModel)]="selectedColumns" 
+                <p-multiSelect
+                    display="chip"
+                    [options]="cols"
+                    [(ngModel)]="selectedColumns"
                     optionLabel="header"
-                    selectedItemsLabel="{0} columns selected" 
-                    [style]="{'min-width': '200px'}" 
+                    selectedItemsLabel="{0} columns selected"
+                    [style]="{'min-width': '200px'}"
                     placeholder="Choose Columns" />
             </ng-template>
             <ng-template pTemplate="header" let-columns>
@@ -142,8 +142,8 @@ export class ColumnToggleDoc {
         typescript: `import { Component, OnInit, ChangeDetectorRef} from '@angular/core';
 import { Product } from '@domain/product';
 import { ProductService } from '@service/productservice';
-import { TableModule } from 'primeng/table';
-import { MultiSelectModule } from 'primeng/multiselect';
+import { TableModule } from 'primengrtl/table';
+import { MultiSelectModule } from 'primengrtl/multiselect';
 import { CommonModule } from '@angular/common';
 
 interface Column {

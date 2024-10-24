@@ -99,29 +99,29 @@ export class BasicDoc {
     }
 
     code: Code = {
-        basic: `<p-cascadeSelect 
-    [(ngModel)]="selectedCity" 
-    [options]="countries" 
-    optionLabel="cname" 
-    optionGroupLabel="name" 
-    [optionGroupChildren]="['states', 'cities']" 
+        basic: `<p-cascadeSelect
+    [(ngModel)]="selectedCity"
+    [options]="countries"
+    optionLabel="cname"
+    optionGroupLabel="name"
+    [optionGroupChildren]="['states', 'cities']"
     [style]="{ minWidth: '14rem' }"
     placeholder="Select a City" />`,
 
         html: `<div class="card flex justify-content-center">
-    <p-cascadeSelect 
-        [(ngModel)]="selectedCity" 
-        [options]="countries" 
+    <p-cascadeSelect
+        [(ngModel)]="selectedCity"
+        [options]="countries"
         optionLabel="cname"
-        optionGroupLabel="name" 
-        [optionGroupChildren]="['states', 'cities']" 
-        [style]="{ minWidth: '14rem' }" 
+        optionGroupLabel="name"
+        [optionGroupChildren]="['states', 'cities']"
+        [style]="{ minWidth: '14rem' }"
         placeholder="Select a City" />
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { CascadeSelectModule } from 'primeng/cascadeselect';
+import { CascadeSelectModule } from 'primengrtl/cascadeselect';
 
 @Component({
     selector: 'cascade-select-basic-demo',
@@ -133,7 +133,7 @@ export class CascadeSelectBasicDemo implements OnInit {
     countries: any[] | undefined;
 
     selectedCity: any;
-    
+
     ngOnInit() {
         this.countries = [
             {

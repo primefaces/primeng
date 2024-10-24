@@ -19,12 +19,12 @@ import {
     booleanAttribute,
     numberAttribute
 } from '@angular/core';
-import { PrimeTemplate, SharedModule } from 'primeng/api';
-import { AutoFocus } from 'primeng/autofocus';
-import { DomHandler } from 'primeng/dom';
-import { SpinnerIcon } from 'primeng/icons/spinner';
-import { Ripple } from 'primeng/ripple';
-import { ObjectUtils } from 'primeng/utils';
+import { PrimeTemplate, SharedModule } from 'primengrtl/api';
+import { AutoFocus } from 'primengrtl/autofocus';
+import { DomHandler } from 'primengrtl/dom';
+import { SpinnerIcon } from 'primengrtl/icons/spinner';
+import { Ripple } from 'primengrtl/ripple';
+import { ObjectUtils } from 'primengrtl/utils';
 
 type ButtonIconPosition = 'start' | 'end' | 'top' | 'bottom';
 

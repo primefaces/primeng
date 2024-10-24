@@ -20,11 +20,11 @@ import {
     booleanAttribute,
     numberAttribute
 } from '@angular/core';
-import { Confirmation, ConfirmationService, OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
-import { ButtonModule } from 'primeng/button';
-import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
-import { Nullable, VoidListener } from 'primeng/ts-helpers';
-import { ZIndexUtils } from 'primeng/utils';
+import { Confirmation, ConfirmationService, OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys } from 'primengrtl/api';
+import { ButtonModule } from 'primengrtl/button';
+import { ConnectedOverlayScrollHandler, DomHandler } from 'primengrtl/dom';
+import { Nullable, VoidListener } from 'primengrtl/ts-helpers';
+import { ZIndexUtils } from 'primengrtl/utils';
 import { Subscription } from 'rxjs';
 /**
  * ConfirmPopup displays a confirmation overlay displayed relatively to its target.

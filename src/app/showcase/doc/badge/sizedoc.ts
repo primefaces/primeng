@@ -24,7 +24,7 @@ export class SizeDoc {
     <p-badge value="6" badgeSize="xlarge" severity="success" />
 </div>`,
         typescript: `import { Component } from '@angular/core';
-import { BadgeModule } from 'primeng/badge';
+import { BadgeModule } from 'primengrtl/badge';
 
 @Component({
     selector: 'badge-size-demo',

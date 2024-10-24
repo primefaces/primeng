@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuItem, MessageService, TreeNode } from 'primeng/api';
+import { MenuItem, MessageService, TreeNode } from 'primengrtl/api';
 import { Code } from '@domain/code';
 import { NodeService } from '@service/nodeservice';
 
@@ -48,32 +48,32 @@ export class ContextMenuDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-tree 
-    class="w-full md:w-30rem" 
-    [value]="files" 
-    selectionMode="single" 
-    [(selection)]="selectedFile" 
+        basic: `<p-tree
+    class="w-full md:w-30rem"
+    [value]="files"
+    selectionMode="single"
+    [(selection)]="selectedFile"
     [contextMenu]="cm" />
 <p-contextMenu #cm [model]="items" />
 <p-toast />`,
 
         html: `<div class="card flex justify-content-center">
-    <p-tree 
-        class="w-full md:w-30rem" 
+    <p-tree
+        class="w-full md:w-30rem"
         [value]="files"
-        selectionMode="single" 
-        [(selection)]="selectedFile" 
+        selectionMode="single"
+        [(selection)]="selectedFile"
         [contextMenu]="cm" />
     <p-contextMenu #cm [model]="items" />
     <p-toast />
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
-import { MenuItem, MessageService, TreeNode } from 'primeng/api';
+import { MenuItem, MessageService, TreeNode } from 'primengrtl/api';
 import { NodeService } from '@service/nodeservice';
-import { TreeModule } from 'primeng/tree';
-import { ContextMenuModule } from 'primeng/contextmenu';
-import { ToastModule } from 'primeng/toast';
+import { TreeModule } from 'primengrtl/tree';
+import { ContextMenuModule } from 'primengrtl/contextmenu';
+import { ToastModule } from 'primengrtl/toast';
 
 @Component({
     selector: 'tree-context-menu-demo',

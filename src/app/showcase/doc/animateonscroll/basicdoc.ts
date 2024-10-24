@@ -150,7 +150,7 @@ export class BasicDoc {
     </div>
 </div>`,
         typescript: `import { Component } from '@angular/core';
-import { AnimateOnScrollModule } from 'primeng/animateonscroll';
+import { AnimateOnScrollModule } from 'primengrtl/animateonscroll';
 
 @Component({
     selector: 'animate-on-scroll-basic-demo',

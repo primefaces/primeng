@@ -71,15 +71,15 @@ export class WithoutThumbnailsDoc implements OnInit {
     [showItemNavigators]="true"
     [showThumbnails]="false">
         <ng-template pTemplate="item" let-item>
-            <img 
-                [src]="item.itemImageSrc" 
+            <img
+                [src]="item.itemImageSrc"
                 style="width: 100%; display: block;" />
         </ng-template>
 </p-galleria>`,
         html: `<div class="card flex justify-content-center">
-    <p-button 
-    icon="pi pi-external-link" 
-    label="Show" 
+    <p-button
+    icon="pi pi-external-link"
+    label="Show"
     (onClick)="displayBasic = true" />
         <p-galleria
             [(value)]="images"
@@ -92,16 +92,16 @@ export class WithoutThumbnailsDoc implements OnInit {
             [showItemNavigators]="true"
             [showThumbnails]="false">
                 <ng-template pTemplate="item" let-item>
-                    <img 
-                        [src]="item.itemImageSrc" 
+                    <img
+                        [src]="item.itemImageSrc"
                         style="width: 100%; display: block;" />
                 </ng-template>
         </p-galleria>
 </div>`,
         typescript: `import { Component, OnInit } from '@angular/core';
 import { PhotoService } from '@service/photoservice';
-import { GalleriaModule } from 'primeng/galleria';
-import { ButtonModule } from 'primeng/button';
+import { GalleriaModule } from 'primengrtl/galleria';
+import { ButtonModule } from 'primengrtl/button';
 
 @Component({
     selector: 'galleria-full-screen-without-thumbnails-demo',

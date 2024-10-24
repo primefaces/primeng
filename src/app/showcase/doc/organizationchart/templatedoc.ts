@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { TreeNode } from 'primeng/api';
+import { TreeNode } from 'primengrtl/api';
 import { Code } from '@domain/code';
 
 @Component({
@@ -67,10 +67,10 @@ export class TemplateDoc {
         basic: `<p-organizationChart [value]="data" [collapsible]="true">
     <ng-template let-node pTemplate="default">
         <div class="p-2 text-center">
-            <img 
-                src="https://primefaces.org/cdn/primeng/images/flag/flag_placeholder.png" 
-                [alt]="node.label" 
-                [class]="'flag' + ' flag-' + node.data" 
+            <img
+                src="https://primefaces.org/cdn/primeng/images/flag/flag_placeholder.png"
+                [alt]="node.label"
+                [class]="'flag' + ' flag-' + node.data"
                 width="32" />
             <div>
                 {{ node.data.name }}
@@ -86,10 +86,10 @@ export class TemplateDoc {
     <p-organizationChart [value]="data" [collapsible]="true">
         <ng-template let-node pTemplate="default">
             <div class="p-2 text-center">
-                <img 
-                    src="https://primefaces.org/cdn/primeng/images/flag/flag_placeholder.png" 
-                    [alt]="node.label" 
-                    [class]="'flag' + ' flag-' + node.data" 
+                <img
+                    src="https://primefaces.org/cdn/primeng/images/flag/flag_placeholder.png"
+                    [alt]="node.label"
+                    [class]="'flag' + ' flag-' + node.data"
                     width="32" />
                 <div>
                     {{ node.data.name }}
@@ -103,8 +103,8 @@ export class TemplateDoc {
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { TreeNode } from 'primeng/api';
-import { OrganizationChartModule } from 'primeng/organizationchart';
+import { TreeNode } from 'primengrtl/api';
+import { OrganizationChartModule } from 'primengrtl/organizationchart';
 
 @Component({
     selector: 'organization-chart-template-demo',

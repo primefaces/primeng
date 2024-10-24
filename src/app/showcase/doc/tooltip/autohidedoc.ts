@@ -16,35 +16,35 @@ import { Code } from '@domain/code';
 })
 export class AutoHideDoc {
     code: Code = {
-        basic: `<input 
+        basic: `<input
     type="text"
-    pInputText 
-    pTooltip="Enter your username" 
-    [autoHide]="false" 
+    pInputText
+    pTooltip="Enter your username"
+    [autoHide]="false"
     placeholder="autoHide: false" />
-<input 
-    type="text" 
-    pInputText 
-    pTooltip="Enter your username" 
+<input
+    type="text"
+    pInputText
+    pTooltip="Enter your username"
     placeholder="autoHide: true" />`,
 
         html: `<div class="card flex flex-wrap justify-content-center gap-2">
-    <input 
-        type="text" 
-        pInputText 
-        pTooltip="Enter your username" 
-        [autoHide]="false" 
+    <input
+        type="text"
+        pInputText
+        pTooltip="Enter your username"
+        [autoHide]="false"
         placeholder="autoHide: false" />
-    <input 
-        type="text" 
-        pInputText 
-        pTooltip="Enter your username" 
+    <input
+        type="text"
+        pInputText
+        pTooltip="Enter your username"
         placeholder="autoHide: true">
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { TooltipModule } from 'primeng/tooltip';
-import { InputTextModule } from 'primeng/inputtext';
+import { TooltipModule } from 'primengrtl/tooltip';
+import { InputTextModule } from 'primengrtl/inputtext';
 
 @Component({
     selector: 'tooltip-auto-hide-demo',

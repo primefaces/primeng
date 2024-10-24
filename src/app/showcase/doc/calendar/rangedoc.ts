@@ -17,21 +17,21 @@ export class RangeDoc {
     rangeDates: Date[] | undefined;
 
     code: Code = {
-        basic: `<p-calendar 
-    [(ngModel)]="rangeDates" 
-    selectionMode="range" 
+        basic: `<p-calendar
+    [(ngModel)]="rangeDates"
+    selectionMode="range"
     [readonlyInput]="true" />`,
 
         html: `<div class="card flex justify-content-center">
-    <p-calendar 
-        [(ngModel)]="rangeDates" 
-        selectionMode="range" 
+    <p-calendar
+        [(ngModel)]="rangeDates"
+        selectionMode="range"
         [readonlyInput]="true" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { CalendarModule } from 'primeng/calendar';
+import { CalendarModule } from 'primengrtl/calendar';
 
 @Component({
     selector: 'calendar-range-demo',

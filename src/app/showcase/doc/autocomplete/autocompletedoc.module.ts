@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppDocModule } from '@layout/doc/app.doc.module';
 import { AppCodeModule } from '@layout/doc/app.code.component';
-import { AutoCompleteModule } from 'primeng/autocomplete';
+import { AutoCompleteModule } from 'primengrtl/autocomplete';
 import { ImportDoc } from './importdoc';
 import { BasicDoc } from './basicdoc';
 import { TemplateDoc } from './templatedoc';
@@ -21,7 +21,7 @@ import { FloatLabelDoc } from './floatlabeldoc';
 import { DisabledDoc } from './disableddoc';
 import { InvalidDoc } from './invaliddoc';
 import { FilledDoc } from './filleddoc';
-import { FloatLabelModule } from 'primeng/floatlabel';
+import { FloatLabelModule } from 'primengrtl/floatlabel';
 import { ShowClearDoc } from '@doc/autocomplete/showclear-doc.component';
 
 @NgModule({

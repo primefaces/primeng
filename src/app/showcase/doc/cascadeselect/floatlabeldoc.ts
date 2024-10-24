@@ -138,8 +138,8 @@ export class FloatLabelDoc {
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { CascadeSelectModule } from 'primeng/cascadeselect';
-import { FloatLabelModule } from 'primeng/floatlabel';
+import { CascadeSelectModule } from 'primengrtl/cascadeselect';
+import { FloatLabelModule } from 'primengrtl/floatlabel';
 
 @Component({
     selector: 'cascade-select-float-label-demo',
@@ -151,7 +151,7 @@ export class CascadeSelectFloatLabelDemo implements OnInit {
     countries: any[] | undefined;
 
     selectedCity: any;
-    
+
     ngOnInit() {
         this.countries = [
             {

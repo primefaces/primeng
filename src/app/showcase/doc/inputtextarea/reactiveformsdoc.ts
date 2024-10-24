@@ -27,20 +27,20 @@ export class ReactiveFormsDoc implements OnInit {
 
     code: Code = {
         basic: `<form [formGroup]="formGroup">
-    <textarea 
-        rows="5" 
-        cols="30" 
-        pInputTextarea 
+    <textarea
+        rows="5"
+        cols="30"
+        pInputTextarea
         formControlName="text">
     </textarea>
 </form>`,
 
         html: `<div class="card flex justify-content-center">
     <form [formGroup]="formGroup">
-        <textarea 
+        <textarea
             rows="5"
-            cols="30" 
-            pInputTextarea 
+            cols="30"
+            pInputTextarea
             formControlName="text">
         </textarea>
     </form>
@@ -48,7 +48,7 @@ export class ReactiveFormsDoc implements OnInit {
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { InputTextareaModule } from 'primeng/inputtextarea';
+import { InputTextareaModule } from 'primengrtl/inputtextarea';
 
 @Component({
     selector: 'input-textarea-reactive-forms-demo',

@@ -56,11 +56,11 @@ export class LongContentDoc {
 
     code: Code = {
         basic: `<p-button (onClick)="showDialog()" label="Show" />
-<p-dialog 
-    header="Header" 
+<p-dialog
+    header="Header"
     [modal]="true"
-    [(visible)]="visible" 
-    [style]="{ width: '50rem' }" 
+    [(visible)]="visible"
+    [style]="{ width: '50rem' }"
     [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }">
         <p class="mb-5">
             Lorem ipsum dolor sit amet...
@@ -84,11 +84,11 @@ export class LongContentDoc {
 
         html: `<div class="card flex justify-content-center">
     <p-button (onClick)="showDialog()" label="Show" />
-    <p-dialog 
-        header="Header" 
+    <p-dialog
+        header="Header"
         [modal]="true"
-        [(visible)]="visible" 
-        [style]="{ width: '50rem' }" 
+        [(visible)]="visible"
+        [style]="{ width: '50rem' }"
         [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }">
             <p class="mb-5">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
@@ -126,8 +126,8 @@ export class LongContentDoc {
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { DialogModule } from 'primeng/dialog';
-import { ButtonModule } from 'primeng/button';
+import { DialogModule } from 'primengrtl/dialog';
+import { ButtonModule } from 'primengrtl/button';
 
 @Component({
     selector: 'dialog-long-content-demo',

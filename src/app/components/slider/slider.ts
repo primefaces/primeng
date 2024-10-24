@@ -20,9 +20,9 @@ import {
     numberAttribute
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { DomHandler } from 'primeng/dom';
-import { Nullable, VoidListener } from 'primeng/ts-helpers';
-import { AutoFocusModule } from 'primeng/autofocus';
+import { DomHandler } from 'primengrtl/dom';
+import { Nullable, VoidListener } from 'primengrtl/ts-helpers';
+import { AutoFocusModule } from 'primengrtl/autofocus';
 import { SliderChangeEvent, SliderSlideEndEvent } from './slider.interface';
 
 export const SLIDER_VALUE_ACCESSOR: any = {

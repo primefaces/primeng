@@ -34,27 +34,27 @@ export class DisabledDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-listbox 
-    [options]="cities" 
-    [(ngModel)]="selectedCity" 
-    optionLabel="name" 
-    [disabled]="true" 
-    [style]="{ width: '15rem' }" 
+        basic: `<p-listbox
+    [options]="cities"
+    [(ngModel)]="selectedCity"
+    optionLabel="name"
+    [disabled]="true"
+    [style]="{ width: '15rem' }"
     [listStyle]="{'max-height': '220px'}" />`,
 
         html: `<div class="card flex justify-content-center">
-    <p-listbox 
-        [options]="cities" 
-        [(ngModel)]="selectedCity" 
-        optionLabel="name" 
-        [disabled]="true" 
-        [style]="{ width: '15rem' }" 
+    <p-listbox
+        [options]="cities"
+        [(ngModel)]="selectedCity"
+        optionLabel="name"
+        [disabled]="true"
+        [style]="{ width: '15rem' }"
         [listStyle]="{'max-height': '220px'}" />
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ListboxModule } from 'primeng/listbox';
+import { ListboxModule } from 'primengrtl/listbox';
 
 interface City {
     name: string,
@@ -71,7 +71,7 @@ export class ListboxDisabledDemo implements OnInit {
     cities!: City[];
 
     selectedCity!: City;
-    
+
     ngOnInit() {
         this.cities = [
             { name: 'New York', code: 'NY' },

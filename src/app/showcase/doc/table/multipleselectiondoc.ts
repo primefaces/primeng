@@ -64,12 +64,12 @@ export class MultipleSelectionDoc {
     <p-inputSwitch [(ngModel)]="metaKey" inputId="input-metakey" />
     <label for="input-metakey">MetaKey</label>
 </div>
-<p-table 
-    [value]="products" 
-    selectionMode="multiple" 
-    [(selection)]="selectedProducts" 
+<p-table
+    [value]="products"
+    selectionMode="multiple"
+    [(selection)]="selectedProducts"
     [metaKeySelection]="metaKey"
-    dataKey="code" 
+    dataKey="code"
     [tableStyle]="{ 'min-width': '50rem' }">
         <ng-template pTemplate="header">
             <tr>
@@ -93,12 +93,12 @@ export class MultipleSelectionDoc {
         <p-inputSwitch [(ngModel)]="metaKey" inputId="input-metakey" />
         <label for="input-metakey">MetaKey</label>
     </div>
-    <p-table 
-        [value]="products" 
-        selectionMode="multiple" 
-        [(selection)]="selectedProducts" 
-        [metaKeySelection]="metaKey" 
-        dataKey="code" 
+    <p-table
+        [value]="products"
+        selectionMode="multiple"
+        [(selection)]="selectedProducts"
+        [metaKeySelection]="metaKey"
+        dataKey="code"
         [tableStyle]="{ 'min-width': '50rem' }">
             <ng-template pTemplate="header">
                 <tr>
@@ -121,8 +121,8 @@ export class MultipleSelectionDoc {
         typescript: `import { Component, OnInit } from '@angular/core';
 import { Product } from '@domain/product';
 import { ProductService } from '@service/productservice';
-import { TableModule } from 'primeng/table';
-import { InputSwitchModule } from 'primeng/inputswitch';
+import { TableModule } from 'primengrtl/table';
+import { InputSwitchModule } from 'primengrtl/inputswitch';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
@@ -146,7 +146,7 @@ export class TableMultipleSelectionDemo implements OnInit{
         this.productService.getProductsMini().then((data) => {
             this.products = data;
         });
-    } 
+    }
 }`,
         data: `{
     id: '1000',

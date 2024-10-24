@@ -163,9 +163,9 @@ export class TemplateDoc {
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { AccordionModule } from 'primeng/accordion';
-import { AvatarModule } from 'primeng/avatar';
-import { BadgeModule } from 'primeng/badge';
+import { AccordionModule } from 'primengrtl/accordion';
+import { AvatarModule } from 'primengrtl/avatar';
+import { BadgeModule } from 'primengrtl/badge';
 
 @Component({
     selector: 'accordion-template-demo',

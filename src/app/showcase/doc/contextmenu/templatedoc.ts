@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MenuItem } from 'primeng/api';
+import { MenuItem } from 'primengrtl/api';
 import { Code } from '@domain/code';
-import { ContextMenu } from 'primeng/contextmenu';
+import { ContextMenu } from 'primengrtl/contextmenu';
 
 @Component({
     selector: 'context-menu-template-demo',
@@ -243,11 +243,11 @@ export class TemplateDoc implements OnInit {
 </div>`,
 
         typescript: `import { Component, OnInit, ViewChild } from '@angular/core';
-import { ContextMenu } from 'primeng/contextmenu';
-import { MenuItem } from 'primeng/api';
-import { ContextMenuModule } from 'primeng/contextmenu';
+import { ContextMenu } from 'primengrtl/contextmenu';
+import { MenuItem } from 'primengrtl/api';
+import { ContextMenuModule } from 'primengrtl/contextmenu';
 import { CommonModule } from '@angular/common';
-import { RippleModule } from 'primeng/ripple';
+import { RippleModule } from 'primengrtl/ripple';
 
 
 @Component({

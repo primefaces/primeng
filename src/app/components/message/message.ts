@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input, NgModule, ViewEncapsulation, booleanAttribute } from '@angular/core';
-import { CheckIcon } from 'primeng/icons/check';
-import { ExclamationTriangleIcon } from 'primeng/icons/exclamationtriangle';
-import { InfoCircleIcon } from 'primeng/icons/infocircle';
-import { TimesCircleIcon } from 'primeng/icons/timescircle';
+import { CheckIcon } from 'primengrtl/icons/check';
+import { ExclamationTriangleIcon } from 'primengrtl/icons/exclamationtriangle';
+import { InfoCircleIcon } from 'primengrtl/icons/infocircle';
+import { TimesCircleIcon } from 'primengrtl/icons/timescircle';
 /**
  * Message groups a collection of contents in tabs.
  * @group Components

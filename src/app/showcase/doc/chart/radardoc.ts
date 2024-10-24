@@ -95,7 +95,7 @@ export class RadarDoc implements OnInit {
     <p-chart type="radar" [data]="data" [options]="options" />
 </div>`,
         typescript: `import { Component, OnInit } from '@angular/core';
-import { ChartModule } from 'primeng/chart';
+import { ChartModule } from 'primengrtl/chart';
 
 @Component({
     selector: 'chart-radar-demo',
@@ -112,7 +112,7 @@ export class ChartRadarDemo implements OnInit {
         const documentStyle = getComputedStyle(document.documentElement);
         const textColor = documentStyle.getPropertyValue('--text-color');
         const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
-        
+
         this.data = {
             labels: ['Eating', 'Drinking', 'Sleeping', 'Designing', 'Coding', 'Cycling', 'Running'],
             datasets: [
@@ -136,7 +136,7 @@ export class ChartRadarDemo implements OnInit {
                 }
             ]
         };
-        
+
         this.options = {
             plugins: {
                 legend: {

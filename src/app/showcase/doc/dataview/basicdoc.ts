@@ -152,9 +152,9 @@ export class BasicDoc {
         typescript: `import { Component } from '@angular/core';
 import { Product } from '@domain/product';
 import { ProductService } from '@service/productservice';
-import { DataViewModule } from 'primeng/dataview';
-import { ButtonModule } from 'primeng/button';
-import { TagModule } from 'primeng/tag';
+import { DataViewModule } from 'primengrtl/dataview';
+import { ButtonModule } from 'primengrtl/button';
+import { TagModule } from 'primengrtl/tag';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -191,7 +191,7 @@ export class DataViewBasicDemo {
 }`,
 
         data: `
-/* ProductService */        
+/* ProductService */
 {
     id: '1000',
     code: 'f230fh0g3',

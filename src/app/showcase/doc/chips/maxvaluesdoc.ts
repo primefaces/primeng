@@ -18,21 +18,21 @@ export class MaxValuesDoc {
     values = new FormControl<string[] | null>(null);
 
     code: Code = {
-        basic: `<p-chips 
-    [formControl]="values" 
-    [max]="max" 
+        basic: `<p-chips
+    [formControl]="values"
+    [max]="max"
     placeholder="Maximum 2 items" />`,
 
         html: `<div class="card p-fluid">
-    <p-chips 
+    <p-chips
         [formControl]="values"
-        [max]="max" 
-        placeholder="Maximum 2 items" /> 
+        [max]="max"
+        placeholder="Maximum 2 items" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { ChipsModule } from 'primeng/chips';
+import { ChipsModule } from 'primengrtl/chips';
 
 @Component({
     selector: 'chips-max-values-demo',

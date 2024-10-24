@@ -44,8 +44,8 @@ export class BasicDoc {
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { SidebarModule } from 'primeng/sidebar';
-import { ButtonModule } from 'primeng/button';
+import { SidebarModule } from 'primengrtl/sidebar';
+import { ButtonModule } from 'primengrtl/button';
 
 @Component({
     selector: 'sidebar-basic-demo',

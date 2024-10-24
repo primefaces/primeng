@@ -20,24 +20,24 @@ export class LocaleDoc {
     value!: string;
 
     code: Code = {
-        basic: `<p-password 
-    [(ngModel)]="value" 
+        basic: `<p-password
+    [(ngModel)]="value"
     promptLabel="Choose a password"
-    weakLabel="Too simple" 
-    mediumLabel="Average complexity" 
+    weakLabel="Too simple"
+    mediumLabel="Average complexity"
     strongLabel="Complex password" />`,
 
         html: `<div class="card flex justify-content-center">
-    <p-password 
+    <p-password
         [(ngModel)]="value"
-        promptLabel="Choose a password" 
-        weakLabel="Too simple" 
-        mediumLabel="Average complexity" 
+        promptLabel="Choose a password"
+        weakLabel="Too simple"
+        mediumLabel="Average complexity"
         strongLabel="Complex password" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { PasswordModule } from 'primeng/password';
+import { PasswordModule } from 'primengrtl/password';
 import { FormsModule } from '@angular/forms';
 
 @Component({

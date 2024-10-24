@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuItem } from 'primeng/api';
+import { MenuItem } from 'primengrtl/api';
 import { Code } from '@domain/code';
 
 @Component({
@@ -224,13 +224,13 @@ export class TemplateDoc implements OnInit {
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
-import { MenuItem } from 'primeng/api';
-import { MenubarModule } from 'primeng/menubar';
-import { BadgeModule } from 'primeng/badge';
-import { AvatarModule } from 'primeng/avatar';
-import { InputTextModule } from 'primeng/inputtext';
+import { MenuItem } from 'primengrtl/api';
+import { MenubarModule } from 'primengrtl/menubar';
+import { BadgeModule } from 'primengrtl/badge';
+import { AvatarModule } from 'primengrtl/avatar';
+import { InputTextModule } from 'primengrtl/inputtext';
 import { CommonModule } from '@angular/common';
-import { RippleModule } from 'primeng/ripple';
+import { RippleModule } from 'primengrtl/ripple';
 
 @Component({
     selector: 'menubar-template-demo',

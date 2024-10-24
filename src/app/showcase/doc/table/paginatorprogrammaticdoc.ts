@@ -206,9 +206,9 @@ export class PaginatorProgrammaticDoc {
         typescript: `import { Component } from '@angular/core';
 import { Customer } from '@domain/customer';
 import { CustomerService } from '@service/customerservice';
-import { TableModule } from 'primeng/table';
+import { TableModule } from 'primengrtl/table';
 import { CommonModule } from '@angular/common';
-import { ButtonModule } from 'primeng/button';
+import { ButtonModule } from 'primengrtl/button';
 import { HttpClientModule } from '@angular/common/http';
 
 @Component({

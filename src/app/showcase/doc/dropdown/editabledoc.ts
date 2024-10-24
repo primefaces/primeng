@@ -34,26 +34,26 @@ export class EditableDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-dropdown 
-    [options]="cities" 
-    [(ngModel)]="selectedCity" 
-    placeholder="Select a City" 
-    [editable]="true" 
+        basic: `<p-dropdown
+    [options]="cities"
+    [(ngModel)]="selectedCity"
+    placeholder="Select a City"
+    [editable]="true"
     optionLabel="name" />`,
 
         html: `<div class="card flex justify-content-center">
-    <p-dropdown 
-        [options]="cities" 
-        [(ngModel)]="selectedCity" 
-        placeholder="Select a City" 
-        [editable]="true" 
+    <p-dropdown
+        [options]="cities"
+        [(ngModel)]="selectedCity"
+        placeholder="Select a City"
+        [editable]="true"
         optionLabel="name" />
 </div>`,
 
         typescript: `
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DropdownModule } from 'primeng/dropdown';
+import { DropdownModule } from 'primengrtl/dropdown';
 
 interface City {
     name: string;

@@ -20,14 +20,14 @@ import {
     ViewEncapsulation,
     ViewRef
 } from '@angular/core';
-import { PrimeNGConfig, SharedModule, TranslationKeys } from 'primeng/api';
-import { DomHandler } from 'primeng/dom';
-import { FocusTrapModule } from 'primeng/focustrap';
-import { TimesIcon } from 'primeng/icons/times';
-import { WindowMaximizeIcon } from 'primeng/icons/windowmaximize';
-import { WindowMinimizeIcon } from 'primeng/icons/windowminimize';
-import { Nullable, VoidListener } from 'primeng/ts-helpers';
-import { UniqueComponentId, ZIndexUtils } from 'primeng/utils';
+import { PrimeNGConfig, SharedModule, TranslationKeys } from 'primengrtl/api';
+import { DomHandler } from 'primengrtl/dom';
+import { FocusTrapModule } from 'primengrtl/focustrap';
+import { TimesIcon } from 'primengrtl/icons/times';
+import { WindowMaximizeIcon } from 'primengrtl/icons/windowmaximize';
+import { WindowMinimizeIcon } from 'primengrtl/icons/windowminimize';
+import { Nullable, VoidListener } from 'primengrtl/ts-helpers';
+import { UniqueComponentId, ZIndexUtils } from 'primengrtl/utils';
 import { DynamicDialogConfig } from './dynamicdialog-config';
 import { DynamicDialogRef } from './dynamicdialog-ref';
 import { DynamicDialogContent } from './dynamicdialogcontent';

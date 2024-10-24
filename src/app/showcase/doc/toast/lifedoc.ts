@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MessageService } from 'primeng/api';
+import { MessageService } from 'primengrtl/api';
 import { Code } from '@domain/code';
 
 @Component({
@@ -30,26 +30,26 @@ export class LifeDoc {
 
     code: Code = {
         basic: `<p-toast [life]="10000" />
-<p-button 
-    (onClick)="showLife()" 
+<p-button
+    (onClick)="showLife()"
     label="Show Life" />
-<p-button 
-    (onClick)="showLifeLong()" 
+<p-button
+    (onClick)="showLifeLong()"
     label="Show Life Long" />`,
         html: `<div class="card flex justify-content-center">
     <p-toast [life]="10000" />
-    <p-button 
-        (onClick)="showLife()" 
+    <p-button
+        (onClick)="showLife()"
         label="Show Life" />
     <p-button
-        (onClick)="showLifeLong()" 
+        (onClick)="showLifeLong()"
         label="Show Life Long" />
 </div>`,
         typescript: `import { Component } from '@angular/core';
-import { MessageService } from 'primeng/api';
-import { ToastModule } from 'primeng/toast';
-import { ButtonModule } from 'primeng/button';
-import { RippleModule } from 'primeng/ripple';
+import { MessageService } from 'primengrtl/api';
+import { ToastModule } from 'primengrtl/toast';
+import { ButtonModule } from 'primengrtl/button';
+import { RippleModule } from 'primengrtl/ripple';
 
 @Component({
     selector: 'toast-life-demo',

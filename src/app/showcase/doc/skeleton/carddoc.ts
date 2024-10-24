@@ -62,7 +62,7 @@ export class CardDoc {
     </div>
 </div>`,
         typescript: `import { Component } from '@angular/core';
-import { SkeletonModule } from 'primeng/skeleton';
+import { SkeletonModule } from 'primengrtl/skeleton';
 
 @Component({
     selector: 'skeleton-card-demo',

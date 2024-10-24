@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuItem, MessageService } from 'primeng/api';
+import { MenuItem, MessageService } from 'primengrtl/api';
 import { Subscription } from 'rxjs';
 import { Code } from '@domain/code';
 import { TicketService } from '@service/ticketservice';
@@ -74,11 +74,11 @@ export class RoutingDoc implements OnInit {
 <router-outlet></router-outlet>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
-import { MenuItem, MessageService } from 'primeng/api';
+import { MenuItem, MessageService } from 'primengrtl/api';
 import { TicketService } from '@service/ticketservice';
 import { Subscription } from 'rxjs';
-import { StepsModule } from 'primeng/steps';
-import { ToastModule } from 'primeng/toast';
+import { StepsModule } from 'primengrtl/steps';
+import { ToastModule } from 'primengrtl/toast';
 
 @Component({
     selector: 'steps-routing-demo',

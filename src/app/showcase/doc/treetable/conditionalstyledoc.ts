@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { TreeNode } from 'primeng/api';
+import { TreeNode } from 'primengrtl/api';
 import { Code } from '@domain/code';
 import { NodeService } from '@service/nodeservice';
 
@@ -56,10 +56,10 @@ export class ConditionalStyleDoc {
     }
 
     code: Code = {
-        basic: `<p-treeTable 
-    [value]="files" 
-    [columns]="cols" 
-    [scrollable]="true" 
+        basic: `<p-treeTable
+    [value]="files"
+    [columns]="cols"
+    [scrollable]="true"
     [tableStyle]="{'min-width':'50rem'}">
         <ng-template pTemplate="header" let-columns>
             <tr>
@@ -70,8 +70,8 @@ export class ConditionalStyleDoc {
         </ng-template>
         <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
             <tr [ttRow]="rowNode" [ngClass]="{ 'p-highlight': rowData.size.endsWith('kb') }">
-                <td 
-                    *ngFor="let col of columns; let i = index" 
+                <td
+                    *ngFor="let col of columns; let i = index"
                     [ngClass]="{ 'font-bold': col.field === 'size' && rowData.size.endsWith('kb') }">
                         <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
                         {{ rowData[col.field] }}
@@ -81,10 +81,10 @@ export class ConditionalStyleDoc {
 </p-treeTable>`,
 
         html: `<div class="card">
-    <p-treeTable 
-        [value]="files" 
-        [columns]="cols" 
-        [scrollable]="true" 
+    <p-treeTable
+        [value]="files"
+        [columns]="cols"
+        [scrollable]="true"
         [tableStyle]="{'min-width':'50rem'}">
             <ng-template pTemplate="header" let-columns>
                 <tr>
@@ -95,8 +95,8 @@ export class ConditionalStyleDoc {
             </ng-template>
             <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
                 <tr [ttRow]="rowNode" [ngClass]="{ 'p-highlight': rowData.size.endsWith('kb') }">
-                    <td 
-                        *ngFor="let col of columns; let i = index" 
+                    <td
+                        *ngFor="let col of columns; let i = index"
                         [ngClass]="{ 'font-bold': col.field === 'size' && rowData.size.endsWith('kb') }">
                             <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
                             {{ rowData[col.field] }}
@@ -107,9 +107,9 @@ export class ConditionalStyleDoc {
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
-import { TreeNode } from 'primeng/api';
+import { TreeNode } from 'primengrtl/api';
 import { NodeService } from '@service/nodeservice';
-import { TreeTableModule } from 'primeng/treetable';
+import { TreeTableModule } from 'primengrtl/treetable';
 import { CommonModule } from '@angular/common';
 
 interface Column {

@@ -19,11 +19,11 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
-import { PrimeTemplate, SharedModule, PrimeNGConfig } from 'primeng/api';
-import { AutoFocusModule } from 'primeng/autofocus';
-import { CheckIcon } from 'primeng/icons/check';
-import { Nullable } from 'primeng/ts-helpers';
-import { ObjectUtils } from 'primeng/utils';
+import { PrimeTemplate, SharedModule, PrimeNGConfig } from 'primengrtl/api';
+import { AutoFocusModule } from 'primengrtl/autofocus';
+import { CheckIcon } from 'primengrtl/icons/check';
+import { Nullable } from 'primengrtl/ts-helpers';
+import { ObjectUtils } from 'primengrtl/utils';
 import { CheckboxChangeEvent } from './checkbox.interface';
 
 export const CHECKBOX_VALUE_ACCESSOR: any = {

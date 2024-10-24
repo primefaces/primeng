@@ -72,15 +72,15 @@ export class ThumbnailDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-galleria 
-    [(value)]="images" 
-    [thumbnailsPosition]="position" 
-    [responsiveOptions]="responsiveOptions" 
+        basic: `<p-galleria
+    [(value)]="images"
+    [thumbnailsPosition]="position"
+    [responsiveOptions]="responsiveOptions"
     [containerStyle]="{ 'max-width': '640px' }"
     [numVisible]="5">
         <ng-template pTemplate="item" let-item>
-            <img 
-                [src]="item.itemImageSrc" 
+            <img
+                [src]="item.itemImageSrc"
                 style="width: 100%; min-height: 420px; display: block;" />
         </ng-template>
         <ng-template pTemplate="thumbnail" let-item>
@@ -91,23 +91,23 @@ export class ThumbnailDoc implements OnInit {
 </p-galleria>`,
         html: `<div class="card">
     <div class="flex flex-wrap gap-3 mb-5">
-        <p-radioButton 
-            *ngFor="let option of positionOptions;" 
-            [name]="option.label" 
-            [value]="option.value" 
-            [label]="option.label" 
-            [(ngModel)]="position" 
+        <p-radioButton
+            *ngFor="let option of positionOptions;"
+            [name]="option.label"
+            [value]="option.value"
+            [label]="option.label"
+            [(ngModel)]="position"
             [inputId]="label" />
     </div>
-    <p-galleria 
-        [(value)]="images" 
-        [thumbnailsPosition]="position" 
-        [responsiveOptions]="responsiveOptions" 
-        [containerStyle]="{ 'max-width': '640px' }" 
-        [numVisible]="5"> 
+    <p-galleria
+        [(value)]="images"
+        [thumbnailsPosition]="position"
+        [responsiveOptions]="responsiveOptions"
+        [containerStyle]="{ 'max-width': '640px' }"
+        [numVisible]="5">
             <ng-template pTemplate="item" let-item>
-                <img 
-                    [src]="item.itemImageSrc" 
+                <img
+                    [src]="item.itemImageSrc"
                     style="width: 100%; min-height: 420px; display: block;" />
             </ng-template>
             <ng-template pTemplate="thumbnail" let-item>
@@ -119,8 +119,8 @@ export class ThumbnailDoc implements OnInit {
 </div>`,
         typescript: `import { Component, OnInit } from '@angular/core';
 import { PhotoService } from '@service/photoservice';
-import { GalleriaModule } from 'primeng/galleria';
-import { RadioButtonModule } from 'primeng/radiobutton';
+import { GalleriaModule } from 'primengrtl/galleria';
+import { RadioButtonModule } from 'primengrtl/radiobutton';
 import { FormsModule } from '@angular/forms';
 
 @Component({

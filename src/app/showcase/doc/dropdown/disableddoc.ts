@@ -34,25 +34,25 @@ export class DisabledDoc {
     }
 
     code: Code = {
-        basic: `<p-dropdown 
-    [options]="cities" 
-    [(ngModel)]="selectedCity" 
-    placeholder="Select a City" 
-    optionLabel="name" 
+        basic: `<p-dropdown
+    [options]="cities"
+    [(ngModel)]="selectedCity"
+    placeholder="Select a City"
+    optionLabel="name"
     [disabled]="true" />`,
 
         html: `<div class="card flex justify-content-center">
-    <p-dropdown 
-        [options]="cities" 
-        [(ngModel)]="selectedCity" 
-        placeholder="Select a City" 
-        optionLabel="name" 
+    <p-dropdown
+        [options]="cities"
+        [(ngModel)]="selectedCity"
+        placeholder="Select a City"
+        optionLabel="name"
         [disabled]="true" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DropdownModule } from 'primeng/dropdown';
+import { DropdownModule } from 'primengrtl/dropdown';
 
 interface City {
     name: string;

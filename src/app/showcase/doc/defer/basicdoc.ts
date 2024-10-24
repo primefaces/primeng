@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MessageService } from 'primeng/api';
+import { MessageService } from 'primengrtl/api';
 import { Code } from '@domain/code';
 
 @Component({
@@ -31,9 +31,9 @@ export class BasicDoc {
     code: Code = {
         basic: `<div pDefer (onLoad)="onLoad()">
     <ng-template>
-        <img 
-            class="w-full md:w-30rem md:block md:mx-auto" 
-            src="https://primefaces.org/cdn/primeng/images/demo/nature/nature1.jpg" 
+        <img
+            class="w-full md:w-30rem md:block md:mx-auto"
+            src="https://primefaces.org/cdn/primeng/images/demo/nature/nature1.jpg"
             alt="Prime" />
     </ng-template>
 </div>`,
@@ -44,17 +44,17 @@ export class BasicDoc {
     <p-toast />
     <div pDefer (onLoad)="onLoad()">
         <ng-template>
-            <img 
-                class="w-full md:w-30rem md:block md:mx-auto" 
-                src="https://primefaces.org/cdn/primeng/images/demo/nature/nature1.jpg" 
+            <img
+                class="w-full md:w-30rem md:block md:mx-auto"
+                src="https://primefaces.org/cdn/primeng/images/demo/nature/nature1.jpg"
                 alt="Prime" />
         </ng-template>
     </div>
 </div>`,
         typescript: `import { Component, Input } from '@angular/core';
-import { MessageService } from 'primeng/api';
-import { DeferModule } from 'primeng/defer';
-import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primengrtl/api';
+import { DeferModule } from 'primengrtl/defer';
+import { ToastModule } from 'primengrtl/toast';
 
 @Component({
     selector: 'defer-basic-demo',
