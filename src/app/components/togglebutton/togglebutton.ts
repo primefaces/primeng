@@ -1,18 +1,21 @@
-import { CommonModule } from '@angular/common';
+import { NgClass, NgTemplateOutlet } from '@angular/common';
 import {
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
-    ContentChild,
-    EventEmitter,
+    contentChild,
+    OutputEmitterRef,
     forwardRef,
-    HostBinding,
+    computed,
     inject,
-    Input,
+    input,
+    model,
+    signal,
     NgModule,
     numberAttribute,
-    Output,
+    output,
     TemplateRef,
+    WritableSignal,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Ripple } from 'primeng/ripple';
@@ -34,48 +37,51 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-toggleButton, p-togglebutton',
     standalone: true,
-    imports: [Ripple, AutoFocus, CommonModule],
+    imports: [Ripple, AutoFocus, NgClass, NgTemplateOutlet],
     template: `
         <button
             pRipple
             type="button"
             [ngClass]="cx('root')"
-            [class]="styleClass"
-            [tabindex]="tabindex"
-            [disabled]="disabled"
+            [class]="styleClass()"
+            [tabindex]="tabindex()"
+            [disabled]="disabled()"
             (click)="toggle($event)"
-            [attr.aria-labelledby]="ariaLabelledBy"
-            [attr.aria-pressed]="checked"
-            [attr.data-p-checked]="active"
-            [attr.data-p-disabled]="disabled"
+            (keydown)="onKeyDown($event)"
+            [attr.aria-label]="ariaLabel()"
+            [attr.aria-labelledby]="ariaLabelledBy()"
+            [attr.aria-pressed]="checked()"
+            [attr.data-p-checked]="active()"
+            [attr.data-p-disabled]="disabled()"
         >
             <span [ngClass]="cx('content')">
-                <ng-container *ngTemplateOutlet="contentTemplate; context: { $implicit: checked }"></ng-container>
-                @if (!contentTemplate) {
-                    @if (!iconTemplate) {
-                        @if (onIcon || offIcon) {
+                <ng-container *ngTemplateOutlet="contentTemplate(); context: { $implicit: checked() }"></ng-container>
+                @if (!contentTemplate()) {
+                    @if (!iconTemplate()) {
+                        @if (onIcon() || offIcon()) {
                             <span
-                                [class]="checked ? this.onIcon : this.offIcon"
+                                [class]="checked() ? onIcon() : offIcon()"
                                 [ngClass]="{
                                     'p-togglebutton-icon': true,
-                                    'p-togglebutton-icon-left': iconPos === 'left',
-                                    'p-togglebutton-icon-right': iconPos === 'right',
+                                    'p-togglebutton-icon-left': iconPos() === 'left',
+                                    'p-togglebutton-icon-right': iconPos() === 'right',
                                 }"
                                 [attr.data-pc-section]="'icon'"
                             ></span>
                         }
                     } @else {
-                        <ng-container *ngTemplateOutlet="iconTemplate; context: { $implicit: checked }"></ng-container>
+                        <ng-container *ngTemplateOutlet="iconTemplate(); context: { $implicit: checked() }"></ng-container>
                     }
-                    @if (onLabel || offLabel) {
-                        <span [ngClass]="cx('label')" [attr.data-pc-section]="'label'">{{
-                            checked ? (hasOnLabel ? onLabel : '') : hasOffLabel ? offLabel : ''
-                        }}</span>
+                    @if (onLabel() || offLabel()) {
+                        <span [ngClass]="cx('label')" [attr.data-pc-section]="'label'">
+                            {{ checked() ? (hasOnLabel() ? onLabel() : '') : hasOffLabel() ? offLabel() : '' }}
+                        </span>
                     }
                 }
             </span>
         </button>
     `,
+    host: { '[class]': 'styleClass()' },
     providers: [TOGGLEBUTTON_VALUE_ACCESSOR, ToggleButtonStyle],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -84,93 +90,90 @@ export class ToggleButton extends BaseComponent implements ControlValueAccessor 
      * Label for the on state.
      * @group Props
      */
-    @Input() onLabel: string = 'Yes';
+    onLabel = input<string>('Yes');
     /**
      * Label for the off state.
      * @group Props
      */
-    @Input() offLabel: string = 'No';
+    offLabel = input<string>('No');
     /**
      * Icon for the on state.
      * @group Props
      */
-    @Input() onIcon: string | undefined;
+    onIcon = input<string>();
     /**
      * Icon for the off state.
      * @group Props
      */
-    @Input() offIcon: string | undefined;
+    offIcon = input<string>();
     /**
      * Defines a string that labels the input for accessibility.
      * @group Props
      */
-    @Input() ariaLabel: string | undefined;
+    ariaLabel = input<string>();
     /**
      * Establishes relationships between the component and label(s) where its value should be one or more element IDs.
      * @group Props
      */
-    @Input() ariaLabelledBy: string | undefined;
+    ariaLabelledBy = input<string>();
     /**
      * When present, it specifies that the element should be disabled.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) disabled: boolean | undefined;
+    disabled = model<boolean>();
     /**
      * Inline style of the element.
      * @group Props
      */
-    @Input() style: any;
+    style = input<{ [klass: string]: any } | null>();
     /**
      * Style class of the element.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
-    @HostBinding('class') get hostClass() {
-        return this.styleClass || '';
-    }
+    styleClass = input<string>();
     /**
      * Identifier of the focus input to match a label defined for the component.
      * @group Props
      */
-    @Input() inputId: string | undefined;
+    inputId = input<string>();
     /**
      * Index of the element in tabbing order.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) tabindex: number | undefined = 0;
+    tabindex = input<number, any>(0, { transform: numberAttribute });
     /**
      * Position of the icon.
      * @group Props
      */
-    @Input() iconPos: 'left' | 'right' = 'left';
+    iconPos = input<'left' | 'right'>('left');
     /**
      * When present, it specifies that the component should automatically get focus on load.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) autofocus: boolean | undefined;
+    autofocus = input<boolean, any>(undefined, { transform: booleanAttribute });
     /**
      * Whether selection can not be cleared.
      * @group Props
      */
-    @Input() allowEmpty: boolean | undefined;
+    allowEmpty = input<boolean, any>(undefined, { transform: booleanAttribute });
     /**
      * Callback to invoke on value change.
      * @param {ToggleButtonChangeEvent} event - Custom change event.
      * @group Emits
      */
-    @Output() onChange: EventEmitter<ToggleButtonChangeEvent> = new EventEmitter<ToggleButtonChangeEvent>();
+    onChange: OutputEmitterRef<ToggleButtonChangeEvent> = output<ToggleButtonChangeEvent>();
     /**
      * Custom icon template.
      * @group Templates
      */
-    @ContentChild('icon') iconTemplate: Nullable<TemplateRef<any>>;
+    iconTemplate = contentChild<Nullable<TemplateRef<any>>>('icon');
     /**
      * Custom content template.
      * @group Templates
      */
-    @ContentChild('content') contentTemplate: Nullable<TemplateRef<any>>;
+    contentTemplate = contentChild<Nullable<TemplateRef<any>>>('content');
 
-    checked: boolean = false;
+    checked: WritableSignal<boolean> = signal<boolean>(false);
 
     onModelChange: Function = () => {};
 
@@ -179,16 +182,11 @@ export class ToggleButton extends BaseComponent implements ControlValueAccessor 
     _componentStyle = inject(ToggleButtonStyle);
 
     toggle(event: Event) {
-        if (!this.disabled && !(this.allowEmpty === false && this.checked)) {
-            this.checked = !this.checked;
-            this.onModelChange(this.checked);
+        if (!this.disabled() && !(this.allowEmpty() === false && this.checked())) {
+            this.checked.set(!this.checked());
+            this.onModelChange(this.checked());
             this.onModelTouched();
-            this.onChange.emit({
-                originalEvent: event,
-                checked: this.checked,
-            });
-
-            this.cd.markForCheck();
+            this.onChange.emit({ originalEvent: event, checked: this.checked() });
         }
     }
 
@@ -210,8 +208,7 @@ export class ToggleButton extends BaseComponent implements ControlValueAccessor 
     }
 
     writeValue(value: any): void {
-        this.checked = value;
-        this.cd.markForCheck();
+        this.checked.set(value);
     }
 
     registerOnChange(fn: Function): void {
@@ -223,21 +220,14 @@ export class ToggleButton extends BaseComponent implements ControlValueAccessor 
     }
 
     setDisabledState(val: boolean): void {
-        this.disabled = val;
-        this.cd.markForCheck();
+        this.disabled.set(val);
     }
 
-    get hasOnLabel(): boolean {
-        return (this.onLabel && this.onLabel.length > 0) as boolean;
-    }
+    hasOnLabel = computed<boolean>(() => this.onLabel() && this.onLabel().length > 0);
 
-    get hasOffLabel(): boolean {
-        return (this.onLabel && this.onLabel.length > 0) as boolean;
-    }
+    hasOffLabel = computed<boolean>(() => this.offLabel() && this.offLabel().length > 0);
 
-    get active() {
-        return this.checked === true;
-    }
+    active = computed<boolean>(() => this.checked() === true);
 }
 
 @NgModule({
