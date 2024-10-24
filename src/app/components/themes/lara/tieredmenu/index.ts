@@ -27,7 +27,7 @@ export default {
         },
     },
     submenu: {
-        mobileIndent: '1.25rem'
+        mobileIndent: '1.25rem',
     },
     submenuIcon: {
         size: '{navigation.submenu.icon.size}',

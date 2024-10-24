@@ -1,34 +1,34 @@
 export default {
     root: {
         borderRadius: '{content.border.radius}',
-        gap: '1rem',
+        gap: '1rem'
     },
     meters: {
-        size: '0.5rem',
+        size: '0.5rem'
     },
     label: {
-        gap: '0.5rem',
+        gap: '0.5rem'
     },
     labelMarker: {
-        size: '0.5rem',
+        size: '0.5rem'
     },
     labelIcon: {
-        size: '1rem',
+        size: '1rem'
     },
     labelList: {
         verticalGap: '0.5rem',
-        horizontalGap: '1rem',
+        horizontalGap: '1rem'
     },
     colorScheme: {
         light: {
             meters: {
-                background: '{surface.300}',
-            },
+                background: '{surface.300}'
+            }
         },
         dark: {
             meters: {
-                background: '{surface.600}',
-            },
-        },
-    },
+                background: '{surface.600}'
+            }
+        }
+    }
 };

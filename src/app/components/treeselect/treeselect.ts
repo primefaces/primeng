@@ -462,7 +462,7 @@ export class TreeSelect extends BaseComponent {
      * @param {Event} event - Browser event.
      * @group Emits
      */
-    @Output() onShow: EventEmitter<Event> = new EventEmitter<Event>();
+    @Output() onShow: EventEmitter<any> = new EventEmitter<any>();
     /**
      * Callback to invoke when the overlay is hidden.
      * @param {Event} event - Browser event.
@@ -646,7 +646,7 @@ export class TreeSelect extends BaseComponent {
         }
     }
 
-    onOverlayBeforeHide(event: Event) {
+    onOverlayBeforeHide(event: any) {
         let focusableElements = DomHandler.getFocusableElements(this.containerEl.nativeElement);
 
         if (focusableElements && focusableElements.length > 0) {
@@ -654,7 +654,7 @@ export class TreeSelect extends BaseComponent {
         }
     }
 
-    onSelectionChange(event: Event) {
+    onSelectionChange(event: any) {
         this.value = event;
         this.onModelChange(this.value);
         this.cd.markForCheck();

@@ -9,24 +9,24 @@ export default {
         sm: {
             fontSize: '0.875rem',
             paddingX: '0.625rem',
-            paddingY: '0.375rem',
+            paddingY: '0.375rem'
         },
         lg: {
             fontSize: '1.125rem',
             paddingX: '0.875rem',
-            paddingY: '0.625rem',
+            paddingY: '0.625rem'
         },
         label: {
-            fontWeight: '700',
+            fontWeight: '700'
         },
         raisedShadow: '0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12)',
         focusRing: {
             width: '{focus.ring.width}',
             style: '{focus.ring.style}',
-            offset: '{focus.ring.offset}',
+            offset: '{focus.ring.offset}'
         },
         badgeSize: '1rem',
-        transitionDuration: '{form.field.transition.duration}',
+        transitionDuration: '{form.field.transition.duration}'
     },
     colorScheme: {
         light: {
@@ -43,8 +43,8 @@ export default {
                     activeColor: '{primary.contrast.color}',
                     focusRing: {
                         color: '{primary.color}',
-                        shadow: 'none',
-                    },
+                        shadow: 'none'
+                    }
                 },
                 secondary: {
                     background: '{surface.200}',
@@ -58,8 +58,8 @@ export default {
                     activeColor: '{surface.900}',
                     focusRing: {
                         color: '{surface.700}',
-                        shadow: 'none',
-                    },
+                        shadow: 'none'
+                    }
                 },
                 info: {
                     background: '{sky.600}',
@@ -73,8 +73,8 @@ export default {
                     activeColor: '#ffffff',
                     focusRing: {
                         color: '{sky.600}',
-                        shadow: 'none',
-                    },
+                        shadow: 'none'
+                    }
                 },
                 success: {
                     background: '{green.600}',
@@ -88,8 +88,8 @@ export default {
                     activeColor: '#ffffff',
                     focusRing: {
                         color: '{green.600}',
-                        shadow: 'none',
-                    },
+                        shadow: 'none'
+                    }
                 },
                 warn: {
                     background: '{orange.600}',
@@ -103,8 +103,8 @@ export default {
                     activeColor: '#ffffff',
                     focusRing: {
                         color: '{orange.600}',
-                        shadow: 'none',
-                    },
+                        shadow: 'none'
+                    }
                 },
                 help: {
                     background: '{purple.600}',
@@ -118,8 +118,8 @@ export default {
                     activeColor: '#ffffff',
                     focusRing: {
                         color: '{purple.600}',
-                        shadow: 'none',
-                    },
+                        shadow: 'none'
+                    }
                 },
                 danger: {
                     background: '{red.600}',
@@ -133,8 +133,8 @@ export default {
                     activeColor: '#ffffff',
                     focusRing: {
                         color: '{red.600}',
-                        shadow: 'none',
-                    },
+                        shadow: 'none'
+                    }
                 },
                 contrast: {
                     background: '{surface.950}',
@@ -148,113 +148,113 @@ export default {
                     activeColor: '{surface.0}',
                     focusRing: {
                         color: '{surface.950}',
-                        shadow: 'none',
-                    },
-                },
+                        shadow: 'none'
+                    }
+                }
             },
             outlined: {
                 primary: {
                     hoverBackground: '{primary.50}',
                     activeBackground: '{primary.100}',
                     borderColor: '{primary.color}',
-                    color: '{primary.color}',
+                    color: '{primary.color}'
                 },
                 secondary: {
                     hoverBackground: '{surface.50}',
                     activeBackground: '{surface.100}',
                     borderColor: '{surface.600}',
-                    color: '{surface.600}',
+                    color: '{surface.600}'
                 },
                 success: {
                     hoverBackground: '{green.50}',
                     activeBackground: '{green.100}',
                     borderColor: '{green.600}',
-                    color: '{green.600}',
+                    color: '{green.600}'
                 },
                 info: {
                     hoverBackground: '{sky.50}',
                     activeBackground: '{sky.100}',
                     borderColor: '{sky.600}',
-                    color: '{sky.600}',
+                    color: '{sky.600}'
                 },
                 warn: {
                     hoverBackground: '{orange.50}',
                     activeBackground: '{orange.100}',
                     borderColor: '{orange.600}',
-                    color: '{orange.600}',
+                    color: '{orange.600}'
                 },
                 help: {
                     hoverBackground: '{purple.50}',
                     activeBackground: '{purple.100}',
                     borderColor: '{purple.600}',
-                    color: '{purple.600}',
+                    color: '{purple.600}'
                 },
                 danger: {
                     hoverBackground: '{red.50}',
                     activeBackground: '{red.100}',
                     borderColor: '{red.600}',
-                    color: '{red.600}',
+                    color: '{red.600}'
                 },
                 contrast: {
                     hoverBackground: '{surface.50}',
                     activeBackground: '{surface.100}',
                     borderColor: '{surface.950}',
-                    color: '{surface.950}',
+                    color: '{surface.950}'
                 },
                 plain: {
                     hoverBackground: '{surface.50}',
                     activeBackground: '{surface.100}',
                     borderColor: '{surface.900}',
-                    color: '{surface.900}',
-                },
+                    color: '{surface.900}'
+                }
             },
             text: {
                 primary: {
                     hoverBackground: '{primary.50}',
                     activeBackground: '{primary.100}',
-                    color: '{primary.color}',
+                    color: '{primary.color}'
                 },
                 secondary: {
                     hoverBackground: '{surface.50}',
                     activeBackground: '{surface.100}',
-                    color: '{surface.600}',
+                    color: '{surface.600}'
                 },
                 success: {
                     hoverBackground: '{green.50}',
                     activeBackground: '{green.100}',
-                    color: '{green.600}',
+                    color: '{green.600}'
                 },
                 info: {
                     hoverBackground: '{sky.50}',
                     activeBackground: '{sky.100}',
-                    color: '{sky.600}',
+                    color: '{sky.600}'
                 },
                 warn: {
                     hoverBackground: '{orange.50}',
                     activeBackground: '{orange.100}',
-                    color: '{orange.600}',
+                    color: '{orange.600}'
                 },
                 help: {
                     hoverBackground: '{purple.50}',
                     activeBackground: '{purple.100}',
-                    color: '{purple.600}',
+                    color: '{purple.600}'
                 },
                 danger: {
                     hoverBackground: '{red.50}',
                     activeBackground: '{red.100}',
-                    color: '{red.600}',
+                    color: '{red.600}'
                 },
                 plain: {
                     hoverBackground: '{surface.50}',
                     activeBackground: '{surface.100}',
-                    color: '{surface.900}',
-                },
+                    color: '{surface.900}'
+                }
             },
             link: {
                 color: '{primary.color}',
                 hoverColor: '{primary.color}',
-                activeColor: '{primary.color}',
-            },
+                activeColor: '{primary.color}'
+            }
         },
         dark: {
             root: {
@@ -270,8 +270,8 @@ export default {
                     activeColor: '{primary.contrast.color}',
                     focusRing: {
                         color: '{primary.color}',
-                        shadow: 'none',
-                    },
+                        shadow: 'none'
+                    }
                 },
                 secondary: {
                     background: '{surface.700}',
@@ -285,8 +285,8 @@ export default {
                     activeColor: '{surface.0}',
                     focusRing: {
                         color: '{surface.200}',
-                        shadow: 'none',
-                    },
+                        shadow: 'none'
+                    }
                 },
                 info: {
                     background: '{sky.500}',
@@ -300,8 +300,8 @@ export default {
                     activeColor: '{sky.950}',
                     focusRing: {
                         color: '{sky.500}',
-                        shadow: 'none',
-                    },
+                        shadow: 'none'
+                    }
                 },
                 success: {
                     background: '{green.500}',
@@ -315,8 +315,8 @@ export default {
                     activeColor: '{green.950}',
                     focusRing: {
                         color: '{green.500}',
-                        shadow: 'none',
-                    },
+                        shadow: 'none'
+                    }
                 },
                 warn: {
                     background: '{orange.500}',
@@ -330,8 +330,8 @@ export default {
                     activeColor: '{orange.950}',
                     focusRing: {
                         color: '{orange.500}',
-                        shadow: 'none',
-                    },
+                        shadow: 'none'
+                    }
                 },
                 help: {
                     background: '{purple.500}',
@@ -345,8 +345,8 @@ export default {
                     activeColor: '{purple.950}',
                     focusRing: {
                         color: '{purple.500}',
-                        shadow: 'none',
-                    },
+                        shadow: 'none'
+                    }
                 },
                 danger: {
                     background: '{red.500}',
@@ -360,8 +360,8 @@ export default {
                     activeColor: '{red.950}',
                     focusRing: {
                         color: '{red.500}',
-                        shadow: 'none',
-                    },
+                        shadow: 'none'
+                    }
                 },
                 contrast: {
                     background: '{surface.0}',
@@ -375,113 +375,113 @@ export default {
                     activeColor: '{surface.950}',
                     focusRing: {
                         color: '{surface.0}',
-                        shadow: 'none',
-                    },
-                },
+                        shadow: 'none'
+                    }
+                }
             },
             outlined: {
                 primary: {
                     hoverBackground: 'color-mix(in srgb, {primary.color}, transparent 96%)',
                     activeBackground: 'color-mix(in srgb, {primary.color}, transparent 84%)',
                     borderColor: '{primary.color}',
-                    color: '{primary.color}',
+                    color: '{primary.color}'
                 },
                 secondary: {
                     hoverBackground: 'rgba(255,255,255,0.04)',
                     activeBackground: 'rgba(255,255,255,0.16)',
                     borderColor: '{surface.400}',
-                    color: '{surface.400}',
+                    color: '{surface.400}'
                 },
                 success: {
                     hoverBackground: '{green.950}',
                     activeBackground: '{green.900}',
                     borderColor: '{green.500}',
-                    color: '{green.500}',
+                    color: '{green.500}'
                 },
                 info: {
                     hoverBackground: '{sky.950}',
                     activeBackground: '{sky.900}',
                     borderColor: '{sky.500}',
-                    color: '{sky.500}',
+                    color: '{sky.500}'
                 },
                 warn: {
                     hoverBackground: '{orange.950}',
                     activeBackground: '{orange.900}',
                     borderColor: '{orange.500}',
-                    color: '{orange.500}',
+                    color: '{orange.500}'
                 },
                 help: {
                     hoverBackground: '{purple.950}',
                     activeBackground: '{purple.900}',
                     borderColor: '{purple.500}',
-                    color: '{purple.500}',
+                    color: '{purple.500}'
                 },
                 danger: {
                     hoverBackground: '{red.950}',
                     activeBackground: '{red.900}',
                     borderColor: '{red.500}',
-                    color: '{red.500}',
+                    color: '{red.500}'
                 },
                 contrast: {
                     hoverBackground: '{surface.800}',
                     activeBackground: '{surface.700}',
                     borderColor: '{surface.0}',
-                    color: '{surface.0}',
+                    color: '{surface.0}'
                 },
                 plain: {
                     hoverBackground: '{surface.800}',
                     activeBackground: '{surface.700}',
                     borderColor: '{surface.0}',
-                    color: '{surface.0}',
-                },
+                    color: '{surface.0}'
+                }
             },
             text: {
                 primary: {
                     hoverBackground: 'color-mix(in srgb, {primary.color}, transparent 96%)',
                     activeBackground: 'color-mix(in srgb, {primary.color}, transparent 84%)',
-                    color: '{primary.color}',
+                    color: '{primary.color}'
                 },
                 secondary: {
                     hoverBackground: '{surface.800}',
                     activeBackground: '{surface.700}',
-                    color: '{surface.400}',
+                    color: '{surface.400}'
                 },
                 success: {
                     hoverBackground: 'color-mix(in srgb, {green.400}, transparent 96%)',
                     activeBackground: 'color-mix(in srgb, {green.400}, transparent 84%)',
-                    color: '{green.500}',
+                    color: '{green.500}'
                 },
                 info: {
                     hoverBackground: 'color-mix(in srgb, {sky.400}, transparent 96%)',
                     activeBackground: 'color-mix(in srgb, {sky.400}, transparent 84%)',
-                    color: '{sky.500}',
+                    color: '{sky.500}'
                 },
                 warn: {
                     hoverBackground: 'color-mix(in srgb, {orange.400}, transparent 96%)',
                     activeBackground: 'color-mix(in srgb, {orange.400}, transparent 84%)',
-                    color: '{orange.500}',
+                    color: '{orange.500}'
                 },
                 help: {
                     hoverBackground: 'color-mix(in srgb, {purple.400}, transparent 96%)',
                     activeBackground: 'color-mix(in srgb, {purple.400}, transparent 84%)',
-                    color: '{purple.500}',
+                    color: '{purple.500}'
                 },
                 danger: {
                     hoverBackground: 'color-mix(in srgb, {red.400}, transparent 96%)',
                     activeBackground: 'color-mix(in srgb, {red.400}, transparent 84%)',
-                    color: '{red.500}',
+                    color: '{red.500}'
                 },
                 plain: {
                     hoverBackground: '{surface.800}',
                     activeBackground: '{surface.700}',
-                    color: '{surface.0}',
-                },
+                    color: '{surface.0}'
+                }
             },
             link: {
                 color: '{primary.color}',
                 hoverColor: '{primary.color}',
-                activeColor: '{primary.color}',
-            },
-        },
-    },
+                activeColor: '{primary.color}'
+            }
+        }
+    }
 };

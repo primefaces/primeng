@@ -45,7 +45,6 @@ export interface StepContentTemplateContext {
 
 /**
  * Context interface for the StepPanel content template.
- *
  * @property {(index: number) => void} activateCallback - Callback function to activate a step.
  * @property {number} value - The value associated with the step.
  * @property {boolean} active - A flag indicating whether the step is active.
@@ -145,7 +144,7 @@ export class StepItem extends BaseComponent {
     standalone: true,
     imports: [CommonModule, StepperSeparator],
     template: `
-        @if (!contentTemplate) {
+        @if (!content) {
             <button
                 [attr.id]="id()"
                 class="p-step-header"
@@ -165,7 +164,7 @@ export class StepItem extends BaseComponent {
             }
         } @else {
             <ng-container
-                *ngTemplateOutlet="contentTemplate; context: { activateCallback: onStepClick.bind(this), value: value(), active: active() }"
+                *ngTemplateOutlet="content; context: { activateCallback: onStepClick.bind(this), value: value(), active: active() }"
             ></ng-container>
             @if (isSeparatorVisible()) {
                 <p-stepper-separator />
@@ -225,7 +224,7 @@ export class Step extends BaseComponent implements AfterContentInit {
      * @type {TemplateRef<StepContentTemplateContext>}
      * @group Templates
      */
-    @ContentChild('content') contentTemplate: TemplateRef<StepContentTemplateContext>;
+    @ContentChild('content') content: TemplateRef<StepContentTemplateContext>;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
@@ -233,7 +232,7 @@ export class Step extends BaseComponent implements AfterContentInit {
         this.templates?.forEach((item) => {
             switch (item.getType()) {
                 case 'content':
-                    this.contentTemplate = item.template;
+                    this.content = item.template;
                     break;
             }
         });
@@ -340,7 +339,8 @@ export class StepPanel extends BaseComponent implements AfterContentInit {
     });
     /**
      * Content template.
-     * @type {TemplateRef<StepPanelContentTemplateContext>}
+     * @param {StepPanelContentTemplateContext} context - Context of the template
+     * @see {@link StepPanelContentTemplateContext}
      * @group Templates
      */
     @ContentChild('content') contentTemplate: TemplateRef<StepPanelContentTemplateContext>;

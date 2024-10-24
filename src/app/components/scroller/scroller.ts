@@ -19,18 +19,13 @@ import {
     SimpleChanges,
     TemplateRef,
     ViewChild,
-    ViewEncapsulation
+    ViewEncapsulation,
 } from '@angular/core';
 import { PrimeTemplate, ScrollerOptions, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { SpinnerIcon } from 'primeng/icons/spinner';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
-import {
-    ScrollerLazyLoadEvent,
-    ScrollerScrollEvent,
-    ScrollerScrollIndexChangeEvent,
-    ScrollerToType
-} from './scroller.interface';
+import { ScrollerLazyLoadEvent, ScrollerScrollEvent, ScrollerScrollIndexChangeEvent, ScrollerToType } from './scroller.interface';
 import { ScrollerStyle } from './style/scrollerstyle';
 import { BaseComponent } from 'primeng/basecomponent';
 
@@ -40,7 +35,7 @@ import { BaseComponent } from 'primeng/basecomponent';
  */
 @Component({
     selector: 'p-scroller',
-    imports: [CommonModule, SpinnerIcon],
+    imports: [CommonModule, SpinnerIcon, SharedModule],
     standalone: true,
     template: `
         <ng-container *ngIf="!_disabled; else disabledContainer">
@@ -634,9 +629,11 @@ export class Scroller extends BaseComponent implements OnInit, AfterContentInit,
 
     ngAfterContentInit() {
         (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
+            console.log('yo');
             switch (item.getType()) {
                 case 'content':
                     this.contentTemplate = item.template;
+
                     break;
 
                 case 'item':

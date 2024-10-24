@@ -27,7 +27,7 @@ export default {
         },
     },
     submenu: {
-        mobileIndent: '1rem'
+        mobileIndent: '1rem',
     },
     submenuLabel: {
         padding: '{navigation.submenu.label.padding}',

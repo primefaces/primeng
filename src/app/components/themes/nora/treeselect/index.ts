@@ -3,6 +3,7 @@ export default {
         background: '{form.field.background}',
         disabledBackground: '{form.field.disabled.background}',
         filledBackground: '{form.field.filled.background}',
+        filledHoverBackground: '{form.field.filled.hover.background}',
         filledFocusBackground: '{form.field.filled.focus.background}',
         borderColor: '{form.field.border.color}',
         hoverBorderColor: '{form.field.hover.border.color}',
@@ -20,28 +21,28 @@ export default {
             style: '{form.field.focus.ring.style}',
             color: '{form.field.focus.ring.color}',
             offset: '{form.field.focus.ring.offset}',
-            shadow: '{form.field.focus.ring.shadow}',
+            shadow: '{form.field.focus.ring.shadow}'
         },
-        transitionDuration: '{form.field.transition.duration}',
+        transitionDuration: '{form.field.transition.duration}'
     },
     dropdown: {
         width: '2.5rem',
-        color: '{form.field.icon.color}',
+        color: '{form.field.icon.color}'
     },
     overlay: {
         background: '{overlay.select.background}',
         borderColor: '{overlay.select.border.color}',
         borderRadius: '{overlay.select.border.radius}',
         color: '{overlay.select.color}',
-        shadow: '{overlay.select.shadow}',
+        shadow: '{overlay.select.shadow}'
     },
     tree: {
-        padding: '{list.padding}',
+        padding: '{list.padding}'
     },
     emptyMessage: {
-        padding: '{list.option.padding}',
+        padding: '{list.option.padding}'
     },
     chip: {
-        borderRadius: '{border.radius.xs}',
-    },
+        borderRadius: '{border.radius.xs}'
+    }
 };
