@@ -12,6 +12,6 @@ import { Code } from '@domain/code';
 })
 export class DownloadDoc {
     code: Code = {
-        command: `npm install primeicons`
+        command: `npm install primeiconsrtl`
     };
 }

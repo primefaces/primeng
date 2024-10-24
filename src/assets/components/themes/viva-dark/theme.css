@@ -6472,7 +6472,7 @@
     order: 10;
     margin-inline-start: auto;
   }
-  .p-accordion .p-accordion-toggle-icon.pi-chevron-right::before {
+  .p-accordion .p-accordion-toggle-icon.pi-chevron-end::before {
     content: "\e90d";
   }
   .p-accordion .p-accordion-toggle-icon.pi-chevron-down::before {
@@ -6531,11 +6531,11 @@
     border-top: 0 none;
   }
 
-  .p-panelmenu .p-panelmenu-icon.pi-chevron-right, .p-panelmenu .p-panelmenu-icon.pi-chevron-down {
+  .p-panelmenu .p-panelmenu-icon.pi-chevron-end, .p-panelmenu .p-panelmenu-icon.pi-chevron-down {
     order: 10;
     margin-inline-start: auto;
   }
-  .p-panelmenu .p-panelmenu-icon.pi-chevron-right::before {
+  .p-panelmenu .p-panelmenu-icon.pi-chevron-end::before {
     content: "\e90d";
   }
   .p-panelmenu .p-panelmenu-icon.pi-chevron-down::before {

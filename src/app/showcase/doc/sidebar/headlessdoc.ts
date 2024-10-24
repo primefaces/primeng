@@ -204,7 +204,7 @@ import { Sidebar } from 'primeng/sidebar';
                     </div>
                 </ng-template>
             </p-sidebar>
-            <p-button (onClick)="sidebarVisible = true" icon="pi pi-arrow-right"></p-button>
+            <p-button (onClick)="sidebarVisible = true" icon="pi pi-arrow-end"></p-button>
         </div>
         <app-code [code]="code" selector="sidebar-headless-demo"></app-code>
     `
@@ -414,7 +414,7 @@ export class HeadlessDoc {
         </div>
     </ng-template>
 </p-sidebar>
-<p-button (onClick)="sidebarVisible = true" icon="pi pi-arrow-right"></p-button>`,
+<p-button (onClick)="sidebarVisible = true" icon="pi pi-arrow-end"></p-button>`,
 
         html: `<div class="card flex justify-content-center">
 <p-sidebar #sidebarRef [(visible)]="sidebarVisible">
@@ -612,7 +612,7 @@ export class HeadlessDoc {
         </div>
     </ng-template>
 </p-sidebar>
-<p-button (onClick)="sidebarVisible = true" icon="pi pi-arrow-right"></p-button>
+<p-button (onClick)="sidebarVisible = true" icon="pi pi-arrow-end"></p-button>
 </div>`,
 
         typescript: `import { Component, ViewChild } from '@angular/core';

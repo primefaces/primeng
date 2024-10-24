@@ -32,7 +32,7 @@ import { AppConfigService } from '@service/appconfigservice';
                     <div class="flex align-items-center gap-3">
                         <a [routerLink]="'installation'" class="linkbox active font-semibold py-3 px-4">
                             <span>Get Started</span>
-                            <i class="pi pi-arrow-right ms-3"></i>
+                            <i class="pi pi-arrow-end ms-3"></i>
                         </a>
                         <a href="https://github.com/primefaces/primeng" target="_blank" rel="noopener noreferrer" class="linkbox font-semibold py-3 px-4">
                             <span>Give a Star</span>

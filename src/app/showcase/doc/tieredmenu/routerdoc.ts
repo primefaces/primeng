@@ -23,14 +23,14 @@ import { Router } from '@angular/router';
                             <a [href]="item.url" [target]="item.target" class="p-menuitem-link">
                                 <span [class]="item.icon"></span>
                                 <span class="ms-2">{{ item.label }}</span>
-                                <span *ngIf="hasSubmenu" class="pi pi-angle-right ms-auto"></span>
+                                <span *ngIf="hasSubmenu" class="pi pi-angle-end ms-auto"></span>
                             </a>
                         </ng-container>
                         <ng-template #withoutUrl>
                             <a class="p-menuitem-link">
                                 <span [class]="item.icon"></span>
                                 <span class="ms-2">{{ item.label }}</span>
-                                <span *ngIf="hasSubmenu" class="pi pi-angle-right ms-auto"></span>
+                                <span *ngIf="hasSubmenu" class="pi pi-angle-end ms-auto"></span>
                             </a>
                         </ng-template>
                     </ng-template>
@@ -99,14 +99,14 @@ export class RouterDoc implements OnInit {
                     <a [href]="item.url" [target]="item.target" class="p-menuitem-link">
                         <span [class]="item.icon"></span>
                         <span class="ms-2">{{ item.label }}</span>
-                        <span *ngIf="hasSubmenu" class="pi pi-angle-right ms-auto"></span>
+                        <span *ngIf="hasSubmenu" class="pi pi-angle-end ms-auto"></span>
                     </a>
                 </ng-container>
                 <ng-template #withoutUrl>
                     <a class="p-menuitem-link">
                         <span [class]="item.icon"></span>
                         <span class="ms-2">{{ item.label }}</span>
-                        <span *ngIf="hasSubmenu" class="pi pi-angle-right ms-auto"></span>
+                        <span *ngIf="hasSubmenu" class="pi pi-angle-end ms-auto"></span>
                     </a>
                 </ng-template>
             </ng-template>
@@ -127,14 +127,14 @@ export class RouterDoc implements OnInit {
                     <a [href]="item.url" [target]="item.target" class="p-menuitem-link">
                         <span [class]="item.icon"></span>
                         <span class="ms-2">{{ item.label }}</span>
-                        <span *ngIf="hasSubmenu" class="pi pi-angle-right ms-auto"></span>
+                        <span *ngIf="hasSubmenu" class="pi pi-angle-end ms-auto"></span>
                     </a>
                 </ng-container>
                 <ng-template #withoutUrl>
                     <a class="p-menuitem-link">
                         <span [class]="item.icon"></span>
                         <span class="ms-2">{{ item.label }}</span>
-                        <span *ngIf="hasSubmenu" class="pi pi-angle-right ms-auto"></span>
+                        <span *ngIf="hasSubmenu" class="pi pi-angle-end ms-auto"></span>
                     </a>
                 </ng-template>
             </ng-template>

@@ -229,6 +229,7 @@ export class ScrollPanel implements AfterViewInit, AfterContentInit, OnDestroy {
         let totalHeight = content.scrollHeight;
         let ownHeight = content.clientHeight;
         let right = (container.clientWidth - yBar.clientWidth) * -1;
+        // if (DomHandler.documentIsRTL()) right *= -1;
 
         this.scrollYRatio = ownHeight / totalHeight;
 
@@ -241,7 +242,7 @@ export class ScrollPanel implements AfterViewInit, AfterContentInit, OnDestroy {
                 DomHandler.removeClass(xBar, 'p-scrollpanel-hidden');
                 const xBarWidth = Math.max((this.scrollXRatio as number) * 100, 10);
                 const xBarLeft = (content.scrollLeft * (100 - xBarWidth)) / (totalWidth - ownWidth);
-                xBar.style.cssText = 'width:' + xBarWidth + '%; left:' + xBarLeft + '%;bottom:' + bottom + 'px;';
+                xBar.style.cssText = 'width:' + xBarWidth + '%; inset-inline-start:' + xBarLeft + '%;bottom:' + bottom + 'px;';
             }
 
             if ((this.scrollYRatio as number) >= 1) {

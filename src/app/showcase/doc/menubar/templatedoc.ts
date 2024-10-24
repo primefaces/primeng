@@ -47,7 +47,7 @@ import { Code } from '@domain/code';
                         <span class="ms-2">{{ item.label }}</span>
                         <p-badge *ngIf="item.badge" [ngClass]="{ 'ms-auto': !root, 'ms-2': root }" [value]="item.badge" />
                         <span *ngIf="item.shortcut" class="ms-auto border-1 surface-border border-round surface-100 text-xs p-1">{{ item.shortcut }}</span>
-                        <i *ngIf="item.items" [ngClass]="['pi', root ? 'pi-angle-down ms-2' : 'pi-angle-right ms-auto']"></i>
+                        <i *ngIf="item.items" [ngClass]="['pi', root ? 'pi-angle-down ms-2' : 'pi-angle-end ms-auto']"></i>
                     </a>
                 </ng-template>
                 <ng-template pTemplate="end">
@@ -161,7 +161,7 @@ export class TemplateDoc implements OnInit {
             <span class="ms-2">{{ item.label }}</span>
             <p-badge *ngIf="item.badge" [ngClass]="{ 'ms-auto': !root, 'ms-2': root }" [value]="item.badge" />
             <span *ngIf="item.shortcut" class="ms-auto border-1 surface-border border-round surface-100 text-xs p-1">{{ item.shortcut }}</span>
-            <i *ngIf="item.items" [ngClass]="['pi', root ? 'pi-angle-down ms-2' : 'pi-angle-right ms-auto']"></i>
+            <i *ngIf="item.items" [ngClass]="['pi', root ? 'pi-angle-down ms-2' : 'pi-angle-end ms-auto']"></i>
         </a>
     </ng-template>
     <ng-template pTemplate="end">
@@ -211,7 +211,7 @@ export class TemplateDoc implements OnInit {
                 <span class="ms-2">{{ item.label }}</span>
                 <p-badge *ngIf="item.badge" [ngClass]="{ 'ms-auto': !root, 'ms-2': root }" [value]="item.badge" />
                 <span *ngIf="item.shortcut" class="ms-auto border-1 surface-border border-round surface-100 text-xs p-1">{{ item.shortcut }}</span>
-                <i *ngIf="item.items" [ngClass]="['pi', root ? 'pi-angle-down ms-2' : 'pi-angle-right ms-auto']"></i>
+                <i *ngIf="item.items" [ngClass]="['pi', root ? 'pi-angle-down ms-2' : 'pi-angle-end ms-auto']"></i>
             </a>
         </ng-template>
         <ng-template pTemplate="end">

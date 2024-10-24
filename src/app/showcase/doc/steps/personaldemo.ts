@@ -37,7 +37,7 @@ import { Router } from '@angular/router';
                 </ng-template>
                 <ng-template pTemplate="footer">
                     <div class="grid grid-nogutter justify-content-end">
-                        <p-button label="Next" (onClick)="nextPage()" icon="pi pi-angle-right" iconPos="right"></p-button>
+                        <p-button label="Next" (onClick)="nextPage()" icon="pi pi-angle-end" iconPos="right"></p-button>
                     </div>
                 </ng-template>
             </p-card>

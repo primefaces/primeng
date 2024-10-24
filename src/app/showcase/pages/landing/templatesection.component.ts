@@ -13,7 +13,7 @@ import { AppConfigService } from '@service/appconfigservice';
             <div class="flex justify-content-center mt-4 relative z-3">
                 <a href="https://www.primefaces.org/store" class="font-semibold p-3 border-round flex align-items-center linkbox active" style="z-index: 99">
                     <span>Explore All</span>
-                    <i class="pi pi-arrow-right ms-2"></i>
+                    <i class="pi pi-arrow-end ms-2"></i>
                 </a>
             </div>
             <section class="templates templates-animation flex justify-content-center align-items-center flex-column mt-7">

@@ -30,7 +30,7 @@ export class DocumentDoc implements OnInit {
                 items: [
                     {
                         label: 'Start',
-                        icon: 'pi pi-caret-right'
+                        icon: 'pi pi-caret-end'
                     },
                     {
                         label: 'Stop',
@@ -81,7 +81,7 @@ export class ContextMenuDocumentDemo implements OnInit {
                 items: [
                     {
                         label: 'Start',
-                        icon: 'pi pi-caret-right'
+                        icon: 'pi pi-caret-end'
                     },
                     {
                         label: 'Stop',

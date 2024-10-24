@@ -12,6 +12,6 @@ import { Code } from '@domain/code';
 })
 export class ImportDoc {
     code: Code = {
-        scss: `@import "primeicons/primeicons.css";`
+        scss: `@import "primeiconsrtl/primeicons.css";`
     };
 }

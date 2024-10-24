@@ -48,8 +48,8 @@ import { Router } from '@angular/router';
                 </ng-template>
                 <ng-template pTemplate="footer">
                     <div class="grid grid-nogutter justify-content-between">
-                        <p-button label="Back" (onClick)="prevPage()" icon="pi pi-angle-left"></p-button>
-                        <p-button label="Complete" (onClick)="complete()" icon="pi pi-angle-right" iconPos="right" styleClass="p-button-success"></p-button>
+                        <p-button label="Back" (onClick)="prevPage()" icon="pi pi-angle-start"></p-button>
+                        <p-button label="Complete" (onClick)="complete()" icon="pi pi-angle-end" iconPos="end" styleClass="p-button-success"></p-button>
                     </div>
                 </ng-template>
             </p-card>

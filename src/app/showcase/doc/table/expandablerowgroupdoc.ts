@@ -23,7 +23,7 @@ import { CustomerService } from '@service/customerservice';
                     <ng-template pTemplate="groupheader" let-customer let-rowIndex="rowIndex" let-expanded="expanded">
                         <tr>
                             <td colspan="5">
-                                <button type="button" pButton pRipple [pRowToggler]="customer" class="p-button-text p-button-rounded p-button-plain me-2" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
+                                <button type="button" pButton pRipple [pRowToggler]="customer" class="p-button-text p-button-rounded p-button-plain me-2" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-end'"></button>
                                 <img [alt]="customer.representative.name" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}" width="32" style="vertical-align: middle" />
                                 <span class="font-bold ms-2">{{ customer.representative.name }}</span>
                             </td>
@@ -136,7 +136,7 @@ export class ExpandableRowGroupDoc {
                         pRipple
                         [pRowToggler]="customer"
                         class="p-button-text p-button-rounded p-button-plain me-2"
-                        [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'">
+                        [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-end'">
                     </button>
                     <img
                         [alt]="customer.representative.name"
@@ -204,7 +204,7 @@ export class ExpandableRowGroupDoc {
                             pRipple
                             [pRowToggler]="customer"
                             class="p-button-text p-button-rounded p-button-plain me-2"
-                            [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'">
+                            [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-end'">
                         </button>
                         <img
                             [alt]="customer.representative.name"

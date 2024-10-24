@@ -16,7 +16,7 @@ import { Code } from '@domain/code';
                         <span class="ms-2">{{ item.label }}</span>
                         <p-badge *ngIf="item.badge" class="ms-auto" [value]="item.badge" />
                         <span *ngIf="item.shortcut" class="ms-auto border-1 surface-border border-round surface-100 text-xs p-1">{{ item.shortcut }}</span>
-                        <i *ngIf="hasSubmenu" class="pi pi-angle-right ms-auto text-primary"></i>
+                        <i *ngIf="hasSubmenu" class="pi pi-angle-end ms-auto text-primary"></i>
                     </a>
                 </ng-template>
             </p-tieredMenu>
@@ -119,7 +119,7 @@ export class TemplateDoc implements OnInit {
             <span *ngIf="item.shortcut" class="ms-auto border-1 surface-border border-round surface-100 text-xs p-1">
                 {{ item.shortcut }}
             </span>
-            <i *ngIf="hasSubmenu" class="pi pi-angle-right ms-auto text-primary"></i>
+            <i *ngIf="hasSubmenu" class="pi pi-angle-end ms-auto text-primary"></i>
         </a>
     </ng-template>
 </p-tieredMenu>`,
@@ -134,7 +134,7 @@ export class TemplateDoc implements OnInit {
                 <span *ngIf="item.shortcut" class="ms-auto border-1 surface-border border-round surface-100 text-xs p-1">
                     {{ item.shortcut }}
                 </span>
-                <i *ngIf="hasSubmenu" class="pi pi-angle-right ms-auto text-primary"></i>
+                <i *ngIf="hasSubmenu" class="pi pi-angle-end ms-auto text-primary"></i>
             </a>
         </ng-template>
     </p-tieredMenu>

@@ -33,7 +33,7 @@ import { ContextMenu } from 'primeng/contextmenu';
                         <span class="ms-2">{{ item.label }}</span>
                         <p-badge *ngIf="item.badge" class="ms-auto" [value]="item.badge" />
                         <span *ngIf="item.shortcut" class="ms-auto border-1 surface-border border-round surface-100 text-xs p-1">{{ item.shortcut }}</span>
-                        <i *ngIf="item.items" class="pi pi-angle-right ms-auto"></i>
+                        <i *ngIf="item.items" class="pi pi-angle-end ms-auto"></i>
                     </a>
                 </ng-template>
             </p-contextMenu>
@@ -193,7 +193,7 @@ export class TemplateDoc implements OnInit {
             <span *ngIf="item.shortcut" class="ms-auto border-1 surface-border border-round surface-100 text-xs p-1">
                 {{ item.shortcut }}
             </span>
-            <i *ngIf="item.items" class="pi pi-angle-right ms-auto"></i>
+            <i *ngIf="item.items" class="pi pi-angle-end ms-auto"></i>
         </a>
     </ng-template>
 </p-contextMenu>`,
@@ -236,7 +236,7 @@ export class TemplateDoc implements OnInit {
                 <span *ngIf="item.shortcut" class="ms-auto border-1 surface-border border-round surface-100 text-xs p-1">
                     {{ item.shortcut }}
                 </span>
-                <i *ngIf="item.items" class="pi pi-angle-right ms-auto"></i>
+                <i *ngIf="item.items" class="pi pi-angle-end ms-auto"></i>
             </a>
         </ng-template>
     </p-contextMenu>

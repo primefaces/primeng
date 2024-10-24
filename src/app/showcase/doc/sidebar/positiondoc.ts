@@ -24,8 +24,8 @@ import { Code } from '@domain/code';
                 <h3>Bottom Sidebar</h3>
             </p-sidebar>
 
-            <p-button type="button" class="me-2" (onClick)="sidebarVisible1 = true" icon="pi pi-arrow-right" />
-            <p-button type="button" class="me-2" (onClick)="sidebarVisible2 = true" icon="pi pi-arrow-left" />
+            <p-button type="button" class="me-2" (onClick)="sidebarVisible1 = true" icon="pi pi-arrow-end" />
+            <p-button type="button" class="me-2" (onClick)="sidebarVisible2 = true" icon="pi pi-arrow-start" />
             <p-button type="button" class="me-2" (onClick)="sidebarVisible3 = true" icon="pi pi-arrow-down" />
             <p-button type="button" class="me-2" (onClick)="sidebarVisible4 = true" icon="pi pi-arrow-up" />
         </div>
@@ -62,12 +62,12 @@ export class PositionDoc {
     type="button"
     class="me-2"
     (onClick)="sidebarVisible1 = true"
-    icon="pi pi-arrow-right" />
+    icon="pi pi-arrow-end" />
 <p-button
     type="button"
     class="me-2"
     (onClick)="sidebarVisible2 = true"
-    icon="pi pi-arrow-left" />
+    icon="pi pi-arrow-start" />
 <p-button
     type="button"
     class="me-2"
@@ -100,12 +100,12 @@ export class PositionDoc {
         type="button"
         class="me-2"
         (onClick)="sidebarVisible1 = true"
-        icon="pi pi-arrow-right" />
+        icon="pi pi-arrow-end" />
     <p-button
         type="button"
         class="me-2"
         (onClick)="sidebarVisible2 = true"
-        icon="pi pi-arrow-left" />
+        icon="pi pi-arrow-start" />
     <p-button
         type="button"
         class="me-2"

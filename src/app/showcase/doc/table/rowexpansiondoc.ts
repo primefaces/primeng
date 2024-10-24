@@ -38,7 +38,7 @@ import { TableRowCollapseEvent, TableRowExpandEvent } from 'primeng/table';
                     <ng-template pTemplate="body" let-product let-expanded="expanded">
                         <tr>
                             <td>
-                                <p-button type="button" pRipple [pRowToggler]="product" [text]="true" [rounded]="true" [plain]="true" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'" />
+                                <p-button type="button" pRipple [pRowToggler]="product" [text]="true" [rounded]="true" [plain]="true" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-end'" />
                             </td>
                             <td>{{ product.name }}</td>
                             <td><img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.name" width="50" class="shadow-4" /></td>
@@ -173,7 +173,7 @@ export class RowExpansionDoc {
         <ng-template pTemplate="body" let-product let-expanded="expanded">
             <tr>
                 <td>
-                    <p-button type="button" pRipple [pRowToggler]="product" [text]="true" [rounded]="true" [plain]="true" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'" />
+                    <p-button type="button" pRipple [pRowToggler]="product" [text]="true" [rounded]="true" [plain]="true" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-end'" />
                 </td>
                 <td>{{ product.name }}</td>
                 <td><img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.name" width="50" class="shadow-4" /></td>
@@ -246,7 +246,7 @@ export class RowExpansionDoc {
         <ng-template pTemplate="body" let-product let-expanded="expanded">
             <tr>
                 <td>
-                    <p-button type="button" pRipple [pRowToggler]="product" [text]="true" [rounded]="true" [plain]="true" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'" />
+                    <p-button type="button" pRipple [pRowToggler]="product" [text]="true" [rounded]="true" [plain]="true" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-end'" />
                 </td>
                 <td>{{ product.name }}</td>
                 <td><img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.name" width="50" class="shadow-4" /></td>

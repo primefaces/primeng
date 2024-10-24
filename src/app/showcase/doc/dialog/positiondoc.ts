@@ -9,18 +9,18 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card flex flex-column align-items-center gap-2">
             <div class="flex flex-wrap gap-2">
-                <p-button (onClick)="showDialog('start')" icon="pi pi-arrow-right" label="Start" severity="secondary" />
-                <p-button (onClick)="showDialog('end')" icon="pi pi-arrow-left" label="End" severity="secondary" />
+                <p-button (onClick)="showDialog('start')" icon="pi pi-arrow-end" label="Start" severity="secondary" />
+                <p-button (onClick)="showDialog('end')" icon="pi pi-arrow-start" label="End" severity="secondary" />
             </div>
             <div class="flex flex-wrap gap-2">
-                <p-button (onClick)="showDialog('top-start')" icon="pi pi-arrow-down-right" label="TopStart" severity="secondary" />
+                <p-button (onClick)="showDialog('top-start')" icon="pi pi-arrow-end-end" label="TopStart" severity="secondary" />
                 <p-button (onClick)="showDialog('top')" icon="pi pi-arrow-down" label="Top" severity="secondary" />
-                <p-button (onClick)="showDialog('top-end')" icon="pi pi-arrow-down-left" label="TopEnd" severity="secondary" />
+                <p-button (onClick)="showDialog('top-end')" icon="pi pi-arrow-end-start" label="TopEnd" severity="secondary" />
             </div>
             <div class="flex flex-wrap gap-2">
-                <p-button (onClick)="showDialog('bottom-start')" icon="pi pi-arrow-up-right" label="BottomStart" severity="secondary" />
+                <p-button (onClick)="showDialog('bottom-start')" icon="pi pi-arrow-start-end" label="BottomStart" severity="secondary" />
                 <p-button (onClick)="showDialog('bottom')" icon="pi pi-arrow-up" label="Bottom" severity="secondary" />
-                <p-button (onClick)="showDialog('bottom-end')" icon="pi pi-arrow-up-left" label="BottomEnd" severity="secondary" />
+                <p-button (onClick)="showDialog('bottom-end')" icon="pi pi-arrow-start-start" label="BottomEnd" severity="secondary" />
             </div>
             <p-dialog header="Edit Profile" [modal]="true" [(visible)]="visible" [position]="position" [style]="{ width: '25rem' }">
                 <span class="p-text-secondary block mb-5">Update your information.</span>
@@ -55,19 +55,19 @@ export class PositionDoc {
         basic: `<div class="flex flex-wrap gap-2">
     <p-button
         (onClick)="showDialog('start')"
-        icon="pi pi-arrow-right"
+        icon="pi pi-arrow-end"
         label="Start"
         severity="secondary" />
     <p-button
         (onClick)="showDialog('end')"
-        icon="pi pi-arrow-left"
+        icon="pi pi-arrow-start"
         label="End"
         severity="secondary" />
 </div>
 <div class="flex flex-wrap gap-2">
     <p-button
         (onClick)="showDialog('top-start')"
-        icon="pi pi-arrow-down-right"
+        icon="pi pi-arrow-end-end"
         label="TopStart"
         severity="secondary" />
     <p-button
@@ -77,14 +77,14 @@ export class PositionDoc {
         severity="secondary" />
     <p-button
         (onClick)="showDialog('top-end')"
-        icon="pi pi-arrow-down-left"
+        icon="pi pi-arrow-end-start"
         label="TopEnd"
         severity="secondary" />
 </div>
 <div class="flex flex-wrap gap-2">
     <p-button
         (onClick)="showDialog('bottom-start')"
-        icon="pi pi-arrow-up-right"
+        icon="pi pi-arrow-start-end"
         label="BottomStart"
         severity="secondary" />
     <p-button
@@ -94,7 +94,7 @@ export class PositionDoc {
         severity="secondary" />
     <p-button
         (onClick)="showDialog('bottom-end')"
-        icon="pi pi-arrow-up-left"
+        icon="pi pi-arrow-start-start"
         label="BottomEnd"
         severity="secondary" />
 </div>
@@ -129,19 +129,19 @@ export class PositionDoc {
     <div class="flex flex-wrap gap-2">
         <p-button
             (onClick)="showDialog('start')"
-            icon="pi pi-arrow-right"
+            icon="pi pi-arrow-end"
             label="Start"
             severity="secondary" />
         <p-button
             (onClick)="showDialog('end')"
-            icon="pi pi-arrow-left"
+            icon="pi pi-arrow-start"
             label="End"
             severity="secondary" />
     </div>
     <div class="flex flex-wrap gap-2">
         <p-button
             (onClick)="showDialog('top-start')"
-            icon="pi pi-arrow-down-right"
+            icon="pi pi-arrow-end-end"
             label="TopStart"
             severity="secondary" />
         <p-button
@@ -151,14 +151,14 @@ export class PositionDoc {
             severity="secondary" />
         <p-button
             (onClick)="showDialog('top-end')"
-            icon="pi pi-arrow-down-left"
+            icon="pi pi-arrow-end-start"
             label="TopEnd"
             severity="secondary" />
     </div>
     <div class="flex flex-wrap gap-2">
         <p-button
             (onClick)="showDialog('bottom-start')"
-            icon="pi pi-arrow-up-right"
+            icon="pi pi-arrow-start-end"
             label="BottomStart"
             severity="secondary" />
         <p-button
@@ -168,7 +168,7 @@ export class PositionDoc {
             severity="secondary" />
         <p-button
             (onClick)="showDialog('bottom-end')"
-            icon="pi pi-arrow-up-left"
+            icon="pi pi-arrow-start-start"
             label="BottomEnd"
             severity="secondary" />
     </div>

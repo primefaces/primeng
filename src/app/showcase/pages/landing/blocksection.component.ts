@@ -12,7 +12,7 @@ import { Component } from '@angular/core';
             <div class="flex justify-content-center mt-4">
                 <a href="https://blocks.primeng.org" target="_blank" class="font-semibold p-3 border-round flex align-items-center linkbox active" style="z-index: 99">
                     <span>Explore All</span>
-                    <i class="pi pi-arrow-right ms-2"></i>
+                    <i class="pi pi-arrow-end ms-2"></i>
                 </a>
             </div>
             <section class="prime-blocks blocks-animation flex justify-content-center align-items-center flex-column">

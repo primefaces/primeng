@@ -12,18 +12,18 @@ import { Code } from '@domain/code';
             <p-toast />
             <p-confirmDialog key="positionDialog" [position]="position" rejectButtonStyleClass="p-button-outlined" />
             <div class="flex flex-wrap justify-content-center gap-2">
-                <p-button (onClick)="confirmPosition('start')" icon="pi pi-arrow-right" label="Start" severity="secondary" />
-                <p-button (onClick)="confirmPosition('end')" icon="pi pi-arrow-left" label="End" severity="secondary" />
+                <p-button (onClick)="confirmPosition('start')" icon="pi pi-arrow-end" label="Start" severity="secondary" />
+                <p-button (onClick)="confirmPosition('end')" icon="pi pi-arrow-start" label="End" severity="secondary" />
             </div>
             <div class="flex flex-wrap justify-content-center gap-2">
-                <p-button (onClick)="confirmPosition('top-start')" icon="pi pi-arrow-down" label="TopStart" severity="secondary" />
+                <p-button (onClick)="confirmPosition('top-start')" icon="pi pi-arrow-end-end" label="TopStart" severity="secondary" />
                 <p-button (onClick)="confirmPosition('top')" icon="pi pi-arrow-down" label="Top" severity="secondary" />
-                <p-button (onClick)="confirmPosition('top-end')" icon="pi pi-arrow-down" label="TopEnd" severity="secondary" />
+                <p-button (onClick)="confirmPosition('top-end')" icon="pi pi-arrow-end-start" label="TopEnd" severity="secondary" />
             </div>
             <div class="flex flex-wrap justify-content-center gap-2">
-                <p-button (onClick)="confirmPosition('bottom-start')" icon="pi pi-arrow-up" label="BottomStart" severity="secondary" />
+                <p-button (onClick)="confirmPosition('bottom-start')" icon="pi pi-arrow-start-end" label="BottomStart" severity="secondary" />
                 <p-button (onClick)="confirmPosition('bottom')" icon="pi pi-arrow-up" label="Bottom" severity="secondary" />
-                <p-button (onClick)="confirmPosition('bottom-end')" icon="pi pi-arrow-up" label="BottomEnd" severity="secondary" />
+                <p-button (onClick)="confirmPosition('bottom-end')" icon="pi pi-arrow-start-start" label="BottomEnd" severity="secondary" />
             </div>
         </div>
         <app-code [code]="code" selector="confirm-dialog-position-demo"></app-code>
@@ -68,19 +68,19 @@ export class PositionDoc {
 <div class="flex flex-wrap justify-content-center gap-2">
     <p-button
         (click)="confirmPosition('start')"
-        icon="pi pi-arrow-right"
+        icon="pi pi-arrow-end"
         label="Start"
         severity="secondary" />
     <p-button
         (click)="confirmPosition('end')"
-        icon="pi pi-arrow-left"
+        icon="pi pi-arrow-start"
         label="End"
         severity="secondary" />
 </div>
 <div class="flex flex-wrap justify-content-center gap-2">
     <p-button
         (click)="confirmPosition('top-start')"
-        icon="pi pi-arrow-down"
+        icon="pi pi-arrow-end-end"
         label="TopStart"
         severity="secondary" />
     <p-button
@@ -90,14 +90,14 @@ export class PositionDoc {
         severity="secondary" />
     <p-button
         (click)="confirmPosition('top-end')"
-        icon="pi pi-arrow-down"
+        icon="pi pi-arrow-end-start"
         label="TopEnd"
         severity="secondary" />
 </div>
 <div class="flex flex-wrap justify-content-center gap-2">
     <p-button
         (click)="confirmPosition('bottom-start')"
-        icon="pi pi-arrow-up"
+        icon="pi pi-arrow-start-end"
         label="BottomStart"
         severity="secondary" />
     <p-button
@@ -107,7 +107,7 @@ export class PositionDoc {
         severity="secondary" />
     <p-button
         (click)="confirmPosition('bottom-end')"
-        icon="pi pi-arrow-up"
+        icon="pi pi-arrow-start-start"
         label="BottomEnd"
         severity="secondary" />
 </div>`,
@@ -122,12 +122,12 @@ export class PositionDoc {
     <div class="flex flex-wrap justify-content-center gap-2">
         <p-button
             (click)="confirmPosition('start')"
-            icon="pi pi-arrow-right"
+            icon="pi pi-arrow-end"
             label="Start"
             severity="secondary" />
         <p-button
             (click)="confirmPosition('end')"
-            icon="pi pi-arrow-left"
+            icon="pi pi-arrow-start"
             label="End"
             severity="secondary" />
     </div>

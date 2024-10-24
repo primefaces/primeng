@@ -217,7 +217,7 @@ import type { Paginator } from '../paginator/paginator';
                 <tr>
                     <td>
                         <a href="#" class="rowExpansionToggler" [pRowToggler]="rowData">
-                            <i [ngClass]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></i>
+                            <i [ngClass]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-end'"></i>
                         </a>
                     </td>
                     <td *ngFor="let col of columns">

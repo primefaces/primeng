@@ -17,7 +17,7 @@ import { Code } from '@domain/code';
                     consequat.
                 </p>
             </p-sidebar>
-            <p-button (onClick)="sidebarVisible = true" icon="pi pi-arrow-right" />
+            <p-button (onClick)="sidebarVisible = true" icon="pi pi-arrow-end" />
         </div>
         <app-code [code]="code" selector="sidebar-size-demo"></app-code>
     `
@@ -34,7 +34,7 @@ export class SizeDoc {
         Lorem ipsum dolor sit amet, consectetur adipiscing elit...
     </p>
 </p-sidebar>
-<p-button (onClick)="sidebarVisible = true" icon="pi pi-arrow-right" />`,
+<p-button (onClick)="sidebarVisible = true" icon="pi pi-arrow-end" />`,
 
         html: `<div class="card flex justify-content-center">
     <p-sidebar [(visible)]="sidebarVisible" styleClass="w-30rem">
@@ -42,11 +42,11 @@ export class SizeDoc {
             <span class="font-semibold text-xl">Sidebar</span>
         </ng-template>
         <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
             Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
         </p>
     </p-sidebar>
-    <p-button (onClick)="sidebarVisible = true" icon="pi pi-arrow-right" />
+    <p-button (onClick)="sidebarVisible = true" icon="pi pi-arrow-end" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

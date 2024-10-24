@@ -278,7 +278,7 @@ export class Splitter {
         } else {
             if (this.horizontal()) newPos = (event.pageX * 100) / this.size - (this.startPos * 100) / this.size;
             else newPos = (event.pageY * 100) / this.size - (this.startPos * 100) / this.size;
-            if (DomHandler.documentIsRTL()) newPos *= -1;
+            if (DomHandler.documentIsRTL() && this.horizontal()) newPos *= -1;
             newPrevPanelSize = (this.prevPanelSize as number) + newPos;
             newNextPanelSize = (this.nextPanelSize as number) - newPos;
         }

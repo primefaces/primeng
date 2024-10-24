@@ -67,14 +67,14 @@ import { Code } from '@domain/code';
 })
 export class AccessibilityDoc {
     code: Code = {
-        html: `<p-button 
-    icon="pi pi-arrow-right" 
-    (click)="sidebarVisible = true" 
-    aria-controls="{{sidebarVisible ? 'sidebar' : null}}" 
+        html: `<p-button
+    icon="pi pi-arrow-end"
+    (click)="sidebarVisible = true"
+    aria-controls="{{sidebarVisible ? 'sidebar' : null}}"
     aria-expanded="{{sidebarVisible ? true : false}}"
 ></p-button>
-<p-sidebar 
-    [(visible)]="sidebarVisible" 
+<p-sidebar
+    [(visible)]="sidebarVisible"
     id="sidebar"
     (onHide)="sidebarVisible = false"
     role="region"
