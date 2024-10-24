@@ -24,7 +24,7 @@ import { NodeService } from '@service/nodeservice';
                     <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
                         <tr [ttRow]="rowNode">
                             <td>
-                                <p-treetableToggler [rowNode]="rowNode" />
+                                <p-treeTableToggler [rowNode]="rowNode" />
                                 {{ rowData.name }}
                             </td>
                             <td>{{ rowData.size }}</td>
@@ -64,7 +64,7 @@ export class BasicDoc {
     <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
         <tr [ttRow]="rowNode">
             <td>
-                <p-treetableToggler [rowNode]="rowNode" />
+                <p-treeTableToggler [rowNode]="rowNode" />
                 {{ rowData.name }}
             </td>
             <td>{{ rowData.size }}</td>
@@ -85,7 +85,7 @@ export class BasicDoc {
         <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
             <tr [ttRow]="rowNode">
                 <td>
-                    <p-treetableToggler [rowNode]="rowNode" />
+                    <p-treeTableToggler [rowNode]="rowNode" />
                     {{ rowData.name }}
                 </td>
                 <td>{{ rowData.size }}</td>

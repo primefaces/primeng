@@ -21,7 +21,7 @@ import { MinusIcon } from 'primeng/icons/minus';
             <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
                 <tr [ttRow]="rowNode">
                     <td *ngFor="let col of columns; let i = index">
-                        <p-treetableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treetableToggler>
+                        <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
                         {{ rowData[col.field] }}
                     </td>
                 </tr>
@@ -46,7 +46,7 @@ import { MinusIcon } from 'primeng/icons/minus';
             <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
                 <tr>
                     <td *ngFor="let col of columns; let i = index">
-                        <p-treetableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treetableToggler>
+                        <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
                         {{ rowData[col.field] }}
                     </td>
                 </tr>
@@ -64,7 +64,7 @@ import { MinusIcon } from 'primeng/icons/minus';
             <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
                 <tr>
                     <td *ngFor="let col of columns; let i = index">
-                        <p-treetableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treetableToggler>
+                        <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
                         {{ rowData[col.field] }}
                     </td>
                 </tr>
@@ -82,7 +82,7 @@ import { MinusIcon } from 'primeng/icons/minus';
             <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
                 <tr>
                     <td *ngFor="let col of columns; let i = index">
-                        <p-treetableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treetableToggler>
+                        <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
                         {{ rowData[col.field] }}
                     </td>
                 </tr>
@@ -106,7 +106,7 @@ import { MinusIcon } from 'primeng/icons/minus';
             <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
                 <tr [ttRow]="rowNode" [ttSelectableRow]="rowNode">
                     <td *ngFor="let col of columns; let i = index">
-                        <p-treetableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treetableToggler>
+                        <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
                         {{ rowData[col.field] }}
                     </td>
                 </tr>
@@ -130,7 +130,7 @@ import { MinusIcon } from 'primeng/icons/minus';
             <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
                 <tr [ttRow]="rowNode" [ttSelectableRow]="rowNode">
                     <td *ngFor="let col of columns; let i = index">
-                        <p-treetableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treetableToggler>
+                        <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
                         {{ rowData[col.field] }}
                     </td>
                 </tr>
@@ -159,7 +159,7 @@ import { MinusIcon } from 'primeng/icons/minus';
             <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
                 <tr>
                     <td *ngFor="let col of columns; let i = index">
-                        <p-treetableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treetableToggler>
+                        <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
                         <p-treetableCheckbox [value]="rowNode" *ngIf="i == 0"></p-treetableCheckbox>
                         {{ rowData[col.field] }}
                     </td>
@@ -177,7 +177,7 @@ import { MinusIcon } from 'primeng/icons/minus';
             <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
                 <tr>
                     <td *ngFor="let col of columns; let i = index" ttEditableColumn [ngClass]="{ 'p-toggler-column': i === 0 }">
-                        <p-treetableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-treetableToggler>
+                        <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-treeTableToggler>
                         <p-treetableCellEditor>
                             <ng-template pTemplate="input">
                                 <input
@@ -204,7 +204,7 @@ import { MinusIcon } from 'primeng/icons/minus';
             <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
                 <tr>
                     <td *ngFor="let col of columns; let i = index">
-                        <p-treetableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treetableToggler>
+                        <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
                         {{ rowData[col.field] }}
                     </td>
                 </tr>
@@ -221,7 +221,7 @@ import { MinusIcon } from 'primeng/icons/minus';
             <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
                 <tr>
                     <td *ngFor="let col of columns; let i = index">
-                        <p-treetableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treetableToggler>
+                        <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
                         {{ rowData[col.field] }}
                     </td>
                 </tr>
@@ -238,7 +238,7 @@ import { MinusIcon } from 'primeng/icons/minus';
             <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
                 <tr>
                     <td *ngFor="let col of columns; let i = index">
-                        <p-treetableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treetableToggler>
+                        <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
                         {{ rowData[col.field] }}
                     </td>
                 </tr>
@@ -262,7 +262,7 @@ import { MinusIcon } from 'primeng/icons/minus';
             <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
                 <tr [ttContextMenuRow]="rowNode">
                     <td *ngFor="let col of columns; let i = index">
-                        <p-treetableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treetableToggler>
+                        <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
                         {{ rowData[col.field] }}
                     </td>
                 </tr>
@@ -301,7 +301,7 @@ import { MinusIcon } from 'primeng/icons/minus';
             <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
                 <tr>
                     <td *ngFor="let col of cols; let i = index">
-                        <p-treetableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treetableToggler>
+                        <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
                         {{ rowData[col.field] }}
                     </td>
                 </tr>
