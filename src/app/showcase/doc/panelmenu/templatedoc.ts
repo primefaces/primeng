@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuItem } from 'primeng/api';
+import { MenuItem } from 'primengrtl/api';
 import { Code } from '@domain/code';
 
 @Component({
@@ -13,9 +13,9 @@ import { Code } from '@domain/code';
                 <ng-template pTemplate="item" let-item>
                     <a pRipple class="flex align-items-center px-3 py-2 cursor-pointer">
                         <i [class]="item.icon + ' text-primary'"></i>
-                        <span class="ml-2">{{ item.label }}</span>
-                        <p-badge *ngIf="item.badge" class="ml-auto" [value]="item.badge" />
-                        <span *ngIf="item.shortcut" class="ml-auto border-1 surface-border border-round surface-100 text-xs p-1">{{ item.shortcut }}</span>
+                        <span class="ms-2">{{ item.label }}</span>
+                        <p-badge *ngIf="item.badge" class="ms-auto" [value]="item.badge" />
+                        <span *ngIf="item.shortcut" class="ms-auto border-1 surface-border border-round surface-100 text-xs p-1">{{ item.shortcut }}</span>
                     </a>
                 </ng-template>
             </p-panelMenu>
@@ -116,11 +116,11 @@ export class TemplateDoc implements OnInit {
     <ng-template pTemplate="item" let-item>
         <a pRipple class="flex align-items-center px-3 py-2 cursor-pointer">
             <i [class]="item.icon + ' text-primary'"></i>
-            <span class="ml-2">
+            <span class="ms-2">
                 {{ item.label }}
             </span>
-            <p-badge *ngIf="item.badge" class="ml-auto" [value]="item.badge" />
-            <span *ngIf="item.shortcut" class="ml-auto border-1 surface-border 
+            <p-badge *ngIf="item.badge" class="ms-auto" [value]="item.badge" />
+            <span *ngIf="item.shortcut" class="ms-auto border-1 surface-border
             border-round surface-100 text-xs p-1">
                 {{ item.shortcut }}
             </span>
@@ -133,11 +133,11 @@ export class TemplateDoc implements OnInit {
         <ng-template pTemplate="item" let-item>
             <a pRipple class="flex align-items-center px-3 py-2 cursor-pointer">
                 <i [class]="item.icon + ' text-primary'"></i>
-                <span class="ml-2">
+                <span class="ms-2">
                     {{ item.label }}
                 </span>
-                <p-badge *ngIf="item.badge" class="ml-auto" [value]="item.badge" />
-                <span *ngIf="item.shortcut" class="ml-auto border-1 surface-border 
+                <p-badge *ngIf="item.badge" class="ms-auto" [value]="item.badge" />
+                <span *ngIf="item.shortcut" class="ms-auto border-1 surface-border
                 border-round surface-100 text-xs p-1">
                     {{ item.shortcut }}
                 </span>
@@ -147,10 +147,10 @@ export class TemplateDoc implements OnInit {
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
-import { MenuItem } from 'primeng/api';
-import { PanelMenuModule } from 'primeng/panelmenu';
-import { BadgeModule } from 'primeng/badge';
-import { RippleModule } from 'primeng/ripple';
+import { MenuItem } from 'primengrtl/api';
+import { PanelMenuModule } from 'primengrtl/panelmenu';
+import { BadgeModule } from 'primengrtl/badge';
+import { RippleModule } from 'primengrtl/ripple';
 import { CommonModule } from '@angular/common';
 
 @Component({

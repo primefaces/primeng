@@ -25,14 +25,14 @@ import {
     booleanAttribute,
     numberAttribute
 } from '@angular/core';
-import { ConfirmEventType, Confirmation, ConfirmationService, Footer, PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
-import { ButtonModule } from 'primeng/button';
-import { DomHandler } from 'primeng/dom';
-import { CheckIcon } from 'primeng/icons/check';
-import { TimesIcon } from 'primeng/icons/times';
-import { RippleModule } from 'primeng/ripple';
-import { Nullable } from 'primeng/ts-helpers';
-import { UniqueComponentId, ZIndexUtils } from 'primeng/utils';
+import { ConfirmEventType, Confirmation, ConfirmationService, Footer, PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys } from 'primengrtl/api';
+import { ButtonModule } from 'primengrtl/button';
+import { DomHandler } from 'primengrtl/dom';
+import { CheckIcon } from 'primengrtl/icons/check';
+import { TimesIcon } from 'primengrtl/icons/times';
+import { RippleModule } from 'primengrtl/ripple';
+import { Nullable } from 'primengrtl/ts-helpers';
+import { UniqueComponentId, ZIndexUtils } from 'primengrtl/utils';
 import { Subscription } from 'rxjs';
 
 const showAnimation = animation([style({ transform: '{{transform}}', opacity: 0 }), animate('{{transition}}', style({ transform: 'none', opacity: 1 }))]);
@@ -101,9 +101,9 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                         >
                             <ng-container *ngIf="!rejectIconTemplate">
                                 <i *ngIf="option('rejectIcon')" [class]="option('rejectIcon')"></i>
-                                <TimesIcon *ngIf="!option('rejectIcon')" [styleClass]="'p-button-icon-left'" />
+                                <TimesIcon *ngIf="!option('rejectIcon')" [styleClass]="'p-button-icon-start'" />
                             </ng-container>
-                            <span *ngIf="rejectIconTemplate" class="p-button-icon-left">
+                            <span *ngIf="rejectIconTemplate" class="p-button-icon-start">
                                 <ng-template *ngTemplateOutlet="rejectIconTemplate"></ng-template>
                             </span>
                         </button>
@@ -120,9 +120,9 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                         >
                             <ng-container *ngIf="!acceptIconTemplate">
                                 <i *ngIf="option('acceptIcon')" [class]="option('acceptIcon')"></i>
-                                <CheckIcon *ngIf="!option('acceptIcon')" [styleClass]="'p-button-icon-left'" />
+                                <CheckIcon *ngIf="!option('acceptIcon')" [styleClass]="'p-button-icon-start'" />
                             </ng-container>
-                            <span *ngIf="acceptIconTemplate" class="p-button-icon-left">
+                            <span *ngIf="acceptIconTemplate" class="p-button-icon-start">
                                 <ng-template *ngTemplateOutlet="acceptIconTemplate"></ng-template>
                             </span>
                         </button>
@@ -323,15 +323,15 @@ export class ConfirmDialog implements AfterContentInit, OnInit, OnDestroy {
         this._position = value;
 
         switch (value) {
-            case 'top-left':
-            case 'bottom-left':
-            case 'left':
-                this.transformOptions = 'translate3d(-100%, 0px, 0px)';
+            case 'top-start':
+            case 'bottom-start':
+            case 'start':
+                this.transformOptions = DomHandler.documentIsLTR() ? 'translate3d(-100%, 0px, 0px)' : (this.transformOptions = 'translate3d(100%, 0px, 0px)');
                 break;
-            case 'top-right':
-            case 'bottom-right':
-            case 'right':
-                this.transformOptions = 'translate3d(100%, 0px, 0px)';
+            case 'top-end':
+            case 'bottom-end':
+            case 'end':
+                this.transformOptions = DomHandler.documentIsLTR() ? 'translate3d(100%, 0px, 0px)' : (this.transformOptions = 'translate3d(-100%, 0px, 0px)');
                 break;
             case 'bottom':
                 this.transformOptions = 'translate3d(0px, 100%, 0px)';
@@ -658,7 +658,7 @@ export class ConfirmDialog implements AfterContentInit, OnInit, OnDestroy {
     }
 
     getPositionClass() {
-        const positions = ['left', 'right', 'top', 'top-left', 'top-right', 'bottom', 'bottom-left', 'bottom-right'];
+        const positions = ['start', 'end', 'top', 'top-start', 'top-end', 'bottom', 'bottom-start', 'bottom-end'];
         const pos = positions.find((item) => item === this.position);
 
         return pos ? `p-dialog-${pos}` : '';

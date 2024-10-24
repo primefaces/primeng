@@ -23,16 +23,17 @@ import {
     booleanAttribute,
     numberAttribute
 } from '@angular/core';
-import { Footer, Header, PrimeTemplate, SharedModule } from 'primeng/api';
-import { ChevronDownIcon } from 'primeng/icons/chevrondown';
-import { ChevronLeftIcon } from 'primeng/icons/chevronleft';
-import { ChevronRightIcon } from 'primeng/icons/chevronright';
-import { ChevronUpIcon } from 'primeng/icons/chevronup';
-import { RippleModule } from 'primeng/ripple';
-import { UniqueComponentId } from 'primeng/utils';
+import { Footer, Header, PrimeTemplate, SharedModule } from 'primengrtl/api';
+import { ChevronDownIcon } from 'primengrtl/icons/chevrondown';
+import { ChevronStartIcon } from 'primengrtl/icons/chevronstart';
+import { ChevronEndIcon } from 'primengrtl/icons/chevronend';
+import { ChevronUpIcon } from 'primengrtl/icons/chevronup';
+import { RippleModule } from 'primengrtl/ripple';
+import { UniqueComponentId } from 'primengrtl/utils';
 import { CarouselPageEvent, CarouselResponsiveOptions } from './carousel.interface';
-import { PrimeNGConfig } from 'primeng/api';
-import { DomHandler } from 'primeng/dom';
+import { PrimeNGConfig } from 'primengrtl/api';
+import { DomHandler } from 'primengrtl/dom';
+
 /**
  * Carousel is a content slider featuring various customization options.
  * @group Components
@@ -57,7 +58,7 @@ import { DomHandler } from 'primeng/dom';
                         pRipple
                     >
                         <ng-container *ngIf="!previousIconTemplate">
-                            <ChevronLeftIcon *ngIf="!isVertical()" [styleClass]="'carousel-prev-icon'" />
+                            <ChevronStartIcon *ngIf="!isVertical()" [styleClass]="'carousel-prev-icon'" />
                             <ChevronUpIcon *ngIf="isVertical()" [styleClass]="'carousel-prev-icon'" />
                         </ng-container>
                         <span *ngIf="previousIconTemplate" class="p-carousel-prev-icon">
@@ -112,7 +113,7 @@ import { DomHandler } from 'primeng/dom';
                         [attr.aria-label]="ariaNextButtonLabel()"
                     >
                         <ng-container *ngIf="!nextIconTemplate">
-                            <ChevronRightIcon *ngIf="!isVertical()" [styleClass]="'carousel-prev-icon'" />
+                            <ChevronEndIcon *ngIf="!isVertical()" [styleClass]="'carousel-prev-icon'" />
                             <ChevronDownIcon *ngIf="isVertical()" [styleClass]="'carousel-prev-icon'" />
                         </ng-container>
                         <span *ngIf="nextIconTemplate" class="p-carousel-prev-icon">
@@ -157,6 +158,7 @@ export class Carousel implements AfterContentInit {
     @Input() get page(): number {
         return this._page;
     }
+
     set page(val: number) {
         if (this.isCreated && val !== this._page) {
             if (this.autoplayInterval) {
@@ -172,6 +174,7 @@ export class Carousel implements AfterContentInit {
 
         this._page = val;
     }
+
     /**
      * Number of items per page.
      * @defaultValue 1
@@ -180,9 +183,11 @@ export class Carousel implements AfterContentInit {
     @Input() get numVisible(): number {
         return this._numVisible;
     }
+
     set numVisible(val: number) {
         this._numVisible = val;
     }
+
     /**
      * Number of items to scroll.
      * @defaultValue 1
@@ -191,9 +196,11 @@ export class Carousel implements AfterContentInit {
     @Input() get numScroll(): number {
         return this._numVisible;
     }
+
     set numScroll(val: number) {
         this._numScroll = val;
     }
+
     /**
      * An array of options for responsive design.
      * @see {CarouselResponsiveOptions}
@@ -235,6 +242,7 @@ export class Carousel implements AfterContentInit {
      * @group Props
      */
     @Input() indicatorStyle: { [klass: string]: any } | null | undefined;
+
     /**
      * An array of objects to display.
      * @defaultValue null
@@ -243,9 +251,11 @@ export class Carousel implements AfterContentInit {
     @Input() get value(): any[] {
         return this._value as any[];
     }
+
     set value(val) {
         this._value = val;
     }
+
     /**
      * Defines if scrolling would be infinite.
      * @group Props
@@ -497,7 +507,7 @@ export class Carousel implements AfterContentInit {
                 this.prevState.value = [...(this._value as any[])];
 
                 if (this.totalDots() > 0 && this.itemsContainer.nativeElement) {
-                    this.itemsContainer.nativeElement.style.transform = this.isVertical() ? `translate3d(0, ${totalShiftedItems * (100 / this._numVisible)}%, 0)` : `translate3d(${totalShiftedItems * (100 / this._numVisible)}%, 0, 0)`;
+                    this.itemsContainer.nativeElement.style.transform = this.calcTransfer(totalShiftedItems);
                 }
 
                 this.isCreated = true;
@@ -731,6 +741,7 @@ export class Carousel implements AfterContentInit {
 
         this.changedFocusedIndicator(activeIndex, activeIndex - 1 <= 0 ? 0 : activeIndex - 1);
     }
+
     onHomeKey() {
         const activeIndex = this.findFocusedIndicatorIndex();
 
@@ -805,7 +816,7 @@ export class Carousel implements AfterContentInit {
         }
 
         if (this.itemsContainer) {
-            this.itemsContainer.nativeElement.style.transform = this.isVertical() ? `translate3d(0, ${totalShiftedItems * (100 / this._numVisible)}%, 0)` : `translate3d(${totalShiftedItems * (100 / this._numVisible)}%, 0, 0)`;
+            this.itemsContainer.nativeElement.style.transform = this.calcTransfer(totalShiftedItems);
             this.itemsContainer.nativeElement.style.transition = 'transform 500ms ease 0s';
         }
 
@@ -815,6 +826,14 @@ export class Carousel implements AfterContentInit {
             page: this.page
         });
         this.cd.markForCheck();
+    }
+
+    private calcTransfer(totalShiftedItems: number): string {
+        if (this.isVertical()) return `translate3d(0, ${totalShiftedItems * (100 / this._numVisible)}%, 0)`;
+
+        let horizontalTransform = totalShiftedItems * (100 / this._numVisible);
+        if (DomHandler.documentIsRTL() && horizontalTransform != 0) horizontalTransform *= -1;
+        return `translate3d(${horizontalTransform}%, 0, 0)`;
     }
 
     startAutoplay() {
@@ -851,7 +870,7 @@ export class Carousel implements AfterContentInit {
             this.itemsContainer.nativeElement.style.transition = '';
 
             if ((this.page === 0 || this.page === this.totalDots() - 1) && this.isCircular()) {
-                this.itemsContainer.nativeElement.style.transform = this.isVertical() ? `translate3d(0, ${this.totalShiftedItems * (100 / this._numVisible)}%, 0)` : `translate3d(${this.totalShiftedItems * (100 / this._numVisible)}%, 0, 0)`;
+                this.itemsContainer.nativeElement.style.transform = this.calcTransfer(this.totalShiftedItems);
             }
         }
     }
@@ -870,6 +889,7 @@ export class Carousel implements AfterContentInit {
             e.preventDefault();
         }
     }
+
     onTouchEnd(e: TouchEvent) {
         let touchobj = e.changedTouches[0];
 
@@ -940,7 +960,7 @@ export class Carousel implements AfterContentInit {
 }
 
 @NgModule({
-    imports: [CommonModule, SharedModule, RippleModule, ChevronRightIcon, ChevronLeftIcon, ChevronDownIcon, ChevronUpIcon],
+    imports: [CommonModule, SharedModule, RippleModule, ChevronEndIcon, ChevronStartIcon, ChevronDownIcon, ChevronUpIcon],
     exports: [CommonModule, Carousel, SharedModule],
     declarations: [Carousel]
 })

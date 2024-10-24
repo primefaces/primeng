@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuItem, MessageService } from 'primeng/api';
+import { MenuItem, MessageService } from 'primengrtl/api';
 import { Subscription } from 'rxjs';
 import { Code } from '@domain/code';
 import { TicketService } from '@service/ticketservice';
@@ -74,11 +74,11 @@ export class RoutingDoc implements OnInit {
 <router-outlet></router-outlet>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
-import { MenuItem, MessageService } from 'primeng/api';
+import { MenuItem, MessageService } from 'primengrtl/api';
 import { TicketService } from '@service/ticketservice';
 import { Subscription } from 'rxjs';
-import { StepsModule } from 'primeng/steps';
-import { ToastModule } from 'primeng/toast';
+import { StepsModule } from 'primengrtl/steps';
+import { ToastModule } from 'primengrtl/toast';
 
 @Component({
     selector: 'steps-routing-demo',
@@ -181,8 +181,8 @@ import { Router } from '@angular/router';
                 </ng-template>
                 <ng-template pTemplate="footer">
                     <div class="grid grid-nogutter justify-content-between">
-                        <p-button label="Back" (onClick)="prevPage()" icon="pi pi-angle-left"></p-button>
-                        <p-button label="Next" (onClick)="nextPage()" icon="pi pi-angle-right" iconPos="right"></p-button>
+                        <p-button label="Back" (onClick)="prevPage()" icon="pi pi-angle-start"></p-button>
+                        <p-button label="Next" (onClick)="nextPage()" icon="pi pi-angle-end" iconPos="end"></p-button>
                     </div>
                 </ng-template>
             </p-card>
@@ -250,7 +250,7 @@ import { Router } from '@angular/router';
                 </ng-template>
                 <ng-template pTemplate="footer">
                     <div class="grid grid-nogutter justify-content-end">
-                        <p-button label="Next" (onClick)="nextPage()" icon="pi pi-angle-right" iconPos="right"></p-button>
+                        <p-button label="Next" (onClick)="nextPage()" icon="pi pi-angle-end" iconPos="right"></p-button>
                     </div>
                 </ng-template>
             </p-card>
@@ -311,8 +311,8 @@ import { Router } from '@angular/router';
                 </ng-template>
                 <ng-template pTemplate="footer">
                     <div class="grid grid-nogutter justify-content-between">
-                        <p-button label="Back" (onClick)="prevPage()" icon="pi pi-angle-left"></p-button>
-                        <p-button label="Next" (onClick)="nextPage()" icon="pi pi-angle-right" iconPos="right"></p-button>
+                        <p-button label="Back" (onClick)="prevPage()" icon="pi pi-angle-start"></p-button>
+                        <p-button label="Next" (onClick)="nextPage()" icon="pi pi-angle-end" iconPos="end"></p-button>
                     </div>
                 </ng-template>
             </p-card>
@@ -422,8 +422,8 @@ import { Router } from '@angular/router';
                 </ng-template>
                 <ng-template pTemplate="footer">
                     <div class="grid grid-nogutter justify-content-between">
-                        <p-button label="Back" (onClick)="prevPage()" icon="pi pi-angle-left"></p-button>
-                        <p-button label="Complete" (onClick)="complete()" icon="pi pi-angle-right" iconPos="right" styleClass="p-button-success"></p-button>
+                        <p-button label="Back" (onClick)="prevPage()" icon="pi pi-angle-start"></p-button>
+                        <p-button label="Complete" (onClick)="complete()" icon="pi pi-angle-end" iconPos="end" styleClass="p-button-success"></p-button>
                     </div>
                 </ng-template>
             </p-card>

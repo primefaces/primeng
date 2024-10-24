@@ -77,11 +77,11 @@ export class BasicDoc implements OnInit {
     code: Code = {
         basic: `<div class="p-2 border-1 surface-border border-round w-15rem">
     <ul class="list-none flex flex-column gap-2 p-0 m-0">
-        <li 
+        <li
             *ngFor="let product of availableProducts"
-            class="p-2 border-round shadow-1" 
-            pDraggable 
-            (onDragStart)="dragStart(product)" 
+            class="p-2 border-round shadow-1"
+            pDraggable
+            (onDragStart)="dragStart(product)"
             (onDragEnd)="dragEnd()">
                 {{product.name}}
         </li>
@@ -100,11 +100,11 @@ export class BasicDoc implements OnInit {
         html: `<div class="card flex flex-wrap gap-3">
     <div class="p-2 border-1 surface-border border-round w-15rem">
         <ul class="list-none flex flex-column gap-2 p-0 m-0">
-            <li 
-                *ngFor="let product of availableProducts" 
+            <li
+                *ngFor="let product of availableProducts"
                 class="p-2 border-round shadow-1"
-                pDraggable 
-                (onDragStart)="dragStart(product)" 
+                pDraggable
+                (onDragStart)="dragStart(product)"
                 (onDragEnd)="dragEnd()">
                     {{product.name}}
             </li>
@@ -121,9 +121,9 @@ export class BasicDoc implements OnInit {
 </div>`,
         typescript: `import { Component, OnInit } from '@angular/core';
 import { Product } from '@domain/product';
-import { DragDropModule } from 'primeng/dragdrop';
+import { DragDropModule } from 'primengrtl/dragdrop';
 import { CommonModule } from '@angular/common';
-        
+
 @Component({
     selector: 'drag-drop-basic-demo',
     templateUrl: './drag-drop-basic-demo.html',

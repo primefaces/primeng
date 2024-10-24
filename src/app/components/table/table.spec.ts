@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
-import { SharedModule } from 'primeng/api';
-import { ContextMenu, ContextMenuModule } from 'primeng/contextmenu';
-import { DropdownModule } from 'primeng/dropdown';
+import { SharedModule } from 'primengrtl/api';
+import { ContextMenu, ContextMenuModule } from 'primengrtl/contextmenu';
+import { DropdownModule } from 'primengrtl/dropdown';
 import { EditableColumn, Table, TableModule } from './table';
 import type { Paginator } from '../paginator/paginator';
 
@@ -217,7 +217,7 @@ import type { Paginator } from '../paginator/paginator';
                 <tr>
                     <td>
                         <a href="#" class="rowExpansionToggler" [pRowToggler]="rowData">
-                            <i [ngClass]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></i>
+                            <i [ngClass]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-end'"></i>
                         </a>
                     </td>
                     <td *ngFor="let col of columns">

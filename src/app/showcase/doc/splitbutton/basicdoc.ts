@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MenuItem, MessageService } from 'primeng/api';
+import { MenuItem, MessageService } from 'primengrtl/api';
 import { Code } from '@domain/code';
 
 @Component({
@@ -52,23 +52,23 @@ export class BasicDoc {
     }
 
     code: Code = {
-        basic: `<p-splitButton 
-    label="Save" 
-    (onClick)="save('info')" 
+        basic: `<p-splitButton
+    label="Save"
+    (onClick)="save('info')"
     [model]="items" />`,
 
         html: `<div class="card flex justify-content-center">
     <p-toast />
-    <p-splitButton 
-        label="Save" 
-        (onClick)="save('info')" 
+    <p-splitButton
+        label="Save"
+        (onClick)="save('info')"
         [model]="items" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { MenuItem, MessageService } from 'primeng/api';
-import { SplitButtonModule } from 'primeng/splitbutton';
-import { ToastModule } from 'primeng/toast';
+import { MenuItem, MessageService } from 'primengrtl/api';
+import { SplitButtonModule } from 'primengrtl/splitbutton';
+import { ToastModule } from 'primengrtl/toast';
 
 @Component({
     selector: 'split-button-basic-demo',

@@ -55,41 +55,41 @@ export class WithThumbnailsDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-galleria 
-    [(value)]="images" 
+        basic: `<p-galleria
+    [(value)]="images"
     [(visible)]="displayBasic"
-    [responsiveOptions]="responsiveOptions" 
-    [containerStyle]="{ 'max-width': '50%' }" 
-    [numVisible]="9" 
-    [circular]="true" 
-    [fullScreen]="true" 
+    [responsiveOptions]="responsiveOptions"
+    [containerStyle]="{ 'max-width': '50%' }"
+    [numVisible]="9"
+    [circular]="true"
+    [fullScreen]="true"
     [showItemNavigators]="true">
         <ng-template pTemplate="item" let-item>
-            <img 
-                [src]="item.itemImageSrc" 
+            <img
+                [src]="item.itemImageSrc"
                 style="width: 100%; display: block;" />
         </ng-template>
         <ng-template pTemplate="thumbnail" let-item>
             <div class="grid grid-nogutter justify-content-center">
-                <img 
-                    [src]="item.thumbnailImageSrc" 
+                <img
+                    [src]="item.thumbnailImageSrc"
                     style="display: block;" />
             </div>
         </ng-template>
 </p-galleria>`,
         html: `<div class="card flex justify-content-center">
-    <p-button 
-        icon="pi pi-external-link" 
-        label="Show" 
+    <p-button
+        icon="pi pi-external-link"
+        label="Show"
         (onClick)="displayBasic = true" />
-    <p-galleria 
-        [(value)]="images" 
-        [(visible)]="displayBasic" 
-        [responsiveOptions]="responsiveOptions" 
-        [containerStyle]="{'max-width': '50%'}" 
+    <p-galleria
+        [(value)]="images"
+        [(visible)]="displayBasic"
+        [responsiveOptions]="responsiveOptions"
+        [containerStyle]="{'max-width': '50%'}"
         [numVisible]="9"
-        [circular]="true" 
-        [fullScreen]="true" 
+        [circular]="true"
+        [fullScreen]="true"
         [showItemNavigators]="true">
             <ng-template pTemplate="item" let-item>
                 <img [src]="item.itemImageSrc" style="width: 100%; display: block;"/>
@@ -103,8 +103,8 @@ export class WithThumbnailsDoc implements OnInit {
 </div>`,
         typescript: `import { Component, OnInit } from '@angular/core';
 import { PhotoService } from '@service/photoservice';
-import { GalleriaModule } from 'primeng/galleria';
-import { ButtonModule } from 'primeng/button';
+import { GalleriaModule } from 'primengrtl/galleria';
+import { ButtonModule } from 'primengrtl/button';
 
 @Component({
     selector: 'galleria-full-screen-with-thumbnails-demo',

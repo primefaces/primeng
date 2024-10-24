@@ -21,13 +21,13 @@ import {
     forwardRef,
     numberAttribute
 } from '@angular/core';
-import { BlockableUI, Header, PrimeTemplate, SharedModule } from 'primeng/api';
-import { DomHandler } from 'primeng/dom';
-import { ChevronDownIcon } from 'primeng/icons/chevrondown';
-import { ChevronRightIcon } from 'primeng/icons/chevronright';
+import { BlockableUI, Header, PrimeTemplate, SharedModule } from 'primengrtl/api';
+import { DomHandler } from 'primengrtl/dom';
+import { ChevronDownIcon } from 'primengrtl/icons/chevrondown';
+import { ChevronUpIcon } from 'primengrtl/icons/chevronup';
 import { Subscription } from 'rxjs';
 import { AccordionTabCloseEvent, AccordionTabOpenEvent } from './accordion.interface';
-import { UniqueComponentId } from 'primeng/utils';
+import { UniqueComponentId } from 'primengrtl/utils';
 
 /**
  * AccordionTab is a helper component for Accordion.
@@ -55,11 +55,11 @@ import { UniqueComponentId } from 'primeng/utils';
                     <ng-container *ngIf="!iconTemplate">
                         <ng-container *ngIf="selected">
                             <span *ngIf="accordion.collapseIcon" [class]="accordion.collapseIcon" [ngClass]="iconClass" [attr.aria-hidden]="true"></span>
-                            <ChevronDownIcon *ngIf="!accordion.collapseIcon" [ngClass]="iconClass" [attr.aria-hidden]="true" />
+                            <ChevronUpIcon *ngIf="!accordion.collapseIcon" [ngClass]="iconClass" [attr.aria-hidden]="true" />
                         </ng-container>
                         <ng-container *ngIf="!selected">
                             <span *ngIf="accordion.expandIcon" [class]="accordion.expandIcon" [ngClass]="iconClass" [attr.aria-hidden]="true"></span>
-                            <ChevronRightIcon *ngIf="!accordion.expandIcon" [ngClass]="iconClass" [attr.aria-hidden]="true" />
+                            <ChevronDownIcon *ngIf="!accordion.expandIcon" [ngClass]="iconClass" [attr.aria-hidden]="true" />
                         </ng-container>
                     </ng-container>
                     <ng-template *ngTemplateOutlet="iconTemplate; context: { $implicit: selected }"></ng-template>
@@ -639,7 +639,7 @@ export class Accordion implements BlockableUI, AfterContentInit, OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule, ChevronRightIcon, ChevronDownIcon],
+    imports: [CommonModule, ChevronDownIcon, ChevronUpIcon],
     exports: [Accordion, AccordionTab, SharedModule],
     declarations: [Accordion, AccordionTab]
 })

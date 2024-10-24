@@ -4,15 +4,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { AppDocModule } from '@layout/doc/app.doc.module';
 import { AppCodeModule } from '@layout/doc/app.code.component';
-import { InputOtpModule } from 'primeng/inputotp';
+import { InputOtpModule } from 'primengrtl/inputotp';
 import { ImportDoc } from './importdoc';
 import { BasicDoc } from './basicdoc';
 import { MaskDoc } from './maskdoc';
 import { IntegerOnlyDoc } from './integeronlydoc';
 import { TemplateDoc } from './templatedoc';
-import { InputTextModule } from 'primeng/inputtext';
+import { InputTextModule } from 'primengrtl/inputtext';
 import { SampleDoc } from './sampledoc';
-import { ButtonModule } from 'primeng/button';
+import { ButtonModule } from 'primengrtl/button';
 import { AccessibilityDoc } from './accessibilitydoc';
 
 @NgModule({

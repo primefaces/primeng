@@ -17,24 +17,24 @@ export class DisabledDoc {
     value: string | undefined;
 
     code: Code = {
-        basic: `<input 
-    id="disabled-input" 
+        basic: `<input
+    id="disabled-input"
     type="text"
-    pInputText 
-    [disabled]="true" 
+    pInputText
+    [disabled]="true"
     [(ngModel)]="value" />`,
 
         html: `<div class="card flex justify-content-center">
-    <input 
+    <input
         id="disabled-input"
         type="text"
-        pInputText 
-        [disabled]="true" 
+        pInputText
+        [disabled]="true"
         [(ngModel)]="value" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { InputTextModule } from 'primeng/inputtext';
+import { InputTextModule } from 'primengrtl/inputtext';
 import { FormsModule } from '@angular/forms';
 
 @Component({

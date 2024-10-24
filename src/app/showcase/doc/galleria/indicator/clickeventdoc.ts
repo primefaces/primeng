@@ -45,22 +45,22 @@ export class ClickEventDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-galleria 
-    [(value)]="images" 
-    [showIndicators]="true" 
-    [showThumbnails]="false" 
-    [responsiveOptions]="responsiveOptions" 
+        basic: `<p-galleria
+    [(value)]="images"
+    [showIndicators]="true"
+    [showThumbnails]="false"
+    [responsiveOptions]="responsiveOptions"
     [containerStyle]="{ 'max-width': '640px' }">
     <ng-template pTemplate="item" let-item>
         <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
     </ng-template>
 </p-galleria>`,
         html: `<div class="card">
-    <p-galleria 
-        [(value)]="images" 
-        [showIndicators]="true" 
-        [showThumbnails]="false" 
-        [responsiveOptions]="responsiveOptions" 
+    <p-galleria
+        [(value)]="images"
+        [showIndicators]="true"
+        [showThumbnails]="false"
+        [responsiveOptions]="responsiveOptions"
         [containerStyle]="{ 'max-width': '640px' }">
             <ng-template pTemplate="item" let-item>
                 <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
@@ -69,7 +69,7 @@ export class ClickEventDoc implements OnInit {
 </div>`,
         typescript: `import { Component, OnInit } from '@angular/core';
 import { PhotoService } from '@service/photoservice';
-import { GalleriaModule } from 'primeng/galleria';
+import { GalleriaModule } from 'primengrtl/galleria';
 
 @Component({
     selector: 'galleria-indicator-click-event-demo',

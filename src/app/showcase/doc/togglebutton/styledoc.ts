@@ -20,11 +20,11 @@ import { Component } from '@angular/core';
                         <td>Container element.</td>
                     </tr>
                     <tr>
-                        <td>p-button-icon-left</td>
+                        <td>p-button-icon-start</td>
                         <td>Text element.</td>
                     </tr>
                     <tr>
-                        <td>p-button-icon-right</td>
+                        <td>p-button-icon-end</td>
                         <td>Value element.</td>
                     </tr>
                 </tbody>

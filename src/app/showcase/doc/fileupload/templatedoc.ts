@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Code } from '@domain/code';
-import { MessageService, PrimeNGConfig } from 'primeng/api';
+import { MessageService, PrimeNGConfig } from 'primengrtl/api';
 
 @Component({
     selector: 'file-upload-template-demo',
@@ -22,7 +22,7 @@ import { MessageService, PrimeNGConfig } from 'primeng/api';
                             <p-button (onClick)="uploadEvent(uploadCallback)" icon="pi pi-cloud-upload" [rounded]="true" [outlined]="true" severity="success" [disabled]="!files || files.length === 0" />
                             <p-button (onClick)="clearCallback()" icon="pi pi-times" [rounded]="true" [outlined]="true" severity="danger" [disabled]="!files || files.length === 0" />
                         </div>
-                        <p-progressBar [value]="totalSizePercent" [showValue]="false" styleClass="md:w-20rem h-1rem w-full md:ml-auto" [ngClass]="{ 'exceeded-progress-bar': totalSizePercent > 100 }">
+                        <p-progressBar [value]="totalSizePercent" [showValue]="false" styleClass="md:w-20rem h-1rem w-full md:ms-auto" [ngClass]="{ 'exceeded-progress-bar': totalSizePercent > 100 }">
                             <span class="white-space-nowrap">{{ totalSize }}B / 1Mb</span>
                         </p-progressBar>
                     </div>
@@ -138,7 +138,7 @@ export class TemplateDoc {
                 <p-button (onClick)="uploadEvent(uploadCallback)" icon="pi pi-cloud-upload" [rounded]="true" [outlined]="true" severity="success" [disabled]="!files || files.length === 0" />
                 <p-button (onClick)="clearCallback()" icon="pi pi-times" [rounded]="true" [outlined]="true" severity="danger" [disabled]="!files || files.length === 0" />
             </div>
-            <p-progressBar [value]="totalSizePercent" [showValue]="false" styleClass="md:w-20rem h-1rem w-full md:ml-auto" [ngClass]="{ 'exceeded-progress-bar': totalSizePercent > 100 }">
+            <p-progressBar [value]="totalSizePercent" [showValue]="false" styleClass="md:w-20rem h-1rem w-full md:ms-auto" [ngClass]="{ 'exceeded-progress-bar': totalSizePercent > 100 }">
                 <span class="white-space-nowrap">{{ totalSize }}B / 1Mb</span>
             </p-progressBar>
         </div>
@@ -191,7 +191,7 @@ export class TemplateDoc {
                     <p-button (onClick)="uploadEvent(uploadCallback)" icon="pi pi-cloud-upload" [rounded]="true" [outlined]="true" severity="success" [disabled]="!files || files.length === 0" />
                     <p-button (onClick)="clearCallback()" icon="pi pi-times" [rounded]="true" [outlined]="true" severity="danger" [disabled]="!files || files.length === 0" />
                 </div>
-                <p-progressBar [value]="totalSizePercent" [showValue]="false" styleClass="md:w-20rem h-1rem w-full md:ml-auto" [ngClass]="{ 'exceeded-progress-bar': totalSizePercent > 100 }">
+                <p-progressBar [value]="totalSizePercent" [showValue]="false" styleClass="md:w-20rem h-1rem w-full md:ms-auto" [ngClass]="{ 'exceeded-progress-bar': totalSizePercent > 100 }">
                     <span class="white-space-nowrap">{{ totalSize }}B / 1Mb</span>
                 </p-progressBar>
             </div>
@@ -237,14 +237,14 @@ export class TemplateDoc {
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { MessageService, PrimeNGConfig} from 'primeng/api';
-import { FileUploadModule } from 'primeng/fileupload';
-import { ButtonModule } from 'primeng/button';
+import { MessageService, PrimeNGConfig} from 'primengrtl/api';
+import { FileUploadModule } from 'primengrtl/fileupload';
+import { ButtonModule } from 'primengrtl/button';
 import { CommonModule } from '@angular/common';
-import { BadgeModule } from 'primeng/badge';
+import { BadgeModule } from 'primengrtl/badge';
 import { HttpClientModule } from '@angular/common/http';
-import { ProgressBarModule } from 'primeng/progressbar';
-import { ToastModule } from 'primeng/toast';
+import { ProgressBarModule } from 'primengrtl/progressbar';
+import { ToastModule } from 'primengrtl/toast';
 
 @Component({
     selector: 'file-upload-template-demo',

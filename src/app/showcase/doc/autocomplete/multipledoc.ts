@@ -29,26 +29,26 @@ export class MultipleDoc {
 
     code: Code = {
         basic: `<span class="p-fluid">
-    <p-autoComplete 
-        [(ngModel)]="selectedItems" 
-        [suggestions]="items" 
-        (completeMethod)="search($event)" 
+    <p-autoComplete
+        [(ngModel)]="selectedItems"
+        [suggestions]="items"
+        (completeMethod)="search($event)"
         [multiple]="true" />
 </span>`,
 
         html: `<div class="card">
     <span class="p-fluid">
-        <p-autoComplete 
-            [(ngModel)]="selectedItems" 
-            [suggestions]="items" 
-            (completeMethod)="search($event)" 
+        <p-autoComplete
+            [(ngModel)]="selectedItems"
+            [suggestions]="items"
+            (completeMethod)="search($event)"
             [multiple]="true" />
     </span>
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AutoCompleteModule } from 'primeng/autocomplete';
+import { AutoCompleteModule } from 'primengrtl/autocomplete';
 
 interface AutoCompleteCompleteEvent {
     originalEvent: Event;

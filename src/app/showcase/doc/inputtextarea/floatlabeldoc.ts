@@ -19,9 +19,9 @@ import { Code } from '@domain/code';
 export class FloatlabelDoc {
     code: Code = {
         basic: `<p-floatLabel>
-    <textarea 
-        id="float-input" 
-        rows="5" cols="30" 
+    <textarea
+        id="float-input"
+        rows="5" cols="30"
         pInputTextarea>
     </textarea>
     <label for="float-input">Summary</label>
@@ -29,10 +29,10 @@ export class FloatlabelDoc {
 
         html: `<div class="card flex justify-content-center">
     <p-floatLabel>
-        <textarea 
-            id="float-input" 
+        <textarea
+            id="float-input"
             rows="5"
-            cols="30" 
+            cols="30"
             pInputTextarea>
         </textarea>
         <label for="float-input">Summary</label>
@@ -40,9 +40,9 @@ export class FloatlabelDoc {
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { InputTextareaModule } from 'primeng/inputtextarea';
+import { InputTextareaModule } from 'primengrtl/inputtextarea';
 import { FormsModule } from '@angular/forms';
-import { FloatLabelModule } from 'primeng/floatlabel';
+import { FloatLabelModule } from 'primengrtl/floatlabel';
 
 @Component({
     selector: ': 'input-textarea-floatlabel-demo',

@@ -1,6 +1,6 @@
 {
-    "name": "primeng",
-    "version": "17.18.11",
+    "name": "primengrtl",
+    "version": "1.0.0",
     "license": "SEE LICENSE IN LICENSE.md",
     "scripts": {
         "ng": "ng",
@@ -20,7 +20,7 @@
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/primefaces/primeng.git"
+        "url": "https://github.com/aaasadi/primeng.git"
     },
     "devDependencies": {
         "@angular-devkit/build-angular": "^18.0.2",
@@ -75,8 +75,8 @@
         "karma-jasmine-html-reporter": "~2.0.0",
         "prettier": "^3.0.0",
         "ng-packagr": "^18.0.0",
-        "primeflex": "^3.3.1",
-        "primeicons": "^7.0.0",
+        "primeflexrtl": "^1.0.0",
+        "primeiconsrtl": "^1.0.0",
         "prismjs": "^1.29.0",
         "quill": "2.0.2",
         "rxjs": "~7.8.1",

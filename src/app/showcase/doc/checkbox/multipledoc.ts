@@ -29,68 +29,68 @@ export class MultipleDoc {
 
     code: Code = {
         basic: `<div class="flex align-items-center">
-    <p-checkbox 
+    <p-checkbox
         [(ngModel)]="pizza"
-        label="Cheese" 
-        name="pizza" 
+        label="Cheese"
+        name="pizza"
         value="Cheese" />
 </div>
 <div class="flex align-items-center">
-    <p-checkbox 
+    <p-checkbox
         [(ngModel)]="pizza"
         label="Mushroom"
-        name="pizza" 
+        name="pizza"
         value="Mushroom" />
 </div>
 <div class="flex align-items-center">
-    <p-checkbox 
+    <p-checkbox
         [(ngModel)]="pizza"
-        label="Pepper" 
-        name="pizza" 
+        label="Pepper"
+        name="pizza"
         value="Pepper" />
 </div>
 <div class="flex align-items-center">
-    <p-checkbox 
+    <p-checkbox
         [(ngModel)]="pizza"
-        label="Onion" 
-        name="pizza" 
+        label="Onion"
+        name="pizza"
         value="Onion" />
 </div>`,
 
         html: `<div class="card flex justify-content-center gap-3">
     <div class="flex align-items-center">
-        <p-checkbox 
+        <p-checkbox
             [(ngModel)]="pizza"
-            label="Cheese" 
-            name="pizza" 
+            label="Cheese"
+            name="pizza"
             value="Cheese" />
     </div>
     <div class="flex align-items-center">
-        <p-checkbox 
+        <p-checkbox
             [(ngModel)]="pizza"
             label="Mushroom"
-            name="pizza" 
+            name="pizza"
             value="Mushroom" />
     </div>
     <div class="flex align-items-center">
-        <p-checkbox 
+        <p-checkbox
             [(ngModel)]="pizza"
-            label="Pepper" 
-            name="pizza" 
+            label="Pepper"
+            name="pizza"
             value="Pepper" />
     </div>
     <div class="flex align-items-center">
-        <p-checkbox 
+        <p-checkbox
             [(ngModel)]="pizza"
-            label="Onion" 
-            name="pizza" 
+            label="Onion"
+            name="pizza"
             value="Onion" />
     </div>
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { CheckboxModule } from 'primeng/checkbox';
+import { CheckboxModule } from 'primengrtl/checkbox';
 
 @Component({
     selector: 'checkbox-multiple-demo',

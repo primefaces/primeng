@@ -17,23 +17,23 @@ export class InlineDoc {
     date: Date[] | undefined;
 
     code: Code = {
-        basic: `<p-calendar 
-    class="max-w-full" 
-    [(ngModel)]="date" 
-    [inline]="true" 
+        basic: `<p-calendar
+    class="max-w-full"
+    [(ngModel)]="date"
+    [inline]="true"
     [showWeek]="true" />`,
 
         html: `<div class="card flex justify-content-center">
-    <p-calendar 
-        class="max-w-full" 
-        [(ngModel)]="date" 
-        [inline]="true" 
+    <p-calendar
+        class="max-w-full"
+        [(ngModel)]="date"
+        [inline]="true"
         [showWeek]="true" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { CalendarModule } from 'primeng/calendar';
+import { CalendarModule } from 'primengrtl/calendar';
 
 @Component({
     selector: 'calendar-inline-demo',

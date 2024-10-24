@@ -22,22 +22,22 @@ import {
     booleanAttribute,
     numberAttribute
 } from '@angular/core';
-import { FilterService, PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
-import { ButtonModule } from 'primeng/button';
-import { DomHandler } from 'primeng/dom';
-import { AngleDoubleDownIcon } from 'primeng/icons/angledoubledown';
-import { AngleDoubleLeftIcon } from 'primeng/icons/angledoubleleft';
-import { AngleDoubleRightIcon } from 'primeng/icons/angledoubleright';
-import { AngleDoubleUpIcon } from 'primeng/icons/angledoubleup';
-import { AngleDownIcon } from 'primeng/icons/angledown';
-import { AngleLeftIcon } from 'primeng/icons/angleleft';
-import { AngleRightIcon } from 'primeng/icons/angleright';
-import { AngleUpIcon } from 'primeng/icons/angleup';
-import { HomeIcon } from 'primeng/icons/home';
-import { SearchIcon } from 'primeng/icons/search';
-import { RippleModule } from 'primeng/ripple';
-import { Nullable, VoidListener } from 'primeng/ts-helpers';
-import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
+import { FilterService, PrimeNGConfig, PrimeTemplate, SharedModule } from 'primengrtl/api';
+import { ButtonModule } from 'primengrtl/button';
+import { DomHandler } from 'primengrtl/dom';
+import { AngleDoubleDownIcon } from 'primengrtl/icons/angledoubledown';
+import { AngleDoubleStartIcon } from 'primengrtl/icons/angledoublestart';
+import { AngleDoubleEndIcon } from 'primengrtl/icons/angledoubleend';
+import { AngleDoubleUpIcon } from 'primengrtl/icons/angledoubleup';
+import { AngleDownIcon } from 'primengrtl/icons/angledown';
+import { AngleStartIcon } from 'primengrtl/icons/anglestart';
+import { AngleEndIcon } from 'primengrtl/icons/angleend';
+import { AngleUpIcon } from 'primengrtl/icons/angleup';
+import { HomeIcon } from 'primengrtl/icons/home';
+import { SearchIcon } from 'primengrtl/icons/search';
+import { RippleModule } from 'primengrtl/ripple';
+import { Nullable, VoidListener } from 'primengrtl/ts-helpers';
+import { ObjectUtils, UniqueComponentId } from 'primengrtl/utils';
 import {
     PickListFilterOptions,
     PickListMoveAllToSourceEvent,
@@ -195,28 +195,28 @@ import {
             <div class="p-picklist-buttons p-picklist-transfer-buttons" [attr.data-pc-section]="'buttons'" [attr.data-pc-group-section]="'controls'">
                 <button type="button" [attr.aria-label]="moveToTargetAriaLabel" pButton pRipple class="p-button-icon-only" [disabled]="moveRightDisabled()" (click)="moveRight()" [attr.data-pc-section]="'moveToTargetButton'">
                     <ng-container *ngIf="!moveToTargetIconTemplate">
-                        <AngleRightIcon *ngIf="!viewChanged" [attr.data-pc-section]="'movetotargeticon'" />
+                        <AngleEndIcon *ngIf="!viewChanged" [attr.data-pc-section]="'movetotargeticon'" />
                         <AngleDownIcon *ngIf="viewChanged" [attr.data-pc-section]="'movetotargeticon'" />
                     </ng-container>
                     <ng-template *ngTemplateOutlet="moveToTargetIconTemplate; context: { $implicit: viewChanged }"></ng-template>
                 </button>
                 <button type="button" [attr.aria-label]="moveAllToTargetAriaLabel" pButton pRipple class="p-button-icon-only" [disabled]="moveAllRightDisabled()" (click)="moveAllRight()" [attr.data-pc-section]="'moveAllToTargetButton'">
                     <ng-container *ngIf="!moveAllToTargetIconTemplate">
-                        <AngleDoubleRightIcon *ngIf="!viewChanged" [attr.data-pc-section]="'movealltotargeticon'" />
+                        <AngleDoubleEndIcon *ngIf="!viewChanged" [attr.data-pc-section]="'movealltotargeticon'" />
                         <AngleDoubleDownIcon *ngIf="viewChanged" [attr.data-pc-section]="'movealltotargeticon'" />
                     </ng-container>
                     <ng-template *ngTemplateOutlet="moveAllToTargetIconTemplate; context: { $implicit: viewChanged }"></ng-template>
                 </button>
                 <button type="button" [attr.aria-label]="moveToSourceAriaLabel" pButton pRipple class="p-button-icon-only" [disabled]="moveLeftDisabled()" (click)="moveLeft()" [attr.data-pc-section]="'moveToSourceButton'">
                     <ng-container *ngIf="!moveToSourceIconTemplate">
-                        <AngleLeftIcon *ngIf="!viewChanged" [attr.data-pc-section]="'movedownsourceticon'" />
+                        <AngleStartIcon *ngIf="!viewChanged" [attr.data-pc-section]="'movedownsourceticon'" />
                         <AngleUpIcon *ngIf="viewChanged" [attr.data-pc-section]="'movedownsourceticon'" />
                     </ng-container>
                     <ng-template *ngTemplateOutlet="moveToSourceIconTemplate; context: { $implicit: viewChanged }"></ng-template>
                 </button>
                 <button type="button" [attr.aria-label]="moveAllToSourceAriaLabel" pButton pRipple class="p-button-icon-only" [disabled]="moveAllLeftDisabled()" (click)="moveAllLeft()" [attr.data-pc-section]="'moveAllToSourceButton'">
                     <ng-container *ngIf="!moveAllToSourceIconTemplate">
-                        <AngleDoubleLeftIcon *ngIf="!viewChanged" [attr.data-pc-section]="'movealltosourceticon'" />
+                        <AngleDoubleStartIcon *ngIf="!viewChanged" [attr.data-pc-section]="'movealltosourceticon'" />
                         <AngleDoubleUpIcon *ngIf="viewChanged" [attr.data-pc-section]="'movealltosourceticon'" />
                     </ng-container>
                     <ng-template *ngTemplateOutlet="moveAllToSourceIconTemplate; context: { $implicit: viewChanged }"></ng-template>
@@ -1641,12 +1641,12 @@ export class PickList implements AfterViewChecked, AfterContentInit {
                     }
 
                     .p-picklist[${this.id}] .p-picklist-buttons .p-button {
-                        margin-right: var(--inline-spacing);
+                        margin-inline-end: var(--inline-spacing);
                         margin-bottom: 0;
                     }
 
                     .p-picklist[${this.id}] .p-picklist-buttons .p-button:last-child {
-                        margin-right: 0;
+                        margin-inline-end: 0;
                     }
                 }`;
 
@@ -1702,7 +1702,7 @@ const DragConfig = {
 };
 
 @NgModule({
-    imports: [CommonModule, ButtonModule, SharedModule, RippleModule, DragDropModule, AngleDoubleDownIcon, AngleDoubleLeftIcon, AngleDoubleRightIcon, AngleDoubleUpIcon, AngleDownIcon, AngleLeftIcon, AngleRightIcon, AngleUpIcon, SearchIcon, HomeIcon],
+    imports: [CommonModule, ButtonModule, SharedModule, RippleModule, DragDropModule, AngleDoubleDownIcon, AngleDoubleStartIcon, AngleDoubleEndIcon, AngleDoubleUpIcon, AngleDownIcon, AngleStartIcon, AngleEndIcon, AngleUpIcon, SearchIcon, HomeIcon],
     exports: [PickList, SharedModule, DragDropModule],
     declarations: [PickList],
     providers: [{ provide: CDK_DRAG_CONFIG, useValue: DragConfig }]

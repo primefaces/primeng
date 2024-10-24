@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TreeNode } from 'primeng/api';
+import { TreeNode } from 'primengrtl/api';
 import { Code } from '@domain/code';
 import { NodeService } from '@service/nodeservice';
 
@@ -27,24 +27,24 @@ export class CheckboxDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-tree 
-    [value]="files" 
-    selectionMode="checkbox" 
-    class="w-full md:w-30rem" 
+        basic: `<p-tree
+    [value]="files"
+    selectionMode="checkbox"
+    class="w-full md:w-30rem"
     [(selection)]="selectedFiles" />`,
 
         html: `<div class="card flex flex-column align-items-center justify-content-center">
-    <p-tree 
-        [value]="files" 
-        selectionMode="checkbox" 
-        class="w-full md:w-30rem" 
+    <p-tree
+        [value]="files"
+        selectionMode="checkbox"
+        class="w-full md:w-30rem"
         [(selection)]="selectedFiles" />
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
-import { TreeNode } from 'primeng/api';
+import { TreeNode } from 'primengrtl/api';
 import { NodeService } from '@service/nodeservice';
-import { TreeModule } from 'primeng/tree';
+import { TreeModule } from 'primengrtl/tree';
 
 @Component({
     selector: 'tree-checkbox-demo',

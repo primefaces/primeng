@@ -1,12 +1,12 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChildren, ElementRef, EventEmitter, Input, NgModule, Output, QueryList, TemplateRef, ViewEncapsulation, booleanAttribute } from '@angular/core';
-import { BlockableUI, PrimeTemplate, SharedModule } from 'primeng/api';
-import { MinusIcon } from 'primeng/icons/minus';
-import { PlusIcon } from 'primeng/icons/plus';
-import { RippleModule } from 'primeng/ripple';
-import { Nullable } from 'primeng/ts-helpers';
-import { UniqueComponentId } from 'primeng/utils';
+import { BlockableUI, PrimeTemplate, SharedModule } from 'primengrtl/api';
+import { MinusIcon } from 'primengrtl/icons/minus';
+import { PlusIcon } from 'primengrtl/icons/plus';
+import { RippleModule } from 'primengrtl/ripple';
+import { Nullable } from 'primengrtl/ts-helpers';
+import { UniqueComponentId } from 'primengrtl/utils';
 import { FieldsetAfterToggleEvent, FieldsetBeforeToggleEvent } from './fieldset.interface';
 
 /**

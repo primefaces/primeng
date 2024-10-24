@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, DOCUMENT } from '@angular/common';
 import {
     AfterContentInit,
     booleanAttribute,
@@ -24,20 +24,20 @@ import {
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
-import { BlockableUI, PrimeNGConfig, PrimeTemplate, ScrollerOptions, SharedModule, TranslationKeys, TreeDragDropService, TreeNode } from 'primeng/api';
-import { DomHandler } from 'primeng/dom';
-import { RippleModule } from 'primeng/ripple';
-import { Scroller, ScrollerModule } from 'primeng/scroller';
-import { ObjectUtils } from 'primeng/utils';
+import { BlockableUI, PrimeNGConfig, PrimeTemplate, ScrollerOptions, SharedModule, TranslationKeys, TreeDragDropService, TreeNode } from 'primengrtl/api';
+import { DomHandler } from 'primengrtl/dom';
+import { RippleModule } from 'primengrtl/ripple';
+import { Scroller, ScrollerModule } from 'primengrtl/scroller';
+import { ObjectUtils } from 'primengrtl/utils';
 import { Subscription } from 'rxjs';
-import { CheckIcon } from 'primeng/icons/check';
-import { ChevronDownIcon } from 'primeng/icons/chevrondown';
-import { ChevronRightIcon } from 'primeng/icons/chevronright';
-import { MinusIcon } from 'primeng/icons/minus';
-import { PlusIcon } from 'primeng/icons/plus';
-import { SearchIcon } from 'primeng/icons/search';
-import { SpinnerIcon } from 'primeng/icons/spinner';
-import { Nullable } from 'primeng/ts-helpers';
+import { CheckIcon } from 'primengrtl/icons/check';
+import { ChevronDownIcon } from 'primengrtl/icons/chevrondown';
+import { ChevronEndIcon } from 'primengrtl/icons/chevronend';
+import { MinusIcon } from 'primengrtl/icons/minus';
+import { PlusIcon } from 'primengrtl/icons/plus';
+import { SearchIcon } from 'primengrtl/icons/search';
+import { SpinnerIcon } from 'primengrtl/icons/spinner';
+import { Nullable } from 'primengrtl/ts-helpers';
 import {
     TreeFilterEvent,
     TreeLazyLoadEvent,
@@ -85,7 +85,7 @@ import {
                 <div
                     class="p-treenode-content"
                     [ngStyle]="{
-                        'padding-left': level * indentation + 'rem'
+                        'padding-inline-start': level * indentation + 'rem'
                     }"
                     (click)="onNodeClick($event)"
                     (contextmenu)="onNodeRightClick($event)"
@@ -102,7 +102,7 @@ import {
                     <button type="button" [attr.data-pc-section]="'toggler'" class="p-tree-toggler p-link" (click)="toggle($event)" pRipple tabindex="-1">
                         <ng-container *ngIf="!tree.togglerIconTemplate">
                             <ng-container *ngIf="!node.loading">
-                                <ChevronRightIcon *ngIf="!node.expanded" [styleClass]="'p-tree-toggler-icon'" />
+                                <ChevronEndIcon *ngIf="!node.expanded" [styleClass]="'p-tree-toggler-icon'" />
                                 <ChevronDownIcon *ngIf="node.expanded" [styleClass]="'p-tree-toggler-icon'" />
                             </ng-container>
                             <ng-container *ngIf="loadingMode === 'icon' && node.loading">
@@ -275,7 +275,10 @@ export class UITreeNode implements OnInit {
         return this.tree.selectionMode === 'checkbox' ? this.isSelected() : undefined;
     }
 
-    constructor(@Inject(forwardRef(() => Tree)) tree: Tree) {
+    constructor(
+        @Inject(DOCUMENT) private document: Document,
+        @Inject(forwardRef(() => Tree)) tree: Tree
+    ) {
         this.tree = tree as Tree;
     }
 
@@ -758,6 +761,7 @@ export class UITreeNode implements OnInit {
         }, 1);
     }
 }
+
 /**
  * Tree is used to display hierarchical data.
  * @group Components
@@ -1077,10 +1081,12 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
     @Input() get virtualNodeHeight(): number | undefined {
         return this._virtualNodeHeight;
     }
+
     set virtualNodeHeight(val: number | undefined) {
         this._virtualNodeHeight = val;
         console.warn('The virtualNodeHeight property is deprecated, use virtualScrollItemSize property instead.');
     }
+
     /**
      * Callback to invoke on selection change.
      * @param {(TreeNode<any> | TreeNode<any>[] | null)} event - Custom selection change event.
@@ -1741,6 +1747,7 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
             this.filterViewChild.nativeElement.value = '';
         }
     }
+
     /**
      * Scrolls to virtual index.
      * @param {number} number - Index to be scrolled.
@@ -1749,6 +1756,7 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
     public scrollToVirtualIndex(index: number) {
         this.virtualScroll && this.scroller?.scrollToIndex(index);
     }
+
     /**
      * Scrolls to virtual index.
      * @param {ScrollToOptions} options - Scroll options.
@@ -1825,8 +1833,9 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
         }
     }
 }
+
 @NgModule({
-    imports: [CommonModule, SharedModule, RippleModule, ScrollerModule, CheckIcon, ChevronDownIcon, ChevronRightIcon, MinusIcon, SearchIcon, SpinnerIcon, PlusIcon],
+    imports: [CommonModule, SharedModule, RippleModule, ScrollerModule, CheckIcon, ChevronDownIcon, ChevronEndIcon, MinusIcon, SearchIcon, SpinnerIcon, PlusIcon],
     exports: [Tree, SharedModule, ScrollerModule],
     declarations: [Tree, UITreeNode]
 })

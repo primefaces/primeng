@@ -16,20 +16,20 @@ import { Code } from '@domain/code';
 export class DisabledDoc {
     code: Code = {
         basic: `<p-cascadeSelect
-    [disabled]="true" 
-    placeholder="Disabled" 
+    [disabled]="true"
+    placeholder="Disabled"
     [style]="{ minWidth: '14rem' }" />`,
 
         html: `<div class="card flex justify-content-center">
-    <p-cascadeSelect 
-        [disabled]="true" 
-        placeholder="Disabled" 
+    <p-cascadeSelect
+        [disabled]="true"
+        placeholder="Disabled"
         [style]="{ minWidth: '14rem' }" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { CascadeSelectModule } from 'primeng/cascadeselect';
+import { CascadeSelectModule } from 'primengrtl/cascadeselect';
 
 @Component({
     selector: 'cascade-select-disabled-demo',
@@ -38,7 +38,7 @@ import { CascadeSelectModule } from 'primeng/cascadeselect';
     imports: [FormsModule, CascadeSelectModule]
 })
 export class CascadeSelectDisabledDemo {
-   
+
 }`
     };
 }

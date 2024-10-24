@@ -29,19 +29,19 @@ export class TemplateDoc {
     code: Code = {
         basic: `<p-rating [(ngModel)]="value" stars="5">
         <ng-template pTemplate="cancelicon">
-            <img 
-                src="https://primefaces.org/cdn/primeng/images/demo/rating/cancel.png" 
-                width="25px" 
+            <img
+                src="https://primefaces.org/cdn/primeng/images/demo/rating/cancel.png"
+                width="25px"
                 height="25px" />
         </ng-template>
         <ng-template pTemplate="onicon">
-            <img 
-                src="https://primefaces.org/cdn/primeng/images/demo/rating/custom-icon-active.png" 
-                width="25px" 
+            <img
+                src="https://primefaces.org/cdn/primeng/images/demo/rating/custom-icon-active.png"
+                width="25px"
                 height="25px" />
         </ng-template>
         <ng-template pTemplate="officon">
-            <img 
+            <img
                 src="https://primefaces.org/cdn/primeng/images/demo/rating/custom-icon.png"
                 width="25px"
                 height="25px" />
@@ -51,21 +51,21 @@ export class TemplateDoc {
         html: `<div class="card flex justify-content-center">
     <p-rating [(ngModel)]="value" stars="5">
     <ng-template pTemplate="cancelicon">
-        <img 
-            src="https://primefaces.org/cdn/primeng/images/demo/rating/cancel.png" 
-            width="25px" 
+        <img
+            src="https://primefaces.org/cdn/primeng/images/demo/rating/cancel.png"
+            width="25px"
             height="25px" />
     </ng-template>
     <ng-template pTemplate="onicon">
-        <img 
+        <img
             src="https://primefaces.org/cdn/primeng/images/demo/rating/custom-icon-active.png"
-            width="25px" 
+            width="25px"
             height="25px" />
     </ng-template>
     <ng-template pTemplate="officon">
-        <img 
-            src="https://primefaces.org/cdn/primeng/images/demo/rating/custom-icon.png" 
-            width="25px" 
+        <img
+            src="https://primefaces.org/cdn/primeng/images/demo/rating/custom-icon.png"
+            width="25px"
             height="25px" />
     </ng-template>
     </p-rating>
@@ -73,7 +73,7 @@ export class TemplateDoc {
 
         typescript: `import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RatingModule } from 'primeng/rating';
+import { RatingModule } from 'primengrtl/rating';
 
 @Component({
     selector: 'rating-template-demo',

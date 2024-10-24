@@ -18,18 +18,18 @@ export class InvalidDoc {
     value: boolean | null = null;
 
     code: Code = {
-        basic: `<p-triStateCheckbox 
-    [(ngModel)]="value" 
-    inputId="tricheckbox" 
+        basic: `<p-triStateCheckbox
+    [(ngModel)]="value"
+    inputId="tricheckbox"
     class="ng-dirty ng-invalid" />
 <label for="tricheckbox">
     {{ value === null ? 'null' : value }}
 </label>`,
 
         html: `<div class="card flex flex-column gap-3 align-items-center">
-    <p-triStateCheckbox 
+    <p-triStateCheckbox
         [(ngModel)]="value"
-        inputId="tricheckbox" 
+        inputId="tricheckbox"
         class="ng-dirty ng-invalid" />
     <label for="tricheckbox">
         {{ value === null ? 'null' : value }}
@@ -37,7 +37,7 @@ export class InvalidDoc {
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { TriStateCheckboxModule } from 'primeng/tristatecheckbox';
+import { TriStateCheckboxModule } from 'primengrtl/tristatecheckbox';
 import { FormsModule } from '@angular/forms';
 
 @Component({

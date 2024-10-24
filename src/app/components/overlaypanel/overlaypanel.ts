@@ -24,12 +24,12 @@ import {
     ViewEncapsulation,
     ViewRef
 } from '@angular/core';
-import { OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
-import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
-import { TimesIcon } from 'primeng/icons/times';
-import { RippleModule } from 'primeng/ripple';
-import { Nullable, VoidListener } from 'primeng/ts-helpers';
-import { ZIndexUtils } from 'primeng/utils';
+import { OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule } from 'primengrtl/api';
+import { ConnectedOverlayScrollHandler, DomHandler } from 'primengrtl/dom';
+import { TimesIcon } from 'primengrtl/icons/times';
+import { RippleModule } from 'primengrtl/ripple';
+import { Nullable, VoidListener } from 'primengrtl/ts-helpers';
+import { ZIndexUtils } from 'primengrtl/utils';
 import { Subscription } from 'rxjs';
 /**
  * OverlayPanel is a container component positioned as connected to its target.
@@ -345,19 +345,21 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
         const containerOffset = DomHandler.getOffset(this.container);
         const targetOffset = DomHandler.getOffset(this.target);
         const borderRadius = this.document.defaultView?.getComputedStyle(this.container!).getPropertyValue('border-radius');
-        let arrowLeft = 0;
+        let arrowStart = 0;
 
-        if (containerOffset.left < targetOffset.left) {
-            arrowLeft = targetOffset.left - containerOffset.left - parseFloat(borderRadius!) * 2;
+        const diff = targetOffset.start - containerOffset.start - parseFloat(borderRadius!) * 2;
+        if (diff > 0) {
+            arrowStart = diff;
         }
-        this.container?.style.setProperty('--overlayArrowLeft', `${arrowLeft}px`);
+
+        this.container?.style.setProperty('--overlayArrowStart', `${arrowStart}px`);
 
         if (containerOffset.top < targetOffset.top) {
             DomHandler.addClass(this.container, 'p-overlaypanel-flipped');
 
-            if (this.showCloseIcon) {
-                this.renderer.setStyle(this.container, 'margin-top', '-30px');
-            }
+            // if (this.showCloseIcon) {
+            //     this.renderer.setStyle(this.container, 'margin-top', '-30px');
+            // }
         }
     }
 

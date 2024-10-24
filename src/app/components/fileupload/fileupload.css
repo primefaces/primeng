@@ -14,7 +14,7 @@
     }
 
     .p-fileupload-row > div:last-child {
-        text-align: right;
+        text-align: end;
     }
 
     .p-fileupload-content .p-progressbar {

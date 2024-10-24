@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MessageService } from 'primeng/api';
+import { MessageService } from 'primengrtl/api';
 import { Car } from '@domain/car';
 import { Code } from '@domain/code';
 import { CarService } from '@service/carservice';
@@ -107,11 +107,11 @@ export class DataTableDoc {
     </div>
 </div>`,
         typescript: `import { Component, Input } from '@angular/core';
-import { MessageService } from 'primeng/api';
+import { MessageService } from 'primengrtl/api';
 import { Car } from '@domain/car';
 import { CarService } from '@service/carservice';
-import { DeferModule } from 'primeng/defer';
-import { ToastModule } from 'primeng/toast';
+import { DeferModule } from 'primengrtl/defer';
+import { ToastModule } from 'primengrtl/toast';
 
 @Component({
     selector: 'defer-data-table-demo',

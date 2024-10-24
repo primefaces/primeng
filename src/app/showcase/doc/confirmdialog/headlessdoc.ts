@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ConfirmationService, MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primengrtl/api';
 import { Code } from '@domain/code';
 
 @Component({
@@ -63,16 +63,16 @@ export class HeadlessDoc {
             </span>
             <p class="mb-0">{{ message.message }}</p>
             <div class="flex align-items-center gap-2 mt-4">
-                <button 
-                    pButton 
-                    label="Save" 
-                    (click)="cd.accept()" 
+                <button
+                    pButton
+                    label="Save"
+                    (click)="cd.accept()"
                     class="w-8rem">
                 </button>
-                <button 
-                    pButton 
-                    label="Cancel" 
-                    (click)="cd.reject()" 
+                <button
+                    pButton
+                    label="Cancel"
+                    (click)="cd.reject()"
                     class="p-button-outlined w-8rem ">
                 </button>
             </div>
@@ -94,16 +94,16 @@ export class HeadlessDoc {
             </span>
             <p class="mb-0">{{ message.message }}</p>
             <div class="flex align-items-center gap-2 mt-4">
-                <button 
-                    pButton 
-                    label="Save" 
-                    (click)="cd.accept()" 
+                <button
+                    pButton
+                    label="Save"
+                    (click)="cd.accept()"
                     class="w-8rem">
                 </button>
-                <button 
-                    pButton 
+                <button
+                    pButton
                     label="Cancel"
-                    (click)="cd.reject()" 
+                    (click)="cd.reject()"
                     class="p-button-outlined w-8rem ">
                 </button>
             </div>
@@ -114,11 +114,11 @@ export class HeadlessDoc {
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { ConfirmationService, MessageService } from 'primeng/api';
-import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { ButtonModule } from 'primeng/button';
-import { ToastModule } from 'primeng/toast';
-  
+import { ConfirmationService, MessageService } from 'primengrtl/api';
+import { ConfirmDialogModule } from 'primengrtl/confirmdialog';
+import { ButtonModule } from 'primengrtl/button';
+import { ToastModule } from 'primengrtl/toast';
+
 @Component({
     selector: 'confirm-dialog-headless-demo',
     templateUrl: './confirm-dialog-headless-demo.html',

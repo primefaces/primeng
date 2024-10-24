@@ -22,17 +22,17 @@ import {
     booleanAttribute,
     numberAttribute
 } from '@angular/core';
-import { FilterService, PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
-import { ButtonModule } from 'primeng/button';
-import { DomHandler } from 'primeng/dom';
-import { AngleDoubleDownIcon } from 'primeng/icons/angledoubledown';
-import { AngleDoubleUpIcon } from 'primeng/icons/angledoubleup';
-import { AngleDownIcon } from 'primeng/icons/angledown';
-import { AngleUpIcon } from 'primeng/icons/angleup';
-import { SearchIcon } from 'primeng/icons/search';
-import { RippleModule } from 'primeng/ripple';
-import { Nullable } from 'primeng/ts-helpers';
-import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
+import { FilterService, PrimeNGConfig, PrimeTemplate, SharedModule } from 'primengrtl/api';
+import { ButtonModule } from 'primengrtl/button';
+import { DomHandler } from 'primengrtl/dom';
+import { AngleDoubleDownIcon } from 'primengrtl/icons/angledoubledown';
+import { AngleDoubleUpIcon } from 'primengrtl/icons/angledoubleup';
+import { AngleDownIcon } from 'primengrtl/icons/angledown';
+import { AngleUpIcon } from 'primengrtl/icons/angleup';
+import { SearchIcon } from 'primengrtl/icons/search';
+import { RippleModule } from 'primengrtl/ripple';
+import { Nullable } from 'primengrtl/ts-helpers';
+import { ObjectUtils, UniqueComponentId } from 'primengrtl/utils';
 import { OrderListFilterEvent, OrderListFilterOptions, OrderListSelectionChangeEvent } from './orderlist.interface';
 /**
  * OrderList is used to managed the order of a collection.
@@ -42,7 +42,7 @@ import { OrderListFilterEvent, OrderListFilterOptions, OrderListSelectionChangeE
     selector: 'p-orderList',
     template: `
         <div
-            [ngClass]="{ 'p-orderlist p-component': true, 'p-orderlist-striped': stripedRows, 'p-orderlist-controls-left': controlsPosition === 'left', 'p-orderlist-controls-right': controlsPosition === 'right' }"
+            [ngClass]="{ 'p-orderlist p-component': true, 'p-orderlist-striped': stripedRows, 'p-orderlist-controls-left': controlsPosition === 'start', 'p-orderlist-controls-right': controlsPosition === 'end' }"
             [ngStyle]="style"
             [class]="styleClass"
             [attr.data-pc-section]="'root'"
@@ -235,7 +235,7 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
      * Defines the location of the buttons with respect to the list.
      * @group Props
      */
-    @Input() controlsPosition: 'left' | 'right' = 'left';
+    @Input() controlsPosition: 'start' | 'end' = 'start';
 
     /**
      * Defines a string that labels the filter input.
@@ -928,12 +928,12 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
                         }
 
                         .p-orderlist[${this.id}] .p-orderlist-controls .p-button {
-                            margin-right: var(--inline-spacing);
+                            margin-inline-end: var(--inline-spacing);
                             margin-bottom: 0;
                         }
 
                         .p-orderlist[${this.id}] .p-orderlist-controls .p-button:last-child {
-                            margin-right: 0;
+                            margin-inline-end: 0;
                         }
                     }
                 `;

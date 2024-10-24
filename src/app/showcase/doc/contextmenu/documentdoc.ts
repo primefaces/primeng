@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuItem } from 'primeng/api';
+import { MenuItem } from 'primengrtl/api';
 import { Code } from '@domain/code';
 
 @Component({
@@ -30,7 +30,7 @@ export class DocumentDoc implements OnInit {
                 items: [
                     {
                         label: 'Start',
-                        icon: 'pi pi-caret-right'
+                        icon: 'pi pi-caret-end'
                     },
                     {
                         label: 'Stop',
@@ -57,8 +57,8 @@ export class DocumentDoc implements OnInit {
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
-import { MenuItem } from 'primeng/api';
-import { ContextMenuModule } from 'primeng/contextmenu';
+import { MenuItem } from 'primengrtl/api';
+import { ContextMenuModule } from 'primengrtl/contextmenu';
 
 @Component({
     selector: 'context-menu-document-demo',
@@ -81,7 +81,7 @@ export class ContextMenuDocumentDemo implements OnInit {
                 items: [
                     {
                         label: 'Start',
-                        icon: 'pi pi-caret-right'
+                        icon: 'pi pi-caret-end'
                     },
                     {
                         label: 'Stop',
@@ -103,7 +103,7 @@ export class ContextMenuDocumentDemo implements OnInit {
         module: `
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { ContextMenuModule } from 'primeng/contextmenu';
+import { ContextMenuModule } from 'primengrtl/contextmenu';
 import { ContextMenuDemo } from './contextmenudemo';
 
 @NgModule({

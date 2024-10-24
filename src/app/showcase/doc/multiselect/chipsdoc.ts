@@ -34,27 +34,27 @@ export class ChipsDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-multiSelect 
-    [options]="cities" 
-    [(ngModel)]="selectedCities" 
+        basic: `<p-multiSelect
+    [options]="cities"
+    [(ngModel)]="selectedCities"
     placeholder="Select Cities"
-    optionLabel="name" 
-    display="chip" 
+    optionLabel="name"
+    display="chip"
     [showClear]="true" />`,
 
         html: `<div class="card flex justify-content-center">
-    <p-multiSelect 
-        [options]="cities" 
-        [(ngModel)]="selectedCities" 
-        placeholder="Select Cities" 
-        optionLabel="name" 
-        display="chip" 
+    <p-multiSelect
+        [options]="cities"
+        [(ngModel)]="selectedCities"
+        placeholder="Select Cities"
+        optionLabel="name"
+        display="chip"
         [showClear]="true" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MultiSelectModule } from 'primeng/multiselect';
+import { MultiSelectModule } from 'primengrtl/multiselect';
 
 interface City {
     name: string,

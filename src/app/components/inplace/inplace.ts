@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, EventEmitter, Input, NgModule, Output, QueryList, TemplateRef, ViewEncapsulation, booleanAttribute } from '@angular/core';
-import { PrimeTemplate, SharedModule } from 'primeng/api';
-import { ButtonModule } from 'primeng/button';
-import { TimesIcon } from 'primeng/icons/times';
+import { PrimeTemplate, SharedModule } from 'primengrtl/api';
+import { ButtonModule } from 'primengrtl/button';
+import { TimesIcon } from 'primengrtl/icons/times';
 
 @Component({
     selector: 'p-inplaceDisplay',

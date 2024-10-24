@@ -34,27 +34,27 @@ export class InvalidDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-dropdown 
+        basic: `<p-dropdown
     [options]="cities"
     [(ngModel)]="selectedCity"
     optionLabel="name"
-    [showClear]="true" 
-    placeholder="Select a City" 
+    [showClear]="true"
+    placeholder="Select a City"
     class="ng-dirty ng-invalid" />`,
 
         html: `<div class="card flex justify-content-center">
-    <p-dropdown 
+    <p-dropdown
         [options]="cities"
         [(ngModel)]="selectedCity"
-        optionLabel="name" 
-        [showClear]="true" 
-        placeholder="Select a City" 
+        optionLabel="name"
+        [showClear]="true"
+        placeholder="Select a City"
         class="ng-dirty ng-invalid" />
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DropdownModule } from 'primeng/dropdown';
+import { DropdownModule } from 'primengrtl/dropdown';
 
 interface City {
     name: string;

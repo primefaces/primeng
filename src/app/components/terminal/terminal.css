@@ -1,5 +1,6 @@
 @layer primeng {
     .p-terminal {
+        direction: ltr;
         height: 18rem;
         overflow: auto;
     }

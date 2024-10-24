@@ -1,5 +1,5 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DOCUMENT } from '@angular/common';
 import {
     AfterContentInit,
     ChangeDetectionStrategy,
@@ -25,14 +25,14 @@ import {
     signal
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { MenuItem, PrimeTemplate, SharedModule } from 'primeng/api';
-import { DomHandler } from 'primeng/dom';
-import { AngleDownIcon } from 'primeng/icons/angledown';
-import { AngleRightIcon } from 'primeng/icons/angleright';
-import { ChevronDownIcon } from 'primeng/icons/chevrondown';
-import { ChevronRightIcon } from 'primeng/icons/chevronright';
-import { TooltipModule } from 'primeng/tooltip';
-import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
+import { MenuItem, PrimeTemplate, SharedModule } from 'primengrtl/api';
+import { DomHandler } from 'primengrtl/dom';
+import { AngleDownIcon } from 'primengrtl/icons/angledown';
+import { AngleEndIcon } from 'primengrtl/icons/angleend';
+import { ChevronDownIcon } from 'primengrtl/icons/chevrondown';
+import { ChevronEndIcon } from 'primengrtl/icons/chevronend';
+import { TooltipModule } from 'primengrtl/tooltip';
+import { ObjectUtils, UniqueComponentId } from 'primengrtl/utils';
 
 @Component({
     selector: 'p-panelMenuSub',
@@ -82,14 +82,17 @@ import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
                             >
                                 <ng-container *ngIf="isItemGroup(processedItem)">
                                     <ng-container *ngIf="!panelMenu.submenuIconTemplate">
-                                        <AngleDownIcon [styleClass]="'p-submenu-icon'" *ngIf="isItemActive(processedItem)" [ngStyle]="getItemProp(processedItem, 'iconStyle')" />
-                                        <AngleRightIcon [styleClass]="'p-submenu-icon'" *ngIf="!isItemActive(processedItem)" [ngStyle]="getItemProp(processedItem, 'iconStyle')" />
+                                        @if (isItemActive(processedItem)) {
+                                            <AngleDownIcon [styleClass]="'p-submenu-icon'" [ngStyle]="getItemProp(processedItem, 'iconStyle')" />
+                                        } @else {
+                                            <AngleEndIcon [styleClass]="'p-submenu-icon'" [ngStyle]="getItemProp(processedItem, 'iconStyle')" />
+                                        }
                                     </ng-container>
                                     <ng-template *ngTemplateOutlet="panelMenu.submenuIconTemplate"></ng-template>
                                 </ng-container>
                                 <span class="p-menuitem-icon" [ngClass]="processedItem.icon" *ngIf="processedItem.icon" [ngStyle]="getItemProp(processedItem, 'iconStyle')"></span>
                                 <span class="p-menuitem-text" *ngIf="processedItem.item?.escape !== false; else htmlLabel">{{ getItemProp(processedItem, 'label') }}</span>
-                                <ng-template #htmlLabel><span class="p-menuitem-text" [innerHTML]="getItemProp(processedItem, 'label')"></span></ng-template>
+                                <ng-template #htmlLabel><span class="p-menuitem-text" [innerHTML]="getItemProp(processedItem, 'label')"></span> </ng-template>
                                 <span class="p-menuitem-badge" *ngIf="processedItem.badge" [ngClass]="processedItem.badgeStyleClass">{{ processedItem.badge }}</span>
                             </a>
                             <a
@@ -113,14 +116,17 @@ import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
                             >
                                 <ng-container *ngIf="isItemGroup(processedItem)">
                                     <ng-container *ngIf="!panelMenu.submenuIconTemplate">
-                                        <AngleDownIcon *ngIf="isItemActive(processedItem)" [styleClass]="'p-submenu-icon'" [ngStyle]="getItemProp(processedItem, 'iconStyle')" />
-                                        <AngleRightIcon *ngIf="!isItemActive(processedItem)" [styleClass]="'p-submenu-icon'" [ngStyle]="getItemProp(processedItem, 'iconStyle')" />
+                                        @if (isItemActive(processedItem)) {
+                                            <AngleDownIcon [styleClass]="'p-submenu-icon'" [ngStyle]="getItemProp(processedItem, 'iconStyle')" />
+                                        } @else {
+                                            <AngleEndIcon [styleClass]="'p-submenu-icon'" [ngStyle]="getItemProp(processedItem, 'iconStyle')" />
+                                        }
                                     </ng-container>
                                     <ng-template *ngTemplateOutlet="panelMenu.submenuIconTemplate"></ng-template>
                                 </ng-container>
                                 <span class="p-menuitem-icon" [ngClass]="processedItem.icon" *ngIf="processedItem.icon" [ngStyle]="getItemProp(processedItem, 'iconStyle')"></span>
                                 <span class="p-menuitem-text" *ngIf="getItemProp(processedItem, 'escape') !== false; else htmlRouteLabel">{{ getItemProp(processedItem, 'label') }}</span>
-                                <ng-template #htmlRouteLabel><span class="p-menuitem-text" [innerHTML]="getItemProp(processedItem, 'label')"></span></ng-template>
+                                <ng-template #htmlRouteLabel><span class="p-menuitem-text" [innerHTML]="getItemProp(processedItem, 'label')"></span> </ng-template>
                                 <span class="p-menuitem-badge" *ngIf="processedItem.badge" [ngClass]="getItemProp(processedItem, 'badgeStyleClass')">{{ getItemProp(processedItem, 'badge') }}</span>
                             </a>
                         </ng-container>
@@ -202,6 +208,7 @@ export class PanelMenuSub {
     @ViewChild('list') listViewChild: ElementRef;
 
     constructor(
+        @Inject(DOCUMENT) private readonly document: Document,
         @Inject(forwardRef(() => PanelMenu)) public panelMenu: PanelMenu,
         public el: ElementRef
     ) {}
@@ -757,14 +764,17 @@ export class PanelMenuList implements OnChanges {
                                 >
                                     <ng-container *ngIf="isItemGroup(item)">
                                         <ng-container *ngIf="!submenuIconTemplate">
-                                            <ChevronDownIcon [styleClass]="'p-submenu-icon'" *ngIf="isItemActive(item)" />
-                                            <ChevronRightIcon [styleClass]="'p-submenu-icon'" *ngIf="!isItemActive(item)" />
+                                            @if (isItemActive(item)) {
+                                                <ChevronDownIcon [styleClass]="'p-submenu-icon'" />
+                                            } @else {
+                                                <ChevronEndIcon [styleClass]="'p-submenu-icon'" />
+                                            }
                                         </ng-container>
                                         <ng-template *ngTemplateOutlet="submenuIconTemplate"></ng-template>
                                     </ng-container>
                                     <span class="p-menuitem-icon" [ngClass]="item.icon" *ngIf="item.icon" [ngStyle]="getItemProp(item, 'iconStyle')"></span>
                                     <span class="p-menuitem-text" *ngIf="getItemProp(item, 'escape') !== false; else htmlLabel">{{ getItemProp(item, 'label') }}</span>
-                                    <ng-template #htmlLabel><span class="p-menuitem-text" [innerHTML]="getItemProp(item, 'label')"></span></ng-template>
+                                    <ng-template #htmlLabel><span class="p-menuitem-text" [innerHTML]="getItemProp(item, 'label')"></span> </ng-template>
                                     <span class="p-menuitem-badge" *ngIf="getItemProp(item, 'badge')" [ngClass]="getItemProp(item, 'badgeStyleClass')">{{ getItemProp(item, 'badge') }}</span>
                                 </a>
                             </ng-container>
@@ -788,14 +798,17 @@ export class PanelMenuList implements OnChanges {
                             >
                                 <ng-container *ngIf="isItemGroup(item)">
                                     <ng-container *ngIf="!submenuIconTemplate">
-                                        <ChevronDownIcon [styleClass]="'p-submenu-icon'" *ngIf="isItemActive(item)" />
-                                        <ChevronRightIcon [styleClass]="'p-submenu-icon'" *ngIf="!isItemActive(item)" />
+                                        @if (isItemActive(item)) {
+                                            <ChevronDownIcon [styleClass]="'p-submenu-icon'" />
+                                        } @else {
+                                            <ChevronEndIcon [styleClass]="'p-submenu-icon'" />
+                                        }
                                     </ng-container>
                                     <ng-template *ngTemplateOutlet="submenuIconTemplate"></ng-template>
                                 </ng-container>
                                 <span class="p-menuitem-icon" [ngClass]="item.icon" *ngIf="item.icon" [ngStyle]="getItemProp(item, 'iconStyle')"></span>
                                 <span class="p-menuitem-text" *ngIf="getItemProp(item, 'escape') !== false; else htmlRouteLabel">{{ getItemProp(item, 'label') }}</span>
-                                <ng-template #htmlRouteLabel><span class="p-menuitem-text" [innerHTML]="getItemProp(item, 'label')"></span></ng-template>
+                                <ng-template #htmlRouteLabel><span class="p-menuitem-text" [innerHTML]="getItemProp(item, 'label')"></span> </ng-template>
                                 <span class="p-menuitem-badge" *ngIf="getItemProp(item, 'badge')" [ngClass]="getItemProp(item, 'badgeStyleClass')">{{ getItemProp(item, 'badge') }}</span>
                             </a>
                         </div>
@@ -1113,7 +1126,7 @@ export class PanelMenu implements AfterContentInit {
     }
 }
 @NgModule({
-    imports: [CommonModule, RouterModule, TooltipModule, SharedModule, AngleDownIcon, AngleRightIcon, ChevronDownIcon, ChevronRightIcon],
+    imports: [CommonModule, RouterModule, TooltipModule, SharedModule, AngleDownIcon, AngleEndIcon, ChevronDownIcon, ChevronEndIcon],
     exports: [PanelMenu, RouterModule, TooltipModule, SharedModule],
     declarations: [PanelMenu, PanelMenuSub, PanelMenuList]
 })

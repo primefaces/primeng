@@ -28,7 +28,7 @@ export class MultipleDoc {
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { MeterGroupModule } from 'primeng/metergroup';
+import { MeterGroupModule } from 'primengrtl/metergroup';
 
 @Component({
     selector: 'meter-group-multiple-demo',

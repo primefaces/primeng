@@ -1,9 +1,10 @@
 import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, ElementRef, EventEmitter, Inject, Input, NgModule, Output, PLATFORM_ID, QueryList, Renderer2, ViewChild, ViewEncapsulation, numberAttribute } from '@angular/core';
-import { PrimeTemplate, SharedModule } from 'primeng/api';
-import { DomHandler } from 'primeng/dom';
-import { Nullable, VoidListener } from 'primeng/ts-helpers';
+import { PrimeTemplate, SharedModule } from 'primengrtl/api';
+import { DomHandler } from 'primengrtl/dom';
+import { Nullable, VoidListener } from 'primengrtl/ts-helpers';
 import { SplitterResizeEndEvent, SplitterResizeStartEvent } from './splitter.interface';
+
 /**
  * Splitter is utilized to separate and resize panels.
  * @group Components
@@ -101,6 +102,7 @@ export class Splitter {
      * @group Props
      */
     @Input() minSizes: number[] = [];
+
     /**
      * Size of the elements relative to 100%.
      * @group Props
@@ -108,6 +110,7 @@ export class Splitter {
     @Input() get panelSizes(): number[] {
         return this._panelSizes;
     }
+
     set panelSizes(val: number[]) {
         this._panelSizes = val;
 
@@ -123,6 +126,7 @@ export class Splitter {
             });
         }
     }
+
     /**
      * Callback to invoke when resize ends.
      * @param {SplitterResizeEndEvent} event - Custom panel resize end event
@@ -274,7 +278,7 @@ export class Splitter {
         } else {
             if (this.horizontal()) newPos = (event.pageX * 100) / this.size - (this.startPos * 100) / this.size;
             else newPos = (event.pageY * 100) / this.size - (this.startPos * 100) / this.size;
-
+            if (DomHandler.documentIsRTL() && this.horizontal()) newPos *= -1;
             newPrevPanelSize = (this.prevPanelSize as number) + newPos;
             newNextPanelSize = (this.nextPanelSize as number) - newPos;
         }

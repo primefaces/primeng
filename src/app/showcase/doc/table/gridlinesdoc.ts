@@ -49,9 +49,9 @@ export class GridlinesDoc {
     }
 
     code: Code = {
-        basic: `<p-table 
-    [value]="products" 
-    styleClass="p-datatable-gridlines" 
+        basic: `<p-table
+    [value]="products"
+    styleClass="p-datatable-gridlines"
     [tableStyle]="{ 'min-width': '50rem' }">
         <ng-template pTemplate="header">
             <tr>
@@ -71,9 +71,9 @@ export class GridlinesDoc {
         </ng-template>
 </p-table>`,
         html: `<div class="card">
-    <p-table 
-        [value]="products" 
-        styleClass="p-datatable-gridlines" 
+    <p-table
+        [value]="products"
+        styleClass="p-datatable-gridlines"
         [tableStyle]="{ 'min-width': '50rem' }">
             <ng-template pTemplate="header">
                 <tr>
@@ -96,7 +96,7 @@ export class GridlinesDoc {
         typescript: `import { Component } from '@angular/core';
 import { Product } from '@domain/product';
 import { ProductService } from '@service/productservice';
-import { TableModule } from 'primeng/table';
+import { TableModule } from 'primengrtl/table';
 import { CommonModule } from '@angular/common';
 
 @Component({

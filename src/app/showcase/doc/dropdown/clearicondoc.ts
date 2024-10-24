@@ -34,25 +34,25 @@ export class ClearIconDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-dropdown 
-    [options]="cities" 
-    [(ngModel)]="selectedCity" 
-    optionLabel="name" 
-    [showClear]="true" 
+        basic: `<p-dropdown
+    [options]="cities"
+    [(ngModel)]="selectedCity"
+    optionLabel="name"
+    [showClear]="true"
     placeholder="Select a City" />`,
 
         html: `<div class="card flex justify-content-center">
-    <p-dropdown 
-        [options]="cities" 
-        [(ngModel)]="selectedCity" 
-        optionLabel="name" 
+    <p-dropdown
+        [options]="cities"
+        [(ngModel)]="selectedCity"
+        optionLabel="name"
         [showClear]="true"
         placeholder="Select a City" />
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DropdownModule } from 'primeng/dropdown';
+import { DropdownModule } from 'primengrtl/dropdown';
 
 interface City {
     name: string;

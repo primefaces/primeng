@@ -28,7 +28,7 @@ import { CustomerService } from '@service/customerservice';
                     stateKey="statedemo-session"
                 >
                     <ng-template pTemplate="caption">
-                        <p-iconField iconPosition="left">
+                        <p-iconField iconPosition="start">
                             <p-inputIcon>
                                 <i class="pi pi-search"></i>
                             </p-inputIcon>
@@ -52,12 +52,12 @@ import { CustomerService } from '@service/customerservice';
                             <td>
                                 <span class="p-column-title">Country</span>
                                 <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px" />
-                                <span class="ml-1 vertical-align-middle">{{ customer.country.name }}</span>
+                                <span class="ms-1 vertical-align-middle">{{ customer.country.name }}</span>
                             </td>
                             <td>
                                 <span class="p-column-title">Representative</span>
                                 <img [alt]="customer.representative.name" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}" width="32" style="vertical-align: middle" />
-                                <span class="ml-1 vertical-align-middle">{{ customer.representative.name }}</span>
+                                <span class="ms-1 vertical-align-middle">{{ customer.representative.name }}</span>
                             </td>
                             <td>
                                 <span class="p-column-title">Status</span>
@@ -74,12 +74,12 @@ import { CustomerService } from '@service/customerservice';
                             <td>
                                 <span class="p-column-title">Country</span>
                                 <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px" />
-                                <span class="ml-1 vertical-align-middle">{{ customer.country.name }}</span>
+                                <span class="ms-1 vertical-align-middle">{{ customer.country.name }}</span>
                             </td>
                             <td>
                                 <span class="p-column-title">Representative</span>
                                 <img [alt]="customer.representative.name" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}" width="32" style="vertical-align: middle" />
-                                <span class="ml-1 vertical-align-middle">{{ customer.representative.name }}</span>
+                                <span class="ms-1 vertical-align-middle">{{ customer.representative.name }}</span>
                             </td>
                             <td>
                                 <span class="p-column-title">Status</span>
@@ -148,13 +148,13 @@ export class StatefulDoc {
     stateStorage="session"
     stateKey="statedemo-session">
         <ng-template pTemplate="caption">
-            <p-iconField iconPosition="left">
+            <p-iconField iconPosition="start">
                 <p-inputIcon>
                     <i class="pi pi-search"></i>
                 </p-inputIcon>
-                <input 
-                    pInputText type="text" 
-                    (input)="dt1.filterGlobal($event.target.value, 'contains')" 
+                <input
+                    pInputText type="text"
+                    (input)="dt1.filterGlobal($event.target.value, 'contains')"
                     placeholder="Global Search" />
             </p-iconField>
         </ng-template>
@@ -182,20 +182,20 @@ export class StatefulDoc {
                 </td>
                 <td>
                     <span class="p-column-title">Country</span>
-                    <img 
-                        src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" 
-                        [class]="'flag flag-' + customer.country.code" 
+                    <img
+                        src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
+                        [class]="'flag flag-' + customer.country.code"
                         style="width: 20px" />
-                    <span class="ml-1 vertical-align-middle">{{ customer.country.name }}</span>
+                    <span class="ms-1 vertical-align-middle">{{ customer.country.name }}</span>
                 </td>
                 <td>
                     <span class="p-column-title">Representative</span>
-                    <img 
-                        [alt]="customer.representative.name" 
-                        src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}" 
-                        width="32" 
+                    <img
+                        [alt]="customer.representative.name"
+                        src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}"
+                        width="32"
                         style="vertical-align: middle" />
-                    <span class="ml-1 vertical-align-middle">{{ customer.representative.name }}</span>
+                    <span class="ms-1 vertical-align-middle">{{ customer.representative.name }}</span>
                 </td>
                 <td>
                     <span class="p-column-title">Status</span>
@@ -211,20 +211,20 @@ export class StatefulDoc {
                 </td>
                 <td>
                     <span class="p-column-title">Country</span>
-                    <img 
-                        src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" 
-                        [class]="'flag flag-' + customer.country.code" 
+                    <img
+                        src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
+                        [class]="'flag flag-' + customer.country.code"
                         style="width: 20px" />
-                    <span class="ml-1 vertical-align-middle">{{ customer.country.name }}</span>
+                    <span class="ms-1 vertical-align-middle">{{ customer.country.name }}</span>
                 </td>
                 <td>
                     <span class="p-column-title">Representative</span>
-                    <img 
-                        [alt]="customer.representative.name" 
+                    <img
+                        [alt]="customer.representative.name"
                         src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}"
-                        width="32" 
+                        width="32"
                         style="vertical-align: middle" />
-                    <span class="ml-1 vertical-align-middle">{{ customer.representative.name }}</span>
+                    <span class="ms-1 vertical-align-middle">{{ customer.representative.name }}</span>
                 </td>
                 <td>
                     <span class="p-column-title">Status</span>
@@ -252,14 +252,14 @@ export class StatefulDoc {
         stateStorage="session"
         stateKey="statedemo-session">
         <ng-template pTemplate="caption">
-            <p-iconField iconPosition="left">
+            <p-iconField iconPosition="start">
                 <p-inputIcon>
                     <i class="pi pi-search"></i>
                 </p-inputIcon>
-                <input 
-                    pInputText 
-                    type="text" 
-                    (input)="dt1.filterGlobal($event.target.value, 'contains')" 
+                <input
+                    pInputText
+                    type="text"
+                    (input)="dt1.filterGlobal($event.target.value, 'contains')"
                     placeholder="Global Search" />
             </p-iconField>
         </ng-template>
@@ -287,20 +287,20 @@ export class StatefulDoc {
                 </td>
                 <td>
                     <span class="p-column-title">Country</span>
-                    <img 
-                        src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" 
-                        [class]="'flag flag-' + customer.country.code" 
+                    <img
+                        src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
+                        [class]="'flag flag-' + customer.country.code"
                         style="width: 20px" />
-                    <span class="ml-1 vertical-align-middle">{{ customer.country.name }}</span>
+                    <span class="ms-1 vertical-align-middle">{{ customer.country.name }}</span>
                 </td>
                 <td>
                     <span class="p-column-title">Representative</span>
-                    <img 
-                        [alt]="customer.representative.name" 
-                        src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}" 
-                        width="32" 
+                    <img
+                        [alt]="customer.representative.name"
+                        src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}"
+                        width="32"
                         style="vertical-align: middle" />
-                    <span class="ml-1 vertical-align-middle">{{ customer.representative.name }}</span>
+                    <span class="ms-1 vertical-align-middle">{{ customer.representative.name }}</span>
                 </td>
                 <td>
                     <span class="p-column-title">Status</span>
@@ -316,20 +316,20 @@ export class StatefulDoc {
                 </td>
                 <td>
                     <span class="p-column-title">Country</span>
-                    <img 
-                        src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" 
-                        [class]="'flag flag-' + customer.country.code" 
+                    <img
+                        src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
+                        [class]="'flag flag-' + customer.country.code"
                         style="width: 20px" />
-                    <span class="ml-1 vertical-align-middle">{{ customer.country.name }}</span>
+                    <span class="ms-1 vertical-align-middle">{{ customer.country.name }}</span>
                 </td>
                 <td>
                     <span class="p-column-title">Representative</span>
-                    <img 
-                        [alt]="customer.representative.name" 
-                        src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}" 
-                        width="32" 
+                    <img
+                        [alt]="customer.representative.name"
+                        src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}"
+                        width="32"
                         style="vertical-align: middle" />
-                    <span class="ml-1 vertical-align-middle">{{ customer.representative.name }}</span>
+                    <span class="ms-1 vertical-align-middle">{{ customer.representative.name }}</span>
                 </td>
                 <td>
                     <span class="p-column-title">Status</span>
@@ -347,12 +347,12 @@ export class StatefulDoc {
         typescript: `import { Component, OnInit } from '@angular/core';
 import { Customer } from '@domain/customer';
 import { CustomerService } from '@service/customerservice';
-import { TableModule } from 'primeng/table';
+import { TableModule } from 'primengrtl/table';
 import { HttpClientModule } from '@angular/common/http';
-import { InputTextModule } from 'primeng/inputtext';
-import { IconFieldModule } from 'primeng/iconfield';
-import { InputIconModule } from 'primeng/inputicon';
-import { TagModule } from 'primeng/tag';
+import { InputTextModule } from 'primengrtl/inputtext';
+import { IconFieldModule } from 'primengrtl/iconfield';
+import { InputIconModule } from 'primengrtl/inputicon';
+import { TagModule } from 'primengrtl/tag';
 
 @Component({
     selector: 'table-stateful-demo',

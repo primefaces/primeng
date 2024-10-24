@@ -88,9 +88,9 @@ export class TemplateDoc {
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { SelectItemGroup } from 'primeng/api';
+import { SelectItemGroup } from 'primengrtl/api';
 import { CountryService } from '@service/countryservice';
-import { AutoCompleteModule } from 'primeng/autocomplete';
+import { AutoCompleteModule } from 'primengrtl/autocomplete';
 import { FormsModule } from '@angular/forms';
 
 interface AutoCompleteCompleteEvent {

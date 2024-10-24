@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
-import { TreeNode } from 'primeng/api';
+import { TreeNode } from 'primengrtl/api';
 import { Code } from '@domain/code';
 import { NodeService } from '@service/nodeservice';
 
@@ -104,10 +104,10 @@ export class ControlledDoc {
 </div>`,
 
         typescript: `import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { TreeNode } from 'primeng/api';
+import { TreeNode } from 'primengrtl/api';
 import { NodeService } from '@service/nodeservice';
-import { TreeTableModule } from 'primeng/treetable';
-import { ButtonModule } from 'primeng/button';
+import { TreeTableModule } from 'primengrtl/treetable';
+import { ButtonModule } from 'primengrtl/button';
 
 @Component({
     selector: 'tree-table-controlled-demo',

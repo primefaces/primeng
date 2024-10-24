@@ -26,21 +26,21 @@ export class ReactiveFormsDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-inputMask 
-    mask="99-999999" 
-    formControlName="value" 
+        basic: `<p-inputMask
+    mask="99-999999"
+    formControlName="value"
     placeholder="99-999999" />`,
 
         html: `<div class="card flex justify-content-center">
-    <p-inputMask 
-        mask="99-999999" 
-        formControlName="value" 
+    <p-inputMask
+        mask="99-999999"
+        formControlName="value"
         placeholder="99-999999" />
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { InputMaskModule } from 'primeng/inputmask';
+import { InputMaskModule } from 'primengrtl/inputmask';
 
 @Component({
     selector: 'input-mask-reactive-forms-demo',

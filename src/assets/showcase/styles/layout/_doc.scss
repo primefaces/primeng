@@ -19,7 +19,7 @@
     li {
         position: relative;
         z-index: 1;
-        
+
         button {
             background-color: transparent;
             border: 0 none;
@@ -33,8 +33,8 @@
             margin: 0;
             transition: all 0.2s;
             border-bottom: 1px solid transparent;
-            border-top-right-radius: var(--border-round);
-            border-top-left-radius: var(--border-round);
+            border-start-end-radius: var(--border-round);
+            border-start-start-radius: var(--border-round);
             white-space: nowrap;
 
             &:hover {
@@ -91,7 +91,7 @@
     > a {
         color: var(--primary-color);
         opacity: 0.7;
-        margin-left: 1rem;
+        margin-inline-start: 1rem;
         display: none;
         transition: all .2s;
         border-radius: var(--border-radius);
@@ -150,25 +150,25 @@
 .doc-section-nav {
     position: sticky;
     top: 6rem;
-    right: 0;
+    inset-inline-end: 0;
     width: 14rem;
     max-height: calc(100vh - 15rem);
     list-style: none;
     margin: 0;
     padding: 0.25rem 0;
-    margin-left: 4rem;
+    margin-inline-start: 4rem;
     overflow-y: auto;
     overflow-x: hidden;
     align-self: flex-start;
 
     > .navbar-item {
         .navbar-item-content {
-            border-left: 1px solid var(--surface-border);
-            padding-left: .25rem;
+            border-inline-start: 1px solid var(--surface-border);
+            padding-inline-start: .25rem;
             transition: all .2s;
 
             &:hover {
-                border-left-color: var(--surface-500);
+                border-inline-start-color: var(--surface-500);
             }
         }
     }
@@ -212,16 +212,17 @@
 
             .navbar-item {
                 .navbar-item-content {
-                    padding-left: 1rem;
+                    padding-inline-start: 1rem;
                 }
             }
         }
     }
 }
 
-.doc-section-code { 
+.doc-section-code {
+    direction: ltr;
     position: relative;
-    
+
     div {
         &::-webkit-scrollbar {
             width: 5px;
@@ -253,7 +254,7 @@
     padding: 2px;
     backdrop-filter: blur(6px);
     border: 1px solid rgba(255, 255, 255, .1);
-    
+
     button {
         outline: 0 none;
         border-radius: 8px;
@@ -295,7 +296,7 @@
     th {
         border-bottom: 1px solid var(--surface-border);
         padding: .75rem 1rem;
-        text-align: left;
+        text-align: start;
         text-transform: capitalize;
     }
 

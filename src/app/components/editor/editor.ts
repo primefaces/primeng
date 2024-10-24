@@ -19,9 +19,9 @@ import {
     forwardRef
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { Header, PrimeTemplate, SharedModule } from 'primeng/api';
-import { DomHandler } from 'primeng/dom';
-import { Nullable } from 'primeng/ts-helpers';
+import { Header, PrimeTemplate, SharedModule } from 'primengrtl/api';
+import { DomHandler } from 'primengrtl/dom';
+import { Nullable } from 'primengrtl/ts-helpers';
 import { EditorInitEvent, EditorSelectionChangeEvent, EditorTextChangeEvent } from './editor.interface';
 
 export const EDITOR_VALUE_ACCESSOR: any = {

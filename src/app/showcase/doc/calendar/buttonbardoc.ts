@@ -17,19 +17,19 @@ export class ButtonBarDoc {
     date: Date[] | undefined;
 
     code: Code = {
-        basic: `<p-calendar 
-    [(ngModel)]="date" 
+        basic: `<p-calendar
+    [(ngModel)]="date"
     [showButtonBar]="true"/>`,
 
         html: `<div class="card flex justify-content-center">
-    <p-calendar 
-        [(ngModel)]="date" 
+    <p-calendar
+        [(ngModel)]="date"
         [showButtonBar]="true"/>
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { CalendarModule } from 'primeng/calendar';
+import { CalendarModule } from 'primengrtl/calendar';
 
 @Component({
     selector: 'calendar-buttonbar-demo',

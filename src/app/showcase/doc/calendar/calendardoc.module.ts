@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppDocModule } from '@layout/doc/app.doc.module';
 import { AppCodeModule } from '@layout/doc/app.code.component';
-import { CalendarModule } from 'primeng/calendar';
+import { CalendarModule } from 'primengrtl/calendar';
 import { ImportDoc } from './importdoc';
 import { BasicDoc } from './basicdoc';
 import { FormatDoc } from './formatdoc';
@@ -32,7 +32,7 @@ import { FloatLabelDoc } from './floatlabeldoc';
 import { InvalidDoc } from './invaliddoc';
 import { DisabledDoc } from './disableddoc';
 import { FilledDoc } from './filleddoc';
-import { FloatLabelModule } from 'primeng/floatlabel';
+import { FloatLabelModule } from 'primengrtl/floatlabel';
 
 @NgModule({
     imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, FormsModule, CalendarModule, ReactiveFormsModule, FloatLabelModule],

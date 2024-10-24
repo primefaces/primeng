@@ -24,7 +24,7 @@ export class DefaultDoc {
     </div>
 </div>`,
         typescript: `import { Component } from '@angular/core';
-import { RippleModule } from 'primeng/ripple';
+import { RippleModule } from 'primengrtl/ripple';
 
 @Component({
     selector: 'ripple-default-demo',
@@ -37,12 +37,12 @@ import { RippleModule } from 'primeng/ripple';
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                margin-right: 1rem;
+                margin-inline-end: 1rem;
                 user-select: none;
                 padding: 0;
-        
+
                 &:last-child {
-                    margin-right: 0;
+                    margin-inline-end: 0;
                 }
             }
         }\`
@@ -59,12 +59,12 @@ export class RippleDefaultDemo {
         display: flex;
         align-items: center;
         justify-content: center;
-        margin-right: 1rem;
+        margin-inline-end: 1rem;
         user-select: none;
         padding: 0;
 
         &:last-child {
-            margin-right: 0;
+            margin-inline-end: 0;
         }
     }
 }`

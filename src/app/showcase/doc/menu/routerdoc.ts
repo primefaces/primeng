@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuItem } from 'primeng/api';
+import { MenuItem } from 'primengrtl/api';
 import { Code } from '@domain/code';
 import { Router } from '@angular/router';
 
@@ -18,13 +18,13 @@ import { Router } from '@angular/router';
                     <ng-container *ngIf="item.route; else elseBlock">
                         <a [routerLink]="item.route" class="p-menuitem-link">
                             <span [class]="item.icon"></span>
-                            <span class="ml-2">{{ item.label }}</span>
+                            <span class="ms-2">{{ item.label }}</span>
                         </a>
                     </ng-container>
                     <ng-template #elseBlock>
                         <a [href]="item.url" class="p-menuitem-link">
                             <span [class]="item.icon"></span>
-                            <span class="ml-2">{{ item.label }}</span>
+                            <span class="ms-2">{{ item.label }}</span>
                         </a>
                     </ng-template>
                 </ng-template>
@@ -71,13 +71,13 @@ export class RouterDoc implements OnInit {
         <ng-container *ngIf="item.route; else elseBlock">
             <a [routerLink]="item.route" class="p-menuitem-link">
                 <span [class]="item.icon"></span>
-                <span class="ml-2">{{ item.label }}</span>
+                <span class="ms-2">{{ item.label }}</span>
             </a>
         </ng-container>
         <ng-template #elseBlock>
             <a [href]="item.url" class="p-menuitem-link">
                 <span [class]="item.icon"></span>
-                <span class="ml-2">{{ item.label }}</span>
+                <span class="ms-2">{{ item.label }}</span>
             </a>
         </ng-template>
     </ng-template>
@@ -89,13 +89,13 @@ export class RouterDoc implements OnInit {
             <ng-container *ngIf="item.route; else elseBlock">
                 <a [routerLink]="item.route" class="p-menuitem-link">
                     <span [class]="item.icon"></span>
-                    <span class="ml-2">{{ item.label }}</span>
+                    <span class="ms-2">{{ item.label }}</span>
                 </a>
             </ng-container>
             <ng-template #elseBlock>
                 <a [href]="item.url" class="p-menuitem-link">
                     <span [class]="item.icon"></span>
-                    <span class="ml-2">{{ item.label }}</span>
+                    <span class="ms-2">{{ item.label }}</span>
                 </a>
             </ng-template>
         </ng-template>
@@ -103,9 +103,9 @@ export class RouterDoc implements OnInit {
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
-import { MenuItem } from 'primeng/api';
+import { MenuItem } from 'primengrtl/api';
 import { Router } from '@angular/router';
-import { MenuModule } from 'primeng/menu';
+import { MenuModule } from 'primengrtl/menu';
 
 @Component({
     selector: 'menu-router-demo',

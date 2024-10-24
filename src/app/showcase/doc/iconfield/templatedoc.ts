@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
             <p>An eye icon is displayed by default when the image is hovered in preview mode. Use the <i>indicator</i> template for custom content.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-iconField iconPosition="left">
+            <p-iconField iconPosition="start">
                 <p-inputIcon>
                     <svg width="20" height="20" viewBox="0 0 35 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M15.1934 0V0V0L0.0391235 5.38288L2.35052 25.3417L15.1934 32.427V32.427V32.427L28.0364 25.3417L30.3478 5.38288L15.1934 0Z" fill="var(--primary-color)" />
@@ -48,7 +48,7 @@ import { Code } from '@domain/code';
 })
 export class TemplateDoc {
     code: Code = {
-        basic: `<p-iconField iconPosition="left">
+        basic: `<p-iconField iconPosition="start">
     <p-inputIcon>
         <svg width="20" height="20" viewBox="0 0 35 40" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M15.1934 0V0V0L0.0391235 5.38288L2.35052 25.3417L15.1934 32.427V32.427V32.427L28.0364 25.3417L30.3478 5.38288L15.1934 0Z" fill="var(--primary-color)" />
@@ -84,7 +84,7 @@ export class TemplateDoc {
 </p-iconField>`,
 
         html: `<div class="card flex justify-content-center">
-    <p-iconField iconPosition="left">
+    <p-iconField iconPosition="start">
     <p-inputIcon>
         <svg width="20" height="20" viewBox="0 0 35 40" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M15.1934 0V0V0L0.0391235 5.38288L2.35052 25.3417L15.1934 32.427V32.427V32.427L28.0364 25.3417L30.3478 5.38288L15.1934 0Z" fill="var(--primary-color)" />
@@ -121,9 +121,9 @@ export class TemplateDoc {
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { InputIconModule } from 'primeng/inputicon';
-import { IconFieldModule } from 'primeng/iconfield';
-import { InputTextModule } from 'primeng/inputtext';
+import { InputIconModule } from 'primengrtl/inputicon';
+import { IconFieldModule } from 'primengrtl/iconfield';
+import { InputTextModule } from 'primengrtl/inputtext';
 import { FormsModule } from '@angular/forms';
 
 @Component({

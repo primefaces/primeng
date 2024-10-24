@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Code } from '@domain/code';
 
 @Component({
-    selector: 'semantic-html-doc',
+    selector: 'semantic-htms-doc',
     template: `
         <app-docsectiontext>
             <p>

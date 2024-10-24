@@ -52,19 +52,19 @@ export class TemplateDoc {
     code: Code = {
         basic: `<p-timeline [value]="events" align="alternate" styleClass="customized-timeline">
     <ng-template pTemplate="marker" let-event>
-        <span 
-            class="flex w-2rem h-2rem align-items-center justify-content-center text-white border-circle z-1 shadow-1" 
+        <span
+            class="flex w-2rem h-2rem align-items-center justify-content-center text-white border-circle z-1 shadow-1"
             [style]="{ 'background-color': event.color }">
                 <i [class]="event.icon"></i>
         </span>
     </ng-template>
     <ng-template pTemplate="content" let-event>
         <p-card [header]="event.status" [subheader]="event.date">
-            <img 
-                *ngIf="event.image" 
-                [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + event.image" 
-                [alt]="event.name" 
-                width="200" 
+            <img
+                *ngIf="event.image"
+                [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + event.image"
+                [alt]="event.name"
+                width="200"
                 class="shadow-2" />
             <p>
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate
@@ -78,19 +78,19 @@ export class TemplateDoc {
         html: `<div class="card">
     <p-timeline [value]="events" align="alternate" styleClass="customized-timeline">
         <ng-template pTemplate="marker" let-event>
-            <span 
-                class="flex w-2rem h-2rem align-items-center justify-content-center text-white border-circle z-1 shadow-1" 
+            <span
+                class="flex w-2rem h-2rem align-items-center justify-content-center text-white border-circle z-1 shadow-1"
                 [style]="{ 'background-color': event.color }">
                     <i [class]="event.icon"></i>
             </span>
         </ng-template>
         <ng-template pTemplate="content" let-event>
             <p-card [header]="event.status" [subheader]="event.date">
-                <img 
-                    *ngIf="event.image" 
+                <img
+                    *ngIf="event.image"
                     [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + event.image"
                     [alt]="event.name"
-                    width="200" 
+                    width="200"
                     class="shadow-2" />
                 <p>
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate
@@ -103,9 +103,9 @@ export class TemplateDoc {
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { TimelineModule } from 'primeng/timeline';
-import { CardModule } from 'primeng/card';
-import { ButtonModule } from 'primeng/button';
+import { TimelineModule } from 'primengrtl/timeline';
+import { CardModule } from 'primengrtl/card';
+import { ButtonModule } from 'primengrtl/button';
 
 interface EventItem {
     status?: string;

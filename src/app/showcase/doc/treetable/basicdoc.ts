@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
-import { TreeNode } from 'primeng/api';
+import { TreeNode } from 'primengrtl/api';
 import { Code } from '@domain/code';
 import { NodeService } from '@service/nodeservice';
 
@@ -93,9 +93,9 @@ export class BasicDoc {
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
-import { TreeNode } from 'primeng/api';
+import { TreeNode } from 'primengrtl/api';
 import { NodeService } from '@service/nodeservice';
-import { TreeTableModule } from 'primeng/treetable';
+import { TreeTableModule } from 'primengrtl/treetable';
 
 @Component({
     selector: 'tree-table-basic-demo',

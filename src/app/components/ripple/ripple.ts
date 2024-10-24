@@ -1,8 +1,8 @@
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { AfterViewInit, Directive, ElementRef, Inject, NgModule, NgZone, OnDestroy, Optional, PLATFORM_ID, Renderer2 } from '@angular/core';
-import { PrimeNGConfig } from 'primeng/api';
-import { DomHandler } from 'primeng/dom';
-import { VoidListener } from 'primeng/ts-helpers';
+import { PrimeNGConfig } from 'primengrtl/api';
+import { DomHandler } from 'primengrtl/dom';
+import { VoidListener } from 'primengrtl/ts-helpers';
 /**
  * Ripple directive adds ripple effect to the host element.
  * @group Components
@@ -55,11 +55,12 @@ export class Ripple implements AfterViewInit, OnDestroy {
         }
 
         let offset = DomHandler.getOffset(this.el.nativeElement);
-        let x = event.pageX - offset.left + this.document.body.scrollTop - DomHandler.getWidth(ink) / 2;
+        const eventStart = DomHandler.documentIsLTR() ? event.pageX : window.innerWidth - event.pageX;
+        let x = eventStart - offset.start + this.document.body.scrollTop - DomHandler.getWidth(ink) / 2;
         let y = event.pageY - offset.top + this.document.body.scrollLeft - DomHandler.getHeight(ink) / 2;
 
         this.renderer.setStyle(ink, 'top', y + 'px');
-        this.renderer.setStyle(ink, 'left', x + 'px');
+        this.renderer.setStyle(ink, 'insetInlineStart', x + 'px');
         DomHandler.addClass(ink, 'p-ink-active');
 
         this.timeout = setTimeout(() => {

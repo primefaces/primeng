@@ -196,7 +196,7 @@
     .p-column-filter-overlay {
         position: absolute;
         top: 0;
-        left: 0;
+        inset-inline-start: 0;
     }
 
     .p-column-filter-row-items {
@@ -244,6 +244,6 @@
         min-height: 0;
         position: sticky;
         top: 0;
-        left: 0;
+        inset-inline-start: 0;
     }
 }

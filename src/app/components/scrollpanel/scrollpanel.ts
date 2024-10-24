@@ -20,10 +20,10 @@ import {
     ViewEncapsulation,
     numberAttribute
 } from '@angular/core';
-import { PrimeTemplate } from 'primeng/api';
-import { DomHandler } from 'primeng/dom';
-import { Nullable } from 'primeng/ts-helpers';
-import { UniqueComponentId } from 'primeng/utils';
+import { PrimeTemplate } from 'primengrtl/api';
+import { DomHandler } from 'primengrtl/dom';
+import { Nullable } from 'primengrtl/ts-helpers';
+import { UniqueComponentId } from 'primengrtl/utils';
 
 /**
  * ScrollPanel is a cross browser, lightweight and themable alternative to native browser scrollbar.
@@ -229,6 +229,7 @@ export class ScrollPanel implements AfterViewInit, AfterContentInit, OnDestroy {
         let totalHeight = content.scrollHeight;
         let ownHeight = content.clientHeight;
         let right = (container.clientWidth - yBar.clientWidth) * -1;
+        // if (DomHandler.documentIsRTL()) right *= -1;
 
         this.scrollYRatio = ownHeight / totalHeight;
 
@@ -241,7 +242,7 @@ export class ScrollPanel implements AfterViewInit, AfterContentInit, OnDestroy {
                 DomHandler.removeClass(xBar, 'p-scrollpanel-hidden');
                 const xBarWidth = Math.max((this.scrollXRatio as number) * 100, 10);
                 const xBarLeft = (content.scrollLeft * (100 - xBarWidth)) / (totalWidth - ownWidth);
-                xBar.style.cssText = 'width:' + xBarWidth + '%; left:' + xBarLeft + '%;bottom:' + bottom + 'px;';
+                xBar.style.cssText = 'width:' + xBarWidth + '%; inset-inline-start:' + xBarLeft + '%;bottom:' + bottom + 'px;';
             }
 
             if ((this.scrollYRatio as number) >= 1) {
@@ -252,7 +253,7 @@ export class ScrollPanel implements AfterViewInit, AfterContentInit, OnDestroy {
                 DomHandler.removeClass(yBar, 'p-scrollpanel-hidden');
                 const yBarHeight = Math.max((this.scrollYRatio as number) * 100, 10);
                 const yBarTop = (content.scrollTop * (100 - yBarHeight)) / (totalHeight - ownHeight);
-                yBar.style.cssText = 'height:' + yBarHeight + '%; top: calc(' + yBarTop + '% - ' + xBar.clientHeight + 'px);right:' + right + 'px;';
+                yBar.style.cssText = 'height:' + yBarHeight + '%; top: calc(' + yBarTop + '% - ' + xBar.clientHeight + 'px);inset-inline-end:' + right + 'px;';
             }
         });
         this.cd.markForCheck();

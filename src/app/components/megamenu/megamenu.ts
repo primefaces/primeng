@@ -26,14 +26,14 @@ import {
     signal
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { MegaMenuItem, PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
-import { DomHandler } from 'primeng/dom';
-import { AngleDownIcon } from 'primeng/icons/angledown';
-import { AngleRightIcon } from 'primeng/icons/angleright';
-import { RippleModule } from 'primeng/ripple';
-import { TooltipModule } from 'primeng/tooltip';
-import { VoidListener } from 'primeng/ts-helpers';
-import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
+import { MegaMenuItem, PrimeNGConfig, PrimeTemplate, SharedModule } from 'primengrtl/api';
+import { DomHandler } from 'primengrtl/dom';
+import { AngleDownIcon } from 'primengrtl/icons/angledown';
+import { AngleEndIcon } from 'primengrtl/icons/angleend';
+import { RippleModule } from 'primengrtl/ripple';
+import { TooltipModule } from 'primengrtl/tooltip';
+import { VoidListener } from 'primengrtl/ts-helpers';
+import { ObjectUtils, UniqueComponentId } from 'primengrtl/utils';
 
 @Component({
     selector: 'p-megaMenuSub',
@@ -115,8 +115,14 @@ import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
 
                                 <ng-container *ngIf="isItemGroup(processedItem)">
                                     <ng-container *ngIf="!megaMenu.submenuIconTemplate">
-                                        <AngleDownIcon [styleClass]="'p-submenu-icon'" [attr.data-pc-section]="'submenuicon'" *ngIf="orientation === 'horizontal'" />
-                                        <AngleRightIcon [styleClass]="'p-submenu-icon'" [attr.data-pc-section]="'submenuicon'" *ngIf="orientation === 'vertical'" />
+                                        @switch (orientation) {
+                                            @case ('horizontal') {
+                                                <AngleDownIcon [styleClass]="'p-submenu-icon'" [attr.data-pc-section]="'submenuicon'" />
+                                            }
+                                            @case ('vertical') {
+                                                <AngleEndIcon [styleClass]="'p-submenu-icon'" [attr.data-pc-section]="'submenuicon'" />
+                                            }
+                                        }
                                     </ng-container>
                                     <ng-template *ngTemplateOutlet="megaMenu.submenuIconTemplate" [attr.data-pc-section]="'submenuicon'"></ng-template>
                                 </ng-container>
@@ -149,12 +155,18 @@ import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
                                     [attr.tabindex]="-1"
                                 ></span>
                                 <span class="p-menuitem-text" *ngIf="getItemProp(processedItem, 'escape'); else htmlRouteLabel">{{ getItemLabel(processedItem) }}</span>
-                                <ng-template #htmlRouteLabel><span class="p-menuitem-text" [innerHTML]="getItemLabel(processedItem)" [attr.data-pc-section]="'label'"></span></ng-template>
+                                <ng-template #htmlRouteLabel><span class="p-menuitem-text" [innerHTML]="getItemLabel(processedItem)" [attr.data-pc-section]="'label'"></span> </ng-template>
                                 <span class="p-menuitem-badge" *ngIf="getItemProp(processedItem, 'badge')" [ngClass]="getItemProp(processedItem, 'badgeStyleClass')">{{ getItemProp(processedItem, 'badge') }}</span>
                                 <ng-container *ngIf="isItemGroup(processedItem)">
                                     <ng-container *ngIf="!megaMenu.submenuIconTemplate">
-                                        <AngleDownIcon [styleClass]="'p-submenu-icon'" [attr.data-pc-section]="'submenuicon'" *ngIf="orientation === 'horizontal'" />
-                                        <AngleRightIcon [styleClass]="'p-submenu-icon'" [attr.data-pc-section]="'submenuicon'" *ngIf="orientation === 'vertical'" />
+                                        @switch (orientation) {
+                                            @case ('horizontal') {
+                                                <AngleDownIcon [styleClass]="'p-submenu-icon'" [attr.data-pc-section]="'submenuicon'" />
+                                            }
+                                            @case ('vertical') {
+                                                <AngleDownIcon [styleClass]="'p-submenu-icon'" [attr.data-pc-section]="'submenuicon'" />
+                                            }
+                                        }
                                     </ng-container>
                                     <ng-template *ngTemplateOutlet="megaMenu.submenuIconTemplate" [attr.data-pc-section]="'submenuicon'"></ng-template>
                                 </ng-container>
@@ -1083,7 +1095,7 @@ export class MegaMenu implements AfterContentInit, OnDestroy, OnInit {
 }
 
 @NgModule({
-    imports: [CommonModule, RouterModule, RippleModule, TooltipModule, SharedModule, AngleDownIcon, AngleRightIcon],
+    imports: [CommonModule, RouterModule, RippleModule, TooltipModule, SharedModule, AngleDownIcon, AngleEndIcon],
     exports: [MegaMenu, RouterModule, TooltipModule, SharedModule],
     declarations: [MegaMenu, MegaMenuSub]
 })

@@ -56,16 +56,16 @@ export class DragDropDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-orderList 
-    [value]="products" 
-    [listStyle]="{ 'max-height': '30rem' }" 
-    header="List of Products" 
+        basic: `<p-orderList
+    [value]="products"
+    [listStyle]="{ 'max-height': '30rem' }"
+    header="List of Products"
     [dragdrop]="true">
         <ng-template let-product pTemplate="item">
             <div class="flex flex-wrap p-2 align-items-center gap-3">
-                <img 
-                    src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" 
-                    [alt]="product.name" 
+                <img
+                    src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}"
+                    [alt]="product.name"
                     class="w-4rem shadow-2 flex-shrink-0 border-round" />
                         <div class="flex-1 flex flex-column gap-2">
                             <span class="font-bold">{{ product.name }}</span>
@@ -84,16 +84,16 @@ export class DragDropDoc implements OnInit {
 </p-orderList>`,
 
         html: `<div class="card xl:flex xl:justify-content-center">
-    <p-orderList 
-        [value]="products" 
+    <p-orderList
+        [value]="products"
         [listStyle]="{ 'max-height': '30rem' }"
-        header="List of Products" 
+        header="List of Products"
         [dragdrop]="true">
             <ng-template let-product pTemplate="item">
                 <div class="flex flex-wrap p-2 align-items-center gap-3">
-                    <img 
-                        src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" 
-                        [alt]="product.name" 
+                    <img
+                        src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}"
+                        [alt]="product.name"
                         class="w-4rem shadow-2 flex-shrink-0 border-round" />
                             <div class="flex-1 flex flex-column gap-2">
                                 <span class="font-bold">{{ product.name }}</span>
@@ -115,7 +115,7 @@ export class DragDropDoc implements OnInit {
         typescript: `import { Component, OnInit } from '@angular/core';
 import { Product } from '@domain/product';
 import { ProductService } from '@service/productservice';
-import { OrderListModule } from 'primeng/orderlist';
+import { OrderListModule } from 'primengrtl/orderlist';
 
 @Component({
     selector: 'orderlist-drag-drop-demo',
@@ -146,7 +146,7 @@ export class OrderlistDragDropDemo implements OnInit {
 }`,
 
         data: `
-/* ProductService */        
+/* ProductService */
 {
     id: '1000',
     code: 'f230fh0g3',

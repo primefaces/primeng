@@ -45,7 +45,7 @@ export class Divider {
      * Alignment of the content.
      * @group Props
      */
-    @Input() align: 'left' | 'center' | 'right' | 'top' | 'center' | 'bottom' | undefined;
+    @Input() align: 'start' | 'center' | 'end' | 'top' | 'bottom' | undefined;
 
     containerClass() {
         return {
@@ -55,9 +55,9 @@ export class Divider {
             'p-divider-solid': this.type === 'solid',
             'p-divider-dashed': this.type === 'dashed',
             'p-divider-dotted': this.type === 'dotted',
-            'p-divider-left': this.layout === 'horizontal' && (!this.align || this.align === 'left'),
+            'p-divider-left': this.layout === 'horizontal' && (!this.align || this.align === 'start'),
             'p-divider-center': (this.layout === 'horizontal' && this.align === 'center') || (this.layout === 'vertical' && (!this.align || this.align === 'center')),
-            'p-divider-right': this.layout === 'horizontal' && this.align === 'right',
+            'p-divider-right': this.layout === 'horizontal' && this.align === 'end',
             'p-divider-top': this.layout === 'vertical' && this.align === 'top',
             'p-divider-bottom': this.layout === 'vertical' && this.align === 'bottom'
         };

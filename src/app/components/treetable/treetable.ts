@@ -29,23 +29,23 @@ import {
     booleanAttribute,
     numberAttribute
 } from '@angular/core';
-import { BlockableUI, FilterMetadata, FilterService, PrimeNGConfig, PrimeTemplate, ScrollerOptions, SharedModule, SortMeta, TreeNode, TreeTableNode } from 'primeng/api';
-import { DomHandler } from 'primeng/dom';
-import { ArrowDownIcon } from 'primeng/icons/arrowdown';
-import { ArrowUpIcon } from 'primeng/icons/arrowup';
-import { CheckIcon } from 'primeng/icons/check';
-import { ChevronDownIcon } from 'primeng/icons/chevrondown';
-import { ChevronRightIcon } from 'primeng/icons/chevronright';
-import { MinusIcon } from 'primeng/icons/minus';
-import { SortAltIcon } from 'primeng/icons/sortalt';
-import { SortAmountDownIcon } from 'primeng/icons/sortamountdown';
-import { SortAmountUpAltIcon } from 'primeng/icons/sortamountupalt';
-import { SpinnerIcon } from 'primeng/icons/spinner';
-import { PaginatorModule } from 'primeng/paginator';
-import { RippleModule } from 'primeng/ripple';
-import { Scroller, ScrollerModule } from 'primeng/scroller';
-import { Nullable, VoidListener } from 'primeng/ts-helpers';
-import { ObjectUtils } from 'primeng/utils';
+import { BlockableUI, FilterMetadata, FilterService, PrimeNGConfig, PrimeTemplate, ScrollerOptions, SharedModule, SortMeta, TreeNode, TreeTableNode } from 'primengrtl/api';
+import { DomHandler } from 'primengrtl/dom';
+import { ArrowDownIcon } from 'primengrtl/icons/arrowdown';
+import { ArrowUpIcon } from 'primengrtl/icons/arrowup';
+import { CheckIcon } from 'primengrtl/icons/check';
+import { ChevronDownIcon } from 'primengrtl/icons/chevrondown';
+import { ChevronEndIcon } from 'primengrtl/icons/chevronend';
+import { MinusIcon } from 'primengrtl/icons/minus';
+import { SortAltIcon } from 'primengrtl/icons/sortalt';
+import { SortAmountDownIcon } from 'primengrtl/icons/sortamountdown';
+import { SortAmountUpAltIcon } from 'primengrtl/icons/sortamountupalt';
+import { SpinnerIcon } from 'primengrtl/icons/spinner';
+import { PaginatorModule } from 'primengrtl/paginator';
+import { RippleModule } from 'primengrtl/ripple';
+import { Scroller, ScrollerModule } from 'primengrtl/scroller';
+import { Nullable, VoidListener } from 'primengrtl/ts-helpers';
+import { ObjectUtils } from 'primengrtl/utils';
 import { Subject, Subscription } from 'rxjs';
 import {
     TreeTableColResizeEvent,
@@ -1379,13 +1379,13 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
     }
 
     onColumnResizeBegin(event: MouseEvent) {
-        let containerLeft = DomHandler.getOffset(this.containerViewChild?.nativeElement).left;
+        let containerLeft = DomHandler.getOffset(this.containerViewChild?.nativeElement).start;
         this.lastResizerHelperX = event.pageX - containerLeft + this.containerViewChild?.nativeElement.scrollLeft;
         event.preventDefault();
     }
 
     onColumnResize(event: MouseEvent) {
-        let containerLeft = DomHandler.getOffset(this.containerViewChild?.nativeElement).left;
+        let containerLeft = DomHandler.getOffset(this.containerViewChild?.nativeElement).start;
         DomHandler.addClass(this.containerViewChild?.nativeElement, 'p-unselectable-text');
         (<ElementRef>this.resizeHelperViewChild).nativeElement.style.height = this.containerViewChild?.nativeElement.offsetHeight + 'px';
         (<ElementRef>this.resizeHelperViewChild).nativeElement.style.top = 0 + 'px';
@@ -1522,9 +1522,9 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
             let dropHeaderOffset = DomHandler.getOffset(dropHeader);
 
             if (this.draggedColumn != dropHeader) {
-                let targetLeft = dropHeaderOffset.left - containerOffset.left;
+                let targetLeft = dropHeaderOffset.start - containerOffset.start;
                 let targetTop = containerOffset.top - dropHeaderOffset.top;
-                let columnCenter = dropHeaderOffset.left + dropHeader.offsetWidth / 2;
+                let columnCenter = dropHeaderOffset.start + dropHeader.offsetWidth / 2;
 
                 (<ElementRef>this.reorderIndicatorUpViewChild).nativeElement.style.top = dropHeaderOffset.top - containerOffset.top - (<number>this.reorderIconHeight - 1) + 'px';
                 (<ElementRef>this.reorderIndicatorDownViewChild).nativeElement.style.top = dropHeaderOffset.top - containerOffset.top + dropHeader.offsetHeight + 'px';
@@ -3731,7 +3731,7 @@ export class TTRow {
             pRipple
             [ngStyle]="{
                 visibility: rowNode.node.leaf === false || (rowNode.node.children && rowNode.node.children.length) ? 'visible' : 'hidden',
-                'margin-left': rowNode.level * 16 + 'px'
+                'margin-inline-start': rowNode.level * 16 + 'px'
             }"
             [attr.data-pc-section]="'rowtoggler'"
             [attr.data-pc-group-section]="'rowactionbutton'"
@@ -3739,7 +3739,7 @@ export class TTRow {
         >
             <ng-container *ngIf="!tt.togglerIconTemplate">
                 <ChevronDownIcon *ngIf="rowNode.node.expanded" [attr.aria-hidden]="true" />
-                <ChevronRightIcon *ngIf="!rowNode.node.expanded" [attr.aria-hidden]="true" />
+                <ChevronEndIcon *ngIf="!rowNode.node.expanded" [attr.aria-hidden]="true" />
             </ng-container>
             <ng-template *ngTemplateOutlet="tt.togglerIconTemplate; context: { $implicit: rowNode.node.expanded }"></ng-template>
         </button>
@@ -3784,7 +3784,7 @@ export class TreeTableToggler {
 }
 
 @NgModule({
-    imports: [CommonModule, PaginatorModule, RippleModule, ScrollerModule, SpinnerIcon, ArrowDownIcon, ArrowUpIcon, SortAltIcon, SortAmountUpAltIcon, SortAmountDownIcon, CheckIcon, MinusIcon, ChevronDownIcon, ChevronRightIcon],
+    imports: [CommonModule, PaginatorModule, RippleModule, ScrollerModule, SpinnerIcon, ArrowDownIcon, ArrowUpIcon, SortAltIcon, SortAmountUpAltIcon, SortAmountDownIcon, CheckIcon, MinusIcon, ChevronDownIcon, ChevronEndIcon],
     exports: [
         TreeTable,
         SharedModule,

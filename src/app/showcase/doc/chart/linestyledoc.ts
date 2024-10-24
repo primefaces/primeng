@@ -111,7 +111,7 @@ export class LineStyleDoc implements OnInit {
     <p-chart type="line" [data]="data" [options]="options" />
 </div>`,
         typescript: `import { Component, OnInit } from '@angular/core';
-import { ChartModule } from 'primeng/chart';
+import { ChartModule } from 'primengrtl/chart';
 
 @Component({
     selector: 'chart-line-style-demo',
@@ -129,7 +129,7 @@ export class ChartLineStyleDemo implements OnInit {
         const textColor = documentStyle.getPropertyValue('--text-color');
         const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
         const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
-        
+
         this.data = {
             labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
             datasets: [
@@ -158,7 +158,7 @@ export class ChartLineStyleDemo implements OnInit {
                 }
             ]
         };
-        
+
         this.options = {
             maintainAspectRatio: false,
             aspectRatio: 0.6,

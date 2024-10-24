@@ -36,19 +36,19 @@ export class FormatDoc {
     date: Date | undefined;
 
     code: Code = {
-        basic: `<p-calendar 
-    [(ngModel)]="date" 
+        basic: `<p-calendar
+    [(ngModel)]="date"
     dateFormat="dd.mm.yy" />`,
 
         html: `<div class="card flex justify-content-center">
-    <p-calendar 
-        [(ngModel)]="date" 
+    <p-calendar
+        [(ngModel)]="date"
         dateFormat="dd.mm.yy" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { CalendarModule } from 'primeng/calendar';
+import { CalendarModule } from 'primengrtl/calendar';
 
 @Component({
     selector: 'calendar-format-demo',

@@ -2,7 +2,7 @@ import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { Footer, Header } from 'primeng/api';
+import { Footer, Header } from 'primengrtl/api';
 import { ButtonModule } from '../button/button';
 import { Card } from './card';
 
@@ -15,7 +15,7 @@ import { Card } from './card';
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!
         </div>
         <p-footer>
-            <button type="button" label="Save" icon="pi pi-check" style="margin-right: .25em"></button>
+            <button type="button" label="Save" icon="pi pi-check" style="margin-inline-end: .25em"></button>
             <button type="button" label="Cancel" icon="pi pi-times" class="ui-button-secondary"></button>
         </p-footer>
     </p-card>`

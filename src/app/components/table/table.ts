@@ -33,30 +33,46 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { BlockableUI, FilterMatchMode, FilterMetadata, FilterOperator, FilterService, LazyLoadMeta, OverlayService, PrimeNGConfig, PrimeTemplate, ScrollerOptions, SelectItem, SharedModule, SortMeta, TableState, TranslationKeys } from 'primeng/api';
-import { ButtonModule } from 'primeng/button';
-import { CalendarModule } from 'primeng/calendar';
-import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
-import { DropdownModule } from 'primeng/dropdown';
-import { ArrowDownIcon } from 'primeng/icons/arrowdown';
-import { ArrowUpIcon } from 'primeng/icons/arrowup';
-import { CheckIcon } from 'primeng/icons/check';
-import { FilterIcon } from 'primeng/icons/filter';
-import { FilterSlashIcon } from 'primeng/icons/filterslash';
-import { PlusIcon } from 'primeng/icons/plus';
-import { SortAltIcon } from 'primeng/icons/sortalt';
-import { SortAmountDownIcon } from 'primeng/icons/sortamountdown';
-import { SortAmountUpAltIcon } from 'primeng/icons/sortamountupalt';
-import { SpinnerIcon } from 'primeng/icons/spinner';
-import { TrashIcon } from 'primeng/icons/trash';
-import { InputNumberModule } from 'primeng/inputnumber';
-import { InputTextModule } from 'primeng/inputtext';
-import { PaginatorModule } from 'primeng/paginator';
-import { Scroller, ScrollerModule } from 'primeng/scroller';
-import { SelectButtonModule } from 'primeng/selectbutton';
-import { TriStateCheckboxModule } from 'primeng/tristatecheckbox';
-import { Nullable, VoidListener } from 'primeng/ts-helpers';
-import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
+import {
+    BlockableUI,
+    FilterMatchMode,
+    FilterMetadata,
+    FilterOperator,
+    FilterService,
+    LazyLoadMeta,
+    OverlayService,
+    PrimeNGConfig,
+    PrimeTemplate,
+    ScrollerOptions,
+    SelectItem,
+    SharedModule,
+    SortMeta,
+    TableState,
+    TranslationKeys
+} from 'primengrtl/api';
+import { ButtonModule } from 'primengrtl/button';
+import { CalendarModule } from 'primengrtl/calendar';
+import { ConnectedOverlayScrollHandler, DomHandler } from 'primengrtl/dom';
+import { DropdownModule } from 'primengrtl/dropdown';
+import { ArrowDownIcon } from 'primengrtl/icons/arrowdown';
+import { ArrowUpIcon } from 'primengrtl/icons/arrowup';
+import { CheckIcon } from 'primengrtl/icons/check';
+import { FilterIcon } from 'primengrtl/icons/filter';
+import { FilterSlashIcon } from 'primengrtl/icons/filterslash';
+import { PlusIcon } from 'primengrtl/icons/plus';
+import { SortAltIcon } from 'primengrtl/icons/sortalt';
+import { SortAmountDownIcon } from 'primengrtl/icons/sortamountdown';
+import { SortAmountUpAltIcon } from 'primengrtl/icons/sortamountupalt';
+import { SpinnerIcon } from 'primengrtl/icons/spinner';
+import { TrashIcon } from 'primengrtl/icons/trash';
+import { InputNumberModule } from 'primengrtl/inputnumber';
+import { InputTextModule } from 'primengrtl/inputtext';
+import { PaginatorModule } from 'primengrtl/paginator';
+import { Scroller, ScrollerModule } from 'primengrtl/scroller';
+import { SelectButtonModule } from 'primengrtl/selectbutton';
+import { TriStateCheckboxModule } from 'primengrtl/tristatecheckbox';
+import { Nullable, VoidListener } from 'primengrtl/ts-helpers';
+import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primengrtl/utils';
 import { Subject, Subscription } from 'rxjs';
 import {
     ExportCSVOptions,
@@ -2504,7 +2520,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     }
 
     onColumnResizeBegin(event: any) {
-        let containerLeft = DomHandler.getOffset(this.containerViewChild?.nativeElement).left;
+        let containerLeft = DomHandler.getOffset(this.containerViewChild?.nativeElement).start;
         this.resizeColumnElement = event.target.parentElement;
         this.columnResizing = true;
         if (event.type == 'touchstart') {
@@ -2517,7 +2533,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     }
 
     onColumnResize(event: any) {
-        let containerLeft = DomHandler.getOffset(this.containerViewChild?.nativeElement).left;
+        let containerLeft = DomHandler.getOffset(this.containerViewChild?.nativeElement).start;
         DomHandler.addClass(this.containerViewChild?.nativeElement, 'p-unselectable-text');
         (<ElementRef>this.resizeHelperViewChild).nativeElement.style.height = this.containerViewChild?.nativeElement.offsetHeight + 'px';
         (<ElementRef>this.resizeHelperViewChild).nativeElement.style.top = 0 + 'px';
@@ -2590,9 +2606,9 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             if (this.draggedColumn != dropHeader) {
                 let dragIndex = DomHandler.indexWithinGroup(this.draggedColumn, 'preorderablecolumn');
                 let dropIndex = DomHandler.indexWithinGroup(dropHeader, 'preorderablecolumn');
-                let targetLeft = dropHeaderOffset.left - containerOffset.left;
+                let targetLeft = dropHeaderOffset.start - containerOffset.start;
                 let targetTop = containerOffset.top - dropHeaderOffset.top;
-                let columnCenter = dropHeaderOffset.left + dropHeader.offsetWidth / 2;
+                let columnCenter = dropHeaderOffset.start + dropHeader.offsetWidth / 2;
 
                 (<ElementRef>this.reorderIndicatorUpViewChild).nativeElement.style.top = dropHeaderOffset.top - containerOffset.top - (<number>this.reorderIconHeight - 1) + 'px';
                 (<ElementRef>this.reorderIndicatorDownViewChild).nativeElement.style.top = dropHeaderOffset.top - containerOffset.top + dropHeader.offsetHeight + 'px';
@@ -3040,8 +3056,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
         #${this.id}.p-datatable-gridlines > .p-datatable-wrapper > .p-datatable-table > .p-datatable-tbody > tr > td:last-child {
             border-top: 0;
-            border-right: 0;
-            border-left: 0;
+            border-inline-end: 0;
+            border-inline-start: 0;
         }
 
         #${this.id}-table > .p-datatable-tbody > tr > td > .p-column-title {
@@ -5200,7 +5216,7 @@ export class ReorderableRow implements AfterViewInit {
                                     [attr.aria-label]="removeRuleButtonLabel"
                                     [label]="removeRuleButtonLabel"
                                 >
-                                    <TrashIcon *ngIf="!removeRuleIconTemplate" [styleClass]="'p-button-icon-left'" />
+                                    <TrashIcon *ngIf="!removeRuleIconTemplate" [styleClass]="'p-button-icon-start'" />
                                     <ng-template *ngTemplateOutlet="removeRuleIconTemplate"></ng-template>
                                 </button>
                             </div>
@@ -5208,7 +5224,7 @@ export class ReorderableRow implements AfterViewInit {
                     </div>
                     <div class="p-column-filter-add-rule" *ngIf="isShowAddConstraint">
                         <button type="button" pButton [label]="addRuleButtonLabel" [attr.aria-label]="addRuleButtonLabel" class="p-column-filter-add-button p-button-text p-button-sm" (click)="addConstraint()" pRipple>
-                            <PlusIcon *ngIf="!addRuleIconTemplate" [styleClass]="'p-button-icon-left'" />
+                            <PlusIcon *ngIf="!addRuleIconTemplate" [styleClass]="'p-button-icon-start'" />
                             <ng-template *ngTemplateOutlet="addRuleIconTemplate"></ng-template>
                         </button>
                     </div>

@@ -22,10 +22,10 @@ export class TemplateDoc {
     code: Code = {
         basic: `<p-tag [style]="{ background: 'linear-gradient(to right, var(--surface-900), var(--surface-700)' }">
     <div class="flex align-items-center gap-2 px-1">
-        <img 
-            alt="Country" 
-            src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" 
-            class="flag flag-it" 
+        <img
+            alt="Country"
+            src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
+            class="flag flag-it"
             style="width: '18px'" />
         <span class="text-base">
             Italy
@@ -35,10 +35,10 @@ export class TemplateDoc {
         html: `<div class="card flex justify-content-center">
     <p-tag [style]="{ background: 'linear-gradient(to right, var(--surface-900), var(--surface-700)' }">
         <div class="flex align-items-center gap-2 px-1">
-            <img 
-                alt="Country" 
-                src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" 
-                class="flag flag-it" 
+            <img
+                alt="Country"
+                src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
+                class="flag flag-it"
                 style="width: '18px'" />
             <span class="text-base">
                 Italy
@@ -47,7 +47,7 @@ export class TemplateDoc {
     </p-tag>
 </div>`,
         typescript: `import { Component } from '@angular/core';
-import { TagModule } from 'primeng/tag';
+import { TagModule } from 'primengrtl/tag';
 
 @Component({
     selector: 'tag-template-demo',

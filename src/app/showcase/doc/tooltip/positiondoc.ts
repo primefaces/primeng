@@ -5,11 +5,11 @@ import { Code } from '@domain/code';
     selector: 'position-doc',
     template: `
         <app-docsectiontext>
-            <p>Position of the tooltip is specified using <i>tooltipPosition</i> attribute. Valid values are <i>top</i>, <i>bottom</i>, <i>right</i> and <i>left</i>. Default position of the tooltip is <i>right</i>.</p>
+            <p>Position of the tooltip is specified using <i>tooltipPosition</i> attribute. Valid values are <i>top</i>, <i>bottom</i>, <i>end</i> and <i>start</i>. Default position of the tooltip is <i>end</i>.</p>
         </app-docsectiontext>
         <div class="card flex flex-wrap justify-content-center gap-2">
-            <input type="text" pInputText pTooltip="Enter your username" tooltipPosition="right" placeholder="Right" />
-            <input type="text" pInputText pTooltip="Enter your username" tooltipPosition="left" placeholder="Left" />
+            <input type="text" pInputText pTooltip="Enter your username" tooltipPosition="end" placeholder="End" />
+            <input type="text" pInputText pTooltip="Enter your username" tooltipPosition="start" placeholder="Start" />
             <input type="text" pInputText pTooltip="Enter your username" tooltipPosition="top" placeholder="Top" />
             <input type="text" pInputText pTooltip="Enter your username" tooltipPosition="bottom" placeholder="Bottom" />
         </div>
@@ -18,61 +18,61 @@ import { Code } from '@domain/code';
 })
 export class PositionDoc {
     code: Code = {
-        basic: `<input 
-    type="text" 
-    pInputText 
-    pTooltip="Enter your username" 
-    tooltipPosition="right" 
-    placeholder="Right" />
-<input 
-    type="text" 
-    pInputText 
-    pTooltip="Enter your username" 
-    tooltipPosition="left" 
-    placeholder="Left" />
-<input 
-    type="text" 
-    pInputText 
-    pTooltip="Enter your username" 
-    tooltipPosition="top" 
+        basic: `<input
+    type="text"
+    pInputText
+    pTooltip="Enter your username"
+    tooltipPosition="end"
+    placeholder="End" />
+<input
+    type="text"
+    pInputText
+    pTooltip="Enter your username"
+    tooltipPosition="start"
+    placeholder="Start" />
+<input
+    type="text"
+    pInputText
+    pTooltip="Enter your username"
+    tooltipPosition="top"
     placeholder="Top" />
-<input 
-    type="text" 
-    pInputText 
-    pTooltip="Enter your username" 
-    tooltipPosition="bottom" 
+<input
+    type="text"
+    pInputText
+    pTooltip="Enter your username"
+    tooltipPosition="bottom"
     placeholder="Bottom" />`,
 
         html: `<div class="card flex flex-wrap justify-content-center gap-2">
-    <input 
-        type="text" 
-        pInputText 
+    <input
+        type="text"
+        pInputText
         pTooltip="Enter your username"
-        tooltipPosition="right" 
-        placeholder="Right" />
-    <input 
-        type="text" 
-        pInputText 
-        pTooltip="Enter your username" 
-        tooltipPosition="left" 
-        placeholder="Left">
-    <input 
-        type="text" 
-        pInputText 
-        pTooltip="Enter your username" 
-        tooltipPosition="top" 
+        tooltipPosition="end"
+        placeholder="End" />
+    <input
+        type="text"
+        pInputText
+        pTooltip="Enter your username"
+        tooltipPosition="start"
+        placeholder="Start">
+    <input
+        type="text"
+        pInputText
+        pTooltip="Enter your username"
+        tooltipPosition="top"
         placeholder="Top">
-    <input 
-        type="text" 
-        pInputText 
-        pTooltip="Enter your username" 
-        tooltipPosition="bottom" 
+    <input
+        type="text"
+        pInputText
+        pTooltip="Enter your username"
+        tooltipPosition="bottom"
         placeholder="Bottom">
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { TooltipModule } from 'primeng/tooltip';
-import { InputTextModule } from 'primeng/inputtext';
+import { TooltipModule } from 'primengrtl/tooltip';
+import { InputTextModule } from 'primengrtl/inputtext';
 
 @Component({
     selector: 'tooltip-position-demo',

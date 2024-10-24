@@ -1,6 +1,6 @@
 .p-overflow-hidden {
     overflow: hidden;
-    padding-right: var(--scrollbar-width);
+    padding-inline-end: var(--scrollbar-width);
 }
 
 @layer primeng {
@@ -52,7 +52,7 @@
     .p-component-overlay {
         position: fixed;
         top: 0;
-        left: 0;
+        inset-inline-start: 0;
         width: 100%;
         height: 100%;
     }
@@ -95,7 +95,7 @@
     }
 
     .p-link {
-        text-align: left;
+        text-align: start;
         background-color: transparent;
         margin: 0;
         padding: 0;

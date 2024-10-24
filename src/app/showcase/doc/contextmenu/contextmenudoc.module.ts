@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { ContextMenuModule } from 'primeng/contextmenu';
+import { ContextMenuModule } from 'primengrtl/contextmenu';
 import { AppDocModule } from '@layout/doc/app.doc.module';
 import { AppCodeModule } from '@layout/doc/app.code.component';
 import { AccessibilityDoc } from './accessibilitydoc';
@@ -11,8 +11,8 @@ import { ImportDoc } from './importdoc';
 import { StyleDoc } from './styledoc';
 import { TemplateDoc } from './templatedoc';
 import { CommandDoc } from './commanddoc';
-import { TagModule } from 'primeng/tag';
-import { ToastModule } from 'primeng/toast';
+import { TagModule } from 'primengrtl/tag';
+import { ToastModule } from 'primengrtl/toast';
 import { RouterDoc } from './routerdoc';
 import { TableDoc } from './tabledoc';
 

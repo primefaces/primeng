@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { TreeNode } from 'primeng/api';
+import { TreeNode } from 'primengrtl/api';
 import { Code } from '@domain/code';
 
 @Component({
@@ -134,39 +134,39 @@ export class LazyDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-tree 
-    class="w-full md:w-30rem" 
-    [value]="nodes" 
-    (onNodeExpand)="onNodeExpand($event)" 
+        basic: `<p-tree
+    class="w-full md:w-30rem"
+    [value]="nodes"
+    (onNodeExpand)="onNodeExpand($event)"
     [loading]="loading" />
-<p-tree 
-    class="w-full md:w-30rem" 
-    [value]="nodes2" 
-    loadingMode="icon" 
+<p-tree
+    class="w-full md:w-30rem"
+    [value]="nodes2"
+    loadingMode="icon"
     (onNodeExpand)="onNodeExpand2($event)" />`,
 
         html: `<div class="card flex flex-wrap p-fluid gap-3">
     <div class="flex-auto md:flex md:justify-content-start md:align-items-center flex-column">
         <label for="mask" class="font-bold block mb-2">Mask Mode</label>
-        <p-tree 
-            class="w-full md:w-30rem" 
-            [value]="nodes" 
-            (onNodeExpand)="onNodeExpand($event)" 
+        <p-tree
+            class="w-full md:w-30rem"
+            [value]="nodes"
+            (onNodeExpand)="onNodeExpand($event)"
             [loading]="loading" />
     </div>
     <div class="flex-auto md:flex md:justify-content-start md:align-items-center flex-column">
         <label for="icon" class="font-bold block mb-2">Icon Mode</label>
-        <p-tree 
-            class="w-full md:w-30rem" 
-            [value]="nodes2" 
-            loadingMode="icon" 
+        <p-tree
+            class="w-full md:w-30rem"
+            [value]="nodes2"
+            loadingMode="icon"
             (onNodeExpand)="onNodeExpand2($event)" />
     </div>
 </div>`,
 
         typescript: `import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { TreeNode } from 'primeng/api';
-import { TreeModule } from 'primeng/tree';
+import { TreeNode } from 'primengrtl/api';
+import { TreeModule } from 'primengrtl/tree';
 
 @Component({
     selector: 'tree-lazy-demo',

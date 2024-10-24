@@ -20,11 +20,11 @@ import { Component } from '@angular/core';
                         <td>Container element</td>
                     </tr>
                     <tr>
-                        <td>p-sidebar-left</td>
+                        <td>p-sidebar-start</td>
                         <td>Container element of left sidebar.</td>
                     </tr>
                     <tr>
-                        <td>p-sidebar-right</td>
+                        <td>p-sidebar-end</td>
                         <td>Container element of right sidebar.</td>
                     </tr>
                     <tr>

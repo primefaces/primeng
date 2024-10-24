@@ -24,7 +24,7 @@ export class InvalidDoc {
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { InputSwitchModule } from 'primeng/inputswitch';
+import { InputSwitchModule } from 'primengrtl/inputswitch';
 import { FormsModule } from '@angular/forms';
 
 @Component({

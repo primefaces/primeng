@@ -34,7 +34,7 @@ export class ReactiveFormsDoc implements OnInit {
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { InputTextModule } from 'primeng/inputtext';
+import { InputTextModule } from 'primengrtl/inputtext';
 
 @Component({
     selector: 'input-text-reactive-forms-demo',

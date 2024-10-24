@@ -18,31 +18,31 @@ export class DisabledDoc {
 
     code: Code = {
         basic: `<p-toggleButton
-    disabled="true" 
-    onIcon="pi pi-check" 
-    offIcon="pi pi-times" 
-    [(ngModel)]="checked" 
+    disabled="true"
+    onIcon="pi pi-check"
+    offIcon="pi pi-times"
+    [(ngModel)]="checked"
     onLabel="Yes"
-    offLabel="No" 
-    styleClass="w-full sm:w-10rem" 
+    offLabel="No"
+    styleClass="w-full sm:w-10rem"
     ariaLabel="Confirmation" />`,
 
         html: `<div class="card flex justify-content-center">
-    <p-toggleButton 
-        disabled="true" 
-        onIcon="pi pi-check" 
-        offIcon="pi pi-times" 
-        [(ngModel)]="checked" 
-        onLabel="Yes" 
-        offLabel="No" 
-        styleClass="w-full sm:w-10rem" 
+    <p-toggleButton
+        disabled="true"
+        onIcon="pi pi-check"
+        offIcon="pi pi-times"
+        [(ngModel)]="checked"
+        onLabel="Yes"
+        offLabel="No"
+        styleClass="w-full sm:w-10rem"
         ariaLabel="Confirmation" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ToggleButtonModule } from 'primeng/togglebutton';
-        
+import { ToggleButtonModule } from 'primengrtl/togglebutton';
+
 @Component({
     selector: 'toggle-button-disabled-demo',
     templateUrl: './toggle-button-disabled-demo.html',

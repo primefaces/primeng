@@ -20,11 +20,11 @@ import {
     booleanAttribute,
     numberAttribute
 } from '@angular/core';
-import { Confirmation, ConfirmationService, OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
-import { ButtonModule } from 'primeng/button';
-import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
-import { Nullable, VoidListener } from 'primeng/ts-helpers';
-import { ZIndexUtils } from 'primeng/utils';
+import { Confirmation, ConfirmationService, OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys } from 'primengrtl/api';
+import { ButtonModule } from 'primengrtl/button';
+import { ConnectedOverlayScrollHandler, DomHandler } from 'primengrtl/dom';
+import { Nullable, VoidListener } from 'primengrtl/ts-helpers';
+import { ZIndexUtils } from 'primengrtl/utils';
 import { Subscription } from 'rxjs';
 /**
  * ConfirmPopup displays a confirmation overlay displayed relatively to its target.
@@ -305,10 +305,10 @@ export class ConfirmPopup implements AfterContentInit, OnDestroy {
         const targetOffset = DomHandler.getOffset(this.confirmation?.target);
         let arrowLeft = 0;
 
-        if (containerOffset.left < targetOffset.left) {
-            arrowLeft = targetOffset.left - containerOffset.left;
+        if (containerOffset.start < targetOffset.start) {
+            arrowLeft = targetOffset.start - containerOffset.start;
         }
-        (this.container as HTMLDivElement).style.setProperty('--overlayArrowLeft', `${arrowLeft}px`);
+        (this.container as HTMLDivElement).style.setProperty('--overlayArrowStart', `${arrowLeft}px`);
 
         if (containerOffset.top < targetOffset.top) {
             DomHandler.addClass(this.container, 'p-confirm-popup-flipped');

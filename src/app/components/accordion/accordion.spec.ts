@@ -26,7 +26,7 @@ class TestAccordionComponent {
 
     collapseIcon: string = 'pi pi-fw pi-chevron-down';
 
-    expandIcon: string = 'pi pi-fw pi-chevron-right';
+    expandIcon: string = 'pi pi-fw pi-chevron-end';
 
     styleClass: string;
 
@@ -110,7 +110,7 @@ describe('Accordion', () => {
     });
 
     it('should change expandIcon and collapseIcon', () => {
-        fixture.componentInstance.collapseIcon = 'pi pi-fw pi-caret-left';
+        fixture.componentInstance.collapseIcon = 'pi pi-fw pi-caret-start';
         fixture.componentInstance.expandIcon = 'pi pi-fw pi-caret-up';
         fixture.detectChanges();
 

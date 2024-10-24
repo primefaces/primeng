@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuItem } from 'primeng/api';
+import { MenuItem } from 'primengrtl/api';
 import { Code } from '@domain/code';
 
 @Component({
@@ -44,10 +44,10 @@ import { Code } from '@domain/code';
                 <ng-template pTemplate="item" let-item let-root="root">
                     <a pRipple class="flex align-items-center p-menuitem-link">
                         <span [class]="item.icon"></span>
-                        <span class="ml-2">{{ item.label }}</span>
-                        <p-badge *ngIf="item.badge" [ngClass]="{ 'ml-auto': !root, 'ml-2': root }" [value]="item.badge" />
-                        <span *ngIf="item.shortcut" class="ml-auto border-1 surface-border border-round surface-100 text-xs p-1">{{ item.shortcut }}</span>
-                        <i *ngIf="item.items" [ngClass]="['pi', root ? 'pi-angle-down ml-2' : 'pi-angle-right ml-auto']"></i>
+                        <span class="ms-2">{{ item.label }}</span>
+                        <p-badge *ngIf="item.badge" [ngClass]="{ 'ms-auto': !root, 'ms-2': root }" [value]="item.badge" />
+                        <span *ngIf="item.shortcut" class="ms-auto border-1 surface-border border-round surface-100 text-xs p-1">{{ item.shortcut }}</span>
+                        <i *ngIf="item.items" [ngClass]="['pi', root ? 'pi-angle-down ms-2' : 'pi-angle-end ms-auto']"></i>
                     </a>
                 </ng-template>
                 <ng-template pTemplate="end">
@@ -158,10 +158,10 @@ export class TemplateDoc implements OnInit {
     <ng-template pTemplate="item" let-item let-root="root">
         <a pRipple class="flex align-items-center p-menuitem-link">
             <span [class]="item.icon"></span>
-            <span class="ml-2">{{ item.label }}</span>
-            <p-badge *ngIf="item.badge" [ngClass]="{ 'ml-auto': !root, 'ml-2': root }" [value]="item.badge" />
-            <span *ngIf="item.shortcut" class="ml-auto border-1 surface-border border-round surface-100 text-xs p-1">{{ item.shortcut }}</span>
-            <i *ngIf="item.items" [ngClass]="['pi', root ? 'pi-angle-down ml-2' : 'pi-angle-right ml-auto']"></i>
+            <span class="ms-2">{{ item.label }}</span>
+            <p-badge *ngIf="item.badge" [ngClass]="{ 'ms-auto': !root, 'ms-2': root }" [value]="item.badge" />
+            <span *ngIf="item.shortcut" class="ms-auto border-1 surface-border border-round surface-100 text-xs p-1">{{ item.shortcut }}</span>
+            <i *ngIf="item.items" [ngClass]="['pi', root ? 'pi-angle-down ms-2' : 'pi-angle-end ms-auto']"></i>
         </a>
     </ng-template>
     <ng-template pTemplate="end">
@@ -208,10 +208,10 @@ export class TemplateDoc implements OnInit {
         <ng-template pTemplate="item" let-item let-root="root">
             <a pRipple class="flex align-items-center p-menuitem-link">
                 <span [class]="item.icon"></span>
-                <span class="ml-2">{{ item.label }}</span>
-                <p-badge *ngIf="item.badge" [ngClass]="{ 'ml-auto': !root, 'ml-2': root }" [value]="item.badge" />
-                <span *ngIf="item.shortcut" class="ml-auto border-1 surface-border border-round surface-100 text-xs p-1">{{ item.shortcut }}</span>
-                <i *ngIf="item.items" [ngClass]="['pi', root ? 'pi-angle-down ml-2' : 'pi-angle-right ml-auto']"></i>
+                <span class="ms-2">{{ item.label }}</span>
+                <p-badge *ngIf="item.badge" [ngClass]="{ 'ms-auto': !root, 'ms-2': root }" [value]="item.badge" />
+                <span *ngIf="item.shortcut" class="ms-auto border-1 surface-border border-round surface-100 text-xs p-1">{{ item.shortcut }}</span>
+                <i *ngIf="item.items" [ngClass]="['pi', root ? 'pi-angle-down ms-2' : 'pi-angle-end ms-auto']"></i>
             </a>
         </ng-template>
         <ng-template pTemplate="end">
@@ -224,13 +224,13 @@ export class TemplateDoc implements OnInit {
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
-import { MenuItem } from 'primeng/api';
-import { MenubarModule } from 'primeng/menubar';
-import { BadgeModule } from 'primeng/badge';
-import { AvatarModule } from 'primeng/avatar';
-import { InputTextModule } from 'primeng/inputtext';
+import { MenuItem } from 'primengrtl/api';
+import { MenubarModule } from 'primengrtl/menubar';
+import { BadgeModule } from 'primengrtl/badge';
+import { AvatarModule } from 'primengrtl/avatar';
+import { InputTextModule } from 'primengrtl/inputtext';
 import { CommonModule } from '@angular/common';
-import { RippleModule } from 'primeng/ripple';
+import { RippleModule } from 'primengrtl/ripple';
 
 @Component({
     selector: 'menubar-template-demo',

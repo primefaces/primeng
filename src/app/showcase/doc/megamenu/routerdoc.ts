@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MegaMenuItem } from 'primeng/api';
+import { MegaMenuItem } from 'primengrtl/api';
 import { Code } from '@domain/code';
 
 @Component({
@@ -18,13 +18,13 @@ export class RouterDoc {
         <ng-container *ngIf="item.route; else elseBlock">
             <a [routerLink]="item.route" class="p-menuitem-link">
                 <span [class]="item.icon"></span>
-                <span class="ml-2">{{ item.label }}</span>
+                <span class="ms-2">{{ item.label }}</span>
             </a>
         </ng-container>
         <ng-template #elseBlock>
             <a [href]="item.url" class="p-menuitem-link">
                 <span [class]="item.icon"></span>
-                <span class="ml-2">{{ item.label }}</span>
+                <span class="ms-2">{{ item.label }}</span>
             </a>
         </ng-template>
     </ng-template>

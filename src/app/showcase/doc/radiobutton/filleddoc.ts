@@ -24,7 +24,7 @@ export class FilledDoc {
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { RadioButtonModule } from 'primeng/radiobutton';
+import { RadioButtonModule } from 'primengrtl/radiobutton';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -33,7 +33,7 @@ import { FormsModule } from '@angular/forms';
     standalone: true,
     imports: [FormsModule, RadioButtonModule]
 })
-export class RadioButtonFilledDemo { 
+export class RadioButtonFilledDemo {
     checked: boolean = false;
 }`
     };

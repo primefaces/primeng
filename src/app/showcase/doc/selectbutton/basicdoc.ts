@@ -22,23 +22,23 @@ export class BasicDoc {
     value: string = 'one-way';
 
     code: Code = {
-        basic: `<p-selectButton 
-    [options]="stateOptions" 
-    [(ngModel)]="value" 
-    optionLabel="label" 
+        basic: `<p-selectButton
+    [options]="stateOptions"
+    [(ngModel)]="value"
+    optionLabel="label"
     optionValue="value" />`,
 
         html: `<div class="card flex justify-content-center">
-    <p-selectButton 
-        [options]="stateOptions" 
-        [(ngModel)]="value" 
-        optionLabel="label" 
+    <p-selectButton
+        [options]="stateOptions"
+        [(ngModel)]="value"
+        optionLabel="label"
         optionValue="value" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SelectButtonModule } from 'primeng/selectbutton';
+import { SelectButtonModule } from 'primengrtl/selectbutton';
 
 @Component({
     selector: 'select-button-basic-demo',

@@ -28,30 +28,30 @@ export class FilterDoc {
     }
 
     code: Code = {
-        basic: `<p-treeSelect 
-    class="md:w-20rem w-full" 
-    containerStyleClass="w-full" 
-    [(ngModel)]="selectedNodes" 
-    [options]="nodes" 
-    placeholder="Select Item" 
-    [filter]="true" 
+        basic: `<p-treeSelect
+    class="md:w-20rem w-full"
+    containerStyleClass="w-full"
+    [(ngModel)]="selectedNodes"
+    [options]="nodes"
+    placeholder="Select Item"
+    [filter]="true"
     [filterInputAutoFocus]="true" />`,
 
         html: `<div class="card flex justify-content-center">
-    <p-treeSelect 
-        class="md:w-20rem w-full" 
-        containerStyleClass="w-full" 
-        [(ngModel)]="selectedNodes" 
+    <p-treeSelect
+        class="md:w-20rem w-full"
+        containerStyleClass="w-full"
+        [(ngModel)]="selectedNodes"
         [options]="nodes"
-        placeholder="Select Item" 
-        [filter]="true" 
+        placeholder="Select Item"
+        [filter]="true"
         [filterInputAutoFocus]="true" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
 import { NodeService } from '@service/nodeservice';
 import { FormsModule } from '@angular/forms';
-import { TreeSelectModule } from 'primeng/treeselect';
+import { TreeSelectModule } from 'primengrtl/treeselect';
 
 @Component({
     selector: 'tree-select-filter-demo',

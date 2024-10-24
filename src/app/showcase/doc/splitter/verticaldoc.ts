@@ -22,9 +22,9 @@ import { Code } from '@domain/code';
 })
 export class VerticalDoc {
     code: Code = {
-        basic: `<p-splitter 
-    [style]="{ height: '300px' }" 
-    styleClass="mb-5" 
+        basic: `<p-splitter
+    [style]="{ height: '300px' }"
+    styleClass="mb-5"
     layout="vertical">
         <ng-template pTemplate>
             <div class="col flex align-items-center justify-content-center">
@@ -39,9 +39,9 @@ export class VerticalDoc {
 </p-splitter>`,
 
         html: `<div class="card">
-    <p-splitter 
-        [style]="{ height: '300px' }" 
-        styleClass="mb-5" 
+    <p-splitter
+        [style]="{ height: '300px' }"
+        styleClass="mb-5"
         layout="vertical">
             <ng-template pTemplate>
                 <div class="col flex align-items-center justify-content-center">
@@ -57,7 +57,7 @@ export class VerticalDoc {
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { SplitterModule } from 'primeng/splitter';   
+import { SplitterModule } from 'primengrtl/splitter';
 
 @Component({
     selector: 'splitter-vertical-demo',

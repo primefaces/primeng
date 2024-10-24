@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { MultiSelectModule } from 'primeng/multiselect';
+import { MultiSelectModule } from 'primengrtl/multiselect';
 import { AppDocModule } from '@layout/doc/app.doc.module';
 import { AppCodeModule } from '@layout/doc/app.code.component';
 import { AccessibilityDoc } from './accessibilitydoc';
@@ -19,7 +19,7 @@ import { StyleDoc } from './styledoc';
 import { TemplateDoc } from './templatedoc';
 import { VirtualScrollDoc } from './virtualscrolldoc';
 import { LoadingStateDoc } from './loadingstatedoc';
-import { FloatLabelModule } from 'primeng/floatlabel';
+import { FloatLabelModule } from 'primengrtl/floatlabel';
 import { FilledDoc } from './filleddoc';
 
 @NgModule({

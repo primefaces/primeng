@@ -16,6 +16,14 @@
             </div>
         </section>
 
+        <!-- Text Direction -->
+        <section class="py-4 flex align-items-center justify-content-between border-bottom-1 surface-border">
+            <span class="text-xl font-semibold">Text Direction</span>
+            <p-selectButton [options]="textDirections" [(ngModel)]="textDirection" (onChange)="onTextDirectionChange($event)"
+                optionLabel="label" optionValue="value" allowEmpty="false"></p-selectButton>
+        </section>
+
+        <!-- Input Style -->
         <section class="py-4 flex align-items-center justify-content-between border-bottom-1 surface-border">
             <span class="text-xl font-semibold">Input Style</span>
             <p-selectButton [options]="inputStyles" [(ngModel)]="inputStyle" (onChange)="onInputStyleChange($event)"
@@ -197,10 +205,10 @@
                 <img src="https://primefaces.org/cdn/primeng/images/themes/md-light-indigo.svg" alt="Material Design"
                     class="border-circle" style="width: 1.5rem" />
                 <span class="font-medium">Material Design</span>
-                <div class="ml-auto flex align-items-center gap-2">
+                <div class="ms-auto flex align-items-center gap-2">
                     <label for="material-condensed" class="text-sm">Condensed</label>
                     <p-inputSwitch inputId="material-condensed" [(ngModel)]="compactMaterial"
-                        (onChange)="onCompactMaterialChange()" class="ml-auto" />
+                        (onChange)="onCompactMaterialChange()" class="ms-auto" />
                 </div>
             </div>
             <div class="flex align-items-center justify-content-between gap-3">

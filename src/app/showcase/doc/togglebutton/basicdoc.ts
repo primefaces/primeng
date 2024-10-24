@@ -17,21 +17,21 @@ export class BasicDoc {
     checked: boolean = false;
 
     code: Code = {
-        basic: `<p-toggleButton 
-    [(ngModel)]="checked" 
-    onLabel="On" 
+        basic: `<p-toggleButton
+    [(ngModel)]="checked"
+    onLabel="On"
     offLabel="Off" />`,
 
         html: `<div class="card flex justify-content-center">
-    <p-toggleButton 
-        [(ngModel)]="checked" 
-        onLabel="On" 
+    <p-toggleButton
+        [(ngModel)]="checked"
+        onLabel="On"
         offLabel="Off" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ToggleButtonModule } from 'primeng/togglebutton';
+import { ToggleButtonModule } from 'primengrtl/togglebutton';
 
 @Component({
     selector: 'toggle-button-basic-demo',

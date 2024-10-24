@@ -25,7 +25,7 @@
             opacity: 0;
             z-index: -1;
         }
-        
+
         &::after {
             animation: clippath 3s infinite -1.5s linear;
         }
@@ -43,7 +43,7 @@
         100% {
             clip-path: inset(0 0 98% 0);
         }
-        
+
         25% {
             clip-path: inset(0 98% 0 0);
         }
@@ -54,7 +54,7 @@
             clip-path: inset(0 0 0 98%);
         }
     }
-    
+
     .linkbox {
         transition: background-color .2s, border-color .2s;
         display: inline-flex;
@@ -65,7 +65,7 @@
         background-color: var(--home-linkbox-bg);
         border-radius: 10px;
         cursor: pointer;
-        
+
         @include focus-visible();
 
         &:hover {
@@ -121,8 +121,8 @@
 
 .landing-footer-container {
     max-width: 1250px !important;
-    margin-left: auto !important;
-    margin-right: auto !important;
+    margin-inline-start: auto !important;
+    margin-inline-end: auto !important;
 }
 
 .animated-text {

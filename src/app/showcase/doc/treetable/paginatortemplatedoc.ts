@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { TreeNode } from 'primeng/api';
+import { TreeNode } from 'primengrtl/api';
 import { Code } from '@domain/code';
 
 interface Column {
@@ -84,12 +84,12 @@ export class PaginatorTemplateDoc {
     }
 
     code: Code = {
-        basic: `<p-treeTable 
-    [value]="files" 
-    [columns]="cols" 
-    [paginator]="true" 
-    [rows]="10" 
-    [scrollable]="true" 
+        basic: `<p-treeTable
+    [value]="files"
+    [columns]="cols"
+    [paginator]="true"
+    [rows]="10"
+    [scrollable]="true"
     [tableStyle]="{'min-width':'50rem'}">
         <ng-template pTemplate="header" let-columns>
             <tr>
@@ -115,12 +115,12 @@ export class PaginatorTemplateDoc {
 </p-treeTable>`,
 
         html: `<div class="card">
-    <p-treeTable 
-        [value]="files" 
-        [columns]="cols" 
-        [paginator]="true" 
-        [rows]="10" 
-        [scrollable]="true" 
+    <p-treeTable
+        [value]="files"
+        [columns]="cols"
+        [paginator]="true"
+        [rows]="10"
+        [scrollable]="true"
         [tableStyle]="{'min-width':'50rem'}">
             <ng-template pTemplate="header" let-columns>
                 <tr>
@@ -147,9 +147,9 @@ export class PaginatorTemplateDoc {
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
-import { TreeNode } from 'primeng/api';
-import { TreeTableModule } from 'primeng/treetable';
-import { ButtonModule } from 'primeng/button';
+import { TreeNode } from 'primengrtl/api';
+import { TreeTableModule } from 'primengrtl/treetable';
+import { ButtonModule } from 'primengrtl/button';
 import { CommonModule } from '@angular/common';
 
 interface Column {

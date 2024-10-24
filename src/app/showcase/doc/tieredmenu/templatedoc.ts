@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuItem } from 'primeng/api';
+import { MenuItem } from 'primengrtl/api';
 import { Code } from '@domain/code';
 
 @Component({
@@ -13,10 +13,10 @@ import { Code } from '@domain/code';
                 <ng-template pTemplate="item" let-item let-hasSubmenu="hasSubmenu">
                     <a pRipple class="flex align-items-center p-menuitem-link">
                         <span [class]="item.icon" class="p-menuitem-icon"></span>
-                        <span class="ml-2">{{ item.label }}</span>
-                        <p-badge *ngIf="item.badge" class="ml-auto" [value]="item.badge" />
-                        <span *ngIf="item.shortcut" class="ml-auto border-1 surface-border border-round surface-100 text-xs p-1">{{ item.shortcut }}</span>
-                        <i *ngIf="hasSubmenu" class="pi pi-angle-right ml-auto text-primary"></i>
+                        <span class="ms-2">{{ item.label }}</span>
+                        <p-badge *ngIf="item.badge" class="ms-auto" [value]="item.badge" />
+                        <span *ngIf="item.shortcut" class="ms-auto border-1 surface-border border-round surface-100 text-xs p-1">{{ item.shortcut }}</span>
+                        <i *ngIf="hasSubmenu" class="pi pi-angle-end ms-auto text-primary"></i>
                     </a>
                 </ng-template>
             </p-tieredMenu>
@@ -114,12 +114,12 @@ export class TemplateDoc implements OnInit {
     <ng-template pTemplate="item" let-item let-hasSubmenu="hasSubmenu">
     <a pRipple class="flex align-items-center p-menuitem-link">
     <span [class]="item.icon" class="p-menuitem-icon"></span>
-            <span class="ml-2">{{ item.label }}</span>
-            <p-badge *ngIf="item.badge" class="ml-auto" [value]="item.badge" />
-            <span *ngIf="item.shortcut" class="ml-auto border-1 surface-border border-round surface-100 text-xs p-1">
+            <span class="ms-2">{{ item.label }}</span>
+            <p-badge *ngIf="item.badge" class="ms-auto" [value]="item.badge" />
+            <span *ngIf="item.shortcut" class="ms-auto border-1 surface-border border-round surface-100 text-xs p-1">
                 {{ item.shortcut }}
             </span>
-            <i *ngIf="hasSubmenu" class="pi pi-angle-right ml-auto text-primary"></i>
+            <i *ngIf="hasSubmenu" class="pi pi-angle-end ms-auto text-primary"></i>
         </a>
     </ng-template>
 </p-tieredMenu>`,
@@ -129,23 +129,23 @@ export class TemplateDoc implements OnInit {
         <ng-template pTemplate="item" let-item let-hasSubmenu="hasSubmenu">
         <a pRipple class="flex align-items-center p-menuitem-link">
         <span [class]="item.icon" class="p-menuitem-icon"></span>
-                <span class="ml-2">{{ item.label }}</span>
-                <p-badge *ngIf="item.badge" class="ml-auto" [value]="item.badge" />
-                <span *ngIf="item.shortcut" class="ml-auto border-1 surface-border border-round surface-100 text-xs p-1">
+                <span class="ms-2">{{ item.label }}</span>
+                <p-badge *ngIf="item.badge" class="ms-auto" [value]="item.badge" />
+                <span *ngIf="item.shortcut" class="ms-auto border-1 surface-border border-round surface-100 text-xs p-1">
                     {{ item.shortcut }}
                 </span>
-                <i *ngIf="hasSubmenu" class="pi pi-angle-right ml-auto text-primary"></i>
+                <i *ngIf="hasSubmenu" class="pi pi-angle-end ms-auto text-primary"></i>
             </a>
         </ng-template>
     </p-tieredMenu>
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
-import { MenuItem } from 'primeng/api';
-import { TieredMenuModule } from 'primeng/tieredmenu';
-import { BadgeModule } from 'primeng/badge';
+import { MenuItem } from 'primengrtl/api';
+import { TieredMenuModule } from 'primengrtl/tieredmenu';
+import { BadgeModule } from 'primengrtl/badge';
 import { CommonModule } from '@angular/common';
-import { RippleModule } from 'primeng/ripple';
+import { RippleModule } from 'primengrtl/ripple';
 
 @Component({
     selector: 'tiered-menu-template-demo',

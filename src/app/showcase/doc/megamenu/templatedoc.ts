@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MegaMenuItem } from 'primeng/api';
+import { MegaMenuItem } from 'primengrtl/api';
 import { Code } from '@domain/code';
 
 @Component({
@@ -44,7 +44,7 @@ import { Code } from '@domain/code';
                 <ng-template pTemplate="item" let-item>
                     <a *ngIf="item.root" pRipple class="flex align-items-center cursor-pointer px-3 py-2 overflow-hidden relative font-semibold text-lg uppercase" style="border-radius: 2rem">
                         <i [ngClass]="item.icon"></i>
-                        <span class="ml-2">{{ item.label }}</span>
+                        <span class="ms-2">{{ item.label }}</span>
                     </a>
                     <a *ngIf="!item.root && !item.image" class="flex align-items-center p-3 cursor-pointer mb-2 gap-2">
                         <span class="inline-flex align-items-center justify-content-center border-circle bg-primary w-3rem h-3rem">
@@ -159,7 +159,7 @@ export class TemplateDoc implements OnInit {
     <ng-template pTemplate="item" let-item>
         <a *ngIf="item.root" pRipple class="flex align-items-center cursor-pointer px-3 py-2 overflow-hidden relative font-semibold text-lg uppercase" style="border-radius: 2rem">
             <i [ngClass]="item.icon"></i>
-            <span class="ml-2">{{ item.label }}</span>
+            <span class="ms-2">{{ item.label }}</span>
         </a>
         <a *ngIf="!item.root && !item.image" class="flex align-items-center p-3 cursor-pointer mb-2 gap-2">
             <span class="inline-flex align-items-center justify-content-center border-circle bg-primary w-3rem h-3rem">
@@ -217,7 +217,7 @@ export class TemplateDoc implements OnInit {
         <ng-template pTemplate="item" let-item>
             <a *ngIf="item.root" pRipple class="flex align-items-center cursor-pointer px-3 py-2 overflow-hidden relative font-semibold text-lg uppercase" style="border-radius: 2rem">
                 <i [ngClass]="item.icon"></i>
-                <span class="ml-2">{{ item.label }}</span>
+                <span class="ms-2">{{ item.label }}</span>
             </a>
             <a *ngIf="!item.root && !item.image" class="flex align-items-center p-3 cursor-pointer mb-2 gap-2">
                 <span class="inline-flex align-items-center justify-content-center border-circle bg-primary w-3rem h-3rem">
@@ -241,11 +241,11 @@ export class TemplateDoc implements OnInit {
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
-import { MegaMenuItem } from 'primeng/api';
-import { MegaMenuModule } from 'primeng/megamenu';
-import { ButtonModule } from 'primeng/button';
+import { MegaMenuItem } from 'primengrtl/api';
+import { MegaMenuModule } from 'primengrtl/megamenu';
+import { ButtonModule } from 'primengrtl/button';
 import { CommonModule } from '@angular/common';
-import { AvatarModule } from 'primeng/avatar';
+import { AvatarModule } from 'primengrtl/avatar';
 
 
 @Component({

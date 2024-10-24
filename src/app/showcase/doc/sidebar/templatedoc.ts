@@ -32,8 +32,8 @@ export class TemplateDoc {
         basic: `<p-sidebar [(visible)]="sidebarVisible">
     <ng-template pTemplate="header">
         <div class="flex align-items-center gap-2">
-            <p-avatar 
-                image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" 
+            <p-avatar
+                image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"
                 shape="circle" />
             <span class="font-bold">
                 Amy Elsner
@@ -50,8 +50,8 @@ export class TemplateDoc {
     <p-sidebar [(visible)]="sidebarVisible">
         <ng-template pTemplate="header">
             <div class="flex align-items-center gap-2">
-                <p-avatar 
-                    image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" 
+                <p-avatar
+                    image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"
                     shape="circle" />
                 <span class="font-bold">
                     Amy Elsner
@@ -67,8 +67,8 @@ export class TemplateDoc {
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { SidebarModule } from 'primeng/sidebar';
-import { ButtonModule } from 'primeng/button';
+import { SidebarModule } from 'primengrtl/sidebar';
+import { ButtonModule } from 'primengrtl/button';
 
 @Component({
     selector: 'sidebar-template-demo',

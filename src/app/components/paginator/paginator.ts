@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, DOCUMENT } from '@angular/common';
 import {
     AfterContentInit,
     ChangeDetectionStrategy,
@@ -7,6 +7,7 @@ import {
     ContentChildren,
     ElementRef,
     EventEmitter,
+    Inject,
     Input,
     NgModule,
     OnChanges,
@@ -20,16 +21,17 @@ import {
     numberAttribute
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Aria, PrimeNGConfig, PrimeTemplate, SelectItem, SharedModule } from 'primeng/api';
-import { DropdownChangeEvent, DropdownModule } from 'primeng/dropdown';
-import { AngleDoubleLeftIcon } from 'primeng/icons/angledoubleleft';
-import { AngleDoubleRightIcon } from 'primeng/icons/angledoubleright';
-import { AngleLeftIcon } from 'primeng/icons/angleleft';
-import { AngleRightIcon } from 'primeng/icons/angleright';
-import { InputNumberModule } from 'primeng/inputnumber';
-import { RippleModule } from 'primeng/ripple';
-import { Nullable } from 'primeng/ts-helpers';
+import { Aria, PrimeNGConfig, PrimeTemplate, SelectItem, SharedModule } from 'primengrtl/api';
+import { DropdownChangeEvent, DropdownModule } from 'primengrtl/dropdown';
+import { AngleDoubleStartIcon } from 'primengrtl/icons/angledoublestart';
+import { AngleDoubleEndIcon } from 'primengrtl/icons/angledoubleend';
+import { AngleStartIcon } from 'primengrtl/icons/anglestart';
+import { AngleEndIcon } from 'primengrtl/icons/angleend';
+import { InputNumberModule } from 'primengrtl/inputnumber';
+import { RippleModule } from 'primengrtl/ripple';
+import { Nullable } from 'primengrtl/ts-helpers';
 import { PaginatorState } from './paginator.interface';
+
 /**
  * Paginator is a generic component to display content in paged format.
  * @group Components
@@ -52,7 +54,7 @@ import { PaginatorState } from './paginator.interface';
                 [ngClass]="{ 'p-disabled': isFirstPage() || empty() }"
                 [attr.aria-label]="getAriaLabel('firstPageLabel')"
             >
-                <AngleDoubleLeftIcon *ngIf="!firstPageLinkIconTemplate" [styleClass]="'p-paginator-icon'" />
+                <AngleDoubleStartIcon *ngIf="!firstPageLinkIconTemplate" [styleClass]="'p-paginator-icon'" />
                 <span class="p-paginator-icon" *ngIf="firstPageLinkIconTemplate">
                     <ng-template *ngTemplateOutlet="firstPageLinkIconTemplate"></ng-template>
                 </span>
@@ -66,7 +68,7 @@ import { PaginatorState } from './paginator.interface';
                 [ngClass]="{ 'p-disabled': isFirstPage() || empty() }"
                 [attr.aria-label]="getAriaLabel('prevPageLabel')"
             >
-                <AngleLeftIcon *ngIf="!previousPageLinkIconTemplate" [styleClass]="'p-paginator-icon'" />
+                <AngleStartIcon *ngIf="!previousPageLinkIconTemplate" [styleClass]="'p-paginator-icon'" />
                 <span class="p-paginator-icon" *ngIf="previousPageLinkIconTemplate">
                     <ng-template *ngTemplateOutlet="previousPageLinkIconTemplate"></ng-template>
                 </span>
@@ -99,7 +101,7 @@ import { PaginatorState } from './paginator.interface';
                 <ng-template pTemplate="selectedItem">{{ currentPageReport }}</ng-template>
                 <ng-container *ngIf="jumpToPageItemTemplate">
                     <ng-template let-item pTemplate="item">
-                        <ng-container *ngTemplateOutlet="jumpToPageItemTemplate; context: { $implicit: item }"> </ng-container>
+                        <ng-container *ngTemplateOutlet="jumpToPageItemTemplate; context: { $implicit: item }"></ng-container>
                     </ng-template>
                 </ng-container>
                 <ng-template pTemplate="dropdownicon" *ngIf="dropdownIconTemplate">
@@ -115,7 +117,7 @@ import { PaginatorState } from './paginator.interface';
                 [ngClass]="{ 'p-disabled': isLastPage() || empty() }"
                 [attr.aria-label]="getAriaLabel('nextPageLabel')"
             >
-                <AngleRightIcon *ngIf="!nextPageLinkIconTemplate" [styleClass]="'p-paginator-icon'" />
+                <AngleEndIcon *ngIf="!nextPageLinkIconTemplate" [styleClass]="'p-paginator-icon'" />
                 <span class="p-paginator-icon" *ngIf="nextPageLinkIconTemplate">
                     <ng-template *ngTemplateOutlet="nextPageLinkIconTemplate"></ng-template>
                 </span>
@@ -130,7 +132,7 @@ import { PaginatorState } from './paginator.interface';
                 [ngClass]="{ 'p-disabled': isLastPage() || empty() }"
                 [attr.aria-label]="getAriaLabel('lastPageLabel')"
             >
-                <AngleDoubleRightIcon *ngIf="!lastPageLinkIconTemplate" [styleClass]="'p-paginator-icon'" />
+                <AngleDoubleEndIcon *ngIf="!lastPageLinkIconTemplate" [styleClass]="'p-paginator-icon'" />
                 <span class="p-paginator-icon" *ngIf="lastPageLinkIconTemplate">
                     <ng-template *ngTemplateOutlet="lastPageLinkIconTemplate"></ng-template>
                 </span>
@@ -149,7 +151,7 @@ import { PaginatorState } from './paginator.interface';
             >
                 <ng-container *ngIf="dropdownItemTemplate">
                     <ng-template let-item pTemplate="item">
-                        <ng-container *ngTemplateOutlet="dropdownItemTemplate; context: { $implicit: item }"> </ng-container>
+                        <ng-container *ngTemplateOutlet="dropdownItemTemplate; context: { $implicit: item }"></ng-container>
                     </ng-template>
                 </ng-container>
                 <ng-template pTemplate="dropdownicon" *ngIf="dropdownIconTemplate">
@@ -278,6 +280,7 @@ export class Paginator implements OnInit, AfterContentInit, OnChanges {
      * @group Props
      */
     @Input() dropdownItemTemplate: TemplateRef<{ $implicit: any }> | undefined;
+
     /**
      * Zero-relative number of the first row to be displayed.
      * @group Props
@@ -285,9 +288,11 @@ export class Paginator implements OnInit, AfterContentInit, OnChanges {
     @Input() get first(): number {
         return this._first;
     }
+
     set first(val: number) {
         this._first = val;
     }
+
     /**
      * Callback to invoke when page changes, the event object contains information about the new state.
      * @param {PaginatorState} event - Paginator state.
@@ -557,7 +562,7 @@ export class Paginator implements OnInit, AfterContentInit, OnChanges {
 }
 
 @NgModule({
-    imports: [CommonModule, DropdownModule, InputNumberModule, FormsModule, SharedModule, RippleModule, AngleDoubleLeftIcon, AngleDoubleRightIcon, AngleLeftIcon, AngleRightIcon],
+    imports: [CommonModule, DropdownModule, InputNumberModule, FormsModule, SharedModule, RippleModule, AngleDoubleStartIcon, AngleDoubleEndIcon, AngleStartIcon, AngleEndIcon],
     exports: [Paginator, DropdownModule, InputNumberModule, FormsModule, SharedModule],
     declarations: [Paginator]
 })

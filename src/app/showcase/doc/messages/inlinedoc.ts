@@ -16,12 +16,12 @@ import { Code } from '@domain/code';
             </div>
 
             <div class="mt-4">
-                <input type="text" pInputText placeholder="Username" class="ng-dirty ng-invalid mr-2" />
+                <input type="text" pInputText placeholder="Username" class="ng-dirty ng-invalid me-2" />
                 <p-message severity="error" text="Field is required"></p-message>
             </div>
 
             <div class="mt-4">
-                <input type="text" pInputText placeholder="Email" class="ng-dirty ng-invalid mr-2" />
+                <input type="text" pInputText placeholder="Email" class="ng-dirty ng-invalid me-2" />
                 <p-message severity="error"></p-message>
             </div>
 
@@ -38,18 +38,18 @@ export class InlineDoc {
     code: Code = {
         basic: `<div class="flex justify-content-center gap-2">
     <p-message severity="info" text="Message Content"></p-message>
-    <p-message severity="success" text="Message Content"></p-message>  
-    <p-message severity="warn" text="Message Content"></p-message>  
+    <p-message severity="success" text="Message Content"></p-message>
+    <p-message severity="warn" text="Message Content"></p-message>
     <p-message severity="error" text="Message Content"></p-message>
 </div>
 
 <div class="mt-4">
-    <input type="text" pInputText placeholder="Username" class="ng-dirty ng-invalid mr-2">
+    <input type="text" pInputText placeholder="Username" class="ng-dirty ng-invalid me-2">
     <p-message severity="error" text="Field is required"></p-message>
 </div>
 
 <div class="mt-4">
-    <input type="text" pInputText placeholder="Email" class="ng-dirty ng-invalid mr-2">
+    <input type="text" pInputText placeholder="Email" class="ng-dirty ng-invalid me-2">
     <p-message severity="error"></p-message>
 </div>
 
@@ -62,18 +62,18 @@ export class InlineDoc {
 <div class="card">
     <div class="flex justify-content-center gap-2">
         <p-message severity="info" text="Message Content"></p-message>
-        <p-message severity="success" text="Message Content"></p-message>  
-        <p-message severity="warn" text="Message Content"></p-message>  
+        <p-message severity="success" text="Message Content"></p-message>
+        <p-message severity="warn" text="Message Content"></p-message>
         <p-message severity="error" text="Message Content"></p-message>
     </div>
 
     <div class="mt-4">
-        <input type="text" pInputText placeholder="Username" class="ng-dirty ng-invalid mr-2">
+        <input type="text" pInputText placeholder="Username" class="ng-dirty ng-invalid me-2">
         <p-message severity="error" text="Field is required"></p-message>
     </div>
 
     <div class="mt-4">
-        <input type="text" pInputText placeholder="Email" class="ng-dirty ng-invalid mr-2">
+        <input type="text" pInputText placeholder="Email" class="ng-dirty ng-invalid me-2">
         <p-message severity="error"></p-message>
     </div>
 

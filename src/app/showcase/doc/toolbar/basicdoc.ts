@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuItem } from 'primeng/api';
+import { MenuItem } from 'primengrtl/api';
 import { Code } from '@domain/code';
 
 @Component({
@@ -11,8 +11,8 @@ import { Code } from '@domain/code';
         <div class="card">
             <p-toolbar>
                 <div class="p-toolbar-group-start">
-                    <p-button icon="pi pi-plus" class="mr-2" />
-                    <p-button icon="pi pi-print" class="mr-2" />
+                    <p-button icon="pi pi-plus" class="me-2" />
+                    <p-button icon="pi pi-print" class="me-2" />
                     <p-button icon="pi pi-upload" />
                 </div>
                 <div class="p-toolbar-group-center">
@@ -48,8 +48,8 @@ export class BasicDoc implements OnInit {
     code: Code = {
         basic: `<p-toolbar>
     <div class="p-toolbar-group-start">
-        <p-button icon="pi pi-plus" class="mr-2"/>
-        <p-button icon="pi pi-print" class="mr-2"/>
+        <p-button icon="pi pi-plus" class="me-2"/>
+        <p-button icon="pi pi-print" class="me-2"/>
         <p-button icon="pi pi-upload" />
     </div>
     <div class="p-toolbar-group-center">
@@ -66,8 +66,8 @@ export class BasicDoc implements OnInit {
         html: `<div class="card">
 <p-toolbar>
 <div class="p-toolbar-group-start">
-    <p-button icon="pi pi-plus" class="mr-2"/>
-    <p-button icon="pi pi-print" class="mr-2"/>
+    <p-button icon="pi pi-plus" class="me-2"/>
+    <p-button icon="pi pi-print" class="me-2"/>
     <p-button icon="pi pi-upload" />
 </div>
 <div class="p-toolbar-group-center">
@@ -83,11 +83,11 @@ export class BasicDoc implements OnInit {
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
-import { MenuItem } from 'primeng/api';
-import { ToolbarModule } from 'primeng/toolbar';
-import { ButtonModule } from 'primeng/button';
-import { SplitButtonModule } from 'primeng/splitbutton';
-import { InputTextModule } from 'primeng/inputtext';
+import { MenuItem } from 'primengrtl/api';
+import { ToolbarModule } from 'primengrtl/toolbar';
+import { ButtonModule } from 'primengrtl/button';
+import { SplitButtonModule } from 'primengrtl/splitbutton';
+import { InputTextModule } from 'primengrtl/inputtext';
 
 @Component({
     selector: 'toolbar-basic-demo',

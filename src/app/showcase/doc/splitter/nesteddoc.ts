@@ -36,10 +36,10 @@ import { Code } from '@domain/code';
 })
 export class NestedDoc {
     code: Code = {
-        basic: `<p-splitter 
-    [style]="{ height: '300px' }" 
-    [panelSizes]="[20, 80]" 
-    [minSizes]="[10, 0]" 
+        basic: `<p-splitter
+    [style]="{ height: '300px' }"
+    [panelSizes]="[20, 80]"
+    [minSizes]="[10, 0]"
     styleClass="mb-5">
         <ng-template pTemplate>
             <div class="col flex align-items-center justify-content-center">
@@ -72,10 +72,10 @@ export class NestedDoc {
 </p-splitter>`,
 
         html: `<div class="card">
-    <p-splitter 
-        [style]="{ height: '300px' }" 
-        [panelSizes]="[20, 80]" 
-        [minSizes]="[10, 0]" 
+    <p-splitter
+        [style]="{ height: '300px' }"
+        [panelSizes]="[20, 80]"
+        [minSizes]="[10, 0]"
         styleClass="mb-5">
             <ng-template pTemplate>
                 <div class="col flex align-items-center justify-content-center">
@@ -110,7 +110,7 @@ export class NestedDoc {
 `,
 
         typescript: `import { Component } from '@angular/core';
-import { SplitterModule } from 'primeng/splitter'; 
+import { SplitterModule } from 'primengrtl/splitter';
 
 @Component({
     selector: 'splitter-nested-demo',

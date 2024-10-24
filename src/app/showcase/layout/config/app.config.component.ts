@@ -1,13 +1,14 @@
 import { CommonModule, DOCUMENT } from '@angular/common';
 import { Component, EventEmitter, Inject, Output, Renderer2 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ButtonModule } from 'primeng/button';
-import { InputSwitchModule, InputSwitchChangeEvent } from 'primeng/inputswitch';
-import { RadioButtonModule } from 'primeng/radiobutton';
-import { SelectButtonChangeEvent, SelectButtonModule } from 'primeng/selectbutton';
-import { SidebarModule } from 'primeng/sidebar';
+import { ButtonModule } from 'primengrtl/button';
+import { InputSwitchModule, InputSwitchChangeEvent } from 'primengrtl/inputswitch';
+import { RadioButtonModule } from 'primengrtl/radiobutton';
+import { SelectButtonChangeEvent, SelectButtonModule } from 'primengrtl/selectbutton';
+import { SidebarModule } from 'primengrtl/sidebar';
 import { AppConfigService } from '@service/appconfigservice';
-import { PrimeNGConfig } from 'primeng/api';
+import { PrimeNGConfig } from 'primengrtl/api';
+import { TextDirection } from '@domain/appconfig';
 
 @Component({
     selector: 'app-config',
@@ -16,6 +17,10 @@ import { PrimeNGConfig } from 'primeng/api';
     imports: [CommonModule, FormsModule, SidebarModule, InputSwitchModule, ButtonModule, RadioButtonModule, SelectButtonModule]
 })
 export class AppConfigComponent {
+    textDirections = [
+        { label: 'LTR', value: 'ltr' },
+        { label: 'RTL', value: 'rtl' }
+    ];
     inputStyles = [
         { label: 'Outlined', value: 'outlined' },
         { label: 'Filled', value: 'filled' }
@@ -45,6 +50,14 @@ export class AppConfigComponent {
 
     get isDarkMode(): boolean {
         return this.configService.config().darkMode;
+    }
+
+    public get textDirection(): string {
+        return this.configService.config().direction;
+    }
+
+    public set textDirection(direction: TextDirection) {
+        this.configService.config.update((config) => ({ ...config, direction }));
     }
 
     get inputStyle(): string {
@@ -137,6 +150,10 @@ export class AppConfigComponent {
 
     onInputStyleChange(event) {
         this.inputStyle = event.value;
+    }
+
+    public onTextDirectionChange(event): void {
+        this.textDirection = event.value;
     }
 
     incrementScale() {

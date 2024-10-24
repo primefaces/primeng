@@ -123,7 +123,7 @@ export class TemplateDoc {
         <span>Items per page: </span>
         <p-slider [(ngModel)]="rows3" (ngModelChange)="first3 = 0" [style]="{ width: '10rem' }" [min]="10" [max]="120" [step]="30" />
     </div>
-    <p-paginator (onPageChange)="onPageChange3($event)" [first]="first3" [rows]="rows3" [totalRecords]="totalRecords" [showFirstLastIcon]="false" 
+    <p-paginator (onPageChange)="onPageChange3($event)" [first]="first3" [rows]="rows3" [totalRecords]="totalRecords" [showFirstLastIcon]="false"
         [showCurrentPageReport]="true" currentPageReportTemplate="{first} - {last} of {totalRecords}" ></p-paginator>
 </div>`,
 
@@ -143,7 +143,7 @@ export class TemplateDoc {
     <div class="flex align-items-center justify-content-end">
         <span class="mx-1 text-color">Items per page: </span>
         <p-dropdown [options]="options" optionLabel="label" optionValue="value" [(ngModel)]="rows2" (ngModelChange)="first2 = 0" />
-        <p-paginator [first]="first2" [rows]="rows2" [totalRecords]="120" (onPageChange)="onPageChange2($event)" [showCurrentPageReport]="true" 
+        <p-paginator [first]="first2" [rows]="rows2" [totalRecords]="120" (onPageChange)="onPageChange2($event)" [showCurrentPageReport]="true"
             currentPageReportTemplate="{first} - {last} of {totalRecords}" [showPageLinks]="false" [showFirstLastIcon]="false"></p-paginator>
     </div>
     <p-divider />
@@ -158,12 +158,12 @@ export class TemplateDoc {
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { PaginatorModule } from 'primeng/paginator';
-import { ButtonModule } from 'primeng/button';
-import { DividerModule } from 'primeng/divider';
-import { SliderModule } from 'primeng/slider';
+import { PaginatorModule } from 'primengrtl/paginator';
+import { ButtonModule } from 'primengrtl/button';
+import { DividerModule } from 'primengrtl/divider';
+import { SliderModule } from 'primengrtl/slider';
 import { FormsModule } from '@angular/forms';
-        
+
 interface PageEvent {
     first: number;
     rows: number;

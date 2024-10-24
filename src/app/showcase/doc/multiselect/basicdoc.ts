@@ -38,23 +38,23 @@ export class BasicDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-multiSelect 
-    [options]="cities" 
-    [(ngModel)]="selectedCities" 
-    optionLabel="name" 
+        basic: `<p-multiSelect
+    [options]="cities"
+    [(ngModel)]="selectedCities"
+    optionLabel="name"
     placeholder="Select Cities" />`,
 
         html: `<div class="card flex justify-content-center">
-    <p-multiSelect 
-        [options]="cities" 
-        [(ngModel)]="selectedCities" 
-        optionLabel="name" 
+    <p-multiSelect
+        [options]="cities"
+        [(ngModel)]="selectedCities"
+        optionLabel="name"
         placeholder="Select Cities" />
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MultiSelectModule } from 'primeng/multiselect';
+import { MultiSelectModule } from 'primengrtl/multiselect';
 
 interface City {
     name: string,

@@ -17,33 +17,33 @@ export class CustomizedDoc {
     checked: boolean = false;
 
     code: Code = {
-        basic: `<p-toggleButton 
-    [(ngModel)]="checked" 
-    onLabel="Locked" 
-    offLabel="Unlocked" 
-    onIcon="pi pi-check" 
-    offIcon="pi pi-times" 
-    onIcon="pi pi-lock" 
-    offIcon="pi pi-lock-open" 
+        basic: `<p-toggleButton
+    [(ngModel)]="checked"
+    onLabel="Locked"
+    offLabel="Unlocked"
+    onIcon="pi pi-check"
+    offIcon="pi pi-times"
+    onIcon="pi pi-lock"
+    offIcon="pi pi-lock-open"
     styleClass="w-9rem"
     ariaLabel="Do you confirm" />`,
 
         html: `<div class="card flex justify-content-center">
-    <p-toggleButton 
-        [(ngModel)]="checked" 
+    <p-toggleButton
+        [(ngModel)]="checked"
         onLabel="Locked"
-        offLabel="Unlocked" 
-        onIcon="pi pi-check" 
-        offIcon="pi pi-times" 
+        offLabel="Unlocked"
+        onIcon="pi pi-check"
+        offIcon="pi pi-times"
         onIcon="pi pi-lock"
-        offIcon="pi pi-lock-open" 
+        offIcon="pi pi-lock-open"
         styleClass="w-9rem"
         ariaLabel="Do you confirm" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ToggleButtonModule } from 'primeng/togglebutton';
+import { ToggleButtonModule } from 'primengrtl/togglebutton';
 
 @Component({
     selector: 'toggle-button-customized-demo',

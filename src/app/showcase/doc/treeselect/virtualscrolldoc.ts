@@ -37,37 +37,37 @@ export class VirtualScrollDoc {
     }
 
     code: Code = {
-        basic: `<p-treeSelect 
-    class="w-full md:w-20rem" 
-    containerStyleClass="w-full" 
-    [(ngModel)]="selectedNodes" 
-    [options]="nodes" 
-    display="chip" 
-    [metaKeySelection]="false" 
-    selectionMode="checkbox" 
-    placeholder="Select Item" 
-    [virtualScroll]="true" 
-    [virtualScrollItemSize]="46" 
+        basic: `<p-treeSelect
+    class="w-full md:w-20rem"
+    containerStyleClass="w-full"
+    [(ngModel)]="selectedNodes"
+    [options]="nodes"
+    display="chip"
+    [metaKeySelection]="false"
+    selectionMode="checkbox"
+    placeholder="Select Item"
+    [virtualScroll]="true"
+    [virtualScrollItemSize]="46"
     [virtualScrollOptions]="{scrollHeight: '200px'}" />`,
 
         html: `<div class="card flex justify-content-center">
-    <p-treeSelect 
-        class="w-full md:w-20rem" 
-        containerStyleClass="w-full" 
-        [(ngModel)]="selectedNodes" 
-        [options]="nodes" 
-        display="chip" 
-        [metaKeySelection]="false" 
-        selectionMode="checkbox" 
-        placeholder="Select Item" 
-        [virtualScroll]="true" 
-        [virtualScrollItemSize]="46" 
+    <p-treeSelect
+        class="w-full md:w-20rem"
+        containerStyleClass="w-full"
+        [(ngModel)]="selectedNodes"
+        [options]="nodes"
+        display="chip"
+        [metaKeySelection]="false"
+        selectionMode="checkbox"
+        placeholder="Select Item"
+        [virtualScroll]="true"
+        [virtualScrollItemSize]="46"
         [virtualScrollOptions]="{scrollHeight: '200px'}" />
 </div>`,
         typescript: `import { Component } from '@angular/core';
 import { NodeService } from '@service/nodeservice';
 import { FormsModule } from '@angular/forms';
-import { TreeSelectModule } from 'primeng/treeselect';
+import { TreeSelectModule } from 'primengrtl/treeselect';
 
 @Component({
     selector: 'tree-select-virtual-scroll-demo',

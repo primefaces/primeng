@@ -24,28 +24,28 @@ export class FilledDoc {
     }
 
     code: Code = {
-        basic: `<p-treeSelect 
-    class="md:w-20rem w-full" 
-    containerStyleClass="w-full" 
-    [(ngModel)]="selectedNodes" 
+        basic: `<p-treeSelect
+    class="md:w-20rem w-full"
+    containerStyleClass="w-full"
+    [(ngModel)]="selectedNodes"
     variant="filled"
-    [options]="nodes" 
+    [options]="nodes"
     placeholder="Select Item" />`,
 
         html: `<div class="card flex justify-content-center">
-    <p-treeSelect 
-        class="md:w-20rem w-full" 
-        containerStyleClass="w-full" 
-        [(ngModel)]="selectedNodes" 
+    <p-treeSelect
+        class="md:w-20rem w-full"
+        containerStyleClass="w-full"
+        [(ngModel)]="selectedNodes"
         variant="filled"
-        [options]="nodes" 
+        [options]="nodes"
         placeholder="Select Item" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
 import { NodeService } from '@service/nodeservice';
 import { FormsModule } from '@angular/forms';
-import { TreeSelectModule } from 'primeng/treeselect';
+import { TreeSelectModule } from 'primengrtl/treeselect';
 
 @Component({
     selector: 'tree-select-filled-demo',

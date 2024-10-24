@@ -55,7 +55,7 @@
                 align-items: center;
                 font-size: 0.75rem;
                 position: relative;
-                
+
                 &::before {
                     content: "\e90d";
                     display: flex;
@@ -63,14 +63,14 @@
                     font-family: "primeicons";
                     font-size: .4rem;
                     opacity: .7;
-                    margin-right: 2px;
+                    margin-inline-end: 2px;
                     height: 13.5px;
                     align-items: center;
                     font-weight: 700;
 
                 }
             }
-        }        
+        }
     }
 }
 

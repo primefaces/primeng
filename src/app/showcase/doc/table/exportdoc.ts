@@ -78,19 +78,19 @@ export class ExportDoc {
     }
 
     code: Code = {
-        basic: `<p-table 
-    #dt 
-    [columns]="cols" 
-    [value]="products" 
-    selectionMode="multiple" 
-    [(selection)]="selectedProducts" 
-    [exportHeader]="'customExportHeader'" 
+        basic: `<p-table
+    #dt
+    [columns]="cols"
+    [value]="products"
+    selectionMode="multiple"
+    [(selection)]="selectedProducts"
+    [exportHeader]="'customExportHeader'"
     [tableStyle]="{ 'min-width': '50rem' }">
         <ng-template pTemplate="caption">
             <div style="text-align: left">
-                <p-button 
-                    icon="pi pi-external-link" 
-                    label="Export" 
+                <p-button
+                    icon="pi pi-external-link"
+                    label="Export"
                     (onClick)="dt.exportCSV()" />
             </div>
         </ng-template>
@@ -110,19 +110,19 @@ export class ExportDoc {
         </ng-template>
 </p-table>`,
         html: `<div class="card">
-    <p-table 
-        #dt 
-        [columns]="cols" 
-        [value]="products" 
-        selectionMode="multiple" 
-        [(selection)]="selectedProducts" 
-        [exportHeader]="'customExportHeader'" 
+    <p-table
+        #dt
+        [columns]="cols"
+        [value]="products"
+        selectionMode="multiple"
+        [(selection)]="selectedProducts"
+        [exportHeader]="'customExportHeader'"
         [tableStyle]="{ 'min-width': '50rem' }">
             <ng-template pTemplate="caption">
                 <div style="text-align: left">
-                    <p-button 
-                        icon="pi pi-external-link" 
-                        label="Export" 
+                    <p-button
+                        icon="pi pi-external-link"
+                        label="Export"
                         (onClick)="dt.exportCSV()" />
                 </div>
             </ng-template>
@@ -145,9 +145,9 @@ export class ExportDoc {
         typescript: `import { Component, OnInit } from '@angular/core';
 import { Product } from '@domain/product';
 import { ProductService } from '@service/productservice';
-import { TableModule } from 'primeng/table';
+import { TableModule } from 'primengrtl/table';
 import { CommonModule } from '@angular/common';
-import { ButtonModule } from 'primeng/button';
+import { ButtonModule } from 'primengrtl/button';
 
 interface Column {
     field: string;

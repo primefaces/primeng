@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { ButtonModule } from 'primeng/button';
-import { ButtonGroupModule } from 'primeng/buttongroup';
-import { RippleModule } from 'primeng/ripple';
+import { ButtonModule } from 'primengrtl/button';
+import { ButtonGroupModule } from 'primengrtl/buttongroup';
+import { RippleModule } from 'primengrtl/ripple';
 import { AppDocModule } from '@layout/doc/app.doc.module';
 import { AppCodeModule } from '@layout/doc/app.code.component';
 import { AccessibilityDoc } from './accessibilitydoc';

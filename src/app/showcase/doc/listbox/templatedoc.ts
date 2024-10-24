@@ -46,18 +46,18 @@ export class TemplateDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-listbox 
-    [options]="countries" 
-    [(ngModel)]="selectedCountry" 
-    optionLabel="name" 
-    [listStyle]="{ 'max-height': '250px' }" 
-    [style]="{ width: '15rem' }" 
+        basic: `<p-listbox
+    [options]="countries"
+    [(ngModel)]="selectedCountry"
+    optionLabel="name"
+    [listStyle]="{ 'max-height': '250px' }"
+    [style]="{ width: '15rem' }"
     [listStyle]="{'max-height': '220px'}">
         <ng-template let-country pTemplate="item">
             <div class="flex align-items-center gap-2">
-                <img 
-                    src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" 
-                    [class]="'flag flag-' + country.code.toLowerCase()" 
+                <img
+                    src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
+                    [class]="'flag flag-' + country.code.toLowerCase()"
                     style="width: 18px" />
                 <div>{{ country.name }}</div>
             </div>
@@ -65,18 +65,18 @@ export class TemplateDoc implements OnInit {
 </p-listbox>`,
 
         html: `<div class="card flex justify-content-center">
-    <p-listbox 
-        [options]="countries" 
-        [(ngModel)]="selectedCountry" 
-        optionLabel="name" 
+    <p-listbox
+        [options]="countries"
+        [(ngModel)]="selectedCountry"
+        optionLabel="name"
         [listStyle]="{ 'max-height': '250px' }"
-        [style]="{ width: '15rem' }" 
+        [style]="{ width: '15rem' }"
         [listStyle]="{'max-height': '220px'}">
             <ng-template let-country pTemplate="item">
                 <div class="flex align-items-center gap-2">
-                    <img 
+                    <img
                         src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
-                        [class]="'flag flag-' + country.code.toLowerCase()" 
+                        [class]="'flag flag-' + country.code.toLowerCase()"
                         style="width: 18px" />
                     <div>{{ country.name }}</div>
                 </div>
@@ -86,7 +86,7 @@ export class TemplateDoc implements OnInit {
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ListboxModule } from 'primeng/listbox';
+import { ListboxModule } from 'primengrtl/listbox';
 
 interface Country {
     name: string,

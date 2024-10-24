@@ -29,13 +29,13 @@ import {
     signal
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { MenuItem, OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
-import { DomHandler } from 'primeng/dom';
-import { AngleRightIcon } from 'primeng/icons/angleright';
-import { RippleModule } from 'primeng/ripple';
-import { TooltipModule } from 'primeng/tooltip';
-import { Nullable, VoidListener } from 'primeng/ts-helpers';
-import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
+import { MenuItem, OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule } from 'primengrtl/api';
+import { DomHandler } from 'primengrtl/dom';
+import { AngleEndIcon } from 'primengrtl/icons/angleend';
+import { RippleModule } from 'primengrtl/ripple';
+import { TooltipModule } from 'primengrtl/tooltip';
+import { Nullable, VoidListener } from 'primengrtl/ts-helpers';
+import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primengrtl/utils';
 
 @Component({
     selector: 'p-contextMenuSub',
@@ -119,7 +119,7 @@ import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
                                 <span class="p-menuitem-badge" *ngIf="getItemProp(processedItem, 'badge')" [ngClass]="getItemProp(processedItem, 'badgeStyleClass')">{{ getItemProp(processedItem, 'badge') }}</span>
 
                                 <ng-container *ngIf="isItemGroup(processedItem)">
-                                    <AngleRightIcon *ngIf="!contextMenu.submenuIconTemplate" [styleClass]="'p-submenu-icon'" [attr.data-pc-section]="'submenuicon'" />
+                                    <AngleEndIcon *ngIf="!contextMenu.submenuIconTemplate" [styleClass]="'p-submenu-icon'" [attr.data-pc-section]="'submenuicon'" />
                                     <ng-template *ngTemplateOutlet="contextMenu.submenuIconTemplate" [attr.data-pc-section]="'submenuicon'"></ng-template>
                                 </ng-container>
                             </a>
@@ -160,7 +160,7 @@ import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
                                 <span class="p-menuitem-badge" *ngIf="getItemProp(processedItem, 'badge')" [ngClass]="getItemProp(processedItem, 'badgeStyleClass')">{{ getItemProp(processedItem, 'badge') }}</span>
 
                                 <ng-container *ngIf="isItemGroup(processedItem)">
-                                    <AngleRightIcon *ngIf="!contextMenu.submenuIconTemplate" [styleClass]="'p-submenu-icon'" [attr.data-pc-section]="'submenuicon'" />
+                                    <AngleEndIcon *ngIf="!contextMenu.submenuIconTemplate" [styleClass]="'p-submenu-icon'" [attr.data-pc-section]="'submenuicon'" />
                                     <ng-template *ngTemplateOutlet="contextMenu.submenuIconTemplate" [attr.data-pc-section]="'submenuicon'"></ng-template>
                                 </ng-container>
                             </a>
@@ -332,10 +332,10 @@ export class ContextMenuSub {
 
         sublist.style.top = '0px';
 
-        if (parseInt(containerOffset.left, 10) + itemOuterWidth + sublistWidth > viewport.width - DomHandler.calculateScrollbarWidth()) {
-            sublist.style.left = -1 * sublistWidth + 'px';
+        if (containerOffset.start + itemOuterWidth + sublistWidth > viewport.width - DomHandler.calculateScrollbarWidth()) {
+            sublist.style.insetInlineStart = -1 * sublistWidth + 'px';
         } else {
-            sublist.style.left = itemOuterWidth + 'px';
+            sublist.style.insetInlineStart = itemOuterWidth + 'px';
         }
     }
 }
@@ -1012,15 +1012,15 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
     }
 
     position() {
-        let left = this.pageX + 1;
+        let start = this.pageX + 1;
         let top = this.pageY + 1;
         let width = this.containerViewChild.nativeElement.offsetParent ? this.containerViewChild.nativeElement.offsetWidth : DomHandler.getHiddenElementOuterWidth(this.containerViewChild.nativeElement);
         let height = this.containerViewChild.nativeElement.offsetParent ? this.containerViewChild.nativeElement.offsetHeight : DomHandler.getHiddenElementOuterHeight(this.containerViewChild.nativeElement);
         let viewport = DomHandler.getViewport();
 
         //flip
-        if (left + width - this.document.scrollingElement.scrollLeft > viewport.width) {
-            left -= width;
+        if (start + width - this.document.scrollingElement.scrollLeft > viewport.width) {
+            start -= width;
         }
 
         //flip
@@ -1029,8 +1029,8 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
         }
 
         //fit
-        if (left < this.document.scrollingElement.scrollLeft) {
-            left = this.document.scrollingElement.scrollLeft;
+        if (start < this.document.scrollingElement.scrollLeft) {
+            start = this.document.scrollingElement.scrollLeft;
         }
 
         //fit
@@ -1038,7 +1038,11 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
             top = this.document.scrollingElement.scrollTop;
         }
 
-        this.containerViewChild.nativeElement.style.left = left + 'px';
+        if (DomHandler.documentIsRTL()) {
+            start = this.window.innerWidth - start;
+        }
+
+        this.containerViewChild.nativeElement.style.insetInlineStart = start + 'px';
         this.containerViewChild.nativeElement.style.top = top + 'px';
     }
 
@@ -1204,7 +1208,7 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule, RouterModule, RippleModule, TooltipModule, AngleRightIcon, SharedModule],
+    imports: [CommonModule, RouterModule, RippleModule, TooltipModule, AngleEndIcon, SharedModule],
     exports: [ContextMenu, RouterModule, TooltipModule, SharedModule],
     declarations: [ContextMenu, ContextMenuSub]
 })

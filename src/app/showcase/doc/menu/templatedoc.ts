@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuItem } from 'primeng/api';
+import { MenuItem } from 'primengrtl/api';
 import { Code } from '@domain/code';
 
 @Component({
@@ -53,14 +53,14 @@ import { Code } from '@domain/code';
                 <ng-template pTemplate="item" let-item>
                     <a pRipple class="flex align-items-center p-menuitem-link">
                         <span [class]="item.icon"></span>
-                        <span class="ml-2">{{ item.label }}</span>
-                        <p-badge *ngIf="item.badge" class="ml-auto" [value]="item.badge" />
-                        <span *ngIf="item.shortcut" class="ml-auto border-1 surface-border border-round surface-100 text-xs p-1">{{ item.shortcut }}</span>
+                        <span class="ms-2">{{ item.label }}</span>
+                        <p-badge *ngIf="item.badge" class="ms-auto" [value]="item.badge" />
+                        <span *ngIf="item.shortcut" class="ms-auto border-1 surface-border border-round surface-100 text-xs p-1">{{ item.shortcut }}</span>
                     </a>
                 </ng-template>
                 <ng-template pTemplate="end">
-                    <button pRipple class="relative overflow-hidden w-full p-link flex align-items-center p-2 pl-3 text-color hover:surface-200 border-noround">
-                        <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" class="mr-2" shape="circle" />
+                    <button pRipple class="relative overflow-hidden w-full p-link flex align-items-center p-2 ps-3 text-color hover:surface-200 border-noround">
+                        <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" class="me-2" shape="circle" />
                         <span class="inline-flex flex-column">
                             <span class="font-bold">Amy Elsner</span>
                             <span class="text-sm">Admin</span>
@@ -165,16 +165,16 @@ export class TemplateDoc implements OnInit {
     <ng-template pTemplate="item" let-item>
         <a pRipple class="flex align-items-center p-menuitem-link">
             <span [class]="item.icon"></span>
-            <span class="ml-2">{{ item.label }}</span>
-            <p-badge *ngIf="item.badge" class="ml-auto" [value]="item.badge" />
-            <span *ngIf="item.shortcut" class="ml-auto border-1 surface-border border-round surface-100 text-xs p-1">
+            <span class="ms-2">{{ item.label }}</span>
+            <p-badge *ngIf="item.badge" class="ms-auto" [value]="item.badge" />
+            <span *ngIf="item.shortcut" class="ms-auto border-1 surface-border border-round surface-100 text-xs p-1">
                 {{ item.shortcut }}
             </span>
         </a>
     </ng-template>
     <ng-template pTemplate="end">
-        <button pRipple class="relative overflow-hidden w-full p-link flex align-items-center p-2 pl-3 text-color hover:surface-200 border-noround">
-            <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" class="mr-2" shape="circle" />
+        <button pRipple class="relative overflow-hidden w-full p-link flex align-items-center p-2 ps-3 text-color hover:surface-200 border-noround">
+            <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" class="me-2" shape="circle" />
             <span class="inline-flex flex-column">
                 <span class="font-bold">Amy Elsner</span>
                 <span class="text-sm">Admin</span>
@@ -225,14 +225,14 @@ export class TemplateDoc implements OnInit {
         <ng-template pTemplate="item" let-item>
             <a pRipple class="flex align-items-center p-menuitem-link">
                 <span [class]="item.icon"></span>
-                <span class="ml-2">{{ item.label }}</span>
-                <p-badge *ngIf="item.badge" class="ml-auto" [value]="item.badge" />
-                <span *ngIf="item.shortcut" class="ml-auto border-1 surface-border border-round surface-100 text-xs p-1">{{ item.shortcut }}</span>
+                <span class="ms-2">{{ item.label }}</span>
+                <p-badge *ngIf="item.badge" class="ms-auto" [value]="item.badge" />
+                <span *ngIf="item.shortcut" class="ms-auto border-1 surface-border border-round surface-100 text-xs p-1">{{ item.shortcut }}</span>
             </a>
         </ng-template>
         <ng-template pTemplate="end">
-            <button pRipple class="relative overflow-hidden w-full p-link flex align-items-center p-2 pl-3 text-color hover:surface-200 border-noround">
-                <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" class="mr-2" shape="circle" />
+            <button pRipple class="relative overflow-hidden w-full p-link flex align-items-center p-2 ps-3 text-color hover:surface-200 border-noround">
+                <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" class="me-2" shape="circle" />
                 <span class="inline-flex flex-column">
                     <span class="font-bold">Amy Elsner</span>
                     <span class="text-sm">Admin</span>
@@ -243,11 +243,11 @@ export class TemplateDoc implements OnInit {
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
-import { MenuItem } from 'primeng/api';
-import { MenuModule } from 'primeng/menu';
-import { BadgeModule } from 'primeng/badge';
-import { RippleModule } from 'primeng/ripple';
-import { AvatarModule } from 'primeng/avatar';
+import { MenuItem } from 'primengrtl/api';
+import { MenuModule } from 'primengrtl/menu';
+import { BadgeModule } from 'primengrtl/badge';
+import { RippleModule } from 'primengrtl/ripple';
+import { AvatarModule } from 'primengrtl/avatar';
 
 @Component({
     selector: 'menu-template-demo',

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { SelectItemGroup } from 'primeng/api';
+import { SelectItemGroup } from 'primengrtl/api';
 import { Code } from '@domain/code';
 
 interface City {
@@ -17,7 +17,7 @@ interface City {
             <p-multiSelect [options]="groupedCities" [group]="true" [(ngModel)]="selectedCities" placeholder="Select Cities" scrollHeight="250px" display="chip">
                 <ng-template let-group pTemplate="group">
                     <div class="flex align-items-center">
-                        <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'mr-2 flag flag-' + group.value" style="width: 20px" />
+                        <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'me-2 flag flag-' + group.value" style="width: 20px" />
                         <span>{{ group.label }}</span>
                     </div>
                 </ng-template>
@@ -67,18 +67,18 @@ export class GroupDoc {
     }
 
     code: Code = {
-        basic: `<p-multiSelect 
-    [options]="groupedCities" 
-    [group]="true" 
-    [(ngModel)]="selectedCities" 
+        basic: `<p-multiSelect
+    [options]="groupedCities"
+    [group]="true"
+    [(ngModel)]="selectedCities"
     placeholder="Select Cities"
-    scrollHeight="250px" 
+    scrollHeight="250px"
     display="chip">
         <ng-template let-group pTemplate="group">
             <div class="flex align-items-center">
-                <img 
+                <img
                     src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
-                    [class]="'mr-2 flag flag-' + group.value" 
+                    [class]="'me-2 flag flag-' + group.value"
                     style="width: 20px" />
                 <span>{{ group.label }}</span>
             </div>
@@ -86,18 +86,18 @@ export class GroupDoc {
 </p-multiSelect>`,
 
         html: `<div class="card flex justify-content-center">
-    <p-multiSelect 
-        [options]="groupedCities" 
-        [group]="true" 
-        [(ngModel)]="selectedCities" 
-        placeholder="Select Cities" 
-        scrollHeight="250px" 
+    <p-multiSelect
+        [options]="groupedCities"
+        [group]="true"
+        [(ngModel)]="selectedCities"
+        placeholder="Select Cities"
+        scrollHeight="250px"
         display="chip">
             <ng-template let-group pTemplate="group">
                 <div class="flex align-items-center">
-                    <img 
-                        src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" 
-                        [class]="'mr-2 flag flag-' + group.value" 
+                    <img
+                        src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
+                        [class]="'me-2 flag flag-' + group.value"
                         style="width: 20px" />
                     <span>{{ group.label }}</span>
                 </div>
@@ -106,9 +106,9 @@ export class GroupDoc {
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { SelectItemGroup } from 'primeng/api';
+import { SelectItemGroup } from 'primengrtl/api';
 import { FormsModule } from '@angular/forms';
-import { MultiSelectModule } from 'primeng/multiselect';
+import { MultiSelectModule } from 'primengrtl/multiselect';
 
 interface City {
     name: string,

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ConfirmationService, MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primengrtl/api';
 import { Code } from '@domain/code';
 
 @Component({
@@ -35,8 +35,8 @@ export class TemplateDoc {
             target: event.target as EventTarget,
             message: 'Please confirm to proceed moving forward.',
             icon: 'pi pi-exclamation-circle',
-            acceptIcon: 'pi pi-check mr-1',
-            rejectIcon: 'pi pi-times mr-1',
+            acceptIcon: 'pi pi-check me-1',
+            rejectIcon: 'pi pi-times me-1',
             acceptLabel: 'Confirm',
             rejectLabel: 'Cancel',
             rejectButtonStyleClass: 'p-button-outlined p-button-sm',
@@ -76,10 +76,10 @@ export class TemplateDoc {
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { ConfirmationService, MessageService } from 'primeng/api';
-import { ConfirmPopupModule } from 'primeng/confirmpopup';
-import { ToastModule } from 'primeng/toast';
-import { ButtonModule } from 'primeng/button';
+import { ConfirmationService, MessageService } from 'primengrtl/api';
+import { ConfirmPopupModule } from 'primengrtl/confirmpopup';
+import { ToastModule } from 'primengrtl/toast';
+import { ButtonModule } from 'primengrtl/button';
 
 @Component({
     selector: 'confirm-popup-template-demo',
@@ -90,14 +90,14 @@ import { ButtonModule } from 'primeng/button';
 })
 export class ConfirmPopupTemplateDemo {
     constructor(private confirmationService: ConfirmationService, private messageService: MessageService) {}
-    
+
     confirm(event: Event) {
         this.confirmationService.confirm({
             target: event.target as EventTarget,
             message: 'Please confirm to proceed moving forward.',
             icon: 'pi pi-exclamation-circle',
-            acceptIcon: 'pi pi-check mr-1',
-            rejectIcon: 'pi pi-times mr-1',
+            acceptIcon: 'pi pi-check me-1',
+            rejectIcon: 'pi pi-times me-1',
             acceptLabel: 'Confirm',
             rejectLabel: 'Cancel',
             rejectButtonStyleClass: 'p-button-outlined p-button-sm',

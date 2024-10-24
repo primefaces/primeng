@@ -36,7 +36,7 @@ import { Code } from '@domain/code';
                                     <span class="font-medium">{{ member.name }}</span>
                                     <div class="text-sm text-color-secondary">{{ member.email }}</div>
                                 </div>
-                                <div class="flex align-items-center gap-2 text-color-secondary ml-auto text-sm">
+                                <div class="flex align-items-center gap-2 text-color-secondary ms-auto text-sm">
                                     <span>{{ member.role }}</span>
                                     <i class="pi pi-angle-down"></i>
                                 </div>
@@ -85,7 +85,7 @@ export class BasicDoc {
                             <span class="font-medium">{{ member.name }}</span>
                             <div class="text-sm text-color-secondary">{{ member.email }}</div>
                         </div>
-                        <div class="flex align-items-center gap-2 text-color-secondary ml-auto text-sm">
+                        <div class="flex align-items-center gap-2 text-color-secondary ms-auto text-sm">
                             <span>{{ member.role }}</span>
                             <i class="pi pi-angle-down"></i>
                         </div>
@@ -124,7 +124,7 @@ export class BasicDoc {
                             <span class="font-medium">{{ member.name }}</span>
                             <div class="text-sm text-color-secondary">{{ member.email }}</div>
                         </div>
-                        <div class="flex align-items-center gap-2 text-color-secondary ml-auto text-sm">
+                        <div class="flex align-items-center gap-2 text-color-secondary ms-auto text-sm">
                             <span>{{ member.role }}</span>
                             <i class="pi pi-angle-down"></i>
                         </div>
@@ -136,12 +136,12 @@ export class BasicDoc {
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { OverlayPanelModule } from 'primeng/overlaypanel';
-import { InputGroupModule } from 'primeng/inputgroup';
-import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
-import { ButtonModule } from 'primeng/button';
-import { InputTextModule } from 'primeng/inputtext';
-import { ChipsModule } from 'primeng/chips';
+import { OverlayPanelModule } from 'primengrtl/overlaypanel';
+import { InputGroupModule } from 'primengrtl/inputgroup';
+import { InputGroupAddonModule } from 'primengrtl/inputgroupaddon';
+import { ButtonModule } from 'primengrtl/button';
+import { InputTextModule } from 'primengrtl/inputtext';
+import { ChipsModule } from 'primengrtl/chips';
 import { CommonModule } from '@angular/common';
 
 @Component({

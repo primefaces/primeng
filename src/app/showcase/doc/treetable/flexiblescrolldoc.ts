@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
-import { TreeNode } from 'primeng/api';
+import { TreeNode } from 'primengrtl/api';
 import { Code } from '@domain/code';
 import { NodeService } from '@service/nodeservice';
 
@@ -64,18 +64,18 @@ export class ScrollFlexibleDoc {
 
     code: Code = {
         basic: `<p-button label="Show" icon="pi pi-external-link" (onClick)="dialogVisible = true" />
-<p-dialog 
-    [(visible)]="dialogVisible" 
-    header="Flex Scroll" 
-    [style]="{ width: '75vw' }" 
-    maximizable 
-    modal 
+<p-dialog
+    [(visible)]="dialogVisible"
+    header="Flex Scroll"
+    [style]="{ width: '75vw' }"
+    maximizable
+    modal
     [contentStyle]="{ height: '300px' }">
         <ng-template pTemplate="content">
-            <p-treeTable 
-                [value]="files" 
-                [scrollable]="true" 
-                scrollHeight="flex" 
+            <p-treeTable
+                [value]="files"
+                [scrollable]="true"
+                scrollHeight="flex"
                 [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template pTemplate="header">
                         <tr>
@@ -107,18 +107,18 @@ export class ScrollFlexibleDoc {
 
         html: `<div class="card">
     <p-button label="Show" icon="pi pi-external-link" (onClick)="dialogVisible = true" />
-    <p-dialog 
-        [(visible)]="dialogVisible" 
-        header="Flex Scroll" 
-        [style]="{ width: '75vw' }" 
-        maximizable 
-        modal 
+    <p-dialog
+        [(visible)]="dialogVisible"
+        header="Flex Scroll"
+        [style]="{ width: '75vw' }"
+        maximizable
+        modal
         [contentStyle]="{ height: '300px' }">
             <ng-template pTemplate="content">
-                <p-treeTable 
-                    [value]="files" 
-                    [scrollable]="true" 
-                    scrollHeight="flex" 
+                <p-treeTable
+                    [value]="files"
+                    [scrollable]="true"
+                    scrollHeight="flex"
                     [tableStyle]="{ 'min-width': '50rem' }">
                         <ng-template pTemplate="header">
                             <tr>
@@ -150,11 +150,11 @@ export class ScrollFlexibleDoc {
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
-import { TreeNode } from 'primeng/api';
+import { TreeNode } from 'primengrtl/api';
 import { NodeService } from '@service/nodeservice';
-import { TreeTableModule } from 'primeng/treetable';
-import { ButtonModule } from 'primeng/button';
-import { DialogModule } from 'primeng/dialog';
+import { TreeTableModule } from 'primengrtl/treetable';
+import { ButtonModule } from 'primengrtl/button';
+import { DialogModule } from 'primengrtl/dialog';
 
 @Component({
     selector: 'tree-table-flexible-scroll-demo',

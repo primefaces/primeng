@@ -79,7 +79,7 @@ export class DisabledDoc {
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { TabViewModule } from 'primeng/tabview';
+import { TabViewModule } from 'primengrtl/tabview';
 
 @Component({
     selector: 'tab-view-disabled-demo',

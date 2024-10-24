@@ -42,8 +42,8 @@ export class ReactiveFormsDoc implements OnInit {
 
     code: Code = {
         basic: `<form [formGroup]="formGroup">
-    <p-dropdown 
-        formControlName="selectedCity" 
+    <p-dropdown
+        formControlName="selectedCity"
         [options]="cities"
         optionLabel="name"
         placeholder="Select a City" />
@@ -51,7 +51,7 @@ export class ReactiveFormsDoc implements OnInit {
 
         html: `<div class="card flex justify-content-center">
     <form [formGroup]="formGroup">
-        <p-dropdown 
+        <p-dropdown
             formControlName="selectedCity"
             [options]="cities"
             optionLabel="name"
@@ -61,7 +61,7 @@ export class ReactiveFormsDoc implements OnInit {
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { DropdownModule } from 'primeng/dropdown';
+import { DropdownModule } from 'primengrtl/dropdown';
 
 interface City {
     name: string;
@@ -76,7 +76,7 @@ interface City {
 })
 export class DropdownReactiveFormsDemo implements OnInit {
     cities: City[] | undefined;
-    
+
     formGroup: FormGroup | undefined;
 
     ngOnInit() {

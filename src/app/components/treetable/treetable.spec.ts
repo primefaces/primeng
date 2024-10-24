@@ -4,8 +4,8 @@ import { TreeTable, TreeTableModule, TTScrollableView } from './treetable';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { Component } from '@angular/core';
-import { ContextMenuModule, ContextMenu } from 'primeng/contextmenu';
-import { MinusIcon } from 'primeng/icons/minus';
+import { ContextMenuModule, ContextMenu } from 'primengrtl/contextmenu';
+import { MinusIcon } from 'primengrtl/icons/minus';
 
 @Component({
     template: `
@@ -126,7 +126,7 @@ import { MinusIcon } from 'primeng/icons/minus';
             <ng-template pTemplate="caption">
                 <div style="text-align:left">
                     <p-treeTableHeaderCheckbox></p-treeTableHeaderCheckbox>
-                    <span style="margin-left: .25em; vertical-align: middle">Toggle All</span>
+                    <span style="margin-inline-start: .25em; vertical-align: middle">Toggle All</span>
                 </div>
             </ng-template>
             <ng-template pTemplate="header" let-columns>

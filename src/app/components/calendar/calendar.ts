@@ -24,21 +24,21 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
-import { ButtonModule } from 'primeng/button';
-import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
-import { RippleModule } from 'primeng/ripple';
-import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
+import { OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys } from 'primengrtl/api';
+import { ButtonModule } from 'primengrtl/button';
+import { ConnectedOverlayScrollHandler, DomHandler } from 'primengrtl/dom';
+import { RippleModule } from 'primengrtl/ripple';
+import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primengrtl/utils';
 import { Subscription } from 'rxjs';
-import { ChevronLeftIcon } from 'primeng/icons/chevronleft';
-import { ChevronRightIcon } from 'primeng/icons/chevronright';
-import { ChevronUpIcon } from 'primeng/icons/chevronup';
-import { ChevronDownIcon } from 'primeng/icons/chevrondown';
-import { TimesIcon } from 'primeng/icons/times';
-import { CalendarIcon } from 'primeng/icons/calendar';
-import { Nullable, VoidListener } from 'primeng/ts-helpers';
+import { ChevronStartIcon } from 'primengrtl/icons/chevronstart';
+import { ChevronEndIcon } from 'primengrtl/icons/chevronend';
+import { ChevronUpIcon } from 'primengrtl/icons/chevronup';
+import { ChevronDownIcon } from 'primengrtl/icons/chevrondown';
+import { TimesIcon } from 'primengrtl/icons/times';
+import { CalendarIcon } from 'primengrtl/icons/calendar';
+import { Nullable, VoidListener } from 'primengrtl/ts-helpers';
 import { CalendarMonthChangeEvent, CalendarResponsiveOptions, CalendarTypeView, CalendarYearChangeEvent, LocaleSettings, Month, NavigationState } from './calendar.interface';
-import { AutoFocusModule } from 'primeng/autofocus';
+import { AutoFocusModule } from 'primengrtl/autofocus';
 
 export const CALENDAR_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -170,7 +170,7 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
                         <div class="p-datepicker-group" *ngFor="let month of months; let i = index">
                             <div class="p-datepicker-header">
                                 <button (keydown)="onContainerButtonKeydown($event)" class="p-datepicker-prev p-link" (click)="onPrevButtonClick($event)" *ngIf="i === 0" type="button" [attr.aria-label]="prevIconAriaLabel" pRipple>
-                                    <ChevronLeftIcon [styleClass]="'p-datepicker-prev-icon'" *ngIf="!previousIconTemplate" />
+                                    <ChevronStartIcon [styleClass]="'p-datepicker-prev-icon'" *ngIf="!previousIconTemplate" />
                                     <span *ngIf="previousIconTemplate" class="p-datepicker-prev-icon">
                                         <ng-template *ngTemplateOutlet="previousIconTemplate"></ng-template>
                                     </span>
@@ -212,7 +212,7 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
                                     [attr.aria-label]="nextIconAriaLabel"
                                     pRipple
                                 >
-                                    <ChevronRightIcon [styleClass]="'p-datepicker-next-icon'" *ngIf="!nextIconTemplate" />
+                                    <ChevronEndIcon [styleClass]="'p-datepicker-next-icon'" *ngIf="!nextIconTemplate" />
                                     <span *ngIf="nextIconTemplate" class="p-datepicker-next-icon">
                                         <ng-template *ngTemplateOutlet="nextIconTemplate"></ng-template>
                                     </span>
@@ -316,7 +316,7 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
                             <ChevronUpIcon *ngIf="!incrementIconTemplate" />
                             <ng-template *ngTemplateOutlet="incrementIconTemplate"></ng-template>
                         </button>
-                        <span><ng-container *ngIf="currentHour < 10">0</ng-container>{{ currentHour }}</span>
+                        <span><ng-container *ngIf="currentHour < 10">0</ng-container> {{ currentHour }}</span>
                         <button
                             class="p-link"
                             type="button"
@@ -356,7 +356,7 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
                             <ChevronUpIcon *ngIf="!incrementIconTemplate" />
                             <ng-template *ngTemplateOutlet="incrementIconTemplate"></ng-template>
                         </button>
-                        <span><ng-container *ngIf="currentMinute < 10">0</ng-container>{{ currentMinute }}</span>
+                        <span><ng-container *ngIf="currentMinute < 10">0</ng-container> {{ currentMinute }}</span>
                         <button
                             class="p-link"
                             type="button"
@@ -396,7 +396,7 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
                             <ChevronUpIcon *ngIf="!incrementIconTemplate" />
                             <ng-template *ngTemplateOutlet="incrementIconTemplate"></ng-template>
                         </button>
-                        <span><ng-container *ngIf="currentSecond < 10">0</ng-container>{{ currentSecond }}</span>
+                        <span><ng-container *ngIf="currentSecond < 10">0</ng-container> {{ currentSecond }}</span>
                         <button
                             class="p-link"
                             type="button"
@@ -3699,7 +3699,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 }
 
 @NgModule({
-    imports: [CommonModule, ButtonModule, SharedModule, RippleModule, ChevronLeftIcon, ChevronRightIcon, ChevronUpIcon, ChevronDownIcon, TimesIcon, CalendarIcon, AutoFocusModule],
+    imports: [CommonModule, ButtonModule, SharedModule, RippleModule, ChevronStartIcon, ChevronEndIcon, ChevronUpIcon, ChevronDownIcon, TimesIcon, CalendarIcon, AutoFocusModule],
     exports: [Calendar, ButtonModule, SharedModule],
     declarations: [Calendar]
 })

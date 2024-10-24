@@ -20,18 +20,18 @@ export class ButtonDoc {
     code: Code = {
         basic: `<p-button label="Emails" badge="8" />`,
         html: `<div class="card flex flex-wrap justify-content-center gap-2">
-    <p-button 
-        label="Emails" 
+    <p-button
+        label="Emails"
         badge="8" />
-    <p-button 
-        label="Messages" 
-        icon="pi pi-users" 
-        severity="secondary" 
-        badge="8" 
+    <p-button
+        label="Messages"
+        icon="pi pi-users"
+        severity="secondary"
+        badge="8"
         badgeClass="p-badge-info" />
 </div>`,
         typescript: `import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
+import { ButtonModule } from 'primengrtl/button';
 
 @Component({
     selector: 'badge-button-demo',

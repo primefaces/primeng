@@ -31,16 +31,16 @@ export class GridDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-scroller 
-    [items]="items" 
-    [itemSize]="[50, 100]" 
-    orientation="both" 
-    styleClass="border-1 surface-border" 
+        basic: `<p-scroller
+    [items]="items"
+    [itemSize]="[50, 100]"
+    orientation="both"
+    styleClass="border-1 surface-border"
     [style]="{'width': '200px', 'height': '200px'}">
         <ng-template pTemplate="item" let-item let-options="options">
-            <div 
-                class="flex align-items-center p-2" 
-                [ngClass]="{ 'surface-ground' : options.odd }" 
+            <div
+                class="flex align-items-center p-2"
+                [ngClass]="{ 'surface-ground' : options.odd }"
                 style="height: 50px;">
                 <div *ngFor="let el of item" style="width: 100px">
                     {{ el }}
@@ -50,16 +50,16 @@ export class GridDoc implements OnInit {
 </p-scroller>`,
 
         html: `<div class="card flex justify-content-center">
-    <p-scroller 
-        [items]="items" 
+    <p-scroller
+        [items]="items"
         [itemSize]="[50, 100]"
-        orientation="both" 
-        styleClass="border-1 surface-border" 
+        orientation="both"
+        styleClass="border-1 surface-border"
         [style]="{'width': '200px', 'height': '200px'}">
             <ng-template pTemplate="item" let-item let-options="options">
-                <div 
-                    class="flex align-items-center p-2" 
-                    [ngClass]="{ 'surface-ground' : options.odd }" 
+                <div
+                    class="flex align-items-center p-2"
+                    [ngClass]="{ 'surface-ground' : options.odd }"
                     style="height: 50px;">
                     <div *ngFor="let el of item" style="width: 100px">
                         {{ el }}
@@ -69,7 +69,7 @@ export class GridDoc implements OnInit {
     </p-scroller>
 </div>`,
         typescript: `import { Component, OnInit } from '@angular/core';
-import { ScrollerModule } from 'primeng/scroller';
+import { ScrollerModule } from 'primengrtl/scroller';
 
 @Component({
     selector: 'scroller-grid-demo',

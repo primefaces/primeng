@@ -1,12 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, ElementRef, EventEmitter, Input, NgModule, Output, QueryList, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { MenuItem, PrimeTemplate, SharedModule } from 'primeng/api';
-import { RippleModule } from 'primeng/ripple';
-import { TooltipModule } from 'primeng/tooltip';
-import { Nullable } from 'primeng/ts-helpers';
-import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
-import { DomHandler } from 'primeng/dom';
+import { MenuItem, PrimeTemplate, SharedModule } from 'primengrtl/api';
+import { RippleModule } from 'primengrtl/ripple';
+import { TooltipModule } from 'primengrtl/tooltip';
+import { Nullable } from 'primengrtl/ts-helpers';
+import { ObjectUtils, UniqueComponentId } from 'primengrtl/utils';
+import { DomHandler } from 'primengrtl/dom';
 /**
  * Dock is a navigation component consisting of menuitems.
  * @group Components
@@ -122,7 +122,7 @@ export class Dock implements AfterContentInit {
      * Position of element.
      * @group Props
      */
-    @Input() position: 'bottom' | 'top' | 'left' | 'right' = 'bottom';
+    @Input() position: 'bottom' | 'top' | 'start' | 'end' = 'bottom';
     /**
      * Defines a string that labels the input for accessibility.
      * @group Props
@@ -239,13 +239,13 @@ export class Dock implements AfterContentInit {
     onListKeyDown(event) {
         switch (event.code) {
             case 'ArrowDown': {
-                if (this.position === 'left' || this.position === 'right') this.onArrowDownKey();
+                if (this.position === 'start' || this.position === 'end') this.onArrowDownKey();
                 event.preventDefault();
                 break;
             }
 
             case 'ArrowUp': {
-                if (this.position === 'left' || this.position === 'right') this.onArrowUpKey();
+                if (this.position === 'start' || this.position === 'end') this.onArrowUpKey();
                 event.preventDefault();
                 break;
             }

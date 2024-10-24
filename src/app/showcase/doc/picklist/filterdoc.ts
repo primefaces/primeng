@@ -61,24 +61,24 @@ export class FilterDoc {
     }
 
     code: Code = {
-        basic: `<p-pickList 
-    [source]="sourceProducts" 
-    [target]="targetProducts" 
-    sourceHeader="Available" 
-    targetHeader="Selected" 
-    [dragdrop]="true" 
-    [responsive]="true" 
+        basic: `<p-pickList
+    [source]="sourceProducts"
+    [target]="targetProducts"
+    sourceHeader="Available"
+    targetHeader="Selected"
+    [dragdrop]="true"
+    [responsive]="true"
     [sourceStyle]="{ height: '30rem' }"
-    [targetStyle]="{ height: '30rem' }" 
-    filterBy="name" 
-    sourceFilterPlaceholder="Search by name" 
-    targetFilterPlaceholder="Search by name" 
+    [targetStyle]="{ height: '30rem' }"
+    filterBy="name"
+    sourceFilterPlaceholder="Search by name"
+    targetFilterPlaceholder="Search by name"
     breakpoint="1400px">
         <ng-template let-product pTemplate="item">
             <div class="flex flex-wrap p-2 align-items-center gap-3">
-                <img 
-                    class="w-4rem shadow-2 flex-shrink-0 border-round" 
-                    src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" 
+                <img
+                    class="w-4rem shadow-2 flex-shrink-0 border-round"
+                    src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}"
                     alt="{item.name}" />
                 <div class="flex-1 flex flex-column gap-2">
                     <span class="font-bold">
@@ -99,24 +99,24 @@ export class FilterDoc {
 </p-pickList>`,
 
         html: `<div class="card">
-    <p-pickList 
-        [source]="sourceProducts" 
-        [target]="targetProducts" 
-        sourceHeader="Available" 
-        targetHeader="Selected" 
-        [dragdrop]="true" 
-        [responsive]="true" 
+    <p-pickList
+        [source]="sourceProducts"
+        [target]="targetProducts"
+        sourceHeader="Available"
+        targetHeader="Selected"
+        [dragdrop]="true"
+        [responsive]="true"
         [sourceStyle]="{ height: '30rem' }"
-        [targetStyle]="{ height: '30rem' }" 
-        filterBy="name" 
-        sourceFilterPlaceholder="Search by name" 
-        targetFilterPlaceholder="Search by name" 
+        [targetStyle]="{ height: '30rem' }"
+        filterBy="name"
+        sourceFilterPlaceholder="Search by name"
+        targetFilterPlaceholder="Search by name"
         breakpoint="1400px">
             <ng-template let-product pTemplate="item">
                 <div class="flex flex-wrap p-2 align-items-center gap-3">
-                    <img 
-                        class="w-4rem shadow-2 flex-shrink-0 border-round" 
-                        src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" 
+                    <img
+                        class="w-4rem shadow-2 flex-shrink-0 border-round"
+                        src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}"
                         alt="{item.name}" />
                     <div class="flex-1 flex flex-column gap-2">
                         <span class="font-bold">
@@ -140,7 +140,7 @@ export class FilterDoc {
         typescript: `import { Component, ChangeDetectorRef } from '@angular/core';
 import { Product } from '@domain/product';
 import { ProductService } from '@service/productservice';
-import { PickListModule } from 'primeng/picklist';
+import { PickListModule } from 'primengrtl/picklist';
 
 @Component({
     selector: 'picklist-filter-demo',
@@ -169,7 +169,7 @@ export class PicklistFilterDemo {
 }`,
 
         data: `
-/* ProductService */        
+/* ProductService */
 {
     id: '1000',
     code: 'f230fh0g3',

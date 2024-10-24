@@ -96,31 +96,31 @@ export class FilledDoc {
     }
 
     code: Code = {
-        basic: `<p-cascadeSelect 
-    [(ngModel)]="selectedCity" 
+        basic: `<p-cascadeSelect
+    [(ngModel)]="selectedCity"
     variant="filled"
-    [options]="countries" 
-    optionLabel="cname" 
-    optionGroupLabel="name" 
-    [optionGroupChildren]="['states', 'cities']" 
+    [options]="countries"
+    optionLabel="cname"
+    optionGroupLabel="name"
+    [optionGroupChildren]="['states', 'cities']"
     [style]="{ minWidth: '14rem' }"
     placeholder="Select a City" />`,
 
         html: `<div class="card flex justify-content-center">
-    <p-cascadeSelect 
-        [(ngModel)]="selectedCity" 
+    <p-cascadeSelect
+        [(ngModel)]="selectedCity"
         variant="filled"
-        [options]="countries" 
+        [options]="countries"
         optionLabel="cname"
-        optionGroupLabel="name" 
-        [optionGroupChildren]="['states', 'cities']" 
-        [style]="{ minWidth: '14rem' }" 
+        optionGroupLabel="name"
+        [optionGroupChildren]="['states', 'cities']"
+        [style]="{ minWidth: '14rem' }"
         placeholder="Select a City" />
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { CascadeSelectModule } from 'primeng/cascadeselect';
+import { CascadeSelectModule } from 'primengrtl/cascadeselect';
 
 @Component({
     selector: 'cascade-select-filled-demo',
@@ -132,7 +132,7 @@ export class CascadeSelectFilledDemo implements OnInit {
     countries: any[] | undefined;
 
     selectedCity: any;
-    
+
     ngOnInit() {
         this.countries = [
             {

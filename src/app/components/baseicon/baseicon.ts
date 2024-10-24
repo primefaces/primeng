@@ -1,5 +1,6 @@
-import { Component, Input, ChangeDetectionStrategy, ViewEncapsulation, ElementRef, HostBinding, booleanAttribute } from '@angular/core';
-import { ObjectUtils } from 'primeng/utils';
+import { Component, Input, ChangeDetectionStrategy, ViewEncapsulation, ElementRef, HostBinding, booleanAttribute, Inject } from '@angular/core';
+import { ObjectUtils } from 'primengrtl/utils';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
     template: ` <ng-content></ng-content> `,
@@ -23,8 +24,14 @@ export class BaseIcon {
 
     ariaHidden: boolean;
 
+    constructor(@Inject(DOCUMENT) private readonly document: Document) {}
+
     ngOnInit() {
         this.getAttributes();
+    }
+
+    public get isRTL(): boolean {
+        return this.document.documentElement.dir === 'rtl';
     }
 
     getAttributes() {

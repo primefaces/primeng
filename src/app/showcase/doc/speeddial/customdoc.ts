@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuItem, MessageService } from 'primeng/api';
+import { MenuItem, MessageService } from 'primengrtl/api';
 import { Code } from '@domain/code';
 
 @Component({
@@ -11,7 +11,7 @@ import { Code } from '@domain/code';
         <div class="card">
             <div style="height: 500px" class="flex justify-content-center">
                 <p-toast />
-                <p-speedDial [model]="items" direction="up" transitionDelay="80" showIcon="pi pi-bars" hideIcon="pi pi-times" buttonClassName="p-button-outlined" />
+                <p-speedDial [model]="items" direction="top" transitionDelay="80" showIcon="pi pi-bars" hideIcon="pi pi-times" buttonClassName="p-button-outlined" />
             </div>
         </div>
         <app-code [code]="code" selector="speed-dial-custom-demo"></app-code>
@@ -56,31 +56,31 @@ export class CustomDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-speedDial 
-    [model]="items" 
-    direction="up" 
-    transitionDelay="80" 
-    showIcon="pi pi-bars" 
-    hideIcon="pi pi-times" 
+        basic: `<p-speedDial
+    [model]="items"
+    direction="top"
+    transitionDelay="80"
+    showIcon="pi pi-bars"
+    hideIcon="pi pi-times"
     buttonClassName="p-button-outlined" />`,
 
         html: `<div class="card">
     <div style="height: 500px" class="flex justify-content-center">
         <p-toast />
-        <p-speedDial 
-            [model]="items" 
-            direction="up" 
-            transitionDelay="80" 
-            showIcon="pi pi-bars" 
-            hideIcon="pi pi-times" 
+        <p-speedDial
+            [model]="items"
+            direction="top"
+            transitionDelay="80"
+            showIcon="pi pi-bars"
+            hideIcon="pi pi-times"
             buttonClassName="p-button-outlined" />
     </div>
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
-import { MenuItem, MessageService } from 'primeng/api';
-import { SpeedDialModule } from 'primeng/speeddial';
-import { ToastModule } from 'primeng/toast';
+import { MenuItem, MessageService } from 'primengrtl/api';
+import { SpeedDialModule } from 'primengrtl/speeddial';
+import { ToastModule } from 'primengrtl/toast';
 
 @Component({
     selector: 'speed-dial-custom-demo',

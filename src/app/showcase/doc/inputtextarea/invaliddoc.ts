@@ -17,26 +17,26 @@ export class InvalidDoc {
     value!: string;
 
     code: Code = {
-        basic: `<textarea 
-    rows="5" 
-    cols="30" 
-    pInputTextarea 
-    [(ngModel)]="value" 
+        basic: `<textarea
+    rows="5"
+    cols="30"
+    pInputTextarea
+    [(ngModel)]="value"
     class="ng-invalid ng-dirty">
 </textarea>`,
 
         html: `<div class="card flex justify-content-center">
-    <textarea 
-        rows="5" 
-        cols="30" 
-        pInputTextarea 
+    <textarea
+        rows="5"
+        cols="30"
+        pInputTextarea
         [(ngModel)]="value"
         class="ng-invalid ng-dirty">
     </textarea>
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { InputTextareaModule } from 'primeng/inputtextarea';
+import { InputTextareaModule } from 'primengrtl/inputtextarea';
 import { FormsModule } from '@angular/forms';
 
 @Component({

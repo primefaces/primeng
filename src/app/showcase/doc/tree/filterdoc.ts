@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TreeNode } from 'primeng/api';
+import { TreeNode } from 'primengrtl/api';
 import { Code } from '@domain/code';
 import { NodeService } from '@service/nodeservice';
 
@@ -30,36 +30,36 @@ export class FilterDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-tree 
-    [value]="files" 
-    class="w-full md:w-30rem" 
-    [filter]="true" 
+        basic: `<p-tree
+    [value]="files"
+    class="w-full md:w-30rem"
+    [filter]="true"
     filterPlaceholder="Lenient Filter" />
-<p-tree 
-    [value]="files" 
-    class="w-full md:w-30rem" 
-    [filter]="true" 
-    filterMode="strict" 
+<p-tree
+    [value]="files"
+    class="w-full md:w-30rem"
+    [filter]="true"
+    filterMode="strict"
     filterPlaceholder="Strict Filter" />`,
 
         html: `<div class="card flex flex-wrap justify-content-center gap-5">
-    <p-tree 
-        [value]="files" 
-        class="w-full md:w-30rem" 
-        [filter]="true" 
-        filterPlaceholder="Lenient Filter" />
-    <p-tree 
+    <p-tree
         [value]="files"
-        class="w-full md:w-30rem" 
-        [filter]="true" 
-        filterMode="strict" 
+        class="w-full md:w-30rem"
+        [filter]="true"
+        filterPlaceholder="Lenient Filter" />
+    <p-tree
+        [value]="files"
+        class="w-full md:w-30rem"
+        [filter]="true"
+        filterMode="strict"
         filterPlaceholder="Strict Filter" />
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
-import { TreeNode } from 'primeng/api';
+import { TreeNode } from 'primengrtl/api';
 import { NodeService } from '@service/nodeservice';
-import { TreeModule } from 'primeng/tree';
+import { TreeModule } from 'primengrtl/tree';
 
 @Component({
     selector: 'tree-filter-demo',
@@ -75,7 +75,7 @@ export class TreeFilterDemo implements OnInit {
 
     ngOnInit() {
         this.nodeService.getFiles().then((data) => (this.files = data));
-    } 
+    }
 }`,
 
         service: ['NodeService'],

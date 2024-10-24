@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { TreeNode } from 'primeng/api';
+import { TreeNode } from 'primengrtl/api';
 import { Code } from '@domain/code';
 import { NodeService } from '@service/nodeservice';
 
@@ -87,27 +87,27 @@ export class FilterDoc {
     }
 
     code: Code = {
-        basic: `<p-selectButton 
-    [options]="filterModes" 
-    [(ngModel)]="filterMode" 
-    optionLabel="label" 
+        basic: `<p-selectButton
+    [options]="filterModes"
+    [(ngModel)]="filterMode"
+    optionLabel="label"
     optionValue="value" />
 
-<p-treeTable 
-    #tt 
-    [value]="files" 
-    [columns]="cols" 
-    [filterMode]="filterMode" 
-    [scrollable]="true" 
+<p-treeTable
+    #tt
+    [value]="files"
+    [columns]="cols"
+    [filterMode]="filterMode"
+    [scrollable]="true"
     [tableStyle]="{'min-width':'50rem'}">
         <ng-template pTemplate="caption">
             <div class="flex justify-content-end align-items-center">
                 <div class="p-input-icon-left">
                     <i class="pi pi-search"></i>
-                    <input 
-                        type="text" 
-                        pInputText 
-                        placeholder="Global Search" 
+                    <input
+                        type="text"
+                        pInputText
+                        placeholder="Global Search"
                         (input)="tt.filterGlobal($event.target.value, 'contains')" />
                 </div>
             </div>
@@ -120,9 +120,9 @@ export class FilterDoc {
             </tr>
             <tr>
                 <th *ngFor="let col of cols">
-                    <input 
-                        pInputText 
-                        type="text" 
+                    <input
+                        pInputText
+                        type="text"
                         (input)="tt.filter($event.target.value, col.field, col.filterMatchMode)" />
                 </th>
             </tr>
@@ -144,27 +144,27 @@ export class FilterDoc {
 
         html: `<div class="card">
     <div class="flex justify-content-center mb-4">
-        <p-selectButton 
-            [options]="filterModes" 
-            [(ngModel)]="filterMode" 
-            optionLabel="label" 
+        <p-selectButton
+            [options]="filterModes"
+            [(ngModel)]="filterMode"
+            optionLabel="label"
             optionValue="value" />
     </div>
-    <p-treeTable 
-        #tt 
-        [value]="files" 
-        [columns]="cols" 
-        [filterMode]="filterMode" 
-        [scrollable]="true" 
+    <p-treeTable
+        #tt
+        [value]="files"
+        [columns]="cols"
+        [filterMode]="filterMode"
+        [scrollable]="true"
         [tableStyle]="{'min-width':'50rem'}">
             <ng-template pTemplate="caption">
                 <div class="flex justify-content-end align-items-center">
                     <div class="p-input-icon-left">
                         <i class="pi pi-search"></i>
-                        <input 
-                            type="text" 
-                            pInputText 
-                            placeholder="Global Search" 
+                        <input
+                            type="text"
+                            pInputText
+                            placeholder="Global Search"
                             (input)="tt.filterGlobal($event.target.value, 'contains')" />
                     </div>
                 </div>
@@ -177,9 +177,9 @@ export class FilterDoc {
                 </tr>
                 <tr>
                     <th *ngFor="let col of cols">
-                        <input 
-                            pInputText 
-                            type="text" 
+                        <input
+                            pInputText
+                            type="text"
                             (input)="tt.filter($event.target.value, col.field, col.filterMatchMode)" />
                     </th>
                 </tr>
@@ -201,11 +201,11 @@ export class FilterDoc {
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
-import { TreeNode } from 'primeng/api';
+import { TreeNode } from 'primengrtl/api';
 import { NodeService } from '@service/nodeservice';
-import { SelectButtonModule } from 'primeng/selectbutton';
+import { SelectButtonModule } from 'primengrtl/selectbutton';
 import { FormsModule } from '@angular/forms';
-import { InputTextModule } from 'primeng/inputtext';
+import { InputTextModule } from 'primengrtl/inputtext';
 import { CommonModule } from '@angular/common';
 
 interface Column {

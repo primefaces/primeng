@@ -1,13 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, EventEmitter, forwardRef, Input, NgModule, numberAttribute, Output, QueryList, TemplateRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { RippleModule } from 'primeng/ripple';
+import { RippleModule } from 'primengrtl/ripple';
 import { ToggleButtonChangeEvent } from './togglebutton.interface';
-import { Nullable } from 'primeng/ts-helpers';
-import { PrimeTemplate, SharedModule } from 'primeng/api';
-import { AutoFocusModule } from 'primeng/autofocus';
+import { Nullable } from 'primengrtl/ts-helpers';
+import { PrimeTemplate, SharedModule } from 'primengrtl/api';
+import { AutoFocusModule } from 'primengrtl/autofocus';
 
-type ToggleButtonIconPosition = 'left' | 'right';
+type ToggleButtonIconPosition = 'start' | 'end';
 
 export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -42,7 +42,7 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
                 <span
                     *ngIf="onIcon || offIcon"
                     [class]="checked ? this.onIcon : this.offIcon"
-                    [ngClass]="{ 'p-button-icon': true, 'p-button-icon-left': iconPos === 'left', 'p-button-icon-right': iconPos === 'right' }"
+                    [ngClass]="{ 'p-button-icon': true, 'p-button-icon-start': iconPos === 'start', 'p-button-icon-end': iconPos === 'end' }"
                     [attr.data-pc-section]="'icon'"
                 ></span>
             } @else {

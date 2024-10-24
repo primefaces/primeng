@@ -17,25 +17,25 @@ import { Code } from '@domain/code';
 export class BadgeDoc {
     code: Code = {
         basic: `<p-button label="Emails" badge="8" />
-<p-button 
-    label="Messages" 
-    icon="pi pi-users" 
-    badge="2" 
-    badgeClass="p-badge-contrast" 
+<p-button
+    label="Messages"
+    icon="pi pi-users"
+    badge="2"
+    badgeClass="p-badge-contrast"
     outlined="true" />`,
 
         html: `<div class="card flex justify-content-center flex-wrap gap-3">
     <p-button label="Emails" badge="2" />
-    <p-button 
-        label="Messages" 
-        icon="pi pi-users" 
-        badge="8" 
-        badgeClass="p-badge-contrast" 
+    <p-button
+        label="Messages"
+        icon="pi pi-users"
+        badge="8"
+        badgeClass="p-badge-contrast"
         outlined="true" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
+import { ButtonModule } from 'primengrtl/button';
 
 @Component({
     selector: 'button-badge-demo',

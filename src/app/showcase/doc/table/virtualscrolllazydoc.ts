@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { LazyLoadEvent } from 'primeng/api';
+import { LazyLoadEvent } from 'primengrtl/api';
 import { Car } from '@domain/car';
 import { Code } from '@domain/code';
 import { CarService } from '@service/carservice';
@@ -87,15 +87,15 @@ export class VirtualScrollLazyDoc {
     }
 
     code: Code = {
-        basic: `<p-table 
-    [columns]="cols" 
-    [value]="virtualCars" 
-    [scrollable]="true" 
-    scrollHeight="400px" 
+        basic: `<p-table
+    [columns]="cols"
+    [value]="virtualCars"
+    [scrollable]="true"
+    scrollHeight="400px"
     [rows]="100"
-    [virtualScroll]="true" 
-    [virtualScrollItemSize]="46" 
-    [lazy]="true" 
+    [virtualScroll]="true"
+    [virtualScrollItemSize]="46"
+    [lazy]="true"
     (onLazyLoad)="loadCarsLazy($event)">
         <ng-template pTemplate="header" let-columns>
             <tr>
@@ -120,15 +120,15 @@ export class VirtualScrollLazyDoc {
         </ng-template>
 </p-table>`,
         html: `<div class="card">
-    <p-table 
-        [columns]="cols" 
-        [value]="virtualCars" 
-        [scrollable]="true" 
-        scrollHeight="400px" 
+    <p-table
+        [columns]="cols"
+        [value]="virtualCars"
+        [scrollable]="true"
+        scrollHeight="400px"
         [rows]="100"
-        [virtualScroll]="true" 
-        [virtualScrollItemSize]="46" 
-        [lazy]="true" 
+        [virtualScroll]="true"
+        [virtualScrollItemSize]="46"
+        [lazy]="true"
         (onLazyLoad)="loadCarsLazy($event)">
             <ng-template pTemplate="header" let-columns>
                 <tr>
@@ -154,10 +154,10 @@ export class VirtualScrollLazyDoc {
     </p-table>
 </div>`,
         typescript: `import { Component, OnInit } from '@angular/core';
-import { LazyLoadEvent } from 'primeng/api';
+import { LazyLoadEvent } from 'primengrtl/api';
 import { Car } from '@domain/car';
 import { CarService } from '@service/carservice';
-import { TableModule } from 'primeng/table';
+import { TableModule } from 'primengrtl/table';
 import { CommonModule } from '@angular/common';
 
 interface Column {
@@ -206,7 +206,7 @@ export class TableVirtualScrollLazyDemo implements OnInit{
             //trigger change detection
             event.forceUpdate();
         }, Math.random() * 1000 + 250);
-    } 
+    }
 }`,
         data: `{
     id: 1

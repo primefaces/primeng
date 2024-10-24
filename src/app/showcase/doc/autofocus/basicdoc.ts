@@ -15,23 +15,23 @@ import { Code } from '@domain/code';
 })
 export class BasicDoc {
     code: Code = {
-        basic: `<input 
-    type="text" 
+        basic: `<input
+    type="text"
     pInputText
-    pAutoFocus 
-    [autofocus]="true" 
+    pAutoFocus
+    [autofocus]="true"
     placeholder="Automatically focused" />`,
         html: `<div class="card flex justify-content-center">
-    <input 
-        type="text" 
-        pInputText 
-        pAutoFocus 
-        [autofocus]="true" 
-        placeholder="Automatically focused" /> 
+    <input
+        type="text"
+        pInputText
+        pAutoFocus
+        [autofocus]="true"
+        placeholder="Automatically focused" />
 </div>`,
         typescript: `import { Component } from '@angular/core';
-import { AutoFocusModule } from 'primeng/autofocus';
-import { InputTextModule } from 'primeng/inputtext';
+import { AutoFocusModule } from 'primengrtl/autofocus';
+import { InputTextModule } from 'primengrtl/inputtext';
 
 @Component({
     selector: 'auto-focus-basic-demo',

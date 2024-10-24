@@ -26,17 +26,17 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { OverlayOptions, OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
-import { DomHandler } from 'primeng/dom';
-import { AngleRightIcon } from 'primeng/icons/angleright';
-import { AutoFocusModule } from 'primeng/autofocus';
+import { OverlayOptions, OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys } from 'primengrtl/api';
+import { DomHandler } from 'primengrtl/dom';
+import { AngleEndIcon } from 'primengrtl/icons/angleend';
+import { AutoFocusModule } from 'primengrtl/autofocus';
 
-import { ChevronDownIcon } from 'primeng/icons/chevrondown';
-import { TimesIcon } from 'primeng/icons/times';
-import { Overlay, OverlayModule } from 'primeng/overlay';
-import { RippleModule } from 'primeng/ripple';
-import { Nullable } from 'primeng/ts-helpers';
-import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
+import { ChevronDownIcon } from 'primengrtl/icons/chevrondown';
+import { TimesIcon } from 'primengrtl/icons/times';
+import { Overlay, OverlayModule } from 'primengrtl/overlay';
+import { RippleModule } from 'primengrtl/ripple';
+import { Nullable } from 'primengrtl/ts-helpers';
+import { ObjectUtils, UniqueComponentId } from 'primengrtl/utils';
 import { CascadeSelectBeforeHideEvent, CascadeSelectBeforeShowEvent, CascadeSelectChangeEvent, CascadeSelectHideEvent, CascadeSelectShowEvent } from './cascadeselect.interface';
 
 export const CASCADESELECT_VALUE_ACCESSOR: any = {
@@ -76,7 +76,7 @@ export const CASCADESELECT_VALUE_ACCESSOR: any = {
                             <span class="p-cascadeselect-item-text" [attr.data-pc-section]="'text'">{{ getOptionLabelToRender(processedOption) }}</span>
                         </ng-template>
                         <span class="p-cascadeselect-group-icon" *ngIf="isOptionGroup(processedOption)" [attr.data-pc-section]="'groupIcon'">
-                            <AngleRightIcon *ngIf="!groupIconTemplate" />
+                            <AngleEndIcon *ngIf="!groupIconTemplate" />
                             <ng-template *ngTemplateOutlet="groupIconTemplate"></ng-template>
                         </span>
                     </div>
@@ -226,7 +226,7 @@ export class CascadeSelectSub implements OnInit {
         const sublistWidth = this.el.nativeElement.children[0].offsetParent ? this.el.nativeElement.children[0].offsetWidth : DomHandler.getHiddenElementOuterWidth(this.el.nativeElement.children[0]);
         const itemOuterWidth = DomHandler.getOuterWidth(parentItem.children[0]);
 
-        if (parseInt(containerOffset.left, 10) + itemOuterWidth + sublistWidth > viewport.width - DomHandler.calculateScrollbarWidth()) {
+        if (containerOffset.start + itemOuterWidth + sublistWidth > viewport.width - DomHandler.calculateScrollbarWidth()) {
             this.el.nativeElement.children[0].style.left = '-200%';
         }
     }
@@ -1384,7 +1384,7 @@ export class CascadeSelect implements OnInit, AfterContentInit {
 }
 
 @NgModule({
-    imports: [CommonModule, OverlayModule, SharedModule, RippleModule, AutoFocusModule, ChevronDownIcon, AngleRightIcon, TimesIcon],
+    imports: [CommonModule, OverlayModule, SharedModule, RippleModule, AutoFocusModule, ChevronDownIcon, AngleEndIcon, TimesIcon],
     exports: [CascadeSelect, OverlayModule, CascadeSelectSub, SharedModule],
     declarations: [CascadeSelect, CascadeSelectSub]
 })

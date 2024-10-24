@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TreeNode } from 'primeng/api';
+import { TreeNode } from 'primengrtl/api';
 import { Code } from '@domain/code';
 import { NodeService } from '@service/nodeservice';
 
@@ -41,11 +41,11 @@ export class MultipleDoc implements OnInit {
     <p-inputSwitch inputId="input-metakey" [(ngModel)]="metaKeySelection" />
     <label for="input-metakey">MetaKey</label>
 </div>
-<p-tree 
-    [metaKeySelection]="metaKeySelection" 
-    [value]="files" 
-    class="w-full md:w-30rem" 
-    selectionMode="multiple" 
+<p-tree
+    [metaKeySelection]="metaKeySelection"
+    [value]="files"
+    class="w-full md:w-30rem"
+    selectionMode="multiple"
     [(selection)]="selectedFiles" />`,
 
         html: `<div class="card flex flex-column align-items-center justify-content-center">
@@ -53,19 +53,19 @@ export class MultipleDoc implements OnInit {
         <p-inputSwitch inputId="input-metakey" [(ngModel)]="metaKeySelection" />
         <label for="input-metakey">MetaKey</label>
     </div>
-    <p-tree 
-        [metaKeySelection]="metaKeySelection" 
-        [value]="files" 
-        class="w-full md:w-30rem" 
-        selectionMode="multiple" 
+    <p-tree
+        [metaKeySelection]="metaKeySelection"
+        [value]="files"
+        class="w-full md:w-30rem"
+        selectionMode="multiple"
         [(selection)]="selectedFiles" />
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
-import { TreeNode } from 'primeng/api';
+import { TreeNode } from 'primengrtl/api';
 import { NodeService } from '@service/nodeservice';
-import { TreeModule } from 'primeng/tree';
-import { InputSwitchModule } from 'primeng/inputswitch';
+import { TreeModule } from 'primengrtl/tree';
+import { InputSwitchModule } from 'primengrtl/inputswitch';
 import { FormsModule } from '@angular/forms';
 
 @Component({

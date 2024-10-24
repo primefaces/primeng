@@ -48,13 +48,13 @@ export class AutoPlayDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-galleria 
-    [(value)]="images" 
-    [autoPlay]="true" 
-    [circular]="true" 
-    [responsiveOptions]="responsiveOptions" 
-    [numVisible]="5" 
-    [containerStyle]="{ 'max-width': '640px' }"> 
+        basic: `<p-galleria
+    [(value)]="images"
+    [autoPlay]="true"
+    [circular]="true"
+    [responsiveOptions]="responsiveOptions"
+    [numVisible]="5"
+    [containerStyle]="{ 'max-width': '640px' }">
         <ng-template pTemplate="item" let-item>
             <img [src]="item.itemImageSrc" style="width: 100%;" />
         </ng-template>
@@ -65,13 +65,13 @@ export class AutoPlayDoc implements OnInit {
         </ng-template>
 </p-galleria>`,
         html: `<div class="card">
-    <p-galleria 
-        [(value)]="images" 
-        [autoPlay]="true" 
-        [circular]="true" 
-        [responsiveOptions]="responsiveOptions" 
-        [numVisible]="5" 
-        [containerStyle]="{ 'max-width': '640px' }"> 
+    <p-galleria
+        [(value)]="images"
+        [autoPlay]="true"
+        [circular]="true"
+        [responsiveOptions]="responsiveOptions"
+        [numVisible]="5"
+        [containerStyle]="{ 'max-width': '640px' }">
             <ng-template pTemplate="item" let-item>
                 <img [src]="item.itemImageSrc" style="width: 100%;" />
             </ng-template>
@@ -84,7 +84,7 @@ export class AutoPlayDoc implements OnInit {
 </div>`,
         typescript: `import { Component, OnInit } from '@angular/core';
 import { PhotoService } from '@service/photoservice';
-import { GalleriaModule } from 'primeng/galleria';
+import { GalleriaModule } from 'primengrtl/galleria';
 
 @Component({
     selector: 'galleria-autoplay-demo',

@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
-import { Table } from 'primeng/table';
+import { Table } from 'primengrtl/table';
 import { Code } from '@domain/code';
 import { Customer, Representative } from '@domain/customer';
 import { CustomerService } from '@service/customerservice';
@@ -28,7 +28,7 @@ import { CustomerService } from '@service/customerservice';
                 >
                     <ng-template pTemplate="caption">
                         <div class="flex">
-                            <p-iconField iconPosition="left" class="ml-auto">
+                            <p-iconField iconPosition="start" class="ms-auto">
                                 <p-inputIcon>
                                     <i class="pi pi-search"></i>
                                 </p-inputIcon>
@@ -58,7 +58,7 @@ import { CustomerService } from '@service/customerservice';
                                             <ng-template let-option pTemplate="item">
                                                 <div class="inline-block vertical-align-middle">
                                                     <img [alt]="option.label" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ option.image }}" width="24" class="vertical-align-middle" />
-                                                    <span class="ml-1 mt-1">{{ option.name }}</span>
+                                                    <span class="ms-1 mt-1">{{ option.name }}</span>
                                                 </div>
                                             </ng-template>
                                         </p-multiSelect>
@@ -88,11 +88,11 @@ import { CustomerService } from '@service/customerservice';
                             </td>
                             <td>
                                 <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px" />
-                                <span class="ml-1 vertical-align-middle">{{ customer.country.name }}</span>
+                                <span class="ms-1 vertical-align-middle">{{ customer.country.name }}</span>
                             </td>
                             <td>
                                 <img [alt]="customer.representative.name" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}" width="32" style="vertical-align: middle" />
-                                <span class="ml-1 vertical-align-middle">{{ customer.representative.name }}</span>
+                                <span class="ms-1 vertical-align-middle">{{ customer.representative.name }}</span>
                             </td>
                             <td>
                                 <p-tag [value]="customer.status" [severity]="getSeverity(customer.status)" />
@@ -199,14 +199,14 @@ export class FilterBasicDoc {
     >
         <ng-template pTemplate="caption">
             <div class="flex">
-                <p-iconField iconPosition="left" class="ml-auto">
+                <p-iconField iconPosition="start" class="ms-auto">
                     <p-inputIcon>
                         <i class="pi pi-search"></i>
                     </p-inputIcon>
-                    <input 
-                        pInputText 
-                        type="text" 
-                        (input)="dt2.filterGlobal($event.target.value, 'contains')" 
+                    <input
+                        pInputText
+                        type="text"
+                        (input)="dt2.filterGlobal($event.target.value, 'contains')"
                         placeholder="Search keyword" />
                 </p-iconField>
             </div>
@@ -221,36 +221,36 @@ export class FilterBasicDoc {
             </tr>
             <tr>
                 <th>
-                    <p-columnFilter 
-                        type="text" 
-                        field="name" 
-                        placeholder="Search by name" 
+                    <p-columnFilter
+                        type="text"
+                        field="name"
+                        placeholder="Search by name"
                         ariaLabel="Filter Name" />
                 </th>
                 <th>
-                    <p-columnFilter 
-                        type="text" 
-                        field="country.name" 
-                        placeholder="Search by country" 
+                    <p-columnFilter
+                        type="text"
+                        field="country.name"
+                        placeholder="Search by country"
                         ariaLabel="Filter Country" />
                 </th>
                 <th>
                     <p-columnFilter field="representative" matchMode="in" [showMenu]="false">
                         <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                            <p-multiSelect 
-                                [ngModel]="value" 
-                                [options]="representatives" 
-                                placeholder="Any" 
-                                (onChange)="filter($event.value)" 
+                            <p-multiSelect
+                                [ngModel]="value"
+                                [options]="representatives"
+                                placeholder="Any"
+                                (onChange)="filter($event.value)"
                                 optionLabel="name">
                                     <ng-template let-option pTemplate="item">
                                         <div class="inline-block vertical-align-middle">
-                                            <img 
-                                                [alt]="option.label" 
+                                            <img
+                                                [alt]="option.label"
                                                 src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ option.image }}"
-                                                width="24" 
+                                                width="24"
                                                 class="vertical-align-middle" />
-                                            <span class="ml-1 mt-1">{{ option.name }}</span>
+                                            <span class="ms-1 mt-1">{{ option.name }}</span>
                                         </div>
                                     </ng-template>
                             </p-multiSelect>
@@ -260,15 +260,15 @@ export class FilterBasicDoc {
                 <th>
                     <p-columnFilter field="status" matchMode="equals" [showMenu]="false">
                         <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                            <p-dropdown 
-                                [ngModel]="value" 
-                                [options]="statuses" 
-                                (onChange)="filter($event.value)" 
-                                placeholder="Select One" 
+                            <p-dropdown
+                                [ngModel]="value"
+                                [options]="statuses"
+                                (onChange)="filter($event.value)"
+                                placeholder="Select One"
                                 [showClear]="true">
                                     <ng-template let-option pTemplate="item">
-                                        <p-tag 
-                                            [value]="option.value" 
+                                        <p-tag
+                                            [value]="option.value"
                                             [severity]="getSeverity(option.label)" />
                                     </ng-template>
                             </p-dropdown>
@@ -286,27 +286,27 @@ export class FilterBasicDoc {
                     {{ customer.name }}
                 </td>
                 <td>
-                    <img 
-                        src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" 
-                        [class]="'flag flag-' + customer.country.code" 
+                    <img
+                        src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
+                        [class]="'flag flag-' + customer.country.code"
                         style="width: 20px" />
-                    <span class="ml-1 vertical-align-middle">
+                    <span class="ms-1 vertical-align-middle">
                         {{ customer.country.name }}
                     </span>
                 </td>
                 <td>
-                    <img 
-                        [alt]="customer.representative.name" 
-                        src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}" 
-                        width="32" 
+                    <img
+                        [alt]="customer.representative.name"
+                        src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}"
+                        width="32"
                         style="vertical-align: middle" />
-                    <span class="ml-1 vertical-align-middle">
+                    <span class="ms-1 vertical-align-middle">
                         {{ customer.representative.name }}
                     </span>
                 </td>
                 <td>
-                    <p-tag 
-                        [value]="customer.status" 
+                    <p-tag
+                        [value]="customer.status"
                         [severity]="getSeverity(customer.status)" />
                 </td>
                 <td>
@@ -334,14 +334,14 @@ export class FilterBasicDoc {
     >
     <ng-template pTemplate="caption">
         <div class="flex">
-            <p-iconField iconPosition="left" class="ml-auto">
+            <p-iconField iconPosition="start" class="ms-auto">
                 <p-inputIcon>
                     <i class="pi pi-search"></i>
                 </p-inputIcon>
-                <input 
-                    pInputText 
-                    type="text" 
-                    (input)="dt2.filterGlobal($event.target.value, 'contains')" 
+                <input
+                    pInputText
+                    type="text"
+                    (input)="dt2.filterGlobal($event.target.value, 'contains')"
                     placeholder="Search keyword" />
             </p-iconField>
         </div>
@@ -356,35 +356,35 @@ export class FilterBasicDoc {
         </tr>
         <tr>
             <th>
-                <p-columnFilter 
+                <p-columnFilter
                     type="text"
-                    field="name" 
-                    placeholder="Search by name" 
+                    field="name"
+                    placeholder="Search by name"
                     ariaLabel="Filter Name" />
             </th>
             <th>
-                <p-columnFilter 
+                <p-columnFilter
                     type="text"
                     field="country.name"
-                    placeholder="Search by country" 
+                    placeholder="Search by country"
                     ariaLabel="Filter Country" />
             </th>
             <th>
                 <p-columnFilter field="representative" matchMode="in" [showMenu]="false">
                     <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                        <p-multiSelect 
-                            [ngModel]="value" 
-                            [options]="representatives" 
-                            placeholder="Any" 
-                            (onChange)="filter($event.value)" 
+                        <p-multiSelect
+                            [ngModel]="value"
+                            [options]="representatives"
+                            placeholder="Any"
+                            (onChange)="filter($event.value)"
                             optionLabel="name">
                                 <ng-template let-option pTemplate="item">
                                     <div class="inline-block vertical-align-middle">
-                                        <img 
+                                        <img
                                             [alt]="option.label" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ option.image }}"
-                                            width="24" 
+                                            width="24"
                                             class="vertical-align-middle" />
-                                        <span class="ml-1 mt-1">
+                                        <span class="ms-1 mt-1">
                                             {{ option.name }}
                                         </span>
                                     </div>
@@ -396,15 +396,15 @@ export class FilterBasicDoc {
             <th>
                 <p-columnFilter field="status" matchMode="equals" [showMenu]="false">
                     <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                        <p-dropdown 
-                            [ngModel]="value" 
+                        <p-dropdown
+                            [ngModel]="value"
                             [options]="statuses"
-                            (onChange)="filter($event.value)" 
-                            placeholder="Select One" 
+                            (onChange)="filter($event.value)"
+                            placeholder="Select One"
                             [showClear]="true">
                                 <ng-template let-option pTemplate="item">
-                                    <p-tag 
-                                        [value]="option.value" 
+                                    <p-tag
+                                        [value]="option.value"
                                         [severity]="getSeverity(option.label)" />
                                 </ng-template>
                         </p-dropdown>
@@ -422,27 +422,27 @@ export class FilterBasicDoc {
                 {{ customer.name }}
             </td>
             <td>
-                <img 
-                    src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" 
-                    [class]="'flag flag-' + customer.country.code" 
+                <img
+                    src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
+                    [class]="'flag flag-' + customer.country.code"
                     style="width: 20px" />
-                <span class="ml-1 vertical-align-middle">
+                <span class="ms-1 vertical-align-middle">
                     {{ customer.country.name }}
                 </span>
             </td>
             <td>
-                <img 
+                <img
                     [alt]="customer.representative.name"
                     src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}"
-                    width="32" 
+                    width="32"
                     style="vertical-align: middle" />
-                <span class="ml-1 vertical-align-middle">
+                <span class="ms-1 vertical-align-middle">
                     {{ customer.representative.name }}
                 </span>
             </td>
             <td>
-                <p-tag 
-                    [value]="customer.status" 
+                <p-tag
+                    [value]="customer.status"
                     [severity]="getSeverity(customer.status)" />
             </td>
             <td>
@@ -458,16 +458,16 @@ export class FilterBasicDoc {
     </p-table>
 </div>`,
         typescript: `import { Component, OnInit } from '@angular/core';
-import { Table } from 'primeng/table';
+import { Table } from 'primengrtl/table';
 import { Customer, Representative } from '@domain/customer';
 import { CustomerService } from '@service/customerservice';
-import { TagModule } from 'primeng/tag';
-import { IconFieldModule } from 'primeng/iconfield';
-import { InputIconModule } from 'primeng/inputicon';
+import { TagModule } from 'primengrtl/tag';
+import { IconFieldModule } from 'primengrtl/iconfield';
+import { InputIconModule } from 'primengrtl/inputicon';
 import { HttpClientModule } from '@angular/common/http';
-import { InputTextModule } from 'primeng/inputtext';
-import { MultiSelectModule } from 'primeng/multiselect';
-import { DropdownModule } from 'primeng/dropdown';
+import { InputTextModule } from 'primengrtl/inputtext';
+import { MultiSelectModule } from 'primengrtl/multiselect';
+import { DropdownModule } from 'primengrtl/dropdown';
 import { CommonModule } from '@angular/common';
 
 @Component({

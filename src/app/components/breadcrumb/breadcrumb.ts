@@ -1,10 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChildren, EventEmitter, Input, NgModule, Output, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
-import { MenuItem, PrimeTemplate, SharedModule } from 'primeng/api';
-import { ChevronRightIcon } from 'primeng/icons/chevronright';
-import { HomeIcon } from 'primeng/icons/home';
-import { TooltipModule } from 'primeng/tooltip';
+import { MenuItem, PrimeTemplate, SharedModule } from 'primengrtl/api';
+import { ChevronEndIcon } from 'primengrtl/icons/chevronend';
+import { HomeIcon } from 'primengrtl/icons/home';
+import { TooltipModule } from 'primengrtl/tooltip';
 import { BreadcrumbItemClickEvent } from './breadcrumb.interface';
 /**
  * Breadcrumb provides contextual information about page hierarchy.
@@ -73,7 +73,7 @@ import { BreadcrumbItemClickEvent } from './breadcrumb.interface';
                     </a>
                 </li>
                 <li *ngIf="model && home" class="p-menuitem-separator" [attr.data-pc-section]="'separator'">
-                    <ChevronRightIcon *ngIf="!separatorTemplate" />
+                    <ChevronEndIcon *ngIf="!separatorTemplate" />
                     <ng-template *ngTemplateOutlet="separatorTemplate"></ng-template>
                 </li>
                 <ng-template ngFor let-item let-end="last" [ngForOf]="model">
@@ -140,7 +140,7 @@ import { BreadcrumbItemClickEvent } from './breadcrumb.interface';
                         </a>
                     </li>
                     <li *ngIf="!end" class="p-menuitem-separator" [attr.data-pc-section]="'separator'">
-                        <ChevronRightIcon *ngIf="!separatorTemplate" />
+                        <ChevronEndIcon *ngIf="!separatorTemplate" />
                         <ng-template *ngTemplateOutlet="separatorTemplate"></ng-template>
                     </li>
                 </ng-template>
@@ -251,7 +251,7 @@ export class Breadcrumb implements AfterContentInit {
 }
 
 @NgModule({
-    imports: [CommonModule, RouterModule, TooltipModule, ChevronRightIcon, HomeIcon, SharedModule],
+    imports: [CommonModule, RouterModule, TooltipModule, ChevronEndIcon, HomeIcon, SharedModule],
     exports: [Breadcrumb, RouterModule, TooltipModule, SharedModule],
     declarations: [Breadcrumb]
 })

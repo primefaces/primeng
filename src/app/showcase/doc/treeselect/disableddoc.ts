@@ -24,28 +24,28 @@ export class DisabledDoc {
     }
 
     code: Code = {
-        basic: `<p-treeSelect 
-    class="md:w-20rem w-full" 
-    containerStyleClass="w-full" 
-    [(ngModel)]="selectedNodes" 
-    [options]="nodes" 
-    [disabled]="true" 
+        basic: `<p-treeSelect
+    class="md:w-20rem w-full"
+    containerStyleClass="w-full"
+    [(ngModel)]="selectedNodes"
+    [options]="nodes"
+    [disabled]="true"
     placeholder="TreeSelect" />`,
 
         html: `<div class="card flex justify-content-center">
-    <p-treeSelect 
+    <p-treeSelect
         class="md:w-20rem w-full"
         containerStyleClass="w-full"
-        [(ngModel)]="selectedNodes" 
-        [options]="nodes" 
-        [disabled]="true" 
+        [(ngModel)]="selectedNodes"
+        [options]="nodes"
+        [disabled]="true"
         placeholder="TreeSelect" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
 import { NodeService } from '@service/nodeservice';
 import { FormsModule } from '@angular/forms';
-import { TreeSelectModule } from 'primeng/treeselect';
+import { TreeSelectModule } from 'primengrtl/treeselect';
 
 @Component({
     selector: 'tree-select-disabled-demo',

@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, NgModule, Output, ViewChild, ViewEncapsulation, booleanAttribute, forwardRef, numberAttribute } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { AutoFocusModule } from 'primeng/autofocus';
+import { AutoFocusModule } from 'primengrtl/autofocus';
 import { InputSwitchChangeEvent } from './inputswitch.interface';
 
 export const INPUTSWITCH_VALUE_ACCESSOR: any = {

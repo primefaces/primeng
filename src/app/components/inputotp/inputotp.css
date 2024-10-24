@@ -1,3 +1,6 @@
 @layer primeng {
-   
+    p-inputotp,
+    .p-inputotp {
+        direction: ltr;
+    }
 }

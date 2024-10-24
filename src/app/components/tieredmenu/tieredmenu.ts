@@ -29,13 +29,13 @@ import {
     signal
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { MenuItem, OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
-import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
-import { AngleRightIcon } from 'primeng/icons/angleright';
-import { RippleModule } from 'primeng/ripple';
-import { TooltipModule } from 'primeng/tooltip';
-import { Nullable, VoidListener } from 'primeng/ts-helpers';
-import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
+import { MenuItem, OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule } from 'primengrtl/api';
+import { ConnectedOverlayScrollHandler, DomHandler } from 'primengrtl/dom';
+import { AngleEndIcon } from 'primengrtl/icons/angleend';
+import { RippleModule } from 'primengrtl/ripple';
+import { TooltipModule } from 'primengrtl/tooltip';
+import { Nullable, VoidListener } from 'primengrtl/ts-helpers';
+import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primengrtl/utils';
 
 @Component({
     selector: 'p-tieredMenuSub',
@@ -115,7 +115,7 @@ import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
                                 <span class="p-menuitem-badge" *ngIf="getItemProp(processedItem, 'badge')" [ngClass]="getItemProp(processedItem, 'badgeStyleClass')">{{ getItemProp(processedItem, 'badge') }}</span>
 
                                 <ng-container *ngIf="isItemGroup(processedItem)">
-                                    <AngleRightIcon *ngIf="!tieredMenu.submenuIconTemplate" [styleClass]="'p-submenu-icon'" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" />
+                                    <AngleEndIcon *ngIf="!tieredMenu.submenuIconTemplate" [styleClass]="'p-submenu-icon'" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" />
                                     <ng-template *ngTemplateOutlet="tieredMenu.submenuIconTemplate" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true"></ng-template>
                                 </ng-container>
                             </a>
@@ -157,7 +157,7 @@ import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
                                 <span class="p-menuitem-badge" *ngIf="getItemProp(processedItem, 'badge')" [ngClass]="getItemProp(processedItem, 'badgeStyleClass')">{{ getItemProp(processedItem, 'badge') }}</span>
 
                                 <ng-container *ngIf="isItemGroup(processedItem)">
-                                    <AngleRightIcon *ngIf="!tieredMenu.submenuIconTemplate" [styleClass]="'p-submenu-icon'" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" />
+                                    <AngleEndIcon *ngIf="!tieredMenu.submenuIconTemplate" [styleClass]="'p-submenu-icon'" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" />
                                     <ng-template *ngTemplateOutlet="tieredMenu.submenuIconTemplate" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true"></ng-template>
                                 </ng-container>
                             </a>
@@ -253,7 +253,7 @@ export class TieredMenuSub {
                 const sublistWidth = sublist.offsetParent ? sublist.offsetWidth : DomHandler.getOuterWidth(sublist);
                 const itemOuterWidth = DomHandler.getOuterWidth(parentItem.children[0]);
                 const sublistFlippedClass = 'p-submenu-list-flipped';
-                if (parseInt(containerOffset.left, 10) + itemOuterWidth + sublistWidth > viewport.width - DomHandler.calculateScrollbarWidth()) {
+                if (containerOffset.start + itemOuterWidth + sublistWidth > viewport.width - DomHandler.calculateScrollbarWidth()) {
                     DomHandler.addClass(sublist, sublistFlippedClass);
                 } else if (DomHandler.hasClass(sublist, sublistFlippedClass)) {
                     DomHandler.removeClass(sublist, sublistFlippedClass);
@@ -1194,7 +1194,7 @@ export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule, RouterModule, RippleModule, TooltipModule, AngleRightIcon, SharedModule],
+    imports: [CommonModule, RouterModule, RippleModule, TooltipModule, AngleEndIcon, SharedModule],
     exports: [TieredMenu, RouterModule, TooltipModule, SharedModule],
     declarations: [TieredMenu, TieredMenuSub]
 })

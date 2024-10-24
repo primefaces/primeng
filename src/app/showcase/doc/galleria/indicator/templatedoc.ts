@@ -9,7 +9,7 @@ import { PhotoService } from '@service/photoservice';
             <p>Indicator content can be customized with the <i>indicator</i> template.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-galleria [(value)]="images" [showIndicators]="true" [showThumbnails]="false" [showIndicatorsOnItem]="true" indicatorsPosition="left" [responsiveOptions]="responsiveOptions" [containerStyle]="{ maxWidth: '640px' }">
+            <p-galleria [(value)]="images" [showIndicators]="true" [showThumbnails]="false" [showIndicatorsOnItem]="true" indicatorsPosition="start" [responsiveOptions]="responsiveOptions" [containerStyle]="{ maxWidth: '640px' }">
                 <ng-template pTemplate="item" let-item>
                     <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
                 </ng-template>
@@ -50,7 +50,7 @@ export class TemplateDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-galleria [(value)]="images" [showIndicators]="true" [showThumbnails]="false" [showIndicatorsOnItem]="true" indicatorsPosition="left" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '100%', 'margin-top': '2em' }">
+        basic: `<p-galleria [(value)]="images" [showIndicators]="true" [showThumbnails]="false" [showIndicatorsOnItem]="true" indicatorsPosition="start" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '100%', 'margin-top': '2em' }">
     <ng-template pTemplate="item" let-item>
         <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
     </ng-template>
@@ -62,7 +62,7 @@ export class TemplateDoc implements OnInit {
 </p-galleria>`,
         html: `
  <div class="card">
-    <p-galleria [(value)]="images" [showIndicators]="true" [showThumbnails]="false" [showIndicatorsOnItem]="true" indicatorsPosition="left" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '100%','margin-top': '2em' }">
+    <p-galleria [(value)]="images" [showIndicators]="true" [showThumbnails]="false" [showIndicatorsOnItem]="true" indicatorsPosition="start" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '100%','margin-top': '2em' }">
         <ng-template pTemplate="item" let-item>
             <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
         </ng-template>

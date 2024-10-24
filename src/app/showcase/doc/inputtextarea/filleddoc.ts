@@ -17,26 +17,26 @@ export class FilledDoc {
     value!: string;
 
     code: Code = {
-        basic: `<textarea 
+        basic: `<textarea
     variant="filled"
     rows="5"
-    cols="30" 
-    pInputTextarea 
+    cols="30"
+    pInputTextarea
     [(ngModel)]="value">
 </textarea>`,
 
         html: `<div class="card flex justify-content-center">
-    <textarea 
+    <textarea
         variant="filled"
         rows="5"
         cols="30"
-        pInputTextarea 
+        pInputTextarea
         [(ngModel)]="value">
     </textarea>
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { InputTextareaModule } from 'primeng/inputtextarea';
+import { InputTextareaModule } from 'primengrtl/inputtextarea';
 import { FormsModule } from '@angular/forms';
 
 @Component({

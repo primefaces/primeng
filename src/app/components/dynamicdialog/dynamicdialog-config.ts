@@ -156,7 +156,7 @@ export class DynamicDialogConfig<T = any> {
      */
     minimizeIcon?: string;
     /**
-     * Position of the dialog, options are "center", "top", "bottom", "left", "right", "top-left", "top-right", "bottom-left" or "bottom-right".
+     * Position of the dialog, options are "center", "top", "bottom", "start", "end", "top-start", "top-end", "bottom-start" or "bottom-end".
      * @group Props
      */
     position?: string;

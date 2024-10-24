@@ -21,22 +21,22 @@ export class VerticalDoc {
         { label: 'System', color: '#c084fc', value: 10 }
     ];
     code: Code = {
-        basic: `<p-meterGroup 
-    [value]="value" 
-    orientation="vertical" 
-    labelOrientation="vertical" 
+        basic: `<p-meterGroup
+    [value]="value"
+    orientation="vertical"
+    labelOrientation="vertical"
     [style]="{ height: '300px' }" />`,
 
         html: `<div class="card flex justify-content-center">
-    <p-meterGroup 
-        [value]="value" 
-        orientation="vertical" 
-        labelOrientation="vertical" 
+    <p-meterGroup
+        [value]="value"
+        orientation="vertical"
+        labelOrientation="vertical"
         [style]="{ height: '300px' }" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { MeterGroupModule } from 'primeng/metergroup';
+import { MeterGroupModule } from 'primengrtl/metergroup';
 
 @Component({
     selector: 'meter-group-vertical-demo',

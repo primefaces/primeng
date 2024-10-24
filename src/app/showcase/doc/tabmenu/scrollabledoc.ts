@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuItem } from 'primeng/api';
+import { MenuItem } from 'primengrtl/api';
 import { Code } from '@domain/code';
 
 @Component({
@@ -34,7 +34,7 @@ export class ScrollableDoc implements OnInit {
 
         typescript: `
 import { Component, OnInit } from '@angular/core';
-import { MenuItem } from 'primeng/api';
+import { MenuItem } from 'primengrtl/api';
 
 @Component({
     selector: 'tab-menu-scrollable-demo',
@@ -54,7 +54,7 @@ export class TabMenuScrollableDemo implements OnInit {
         module: `
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { TabMenuModule } from 'primeng/tabmenu';
+import { TabMenuModule } from 'primengrtl/tabmenu';
 import { TabMenuDemo } from './tabmenudemo';
 
 @NgModule({

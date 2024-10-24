@@ -29,18 +29,18 @@ import {
     booleanAttribute,
     numberAttribute
 } from '@angular/core';
-import { PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
-import { DomHandler } from 'primeng/dom';
-import { ChevronLeftIcon } from 'primeng/icons/chevronleft';
-import { ChevronRightIcon } from 'primeng/icons/chevronright';
-import { TimesIcon } from 'primeng/icons/times';
-import { WindowMaximizeIcon } from 'primeng/icons/windowmaximize';
-import { WindowMinimizeIcon } from 'primeng/icons/windowminimize';
-import { RippleModule } from 'primeng/ripple';
-import { VoidListener } from 'primeng/ts-helpers';
-import { UniqueComponentId, ZIndexUtils } from 'primeng/utils';
+import { PrimeNGConfig, PrimeTemplate, SharedModule } from 'primengrtl/api';
+import { DomHandler } from 'primengrtl/dom';
+import { ChevronStartIcon } from 'primengrtl/icons/chevronstart';
+import { ChevronEndIcon } from 'primengrtl/icons/chevronend';
+import { TimesIcon } from 'primengrtl/icons/times';
+import { WindowMaximizeIcon } from 'primengrtl/icons/windowmaximize';
+import { WindowMinimizeIcon } from 'primengrtl/icons/windowminimize';
+import { RippleModule } from 'primengrtl/ripple';
+import { VoidListener } from 'primengrtl/ts-helpers';
+import { UniqueComponentId, ZIndexUtils } from 'primengrtl/utils';
 import { GalleriaResponsiveOptions } from './galleria.interface';
-import { FocusTrapModule } from 'primeng/focustrap';
+import { FocusTrapModule } from 'primengrtl/focustrap';
 /**
  * Galleria is an advanced content gallery component.
  * @group Components
@@ -176,7 +176,7 @@ export class Galleria implements OnChanges, OnDestroy {
      * Position of thumbnails.
      * @group Props
      */
-    @Input() thumbnailsPosition: 'bottom' | 'top' | 'left' | 'right' | undefined = 'bottom';
+    @Input() thumbnailsPosition: 'bottom' | 'top' | 'start' | 'end' | undefined = 'bottom';
     /**
      * Height of the viewport in vertical thumbnail.
      * @group Props
@@ -196,7 +196,7 @@ export class Galleria implements OnChanges, OnDestroy {
      * Position of indicators.
      * @group Props
      */
-    @Input() indicatorsPosition: 'bottom' | 'top' | 'left' | 'right' | undefined = 'bottom';
+    @Input() indicatorsPosition: 'bottom' | 'top' | 'start' | 'end' | undefined = 'bottom';
     /**
      * Base zIndex value to use in layering.
      * @group Props
@@ -575,14 +575,14 @@ export class GalleriaContent implements DoCheck {
     }
 
     getPositionClass(preClassName: string, position: string) {
-        const positions = ['top', 'left', 'bottom', 'right'];
+        const positions = ['top', 'start', 'bottom', 'end'];
         const pos = positions.find((item) => item === position);
 
         return pos ? `${preClassName}-${pos}` : '';
     }
 
     isVertical() {
-        return this.galleria.thumbnailsPosition === 'left' || this.galleria.thumbnailsPosition === 'right';
+        return this.galleria.thumbnailsPosition === 'start' || this.galleria.thumbnailsPosition === 'end';
     }
 
     onActiveIndexChange(index: number) {
@@ -683,7 +683,7 @@ export class GalleriaItemSlot {
                     (focus)="onButtonFocus('left')"
                     (blur)="onButtonBlur('left')"
                 >
-                    <ChevronLeftIcon *ngIf="!galleria.itemPreviousIconTemplate" [styleClass]="'p-galleria-item-prev-icon'" />
+                    <ChevronStartIcon *ngIf="!galleria.itemPreviousIconTemplate" [styleClass]="'p-galleria-item-prev-icon'" />
                     <ng-template *ngTemplateOutlet="galleria.itemPreviousIconTemplate"></ng-template>
                 </button>
                 <div [id]="id + '_item_' + activeIndex" role="group" [attr.aria-label]="ariaSlideNumber(activeIndex + 1)" [attr.aria-roledescription]="ariaSlideLabel()" [style.width]="'100%'">
@@ -700,7 +700,7 @@ export class GalleriaItemSlot {
                     (focus)="onButtonFocus('right')"
                     (blur)="onButtonBlur('right')"
                 >
-                    <ChevronRightIcon *ngIf="!galleria.itemNextIconTemplate" [styleClass]="'p-galleria-item-next-icon'" />
+                    <ChevronEndIcon *ngIf="!galleria.itemNextIconTemplate" [styleClass]="'p-galleria-item-next-icon'" />
                     <ng-template *ngTemplateOutlet="galleria.itemNextIconTemplate"></ng-template>
                 </button>
                 <div class="p-galleria-caption" *ngIf="captionFacet">
@@ -905,7 +905,7 @@ export class GalleriaItem implements OnChanges {
                     [attr.aria-label]="ariaPrevButtonLabel()"
                 >
                     <ng-container *ngIf="!galleria.previousThumbnailIconTemplate">
-                        <ChevronLeftIcon *ngIf="!isVertical" [styleClass]="'p-galleria-thumbnail-prev-icon'" />
+                        <ChevronStartIcon *ngIf="!isVertical" [styleClass]="'p-galleria-thumbnail-prev-icon'" />
                         <ChevronUpIcon *ngIf="isVertical" [styleClass]="'p-galleria-thumbnail-prev-icon'" />
                     </ng-container>
                     <ng-template *ngTemplateOutlet="galleria.previousThumbnailIconTemplate"></ng-template>
@@ -951,7 +951,7 @@ export class GalleriaItem implements OnChanges {
                     [attr.aria-label]="ariaNextButtonLabel()"
                 >
                     <ng-container *ngIf="!galleria.nextThumbnailIconTemplate">
-                        <ChevronRightIcon *ngIf="!isVertical" [ngClass]="'p-galleria-thumbnail-next-icon'" />
+                        <ChevronEndIcon *ngIf="!isVertical" [ngClass]="'p-galleria-thumbnail-next-icon'" />
                         <ChevronDownIcon *ngIf="isVertical" [ngClass]="'p-galleria-thumbnail-next-icon'" />
                     </ng-container>
                     <ng-template *ngTemplateOutlet="galleria.nextThumbnailIconTemplate"></ng-template>
@@ -1066,7 +1066,7 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, AfterVie
             }
 
             if (this.itemsContainer && this.itemsContainer.nativeElement) {
-                this.itemsContainer.nativeElement.style.transform = this.isVertical ? `translate3d(0, ${totalShiftedItems * (100 / this.d_numVisible)}%, 0)` : `translate3d(${totalShiftedItems * (100 / this.d_numVisible)}%, 0, 0)`;
+                this.itemsContainer.nativeElement.style.transform = this.calcTransform(totalShiftedItems);
             }
 
             if (this._oldactiveIndex !== this._activeIndex) {
@@ -1326,11 +1326,19 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, AfterVie
 
         if (this.itemsContainer) {
             DomHandler.removeClass(this.itemsContainer.nativeElement, 'p-items-hidden');
-            this.itemsContainer.nativeElement.style.transform = this.isVertical ? `translate3d(0, ${totalShiftedItems * (100 / this.d_numVisible)}%, 0)` : `translate3d(${totalShiftedItems * (100 / this.d_numVisible)}%, 0, 0)`;
+            this.itemsContainer.nativeElement.style.transform = this.calcTransform(totalShiftedItems);
             this.itemsContainer.nativeElement.style.transition = 'transform 500ms ease 0s';
         }
 
         this.totalShiftedItems = totalShiftedItems;
+    }
+
+    private calcTransform(totalShiftedItems: number): string {
+        if (this.isVertical) return `translate3d(0, ${totalShiftedItems * (100 / this.d_numVisible)}%, 0)`;
+
+        let horizontalTransform = totalShiftedItems * (100 / this.d_numVisible);
+        if (DomHandler.documentIsRTL() && horizontalTransform != 0) horizontalTransform *= -1;
+        return `translate3d(${horizontalTransform}%, 0, 0)`;
     }
 
     stopTheSlideShow() {
@@ -1451,7 +1459,7 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, AfterVie
 }
 
 @NgModule({
-    imports: [CommonModule, SharedModule, RippleModule, TimesIcon, ChevronRightIcon, ChevronLeftIcon, WindowMaximizeIcon, WindowMinimizeIcon, FocusTrapModule],
+    imports: [CommonModule, SharedModule, RippleModule, TimesIcon, ChevronEndIcon, ChevronStartIcon, WindowMaximizeIcon, WindowMinimizeIcon, FocusTrapModule],
     exports: [CommonModule, Galleria, GalleriaContent, GalleriaItemSlot, GalleriaItem, GalleriaThumbnails, SharedModule],
     declarations: [Galleria, GalleriaContent, GalleriaItemSlot, GalleriaItem, GalleriaThumbnails]
 })

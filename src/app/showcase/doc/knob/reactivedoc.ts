@@ -23,34 +23,34 @@ export class ReactiveDoc {
     code: Code = {
         basic: `<p-knob [(ngModel)]="value" size="150" readonly="true"/>
 <div class="flex gap-2">
-    <p-button 
-        icon="pi pi-plus" 
-        (onClick)="value = value+1" 
+    <p-button
+        icon="pi pi-plus"
+        (onClick)="value = value+1"
         [disabled]="value >= 100" />
-    <p-button 
-        icon="pi pi-minus" 
-        (onClick)="value = value-1" 
+    <p-button
+        icon="pi pi-minus"
+        (onClick)="value = value-1"
         [disabled]="value <= 0" />
 </div>`,
 
         html: `<div class="card flex flex-column align-items-center gap-2">
 <p-knob [(ngModel)]="value" size="150" readonly="true"/>
 <div class="flex gap-2">
-    <p-button 
-        icon="pi pi-plus" 
-        (onClick)="value = value+1" 
+    <p-button
+        icon="pi pi-plus"
+        (onClick)="value = value+1"
         [disabled]="value >= 100" />
-    <p-button 
-        icon="pi pi-minus" 
-        (onClick)="value = value-1" 
+    <p-button
+        icon="pi pi-minus"
+        (onClick)="value = value-1"
         [disabled]="value <= 0" />
 </div>
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { KnobModule } from 'primeng/knob';
-import { ButtonModule } from 'primeng/button';
+import { KnobModule } from 'primengrtl/knob';
+import { ButtonModule } from 'primengrtl/button';
 
 @Component({
     selector: 'knob-reactive-demo',

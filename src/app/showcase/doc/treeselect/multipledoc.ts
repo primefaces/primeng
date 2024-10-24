@@ -37,30 +37,30 @@ export class MultipleDoc {
     };
 
     code: Code = {
-        basic: `<p-treeSelect 
-    class="w-full md:w-20rem" 
-    containerStyleClass="w-full" 
-    [(ngModel)]="selectedNodes" 
-    [options]="nodes" 
-    [metaKeySelection]="false" 
+        basic: `<p-treeSelect
+    class="w-full md:w-20rem"
+    containerStyleClass="w-full"
+    [(ngModel)]="selectedNodes"
+    [options]="nodes"
+    [metaKeySelection]="false"
     selectionMode="multiple"
     placeholder="Select Item" />`,
 
         html: `<div class="card flex justify-content-center">
-    <p-treeSelect 
-        class="w-full md:w-20rem" 
-        containerStyleClass="w-full" 
-        [(ngModel)]="selectedNodes" 
-        [options]="nodes" 
-        [metaKeySelection]="false" 
-        selectionMode="multiple" 
+    <p-treeSelect
+        class="w-full md:w-20rem"
+        containerStyleClass="w-full"
+        [(ngModel)]="selectedNodes"
+        [options]="nodes"
+        [metaKeySelection]="false"
+        selectionMode="multiple"
         placeholder="Select Item" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
 import { NodeService } from '@service/nodeservice';
 import { FormsModule } from '@angular/forms';
-import { TreeSelectModule } from 'primeng/treeselect';
+import { TreeSelectModule } from 'primengrtl/treeselect';
 
 @Component({
     selector: 'tree-select-multiple-demo',

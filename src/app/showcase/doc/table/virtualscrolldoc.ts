@@ -62,11 +62,11 @@ export class VirtualScrollDoc {
     }
 
     code: Code = {
-        basic: `<p-table 
-    [columns]="cols" 
-    [value]="cars" 
-    [scrollable]="true" 
-    scrollHeight="400px" 
+        basic: `<p-table
+    [columns]="cols"
+    [value]="cars"
+    [scrollable]="true"
+    scrollHeight="400px"
     [virtualScroll]="true"
     [virtualScrollItemSize]="46">
         <ng-template pTemplate="header" let-columns>
@@ -85,12 +85,12 @@ export class VirtualScrollDoc {
         </ng-template>
 </p-table>`,
         html: `<div class="card">
-    <p-table 
-        [columns]="cols" 
-        [value]="cars" 
-        [scrollable]="true" 
-        scrollHeight="400px" 
-        [virtualScroll]="true" 
+    <p-table
+        [columns]="cols"
+        [value]="cars"
+        [scrollable]="true"
+        scrollHeight="400px"
+        [virtualScroll]="true"
         [virtualScrollItemSize]="46">
             <ng-template pTemplate="header" let-columns>
                 <tr>
@@ -111,7 +111,7 @@ export class VirtualScrollDoc {
         typescript: `import { Component, OnInit } from '@angular/core';
 import { Car } from '@domain/car';
 import { CarService } from '@service/carservice';
-import { TableModule } from 'primeng/table';
+import { TableModule } from 'primengrtl/table';
 import { CommonModule } from '@angular/common';
 
 interface Column {

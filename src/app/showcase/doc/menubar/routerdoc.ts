@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuItem } from 'primeng/api';
+import { MenuItem } from 'primengrtl/api';
 import { Code } from '@domain/code';
 import { Router } from '@angular/router';
 
@@ -15,20 +15,20 @@ import { Router } from '@angular/router';
                     <ng-container *ngIf="item.route; else urlRef">
                         <a [routerLink]="item.route" class="p-menuitem-link">
                             <span [class]="item.icon"></span>
-                            <span class="ml-2">{{ item.label }}</span>
+                            <span class="ms-2">{{ item.label }}</span>
                         </a>
                     </ng-container>
                     <ng-template #urlRef>
                         <a *ngIf="item.url; else noLink" [href]="item.url" class="p-menuitem-link">
                             <span [class]="item.icon"></span>
-                            <span class="ml-2">{{ item.label }}</span>
+                            <span class="ms-2">{{ item.label }}</span>
                         </a>
                     </ng-template>
                     <ng-template #noLink>
                         <div class="p-menuitem-link">
                             <span [class]="item.icon"></span>
-                            <span class="ml-2">{{ item.label }}</span>
-                            <span class="pi pi-fw pi-angle-down ml-2"></span>
+                            <span class="ms-2">{{ item.label }}</span>
+                            <span class="pi pi-fw pi-angle-down ms-2"></span>
                         </div>
                     </ng-template>
                 </ng-template>
@@ -88,20 +88,20 @@ export class RouterDoc implements OnInit {
         <ng-container *ngIf="item.route; else urlRef">
             <a [routerLink]="item.route" class="p-menuitem-link">
                 <span [class]="item.icon"></span>
-                <span class="ml-2">{{ item.label }}</span>
+                <span class="ms-2">{{ item.label }}</span>
             </a>
         </ng-container>
         <ng-template #urlRef>
             <a *ngIf="item.url; else noLink" [href]="item.url" class="p-menuitem-link">
                 <span [class]="item.icon"></span>
-                <span class="ml-2">{{ item.label }}</span>
+                <span class="ms-2">{{ item.label }}</span>
             </a>
         </ng-template>
         <ng-template #noLink>
             <div class="p-menuitem-link">
                 <span [class]="item.icon"></span>
-                <span class="ml-2">{{ item.label }}</span>
-                <span class="pi pi-fw pi-angle-down ml-2"></span>
+                <span class="ms-2">{{ item.label }}</span>
+                <span class="pi pi-fw pi-angle-down ms-2"></span>
             </div>
         </ng-template>
     </ng-template>
@@ -113,20 +113,20 @@ export class RouterDoc implements OnInit {
             <ng-container *ngIf="item.route; else urlRef">
                 <a [routerLink]="item.route" class="p-menuitem-link">
                     <span [class]="item.icon"></span>
-                    <span class="ml-2">{{ item.label }}</span>
+                    <span class="ms-2">{{ item.label }}</span>
                 </a>
             </ng-container>
             <ng-template #urlRef>
                 <a *ngIf="item.url; else noLink" [href]="item.url" class="p-menuitem-link">
                     <span [class]="item.icon"></span>
-                    <span class="ml-2">{{ item.label }}</span>
+                    <span class="ms-2">{{ item.label }}</span>
                 </a>
             </ng-template>
             <ng-template #noLink>
                 <div class="p-menuitem-link">
                     <span [class]="item.icon"></span>
-                    <span class="ml-2">{{ item.label }}</span>
-                    <span class="pi pi-fw pi-angle-down ml-2"></span>
+                    <span class="ms-2">{{ item.label }}</span>
+                    <span class="pi pi-fw pi-angle-down ms-2"></span>
                 </div>
             </ng-template>
         </ng-template>
@@ -134,8 +134,8 @@ export class RouterDoc implements OnInit {
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
-import { MenuItem } from 'primeng/api';
-import { MenubarModule } from 'primeng/menubar';
+import { MenuItem } from 'primengrtl/api';
+import { MenubarModule } from 'primengrtl/menubar';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 

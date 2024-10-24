@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MenuItem, MessageService } from 'primeng/api';
+import { MenuItem, MessageService } from 'primengrtl/api';
 import { Code } from '@domain/code';
 
 @Component({
@@ -55,48 +55,48 @@ export class DisabledDoc {
     }
 
     code: Code = {
-        basic: `<p-splitButton 
-    label="Save" 
-    icon="pi pi-plus" 
-    (onClick)="save('info')" 
-    [model]="items" 
+        basic: `<p-splitButton
+    label="Save"
+    icon="pi pi-plus"
+    (onClick)="save('info')"
+    [model]="items"
     [disabled]="true" />`,
 
         html: `<div class="card flex justify-content-center">
     <p-toast />
-    <p-splitButton 
-        label="Save" 
-        icon="pi pi-plus" 
-        (onClick)="save('info')" 
-        [model]="items" 
+    <p-splitButton
+        label="Save"
+        icon="pi pi-plus"
+        (onClick)="save('info')"
+        [model]="items"
         [disabled]="true" />
 </div>
 
 <div class="card flex justify-content-center">
     <p-toast />
-    <p-splitButton 
-        label="Save" 
-        icon="pi pi-plus" 
-        (onClick)="save('info')" 
-        [model]="items" 
+    <p-splitButton
+        label="Save"
+        icon="pi pi-plus"
+        (onClick)="save('info')"
+        [model]="items"
         [menuButtonDisabled]="true" />
 </div>
 
 <div class="card flex justify-content-center">
     <p-toast />
-    <p-splitButton 
+    <p-splitButton
         label="Save"
         icon="pi pi-plus"
-        (onClick)="save('info')" 
-        [model]="items" 
+        (onClick)="save('info')"
+        [model]="items"
         [buttonDisabled]="true" />
 </div>
 `,
 
         typescript: `import { Component } from '@angular/core';
-import { MenuItem, MessageService } from 'primeng/api';
-import { SplitButtonModule } from 'primeng/splitbutton';
-import { ToastModule } from 'primeng/toast';
+import { MenuItem, MessageService } from 'primengrtl/api';
+import { SplitButtonModule } from 'primengrtl/splitbutton';
+import { ToastModule } from 'primengrtl/toast';
 
 @Component({
     selector: 'split-button-disabled-demo',

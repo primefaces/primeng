@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { TreeSelectModule } from 'primeng/treeselect';
+import { TreeSelectModule } from 'primengrtl/treeselect';
 import { AppDocModule } from '@layout/doc/app.doc.module';
 import { AppCodeModule } from '@layout/doc/app.code.component';
 import { AccessibilityDoc } from './accessibilitydoc';
@@ -17,7 +17,7 @@ import { MultipleDoc } from './multipledoc';
 import { ReactiveFormsDoc } from './reactiveformsdoc';
 import { StyleDoc } from './styledoc';
 import { VirtualScrollDoc } from './virtualscrolldoc';
-import { FloatLabelModule } from 'primeng/floatlabel';
+import { FloatLabelModule } from 'primengrtl/floatlabel';
 import { FilledDoc } from './filleddoc';
 import { LazyDoc } from './lazydoc';
 
