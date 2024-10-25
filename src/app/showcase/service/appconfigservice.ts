@@ -30,10 +30,20 @@ export class AppConfigService {
             const state = this.appState();
 
             if (isPlatformBrowser(this.platformId)) {
-                if (state.darkTheme) {
-                    this.document.documentElement.classList.add('p-dark');
+                if (navigator.userAgent.includes('Firefox')) {
+                    if (state.darkTheme) {
+                        this.document.documentElement.classList.add('p-dark');
+                    } else {
+                        this.document.documentElement.classList.remove('p-dark');
+                    }
                 } else {
-                    this.document.documentElement.classList.remove('p-dark');
+                    (document as any).startViewTransition(() => {
+                        if (state.darkTheme) {
+                            this.document.documentElement.classList.add('p-dark');
+                        } else {
+                            this.document.documentElement.classList.remove('p-dark');
+                        }
+                    });
                 }
             }
         });
