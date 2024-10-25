@@ -97,13 +97,7 @@ export class UIChart implements AfterViewInit, OnDestroy {
     }
     set options(val: any) {
         this._options = val;
-        if (navigator.userAgent.includes('Firefox')) {
-            this.reinit();
-        } else {
-            (document as any).startViewTransition(() => {
-                this.reinit();
-            });
-        }
+        this.reinit()
     }
     /**
      * Callback to execute when an element on chart is clicked.
