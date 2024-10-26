@@ -20,10 +20,11 @@ import { ButtonModule } from 'primeng/button';
 import { ProgrammaticDoc } from './programmaticdoc';
 import { AccessibilityDoc } from './accessibilitydoc';
 import { FlexibleItemsHeightDoc } from './flexibleitemsheightdoc';
+import { FlexibleGridDoc } from './flexiblegriddoc';
 
 @NgModule({
     imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, ScrollerModule, SkeletonModule, SpinnerModule, ButtonModule],
-    declarations: [BasicDoc, DelayDoc, ImportDoc, HorizontalDoc, GridDoc, FlexibleItemsHeightDoc, LazyLoadDoc, LoaderDoc, ScrollOptionsDoc, StyleDoc, TemplateDoc, ProgrammaticDoc, AccessibilityDoc],
+    declarations: [BasicDoc, DelayDoc, ImportDoc, HorizontalDoc, GridDoc, FlexibleGridDoc, FlexibleItemsHeightDoc, LazyLoadDoc, LoaderDoc, ScrollOptionsDoc, StyleDoc, TemplateDoc, ProgrammaticDoc, AccessibilityDoc],
     exports: [AppDocModule]
 })
 export class ScrollerDocModule {}

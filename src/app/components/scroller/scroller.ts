@@ -134,10 +134,10 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
      * The height/width (or their getter function) of item according to orientation.
      * @group Props
      */
-    @Input() get itemSize(): number[] | number | ((item: unknown) => { mainAxis: number; crossAxis?: number }) {
+    @Input() get itemSize(): number[] | number | ((item: unknown, mainAxisIndex: number, crossAxisIndex: number) => { mainAxis: number; crossAxis?: number }) {
         return this._itemSize;
     }
-    set itemSize(val: number[] | number | ((item: unknown) => { mainAxis: number; crossAxis?: number })) {
+    set itemSize(val: number[] | number | ((item: unknown, mainAxisIndex: number, crossAxisIndex: number) => { mainAxis: number; crossAxis?: number })) {
         this._itemSize = val;
         this._getItemSize = typeof val === 'function' ? val : () => (Array.isArray(val) ? { mainAxis: val[0] ?? this.defaultHeight, crossAxis: val[1] } : { mainAxis: val });
         this.recalculateSize();
@@ -168,7 +168,7 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
                 let j = 0,
                     crossAxisPos = 0;
                 while (j < this._items[i].length) {
-                    const size = this._getItemSize(this._items[i][j]);
+                    const size = this._getItemSize(this._items[i][j], i, j);
                     crossAxisPositionsMap[j] = crossAxisPos > (crossAxisPositionsMap[j] ?? 0) ? crossAxisPos : crossAxisPositionsMap[j] ?? 0;
                     crossAxisPos += size.crossAxis || 0;
                     maxRowHeight = size.mainAxis > maxRowHeight ? size.mainAxis : maxRowHeight;
@@ -183,7 +183,7 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
             this._itemsPositions.crossAxis = Object.values(crossAxisPositionsMap);
         } else {
             while (i < this._items.length) {
-                const size = this._getItemSize(this._items[i]);
+                const size = this._getItemSize(this._items[i], i, 0);
                 this._itemsPositions.mainAxis[i] = mainAxisPos;
                 mainAxisPos += size.mainAxis;
                 i++;
@@ -420,7 +420,7 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
 
     _items: unknown[][] | unknown[] | null | undefined;
 
-    _itemSize: number[] | number | ((item: unknown) => { mainAxis: number; crossAxis?: number }) = [];
+    _itemSize: number[] | number | ((item: unknown, mainAxisIndex: number, crossAxisIndex: number) => { mainAxis: number; crossAxis?: number }) = [];
 
     _itemsPositions: { mainAxis: number[]; crossAxis: number[] } = { mainAxis: [], crossAxis: [] };
 
@@ -462,7 +462,7 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
 
     _options: ScrollerOptions | undefined;
 
-    _getItemSize: (item: unknown) => { mainAxis: number; crossAxis?: number } | undefined;
+    _getItemSize: (item: unknown, mainAxisIndex: number, crossAxisIndex: number) => { mainAxis: number; crossAxis?: number } | undefined;
 
     d_loading: boolean = false;
 
@@ -1196,9 +1196,11 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
     getOptions(renderedIndex: number) {
         const count = (this._items || []).length;
         const index = this.both ? this.first.rows + renderedIndex : this.first + renderedIndex;
+        const firstCrossAxisIndex = this.both ? this.first.cols : 0;
 
         return {
             index,
+            firstCrossAxisIndex,
             count,
             first: index === 0,
             last: index === count - 1,
