@@ -18,6 +18,7 @@ import {
     numberAttribute,
     computed,
     Signal,
+    signal,
 } from '@angular/core';
 import { InputText } from 'primeng/inputtext';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
