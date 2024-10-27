@@ -79,8 +79,8 @@ export interface InputOtpInputTemplateContext {
     standalone: true,
     imports: [CommonModule, InputText, AutoFocus],
     template: `
-        <ng-container *ngFor="let i of getRange(length); trackBy: trackByFn">
-            <ng-container *ngIf="!inputTemplate">
+        @for (i of getRange(length); track i; let i = $index) {
+            @if (!inputTemplate) {
                 <input
                     type="text"
                     pInputText
@@ -101,14 +101,13 @@ export interface InputOtpInputTemplateContext {
                     [autofocus]="getAutofocus(i)"
                     [ngClass]="styleClass"
                 />
-            </ng-container>
-            <ng-container *ngIf="inputTemplate">
+            } @else {
                 <ng-container
                     *ngTemplateOutlet="inputTemplate; context: { $implicit: getToken(i - 1), events: getTemplateEvents(i - 1), index: i }"
                 >
                 </ng-container>
-            </ng-container>
-        </ng-container>
+            }
+        }
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
@@ -419,10 +418,6 @@ export class InputOtp extends BaseComponent implements AfterContentInit {
 
     getRange(n: number): number[] {
         return Array.from({ length: n }, (_, index) => index + 1);
-    }
-
-    trackByFn(index: number) {
-        return index;
     }
 }
 
