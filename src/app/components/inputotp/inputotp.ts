@@ -4,7 +4,7 @@ import {
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
-    ContentChild,
+    contentChild,
     ContentChildren,
     OutputEmitterRef,
     forwardRef,
@@ -84,7 +84,7 @@ export interface InputOtpInputTemplateContext {
     imports: [NgClass, NgTemplateOutlet, InputText, AutoFocus],
     template: `
         @for (i of ranges(); track $index) {
-            @if (!inputTemplate) {
+            @if (!customInputTemplate()) {
                 <input
                     type="text"
                     pInputText
@@ -107,7 +107,10 @@ export interface InputOtpInputTemplateContext {
                 />
             } @else {
                 <ng-container
-                    *ngTemplateOutlet="inputTemplate; context: { $implicit: getToken(i - 1), events: getTemplateEvents(i - 1), index: i }"
+                    *ngTemplateOutlet="
+                        customInputTemplate();
+                        context: { $implicit: getToken(i - 1), events: getTemplateEvents(i - 1), index: i }
+                    "
                 >
                 </ng-container>
             }
@@ -195,9 +198,21 @@ export class InputOtp extends BaseComponent implements AfterContentInit {
      * @see {@link InputOtpInputTemplateContext}
      * @group Templates
      */
-    @ContentChild('input') inputTemplate: TemplateRef<InputOtpInputTemplateContext>;
+    inputTemplate = contentChild<TemplateRef<InputOtpInputTemplateContext>>('input');
 
+    /**
+     * List of PrimeTemplate instances provided by the content.
+     * @group Templates
+     */
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
+
+    /**
+     * Computes the custom input template if available.
+     * @returns {TemplateRef<InputOtpInputTemplateContext> | undefined} The custom input template or undefined if not available.
+     */
+    customInputTemplate = computed<TemplateRef<InputOtpInputTemplateContext>>(() => {
+        return this.inputTemplate();
+    });
 
     ngAfterContentInit() {
         this.templates?.forEach((item) => {
