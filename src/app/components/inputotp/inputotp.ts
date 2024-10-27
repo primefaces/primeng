@@ -9,12 +9,13 @@ import {
     EventEmitter,
     forwardRef,
     inject,
-    Input,
+    input,
     NgModule,
     Output,
     QueryList,
     TemplateRef,
     ViewEncapsulation,
+    numberAttribute,
 } from '@angular/core';
 import { InputText } from 'primeng/inputtext';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -79,7 +80,7 @@ export interface InputOtpInputTemplateContext {
     standalone: true,
     imports: [NgClass, NgTemplateOutlet, InputText, AutoFocus],
     template: `
-        @for (i of getRange(length); track i; let i = $index) {
+        @for (i of getRange(length()); track i; let i = $index) {
             @if (!inputTemplate) {
                 <input
                     type="text"
@@ -88,10 +89,10 @@ export interface InputOtpInputTemplateContext {
                     [maxLength]="1"
                     [type]="inputType"
                     class="p-inputotp-input"
-                    [variant]="variant"
-                    [readonly]="readonly"
-                    [disabled]="disabled"
-                    [tabindex]="tabindex"
+                    [variant]="variant()"
+                    [readonly]="readonly()"
+                    [disabled]="disabled()"
+                    [tabindex]="tabindex()"
                     (input)="onInput($event, i - 1)"
                     (focus)="onInputFocus($event)"
                     (blur)="onInputBlur($event)"
@@ -99,7 +100,7 @@ export interface InputOtpInputTemplateContext {
                     (keydown)="onKeyDown($event)"
                     pAutoFocus
                     [autofocus]="getAutofocus(i)"
-                    [ngClass]="styleClass"
+                    [ngClass]="styleClass()"
                 />
             } @else {
                 <ng-container
@@ -121,52 +122,52 @@ export class InputOtp extends BaseComponent implements AfterContentInit {
      * When present, it specifies that the component should have invalid state style.
      * @group Props
      */
-    @Input() invalid: boolean = false;
+    invalid = input<boolean, any>(false, { transform: booleanAttribute });
     /**
      * When present, it specifies that the component should be disabled.
      * @group Props
      */
-    @Input() disabled: boolean = false;
+    disabled = input<boolean, any>(false, { transform: booleanAttribute });
     /**
      * When present, it specifies that an input field is read-only.
      * @group Props
      */
-    @Input() readonly: boolean = false;
+    readonly = input<boolean, any>(false, { transform: booleanAttribute });
     /**
      * Specifies the input variant of the component.
      * @group Props
      */
-    @Input() variant: 'filled' | 'outlined' = 'outlined';
+    variant = input<'filled' | 'outlined'>('outlined');
     /**
      * Index of the element in tabbing order.
      * @group Props
      */
-    @Input() tabindex: number | null = null;
+    tabindex = input<number | null, any>(null, { transform: numberAttribute });
     /**
      * Number of characters to initiate.
      * @group Props
      */
-    @Input() length: number = 4;
+    length = input<number, any>(4, { transform: numberAttribute });
     /**
      * Style class of the input element.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    styleClass = input<string>();
     /**
      * Mask pattern.
      * @group Props
      */
-    @Input() mask: boolean = false;
+    mask = input<boolean, any>(false, { transform: booleanAttribute });
     /**
      * When present, it specifies that an input field is integer-only.
      * @group Props
      */
-    @Input() integerOnly: boolean = false;
+    integerOnly = input<boolean, any>(false, { transform: booleanAttribute });
     /**
      * When present, it specifies that the component should automatically get focus on load.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) autofocus: boolean | undefined;
+    autofocus = input<boolean, any>(undefined, { transform: booleanAttribute });
     /**
      * Callback to invoke on value change.
      * @group Emits
@@ -218,7 +219,7 @@ export class InputOtp extends BaseComponent implements AfterContentInit {
     value: any;
 
     get inputType(): string {
-        return this.mask ? 'password' : 'text';
+        return this.mask() ? 'password' : 'text';
     }
 
     _componentStyle = inject(InputOtpStyle);
@@ -261,9 +262,9 @@ export class InputOtp extends BaseComponent implements AfterContentInit {
     writeValue(value: any): void {
         if (value) {
             if (Array.isArray(value) && value.length > 0) {
-                this.value = value.slice(0, this.length);
+                this.value = value.slice(0, this.length());
             } else {
-                this.value = value.toString().split('').slice(0, this.length);
+                this.value = value.toString().split('').slice(0, this.length());
             }
         } else {
             this.value = value;
@@ -290,7 +291,7 @@ export class InputOtp extends BaseComponent implements AfterContentInit {
 
     getAutofocus(i: number): boolean {
         if (i === 1) {
-            return this.autofocus;
+            return this.autofocus();
         }
         return false;
     }
@@ -380,13 +381,13 @@ export class InputOtp extends BaseComponent implements AfterContentInit {
 
             default:
                 if (
-                    (this.integerOnly &&
+                    (this.integerOnly() &&
                         !(
                             (event.code.startsWith('Digit') || event.code.startsWith('Numpad')) &&
                             Number(event.key) >= 0 &&
                             Number(event.key) <= 9
                         )) ||
-                    (this.tokens.join('').length >= this.length && event.code !== 'Delete')
+                    (this.tokens.join('').length >= this.length() && event.code !== 'Delete')
                 ) {
                     event.preventDefault();
                 }
@@ -396,13 +397,13 @@ export class InputOtp extends BaseComponent implements AfterContentInit {
     }
 
     onPaste(event) {
-        if (!this.disabled && !this.readonly) {
+        if (!this.disabled() && !this.readonly()) {
             let paste = event.clipboardData.getData('text');
 
             if (paste.length) {
-                let pastedCode = paste.substring(0, this.length + 1);
+                let pastedCode = paste.substring(0, this.length() + 1);
 
-                if (!this.integerOnly || !isNaN(pastedCode)) {
+                if (!this.integerOnly() || !isNaN(pastedCode)) {
                     this.tokens = pastedCode.split('');
                     this.updateModel(event);
                 }
