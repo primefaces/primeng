@@ -217,10 +217,6 @@ export class InputOtp extends BaseComponent implements AfterContentInit {
 
     value: any;
 
-    get inputMode(): string {
-        return this.integerOnly ? 'numeric' : 'text';
-    }
-
     get inputType(): string {
         return this.mask ? 'password' : 'text';
     }
