@@ -888,14 +888,15 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
 
     setSpacerSize() {
         if (this._items) {
-            const setProp = (_name, _count, _size) => (this.spacerStyle = { ...this.spacerStyle, ...{ [`${_name}`]: _count * _size + 'px' } });
+            const setProp = (_name, _size) => (this.spacerStyle = { ...this.spacerStyle, ...{ [`${_name}`]: _size + 'px' } });
 
-            const numItems = this._items.length;
-            if (this.both) {
-                setProp('height', numItems, this._itemSize[0]);
-                setProp('width', this._columns?.length || this._items[1]?.length, this._itemSize[1]);
+            if (this.isBoth(this._items)) {
+                const lastItemSize = this._getItemSize(this._items.at(-1).at(-1), this._items.length - 1, this._items.at(-1).length - 1);
+                setProp('height', this._itemsPositions.mainAxis.at(-1) + lastItemSize.mainAxis);
+                setProp('width', this._itemsPositions.crossAxis.at(-1) + lastItemSize.crossAxis);
             } else {
-                this.horizontal ? setProp('width', this._columns.length || this._items.length, this._itemSize) : setProp('height', numItems, this._itemSize);
+                const spacerSize = this._getItemSize(this._items.at(-1), this._items.length - 1, 0).mainAxis + this._itemsPositions.mainAxis.at(-1);
+                setProp(this.horizontal ? 'width' : 'height', spacerSize);
             }
         }
     }
