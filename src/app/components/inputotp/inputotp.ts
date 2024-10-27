@@ -6,12 +6,12 @@ import {
     Component,
     ContentChild,
     ContentChildren,
-    EventEmitter,
+    OutputEmitterRef,
     forwardRef,
     inject,
     input,
     NgModule,
-    Output,
+    output,
     QueryList,
     TemplateRef,
     ViewEncapsulation,
@@ -174,19 +174,19 @@ export class InputOtp extends BaseComponent implements AfterContentInit {
      * Callback to invoke on value change.
      * @group Emits
      */
-    @Output() onChange: EventEmitter<InputOtpChangeEvent> = new EventEmitter<InputOtpChangeEvent>();
+    onChange: OutputEmitterRef<InputOtpChangeEvent> = output<InputOtpChangeEvent>();
     /**
      * Callback to invoke when the component receives focus.
      * @param {Event} event - Browser event.
      * @group Emits
      */
-    @Output() onFocus: EventEmitter<Event> = new EventEmitter();
+    onFocus: OutputEmitterRef<Event> = output<Event>();
     /**
      * Callback to invoke when the component loses focus.
      * @param {Event} event - Browser event.
      * @group Emits
      */
-    @Output() onBlur: EventEmitter<Event> = new EventEmitter();
+    onBlur: OutputEmitterRef<Event> = output<Event>();
 
     /**
      * Input template.
