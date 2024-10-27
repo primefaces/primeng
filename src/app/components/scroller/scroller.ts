@@ -153,43 +153,6 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
         this._items = val;
         this.recalculateSize();
     }
-    private recalculateSize() {
-        if (typeof this._getItemSize !== 'function' || !this._items) return;
-
-        this._itemsPositions.mainAxis = Array.from({ length: this._items.length });
-
-        let i = 0,
-            mainAxisPos = 0;
-        if (this.isBoth(this._items)) {
-            const crossAxisPositionsMap: Record<number, number> = {};
-            while (i < this._items.length) {
-                let maxRowHeight = 0;
-
-                let j = 0,
-                    crossAxisPos = 0;
-                while (j < this._items[i].length) {
-                    const size = this._getItemSize(this._items[i][j], i, j);
-                    crossAxisPositionsMap[j] = crossAxisPos > (crossAxisPositionsMap[j] ?? 0) ? crossAxisPos : crossAxisPositionsMap[j] ?? 0;
-                    crossAxisPos += size.crossAxis || 0;
-                    maxRowHeight = size.mainAxis > maxRowHeight ? size.mainAxis : maxRowHeight;
-
-                    j++;
-                }
-                this._itemsPositions.mainAxis[i] = mainAxisPos;
-                mainAxisPos += maxRowHeight;
-
-                i++;
-            }
-            this._itemsPositions.crossAxis = Object.values(crossAxisPositionsMap);
-        } else {
-            while (i < this._items.length) {
-                const size = this._getItemSize(this._items[i], i, 0);
-                this._itemsPositions.mainAxis[i] = mainAxisPos;
-                mainAxisPos += size.mainAxis;
-                i++;
-            }
-        }
-    }
     /**
      * Height of the scroll viewport.
      * @group Props
@@ -713,10 +676,6 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
         this.elementViewChild?.nativeElement?.scrollTo(options);
     }
 
-    private isBoth(items: typeof this.items): items is unknown[][] {
-        return this.both && items.length && Array.isArray(items[0]);
-    }
-
     scrollToIndex(index: number | number[], behavior: ScrollBehavior = 'auto') {
         const valid = this.both ? (index as number[]).every((i) => i > -1) : (index as number) > -1;
 
@@ -797,27 +756,6 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
         }
     }
 
-    private binarySearchFirst(pos: number, positions: number[]): number {
-        let left = 0,
-            right = positions.length,
-            prevMiddle = 0;
-        while (true) {
-            const middle = Math.floor((left + right) / 2);
-            const currPos = positions[middle];
-            const nextPos = positions[middle + 1];
-
-            if (currPos === undefined || nextPos === undefined || currPos === pos || (currPos < pos && nextPos > pos) || middle === prevMiddle) return middle;
-            if (pos < currPos) right = middle;
-            else left = middle;
-            prevMiddle = middle;
-        }
-    }
-
-    private getFirstInViewport<T>(mainScrollPos: number, crossScrollPos?: T): T extends number ? { firstRowIdx: number; firstColIdx: number } : number {
-        const firstRowIdx = this.binarySearchFirst(mainScrollPos, this._itemsPositions.mainAxis);
-        return (typeof crossScrollPos === 'number' ? { firstRowIdx, firstColIdx: this.binarySearchFirst(crossScrollPos, this._itemsPositions.crossAxis) } : firstRowIdx) as T extends number ? { firstRowIdx: number; firstColIdx: number } : number;
-    }
-
     getRenderedRange() {
         let firstInViewport = this.first;
         let lastInViewport: any = 0;
@@ -844,18 +782,6 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
                 last: lastInViewport
             }
         };
-    }
-
-    private getNumItemsInViewport<T>(viewportMainAxisSize: number, scrollMainAxisPos: number, viewportCrossAxisSize?: T, scrollCrossAxisPos?: T): T extends number ? { cols: number; rows: number } : number {
-        if (typeof viewportCrossAxisSize === 'number' && typeof scrollCrossAxisPos === 'number') {
-            const first = this.getFirstInViewport(scrollMainAxisPos, scrollCrossAxisPos);
-            const last = this.getFirstInViewport(scrollMainAxisPos + viewportMainAxisSize, scrollCrossAxisPos + viewportCrossAxisSize);
-            return { cols: last.firstColIdx - first.firstColIdx + 1, rows: last.firstRowIdx - first.firstRowIdx + 1 } as T extends number ? { cols: number; rows: number } : number;
-        } else {
-            const first = this.getFirstInViewport(scrollMainAxisPos);
-            const last = this.getFirstInViewport(scrollMainAxisPos + viewportMainAxisSize);
-            return (last - first + 1) as T extends number ? { cols: number; rows: number } : number;
-        }
     }
 
     calculateNumItems() {
@@ -1221,6 +1147,81 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
             odd: index % 2 !== 0,
             ...extOptions
         };
+    }
+
+    private isBoth(items: typeof this.items): items is unknown[][] {
+        return this.both && items.length && Array.isArray(items[0]);
+    }
+
+    private binarySearchFirst(pos: number, positions: number[]): number {
+        let left = 0,
+            right = positions.length,
+            prevMiddle = 0;
+        while (true) {
+            const middle = Math.floor((left + right) / 2);
+            const currPos = positions[middle];
+            const nextPos = positions[middle + 1];
+
+            if (currPos === undefined || nextPos === undefined || currPos === pos || (currPos < pos && nextPos > pos) || middle === prevMiddle) return middle;
+            if (pos < currPos) right = middle;
+            else left = middle;
+            prevMiddle = middle;
+        }
+    }
+
+    private getFirstInViewport<T>(mainScrollPos: number, crossScrollPos?: T): T extends number ? { firstRowIdx: number; firstColIdx: number } : number {
+        const firstRowIdx = this.binarySearchFirst(mainScrollPos, this._itemsPositions.mainAxis);
+        return (typeof crossScrollPos === 'number' ? { firstRowIdx, firstColIdx: this.binarySearchFirst(crossScrollPos, this._itemsPositions.crossAxis) } : firstRowIdx) as T extends number ? { firstRowIdx: number; firstColIdx: number } : number;
+    }
+
+    private recalculateSize() {
+        if (typeof this._getItemSize !== 'function' || !this._items) return;
+
+        this._itemsPositions.mainAxis = Array.from({ length: this._items.length });
+
+        let i = 0,
+            mainAxisPos = 0;
+        if (this.isBoth(this._items)) {
+            const crossAxisPositionsMap: Record<number, number> = {};
+            while (i < this._items.length) {
+                let maxRowHeight = 0;
+
+                let j = 0,
+                    crossAxisPos = 0;
+                while (j < this._items[i].length) {
+                    const size = this._getItemSize(this._items[i][j], i, j);
+                    crossAxisPositionsMap[j] = crossAxisPos > (crossAxisPositionsMap[j] ?? 0) ? crossAxisPos : crossAxisPositionsMap[j] ?? 0;
+                    crossAxisPos += size.crossAxis || 0;
+                    maxRowHeight = size.mainAxis > maxRowHeight ? size.mainAxis : maxRowHeight;
+
+                    j++;
+                }
+                this._itemsPositions.mainAxis[i] = mainAxisPos;
+                mainAxisPos += maxRowHeight;
+
+                i++;
+            }
+            this._itemsPositions.crossAxis = Object.values(crossAxisPositionsMap);
+        } else {
+            while (i < this._items.length) {
+                const size = this._getItemSize(this._items[i], i, 0);
+                this._itemsPositions.mainAxis[i] = mainAxisPos;
+                mainAxisPos += size.mainAxis;
+                i++;
+            }
+        }
+    }
+
+    private getNumItemsInViewport<T>(viewportMainAxisSize: number, scrollMainAxisPos: number, viewportCrossAxisSize?: T, scrollCrossAxisPos?: T): T extends number ? { cols: number; rows: number } : number {
+        if (typeof viewportCrossAxisSize === 'number' && typeof scrollCrossAxisPos === 'number') {
+            const first = this.getFirstInViewport(scrollMainAxisPos, scrollCrossAxisPos);
+            const last = this.getFirstInViewport(scrollMainAxisPos + viewportMainAxisSize, scrollCrossAxisPos + viewportCrossAxisSize);
+            return { cols: last.firstColIdx - first.firstColIdx + 1, rows: last.firstRowIdx - first.firstRowIdx + 1 } as T extends number ? { cols: number; rows: number } : number;
+        } else {
+            const first = this.getFirstInViewport(scrollMainAxisPos);
+            const last = this.getFirstInViewport(scrollMainAxisPos + viewportMainAxisSize);
+            return (last - first + 1) as T extends number ? { cols: number; rows: number } : number;
+        }
     }
 }
 
