@@ -213,7 +213,7 @@ export class InputOtp extends BaseComponent implements AfterContentInit {
         });
     }
 
-    tokens: any = [];
+    tokens = signal<string[]>([]);
 
     onModelChange: Function = () => {};
 
@@ -239,8 +239,8 @@ export class InputOtp extends BaseComponent implements AfterContentInit {
         };
     }
 
-    onInput(event, index:number) {
-        this.tokens[index] = event.target.value;
+    onInput(event, index: number) {
+        this.tokens.update((value) => (value[index] = event.target.value));
         this.updateModel(event);
 
         if (event.inputType === 'deleteContentBackward') {
@@ -251,7 +251,7 @@ export class InputOtp extends BaseComponent implements AfterContentInit {
     }
 
     updateModel(event: any) {
-        const newValue = this.tokens.join('');
+        const newValue = this.tokens().join('');
         this.onModelChange(newValue);
 
         this.onChange.emit({
@@ -277,17 +277,17 @@ export class InputOtp extends BaseComponent implements AfterContentInit {
     updateTokens() {
         if (this.value !== null && this.value !== undefined) {
             if (Array.isArray(this.value)) {
-                this.tokens = [...this.value];
+                this.tokens.set([...this.value]);
             } else {
-                this.tokens = this.value.toString().split('');
+                this.tokens.set(this.value.toString().split(''));
             }
         } else {
-            this.tokens = [];
+            this.tokens.set([]);
         }
     }
 
     getModelValue(i: number) {
-        return this.tokens[i - 1] || '';
+        return this.tokens()[i - 1] || '';
     }
 
     getAutofocus(i: number): boolean {
@@ -388,7 +388,7 @@ export class InputOtp extends BaseComponent implements AfterContentInit {
                             Number(event.key) >= 0 &&
                             Number(event.key) <= 9
                         )) ||
-                    (this.tokens.join('').length >= this.length() && event.code !== 'Delete')
+                    (this.tokens().join('').length >= this.length() && event.code !== 'Delete')
                 ) {
                     event.preventDefault();
                 }
@@ -405,7 +405,7 @@ export class InputOtp extends BaseComponent implements AfterContentInit {
                 let pastedCode = paste.substring(0, this.length() + 1);
 
                 if (!this.integerOnly() || !isNaN(pastedCode)) {
-                    this.tokens = pastedCode.split('');
+                    this.tokens.set(pastedCode.split(''));
                     this.updateModel(event);
                 }
             }
