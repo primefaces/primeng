@@ -445,7 +445,7 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
      */
     @Output() onImageError: EventEmitter<Event> = new EventEmitter<Event>();
     /**
-     * This event is triggered if an error occurs while loading an image file.
+     * This event is triggered if an error occurs while removing an uploaded file.
      * @param {RemoveUploadedFileEvent} event - Remove event.
      * @group Emits
      */
@@ -524,6 +524,8 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
     dragOverListener: VoidListener;
 
     public uploadedFiles = [];
+
+    private fileUploadSubcription: Subscription;
 
     constructor(
         @Inject(DOCUMENT) private document: Document,
@@ -746,7 +748,10 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
                 formData.append(this.name!, this.files[i], this.files[i].name);
             }
 
-            this.http
+            // If the previous upload hasn't been finished, it is aborted.
+            this.cancelUploadRequest();
+
+            this.fileUploadSubcription = this.http
                 .request(<string>this.method, this.url as string, {
                     body: formData,
                     headers: this.headers,
@@ -805,6 +810,7 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
     clear() {
         this.files = [];
         this.uploadedFileCount = 0;
+        this.cancelUploadRequest();
         this.onClear.emit();
         this.clearInputElement();
         this.cd.markForCheck();
@@ -816,6 +822,7 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
      * @group Method
      */
     remove(event: Event, index: number) {
+        this.cancelUploadRequest();
         this.clearInputElement();
         this.onRemove.emit({ originalEvent: event, file: this.files[index] });
         this.files.splice(index, 1);
@@ -830,6 +837,16 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
         let removedFile = this.uploadedFiles.splice(index, 1)[0];
         this.uploadedFiles = [...this.uploadedFiles];
         this.onRemoveUploadedFile.emit({ file: removedFile, files: this.uploadedFiles });
+    }
+
+    /**
+     * Cancel upload file request.
+     * */
+    cancelUploadRequest() {
+        if (this.fileUploadSubcription) {
+            this.fileUploadSubcription.unsubscribe();
+            this.fileUploadSubcription = undefined;
+        }
     }
 
     isFileLimitExceeded() {

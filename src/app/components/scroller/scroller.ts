@@ -26,8 +26,9 @@ import {
 import { PrimeTemplate, ScrollerOptions, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { SpinnerIcon } from 'primeng/icons/spinner';
-import { Nullable, VoidListener } from 'primeng/ts-helpers';
+import { Nullable } from 'primeng/ts-helpers';
 import { ScrollerLazyLoadEvent, ScrollerScrollEvent, ScrollerScrollIndexChangeEvent, ScrollerToType } from './scroller.interface';
+
 /**
  * Scroller is a performance-approach to handle huge data efficiently.
  * @group Components
@@ -467,7 +468,7 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
 
     initialized: boolean = false;
 
-    windowResizeListener: VoidListener;
+    resizeObserver: any;
 
     defaultWidth: number | undefined;
 
@@ -627,6 +628,8 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
                 this.defaultHeight = DomHandler.getHeight(this.elementViewChild?.nativeElement);
                 this.defaultContentWidth = DomHandler.getWidth(this.contentEl);
                 this.defaultContentHeight = DomHandler.getHeight(this.contentEl);
+                this.resizeObserver = new ResizeObserver(() => this.onResize());
+                this.resizeObserver.observe(this.elementViewChild?.nativeElement);
                 this.initialized = true;
             }
         }
@@ -637,7 +640,6 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
             this.setSize();
             this.calculateOptions();
             this.setSpacerSize();
-            this.bindResizeListener();
 
             this.cd.detectChanges();
         }
@@ -886,17 +888,14 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
 
     setSpacerSize() {
         if (this._items) {
-            const contentPos = this.getContentPosition();
-            const setProp = (_name: string, _value: any, _cpos: number = 0) => (this.spacerStyle = { ...this.spacerStyle, ...{ [`${_name}`]: _value + _cpos + 'px' } });
+            const setProp = (_name, _count, _size) => (this.spacerStyle = { ...this.spacerStyle, ...{ [`${_name}`]: _count * _size + 'px' } });
 
-            if (this.isBoth(this._items)) {
-                const itemPosY = this._itemsPositions.mainAxis[Math.max(0, this._items.length - 1)];
-                const itemPosX = this._itemsPositions.crossAxis[Math.max((this._items[0]?.length || 0) - 1, 0)];
-                setProp('height', itemPosY, contentPos.y);
-                setProp('width', itemPosX, contentPos.x);
+            const numItems = this._items.length;
+            if (this.both) {
+                setProp('height', numItems, this._itemSize[0]);
+                setProp('width', this._columns?.length || this._items[1]?.length, this._itemSize[1]);
             } else {
-                const size = this._itemsPositions.mainAxis[this._items.length - 1];
-                this.horizontal ? setProp('width', size, contentPos.x) : setProp('height', size, contentPos.y);
+                this.horizontal ? setProp('width', this._columns.length || this._items.length, this._itemSize) : setProp('height', numItems, this._itemSize);
             }
         }
     }
@@ -1050,26 +1049,14 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
         }
     }
 
-    bindResizeListener() {
-        if (isPlatformBrowser(this.platformId)) {
-            if (!this.windowResizeListener) {
-                this.zone.runOutsideAngular(() => {
-                    const window = this.document.defaultView as Window;
-                    const event = DomHandler.isTouchDevice() ? 'orientationchange' : 'resize';
-                    this.windowResizeListener = this.renderer.listen(window, event, this.onWindowResize.bind(this));
-                });
-            }
-        }
-    }
-
     unbindResizeListener() {
-        if (this.windowResizeListener) {
-            this.windowResizeListener();
-            this.windowResizeListener = null;
+        if (this.resizeObserver) {
+            this.resizeObserver.unobserve(this.elementViewChild?.nativeElement);
+            this.resizeObserver = null;
         }
     }
 
-    onWindowResize() {
+    onResize() {
         if (this.resizeTimeout) {
             clearTimeout(this.resizeTimeout);
         }

@@ -54,7 +54,7 @@ import { CustomerService } from '@service/customerservice';
                             <th>
                                 <p-columnFilter field="representative" matchMode="in" [showMenu]="false">
                                     <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                        <p-multiSelect [(ngModel)]="value" [options]="representatives" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name">
+                                        <p-multiSelect [ngModel]="value" [options]="representatives" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name">
                                             <ng-template let-option pTemplate="item">
                                                 <div class="inline-block vertical-align-middle">
                                                     <img [alt]="option.label" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ option.image }}" width="24" class="vertical-align-middle" />
@@ -68,7 +68,7 @@ import { CustomerService } from '@service/customerservice';
                             <th>
                                 <p-columnFilter field="status" matchMode="equals" [showMenu]="false">
                                     <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                        <p-dropdown [(ngModel)]="value" [options]="statuses" (onChange)="filter($event.value)" placeholder="Select One" [showClear]="true">
+                                        <p-dropdown [ngModel]="value" [options]="statuses" (onChange)="filter($event.value)" placeholder="Select One" [showClear]="true">
                                             <ng-template let-option pTemplate="item">
                                                 <p-tag [value]="option.value" [severity]="getSeverity(option.label)" />
                                             </ng-template>
@@ -124,7 +124,10 @@ export class FilterBasicDoc {
 
     activityValues: number[] = [0, 100];
 
-    constructor(private customerService: CustomerService, private cd: ChangeDetectorRef) {}
+    constructor(
+        private customerService: CustomerService,
+        private cd: ChangeDetectorRef
+    ) {}
 
     loadDemoData() {
         this.customerService.getCustomersLarge().then((customers) => {
@@ -235,7 +238,7 @@ export class FilterBasicDoc {
                     <p-columnFilter field="representative" matchMode="in" [showMenu]="false">
                         <ng-template pTemplate="filter" let-value let-filter="filterCallback">
                             <p-multiSelect 
-                                [(ngModel)]="value" 
+                                [ngModel]="value" 
                                 [options]="representatives" 
                                 placeholder="Any" 
                                 (onChange)="filter($event.value)" 
@@ -258,7 +261,7 @@ export class FilterBasicDoc {
                     <p-columnFilter field="status" matchMode="equals" [showMenu]="false">
                         <ng-template pTemplate="filter" let-value let-filter="filterCallback">
                             <p-dropdown 
-                                [(ngModel)]="value" 
+                                [ngModel]="value" 
                                 [options]="statuses" 
                                 (onChange)="filter($event.value)" 
                                 placeholder="Select One" 
@@ -370,7 +373,7 @@ export class FilterBasicDoc {
                 <p-columnFilter field="representative" matchMode="in" [showMenu]="false">
                     <ng-template pTemplate="filter" let-value let-filter="filterCallback">
                         <p-multiSelect 
-                            [(ngModel)]="value" 
+                            [ngModel]="value" 
                             [options]="representatives" 
                             placeholder="Any" 
                             (onChange)="filter($event.value)" 
@@ -394,7 +397,7 @@ export class FilterBasicDoc {
                 <p-columnFilter field="status" matchMode="equals" [showMenu]="false">
                     <ng-template pTemplate="filter" let-value let-filter="filterCallback">
                         <p-dropdown 
-                            [(ngModel)]="value" 
+                            [ngModel]="value" 
                             [options]="statuses"
                             (onChange)="filter($event.value)" 
                             placeholder="Select One" 

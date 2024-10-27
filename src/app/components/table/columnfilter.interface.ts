@@ -9,7 +9,7 @@ export interface TableColumnFilterTemplates {
     /**
      * Custom filter template.
      */
-    filterTemplate(context: {
+    filter(context: {
         /**
          * filterConstraint.value.
          */
@@ -74,27 +74,27 @@ export interface TableColumnFilterTemplates {
     /**
      * Custom header template.
      */
-    headerTemplate(): TemplateRef<any>;
+    header(): TemplateRef<any>;
     /**
      * Custom footer template.
      */
-    footerTemplate(): TemplateRef<any>;
+    footer(): TemplateRef<any>;
     /**
      * Custom filter icon template.
      */
-    filterIconTemplate(): TemplateRef<any>;
+    filtericon(): TemplateRef<any>;
     /**
      * Custom remove rule icon template.
      */
-    removeRuleIconTemplate(): TemplateRef<any>;
+    removeruleicon(): TemplateRef<any>;
     /**
      * Custom add rule icon template.
      */
-    addRuleIconTemplate(): TemplateRef<any>;
+    addruleicon(): TemplateRef<any>;
     /**
      * Custom clear filter icon template.
      */
-    clearFilterIconTemplate(): TemplateRef<any>;
+    clearfiltericon(): TemplateRef<any>;
 }
 
 /**

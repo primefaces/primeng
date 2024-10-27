@@ -25,7 +25,12 @@ export class InputText implements DoCheck, AfterViewInit {
 
     filled: Nullable<boolean>;
 
-    constructor(public el: ElementRef, @Optional() public ngModel: NgModel, private cd: ChangeDetectorRef, public config: PrimeNGConfig) {}
+    constructor(
+        public el: ElementRef,
+        @Optional() public ngModel: NgModel,
+        private cd: ChangeDetectorRef,
+        public config: PrimeNGConfig
+    ) {}
 
     ngAfterViewInit() {
         this.updateFilledState();

@@ -260,12 +260,12 @@ export class ApolloPage {
         licenseDetails: [
             {
                 title: 'Basic License',
-                price: '$49',
+                price: '$59',
                 included: ['Non Commercial Usage', 'Single End Product, No Multi-Use', '1 Year Free Updates']
             },
             {
                 title: 'Extended License',
-                price: '$490',
+                price: '$590',
                 included: ['Commercial Usage', 'Multiple End Products', '1 Year Free Updates']
             }
         ]

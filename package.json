@@ -1,6 +1,6 @@
 {
     "name": "primeng",
-    "version": "17.18.7",
+    "version": "17.18.11",
     "license": "SEE LICENSE IN LICENSE.md",
     "scripts": {
         "ng": "ng",
@@ -46,6 +46,7 @@
         "@types/jest": "^29.5.1",
         "@types/node": "^16.18.67",
         "@types/react": "^18.2.41",
+        "@types/resize-observer-browser": "^0.1.11",
         "@typescript-eslint/eslint-plugin": "^7.11.0",
         "chart.js": "4.4.2",
         "codelyzer": "^0.0.28",
@@ -56,7 +57,7 @@
         "eslint-plugin-import": "latest",
         "eslint-plugin-jsdoc": "latest",
         "eslint-plugin-prefer-arrow": "latest",
-        "express": "^4.19.2",
+        "express": "^4.21.1",
         "file-saver": "^2.0.5",
         "gulp": "^5.0.0",
         "gulp-concat": "^2.6.1",

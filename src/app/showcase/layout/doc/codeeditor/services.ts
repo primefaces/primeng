@@ -10638,7 +10638,7 @@ export class NodeService {
                         data: 'De Niro Movies',
                         children: [
                             { key: '2-1-0', label: 'Goodfellas', icon: 'pi pi-fw pi-video', data: 'Goodfellas Movie' },
-                            { key: '2-1-1', label: 'Untouchables', icon: 'pi pi-fw pi-video', data: 'Untouchables Movie' }
+                            { key: '2-1-1', label: 'Untouchables', icon: 'pi pi-fw pi-video', data: 'Untouchables Movie', selectable: false  }
                         ]
                     }
                 ]

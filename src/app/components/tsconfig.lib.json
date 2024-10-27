@@ -15,7 +15,7 @@
             "dom"
         ],
         "skipLibCheck": true,
-        "types": [],
+        "types": ["resize-observer-browser"],
         "paths": {
             "primeng/*": ["src/app/components/*/public_api"]
         }

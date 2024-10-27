@@ -23,7 +23,11 @@ export class AppDocApiSection {
 
     _docs!: any[];
 
-    constructor(private location: Location, private router: Router, private cd: ChangeDetectorRef) {}
+    constructor(
+        private location: Location,
+        private router: Router,
+        private cd: ChangeDetectorRef
+    ) {}
 
     ngOnInit() {
         if (!this.router.url.includes('#api')) {
@@ -67,10 +71,10 @@ export class AppDocApiSection {
                     module.components && module.components[docName]
                         ? module.components[docName].props
                         : module.props
-                        ? module.props
-                        : module.interfaces && ObjectUtils.isNotEmpty(module.interfaces.components)
-                        ? module.interfaces.components[`${docName}Props`].props
-                        : undefined;
+                          ? module.props
+                          : module.interfaces && ObjectUtils.isNotEmpty(module.interfaces.components)
+                            ? module.interfaces.components[`${docName}Props`].props
+                            : undefined;
                 let emits = module.components && module.components[docName] ? module.components[docName].emits : module.emits ? module.emits : undefined;
                 let templates = module.interfaces ? module.interfaces.templates : undefined;
                 let events = module.interfaces ? module.interfaces.events : undefined;

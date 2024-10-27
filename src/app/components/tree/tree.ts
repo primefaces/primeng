@@ -24,11 +24,10 @@ import {
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
-import { BlockableUI, PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys, TreeDragDropService, TreeNode } from 'primeng/api';
+import { BlockableUI, PrimeNGConfig, PrimeTemplate, ScrollerOptions, SharedModule, TranslationKeys, TreeDragDropService, TreeNode } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { RippleModule } from 'primeng/ripple';
 import { Scroller, ScrollerModule } from 'primeng/scroller';
-import { ScrollerOptions } from 'primeng/api';
 import { ObjectUtils } from 'primeng/utils';
 import { Subscription } from 'rxjs';
 import { CheckIcon } from 'primeng/icons/check';
@@ -100,7 +99,7 @@ import {
                     (dragend)="onDragStop($event)"
                     [ngClass]="{ 'p-treenode-selectable': tree.selectionMode && node.selectable !== false, 'p-treenode-dragover': draghoverNode, 'p-highlight': isSelected() }"
                 >
-                    <button type="button" [attr.data-pc-section]="'toggler'" class="p-tree-toggler p-link" (click)="toggle($event)" pRipple tabindex="-1" aria-hidden="true">
+                    <button type="button" [attr.data-pc-section]="'toggler'" class="p-tree-toggler p-link" (click)="toggle($event)" pRipple tabindex="-1">
                         <ng-container *ngIf="!tree.togglerIconTemplate">
                             <ng-container *ngIf="!node.loading">
                                 <ChevronRightIcon *ngIf="!node.expanded" [styleClass]="'p-tree-toggler-icon'" />
@@ -153,6 +152,7 @@ import {
                         [index]="index"
                         [itemSize]="itemSize"
                         [level]="level + 1"
+                        [loadingMode]="loadingMode"
                     ></p-treeNode>
                 </ul>
             </li>
@@ -281,7 +281,10 @@ export class UITreeNode implements OnInit {
 
     ngOnInit() {
         (<TreeNode>this.node).parent = this.parentNode;
-        if (this.parentNode) {
+        const nativeElement = this.tree.el.nativeElement;
+        const pDialogWrapper = nativeElement.closest('p-dialog');
+
+        if (this.parentNode && !pDialogWrapper) {
             this.setAllNodesTabIndexes();
             this.tree.syncNodeOption(<TreeNode>this.node, <TreeNode<any>[]>this.tree.value, 'parent', this.tree.getNodeWithKey(<string>this.parentNode.key, <TreeNode<any>[]>this.tree.value));
         }
@@ -1189,7 +1192,12 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
 
     public dragStopSubscription: Subscription | undefined | null;
 
-    constructor(public el: ElementRef, @Optional() public dragDropService: TreeDragDropService, public config: PrimeNGConfig, private cd: ChangeDetectorRef) {}
+    constructor(
+        public el: ElementRef,
+        @Optional() public dragDropService: TreeDragDropService,
+        public config: PrimeNGConfig,
+        private cd: ChangeDetectorRef
+    ) {}
 
     ngOnInit() {
         if (this.droppableNodes) {
@@ -1517,8 +1525,8 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
     propagateDown(node: TreeNode, select: boolean) {
         let index = this.findIndexInSelection(node);
 
-        if (select && index == -1) {
-            this.selection = [...(this.selection || []), node];
+        if (select && index == -1 && node.selectable !== false) {
+            this.selection = [...(this.selection || []), this.filterUnselectableChildren(node)];
         } else if (!select && index > -1) {
             this.selection = this.selection.filter((val: TreeNode, i: number) => i != index);
         }
@@ -1532,6 +1540,21 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
                 this.propagateDown(child, select);
             }
         }
+    }
+
+    filterUnselectableChildren(node: TreeNode): TreeNode {
+        let clonedNode = Object.assign({}, node);
+
+        if (clonedNode.children && clonedNode.children.length) {
+            for (let child of clonedNode.children) {
+                if (child.selectable === false) {
+                    clonedNode.children = clonedNode.children.filter((val: TreeNode) => val != child);
+                }
+                child = this.filterUnselectableChildren(child);
+            }
+        }
+
+        return clonedNode;
     }
 
     isSelected(node: TreeNode) {

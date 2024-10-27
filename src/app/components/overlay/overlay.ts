@@ -524,16 +524,15 @@ export class Overlay implements AfterContentInit, OnDestroy {
             case 'void':
                 if (!this.visible) {
                     this.hide(container, true);
+                    this.modalVisible = false;
+                    this.unbindListeners();
+
+                    DomHandler.appendOverlay(this.overlayEl, this.targetEl, this.appendTo);
+                    ZIndexUtils.clear(container);
+                    this.cd.markForCheck();
+
+                    break;
                 }
-
-                this.unbindListeners();
-
-                DomHandler.appendOverlay(this.overlayEl, this.targetEl, this.appendTo);
-                ZIndexUtils.clear(container);
-                this.modalVisible = false;
-                this.cd.markForCheck();
-
-                break;
         }
 
         this.handleEvents('onAnimationDone', event);
@@ -546,6 +545,7 @@ export class Overlay implements AfterContentInit, OnDestroy {
     }
 
     bindListeners() {
+        this.unbindListeners();
         this.bindScrollListener();
         this.bindDocumentClickListener();
         this.bindDocumentResizeListener();

@@ -22,10 +22,11 @@ import { DisabledDoc } from './disableddoc';
 import { InvalidDoc } from './invaliddoc';
 import { FilledDoc } from './filleddoc';
 import { FloatLabelModule } from 'primeng/floatlabel';
+import { ShowClearDoc } from '@doc/autocomplete/showclear-doc.component';
 
 @NgModule({
     imports: [CommonModule, RouterModule, AppCodeModule, FormsModule, AppDocModule, AutoCompleteModule, ReactiveFormsModule, RouterModule, FloatLabelModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, TemplateDoc, GroupDoc, VirtualScrollDoc, MultipleDoc, StyleDoc, AccessibilityDoc, DropdownDoc, ForceSelectionDoc, ObjectsDoc, ReactiveFormsDoc, FloatLabelDoc, DisabledDoc, InvalidDoc, FilledDoc]
+    declarations: [ImportDoc, BasicDoc, TemplateDoc, GroupDoc, VirtualScrollDoc, MultipleDoc, StyleDoc, AccessibilityDoc, DropdownDoc, ForceSelectionDoc, ObjectsDoc, ReactiveFormsDoc, FloatLabelDoc, DisabledDoc, InvalidDoc, FilledDoc, ShowClearDoc]
 })
 export class AutoCompleteDocModule {}

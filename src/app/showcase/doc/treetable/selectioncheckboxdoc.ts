@@ -52,7 +52,10 @@ export class SelectionCheckboxDoc {
 
     cols!: Column[];
 
-    constructor(private nodeService: NodeService, private cd: ChangeDetectorRef) {}
+    constructor(
+        private nodeService: NodeService,
+        private cd: ChangeDetectorRef
+    ) {}
 
     loadDemoData() {
         this.nodeService.getTreeTableNodes().then((files) => {

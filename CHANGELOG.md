@@ -1,4 +1,110 @@
 # Changelog
+## [18.0.0-beta.3](https://github.com/primefaces/primeng/tree/18.0.0-beta.3) (2024-10-16)
+[Full Changelog](https://github.com/primefaces/primeng/compare/18.0.0-beta.2...18.0.0-beta.3)
+
+**Breaking Changes:**
+- Stepper Rework [\#16445](https://github.com/primefaces/primeng/issues/16445)
+- Accordion Rework [\#16470](https://github.com/primefaces/primeng/issues/16470)
+
+**Deprecated:**
+- Deprecate TabMenu [\#16441](https://github.com/primefaces/primeng/issues/16441)
+- Deprecate AccordionTab [\#16490](https://github.com/primefaces/primeng/issues/16490)
+
+**New Features:**
+- New Component | Tabs [\#16437](https://github.com/primefaces/primeng/issues/16437)
+
+**Fixed bugs:**
+- TreeTable | Fix loading [\#16416](https://github.com/primefaces/primeng/issues/16416)
+- PrimeNG v18 Bug - PanelMenu not working [\#16511](https://github.com/primefaces/primeng/issues/16511)
+- Component: Nested DynamicDialog v18.beta1 [\#16413](https://github.com/primefaces/primeng/issues/16413)
+- Component: Datepicker v18. Layout after changing month [\#16436](https://github.com/primefaces/primeng/issues/16436)
+- PasswordModule UI is different from InputTextModule UI when fields are disabled [\#16393](https://github.com/primefaces/primeng/issues/16393)
+- Primeng v18.beta-2 | Firefox - Switching to dark theme doesn't work [\#16471](https://github.com/primefaces/primeng/issues/16471)
+- v18 Tabs and TabMenu in same module only generate styles for TabMenu [\#16395](https://github.com/primefaces/primeng/issues/16395)
+- PickList v18: The direction of the controls remains upright on narrow screens [\#16481](https://github.com/primefaces/primeng/issues/16481)
+- Breadcrumb v18: Nested links when using template [\#16478](https://github.com/primefaces/primeng/issues/16478)
+- Select component style issues [\#16485](https://github.com/primefaces/primeng/issues/16485)
+- ToggleSwitch v18: Missing hover styles [\#16482](https://github.com/primefaces/primeng/issues/16482)
+- TreeSelect v18: TreeNodes missing hover styles [\#16484](https://github.com/primefaces/primeng/issues/16484)
+- 'p-buttonGroup' is not a known element in 18.0.0-beta.2 [\#16488](https://github.com/primefaces/primeng/issues/16488)
+- 18.0.0-beta2 - ComponentStyles are not exported -> extended Components fail [\#16509](https://github.com/primefaces/primeng/issues/16509)
+
+## [17.18.11](https://github.com/primefaces/primeng/tree/17.18.11) (2024-09-26)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/17.18.10...17.18.11)
+
+**Fixed bugs:**
+
+- Messages: Messages template does not work if messagemodule is imported alone [\#16253](https://github.com/primefaces/primeng/issues/16253)
+- Component: MultiSelect (Property 'ngOnInit' is missing in type 'MultiSelectTemplateDemo) [\#16256](https://github.com/primefaces/primeng/issues/16256)
+- Table: Scroller is broken when scrollHeight is flex [\#16246](https://github.com/primefaces/primeng/issues/16246)
+- Component: Calendar Year picker [\#14233](https://github.com/primefaces/primeng/issues/14233)
+- Steps: aria-expanded is inappropiate and can be misleading [\#16266](https://github.com/primefaces/primeng/issues/16266)
+- Table: editable column is broken when disabled temporarily [\#16304](https://github.com/primefaces/primeng/issues/16304)
+- Grouping Functionality in p-table Breaks After Pagination Navigation Beyond First Page [\#15192](https://github.com/primefaces/primeng/issues/15192)
+- OrganizationChart collapsible property does not propagate [\#16361](https://github.com/primefaces/primeng/issues/16361)
+- Component: p-table p-columnFilter p-multiSelect [\#16132](https://github.com/primefaces/primeng/issues/16132)
+- ContextMenu, Dock: aria-hidden throws console error [\#16397](https://github.com/primefaces/primeng/issues/16397)
+- Autocomplete Clear Icon not shown if value set programatically [\#16410](https://github.com/primefaces/primeng/issues/16410)
+- p-tree: Unselectable children is selected when selecting parent [\#16430](https://github.com/primefaces/primeng/issues/16430)
+- p-splitter: zero width panel parsed as null [\#16425](https://github.com/primefaces/primeng/issues/16425)
+- Component: Metergroup [\#16439](https://github.com/primefaces/primeng/issues/16439)
+
+## [18.0.0-beta.2](https://github.com/primefaces/primeng/tree/18.0.0-beta.2) (2024-09-23)
+[Full Changelog](https://github.com/primefaces/primeng/compare/18.0.0-beta.1...18.0.0-beta.2)
+
+**Fixed bugs:**
+- Date filter on table v18 [\#16354](https://github.com/primefaces/primeng/issues/16354)
+- Fileupload | add fileLabelTemplate [\#16377](https://github.com/primefaces/primeng/issues/16377)
+- Cannot find module '@primeuix/styled' from 'node_modules/primeng/fesm2022/primeng-themes.mjs' [\#16353](https://github.com/primefaces/primeng/issues/16353)
+- Component: Select [primeng v18] [\#16351](https://github.com/primefaces/primeng/issues/16351)
+
+## [17.18.10](https://github.com/primefaces/primeng/tree/17.18.10) (2024-09-11)
+[Full Changelog](https://github.com/primefaces/primeng/compare/17.18.9...17.18.10)
+
+**Fixed bugs:**
+- Accessibility: Slider -> Keyboardtrap [\#16324](https://github.com/primefaces/primeng/issues/16324)
+- MegaMenu: aria-hidden throws console error [\#16248](https://github.com/primefaces/primeng/issues/16248)
+- Icon: Mistake in example documentation code [\#16277](https://github.com/primefaces/primeng/issues/16277)
+- p-tree: Lazy loading icon does not show on child items [\#16282](https://github.com/primefaces/primeng/issues/16282)
+- Docs: dynamicdialog example import missing, build problem [\#16328](https://github.com/primefaces/primeng/issues/16328)
+- Table: Flawed example in paginator documentation [\#16308](https://github.com/primefaces/primeng/issues/16308)
+- Editor: the style of the toolbar is missing up when custom modules used [\#16114](https://github.com/primefaces/primeng/issues/16114)
+- Tooltip on Dropdown causes Errors [\#16321](https://github.com/primefaces/primeng/issues/16321)
+- DynamicDialog | Closing nested dialog makes the underlying dialog scroll back to the top [\#16335](https://github.com/primefaces/primeng/issues/16335)
+- Panel component -> toggle from the outside [\#16326](https://github.com/primefaces/primeng/issues/16326)
+
+## [17.18.9](https://github.com/primefaces/primeng/tree/17.18.9) (2024-08-15)
+[Full Changelog](https://github.com/primefaces/primeng/compare/17.18.8...17.18.9)
+
+**Fixed bugs:**
+- Menu | aria-hidden throws console error [\#16240](https://github.com/primefaces/primeng/issues/16240)
+- Table: Cannot set autoSize from ScrollerOptions [\#16209](https://github.com/primefaces/primeng/issues/16209)
+- Component: Slider [\#16214](https://github.com/primefaces/primeng/issues/16214)
+- Table: breaks after one call to updateStyleElement() [\#16211](https://github.com/primefaces/primeng/issues/16211)
+- FileUpload: Never cancels the upload request when I click on the cancel button. [\#15664](https://github.com/primefaces/primeng/issues/15664)
+- Menu: console.error when selecting a menu item with keyboard [\#16219](https://github.com/primefaces/primeng/issues/16219)
+- p-table triggers lazy loading event twice [\#16182](https://github.com/primefaces/primeng/issues/16182)
+- Sidebar: Overlay of Nested Sidebar Blocks Its Own Content [\#16233](https://github.com/primefaces/primeng/issues/16233)
+- Autocomplete: Error when deleting input text if virtualscroll is enabled [\#16227](https://github.com/primefaces/primeng/issues/16227)
+
+## [17.18.8](https://github.com/primefaces/primeng/tree/17.18.8) (2024-08-08)
+[Full Changelog](https://github.com/primefaces/primeng/compare/17.18.7...17.18.8)
+
+**Fixed bugs:**
+- Menubar: Clicking menuitems outputs error in console [\#16201](https://github.com/primefaces/primeng/issues/16201)
+- Component: Table may have Trusted Types incompatibilities from .innerHTML assignment [\#16153](https://github.com/primefaces/primeng/issues/16153)
+- P-autocomplete after second click doesn't show dropdown [\#15281](https://github.com/primefaces/primeng/issues/15281)
+- AutoComplete: Cannot intercept enter key [\#16160](https://github.com/primefaces/primeng/issues/16160)
+- Table: when scrollHeight is set to 'flex', on the first load, the table height is not fitting parent [\#16165](https://github.com/primefaces/primeng/issues/16165)
+- Calendar: panelStyle width and min width overridden when appendTo is used [\#16176](https://github.com/primefaces/primeng/issues/16176)
+- ColumnFilter: Template names are wrong [\#16180](https://github.com/primefaces/primeng/issues/16180)
+- ListBox component accessibility issues [\#16152](https://github.com/primefaces/primeng/issues/16152)
+- Tree: Accessibility issues [\#16156](https://github.com/primefaces/primeng/issues/16156)
+- Component: colorPicker - inline=true property doesn't set the appropriate color [\#16169](https://github.com/primefaces/primeng/issues/16169)
+- Accessibility: Tree not selectable via Keyboard after second dialog opening [\#16191](https://github.com/primefaces/primeng/issues/16191)
+- ColorPicker: click on label does not open the color picker in docs [\#16193](https://github.com/primefaces/primeng/issues/16193)
+
 ## [17.18.7](https://github.com/primefaces/primeng/tree/17.18.7) (2024-08-01)
 [Full Changelog](https://github.com/primefaces/primeng/compare/17.18.6...17.18.7)
 
@@ -814,6 +920,33 @@
 - TypeError: this.focusedItemInfo.mutate is not a function [\#14119](https://github.com/primefaces/primeng/issues/14119)
 - Upgrade to Angular 17? [\#14063](https://github.com/primefaces/primeng/issues/14063)
 
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [16.9.16-LTS](https://www.npmjs.com/package/primeng/v/16.9.16-lts) (2024-09-20)
+
+**Fixed bugs:**
+- MegaMenu: aria-hidden throws console error [\#16248](https://github.com/primefaces/primeng/issues/16248)
+- Icon: Mistake in example documentation code [\#16277](https://github.com/primefaces/primeng/issues/16277)
+- Table: Flawed example in paginator documentation [\#16308](https://github.com/primefaces/primeng/issues/16308)
+- Editor: the style of the toolbar is missing up when custom modules used [\#16114](https://github.com/primefaces/primeng/issues/16114)
+- Tooltip on Dropdown causes Errors [\#16321](https://github.com/primefaces/primeng/issues/16321)
+- Panel component -> toggle from the outside [\#16326](https://github.com/primefaces/primeng/issues/16326)
+
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [16.9.15-LTS](https://www.npmjs.com/package/primeng/v/16.9.15-lts) (2024-08-15)
+
+**Fixed bugs:**
+- Menubar: Clicking menuitems outputs error in console [\#16201](https://github.com/primefaces/primeng/issues/16201)
+- P-autocomplete after second click doesn't show dropdown [\#15281](https://github.com/primefaces/primeng/issues/15281)
+- AutoComplete: Cannot intercept enter key [\#16160](https://github.com/primefaces/primeng/issues/16160)
+- Table: when scrollHeight is set to 'flex', on the first load, the table height is not fitting parent [\#16165](https://github.com/primefaces/primeng/issues/16165)
+- Calendar: panelStyle width and min width overridden when appendTo is used [\#16176](https://github.com/primefaces/primeng/issues/16176)
+- ListBox component accessibility issues [\#16152](https://github.com/primefaces/primeng/issues/16152)
+- Component: colorPicker - inline=true property doesn't set the appropriate color [\#16169](https://github.com/primefaces/primeng/issues/16169)
+- Accessibility: Tree not selectable via Keyboard after second dialog opening [\#16191](https://github.com/primefaces/primeng/issues/16191)
+- Menu | aria-hidden throws console error [\#16240](https://github.com/primefaces/primeng/issues/16240)
+- Table: Cannot set autoSize from ScrollerOptions [\#16209](https://github.com/primefaces/primeng/issues/16209)
+- Component: Slider [\#16214](https://github.com/primefaces/primeng/issues/16214)
+- Table: breaks after one call to updateStyleElement() [\#16211](https://github.com/primefaces/primeng/issues/16211)
+- Sidebar: Overlay of Nested Sidebar Blocks Its Own Content [\#16233](https://github.com/primefaces/primeng/issues/16233)
+
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [16.9.14-LTS](https://www.npmjs.com/package/primeng/v/16.9.14-lts) (2024-08-01)
 
 **Fixed bugs:**
@@ -1485,6 +1618,26 @@
 - Touch Control - Thumbnails selects photo randomly when tapping. [\#12943](https://github.com/primefaces/primeng/issues/12943)
 - Checkbox in p-treeNode always checked when using custom icon [\#12951](https://github.com/primefaces/primeng/issues/12951)
 - ConfirmDialog: Duplicated AcceptIcons [\#13001](https://github.com/primefaces/primeng/issues/13001)
+
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [15.4.27-LTS](https://www.npmjs.com/package/primeng/v/15.4.27-lts) (2024-09-20)
+
+**Fixed bugs:**
+- Icon: Mistake in example documentation code [\#16277](https://github.com/primefaces/primeng/issues/16277)
+- Table: Flawed example in paginator documentation [\#16308](https://github.com/primefaces/primeng/issues/16308)
+- Editor: the style of the toolbar is missing up when custom modules used [\#16114](https://github.com/primefaces/primeng/issues/16114)
+- Tooltip on Dropdown causes Errors [\#16321](https://github.com/primefaces/primeng/issues/16321)
+- Panel component -> toggle from the outside [\#16326](https://github.com/primefaces/primeng/issues/16326)
+
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [15.4.26-LTS](https://www.npmjs.com/package/primeng/v/15.4.26-lts) (2024-08-15)
+
+**Fixed bugs:**
+- Table: when scrollHeight is set to 'flex', on the first load, the table height is not fitting parent [\#16165](https://github.com/primefaces/primeng/issues/16165)
+- Calendar: panelStyle width and min width overridden when appendTo is used [\#16176](https://github.com/primefaces/primeng/issues/16176)
+- Component: colorPicker - inline=true property doesn't set the appropriate color [\#16169](https://github.com/primefaces/primeng/issues/16169)
+- Table: Cannot set autoSize from ScrollerOptions [\#16209](https://github.com/primefaces/primeng/issues/16209)
+- Table: breaks after one call to updateStyleElement() [\#16211](https://github.com/primefaces/primeng/issues/16211)
+- Sidebar: Overlay of Nested Sidebar Blocks Its Own Content [\#16233](https://github.com/primefaces/primeng/issues/16233)
+
 
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [15.4.25-LTS](https://www.npmjs.com/package/primeng/v/15.4.25-lts) (2024-08-01)
 

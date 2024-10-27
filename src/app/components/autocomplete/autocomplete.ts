@@ -1,4 +1,4 @@
-import { animate, AnimationEvent, style, transition, trigger } from '@angular/animations';
+import { AnimationEvent } from '@angular/animations';
 import { CommonModule, DOCUMENT } from '@angular/common';
 import {
     AfterContentInit,
@@ -28,7 +28,7 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { OverlayOptions, OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
+import { OverlayOptions, OverlayService, PrimeNGConfig, PrimeTemplate, ScrollerOptions, SharedModule, TranslationKeys } from 'primeng/api';
 import { AutoFocusModule } from 'primeng/autofocus';
 import { ButtonModule } from 'primeng/button';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
@@ -36,13 +36,12 @@ import { InputTextModule } from 'primeng/inputtext';
 import { Overlay, OverlayModule } from 'primeng/overlay';
 import { RippleModule } from 'primeng/ripple';
 import { Scroller, ScrollerModule } from 'primeng/scroller';
-import { ScrollerOptions } from 'primeng/api';
 import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
 import { TimesCircleIcon } from 'primeng/icons/timescircle';
 import { SpinnerIcon } from 'primeng/icons/spinner';
 import { TimesIcon } from 'primeng/icons/times';
 import { ChevronDownIcon } from 'primeng/icons/chevrondown';
-import { Nullable, VoidListener } from 'primeng/ts-helpers';
+import { Nullable } from 'primeng/ts-helpers';
 import { AutoCompleteCompleteEvent, AutoCompleteDropdownClickEvent, AutoCompleteLazyLoadEvent, AutoCompleteSelectEvent, AutoCompleteUnselectEvent } from './autocomplete.interface';
 
 export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
@@ -94,7 +93,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                 (paste)="onInputPaste($event)"
                 (keyup)="onInputKeyUp($event)"
             />
-            <ng-container *ngIf="filled && !disabled && showClear && !loading">
+            <ng-container *ngIf="isVisibleClearIcon">
                 <TimesIcon *ngIf="!clearIconTemplate" [styleClass]="'p-autocomplete-clear-icon'" (click)="clear()" [attr.aria-hidden]="true" />
                 <span *ngIf="clearIconTemplate" class="p-autocomplete-clear-icon" (click)="clear()" [attr.aria-hidden]="true">
                     <ng-template *ngTemplateOutlet="clearIconTemplate"></ng-template>
@@ -880,7 +879,19 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
         return typeof this.modelValue() === 'string' && this.optionValue;
     }
 
-    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public config: PrimeNGConfig, public overlayService: OverlayService, private zone: NgZone) {
+    get isVisibleClearIcon(): boolean | undefined {
+        return this.modelValue() != null && this.hasSelectedOption() && this.showClear && !this.disabled && !this.loading;
+    }
+
+    constructor(
+        @Inject(DOCUMENT) private document: Document,
+        public el: ElementRef,
+        public renderer: Renderer2,
+        public cd: ChangeDetectorRef,
+        public config: PrimeNGConfig,
+        public overlayService: OverlayService,
+        private zone: NgZone
+    ) {
         effect(() => {
             this.filled = ObjectUtils.isNotEmpty(this.modelValue());
         });
@@ -1100,12 +1111,10 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
             this.updateModel(query);
         }
 
-        if (query.length === 0 && !this.multiple) {
+        if (query.length === 0 && !this.multiple && !this.completeOnFocus) {
             this.onClear.emit();
 
-            setTimeout(() => {
-                this.hide();
-            }, this.delay / 2);
+            this.hide();
         } else {
             if (query.length >= this.minLength) {
                 this.focusedOptionIndex.set(-1);
@@ -1147,6 +1156,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
 
         if (!this.dirty && this.completeOnFocus) {
             this.search(event, event.target.value, 'focus');
+            this.show();
         }
         this.dirty = true;
         this.focused = true;
@@ -1368,12 +1378,11 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
         } else {
             if (this.focusedOptionIndex() !== -1) {
                 this.onOptionSelect(event, this.visibleOptions()[this.focusedOptionIndex()]);
+                event.preventDefault();
             }
 
             this.hide();
         }
-
-        event.preventDefault();
     }
 
     onEscapeKey(event) {
@@ -1458,8 +1467,8 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
             return;
         }
 
-        //do not search blank values on input change
-        if (source === 'input' && query.trim().length === 0) {
+        //do not search on input change if minLength is not met
+        if (source === 'input' && query.trim().length < this.minLength) {
             return;
         }
         this.loading = true;
