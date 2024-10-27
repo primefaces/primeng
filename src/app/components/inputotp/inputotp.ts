@@ -16,6 +16,8 @@ import {
     TemplateRef,
     ViewEncapsulation,
     numberAttribute,
+    computed,
+    Signal,
 } from '@angular/core';
 import { InputText } from 'primeng/inputtext';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -80,7 +82,7 @@ export interface InputOtpInputTemplateContext {
     standalone: true,
     imports: [NgClass, NgTemplateOutlet, InputText, AutoFocus],
     template: `
-        @for (i of getRange(length()); track i; let i = $index) {
+        @for (i of ranges(); track i; let i = $index) {
             @if (!inputTemplate) {
                 <input
                     type="text"
@@ -413,9 +415,7 @@ export class InputOtp extends BaseComponent implements AfterContentInit {
         }
     }
 
-    getRange(n: number): number[] {
-        return Array.from({ length: n }, (_, index) => index + 1);
-    }
+    ranges: Signal<number[]> = computed<number[]>(() => Array.from({ length: this.length() }, (_, index) => index + 1));
 }
 
 @NgModule({
