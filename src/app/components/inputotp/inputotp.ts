@@ -243,10 +243,23 @@ export class InputOtp extends BaseComponent {
     }
 
     onInput(event, index: number) {
-        this.tokens.update((value) => {
-            value[index] = event.target.value;
+        const inputValue = event.target.value;
+        const updateOne = (value: string[]) => {
+            value[index] = inputValue;
             return value;
-        });
+        };
+        const updateMany = (value: string[]) => {
+            // Update tokens based on the input value
+            if (inputValue.length > 0) {
+                for (let i = 0; i < inputValue.length; i++) {
+                    if (index + i < this.length()) {
+                        value[index + i] = inputValue[i];
+                    }
+                }
+            }
+            return value;
+        };
+        this.tokens.update(inputValue.length === this.length() ? updateMany : updateOne);
         this.updateModel(event);
 
         if (event.inputType === 'deleteContentBackward') {

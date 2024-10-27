@@ -158,4 +158,22 @@ describe('InputOtp', () => {
         // Check if preventDefault was called to prevent non-integer input
         expect(event.preventDefault).toHaveBeenCalled();
     });
+
+    // 16: Full OTP is populated when selecting an OTP suggestion from mobile keyboard
+    fit('should populate all fields with full OTP when selecting an OTP suggestion from the mobile keyboard', () => {
+        // OTP code
+        const otpCode = '1234';
+
+        // Act: Simulate a single input event with the full OTP code as the suggestion
+        const firstInput = fixture.debugElement.query(By.css('input')).nativeElement;
+        firstInput.value = otpCode;
+        firstInput.dispatchEvent(new Event('input'));
+        fixture.detectChanges();
+
+        // Assert: Ensure each input field contains the correct character from the OTP code
+        const inputs = fixture.debugElement.queryAll(By.css('input'));
+        inputs.forEach((input, index) => {
+            expect(input.nativeElement.value).toBe(otpCode[index]);
+        });
+    });
 });
