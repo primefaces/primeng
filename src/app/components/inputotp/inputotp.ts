@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { NgClass, NgTemplateOutlet } from '@angular/common';
 import {
     AfterContentInit,
     booleanAttribute,
@@ -77,7 +77,7 @@ export interface InputOtpInputTemplateContext {
 @Component({
     selector: 'p-inputOtp, p-inputotp',
     standalone: true,
-    imports: [CommonModule, InputText, AutoFocus],
+    imports: [NgClass, NgTemplateOutlet, InputText, AutoFocus],
     template: `
         @for (i of getRange(length); track i; let i = $index) {
             @if (!inputTemplate) {
