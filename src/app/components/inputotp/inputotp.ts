@@ -224,11 +224,11 @@ export class InputOtp extends BaseComponent implements AfterContentInit {
 
     _componentStyle = inject(InputOtpStyle);
 
-    getToken(index) {
+    getToken(index: number) {
         return this.tokens[index];
     }
 
-    getTemplateEvents(index) {
+    getTemplateEvents(index: number) {
         return {
             input: (event) => this.onInput(event, index),
             keydown: (event) => this.onKeyDown(event),
@@ -238,7 +238,7 @@ export class InputOtp extends BaseComponent implements AfterContentInit {
         };
     }
 
-    onInput(event, index) {
+    onInput(event, index:number) {
         this.tokens[index] = event.target.value;
         this.updateModel(event);
 
