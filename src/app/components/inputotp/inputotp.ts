@@ -5,14 +5,13 @@ import {
     ChangeDetectionStrategy,
     Component,
     contentChild,
-    ContentChildren,
+    contentChildren,
     OutputEmitterRef,
     forwardRef,
     inject,
     input,
     NgModule,
     output,
-    QueryList,
     TemplateRef,
     ViewEncapsulation,
     numberAttribute,
@@ -123,7 +122,7 @@ export interface InputOtpInputTemplateContext {
         class: 'p-inputotp p-component',
     },
 })
-export class InputOtp extends BaseComponent implements AfterContentInit {
+export class InputOtp extends BaseComponent {
     /**
      * When present, it specifies that the component should have invalid state style.
      * @group Props
@@ -204,29 +203,22 @@ export class InputOtp extends BaseComponent implements AfterContentInit {
      * List of PrimeTemplate instances provided by the content.
      * @group Templates
      */
-    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
+    templates = contentChildren<PrimeTemplate | undefined>(PrimeTemplate);
 
     /**
      * Computes the custom input template if available.
      * @returns {TemplateRef<InputOtpInputTemplateContext> | undefined} The custom input template or undefined if not available.
      */
     customInputTemplate = computed<TemplateRef<InputOtpInputTemplateContext>>(() => {
+        if (this.templates()) {
+            const templates = this.templates().reduce<{ [key: string]: TemplateRef<InputOtpInputTemplateContext> }>((prev, curr) => {
+                prev[curr.getType()] = curr.template;
+                return prev;
+            }, {});
+            return templates['input'];
+        }
         return this.inputTemplate();
     });
-
-    ngAfterContentInit() {
-        this.templates?.forEach((item) => {
-            switch (item.getType()) {
-                case 'input':
-                    this.inputTemplate = item.template;
-                    break;
-
-                default:
-                    this.inputTemplate = item.template;
-                    break;
-            }
-        });
-    }
 
     tokens = signal<string[]>([]);
 
