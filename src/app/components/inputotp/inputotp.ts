@@ -219,7 +219,7 @@ export class InputOtp extends BaseComponent implements AfterContentInit {
 
     onModelTouched: Function = () => {};
 
-    value: any;
+    value = signal<any | null | undefined>(undefined);
 
     inputType: Signal<string> = computed<string>(() => (this.mask() ? 'password' : 'text'));
 
@@ -263,23 +263,22 @@ export class InputOtp extends BaseComponent implements AfterContentInit {
     writeValue(value: any): void {
         if (value) {
             if (Array.isArray(value) && value.length > 0) {
-                this.value = value.slice(0, this.length());
+                this.value.set(value.slice(0, this.length()));
             } else {
-                this.value = value.toString().split('').slice(0, this.length());
+                this.value.set(value.toString().split('').slice(0, this.length()));
             }
         } else {
-            this.value = value;
+            this.value.set(value);
         }
         this.updateTokens();
-        this.cd.markForCheck();
     }
 
     updateTokens() {
-        if (this.value !== null && this.value !== undefined) {
-            if (Array.isArray(this.value)) {
-                this.tokens.set([...this.value]);
+        if (this.value() !== null && this.value() !== undefined) {
+            if (Array.isArray(this.value())) {
+                this.tokens.set([...this.value()]);
             } else {
-                this.tokens.set(this.value.toString().split(''));
+                this.tokens.set(this.value().toString().split(''));
             }
         } else {
             this.tokens.set([]);
