@@ -189,7 +189,6 @@ export class InputOtp extends BaseComponent {
      * @group Emits
      */
     onBlur: OutputEmitterRef<Event> = output<Event>();
-
     /**
      * Input template.
      * @param {InputOtpInputTemplateContext} context - Context of the template
@@ -197,13 +196,11 @@ export class InputOtp extends BaseComponent {
      * @group Templates
      */
     inputTemplate = contentChild<TemplateRef<InputOtpInputTemplateContext>>('input');
-
     /**
      * List of PrimeTemplate instances provided by the content.
      * @group Templates
      */
     templates = contentChildren<PrimeTemplate | undefined>(PrimeTemplate);
-
     /**
      * Computes the custom input template if available.
      * @returns {TemplateRef<InputOtpInputTemplateContext> | undefined} The custom input template or undefined if not available.
