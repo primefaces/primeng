@@ -83,7 +83,7 @@ export interface InputOtpInputTemplateContext {
     standalone: true,
     imports: [NgClass, NgTemplateOutlet, InputText, AutoFocus],
     template: `
-        @for (i of ranges(); track i; let i = $index) {
+        @for (i of ranges(); track $index) {
             @if (!inputTemplate) {
                 <input
                     type="text"
@@ -240,7 +240,10 @@ export class InputOtp extends BaseComponent implements AfterContentInit {
     }
 
     onInput(event, index: number) {
-        this.tokens.update((value) => (value[index] = event.target.value));
+        this.tokens.update((value) => {
+            value[index] = event.target.value;
+            return value;
+        });
         this.updateModel(event);
 
         if (event.inputType === 'deleteContentBackward') {
