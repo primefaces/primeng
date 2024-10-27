@@ -242,7 +242,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                                         [attr.data-p-focused]="focusedOptionIndex() === getOptionIndex(i, scrollerOptions)"
                                         [attr.aria-setsize]="ariaSetSize"
                                         [attr.aria-posinset]="getAriaPosInset(getOptionIndex(i, scrollerOptions))"
-                                        (click)="onOptionSelect($event, option)"
+                                        (mousedown)="onOptionSelect($event, option)"
                                         (mouseenter)="onOptionMouseEnter($event, getOptionIndex(i, scrollerOptions))"
                                     >
                                         <span *ngIf="!itemTemplate">{{ getOptionLabel(option) }}</span>
