@@ -28,7 +28,7 @@ export class AppComponent {
     public config: PrimeNGConfig = inject(PrimeNGConfig);
 
     constructor() {
-        this.config.theme.set(MyPreset);
+        this.config.theme.set({ preset: MyPreset });
     }
 }`,
     };
