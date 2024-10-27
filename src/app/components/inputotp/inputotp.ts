@@ -89,7 +89,7 @@ export interface InputOtpInputTemplateContext {
                     pInputText
                     [value]="getModelValue(i)"
                     [maxLength]="1"
-                    [type]="inputType"
+                    [type]="inputType()"
                     class="p-inputotp-input"
                     [variant]="variant()"
                     [readonly]="readonly()"
@@ -220,9 +220,7 @@ export class InputOtp extends BaseComponent implements AfterContentInit {
 
     value: any;
 
-    get inputType(): string {
-        return this.mask() ? 'password' : 'text';
-    }
+    inputType: Signal<string> = computed<string>(() => (this.mask() ? 'password' : 'text'));
 
     _componentStyle = inject(InputOtpStyle);
 
