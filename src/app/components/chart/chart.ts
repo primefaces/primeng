@@ -97,7 +97,7 @@ export class UIChart implements AfterViewInit, OnDestroy {
     }
     set options(val: any) {
         this._options = val;
-        this.reinit();
+        this.reinit()
     }
     /**
      * Callback to execute when an element on chart is clicked.

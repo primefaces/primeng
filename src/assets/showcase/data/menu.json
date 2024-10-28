@@ -545,12 +545,16 @@
                     "href": "https://github.com/orgs/primefaces/discussions"
                 },
                 {
+                    "name": "Custom Icons",
+                    "routerLink": "/customicons"
+                },
+                {
                     "name": "Long Term Support",
-                    "href": "https://primeng.org/lts"
+                    "routerLink": "/lts"
                 },
                 {
                     "name": "PRO Support",
-                    "href": "https://primeng.org/support"
+                    "routerLink": "/support"
                 }
             ]
         },
