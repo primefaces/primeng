@@ -33,6 +33,10 @@ const theme = ({ dt }) => `
     background: ${dt('select.filled.background')};
 }
 
+.p-select.p-variant-filled:not(.p-disabled):hover {
+    background: ${dt('select.filled.hover.background')};
+}
+
 .p-select.p-variant-filled.p-focus {
     background: ${dt('select.filled.focus.background')};
 }

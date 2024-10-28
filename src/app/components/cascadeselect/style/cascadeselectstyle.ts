@@ -32,6 +32,10 @@ const theme = ({ dt }) => `
     background: ${dt('cascadeselect.filled.background')};
 }
 
+.p-cascadeselect.p-variant-filled:not(.p-disabled):hover {
+    background: ${dt('cascadeselect.filled.hover.background')};
+}
+
 .p-cascadeselect.p-variant-filled.p-focus {
     background: ${dt('cascadeselect.filled.focus.background')};
 }

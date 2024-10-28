@@ -481,6 +481,12 @@ export interface DatePickerDesignTokens extends ColorSchemeDesignToken<DatePicke
      */
     month?: {
         /**
+         * Padding of month
+         *
+         * @designToken datepicker.month.padding
+         */
+        padding?: string;
+        /**
          * Border radius of month
          *
          * @designToken datepicker.month.border.radius
