@@ -36,6 +36,7 @@ import inplace from 'primeng/themes/material/inplace';
 import inputchips from 'primeng/themes/material/inputchips';
 import inputgroup from 'primeng/themes/material/inputgroup';
 import inputnumber from 'primeng/themes/material/inputnumber';
+import inputotp from 'primeng/themes/material/inputotp';
 import inputtext from 'primeng/themes/material/inputtext';
 import knob from 'primeng/themes/material/knob';
 import listbox from 'primeng/themes/material/listbox';
@@ -127,6 +128,7 @@ export default {
         inputchips,
         inputgroup,
         inputnumber,
+        inputotp,
         inputtext,
         knob,
         listbox,

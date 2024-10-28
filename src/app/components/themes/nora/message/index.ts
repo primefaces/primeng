@@ -6,14 +6,32 @@ export default {
     },
     content: {
         padding: '0.5rem 0.75rem',
-        gap: '0.5rem'
+        gap: '0.5rem',
+        sm: {
+            padding: '0.375rem 0.625rem'
+        },
+        lg: {
+            padding: '0.625rem 0.875rem'
+        }
     },
     text: {
         fontSize: '1rem',
-        fontWeight: '700'
+        fontWeight: '700',
+        sm: {
+            fontSize: '0.875rem'
+        },
+        lg: {
+            fontSize: '1.125rem'
+        }
     },
     icon: {
-        size: '1.125rem'
+        size: '1.125rem',
+        sm: {
+            size: '1rem'
+        },
+        lg: {
+            size: '1.25rem'
+        }
     },
     closeButton: {
         width: '1.75rem',
@@ -26,7 +44,18 @@ export default {
         }
     },
     closeIcon: {
-        size: '1rem'
+        size: '1rem',
+        sm: {
+            size: '0.875rem'
+        },
+        lg: {
+            size: '1.125rem'
+        }
+    },
+    outlined: {
+        root: {
+            borderWidth: '1px'
+        }
     },
     colorScheme: {
         light: {
@@ -41,6 +70,13 @@ export default {
                         color: '{blue.50}',
                         shadow: 'none'
                     }
+                },
+                outlined: {
+                    color: '{blue.800}',
+                    borderColor: '{blue.800}'
+                },
+                plain: {
+                    color: '{blue.800}'
                 }
             },
             success: {
@@ -54,6 +90,13 @@ export default {
                         color: '{green.50}',
                         shadow: 'none'
                     }
+                },
+                outlined: {
+                    color: '{green.800}',
+                    borderColor: '{green.800}'
+                },
+                plain: {
+                    color: '{green.800}'
                 }
             },
             warn: {
@@ -67,6 +110,13 @@ export default {
                         color: '{yellow.50}',
                         shadow: 'none'
                     }
+                },
+                outlined: {
+                    color: '{yellow.600}',
+                    borderColor: '{yellow.600}'
+                },
+                plain: {
+                    color: '{yellow.600}'
                 }
             },
             error: {
@@ -80,6 +130,13 @@ export default {
                         color: '{red.50}',
                         shadow: 'none'
                     }
+                },
+                outlined: {
+                    color: '{red.800}',
+                    borderColor: '{red.800}'
+                },
+                plain: {
+                    color: '{red.800}'
                 }
             },
             secondary: {
@@ -93,6 +150,13 @@ export default {
                         color: '{surface.700}',
                         shadow: 'none'
                     }
+                },
+                outlined: {
+                    color: '{surface.600}',
+                    borderColor: '{surface.600}'
+                },
+                plain: {
+                    color: '{surface.600}'
                 }
             },
             contrast: {
@@ -106,6 +170,13 @@ export default {
                         color: '{surface.50}',
                         shadow: 'none'
                     }
+                },
+                outlined: {
+                    color: '{surface.900}',
+                    borderColor: '{surface.900}'
+                },
+                plain: {
+                    color: '{surface.900}'
                 }
             }
         },
@@ -121,6 +192,13 @@ export default {
                         color: '{blue.950}',
                         shadow: 'none'
                     }
+                },
+                outlined: {
+                    color: '{blue.200}',
+                    borderColor: '{blue.200}'
+                },
+                plain: {
+                    color: '{blue.200}'
                 }
             },
             success: {
@@ -134,6 +212,13 @@ export default {
                         color: '{green.950}',
                         shadow: 'none'
                     }
+                },
+                outlined: {
+                    color: '{green.200}',
+                    borderColor: '{green.200}'
+                },
+                plain: {
+                    color: '{green.200}'
                 }
             },
             warn: {
@@ -147,6 +232,13 @@ export default {
                         color: '{yellow.950}',
                         shadow: 'none'
                     }
+                },
+                outlined: {
+                    color: '{yellow.200}',
+                    borderColor: '{yellow.200}'
+                },
+                plain: {
+                    color: '{yellow.200}'
                 }
             },
             error: {
@@ -160,6 +252,13 @@ export default {
                         color: '{red.950}',
                         shadow: 'none'
                     }
+                },
+                outlined: {
+                    color: '{red.200}',
+                    borderColor: '{red.200}'
+                },
+                plain: {
+                    color: '{red.200}'
                 }
             },
             secondary: {
@@ -173,6 +272,13 @@ export default {
                         color: '{surface.200}',
                         shadow: 'none'
                     }
+                },
+                outlined: {
+                    color: '{surface.400}',
+                    borderColor: '{surface.400}'
+                },
+                plain: {
+                    color: '{surface.400}'
                 }
             },
             contrast: {
@@ -186,6 +292,13 @@ export default {
                         color: '{surface.950}',
                         shadow: 'none'
                     }
+                },
+                outlined: {
+                    color: '{surface.0}',
+                    borderColor: '{surface.0}'
+                },
+                plain: {
+                    color: '{surface.0}'
                 }
             }
         }
