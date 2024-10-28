@@ -91,7 +91,7 @@
         border-end-start-radius: 0;
     }
 
-    p-button[iconpos='right'] spinnericon {
+    p-button[iconpos='end'] spinnericon {
         order: 1;
     }
 }

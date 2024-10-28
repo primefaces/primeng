@@ -505,10 +505,10 @@ export class Button implements AfterContentInit {
     iconClass() {
         const iconClasses = {
             'p-button-icon': true,
-            'p-button-icon-start': this.iconPos === 'start' && this.label,
-            'p-button-icon-end': this.iconPos === 'end' && this.label,
-            'p-button-icon-top': this.iconPos === 'top' && this.label,
-            'p-button-icon-bottom': this.iconPos === 'bottom' && this.label
+            'p-button-icon-start': this.iconPos === 'start' && !!this.label,
+            'p-button-icon-end': this.iconPos === 'end' && !!this.label,
+            'p-button-icon-top': this.iconPos === 'top' && !!this.label,
+            'p-button-icon-bottom': this.iconPos === 'bottom' && !!this.label
         };
 
         if (this.loading) {
