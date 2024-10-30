@@ -1,11 +1,22 @@
-import { DOCUMENT, isPlatformBrowser, isPlatformServer } from '@angular/common';
-import { ChangeDetectorRef, Directive, ElementRef, inject, Injector, Input, PLATFORM_ID, Renderer2, SimpleChanges } from '@angular/core';
+import { DOCUMENT, isPlatformServer } from '@angular/common';
+import {
+    ChangeDetectorRef,
+    ContentChildren,
+    Directive,
+    ElementRef,
+    inject,
+    Injector,
+    Input,
+    PLATFORM_ID,
+    QueryList,
+    Renderer2,
+    SimpleChanges,
+} from '@angular/core';
 import { getKeyValue } from '@primeuix/utils/object';
-import { PrimeNGConfig } from 'primeng/api';
+import { PrimeNGConfig, PrimeTemplate } from 'primeng/api';
 import { Base, BaseStyle } from 'primeng/base';
-import { DomHandler } from 'primeng/dom';
 import { Theme, ThemeService } from 'primeng/themes';
-import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
+import { UniqueComponentId } from 'primeng/utils';
 import { BaseComponentStyle } from './style/basecomponentstyle';
 
 @Directive({ standalone: true, providers: [BaseComponentStyle, BaseStyle] })
@@ -75,6 +86,19 @@ export class BaseComponent {
         if (this.rootEl) {
             this.rootEl?.setAttribute(this.attrSelector, '');
         }
+    }
+
+    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
+
+    ngAfterContentInit() {
+        this.templates?.forEach((item) => {
+            const type = item.getType();
+            const template = `${type}Template`;
+
+            if (this[template]) {
+                this[template] = item.template;
+            }
+        });
     }
 
     ngOnChanges(changes: SimpleChanges) {

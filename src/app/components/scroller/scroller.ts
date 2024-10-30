@@ -629,7 +629,6 @@ export class Scroller extends BaseComponent implements OnInit, AfterContentInit,
 
     ngAfterContentInit() {
         (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
-            console.log('yo');
             switch (item.getType()) {
                 case 'content':
                     this.contentTemplate = item.template;
