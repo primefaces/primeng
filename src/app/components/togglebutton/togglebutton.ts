@@ -139,6 +139,11 @@ export class ToggleButton extends BaseComponent implements ControlValueAccessor 
      */
     @Input({ transform: numberAttribute }) tabindex: number | undefined = 0;
     /**
+     * Defines the size of the component.
+     * @group Props
+     */
+    @Input() size: 'large' | 'small';
+    /**
      * Position of the icon.
      * @group Props
      */

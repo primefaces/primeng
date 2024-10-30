@@ -394,6 +394,11 @@ export class TreeSelect extends BaseComponent {
      */
     @Input() virtualScrollItemSize: number | undefined;
     /**
+     * Defines the size of the component.
+     * @group Props
+     */
+    @Input() size: 'large' | 'small';   
+    /**
      * Whether to use the scroller feature. The properties of scroller component can be used like an object in it.
      * @group Props
      */

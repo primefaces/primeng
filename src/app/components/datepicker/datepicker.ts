@@ -110,6 +110,7 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                     [autofocus]="autofocus"
                     [variant]="variant"
                     [fluid]="hasFluid"
+                    [size]="size"
                 />
                 <ng-container *ngIf="showClear && !disabled && value != null">
                     <TimesIcon *ngIf="!clearIconTemplate" [class]="'p-datepicker-clear-icon'" (click)="clear()" />
@@ -857,6 +858,11 @@ export class DatePicker extends BaseComponent implements OnInit, OnDestroy, Cont
      * @group Props
      */
     @Input() variant: 'filled' | 'outlined';
+    /**
+     * Defines the size of the component.
+     * @group Props
+     */
+    @Input() size: 'large' | 'small';   
     /**
      * The minimum selectable date.
      * @group Props

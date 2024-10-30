@@ -178,6 +178,52 @@ const theme = ({ dt }) => `
     color: ${dt('cascadeselect.option.icon.color')};
 }
 
+
+.p-cascadeselect-group-icon:dir(rtl) {
+    transform: rotate(180deg);
+}
+
+.p-cascadeselect-mobile-active .p-cascadeselect-option-list {
+    position: static;
+    box-shadow: none;
+    border: 0 none;
+    padding-inline-start: ${dt('tieredmenu.submenu.mobile.indent')};
+    padding-inline-end: 0;
+}
+
+.p-cascadeselect-mobile-active .p-cascadeselect-group-icon {
+    transition: transform 0.2s;
+    transform: rotate(90deg);
+}
+
+.p-cascadeselect-mobile-active .p-cascadeselect-option-active > .p-cascadeselect-option-content .p-cascadeselect-group-icon {
+    transform: rotate(-90deg);
+}
+
+.p-cascadeselect-sm .p-cascadeselect-label {
+    font-size: ${dt('cascadeselect.sm.font.size')};
+    padding-block: ${dt('cascadeselect.sm.padding.y')};
+    padding-inline: ${dt('cascadeselect.sm.padding.x')};
+}
+
+.p-cascadeselect-sm .p-cascadeselect-dropdown .p-icon {
+    font-size: ${dt('cascadeselect.sm.font.size')};
+    width: ${dt('cascadeselect.sm.font.size')};
+    height: ${dt('cascadeselect.sm.font.size')};
+}
+
+.p-cascadeselect-lg .p-cascadeselect-label {
+    font-size: ${dt('cascadeselect.lg.font.size')};
+    padding-block: ${dt('cascadeselect.lg.padding.y')};
+    padding-inline: ${dt('cascadeselect.lg.padding.x')};
+}
+
+.p-cascadeselect-lg .p-cascadeselect-dropdown .p-icon {
+    font-size: ${dt('cascadeselect.lg.font.size')};
+    width: ${dt('cascadeselect.lg.font.size')};
+    height: ${dt('cascadeselect.lg.font.size')};
+}
+
 /* For PrimeNG */
 .p-cascadeselect-clear-icon {
     cursor: pointer;

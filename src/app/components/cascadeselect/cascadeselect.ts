@@ -511,6 +511,11 @@ export class CascadeSelect extends BaseComponent implements OnInit {
      */
     @Input() inputId: string | undefined;
     /**
+     * Defines the size of the component.
+     * @group Props
+     */
+    @Input() size: 'large' | 'small';   
+    /**
      * Index of the element in tabbing order.
      * @group Props
      */
@@ -759,6 +764,8 @@ export class CascadeSelect extends BaseComponent implements OnInit {
             'p-inputwrapper-focus': this.focused || this.overlayVisible,
             'p-cascadeselect-open': this.overlayVisible,
             'p-cascadeselect-fluid': this.hasFluid,
+            'p-cascadeselect-sm p-inputfield-sm': this.size === 'small',
+            'p-cascadeselect-lg p-inputfield-lg': this.size === 'large'
         };
     }
 

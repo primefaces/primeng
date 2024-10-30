@@ -71,7 +71,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
             [attr.aria-label]="ariaLabel"
             [attr.aria-labelledby]="ariaLabelledBy"
             [attr.title]="title"
-            [attr.size]="size"
+            [size]="size"
             [attr.name]="name"
             [attr.autocomplete]="autocomplete"
             [attr.maxlength]="maxlength"
@@ -236,10 +236,10 @@ export class InputNumber extends BaseComponent implements OnInit, AfterContentIn
      */
     @Input() placeholder: string | undefined;
     /**
-     * Size of the input field.
+     * Defines the size of the component.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) size: number | undefined;
+    @Input() size: 'large' | 'small';   
     /**
      * Maximum number of character allows in the input field.
      * @group Props

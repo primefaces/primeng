@@ -15,6 +15,7 @@ import { LazyDoc } from '@doc/treeselect/lazydoc';
 import { TreeSelectDocModule } from '@doc/treeselect/treeselectdoc.module';
 import { IftaLabelDoc } from '@doc/treeselect/iftalabeldoc';
 import { TemplateDoc } from '@doc/treeselect/templatedoc';
+import { SizesDoc } from '@doc/treeselect/sizesdoc';
 
 @Component({
     template: `<app-doc
@@ -84,6 +85,11 @@ export class TreeSelectDemo {
             id: 'iftalabel',
             label: 'Ifta Label',
             component: IftaLabelDoc,
+        },
+        {
+            id: 'sizes',
+            label: 'Sizes',
+            component: SizesDoc,
         },
         {
             id: 'filled',

@@ -12,6 +12,16 @@ const theme = ({ dt }) => `
     text-align: center;
     width: 2.5rem;
 }
+
+.p-inputotp-input.p-inputtext-sm {
+    text-align: center;
+    width: ${dt('inputotp.input.sm.width')};
+}
+
+.p-inputotp-input.p-inputtext-lg {
+    text-align: center;
+    width: ${dt('inputotp.input.lg.width')};
+}
 `;
 
 const classes = {

@@ -849,6 +849,11 @@ export class MultiSelect extends BaseComponent implements OnInit, AfterViewInit,
      */
     @Input() autocomplete: string = 'off';
     /**
+     * Defines the size of the component.
+     * @group Props
+     */
+    @Input() size: 'large' | 'small';   
+    /**
      * When enabled, a clear icon is displayed to clear the value.
      * @group Props
      */

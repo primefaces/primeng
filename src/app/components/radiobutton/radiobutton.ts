@@ -78,6 +78,8 @@ export class RadioControlRegistry {
                 'p-radiobutton-checked': checked,
                 'p-disabled': disabled,
                 'p-variant-filled': variant === 'filled' || config.inputStyle() === 'filled',
+                'p-radiobutton-sm p-inputfield-sm': size === 'small',
+                'p-radiobutton-lg p-inputfield-lg': size === 'large',
             }"
             [class]="styleClass"
             [attr.data-pc-name]="'radiobutton'"
@@ -136,6 +138,11 @@ export class RadioButton extends BaseComponent implements ControlValueAccessor, 
      * @group Props
      */
     @Input() variant: 'filled' | 'outlined' = 'outlined';
+    /**
+     * Defines the size of the component.
+     * @group Props
+     */
+    @Input() size: 'large' | 'small';   
     /**
      * Index of the element in tabbing order.
      * @group Props
