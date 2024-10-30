@@ -182,6 +182,23 @@ const theme = ({ dt }) => `
     color: ${dt('cascadeselect.option.icon.color')};
 }
 
+.p-cascadeselect-mobile-active .p-cascadeselect-option-list {
+    position: static;
+    box-shadow: none;
+    border: 0 none;
+    padding-inline-start: ${dt('tieredmenu.submenu.mobile.indent')};
+    padding-inline-end: 0;
+}
+
+.p-cascadeselect-mobile-active .p-cascadeselect-group-icon {
+    transition: transform 0.2s;
+    transform: rotate(90deg);
+}
+
+.p-cascadeselect-mobile-active .p-cascadeselect-option-active > .p-cascadeselect-option-content .p-cascadeselect-group-icon {
+    transform: rotate(-90deg);
+}
+
 /* For PrimeNG */
 .p-cascadeselect-clear-icon {
     cursor: pointer;
