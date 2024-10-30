@@ -1,6 +1,0 @@
-"use strict";
-/**
- * @license Angular v<unknown>
- * (c) 2010-2024 Google LLC. https://angular.io/
- * License: MIT
- */!function(e){"function"==typeof define&&define.amd?define(e):e()}((function(){!function e(t){t.__load_patch("mediaQuery",(function(e,t,n){function r(e){n.patchMethod(e,"addListener",(function(e){return function(r,a){var i=a.length>0?a[0]:null;if("function"==typeof i){var u=t.current.wrap(i,"MediaQuery");return i[n.symbol("mediaQueryCallback")]=u,e.call(r,u)}return e.apply(r,a)}}))}function a(e){n.patchMethod(e,"removeListener",(function(e){return function(t,r){var a=r.length>0?r[0]:null;if("function"==typeof a){var i=a[n.symbol("mediaQueryCallback")];return i?e.call(t,i):e.apply(t,r)}return e.apply(t,r)}}))}if(e.MediaQueryList){var i=e.MediaQueryList.prototype;r(i),a(i)}else e.matchMedia&&n.patchMethod(e,"matchMedia",(function(e){return function(t,n){var i=e.apply(t,n);if(i){var u=Object.getPrototypeOf(i);u&&u.addListener?(r(u),a(u),r(i),a(i)):i.addListener&&(r(i),a(i))}return i}}))}))}(Zone)}));

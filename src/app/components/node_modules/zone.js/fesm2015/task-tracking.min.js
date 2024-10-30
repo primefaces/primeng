@@ -1,6 +1,0 @@
-"use strict";
-/**
- * @license Angular v<unknown>
- * (c) 2010-2024 Google LLC. https://angular.io/
- * License: MIT
- */class TaskTrackingZoneSpec{constructor(){this.name="TaskTrackingZone",this.microTasks=[],this.macroTasks=[],this.eventTasks=[],this.properties={TaskTrackingZone:this}}static get(){return Zone.current.get("TaskTrackingZone")}getTasksFor(s){switch(s){case"microTask":return this.microTasks;case"macroTask":return this.macroTasks;case"eventTask":return this.eventTasks}throw new Error("Unknown task format: "+s)}onScheduleTask(s,e,t,a){return a.creationLocation=new Error(`Task '${a.type}' from '${a.source}'.`),this.getTasksFor(a.type).push(a),s.scheduleTask(t,a)}onCancelTask(s,e,t,a){const r=this.getTasksFor(a.type);for(let s=0;s<r.length;s++)if(r[s]==a){r.splice(s,1);break}return s.cancelTask(t,a)}onInvokeTask(s,e,t,a,r,n){if("eventTask"===a.type||a.data?.isPeriodic)return s.invokeTask(t,a,r,n);const k=this.getTasksFor(a.type);for(let s=0;s<k.length;s++)if(k[s]==a){k.splice(s,1);break}return s.invokeTask(t,a,r,n)}clearEvents(){for(;this.eventTasks.length;)Zone.current.cancelTask(this.eventTasks[0])}}function patchTaskTracking(s){s.TaskTrackingZoneSpec=TaskTrackingZoneSpec}patchTaskTracking(Zone);

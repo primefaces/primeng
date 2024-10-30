@@ -1,6 +1,0 @@
-"use strict";
-/**
- * @license Angular v<unknown>
- * (c) 2010-2024 Google LLC. https://angular.io/
- * License: MIT
- */function patchResizeObserver(e){e.__load_patch("ResizeObserver",((e,t,r)=>{const n=e.ResizeObserver;if(!n)return;const s=r.symbol("ResizeObserver");r.patchMethod(e,"ResizeObserver",(e=>(e,r)=>{const o=r.length>0?r[0]:null;return o&&(r[0]=function(e,r){const n={},c=t.current;for(let t of e){let e=t.target[s];e||(e=c);let r=n[e.name];r||(n[e.name]=r={entries:[],zone:e}),r.entries.push(t)}Object.keys(n).forEach((e=>{const s=n[e];s.zone!==t.current?s.zone.run(o,this,[s.entries,r],"ResizeObserver"):o.call(this,s.entries,r)}))}),r.length>0?new n(r[0]):new n})),r.patchMethod(n.prototype,"observe",(e=>(r,n)=>{const o=n.length>0?n[0]:null;if(!o)return e.apply(r,n);let c=r[s];return c||(c=r[s]=[]),c.push(o),o[s]=t.current,e.apply(r,n)})),r.patchMethod(n.prototype,"unobserve",(e=>(t,r)=>{const n=r.length>0?r[0]:null;if(!n)return e.apply(t,r);let o=t[s];if(o)for(let e=0;e<o.length;e++)if(o[e]===n){o.splice(e,1);break}return n[s]=void 0,e.apply(t,r)})),r.patchMethod(n.prototype,"disconnect",(e=>(t,r)=>{const n=t[s];return n&&(n.forEach((e=>{e[s]=void 0})),t[s]=void 0),e.apply(t,r)}))}))}patchResizeObserver(Zone);

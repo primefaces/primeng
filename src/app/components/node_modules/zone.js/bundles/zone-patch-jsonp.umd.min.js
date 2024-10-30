@@ -1,6 +1,0 @@
-"use strict";
-/**
- * @license Angular v<unknown>
- * (c) 2010-2024 Google LLC. https://angular.io/
- * License: MIT
- */!function(n){"function"==typeof define&&define.amd?define(n):n()}((function(){!function n(o){o.__load_patch("jsonp",(function(n,o,c){o[o.__symbol__("jsonp")]=function e(t){if(t&&t.jsonp&&t.sendFuncName){var a=function(){};[t.successFuncName,t.failedFuncName].forEach((function(o){o&&(n[o]?c.patchMethod(n,o,(function(o){return function(e,t){var a=n[c.symbol("jsonTask")];return a?(a.callback=o,a.invoke.apply(e,t)):o.apply(e,t)}})):Object.defineProperty(n,o,{configurable:!0,enumerable:!0,get:function(){return function(){var e=n[c.symbol("jsonpTask")],t=n[c.symbol("jsonp".concat(o,"callback"))];return e?(t&&(e.callback=t),n[c.symbol("jsonpTask")]=void 0,e.invoke.apply(this,arguments)):t?t.apply(this,arguments):null}},set:function(n){this[c.symbol("jsonp".concat(o,"callback"))]=n}}))})),c.patchMethod(t.jsonp,t.sendFuncName,(function(e){return function(t,s){n[c.symbol("jsonpTask")]=o.current.scheduleMacroTask("jsonp",a,{},(function(n){return e.apply(t,s)}),a)}}))}}}))}(Zone)}));

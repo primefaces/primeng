@@ -1,6 +1,0 @@
-"use strict";
-/**
- * @license Angular v<unknown>
- * (c) 2010-2024 Google LLC. https://angular.io/
- * License: MIT
- */function patchBluebird(e){e.__load_patch("bluebird",((e,n,o)=>{n[n.__symbol__("bluebird")]=function t(d){["then","spread","finally"].forEach((e=>{o.patchMethod(d.prototype,e,(e=>(o,t)=>{const r=n.current;for(let e=0;e<t.length;e++){const n=t[e];"function"==typeof n&&(t[e]=function(){const e=this,o=arguments;return new d(((t,d)=>{r.scheduleMicroTask("Promise.then",(()=>{try{t(n.apply(e,o))}catch(e){d(e)}}))}))})}return e.apply(o,t)}))})),"undefined"!=typeof window?window.addEventListener("unhandledrejection",(function(e){const n=e.detail&&e.detail.reason;n&&n.isHandledByZone&&(e.preventDefault(),"function"==typeof e.stopImmediatePropagation&&e.stopImmediatePropagation())})):"undefined"!=typeof process&&process.on("unhandledRejection",((e,n)=>{if(e&&e.isHandledByZone){const e=process.listeners("unhandledRejection");e&&(process.removeAllListeners("unhandledRejection"),process.nextTick((()=>{e.forEach((e=>process.on("unhandledRejection",e)))})))}})),d.onPossiblyUnhandledRejection((function(e,t){try{n.current.runGuarded((()=>{throw e.isHandledByZone=!0,e}))}catch(e){e.isHandledByZone=!1,o.onUnhandledError(e)}})),e.Promise=d}}))}patchBluebird(Zone);
