@@ -1,0 +1,25 @@
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+declare function plural(val: number): number;
+declare const _default: (string | number | number[] | (string | undefined)[] | typeof plural | (string[] | undefined)[] | {
+    AUD: string[];
+    BYN: (string | undefined)[];
+    CAD: string[];
+    FJD: string[];
+    JPY: string[];
+    PHP: (string | undefined)[];
+    RUR: (string | undefined)[];
+    SBD: string[];
+    SRD: string[];
+    THB: string[];
+    TWD: string[];
+    USD: string[];
+    XPF: never[];
+    XXX: never[];
+} | undefined)[];
+export default _default;

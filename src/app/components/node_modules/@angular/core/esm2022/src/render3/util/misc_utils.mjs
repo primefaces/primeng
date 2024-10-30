@@ -1,0 +1,66 @@
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+import { PLATFORM_ID } from '../../application/application_tokens';
+import { Injector } from '../../di';
+import { inject } from '../../di/injector_compatibility';
+/**
+ *
+ * @codeGenApi
+ */
+export function ɵɵresolveWindow(element) {
+    return element.ownerDocument.defaultView;
+}
+/**
+ *
+ * @codeGenApi
+ */
+export function ɵɵresolveDocument(element) {
+    return element.ownerDocument;
+}
+/**
+ *
+ * @codeGenApi
+ */
+export function ɵɵresolveBody(element) {
+    return element.ownerDocument.body;
+}
+/**
+ * The special delimiter we use to separate property names, prefixes, and suffixes
+ * in property binding metadata. See storeBindingMetadata().
+ *
+ * We intentionally use the Unicode "REPLACEMENT CHARACTER" (U+FFFD) as a delimiter
+ * because it is a very uncommon character that is unlikely to be part of a user's
+ * property names or interpolation strings. If it is in fact used in a property
+ * binding, DebugElement.properties will not return the correct value for that
+ * binding. However, there should be no runtime effect for real applications.
+ *
+ * This character is typically rendered as a question mark inside of a diamond.
+ * See https://en.wikipedia.org/wiki/Specials_(Unicode_block)
+ *
+ */
+export const INTERPOLATION_DELIMITER = `�`;
+/**
+ * Unwrap a value which might be behind a closure (for forward declaration reasons).
+ */
+export function maybeUnwrapFn(value) {
+    if (value instanceof Function) {
+        return value();
+    }
+    else {
+        return value;
+    }
+}
+/**
+ * Detects whether the code is invoked in a browser.
+ * Later on, this check should be replaced with a tree-shakable
+ * flag (e.g. `!isServer`).
+ */
+export function isPlatformBrowser(injector) {
+    return (injector ?? inject(Injector)).get(PLATFORM_ID) === 'browser';
+}
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoibWlzY191dGlscy5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uLy4uLy4uLy4uLy4uL3BhY2thZ2VzL2NvcmUvc3JjL3JlbmRlcjMvdXRpbC9taXNjX3V0aWxzLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBOzs7Ozs7R0FNRztBQUVILE9BQU8sRUFBQyxXQUFXLEVBQUMsTUFBTSxzQ0FBc0MsQ0FBQztBQUNqRSxPQUFPLEVBQUMsUUFBUSxFQUFDLE1BQU0sVUFBVSxDQUFDO0FBQ2xDLE9BQU8sRUFBQyxNQUFNLEVBQUMsTUFBTSxpQ0FBaUMsQ0FBQztBQUd2RDs7O0dBR0c7QUFDSCxNQUFNLFVBQVUsZUFBZSxDQUFDLE9BQTJDO0lBQ3pFLE9BQU8sT0FBTyxDQUFDLGFBQWEsQ0FBQyxXQUFXLENBQUM7QUFDM0MsQ0FBQztBQUVEOzs7R0FHRztBQUNILE1BQU0sVUFBVSxpQkFBaUIsQ0FBQyxPQUEyQztJQUMzRSxPQUFPLE9BQU8sQ0FBQyxhQUFhLENBQUM7QUFDL0IsQ0FBQztBQUVEOzs7R0FHRztBQUNILE1BQU0sVUFBVSxhQUFhLENBQUMsT0FBMkM7SUFDdkUsT0FBTyxPQUFPLENBQUMsYUFBYSxDQUFDLElBQUksQ0FBQztBQUNwQyxDQUFDO0FBRUQ7Ozs7Ozs7Ozs7Ozs7R0FhRztBQUNILE1BQU0sQ0FBQyxNQUFNLHVCQUF1QixHQUFHLEdBQUcsQ0FBQztBQUUzQzs7R0FFRztBQUNILE1BQU0sVUFBVSxhQUFhLENBQUksS0FBa0I7SUFDakQsSUFBSSxLQUFLLFlBQVksUUFBUSxFQUFFLENBQUM7UUFDOUIsT0FBTyxLQUFLLEVBQUUsQ0FBQztJQUNqQixDQUFDO1NBQU0sQ0FBQztRQUNOLE9BQU8sS0FBSyxDQUFDO0lBQ2YsQ0FBQztBQUNILENBQUM7QUFFRDs7OztHQUlHO0FBQ0gsTUFBTSxVQUFVLGlCQUFpQixDQUFDLFFBQW1CO0lBQ25ELE9BQU8sQ0FBQyxRQUFRLElBQUksTUFBTSxDQUFDLFFBQVEsQ0FBQyxDQUFDLENBQUMsR0FBRyxDQUFDLFdBQVcsQ0FBQyxLQUFLLFNBQVMsQ0FBQztBQUN2RSxDQUFDIiwic291cmNlc0NvbnRlbnQiOlsiLyoqXG4gKiBAbGljZW5zZVxuICogQ29weXJpZ2h0IEdvb2dsZSBMTEMgQWxsIFJpZ2h0cyBSZXNlcnZlZC5cbiAqXG4gKiBVc2Ugb2YgdGhpcyBzb3VyY2UgY29kZSBpcyBnb3Zlcm5lZCBieSBhbiBNSVQtc3R5bGUgbGljZW5zZSB0aGF0IGNhbiBiZVxuICogZm91bmQgaW4gdGhlIExJQ0VOU0UgZmlsZSBhdCBodHRwczovL2FuZ3VsYXIuaW8vbGljZW5zZVxuICovXG5cbmltcG9ydCB7UExBVEZPUk1fSUR9IGZyb20gJy4uLy4uL2FwcGxpY2F0aW9uL2FwcGxpY2F0aW9uX3Rva2Vucyc7XG5pbXBvcnQge0luamVjdG9yfSBmcm9tICcuLi8uLi9kaSc7XG5pbXBvcnQge2luamVjdH0gZnJvbSAnLi4vLi4vZGkvaW5qZWN0b3JfY29tcGF0aWJpbGl0eSc7XG5pbXBvcnQge1JFbGVtZW50fSBmcm9tICcuLi9pbnRlcmZhY2VzL3JlbmRlcmVyX2RvbSc7XG5cbi8qKlxuICpcbiAqIEBjb2RlR2VuQXBpXG4gKi9cbmV4cG9ydCBmdW5jdGlvbiDJtcm1cmVzb2x2ZVdpbmRvdyhlbGVtZW50OiBSRWxlbWVudCZ7b3duZXJEb2N1bWVudDogRG9jdW1lbnR9KSB7XG4gIHJldHVybiBlbGVtZW50Lm93bmVyRG9jdW1lbnQuZGVmYXVsdFZpZXc7XG59XG5cbi8qKlxuICpcbiAqIEBjb2RlR2VuQXBpXG4gKi9cbmV4cG9ydCBmdW5jdGlvbiDJtcm1cmVzb2x2ZURvY3VtZW50KGVsZW1lbnQ6IFJFbGVtZW50Jntvd25lckRvY3VtZW50OiBEb2N1bWVudH0pIHtcbiAgcmV0dXJuIGVsZW1lbnQub3duZXJEb2N1bWVudDtcbn1cblxuLyoqXG4gKlxuICogQGNvZGVHZW5BcGlcbiAqL1xuZXhwb3J0IGZ1bmN0aW9uIMm1ybVyZXNvbHZlQm9keShlbGVtZW50OiBSRWxlbWVudCZ7b3duZXJEb2N1bWVudDogRG9jdW1lbnR9KSB7XG4gIHJldHVybiBlbGVtZW50Lm93bmVyRG9jdW1lbnQuYm9keTtcbn1cblxuLyoqXG4gKiBUaGUgc3BlY2lhbCBkZWxpbWl0ZXIgd2UgdXNlIHRvIHNlcGFyYXRlIHByb3BlcnR5IG5hbWVzLCBwcmVmaXhlcywgYW5kIHN1ZmZpeGVzXG4gKiBpbiBwcm9wZXJ0eSBiaW5kaW5nIG1ldGFkYXRhLiBTZWUgc3RvcmVCaW5kaW5nTWV0YWRhdGEoKS5cbiAqXG4gKiBXZSBpbnRlbnRpb25hbGx5IHVzZSB0aGUgVW5pY29kZSBcIlJFUExBQ0VNRU5UIENIQVJBQ1RFUlwiIChVK0ZGRkQpIGFzIGEgZGVsaW1pdGVyXG4gKiBiZWNhdXNlIGl0IGlzIGEgdmVyeSB1bmNvbW1vbiBjaGFyYWN0ZXIgdGhhdCBpcyB1bmxpa2VseSB0byBiZSBwYXJ0IG9mIGEgdXNlcidzXG4gKiBwcm9wZXJ0eSBuYW1lcyBvciBpbnRlcnBvbGF0aW9uIHN0cmluZ3MuIElmIGl0IGlzIGluIGZhY3QgdXNlZCBpbiBhIHByb3BlcnR5XG4gKiBiaW5kaW5nLCBEZWJ1Z0VsZW1lbnQucHJvcGVydGllcyB3aWxsIG5vdCByZXR1cm4gdGhlIGNvcnJlY3QgdmFsdWUgZm9yIHRoYXRcbiAqIGJpbmRpbmcuIEhvd2V2ZXIsIHRoZXJlIHNob3VsZCBiZSBubyBydW50aW1lIGVmZmVjdCBmb3IgcmVhbCBhcHBsaWNhdGlvbnMuXG4gKlxuICogVGhpcyBjaGFyYWN0ZXIgaXMgdHlwaWNhbGx5IHJlbmRlcmVkIGFzIGEgcXVlc3Rpb24gbWFyayBpbnNpZGUgb2YgYSBkaWFtb25kLlxuICogU2VlIGh0dHBzOi8vZW4ud2lraXBlZGlhLm9yZy93aWtpL1NwZWNpYWxzXyhVbmljb2RlX2Jsb2NrKVxuICpcbiAqL1xuZXhwb3J0IGNvbnN0IElOVEVSUE9MQVRJT05fREVMSU1JVEVSID0gYO+/vWA7XG5cbi8qKlxuICogVW53cmFwIGEgdmFsdWUgd2hpY2ggbWlnaHQgYmUgYmVoaW5kIGEgY2xvc3VyZSAoZm9yIGZvcndhcmQgZGVjbGFyYXRpb24gcmVhc29ucykuXG4gKi9cbmV4cG9ydCBmdW5jdGlvbiBtYXliZVVud3JhcEZuPFQ+KHZhbHVlOiBUfCgoKSA9PiBUKSk6IFQge1xuICBpZiAodmFsdWUgaW5zdGFuY2VvZiBGdW5jdGlvbikge1xuICAgIHJldHVybiB2YWx1ZSgpO1xuICB9IGVsc2Uge1xuICAgIHJldHVybiB2YWx1ZTtcbiAgfVxufVxuXG4vKipcbiAqIERldGVjdHMgd2hldGhlciB0aGUgY29kZSBpcyBpbnZva2VkIGluIGEgYnJvd3Nlci5cbiAqIExhdGVyIG9uLCB0aGlzIGNoZWNrIHNob3VsZCBiZSByZXBsYWNlZCB3aXRoIGEgdHJlZS1zaGFrYWJsZVxuICogZmxhZyAoZS5nLiBgIWlzU2VydmVyYCkuXG4gKi9cbmV4cG9ydCBmdW5jdGlvbiBpc1BsYXRmb3JtQnJvd3NlcihpbmplY3Rvcj86IEluamVjdG9yKTogYm9vbGVhbiB7XG4gIHJldHVybiAoaW5qZWN0b3IgPz8gaW5qZWN0KEluamVjdG9yKSkuZ2V0KFBMQVRGT1JNX0lEKSA9PT0gJ2Jyb3dzZXInO1xufVxuIl19

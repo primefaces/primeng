@@ -1,0 +1,28 @@
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+import { assertDefined, throwError } from '../util/assert';
+import { toTNodeTypeAsString } from './interfaces/node';
+export function assertTNodeType(tNode, expectedTypes, message) {
+    assertDefined(tNode, 'should be called with a TNode');
+    if ((tNode.type & expectedTypes) === 0) {
+        throwError(message ||
+            `Expected [${toTNodeTypeAsString(expectedTypes)}] but got ${toTNodeTypeAsString(tNode.type)}.`);
+    }
+}
+export function assertPureTNodeType(type) {
+    if (!(type === 2 /* TNodeType.Element */ || //
+        type === 1 /* TNodeType.Text */ || //
+        type === 4 /* TNodeType.Container */ || //
+        type === 8 /* TNodeType.ElementContainer */ || //
+        type === 32 /* TNodeType.Icu */ || //
+        type === 16 /* TNodeType.Projection */ || //
+        type === 64 /* TNodeType.Placeholder */)) {
+        throwError(`Expected TNodeType to have only a single type selected, but got ${toTNodeTypeAsString(type)}.`);
+    }
+}
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoibm9kZV9hc3NlcnQuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi8uLi8uLi8uLi8uLi8uLi8uLi9wYWNrYWdlcy9jb3JlL3NyYy9yZW5kZXIzL25vZGVfYXNzZXJ0LnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBOzs7Ozs7R0FNRztBQUVILE9BQU8sRUFBQyxhQUFhLEVBQUUsVUFBVSxFQUFDLE1BQU0sZ0JBQWdCLENBQUM7QUFDekQsT0FBTyxFQUFtQixtQkFBbUIsRUFBQyxNQUFNLG1CQUFtQixDQUFDO0FBRXhFLE1BQU0sVUFBVSxlQUFlLENBQzNCLEtBQWlCLEVBQUUsYUFBd0IsRUFBRSxPQUFnQjtJQUMvRCxhQUFhLENBQUMsS0FBSyxFQUFFLCtCQUErQixDQUFDLENBQUM7SUFDdEQsSUFBSSxDQUFDLEtBQUssQ0FBQyxJQUFJLEdBQUcsYUFBYSxDQUFDLEtBQUssQ0FBQyxFQUFFLENBQUM7UUFDdkMsVUFBVSxDQUNOLE9BQU87WUFDUCxhQUFhLG1CQUFtQixDQUFDLGFBQWEsQ0FBQyxhQUMzQyxtQkFBbUIsQ0FBQyxLQUFLLENBQUMsSUFBSSxDQUFDLEdBQUcsQ0FBQyxDQUFDO0lBQzlDLENBQUM7QUFDSCxDQUFDO0FBRUQsTUFBTSxVQUFVLG1CQUFtQixDQUFDLElBQWU7SUFDakQsSUFBSSxDQUFDLENBQUMsSUFBSSw4QkFBc0IsSUFBYyxFQUFFO1FBQzFDLElBQUksMkJBQW1CLElBQWlCLEVBQUU7UUFDMUMsSUFBSSxnQ0FBd0IsSUFBWSxFQUFFO1FBQzFDLElBQUksdUNBQStCLElBQUssRUFBRTtRQUMxQyxJQUFJLDJCQUFrQixJQUFrQixFQUFFO1FBQzFDLElBQUksa0NBQXlCLElBQVcsRUFBRTtRQUMxQyxJQUFJLG1DQUEwQixDQUFDLEVBQUUsQ0FBQztRQUN0QyxVQUFVLENBQUMsbUVBQ1AsbUJBQW1CLENBQUMsSUFBSSxDQUFDLEdBQUcsQ0FBQyxDQUFDO0lBQ3BDLENBQUM7QUFDSCxDQUFDIiwic291cmNlc0NvbnRlbnQiOlsiLyoqXG4gKiBAbGljZW5zZVxuICogQ29weXJpZ2h0IEdvb2dsZSBMTEMgQWxsIFJpZ2h0cyBSZXNlcnZlZC5cbiAqXG4gKiBVc2Ugb2YgdGhpcyBzb3VyY2UgY29kZSBpcyBnb3Zlcm5lZCBieSBhbiBNSVQtc3R5bGUgbGljZW5zZSB0aGF0IGNhbiBiZVxuICogZm91bmQgaW4gdGhlIExJQ0VOU0UgZmlsZSBhdCBodHRwczovL2FuZ3VsYXIuaW8vbGljZW5zZVxuICovXG5cbmltcG9ydCB7YXNzZXJ0RGVmaW5lZCwgdGhyb3dFcnJvcn0gZnJvbSAnLi4vdXRpbC9hc3NlcnQnO1xuaW1wb3J0IHtUTm9kZSwgVE5vZGVUeXBlLCB0b1ROb2RlVHlwZUFzU3RyaW5nfSBmcm9tICcuL2ludGVyZmFjZXMvbm9kZSc7XG5cbmV4cG9ydCBmdW5jdGlvbiBhc3NlcnRUTm9kZVR5cGUoXG4gICAgdE5vZGU6IFROb2RlfG51bGwsIGV4cGVjdGVkVHlwZXM6IFROb2RlVHlwZSwgbWVzc2FnZT86IHN0cmluZyk6IHZvaWQge1xuICBhc3NlcnREZWZpbmVkKHROb2RlLCAnc2hvdWxkIGJlIGNhbGxlZCB3aXRoIGEgVE5vZGUnKTtcbiAgaWYgKCh0Tm9kZS50eXBlICYgZXhwZWN0ZWRUeXBlcykgPT09IDApIHtcbiAgICB0aHJvd0Vycm9yKFxuICAgICAgICBtZXNzYWdlIHx8XG4gICAgICAgIGBFeHBlY3RlZCBbJHt0b1ROb2RlVHlwZUFzU3RyaW5nKGV4cGVjdGVkVHlwZXMpfV0gYnV0IGdvdCAke1xuICAgICAgICAgICAgdG9UTm9kZVR5cGVBc1N0cmluZyh0Tm9kZS50eXBlKX0uYCk7XG4gIH1cbn1cblxuZXhwb3J0IGZ1bmN0aW9uIGFzc2VydFB1cmVUTm9kZVR5cGUodHlwZTogVE5vZGVUeXBlKSB7XG4gIGlmICghKHR5cGUgPT09IFROb2RlVHlwZS5FbGVtZW50IHx8ICAgICAgICAgICAvL1xuICAgICAgICB0eXBlID09PSBUTm9kZVR5cGUuVGV4dCB8fCAgICAgICAgICAgICAgLy9cbiAgICAgICAgdHlwZSA9PT0gVE5vZGVUeXBlLkNvbnRhaW5lciB8fCAgICAgICAgIC8vXG4gICAgICAgIHR5cGUgPT09IFROb2RlVHlwZS5FbGVtZW50Q29udGFpbmVyIHx8ICAvL1xuICAgICAgICB0eXBlID09PSBUTm9kZVR5cGUuSWN1IHx8ICAgICAgICAgICAgICAgLy9cbiAgICAgICAgdHlwZSA9PT0gVE5vZGVUeXBlLlByb2plY3Rpb24gfHwgICAgICAgIC8vXG4gICAgICAgIHR5cGUgPT09IFROb2RlVHlwZS5QbGFjZWhvbGRlcikpIHtcbiAgICB0aHJvd0Vycm9yKGBFeHBlY3RlZCBUTm9kZVR5cGUgdG8gaGF2ZSBvbmx5IGEgc2luZ2xlIHR5cGUgc2VsZWN0ZWQsIGJ1dCBnb3QgJHtcbiAgICAgICAgdG9UTm9kZVR5cGVBc1N0cmluZyh0eXBlKX0uYCk7XG4gIH1cbn1cbiJdfQ==

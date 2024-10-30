@@ -1,13 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {
-    ChangeDetectionStrategy,
-    Component,
-    HostBinding,
-    inject,
-    Input,
-    NgModule,
-    ViewEncapsulation
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostBinding, inject, Input, NgModule, ViewEncapsulation } from '@angular/core';
 import { BaseComponent } from 'primeng/basecomponent';
 import { IconFieldStyle } from './style/iconfieldstyle';
 
@@ -27,6 +19,7 @@ import { IconFieldStyle } from './style/iconfieldstyle';
         class: 'p-iconfield',
         '[class.p-iconfield-left]': 'iconPosition === "left"',
         '[class.p-iconfield-right]': 'iconPosition === "right"',
+        '[style.display]': '"inline-block"',
     },
 })
 export class IconField extends BaseComponent {

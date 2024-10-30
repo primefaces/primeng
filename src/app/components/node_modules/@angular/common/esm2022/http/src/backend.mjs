@@ -1,0 +1,34 @@
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/**
+ * Transforms an `HttpRequest` into a stream of `HttpEvent`s, one of which will likely be a
+ * `HttpResponse`.
+ *
+ * `HttpHandler` is injectable. When injected, the handler instance dispatches requests to the
+ * first interceptor in the chain, which dispatches to the second, etc, eventually reaching the
+ * `HttpBackend`.
+ *
+ * In an `HttpInterceptor`, the `HttpHandler` parameter is the next interceptor in the chain.
+ *
+ * @publicApi
+ */
+export class HttpHandler {
+}
+/**
+ * A final `HttpHandler` which will dispatch the request via browser HTTP APIs to a backend.
+ *
+ * Interceptors sit between the `HttpClient` interface and the `HttpBackend`.
+ *
+ * When injected, `HttpBackend` dispatches requests directly to the backend, without going
+ * through the interceptor chain.
+ *
+ * @publicApi
+ */
+export class HttpBackend {
+}
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiYmFja2VuZC5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uLy4uLy4uLy4uL3BhY2thZ2VzL2NvbW1vbi9odHRwL3NyYy9iYWNrZW5kLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBOzs7Ozs7R0FNRztBQU9IOzs7Ozs7Ozs7OztHQVdHO0FBQ0gsTUFBTSxPQUFnQixXQUFXO0NBRWhDO0FBRUQ7Ozs7Ozs7OztHQVNHO0FBQ0gsTUFBTSxPQUFnQixXQUFXO0NBRWhDIiwic291cmNlc0NvbnRlbnQiOlsiLyoqXG4gKiBAbGljZW5zZVxuICogQ29weXJpZ2h0IEdvb2dsZSBMTEMgQWxsIFJpZ2h0cyBSZXNlcnZlZC5cbiAqXG4gKiBVc2Ugb2YgdGhpcyBzb3VyY2UgY29kZSBpcyBnb3Zlcm5lZCBieSBhbiBNSVQtc3R5bGUgbGljZW5zZSB0aGF0IGNhbiBiZVxuICogZm91bmQgaW4gdGhlIExJQ0VOU0UgZmlsZSBhdCBodHRwczovL2FuZ3VsYXIuaW8vbGljZW5zZVxuICovXG5cbmltcG9ydCB7T2JzZXJ2YWJsZX0gZnJvbSAncnhqcyc7XG5cbmltcG9ydCB7SHR0cFJlcXVlc3R9IGZyb20gJy4vcmVxdWVzdCc7XG5pbXBvcnQge0h0dHBFdmVudH0gZnJvbSAnLi9yZXNwb25zZSc7XG5cbi8qKlxuICogVHJhbnNmb3JtcyBhbiBgSHR0cFJlcXVlc3RgIGludG8gYSBzdHJlYW0gb2YgYEh0dHBFdmVudGBzLCBvbmUgb2Ygd2hpY2ggd2lsbCBsaWtlbHkgYmUgYVxuICogYEh0dHBSZXNwb25zZWAuXG4gKlxuICogYEh0dHBIYW5kbGVyYCBpcyBpbmplY3RhYmxlLiBXaGVuIGluamVjdGVkLCB0aGUgaGFuZGxlciBpbnN0YW5jZSBkaXNwYXRjaGVzIHJlcXVlc3RzIHRvIHRoZVxuICogZmlyc3QgaW50ZXJjZXB0b3IgaW4gdGhlIGNoYWluLCB3aGljaCBkaXNwYXRjaGVzIHRvIHRoZSBzZWNvbmQsIGV0YywgZXZlbnR1YWxseSByZWFjaGluZyB0aGVcbiAqIGBIdHRwQmFja2VuZGAuXG4gKlxuICogSW4gYW4gYEh0dHBJbnRlcmNlcHRvcmAsIHRoZSBgSHR0cEhhbmRsZXJgIHBhcmFtZXRlciBpcyB0aGUgbmV4dCBpbnRlcmNlcHRvciBpbiB0aGUgY2hhaW4uXG4gKlxuICogQHB1YmxpY0FwaVxuICovXG5leHBvcnQgYWJzdHJhY3QgY2xhc3MgSHR0cEhhbmRsZXIge1xuICBhYnN0cmFjdCBoYW5kbGUocmVxOiBIdHRwUmVxdWVzdDxhbnk+KTogT2JzZXJ2YWJsZTxIdHRwRXZlbnQ8YW55Pj47XG59XG5cbi8qKlxuICogQSBmaW5hbCBgSHR0cEhhbmRsZXJgIHdoaWNoIHdpbGwgZGlzcGF0Y2ggdGhlIHJlcXVlc3QgdmlhIGJyb3dzZXIgSFRUUCBBUElzIHRvIGEgYmFja2VuZC5cbiAqXG4gKiBJbnRlcmNlcHRvcnMgc2l0IGJldHdlZW4gdGhlIGBIdHRwQ2xpZW50YCBpbnRlcmZhY2UgYW5kIHRoZSBgSHR0cEJhY2tlbmRgLlxuICpcbiAqIFdoZW4gaW5qZWN0ZWQsIGBIdHRwQmFja2VuZGAgZGlzcGF0Y2hlcyByZXF1ZXN0cyBkaXJlY3RseSB0byB0aGUgYmFja2VuZCwgd2l0aG91dCBnb2luZ1xuICogdGhyb3VnaCB0aGUgaW50ZXJjZXB0b3IgY2hhaW4uXG4gKlxuICogQHB1YmxpY0FwaVxuICovXG5leHBvcnQgYWJzdHJhY3QgY2xhc3MgSHR0cEJhY2tlbmQgaW1wbGVtZW50cyBIdHRwSGFuZGxlciB7XG4gIGFic3RyYWN0IGhhbmRsZShyZXE6IEh0dHBSZXF1ZXN0PGFueT4pOiBPYnNlcnZhYmxlPEh0dHBFdmVudDxhbnk+Pjtcbn1cbiJdfQ==

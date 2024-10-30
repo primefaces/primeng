@@ -1,0 +1,6 @@
+"use strict";
+/**
+ * @license Angular v<unknown>
+ * (c) 2010-2024 Google LLC. https://angular.io/
+ * License: MIT
+ */function patchPromiseTesting(o){o.__load_patch("promisefortest",((o,e,s)=>{const t=s.symbol("state"),n=s.symbol("parentUnresolved");Promise[s.symbol("patchPromiseForTest")]=function o(){let s=Promise[e.__symbol__("ZonePromiseThen")];s||(s=Promise[e.__symbol__("ZonePromiseThen")]=Promise.prototype.then,Promise.prototype.then=function(){const o=s.apply(this,arguments);if(null===this[t]){const s=e.current.get("AsyncTestZoneSpec");s&&(s.unresolvedChainedPromiseCount++,o[n]=!0)}return o})},Promise[s.symbol("unPatchPromiseForTest")]=function o(){const s=Promise[e.__symbol__("ZonePromiseThen")];s&&(Promise.prototype.then=s,Promise[e.__symbol__("ZonePromiseThen")]=void 0)}}))}patchPromiseTesting(Zone);

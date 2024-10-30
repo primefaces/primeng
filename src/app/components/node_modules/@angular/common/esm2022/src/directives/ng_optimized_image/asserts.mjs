@@ -1,0 +1,20 @@
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+import { ɵRuntimeError as RuntimeError } from '@angular/core';
+/**
+ * Asserts that the application is in development mode. Throws an error if the application is in
+ * production mode. This assert can be used to make sure that there is no dev-mode code invoked in
+ * the prod mode accidentally.
+ */
+export function assertDevMode(checkName) {
+    if (!ngDevMode) {
+        throw new RuntimeError(2958 /* RuntimeErrorCode.UNEXPECTED_DEV_MODE_CHECK_IN_PROD_MODE */, `Unexpected invocation of the ${checkName} in the prod mode. ` +
+            `Please make sure that the prod mode is enabled for production builds.`);
+    }
+}
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiYXNzZXJ0cy5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uLy4uLy4uLy4uLy4uL3BhY2thZ2VzL2NvbW1vbi9zcmMvZGlyZWN0aXZlcy9uZ19vcHRpbWl6ZWRfaW1hZ2UvYXNzZXJ0cy50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTs7Ozs7O0dBTUc7QUFFSCxPQUFPLEVBQUMsYUFBYSxJQUFJLFlBQVksRUFBQyxNQUFNLGVBQWUsQ0FBQztBQUk1RDs7OztHQUlHO0FBQ0gsTUFBTSxVQUFVLGFBQWEsQ0FBQyxTQUFpQjtJQUM3QyxJQUFJLENBQUMsU0FBUyxFQUFFLENBQUM7UUFDZixNQUFNLElBQUksWUFBWSxxRUFFcEIsZ0NBQWdDLFNBQVMscUJBQXFCO1lBQzVELHVFQUF1RSxDQUMxRSxDQUFDO0lBQ0osQ0FBQztBQUNILENBQUMiLCJzb3VyY2VzQ29udGVudCI6WyIvKipcbiAqIEBsaWNlbnNlXG4gKiBDb3B5cmlnaHQgR29vZ2xlIExMQyBBbGwgUmlnaHRzIFJlc2VydmVkLlxuICpcbiAqIFVzZSBvZiB0aGlzIHNvdXJjZSBjb2RlIGlzIGdvdmVybmVkIGJ5IGFuIE1JVC1zdHlsZSBsaWNlbnNlIHRoYXQgY2FuIGJlXG4gKiBmb3VuZCBpbiB0aGUgTElDRU5TRSBmaWxlIGF0IGh0dHBzOi8vYW5ndWxhci5pby9saWNlbnNlXG4gKi9cblxuaW1wb3J0IHvJtVJ1bnRpbWVFcnJvciBhcyBSdW50aW1lRXJyb3J9IGZyb20gJ0Bhbmd1bGFyL2NvcmUnO1xuXG5pbXBvcnQge1J1bnRpbWVFcnJvckNvZGV9IGZyb20gJy4uLy4uL2Vycm9ycyc7XG5cbi8qKlxuICogQXNzZXJ0cyB0aGF0IHRoZSBhcHBsaWNhdGlvbiBpcyBpbiBkZXZlbG9wbWVudCBtb2RlLiBUaHJvd3MgYW4gZXJyb3IgaWYgdGhlIGFwcGxpY2F0aW9uIGlzIGluXG4gKiBwcm9kdWN0aW9uIG1vZGUuIFRoaXMgYXNzZXJ0IGNhbiBiZSB1c2VkIHRvIG1ha2Ugc3VyZSB0aGF0IHRoZXJlIGlzIG5vIGRldi1tb2RlIGNvZGUgaW52b2tlZCBpblxuICogdGhlIHByb2QgbW9kZSBhY2NpZGVudGFsbHkuXG4gKi9cbmV4cG9ydCBmdW5jdGlvbiBhc3NlcnREZXZNb2RlKGNoZWNrTmFtZTogc3RyaW5nKSB7XG4gIGlmICghbmdEZXZNb2RlKSB7XG4gICAgdGhyb3cgbmV3IFJ1bnRpbWVFcnJvcihcbiAgICAgIFJ1bnRpbWVFcnJvckNvZGUuVU5FWFBFQ1RFRF9ERVZfTU9ERV9DSEVDS19JTl9QUk9EX01PREUsXG4gICAgICBgVW5leHBlY3RlZCBpbnZvY2F0aW9uIG9mIHRoZSAke2NoZWNrTmFtZX0gaW4gdGhlIHByb2QgbW9kZS4gYCArXG4gICAgICAgIGBQbGVhc2UgbWFrZSBzdXJlIHRoYXQgdGhlIHByb2QgbW9kZSBpcyBlbmFibGVkIGZvciBwcm9kdWN0aW9uIGJ1aWxkcy5gLFxuICAgICk7XG4gIH1cbn1cbiJdfQ==
