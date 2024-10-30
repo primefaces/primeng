@@ -1168,15 +1168,10 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
             if (ObjectUtils.isNotEmpty(this.maxSelectedLabels) && modelValue.length > this.maxSelectedLabels) {
                 return this.getSelectedItemsLabel();
             } else {
-                label = '';
-
-                for (let i = 0; i < modelValue.length; i++) {
-                    if (i !== 0) {
-                        label += ', ';
-                    }
-
-                    label += this.getLabelByValue(modelValue[i]);
-                }
+                label = modelValue
+                    .map(modelValue => this.getLabelByValue(modelValue))
+                    .filter(labelByValue => labelByValue !== null)
+                    .join(", ")
             }
         } else {
             label = this.placeholder() || this.defaultLabel || '';
