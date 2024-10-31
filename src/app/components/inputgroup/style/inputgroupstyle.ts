@@ -109,7 +109,7 @@ const theme = ({ dt }) => `
 /*For PrimeNG*/
 
 .p-inputgroup p-button:first-child, .p-inputgroup p-button:last-child {
-    display:inline-flex;
+    display: inline-flex;
 }
 `;
 

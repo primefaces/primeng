@@ -13,7 +13,7 @@ import { InputGroupAddonStyle } from './style/inputgroupaddonstyle';
     host: {
         '[class]': 'styleClass',
         '[class.p-inputgroupaddon]': 'true',
-        '[attr.data-pc-name]': 'inputgroupaddon',
+        '[attr.data-pc-name]': "'inputgroupaddon'",
     },
     providers: [InputGroupAddonStyle],
 })
