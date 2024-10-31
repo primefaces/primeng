@@ -18,7 +18,7 @@ import { AccessibilityDoc } from './accessibilitydoc';
 import { SeverityDoc } from './severitydoc';
 import { SizesDoc } from './sizesdoc';
 import { OutlinedDoc } from './outlineddoc';
-import { PlainDoc } from './plaindoc';
+import { SimpleDoc } from './simpledoc';
 
 @NgModule({
     imports: [CommonModule, AppCodeModule, RouterModule, MessageModule, AppDocModule, AvatarModule, InputTextModule, ButtonModule],
@@ -33,7 +33,7 @@ import { PlainDoc } from './plaindoc';
         LifeDoc,
         SizesDoc,
         OutlinedDoc,
-        PlainDoc,
+        SimpleDoc,
         AccessibilityDoc,
     ],
     exports: [AppDocModule],

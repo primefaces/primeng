@@ -69,12 +69,12 @@ const theme = ({ dt }) => `
     background: ${dt('message.info.close.button.hover.background')};
 }
 
-.p-message-info.p-message-variant-outlined {
+.p-message-info.p-message-outlined {
     color: ${dt('message.info.outlined.color')};
     outline-color: ${dt('message.info.outlined.border.color')};
 }
 
-.p-message-info.p-message-variant-plain {
+.p-message-info.p-message-simple {
     color: ${dt('message.info.plain.color')};
 }
 
@@ -94,12 +94,12 @@ const theme = ({ dt }) => `
     background: ${dt('message.success.close.button.hover.background')};
 }
 
-.p-message-success.p-message-variant-outlined {
+.p-message-success.p-message-outlined {
     color: ${dt('message.success.outlined.color')};
     outline-color: ${dt('message.success.outlined.border.color')};
 }
 
-.p-message-success.p-message-variant-plain {
+.p-message-success.p-message-simple {
     color: ${dt('message.success.plain.color')};
 }
 
@@ -119,12 +119,12 @@ const theme = ({ dt }) => `
     background: ${dt('message.warn.close.button.hover.background')};
 }
 
-.p-message-warn.p-message-variant-outlined {
+.p-message-warn.p-message-outlined {
     color: ${dt('message.warn.outlined.color')};
     outline-color: ${dt('message.warn.outlined.border.color')};
 }
 
-.p-message-warn.p-message-variant-plain {
+.p-message-warn.p-message-simple {
     color: ${dt('message.warn.plain.color')};
 }
 
@@ -144,12 +144,12 @@ const theme = ({ dt }) => `
     background: ${dt('message.error.close.button.hover.background')};
 }
 
-.p-message-error.p-message-variant-outlined {
+.p-message-error.p-message-outlined {
     color: ${dt('message.error.outlined.color')};
     outline-color: ${dt('message.error.outlined.border.color')};
 }
 
-.p-message-error.p-message-variant-plain {
+.p-message-error.p-message-simple {
     color: ${dt('message.error.plain.color')};
 }
 
@@ -169,12 +169,12 @@ const theme = ({ dt }) => `
     background: ${dt('message.secondary.close.button.hover.background')};
 }
 
-.p-message-secondary.p-message-variant-outlined {
+.p-message-secondary.p-message-outlined {
     color: ${dt('message.secondary.outlined.color')};
     outline-color: ${dt('message.secondary.outlined.border.color')};
 }
 
-.p-message-secondary.p-message-variant-plain {
+.p-message-secondary.p-message-simple {
     color: ${dt('message.secondary.plain.color')};
 }
 
@@ -194,12 +194,12 @@ const theme = ({ dt }) => `
     background: ${dt('message.contrast.close.button.hover.background')};
 }
 
-.p-message-contrast.p-message-variant-outlined {
+.p-message-contrast.p-message-outlined {
     color: ${dt('message.contrast.outlined.color')};
     outline-color: ${dt('message.contrast.outlined.border.color')};
 }
 
-.p-message-contrast.p-message-variant-plain {
+.p-message-contrast.p-message-simple {
     color: ${dt('message.contrast.plain.color')};
 }
 
@@ -281,25 +281,25 @@ const theme = ({ dt }) => `
     height: ${dt('message.close.icon.lg.size')};
 }
 
-.p-message-variant-outlined {
+.p-message-outlined {
     background: transparent;
     outline-width: ${dt('message.outlined.border.width')};
 }
 
-.p-message-variant-plain {
+.p-message-simple {
     background: transparent;
     outline-color: transparent;
     box-shadow: none;
 }
 
-.p-message-variant-outlined .p-message-close-button:hover,
-.p-message-variant-plain .p-message-close-button:hover {
+.p-message-outlined .p-message-close-button:hover,
+.p-message-simple .p-message-close-button:hover {
     background: transparent;
 }
 `;
 
 const classes = {
-    root: ({ props }) => 'p-message p-component p-message-' + props.severity,
+    root: ({ props }) => ['p-message p-component p-message-' + props.severity, { 'p-message-simple': props.variant === 'simple' }],
     content: 'p-message-content',
     icon: 'p-message-icon',
     text: 'p-message-text',

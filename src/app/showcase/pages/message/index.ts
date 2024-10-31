@@ -10,7 +10,7 @@ import { AccessibilityDoc } from '@doc/message/accessibilitydoc';
 import { SeverityDoc } from '@doc/message/severitydoc';
 import { SizesDoc } from '@doc/message/sizesdoc';
 import { OutlinedDoc } from '@doc/message/outlineddoc';
-import { PlainDoc } from '@doc/message/plaindoc';
+import { SimpleDoc } from '@doc/message/simpledoc';
 
 @Component({
     template: `<app-doc
@@ -52,9 +52,9 @@ export class MessageDemo {
             component: OutlinedDoc,
         },
         {
-            id: 'plain',
-            label: 'Plain',
-            component: PlainDoc,
+            id: 'simple',
+            label: 'Simple',
+            component: SimpleDoc,
         },
         {
             id: 'sizes',
