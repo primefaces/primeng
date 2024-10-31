@@ -2604,8 +2604,8 @@ export class DatePicker extends BaseComponent implements OnInit, OnDestroy, Cont
             if (this.navigationState.button) {
                 this.initFocusableCell();
 
-                if (this.navigationState.backward) DomHandler.findSingle(this.contentViewChild.nativeElement, '.p-datepicker-prev').focus();
-                else DomHandler.findSingle(this.contentViewChild.nativeElement, '.p-datepicker-next').focus();
+                if (this.navigationState.backward) DomHandler.findSingle(this.contentViewChild.nativeElement, '.p-datepicker-prev-button').focus();
+                else DomHandler.findSingle(this.contentViewChild.nativeElement, '.p-datepicker-next-button').focus();
             } else {
                 if (this.navigationState.backward) {
                     let cells;
