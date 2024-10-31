@@ -16,10 +16,26 @@ import { ClosableDoc } from './closabledoc';
 import { LifeDoc } from './lifedoc';
 import { AccessibilityDoc } from './accessibilitydoc';
 import { SeverityDoc } from './severitydoc';
+import { SizesDoc } from './sizesdoc';
+import { OutlinedDoc } from './outlineddoc';
+import { PlainDoc } from './plaindoc';
 
 @NgModule({
     imports: [CommonModule, AppCodeModule, RouterModule, MessageModule, AppDocModule, AvatarModule, InputTextModule, ButtonModule],
-    declarations: [BasicDoc, SeverityDoc, ImportDoc, IconDoc, FormDoc, DynamicDoc, ClosableDoc, LifeDoc, AccessibilityDoc],
+    declarations: [
+        BasicDoc,
+        SeverityDoc,
+        ImportDoc,
+        IconDoc,
+        FormDoc,
+        DynamicDoc,
+        ClosableDoc,
+        LifeDoc,
+        SizesDoc,
+        OutlinedDoc,
+        PlainDoc,
+        AccessibilityDoc,
+    ],
     exports: [AppDocModule],
 })
 export class MessageDocModule {}

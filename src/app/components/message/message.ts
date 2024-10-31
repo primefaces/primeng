@@ -11,7 +11,7 @@ import {
     Output,
     signal,
     TemplateRef,
-    ViewEncapsulation
+    ViewEncapsulation,
 } from '@angular/core';
 import { BaseComponent } from 'primeng/basecomponent';
 import { CheckIcon } from 'primeng/icons/check';
@@ -65,7 +65,9 @@ import { TimesIcon } from 'primeng/icons/times';
                     @if (containerTemplate) {
                         <ng-container *ngTemplateOutlet="containerTemplate; context: { closeCallback: close.bind($event) }"></ng-container>
                     } @else {
-                        <ng-content></ng-content>
+                        <span [ngClass]="cx('text')">
+                            <ng-content></ng-content>
+                        </span>
                     }
                     @if (closable) {
                         <button pRipple type="button" class="p-message-close-button" (click)="close($event)">
@@ -170,6 +172,16 @@ export class Message extends BaseComponent {
      */
     @Input() hideTransitionOptions: string = '200ms cubic-bezier(0.86, 0, 0.07, 1)';
     /**
+     * Defines the size of the component.
+     * @group Props
+     */
+    @Input() size: 'large' | 'small' | undefined;
+    /**
+     * Specifies the input variant of the component.
+     * @group Props
+     */
+    @Input() variant: 'outlined' | 'text' | 'plain' | undefined;
+    /**
      * Emits when the message is closed.
      * @param {{ originalEvent: Event }} event - The event object containing the original event.
      * @group Emits
@@ -177,9 +189,12 @@ export class Message extends BaseComponent {
     @Output() onClose: EventEmitter<{ originalEvent: Event }> = new EventEmitter<{ originalEvent: Event }>();
 
     get containerClass(): string {
-        return `p-message-${this.severity}` + `${this.styleClass ? ' ' + this.styleClass : ''}`;
-    }
+        const variantClass =
+            this.variant === 'outlined' ? 'p-message-variant-outlined' : this.variant === 'plain' ? 'p-message-variant-plain' : '';
+        const sizeClass = this.size === 'small' ? 'p-message-sm' : this.size === 'large' ? 'p-message-lg' : '';
 
+        return `p-message-${this.severity} ${variantClass} ${sizeClass}`.trim() + (this.styleClass ? ' ' + this.styleClass : '');
+    }
     visible = signal<boolean>(true);
 
     _componentStyle = inject(MessageStyle);
