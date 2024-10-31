@@ -376,6 +376,7 @@ export const Password_VALUE_ACCESSOR: any = {
                 [attr.id]="inputId"
                 pInputText
                 [disabled]="disabled"
+                [size]="size"
                 [ngClass]="disabled | mapper: inputFieldClass"
                 [ngStyle]="inputStyle"
                 [class]="inputStyleClass"
@@ -556,6 +557,11 @@ export class Password extends BaseComponent implements OnInit {
      * @group Props
      */
     @Input({ transform: booleanAttribute }) toggleMask: boolean | undefined;
+    /**
+     * Defines the size of the component.
+     * @group Props
+     */
+    @Input() size: 'large' | 'small'; 
     /**
      * Style class of the input field.
      * @group Props

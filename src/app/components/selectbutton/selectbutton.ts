@@ -46,6 +46,7 @@ export const SELECTBUTTON_VALUE_ACCESSOR: any = {
                 [disabled]="disabled || isOptionDisabled(option)"
                 (onChange)="onOptionSelect($event, option, i)"
                 [allowEmpty]="allowEmpty"
+                [size]="size"
             >
                 @if (itemTemplate) {
                     <ng-template #content>
@@ -124,6 +125,11 @@ export class SelectButton extends BaseComponent implements ControlValueAccessor 
      * @group Props
      */
     @Input() ariaLabelledBy: string | undefined;
+    /**
+     * Defines the size of the component.
+     * @group Props
+     */
+    @Input() size: 'large' | 'small';
     /**
      * When present, it specifies that the element should be disabled.
      * @group Props

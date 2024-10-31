@@ -370,6 +370,28 @@ position: relative;
     justify-content: center;
 }
 
+.p-datepicker:has(.p-inputtext-sm) .p-datepicker-dropdown {
+    width: ${dt('datepicker.dropdown.sm.width')};
+}
+
+.p-datepicker:has(.p-inputtext-sm) .p-datepicker-dropdown .p-icon,
+.p-datepicker:has(.p-inputtext-sm) .p-datepicker-input-icon {
+    font-size: ${dt('form.field.sm.font.size')};
+    width: ${dt('form.field.sm.font.size')};
+    height: ${dt('form.field.sm.font.size')};
+}
+
+.p-datepicker:has(.p-inputtext-lg) .p-datepicker-dropdown {
+    width: ${dt('datepicker.dropdown.lg.width')};
+}
+
+.p-datepicker:has(.p-inputtext-lg) .p-datepicker-dropdown .p-icon,
+.p-datepicker:has(.p-inputtext-lg) .p-datepicker-input-icon {
+    font-size: ${dt('form.field.lg.font.size')};
+    width: ${dt('form.field.lg.font.size')};
+    height: ${dt('form.field.lg.font.size')};
+}
+
 /* For PrimeNG */
 
 p-calendar.ng-invalid.ng-dirty .p-datepicker.p-inputwrapper .p-inputtext{

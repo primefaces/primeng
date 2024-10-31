@@ -107,7 +107,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                 aria-autocomplete="list"
                 role="combobox"
                 [attr.placeholder]="placeholder"
-                [attr.size]="size"
+                [size]="size"
                 [attr.maxlength]="maxlength"
                 [tabindex]="!disabled ? tabindex : -1"
                 [readonly]="readonly"
@@ -196,7 +196,6 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                         [attr.name]="name"
                         role="combobox"
                         [attr.placeholder]="!filled ? placeholder : null"
-                        [attr.size]="size"
                         aria-autocomplete="list"
                         [attr.maxlength]="maxlength"
                         [tabindex]="!disabled ? tabindex : -1"
@@ -465,10 +464,10 @@ export class AutoComplete extends BaseComponent implements AfterViewChecked, Aft
      */
     @Input({ transform: booleanAttribute }) required: boolean | undefined;
     /**
-     * Size of the input field.
+     * Defines the size of the component.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) size: number | undefined;
+    @Input() size: 'large' | 'small';   
     /**
      * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
      * @group Props

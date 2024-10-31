@@ -8,6 +8,7 @@ import { ImportDoc } from '@doc/radiobutton/importdoc';
 import { InvalidDoc } from '@doc/radiobutton/invaliddoc';
 import { FilledDoc } from '@doc/radiobutton/filleddoc';
 import { RadioButtonDocModule } from '@doc/radiobutton/radiobuttondoc.module';
+import { SizesDoc } from '@doc/radiobutton/sizesdoc';
 
 @Component({
     template: `<app-doc
@@ -47,6 +48,11 @@ export class RadioButtonDemo {
             id: 'filled',
             label: 'Filled',
             component: FilledDoc,
+        },
+        {
+            id: 'sizes',
+            label: 'Sizes',
+            component: SizesDoc
         },
         {
             id: 'invalid',

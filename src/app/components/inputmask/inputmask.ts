@@ -79,7 +79,7 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
             [ngStyle]="style"
             [attr.placeholder]="placeholder"
             [attr.title]="title"
-            [attr.size]="size"
+            [size]="size"
             [attr.autocomplete]="autocomplete"
             [attr.maxlength]="maxlength"
             [attr.tabindex]="tabindex"
@@ -159,10 +159,10 @@ export class InputMask extends BaseComponent implements OnInit, ControlValueAcce
      */
     @Input() placeholder: string | undefined;
     /**
-     * Size of the input field.
+     * Defines the size of the component.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) size: number | undefined;
+    @Input() size: 'large' | 'small';   
     /**
      * Maximum number of character allows in the input field.
      * @group Props

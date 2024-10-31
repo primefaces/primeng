@@ -645,6 +645,11 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
      */
     @Input() virtualScrollOptions: ScrollerOptions | undefined;
     /**
+     * Defines the size of the component.
+     * @group Props
+     */
+    @Input() size: 'large' | 'small';   
+    /**
      * Whether to use overlay API feature. The properties of overlay API can be used like an object in it.
      * @group Props
      */

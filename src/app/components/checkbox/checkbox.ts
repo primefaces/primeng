@@ -155,6 +155,11 @@ export class Checkbox extends BaseComponent implements ControlValueAccessor {
      */
     @Input({ transform: booleanAttribute }) indeterminate: boolean = false;
     /**
+     * Defines the size of the component.
+     * @group Props
+     */
+    @Input() size: 'large' | 'small';   
+    /**
      * Form control value.
      * @group Props
      */
@@ -225,6 +230,8 @@ export class Checkbox extends BaseComponent implements ControlValueAccessor {
             'p-checkbox-checked p-highlight': this.checked,
             'p-disabled': this.disabled,
             'p-variant-filled': this.variant === 'filled' || this.config.inputStyle() === 'filled',
+            'p-checkbox-sm p-inputfield-sm': this.size === 'small',
+            'p-checkbox-lg p-inputfield-lg': this.size === 'large'
         };
     }
 

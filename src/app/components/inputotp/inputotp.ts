@@ -88,6 +88,7 @@ export interface InputOtpInputTemplateContext {
                     [maxLength]="1"
                     [type]="inputType"
                     class="p-inputotp-input"
+                    [size]="size"
                     [variant]="variant"
                     [readonly]="readonly"
                     [disabled]="disabled"
@@ -168,6 +169,11 @@ export class InputOtp extends BaseComponent implements AfterContentInit {
      * @group Props
      */
     @Input({ transform: booleanAttribute }) autofocus: boolean | undefined;
+    /**
+     * Defines the size of the component.
+     * @group Props
+     */
+    @Input() size: 'large' | 'small';
     /**
      * Callback to invoke on value change.
      * @group Emits

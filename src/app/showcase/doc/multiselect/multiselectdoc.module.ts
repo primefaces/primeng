@@ -24,6 +24,7 @@ import { FilledDoc } from './filleddoc';
 import { IftaLabelModule } from 'primeng/iftalabel';
 import { IftaLabelDoc } from './iftalabeldoc';
 import { ButtonModule } from 'primeng/button';
+import { SizesDoc } from './sizesdoc';
 
 @NgModule({
     imports: [
@@ -56,6 +57,7 @@ import { ButtonModule } from 'primeng/button';
         ReactiveFormsDoc,
         LoadingStateDoc,
         FilledDoc,
+        SizesDoc
     ],
 })
 export class MultiSelectDocModule {}

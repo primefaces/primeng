@@ -6,6 +6,7 @@ import { AccessibilityDoc } from '@doc/iconfield/accessibilitydoc';
 import { IconFieldDocModule } from '@doc/iconfield/iconfielddoc.module';
 import { FloatLabelDoc } from '@doc/iconfield/floatlabeldoc';
 import { IftaLabelDoc } from '@doc/iconfield/iftalabeldoc';
+import { SizesDoc } from '@doc/iconfield/sizesdoc';
 
 @Component({
     template: ` <app-doc
@@ -45,6 +46,11 @@ export class IconFieldDemo {
             id: 'iftalabel',
             label: 'Ifta Label',
             component: IftaLabelDoc,
+        },
+        {
+            id: 'sizes',
+            label: 'Sizes',
+            component: SizesDoc,
         },
         {
             id: 'accessibility',

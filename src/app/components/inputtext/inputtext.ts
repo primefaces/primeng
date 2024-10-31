@@ -28,7 +28,9 @@ import { ObjectUtils } from 'primeng/utils';
         '[class.p-variant-filled]': 'variant === "filled" || config.inputStyle() === "filled"',
         '[class.p-inputtext-fluid]': 'hasFluid',
         '[class.p-inputtext-sm]': 'size === "small"',
+        '[class.p-inputfield-sm]': 'size === "small"',
         '[class.p-inputtext-lg]': 'size === "large"',
+        '[class.p-inputfield-lg]': 'size === "large"',
     },
     providers: [InputTextStyle],
 })
@@ -47,7 +49,7 @@ export class InputText extends BaseComponent implements DoCheck, AfterViewInit {
      * Defines the size of the component.
      * @group Props
      */
-    @Input() size: 'large' | 'small';
+    @Input() size: 'large' | 'small';   
 
     filled: Nullable<boolean>;
 
