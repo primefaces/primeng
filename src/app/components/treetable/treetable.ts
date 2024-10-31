@@ -3654,7 +3654,7 @@ export class TTEditableColumn implements AfterViewInit {
 }
 
 @Component({
-    selector: 'p-treeTableCellEditor',
+    selector: 'p-treeTableCellEditor, p-treetablecelleditor, p-treetable-cell-editor',
     template: `
         <ng-container *ngIf="tt.editingCell === editableColumn.el.nativeElement">
             <ng-container *ngTemplateOutlet="inputTemplate"></ng-container>
