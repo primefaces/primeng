@@ -40,10 +40,14 @@ const theme = ({ dt }) => `
     border-right: 1px solid ${dt('inputgroup.addon.border.color')};
 }
 
+
 .p-inputgroup > .p-component, .p-inputgroup > p-button > .p-button,
-.p-inputgroup > .p-inputwrapper > .p-inputtext,
+.p-inputgroup > .p-component,
+.p-inputgroup > .p-inputwrapper > .p-component,
 .p-inputgroup > .p-floatlabel > .p-component,
-.p-inputgroup > .p-iftalabel > .p-component {
+.p-inputgroup > .p-floatlabel > .p-inputwrapper > .p-component,
+.p-inputgroup > .p-iftalabel > .p-component,
+.p-inputgroup > .p-iftalabel > .p-inputwrapper > .p-component {
     border-radius: 0;
     margin: 0;
 }
@@ -69,14 +73,22 @@ const theme = ({ dt }) => `
     z-index: 1;
 }
 
+
 .p-inputgroupaddon:first-child,
+.p-inputgroup > .p-component:first-child,
 .p-inputgroup p-button:first-child > .p-button,
 .p-inputgroup input:first-child,
 .p-inputgroup > .p-inputwrapper:first-child,
-.p-inputgroup > .p-inputwrapper:first-child > .p-inputtext {
-    border-top-left-radius: ${dt('inputgroup.addon.border.radius')};
-    border-bottom-left-radius: ${dt('inputgroup.addon.border.radius')};
+.p-inputgroup > .p-inputwrapper:first-child > .p-inputtext
+.p-inputgroup > .p-inputwrapper:first-child > .p-component,
+.p-inputgroup > .p-floatlabel:first-child > .p-component,
+.p-inputgroup > .p-floatlabel:first-child > .p-inputwrapper > .p-component,
+.p-inputgroup > .p-iftalabel:first-child > .p-component,
+.p-inputgroup > .p-iftalabel:first-child > .p-inputwrapper > .p-component {
+    border-start-start-radius: ${dt('inputgroup.addon.border.radius')};
+    border-end-start-radius: ${dt('inputgroup.addon.border.radius')};
 }
+
 
 .p-inputgroup .p-floatlabel:first-child input,
 .p-inputgroup .p-iftalabel:first-child input {
@@ -84,13 +96,21 @@ const theme = ({ dt }) => `
     border-bottom-left-radius: ${dt('inputgroup.addon.border.radius')};
 }
 
+
+
 .p-inputgroupaddon:last-child,
 .p-inputgroup p-button:last-child > .p-button,
 .p-inputgroup input:last-child,
 .p-inputgroup > .p-inputwrapper:last-child,
-.p-inputgroup > .p-inputwrapper:last-child > .p-inputtext {
-    border-top-right-radius: ${dt('inputgroup.addon.border.radius')};
-    border-bottom-right-radius: ${dt('inputgroup.addon.border.radius')};
+.p-inputgroup > .p-inputwrapper:last-child > .p-inputtext
+.p-inputgroup > .p-component:last-child,
+.p-inputgroup > .p-inputwrapper:last-child > .p-component,
+.p-inputgroup > .p-floatlabel:last-child > .p-component,
+.p-inputgroup > .p-floatlabel:last-child > .p-inputwrapper > .p-component,
+.p-inputgroup > .p-iftalabel:last-child > .p-component,
+.p-inputgroup > .p-iftalabel:last-child > .p-inputwrapper > .p-component {
+    border-start-end-radius: ${dt('inputgroup.addon.border.radius')};
+    border-end-end-radius: ${dt('inputgroup.addon.border.radius')};
 }
 
 .p-inputgroup .p-floatlabel:last-child input,
