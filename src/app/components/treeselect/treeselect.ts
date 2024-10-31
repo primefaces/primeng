@@ -17,7 +17,7 @@ import {
     ViewEncapsulation,
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { OverlayOptions, ScrollerOptions, TreeNode } from 'primeng/api';
+import { OverlayOptions, ScrollerOptions, SharedModule, TreeNode } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { ChevronDownIcon } from 'primeng/icons/chevrondown';
 import { SearchIcon } from 'primeng/icons/search';
@@ -46,7 +46,7 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-treeSelect, p-treeselect',
     standalone: true,
-    imports: [CommonModule, Overlay, Ripple, InputText, Tree, AutoFocus, SearchIcon, TimesIcon, ChevronDownIcon, Chip],
+    imports: [CommonModule, Overlay, SharedModule, Ripple, InputText, Tree, AutoFocus, SearchIcon, TimesIcon, ChevronDownIcon, Chip],
     template: `
         <div #container [ngClass]="containerClass" [class]="containerStyleClass" [ngStyle]="containerStyle" (click)="onClick($event)">
             <div class="p-hidden-accessible">
@@ -121,7 +121,7 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
                 (onShow)="onShow.emit($event)"
                 (onHide)="hide($event)"
             >
-                <ng-template pTemplate="content">
+                <ng-template #content>
                     <div
                         #panel
                         [attr.id]="listId"
@@ -169,17 +169,17 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
                                 [loading]="loading"
                             >
                                 <ng-container *ngIf="emptyTemplate">
-                                    <ng-template pTemplate="empty">
+                                    <ng-template #empty>
                                         <ng-container *ngTemplateOutlet="emptyTemplate"></ng-container>
                                     </ng-template>
                                 </ng-container>
-                                <ng-template pTemplate="togglericon" let-expanded *ngIf="itemTogglerIconTemplate">
+                                <ng-template #togglericon let-expanded *ngIf="itemTogglerIconTemplate">
                                     <ng-container
                                         *ngTemplateOutlet="itemTogglerIconTemplate; context: { $implicit: expanded }"
                                     ></ng-container>
                                 </ng-template>
                                 <ng-template
-                                    pTemplate="checkboxicon"
+                                    #checkboxicon
                                     let-selected
                                     let-partialSelected="partialSelected"
                                     *ngIf="itemCheckboxIconTemplate"
@@ -191,7 +191,7 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
                                         "
                                     ></ng-container>
                                 </ng-template>
-                                <ng-template pTemplate="loadingicon" *ngIf="itemLoadingIconTemplate">
+                                <ng-template #loadingicon *ngIf="itemLoadingIconTemplate">
                                     <ng-container *ngTemplateOutlet="itemLoadingIconTemplate"></ng-container>
                                 </ng-template>
                             </p-tree>

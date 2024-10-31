@@ -248,7 +248,7 @@ export class MultiSelectItem extends BaseComponent {
                                 [removeIcon]="chipIcon"
                             >
                                 <ng-container *ngIf="chipIconTemplate || removeTokenIconTemplate">
-                                    <ng-template pTemplate="removeicon">
+                                    <ng-template #removeicon>
                                         <ng-container *ngIf="!disabled">
                                             <span
                                                 class="p-multiselect-chip-icon"
@@ -346,7 +346,7 @@ export class MultiSelectItem extends BaseComponent {
             (onAnimationStart)="onOverlayAnimationStart($event)"
             (onHide)="hide()"
         >
-            <ng-template pTemplate="content">
+            <ng-template #content>
                 <div
                     [attr.id]="id + '_list'"
                     [ngClass]="'p-multiselect-overlay p-component'"
@@ -378,7 +378,7 @@ export class MultiSelectItem extends BaseComponent {
                                 [variant]="variant"
                                 [disabled]="disabled"
                             >
-                                <ng-template pTemplate="icon" let-class="class">
+                                <ng-template #icon let-class="class">
                                     <CheckIcon
                                         *ngIf="!headerCheckboxIconTemplate && allSelected()"
                                         [styleClass]="class"
@@ -404,9 +404,7 @@ export class MultiSelectItem extends BaseComponent {
                                         pInputText
                                         [variant]="variant"
                                         type="text"
-                                        role="searchbox"
                                         [attr.autocomplete]="autocomplete"
-                                        [attr.placeholder]="filterPlaceHolder"
                                         role="searchbox"
                                         [attr.aria-owns]="id + '_list'"
                                         [attr.aria-activedescendant]="focusedOptionId"
@@ -443,13 +441,13 @@ export class MultiSelectItem extends BaseComponent {
                             (onLazyLoad)="onLazyLoad.emit($event)"
                             [options]="virtualScrollOptions"
                         >
-                            <ng-template pTemplate="content" let-items let-scrollerOptions="options">
+                            <ng-template #content let-items let-scrollerOptions="options">
                                 <ng-container
                                     *ngTemplateOutlet="buildInItems; context: { $implicit: items, options: scrollerOptions }"
                                 ></ng-container>
                             </ng-template>
                             <ng-container *ngIf="loaderTemplate">
-                                <ng-template pTemplate="loader" let-scrollerOptions="options">
+                                <ng-template #loader let-scrollerOptions="options">
                                     <ng-container *ngTemplateOutlet="loaderTemplate; context: { options: scrollerOptions }"></ng-container>
                                 </ng-template>
                             </ng-container>

@@ -255,7 +255,7 @@ export class CascadeSelectSub extends BaseComponent implements OnInit {
 @Component({
     selector: 'p-cascadeSelect, p-cascadeselect',
     standalone: true,
-    imports: [CommonModule, Overlay, Ripple, AutoFocus, CascadeSelectSub, ChevronDownIcon, AngleRightIcon, TimesIcon],
+    imports: [CommonModule, Overlay, Ripple, AutoFocus, CascadeSelectSub, ChevronDownIcon, AngleRightIcon, TimesIcon, SharedModule],
     template: ` <div
         #container
         [ngClass]="containerClass"
@@ -1532,7 +1532,7 @@ export class CascadeSelect extends BaseComponent implements OnInit {
 }
 
 @NgModule({
-    imports: [CascadeSelect, SharedModule],
+    imports: [CascadeSelect],
     exports: [CascadeSelect, SharedModule],
 })
 export class CascadeSelectModule {}

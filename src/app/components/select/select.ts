@@ -268,7 +268,7 @@ export class SelectItem extends BaseComponent {
             (onAnimationStart)="onOverlayAnimationStart($event)"
             (onHide)="hide()"
         >
-            <ng-template pTemplate="content">
+            <ng-template #content>
                 <div [ngClass]="'p-select-overlay p-component'" [ngStyle]="panelStyle" [class]="panelStyleClass">
                     <span
                         #firstHiddenFocusableEl
@@ -325,7 +325,7 @@ export class SelectItem extends BaseComponent {
                             (onLazyLoad)="onLazyLoad.emit($event)"
                             [options]="virtualScrollOptions"
                         >
-                            <ng-template pTemplate="content" let-items let-scrollerOptions="options">
+                            <ng-template #content let-items let-scrollerOptions="options">
                                 <ng-container
                                     *ngTemplateOutlet="buildInItems; context: { $implicit: items, options: scrollerOptions }"
                                 ></ng-container>

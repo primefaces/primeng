@@ -15,8 +15,9 @@ const theme = ({ dt }) => `
     padding: ${dt('inputgroup.addon.padding')};
     background: ${dt('inputgroup.addon.background')};
     color: ${dt('inputgroup.addon.color')};
-    border-block-start: 1px solid ${dt('inputgroup.addon.border.color')};
-    border-block-end: 1px solid ${dt('inputgroup.addon.border.color')};
+    border-top: 1px solid ${dt('inputgroup.addon.border.color')};
+    border-left: 1px solid ${dt('inputgroup.addon.border.color')};
+    border-bottom: 1px solid ${dt('inputgroup.addon.border.color')};
     min-width: ${dt('inputgroup.addon.min.width')};
 }
 
@@ -109,7 +110,7 @@ const theme = ({ dt }) => `
 /*For PrimeNG*/
 
 .p-inputgroup p-button:first-child, .p-inputgroup p-button:last-child {
-    display:inline-flex;
+    display: inline-flex;
 }
 `;
 

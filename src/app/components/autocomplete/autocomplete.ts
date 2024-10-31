@@ -77,6 +77,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
         TimesIcon,
         ChevronDownIcon,
         Chip,
+        SharedModule,
     ],
     template: `
         <div
@@ -1852,7 +1853,7 @@ export class AutoComplete extends BaseComponent implements AfterViewChecked, Aft
 }
 
 @NgModule({
-    imports: [AutoComplete, SharedModule],
+    imports: [AutoComplete],
     exports: [AutoComplete, SharedModule],
 })
 export class AutoCompleteModule {}
