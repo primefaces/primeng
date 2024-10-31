@@ -265,7 +265,7 @@ position: relative;
     cursor: pointer;
     overflow: hidden;
     position: relative;
-    padding: ${dt('datepicker.date.padding')};
+    padding: ${dt('datepicker.month.padding')};
     transition: background ${dt('datepicker.transition.duration')}, color ${dt('datepicker.transition.duration')}, border-color ${dt('datepicker.transition.duration')}, box-shadow ${dt('datepicker.transition.duration')}, outline-color ${dt(
         'datepicker.transition.duration',
     )};
@@ -302,7 +302,7 @@ position: relative;
     cursor: pointer;
     overflow: hidden;
     position: relative;
-    padding: ${dt('datepicker.date.padding')};
+    padding: ${dt('datepicker.year.padding')};
     transition: background ${dt('datepicker.transition.duration')}, color ${dt('datepicker.transition.duration')}, border-color ${dt('datepicker.transition.duration')}, box-shadow ${dt('datepicker.transition.duration')}, outline-color ${dt(
         'datepicker.transition.duration',
     )};

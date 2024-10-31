@@ -12,14 +12,12 @@ const theme = ({ dt }) => `
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0.5rem;
+    padding: ${dt('inputgroup.addon.padding')};
     background: ${dt('inputgroup.addon.background')};
     color: ${dt('inputgroup.addon.color')};
-    border-top: 1px solid ${dt('inputgroup.addon.border.color')};
-    border-left: 1px solid ${dt('inputgroup.addon.border.color')};
-    border-bottom: 1px solid ${dt('inputgroup.addon.border.color')};
-    padding: 0.5rem 0.75rem;
-    min-width: 2.5rem;
+    border-block-start: 1px solid ${dt('inputgroup.addon.border.color')};
+    border-block-end: 1px solid ${dt('inputgroup.addon.border.color')};
+    min-width: ${dt('inputgroup.addon.min.width')};
 }
 
 .p-inputgroup .p-floatlabel,

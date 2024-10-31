@@ -1,4 +1,3 @@
-import { AnimationEvent } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import {
     booleanAttribute,
@@ -32,7 +31,7 @@ import { ChevronDownIcon } from 'primeng/icons/chevrondown';
 import { TimesIcon } from 'primeng/icons/times';
 import { Overlay } from 'primeng/overlay';
 import { Ripple } from 'primeng/ripple';
-import { Nullable } from 'primeng/ts-helpers';
+import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
 import {
     CascadeSelectBeforeHideEvent,
@@ -361,7 +360,7 @@ export class CascadeSelectSub extends BaseComponent implements OnInit {
             <ng-template #content>
                 <div
                     #panel
-                    class="p-cascadeselect-overlay p-component"
+                    [ngClass]="{ 'p-cascadeselect-overlay p-component': true, 'p-cascadeselect-mobile-active': queryMatches() }"
                     [class]="panelStyleClass"
                     [ngStyle]="panelStyle"
                     [attr.data-pc-section]="'panel'"
@@ -614,6 +613,11 @@ export class CascadeSelect extends BaseComponent implements OnInit {
      * @group Props
      */
     @Input({ transform: booleanAttribute }) fluid: boolean = false;
+    /**
+     * The breakpoint to define the maximum width boundary.
+     * @group Props
+     */
+    @Input() breakpoint: string = '960px';
     /**
      * Callback to invoke on value change.
      * @param {CascadeSelectChangeEvent} event - Custom change event.
@@ -1165,26 +1169,7 @@ export class CascadeSelect extends BaseComponent implements OnInit {
             this.onOptionChange({ originalEvent: event, processedOption: this.visibleOptions()[index], isHide: false });
         }
     }
-
-    onOptionChange(event) {
-        const { originalEvent, value, isFocus, isHide } = event;
-        if (ObjectUtils.isEmpty(value)) return;
-
-        const { index, level, parentKey, children } = value;
-        const grouped = ObjectUtils.isNotEmpty(children);
-
-        const activeOptionPath = this.activeOptionPath().filter((p) => p.parentKey !== parentKey);
-
-        activeOptionPath.push(value);
-
-        this.focusedOptionInfo.set({ index, level, parentKey });
-        this.activeOptionPath.set(activeOptionPath);
-
-        grouped
-            ? this.onOptionGroupSelect({ originalEvent, value, isFocus: false })
-            : this.onOptionSelect({ originalEvent, value, isFocus });
-        isFocus && DomHandler.focus(this.focusInputViewChild.nativeElement);
-    }
+    matchMediaListener: VoidListener;
 
     onOptionSelect(event) {
         const { originalEvent, value, isFocus } = event;
@@ -1445,14 +1430,81 @@ export class CascadeSelect extends BaseComponent implements OnInit {
             }
         });
     }
+    query: any;
+    queryMatches = signal<boolean>(false);
+    mobileActive = signal<boolean>(false);
+
+    onOptionChange(event) {
+        const { originalEvent, value, isFocus, isHide } = event;
+        if (ObjectUtils.isEmpty(value)) return;
+
+        const { index, level, parentKey, children, key } = value;
+
+        const grouped = ObjectUtils.isNotEmpty(children);
+        const selected = this.isSelected(value);
+        if (selected) {
+            const activeOptionPath = this.activeOptionPath().filter((p) => key !== p.key && key.startsWith(p.key));
+            this.activeOptionPath.set([...activeOptionPath]);
+            this.focusedOptionInfo.set({ index, level, parentKey });
+        } else {
+            const activeOptionPath = this.activeOptionPath().filter((p) => p.parentKey !== parentKey);
+
+            activeOptionPath.push(value);
+
+            this.focusedOptionInfo.set({ index, level, parentKey });
+            this.activeOptionPath.set(activeOptionPath);
+
+            grouped
+                ? this.onOptionGroupSelect({ originalEvent, value, isFocus: false })
+                : this.onOptionSelect({ originalEvent, value, isFocus });
+        }
+
+        // const activeOptionPath = this.activeOptionPath().filter((p) => p.parentKey !== parentKey);
+        //
+        // activeOptionPath.push(value);
+        //
+        // this.focusedOptionInfo.set({ index, level, parentKey });
+        // this.activeOptionPath.set(activeOptionPath);
+
+        // grouped
+        //     ? this.onOptionGroupSelect({ originalEvent, value, isFocus: false })
+        //     : this.onOptionSelect({ originalEvent, value, isFocus });
+        isFocus && DomHandler.focus(this.focusInputViewChild.nativeElement);
+    }
 
     ngOnInit() {
         super.ngOnInit();
         this.id = this.id || UniqueComponentId();
         this.autoUpdateModel();
+        this.bindMatchMediaListener();
     }
 
-    onOverlayAnimationDone(event: AnimationEvent) {
+    bindMatchMediaListener() {
+        if (!this.matchMediaListener) {
+            const window: Window = this.document.defaultView;
+            if (window) {
+                const query = window.matchMedia(`(max-width: ${this.breakpoint})`);
+                this.query = query;
+                this.queryMatches.set(query?.matches);
+
+                this.matchMediaListener = () => {
+                    this.queryMatches.set(query?.matches);
+                    this.mobileActive.set(false);
+                };
+
+                this.query.addEventListener('change', this.matchMediaListener);
+            }
+        }
+    }
+
+    unbindMatchMediaListener() {
+        if (this.matchMediaListener) {
+            this.query.removeEventListener('change', this.matchMediaListener);
+            this.matchMediaListener = null;
+        }
+    }
+
+    onOverlayAnimationDone(event: any) {
         switch (event.toState) {
             case 'void':
                 this.dirty = false;
@@ -1477,6 +1529,12 @@ export class CascadeSelect extends BaseComponent implements OnInit {
     setDisabledState(val: boolean): void {
         this.disabled = val;
         this.cd.markForCheck();
+    }
+
+    ngOnDestroy() {
+        if (this.matchMediaListener) {
+            this.unbindMatchMediaListener();
+        }
     }
 }
 
