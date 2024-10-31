@@ -129,6 +129,7 @@ const classes = {
     }),
     input: 'p-toggleswitch-input',
     slider: 'p-toggleswitch-slider',
+    handle: 'p-toggleswitch-handle'
 };
 
 @Injectable()
