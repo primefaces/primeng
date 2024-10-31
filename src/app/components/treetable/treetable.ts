@@ -3896,7 +3896,7 @@ export class TTRow {
 }
 
 @Component({
-    selector: 'p-treeTableToggler',
+    selector: 'p-treeTableToggler, p-treetabletoggler, p-treetable-toggler',
     template: `
         <button
             type="button"
