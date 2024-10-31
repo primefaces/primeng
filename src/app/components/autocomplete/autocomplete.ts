@@ -195,7 +195,6 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                         [attr.name]="name"
                         role="combobox"
                         [attr.placeholder]="!filled ? placeholder : null"
-                        [size]="size"
                         aria-autocomplete="list"
                         [attr.maxlength]="maxlength"
                         [tabindex]="!disabled ? tabindex : -1"
