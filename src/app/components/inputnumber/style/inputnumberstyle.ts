@@ -162,7 +162,7 @@ const theme = ({ dt }) => `
 }
 
 /* For PrimeNG */
-p-inputnumber.ng-invalid.ng-dirty > .p-inputwrapper.p-component > .p-inputtext {
+p-inputnumber.ng-invalid.ng-dirty > .p-inputtext {
     border-color: ${dt('inputtext.invalid.border.color')};
 };
 `;
