@@ -2,14 +2,16 @@ import { CommonModule } from '@angular/common';
 import {
     AfterContentInit,
     ChangeDetectionStrategy,
-    Component, ContentChild,
-    ContentChildren, HostBinding,
+    Component,
+    ContentChild,
+    ContentChildren,
+    HostBinding,
     inject,
     Input,
     NgModule,
     QueryList,
     TemplateRef,
-    ViewEncapsulation
+    ViewEncapsulation,
 } from '@angular/core';
 import { BlockableUI, PrimeTemplate, SharedModule } from 'primeng/api';
 import { Nullable } from 'primeng/ts-helpers';
@@ -22,7 +24,7 @@ import { BaseComponent } from 'primeng/basecomponent';
 @Component({
     selector: 'p-timeline',
     standalone: true,
-    imports: [CommonModule],
+    imports: [CommonModule, SharedModule],
     template: `
         <div *ngFor="let event of value; let last = last" class="p-timeline-event" [attr.data-pc-section]="'event'">
             <div class="p-timeline-event-opposite" [attr.data-pc-section]="'opposite'">

@@ -19,11 +19,11 @@ import {
     signal,
     TemplateRef,
     ViewChild,
-    ViewEncapsulation
+    ViewEncapsulation,
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { MenuItem, PrimeTemplate, SharedModule, TooltipOptions } from 'primeng/api';
-import { ButtonDirective, ButtonProps } from 'primeng/button';
+import { ButtonDirective, ButtonIcon, ButtonProps } from 'primeng/button';
 import { DomHandler } from 'primeng/dom';
 import { PlusIcon } from 'primeng/icons/plus';
 import { Ripple } from 'primeng/ripple';
@@ -40,7 +40,7 @@ import { BaseComponent } from 'primeng/basecomponent';
 @Component({
     selector: 'p-speeddial',
     standalone: true,
-    imports: [CommonModule, ButtonDirective, Ripple, TooltipModule, RouterModule, PlusIcon],
+    imports: [CommonModule, ButtonDirective, Ripple, TooltipModule, RouterModule, PlusIcon, ButtonIcon, SharedModule],
     template: `
         <div
             #container
@@ -69,7 +69,7 @@ import { BaseComponent } from 'primeng/basecomponent';
                     [attr.data-pc-name]="'button'"
                     [buttonProps]="buttonProps"
                 >
-                    <PlusIcon *ngIf="!showIcon && !iconTemplate" />
+                    <PlusIcon pButtonIcon *ngIf="!buttonIconClass && !iconTemplate" />
                     <ng-container *ngTemplateOutlet="iconTemplate"></ng-container>
                 </button>
             </ng-container>

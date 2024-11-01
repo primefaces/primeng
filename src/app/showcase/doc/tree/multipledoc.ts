@@ -19,7 +19,7 @@ import { NodeService } from '@service/nodeservice';
         </app-docsectiontext>
         <div class="card">
             <div class="flex items-center mb-6 gap-2">
-                <p-inputSwitch inputId="input-metakey" [(ngModel)]="metaKeySelection" />
+                <p-toggleswitch inputId="input-metakey" [(ngModel)]="metaKeySelection" />
                 <label for="input-metakey">MetaKey</label>
             </div>
             <p-tree
@@ -48,14 +48,14 @@ export class MultipleDoc implements OnInit {
 
     code: Code = {
         basic: `<div class="flex items-center mb-6 gap-2">
-    <p-inputSwitch inputId="input-metakey" [(ngModel)]="metaKeySelection" />
+    <p-toggleswitch inputId="input-metakey" [(ngModel)]="metaKeySelection" />
     <label for="input-metakey">MetaKey</label>
 </div>
 <p-tree [metaKeySelection]="metaKeySelection" [value]="files" styleClass="w-full md:w-[30rem]" selectionMode="multiple" [(selection)]="selectedFiles" />`,
 
         html: `<div class="card">
     <div class="flex items-center mb-6 gap-2">
-        <p-inputSwitch inputId="input-metakey" [(ngModel)]="metaKeySelection" />
+        <p-toggleswitch inputId="input-metakey" [(ngModel)]="metaKeySelection" />
         <label for="input-metakey">MetaKey</label>
     </div>
     <p-tree [metaKeySelection]="metaKeySelection" [value]="files" styleClass="w-full md:w-[30rem]" selectionMode="multiple" [(selection)]="selectedFiles" />
@@ -65,14 +65,14 @@ export class MultipleDoc implements OnInit {
 import { TreeNode } from 'primeng/api';
 import { NodeService } from '@service/nodeservice';
 import { Tree } from 'primeng/tree';
-import { InputSwitchModule } from 'primeng/inputswitch';
+import { ToggleSwitchModule } from 'primeng/toggleswitch';
 import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'tree-multiple-demo',
     templateUrl: './tree-multiple-demo.html',
     standalone: true,
-    imports: [Tree, InputSwitchModule, FormsModule],
+    imports: [Tree, InputSwitchModule, ToggleSwitchModule],
     providers: [NodeService]
 })
 export class TreeMultipleDemo implements OnInit {

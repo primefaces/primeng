@@ -1,1 +1,1 @@
-export * from './nora';
+export { default } from './';

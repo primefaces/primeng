@@ -21,6 +21,7 @@ import { ToggleButton } from 'primeng/togglebutton';
 import { BaseComponent } from 'primeng/basecomponent';
 import { SelectButtonStyle } from './style/selectbuttonstyle';
 import { CommonModule } from '@angular/common';
+import { SharedModule } from '../api/shared';
 
 export const SELECTBUTTON_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -34,7 +35,7 @@ export const SELECTBUTTON_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-selectButton, p-selectbutton',
     standalone: true,
-    imports: [Ripple, ToggleButton, FormsModule, CommonModule],
+    imports: [Ripple, ToggleButton, FormsModule, CommonModule, SharedModule],
     template: `
         @for (option of options; track option; let i = $index) {
             <p-toggleButton
@@ -46,6 +47,7 @@ export const SELECTBUTTON_VALUE_ACCESSOR: any = {
                 [disabled]="disabled || isOptionDisabled(option)"
                 (onChange)="onOptionSelect($event, option, i)"
                 [allowEmpty]="allowEmpty"
+                [size]="size"
             >
                 @if (itemTemplate) {
                     <ng-template #content>
@@ -124,6 +126,11 @@ export class SelectButton extends BaseComponent implements ControlValueAccessor 
      * @group Props
      */
     @Input() ariaLabelledBy: string | undefined;
+    /**
+     * Defines the size of the component.
+     * @group Props
+     */
+    @Input() size: 'large' | 'small';
     /**
      * When present, it specifies that the element should be disabled.
      * @group Props
@@ -307,7 +314,7 @@ export class SelectButton extends BaseComponent implements ControlValueAccessor 
 }
 
 @NgModule({
-    imports: [SelectButton],
-    exports: [SelectButton],
+    imports: [SelectButton, SharedModule],
+    exports: [SelectButton, SharedModule],
 })
 export class SelectButtonModule {}

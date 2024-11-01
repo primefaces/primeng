@@ -9,10 +9,11 @@ import {
     NgModule,
     numberAttribute,
     TemplateRef,
-    ViewEncapsulation
+    ViewEncapsulation,
 } from '@angular/core';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ProgressBarStyle } from './style/progressbarstyle';
+import { SharedModule } from '../api/shared';
 
 /**
  * ProgressBar is a process status indicator.
@@ -21,7 +22,7 @@ import { ProgressBarStyle } from './style/progressbarstyle';
 @Component({
     selector: 'p-progressBar, p-progressbar',
     standalone: true,
-    imports: [CommonModule],
+    imports: [CommonModule, SharedModule],
     template: `
         <div
             role="progressbar"
@@ -127,7 +128,7 @@ export class ProgressBar extends BaseComponent {
 }
 
 @NgModule({
-    imports: [ProgressBar],
-    exports: [ProgressBar],
+    imports: [ProgressBar, SharedModule],
+    exports: [ProgressBar, SharedModule],
 })
 export class ProgressBarModule {}

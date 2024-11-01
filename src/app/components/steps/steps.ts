@@ -1,35 +1,37 @@
 import { CommonModule } from '@angular/common';
 import {
+    booleanAttribute,
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     ElementRef,
     EventEmitter,
+    inject,
     Input,
     NgModule,
+    numberAttribute,
     OnDestroy,
     OnInit,
     Output,
     ViewChild,
     ViewEncapsulation,
-    booleanAttribute,
-    inject,
-    numberAttribute,
 } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { DomHandler } from 'primeng/dom';
 import { Nullable } from 'primeng/ts-helpers';
-import { MenuItem } from 'primeng/api';
+import { MenuItem, SharedModule } from 'primeng/api';
 import { TooltipModule } from 'primeng/tooltip';
 import { Subscription } from 'rxjs';
 import { StepsStyle } from './style/stepsstyle';
 import { BaseComponent } from 'primeng/basecomponent';
+
 /**
  * Steps components is an indicator for the steps in a wizard workflow.
  * @group Components
  */
 @Component({
     selector: 'p-steps',
+    standalone: true,
+    imports: [CommonModule, RouterModule, TooltipModule, SharedModule],
     template: `
         <nav
             [ngClass]="{ 'p-steps p-component': true, 'p-readonly': readonly }"
@@ -307,8 +309,7 @@ export class Steps extends BaseComponent implements OnInit, OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule, RouterModule, TooltipModule],
-    exports: [Steps, RouterModule, TooltipModule],
-    declarations: [Steps],
+    imports: [Steps, SharedModule],
+    exports: [Steps, SharedModule],
 })
 export class StepsModule {}

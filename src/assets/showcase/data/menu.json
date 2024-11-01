@@ -203,8 +203,8 @@
                             "routerLink": "/treetable"
                         },
                         {
-                            "name": "Scroller",
-                            "routerLink": "/scroller"
+                            "name": "VirtualScroller",
+                            "routerLink": "/virtualscroller"
                         }
                     ]
                 },
@@ -376,15 +376,6 @@
                     ]
                 },
                 {
-                    "name": "DragDrop",
-                    "children": [
-                        {
-                            "name": "Drag & Drop",
-                            "routerLink": "/dragdrop"
-                        }
-                    ]
-                },
-                {
                     "name": "Misc",
                     "children": [
                         {
@@ -523,7 +514,7 @@
                     "routerLink": "/guides/migration"
                 },
                 {
-                    "name": "Primeflex",
+                    "name": "PrimeFlex",
                     "routerLink": "/guides/primeflex"
                 },
                 {
@@ -546,11 +537,11 @@
                 },
                 {
                     "name": "Long Term Support",
-                    "href": "https://primeng.org/lts"
+                    "routerLink": "/lts"
                 },
                 {
                     "name": "PRO Support",
-                    "href": "https://primeng.org/support"
+                    "routerLink": "/support"
                 }
             ]
         },

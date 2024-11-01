@@ -16,6 +16,7 @@ import { DisabledDoc } from '@doc/autocomplete/disableddoc';
 import { InvalidDoc } from '@doc/autocomplete/invaliddoc';
 import { AccessibilityDoc } from '@doc/autocomplete/accessibilitydoc';
 import { IftaLabelDoc } from '@doc/autocomplete/iftalabeldoc';
+import { SizesDoc } from '@doc/autocomplete/sizesdoc';
 
 @Component({
     template: `<app-doc
@@ -91,6 +92,11 @@ export class AutoCompleteDemo {
             id: 'iftalabel',
             label: 'Ifta Label',
             component: IftaLabelDoc,
+        },
+        {
+            id: 'sizes',
+            label: 'Sizes',
+            component: SizesDoc,
         },
         {
             id: 'filled',

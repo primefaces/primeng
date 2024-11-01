@@ -25,6 +25,7 @@ import {
     OverlayOptions,
     OverlayService,
     ResponsiveOverlayOptions,
+    SharedModule,
 } from 'primeng/api';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { ObjectUtils, ZIndexUtils } from 'primeng/utils';
@@ -42,7 +43,7 @@ const hideOverlayContentAnimation = animation([animate('{{hideTransitionParams}}
 @Component({
     selector: 'p-overlay',
     standalone: true,
-    imports: [CommonModule],
+    imports: [CommonModule, SharedModule],
     template: `
         <div
             *ngIf="modalVisible"
@@ -671,7 +672,7 @@ export class Overlay extends BaseComponent implements OnDestroy {
 }
 
 @NgModule({
-    imports: [Overlay],
-    exports: [Overlay],
+    imports: [Overlay, SharedModule],
+    exports: [Overlay, SharedModule],
 })
 export class OverlayModule {}

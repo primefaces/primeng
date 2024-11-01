@@ -12,6 +12,7 @@ import { ReactiveFormsDoc } from '@doc/inputmask/reactiveformsdoc';
 import { SlotCharDoc } from '@doc/inputmask/slotchardoc';
 import { InputMaskDocModule } from '@doc/inputmask/inputmaskdoc.module';
 import { IftaLabelDoc } from '@doc/inputmask/iftalabeldoc';
+import { SizesDoc } from '@doc/inputmask/sizesdoc';
 
 @Component({
     template: `<app-doc
@@ -58,6 +59,11 @@ export class InputMaskDemo {
             component: SlotCharDoc,
         },
         {
+            id: 'filled',
+            label: 'Filled',
+            component: FilledDoc,
+        },
+        {
             id: 'floatlabel',
             label: 'Float Label',
             component: FloatlabelDoc,
@@ -68,9 +74,9 @@ export class InputMaskDemo {
             component: IftaLabelDoc,
         },
         {
-            id: 'filled',
-            label: 'Filled',
-            component: FilledDoc,
+            id: 'sizes',
+            label: 'Sizes',
+            component: SizesDoc,
         },
         {
             id: 'invalid',

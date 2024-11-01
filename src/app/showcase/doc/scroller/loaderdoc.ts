@@ -12,7 +12,7 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card flex flex-wrap justify-center gap-4">
             <div>
-                <p-scroller
+                <p-virtualscroller
                     [items]="items"
                     [itemSize]="50"
                     [showLoader]="true"
@@ -29,10 +29,10 @@ import { Code } from '@domain/code';
                             {{ item }}
                         </div>
                     </ng-template>
-                </p-scroller>
+                </p-virtualscroller>
             </div>
             <div>
-                <p-scroller
+                <p-virtualscroller
                     [items]="items"
                     [itemSize]="50"
                     [showLoader]="true"
@@ -58,7 +58,7 @@ import { Code } from '@domain/code';
                             <p-skeleton [width]="options.even ? '60%' : '50%'" height="1.3rem"></p-skeleton>
                         </div>
                     </ng-template>
-                </p-scroller>
+                </p-virtualscroller>
             </div>
         </div>
         <app-code [code]="code" selector="scroller-loader-demo"></app-code>
@@ -73,7 +73,7 @@ export class LoaderDoc {
     }
 
     code: Code = {
-        basic: `<p-scroller 
+        basic: `<p-virtualscroller 
     [items]="items" 
     [itemSize]="50" 
     [showLoader]="true" 
@@ -88,10 +88,10 @@ export class LoaderDoc {
                     {{ item }}
             </div>
         </ng-template>
-</p-scroller>`,
+</p-virtualscroller>`,
 
         html: `<div class="card flex justify-center">
-    <p-scroller 
+    <p-virtualscroller 
         [items]="items" 
         [itemSize]="50" 
         [showLoader]="true" 
@@ -106,7 +106,7 @@ export class LoaderDoc {
                         {{ item }}
                 </div>
             </ng-template>
-    </p-scroller>
+    </p-virtualscroller>
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';

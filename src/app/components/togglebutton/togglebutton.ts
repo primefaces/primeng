@@ -24,6 +24,7 @@ import { Nullable } from 'primeng/ts-helpers';
 import { AutoFocus } from 'primeng/autofocus';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ToggleButtonStyle } from './style/togglebuttonstyle';
+import { SharedModule } from '../api/shared';
 
 export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -37,7 +38,7 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-toggleButton, p-togglebutton',
     standalone: true,
-    imports: [Ripple, AutoFocus, NgClass, NgTemplateOutlet],
+    imports: [Ripple, AutoFocus, NgClass, NgTemplateOutlet, SharedModule],
     template: `
         <button
             pRipple
@@ -142,6 +143,11 @@ export class ToggleButton extends BaseComponent implements ControlValueAccessor 
      */
     tabindex = input<number, any>(0, { transform: numberAttribute });
     /**
+     * Defines the size of the component.
+     * @group Props
+     */
+    @Input() size: 'large' | 'small';
+    /**
      * Position of the icon.
      * @group Props
      */
@@ -231,7 +237,7 @@ export class ToggleButton extends BaseComponent implements ControlValueAccessor 
 }
 
 @NgModule({
-    imports: [ToggleButton],
-    exports: [ToggleButton],
+    imports: [ToggleButton, SharedModule],
+    exports: [ToggleButton, SharedModule],
 })
 export class ToggleButtonModule {}

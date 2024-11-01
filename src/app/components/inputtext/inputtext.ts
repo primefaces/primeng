@@ -1,14 +1,4 @@
-import {
-    AfterViewInit,
-    booleanAttribute,
-    Directive,
-    DoCheck,
-    HostListener,
-    inject,
-    Input,
-    NgModule,
-    Optional
-} from '@angular/core';
+import { AfterViewInit, booleanAttribute, Directive, DoCheck, HostListener, inject, Input, NgModule, Optional } from '@angular/core';
 import { NgModel } from '@angular/forms';
 import { Nullable } from 'primeng/ts-helpers';
 import { BaseComponent } from 'primeng/basecomponent';
@@ -28,7 +18,9 @@ import { ObjectUtils } from 'primeng/utils';
         '[class.p-variant-filled]': 'variant === "filled" || config.inputStyle() === "filled"',
         '[class.p-inputtext-fluid]': 'hasFluid',
         '[class.p-inputtext-sm]': 'size === "small"',
+        '[class.p-inputfield-sm]': 'size === "small"',
         '[class.p-inputtext-lg]': 'size === "large"',
+        '[class.p-inputfield-lg]': 'size === "large"',
     },
     providers: [InputTextStyle],
 })
