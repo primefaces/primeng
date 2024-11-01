@@ -3,10 +3,10 @@ export default {
         background: '{content.background}',
         borderColor: '{content.border.color}',
         color: '{content.color}',
-        transitionDuration: '{transition.duration}',
+        transitionDuration: '{transition.duration}'
     },
     gutter: {
-        background: '{content.border.color}',
+        background: '{content.border.color}'
     },
     handle: {
         size: '24px',
@@ -17,7 +17,7 @@ export default {
             style: '{focus.ring.style}',
             color: '{focus.ring.color}',
             offset: '{focus.ring.offset}',
-            shadow: '{focus.ring.shadow}',
-        },
-    },
+            shadow: '{focus.ring.shadow}'
+        }
+    }
 };

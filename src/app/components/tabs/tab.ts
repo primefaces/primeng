@@ -18,6 +18,7 @@ import { Ripple } from 'primeng/ripple';
 import { DomHandler } from 'primeng/dom';
 import { Tabs } from './tabs';
 import { TabList } from './tablist';
+import { SharedModule } from '../api/shared';
 
 /**
  * Defines valid properties in Tab component.
@@ -26,7 +27,7 @@ import { TabList } from './tablist';
 @Component({
     selector: 'p-tab',
     standalone: true,
-    imports: [CommonModule, Ripple],
+    imports: [CommonModule, Ripple, SharedModule],
     template: ` <ng-content></ng-content>`,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,

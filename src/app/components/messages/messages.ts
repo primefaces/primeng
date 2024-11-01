@@ -15,9 +15,9 @@ import {
     Output,
     QueryList,
     TemplateRef,
-    ViewEncapsulation
+    ViewEncapsulation,
 } from '@angular/core';
-import { MessageService, PrimeTemplate, ToastMessageOptions } from 'primeng/api';
+import { MessageService, PrimeTemplate, SharedModule, ToastMessageOptions } from 'primeng/api';
 import { CheckIcon } from 'primeng/icons/check';
 import { ExclamationTriangleIcon } from 'primeng/icons/exclamationtriangle';
 import { InfoCircleIcon } from 'primeng/icons/infocircle';
@@ -363,8 +363,18 @@ export class Messages extends BaseComponent implements AfterContentInit, OnDestr
 }
 
 @NgModule({
-    imports: [CommonModule, Ripple, CheckIcon, InfoCircleIcon, TimesCircleIcon, ExclamationTriangleIcon, TimesIcon, ButtonModule],
-    exports: [Messages],
+    imports: [
+        CommonModule,
+        Ripple,
+        CheckIcon,
+        InfoCircleIcon,
+        TimesCircleIcon,
+        ExclamationTriangleIcon,
+        TimesIcon,
+        ButtonModule,
+        SharedModule,
+    ],
+    exports: [Messages, SharedModule],
     declarations: [Messages],
 })
 export class MessagesModule {}

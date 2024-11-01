@@ -105,6 +105,16 @@ const theme = ({ dt }) => `
     color: ${dt('togglebutton.icon.disabled.color')};
 }
 
+.p-togglebutton-sm {
+    padding: ${dt('togglebutton.sm.padding')};
+    font-size: ${dt('togglebutton.sm.font.size')};
+}
+
+.p-togglebutton-lg {
+    padding: ${dt('togglebutton.lg.padding')};
+    font-size: ${dt('togglebutton.lg.font.size')};
+}
+
 /* For PrimeNG (iconPos) */
 
 .p-togglebutton-icon-right {
@@ -121,6 +131,8 @@ const classes = {
         'p-togglebutton p-component': true,
         'p-togglebutton-checked': instance.checked,
         'p-disabled': instance.disabled,
+        'p-togglebutton-sm p-inputfield-sm': instance.size === 'small',
+        'p-togglebutton-lg p-inputfield-lg': instance.size === 'large',
     }),
     content: 'p-togglebutton-content',
     icon: 'p-togglebutton-icon',

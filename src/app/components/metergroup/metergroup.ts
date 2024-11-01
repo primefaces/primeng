@@ -14,7 +14,7 @@ import {
     ViewChild,
     ViewEncapsulation,
 } from '@angular/core';
-import { PrimeTemplate } from 'primeng/api';
+import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { MeterItem } from './metergroup.interface';
 import { BaseComponent } from 'primeng/basecomponent';
@@ -23,7 +23,7 @@ import { MeterGroupStyle } from './style/metergroupstyle';
 @Component({
     selector: 'p-meterGroupLabel, p-metergrouplabel',
     standalone: true,
-    imports: [CommonModule],
+    imports: [CommonModule, SharedModule],
     template: `
         <ol [ngClass]="labelClass">
             <li *ngFor="let labelItem of value; let index = index; trackBy: parentInstance.trackByFn" class="p-metergroup-label">
@@ -37,7 +37,7 @@ import { MeterGroupStyle } from './style/metergroupstyle';
                     <span *ngIf="!labelItem.icon" class="p-metergroup-label-marker" [ngStyle]="{ backgroundColor: labelItem.color }"></span>
                 </ng-container>
                 <ng-container *ngTemplateOutlet="iconTemplate; context: { $implicit: labelItem, icon: labelItem.icon }"></ng-container>
-                <span class="p-metergroup-label-text">{{ labelItem.label }} ({{ parentInstance?.percentValue(labelItem.value) }})</span>
+                <span class="p-metergroup-label-text">{{ labelItem.label }} ({{ parentInstance.percentValue(labelItem.value) }})</span>
             </li>
         </ol>
     `,
@@ -74,12 +74,12 @@ export class MeterGroupLabel {
 @Component({
     selector: 'p-meterGroup, p-metergroup',
     standalone: true,
-    imports: [CommonModule, MeterGroupLabel],
+    imports: [CommonModule, MeterGroupLabel, SharedModule],
     template: `
         <div
             #container
             [ngClass]="containerClass"
-            role="meter"
+            [attr.role]="'meter'"
             [attr.aria-valuemin]="min"
             [attr.aria-valuemax]="max"
             [attr.aria-valuenow]="totalPercent()"
@@ -183,7 +183,7 @@ export class MeterGroup extends BaseComponent {
      * Specifies the label orientation of the component, valid values are 'horizontal' and 'vertical'.
      * @group Props
      */
-    @Input() labelOrientation: string = 'horizontal';
+    @Input() labelOrientation: 'horizontal' | 'vertical' | undefined = 'horizontal';
     /**
      * Inline style of the element.
      * @group Props
@@ -268,7 +268,7 @@ export class MeterGroup extends BaseComponent {
 }
 
 @NgModule({
-    imports: [MeterGroup],
-    exports: [MeterGroup],
+    imports: [MeterGroup, SharedModule],
+    exports: [MeterGroup, SharedModule],
 })
 export class MeterGroupModule {}

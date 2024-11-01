@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, Input, NgModule, ViewEncapsulation } from '@angular/core';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ProgressSpinnerStyle } from './style/progressspinnerstyle';
+import { SharedModule } from '../api/shared';
 
 /**
  * ProgressSpinner is a process status indicator.
@@ -10,7 +11,7 @@ import { ProgressSpinnerStyle } from './style/progressspinnerstyle';
 @Component({
     selector: 'p-progressSpinner, p-progress-spinner',
     standalone: true,
-    imports: [CommonModule],
+    imports: [CommonModule, SharedModule],
     template: `
         <div
             class="p-progressspinner"
@@ -80,7 +81,7 @@ export class ProgressSpinner extends BaseComponent {
 }
 
 @NgModule({
-    imports: [ProgressSpinner],
-    exports: [ProgressSpinner],
+    imports: [ProgressSpinner, SharedModule],
+    exports: [ProgressSpinner, SharedModule],
 })
 export class ProgressSpinnerModule {}

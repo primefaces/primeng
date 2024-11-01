@@ -3,6 +3,7 @@
  * @group Interface
  */
 export interface ToastMessageOptions {
+    text?: any;
     severity?: string;
     summary?: string;
     detail?: string;

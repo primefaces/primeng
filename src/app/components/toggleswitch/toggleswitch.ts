@@ -1,8 +1,11 @@
 import { CommonModule } from '@angular/common';
 import {
+    AfterContentInit,
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
+    ContentChild,
+    ContentChildren,
     ElementRef,
     EventEmitter,
     forwardRef,
@@ -11,6 +14,8 @@ import {
     NgModule,
     numberAttribute,
     Output,
+    QueryList,
+    TemplateRef,
     ViewChild,
     ViewEncapsulation,
 } from '@angular/core';
@@ -19,6 +24,16 @@ import { AutoFocus } from 'primeng/autofocus';
 import { ToggleSwitchChangeEvent } from './toggleswitch.interface';
 import { ToggleSwitchStyle } from './style/toggleswitchstyle';
 import { BaseComponent } from 'primeng/basecomponent';
+import { PrimeTemplate, SharedModule } from '../api/shared';
+
+/**
+ * Context interface for the handle template.
+ * @property {boolean} checked - A flag indicating whether the input is checked.
+ * @group Interface
+ */
+export interface ToggleSwitchHandleTemplateContext {
+    checked: boolean;
+}
 
 export const TOGGLESWITCH_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -32,7 +47,7 @@ export const TOGGLESWITCH_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-toggleswitch, p-toggleSwitch',
     standalone: true,
-    imports: [CommonModule, AutoFocus],
+    imports: [CommonModule, AutoFocus, SharedModule],
     template: `
         <div
             [ngClass]="cx('root')"
@@ -59,17 +74,22 @@ export const TOGGLESWITCH_VALUE_ACCESSOR: any = {
                 (focus)="onFocus()"
                 (blur)="onBlur()"
                 [attr.data-pc-section]="'hiddenInput'"
-                pAutoFocus
-                [autofocus]="autofocus"
+                [pAutoFocus]="autofocus"
             />
-            <span [ngClass]="cx('slider')" [attr.data-pc-section]="'slider'"></span>
+            <span [ngClass]="cx('slider')" [attr.data-pc-section]="'slider'">
+                <div [ngClass]="cx('handle')">
+                    @if (handleTemplate) {
+                        <ng-container *ngTemplateOutlet="handleTemplate; context: { checked: checked() }" />
+                    }
+                </div>
+            </span>
         </div>
     `,
     providers: [TOGGLESWITCH_VALUE_ACCESSOR, ToggleSwitchStyle],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
 })
-export class ToggleSwitch extends BaseComponent {
+export class ToggleSwitch extends BaseComponent implements AfterContentInit {
     /**
      * Inline style of the component.
      * @group Props
@@ -138,6 +158,19 @@ export class ToggleSwitch extends BaseComponent {
     @Output() onChange: EventEmitter<ToggleSwitchChangeEvent> = new EventEmitter<ToggleSwitchChangeEvent>();
 
     @ViewChild('input') input!: ElementRef;
+    /**
+     * Callback to invoke when the on value change.
+     * @type {TemplateRef<ToggleSwitchHandleTemplateContext>} context - Context of the template
+     * @example
+     * ```html
+     * <ng-template #handle let-checked="checked"> </ng-template>
+     * ```
+     * @see {@link ToggleSwitchHandleTemplateContext}
+     * @group Templates
+     */
+    @ContentChild('handle') handleTemplate: TemplateRef<any> | undefined;
+
+    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
     modelValue: any = false;
 
@@ -148,6 +181,16 @@ export class ToggleSwitch extends BaseComponent {
     onModelTouched: Function = () => {};
 
     _componentStyle = inject(ToggleSwitchStyle);
+
+    ngAfterContentInit() {
+        this.templates.forEach((item) => {
+            switch (item.getType()) {
+                case 'handle':
+                    this.handleTemplate = item.template;
+                    break;
+            }
+        });
+    }
 
     onClick(event: Event) {
         if (!this.disabled && !this.readonly) {
@@ -196,7 +239,7 @@ export class ToggleSwitch extends BaseComponent {
 }
 
 @NgModule({
-    imports: [ToggleSwitch],
-    exports: [ToggleSwitch],
+    imports: [ToggleSwitch, SharedModule],
+    exports: [ToggleSwitch, SharedModule],
 })
 export class ToggleSwitchModule {}

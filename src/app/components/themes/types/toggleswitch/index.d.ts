@@ -129,17 +129,17 @@ export interface ToggleSwitchDesignTokens extends ColorSchemeDesignToken<ToggleS
          */
         slideDuration?: string;
         /**
-         * Disabled background of root
-         *
-         * @designToken toggleswitch.disabled.background
-         */
-        disabledBackground?: string;
-        /**
          * Background of root
          *
          * @designToken toggleswitch.background
          */
         background?: string;
+        /**
+         * Disabled background of root
+         *
+         * @designToken toggleswitch.disabled.background
+         */
+        disabledBackground?: string;
         /**
          * Hover background of root
          *
@@ -176,17 +176,17 @@ export interface ToggleSwitchDesignTokens extends ColorSchemeDesignToken<ToggleS
          */
         size?: string;
         /**
-         * Disabled background of handle
-         *
-         * @designToken toggleswitch.handle.disabled.background
-         */
-        disabledBackground?: string;
-        /**
          * Background of handle
          *
          * @designToken toggleswitch.handle.background
          */
         background?: string;
+        /**
+         * Disabled background of handle
+         *
+         * @designToken toggleswitch.handle.disabled.background
+         */
+        disabledBackground?: string;
         /**
          * Hover background of handle
          *
@@ -205,5 +205,29 @@ export interface ToggleSwitchDesignTokens extends ColorSchemeDesignToken<ToggleS
          * @designToken toggleswitch.handle.checked.hover.background
          */
         checkedHoverBackground?: string;
+        /**
+         * Color of handle
+         *
+         * @designToken toggleswitch.handle.color
+         */
+        color?: string;
+        /**
+         * Hover color of handle
+         *
+         * @designToken toggleswitch.handle.hover.color
+         */
+        hoverColor?: string;
+        /**
+         * Checked color of handle
+         *
+         * @designToken toggleswitch.handle.checked.color
+         */
+        checkedColor?: string;
+        /**
+         * Checked hover color of handle
+         *
+         * @designToken toggleswitch.handle.checked.hover.color
+         */
+        checkedHoverColor?: string;
     };
 }

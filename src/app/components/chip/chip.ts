@@ -11,9 +11,9 @@ import {
     Output,
     SimpleChanges,
     TemplateRef,
-    ViewEncapsulation
+    ViewEncapsulation,
 } from '@angular/core';
-import { TranslationKeys } from 'primeng/api';
+import { SharedModule, TranslationKeys } from 'primeng/api';
 import { TimesCircleIcon } from 'primeng/icons/timescircle';
 import { ChipProps } from './chip.interface';
 import { BaseComponent } from 'primeng/basecomponent';
@@ -26,7 +26,7 @@ import { ChipStyle } from './style/chipstyle';
 @Component({
     selector: 'p-chip',
     standalone: true,
-    imports: [CommonModule, TimesCircleIcon],
+    imports: [CommonModule, TimesCircleIcon, SharedModule],
     template: `
         <div
             [ngClass]="containerClass()"
@@ -222,7 +222,7 @@ export class Chip extends BaseComponent {
 }
 
 @NgModule({
-    imports: [Chip],
-    exports: [Chip],
+    imports: [Chip, SharedModule],
+    exports: [Chip, SharedModule],
 })
 export class ChipModule {}

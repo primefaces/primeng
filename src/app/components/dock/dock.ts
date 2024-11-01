@@ -12,10 +12,10 @@ import {
     Output,
     TemplateRef,
     ViewChild,
-    ViewEncapsulation
+    ViewEncapsulation,
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { MenuItem } from 'primeng/api';
+import { MenuItem, SharedModule } from 'primeng/api';
 import { Ripple } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
 import { Nullable } from 'primeng/ts-helpers';
@@ -23,6 +23,7 @@ import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
 import { DomHandler } from 'primeng/dom';
 import { DockStyle } from './style/dockstyle';
 import { BaseComponent } from 'primeng/basecomponent';
+import { Divider } from '../divider/divider';
 
 /**
  * Dock is a navigation component consisting of menuitems.
@@ -31,7 +32,7 @@ import { BaseComponent } from 'primeng/basecomponent';
 @Component({
     selector: 'p-dock',
     standalone: true,
-    imports: [CommonModule, RouterModule, Ripple, TooltipModule],
+    imports: [CommonModule, RouterModule, Ripple, TooltipModule, Divider, SharedModule],
     template: `
         <div [ngClass]="containerClass" [ngStyle]="style" [class]="styleClass" [attr.data-pc-name]="'dock'">
             <div class="p-dock-list-container">
@@ -373,7 +374,7 @@ export class Dock extends BaseComponent {
 }
 
 @NgModule({
-    imports: [Dock],
-    exports: [Dock],
+    imports: [Dock, SharedModule],
+    exports: [Dock, SharedModule],
 })
 export class DockModule {}

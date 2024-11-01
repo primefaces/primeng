@@ -165,11 +165,11 @@ export class TreeTableDemo {
             label: 'Lazy Load',
             component: LazyLoadDoc,
         },
-        {
-            id: 'edit',
-            label: 'Edit',
-            component: EditDoc,
-        },
+        // {
+        //     id: 'edit',
+        //     label: 'Edit',
+        //     component: EditDoc,
+        // },
         {
             id: 'scroll',
             label: 'Scroll',

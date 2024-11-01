@@ -23,6 +23,7 @@ import { TicketService } from '@service/ticketservice';
 import { AccessibilityDoc } from './accessibilitydoc';
 import { ButtonModule } from 'primeng/button';
 import { ControlledDoc } from './controlleddoc';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
     imports: [
@@ -38,6 +39,7 @@ import { ControlledDoc } from './controlleddoc';
         Checkbox,
         CardModule,
         ButtonModule,
+        RouterModule
     ],
     declarations: [
         BasicDoc,

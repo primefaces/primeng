@@ -3,10 +3,10 @@ import { Component } from '@angular/core';
 import { AnimationsDoc } from '@doc/installation/animationsdoc';
 import { DownloadDoc } from '@doc/installation/downloaddoc';
 import { ExamplesDoc } from '@doc/installation/examplesdoc';
-import { StylesDoc } from '@doc/installation/stylesdoc';
-import { UsageDoc } from '@doc/installation/usagedoc';
-import { VideosDoc } from '@doc/installation/videos/videosdoc';
 import { InstallationDocModule } from '@doc/installation/installationdoc.module';
+import { NextStepsDoc } from '@doc/installation/nextstepsdoc';
+import { ThemeDoc } from '@doc/installation/themedoc';
+import { VerifyDoc } from '@doc/installation/verifydoc';
 
 @Component({
     standalone: true,
@@ -14,7 +14,7 @@ import { InstallationDocModule } from '@doc/installation/installationdoc.module'
     template: `<app-doc
         docTitle="Getting Started - PrimeNG"
         header="Installation"
-        description="Install PrimeNG in your project."
+        description="Setting up PrimeNG in an Angular CLI project."
         [docs]="docs"
     ></app-doc>`,
 })
@@ -31,25 +31,29 @@ export class InstallationDemo {
             component: AnimationsDoc,
         },
         {
-            id: 'styles',
-            label: 'Style',
-            component: StylesDoc,
+            id: 'theme',
+            label: 'Theme',
+            component: ThemeDoc,
         },
         {
-            id: 'usage',
-            label: 'Usage',
-            component: UsageDoc,
+            id: 'verify',
+            label: 'Verify',
+            component: VerifyDoc,
         },
-
         {
             id: 'examples',
-            label: 'QuickStart',
+            label: 'Example',
             component: ExamplesDoc,
         },
+        {
+            id: 'nextsteps',
+            label: 'Next Steps',
+            component: NextStepsDoc,
+        } /*,
         {
             id: 'videos',
             label: 'Videos',
             component: VideosDoc,
-        },
+        },*/,
     ];
 }

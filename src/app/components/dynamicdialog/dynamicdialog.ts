@@ -18,7 +18,7 @@ import {
     ViewEncapsulation,
     ViewRef,
 } from '@angular/core';
-import { TranslationKeys } from 'primeng/api';
+import { SharedModule, TranslationKeys } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { FocusTrap } from 'primeng/focustrap';
 import { TimesIcon } from 'primeng/icons/times';
@@ -43,7 +43,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
 @Component({
     selector: 'p-dynamicDialog, p-dynamicdialog',
     standalone: true,
-    imports: [CommonModule, DynamicDialogContent, WindowMaximizeIcon, WindowMinimizeIcon, TimesIcon, Button, FocusTrap],
+    imports: [CommonModule, SharedModule, DynamicDialogContent, WindowMaximizeIcon, WindowMinimizeIcon, TimesIcon, Button, FocusTrap],
     template: `
         <div
             #mask
@@ -773,7 +773,7 @@ export class DynamicDialogComponent extends BaseComponent implements AfterViewIn
 }
 
 @NgModule({
-    imports: [DynamicDialogComponent],
-    exports: [DynamicDialogComponent],
+    imports: [DynamicDialogComponent, SharedModule],
+    exports: [DynamicDialogComponent, SharedModule],
 })
 export class DynamicDialog {}
