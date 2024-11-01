@@ -1,6 +1,5 @@
-import { NgClass, NgStyle } from '@angular/common';
+import { NgClass, NgStyle, NgTemplateOutlet } from '@angular/common';
 import {
-    AfterContentInit,
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
@@ -50,7 +49,7 @@ export const TOGGLESWITCH_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-toggleswitch, p-toggleSwitch',
     standalone: true,
-    imports: [NgClass, NgStyle, AutoFocus, SharedModule],
+    imports: [NgClass, NgStyle, NgTemplateOutlet, AutoFocus, SharedModule],
     template: `
         <div
             [ngClass]="cx('root')"
@@ -81,8 +80,8 @@ export const TOGGLESWITCH_VALUE_ACCESSOR: any = {
             />
             <span [ngClass]="cx('slider')" [attr.data-pc-section]="'slider'">
                 <div [ngClass]="cx('handle')">
-                    @if (handleTemplate()) {
-                        <ng-container *ngTemplateOutlet="handleTemplate(); context: { checked: checked() }" />
+                    @if (customHandleTemplate()) {
+                        <ng-container *ngTemplateOutlet="customHandleTemplate(); context: { checked: checked() }" />
                     }
                 </div>
             </span>
@@ -173,8 +172,25 @@ export class ToggleSwitch extends BaseComponent {
      * @group Templates
      */
     handleTemplate = contentChild<TemplateRef<any> | undefined>('handle');
-
-    templates = contentChildren(PrimeTemplate);  
+    /**
+     * List of PrimeTemplate instances provided by the content.
+     * @group Templates
+     */
+    sTemplates = contentChildren<PrimeTemplate | undefined>(PrimeTemplate);
+    /**
+     * Computes the custom input template if available.
+     * @returns {TemplateRef<InputOtpInputTemplateContext> | undefined} The custom input template or undefined if not available.
+     */
+    customHandleTemplate = computed<TemplateRef<any>>(() => {
+        if (this.sTemplates()) {
+            const templates = this.sTemplates().reduce<{ [key: string]: TemplateRef<any> }>((prev, curr) => {
+                prev[curr.getType()] = curr.template;
+                return prev;
+            }, {});
+            return templates['handle'];
+        }
+        return this.handleTemplate();
+    });
 
     modelValue: WritableSignal<any> = signal<any>(false);
 
@@ -185,16 +201,6 @@ export class ToggleSwitch extends BaseComponent {
     onModelTouched: Function = () => {};
 
     _componentStyle = inject(ToggleSwitchStyle);
-
-    ngAfterContentInit() {
-        this.templates().forEach((item) => {
-            switch (item.getType()) {
-                case 'handle':
-                    this.handleTemplate = item.template;
-                    break;
-            }
-        });
-    }
 
     onClick(event: Event) {
         if (!this.disabled() && !this.readonly()) {
