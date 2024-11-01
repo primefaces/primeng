@@ -25,6 +25,7 @@ import { ZIndexUtils } from 'primeng/utils';
 import { DrawerStyle } from './style/drawerstyle';
 import { BaseComponent } from 'primeng/basecomponent';
 import { Button, ButtonProps } from 'primeng/button';
+import { SharedModule } from '../api/shared';
 
 const showAnimation = animation([style({ transform: '{{transform}}', opacity: 0 }), animate('{{transition}}')]);
 
@@ -36,24 +37,24 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
 @Component({
     selector: 'p-drawer',
     standalone: true,
-    imports: [CommonModule, Button, TimesIcon],
+    imports: [CommonModule, Button, TimesIcon, SharedModule],
     template: `
         <div
             #container
             [ngClass]="{
                 'p-drawer': true,
                 'p-drawer-active': visible,
-                'p-drawer-left': position === 'left' && (!fullScreen || position !== 'full'),
-                'p-drawer-right': position === 'right' && (!fullScreen || position !== 'full'),
-                'p-drawer-top': position === 'top' && (!fullScreen || position !== 'full'),
-                'p-drawer-bottom': position === 'bottom' && (!fullScreen || position !== 'full'),
+                'p-drawer-left': position === 'left' && !fullScreen,
+                'p-drawer-right': position === 'right' && !fullScreen,
+                'p-drawer-top': position === 'top' && !fullScreen,
+                'p-drawer-bottom': position === 'bottom' && !fullScreen,
                 'p-drawer-full': fullScreen || position === 'full',
             }"
             *ngIf="visible"
             [@panelState]="{ value: 'visible', params: { transform: transformOptions, transition: transitionOptions } }"
             (@panelState.start)="onAnimationStart($event)"
             (@panelState.done)="onAnimationEnd($event)"
-            [ngStyle]="style"
+            [style]="style"
             [class]="styleClass"
             role="complementary"
             [attr.data-pc-name]="'sidebar'"
@@ -87,9 +88,9 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                     <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
                 </div>
 
-                <ng-container *ngIf="_footerTemplate">
+                <ng-container *ngIf="footerTemplate">
                     <div [ngClass]="cx('footer')" [attr.data-pc-section]="'footer'">
-                        <ng-container *ngTemplateOutlet="_footerTemplate"></ng-container>
+                        <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
                     </div>
                 </ng-container>
             </ng-template>
@@ -295,7 +296,7 @@ export class Drawer extends BaseComponent implements AfterViewInit, OnDestroy {
      * Content template for the footer of the drawer.
      * @group Templates
      */
-    @ContentChild('content') content: TemplateRef<any> | undefined;
+    @ContentChild('content') contentTemplate: TemplateRef<any> | undefined;
     /**
      * Close icon template for the close icon of the drawer.
      * @group Templates
@@ -490,7 +491,7 @@ export class Drawer extends BaseComponent implements AfterViewInit, OnDestroy {
 }
 
 @NgModule({
-    imports: [Drawer],
-    exports: [Drawer],
+    imports: [Drawer, SharedModule],
+    exports: [Drawer, SharedModule],
 })
 export class DrawerModule {}

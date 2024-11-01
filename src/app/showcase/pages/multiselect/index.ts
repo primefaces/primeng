@@ -15,6 +15,7 @@ import { LoadingStateDoc } from '@doc/multiselect/loadingstatedoc';
 import { FilledDoc } from '@doc/multiselect/filleddoc';
 import { IftaLabelDoc } from '@doc/multiselect/iftalabeldoc';
 import { MultiSelectDocModule } from '@doc/multiselect/multiselectdoc.module';
+import { SizesDoc } from '@doc/multiselect/sizesdoc';
 
 @Component({
     template: `<app-doc
@@ -84,6 +85,11 @@ export class MultiSelectDemo {
             id: 'iftalabel',
             label: 'Ifta Label',
             component: IftaLabelDoc,
+        },
+        {
+            id: 'sizes',
+            label: 'Sizes',
+            component: SizesDoc,
         },
         {
             id: 'filled',

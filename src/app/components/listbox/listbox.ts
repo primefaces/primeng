@@ -61,7 +61,20 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-listbox',
     standalone: true,
-    imports: [CommonModule, Ripple, Scroller, InputIcon, SearchIcon, Checkbox, CheckIcon, IconField, InputText, BlankIcon, FormsModule],
+    imports: [
+        CommonModule,
+        Ripple,
+        Scroller,
+        InputIcon,
+        SearchIcon,
+        Checkbox,
+        CheckIcon,
+        IconField,
+        InputText,
+        BlankIcon,
+        FormsModule,
+        SharedModule,
+    ],
     template: `
         <div [attr.id]="id" [ngClass]="containerClass" [ngStyle]="style" [class]="styleClass" (focusout)="onFocusout($event)">
             <span

@@ -13,12 +13,13 @@ import {
     OnDestroy,
     TemplateRef,
     ViewChild,
-    ViewEncapsulation
+    ViewEncapsulation,
 } from '@angular/core';
 import { DomHandler } from 'primeng/dom';
 import { ZIndexUtils } from 'primeng/utils';
 import { BaseComponent } from 'primeng/basecomponent';
 import { BlockUiStyle } from './style/blockuistyle';
+import { SharedModule } from '../api/shared';
 
 /**
  * BlockUI can either block other components or the whole page.
@@ -27,7 +28,7 @@ import { BlockUiStyle } from './style/blockuistyle';
 @Component({
     selector: 'p-blockUI, p-blockui',
     standalone: true,
-    imports: [CommonModule],
+    imports: [CommonModule, SharedModule],
     template: `
         <div
             #mask
@@ -163,6 +164,6 @@ export class BlockUI extends BaseComponent implements AfterViewInit, OnDestroy {
 
 @NgModule({
     imports: [BlockUI],
-    exports: [BlockUI],
+    exports: [BlockUI, SharedModule],
 })
 export class BlockUIModule {}

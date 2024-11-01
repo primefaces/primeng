@@ -11,7 +11,7 @@ import { Code } from '@domain/code';
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-scroller
+            <p-virtualscroller
                 [items]="items"
                 [itemSize]="50"
                 scrollHeight="200px"
@@ -28,7 +28,7 @@ import { Code } from '@domain/code';
                         {{ item }}
                     </div>
                 </ng-template>
-            </p-scroller>
+            </p-virtualscroller>
         </div>
         <app-code [code]="code" selector="scroller-horizontal-demo"></app-code>
     `,
@@ -42,7 +42,7 @@ export class HorizontalDoc {
     }
 
     code: Code = {
-        basic: `<p-scroller 
+        basic: `<p-virtualscroller 
     [items]="items" 
     [itemSize]="50" 
     scrollHeight="200px" 
@@ -58,10 +58,10 @@ export class HorizontalDoc {
                 {{ item }}
             </div>
         </ng-template>
-</p-scroller>`,
+</p-virtualscroller>`,
 
         html: `<div class="card flex justify-center">
-    <p-scroller 
+    <p-virtualscroller 
         [items]="items" 
         [itemSize]="50" 
         scrollHeight="200px" 
@@ -77,7 +77,7 @@ export class HorizontalDoc {
                     {{ item }}
                 </div>
             </ng-template>
-    </p-scroller>
+    </p-virtualscroller>
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';

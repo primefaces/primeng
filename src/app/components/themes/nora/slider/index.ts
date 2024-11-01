@@ -1,13 +1,13 @@
 export default {
     root: {
-        transitionDuration: '{transition.duration}',
+        transitionDuration: '{transition.duration}'
     },
     track: {
         borderRadius: '{content.border.radius}',
-        size: '3px',
+        size: '3px'
     },
     range: {
-        background: '{primary.color}',
+        background: '{primary.color}'
     },
     handle: {
         width: '16px',
@@ -21,26 +21,26 @@ export default {
             hoverBackground: '{primary.color}',
             width: '12px',
             height: '12px',
-            shadow: 'none',
+            shadow: 'none'
         },
         focusRing: {
             width: '{focus.ring.width}',
             style: '{focus.ring.style}',
             color: '{focus.ring.color}',
             offset: '{focus.ring.offset}',
-            shadow: '{focus.ring.shadow}',
-        },
+            shadow: '{focus.ring.shadow}'
+        }
     },
     colorScheme: {
         light: {
             track: {
-                background: '{surface.300}',
-            },
+                background: '{surface.300}'
+            }
         },
         dark: {
             track: {
-                background: '{surface.600}',
-            },
-        },
-    },
+                background: '{surface.600}'
+            }
+        }
+    }
 };

@@ -15,16 +15,16 @@ export default {
             style: '{form.field.focus.ring.style}',
             color: '{form.field.focus.ring.color}',
             offset: '{form.field.focus.ring.offset}',
-            shadow: '{form.field.focus.ring.shadow}',
+            shadow: '{form.field.focus.ring.shadow}'
         },
-        transitionDuration: '{form.field.transition.duration}',
+        transitionDuration: '{form.field.transition.duration}'
     },
     list: {
         padding: '{list.padding}',
         gap: '{list.gap}',
         header: {
-            padding: '{list.header.padding}',
-        },
+            padding: '{list.header.padding}'
+        }
     },
     option: {
         focusBackground: '{list.option.focus.background}',
@@ -35,32 +35,32 @@ export default {
         selectedColor: '{list.option.selected.color}',
         selectedFocusColor: '{list.option.selected.focus.color}',
         padding: '{list.option.padding}',
-        borderRadius: '{list.option.border.radius}',
+        borderRadius: '{list.option.border.radius}'
     },
     optionGroup: {
         background: '{list.option.group.background}',
         color: '{list.option.group.color}',
         fontWeight: '{list.option.group.font.weight}',
-        padding: '{list.option.group.padding}',
+        padding: '{list.option.group.padding}'
     },
     checkmark: {
         color: '{list.option.color}',
         gutterStart: '-0.5rem',
-        gutterEnd: '0.5rem',
+        gutterEnd: '0.5rem'
     },
     emptyMessage: {
-        padding: '{list.option.padding}',
+        padding: '{list.option.padding}'
     },
     colorScheme: {
         light: {
             option: {
-                stripedBackground: '{surface.50}',
-            },
+                stripedBackground: '{surface.50}'
+            }
         },
         dark: {
             option: {
-                stripedBackground: '{surface.900}',
-            },
-        },
-    },
+                stripedBackground: '{surface.900}'
+            }
+        }
+    }
 };

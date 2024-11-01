@@ -11,7 +11,7 @@ import {
     Output,
     signal,
     TemplateRef,
-    ViewEncapsulation
+    ViewEncapsulation,
 } from '@angular/core';
 import { BaseComponent } from 'primeng/basecomponent';
 import { CheckIcon } from 'primeng/icons/check';
@@ -22,6 +22,7 @@ import { MessageStyle } from './style/messagestyle';
 import { Ripple } from 'primeng/ripple';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { TimesIcon } from 'primeng/icons/times';
+import { SharedModule } from '../api/shared';
 
 /**
  * Message groups a collection of contents in tabs.
@@ -30,7 +31,7 @@ import { TimesIcon } from 'primeng/icons/times';
 @Component({
     selector: 'p-message',
     standalone: true,
-    imports: [CommonModule, CheckIcon, ExclamationTriangleIcon, TimesIcon, InfoCircleIcon, TimesCircleIcon, Ripple],
+    imports: [CommonModule, CheckIcon, ExclamationTriangleIcon, TimesIcon, InfoCircleIcon, TimesCircleIcon, Ripple, SharedModule],
     template: `
         @if (visible()) {
             <div
@@ -63,9 +64,11 @@ import { TimesIcon } from 'primeng/icons/times';
                     </ng-template>
 
                     @if (containerTemplate) {
-                        <ng-container *ngTemplateOutlet="containerTemplate; context: { closeCallback: close.bind($event) }"></ng-container>
+                        <ng-container *ngTemplateOutlet="containerTemplate; context: { closeCallback: close.bind(this) }"></ng-container>
                     } @else {
-                        <ng-content></ng-content>
+                        <span [ngClass]="cx('text')">
+                            <ng-content></ng-content>
+                        </span>
                     }
                     @if (closable) {
                         <button pRipple type="button" class="p-message-close-button" (click)="close($event)">
@@ -170,6 +173,16 @@ export class Message extends BaseComponent {
      */
     @Input() hideTransitionOptions: string = '200ms cubic-bezier(0.86, 0, 0.07, 1)';
     /**
+     * Defines the size of the component.
+     * @group Props
+     */
+    @Input() size: 'large' | 'small' | undefined;
+    /**
+     * Specifies the input variant of the component.
+     * @group Props
+     */
+    @Input() variant: 'outlined' | 'text' | 'simple' | undefined;
+    /**
      * Emits when the message is closed.
      * @param {{ originalEvent: Event }} event - The event object containing the original event.
      * @group Emits
@@ -177,9 +190,11 @@ export class Message extends BaseComponent {
     @Output() onClose: EventEmitter<{ originalEvent: Event }> = new EventEmitter<{ originalEvent: Event }>();
 
     get containerClass(): string {
-        return `p-message-${this.severity}` + `${this.styleClass ? ' ' + this.styleClass : ''}`;
-    }
+        const variantClass = this.variant === 'outlined' ? 'p-message-outlined' : this.variant === 'simple' ? 'p-message-simple' : '';
+        const sizeClass = this.size === 'small' ? 'p-message-sm' : this.size === 'large' ? 'p-message-lg' : '';
 
+        return `p-message-${this.severity} ${variantClass} ${sizeClass}`.trim() + (this.styleClass ? ' ' + this.styleClass : '');
+    }
     visible = signal<boolean>(true);
 
     _componentStyle = inject(MessageStyle);
@@ -202,10 +217,6 @@ export class Message extends BaseComponent {
      */
     @ContentChild('closeicon') closeIconTemplate: TemplateRef<any> | undefined;
 
-    get _defaultIcon() {
-        return this.severity ? this.severity : 'info';
-    }
-
     ngOnInit() {
         super.ngOnInit();
         if (this.life) {
@@ -216,17 +227,17 @@ export class Message extends BaseComponent {
     }
     /**
      * Closes the message.
-     * @param {Event} event Browser event.
+     * @param {Event} event - Browser event.
      * @group Method
      */
-    public close(event) {
+    public close(event: Event) {
         this.visible.set(false);
         this.onClose.emit({ originalEvent: event });
     }
 }
 
 @NgModule({
-    imports: [Message],
-    exports: [Message],
+    imports: [Message, SharedModule],
+    exports: [Message, SharedModule],
 })
 export class MessageModule {}

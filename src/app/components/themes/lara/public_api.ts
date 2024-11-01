@@ -1,1 +1,1 @@
-export * from './lara';
+export { default } from './';
