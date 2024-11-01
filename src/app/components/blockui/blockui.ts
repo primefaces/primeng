@@ -34,7 +34,7 @@ import { SharedModule } from '../api/shared';
             #mask
             [class]="styleClass"
             [attr.aria-busy]="blocked"
-            [ngClass]="{ 'p-blockui-document': !target, 'p-blockui p-blockui-mask p-overlay-mask': true }"
+            [ngClass]="{ 'p-blockui-mask-document': !target, 'p-blockui p-blockui-mask p-overlay-mask': true }"
             [ngStyle]="{ display: 'none' }"
             [attr.data-pc-name]="'blockui'"
             [attr.data-pc-section]="'root'"
