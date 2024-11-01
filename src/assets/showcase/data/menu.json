@@ -203,8 +203,8 @@
                             "routerLink": "/treetable"
                         },
                         {
-                            "name": "Scroller",
-                            "routerLink": "/scroller"
+                            "name": "VirtualScroller",
+                            "routerLink": "/virtualscroller"
                         }
                     ]
                 },
