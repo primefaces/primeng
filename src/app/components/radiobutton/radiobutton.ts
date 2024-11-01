@@ -23,6 +23,7 @@ import { AutoFocus } from 'primeng/autofocus';
 import { BaseComponent } from 'primeng/basecomponent';
 import { RadioButtonStyle } from './style/radiobuttonstyle';
 import { RadioButtonClickEvent } from './radiobutton.interface';
+import { SharedModule } from '../api/shared';
 
 export const RADIO_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -69,7 +70,7 @@ export class RadioControlRegistry {
 @Component({
     selector: 'p-radioButton, p-radiobutton',
     standalone: true,
-    imports: [CommonModule, AutoFocus],
+    imports: [CommonModule, AutoFocus, SharedModule],
     template: `
         <div
             [ngStyle]="style"
@@ -310,7 +311,7 @@ export class RadioButton extends BaseComponent implements ControlValueAccessor, 
 }
 
 @NgModule({
-    imports: [RadioButton],
-    exports: [RadioButton],
+    imports: [RadioButton, SharedModule],
+    exports: [RadioButton, SharedModule],
 })
 export class RadioButtonModule {}

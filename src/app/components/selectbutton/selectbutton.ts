@@ -21,6 +21,7 @@ import { ToggleButton } from 'primeng/togglebutton';
 import { BaseComponent } from 'primeng/basecomponent';
 import { SelectButtonStyle } from './style/selectbuttonstyle';
 import { CommonModule } from '@angular/common';
+import { SharedModule } from '../api/shared';
 
 export const SELECTBUTTON_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -34,7 +35,7 @@ export const SELECTBUTTON_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-selectButton, p-selectbutton',
     standalone: true,
-    imports: [Ripple, ToggleButton, FormsModule, CommonModule],
+    imports: [Ripple, ToggleButton, FormsModule, CommonModule, SharedModule],
     template: `
         @for (option of options; track option; let i = $index) {
             <p-toggleButton
@@ -313,7 +314,7 @@ export class SelectButton extends BaseComponent implements ControlValueAccessor 
 }
 
 @NgModule({
-    imports: [SelectButton],
-    exports: [SelectButton],
+    imports: [SelectButton, SharedModule],
+    exports: [SelectButton, SharedModule],
 })
 export class SelectButtonModule {}

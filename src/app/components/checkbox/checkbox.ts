@@ -27,6 +27,7 @@ import { CheckboxChangeEvent } from './checkbox.interface';
 import { MinusIcon } from 'primeng/icons/minus';
 import { BaseComponent } from 'primeng/basecomponent';
 import { CheckboxStyle } from './style/checkboxstyle';
+import { SharedModule } from '../api/shared';
 
 export const CHECKBOX_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -40,7 +41,7 @@ export const CHECKBOX_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-checkbox',
     standalone: true,
-    imports: [CommonModule, AutoFocus, CheckIcon, MinusIcon],
+    imports: [CommonModule, AutoFocus, CheckIcon, MinusIcon, SharedModule],
     template: `
         <div
             [style]="style"
@@ -158,7 +159,7 @@ export class Checkbox extends BaseComponent implements ControlValueAccessor {
      * Defines the size of the component.
      * @group Props
      */
-    @Input() size: 'large' | 'small';   
+    @Input() size: 'large' | 'small';
     /**
      * Form control value.
      * @group Props
@@ -231,7 +232,7 @@ export class Checkbox extends BaseComponent implements ControlValueAccessor {
             'p-disabled': this.disabled,
             'p-variant-filled': this.variant === 'filled' || this.config.inputStyle() === 'filled',
             'p-checkbox-sm p-inputfield-sm': this.size === 'small',
-            'p-checkbox-lg p-inputfield-lg': this.size === 'large'
+            'p-checkbox-lg p-inputfield-lg': this.size === 'large',
         };
     }
 
@@ -338,7 +339,7 @@ export class Checkbox extends BaseComponent implements ControlValueAccessor {
 }
 
 @NgModule({
-    imports: [Checkbox],
-    exports: [Checkbox],
+    imports: [Checkbox, SharedModule],
+    exports: [Checkbox, SharedModule],
 })
 export class CheckboxModule {}

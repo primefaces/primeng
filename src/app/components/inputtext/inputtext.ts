@@ -1,14 +1,4 @@
-import {
-    AfterViewInit,
-    booleanAttribute,
-    Directive,
-    DoCheck,
-    HostListener,
-    inject,
-    Input,
-    NgModule,
-    Optional
-} from '@angular/core';
+import { AfterViewInit, booleanAttribute, Directive, DoCheck, HostListener, inject, Input, NgModule, Optional } from '@angular/core';
 import { NgModel } from '@angular/forms';
 import { Nullable } from 'primeng/ts-helpers';
 import { BaseComponent } from 'primeng/basecomponent';
@@ -49,7 +39,7 @@ export class InputText extends BaseComponent implements DoCheck, AfterViewInit {
      * Defines the size of the component.
      * @group Props
      */
-    @Input() size: 'large' | 'small';   
+    @Input() size: 'large' | 'small';
 
     filled: Nullable<boolean>;
 

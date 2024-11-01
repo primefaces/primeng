@@ -52,7 +52,7 @@ export const CASCADESELECT_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-cascadeSelectSub, p-cascadeselect-sub',
     standalone: true,
-    imports: [CommonModule, Overlay, Ripple, AutoFocus, AngleRightIcon],
+    imports: [CommonModule, Overlay, Ripple, AutoFocus, AngleRightIcon, SharedModule],
     template: `
         <ul
             class="p-cascadeselect-list"
@@ -1538,7 +1538,7 @@ export class CascadeSelect extends BaseComponent implements OnInit {
 }
 
 @NgModule({
-    imports: [CascadeSelect],
+    imports: [CascadeSelect, SharedModule],
     exports: [CascadeSelect, SharedModule],
 })
 export class CascadeSelectModule {}

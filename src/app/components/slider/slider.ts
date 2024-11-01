@@ -23,6 +23,7 @@ import { AutoFocus } from 'primeng/autofocus';
 import { SliderChangeEvent, SliderSlideEndEvent } from './slider.interface';
 import { SliderStyle } from './style/sliderstyle';
 import { BaseComponent } from 'primeng/basecomponent';
+import { SharedModule } from '../api/shared';
 
 export const SLIDER_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -36,7 +37,7 @@ export const SLIDER_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-slider',
     standalone: true,
-    imports: [CommonModule, AutoFocus],
+    imports: [CommonModule, AutoFocus, SharedModule],
     template: `
         <div
             [ngStyle]="style"
@@ -737,7 +738,7 @@ export class Slider extends BaseComponent implements OnDestroy, ControlValueAcce
 }
 
 @NgModule({
-    imports: [Slider],
-    exports: [Slider],
+    imports: [Slider, SharedModule],
+    exports: [Slider, SharedModule],
 })
 export class SliderModule {}

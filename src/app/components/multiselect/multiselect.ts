@@ -83,7 +83,7 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-multiSelectItem, p-multiselect-item',
     standalone: true,
-    imports: [CommonModule, Checkbox, FormsModule, Ripple],
+    imports: [CommonModule, Checkbox, FormsModule, Ripple, SharedModule],
     template: `
         <li
             pRipple

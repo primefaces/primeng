@@ -53,6 +53,7 @@ import { Nullable } from 'primeng/ts-helpers';
 import { Caret } from './inputmask.interface';
 import { BaseComponent } from 'primeng/basecomponent';
 import { InputMaskStyle } from './style/inputmaskstyle';
+import { SharedModule } from '../api/shared';
 
 export const INPUTMASK_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -66,7 +67,7 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-inputmask, p-inputMask',
     standalone: true,
-    imports: [CommonModule, InputText, AutoFocus, TimesIcon],
+    imports: [CommonModule, InputText, AutoFocus, TimesIcon, SharedModule],
     template: `
         <input
             #input
@@ -850,7 +851,7 @@ export class InputMask extends BaseComponent implements OnInit, ControlValueAcce
 }
 
 @NgModule({
-    imports: [InputMask],
-    exports: [InputMask],
+    imports: [InputMask, SharedModule],
+    exports: [InputMask, SharedModule],
 })
 export class InputMaskModule {}

@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, inject, Input, NgModule } from '@angular/core';
 import { InputGroupStyle } from './style/inputgroupstyle';
 import { BaseComponent } from 'primeng/basecomponent';
+import { SharedModule } from '../api/shared';
 
 /**
  * InputGroup displays text, icon, buttons and other content can be grouped next to an input.
@@ -10,7 +11,7 @@ import { BaseComponent } from 'primeng/basecomponent';
 @Component({
     selector: 'p-inputgroup, p-inputGroup',
     standalone: true,
-    imports: [CommonModule],
+    imports: [CommonModule, SharedModule],
     template: ` <ng-content></ng-content> `,
     providers: [InputGroupStyle],
     host: {
@@ -36,7 +37,7 @@ export class InputGroup extends BaseComponent {
 }
 
 @NgModule({
-    imports: [InputGroup],
-    exports: [InputGroup],
+    imports: [InputGroup, SharedModule],
+    exports: [InputGroup, SharedModule],
 })
 export class InputGroupModule {}

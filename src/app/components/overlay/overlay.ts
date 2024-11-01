@@ -672,7 +672,7 @@ export class Overlay extends BaseComponent implements OnDestroy {
 }
 
 @NgModule({
-    imports: [Overlay],
+    imports: [Overlay, SharedModule],
     exports: [Overlay, SharedModule],
 })
 export class OverlayModule {}

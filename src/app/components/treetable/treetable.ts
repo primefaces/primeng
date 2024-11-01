@@ -3976,6 +3976,7 @@ export class TreeTableToggler {
         ChevronDownIcon,
         ChevronRightIcon,
         Checkbox,
+        SharedModule,
         FormsModule,
     ],
     exports: [

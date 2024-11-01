@@ -25,7 +25,7 @@ import {
     ViewEncapsulation,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
-import { PrimeTemplate } from 'primeng/api';
+import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
 import { Button } from 'primeng/button';
 import { DomHandler } from 'primeng/dom';
@@ -50,7 +50,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-inputNumber, p-inputnumber',
     standalone: true,
-    imports: [CommonModule, InputText, Button, AutoFocus, TimesIcon, AngleUpIcon, AngleDownIcon],
+    imports: [CommonModule, InputText, Button, AutoFocus, TimesIcon, AngleUpIcon, AngleDownIcon, SharedModule],
     template: `
         <input
             pInputText
@@ -1575,7 +1575,7 @@ export class InputNumber extends BaseComponent implements OnInit, AfterContentIn
 }
 
 @NgModule({
-    imports: [InputNumber],
-    exports: [InputNumber],
+    imports: [InputNumber, SharedModule],
+    exports: [InputNumber, SharedModule],
 })
 export class InputNumberModule {}

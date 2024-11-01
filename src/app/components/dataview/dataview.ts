@@ -41,7 +41,7 @@ import { BaseComponent } from 'primeng/basecomponent';
 @Component({
     selector: 'p-dataView, p-dataview',
     standalone: true,
-    imports: [CommonModule, PaginatorModule, SpinnerIcon],
+    imports: [CommonModule, PaginatorModule, SpinnerIcon, SharedModule],
     template: `
         <div
             [ngClass]="{ 'p-dataview p-component': true, 'p-dataview-list': layout === 'list', 'p-dataview-grid': layout === 'grid' }"

@@ -19,9 +19,9 @@ import {
     QueryList,
     TemplateRef,
     ViewEncapsulation,
-    ViewRef
+    ViewRef,
 } from '@angular/core';
-import { OverlayService, PrimeTemplate } from 'primeng/api';
+import { OverlayService, PrimeTemplate, SharedModule } from 'primeng/api';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { TimesIcon } from 'primeng/icons/times';
 import { Ripple } from 'primeng/ripple';
@@ -38,7 +38,7 @@ import { BaseComponent } from 'primeng/basecomponent';
 @Component({
     selector: 'p-popover',
     standalone: true,
-    imports: [CommonModule, Ripple, TimesIcon],
+    imports: [CommonModule, Ripple, TimesIcon, SharedModule],
     template: `
         <div
             *ngIf="render"
@@ -521,7 +521,7 @@ export class Popover extends BaseComponent implements AfterContentInit, OnDestro
 }
 
 @NgModule({
-    imports: [Popover],
-    exports: [Popover],
+    imports: [Popover, SharedModule],
+    exports: [Popover, SharedModule],
 })
 export class PopoverModule {}

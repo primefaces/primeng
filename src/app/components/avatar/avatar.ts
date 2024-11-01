@@ -8,10 +8,11 @@ import {
     Input,
     NgModule,
     Output,
-    ViewEncapsulation
+    ViewEncapsulation,
 } from '@angular/core';
 import { BaseComponent } from 'primeng/basecomponent';
 import { AvatarStyle } from './style/avatarstyle';
+import { SharedModule } from '../api/shared';
 
 /**
  * Avatar represents people using icons, labels and images.
@@ -20,7 +21,7 @@ import { AvatarStyle } from './style/avatarstyle';
 @Component({
     selector: 'p-avatar',
     standalone: true,
-    imports: [CommonModule],
+    imports: [CommonModule, SharedModule],
     template: `
         <ng-content></ng-content>
         <span class="p-avatar-text" *ngIf="label; else iconTemplate">{{ label }}</span>
@@ -110,7 +111,7 @@ export class Avatar extends BaseComponent {
 }
 
 @NgModule({
-    imports: [Avatar],
-    exports: [Avatar],
+    imports: [Avatar, SharedModule],
+    exports: [Avatar, SharedModule],
 })
 export class AvatarModule {}

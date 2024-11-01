@@ -25,7 +25,7 @@ import {
     ViewEncapsulation,
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { MenuItem, PrimeNGConfig } from 'primeng/api';
+import { MenuItem, PrimeNGConfig, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { AngleDownIcon } from 'primeng/icons/angledown';
 import { AngleRightIcon } from 'primeng/icons/angleright';
@@ -57,7 +57,7 @@ export class MenubarService {
 @Component({
     selector: 'p-menubarSub, p-menubarsub',
     standalone: true,
-    imports: [CommonModule, RouterModule, Ripple, TooltipModule, BarsIcon, AngleDownIcon, AngleRightIcon, BadgeModule],
+    imports: [CommonModule, RouterModule, Ripple, TooltipModule, BarsIcon, AngleDownIcon, AngleRightIcon, BadgeModule, SharedModule],
     template: `
         <ul
             #menubar
@@ -222,7 +222,7 @@ export class MenubarService {
                                     [value]="getItemProp(processedItem, 'badge')"
                                 />
                                 <ng-container *ngIf="isItemGroup(processedItem)">
-                                    <ng-container *ngIf="!menubar.submenuIconTemplate">
+                                    <ng-container *ngIf="!submenuIconTemplate">
                                         <AngleDownIcon
                                             class="p-menubar-submenu-icon"
                                             [attr.data-pc-section]="'submenuicon'"
@@ -237,7 +237,7 @@ export class MenubarService {
                                         />
                                     </ng-container>
                                     <ng-template
-                                        *ngTemplateOutlet="menubar.submenuIconTemplate"
+                                        *ngTemplateOutlet="submenuIconTemplate"
                                         [attr.data-pc-section]="'submenuicon'"
                                         [attr.aria-hidden]="true"
                                     ></ng-template>
@@ -275,7 +275,7 @@ export class MenubarService {
 export class MenubarSub extends BaseComponent implements OnInit, OnDestroy {
     @Input() items: any[];
 
-    @Input() itemTemplate: HTMLElement | undefined;
+    @Input() itemTemplate: TemplateRef<any> | undefined;
 
     @Input({ transform: booleanAttribute }) root: boolean = false;
 
@@ -429,10 +429,21 @@ export class MenubarSub extends BaseComponent implements OnInit, OnDestroy {
 @Component({
     selector: 'p-menubar',
     standalone: true,
-    imports: [CommonModule, RouterModule, MenubarSub, Ripple, TooltipModule, BarsIcon, AngleDownIcon, AngleRightIcon, BadgeModule],
+    imports: [
+        CommonModule,
+        RouterModule,
+        MenubarSub,
+        Ripple,
+        TooltipModule,
+        BarsIcon,
+        AngleDownIcon,
+        AngleRightIcon,
+        BadgeModule,
+        SharedModule,
+    ],
     template: `
         <div
-            [ngClass]="{ 'p-menubar p-component': true, 'p-menubar-mobile': queryMatches , 'p-menubar-mobile-active': mobileActive}"
+            [ngClass]="{ 'p-menubar p-component': true, 'p-menubar-mobile': queryMatches, 'p-menubar-mobile-active': mobileActive }"
             [class]="styleClass"
             [ngStyle]="style"
             [attr.data-pc-section]="'root'"
@@ -583,7 +594,7 @@ export class Menubar extends BaseComponent implements OnDestroy, OnInit {
     private matchMediaListener: () => void;
 
     private query: MediaQueryList;
-    
+
     public queryMatches: boolean;
 
     outsideClickListener: VoidListener;
@@ -688,6 +699,10 @@ export class Menubar extends BaseComponent implements OnDestroy, OnInit {
      * @group Templates
      */
     @ContentChild('menuicon') menuIconTemplate: TemplateRef<any> | undefined;
+    /**
+     * Defines template option for submenu icon.
+     * @group Templates
+     */
     @ContentChild('submenuicon') submenuIconTemplate: TemplateRef<any> | undefined;
 
     createProcessedItems(items: any, level: number = 0, parent: any = {}, parentKey: any = '') {
@@ -711,7 +726,6 @@ export class Menubar extends BaseComponent implements OnDestroy, OnInit {
 
         return processedItems;
     }
-    
 
     bindMatchMediaListener() {
         if (isPlatformBrowser(this.platformId)) {
@@ -724,14 +738,13 @@ export class Menubar extends BaseComponent implements OnDestroy, OnInit {
                 this.matchMediaListener = () => {
                     this.queryMatches = query.matches;
                     this.mobileActive = false;
-                    this.cd.markForCheck()
+                    this.cd.markForCheck();
                 };
 
                 query.addEventListener('change', this.matchMediaListener);
             }
         }
     }
-
 
     unbindMatchMediaListener() {
         if (this.matchMediaListener) {
@@ -835,7 +848,7 @@ export class Menubar extends BaseComponent implements OnDestroy, OnInit {
                 this.show();
             }, 0);
         }
-      
+
         this.bindOutsideClickListener();
         event.preventDefault();
     }
@@ -1267,13 +1280,13 @@ export class Menubar extends BaseComponent implements OnDestroy, OnInit {
         this.mouseLeaveSubscriber?.unsubscribe();
         this.unbindOutsideClickListener();
         this.unbindResizeListener();
-        this.unbindMatchMediaListener()
+        this.unbindMatchMediaListener();
         super.ngOnDestroy();
     }
 }
 
 @NgModule({
-    imports: [Menubar],
-    exports: [Menubar],
+    imports: [Menubar, SharedModule],
+    exports: [Menubar, SharedModule],
 })
 export class MenubarModule {}

@@ -24,6 +24,7 @@ import { Nullable } from 'primeng/ts-helpers';
 import { VirtualScrollerLazyLoadEvent } from './virtualscroller.interface';
 /**
  * VirtualScroller is a performant approach to handle huge data efficiently.
+ * @deprecated use scroller component instead.
  * @group Components
  */
 @Component({

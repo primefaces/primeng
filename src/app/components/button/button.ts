@@ -432,7 +432,7 @@ export class ButtonDirective extends BaseComponent implements AfterViewInit, OnD
 @Component({
     selector: 'p-button',
     standalone: true,
-    imports: [CommonModule, Ripple, AutoFocus, SpinnerIcon, BadgeModule],
+    imports: [CommonModule, Ripple, AutoFocus, SpinnerIcon, BadgeModule, SharedModule],
     template: `
         <button
             [attr.type]="type"
@@ -760,7 +760,7 @@ export class Button extends BaseComponent implements AfterContentInit {
 }
 
 @NgModule({
-    imports: [CommonModule, ButtonDirective, Button, SharedModule, ButtonLabel, ButtonIcon, SharedModule],
+    imports: [CommonModule, ButtonDirective, Button, SharedModule, ButtonLabel, ButtonIcon],
     exports: [ButtonDirective, Button, ButtonLabel, ButtonIcon, SharedModule],
 })
 export class ButtonModule {}

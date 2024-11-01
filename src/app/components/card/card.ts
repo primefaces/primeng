@@ -10,9 +10,9 @@ import {
     QueryList,
     signal,
     TemplateRef,
-    ViewEncapsulation
+    ViewEncapsulation,
 } from '@angular/core';
-import { BlockableUI, Footer, Header, PrimeTemplate } from 'primeng/api';
+import { BlockableUI, Footer, Header, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ObjectUtils } from 'primeng/utils';
 import { CardStyle } from './style/cardstyle';
@@ -24,7 +24,7 @@ import { CardStyle } from './style/cardstyle';
 @Component({
     selector: 'p-card',
     standalone: true,
-    imports: [CommonModule],
+    imports: [CommonModule, SharedModule],
     template: `
         <div [ngClass]="'p-card p-component'" [ngStyle]="_style()" [class]="styleClass" [attr.data-pc-name]="'card'">
             <div class="p-card-header" *ngIf="headerFacet || headerTemplate">
@@ -107,7 +107,7 @@ export class Card extends BaseComponent implements BlockableUI {
 }
 
 @NgModule({
-    imports: [Card],
-    exports: [Card],
+    imports: [Card, SharedModule],
+    exports: [Card, SharedModule],
 })
 export class CardModule {}

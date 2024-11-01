@@ -19,6 +19,7 @@ import { AutoFocusModule } from 'primeng/autofocus';
 import { InputSwitchChangeEvent } from './inputswitch.interface';
 import { InputSwitchStyle } from './style/inputswitchstyle';
 import { BaseComponent } from 'primeng/basecomponent';
+import { SharedModule } from '../api/shared';
 
 export const INPUTSWITCH_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -31,6 +32,8 @@ export const INPUTSWITCH_VALUE_ACCESSOR: any = {
  */
 @Component({
     selector: 'p-inputSwitch, p-inputswitch',
+    standalone: true,
+    imports: [CommonModule, AutoFocusModule, SharedModule],
     template: `
         <div
             [ngClass]="cx('root')"
@@ -195,8 +198,7 @@ export class InputSwitch extends BaseComponent {
 }
 
 @NgModule({
-    imports: [CommonModule, AutoFocusModule],
-    exports: [InputSwitch],
-    declarations: [InputSwitch],
+    imports: [InputSwitch, SharedModule],
+    exports: [InputSwitch, SharedModule],
 })
 export class InputSwitchModule {}

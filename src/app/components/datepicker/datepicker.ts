@@ -21,7 +21,7 @@ import {
     ViewEncapsulation,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { OverlayService, TranslationKeys } from 'primeng/api';
+import { OverlayService, SharedModule, TranslationKeys } from 'primeng/api';
 import { Button } from 'primeng/button';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { Ripple } from 'primeng/ripple';
@@ -72,6 +72,7 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
         CalendarIcon,
         AutoFocus,
         InputText,
+        SharedModule,
     ],
     template: `
         <span #container [ngClass]="rootClass" [ngStyle]="style" [class]="styleClass">
@@ -3970,7 +3971,7 @@ export class DatePicker extends BaseComponent implements OnInit, OnDestroy, Cont
 }
 
 @NgModule({
-    imports: [DatePicker],
-    exports: [DatePicker],
+    imports: [DatePicker, SharedModule],
+    exports: [DatePicker, SharedModule],
 })
 export class DatePickerModule {}

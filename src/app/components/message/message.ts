@@ -237,7 +237,7 @@ export class Message extends BaseComponent {
 }
 
 @NgModule({
-    imports: [Message],
+    imports: [Message, SharedModule],
     exports: [Message, SharedModule],
 })
 export class MessageModule {}

@@ -16,7 +16,7 @@ import {
     ViewChild,
     ViewEncapsulation,
 } from '@angular/core';
-import { MenuItem, TooltipOptions } from 'primeng/api';
+import { MenuItem, SharedModule, TooltipOptions } from 'primeng/api';
 import { ButtonDirective } from 'primeng/button';
 import { ChevronDownIcon } from 'primeng/icons/chevrondown';
 import { TieredMenu } from 'primeng/tieredmenu';
@@ -37,7 +37,7 @@ type SplitButtonIconPosition = 'left' | 'right';
 @Component({
     selector: 'p-splitbutton, p-splitButton',
     standalone: true,
-    imports: [CommonModule, ButtonDirective, TieredMenu, AutoFocus, ChevronDownIcon, Ripple, TooltipModule],
+    imports: [CommonModule, ButtonDirective, TieredMenu, AutoFocus, ChevronDownIcon, Ripple, TooltipModule, SharedModule],
     template: `
         <div #container [ngClass]="containerClass" [class]="styleClass" [ngStyle]="style">
             <ng-container *ngIf="contentTemplate; else defaultButton">
@@ -396,7 +396,7 @@ export class SplitButton extends BaseComponent {
 }
 
 @NgModule({
-    imports: [SplitButton],
-    exports: [SplitButton],
+    imports: [SplitButton, SharedModule],
+    exports: [SplitButton, SharedModule],
 })
 export class SplitButtonModule {}

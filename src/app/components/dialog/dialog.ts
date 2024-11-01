@@ -20,7 +20,7 @@ import {
     ViewEncapsulation,
     ViewRef,
 } from '@angular/core';
-import { TranslationKeys } from 'primeng/api';
+import { SharedModule, TranslationKeys } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { FocusTrap } from 'primeng/focustrap';
 import { TimesIcon } from 'primeng/icons/times';
@@ -43,7 +43,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
 @Component({
     selector: 'p-dialog',
     standalone: true,
-    imports: [CommonModule, Button, Ripple, FocusTrap, TimesIcon, WindowMaximizeIcon, WindowMinimizeIcon],
+    imports: [CommonModule, Button, Ripple, FocusTrap, TimesIcon, WindowMaximizeIcon, WindowMinimizeIcon, SharedModule],
     template: `
         <div
             *ngIf="maskVisible"
@@ -1082,7 +1082,7 @@ export class Dialog extends BaseComponent implements OnInit, OnDestroy {
 }
 
 @NgModule({
-    imports: [Dialog],
-    exports: [Dialog],
+    imports: [Dialog, SharedModule],
+    exports: [Dialog, SharedModule],
 })
 export class DialogModule {}

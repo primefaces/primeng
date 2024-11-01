@@ -24,7 +24,7 @@ import { AutoFocus } from 'primeng/autofocus';
 import { ToggleSwitchChangeEvent } from './toggleswitch.interface';
 import { ToggleSwitchStyle } from './style/toggleswitchstyle';
 import { BaseComponent } from 'primeng/basecomponent';
-import { PrimeTemplate } from '../api/shared';
+import { PrimeTemplate, SharedModule } from '../api/shared';
 
 /**
  * Context interface for the handle template.
@@ -47,7 +47,7 @@ export const TOGGLESWITCH_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-toggleswitch, p-toggleSwitch',
     standalone: true,
-    imports: [CommonModule, AutoFocus],
+    imports: [CommonModule, AutoFocus, SharedModule],
     template: `
         <div
             [ngClass]="cx('root')"
@@ -239,7 +239,7 @@ export class ToggleSwitch extends BaseComponent implements AfterContentInit {
 }
 
 @NgModule({
-    imports: [ToggleSwitch],
-    exports: [ToggleSwitch],
+    imports: [ToggleSwitch, SharedModule],
+    exports: [ToggleSwitch, SharedModule],
 })
 export class ToggleSwitchModule {}

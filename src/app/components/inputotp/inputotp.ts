@@ -20,7 +20,7 @@ import { InputText } from 'primeng/inputtext';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { AutoFocus } from 'primeng/autofocus';
 import { InputOtpStyle } from './style/inputotpstyle';
-import { PrimeTemplate } from 'primeng/api';
+import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 
 export const INPUT_OTP_VALUE_ACCESSOR: any = {
@@ -77,7 +77,7 @@ export interface InputOtpInputTemplateContext {
 @Component({
     selector: 'p-inputOtp, p-inputotp',
     standalone: true,
-    imports: [CommonModule, InputText, AutoFocus],
+    imports: [CommonModule, InputText, AutoFocus, SharedModule],
     template: `
         <ng-container *ngFor="let i of getRange(length); trackBy: trackByFn">
             <ng-container *ngIf="!inputTemplate">
@@ -432,7 +432,7 @@ export class InputOtp extends BaseComponent implements AfterContentInit {
 }
 
 @NgModule({
-    imports: [InputOtp],
-    exports: [InputOtp],
+    imports: [InputOtp, SharedModule],
+    exports: [InputOtp, SharedModule],
 })
 export class InputOtpModule {}

@@ -40,7 +40,7 @@ import { BaseComponent } from 'primeng/basecomponent';
 @Component({
     selector: 'p-speeddial',
     standalone: true,
-    imports: [CommonModule, ButtonDirective, Ripple, TooltipModule, RouterModule, PlusIcon, ButtonIcon],
+    imports: [CommonModule, ButtonDirective, Ripple, TooltipModule, RouterModule, PlusIcon, ButtonIcon, SharedModule],
     template: `
         <div
             #container

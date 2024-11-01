@@ -1029,7 +1029,7 @@ export class TreeSelect extends BaseComponent {
 }
 
 @NgModule({
-    imports: [TreeSelect],
-    exports: [TreeSelect],
+    imports: [TreeSelect, SharedModule],
+    exports: [TreeSelect, SharedModule],
 })
 export class TreeSelectModule {}

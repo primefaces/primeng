@@ -2184,7 +2184,7 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
 }
 
 @NgModule({
-    imports: [Select],
+    imports: [Select, SharedModule],
     exports: [Select, SharedModule],
 })
 export class SelectModule {}
