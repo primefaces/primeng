@@ -222,7 +222,7 @@ const theme = ({ dt }) => `
 
 /* For PrimeNG */
 
-p-multiselect.ng-invalid.ng-dirty > .p-multiselect.p-component.p-inputwrapper {
+p-multiselect.ng-invalid.ng-dirty {
     border-color: ${dt('multiselect.invalid.border.color')};
 }
 
@@ -233,9 +233,12 @@ p-multiselect.ng-invalid.ng-dirty > .p-multiselect.p-component.p-inputwrapper {
     justify-content: center;
     flex-shrink: 0;
     background: transparent;
-    color: ${dt('multiselect.dropdown.color')};
+    color: ${dt('multiselect.clear.icon.color')};
 }
-`;
+
+p-multiselect.ng-invalid.ng-dirty .p-multiselect-label {
+    color: ${dt('multiselect.invalid.placeholder.color')};
+}`;
 
 const inlineStyles = {
     root: ({ props }) => ({ position: props.appendTo === 'self' ? 'relative' : undefined }),
@@ -254,13 +257,12 @@ const classes = {
         'p-multiselect-open': instance.overlayVisible,
         'p-multiselect-fluid': instance.hasFluid,
         'p-multiselect-sm p-inputfield-sm': instance.size === 'small',
-        'p-multiselect-lg p-inputfield-lg': instance.size === 'large'
-        
+        'p-multiselect-lg p-inputfield-lg': instance.size === 'large',
     }),
     labelContainer: 'p-multiselect-label-container',
     label: ({ instance }) => ({
         'p-multiselect-label': true,
-        'p-placeholder': instance.label === instance.placeholder,
+        'p-placeholder': instance.label === instance.placeholder(),
         'p-multiselect-label-empty':
             !instance.placeholder() && !instance.defaultLabel && (!instance.modelValue() || instance.modelValue().length === 0),
     }),

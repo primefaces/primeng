@@ -168,10 +168,12 @@ p-treeselect.ng-invalid.ng-dirty > .p-inputwrapper {
     justify-content: center;
     flex-shrink: 0;
     background: transparent;
-    color: ${dt('treeselect.dropdown.color')};
+    color: ${dt('treeselect.clear.icon.color')};
 }
 
-`;
+p-treeselect.ng-invalid.ng-dirty .p-treeselect-label.p-placeholder {
+    color: ${dt('treeselect.invalid.placeholder.color')};
+}`;
 
 const inlineStyles = {
     root: ({ instance }) => ({ position: instance.appendTo === 'self' ? 'relative' : undefined }),
@@ -191,7 +193,7 @@ const classes = {
         'p-treeselect-clearable': instance.showClear,
         'p-treeselect-fluid': instance.hasFluid,
         'p-treeselect-sm p-inputfield-sm': instance.size === 'small',
-        'p-treeselect-lg p-inputfield-lg': instance.size === 'large'
+        'p-treeselect-lg p-inputfield-lg': instance.size === 'large',
     }),
     labelContainer: 'p-treeselect-label-container',
     label: ({ instance }) => ({

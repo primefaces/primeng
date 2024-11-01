@@ -188,6 +188,11 @@
                 "description": "Filled background of root"
             },
             {
+                "token": "root.filledHoverBackground",
+                "variable": "--p-autocomplete-filled-hover-background",
+                "description": "Filled hover background of root"
+            },
+            {
                 "token": "root.filledFocusBackground",
                 "variable": "--p-autocomplete-filled-focus-background",
                 "description": "Filled focus background of root"
@@ -226,6 +231,11 @@
                 "token": "root.placeholderColor",
                 "variable": "--p-autocomplete-placeholder-color",
                 "description": "Placeholder color of root"
+            },
+            {
+                "token": "root.invalidPlaceholderColor",
+                "variable": "--p-autocomplete-invalid-placeholder-color",
+                "description": "Invalid placeholder color of root"
             },
             {
                 "token": "root.shadow",
@@ -383,6 +393,16 @@
                 "description": "Width of dropdown"
             },
             {
+                "token": "sm.width",
+                "variable": "--p-autocomplete-dropdown-sm-width",
+                "description": "Sm width of dropdown"
+            },
+            {
+                "token": "lg.width",
+                "variable": "--p-autocomplete-dropdown-lg-width",
+                "description": "Lg width of dropdown"
+            },
+            {
                 "token": "dropdown.borderColor",
                 "variable": "--p-autocomplete-dropdown-border-color",
                 "description": "Border color of dropdown"
@@ -461,6 +481,16 @@
                 "token": "chip.borderRadius",
                 "variable": "--p-autocomplete-chip-border-radius",
                 "description": "Border radius of chip"
+            },
+            {
+                "token": "chip.focusBackground",
+                "variable": "--p-autocomplete-chip-focus-background",
+                "description": "Focus background of chip"
+            },
+            {
+                "token": "chip.focusColor",
+                "variable": "--p-autocomplete-chip-focus-color",
+                "description": "Focus color of chip"
             },
             {
                 "token": "emptyMessage.padding",
@@ -1798,6 +1828,11 @@
                 "description": "Filled background of root"
             },
             {
+                "token": "root.filledHoverBackground",
+                "variable": "--p-cascadeselect-filled-hover-background",
+                "description": "Filled hover background of root"
+            },
+            {
                 "token": "root.filledFocusBackground",
                 "variable": "--p-cascadeselect-filled-focus-background",
                 "description": "Filled focus background of root"
@@ -1836,6 +1871,11 @@
                 "token": "root.placeholderColor",
                 "variable": "--p-cascadeselect-placeholder-color",
                 "description": "Placeholder color of root"
+            },
+            {
+                "token": "root.invalidPlaceholderColor",
+                "variable": "--p-cascadeselect-invalid-placeholder-color",
+                "description": "Invalid placeholder color of root"
             },
             {
                 "token": "root.shadow",
@@ -1888,6 +1928,36 @@
                 "description": "Transition duration of root"
             },
             {
+                "token": "sm.fontSize",
+                "variable": "--p-cascadeselect-sm-font-size",
+                "description": "Sm font size of root"
+            },
+            {
+                "token": "sm.paddingX",
+                "variable": "--p-cascadeselect-sm-padding-x",
+                "description": "Sm padding x of root"
+            },
+            {
+                "token": "sm.paddingY",
+                "variable": "--p-cascadeselect-sm-padding-y",
+                "description": "Sm padding y of root"
+            },
+            {
+                "token": "lg.fontSize",
+                "variable": "--p-cascadeselect-lg-font-size",
+                "description": "Lg font size of root"
+            },
+            {
+                "token": "lg.paddingX",
+                "variable": "--p-cascadeselect-lg-padding-x",
+                "description": "Lg padding x of root"
+            },
+            {
+                "token": "lg.paddingY",
+                "variable": "--p-cascadeselect-lg-padding-y",
+                "description": "Lg padding y of root"
+            },
+            {
                 "token": "dropdown.width",
                 "variable": "--p-cascadeselect-dropdown-width",
                 "description": "Width of dropdown"
@@ -1931,6 +2001,11 @@
                 "token": "list.gap",
                 "variable": "--p-cascadeselect-list-gap",
                 "description": "Gap of list"
+            },
+            {
+                "token": "list.mobileIndent",
+                "variable": "--p-cascadeselect-list-mobile-indent",
+                "description": "Mobile indent of list"
             },
             {
                 "token": "option.focusBackground",
@@ -1991,6 +2066,11 @@
                 "token": "icon.size",
                 "variable": "--p-cascadeselect-option-icon-size",
                 "description": "Icon size of option"
+            },
+            {
+                "token": "clearIcon.color",
+                "variable": "--p-cascadeselect-clear-icon-color",
+                "description": "Color of clear icon"
             }
         ]
     },
@@ -2496,6 +2576,11 @@
                 "token": "icon.activeColor",
                 "variable": "--p-contextmenu-item-icon-active-color",
                 "description": "Icon active color of item"
+            },
+            {
+                "token": "submenu.mobileIndent",
+                "variable": "--p-contextmenu-submenu-mobile-indent",
+                "description": "Mobile indent of submenu"
             },
             {
                 "token": "submenuIcon.size",
@@ -3566,6 +3651,11 @@
                 "token": "monthView.margin",
                 "variable": "--p-datepicker-month-view-margin",
                 "description": "Margin of month view"
+            },
+            {
+                "token": "month.padding",
+                "variable": "--p-datepicker-month-padding",
+                "description": "Padding of month"
             },
             {
                 "token": "month.borderRadius",
@@ -5120,6 +5210,16 @@
                 "token": "addon.borderRadius",
                 "variable": "--p-inputgroup-addon-border-radius",
                 "description": "Border radius of addon"
+            },
+            {
+                "token": "addon.padding",
+                "variable": "--p-inputgroup-addon-padding",
+                "description": "Padding of addon"
+            },
+            {
+                "token": "addon.minWidth",
+                "variable": "--p-inputgroup-addon-min-width",
+                "description": "Min width of addon"
             }
         ]
     },
@@ -5212,6 +5312,11 @@
                 "description": "Filled background of root"
             },
             {
+                "token": "root.filledHoverBackground",
+                "variable": "--p-inputtext-filled-hover-background",
+                "description": "Filled hover background of root"
+            },
+            {
                 "token": "root.filledFocusBackground",
                 "variable": "--p-inputtext-filled-focus-background",
                 "description": "Filled focus background of root"
@@ -5250,6 +5355,11 @@
                 "token": "root.placeholderColor",
                 "variable": "--p-inputtext-placeholder-color",
                 "description": "Placeholder color of root"
+            },
+            {
+                "token": "root.invalidPlaceholderColor",
+                "variable": "--p-inputtext-invalid-placeholder-color",
+                "description": "Invalid placeholder color of root"
             },
             {
                 "token": "root.shadow",
@@ -6512,6 +6622,11 @@
                 "description": "Filled background of root"
             },
             {
+                "token": "root.filledHoverBackground",
+                "variable": "--p-multiselect-filled-hover-background",
+                "description": "Filled hover background of root"
+            },
+            {
                 "token": "root.filledFocusBackground",
                 "variable": "--p-multiselect-filled-focus-background",
                 "description": "Filled focus background of root"
@@ -6550,6 +6665,11 @@
                 "token": "root.placeholderColor",
                 "variable": "--p-multiselect-placeholder-color",
                 "description": "Placeholder color of root"
+            },
+            {
+                "token": "root.invalidPlaceholderColor",
+                "variable": "--p-multiselect-invalid-placeholder-color",
+                "description": "Invalid placeholder color of root"
             },
             {
                 "token": "root.shadow",
@@ -6600,6 +6720,36 @@
                 "token": "root.transitionDuration",
                 "variable": "--p-multiselect-transition-duration",
                 "description": "Transition duration of root"
+            },
+            {
+                "token": "sm.fontSize",
+                "variable": "--p-multiselect-sm-font-size",
+                "description": "Sm font size of root"
+            },
+            {
+                "token": "sm.paddingX",
+                "variable": "--p-multiselect-sm-padding-x",
+                "description": "Sm padding x of root"
+            },
+            {
+                "token": "sm.paddingY",
+                "variable": "--p-multiselect-sm-padding-y",
+                "description": "Sm padding y of root"
+            },
+            {
+                "token": "lg.fontSize",
+                "variable": "--p-multiselect-lg-font-size",
+                "description": "Lg font size of root"
+            },
+            {
+                "token": "lg.paddingX",
+                "variable": "--p-multiselect-lg-padding-x",
+                "description": "Lg padding x of root"
+            },
+            {
+                "token": "lg.paddingY",
+                "variable": "--p-multiselect-lg-padding-y",
+                "description": "Lg padding y of root"
             },
             {
                 "token": "dropdown.width",
@@ -6720,6 +6870,11 @@
                 "token": "optionGroup.padding",
                 "variable": "--p-multiselect-option-group-padding",
                 "description": "Padding of option group"
+            },
+            {
+                "token": "clearIcon.color",
+                "variable": "--p-multiselect-clear-icon-color",
+                "description": "Color of clear icon"
             },
             {
                 "token": "chip.borderRadius",
@@ -7562,6 +7717,31 @@
                 "description": "Transition duration of root"
             },
             {
+                "token": "focusRing.width",
+                "variable": "--p-rating-focus-ring-width",
+                "description": "Focus ring width of root"
+            },
+            {
+                "token": "focusRing.style",
+                "variable": "--p-rating-focus-ring-style",
+                "description": "Focus ring style of root"
+            },
+            {
+                "token": "focusRing.color",
+                "variable": "--p-rating-focus-ring-color",
+                "description": "Focus ring color of root"
+            },
+            {
+                "token": "focusRing.offset",
+                "variable": "--p-rating-focus-ring-offset",
+                "description": "Focus ring offset of root"
+            },
+            {
+                "token": "focusRing.shadow",
+                "variable": "--p-rating-focus-ring-shadow",
+                "description": "Focus ring shadow of root"
+            },
+            {
                 "token": "icon.size",
                 "variable": "--p-rating-icon-size",
                 "description": "Size of icon"
@@ -7660,6 +7840,11 @@
                 "token": "root.filledBackground",
                 "variable": "--p-select-filled-background",
                 "description": "Filled background of root"
+            },
+            {
+                "token": "root.filledHoverBackground",
+                "variable": "--p-select-filled-hover-background",
+                "description": "Filled hover background of root"
             },
             {
                 "token": "root.filledFocusBackground",
@@ -9097,6 +9282,11 @@
                 "description": "Placeholder color of root"
             },
             {
+                "token": "root.invalidPlaceholderColor",
+                "variable": "--p-textarea-invalid-placeholder-color",
+                "description": "Invalid placeholder color of root"
+            },
+            {
                 "token": "root.shadow",
                 "variable": "--p-textarea-shadow",
                 "description": "Shadow of root"
@@ -9145,6 +9335,36 @@
                 "token": "root.transitionDuration",
                 "variable": "--p-textarea-transition-duration",
                 "description": "Transition duration of root"
+            },
+            {
+                "token": "sm.fontSize",
+                "variable": "--p-textarea-sm-font-size",
+                "description": "Sm font size of root"
+            },
+            {
+                "token": "sm.paddingX",
+                "variable": "--p-textarea-sm-padding-x",
+                "description": "Sm padding x of root"
+            },
+            {
+                "token": "sm.paddingY",
+                "variable": "--p-textarea-sm-padding-y",
+                "description": "Sm padding y of root"
+            },
+            {
+                "token": "lg.fontSize",
+                "variable": "--p-textarea-lg-font-size",
+                "description": "Lg font size of root"
+            },
+            {
+                "token": "lg.paddingX",
+                "variable": "--p-textarea-lg-padding-x",
+                "description": "Lg padding x of root"
+            },
+            {
+                "token": "lg.paddingY",
+                "variable": "--p-textarea-lg-padding-y",
+                "description": "Lg padding y of root"
             }
         ]
     },
@@ -9245,6 +9465,11 @@
                 "token": "icon.activeColor",
                 "variable": "--p-tieredmenu-item-icon-active-color",
                 "description": "Icon active color of item"
+            },
+            {
+                "token": "submenu.mobileIndent",
+                "variable": "--p-tieredmenu-submenu-mobile-indent",
+                "description": "Mobile indent of submenu"
             },
             {
                 "token": "submenuLabel.padding",
@@ -9982,14 +10207,14 @@
                 "description": "Slide duration of root"
             },
             {
-                "token": "root.disabledBackground",
-                "variable": "--p-toggleswitch-disabled-background",
-                "description": "Disabled background of root"
-            },
-            {
                 "token": "root.background",
                 "variable": "--p-toggleswitch-background",
                 "description": "Background of root"
+            },
+            {
+                "token": "root.disabledBackground",
+                "variable": "--p-toggleswitch-disabled-background",
+                "description": "Disabled background of root"
             },
             {
                 "token": "root.hoverBackground",
@@ -10017,14 +10242,14 @@
                 "description": "Size of handle"
             },
             {
-                "token": "handle.disabledBackground",
-                "variable": "--p-toggleswitch-handle-disabled-background",
-                "description": "Disabled background of handle"
-            },
-            {
                 "token": "handle.background",
                 "variable": "--p-toggleswitch-handle-background",
                 "description": "Background of handle"
+            },
+            {
+                "token": "handle.disabledBackground",
+                "variable": "--p-toggleswitch-handle-disabled-background",
+                "description": "Disabled background of handle"
             },
             {
                 "token": "handle.hoverBackground",
@@ -10040,6 +10265,26 @@
                 "token": "handle.checkedHoverBackground",
                 "variable": "--p-toggleswitch-handle-checked-hover-background",
                 "description": "Checked hover background of handle"
+            },
+            {
+                "token": "handle.color",
+                "variable": "--p-toggleswitch-handle-color",
+                "description": "Color of handle"
+            },
+            {
+                "token": "handle.hoverColor",
+                "variable": "--p-toggleswitch-handle-hover-color",
+                "description": "Hover color of handle"
+            },
+            {
+                "token": "handle.checkedColor",
+                "variable": "--p-toggleswitch-handle-checked-color",
+                "description": "Checked color of handle"
+            },
+            {
+                "token": "handle.checkedHoverColor",
+                "variable": "--p-toggleswitch-handle-checked-hover-color",
+                "description": "Checked hover color of handle"
             }
         ]
     },
@@ -10317,6 +10562,11 @@
                 "description": "Filled background of root"
             },
             {
+                "token": "root.filledHoverBackground",
+                "variable": "--p-treeselect-filled-hover-background",
+                "description": "Filled hover background of root"
+            },
+            {
                 "token": "root.filledFocusBackground",
                 "variable": "--p-treeselect-filled-focus-background",
                 "description": "Filled focus background of root"
@@ -10355,6 +10605,11 @@
                 "token": "root.placeholderColor",
                 "variable": "--p-treeselect-placeholder-color",
                 "description": "Placeholder color of root"
+            },
+            {
+                "token": "root.invalidPlaceholderColor",
+                "variable": "--p-treeselect-invalid-placeholder-color",
+                "description": "Invalid placeholder color of root"
             },
             {
                 "token": "root.shadow",
@@ -10407,6 +10662,36 @@
                 "description": "Transition duration of root"
             },
             {
+                "token": "sm.fontSize",
+                "variable": "--p-treeselect-sm-font-size",
+                "description": "Sm font size of root"
+            },
+            {
+                "token": "sm.paddingX",
+                "variable": "--p-treeselect-sm-padding-x",
+                "description": "Sm padding x of root"
+            },
+            {
+                "token": "sm.paddingY",
+                "variable": "--p-treeselect-sm-padding-y",
+                "description": "Sm padding y of root"
+            },
+            {
+                "token": "lg.fontSize",
+                "variable": "--p-treeselect-lg-font-size",
+                "description": "Lg font size of root"
+            },
+            {
+                "token": "lg.paddingX",
+                "variable": "--p-treeselect-lg-padding-x",
+                "description": "Lg padding x of root"
+            },
+            {
+                "token": "lg.paddingY",
+                "variable": "--p-treeselect-lg-padding-y",
+                "description": "Lg padding y of root"
+            },
+            {
                 "token": "dropdown.width",
                 "variable": "--p-treeselect-dropdown-width",
                 "description": "Width of dropdown"
@@ -10445,6 +10730,11 @@
                 "token": "tree.padding",
                 "variable": "--p-treeselect-tree-padding",
                 "description": "Padding of tree"
+            },
+            {
+                "token": "clearIcon.color",
+                "variable": "--p-treeselect-clear-icon-color",
+                "description": "Color of clear icon"
             },
             {
                 "token": "emptyMessage.padding",

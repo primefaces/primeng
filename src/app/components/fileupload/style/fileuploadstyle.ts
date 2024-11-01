@@ -29,6 +29,8 @@ const theme = ({ dt }) => `
 .p-fileupload-content {
     border: 1px solid transparent;
     position: relative;
+    display: flex;
+    gap: ${dt('fileupload.content.gap')};
     transition: border-color ${dt('fileupload.transition.duration')};
     padding: ${dt('fileupload.content.padding')};
 }
@@ -44,8 +46,7 @@ const theme = ({ dt }) => `
 .p-fileupload-file-list {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
-    margin-top: 1.125rem;
+    gap: ${dt('fileupload.filelist.gap')};
 }
 
 .p-fileupload-file {

@@ -9,6 +9,7 @@ const theme = ({ dt }) => `
     width: ${dt('avatar.width')};
     height: ${dt('avatar.height')};
     font-size: ${dt('avatar.font.size')};
+    color: ${dt('avatar.color')};
     background: ${dt('avatar.background')};
     border-radius: ${dt('avatar.border.radius')};
 }
@@ -26,7 +27,9 @@ const theme = ({ dt }) => `
 }
 
 .p-avatar-icon {
-    font-size: ${dt('avatar.font.size')};
+    font-size: ${dt('avatar.icon.size')};
+    width: ${dt('avatar.icon.size')};
+    height: ${dt('avatar.icon.size')};
 }
 
 .p-avatar img {
@@ -41,7 +44,9 @@ const theme = ({ dt }) => `
 }
 
 .p-avatar-lg .p-avatar-icon {
-    font-size: ${dt('avatar.lg.font.size')};
+        font-size: ${dt('avatar.lg.icon.size')};
+    width: ${dt('avatar.lg.icon.size')};
+    height: ${dt('avatar.lg.icon.size')};
 }
 
 .p-avatar-xl {
@@ -65,6 +70,14 @@ const theme = ({ dt }) => `
 
 .p-avatar-group .p-avatar {
     border: 2px solid ${dt('avatar.group.border.color')};
+}
+
+.p-avatar-group .p-avatar-lg + .p-avatar-lg {
+    margin-inline-start: ${dt('avatar.lg.group.offset')};
+}
+
+.p-avatar-group .p-avatar-xl + .p-avatar-xl {
+    margin-inline-start: ${dt('avatar.xl.group.offset')};
 }
 `;
 

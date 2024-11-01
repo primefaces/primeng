@@ -34,6 +34,12 @@ export interface AutoCompleteDesignTokens extends ColorSchemeDesignToken<AutoCom
          */
         filledBackground?: string;
         /**
+         * Filled hover background of root
+         *
+         * @designToken autocomplete.filled.hover.background
+         */
+        filledHoverBackground?: string;
+        /**
          * Filled focus background of root
          *
          * @designToken autocomplete.filled.focus.background
@@ -81,6 +87,12 @@ export interface AutoCompleteDesignTokens extends ColorSchemeDesignToken<AutoCom
          * @designToken autocomplete.placeholder.color
          */
         placeholderColor?: string;
+        /**
+         * Invalid placeholder color of root
+         *
+         * @designToken autocomplete.invalid.placeholder.color
+         */
+        invalidPlaceholderColor?: string;
         /**
          * Shadow of root
          *
@@ -298,6 +310,28 @@ export interface AutoCompleteDesignTokens extends ColorSchemeDesignToken<AutoCom
          */
         width?: string;
         /**
+         * Sm of dropdown
+         */
+        sm?: {
+            /**
+             * Sm width of dropdown
+             *
+             * @designToken autocomplete.dropdown.sm.width
+             */
+            width?: string;
+        };
+        /**
+         * Lg of dropdown
+         */
+        lg?: {
+            /**
+             * Lg width of dropdown
+             *
+             * @designToken autocomplete.dropdown.lg.width
+             */
+            width?: string;
+        };
+        /**
          * Border color of dropdown
          *
          * @designToken autocomplete.dropdown.border.color
@@ -403,6 +437,18 @@ export interface AutoCompleteDesignTokens extends ColorSchemeDesignToken<AutoCom
          * @designToken autocomplete.chip.border.radius
          */
         borderRadius?: string;
+        /**
+         * Focus background of chip
+         *
+         * @designToken autocomplete.chip.focus.background
+         */
+        focusBackground?: string;
+        /**
+         * Focus color of chip
+         *
+         * @designToken autocomplete.chip.focus.color
+         */
+        focusColor?: string;
     };
     /**
      * Used to pass tokens of the empty message section

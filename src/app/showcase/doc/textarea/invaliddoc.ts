@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
             <p>Invalid state style is added using the <i>ng-invalid</i> and <i>ng-dirty</i> class to indicate a failed validation.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <textarea rows="5" cols="30" pTextarea [(ngModel)]="value" class="ng-invalid ng-dirty"></textarea>
+            <textarea rows="5" cols="30" pTextarea [(ngModel)]="value" class="ng-invalid ng-dirty" placeholder="Invalid"></textarea>
         </div>
         <app-code [code]="code" selector="input-textarea-invalid-demo"></app-code>
     `,
