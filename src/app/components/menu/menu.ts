@@ -6,7 +6,6 @@ import {
     Component,
     computed,
     ContentChild,
-    ContentChildren,
     ElementRef,
     EventEmitter,
     forwardRef,
@@ -20,7 +19,6 @@ import {
     Pipe,
     PipeTransform,
     PLATFORM_ID,
-    QueryList,
     signal,
     TemplateRef,
     ViewChild,
@@ -29,7 +27,7 @@ import {
 } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
-import { MenuItem, OverlayService, PrimeTemplate, SharedModule } from 'primeng/api';
+import { MenuItem, OverlayService, SharedModule } from 'primeng/api';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { Ripple } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
@@ -380,8 +378,6 @@ export class Menu extends BaseComponent implements OnDestroy {
     @ViewChild('list') listViewChild: Nullable<ElementRef>;
 
     @ViewChild('container') containerViewChild: Nullable<ElementRef>;
-
-    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
     container: HTMLDivElement | undefined;
 

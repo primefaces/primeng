@@ -216,10 +216,11 @@ export class Splitter extends BaseComponent {
         this.nested = this.isNested();
     }
 
-    @ContentChildren('panel') templates: QueryList<any>;
+    @ContentChildren('panel') _templates: QueryList<any>;
 
     ngAfterContentInit() {
-        this.templates.toArray().forEach((item) => {
+        super.ngAfterContentInit();
+        this._templates.toArray().forEach((item) => {
             this.panels.push(item.template);
         });
     }

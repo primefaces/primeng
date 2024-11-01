@@ -5,7 +5,6 @@ import {
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
-    ContentChildren,
     ElementRef,
     EventEmitter,
     HostListener,
@@ -16,12 +15,11 @@ import {
     numberAttribute,
     OnDestroy,
     Output,
-    QueryList,
     TemplateRef,
     ViewEncapsulation,
     ViewRef,
 } from '@angular/core';
-import { OverlayService, PrimeTemplate, SharedModule } from 'primeng/api';
+import { OverlayService, SharedModule } from 'primeng/api';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { TimesIcon } from 'primeng/icons/times';
 import { Ripple } from 'primeng/ripple';
@@ -168,8 +166,6 @@ export class OverlayPanel extends BaseComponent implements AfterContentInit, OnD
      * @group Emits
      */
     @Output() onHide: EventEmitter<any> = new EventEmitter<any>();
-
-    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
     container: Nullable<HTMLDivElement>;
 

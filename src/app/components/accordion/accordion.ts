@@ -26,7 +26,7 @@ import {
     TemplateRef,
     ViewEncapsulation,
 } from '@angular/core';
-import { BlockableUI, Header, PrimeTemplate, SharedModule } from 'primeng/api';
+import { BlockableUI, Header, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { ChevronDownIcon } from 'primeng/icons/chevrondown';
 import { Subscription } from 'rxjs';
@@ -189,8 +189,6 @@ export class AccordionHeader extends BaseComponent {
      * @group Templates
      */
     @ContentChild('toggleicon') toggleIconTemplate: TemplateRef<AccordionToggleIconTemplateContext> | undefined;
-
-    @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
 
     @HostListener('click', ['$event']) onClick() {
         this.changeActiveValue();
@@ -572,8 +570,6 @@ export class AccordionTab extends BaseComponent implements AfterContentInit, OnD
     @Output() selectedChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
     @ContentChildren(Header) headerFacet!: QueryList<Header>;
-
-    @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
 
     private _selected: boolean = false;
 

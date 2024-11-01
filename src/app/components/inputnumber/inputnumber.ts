@@ -5,7 +5,6 @@ import {
     ChangeDetectionStrategy,
     Component,
     ContentChild,
-    ContentChildren,
     ElementRef,
     EventEmitter,
     forwardRef,
@@ -18,14 +17,13 @@ import {
     OnChanges,
     OnInit,
     Output,
-    QueryList,
     SimpleChanges,
     TemplateRef,
     ViewChild,
     ViewEncapsulation,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
-import { PrimeTemplate, SharedModule } from 'primeng/api';
+import { SharedModule } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
 import { Button } from 'primeng/button';
 import { DomHandler } from 'primeng/dom';
@@ -469,8 +467,6 @@ export class InputNumber extends BaseComponent implements OnInit, AfterContentIn
      * @group Templates
      */
     @ContentChild('decrementbuttonicon') decrementButtonIconTemplate: Nullable<TemplateRef<any>>;
-
-    @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
 
     @ViewChild('input') input!: ElementRef<HTMLInputElement>;
 

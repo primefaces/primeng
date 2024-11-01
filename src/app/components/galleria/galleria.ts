@@ -7,7 +7,6 @@ import {
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
-    ContentChildren,
     DoCheck,
     ElementRef,
     EventEmitter,
@@ -266,8 +265,6 @@ export class Galleria extends BaseComponent implements OnChanges, OnDestroy {
     @ViewChild('mask') mask: ElementRef | undefined;
 
     @ViewChild('container') container: ElementRef | undefined;
-
-    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
     _visible: boolean = false;
 

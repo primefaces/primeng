@@ -4,7 +4,6 @@ import {
     ChangeDetectionStrategy,
     Component,
     ContentChild,
-    ContentChildren,
     inject,
     Input,
     NgModule,
@@ -135,8 +134,6 @@ export class ScrollTop extends BaseComponent implements OnInit, OnDestroy {
      * @group Templates
      */
     @ContentChild('icon') iconTemplate: TemplateRef<any> | undefined;
-
-    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
     documentScrollListener: VoidFunction | null | undefined;
 

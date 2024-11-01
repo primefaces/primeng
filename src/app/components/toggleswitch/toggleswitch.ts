@@ -5,7 +5,6 @@ import {
     ChangeDetectionStrategy,
     Component,
     ContentChild,
-    ContentChildren,
     ElementRef,
     EventEmitter,
     forwardRef,
@@ -14,7 +13,6 @@ import {
     NgModule,
     numberAttribute,
     Output,
-    QueryList,
     TemplateRef,
     ViewChild,
     ViewEncapsulation,
@@ -24,7 +22,7 @@ import { AutoFocus } from 'primeng/autofocus';
 import { ToggleSwitchChangeEvent } from './toggleswitch.interface';
 import { ToggleSwitchStyle } from './style/toggleswitchstyle';
 import { BaseComponent } from 'primeng/basecomponent';
-import { PrimeTemplate, SharedModule } from 'primeng/api';
+import { SharedModule } from 'primeng/api';
 
 /**
  * Context interface for the handle template.
@@ -169,8 +167,6 @@ export class ToggleSwitch extends BaseComponent implements AfterContentInit {
      * @group Templates
      */
     @ContentChild('handle') handleTemplate: TemplateRef<any> | undefined;
-
-    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
     modelValue: any = false;
 

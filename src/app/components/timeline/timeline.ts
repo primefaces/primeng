@@ -4,7 +4,6 @@ import {
     ChangeDetectionStrategy,
     Component,
     ContentChild,
-    ContentChildren,
     HostBinding,
     inject,
     Input,
@@ -17,6 +16,7 @@ import { BlockableUI, PrimeTemplate, SharedModule } from 'primeng/api';
 import { Nullable } from 'primeng/ts-helpers';
 import { TimelineStyle } from './style/timelinestyle';
 import { BaseComponent } from 'primeng/basecomponent';
+
 /**
  * Timeline visualizes a series of chained events.
  * @group Components
@@ -105,8 +105,6 @@ export class Timeline extends BaseComponent implements AfterContentInit, Blockab
      * @group Templates
      */
     @ContentChild('marker') markerTemplate: Nullable<TemplateRef<any>>;
-
-    @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<any>>;
 
     _componentStyle = inject(TimelineStyle);
 

@@ -6,7 +6,6 @@ import {
     computed,
     contentChild,
     ContentChild,
-    ContentChildren,
     contentChildren,
     effect,
     forwardRef,
@@ -17,7 +16,6 @@ import {
     model,
     ModelSignal,
     NgModule,
-    QueryList,
     signal,
     TemplateRef,
     ViewEncapsulation,
@@ -28,7 +26,7 @@ import { ObjectUtils, transformToBoolean, UniqueComponentId } from 'primeng/util
 import { StepperStyle } from './style/stepperstyle';
 import { DomHandler } from 'primeng/dom';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { PrimeTemplate, SharedModule } from 'primeng/api';
+import { SharedModule } from 'primeng/api';
 
 /**
  * Context interface for the StepPanel content template.
@@ -226,8 +224,6 @@ export class Step extends BaseComponent implements AfterContentInit {
      */
     @ContentChild('content') content: TemplateRef<StepContentTemplateContext>;
 
-    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
-
     ngAfterContentInit() {
         this.templates?.forEach((item) => {
             switch (item.getType()) {
@@ -344,8 +340,6 @@ export class StepPanel extends BaseComponent implements AfterContentInit {
      * @group Templates
      */
     @ContentChild('content') contentTemplate: TemplateRef<StepPanelContentTemplateContext>;
-
-    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
     ngAfterContentInit() {
         this.templates?.forEach((item) => {
