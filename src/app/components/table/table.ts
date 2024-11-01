@@ -46,6 +46,7 @@ import {
     PrimeTemplate,
     ScrollerOptions,
     SelectItem,
+    SharedModule,
     SortMeta,
     TableState,
     TranslationKeys,
@@ -720,7 +721,7 @@ export class SelectableRowDblClick implements OnInit, OnDestroy {
     selector: '[pContextMenuRow]',
     standalone: true,
     host: {
-        '[class.p-highlight-contextmenu]': 'selected',
+        '[class.p-datatable-contextmenu-row-selected]': 'isSelectedWithContextMenu',
         '[attr.tabindex]': 'isEnabled() ? 0 : undefined',
     },
 })
@@ -745,6 +746,14 @@ export class ContextMenuRow {
                 this.selected = this.dt.equals(this.data, data);
             });
         }
+    }
+
+    get isSelectedWithContextMenu() {
+        if (this.data && this.dt.contextMenuSelection) {
+            return this.dt.equals(this.data, this.dt.contextMenuSelection);
+        }
+
+        return false;
     }
 
     @HostListener('contextmenu', ['$event'])
@@ -3338,6 +3347,7 @@ export class TableBody implements AfterViewInit, OnDestroy {
         Select,
         FormsModule,
         Button,
+        SharedModule,
         ButtonDirective,
         SelectButton,
         DatePicker,
@@ -6621,6 +6631,7 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
         Table,
         SortableColumn,
         FrozenColumn,
+        SharedModule,
         RowGroupHeader,
         SelectableRow,
         RowToggler,
@@ -6645,6 +6656,7 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
     exports: [
         Table,
         SortableColumn,
+        SharedModule,
         FrozenColumn,
         RowGroupHeader,
         SelectableRow,

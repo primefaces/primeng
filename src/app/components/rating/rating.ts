@@ -27,6 +27,7 @@ import { UniqueComponentId } from 'primeng/utils';
 import { AutoFocus } from 'primeng/autofocus';
 import { RatingStyle } from './style/ratingstyle';
 import { BaseComponent } from 'primeng/basecomponent';
+import { SharedModule } from '../api/shared';
 
 export const RATING_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -39,7 +40,7 @@ export const RATING_VALUE_ACCESSOR: any = {
  */
 @Component({
     selector: 'p-rating',
-    imports: [CommonModule, AutoFocus, StarFillIcon, StarIcon, BanIcon],
+    imports: [CommonModule, AutoFocus, StarFillIcon, StarIcon, BanIcon, SharedModule],
     standalone: true,
     template: `
         <ng-container *ngIf="!isCustomIcon; else customTemplate">
@@ -64,8 +65,7 @@ export const RATING_VALUE_ACCESSOR: any = {
                             (focus)="onInputFocus($event, star + 1)"
                             (blur)="onInputBlur($event)"
                             (change)="onChange($event, star + 1)"
-                            pAutoFocus
-                            [autofocus]="autofocus"
+                            [pAutoFocus]="autofocus"
                         />
                     </span>
                     <ng-container *ngIf="!value || i >= value">
@@ -310,7 +310,7 @@ export class Rating extends BaseComponent implements OnInit, ControlValueAccesso
 }
 
 @NgModule({
-    imports: [Rating],
-    exports: [Rating],
+    imports: [Rating, SharedModule],
+    exports: [Rating, SharedModule],
 })
 export class RatingModule {}

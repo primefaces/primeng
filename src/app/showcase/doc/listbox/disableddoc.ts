@@ -18,8 +18,6 @@ interface City {
                 [(ngModel)]="selectedCity"
                 optionLabel="name"
                 [disabled]="true"
-                [style]="{ width: '15rem' }"
-                [listStyle]="{ 'max-height': '220px' }"
                 class="w-full md:w-56"
             />
         </div>
@@ -42,10 +40,10 @@ export class DisabledDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-listbox [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" [disabled]="true" [style]="{ width: '15rem' }" [listStyle]="{'max-height': '220px'}" class="w-full md:w-56" />`,
+        basic: `<p-listbox [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" [disabled]="true" class="w-full md:w-56" />`,
 
         html: `<div class="card flex justify-center">
-    <p-listbox [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" [disabled]="true" [style]="{ width: '15rem' }" [listStyle]="{'max-height': '220px'}" class="w-full md:w-56" />
+    <p-listbox [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" [disabled]="true" class="w-full md:w-56" />
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';

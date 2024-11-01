@@ -20,7 +20,7 @@ import {
     inject,
     numberAttribute,
 } from '@angular/core';
-import { ToastMessageOptions, MessageService } from 'primeng/api';
+import { ToastMessageOptions, MessageService, SharedModule } from 'primeng/api';
 import { CheckIcon } from 'primeng/icons/check';
 import { ExclamationTriangleIcon } from 'primeng/icons/exclamationtriangle';
 import { InfoCircleIcon } from 'primeng/icons/infocircle';
@@ -38,7 +38,7 @@ import { Button } from 'primeng/button';
 @Component({
     selector: 'p-toastItem',
     standalone: true,
-    imports: [CommonModule, CheckIcon, ExclamationTriangleIcon, InfoCircleIcon, TimesIcon, TimesCircleIcon, Ripple, Button],
+    imports: [CommonModule, CheckIcon, ExclamationTriangleIcon, InfoCircleIcon, TimesIcon, TimesCircleIcon, Ripple, Button, SharedModule],
     template: `
         <div
             #container
@@ -245,7 +245,17 @@ export class ToastItem extends BaseComponent implements AfterViewInit, OnDestroy
 @Component({
     selector: 'p-toast',
     standalone: true,
-    imports: [CommonModule, ToastItem, CheckIcon, InfoCircleIcon, TimesCircleIcon, ExclamationTriangleIcon, TimesIcon, Button],
+    imports: [
+        CommonModule,
+        ToastItem,
+        CheckIcon,
+        InfoCircleIcon,
+        TimesCircleIcon,
+        ExclamationTriangleIcon,
+        TimesIcon,
+        Button,
+        SharedModule,
+    ],
     template: `
         <div #container [ngClass]="cx('root')" [ngStyle]="sx('root')" [style]="style" [class]="styleClass">
             <p-toastItem
@@ -536,7 +546,7 @@ export class Toast extends BaseComponent implements OnInit, OnDestroy {
 }
 
 @NgModule({
-    imports: [Toast],
-    exports: [Toast],
+    imports: [Toast, SharedModule],
+    exports: [Toast, SharedModule],
 })
 export class ToastModule {}

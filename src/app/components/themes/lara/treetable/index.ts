@@ -1,11 +1,11 @@
 export default {
     root: {
-        transitionDuration: '{transition.duration}',
+        transitionDuration: '{transition.duration}'
     },
     header: {
         borderColor: '{treetable.border.color}',
         borderWidth: '1px 0 1px 0',
-        padding: '0.75rem 1rem',
+        padding: '0.75rem 1rem'
     },
     headerCell: {
         selectedBackground: '{highlight.background}',
@@ -19,11 +19,11 @@ export default {
             style: '{focus.ring.style}',
             color: '{focus.ring.color}',
             offset: '{focus.ring.offset}',
-            shadow: 'inset {focus.ring.shadow}',
-        },
+            shadow: 'inset {focus.ring.shadow}'
+        }
     },
     columnTitle: {
-        fontWeight: '700',
+        fontWeight: '700'
     },
     row: {
         background: '{content.background}',
@@ -37,37 +37,38 @@ export default {
             style: '{focus.ring.style}',
             color: '{focus.ring.color}',
             offset: '{focus.ring.offset}',
-            shadow: 'inset {focus.ring.shadow}',
-        },
+            shadow: 'inset {focus.ring.shadow}'
+        }
     },
     bodyCell: {
         borderColor: '{treetable.border.color}',
         padding: '0.75rem 1rem',
-        gap: '0.5rem',
+        gap: '0.5rem'
     },
     footerCell: {
         borderColor: '{treetable.border.color}',
-        padding: '0.75rem 1rem',
+        padding: '0.75rem 1rem'
     },
     columnFooter: {
-        fontWeight: '700',
+        fontWeight: '700'
     },
     footer: {
         borderColor: '{treetable.border.color}',
         borderWidth: '0 0 1px 0',
-        padding: '0.75rem 1rem',
+        padding: '0.75rem 1rem'
     },
     columnResizerWidth: '0.5rem',
     resizeIndicator: {
         width: '1px',
-        color: '{primary.color}',
+        color: '{primary.color}'
     },
     sortIcon: {
         color: '{text.muted.color}',
         hoverColor: '{text.hover.muted.color}',
+        size: '0.875rem'
     },
     loadingIcon: {
-        size: '2rem',
+        size: '2rem'
     },
     nodeToggleButton: {
         hoverBackground: '{content.hover.background}',
@@ -82,67 +83,67 @@ export default {
             style: '{focus.ring.style}',
             color: '{focus.ring.color}',
             offset: '{focus.ring.offset}',
-            shadow: '{focus.ring.shadow}',
-        },
+            shadow: '{focus.ring.shadow}'
+        }
     },
     paginatorTop: {
         borderColor: '{content.border.color}',
-        borderWidth: '0 0 1px 0',
+        borderWidth: '0 0 1px 0'
     },
     paginatorBottom: {
         borderColor: '{content.border.color}',
-        borderWidth: '0 0 1px 0',
+        borderWidth: '0 0 1px 0'
     },
     colorScheme: {
         light: {
             root: {
-                borderColor: '{content.border.color}',
+                borderColor: '{content.border.color}'
             },
             header: {
                 background: '{surface.50}',
-                color: '{text.color}',
+                color: '{text.color}'
             },
             headerCell: {
                 background: '{surface.50}',
                 hoverBackground: '{surface.100}',
-                color: '{text.color}',
+                color: '{text.color}'
             },
             footer: {
                 background: '{surface.50}',
-                color: '{text.color}',
+                color: '{text.color}'
             },
             footerCell: {
                 background: '{surface.50}',
-                color: '{text.color}',
+                color: '{text.color}'
             },
             bodyCell: {
-                selectedBorderColor: '{primary.100}',
-            },
+                selectedBorderColor: '{primary.100}'
+            }
         },
         dark: {
             root: {
-                borderColor: '{surface.800}',
+                borderColor: '{surface.800}'
             },
             header: {
                 background: '{surface.800}',
-                color: '{text.color}',
+                color: '{text.color}'
             },
             headerCell: {
                 background: '{surface.800}',
                 hoverBackground: '{surface.700}',
-                color: '{text.color}',
+                color: '{text.color}'
             },
             footer: {
                 background: '{surface.800}',
-                color: '{text.color}',
+                color: '{text.color}'
             },
             footerCell: {
                 background: '{surface.800}',
-                color: '{text.color}',
+                color: '{text.color}'
             },
             bodyCell: {
-                selectedBorderColor: '{primary.900}',
-            },
-        },
-    },
+                selectedBorderColor: '{primary.900}'
+            }
+        }
+    }
 };

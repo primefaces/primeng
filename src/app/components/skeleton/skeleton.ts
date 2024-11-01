@@ -2,6 +2,7 @@ import { NgClass, NgStyle } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, inject, input, NgModule, ViewEncapsulation } from '@angular/core';
 import { BaseComponent } from 'primeng/basecomponent';
 import { SkeletonStyle } from './style/skeletonstyle';
+import { SharedModule } from '../api/shared';
 
 /**
  * Skeleton is a placeholder to display instead of the actual content.
@@ -10,7 +11,7 @@ import { SkeletonStyle } from './style/skeletonstyle';
 @Component({
     selector: 'p-skeleton',
     standalone: true,
-    imports: [NgClass, NgStyle],
+    imports: [NgClass, NgStyle, SharedModule],
     template: `
         <div
             [ngClass]="containerClass()"
@@ -89,7 +90,7 @@ export class Skeleton extends BaseComponent {
 }
 
 @NgModule({
-    imports: [Skeleton],
-    exports: [Skeleton],
+    imports: [Skeleton, SharedModule],
+    exports: [Skeleton, SharedModule],
 })
 export class SkeletonModule {}

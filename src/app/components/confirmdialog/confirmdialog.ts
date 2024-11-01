@@ -18,7 +18,7 @@ import {
     TemplateRef,
     ViewEncapsulation,
 } from '@angular/core';
-import { Confirmation, ConfirmationService, ConfirmEventType, Footer, TranslationKeys } from 'primeng/api';
+import { Confirmation, ConfirmationService, ConfirmEventType, Footer, SharedModule, TranslationKeys } from 'primeng/api';
 import { Button } from 'primeng/button';
 import { DomHandler } from 'primeng/dom';
 import { CheckIcon } from 'primeng/icons/check';
@@ -44,7 +44,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
 @Component({
     selector: 'p-confirmDialog, p-confirmdialog',
     standalone: true,
-    imports: [CommonModule, Button, Ripple, TimesIcon, CheckIcon, Dialog],
+    imports: [CommonModule, Button, Ripple, TimesIcon, CheckIcon, Dialog, SharedModule],
     template: `
         <p-dialog
             #dialog
@@ -567,7 +567,7 @@ export class ConfirmDialog extends BaseComponent implements OnInit, OnDestroy {
 }
 
 @NgModule({
-    imports: [ConfirmDialog],
-    exports: [ConfirmDialog],
+    imports: [ConfirmDialog, SharedModule],
+    exports: [ConfirmDialog, SharedModule],
 })
 export class ConfirmDialogModule {}

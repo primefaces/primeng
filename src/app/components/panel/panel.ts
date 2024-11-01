@@ -5,24 +5,61 @@ import {
     ChangeDetectionStrategy,
     Component,
     ContentChild,
+    ContentChildren,
     EventEmitter,
     inject,
     Input,
     NgModule,
     Output,
+    QueryList,
     TemplateRef,
-    ViewEncapsulation
+    ViewEncapsulation,
 } from '@angular/core';
-import { BlockableUI, Footer } from 'primeng/api';
+import { BlockableUI, Footer, PrimeTemplate, SharedModule } from 'primeng/api';
 import { MinusIcon } from 'primeng/icons/minus';
 import { PlusIcon } from 'primeng/icons/plus';
 import { Ripple } from 'primeng/ripple';
 import { Nullable } from 'primeng/ts-helpers';
 import { UniqueComponentId } from 'primeng/utils';
-import { PanelAfterToggleEvent, PanelBeforeToggleEvent } from './panel.interface';
 import { ButtonModule } from 'primeng/button';
 import { PanelStyle } from './style/panelstyle';
 import { BaseComponent } from 'primeng/basecomponent';
+
+/**
+ * Custom panel toggle event, emits before panel toggle.
+ * @see {@link onBeforeToggle}
+ * @group Interface
+ */
+export interface PanelBeforeToggleEvent {
+    /**
+     * Browser event.
+     */
+    originalEvent: Event;
+    /**
+     * Collapsed state of the panel.
+     */
+    collapsed: boolean | undefined;
+}
+
+/**
+ * Custom panel toggle event, emits after panel toggle.
+ * @see {@link onAfterToggle}
+ * @extends {PanelBeforeToggleEvent}
+ * @group Interface
+ */
+export interface PanelAfterToggleEvent extends PanelBeforeToggleEvent {}
+
+/**
+ * Toggle icon template context.
+ * @param {boolean} $implicit - Collapsed state as a boolean, implicit value.
+ * @group Interface
+ */
+export interface PanelHeaderIconsTemplateContext {
+    /**
+     * Collapsed state as a boolean, implicit value.
+     */
+    $implicit: boolean;
+}
 
 /**
  * Panel is a container with the optional content toggle feature.
@@ -31,7 +68,7 @@ import { BaseComponent } from 'primeng/basecomponent';
 @Component({
     selector: 'p-panel',
     standalone: true,
-    imports: [CommonModule, Ripple, PlusIcon, MinusIcon, ButtonModule],
+    imports: [CommonModule, Ripple, PlusIcon, MinusIcon, ButtonModule, SharedModule],
     template: `
         <div
             [attr.id]="id"
@@ -73,19 +110,19 @@ import { BaseComponent } from 'primeng/basecomponent';
                         (keydown)="onKeyDown($event)"
                         [buttonProps]="toggleButtonProps"
                     >
-                        <ng-container *ngIf="!headerIconTemplate && !toggleButtonProps?.icon">
+                        <ng-container *ngIf="!headerIconsTemplate && !toggleButtonProps?.icon">
                             <ng-container *ngIf="!collapsed">
-                                <span *ngIf="expandIcon" [class]="expandIcon" [ngClass]="iconClass"></span>
-                                <MinusIcon *ngIf="!expandIcon" [styleClass]="iconClass" />
+                                <span *ngIf="expandIcon" [class]="expandIcon"></span>
+                                <MinusIcon *ngIf="!expandIcon" />
                             </ng-container>
 
                             <ng-container *ngIf="collapsed">
-                                <span *ngIf="collapseIcon" [class]="collapseIcon" [ngClass]="iconClass"></span>
-                                <PlusIcon *ngIf="!collapseIcon" [styleClass]="iconClass" />
+                                <span *ngIf="collapseIcon" [class]="collapseIcon"></span>
+                                <PlusIcon *ngIf="!collapseIcon" />
                             </ng-container>
                         </ng-container>
 
-                        <ng-template *ngTemplateOutlet="headerIconTemplate; context: { $implicit: collapsed }"></ng-template>
+                        <ng-template *ngTemplateOutlet="headerIconsTemplate; context: { $implicit: collapsed }"></ng-template>
                     </p-button>
                 </div>
             </div>
@@ -253,27 +290,69 @@ export class Panel extends BaseComponent implements BlockableUI {
 
     /**
      * Defines template option for icon.
+     * @example
+     * ```html
+     * <ng-template #icon> </ng-template>
+     * ```
      * @group Templates
      */
     @ContentChild('icon') iconTemplate: TemplateRef<any> | undefined;
 
     /**
      * Defines template option for content.
+     * @example
+     * ```html
+     * <ng-template #content> </ng-template>
+     * ```
      * @group Templates
      */
     @ContentChild('content') contentTemplate: TemplateRef<any> | undefined;
 
     /**
      * Defines template option for footer.
+     * @example
+     * ```html
+     * <ng-template #footer> </ng-template>
+     * ```
      * @group Templates
      */
     @ContentChild('footer') footerTemplate: TemplateRef<any> | undefined;
 
     /**
      * Defines template option for headerIcon.
+     * @type {TemplateRef<PanelHeaderIconsTemplateContext>} context - context of the template.
+     * @example
+     * ```html
+     * <ng-template #headericons let-collapsed> </ng-template>
+     * ```
+     * @see {@link PanelHeaderIconsTemplateContext}
      * @group Templates
      */
-    @ContentChild('headerIcon') headerIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('headericons') headerIconsTemplate: TemplateRef<PanelHeaderIconsTemplateContext> | undefined;
+
+    @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
+
+    ngAfterContentInit() {
+        this.templates.forEach((item) => {
+            switch (item.getType()) {
+                case 'header':
+                    this.headerTemplate = item.template;
+                    break;
+                case 'icon':
+                    this.iconTemplate = item.template;
+                    break;
+                case 'content':
+                    this.contentTemplate = item.template;
+                    break;
+                case 'footer':
+                    this.footerTemplate = item.template;
+                    break;
+                case 'headericons':
+                    this.headerIconsTemplate = item.template;
+                    break;
+            }
+        });
+    }
 
     readonly id = UniqueComponentId();
 
@@ -332,14 +411,14 @@ export class Panel extends BaseComponent implements BlockableUI {
         }
     }
 
-    onToggleDone(event: Event) {
+    onToggleDone(event: any) {
         this.animating = false;
         this.onAfterToggle.emit({ originalEvent: event, collapsed: this.collapsed });
     }
 }
 
 @NgModule({
-    imports: [Panel],
-    exports: [Panel],
+    imports: [Panel, SharedModule],
+    exports: [Panel, SharedModule],
 })
 export class PanelModule {}

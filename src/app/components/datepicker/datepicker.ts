@@ -21,7 +21,7 @@ import {
     ViewEncapsulation,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { OverlayService, TranslationKeys } from 'primeng/api';
+import { OverlayService, SharedModule, TranslationKeys } from 'primeng/api';
 import { Button } from 'primeng/button';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { Ripple } from 'primeng/ripple';
@@ -72,6 +72,7 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
         CalendarIcon,
         AutoFocus,
         InputText,
+        SharedModule,
     ],
     template: `
         <span #container [ngClass]="rootClass" [ngStyle]="style" [class]="styleClass">
@@ -106,10 +107,10 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                     [attr.tabindex]="tabindex"
                     [attr.inputmode]="touchUI ? 'off' : null"
                     autocomplete="off"
-                    pAutoFocus
-                    [autofocus]="autofocus"
+                    [pAutoFocus]="autofocus"
                     [variant]="variant"
                     [fluid]="hasFluid"
+                    [size]="size"
                 />
                 <ng-container *ngIf="showClear && !disabled && value != null">
                     <TimesIcon *ngIf="!clearIconTemplate" [class]="'p-datepicker-clear-icon'" (click)="clear()" />
@@ -857,6 +858,11 @@ export class DatePicker extends BaseComponent implements OnInit, OnDestroy, Cont
      * @group Props
      */
     @Input() variant: 'filled' | 'outlined';
+    /**
+     * Defines the size of the component.
+     * @group Props
+     */
+    @Input() size: 'large' | 'small';
     /**
      * The minimum selectable date.
      * @group Props
@@ -3965,7 +3971,7 @@ export class DatePicker extends BaseComponent implements OnInit, OnDestroy, Cont
 }
 
 @NgModule({
-    imports: [DatePicker],
-    exports: [DatePicker],
+    imports: [DatePicker, SharedModule],
+    exports: [DatePicker, SharedModule],
 })
 export class DatePickerModule {}

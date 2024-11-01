@@ -17,7 +17,7 @@ import {
     QueryList,
     TemplateRef,
     ViewChild,
-    ViewEncapsulation
+    ViewEncapsulation,
 } from '@angular/core';
 import { SafeUrl } from '@angular/platform-browser';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
@@ -41,7 +41,7 @@ import { BaseComponent } from 'primeng/basecomponent';
 @Component({
     selector: 'p-image',
     standalone: true,
-    imports: [CommonModule, RefreshIcon, EyeIcon, UndoIcon, SearchMinusIcon, SearchPlusIcon, TimesIcon, FocusTrap],
+    imports: [CommonModule, RefreshIcon, EyeIcon, UndoIcon, SearchMinusIcon, SearchPlusIcon, TimesIcon, FocusTrap, SharedModule],
     template: `
         <span [ngClass]="containerClass()" [class]="styleClass" [ngStyle]="style">
             <ng-container *ngIf="!imageTemplate">
