@@ -17,6 +17,7 @@ import { VoidListener } from 'primeng/ts-helpers';
 import { KnobStyle } from './style/knobstyle';
 import { BaseComponent } from 'primeng/basecomponent';
 import { $dt } from '@primeuix/styled';
+import { SharedModule } from '../api/shared';
 
 export const KNOB_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -30,7 +31,7 @@ export const KNOB_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-knob',
     standalone: true,
-    imports: [CommonModule],
+    imports: [CommonModule, SharedModule],
     template: `
         <div [ngClass]="containerClass" [class]="styleClass" [ngStyle]="style" [attr.data-pc-name]="'knob'" [attr.data-pc-section]="'root'">
             <svg
@@ -440,7 +441,7 @@ export class Knob extends BaseComponent {
 }
 
 @NgModule({
-    imports: [Knob],
-    exports: [Knob],
+    imports: [Knob, SharedModule],
+    exports: [Knob, SharedModule],
 })
 export class KnobModule {}

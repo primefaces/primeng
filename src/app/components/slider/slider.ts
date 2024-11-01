@@ -23,6 +23,7 @@ import { AutoFocus } from 'primeng/autofocus';
 import { SliderChangeEvent, SliderSlideEndEvent } from './slider.interface';
 import { SliderStyle } from './style/sliderstyle';
 import { BaseComponent } from 'primeng/basecomponent';
+import { SharedModule } from '../api/shared';
 
 export const SLIDER_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -36,7 +37,7 @@ export const SLIDER_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-slider',
     standalone: true,
-    imports: [CommonModule, AutoFocus],
+    imports: [CommonModule, AutoFocus, SharedModule],
     template: `
         <div
             [ngStyle]="style"
@@ -108,8 +109,7 @@ export const SLIDER_VALUE_ACCESSOR: any = {
                 [attr.aria-label]="ariaLabel"
                 [attr.aria-orientation]="orientation"
                 [attr.data-pc-section]="'handle'"
-                pAutoFocus
-                [autofocus]="autofocus"
+                [pAutoFocus]="autofocus"
             ></span>
             <span
                 *ngIf="range"
@@ -121,7 +121,7 @@ export const SLIDER_VALUE_ACCESSOR: any = {
                 (keydown)="onKeyDown($event, 0)"
                 (mousedown)="onMouseDown($event, 0)"
                 (touchstart)="onDragStart($event, 0)"
-                (touchmove)="onDrag($event, 0)"
+                (touchmove)="onDrag($event)"
                 (touchend)="onDragEnd($event)"
                 [attr.tabindex]="disabled ? null : tabindex"
                 role="slider"
@@ -132,8 +132,7 @@ export const SLIDER_VALUE_ACCESSOR: any = {
                 [attr.aria-label]="ariaLabel"
                 [attr.aria-orientation]="orientation"
                 [attr.data-pc-section]="'startHandler'"
-                pAutoFocus
-                [autofocus]="autofocus"
+                [pAutoFocus]="autofocus"
             ></span>
             <span
                 *ngIf="range"
@@ -145,7 +144,7 @@ export const SLIDER_VALUE_ACCESSOR: any = {
                 (keydown)="onKeyDown($event, 1)"
                 (mousedown)="onMouseDown($event, 1)"
                 (touchstart)="onDragStart($event, 1)"
-                (touchmove)="onDrag($event, 1)"
+                (touchmove)="onDrag($event)"
                 (touchend)="onDragEnd($event)"
                 [attr.tabindex]="disabled ? null : tabindex"
                 [attr.aria-valuemin]="min"
@@ -401,7 +400,7 @@ export class Slider extends BaseComponent implements OnDestroy, ControlValueAcce
         this.sliderHandleClick = false;
     }
 
-    onKeyDown(event, index) {
+    onKeyDown(event: any, index?) {
         this.handleIndex = index;
 
         switch (event.code) {
@@ -739,7 +738,7 @@ export class Slider extends BaseComponent implements OnDestroy, ControlValueAcce
 }
 
 @NgModule({
-    imports: [Slider],
-    exports: [Slider],
+    imports: [Slider, SharedModule],
+    exports: [Slider, SharedModule],
 })
 export class SliderModule {}

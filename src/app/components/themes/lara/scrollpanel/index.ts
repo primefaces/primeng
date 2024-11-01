@@ -1,6 +1,6 @@
 export default {
     root: {
-        transitionDuration: '{transition.duration}',
+        transitionDuration: '{transition.duration}'
     },
     bar: {
         size: '9px',
@@ -10,19 +10,19 @@ export default {
             style: '{focus.ring.style}',
             color: '{focus.ring.color}',
             offset: '{focus.ring.offset}',
-            shadow: '{focus.ring.shadow}',
-        },
+            shadow: '{focus.ring.shadow}'
+        }
     },
     colorScheme: {
         light: {
             bar: {
-                background: '{surface.200}',
-            },
+                background: '{surface.200}'
+            }
         },
         dark: {
             bar: {
-                background: '{surface.700}',
-            },
-        },
-    },
+                background: '{surface.700}'
+            }
+        }
+    }
 };

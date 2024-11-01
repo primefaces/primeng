@@ -61,6 +61,18 @@ const theme = ({ dt }) => `
     resize: none;
 }
 
+.p-textarea-sm {
+    font-size: ${dt('textarea.sm.font.size')};
+    padding-block: ${dt('textarea.sm.padding.y')};
+    padding-inline: ${dt('textarea.sm.padding.x')};
+}
+
+.p-textarea-lg {
+    font-size: ${dt('textarea.lg.font.size')};
+    padding-block: ${dt('textarea.lg.padding.y')};
+    padding-inline: ${dt('textarea.lg.padding.x')};
+}
+
 /* For PrimeNG */
 
 .p-textarea.ng-invalid.ng-dirty {
@@ -85,7 +97,7 @@ const classes = {
 
 @Injectable()
 export class TextareaStyle extends BaseStyle {
-    name = 'primeng/textearea';
+    name = 'textarea';
 
     theme = theme;
 

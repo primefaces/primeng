@@ -19,7 +19,7 @@ interface LazyEvent {
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-scroller
+            <p-virtualscroller
                 [items]="items"
                 [itemSize]="50"
                 [showLoader]="true"
@@ -39,7 +39,7 @@ interface LazyEvent {
                         {{ item }}
                     </div>
                 </ng-template>
-            </p-scroller>
+            </p-virtualscroller>
         </div>
         <app-code [code]="code" selector="scroller-lazy-load-demo"></app-code>
     `,
@@ -84,7 +84,7 @@ export class LazyLoadDoc {
     }
 
     code: Code = {
-        basic: `<p-scroller 
+        basic: `<p-virtualscroller 
     [items]="items" 
     [itemSize]="50" 
     [showLoader]="true" 
@@ -102,10 +102,10 @@ export class LazyLoadDoc {
                     {{ item }}
             </div>
         </ng-template>
-</p-scroller>`,
+</p-virtualscroller>`,
 
         html: `<div class="card flex justify-center">
-    <p-scroller 
+    <p-virtualscroller 
         [items]="items" 
         [itemSize]="50" 
         [showLoader]="true" 
@@ -123,7 +123,7 @@ export class LazyLoadDoc {
                         {{ item }}
                 </div>
             </ng-template>
-    </p-scroller>
+    </p-virtualscroller>
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';

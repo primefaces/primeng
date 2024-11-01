@@ -13,13 +13,14 @@ import {
     OnDestroy,
     TemplateRef,
     ViewChild,
-    ViewEncapsulation
+    ViewEncapsulation,
 } from '@angular/core';
 import { DomHandler } from 'primeng/dom';
 import { Nullable } from 'primeng/ts-helpers';
 import { UniqueComponentId } from 'primeng/utils';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ScrollPanelStyle } from './style/scrollpanelstyle';
+import { SharedModule } from '../api/shared';
 
 /**
  * ScrollPanel is a cross browser, lightweight and themable alternative to native browser scrollbar.
@@ -28,7 +29,7 @@ import { ScrollPanelStyle } from './style/scrollpanelstyle';
 @Component({
     selector: 'p-scroll-panel, p-scrollPanel',
     standalone: true,
-    imports: [CommonModule],
+    imports: [CommonModule, SharedModule],
     template: `
         <div #container [ngClass]="'p-scrollpanel p-component'" [ngStyle]="style" [class]="styleClass" [attr.data-pc-name]="'scrollpanel'">
             <div class="p-scrollpanel-content-container" [attr.data-pc-section]="'wrapper'">
@@ -530,7 +531,7 @@ export class ScrollPanel extends BaseComponent implements AfterViewInit, OnDestr
 }
 
 @NgModule({
-    imports: [ScrollPanel],
-    exports: [ScrollPanel],
+    imports: [ScrollPanel, SharedModule],
+    exports: [ScrollPanel, SharedModule],
 })
 export class ScrollPanelModule {}

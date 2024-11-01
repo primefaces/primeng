@@ -16,9 +16,20 @@ import { SemiCircleDoc } from './semicircledoc';
 import { TooltipDoc } from './tooltipdoc';
 import { TemplateDoc } from './templatedoc';
 import { RouterModule } from '@angular/router';
+import { ButtonModule } from 'primeng/button';
 
 @NgModule({
-    imports: [CommonModule, AppCodeModule, AppDocModule, SpeedDialModule, MessagesModule, ToastModule, TooltipModule, RouterModule],
+    imports: [
+        CommonModule,
+        AppCodeModule,
+        AppDocModule,
+        SpeedDialModule,
+        MessagesModule,
+        ToastModule,
+        TooltipModule,
+        RouterModule,
+        ButtonModule,
+    ],
     exports: [AppDocModule],
     declarations: [ImportDoc, LinearDoc, CircleDoc, SemiCircleDoc, QuarterCircleDoc, TooltipDoc, MaskDoc, TemplateDoc, AccessibilityDoc],
 })

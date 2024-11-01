@@ -19,7 +19,7 @@ import {
     QueryList,
     TemplateRef,
     ViewChild,
-    ViewEncapsulation
+    ViewEncapsulation,
 } from '@angular/core';
 import { BlockableUI, PrimeTemplate, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
@@ -903,7 +903,7 @@ export class TabView extends BaseComponent implements AfterContentInit, AfterVie
 }
 
 @NgModule({
-    imports: [TabView, TabPanel],
+    imports: [TabView, TabPanel, SharedModule],
     exports: [TabView, TabPanel, SharedModule],
 })
 export class TabViewModule {}

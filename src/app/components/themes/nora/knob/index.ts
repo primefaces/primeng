@@ -6,25 +6,25 @@ export default {
             style: '{focus.ring.style}',
             color: '{focus.ring.color}',
             offset: '{focus.ring.offset}',
-            shadow: '{focus.ring.shadow}',
-        },
+            shadow: '{focus.ring.shadow}'
+        }
     },
     value: {
-        background: '{primary.color}',
+        background: '{primary.color}'
     },
     text: {
-        color: '{text.muted.color}',
+        color: '{text.muted.color}'
     },
     colorScheme: {
         light: {
             range: {
-                background: '{surface.300}',
-            },
+                background: '{surface.300}'
+            }
         },
         dark: {
             range: {
-                background: '{surface.600}',
-            },
-        },
-    },
+                background: '{surface.600}'
+            }
+        }
+    }
 };

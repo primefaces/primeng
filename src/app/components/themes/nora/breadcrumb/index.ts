@@ -3,7 +3,7 @@ export default {
         padding: '1rem',
         background: '{content.background}',
         gap: '0.5rem',
-        transitionDuration: '{transition.duration}',
+        transitionDuration: '{transition.duration}'
     },
     item: {
         color: '{text.muted.color}',
@@ -12,17 +12,17 @@ export default {
         gap: '{navigation.item.gap}',
         icon: {
             color: '{text.muted.color}',
-            hoverColor: '{text.color}',
+            hoverColor: '{text.color}'
         },
         focusRing: {
             width: '{focus.ring.width}',
             style: '{focus.ring.style}',
             color: '{focus.ring.color}',
             offset: '{focus.ring.offset}',
-            shadow: '{focus.ring.shadow}',
-        },
+            shadow: '{focus.ring.shadow}'
+        }
     },
     separator: {
-        color: '{navigation.item.icon.color}',
-    },
+        color: '{navigation.item.icon.color}'
+    }
 };

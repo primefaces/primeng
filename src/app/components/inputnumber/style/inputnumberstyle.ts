@@ -149,8 +149,20 @@ const theme = ({ dt }) => `
     width: 100%;
 }
 
+.p-inputnumber:has(.p-inputtext-sm) .p-inputnumber-button .p-icon {
+    font-size: ${dt('form.field.sm.font.size')};
+    width: ${dt('form.field.sm.font.size')};
+    height: ${dt('form.field.sm.font.size')};
+}
+
+.p-inputnumber:has(.p-inputtext-lg) .p-inputnumber-button .p-icon {
+    font-size: ${dt('form.field.lg.font.size')};
+    width: ${dt('form.field.lg.font.size')};
+    height: ${dt('form.field.lg.font.size')};
+}
+
 /* For PrimeNG */
-p-inputnumber.ng-invalid.ng-dirty > .p-inputwrapper.p-component > .p-inputtext {
+p-inputnumber.ng-invalid.ng-dirty > .p-inputtext {
     border-color: ${dt('inputtext.invalid.border.color')};
 };
 `;

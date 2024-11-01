@@ -83,7 +83,7 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-multiSelectItem, p-multiselect-item',
     standalone: true,
-    imports: [CommonModule, Checkbox, FormsModule, Ripple],
+    imports: [CommonModule, Checkbox, FormsModule, Ripple, SharedModule],
     template: `
         <li
             pRipple
@@ -222,8 +222,7 @@ export class MultiSelectItem extends BaseComponent {
                 (focus)="onInputFocus($event)"
                 (blur)="onInputBlur($event)"
                 (keydown)="onKeyDown($event)"
-                pAutoFocus
-                [autofocus]="autofocus"
+                [pAutoFocus]="autofocus"
             />
         </div>
         <div
@@ -248,7 +247,7 @@ export class MultiSelectItem extends BaseComponent {
                                 [removeIcon]="chipIcon"
                             >
                                 <ng-container *ngIf="chipIconTemplate || removeTokenIconTemplate">
-                                    <ng-template pTemplate="removeicon">
+                                    <ng-template #removeicon>
                                         <ng-container *ngIf="!disabled">
                                             <span
                                                 class="p-multiselect-chip-icon"
@@ -346,7 +345,7 @@ export class MultiSelectItem extends BaseComponent {
             (onAnimationStart)="onOverlayAnimationStart($event)"
             (onHide)="hide()"
         >
-            <ng-template pTemplate="content">
+            <ng-template #content>
                 <div
                     [attr.id]="id + '_list'"
                     [ngClass]="'p-multiselect-overlay p-component'"
@@ -363,9 +362,9 @@ export class MultiSelectItem extends BaseComponent {
                         [attr.data-p-hidden-focusable]="true"
                     >
                     </span>
+                    <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
                     <div class="p-multiselect-header" *ngIf="showHeader">
                         <ng-content select="p-header"></ng-content>
-                        <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
                         <ng-container *ngIf="filterTemplate; else builtInFilterElement">
                             <ng-container *ngTemplateOutlet="filterTemplate; context: { options: filterOptions }"></ng-container>
                         </ng-container>
@@ -378,7 +377,7 @@ export class MultiSelectItem extends BaseComponent {
                                 [variant]="variant"
                                 [disabled]="disabled"
                             >
-                                <ng-template pTemplate="icon" let-class="class">
+                                <ng-template #icon let-class="class">
                                     <CheckIcon
                                         *ngIf="!headerCheckboxIconTemplate && allSelected()"
                                         [styleClass]="class"
@@ -404,9 +403,7 @@ export class MultiSelectItem extends BaseComponent {
                                         pInputText
                                         [variant]="variant"
                                         type="text"
-                                        role="searchbox"
                                         [attr.autocomplete]="autocomplete"
-                                        [attr.placeholder]="filterPlaceHolder"
                                         role="searchbox"
                                         [attr.aria-owns]="id + '_list'"
                                         [attr.aria-activedescendant]="focusedOptionId"
@@ -443,13 +440,13 @@ export class MultiSelectItem extends BaseComponent {
                             (onLazyLoad)="onLazyLoad.emit($event)"
                             [options]="virtualScrollOptions"
                         >
-                            <ng-template pTemplate="content" let-items let-scrollerOptions="options">
+                            <ng-template #content let-items let-scrollerOptions="options">
                                 <ng-container
                                     *ngTemplateOutlet="buildInItems; context: { $implicit: items, options: scrollerOptions }"
                                 ></ng-container>
                             </ng-template>
                             <ng-container *ngIf="loaderTemplate">
-                                <ng-template pTemplate="loader" let-scrollerOptions="options">
+                                <ng-template #loader let-scrollerOptions="options">
                                     <ng-container *ngTemplateOutlet="loaderTemplate; context: { options: scrollerOptions }"></ng-container>
                                 </ng-template>
                             </ng-container>
@@ -848,6 +845,11 @@ export class MultiSelect extends BaseComponent implements OnInit, AfterViewInit,
      * @group Props
      */
     @Input() autocomplete: string = 'off';
+    /**
+     * Defines the size of the component.
+     * @group Props
+     */
+    @Input() size: 'large' | 'small';
     /**
      * When enabled, a clear icon is displayed to clear the value.
      * @group Props

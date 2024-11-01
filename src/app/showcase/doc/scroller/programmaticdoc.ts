@@ -10,7 +10,7 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card flex flex-col items-center gap-4">
             <p-button label="Reset" (click)="reset()" />
-            <p-scroller
+            <p-virtualscroller
                 #sc
                 [items]="items"
                 [itemSize]="50"
@@ -27,7 +27,7 @@ import { Code } from '@domain/code';
                         {{ item }}
                     </div>
                 </ng-template>
-            </p-scroller>
+            </p-virtualscroller>
         </div>
         <app-code [code]="code" selector="scroller-programmatic-demo"></app-code>
     `,
@@ -47,8 +47,9 @@ export class ProgrammaticDoc implements OnInit {
 
     code: Code = {
         basic: `<p-button label="Reset" (click)="reset()" />
-<p-scroller 
-    #sc [items]="items" 
+<p-virtualscroller 
+    #sc 
+    [items]="items" 
     [itemSize]="50" 
     scrollHeight="200px" 
     styleClass="border border-surface" 
@@ -61,11 +62,11 @@ export class ProgrammaticDoc implements OnInit {
                     {{ item }}
             </div>
         </ng-template>
-</p-scroller>`,
+</p-virtualscroller>`,
 
         html: `<div class="card flex flex-col items-center gap-4">
     <p-button label="Reset" (click)="reset()" />
-    <p-scroller 
+    <p-virtualscroller 
         #sc 
         [items]="items" 
         [itemSize]="50" 
@@ -80,7 +81,7 @@ export class ProgrammaticDoc implements OnInit {
                     {{ item }}
                 </div>
             </ng-template>
-    </p-scroller>
+    </p-virtualscroller>
 </div>`,
 
         typescript: `import { Component, OnInit, ViewChild } from '@angular/core';

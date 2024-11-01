@@ -41,6 +41,7 @@ import { BadgeModule } from 'primeng/badge';
 
 @Pipe({
     name: 'safeHtml',
+    standalone: true,
 })
 export class SafeHtmlPipe implements PipeTransform {
     constructor(
@@ -60,7 +61,7 @@ export class SafeHtmlPipe implements PipeTransform {
 @Component({
     selector: '[pMenuItemContent]',
     standalone: true,
-    imports: [CommonModule, RouterModule, Ripple, TooltipModule, BadgeModule],
+    imports: [CommonModule, RouterModule, Ripple, TooltipModule, BadgeModule, SharedModule, SafeHtmlPipe],
     template: `
         <div [attr.data-pc-section]="'content'" class="p-menu-item-content" (click)="onItemClick($event, item)">
             <ng-container *ngIf="!itemTemplate">
@@ -149,7 +150,7 @@ export class MenuItemContent {
 @Component({
     selector: 'p-menu',
     standalone: true,
-    imports: [CommonModule, RouterModule, MenuItemContent, Ripple, TooltipModule, BadgeModule],
+    imports: [CommonModule, RouterModule, MenuItemContent, Ripple, TooltipModule, BadgeModule, SharedModule, SafeHtmlPipe],
     template: `
         <div
             #container
@@ -503,7 +504,6 @@ export class Menu extends BaseComponent implements OnDestroy {
             }
         });
     }
-
 
     getTabIndexValue(): string | null {
         return this.tabindex !== undefined ? this.tabindex.toString() : null;
@@ -884,7 +884,7 @@ export class Menu extends BaseComponent implements OnDestroy {
 }
 
 @NgModule({
-    imports: [Menu, SharedModule],
-    exports: [Menu, SharedModule],
+    imports: [Menu, SharedModule, SafeHtmlPipe],
+    exports: [Menu, SharedModule, SafeHtmlPipe],
 })
 export class MenuModule {}

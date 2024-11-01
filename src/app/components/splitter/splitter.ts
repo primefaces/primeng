@@ -12,13 +12,14 @@ import {
     Output,
     QueryList,
     ViewChild,
-    ViewEncapsulation
+    ViewEncapsulation,
 } from '@angular/core';
 import { DomHandler } from 'primeng/dom';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { SplitterResizeEndEvent, SplitterResizeStartEvent } from './splitter.interface';
 import { BaseComponent } from 'primeng/basecomponent';
 import { SplitterStyle } from './style/splitterstyle';
+import { SharedModule } from '../api/shared';
 
 /**
  * Splitter is utilized to separate and resize panels.
@@ -27,7 +28,7 @@ import { SplitterStyle } from './style/splitterstyle';
 @Component({
     selector: 'p-splitter',
     standalone: true,
-    imports: [CommonModule],
+    imports: [CommonModule, SharedModule],
     template: `
         <div
             #container
@@ -57,7 +58,7 @@ import { SplitterStyle } from './style/splitterstyle';
                     (mousedown)="onGutterMouseDown($event, i)"
                     (touchstart)="onGutterTouchStart($event, i)"
                     (touchmove)="onGutterTouchMove($event)"
-                    (touchend)="onGutterTouchEnd($event, i)"
+                    (touchend)="onGutterTouchEnd($event)"
                     [attr.data-p-gutter-resizing]="false"
                     [attr.data-pc-section]="'gutter'"
                 >
@@ -602,7 +603,7 @@ export class Splitter extends BaseComponent {
 }
 
 @NgModule({
-    imports: [Splitter],
-    exports: [Splitter],
+    imports: [Splitter, SharedModule],
+    exports: [Splitter, SharedModule],
 })
 export class SplitterModule {}

@@ -7,16 +7,17 @@ export default {
         gap: '0.5rem',
         verticalOrientation: {
             padding: '{navigation.list.padding}',
-            gap: '0',
+            gap: '{navigation.list.gap}'
         },
         horizontalOrientation: {
             padding: '0.5rem 0.75rem',
+            gap: '0.5rem'
         },
-        transitionDuration: '{transition.duration}',
+        transitionDuration: '{transition.duration}'
     },
     baseItem: {
         borderRadius: '{content.border.radius}',
-        padding: '{navigation.item.padding}',
+        padding: '{navigation.item.padding}'
     },
     item: {
         focusBackground: '{navigation.item.focus.background}',
@@ -30,8 +31,8 @@ export default {
         icon: {
             color: '{navigation.item.icon.color}',
             focusColor: '{navigation.item.icon.focus.color}',
-            activeColor: '{navigation.item.icon.active.color}',
-        },
+            activeColor: '{navigation.item.icon.active.color}'
+        }
     },
     overlay: {
         padding: '0',
@@ -40,26 +41,26 @@ export default {
         borderRadius: '{content.border.radius}',
         color: '{content.color}',
         shadow: '{overlay.navigation.shadow}',
-        gap: '0.5rem',
+        gap: '0.5rem'
     },
     submenu: {
         padding: '{navigation.list.padding}',
-        gap: '{navigation.list.gap}',
+        gap: '{navigation.list.gap}'
     },
     submenuLabel: {
         padding: '{navigation.submenu.label.padding}',
         fontWeight: '{navigation.submenu.label.font.weight}',
         background: '{navigation.submenu.label.background.}',
-        color: '{navigation.submenu.label.color}',
+        color: '{navigation.submenu.label.color}'
     },
     submenuIcon: {
         size: '{navigation.submenu.icon.size}',
         color: '{navigation.submenu.icon.color}',
         focusColor: '{navigation.submenu.icon.focus.color}',
-        activeColor: '{navigation.submenu.icon.active.color}',
+        activeColor: '{navigation.submenu.icon.active.color}'
     },
     separator: {
-        borderColor: '{content.border.color}',
+        borderColor: '{content.border.color}'
     },
     mobileButton: {
         borderRadius: '50%',
@@ -72,7 +73,7 @@ export default {
             style: '{focus.ring.style}',
             color: '{focus.ring.color}',
             offset: '{focus.ring.offset}',
-            shadow: '{focus.ring.shadow}',
-        },
-    },
+            shadow: '{focus.ring.shadow}'
+        }
+    }
 };

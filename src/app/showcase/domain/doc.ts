@@ -1,4 +1,3 @@
-import { ComponentRef, Type } from '@angular/core';
 interface ComponentType {
     id: string;
     title: string;
@@ -10,6 +9,7 @@ interface ComponentType {
 
 export interface Doc {
     id?: string;
+    description?: string;
     label?: string;
     component?: any;
     doc?: Doc[];

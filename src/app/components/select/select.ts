@@ -154,6 +154,7 @@ export class SelectItem extends BaseComponent {
         IconField,
         InputIcon,
         Scroller,
+        SharedModule,
     ],
     template: `
         <span
@@ -173,8 +174,7 @@ export class SelectItem extends BaseComponent {
             [attr.aria-expanded]="overlayVisible ?? false"
             [attr.aria-controls]="overlayVisible ? id + '_list' : null"
             [attr.tabindex]="!disabled ? tabindex : -1"
-            pAutoFocus
-            [autofocus]="autofocus"
+            [pAutoFocus]="autofocus"
             [attr.aria-activedescendant]="focused ? focusedOptionId : undefined"
             (focus)="onInputFocus($event)"
             (blur)="onInputBlur($event)"
@@ -207,8 +207,7 @@ export class SelectItem extends BaseComponent {
             [attr.aria-label]="ariaLabel || (label() === 'p-emptylabel' ? undefined : label())"
             (input)="onEditableInput($event)"
             (keydown)="onKeyDown($event)"
-            pAutoFocus
-            [autofocus]="autofocus"
+            [pAutoFocus]="autofocus"
             [attr.aria-activedescendant]="focused ? focusedOptionId : undefined"
             (focus)="onInputFocus($event)"
             (blur)="onInputBlur($event)"
@@ -643,6 +642,11 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
      * @group Props
      */
     @Input() virtualScrollOptions: ScrollerOptions | undefined;
+    /**
+     * Defines the size of the component.
+     * @group Props
+     */
+    @Input() size: 'large' | 'small';
     /**
      * Whether to use overlay API feature. The properties of overlay API can be used like an object in it.
      * @group Props
@@ -2180,7 +2184,7 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
 }
 
 @NgModule({
-    imports: [Select],
+    imports: [Select, SharedModule],
     exports: [Select, SharedModule],
 })
 export class SelectModule {}

@@ -11,9 +11,9 @@ import {
     NgModule,
     Output,
     TemplateRef,
-    ViewEncapsulation
+    ViewEncapsulation,
 } from '@angular/core';
-import { BlockableUI } from 'primeng/api';
+import { BlockableUI, SharedModule } from 'primeng/api';
 import { MinusIcon } from 'primeng/icons/minus';
 import { PlusIcon } from 'primeng/icons/plus';
 import { Ripple } from 'primeng/ripple';
@@ -31,7 +31,7 @@ import { FieldsetStyle } from './style/fieldsetstyle';
 @Component({
     selector: 'p-fieldset',
     standalone: true,
-    imports: [CommonModule, ButtonModule, Ripple, MinusIcon, PlusIcon],
+    imports: [CommonModule, ButtonModule, Ripple, MinusIcon, PlusIcon, SharedModule],
     template: `
         <fieldset
             [attr.id]="id"
@@ -260,7 +260,7 @@ export class Fieldset extends BaseComponent implements BlockableUI {
 }
 
 @NgModule({
-    imports: [Fieldset],
-    exports: [Fieldset],
+    imports: [Fieldset, SharedModule],
+    exports: [Fieldset, SharedModule],
 })
 export class FieldsetModule {}
