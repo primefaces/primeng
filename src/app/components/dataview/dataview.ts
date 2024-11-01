@@ -15,11 +15,11 @@ import {
     Output,
     SimpleChanges,
     TemplateRef,
-    ViewEncapsulation
+    ViewEncapsulation,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ObjectUtils } from 'primeng/utils';
-import { BlockableUI, FilterService, Footer, Header, TranslationKeys } from 'primeng/api';
+import { BlockableUI, FilterService, Footer, Header, SharedModule, TranslationKeys } from 'primeng/api';
 import { PaginatorModule } from 'primeng/paginator';
 import { Subscription } from 'rxjs';
 import { SpinnerIcon } from 'primeng/icons/spinner';
@@ -29,7 +29,7 @@ import {
     DataViewLazyLoadEvent,
     DataViewPageEvent,
     DataViewPaginatorState,
-    DataViewSortEvent
+    DataViewSortEvent,
 } from './dataview.interface';
 import { DataViewStyle } from './style/dataviewstyle';
 import { BaseComponent } from 'primeng/basecomponent';
@@ -41,7 +41,7 @@ import { BaseComponent } from 'primeng/basecomponent';
 @Component({
     selector: 'p-dataView, p-dataview',
     standalone: true,
-    imports: [CommonModule, PaginatorModule, SpinnerIcon],
+    imports: [CommonModule, PaginatorModule, SpinnerIcon, SharedModule],
     template: `
         <div
             [ngClass]="{ 'p-dataview p-component': true, 'p-dataview-list': layout === 'list', 'p-dataview-grid': layout === 'grid' }"
@@ -621,7 +621,7 @@ export class DataView extends BaseComponent implements OnInit, OnDestroy, Blocka
 }
 
 @NgModule({
-    imports: [DataView],
-    exports: [DataView],
+    imports: [DataView, SharedModule],
+    exports: [DataView, SharedModule],
 })
 export class DataViewModule {}

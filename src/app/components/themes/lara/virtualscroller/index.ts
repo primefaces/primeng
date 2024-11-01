@@ -2,10 +2,10 @@ export default {
     loader: {
         mask: {
             background: '{content.background}',
-            color: '{text.muted.color}',
+            color: '{text.muted.color}'
         },
         icon: {
-            size: '2rem',
-        },
-    },
+            size: '2rem'
+        }
+    }
 };

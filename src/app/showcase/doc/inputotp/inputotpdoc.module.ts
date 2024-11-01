@@ -14,6 +14,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { SampleDoc } from './sampledoc';
 import { ButtonModule } from 'primeng/button';
 import { AccessibilityDoc } from './accessibilitydoc';
+import { SizesDoc } from './sizesdoc';
 
 @NgModule({
     imports: [
@@ -28,6 +29,6 @@ import { AccessibilityDoc } from './accessibilitydoc';
         ButtonModule,
     ],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, MaskDoc, IntegerOnlyDoc, TemplateDoc, SampleDoc, AccessibilityDoc],
+    declarations: [ImportDoc, BasicDoc, MaskDoc, IntegerOnlyDoc, TemplateDoc, SampleDoc, SizesDoc, AccessibilityDoc],
 })
 export class InputOtpDocModule {}

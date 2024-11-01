@@ -6,14 +6,14 @@ import { Code } from '@domain/code';
     template: `
         <app-docsectiontext>
             <p>
-                Scroller requires <i>items</i> as the data to display, <i>itemSize</i> for the dimensions of an item and
+                VirtualScroller requires <i>items</i> as the data to display, <i>itemSize</i> for the dimensions of an item and
                 <i>item</i> template are required on component. In addition, an initial array is required based on the total number of items
                 to display. Size of the viewport is configured using <i>scrollWidth</i>, <i>scrollHeight</i> properties directly or with CSS
                 <i>width</i> and <i>height</i> styles.
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-scroller
+            <p-virtualscroller
                 [items]="items"
                 [itemSize]="50"
                 scrollHeight="200px"
@@ -29,7 +29,7 @@ import { Code } from '@domain/code';
                         {{ item }}
                     </div>
                 </ng-template>
-            </p-scroller>
+            </p-virtualscroller>
         </div>
         <app-code [code]="code" selector="scroller-basic-demo"></app-code>
     `,
@@ -43,7 +43,7 @@ export class BasicDoc {
     }
 
     code: Code = {
-        basic: `<p-scroller
+        basic: `<p-virtualscroller
     [items]="items"
     [itemSize]="50"
     scrollHeight="200px"
@@ -59,10 +59,10 @@ export class BasicDoc {
             {{ item }}
         </div>
     </ng-template>
-</p-scroller>`,
+</p-virtualscroller>`,
 
         html: `<div class="card flex justify-center">
-    <p-scroller
+    <p-virtualscroller
         [items]="items"
         [itemSize]="50"
         scrollHeight="200px"
@@ -78,7 +78,7 @@ export class BasicDoc {
                 {{ item }}
             </div>
         </ng-template>
-    </p-scroller>
+    </p-virtualscroller>
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';

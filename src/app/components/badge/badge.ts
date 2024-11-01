@@ -1,4 +1,4 @@
-import { NgClass, NgStyle } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import {
     AfterViewInit,
     booleanAttribute,
@@ -27,6 +27,7 @@ import { BadgeStyle } from './style/badgestyle';
 @Directive({
     selector: '[pBadge]',
     providers: [BadgeStyle],
+    standalone: true,
 })
 export class BadgeDirective extends BaseComponent implements OnChanges, AfterViewInit {
     /**
@@ -230,6 +231,8 @@ export class BadgeDirective extends BaseComponent implements OnChanges, AfterVie
             <span [ngClass]="containerClass()" [class]="styleClass()" [ngStyle]="style()">{{ value() }}</span>
         }
     `,
+    standalone: true,
+    imports: [CommonModule, SharedModule],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     providers: [BadgeStyle],
@@ -291,8 +294,7 @@ export class Badge extends BaseComponent {
 }
 
 @NgModule({
-    imports: [NgClass, NgStyle],
+    imports: [Badge, BadgeDirective, SharedModule],
     exports: [Badge, BadgeDirective, SharedModule],
-    declarations: [Badge, BadgeDirective],
 })
 export class BadgeModule {}

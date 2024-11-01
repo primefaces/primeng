@@ -224,6 +224,8 @@ const classes = {
             'p-inputwrapper-focus': instance.focused || instance.overlayVisible,
             'p-select-open': instance.overlayVisible,
             'p-select-fluid': instance.fluid,
+            'p-select-sm p-inputfield-sm': instance.size === 'small',
+            'p-select-lg p-inputfield-lg': instance.size === 'large'
         },
     ],
     label: ({ instance, props }) => [

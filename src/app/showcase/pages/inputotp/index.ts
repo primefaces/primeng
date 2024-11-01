@@ -7,6 +7,7 @@ import { TemplateDoc } from '@doc/inputotp/templatedoc';
 import { SampleDoc } from '@doc/inputotp/sampledoc';
 import { AccessibilityDoc } from '@doc/inputotp/accessibilitydoc';
 import { InputOtpDocModule } from '@doc/inputotp/inputotpdoc.module';
+import { SizesDoc } from '@doc/inputotp/sizesdoc';
 
 @Component({
     standalone: true,
@@ -44,6 +45,11 @@ export class InputOtpDemo {
             id: 'integeronly',
             label: 'Integer Only',
             component: IntegerOnlyDoc,
+        },
+        {
+            id: 'sizes',
+            label: 'Sizes',
+            component: SizesDoc,
         },
         {
             id: 'template',

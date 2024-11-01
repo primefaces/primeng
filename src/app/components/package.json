@@ -16,7 +16,7 @@
         "./resources/": "./resources/"
     },
     "dependencies": {
-        "@primeuix/styled": "0.2.0"
+        "@primeuix/styled": "0.3.0"
     },
     "module": "primeng.js",
     "typings": "primeng.d.ts",

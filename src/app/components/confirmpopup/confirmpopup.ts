@@ -44,6 +44,8 @@ import { BaseComponent } from 'primeng/basecomponent';
  */
 @Component({
     selector: 'p-confirmPopup, p-confirmpopup',
+    standalone: true,
+    imports: [CommonModule, SharedModule, ButtonModule],
     template: `
         <div
             *ngIf="visible"
@@ -520,8 +522,7 @@ export class ConfirmPopup extends BaseComponent implements AfterContentInit, OnD
 }
 
 @NgModule({
-    imports: [CommonModule, ButtonModule, SharedModule],
+    imports: [ConfirmPopup, SharedModule],
     exports: [ConfirmPopup, SharedModule],
-    declarations: [ConfirmPopup],
 })
 export class ConfirmPopupModule {}

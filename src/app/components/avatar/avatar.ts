@@ -2,6 +2,7 @@ import { NgClass } from '@angular/common';
 import { ChangeDetectionStrategy, Component, OutputEmitterRef, inject, input, NgModule, output, ViewEncapsulation } from '@angular/core';
 import { BaseComponent } from 'primeng/basecomponent';
 import { AvatarStyle } from './style/avatarstyle';
+import { SharedModule } from '../api/shared';
 
 /**
  * Avatar represents people using icons, labels and images.
@@ -10,7 +11,7 @@ import { AvatarStyle } from './style/avatarstyle';
 @Component({
     selector: 'p-avatar',
     standalone: true,
-    imports: [NgClass],
+    imports: [NgClass, SharedModule],
     template: `
         <ng-content></ng-content>
         @if (label()) {
@@ -103,7 +104,7 @@ export class Avatar extends BaseComponent {
 }
 
 @NgModule({
-    imports: [Avatar],
-    exports: [Avatar],
+    imports: [Avatar, SharedModule],
+    exports: [Avatar, SharedModule],
 })
 export class AvatarModule {}

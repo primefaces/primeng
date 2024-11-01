@@ -9,9 +9,9 @@ import {
     NgModule,
     QueryList,
     TemplateRef,
-    ViewEncapsulation
+    ViewEncapsulation,
 } from '@angular/core';
-import { PrimeTemplate } from 'primeng/api';
+import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { TagStyle } from './style/tagstyle';
 
@@ -22,7 +22,7 @@ import { TagStyle } from './style/tagstyle';
 @Component({
     selector: 'p-tag',
     standalone: true,
-    imports: [CommonModule],
+    imports: [CommonModule, SharedModule],
     template: `
         <span [ngClass]="containerClass()" [class]="styleClass" [ngStyle]="style">
             <ng-content></ng-content>
@@ -106,7 +106,7 @@ export class Tag extends BaseComponent {
 }
 
 @NgModule({
-    imports: [Tag],
-    exports: [Tag],
+    imports: [Tag, SharedModule],
+    exports: [Tag, SharedModule],
 })
 export class TagModule {}

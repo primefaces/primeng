@@ -11,6 +11,7 @@ import { FilledDoc } from '@doc/cascadeselect/filleddoc';
 import { LoadingDoc } from '@doc/cascadeselect/loadingdoc';
 import { CascadeSelectDocModule } from '@doc/cascadeselect/cascasdeselectdoc.module';
 import { IftaLabelDoc } from '@doc/cascadeselect/iftalabeldoc';
+import { SizesDoc } from '@doc/cascadeselect/sizesdoc';
 
 @Component({
     standalone: true,
@@ -62,6 +63,11 @@ export class CascadeSelectDemo {
             id: 'ifta-label',
             label: 'Ifta Label',
             component: IftaLabelDoc,
+        },
+        {
+            id: 'sizes',
+            label: 'Sizes',
+            component: SizesDoc,
         },
         {
             id: 'filled',

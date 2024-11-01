@@ -20,7 +20,7 @@ import {
     TemplateRef,
     ViewChild,
     ViewChildren,
-    ViewEncapsulation
+    ViewEncapsulation,
 } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { MenuItem, PrimeTemplate, SharedModule } from 'primeng/api';
@@ -42,7 +42,7 @@ import { BadgeModule } from 'primeng/badge';
 @Component({
     selector: 'p-tabMenu, p-tabmenu',
     standalone: true,
-    imports: [CommonModule, RouterModule, Ripple, TooltipModule, ChevronLeftIcon, ChevronRightIcon, BadgeModule],
+    imports: [CommonModule, RouterModule, Ripple, TooltipModule, ChevronLeftIcon, ChevronRightIcon, BadgeModule, SharedModule],
     template: `
         <div [ngClass]="{ 'p-tabmenu p-component': true, 'p-tabmenu-scrollable': scrollable }" [ngStyle]="style" [class]="styleClass">
             <div class="p-tabmenu-nav-container">
