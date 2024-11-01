@@ -12,6 +12,7 @@ export default {
         color: '{form.field.color}',
         disabledColor: '{form.field.disabled.color}',
         placeholderColor: '{form.field.placeholder.color}',
+        invalidPlaceholderColor: '{form.field.invalid.placeholder.color}',
         shadow: '{form.field.shadow}',
         paddingX: '{form.field.padding.x}',
         paddingY: '{form.field.padding.y}',
@@ -48,6 +49,9 @@ export default {
     },
     tree: {
         padding: '{list.padding}'
+    },
+    clearIcon: {
+        color: '{form.field.icon.color}'
     },
     emptyMessage: {
         padding: '{list.option.padding}'
