@@ -37,4 +37,4 @@ import { AccessibilityDoc } from './accessibilitydoc';
     ],
     exports: [AppDocModule],
 })
-export class ScrollerDocModule {}
+export class VirtualScrollerDocModule {}
