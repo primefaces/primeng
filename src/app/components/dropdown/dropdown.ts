@@ -152,8 +152,7 @@ export class DropdownItem extends BaseComponent {
             [attr.aria-expanded]="overlayVisible ?? false"
             [attr.aria-controls]="overlayVisible ? id + '_list' : null"
             [attr.tabindex]="!disabled ? tabindex : -1"
-            pAutoFocus
-            [autofocus]="autofocus"
+            [pAutoFocus]="autofocus"
             [attr.aria-activedescendant]="focused ? focusedOptionId : undefined"
             (focus)="onInputFocus($event)"
             (blur)="onInputBlur($event)"
@@ -186,8 +185,7 @@ export class DropdownItem extends BaseComponent {
             [attr.aria-label]="ariaLabel || (label() === 'p-emptylabel' ? undefined : label())"
             (input)="onEditableInput($event)"
             (keydown)="onKeyDown($event)"
-            pAutoFocus
-            [autofocus]="autofocus"
+            [pAutoFocus]="autofocus"
             [attr.aria-activedescendant]="focused ? focusedOptionId : undefined"
             (focus)="onInputFocus($event)"
             (blur)="onInputBlur($event)"
@@ -367,10 +365,11 @@ export class DropdownItem extends BaseComponent {
                                     [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }"
                                     role="option"
                                 >
-                                    <ng-container *ngIf="!emptyFilterTemplate && !emptyTemplate; else emptyFilter">
+                                    @if (!emptyFilterTemplate && !emptyTemplate) {
                                         {{ emptyFilterMessageLabel }}
-                                    </ng-container>
-                                    <ng-container #emptyFilter *ngTemplateOutlet="emptyFilterTemplate || emptyTemplate"></ng-container>
+                                    } @else {
+                                        <ng-container #emptyFilter *ngTemplateOutlet="emptyFilterTemplate || emptyTemplate"></ng-container>
+                                    }
                                 </li>
                                 <li
                                     *ngIf="!filterValue && isEmpty()"
@@ -378,10 +377,11 @@ export class DropdownItem extends BaseComponent {
                                     [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }"
                                     role="option"
                                 >
-                                    <ng-container *ngIf="!emptyTemplate; else empty">
+                                    @if (!emptyTemplate) {
                                         {{ emptyMessageLabel }}
-                                    </ng-container>
-                                    <ng-container #empty *ngTemplateOutlet="emptyTemplate"></ng-container>
+                                    } @else {
+                                        <ng-container *ngTemplateOutlet="emptyTemplate"></ng-container>
+                                    }
                                 </li>
                             </ul>
                         </ng-template>
@@ -1469,7 +1469,7 @@ export class Dropdown extends BaseComponent implements OnInit, AfterViewInit, Af
         return !this._options() || (this.visibleOptions() && this.visibleOptions().length === 0);
     }
 
-    onEditableInput(event: KeyboardEvent) {
+    onEditableInput(event: any) {
         const value = (event.target as HTMLInputElement).value;
         this.searchValue = '';
         const matched = this.searchOptions(event, value);
@@ -1506,7 +1506,7 @@ export class Dropdown extends BaseComponent implements OnInit, AfterViewInit, Af
         this.cd.markForCheck();
     }
 
-    onOverlayAnimationStart(event: AnimationEvent) {
+    onOverlayAnimationStart(event: any) {
         if (event.toState === 'visible') {
             this.itemsWrapper = DomHandler.findSingle(
                 this.overlayViewChild?.overlayViewChild?.nativeElement,
@@ -1601,7 +1601,7 @@ export class Dropdown extends BaseComponent implements OnInit, AfterViewInit, Af
         this.preventModelTouched = false;
     }
 
-    onKeyDown(event: KeyboardEvent, search: boolean) {
+    onKeyDown(event: any, search?: boolean) {
         if (this.disabled || this.readonly || this.loading) {
             return;
         }

@@ -1,11 +1,9 @@
 import { AnimationEvent, animate, style, transition, trigger } from '@angular/animations';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
-    AfterContentInit,
     ChangeDetectionStrategy,
     Component,
     ContentChild,
-    ContentChildren,
     ElementRef,
     EventEmitter,
     Inject,
@@ -14,7 +12,6 @@ import {
     OnDestroy,
     OnInit,
     Output,
-    QueryList,
     Renderer2,
     TemplateRef,
     ViewChild,
@@ -29,7 +26,7 @@ import {
     signal,
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { MenuItem, OverlayService } from 'primeng/api';
+import { MenuItem, OverlayService, SharedModule } from 'primeng/api';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { AngleRightIcon } from 'primeng/icons/angleright';
 import { Ripple } from 'primeng/ripple';
@@ -43,7 +40,7 @@ import { nestedPosition } from '@primeuix/utils/dom';
 @Component({
     selector: 'p-tieredMenuSub, p-tieredmenusub',
     standalone: true,
-    imports: [CommonModule, RouterModule, Ripple, TooltipModule, AngleRightIcon],
+    imports: [CommonModule, RouterModule, Ripple, TooltipModule, AngleRightIcon, SharedModule],
     template: `
         <ul
             #sublist
@@ -247,7 +244,7 @@ import { nestedPosition } from '@primeuix/utils/dom';
     `,
     encapsulation: ViewEncapsulation.None,
 })
-export class TieredMenuSub {
+export class TieredMenuSub extends BaseComponent {
     @Input() items: any[];
 
     @Input() itemTemplate: HTMLElement | undefined;
@@ -295,6 +292,7 @@ export class TieredMenuSub {
         public renderer: Renderer2,
         @Inject(forwardRef(() => TieredMenu)) public tieredMenu: TieredMenu,
     ) {
+        super();
         effect(() => {
             const path = this.activeItemPath();
             if (ObjectUtils.isNotEmpty(path)) {
@@ -403,14 +401,14 @@ export class TieredMenuSub {
 @Component({
     selector: 'p-tieredMenu, p-tieredmenu',
     standalone: true,
-    imports: [CommonModule, TieredMenuSub, RouterModule, Ripple, TooltipModule, AngleRightIcon],
+    imports: [CommonModule, TieredMenuSub, RouterModule, Ripple, TooltipModule, AngleRightIcon, SharedModule],
     template: `
         <div
             #container
             [attr.data-pc-section]="'root'"
             [attr.data-pc-name]="'tieredmenu'"
             [id]="id"
-            [ngClass]="{ 'p-tieredmenu p-component': true, 'p-tieredmenu-overlay': popup }"
+            [ngClass]="{ 'p-tieredmenu p-component': true, 'p-tieredmenu-mobile': queryMatches, 'p-tieredmenu-overlay': popup }"
             [class]="styleClass"
             [ngStyle]="style"
             (click)="onOverlayClick($event)"
@@ -488,6 +486,11 @@ export class TieredMenu extends BaseComponent implements OnInit, OnDestroy {
      * @group Props
      */
     @Input() appendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any;
+    /**
+     * The breakpoint to define the maximum width boundary.
+     * @group Props
+     */
+    @Input() breakpoint: string = '960px';
     /**
      * Whether to automatically manage layering.
      * @group Props
@@ -600,6 +603,12 @@ export class TieredMenu extends BaseComponent implements OnInit, OnDestroy {
 
     _componentStyle = inject(TieredMenuStyle);
 
+    private matchMediaListener: () => void;
+
+    private query: MediaQueryList;
+
+    public queryMatches: boolean;
+
     get visibleItems() {
         const processedItem = this.activeItemPath().find((p) => p.key === this.focusedItemInfo().parentKey);
         return processedItem ? processedItem.items : this.processedItems;
@@ -638,7 +647,32 @@ export class TieredMenu extends BaseComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         super.ngOnInit();
+        this.bindMatchMediaListener();
         this.id = this.id || UniqueComponentId();
+    }
+
+    bindMatchMediaListener() {
+        if (isPlatformBrowser(this.platformId)) {
+            if (!this.matchMediaListener) {
+                const query = window.matchMedia(`(max-width: ${this.breakpoint})`);
+
+                this.query = query;
+                this.queryMatches = query.matches;
+
+                this.matchMediaListener = () => {
+                    this.queryMatches = query.matches;
+                };
+
+                query.addEventListener('change', this.matchMediaListener);
+            }
+        }
+    }
+
+    unbindMatchMediaListener() {
+        if (this.matchMediaListener) {
+            this.query.removeEventListener('change', this.matchMediaListener);
+            this.matchMediaListener = null;
+        }
     }
 
     createProcessedItems(items: any, level: number = 0, parent: any = {}, parentKey: any = '') {
@@ -758,10 +792,10 @@ export class TieredMenu extends BaseComponent implements OnInit, OnDestroy {
     onItemMouseEnter(event: any) {
         if (!DomHandler.isTouchDevice()) {
             if (this.dirty) {
-                this.onItemChange(event);
+                this.onItemChange(event, 'hover');
             }
         } else {
-            this.onItemChange({ event, processedItem: event.processedItem, focus: this.autoDisplay });
+            this.onItemChange({ event, processedItem: event.processedItem, focus: this.autoDisplay }, 'hover');
         }
     }
 
@@ -938,7 +972,7 @@ export class TieredMenu extends BaseComponent implements OnInit, OnDestroy {
         event.preventDefault();
     }
 
-    onItemChange(event: any) {
+    onItemChange(event: any, type?: string | undefined) {
         const { processedItem, isFocus } = event;
 
         if (ObjectUtils.isEmpty(processedItem)) return;
@@ -949,10 +983,15 @@ export class TieredMenu extends BaseComponent implements OnInit, OnDestroy {
 
         grouped && activeItemPath.push(processedItem);
         this.focusedItemInfo.set({ index, level, parentKey, item });
-        this.activeItemPath.set(activeItemPath);
 
         grouped && (this.dirty = true);
         isFocus && DomHandler.focus(this.rootmenu.sublistViewChild.nativeElement);
+
+        if (type === 'hover' && this.queryMatches) {
+            return;
+        }
+
+        this.activeItemPath.set(activeItemPath);
     }
 
     onMenuFocus(event: any) {
@@ -1257,12 +1296,13 @@ export class TieredMenu extends BaseComponent implements OnInit, OnDestroy {
             this.restoreOverlayAppend();
             this.onOverlayHide();
         }
+        this.unbindMatchMediaListener();
         super.ngOnDestroy();
     }
 }
 
 @NgModule({
-    imports: [TieredMenu],
-    exports: [TieredMenu],
+    imports: [TieredMenu, SharedModule],
+    exports: [TieredMenu, SharedModule],
 })
 export class TieredMenuModule {}

@@ -17,7 +17,7 @@ import {
     QueryList,
     TemplateRef,
     ViewChild,
-    ViewEncapsulation
+    ViewEncapsulation,
 } from '@angular/core';
 import { FilterService, PrimeTemplate, SharedModule } from 'primeng/api';
 import { ButtonDirective, ButtonProps } from 'primeng/button';
@@ -55,6 +55,7 @@ import { FormsModule } from '@angular/forms';
         SearchIcon,
         Listbox,
         FormsModule,
+        SharedModule,
     ],
     template: `
         <div

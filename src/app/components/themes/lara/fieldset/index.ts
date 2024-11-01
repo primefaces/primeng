@@ -5,7 +5,7 @@ export default {
         borderRadius: '{content.border.radius}',
         color: '{content.color}',
         padding: '0.75rem 1.125rem 1.125rem 1.125rem',
-        transitionDuration: '{transition.duration}',
+        transitionDuration: '{transition.duration}'
     },
     legend: {
         borderRadius: '{content.border.radius}',
@@ -19,15 +19,15 @@ export default {
             style: '{focus.ring.style}',
             color: '{focus.ring.color}',
             offset: '{focus.ring.offset}',
-            shadow: '{focus.ring.shadow}',
-        },
+            shadow: '{focus.ring.shadow}'
+        }
     },
     toggleIcon: {
         color: '{text.muted.color}',
-        hoverColor: '{text.hover.muted.color}',
+        hoverColor: '{text.hover.muted.color}'
     },
     content: {
-        padding: '0',
+        padding: '0'
     },
     colorScheme: {
         light: {
@@ -35,16 +35,16 @@ export default {
                 background: '{surface.50}',
                 hoverBackground: '{surface.100}',
                 color: '{text.color}',
-                hoverColor: '{text.hover.color}',
-            },
+                hoverColor: '{text.hover.color}'
+            }
         },
         dark: {
             legend: {
                 background: '{surface.800}',
                 hoverBackground: '{surface.700}',
                 color: '{text.color}',
-                hoverColor: '{text.hover.color}',
-            },
-        },
-    },
+                hoverColor: '{text.hover.color}'
+            }
+        }
+    }
 };

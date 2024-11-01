@@ -10,6 +10,7 @@ import { ReactiveFormsDoc } from '@doc/checkbox/reactiveformsdoc';
 import { FilledDoc } from '@doc/checkbox/filleddoc';
 import { IndeterminateDoc } from '@doc/checkbox/indeterminatedoc';
 import { CheckboxDocModule } from '@doc/checkbox/checkboxdoc.module';
+import { SizesDoc } from '@doc/checkbox/sizesdoc';
 
 @Component({
     standalone: true,
@@ -61,6 +62,11 @@ export class CheckboxDemo {
             id: 'filled',
             label: 'Filled',
             component: FilledDoc,
+        },
+        {
+            id: 'sizes',
+            label: 'Sizes',
+            component: SizesDoc,
         },
         {
             id: 'invalid',

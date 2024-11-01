@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ObjectUtils } from 'primeng/utils';
 import { Tabs } from './tabs';
+import { SharedModule } from '../api/shared';
 
 /**
  * TabPanel is a helper component for Tabs component.

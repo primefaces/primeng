@@ -10,7 +10,7 @@ import { Code } from '@domain/code';
         <div class="card flex flex-wrap justify-center gap-4">
             <div>
                 <span class="font-bold block mb-2">No Delay</span>
-                <p-scroller
+                <p-virtualscroller
                     [items]="items"
                     [itemSize]="50"
                     styleClass="border border-surface"
@@ -25,11 +25,11 @@ import { Code } from '@domain/code';
                             {{ item }}
                         </div>
                     </ng-template>
-                </p-scroller>
+                </p-virtualscroller>
             </div>
             <div>
                 <span class="font-bold block mb-2">150ms</span>
-                <p-scroller
+                <p-virtualscroller
                     [items]="items"
                     [itemSize]="50"
                     [delay]="150"
@@ -45,11 +45,11 @@ import { Code } from '@domain/code';
                             {{ item }}
                         </div>
                     </ng-template>
-                </p-scroller>
+                </p-virtualscroller>
             </div>
             <div>
                 <span class="font-bold block mb-2">500ms</span>
-                <p-scroller
+                <p-virtualscroller
                     [items]="items"
                     [itemSize]="50"
                     [delay]="500"
@@ -65,7 +65,7 @@ import { Code } from '@domain/code';
                             {{ item }}
                         </div>
                     </ng-template>
-                </p-scroller>
+                </p-virtualscroller>
             </div>
         </div>
         <app-code [code]="code" selector="scroller-delay-demo"></app-code>
@@ -79,7 +79,7 @@ export class DelayDoc {
     }
 
     code: Code = {
-        basic: `<p-scroller 
+        basic: `<p-virtualscroller 
     [items]="items" 
     [itemSize]="50" 
     styleClass="border border-surface" 
@@ -92,9 +92,9 @@ export class DelayDoc {
                     {{ item }}
             </div>
         </ng-template>
-</p-scroller>
+</p-virtualscroller>
 
-<p-scroller 
+<p-virtualscroller 
     [items]="items" 
     [itemSize]="50" 
     [delay]="150"
@@ -108,9 +108,9 @@ export class DelayDoc {
                     {{ item }}
             </div>
         </ng-template>
-</p-scroller>
+</p-virtualscroller>
 
-<p-scroller 
+<p-virtualscroller 
     [items]="items" 
     [itemSize]="50" 
     [delay]="500" 
@@ -124,12 +124,12 @@ export class DelayDoc {
                     {{ item }}
             </div>
         </ng-template>
-</p-scroller>`,
+</p-virtualscroller>`,
 
         html: `<div class="card flex flex-wrap justify-center gap-4">
     <div>
         <span class="font-bold block mb-2">No Delay</span>
-        <p-scroller 
+        <p-virtualscroller 
             [items]="items" 
             [itemSize]="50" 
             styleClass="border border-surface" 
@@ -142,11 +142,11 @@ export class DelayDoc {
                             {{ item }}
                     </div>
                 </ng-template>
-        </p-scroller>
+        </p-virtualscroller>
     </div>
     <div>
         <span class="font-bold block mb-2">150ms</span>
-        <p-scroller 
+        <p-virtualscroller 
             [items]="items" 
             [itemSize]="50" 
             [delay]="150" 
@@ -160,11 +160,11 @@ export class DelayDoc {
                             {{ item }}
                     </div>
                 </ng-template>
-        </p-scroller>
+        </p-virtualscroller>
     </div>
     <div>
         <span class="font-bold block mb-2">500ms</span>
-        <p-scroller 
+        <p-virtualscroller 
             [items]="items" 
             [itemSize]="50" 
             [delay]="500" 
@@ -178,7 +178,7 @@ export class DelayDoc {
                             {{ item }}
                     </div>
                 </ng-template>
-        </p-scroller>
+        </p-virtualscroller>
     </div>
 </div>`,
 

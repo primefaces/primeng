@@ -18,7 +18,7 @@ import {
     QueryList,
     TemplateRef,
     ViewChild,
-    ViewEncapsulation
+    ViewEncapsulation,
 } from '@angular/core';
 import { FilterService, PrimeTemplate, SharedModule } from 'primeng/api';
 import { ButtonDirective, ButtonProps } from 'primeng/button';
@@ -47,7 +47,7 @@ import {
     PickListSourceSelectEvent,
     PickListTargetFilterEvent,
     PickListTargetReorderEvent,
-    PickListTargetSelectEvent
+    PickListTargetSelectEvent,
 } from './picklist.interface';
 import { PickListStyle } from './style/pickliststyle';
 import { BaseComponent } from 'primeng/basecomponent';
@@ -78,6 +78,7 @@ import { FormsModule } from '@angular/forms';
         HomeIcon,
         Listbox,
         FormsModule,
+        SharedModule,
     ],
     template: `
         <div

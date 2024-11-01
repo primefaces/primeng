@@ -32,6 +32,10 @@ const theme = ({ dt }) => `
     background: ${dt('multiselect.filled.background')};
 }
 
+.p-multiselect.p-variant-filled:not(.p-disabled):hover {
+    background: ${dt('multiselect.filled.hover.background')};
+}
+
 .p-multiselect.p-variant-filled.p-focus {
     background: ${dt('multiselect.filled.focus.background')};
 }
@@ -192,6 +196,30 @@ const theme = ({ dt }) => `
     display: flex;
 }
 
+.p-multiselect-sm .p-multiselect-label {
+    font-size: ${dt('multiselect.sm.font.size')};
+    padding-block: ${dt('multiselect.sm.padding.y')};
+    padding-inline: ${dt('multiselect.sm.padding.x')};
+}
+
+.p-multiselect-sm .p-multiselect-dropdown .p-icon {
+    font-size: ${dt('multiselect.sm.font.size')};
+    width: ${dt('multiselect.sm.font.size')};
+    height: ${dt('multiselect.sm.font.size')};
+}
+
+.p-multiselect-lg .p-multiselect-label {
+    font-size: ${dt('multiselect.lg.font.size')};
+    padding-block: ${dt('multiselect.lg.padding.y')};
+    padding-inline: ${dt('multiselect.lg.padding.x')};
+}
+
+.p-multiselect-lg .p-multiselect-dropdown .p-icon {
+    font-size: ${dt('multiselect.lg.font.size')};
+    width: ${dt('multiselect.lg.font.size')};
+    height: ${dt('multiselect.lg.font.size')};
+}
+
 /* For PrimeNG */
 
 p-multiselect.ng-invalid.ng-dirty > .p-multiselect.p-component.p-inputwrapper {
@@ -225,6 +253,9 @@ const classes = {
         'p-inputwrapper-focus': instance.focused || instance.overlayVisible,
         'p-multiselect-open': instance.overlayVisible,
         'p-multiselect-fluid': instance.hasFluid,
+        'p-multiselect-sm p-inputfield-sm': instance.size === 'small',
+        'p-multiselect-lg p-inputfield-lg': instance.size === 'large'
+        
     }),
     labelContainer: 'p-multiselect-label-container',
     label: ({ instance }) => ({

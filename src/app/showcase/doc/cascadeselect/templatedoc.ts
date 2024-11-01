@@ -21,20 +21,30 @@ import { Code } from '@domain/code';
                 [style]="{ minWidth: '14rem' }"
                 placeholder="Select a City"
             >
-                <ng-template pTemplate="option" let-option>
-                    <div class="flex items-center gap-2">
+                <ng-template #option let-option>
+                    <div class="flex items-center">
                         <img
                             *ngIf="option.states"
                             src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
-                            [class]="'flag flag-' + option.code.toLowerCase()"
+                            [class]="'mr-2 flag flag-' + option.code.toLowerCase()"
+                            style="width: 18px"
                         />
                         <i class="pi pi-compass mr-2" *ngIf="option.cities"></i>
                         <i class="pi pi-map-marker mr-2" *ngIf="option.cname"></i>
                         <span>{{ option.cname || option.name }}</span>
                     </div>
                 </ng-template>
-                <ng-template pTemplate="triggericon">
-                    <i class="pi pi-map-marker"></i>
+                <ng-template #triggericon>
+                    <i class="pi pi-map"></i>
+                </ng-template>
+
+                <ng-template #header>
+                    <div class="font-medium px-3 py-2">Available Countries</div>
+                </ng-template>
+                <ng-template #footer>
+                    <div class="px-3 py-1">
+                        <p-button label="Add New" fluid severity="secondary" text size="small" icon="pi pi-plus" />
+                    </div>
                 </ng-template>
             </p-cascadeselect>
         </div>
@@ -124,59 +134,74 @@ export class TemplateDoc {
     }
 
     code: Code = {
-        basic: `<p-cascadeselect 
-    [(ngModel)]="selectedCity" 
-    [options]="countries"
-    optionLabel="cname"
-    optionGroupLabel="name"
-    [optionGroupChildren]="['states', 'cities']"
-    [style]="{ minWidth: '14rem' }" 
-    placeholder="Select a City">
-        <ng-template pTemplate="option" let-option>
-            <div class="flex items-center gap-2">
-                <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" *ngIf="option.states" [class]="'flag flag-' + option.code.toLowerCase()" />
+        basic: `<p-cascadeselect [(ngModel)]="selectedCity" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" [style]="{ minWidth: '14rem' }" placeholder="Select a City">
+    <ng-template #option let-option>
+        <div class="flex items-center">
+            <img
+                *ngIf="option.states"
+                src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
+                [class]="'mr-2 flag flag-' + option.code.toLowerCase()"
+                style="width: 18px"
+            />
+            <i class="pi pi-compass mr-2" *ngIf="option.cities"></i>
+            <i class="pi pi-map-marker mr-2" *ngIf="option.cname"></i>
+            <span>{{ option.cname || option.name }}</span>
+        </div>
+    </ng-template>
+    <ng-template #triggericon>
+        <i class="pi pi-map"></i>
+    </ng-template>
+
+    <ng-template #header>
+        <div class="font-medium px-3 py-2">Available Countries</div>
+    </ng-template>
+    <ng-template #footer>
+        <div class="px-3 py-1">
+            <p-button label="Add New" fluid severity="secondary" text size="small" icon="pi pi-plus" />
+        </div>
+    </ng-template>
+</p-cascadeselect>`,
+
+        html: `<div class="card flex justify-center">
+    <p-cascadeselect [(ngModel)]="selectedCity" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" [style]="{ minWidth: '14rem' }" placeholder="Select a City">
+        <ng-template #option let-option>
+            <div class="flex items-center">
+                <img
+                    *ngIf="option.states"
+                    src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
+                    [class]="'mr-2 flag flag-' + option.code.toLowerCase()"
+                    style="width: 18px"
+                />
                 <i class="pi pi-compass mr-2" *ngIf="option.cities"></i>
                 <i class="pi pi-map-marker mr-2" *ngIf="option.cname"></i>
                 <span>{{ option.cname || option.name }}</span>
             </div>
         </ng-template>
-        <ng-template pTemplate="triggericon">
-            <i class="pi pi-map-marker"></i>
+        <ng-template #triggericon>
+            <i class="pi pi-map"></i>
         </ng-template>
-</p-cascadeselect>`,
 
-        html: `<div class="card flex justify-center">
-    <p-cascadeselect 
-        [(ngModel)]="selectedCity" 
-        [options]="countries"
-        optionLabel="cname" 
-        optionGroupLabel="name"
-        [optionGroupChildren]="['states', 'cities']"
-        [style]="{ minWidth: '14rem' }"
-        placeholder="Select a City">
-            <ng-template pTemplate="option" let-option>
-                <div class="flex items-center gap-2">
-                    <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" *ngIf="option.states" [class]="'flag flag-' + option.code.toLowerCase()" />
-                    <i class="pi pi-compass mr-2" *ngIf="option.cities"></i>
-                    <i class="pi pi-map-marker mr-2" *ngIf="option.cname"></i>
-                    <span>{{ option.cname || option.name }}</span>
-                </div>
-            </ng-template>
-            <ng-template pTemplate="triggericon">
-                <i class="pi pi-map-marker"></i>
-            </ng-template>
+        <ng-template #header>
+            <div class="font-medium px-3 py-2">Available Countries</div>
+        </ng-template>
+        <ng-template #footer>
+            <div class="px-3 py-1">
+                <p-button label="Add New" fluid severity="secondary" text size="small" icon="pi pi-plus" />
+            </div>
+        </ng-template>
     </p-cascadeselect>
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CascadeSelectModule } from 'primeng/cascadeselect';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
     selector: 'cascade-select-template-demo',
     templateUrl: './cascade-select-template-demo.html',
     standalone: true,
-    imports: [FormsModule, CascadeSelectModule]
+    imports: [FormsModule, CascadeSelectModule, ButtonModule]
 })
 export class CascadeSelectTemplateDemo implements OnInit {
     countries: any[] | undefined;

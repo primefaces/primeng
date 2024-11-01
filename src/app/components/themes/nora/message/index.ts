@@ -2,18 +2,36 @@ export default {
     root: {
         borderRadius: '{content.border.radius}',
         borderWidth: '1px',
-        transitionDuration: '{transition.duration}',
+        transitionDuration: '{transition.duration}'
     },
     content: {
         padding: '0.5rem 0.75rem',
         gap: '0.5rem',
+        sm: {
+            padding: '0.375rem 0.625rem'
+        },
+        lg: {
+            padding: '0.625rem 0.875rem'
+        }
     },
     text: {
         fontSize: '1rem',
         fontWeight: '700',
+        sm: {
+            fontSize: '0.875rem'
+        },
+        lg: {
+            fontSize: '1.125rem'
+        }
     },
     icon: {
         size: '1.125rem',
+        sm: {
+            size: '1rem'
+        },
+        lg: {
+            size: '1.25rem'
+        }
     },
     closeButton: {
         width: '1.75rem',
@@ -22,11 +40,22 @@ export default {
         focusRing: {
             width: '{focus.ring.width}',
             style: '{focus.ring.style}',
-            offset: '{focus.ring.offset}',
-        },
+            offset: '{focus.ring.offset}'
+        }
     },
     closeIcon: {
         size: '1rem',
+        sm: {
+            size: '0.875rem'
+        },
+        lg: {
+            size: '1.125rem'
+        }
+    },
+    outlined: {
+        root: {
+            borderWidth: '1px'
+        }
     },
     colorScheme: {
         light: {
@@ -39,9 +68,16 @@ export default {
                     hoverBackground: '{blue.600}',
                     focusRing: {
                         color: '{blue.50}',
-                        shadow: 'none',
-                    },
+                        shadow: 'none'
+                    }
                 },
+                outlined: {
+                    color: '{blue.800}',
+                    borderColor: '{blue.800}'
+                },
+                plain: {
+                    color: '{blue.800}'
+                }
             },
             success: {
                 background: '{green.800}',
@@ -52,9 +88,16 @@ export default {
                     hoverBackground: '{green.600}',
                     focusRing: {
                         color: '{green.50}',
-                        shadow: 'none',
-                    },
+                        shadow: 'none'
+                    }
                 },
+                outlined: {
+                    color: '{green.800}',
+                    borderColor: '{green.800}'
+                },
+                plain: {
+                    color: '{green.800}'
+                }
             },
             warn: {
                 background: '{yellow.600}',
@@ -65,9 +108,16 @@ export default {
                     hoverBackground: '{yellow.400}',
                     focusRing: {
                         color: '{yellow.50}',
-                        shadow: 'none',
-                    },
+                        shadow: 'none'
+                    }
                 },
+                outlined: {
+                    color: '{yellow.600}',
+                    borderColor: '{yellow.600}'
+                },
+                plain: {
+                    color: '{yellow.600}'
+                }
             },
             error: {
                 background: '{red.800}',
@@ -78,9 +128,16 @@ export default {
                     hoverBackground: '{red.600}',
                     focusRing: {
                         color: '{red.50}',
-                        shadow: 'none',
-                    },
+                        shadow: 'none'
+                    }
                 },
+                outlined: {
+                    color: '{red.800}',
+                    borderColor: '{red.800}'
+                },
+                plain: {
+                    color: '{red.800}'
+                }
             },
             secondary: {
                 background: '{surface.200}',
@@ -91,9 +148,16 @@ export default {
                     hoverBackground: '{surface.50}',
                     focusRing: {
                         color: '{surface.700}',
-                        shadow: 'none',
-                    },
+                        shadow: 'none'
+                    }
                 },
+                outlined: {
+                    color: '{surface.600}',
+                    borderColor: '{surface.600}'
+                },
+                plain: {
+                    color: '{surface.600}'
+                }
             },
             contrast: {
                 background: '{surface.900}',
@@ -104,10 +168,17 @@ export default {
                     hoverBackground: '{surface.700}',
                     focusRing: {
                         color: '{surface.50}',
-                        shadow: 'none',
-                    },
+                        shadow: 'none'
+                    }
                 },
-            },
+                outlined: {
+                    color: '{surface.900}',
+                    borderColor: '{surface.900}'
+                },
+                plain: {
+                    color: '{surface.900}'
+                }
+            }
         },
         dark: {
             info: {
@@ -119,9 +190,16 @@ export default {
                     hoverBackground: '{blue.50}',
                     focusRing: {
                         color: '{blue.950}',
-                        shadow: 'none',
-                    },
+                        shadow: 'none'
+                    }
                 },
+                outlined: {
+                    color: '{blue.200}',
+                    borderColor: '{blue.200}'
+                },
+                plain: {
+                    color: '{blue.200}'
+                }
             },
             success: {
                 background: '{green.200}',
@@ -132,9 +210,16 @@ export default {
                     hoverBackground: '{green.50}',
                     focusRing: {
                         color: '{green.950}',
-                        shadow: 'none',
-                    },
+                        shadow: 'none'
+                    }
                 },
+                outlined: {
+                    color: '{green.200}',
+                    borderColor: '{green.200}'
+                },
+                plain: {
+                    color: '{green.200}'
+                }
             },
             warn: {
                 background: '{yellow.200}',
@@ -145,9 +230,16 @@ export default {
                     hoverBackground: '{yellow.50}',
                     focusRing: {
                         color: '{yellow.950}',
-                        shadow: 'none',
-                    },
+                        shadow: 'none'
+                    }
                 },
+                outlined: {
+                    color: '{yellow.200}',
+                    borderColor: '{yellow.200}'
+                },
+                plain: {
+                    color: '{yellow.200}'
+                }
             },
             error: {
                 background: '{red.200}',
@@ -158,9 +250,16 @@ export default {
                     hoverBackground: '{red.50}',
                     focusRing: {
                         color: '{red.950}',
-                        shadow: 'none',
-                    },
+                        shadow: 'none'
+                    }
                 },
+                outlined: {
+                    color: '{red.200}',
+                    borderColor: '{red.200}'
+                },
+                plain: {
+                    color: '{red.200}'
+                }
             },
             secondary: {
                 background: '{surface.700}',
@@ -171,9 +270,16 @@ export default {
                     hoverBackground: '{surface.500}',
                     focusRing: {
                         color: '{surface.200}',
-                        shadow: 'none',
-                    },
+                        shadow: 'none'
+                    }
                 },
+                outlined: {
+                    color: '{surface.400}',
+                    borderColor: '{surface.400}'
+                },
+                plain: {
+                    color: '{surface.400}'
+                }
             },
             contrast: {
                 background: '{surface.0}',
@@ -184,10 +290,17 @@ export default {
                     hoverBackground: '{surface.200}',
                     focusRing: {
                         color: '{surface.950}',
-                        shadow: 'none',
-                    },
+                        shadow: 'none'
+                    }
                 },
-            },
-        },
-    },
+                outlined: {
+                    color: '{surface.0}',
+                    borderColor: '{surface.0}'
+                },
+                plain: {
+                    color: '{surface.0}'
+                }
+            }
+        }
+    }
 };

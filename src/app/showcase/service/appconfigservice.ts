@@ -15,7 +15,7 @@ export class AppConfigService {
     appState = signal<any>({
         preset: 'Aura',
         primary: 'noir',
-        surface: null,
+        surface: 'slate',
         darkTheme: false,
     });
 

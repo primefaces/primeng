@@ -4,8 +4,6 @@ import { Component } from '@angular/core';
     selector: 'api-doc',
     template: `
         <app-docsectiontext>
-            <p>Configuration is managed by the Locale API imported from <i>primeng/config</i>.</p>
-
             <h3>Locale Options</h3>
         </app-docsectiontext>
         <div class="doc-tablewrapper">

@@ -3,6 +3,7 @@ import { Component, HostBinding, inject, Input, NgModule } from '@angular/core';
 import { SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { InputGroupAddonStyle } from './style/inputgroupaddonstyle';
+
 /**
  * InputGroupAddon displays text, icon, buttons and other content can be grouped next to an input.
  * @group Components
@@ -10,10 +11,12 @@ import { InputGroupAddonStyle } from './style/inputgroupaddonstyle';
 @Component({
     selector: 'p-inputgroup-addon, p-inputGroupAddon',
     template: ` <ng-content></ng-content> `,
+    standalone: true,
+    imports: [CommonModule],
     host: {
         '[class]': 'styleClass',
         '[class.p-inputgroupaddon]': 'true',
-        '[attr.data-pc-name]': 'inputgroupaddon',
+        '[attr.data-pc-name]': '"inputgroupaddon"',
     },
     providers: [InputGroupAddonStyle],
 })
@@ -37,8 +40,7 @@ export class InputGroupAddon extends BaseComponent {
 }
 
 @NgModule({
-    imports: [CommonModule],
+    imports: [InputGroupAddon, SharedModule],
     exports: [InputGroupAddon, SharedModule],
-    declarations: [InputGroupAddon],
 })
 export class InputGroupAddonModule {}
