@@ -2,10 +2,18 @@ import { Injectable } from '@angular/core';
 import { BaseStyle } from 'primeng/base';
 
 const theme = ({ dt }) => `
-.p-inputgroup {
+.p-inputgroup,
+.p-inputgroup .p-floatlabel,
+.p-inputgroup .p-iftalabel {
     display: flex;
     align-items: stretch;
     width: 100%;
+}
+
+.p-inputgroup .p-inputtext,
+.p-inputgroup .p-inputwrapper {
+    flex: 1 1 auto;
+    width: 1%;
 }
 
 .p-inputgroupaddon {
@@ -15,71 +23,42 @@ const theme = ({ dt }) => `
     padding: ${dt('inputgroup.addon.padding')};
     background: ${dt('inputgroup.addon.background')};
     color: ${dt('inputgroup.addon.color')};
-    border-top: 1px solid ${dt('inputgroup.addon.border.color')};
-    border-left: 1px solid ${dt('inputgroup.addon.border.color')};
-    border-bottom: 1px solid ${dt('inputgroup.addon.border.color')};
+    border-block-start: 1px solid ${dt('inputgroup.addon.border.color')};
+    border-block-end: 1px solid ${dt('inputgroup.addon.border.color')};
     min-width: ${dt('inputgroup.addon.min.width')};
 }
 
-.p-inputgroup .p-floatlabel,
-.p-inputgroup .p-iftalabel {
-    display: flex;
-    align-items: stretch;
-    width: 100%;
-}
-
-.p-inputgroup .p-inputtext,
-.p-inputgroup-fluid .p-inputtext,
-.p-inputgroup .p-inputwrapper,
-.p-inputgroup-fluid .p-input {
-    flex: 1 1 auto;
-    width: 1%;
+.p-inputgroupaddon:first-child,
+.p-inputgroupaddon + .p-inputgroupaddon {
+    border-inline-start: 1px solid ${dt('inputgroup.addon.border.color')};
 }
 
 .p-inputgroupaddon:last-child {
-    border-right: 1px solid ${dt('inputgroup.addon.border.color')};
+    border-inline-end: 1px solid ${dt('inputgroup.addon.border.color')};
 }
 
+.p-inputgroupaddon:has(.p-button) {
+    padding: 0;
+    overflow: hidden;
+}
 
-.p-inputgroup > .p-component, .p-inputgroup > p-button > .p-button,
+.p-inputgroupaddon .p-button {
+    border-radius: 0;
+}
+
 .p-inputgroup > .p-component,
 .p-inputgroup > .p-inputwrapper > .p-component,
+.p-inputgroup:first-child > p-button > .p-button,
 .p-inputgroup > .p-floatlabel > .p-component,
 .p-inputgroup > .p-floatlabel > .p-inputwrapper > .p-component,
 .p-inputgroup > .p-iftalabel > .p-component,
 .p-inputgroup > .p-iftalabel > .p-inputwrapper > .p-component {
     border-radius: 0;
     margin: 0;
-}
-
-.p-inputgroup > .p-component + .p-inputgroupaddon,
-.p-inputgroup > .p-inputwrapper > .p-inputtext + .p-inputgroupaddon,
-.p-inputgroup > .p-floatlabel > .p-component + .p-inputgroupaddon,
-.p-inputgroup > .p-iftalabel > .p-component + .p-inputgroupaddon {
-    border-left: 0 none;
-}
-
-.p-inputgroup > .p-component:focus,
-.p-inputgroup > .p-inputwrapper > .p-inputtext:focus,
-.p-inputgroup > .p-floatlabel > .p-component:focus,
-.p-inputgroup > .p-iftalabel > .p-component:focus {
-    z-index: 1;
-}
-
-.p-inputgroup > .p-component:focus ~ label,
-.p-inputgroup > .p-inputwrapper > .p-inputtext:focus~label,
-.p-inputgroup > .p-floatlabel > .p-component:focus~label,
-.p-inputgroup > .p-iftalabel > .p-component:focus~label {
-    z-index: 1;
-}
-
+} 
 
 .p-inputgroupaddon:first-child,
 .p-inputgroup > .p-component:first-child,
-.p-inputgroup p-button:first-child > .p-button,
-.p-inputgroup input:first-child,
-.p-inputgroup > .p-inputwrapper:first-child,
-.p-inputgroup > .p-inputwrapper:first-child > .p-inputtext
 .p-inputgroup > .p-inputwrapper:first-child > .p-component,
 .p-inputgroup > .p-floatlabel:first-child > .p-component,
 .p-inputgroup > .p-floatlabel:first-child > .p-inputwrapper > .p-component,
@@ -89,20 +68,7 @@ const theme = ({ dt }) => `
     border-end-start-radius: ${dt('inputgroup.addon.border.radius')};
 }
 
-
-.p-inputgroup .p-floatlabel:first-child input,
-.p-inputgroup .p-iftalabel:first-child input {
-    border-top-left-radius: ${dt('inputgroup.addon.border.radius')};
-    border-bottom-left-radius: ${dt('inputgroup.addon.border.radius')};
-}
-
-
-
 .p-inputgroupaddon:last-child,
-.p-inputgroup p-button:last-child > .p-button,
-.p-inputgroup input:last-child,
-.p-inputgroup > .p-inputwrapper:last-child,
-.p-inputgroup > .p-inputwrapper:last-child > .p-inputtext
 .p-inputgroup > .p-component:last-child,
 .p-inputgroup > .p-inputwrapper:last-child > .p-component,
 .p-inputgroup > .p-floatlabel:last-child > .p-component,
@@ -113,24 +79,33 @@ const theme = ({ dt }) => `
     border-end-end-radius: ${dt('inputgroup.addon.border.radius')};
 }
 
-.p-inputgroup .p-floatlabel:last-child input,
-.p-inputgroup .p-iftalabel:last-child input {
-    border-top-right-radius: ${dt('inputgroup.addon.border.radius')};
-    border-bottom-right-radius: ${dt('inputgroup.addon.border.radius')};
+.p-inputgroup .p-component:focus,
+.p-inputgroup .p-component.p-focus,
+.p-inputgroup .p-inputwrapper-focus,
+.p-inputgroup .p-component:focus ~ label,
+.p-inputgroup .p-component.p-focus ~ label,
+.p-inputgroup .p-inputwrapper-focus ~ label {
+    z-index: 1;
 }
 
-.p-inputgroup-fluid .p-button {
+.p-inputgroup > .p-button:not(.p-button-icon-only) {
     width: auto;
-}
-
-.p-inputgroup-fluid .p-button.p-button-icon-only {
-    width: 2.5rem;
 }
 
 /*For PrimeNG*/
 
 .p-inputgroup p-button:first-child, .p-inputgroup p-button:last-child {
     display: inline-flex;
+}
+
+.p-inputgroup:has(> p-button:first-child) .p-button{
+    border-start-start-radius: ${dt('inputgroup.addon.border.radius')};
+    border-end-start-radius: ${dt('inputgroup.addon.border.radius')};
+}
+
+.p-inputgroup:has(> p-button:last-child) .p-button {
+    border-start-end-radius: ${dt('inputgroup.addon.border.radius')};
+    border-end-end-radius: ${dt('inputgroup.addon.border.radius')};
 }
 `;
 
