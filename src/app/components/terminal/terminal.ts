@@ -18,6 +18,7 @@ import { TerminalService } from './terminalservice';
 import { Subscription } from 'rxjs';
 import { BaseComponent } from 'primeng/basecomponent';
 import { TerminalStyle } from './style/terminalstyle';
+import { SharedModule } from '../api/shared';
 
 /**
  * Terminal is a text based user interface.
@@ -26,7 +27,7 @@ import { TerminalStyle } from './style/terminalstyle';
 @Component({
     selector: 'p-terminal',
     standalone: true,
-    imports: [CommonModule, FormsModule],
+    imports: [CommonModule, FormsModule, SharedModule],
     template: `
         <div [ngClass]="'p-terminal p-component'" [ngStyle]="style" [class]="styleClass" (click)="focus(in)">
             <div class="p-terminal-welcome-message" *ngIf="welcomeMessage">{{ welcomeMessage }}</div>
@@ -139,7 +140,7 @@ export class Terminal extends BaseComponent implements AfterViewInit, AfterViewC
 }
 
 @NgModule({
-    exports: [Terminal],
-    imports: [Terminal],
+    exports: [Terminal, SharedModule],
+    imports: [Terminal, SharedModule],
 })
 export class TerminalModule {}

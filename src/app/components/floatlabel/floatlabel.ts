@@ -11,7 +11,7 @@ import { FloatLabelStyle } from './style/floatlabelstyle';
 @Component({
     selector: 'p-floatlabel, p-floatLabel',
     standalone: true,
-    imports: [CommonModule],
+    imports: [CommonModule, SharedModule],
     template: ` <ng-content></ng-content> `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
@@ -33,7 +33,7 @@ export class FloatLabel extends BaseComponent {
 }
 
 @NgModule({
-    imports: [FloatLabel, CommonModule, SharedModule],
+    imports: [FloatLabel, SharedModule],
     exports: [FloatLabel, SharedModule],
 })
 export class FloatLabelModule {}

@@ -17,6 +17,7 @@ import { AccessibilityDoc } from './accessibilitydoc';
 import { ReactiveFormsDoc } from './reactiveformsdoc';
 import { FilledDoc } from './filleddoc';
 import { IndeterminateDoc } from './indeterminatedoc';
+import { SizesDoc } from './sizesdoc';
 
 @NgModule({
     imports: [CommonModule, RouterModule, FormsModule, AppCodeModule, AppDocModule, CheckboxModule, ReactiveFormsModule],
@@ -34,6 +35,7 @@ import { IndeterminateDoc } from './indeterminatedoc';
         AccessibilityDoc,
         ReactiveFormsDoc,
         FilledDoc,
+        SizesDoc
     ],
 })
 export class CheckboxDocModule {}

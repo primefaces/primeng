@@ -29,6 +29,10 @@ import { TextareaStyle } from './style/textareastyle';
         '[class.p-textarea-resizable]': 'autoResize',
         '[class.p-variant-filled]': 'variant === "filled" || config.inputStyle() === "filled"',
         '[class.p-textarea-fluid]': 'hasFluid',
+        '[class.p-textarea-sm]': 'size === "small"',
+        '[class.p-inputfield-sm]': 'size === "small"',
+        '[class.p-textarea-lg]': 'size === "large"',
+        '[class.p-inputfield-lg]': 'size === "large"',
     },
     providers: [TextareaStyle],
 })
@@ -48,6 +52,11 @@ export class Textarea extends BaseComponent implements OnInit, AfterViewInit, On
      * @group Props
      */
     @Input({ transform: booleanAttribute }) fluid: boolean = false;
+    /**
+     * Defines the size of the component.
+     * @group Props
+     */
+    @Input() size: 'large' | 'small';   
     /**
      * Callback to invoke on textarea resize.
      * @param {(Event | {})} event - Custom resize event.

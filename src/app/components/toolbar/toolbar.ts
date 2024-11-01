@@ -13,7 +13,7 @@ import {
     TemplateRef,
     ViewEncapsulation,
 } from '@angular/core';
-import { BlockableUI, PrimeTemplate } from 'primeng/api';
+import { BlockableUI, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ToolbarStyle } from './style/toolbarstyle';
 
@@ -24,7 +24,7 @@ import { ToolbarStyle } from './style/toolbarstyle';
 @Component({
     selector: 'p-toolbar',
     standalone: true,
-    imports: [CommonModule],
+    imports: [CommonModule, SharedModule],
     template: `
         <div
             [ngClass]="'p-toolbar p-component'"
@@ -92,7 +92,7 @@ export class Toolbar extends BaseComponent implements BlockableUI {
 }
 
 @NgModule({
-    imports: [Toolbar],
-    exports: [Toolbar],
+    imports: [Toolbar, SharedModule],
+    exports: [Toolbar, SharedModule],
 })
 export class ToolbarModule {}

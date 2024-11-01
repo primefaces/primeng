@@ -19,6 +19,7 @@ import { LoadingStateDoc } from '@doc/select/loadingstatedoc';
 import { FilledDoc } from '@doc/select/filleddoc';
 import { SelectDocModule } from '@doc/select/selectdoc.module';
 import { IftaLabelDoc } from '@doc/select/iftalabeldoc';
+import { SizesDoc } from '@doc/select/sizesdoc';
 
 @Component({
     template: `<app-doc
@@ -97,6 +98,11 @@ export class SelectDemo {
             component: LazyVirtualScrollDoc,
         },
         {
+            id: 'filled',
+            label: 'Filled',
+            component: FilledDoc,
+        },
+        {
             id: 'floatlabel',
             label: 'Float Label',
             component: FloatLabelDoc,
@@ -107,9 +113,9 @@ export class SelectDemo {
             component: IftaLabelDoc,
         },
         {
-            id: 'filled',
-            label: 'Filled',
-            component: FilledDoc,
+            id: 'sizes',
+            label: 'Sizes',
+            component: SizesDoc,
         },
         {
             id: 'invalid',

@@ -14,7 +14,7 @@ import {
     signal,
     TemplateRef,
     ViewChild,
-    ViewEncapsulation
+    ViewEncapsulation,
 } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { ChevronLeftIcon } from 'primeng/icons/chevronleft';
@@ -23,7 +23,7 @@ import { RippleModule } from 'primeng/ripple';
 import { BaseComponent } from 'primeng/basecomponent';
 import { Tabs } from './tabs';
 import { DomHandler } from 'primeng/dom';
-import { PrimeTemplate } from 'primeng/api';
+import { PrimeTemplate, SharedModule } from 'primeng/api';
 
 /**
  * TabList is a helper component for Tabs component.
@@ -32,7 +32,7 @@ import { PrimeTemplate } from 'primeng/api';
 @Component({
     selector: 'p-tablist',
     standalone: true,
-    imports: [CommonModule, ChevronLeftIcon, ChevronRightIcon, RippleModule],
+    imports: [CommonModule, ChevronLeftIcon, ChevronRightIcon, RippleModule, SharedModule],
     template: `
         @if (showNavigators() && isPrevButtonEnabled()) {
             <button

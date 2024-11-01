@@ -6,16 +6,16 @@ export default {
             style: '{focus.ring.style}',
             color: '{focus.ring.color}',
             offset: '{focus.ring.offset}',
-            shadow: '{focus.ring.shadow}',
-        },
+            shadow: '{focus.ring.shadow}'
+        }
     },
     value: {
-        background: '{primary.color}',
+        background: '{primary.color}'
     },
     range: {
-        background: '{content.border.color}',
+        background: '{content.border.color}'
     },
     text: {
-        color: '{text.muted.color}',
-    },
+        color: '{text.muted.color}'
+    }
 };

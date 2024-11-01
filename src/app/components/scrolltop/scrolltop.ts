@@ -13,7 +13,7 @@ import {
     OnInit,
     QueryList,
     TemplateRef,
-    ViewEncapsulation
+    ViewEncapsulation,
 } from '@angular/core';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
@@ -30,7 +30,7 @@ import { ScrollTopStyle } from './style/scrolltopstyle';
 @Component({
     selector: 'p-scrollTop, p-scrolltop',
     standalone: true,
-    imports: [CommonModule, ChevronUpIcon, Button],
+    imports: [CommonModule, ChevronUpIcon, Button, SharedModule],
     template: `
         <p-button
             *ngIf="visible"

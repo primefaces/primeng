@@ -18,6 +18,7 @@ import { TimesIcon } from 'primeng/icons/times';
 import { BaseComponent } from 'primeng/basecomponent';
 import { Ripple } from 'primeng//ripple';
 import { InplaceStyle } from './style/inplacestyle';
+import { SharedModule } from '../api/shared';
 
 @Component({
     selector: 'p-inplacedisplay, p-inplaceDisplay',
@@ -39,7 +40,7 @@ export class InplaceContent {}
 @Component({
     selector: 'p-inplace',
     standalone: true,
-    imports: [NgClass, NgStyle, NgTemplateOutlet, ButtonModule, TimesIcon, Ripple],
+    imports: [NgClass, NgStyle, NgTemplateOutlet, ButtonModule, TimesIcon, Ripple, SharedModule],
     template: `
         <div
             [ngClass]="{ 'p-inplace p-component': true, 'p-inplace-closable': closable() }"
@@ -209,7 +210,7 @@ export class Inplace extends BaseComponent {
 }
 
 @NgModule({
-    imports: [Inplace, InplaceContent, InplaceDisplay],
-    exports: [Inplace, InplaceContent, InplaceDisplay],
+    imports: [Inplace, InplaceContent, InplaceDisplay, SharedModule],
+    exports: [Inplace, InplaceContent, InplaceDisplay, SharedModule],
 })
 export class InplaceModule {}

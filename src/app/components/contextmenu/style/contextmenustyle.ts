@@ -127,6 +127,23 @@ const theme = ({ dt }) => `
     transition: opacity 250ms;
 }
 
+.p-contextmenu-mobile .p-contextmenu-submenu {
+    position: static;
+    box-shadow: none;
+    border: 0 none;
+    padding-left: ${dt('tieredmenu.submenu.mobile.indent')};
+    padding-right: 0;
+}
+
+.p-contextmenu-mobile .p-contextmenu-submenu-icon {
+    transition: transform 0.2s;
+    transform: rotate(90deg);
+}
+
+.p-contextmenu-mobile .p-contextmenu-item-active > .p-contextmenu-item-content .p-contextmenu-submenu-icon {
+    transform: rotate(-90deg);
+}
+
 /* For PrimeNG */
 .p-contextmenu-submenu-icon.p-iconwrapper {
     margin-left: auto;

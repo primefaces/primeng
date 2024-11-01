@@ -21,7 +21,7 @@ import { NodeService } from '@service/nodeservice';
             </div>
             <div class="flex-auto md:flex md:justify-start md:items-center flex-col">
                 <p-tree
-                    [value]="files"
+                    [value]="files2"
                     styleClass="w-full md:w-[30rem]"
                     [filter]="true"
                     filterMode="strict"
@@ -33,24 +33,29 @@ import { NodeService } from '@service/nodeservice';
     `,
 })
 export class FilterDoc implements OnInit {
-    files!: TreeNode[];
+    files: TreeNode[];
+
+    files2: TreeNode[];
 
     constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
-        this.nodeService.getFiles().then((data) => (this.files = data));
+        this.nodeService.getFiles().then((data) => {
+            this.files = data;
+            this.files2 = data;
+        });
     }
 
     code: Code = {
         basic: `<p-tree [value]="files" styleClass="w-full md:w-[30rem]" [filter]="true" filterPlaceholder="Lenient Filter" />
-<p-tree [value]="files" styleClass="w-full md:w-[30rem]" [filter]="true" filterMode="strict" filterPlaceholder="Strict Filter" />`,
+<p-tree [value]="files2" styleClass="w-full md:w-[30rem]" [filter]="true" filterMode="strict" filterPlaceholder="Strict Filter" />`,
 
         html: `<div class="card flex flex-wrap gap-4">
     <div class="flex-auto md:flex md:justify-start md:items-center flex-col">
         <p-tree [value]="files" styleClass="w-full md:w-[30rem]" [filter]="true" filterPlaceholder="Lenient Filter" />
     </div>
     <div class="flex-auto md:flex md:justify-start md:items-center flex-col">
-        <p-tree [value]="files" styleClass="w-full md:w-[30rem]" [filter]="true" filterMode="strict" filterPlaceholder="Strict Filter" />
+        <p-tree [value]="files2" styleClass="w-full md:w-[30rem]" [filter]="true" filterMode="strict" filterPlaceholder="Strict Filter" />
     </div>
 </div>`,
 
@@ -67,13 +72,18 @@ import { Tree } from 'primeng/tree';
     providers: [NodeService]
 })
 export class TreeFilterDemo implements OnInit {
-    files!: TreeNode[];
+    files: TreeNode[];
+    
+    files2: TreeNode[];
 
     constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
-        this.nodeService.getFiles().then((data) => (this.files = data));
-    } 
+        this.nodeService.getFiles().then((data) => {
+            this.files = data;
+            this.files2 = data;
+        });
+    }
 }`,
 
         service: ['NodeService'],

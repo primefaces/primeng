@@ -22,7 +22,7 @@ import {
     ViewChild,
     ViewEncapsulation,
 } from '@angular/core';
-import { BlockableUI, TranslationKeys, TreeDragDropService, TreeNode } from 'primeng/api';
+import { BlockableUI, SharedModule, TranslationKeys, TreeDragDropService, TreeNode } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { Ripple } from 'primeng/ripple';
 import { Scroller } from 'primeng/scroller';
@@ -60,7 +60,7 @@ import { BaseComponent } from 'primeng/basecomponent';
 @Component({
     selector: 'p-treeNode',
     standalone: true,
-    imports: [CommonModule, Ripple, Checkbox, FormsModule, ChevronRightIcon, ChevronDownIcon, SpinnerIcon],
+    imports: [CommonModule, Ripple, Checkbox, FormsModule, ChevronRightIcon, ChevronDownIcon, SpinnerIcon, SharedModule],
     template: `
         @if (node) {
             <li
@@ -771,6 +771,7 @@ export class UITreeNode extends BaseComponent implements OnInit {
         CommonModule,
         Ripple,
         Scroller,
+        SharedModule,
         CheckIcon,
         ChevronDownIcon,
         ChevronRightIcon,
@@ -1845,7 +1846,7 @@ export class Tree extends BaseComponent implements OnInit, OnChanges, OnDestroy,
     }
 }
 @NgModule({
-    imports: [Tree],
-    exports: [Tree],
+    imports: [Tree, SharedModule],
+    exports: [Tree, SharedModule],
 })
 export class TreeModule {}
