@@ -22,35 +22,35 @@ export default {
             style: '{form.field.focus.ring.style}',
             color: '{form.field.focus.ring.color}',
             offset: '{form.field.focus.ring.offset}',
-            shadow: '{form.field.focus.ring.shadow}'
+            shadow: '{form.field.focus.ring.shadow}',
         },
         transitionDuration: '{form.field.transition.duration}',
         sm: {
             fontSize: '{form.field.sm.font.size}',
             paddingX: '{form.field.sm.padding.x}',
-            paddingY: '{form.field.sm.padding.y}'
+            paddingY: '{form.field.sm.padding.y}',
         },
         lg: {
             fontSize: '{form.field.lg.font.size}',
             paddingX: '{form.field.lg.padding.x}',
-            paddingY: '{form.field.lg.padding.y}'
-        }
+            paddingY: '{form.field.lg.padding.y}',
+        },
     },
     dropdown: {
         width: '2.5rem',
-        color: '{form.field.icon.color}'
+        color: '{form.field.icon.color}',
     },
     overlay: {
         background: '{overlay.select.background}',
         borderColor: '{overlay.select.border.color}',
         borderRadius: '{overlay.select.border.radius}',
         color: '{overlay.select.color}',
-        shadow: '{overlay.select.shadow}'
+        shadow: '{overlay.select.shadow}',
     },
     list: {
         padding: '{list.padding}',
         gap: '{list.gap}',
-        mobileIndent: '1rem'
+        mobileIndent: '1rem',
     },
     option: {
         focusBackground: '{list.option.focus.background}',
@@ -65,11 +65,11 @@ export default {
         icon: {
             color: '{list.option.icon.color}',
             focusColor: '{list.option.icon.focus.color}',
-            size: '0.875rem'
-        }
+            size: '0.875rem',
+        },
     },
     clearIcon: {
-        color: '{form.field.icon.color}'
+        color: '{form.field.icon.color}',
     },
     css: ({ dt }) => `
 .p-cascadeselect.p-variant-filled {
@@ -109,18 +109,18 @@ export default {
 
 .p-cascadeselect.p-variant-filled.p-invalid {
     background-image: linear-gradient(to bottom, ${dt('cascadeselect.invalid.border.color')}, ${dt('cascadeselect.invalid.border.color')}), linear-gradient(to bottom, ${dt('cascadeselect.invalid.border.color')}, ${dt(
-        'cascadeselect.invalid.border.color'
+        'cascadeselect.invalid.border.color',
     )});
 }
 
 .p-cascadeselect.p-variant-filled.p-invalid:not(.p-disabled).p-focus  {
     background-image: linear-gradient(to bottom, ${dt('cascadeselect.invalid.border.color')}, ${dt('cascadeselect.invalid.border.color')}), linear-gradient(to bottom, ${dt('cascadeselect.invalid.border.color')}, ${dt(
-        'cascadeselect.invalid.border.color'
+        'cascadeselect.invalid.border.color',
     )});
 }
 
 .p-cascadeselect-option {
     transition: none;
 }
-`
+`,
 };

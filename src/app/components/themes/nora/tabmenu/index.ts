@@ -1,11 +1,11 @@
 export default {
     root: {
-        transitionDuration: '{transition.duration}'
+        transitionDuration: '{transition.duration}',
     },
     tablist: {
         borderWidth: '0 0 1px 0',
         background: '{content.background}',
-        borderColor: '{content.border.color}'
+        borderColor: '{content.border.color}',
     },
     item: {
         background: '{content.background}',
@@ -27,17 +27,17 @@ export default {
             style: '{focus.ring.style}',
             color: '{focus.ring.color}',
             offset: '{focus.ring.offset}',
-            shadow: '{focus.ring.shadow}'
-        }
+            shadow: '{focus.ring.shadow}',
+        },
     },
     itemIcon: {
         color: '{text.color}',
         hoverColor: '{text.color}',
-        activeColor: '{primary.contrast.color}'
+        activeColor: '{primary.contrast.color}',
     },
     activeBar: {
         height: '0',
         bottom: '0',
-        background: 'transparent'
-    }
+        background: 'transparent',
+    },
 };

@@ -1,6 +1,6 @@
 export default {
     root: {
-        transitionDuration: '{transition.duration}'
+        transitionDuration: '{transition.duration}',
     },
     panel: {
         background: '{content.background}',
@@ -8,25 +8,25 @@ export default {
         color: '{content.color}',
         borderRadius: '{content.border.radius}',
         shadow: '{overlay.popover.shadow}',
-        padding: '0.5rem'
+        padding: '0.5rem',
     },
     header: {
         background: '{content.background}',
         borderColor: '{content.border.color}',
         color: '{content.color}',
-        padding: '0 0 0.5rem 0'
+        padding: '0 0 0.5rem 0',
     },
     title: {
         gap: '0.5rem',
-        fontWeight: '700'
+        fontWeight: '700',
     },
     dropdown: {
         width: '3rem',
         sm: {
-            width: '2.5rem'
+            width: '2.5rem',
         },
         lg: {
-            width: '3.5rem'
+            width: '3.5rem',
         },
         borderColor: '{form.field.border.color}',
         hoverBorderColor: '{form.field.border.color}',
@@ -37,37 +37,37 @@ export default {
             style: 'none',
             color: 'unset',
             offset: '0',
-            shadow: 'nıne'
-        }
+            shadow: 'nıne',
+        },
     },
     inputIcon: {
-        color: '{form.field.icon.color}'
+        color: '{form.field.icon.color}',
     },
     selectMonth: {
         hoverBackground: '{content.hover.background}',
         color: '{content.color}',
         hoverColor: '{content.hover.color}',
         padding: '0.5rem 0.75rem',
-        borderRadius: '{content.border.radius}'
+        borderRadius: '{content.border.radius}',
     },
     selectYear: {
         hoverBackground: '{content.hover.background}',
         color: '{content.color}',
         hoverColor: '{content.hover.color}',
         padding: '0.5rem 0.75rem',
-        borderRadius: '{content.border.radius}'
+        borderRadius: '{content.border.radius}',
     },
     group: {
         borderColor: '{content.border.color}',
-        gap: '{overlay.popover.padding}'
+        gap: '{overlay.popover.padding}',
     },
     dayView: {
-        margin: '0.5rem 0 0 0'
+        margin: '0.5rem 0 0 0',
     },
     weekDay: {
         padding: '0.5rem',
         fontWeight: '700',
-        color: '{content.color}'
+        color: '{content.color}',
     },
     date: {
         hoverBackground: '{content.hover.background}',
@@ -86,32 +86,32 @@ export default {
             style: '{focus.ring.style}',
             color: '{focus.ring.color}',
             offset: '{focus.ring.offset}',
-            shadow: '{focus.ring.shadow}'
-        }
+            shadow: '{focus.ring.shadow}',
+        },
     },
     monthView: {
-        margin: '0.5rem 0 0 0'
+        margin: '0.5rem 0 0 0',
     },
     month: {
         padding: '0.625rem',
-        borderRadius: '{content.border.radius}'
+        borderRadius: '{content.border.radius}',
     },
     yearView: {
-        margin: '0.5rem 0 0 0'
+        margin: '0.5rem 0 0 0',
     },
     year: {
         padding: '0.625rem',
-        borderRadius: '{content.border.radius}'
+        borderRadius: '{content.border.radius}',
     },
     buttonbar: {
         padding: '0.5rem 0 0 0',
-        borderColor: '{content.border.color}'
+        borderColor: '{content.border.color}',
     },
     timePicker: {
         padding: '0.5rem 0 0 0',
         borderColor: '{content.border.color}',
         gap: '0.5rem',
-        buttonGap: '0.25rem'
+        buttonGap: '0.25rem',
     },
     colorScheme: {
         light: {
@@ -121,12 +121,12 @@ export default {
                 activeBackground: '{surface.300}',
                 color: '{surface.600}',
                 hoverColor: '{surface.700}',
-                activeColor: '{surface.800}'
+                activeColor: '{surface.800}',
             },
             today: {
                 background: '{surface.200}',
-                color: '{surface.900}'
-            }
+                color: '{surface.900}',
+            },
         },
         dark: {
             dropdown: {
@@ -135,13 +135,13 @@ export default {
                 activeBackground: '{surface.600}',
                 color: '{surface.300}',
                 hoverColor: '{surface.200}',
-                activeColor: '{surface.100}'
+                activeColor: '{surface.100}',
             },
             today: {
                 background: '{surface.700}',
-                color: '{surface.0}'
-            }
-        }
+                color: '{surface.0}',
+            },
+        },
     },
     css: ({ dt }) => `
 .p-datepicker-header {
@@ -180,5 +180,5 @@ export default {
     border-color: ${dt('datepicker.dropdown.hover.border.color')};
     color: ${dt('datepicker.dropdown.hover.color')};
 }
-`
+`,
 };

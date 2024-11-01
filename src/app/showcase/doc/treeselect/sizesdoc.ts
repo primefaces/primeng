@@ -17,13 +17,7 @@ import { NodeService } from '@service/nodeservice';
                 class="md:w-80 w-full"
                 containerStyleClass="w-full"
             />
-            <p-treeselect
-                [(ngModel)]="value2"
-                [options]="nodes"
-                placeholder="Normal"
-                class="md:w-80 w-full"
-                containerStyleClass="w-full"
-            />
+            <p-treeselect [(ngModel)]="value2" [options]="nodes" placeholder="Normal" class="md:w-80 w-full" containerStyleClass="w-full" />
             <p-treeselect
                 [(ngModel)]="value3"
                 [options]="nodes"

@@ -1,6 +1,6 @@
 export default {
     root: {
-        transitionDuration: '{transition.duration}'
+        transitionDuration: '{transition.duration}',
     },
     button: {
         background: 'transparent',
@@ -12,20 +12,20 @@ export default {
         activeColor: '{form.field.icon.color}',
         width: '2.5rem',
         borderRadius: '{form.field.border.radius}',
-        verticalPadding: '{form.field.padding.y}'
+        verticalPadding: '{form.field.padding.y}',
     },
     colorScheme: {
         light: {
             button: {
                 hoverBackground: '{surface.200}',
-                activeBackground: '{surface.300}'
-            }
+                activeBackground: '{surface.300}',
+            },
         },
         dark: {
             button: {
                 hoverBackground: '{surface.700}',
-                activeBackground: '{surface.600}'
-            }
-        }
-    }
+                activeBackground: '{surface.600}',
+            },
+        },
+    },
 };

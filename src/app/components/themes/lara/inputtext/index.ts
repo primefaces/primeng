@@ -22,18 +22,18 @@ export default {
             style: '{form.field.focus.ring.style}',
             color: '{form.field.focus.ring.color}',
             offset: '{form.field.focus.ring.offset}',
-            shadow: '{form.field.focus.ring.shadow}'
+            shadow: '{form.field.focus.ring.shadow}',
         },
         transitionDuration: '{form.field.transition.duration}',
         sm: {
             fontSize: '{form.field.sm.font.size}',
             paddingX: '{form.field.sm.padding.x}',
-            paddingY: '{form.field.sm.padding.y}'
+            paddingY: '{form.field.sm.padding.y}',
         },
         lg: {
             fontSize: '{form.field.lg.font.size}',
             paddingX: '{form.field.lg.padding.x}',
-            paddingY: '{form.field.lg.padding.y}'
-        }
-    }
+            paddingY: '{form.field.lg.padding.y}',
+        },
+    },
 };

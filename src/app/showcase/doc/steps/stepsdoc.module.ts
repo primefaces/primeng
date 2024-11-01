@@ -39,7 +39,7 @@ import { RouterModule } from '@angular/router';
         Checkbox,
         CardModule,
         ButtonModule,
-        RouterModule
+        RouterModule,
     ],
     declarations: [
         BasicDoc,

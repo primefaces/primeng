@@ -5,7 +5,7 @@ export default {
         borderRadius: '{content.border.radius}',
         background: '{content.background}',
         color: '{content.color}',
-        transitionDuration: '{transition.duration}'
+        transitionDuration: '{transition.duration}',
     },
     navButton: {
         background: 'transparent',
@@ -22,13 +22,13 @@ export default {
             style: '{focus.ring.style}',
             color: '{focus.ring.color}',
             offset: '{focus.ring.offset}',
-            shadow: '{focus.ring.shadow}'
-        }
+            shadow: '{focus.ring.shadow}',
+        },
     },
     currentPageReport: {
-        color: '{text.muted.color}'
+        color: '{text.muted.color}',
     },
     jumpToPageInput: {
-        maxWidth: '2.5rem'
-    }
+        maxWidth: '2.5rem',
+    },
 };

@@ -14,7 +14,7 @@ export default {
             style: '{focus.ring.style}',
             color: 'rgba(255,255,255,0.3)',
             offset: '{focus.ring.offset}',
-            shadow: '{focus.ring.shadow}'
-        }
-    }
+            shadow: '{focus.ring.shadow}',
+        },
+    },
 };

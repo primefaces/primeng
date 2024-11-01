@@ -6,11 +6,11 @@ export default {
         color: '{content.color}',
         gap: '0.5rem',
         padding: '0.5rem 0.75rem',
-        transitionDuration: '{transition.duration}'
+        transitionDuration: '{transition.duration}',
     },
     baseItem: {
         borderRadius: '{content.border.radius}',
-        padding: '{navigation.item.padding}'
+        padding: '{navigation.item.padding}',
     },
     item: {
         focusBackground: '{navigation.item.focus.background}',
@@ -24,8 +24,8 @@ export default {
         icon: {
             color: '{navigation.item.icon.color}',
             focusColor: '{navigation.item.icon.focus.color}',
-            activeColor: '{navigation.item.icon.active.color}'
-        }
+            activeColor: '{navigation.item.icon.active.color}',
+        },
     },
     submenu: {
         padding: '{navigation.list.padding}',
@@ -39,11 +39,11 @@ export default {
             size: '{navigation.submenu.icon.size}',
             color: '{navigation.submenu.icon.color}',
             focusColor: '{navigation.submenu.icon.focus.color}',
-            activeColor: '{navigation.submenu.icon.active.color}'
-        }
+            activeColor: '{navigation.submenu.icon.active.color}',
+        },
     },
     separator: {
-        borderColor: '{content.border.color}'
+        borderColor: '{content.border.color}',
     },
     mobileButton: {
         borderRadius: '50%',
@@ -56,12 +56,12 @@ export default {
             style: 'none',
             color: 'unset',
             offset: '0',
-            shadow: 'none'
-        }
+            shadow: 'none',
+        },
     },
     css: ({ dt }) => `
 .p-menubar-button:focus-visible {
     background: ${dt('navigation.item.active.background')};
 }
-`
+`,
 };

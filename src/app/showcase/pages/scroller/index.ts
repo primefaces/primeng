@@ -25,7 +25,7 @@ import { VirtualScrollerDocModule } from '@doc/scroller/scrollerdoc.module';
 })
 export class VirtualScrollerDemo {
     docs = [
-        {   
+        {
             id: 'import',
             label: 'Import',
             component: ImportDoc,

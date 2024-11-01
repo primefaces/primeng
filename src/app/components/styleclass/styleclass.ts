@@ -1,14 +1,4 @@
-import {
-    booleanAttribute,
-    Directive,
-    ElementRef,
-    HostListener,
-    Input,
-    NgModule,
-    NgZone,
-    OnDestroy,
-    Renderer2
-} from '@angular/core';
+import { booleanAttribute, Directive, ElementRef, HostListener, Input, NgModule, NgZone, OnDestroy, Renderer2 } from '@angular/core';
 import { DomHandler } from 'primeng/dom';
 import { VoidListener } from 'primeng/ts-helpers';
 

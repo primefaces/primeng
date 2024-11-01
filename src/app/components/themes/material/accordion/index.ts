@@ -1,10 +1,10 @@
 export default {
     root: {
-        transitionDuration: '{transition.duration}'
+        transitionDuration: '{transition.duration}',
     },
     panel: {
         borderWidth: '0',
-        borderColor: '{content.border.color}'
+        borderColor: '{content.border.color}',
     },
     header: {
         color: '{text.color}',
@@ -24,29 +24,29 @@ export default {
             style: 'none',
             color: 'unset',
             offset: '0',
-            shadow: 'none'
+            shadow: 'none',
         },
         toggleIcon: {
             color: '{text.muted.color}',
             hoverColor: '{text.muted.color}',
             activeColor: '{text.muted.color}',
-            activeHoverColor: '{text.muted.color}'
+            activeHoverColor: '{text.muted.color}',
         },
         first: {
             topBorderRadius: '{content.border.radius}',
-            borderWidth: '0'
+            borderWidth: '0',
         },
         last: {
             bottomBorderRadius: '{content.border.radius}',
-            activeBottomBorderRadius: '0'
-        }
+            activeBottomBorderRadius: '0',
+        },
     },
     content: {
         borderWidth: '0',
         borderColor: '{content.border.color}',
         background: '{content.background}',
         color: '{text.color}',
-        padding: '0 1.25rem 1.25rem 1.25rem'
+        padding: '0 1.25rem 1.25rem 1.25rem',
     },
     css: ({ dt }) => `
 .p-accordionpanel {
@@ -73,5 +73,5 @@ export default {
 .p-accordionpanel:not(.p-disabled) .p-accordionheader:focus-visible {
     background: ${dt('navigation.item.active.background')};
 }
-`
+`,
 };

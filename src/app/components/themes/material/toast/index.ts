@@ -3,25 +3,25 @@ export default {
         width: '25rem',
         borderRadius: '{content.border.radius}',
         borderWidth: '0',
-        transitionDuration: '{transition.duration}'
+        transitionDuration: '{transition.duration}',
     },
     icon: {
-        size: '1.25rem'
+        size: '1.25rem',
     },
     content: {
         padding: '{overlay.popover.padding}',
-        gap: '0.5rem'
+        gap: '0.5rem',
     },
     text: {
-        gap: '0.5rem'
+        gap: '0.5rem',
     },
     summary: {
         fontWeight: '500',
-        fontSize: '1rem'
+        fontSize: '1rem',
     },
     detail: {
         fontWeight: '500',
-        fontSize: '0.875rem'
+        fontSize: '0.875rem',
     },
     closeButton: {
         width: '2rem',
@@ -30,11 +30,11 @@ export default {
         focusRing: {
             width: '{focus.ring.width}',
             style: '{focus.ring.style}',
-            offset: '{focus.ring.offset}'
-        }
+            offset: '{focus.ring.offset}',
+        },
     },
     closeIcon: {
-        size: '1rem'
+        size: '1rem',
     },
     colorScheme: {
         light: {
@@ -49,9 +49,9 @@ export default {
                     hoverBackground: '{blue.100}',
                     focusRing: {
                         color: '{blue.600}',
-                        shadow: 'none'
-                    }
-                }
+                        shadow: 'none',
+                    },
+                },
             },
             success: {
                 background: '{green.50}',
@@ -63,9 +63,9 @@ export default {
                     hoverBackground: '{green.100}',
                     focusRing: {
                         color: '{green.600}',
-                        shadow: 'none'
-                    }
-                }
+                        shadow: 'none',
+                    },
+                },
             },
             warn: {
                 background: '{yellow.50}',
@@ -77,9 +77,9 @@ export default {
                     hoverBackground: '{yellow.100}',
                     focusRing: {
                         color: '{yellow.600}',
-                        shadow: 'none'
-                    }
-                }
+                        shadow: 'none',
+                    },
+                },
             },
             error: {
                 background: '{red.50}',
@@ -91,9 +91,9 @@ export default {
                     hoverBackground: '{red.100}',
                     focusRing: {
                         color: '{red.600}',
-                        shadow: 'none'
-                    }
-                }
+                        shadow: 'none',
+                    },
+                },
             },
             secondary: {
                 background: '{surface.100}',
@@ -105,9 +105,9 @@ export default {
                     hoverBackground: '{surface.200}',
                     focusRing: {
                         color: '{surface.600}',
-                        shadow: 'none'
-                    }
-                }
+                        shadow: 'none',
+                    },
+                },
             },
             contrast: {
                 background: '{surface.900}',
@@ -119,10 +119,10 @@ export default {
                     hoverBackground: '{surface.800}',
                     focusRing: {
                         color: '{surface.50}',
-                        shadow: 'none'
-                    }
-                }
-            }
+                        shadow: 'none',
+                    },
+                },
+            },
         },
         dark: {
             blur: '10px',
@@ -136,9 +136,9 @@ export default {
                     hoverBackground: 'rgba(255, 255, 255, 0.05)',
                     focusRing: {
                         color: '{blue.500}',
-                        shadow: 'none'
-                    }
-                }
+                        shadow: 'none',
+                    },
+                },
             },
             success: {
                 background: 'color-mix(in srgb, {green.500}, transparent 36%)',
@@ -150,9 +150,9 @@ export default {
                     hoverBackground: 'rgba(255, 255, 255, 0.05)',
                     focusRing: {
                         color: '{green.500}',
-                        shadow: 'none'
-                    }
-                }
+                        shadow: 'none',
+                    },
+                },
             },
             warn: {
                 background: 'color-mix(in srgb, {yellow.500}, transparent 36%)',
@@ -164,9 +164,9 @@ export default {
                     hoverBackground: 'rgba(255, 255, 255, 0.05)',
                     focusRing: {
                         color: '{yellow.500}',
-                        shadow: 'none'
-                    }
-                }
+                        shadow: 'none',
+                    },
+                },
             },
             error: {
                 background: 'color-mix(in srgb, {red.500}, transparent 36%)',
@@ -178,9 +178,9 @@ export default {
                     hoverBackground: 'rgba(255, 255, 255, 0.05)',
                     focusRing: {
                         color: '{red.500}',
-                        shadow: 'none'
-                    }
-                }
+                        shadow: 'none',
+                    },
+                },
             },
             secondary: {
                 background: '{surface.800}',
@@ -192,9 +192,9 @@ export default {
                     hoverBackground: '{surface.700}',
                     focusRing: {
                         color: '{surface.300}',
-                        shadow: 'none'
-                    }
-                }
+                        shadow: 'none',
+                    },
+                },
             },
             contrast: {
                 background: '{surface.0}',
@@ -206,10 +206,10 @@ export default {
                     hoverBackground: '{surface.100}',
                     focusRing: {
                         color: '{surface.950}',
-                        shadow: 'none'
-                    }
-                }
-            }
-        }
-    }
+                        shadow: 'none',
+                    },
+                },
+            },
+        },
+    },
 };

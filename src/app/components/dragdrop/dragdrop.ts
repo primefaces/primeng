@@ -10,7 +10,7 @@ import {
     NgZone,
     OnDestroy,
     Output,
-    Renderer2
+    Renderer2,
 } from '@angular/core';
 import { DomHandler } from 'primeng/dom';
 import { VoidListener } from 'primeng/ts-helpers';

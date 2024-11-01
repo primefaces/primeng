@@ -389,7 +389,10 @@ export class AppComponent {
 }`,
     };
 
-    constructor(private titleService: Title, private metaService: Meta) {
+    constructor(
+        private titleService: Title,
+        private metaService: Meta,
+    ) {
         this.titleService.setTitle('Long Term Support - PrimeNG');
         this.metaService.updateTag({ name: 'description', content: 'Long Term Support' });
     }

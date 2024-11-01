@@ -5,7 +5,7 @@ export default {
         padding: '1rem',
         gap: '2px',
         indent: '2rem',
-        transitionDuration: '{transition.duration}'
+        transitionDuration: '{transition.duration}',
     },
     node: {
         padding: '0.5rem 0.75rem',
@@ -20,14 +20,14 @@ export default {
             style: '{focus.ring.style}',
             color: '{focus.ring.color}',
             offset: '-1px',
-            shadow: '{focus.ring.shadow}'
+            shadow: '{focus.ring.shadow}',
         },
-        gap: '0.5rem'
+        gap: '0.5rem',
     },
     nodeIcon: {
         color: '{text.muted.color}',
         hoverColor: '{text.hover.muted.color}',
-        selectedColor: '{highlight.color}'
+        selectedColor: '{highlight.color}',
     },
     nodeToggleButton: {
         borderRadius: '50%',
@@ -42,18 +42,18 @@ export default {
             style: '{focus.ring.style}',
             color: '{focus.ring.color}',
             offset: '{focus.ring.offset}',
-            shadow: '{focus.ring.shadow}'
-        }
+            shadow: '{focus.ring.shadow}',
+        },
     },
     loadingIcon: {
-        size: '2rem'
+        size: '2rem',
     },
     filter: {
-        margin: '0 0 0.75rem 0'
+        margin: '0 0 0.75rem 0',
     },
     css: ({ dt }) => `
 .p-tree-node-content {
     transition: none;
 }
-`
+`,
 };

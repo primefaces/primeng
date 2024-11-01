@@ -19,47 +19,47 @@ export default {
             style: 'none',
             offset: '0',
             color: 'unset',
-            shadow: 'none'
+            shadow: 'none',
         },
         transitionDuration: '{form.field.transition.duration}',
         sm: {
             fontSize: '{form.field.sm.font.size}',
-            padding: '0.625rem 0.75rem'
+            padding: '0.625rem 0.75rem',
         },
         lg: {
             fontSize: '{form.field.lg.font.size}',
-            padding: '0.875rem 1.25rem'
-        }
+            padding: '0.875rem 1.25rem',
+        },
     },
     icon: {
         color: '{text.muted.color}',
         hoverColor: '{text.muted.color}',
         checkedColor: '{text.muted.color}',
-        disabledColor: '{form.field.disabled.color}'
+        disabledColor: '{form.field.disabled.color}',
     },
     content: {
         left: '0.25rem',
         top: '0.25rem',
         checkedBackground: 'transparent',
-        checkedShadow: 'none'
+        checkedShadow: 'none',
     },
     colorScheme: {
         light: {
             root: {
                 hoverBackground: '{surface.100}',
-                checkedBackground: '{surface.200}'
-            }
+                checkedBackground: '{surface.200}',
+            },
         },
         dark: {
             root: {
                 hoverBackground: '{surface.800}',
-                checkedBackground: '{surface.700}'
-            }
-        }
+                checkedBackground: '{surface.700}',
+            },
+        },
     },
     css: ({ dt }) => `
 .p-togglebutton:focus-visible {
     background: ${dt('togglebutton.hover.background')};
 }
-`
+`,
 };

@@ -10,7 +10,7 @@ import {
     OnDestroy,
     OnInit,
     Optional,
-    Output
+    Output,
 } from '@angular/core';
 import { NgControl, NgModel } from '@angular/forms';
 import { Subscription } from 'rxjs';

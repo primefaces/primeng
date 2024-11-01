@@ -83,7 +83,7 @@ export class InputNumberDemo {
         {
             id: 'sizes',
             label: 'Sizes',
-            component: SizesDoc
+            component: SizesDoc,
         },
         {
             id: 'filled',

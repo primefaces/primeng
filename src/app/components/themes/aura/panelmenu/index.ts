@@ -1,7 +1,7 @@
 export default {
     root: {
         gap: '0.5rem',
-        transitionDuration: '{transition.duration}'
+        transitionDuration: '{transition.duration}',
     },
     panel: {
         background: '{content.background}',
@@ -12,12 +12,12 @@ export default {
         borderRadius: '{content.border.radius}',
         first: {
             borderWidth: '1px',
-            topBorderRadius: '{content.border.radius}'
+            topBorderRadius: '{content.border.radius}',
         },
         last: {
             borderWidth: '1px',
-            bottomBorderRadius: '{content.border.radius}'
-        }
+            bottomBorderRadius: '{content.border.radius}',
+        },
     },
     item: {
         focusBackground: '{navigation.item.focus.background}',
@@ -28,14 +28,14 @@ export default {
         borderRadius: '{content.border.radius}',
         icon: {
             color: '{navigation.item.icon.color}',
-            focusColor: '{navigation.item.icon.focus.color}'
-        }
+            focusColor: '{navigation.item.icon.focus.color}',
+        },
     },
     submenu: {
-        indent: '1rem'
+        indent: '1rem',
     },
     submenuIcon: {
         color: '{navigation.submenu.icon.color}',
-        focusColor: '{navigation.submenu.icon.focus.color}'
-    }
+        focusColor: '{navigation.submenu.icon.focus.color}',
+    },
 };

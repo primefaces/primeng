@@ -19,6 +19,17 @@ import { SizesDoc } from './sizesdoc';
 @NgModule({
     imports: [CommonModule, AppCodeModule, AppDocModule, RadioButton, FormsModule, ReactiveFormsModule, RouterModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, GroupDoc, DynamicDoc, InvalidDoc, DisabledDoc, StyleDoc, AccessibilityDoc, ReactiveFormsDoc, FilledDoc, SizesDoc],
+    declarations: [
+        ImportDoc,
+        GroupDoc,
+        DynamicDoc,
+        InvalidDoc,
+        DisabledDoc,
+        StyleDoc,
+        AccessibilityDoc,
+        ReactiveFormsDoc,
+        FilledDoc,
+        SizesDoc,
+    ],
 })
 export class RadioButtonDocModule {}

@@ -19,7 +19,7 @@ import {
     QueryList,
     TemplateRef,
     ViewEncapsulation,
-    ViewRef
+    ViewRef,
 } from '@angular/core';
 import { OverlayService, PrimeTemplate, SharedModule } from 'primeng/api';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';

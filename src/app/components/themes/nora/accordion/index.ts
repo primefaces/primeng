@@ -1,10 +1,10 @@
 export default {
     root: {
-        transitionDuration: '{transition.duration}'
+        transitionDuration: '{transition.duration}',
     },
     panel: {
         borderWidth: '0',
-        borderColor: '{content.border.color}'
+        borderColor: '{content.border.color}',
     },
     header: {
         background: '{content.background}',
@@ -24,28 +24,28 @@ export default {
             style: '{focus.ring.style}',
             color: '{focus.ring.color}',
             offset: '-2px',
-            shadow: '{focus.ring.shadow}'
+            shadow: '{focus.ring.shadow}',
         },
         toggleIcon: {
             color: '{text.color}',
             hoverColor: '{text.color}',
             activeColor: '{text.color}',
-            activeHoverColor: '{text.color}'
+            activeHoverColor: '{text.color}',
         },
         first: {
             topBorderRadius: '{content.border.radius}',
-            borderWidth: '1px'
+            borderWidth: '1px',
         },
         last: {
             bottomBorderRadius: '{content.border.radius}',
-            activeBottomBorderRadius: '0'
-        }
+            activeBottomBorderRadius: '0',
+        },
     },
     content: {
         borderWidth: '0 1px 1px 1px',
         borderColor: '{content.border.color}',
         background: '{content.background}',
         color: '{text.color}',
-        padding: '1.125rem'
-    }
+        padding: '1.125rem',
+    },
 };

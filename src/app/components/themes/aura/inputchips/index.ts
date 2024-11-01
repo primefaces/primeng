@@ -20,25 +20,25 @@ export default {
             style: '{form.field.focus.ring.style}',
             color: '{form.field.focus.ring.color}',
             offset: '{form.field.focus.ring.offset}',
-            shadow: '{form.field.focus.ring.shadow}'
+            shadow: '{form.field.focus.ring.shadow}',
         },
-        transitionDuration: '{form.field.transition.duration}'
+        transitionDuration: '{form.field.transition.duration}',
     },
     chip: {
-        borderRadius: '{border.radius.sm}'
+        borderRadius: '{border.radius.sm}',
     },
     colorScheme: {
         light: {
             chip: {
                 focusBackground: '{surface.200}',
-                color: '{surface.800}'
-            }
+                color: '{surface.800}',
+            },
         },
         dark: {
             chip: {
                 focusBackground: '{surface.700}',
-                color: '{surface.0}'
-            }
-        }
-    }
+                color: '{surface.0}',
+            },
+        },
+    },
 };
