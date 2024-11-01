@@ -11,7 +11,7 @@ import { ProductService } from '@service/productservice';
         </app-docsectiontext>
         <div class="card">
             <p-carousel [value]="products" [numVisible]="3" [numScroll]="3" [circular]="false" [responsiveOptions]="responsiveOptions">
-                <ng-template let-product pTemplate="item">
+                <ng-template let-product #item>
                     <div class="border border-surface rounded-border m-2 p-4">
                         <div class="mb-4">
                             <div class="relative mx-auto">
@@ -56,7 +56,7 @@ export class BasicDoc implements OnInit {
     [numScroll]="3"
     [circular]="false"
     [responsiveOptions]="responsiveOptions">
-        <ng-template let-product pTemplate="item">
+        <ng-template let-product #item>
             <div class="border border-surface rounded-border m-2 p-4">
                 <div class="mb-4">
                     <div class="relative mx-auto">
@@ -94,7 +94,7 @@ export class BasicDoc implements OnInit {
         [numScroll]="3"
         [circular]="false"
         [responsiveOptions]="responsiveOptions">
-            <ng-template let-product pTemplate="item">
+            <ng-template let-product #item>
                 <div class="border border-surface rounded-border m-2 p-4">
                     <div class="mb-4">
                         <div class="relative mx-auto">
@@ -152,23 +152,28 @@ export class CarouselBasicDemo implements OnInit {
             this.products = products;
         });
 
-        this.responsiveOptions = [
+       this.responsiveOptions = [
             {
-                breakpoint: '1199px',
-                numVisible: 1,
-                numScroll: 1
-            },
-            {
-                breakpoint: '991px',
+                breakpoint: '1400px',
                 numVisible: 2,
                 numScroll: 1
             },
             {
+                breakpoint: '1199px',
+                numVisible: 3,
+                numScroll: 1
+            },
+            {
                 breakpoint: '767px',
+                numVisible: 2,
+                numScroll: 1
+            },
+            {
+                breakpoint: '575px',
                 numVisible: 1,
                 numScroll: 1
             }
-        ];
+        ]
     }
 
     getSeverity(status: string) {
@@ -213,17 +218,22 @@ export class CarouselBasicDemo implements OnInit {
 
         this.responsiveOptions = [
             {
-                breakpoint: '1199px',
-                numVisible: 1,
-                numScroll: 1,
-            },
-            {
-                breakpoint: '991px',
+                breakpoint: '1400px',
                 numVisible: 2,
                 numScroll: 1,
             },
             {
+                breakpoint: '1199px',
+                numVisible: 3,
+                numScroll: 1,
+            },
+            {
                 breakpoint: '767px',
+                numVisible: 2,
+                numScroll: 1,
+            },
+            {
+                breakpoint: '575px',
                 numVisible: 1,
                 numScroll: 1,
             },

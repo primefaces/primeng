@@ -1,8 +1,8 @@
-import { ScrollerDemo } from './';
+import { VirtualScrollerDemo } from './';
 
 export default [
     {
         path: '',
-        component: ScrollerDemo,
+        component: VirtualScrollerDemo,
     },
 ];

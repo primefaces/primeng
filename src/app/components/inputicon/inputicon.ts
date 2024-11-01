@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject, input, NgModule, ViewEncapsulation } from '@angular/core';
 import { BaseComponent } from 'primeng/basecomponent';
 import { InputIconStyle } from './style/inputiconstyle';
+import { SharedModule } from '../api/shared';
 
 /**
  * InputIcon displays an icon.
@@ -9,6 +10,7 @@ import { InputIconStyle } from './style/inputiconstyle';
 @Component({
     selector: 'p-inputicon, p-inputIcon',
     standalone: true,
+    imports: [SharedModule],
     template: `<ng-content></ng-content>`,
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -29,7 +31,7 @@ export class InputIcon extends BaseComponent {
 }
 
 @NgModule({
-    imports: [InputIcon],
-    exports: [InputIcon],
+    imports: [InputIcon, SharedModule],
+    exports: [InputIcon, SharedModule],
 })
 export class InputIconModule {}

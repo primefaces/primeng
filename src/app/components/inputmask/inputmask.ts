@@ -42,7 +42,7 @@ import {
     Output,
     TemplateRef,
     ViewChild,
-    ViewEncapsulation
+    ViewEncapsulation,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { AutoFocus } from 'primeng/autofocus';
@@ -53,6 +53,7 @@ import { Nullable } from 'primeng/ts-helpers';
 import { Caret } from './inputmask.interface';
 import { BaseComponent } from 'primeng/basecomponent';
 import { InputMaskStyle } from './style/inputmaskstyle';
+import { SharedModule } from '../api/shared';
 
 export const INPUTMASK_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -66,7 +67,7 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-inputmask, p-inputMask',
     standalone: true,
-    imports: [CommonModule, InputText, AutoFocus, TimesIcon],
+    imports: [CommonModule, InputText, AutoFocus, TimesIcon, SharedModule],
     template: `
         <input
             #input
@@ -79,7 +80,7 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
             [ngStyle]="style"
             [attr.placeholder]="placeholder"
             [attr.title]="title"
-            [attr.size]="size"
+            [size]="size"
             [attr.autocomplete]="autocomplete"
             [attr.maxlength]="maxlength"
             [attr.tabindex]="tabindex"
@@ -93,9 +94,8 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
             (blur)="onInputBlur($event)"
             (keydown)="onInputKeydown($event)"
             (keypress)="onKeyPress($event)"
-            pAutoFocus
             [variant]="variant"
-            [autofocus]="autofocus"
+            [pAutoFocus]="autofocus"
             (input)="onInputChange($event)"
             (paste)="handleInputChange($event)"
             [attr.data-pc-name]="'inputmask'"
@@ -159,10 +159,10 @@ export class InputMask extends BaseComponent implements OnInit, ControlValueAcce
      */
     @Input() placeholder: string | undefined;
     /**
-     * Size of the input field.
+     * Defines the size of the component.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) size: number | undefined;
+    @Input() size: 'large' | 'small';
     /**
      * Maximum number of character allows in the input field.
      * @group Props
@@ -851,7 +851,7 @@ export class InputMask extends BaseComponent implements OnInit, ControlValueAcce
 }
 
 @NgModule({
-    imports: [InputMask],
-    exports: [InputMask],
+    imports: [InputMask, SharedModule],
+    exports: [InputMask, SharedModule],
 })
 export class InputMaskModule {}

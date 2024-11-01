@@ -175,9 +175,15 @@ export class ButtonDirective extends BaseComponent implements AfterViewInit, OnD
     @Input() size: 'small' | 'large' | undefined | null = null;
     /**
      * Add a plain textual class to the button without a background initially.
+     * @deprecated use variant property instead.
      * @group Props
      */
     @Input({ transform: booleanAttribute }) plain: boolean = false;
+    /**
+     * Spans 100% width of the container when enabled.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) fluid: boolean | undefined;
 
     public _label: string | undefined;
 
@@ -316,7 +322,18 @@ export class ButtonDirective extends BaseComponent implements AfterViewInit, OnD
             styleClass.push('p-button-lg');
         }
 
+        if (this.hasFluid) {
+            styleClass.push('p-button-fluid');
+        }
+
         return styleClass;
+    }
+
+    get hasFluid() {
+        const nativeElement = this.el.nativeElement;
+        const fluidComponent = nativeElement.closest('p-fluid');
+
+        return ObjectUtils.isEmpty(this.fluid) ? !!fluidComponent : this.fluid;
     }
 
     setStyleClass() {
@@ -415,7 +432,7 @@ export class ButtonDirective extends BaseComponent implements AfterViewInit, OnD
 @Component({
     selector: 'p-button',
     standalone: true,
-    imports: [CommonModule, Ripple, AutoFocus, SpinnerIcon, BadgeModule],
+    imports: [CommonModule, Ripple, AutoFocus, SpinnerIcon, BadgeModule, SharedModule],
     template: `
         <button
             [attr.type]="type"
@@ -430,8 +447,7 @@ export class ButtonDirective extends BaseComponent implements AfterViewInit, OnD
             [attr.data-pc-name]="'button'"
             [attr.data-pc-section]="'root'"
             [attr.tabindex]="tabindex"
-            pAutoFocus
-            [autofocus]="autofocus"
+            [pAutoFocus]="autofocus"
         >
             <ng-content></ng-content>
             <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
@@ -532,6 +548,7 @@ export class Button extends BaseComponent implements AfterContentInit {
     @Input({ transform: booleanAttribute }) text: boolean = false;
     /**
      * Add a plain textual class to the button without a background initially.
+     * @deprecated use variant property instead.
      * @group Props
      */
     @Input({ transform: booleanAttribute }) plain: boolean = false;
@@ -560,6 +577,11 @@ export class Button extends BaseComponent implements AfterContentInit {
      * @group Props
      */
     @Input() size: 'small' | 'large' | undefined;
+    /**
+     * Specifies the variant of the component.
+     * @group Props
+     */
+    @Input() variant: 'outlined' | 'text' | undefined;
     /**
      * Inline style of the element.
      * @group Props
@@ -593,6 +615,11 @@ export class Button extends BaseComponent implements AfterContentInit {
      * @group Props
      */
     @Input({ transform: booleanAttribute }) autofocus: boolean | undefined;
+    /**
+     * Spans 100% width of the container when enabled.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) fluid: boolean | undefined;
     /**
      * Callback to execute when button is clicked.
      * This event is intended to be used with the <p-button> component. Using a regular <button> element, use (click).
@@ -649,6 +676,13 @@ export class Button extends BaseComponent implements AfterContentInit {
         }
     }
 
+    get hasFluid() {
+        const nativeElement = this.el.nativeElement;
+        const fluidComponent = nativeElement.closest('p-fluid');
+
+        return ObjectUtils.isEmpty(this.fluid) ? !!fluidComponent : this.fluid;
+    }
+
     _componentStyle = inject(ButtonStyle);
 
     ngOnChanges(simpleChanges: SimpleChanges) {
@@ -697,6 +731,7 @@ export class Button extends BaseComponent implements AfterContentInit {
             'p-button-sm': this.size === 'small',
             'p-button-lg': this.size === 'large',
             'p-button-plain': this.plain,
+            'p-button-fluid': this.hasFluid,
             [`${this.styleClass}`]: this.styleClass,
         };
     }
@@ -725,7 +760,7 @@ export class Button extends BaseComponent implements AfterContentInit {
 }
 
 @NgModule({
-    imports: [CommonModule, ButtonDirective, Button, SharedModule, ButtonLabel, ButtonIcon, SharedModule],
+    imports: [CommonModule, ButtonDirective, Button, SharedModule, ButtonLabel, ButtonIcon],
     exports: [ButtonDirective, Button, ButtonLabel, ButtonIcon, SharedModule],
 })
 export class ButtonModule {}

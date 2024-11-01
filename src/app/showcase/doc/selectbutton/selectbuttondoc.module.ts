@@ -12,10 +12,11 @@ import { InvalidDoc } from './invaliddoc';
 import { MultipleDoc } from './multipledoc';
 import { ReactiveFormsDoc } from './reactiveformsdoc';
 import { TemplateDoc } from './templatedoc';
+import { SizesDoc } from './sizesdoc';
 
 @NgModule({
     imports: [CommonModule, AppCodeModule, AppDocModule, SelectButton, FormsModule, ReactiveFormsModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, MultipleDoc, TemplateDoc, InvalidDoc, DisabledDoc, AccessibilityDoc, ReactiveFormsDoc],
+    declarations: [ImportDoc, BasicDoc, MultipleDoc, TemplateDoc, InvalidDoc, SizesDoc, DisabledDoc, AccessibilityDoc, ReactiveFormsDoc],
 })
 export class SelectButtonDocModule {}

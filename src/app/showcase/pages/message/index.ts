@@ -8,6 +8,10 @@ import { DynamicDoc } from '@doc/message/dynamicdoc';
 import { LifeDoc } from '@doc/message/lifedoc';
 import { AccessibilityDoc } from '@doc/message/accessibilitydoc';
 import { SeverityDoc } from '@doc/message/severitydoc';
+import { SizesDoc } from '@doc/message/sizesdoc';
+import { OutlinedDoc } from '@doc/message/outlineddoc';
+import { SimpleDoc } from '@doc/message/simpledoc';
+import { ClosableDoc } from '@doc/message/closabledoc';
 
 @Component({
     template: `<app-doc
@@ -44,14 +48,34 @@ export class MessageDemo {
             component: IconDoc,
         },
         {
-            id: 'form',
-            label: 'Form',
+            id: 'outlined',
+            label: 'Outlined',
+            component: OutlinedDoc,
+        },
+        {
+            id: 'simple',
+            label: 'Simple',
+            component: SimpleDoc,
+        },
+        {
+            id: 'sizes',
+            label: 'Sizes',
+            component: SizesDoc,
+        },
+        {
+            id: 'forms',
+            label: 'Forms',
             component: FormDoc,
         },
         {
             id: 'dynamic',
             label: 'Dynamic',
             component: DynamicDoc,
+        },
+        {
+            id: 'closable',
+            label: 'Closable',
+            component: ClosableDoc
         },
         {
             id: 'life',

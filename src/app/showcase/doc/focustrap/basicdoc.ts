@@ -20,8 +20,7 @@ import { Code } from '@domain/code';
                         [(ngModel)]="name"
                         type="text"
                         placeholder="Name"
-                        pAutoFocus
-                        [autofocus]="true"
+                        [pAutoFocus]="true"
                         [fluid]="true"
                     />
                 </p-iconfield>
@@ -57,7 +56,7 @@ export class BasicDoc {
         <p-inputicon>
             <i class="pi pi-user"></i>
         </p-inputicon>
-        <input type="text" pInputText id="input" [(ngModel)]="name" type="text" placeholder="Name" pAutoFocus [autofocus]="true" [fluid]="true" />
+        <input type="text" pInputText id="input" [(ngModel)]="name" type="text" placeholder="Name" [pAutoFocus]="true" [fluid]="true" />
     </p-iconfield>
 
     <p-iconfield>
@@ -80,7 +79,7 @@ export class BasicDoc {
             <p-inputicon>
                 <i class="pi pi-user"></i>
             </p-inputicon>
-            <input type="text" pInputText id="input" [(ngModel)]="name" type="text" placeholder="Name" pAutoFocus [autofocus]="true" [fluid]="true" />
+            <input type="text" pInputText id="input" [(ngModel)]="name" type="text" placeholder="Name" [pAutoFocus]="true" [fluid]="true" />
         </p-iconfield>
 
         <p-iconfield>
@@ -102,7 +101,7 @@ import { FocusTrapModule } from 'primeng/focustrap';
 import { ButtonModule } from 'primeng/button';
 import { FormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
-import { CheckboxModule } from 'primeng/checkbox'; 
+import { CheckboxModule } from 'primeng/checkbox';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { AutoFocusModule } from 'primeng/autofocus';

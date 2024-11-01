@@ -21,7 +21,7 @@ import {
     ViewEncapsulation,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { OverlayService, TranslationKeys } from 'primeng/api';
+import { OverlayService, SharedModule, TranslationKeys } from 'primeng/api';
 import { Button } from 'primeng/button';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { Ripple } from 'primeng/ripple';
@@ -72,6 +72,7 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
         CalendarIcon,
         AutoFocus,
         InputText,
+        SharedModule,
     ],
 
     template: `
@@ -107,8 +108,7 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
                     [attr.tabindex]="tabindex"
                     [attr.inputmode]="touchUI ? 'off' : null"
                     autocomplete="off"
-                    pAutoFocus
-                    [autofocus]="autofocus"
+                    [pAutoFocus]="autofocus"
                     [variant]="variant"
                     [fluid]="hasFluid"
                 />
@@ -3959,7 +3959,7 @@ export class Calendar extends BaseComponent implements OnInit, OnDestroy, Contro
 }
 
 @NgModule({
-    imports: [Calendar],
-    exports: [Calendar],
+    imports: [Calendar, SharedModule],
+    exports: [Calendar, SharedModule],
 })
 export class CalendarModule {}

@@ -17,9 +17,9 @@ import {
     SimpleChanges,
     TemplateRef,
     ViewChild,
-    ViewEncapsulation
+    ViewEncapsulation,
 } from '@angular/core';
-import { Footer, Header } from 'primeng/api';
+import { Footer, Header, SharedModule } from 'primeng/api';
 import { ChevronDownIcon } from 'primeng/icons/chevrondown';
 import { ChevronLeftIcon } from 'primeng/icons/chevronleft';
 import { ChevronRightIcon } from 'primeng/icons/chevronright';
@@ -39,7 +39,7 @@ import { BaseComponent } from 'primeng/basecomponent';
 @Component({
     selector: 'p-carousel',
     standalone: true,
-    imports: [CommonModule, Ripple, ChevronRightIcon, ChevronLeftIcon, ChevronDownIcon, ChevronUpIcon, Button],
+    imports: [CommonModule, Ripple, ChevronRightIcon, ChevronLeftIcon, ChevronDownIcon, ChevronUpIcon, Button, SharedModule],
     template: `
         <div
             [attr.id]="id"
@@ -999,7 +999,7 @@ export class Carousel extends BaseComponent implements AfterContentInit {
 }
 
 @NgModule({
-    imports: [Carousel],
-    exports: [Carousel],
+    imports: [Carousel, SharedModule],
+    exports: [Carousel, SharedModule],
 })
 export class CarouselModule {}
