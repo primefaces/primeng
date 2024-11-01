@@ -11,6 +11,7 @@ import { SeverityDoc } from '@doc/message/severitydoc';
 import { SizesDoc } from '@doc/message/sizesdoc';
 import { OutlinedDoc } from '@doc/message/outlineddoc';
 import { SimpleDoc } from '@doc/message/simpledoc';
+import { ClosableDoc } from '@doc/message/closabledoc';
 
 @Component({
     template: `<app-doc
@@ -70,6 +71,11 @@ export class MessageDemo {
             id: 'dynamic',
             label: 'Dynamic',
             component: DynamicDoc,
+        },
+        {
+            id: 'closable',
+            label: 'Closable',
+            component: ClosableDoc
         },
         {
             id: 'life',
