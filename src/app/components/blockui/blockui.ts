@@ -19,7 +19,7 @@ import { DomHandler } from 'primeng/dom';
 import { ZIndexUtils } from 'primeng/utils';
 import { BaseComponent } from 'primeng/basecomponent';
 import { BlockUiStyle } from './style/blockuistyle';
-import { SharedModule } from '../api/shared';
+import { SharedModule } from 'primeng/api';
 
 /**
  * BlockUI can either block other components or the whole page.

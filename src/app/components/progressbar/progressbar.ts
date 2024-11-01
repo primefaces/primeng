@@ -13,7 +13,7 @@ import {
 } from '@angular/core';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ProgressBarStyle } from './style/progressbarstyle';
-import { SharedModule } from '../api/shared';
+import { SharedModule } from 'primeng/api';
 
 /**
  * ProgressBar is a process status indicator.

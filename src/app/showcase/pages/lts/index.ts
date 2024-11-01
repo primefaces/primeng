@@ -4,8 +4,8 @@ import { Meta, Title } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { Code } from '@domain/code';
 import { AppCodeModule } from '@layout/doc/app.code.component';
-import { RippleModule } from '../../../components/ripple/ripple';
-import { TagModule } from '../../../components/tag/tag';
+import { RippleModule } from 'primeng/ripple';
+import { TagModule } from 'primeng/tag';
 
 @Component({
     standalone: true,

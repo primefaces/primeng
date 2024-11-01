@@ -19,7 +19,7 @@ import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { SplitterResizeEndEvent, SplitterResizeStartEvent } from './splitter.interface';
 import { BaseComponent } from 'primeng/basecomponent';
 import { SplitterStyle } from './style/splitterstyle';
-import { SharedModule } from '../api/shared';
+import { SharedModule } from 'primeng/api';
 
 /**
  * Splitter is utilized to separate and resize panels.
