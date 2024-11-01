@@ -5,7 +5,7 @@ import { Code } from '@domain/code';
     selector: 'download-doc',
     template: `
         <app-docsectiontext>
-            <p>PrimeNG is available for download at <a href="https://www.npmjs.com/package/primeng">npm</a> registry.</p>
+            <p>PrimeNG is available for download on the <a href="https://www.npmjs.com/package/primeng">npm</a> registry.</p>
         </app-docsectiontext>
         <app-code [code]="code" [hideToggleCode]="true"></app-code>
     `,

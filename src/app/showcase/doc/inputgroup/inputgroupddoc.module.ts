@@ -22,6 +22,7 @@ import { FloatLabelDoc } from './floatlabeldoc';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { IftaLabelModule } from 'primeng/iftalabel';
 import { IftaLabelDoc } from './iftalabeldoc';
+import { MenuModule } from 'primeng/menu';
 
 @NgModule({
     imports: [
@@ -41,6 +42,7 @@ import { IftaLabelDoc } from './iftalabeldoc';
         InputNumberModule,
         FloatLabelModule,
         IftaLabelModule,
+        MenuModule
     ],
     exports: [AppDocModule],
     declarations: [ImportDoc, BasicDoc, MultipleDoc, ButtonDoc, CheckboxDoc, FloatLabelDoc, IftaLabelDoc, AccessibilityDoc],

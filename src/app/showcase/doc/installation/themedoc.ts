@@ -2,18 +2,15 @@ import { Component } from '@angular/core';
 import { Code } from '@domain/code';
 
 @Component({
-    selector: 'theming-doc',
+    selector: 'theme-doc',
     template: `
         <app-docsectiontext>
-            <p>
-                PrimeNG provides 4 predefined themes out of the box; Aura, Material, Lara and Nora. Default theme is Aura with emerald as
-                the primary color. See the <a routerLink="/theming">theming</a> documentation for details.
-            </p>
+            <p>Configure PrimeVue to use a theme like Aura.</p>
+            <app-code [code]="code" [hideToggleCode]="true"></app-code>
         </app-docsectiontext>
-        <app-code [code]="code" [hideToggleCode]="true"></app-code>
     `,
 })
-export class ThemingDoc {
+export class ThemeDoc {
     code: Code = {
         typescript: `import { Component } from '@angular/core';
 import { PrimeNG } from 'primeng/api';
