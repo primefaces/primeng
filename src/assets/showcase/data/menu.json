@@ -376,15 +376,6 @@
                     ]
                 },
                 {
-                    "name": "DragDrop",
-                    "children": [
-                        {
-                            "name": "Drag & Drop",
-                            "routerLink": "/dragdrop"
-                        }
-                    ]
-                },
-                {
                     "name": "Misc",
                     "children": [
                         {
