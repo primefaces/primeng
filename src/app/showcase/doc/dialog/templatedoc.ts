@@ -9,7 +9,7 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-button (click)="showDialog()" label="Show" />
-            <p-dialog header="Header" [(visible)]="visible" [modal]="true" [style]="{ width: '25rem' }">
+            <p-dialog [(visible)]="visible" [modal]="true" [style]="{ width: '25rem' }">
                 <ng-template #header>
                     <div class="inline-flex items-center justify-center gap-2">
                         <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
@@ -44,7 +44,6 @@ export class TemplateDoc {
     code: Code = {
         basic: `<p-button (click)="showDialog()" label="Show" />
 <p-dialog 
-    header="Header" 
     [(visible)]="visible" 
     [modal]="true" 
     [style]="{ width: '25rem' }">
@@ -86,8 +85,7 @@ export class TemplateDoc {
 
         html: `<div class="card flex justify-center">
     <p-button (click)="showDialog()" label="Show" />
-    <p-dialog 
-        header="Header" 
+    <p-dialog
         [(visible)]="visible" 
         [modal]="true" 
         [style]="{ width: '25rem' }">

@@ -32,6 +32,10 @@ const theme = ({ dt }) => `
     background: ${dt('treeselect.filled.background')};
 }
 
+.p-treeselect.p-variant-filled:not(.p-disabled):hover {
+    background: ${dt('treeselect.filled.hover.background')};
+}
+
 .p-treeselect.p-variant-filled.p-focus {
     background: ${dt('treeselect.filled.focus.background')};
 }
@@ -128,6 +132,29 @@ const theme = ({ dt }) => `
     padding: calc(${dt('treeselect.padding.y')} / 2) calc(${dt('treeselect.padding.x')} / 2);
 }
 
+.p-treeselect-sm .p-treeselect-label {
+    font-size: ${dt('treeselect.sm.font.size')};
+    padding-block: ${dt('treeselect.sm.padding.y')};
+    padding-inline: ${dt('treeselect.sm.padding.x')};
+}
+
+.p-treeselect-sm .p-treeselect-dropdown .p-icon {
+    font-size: ${dt('treeselect.sm.font.size')};
+    width: ${dt('treeselect.sm.font.size')};
+    height: ${dt('treeselect.sm.font.size')};
+}
+
+.p-treeselect-lg .p-treeselect-label {
+    font-size: ${dt('treeselect.lg.font.size')};
+    padding-block: ${dt('treeselect.lg.padding.y')};
+    padding-inline: ${dt('treeselect.lg.padding.x')};
+}
+
+.p-treeselect-lg .p-treeselect-dropdown .p-icon {
+    font-size: ${dt('treeselect.lg.font.size')};
+    width: ${dt('treeselect.lg.font.size')};
+    height: ${dt('treeselect.lg.font.size')};
+}
 /* For PrimeNG */
 
 p-treeselect.ng-invalid.ng-dirty > .p-inputwrapper {
@@ -163,6 +190,8 @@ const classes = {
         'p-treeselect-open': instance.overlayVisible,
         'p-treeselect-clearable': instance.showClear,
         'p-treeselect-fluid': instance.hasFluid,
+        'p-treeselect-sm p-inputfield-sm': instance.size === 'small',
+        'p-treeselect-lg p-inputfield-lg': instance.size === 'large'
     }),
     labelContainer: 'p-treeselect-label-container',
     label: ({ instance }) => ({

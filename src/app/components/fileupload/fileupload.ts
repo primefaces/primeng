@@ -18,10 +18,10 @@ import {
     Output,
     TemplateRef,
     ViewChild,
-    ViewEncapsulation
+    ViewEncapsulation,
 } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { BlockableUI, TranslationKeys } from 'primeng/api';
+import { BlockableUI, SharedModule, TranslationKeys } from 'primeng/api';
 import { Button } from 'primeng/button';
 import { DomHandler } from 'primeng/dom';
 import { PlusIcon } from 'primeng/icons/plus';
@@ -40,7 +40,7 @@ import {
     FileUploadErrorEvent,
     FileUploadEvent,
     FileUploadHandlerEvent,
-    RemoveUploadedFileEvent
+    RemoveUploadedFileEvent,
 } from './fileupload.interface';
 import { FileUploadStyle } from './style/fileuploadstyle';
 import { BaseComponent } from 'primeng/basecomponent';
@@ -53,7 +53,7 @@ import { Message } from 'primeng/message';
 @Component({
     selector: 'p-fileupload, p-fileUpload',
     standalone: true,
-    imports: [CommonModule, Button, ProgressBar, Message, Ripple, PlusIcon, UploadIcon, TimesIcon],
+    imports: [CommonModule, Button, ProgressBar, Message, Ripple, PlusIcon, UploadIcon, TimesIcon, SharedModule],
     template: `
         <div
             [ngClass]="'p-fileupload p-fileupload-advanced p-component'"
@@ -1084,7 +1084,7 @@ export class FileUpload extends BaseComponent implements AfterViewInit, OnInit, 
 }
 
 @NgModule({
-    imports: [FileUpload],
-    exports: [FileUpload],
+    imports: [FileUpload, SharedModule],
+    exports: [FileUpload, SharedModule],
 })
 export class FileUploadModule {}

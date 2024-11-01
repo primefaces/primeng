@@ -14,6 +14,7 @@ import { ReactiveFormsDoc } from '@doc/inputnumber/reactiveformsdoc';
 import { FilledDoc } from '@doc/inputnumber/filleddoc';
 import { InputNumberDocModule } from '@doc/inputnumber/inputnumberdoc.module';
 import { IftaLabelDoc } from '@doc/inputnumber/iftalabeldoc';
+import { SizesDoc } from '@doc/inputnumber/sizesdoc';
 
 @Component({
     template: `<app-doc
@@ -78,6 +79,11 @@ export class InputNumberDemo {
             id: 'iftalabel',
             label: 'Ifta Label',
             component: IftaLabelDoc,
+        },
+        {
+            id: 'sizes',
+            label: 'Sizes',
+            component: SizesDoc
         },
         {
             id: 'filled',

@@ -15,16 +15,15 @@ const theme = ({ dt }) => `
     cursor: pointer;
     outline-color: transparent;
     border-radius: 50%;
-    cursor: pointer;
     transition: background ${dt('rating.transition.duration')}, color ${dt('rating.transition.duration')}, border-color ${dt('rating.transition.duration')}, outline-color ${dt('rating.transition.duration')}, box-shadow ${dt(
         'rating.transition.duration',
     )};
 }
 
 .p-rating-option.p-focus-visible {
-    box-shadow: ${dt('focus.ring.shadow')};
-    outline: ${dt('focus.ring.width')} ${dt('focus.ring.style')} ${dt('focus.ring.color')};
-    outline-offset: ${dt('focus.ring.offset')};
+    box-shadow: ${dt('rating.focus.ring.shadow')};
+    outline: ${dt('rating.focus.ring.width')} ${dt('rating.focus.ring.style')} ${dt('rating.focus.ring.color')};
+    outline-offset: ${dt('rating.focus.ring.offset')};
 }
 
 .p-rating-icon {
@@ -44,7 +43,11 @@ const theme = ({ dt }) => `
 .p-rating-option-active .p-rating-icon {
     color: ${dt('rating.icon.active.color')};
 }
-`;
+
+/* For PrimeNG */
+p-rating.ng-invalid.ng-dirty > .p-rating > .p-rating-icon {
+    stroke: ${dt('rating.invalid.icon.color')};
+}`;
 
 const classes = {
     root: ({ props }) => [

@@ -1,11 +1,11 @@
 export default {
     root: {
-        transitionDuration: '{transition.duration}',
+        transitionDuration: '{transition.duration}'
     },
     tablist: {
         borderWidth: '0 0 1px 0',
         background: '{content.background}',
-        borderColor: '{content.border.color}',
+        borderColor: '{content.border.color}'
     },
     tab: {
         background: 'transparent',
@@ -27,8 +27,8 @@ export default {
             style: '{focus.ring.style}',
             color: '{focus.ring.color}',
             offset: '-1px',
-            shadow: '{focus.ring.shadow}',
-        },
+            shadow: '{focus.ring.shadow}'
+        }
     },
     tabpanel: {
         background: '{content.background}',
@@ -39,8 +39,8 @@ export default {
             style: '{focus.ring.style}',
             color: '{focus.ring.color}',
             offset: '{focus.ring.offset}',
-            shadow: 'inset {focus.ring.shadow}',
-        },
+            shadow: 'inset {focus.ring.shadow}'
+        }
     },
     navButton: {
         background: '{content.background}',
@@ -52,24 +52,24 @@ export default {
             style: '{focus.ring.style}',
             color: '{focus.ring.color}',
             offset: '-1px',
-            shadow: '{focus.ring.shadow}',
-        },
+            shadow: '{focus.ring.shadow}'
+        }
     },
     activeBar: {
         height: '1px',
         bottom: '-1px',
-        background: '{primary.color}',
+        background: '{primary.color}'
     },
     colorScheme: {
         light: {
             navButton: {
-                shadow: '0px 0px 10px 50px rgba(255, 255, 255, 0.6)',
-            },
+                shadow: '0px 0px 10px 50px rgba(255, 255, 255, 0.6)'
+            }
         },
         dark: {
             navButton: {
-                shadow: '0px 0px 10px 50px color-mix(in srgb, {content.background}, transparent 50%)',
-            },
-        },
-    },
+                shadow: '0px 0px 10px 50px color-mix(in srgb, {content.background}, transparent 50%)'
+            }
+        }
+    }
 };

@@ -15,10 +15,10 @@ import {
     Output,
     SimpleChanges,
     TemplateRef,
-    ViewEncapsulation
+    ViewEncapsulation,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Aria, SelectItem } from 'primeng/api';
+import { Aria, SelectItem, SharedModule } from 'primeng/api';
 import { DropdownChangeEvent } from 'primeng/dropdown';
 import { AngleDoubleLeftIcon } from 'primeng/icons/angledoubleleft';
 import { AngleDoubleRightIcon } from 'primeng/icons/angledoubleright';
@@ -49,6 +49,7 @@ import { Select } from 'primeng/select';
         AngleDoubleRightIcon,
         AngleLeftIcon,
         AngleRightIcon,
+        SharedModule,
     ],
     template: `
         <div
@@ -580,7 +581,7 @@ export class Paginator extends BaseComponent implements OnInit, OnChanges {
 }
 
 @NgModule({
-    imports: [Paginator],
-    exports: [Paginator],
+    imports: [Paginator, SharedModule],
+    exports: [Paginator, SharedModule],
 })
 export class PaginatorModule {}

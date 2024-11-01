@@ -21,9 +21,6 @@ import { FluidStyle } from './style/fluidstyle';
 })
 export class Fluid extends BaseComponent {
     _componentStyle = inject(FluidStyle);
-    constructor() {
-        super();
-    }
 }
 
 @NgModule({

@@ -36,6 +36,7 @@ import { DatePickerModule } from 'primeng/datepicker';
 import { FluidModule } from 'primeng/fluid';
 import { IftaLabelModule } from 'primeng/iftalabel';
 import { IftaLabelDoc } from './iftalabeldoc';
+import { SizesDoc } from './sizesdoc';
 
 @NgModule({
     imports: [
@@ -77,6 +78,7 @@ import { IftaLabelDoc } from './iftalabeldoc';
         ReactiveFormsDoc,
         FloatLabelDoc,
         IftaLabelDoc,
+        SizesDoc,
         FilledDoc,
         InvalidDoc,
         DisabledDoc,

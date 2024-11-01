@@ -77,6 +77,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
         TimesIcon,
         ChevronDownIcon,
         Chip,
+        SharedModule,
     ],
     template: `
         <div
@@ -90,9 +91,8 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
             <input
                 *ngIf="!multiple"
                 #focusInput
-                pAutoFocus
+                [pAutoFocus]="autofocus"
                 pInputText
-                [autofocus]="autofocus"
                 [ngClass]="'p-autocomplete-input'"
                 [ngStyle]="inputStyle"
                 [class]="inputStyleClass"
@@ -106,7 +106,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                 aria-autocomplete="list"
                 role="combobox"
                 [attr.placeholder]="placeholder"
-                [attr.size]="size"
+                [size]="size"
                 [attr.maxlength]="maxlength"
                 [tabindex]="!disabled ? tabindex : -1"
                 [readonly]="readonly"
@@ -183,8 +183,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                 <li class="p-autocomplete-input-chip" role="option">
                     <input
                         #focusInput
-                        pAutoFocus
-                        [autofocus]="autofocus"
+                        [pAutoFocus]="autofocus"
                         [ngClass]="inputClass"
                         [ngStyle]="inputStyle"
                         [class]="inputStyleClass"
@@ -195,7 +194,6 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                         [attr.name]="name"
                         role="combobox"
                         [attr.placeholder]="!filled ? placeholder : null"
-                        [attr.size]="size"
                         aria-autocomplete="list"
                         [attr.maxlength]="maxlength"
                         [tabindex]="!disabled ? tabindex : -1"
@@ -251,40 +249,37 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                 (onAnimationStart)="onOverlayAnimationStart($event)"
                 (onHide)="hide()"
             >
-                <div
-                    [ngClass]="panelClass"
-                    [style.max-height]="virtualScroll ? 'auto' : scrollHeight"
-                    [ngStyle]="panelStyle"
-                    [class]="panelStyleClass"
-                >
+                <div [ngClass]="panelClass" [ngStyle]="panelStyle" [class]="panelStyleClass">
                     <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
-                    <p-scroller
-                        *ngIf="virtualScroll"
-                        #scroller
-                        [items]="visibleOptions()"
-                        [style]="{ height: scrollHeight }"
-                        [itemSize]="virtualScrollItemSize || _itemSize"
-                        [autoSize]="true"
-                        [lazy]="lazy"
-                        (onLazyLoad)="onLazyLoad.emit($event)"
-                        [options]="virtualScrollOptions"
-                    >
-                        <ng-template #content let-items let-scrollerOptions="options">
-                            <ng-container
-                                *ngTemplateOutlet="buildInItems; context: { $implicit: items, options: scrollerOptions }"
-                            ></ng-container>
-                        </ng-template>
-                        <ng-container *ngIf="loaderTemplate">
-                            <ng-template #loader let-scrollerOptions="options">
-                                <ng-container *ngTemplateOutlet="loaderTemplate; context: { options: scrollerOptions }"></ng-container>
+                    <div class="p-autocomplete-list-container" [style.max-height]="virtualScroll ? 'auto' : scrollHeight">
+                        <p-scroller
+                            *ngIf="virtualScroll"
+                            #scroller
+                            [items]="visibleOptions()"
+                            [style]="{ height: scrollHeight }"
+                            [itemSize]="virtualScrollItemSize || _itemSize"
+                            [autoSize]="true"
+                            [lazy]="lazy"
+                            (onLazyLoad)="onLazyLoad.emit($event)"
+                            [options]="virtualScrollOptions"
+                        >
+                            <ng-template #content let-items let-scrollerOptions="options">
+                                <ng-container
+                                    *ngTemplateOutlet="buildInItems; context: { $implicit: items, options: scrollerOptions }"
+                                ></ng-container>
                             </ng-template>
+                            <ng-container *ngIf="loaderTemplate">
+                                <ng-template #loader let-scrollerOptions="options">
+                                    <ng-container *ngTemplateOutlet="loaderTemplate; context: { options: scrollerOptions }"></ng-container>
+                                </ng-template>
+                            </ng-container>
+                        </p-scroller>
+                        <ng-container *ngIf="!virtualScroll">
+                            <ng-container
+                                *ngTemplateOutlet="buildInItems; context: { $implicit: visibleOptions(), options: {} }"
+                            ></ng-container>
                         </ng-container>
-                    </p-scroller>
-                    <ng-container *ngIf="!virtualScroll">
-                        <ng-container
-                            *ngTemplateOutlet="buildInItems; context: { $implicit: visibleOptions(), options: {} }"
-                        ></ng-container>
-                    </ng-container>
+                    </div>
 
                     <ng-template #buildInItems let-items let-scrollerOptions="options">
                         <ul
@@ -467,10 +462,10 @@ export class AutoComplete extends BaseComponent implements AfterViewChecked, Aft
      */
     @Input({ transform: booleanAttribute }) required: boolean | undefined;
     /**
-     * Size of the input field.
+     * Defines the size of the component.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) size: number | undefined;
+    @Input() size: 'large' | 'small';
     /**
      * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
      * @group Props
@@ -1855,7 +1850,7 @@ export class AutoComplete extends BaseComponent implements AfterViewChecked, Aft
 }
 
 @NgModule({
-    imports: [AutoComplete, SharedModule],
+    imports: [AutoComplete],
     exports: [AutoComplete, SharedModule],
 })
 export class AutoCompleteModule {}

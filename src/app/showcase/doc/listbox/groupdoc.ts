@@ -18,8 +18,6 @@ interface Country {
                 [options]="groupedCities"
                 [group]="true"
                 [(ngModel)]="selectedCountry"
-                [listStyle]="{ 'max-height': '250px' }"
-                [style]="{ width: '15rem' }"
                 class="w-full md:w-56"
             >
                 <ng-template let-group pTemplate="group">
@@ -82,8 +80,6 @@ export class GroupDoc {
     [options]="groupedCities" 
     [group]="true" 
     [(ngModel)]="selectedCountry" 
-    [listStyle]="{ 'max-height': '250px' }" 
-    [style]="{ width: '15rem' }"
     class="w-full md:w-56">
         <ng-template let-group pTemplate="group">
             <div class="flex items-center">
@@ -101,8 +97,6 @@ export class GroupDoc {
         [options]="groupedCities" 
         [group]="true" 
         [(ngModel)]="selectedCountry" 
-        [listStyle]="{ 'max-height': '250px' }" 
-        [style]="{ width: '15rem' }"
         class="w-full md:w-56">
             <ng-template let-group pTemplate="group">
                 <div class="flex items-center">
