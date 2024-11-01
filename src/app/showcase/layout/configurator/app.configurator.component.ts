@@ -10,8 +10,8 @@ import { SelectButton } from 'primeng/selectbutton';
 import { $t, updatePreset, updateSurfacePalette } from 'primeng/themes';
 import Aura from 'primeng/themes/aura';
 import Lara from 'primeng/themes/lara';
-import Nora from 'primeng/themes/nora';
 import Material from 'primeng/themes/material';
+import Nora from 'primeng/themes/nora';
 import { ToggleSwitchModule } from 'primeng/toggleswitch';
 
 const presets = {
@@ -30,15 +30,15 @@ const presets = {
                 <span class="config-panel-label">Primary</span>
                 <div>
                     @for (primaryColor of primaryColors(); track primaryColor) {
-                        <button
-                            type="button"
-                            [title]="primaryColor.name"
-                            (click)="updateColors('primary', primaryColor)"
-                            [ngClass]="{ 'active-color': primaryColor.name === selectedPrimaryColor() }"
-                            [style]="{
+                    <button
+                        type="button"
+                        [title]="primaryColor.name"
+                        (click)="updateColors('primary', primaryColor)"
+                        [ngClass]="{ 'active-color': primaryColor.name === selectedPrimaryColor() }"
+                        [style]="{
                                 'background-color': primaryColor.name === 'noir' ? 'var(--text-color)' : primaryColor?.palette['500'],
                             }"
-                        ></button>
+                    ></button>
                     }
                 </div>
             </div>
@@ -47,15 +47,15 @@ const presets = {
                 <span class="config-panel-label">Surface</span>
                 <div>
                     @for (surface of surfaces; track surface) {
-                        <button
-                            type="button"
-                            [title]="surface.name"
-                            (click)="updateColors('surface', surface)"
-                            [ngClass]="{ 'active-color': surface.name === selectedSurfaceColor() }"
-                            [style]="{
+                    <button
+                        type="button"
+                        [title]="surface.name"
+                        (click)="updateColors('surface', surface)"
+                        [ngClass]="{ 'active-color': surface.name === selectedSurfaceColor() }"
+                        [style]="{
                                 'background-color': surface.name === 'noir' ? 'var(--text-color)' : surface?.palette['500'],
                             }"
-                        ></button>
+                    ></button>
                     }
                 </div>
             </div>
@@ -67,6 +67,7 @@ const presets = {
                     [(ngModel)]="selectedPreset"
                     (ngModelChange)="onPresetChange($event)"
                     [allowEmpty]="false"
+                    size="small"
                 />
             </div>
             <div class="config-panel-settings">
