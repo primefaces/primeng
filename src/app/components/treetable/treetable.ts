@@ -3654,7 +3654,7 @@ export class TTEditableColumn implements AfterViewInit {
 }
 
 @Component({
-    selector: 'p-treeTableCellEditor',
+    selector: 'p-treeTableCellEditor, p-treetablecelleditor, p-treetable-cell-editor',
     template: `
         <ng-container *ngIf="tt.editingCell === editableColumn.el.nativeElement">
             <ng-container *ngTemplateOutlet="inputTemplate"></ng-container>
@@ -3896,7 +3896,7 @@ export class TTRow {
 }
 
 @Component({
-    selector: 'p-treeTableToggler',
+    selector: 'p-treeTableToggler, p-treetabletoggler, p-treetable-toggler',
     template: `
         <button
             type="button"
@@ -3976,6 +3976,7 @@ export class TreeTableToggler {
         ChevronDownIcon,
         ChevronRightIcon,
         Checkbox,
+        SharedModule,
         FormsModule,
     ],
     exports: [

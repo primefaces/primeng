@@ -22,7 +22,7 @@ import { InputText } from 'primeng/inputtext';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { AutoFocus } from 'primeng/autofocus';
 import { InputOtpStyle } from './style/inputotpstyle';
-import { PrimeTemplate } from 'primeng/api';
+import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 
 export const INPUT_OTP_VALUE_ACCESSOR: any = {
@@ -79,7 +79,7 @@ export interface InputOtpInputTemplateContext {
 @Component({
     selector: 'p-inputOtp, p-inputotp',
     standalone: true,
-    imports: [NgClass, NgTemplateOutlet, InputText, AutoFocus],
+    imports: [NgClass, NgTemplateOutlet, InputText, AutoFocus, SharedModule],
     template: `
         @for (i of ranges(); track $index) {
             @if (!customInputTemplate()) {
@@ -90,6 +90,7 @@ export interface InputOtpInputTemplateContext {
                     [maxLength]="1"
                     [type]="inputType()"
                     class="p-inputotp-input"
+                    [size]="size()"
                     [variant]="variant()"
                     [readonly]="readonly()"
                     [disabled]="disabled()"
@@ -99,8 +100,7 @@ export interface InputOtpInputTemplateContext {
                     (blur)="onInputBlur($event)"
                     (paste)="onPaste($event)"
                     (keydown)="onKeyDown($event)"
-                    pAutoFocus
-                    [autofocus]="getAutofocus(i)"
+                    [pAutoFocus]="getAutofocus(i)"
                     [ngClass]="styleClass()"
                 />
             } @else {
@@ -172,6 +172,11 @@ export class InputOtp extends BaseComponent {
      * @group Props
      */
     autofocus = input<boolean, any>(undefined, { transform: booleanAttribute });
+    /**
+     * Defines the size of the component.
+     * @group Props
+     */
+    size = input<'large' | 'small'>();
     /**
      * Callback to invoke on value change.
      * @group Emits
@@ -436,7 +441,7 @@ export class InputOtp extends BaseComponent {
 }
 
 @NgModule({
-    imports: [InputOtp],
-    exports: [InputOtp],
+    imports: [InputOtp, SharedModule],
+    exports: [InputOtp, SharedModule],
 })
 export class InputOtpModule {}

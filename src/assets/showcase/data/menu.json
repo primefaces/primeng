@@ -203,8 +203,8 @@
                             "routerLink": "/treetable"
                         },
                         {
-                            "name": "Scroller",
-                            "routerLink": "/scroller"
+                            "name": "VirtualScroller",
+                            "routerLink": "/virtualscroller"
                         }
                     ]
                 },
@@ -376,15 +376,6 @@
                     ]
                 },
                 {
-                    "name": "DragDrop",
-                    "children": [
-                        {
-                            "name": "Drag & Drop",
-                            "routerLink": "/dragdrop"
-                        }
-                    ]
-                },
-                {
                     "name": "Misc",
                     "children": [
                         {
@@ -523,7 +514,7 @@
                     "routerLink": "/guides/migration"
                 },
                 {
-                    "name": "Primeflex",
+                    "name": "PrimeFlex",
                     "routerLink": "/guides/primeflex"
                 },
                 {
@@ -543,10 +534,6 @@
                 {
                     "name": "Forum",
                     "href": "https://github.com/orgs/primefaces/discussions"
-                },
-                {
-                    "name": "Custom Icons",
-                    "routerLink": "/customicons"
                 },
                 {
                     "name": "Long Term Support",

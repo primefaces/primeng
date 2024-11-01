@@ -26,7 +26,7 @@ import {
     signal,
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { MenuItem, OverlayService } from 'primeng/api';
+import { MenuItem, OverlayService, SharedModule } from 'primeng/api';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { AngleRightIcon } from 'primeng/icons/angleright';
 import { Ripple } from 'primeng/ripple';
@@ -40,7 +40,7 @@ import { nestedPosition } from '@primeuix/utils/dom';
 @Component({
     selector: 'p-tieredMenuSub, p-tieredmenusub',
     standalone: true,
-    imports: [CommonModule, RouterModule, Ripple, TooltipModule, AngleRightIcon],
+    imports: [CommonModule, RouterModule, Ripple, TooltipModule, AngleRightIcon, SharedModule],
     template: `
         <ul
             #sublist
@@ -244,7 +244,7 @@ import { nestedPosition } from '@primeuix/utils/dom';
     `,
     encapsulation: ViewEncapsulation.None,
 })
-export class TieredMenuSub {
+export class TieredMenuSub extends BaseComponent {
     @Input() items: any[];
 
     @Input() itemTemplate: HTMLElement | undefined;
@@ -292,6 +292,7 @@ export class TieredMenuSub {
         public renderer: Renderer2,
         @Inject(forwardRef(() => TieredMenu)) public tieredMenu: TieredMenu,
     ) {
+        super();
         effect(() => {
             const path = this.activeItemPath();
             if (ObjectUtils.isNotEmpty(path)) {
@@ -400,7 +401,7 @@ export class TieredMenuSub {
 @Component({
     selector: 'p-tieredMenu, p-tieredmenu',
     standalone: true,
-    imports: [CommonModule, TieredMenuSub, RouterModule, Ripple, TooltipModule, AngleRightIcon],
+    imports: [CommonModule, TieredMenuSub, RouterModule, Ripple, TooltipModule, AngleRightIcon, SharedModule],
     template: `
         <div
             #container
@@ -605,9 +606,8 @@ export class TieredMenu extends BaseComponent implements OnInit, OnDestroy {
     private matchMediaListener: () => void;
 
     private query: MediaQueryList;
-    
-    public queryMatches: boolean;
 
+    public queryMatches: boolean;
 
     get visibleItems() {
         const processedItem = this.activeItemPath().find((p) => p.key === this.focusedItemInfo().parentKey);
@@ -1296,13 +1296,13 @@ export class TieredMenu extends BaseComponent implements OnInit, OnDestroy {
             this.restoreOverlayAppend();
             this.onOverlayHide();
         }
-        this.unbindMatchMediaListener()
+        this.unbindMatchMediaListener();
         super.ngOnDestroy();
     }
 }
 
 @NgModule({
-    imports: [TieredMenu],
-    exports: [TieredMenu],
+    imports: [TieredMenu, SharedModule],
+    exports: [TieredMenu, SharedModule],
 })
 export class TieredMenuModule {}

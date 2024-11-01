@@ -34,7 +34,7 @@ import { BaseComponent } from 'primeng/basecomponent';
  * @group Components
  */
 @Component({
-    selector: 'p-scroller',
+    selector: 'p-scroller, p-virtualscroller, p-virtual-scroller',
     imports: [CommonModule, SpinnerIcon, SharedModule],
     standalone: true,
     template: `
@@ -629,7 +629,6 @@ export class Scroller extends BaseComponent implements OnInit, AfterContentInit,
 
     ngAfterContentInit() {
         (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
-            console.log('yo');
             switch (item.getType()) {
                 case 'content':
                     this.contentTemplate = item.template;

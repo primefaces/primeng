@@ -24,6 +24,7 @@ import { IftaLabelModule } from 'primeng/iftalabel';
 import { IftaLabelDoc } from './iftalabeldoc';
 import { TemplateDoc } from './templatedoc';
 import { ButtonModule } from 'primeng/button';
+import { SizesDoc } from './sizesdoc';
 
 @NgModule({
     imports: [
@@ -55,7 +56,8 @@ import { ButtonModule } from 'primeng/button';
         ReactiveFormsDoc,
         FilledDoc,
         IftaLabelDoc,
-        TemplateDoc
+        TemplateDoc,
+        SizesDoc
     ],
 })
 export class TreeSelectDocModule {}

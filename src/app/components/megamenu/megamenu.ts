@@ -21,7 +21,7 @@ import {
     ViewEncapsulation,
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { MegaMenuItem, PrimeNGConfig } from 'primeng/api';
+import { MegaMenuItem, PrimeNGConfig, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { DomHandler } from 'primeng/dom';
 import { AngleDownIcon } from 'primeng/icons/angledown';
@@ -37,7 +37,7 @@ import { BarsIcon } from 'primeng/icons/bars';
 @Component({
     selector: 'p-megaMenuSub, p-megamenu-sub',
     standalone: true,
-    imports: [CommonModule, RouterModule, Ripple, TooltipModule, AngleDownIcon, AngleRightIcon, BadgeModule],
+    imports: [CommonModule, RouterModule, Ripple, TooltipModule, AngleDownIcon, AngleRightIcon, BadgeModule, SharedModule],
     template: `
         <ul
             *ngIf="isSubmenuVisible(submenu)"
@@ -266,7 +266,7 @@ export class MegaMenuSub extends BaseComponent {
 
     @Input() items: any[] | undefined;
 
-    @Input() itemTemplate: HTMLElement | undefined;
+    @Input() itemTemplate: TemplateRef<any> | undefined;
 
     @Input() menuId: string | undefined;
 
@@ -444,7 +444,18 @@ export class MegaMenuSub extends BaseComponent {
 @Component({
     selector: 'p-megaMenu, p-megamenu',
     standalone: true,
-    imports: [CommonModule, RouterModule, MegaMenuSub, Ripple, TooltipModule, AngleDownIcon, AngleRightIcon, BarsIcon, BadgeModule],
+    imports: [
+        CommonModule,
+        RouterModule,
+        MegaMenuSub,
+        Ripple,
+        TooltipModule,
+        AngleDownIcon,
+        AngleRightIcon,
+        BarsIcon,
+        BadgeModule,
+        SharedModule,
+    ],
     template: `
         <div
             [ngClass]="{
@@ -1330,7 +1341,7 @@ export class MegaMenu extends BaseComponent implements OnDestroy, OnInit {
 }
 
 @NgModule({
-    imports: [MegaMenu],
-    exports: [MegaMenu],
+    imports: [MegaMenu, SharedModule],
+    exports: [MegaMenu, SharedModule],
 })
 export class MegaMenuModule {}

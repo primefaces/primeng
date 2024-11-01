@@ -24,7 +24,7 @@ import {
     ViewRef,
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { MenuItem, OverlayService } from 'primeng/api';
+import { MenuItem, OverlayService, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { AngleRightIcon } from 'primeng/icons/angleright';
 import { Ripple } from 'primeng/ripple';
@@ -38,7 +38,7 @@ import { BadgeModule } from 'primeng/badge';
 @Component({
     selector: 'p-contextMenuSub, p-contextmenu-sub',
     standalone: true,
-    imports: [CommonModule, RouterModule, Ripple, TooltipModule, AngleRightIcon, BadgeModule],
+    imports: [CommonModule, RouterModule, Ripple, TooltipModule, AngleRightIcon, BadgeModule, SharedModule],
     template: `
         <ul
             *ngIf="root ? true : visible"
@@ -400,7 +400,7 @@ export class ContextMenuSub extends BaseComponent {
 @Component({
     selector: 'p-contextMenu, p-contextmenu',
     standalone: true,
-    imports: [CommonModule, ContextMenuSub, RouterModule, Ripple, TooltipModule, AngleRightIcon, BadgeModule],
+    imports: [CommonModule, ContextMenuSub, RouterModule, Ripple, TooltipModule, AngleRightIcon, BadgeModule, SharedModule],
     template: `
         <div
             #container
@@ -814,7 +814,7 @@ export class ContextMenu extends BaseComponent implements OnInit, OnDestroy {
     }
 
     onItemMouseEnter(event: any) {
-        this.onItemChange(event,'hover');
+        this.onItemChange(event, 'hover');
     }
 
     onKeyDown(event: KeyboardEvent) {
@@ -1010,7 +1010,7 @@ export class ContextMenu extends BaseComponent implements OnInit, OnDestroy {
         if (type === 'hover' && this.queryMatches) {
             return;
         }
-        
+
         this.activeItemPath.set(activeItemPath);
     }
 
@@ -1325,7 +1325,7 @@ export class ContextMenu extends BaseComponent implements OnInit, OnDestroy {
 }
 
 @NgModule({
-    imports: [ContextMenu],
-    exports: [ContextMenu],
+    imports: [ContextMenu, SharedModule],
+    exports: [ContextMenu, SharedModule],
 })
 export class ContextMenuModule {}

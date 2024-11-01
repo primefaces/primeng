@@ -23,6 +23,7 @@ import { DisabledDoc } from '@doc/datepicker/disableddoc';
 import { FilledDoc } from '@doc/datepicker/filleddoc';
 import { DatePickerDocModule } from '@doc/datepicker/datepickerdoc.module';
 import { IftaLabelDoc } from '@doc/datepicker/iftalabeldoc';
+import { SizesDoc } from '@doc/datepicker/sizesdoc';
 
 @Component({
     standalone: true,
@@ -129,6 +130,11 @@ export class DatePickerDemo {
             id: 'iftalabel',
             label: 'Ifta Label',
             component: IftaLabelDoc,
+        },
+        {
+            id: 'sizes',
+            label: 'Sizes',
+            component: SizesDoc,
         },
         {
             id: 'filled',

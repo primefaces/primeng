@@ -17,7 +17,7 @@ import { Code } from '@domain/code';
                 </ng-template>
                 <ng-template pTemplate="content" let-closeCallback="closeCallback">
                     <span class="inline-flex items-center gap-2">
-                        <input type="text" pInputText pAutoFocus [autofocus]="true" />
+                        <input type="text" pInputText [pAutoFocus]="true" />
                         <button (click)="closeCallback($event)" pButton icon="pi pi-times" text severity="danger"></button>
                     </span>
                 </ng-template>

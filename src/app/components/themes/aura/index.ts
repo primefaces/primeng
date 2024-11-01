@@ -36,6 +36,7 @@ import inplace from 'primeng/themes/aura/inplace';
 import inputchips from 'primeng/themes/aura/inputchips';
 import inputgroup from 'primeng/themes/aura/inputgroup';
 import inputnumber from 'primeng/themes/aura/inputnumber';
+import inputotp from 'primeng/themes/aura/inputotp';
 import inputtext from 'primeng/themes/aura/inputtext';
 import knob from 'primeng/themes/aura/knob';
 import listbox from 'primeng/themes/aura/listbox';
@@ -127,6 +128,7 @@ export default {
         inputchips,
         inputgroup,
         inputnumber,
+        inputotp,
         inputtext,
         knob,
         listbox,

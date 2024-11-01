@@ -36,6 +36,7 @@ import inplace from 'primeng/themes/lara/inplace';
 import inputchips from 'primeng/themes/lara/inputchips';
 import inputgroup from 'primeng/themes/lara/inputgroup';
 import inputnumber from 'primeng/themes/lara/inputnumber';
+import inputotp from 'primeng/themes/lara/inputotp';
 import inputtext from 'primeng/themes/lara/inputtext';
 import knob from 'primeng/themes/lara/knob';
 import listbox from 'primeng/themes/lara/listbox';
@@ -127,6 +128,7 @@ export default {
         inputchips,
         inputgroup,
         inputnumber,
+        inputotp,
         inputtext,
         knob,
         listbox,

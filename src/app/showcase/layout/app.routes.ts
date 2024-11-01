@@ -284,7 +284,7 @@ export const routes: Routes = [
                 loadChildren: () => import('@pages/treetable/routes'),
             },
             {
-                path: 'scroller',
+                path: 'virtualscroller',
                 loadChildren: () => import('@pages/scroller/routes'),
             },
             { path: 'uikit', loadChildren: () => import('@pages/uikit/routes') },

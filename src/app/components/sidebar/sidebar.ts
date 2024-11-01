@@ -40,6 +40,8 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
  */
 @Component({
     selector: 'p-sidebar',
+    standalone: true,
+    imports: [CommonModule, Ripple, SharedModule, TimesIcon, ButtonModule],
     template: `
         <div
             #maskRef
@@ -55,10 +57,10 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
             (click)="maskClickListener($event)"
         >
             <div [ngClass]="cx('root')" [class]="styleClass" [attr.data-pc-section]="'root'" (keydown)="onKeyDown($event)">
-                <ng-container *ngTemplateOutlet="_headlessTemplate || notHeadless"></ng-container>
+                <ng-container *ngTemplateOutlet="headlessTemplate || notHeadless"></ng-container>
                 <ng-template #notHeadless>
                     <div [ngClass]="cx('header')" [attr.data-pc-section]="'header'">
-                        <ng-container *ngTemplateOutlet="_headerTemplate"></ng-container>
+                        <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
                         <p-button
                             *ngIf="showCloseIcon"
                             [ngClass]="cx('closeButton')"
@@ -262,25 +264,28 @@ export class Sidebar extends BaseComponent implements AfterViewInit, AfterConten
      * @group Props
      */
     @Input() headerTemplate: TemplateRef<any> | undefined;
-    _headerTemplate: Nullable<TemplateRef<any>>;
     /**
      * Footer template.
      * @group Props
      */
     @Input() footerTemplate: Nullable<TemplateRef<any>>;
-    _footerTemplate: TemplateRef<any>;
     /**
+     *
      * Close icon template.
      * @group Props
      */
     @Input() closeIconTemplate: Nullable<TemplateRef<any>>;
-    _closeIconTemplate: TemplateRef<any>;
     /**
      * Headless template.
      * @group Props
      */
     @Input() headlessTemplate: Nullable<TemplateRef<any>>;
-    _headlessTemplate: TemplateRef<any>;
+
+    /**
+     * Headless template.
+     * @group Props
+     */
+    @Input() contentTemplate: Nullable<TemplateRef<any>>;
 
     ngAfterViewInit() {
         super.ngAfterViewInit();
@@ -299,16 +304,19 @@ export class Sidebar extends BaseComponent implements AfterViewInit, AfterConten
         this.templates?.forEach((item) => {
             switch (item.getType()) {
                 case 'header':
-                    this._headerTemplate = item.template || this.headerTemplate;
+                    this.headerTemplate = item.template || this.headerTemplate;
                     break;
                 case 'footer':
-                    this._footerTemplate = item.template || this.footerTemplate;
+                    this.footerTemplate = item.template || this.footerTemplate;
                     break;
                 case 'closeicon':
-                    this._closeIconTemplate = item.template || this.closeIconTemplate;
+                    this.closeIconTemplate = item.template || this.closeIconTemplate;
                     break;
                 case 'headless':
-                    this._headlessTemplate = item.template || this.headlessTemplate;
+                    this.headlessTemplate = item.template || this.headlessTemplate;
+                    break;
+                case 'content':
+                    this.contentTemplate = item.template || this.headlessTemplate;
                     break;
             }
         });
@@ -425,8 +433,7 @@ export class Sidebar extends BaseComponent implements AfterViewInit, AfterConten
 }
 
 @NgModule({
-    imports: [CommonModule, Ripple, SharedModule, TimesIcon, ButtonModule],
+    imports: [Sidebar, SharedModule],
     exports: [Sidebar, SharedModule],
-    declarations: [Sidebar],
 })
 export class SidebarModule {}

@@ -1,27 +1,31 @@
 import {
-    NgModule,
+    AfterViewInit,
+    booleanAttribute,
+    ChangeDetectionStrategy,
     Component,
     ElementRef,
-    AfterViewInit,
-    OnDestroy,
-    Input,
-    Output,
     EventEmitter,
-    ChangeDetectionStrategy,
-    ViewEncapsulation,
     Inject,
-    PLATFORM_ID,
+    Input,
+    NgModule,
     NgZone,
-    booleanAttribute,
+    OnDestroy,
+    Output,
+    PLATFORM_ID,
+    ViewEncapsulation,
 } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import Chart from 'chart.js/auto';
+import { SharedModule } from '../api/shared';
+
 /**
  * Chart groups a collection of contents in tabs.
  * @group Components
  */
 @Component({
     selector: 'p-chart',
+    standalone: true,
+    imports: [CommonModule, SharedModule],
     template: `
         <div
             style="position:relative"
@@ -97,7 +101,7 @@ export class UIChart implements AfterViewInit, OnDestroy {
     }
     set options(val: any) {
         this._options = val;
-        this.reinit()
+        this.reinit();
     }
     /**
      * Callback to execute when an element on chart is clicked.
@@ -195,8 +199,7 @@ export class UIChart implements AfterViewInit, OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule],
-    exports: [UIChart],
-    declarations: [UIChart],
+    imports: [UIChart, SharedModule],
+    exports: [UIChart, SharedModule],
 })
 export class ChartModule {}

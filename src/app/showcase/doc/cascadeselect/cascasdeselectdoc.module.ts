@@ -20,6 +20,7 @@ import { FloatLabelModule } from 'primeng/floatlabel';
 import { IftaLabelDoc } from './iftalabeldoc';
 import { IftaLabelModule } from 'primeng/iftalabel';
 import { ButtonModule } from 'primeng/button';
+import { SizesDoc } from './sizesdoc';
 
 @NgModule({
     imports: [
@@ -32,7 +33,7 @@ import { ButtonModule } from 'primeng/button';
         ReactiveFormsModule,
         FloatLabelModule,
         IftaLabelModule,
-        ButtonModule
+        ButtonModule,
     ],
     exports: [AppDocModule],
     declarations: [
@@ -48,6 +49,7 @@ import { ButtonModule } from 'primeng/button';
         AccessibilityDoc,
         ReactiveFormsDoc,
         LoadingDoc,
+        SizesDoc
     ],
 })
 export class CascadeSelectDocModule {}

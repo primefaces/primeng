@@ -36,6 +36,7 @@ import inplace from 'primeng/themes/nora/inplace';
 import inputchips from 'primeng/themes/nora/inputchips';
 import inputgroup from 'primeng/themes/nora/inputgroup';
 import inputnumber from 'primeng/themes/nora/inputnumber';
+import inputotp from 'primeng/themes/nora/inputotp';
 import inputtext from 'primeng/themes/nora/inputtext';
 import knob from 'primeng/themes/nora/knob';
 import listbox from 'primeng/themes/nora/listbox';
@@ -127,6 +128,7 @@ export default {
         inputchips,
         inputgroup,
         inputnumber,
+        inputotp,
         inputtext,
         knob,
         listbox,
@@ -175,8 +177,6 @@ export default {
         toast,
         toolbar,
         virtualscroller,
-    },
-    directives: {
         tooltip,
         ripple,
     },

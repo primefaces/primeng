@@ -68,7 +68,7 @@ export interface PanelHeaderIconsTemplateContext {
 @Component({
     selector: 'p-panel',
     standalone: true,
-    imports: [CommonModule, Ripple, PlusIcon, MinusIcon, ButtonModule],
+    imports: [CommonModule, Ripple, PlusIcon, MinusIcon, ButtonModule, SharedModule],
     template: `
         <div
             [attr.id]="id"
