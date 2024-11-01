@@ -131,7 +131,9 @@ export class BlockUI extends BaseComponent implements AfterViewInit, OnDestroy {
 
     unblock() {
         if (isPlatformBrowser(this.platformId) && this.mask && !this.animationEndListener) {
-            this.animationEndListener = this.renderer.listen(this.mask.nativeElement, 'animationend', this.destroyModal.bind(this));
+            // this.animationEndListener = this.renderer.listen(this.mask.nativeElement, 'animationend', this.destroyModal.bind(this));
+            // TODO Add animation
+            this.destroyModal();
             DomHandler.addClass(this.mask.nativeElement, 'p-overlay-mask-leave');
         }
     }
