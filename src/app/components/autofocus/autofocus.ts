@@ -52,7 +52,7 @@ export class AutoFocus extends BaseComponent {
     }
 
     autoFocus() {
-        if (isPlatformBrowser(this.platformId) && this.autofocus) {
+        if (isPlatformBrowser(this.platformId) && this._autofocus) {
             setTimeout(() => {
                 const focusableElements = DomHandler.getFocusableElements(this.host?.nativeElement);
 
