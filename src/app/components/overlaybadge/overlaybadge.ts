@@ -11,6 +11,8 @@ import { BadgeModule } from 'primeng/badge';
  */
 @Component({
     selector: 'p-overlayBadge, p-overlay-badge, p-overlaybadge',
+    standalone: true,
+    imports: [CommonModule, BadgeModule, SharedModule],
     template: `
         <div class="p-overlaybadge">
             <ng-content></ng-content>
@@ -81,8 +83,7 @@ export class OverlayBadge extends BaseComponent {
 }
 
 @NgModule({
-    imports: [CommonModule, SharedModule, BadgeModule],
-    exports: [OverlayBadge, SharedModule, BadgeModule],
-    declarations: [OverlayBadge],
+    imports: [OverlayBadge, SharedModule],
+    exports: [OverlayBadge, SharedModule],
 })
 export class OverlayBadgeModule {}

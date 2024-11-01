@@ -5,6 +5,8 @@ import { ButtonGroupStyle } from './style/buttongroupstyle';
 
 @Component({
     selector: 'p-buttonGroup, p-buttongroup, p-button-group',
+    standalone: true,
+    imports: [CommonModule],
     template: `
         <span class="p-buttongroup p-component" role="group">
             <ng-content></ng-content>
@@ -19,8 +21,7 @@ export class ButtonGroup extends BaseComponent {
 }
 
 @NgModule({
-    imports: [CommonModule],
+    imports: [ButtonGroup],
     exports: [ButtonGroup],
-    declarations: [ButtonGroup],
 })
 export class ButtonGroupModule {}

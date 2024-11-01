@@ -20,10 +20,8 @@ interface City {
                 [options]="cities"
                 [(ngModel)]="selectedCities"
                 optionLabel="name"
-                [style]="{ width: '15rem' }"
                 [multiple]="true"
                 [metaKeySelection]="false"
-                [listStyle]="{ 'max-height': '220px' }"
                 class="w-full md:w-56"
             />
         </div>
@@ -46,10 +44,10 @@ export class MultipleDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-listbox [options]="cities" [(ngModel)]="selectedCities" optionLabel="name" [style]="{'width':'15rem'}" [multiple]="true" [metaKeySelection]="false" [listStyle]="{'max-height': '220px'}" class="w-full md:w-56" />`,
+        basic: `<p-listbox [options]="cities" [(ngModel)]="selectedCities" optionLabel="name" [multiple]="true" [metaKeySelection]="false" class="w-full md:w-56" />`,
 
         html: `<div class="card flex justify-center">
-    <p-listbox [options]="cities" [(ngModel)]="selectedCities" optionLabel="name" [style]="{'width':'15rem'}" [multiple]="true" [metaKeySelection]="false" [listStyle]="{'max-height': '220px'}" class="w-full md:w-56" />
+    <p-listbox [options]="cities" [(ngModel)]="selectedCities" optionLabel="name" [multiple]="true" [metaKeySelection]="false" class="w-full md:w-56" />
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';

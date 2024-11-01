@@ -32,6 +32,7 @@ import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { IftaLabelModule } from 'primeng/iftalabel';
 import { IftaLabelDoc } from './iftalabeldoc';
+import { SizesDoc } from './sizesdoc';
 @NgModule({
     imports: [
         CommonModule,
@@ -70,6 +71,7 @@ import { IftaLabelDoc } from './iftalabeldoc';
         ClearIconDoc,
         LoadingStateDoc,
         FilledDoc,
+        SizesDoc
     ],
 })
 export class SelectDocModule {}

@@ -14,9 +14,15 @@ import { DomHandler } from 'primeng/dom';
 export class AutoFocus extends BaseComponent {
     /**
      * When present, it specifies that the component should automatically get focus on load.
+     * @deprecated use [pAutoFocus]="true"
      * @group Props
      */
     @Input({ transform: booleanAttribute }) autofocus: boolean = false;
+    /**
+     * When present, it specifies that the component should automatically get focus on load.
+     * @group Props
+     */
+    @Input('pAutoFocus') _autofocus: boolean = false;
 
     focused: boolean = false;
 
@@ -28,7 +34,7 @@ export class AutoFocus extends BaseComponent {
 
     ngAfterContentChecked() {
         // This sets the `attr.autofocus` which is different than the Input `autofocus` attribute.
-        if (this.autofocus === false) {
+        if (this._autofocus === false) {
             this.host.nativeElement.removeAttribute('autofocus');
         } else {
             this.host.nativeElement.setAttribute('autofocus', true);
@@ -46,7 +52,7 @@ export class AutoFocus extends BaseComponent {
     }
 
     autoFocus() {
-        if (isPlatformBrowser(this.platformId) && this.autofocus) {
+        if (isPlatformBrowser(this.platformId) && this._autofocus) {
             setTimeout(() => {
                 const focusableElements = DomHandler.getFocusableElements(this.host?.nativeElement);
 

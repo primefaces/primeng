@@ -38,7 +38,7 @@ import { BaseComponent } from 'primeng/basecomponent';
 
 @Component({
     selector: 'p-panelMenuSub, p-panelmenu-sub',
-    imports: [CommonModule, RouterModule, TooltipModule, AngleDownIcon, AngleRightIcon, ChevronDownIcon, ChevronRightIcon],
+    imports: [CommonModule, RouterModule, TooltipModule, AngleDownIcon, AngleRightIcon, ChevronDownIcon, ChevronRightIcon, SharedModule],
     standalone: true,
     template: `
         <ul
@@ -330,7 +330,17 @@ export class PanelMenuSub extends BaseComponent {
 
 @Component({
     selector: 'p-panelMenuList, p-panel-menu-list',
-    imports: [CommonModule, PanelMenuSub, RouterModule, TooltipModule, AngleDownIcon, AngleRightIcon, ChevronDownIcon, ChevronRightIcon],
+    imports: [
+        CommonModule,
+        PanelMenuSub,
+        RouterModule,
+        TooltipModule,
+        AngleDownIcon,
+        AngleRightIcon,
+        ChevronDownIcon,
+        ChevronRightIcon,
+        SharedModule,
+    ],
     standalone: true,
     template: `
         <p-panelmenu-sub
@@ -796,7 +806,17 @@ export class PanelMenuList extends BaseComponent implements OnChanges {
  */
 @Component({
     selector: 'p-panelMenu, p-panelmenu',
-    imports: [CommonModule, PanelMenuList, RouterModule, TooltipModule, AngleDownIcon, AngleRightIcon, ChevronDownIcon, ChevronRightIcon],
+    imports: [
+        CommonModule,
+        PanelMenuList,
+        RouterModule,
+        TooltipModule,
+        AngleDownIcon,
+        AngleRightIcon,
+        ChevronDownIcon,
+        ChevronRightIcon,
+        SharedModule,
+    ],
     standalone: true,
     template: `
         <div [class]="styleClass" [ngStyle]="style" [ngClass]="'p-panelmenu p-component'" #container>

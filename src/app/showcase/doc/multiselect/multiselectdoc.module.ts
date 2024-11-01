@@ -23,6 +23,8 @@ import { FloatLabelModule } from 'primeng/floatlabel';
 import { FilledDoc } from './filleddoc';
 import { IftaLabelModule } from 'primeng/iftalabel';
 import { IftaLabelDoc } from './iftalabeldoc';
+import { ButtonModule } from 'primeng/button';
+import { SizesDoc } from './sizesdoc';
 
 @NgModule({
     imports: [
@@ -35,6 +37,7 @@ import { IftaLabelDoc } from './iftalabeldoc';
         AppDocModule,
         FloatLabelModule,
         IftaLabelModule,
+        ButtonModule
     ],
     exports: [AppDocModule],
     declarations: [
@@ -54,6 +57,7 @@ import { IftaLabelDoc } from './iftalabeldoc';
         ReactiveFormsDoc,
         LoadingStateDoc,
         FilledDoc,
+        SizesDoc
     ],
 })
 export class MultiSelectDocModule {}

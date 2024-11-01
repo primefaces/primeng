@@ -77,6 +77,16 @@ export class TreeDemo {
             component: LazyDoc,
         },
         {
+            id: 'template',
+            label: 'Template',
+            component: TemplateDoc,
+        },
+        {
+            id: 'filter',
+            label: 'Filter',
+            component: FilterDoc,
+        },
+        {
             id: 'virtualscroll',
             label: 'Virtual Scroll',
             children: [
@@ -91,16 +101,6 @@ export class TreeDemo {
                     component: LazyVirtualScrollDoc,
                 },
             ],
-        },
-        {
-            id: 'template',
-            label: 'Template',
-            component: TemplateDoc,
-        },
-        {
-            id: 'filter',
-            label: 'Filter',
-            component: FilterDoc,
         },
         {
             id: 'dragdrop',

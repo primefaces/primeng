@@ -118,6 +118,30 @@ const theme = ({ dt }) => `
 .p-radiobutton-checked.p-disabled .p-radiobutton-box .p-radiobutton-icon {
     background: ${dt('radiobutton.icon.disabled.color')};
 }
+
+.p-radiobutton-sm,
+.p-radiobutton-sm .p-radiobutton-box {
+    width: ${dt('radiobutton.sm.width')};
+    height: ${dt('radiobutton.sm.height')};
+}
+
+.p-radiobutton-sm .p-radiobutton-icon {
+    font-size: ${dt('radiobutton.icon.sm.size')};
+    width: ${dt('radiobutton.icon.sm.size')};
+    height: ${dt('radiobutton.icon.sm.size')};
+}
+
+.p-radiobutton-lg,
+.p-radiobutton-lg .p-radiobutton-box {
+    width: ${dt('radiobutton.lg.width')};
+    height: ${dt('radiobutton.lg.height')};
+}
+
+.p-radiobutton-lg .p-radiobutton-icon {
+    font-size: ${dt('radiobutton.icon.lg.size')};
+    width: ${dt('radiobutton.icon.lg.size')};
+    height: ${dt('radiobutton.icon.lg.size')};
+}
 `;
 
 const classes = {

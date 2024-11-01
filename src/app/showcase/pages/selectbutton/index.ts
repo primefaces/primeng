@@ -8,6 +8,7 @@ import { InvalidDoc } from '@doc/selectbutton/invaliddoc';
 import { MultipleDoc } from '@doc/selectbutton/multipledoc';
 import { TemplateDoc } from '@doc/selectbutton/templatedoc';
 import { SelectButtonDocModule } from '@doc/selectbutton/selectbuttondoc.module';
+import { SizesDoc } from '@doc/selectbutton/sizesdoc';
 
 @Component({
     template: `<app-doc
@@ -47,6 +48,11 @@ export class SelectButtonDemo {
             id: 'template',
             label: 'Template',
             component: TemplateDoc,
+        },
+        {
+            id: 'sizes',
+            label: 'Sizes',
+            component: SizesDoc,
         },
         {
             id: 'invalid',

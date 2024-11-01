@@ -1,6 +1,8 @@
 import { NgModule, Component, ChangeDetectionStrategy, ViewEncapsulation, input, inject } from '@angular/core';
 import { BaseComponent } from 'primeng/basecomponent';
 import { DividerStyle } from './style/dividerstyle';
+import { SharedModule } from '../api/shared';
+
 /**
  * Divider is used to separate contents.
  * @group Components
@@ -8,6 +10,7 @@ import { DividerStyle } from './style/dividerstyle';
 @Component({
     selector: 'p-divider',
     standalone: true,
+    imports: [SharedModule],
     template: `
         <div class="p-divider-content">
             <ng-content></ng-content>

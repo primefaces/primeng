@@ -95,7 +95,6 @@ async function main() {
                         const module_interface_group = module.groups.find((g) => g.title === 'Interface');
                         const module_service_group = module.groups.find((g) => g.title === 'Service');
                         const module_enums_group = module.groups.find((g) => g.title === 'Enumerations');
-
                         const module_types_group = module.groups.find((g) => g.title === 'Types');
 
                         if (isProcessable(module_types_group)) {
@@ -288,14 +287,12 @@ async function main() {
                                         const templateType = template.type && template.type.toString();
                                         let contextType = 'unknown';
 
-                                        // Regex ile TemplateRef<ContextType> kısmını yakalamak
                                         const match = templateType && templateType.match(/TemplateRef<(.+)>/);
                                         if (match && match[1]) {
                                             contextType = match[1];
                                         }
-
                                         templates.values.push({
-                                            name: template.name,
+                                            name: template.name.replace(/Template$/, '').toLowerCase(),
                                             description: template.comment && template.comment.summary.map((s) => s.text || '').join(' '),
                                             type: templateType,
                                             parameters: parameters(template).map((param) =>

@@ -14,6 +14,8 @@ import { FilledDoc } from '@doc/treeselect/filleddoc';
 import { LazyDoc } from '@doc/treeselect/lazydoc';
 import { TreeSelectDocModule } from '@doc/treeselect/treeselectdoc.module';
 import { IftaLabelDoc } from '@doc/treeselect/iftalabeldoc';
+import { TemplateDoc } from '@doc/treeselect/templatedoc';
+import { SizesDoc } from '@doc/treeselect/sizesdoc';
 
 @Component({
     template: `<app-doc
@@ -70,6 +72,11 @@ export class TreeSelectDemo {
             component: FilterDoc,
         },
         {
+            id: 'template',
+            label: 'Template',
+            component: TemplateDoc,
+        },
+        {
             id: 'floatlabel',
             label: 'Float Label',
             component: FloatLabelDoc,
@@ -78,6 +85,11 @@ export class TreeSelectDemo {
             id: 'iftalabel',
             label: 'Ifta Label',
             component: IftaLabelDoc,
+        },
+        {
+            id: 'sizes',
+            label: 'Sizes',
+            component: SizesDoc,
         },
         {
             id: 'filled',

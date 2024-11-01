@@ -8,38 +8,38 @@ import { Code } from '@domain/code';
             <p>Outlined buttons display a border without a background initially.</p>
         </app-docsectiontext>
         <div class="card flex flex-wrap gap-4 justify-center">
-            <p-button label="Primary" [outlined]="true" />
-            <p-button label="Secondary" [outlined]="true" severity="secondary" />
-            <p-button label="Success" [outlined]="true" severity="success" />
-            <p-button label="Info" [outlined]="true" severity="info" />
-            <p-button label="Warn" [outlined]="true" severity="warn" />
-            <p-button label="Help" [outlined]="true" severity="help" />
-            <p-button label="Danger" [outlined]="true" severity="danger" />
-            <p-button label="Contrast" [outlined]="true" severity="contrast" />
+            <p-button label="Primary" variant="outlined" />
+            <p-button label="Secondary" variant="outlined" severity="secondary" />
+            <p-button label="Success" variant="outlined" severity="success" />
+            <p-button label="Info" variant="outlined" severity="info" />
+            <p-button label="Warn" variant="outlined" severity="warn" />
+            <p-button label="Help" variant="outlined" severity="help" />
+            <p-button label="Danger" variant="outlined" severity="danger" />
+            <p-button label="Contrast" variant="outlined" severity="contrast" />
         </div>
         <app-code [code]="code" selector="button-outlined-demo"></app-code>
     `,
 })
 export class OutlinedDoc {
     code: Code = {
-        basic: `<p-button label="Primary" [outlined]="true" />
-<p-button label="Secondary" [outlined]="true" severity="secondary" />
-<p-button label="Success" [outlined]="true" severity="success" />
-<p-button label="Info" [outlined]="true" severity="info" />
-<p-button label="Warn" [outlined]="true" severity="warn" />
-<p-button label="Help" [outlined]="true" severity="help" />
-<p-button label="Danger" [outlined]="true" severity="danger" />
-<p-button label="Contrast" [outlined]="true" severity="contrast" />`,
+        basic: `<p-button label="Primary" variant="outlined" />
+<p-button label="Secondary" variant="outlined" severity="secondary" />
+<p-button label="Success" variant="outlined" severity="success" />
+<p-button label="Info" variant="outlined" severity="info" />
+<p-button label="Warn" variant="outlined" severity="warn" />
+<p-button label="Help" variant="outlined" severity="help" />
+<p-button label="Danger" variant="outlined" severity="danger" />
+<p-button label="Contrast" variant="outlined" severity="contrast" />`,
 
         html: `<div class="card flex flex-wrap gap-4 justify-center">
-    <p-button label="Primary" [outlined]="true" />
-    <p-button label="Secondary" [outlined]="true" severity="secondary" />
-    <p-button label="Success" [outlined]="true" severity="success" />
-    <p-button label="Info" [outlined]="true" severity="info" />
-    <p-button label="Warn" [outlined]="true" severity="warn" />
-    <p-button label="Help" [outlined]="true" severity="help" />
-    <p-button label="Danger" [outlined]="true" severity="danger" />
-    <p-button label="Contrast" [outlined]="true" severity="contrast" />
+    <p-button label="Primary" variant="outlined" />
+    <p-button label="Secondary" variant="outlined" severity="secondary" />
+    <p-button label="Success" variant="outlined" severity="success" />
+    <p-button label="Info" variant="outlined" severity="info" />
+    <p-button label="Warn" variant="outlined" severity="warn" />
+    <p-button label="Help" variant="outlined" severity="help" />
+    <p-button label="Danger" variant="outlined" severity="danger" />
+    <p-button label="Contrast" variant="outlined" severity="contrast" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

@@ -1,22 +1,22 @@
 export default {
     root: {
-        transitionDuration: '{transition.duration}',
+        transitionDuration: '{transition.duration}'
     },
     preview: {
         icon: {
-            size: '1.5rem',
+            size: '1.5rem'
         },
         mask: {
             background: '{mask.background}',
-            color: '{mask.color}',
-        },
+            color: '{mask.color}'
+        }
     },
     toolbar: {
         position: {
             left: 'auto',
             right: '1rem',
             top: '1rem',
-            bottom: 'auto',
+            bottom: 'auto'
         },
         blur: '8px',
         background: 'rgba(255,255,255,0.1)',
@@ -24,7 +24,7 @@ export default {
         borderWidth: '1px',
         borderRadius: '{content.border.radius}',
         padding: '.5rem',
-        gap: '0.5rem',
+        gap: '0.5rem'
     },
     action: {
         hoverBackground: 'rgba(255,255,255,0.1)',
@@ -38,7 +38,7 @@ export default {
             style: '{focus.ring.style}',
             color: '{focus.ring.color}',
             offset: '{focus.ring.offset}',
-            shadow: '{focus.ring.shadow}',
-        },
-    },
+            shadow: '{focus.ring.shadow}'
+        }
+    }
 };

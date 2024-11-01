@@ -1,11 +1,11 @@
 export default {
     root: {
-        transitionDuration: '{transition.duration}',
+        transitionDuration: '{transition.duration}'
     },
     tablist: {
         borderWidth: '0',
         background: '{content.background}',
-        borderColor: '{content.border.color}',
+        borderColor: '{content.border.color}'
     },
     item: {
         borderWidth: '2px 0 0 0',
@@ -24,33 +24,33 @@ export default {
             style: '{focus.ring.style}',
             color: '{focus.ring.color}',
             offset: '{focus.ring.offset}',
-            shadow: '{focus.ring.shadow}',
-        },
+            shadow: '{focus.ring.shadow}'
+        }
     },
     itemIcon: {
         color: '{text.muted.color}',
         hoverColor: '{text.color}',
-        activeColor: '{primary.color}',
+        activeColor: '{primary.color}'
     },
     activeBar: {
         height: '0',
         bottom: '0',
-        background: 'transparent',
+        background: 'transparent'
     },
     colorScheme: {
         light: {
             item: {
                 background: '{surface.50}',
                 hoverBackground: '{surface.100}',
-                activeBackground: '{surface.0}',
-            },
+                activeBackground: '{surface.0}'
+            }
         },
         dark: {
             item: {
                 background: '{surface.800}',
                 hoverBackground: '{surface.700}',
-                activeBackground: '{surface.900}',
-            },
-        },
-    },
+                activeBackground: '{surface.900}'
+            }
+        }
+    }
 };

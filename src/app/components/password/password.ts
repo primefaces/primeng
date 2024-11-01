@@ -26,7 +26,7 @@ import {
     ViewEncapsulation,
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { OverlayService, TranslationKeys } from 'primeng/api';
+import { OverlayService, SharedModule, TranslationKeys } from 'primeng/api';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { EyeIcon } from 'primeng/icons/eye';
 import { EyeSlashIcon } from 'primeng/icons/eyeslash';
@@ -365,7 +365,7 @@ export const Password_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-password',
     standalone: true,
-    imports: [CommonModule, InputText, AutoFocus, TimesIcon, EyeSlashIcon, EyeIcon, MapperPipe],
+    imports: [CommonModule, InputText, AutoFocus, TimesIcon, EyeSlashIcon, EyeIcon, MapperPipe, SharedModule],
     template: `
         <div [ngClass]="rootClass" [ngStyle]="style" [class]="styleClass" [attr.data-pc-name]="'password'" [attr.data-pc-section]="'root'">
             <input
@@ -376,6 +376,7 @@ export const Password_VALUE_ACCESSOR: any = {
                 [attr.id]="inputId"
                 pInputText
                 [disabled]="disabled"
+                [size]="size"
                 [ngClass]="disabled | mapper: inputFieldClass"
                 [ngStyle]="inputStyle"
                 [class]="inputStyleClass"
@@ -390,8 +391,7 @@ export const Password_VALUE_ACCESSOR: any = {
                 (keyup)="onKeyUp($event)"
                 [attr.maxlength]="maxLength"
                 [attr.data-pc-section]="'input'"
-                pAutoFocus
-                [autofocus]="autofocus"
+                [pAutoFocus]="autofocus"
             />
             <ng-container *ngIf="showClear && value != null">
                 <TimesIcon
@@ -556,6 +556,11 @@ export class Password extends BaseComponent implements OnInit {
      * @group Props
      */
     @Input({ transform: booleanAttribute }) toggleMask: boolean | undefined;
+    /**
+     * Defines the size of the component.
+     * @group Props
+     */
+    @Input() size: 'large' | 'small';
     /**
      * Style class of the input field.
      * @group Props
@@ -978,7 +983,7 @@ export class Password extends BaseComponent implements OnInit {
 }
 
 @NgModule({
-    imports: [Password, PasswordDirective],
-    exports: [PasswordDirective, Password],
+    imports: [Password, PasswordDirective, SharedModule],
+    exports: [PasswordDirective, Password, SharedModule],
 })
 export class PasswordModule {}

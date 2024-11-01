@@ -1,4 +1,3 @@
-import { AnimationEvent } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import {
     booleanAttribute,
@@ -32,7 +31,7 @@ import { ChevronDownIcon } from 'primeng/icons/chevrondown';
 import { TimesIcon } from 'primeng/icons/times';
 import { Overlay } from 'primeng/overlay';
 import { Ripple } from 'primeng/ripple';
-import { Nullable } from 'primeng/ts-helpers';
+import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
 import {
     CascadeSelectBeforeHideEvent,
@@ -53,7 +52,7 @@ export const CASCADESELECT_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-cascadeSelectSub, p-cascadeselect-sub',
     standalone: true,
-    imports: [CommonModule, Overlay, Ripple, AutoFocus, AngleRightIcon],
+    imports: [CommonModule, Overlay, Ripple, AutoFocus, AngleRightIcon, SharedModule],
     template: `
         <ul
             class="p-cascadeselect-list"
@@ -256,7 +255,7 @@ export class CascadeSelectSub extends BaseComponent implements OnInit {
 @Component({
     selector: 'p-cascadeSelect, p-cascadeselect',
     standalone: true,
-    imports: [CommonModule, Overlay, Ripple, AutoFocus, CascadeSelectSub, ChevronDownIcon, AngleRightIcon, TimesIcon],
+    imports: [CommonModule, Overlay, Ripple, AutoFocus, CascadeSelectSub, ChevronDownIcon, AngleRightIcon, TimesIcon, SharedModule],
     template: ` <div
         #container
         [ngClass]="containerClass"
@@ -285,8 +284,7 @@ export class CascadeSelectSub extends BaseComponent implements OnInit {
                 (focus)="onInputFocus($event)"
                 (blur)="onInputBlur($event)"
                 (keydown)="onInputKeyDown($event)"
-                pAutoFocus
-                [autofocus]="autofocus"
+                [pAutoFocus]="autofocus"
             />
         </div>
         <span [ngClass]="labelClass" [attr.data-pc-section]="'label'">
@@ -361,11 +359,12 @@ export class CascadeSelectSub extends BaseComponent implements OnInit {
             <ng-template #content>
                 <div
                     #panel
-                    class="p-cascadeselect-overlay p-component"
+                    [ngClass]="{ 'p-cascadeselect-overlay p-component': true, 'p-cascadeselect-mobile-active': queryMatches() }"
                     [class]="panelStyleClass"
                     [ngStyle]="panelStyle"
                     [attr.data-pc-section]="'panel'"
                 >
+                    <ng-template *ngTemplateOutlet="headerTemplate"></ng-template>
                     <div class="p-cascadeselect-list-container" [attr.data-pc-section]="'wrapper'">
                         <p-cascadeselect-sub
                             [options]="processedOptions"
@@ -390,6 +389,7 @@ export class CascadeSelectSub extends BaseComponent implements OnInit {
                     <span role="status" aria-live="polite" class="p-hidden-accessible">
                         {{ selectedMessageText }}
                     </span>
+                    <ng-template *ngTemplateOutlet="footerTemplate"></ng-template>
                 </div>
             </ng-template>
         </p-overlay>
@@ -509,6 +509,11 @@ export class CascadeSelect extends BaseComponent implements OnInit {
      */
     @Input() inputId: string | undefined;
     /**
+     * Defines the size of the component.
+     * @group Props
+     */
+    @Input() size: 'large' | 'small';
+    /**
      * Index of the element in tabbing order.
      * @group Props
      */
@@ -608,6 +613,11 @@ export class CascadeSelect extends BaseComponent implements OnInit {
      */
     @Input({ transform: booleanAttribute }) fluid: boolean = false;
     /**
+     * The breakpoint to define the maximum width boundary.
+     * @group Props
+     */
+    @Input() breakpoint: string = '960px';
+    /**
      * Callback to invoke on value change.
      * @param {CascadeSelectChangeEvent} event - Custom change event.
      * @group Emits
@@ -681,6 +691,18 @@ export class CascadeSelect extends BaseComponent implements OnInit {
     @ContentChild('option') optionTemplate: Nullable<TemplateRef<any>>;
 
     /**
+     * Content template for customizing the header.
+     * @group Templates
+     */
+    @ContentChild('header') headerTemplate: Nullable<TemplateRef<any>>;
+
+    /**
+     * Content template for customizing the footer.
+     * @group Templates
+     */
+    @ContentChild('footer') footerTemplate: Nullable<TemplateRef<any>>;
+
+    /**
      * Content template for customizing the trigger icon.
      * @group Templates
      */
@@ -745,6 +767,8 @@ export class CascadeSelect extends BaseComponent implements OnInit {
             'p-inputwrapper-focus': this.focused || this.overlayVisible,
             'p-cascadeselect-open': this.overlayVisible,
             'p-cascadeselect-fluid': this.hasFluid,
+            'p-cascadeselect-sm p-inputfield-sm': this.size === 'small',
+            'p-cascadeselect-lg p-inputfield-lg': this.size === 'large',
         };
     }
 
@@ -1144,26 +1168,7 @@ export class CascadeSelect extends BaseComponent implements OnInit {
             this.onOptionChange({ originalEvent: event, processedOption: this.visibleOptions()[index], isHide: false });
         }
     }
-
-    onOptionChange(event) {
-        const { originalEvent, value, isFocus, isHide } = event;
-        if (ObjectUtils.isEmpty(value)) return;
-
-        const { index, level, parentKey, children } = value;
-        const grouped = ObjectUtils.isNotEmpty(children);
-
-        const activeOptionPath = this.activeOptionPath().filter((p) => p.parentKey !== parentKey);
-
-        activeOptionPath.push(value);
-
-        this.focusedOptionInfo.set({ index, level, parentKey });
-        this.activeOptionPath.set(activeOptionPath);
-
-        grouped
-            ? this.onOptionGroupSelect({ originalEvent, value, isFocus: false })
-            : this.onOptionSelect({ originalEvent, value, isFocus });
-        isFocus && DomHandler.focus(this.focusInputViewChild.nativeElement);
-    }
+    matchMediaListener: VoidListener;
 
     onOptionSelect(event) {
         const { originalEvent, value, isFocus } = event;
@@ -1424,14 +1429,81 @@ export class CascadeSelect extends BaseComponent implements OnInit {
             }
         });
     }
+    query: any;
+    queryMatches = signal<boolean>(false);
+    mobileActive = signal<boolean>(false);
+
+    onOptionChange(event) {
+        const { originalEvent, value, isFocus, isHide } = event;
+        if (ObjectUtils.isEmpty(value)) return;
+
+        const { index, level, parentKey, children, key } = value;
+
+        const grouped = ObjectUtils.isNotEmpty(children);
+        const selected = this.isSelected(value);
+        if (selected) {
+            const activeOptionPath = this.activeOptionPath().filter((p) => key !== p.key && key.startsWith(p.key));
+            this.activeOptionPath.set([...activeOptionPath]);
+            this.focusedOptionInfo.set({ index, level, parentKey });
+        } else {
+            const activeOptionPath = this.activeOptionPath().filter((p) => p.parentKey !== parentKey);
+
+            activeOptionPath.push(value);
+
+            this.focusedOptionInfo.set({ index, level, parentKey });
+            this.activeOptionPath.set(activeOptionPath);
+
+            grouped
+                ? this.onOptionGroupSelect({ originalEvent, value, isFocus: false })
+                : this.onOptionSelect({ originalEvent, value, isFocus });
+        }
+
+        // const activeOptionPath = this.activeOptionPath().filter((p) => p.parentKey !== parentKey);
+        //
+        // activeOptionPath.push(value);
+        //
+        // this.focusedOptionInfo.set({ index, level, parentKey });
+        // this.activeOptionPath.set(activeOptionPath);
+
+        // grouped
+        //     ? this.onOptionGroupSelect({ originalEvent, value, isFocus: false })
+        //     : this.onOptionSelect({ originalEvent, value, isFocus });
+        isFocus && DomHandler.focus(this.focusInputViewChild.nativeElement);
+    }
 
     ngOnInit() {
         super.ngOnInit();
         this.id = this.id || UniqueComponentId();
         this.autoUpdateModel();
+        this.bindMatchMediaListener();
     }
 
-    onOverlayAnimationDone(event: AnimationEvent) {
+    bindMatchMediaListener() {
+        if (!this.matchMediaListener) {
+            const window: Window = this.document.defaultView;
+            if (window) {
+                const query = window.matchMedia(`(max-width: ${this.breakpoint})`);
+                this.query = query;
+                this.queryMatches.set(query?.matches);
+
+                this.matchMediaListener = () => {
+                    this.queryMatches.set(query?.matches);
+                    this.mobileActive.set(false);
+                };
+
+                this.query.addEventListener('change', this.matchMediaListener);
+            }
+        }
+    }
+
+    unbindMatchMediaListener() {
+        if (this.matchMediaListener) {
+            this.query.removeEventListener('change', this.matchMediaListener);
+            this.matchMediaListener = null;
+        }
+    }
+
+    onOverlayAnimationDone(event: any) {
         switch (event.toState) {
             case 'void':
                 this.dirty = false;
@@ -1456,6 +1528,12 @@ export class CascadeSelect extends BaseComponent implements OnInit {
     setDisabledState(val: boolean): void {
         this.disabled = val;
         this.cd.markForCheck();
+    }
+
+    ngOnDestroy() {
+        if (this.matchMediaListener) {
+            this.unbindMatchMediaListener();
+        }
     }
 }
 
