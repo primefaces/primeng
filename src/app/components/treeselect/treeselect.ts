@@ -66,8 +66,7 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
                     [attr.aria-expanded]="overlayVisible ?? false"
                     [attr.aria-labelledby]="ariaLabelledBy"
                     [attr.aria-label]="ariaLabel || (label === 'p-emptylabel' ? undefined : label)"
-                    pAutoFocus
-                    [autofocus]="autofocus"
+                    [pAutoFocus]="autofocus"
                 />
             </div>
             <div class="p-treeselect-label-container">
@@ -397,7 +396,7 @@ export class TreeSelect extends BaseComponent {
      * Defines the size of the component.
      * @group Props
      */
-    @Input() size: 'large' | 'small';   
+    @Input() size: 'large' | 'small';
     /**
      * Whether to use the scroller feature. The properties of scroller component can be used like an object in it.
      * @group Props

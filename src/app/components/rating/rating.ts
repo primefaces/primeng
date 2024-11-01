@@ -64,8 +64,7 @@ export const RATING_VALUE_ACCESSOR: any = {
                             (focus)="onInputFocus($event, star + 1)"
                             (blur)="onInputBlur($event)"
                             (change)="onChange($event, star + 1)"
-                            pAutoFocus
-                            [autofocus]="autofocus"
+                            [pAutoFocus]="autofocus"
                         />
                     </span>
                     <ng-container *ngIf="!value || i >= value">

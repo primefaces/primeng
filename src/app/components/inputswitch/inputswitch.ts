@@ -58,8 +58,7 @@ export const INPUTSWITCH_VALUE_ACCESSOR: any = {
                     (focus)="onFocus()"
                     (blur)="onBlur()"
                     [attr.data-pc-section]="'hiddenInput'"
-                    pAutoFocus
-                    [autofocus]="autofocus"
+                    [pAutoFocus]="autofocus"
                 />
             </div>
             <span [ngClass]="cx('slider')" [attr.data-pc-section]="'slider'"></span>

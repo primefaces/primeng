@@ -175,6 +175,7 @@ export class ButtonDirective extends BaseComponent implements AfterViewInit, OnD
     @Input() size: 'small' | 'large' | undefined | null = null;
     /**
      * Add a plain textual class to the button without a background initially.
+     * @deprecated use variant property instead.
      * @group Props
      */
     @Input({ transform: booleanAttribute }) plain: boolean = false;
@@ -321,8 +322,8 @@ export class ButtonDirective extends BaseComponent implements AfterViewInit, OnD
             styleClass.push('p-button-lg');
         }
 
-        if(this.hasFluid){
-            styleClass.push('p-button-fluid')
+        if (this.hasFluid) {
+            styleClass.push('p-button-fluid');
         }
 
         return styleClass;
@@ -334,7 +335,7 @@ export class ButtonDirective extends BaseComponent implements AfterViewInit, OnD
 
         return ObjectUtils.isEmpty(this.fluid) ? !!fluidComponent : this.fluid;
     }
-    
+
     setStyleClass() {
         const styleClass = this.getStyleClass();
         this.htmlElement.classList.remove(...this._internalClasses);
@@ -446,8 +447,7 @@ export class ButtonDirective extends BaseComponent implements AfterViewInit, OnD
             [attr.data-pc-name]="'button'"
             [attr.data-pc-section]="'root'"
             [attr.tabindex]="tabindex"
-            pAutoFocus
-            [autofocus]="autofocus"
+            [pAutoFocus]="autofocus"
         >
             <ng-content></ng-content>
             <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
@@ -548,6 +548,7 @@ export class Button extends BaseComponent implements AfterContentInit {
     @Input({ transform: booleanAttribute }) text: boolean = false;
     /**
      * Add a plain textual class to the button without a background initially.
+     * @deprecated use variant property instead.
      * @group Props
      */
     @Input({ transform: booleanAttribute }) plain: boolean = false;
@@ -576,6 +577,11 @@ export class Button extends BaseComponent implements AfterContentInit {
      * @group Props
      */
     @Input() size: 'small' | 'large' | undefined;
+    /**
+     * Specifies the variant of the component.
+     * @group Props
+     */
+    @Input() variant: 'outlined' | 'text' | undefined;
     /**
      * Inline style of the element.
      * @group Props

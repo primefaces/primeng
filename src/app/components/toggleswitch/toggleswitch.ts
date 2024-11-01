@@ -74,8 +74,7 @@ export const TOGGLESWITCH_VALUE_ACCESSOR: any = {
                 (focus)="onFocus()"
                 (blur)="onBlur()"
                 [attr.data-pc-section]="'hiddenInput'"
-                pAutoFocus
-                [autofocus]="autofocus"
+                [pAutoFocus]="autofocus"
             />
             <span [ngClass]="cx('slider')" [attr.data-pc-section]="'slider'">
                 <div [ngClass]="cx('handle')">

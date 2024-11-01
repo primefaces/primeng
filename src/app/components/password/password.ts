@@ -391,8 +391,7 @@ export const Password_VALUE_ACCESSOR: any = {
                 (keyup)="onKeyUp($event)"
                 [attr.maxlength]="maxLength"
                 [attr.data-pc-section]="'input'"
-                pAutoFocus
-                [autofocus]="autofocus"
+                [pAutoFocus]="autofocus"
             />
             <ng-container *ngIf="showClear && value != null">
                 <TimesIcon
@@ -561,7 +560,7 @@ export class Password extends BaseComponent implements OnInit {
      * Defines the size of the component.
      * @group Props
      */
-    @Input() size: 'large' | 'small'; 
+    @Input() size: 'large' | 'small';
     /**
      * Style class of the input field.
      * @group Props

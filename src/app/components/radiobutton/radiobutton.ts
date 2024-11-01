@@ -101,8 +101,7 @@ export class RadioControlRegistry {
                 (focus)="onInputFocus($event)"
                 (blur)="onInputBlur($event)"
                 (change)="onChange($event)"
-                pAutoFocus
-                [autofocus]="autofocus"
+                [pAutoFocus]="autofocus"
             />
             <div class="p-radiobutton-box" [attr.data-pc-section]="'input'">
                 <div class="p-radiobutton-icon" [attr.data-pc-section]="'icon'"></div>
@@ -142,7 +141,7 @@ export class RadioButton extends BaseComponent implements ControlValueAccessor, 
      * Defines the size of the component.
      * @group Props
      */
-    @Input() size: 'large' | 'small';   
+    @Input() size: 'large' | 'small';
     /**
      * Index of the element in tabbing order.
      * @group Props

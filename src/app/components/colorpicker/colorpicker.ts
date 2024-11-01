@@ -69,8 +69,7 @@ export const COLORPICKER_VALUE_ACCESSOR: any = {
                 [style.backgroundColor]="inputBgColor"
                 [attr.data-pc-section]="'input'"
                 [attr.aria-label]="ariaLabel"
-                pAutoFocus
-                [autofocus]="autofocus"
+                [pAutoFocus]="autofocus"
             />
             <div
                 *ngIf="inline || overlayVisible"

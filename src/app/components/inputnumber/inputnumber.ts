@@ -89,8 +89,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
             (focus)="onInputFocus($event)"
             (blur)="onInputBlur($event)"
             [attr.data-pc-section]="'input'"
-            pAutoFocus
-            [autofocus]="autofocus"
+            [pAutoFocus]="autofocus"
             [fluid]="hasFluid"
         />
         <ng-container *ngIf="buttonLayout != 'vertical' && showClear && value">
@@ -239,7 +238,7 @@ export class InputNumber extends BaseComponent implements OnInit, AfterContentIn
      * Defines the size of the component.
      * @group Props
      */
-    @Input() size: 'large' | 'small';   
+    @Input() size: 'large' | 'small';
     /**
      * Maximum number of character allows in the input field.
      * @group Props

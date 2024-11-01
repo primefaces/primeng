@@ -106,8 +106,7 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                     [attr.tabindex]="tabindex"
                     [attr.inputmode]="touchUI ? 'off' : null"
                     autocomplete="off"
-                    pAutoFocus
-                    [autofocus]="autofocus"
+                    [pAutoFocus]="autofocus"
                     [variant]="variant"
                     [fluid]="hasFluid"
                     [size]="size"
@@ -862,7 +861,7 @@ export class DatePicker extends BaseComponent implements OnInit, OnDestroy, Cont
      * Defines the size of the component.
      * @group Props
      */
-    @Input() size: 'large' | 'small';   
+    @Input() size: 'large' | 'small';
     /**
      * The minimum selectable date.
      * @group Props

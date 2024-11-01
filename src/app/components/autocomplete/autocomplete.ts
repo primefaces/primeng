@@ -91,9 +91,8 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
             <input
                 *ngIf="!multiple"
                 #focusInput
-                pAutoFocus
+                [pAutoFocus]="autofocus"
                 pInputText
-                [autofocus]="autofocus"
                 [ngClass]="'p-autocomplete-input'"
                 [ngStyle]="inputStyle"
                 [class]="inputStyleClass"
@@ -184,8 +183,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                 <li class="p-autocomplete-input-chip" role="option">
                     <input
                         #focusInput
-                        pAutoFocus
-                        [autofocus]="autofocus"
+                        [pAutoFocus]="autofocus"
                         [ngClass]="inputClass"
                         [ngStyle]="inputStyle"
                         [class]="inputStyleClass"
@@ -467,7 +465,7 @@ export class AutoComplete extends BaseComponent implements AfterViewChecked, Aft
      * Defines the size of the component.
      * @group Props
      */
-    @Input() size: 'large' | 'small';   
+    @Input() size: 'large' | 'small';
     /**
      * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
      * @group Props

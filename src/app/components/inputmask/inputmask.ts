@@ -42,7 +42,7 @@ import {
     Output,
     TemplateRef,
     ViewChild,
-    ViewEncapsulation
+    ViewEncapsulation,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { AutoFocus } from 'primeng/autofocus';
@@ -93,9 +93,8 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
             (blur)="onInputBlur($event)"
             (keydown)="onInputKeydown($event)"
             (keypress)="onKeyPress($event)"
-            pAutoFocus
             [variant]="variant"
-            [autofocus]="autofocus"
+            [pAutoFocus]="autofocus"
             (input)="onInputChange($event)"
             (paste)="handleInputChange($event)"
             [attr.data-pc-name]="'inputmask'"
@@ -162,7 +161,7 @@ export class InputMask extends BaseComponent implements OnInit, ControlValueAcce
      * Defines the size of the component.
      * @group Props
      */
-    @Input() size: 'large' | 'small';   
+    @Input() size: 'large' | 'small';
     /**
      * Maximum number of character allows in the input field.
      * @group Props

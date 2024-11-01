@@ -98,8 +98,7 @@ export interface InputOtpInputTemplateContext {
                     (blur)="onInputBlur($event)"
                     (paste)="onPaste($event)"
                     (keydown)="onKeyDown($event)"
-                    pAutoFocus
-                    [autofocus]="getAutofocus(i)"
+                    [pAutoFocus]="getAutofocus(i)"
                     [ngClass]="styleClass"
                 />
             </ng-container>

@@ -16,7 +16,7 @@ import {
     ViewChild,
     ViewEncapsulation,
 } from '@angular/core';
-import { MenuItem } from 'primeng/api';
+import { MenuItem, TooltipOptions } from 'primeng/api';
 import { ButtonDirective } from 'primeng/button';
 import { ChevronDownIcon } from 'primeng/icons/chevrondown';
 import { TieredMenu } from 'primeng/tieredmenu';
@@ -27,6 +27,7 @@ import { ButtonProps, MenuButtonProps } from './splitbutton.interface';
 import { SplitButtonStyle } from './style/splitbuttonstyle';
 import { BaseComponent } from 'primeng/basecomponent';
 import { Ripple } from 'primeng/ripple';
+import { TooltipModule } from '../tooltip/tooltip';
 
 type SplitButtonIconPosition = 'left' | 'right';
 /**
@@ -36,7 +37,7 @@ type SplitButtonIconPosition = 'left' | 'right';
 @Component({
     selector: 'p-splitbutton, p-splitButton',
     standalone: true,
-    imports: [CommonModule, ButtonDirective, TieredMenu, AutoFocus, ChevronDownIcon, Ripple],
+    imports: [CommonModule, ButtonDirective, TieredMenu, AutoFocus, ChevronDownIcon, Ripple, TooltipModule],
     template: `
         <div #container [ngClass]="containerClass" [class]="styleClass" [ngStyle]="style">
             <ng-container *ngIf="contentTemplate; else defaultButton">
@@ -54,9 +55,8 @@ type SplitButtonIconPosition = 'left' | 'right';
                     (click)="onDefaultButtonClick($event)"
                     [disabled]="disabled"
                     [attr.tabindex]="tabindex"
-                    [ariaLabel]="buttonProps?.['ariaLabel'] || label"
-                    pAutoFocus
-                    [autofocus]="autofocus"
+                    [attr.aria-label]="buttonProps?.['ariaLabel'] || label"
+                    [pAutoFocus]="autofocus"
                     [pTooltip]="tooltip"
                     [tooltipOptions]="tooltipOptions"
                 >
@@ -80,9 +80,8 @@ type SplitButtonIconPosition = 'left' | 'right';
                     (click)="onDefaultButtonClick($event)"
                     [disabled]="buttonDisabled"
                     [attr.tabindex]="tabindex"
-                    [ariaLabel]="buttonProps?.['ariaLabel']"
-                    pAutoFocus
-                    [autofocus]="autofocus"
+                    [attr.aria-label]="buttonProps?.['ariaLabel']"
+                    [pAutoFocus]="autofocus"
                     [pTooltip]="tooltip"
                     [tooltipOptions]="tooltipOptions"
                 ></button>
@@ -99,7 +98,7 @@ type SplitButtonIconPosition = 'left' | 'right';
                 (click)="onDropdownButtonClick($event)"
                 (keydown)="onDropdownButtonKeydown($event)"
                 [disabled]="menuButtonDisabled"
-                [ariaLabel]="menuButtonProps?.['ariaLabel'] || expandAriaLabel"
+                [attr.aria-label]="menuButtonProps?.['ariaLabel'] || expandAriaLabel"
                 [attr.aria-haspopup]="menuButtonProps?.['ariaHasPopup'] || true"
                 [attr.aria-expanded]="menuButtonProps?.['ariaExpanded'] || isExpanded()"
                 [attr.aria-controls]="menuButtonProps?.['ariaControls'] || ariaId"
@@ -194,7 +193,7 @@ export class SplitButton extends BaseComponent {
      * Tooltip options for the main button.
      * @group Props
      */
-    @Input() tooltipOptions: string | undefined;
+    @Input() tooltipOptions: TooltipOptions | undefined;
     /**
      * Inline style of the element.
      * @group Props

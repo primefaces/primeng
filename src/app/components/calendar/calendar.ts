@@ -107,8 +107,7 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
                     [attr.tabindex]="tabindex"
                     [attr.inputmode]="touchUI ? 'off' : null"
                     autocomplete="off"
-                    pAutoFocus
-                    [autofocus]="autofocus"
+                    [pAutoFocus]="autofocus"
                     [variant]="variant"
                     [fluid]="hasFluid"
                 />

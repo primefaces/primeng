@@ -222,8 +222,7 @@ export class MultiSelectItem extends BaseComponent {
                 (focus)="onInputFocus($event)"
                 (blur)="onInputBlur($event)"
                 (keydown)="onKeyDown($event)"
-                pAutoFocus
-                [autofocus]="autofocus"
+                [pAutoFocus]="autofocus"
             />
         </div>
         <div
@@ -850,7 +849,7 @@ export class MultiSelect extends BaseComponent implements OnInit, AfterViewInit,
      * Defines the size of the component.
      * @group Props
      */
-    @Input() size: 'large' | 'small';   
+    @Input() size: 'large' | 'small';
     /**
      * When enabled, a clear icon is displayed to clear the value.
      * @group Props

@@ -108,8 +108,7 @@ export const SLIDER_VALUE_ACCESSOR: any = {
                 [attr.aria-label]="ariaLabel"
                 [attr.aria-orientation]="orientation"
                 [attr.data-pc-section]="'handle'"
-                pAutoFocus
-                [autofocus]="autofocus"
+                [pAutoFocus]="autofocus"
             ></span>
             <span
                 *ngIf="range"
@@ -121,7 +120,7 @@ export const SLIDER_VALUE_ACCESSOR: any = {
                 (keydown)="onKeyDown($event, 0)"
                 (mousedown)="onMouseDown($event, 0)"
                 (touchstart)="onDragStart($event, 0)"
-                (touchmove)="onDrag($event, 0)"
+                (touchmove)="onDrag($event)"
                 (touchend)="onDragEnd($event)"
                 [attr.tabindex]="disabled ? null : tabindex"
                 role="slider"
@@ -132,8 +131,7 @@ export const SLIDER_VALUE_ACCESSOR: any = {
                 [attr.aria-label]="ariaLabel"
                 [attr.aria-orientation]="orientation"
                 [attr.data-pc-section]="'startHandler'"
-                pAutoFocus
-                [autofocus]="autofocus"
+                [pAutoFocus]="autofocus"
             ></span>
             <span
                 *ngIf="range"
@@ -145,7 +143,7 @@ export const SLIDER_VALUE_ACCESSOR: any = {
                 (keydown)="onKeyDown($event, 1)"
                 (mousedown)="onMouseDown($event, 1)"
                 (touchstart)="onDragStart($event, 1)"
-                (touchmove)="onDrag($event, 1)"
+                (touchmove)="onDrag($event)"
                 (touchend)="onDragEnd($event)"
                 [attr.tabindex]="disabled ? null : tabindex"
                 [attr.aria-valuemin]="min"
@@ -401,7 +399,7 @@ export class Slider extends BaseComponent implements OnDestroy, ControlValueAcce
         this.sliderHandleClick = false;
     }
 
-    onKeyDown(event, index) {
+    onKeyDown(event: any, index?) {
         this.handleIndex = index;
 
         switch (event.code) {
