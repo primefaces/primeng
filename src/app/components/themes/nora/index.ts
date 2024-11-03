@@ -28,7 +28,7 @@ import fileupload from 'primeng/themes/nora/fileupload';
 import floatlabel from 'primeng/themes/nora/floatlabel';
 import galleria from 'primeng/themes/nora/galleria';
 import iconfield from 'primeng/themes/nora/iconfield';
-import iftalabel from 'primeng/themes/nora/iftalabel';
+import iftalabel from 'primeng/themes/nora/iftalabel'; // Verify the component name
 import image from 'primeng/themes/nora/image';
 import imagecompare from 'primeng/themes/nora/imagecompare';
 import inlinemessage from 'primeng/themes/nora/inlinemessage';
@@ -169,15 +169,15 @@ export default {
         tag,
         terminal,
         timeline,
+        toast,
         togglebutton,
         toggleswitch,
+        toolbar,
+        tooltip,
         tree,
         treeselect,
         treetable,
-        toast,
-        toolbar,
         virtualscroller,
-        tooltip,
         ripple,
     },
 };
