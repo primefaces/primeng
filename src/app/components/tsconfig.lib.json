@@ -17,7 +17,6 @@
         "skipLibCheck": true,
         "types": [],
         "paths": {
-            "primeng/themes/*":["src/app/components/themes/*"],
             "primeng/*":["src/app/components/*"]
         }
     },
@@ -32,7 +31,6 @@
         "flatModuleId": "primeng"
     },
     "files": [
-        "./public_api.ts",
-        "./index.ts"
+        "./public_api.ts"
     ]
 }

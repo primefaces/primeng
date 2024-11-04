@@ -1,4 +1,4 @@
-import accordion from './accordion';
+import accordion from 'primeng/themes/aura/accordion';
 import autocomplete from 'primeng/themes/aura/autocomplete';
 import avatar from 'primeng/themes/aura/avatar';
 import badge from 'primeng/themes/aura/badge';

@@ -1,3 +1,5 @@
+import { AccordionDesignTokens } from '../../types/accordion';
+
 export default {
     root: {
         transitionDuration: '{transition.duration}',
@@ -62,4 +64,4 @@ export default {
             },
         },
     },
-};
+} as AccordionDesignTokens;

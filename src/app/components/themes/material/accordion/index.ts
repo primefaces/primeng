@@ -1,3 +1,5 @@
+import { AccordionDesignTokens } from '../../types/accordion';
+
 export default {
     root: {
         transitionDuration: '{transition.duration}',
@@ -74,4 +76,4 @@ export default {
     background: ${dt('navigation.item.active.background')};
 }
 `,
-};
+} as AccordionDesignTokens;
