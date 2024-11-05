@@ -6,7 +6,6 @@ import {
     ChangeDetectionStrategy,
     Component,
     ContentChild,
-    ContentChildren,
     ElementRef,
     EventEmitter,
     inject,
@@ -15,14 +14,13 @@ import {
     numberAttribute,
     OnDestroy,
     Output,
-    QueryList,
     signal,
     TemplateRef,
     ViewChild,
     ViewEncapsulation,
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { MenuItem, PrimeTemplate, SharedModule, TooltipOptions } from 'primeng/api';
+import { MenuItem, SharedModule, TooltipOptions } from 'primeng/api';
 import { ButtonDirective, ButtonIcon, ButtonProps } from 'primeng/button';
 import { DomHandler } from 'primeng/dom';
 import { PlusIcon } from 'primeng/icons/plus';
@@ -316,8 +314,6 @@ export class SpeedDial extends BaseComponent implements AfterViewInit, AfterCont
      * @group Templates
      */
     @ContentChild('icon') iconTemplate: TemplateRef<any> | undefined;
-
-    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
     isItemClicked: boolean = false;
 

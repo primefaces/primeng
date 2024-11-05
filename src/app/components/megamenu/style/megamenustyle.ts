@@ -313,7 +313,7 @@ const theme = ({ dt }) => `
 `;
 
 const inlineStyles = {
-    rootList: ({ props }) => ({ 'max-height': props.scrollHeight, overflow: 'auto' })
+    rootList: ({ props }) => ({ 'max-height': props.scrollHeight, overflow: 'auto' }),
 };
 
 const classes = {

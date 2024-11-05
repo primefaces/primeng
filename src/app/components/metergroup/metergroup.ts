@@ -3,18 +3,16 @@ import {
     ChangeDetectionStrategy,
     Component,
     ContentChild,
-    ContentChildren,
     ElementRef,
     forwardRef,
     inject,
     Input,
     NgModule,
-    QueryList,
     TemplateRef,
     ViewChild,
     ViewEncapsulation,
 } from '@angular/core';
-import { PrimeTemplate, SharedModule } from 'primeng/api';
+import { SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { MeterItem } from './metergroup.interface';
 import { BaseComponent } from 'primeng/basecomponent';
@@ -54,8 +52,6 @@ export class MeterGroupLabel {
     @Input() max: number;
 
     @Input() iconTemplate: TemplateRef<any> | undefined;
-
-    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
     get labelClass(): { [key: string]: boolean } {
         return {

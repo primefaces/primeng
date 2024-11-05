@@ -53,7 +53,7 @@ import { Nullable } from 'primeng/ts-helpers';
 import { Caret } from './inputmask.interface';
 import { BaseComponent } from 'primeng/basecomponent';
 import { InputMaskStyle } from './style/inputmaskstyle';
-import { SharedModule } from '../api/shared';
+import { SharedModule } from 'primeng/api';
 
 export const INPUTMASK_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,

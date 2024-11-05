@@ -27,7 +27,7 @@ import { CheckboxChangeEvent } from './checkbox.interface';
 import { MinusIcon } from 'primeng/icons/minus';
 import { BaseComponent } from 'primeng/basecomponent';
 import { CheckboxStyle } from './style/checkboxstyle';
-import { SharedModule } from '../api/shared';
+import { SharedModule } from 'primeng/api';
 
 export const CHECKBOX_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,

@@ -19,7 +19,7 @@ import { DomHandler } from 'primeng/dom';
 import { ZIndexUtils } from 'primeng/utils';
 import { BaseComponent } from 'primeng/basecomponent';
 import { BlockUiStyle } from './style/blockuistyle';
-import { SharedModule } from '../api/shared';
+import { SharedModule } from 'primeng/api';
 
 /**
  * BlockUI can either block other components or the whole page.
@@ -34,7 +34,7 @@ import { SharedModule } from '../api/shared';
             #mask
             [class]="styleClass"
             [attr.aria-busy]="blocked"
-            [ngClass]="{ 'p-blockui-document': !target, 'p-blockui p-blockui-mask p-overlay-mask': true }"
+            [ngClass]="{ 'p-blockui-mask-document': !target, 'p-blockui p-blockui-mask p-overlay-mask': true }"
             [ngStyle]="{ display: 'none' }"
             [attr.data-pc-name]="'blockui'"
             [attr.data-pc-section]="'root'"
@@ -131,7 +131,9 @@ export class BlockUI extends BaseComponent implements AfterViewInit, OnDestroy {
 
     unblock() {
         if (isPlatformBrowser(this.platformId) && this.mask && !this.animationEndListener) {
-            this.animationEndListener = this.renderer.listen(this.mask.nativeElement, 'animationend', this.destroyModal.bind(this));
+            // this.animationEndListener = this.renderer.listen(this.mask.nativeElement, 'animationend', this.destroyModal.bind(this));
+            // TODO Add animation
+            this.destroyModal();
             DomHandler.addClass(this.mask.nativeElement, 'p-overlay-mask-leave');
         }
     }

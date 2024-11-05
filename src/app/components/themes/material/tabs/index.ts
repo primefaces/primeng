@@ -1,11 +1,11 @@
 export default {
     root: {
-        transitionDuration: '{transition.duration}'
+        transitionDuration: '{transition.duration}',
     },
     tablist: {
         borderWidth: '0 0 1px 0',
         background: '{content.background}',
-        borderColor: '{content.border.color}'
+        borderColor: '{content.border.color}',
     },
     tab: {
         background: 'transparent',
@@ -27,8 +27,8 @@ export default {
             style: 'none',
             color: 'unset',
             offset: '0',
-            shadow: 'none'
-        }
+            shadow: 'none',
+        },
     },
     tabpanel: {
         background: '{content.background}',
@@ -39,8 +39,8 @@ export default {
             style: 'none',
             color: 'unset',
             offset: '0',
-            shadow: 'none'
-        }
+            shadow: 'none',
+        },
     },
     navButton: {
         background: '{content.background}',
@@ -53,13 +53,13 @@ export default {
             style: 'none',
             color: 'unset',
             offset: '0',
-            shadow: 'none'
-        }
+            shadow: 'none',
+        },
     },
     activeBar: {
         height: '2px',
         bottom: '-1px',
-        background: '{primary.color}'
+        background: '{primary.color}',
     },
     css: ({ dt }) => `
 
@@ -79,5 +79,5 @@ export default {
 .p-tablist-nav-button:focus-visible {
     background: ${dt('navigation.item.active.background')};
 }
-`
+`,
 };

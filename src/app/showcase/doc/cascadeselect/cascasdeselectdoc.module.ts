@@ -49,7 +49,7 @@ import { SizesDoc } from './sizesdoc';
         AccessibilityDoc,
         ReactiveFormsDoc,
         LoadingDoc,
-        SizesDoc
+        SizesDoc,
     ],
 })
 export class CascadeSelectDocModule {}

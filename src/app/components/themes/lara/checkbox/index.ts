@@ -22,17 +22,17 @@ export default {
             style: '{form.field.focus.ring.style}',
             color: '{form.field.focus.ring.color}',
             offset: '{form.field.focus.ring.offset}',
-            shadow: '{form.field.focus.ring.shadow}'
+            shadow: '{form.field.focus.ring.shadow}',
         },
         transitionDuration: '{form.field.transition.duration}',
         sm: {
             width: '1.25rem',
-            height: '1.25rem'
+            height: '1.25rem',
         },
         lg: {
             width: '1.75rem',
-            height: '1.75rem'
-        }
+            height: '1.75rem',
+        },
     },
     icon: {
         size: '1rem',
@@ -41,10 +41,10 @@ export default {
         checkedHoverColor: '{primary.contrast.color}',
         disabledColor: '{form.field.disabled.color}',
         sm: {
-            size: '0.75rem'
+            size: '0.75rem',
         },
         lg: {
-            size: '1.25rem'
-        }
-    }
+            size: '1.25rem',
+        },
+    },
 };

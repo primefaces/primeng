@@ -4,8 +4,8 @@ import { Meta, Title } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { Code } from '@domain/code';
 import { AppCodeModule } from '@layout/doc/app.code.component';
-import { RippleModule } from '../../../components/ripple/ripple';
-import { TagModule } from '../../../components/tag/tag';
+import { RippleModule } from 'primeng/ripple';
+import { TagModule } from 'primeng/tag';
 
 @Component({
     standalone: true,
@@ -389,7 +389,10 @@ export class AppComponent {
 }`,
     };
 
-    constructor(private titleService: Title, private metaService: Meta) {
+    constructor(
+        private titleService: Title,
+        private metaService: Meta,
+    ) {
         this.titleService.setTitle('Long Term Support - PrimeNG');
         this.metaService.updateTag({ name: 'description', content: 'Long Term Support' });
     }

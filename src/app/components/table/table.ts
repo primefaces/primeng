@@ -8,7 +8,6 @@ import {
     ChangeDetectorRef,
     Component,
     ContentChild,
-    ContentChildren,
     Directive,
     ElementRef,
     EventEmitter,
@@ -2458,8 +2457,6 @@ export class ColumnFilter extends BaseComponent implements AfterContentInit {
 
     @ViewChild('clearBtn') clearButtonViewChild: Nullable<ElementRef>;
 
-    @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<any>>;
-
     overlaySubscription: Subscription | undefined;
 
     headerTemplate: Nullable<TemplateRef<any>>;
@@ -4307,8 +4304,6 @@ export class Table extends BaseComponent implements OnInit, AfterViewInit, After
     @ViewChild('tfoot') tableFooterViewChild: Nullable<ElementRef>;
 
     @ViewChild('scroller') scroller: Nullable<Scroller>;
-
-    @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<PrimeTemplate>>;
 
     _virtualRowHeight: number = 28;
 

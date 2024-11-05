@@ -6,7 +6,6 @@ import {
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
-    ContentChildren,
     ElementRef,
     EventEmitter,
     forwardRef,
@@ -317,8 +316,6 @@ export class OrganizationChart extends BaseComponent implements AfterContentInit
      * @group Emits
      */
     @Output() onNodeCollapse: EventEmitter<OrganizationChartNodeCollapseEvent> = new EventEmitter<OrganizationChartNodeCollapseEvent>();
-
-    @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<PrimeTemplate>>;
 
     public templateMap: any;
 

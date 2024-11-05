@@ -6,7 +6,6 @@ import {
     ChangeDetectionStrategy,
     Component,
     ContentChild,
-    ContentChildren,
     ElementRef,
     EventEmitter,
     HostListener,
@@ -14,13 +13,12 @@ import {
     Input,
     NgModule,
     Output,
-    QueryList,
     TemplateRef,
     ViewChild,
     ViewEncapsulation,
 } from '@angular/core';
 import { SafeUrl } from '@angular/platform-browser';
-import { PrimeTemplate, SharedModule } from 'primeng/api';
+import { SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { EyeIcon } from 'primeng/icons/eye';
 import { RefreshIcon } from 'primeng/icons/refresh';
@@ -342,8 +340,6 @@ export class Image extends BaseComponent implements AfterContentInit {
      * @group Templates
      */
     @ContentChild('image') imageTemplate: TemplateRef<any> | undefined;
-
-    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
     maskVisible: boolean = false;
 

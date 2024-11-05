@@ -16,7 +16,7 @@ import { ButtonModule } from 'primeng/button';
 import { TimesIcon } from 'primeng/icons/times';
 import { BaseComponent } from 'primeng/basecomponent';
 import { InplaceStyle } from './style/inplacestyle';
-import { SharedModule } from '../api/shared';
+import { SharedModule } from 'primeng/api';
 
 @Component({
     selector: 'p-inplacedisplay, p-inplaceDisplay',

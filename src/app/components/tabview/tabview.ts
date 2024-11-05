@@ -187,8 +187,6 @@ export class TabPanel extends BaseComponent implements AfterContentInit, OnDestr
         this.tabView.cd.markForCheck();
     }
 
-    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
-
     closed: boolean = false;
 
     _headerStyle: { [klass: string]: any } | null | undefined;
@@ -485,8 +483,6 @@ export class TabView extends BaseComponent implements AfterContentInit, AfterVie
     @ViewChild('inkbar') inkbar?: ElementRef;
 
     @ContentChildren(TabPanel) tabPanels: QueryList<TabPanel> | undefined;
-
-    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
     initialized: boolean | undefined;
 

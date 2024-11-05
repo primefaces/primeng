@@ -37,7 +37,7 @@ import { SizesDoc } from './sizesdoc';
         AppDocModule,
         FloatLabelModule,
         IftaLabelModule,
-        ButtonModule
+        ButtonModule,
     ],
     exports: [AppDocModule],
     declarations: [
@@ -57,7 +57,7 @@ import { SizesDoc } from './sizesdoc';
         ReactiveFormsDoc,
         LoadingStateDoc,
         FilledDoc,
-        SizesDoc
+        SizesDoc,
     ],
 })
 export class MultiSelectDocModule {}

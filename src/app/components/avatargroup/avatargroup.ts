@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, HostBinding, inject, Input, NgModul
 import { CommonModule } from '@angular/common';
 import { AvatarGroupStyle } from './style/avatargroupstyle';
 import { BaseComponent } from 'primeng/basecomponent';
-import { SharedModule } from '../api/shared';
+import { SharedModule } from 'primeng/api';
 
 /**
  * AvatarGroup is a helper component for Avatar.

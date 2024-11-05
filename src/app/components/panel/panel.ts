@@ -5,17 +5,15 @@ import {
     ChangeDetectionStrategy,
     Component,
     ContentChild,
-    ContentChildren,
     EventEmitter,
     inject,
     Input,
     NgModule,
     Output,
-    QueryList,
     TemplateRef,
     ViewEncapsulation,
 } from '@angular/core';
-import { BlockableUI, Footer, PrimeTemplate, SharedModule } from 'primeng/api';
+import { BlockableUI, Footer, SharedModule } from 'primeng/api';
 import { MinusIcon } from 'primeng/icons/minus';
 import { PlusIcon } from 'primeng/icons/plus';
 import { Ripple } from 'primeng/ripple';
@@ -329,8 +327,6 @@ export class Panel extends BaseComponent implements BlockableUI {
      * @group Templates
      */
     @ContentChild('headericons') headerIconsTemplate: TemplateRef<PanelHeaderIconsTemplateContext> | undefined;
-
-    @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {

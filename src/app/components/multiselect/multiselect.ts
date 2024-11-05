@@ -9,7 +9,6 @@ import {
     Component,
     computed,
     ContentChild,
-    ContentChildren,
     effect,
     ElementRef,
     EventEmitter,
@@ -1078,8 +1077,6 @@ export class MultiSelect extends BaseComponent implements OnInit, AfterViewInit,
     @ContentChild(Footer) footerFacet: any;
 
     @ContentChild(Header) headerFacet: any;
-
-    @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<PrimeTemplate>>;
 
     _componentStyle = inject(MultiSelectStyle);
 

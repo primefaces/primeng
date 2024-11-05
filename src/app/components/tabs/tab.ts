@@ -18,7 +18,7 @@ import { Ripple } from 'primeng/ripple';
 import { DomHandler } from 'primeng/dom';
 import { Tabs } from './tabs';
 import { TabList } from './tablist';
-import { SharedModule } from '../api/shared';
+import { SharedModule } from 'primeng/api';
 
 /**
  * Defines valid properties in Tab component.

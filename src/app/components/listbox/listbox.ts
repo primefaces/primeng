@@ -5,7 +5,6 @@ import {
     Component,
     computed,
     ContentChild,
-    ContentChildren,
     ElementRef,
     EventEmitter,
     forwardRef,
@@ -16,14 +15,13 @@ import {
     OnDestroy,
     OnInit,
     Output,
-    QueryList,
     signal,
     TemplateRef,
     ViewChild,
     ViewEncapsulation,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FilterService, Footer, Header, PrimeTemplate, ScrollerOptions, SharedModule } from 'primeng/api';
+import { FilterService, Footer, Header, ScrollerOptions, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -664,7 +662,6 @@ export class Listbox extends BaseComponent implements AfterContentInit, OnInit, 
 
     @ContentChild(Footer) footerFacet: Nullable<TemplateRef<any>>;
 
-    @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
     /**
      * Custom item template.
      * @group Templates

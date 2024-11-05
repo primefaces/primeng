@@ -6,7 +6,6 @@ import {
     ChangeDetectionStrategy,
     Component,
     ContentChild,
-    ContentChildren,
     ElementRef,
     EventEmitter,
     inject,
@@ -466,8 +465,6 @@ export class OrderList extends BaseComponent implements AfterContentInit {
      * @group Templates
      */
     @ContentChild('filtericon') filterIconTemplate: TemplateRef<any> | undefined;
-
-    @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<PrimeTemplate>>;
 
     get moveUpAriaLabel() {
         return this.config.translation.aria ? this.config.translation.aria.moveUp : undefined;

@@ -1,13 +1,13 @@
 export default {
     root: {
-        transitionDuration: '{transition.duration}'
+        transitionDuration: '{transition.duration}',
     },
     header: {
         background: '{content.background}',
         borderColor: '{treetable.border.color}',
         color: '{content.color}',
         borderWidth: '0 0 1px 0',
-        padding: '0.75rem 1rem'
+        padding: '0.75rem 1rem',
     },
     headerCell: {
         background: '{content.background}',
@@ -24,11 +24,11 @@ export default {
             style: '{focus.ring.style}',
             color: '{focus.ring.color}',
             offset: '-1px',
-            shadow: '{focus.ring.shadow}'
-        }
+            shadow: '{focus.ring.shadow}',
+        },
     },
     columnTitle: {
-        fontWeight: '600'
+        fontWeight: '600',
     },
     row: {
         background: '{content.background}',
@@ -42,42 +42,42 @@ export default {
             style: '{focus.ring.style}',
             color: '{focus.ring.color}',
             offset: '-1px',
-            shadow: '{focus.ring.shadow}'
-        }
+            shadow: '{focus.ring.shadow}',
+        },
     },
     bodyCell: {
         borderColor: '{treetable.border.color}',
         padding: '0.75rem 1rem',
-        gap: '0.5rem'
+        gap: '0.5rem',
     },
     footerCell: {
         background: '{content.background}',
         borderColor: '{treetable.border.color}',
         color: '{content.color}',
-        padding: '0.75rem 1rem'
+        padding: '0.75rem 1rem',
     },
     columnFooter: {
-        fontWeight: '600'
+        fontWeight: '600',
     },
     footer: {
         background: '{content.background}',
         borderColor: '{treetable.border.color}',
         color: '{content.color}',
         borderWidth: '0 0 1px 0',
-        padding: '0.75rem 1rem'
+        padding: '0.75rem 1rem',
     },
     columnResizerWidth: '0.5rem',
     resizeIndicator: {
         width: '1px',
-        color: '{primary.color}'
+        color: '{primary.color}',
     },
     sortIcon: {
         color: '{text.muted.color}',
         hoverColor: '{text.hover.muted.color}',
-        size: '0.875rem'
+        size: '0.875rem',
     },
     loadingIcon: {
-        size: '2rem'
+        size: '2rem',
     },
     nodeToggleButton: {
         hoverBackground: '{content.hover.background}',
@@ -92,39 +92,39 @@ export default {
             style: '{focus.ring.style}',
             color: '{focus.ring.color}',
             offset: '{focus.ring.offset}',
-            shadow: '{focus.ring.shadow}'
-        }
+            shadow: '{focus.ring.shadow}',
+        },
     },
     paginatorTop: {
         borderColor: '{content.border.color}',
-        borderWidth: '0 0 1px 0'
+        borderWidth: '0 0 1px 0',
     },
     paginatorBottom: {
         borderColor: '{content.border.color}',
-        borderWidth: '0 0 1px 0'
+        borderWidth: '0 0 1px 0',
     },
     colorScheme: {
         light: {
             root: {
-                borderColor: '{content.border.color}'
+                borderColor: '{content.border.color}',
             },
             bodyCell: {
-                selectedBorderColor: '{primary.100}'
-            }
+                selectedBorderColor: '{primary.100}',
+            },
         },
         dark: {
             root: {
-                borderColor: '{surface.800}'
+                borderColor: '{surface.800}',
             },
             bodyCell: {
-                selectedBorderColor: '{primary.900}'
-            }
-        }
+                selectedBorderColor: '{primary.900}',
+            },
+        },
     },
     css: ({ dt }) => `
 .p-treetable-header-cell,
 .p-treetable-tbody > tr {
     transition: none;
 }
-`
+`,
 };

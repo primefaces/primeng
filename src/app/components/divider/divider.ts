@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, HostBinding, inject, Input, NgModul
 import { CommonModule } from '@angular/common';
 import { BaseComponent } from 'primeng/basecomponent';
 import { DividerStyle } from './style/dividerstyle';
-import { SharedModule } from '../api/shared';
+import { SharedModule } from 'primeng/api';
 
 /**
  * Divider is used to separate contents.

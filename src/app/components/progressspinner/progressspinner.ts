@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, Input, NgModule, ViewEncapsulation } from '@angular/core';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ProgressSpinnerStyle } from './style/progressspinnerstyle';
-import { SharedModule } from '../api/shared';
+import { SharedModule } from 'primeng/api';
 
 /**
  * ProgressSpinner is a process status indicator.

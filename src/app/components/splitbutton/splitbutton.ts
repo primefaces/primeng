@@ -27,7 +27,7 @@ import { ButtonProps, MenuButtonProps } from './splitbutton.interface';
 import { SplitButtonStyle } from './style/splitbuttonstyle';
 import { BaseComponent } from 'primeng/basecomponent';
 import { Ripple } from 'primeng/ripple';
-import { TooltipModule } from '../tooltip/tooltip';
+import { TooltipModule } from 'primeng/tooltip';
 
 type SplitButtonIconPosition = 'left' | 'right';
 /**

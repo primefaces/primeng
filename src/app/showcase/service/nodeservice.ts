@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { TreeNode } from '../../components/api/treenode';
+import { TreeNode } from 'primeng/api';
 
 @Injectable()
 export class NodeService {

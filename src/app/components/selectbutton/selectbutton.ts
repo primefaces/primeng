@@ -21,7 +21,7 @@ import { ToggleButton } from 'primeng/togglebutton';
 import { BaseComponent } from 'primeng/basecomponent';
 import { SelectButtonStyle } from './style/selectbuttonstyle';
 import { CommonModule } from '@angular/common';
-import { SharedModule } from '../api/shared';
+import { SharedModule } from 'primeng/api';
 
 export const SELECTBUTTON_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,

@@ -1,11 +1,11 @@
 export default {
     root: {
-        transitionDuration: '{transition.duration}'
+        transitionDuration: '{transition.duration}',
     },
     button: {
         width: '2.5rem',
         borderRadius: '{form.field.border.radius}',
-        verticalPadding: '{form.field.padding.y}'
+        verticalPadding: '{form.field.padding.y}',
     },
     colorScheme: {
         light: {
@@ -18,8 +18,8 @@ export default {
                 activeBorderColor: '{form.field.border.color}',
                 color: '{surface.600}',
                 hoverColor: '{surface.700}',
-                activeColor: '{surface.800}'
-            }
+                activeColor: '{surface.800}',
+            },
         },
         dark: {
             button: {
@@ -31,8 +31,8 @@ export default {
                 activeBorderColor: '{form.field.border.color}',
                 color: '{surface.300}',
                 hoverColor: '{surface.200}',
-                activeColor: '{surface.100}'
-            }
-        }
-    }
+                activeColor: '{surface.100}',
+            },
+        },
+    },
 };

@@ -1,6 +1,6 @@
 export default {
     root: {
-        transitionDuration: '{transition.duration}'
+        transitionDuration: '{transition.duration}',
     },
     panel: {
         background: '{content.background}',
@@ -8,27 +8,25 @@ export default {
         color: '{content.color}',
         borderRadius: '{content.border.radius}',
         shadow: '{overlay.popover.shadow}',
-        padding: '{overlay.popover.padding}'
+        padding: '{overlay.popover.padding}',
     },
     header: {
         background: '{content.background}',
         borderColor: '{content.border.color}',
         color: '{content.color}',
         padding: '0 0 0.5rem 0',
-        fontWeight: '500',
-        gap: '0.5rem'
     },
     title: {
         gap: '0.5rem',
-        fontWeight: '500'
+        fontWeight: '500',
     },
     dropdown: {
         width: '2.5rem',
         sm: {
-            width: '2rem'
+            width: '2rem',
         },
         lg: {
-            width: '3rem'
+            width: '3rem',
         },
         background: '{form.field.background}',
         color: '{form.field.icon.color}',
@@ -43,35 +41,35 @@ export default {
             style: '{focus.ring.style}',
             color: '{focus.ring.color}',
             offset: '{focus.ring.offset}',
-            shadow: '{focus.ring.shadow}'
-        }
+            shadow: '{focus.ring.shadow}',
+        },
     },
     inputIcon: {
-        color: '{form.field.icon.color}'
+        color: '{form.field.icon.color}',
     },
     selectMonth: {
         hoverBackground: '{content.hover.background}',
         color: '{content.color}',
         hoverColor: '{content.hover.color}',
-        padding: '0.25rem 0.5rem'
+        padding: '0.25rem 0.5rem',
     },
     selectYear: {
         hoverBackground: '{content.hover.background}',
         color: '{content.color}',
         hoverColor: '{content.hover.color}',
-        padding: '0.25rem 0.5rem'
+        padding: '0.25rem 0.5rem',
     },
     group: {
         borderColor: '{content.border.color}',
-        gap: '{overlay.popover.padding}'
+        gap: '{overlay.popover.padding}',
     },
     dayView: {
-        margin: '0.5rem 0 0 0'
+        margin: '0.5rem 0 0 0',
     },
     weekDay: {
         padding: '0.25rem',
         fontWeight: '500',
-        color: '{content.color}'
+        color: '{content.color}',
     },
     date: {
         hoverBackground: '{content.hover.background}',
@@ -90,53 +88,53 @@ export default {
             style: '{focus.ring.style}',
             color: '{focus.ring.color}',
             offset: '{focus.ring.offset}',
-            shadow: '{focus.ring.shadow}'
-        }
+            shadow: '{focus.ring.shadow}',
+        },
     },
     monthView: {
-        margin: '0.5rem 0 0 0'
+        margin: '0.5rem 0 0 0',
     },
     month: {
         padding: '0.375rem',
-        borderRadius: '{content.border.radius}'
+        borderRadius: '{content.border.radius}',
     },
     yearView: {
-        margin: '0.5rem 0 0 0'
+        margin: '0.5rem 0 0 0',
     },
     year: {
         padding: '0.375rem',
-        borderRadius: '{content.border.radius}'
+        borderRadius: '{content.border.radius}',
     },
     buttonbar: {
         padding: '0.5rem 0 0 0',
-        borderColor: '{content.border.color}'
+        borderColor: '{content.border.color}',
     },
     timePicker: {
         padding: '0.5rem 0 0 0',
         borderColor: '{content.border.color}',
         gap: '0.5rem',
-        buttonGap: '0.25rem'
+        buttonGap: '0.25rem',
     },
     colorScheme: {
         light: {
             dropdown: {
                 hoverBackground: '{surface.200}',
-                activeBackground: '{surface.300}'
+                activeBackground: '{surface.300}',
             },
             today: {
                 background: '{surface.200}',
-                color: '{surface.900}'
-            }
+                color: '{surface.900}',
+            },
         },
         dark: {
             dropdown: {
                 hoverBackground: '{surface.700}',
-                activeBackground: '{surface.600}'
+                activeBackground: '{surface.600}',
             },
             today: {
                 background: '{surface.700}',
-                color: '{surface.0}'
-            }
-        }
-    }
+                color: '{surface.0}',
+            },
+        },
+    },
 };

@@ -8,7 +8,6 @@ import {
     computed,
     contentChild,
     ContentChild,
-    ContentChildren,
     Directive,
     EventEmitter,
     inject,
@@ -17,12 +16,11 @@ import {
     numberAttribute,
     OnDestroy,
     Output,
-    QueryList,
     SimpleChanges,
     TemplateRef,
     ViewEncapsulation,
 } from '@angular/core';
-import { PrimeTemplate, SharedModule } from 'primeng/api';
+import { SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { SpinnerIcon } from 'primeng/icons/spinner';
 import { Ripple } from 'primeng/ripple';
@@ -656,8 +654,6 @@ export class Button extends BaseComponent implements AfterContentInit {
      * @group Templates
      **/
     @ContentChild('icon') iconTemplate: TemplateRef<any> | undefined;
-
-    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
     _buttonProps: any | undefined;
     /**

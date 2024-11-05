@@ -9,7 +9,6 @@ import {
     Component,
     computed,
     ContentChild,
-    ContentChildren,
     effect,
     ElementRef,
     EventEmitter,
@@ -904,8 +903,6 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
     @ViewChild('firstHiddenFocusableEl') firstHiddenFocusableElementOnOverlay: Nullable<ElementRef>;
 
     @ViewChild('lastHiddenFocusableEl') lastHiddenFocusableElementOnOverlay: Nullable<ElementRef>;
-
-    @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<PrimeTemplate>>;
 
     // @todo to be refactored
     @HostBinding('class') get hostClass() {

@@ -10,7 +10,7 @@ interface City {
     selector: 'select-size-demo',
     template: `
         <app-docsectiontext>
-        <p>Select provides <i>small</i> and <i>large</i> sizes as alternatives to the base.</p>
+            <p>Select provides <i>small</i> and <i>large</i> sizes as alternatives to the base.</p>
         </app-docsectiontext>
         <div class="card flex flex-col items-center gap-4">
             <p-select [(ngModel)]="value1" [options]="cities" optionLabel="name" size="small" placeholder="Small" class="w-full md:w-56" />
