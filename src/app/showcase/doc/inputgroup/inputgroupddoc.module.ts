@@ -42,7 +42,7 @@ import { MenuModule } from 'primeng/menu';
         InputNumberModule,
         FloatLabelModule,
         IftaLabelModule,
-        MenuModule
+        MenuModule,
     ],
     exports: [AppDocModule],
     declarations: [ImportDoc, BasicDoc, MultipleDoc, ButtonDoc, CheckboxDoc, FloatLabelDoc, IftaLabelDoc, AccessibilityDoc],

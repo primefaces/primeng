@@ -5,6 +5,6 @@ export default {
         color: '{form.field.icon.color}',
         borderRadius: '{form.field.border.radius}',
         padding: '0.75rem',
-        minWidth: '3rem'
-    }
+        minWidth: '3rem',
+    },
 };

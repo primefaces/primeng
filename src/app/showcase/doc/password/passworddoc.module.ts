@@ -55,7 +55,7 @@ import { SizesDoc } from './sizesdoc';
         AccessibilityDoc,
         ReactiveFormsDoc,
         FilledDoc,
-        SizesDoc
+        SizesDoc,
     ],
 })
 export class PasswordDocModule {}

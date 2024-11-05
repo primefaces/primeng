@@ -8,7 +8,6 @@ import {
     Component,
     computed,
     ContentChild,
-    ContentChildren,
     effect,
     ElementRef,
     EventEmitter,
@@ -791,8 +790,6 @@ export class AutoComplete extends BaseComponent implements AfterViewChecked, Aft
     @ViewChild('scroller') scroller: Nullable<Scroller>;
 
     @ViewChild('overlay') overlayViewChild!: Overlay;
-
-    @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<PrimeTemplate>>;
 
     _itemSize: Nullable<number>;
 

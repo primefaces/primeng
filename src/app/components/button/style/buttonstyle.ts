@@ -580,6 +580,24 @@ const theme = ({ dt }) => `
     color: ${dt('button.text.plain.color')};
 }
 
+.p-button-text.p-button-contrast {
+    background: transparent;
+    border-color: transparent;
+    color: ${dt('button.text.contrast.color')};
+}
+
+.p-button-text.p-button-contrast:not(:disabled):hover {
+    background: ${dt('button.text.contrast.hover.background')};
+    border-color: transparent;
+    color: ${dt('button.text.contrast.color')};
+}
+
+.p-button-text.p-button-contrast:not(:disabled):active {
+    background: ${dt('button.text.contrast.active.background')};
+    border-color: transparent;
+    color: ${dt('button.text.contrast.color')};
+}
+
 .p-button-link {
     background: transparent;
     border-color: transparent;

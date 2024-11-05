@@ -106,7 +106,6 @@ position: relative;
     align-items: center;
     justify-content: space-between;
     padding: ${dt('datepicker.header.padding')};
-    font-weight: ${dt('datepicker.header.font.weight')};
     background: ${dt('datepicker.header.background')};
     color: ${dt('datepicker.header.color')};
     border-bottom: 1px solid ${dt('datepicker.header.border.color')};

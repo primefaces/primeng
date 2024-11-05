@@ -7,7 +7,6 @@ import {
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
-    ContentChildren,
     DoCheck,
     ElementRef,
     EventEmitter,
@@ -28,7 +27,7 @@ import {
     SimpleChanges,
     TemplateRef,
     ViewChild,
-    ViewEncapsulation
+    ViewEncapsulation,
 } from '@angular/core';
 import { PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
@@ -266,8 +265,6 @@ export class Galleria extends BaseComponent implements OnChanges, OnDestroy {
     @ViewChild('mask') mask: ElementRef | undefined;
 
     @ViewChild('container') container: ElementRef | undefined;
-
-    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
     _visible: boolean = false;
 

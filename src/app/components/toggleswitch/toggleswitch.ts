@@ -26,7 +26,7 @@ import { AutoFocus } from 'primeng/autofocus';
 import { ToggleSwitchChangeEvent } from './toggleswitch.interface';
 import { ToggleSwitchStyle } from './style/toggleswitchstyle';
 import { BaseComponent } from 'primeng/basecomponent';
-import { PrimeTemplate, SharedModule } from '../api/shared';
+import { SharedModule } from 'primeng/api';
 
 /**
  * Context interface for the handle template.

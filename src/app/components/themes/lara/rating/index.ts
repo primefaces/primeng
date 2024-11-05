@@ -7,13 +7,13 @@ export default {
             style: '{focus.ring.style}',
             color: '{focus.ring.color}',
             offset: '{focus.ring.offset}',
-            shadow: '{focus.ring.shadow}'
-        }
+            shadow: '{focus.ring.shadow}',
+        },
     },
     icon: {
         size: '1.25rem',
         color: '{text.muted.color}',
         hoverColor: '{primary.color}',
-        activeColor: '{primary.color}'
-    }
+        activeColor: '{primary.color}',
+    },
 };

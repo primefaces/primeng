@@ -3,16 +3,14 @@ import {
     ChangeDetectionStrategy,
     Component,
     ContentChild,
-    ContentChildren,
     inject,
     Input,
     NgModule,
-    QueryList,
     signal,
     TemplateRef,
     ViewEncapsulation,
 } from '@angular/core';
-import { BlockableUI, Footer, Header, PrimeTemplate, SharedModule } from 'primeng/api';
+import { BlockableUI, Footer, Header, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ObjectUtils } from 'primeng/utils';
 import { CardStyle } from './style/cardstyle';
@@ -84,8 +82,6 @@ export class Card extends BaseComponent implements BlockableUI {
     @ContentChild(Header) headerFacet: TemplateRef<any> | undefined;
 
     @ContentChild(Footer) footerFacet: TemplateRef<any> | undefined;
-
-    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
     @ContentChild('header') headerTemplate: TemplateRef<any> | undefined;
 

@@ -176,10 +176,10 @@ const inlineStyles = {
 
 const classes = {
     root: ({ instance, props }) => [
-      'p-tieredmenu p-component',
+        'p-tieredmenu p-component',
         {
             'p-tieredmenu-overlay': props.popup,
-        }
+        },
     ],
     start: 'p-tieredmenu-start',
     rootList: 'p-tieredmenu-root-list',

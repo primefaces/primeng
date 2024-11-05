@@ -23,7 +23,7 @@ export class SizesDoc {
     value3: boolean = false;
 
     code: Code = {
-        basic:`<p-togglebutton [(ngModel)]="value1" onLabel="On" offLabel="Off" size="small" styleClass="min-w-16" />
+        basic: `<p-togglebutton [(ngModel)]="value1" onLabel="On" offLabel="Off" size="small" styleClass="min-w-16" />
 <p-togglebutton [(ngModel)]="value2" onLabel="On" offLabel="Off" styleClass="min-w-20" />
 <p-togglebutton [(ngModel)]="value3" onLabel="On" offLabel="Off" size="large" styleClass="min-w-24" />`,
 

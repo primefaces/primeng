@@ -1,14 +1,14 @@
 export default {
     root: {
-        transitionDuration: '{transition.duration}'
+        transitionDuration: '{transition.duration}',
     },
     track: {
         background: '{content.border.color}',
         borderRadius: '{content.border.radius}',
-        size: '3px'
+        size: '3px',
     },
     range: {
-        background: '{primary.color}'
+        background: '{primary.color}',
     },
     handle: {
         width: '16px',
@@ -21,26 +21,26 @@ export default {
             hoverBackground: '{primary.color}',
             width: '12px',
             height: '12px',
-            shadow: 'none'
+            shadow: 'none',
         },
         focusRing: {
             width: '{form.field.focus.ring.width}',
             style: '{form.field.focus.ring.style}',
             color: '{form.field.focus.ring.color}',
             offset: '{form.field.focus.ring.offset}',
-            shadow: '{form.field.focus.ring.shadow}'
-        }
+            shadow: '{form.field.focus.ring.shadow}',
+        },
     },
     colorScheme: {
         light: {
             handle: {
-                contentBackground: '{surface.0}'
-            }
+                contentBackground: '{surface.0}',
+            },
         },
         dark: {
             handle: {
-                contentBackground: '{surface.950}'
-            }
-        }
-    }
+                contentBackground: '{surface.950}',
+            },
+        },
+    },
 };

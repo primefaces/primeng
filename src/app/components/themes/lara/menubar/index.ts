@@ -5,11 +5,11 @@ export default {
         color: '{content.color}',
         gap: '0.5rem',
         padding: '0.75rem 1rem',
-        transitionDuration: '{transition.duration}'
+        transitionDuration: '{transition.duration}',
     },
     baseItem: {
         borderRadius: '{content.border.radius}',
-        padding: '0.75rem 1rem'
+        padding: '0.75rem 1rem',
     },
     item: {
         focusBackground: '{navigation.item.focus.background}',
@@ -23,8 +23,8 @@ export default {
         icon: {
             color: '{navigation.item.icon.color}',
             focusColor: '{navigation.item.icon.focus.color}',
-            activeColor: '{navigation.item.icon.active.color}'
-        }
+            activeColor: '{navigation.item.icon.active.color}',
+        },
     },
     submenu: {
         padding: '{navigation.list.padding}',
@@ -33,41 +33,41 @@ export default {
         borderColor: '{content.border.color}',
         borderRadius: '{content.border.radius}',
         shadow: '{overlay.navigation.shadow}',
-        mobileIndent: '1.25rem'
-    },
-    submenuIcon: {
-        size: '{navigation.submenu.icon.size}',
-        color: '{navigation.submenu.icon.color}',
-        focusColor: '{navigation.submenu.icon.focus.color}',
-        activeColor: '{navigation.submenu.icon.active.color}'
+        mobileIndent: '1.25rem',
+        icon: {
+            size: '{navigation.submenu.icon.size}',
+            color: '{navigation.submenu.icon.color}',
+            focusColor: '{navigation.submenu.icon.focus.color}',
+            activeColor: '{navigation.submenu.icon.active.color}',
+        },
     },
     separator: {
-        borderColor: '{content.border.color}'
+        borderColor: '{content.border.color}',
     },
     mobileButton: {
         borderRadius: '50%',
         size: '2rem',
         color: '{text.muted.color}',
-        hoverColor: '{text.muted.hover.color}',
+        hoverColor: '{text.hover.muted.color}',
         hoverBackground: '{content.hover.background}',
         focusRing: {
             width: '{focus.ring.width}',
             style: '{focus.ring.style}',
             color: '{focus.ring.color}',
             offset: '{focus.ring.offset}',
-            shadow: '{focus.ring.shadow}'
-        }
+            shadow: '{focus.ring.shadow}',
+        },
     },
     colorScheme: {
         light: {
             root: {
-                background: '{surface.50}'
-            }
+                background: '{surface.50}',
+            },
         },
         dark: {
             root: {
-                background: '{surface.800}'
-            }
-        }
-    }
+                background: '{surface.800}',
+            },
+        },
+    },
 };

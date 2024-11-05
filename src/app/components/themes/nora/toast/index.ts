@@ -3,25 +3,25 @@ export default {
         width: '25rem',
         borderRadius: '{content.border.radius}',
         borderWidth: '0 0 0 6px',
-        transitionDuration: '{transition.duration}'
+        transitionDuration: '{transition.duration}',
     },
     icon: {
-        size: '1.125rem'
+        size: '1.125rem',
     },
     content: {
         padding: '{overlay.popover.padding}',
-        gap: '0.5rem'
+        gap: '0.5rem',
     },
     text: {
-        gap: '0.5rem'
+        gap: '0.5rem',
     },
     summary: {
         fontWeight: '700',
-        fontSize: '1rem'
+        fontSize: '1rem',
     },
     detail: {
         fontWeight: '500',
-        fontSize: '0.875rem'
+        fontSize: '0.875rem',
     },
     closeButton: {
         width: '1.75rem',
@@ -30,11 +30,11 @@ export default {
         focusRing: {
             width: '{focus.ring.width}',
             style: '{focus.ring.style}',
-            offset: '{focus.ring.offset}'
-        }
+            offset: '{focus.ring.offset}',
+        },
     },
     closeIcon: {
-        size: '1rem'
+        size: '1rem',
     },
     colorScheme: {
         light: {
@@ -49,9 +49,9 @@ export default {
                     hoverBackground: '{blue.600}',
                     focusRing: {
                         color: '{blue.50}',
-                        shadow: 'none'
-                    }
-                }
+                        shadow: 'none',
+                    },
+                },
             },
             success: {
                 background: '{green.800}',
@@ -63,9 +63,9 @@ export default {
                     hoverBackground: '{green.600}',
                     focusRing: {
                         color: '{green.50}',
-                        shadow: 'none'
-                    }
-                }
+                        shadow: 'none',
+                    },
+                },
             },
             warn: {
                 background: '{yellow.600}',
@@ -77,9 +77,9 @@ export default {
                     hoverBackground: '{yellow.400}',
                     focusRing: {
                         color: '{yellow.50}',
-                        shadow: 'none'
-                    }
-                }
+                        shadow: 'none',
+                    },
+                },
             },
             error: {
                 background: '{red.800}',
@@ -91,9 +91,9 @@ export default {
                     hoverBackground: '{red.600}',
                     focusRing: {
                         color: '{red.50}',
-                        shadow: 'none'
-                    }
-                }
+                        shadow: 'none',
+                    },
+                },
             },
             secondary: {
                 background: '{surface.200}',
@@ -105,9 +105,9 @@ export default {
                     hoverBackground: '{surface.50}',
                     focusRing: {
                         color: '{surface.700}',
-                        shadow: 'none'
-                    }
-                }
+                        shadow: 'none',
+                    },
+                },
             },
             contrast: {
                 background: '{surface.900}',
@@ -119,10 +119,10 @@ export default {
                     hoverBackground: '{surface.700}',
                     focusRing: {
                         color: '{surface.50}',
-                        shadow: 'none'
-                    }
-                }
-            }
+                        shadow: 'none',
+                    },
+                },
+            },
         },
         dark: {
             blur: '0',
@@ -136,9 +136,9 @@ export default {
                     hoverBackground: '{blue.50}',
                     focusRing: {
                         color: '{blue.950}',
-                        shadow: 'none'
-                    }
-                }
+                        shadow: 'none',
+                    },
+                },
             },
             success: {
                 background: '{green.200}',
@@ -150,9 +150,9 @@ export default {
                     hoverBackground: '{green.50}',
                     focusRing: {
                         color: '{green.950}',
-                        shadow: 'none'
-                    }
-                }
+                        shadow: 'none',
+                    },
+                },
             },
             warn: {
                 background: '{yellow.200}',
@@ -164,9 +164,9 @@ export default {
                     hoverBackground: '{yellow.50}',
                     focusRing: {
                         color: '{yellow.950}',
-                        shadow: 'none'
-                    }
-                }
+                        shadow: 'none',
+                    },
+                },
             },
             error: {
                 background: '{red.200}',
@@ -178,9 +178,9 @@ export default {
                     hoverBackground: '{red.50}',
                     focusRing: {
                         color: '{red.950}',
-                        shadow: 'none'
-                    }
-                }
+                        shadow: 'none',
+                    },
+                },
             },
             secondary: {
                 background: '{surface.700}',
@@ -192,9 +192,9 @@ export default {
                     hoverBackground: '{surface.500}',
                     focusRing: {
                         color: '{surface.200}',
-                        shadow: 'none'
-                    }
-                }
+                        shadow: 'none',
+                    },
+                },
             },
             contrast: {
                 background: '{surface.0}',
@@ -206,10 +206,10 @@ export default {
                     hoverBackground: '{surface.200}',
                     focusRing: {
                         color: '{surface.950}',
-                        shadow: 'none'
-                    }
-                }
-            }
-        }
-    }
+                        shadow: 'none',
+                    },
+                },
+            },
+        },
+    },
 };

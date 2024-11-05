@@ -5,7 +5,7 @@ export default {
         borderRadius: '{content.border.radius}',
         color: '{content.color}',
         padding: '0 1.25rem 1.25rem 1.25rem',
-        transitionDuration: '{transition.duration}'
+        transitionDuration: '{transition.duration}',
     },
     legend: {
         background: '{content.background}',
@@ -23,20 +23,20 @@ export default {
             style: 'none',
             color: 'unset',
             offset: '0',
-            shadow: 'none'
-        }
+            shadow: 'none',
+        },
     },
     toggleIcon: {
         color: '{text.muted.color}',
-        hoverColor: '{text.hover.muted.color}'
+        hoverColor: '{text.hover.muted.color}',
     },
     content: {
-        padding: '0'
+        padding: '0',
     },
     css: ({ dt }) => `
 .p-fieldset-toggle-button:focus-visible {
     background: ${dt('navigation.item.active.background')};
 
 }
-`
+`,
 };

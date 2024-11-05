@@ -55,7 +55,7 @@ import { SizesDoc } from './sizesdoc';
         StyleDoc,
         AccessibilityDoc,
         ReactiveFormsDoc,
-        SizesDoc
+        SizesDoc,
     ],
 })
 export class InputNumberDocModule {}

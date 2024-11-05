@@ -1,16 +1,16 @@
 export default {
     event: {
-        minHeight: '5rem'
+        minHeight: '5rem',
     },
     horizontal: {
         eventContent: {
-            padding: '1rem 0'
-        }
+            padding: '1rem 0',
+        },
     },
     vertical: {
         eventContent: {
-            padding: '0 1rem'
-        }
+            padding: '0 1rem',
+        },
     },
     eventMarker: {
         size: '1.5rem',
@@ -21,23 +21,23 @@ export default {
             borderRadius: '50%',
             size: '0',
             background: '{primary.color}',
-            insetShadow: 'none'
-        }
+            insetShadow: 'none',
+        },
     },
     eventConnector: {
         color: '{content.border.color}',
-        size: '2px'
+        size: '2px',
     },
     colorScheme: {
         light: {
             eventMarker: {
-                borderColor: '{surface.0}'
-            }
+                borderColor: '{surface.0}',
+            },
         },
         dark: {
             eventMarker: {
-                borderColor: '{surface.900}'
-            }
-        }
-    }
+                borderColor: '{surface.900}',
+            },
+        },
+    },
 };

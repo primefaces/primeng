@@ -20,7 +20,7 @@ import { Nullable } from 'primeng/ts-helpers';
 import { UniqueComponentId } from 'primeng/utils';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ScrollPanelStyle } from './style/scrollpanelstyle';
-import { SharedModule } from '../api/shared';
+import { SharedModule } from 'primeng/api';
 
 /**
  * ScrollPanel is a cross browser, lightweight and themable alternative to native browser scrollbar.

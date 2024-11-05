@@ -39,7 +39,7 @@ import { SizesDoc } from './sizesdoc';
         RouterModule,
         FloatLabelModule,
         IftaLabelModule,
-        ButtonModule
+        ButtonModule,
     ],
     exports: [AppDocModule],
     declarations: [
@@ -60,7 +60,7 @@ import { SizesDoc } from './sizesdoc';
         DisabledDoc,
         InvalidDoc,
         FilledDoc,
-        SizesDoc
+        SizesDoc,
     ],
 })
 export class AutoCompleteDocModule {}

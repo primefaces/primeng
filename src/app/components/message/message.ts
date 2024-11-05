@@ -22,7 +22,7 @@ import { MessageStyle } from './style/messagestyle';
 import { Ripple } from 'primeng/ripple';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { TimesIcon } from 'primeng/icons/times';
-import { SharedModule } from '../api/shared';
+import { SharedModule } from 'primeng/api';
 
 /**
  * Message groups a collection of contents in tabs.

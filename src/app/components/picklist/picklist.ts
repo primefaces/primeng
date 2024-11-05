@@ -7,7 +7,6 @@ import {
     ChangeDetectionStrategy,
     Component,
     ContentChild,
-    ContentChildren,
     ElementRef,
     EventEmitter,
     inject,
@@ -732,8 +731,6 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
     @ViewChild('sourceFilter') sourceFilterViewChild: Nullable<ElementRef>;
 
     @ViewChild('targetFilter') targetFilterViewChild: Nullable<ElementRef>;
-
-    @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<PrimeTemplate>>;
 
     getButtonProps(direction: string) {
         switch (direction) {

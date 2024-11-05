@@ -1,16 +1,16 @@
 export default {
     root: {
-        transitionDuration: '{transition.duration}'
+        transitionDuration: '{transition.duration}',
     },
     separator: {
         background: '{content.border.color}',
         activeBackground: '{primary.color}',
         margin: '0 0 0 1.625rem',
-        size: '2px'
+        size: '2px',
     },
     step: {
         padding: '0.5rem',
-        gap: '1rem'
+        gap: '1rem',
     },
     stepHeader: {
         padding: '0',
@@ -20,14 +20,14 @@ export default {
             style: '{focus.ring.style}',
             color: '{focus.ring.color}',
             offset: '{focus.ring.offset}',
-            shadow: '{focus.ring.shadow}'
+            shadow: '{focus.ring.shadow}',
         },
-        gap: '0.5rem'
+        gap: '0.5rem',
     },
     stepTitle: {
         color: '{text.muted.color}',
         activeColor: '{primary.color}',
-        fontWeight: '700'
+        fontWeight: '700',
     },
     stepNumber: {
         background: '{content.background}',
@@ -40,14 +40,14 @@ export default {
         fontSize: '1.143rem',
         fontWeight: '500',
         borderRadius: '50%',
-        shadow: 'none'
+        shadow: 'none',
     },
     steppanels: {
-        padding: '0.875rem 0.5rem 1.125rem 0.5rem'
+        padding: '0.875rem 0.5rem 1.125rem 0.5rem',
     },
     steppanel: {
         background: '{content.background}',
         color: '{content.color}',
-        padding: '0 0 0 1rem'
-    }
+        padding: '0 0 0 1rem',
+    },
 };

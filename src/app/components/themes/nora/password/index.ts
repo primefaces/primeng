@@ -1,10 +1,10 @@
 export default {
     meter: {
         borderRadius: '{content.border.radius}',
-        height: '.75rem'
+        height: '.75rem',
     },
     icon: {
-        color: '{form.field.icon.color}'
+        color: '{form.field.icon.color}',
     },
     overlay: {
         background: '{overlay.popover.background}',
@@ -12,31 +12,31 @@ export default {
         borderRadius: '{overlay.popover.border.radius}',
         color: '{overlay.popover.color}',
         padding: '{overlay.popover.padding}',
-        shadow: '{overlay.popover.shadow}'
+        shadow: '{overlay.popover.shadow}',
     },
     content: {
-        gap: '0.5rem'
+        gap: '0.5rem',
     },
     colorScheme: {
         light: {
             meter: {
-                background: '{surface.300}'
+                background: '{surface.300}',
             },
             strength: {
                 weakBackground: '{red.600}',
                 mediumBackground: '{yellow.600}',
-                strongBackground: '{green.600}'
-            }
+                strongBackground: '{green.600}',
+            },
         },
         dark: {
             meter: {
-                background: '{surface.600}'
+                background: '{surface.600}',
             },
             strength: {
                 weakBackground: '{red.500}',
                 mediumBackground: '{yellow.500}',
-                strongBackground: '{green.500}'
-            }
-        }
-    }
+                strongBackground: '{green.500}',
+            },
+        },
+    },
 };

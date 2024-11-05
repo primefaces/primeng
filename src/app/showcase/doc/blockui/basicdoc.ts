@@ -10,9 +10,7 @@ import { Code } from '@domain/code';
         <div class="card">
             <p-button label="Block" (click)="blockedPanel = true" />
             <p-button label="Unblock" (click)="blockedPanel = false" />
-            <p-blockui [target]="pnl" [blocked]="blockedPanel">
-                <i class="pi pi-lock" style="font-size: 3rem"></i>
-            </p-blockui>
+            <p-blockui [target]="pnl" [blocked]="blockedPanel" />
             <p-panel #pnl header="Header" styleClass="mt-6">
                 <p class="m-0">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
@@ -31,9 +29,7 @@ export class BasicDoc {
     code: Code = {
         basic: `<p-button label="Block" (click)="blockedPanel = true" />
 <p-button label="Unblock" (click)="blockedPanel = false" />
-<p-blockui [target]="pnl" [blocked]="blockedPanel">
-    <i class="pi pi-lock" style="font-size: 3rem"></i>
-</p-blockui>
+<p-blockui [target]="pnl" [blocked]="blockedPanel" />
 <p-panel #pnl header="Header" styleClass="mt-6">
     <p class="m-0">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit...
@@ -42,9 +38,7 @@ export class BasicDoc {
         html: `<div class="card">
     <p-button label="Block" (click)="blockedPanel = true" />
     <p-button label="Unblock" (click)="blockedPanel = false" />
-    <p-blockui [target]="pnl" [blocked]="blockedPanel">
-        <i class="pi pi-lock" style="font-size: 3rem"></i>
-    </p-blockui>
+    <p-blockui [target]="pnl" [blocked]="blockedPanel" />
     <p-panel #pnl header="Header" styleClass="mt-6">
         <p class="m-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
             Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.

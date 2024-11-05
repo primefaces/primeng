@@ -21,20 +21,20 @@ export default {
             style: '{form.field.focus.ring.style}',
             color: '{form.field.focus.ring.color}',
             offset: '{form.field.focus.ring.offset}',
-            shadow: '{form.field.focus.ring.shadow}'
+            shadow: '{form.field.focus.ring.shadow}',
         },
-        transitionDuration: '{form.field.transition.duration}'
+        transitionDuration: '{form.field.transition.duration}',
     },
     overlay: {
         background: '{overlay.select.background}',
         borderColor: '{overlay.select.border.color}',
         borderRadius: '{overlay.select.border.radius}',
         color: '{overlay.select.color}',
-        shadow: '{overlay.select.shadow}'
+        shadow: '{overlay.select.shadow}',
     },
     list: {
         padding: '{list.padding}',
-        gap: '{list.gap}'
+        gap: '{list.gap}',
     },
     option: {
         focusBackground: '{list.option.focus.background}',
@@ -45,21 +45,21 @@ export default {
         selectedColor: '{list.option.selected.color}',
         selectedFocusColor: '{list.option.selected.focus.color}',
         padding: '{list.option.padding}',
-        borderRadius: '{list.option.border.radius}'
+        borderRadius: '{list.option.border.radius}',
     },
     optionGroup: {
         background: '{list.option.group.background}',
         color: '{list.option.group.color}',
         fontWeight: '{list.option.group.font.weight}',
-        padding: '{list.option.group.padding}'
+        padding: '{list.option.group.padding}',
     },
     dropdown: {
         width: '2.5rem',
         sm: {
-            width: '2rem'
+            width: '2rem',
         },
         lg: {
-            width: '3rem'
+            width: '3rem',
         },
         background: '{form.field.background}',
         color: '{form.field.icon.color}',
@@ -74,35 +74,35 @@ export default {
             style: '{focus.ring.style}',
             color: '{focus.ring.color}',
             offset: '{focus.ring.offset}',
-            shadow: '{focus.ring.shadow}'
-        }
+            shadow: '{focus.ring.shadow}',
+        },
     },
     chip: {
-        borderRadius: '{border.radius.xs}'
+        borderRadius: '{border.radius.xs}',
     },
     emptyMessage: {
-        padding: '{list.option.padding}'
+        padding: '{list.option.padding}',
     },
     colorScheme: {
         light: {
             chip: {
                 focusBackground: '{surface.300}',
-                color: '{surface.900}'
+                focusColor: '{surface.900}',
             },
             dropdown: {
                 hoverBackground: '{surface.200}',
-                activeBackground: '{surface.300}'
-            }
+                activeBackground: '{surface.300}',
+            },
         },
         dark: {
             chip: {
                 focusBackground: '{surface.600}',
-                color: '{surface.0}'
+                focusColor: '{surface.0}',
             },
             dropdown: {
                 hoverBackground: '{surface.700}',
-                activeBackground: '{surface.600}'
-            }
-        }
-    }
+                activeBackground: '{surface.600}',
+            },
+        },
+    },
 };
