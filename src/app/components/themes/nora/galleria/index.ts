@@ -3,7 +3,7 @@ export default {
         borderWidth: '1px',
         borderColor: '{content.border.color}',
         borderRadius: '{content.border.radius}',
-        transitionDuration: '{transition.duration}'
+        transitionDuration: '{transition.duration}',
     },
     navButton: {
         background: 'rgba(255, 255, 255, 0.1)',
@@ -13,25 +13,25 @@ export default {
         size: '3rem',
         gutter: '0.5rem',
         prev: {
-            borderRadius: '50%'
+            borderRadius: '50%',
         },
         next: {
-            borderRadius: '50%'
+            borderRadius: '50%',
         },
         focusRing: {
             width: '{focus.ring.width}',
             style: '{focus.ring.style}',
             color: '{focus.ring.color}',
             offset: '{focus.ring.offset}',
-            shadow: '{focus.ring.shadow}'
-        }
+            shadow: '{focus.ring.shadow}',
+        },
     },
     navIcon: {
-        size: '1.5rem'
+        size: '1.5rem',
     },
     thumbnailsContent: {
         background: '{content.background}',
-        padding: '1rem 0.25rem'
+        padding: '1rem 0.25rem',
     },
     thumbnailNavButton: {
         size: '2rem',
@@ -42,20 +42,20 @@ export default {
             style: '{focus.ring.style}',
             color: '{focus.ring.color}',
             offset: '{focus.ring.offset}',
-            shadow: '{focus.ring.shadow}'
-        }
+            shadow: '{focus.ring.shadow}',
+        },
     },
     thumbnailNavButtonIcon: {
-        size: '1rem'
+        size: '1rem',
     },
     caption: {
         background: 'rgba(0, 0, 0, 0.5)',
         color: '{surface.100}',
-        padding: '1rem'
+        padding: '1rem',
     },
     indicatorList: {
         gap: '0.5rem',
-        padding: '1rem'
+        padding: '1rem',
     },
     indicatorButton: {
         width: '1rem',
@@ -67,20 +67,16 @@ export default {
             style: '{focus.ring.style}',
             color: '{focus.ring.color}',
             offset: '{focus.ring.offset}',
-            shadow: '{focus.ring.shadow}'
-        }
+            shadow: '{focus.ring.shadow}',
+        },
     },
     insetIndicatorList: {
-        background: 'rgba(0, 0, 0, 0.5)'
+        background: 'rgba(0, 0, 0, 0.5)',
     },
     insetIndicatorButton: {
         background: 'rgba(255, 255, 255, 0.4)',
         hoverBackground: 'rgba(255, 255, 255, 0.6)',
-        activeBackground: 'rgba(255, 255, 255, 0.9)'
-    },
-    mask: {
-        background: '{mask.background}',
-        color: '{mask.color}'
+        activeBackground: 'rgba(255, 255, 255, 0.9)',
     },
     closeButton: {
         size: '3rem',
@@ -95,34 +91,34 @@ export default {
             style: '{focus.ring.style}',
             color: '{focus.ring.color}',
             offset: '{focus.ring.offset}',
-            shadow: '{focus.ring.shadow}'
-        }
+            shadow: '{focus.ring.shadow}',
+        },
     },
     closeButtonIcon: {
-        size: '1.5rem'
+        size: '1.5rem',
     },
     colorScheme: {
         light: {
             thumbnailNavButton: {
                 hoverBackground: '{surface.200}',
                 color: '{text.color}',
-                hoverColor: '{text.hover.color}'
+                hoverColor: '{text.hover.color}',
             },
             indicatorButton: {
                 background: '{surface.300}',
-                hoverBackground: '{surface.400}'
-            }
+                hoverBackground: '{surface.400}',
+            },
         },
         dark: {
             thumbnailNavButton: {
                 hoverBackground: '{surface.700}',
                 color: '{surface.0}',
-                hoverColor: '{surface.0}'
+                hoverColor: '{surface.0}',
             },
             indicatorButton: {
                 background: '{surface.600}',
-                hoverBackground: '{surface.500}'
-            }
-        }
-    }
+                hoverBackground: '{surface.500}',
+            },
+        },
+    },
 };

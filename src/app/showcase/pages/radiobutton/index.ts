@@ -52,7 +52,7 @@ export class RadioButtonDemo {
         {
             id: 'sizes',
             label: 'Sizes',
-            component: SizesDoc
+            component: SizesDoc,
         },
         {
             id: 'invalid',

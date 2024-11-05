@@ -37,7 +37,7 @@ import { SizesDoc } from './sizesdoc';
         RouterModule,
         FloatLabelModule,
         IftaLabelModule,
-        ButtonModule
+        ButtonModule,
     ],
     exports: [AppDocModule],
     declarations: [
@@ -57,7 +57,7 @@ import { SizesDoc } from './sizesdoc';
         FilledDoc,
         IftaLabelDoc,
         TemplateDoc,
-        SizesDoc
+        SizesDoc,
     ],
 })
 export class TreeSelectDocModule {}

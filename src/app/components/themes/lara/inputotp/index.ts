@@ -1,14 +1,14 @@
 export default {
     root: {
-        gap: '0.5rem'
+        gap: '0.5rem',
     },
     input: {
         width: '2.5rem',
         sm: {
-            width: '2rem'
+            width: '2rem',
         },
         lg: {
-            width: '3rem'
-        }
-    }
+            width: '3rem',
+        },
+    },
 };

@@ -27,7 +27,7 @@ import { StyleDoc } from './styledoc';
 import { TemplateDoc } from './templatedoc';
 import { TextDoc } from './textdoc';
 import { ButtonGroupDoc } from './buttongroupdoc';
-import { WindowMaximizeIcon } from '../../../components/icons/windowmaximize/windowmaximize';
+import { WindowMaximizeIcon } from 'primeng/icons/windowmaximize';
 
 @NgModule({
     imports: [CommonModule, AppCodeModule, AppDocModule, ButtonModule, ButtonGroupModule, RippleModule, RouterModule, WindowMaximizeIcon],

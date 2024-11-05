@@ -8,7 +8,6 @@ import {
     ChangeDetectionStrategy,
     Component,
     computed,
-    ContentChildren,
     effect,
     ElementRef,
     EventEmitter,
@@ -879,8 +878,6 @@ export class Dropdown extends BaseComponent implements OnInit, AfterViewInit, Af
     @ViewChild('firstHiddenFocusableEl') firstHiddenFocusableElementOnOverlay: Nullable<ElementRef>;
 
     @ViewChild('lastHiddenFocusableEl') lastHiddenFocusableElementOnOverlay: Nullable<ElementRef>;
-
-    @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<PrimeTemplate>>;
 
     // @todo to be refactored
     @HostBinding('class') get hostClass() {

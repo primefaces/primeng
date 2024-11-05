@@ -3,15 +3,13 @@ import {
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
-    ContentChildren,
     inject,
     Input,
     NgModule,
-    QueryList,
     TemplateRef,
     ViewEncapsulation,
 } from '@angular/core';
-import { PrimeTemplate, SharedModule } from 'primeng/api';
+import { SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { TagStyle } from './style/tagstyle';
 
@@ -77,8 +75,6 @@ export class Tag extends BaseComponent {
      * @group Props
      */
     @Input({ transform: booleanAttribute }) rounded: boolean | undefined;
-
-    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
     iconTemplate: TemplateRef<any> | undefined;
 

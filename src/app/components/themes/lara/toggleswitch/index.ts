@@ -10,7 +10,7 @@ export default {
             style: '{form.field.focus.ring.style}',
             color: '{form.field.focus.ring.color}',
             offset: '{form.field.focus.ring.offset}',
-            shadow: '{form.field.focus.ring.shadow}'
+            shadow: '{form.field.focus.ring.shadow}',
         },
         borderWidth: '1px',
         borderColor: 'transparent',
@@ -19,11 +19,11 @@ export default {
         checkedHoverBorderColor: 'transparent',
         invalidBorderColor: '{form.field.invalid.border.color}',
         transitionDuration: '{form.field.transition.duration}',
-        slideDuration: '0.2s'
+        slideDuration: '0.2s',
     },
     handle: {
         borderRadius: '50%',
-        size: '1.25rem'
+        size: '1.25rem',
     },
     colorScheme: {
         light: {
@@ -32,7 +32,7 @@ export default {
                 disabledBackground: '{form.field.disabled.background}',
                 hoverBackground: '{surface.400}',
                 checkedBackground: '{primary.color}',
-                checkedHoverBackground: '{primary.hover.color}'
+                checkedHoverBackground: '{primary.hover.color}',
             },
             handle: {
                 background: '{surface.0}',
@@ -43,8 +43,8 @@ export default {
                 color: '{text.muted.color}',
                 hoverColor: '{text.color}',
                 checkedColor: '{primary.color}',
-                checkedHoverColor: '{primary.hover.color}'
-            }
+                checkedHoverColor: '{primary.hover.color}',
+            },
         },
         dark: {
             root: {
@@ -52,7 +52,7 @@ export default {
                 disabledBackground: '{surface.600}',
                 hoverBackground: '{surface.600}',
                 checkedBackground: '{primary.color}',
-                checkedHoverBackground: '{primary.hover.color}'
+                checkedHoverBackground: '{primary.hover.color}',
             },
             handle: {
                 background: '{surface.400}',
@@ -63,8 +63,8 @@ export default {
                 color: '{surface.900}',
                 hoverColor: '{surface.800}',
                 checkedColor: '{primary.color}',
-                checkedHoverColor: '{primary.hover.color}'
-            }
-        }
-    }
+                checkedHoverColor: '{primary.hover.color}',
+            },
+        },
+    },
 };

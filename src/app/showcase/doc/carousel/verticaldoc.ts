@@ -13,7 +13,14 @@ import { ProductService } from '@service/productservice';
             </p>
         </app-docsectiontext>
         <div class="card">
-            <p-carousel [value]="products" [numVisible]="1" [numScroll]="1" orientation="vertical" verticalViewPortHeight="330px" contentClass="flex items-center">
+            <p-carousel
+                [value]="products"
+                [numVisible]="1"
+                [numScroll]="1"
+                orientation="vertical"
+                verticalViewPortHeight="330px"
+                contentClass="flex items-center"
+            >
                 <ng-template let-product #item>
                     <div class="border border-surface-200 dark:border-surface-700 rounded m-2 p-4">
                         <div class="mb-4">

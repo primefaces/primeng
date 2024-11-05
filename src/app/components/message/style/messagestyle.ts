@@ -25,7 +25,7 @@ const theme = ({ dt }) => `
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    margin: 0 0 0 auto;
+    margin-inline-start: auto;
     overflow: hidden;
     position: relative;
     width: ${dt('message.close.button.width')};
@@ -75,7 +75,7 @@ const theme = ({ dt }) => `
 }
 
 .p-message-info.p-message-simple {
-    color: ${dt('message.info.plain.color')};
+    color: ${dt('message.info.simple.color')};
 }
 
 .p-message-success {
@@ -100,7 +100,7 @@ const theme = ({ dt }) => `
 }
 
 .p-message-success.p-message-simple {
-    color: ${dt('message.success.plain.color')};
+    color: ${dt('message.success.simple.color')};
 }
 
 .p-message-warn {
@@ -125,7 +125,7 @@ const theme = ({ dt }) => `
 }
 
 .p-message-warn.p-message-simple {
-    color: ${dt('message.warn.plain.color')};
+    color: ${dt('message.warn.simple.color')};
 }
 
 .p-message-error {
@@ -150,7 +150,7 @@ const theme = ({ dt }) => `
 }
 
 .p-message-error.p-message-simple {
-    color: ${dt('message.error.plain.color')};
+    color: ${dt('message.error.simple.color')};
 }
 
 .p-message-secondary {
@@ -175,7 +175,7 @@ const theme = ({ dt }) => `
 }
 
 .p-message-secondary.p-message-simple {
-    color: ${dt('message.secondary.plain.color')};
+    color: ${dt('message.secondary.simple.color')};
 }
 
 .p-message-contrast {
@@ -200,7 +200,7 @@ const theme = ({ dt }) => `
 }
 
 .p-message-contrast.p-message-simple {
-    color: ${dt('message.contrast.plain.color')};
+    color: ${dt('message.contrast.simple.color')};
 }
 
 .p-message-text {
@@ -292,11 +292,14 @@ const theme = ({ dt }) => `
     box-shadow: none;
 }
 
+.p-message-simple .p-message-content {
+    padding: ${dt('message.simple.content.padding')};
+}
+
 .p-message-outlined .p-message-close-button:hover,
 .p-message-simple .p-message-close-button:hover {
     background: transparent;
-}
-`;
+}`;
 
 const classes = {
     root: ({ props }) => ['p-message p-component p-message-' + props.severity, { 'p-message-simple': props.variant === 'simple' }],

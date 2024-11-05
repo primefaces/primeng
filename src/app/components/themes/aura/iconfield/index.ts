@@ -1,5 +1,5 @@
 export default {
     icon: {
-        color: '{form.field.icon.color}'
-    }
+        color: '{form.field.icon.color}',
+    },
 };

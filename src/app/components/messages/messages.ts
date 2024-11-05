@@ -5,7 +5,6 @@ import {
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
-    ContentChildren,
     EventEmitter,
     inject,
     Input,
@@ -13,11 +12,10 @@ import {
     OnDestroy,
     Optional,
     Output,
-    QueryList,
     TemplateRef,
     ViewEncapsulation,
 } from '@angular/core';
-import { MessageService, PrimeTemplate, SharedModule, ToastMessageOptions } from 'primeng/api';
+import { MessageService, SharedModule, ToastMessageOptions } from 'primeng/api';
 import { CheckIcon } from 'primeng/icons/check';
 import { ExclamationTriangleIcon } from 'primeng/icons/exclamationtriangle';
 import { InfoCircleIcon } from 'primeng/icons/infocircle';
@@ -221,8 +219,6 @@ export class Messages extends BaseComponent implements AfterContentInit, OnDestr
      * @group Emits
      */
     @Output() onClose: EventEmitter<ToastMessageOptions> = new EventEmitter<ToastMessageOptions>();
-
-    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
     messages: ToastMessageOptions[] | null | undefined;
 

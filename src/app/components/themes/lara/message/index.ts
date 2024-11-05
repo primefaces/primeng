@@ -2,36 +2,36 @@ export default {
     root: {
         borderRadius: '{content.border.radius}',
         borderWidth: '1px',
-        transitionDuration: '{transition.duration}'
+        transitionDuration: '{transition.duration}',
     },
     content: {
         padding: '0.75rem 1rem',
         gap: '0.5rem',
         sm: {
-            padding: '0.5rem 0.625rem'
+            padding: '0.5rem 0.625rem',
         },
         lg: {
-            padding: '0.75rem 0.875rem'
-        }
+            padding: '0.75rem 0.875rem',
+        },
     },
     text: {
         fontSize: '1rem',
         fontWeight: '500',
         sm: {
-            fontSize: '0.875rem'
+            fontSize: '0.875rem',
         },
         lg: {
-            fontSize: '1.125rem'
-        }
+            fontSize: '1.125rem',
+        },
     },
     icon: {
         size: '1.25rem',
         sm: {
-            size: '1rem'
+            size: '1rem',
         },
         lg: {
-            size: '1.5rem'
-        }
+            size: '1.5rem',
+        },
     },
     closeButton: {
         width: '2rem',
@@ -40,22 +40,27 @@ export default {
         focusRing: {
             width: '{focus.ring.width}',
             style: '{focus.ring.style}',
-            offset: '{focus.ring.offset}'
-        }
+            offset: '{focus.ring.offset}',
+        },
     },
     closeIcon: {
         size: '1rem',
         sm: {
-            fontSize: '0.875rem'
+            fontSize: '0.875rem',
         },
         lg: {
-            fontSize: '1.125rem'
-        }
+            fontSize: '1.125rem',
+        },
     },
     outlined: {
         root: {
-            borderWidth: '1px'
-        }
+            borderWidth: '1px',
+        },
+    },
+    simple: {
+        content: {
+            padding: '0',
+        },
     },
     colorScheme: {
         light: {
@@ -68,16 +73,16 @@ export default {
                     hoverBackground: '{blue.100}',
                     focusRing: {
                         color: '{focus.ring.color}',
-                        shadow: '0 0 0 0.2rem {blue.200}'
-                    }
+                        shadow: '0 0 0 0.2rem {blue.200}',
+                    },
                 },
                 outlined: {
                     color: '{blue.600}',
-                    borderColor: '{blue.600}'
+                    borderColor: '{blue.600}',
                 },
-                plain: {
-                    color: '{blue.600}'
-                }
+                simple: {
+                    color: '{blue.600}',
+                },
             },
             success: {
                 background: 'color-mix(in srgb, {green.50}, transparent 5%)',
@@ -88,16 +93,16 @@ export default {
                     hoverBackground: '{green.100}',
                     focusRing: {
                         color: '{focus.ring.color}',
-                        shadow: '0 0 0 0.2rem {green.200}'
-                    }
+                        shadow: '0 0 0 0.2rem {green.200}',
+                    },
                 },
                 outlined: {
                     color: '{green.600}',
-                    borderColor: '{green.600}'
+                    borderColor: '{green.600}',
                 },
-                plain: {
-                    color: '{green.600}'
-                }
+                simple: {
+                    color: '{green.600}',
+                },
             },
             warn: {
                 background: 'color-mix(in srgb,{yellow.50}, transparent 5%)',
@@ -108,16 +113,16 @@ export default {
                     hoverBackground: '{yellow.100}',
                     focusRing: {
                         color: '{focus.ring.color}',
-                        shadow: '0 0 0 0.2rem {yellow.200}'
-                    }
+                        shadow: '0 0 0 0.2rem {yellow.200}',
+                    },
                 },
                 outlined: {
                     color: '{yellow.600}',
-                    borderColor: '{yellow.600}'
+                    borderColor: '{yellow.600}',
                 },
-                plain: {
-                    color: '{yellow.600}'
-                }
+                simple: {
+                    color: '{yellow.600}',
+                },
             },
             error: {
                 background: 'color-mix(in srgb, {red.50}, transparent 5%)',
@@ -128,16 +133,16 @@ export default {
                     hoverBackground: '{red.100}',
                     focusRing: {
                         color: '{focus.ring.color}',
-                        shadow: '0 0 0 0.2rem {red.200}'
-                    }
+                        shadow: '0 0 0 0.2rem {red.200}',
+                    },
                 },
                 outlined: {
                     color: '{red.600}',
-                    borderColor: '{red.600}'
+                    borderColor: '{red.600}',
                 },
-                plain: {
-                    color: '{red.600}'
-                }
+                simple: {
+                    color: '{red.600}',
+                },
             },
             secondary: {
                 background: '{surface.100}',
@@ -148,16 +153,16 @@ export default {
                     hoverBackground: '{surface.200}',
                     focusRing: {
                         color: '{focus.ring.color}',
-                        shadow: '0 0 0 0.2rem {surface.200}'
-                    }
+                        shadow: '0 0 0 0.2rem {surface.200}',
+                    },
                 },
                 outlined: {
                     color: '{surface.500}',
-                    borderColor: '{surface.500}'
+                    borderColor: '{surface.500}',
                 },
-                plain: {
-                    color: '{surface.500}'
-                }
+                simple: {
+                    color: '{surface.500}',
+                },
             },
             contrast: {
                 background: '{surface.900}',
@@ -168,17 +173,17 @@ export default {
                     hoverBackground: '{surface.800}',
                     focusRing: {
                         color: '{focus.ring.color}',
-                        shadow: '0 0 0 0.2rem {surface.400}'
-                    }
+                        shadow: '0 0 0 0.2rem {surface.400}',
+                    },
                 },
                 outlined: {
                     color: '{surface.900}',
-                    borderColor: '{surface.900}'
+                    borderColor: '{surface.900}',
                 },
-                plain: {
-                    color: '{surface.900}'
-                }
-            }
+                simple: {
+                    color: '{surface.900}',
+                },
+            },
         },
         dark: {
             info: {
@@ -190,16 +195,16 @@ export default {
                     hoverBackground: 'rgba(255, 255, 255, 0.05)',
                     focusRing: {
                         color: '{focus.ring.color}',
-                        shadow: '0 0 0 0.2rem color-mix(in srgb, {blue.500}, transparent 80%)'
-                    }
+                        shadow: '0 0 0 0.2rem color-mix(in srgb, {blue.500}, transparent 80%)',
+                    },
                 },
                 outlined: {
                     color: '{blue.500}',
-                    borderColor: '{blue.500}'
+                    borderColor: '{blue.500}',
                 },
-                plain: {
-                    color: '{blue.500}'
-                }
+                simple: {
+                    color: '{blue.500}',
+                },
             },
             success: {
                 background: 'color-mix(in srgb, {green.500}, transparent 84%)',
@@ -210,16 +215,16 @@ export default {
                     hoverBackground: 'rgba(255, 255, 255, 0.05)',
                     focusRing: {
                         color: '{focus.ring.color}',
-                        shadow: '0 0 0 0.2rem color-mix(in srgb, {green.500}, transparent 80%)'
-                    }
+                        shadow: '0 0 0 0.2rem color-mix(in srgb, {green.500}, transparent 80%)',
+                    },
                 },
                 outlined: {
                     color: '{green.500}',
-                    borderColor: '{green.500}'
+                    borderColor: '{green.500}',
                 },
-                plain: {
-                    color: '{green.500}'
-                }
+                simple: {
+                    color: '{green.500}',
+                },
             },
             warn: {
                 background: 'color-mix(in srgb, {yellow.500}, transparent 84%)',
@@ -230,16 +235,16 @@ export default {
                     hoverBackground: 'rgba(255, 255, 255, 0.05)',
                     focusRing: {
                         color: '{focus.ring.color}',
-                        shadow: '0 0 0 0.2rem color-mix(in srgb, {yellow.500}, transparent 80%)'
-                    }
+                        shadow: '0 0 0 0.2rem color-mix(in srgb, {yellow.500}, transparent 80%)',
+                    },
                 },
                 outlined: {
                     color: '{yellow.500}',
-                    borderColor: '{yellow.500}'
+                    borderColor: '{yellow.500}',
                 },
-                plain: {
-                    color: '{yellow.500}'
-                }
+                simple: {
+                    color: '{yellow.500}',
+                },
             },
             error: {
                 background: 'color-mix(in srgb, {red.500}, transparent 84%)',
@@ -250,16 +255,16 @@ export default {
                     hoverBackground: 'rgba(255, 255, 255, 0.05)',
                     focusRing: {
                         color: '{focus.ring.color}',
-                        shadow: '0 0 0 0.2rem color-mix(in srgb, {red.500}, transparent 80%)'
-                    }
+                        shadow: '0 0 0 0.2rem color-mix(in srgb, {red.500}, transparent 80%)',
+                    },
                 },
                 outlined: {
                     color: '{red.500}',
-                    borderColor: '{red.500}'
+                    borderColor: '{red.500}',
                 },
-                plain: {
-                    color: '{red.500}'
-                }
+                simple: {
+                    color: '{red.500}',
+                },
             },
             secondary: {
                 background: '{surface.800}',
@@ -270,16 +275,16 @@ export default {
                     hoverBackground: '{surface.700}',
                     focusRing: {
                         color: '{focus.ring.color}',
-                        shadow: '0 0 0 0.2rem color-mix(in srgb, {surface.300}, transparent 80%)'
-                    }
+                        shadow: '0 0 0 0.2rem color-mix(in srgb, {surface.300}, transparent 80%)',
+                    },
                 },
                 outlined: {
                     color: '{surface.400}',
-                    borderColor: '{surface.400}'
+                    borderColor: '{surface.400}',
                 },
-                plain: {
-                    color: '{surface.400}'
-                }
+                simple: {
+                    color: '{surface.400}',
+                },
             },
             contrast: {
                 background: '{surface.0}',
@@ -290,17 +295,17 @@ export default {
                     hoverBackground: '{surface.100}',
                     focusRing: {
                         color: '{focus.ring.color}',
-                        shadow: '0 0 0 0.2rem color-mix(in srgb, {surface.950}, transparent 80%)'
-                    }
+                        shadow: '0 0 0 0.2rem color-mix(in srgb, {surface.950}, transparent 80%)',
+                    },
                 },
                 outlined: {
                     color: '{surface.0}',
-                    borderColor: '{surface.0}'
+                    borderColor: '{surface.0}',
                 },
-                plain: {
-                    color: '{surface.0}'
-                }
-            }
-        }
-    }
+                simple: {
+                    color: '{surface.0}',
+                },
+            },
+        },
+    },
 };

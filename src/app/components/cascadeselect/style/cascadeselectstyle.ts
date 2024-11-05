@@ -236,13 +236,16 @@ const theme = ({ dt }) => `
     justify-content: center;
     flex-shrink: 0;
     background: transparent;
-    color: ${dt('cascadeselect.dropdown.color')};
+    color: ${dt('cascadeselect.clear.icon.color')};
 }
 
 p-cascadeselect.ng-invalid.ng-dirty > .p-inputwrapper {
     border-color: ${dt('cascadeselect.invalid.border.color')};
 }
-`;
+
+p-cascadeselect.ng-invalid.ng-dirty > .p-inputwrapper > .p-cascadeselect-label.p-placeholder {
+    color: ${dt('cascadeselect.invalid.placeholder.color')};
+}`;
 
 const inlineStyles = {
     root: ({ props }) => ({ position: props.appendTo === 'self' ? 'relative' : undefined }),

@@ -169,7 +169,7 @@ input.p-select-label {
     transition: background ${dt('select.transition.duration')}, color ${dt('select.transition.duration')}, border-color ${dt(
         'select.transition.duration',
     )},
-            box-shadow ${dt('select.transition.duration')}, outline-color ${dt('select.transition.duration')};
+    box-shadow ${dt('select.transition.duration')}, outline-color ${dt('select.transition.duration')};
     border-radius: ${dt('select.option.border.radius')};
 }
 
@@ -211,6 +211,10 @@ input.p-select-label {
     outline-offset: 0;
 }
 
+.p-dropdown.ng-invalid.ng-dirty .p-dropdown-label.p-placeholder,
+.p-select.ng-invalid.ng-dirty .p-select-label.p-placeholder {
+    color: ${dt('select.invalid.placeholder.color')};
+}
 `;
 
 const classes = {
@@ -225,7 +229,7 @@ const classes = {
             'p-select-open': instance.overlayVisible,
             'p-select-fluid': instance.fluid,
             'p-select-sm p-inputfield-sm': instance.size === 'small',
-            'p-select-lg p-inputfield-lg': instance.size === 'large'
+            'p-select-lg p-inputfield-lg': instance.size === 'large',
         },
     ],
     label: ({ instance, props }) => [

@@ -23,7 +23,7 @@ import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
 import { DomHandler } from 'primeng/dom';
 import { DockStyle } from './style/dockstyle';
 import { BaseComponent } from 'primeng/basecomponent';
-import { Divider } from '../divider/divider';
+import { Divider } from 'primeng/divider';
 
 /**
  * Dock is a navigation component consisting of menuitems.

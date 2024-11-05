@@ -13,25 +13,25 @@ export default {
             style: '{focus.ring.style}',
             color: '{focus.ring.color}',
             offset: '{focus.ring.offset}',
-            shadow: '{focus.ring.shadow}'
+            shadow: '{focus.ring.shadow}',
         },
         transitionDuration: '{form.field.transition.duration}',
         sm: {
             fontSize: '{form.field.sm.font.size}',
-            padding: '0.375rem 0.75rem'
+            padding: '0.375rem 0.75rem',
         },
         lg: {
             fontSize: '{form.field.lg.font.size}',
-            padding: '0.625rem 1.25rem'
-        }
+            padding: '0.625rem 1.25rem',
+        },
     },
     icon: {
-        disabledColor: '{form.field.disabled.color}'
+        disabledColor: '{form.field.disabled.color}',
     },
     content: {
         left: '0.25rem',
         top: '0.25rem',
-        checkedShadow: '0px 1px 2px 0px rgba(0, 0, 0, 0.02), 0px 1px 2px 0px rgba(0, 0, 0, 0.04)'
+        checkedShadow: '0px 1px 2px 0px rgba(0, 0, 0, 0.02), 0px 1px 2px 0px rgba(0, 0, 0, 0.04)',
     },
     colorScheme: {
         light: {
@@ -43,16 +43,16 @@ export default {
                 color: '{surface.500}',
                 hoverColor: '{surface.700}',
                 checkedColor: '{surface.900}',
-                checkedBorderColor: '{surface.100}'
+                checkedBorderColor: '{surface.100}',
             },
             content: {
-                checkedBackground: '{surface.0}'
+                checkedBackground: '{surface.0}',
             },
             icon: {
                 color: '{surface.500}',
                 hoverColor: '{surface.700}',
-                checkedColor: '{surface.900}'
-            }
+                checkedColor: '{surface.900}',
+            },
         },
         dark: {
             root: {
@@ -63,16 +63,16 @@ export default {
                 color: '{surface.400}',
                 hoverColor: '{surface.300}',
                 checkedColor: '{surface.0}',
-                checkedBorderColor: '{surface.950}'
+                checkedBorderColor: '{surface.950}',
             },
             content: {
-                checkedBackground: '{surface.800}'
+                checkedBackground: '{surface.800}',
             },
             icon: {
                 color: '{surface.400}',
                 hoverColor: '{surface.300}',
-                checkedColor: '{surface.0}'
-            }
-        }
-    }
+                checkedColor: '{surface.0}',
+            },
+        },
+    },
 };

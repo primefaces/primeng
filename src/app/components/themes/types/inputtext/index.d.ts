@@ -34,6 +34,12 @@ export interface InputTextDesignTokens extends ColorSchemeDesignToken<InputTextD
          */
         filledBackground?: string;
         /**
+         * Filled hover background of root
+         *
+         * @designToken inputtext.filled.hover.background
+         */
+        filledHoverBackground?: string;
+        /**
          * Filled focus background of root
          *
          * @designToken inputtext.filled.focus.background
@@ -81,6 +87,12 @@ export interface InputTextDesignTokens extends ColorSchemeDesignToken<InputTextD
          * @designToken inputtext.placeholder.color
          */
         placeholderColor?: string;
+        /**
+         * Invalid placeholder color of root
+         *
+         * @designToken inputtext.invalid.placeholder.color
+         */
+        invalidPlaceholderColor?: string;
         /**
          * Shadow of root
          *

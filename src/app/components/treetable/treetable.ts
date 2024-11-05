@@ -6,7 +6,6 @@ import {
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
-    ContentChildren,
     Directive,
     ElementRef,
     EventEmitter,
@@ -785,8 +784,6 @@ export class TreeTable extends BaseComponent implements AfterContentInit, OnInit
     @ViewChild('scrollableView') scrollableViewChild: Nullable<ElementRef>;
 
     @ViewChild('scrollableFrozenView') scrollableFrozenViewChild: Nullable<ElementRef>;
-
-    @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<PrimeTemplate>>;
 
     _value: TreeNode<any>[] | undefined = [];
 
@@ -3665,9 +3662,7 @@ export class TTEditableColumn implements AfterViewInit {
     `,
     encapsulation: ViewEncapsulation.None,
 })
-export class TreeTableCellEditor implements AfterContentInit {
-    @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<PrimeTemplate>>;
-
+export class TreeTableCellEditor extends BaseComponent implements AfterContentInit {
     inputTemplate: Nullable<TemplateRef<any>>;
 
     outputTemplate: Nullable<TemplateRef<any>>;
@@ -3675,9 +3670,12 @@ export class TreeTableCellEditor implements AfterContentInit {
     constructor(
         public tt: TreeTable,
         public editableColumn: TTEditableColumn,
-    ) {}
+    ) {
+        super();
+    }
 
     ngAfterContentInit() {
+        super.ngAfterContentInit();
         (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
             switch (item.getType()) {
                 case 'input':

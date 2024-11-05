@@ -7,7 +7,6 @@ import {
     ChangeDetectionStrategy,
     Component,
     ContentChild,
-    ContentChildren,
     ElementRef,
     EventEmitter,
     inject,
@@ -23,7 +22,7 @@ import {
     ViewEncapsulation,
 } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { MenuItem, PrimeTemplate, SharedModule } from 'primeng/api';
+import { MenuItem, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { ChevronLeftIcon } from 'primeng/icons/chevronleft';
 import { ChevronRightIcon } from 'primeng/icons/chevronright';
@@ -276,8 +275,6 @@ export class TabMenu extends BaseComponent implements AfterContentInit, AfterVie
      * @group Templates
      */
     @ContentChild('nexticon') nextIconTemplate: Nullable<TemplateRef<any>>;
-
-    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
     tabChanged: boolean | undefined;
 

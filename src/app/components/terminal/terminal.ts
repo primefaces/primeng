@@ -1,15 +1,13 @@
 import {
-    NgModule,
-    Component,
-    AfterViewInit,
     AfterViewChecked,
-    OnDestroy,
-    Input,
-    ElementRef,
+    AfterViewInit,
     ChangeDetectionStrategy,
-    ViewEncapsulation,
-    ChangeDetectorRef,
+    Component,
     inject,
+    Input,
+    NgModule,
+    OnDestroy,
+    ViewEncapsulation,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -18,7 +16,7 @@ import { TerminalService } from './terminalservice';
 import { Subscription } from 'rxjs';
 import { BaseComponent } from 'primeng/basecomponent';
 import { TerminalStyle } from './style/terminalstyle';
-import { SharedModule } from '../api/shared';
+import { SharedModule } from 'primeng/api';
 
 /**
  * Terminal is a text based user interface.

@@ -21,17 +21,17 @@ export default {
             style: 'none',
             color: 'unset',
             offset: '0',
-            shadow: 'none'
+            shadow: 'none',
         },
         transitionDuration: '{form.field.transition.duration}',
         sm: {
             width: '16px',
-            height: '16px'
+            height: '16px',
         },
         lg: {
             width: '24px',
-            height: '24px'
-        }
+            height: '24px',
+        },
     },
     icon: {
         size: '10px',
@@ -39,11 +39,11 @@ export default {
         checkedHoverColor: '{primary.color}',
         disabledColor: '{form.field.disabled.color}',
         sm: {
-            size: '8px'
+            size: '8px',
         },
         lg: {
-            size: '12px'
-        }
+            size: '12px',
+        },
     },
     css: ({ dt }) => `
 .p-radiobutton {
@@ -70,5 +70,5 @@ export default {
 .p-radiobutton-checked:not(.p-disabled):has(.p-radiobutton-input:focus-visible) {
     box-shadow: 0 0 1px 10px color-mix(in srgb, ${dt('radiobutton.checked.border.color')}, transparent 84%);
 }
-`
+`,
 };

@@ -75,7 +75,7 @@ export class MessageDemo {
         {
             id: 'closable',
             label: 'Closable',
-            component: ClosableDoc
+            component: ClosableDoc,
         },
         {
             id: 'life',

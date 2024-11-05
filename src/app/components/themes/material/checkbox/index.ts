@@ -22,17 +22,17 @@ export default {
             style: 'none',
             color: 'unset',
             offset: '0',
-            shadow: 'none'
+            shadow: 'none',
         },
         transitionDuration: '{form.field.transition.duration}',
         sm: {
             width: '14px',
-            height: '14px'
+            height: '14px',
         },
         lg: {
             width: '22px',
-            height: '22px'
-        }
+            height: '22px',
+        },
     },
     icon: {
         size: '0.875rem',
@@ -41,11 +41,11 @@ export default {
         checkedHoverColor: '{primary.contrast.color}',
         disabledColor: '{form.field.disabled.color}',
         sm: {
-            size: '0.75rem'
+            size: '0.75rem',
         },
         lg: {
-            size: '1rem'
-        }
+            size: '1rem',
+        },
     },
     css: ({ dt }) => `
 .p-checkbox {
@@ -126,5 +126,5 @@ export default {
       transform: translate3d(0,calc(-1 * var(--p-md-check-icon-h)),0) rotate(45deg);
     }
 }
-`
+`,
 };

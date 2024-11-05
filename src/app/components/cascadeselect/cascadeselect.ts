@@ -1481,7 +1481,7 @@ export class CascadeSelect extends BaseComponent implements OnInit {
     bindMatchMediaListener() {
         if (!this.matchMediaListener) {
             const window: Window = this.document.defaultView;
-            if (window) {
+            if (window && window.matchMedia) {
                 const query = window.matchMedia(`(max-width: ${this.breakpoint})`);
                 this.query = query;
                 this.queryMatches.set(query?.matches);

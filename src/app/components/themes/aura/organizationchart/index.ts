@@ -1,7 +1,7 @@
 export default {
     root: {
         gutter: '0.75rem',
-        transitionDuration: '{transition.duration}'
+        transitionDuration: '{transition.duration}',
     },
     node: {
         background: '{content.background}',
@@ -13,7 +13,7 @@ export default {
         hoverColor: '{content.hover.color}',
         padding: '0.75rem 1rem',
         toggleablePadding: '0.75rem 1rem 1.25rem 1rem',
-        borderRadius: '{content.border.radius}'
+        borderRadius: '{content.border.radius}',
     },
     nodeToggleButton: {
         background: '{content.background}',
@@ -28,12 +28,12 @@ export default {
             style: '{focus.ring.style}',
             color: '{focus.ring.color}',
             offset: '{focus.ring.offset}',
-            shadow: '{focus.ring.shadow}'
-        }
+            shadow: '{focus.ring.shadow}',
+        },
     },
     connector: {
         color: '{content.border.color}',
         borderRadius: '{content.border.radius}',
-        height: '24px'
-    }
+        height: '24px',
+    },
 };

@@ -6,7 +6,6 @@ import {
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
-    ContentChildren,
     ElementRef,
     EventEmitter,
     inject,
@@ -15,13 +14,12 @@ import {
     numberAttribute,
     OnDestroy,
     Output,
-    QueryList,
     SimpleChanges,
     TemplateRef,
     ViewChild,
     ViewEncapsulation,
 } from '@angular/core';
-import { PrimeTemplate, SharedModule } from 'primeng/api';
+import { SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { TimesIcon } from 'primeng/icons/times';
 import { Ripple } from 'primeng/ripple';
@@ -218,7 +216,6 @@ export class Sidebar extends BaseComponent implements AfterViewInit, AfterConten
 
     @Input() maskStyle: any;
 
-    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
     /**
      * Callback to invoke when dialog is shown.
      * @group Emits

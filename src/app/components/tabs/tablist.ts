@@ -5,12 +5,10 @@ import {
     Component,
     computed,
     ContentChild,
-    ContentChildren,
     effect,
     ElementRef,
     forwardRef,
     inject,
-    QueryList,
     signal,
     TemplateRef,
     ViewChild,
@@ -23,7 +21,7 @@ import { RippleModule } from 'primeng/ripple';
 import { BaseComponent } from 'primeng/basecomponent';
 import { Tabs } from './tabs';
 import { DomHandler } from 'primeng/dom';
-import { PrimeTemplate, SharedModule } from 'primeng/api';
+import { SharedModule } from 'primeng/api';
 
 /**
  * TabList is a helper component for Tabs component.
@@ -106,8 +104,6 @@ export class TabList extends BaseComponent implements AfterViewInit, AfterConten
     @ViewChild('inkbar') inkbar: ElementRef<HTMLSpanElement>;
 
     @ViewChild('tabs') tabs: ElementRef<HTMLDivElement>;
-
-    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
 
     pcTabs = inject(forwardRef(() => Tabs));
 

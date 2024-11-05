@@ -23,6 +23,7 @@
         "resolveJsonModule": true,
         "esModuleInterop": true,
         "paths": {
+            "primeng/themes/*": ["src/app/components/themes/*/index"],
             "primeng/*": ["src/app/components/*/public_api"],
             "@pages/*": ["src/app/showcase/pages/*"],
             "@doc/*": ["src/app/showcase/doc/*"],

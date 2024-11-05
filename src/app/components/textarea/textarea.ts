@@ -1,21 +1,22 @@
 import {
-    NgModule,
-    Directive,
-    HostListener,
-    Input,
-    Output,
-    EventEmitter,
-    Optional,
     AfterViewInit,
-    OnInit,
-    OnDestroy,
     booleanAttribute,
+    Directive,
+    EventEmitter,
+    HostListener,
     inject,
+    Input,
+    NgModule,
+    OnDestroy,
+    OnInit,
+    Optional,
+    Output,
 } from '@angular/core';
-import { NgModel, NgControl } from '@angular/forms';
+import { NgControl, NgModel } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { BaseComponent } from 'primeng/basecomponent';
 import { TextareaStyle } from './style/textareastyle';
+
 /**
  * Textarea adds styling and autoResize functionality to standard textarea element.
  * @group Components
@@ -56,7 +57,7 @@ export class Textarea extends BaseComponent implements OnInit, AfterViewInit, On
      * Defines the size of the component.
      * @group Props
      */
-    @Input() size: 'large' | 'small';   
+    @Input() size: 'large' | 'small';
     /**
      * Callback to invoke on textarea resize.
      * @param {(Event | {})} event - Custom resize event.

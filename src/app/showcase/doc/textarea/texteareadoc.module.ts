@@ -51,7 +51,7 @@ import { SizesDoc } from './sizesdoc';
         ReactiveFormsDoc,
         FilledDoc,
         IftaLabelDoc,
-        SizesDoc
+        SizesDoc,
     ],
 })
 export class TextareaDocModule {}

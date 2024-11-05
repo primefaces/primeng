@@ -1791,6 +1791,9 @@
     "overlayservice": {
         "components": {}
     },
+    "primeng": {
+        "components": {}
+    },
     "primengconfig": {
         "components": {}
     },
@@ -2262,6 +2265,12 @@
                     "name": "ToastMessageOptions",
                     "description": "Deines valid options for the toast message.",
                     "props": [
+                        {
+                            "name": "text",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "any"
+                        },
                         {
                             "name": "severity",
                             "optional": true,
@@ -3782,8 +3791,8 @@
                             "name": "size",
                             "optional": false,
                             "readonly": false,
-                            "type": "number",
-                            "description": "Size of the input field."
+                            "type": "\"small\" | \"large\"",
+                            "description": "Defines the size of the component."
                         },
                         {
                             "name": "appendTo",
@@ -4601,6 +4610,15 @@
                             "readonly": false,
                             "type": "boolean",
                             "default": "false",
+                            "description": "When present, it specifies that the component should automatically get focus on load.",
+                            "deprecated": "use [pAutoFocus]=\"true\""
+                        },
+                        {
+                            "name": "_autofocus",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
                             "description": "When present, it specifies that the component should automatically get focus on load."
                         }
                     ]
@@ -5255,7 +5273,16 @@
                             "readonly": false,
                             "type": "boolean",
                             "default": "false",
-                            "description": "Add a plain textual class to the button without a background initially."
+                            "description": "Add a plain textual class to the button without a background initially.",
+                            "deprecated": "use variant property instead."
+                        },
+                        {
+                            "name": "fluid",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Spans 100% width of the container when enabled."
                         }
                     ]
                 }
@@ -5355,7 +5382,8 @@
                             "readonly": false,
                             "type": "boolean",
                             "default": "false",
-                            "description": "Add a plain textual class to the button without a background initially."
+                            "description": "Add a plain textual class to the button without a background initially.",
+                            "deprecated": "use variant property instead."
                         },
                         {
                             "name": "severity",
@@ -5393,6 +5421,13 @@
                             "readonly": false,
                             "type": "\"small\" | \"large\"",
                             "description": "Defines the size of the button."
+                        },
+                        {
+                            "name": "variant",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "\"text\" | \"outlined\"",
+                            "description": "Specifies the variant of the component."
                         },
                         {
                             "name": "style",
@@ -5438,6 +5473,14 @@
                             "type": "boolean",
                             "default": "false",
                             "description": "When present, it specifies that the component should automatically get focus on load."
+                        },
+                        {
+                            "name": "fluid",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Spans 100% width of the container when enabled."
                         },
                         {
                             "name": "buttonProps",
@@ -7254,6 +7297,13 @@
                             "description": "Identifier of the underlying input element."
                         },
                         {
+                            "name": "size",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "\"small\" | \"large\"",
+                            "description": "Defines the size of the component."
+                        },
+                        {
                             "name": "tabindex",
                             "optional": false,
                             "readonly": false,
@@ -7380,6 +7430,14 @@
                             "type": "boolean",
                             "default": "false",
                             "description": "Spans 100% width of the container when enabled."
+                        },
+                        {
+                            "name": "breakpoint",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "default": "960px",
+                            "description": "The breakpoint to define the maximum width boundary."
                         }
                     ]
                 },
@@ -7490,6 +7548,18 @@
                         {
                             "name": "option",
                             "description": "Content template for customizing the option display.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "header",
+                            "description": "Content template for customizing the header.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "footer",
+                            "description": "Content template for customizing the footer.",
                             "type": "TemplateRef<any>",
                             "parameters": []
                         },
@@ -7980,6 +8050,13 @@
                             "type": "boolean",
                             "default": "false",
                             "description": "When present, it specifies input state as indeterminate."
+                        },
+                        {
+                            "name": "size",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "\"small\" | \"large\"",
+                            "description": "Defines the size of the component."
                         },
                         {
                             "name": "formControl",
@@ -9110,6 +9187,14 @@
                             "readonly": false,
                             "type": "string",
                             "description": "Current id state as a string."
+                        },
+                        {
+                            "name": "breakpoint",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "default": "960px",
+                            "description": "The breakpoint to define the maximum width boundary."
                         },
                         {
                             "name": "ariaLabel",
@@ -10322,6 +10407,13 @@
                             "readonly": false,
                             "type": "\"filled\" | \"outlined\"",
                             "description": "Specifies the input variant of the component."
+                        },
+                        {
+                            "name": "size",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "\"small\" | \"large\"",
+                            "description": "Defines the size of the component."
                         },
                         {
                             "name": "minDate",
@@ -16361,8 +16453,8 @@
                             "name": "size",
                             "optional": false,
                             "readonly": false,
-                            "type": "number",
-                            "description": "Size of the input field."
+                            "type": "\"small\" | \"large\"",
+                            "description": "Defines the size of the component."
                         },
                         {
                             "name": "maxlength",
@@ -16679,8 +16771,8 @@
                             "name": "size",
                             "optional": false,
                             "readonly": false,
-                            "type": "number",
-                            "description": "Size of the input field."
+                            "type": "\"small\" | \"large\"",
+                            "description": "Defines the size of the component."
                         },
                         {
                             "name": "maxlength",
@@ -17191,6 +17283,13 @@
                             "type": "boolean",
                             "default": "false",
                             "description": "When present, it specifies that the component should automatically get focus on load."
+                        },
+                        {
+                            "name": "size",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "\"small\" | \"large\"",
+                            "description": "Defines the size of the component."
                         }
                     ]
                 },
@@ -17631,6 +17730,13 @@
                             "type": "boolean",
                             "default": "false",
                             "description": "Spans 100% width of the container when enabled."
+                        },
+                        {
+                            "name": "size",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "\"small\" | \"large\"",
+                            "description": "Defines the size of the component."
                         }
                     ]
                 },
@@ -18785,6 +18891,22 @@
                             "description": "Identifier of the underlying input element."
                         },
                         {
+                            "name": "breakpoint",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "default": "960px",
+                            "description": "The breakpoint to define the maximum width boundary."
+                        },
+                        {
+                            "name": "scrollHeight",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "default": "20rem",
+                            "description": "Height of the viewport, a scrollbar is defined if height of list exceeds this value."
+                        },
+                        {
                             "name": "disabled",
                             "optional": false,
                             "readonly": false,
@@ -18832,6 +18954,18 @@
                         {
                             "name": "item",
                             "description": "Defines template option for submenu icon.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "button",
+                            "description": "Custom menu button template on responsive mode.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "buttonicon",
+                            "description": "Custom menu button icon template on responsive mode.",
                             "type": "TemplateRef<any>",
                             "parameters": []
                         }
@@ -19327,6 +19461,14 @@
                             "description": "Whether to hide a root submenu when mouse leaves."
                         },
                         {
+                            "name": "breakpoint",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "default": "960px",
+                            "description": "The breakpoint to define the maximum width boundary."
+                        },
+                        {
                             "name": "autoHideDelay",
                             "optional": false,
                             "readonly": false,
@@ -19406,6 +19548,12 @@
                         {
                             "name": "menuicon",
                             "description": "Defines template option for item.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "submenuicon",
+                            "description": "Defines template option for submenu icon.",
                             "type": "TemplateRef<any>",
                             "parameters": []
                         }
@@ -19600,6 +19748,20 @@
                             "type": "string",
                             "default": "'200ms cubic-bezier(0.86, 0, 0.07, 1)'",
                             "description": "Transition options of the hide animation."
+                        },
+                        {
+                            "name": "size",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "\"small\" | \"large\"",
+                            "description": "Defines the size of the component."
+                        },
+                        {
+                            "name": "variant",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "\"text\" | \"outlined\" | \"simple\"",
+                            "description": "Specifies the input variant of the component."
                         }
                     ]
                 },
@@ -19626,7 +19788,7 @@
                             "parameters": [
                                 {
                                     "name": "event",
-                                    "type": "any",
+                                    "type": "Event",
                                     "description": "Browser event."
                                 }
                             ],
@@ -19870,7 +20032,7 @@
                             "name": "labelOrientation",
                             "optional": false,
                             "readonly": false,
-                            "type": "string",
+                            "type": "\"horizontal\" | \"vertical\"",
                             "default": "horizontal",
                             "description": "Specifies the label orientation of the component, valid values are 'horizontal' and 'vertical'."
                         },
@@ -20451,6 +20613,13 @@
                             "type": "string",
                             "default": "off",
                             "description": "Defines the autocomplete is active."
+                        },
+                        {
+                            "name": "size",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "\"small\" | \"large\"",
+                            "description": "Defines the size of the component."
                         },
                         {
                             "name": "showClear",
@@ -23648,6 +23817,13 @@
                             "description": "Whether to show an icon to display the password as plain text."
                         },
                         {
+                            "name": "size",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "\"small\" | \"large\"",
+                            "description": "Defines the size of the component."
+                        },
+                        {
                             "name": "inputStyleClass",
                             "optional": false,
                             "readonly": false,
@@ -25069,6 +25245,13 @@
                             "type": "\"filled\" | \"outlined\"",
                             "default": "outlined",
                             "description": "Specifies the input variant of the component."
+                        },
+                        {
+                            "name": "size",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "\"small\" | \"large\"",
+                            "description": "Defines the size of the component."
                         },
                         {
                             "name": "tabindex",
@@ -26614,6 +26797,13 @@
                             "description": "Whether to use the scroller feature. The properties of scroller component can be used like an object in it."
                         },
                         {
+                            "name": "size",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "\"small\" | \"large\"",
+                            "description": "Defines the size of the component."
+                        },
+                        {
                             "name": "overlayOptions",
                             "optional": false,
                             "readonly": false,
@@ -27399,6 +27589,13 @@
                             "description": "Establishes relationships between the component and label(s) where its value should be one or more element IDs."
                         },
                         {
+                            "name": "size",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "\"small\" | \"large\"",
+                            "description": "Defines the size of the component."
+                        },
+                        {
                             "name": "disabled",
                             "optional": false,
                             "readonly": false,
@@ -27690,6 +27887,13 @@
                         },
                         {
                             "name": "headlessTemplate",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "TemplateRef<any>",
+                            "description": "Headless template."
+                        },
+                        {
+                            "name": "contentTemplate",
                             "optional": false,
                             "readonly": false,
                             "type": "TemplateRef<any>",
@@ -28490,7 +28694,7 @@
                             "name": "tooltipOptions",
                             "optional": false,
                             "readonly": false,
-                            "type": "string",
+                            "type": "TooltipOptions",
                             "description": "Tooltip options for the main button."
                         },
                         {
@@ -32567,10 +32771,13 @@
     "terminalservice": {
         "components": {}
     },
-    "aura": {
+    "datatable": {
         "components": {}
     },
-    "datatable": {
+    "imagecompare": {
+        "components": {}
+    },
+    "aura": {
         "components": {}
     },
     "inlinemessage": {
@@ -32621,6 +32828,14 @@
                             "readonly": false,
                             "type": "any",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element."
+                        },
+                        {
+                            "name": "breakpoint",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "default": "960px",
+                            "description": "The breakpoint to define the maximum width boundary."
                         },
                         {
                             "name": "autoZIndex",
@@ -33352,6 +33567,13 @@
                             "description": "Index of the element in tabbing order."
                         },
                         {
+                            "name": "size",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "\"small\" | \"large\"",
+                            "description": "Defines the size of the component."
+                        },
+                        {
                             "name": "iconPos",
                             "optional": false,
                             "readonly": false,
@@ -33600,26 +33822,18 @@
                             "description": "Callback to invoke when the on value change."
                         }
                     ]
+                },
+                "templates": {
+                    "description": "Defines the templates used by the component.",
+                    "values": [
+                        {
+                            "name": "handle",
+                            "description": "Callback to invoke when the on value change.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        }
+                    ]
                 }
-            }
-        },
-        "style": {
-            "components": {},
-            "classes": {
-                "values": [
-                    {
-                        "class": "p-toggleswitch",
-                        "description": "Class name of the root element"
-                    },
-                    {
-                        "class": "p-toggleswitch-input",
-                        "description": "Class name of the input element"
-                    },
-                    {
-                        "class": "p-toggleswitch-slider",
-                        "description": "Class name of the slider element"
-                    }
-                ]
             }
         },
         "interfaces": {
@@ -33646,6 +33860,25 @@
                                 "description": "Checked state."
                             }
                         ]
+                    }
+                ]
+            }
+        },
+        "style": {
+            "components": {},
+            "classes": {
+                "values": [
+                    {
+                        "class": "p-toggleswitch",
+                        "description": "Class name of the root element"
+                    },
+                    {
+                        "class": "p-toggleswitch-input",
+                        "description": "Class name of the input element"
+                    },
+                    {
+                        "class": "p-toggleswitch-slider",
+                        "description": "Class name of the slider element"
                     }
                 ]
             }
@@ -35039,6 +35272,13 @@
                             "description": "Height of an item in the list for VirtualScrolling."
                         },
                         {
+                            "name": "size",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "\"small\" | \"large\"",
+                            "description": "Defines the size of the component."
+                        },
+                        {
                             "name": "virtualScrollOptions",
                             "optional": false,
                             "readonly": false,
@@ -35113,8 +35353,8 @@
                             "name": "onShow",
                             "parameters": [
                                 {
-                                    "name": "event",
-                                    "type": "Event"
+                                    "name": "value",
+                                    "type": "any"
                                 }
                             ],
                             "description": "Callback to invoke when the overlay is shown."
@@ -35227,6 +35467,12 @@
                         {
                             "name": "triggericon",
                             "description": "Custom trigger icon template.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "dropdownicon",
+                            "description": "Custom dropdown icon template.",
                             "type": "TemplateRef<any>",
                             "parameters": []
                         },
@@ -37073,126 +37319,9 @@
         }
     },
     "virtualscroller": {
-        "components": {
-            "VirtualScroller": {
-                "description": "VirtualScroller is a performant approach to handle huge data efficiently.",
-                "props": {
-                    "description": "Defines the input properties of the component.",
-                    "values": [
-                        {
-                            "name": "value",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "any[]",
-                            "description": "An array of objects to display."
-                        },
-                        {
-                            "name": "itemSize",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "number",
-                            "description": "Height of an item in the list."
-                        },
-                        {
-                            "name": "style",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "Object",
-                            "description": "Inline style of the component."
-                        },
-                        {
-                            "name": "styleClass",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "string",
-                            "description": "Style class of the component."
-                        },
-                        {
-                            "name": "scrollHeight",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "any",
-                            "description": "Max height of the content area in inline mode."
-                        },
-                        {
-                            "name": "lazy",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "boolean",
-                            "default": "false",
-                            "description": "Defines if data is loaded and interacted with in lazy manner."
-                        },
-                        {
-                            "name": "options",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "ScrollerOptions",
-                            "description": "Whether to use the scroller feature. The properties of scroller component can be used like an object in it."
-                        },
-                        {
-                            "name": "delay",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "number",
-                            "default": "250",
-                            "description": "Threshold in milliseconds to delay lazy loading during scrolling."
-                        }
-                    ]
-                },
-                "emits": {
-                    "description": "Defines emit that determine the behavior of the component based on a given condition or report the actions that the component takes.",
-                    "values": [
-                        {
-                            "name": "onLazyLoad",
-                            "parameters": [
-                                {
-                                    "name": "event",
-                                    "type": "VirtualScrollerLazyLoadEvent"
-                                }
-                            ],
-                            "description": "Callback to invoke in lazy mode to load new data."
-                        }
-                    ]
-                }
-            }
-        },
-        "interfaces": {
-            "components": {},
-            "templates": {
-                "description": "Defines the templates used by the component.",
-                "values": [
-                    {
-                        "parent": "virtualscroller",
-                        "name": "item",
-                        "parameters": [
-                            {
-                                "name": "context",
-                                "type": "{\n  \t $implicit: any, // Item instance.\n  \t options: ScrollerOptions, // Scroller options.\n  }",
-                                "description": "item data."
-                            }
-                        ],
-                        "description": "Custom item template."
-                    },
-                    {
-                        "parent": "virtualscroller",
-                        "name": "header",
-                        "parameters": [],
-                        "description": "Custom header template."
-                    },
-                    {
-                        "parent": "virtualscroller",
-                        "name": "footer",
-                        "parameters": [],
-                        "description": "Custom header template."
-                    }
-                ]
-            }
-        }
-    },
-    "lara": {
         "components": {}
     },
-    "imagecompare": {
+    "lara": {
         "components": {}
     },
     "material": {

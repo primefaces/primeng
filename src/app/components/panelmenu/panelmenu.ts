@@ -7,7 +7,6 @@ import {
     Component,
     computed,
     ContentChild,
-    ContentChildren,
     ElementRef,
     EventEmitter,
     forwardRef,
@@ -17,7 +16,6 @@ import {
     numberAttribute,
     OnChanges,
     Output,
-    QueryList,
     signal,
     SimpleChanges,
     TemplateRef,
@@ -25,7 +23,7 @@ import {
     ViewEncapsulation,
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { MenuItem, PrimeTemplate, SharedModule } from 'primeng/api';
+import { MenuItem, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { AngleDownIcon } from 'primeng/icons/angledown';
 import { AngleRightIcon } from 'primeng/icons/angleright';
@@ -1022,8 +1020,6 @@ export class PanelMenu extends BaseComponent implements AfterContentInit {
      * @group Props
      */
     @Input({ transform: numberAttribute }) tabindex: number | undefined = 0;
-
-    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
     @ViewChild('container') containerViewChild: ElementRef | undefined;
     /**

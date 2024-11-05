@@ -1,9 +1,9 @@
 export default {
     root: {
-        transitionDuration: '{transition.duration}'
+        transitionDuration: '{transition.duration}',
     },
     separator: {
-        background: '{content.border.color}'
+        background: '{content.border.color}',
     },
     itemLink: {
         borderRadius: '{content.border.radius}',
@@ -12,14 +12,14 @@ export default {
             style: '{focus.ring.style}',
             color: '{focus.ring.color}',
             offset: '{focus.ring.offset}',
-            shadow: '{focus.ring.shadow}'
+            shadow: '{focus.ring.shadow}',
         },
-        gap: '0.5rem'
+        gap: '0.5rem',
     },
     itemLabel: {
         color: '{text.muted.color}',
         activeColor: '{primary.color}',
-        fontWeight: '500'
+        fontWeight: '500',
     },
     itemNumber: {
         background: '{content.background}',
@@ -32,6 +32,6 @@ export default {
         fontSize: '1.125rem',
         fontWeight: '500',
         borderRadius: '50%',
-        shadow: 'none'
-    }
+        shadow: 'none',
+    },
 };

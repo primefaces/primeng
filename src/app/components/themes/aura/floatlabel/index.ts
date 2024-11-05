@@ -10,28 +10,28 @@ export default {
         fontWeight: '500',
         active: {
             fontSize: '0.75rem',
-            fontWeight: '400'
-        }
+            fontWeight: '400',
+        },
     },
     over: {
         active: {
-            top: '-1.25rem'
-        }
+            top: '-1.25rem',
+        },
     },
     in: {
         input: {
             paddingTop: '1.5rem',
-            paddingBottom: '{form.field.padding.y}'
+            paddingBottom: '{form.field.padding.y}',
         },
         active: {
-            top: '{form.field.padding.y}'
-        }
+            top: '{form.field.padding.y}',
+        },
     },
     on: {
         borderRadius: '{border.radius.xs}',
         active: {
             background: '{form.field.background}',
-            padding: '0 0.125rem'
-        }
-    }
+            padding: '0 0.125rem',
+        },
+    },
 };
