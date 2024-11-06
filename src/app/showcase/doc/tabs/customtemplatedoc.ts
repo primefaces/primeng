@@ -14,7 +14,7 @@ import { Code } from '@domain/code';
                         <i class="pi pi-minus"></i>
                     </ng-template>
                     <p-tab value="0">
-                        <p-avatar image="https://primefaces.org/cdn/primeng/images/avatar/amyelsner.png" shape="circle" />
+                        <p-avatar image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png" shape="circle" />
                         <span class="font-bold whitespace-nowrap">Amy Elsner</span>
                     </p-tab>
                     <p-tab value="1">
@@ -70,7 +70,7 @@ export class TemplateDoc {
             <i class="pi pi-minus"></i>
         </ng-template>
         <p-tab value="0">
-            <p-avatar image="https://primefaces.org/cdn/primeng/images/avatar/amyelsner.png" shape="circle"/>
+            <p-avatar image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png" shape="circle"/>
             <span class="font-bold whitespace-nowrap">Amy Elsner</span>
         </p-tab>
         <p-tab value="1">
@@ -124,7 +124,7 @@ export class TemplateDoc {
                 <i class="pi pi-minus"></i>
             </ng-template>
             <p-tab value="0">
-                <p-avatar image="https://primefaces.org/cdn/primeng/images/avatar/amyelsner.png" shape="circle"/>
+                <p-avatar image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png" shape="circle"/>
                 <span class="font-bold whitespace-nowrap">Amy Elsner</span>
             </p-tab>
             <p-tab value="1">
