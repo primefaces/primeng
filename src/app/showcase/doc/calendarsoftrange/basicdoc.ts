@@ -5,24 +5,23 @@ import { Code } from '@domain/code';
     selector: 'basic-doc',
     template: `
         <app-docsectiontext>
-            <p>// TODO Basic api</p>
+            <p>Two-way value binding is defined using the standard <i>ngModel</i> directive referencing to a <i>Dates</i> property.</p>
         </app-docsectiontext>
-        <div class="card">
-            {{date[0].toLocaleDateString()}} - {{date[1].toLocaleDateString()}}
-            <p-calendarSoftRange [(ngModel)]="date"></p-calendarSoftRange>
+        <div class="card flex justify-content-center">
+            <p-calendarSoftRange [(ngModel)]="dates"></p-calendarSoftRange>
         </div>
         <app-code [code]="code" selector="calendar-soft-range-basic-demo"></app-code>
     `
 })
 export class BasicDoc {
 
-    date: Date[] = [new Date(2024, 0, 1), new Date(2024, 0, 1)];
+    dates: Date[] = [new Date(), new Date()];
 
     code: Code = {
-        basic: `<p-calendarSoftRange></p-calendarSoftRange>`,
+        basic: `<p-calendarSoftRange [(ngModel)]="dates"></p-calendarSoftRange>`,
 
-        html: `<div class="card">
-    <p-calendarSoftRange></p-calendarSoftRange>
+        html: `<div class="card flex justify-content-center">
+    <p-calendarSoftRange [(ngModel)]="dates"></p-calendarSoftRange>
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
@@ -35,6 +34,8 @@ import {CalendarSoftRangeModule} from 'primeng/calendarsoftrange';
     imports: [CalendarSoftRangeModule]
 })
 export class CalendarSoftRangeBasicDemo {
+
+    dates: Date[] = [new Date(), new Date()];
 
 }`
     };

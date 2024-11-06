@@ -6,10 +6,11 @@ import { BasicDoc } from './basicdoc';
 import {AppCodeModule} from "@layout/doc/app.code.component";
 import {CalendarSoftRangeModule} from "primeng/calendarsoftrange";
 import {ImportDoc} from "@doc/calendarsoftrange/importdoc";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {ReactiveFormsDoc} from "@doc/calendarsoftrange/reactiveformsdoc";
 @NgModule({
-    imports: [CommonModule, RouterModule, AppDocModule, AppCodeModule, CalendarSoftRangeModule, FormsModule],
-    declarations: [BasicDoc, ImportDoc],
+    imports: [CommonModule, RouterModule, AppDocModule, AppCodeModule, CalendarSoftRangeModule, FormsModule, ReactiveFormsModule],
+    declarations: [BasicDoc, ImportDoc, ReactiveFormsDoc],
     exports: [AppDocModule]
 })
 export class CalendarSoftRangeDocModule {}

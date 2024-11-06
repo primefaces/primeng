@@ -1,10 +1,11 @@
 import {
+    AfterViewInit,
     booleanAttribute,
     ChangeDetectionStrategy,
     ChangeDetectorRef,
-    Component, computed, ElementRef, forwardRef, Input,
+    Component, computed, ElementRef, EventEmitter, forwardRef, Input,
     NgModule,
-    OnInit, Signal,
+    OnInit, Output, Signal,
     signal, ViewChild, ViewEncapsulation,
     WritableSignal
 } from '@angular/core';
@@ -49,8 +50,7 @@ export const CALENDAR_SOFT_RANGE_VALUE_ACCESSOR: any = {
             <p-dropdown
                 [options]="optionsRangeSelectItems()"
                 (onChange)="onOptionRangeChange($event)"
-                [ngModel]="optionRange()"
-                (ngModelChange)="optionRange.set($event)"
+                [(ngModel)]="optionRange"
             ></p-dropdown>
             <div [ngClass]="{'p-calendarsoftrange-date-container': true}">
                 <button
@@ -89,8 +89,7 @@ export const CALENDAR_SOFT_RANGE_VALUE_ACCESSOR: any = {
                 selectionMode="range"
                 [inline]="true"
                 [selectOtherMonths]="true"
-                [ngModel]="calendarValue()"
-                (ngModelChange)="calendarValue.set($event)"/>
+                [(ngModel)]="calendarValue"/>
 
             <p-divider></p-divider>
 
@@ -115,7 +114,7 @@ export const CALENDAR_SOFT_RANGE_VALUE_ACCESSOR: any = {
         </p-overlayPanel>
     `
 })
-export class CalendarSoftRange implements OnInit, ControlValueAccessor{
+export class CalendarSoftRange implements OnInit, ControlValueAccessor, AfterViewInit{
 
     /**
      * When specified, disables the component.
@@ -159,6 +158,13 @@ export class CalendarSoftRange implements OnInit, ControlValueAccessor{
      */
     @Input() cancelButtonStyleClass: string = 'p-button-text';
 
+    /**
+     * Callback to invoke on range select.
+     * @param {Date} date - dates value.
+     * @group Emits
+     */
+    @Output() onSelect: EventEmitter<Date[]> = new EventEmitter<Date[]>();
+
     @ViewChild('overlayPanel') overlayPanel: OverlayPanel;
     @ViewChild('dateButton') dateButton: ElementRef;
 
@@ -168,8 +174,10 @@ export class CalendarSoftRange implements OnInit, ControlValueAccessor{
 
     onModelTouched: Function = () => {};
 
-    readonly optionRange: WritableSignal<OptionRange> = signal(OptionRangeByType.TODAY);
-    readonly calendarValue: WritableSignal<Date[]> = signal([]);
+    optionRange: OptionRange = OptionRangeByType.TODAY;
+
+    calendarValue: Date[] = [];
+
     readonly value: WritableSignal<Date[]> = signal([]);
 
     readonly valueFormatted: Signal<string> = computed(() => {
@@ -192,7 +200,6 @@ export class CalendarSoftRange implements OnInit, ControlValueAccessor{
 
     ngOnInit() {
         this.initOptionsRange();
-        this.initValue();
         this.initialized = true;
     }
 
@@ -215,8 +222,15 @@ export class CalendarSoftRange implements OnInit, ControlValueAccessor{
     private initValue(): void{
         if(!this.value().length){
             const optionRange: OptionRange = this.optionsRangeSelectItems()[0]?.value ?? OptionRangeByType.TODAY;
-            this.writeValue(optionRange.getRange());
+            this.updateModel(optionRange.getRange());
         }
+    }
+
+    ngAfterViewInit(): void {
+        setTimeout(() => {
+            this.initValue();
+            this.updateOptionRange();
+        });
     }
 
     registerOnChange(fn: any): void {
@@ -234,13 +248,20 @@ export class CalendarSoftRange implements OnInit, ControlValueAccessor{
 
     writeValue(value: any): void {
         if(value == null || value.length != 2){
-            value = OptionRangeByType.TODAY.getRange();
+            return;
         }
 
         const dates: Date[] = value;
         this.value.set([this.dateTruncateByDay(dates[0]), this.dateTruncateByDay(dates[1])]);
         this.updateOptionRange();
         this.cd.markForCheck();
+    }
+
+    updateModel(dates: Date[]): void{
+        this.value.set([this.dateTruncateByDay(dates[0]), this.dateTruncateByDay(dates[1])]);
+        this.updateOptionRange();
+        this.onSelect.emit(this.value());
+        this.onModelChange(this.value());
     }
 
     updateOptionRange(): void{
@@ -252,7 +273,8 @@ export class CalendarSoftRange implements OnInit, ControlValueAccessor{
                 return this.dateTruncateByDay(range[0]).getTime() == this.value()[0].getTime() && this.dateTruncateByDay(range[1]).getTime() == this.value()[1].getTime();
             });
 
-        this.optionRange.set(optionRange || OptionRangeByType.CUSTOM);
+        this.optionRange = optionRange || OptionRangeByType.CUSTOM;
+        this.cd.markForCheck();
     }
 
     onOptionRangeChange(event: DropdownChangeEvent): void{
@@ -262,7 +284,7 @@ export class CalendarSoftRange implements OnInit, ControlValueAccessor{
             return;
         }
 
-        this.writeValue(optionsRange.getRange());
+        this.updateModel(optionsRange.getRange());
     }
 
     isDaily(range: Date[]): boolean{
@@ -322,13 +344,13 @@ export class CalendarSoftRange implements OnInit, ControlValueAccessor{
             dayle: () => {
                 const date: Date = new Date(this.value()[0]);
                 date.setDate(date.getDate() - 1);
-                this.writeValue([date, date]);
+                this.updateModel([date, date]);
             },
             monthly: () => {
                 const date_0: Date = new Date(this.value()[0].getFullYear(), this.value()[0].getMonth() - 1, 1);
                 const date_1: Date = new Date(this.value()[1].getFullYear(), this.value()[1].getMonth(), 0);
 
-                this.writeValue([date_0, date_1]);
+                this.updateModel([date_0, date_1]);
             },
             yearly: () => {
                 const date_0: Date = new Date(this.value()[0]);
@@ -337,7 +359,7 @@ export class CalendarSoftRange implements OnInit, ControlValueAccessor{
                 const date_1: Date = new Date(this.value()[1]);
                 date_1.setFullYear(date_1.getFullYear() - 1);
 
-                this.writeValue([date_0, date_1]);
+                this.updateModel([date_0, date_1]);
             },
             custom: () => {
                 const intervalDays: number = this.getDiffDays(this.value()[0], this.value()[1]) + 1;
@@ -348,7 +370,7 @@ export class CalendarSoftRange implements OnInit, ControlValueAccessor{
                 const date_1: Date = new Date(this.value()[1]);
                 date_1.setDate(date_1.getDate() - intervalDays);
 
-                this.writeValue([date_0, date_1]);
+                this.updateModel([date_0, date_1]);
             }
         });
     }
@@ -358,13 +380,13 @@ export class CalendarSoftRange implements OnInit, ControlValueAccessor{
             dayle: () => {
                 const date: Date = new Date(this.value()[0]);
                 date.setDate(date.getDate() + 1);
-                this.writeValue([date, date]);
+                this.updateModel([date, date]);
             },
             monthly: () => {
                 const date_0: Date = new Date(this.value()[0].getFullYear(), this.value()[0].getMonth() + 1, 1);
                 const date_1: Date = new Date(this.value()[1].getFullYear(), this.value()[1].getMonth() + 2, 0);
 
-                this.writeValue([date_0, date_1]);
+                this.updateModel([date_0, date_1]);
             },
             yearly: () => {
                 const date_0: Date = new Date(this.value()[0]);
@@ -373,7 +395,7 @@ export class CalendarSoftRange implements OnInit, ControlValueAccessor{
                 const date_1: Date = new Date(this.value()[1]);
                 date_1.setFullYear(date_1.getFullYear() + 1);
 
-                this.writeValue([date_0, date_1]);
+                this.updateModel([date_0, date_1]);
             },
             custom: () => {
                 const intervalDays: number = this.getDiffDays(this.value()[0], this.value()[1]) + 1;
@@ -384,21 +406,21 @@ export class CalendarSoftRange implements OnInit, ControlValueAccessor{
                 const date_1: Date = new Date(this.value()[1]);
                 date_1.setDate(date_1.getDate() + intervalDays);
 
-                this.writeValue([date_0, date_1]);
+                this.updateModel([date_0, date_1]);
             }
         });
     }
 
     openDatePanel(event: Event, target?: any): void{
-        this.calendarValue.set(this.value());
+        this.calendarValue = this.value()
         this.overlayPanel.show(event, target);
     }
 
     applyDate(): void{
-        const range: Date[] = this.calendarValue();
+        const range: Date[] = this.calendarValue;
         range[1] = range[1] ?? range[0];
 
-        this.writeValue(range);
+        this.updateModel(range);
         this.overlayPanel.hide();
     }
 
@@ -408,7 +430,9 @@ export class CalendarSoftRange implements OnInit, ControlValueAccessor{
         yearly: () => any,
         custom: () => any
     }): any{
-        if(this.isDaily(range)){
+        if(range == null || range.length != 2){
+            return;
+        }else if(this.isDaily(range)){
             return doWhen.dayle();
         }else if(this.isMonthly(range)){
             return doWhen.monthly();
