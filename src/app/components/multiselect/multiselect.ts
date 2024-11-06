@@ -175,7 +175,7 @@ export class MultiSelectItem extends BaseComponent {
  * @group Components
  */
 @Component({
-    selector: 'p-multiSelect, p-multiselect',
+    selector: 'p-multiSelect, p-multiselect, p-multi-select',
     standalone: true,
     imports: [
         CommonModule,

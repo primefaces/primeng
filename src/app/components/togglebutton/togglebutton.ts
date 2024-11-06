@@ -33,7 +33,7 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
  * @group Components
  */
 @Component({
-    selector: 'p-toggleButton, p-togglebutton',
+    selector: 'p-toggleButton, p-togglebutton, p-toggle-button',
     standalone: true,
     imports: [Ripple, AutoFocus, CommonModule, SharedModule],
     template: `

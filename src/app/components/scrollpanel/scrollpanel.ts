@@ -27,7 +27,7 @@ import { SharedModule } from 'primeng/api';
  * @group Components
  */
 @Component({
-    selector: 'p-scroll-panel, p-scrollPanel',
+    selector: 'p-scroll-panel, p-scrollPanel, p-scrollpanel',
     standalone: true,
     imports: [CommonModule, SharedModule],
     template: `

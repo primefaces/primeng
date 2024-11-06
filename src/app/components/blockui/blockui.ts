@@ -26,7 +26,7 @@ import { SharedModule } from 'primeng/api';
  * @group Components
  */
 @Component({
-    selector: 'p-blockUI, p-blockui',
+    selector: 'p-blockUI, p-blockui, p-block-ui',
     standalone: true,
     imports: [CommonModule, SharedModule],
     template: `

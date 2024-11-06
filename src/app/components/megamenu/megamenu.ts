@@ -442,7 +442,7 @@ export class MegaMenuSub extends BaseComponent {
  * @group Components
  */
 @Component({
-    selector: 'p-megaMenu, p-megamenu',
+    selector: 'p-megaMenu, p-megamenu, p-mega-menu',
     standalone: true,
     imports: [
         CommonModule,

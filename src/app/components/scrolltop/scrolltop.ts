@@ -1,3 +1,4 @@
+
 import { animate, AnimationEvent, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
@@ -27,7 +28,7 @@ import { ScrollTopStyle } from './style/scrolltopstyle';
  * @group Components
  */
 @Component({
-    selector: 'p-scrollTop, p-scrolltop',
+    selector: 'p-scrollTop, p-scrolltop, p-scroll-top',
     standalone: true,
     imports: [CommonModule, ChevronUpIcon, Button, SharedModule],
     template: `

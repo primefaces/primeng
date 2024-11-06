@@ -39,7 +39,7 @@ import { BaseComponent } from 'primeng/basecomponent';
  * @group Components
  */
 @Component({
-    selector: 'p-dataView, p-dataview',
+    selector: 'p-dataView, p-dataview, p-data-view',
     standalone: true,
     imports: [CommonModule, PaginatorModule, SpinnerIcon, SharedModule],
     template: `

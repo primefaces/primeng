@@ -20,7 +20,7 @@ import { SharedModule } from 'primeng/api';
  * @group Components
  */
 @Component({
-    selector: 'p-progressBar, p-progressbar',
+    selector: 'p-progressBar, p-progressbar, p-progress-bar',
     standalone: true,
     imports: [CommonModule, SharedModule],
     template: `

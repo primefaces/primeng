@@ -42,7 +42,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
  * @group Components
  */
 @Component({
-    selector: 'p-confirmDialog, p-confirmdialog',
+    selector: 'p-confirmDialog, p-confirmdialog, p-confirm-dialog',
     standalone: true,
     imports: [CommonModule, Button, Ripple, TimesIcon, CheckIcon, Dialog, SharedModule],
     template: `

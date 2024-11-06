@@ -33,7 +33,7 @@ import { BaseComponent } from 'primeng/basecomponent';
  * @group Components
  */
 @Component({
-    selector: 'p-scroller, p-virtualscroller, p-virtual-scroller',
+    selector: 'p-scroller, p-virtualscroller, p-virtual-scroller, p-virtualScroller',
     imports: [CommonModule, SpinnerIcon, SharedModule],
     standalone: true,
     template: `
