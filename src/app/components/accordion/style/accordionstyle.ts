@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BaseStyle } from 'primeng/base';
 
-// AccordionStyle
 const theme = ({ dt }) => `
 .p-accordionpanel {
     display: flex;
