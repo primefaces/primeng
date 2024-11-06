@@ -1,4 +1,4 @@
-import { IconFieldDesignTokens } from 'primeng/themes/types/iconfield';
+import { IconFieldDesignTokens } from '../../types/iconfield';
 
 export default {
     icon: {

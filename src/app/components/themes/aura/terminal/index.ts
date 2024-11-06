@@ -1,4 +1,4 @@
-import { TerminalDesignTokens } from 'primeng/themes/types/terminal';
+import { TerminalDesignTokens } from '../../types/terminal';
 
 export default {
     root: {

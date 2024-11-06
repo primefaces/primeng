@@ -1,4 +1,4 @@
-import { BreadcrumbDesignTokens } from 'primeng/themes/types/breadcrumb';
+import { BreadcrumbDesignTokens } from '../../types/breadcrumb';
 
 export default {
     root: {

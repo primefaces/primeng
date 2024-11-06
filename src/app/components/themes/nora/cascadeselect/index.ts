@@ -1,4 +1,4 @@
-import { CascadeselectDesignTokens } from 'primeng/themes/types/cascadeselect';
+import { CascadeselectDesignTokens } from '../../types/cascadeselect';
 
 export default {
     root: {

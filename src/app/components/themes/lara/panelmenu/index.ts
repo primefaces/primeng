@@ -1,4 +1,4 @@
-import { PanelMenuDesignTokens } from 'primeng/themes/types/panelmenu';
+import { PanelMenuDesignTokens } from '../../types/panelmenu';
 
 export default {
     root: {

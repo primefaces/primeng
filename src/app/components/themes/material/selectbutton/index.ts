@@ -1,4 +1,4 @@
-import { SelectbuttonDesignTokens } from 'primeng/themes/types/selectbutton';
+import { SelectbuttonDesignTokens } from '../../types/selectbutton';
 
 export default {
     root: {

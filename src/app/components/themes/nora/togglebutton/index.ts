@@ -1,5 +1,4 @@
-
-import {ToggleButtonDesignTokens} from 'primeng/themes/types/togglebutton'
+import { ToggleButtonDesignTokens } from '../../types/togglebutton';
 
 export default {
     root: {

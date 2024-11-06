@@ -1,4 +1,4 @@
-import { OrderListDesignTokens } from 'primeng/themes/types/orderlist';
+import { OrderListDesignTokens } from '../../types/orderlist';
 
 export default {
     root: {

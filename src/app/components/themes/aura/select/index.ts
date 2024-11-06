@@ -1,4 +1,4 @@
-import { SelectDesignTokens } from 'primeng/themes/types/select';
+import { SelectDesignTokens } from '../../types/select';
 
 export default {
     root: {

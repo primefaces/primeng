@@ -1,5 +1,4 @@
-
-import {ChipDesignTokens} from 'primeng/themes/types/chip'
+import { ChipDesignTokens } from '../../types/chip';
 
 export default {
     root: {

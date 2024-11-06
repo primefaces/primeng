@@ -1,4 +1,4 @@
-import { ContextMenuDesignTokens } from 'primeng/themes/types/contextmenu';
+import { ContextMenuDesignTokens } from '../../types/contextmenu';
 
 export default {
     root: {

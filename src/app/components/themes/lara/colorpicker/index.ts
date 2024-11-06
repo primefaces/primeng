@@ -1,5 +1,4 @@
-
-import {ColorPickerDesignTokens} from 'primeng/themes/types/colorpicker'
+import { ColorPickerDesignTokens } from '../../types/colorpicker';
 
 export default {
     root: {

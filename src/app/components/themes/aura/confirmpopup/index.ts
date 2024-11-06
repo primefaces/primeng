@@ -1,4 +1,4 @@
-import { ConfirmPopupDesignTokens } from 'primeng/themes/types/confirmpopup';
+import { ConfirmPopupDesignTokens } from '../../types/confirmpopup';
 
 export default {
     root: {

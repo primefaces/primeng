@@ -1,4 +1,4 @@
-import { OrganizationChartDesignTokens } from 'primeng/themes/types/organizationchart';
+import { OrganizationChartDesignTokens } from '../../types/organizationchart';
 
 export default {
     root: {

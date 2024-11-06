@@ -1,4 +1,4 @@
-import { KnobDesignTokens } from 'primeng/themes/types/knob';
+import { KnobDesignTokens } from '../../types/knob';
 
 export default {
     root: {

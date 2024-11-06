@@ -1,4 +1,4 @@
-import { AutoCompleteDesignTokens } from 'primeng/themes/types/autocomplete';
+import { AutoCompleteDesignTokens } from '../../types/autocomplete';
 
 export default {
     root: {

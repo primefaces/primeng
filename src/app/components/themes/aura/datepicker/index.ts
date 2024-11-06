@@ -1,4 +1,4 @@
-import { DatePickerDesignTokens } from 'primeng/themes/types/datepicker';
+import { DatePickerDesignTokens } from '../../types/datepicker';
 
 export default {
     root: {

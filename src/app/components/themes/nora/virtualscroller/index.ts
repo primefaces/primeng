@@ -1,5 +1,4 @@
-
-import {VirtualScrollerDesignTokens} from 'primeng/themes/types/virtualscroller'
+import { VirtualScrollerDesignTokens } from '../../types/virtualscroller';
 
 export default {
     loader: {

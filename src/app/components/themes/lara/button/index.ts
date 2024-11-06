@@ -1,4 +1,4 @@
-import { ButtonDesignTokens } from 'primeng/themes/types/button';
+import { ButtonDesignTokens } from '../../types/button';
 
 export default {
     root: {

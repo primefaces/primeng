@@ -1,4 +1,4 @@
-import { GalleriaDesignTokens } from 'primeng/themes/types/galleria';
+import { GalleriaDesignTokens } from '../../types/galleria';
 
 export default {
     root: {

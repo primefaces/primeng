@@ -1,4 +1,4 @@
-import { DataViewDesignTokens } from 'primeng/themes/types/dataview';
+import { DataViewDesignTokens } from '../../types/dataview';
 
 export default {
     root: {

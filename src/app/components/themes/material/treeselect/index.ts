@@ -1,4 +1,4 @@
-import { TreeSelectDesignTokens } from 'primeng/themes/types/treeselect';
+import { TreeSelectDesignTokens } from '../../types/treeselect';
 
 export default {
     root: {

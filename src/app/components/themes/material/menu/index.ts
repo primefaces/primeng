@@ -1,4 +1,4 @@
-import { MenuDesignTokens } from 'primeng/themes/types/menu';
+import { MenuDesignTokens } from '../../types/menu';
 
 export default {
     root: {

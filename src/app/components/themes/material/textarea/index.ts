@@ -1,4 +1,4 @@
-import { TextareaDesignTokens } from 'primeng/themes/types/textarea';
+import { TextareaDesignTokens } from '../../types/textarea';
 
 export default {
     root: {

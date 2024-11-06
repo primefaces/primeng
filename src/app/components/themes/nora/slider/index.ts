@@ -1,5 +1,4 @@
-
-import {SliderDesignTokens} from 'primeng/themes/types/slider'
+import { SliderDesignTokens } from '../../types/slider';
 
 export default {
     root: {

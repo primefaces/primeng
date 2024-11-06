@@ -1,5 +1,4 @@
-
-import {PasswordDesignTokens} from 'primeng/themes/types/password'
+import { PasswordDesignTokens } from '../../types/password';
 
 export default {
     meter: {

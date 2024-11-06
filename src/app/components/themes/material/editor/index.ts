@@ -1,4 +1,4 @@
-import { EditorDesignTokens } from 'primeng/themes/types/editor';
+import { EditorDesignTokens } from '../../types/editor';
 
 export default {
     toolbar: {

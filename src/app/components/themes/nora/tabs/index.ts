@@ -1,5 +1,4 @@
-
-import {TabsDesignTokens} from 'primeng/themes/types/tabs'
+import { TabsDesignTokens } from '../../types/tabs';
 
 export default {
     root: {

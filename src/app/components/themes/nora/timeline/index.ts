@@ -1,5 +1,4 @@
-
-import {TimelineDesignTokens} from 'primeng/themes/types/timeline'
+import { TimelineDesignTokens } from '../../types/timeline';
 
 export default {
     event: {

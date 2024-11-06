@@ -1,5 +1,4 @@
-
-import {RippleDesignTokens} from 'primeng/themes/types/ripple'
+import { RippleDesignTokens } from '../../types/ripple';
 
 export default {
     colorScheme: {

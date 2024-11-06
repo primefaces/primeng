@@ -1,4 +1,4 @@
-import { DrawerDesignTokens } from 'primeng/themes/types/drawer';
+import { DrawerDesignTokens } from '../../types/drawer';
 
 export default {
     root: {

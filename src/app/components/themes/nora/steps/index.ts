@@ -1,5 +1,4 @@
-
-import {StepsDesignTokens} from 'primeng/themes/types/steps'
+import { StepsDesignTokens } from '../../types/steps';
 
 export default {
     root: {

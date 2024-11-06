@@ -1,4 +1,4 @@
-import { ListboxDesignTokens } from 'primeng/themes/types/listbox';
+import { ListboxDesignTokens } from '../../types/listbox';
 
 export default {
     root: {

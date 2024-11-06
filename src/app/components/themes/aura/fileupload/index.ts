@@ -1,4 +1,4 @@
-import { FileUploadDesignTokens } from 'primeng/themes/types/fileupload';
+import { FileUploadDesignTokens } from '../../types/fileupload';
 
 export default {
     root: {

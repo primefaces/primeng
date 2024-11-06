@@ -1,4 +1,4 @@
-import { FieldsetDesignTokens } from 'primeng/themes/types/fieldset';
+import { FieldsetDesignTokens } from '../../types/fieldset';
 
 export default {
     root: {
@@ -41,4 +41,4 @@ export default {
 
 }
 `,
-}; as FieldsetDesignTokens;
+} as FieldsetDesignTokens;

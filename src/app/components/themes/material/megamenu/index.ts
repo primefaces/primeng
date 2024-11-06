@@ -1,4 +1,4 @@
-import { MegaMenuDesignTokens } from 'primeng/themes/types/megamenu';
+import { MegaMenuDesignTokens } from '../../types/megamenu';
 
 export default {
     root: {

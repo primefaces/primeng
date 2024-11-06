@@ -1,4 +1,4 @@
-import { ToggleSwitchDesignTokens } from 'primeng/themes/types/toggleswitch';
+import { ToggleSwitchDesignTokens } from '../../types/toggleswitch';
 
 export default {
     root: {

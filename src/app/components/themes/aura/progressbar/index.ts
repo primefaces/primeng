@@ -1,4 +1,4 @@
-import { ProgressBarDesignTokens } from 'primeng/themes/types/progressbar';
+import { ProgressBarDesignTokens } from '../../types/progressbar';
 
 export default {
     root: {

@@ -1,5 +1,4 @@
-
-import {ProgressSpinnerDesignTokens} from 'primeng/themes/types/progressspinner'
+import { ProgressSpinnerDesignTokens } from '../../types/progressspinner';
 
 export default {
     colorScheme: {

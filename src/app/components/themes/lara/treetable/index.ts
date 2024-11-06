@@ -1,4 +1,4 @@
-import { TreeTableDesignTokens } from 'primeng/themes/types/treetable';
+import { TreeTableDesignTokens } from '../../types/treetable';
 
 export default {
     root: {

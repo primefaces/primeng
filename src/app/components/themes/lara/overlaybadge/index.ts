@@ -1,4 +1,4 @@
-import { OverlayBadgeDesignTokens } from 'primeng/themes/types/overlaybadge';
+import { OverlayBadgeDesignTokens } from '../../types/overlaybadge';
 
 export default {
     root: {

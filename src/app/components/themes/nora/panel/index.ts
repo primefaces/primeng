@@ -1,5 +1,4 @@
-
-import {PanelDesignTokens} from 'primeng/themes/types/panel'
+import { PanelDesignTokens } from '../../types/panel';
 
 export default {
     root: {

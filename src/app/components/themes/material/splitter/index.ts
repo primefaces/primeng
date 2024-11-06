@@ -1,4 +1,4 @@
-import { SplitterDesignTokens } from 'primeng/themes/types/splitter';
+import { SplitterDesignTokens } from '../../types/splitter';
 
 export default {
     root: {

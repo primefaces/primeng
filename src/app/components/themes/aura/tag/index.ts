@@ -1,4 +1,4 @@
-import { TagDesignTokens } from 'primeng/themes/types/tag';
+import { TagDesignTokens } from '../../types/tag';
 
 export default {
     root: {

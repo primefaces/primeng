@@ -1,4 +1,4 @@
-import { TabmenuDesignTokens } from 'primeng/themes/types/tabmenu';
+import { TabmenuDesignTokens } from '../../types/tabmenu';
 
 export default {
     root: {

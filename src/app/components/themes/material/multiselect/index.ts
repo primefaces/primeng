@@ -1,4 +1,4 @@
-import { MultiSelectDesignTokens } from 'primeng/themes/types/multiselect';
+import { MultiSelectDesignTokens } from '../../types/multiselect';
 
 export default {
     root: {

@@ -1,4 +1,4 @@
-import { DockDesignTokens } from 'primeng/themes/types/dock';
+import { DockDesignTokens } from '../../types/dock';
 
 export default {
     root: {

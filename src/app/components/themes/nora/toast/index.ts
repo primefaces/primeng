@@ -1,5 +1,4 @@
-
-import {ToastDesignTokens} from 'primeng/themes/types/toast'
+import { ToastDesignTokens } from '../../types/toast';
 
 export default {
     root: {

@@ -1,4 +1,4 @@
-import { TooltipDesignTokens } from 'primeng/themes/types/tooltip';
+import { TooltipDesignTokens } from '../../types/tooltip';
 
 export default {
     root: {

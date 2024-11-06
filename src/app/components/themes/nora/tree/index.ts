@@ -1,5 +1,4 @@
-
-import {TreeDesignTokens} from 'primeng/themes/types/tree'
+import { TreeDesignTokens } from '../../types/tree';
 
 export default {
     root: {

@@ -1,4 +1,4 @@
-import { IftaLabelDesignTokens } from 'primeng/themes/types/iftalabel';
+import { IftaLabelDesignTokens } from '../../types/iftalabel';
 
 export default {
     root: {

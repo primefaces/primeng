@@ -1,4 +1,4 @@
-import { CarouselDesignTokens } from 'primeng/themes/types/carousel';
+import { CarouselDesignTokens } from '../../types/carousel';
 
 export default {
     root: {

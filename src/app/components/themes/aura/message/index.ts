@@ -1,4 +1,4 @@
-import { MessageDesignTokens } from 'primeng/themes/types/message';
+import { MessageDesignTokens } from '../../types/message';
 
 export default {
     root: {

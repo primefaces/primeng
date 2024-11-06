@@ -1,4 +1,4 @@
-import { BlockUiDesignTokens } from 'primeng/themes/types/blockui';
+import { BlockUiDesignTokens } from '../../types/blockui';
 
 export default {
     root: {

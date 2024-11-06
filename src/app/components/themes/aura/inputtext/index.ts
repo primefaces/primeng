@@ -1,4 +1,4 @@
-import { InputTextDesignTokens } from 'primeng/themes/types/inputtext';
+import { InputTextDesignTokens } from '../../types/inputtext';
 
 export default {
     root: {

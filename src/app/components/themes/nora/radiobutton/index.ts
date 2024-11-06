@@ -1,5 +1,4 @@
-
-import {RadioButtonDesignTokens} from 'primeng/themes/types/radiobutton'
+import { RadioButtonDesignTokens } from '../../types/radiobutton';
 
 export default {
     root: {

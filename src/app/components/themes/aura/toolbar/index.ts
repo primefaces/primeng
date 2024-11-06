@@ -1,4 +1,4 @@
-import { ToolbarDesignTokens } from 'primeng/themes/types/toolbar';
+import { ToolbarDesignTokens } from '../../types/toolbar';
 
 export default {
     root: {

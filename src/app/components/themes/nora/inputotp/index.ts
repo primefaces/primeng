@@ -1,4 +1,4 @@
-import { InputOtpDesignTokens } from 'primeng/themes/types/inputotp';
+import { InputOtpDesignTokens } from '../../types/inputotp';
 
 export default {
     root: {

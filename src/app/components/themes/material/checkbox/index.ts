@@ -1,4 +1,4 @@
-import { CheckboxDesignTokens } from 'primeng/themes/types/checkbox';
+import { CheckboxDesignTokens } from '../../types/checkbox';
 
 export default {
     root: {

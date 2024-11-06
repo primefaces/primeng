@@ -1,4 +1,4 @@
-import { AvatarDesignTokens } from 'primeng/themes/types/avatar';
+import { AvatarDesignTokens } from '../../types/avatar';
 
 export default {
     root: {

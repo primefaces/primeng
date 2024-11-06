@@ -1,5 +1,4 @@
-
-import {ScrollPanelDesignTokens} from 'primeng/themes/types/scrollpanel'
+import { ScrollPanelDesignTokens } from '../../types/scrollpanel';
 
 export default {
     root: {

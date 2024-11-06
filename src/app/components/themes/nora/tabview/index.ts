@@ -1,5 +1,4 @@
-
-import {TabViewDesignTokens} from 'primeng/themes/types/tabview'
+import { TabViewDesignTokens } from '../../types/tabview';
 
 export default {
     root: {

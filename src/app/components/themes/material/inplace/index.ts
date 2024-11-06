@@ -1,5 +1,4 @@
-
-import {InplaceDesignTokens} from 'primeng/themes/types/inplace'
+import { InplaceDesignTokens } from '../../types/inplace';
 
 export default {
     root: {

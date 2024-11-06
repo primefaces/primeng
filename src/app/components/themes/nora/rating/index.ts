@@ -1,5 +1,4 @@
-
-import {RatingDesignTokens} from 'primeng/themes/types/rating'
+import { RatingDesignTokens } from '../../types/rating';
 
 export default {
     root: {

@@ -1,5 +1,4 @@
-
-import {ConfirmDialogDesignTokens} from 'primeng/themes/types/confirmdialog'
+import { ConfirmDialogDesignTokens } from '../../types/confirmdialog';
 
 export default {
     icon: {

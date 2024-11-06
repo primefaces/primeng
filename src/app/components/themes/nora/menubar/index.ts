@@ -1,4 +1,4 @@
-import { MenubarDesignTokens } from 'primeng/themes/types/menubar';
+import { MenubarDesignTokens } from '../../types/menubar';
 
 export default {
     root: {

@@ -1,4 +1,4 @@
-import { BadgeDesignTokens } from 'primeng/themes/types/badge';
+import { BadgeDesignTokens } from '../../types/badge';
 
 export default {
     root: {

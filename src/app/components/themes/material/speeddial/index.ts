@@ -1,4 +1,4 @@
-import { SpeedDialDesignTokens } from 'primeng/themes/types/speeddial';
+import { SpeedDialDesignTokens } from '../../types/speeddial';
 
 export default {
     root: {

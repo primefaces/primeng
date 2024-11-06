@@ -1,4 +1,4 @@
-import { CardDesignTokens } from 'primeng/themes/types/card';
+import { CardDesignTokens } from '../../types/card';
 
 export default {
     root: {

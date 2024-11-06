@@ -1,4 +1,4 @@
-import { PickListDesignTokens } from 'primeng/themes/types/picklist';
+import { PickListDesignTokens } from '../../types/picklist';
 
 export default {
     root: {

@@ -1,4 +1,4 @@
-import { BaseDesignTokens } from 'primeng/themes/types/base';
+import { BaseDesignTokens } from '../../types/base';
 
 export default {
     primitive: {

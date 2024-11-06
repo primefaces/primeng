@@ -1,4 +1,4 @@
-import { InlineMessageDesignTokens } from 'primeng/themes/types/inlinemessage';
+import { InlineMessageDesignTokens } from '../../types/inlinemessage';
 
 export default {
     root: {

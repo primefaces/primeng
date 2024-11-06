@@ -1,5 +1,4 @@
-
-import {SkeletonDesignTokens} from 'primeng/themes/types/skeleton'
+import { SkeletonDesignTokens } from '../../types/skeleton';
 
 export default {
     root: {

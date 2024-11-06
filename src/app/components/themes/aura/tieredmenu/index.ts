@@ -1,4 +1,4 @@
-import { TieredMenuDesignTokens } from 'primeng/themes/types/tieredmenu';
+import { TieredMenuDesignTokens } from '../../types/tieredmenu';
 
 export default {
     root: {

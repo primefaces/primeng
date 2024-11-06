@@ -1,5 +1,4 @@
-
-import {StepperDesignTokens} from 'primeng/themes/types/stepper'
+import { StepperDesignTokens } from '../../types/stepper';
 
 export default {
     root: {
