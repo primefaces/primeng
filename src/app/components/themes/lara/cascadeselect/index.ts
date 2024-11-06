@@ -1,4 +1,4 @@
-import { CascadeselectDesignTokens } from '../../types/cascadeselect';
+import { CascadeSelectDesignTokens } from '../../types/cascadeselect';
 
 export default {
     root: {
@@ -73,4 +73,4 @@ export default {
     clearIcon: {
         color: '{form.field.icon.color}',
     },
-} as CascadeselectDesignTokens;
+} as CascadeSelectDesignTokens;
