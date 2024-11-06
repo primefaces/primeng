@@ -27,8 +27,8 @@ import { RippleModule } from '../../../components/ripple/ripple';
                         <div class="text-primary font-bold mb-2">UP-TO-DATE</div>
                         <div class="text-surface-900 dark:text-surface-0 text-5xl font-bold mb-4">Best Features of Figma</div>
                         <p class="mb-4 text-lg">
-                            PrimeOne for Figma uses the latest powerful features like components, variants, auto layout, styles, variables and
-                            interactive components. It'll always follow the best practices.
+                            PrimeOne for Figma uses the latest powerful features like components, variants, auto layout, styles, variables
+                            and interactive components. It'll always follow the best practices.
                         </p>
 
                         <ul class="flex flex-wrap m-0 p-0 text-lg">
@@ -99,8 +99,8 @@ import { RippleModule } from '../../../components/ripple/ripple';
                         <div class="text-primary font-bold mb-2">DARK MODE</div>
                         <div class="text-surface-900 dark:text-surface-0 text-5xl font-bold mb-4">Two Themes</div>
                         <p class="mb-4 text-lg">
-                            PrimeOne is designed based on Aura Light and Aura Dark themes. Easily change the themes of your
-                            designs using Figma's Swap Library feature or Tokens Studio Sets.
+                            PrimeOne is designed based on Aura Light and Aura Dark themes. Easily change the themes of your designs using
+                            Figma's Swap Library feature or Tokens Studio Sets.
                         </p>
 
                         <ul class="flex flex-wrap m-0 p-0 text-lg">
