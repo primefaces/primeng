@@ -9,7 +9,7 @@ import { SharedModule } from 'primeng/api';
  * @group Components
  */
 @Component({
-    selector: 'p-inputgroup, p-inputGroup',
+    selector: 'p-inputgroup, p-inputGroup, p-input-group',
     standalone: true,
     imports: [CommonModule, SharedModule],
     template: ` <ng-content></ng-content> `,

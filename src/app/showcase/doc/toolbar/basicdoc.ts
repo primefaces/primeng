@@ -13,18 +13,18 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card">
             <p-toolbar>
-                <ng-template pTemplate="start">
+                <ng-template #start>
                     <p-button icon="pi pi-plus" class="mr-2" text severity="secondary" />
                     <p-button icon="pi pi-print" class="mr-2" text severity="secondary" />
                     <p-button icon="pi pi-upload" text severity="secondary" />
                 </ng-template>
-                <ng-template pTemplate="center">
+                <ng-template #center>
                     <p-iconfield iconPosition="left">
                         <p-inputicon styleClass="pi pi-search" />
                         <input type="text" pInputText placeholder="Search" />
                     </p-iconfield>
                 </ng-template>
-                <ng-template pTemplate="end">
+                <ng-template #end>
                     <p-splitbutton label="Save" [model]="items" />
                 </ng-template>
             </p-toolbar>
@@ -50,36 +50,36 @@ export class BasicDoc implements OnInit {
 
     code: Code = {
         basic: `<p-toolbar>
-    <ng-template pTemplate="start">
+    <ng-template #start>
         <p-button icon="pi pi-plus" class="mr-2" text severity="secondary" />
         <p-button icon="pi pi-print" class="mr-2" text severity="secondary" />
         <p-button icon="pi pi-upload" text severity="secondary" />
     </ng-template>
-    <ng-template pTemplate="center">
+    <ng-template #center>
         <p-iconfield iconPosition="left">
             <p-inputicon styleClass="pi pi-search" />
             <input type="text" pInputText placeholder="Search" />
         </p-iconfield>
     </ng-template>
-    <ng-template pTemplate="end">
+    <ng-template #end>
         <p-splitbutton label="Save" [model]="items" />
     </ng-template>
 </p-toolbar>`,
 
         html: `<div class="card">
     <p-toolbar>
-        <ng-template pTemplate="start">
+        <ng-template #start>
             <p-button icon="pi pi-plus" class="mr-2" text severity="secondary" />
             <p-button icon="pi pi-print" class="mr-2" text severity="secondary" />
             <p-button icon="pi pi-upload" text severity="secondary" />
         </ng-template>
-        <ng-template pTemplate="center">
+        <ng-template #center>
             <p-iconfield iconPosition="left">
                 <p-inputicon styleClass="pi pi-search" />
                 <input type="text" pInputText placeholder="Search" />
             </p-iconfield>
         </ng-template>
-        <ng-template pTemplate="end">
+        <ng-template #end>
             <p-splitbutton label="Save" [model]="items" />
         </ng-template>
     </p-toolbar>

@@ -40,7 +40,7 @@ import { FormsModule } from '@angular/forms';
  * @group Components
  */
 @Component({
-    selector: 'p-orderList, p-orderlist',
+    selector: 'p-orderList, p-orderlist, p-order-list',
     standalone: true,
     imports: [
         CommonModule,

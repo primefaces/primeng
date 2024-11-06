@@ -33,7 +33,7 @@ const presets = {
                         <button
                             type="button"
                             [title]="primaryColor.name"
-                            (click)="updateColors('primary', primaryColor)"
+                            (click)="updateColors($event, 'primary', primaryColor)"
                             [ngClass]="{ 'active-color': primaryColor.name === selectedPrimaryColor() }"
                             [style]="{
                                 'background-color': primaryColor.name === 'noir' ? 'var(--text-color)' : primaryColor?.palette['500'],
@@ -50,7 +50,7 @@ const presets = {
                         <button
                             type="button"
                             [title]="surface.name"
-                            (click)="updateColors('surface', surface)"
+                            (click)="updateColors($event, 'surface', surface)"
                             [ngClass]="{ 'active-color': surface.name === selectedSurfaceColor() }"
                             [style]="{
                                 'background-color': surface.name === 'noir' ? 'var(--text-color)' : surface?.palette['500'],
@@ -439,14 +439,15 @@ export class AppConfiguratorComponent {
         }
     }
 
-    updateColors(type: string, color: any) {
+    updateColors(event: any, type: string, color: any) {
         if (type === 'primary') {
             this.configService.appState.update((state) => ({ ...state, primary: color.name }));
         } else if (type === 'surface') {
             this.configService.appState.update((state) => ({ ...state, surface: color.name }));
         }
-
         this.applyTheme(type, color);
+        
+        event.stopPropagation();
     }
 
     applyTheme(type: string, color: any) {

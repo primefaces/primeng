@@ -101,77 +101,9 @@ export class CustomDoc {
         basic: `<p-toolbar [style]="{ 'border-radius': '3rem', 'padding': '1rem 1rem 1rem 1.5rem' }">
     <ng-template #start>
         <div class="flex items-center gap-2">
-            <svg width="31" height="33" viewBox="0 0 31 33" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 2rem; margin-right: 1rem" >
-                <path
-                    d="..."
-                    fill="var(--p-primary-color)"
-                />
-                <mask
-                    id="mask0_1_52"
-                    style="mask-type:luminance"
-                    maskUnits="userSpaceOnUse"
-                    x="0"
-                    y="0"
-                    width="31"
-                    height="33"
-                >
-                    <path
-                        d="..."
-                        fill="var(--high-contrast-text-color)"
-                    />
-                </mask>
-                <g mask="url(#mask0_1_52)">
-                    <path
-                        fill-rule="evenodd"
-                        clip-rule="evenodd"
-                        d="..."
-                        fill="var(--p-primary-color)"
-                    />
-                </g>
-                <path
-                    d="..."
-                    fill="var(--high-contrast-text-color)"
-                />
-                <path
-                    d="..."
-                    fill="var(--high-contrast-text-color)"
-                />
-                <path
-                    fill-rule="evenodd"
-                    clip-rule="evenodd"
-                    d="..."
-                    fill="var(--high-contrast-text-color)"
-                />
-                <path
-                    d="..."
-                    fill="var(--high-contrast-text-color)"
-                />
-                <path
-                    d="..."
-                    fill="var(--high-contrast-text-color)"
-                />
-                <path
-                    fill-rule="evenodd"
-                    clip-rule="evenodd"
-                    d="..."
-                    fill="var(--high-contrast-text-color)"
-                />
-                <path
-                    d="..."
-                    fill="var(--high-contrast-text-color)"
-                />
-                <path
-                    d="..."
-                    fill="var(--high-contrast-text-color)"
-                />
-                <path
-                    d="..."
-                    fill="var(--high-contrast-text-color)"
-                />
-                <path
-                    d="..."
-                    fill="var(--high-contrast-text-color)"
-                />
+            <svg width="31" height="33" viewBox="0 0 31 33" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 2rem; margin-right: 1rem">
+                <path d="..." fill="var(--p-primary-color)" />
+                <mask id="mask0_1_52" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="31" height="33">
             </svg>
             <p-button label="Files" text plain />
             <p-button label="Edit" text plain />
@@ -182,10 +114,7 @@ export class CustomDoc {
     <ng-template #end>
         <div class="flex items-center gap-2">
             <p-button label="Share" severity="contrast" size="small" />
-            <p-avatar
-                image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"
-                [style]="{ width: '32px', height: '32px' }"
-            />
+            <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" [style]="{ width: '32px', height: '32px' }" />
         </div>
     </ng-template>
 </p-toolbar>`,

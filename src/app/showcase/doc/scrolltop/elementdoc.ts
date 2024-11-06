@@ -28,11 +28,7 @@ import { Code } from '@domain/code';
 })
 export class ElementDoc {
     code: Code = {
-        basic: `<p-scrolltop 
-    target="parent" 
-    styleClass="custom-scrolltop" 
-    [threshold]="100" 
-    icon="pi pi-arrow-up" />`,
+        basic: `<p-scrolltop target="parent" styleClass="custom-scrolltop" [threshold]="100" icon="pi pi-arrow-up" />`,
         html: `<div class="card">
     <div style="width: 250px; height: 200px; overflow: auto">
         <p>

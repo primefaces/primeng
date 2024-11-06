@@ -61,7 +61,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
  * @group Components
  */
 @Component({
-    selector: 'p-autoComplete, p-autocomplete',
+    selector: 'p-autoComplete, p-autocomplete, p-auto-complete',
     standalone: true,
     imports: [
         CommonModule,

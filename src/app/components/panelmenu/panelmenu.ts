@@ -803,7 +803,7 @@ export class PanelMenuList extends BaseComponent implements OnChanges {
  * @group Components
  */
 @Component({
-    selector: 'p-panelMenu, p-panelmenu',
+    selector: 'p-panelMenu, p-panelmenu, p-panel-menu',
     imports: [
         CommonModule,
         PanelMenuList,
