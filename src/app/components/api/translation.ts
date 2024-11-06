@@ -33,6 +33,7 @@ export interface Translation {
     choose?: string;
     upload?: string;
     cancel?: string;
+    custom?: string;
     fileSizeTypes?: string[];
     dayNames?: string[];
     dayNamesShort?: string[];
@@ -55,10 +56,14 @@ export interface Translation {
     chooseDate?: string;
     prevDecade?: string;
     nextDecade?: string;
+    thisYear?: string;
     prevYear?: string;
     nextYear?: string;
+    thisMonth?: string;
     prevMonth?: string;
     nextMonth?: string;
+    thisWeek?: string;
+    prevWeek?: string;
     prevHour?: string;
     nextHour?: string;
     prevMinute?: string;
