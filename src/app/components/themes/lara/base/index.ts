@@ -1,5 +1,3 @@
-import { BaseDesignTokens } from '../../types/base';
-
 export default {
     primitive: {
         borderRadius: {
@@ -661,4 +659,4 @@ export default {
             },
         },
     },
-} as BaseDesignTokens;
+};
