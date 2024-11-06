@@ -45,10 +45,9 @@ import { FieldsetStyle } from './style/fieldsetstyle';
             [attr.data-pc-name]="'fieldset'"
             [attr.data-pc-section]="'root'"
         >
-            <legend class="p-fieldset-legend" [attr.data-pc-section]="'legend'">
+            <legend class="p-fieldset-legend" [attr.data-pc-section]="'legend'" [attr.id]="id + '_header'">
                 <ng-container *ngIf="toggleable; else legendContent">
                     <button
-                        [attr.id]="id + '_header'"
                         tabindex="0"
                         role="button"
                         [attr.aria-controls]="id + '_content'"
@@ -182,9 +181,7 @@ export class Fieldset extends BaseComponent implements BlockableUI {
      */
     @Output() onAfterToggle: EventEmitter<FieldsetAfterToggleEvent> = new EventEmitter<FieldsetAfterToggleEvent>();
 
-    get id() {
-        return UniqueComponentId();
-    }
+    readonly id = UniqueComponentId();
 
     get buttonAriaLabel() {
         return this.legend;
