@@ -6095,6 +6095,17 @@
             }
         }
     },
+    "calendarsoftrange": {
+        "components": {
+            "CalendarSoftRange": {
+                "description": "// TODO 1111111111111111111",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": []
+                }
+            }
+        }
+    },
     "card": {
         "components": {
             "Card": {

@@ -400,6 +400,7 @@ const getAngularApp = (props: Props = {}) => {
     import { ButtonModule } from 'primeng/button';
     import { ButtonGroupModule } from 'primeng/buttongroup';
     import { CalendarModule } from 'primeng/calendar';
+    import { CalendarSoftRangeModule } from 'primeng/calendarsoftrange';
     import { CarouselModule } from 'primeng/carousel';
     import { CascadeSelectModule } from 'primeng/cascadeselect';
     import { ChartModule } from 'primeng/chart';
@@ -515,6 +516,7 @@ const getAngularApp = (props: Props = {}) => {
         ButtonModule,
         ButtonGroupModule,
         CalendarModule,
+        CalendarSoftRangeModule,
         CarouselModule,
         CascadeSelectModule,
         ChartModule,
@@ -622,6 +624,7 @@ const getAngularApp = (props: Props = {}) => {
         ButtonModule,
         ButtonGroupModule,
         CalendarModule,
+        CalendarSoftRangeModule,
         CarouselModule,
         CascadeSelectModule,
         ChartModule,
