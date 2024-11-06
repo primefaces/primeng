@@ -19,17 +19,9 @@ export class CustomDoc {
     @Input() title: string;
 
     code: Code = {
-        basic: `<p-progress-spinner 
-    strokeWidth="8" 
-    fill="transparent" 
-    animationDuration=".5s"
-    [style]="{ width: '50px', height: '50px' }" />`,
+        basic: `<p-progress-spinner strokeWidth="8" fill="transparent" animationDuration=".5s" [style]="{ width: '50px', height: '50px' }" />`,
         html: `<div class="card flex justify-center">
-    <p-progress-spinner 
-        strokeWidth="8" 
-        fill="transparent" 
-        animationDuration=".5s"
-        [style]="{ width: '50px', height: '50px' }" />
+    <p-progress-spinner strokeWidth="8" fill="transparent" animationDuration=".5s" [style]="{ width: '50px', height: '50px' }" />
 </div>`,
         typescript: `import { Component } from '@angular/core';
 import { ProgressSpinner } from 'primeng/progressspinner';
