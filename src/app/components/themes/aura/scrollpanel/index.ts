@@ -1,3 +1,5 @@
+import { ScrollPanelDesignTokens } from 'primeng/themes/types/scrollpanel';
+
 export default {
     root: {
         transitionDuration: '{transition.duration}',
@@ -25,4 +27,4 @@ export default {
             },
         },
     },
-};
+} as ScrollPanelDesignTokens;

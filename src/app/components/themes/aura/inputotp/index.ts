@@ -1,3 +1,5 @@
+import { InputOtpDesignTokens } from 'primeng/themes/types/inputotp';
+
 export default {
     root: {
         gap: '0.5rem',
@@ -11,4 +13,4 @@ export default {
             width: '3rem',
         },
     },
-};
+} as InputOtpDesignTokens;

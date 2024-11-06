@@ -1,3 +1,6 @@
+
+import {TieredMenuDesignTokens} from 'primeng/themes/types/tieredmenu'
+
 export default {
     root: {
         background: '{content.background}',
@@ -38,4 +41,4 @@ export default {
     separator: {
         borderColor: '{content.border.color}',
     },
-};
+} as TieredMenuDesignTokens;

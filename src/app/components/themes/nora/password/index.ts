@@ -1,3 +1,6 @@
+
+import {PasswordDesignTokens} from 'primeng/themes/types/password'
+
 export default {
     meter: {
         borderRadius: '{content.border.radius}',
@@ -39,4 +42,4 @@ export default {
             },
         },
     },
-};
+} as PasswordDesignTokens;

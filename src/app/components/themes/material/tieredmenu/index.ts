@@ -1,3 +1,5 @@
+import { TieredMenuDesignTokens } from 'primeng/themes/types/tieredmenu';
+
 export default {
     root: {
         background: '{content.background}',
@@ -40,7 +42,7 @@ export default {
     },
     css: ({ dt }) => `
 .p-tieredmenu-overlay {
-    border-color: transparent;
+    border-color: transparent
 }
 `,
-};
+}; as TieredMenuDesignTokens;

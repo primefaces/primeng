@@ -1,3 +1,6 @@
+
+import {RippleDesignTokens} from 'primeng/themes/types/ripple'
+
 export default {
     colorScheme: {
         light: {
@@ -11,4 +14,4 @@ export default {
             },
         },
     },
-};
+} as RippleDesignTokens;

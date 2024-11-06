@@ -1,3 +1,5 @@
+import { TimelineDesignTokens } from 'primeng/themes/types/timeline';
+
 export default {
     event: {
         minHeight: '5rem',
@@ -29,4 +31,4 @@ export default {
         color: '{content.border.color}',
         size: '2px',
     },
-};
+} as TimelineDesignTokens;

@@ -1,3 +1,5 @@
+import { PanelMenuDesignTokens } from 'primeng/themes/types/panelmenu';
+
 export default {
     root: {
         gap: '0',
@@ -40,7 +42,7 @@ export default {
     },
     css: ({ dt }) => `
 .p-panelmenu-panel {
-    box-shadow: 0 0 0 1px ${dt('panelmenu.panel.border.color')};
+    box-shadow: 0 0 0 1px ${dt('panelmenu.panel.border.color')}
     transition: margin ${dt('panelmenu.transition.duration')};
 }
 
@@ -64,4 +66,4 @@ export default {
     background: ${dt('navigation.item.active.background')};
 }
 `,
-};
+}; as PanelMenuDesignTokens;

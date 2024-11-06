@@ -1,3 +1,6 @@
+
+import {SelectDesignTokens} from 'primeng/themes/types/select'
+
 export default {
     root: {
         background: '{form.field.background}',
@@ -82,4 +85,4 @@ export default {
     emptyMessage: {
         padding: '{list.option.padding}',
     },
-};
+} as SelectDesignTokens;

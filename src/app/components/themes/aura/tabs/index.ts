@@ -1,3 +1,5 @@
+import { TabsDesignTokens } from 'primeng/themes/types/tabs';
+
 export default {
     root: {
         transitionDuration: '{transition.duration}',
@@ -72,4 +74,4 @@ export default {
             },
         },
     },
-};
+} as TabsDesignTokens;

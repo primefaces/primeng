@@ -1,3 +1,5 @@
+import { DataViewDesignTokens } from 'primeng/themes/types/dataview';
+
 export default {
     root: {
         borderColor: '{content.border.color}',
@@ -49,4 +51,4 @@ export default {
             },
         },
     },
-};
+} as DataViewDesignTokens;

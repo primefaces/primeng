@@ -1,3 +1,5 @@
+import { InputNumberDesignTokens } from 'primeng/themes/types/inputnumber';
+
 export default {
     root: {
         transitionDuration: '{transition.duration}',
@@ -35,4 +37,4 @@ export default {
             },
         },
     },
-};
+} as InputNumberDesignTokens;

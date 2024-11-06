@@ -1,3 +1,5 @@
+import { InputTextDesignTokens } from 'primeng/themes/types/inputtext';
+
 export default {
     root: {
         background: '{form.field.background}',
@@ -36,4 +38,4 @@ export default {
             paddingY: '{form.field.lg.padding.y}',
         },
     },
-};
+} as InputTextDesignTokens;

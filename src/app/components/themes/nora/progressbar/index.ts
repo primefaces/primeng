@@ -1,3 +1,6 @@
+
+import {ProgressBarDesignTokens} from 'primeng/themes/types/progressbar'
+
 export default {
     root: {
         borderRadius: '{content.border.radius}',
@@ -23,4 +26,4 @@ export default {
             },
         },
     },
-};
+} as ProgressBarDesignTokens;

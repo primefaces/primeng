@@ -1,3 +1,5 @@
+import { TabmenuDesignTokens } from 'primeng/themes/types/tabmenu';
+
 export default {
     root: {
         transitionDuration: '{transition.duration}',
@@ -40,4 +42,4 @@ export default {
         bottom: '-1px',
         background: '{primary.color}',
     },
-};
+} as TabmenuDesignTokens;

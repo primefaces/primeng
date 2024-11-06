@@ -1,3 +1,6 @@
+
+import {InplaceDesignTokens} from 'primeng/themes/types/inplace'
+
 export default {
     root: {
         padding: '{form.field.padding.y} {form.field.padding.x}',
@@ -15,4 +18,4 @@ export default {
         hoverBackground: '{content.hover.background}',
         hoverColor: '{content.hover.color}',
     },
-};
+} as InplaceDesignTokens;

@@ -1,3 +1,5 @@
+import { BaseDesignTokens } from 'primeng/themes/types/base';
+
 export default {
     primitive: {
         borderRadius: {
@@ -654,4 +656,4 @@ export default {
             },
         },
     },
-};
+} as BaseDesignTokens;

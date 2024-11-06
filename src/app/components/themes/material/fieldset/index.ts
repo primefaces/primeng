@@ -1,3 +1,5 @@
+import { FieldsetDesignTokens } from 'primeng/themes/types/fieldset';
+
 export default {
     root: {
         background: '{content.background}',
@@ -35,8 +37,8 @@ export default {
     },
     css: ({ dt }) => `
 .p-fieldset-toggle-button:focus-visible {
-    background: ${dt('navigation.item.active.background')};
+    background: ${dt('navigation.item.active.background')}
 
 }
 `,
-};
+}; as FieldsetDesignTokens;

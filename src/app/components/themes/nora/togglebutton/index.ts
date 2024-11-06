@@ -1,3 +1,6 @@
+
+import {ToggleButtonDesignTokens} from 'primeng/themes/types/togglebutton'
+
 export default {
     root: {
         padding: '0.5rem 0.75rem',
@@ -56,4 +59,4 @@ export default {
             },
         },
     },
-};
+} as ToggleButtonDesignTokens;

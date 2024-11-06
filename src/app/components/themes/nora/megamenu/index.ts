@@ -1,3 +1,5 @@
+import { MegaMenuDesignTokens } from 'primeng/themes/types/megamenu';
+
 export default {
     root: {
         background: '{content.background}',
@@ -76,4 +78,4 @@ export default {
             shadow: '{focus.ring.shadow}',
         },
     },
-};
+} as MegaMenuDesignTokens;

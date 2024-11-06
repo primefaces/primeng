@@ -1,3 +1,5 @@
+import { TabsDesignTokens } from 'primeng/themes/types/tabs';
+
 export default {
     root: {
         transitionDuration: '{transition.duration}',
@@ -69,7 +71,7 @@ export default {
 }
 
 .p-tab-active {
-    --p-ripple-background: color-mix(in srgb, ${dt('primary.color')}, transparent 90%);
+    --p-ripple-background: color-mix(in srgb, ${dt('primary.color')}, transparent 90%)
 }
 
 .p-tab:not(.p-disabled):focus-visible {
@@ -80,4 +82,4 @@ export default {
     background: ${dt('navigation.item.active.background')};
 }
 `,
-};
+}; as TabsDesignTokens;

@@ -1,3 +1,5 @@
+import { DrawerDesignTokens } from 'primeng/themes/types/drawer';
+
 export default {
     root: {
         background: '{overlay.modal.background}',
@@ -18,4 +20,4 @@ export default {
     footer: {
         padding: '{overlay.modal.padding}',
     },
-};
+} as DrawerDesignTokens;

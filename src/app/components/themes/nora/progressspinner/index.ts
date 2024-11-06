@@ -1,3 +1,6 @@
+
+import {ProgressSpinnerDesignTokens} from 'primeng/themes/types/progressspinner'
+
 export default {
     colorScheme: {
         light: {
@@ -17,4 +20,4 @@ export default {
             },
         },
     },
-};
+} as ProgressSpinnerDesignTokens;

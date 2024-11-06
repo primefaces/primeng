@@ -1,3 +1,5 @@
+import { ButtonDesignTokens } from 'primeng/themes/types/button';
+
 export default {
     root: {
         borderRadius: '{form.field.border.radius}',
@@ -496,7 +498,7 @@ export default {
     },
     css: ({ dt }) => `
 .p-button:focus-visible {
-    background: ${dt('button.primary.active.background')};
+    background: ${dt('button.primary.active.background')}
     border-color: ${dt('button.primary.active.background')};
 }
 
@@ -622,4 +624,4 @@ export default {
     background: ${dt('button.outlined.plain.active.background')};
 }
 `,
-};
+}; as ButtonDesignTokens;

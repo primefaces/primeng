@@ -1,3 +1,5 @@
+import { KnobDesignTokens } from 'primeng/themes/types/knob';
+
 export default {
     root: {
         transitionDuration: '{transition.duration}',
@@ -27,4 +29,4 @@ export default {
             },
         },
     },
-};
+} as KnobDesignTokens;

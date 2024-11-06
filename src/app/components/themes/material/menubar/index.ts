@@ -1,3 +1,5 @@
+import { MenubarDesignTokens } from 'primeng/themes/types/menubar';
+
 export default {
     root: {
         background: '{content.background}',
@@ -61,7 +63,7 @@ export default {
     },
     css: ({ dt }) => `
 .p-menubar-button:focus-visible {
-    background: ${dt('navigation.item.active.background')};
+    background: ${dt('navigation.item.active.background')}
 }
 `,
-};
+}; as MenubarDesignTokens;

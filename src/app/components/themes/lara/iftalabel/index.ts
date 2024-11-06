@@ -1,3 +1,5 @@
+import { IftaLabelDesignTokens } from 'primeng/themes/types/iftalabel';
+
 export default {
     root: {
         color: '{form.field.float.label.color}',
@@ -13,4 +15,4 @@ export default {
         paddingTop: '1.875rem',
         paddingBottom: '{form.field.padding.y}',
     },
-};
+} as IftaLabelDesignTokens;

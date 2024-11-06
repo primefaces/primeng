@@ -1,3 +1,5 @@
+import { ToolbarDesignTokens } from 'primeng/themes/types/toolbar';
+
 export default {
     root: {
         background: '{content.background}',
@@ -21,4 +23,4 @@ export default {
             },
         },
     },
-};
+} as ToolbarDesignTokens;

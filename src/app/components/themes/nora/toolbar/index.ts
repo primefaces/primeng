@@ -1,3 +1,6 @@
+
+import {ToolbarDesignTokens} from 'primeng/themes/types/toolbar'
+
 export default {
     root: {
         background: '{content.background}',
@@ -7,4 +10,4 @@ export default {
         gap: '0.5rem',
         padding: '0.75rem',
     },
-};
+} as ToolbarDesignTokens;

@@ -1,3 +1,5 @@
+import { TreetableDesignTokens } from 'primeng/themes/types/treetable';
+
 export default {
     root: {
         transitionDuration: '{transition.duration}',
@@ -146,4 +148,4 @@ export default {
             },
         },
     },
-};
+} as TreetableDesignTokens;

@@ -1,3 +1,6 @@
+
+import {SkeletonDesignTokens} from 'primeng/themes/types/skeleton'
+
 export default {
     root: {
         borderRadius: '{content.border.radius}',
@@ -16,4 +19,4 @@ export default {
             },
         },
     },
-};
+} as SkeletonDesignTokens;

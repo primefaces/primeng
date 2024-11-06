@@ -1,3 +1,5 @@
+import { PopoverDesignTokens } from 'primeng/themes/types/popover';
+
 export default {
     root: {
         background: '{overlay.popover.background}',
@@ -11,4 +13,4 @@ export default {
     content: {
         padding: '{overlay.popover.padding}',
     },
-};
+} as PopoverDesignTokens;

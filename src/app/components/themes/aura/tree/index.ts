@@ -1,3 +1,5 @@
+import { TreeDesignTokens } from 'primeng/themes/types/tree';
+
 export default {
     root: {
         background: '{content.background}',
@@ -51,4 +53,4 @@ export default {
     filter: {
         margin: '0 0 0.5rem 0',
     },
-};
+} as TreeDesignTokens;

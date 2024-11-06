@@ -1,3 +1,5 @@
+import { MenubarDesignTokens } from 'primeng/themes/types/menubar';
+
 export default {
     root: {
         borderColor: 'transparent',
@@ -70,4 +72,4 @@ export default {
             },
         },
     },
-};
+} as MenubarDesignTokens;

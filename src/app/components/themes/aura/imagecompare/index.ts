@@ -1,3 +1,5 @@
+import { ImageCompareDesignTokens } from 'primeng/themes/types/imagecompare';
+
 export default {
     handle: {
         size: '15px',
@@ -17,4 +19,4 @@ export default {
             shadow: '{focus.ring.shadow}',
         },
     },
-};
+} as ImageCompareDesignTokens;

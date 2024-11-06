@@ -1,3 +1,5 @@
+import { MultiSelectDesignTokens } from 'primeng/themes/types/multiselect';
+
 export default {
     root: {
         background: '{form.field.background}',
@@ -83,7 +85,7 @@ export default {
     },
     css: ({ dt }) => `
 .p-multiselect.p-variant-filled {
-    border-bottom-left-radius: 0;
+    border-bottom-left-radius: 0
     border-bottom-right-radius: 0;
     border: 1px solid transparent;
     background: ${dt('multiselect.filled.background')} no-repeat;
@@ -129,4 +131,4 @@ export default {
     transition: none;
 }
 `,
-};
+}; as MultiSelectDesignTokens;

@@ -1,3 +1,6 @@
+
+import {TextareaDesignTokens} from 'primeng/themes/types/textarea'
+
 export default {
     root: {
         background: '{form.field.background}',
@@ -35,4 +38,4 @@ export default {
             paddingY: '{form.field.lg.padding.y}',
         },
     },
-};
+} as TextareaDesignTokens;

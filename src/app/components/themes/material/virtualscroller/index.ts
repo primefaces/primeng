@@ -1,3 +1,5 @@
+import { VirtualScrollerDesignTokens } from 'primeng/themes/types/virtualscroller';
+
 export default {
     loader: {
         mask: {
@@ -8,4 +10,4 @@ export default {
             size: '2rem',
         },
     },
-};
+} as VirtualScrollerDesignTokens;

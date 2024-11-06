@@ -1,3 +1,5 @@
+import { PanelDesignTokens } from 'primeng/themes/types/panel';
+
 export default {
     root: {
         borderColor: '{content.border.color}',
@@ -35,4 +37,4 @@ export default {
             },
         },
     },
-};
+} as PanelDesignTokens;

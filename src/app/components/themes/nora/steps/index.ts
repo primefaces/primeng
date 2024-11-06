@@ -1,3 +1,6 @@
+
+import {StepsDesignTokens} from 'primeng/themes/types/steps'
+
 export default {
     root: {
         transitionDuration: '{transition.duration}',
@@ -34,4 +37,4 @@ export default {
         borderRadius: '50%',
         shadow: 'none',
     },
-};
+} as StepsDesignTokens;

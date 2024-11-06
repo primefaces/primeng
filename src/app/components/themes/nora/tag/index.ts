@@ -1,3 +1,6 @@
+
+import {TagDesignTokens} from 'primeng/themes/types/tag'
+
 export default {
     root: {
         fontSize: '0.875rem',
@@ -72,4 +75,4 @@ export default {
             },
         },
     },
-};
+} as TagDesignTokens;

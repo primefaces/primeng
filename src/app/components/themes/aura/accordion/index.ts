@@ -1,4 +1,4 @@
-import { AccordionDesignTokens } from '../../types/accordion';
+import { AccordionDesignTokens } from 'primeng/themes/types/accordion';
 
 export default {
     root: {
@@ -51,3 +51,4 @@ export default {
         padding: '0 1.125rem 1.125rem 1.125rem',
     },
 } as AccordionDesignTokens;
+\

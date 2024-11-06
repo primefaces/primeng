@@ -1,3 +1,6 @@
+
+import {SplitterDesignTokens} from 'primeng/themes/types/splitter'
+
 export default {
     root: {
         background: '{content.background}',
@@ -20,4 +23,4 @@ export default {
             shadow: '{focus.ring.shadow}',
         },
     },
-};
+} as SplitterDesignTokens;

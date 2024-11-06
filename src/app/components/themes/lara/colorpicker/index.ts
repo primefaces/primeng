@@ -1,3 +1,6 @@
+
+import {ColorPickerDesignTokens} from 'primeng/themes/types/colorpicker'
+
 export default {
     root: {
         transitionDuration: '{transition.duration}',
@@ -38,4 +41,4 @@ export default {
             },
         },
     },
-};
+} as ColorPickerDesignTokens;

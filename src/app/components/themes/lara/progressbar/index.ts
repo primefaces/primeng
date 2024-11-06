@@ -1,3 +1,5 @@
+import { ProgressBarDesignTokens } from 'primeng/themes/types/progressbar';
+
 export default {
     root: {
         background: '{content.border.color}',
@@ -12,4 +14,4 @@ export default {
         fontSize: '0.875rem',
         fontWeight: '600',
     },
-};
+} as ProgressBarDesignTokens;

@@ -1,3 +1,5 @@
+import { PanelDesignTokens } from 'primeng/themes/types/panel';
+
 export default {
     root: {
         background: '{content.background}',
@@ -25,4 +27,4 @@ export default {
     footer: {
         padding: '0 1.125rem 1.125rem 1.125rem',
     },
-};
+} as PanelDesignTokens;

@@ -1,3 +1,5 @@
+import { StepperDesignTokens } from 'primeng/themes/types/stepper';
+
 export default {
     root: {
         transitionDuration: '{transition.duration}',
@@ -65,7 +67,7 @@ export default {
     },
     css: ({ dt }) => `
 .p-step-header:focus-visible {
-    background: ${dt('navigation.item.active.background')};
+    background: ${dt('navigation.item.active.background')}
 }
 `,
-};
+}; as StepperDesignTokens;

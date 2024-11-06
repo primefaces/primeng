@@ -1,3 +1,5 @@
+import { InputGroupDesignTokens } from 'primeng/themes/types/inputgroup';
+
 export default {
     addon: {
         borderRadius: '{form.field.border.radius}',
@@ -20,4 +22,4 @@ export default {
             },
         },
     },
-};
+} as InputGroupDesignTokens;

@@ -1,3 +1,5 @@
+import { InputChipsDesignTokens } from 'primeng/themes/types/inputchips';
+
 export default {
     root: {
         background: '{form.field.background}',
@@ -41,4 +43,4 @@ export default {
             },
         },
     },
-};
+} as InputChipsDesignTokens;

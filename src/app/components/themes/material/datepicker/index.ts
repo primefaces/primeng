@@ -1,3 +1,5 @@
+import { DatePickerDesignTokens } from 'primeng/themes/types/datepicker';
+
 export default {
     root: {
         transitionDuration: '{transition.duration}',
@@ -145,7 +147,7 @@ export default {
     },
     css: ({ dt }) => `
 .p-datepicker-header {
-    justify-content: start;
+    justify-content: start
 }
 
 .p-datepicker-title {
@@ -181,4 +183,4 @@ export default {
     color: ${dt('datepicker.dropdown.hover.color')};
 }
 `,
-};
+}; as DatePickerDesignTokens;

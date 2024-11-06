@@ -1,3 +1,5 @@
+import { ToastDesignTokens } from 'primeng/themes/types/toast';
+
 export default {
     root: {
         width: '25rem',
@@ -212,4 +214,4 @@ export default {
             },
         },
     },
-};
+} as ToastDesignTokens;

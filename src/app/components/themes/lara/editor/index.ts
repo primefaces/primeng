@@ -1,3 +1,5 @@
+import { EditorDesignTokens } from 'primeng/themes/types/editor';
+
 export default {
     toolbar: {
         borderColor: '{content.border.color}',
@@ -41,4 +43,4 @@ export default {
             },
         },
     },
-};
+} as EditorDesignTokens;

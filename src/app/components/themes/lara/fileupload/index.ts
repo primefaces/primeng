@@ -1,3 +1,5 @@
+import { FileUploadDesignTokens } from 'primeng/themes/types/fileupload';
+
 export default {
     root: {
         background: '{content.background}',
@@ -49,4 +51,4 @@ export default {
             },
         },
     },
-};
+} as FileUploadDesignTokens;

@@ -1,3 +1,5 @@
+import { BreadcrumbDesignTokens } from 'primeng/themes/types/breadcrumb';
+
 export default {
     root: {
         padding: '1.25rem',
@@ -25,4 +27,4 @@ export default {
     separator: {
         color: '{navigation.item.icon.color}',
     },
-};
+} as BreadcrumbDesignTokens;

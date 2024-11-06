@@ -1,3 +1,6 @@
+
+import {InputGroupDesignTokens} from 'primeng/themes/types/inputgroup'
+
 export default {
     addon: {
         background: '{form.field.background}',
@@ -7,4 +10,4 @@ export default {
         padding: '0.75rem',
         minWidth: '3rem',
     },
-};
+} as InputGroupDesignTokens;

@@ -1,3 +1,5 @@
+import { MenuDesignTokens } from 'primeng/themes/types/menu';
+
 export default {
     root: {
         background: '{content.background}',
@@ -34,7 +36,7 @@ export default {
     },
     css: ({ dt }) => `
 .p-menu-overlay {
-    border-color: transparent;
+    border-color: transparent
 }
 `,
-};
+}; as MenuDesignTokens;

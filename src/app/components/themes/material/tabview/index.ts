@@ -1,3 +1,5 @@
+import { TabViewDesignTokens } from 'primeng/themes/types/tabview';
+
 export default {
     root: {
         transitionDuration: '{transition.duration}',
@@ -34,4 +36,4 @@ export default {
             },
         },
     },
-};
+} as TabViewDesignTokens;

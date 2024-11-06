@@ -1,3 +1,5 @@
+import { CascadeselectDesignTokens } from 'primeng/themes/types/cascadeselect';
+
 export default {
     root: {
         background: '{form.field.background}',
@@ -73,7 +75,7 @@ export default {
     },
     css: ({ dt }) => `
 .p-cascadeselect.p-variant-filled {
-    border-bottom-left-radius: 0;
+    border-bottom-left-radius: 0
     border-bottom-right-radius: 0;
     border: 1px solid transparent;
     background: ${dt('cascadeselect.filled.background')} no-repeat;
@@ -123,4 +125,4 @@ export default {
     transition: none;
 }
 `,
-};
+}; as CascadeselectDesignTokens;

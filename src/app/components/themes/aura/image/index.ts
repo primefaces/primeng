@@ -1,3 +1,5 @@
+import { ImageDesignTokens } from 'primeng/themes/types/image';
+
 export default {
     root: {
         transitionDuration: '{transition.duration}',
@@ -41,4 +43,4 @@ export default {
             shadow: '{focus.ring.shadow}',
         },
     },
-};
+} as ImageDesignTokens;

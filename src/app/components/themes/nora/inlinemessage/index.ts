@@ -1,3 +1,5 @@
+import { InlineMessageDesignTokens } from 'primeng/themes/types/inlinemessage';
+
 export default {
     root: {
         padding: '{form.field.padding.y} {form.field.padding.x}',
@@ -88,4 +90,4 @@ export default {
             },
         },
     },
-};
+} as InlineMessageDesignTokens;

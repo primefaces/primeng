@@ -1,3 +1,5 @@
+import { GalleriaDesignTokens } from 'primeng/themes/types/galleria';
+
 export default {
     root: {
         borderWidth: '1px',
@@ -126,4 +128,4 @@ export default {
             },
         },
     },
-};
+} as GalleriaDesignTokens;

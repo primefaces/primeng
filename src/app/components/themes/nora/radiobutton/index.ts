@@ -1,3 +1,6 @@
+
+import {RadioButtonDesignTokens} from 'primeng/themes/types/radiobutton'
+
 export default {
     root: {
         width: '1.25rem',
@@ -45,4 +48,4 @@ export default {
             size: '1rem',
         },
     },
-};
+} as RadioButtonDesignTokens;

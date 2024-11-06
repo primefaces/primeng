@@ -1,3 +1,6 @@
+
+import {DataTableDesignTokens} from 'primeng/themes/types/datatable'
+
 export default {
     root: {
         transitionDuration: '{transition.duration}',
@@ -194,4 +197,4 @@ export default {
             },
         },
     },
-};
+} as DataTableDesignTokens;

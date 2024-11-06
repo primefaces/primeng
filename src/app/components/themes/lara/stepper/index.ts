@@ -1,3 +1,5 @@
+import { StepperDesignTokens } from 'primeng/themes/types/stepper';
+
 export default {
     root: {
         transitionDuration: '{transition.duration}',
@@ -50,4 +52,4 @@ export default {
         color: '{content.color}',
         padding: '0 0 0 1rem',
     },
-};
+} as StepperDesignTokens;

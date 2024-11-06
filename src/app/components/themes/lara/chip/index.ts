@@ -1,3 +1,6 @@
+
+import {ChipDesignTokens} from 'primeng/themes/types/chip'
+
 export default {
     root: {
         borderRadius: '16px',
@@ -49,4 +52,4 @@ export default {
             },
         },
     },
-};
+} as ChipDesignTokens;

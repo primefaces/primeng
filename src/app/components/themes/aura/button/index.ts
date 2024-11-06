@@ -1,3 +1,5 @@
+import { ButtonDesignTokens } from 'primeng/themes/types/button';
+
 export default {
     root: {
         borderRadius: '{form.field.border.radius}',
@@ -494,4 +496,4 @@ export default {
             },
         },
     },
-};
+} as ButtonDesignTokens;

@@ -1,3 +1,5 @@
+import { AutoCompleteDesignTokens } from 'primeng/themes/types/autocomplete';
+
 export default {
     root: {
         background: '{form.field.background}',
@@ -111,7 +113,7 @@ export default {
     },
     css: ({ dt }) => `
 .p-autocomplete-dropdown:focus-visible {
-    background: ${dt('autocomplete.dropdown.hover.background')};
+    background: ${dt('autocomplete.dropdown.hover.background')}
     border-color: ${dt('autocomplete.dropdown.hover.border.color')};
     color: ${dt('autocomplete.dropdown.hover.color')};
 }
@@ -167,4 +169,4 @@ export default {
     transition: none;
 }
 `,
-};
+}; as AutoCompleteDesignTokens;

@@ -1,3 +1,5 @@
+import { SliderDesignTokens } from 'primeng/themes/types/slider';
+
 export default {
     root: {
         transitionDuration: '{transition.duration}',
@@ -34,7 +36,7 @@ export default {
     },
     css: ({ dt }) => `
 .p-slider-handle {
-    transition: box-shadow ${dt('slider.transition.duration')};
+    transition: box-shadow ${dt('slider.transition.duration')}
 }
 
 .p-slider:not(.p-disabled) .p-slider-handle:hover {
@@ -46,4 +48,4 @@ export default {
     box-shadow: 0 0 1px 10px color-mix(in srgb, ${dt('slider.handle.background')}, transparent 84%);
 }
 `,
-};
+}; as SliderDesignTokens;

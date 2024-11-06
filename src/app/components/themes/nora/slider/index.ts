@@ -1,3 +1,6 @@
+
+import {SliderDesignTokens} from 'primeng/themes/types/slider'
+
 export default {
     root: {
         transitionDuration: '{transition.duration}',
@@ -43,4 +46,4 @@ export default {
             },
         },
     },
-};
+} as SliderDesignTokens;

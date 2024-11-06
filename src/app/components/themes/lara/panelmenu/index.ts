@@ -1,3 +1,5 @@
+import { PanelMenuDesignTokens } from 'primeng/themes/types/panelmenu';
+
 export default {
     root: {
         gap: '0',
@@ -38,4 +40,4 @@ export default {
         color: '{navigation.submenu.icon.color}',
         focusColor: '{navigation.submenu.icon.focus.color}',
     },
-};
+} as PanelMenuDesignTokens;

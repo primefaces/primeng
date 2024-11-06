@@ -1,3 +1,5 @@
+import { TreeSelectDesignTokens } from 'primeng/themes/types/treeselect';
+
 export default {
     root: {
         background: '{form.field.background}',
@@ -61,7 +63,7 @@ export default {
     },
     css: ({ dt }) => `
 .p-treeselect.p-variant-filled {
-    border-bottom-left-radius: 0;
+    border-bottom-left-radius: 0
     border-bottom-right-radius: 0;
     border: 1px solid transparent;
     background: ${dt('treeselect.filled.background')} no-repeat;
@@ -103,4 +105,4 @@ export default {
     background-image: linear-gradient(to bottom, ${dt('treeselect.invalid.border.color')}, ${dt('treeselect.invalid.border.color')}), linear-gradient(to bottom, ${dt('treeselect.invalid.border.color')}, ${dt('treeselect.invalid.border.color')});
 }
 `,
-};
+}; as TreeSelectDesignTokens;

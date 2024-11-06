@@ -1,3 +1,5 @@
+import { CascadeselectDesignTokens } from 'primeng/themes/types/cascadeselect';
+
 export default {
     root: {
         background: '{form.field.background}',
@@ -71,4 +73,4 @@ export default {
     clearIcon: {
         color: '{form.field.icon.color}',
     },
-};
+} as CascadeselectDesignTokens;

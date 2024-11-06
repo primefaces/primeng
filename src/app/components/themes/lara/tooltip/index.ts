@@ -1,3 +1,5 @@
+import { TooltipDesignTokens } from 'primeng/themes/types/tooltip';
+
 export default {
     root: {
         maxWidth: '12.5rem',
@@ -20,4 +22,4 @@ export default {
             },
         },
     },
-};
+} as TooltipDesignTokens;

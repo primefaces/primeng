@@ -1,3 +1,5 @@
+import { ListboxDesignTokens } from 'primeng/themes/types/listbox';
+
 export default {
     root: {
         background: '{form.field.background}',
@@ -54,4 +56,4 @@ export default {
             },
         },
     },
-};
+} as ListboxDesignTokens;

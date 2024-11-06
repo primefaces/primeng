@@ -1,3 +1,6 @@
+
+import {ContextMenuDesignTokens} from 'primeng/themes/types/contextmenu'
+
 export default {
     root: {
         background: '{content.background}',
@@ -44,4 +47,4 @@ export default {
     separator: {
         borderColor: '{content.border.color}',
     },
-};
+} as ContextMenuDesignTokens;

@@ -1,3 +1,5 @@
+import { OrganizationChartDesignTokens } from 'primeng/themes/types/organizationchart';
+
 export default {
     root: {
         gutter: '0.75rem',
@@ -36,4 +38,4 @@ export default {
         borderRadius: '{content.border.radius}',
         height: '24px',
     },
-};
+} as OrganizationChartDesignTokens;

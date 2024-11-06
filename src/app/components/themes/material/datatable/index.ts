@@ -1,3 +1,5 @@
+import { DataTableDesignTokens } from 'primeng/themes/types/datatable';
+
 export default {
     root: {
         transitionDuration: '{transition.duration}',
@@ -172,7 +174,7 @@ export default {
     css: ({ dt }) => `
 .p-datatable-header-cell,
 .p-datatable-tbody > tr {
-    transition: none;
+    transition: none
 }
 `,
-};
+}; as DataTableDesignTokens;

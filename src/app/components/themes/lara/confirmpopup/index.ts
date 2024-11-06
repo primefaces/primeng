@@ -1,3 +1,6 @@
+
+import {ConfirmPopupDesignTokens} from 'primeng/themes/types/confirmpopup'
+
 export default {
     root: {
         background: '{overlay.popover.background}',
@@ -20,4 +23,4 @@ export default {
         gap: '0.5rem',
         padding: '0 {overlay.popover.padding} {overlay.popover.padding} {overlay.popover.padding}',
     },
-};
+} as ConfirmPopupDesignTokens;

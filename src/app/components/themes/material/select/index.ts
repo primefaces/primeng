@@ -1,3 +1,5 @@
+import { SelectDesignTokens } from 'primeng/themes/types/select';
+
 export default {
     root: {
         background: '{form.field.background}',
@@ -84,7 +86,7 @@ export default {
     },
     css: ({ dt }) => `
 .p-select.p-variant-filled {
-    border-bottom-left-radius: 0;
+    border-bottom-left-radius: 0
     border-bottom-right-radius: 0;
     border: 1px solid transparent;
     background: ${dt('select.filled.background')} no-repeat;
@@ -130,4 +132,4 @@ export default {
     transition: none;
 }
 `,
-};
+}; as SelectDesignTokens;

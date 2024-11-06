@@ -1,3 +1,5 @@
+import { OverlayBadgeDesignTokens } from 'primeng/themes/types/overlaybadge';
+
 export default {
     root: {
         outline: {
@@ -5,4 +7,4 @@ export default {
             color: '{content.background}',
         },
     },
-};
+} as OverlayBadgeDesignTokens;

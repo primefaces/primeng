@@ -1,3 +1,5 @@
+import { TreeDesignTokens } from 'primeng/themes/types/tree';
+
 export default {
     root: {
         background: '{content.background}',
@@ -53,7 +55,7 @@ export default {
     },
     css: ({ dt }) => `
 .p-tree-node-content {
-    transition: none;
+    transition: none
 }
 `,
-};
+}; as TreeDesignTokens;

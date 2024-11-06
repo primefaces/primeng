@@ -1,3 +1,5 @@
+import { MegaMenuDesignTokens } from 'primeng/themes/types/megamenu';
+
 export default {
     root: {
         borderColor: 'transparent',
@@ -87,4 +89,4 @@ export default {
             },
         },
     },
-};
+} as MegaMenuDesignTokens;

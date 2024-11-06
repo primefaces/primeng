@@ -1,3 +1,5 @@
+import { CheckboxDesignTokens } from 'primeng/themes/types/checkbox';
+
 export default {
     root: {
         borderRadius: '{border.radius.xs}',
@@ -49,7 +51,7 @@ export default {
     },
     css: ({ dt }) => `
 .p-checkbox {
-    border-radius: 50%;
+    border-radius: 50%
     transition: box-shadow ${dt('checkbox.transition.duration')};
 }
 
@@ -127,4 +129,4 @@ export default {
     }
 }
 `,
-};
+}; as CheckboxDesignTokens;

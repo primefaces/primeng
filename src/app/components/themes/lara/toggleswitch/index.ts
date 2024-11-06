@@ -1,3 +1,5 @@
+import { ToggleSwitchDesignTokens } from 'primeng/themes/types/toggleswitch';
+
 export default {
     root: {
         width: '3rem',
@@ -67,4 +69,4 @@ export default {
             },
         },
     },
-};
+} as ToggleSwitchDesignTokens;

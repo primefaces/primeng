@@ -1,3 +1,5 @@
+import { AuraDesignTokens } from 'primeng/themes/types/aura';
+
 import accordion from 'primeng/themes/aura/accordion';
 import autocomplete from 'primeng/themes/aura/autocomplete';
 import avatar from 'primeng/themes/aura/avatar';
@@ -180,4 +182,4 @@ export default {
         tooltip,
         ripple,
     },
-};
+}; as AuraDesignTokens;

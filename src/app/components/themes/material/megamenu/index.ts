@@ -1,3 +1,5 @@
+import { MegaMenuDesignTokens } from 'primeng/themes/types/megamenu';
+
 export default {
     root: {
         background: '{content.background}',
@@ -78,7 +80,7 @@ export default {
     },
     css: ({ dt }) => `
 .p-megamenu-button:focus-visible {
-    background: ${dt('navigation.item.active.background')};
+    background: ${dt('navigation.item.active.background')}
 }
 `,
-};
+}; as MegaMenuDesignTokens;

@@ -1,3 +1,6 @@
+
+import {TreeSelectDesignTokens} from 'primeng/themes/types/treeselect'
+
 export default {
     root: {
         background: '{form.field.background}',
@@ -59,4 +62,4 @@ export default {
     chip: {
         borderRadius: '{border.radius.xs}',
     },
-};
+} as TreeSelectDesignTokens;

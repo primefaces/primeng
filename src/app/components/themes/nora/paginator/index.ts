@@ -1,3 +1,6 @@
+
+import {PaginatorDesignTokens} from 'primeng/themes/types/paginator'
+
 export default {
     root: {
         padding: '0.5rem 1rem',
@@ -31,4 +34,4 @@ export default {
     jumpToPageInput: {
         maxWidth: '2.5rem',
     },
-};
+} as PaginatorDesignTokens;

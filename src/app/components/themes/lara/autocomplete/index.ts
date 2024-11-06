@@ -1,3 +1,5 @@
+import { AutoCompleteDesignTokens } from 'primeng/themes/types/autocomplete';
+
 export default {
     root: {
         background: '{form.field.background}',
@@ -109,4 +111,4 @@ export default {
             },
         },
     },
-};
+} as AutoCompleteDesignTokens;

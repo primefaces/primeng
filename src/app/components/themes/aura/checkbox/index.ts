@@ -1,3 +1,5 @@
+import { CheckboxDesignTokens } from 'primeng/themes/types/checkbox';
+
 export default {
     root: {
         borderRadius: '{border.radius.sm}',
@@ -47,4 +49,4 @@ export default {
             size: '1rem',
         },
     },
-};
+} as CheckboxDesignTokens;

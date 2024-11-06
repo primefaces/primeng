@@ -1,3 +1,6 @@
+
+import {SelectbuttonDesignTokens} from 'primeng/themes/types/selectbutton'
+
 export default {
     root: {
         borderRadius: '{form.field.border.radius}',
@@ -14,4 +17,4 @@ export default {
             },
         },
     },
-};
+} as SelectbuttonDesignTokens;

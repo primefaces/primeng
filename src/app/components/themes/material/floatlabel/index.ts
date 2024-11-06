@@ -1,3 +1,5 @@
+import { FloatLabelDesignTokens } from 'primeng/themes/types/floatlabel';
+
 export default {
     root: {
         color: '{form.field.float.label.color}',
@@ -34,4 +36,4 @@ export default {
             padding: '0 0.125rem',
         },
     },
-};
+} as FloatLabelDesignTokens;

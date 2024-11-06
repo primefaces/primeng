@@ -1,3 +1,5 @@
+import { InputTextDesignTokens } from 'primeng/themes/types/inputtext';
+
 export default {
     root: {
         background: '{form.field.background}',
@@ -38,7 +40,7 @@ export default {
     },
     css: ({ dt }) => `
 .p-inputtext.p-variant-filled {
-    border-bottom-left-radius: 0;
+    border-bottom-left-radius: 0
     border-bottom-right-radius: 0;
     border: 1px solid transparent;
     background: ${dt('inputtext.filled.background')} no-repeat;
@@ -80,4 +82,4 @@ export default {
     background-image: linear-gradient(to bottom, ${dt('inputtext.invalid.border.color')}, ${dt('inputtext.invalid.border.color')}), linear-gradient(to bottom, ${dt('inputtext.invalid.border.color')}, ${dt('inputtext.invalid.border.color')});
 }
 `,
-};
+}; as InputTextDesignTokens;

@@ -1,3 +1,5 @@
+import { ToggleButtonDesignTokens } from 'primeng/themes/types/togglebutton';
+
 export default {
     root: {
         padding: '0.75rem 1rem',
@@ -59,7 +61,7 @@ export default {
     },
     css: ({ dt }) => `
 .p-togglebutton:focus-visible {
-    background: ${dt('togglebutton.hover.background')};
+    background: ${dt('togglebutton.hover.background')}
 }
 `,
-};
+}; as ToggleButtonDesignTokens;

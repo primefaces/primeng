@@ -1,3 +1,5 @@
+import { RadioButtonDesignTokens } from 'primeng/themes/types/radiobutton';
+
 export default {
     root: {
         width: '20px',
@@ -47,7 +49,7 @@ export default {
     },
     css: ({ dt }) => `
 .p-radiobutton {
-    border-radius: 50%;
+    border-radius: 50%
     transition: box-shadow ${dt('radiobutton.transition.duration')};
 }
 
@@ -71,4 +73,4 @@ export default {
     box-shadow: 0 0 1px 10px color-mix(in srgb, ${dt('radiobutton.checked.border.color')}, transparent 84%);
 }
 `,
-};
+}; as RadioButtonDesignTokens;

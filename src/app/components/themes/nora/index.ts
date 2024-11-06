@@ -1,4 +1,7 @@
-import accordion from 'primeng/themes/nora/accordion';
+
+import {NoraDesignTokens} from 'primeng/themes/types/nora'
+
+import accordion from 'primeng/themes/nora/accordion'
 import autocomplete from 'primeng/themes/nora/autocomplete';
 import avatar from 'primeng/themes/nora/avatar';
 import badge from 'primeng/themes/nora/badge';
@@ -180,4 +183,4 @@ export default {
         virtualscroller,
         ripple,
     },
-};
+}; as NoraDesignTokens;

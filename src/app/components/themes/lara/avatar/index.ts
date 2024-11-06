@@ -1,3 +1,5 @@
+import { AvatarDesignTokens } from 'primeng/themes/types/avatar';
+
 export default {
     root: {
         width: '2rem',
@@ -33,4 +35,4 @@ export default {
             size: '2rem',
         },
     },
-};
+} as AvatarDesignTokens;

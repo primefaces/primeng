@@ -1,4 +1,4 @@
-import { AccordionDesignTokens } from '../../types/accordion';
+import { AccordionDesignTokens } from 'primeng/themes/types/accordion';
 
 export default {
     root: {
