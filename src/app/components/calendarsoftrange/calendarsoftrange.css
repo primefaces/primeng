@@ -1,0 +1,59 @@
+@layer primeng {
+
+    .p-calendarsoftrange{
+        display: flex;
+        flex-wrap: wrap;
+        position: relative;
+        align-items: center;
+        max-width: 100%;
+    }
+
+    .p-calendarsoftrange-date-container{
+        display: inline-flex;
+        position: relative;
+        align-items: center;
+        max-width: 100%;
+    }
+
+    .p-calendarsoftrange-prev,
+    .p-calendarsoftrange-next {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 .3rem;
+    }
+
+    .p-calendarsoftrange-date{
+        min-width: 15rem;
+        display: flex;
+        justify-content: center;
+    }
+
+    .p-calendarsoftrange-overlay-calendar{
+        display: flex;
+        align-items: center;
+        justify-content: end;
+    }
+
+    .p-calendarsoftrange .p-dropdown{
+        width: 12rem;
+    }
+
+    @media screen and (max-width: 575px) {
+        .p-calendarsoftrange-prev{
+            margin-left: 0;
+        }
+
+        .p-calendarsoftrange-date{
+            min-width: auto;
+        }
+
+        .p-calendarsoftrange .p-dropdown{
+            width: auto;
+        }
+
+        .p-calendarsoftrange-date-container{
+            width: 100%;
+        }
+    }
+}
