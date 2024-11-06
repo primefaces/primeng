@@ -1,4 +1,4 @@
-import { SelectbuttonDesignTokens } from '../../types/selectbutton';
+import { SelectButtonDesignTokens } from '../../types/selectbutton';
 
 export default {
     root: {
@@ -16,4 +16,4 @@ export default {
             },
         },
     },
-} as SelectbuttonDesignTokens;
+} as SelectButtonDesignTokens;
