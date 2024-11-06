@@ -40,11 +40,6 @@ export class FloatLabelDoc {
     value3: string | undefined;
 
     items: any[] | undefined;
-
-    search(event: AutoCompleteCompleteEvent) {
-        this.items = [...Array(10).keys()].map((item) => event.query + '-' + item);
-    }
-
     code: Code = {
         basic: `<p-floatlabel>
     <p-autocomplete [(ngModel)]="value1" [suggestions]="items" (completeMethod)="search($event)" inputId="over_label" />
@@ -80,8 +75,8 @@ export class FloatLabelDoc {
 
         typescript: `import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AutoCompleteModule } from 'primeng/autocomplete';
-import { FloatLabelModule } from 'primeng/floatlabel';
+import { AutoComplete } from 'primeng/autocomplete';
+import { FloatLabel } from 'primeng/floatlabel';
 
 interface AutoCompleteCompleteEvent {
     originalEvent: Event;
@@ -92,7 +87,7 @@ interface AutoCompleteCompleteEvent {
     selector: 'autocomplete-float-label-demo',
     templateUrl: './autocomplete-float-label-demo.html',
     standalone: true,
-    imports: [FormsModule, AutoCompleteModule, FloatLabelModule]
+    imports: [FormsModule, AutoComplete, FloatLabel]
 })
 export class AutocompleteFloatLabelDemo {
     value1: string | undefined;
@@ -108,4 +103,8 @@ export class AutocompleteFloatLabelDemo {
     }
 }`,
     };
+
+    search(event: AutoCompleteCompleteEvent) {
+        this.items = [...Array(10).keys()].map((item) => event.query + '-' + item);
+    }
 }

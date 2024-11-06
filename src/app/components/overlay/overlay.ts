@@ -1,29 +1,21 @@
 import { animate, animation, AnimationEvent, style, transition, trigger, useAnimation } from '@angular/animations';
-import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
-    AfterContentInit,
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
-    ContentChildren,
+    ContentChild,
     ElementRef,
     EventEmitter,
-    forwardRef,
     inject,
-    Inject,
     Input,
     NgModule,
     NgZone,
     OnDestroy,
     Output,
-    PLATFORM_ID,
-    QueryList,
-    Renderer2,
     TemplateRef,
     ViewChild,
     ViewEncapsulation,
 } from '@angular/core';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import {
     OverlayModeType,
     OverlayOnBeforeHideEvent,
@@ -32,8 +24,6 @@ import {
     OverlayOnShowEvent,
     OverlayOptions,
     OverlayService,
-    PrimeNGConfig,
-    PrimeTemplate,
     ResponsiveOverlayOptions,
     SharedModule,
 } from 'primeng/api';
@@ -52,6 +42,8 @@ const hideOverlayContentAnimation = animation([animate('{{hideTransitionParams}}
  */
 @Component({
     selector: 'p-overlay',
+    standalone: true,
+    imports: [CommonModule, SharedModule],
     template: `
         <div
             *ngIf="modalVisible"
@@ -110,7 +102,7 @@ const hideOverlayContentAnimation = animation([animate('{{hideTransitionParams}}
     encapsulation: ViewEncapsulation.None,
     providers: [OverlayStyle],
 })
-export class Overlay extends BaseComponent implements AfterContentInit, OnDestroy {
+export class Overlay extends BaseComponent implements OnDestroy {
     /**
      * The visible property is an input that determines the visibility of the component.
      * @defaultValue false
@@ -337,13 +329,14 @@ export class Overlay extends BaseComponent implements AfterContentInit, OnDestro
      */
     @Output() onAnimationDone: EventEmitter<AnimationEvent> = new EventEmitter<AnimationEvent>();
 
-    @ContentChildren(PrimeTemplate) templates: QueryList<any> | undefined;
-
     @ViewChild('overlay') overlayViewChild: ElementRef | undefined;
 
     @ViewChild('content') contentViewChild: ElementRef | undefined;
-
-    contentTemplate: TemplateRef<any> | undefined;
+    /**
+     * Content template of the component.
+     * @group Templates
+     */
+    @ContentChild('content') contentTemplate: TemplateRef<any> | undefined;
 
     _visible: boolean = false;
 
@@ -456,20 +449,6 @@ export class Overlay extends BaseComponent implements AfterContentInit, OnDestro
         private zone: NgZone,
     ) {
         super();
-    }
-
-    ngAfterContentInit() {
-        this.templates?.forEach((item) => {
-            switch (item.getType()) {
-                case 'content':
-                    this.contentTemplate = item.template;
-                    break;
-                // TODO: new template types may be added.
-                default:
-                    this.contentTemplate = item.template;
-                    break;
-            }
-        });
     }
 
     show(overlay?: HTMLElement, isFocus: boolean = false) {
@@ -693,8 +672,7 @@ export class Overlay extends BaseComponent implements AfterContentInit, OnDestro
 }
 
 @NgModule({
-    imports: [CommonModule, SharedModule],
+    imports: [Overlay, SharedModule],
     exports: [Overlay, SharedModule],
-    declarations: [Overlay],
 })
 export class OverlayModule {}

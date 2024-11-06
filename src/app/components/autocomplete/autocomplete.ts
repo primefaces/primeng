@@ -7,7 +7,7 @@ import {
     ChangeDetectionStrategy,
     Component,
     computed,
-    ContentChildren,
+    ContentChild,
     effect,
     ElementRef,
     EventEmitter,
@@ -26,14 +26,14 @@ import {
     ViewEncapsulation,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { AutoFocus } from 'primeng/autofocus';
+import { Button } from 'primeng/button';
 import { OverlayOptions, OverlayService, PrimeTemplate, ScrollerOptions, SharedModule, TranslationKeys } from 'primeng/api';
-import { AutoFocusModule } from 'primeng/autofocus';
-import { ButtonModule } from 'primeng/button';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
-import { InputTextModule } from 'primeng/inputtext';
-import { Overlay, OverlayModule } from 'primeng/overlay';
-import { RippleModule } from 'primeng/ripple';
-import { Scroller, ScrollerModule } from 'primeng/scroller';
+import { InputText } from 'primeng/inputtext';
+import { Overlay } from 'primeng/overlay';
+import { Ripple } from 'primeng/ripple';
+import { Scroller } from 'primeng/scroller';
 import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
 import { TimesCircleIcon } from 'primeng/icons/timescircle';
 import { SpinnerIcon } from 'primeng/icons/spinner';
@@ -47,7 +47,7 @@ import {
     AutoCompleteSelectEvent,
     AutoCompleteUnselectEvent,
 } from './autocomplete.interface';
-import { ChipModule } from 'primeng/chip';
+import { Chip } from 'primeng/chip';
 import { AutoCompleteStyle } from './style/autocompletestyle';
 import { BaseComponent } from 'primeng/basecomponent';
 import { styleClassAttribute } from "primeng/base";
@@ -62,7 +62,23 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
  * @group Components
  */
 @Component({
-    selector: 'p-autoComplete, p-autocomplete',
+    selector: 'p-autoComplete, p-autocomplete, p-auto-complete',
+    standalone: true,
+    imports: [
+        CommonModule,
+        Overlay,
+        InputText,
+        Button,
+        Ripple,
+        Scroller,
+        AutoFocus,
+        TimesCircleIcon,
+        SpinnerIcon,
+        TimesIcon,
+        ChevronDownIcon,
+        Chip,
+        SharedModule,
+    ],
     template: `
         <div
             #container
@@ -75,9 +91,8 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
             <input
                 *ngIf="!multiple"
                 #focusInput
-                pAutoFocus
+                [pAutoFocus]="autofocus"
                 pInputText
-                [autofocus]="autofocus"
                 [ngClass]="'p-autocomplete-input'"
                 [ngStyle]="inputStyle"
                 [class]="inputStyleClass"
@@ -91,7 +106,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                 aria-autocomplete="list"
                 role="combobox"
                 [attr.placeholder]="placeholder"
-                [attr.size]="size"
+                [size]="size"
                 [attr.maxlength]="maxlength"
                 [tabindex]="!disabled ? tabindex : -1"
                 [readonly]="readonly"
@@ -154,7 +169,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                         [removable]="true"
                     >
                         <ng-container *ngIf="!removeIconTemplate">
-                            <ng-template pTemplate="removeicon">
+                            <ng-template #removeicon>
                                 <span class="p-autocomplete-chip-icon" (click)="!readonly ? removeOption($event, i) : ''">
                                     <TimesCircleIcon [styleClass]="'p-autocomplete-chip-icon'" [attr.aria-hidden]="true" />
                                 </span>
@@ -168,8 +183,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                 <li class="p-autocomplete-input-chip" role="option">
                     <input
                         #focusInput
-                        pAutoFocus
-                        [autofocus]="autofocus"
+                        [pAutoFocus]="autofocus"
                         [ngClass]="inputClass"
                         [ngStyle]="inputStyle"
                         [class]="inputStyleClass"
@@ -180,7 +194,6 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                         [attr.name]="name"
                         role="combobox"
                         [attr.placeholder]="!filled ? placeholder : null"
-                        [attr.size]="size"
                         aria-autocomplete="list"
                         [attr.maxlength]="maxlength"
                         [tabindex]="!disabled ? tabindex : -1"
@@ -236,40 +249,37 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                 (onAnimationStart)="onOverlayAnimationStart($event)"
                 (onHide)="hide()"
             >
-                <div
-                    [ngClass]="panelClass"
-                    [style.max-height]="virtualScroll ? 'auto' : scrollHeight"
-                    [ngStyle]="panelStyle"
-                    [class]="panelStyleClass"
-                >
+                <div [ngClass]="panelClass" [ngStyle]="panelStyle" [class]="panelStyleClass">
                     <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
-                    <p-scroller
-                        *ngIf="virtualScroll"
-                        #scroller
-                        [items]="visibleOptions()"
-                        [style]="{ height: scrollHeight }"
-                        [itemSize]="virtualScrollItemSize || _itemSize"
-                        [autoSize]="true"
-                        [lazy]="lazy"
-                        (onLazyLoad)="onLazyLoad.emit($event)"
-                        [options]="virtualScrollOptions"
-                    >
-                        <ng-template pTemplate="content" let-items let-scrollerOptions="options">
-                            <ng-container
-                                *ngTemplateOutlet="buildInItems; context: { $implicit: items, options: scrollerOptions }"
-                            ></ng-container>
-                        </ng-template>
-                        <ng-container *ngIf="loaderTemplate">
-                            <ng-template pTemplate="loader" let-scrollerOptions="options">
-                                <ng-container *ngTemplateOutlet="loaderTemplate; context: { options: scrollerOptions }"></ng-container>
+                    <div class="p-autocomplete-list-container" [style.max-height]="virtualScroll ? 'auto' : scrollHeight">
+                        <p-scroller
+                            *ngIf="virtualScroll"
+                            #scroller
+                            [items]="visibleOptions()"
+                            [style]="{ height: scrollHeight }"
+                            [itemSize]="virtualScrollItemSize || _itemSize"
+                            [autoSize]="true"
+                            [lazy]="lazy"
+                            (onLazyLoad)="onLazyLoad.emit($event)"
+                            [options]="virtualScrollOptions"
+                        >
+                            <ng-template #content let-items let-scrollerOptions="options">
+                                <ng-container
+                                    *ngTemplateOutlet="buildInItems; context: { $implicit: items, options: scrollerOptions }"
+                                ></ng-container>
                             </ng-template>
+                            <ng-container *ngIf="loaderTemplate">
+                                <ng-template #loader let-scrollerOptions="options">
+                                    <ng-container *ngTemplateOutlet="loaderTemplate; context: { options: scrollerOptions }"></ng-container>
+                                </ng-template>
+                            </ng-container>
+                        </p-scroller>
+                        <ng-container *ngIf="!virtualScroll">
+                            <ng-container
+                                *ngTemplateOutlet="buildInItems; context: { $implicit: visibleOptions(), options: {} }"
+                            ></ng-container>
                         </ng-container>
-                    </p-scroller>
-                    <ng-container *ngIf="!virtualScroll">
-                        <ng-container
-                            *ngTemplateOutlet="buildInItems; context: { $implicit: visibleOptions(), options: {} }"
-                        ></ng-container>
-                    </ng-container>
+                    </div>
 
                     <ng-template #buildInItems let-items let-scrollerOptions="options">
                         <ul
@@ -330,10 +340,11 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                                 [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }"
                                 role="option"
                             >
-                                <ng-container *ngIf="!emptyTemplate; else empty">
+                                @if (!emptyTemplate) {
                                     {{ searchResultMessageText }}
-                                </ng-container>
-                                <ng-container #empty *ngTemplateOutlet="emptyTemplate"></ng-container>
+                                } @else {
+                                    <ng-container *ngTemplateOutlet="emptyTemplate"></ng-container>
+                                }
                             </li>
                         </ul>
                     </ng-template>
@@ -451,10 +462,10 @@ export class AutoComplete extends BaseComponent implements AfterViewChecked, Aft
      */
     @Input({ transform: booleanAttribute }) required: boolean | undefined;
     /**
-     * Size of the input field.
+     * Defines the size of the component.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) size: number | undefined;
+    @Input() size: 'large' | 'small';
     /**
      * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
      * @group Props
@@ -781,33 +792,75 @@ export class AutoComplete extends BaseComponent implements AfterViewChecked, Aft
 
     @ViewChild('overlay') overlayViewChild!: Overlay;
 
-    @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<PrimeTemplate>>;
-
     _itemSize: Nullable<number>;
 
     itemsWrapper: Nullable<HTMLDivElement>;
 
-    itemTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom item template.
+     * @group Templates
+     */
+    @ContentChild('item') itemTemplate: Nullable<TemplateRef<any>>;
 
-    emptyTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom empty message template.
+     * @group Templates
+     */
+    @ContentChild('empty') emptyTemplate: Nullable<TemplateRef<any>>;
 
-    headerTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom header template.
+     * @group Templates
+     */
+    @ContentChild('header') headerTemplate: Nullable<TemplateRef<any>>;
 
-    footerTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom footer template.
+     * @group Templates
+     */
+    @ContentChild('footer') footerTemplate: Nullable<TemplateRef<any>>;
 
-    selectedItemTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom selected item template.
+     * @group Templates
+     */
+    @ContentChild('selecteditem') selectedItemTemplate: Nullable<TemplateRef<any>>;
 
-    groupTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom group item template.
+     * @group Templates
+     */
+    @ContentChild('group') groupTemplate: Nullable<TemplateRef<any>>;
 
-    loaderTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom loader template.
+     * @group Templates
+     */
+    @ContentChild('loader') loaderTemplate: Nullable<TemplateRef<any>>;
 
-    removeIconTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom remove icon template.
+     * @group Templates
+     */
+    @ContentChild('removeicon') removeIconTemplate: Nullable<TemplateRef<any>>;
 
-    loadingIconTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom loading icon template.
+     * @group Templates
+     */
+    @ContentChild('loadingicon') loadingIconTemplate: Nullable<TemplateRef<any>>;
 
-    clearIconTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom clear icon template.
+     * @group Templates
+     */
+    @ContentChild('clearicon') clearIconTemplate: Nullable<TemplateRef<any>>;
 
-    dropdownIconTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom dropdown icon template.
+     * @group Templates
+     */
+    @ContentChild('dropdownicon') dropdownIconTemplate: Nullable<TemplateRef<any>>;
 
     value: string | any;
 
@@ -1795,22 +1848,7 @@ export class AutoComplete extends BaseComponent implements AfterViewChecked, Aft
 }
 
 @NgModule({
-    imports: [
-        CommonModule,
-        OverlayModule,
-        InputTextModule,
-        ButtonModule,
-        SharedModule,
-        RippleModule,
-        ScrollerModule,
-        AutoFocusModule,
-        TimesCircleIcon,
-        SpinnerIcon,
-        TimesIcon,
-        ChevronDownIcon,
-        ChipModule,
-    ],
-    exports: [AutoComplete, OverlayModule, SharedModule, ScrollerModule, AutoFocusModule],
-    declarations: [AutoComplete],
+    imports: [AutoComplete],
+    exports: [AutoComplete, SharedModule],
 })
 export class AutoCompleteModule {}

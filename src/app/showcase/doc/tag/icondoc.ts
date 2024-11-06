@@ -39,13 +39,13 @@ export class IconDoc {
     <p-tag icon="pi pi-cog" severity="contrast" value="Contrast" />
 </div>`,
         typescript: `import { Component } from '@angular/core';
-import { TagModule } from 'primeng/tag';
+import { Tag } from 'primeng/tag';
 
 @Component({
     selector: 'tag-icon-demo',
     templateUrl: './tag-icon-demo.html',
     standalone: true,
-    imports: [TagModule]
+    imports: [Tag]
 })
 export class TagIconDemo {}`,
     };

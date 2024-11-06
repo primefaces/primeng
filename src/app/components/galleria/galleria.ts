@@ -1,20 +1,22 @@
-import { AnimationEvent, animate, style, transition, trigger } from '@angular/animations';
+import { animate, AnimationEvent, style, transition, trigger } from '@angular/animations';
 import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
 import {
     AfterContentChecked,
     AfterViewInit,
+    booleanAttribute,
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
-    ContentChildren,
     DoCheck,
     ElementRef,
     EventEmitter,
     HostListener,
     Inject,
+    inject,
     Input,
     KeyValueDiffers,
     NgModule,
+    numberAttribute,
     OnChanges,
     OnDestroy,
     OnInit,
@@ -26,9 +28,6 @@ import {
     TemplateRef,
     ViewChild,
     ViewEncapsulation,
-    booleanAttribute,
-    inject,
-    numberAttribute,
 } from '@angular/core';
 import { PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
@@ -37,13 +36,14 @@ import { ChevronRightIcon } from 'primeng/icons/chevronright';
 import { TimesIcon } from 'primeng/icons/times';
 import { WindowMaximizeIcon } from 'primeng/icons/windowmaximize';
 import { WindowMinimizeIcon } from 'primeng/icons/windowminimize';
-import { RippleModule } from 'primeng/ripple';
+import { Ripple } from 'primeng/ripple';
 import { VoidListener } from 'primeng/ts-helpers';
 import { UniqueComponentId, ZIndexUtils } from 'primeng/utils';
 import { GalleriaResponsiveOptions } from './galleria.interface';
-import { FocusTrapModule } from 'primeng/focustrap';
+import { FocusTrap } from 'primeng/focustrap';
 import { GalleriaStyle } from './style/galleriastyle';
 import { BaseComponent } from 'primeng/basecomponent';
+
 /**
  * Galleria is an advanced content gallery component.
  * @group Components
@@ -265,8 +265,6 @@ export class Galleria extends BaseComponent implements OnChanges, OnDestroy {
     @ViewChild('mask') mask: ElementRef | undefined;
 
     @ViewChild('container') container: ElementRef | undefined;
-
-    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
     _visible: boolean = false;
 
@@ -1514,13 +1512,13 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, AfterVie
     imports: [
         CommonModule,
         SharedModule,
-        RippleModule,
+        Ripple,
         TimesIcon,
         ChevronRightIcon,
         ChevronLeftIcon,
         WindowMaximizeIcon,
         WindowMinimizeIcon,
-        FocusTrapModule,
+        FocusTrap,
     ],
     exports: [CommonModule, Galleria, GalleriaContent, GalleriaItemSlot, GalleriaItem, GalleriaThumbnails, SharedModule],
     declarations: [Galleria, GalleriaContent, GalleriaItemSlot, GalleriaItem, GalleriaThumbnails],

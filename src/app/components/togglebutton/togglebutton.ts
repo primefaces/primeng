@@ -3,7 +3,7 @@ import {
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
-    ContentChildren,
+    ContentChild,
     EventEmitter,
     forwardRef,
     HostBinding,
@@ -12,17 +12,16 @@ import {
     NgModule,
     numberAttribute,
     Output,
-    QueryList,
     TemplateRef,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Ripple } from 'primeng/ripple';
 import { ToggleButtonChangeEvent } from './togglebutton.interface';
 import { Nullable } from 'primeng/ts-helpers';
-import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ToggleButtonStyle } from './style/togglebuttonstyle';
+import { SharedModule } from 'primeng/api';
 import { styleClassAttribute } from "primeng/base";
 
 export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
@@ -35,7 +34,9 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
  * @group Components
  */
 @Component({
-    selector: 'p-toggleButton, p-togglebutton',
+    selector: 'p-toggleButton, p-togglebutton, p-toggle-button',
+    standalone: true,
+    imports: [Ripple, AutoFocus, CommonModule, SharedModule],
     template: `
         <button
             pRipple
@@ -77,8 +78,6 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
             </span>
         </button>
     `,
-    standalone: true,
-    imports: [Ripple, AutoFocus, SharedModule, CommonModule],
     providers: [TOGGLEBUTTON_VALUE_ACCESSOR, ToggleButtonStyle],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -142,6 +141,11 @@ export class ToggleButton extends BaseComponent implements ControlValueAccessor 
      */
     @Input({ transform: numberAttribute }) tabindex: number | undefined = 0;
     /**
+     * Defines the size of the component.
+     * @group Props
+     */
+    @Input() size: 'large' | 'small';
+    /**
      * Position of the icon.
      * @group Props
      */
@@ -162,12 +166,16 @@ export class ToggleButton extends BaseComponent implements ControlValueAccessor 
      * @group Emits
      */
     @Output() onChange: EventEmitter<ToggleButtonChangeEvent> = new EventEmitter<ToggleButtonChangeEvent>();
-
-    @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
-
-    iconTemplate: Nullable<TemplateRef<any>>;
-
-    contentTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom icon template.
+     * @group Templates
+     */
+    @ContentChild('icon') iconTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom content template.
+     * @group Templates
+     */
+    @ContentChild('content') contentTemplate: Nullable<TemplateRef<any>>;
 
     checked: boolean = false;
 
@@ -176,22 +184,6 @@ export class ToggleButton extends BaseComponent implements ControlValueAccessor 
     onModelTouched: Function = () => {};
 
     _componentStyle = inject(ToggleButtonStyle);
-
-    ngAfterContentInit() {
-        this.templates.forEach((item) => {
-            switch (item.getType()) {
-                case 'content':
-                    this.contentTemplate = item.template;
-                    break;
-                case 'icon':
-                    this.iconTemplate = item.template;
-                    break;
-                default:
-                    this.contentTemplate = item.template;
-                    break;
-            }
-        });
-    }
 
     toggle(event: Event) {
         if (!this.disabled && !(this.allowEmpty === false && this.checked)) {
@@ -256,7 +248,7 @@ export class ToggleButton extends BaseComponent implements ControlValueAccessor 
 }
 
 @NgModule({
-    imports: [ToggleButton],
+    imports: [ToggleButton, SharedModule],
     exports: [ToggleButton, SharedModule],
 })
 export class ToggleButtonModule {}

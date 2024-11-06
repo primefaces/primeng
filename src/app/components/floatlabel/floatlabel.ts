@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, Input, NgModule, ViewEncapsulation } from '@angular/core';
 import { SharedModule } from 'primeng/api';
-import { RouterModule } from '@angular/router';
 import { BaseComponent } from 'primeng/basecomponent';
 import { FloatLabelStyle } from './style/floatlabelstyle';
 
@@ -10,7 +9,9 @@ import { FloatLabelStyle } from './style/floatlabelstyle';
  * @group Components
  */
 @Component({
-    selector: 'p-floatlabel, p-floatLabel',
+    selector: 'p-floatlabel, p-floatLabel, p-float-label',
+    standalone: true,
+    imports: [CommonModule, SharedModule],
     template: ` <ng-content></ng-content> `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
@@ -32,8 +33,7 @@ export class FloatLabel extends BaseComponent {
 }
 
 @NgModule({
-    imports: [CommonModule, SharedModule, RouterModule],
+    imports: [FloatLabel, SharedModule],
     exports: [FloatLabel, SharedModule],
-    declarations: [FloatLabel],
 })
 export class FloatLabelModule {}

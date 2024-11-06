@@ -106,7 +106,6 @@ position: relative;
     align-items: center;
     justify-content: space-between;
     padding: ${dt('datepicker.header.padding')};
-    font-weight: ${dt('datepicker.header.font.weight')};
     background: ${dt('datepicker.header.background')};
     color: ${dt('datepicker.header.color')};
     border-bottom: 1px solid ${dt('datepicker.header.border.color')};
@@ -264,7 +263,7 @@ position: relative;
     cursor: pointer;
     overflow: hidden;
     position: relative;
-    padding: ${dt('datepicker.date.padding')};
+    padding: ${dt('datepicker.month.padding')};
     transition: background ${dt('datepicker.transition.duration')}, color ${dt('datepicker.transition.duration')}, border-color ${dt('datepicker.transition.duration')}, box-shadow ${dt('datepicker.transition.duration')}, outline-color ${dt(
         'datepicker.transition.duration',
     )};
@@ -301,7 +300,7 @@ position: relative;
     cursor: pointer;
     overflow: hidden;
     position: relative;
-    padding: ${dt('datepicker.date.padding')};
+    padding: ${dt('datepicker.year.padding')};
     transition: background ${dt('datepicker.transition.duration')}, color ${dt('datepicker.transition.duration')}, border-color ${dt('datepicker.transition.duration')}, box-shadow ${dt('datepicker.transition.duration')}, outline-color ${dt(
         'datepicker.transition.duration',
     )};
@@ -368,6 +367,28 @@ position: relative;
 
 .p-datepicker-calendar:not(:first-child):not(:last-child) .p-datepicker-header {
     justify-content: center;
+}
+
+.p-datepicker:has(.p-inputtext-sm) .p-datepicker-dropdown {
+    width: ${dt('datepicker.dropdown.sm.width')};
+}
+
+.p-datepicker:has(.p-inputtext-sm) .p-datepicker-dropdown .p-icon,
+.p-datepicker:has(.p-inputtext-sm) .p-datepicker-input-icon {
+    font-size: ${dt('form.field.sm.font.size')};
+    width: ${dt('form.field.sm.font.size')};
+    height: ${dt('form.field.sm.font.size')};
+}
+
+.p-datepicker:has(.p-inputtext-lg) .p-datepicker-dropdown {
+    width: ${dt('datepicker.dropdown.lg.width')};
+}
+
+.p-datepicker:has(.p-inputtext-lg) .p-datepicker-dropdown .p-icon,
+.p-datepicker:has(.p-inputtext-lg) .p-datepicker-input-icon {
+    font-size: ${dt('form.field.lg.font.size')};
+    width: ${dt('form.field.lg.font.size')};
+    height: ${dt('form.field.lg.font.size')};
 }
 
 /* For PrimeNG */

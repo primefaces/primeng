@@ -23,6 +23,7 @@ import { FilledDoc } from './filleddoc';
 import { InputTextModule } from 'primeng/inputtext';
 import { IftaLabelModule } from 'primeng/iftalabel';
 import { IftaLabelDoc } from './iftalabeldoc';
+import { SizesDoc } from './sizesdoc';
 
 @NgModule({
     imports: [
@@ -54,6 +55,7 @@ import { IftaLabelDoc } from './iftalabeldoc';
         AccessibilityDoc,
         ReactiveFormsDoc,
         FilledDoc,
+        SizesDoc,
     ],
 })
 export class PasswordDocModule {}

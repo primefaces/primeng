@@ -8,9 +8,9 @@ import { ProductService } from '@service/productservice';
     template: ` <app-docsectiontext>
             <p>
                 More than one row is selectable by setting <i>selectionMode</i> to <i>multiple</i>. By default in multiple selection mode,
-                metaKey press (e.g. <i>⌘</i>) is not necessary to add to existing selections. When the optional <i>metaKeySelection</i> is
-                present, behavior is changed in a way that selecting a new row requires meta key to be present. Note that in touch enabled
-                devices, DataTable always ignores metaKey.
+                metaKey press (e.g. <i>⌘</i>) is not necessary to add to existing selections. When the optional <i>metaKeySelection</i>
+                is present, behavior is changed in a way that selecting a new row requires meta key to be present. Note that in touch
+                enabled devices, DataTable always ignores metaKey.
             </p>
         </app-docsectiontext>
         <p-deferred-demo (load)="loadDemoData()">
@@ -27,7 +27,7 @@ import { ProductService } from '@service/productservice';
                     dataKey="code"
                     [tableStyle]="{ 'min-width': '50rem' }"
                 >
-                    <ng-template pTemplate="header">
+                    <ng-template #header>
                         <tr>
                             <th>Code</th>
                             <th>Name</th>
@@ -35,7 +35,7 @@ import { ProductService } from '@service/productservice';
                             <th>Quantity</th>
                         </tr>
                     </ng-template>
-                    <ng-template pTemplate="body" let-product let-rowIndex="rowIndex">
+                    <ng-template #body let-product let-rowIndex="rowIndex">
                         <tr [pSelectableRow]="product" [pSelectableRowIndex]="rowIndex">
                             <td>{{ product.code }}</td>
                             <td>{{ product.name }}</td>
@@ -73,14 +73,14 @@ export class MultipleSelectionDoc {
     <p-toggleswitch [(ngModel)]="metaKey" inputId="input-metakey" />
     <label for="input-metakey">MetaKey</label>
 </div>
-<p-table 
-    [value]="products" 
-    selectionMode="multiple" 
-    [(selection)]="selectedProducts" 
+<p-table
+    [value]="products"
+    selectionMode="multiple"
+    [(selection)]="selectedProducts"
     [metaKeySelection]="metaKey"
-    dataKey="code" 
+    dataKey="code"
     [tableStyle]="{ 'min-width': '50rem' }">
-        <ng-template pTemplate="header">
+        <ng-template #header>
             <tr>
                 <th>Code</th>
                 <th>Name</th>
@@ -88,7 +88,7 @@ export class MultipleSelectionDoc {
                 <th>Quantity</th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-product let-rowIndex="rowIndex">
+        <ng-template #body let-product let-rowIndex="rowIndex">
             <tr [pSelectableRow]="product" [pSelectableRowIndex]="rowIndex">
                 <td>{{ product.code }}</td>
                 <td>{{ product.name }}</td>
@@ -102,14 +102,14 @@ export class MultipleSelectionDoc {
         <p-toggleswitch [(ngModel)]="metaKey" inputId="input-metakey" />
         <label for="input-metakey">MetaKey</label>
     </div>
-    <p-table 
-        [value]="products" 
-        selectionMode="multiple" 
-        [(selection)]="selectedProducts" 
-        [metaKeySelection]="metaKey" 
-        dataKey="code" 
+    <p-table
+        [value]="products"
+        selectionMode="multiple"
+        [(selection)]="selectedProducts"
+        [metaKeySelection]="metaKey"
+        dataKey="code"
         [tableStyle]="{ 'min-width': '50rem' }">
-            <ng-template pTemplate="header">
+            <ng-template #header>
                 <tr>
                     <th>Code</th>
                     <th>Name</th>
@@ -117,7 +117,7 @@ export class MultipleSelectionDoc {
                     <th>Quantity</th>
                 </tr>
             </ng-template>
-            <ng-template pTemplate="body" let-product let-rowIndex="rowIndex">
+            <ng-template #body let-product let-rowIndex="rowIndex">
                 <tr [pSelectableRow]="product" [pSelectableRowIndex]="rowIndex">
                     <td>{{ product.code }}</td>
                     <td>{{ product.name }}</td>
@@ -155,7 +155,7 @@ export class TableMultipleSelectionDemo implements OnInit{
         this.productService.getProductsMini().then((data) => {
             this.products = data;
         });
-    } 
+    }
 }`,
         data: `{
     id: '1000',

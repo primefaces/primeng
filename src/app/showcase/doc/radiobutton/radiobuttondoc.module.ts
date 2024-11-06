@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { RadioButtonModule } from 'primeng/radiobutton';
+import { RadioButton } from 'primeng/radiobutton';
 import { AppDocModule } from '@layout/doc/app.doc.module';
 import { AppCodeModule } from '@layout/doc/app.code.component';
 import { AccessibilityDoc } from './accessibilitydoc';
@@ -14,10 +14,22 @@ import { InvalidDoc } from './invaliddoc';
 import { ReactiveFormsDoc } from './reactiveformsdoc';
 import { StyleDoc } from './styledoc';
 import { FilledDoc } from './filleddoc';
+import { SizesDoc } from './sizesdoc';
 
 @NgModule({
-    imports: [CommonModule, AppCodeModule, AppDocModule, RadioButtonModule, FormsModule, ReactiveFormsModule, RouterModule],
+    imports: [CommonModule, AppCodeModule, AppDocModule, RadioButton, FormsModule, ReactiveFormsModule, RouterModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, GroupDoc, DynamicDoc, InvalidDoc, DisabledDoc, StyleDoc, AccessibilityDoc, ReactiveFormsDoc, FilledDoc],
+    declarations: [
+        ImportDoc,
+        GroupDoc,
+        DynamicDoc,
+        InvalidDoc,
+        DisabledDoc,
+        StyleDoc,
+        AccessibilityDoc,
+        ReactiveFormsDoc,
+        FilledDoc,
+        SizesDoc,
+    ],
 })
 export class RadioButtonDocModule {}

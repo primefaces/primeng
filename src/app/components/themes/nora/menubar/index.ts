@@ -35,12 +35,12 @@ export default {
         borderRadius: '{content.border.radius}',
         shadow: '{overlay.navigation.shadow}',
         mobileIndent: '1rem',
-    },
-    submenuIcon: {
-        size: '{navigation.submenu.icon.size}',
-        color: '{navigation.submenu.icon.color}',
-        focusColor: '{navigation.submenu.icon.focus.color}',
-        activeColor: '{navigation.submenu.icon.active.color}',
+        icon: {
+            size: '{navigation.submenu.icon.size}',
+            color: '{navigation.submenu.icon.color}',
+            focusColor: '{navigation.submenu.icon.focus.color}',
+            activeColor: '{navigation.submenu.icon.active.color}',
+        },
     },
     separator: {
         borderColor: '{content.border.color}',
@@ -49,7 +49,7 @@ export default {
         borderRadius: '50%',
         size: '1.75rem',
         color: '{text.muted.color}',
-        hoverColor: '{text.muted.hover.color}',
+        hoverColor: '{text.hover.muted.color}',
         hoverBackground: '{content.hover.background}',
         focusRing: {
             width: '{focus.ring.width}',

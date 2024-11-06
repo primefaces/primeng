@@ -5,7 +5,7 @@ import {
     ChangeDetectionStrategy,
     Component,
     computed,
-    ContentChildren,
+    ContentChild,
     ElementRef,
     EventEmitter,
     forwardRef,
@@ -19,7 +19,6 @@ import {
     Pipe,
     PipeTransform,
     PLATFORM_ID,
-    QueryList,
     signal,
     TemplateRef,
     ViewChild,
@@ -28,9 +27,9 @@ import {
 } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
-import { MenuItem, OverlayService, PrimeTemplate } from 'primeng/api';
+import { MenuItem, OverlayService, SharedModule } from 'primeng/api';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
-import { RippleModule } from 'primeng/ripple';
+import { Ripple } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { UniqueComponentId, ZIndexUtils } from 'primeng/utils';
@@ -41,6 +40,7 @@ import { styleClassAttribute } from "primeng/base";
 
 @Pipe({
     name: 'safeHtml',
+    standalone: true,
 })
 export class SafeHtmlPipe implements PipeTransform {
     constructor(
@@ -59,6 +59,8 @@ export class SafeHtmlPipe implements PipeTransform {
 
 @Component({
     selector: '[pMenuItemContent]',
+    standalone: true,
+    imports: [CommonModule, RouterModule, Ripple, TooltipModule, BadgeModule, SharedModule, SafeHtmlPipe],
     template: `
         <div [attr.data-pc-section]="'content'" class="p-menu-item-content" (click)="onItemClick($event, item)">
             <ng-container *ngIf="!itemTemplate">
@@ -126,7 +128,7 @@ export class SafeHtmlPipe implements PipeTransform {
 export class MenuItemContent {
     @Input('pMenuItemContent') item: MenuItem | undefined;
 
-    @Input() itemTemplate: HTMLElement | undefined;
+    @Input() itemTemplate: any | undefined;
 
     @Output() onMenuItemClick: EventEmitter<any> = new EventEmitter<any>();
 
@@ -146,6 +148,8 @@ export class MenuItemContent {
  */
 @Component({
     selector: 'p-menu',
+    standalone: true,
+    imports: [CommonModule, RouterModule, MenuItemContent, Ripple, TooltipModule, BadgeModule, SharedModule, SafeHtmlPipe],
     template: `
         <div
             #container
@@ -188,7 +192,6 @@ export class MenuItemContent {
                         [ngClass]="{ 'p-hidden': submenu.visible === false }"
                         role="separator"
                     ></li>
-
                     <li
                         class="p-menu-submenu-label"
                         [attr.data-automationid]="submenu.automationId"
@@ -251,7 +254,7 @@ export class MenuItemContent {
                         [itemTemplate]="itemTemplate"
                         [ngClass]="{
                             'p-hidden': item.visible === false,
-                            'p-focus': focusedOptionId() && menuitemId(item, id, i, j) === focusedOptionId(),
+                            'p-focus': focusedOptionId() && menuitemId(item, id, i) === focusedOptionId(),
                             'p-disabled': disabled(item.disabled),
                         }"
                         [ngStyle]="item.style"
@@ -377,16 +380,6 @@ export class Menu extends BaseComponent implements OnDestroy {
 
     @ViewChild('container') containerViewChild: Nullable<ElementRef>;
 
-    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
-
-    startTemplate: TemplateRef<any> | undefined;
-
-    endTemplate: TemplateRef<any> | undefined;
-
-    itemTemplate: TemplateRef<any> | undefined;
-
-    submenuHeaderTemplate: TemplateRef<any> | undefined;
-
     container: HTMLDivElement | undefined;
 
     scrollHandler: ConnectedOverlayScrollHandler | null | undefined;
@@ -452,6 +445,36 @@ export class Menu extends BaseComponent implements OnDestroy {
             this.bindDocumentClickListener();
         }
     }
+
+    /**
+     * Defines template option for start.
+     * @group Templates
+     */
+    @ContentChild('start') startTemplate: TemplateRef<any> | undefined;
+
+    /**
+     * Defines template option for end.
+     * @group Templates
+     */
+    @ContentChild('end') endTemplate: TemplateRef<any> | undefined;
+
+    /**
+     * Defines template option for header.
+     * @group Templates
+     */
+    @ContentChild('header') headerTemplate: TemplateRef<any> | undefined;
+
+    /**
+     * Defines template option for item.
+     * @group Templates
+     */
+    @ContentChild('item') itemTemplate: TemplateRef<any> | undefined;
+
+    /**
+     * Defines template option for item.
+     * @group Templates
+     */
+    @ContentChild('submenuheader') submenuHeaderTemplate: TemplateRef<any> | undefined;
 
     ngAfterContentInit() {
         this.templates?.forEach((item) => {
@@ -555,7 +578,7 @@ export class Menu extends BaseComponent implements OnDestroy {
         }
     }
 
-    menuitemId(item: MenuItem, id: string, index?: string, childIndex?: string) {
+    menuitemId(item: MenuItem, id: string | any, index?: string | number, childIndex?: string | number) {
         return item?.id ?? `${id}_${index}${childIndex !== undefined ? '_' + childIndex : ''}`;
     }
 
@@ -858,8 +881,7 @@ export class Menu extends BaseComponent implements OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule, RouterModule, RippleModule, TooltipModule, BadgeModule],
-    exports: [Menu, RouterModule, TooltipModule],
-    declarations: [Menu, MenuItemContent, SafeHtmlPipe],
+    imports: [Menu, SharedModule, SafeHtmlPipe],
+    exports: [Menu, SharedModule, SafeHtmlPipe],
 })
 export class MenuModule {}

@@ -1,25 +1,25 @@
 import { CommonModule } from '@angular/common';
 import {
+    booleanAttribute,
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     ElementRef,
     EventEmitter,
+    forwardRef,
+    inject,
     Input,
     NgModule,
+    numberAttribute,
     Output,
     ViewChild,
     ViewEncapsulation,
-    booleanAttribute,
-    forwardRef,
-    inject,
-    numberAttribute,
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { AutoFocusModule } from 'primeng/autofocus';
 import { InputSwitchChangeEvent } from './inputswitch.interface';
 import { InputSwitchStyle } from './style/inputswitchstyle';
 import { BaseComponent } from 'primeng/basecomponent';
+import { SharedModule } from 'primeng/api';
 import { styleClassAttribute } from "primeng/base";
 
 export const INPUTSWITCH_VALUE_ACCESSOR: any = {
@@ -32,7 +32,9 @@ export const INPUTSWITCH_VALUE_ACCESSOR: any = {
  * @group Components
  */
 @Component({
-    selector: 'p-inputSwitch',
+    selector: 'p-inputSwitch, p-inputswitch',
+    standalone: true,
+    imports: [CommonModule, AutoFocusModule, SharedModule],
     template: `
         <div
             [ngClass]="cx('root')"
@@ -60,8 +62,7 @@ export const INPUTSWITCH_VALUE_ACCESSOR: any = {
                     (focus)="onFocus()"
                     (blur)="onBlur()"
                     [attr.data-pc-section]="'hiddenInput'"
-                    pAutoFocus
-                    [autofocus]="autofocus"
+                    [pAutoFocus]="autofocus"
                 />
             </div>
             <span [ngClass]="cx('slider')" [attr.data-pc-section]="'slider'"></span>
@@ -198,8 +199,7 @@ export class InputSwitch extends BaseComponent {
 }
 
 @NgModule({
-    imports: [CommonModule, AutoFocusModule],
-    exports: [InputSwitch],
-    declarations: [InputSwitch],
+    imports: [InputSwitch, SharedModule],
+    exports: [InputSwitch, SharedModule],
 })
 export class InputSwitchModule {}

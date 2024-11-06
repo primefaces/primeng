@@ -18,7 +18,7 @@ import { ProductService } from '@service/productservice';
         </app-docsectiontext>
         <p-deferred-demo (load)="loadDemoData()">
             <div class="card">
-                <p-contextmenu #cm [model]="items" />
+                <p-contextmenu #cm [model]="items" (onHide)="selectedProduct = null" />
                 <p-table
                     [value]="products"
                     [(contextMenuSelection)]="selectedProduct"
@@ -26,7 +26,7 @@ import { ProductService } from '@service/productservice';
                     dataKey="code"
                     [tableStyle]="{ 'min-width': '50rem' }"
                 >
-                    <ng-template pTemplate="header">
+                    <ng-template #header>
                         <tr>
                             <th>Code</th>
                             <th>Name</th>
@@ -34,7 +34,7 @@ import { ProductService } from '@service/productservice';
                             <th>Price</th>
                         </tr>
                     </ng-template>
-                    <ng-template pTemplate="body" let-product>
+                    <ng-template #body let-product>
                         <tr [pContextMenuRow]="product">
                             <td>{{ product.code }}</td>
                             <td>{{ product.name }}</td>
@@ -43,6 +43,7 @@ import { ProductService } from '@service/productservice';
                         </tr>
                     </ng-template>
                 </p-table>
+                <p-toast />
             </div>
         </p-deferred-demo>
         <app-code [code]="code" selector="table-context-menu-demo" [extFiles]="extFiles"></app-code>`,
@@ -80,19 +81,19 @@ export class ContextMenuDoc {
 
     deleteProduct(product: Product) {
         this.products = this.products.filter((p) => p.id !== product.id);
-        this.messageService.add({ severity: 'info', summary: 'Product Deleted', detail: product.name });
+        this.messageService.add({ severity: 'error', summary: 'Product Deleted', detail: product.name });
         this.selectedProduct = null;
     }
 
     code: Code = {
-        basic: `<p-contextmenu #cm [model]="items" />
-<p-table 
-    [value]="products" 
-    [(contextMenuSelection)]="selectedProduct" 
-    [contextMenu]="cm" 
-    dataKey="code" 
+        basic: `<p-contextmenu #cm [model]="items" (onHide)="selectedProduct = null" />
+<p-table
+    [value]="products"
+    [(contextMenuSelection)]="selectedProduct"
+    [contextMenu]="cm"
+    dataKey="code"
     [tableStyle]="{'min-width': '50rem'}">
-        <ng-template pTemplate="header">
+        <ng-template #header>
             <tr>
                 <th>Code</th>
                 <th>Name</th>
@@ -100,7 +101,7 @@ export class ContextMenuDoc {
                 <th>Price</th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-product>
+        <ng-template #body let-product>
             <tr [pContextMenuRow]="product">
                 <td>{{product.code}}</td>
                 <td>{{product.name}}</td>
@@ -108,16 +109,17 @@ export class ContextMenuDoc {
                 <td>{{product.price | currency: 'USD'}}</td>
             </tr>
         </ng-template>
-</p-table>`,
+</p-table>
+<p-toast />`,
         html: `<div class="card">
-    <p-contextmenu #cm [model]="items" />
-    <p-table 
-        [value]="products" 
-        [(contextMenuSelection)]="selectedProduct" 
-        [contextMenu]="cm" 
-        dataKey="code" 
+    <p-contextmenu #cm [model]="items" (onHide)="selectedProduct = null" />
+    <p-table
+        [value]="products"
+        [(contextMenuSelection)]="selectedProduct"
+        [contextMenu]="cm"
+        dataKey="code"
         [tableStyle]="{'min-width': '50rem'}">
-            <ng-template pTemplate="header">
+            <ng-template #header>
                 <tr>
                     <th>Code</th>
                     <th>Name</th>
@@ -125,7 +127,7 @@ export class ContextMenuDoc {
                     <th>Price</th>
                 </tr>
             </ng-template>
-            <ng-template pTemplate="body" let-product>
+            <ng-template #body let-product>
                 <tr [pContextMenuRow]="product">
                     <td>{{product.code}}</td>
                     <td>{{product.name}}</td>
@@ -134,6 +136,7 @@ export class ContextMenuDoc {
                 </tr>
             </ng-template>
     </p-table>
+    <p-toast />
 </div>`,
         typescript: `import { Component, OnInit } from '@angular/core';
 import { MessageService, MenuItem } from 'primeng/api';
@@ -143,12 +146,13 @@ import { TableModule } from 'primeng/table';
 import { ContextMenuModule } from 'primeng/contextmenu';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
     selector: 'table-context-menu-demo',
     templateUrl: 'table-context-menu-demo.html',
     standalone: true,
-    imports: [TableModule, ContextMenuModule, HttpClientModule, CommonModule],
+    imports: [TableModule, ContextMenuModule, HttpClientModule, CommonModule, ToastModule],
     providers: [MessageService, ProductService]
 })
 export class TableContextMenuDemo implements OnInit{
@@ -175,7 +179,7 @@ export class TableContextMenuDemo implements OnInit{
 
     deleteProduct(product: Product) {
         this.products = this.products.filter((p) => p.id !== product.id);
-        this.messageService.add({ severity: 'info', summary: 'Product Deleted', detail: product.name });
+        this.messageService.add({ severity: 'error', summary: 'Product Deleted', detail: product.name });
         this.selectedProduct = null;
     }
 }`,

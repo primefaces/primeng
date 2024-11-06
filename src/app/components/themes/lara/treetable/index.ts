@@ -65,6 +65,7 @@ export default {
     sortIcon: {
         color: '{text.muted.color}',
         hoverColor: '{text.hover.muted.color}',
+        size: '0.875rem',
     },
     loadingIcon: {
         size: '2rem',

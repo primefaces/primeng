@@ -37,11 +37,6 @@ export class OrderListDemo {
             component: FilterDoc,
         },
         {
-            id: 'dragdrop',
-            label: 'DragDrop',
-            component: DragDropDoc,
-        },
-        {
             id: 'template',
             label: 'Template',
             component: TemplateDoc,

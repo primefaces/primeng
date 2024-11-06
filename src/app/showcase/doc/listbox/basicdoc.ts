@@ -19,14 +19,7 @@ interface City {
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-listbox
-                [options]="cities"
-                [(ngModel)]="selectedCity"
-                optionLabel="name"
-                [style]="{ width: '15rem' }"
-                [listStyle]="{ 'max-height': '220px' }"
-                class="w-full md:w-56"
-            />
+            <p-listbox [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" class="w-full md:w-56" />
         </div>
         <app-code [code]="code" selector="listbox-basic-demo"></app-code>
     `,
@@ -47,15 +40,15 @@ export class BasicDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-listbox [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" [style]="{'width':'15rem'}" [listStyle]="{'max-height': '220px'}" class="w-full md:w-56" />`,
+        basic: `<p-listbox [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" class="w-full md:w-56" />`,
 
         html: `<div class="card flex justify-center">
-    <p-listbox [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" [style]="{'width':'15rem'}" [listStyle]="{'max-height': '220px'}" class="w-full md:w-56" />
+    <p-listbox [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" class="w-full md:w-56" />
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ListboxModule } from 'primeng/listbox';
+import { Listbox } from 'primeng/listbox';
 
 interface City {
     name: string,
@@ -66,7 +59,7 @@ interface City {
     selector: 'listbox-basic-demo',
     templateUrl: './listbox-basic-demo.html',
     standalone: true,
-    imports: [FormsModule, ListboxModule]
+    imports: [FormsModule, Listbox]
 })
 export class ListboxBasicDemo implements OnInit {
     cities!: City[];

@@ -1,5 +1,5 @@
-import { Injectable, inject } from '@angular/core';
-import { Theme, dt } from 'primeng/themes';
+import { inject, Injectable } from '@angular/core';
+import { dt, Theme } from 'primeng/themes';
 import { UseStyle } from 'primeng/usestyle';
 import { ObjectUtils } from 'primeng/utils';
 
@@ -150,6 +150,40 @@ const css = ({ dt }) => `
 .p-overflow-hidden {
     overflow: hidden;
     padding-right: ${dt('scrollbar.width')};
+}
+
+/* @todo move to baseiconstyle.ts */
+
+.p-icon {
+    display: inline-block;
+    vertical-align: baseline;
+}
+
+.p-icon-spin {
+    -webkit-animation: p-icon-spin 2s infinite linear;
+    animation: p-icon-spin 2s infinite linear;
+}
+
+@-webkit-keyframes p-icon-spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(359deg);
+        transform: rotate(359deg);
+    }
+}
+
+@keyframes p-icon-spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(359deg);
+        transform: rotate(359deg);
+    }
 }
 `;
 

@@ -139,7 +139,7 @@ export class PositionDoc {
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { DialogModule } from 'primeng/dialog';
+import { Dialog } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
         
@@ -147,7 +147,7 @@ import { InputTextModule } from 'primeng/inputtext';
     selector: 'dialog-position-demo',
     templateUrl: './dialog-position-demo.html',
     standalone: true,
-    imports: [DialogModule, ButtonModule, InputTextModule]
+    imports: [Dialog, ButtonModule, InputTextModule]
 })
 export class DialogPositionDemo {
     visible: boolean = false;

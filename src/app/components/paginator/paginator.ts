@@ -1,38 +1,36 @@
 import { CommonModule } from '@angular/common';
 import {
-    AfterContentInit,
+    booleanAttribute,
     ChangeDetectionStrategy,
     Component,
-    ContentChildren,
+    ContentChild,
     ElementRef,
     EventEmitter,
+    inject,
     Input,
     NgModule,
+    numberAttribute,
     OnChanges,
     OnInit,
     Output,
-    QueryList,
     SimpleChanges,
     TemplateRef,
     ViewEncapsulation,
-    booleanAttribute,
-    inject,
-    numberAttribute,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Aria, PrimeTemplate, SelectItem, SharedModule } from 'primeng/api';
-import { DropdownChangeEvent, DropdownModule } from 'primeng/dropdown';
+import { Aria, SelectItem, SharedModule } from 'primeng/api';
+import { DropdownChangeEvent } from 'primeng/dropdown';
 import { AngleDoubleLeftIcon } from 'primeng/icons/angledoubleleft';
 import { AngleDoubleRightIcon } from 'primeng/icons/angledoubleright';
 import { AngleLeftIcon } from 'primeng/icons/angleleft';
 import { AngleRightIcon } from 'primeng/icons/angleright';
-import { InputNumberModule } from 'primeng/inputnumber';
-import { RippleModule } from 'primeng/ripple';
+import { InputNumber } from 'primeng/inputnumber';
+import { Ripple } from 'primeng/ripple';
 import { Nullable } from 'primeng/ts-helpers';
 import { PaginatorState } from './paginator.interface';
 import { PaginatorStyle } from './style/paginatorstyle';
 import { BaseComponent } from 'primeng/basecomponent';
-import { SelectModule } from 'primeng/select';
+import { Select } from 'primeng/select';
 import { styleClassAttribute } from "primeng/base";
 /**
  * Paginator is a generic component to display content in paged format.
@@ -40,6 +38,19 @@ import { styleClassAttribute } from "primeng/base";
  */
 @Component({
     selector: 'p-paginator',
+    standalone: true,
+    imports: [
+        CommonModule,
+        Select,
+        InputNumber,
+        FormsModule,
+        Ripple,
+        AngleDoubleLeftIcon,
+        AngleDoubleRightIcon,
+        AngleLeftIcon,
+        AngleRightIcon,
+        SharedModule,
+    ],
     template: `
         <div
             [class]="styleClass"
@@ -110,7 +121,7 @@ import { styleClassAttribute } from "primeng/base";
                 <ng-template pTemplate="selectedItem">{{ currentPageReport }}</ng-template>
                 <ng-container *ngIf="jumpToPageItemTemplate">
                     <ng-template let-item pTemplate="item">
-                        <ng-container *ngTemplateOutlet="jumpToPageItemTemplate; context: { $implicit: item }"> </ng-container>
+                        <ng-container *ngTemplateOutlet="jumpToPageItemTemplate; context: { $implicit: item }"></ng-container>
                     </ng-template>
                 </ng-container>
                 <ng-template pTemplate="dropdownicon" *ngIf="dropdownIconTemplate">
@@ -166,7 +177,7 @@ import { styleClassAttribute } from "primeng/base";
             >
                 <ng-container *ngIf="dropdownItemTemplate">
                     <ng-template let-item pTemplate="item">
-                        <ng-container *ngTemplateOutlet="dropdownItemTemplate; context: { $implicit: item }"> </ng-container>
+                        <ng-container *ngTemplateOutlet="dropdownItemTemplate; context: { $implicit: item }"></ng-container>
                     </ng-template>
                 </ng-container>
                 <ng-template pTemplate="dropdownicon" *ngIf="dropdownIconTemplate">
@@ -182,7 +193,7 @@ import { styleClassAttribute } from "primeng/base";
     encapsulation: ViewEncapsulation.None,
     providers: [PaginatorStyle],
 })
-export class Paginator extends BaseComponent implements OnInit, AfterContentInit, OnChanges {
+export class Paginator extends BaseComponent implements OnInit, OnChanges {
     /**
      * Number of page links to display.
      * @group Props
@@ -292,6 +303,7 @@ export class Paginator extends BaseComponent implements OnInit, AfterContentInit
      * @group Props
      */
     @Input() dropdownItemTemplate: TemplateRef<{ $implicit: any }> | undefined;
+
     /**
      * Zero-relative number of the first row to be displayed.
      * @group Props
@@ -299,9 +311,11 @@ export class Paginator extends BaseComponent implements OnInit, AfterContentInit
     @Input() get first(): number {
         return this._first;
     }
+
     set first(val: number) {
         this._first = val;
     }
+
     /**
      * Callback to invoke when page changes, the event object contains information about the new state.
      * @param {PaginatorState} event - Paginator state.
@@ -309,17 +323,35 @@ export class Paginator extends BaseComponent implements OnInit, AfterContentInit
      */
     @Output() onPageChange: EventEmitter<PaginatorState> = new EventEmitter<PaginatorState>();
 
-    @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<any>>;
+    /**
+     * Template for the dropdown icon.
+     * @group Templates
+     */
+    @ContentChild('dropdownicon') dropdownIconTemplate: Nullable<TemplateRef<any>>;
 
-    dropdownIconTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Template for the first page link icon.
+     * @group Templates
+     */
+    @ContentChild('firstpagelinkicon') firstPageLinkIconTemplate: Nullable<TemplateRef<any>>;
 
-    firstPageLinkIconTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Template for the previous page link icon.
+     * @group Templates
+     */
+    @ContentChild('previouspagelinkicon') previousPageLinkIconTemplate: Nullable<TemplateRef<any>>;
 
-    previousPageLinkIconTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Template for the last page link icon.
+     * @group Templates
+     */
+    @ContentChild('lastpagelinkicon') lastPageLinkIconTemplate: Nullable<TemplateRef<any>>;
 
-    lastPageLinkIconTemplate: Nullable<TemplateRef<any>>;
-
-    nextPageLinkIconTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Template for the next page link icon.
+     * @group Templates
+     */
+    @ContentChild('nextpagelinkicon') nextPageLinkIconTemplate: Nullable<TemplateRef<any>>;
 
     pageLinks: number[] | undefined;
 
@@ -361,32 +393,6 @@ export class Paginator extends BaseComponent implements OnInit, AfterContentInit
         } else {
             return index.get(digit);
         }
-    }
-
-    ngAfterContentInit(): void {
-        (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
-            switch (item.getType()) {
-                case 'dropdownicon':
-                    this.dropdownIconTemplate = item.template;
-                    break;
-
-                case 'firstpagelinkicon':
-                    this.firstPageLinkIconTemplate = item.template;
-                    break;
-
-                case 'previouspagelinkicon':
-                    this.previousPageLinkIconTemplate = item.template;
-                    break;
-
-                case 'lastpagelinkicon':
-                    this.lastPageLinkIconTemplate = item.template;
-                    break;
-
-                case 'nextpagelinkicon':
-                    this.nextPageLinkIconTemplate = item.template;
-                    break;
-            }
-        });
     }
 
     ngOnChanges(simpleChange: SimpleChanges): void {
@@ -575,19 +581,7 @@ export class Paginator extends BaseComponent implements OnInit, AfterContentInit
 }
 
 @NgModule({
-    imports: [
-        CommonModule,
-        SelectModule,
-        InputNumberModule,
-        FormsModule,
-        SharedModule,
-        RippleModule,
-        AngleDoubleLeftIcon,
-        AngleDoubleRightIcon,
-        AngleLeftIcon,
-        AngleRightIcon,
-    ],
-    exports: [Paginator, SelectModule, SharedModule],
-    declarations: [Paginator],
+    imports: [Paginator, SharedModule],
+    exports: [Paginator, SharedModule],
 })
 export class PaginatorModule {}

@@ -3,7 +3,7 @@ import {
     AfterContentInit,
     ChangeDetectionStrategy,
     Component,
-    ContentChildren,
+    ContentChild,
     HostBinding,
     inject,
     Input,
@@ -17,12 +17,15 @@ import { Nullable } from 'primeng/ts-helpers';
 import { TimelineStyle } from './style/timelinestyle';
 import { BaseComponent } from 'primeng/basecomponent';
 import { styleClassAttribute } from "primeng/base";
+
 /**
  * Timeline visualizes a series of chained events.
  * @group Components
  */
 @Component({
     selector: 'p-timeline',
+    standalone: true,
+    imports: [CommonModule, SharedModule],
     template: `
         <div *ngFor="let event of value; let last = last" class="p-timeline-event" [attr.data-pc-section]="'event'">
             <div class="p-timeline-event-opposite" [attr.data-pc-section]="'opposite'">
@@ -86,23 +89,28 @@ export class Timeline extends BaseComponent implements AfterContentInit, Blockab
      * @group Props
      */
     @Input() layout: 'vertical' | 'horizontal' = 'vertical';
+    /**
+     * Custom content template.
+     * @group Templates
+     */
+    @ContentChild('content') contentTemplate: Nullable<TemplateRef<any>>;
 
-    @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<any>>;
+    /**
+     * Custom opposite item template.
+     * @group Templates
+     */
+    @ContentChild('opposite') oppositeTemplate: Nullable<TemplateRef<any>>;
 
-    contentTemplate: Nullable<TemplateRef<any>>;
-
-    oppositeTemplate: Nullable<TemplateRef<any>>;
-
-    markerTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom marker template.
+     * @group Templates
+     */
+    @ContentChild('marker') markerTemplate: Nullable<TemplateRef<any>>;
 
     _componentStyle = inject(TimelineStyle);
 
     @HostBinding('class') get hostClass() {
         return this.styleClass;
-    }
-
-    constructor() {
-        super();
     }
 
     getBlockableElement(): HTMLElement {
@@ -129,8 +137,7 @@ export class Timeline extends BaseComponent implements AfterContentInit, Blockab
 }
 
 @NgModule({
-    imports: [CommonModule],
+    imports: [Timeline, SharedModule],
     exports: [Timeline, SharedModule],
-    declarations: [Timeline],
 })
 export class TimelineModule {}

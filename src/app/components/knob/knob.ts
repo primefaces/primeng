@@ -1,22 +1,23 @@
 import { CommonModule } from '@angular/common';
 import {
+    booleanAttribute,
     ChangeDetectionStrategy,
     Component,
     EventEmitter,
-    Input,
-    NgModule,
-    Output,
-    ViewEncapsulation,
-    booleanAttribute,
     forwardRef,
     inject,
+    Input,
+    NgModule,
     numberAttribute,
+    Output,
+    ViewEncapsulation,
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { VoidListener } from 'primeng/ts-helpers';
 import { KnobStyle } from './style/knobstyle';
 import { BaseComponent } from 'primeng/basecomponent';
 import { $dt } from '@primeuix/styled';
+import { SharedModule } from 'primeng/api';
 import { styleClassAttribute } from "primeng/base";
 
 export const KNOB_VALUE_ACCESSOR: any = {
@@ -30,6 +31,8 @@ export const KNOB_VALUE_ACCESSOR: any = {
  */
 @Component({
     selector: 'p-knob',
+    standalone: true,
+    imports: [CommonModule, SharedModule],
     template: `
         <div [ngClass]="containerClass" [class]="styleClass" [ngStyle]="style" [attr.data-pc-name]="'knob'" [attr.data-pc-section]="'root'">
             <svg
@@ -439,8 +442,7 @@ export class Knob extends BaseComponent {
 }
 
 @NgModule({
-    imports: [CommonModule],
-    exports: [Knob],
-    declarations: [Knob],
+    imports: [Knob, SharedModule],
+    exports: [Knob, SharedModule],
 })
 export class KnobModule {}

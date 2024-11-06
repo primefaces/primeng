@@ -82,13 +82,13 @@ export class HorizontalDoc {
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { TimelineModule } from 'primeng/timeline';
+import { Timeline } from 'primeng/timeline';
 
 @Component({
     selector: 'timeline-horizontal-demo',
     templateUrl: './timeline-horizontal-demo.html',
     standalone: true,
-    imports: [TimelineModule]
+    imports: [Timeline]
 })
 export class TimelineHorizontalDemo {
     events: string[];

@@ -61,12 +61,13 @@ const theme = ({ dt }) => `
     resize: none;
 }
 
-/* For PrimeNG */
-
 .p-textarea.ng-invalid.ng-dirty {
     border-color: ${dt('textarea.invalid.border.color')}
-};
-`;
+}
+
+.p-textarea.ng-invalid.ng-dirty::placeholder {
+    color: ${dt('textarea.invalid.placeholder.color')};
+}`;
 
 const classes = {
     root: ({ instance, props }) => [

@@ -34,6 +34,12 @@ export interface CascadeSelectDesignTokens extends ColorSchemeDesignToken<Cascad
          */
         filledBackground?: string;
         /**
+         * Filled hover background of root
+         *
+         * @designToken cascadeselect.filled.hover.background
+         */
+        filledHoverBackground?: string;
+        /**
          * Filled focus background of root
          *
          * @designToken cascadeselect.filled.focus.background
@@ -81,6 +87,12 @@ export interface CascadeSelectDesignTokens extends ColorSchemeDesignToken<Cascad
          * @designToken cascadeselect.placeholder.color
          */
         placeholderColor?: string;
+        /**
+         * Invalid placeholder color of root
+         *
+         * @designToken cascadeselect.invalid.placeholder.color
+         */
+        invalidPlaceholderColor?: string;
         /**
          * Shadow of root
          *
@@ -146,6 +158,52 @@ export interface CascadeSelectDesignTokens extends ColorSchemeDesignToken<Cascad
          * @designToken cascadeselect.transition.duration
          */
         transitionDuration?: string;
+        /**
+         * Sm of root
+         */
+        sm?: {
+            /**
+             * Sm font size of root
+             *
+             * @designToken cascadeselect.sm.font.size
+             */
+            fontSize?: string;
+            /**
+             * Sm padding x of root
+             *
+             * @designToken cascadeselect.sm.padding.x
+             */
+            paddingX?: string;
+            /**
+             * Sm padding y of root
+             *
+             * @designToken cascadeselect.sm.padding.y
+             */
+            paddingY?: string;
+        };
+        /**
+         * Lg of root
+         */
+        lg?: {
+            /**
+             * Lg font size of root
+             *
+             * @designToken cascadeselect.lg.font.size
+             */
+            fontSize?: string;
+            /**
+             * Lg padding x of root
+             *
+             * @designToken cascadeselect.lg.padding.x
+             */
+            paddingX?: string;
+            /**
+             * Lg padding y of root
+             *
+             * @designToken cascadeselect.lg.padding.y
+             */
+            paddingY?: string;
+        };
     };
     /**
      * Used to pass tokens of the dropdown section
@@ -215,6 +273,12 @@ export interface CascadeSelectDesignTokens extends ColorSchemeDesignToken<Cascad
          * @designToken cascadeselect.list.gap
          */
         gap?: string;
+        /**
+         * Mobile indent of list
+         *
+         * @designToken cascadeselect.list.mobile.indent
+         */
+        mobileIndent?: string;
     };
     /**
      * Used to pass tokens of the option section
@@ -297,5 +361,16 @@ export interface CascadeSelectDesignTokens extends ColorSchemeDesignToken<Cascad
              */
             size?: string;
         };
+    };
+    /**
+     * Used to pass tokens of the clear icon section
+     */
+    clearIcon?: {
+        /**
+         * Color of clear icon
+         *
+         * @designToken cascadeselect.clear.icon.color
+         */
+        color?: string;
     };
 }

@@ -71,14 +71,14 @@ export class FloatLabelDoc {
 
         typescript: `import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DatePickerModule } from 'primeng/datepicker';
-import { FloatLabelModule } from 'primeng/floatlabel';
+import { DatePicker } from 'primeng/datepicker';
+import { FloatLabel } from 'primeng/floatlabel';
 
 @Component({
     selector: 'datepicker-float-label-demo',
     templateUrl: './datepicker-float-label-demo.html',
     standalone: true,
-    imports: [FormsModule, DatePickerModule, FloatLabelModule]
+    imports: [FormsModule, DatePicker, FloatLabel]
 })
 export class DatePickerFloatLabelDemo {
     value1: Date | undefined;

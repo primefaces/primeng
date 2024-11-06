@@ -62,23 +62,14 @@ export class SelectDataDoc {
     }
 
     code: Code = {
-        basic: `<p-button
-    type="button"
-    [label]="selectedMember ? selectedMember.name : 'Select Member'"
-    (onClick)="toggle($event)"
-    styleClass="min-w-48"
-/>
+        basic: `<p-button type="button" [label]="selectedMember ? selectedMember.name : 'Select Member'" (onClick)="toggle($event)" styleClass="min-w-48" />
 
 <p-popover #op>
     <div class="flex flex-col gap-4">
         <div>
             <span class="font-medium block mb-2">Team Members</span>
             <ul class="list-none p-0 m-0 flex flex-col">
-                <li
-                    *ngFor="let member of members"
-                    class="flex items-center gap-2 px-2 py-3 hover:bg-emphasis cursor-pointer rounded-border"
-                    (click)="selectMember(member)"
-                >
+                <li *ngFor="let member of members" class="flex items-center gap-2 px-2 py-3 hover:bg-emphasis cursor-pointer rounded-border" (click)="selectMember(member)">
                     <img [src]="'https://primefaces.org/cdn/primeng/images/demo/avatar/' + member.image" style="width: 32px" />
                     <div>
                         <span class="font-medium">{{ member.name }}</span>
@@ -91,23 +82,14 @@ export class SelectDataDoc {
 </p-popover>`,
 
         html: `<div class="card flex justify-center">
-     <p-button
-        type="button"
-        [label]="selectedMember ? selectedMember.name : 'Select Member'"
-        (onClick)="toggle($event)"
-        styleClass="min-w-48"
-    />
+    <p-button type="button" [label]="selectedMember ? selectedMember.name : 'Select Member'" (onClick)="toggle($event)" styleClass="min-w-48" />
 
     <p-popover #op>
         <div class="flex flex-col gap-4">
             <div>
                 <span class="font-medium block mb-2">Team Members</span>
                 <ul class="list-none p-0 m-0 flex flex-col">
-                    <li
-                        *ngFor="let member of members"
-                        class="flex items-center gap-2 px-2 py-3 hover:bg-emphasis cursor-pointer rounded-border"
-                        (click)="selectMember(member)"
-                    >
+                    <li *ngFor="let member of members" class="flex items-center gap-2 px-2 py-3 hover:bg-emphasis cursor-pointer rounded-border" (click)="selectMember(member)">
                         <img [src]="'https://primefaces.org/cdn/primeng/images/demo/avatar/' + member.image" style="width: 32px" />
                         <div>
                             <span class="font-medium">{{ member.name }}</span>

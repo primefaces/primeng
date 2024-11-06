@@ -6,7 +6,7 @@ import { Code } from '@domain/code';
     selector: 'template-doc',
     template: `
         <app-docsectiontext>
-            <p>Custom content can be placed between p-megaMenu tags. Megamenu should be <i>horizontal</i> for custom content.</p>
+            <p>Custom content can be placed between p-megamenu tags. Megamenu should be <i>horizontal</i> for custom content.</p>
         </app-docsectiontext>
         <div class="card">
             <p-megamenu
@@ -14,8 +14,8 @@ import { Code } from '@domain/code';
                 [style]="{ 'border-radius': '3rem', display: 'flex' }"
                 styleClass="p-4 bg-surface-0 dark:bg-surface-900"
             >
-                <ng-template pTemplate="start">
-                    <svg width="31" height="33" viewBox="0 0 31 33" fill="none" xmlns="http://www.w3.org/2000/svg" class="block mx-auto">
+                <ng-template #start>
+                    <svg width="31" height="33" viewBox="0 0 31 33" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
                             d="M15.1934 0V0V0L0.0391235 5.38288L2.35052 25.3417L15.1934 32.427V32.427V32.427L28.0364 25.3417L30.3478 5.38288L15.1934 0Z"
                             fill="var(--p-primary-color)"
@@ -74,7 +74,7 @@ import { Code } from '@domain/code';
                         />
                     </svg>
                 </ng-template>
-                <ng-template pTemplate="item" let-item>
+                <ng-template #item let-item>
                     <a
                         *ngIf="item.root"
                         pRipple
@@ -99,7 +99,7 @@ import { Code } from '@domain/code';
                         <p-button [label]="item.label" [outlined]="true"></p-button>
                     </div>
                 </ng-template>
-                <ng-template pTemplate="end">
+                <ng-template #end>
                     <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
                 </ng-template>
             </p-megamenu>
@@ -169,7 +169,7 @@ export class TemplateDoc implements OnInit {
 
     code: Code = {
         basic: `<p-megamenu [model]="items" [style]="{ 'border-radius': '3rem', display: 'flex' }" styleClass="p-4 bg-surface-0 dark:bg-surface-900">
-    <ng-template pTemplate="start">
+    <ng-template #start>
         <svg width="33" height="35" viewBox="0 0 33 35" fill="none" xmlns="http://www.w3.org/2000/svg" class="h-8">
             <path d="..." fill="var(--primary-color)" />
             <mask id="mask0_1_36" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="31" height="33">
@@ -200,7 +200,7 @@ export class TemplateDoc implements OnInit {
             <path d="..." fill="var(--primary-color-text)" />
         </svg>
     </ng-template>
-    <ng-template pTemplate="item" let-item>
+    <ng-template #item let-item>
         <a *ngIf="item.root" pRipple class="flex items-center cursor-pointer px-4 py-2 overflow-hidden relative font-semibold text-lg uppercase" style="border-radius: 2rem">
             <i [ngClass]="item.icon"></i>
             <span class="ml-2">{{ item.label }}</span>
@@ -220,22 +220,15 @@ export class TemplateDoc implements OnInit {
             <p-button [label]="item.label" [outlined]="true"></p-button>
         </div>
     </ng-template>
-    <ng-template pTemplate="end">
+    <ng-template #end>
         <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
     </ng-template>
 </p-megamenu>`,
 
         html: `<div class="card">
     <p-megamenu [model]="items" [style]="{ 'border-radius': '3rem', display: 'flex' }" styleClass="p-4 bg-surface-0 dark:bg-surface-900">
-        <ng-template pTemplate="start">
-              <svg
-                width="31"
-                height="33"
-                viewBox="0 0 31 33"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                class="block mx-auto"
-            >
+        <ng-template #start>
+            <svg width="31" height="33" viewBox="0 0 31 33" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
                     d="M15.1934 0V0V0L0.0391235 5.38288L2.35052 25.3417L15.1934 32.427V32.427V32.427L28.0364 25.3417L30.3478 5.38288L15.1934 0Z"
                     fill="var(--p-primary-color)"
@@ -294,7 +287,7 @@ export class TemplateDoc implements OnInit {
                 />
             </svg>
         </ng-template>
-        <ng-template pTemplate="item" let-item>
+        <ng-template #item let-item>
             <a *ngIf="item.root" pRipple class="flex items-center cursor-pointer px-4 py-2 overflow-hidden relative font-semibold text-lg uppercase" style="border-radius: 2rem">
                 <i [ngClass]="item.icon"></i>
                 <span class="ml-2">{{ item.label }}</span>
@@ -314,7 +307,7 @@ export class TemplateDoc implements OnInit {
                 <p-button [label]="item.label" [outlined]="true"></p-button>
             </div>
         </ng-template>
-        <ng-template pTemplate="end">
+        <ng-template #end>
             <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
         </ng-template>
     </p-megamenu>
@@ -322,7 +315,7 @@ export class TemplateDoc implements OnInit {
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { MegaMenuItem } from 'primeng/api';
-import { MegaMenuModule } from 'primeng/megamenu';
+import { MegaMenu } from 'primeng/megamenu';
 import { ButtonModule } from 'primeng/button';
 import { CommonModule } from '@angular/common';
 import { AvatarModule } from 'primeng/avatar';
@@ -332,7 +325,7 @@ import { AvatarModule } from 'primeng/avatar';
     selector: 'mega-menu-template-demo',
     templateUrl: './mega-menu-template-demo.html',
     standalone: true,
-    imports: [MegaMenuModule, ButtonModule, CommonModule, AvatarModule]
+    imports: [MegaMenu, ButtonModule, CommonModule, AvatarModule]
 })
 export class MegaMenuTemplateDemo implements OnInit {
     items: MegaMenuItem[] | undefined;

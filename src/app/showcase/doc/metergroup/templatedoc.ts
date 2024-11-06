@@ -9,7 +9,7 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card">
             <p-metergroup [value]="value" labelPosition="start">
-                <ng-template pTemplate="label">
+                <ng-template #label>
                     <div class="flex flex-wrap gap-4">
                         <ng-container *ngFor="let meterItem of value; let index = index">
                             <p-card class="flex-1" styleClass="border border-surface shadow-none">
@@ -29,20 +29,20 @@ import { Code } from '@domain/code';
                         </ng-container>
                     </div>
                 </ng-template>
-                <ng-template pTemplate="meter" let-value let-class="class" let-width="size">
+                <ng-template #meter let-value let-class="class" let-width="size">
                     <span
                         [class]="class"
                         [style]="{ background: 'linear-gradient(to right, ' + value.color1 + ', ' + value.color2 + ')', width: width }"
                     ></span>
                 </ng-template>
-                <ng-template pTemplate="start" let-totalPercent="totalPercent">
+                <ng-template #start let-totalPercent="totalPercent">
                     <div class="flex justify-between mt-4 mb-2 relative">
                         <span>Storage</span>
                         <span [style]="{ width: totalPercent + '%' }" class="absolute text-right">{{ totalPercent }}%</span>
                         <span class="font-medium">1TB</span>
                     </div>
                 </ng-template>
-                <ng-template pTemplate="end">
+                <ng-template #end>
                     <div class="flex justify-between mt-4">
                         <p-button label="Manage Storage" [outlined]="true" size="small" />
                         <p-button label="Update Plan" size="small" />
@@ -63,7 +63,7 @@ export class TemplateDoc {
 
     code: Code = {
         basic: `<p-metergroup [value]="value" labelPosition="start">
-    <ng-template pTemplate="label">
+    <ng-template #label>
         <div class="flex flex-wrap gap-4">
             <ng-container *ngFor="let meterItem of value; let index = index">
                 <p-card class="flex-1" styleClass="border border-surface shadow-none">
@@ -80,17 +80,17 @@ export class TemplateDoc {
             </ng-container>
         </div>
     </ng-template>
-    <ng-template pTemplate="meter" let-value let-class="class" let-width="size">
+    <ng-template #meter let-value let-class="class" let-width="size">
         <span [class]="class" [style]="{ background: 'linear-gradient(to right, ' + value.color1 + ', ' + value.color2 + ')', width: width }"></span>
     </ng-template>
-    <ng-template pTemplate="start" let-totalPercent="totalPercent">
+    <ng-template #start let-totalPercent="totalPercent">
         <div class="flex justify-between mt-4 mb-2 relative">
             <span>Storage</span>
             <span [style]="{ width: totalPercent + '%' }" class="absolute text-right">{{ totalPercent }}%</span>
             <span class="font-medium">1TB</span>
         </div>
     </ng-template>
-    <ng-template pTemplate="end">
+    <ng-template #end>
         <div class="flex justify-between mt-4">
             <p-button label="Manage Storage" [outlined]="true" size="small" />
             <p-button label="Update Plan" size="small" />
@@ -100,7 +100,7 @@ export class TemplateDoc {
 
         html: `<div class="card">
     <p-metergroup [value]="value" labelPosition="start">
-        <ng-template pTemplate="label">
+        <ng-template #label>
             <div class="flex flex-wrap gap-4">
                 <ng-container *ngFor="let meterItem of value; let index = index">
                     <p-card class="flex-1" styleClass="border border-surface shadow-none">
@@ -117,17 +117,17 @@ export class TemplateDoc {
                 </ng-container>
             </div>
         </ng-template>
-        <ng-template pTemplate="meter" let-value let-class="class" let-width="size">
+        <ng-template #meter let-value let-class="class" let-width="size">
             <span [class]="class" [style]="{ background: 'linear-gradient(to right, ' + value.color1 + ', ' + value.color2 + ')', width: width }"></span>
         </ng-template>
-        <ng-template pTemplate="start" let-totalPercent="totalPercent">
+        <ng-template #start let-totalPercent="totalPercent">
             <div class="flex justify-between mt-4 mb-2 relative">
                 <span>Storage</span>
                 <span [style]="{ width: totalPercent + '%' }" class="absolute text-right">{{ totalPercent }}%</span>
                 <span class="font-medium">1TB</span>
             </div>
         </ng-template>
-        <ng-template pTemplate="end">
+        <ng-template #end>
             <div class="flex justify-between mt-4">
                 <p-button label="Manage Storage" [outlined]="true" size="small" />
                 <p-button label="Update Plan" size="small" />
@@ -137,7 +137,7 @@ export class TemplateDoc {
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { MeterGroupModule } from 'primeng/metergroup';
+import { MeterGroup } from 'primeng/metergroup';
 import { CardModule } from 'primeng/card';
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
@@ -146,7 +146,7 @@ import { ButtonModule } from 'primeng/button';
     selector: 'meter-group-template-demo',
     templateUrl: './meter-group-template-demo.html',
     standalone: true,
-    imports: [MeterGroupModule, CardModule, ButtonModule, CommonModule]
+    imports: [MeterGroup, CardModule, ButtonModule, CommonModule]
 })
 export class MeterGroupTemplateDemo {
     value = [

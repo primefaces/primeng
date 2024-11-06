@@ -5,7 +5,7 @@ import {
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
-    ContentChildren,
+    ContentChild,
     ElementRef,
     EventEmitter,
     HostListener,
@@ -13,13 +13,12 @@ import {
     Input,
     NgModule,
     Output,
-    QueryList,
     TemplateRef,
     ViewChild,
     ViewEncapsulation,
 } from '@angular/core';
 import { SafeUrl } from '@angular/platform-browser';
-import { PrimeTemplate, SharedModule } from 'primeng/api';
+import { SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { EyeIcon } from 'primeng/icons/eye';
 import { RefreshIcon } from 'primeng/icons/refresh';
@@ -29,7 +28,7 @@ import { TimesIcon } from 'primeng/icons/times';
 import { UndoIcon } from 'primeng/icons/undo';
 import { ZIndexUtils } from 'primeng/utils';
 import { Nullable } from 'primeng/ts-helpers';
-import { FocusTrapModule } from 'primeng/focustrap';
+import { FocusTrap } from 'primeng/focustrap';
 import { ImageStyle } from './style/imagestyle';
 import { BaseComponent } from 'primeng/basecomponent';
 import { styleClassAttribute } from "primeng/base";
@@ -40,6 +39,8 @@ import { styleClassAttribute } from "primeng/base";
  */
 @Component({
     selector: 'p-image',
+    standalone: true,
+    imports: [CommonModule, RefreshIcon, EyeIcon, UndoIcon, SearchMinusIcon, SearchPlusIcon, TimesIcon, FocusTrap, SharedModule],
     template: `
         <span [ngClass]="containerClass()" [class]="styleClass" [ngStyle]="style">
             <ng-container *ngIf="!imageTemplate">
@@ -67,7 +68,6 @@ import { styleClassAttribute } from "primeng/base";
                 (click)="onImageClick()"
                 #previewButton
                 [ngStyle]="{ height: height + 'px', width: width + 'px' }"
-                style="border: 'none';"
             >
                 <ng-container *ngIf="indicatorTemplate; else defaultTemplate">
                     <ng-container *ngTemplateOutlet="indicatorTemplate"></ng-container>
@@ -294,23 +294,53 @@ export class Image extends BaseComponent implements AfterContentInit {
 
     @ViewChild('closeButton') closeButton: ElementRef | undefined;
 
-    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
+    /**
+     * Custom template of indicator.
+     * @group Templates
+     */
+    @ContentChild('indicator') indicatorTemplate: TemplateRef<any> | undefined;
 
-    indicatorTemplate: TemplateRef<any> | undefined;
+    /**
+     * Custom template of rotaterighticon.
+     * @group Templates
+     */
+    @ContentChild('rotaterighticon') rotateRightIconTemplate: TemplateRef<any> | undefined;
 
-    imageTemplate: TemplateRef<any> | undefined;
+    /**
+     * Custom template of rotatelefticon.
+     * @group Templates
+     */
+    @ContentChild('rotatelefticon') rotateLeftIconTemplate: TemplateRef<any> | undefined;
 
-    previewTemplate: TemplateRef<any> | undefined;
+    /**
+     * Custom template of zoomouticon.
+     * @group Templates
+     */
+    @ContentChild('zoomouticon') zoomOutIconTemplate: TemplateRef<any> | undefined;
 
-    rotateRightIconTemplate: TemplateRef<any> | undefined;
+    /**
+     * Custom template of zoominicon.
+     * @group Templates
+     */
+    @ContentChild('zoominicon') zoomInIconTemplate: TemplateRef<any> | undefined;
 
-    rotateLeftIconTemplate: TemplateRef<any> | undefined;
+    /**
+     * Custom template of closeicon.
+     * @group Templates
+     */
+    @ContentChild('closeicon') closeIconTemplate: TemplateRef<any> | undefined;
 
-    zoomOutIconTemplate: TemplateRef<any> | undefined;
+    /**
+     * Custom template of preview.
+     * @group Templates
+     */
+    @ContentChild('preview') previewTemplate: TemplateRef<any> | undefined;
 
-    zoomInIconTemplate: TemplateRef<any> | undefined;
-
-    closeIconTemplate: TemplateRef<any> | undefined;
+    /**
+     * Custom template of image.
+     * @group Templates
+     */
+    @ContentChild('image') imageTemplate: TemplateRef<any> | undefined;
 
     maskVisible: boolean = false;
 
@@ -549,8 +579,7 @@ export class Image extends BaseComponent implements AfterContentInit {
 }
 
 @NgModule({
-    imports: [CommonModule, SharedModule, RefreshIcon, EyeIcon, UndoIcon, SearchMinusIcon, SearchPlusIcon, TimesIcon, FocusTrapModule],
+    imports: [Image, SharedModule],
     exports: [Image, SharedModule],
-    declarations: [Image],
 })
 export class ImageModule {}

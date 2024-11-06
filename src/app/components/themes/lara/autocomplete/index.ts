@@ -3,6 +3,7 @@ export default {
         background: '{form.field.background}',
         disabledBackground: '{form.field.disabled.background}',
         filledBackground: '{form.field.filled.background}',
+        filledHoverBackground: '{form.field.filled.hover.background}',
         filledFocusBackground: '{form.field.filled.focus.background}',
         borderColor: '{form.field.border.color}',
         hoverBorderColor: '{form.field.hover.border.color}',
@@ -54,6 +55,12 @@ export default {
     },
     dropdown: {
         width: '2.5rem',
+        sm: {
+            width: '2rem',
+        },
+        lg: {
+            width: '3rem',
+        },
         borderColor: '{form.field.border.color}',
         hoverBorderColor: '{form.field.border.color}',
         activeBorderColor: '{form.field.border.color}',
@@ -74,6 +81,10 @@ export default {
     },
     colorScheme: {
         light: {
+            chip: {
+                focusBackground: '{surface.200}',
+                focusColor: '{surface.800}',
+            },
             dropdown: {
                 background: '{surface.50}',
                 hoverBackground: '{surface.100}',
@@ -84,6 +95,10 @@ export default {
             },
         },
         dark: {
+            chip: {
+                focusBackground: '{surface.700}',
+                focusColor: '{surface.0}',
+            },
             dropdown: {
                 background: '{surface.800}',
                 hoverBackground: '{surface.700}',

@@ -30,13 +30,13 @@ export class BasicDoc {
 
         typescript: `import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SelectButtonModule } from 'primeng/selectbutton';
+import { SelectButton } from 'primeng/selectbutton';
 
 @Component({
     selector: 'select-button-basic-demo',
     templateUrl: './select-button-basic-demo.html',
     standalone: true,
-    imports: [FormsModule, SelectButtonModule]
+    imports: [FormsModule, SelectButton]
 })
 export class SelectButtonBasicDemo {
     stateOptions: any[] = [{ label: 'One-Way', value: 'one-way' },{ label: 'Return', value: 'return' }];

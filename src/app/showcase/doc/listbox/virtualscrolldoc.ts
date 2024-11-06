@@ -18,7 +18,6 @@ import { Code } from '@domain/code';
                 [(ngModel)]="selectedItems"
                 [selectAll]="selectAll"
                 optionLabel="label"
-                [style]="{ width: '15rem' }"
                 [virtualScroll]="true"
                 [virtualScrollItemSize]="38"
                 [multiple]="true"
@@ -51,21 +50,21 @@ export class VirtualScrollDoc {
     }
 
     code: Code = {
-        basic: `<p-listbox [options]="items" [(ngModel)]="selectedItems" [selectAll]="selectAll" optionLabel="label" [style]="{ width: '15rem' }" [virtualScroll]="true" [virtualScrollItemSize]="38" [multiple]="true" [metaKeySelection]="false" (onSelectAllChange)="onSelectAllChange($event)" (onChange)="onChange($event)" scrollHeight="250px" [striped]="true" class="w-full md:w-56" />`,
+        basic: `<p-listbox [options]="items" [(ngModel)]="selectedItems" [selectAll]="selectAll" optionLabel="label" [virtualScroll]="true" [virtualScrollItemSize]="38" [multiple]="true" [metaKeySelection]="false" (onSelectAllChange)="onSelectAllChange($event)" (onChange)="onChange($event)" scrollHeight="250px" [striped]="true" class="w-full md:w-56" />`,
 
         html: `<div class="card flex justify-center">
-    <p-listbox [options]="items" [(ngModel)]="selectedItems" [selectAll]="selectAll" optionLabel="label" [style]="{ width: '15rem' }" [virtualScroll]="true" [virtualScrollItemSize]="38" [multiple]="true" [metaKeySelection]="false" (onSelectAllChange)="onSelectAllChange($event)" (onChange)="onChange($event)" scrollHeight="250px" [striped]="true" class="w-full md:w-56" />
+    <p-listbox [options]="items" [(ngModel)]="selectedItems" [selectAll]="selectAll" optionLabel="label" [virtualScroll]="true" [virtualScrollItemSize]="38" [multiple]="true" [metaKeySelection]="false" (onSelectAllChange)="onSelectAllChange($event)" (onChange)="onChange($event)" scrollHeight="250px" [striped]="true" class="w-full md:w-56" />
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ListboxModule } from 'primeng/listbox';
+import { Listbox } from 'primeng/listbox';
 
 @Component({
     selector: 'listbox-virtual-scroll-demo',
     templateUrl: './listbox-virtual-scroll-demo.html',
     standalone: true,
-    imports: [FormsModule, ListboxModule]
+    imports: [FormsModule, Listbox]
 })
 export class ListboxVirtualScrollDemo {
     items = Array.from({ length: 100000 }, (_, i) => ({ label: \`Item #\${i}\`, value: i }))

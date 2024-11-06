@@ -39,7 +39,7 @@ export class FilledDoc {
 
         typescript: `import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AutoCompleteModule } from 'primeng/autocomplete';
+import { AutoComplete } from 'primeng/autocomplete';
 
 interface AutoCompleteCompleteEvent {
     originalEvent: Event;
@@ -49,7 +49,7 @@ interface AutoCompleteCompleteEvent {
 @Component({
     selector: 'autocomplete-filled-demo',
     templateUrl: './autocomplete-filled-demo.html',
-    imports: [AutoCompleteModule, FormsModule],
+    imports: [AutoComplete, FormsModule],
     standalone: true,
 })
 export class AutocompleteFilledDemo {

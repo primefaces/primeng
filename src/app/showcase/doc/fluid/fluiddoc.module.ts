@@ -7,11 +7,11 @@ import { FormsModule } from '@angular/forms';
 import { BasicDoc } from './basicdoc';
 import { ImportDoc } from './importdoc';
 import { InputTextModule } from 'primeng/inputtext';
-import { FluidModule } from 'primeng/fluid';
+import { Fluid } from 'primeng/fluid';
 import { AccessibilityDoc } from './accessibilitydoc';
 
 @NgModule({
-    imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, FormsModule, InputTextModule, FluidModule],
+    imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, FormsModule, InputTextModule, Fluid],
     declarations: [BasicDoc, ImportDoc, AccessibilityDoc],
     exports: [AppDocModule],
 })

@@ -11,5 +11,6 @@ export default {
     },
     input: {
         paddingTop: '1.5rem',
+        paddingBottom: '{form.field.padding.y}',
     },
 };

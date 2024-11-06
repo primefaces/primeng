@@ -11,7 +11,7 @@ import { ProductService } from '@service/productservice';
         </app-docsectiontext>
         <div class="card">
             <p-carousel [value]="products" [numVisible]="3" [numScroll]="3" [circular]="false" [responsiveOptions]="responsiveOptions">
-                <ng-template let-product pTemplate="item">
+                <ng-template let-product #item>
                     <div class="border border-surface rounded-border m-2 p-4">
                         <div class="mb-4">
                             <div class="relative mx-auto">
@@ -49,65 +49,24 @@ export class BasicDoc implements OnInit {
 
     responsiveOptions: any[] | undefined;
 
-    constructor(
-        private productService: ProductService,
-        private cdr: ChangeDetectorRef,
-    ) {}
-
-    ngOnInit() {
-        this.productService.getProductsSmall().then((products) => {
-            this.products = products;
-            this.cdr.detectChanges();
-        });
-
-        this.responsiveOptions = [
-            {
-                breakpoint: '1199px',
-                numVisible: 1,
-                numScroll: 1,
-            },
-            {
-                breakpoint: '991px',
-                numVisible: 2,
-                numScroll: 1,
-            },
-            {
-                breakpoint: '767px',
-                numVisible: 1,
-                numScroll: 1,
-            },
-        ];
-    }
-
-    getSeverity(status: string) {
-        switch (status) {
-            case 'INSTOCK':
-                return 'success';
-            case 'LOWSTOCK':
-                return 'warn';
-            case 'OUTOFSTOCK':
-                return 'danger';
-        }
-    }
-
     code: Code = {
-        basic: `<p-carousel 
-    [value]="products" 
-    [numVisible]="3" 
-    [numScroll]="3" 
-    [circular]="false" 
+        basic: `<p-carousel
+    [value]="products"
+    [numVisible]="3"
+    [numScroll]="3"
+    [circular]="false"
     [responsiveOptions]="responsiveOptions">
-        <ng-template let-product pTemplate="item">
+        <ng-template let-product #item>
             <div class="border border-surface rounded-border m-2 p-4">
                 <div class="mb-4">
                     <div class="relative mx-auto">
-                        <img 
-                            src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" 
-                            [alt]="product.name" 
+                        <img
+                            src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}"
+                            [alt]="product.name"
                             class="w-full rounded-border" />
-                        <p-tag 
-                            [value]="product.inventoryStatus" 
-                            [severity]="getSeverity(product.inventoryStatus)" 
+                        <p-tag
+                            [value]="product.inventoryStatus"
+                            [severity]="getSeverity(product.inventoryStatus)"
                             class="absolute"
                             styleClass="dark:!bg-surface-900"
                             [ngStyle]="{ 'left.px': 5, 'top.px': 5 }" />
@@ -129,23 +88,23 @@ export class BasicDoc implements OnInit {
         </ng-template>
 </p-carousel>`,
         html: `<div class="card">
-    <p-carousel 
-        [value]="products" 
-        [numVisible]="3" 
-        [numScroll]="3" 
-        [circular]="false" 
+    <p-carousel
+        [value]="products"
+        [numVisible]="3"
+        [numScroll]="3"
+        [circular]="false"
         [responsiveOptions]="responsiveOptions">
-            <ng-template let-product pTemplate="item">
+            <ng-template let-product #item>
                 <div class="border border-surface rounded-border m-2 p-4">
                     <div class="mb-4">
                         <div class="relative mx-auto">
-                            <img 
-                                src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" 
-                                [alt]="product.name" 
+                            <img
+                                src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}"
+                                [alt]="product.name"
                                 class="w-full rounded-border" />
-                            <p-tag 
-                                [value]="product.inventoryStatus" 
-                                [severity]="getSeverity(product.inventoryStatus)" 
+                            <p-tag
+                                [value]="product.inventoryStatus"
+                                [severity]="getSeverity(product.inventoryStatus)"
                                 class="absolute"
                                 styleClass="dark:!bg-surface-900"
                                 [ngStyle]="{ 'left.px': 5, 'top.px': 5 }" />
@@ -193,23 +152,28 @@ export class CarouselBasicDemo implements OnInit {
             this.products = products;
         });
 
-        this.responsiveOptions = [
+       this.responsiveOptions = [
             {
-                breakpoint: '1199px',
-                numVisible: 1,
-                numScroll: 1
-            },
-            {
-                breakpoint: '991px',
+                breakpoint: '1400px',
                 numVisible: 2,
                 numScroll: 1
             },
             {
+                breakpoint: '1199px',
+                numVisible: 3,
+                numScroll: 1
+            },
+            {
                 breakpoint: '767px',
+                numVisible: 2,
+                numScroll: 1
+            },
+            {
+                breakpoint: '575px',
                 numVisible: 1,
                 numScroll: 1
             }
-        ];
+        ]
     }
 
     getSeverity(status: string) {
@@ -224,7 +188,7 @@ export class CarouselBasicDemo implements OnInit {
     }
 }`,
         data: `
-/* ProductService */        
+/* ProductService */
 {
     id: '1000',
     code: 'f230fh0g3',
@@ -240,6 +204,52 @@ export class CarouselBasicDemo implements OnInit {
 ...`,
         service: ['ProductService'],
     };
+
+    constructor(
+        private productService: ProductService,
+        private cdr: ChangeDetectorRef,
+    ) {}
+
+    ngOnInit() {
+        this.productService.getProductsSmall().then((products) => {
+            this.products = products;
+            this.cdr.detectChanges();
+        });
+
+        this.responsiveOptions = [
+            {
+                breakpoint: '1400px',
+                numVisible: 2,
+                numScroll: 1,
+            },
+            {
+                breakpoint: '1199px',
+                numVisible: 3,
+                numScroll: 1,
+            },
+            {
+                breakpoint: '767px',
+                numVisible: 2,
+                numScroll: 1,
+            },
+            {
+                breakpoint: '575px',
+                numVisible: 1,
+                numScroll: 1,
+            },
+        ];
+    }
+
+    getSeverity(status: string) {
+        switch (status) {
+            case 'INSTOCK':
+                return 'success';
+            case 'LOWSTOCK':
+                return 'warn';
+            case 'OUTOFSTOCK':
+                return 'danger';
+        }
+    }
 
     extFiles = [
         {

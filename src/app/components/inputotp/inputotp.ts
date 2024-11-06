@@ -1,27 +1,24 @@
 import { CommonModule } from '@angular/common';
 import {
     AfterContentInit,
+    booleanAttribute,
     ChangeDetectionStrategy,
     Component,
-    ContentChildren,
+    ContentChild,
     EventEmitter,
+    forwardRef,
+    inject,
     Input,
     NgModule,
     Output,
-    QueryList,
     TemplateRef,
     ViewEncapsulation,
-    booleanAttribute,
-    forwardRef,
-    inject,
 } from '@angular/core';
-import { PrimeTemplate, SharedModule } from 'primeng/api';
-import { InputTextModule } from 'primeng/inputtext';
+import { InputText } from 'primeng/inputtext';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { Nullable } from 'primeng/ts-helpers';
-import { AutoFocusModule } from 'primeng/autofocus';
-import { InputOtpChangeEvent } from './inputotp.interface';
+import { AutoFocus } from 'primeng/autofocus';
 import { InputOtpStyle } from './style/inputotpstyle';
+import { SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { styleClassAttribute } from "primeng/base";
 
@@ -32,11 +29,54 @@ export const INPUT_OTP_VALUE_ACCESSOR: any = {
 };
 
 /**
+ * Input change event.
+ * @property {Event} originalEvent - browser event.
+ * @property {any}  value - updated value.
+ * @group Interface
+ */
+export interface InputOtpChangeEvent {
+    originalEvent: Event;
+    value: any;
+}
+
+/**
+ * Context interface for the input template events.
+ * @property {(event: Event, index: number) => void} input - input event.
+ * @property {(event: Event)} keydown - keydown event.
+ * @property {(event: Event)} focus - focus event.
+ * @property {(event: Event)} blur - blur event.
+ * @property {(event: Event)} paste - paste event.
+ * @group Interface
+ */
+export interface InputOtpTemplateEvents {
+    input: (event: Event, index: number) => void;
+    keydown: (event: Event) => void;
+    focus: (event: Event) => void;
+    blur: (event: Event) => void;
+    paste: (event: Event) => void;
+}
+
+/**
+ * Context of the input template.
+ * @property {number | string} $implicit - token value.
+ * @property {InputOtpTemplateEvents} events - Browser events of the template.
+ * @property {number} index - index of the token.
+ * @group Interface
+ */
+export interface InputOtpInputTemplateContext {
+    $implicit: number | string;
+    events: InputOtpTemplateEvents;
+    index: number;
+}
+
+/**
  * Input Otp is used to enter one time passwords.
  * @group Components
  */
 @Component({
-    selector: 'p-inputOtp, p-inputotp',
+    selector: 'p-inputOtp, p-inputotp, p-input-otp',
+    standalone: true,
+    imports: [CommonModule, InputText, AutoFocus, SharedModule],
     template: `
         <ng-container *ngFor="let i of getRange(length); trackBy: trackByFn">
             <ng-container *ngIf="!inputTemplate">
@@ -47,20 +87,17 @@ export const INPUT_OTP_VALUE_ACCESSOR: any = {
                     [maxLength]="1"
                     [type]="inputType"
                     class="p-inputotp-input"
-                    [inputmode]="inputMode"
+                    [size]="size"
                     [variant]="variant"
                     [readonly]="readonly"
                     [disabled]="disabled"
-                    [invalid]="invalid"
                     [tabindex]="tabindex"
-                    [unstyled]="unstyled"
                     (input)="onInput($event, i - 1)"
                     (focus)="onInputFocus($event)"
                     (blur)="onInputBlur($event)"
                     (paste)="onPaste($event)"
                     (keydown)="onKeyDown($event)"
-                    pAutoFocus
-                    [autofocus]="getAutofocus(i)"
+                    [pAutoFocus]="getAutofocus(i)"
                     [ngClass]="styleClass"
                 />
             </ng-container>
@@ -131,6 +168,11 @@ export class InputOtp extends BaseComponent implements AfterContentInit {
      */
     @Input({ transform: booleanAttribute }) autofocus: boolean | undefined;
     /**
+     * Defines the size of the component.
+     * @group Props
+     */
+    @Input() size: 'large' | 'small';
+    /**
      * Callback to invoke on value change.
      * @group Emits
      */
@@ -148,9 +190,27 @@ export class InputOtp extends BaseComponent implements AfterContentInit {
      */
     @Output() onBlur: EventEmitter<Event> = new EventEmitter();
 
-    @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<PrimeTemplate>>;
+    /**
+     * Input template.
+     * @param {InputOtpInputTemplateContext} context - Context of the template
+     * @see {@link InputOtpInputTemplateContext}
+     * @group Templates
+     */
+    @ContentChild('input') inputTemplate: TemplateRef<InputOtpInputTemplateContext>;
 
-    inputTemplate: Nullable<TemplateRef<any>>;
+    ngAfterContentInit() {
+        this.templates?.forEach((item) => {
+            switch (item.getType()) {
+                case 'input':
+                    this.inputTemplate = item.template;
+                    break;
+
+                default:
+                    this.inputTemplate = item.template;
+                    break;
+            }
+        });
+    }
 
     tokens: any = [];
 
@@ -169,19 +229,6 @@ export class InputOtp extends BaseComponent implements AfterContentInit {
     }
 
     _componentStyle = inject(InputOtpStyle);
-
-    ngAfterContentInit() {
-        (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
-            switch (item.getType()) {
-                case 'input':
-                    this.inputTemplate = item.template;
-                    break;
-                default:
-                    this.inputTemplate = item.template;
-                    break;
-            }
-        });
-    }
 
     getToken(index) {
         return this.tokens[index];
@@ -382,8 +429,7 @@ export class InputOtp extends BaseComponent implements AfterContentInit {
 }
 
 @NgModule({
-    imports: [CommonModule, SharedModule, InputTextModule, AutoFocusModule],
+    imports: [InputOtp, SharedModule],
     exports: [InputOtp, SharedModule],
-    declarations: [InputOtp],
 })
 export class InputOtpModule {}

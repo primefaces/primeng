@@ -28,13 +28,13 @@ export class FilledDoc {
 
         typescript: `import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { CheckboxModule } from 'primeng/checkbox';
+import { Checkbox } from 'primeng/checkbox';
 
 @Component({
     selector: 'checkbox-filled-demo',
     templateUrl: './checkbox-filled-demo.html',
     standalone: true,
-    imports: [FormsModule, CheckboxModule]
+    imports: [FormsModule, Checkbox]
 })
 export class CheckboxFilledDemo {
     checked: boolean = false;

@@ -12,7 +12,7 @@ import { Code } from '@domain/code';
                 <div class="font-bold text-xl mb-2">Authenticate Your Account</div>
                 <p class="text-muted-color block mb-8">Please enter the code sent to your phone.</p>
                 <p-inputotp [(ngModel)]="value" [length]="6">
-                    <ng-template pTemplate="input" let-token let-events="events" let-index="index">
+                    <ng-template #input let-token let-events="events" let-index="index">
                         <input
                             type="text"
                             [maxLength]="1"
@@ -86,7 +86,7 @@ export class SampleDoc {
     <div class="font-bold text-xl mb-2">Authenticate Your Account</div>
     <p class="text-muted-color block mb-8">Please enter the code sent to your phone.</p>
     <p-inputotp [(ngModel)]="value" [length]="6">
-        <ng-template pTemplate="input" let-token let-events="events" let-index="index">
+        <ng-template #input let-token let-events="events" let-index="index">
             <input type="text" [maxLength]="1" (input)="events.input($event)" (keydown)="events.keydown($event)" [attr.value]="token" class="custom-otp-input" />
             <div *ngIf="index === 3" class="px-4">
                 <i class="pi pi-minus"></i>
@@ -104,7 +104,7 @@ export class SampleDoc {
         <div class="font-bold text-xl mb-2">Authenticate Your Account</div>
         <p class="text-muted-color block mb-8">Please enter the code sent to your phone.</p>
         <p-inputotp [(ngModel)]="value" [length]="6">
-            <ng-template pTemplate="input" let-token let-events="events" let-index="index">
+            <ng-template #input let-token let-events="events" let-index="index">
                 <input type="text" [maxLength]="1" (input)="events.input($event)" (keydown)="events.keydown($event)" [attr.value]="token" class="custom-otp-input" />
                 <div *ngIf="index === 3" class="px-4">
                     <i class="pi pi-minus"></i>

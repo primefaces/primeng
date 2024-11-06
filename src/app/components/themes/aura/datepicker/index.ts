@@ -15,8 +15,6 @@ export default {
         borderColor: '{content.border.color}',
         color: '{content.color}',
         padding: '0 0 0.5rem 0',
-        fontWeight: '500',
-        gap: '0.5rem',
     },
     title: {
         gap: '0.5rem',
@@ -24,6 +22,12 @@ export default {
     },
     dropdown: {
         width: '2.5rem',
+        sm: {
+            width: '2rem',
+        },
+        lg: {
+            width: '3rem',
+        },
         borderColor: '{form.field.border.color}',
         hoverBorderColor: '{form.field.border.color}',
         activeBorderColor: '{form.field.border.color}',
@@ -89,12 +93,14 @@ export default {
         margin: '0.5rem 0 0 0',
     },
     month: {
+        padding: '0.375rem',
         borderRadius: '{content.border.radius}',
     },
     yearView: {
         margin: '0.5rem 0 0 0',
     },
     year: {
+        padding: '0.375rem',
         borderRadius: '{content.border.radius}',
     },
     buttonbar: {

@@ -2,13 +2,15 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { CommonModule } from '@angular/common';
 import {
     AfterContentInit,
+    booleanAttribute,
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
-    ContentChildren,
     ElementRef,
     EventEmitter,
+    forwardRef,
     Inject,
+    inject,
     Input,
     NgModule,
     OnDestroy,
@@ -16,9 +18,6 @@ import {
     QueryList,
     TemplateRef,
     ViewEncapsulation,
-    booleanAttribute,
-    forwardRef,
-    inject,
 } from '@angular/core';
 import { PrimeTemplate, SharedModule, TreeNode } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
@@ -35,8 +34,11 @@ import {
 import { OrganizationChartStyle } from './style/organizationchartstyle';
 import { BaseComponent } from 'primeng/basecomponent';
 import { styleClassAttribute } from "primeng/base";
+
 @Component({
     selector: '[pOrganizationChartNode]',
+    standalone: true,
+    imports: [CommonModule, ChevronDownIcon, ChevronUpIcon, SharedModule],
     template: `
         <tbody *ngIf="node" [attr.data-pc-section]="'body'">
             <tr [attr.data-pc-section]="'row'">
@@ -227,6 +229,8 @@ export class OrganizationChartNode implements OnDestroy {
  */
 @Component({
     selector: 'p-organizationChart, p-organization-chart, p-organizationchart',
+    standalone: true,
+    imports: [CommonModule, OrganizationChartNode, ChevronDownIcon, ChevronUpIcon, SharedModule],
     template: `
         <div
             [ngStyle]="style"
@@ -313,8 +317,6 @@ export class OrganizationChart extends BaseComponent implements AfterContentInit
      * @group Emits
      */
     @Output() onNodeCollapse: EventEmitter<OrganizationChartNodeCollapseEvent> = new EventEmitter<OrganizationChartNodeCollapseEvent>();
-
-    @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<PrimeTemplate>>;
 
     public templateMap: any;
 
@@ -427,8 +429,7 @@ export class OrganizationChart extends BaseComponent implements AfterContentInit
 }
 
 @NgModule({
-    imports: [CommonModule, ChevronDownIcon, ChevronUpIcon, SharedModule],
-    exports: [OrganizationChart, SharedModule],
-    declarations: [OrganizationChart, OrganizationChartNode],
+    imports: [OrganizationChart, OrganizationChartNode, SharedModule],
+    exports: [OrganizationChart, OrganizationChartNode, SharedModule],
 })
 export class OrganizationChartModule {}

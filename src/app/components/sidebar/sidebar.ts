@@ -3,28 +3,26 @@ import { CommonModule } from '@angular/common';
 import {
     AfterContentInit,
     AfterViewInit,
+    booleanAttribute,
     ChangeDetectionStrategy,
     Component,
-    ContentChildren,
     ElementRef,
     EventEmitter,
+    inject,
     Input,
     NgModule,
+    numberAttribute,
     OnDestroy,
     Output,
-    QueryList,
     SimpleChanges,
     TemplateRef,
     ViewChild,
     ViewEncapsulation,
-    booleanAttribute,
-    inject,
-    numberAttribute,
 } from '@angular/core';
-import { PrimeTemplate, SharedModule } from 'primeng/api';
+import { SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { TimesIcon } from 'primeng/icons/times';
-import { RippleModule } from 'primeng/ripple';
+import { Ripple } from 'primeng/ripple';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { ZIndexUtils } from 'primeng/utils';
 import { ButtonModule, ButtonProps } from 'primeng/button';
@@ -41,6 +39,8 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
  */
 @Component({
     selector: 'p-sidebar',
+    standalone: true,
+    imports: [CommonModule, Ripple, SharedModule, TimesIcon, ButtonModule],
     template: `
         <div
             #maskRef
@@ -56,10 +56,10 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
             (click)="maskClickListener($event)"
         >
             <div [ngClass]="cx('root')" [class]="styleClass" [attr.data-pc-section]="'root'" (keydown)="onKeyDown($event)">
-                <ng-container *ngTemplateOutlet="_headlessTemplate || notHeadless"></ng-container>
+                <ng-container *ngTemplateOutlet="headlessTemplate || notHeadless"></ng-container>
                 <ng-template #notHeadless>
                     <div [ngClass]="cx('header')" [attr.data-pc-section]="'header'">
-                        <ng-container *ngTemplateOutlet="_headerTemplate"></ng-container>
+                        <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
                         <p-button
                             *ngIf="showCloseIcon"
                             [ngClass]="cx('closeButton')"
@@ -217,7 +217,6 @@ export class Sidebar extends BaseComponent implements AfterViewInit, AfterConten
 
     @Input() maskStyle: any;
 
-    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
     /**
      * Callback to invoke when dialog is shown.
      * @group Emits
@@ -263,25 +262,28 @@ export class Sidebar extends BaseComponent implements AfterViewInit, AfterConten
      * @group Props
      */
     @Input() headerTemplate: TemplateRef<any> | undefined;
-    _headerTemplate: Nullable<TemplateRef<any>>;
     /**
      * Footer template.
      * @group Props
      */
     @Input() footerTemplate: Nullable<TemplateRef<any>>;
-    _footerTemplate: TemplateRef<any>;
     /**
+     *
      * Close icon template.
      * @group Props
      */
     @Input() closeIconTemplate: Nullable<TemplateRef<any>>;
-    _closeIconTemplate: TemplateRef<any>;
     /**
      * Headless template.
      * @group Props
      */
     @Input() headlessTemplate: Nullable<TemplateRef<any>>;
-    _headlessTemplate: TemplateRef<any>;
+
+    /**
+     * Headless template.
+     * @group Props
+     */
+    @Input() contentTemplate: Nullable<TemplateRef<any>>;
 
     ngAfterViewInit() {
         super.ngAfterViewInit();
@@ -300,16 +302,19 @@ export class Sidebar extends BaseComponent implements AfterViewInit, AfterConten
         this.templates?.forEach((item) => {
             switch (item.getType()) {
                 case 'header':
-                    this._headerTemplate = item.template || this.headerTemplate;
+                    this.headerTemplate = item.template || this.headerTemplate;
                     break;
                 case 'footer':
-                    this._footerTemplate = item.template || this.footerTemplate;
+                    this.footerTemplate = item.template || this.footerTemplate;
                     break;
                 case 'closeicon':
-                    this._closeIconTemplate = item.template || this.closeIconTemplate;
+                    this.closeIconTemplate = item.template || this.closeIconTemplate;
                     break;
                 case 'headless':
-                    this._headlessTemplate = item.template || this.headlessTemplate;
+                    this.headlessTemplate = item.template || this.headlessTemplate;
+                    break;
+                case 'content':
+                    this.contentTemplate = item.template || this.headlessTemplate;
                     break;
             }
         });
@@ -426,8 +431,7 @@ export class Sidebar extends BaseComponent implements AfterViewInit, AfterConten
 }
 
 @NgModule({
-    imports: [CommonModule, RippleModule, SharedModule, TimesIcon, ButtonModule],
+    imports: [Sidebar, SharedModule],
     exports: [Sidebar, SharedModule],
-    declarations: [Sidebar],
 })
 export class SidebarModule {}

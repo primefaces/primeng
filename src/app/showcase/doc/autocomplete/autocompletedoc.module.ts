@@ -24,6 +24,8 @@ import { FilledDoc } from './filleddoc';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { IftaLabelModule } from 'primeng/iftalabel';
 import { IftaLabelDoc } from './iftalabeldoc';
+import { ButtonModule } from 'primeng/button';
+import { SizesDoc } from './sizesdoc';
 
 @NgModule({
     imports: [
@@ -37,6 +39,7 @@ import { IftaLabelDoc } from './iftalabeldoc';
         RouterModule,
         FloatLabelModule,
         IftaLabelModule,
+        ButtonModule,
     ],
     exports: [AppDocModule],
     declarations: [
@@ -57,6 +60,7 @@ import { IftaLabelDoc } from './iftalabeldoc';
         DisabledDoc,
         InvalidDoc,
         FilledDoc,
+        SizesDoc,
     ],
 })
 export class AutoCompleteDocModule {}

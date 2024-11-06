@@ -65,14 +65,14 @@ export class DisabledDoc {
 
         typescript: `import { Component } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
-import { SplitButtonModule } from 'primeng/splitbutton';
+import { SplitButton } from 'primeng/splitbutton';
 import { ToastModule } from 'primeng/toast';
 
 @Component({
     selector: 'split-button-disabled-demo',
     templateUrl: './split-button-disabled-demo.html',
     standalone: true,
-    imports: [SplitButtonModule, ToastModule],
+    imports: [SplitButton, ToastModule],
     providers: [MessageService]
 })
 export class SplitButtonDisabledDemo {

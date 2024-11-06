@@ -6,7 +6,6 @@ import {
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
-    ContentChildren,
     ElementRef,
     EventEmitter,
     HostListener,
@@ -16,20 +15,11 @@ import {
     NgModule,
     numberAttribute,
     OnDestroy,
-    QueryList,
     Renderer2,
     TemplateRef,
     ViewEncapsulation,
 } from '@angular/core';
-import {
-    Confirmation,
-    ConfirmationService,
-    OverlayService,
-    PrimeNGConfig,
-    PrimeTemplate,
-    SharedModule,
-    TranslationKeys,
-} from 'primeng/api';
+import { Confirmation, ConfirmationService, OverlayService, PrimeNGConfig, SharedModule, TranslationKeys } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
@@ -44,7 +34,9 @@ import { styleClassAttribute } from "primeng/base";
  * @group Components
  */
 @Component({
-    selector: 'p-confirmPopup, p-confirmpopup',
+    selector: 'p-confirmPopup, p-confirmpopup, p-confirm-popup',
+    standalone: true,
+    imports: [CommonModule, SharedModule, ButtonModule],
     template: `
         <div
             *ngIf="visible"
@@ -183,8 +175,6 @@ export class ConfirmPopup extends BaseComponent implements AfterContentInit, OnD
         this._visible = value;
         this.cd.markForCheck();
     }
-
-    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
     container: Nullable<HTMLDivElement>;
 
@@ -521,8 +511,7 @@ export class ConfirmPopup extends BaseComponent implements AfterContentInit, OnD
 }
 
 @NgModule({
-    imports: [CommonModule, ButtonModule, SharedModule],
+    imports: [ConfirmPopup, SharedModule],
     exports: [ConfirmPopup, SharedModule],
-    declarations: [ConfirmPopup],
 })
 export class ConfirmPopupModule {}

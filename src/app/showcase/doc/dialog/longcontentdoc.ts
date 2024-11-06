@@ -152,14 +152,14 @@ export class LongContentDoc {
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { DialogModule } from 'primeng/dialog';
+import { Dialog } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
 
 @Component({
     selector: 'dialog-long-content-demo',
     templateUrl: './dialog-long-content-demo.html',
     standalone: true,
-    imports: [DialogModule, ButtonModule]
+    imports: [Dialog, ButtonModule]
 })
 export class DialogLongContentDemo {
     visible: boolean = false;

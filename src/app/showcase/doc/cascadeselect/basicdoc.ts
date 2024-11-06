@@ -116,13 +116,13 @@ export class BasicDoc {
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { CascadeSelectModule } from 'primeng/cascadeselect';
+import { CascadeSelect } from 'primeng/cascadeselect';
 
 @Component({
     selector: 'cascade-select-basic-demo',
     templateUrl: './cascade-select-basic-demo.html',
     standalone: true,
-    imports: [FormsModule, CascadeSelectModule]
+    imports: [FormsModule, CascadeSelect]
 })
 export class CascadeSelectBasicDemo implements OnInit {
     countries: any[] | undefined;

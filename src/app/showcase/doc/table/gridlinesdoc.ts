@@ -11,7 +11,7 @@ import { ProductService } from '@service/productservice';
         <p-deferred-demo (load)="loadDemoData()">
             <div class="card">
                 <p-table [value]="products" showGridlines [tableStyle]="{ 'min-width': '50rem' }">
-                    <ng-template pTemplate="header">
+                    <ng-template #header>
                         <tr>
                             <th>Code</th>
                             <th>Name</th>
@@ -19,7 +19,7 @@ import { ProductService } from '@service/productservice';
                             <th>Quantity</th>
                         </tr>
                     </ng-template>
-                    <ng-template pTemplate="body" let-product>
+                    <ng-template #body let-product>
                         <tr>
                             <td>{{ product.code }}</td>
                             <td>{{ product.name }}</td>
@@ -49,11 +49,11 @@ export class GridlinesDoc {
     }
 
     code: Code = {
-        basic: `<p-table 
-    [value]="products" 
-    showGridlines 
+        basic: `<p-table
+    [value]="products"
+    showGridlines
     [tableStyle]="{ 'min-width': '50rem' }">
-        <ng-template pTemplate="header">
+        <ng-template #header>
             <tr>
                 <th>Code</th>
                 <th>Name</th>
@@ -61,7 +61,7 @@ export class GridlinesDoc {
                 <th>Quantity</th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-product>
+        <ng-template #body let-product>
             <tr>
                 <td>{{ product.code }}</td>
                 <td>{{ product.name }}</td>
@@ -71,11 +71,11 @@ export class GridlinesDoc {
         </ng-template>
 </p-table>`,
         html: `<div class="card">
-    <p-table 
-        [value]="products" 
-        showGridlines 
+    <p-table
+        [value]="products"
+        showGridlines
         [tableStyle]="{ 'min-width': '50rem' }">
-            <ng-template pTemplate="header">
+            <ng-template #header>
                 <tr>
                     <th>Code</th>
                     <th>Name</th>
@@ -83,7 +83,7 @@ export class GridlinesDoc {
                     <th>Quantity</th>
                 </tr>
             </ng-template>
-            <ng-template pTemplate="body" let-product>
+            <ng-template #body let-product>
                 <tr>
                     <td>{{ product.code }}</td>
                     <td>{{ product.name }}</td>

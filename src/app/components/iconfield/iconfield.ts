@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject, Input, NgModule, ViewEncapsulation } from '@angular/core';
-import { SharedModule } from 'primeng/api';
+import { ChangeDetectionStrategy, Component, HostBinding, inject, Input, NgModule, ViewEncapsulation } from '@angular/core';
 import { BaseComponent } from 'primeng/basecomponent';
 import { IconFieldStyle } from './style/iconfieldstyle';
 
@@ -9,18 +8,30 @@ import { IconFieldStyle } from './style/iconfieldstyle';
  * @group Components
  */
 @Component({
-    selector: 'p-iconfield, p-iconField',
-    template: ` <div class="p-iconfield" [ngClass]="containerClass" [class]="styleClass"><ng-content></ng-content></div>`,
+    selector: 'p-iconfield, p-iconField, p-icon-field',
+    standalone: true,
+    imports: [CommonModule],
+    template: ` <ng-content></ng-content>`,
     providers: [IconFieldStyle],
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
+    host: {
+        class: 'p-iconfield',
+        '[class.p-iconfield-left]': 'iconPosition === "left"',
+        '[class.p-iconfield-right]': 'iconPosition === "right"',
+        '[style.display]': '"inline-block"',
+    },
 })
 export class IconField extends BaseComponent {
     /**
      * Position of the icon.
      * @group Props
      */
-    @Input() iconPosition: 'right' | 'left' | undefined;
+    @Input() iconPosition: 'right' | 'left' = 'left';
+
+    @HostBinding('class') get _styleClass() {
+        return this.styleClass;
+    }
     /**
      * Style class of the component.
      * @group Props
@@ -28,17 +39,10 @@ export class IconField extends BaseComponent {
     @Input() styleClass: string;
 
     _componentStyle = inject(IconFieldStyle);
-    get containerClass() {
-        return {
-            'p-iconfield-left': this.iconPosition === 'left',
-            'p-iconfield-right': this.iconPosition === 'right',
-        };
-    }
 }
 
 @NgModule({
-    imports: [CommonModule],
-    exports: [IconField, SharedModule],
-    declarations: [IconField],
+    imports: [IconField],
+    exports: [IconField],
 })
 export class IconFieldModule {}

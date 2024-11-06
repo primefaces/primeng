@@ -21,6 +21,7 @@ import { RouterModule } from '@angular/router';
 import { TextareaModule } from 'primeng/textarea';
 import { IftaLabelModule } from 'primeng/iftalabel';
 import { IftaLabelDoc } from './iftalabeldoc';
+import { SizesDoc } from './sizesdoc';
 
 @NgModule({
     imports: [
@@ -50,6 +51,7 @@ import { IftaLabelDoc } from './iftalabeldoc';
         ReactiveFormsDoc,
         FilledDoc,
         IftaLabelDoc,
+        SizesDoc,
     ],
 })
 export class TextareaDocModule {}

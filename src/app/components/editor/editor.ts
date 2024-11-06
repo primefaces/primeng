@@ -5,19 +5,17 @@ import {
     ChangeDetectionStrategy,
     Component,
     ContentChild,
-    ContentChildren,
     EventEmitter,
     forwardRef,
     inject,
     Input,
     NgModule,
     Output,
-    QueryList,
     TemplateRef,
     ViewEncapsulation,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { Header, PrimeTemplate, SharedModule } from 'primeng/api';
+import { Header, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { Nullable } from 'primeng/ts-helpers';
 import { EditorInitEvent, EditorSelectionChangeEvent, EditorTextChangeEvent } from './editor.interface';
@@ -36,6 +34,8 @@ export const EDITOR_VALUE_ACCESSOR: any = {
  */
 @Component({
     selector: 'p-editor',
+    standalone: true,
+    imports: [CommonModule, SharedModule],
     template: `
         <div [ngClass]="'p-editor-container'" [class]="styleClass">
             <div class="p-editor-toolbar" *ngIf="toolbar || headerTemplate">
@@ -167,8 +167,6 @@ export class Editor extends BaseComponent implements AfterContentInit, ControlVa
      * @group Emits
      */
     @Output() onSelectionChange: EventEmitter<EditorSelectionChangeEvent> = new EventEmitter<EditorSelectionChangeEvent>();
-
-    @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
 
     @ContentChild(Header) toolbar: any;
 
@@ -347,8 +345,7 @@ export class Editor extends BaseComponent implements AfterContentInit, ControlVa
 }
 
 @NgModule({
-    imports: [CommonModule],
+    imports: [Editor, SharedModule],
     exports: [Editor, SharedModule],
-    declarations: [Editor],
 })
 export class EditorModule {}

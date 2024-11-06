@@ -26,7 +26,7 @@ import {
     TemplateRef,
     ViewEncapsulation,
 } from '@angular/core';
-import { BlockableUI, Header, PrimeTemplate, SharedModule } from 'primeng/api';
+import { BlockableUI, Header, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { ChevronDownIcon } from 'primeng/icons/chevrondown';
 import { Subscription } from 'rxjs';
@@ -128,8 +128,8 @@ export class AccordionPanel extends BaseComponent {
     standalone: true,
     template: `
         <ng-content />
-        @if (toggleicon) {
-            <ng-template *ngTemplateOutlet="toggleicon; context: { active: active() }"></ng-template>
+        @if (toggleIconTemplate) {
+            <ng-template *ngTemplateOutlet="toggleIconTemplate; context: { active: active() }"></ng-template>
         } @else {
             <ng-container *ngIf="active()">
                 <span
@@ -179,6 +179,17 @@ export class AccordionHeader extends BaseComponent {
     disabled = computed(() => this.pcAccordionPanel.disabled());
 
     ariaControls = computed(() => `${this.pcAccordion.id()}_accordioncontent_${this.pcAccordionPanel.value()}`);
+    /**
+     * Toggle icon template.
+     * @type {TemplateRef<AccordionToggleIconTemplateContext>} context - Context of the template
+     * @example
+     * ```html
+     * <ng-template #toggleicon let-active="active"> </ng-template>
+     * ```
+     * @see {@link AccordionToggleIconTemplateContext}
+     * @group Templates
+     */
+    @ContentChild('toggleicon') toggleIconTemplate: TemplateRef<AccordionToggleIconTemplateContext> | undefined;
 
     @HostListener('click', ['$event']) onClick() {
         this.changeActiveValue();
@@ -211,25 +222,12 @@ export class AccordionHeader extends BaseComponent {
                 break;
         }
     }
-    /**
-     * A template reference variable that represents the toggle icon in a UI component.
-     * @param {AccordionToggleIconTemplateContext} context - Context of the template
-     * @example
-     * ```html
-     * <ng-template #toggleicon let-active="active"> </ng-template>
-     * ```
-     * @see {@link AccordionToggleIconTemplateContext}
-     * @group Templates
-     */
-    @ContentChild('toggleicon') toggleicon: TemplateRef<AccordionToggleIconTemplateContext> | undefined;
-
-    @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
             switch (item.getType()) {
                 case 'toggleicon':
-                    this.toggleicon = item.template;
+                    this.toggleIconTemplate = item.template;
                     break;
             }
         });
@@ -392,13 +390,13 @@ export class AccordionContent extends BaseComponent {
             [attr.id]="getTabHeaderActionId(id)"
             [attr.aria-controls]="getTabContentId(id)"
         >
-            @if (!hasHeaderFacet && !headerTemplate) {
+            @if (!headerTemplate) {
                 {{ header }}
             } @else {
                 @if (headerTemplate) {
                     <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
                 }
-                @if (hasHeaderFacet) {
+                @if (headerFacet) {
                     <ng-content select="p-header" />
                 }
             }
@@ -574,8 +572,6 @@ export class AccordionTab extends BaseComponent implements AfterContentInit, OnD
 
     @ContentChildren(Header) headerFacet!: QueryList<Header>;
 
-    @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
-
     private _selected: boolean = false;
 
     get iconClass() {
@@ -585,12 +581,26 @@ export class AccordionTab extends BaseComponent implements AfterContentInit, OnD
             return 'p-accordionheader-toggle-icon icon-start';
         }
     }
-
-    contentTemplate: TemplateRef<any> | undefined;
-
-    headerTemplate: TemplateRef<any> | undefined;
-
-    iconTemplate: TemplateRef<any> | undefined;
+    /**
+     * Content template for the content of the drawer.
+     * @group Templates
+     */
+    @ContentChild('header') headerTemplate: TemplateRef<any> | undefined;
+    /**
+     * Header template for the header of the drawer.
+     * @group Templates
+     */
+    @ContentChild('footer') footerTemplate: TemplateRef<any> | undefined;
+    /**
+     * Template for the header icon.
+     * @group Templates
+     */
+    @ContentChild('icon') iconTemplate: TemplateRef<any> | undefined;
+    /**
+     * Content template for the footer of the drawer.
+     * @group Templates
+     */
+    @ContentChild('content') contentTemplate: TemplateRef<any> | undefined;
 
     loaded: boolean = false;
 
@@ -667,10 +677,6 @@ export class AccordionTab extends BaseComponent implements AfterContentInit, OnD
             }
         }
         return index;
-    }
-
-    get hasHeaderFacet(): boolean {
-        return (this.headerFacet as QueryList<Header>) && (this.headerFacet as QueryList<Header>).length > 0;
     }
 
     onKeydown(event: KeyboardEvent) {
@@ -1053,7 +1059,7 @@ export class Accordion extends BaseComponent implements BlockableUI, AfterConten
 }
 
 @NgModule({
-    imports: [Accordion, AccordionTab, AccordionPanel, AccordionHeader, AccordionContent],
+    imports: [Accordion, AccordionTab, SharedModule, AccordionPanel, AccordionHeader, AccordionContent],
     exports: [Accordion, AccordionTab, SharedModule, AccordionPanel, AccordionHeader, AccordionContent],
 })
 export class AccordionModule {}

@@ -23,6 +23,14 @@ export default {
             shadow: '{form.field.focus.ring.shadow}',
         },
         transitionDuration: '{form.field.transition.duration}',
+        sm: {
+            fontSize: '{form.field.sm.font.size}',
+            padding: '0.375rem 0.625rem',
+        },
+        lg: {
+            fontSize: '{form.field.lg.font.size}',
+            padding: '0.625rem 0.875rem',
+        },
     },
     icon: {
         color: '{text.muted.color}',

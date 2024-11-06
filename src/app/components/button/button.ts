@@ -1,33 +1,31 @@
-import { CommonModule, DOCUMENT } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import {
     AfterContentInit,
     AfterViewInit,
+    booleanAttribute,
     ChangeDetectionStrategy,
     Component,
-    ContentChildren,
+    computed,
+    contentChild,
+    ContentChild,
     Directive,
-    ElementRef,
     EventEmitter,
-    HostBinding,
-    Inject,
+    inject,
     Input,
     NgModule,
+    numberAttribute,
     OnDestroy,
     Output,
-    QueryList,
     SimpleChanges,
     TemplateRef,
     ViewEncapsulation,
-    booleanAttribute,
-    inject,
-    numberAttribute,
 } from '@angular/core';
-import { PrimeTemplate, SharedModule } from 'primeng/api';
+import { SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { SpinnerIcon } from 'primeng/icons/spinner';
-import { Ripple, RippleModule } from 'primeng/ripple';
+import { Ripple } from 'primeng/ripple';
 import { ObjectUtils } from 'primeng/utils';
-import { AutoFocus, AutoFocusModule } from 'primeng/autofocus';
+import { AutoFocus } from 'primeng/autofocus';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ButtonStyle } from './style/buttonstyle';
 import { BadgeModule } from 'primeng/badge';
@@ -44,33 +42,57 @@ const INTERNAL_BUTTON_CLASSES = {
     loading: 'p-button-loading',
     labelOnly: 'p-button-loading-label-only',
 } as const;
+
+@Directive({
+    selector: '[pButtonLabel]',
+    providers: [ButtonStyle],
+    standalone: true,
+    host: {
+        '[class.p-button-label]': 'true',
+    },
+})
+export class ButtonLabel extends BaseComponent {
+    _componentStyle = inject(ButtonStyle);
+}
+
+@Directive({
+    selector: '[pButtonIcon]',
+    providers: [ButtonStyle],
+    standalone: true,
+    host: {
+        '[class.p-button-icon]': 'true',
+    },
+})
+export class ButtonIcon extends BaseComponent {
+    _componentStyle = inject(ButtonStyle);
+}
 /**
  * Button directive is an extension to button component.
  * @group Components
  */
 @Directive({
     selector: '[pButton]',
-
+    standalone: true,
     providers: [ButtonStyle],
+    host: {
+        '[class.p-button-icon-only]': 'isIconOnly()',
+        '[class.p-button-text]': 'isTextButton()',
+    },
 })
 export class ButtonDirective extends BaseComponent implements AfterViewInit, OnDestroy {
     /**
      * Position of the icon.
+     * @deprecated utilize pButtonIcon and pButtonLabel directives.
      * @group Props
      */
     @Input() iconPos: ButtonIconPosition = 'left';
     /**
      * Uses to pass attributes to the loading icon's DOM element.
+     * @deprecated utilize pButonIcon instead.
      * @group Props
      */
     @Input() loadingIcon: string | undefined;
-    /**
-     * Text of the button.
-     * @group Props
-     */
-    @Input() get label(): string | undefined {
-        return this._label as string;
-    }
+
     set label(val: string) {
         this._label = val;
 
@@ -80,13 +102,7 @@ export class ButtonDirective extends BaseComponent implements AfterViewInit, OnD
             this.setStyleClass();
         }
     }
-    /**
-     * Name of the icon.
-     * @group Props
-     */
-    @Input() get icon(): string {
-        return this._icon as string;
-    }
+
     set icon(val: string) {
         this._icon = val;
 
@@ -111,13 +127,13 @@ export class ButtonDirective extends BaseComponent implements AfterViewInit, OnD
         }
     }
     _buttonProps!: ButtonProps;
-    /**
-     * Used to pass all properties of the ButtonProps to the Button component.
-     * @group Props
-     */
-    @Input() get buttonProps(): ButtonProps {
-        return this._buttonProps;
-    }
+
+    private iconSignal = contentChild(ButtonIcon);
+
+    private labelSignal = contentChild(ButtonLabel);
+
+    isIconOnly = computed(() => !!(!this.labelSignal() && this.iconSignal()));
+
     set buttonProps(val: ButtonProps) {
         this._buttonProps = val;
 
@@ -158,9 +174,15 @@ export class ButtonDirective extends BaseComponent implements AfterViewInit, OnD
     @Input() size: 'small' | 'large' | undefined | null = null;
     /**
      * Add a plain textual class to the button without a background initially.
+     * @deprecated use variant property instead.
      * @group Props
      */
     @Input({ transform: booleanAttribute }) plain: boolean = false;
+    /**
+     * Spans 100% width of the container when enabled.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) fluid: boolean | undefined;
 
     public _label: string | undefined;
 
@@ -175,6 +197,35 @@ export class ButtonDirective extends BaseComponent implements AfterViewInit, OnD
     }
 
     private _internalClasses: string[] = Object.values(INTERNAL_BUTTON_CLASSES);
+
+    isTextButton = computed(() => !!(!this.iconSignal() && this.labelSignal() && this.text));
+
+    /**
+     * Text of the button.
+     * @deprecated use pButtonLabel directive instead.
+     * @group Props
+     */
+    @Input() get label(): string | undefined {
+        return this._label as string;
+    }
+
+    /**
+     * Name of the icon.
+     * @deprecated use pButtonIcon directive instead
+     * @group Props
+     */
+    @Input() get icon(): string {
+        return this._icon as string;
+    }
+
+    /**
+     * Used to pass all properties of the ButtonProps to the Button component.
+     * @deprecated assign props directly to the button element.
+     * @group Props
+     */
+    @Input() get buttonProps(): ButtonProps {
+        return this._buttonProps;
+    }
 
     spinnerIcon = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" class="p-icon-spin">
         <g clip-path="url(#clip0_417_21408)">
@@ -270,7 +321,18 @@ export class ButtonDirective extends BaseComponent implements AfterViewInit, OnD
             styleClass.push('p-button-lg');
         }
 
+        if (this.hasFluid) {
+            styleClass.push('p-button-fluid');
+        }
+
         return styleClass;
+    }
+
+    get hasFluid() {
+        const nativeElement = this.el.nativeElement;
+        const fluidComponent = nativeElement.closest('p-fluid');
+
+        return ObjectUtils.isEmpty(this.fluid) ? !!fluidComponent : this.fluid;
     }
 
     setStyleClass() {
@@ -368,6 +430,8 @@ export class ButtonDirective extends BaseComponent implements AfterViewInit, OnD
  */
 @Component({
     selector: 'p-button',
+    standalone: true,
+    imports: [CommonModule, Ripple, AutoFocus, SpinnerIcon, BadgeModule, SharedModule],
     template: `
         <button
             [attr.type]="type"
@@ -382,8 +446,7 @@ export class ButtonDirective extends BaseComponent implements AfterViewInit, OnD
             [attr.data-pc-name]="'button'"
             [attr.data-pc-section]="'root'"
             [attr.tabindex]="tabindex"
-            pAutoFocus
-            [autofocus]="autofocus"
+            [pAutoFocus]="autofocus"
         >
             <ng-content></ng-content>
             <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
@@ -484,6 +547,7 @@ export class Button extends BaseComponent implements AfterContentInit {
     @Input({ transform: booleanAttribute }) text: boolean = false;
     /**
      * Add a plain textual class to the button without a background initially.
+     * @deprecated use variant property instead.
      * @group Props
      */
     @Input({ transform: booleanAttribute }) plain: boolean = false;
@@ -513,6 +577,11 @@ export class Button extends BaseComponent implements AfterContentInit {
      */
     @Input() size: 'small' | 'large' | undefined;
     /**
+     * Specifies the variant of the component.
+     * @group Props
+     */
+    @Input() variant: 'outlined' | 'text' | undefined;
+    /**
      * Inline style of the element.
      * @group Props
      */
@@ -533,7 +602,7 @@ export class Button extends BaseComponent implements AfterContentInit {
      * @group Props
      * @defaultValue secondary
      */
-    @Input() badgeSeverity: 'success' | 'info' | 'warning' | 'danger' | 'help' | 'primary' | 'secondary' | 'contrast' | null | undefined =
+    @Input() badgeSeverity: 'success' | 'info' | 'warn' | 'danger' | 'help' | 'primary' | 'secondary' | 'contrast' | null | undefined =
         'secondary';
     /**
      * Used to define a string that autocomplete attribute the current element.
@@ -545,6 +614,11 @@ export class Button extends BaseComponent implements AfterContentInit {
      * @group Props
      */
     @Input({ transform: booleanAttribute }) autofocus: boolean | undefined;
+    /**
+     * Spans 100% width of the container when enabled.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) fluid: boolean | undefined;
     /**
      * Callback to execute when button is clicked.
      * This event is intended to be used with the <p-button> component. Using a regular <button> element, use (click).
@@ -566,14 +640,21 @@ export class Button extends BaseComponent implements AfterContentInit {
      * @group Emits
      */
     @Output() onBlur: EventEmitter<FocusEvent> = new EventEmitter<FocusEvent>();
-
-    contentTemplate: TemplateRef<any> | undefined;
-
-    loadingIconTemplate: TemplateRef<any> | undefined;
-
-    iconTemplate: TemplateRef<any> | undefined;
-
-    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
+    /**
+     * Template of the content.
+     * @group Templates
+     **/
+    @ContentChild('content') contentTemplate: TemplateRef<any> | undefined;
+    /**
+     * Template of the loading.
+     * @group Templates
+     **/
+    @ContentChild('loading') loadingIconTemplate: TemplateRef<any> | undefined;
+    /**
+     * Template of the icon.
+     * @group Templates
+     **/
+    @ContentChild('icon') iconTemplate: TemplateRef<any> | undefined;
 
     _buttonProps: any | undefined;
     /**
@@ -590,6 +671,13 @@ export class Button extends BaseComponent implements AfterContentInit {
             //@ts-ignore
             Object.entries(val).forEach(([k, v]) => this[`_${k}`] !== v && (this[`_${k}`] = v));
         }
+    }
+
+    get hasFluid() {
+        const nativeElement = this.el.nativeElement;
+        const fluidComponent = nativeElement.closest('p-fluid');
+
+        return ObjectUtils.isEmpty(this.fluid) ? !!fluidComponent : this.fluid;
     }
 
     _componentStyle = inject(ButtonStyle);
@@ -640,6 +728,7 @@ export class Button extends BaseComponent implements AfterContentInit {
             'p-button-sm': this.size === 'small',
             'p-button-lg': this.size === 'large',
             'p-button-plain': this.plain,
+            'p-button-fluid': this.hasFluid,
             [`${this.styleClass}`]: this.styleClass,
         };
     }
@@ -668,8 +757,7 @@ export class Button extends BaseComponent implements AfterContentInit {
 }
 
 @NgModule({
-    imports: [CommonModule, RippleModule, SharedModule, AutoFocusModule, SpinnerIcon, BadgeModule],
-    exports: [ButtonDirective, Button, SharedModule],
-    declarations: [ButtonDirective, Button],
+    imports: [CommonModule, ButtonDirective, Button, SharedModule, ButtonLabel, ButtonIcon],
+    exports: [ButtonDirective, Button, ButtonLabel, ButtonIcon, SharedModule],
 })
 export class ButtonModule {}

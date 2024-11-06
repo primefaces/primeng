@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, Input, NgModule, ViewEncapsulation } from '@angular/core';
 import { BaseComponent } from 'primeng/basecomponent';
 import { SkeletonStyle } from './style/skeletonstyle';
+import { SharedModule } from 'primeng/api';
 import { styleClassAttribute } from "primeng/base";
 
 /**
@@ -10,6 +11,8 @@ import { styleClassAttribute } from "primeng/base";
  */
 @Component({
     selector: 'p-skeleton',
+    standalone: true,
+    imports: [CommonModule, SharedModule],
     template: `
         <div
             [ngClass]="containerClass()"
@@ -22,7 +25,6 @@ import { styleClassAttribute } from "primeng/base";
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-
     providers: [SkeletonStyle],
 })
 export class Skeleton extends BaseComponent {
@@ -88,8 +90,7 @@ export class Skeleton extends BaseComponent {
 }
 
 @NgModule({
-    imports: [CommonModule],
-    exports: [Skeleton],
-    declarations: [Skeleton],
+    imports: [Skeleton, SharedModule],
+    exports: [Skeleton, SharedModule],
 })
 export class SkeletonModule {}

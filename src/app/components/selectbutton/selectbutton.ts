@@ -1,28 +1,27 @@
 import {
+    booleanAttribute,
     ChangeDetectionStrategy,
     Component,
-    ContentChildren,
+    ContentChild,
     EventEmitter,
-    Input,
-    NgModule,
-    Output,
-    QueryList,
-    TemplateRef,
-    ViewEncapsulation,
-    booleanAttribute,
     forwardRef,
     inject,
+    Input,
+    NgModule,
     numberAttribute,
+    Output,
+    TemplateRef,
+    ViewEncapsulation,
 } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { PrimeTemplate, SharedModule } from 'primeng/api';
-import { RippleModule } from 'primeng/ripple';
+import { Ripple } from 'primeng/ripple';
 import { ObjectUtils } from 'primeng/utils';
 import { SelectButtonChangeEvent, SelectButtonOptionClickEvent } from './selectbutton.interface';
 import { ToggleButton } from 'primeng/togglebutton';
 import { BaseComponent } from 'primeng/basecomponent';
 import { SelectButtonStyle } from './style/selectbuttonstyle';
 import { CommonModule } from '@angular/common';
+import { SharedModule } from 'primeng/api';
 import { styleClassAttribute } from "primeng/base";
 
 export const SELECTBUTTON_VALUE_ACCESSOR: any = {
@@ -35,10 +34,12 @@ export const SELECTBUTTON_VALUE_ACCESSOR: any = {
  * @group Components
  */
 @Component({
-    selector: 'p-selectButton, p-selectbutton',
+    selector: 'p-selectButton, p-selectbutton, p-select-button',
+    standalone: true,
+    imports: [Ripple, ToggleButton, FormsModule, CommonModule, SharedModule],
     template: `
         @for (option of options; track option; let i = $index) {
-            <p-togglebutton
+            <p-toggleButton
                 [autofocus]="autofocus"
                 [styleClass]="styleClass"
                 [ngModel]="isSelected(option)"
@@ -47,17 +48,16 @@ export const SELECTBUTTON_VALUE_ACCESSOR: any = {
                 [disabled]="disabled || isOptionDisabled(option)"
                 (onChange)="onOptionSelect($event, option, i)"
                 [allowEmpty]="allowEmpty"
+                [size]="size"
             >
                 @if (itemTemplate) {
-                    <ng-template pTemplate="content">
+                    <ng-template #content>
                         <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: option, index: i }"></ng-container>
                     </ng-template>
                 }
-            </p-togglebutton>
+            </p-toggleButton>
         }
     `,
-    standalone: true,
-    imports: [RippleModule, SharedModule, ToggleButton, FormsModule, CommonModule],
     providers: [SELECTBUTTON_VALUE_ACCESSOR, SelectButtonStyle],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
@@ -128,6 +128,11 @@ export class SelectButton extends BaseComponent implements ControlValueAccessor 
      */
     @Input() ariaLabelledBy: string | undefined;
     /**
+     * Defines the size of the component.
+     * @group Props
+     */
+    @Input() size: 'large' | 'small';
+    /**
      * When present, it specifies that the element should be disabled.
      * @group Props
      */
@@ -154,23 +159,11 @@ export class SelectButton extends BaseComponent implements ControlValueAccessor 
      * @group Emits
      */
     @Output() onChange: EventEmitter<SelectButtonChangeEvent> = new EventEmitter<SelectButtonChangeEvent>();
-
-    @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
-
-    itemTemplate: TemplateRef<any> | undefined;
-
-    ngAfterContentInit() {
-        this.templates.forEach((item) => {
-            switch (item.getType()) {
-                case 'item':
-                    this.itemTemplate = item.template;
-                    break;
-                default:
-                    this.itemTemplate = item.template;
-                    break;
-            }
-        });
-    }
+    /**
+     * Template of an item in the list.
+     * @group Templates
+     */
+    @ContentChild('item') itemTemplate: TemplateRef<any>;
 
     get equalityKey() {
         return this.optionValue ? null : this.dataKey;
@@ -322,7 +315,7 @@ export class SelectButton extends BaseComponent implements ControlValueAccessor 
 }
 
 @NgModule({
-    imports: [SelectButton],
+    imports: [SelectButton, SharedModule],
     exports: [SelectButton, SharedModule],
 })
 export class SelectButtonModule {}

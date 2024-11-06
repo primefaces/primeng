@@ -12,6 +12,7 @@ import {
 } from '@angular/core';
 import { BaseComponent } from 'primeng/basecomponent';
 import { AvatarStyle } from './style/avatarstyle';
+import { SharedModule } from 'primeng/api';
 import { styleClassAttribute } from "primeng/base";
 
 /**
@@ -20,6 +21,8 @@ import { styleClassAttribute } from "primeng/base";
  */
 @Component({
     selector: 'p-avatar',
+    standalone: true,
+    imports: [CommonModule, SharedModule],
     template: `
         <ng-content></ng-content>
         <span class="p-avatar-text" *ngIf="label; else iconTemplate">{{ label }}</span>
@@ -109,8 +112,7 @@ export class Avatar extends BaseComponent {
 }
 
 @NgModule({
-    imports: [CommonModule],
-    exports: [Avatar],
-    declarations: [Avatar],
+    imports: [Avatar, SharedModule],
+    exports: [Avatar, SharedModule],
 })
 export class AvatarModule {}

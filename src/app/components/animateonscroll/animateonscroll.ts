@@ -1,17 +1,6 @@
-import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
-import {
-    AfterViewInit,
-    Directive,
-    ElementRef,
-    Input,
-    NgModule,
-    Renderer2,
-    OnInit,
-    Inject,
-    PLATFORM_ID,
-    booleanAttribute,
-    numberAttribute,
-} from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { AfterViewInit, booleanAttribute, Directive, Input, NgModule, numberAttribute, OnInit } from '@angular/core';
+import { BaseComponent } from 'primeng/basecomponent';
 import { DomHandler } from 'primeng/dom';
 
 interface AnimateOnScrollOptions {
@@ -26,11 +15,12 @@ interface AnimateOnScrollOptions {
  */
 @Directive({
     selector: '[pAnimateOnScroll]',
+    standalone: true,
     host: {
         '[class.p-animateonscroll]': 'true',
     },
 })
-export class AnimateOnScroll implements OnInit, AfterViewInit {
+export class AnimateOnScroll extends BaseComponent implements OnInit, AfterViewInit {
     /**
      * Selector to define the CSS class for enter animation.
      * @group Props
@@ -72,21 +62,15 @@ export class AnimateOnScroll implements OnInit, AfterViewInit {
 
     animationEndListener: VoidFunction | undefined;
 
-    constructor(
-        @Inject(DOCUMENT) private document: Document,
-        @Inject(PLATFORM_ID) private platformId: any,
-        private host: ElementRef,
-        public el: ElementRef,
-        public renderer: Renderer2,
-    ) {}
-
     ngOnInit() {
+        super.ngOnInit();
         if (isPlatformBrowser(this.platformId)) {
-            this.renderer.setStyle(this.host.nativeElement, 'opacity', this.enterClass ? '0' : '');
+            this.renderer.setStyle(this.el.nativeElement, 'opacity', this.enterClass ? '0' : '');
         }
     }
 
     ngAfterViewInit() {
+        super.ngAfterViewInit();
         if (isPlatformBrowser(this.platformId)) {
             this.bindIntersectionObserver();
         }
@@ -113,17 +97,17 @@ export class AnimateOnScroll implements OnInit, AfterViewInit {
             this.isObserverActive = true;
         }, this.options);
 
-        setTimeout(() => this.observer.observe(this.host.nativeElement), 0);
+        setTimeout(() => this.observer.observe(this.el.nativeElement), 0);
 
         // Reset
 
         this.resetObserver = new IntersectionObserver(
             ([entry]) => {
                 if (entry.boundingClientRect.top > 0 && !entry.isIntersecting) {
-                    this.host.nativeElement.style.opacity = this.enterClass ? '0' : '';
-                    DomHandler.removeMultipleClasses(this.host.nativeElement, [this.enterClass, this.leaveClass]);
+                    this.el.nativeElement.style.opacity = this.enterClass ? '0' : '';
+                    DomHandler.removeMultipleClasses(this.el.nativeElement, [this.enterClass, this.leaveClass]);
 
-                    this.resetObserver.unobserve(this.host.nativeElement);
+                    this.resetObserver.unobserve(this.el.nativeElement);
                 }
 
                 this.animationState = undefined;
@@ -134,9 +118,9 @@ export class AnimateOnScroll implements OnInit, AfterViewInit {
 
     enter() {
         if (this.animationState !== 'enter' && this.enterClass) {
-            this.host.nativeElement.style.opacity = '';
-            DomHandler.removeMultipleClasses(this.host.nativeElement, this.leaveClass);
-            DomHandler.addMultipleClasses(this.host.nativeElement, this.enterClass);
+            this.el.nativeElement.style.opacity = '';
+            DomHandler.removeMultipleClasses(this.el.nativeElement, this.leaveClass);
+            DomHandler.addMultipleClasses(this.el.nativeElement, this.enterClass);
 
             this.once && this.unbindIntersectionObserver();
 
@@ -147,9 +131,9 @@ export class AnimateOnScroll implements OnInit, AfterViewInit {
 
     leave() {
         if (this.animationState !== 'leave' && this.leaveClass) {
-            this.host.nativeElement.style.opacity = this.enterClass ? '0' : '';
-            DomHandler.removeMultipleClasses(this.host.nativeElement, this.enterClass);
-            DomHandler.addMultipleClasses(this.host.nativeElement, this.leaveClass);
+            this.el.nativeElement.style.opacity = this.enterClass ? '0' : '';
+            DomHandler.removeMultipleClasses(this.el.nativeElement, this.enterClass);
+            DomHandler.addMultipleClasses(this.el.nativeElement, this.leaveClass);
 
             this.bindAnimationEvents();
             this.animationState = 'leave';
@@ -158,9 +142,9 @@ export class AnimateOnScroll implements OnInit, AfterViewInit {
 
     bindAnimationEvents() {
         if (!this.animationEndListener) {
-            this.animationEndListener = this.renderer.listen(this.host.nativeElement, 'animationend', () => {
-                DomHandler.removeMultipleClasses(this.host.nativeElement, [this.enterClass, this.leaveClass]);
-                !this.once && this.resetObserver.observe(this.host.nativeElement);
+            this.animationEndListener = this.renderer.listen(this.el.nativeElement, 'animationend', () => {
+                DomHandler.removeMultipleClasses(this.el.nativeElement, [this.enterClass, this.leaveClass]);
+                !this.once && this.resetObserver.observe(this.el.nativeElement);
                 this.unbindAnimationEvents();
             });
         }
@@ -174,20 +158,21 @@ export class AnimateOnScroll implements OnInit, AfterViewInit {
     }
 
     unbindIntersectionObserver() {
-        this.observer?.unobserve(this.host.nativeElement);
-        this.resetObserver?.unobserve(this.host.nativeElement);
+        this.observer?.unobserve(this.el.nativeElement);
+        this.resetObserver?.unobserve(this.el.nativeElement);
         this.isObserverActive = false;
     }
 
     ngOnDestroy() {
         this.unbindAnimationEvents();
         this.unbindIntersectionObserver();
+
+        super.ngOnDestroy();
     }
 }
 
 @NgModule({
-    imports: [CommonModule],
+    imports: [AnimateOnScroll],
     exports: [AnimateOnScroll],
-    declarations: [AnimateOnScroll],
 })
 export class AnimateOnScrollModule {}

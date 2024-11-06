@@ -13,24 +13,24 @@ import { LinearDoc } from './lineardoc';
 import { MaskDoc } from './maskdoc';
 import { QuarterCircleDoc } from './quartercircledoc';
 import { SemiCircleDoc } from './semicircledoc';
-import { StyleDoc } from './styledoc';
 import { TooltipDoc } from './tooltipdoc';
 import { TemplateDoc } from './templatedoc';
+import { RouterModule } from '@angular/router';
+import { ButtonModule } from 'primeng/button';
 
 @NgModule({
-    imports: [CommonModule, AppCodeModule, AppDocModule, SpeedDialModule, MessagesModule, ToastModule, TooltipModule],
-    exports: [AppDocModule],
-    declarations: [
-        ImportDoc,
-        LinearDoc,
-        CircleDoc,
-        SemiCircleDoc,
-        QuarterCircleDoc,
-        TooltipDoc,
-        MaskDoc,
-        TemplateDoc,
-        StyleDoc,
-        AccessibilityDoc,
+    imports: [
+        CommonModule,
+        AppCodeModule,
+        AppDocModule,
+        SpeedDialModule,
+        MessagesModule,
+        ToastModule,
+        TooltipModule,
+        RouterModule,
+        ButtonModule,
     ],
+    exports: [AppDocModule],
+    declarations: [ImportDoc, LinearDoc, CircleDoc, SemiCircleDoc, QuarterCircleDoc, TooltipDoc, MaskDoc, TemplateDoc, AccessibilityDoc],
 })
 export class SpeedDialDocModule {}

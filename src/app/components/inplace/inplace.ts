@@ -1,35 +1,36 @@
 import { CommonModule } from '@angular/common';
 import {
-    AfterContentInit,
+    booleanAttribute,
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
-    ContentChildren,
+    ContentChild,
     EventEmitter,
+    inject,
     Input,
     NgModule,
     Output,
-    QueryList,
     TemplateRef,
     ViewEncapsulation,
-    booleanAttribute,
-    inject,
 } from '@angular/core';
-import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { TimesIcon } from 'primeng/icons/times';
 import { BaseComponent } from 'primeng/basecomponent';
 import { InplaceStyle } from './style/inplacestyle';
 import { styleClassAttribute } from "primeng/base";
+import { SharedModule } from 'primeng/api';
 
 @Component({
     selector: 'p-inplacedisplay, p-inplaceDisplay',
+    standalone: true,
+    imports: [CommonModule],
     template: '<ng-content></ng-content>',
 })
 export class InplaceDisplay {}
 
 @Component({
     selector: 'p-inplacecontent, p-inplaceContent',
+    standalone: true,
+    imports: [CommonModule],
     template: '<ng-content></ng-content>',
 })
 export class InplaceContent {}
@@ -39,6 +40,8 @@ export class InplaceContent {}
  */
 @Component({
     selector: 'p-inplace',
+    standalone: true,
+    imports: [CommonModule, ButtonModule, TimesIcon, SharedModule],
     template: `
         <div
             [ngClass]="{ 'p-inplace p-component': true, 'p-inplace-closable': closable }"
@@ -68,6 +71,7 @@ export class InplaceContent {}
                         type="button"
                         [icon]="closeIcon"
                         pButton
+                        pRipple
                         (click)="onDeactivateClick($event)"
                         [attr.aria-label]="closeAriaLabel"
                     ></button>
@@ -75,6 +79,7 @@ export class InplaceContent {}
                         *ngIf="!closeIcon"
                         type="button"
                         pButton
+                        pRipple
                         [ngClass]="'p-button-icon-only'"
                         (click)="onDeactivateClick($event)"
                         [attr.aria-label]="closeAriaLabel"
@@ -88,10 +93,9 @@ export class InplaceContent {}
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-
     providers: [InplaceStyle],
 })
-export class Inplace extends BaseComponent implements AfterContentInit {
+export class Inplace extends BaseComponent {
     /**
      * Whether the content is displayed or not.
      * @group Props
@@ -145,35 +149,25 @@ export class Inplace extends BaseComponent implements AfterContentInit {
      */
     @Output() onDeactivate: EventEmitter<Event> = new EventEmitter<Event>();
 
-    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
-
     hover!: boolean;
 
-    displayTemplate: TemplateRef<any> | undefined;
-
-    contentTemplate: TemplateRef<any> | undefined;
-
-    closeIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('display') displayTemplate: TemplateRef<any> | undefined;
+    /**
+     * Display template of the element.
+     * @group Templates
+     */
+    @ContentChild('content') contentTemplate: TemplateRef<any> | undefined;
+    /**
+     * Content template of the element.
+     * @group Templates
+     */
+    @ContentChild('closeicon') closeIconTemplate: TemplateRef<any> | undefined;
+    /**
+     * Close icon template of the element.
+     * @group Templates
+     */
 
     _componentStyle = inject(InplaceStyle);
-
-    ngAfterContentInit() {
-        this.templates?.forEach((item) => {
-            switch (item.getType()) {
-                case 'display':
-                    this.displayTemplate = item.template;
-                    break;
-
-                case 'closeicon':
-                    this.closeIconTemplate = item.template;
-                    break;
-
-                case 'content':
-                    this.contentTemplate = item.template;
-                    break;
-            }
-        });
-    }
 
     onActivateClick(event: MouseEvent) {
         if (!this.preventClick) this.activate(event);
@@ -217,8 +211,7 @@ export class Inplace extends BaseComponent implements AfterContentInit {
 }
 
 @NgModule({
-    imports: [CommonModule, ButtonModule, SharedModule, TimesIcon],
-    exports: [Inplace, InplaceDisplay, InplaceContent, ButtonModule, SharedModule],
-    declarations: [Inplace, InplaceDisplay, InplaceContent],
+    imports: [Inplace, InplaceContent, InplaceDisplay, SharedModule],
+    exports: [Inplace, InplaceContent, InplaceDisplay, SharedModule],
 })
 export class InplaceModule {}

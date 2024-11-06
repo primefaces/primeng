@@ -1,14 +1,18 @@
-import { NgModule, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, inject, HostBinding } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostBinding, inject, Input, NgModule, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BaseComponent } from 'primeng/basecomponent';
 import { DividerStyle } from './style/dividerstyle';
 import { styleClassAttribute } from "primeng/base";
+import { SharedModule } from 'primeng/api';
+
 /**
  * Divider is used to separate contents.
  * @group Components
  */
 @Component({
     selector: 'p-divider',
+    standalone: true,
+    imports: [CommonModule, SharedModule],
     template: `
         <div class="p-divider-content">
             <ng-content></ng-content>
@@ -76,8 +80,7 @@ export class Divider extends BaseComponent {
 }
 
 @NgModule({
-    imports: [CommonModule],
+    imports: [Divider],
     exports: [Divider],
-    declarations: [Divider],
 })
 export class DividerModule {}

@@ -33,6 +33,10 @@ const theme = ({ dt }) => `
     background: ${dt('select.filled.background')};
 }
 
+.p-select.p-variant-filled:not(.p-disabled):hover {
+    background: ${dt('select.filled.hover.background')};
+}
+
 .p-select.p-variant-filled.p-focus {
     background: ${dt('select.filled.focus.background')};
 }
@@ -193,12 +197,41 @@ input.p-select-label {
     display: flex;
 }
 
+.p-select-sm .p-select-label {
+    font-size: ${dt('select.sm.font.size')};
+    padding-block: ${dt('select.sm.padding.y')};
+    padding-inline: ${dt('select.sm.padding.x')};
+}
+
+.p-select-sm .p-select-dropdown .p-icon {
+    font-size: ${dt('select.sm.font.size')};
+    width: ${dt('select.sm.font.size')};
+    height: ${dt('select.sm.font.size')};
+}
+
+.p-select-lg .p-select-label {
+    font-size: ${dt('select.lg.font.size')};
+    padding-block: ${dt('select.lg.padding.y')};
+    padding-inline: ${dt('select.lg.padding.x')};
+}
+
+.p-select-lg .p-select-dropdown .p-icon {
+    font-size: ${dt('select.lg.font.size')};
+    width: ${dt('select.lg.font.size')};
+    height: ${dt('select.lg.font.size')};
+}
+
 /*For PrimeNG*/
 
 .p-dropdown.ng-invalid.ng-dirty,
 .p-select.ng-invalid.ng-dirty {
     outline: 1px solid ${dt('select.invalid.border.color')};
     outline-offset: 0;
+}
+
+.p-dropdown.ng-invalid.ng-dirty .p-dropdown-label.p-placeholder,
+.p-select.ng-invalid.ng-dirty .p-select-label.p-placeholder {
+    color: ${dt('select.invalid.placeholder.color')};
 }
 
 `;
@@ -214,6 +247,8 @@ const classes = {
             'p-inputwrapper-focus': instance.focused || instance.overlayVisible,
             'p-select-open': instance.overlayVisible,
             'p-select-fluid': instance.fluid,
+            'p-select-sm p-inputfield-sm': instance.size === 'small',
+            'p-select-lg p-inputfield-lg': instance.size === 'large',
         },
     ],
     label: ({ instance, props }) => [

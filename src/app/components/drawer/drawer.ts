@@ -1,33 +1,31 @@
 import { animate, animation, style, transition, trigger, useAnimation } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import {
-    AfterContentInit,
     AfterViewInit,
+    booleanAttribute,
     ChangeDetectionStrategy,
     Component,
-    ContentChildren,
+    ContentChild,
     ElementRef,
     EventEmitter,
+    inject,
     Input,
     NgModule,
+    numberAttribute,
     OnDestroy,
     Output,
-    QueryList,
     TemplateRef,
     ViewChild,
     ViewEncapsulation,
-    booleanAttribute,
-    inject,
-    numberAttribute,
 } from '@angular/core';
-import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { TimesIcon } from 'primeng/icons/times';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { ZIndexUtils } from 'primeng/utils';
 import { DrawerStyle } from './style/drawerstyle';
 import { BaseComponent } from 'primeng/basecomponent';
-import { ButtonModule, ButtonProps } from 'primeng/button';
+import { Button, ButtonProps } from 'primeng/button';
+import { SharedModule } from 'primeng/api';
 import { styleClassAttribute } from "primeng/base";
 
 const showAnimation = animation([style({ transform: '{{transform}}', opacity: 0 }), animate('{{transition}}')]);
@@ -39,23 +37,25 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
  */
 @Component({
     selector: 'p-drawer',
+    standalone: true,
+    imports: [CommonModule, Button, TimesIcon, SharedModule],
     template: `
         <div
             #container
             [ngClass]="{
                 'p-drawer': true,
                 'p-drawer-active': visible,
-                'p-drawer-left': position === 'left' && (!fullScreen || position !== 'full'),
-                'p-drawer-right': position === 'right' && (!fullScreen || position !== 'full'),
-                'p-drawer-top': position === 'top' && (!fullScreen || position !== 'full'),
-                'p-drawer-bottom': position === 'bottom' && (!fullScreen || position !== 'full'),
+                'p-drawer-left': position === 'left' && !fullScreen,
+                'p-drawer-right': position === 'right' && !fullScreen,
+                'p-drawer-top': position === 'top' && !fullScreen,
+                'p-drawer-bottom': position === 'bottom' && !fullScreen,
                 'p-drawer-full': fullScreen || position === 'full',
             }"
             *ngIf="visible"
             [@panelState]="{ value: 'visible', params: { transform: transformOptions, transition: transitionOptions } }"
             (@panelState.start)="onAnimationStart($event)"
             (@panelState.done)="onAnimationEnd($event)"
-            [ngStyle]="style"
+            [style]="style"
             [class]="styleClass"
             role="complementary"
             [attr.data-pc-name]="'sidebar'"
@@ -68,7 +68,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                     <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
                     <div *ngIf="header" [class]="cx('title')">{{ header }}</div>
                     <p-button
-                        *ngIf="showCloseIcon"
+                        *ngIf="showCloseIcon || closable"
                         [ngClass]="cx('closeButton')"
                         (onClick)="close($event)"
                         (keydown.enter)="close($event)"
@@ -77,7 +77,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                         [attr.data-pc-section]="'closebutton'"
                         [attr.data-pc-group-section]="'iconcontainer'"
                     >
-                        <ng-template pTemplate="icon">
+                        <ng-template #icon>
                             <TimesIcon *ngIf="!closeIconTemplate" [attr.data-pc-section]="'closeicon'" />
                             <ng-template *ngTemplateOutlet="closeIconTemplate"></ng-template>
                         </ng-template>
@@ -89,9 +89,9 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                     <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
                 </div>
 
-                <ng-container *ngIf="_footerTemplate">
+                <ng-container *ngIf="footerTemplate">
                     <div [ngClass]="cx('footer')" [attr.data-pc-section]="'footer'">
-                        <ng-container *ngTemplateOutlet="_footerTemplate"></ng-container>
+                        <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
                     </div>
                 </ng-container>
             </ng-template>
@@ -106,10 +106,8 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     providers: [DrawerStyle],
-    standalone: true,
-    imports: [CommonModule, SharedModule, ButtonModule, TimesIcon],
 })
-export class Drawer extends BaseComponent implements AfterViewInit, AfterContentInit, OnDestroy {
+export class Drawer extends BaseComponent implements AfterViewInit, OnDestroy {
     /**
      *  Target element to attach the dialog, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
      * @group Props
@@ -163,6 +161,7 @@ export class Drawer extends BaseComponent implements AfterViewInit, AfterContent
     /**
      * Whether to display the close icon.
      * @group Props
+     * @deprecated use 'closable' instead.
      */
     @Input({ transform: booleanAttribute }) showCloseIcon: boolean = true;
     /**
@@ -254,8 +253,6 @@ export class Drawer extends BaseComponent implements AfterViewInit, AfterContent
 
     @ViewChild('maskRef') maskRef: ElementRef | undefined;
 
-    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
-
     @ViewChild('container') containerViewChild: ElementRef | undefined;
 
     @ViewChild('closeButton') closeButtonViewChild: ElementRef | undefined;
@@ -280,48 +277,43 @@ export class Drawer extends BaseComponent implements AfterViewInit, AfterContent
 
     animationEndListener: VoidListener;
 
-    contentTemplate: Nullable<TemplateRef<any>>;
-
-    headerTemplate: Nullable<TemplateRef<any>>;
-
-    footerTemplate: Nullable<TemplateRef<any>>;
-
-    closeIconTemplate: Nullable<TemplateRef<any>>;
-
-    headlessTemplate: Nullable<TemplateRef<any>>;
-
     _componentStyle = inject(DrawerStyle);
 
     ngAfterViewInit() {
         super.ngAfterViewInit();
         this.initialized = true;
     }
-
-    ngAfterContentInit() {
-        this.templates?.forEach((item) => {
-            switch (item.getType()) {
-                case 'content':
-                    this.contentTemplate = item.template;
-                    break;
-                case 'header':
-                    this.headerTemplate = item.template;
-                    break;
-                case 'footer':
-                    this.footerTemplate = item.template;
-                    break;
-                case 'closeicon':
-                    this.closeIconTemplate = item.template;
-                    break;
-                case 'headless':
-                    this.headlessTemplate = item.template;
-                    break;
-
-                default:
-                    this.contentTemplate = item.template;
-                    break;
-            }
-        });
-    }
+    /**
+     * Content template for the content of the drawer.
+     * @group Templates
+     */
+    @ContentChild('header') headerTemplate: TemplateRef<any> | undefined;
+    /**
+     * Header template for the header of the drawer.
+     * @group Templates
+     */
+    @ContentChild('footer') footerTemplate: TemplateRef<any> | undefined;
+    /**
+     * Content template for the footer of the drawer.
+     * @group Templates
+     */
+    @ContentChild('content') contentTemplate: TemplateRef<any> | undefined;
+    /**
+     * Close icon template for the close icon of the drawer.
+     * @group Templates
+     */
+    @ContentChild('closeicon') closeIconTemplate: TemplateRef<any> | undefined;
+    /**
+     * Headless template for the headless drawer.
+     * @group Templates
+     */
+    @ContentChild('headless') headlessTemplate: TemplateRef<any> | undefined;
+    /**
+     * Whether to display close button.
+     * @group Props
+     * @defaultValue true
+     */
+    @Input({ transform: booleanAttribute }) closable: boolean = true;
 
     onKeyDown(event: KeyboardEvent) {
         if (event.code === 'Escape') {
@@ -500,7 +492,7 @@ export class Drawer extends BaseComponent implements AfterViewInit, AfterContent
 }
 
 @NgModule({
-    imports: [Drawer],
+    imports: [Drawer, SharedModule],
     exports: [Drawer, SharedModule],
 })
 export class DrawerModule {}

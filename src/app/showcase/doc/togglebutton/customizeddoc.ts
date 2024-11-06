@@ -35,13 +35,13 @@ export class CustomizedDoc {
 
         typescript: `import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ToggleButtonModule } from 'primeng/togglebutton';
+import { ToggleButton } from 'primeng/togglebutton';
 
 @Component({
     selector: 'toggle-button-customized-demo',
     templateUrl: './toggle-button-customized-demo.html',
     standalone: true,
-    imports: [FormsModule, ToggleButtonModule]
+    imports: [FormsModule, ToggleButton]
 })
 export class ToggleButtonCustomizedDemo {
     checked: boolean = false;

@@ -1,37 +1,35 @@
-import { AnimationEvent, animate, style, transition, trigger } from '@angular/animations';
+import { animate, AnimationEvent, style, transition, trigger } from '@angular/animations';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
-    AfterContentInit,
+    booleanAttribute,
     ChangeDetectionStrategy,
     Component,
-    ContentChildren,
+    ContentChild,
+    effect,
     ElementRef,
     EventEmitter,
+    forwardRef,
     Inject,
+    inject,
     Input,
     NgModule,
+    numberAttribute,
     OnDestroy,
     OnInit,
     Output,
-    QueryList,
+    signal,
     TemplateRef,
     ViewChild,
     ViewEncapsulation,
     ViewRef,
-    booleanAttribute,
-    effect,
-    forwardRef,
-    inject,
-    numberAttribute,
-    signal,
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { MenuItem, OverlayService, PrimeTemplate, SharedModule } from 'primeng/api';
+import { MenuItem, OverlayService, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { AngleRightIcon } from 'primeng/icons/angleright';
-import { RippleModule } from 'primeng/ripple';
+import { Ripple } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
-import { Nullable, VoidListener } from 'primeng/ts-helpers';
+import { VoidListener } from 'primeng/ts-helpers';
 import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
 import { ContextMenuStyle } from './style/contextmenustyle';
 import { BaseComponent } from 'primeng/basecomponent';
@@ -40,6 +38,8 @@ import { styleClassAttribute } from "primeng/base";
 
 @Component({
     selector: 'p-contextMenuSub, p-contextmenu-sub',
+    standalone: true,
+    imports: [CommonModule, RouterModule, Ripple, TooltipModule, AngleRightIcon, BadgeModule, SharedModule],
     template: `
         <ul
             *ngIf="root ? true : visible"
@@ -236,7 +236,7 @@ import { styleClassAttribute } from "primeng/base";
                         [level]="level + 1"
                         (itemClick)="itemClick.emit($event)"
                         (itemMouseEnter)="onItemMouseEnter($event)"
-                    ></p-contextmenu-sub>
+                    />
                 </li>
             </ng-template>
         </ul>
@@ -399,14 +399,16 @@ export class ContextMenuSub extends BaseComponent {
  * @group Components
  */
 @Component({
-    selector: 'p-contextMenu, p-contextmenu',
+    selector: 'p-contextMenu, p-contextmenu, p-context-menu',
+    standalone: true,
+    imports: [CommonModule, ContextMenuSub, RouterModule, Ripple, TooltipModule, AngleRightIcon, BadgeModule, SharedModule],
     template: `
         <div
             #container
             [attr.data-pc-section]="'root'"
             [attr.data-pc-name]="'contextmenu'"
             [attr.id]="id"
-            [ngClass]="{ 'p-contextmenu p-component': true }"
+            [ngClass]="{ 'p-contextmenu p-component': true, 'p-contextmenu-mobile': queryMatches }"
             [class]="styleClass"
             [ngStyle]="style"
             [@overlayAnimation]="{ value: 'visible' }"
@@ -433,7 +435,7 @@ export class ContextMenuSub extends BaseComponent {
                 (menuBlur)="onMenuBlur($event)"
                 (menuKeydown)="onKeyDown($event)"
                 (itemMouseEnter)="onItemMouseEnter($event)"
-            ></p-contextmenu-sub>
+            />
         </div>
     `,
     animations: [
@@ -446,7 +448,7 @@ export class ContextMenuSub extends BaseComponent {
     encapsulation: ViewEncapsulation.None,
     providers: [ContextMenuStyle],
 })
-export class ContextMenu extends BaseComponent implements OnInit, AfterContentInit, OnDestroy {
+export class ContextMenu extends BaseComponent implements OnInit, OnDestroy {
     /**
      * An array of menuitems.
      * @group Props
@@ -504,6 +506,11 @@ export class ContextMenu extends BaseComponent implements OnInit, AfterContentIn
      */
     @Input() id: string | undefined;
     /**
+     * The breakpoint to define the maximum width boundary.
+     * @group Props
+     */
+    @Input() breakpoint: string = '960px';
+    /**
      * Defines a string value that labels an interactive element.
      * @group Props
      */
@@ -529,15 +536,9 @@ export class ContextMenu extends BaseComponent implements OnInit, AfterContentIn
      */
     @Output() onHide: EventEmitter<null> = new EventEmitter<null>();
 
-    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
-
     @ViewChild('rootmenu') rootmenu: ContextMenuSub | undefined;
 
     @ViewChild('container') containerViewChild: ElementRef<any> | undefined;
-
-    submenuIconTemplate: Nullable<TemplateRef<any>>;
-
-    itemTemplate: Nullable<TemplateRef<any>>;
 
     container: HTMLDivElement | undefined;
 
@@ -581,6 +582,12 @@ export class ContextMenu extends BaseComponent implements OnInit, AfterContentIn
 
     pressTimer: any;
 
+    private matchMediaListener: () => void;
+
+    private query: MediaQueryList;
+
+    public queryMatches: boolean;
+
     _componentStyle = inject(ContextMenuStyle);
 
     get visibleItems() {
@@ -621,6 +628,7 @@ export class ContextMenu extends BaseComponent implements OnInit, AfterContentIn
     ngOnInit() {
         super.ngOnInit();
         this.id = this.id || UniqueComponentId();
+        this.bindMatchMediaListener();
         this.bindTriggerEventListener();
     }
 
@@ -684,22 +692,17 @@ export class ContextMenu extends BaseComponent implements OnInit, AfterContentIn
             }
         }
     }
+    /**
+     * Defines template option for item.
+     * @group Templates
+     */
+    @ContentChild('item') itemTemplate: TemplateRef<any> | undefined;
 
-    ngAfterContentInit() {
-        this.templates?.forEach((item) => {
-            switch (item.getType()) {
-                case 'submenuicon':
-                    this.submenuIconTemplate = item.template;
-                    break;
-                case 'item':
-                    this.itemTemplate = item.template;
-                    break;
-                default:
-                    this.itemTemplate = item.template;
-                    break;
-            }
-        });
-    }
+    /**
+     * Defines template option for submenuIcon.
+     * @group Templates
+     */
+    @ContentChild('submenuicon') submenuIconTemplate: TemplateRef<any> | undefined;
 
     createProcessedItems(items: any, level: number = 0, parent: any = {}, parentKey: any = '') {
         const processedItems = [];
@@ -721,6 +724,30 @@ export class ContextMenu extends BaseComponent implements OnInit, AfterContentIn
             });
 
         return processedItems;
+    }
+
+    bindMatchMediaListener() {
+        if (isPlatformBrowser(this.platformId)) {
+            if (!this.matchMediaListener) {
+                const query = window.matchMedia(`(max-width: ${this.breakpoint})`);
+
+                this.query = query;
+                this.queryMatches = query.matches;
+
+                this.matchMediaListener = () => {
+                    this.queryMatches = query.matches;
+                };
+
+                query.addEventListener('change', this.matchMediaListener);
+            }
+        }
+    }
+
+    unbindMatchMediaListener() {
+        if (this.matchMediaListener) {
+            this.query.removeEventListener('change', this.matchMediaListener);
+            this.matchMediaListener = null;
+        }
     }
 
     getItemProp(item: any, name: string) {
@@ -788,7 +815,7 @@ export class ContextMenu extends BaseComponent implements OnInit, AfterContentIn
     }
 
     onItemMouseEnter(event: any) {
-        this.onItemChange(event);
+        this.onItemChange(event, 'hover');
     }
 
     onKeyDown(event: KeyboardEvent) {
@@ -966,7 +993,7 @@ export class ContextMenu extends BaseComponent implements OnInit, AfterContentIn
         event.preventDefault();
     }
 
-    onItemChange(event: any) {
+    onItemChange(event: any, type?: string | undefined) {
         const { processedItem, isFocus } = event;
         if (ObjectUtils.isEmpty(processedItem)) return;
 
@@ -979,9 +1006,13 @@ export class ContextMenu extends BaseComponent implements OnInit, AfterContentIn
             this.submenuVisible.set(true);
         }
         this.focusedItemInfo.set({ index, level, parentKey, item: processedItem.item });
-        this.activeItemPath.set(activeItemPath);
-
         isFocus && DomHandler.focus(this.rootmenu.sublistViewChild.nativeElement);
+
+        if (type === 'hover' && this.queryMatches) {
+            return;
+        }
+
+        this.activeItemPath.set(activeItemPath);
     }
 
     onMenuFocus(event: any) {
@@ -1288,14 +1319,14 @@ export class ContextMenu extends BaseComponent implements OnInit, AfterContentIn
     ngOnDestroy() {
         this.unbindGlobalListeners();
         this.unbindTriggerEventListener();
+        this.unbindMatchMediaListener();
         this.removeAppendedElements();
         super.ngOnDestroy();
     }
 }
 
 @NgModule({
-    imports: [CommonModule, RouterModule, RippleModule, TooltipModule, AngleRightIcon, SharedModule, BadgeModule],
-    exports: [ContextMenu, RouterModule, TooltipModule, SharedModule],
-    declarations: [ContextMenu, ContextMenuSub],
+    imports: [ContextMenu, SharedModule],
+    exports: [ContextMenu, SharedModule],
 })
 export class ContextMenuModule {}

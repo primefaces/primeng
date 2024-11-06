@@ -1,15 +1,13 @@
 import {
-    NgModule,
-    Component,
-    AfterViewInit,
     AfterViewChecked,
-    OnDestroy,
-    Input,
-    ElementRef,
+    AfterViewInit,
     ChangeDetectionStrategy,
-    ViewEncapsulation,
-    ChangeDetectorRef,
+    Component,
     inject,
+    Input,
+    NgModule,
+    OnDestroy,
+    ViewEncapsulation,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -18,6 +16,7 @@ import { TerminalService } from './terminalservice';
 import { Subscription } from 'rxjs';
 import { BaseComponent } from 'primeng/basecomponent';
 import { TerminalStyle } from './style/terminalstyle';
+import { SharedModule } from 'primeng/api';
 import { styleClassAttribute } from "primeng/base";
 
 /**
@@ -26,6 +25,8 @@ import { styleClassAttribute } from "primeng/base";
  */
 @Component({
     selector: 'p-terminal',
+    standalone: true,
+    imports: [CommonModule, FormsModule, SharedModule],
     template: `
         <div [ngClass]="'p-terminal p-component'" [ngStyle]="style" [class]="styleClass" (click)="focus(in)">
             <div class="p-terminal-welcome-message" *ngIf="welcomeMessage">{{ welcomeMessage }}</div>
@@ -52,7 +53,6 @@ import { styleClassAttribute } from "primeng/base";
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-
     providers: [TerminalStyle],
 })
 export class Terminal extends BaseComponent implements AfterViewInit, AfterViewChecked, OnDestroy {
@@ -139,8 +139,7 @@ export class Terminal extends BaseComponent implements AfterViewInit, AfterViewC
 }
 
 @NgModule({
-    imports: [CommonModule, FormsModule],
-    exports: [Terminal],
-    declarations: [Terminal],
+    exports: [Terminal, SharedModule],
+    imports: [Terminal, SharedModule],
 })
 export class TerminalModule {}

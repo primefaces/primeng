@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
         <app-docsectiontext>
             <h4>Renamed Components</h4>
             <p>
-                Old names are deprecated but still functional, migrate to new import paths instead e.g. <i>primeng/calendar</i> becomes
+                Old names are deprecated but still functional, migrate to new import paths instead e.g. <i>primeng/datepicker</i> becomes
                 <i>primeng/datepicker</i>.
             </p>
             <ul class="flex flex-col gap-2 leading-normal">

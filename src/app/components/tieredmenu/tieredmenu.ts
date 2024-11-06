@@ -1,10 +1,9 @@
 import { AnimationEvent, animate, style, transition, trigger } from '@angular/animations';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
-    AfterContentInit,
     ChangeDetectionStrategy,
     Component,
-    ContentChildren,
+    ContentChild,
     ElementRef,
     EventEmitter,
     Inject,
@@ -13,7 +12,6 @@ import {
     OnDestroy,
     OnInit,
     Output,
-    QueryList,
     Renderer2,
     TemplateRef,
     ViewChild,
@@ -28,10 +26,10 @@ import {
     signal,
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { MenuItem, OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
+import { MenuItem, OverlayService, SharedModule } from 'primeng/api';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { AngleRightIcon } from 'primeng/icons/angleright';
-import { RippleModule } from 'primeng/ripple';
+import { Ripple } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
@@ -41,7 +39,9 @@ import { nestedPosition } from '@primeuix/utils/dom';
 import { styleClassAttribute } from "primeng/base";
 
 @Component({
-    selector: 'p-tieredMenuSub, p-tieredmenu-sub',
+    selector: 'p-tieredMenuSub, p-tieredmenusub',
+    standalone: true,
+    imports: [CommonModule, RouterModule, Ripple, TooltipModule, AngleRightIcon, SharedModule],
     template: `
         <ul
             #sublist
@@ -225,7 +225,7 @@ import { styleClassAttribute } from "primeng/base";
                         </ng-container>
                     </div>
 
-                    <p-tieredmenu-sub
+                    <p-tieredmenusub
                         *ngIf="isItemVisible(processedItem) && isItemGroup(processedItem)"
                         [items]="processedItem.items"
                         [itemTemplate]="itemTemplate"
@@ -238,14 +238,14 @@ import { styleClassAttribute } from "primeng/base";
                         (itemClick)="itemClick.emit($event)"
                         (itemMouseEnter)="onItemMouseEnter($event)"
                         [inlineStyles]="{ display: isItemActive(processedItem) ? 'flex' : 'none' }"
-                    ></p-tieredmenu-sub>
+                    ></p-tieredmenusub>
                 </li>
             </ng-template>
         </ul>
     `,
     encapsulation: ViewEncapsulation.None,
 })
-export class TieredMenuSub {
+export class TieredMenuSub extends BaseComponent {
     @Input() items: any[];
 
     @Input() itemTemplate: HTMLElement | undefined;
@@ -293,6 +293,7 @@ export class TieredMenuSub {
         public renderer: Renderer2,
         @Inject(forwardRef(() => TieredMenu)) public tieredMenu: TieredMenu,
     ) {
+        super();
         effect(() => {
             const path = this.activeItemPath();
             if (ObjectUtils.isNotEmpty(path)) {
@@ -399,14 +400,16 @@ export class TieredMenuSub {
  * @group Components
  */
 @Component({
-    selector: 'p-tieredMenu, p-tieredmenu',
+    selector: 'p-tieredMenu, p-tieredmenu, p-tiered-menu',
+    standalone: true,
+    imports: [CommonModule, TieredMenuSub, RouterModule, Ripple, TooltipModule, AngleRightIcon, SharedModule],
     template: `
         <div
             #container
             [attr.data-pc-section]="'root'"
             [attr.data-pc-name]="'tieredmenu'"
             [id]="id"
-            [ngClass]="{ 'p-tieredmenu p-component': true, 'p-tieredmenu-overlay': popup }"
+            [ngClass]="{ 'p-tieredmenu p-component': true, 'p-tieredmenu-mobile': queryMatches, 'p-tieredmenu-overlay': popup }"
             [class]="styleClass"
             [ngStyle]="style"
             (click)="onOverlayClick($event)"
@@ -419,7 +422,7 @@ export class TieredMenuSub {
             (@overlayAnimation.done)="onOverlayAnimationEnd($event)"
             *ngIf="!popup || visible"
         >
-            <p-tieredmenu-sub
+            <p-tieredMenuSub
                 #rootmenu
                 [root]="true"
                 [items]="processedItems"
@@ -439,7 +442,7 @@ export class TieredMenuSub {
                 (menuBlur)="onMenuBlur($event)"
                 (menuKeydown)="onKeyDown($event)"
                 (itemMouseEnter)="onItemMouseEnter($event)"
-            ></p-tieredmenu-sub>
+            ></p-tieredMenuSub>
         </div>
     `,
     animations: [
@@ -452,7 +455,7 @@ export class TieredMenuSub {
     encapsulation: ViewEncapsulation.None,
     providers: [TieredMenuStyle],
 })
-export class TieredMenu extends BaseComponent implements OnInit, AfterContentInit, OnDestroy {
+export class TieredMenu extends BaseComponent implements OnInit, OnDestroy {
     /**
      * An array of menuitems.
      * @group Props
@@ -484,6 +487,11 @@ export class TieredMenu extends BaseComponent implements OnInit, AfterContentIni
      * @group Props
      */
     @Input() appendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any;
+    /**
+     * The breakpoint to define the maximum width boundary.
+     * @group Props
+     */
+    @Input() breakpoint: string = '960px';
     /**
      * Whether to automatically manage layering.
      * @group Props
@@ -546,15 +554,19 @@ export class TieredMenu extends BaseComponent implements OnInit, AfterContentIni
      */
     @Output() onHide: EventEmitter<any> = new EventEmitter<any>();
 
-    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
-
     @ViewChild('rootmenu') rootmenu: TieredMenuSub | undefined;
 
     @ViewChild('container') containerViewChild: ElementRef<any> | undefined;
-
-    submenuIconTemplate: Nullable<TemplateRef<any>>;
-
-    itemTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Template of the submenu icon.
+     * @group Templates
+     */
+    @ContentChild('submenuicon') submenuIconTemplate: TemplateRef<any>;
+    /**
+     * Template of the item.
+     * @group Templates
+     */
+    @ContentChild('item') itemTemplate: TemplateRef<any>;
 
     container: HTMLDivElement | undefined;
 
@@ -591,6 +603,12 @@ export class TieredMenu extends BaseComponent implements OnInit, AfterContentIni
     _model: MenuItem[] | undefined;
 
     _componentStyle = inject(TieredMenuStyle);
+
+    private matchMediaListener: () => void;
+
+    private query: MediaQueryList;
+
+    public queryMatches: boolean;
 
     get visibleItems() {
         const processedItem = this.activeItemPath().find((p) => p.key === this.focusedItemInfo().parentKey);
@@ -630,25 +648,32 @@ export class TieredMenu extends BaseComponent implements OnInit, AfterContentIni
 
     ngOnInit() {
         super.ngOnInit();
+        this.bindMatchMediaListener();
         this.id = this.id || UniqueComponentId();
     }
 
-    ngAfterContentInit() {
-        this.templates?.forEach((item) => {
-            switch (item.getType()) {
-                case 'submenuicon':
-                    this.submenuIconTemplate = item.template;
-                    break;
+    bindMatchMediaListener() {
+        if (isPlatformBrowser(this.platformId)) {
+            if (!this.matchMediaListener) {
+                const query = window.matchMedia(`(max-width: ${this.breakpoint})`);
 
-                case 'item':
-                    this.itemTemplate = item.template;
-                    break;
+                this.query = query;
+                this.queryMatches = query.matches;
 
-                default:
-                    this.itemTemplate = item.template;
-                    break;
+                this.matchMediaListener = () => {
+                    this.queryMatches = query.matches;
+                };
+
+                query.addEventListener('change', this.matchMediaListener);
             }
-        });
+        }
+    }
+
+    unbindMatchMediaListener() {
+        if (this.matchMediaListener) {
+            this.query.removeEventListener('change', this.matchMediaListener);
+            this.matchMediaListener = null;
+        }
     }
 
     createProcessedItems(items: any, level: number = 0, parent: any = {}, parentKey: any = '') {
@@ -768,10 +793,10 @@ export class TieredMenu extends BaseComponent implements OnInit, AfterContentIni
     onItemMouseEnter(event: any) {
         if (!DomHandler.isTouchDevice()) {
             if (this.dirty) {
-                this.onItemChange(event);
+                this.onItemChange(event, 'hover');
             }
         } else {
-            this.onItemChange({ event, processedItem: event.processedItem, focus: this.autoDisplay });
+            this.onItemChange({ event, processedItem: event.processedItem, focus: this.autoDisplay }, 'hover');
         }
     }
 
@@ -948,7 +973,7 @@ export class TieredMenu extends BaseComponent implements OnInit, AfterContentIni
         event.preventDefault();
     }
 
-    onItemChange(event: any) {
+    onItemChange(event: any, type?: string | undefined) {
         const { processedItem, isFocus } = event;
 
         if (ObjectUtils.isEmpty(processedItem)) return;
@@ -959,10 +984,15 @@ export class TieredMenu extends BaseComponent implements OnInit, AfterContentIni
 
         grouped && activeItemPath.push(processedItem);
         this.focusedItemInfo.set({ index, level, parentKey, item });
-        this.activeItemPath.set(activeItemPath);
 
         grouped && (this.dirty = true);
         isFocus && DomHandler.focus(this.rootmenu.sublistViewChild.nativeElement);
+
+        if (type === 'hover' && this.queryMatches) {
+            return;
+        }
+
+        this.activeItemPath.set(activeItemPath);
     }
 
     onMenuFocus(event: any) {
@@ -1267,13 +1297,13 @@ export class TieredMenu extends BaseComponent implements OnInit, AfterContentIni
             this.restoreOverlayAppend();
             this.onOverlayHide();
         }
+        this.unbindMatchMediaListener();
         super.ngOnDestroy();
     }
 }
 
 @NgModule({
-    imports: [CommonModule, RouterModule, RippleModule, TooltipModule, AngleRightIcon, SharedModule],
-    exports: [TieredMenu, RouterModule, TooltipModule, SharedModule],
-    declarations: [TieredMenu, TieredMenuSub],
+    imports: [TieredMenu, SharedModule],
+    exports: [TieredMenu, SharedModule],
 })
 export class TieredMenuModule {}

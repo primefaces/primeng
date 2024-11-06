@@ -3,8 +3,8 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
-import { InputMaskModule } from 'primeng/inputmask';
-import { CheckboxModule } from 'primeng/checkbox';
+import { InputMask } from 'primeng/inputmask';
+import { Checkbox } from 'primeng/checkbox';
 import { StepsModule } from 'primeng/steps';
 import { ToastModule } from 'primeng/toast';
 import { CardModule } from 'primeng/card';
@@ -23,6 +23,7 @@ import { TicketService } from '@service/ticketservice';
 import { AccessibilityDoc } from './accessibilitydoc';
 import { ButtonModule } from 'primeng/button';
 import { ControlledDoc } from './controlleddoc';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
     imports: [
@@ -34,10 +35,11 @@ import { ControlledDoc } from './controlleddoc';
         FormsModule,
         DropdownModule,
         InputTextModule,
-        InputMaskModule,
-        CheckboxModule,
+        InputMask,
+        Checkbox,
         CardModule,
         ButtonModule,
+        RouterModule,
     ],
     declarations: [
         BasicDoc,

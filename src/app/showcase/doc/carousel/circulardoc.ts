@@ -21,7 +21,7 @@ import { ProductService } from '@service/productservice';
                 [responsiveOptions]="responsiveOptions"
                 autoplayInterval="3000"
             >
-                <ng-template let-product pTemplate="item">
+                <ng-template let-product #item>
                     <div class="border border-surface-200 dark:border-surface-700 rounded m-2 p-4">
                         <div class="mb-4">
                             <div class="relative mx-auto">
@@ -72,17 +72,22 @@ export class CircularDoc implements OnInit {
 
         this.responsiveOptions = [
             {
-                breakpoint: '1199px',
-                numVisible: 1,
-                numScroll: 1,
-            },
-            {
-                breakpoint: '991px',
+                breakpoint: '1400px',
                 numVisible: 2,
                 numScroll: 1,
             },
             {
+                breakpoint: '1199px',
+                numVisible: 3,
+                numScroll: 1,
+            },
+            {
                 breakpoint: '767px',
+                numVisible: 2,
+                numScroll: 1,
+            },
+            {
+                breakpoint: '575px',
                 numVisible: 1,
                 numScroll: 1,
             },
@@ -101,24 +106,24 @@ export class CircularDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-carousel 
-    [value]="products" 
-    [numVisible]="3" 
-    [numScroll]="3" 
-    [circular]="true" 
-    [responsiveOptions]="responsiveOptions" 
+        basic: `<p-carousel
+    [value]="products"
+    [numVisible]="3"
+    [numScroll]="3"
+    [circular]="true"
+    [responsiveOptions]="responsiveOptions"
     autoplayInterval="3000">
-        <ng-template let-product pTemplate="item">
+        <ng-template let-product #item>
                 <div class="border border-surface-200 dark:border-surface-700 rounded m-2 p-4">
                     <div class="mb-4">
                         <div class="relative mx-auto">
-                            <img 
-                                src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" 
-                                [alt]="product.name" 
+                            <img
+                                src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}"
+                                [alt]="product.name"
                                 class="w-full rounded-border" />
-                            <p-tag 
-                                [value]="product.inventoryStatus" 
-                                [severity]="getSeverity(product.inventoryStatus)" 
+                            <p-tag
+                                [value]="product.inventoryStatus"
+                                [severity]="getSeverity(product.inventoryStatus)"
                                 class="absolute"
                                 styleClass="dark:!bg-surface-900"
                                 [ngStyle]="{ 'left.px': 5, 'top.px': 5 }" />
@@ -140,24 +145,24 @@ export class CircularDoc implements OnInit {
         </ng-template>
 </p-carousel>`,
         html: `<div class="card">
-    <p-carousel 
-        [value]="products" 
-        [numVisible]="3" 
-        [numScroll]="3" 
-        [circular]="true" 
-        [responsiveOptions]="responsiveOptions" 
+    <p-carousel
+        [value]="products"
+        [numVisible]="3"
+        [numScroll]="3"
+        [circular]="true"
+        [responsiveOptions]="responsiveOptions"
         autoplayInterval="3000">
-        <ng-template let-product pTemplate="item">
+        <ng-template let-product #item>
                 <div class="border border-surface-200 dark:border-surface-700 rounded m-2 p-4">
                     <div class="mb-4">
                         <div class="relative mx-auto">
-                            <img 
-                                src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" 
-                                [alt]="product.name" 
+                            <img
+                                src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}"
+                                [alt]="product.name"
                                 class="w-full rounded-border" />
-                            <p-tag 
-                                [value]="product.inventoryStatus" 
-                                [severity]="getSeverity(product.inventoryStatus)" 
+                            <p-tag
+                                [value]="product.inventoryStatus"
+                                [severity]="getSeverity(product.inventoryStatus)"
                                 class="absolute"
                                 styleClass="dark:!bg-surface-900"
                                 [ngStyle]="{ 'left.px': 5, 'top.px': 5 }" />
@@ -182,15 +187,15 @@ export class CircularDoc implements OnInit {
         typescript: `import { Component, OnInit } from '@angular/core';
 import { Product } from '@domain/product';
 import { ProductService } from '@service/productservice';
-import { CarouselModule } from 'primeng/carousel';
+import { Carousel } from 'primeng/carousel';
 import { ButtonModule } from 'primeng/button';
-import { TagModule } from 'primeng/tag';
+import { Tag } from 'primeng/tag';
 
 @Component({
     selector: 'carousel-circular-demo',
     templateUrl: './carousel-circular-demo.html',
     standalone: true,
-    imports: [CarouselModule, ButtonModule, TagModule],
+    imports: [Carousel, ButtonModule, Tag],
     providers: [ProductService]
 })
 export class CarouselCircularDemo implements OnInit{
@@ -205,23 +210,28 @@ export class CarouselCircularDemo implements OnInit{
             this.products = products;
         });
 
-       this.responsiveOptions = [
+        this.responsiveOptions = [
             {
-                breakpoint: '1199px',
-                numVisible: 1,
-                numScroll: 1
-            },
-            {
-                breakpoint: '991px',
+                breakpoint: '1400px',
                 numVisible: 2,
                 numScroll: 1
             },
             {
+                breakpoint: '1199px',
+                numVisible: 3,
+                numScroll: 1
+            },
+            {
                 breakpoint: '767px',
+                numVisible: 2,
+                numScroll: 1
+            },
+            {
+                breakpoint: '575px',
                 numVisible: 1,
                 numScroll: 1
             }
-        ];
+        ]
     }
 
     getSeverity(status: string) {
@@ -236,7 +246,7 @@ export class CarouselCircularDemo implements OnInit{
     }
 }`,
         data: `
-/* ProductService */        
+/* ProductService */
 {
     id: '1000',
     code: 'f230fh0g3',

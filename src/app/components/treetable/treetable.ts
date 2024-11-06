@@ -6,7 +6,6 @@ import {
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
-    ContentChildren,
     Directive,
     ElementRef,
     EventEmitter,
@@ -54,8 +53,8 @@ import { SortAmountDownIcon } from 'primeng/icons/sortamountdown';
 import { SortAmountUpAltIcon } from 'primeng/icons/sortamountupalt';
 import { SpinnerIcon } from 'primeng/icons/spinner';
 import { PaginatorModule } from 'primeng/paginator';
-import { RippleModule } from 'primeng/ripple';
-import { Scroller, ScrollerModule } from 'primeng/scroller';
+import { Ripple } from 'primeng/ripple';
+import { Scroller } from 'primeng/scroller';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { ObjectUtils } from 'primeng/utils';
 import { Subject, Subscription } from 'rxjs';
@@ -74,7 +73,7 @@ import {
     TreeTablePaginatorState,
     TreeTableSortEvent,
 } from './treetable.interface';
-import { CheckboxModule } from 'primeng/checkbox';
+import { Checkbox } from 'primeng/checkbox';
 import { FormsModule } from '@angular/forms';
 import { TreeTableStyle } from './style/treetablestyle';
 import { BaseComponent } from 'primeng/basecomponent';
@@ -119,7 +118,7 @@ export class TreeTableService {
  * @group Components
  */
 @Component({
-    selector: 'p-treeTable, p-treetable',
+    selector: 'p-treeTable, p-treetable, p-tree-table',
     template: `
         <div
             #container
@@ -786,8 +785,6 @@ export class TreeTable extends BaseComponent implements AfterContentInit, OnInit
     @ViewChild('scrollableView') scrollableViewChild: Nullable<ElementRef>;
 
     @ViewChild('scrollableFrozenView') scrollableFrozenViewChild: Nullable<ElementRef>;
-
-    @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<PrimeTemplate>>;
 
     _value: TreeNode<any>[] | undefined = [];
 
@@ -2476,11 +2473,11 @@ export class TTBody {
             (onLazyLoad)="tt.onLazyItemLoad($event)"
             [options]="tt.virtualScrollOptions"
         >
-            <ng-template pTemplate="content" let-items let-scrollerOptions="options">
+            <ng-template #content let-items let-scrollerOptions="options">
                 <ng-container *ngTemplateOutlet="buildInItems; context: { $implicit: items, options: scrollerOptions }"></ng-container>
             </ng-template>
             <ng-container *ngIf="loaderTemplate">
-                <ng-template pTemplate="loader" let-scrollerOptions="options">
+                <ng-template #loader let-scrollerOptions="options">
                     <ng-container *ngTemplateOutlet="loaderTemplate; context: { options: scrollerOptions }"></ng-container>
                 </ng-template>
             </ng-container>
@@ -3655,7 +3652,7 @@ export class TTEditableColumn implements AfterViewInit {
 }
 
 @Component({
-    selector: 'p-treeTableCellEditor',
+    selector: 'p-treeTableCellEditor, p-treetablecelleditor, p-treetable-cell-editor',
     template: `
         <ng-container *ngIf="tt.editingCell === editableColumn.el.nativeElement">
             <ng-container *ngTemplateOutlet="inputTemplate"></ng-container>
@@ -3666,9 +3663,7 @@ export class TTEditableColumn implements AfterViewInit {
     `,
     encapsulation: ViewEncapsulation.None,
 })
-export class TreeTableCellEditor implements AfterContentInit {
-    @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<PrimeTemplate>>;
-
+export class TreeTableCellEditor extends BaseComponent implements AfterContentInit {
     inputTemplate: Nullable<TemplateRef<any>>;
 
     outputTemplate: Nullable<TemplateRef<any>>;
@@ -3676,9 +3671,12 @@ export class TreeTableCellEditor implements AfterContentInit {
     constructor(
         public tt: TreeTable,
         public editableColumn: TTEditableColumn,
-    ) {}
+    ) {
+        super();
+    }
 
     ngAfterContentInit() {
+        super.ngAfterContentInit();
         (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
             switch (item.getType()) {
                 case 'input':
@@ -3897,7 +3895,7 @@ export class TTRow {
 }
 
 @Component({
-    selector: 'p-treeTableToggler',
+    selector: 'p-treeTableToggler, p-treetabletoggler, p-treetable-toggler',
     template: `
         <button
             type="button"
@@ -3964,8 +3962,8 @@ export class TreeTableToggler {
     imports: [
         CommonModule,
         PaginatorModule,
-        RippleModule,
-        ScrollerModule,
+        Ripple,
+        Scroller,
         SpinnerIcon,
         ArrowDownIcon,
         ArrowUpIcon,
@@ -3976,7 +3974,8 @@ export class TreeTableToggler {
         MinusIcon,
         ChevronDownIcon,
         ChevronRightIcon,
-        CheckboxModule,
+        Checkbox,
+        SharedModule,
         FormsModule,
     ],
     exports: [
@@ -3995,7 +3994,7 @@ export class TreeTableToggler {
         TTHeaderCheckbox,
         TTEditableColumn,
         TreeTableCellEditor,
-        ScrollerModule,
+        Scroller,
     ],
     declarations: [
         TreeTable,

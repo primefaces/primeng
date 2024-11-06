@@ -162,13 +162,13 @@ import { TreeNode } from 'primeng/api';
 import { NodeService } from '@service/nodeservice';
 import { TreeTableModule } from 'primeng/treetable';
 import { ButtonModule } from 'primeng/button';
-import { DialogModule } from 'primeng/dialog';
+import { Dialog } from 'primeng/dialog';
 
 @Component({
     selector: 'tree-table-flexible-scroll-demo',
     templateUrl: './tree-table-flexible-scroll-demo.html',
     standalone: true,
-    imports: [TreeTableModule, ButtonModule, DialogModule],
+    imports: [TreeTableModule, ButtonModule, Dialog],
     providers: [NodeService]
 })
 export class TreeTableFlexibleScrollDemo implements OnInit {

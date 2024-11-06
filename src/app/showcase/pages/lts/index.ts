@@ -1,24 +1,17 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
-import { Code } from '@domain/code';
-import { CommonModule } from '@angular/common';
-import { TagModule } from '../../../components/tag/tag';
-import { AppCodeModule } from '@layout/doc/app.code.component';
 import { RouterModule } from '@angular/router';
-import { RippleModule } from '../../../components/ripple/ripple';
+import { Code } from '@domain/code';
+import { AppCodeModule } from '@layout/doc/app.code.component';
+import { RippleModule } from 'primeng/ripple';
+import { TagModule } from 'primeng/tag';
 
 @Component({
     standalone: true,
     imports: [CommonModule, TagModule, AppCodeModule, RouterModule, RippleModule],
     template: `
         <div>
-            <img
-                alt="LTS Support"
-                src="https://primefaces.org/cdn/primeng/images/lts/lts-header.jpg"
-                class="w-full block mb-8"
-                style="border-radius: 20px"
-            />
-
             <div class="flex flex-col xl:flex-row mb-8 gap-8">
                 <div class="card xl:w-3/12 m-0 relative overflow-hidden">
                     <i
@@ -172,8 +165,7 @@ import { RippleModule } from '../../../components/ripple/ripple';
                                 <hr class="my-4 mx-0 border-t border-0 border-surface" />
                                 <div class="flex gap-4 flex-wrap">
                                     <div class="flex gap-4 flex-wrap">
-                                        <span class="text-2xl font-bold line-through text-muted-color">$249</span>
-                                        <span class="text-2xl font-bold text-surface-900 dark:text-surface-0">$149</span>
+                                        <span class="text-2xl font-bold text-surface-900 dark:text-surface-0">$249</span>
                                     </div>
                                 </div>
                                 <hr class="my-4 mx-0 border-t border-0 border-surface" />
@@ -218,10 +210,7 @@ import { RippleModule } from '../../../components/ripple/ripple';
                                 <hr class="my-4 mx-0 border-t border-0 border-surface" />
                                 <div class="flex gap-4 flex-wrap">
                                     <div class="flex gap-4 flex-wrap">
-                                        <span class="text-2xl font-bold text-surface-900 dark:text-surface-0 line-through text-muted-color"
-                                            >$990</span
-                                        >
-                                        <span class="text-2xl font-bold text-surface-900 dark:text-surface-0">$490</span>
+                                        <span class="text-2xl font-bold text-surface-900 dark:text-surface-0">$990</span>
                                     </div>
                                 </div>
                                 <hr class="my-4 mx-0 border-t border-0 border-surface" />

@@ -1,24 +1,22 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import {
-    AfterContentInit,
+    booleanAttribute,
     ChangeDetectionStrategy,
     Component,
-    ContentChildren,
+    ContentChild,
     EventEmitter,
+    inject,
     Input,
     NgModule,
     Output,
-    QueryList,
     TemplateRef,
     ViewEncapsulation,
-    booleanAttribute,
-    inject,
 } from '@angular/core';
-import { BlockableUI, PrimeTemplate, SharedModule } from 'primeng/api';
+import { BlockableUI, SharedModule } from 'primeng/api';
 import { MinusIcon } from 'primeng/icons/minus';
 import { PlusIcon } from 'primeng/icons/plus';
-import { RippleModule } from 'primeng/ripple';
+import { Ripple } from 'primeng/ripple';
 import { Nullable } from 'primeng/ts-helpers';
 import { UniqueComponentId } from 'primeng/utils';
 import { FieldsetAfterToggleEvent, FieldsetBeforeToggleEvent } from './fieldset.interface';
@@ -33,6 +31,8 @@ import { styleClassAttribute } from "primeng/base";
  */
 @Component({
     selector: 'p-fieldset',
+    standalone: true,
+    imports: [CommonModule, ButtonModule, Ripple, MinusIcon, PlusIcon, SharedModule],
     template: `
         <fieldset
             [attr.id]="id"
@@ -132,7 +132,7 @@ import { styleClassAttribute } from "primeng/base";
     encapsulation: ViewEncapsulation.None,
     providers: [FieldsetStyle],
 })
-export class Fieldset extends BaseComponent implements AfterContentInit, BlockableUI {
+export class Fieldset extends BaseComponent implements BlockableUI {
     /**
      * Header text of the fieldset.
      * @group Props
@@ -183,8 +183,6 @@ export class Fieldset extends BaseComponent implements AfterContentInit, Blockab
      */
     @Output() onAfterToggle: EventEmitter<FieldsetAfterToggleEvent> = new EventEmitter<FieldsetAfterToggleEvent>();
 
-    @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
-
     get id() {
         return UniqueComponentId();
     }
@@ -195,37 +193,31 @@ export class Fieldset extends BaseComponent implements AfterContentInit, Blockab
 
     public animating: Nullable<boolean>;
 
-    headerTemplate: Nullable<TemplateRef<any>>;
-
-    contentTemplate: Nullable<TemplateRef<any>>;
-
-    collapseIconTemplate: Nullable<TemplateRef<any>>;
-
-    expandIconTemplate: Nullable<TemplateRef<any>>;
-
     _componentStyle = inject(FieldsetStyle);
 
-    ngAfterContentInit() {
-        this.templates.forEach((item) => {
-            switch (item.getType()) {
-                case 'header':
-                    this.headerTemplate = item.template;
-                    break;
+    /**
+     * Defines the header template.
+     * @group Templates
+     */
+    @ContentChild('header') headerTemplate: TemplateRef<any> | undefined;
 
-                case 'expandicon':
-                    this.expandIconTemplate = item.template;
-                    break;
+    /**
+     * Defines the expandicon template.
+     * @group Templates
+     */
+    @ContentChild('expandicon') expandIconTemplate: TemplateRef<any> | undefined;
 
-                case 'collapseicon':
-                    this.collapseIconTemplate = item.template;
-                    break;
+    /**
+     * Defines the collapseicon template.
+     * @group Templates
+     */
+    @ContentChild('collapseicon') collapseIconTemplate: TemplateRef<any> | undefined;
 
-                case 'content':
-                    this.contentTemplate = item.template;
-                    break;
-            }
-        });
-    }
+    /**
+     * Defines the content template.
+     * @group Templates
+     */
+    @ContentChild('content') contentTemplate: TemplateRef<any> | undefined;
 
     toggle(event: MouseEvent) {
         if (this.animating) {
@@ -269,8 +261,7 @@ export class Fieldset extends BaseComponent implements AfterContentInit, Blockab
 }
 
 @NgModule({
-    imports: [CommonModule, RippleModule, MinusIcon, PlusIcon, ButtonModule],
+    imports: [Fieldset, SharedModule],
     exports: [Fieldset, SharedModule],
-    declarations: [Fieldset],
 })
 export class FieldsetModule {}

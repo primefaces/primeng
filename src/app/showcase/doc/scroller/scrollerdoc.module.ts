@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { ScrollerModule } from 'primeng/scroller';
-import { SkeletonModule } from 'primeng/skeleton';
+import { Scroller } from 'primeng/scroller';
+import { Skeleton } from 'primeng/skeleton';
 import { AppDocModule } from '@layout/doc/app.doc.module';
 import { AppCodeModule } from '@layout/doc/app.code.component';
 import { BasicDoc } from './basicdoc';
@@ -20,7 +20,7 @@ import { ProgrammaticDoc } from './programmaticdoc';
 import { AccessibilityDoc } from './accessibilitydoc';
 
 @NgModule({
-    imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, ScrollerModule, SkeletonModule, ButtonModule],
+    imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, Scroller, Skeleton, ButtonModule],
     declarations: [
         BasicDoc,
         DelayDoc,
@@ -37,4 +37,4 @@ import { AccessibilityDoc } from './accessibilitydoc';
     ],
     exports: [AppDocModule],
 })
-export class ScrollerDocModule {}
+export class VirtualScrollerDocModule {}

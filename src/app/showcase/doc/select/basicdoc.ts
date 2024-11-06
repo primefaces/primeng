@@ -46,7 +46,7 @@ export class BasicDoc implements OnInit {
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SelectModule } from 'primeng/select';
+import { Select } from 'primeng/select';
 
 interface City {
     name: string;
@@ -57,7 +57,7 @@ interface City {
     selector: 'select-basic-demo',
     templateUrl: './select-basic-demo.html',
     standalone: true,
-    imports: [FormsModule, SelectModule]
+    imports: [FormsModule, Select]
 })
 export class SelectBasicDemo implements OnInit {
     cities: City[] | undefined;

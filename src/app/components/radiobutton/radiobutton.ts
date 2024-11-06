@@ -1,28 +1,29 @@
 import { CommonModule } from '@angular/common';
 import {
+    booleanAttribute,
     ChangeDetectionStrategy,
     Component,
     ElementRef,
     EventEmitter,
+    forwardRef,
+    inject,
     Injectable,
     Injector,
     Input,
     NgModule,
+    numberAttribute,
     OnDestroy,
     OnInit,
     Output,
     ViewChild,
-    booleanAttribute,
-    forwardRef,
-    inject,
-    numberAttribute,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
 import { Nullable } from 'primeng/ts-helpers';
-import { AutoFocusModule } from 'primeng/autofocus';
+import { AutoFocus } from 'primeng/autofocus';
 import { BaseComponent } from 'primeng/basecomponent';
 import { RadioButtonStyle } from './style/radiobuttonstyle';
 import { RadioButtonClickEvent } from './radiobutton.interface';
+import { SharedModule } from 'primeng/api';
 import { styleClassAttribute } from "primeng/base";
 
 export const RADIO_VALUE_ACCESSOR: any = {
@@ -68,7 +69,9 @@ export class RadioControlRegistry {
  * @group Components
  */
 @Component({
-    selector: 'p-radioButton, p-radiobutton',
+    selector: 'p-radioButton, p-radiobutton, p-radio-button',
+    standalone: true,
+    imports: [CommonModule, AutoFocus, SharedModule],
     template: `
         <div
             [ngStyle]="style"
@@ -77,6 +80,8 @@ export class RadioControlRegistry {
                 'p-radiobutton-checked': checked,
                 'p-disabled': disabled,
                 'p-variant-filled': variant === 'filled' || config.inputStyle() === 'filled',
+                'p-radiobutton-sm p-inputfield-sm': size === 'small',
+                'p-radiobutton-lg p-inputfield-lg': size === 'large',
             }"
             [class]="styleClass"
             [attr.data-pc-name]="'radiobutton'"
@@ -98,8 +103,7 @@ export class RadioControlRegistry {
                 (focus)="onInputFocus($event)"
                 (blur)="onInputBlur($event)"
                 (change)="onChange($event)"
-                pAutoFocus
-                [autofocus]="autofocus"
+                [pAutoFocus]="autofocus"
             />
             <div class="p-radiobutton-box" [attr.data-pc-section]="'input'">
                 <div class="p-radiobutton-icon" [attr.data-pc-section]="'icon'"></div>
@@ -135,6 +139,11 @@ export class RadioButton extends BaseComponent implements ControlValueAccessor, 
      * @group Props
      */
     @Input() variant: 'filled' | 'outlined' = 'outlined';
+    /**
+     * Defines the size of the component.
+     * @group Props
+     */
+    @Input() size: 'large' | 'small';
     /**
      * Index of the element in tabbing order.
      * @group Props
@@ -297,14 +306,13 @@ export class RadioButton extends BaseComponent implements ControlValueAccessor, 
     private throwNameError() {
         throw new Error(`
           If you define both a name and a formControlName attribute on your radio button, their values
-          must match. Ex: <p-radiobutton formControlName="food" name="food"></p-radiobutton>
+          must match. Ex: <p-radioButton formControlName="food" name="food"></p-radioButton>
         `);
     }
 }
 
 @NgModule({
-    imports: [CommonModule, AutoFocusModule],
-    exports: [RadioButton],
-    declarations: [RadioButton],
+    imports: [RadioButton, SharedModule],
+    exports: [RadioButton, SharedModule],
 })
 export class RadioButtonModule {}

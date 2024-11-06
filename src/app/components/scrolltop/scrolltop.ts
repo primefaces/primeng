@@ -1,25 +1,25 @@
-import { AnimationEvent, animate, state, style, transition, trigger } from '@angular/animations';
+
+import { animate, AnimationEvent, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
     ChangeDetectionStrategy,
     Component,
-    ContentChildren,
+    ContentChild,
+    inject,
     Input,
     NgModule,
+    numberAttribute,
     OnDestroy,
     OnInit,
     QueryList,
     TemplateRef,
     ViewEncapsulation,
-    inject,
-    numberAttribute,
 } from '@angular/core';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { ChevronUpIcon } from 'primeng/icons/chevronup';
 import { ZIndexUtils } from 'primeng/utils';
-import { ButtonModule } from 'primeng/button';
-import { ButtonProps } from 'primeng/button';
+import { Button, ButtonProps } from 'primeng/button';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ScrollTopStyle } from './style/scrolltopstyle';
 import { styleClassAttribute } from "primeng/base";
@@ -29,7 +29,9 @@ import { styleClassAttribute } from "primeng/base";
  * @group Components
  */
 @Component({
-    selector: 'p-scrollTop, p-scrolltop',
+    selector: 'p-scrollTop, p-scrolltop, p-scroll-top',
+    standalone: true,
+    imports: [CommonModule, ChevronUpIcon, Button, SharedModule],
     template: `
         <p-button
             *ngIf="visible"
@@ -129,10 +131,11 @@ export class ScrollTop extends BaseComponent implements OnInit, OnDestroy {
      * @group Props
      */
     @Input() buttonProps: ButtonProps = { rounded: true };
-
-    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
-
-    iconTemplate: TemplateRef<any> | undefined;
+    /**
+     * Template of the icon.
+     * @group Templates
+     */
+    @ContentChild('icon') iconTemplate: TemplateRef<any> | undefined;
 
     documentScrollListener: VoidFunction | null | undefined;
 
@@ -242,8 +245,7 @@ export class ScrollTop extends BaseComponent implements OnInit, OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule, ChevronUpIcon, SharedModule, ButtonModule],
+    imports: [ScrollTop, SharedModule],
     exports: [ScrollTop, SharedModule],
-    declarations: [ScrollTop],
 })
 export class ScrollTopModule {}

@@ -64,7 +64,7 @@ export class MultipleDoc implements OnInit {
         typescript: `import { Component, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { NodeService } from '@service/nodeservice';
-import { TreeModule } from 'primeng/tree';
+import { Tree } from 'primeng/tree';
 import { ToggleSwitchModule } from 'primeng/toggleswitch';
 import { FormsModule } from '@angular/forms';
 
@@ -72,7 +72,7 @@ import { FormsModule } from '@angular/forms';
     selector: 'tree-multiple-demo',
     templateUrl: './tree-multiple-demo.html',
     standalone: true,
-    imports: [TreeModule, ToggleSwitchModule, FormsModule],
+    imports: [Tree, InputSwitchModule, ToggleSwitchModule],
     providers: [NodeService]
 })
 export class TreeMultipleDemo implements OnInit {

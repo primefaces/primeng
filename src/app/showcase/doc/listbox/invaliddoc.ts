@@ -13,15 +13,7 @@ interface City {
             <p>Invalid state style is added using the <i>ng-invalid</i> and <i>ng-dirty</i> class to indicate a failed validation.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-listbox
-                [options]="cities"
-                [(ngModel)]="selectedCity"
-                optionLabel="name"
-                class="ng-invalid ng-dirty"
-                [style]="{ width: '15rem' }"
-                [listStyle]="{ 'max-height': '220px' }"
-                class="w-full md:w-56"
-            />
+            <p-listbox [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" class="ng-invalid ng-dirty w-full md:w-56" />
         </div>
         <app-code [code]="code" selector="listbox-invalid-demo"></app-code>
     `,
@@ -42,15 +34,15 @@ export class InvalidDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-listbox [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" class="ng-invalid ng-dirty" [style]="{ width: '15rem' }" [listStyle]="{'max-height': '220px'}" class="w-full md:w-56" />`,
+        basic: `<p-listbox [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" class="ng-invalid ng-dirty w-full md:w-56" />`,
 
         html: `<div class="card flex justify-center">
-    <p-listbox [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" class="ng-invalid ng-dirty" [style]="{ width: '15rem' }" [listStyle]="{'max-height': '220px'}" class="w-full md:w-56" />
+    <p-listbox [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" class="ng-invalid ng-dirty w-full md:w-56" />
 </div>`,
 
         typescript: `import { Component, ngOnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ListboxModule } from 'primeng/listbox';
+import { Listbox } from 'primeng/listbox';
 
 interface City {
     name: string,
@@ -61,7 +53,7 @@ interface City {
     selector: 'listbox-invalid-demo',
     templateUrl: './listbox-invalid-demo.html',
     standalone: true,
-    imports: [FormsModule, ListboxModule]
+    imports: [FormsModule, Listbox]
 })
 export class ListboxInvalidDemo implements OnInit {
     cities!: City[];

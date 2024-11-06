@@ -20,7 +20,7 @@ import {
 } from '@angular/core';
 import { SharedModule, TranslationKeys } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
-import { FocusTrapModule } from 'primeng/focustrap';
+import { FocusTrap } from 'primeng/focustrap';
 import { TimesIcon } from 'primeng/icons/times';
 import { WindowMaximizeIcon } from 'primeng/icons/windowmaximize';
 import { WindowMinimizeIcon } from 'primeng/icons/windowminimize';
@@ -31,7 +31,7 @@ import { DynamicDialogRef } from './dynamicdialog-ref';
 import { DynamicDialogContent } from './dynamicdialogcontent';
 import { BaseComponent } from 'primeng/basecomponent';
 import { DynamicDialogStyle } from './style/dynamicdialogstyle';
-import { ButtonModule } from 'primeng/button';
+import { Button } from 'primeng/button';
 
 const showAnimation = animation([
     style({ transform: '{{transform}}', opacity: 0 }),
@@ -41,7 +41,9 @@ const showAnimation = animation([
 const hideAnimation = animation([animate('{{transition}}', style({ transform: '{{transform}}', opacity: 0 }))]);
 
 @Component({
-    selector: 'p-dynamicDialog',
+    selector: 'p-dynamicDialog, p-dynamicdialog, p-dynamic-dialog',
+    standalone: true,
+    imports: [CommonModule, SharedModule, DynamicDialogContent, WindowMaximizeIcon, WindowMinimizeIcon, TimesIcon, Button, FocusTrap],
     template: `
         <div
             #mask
@@ -771,8 +773,7 @@ export class DynamicDialogComponent extends BaseComponent implements AfterViewIn
 }
 
 @NgModule({
-    imports: [CommonModule, WindowMaximizeIcon, WindowMinimizeIcon, TimesIcon, ButtonModule, SharedModule, FocusTrapModule],
-    declarations: [DynamicDialogComponent, DynamicDialogContent],
-    exports: [SharedModule],
+    imports: [DynamicDialogComponent, SharedModule],
+    exports: [DynamicDialogComponent, SharedModule],
 })
-export class DynamicDialogModule {}
+export class DynamicDialog {}

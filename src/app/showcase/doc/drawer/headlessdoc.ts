@@ -10,7 +10,7 @@ import { Drawer } from 'primeng/drawer';
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-drawer #drawerRef [(visible)]="visible">
-                <ng-template pTemplate="headless">
+                <ng-template #headless>
                     <div class="flex flex-col h-full">
                         <div class="flex items-center justify-between px-6 pt-4 shrink-0">
                             <span class="inline-flex items-center gap-2">
@@ -324,7 +324,7 @@ export class HeadlessDoc {
 
     code: Code = {
         basic: `<p-drawer #drawerRef [(visible)]="visible">
-    <ng-template pTemplate="headless">
+    <ng-template #headless>
         <div class="flex flex-col h-full">
             <div class="flex items-center justify-between px-6 pt-4 shrink-0">
                 <span class="inline-flex items-center gap-2">
@@ -338,72 +338,6 @@ export class HeadlessDoc {
                             <path
                                 d="..."
                                 fill="var(--p-primary-color)"
-                            />
-                            <mask
-                                id="mask0_1_52"
-                                style="mask-type:luminance"
-                                maskUnits="userSpaceOnUse"
-                                x="0"
-                                y="0"
-                                width="31"
-                                height="33"
-                            >
-                                <path
-                                    d="..."
-                                    fill="var(--high-contrast-text-color)"
-                                />
-                            </mask>
-                            <g mask="url(#mask0_1_52)">
-                                <path
-                                    fill-rule="evenodd"
-                                    clip-rule="evenodd"
-                                    d="..."
-                                    fill="var(--p-primary-color)"
-                                />
-                            </g>
-                            <path
-                                d="..."
-                                fill="var(--high-contrast-text-color)"
-                            />
-                            <path
-                                d="..."
-                                fill="var(--high-contrast-text-color)"
-                            />
-                            <path
-                                fill-rule="evenodd"
-                                clip-rule="evenodd"
-                                d="..."
-                                fill="var(--high-contrast-text-color)"
-                            />
-                            <path
-                                d="..."
-                                fill="var(--high-contrast-text-color)"
-                            />
-                            <path
-                                d="..."
-                                fill="var(--high-contrast-text-color)"
-                            />
-                            <path
-                                fill-rule="evenodd"
-                                clip-rule="evenodd"
-                                d="..."
-                                fill="var(--high-contrast-text-color)"
-                            />
-                            <path
-                                d="..."
-                                fill="var(--high-contrast-text-color)"
-                            />
-                            <path
-                                d="..."
-                                fill="var(--high-contrast-text-color)"
-                            />
-                            <path
-                                d="..."
-                                fill="var(--high-contrast-text-color)"
-                            />
-                            <path
-                                d="..."
-                                fill="var(--high-contrast-text-color)"
                             />
                         </svg>
                     <span class="font-semibold text-2xl text-primary">Your Logo</span>
@@ -571,7 +505,7 @@ export class HeadlessDoc {
 
         html: `<div class="card flex justify-center">
 <p-drawer #drawerRef [(visible)]="visible">
-    <ng-template pTemplate="headless">
+    <ng-template #headless>
         <div class="flex flex-col h-full">
             <div class="flex items-center justify-between px-6 pt-4 shrink-0">
                 <span class="inline-flex items-center gap-2">
@@ -800,16 +734,16 @@ export class HeadlessDoc {
         typescript: `import { Component, ViewChild } from '@angular/core';
 import { DrawerModule } from 'primeng/drawer';
 import { ButtonModule } from 'primeng/button';
-import { RippleModule } from 'primeng/ripple';
+import { Ripple } from 'primeng/ripple';
 import { AvatarModule } from 'primeng/avatar';
-import { StyleClassModule } from 'primeng/styleclass';
+import { StyleClass } from 'primeng/styleclass';
 import { Drawer } from 'primeng/drawer';
 
 @Component({
     selector: 'drawer-headless-demo',
     templateUrl: './drawer-headless-demo.html',
     standalone: true,
-    imports: [DrawerModule, ButtonModule, RippleModule, AvatarModule, StyleClassModule]
+    imports: [DrawerModule, ButtonModule, Ripple, AvatarModule, StyleClass]
 })
 export class DrawerHeadlessDemo {
     @ViewChild('drawerRef') drawerRef!: Drawer;

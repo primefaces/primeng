@@ -1,39 +1,40 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
     AfterViewInit,
+    booleanAttribute,
     ChangeDetectionStrategy,
     Component,
-    ContentChildren,
+    ContentChild,
     ElementRef,
+    inject,
     Input,
     NgModule,
+    numberAttribute,
     OnDestroy,
-    QueryList,
     TemplateRef,
     ViewChild,
     ViewEncapsulation,
-    booleanAttribute,
-    inject,
-    numberAttribute,
 } from '@angular/core';
-import { PrimeTemplate } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { ZIndexUtils } from 'primeng/utils';
 import { BaseComponent } from 'primeng/basecomponent';
 import { BlockUiStyle } from './style/blockuistyle';
+import { SharedModule } from 'primeng/api';
 import { styleClassAttribute } from "primeng/base";
 /**
  * BlockUI can either block other components or the whole page.
  * @group Components
  */
 @Component({
-    selector: 'p-blockUI, p-blockui',
+    selector: 'p-blockUI, p-blockui, p-block-ui',
+    standalone: true,
+    imports: [CommonModule, SharedModule],
     template: `
         <div
             #mask
             [class]="styleClass"
             [attr.aria-busy]="blocked"
-            [ngClass]="{ 'p-blockui-document': !target, 'p-blockui p-blockui-mask p-overlay-mask': true }"
+            [ngClass]="{ 'p-blockui-mask-document': !target, 'p-blockui p-blockui-mask p-overlay-mask': true }"
             [ngStyle]="{ display: 'none' }"
             [attr.data-pc-name]="'blockui'"
             [attr.data-pc-section]="'root'"
@@ -44,7 +45,6 @@ import { styleClassAttribute } from "primeng/base";
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-
     providers: [BlockUiStyle],
 })
 export class BlockUI extends BaseComponent implements AfterViewInit, OnDestroy {
@@ -83,16 +83,17 @@ export class BlockUI extends BaseComponent implements AfterViewInit, OnDestroy {
             this._blocked = val;
         }
     }
-
-    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
+    /**
+     * template of the content
+     * @group Templates
+     */
+    @ContentChild('content') contentTemplate: TemplateRef<any> | undefined;
 
     @ViewChild('mask') mask: ElementRef | undefined;
 
     _blocked: boolean = false;
 
     animationEndListener: VoidFunction | null | undefined;
-
-    contentTemplate: TemplateRef<any> | undefined;
 
     _componentStyle = inject(BlockUiStyle);
 
@@ -107,20 +108,6 @@ export class BlockUI extends BaseComponent implements AfterViewInit, OnDestroy {
         if (this.target && !this.target.getBlockableElement) {
             throw 'Target of BlockUI must implement BlockableUI interface';
         }
-    }
-
-    ngAfterContentInit() {
-        (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
-            switch (item.getType()) {
-                case 'content':
-                    this.contentTemplate = item.template;
-                    break;
-
-                default:
-                    this.contentTemplate = item.template;
-                    break;
-            }
-        });
     }
 
     block() {
@@ -144,7 +131,9 @@ export class BlockUI extends BaseComponent implements AfterViewInit, OnDestroy {
 
     unblock() {
         if (isPlatformBrowser(this.platformId) && this.mask && !this.animationEndListener) {
-            this.animationEndListener = this.renderer.listen(this.mask.nativeElement, 'animationend', this.destroyModal.bind(this));
+            // this.animationEndListener = this.renderer.listen(this.mask.nativeElement, 'animationend', this.destroyModal.bind(this));
+            // TODO Add animation
+            this.destroyModal();
             DomHandler.addClass(this.mask.nativeElement, 'p-overlay-mask-leave');
         }
     }
@@ -176,8 +165,7 @@ export class BlockUI extends BaseComponent implements AfterViewInit, OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule],
-    exports: [BlockUI],
-    declarations: [BlockUI],
+    imports: [BlockUI],
+    exports: [BlockUI, SharedModule],
 })
 export class BlockUIModule {}

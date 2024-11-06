@@ -11,10 +11,12 @@ import { styleClassAttribute } from "primeng/base";
 @Component({
     selector: 'p-inputgroup-addon, p-inputGroupAddon',
     template: ` <ng-content></ng-content> `,
+    standalone: true,
+    imports: [CommonModule],
     host: {
         '[class]': 'styleClass',
         '[class.p-inputgroupaddon]': 'true',
-        '[attr.data-pc-name]': 'inputgroupaddon',
+        '[attr.data-pc-name]': '"inputgroupaddon"',
     },
     providers: [InputGroupAddonStyle],
 })
@@ -38,8 +40,7 @@ export class InputGroupAddon extends BaseComponent {
 }
 
 @NgModule({
-    imports: [CommonModule],
+    imports: [InputGroupAddon, SharedModule],
     exports: [InputGroupAddon, SharedModule],
-    declarations: [InputGroupAddon],
 })
 export class InputGroupAddonModule {}

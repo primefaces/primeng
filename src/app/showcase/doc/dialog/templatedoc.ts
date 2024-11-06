@@ -9,8 +9,8 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-button (click)="showDialog()" label="Show" />
-            <p-dialog header="Header" [(visible)]="visible" [modal]="true" [style]="{ width: '25rem' }">
-                <ng-template pTemplate="header">
+            <p-dialog [(visible)]="visible" [modal]="true" [style]="{ width: '25rem' }">
+                <ng-template #header>
                     <div class="inline-flex items-center justify-center gap-2">
                         <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
                         <span class="font-bold whitespace-nowrap">Amy Elsner</span>
@@ -25,7 +25,7 @@ import { Code } from '@domain/code';
                     <label for="email" class="font-semibold w-24">Email</label>
                     <input pInputText id="email" class="flex-auto" autocomplete="off" />
                 </div>
-                <ng-template pTemplate="footer">
+                <ng-template #footer>
                     <p-button label="Cancel" [text]="true" severity="secondary" (click)="visible = false" />
                     <p-button label="Save" [outlined]="true" severity="secondary" (click)="visible = false" />
                 </ng-template>
@@ -44,11 +44,10 @@ export class TemplateDoc {
     code: Code = {
         basic: `<p-button (click)="showDialog()" label="Show" />
 <p-dialog 
-    header="Header" 
     [(visible)]="visible" 
     [modal]="true" 
     [style]="{ width: '25rem' }">
-        <ng-template pTemplate="header">
+        <ng-template #header>
             <div class="inline-flex items-center justify-center gap-2">
                 <p-avatar 
                     image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" 
@@ -69,7 +68,7 @@ export class TemplateDoc {
             <label for="email" class="font-semibold w-24">Email</label>
             <input pInputText id="email" class="flex-auto" autocomplete="off" />
         </div>
-        <ng-template pTemplate="footer">
+        <ng-template #footer>
             <p-button 
                 label="Cancel" 
                 [text]="true" 
@@ -86,12 +85,11 @@ export class TemplateDoc {
 
         html: `<div class="card flex justify-center">
     <p-button (click)="showDialog()" label="Show" />
-    <p-dialog 
-        header="Header" 
+    <p-dialog
         [(visible)]="visible" 
         [modal]="true" 
         [style]="{ width: '25rem' }">
-            <ng-template pTemplate="header">
+            <ng-template #header>
                 <div class="inline-flex items-center justify-center gap-2">
                     <p-avatar 
                         image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"
@@ -112,7 +110,7 @@ export class TemplateDoc {
                 <label for="email" class="font-semibold w-24">Email</label>
                 <input pInputText id="email" class="flex-auto" autocomplete="off" />
             </div>
-            <ng-template pTemplate="footer">
+            <ng-template #footer>
                 <p-button 
                     label="Cancel" 
                     [text]="true" 
@@ -129,7 +127,7 @@ export class TemplateDoc {
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { DialogModule } from 'primeng/dialog';
+import { Dialog } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { AvatarModule } from 'primeng/avatar';
@@ -138,7 +136,7 @@ import { AvatarModule } from 'primeng/avatar';
     selector: 'dialog-template-demo',
     templateUrl: './dialog-template-demo.html',
     standalone: true,
-    imports: [DialogModule, ButtonModule, InputTextModule, AvatarModule]
+    imports: [Dialog, ButtonModule, InputTextModule, AvatarModule]
 })
 export class DialogTemplateDemo {
     visible: boolean = false;

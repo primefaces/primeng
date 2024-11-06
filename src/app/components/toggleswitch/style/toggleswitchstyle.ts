@@ -13,7 +13,7 @@ const theme = ({ dt }) => `
     appearance: none;
     position: absolute;
     top: 0;
-    left: 0;
+    inset-inline-start: 0;
     width: 100%;
     height: 100%;
     padding: 0;
@@ -33,27 +33,28 @@ const theme = ({ dt }) => `
     border-style: solid;
     border-color: ${dt('toggleswitch.border.color')};
     background: ${dt('toggleswitch.background')};
-    transition: background ${dt('toggleswitch.transition.duration')}, color ${dt(
+    transition: background ${dt('toggleswitch.transition.duration')}, color ${dt('toggleswitch.transition.duration')}, border-color ${dt('toggleswitch.transition.duration')}, outline-color ${dt('toggleswitch.transition.duration')}, box-shadow ${dt(
         'toggleswitch.transition.duration',
-    )}, border-color ${dt('toggleswitch.transition.duration')}, outline-color ${dt(
-        'toggleswitch.transition.duration',
-    )}, box-shadow ${dt('toggleswitch.transition.duration')};
+    )};
     border-radius: ${dt('toggleswitch.border.radius')};
     outline-color: transparent;
     box-shadow: ${dt('toggleswitch.shadow')};
 }
 
-.p-toggleswitch-slider:before {
+.p-toggleswitch-handle {
     position: absolute;
-    content: "";
     top: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background: ${dt('toggleswitch.handle.background')};
+    color: ${dt('toggleswitch.handle.color')};
     width: ${dt('toggleswitch.handle.size')};
     height: ${dt('toggleswitch.handle.size')};
-    left: ${dt('toggleswitch.gap')};
-    margin-top: calc(-1 * calc(${dt('toggleswitch.handle.size')} / 2));
+    inset-inline-start: ${dt('toggleswitch.gap')};
+    margin-block-start: calc(-1 * calc(${dt('toggleswitch.handle.size')} / 2));
     border-radius: ${dt('toggleswitch.handle.border.radius')};
-    transition: background ${dt('toggleswitch.transition.duration')}, left ${dt('toggleswitch.slide.duration')};
+    transition: background ${dt('toggleswitch.transition.duration')}, color ${dt('toggleswitch.transition.duration')}, inset-inline-start ${dt('toggleswitch.slide.duration')}, box-shadow ${dt('toggleswitch.slide.duration')};
 }
 
 .p-toggleswitch.p-toggleswitch-checked .p-toggleswitch-slider {
@@ -61,9 +62,10 @@ const theme = ({ dt }) => `
     border-color: ${dt('toggleswitch.checked.border.color')};
 }
 
-.p-toggleswitch.p-toggleswitch-checked .p-toggleswitch-slider:before {
+.p-toggleswitch.p-toggleswitch-checked .p-toggleswitch-handle {
     background: ${dt('toggleswitch.handle.checked.background')};
-    left: calc(${dt('toggleswitch.width')} - calc(${dt('toggleswitch.handle.size')} + ${dt('toggleswitch.gap')}));
+    color: ${dt('toggleswitch.handle.checked.color')};
+    inset-inline-start: calc(${dt('toggleswitch.width')} - calc(${dt('toggleswitch.handle.size')} + ${dt('toggleswitch.gap')}));
 }
 
 .p-toggleswitch:not(.p-disabled):has(.p-toggleswitch-input:hover) .p-toggleswitch-slider {
@@ -71,8 +73,9 @@ const theme = ({ dt }) => `
     border-color: ${dt('toggleswitch.hover.border.color')};
 }
 
-.p-toggleswitch:not(.p-disabled):has(.p-toggleswitch-input:hover) .p-toggleswitch-slider:before {
+.p-toggleswitch:not(.p-disabled):has(.p-toggleswitch-input:hover) .p-toggleswitch-handle {
     background: ${dt('toggleswitch.handle.hover.background')};
+    color: ${dt('toggleswitch.handle.hover.color')};
 }
 
 .p-toggleswitch:not(.p-disabled):has(.p-toggleswitch-input:hover).p-toggleswitch-checked .p-toggleswitch-slider {
@@ -80,14 +83,19 @@ const theme = ({ dt }) => `
     border-color: ${dt('toggleswitch.checked.hover.border.color')};
 }
 
-.p-toggleswitch:not(.p-disabled):has(.p-toggleswitch-input:hover).p-toggleswitch-checked .p-toggleswitch-slider:before {
+.p-toggleswitch:not(.p-disabled):has(.p-toggleswitch-input:hover).p-toggleswitch-checked .p-toggleswitch-handle {
     background: ${dt('toggleswitch.handle.checked.hover.background')};
+    color: ${dt('toggleswitch.handle.checked.hover.color')};
 }
 
 .p-toggleswitch:not(.p-disabled):has(.p-toggleswitch-input:focus-visible) .p-toggleswitch-slider {
     box-shadow: ${dt('toggleswitch.focus.ring.shadow')};
     outline: ${dt('toggleswitch.focus.ring.width')} ${dt('toggleswitch.focus.ring.style')} ${dt('toggleswitch.focus.ring.color')};
     outline-offset: ${dt('toggleswitch.focus.ring.offset')};
+}
+
+.p-toggleswitch.p-invalid > .p-toggleswitch-slider {
+    border-color: ${dt('toggleswitch.invalid.border.color')};
 }
 
 .p-toggleswitch.p-disabled {
@@ -98,17 +106,15 @@ const theme = ({ dt }) => `
     background: ${dt('toggleswitch.disabled.background')};
 }
 
-.p-toggleswitch.p-disabled .p-toggleswitch-slider:before {
+.p-toggleswitch.p-disabled .p-toggleswitch-handle {
     background: ${dt('toggleswitch.handle.disabled.background')};
 }
-    
+
 /* For PrimeNG */
 
 p-toggleswitch.ng-invalid.ng-dirty > .p-toggleswitch > .p-toggleswitch-slider {
     border-color: ${dt('toggleswitch.invalid.border.color')};
-}
-
-`;
+}`;
 
 const inlineStyles = {
     root: { position: 'relative' },
@@ -123,6 +129,7 @@ const classes = {
     }),
     input: 'p-toggleswitch-input',
     slider: 'p-toggleswitch-slider',
+    handle: 'p-toggleswitch-handle',
 };
 
 @Injectable()

@@ -27,34 +27,33 @@
 */
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
+    booleanAttribute,
     ChangeDetectionStrategy,
     Component,
-    ContentChildren,
+    ContentChild,
     ElementRef,
     EventEmitter,
+    forwardRef,
+    inject,
     Input,
     NgModule,
+    numberAttribute,
     OnInit,
     Output,
-    QueryList,
     TemplateRef,
     ViewChild,
     ViewEncapsulation,
-    booleanAttribute,
-    forwardRef,
-    inject,
-    numberAttribute,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { PrimeTemplate, SharedModule } from 'primeng/api';
-import { AutoFocusModule } from 'primeng/autofocus';
+import { AutoFocus } from 'primeng/autofocus';
 import { DomHandler } from 'primeng/dom';
 import { TimesIcon } from 'primeng/icons/times';
-import { InputTextModule } from 'primeng/inputtext';
+import { InputText } from 'primeng/inputtext';
 import { Nullable } from 'primeng/ts-helpers';
 import { Caret } from './inputmask.interface';
 import { BaseComponent } from 'primeng/basecomponent';
 import { InputMaskStyle } from './style/inputmaskstyle';
+import { SharedModule } from 'primeng/api';
 import { styleClassAttribute } from "primeng/base";
 
 export const INPUTMASK_VALUE_ACCESSOR: any = {
@@ -67,7 +66,9 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
  * @group Components
  */
 @Component({
-    selector: 'p-inputmask, p-inputMask',
+    selector: 'p-inputmask, p-inputMask, p-input-mask',
+    standalone: true,
+    imports: [CommonModule, InputText, AutoFocus, TimesIcon, SharedModule],
     template: `
         <input
             #input
@@ -80,7 +81,7 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
             [ngStyle]="style"
             [attr.placeholder]="placeholder"
             [attr.title]="title"
-            [attr.size]="size"
+            [size]="size"
             [attr.autocomplete]="autocomplete"
             [attr.maxlength]="maxlength"
             [attr.tabindex]="tabindex"
@@ -94,9 +95,8 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
             (blur)="onInputBlur($event)"
             (keydown)="onInputKeydown($event)"
             (keypress)="onKeyPress($event)"
-            pAutoFocus
             [variant]="variant"
-            [autofocus]="autofocus"
+            [pAutoFocus]="autofocus"
             (input)="onInputChange($event)"
             (paste)="handleInputChange($event)"
             [attr.data-pc-name]="'inputmask'"
@@ -160,10 +160,10 @@ export class InputMask extends BaseComponent implements OnInit, ControlValueAcce
      */
     @Input() placeholder: string | undefined;
     /**
-     * Size of the input field.
+     * Defines the size of the component.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) size: number | undefined;
+    @Input() size: 'large' | 'small';
     /**
      * Maximum number of character allows in the input field.
      * @group Props
@@ -301,12 +301,13 @@ export class InputMask extends BaseComponent implements OnInit, ControlValueAcce
      * @group Emits
      */
     @Output() onClear: EventEmitter<any> = new EventEmitter<any>();
+    /**
+     * Template of the clear icon.
+     * @group Templates
+     */
+    @ContentChild('clearicon') clearIconTemplate: Nullable<TemplateRef<any>>;
 
     @ViewChild('input', { static: true }) inputViewChild: Nullable<ElementRef>;
-
-    @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
-
-    clearIconTemplate: Nullable<TemplateRef<any>>;
 
     value: Nullable<string>;
 
@@ -360,16 +361,6 @@ export class InputMask extends BaseComponent implements OnInit, ControlValueAcce
         }
 
         this.initMask();
-    }
-
-    ngAfterContentInit() {
-        this.templates.forEach((item) => {
-            switch (item.getType()) {
-                case 'clearicon':
-                    this.clearIconTemplate = item.template;
-                    break;
-            }
-        });
     }
 
     initMask() {
@@ -861,8 +852,7 @@ export class InputMask extends BaseComponent implements OnInit, ControlValueAcce
 }
 
 @NgModule({
-    imports: [CommonModule, InputTextModule, AutoFocusModule, TimesIcon],
+    imports: [InputMask, SharedModule],
     exports: [InputMask, SharedModule],
-    declarations: [InputMask],
 })
 export class InputMaskModule {}

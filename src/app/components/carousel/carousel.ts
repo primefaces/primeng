@@ -1,40 +1,34 @@
-import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
     AfterContentInit,
+    booleanAttribute,
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     ContentChild,
-    ContentChildren,
     ElementRef,
     EventEmitter,
-    Inject,
+    inject,
     Input,
     NgModule,
     NgZone,
+    numberAttribute,
     Output,
-    PLATFORM_ID,
     QueryList,
-    Renderer2,
     SimpleChanges,
     TemplateRef,
     ViewChild,
     ViewEncapsulation,
-    booleanAttribute,
-    inject,
-    numberAttribute,
 } from '@angular/core';
-import { Footer, Header, PrimeTemplate, SharedModule } from 'primeng/api';
+import { Footer, Header, SharedModule } from 'primeng/api';
 import { ChevronDownIcon } from 'primeng/icons/chevrondown';
 import { ChevronLeftIcon } from 'primeng/icons/chevronleft';
 import { ChevronRightIcon } from 'primeng/icons/chevronright';
 import { ChevronUpIcon } from 'primeng/icons/chevronup';
-import { RippleModule } from 'primeng/ripple';
+import { Ripple } from 'primeng/ripple';
 import { UniqueComponentId } from 'primeng/utils';
 import { CarouselPageEvent, CarouselResponsiveOptions } from './carousel.interface';
 import { DomHandler } from 'primeng/dom';
-import { ButtonModule } from 'primeng/button';
-import { ButtonProps } from 'primeng/button';
+import { Button, ButtonProps } from 'primeng/button';
 import { CarouselStyle } from './style/carouselstyle';
 import { BaseComponent } from 'primeng/basecomponent';
 import { styleClassAttribute } from "primeng/base";
@@ -45,6 +39,8 @@ import { styleClassAttribute } from "primeng/base";
  */
 @Component({
     selector: 'p-carousel',
+    standalone: true,
+    imports: [CommonModule, Ripple, ChevronRightIcon, ChevronLeftIcon, ChevronDownIcon, ChevronUpIcon, Button, SharedModule],
     template: `
         <div
             [attr.id]="id"
@@ -60,23 +56,23 @@ import { styleClassAttribute } from "primeng/base";
             <div [class]="contentClass" [ngClass]="'p-carousel-content-container'">
                 <div class="p-carousel-content" [attr.aria-live]="allowAutoplay ? 'polite' : 'off'">
                     <p-button
-                        type="button"
                         *ngIf="showNavigators"
                         [ngClass]="{ 'p-carousel-prev-button': true, 'p-disabled': isBackwardNavDisabled() }"
                         [disabled]="isBackwardNavDisabled()"
                         [attr.aria-label]="ariaPrevButtonLabel()"
                         (click)="navBackward($event)"
                         [text]="true"
-                        pRipple
                         [buttonProps]="prevButtonProps"
                     >
-                        <ng-container *ngIf="!previousIconTemplate && !prevButtonProps?.icon">
-                            <ChevronLeftIcon *ngIf="!isVertical()" [styleClass]="'carousel-prev-icon'" />
-                            <ChevronUpIcon *ngIf="isVertical()" [styleClass]="'carousel-prev-icon'" />
-                        </ng-container>
-                        <span *ngIf="previousIconTemplate && !prevButtonProps?.icon" class="p-carousel-prev-icon">
-                            <ng-template *ngTemplateOutlet="previousIconTemplate"></ng-template>
-                        </span>
+                        <ng-template #icon>
+                            <ng-container *ngIf="!previousIconTemplate && !prevButtonProps?.icon">
+                                <ChevronLeftIcon *ngIf="!isVertical()" [styleClass]="'carousel-prev-icon'" />
+                                <ChevronUpIcon *ngIf="isVertical()" [styleClass]="'carousel-prev-icon'" />
+                            </ng-container>
+                            <span *ngIf="previousIconTemplate && !prevButtonProps?.icon" class="p-carousel-prev-icon">
+                                <ng-template *ngTemplateOutlet="previousIconTemplate"></ng-template>
+                            </span>
+                        </ng-template>
                     </p-button>
                     <div
                         class="p-carousel-viewport"
@@ -192,6 +188,7 @@ export class Carousel extends BaseComponent implements AfterContentInit {
     @Input() get page(): number {
         return this._page;
     }
+
     set page(val: number) {
         if (this.isCreated && val !== this._page) {
             if (this.autoplayInterval) {
@@ -207,6 +204,7 @@ export class Carousel extends BaseComponent implements AfterContentInit {
 
         this._page = val;
     }
+
     /**
      * Number of items per page.
      * @defaultValue 1
@@ -215,9 +213,11 @@ export class Carousel extends BaseComponent implements AfterContentInit {
     @Input() get numVisible(): number {
         return this._numVisible;
     }
+
     set numVisible(val: number) {
         this._numVisible = val;
     }
+
     /**
      * Number of items to scroll.
      * @defaultValue 1
@@ -226,9 +226,11 @@ export class Carousel extends BaseComponent implements AfterContentInit {
     @Input() get numScroll(): number {
         return this._numVisible;
     }
+
     set numScroll(val: number) {
         this._numScroll = val;
     }
+
     /**
      * An array of options for responsive design.
      * @see {CarouselResponsiveOptions}
@@ -270,6 +272,7 @@ export class Carousel extends BaseComponent implements AfterContentInit {
      * @group Props
      */
     @Input() indicatorStyle: { [klass: string]: any } | null | undefined;
+
     /**
      * An array of objects to display.
      * @defaultValue null
@@ -278,9 +281,11 @@ export class Carousel extends BaseComponent implements AfterContentInit {
     @Input() get value(): any[] {
         return this._value as any[];
     }
+
     set value(val) {
         this._value = val;
     }
+
     /**
      * Defines if scrolling would be infinite.
      * @group Props
@@ -336,8 +341,6 @@ export class Carousel extends BaseComponent implements AfterContentInit {
 
     @ContentChild(Footer) footerFacet: QueryList<Footer> | undefined;
 
-    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
-
     _numVisible: number = 1;
 
     _numScroll: number = 1;
@@ -390,15 +393,35 @@ export class Carousel extends BaseComponent implements AfterContentInit {
 
     swipeThreshold: number = 20;
 
-    itemTemplate: TemplateRef<any> | undefined;
+    /**
+     * Template for carousel items.
+     * @group Templates
+     */
+    @ContentChild('item') itemTemplate: TemplateRef<any> | undefined;
 
-    headerTemplate: TemplateRef<any> | undefined;
+    /**
+     * Template for the carousel header.
+     * @group Templates
+     */
+    @ContentChild('header') headerTemplate: TemplateRef<any> | undefined;
 
-    footerTemplate: TemplateRef<any> | undefined;
+    /**
+     * Template for the carousel footer.
+     * @group Templates
+     */
+    @ContentChild('footer') footerTemplate: TemplateRef<any> | undefined;
 
-    previousIconTemplate: TemplateRef<any> | undefined;
+    /**
+     * Template for the previous button icon.
+     * @group Templates
+     */
+    @ContentChild('previousicon') previousIconTemplate: TemplateRef<any> | undefined;
 
-    nextIconTemplate: TemplateRef<any> | undefined;
+    /**
+     * Template for the next button icon.
+     * @group Templates
+     */
+    @ContentChild('nexticon') nextIconTemplate: TemplateRef<any> | undefined;
 
     window: Window;
 
@@ -467,33 +490,6 @@ export class Carousel extends BaseComponent implements AfterContentInit {
             }
         }
 
-        this.templates?.forEach((item) => {
-            switch (item.getType()) {
-                case 'item':
-                    this.itemTemplate = item.template;
-                    break;
-
-                case 'header':
-                    this.headerTemplate = item.template;
-                    break;
-
-                case 'footer':
-                    this.footerTemplate = item.template;
-                    break;
-
-                case 'previousicon':
-                    this.previousIconTemplate = item.template;
-                    break;
-
-                case 'nexticon':
-                    this.nextIconTemplate = item.template;
-                    break;
-
-                default:
-                    this.itemTemplate = item.template;
-                    break;
-            }
-        });
         this.cd.detectChanges();
     }
 
@@ -783,6 +779,7 @@ export class Carousel extends BaseComponent implements AfterContentInit {
 
         this.changedFocusedIndicator(activeIndex, activeIndex - 1 <= 0 ? 0 : activeIndex - 1);
     }
+
     onHomeKey() {
         const activeIndex = this.findFocusedIndicatorIndex();
 
@@ -932,6 +929,7 @@ export class Carousel extends BaseComponent implements AfterContentInit {
             e.preventDefault();
         }
     }
+
     onTouchEnd(e: TouchEvent) {
         let touchobj = e.changedTouches[0];
 
@@ -1002,8 +1000,7 @@ export class Carousel extends BaseComponent implements AfterContentInit {
 }
 
 @NgModule({
-    imports: [CommonModule, SharedModule, RippleModule, ChevronRightIcon, ChevronLeftIcon, ChevronDownIcon, ChevronUpIcon, ButtonModule],
-    exports: [CommonModule, Carousel, SharedModule],
-    declarations: [Carousel],
+    imports: [Carousel, SharedModule],
+    exports: [Carousel, SharedModule],
 })
 export class CarouselModule {}

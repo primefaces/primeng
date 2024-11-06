@@ -1,31 +1,26 @@
 import {
-    NgModule,
-    Component,
-    ElementRef,
-    OnInit,
-    AfterContentInit,
-    Input,
-    Output,
-    EventEmitter,
-    ContentChild,
-    ContentChildren,
-    QueryList,
-    TemplateRef,
-    OnChanges,
-    SimpleChanges,
-    ChangeDetectionStrategy,
-    ChangeDetectorRef,
-    ViewEncapsulation,
-    OnDestroy,
     booleanAttribute,
-    numberAttribute,
+    ChangeDetectionStrategy,
+    Component,
+    ContentChild,
+    ElementRef,
+    EventEmitter,
     inject,
+    Input,
+    NgModule,
+    numberAttribute,
+    OnChanges,
+    OnDestroy,
+    OnInit,
+    Output,
+    SimpleChanges,
+    TemplateRef,
+    ViewEncapsulation,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ObjectUtils } from 'primeng/utils';
-import { Header, Footer, PrimeTemplate, SharedModule, FilterService, TranslationKeys, PrimeNGConfig } from 'primeng/api';
+import { BlockableUI, FilterService, Footer, Header, SharedModule, TranslationKeys } from 'primeng/api';
 import { PaginatorModule } from 'primeng/paginator';
-import { BlockableUI } from 'primeng/api';
 import { Subscription } from 'rxjs';
 import { SpinnerIcon } from 'primeng/icons/spinner';
 import { Nullable } from 'primeng/ts-helpers';
@@ -44,7 +39,9 @@ import { styleClassAttribute } from "primeng/base";
  * @group Components
  */
 @Component({
-    selector: 'p-dataView, p-dataview',
+    selector: 'p-dataView, p-dataview, p-data-view',
+    standalone: true,
+    imports: [CommonModule, PaginatorModule, SpinnerIcon, SharedModule],
     template: `
         <div
             [ngClass]="{ 'p-dataview p-component': true, 'p-dataview-list': layout === 'list', 'p-dataview-grid': layout === 'grid' }"
@@ -88,17 +85,30 @@ import { styleClassAttribute } from "primeng/base";
             ></p-paginator>
 
             <div class="p-dataview-content">
-                <ng-container
-                    *ngTemplateOutlet="
-                        itemTemplate;
-                        context: {
-                            $implicit: paginator
-                                ? (filteredValue || value | slice: (lazy ? 0 : first) : (lazy ? 0 : first) + rows)
-                                : filteredValue || value,
-                        }
-                    "
-                ></ng-container>
-
+                @if (layout === 'list') {
+                    <ng-container
+                        *ngTemplateOutlet="
+                            listTemplate;
+                            context: {
+                                $implicit: paginator
+                                    ? (filteredValue || value | slice: (lazy ? 0 : first) : (lazy ? 0 : first) + rows)
+                                    : filteredValue || value,
+                            }
+                        "
+                    ></ng-container>
+                }
+                @if (layout === 'grid') {
+                    <ng-container
+                        *ngTemplateOutlet="
+                            gridTemplate;
+                            context: {
+                                $implicit: paginator
+                                    ? (filteredValue || value | slice: (lazy ? 0 : first) : (lazy ? 0 : first) + rows)
+                                    : filteredValue || value,
+                            }
+                        "
+                    ></ng-container>
+                }
                 <div *ngIf="isEmpty() && !loading">
                     <div class="p-dataview-emptymessage">
                         <ng-container *ngIf="!emptyMessageTemplate; else empty">
@@ -140,7 +150,7 @@ import { styleClassAttribute } from "primeng/base";
     encapsulation: ViewEncapsulation.None,
     providers: [DataViewStyle],
 })
-export class DataView extends BaseComponent implements OnInit, AfterContentInit, OnDestroy, BlockableUI, OnChanges {
+export class DataView extends BaseComponent implements OnInit, OnDestroy, BlockableUI, OnChanges {
     /**
      * When specified as true, enables the pagination.
      * @group Props
@@ -295,16 +305,7 @@ export class DataView extends BaseComponent implements OnInit, AfterContentInit,
      * Defines the layout mode.
      * @group Props
      */
-    @Input() get layout(): 'list' | 'grid' {
-        return this._layout;
-    }
-    set layout(layout: 'list' | 'grid') {
-        this._layout = layout;
-
-        if (this.initialized) {
-            this.changeLayout(layout);
-        }
-    }
+    @Input() layout: 'list' | 'grid' = 'list';
     /**
      * Callback to invoke when paging, sorting or filtering happens in lazy mode.
      * @param {DataViewLazyLoadEvent} event - Custom lazy load event.
@@ -329,38 +330,67 @@ export class DataView extends BaseComponent implements OnInit, AfterContentInit,
      * @group Emits
      */
     @Output() onChangeLayout: EventEmitter<DataViewLayoutChangeEvent> = new EventEmitter<DataViewLayoutChangeEvent>();
+    /**
+     * Template for the list layout.
+     * @group Templates
+     */
+    @ContentChild('list') listTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Template for grid layout.
+     * @group Templates
+     */
+    @ContentChild('grid') gridTemplate: TemplateRef<any>;
+    /**
+     * Template for the header section.
+     * @group Templates
+     */
+    @ContentChild('header') headerTemplate: TemplateRef<any>;
+    /**
+     * Template for the empty message section.
+     * @group Templates
+     */
+    @ContentChild('emptymessage') emptyMessageTemplate: TemplateRef<any>;
+    /**
+     * Template for the footer section.
+     * @group Templates
+     */
+    @ContentChild('footer') footerTemplate: TemplateRef<any>;
+    /**
+     * Template for the left side of paginator.
+     * @group Templates
+     */
+    @ContentChild('paginatorleft') paginatorLeftTemplate: TemplateRef<any>;
+    /**
+     * Template for the right side of paginator.
+     * @group Templates
+     */
+    @ContentChild('paginatorright') paginatorRightTemplate: TemplateRef<any>;
+    /**
+     * Template for items in paginator dropdown.
+     * @group Templates
+     */
+    @ContentChild('paginatordropdownitem') paginatorDropdownItemTemplate: TemplateRef<any>;
+    /**
+     * Template for loading icon.
+     * @group Templates
+     */
+    @ContentChild('loadingIcon') loadingIconTemplate: TemplateRef<any>;
+    /**
+     * Template for list icon.
+     * @group Templates
+     */
+    @ContentChild('listicon') listIconTemplate: TemplateRef<any>;
+    /**
+     * Template for grid icon.
+     * @group Templates
+     */
+    @ContentChild('gridicon') gridIconTemplate: TemplateRef<any>;
 
     @ContentChild(Header) header: any;
 
     @ContentChild(Footer) footer: any;
 
-    @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<PrimeTemplate>>;
-
     _value: Nullable<any[]>;
-
-    listTemplate: Nullable<TemplateRef<any>>;
-
-    gridTemplate: Nullable<TemplateRef<any>>;
-
-    itemTemplate: Nullable<TemplateRef<any>>;
-
-    headerTemplate: Nullable<TemplateRef<any>>;
-
-    emptyMessageTemplate: Nullable<TemplateRef<any>>;
-
-    footerTemplate: Nullable<TemplateRef<any>>;
-
-    paginatorLeftTemplate: Nullable<TemplateRef<any>>;
-
-    paginatorRightTemplate: Nullable<TemplateRef<any>>;
-
-    paginatorDropdownItemTemplate: Nullable<TemplateRef<any>>;
-
-    loadingIconTemplate: Nullable<TemplateRef<any>>;
-
-    listIconTemplate: Nullable<TemplateRef<any>>;
-
-    gridIconTemplate: Nullable<TemplateRef<any>>;
 
     filteredValue: Nullable<any[]>;
 
@@ -378,14 +408,7 @@ export class DataView extends BaseComponent implements OnInit, AfterContentInit,
         return this.emptyMessage || this.config.getTranslation(TranslationKeys.EMPTY_MESSAGE);
     }
 
-    constructor(
-        public el: ElementRef,
-        public cd: ChangeDetectorRef,
-        public filterService: FilterService,
-        public config: PrimeNGConfig,
-    ) {
-        super();
-    }
+    filterService = inject(FilterService);
 
     ngOnInit() {
         super.ngOnInit();
@@ -397,6 +420,10 @@ export class DataView extends BaseComponent implements OnInit, AfterContentInit,
             this.cd.markForCheck();
         });
         this.initialized = true;
+    }
+
+    ngAfterViewInit() {
+        super.ngAfterViewInit();
     }
 
     ngOnChanges(simpleChanges: SimpleChanges) {
@@ -418,81 +445,81 @@ export class DataView extends BaseComponent implements OnInit, AfterContentInit,
         }
     }
 
-    ngAfterContentInit() {
-        (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
-            switch (item.getType()) {
-                case 'listItem':
-                case 'list':
-                    this.listTemplate = item.template;
-                    break;
+    // ngAfterContentInit() {
+    //     (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
+    //         switch (item.getType()) {
+    //             // case 'listItem':
+    //             // case 'list':
+    //             //     this.listTemplate = item.template;
+    //             //     break;
+    //
+    //             // case 'gridItem':
+    //             // case 'grid':
+    //             //     this.gridTemplate = item.template;
+    //             //     break;
+    //
+    //             case 'paginatorleft':
+    //                 this.paginatorLeftTemplate = item.template;
+    //                 break;
+    //
+    //             case 'paginatorright':
+    //                 this.paginatorRightTemplate = item.template;
+    //                 break;
+    //
+    //             case 'paginatordropdownitem':
+    //                 this.paginatorDropdownItemTemplate = item.template;
+    //                 break;
+    //
+    //             case 'empty':
+    //                 this.emptyMessageTemplate = item.template;
+    //                 break;
+    //
+    //             case 'header':
+    //                 this.headerTemplate = item.template;
+    //                 break;
+    //
+    //             case 'footer':
+    //                 this.footerTemplate = item.template;
+    //                 break;
+    //
+    //             case 'loadingicon':
+    //                 this.loadingIconTemplate = item.template;
+    //                 break;
+    //
+    //             case 'listicon':
+    //                 this.listIconTemplate = item.template;
+    //                 break;
+    //
+    //             case 'gridicon':
+    //                 this.gridIconTemplate = item.template;
+    //                 break;
+    //         }
+    //     });
+    //
+    //     // this.updateItemTemplate();
+    // }
 
-                case 'gridItem':
-                case 'grid':
-                    this.gridTemplate = item.template;
-                    break;
+    //
+    // updateItemTemplate() {
+    //     switch (this.layout) {
+    //         case 'list':
+    //             this.itemTemplate = this.listTemplate;
+    //             break;
+    //
+    //         case 'grid':
+    //             this.itemTemplate = this.gridTemplate;
+    //             break;
+    //     }
+    // }
+    //
 
-                case 'paginatorleft':
-                    this.paginatorLeftTemplate = item.template;
-                    break;
-
-                case 'paginatorright':
-                    this.paginatorRightTemplate = item.template;
-                    break;
-
-                case 'paginatordropdownitem':
-                    this.paginatorDropdownItemTemplate = item.template;
-                    break;
-
-                case 'empty':
-                    this.emptyMessageTemplate = item.template;
-                    break;
-
-                case 'header':
-                    this.headerTemplate = item.template;
-                    break;
-
-                case 'footer':
-                    this.footerTemplate = item.template;
-                    break;
-
-                case 'loadingicon':
-                    this.loadingIconTemplate = item.template;
-                    break;
-
-                case 'listicon':
-                    this.listIconTemplate = item.template;
-                    break;
-
-                case 'gridicon':
-                    this.gridIconTemplate = item.template;
-                    break;
-            }
-        });
-
-        this.updateItemTemplate();
-    }
-
-    updateItemTemplate() {
-        switch (this.layout) {
-            case 'list':
-                this.itemTemplate = this.listTemplate;
-                break;
-
-            case 'grid':
-                this.itemTemplate = this.gridTemplate;
-                break;
-        }
-    }
-
-    changeLayout(layout: 'list' | 'grid') {
-        this._layout = layout;
-        this.onChangeLayout.emit({
-            layout: this.layout,
-        });
-        this.updateItemTemplate();
-
-        this.cd.markForCheck();
-    }
+    // changeLayout(layout: 'list' | 'grid') {
+    //     this._layout = layout;
+    //     this.onChangeLayout.emit({
+    //         layout: this.layout,
+    //     });
+    //     this.cd.markForCheck();
+    // }
 
     updateTotalRecords() {
         this.totalRecords = this.lazy ? this.totalRecords : this._value ? this._value.length : 0;
@@ -594,8 +621,7 @@ export class DataView extends BaseComponent implements OnInit, AfterContentInit,
 }
 
 @NgModule({
-    imports: [CommonModule, SharedModule, PaginatorModule, SpinnerIcon],
+    imports: [DataView, SharedModule],
     exports: [DataView, SharedModule],
-    declarations: [DataView],
 })
 export class DataViewModule {}

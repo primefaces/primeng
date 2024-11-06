@@ -3,7 +3,7 @@ import {
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
-    ContentChildren,
+    ContentChild,
     ElementRef,
     EventEmitter,
     forwardRef,
@@ -12,7 +12,6 @@ import {
     NgModule,
     numberAttribute,
     Output,
-    QueryList,
     signal,
     SimpleChanges,
     TemplateRef,
@@ -20,8 +19,7 @@ import {
     ViewEncapsulation,
 } from '@angular/core';
 import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
-import { PrimeTemplate, SharedModule } from 'primeng/api';
-import { AutoFocusModule } from 'primeng/autofocus';
+import { AutoFocus } from 'primeng/autofocus';
 import { CheckIcon } from 'primeng/icons/check';
 import { Nullable } from 'primeng/ts-helpers';
 import { ObjectUtils } from 'primeng/utils';
@@ -29,6 +27,7 @@ import { CheckboxChangeEvent } from './checkbox.interface';
 import { MinusIcon } from 'primeng/icons/minus';
 import { BaseComponent } from 'primeng/basecomponent';
 import { CheckboxStyle } from './style/checkboxstyle';
+import { SharedModule } from 'primeng/api';
 import { styleClassAttribute } from "primeng/base";
 
 export const CHECKBOX_VALUE_ACCESSOR: any = {
@@ -41,7 +40,9 @@ export const CHECKBOX_VALUE_ACCESSOR: any = {
  * @group Components
  */
 @Component({
-    selector: 'p-checkbox',
+    selector: 'p-checkbox, p-checkBox, p-check-box',
+    standalone: true,
+    imports: [CommonModule, AutoFocus, CheckIcon, MinusIcon, SharedModule],
     template: `
         <div
             [style]="style"
@@ -156,6 +157,11 @@ export class Checkbox extends BaseComponent implements ControlValueAccessor {
      */
     @Input({ transform: booleanAttribute }) indeterminate: boolean = false;
     /**
+     * Defines the size of the component.
+     * @group Props
+     */
+    @Input() size: 'large' | 'small';
+    /**
      * Form control value.
      * @group Props
      */
@@ -216,8 +222,6 @@ export class Checkbox extends BaseComponent implements ControlValueAccessor {
 
     @ViewChild('input') inputViewChild: Nullable<ElementRef>;
 
-    @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<PrimeTemplate>>;
-
     get checked() {
         return this._indeterminate() ? false : this.binary ? this.model === this.trueValue : ObjectUtils.contains(this.value, this.model);
     }
@@ -228,12 +232,17 @@ export class Checkbox extends BaseComponent implements ControlValueAccessor {
             'p-checkbox-checked p-highlight': this.checked,
             'p-disabled': this.disabled,
             'p-variant-filled': this.variant === 'filled' || this.config.inputStyle() === 'filled',
+            'p-checkbox-sm p-inputfield-sm': this.size === 'small',
+            'p-checkbox-lg p-inputfield-lg': this.size === 'large',
         };
     }
 
     _indeterminate = signal<any>(undefined);
-
-    checkboxIconTemplate: TemplateRef<any>;
+    /**
+     * The template of the checkbox icon.
+     * @group Templates
+     */
+    @ContentChild('checkboxicon') checkboxIconTemplate: TemplateRef<any>;
 
     model: any;
 
@@ -250,16 +259,6 @@ export class Checkbox extends BaseComponent implements ControlValueAccessor {
         if (changes.indeterminate) {
             this._indeterminate.set(changes.indeterminate.currentValue);
         }
-    }
-
-    ngAfterContentInit() {
-        this.templates.forEach((item) => {
-            switch (item.getType()) {
-                case 'icon':
-                    this.checkboxIconTemplate = item.template;
-                    break;
-            }
-        });
     }
 
     updateModel(event) {
@@ -341,8 +340,7 @@ export class Checkbox extends BaseComponent implements ControlValueAccessor {
 }
 
 @NgModule({
-    imports: [CommonModule, AutoFocusModule, CheckIcon, MinusIcon],
+    imports: [Checkbox, SharedModule],
     exports: [Checkbox, SharedModule],
-    declarations: [Checkbox],
 })
 export class CheckboxModule {}

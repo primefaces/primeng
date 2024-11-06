@@ -6,18 +6,16 @@ import {
     ChangeDetectionStrategy,
     Component,
     computed,
-    ContentChildren,
+    ContentChild,
     ElementRef,
     EventEmitter,
     forwardRef,
-    Inject,
     inject,
     Input,
     NgModule,
     numberAttribute,
     OnChanges,
     Output,
-    QueryList,
     signal,
     SimpleChanges,
     TemplateRef,
@@ -25,7 +23,7 @@ import {
     ViewEncapsulation,
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { MenuItem, PrimeTemplate, SharedModule } from 'primeng/api';
+import { MenuItem, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { AngleDownIcon } from 'primeng/icons/angledown';
 import { AngleRightIcon } from 'primeng/icons/angleright';
@@ -39,6 +37,8 @@ import { styleClassAttribute } from "primeng/base";
 
 @Component({
     selector: 'p-panelMenuSub, p-panelmenu-sub',
+    imports: [CommonModule, RouterModule, TooltipModule, AngleDownIcon, AngleRightIcon, ChevronDownIcon, ChevronRightIcon, SharedModule],
+    standalone: true,
     template: `
         <ul
             #list
@@ -213,14 +213,14 @@ import { styleClassAttribute } from "primeng/base";
     ],
     encapsulation: ViewEncapsulation.None,
 })
-export class PanelMenuSub {
+export class PanelMenuSub extends BaseComponent {
     @Input() panelId: string | undefined;
 
     @Input() focusedItemId: string | undefined;
 
     @Input() items: any[];
 
-    @Input() itemTemplate: HTMLElement | undefined;
+    @Input() itemTemplate: TemplateRef<any> | undefined;
 
     @Input({ transform: numberAttribute }) level: number = 0;
 
@@ -244,10 +244,7 @@ export class PanelMenuSub {
 
     @ViewChild('list') listViewChild: ElementRef;
 
-    constructor(
-        @Inject(forwardRef(() => PanelMenu)) public panelMenu: PanelMenu,
-        public el: ElementRef,
-    ) {}
+    panelMenu: PanelMenu = inject(forwardRef(() => PanelMenu));
 
     getItemId(processedItem) {
         return processedItem.item?.id ?? `${this.panelId}_${processedItem.key}`;
@@ -332,6 +329,18 @@ export class PanelMenuSub {
 
 @Component({
     selector: 'p-panelMenuList, p-panel-menu-list',
+    imports: [
+        CommonModule,
+        PanelMenuSub,
+        RouterModule,
+        TooltipModule,
+        AngleDownIcon,
+        AngleRightIcon,
+        ChevronDownIcon,
+        ChevronRightIcon,
+        SharedModule,
+    ],
+    standalone: true,
     template: `
         <p-panelmenu-sub
             #submenu
@@ -354,7 +363,7 @@ export class PanelMenuSub {
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
 })
-export class PanelMenuList implements OnChanges {
+export class PanelMenuList extends BaseComponent implements OnChanges {
     @Input() panelId: string | undefined;
 
     @Input() id: string | undefined;
@@ -406,8 +415,6 @@ export class PanelMenuList implements OnChanges {
               ? `${this.panelId}_${this.focusedItem().key}`
               : undefined;
     }
-
-    constructor(private el: ElementRef) {}
 
     ngOnChanges(changes: SimpleChanges) {
         this.processedItems.set(this.createProcessedItems(changes?.items?.currentValue || this.items || []));
@@ -797,7 +804,19 @@ export class PanelMenuList implements OnChanges {
  * @group Components
  */
 @Component({
-    selector: 'p-panelMenu, p-panelmenu',
+    selector: 'p-panelMenu, p-panelmenu, p-panel-menu',
+    imports: [
+        CommonModule,
+        PanelMenuList,
+        RouterModule,
+        TooltipModule,
+        AngleDownIcon,
+        AngleRightIcon,
+        ChevronDownIcon,
+        ChevronRightIcon,
+        SharedModule,
+    ],
+    standalone: true,
     template: `
         <div [class]="styleClass" [ngStyle]="style" [ngClass]="'p-panelmenu p-component'" #container>
             <ng-container *ngFor="let item of model; let f = first; let l = last; let i = index">
@@ -1003,13 +1022,17 @@ export class PanelMenu extends BaseComponent implements AfterContentInit {
      */
     @Input({ transform: numberAttribute }) tabindex: number | undefined = 0;
 
-    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
-
     @ViewChild('container') containerViewChild: ElementRef | undefined;
-
-    submenuIconTemplate: TemplateRef<any> | undefined;
-
-    itemTemplate: TemplateRef<any> | undefined;
+    /**
+     * Template option of submenuicon.
+     * @group Templates
+     */
+    @ContentChild('submenuicon') submenuIconTemplate: TemplateRef<any> | undefined;
+    /**
+     * Template option of item.
+     * @group Templates
+     */
+    @ContentChild('item') itemTemplate: TemplateRef<any> | undefined;
 
     public animating: boolean | undefined;
 
@@ -1250,8 +1273,7 @@ export class PanelMenu extends BaseComponent implements AfterContentInit {
     }
 }
 @NgModule({
-    imports: [CommonModule, RouterModule, TooltipModule, SharedModule, AngleDownIcon, AngleRightIcon, ChevronDownIcon, ChevronRightIcon],
-    exports: [PanelMenu, RouterModule, TooltipModule, SharedModule],
-    declarations: [PanelMenu, PanelMenuSub, PanelMenuList],
+    imports: [PanelMenu, SharedModule],
+    exports: [PanelMenu, SharedModule],
 })
 export class PanelMenuModule {}

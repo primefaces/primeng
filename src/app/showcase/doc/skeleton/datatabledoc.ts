@@ -77,14 +77,14 @@ export class DataTableDoc implements OnInit {
     </p-table>
 </div>`,
         typescript: `import { Component, OnInit } from '@angular/core';
-import { SkeletonModule } from 'primeng/skeleton';
+import { Skeleton } from 'primeng/skeleton';
 import { TableModule } from 'primeng/table';
         
 @Component({
     selector: 'skeleton-data-table-demo',
     templateUrl: './skeleton-data-table-demo.html',
     standalone: true,
-    imports: [SkeletonModule, TableModule]
+    imports: [Skeleton, TableModule]
 })
 export class SkeletonDataTableDemo implements OnInit {
     products: any[] | undefined;

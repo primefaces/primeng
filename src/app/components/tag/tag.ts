@@ -1,18 +1,15 @@
 import { CommonModule } from '@angular/common';
 import {
+    booleanAttribute,
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
-    ContentChildren,
+    inject,
     Input,
     NgModule,
-    QueryList,
     TemplateRef,
     ViewEncapsulation,
-    booleanAttribute,
-    inject,
 } from '@angular/core';
-import { PrimeTemplate, SharedModule } from 'primeng/api';
+import { SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { TagStyle } from './style/tagstyle';
 import { styleClassAttribute } from "primeng/base";
@@ -23,6 +20,8 @@ import { styleClassAttribute } from "primeng/base";
  */
 @Component({
     selector: 'p-tag',
+    standalone: true,
+    imports: [CommonModule, SharedModule],
     template: `
         <span [ngClass]="containerClass()" [class]="styleClass" [ngStyle]="style">
             <ng-content></ng-content>
@@ -37,7 +36,6 @@ import { styleClassAttribute } from "primeng/base";
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-
     providers: [TagStyle],
 })
 export class Tag extends BaseComponent {
@@ -79,8 +77,6 @@ export class Tag extends BaseComponent {
      */
     @Input({ transform: booleanAttribute }) rounded: boolean | undefined;
 
-    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
-
     iconTemplate: TemplateRef<any> | undefined;
 
     _style: { [klass: string]: any } | null | undefined;
@@ -107,8 +103,7 @@ export class Tag extends BaseComponent {
 }
 
 @NgModule({
-    imports: [CommonModule, SharedModule],
+    imports: [Tag, SharedModule],
     exports: [Tag, SharedModule],
-    declarations: [Tag],
 })
 export class TagModule {}

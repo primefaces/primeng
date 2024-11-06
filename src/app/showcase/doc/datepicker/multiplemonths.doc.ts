@@ -24,13 +24,13 @@ export class MultipleMonthDoc {
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { DatePickerModule } from 'primeng/datepicker';
+import { DatePicker } from 'primeng/datepicker';
 
 @Component({
     selector: 'datepicker-multiplemonths-demo',
     templateUrl: './datepicker-multiplemonths-demo.html',
     standalone: true,
-    imports: [FormsModule, DatePickerModule]
+    imports: [FormsModule, DatePicker]
 })
 export class DatePickerMultiplemonthsDemo {
     date: Date[] | undefined;

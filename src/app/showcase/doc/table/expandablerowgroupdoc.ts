@@ -22,7 +22,7 @@ import { CustomerService } from '@service/customerservice';
                     groupRowsBy="representative.name"
                     [tableStyle]="{ 'min-width': '70rem' }"
                 >
-                    <ng-template pTemplate="header">
+                    <ng-template #header>
                         <tr>
                             <th style="width:20%">Name</th>
                             <th style="width:20%">Country</th>
@@ -31,7 +31,7 @@ import { CustomerService } from '@service/customerservice';
                             <th style="width:20%">Date</th>
                         </tr>
                     </ng-template>
-                    <ng-template pTemplate="groupheader" let-customer let-rowIndex="rowIndex" let-expanded="expanded">
+                    <ng-template #groupheader let-customer let-rowIndex="rowIndex" let-expanded="expanded">
                         <tr>
                             <td colspan="5">
                                 <button
@@ -52,13 +52,13 @@ import { CustomerService } from '@service/customerservice';
                             </td>
                         </tr>
                     </ng-template>
-                    <ng-template pTemplate="groupfooter" let-customer>
+                    <ng-template #groupfooter let-customer>
                         <tr class="p-rowgroup-footer">
                             <td colspan="4" style="text-align: right">Total Customers</td>
                             <td>{{ calculateCustomerTotal(customer.representative.name) }}</td>
                         </tr>
                     </ng-template>
-                    <ng-template pTemplate="rowexpansion" let-customer>
+                    <ng-template #rowexpansion let-customer>
                         <tr>
                             <td>
                                 {{ customer.name }}
@@ -137,15 +137,15 @@ export class ExpandableRowGroupDoc {
     }
 
     code: Code = {
-        basic: `<p-table 
+        basic: `<p-table
     [value]="customers"
-    sortField="representative.name" 
-    sortMode="single" 
-    dataKey="representative.name" 
-    rowGroupMode="subheader" 
-    groupRowsBy="representative.name" 
+    sortField="representative.name"
+    sortMode="single"
+    dataKey="representative.name"
+    rowGroupMode="subheader"
+    groupRowsBy="representative.name"
     [tableStyle]="{'min-width': '70rem'}">
-        <ng-template pTemplate="header">
+        <ng-template #header>
             <tr>
                 <th style="width:20%">Name</th>
                 <th style="width:20%">Country</th>
@@ -154,41 +154,41 @@ export class ExpandableRowGroupDoc {
                 <th style="width:20%">Date</th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="groupheader" let-customer let-rowIndex="rowIndex" let-expanded="expanded">
+        <ng-template #groupheader let-customer let-rowIndex="rowIndex" let-expanded="expanded">
             <tr>
                 <td colspan="5">
-                    <button 
-                        type="button" 
-                        pButton 
-                        pRipple 
-                        [pRowToggler]="customer" 
-                        class="p-button-text p-button-rounded p-button-plain mr-2" 
+                    <button
+                        type="button"
+                        pButton
+                        pRipple
+                        [pRowToggler]="customer"
+                        class="p-button-text p-button-rounded p-button-plain mr-2"
                         [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'">
                     </button>
-                    <img 
-                        [alt]="customer.representative.name" 
-                        src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{customer.representative.image}}" 
-                        width="32" 
+                    <img
+                        [alt]="customer.representative.name"
+                        src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{customer.representative.image}}"
+                        width="32"
                         style="vertical-align: middle" />
                     <span class="font-bold ml-2">{{customer.representative.name}}</span>
                 </td>
             </tr>
         </ng-template>
-        <ng-template pTemplate="groupfooter" let-customer>
+        <ng-template #groupfooter let-customer>
             <tr class="p-rowgroup-footer">
                 <td colspan="4" style="text-align: right">Total Customers</td>
                 <td>{{calculateCustomerTotal(customer.representative.name)}}</td>
             </tr>
         </ng-template>
-        <ng-template pTemplate="rowexpansion" let-customer>
+        <ng-template #rowexpansion let-customer>
             <tr>
                 <td>
                     {{customer.name}}
                 </td>
                 <td>
-                    <img 
-                        src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" 
-                        [class]="'flag flag-' + customer.country.code" 
+                    <img
+                        src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
+                        [class]="'flag flag-' + customer.country.code"
                         style="width: 20px">
                     <span class="ml-1 align-middle">{{customer.country.name}}</span>
                 </td>
@@ -205,15 +205,15 @@ export class ExpandableRowGroupDoc {
         </ng-template>
 </p-table>`,
         html: `<div class="card">
-    <p-table 
-        [value]="customers" 
-        sortField="representative.name" 
-        sortMode="single" 
-        dataKey="representative.name" 
-        rowGroupMode="subheader" 
-        groupRowsBy="representative.name" 
+    <p-table
+        [value]="customers"
+        sortField="representative.name"
+        sortMode="single"
+        dataKey="representative.name"
+        rowGroupMode="subheader"
+        groupRowsBy="representative.name"
         [tableStyle]="{'min-width': '70rem'}">
-            <ng-template pTemplate="header">
+            <ng-template #header>
                 <tr>
                     <th style="width:20%">Name</th>
                     <th style="width:20%">Country</th>
@@ -222,41 +222,41 @@ export class ExpandableRowGroupDoc {
                     <th style="width:20%">Date</th>
                 </tr>
             </ng-template>
-            <ng-template pTemplate="groupheader" let-customer let-rowIndex="rowIndex" let-expanded="expanded">
+            <ng-template #groupheader let-customer let-rowIndex="rowIndex" let-expanded="expanded">
                 <tr>
                     <td colspan="5">
-                        <button 
-                            type="button" 
-                            pButton 
-                            pRipple 
-                            [pRowToggler]="customer" 
-                            class="p-button-text p-button-rounded p-button-plain mr-2" 
+                        <button
+                            type="button"
+                            pButton
+                            pRipple
+                            [pRowToggler]="customer"
+                            class="p-button-text p-button-rounded p-button-plain mr-2"
                             [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'">
                         </button>
-                        <img 
-                            [alt]="customer.representative.name" 
+                        <img
+                            [alt]="customer.representative.name"
                             src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{customer.representative.image}}"
-                            width="32" 
+                            width="32"
                             style="vertical-align: middle" />
                         <span class="font-bold ml-2">{{customer.representative.name}}</span>
                     </td>
                 </tr>
             </ng-template>
-            <ng-template pTemplate="groupfooter" let-customer>
+            <ng-template #groupfooter let-customer>
                 <tr class="p-rowgroup-footer">
                     <td colspan="4" style="text-align: right">Total Customers</td>
                     <td>{{calculateCustomerTotal(customer.representative.name)}}</td>
                 </tr>
             </ng-template>
-            <ng-template pTemplate="rowexpansion" let-customer>
+            <ng-template #rowexpansion let-customer>
                 <tr>
                     <td>
                         {{customer.name}}
                     </td>
                     <td>
-                        <img 
-                            src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" 
-                            [class]="'flag flag-' + customer.country.code" 
+                        <img
+                            src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
+                            [class]="'flag flag-' + customer.country.code"
                             style="width: 20px">
                         <span class="ml-1 align-middle">{{customer.country.name}}</span>
                     </td>
@@ -279,25 +279,25 @@ import { CustomerService } from '@service/customerservice';
 import { TableModule } from 'primeng/table';
 import { HttpClientModule } from '@angular/common/http';
 import { ButtonModule } from 'primeng/button';
-import { RippleModule } from 'primeng/ripple';
-import { TagModule } from 'primeng/tag';
+import { Ripple } from 'primeng/ripple';
+import { Tag } from 'primeng/tag';
 
 @Component({
     selector: 'table-expandable-row-group-demo',
     templateUrl: 'table-expandable-row-group-demo.html',
     standalone: true,
-    imports: [TableModule, HttpClientModule, ButtonModule, RippleModule, TagModule],
+    imports: [TableModule, HttpClientModule, ButtonModule, Ripple, Tag],
     providers: [CustomerService],
     styles: [
         \`:host ::ng-deep .p-rowgroup-footer td {
             font-weight: 700;
         }
-        
+
         :host ::ng-deep .p-rowgroup-header {
             span {
                 font-weight: 700;
             }
-        
+
             .p-row-toggler {
                 vertical-align: middle;
                 margin-right: .25rem;

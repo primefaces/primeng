@@ -32,6 +32,10 @@ const theme = ({ dt }) => `
     background: ${dt('multiselect.filled.background')};
 }
 
+.p-multiselect.p-variant-filled:not(.p-disabled):hover {
+    background: ${dt('multiselect.filled.hover.background')};
+}
+
 .p-multiselect.p-variant-filled.p-focus {
     background: ${dt('multiselect.filled.focus.background')};
 }
@@ -192,9 +196,33 @@ const theme = ({ dt }) => `
     display: flex;
 }
 
+.p-multiselect-sm .p-multiselect-label {
+    font-size: ${dt('multiselect.sm.font.size')};
+    padding-block: ${dt('multiselect.sm.padding.y')};
+    padding-inline: ${dt('multiselect.sm.padding.x')};
+}
+
+.p-multiselect-sm .p-multiselect-dropdown .p-icon {
+    font-size: ${dt('multiselect.sm.font.size')};
+    width: ${dt('multiselect.sm.font.size')};
+    height: ${dt('multiselect.sm.font.size')};
+}
+
+.p-multiselect-lg .p-multiselect-label {
+    font-size: ${dt('multiselect.lg.font.size')};
+    padding-block: ${dt('multiselect.lg.padding.y')};
+    padding-inline: ${dt('multiselect.lg.padding.x')};
+}
+
+.p-multiselect-lg .p-multiselect-dropdown .p-icon {
+    font-size: ${dt('multiselect.lg.font.size')};
+    width: ${dt('multiselect.lg.font.size')};
+    height: ${dt('multiselect.lg.font.size')};
+}
+
 /* For PrimeNG */
 
-p-multiselect.ng-invalid.ng-dirty > .p-multiselect.p-component.p-inputwrapper {
+p-multiselect.ng-invalid.ng-dirty {
     border-color: ${dt('multiselect.invalid.border.color')};
 }
 
@@ -205,9 +233,12 @@ p-multiselect.ng-invalid.ng-dirty > .p-multiselect.p-component.p-inputwrapper {
     justify-content: center;
     flex-shrink: 0;
     background: transparent;
-    color: ${dt('multiselect.dropdown.color')};
+    color: ${dt('multiselect.clear.icon.color')};
 }
-`;
+
+p-multiselect.ng-invalid.ng-dirty .p-multiselect-label {
+    color: ${dt('multiselect.invalid.placeholder.color')};
+}`;
 
 const inlineStyles = {
     root: ({ props }) => ({ position: props.appendTo === 'self' ? 'relative' : undefined }),
@@ -225,11 +256,13 @@ const classes = {
         'p-inputwrapper-focus': instance.focused || instance.overlayVisible,
         'p-multiselect-open': instance.overlayVisible,
         'p-multiselect-fluid': instance.hasFluid,
+        'p-multiselect-sm p-inputfield-sm': instance.size === 'small',
+        'p-multiselect-lg p-inputfield-lg': instance.size === 'large',
     }),
     labelContainer: 'p-multiselect-label-container',
     label: ({ instance }) => ({
         'p-multiselect-label': true,
-        'p-placeholder': instance.label === instance.placeholder,
+        'p-placeholder': instance.label === instance.placeholder(),
         'p-multiselect-label-empty':
             !instance.placeholder() && !instance.defaultLabel && (!instance.modelValue() || instance.modelValue().length === 0),
     }),

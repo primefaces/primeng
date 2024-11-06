@@ -36,20 +36,6 @@ export class BasicDoc implements OnInit {
 
     constructor(private photoService: PhotoService) {}
 
-    ngOnInit() {
-        this.photoService.getImages().then((images) => (this.images = images));
-        this.responsiveOptions = [
-            {
-                breakpoint: '1300px',
-                numVisible: 4,
-            },
-            {
-                breakpoint: '575px',
-                numVisible: 1,
-            },
-        ];
-    }
-
     code: Code = {
         basic: `<p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5">
     <ng-template pTemplate="item" let-item>
@@ -82,7 +68,7 @@ import { GalleriaModule } from 'primeng/galleria';
 })
 export class GalleriaBasicDemo implements OnInit {
     images: any[] | undefined;
-    
+
     responsiveOptions: any[] | undefined;
 
     constructor(private photoService: PhotoService) {}
@@ -112,4 +98,18 @@ export class GalleriaBasicDemo implements OnInit {
 ...`,
         service: ['PhotoService'],
     };
+
+    ngOnInit() {
+        this.photoService.getImages().then((images) => (this.images = images));
+        this.responsiveOptions = [
+            {
+                breakpoint: '1300px',
+                numVisible: 4,
+            },
+            {
+                breakpoint: '575px',
+                numVisible: 1,
+            },
+        ];
+    }
 }

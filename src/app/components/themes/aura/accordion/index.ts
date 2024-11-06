@@ -1,3 +1,5 @@
+import { AccordionDesignTokens } from '../../types/accordion';
+
 export default {
     root: {
         transitionDuration: '{transition.duration}',
@@ -23,7 +25,7 @@ export default {
             width: '{focus.ring.width}',
             style: '{focus.ring.style}',
             color: '{focus.ring.color}',
-            offset: '{focus.ring.offset}',
+            offset: '-1px',
             shadow: '{focus.ring.shadow}',
         },
         toggleIcon: {
@@ -48,4 +50,4 @@ export default {
         color: '{text.color}',
         padding: '0 1.125rem 1.125rem 1.125rem',
     },
-};
+} as AccordionDesignTokens;

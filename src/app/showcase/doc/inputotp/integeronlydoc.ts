@@ -24,14 +24,14 @@ export class IntegerOnlyDoc {
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { InputOtpModule } from 'primeng/inputotp';
+import { InputOtp } from 'primeng/inputotp';
 import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'input-otp-integer-only-demo',
     templateUrl: './input-otp-integer-only-demo.html',
     standalone: true,
-    imports: [FormsModule, InputOtpModule]
+    imports: [FormsModule, InputOtp]
 })
 export class InputOtpIntegerOnlyDemo {
     value : any

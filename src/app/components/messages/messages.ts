@@ -2,28 +2,26 @@ import { animate, style, transition, trigger } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import {
     AfterContentInit,
+    booleanAttribute,
     ChangeDetectionStrategy,
     Component,
-    ContentChildren,
     EventEmitter,
+    inject,
     Input,
     NgModule,
     OnDestroy,
     Optional,
     Output,
-    QueryList,
     TemplateRef,
     ViewEncapsulation,
-    booleanAttribute,
-    inject,
 } from '@angular/core';
-import { ToastMessageOptions, MessageService, PrimeTemplate } from 'primeng/api';
+import { MessageService, SharedModule, ToastMessageOptions } from 'primeng/api';
 import { CheckIcon } from 'primeng/icons/check';
 import { ExclamationTriangleIcon } from 'primeng/icons/exclamationtriangle';
 import { InfoCircleIcon } from 'primeng/icons/infocircle';
 import { TimesIcon } from 'primeng/icons/times';
 import { TimesCircleIcon } from 'primeng/icons/timescircle';
-import { RippleModule } from 'primeng/ripple';
+import { Ripple } from 'primeng/ripple';
 import { Subscription, timer } from 'rxjs';
 import { MessagesStyle } from './style/messagesstyle';
 import { BaseComponent } from 'primeng/basecomponent';
@@ -222,8 +220,6 @@ export class Messages extends BaseComponent implements AfterContentInit, OnDestr
      */
     @Output() onClose: EventEmitter<ToastMessageOptions> = new EventEmitter<ToastMessageOptions>();
 
-    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
-
     messages: ToastMessageOptions[] | null | undefined;
 
     messageSubscription: Subscription | undefined;
@@ -363,8 +359,18 @@ export class Messages extends BaseComponent implements AfterContentInit, OnDestr
 }
 
 @NgModule({
-    imports: [CommonModule, RippleModule, CheckIcon, InfoCircleIcon, TimesCircleIcon, ExclamationTriangleIcon, TimesIcon, ButtonModule],
-    exports: [Messages],
+    imports: [
+        CommonModule,
+        Ripple,
+        CheckIcon,
+        InfoCircleIcon,
+        TimesCircleIcon,
+        ExclamationTriangleIcon,
+        TimesIcon,
+        ButtonModule,
+        SharedModule,
+    ],
+    exports: [Messages, SharedModule],
     declarations: [Messages],
 })
 export class MessagesModule {}

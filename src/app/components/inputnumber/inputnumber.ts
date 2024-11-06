@@ -1,37 +1,36 @@
 import { CommonModule } from '@angular/common';
 import {
     AfterContentInit,
+    booleanAttribute,
     ChangeDetectionStrategy,
     Component,
-    ContentChildren,
+    ContentChild,
     ElementRef,
     EventEmitter,
+    forwardRef,
     HostBinding,
+    inject,
     Injector,
     Input,
     NgModule,
+    numberAttribute,
     OnChanges,
     OnInit,
     Output,
-    QueryList,
     SimpleChanges,
     TemplateRef,
     ViewChild,
     ViewEncapsulation,
-    booleanAttribute,
-    forwardRef,
-    inject,
-    numberAttribute,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
-import { PrimeTemplate, SharedModule } from 'primeng/api';
-import { AutoFocusModule } from 'primeng/autofocus';
-import { ButtonModule } from 'primeng/button';
+import { SharedModule } from 'primeng/api';
+import { AutoFocus } from 'primeng/autofocus';
+import { Button } from 'primeng/button';
 import { DomHandler } from 'primeng/dom';
 import { AngleDownIcon } from 'primeng/icons/angledown';
 import { AngleUpIcon } from 'primeng/icons/angleup';
 import { TimesIcon } from 'primeng/icons/times';
-import { InputTextModule } from 'primeng/inputtext';
+import { InputText } from 'primeng/inputtext';
 import { Nullable } from 'primeng/ts-helpers';
 import { InputNumberInputEvent } from './inputnumber.interface';
 import { BaseComponent } from 'primeng/basecomponent';
@@ -48,7 +47,9 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
  * @group Components
  */
 @Component({
-    selector: 'p-inputNumber, p-inputnumber',
+    selector: 'p-inputNumber, p-inputnumber, p-input-number',
+    standalone: true,
+    imports: [CommonModule, InputText, Button, AutoFocus, TimesIcon, AngleUpIcon, AngleDownIcon, SharedModule],
     template: `
         <input
             pInputText
@@ -69,7 +70,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
             [attr.aria-label]="ariaLabel"
             [attr.aria-labelledby]="ariaLabelledBy"
             [attr.title]="title"
-            [attr.size]="size"
+            [size]="size"
             [attr.name]="name"
             [attr.autocomplete]="autocomplete"
             [attr.maxlength]="maxlength"
@@ -87,8 +88,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
             (focus)="onInputFocus($event)"
             (blur)="onInputBlur($event)"
             [attr.data-pc-section]="'input'"
-            pAutoFocus
-            [autofocus]="autofocus"
+            [pAutoFocus]="autofocus"
             [fluid]="hasFluid"
         />
         <ng-container *ngIf="buttonLayout != 'vertical' && showClear && value">
@@ -136,7 +136,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
                 (mouseleave)="onDownButtonMouseLeave()"
                 (keydown)="onDownButtonKeyDown($event)"
                 (keyup)="onDownButtonKeyUp()"
-                [attr.data-pc-section]="decrementbutton"
+                [attr.data-pc-section]="'decrementbutton'"
             >
                 <span *ngIf="decrementButtonIcon" [ngClass]="decrementButtonIcon" [attr.data-pc-section]="'decrementbuttonicon'"></span>
                 <ng-container *ngIf="!decrementButtonIcon">
@@ -234,10 +234,10 @@ export class InputNumber extends BaseComponent implements OnInit, AfterContentIn
      */
     @Input() placeholder: string | undefined;
     /**
-     * Size of the input field.
+     * Defines the size of the component.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) size: number | undefined;
+    @Input() size: 'large' | 'small';
     /**
      * Maximum number of character allows in the input field.
      * @group Props
@@ -452,15 +452,24 @@ export class InputNumber extends BaseComponent implements OnInit, AfterContentIn
      */
     @Output() onClear: EventEmitter<void> = new EventEmitter<void>();
 
+    /**
+     * Template of the clear icon.
+     * @group Templates
+     */
+    @ContentChild('clearicon') clearIconTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Template of the icrement button icon.
+     * @group Templates
+     */
+    @ContentChild('icrementbuttonicon') incrementButtonIconTemplate: Nullable<TemplateRef<any>>;
+
+    /**
+     * Template of the decrement button icon.
+     * @group Templates
+     */
+    @ContentChild('decrementbuttonicon') decrementButtonIconTemplate: Nullable<TemplateRef<any>>;
+
     @ViewChild('input') input!: ElementRef<HTMLInputElement>;
-
-    @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
-
-    clearIconTemplate: Nullable<TemplateRef<any>>;
-
-    incrementButtonIconTemplate: Nullable<TemplateRef<any>>;
-
-    decrementButtonIconTemplate: Nullable<TemplateRef<any>>;
 
     value: Nullable<number>;
 
@@ -551,6 +560,30 @@ export class InputNumber extends BaseComponent implements OnInit, AfterContentIn
         }
     }
 
+    @HostBinding('class') get hostClasses(): string {
+        if (typeof this._rootClass === 'string') {
+            return this._rootClass;
+        }
+        if (Array.isArray(this._rootClass)) {
+            return this._rootClass.join(' ');
+        }
+        if (typeof this._rootClass === 'object') {
+            return Object.keys(this._rootClass)
+                .filter((key) => this._rootClass[key])
+                .join(' ');
+        }
+        return '';
+    }
+
+    ngOnInit() {
+        super.ngOnInit();
+        this.ngControl = this.injector.get(NgControl, null, { optional: true });
+
+        this.constructParser();
+
+        this.initialized = true;
+    }
+
     ngAfterContentInit() {
         this.templates.forEach((item) => {
             switch (item.getType()) {
@@ -567,30 +600,6 @@ export class InputNumber extends BaseComponent implements OnInit, AfterContentIn
                     break;
             }
         });
-    }
-
-    ngOnInit() {
-        super.ngOnInit();
-        this.ngControl = this.injector.get(NgControl, null, { optional: true });
-
-        this.constructParser();
-
-        this.initialized = true;
-    }
-
-    @HostBinding('class') get hostClasses(): string {
-        if (typeof this._rootClass === 'string') {
-            return this._rootClass;
-        }
-        if (Array.isArray(this._rootClass)) {
-            return this._rootClass.join(' ');
-        }
-        if (typeof this._rootClass === 'object') {
-            return Object.keys(this._rootClass)
-                .filter((key) => this._rootClass[key])
-                .join(' ');
-        }
-        return '';
     }
 
     getOptions() {
@@ -1563,8 +1572,7 @@ export class InputNumber extends BaseComponent implements OnInit, AfterContentIn
 }
 
 @NgModule({
-    imports: [CommonModule, InputTextModule, ButtonModule, AutoFocusModule, TimesIcon, AngleUpIcon, AngleDownIcon],
+    imports: [InputNumber, SharedModule],
     exports: [InputNumber, SharedModule],
-    declarations: [InputNumber],
 })
 export class InputNumberModule {}

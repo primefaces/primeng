@@ -1,6 +1,5 @@
-import { NgModule, Directive, HostListener, DoCheck, Optional, AfterViewInit, Input, inject, booleanAttribute } from '@angular/core';
+import { AfterViewInit, booleanAttribute, Directive, DoCheck, HostListener, inject, Input, NgModule, Optional } from '@angular/core';
 import { NgModel } from '@angular/forms';
-import { CommonModule } from '@angular/common';
 import { Nullable } from 'primeng/ts-helpers';
 import { BaseComponent } from 'primeng/basecomponent';
 import { InputTextStyle } from './style/inputtextstyle';
@@ -12,13 +11,16 @@ import { ObjectUtils } from 'primeng/utils';
  */
 @Directive({
     selector: '[pInputText]',
+    standalone: true,
     host: {
         class: 'p-inputtext p-component',
         '[class.p-filled]': 'filled',
         '[class.p-variant-filled]': 'variant === "filled" || config.inputStyle() === "filled"',
         '[class.p-inputtext-fluid]': 'hasFluid',
         '[class.p-inputtext-sm]': 'size === "small"',
+        '[class.p-inputfield-sm]': 'size === "small"',
         '[class.p-inputtext-lg]': 'size === "large"',
+        '[class.p-inputfield-lg]': 'size === "large"',
     },
     providers: [InputTextStyle],
 })
@@ -75,8 +77,7 @@ export class InputText extends BaseComponent implements DoCheck, AfterViewInit {
 }
 
 @NgModule({
-    imports: [CommonModule],
+    imports: [InputText],
     exports: [InputText],
-    declarations: [InputText],
 })
 export class InputTextModule {}

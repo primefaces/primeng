@@ -5,12 +5,10 @@ import {
     Component,
     computed,
     ContentChild,
-    ContentChildren,
     effect,
     ElementRef,
     forwardRef,
     inject,
-    QueryList,
     signal,
     TemplateRef,
     ViewChild,
@@ -23,7 +21,7 @@ import { RippleModule } from 'primeng/ripple';
 import { BaseComponent } from 'primeng/basecomponent';
 import { Tabs } from './tabs';
 import { DomHandler } from 'primeng/dom';
-import { PrimeTemplate } from 'primeng/api';
+import { SharedModule } from 'primeng/api';
 
 /**
  * TabList is a helper component for Tabs component.
@@ -32,7 +30,7 @@ import { PrimeTemplate } from 'primeng/api';
 @Component({
     selector: 'p-tablist',
     standalone: true,
-    imports: [CommonModule, ChevronLeftIcon, ChevronRightIcon, RippleModule],
+    imports: [CommonModule, ChevronLeftIcon, ChevronRightIcon, RippleModule, SharedModule],
     template: `
         @if (showNavigators() && isPrevButtonEnabled()) {
             <button
@@ -107,8 +105,6 @@ export class TabList extends BaseComponent implements AfterViewInit, AfterConten
 
     @ViewChild('tabs') tabs: ElementRef<HTMLDivElement>;
 
-    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
-
     pcTabs = inject(forwardRef(() => Tabs));
 
     isPrevButtonEnabled = signal<boolean>(false);
@@ -123,14 +119,6 @@ export class TabList extends BaseComponent implements AfterViewInit, AfterConten
 
     scrollable = computed(() => this.pcTabs.scrollable());
 
-    get prevButtonAriaLabel() {
-        return this.config.translation.aria.previous;
-    }
-
-    get nextButtonAriaLabel() {
-        return this.config.translation.aria.next;
-    }
-
     constructor() {
         super();
         effect(() => {
@@ -141,6 +129,14 @@ export class TabList extends BaseComponent implements AfterViewInit, AfterConten
                 });
             }
         });
+    }
+
+    get prevButtonAriaLabel() {
+        return this.config.translation.aria.previous;
+    }
+
+    get nextButtonAriaLabel() {
+        return this.config.translation.aria.next;
     }
 
     ngAfterViewInit() {

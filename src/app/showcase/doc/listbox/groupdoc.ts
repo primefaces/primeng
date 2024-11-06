@@ -14,14 +14,7 @@ interface Country {
             <p>Options can be grouped when a nested data structures is provided.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-listbox
-                [options]="groupedCities"
-                [group]="true"
-                [(ngModel)]="selectedCountry"
-                [listStyle]="{ 'max-height': '250px' }"
-                [style]="{ width: '15rem' }"
-                class="w-full md:w-56"
-            >
+            <p-listbox [options]="groupedCities" [group]="true" [(ngModel)]="selectedCountry" class="w-full md:w-56">
                 <ng-template let-group pTemplate="group">
                     <div class="flex items-center">
                         <img
@@ -82,8 +75,6 @@ export class GroupDoc {
     [options]="groupedCities" 
     [group]="true" 
     [(ngModel)]="selectedCountry" 
-    [listStyle]="{ 'max-height': '250px' }" 
-    [style]="{ width: '15rem' }"
     class="w-full md:w-56">
         <ng-template let-group pTemplate="group">
             <div class="flex items-center">
@@ -101,8 +92,6 @@ export class GroupDoc {
         [options]="groupedCities" 
         [group]="true" 
         [(ngModel)]="selectedCountry" 
-        [listStyle]="{ 'max-height': '250px' }" 
-        [style]="{ width: '15rem' }"
         class="w-full md:w-56">
             <ng-template let-group pTemplate="group">
                 <div class="flex items-center">

@@ -1,24 +1,24 @@
-import { AnimationEvent, animate, style, transition, trigger } from '@angular/animations';
+import { animate, AnimationEvent, style, transition, trigger } from '@angular/animations';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
+    booleanAttribute,
     ChangeDetectionStrategy,
     Component,
     ElementRef,
     EventEmitter,
+    forwardRef,
+    inject,
     Input,
     NgModule,
+    numberAttribute,
     OnDestroy,
     Output,
     TemplateRef,
     ViewChild,
     ViewEncapsulation,
-    booleanAttribute,
-    forwardRef,
-    inject,
-    numberAttribute,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { OverlayService, TranslationKeys } from 'primeng/api';
+import { OverlayService, SharedModule, TranslationKeys } from 'primeng/api';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { AutoFocusModule } from 'primeng/autofocus';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
@@ -38,7 +38,9 @@ export const COLORPICKER_VALUE_ACCESSOR: any = {
  * @group Components
  */
 @Component({
-    selector: 'p-colorPicker, p-colorpicker',
+    selector: 'p-colorPicker, p-colorpicker, p-color-picker',
+    standalone: true,
+    imports: [CommonModule, AutoFocusModule, SharedModule],
     template: `
         <div
             #container
@@ -68,8 +70,7 @@ export const COLORPICKER_VALUE_ACCESSOR: any = {
                 [style.backgroundColor]="inputBgColor"
                 [attr.data-pc-section]="'input'"
                 [attr.aria-label]="ariaLabel"
-                pAutoFocus
-                [autofocus]="autofocus"
+                [pAutoFocus]="autofocus"
             />
             <div
                 *ngIf="inline || overlayVisible"
@@ -844,8 +845,7 @@ export class ColorPicker extends BaseComponent implements ControlValueAccessor, 
 }
 
 @NgModule({
-    imports: [CommonModule, AutoFocusModule],
-    exports: [ColorPicker],
-    declarations: [ColorPicker],
+    imports: [ColorPicker, SharedModule],
+    exports: [ColorPicker, SharedModule],
 })
 export class ColorPickerModule {}

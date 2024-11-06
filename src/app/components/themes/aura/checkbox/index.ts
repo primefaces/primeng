@@ -25,6 +25,14 @@ export default {
             shadow: '{focus.ring.shadow}',
         },
         transitionDuration: '{form.field.transition.duration}',
+        sm: {
+            width: '1rem',
+            height: '1rem',
+        },
+        lg: {
+            width: '1.5rem',
+            height: '1.5rem',
+        },
     },
     icon: {
         size: '0.875rem',
@@ -32,5 +40,11 @@ export default {
         checkedColor: '{primary.contrast.color}',
         checkedHoverColor: '{primary.contrast.color}',
         disabledColor: '{form.field.disabled.color}',
+        sm: {
+            size: '0.75rem',
+        },
+        lg: {
+            size: '1rem',
+        },
     },
 };

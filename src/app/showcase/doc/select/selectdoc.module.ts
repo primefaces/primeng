@@ -6,7 +6,6 @@ import { AppDocModule } from '@layout/doc/app.doc.module';
 import { AppCodeModule } from '@layout/doc/app.code.component';
 import { ImportDoc } from './importdoc';
 import { BasicDoc } from './basicdoc';
-import { DropdownModule } from 'primeng/dropdown';
 import { EditableDoc } from './editabledoc';
 import { GroupDoc } from './groupdoc';
 import { TemplateDoc } from './templatedoc';
@@ -32,6 +31,8 @@ import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { IftaLabelModule } from 'primeng/iftalabel';
 import { IftaLabelDoc } from './iftalabeldoc';
+import { SizesDoc } from './sizesdoc';
+
 @NgModule({
     imports: [
         CommonModule,
@@ -70,6 +71,7 @@ import { IftaLabelDoc } from './iftalabeldoc';
         ClearIconDoc,
         LoadingStateDoc,
         FilledDoc,
+        SizesDoc,
     ],
 })
 export class SelectDocModule {}

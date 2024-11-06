@@ -4,7 +4,7 @@ import {
     AfterViewChecked,
     ChangeDetectionStrategy,
     Component,
-    ContentChildren,
+    ContentChild,
     ElementRef,
     EventEmitter,
     inject,
@@ -33,7 +33,9 @@ import { BaseComponent } from 'primeng/basecomponent';
  * @group Components
  */
 @Component({
-    selector: 'p-scroller',
+    selector: 'p-scroller, p-virtualscroller, p-virtual-scroller, p-virtualScroller',
+    imports: [CommonModule, SpinnerIcon, SharedModule],
+    standalone: true,
     template: `
         <ng-container *ngIf="!_disabled; else disabledContainer">
             <div
@@ -65,7 +67,7 @@ import { BaseComponent } from 'primeng/basecomponent';
                         [ngStyle]="contentStyle"
                         [attr.data-pc-section]="'content'"
                     >
-                        <ng-container *ngFor="let item of loadedItems; let index = index; trackBy: _trackBy || index">
+                        <ng-container *ngFor="let item of loadedItems; let index = index; trackBy: _trackBy">
                             <ng-container
                                 *ngTemplateOutlet="itemTemplate; context: { $implicit: item, options: getOptions(index) }"
                             ></ng-container>
@@ -85,7 +87,7 @@ import { BaseComponent } from 'primeng/basecomponent';
                                 *ngTemplateOutlet="
                                     loaderTemplate;
                                     context: {
-                                        options: getLoaderOptions(index, both && { numCols: _numItemsInViewport.cols }),
+                                        options: getLoaderOptions(index, both && { numCols: numItemsInViewport.cols }),
                                     }
                                 "
                             ></ng-container>
@@ -399,8 +401,6 @@ export class Scroller extends BaseComponent implements OnInit, AfterContentInit,
 
     @ViewChild('content') contentViewChild: Nullable<ElementRef>;
 
-    @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<PrimeTemplate>>;
-
     _id: string | undefined;
 
     _style: { [klass: string]: any } | null | undefined;
@@ -456,14 +456,29 @@ export class Scroller extends BaseComponent implements OnInit, AfterContentInit,
     d_numToleratedItems: any;
 
     contentEl: any;
+    /**
+     * Content template of the component.
+     * @group Templates
+     */
+    @ContentChild('content') contentTemplate: Nullable<TemplateRef<any>>;
 
-    contentTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Item template of the component.
+     * @group Templates
+     */
+    @ContentChild('item') itemTemplate: Nullable<TemplateRef<any>>;
 
-    itemTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Loader template of the component.
+     * @group Templates
+     */
+    @ContentChild('loader') loaderTemplate: Nullable<TemplateRef<any>>;
 
-    loaderTemplate: Nullable<TemplateRef<any>>;
-
-    loaderIconTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Loader icon template of the component.
+     * @group Templates
+     */
+    @ContentChild('loadericon') loaderIconTemplate: Nullable<TemplateRef<any>>;
 
     first: any = 0;
 
@@ -614,6 +629,7 @@ export class Scroller extends BaseComponent implements OnInit, AfterContentInit,
             switch (item.getType()) {
                 case 'content':
                     this.contentTemplate = item.template;
+
                     break;
 
                 case 'item':
@@ -1343,8 +1359,7 @@ export class Scroller extends BaseComponent implements OnInit, AfterContentInit,
 }
 
 @NgModule({
-    imports: [CommonModule, SharedModule, SpinnerIcon],
+    imports: [Scroller, SharedModule],
     exports: [Scroller, SharedModule],
-    declarations: [Scroller],
 })
 export class ScrollerModule {}

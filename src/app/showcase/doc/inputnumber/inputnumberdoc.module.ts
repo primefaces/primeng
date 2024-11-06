@@ -23,6 +23,7 @@ import { FilledDoc } from './filleddoc';
 import { FluidModule } from 'primeng/fluid';
 import { IftaLabelDoc } from './iftalabeldoc';
 import { IftaLabelModule } from 'primeng/iftalabel';
+import { SizesDoc } from './sizesdoc';
 
 @NgModule({
     imports: [
@@ -54,6 +55,7 @@ import { IftaLabelModule } from 'primeng/iftalabel';
         StyleDoc,
         AccessibilityDoc,
         ReactiveFormsDoc,
+        SizesDoc,
     ],
 })
 export class InputNumberDocModule {}

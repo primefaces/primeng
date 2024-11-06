@@ -1,32 +1,33 @@
 import { CommonModule } from '@angular/common';
 import {
+    booleanAttribute,
     ChangeDetectionStrategy,
     Component,
-    ContentChildren,
+    ContentChild,
     ElementRef,
     EventEmitter,
+    inject,
     Input,
     NgModule,
+    numberAttribute,
     Output,
-    QueryList,
+    signal,
     TemplateRef,
     ViewChild,
     ViewEncapsulation,
-    booleanAttribute,
-    inject,
-    numberAttribute,
-    signal,
 } from '@angular/core';
-import { MenuItem, PrimeTemplate } from 'primeng/api';
-import { ButtonModule } from 'primeng/button';
+import { MenuItem, SharedModule, TooltipOptions } from 'primeng/api';
+import { ButtonDirective } from 'primeng/button';
 import { ChevronDownIcon } from 'primeng/icons/chevrondown';
-import { TieredMenu, TieredMenuModule } from 'primeng/tieredmenu';
+import { TieredMenu } from 'primeng/tieredmenu';
 import { UniqueComponentId } from 'primeng/utils';
-import { AutoFocusModule } from 'primeng/autofocus';
+import { AutoFocus } from 'primeng/autofocus';
+
 import { ButtonProps, MenuButtonProps } from './splitbutton.interface';
 import { SplitButtonStyle } from './style/splitbuttonstyle';
 import { BaseComponent } from 'primeng/basecomponent';
-import { RippleModule } from 'primeng/ripple';
+import { Ripple } from 'primeng/ripple';
+import { TooltipModule } from 'primeng/tooltip';
 import { styleClassAttribute } from "primeng/base";
 
 type SplitButtonIconPosition = 'left' | 'right';
@@ -35,7 +36,9 @@ type SplitButtonIconPosition = 'left' | 'right';
  * @group Components
  */
 @Component({
-    selector: 'p-splitButton, p-splitbutton',
+    selector: 'p-splitbutton, p-splitButton, p-split-button',
+    standalone: true,
+    imports: [CommonModule, ButtonDirective, TieredMenu, AutoFocus, ChevronDownIcon, Ripple, TooltipModule, SharedModule],
     template: `
         <div #container [ngClass]="containerClass" [class]="styleClass" [ngStyle]="style">
             <ng-container *ngIf="contentTemplate; else defaultButton">
@@ -53,9 +56,8 @@ type SplitButtonIconPosition = 'left' | 'right';
                     (click)="onDefaultButtonClick($event)"
                     [disabled]="disabled"
                     [attr.tabindex]="tabindex"
-                    [ariaLabel]="buttonProps?.['ariaLabel'] || label"
-                    pAutoFocus
-                    [autofocus]="autofocus"
+                    [attr.aria-label]="buttonProps?.['ariaLabel'] || label"
+                    [pAutoFocus]="autofocus"
                     [pTooltip]="tooltip"
                     [tooltipOptions]="tooltipOptions"
                 >
@@ -79,9 +81,8 @@ type SplitButtonIconPosition = 'left' | 'right';
                     (click)="onDefaultButtonClick($event)"
                     [disabled]="buttonDisabled"
                     [attr.tabindex]="tabindex"
-                    [ariaLabel]="buttonProps?.['ariaLabel']"
-                    pAutoFocus
-                    [autofocus]="autofocus"
+                    [attr.aria-label]="buttonProps?.['ariaLabel']"
+                    [pAutoFocus]="autofocus"
                     [pTooltip]="tooltip"
                     [tooltipOptions]="tooltipOptions"
                 ></button>
@@ -98,7 +99,7 @@ type SplitButtonIconPosition = 'left' | 'right';
                 (click)="onDropdownButtonClick($event)"
                 (keydown)="onDropdownButtonKeydown($event)"
                 [disabled]="menuButtonDisabled"
-                [ariaLabel]="menuButtonProps?.['ariaLabel'] || expandAriaLabel"
+                [attr.aria-label]="menuButtonProps?.['ariaLabel'] || expandAriaLabel"
                 [attr.aria-haspopup]="menuButtonProps?.['ariaHasPopup'] || true"
                 [attr.aria-expanded]="menuButtonProps?.['ariaExpanded'] || isExpanded()"
                 [attr.aria-controls]="menuButtonProps?.['ariaControls'] || ariaId"
@@ -109,7 +110,7 @@ type SplitButtonIconPosition = 'left' | 'right';
                     <ng-template *ngTemplateOutlet="dropdownIconTemplate"></ng-template>
                 </ng-container>
             </button>
-            <p-tieredmenu
+            <p-tieredMenu
                 [id]="ariaId"
                 #menu
                 [popup]="true"
@@ -121,7 +122,7 @@ type SplitButtonIconPosition = 'left' | 'right';
                 [hideTransitionOptions]="hideTransitionOptions"
                 (onHide)="onHide()"
                 (onShow)="onShow()"
-            ></p-tieredmenu>
+            ></p-tieredMenu>
         </div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -193,7 +194,7 @@ export class SplitButton extends BaseComponent {
      * Tooltip options for the main button.
      * @group Props
      */
-    @Input() tooltipOptions: string | undefined;
+    @Input() tooltipOptions: TooltipOptions | undefined;
     /**
      * Inline style of the element.
      * @group Props
@@ -326,12 +327,16 @@ export class SplitButton extends BaseComponent {
     @ViewChild('defaultbtn') buttonViewChild: ElementRef | undefined;
 
     @ViewChild('menu') menu: TieredMenu | undefined;
-
-    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
-
-    contentTemplate: TemplateRef<any> | undefined;
-
-    dropdownIconTemplate: TemplateRef<any> | undefined;
+    /**
+     * Template of the content.
+     * @group Templates
+     */
+    @ContentChild('content') contentTemplate: TemplateRef<any> | undefined;
+    /**
+     * Template of the dropdownicon.
+     * @group Templates
+     **/
+    @ContentChild('dropdownicon') dropdownIconTemplate: TemplateRef<any> | undefined;
 
     ariaId: string | undefined;
 
@@ -348,24 +353,6 @@ export class SplitButton extends BaseComponent {
     ngOnInit() {
         super.ngOnInit();
         this.ariaId = UniqueComponentId();
-    }
-
-    ngAfterContentInit() {
-        this.templates?.forEach((item) => {
-            switch (item.getType()) {
-                case 'content':
-                    this.contentTemplate = item.template;
-                    break;
-
-                case 'dropdownicon':
-                    this.dropdownIconTemplate = item.template;
-                    break;
-
-                default:
-                    this.contentTemplate = item.template;
-                    break;
-            }
-        });
     }
 
     get containerClass() {
@@ -410,8 +397,7 @@ export class SplitButton extends BaseComponent {
 }
 
 @NgModule({
-    imports: [CommonModule, ButtonModule, TieredMenuModule, AutoFocusModule, ChevronDownIcon, RippleModule],
-    exports: [SplitButton, ButtonModule, TieredMenuModule],
-    declarations: [SplitButton],
+    imports: [SplitButton, SharedModule],
+    exports: [SplitButton, SharedModule],
 })
 export class SplitButtonModule {}

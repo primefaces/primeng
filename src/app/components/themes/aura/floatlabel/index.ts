@@ -21,6 +21,7 @@ export default {
     in: {
         input: {
             paddingTop: '1.5rem',
+            paddingBottom: '{form.field.padding.y}',
         },
         active: {
             top: '{form.field.padding.y}',

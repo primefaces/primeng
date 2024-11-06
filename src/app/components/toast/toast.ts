@@ -1,11 +1,10 @@
 import { AnimationEvent, animate, animateChild, query, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import {
-    AfterContentInit,
     AfterViewInit,
     ChangeDetectionStrategy,
     Component,
-    ContentChildren,
+    ContentChild,
     ElementRef,
     EventEmitter,
     Input,
@@ -14,7 +13,6 @@ import {
     OnDestroy,
     OnInit,
     Output,
-    QueryList,
     TemplateRef,
     ViewChild,
     ViewEncapsulation,
@@ -22,24 +20,26 @@ import {
     inject,
     numberAttribute,
 } from '@angular/core';
-import { ToastMessageOptions, MessageService, PrimeTemplate, SharedModule } from 'primeng/api';
+import { ToastMessageOptions, MessageService, SharedModule } from 'primeng/api';
 import { CheckIcon } from 'primeng/icons/check';
 import { ExclamationTriangleIcon } from 'primeng/icons/exclamationtriangle';
 import { InfoCircleIcon } from 'primeng/icons/infocircle';
 import { TimesIcon } from 'primeng/icons/times';
 import { TimesCircleIcon } from 'primeng/icons/timescircle';
-import { RippleModule } from 'primeng/ripple';
+import { Ripple } from 'primeng/ripple';
 import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
 import { Subscription } from 'rxjs';
 import { ToastCloseEvent, ToastItemCloseEvent, ToastPositionType } from './toast.interface';
 import { DomHandler } from 'primeng/dom';
 import { ToastStyle } from './style/toaststyle';
 import { BaseComponent } from 'primeng/basecomponent';
-import { ButtonModule } from 'primeng/button';
+import { Button } from 'primeng/button';
 import { styleClassAttribute } from "primeng/base";
 
 @Component({
     selector: 'p-toastItem',
+    standalone: true,
+    imports: [CommonModule, CheckIcon, ExclamationTriangleIcon, InfoCircleIcon, TimesIcon, TimesCircleIcon, Ripple, Button, SharedModule],
     template: `
         <div
             #container
@@ -245,6 +245,18 @@ export class ToastItem extends BaseComponent implements AfterViewInit, OnDestroy
  */
 @Component({
     selector: 'p-toast',
+    standalone: true,
+    imports: [
+        CommonModule,
+        ToastItem,
+        CheckIcon,
+        InfoCircleIcon,
+        TimesCircleIcon,
+        ExclamationTriangleIcon,
+        TimesIcon,
+        Button,
+        SharedModule,
+    ],
     template: `
         <div #container [ngClass]="cx('root')" [ngStyle]="sx('root')" [style]="style" [class]="styleClass">
             <p-toastItem
@@ -270,7 +282,7 @@ export class ToastItem extends BaseComponent implements AfterViewInit, OnDestroy
     encapsulation: ViewEncapsulation.None,
     providers: [ToastStyle],
 })
-export class Toast extends BaseComponent implements OnInit, AfterContentInit, OnDestroy {
+export class Toast extends BaseComponent implements OnInit, OnDestroy {
     /**
      * Key of the message in case message is targeted to a specific toast component.
      * @group Props
@@ -356,10 +368,18 @@ export class Toast extends BaseComponent implements OnInit, AfterContentInit, On
      * @group Emits
      */
     @Output() onClose: EventEmitter<ToastCloseEvent> = new EventEmitter<ToastCloseEvent>();
+    /**
+     * Custom template of message.
+     * @group Templates
+     */
+    @ContentChild('message') template: TemplateRef<any> | undefined;
+    /**
+     * Custom headless template.
+     * @group Templates
+     */
+    @ContentChild('headless') headlessTemplate: TemplateRef<any> | undefined;
 
     @ViewChild('container') containerViewChild: ElementRef | undefined;
-
-    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
     messageSubscription: Subscription | undefined;
 
@@ -368,10 +388,6 @@ export class Toast extends BaseComponent implements OnInit, AfterContentInit, On
     messages: ToastMessageOptions[] | null | undefined;
 
     messagesArchieve: ToastMessageOptions[] | undefined;
-
-    template: TemplateRef<any> | undefined;
-
-    headlessTemplate: TemplateRef<any> | undefined;
 
     _position: ToastPositionType = 'top-right';
 
@@ -453,23 +469,6 @@ export class Toast extends BaseComponent implements OnInit, AfterContentInit, On
         );
     }
 
-    ngAfterContentInit() {
-        this.templates?.forEach((item) => {
-            switch (item.getType()) {
-                case 'message':
-                    this.template = item.template;
-                    break;
-                case 'headless':
-                    this.headlessTemplate = item.template;
-                    break;
-
-                default:
-                    this.template = item.template;
-                    break;
-            }
-        });
-    }
-
     onMessageClose(event: ToastItemCloseEvent) {
         this.messages?.splice(event.index, 1);
 
@@ -548,8 +547,7 @@ export class Toast extends BaseComponent implements OnInit, AfterContentInit, On
 }
 
 @NgModule({
-    imports: [CommonModule, RippleModule, CheckIcon, InfoCircleIcon, TimesCircleIcon, ExclamationTriangleIcon, TimesIcon, ButtonModule],
+    imports: [Toast, SharedModule],
     exports: [Toast, SharedModule],
-    declarations: [Toast, ToastItem],
 })
 export class ToastModule {}

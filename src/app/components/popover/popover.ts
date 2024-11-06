@@ -1,11 +1,10 @@
 import { animate, AnimationEvent, state, style, transition, trigger } from '@angular/animations';
-import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
     AfterContentInit,
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
-    ContentChildren,
     ElementRef,
     EventEmitter,
     HostListener,
@@ -16,27 +15,29 @@ import {
     numberAttribute,
     OnDestroy,
     Output,
-    QueryList,
     TemplateRef,
     ViewEncapsulation,
     ViewRef,
 } from '@angular/core';
-import { OverlayService, PrimeTemplate, SharedModule } from 'primeng/api';
+import { OverlayService, SharedModule } from 'primeng/api';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { TimesIcon } from 'primeng/icons/times';
-import { RippleModule } from 'primeng/ripple';
+import { Ripple } from 'primeng/ripple';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { ZIndexUtils } from 'primeng/utils';
 import { Subscription } from 'rxjs';
 import { PopoverStyle } from './style/popoverstyle';
 import { BaseComponent } from 'primeng/basecomponent';
 import { styleClassAttribute } from "primeng/base";
+
 /**
  * Popover is a container component that can overlay other components on page.
  * @group Components
  */
 @Component({
     selector: 'p-popover',
+    standalone: true,
+    imports: [CommonModule, Ripple, TimesIcon, SharedModule],
     template: `
         <div
             *ngIf="render"
@@ -167,8 +168,6 @@ export class Popover extends BaseComponent implements AfterContentInit, OnDestro
      * @group Emits
      */
     @Output() onHide: EventEmitter<any> = new EventEmitter<any>();
-
-    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
     container: Nullable<HTMLDivElement>;
 
@@ -519,8 +518,7 @@ export class Popover extends BaseComponent implements AfterContentInit, OnDestro
 }
 
 @NgModule({
-    imports: [CommonModule, RippleModule, SharedModule, TimesIcon],
+    imports: [Popover, SharedModule],
     exports: [Popover, SharedModule],
-    declarations: [Popover],
 })
 export class PopoverModule {}

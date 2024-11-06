@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { SelectItem } from 'primeng/api';
 import { Code } from '@domain/code';
 import { Product } from '@domain/product';
@@ -11,8 +11,8 @@ import { ProductService } from '@service/productservice';
             <p>Built-in sorting is controlled by bindings <i>sortField</i> and <i>sortOrder</i> properties from a custom UI.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-dataview #dv [value]="products" [sortField]="sortField" [sortOrder]="sortOrder">
-                <ng-template pTemplate="header">
+            <p-dataview #dv [value]="products()" [sortField]="sortField" [sortOrder]="sortOrder">
+                <ng-template #header>
                     <div class="flex flex-col md:flex-row md:justify-between">
                         <p-select
                             [options]="sortOptions"
@@ -23,9 +23,9 @@ import { ProductService } from '@service/productservice';
                         />
                     </div>
                 </ng-template>
-                <ng-template pTemplate="list" let-products>
+                <ng-template #list let-items>
                     <div class="grid grid-cols-12 gap-4 grid-nogutter">
-                        <div class="col-span-12" *ngFor="let item of products; let first = first" class="col-span-12">
+                        <div class="col-span-12" *ngFor="let item of items; let first = first">
                             <div
                                 class="flex flex-col sm:flex-row sm:items-center p-6 gap-4"
                                 [ngClass]="{ 'border-t border-surface-200 dark:border-surface-700': !first }"
@@ -94,50 +94,12 @@ export class SortingDoc {
 
     sortField!: string;
 
-    products!: Product[];
+    products = signal<any>([]);
 
     constructor(private productService: ProductService) {}
-
-    ngOnInit() {
-        this.productService.getProducts().then((data) => (this.products = data.slice(0, 5)));
-
-        this.sortOptions = [
-            { label: 'Price High to Low', value: '!price' },
-            { label: 'Price Low to High', value: 'price' },
-        ];
-    }
-
-    onSortChange(event: any) {
-        let value = event.value;
-
-        if (value.indexOf('!') === 0) {
-            this.sortOrder = -1;
-            this.sortField = value.substring(1, value.length);
-        } else {
-            this.sortOrder = 1;
-            this.sortField = value;
-        }
-    }
-
-    getSeverity(product: Product) {
-        switch (product.inventoryStatus) {
-            case 'INSTOCK':
-                return 'success';
-
-            case 'LOWSTOCK':
-                return 'warn';
-
-            case 'OUTOFSTOCK':
-                return 'danger';
-
-            default:
-                return null;
-        }
-    }
-
     code: Code = {
-        basic: `<p-dataview #dv [value]="products" [sortField]="sortField" [sortOrder]="sortOrder">
-    <ng-template pTemplate="header">
+        basic: `<p-dataview [value]="products()" [sortField]="sortField" [sortOrder]="sortOrder">
+    <ng-template #header>
         <div class="flex flex-col md:flex-row md:justify-between">
             <p-select
                 [options]="sortOptions"
@@ -148,9 +110,9 @@ export class SortingDoc {
             />
         </div>
     </ng-template>
-    <ng-template pTemplate="list" let-products>
+    <ng-template #list let-items>
         <div class="grid grid-cols-12 gap-4 grid-nogutter">
-            <div class="col-span-12" *ngFor="let item of products; let first = first" class="col-span-12">
+            <div class="col-span-12" *ngFor="let item of items; let first = first">
                 <div
                     class="flex flex-col sm:flex-row sm:items-center p-6 gap-4"
                     [ngClass]="{ 'border-t border-surface-200 dark:border-surface-700': !first }"
@@ -210,8 +172,8 @@ export class SortingDoc {
 </p-dataview>`,
 
         html: `<div class="card">
-    <p-dataview #dv [value]="products" [sortField]="sortField" [sortOrder]="sortOrder">
-        <ng-template pTemplate="header">
+    <p-dataview #dv [value]="products()" [sortField]="sortField" [sortOrder]="sortOrder">
+        <ng-template #header>
             <div class="flex flex-col md:flex-row md:justify-between">
                 <p-select
                     [options]="sortOptions"
@@ -222,9 +184,9 @@ export class SortingDoc {
                 />
             </div>
         </ng-template>
-        <ng-template pTemplate="list" let-products>
+        <ng-template #list let-items>
             <div class="grid grid-cols-12 gap-4 grid-nogutter">
-                <div class="col-span-12" *ngFor="let item of products; let first = first" class="col-span-12">
+                <div class="col-span-12" *ngFor="let item of items; let first = first">
                     <div
                         class="flex flex-col sm:flex-row sm:items-center p-6 gap-4"
                         [ngClass]="{ 'border-t border-surface-200 dark:border-surface-700': !first }"
@@ -288,17 +250,18 @@ export class SortingDoc {
 import { SelectItem } from 'primeng/api';
 import { Product } from '@domain/product';
 import { ProductService } from '@service/productservice';
-import { DataViewModule } from 'primeng/dataview';
+import { DataView } from 'primeng/dataview';
 import { ButtonModule } from 'primeng/button';
-import { TagModule } from 'primeng/tag';
+import { Tag } from 'primeng/tag';
 import { CommonModule } from '@angular/common';
 import { DropdownModule } from 'primeng/dropdown';
+import { signal } from '@angular/core';
 
 @Component({
     selector: 'data-view-sorting-demo',
     templateUrl: './data-view-sorting-demo.html',
     standalone: true,
-    imports: [DataViewModule, ButtonModule, TagModule, CommonModule, DropdownModule],
+    imports: [DataView, ButtonModule, Tag, CommonModule, DropdownModule],
     providers: [ProductService]
 })
 export class DataViewSortingDemo {
@@ -308,16 +271,16 @@ export class DataViewSortingDemo {
 
     sortField!: string;
 
-    products!: Product[];
+    products = signal<any>([]);
 
     constructor(private productService: ProductService) {}
 
     ngOnInit() {
-        this.productService.getProducts().then((data) => (this.products = data.slice(0, 5)));
+        this.productService.getProducts().then((data) => (this.products.set(data.slice(0, 5))));
 
         this.sortOptions = [
             { label: 'Price High to Low', value: '!price' },
-            { label: 'Price Low to High', value: 'price' }
+            { label: 'Price Low to High', value: 'price' },
         ];
     }
 
@@ -368,6 +331,43 @@ export class DataViewSortingDemo {
 
         service: ['ProductService'],
     };
+
+    onSortChange(event: any) {
+        let value = event.value;
+
+        if (value.indexOf('!') === 0) {
+            this.sortOrder = -1;
+            this.sortField = value.substring(1, value.length);
+        } else {
+            this.sortOrder = 1;
+            this.sortField = value;
+        }
+    }
+
+    getSeverity(product: Product) {
+        switch (product.inventoryStatus) {
+            case 'INSTOCK':
+                return 'success';
+
+            case 'LOWSTOCK':
+                return 'warn';
+
+            case 'OUTOFSTOCK':
+                return 'danger';
+
+            default:
+                return null;
+        }
+    }
+
+    ngOnInit() {
+        this.productService.getProducts().then((data) => this.products.set(data.slice(0, 5)));
+
+        this.sortOptions = [
+            { label: 'Price High to Low', value: '!price' },
+            { label: 'Price Low to High', value: 'price' },
+        ];
+    }
 
     extFiles = [
         {

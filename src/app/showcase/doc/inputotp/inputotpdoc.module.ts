@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { AppDocModule } from '@layout/doc/app.doc.module';
 import { AppCodeModule } from '@layout/doc/app.code.component';
-import { InputOtpModule } from 'primeng/inputotp';
+import { InputOtp } from 'primeng/inputotp';
 import { ImportDoc } from './importdoc';
 import { BasicDoc } from './basicdoc';
 import { MaskDoc } from './maskdoc';
@@ -14,6 +14,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { SampleDoc } from './sampledoc';
 import { ButtonModule } from 'primeng/button';
 import { AccessibilityDoc } from './accessibilitydoc';
+import { SizesDoc } from './sizesdoc';
 
 @NgModule({
     imports: [
@@ -23,11 +24,11 @@ import { AccessibilityDoc } from './accessibilitydoc';
         AppDocModule,
         FormsModule,
         ReactiveFormsModule,
-        InputOtpModule,
+        InputOtp,
         InputTextModule,
         ButtonModule,
     ],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, MaskDoc, IntegerOnlyDoc, TemplateDoc, SampleDoc, AccessibilityDoc],
+    declarations: [ImportDoc, BasicDoc, MaskDoc, IntegerOnlyDoc, TemplateDoc, SampleDoc, SizesDoc, AccessibilityDoc],
 })
 export class InputOtpDocModule {}

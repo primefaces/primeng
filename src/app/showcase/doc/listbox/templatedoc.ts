@@ -13,15 +13,7 @@ interface Country {
             <p>Custom content for an option is displayed with the <i>pTemplate</i> property that takes an option as a parameter.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-listbox
-                [options]="countries"
-                [(ngModel)]="selectedCountry"
-                optionLabel="name"
-                [listStyle]="{ 'max-height': '250px' }"
-                [style]="{ width: '15rem' }"
-                [listStyle]="{ 'max-height': '220px' }"
-                class="w-full md:w-56"
-            >
+            <p-listbox [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" class="w-full md:w-56">
                 <ng-template let-country pTemplate="item">
                     <div class="flex items-center gap-2">
                         <img
@@ -62,9 +54,6 @@ export class TemplateDoc implements OnInit {
     [options]="countries" 
     [(ngModel)]="selectedCountry" 
     optionLabel="name" 
-    [listStyle]="{ 'max-height': '250px' }" 
-    [style]="{ width: '15rem' }" 
-    [listStyle]="{'max-height': '220px'}"
     class="w-full md:w-56">
         <ng-template let-country pTemplate="item">
             <div class="flex items-center gap-2">
@@ -82,9 +71,6 @@ export class TemplateDoc implements OnInit {
         [options]="countries" 
         [(ngModel)]="selectedCountry" 
         optionLabel="name" 
-        [listStyle]="{ 'max-height': '250px' }"
-        [style]="{ width: '15rem' }" 
-        [listStyle]="{'max-height': '220px'}"
         class="w-full md:w-56">
             <ng-template let-country pTemplate="item">
                 <div class="flex items-center gap-2">

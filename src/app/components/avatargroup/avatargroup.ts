@@ -1,14 +1,18 @@
-import { NgModule, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, HostBinding, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostBinding, inject, Input, NgModule, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AvatarGroupStyle } from './style/avatargroupstyle';
 import { BaseComponent } from 'primeng/basecomponent';
 import { styleClassAttribute } from "primeng/base";
+import { SharedModule } from 'primeng/api';
+
 /**
  * AvatarGroup is a helper component for Avatar.
  * @group Components
  */
 @Component({
     selector: 'p-avatarGroup, p-avatar-group, p-avatargroup',
+    standalone: true,
+    imports: [CommonModule, SharedModule],
     template: ` <ng-content></ng-content> `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
@@ -42,8 +46,7 @@ export class AvatarGroup extends BaseComponent {
 }
 
 @NgModule({
-    imports: [CommonModule],
-    exports: [AvatarGroup],
-    declarations: [AvatarGroup],
+    imports: [AvatarGroup, SharedModule],
+    exports: [AvatarGroup, SharedModule],
 })
 export class AvatarGroupModule {}

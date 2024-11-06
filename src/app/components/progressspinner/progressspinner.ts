@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, Input, NgModule, ViewEncapsulation } from '@angular/core';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ProgressSpinnerStyle } from './style/progressspinnerstyle';
+import { SharedModule } from 'primeng/api';
 import { styleClassAttribute } from "primeng/base";
 
 /**
@@ -9,7 +10,9 @@ import { styleClassAttribute } from "primeng/base";
  * @group Components
  */
 @Component({
-    selector: 'p-progressSpinner, p-progress-spinner',
+    selector: 'p-progressSpinner, p-progress-spinner, p-progressspinner',
+    standalone: true,
+    imports: [CommonModule, SharedModule],
     template: `
         <div
             class="p-progressspinner"
@@ -41,7 +44,6 @@ import { styleClassAttribute } from "primeng/base";
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-
     providers: [ProgressSpinnerStyle],
 })
 export class ProgressSpinner extends BaseComponent {
@@ -80,8 +82,7 @@ export class ProgressSpinner extends BaseComponent {
 }
 
 @NgModule({
-    imports: [CommonModule],
-    exports: [ProgressSpinner],
-    declarations: [ProgressSpinner],
+    imports: [ProgressSpinner, SharedModule],
+    exports: [ProgressSpinner, SharedModule],
 })
 export class ProgressSpinnerModule {}

@@ -32,15 +32,9 @@
                     "values": [
                         {
                             "name": "toggleicon",
-                            "description": "A template reference variable that represents the toggle icon in a UI component.",
+                            "description": "Toggle icon template.",
                             "type": "TemplateRef<AccordionToggleIconTemplateContext>",
-                            "parameters": [
-                                {
-                                    "name": "context",
-                                    "description": "Context of the template",
-                                    "type": "AccordionToggleIconTemplateContext"
-                                }
-                            ]
+                            "parameters": []
                         }
                     ]
                 }
@@ -168,6 +162,35 @@
                                 }
                             ],
                             "description": "Event triggered by changing the choice."
+                        }
+                    ]
+                },
+                "templates": {
+                    "description": "Defines the templates used by the component.",
+                    "values": [
+                        {
+                            "name": "header",
+                            "description": "Content template for the content of the drawer.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "footer",
+                            "description": "Header template for the header of the drawer.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "icon",
+                            "description": "Template for the header icon.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "content",
+                            "description": "Content template for the footer of the drawer.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
                         }
                     ]
                 }
@@ -1768,6 +1791,9 @@
     "overlayservice": {
         "components": {}
     },
+    "primeng": {
+        "components": {}
+    },
     "primengconfig": {
         "components": {}
     },
@@ -2239,6 +2265,12 @@
                     "name": "ToastMessageOptions",
                     "description": "Deines valid options for the toast message.",
                     "props": [
+                        {
+                            "name": "text",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "any"
+                        },
                         {
                             "name": "severity",
                             "optional": true,
@@ -3759,8 +3791,8 @@
                             "name": "size",
                             "optional": false,
                             "readonly": false,
-                            "type": "number",
-                            "description": "Size of the input field."
+                            "type": "\"small\" | \"large\"",
+                            "description": "Defines the size of the component."
                         },
                         {
                             "name": "appendTo",
@@ -4224,6 +4256,77 @@
                             "description": "Callback to invoke on lazy load data."
                         }
                     ]
+                },
+                "templates": {
+                    "description": "Defines the templates used by the component.",
+                    "values": [
+                        {
+                            "name": "item",
+                            "description": "Custom item template.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "empty",
+                            "description": "Custom empty message template.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "header",
+                            "description": "Custom header template.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "footer",
+                            "description": "Custom footer template.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "selecteditem",
+                            "description": "Custom selected item template.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "group",
+                            "description": "Custom group item template.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "loader",
+                            "description": "Custom loader template.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "removeicon",
+                            "description": "Custom remove icon template.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "loadingicon",
+                            "description": "Custom loading icon template.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "clearicon",
+                            "description": "Custom clear icon template.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "dropdownicon",
+                            "description": "Custom dropdown icon template.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        }
+                    ]
                 }
             }
         },
@@ -4503,6 +4606,15 @@
                     "values": [
                         {
                             "name": "autofocus",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "When present, it specifies that the component should automatically get focus on load.",
+                            "deprecated": "use [pAutoFocus]=\"true\""
+                        },
+                        {
+                            "name": "_autofocus",
                             "optional": false,
                             "readonly": false,
                             "type": "boolean",
@@ -4845,6 +4957,17 @@
                             "description": "Current blocked state as a boolean."
                         }
                     ]
+                },
+                "templates": {
+                    "description": "Defines the templates used by the component.",
+                    "values": [
+                        {
+                            "name": "content",
+                            "description": "template of the content",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        }
+                    ]
                 }
             }
         },
@@ -4930,6 +5053,23 @@
                                 }
                             ],
                             "description": "Fired when an item is selected."
+                        }
+                    ]
+                },
+                "templates": {
+                    "description": "Defines the templates used by the component.",
+                    "values": [
+                        {
+                            "name": "item",
+                            "description": "Defines template option for item.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "separator",
+                            "description": "Defines template option for separator.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
                         }
                     ]
                 }
@@ -5038,28 +5178,32 @@
                             "readonly": false,
                             "type": "ButtonIconPosition",
                             "default": "left",
-                            "description": "Position of the icon."
+                            "description": "Position of the icon.",
+                            "deprecated": "utilize pButtonIcon and pButtonLabel directives."
                         },
                         {
                             "name": "loadingIcon",
                             "optional": false,
                             "readonly": false,
                             "type": "string",
-                            "description": "Uses to pass attributes to the loading icon's DOM element."
+                            "description": "Uses to pass attributes to the loading icon's DOM element.",
+                            "deprecated": "utilize pButonIcon instead."
                         },
                         {
                             "name": "label",
                             "optional": false,
                             "readonly": false,
                             "type": "string",
-                            "description": "Text of the button."
+                            "description": "Text of the button.",
+                            "deprecated": "use pButtonLabel directive instead."
                         },
                         {
                             "name": "icon",
                             "optional": false,
                             "readonly": false,
                             "type": "string",
-                            "description": "Name of the icon."
+                            "description": "Name of the icon.",
+                            "deprecated": "use pButtonIcon directive instead"
                         },
                         {
                             "name": "loading",
@@ -5073,7 +5217,8 @@
                             "optional": false,
                             "readonly": false,
                             "type": "ButtonProps",
-                            "description": "Used to pass all properties of the ButtonProps to the Button component."
+                            "description": "Used to pass all properties of the ButtonProps to the Button component.",
+                            "deprecated": "assign props directly to the button element."
                         },
                         {
                             "name": "severity",
@@ -5128,7 +5273,16 @@
                             "readonly": false,
                             "type": "boolean",
                             "default": "false",
-                            "description": "Add a plain textual class to the button without a background initially."
+                            "description": "Add a plain textual class to the button without a background initially.",
+                            "deprecated": "use variant property instead."
+                        },
+                        {
+                            "name": "fluid",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Spans 100% width of the container when enabled."
                         }
                     ]
                 }
@@ -5228,7 +5382,8 @@
                             "readonly": false,
                             "type": "boolean",
                             "default": "false",
-                            "description": "Add a plain textual class to the button without a background initially."
+                            "description": "Add a plain textual class to the button without a background initially.",
+                            "deprecated": "use variant property instead."
                         },
                         {
                             "name": "severity",
@@ -5268,6 +5423,13 @@
                             "description": "Defines the size of the button."
                         },
                         {
+                            "name": "variant",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "\"text\" | \"outlined\"",
+                            "description": "Specifies the variant of the component."
+                        },
+                        {
                             "name": "style",
                             "optional": false,
                             "readonly": false,
@@ -5293,7 +5455,7 @@
                             "name": "badgeSeverity",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"success\" | \"info\" | \"warning\" | \"primary\" | \"help\" | \"danger\" | \"secondary\" | \"contrast\"",
+                            "type": "\"success\" | \"info\" | \"primary\" | \"help\" | \"warn\" | \"danger\" | \"secondary\" | \"contrast\"",
                             "default": "secondary",
                             "description": "Severity type of the badge."
                         },
@@ -5311,6 +5473,14 @@
                             "type": "boolean",
                             "default": "false",
                             "description": "When present, it specifies that the component should automatically get focus on load."
+                        },
+                        {
+                            "name": "fluid",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Spans 100% width of the container when enabled."
                         },
                         {
                             "name": "buttonProps",
@@ -5353,6 +5523,29 @@
                                 }
                             ],
                             "description": "Callback to execute when button loses focus.\nThis event is intended to be used with the <p-button> component. Using a regular <button> element, use (blur)."
+                        }
+                    ]
+                },
+                "templates": {
+                    "description": "Defines the templates used by the component.",
+                    "values": [
+                        {
+                            "name": "content",
+                            "description": "Template of the content.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "loadingicon",
+                            "description": "Template of the loading.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "icon",
+                            "description": "Template of the icon.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
                         }
                     ]
                 }
@@ -6081,6 +6274,83 @@
                             "description": "Callback to invoke when datepicker panel is shown."
                         }
                     ]
+                },
+                "templates": {
+                    "description": "Defines the templates used by the component.",
+                    "values": [
+                        {
+                            "name": "date",
+                            "description": "Custom template for date cells.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "header",
+                            "description": "Custom template for header section.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "footer",
+                            "description": "Custom template for footer section.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "disableddate",
+                            "description": "Custom template for disabled date cells.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "decade",
+                            "description": "Custom template for decade view.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "previousicon",
+                            "description": "Custom template for previous month icon.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "nexticon",
+                            "description": "Custom template for next month icon.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "triggericon",
+                            "description": "Custom template for trigger icon.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "clearicon",
+                            "description": "Custom template for clear icon.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "decrementicon",
+                            "description": "Custom template for decrement icon.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "incrementicon",
+                            "description": "Custom template for increment icon.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "inputicon",
+                            "description": "Custom template for input icon.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        }
+                    ]
                 }
             }
         },
@@ -6670,6 +6940,41 @@
                             "description": "Callback to invoke after scroll."
                         }
                     ]
+                },
+                "templates": {
+                    "description": "Defines the templates used by the component.",
+                    "values": [
+                        {
+                            "name": "item",
+                            "description": "Template for carousel items.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "header",
+                            "description": "Template for the carousel header.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "footer",
+                            "description": "Template for the carousel footer.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "previousicon",
+                            "description": "Template for the previous button icon.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "nexticon",
+                            "description": "Template for the next button icon.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        }
+                    ]
                 }
             }
         },
@@ -6953,14 +7258,14 @@
                             "name": "optionGroupLabel",
                             "optional": false,
                             "readonly": false,
-                            "type": "string | string[]",
+                            "type": "string",
                             "description": "Property name or getter function to use as the label of an option group."
                         },
                         {
                             "name": "optionGroupChildren",
                             "optional": false,
                             "readonly": false,
-                            "type": "string | string[]",
+                            "type": "string",
                             "description": "Property name or getter function to retrieve the items of a group."
                         },
                         {
@@ -6990,6 +7295,13 @@
                             "readonly": false,
                             "type": "string",
                             "description": "Identifier of the underlying input element."
+                        },
+                        {
+                            "name": "size",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "\"small\" | \"large\"",
+                            "description": "Defines the size of the component."
                         },
                         {
                             "name": "tabindex",
@@ -7118,6 +7430,14 @@
                             "type": "boolean",
                             "default": "false",
                             "description": "Spans 100% width of the container when enabled."
+                        },
+                        {
+                            "name": "breakpoint",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "default": "960px",
+                            "description": "The breakpoint to define the maximum width boundary."
                         }
                     ]
                 },
@@ -7213,6 +7533,59 @@
                                 }
                             ],
                             "description": "Callback to invoke when input loses focus."
+                        }
+                    ]
+                },
+                "templates": {
+                    "description": "Defines the templates used by the component.",
+                    "values": [
+                        {
+                            "name": "value",
+                            "description": "Content template for displaying the selected value.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "option",
+                            "description": "Content template for customizing the option display.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "header",
+                            "description": "Content template for customizing the header.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "footer",
+                            "description": "Content template for customizing the footer.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "triggericon",
+                            "description": "Content template for customizing the trigger icon.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "loadingicon",
+                            "description": "Content template for customizing the loading icon.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "groupicon",
+                            "description": "Content template for customizing the group icon.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "clearicon",
+                            "description": "Content template for customizing the clear icon.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
                         }
                     ]
                 }
@@ -7679,6 +8052,13 @@
                             "description": "When present, it specifies input state as indeterminate."
                         },
                         {
+                            "name": "size",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "\"small\" | \"large\"",
+                            "description": "Defines the size of the component."
+                        },
+                        {
                             "name": "formControl",
                             "optional": false,
                             "readonly": false,
@@ -7774,6 +8154,17 @@
                                 }
                             ],
                             "description": "Callback to invoke when the loses focus."
+                        }
+                    ]
+                },
+                "templates": {
+                    "description": "Defines the templates used by the component.",
+                    "values": [
+                        {
+                            "name": "checkboxicon",
+                            "description": "The template of the checkbox icon.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
                         }
                     ]
                 }
@@ -8798,6 +9189,14 @@
                             "description": "Current id state as a string."
                         },
                         {
+                            "name": "breakpoint",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "default": "960px",
+                            "description": "The breakpoint to define the maximum width boundary."
+                        },
+                        {
                             "name": "ariaLabel",
                             "optional": false,
                             "readonly": false,
@@ -8843,6 +9242,23 @@
                                 }
                             ],
                             "description": "Callback to invoke when overlay menu is hidden."
+                        }
+                    ]
+                },
+                "templates": {
+                    "description": "Defines the templates used by the component.",
+                    "values": [
+                        {
+                            "name": "item",
+                            "description": "Defines template option for item.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "submenuicon",
+                            "description": "Defines template option for submenuIcon.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
                         }
                     ]
                 }
@@ -9165,6 +9581,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "\"grid\" | \"list\"",
+                            "default": "list",
                             "description": "Defines the layout mode."
                         }
                     ]
@@ -9211,6 +9628,77 @@
                                 }
                             ],
                             "description": "Callback to invoke when changing layout."
+                        }
+                    ]
+                },
+                "templates": {
+                    "description": "Defines the templates used by the component.",
+                    "values": [
+                        {
+                            "name": "list",
+                            "description": "Template for the list layout.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "grid",
+                            "description": "Template for grid layout.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "header",
+                            "description": "Template for the header section.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "emptymessage",
+                            "description": "Template for the empty message section.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "footer",
+                            "description": "Template for the footer section.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "paginatorleft",
+                            "description": "Template for the left side of paginator.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "paginatorright",
+                            "description": "Template for the right side of paginator.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "paginatordropdownitem",
+                            "description": "Template for items in paginator dropdown.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "loadingicon",
+                            "description": "Template for loading icon.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "listicon",
+                            "description": "Template for list icon.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "gridicon",
+                            "description": "Template for grid icon.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
                         }
                     ]
                 }
@@ -9921,6 +10409,13 @@
                             "description": "Specifies the input variant of the component."
                         },
                         {
+                            "name": "size",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "\"small\" | \"large\"",
+                            "description": "Defines the size of the component."
+                        },
+                        {
                             "name": "minDate",
                             "optional": false,
                             "readonly": false,
@@ -10130,6 +10625,83 @@
                                 }
                             ],
                             "description": "Callback to invoke when datepicker panel is shown."
+                        }
+                    ]
+                },
+                "templates": {
+                    "description": "Defines the templates used by the component.",
+                    "values": [
+                        {
+                            "name": "date",
+                            "description": "Custom template for date cells.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "header",
+                            "description": "Custom template for header section.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "footer",
+                            "description": "Custom template for footer section.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "disableddate",
+                            "description": "Custom template for disabled date cells.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "decade",
+                            "description": "Custom template for decade view.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "previousicon",
+                            "description": "Custom template for previous month icon.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "nexticon",
+                            "description": "Custom template for next month icon.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "triggericon",
+                            "description": "Custom template for trigger icon.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "clearicon",
+                            "description": "Custom template for clear icon.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "decrementicon",
+                            "description": "Custom template for decrement icon.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "incrementicon",
+                            "description": "Custom template for increment icon.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "inputicon",
+                            "description": "Custom template for input icon.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
                         }
                     ]
                 }
@@ -10590,7 +11162,7 @@
     },
     "defer": {
         "components": {
-            "DeferredLoader": {
+            "Defer": {
                 "description": "Defer postpones the loading the content that is initially not in the viewport until it becomes visible on scroll.",
                 "emits": {
                     "description": "Defines emit that determine the behavior of the component based on a given condition or report the actions that the component takes.",
@@ -11569,7 +12141,8 @@
                             "readonly": false,
                             "type": "boolean",
                             "default": "true",
-                            "description": "Whether to display the close icon."
+                            "description": "Whether to display the close icon.",
+                            "deprecated": "use 'closable' instead."
                         },
                         {
                             "name": "closeOnEscape",
@@ -11621,6 +12194,14 @@
                             "readonly": false,
                             "type": "Object",
                             "description": "Style of the mask."
+                        },
+                        {
+                            "name": "closable",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "true",
+                            "description": "Whether to display close button."
                         }
                     ]
                 },
@@ -11656,6 +12237,41 @@
                                 }
                             ],
                             "description": "Callback to invoke when dialog visibility is changed."
+                        }
+                    ]
+                },
+                "templates": {
+                    "description": "Defines the templates used by the component.",
+                    "values": [
+                        {
+                            "name": "header",
+                            "description": "Content template for the content of the drawer.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "footer",
+                            "description": "Header template for the header of the drawer.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "content",
+                            "description": "Content template for the footer of the drawer.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "closeicon",
+                            "description": "Close icon template for the close icon of the drawer.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "headless",
+                            "description": "Headless template for the headless drawer.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
                         }
                     ]
                 }
@@ -13410,6 +14026,35 @@
                             "description": "Callback to invoke after panel toggle."
                         }
                     ]
+                },
+                "templates": {
+                    "description": "Defines the templates used by the component.",
+                    "values": [
+                        {
+                            "name": "header",
+                            "description": "Defines the header template.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "expandicon",
+                            "description": "Defines the expandicon template.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "collapseicon",
+                            "description": "Defines the collapseicon template.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "content",
+                            "description": "Defines the content template.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        }
+                    ]
                 }
             }
         },
@@ -13939,6 +14584,65 @@
                                 }
                             ],
                             "description": "Removes uploaded file."
+                        }
+                    ]
+                },
+                "templates": {
+                    "description": "Defines the templates used by the component.",
+                    "values": [
+                        {
+                            "name": "file",
+                            "description": "Template for file.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "header",
+                            "description": "Template for header.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "content",
+                            "description": "Template for content.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "toolbar",
+                            "description": "Template for toolbar.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "chooseicon",
+                            "description": "Template for choose icon.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "filelabel",
+                            "description": "Template for file label.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "uploadicon",
+                            "description": "Template for upload icon.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "cancelicon",
+                            "description": "Template for cancel icon.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "empty",
+                            "description": "Template for empty state.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
                         }
                     ]
                 }
@@ -14855,6 +15559,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "\"left\" | \"right\"",
+                            "default": "left",
                             "description": "Position of the icon."
                         },
                         {
@@ -15226,6 +15931,59 @@
                             "description": "This event is triggered if an error occurs while loading an image file."
                         }
                     ]
+                },
+                "templates": {
+                    "description": "Defines the templates used by the component.",
+                    "values": [
+                        {
+                            "name": "indicator",
+                            "description": "Custom template of indicator.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "rotaterighticon",
+                            "description": "Custom template of rotaterighticon.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "rotatelefticon",
+                            "description": "Custom template of rotatelefticon.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "zoomouticon",
+                            "description": "Custom template of zoomouticon.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "zoominicon",
+                            "description": "Custom template of zoominicon.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "closeicon",
+                            "description": "Custom template of closeicon.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "preview",
+                            "description": "Custom template of preview.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "image",
+                            "description": "Custom template of image.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        }
+                    ]
                 }
             }
         },
@@ -15467,6 +16225,29 @@
                             "description": "Deactivates the content."
                         }
                     ]
+                },
+                "templates": {
+                    "description": "Defines the templates used by the component.",
+                    "values": [
+                        {
+                            "name": "content",
+                            "description": "Display template of the element.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "closeicon",
+                            "description": "Content template of the element.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "_componentstyle",
+                            "description": "Close icon template of the element.",
+                            "type": "InplaceStyle",
+                            "parameters": []
+                        }
+                    ]
                 }
             }
         },
@@ -15672,8 +16453,8 @@
                             "name": "size",
                             "optional": false,
                             "readonly": false,
-                            "type": "number",
-                            "description": "Size of the input field."
+                            "type": "\"small\" | \"large\"",
+                            "description": "Defines the size of the component."
                         },
                         {
                             "name": "maxlength",
@@ -15877,6 +16658,17 @@
                             "description": "Callback to invoke when input field is cleared."
                         }
                     ]
+                },
+                "templates": {
+                    "description": "Defines the templates used by the component.",
+                    "values": [
+                        {
+                            "name": "clearicon",
+                            "description": "Template of the clear icon.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        }
+                    ]
                 }
             }
         },
@@ -15979,8 +16771,8 @@
                             "name": "size",
                             "optional": false,
                             "readonly": false,
-                            "type": "number",
-                            "description": "Size of the input field."
+                            "type": "\"small\" | \"large\"",
+                            "description": "Defines the size of the component."
                         },
                         {
                             "name": "maxlength",
@@ -16294,6 +17086,29 @@
                             "description": "Callback to invoke when clear token is clicked."
                         }
                     ]
+                },
+                "templates": {
+                    "description": "Defines the templates used by the component.",
+                    "values": [
+                        {
+                            "name": "clearicon",
+                            "description": "Template of the clear icon.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "incrementbuttonicon",
+                            "description": "Template of the icrement button icon.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "decrementbuttonicon",
+                            "description": "Template of the decrement button icon.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        }
+                    ]
                 }
             }
         },
@@ -16468,6 +17283,13 @@
                             "type": "boolean",
                             "default": "false",
                             "description": "When present, it specifies that the component should automatically get focus on load."
+                        },
+                        {
+                            "name": "size",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "\"small\" | \"large\"",
+                            "description": "Defines the size of the component."
                         }
                     ]
                 },
@@ -16505,94 +17327,118 @@
                             "description": "Callback to invoke when the component loses focus."
                         }
                     ]
+                },
+                "templates": {
+                    "description": "Defines the templates used by the component.",
+                    "values": [
+                        {
+                            "name": "input",
+                            "description": "Input template.",
+                            "type": "TemplateRef<InputOtpInputTemplateContext>",
+                            "parameters": [
+                                {
+                                    "name": "context",
+                                    "description": "Context of the template",
+                                    "type": "InputOtpInputTemplateContext"
+                                }
+                            ]
+                        }
+                    ]
                 }
             }
         },
         "interfaces": {
-            "components": {},
-            "events": {
-                "description": "Defines the custom events used by the component's emitters.",
-                "values": [
-                    {
-                        "name": "InputOtpTemplateEvents",
-                        "description": "Defines the custom events used by the component's emit.",
-                        "props": [
-                            {
-                                "name": "input",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "Function",
-                                "description": "Input event."
-                            },
-                            {
-                                "name": "keydown",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "Function",
-                                "description": "Keydown event."
-                            },
-                            {
-                                "name": "focus",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "Function",
-                                "description": "Focus event."
-                            },
-                            {
-                                "name": "blur",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "Function",
-                                "description": "Blur event."
-                            },
-                            {
-                                "name": "paste",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "Function",
-                                "description": "Paste event."
-                            }
-                        ]
-                    },
-                    {
-                        "name": "InputOtpChangeEvent",
-                        "description": "Custom change event.",
-                        "props": [
-                            {
-                                "name": "originalEvent",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "Event",
-                                "description": "Browser event."
-                            },
-                            {
-                                "name": "value",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "any",
-                                "description": "Selected value."
-                            }
-                        ]
-                    }
-                ]
-            },
-            "templates": {
-                "description": "Defines the templates used by the component.",
-                "values": [
-                    {
-                        "parent": "inputotp",
-                        "name": "input",
-                        "parameters": [
-                            {
-                                "name": "context",
-                                "type": "{\n  \t $implicit: any, // Input value.\n  \t events: InputOtpTemplateEvents, // Events of the component\n  }",
-                                "description": ""
-                            }
-                        ],
-                        "description": "Custom template of input."
-                    }
-                ]
-            }
+            "description": "Defines the custom interfaces used by the module.",
+            "values": [
+                {
+                    "name": "InputOtpChangeEvent",
+                    "description": "Input change event.",
+                    "props": [
+                        {
+                            "name": "originalEvent",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "Event",
+                            "description": "browser event."
+                        },
+                        {
+                            "name": "value",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "any",
+                            "description": "updated value."
+                        }
+                    ]
+                },
+                {
+                    "name": "InputOtpTemplateEvents",
+                    "description": "Context interface for the input template events.",
+                    "props": [
+                        {
+                            "name": "input",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "Function",
+                            "description": "input event."
+                        },
+                        {
+                            "name": "keydown",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "Function",
+                            "description": "keydown event."
+                        },
+                        {
+                            "name": "focus",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "Function",
+                            "description": "focus event."
+                        },
+                        {
+                            "name": "blur",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "Function",
+                            "description": "blur event."
+                        },
+                        {
+                            "name": "paste",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "Function",
+                            "description": "paste event."
+                        }
+                    ]
+                },
+                {
+                    "name": "InputOtpInputTemplateContext",
+                    "description": "Context of the input template.",
+                    "props": [
+                        {
+                            "name": "$implicit",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string | number",
+                            "description": "token value."
+                        },
+                        {
+                            "name": "events",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputOtpTemplateEvents",
+                            "description": "Browser events of the template."
+                        },
+                        {
+                            "name": "index",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number",
+                            "description": "index of the token."
+                        }
+                    ]
+                }
+            ]
         },
         "style": {
             "components": {},
@@ -16884,6 +17730,13 @@
                             "type": "boolean",
                             "default": "false",
                             "description": "Spans 100% width of the container when enabled."
+                        },
+                        {
+                            "name": "size",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "\"small\" | \"large\"",
+                            "description": "Defines the size of the component."
                         }
                     ]
                 },
@@ -17592,6 +18445,16 @@
                                 }
                             ],
                             "description": "Callback to invoke when all data is selected."
+                        },
+                        {
+                            "name": "onLazyLoad",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "ScrollerLazyLoadEvent"
+                                }
+                            ],
+                            "description": "Emits on lazy load."
                         }
                     ]
                 },
@@ -17611,6 +18474,77 @@
                                 }
                             ],
                             "description": "Updates the model value."
+                        }
+                    ]
+                },
+                "templates": {
+                    "description": "Defines the templates used by the component.",
+                    "values": [
+                        {
+                            "name": "item",
+                            "description": "Custom item template.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "group",
+                            "description": "Custom group template.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "header",
+                            "description": "Custom header template.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "filter",
+                            "description": "Custom filter template.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "footer",
+                            "description": "Custom footer template.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "emptyfilter",
+                            "description": "Custom empty filter message template.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "empty",
+                            "description": "Custom empty message template.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "filtericon",
+                            "description": "Custom filter icon template.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "checkicon",
+                            "description": "Custom check icon template.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "checkmark",
+                            "description": "Custom checkmark icon template.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "loader",
+                            "description": "Custom loader template.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
                         }
                     ]
                 }
@@ -17957,6 +18891,22 @@
                             "description": "Identifier of the underlying input element."
                         },
                         {
+                            "name": "breakpoint",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "default": "960px",
+                            "description": "The breakpoint to define the maximum width boundary."
+                        },
+                        {
+                            "name": "scrollHeight",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "default": "20rem",
+                            "description": "Height of the viewport, a scrollbar is defined if height of list exceeds this value."
+                        },
+                        {
                             "name": "disabled",
                             "optional": false,
                             "readonly": false,
@@ -17971,6 +18921,53 @@
                             "type": "number",
                             "default": "0",
                             "description": "Index of the element in tabbing order."
+                        }
+                    ]
+                },
+                "templates": {
+                    "description": "Defines the templates used by the component.",
+                    "values": [
+                        {
+                            "name": "start",
+                            "description": "Defines template option for start.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "end",
+                            "description": "Defines template option for end.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "menuicon",
+                            "description": "Defines template option for menu icon.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "submenuicon",
+                            "description": "Defines template option for submenu icon.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "item",
+                            "description": "Defines template option for submenu icon.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "button",
+                            "description": "Custom menu button template on responsive mode.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "buttonicon",
+                            "description": "Custom menu button icon template on responsive mode.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
                         }
                     ]
                 }
@@ -18271,6 +19268,41 @@
                             "description": "Hides the popup menu."
                         }
                     ]
+                },
+                "templates": {
+                    "description": "Defines the templates used by the component.",
+                    "values": [
+                        {
+                            "name": "start",
+                            "description": "Defines template option for start.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "end",
+                            "description": "Defines template option for end.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "header",
+                            "description": "Defines template option for header.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "item",
+                            "description": "Defines template option for item.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "submenuheader",
+                            "description": "Defines template option for item.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        }
+                    ]
                 }
             }
         },
@@ -18429,6 +19461,14 @@
                             "description": "Whether to hide a root submenu when mouse leaves."
                         },
                         {
+                            "name": "breakpoint",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "default": "960px",
+                            "description": "The breakpoint to define the maximum width boundary."
+                        },
+                        {
                             "name": "autoHideDelay",
                             "optional": false,
                             "readonly": false,
@@ -18481,6 +19521,41 @@
                                 }
                             ],
                             "description": "Callback to execute when button loses focus."
+                        }
+                    ]
+                },
+                "templates": {
+                    "description": "Defines the templates used by the component.",
+                    "values": [
+                        {
+                            "name": "start",
+                            "description": "Defines template option for start.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "end",
+                            "description": "Defines template option for end.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "item",
+                            "description": "Defines template option for item.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "menuicon",
+                            "description": "Defines template option for item.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "submenuicon",
+                            "description": "Defines template option for submenu icon.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
                         }
                     ]
                 }
@@ -18673,6 +19748,20 @@
                             "type": "string",
                             "default": "'200ms cubic-bezier(0.86, 0, 0.07, 1)'",
                             "description": "Transition options of the hide animation."
+                        },
+                        {
+                            "name": "size",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "\"small\" | \"large\"",
+                            "description": "Defines the size of the component."
+                        },
+                        {
+                            "name": "variant",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "\"text\" | \"outlined\" | \"simple\"",
+                            "description": "Specifies the input variant of the component."
                         }
                     ]
                 },
@@ -18699,11 +19788,34 @@
                             "parameters": [
                                 {
                                     "name": "event",
-                                    "type": "any",
+                                    "type": "Event",
                                     "description": "Browser event."
                                 }
                             ],
                             "description": "Closes the message."
+                        }
+                    ]
+                },
+                "templates": {
+                    "description": "Defines the templates used by the component.",
+                    "values": [
+                        {
+                            "name": "container",
+                            "description": "Custom template of the message container.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "icon",
+                            "description": "Custom template of the message icon.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "closeicon",
+                            "description": "Custom template of the close icon.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
                         }
                     ]
                 }
@@ -18920,7 +20032,7 @@
                             "name": "labelOrientation",
                             "optional": false,
                             "readonly": false,
-                            "type": "string",
+                            "type": "\"horizontal\" | \"vertical\"",
                             "default": "horizontal",
                             "description": "Specifies the label orientation of the component, valid values are 'horizontal' and 'vertical'."
                         },
@@ -19501,6 +20613,13 @@
                             "type": "string",
                             "default": "off",
                             "description": "Defines the autocomplete is active."
+                        },
+                        {
+                            "name": "size",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "\"small\" | \"large\"",
+                            "description": "Defines the size of the component."
                         },
                         {
                             "name": "showClear",
@@ -20175,7 +21294,7 @@
     "orderlist": {
         "components": {
             "OrderList": {
-                "description": "OrderList is used to managed the order of a collection.",
+                "description": "OrderList is used to manage the order of a collection.",
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
@@ -20468,6 +21587,71 @@
                             "name": "resetFilter",
                             "parameters": [],
                             "description": "Callback to invoke on filter reset."
+                        }
+                    ]
+                },
+                "templates": {
+                    "description": "Defines the templates used by the component.",
+                    "values": [
+                        {
+                            "name": "item",
+                            "description": "Custom item template.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "emptymessage",
+                            "description": "Custom empty template.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "emptyfiltermessage",
+                            "description": "Custom empty filter template.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "filter",
+                            "description": "Custom filter template.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "header",
+                            "description": "Custom header template.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "moveupicon",
+                            "description": "Custom move up icon template.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "movetopicon",
+                            "description": "Custom move top icon template.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "movedownicon",
+                            "description": "Custom move down icon template.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "movebottomicon",
+                            "description": "Custom move bottom icon template.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "filtericon",
+                            "description": "Custom filter icon template.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
                         }
                     ]
                 }
@@ -21098,6 +22282,17 @@
                                 }
                             ],
                             "description": "Callback to invoke when the animation is done."
+                        }
+                    ]
+                },
+                "templates": {
+                    "description": "Defines the templates used by the component.",
+                    "values": [
+                        {
+                            "name": "content",
+                            "description": "Content template of the component.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
                         }
                     ]
                 }
@@ -21772,6 +22967,41 @@
                             "description": "Callback to invoke when page changes, the event object contains information about the new state."
                         }
                     ]
+                },
+                "templates": {
+                    "description": "Defines the templates used by the component.",
+                    "values": [
+                        {
+                            "name": "dropdownicon",
+                            "description": "Template for the dropdown icon.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "firstpagelinkicon",
+                            "description": "Template for the first page link icon.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "previouspagelinkicon",
+                            "description": "Template for the previous page link icon.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "lastpagelinkicon",
+                            "description": "Template for the last page link icon.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "nextpagelinkicon",
+                            "description": "Template for the next page link icon.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        }
+                    ]
                 }
             }
         },
@@ -22060,97 +23290,101 @@
                             "description": "Callback to invoke after panel toggle."
                         }
                     ]
+                },
+                "templates": {
+                    "description": "Defines the templates used by the component.",
+                    "values": [
+                        {
+                            "name": "header",
+                            "description": "Defines template option for header.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "icon",
+                            "description": "Defines template option for icon.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "content",
+                            "description": "Defines template option for content.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "footer",
+                            "description": "Defines template option for footer.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "headericons",
+                            "description": "Defines template option for headerIcon.",
+                            "type": "TemplateRef<PanelHeaderIconsTemplateContext>",
+                            "parameters": []
+                        }
+                    ]
                 }
             }
         },
         "interfaces": {
-            "components": {},
-            "events": {
-                "description": "Defines the custom events used by the component's emitters.",
-                "values": [
-                    {
-                        "name": "PanelBeforeToggleEvent",
-                        "description": "Custom panel toggle event, emits before panel toggle.",
-                        "props": [
-                            {
-                                "name": "originalEvent",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "Event",
-                                "description": "Browser event."
-                            },
-                            {
-                                "name": "collapsed",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "boolean",
-                                "description": "Collapsed state of the panel."
-                            }
-                        ]
-                    },
-                    {
-                        "name": "PanelAfterToggleEvent",
-                        "description": "Custom panel toggle event, emits after panel toggle.",
-                        "props": [
-                            {
-                                "name": "originalEvent",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "Event",
-                                "description": "Browser event."
-                            },
-                            {
-                                "name": "collapsed",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "boolean",
-                                "description": "Collapsed state of the panel."
-                            }
-                        ]
-                    }
-                ]
-            },
-            "templates": {
-                "description": "Defines the templates used by the component.",
-                "values": [
-                    {
-                        "parent": "panel",
-                        "name": "header",
-                        "parameters": [],
-                        "description": "Custom header template."
-                    },
-                    {
-                        "parent": "panel",
-                        "name": "content",
-                        "parameters": [],
-                        "description": "Custom content template."
-                    },
-                    {
-                        "parent": "panel",
-                        "name": "footer",
-                        "parameters": [],
-                        "description": "Custom footer template."
-                    },
-                    {
-                        "parent": "panel",
-                        "name": "headericons",
-                        "parameters": [
-                            {
-                                "name": "context",
-                                "type": "{\n  \t $implicit: boolean, // Collapsed state as a boolean\n  }",
-                                "description": "header icon data."
-                            }
-                        ],
-                        "description": "Custom icons template of the panel toggler."
-                    },
-                    {
-                        "parent": "panel",
-                        "name": "icons",
-                        "parameters": [],
-                        "description": "Custom icons template of the panel header."
-                    }
-                ]
-            }
+            "description": "Defines the custom interfaces used by the module.",
+            "values": [
+                {
+                    "name": "PanelBeforeToggleEvent",
+                    "description": "Custom panel toggle event, emits before panel toggle.",
+                    "props": [
+                        {
+                            "name": "originalEvent",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "Event",
+                            "description": "Browser event."
+                        },
+                        {
+                            "name": "collapsed",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "description": "Collapsed state of the panel."
+                        }
+                    ]
+                },
+                {
+                    "name": "PanelAfterToggleEvent",
+                    "description": "Custom panel toggle event, emits after panel toggle.",
+                    "props": [
+                        {
+                            "name": "originalEvent",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "Event",
+                            "description": "Browser event."
+                        },
+                        {
+                            "name": "collapsed",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "description": "Collapsed state of the panel."
+                        }
+                    ]
+                },
+                {
+                    "name": "PanelHeaderIconsTemplateContext",
+                    "description": "Toggle icon template context.",
+                    "props": [
+                        {
+                            "name": "$implicit",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "description": "Collapsed state as a boolean, implicit value."
+                        }
+                    ]
+                }
+            ]
         },
         "style": {
             "components": {},
@@ -22260,6 +23494,23 @@
                             "name": "collapseAll",
                             "parameters": [],
                             "description": "Collapses open panels."
+                        }
+                    ]
+                },
+                "templates": {
+                    "description": "Defines the templates used by the component.",
+                    "values": [
+                        {
+                            "name": "submenuicon",
+                            "description": "Template option of submenuicon.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "item",
+                            "description": "Template option of item.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
                         }
                     ]
                 }
@@ -22564,6 +23815,13 @@
                             "type": "boolean",
                             "default": "false",
                             "description": "Whether to show an icon to display the password as plain text."
+                        },
+                        {
+                            "name": "size",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "\"small\" | \"large\"",
+                            "description": "Defines the size of the component."
                         },
                         {
                             "name": "inputStyleClass",
@@ -23262,6 +24520,125 @@
                             "description": "Callback to invoke when the list is blurred"
                         }
                     ]
+                },
+                "templates": {
+                    "description": "Defines the templates used by the component.",
+                    "values": [
+                        {
+                            "name": "item",
+                            "description": "Custom item template.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "sourceheader",
+                            "description": "Custom source header template.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "targetheader",
+                            "description": "Custom target header template.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "sourcefilter",
+                            "description": "Custom source filter template.",
+                            "type": "TemplateRef<Object>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "targetfilter",
+                            "description": "Custom target filter template.",
+                            "type": "TemplateRef<Object>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "emptymessagesource",
+                            "description": "Custom empty message when source is empty template.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "emptyfiltermessagesource",
+                            "description": "Custom empty filter message when source is empty template.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "emptymessagetarget",
+                            "description": "Custom empty message when target is empty template.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "emptyfiltermessagetarget",
+                            "description": "Custom empty filter message when target is empty template.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "moveupicon",
+                            "description": "Custom move up icon template.",
+                            "type": "TemplateRef<Object>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "movetopicon",
+                            "description": "Custom move top icon template.",
+                            "type": "TemplateRef<Object>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "movedownicon",
+                            "description": "Custom move down icon template.",
+                            "type": "TemplateRef<Object>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "movebottomicon",
+                            "description": "Custom move bottom icon template.",
+                            "type": "TemplateRef<Object>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "movetotargeticon",
+                            "description": "Custom move to target icon template.",
+                            "type": "TemplateRef<Object>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "movealltotargeticon",
+                            "description": "Custom move all to target icon template.",
+                            "type": "TemplateRef<Object>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "movetosourceicon",
+                            "description": "Custom move to source icon template.",
+                            "type": "TemplateRef<Object>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "movealltosourceicon",
+                            "description": "Custom move all to source icon template.",
+                            "type": "TemplateRef<Object>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "targetfiltericon",
+                            "description": "Custom target filter icon template.",
+                            "type": "TemplateRef<Object>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "sourcefiltericon",
+                            "description": "Custom source filter icon template.",
+                            "type": "TemplateRef<Object>",
+                            "parameters": []
+                        }
+                    ]
                 }
             }
         },
@@ -23870,6 +25247,13 @@
                             "description": "Specifies the input variant of the component."
                         },
                         {
+                            "name": "size",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "\"small\" | \"large\"",
+                            "description": "Defines the size of the component."
+                        },
+                        {
                             "name": "tabindex",
                             "optional": false,
                             "readonly": false,
@@ -24139,6 +25523,29 @@
                                 }
                             ],
                             "description": "Emitted when the rating loses focus."
+                        }
+                    ]
+                },
+                "templates": {
+                    "description": "Defines the templates used by the component.",
+                    "values": [
+                        {
+                            "name": "onicon",
+                            "description": "Custom on icon template.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "officon",
+                            "description": "Custom off icon template.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "cancelicon",
+                            "description": "Custom cancel icon template.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
                         }
                     ]
                 }
@@ -24453,6 +25860,35 @@
                                 }
                             ],
                             "description": "Callback to invoke when scroll position and item's range in view changes."
+                        }
+                    ]
+                },
+                "templates": {
+                    "description": "Defines the templates used by the component.",
+                    "values": [
+                        {
+                            "name": "content",
+                            "description": "Content template of the component.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "item",
+                            "description": "Item template of the component.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "loader",
+                            "description": "Loader template of the component.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "loadericon",
+                            "description": "Loader icon template of the component.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
                         }
                     ]
                 }
@@ -24856,6 +26292,17 @@
                             "description": "Refreshes the position and size of the scrollbar."
                         }
                     ]
+                },
+                "templates": {
+                    "description": "Defines the templates used by the component.",
+                    "values": [
+                        {
+                            "name": "content",
+                            "description": "Defines template option for content.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        }
+                    ]
                 }
             }
         },
@@ -24983,6 +26430,17 @@
                             "type": "ButtonProps",
                             "default": "...",
                             "description": "Used to pass all properties of the ButtonProps to the Button component."
+                        }
+                    ]
+                },
+                "templates": {
+                    "description": "Defines the templates used by the component.",
+                    "values": [
+                        {
+                            "name": "icon",
+                            "description": "Template of the icon.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
                         }
                     ]
                 }
@@ -25339,6 +26797,13 @@
                             "description": "Whether to use the scroller feature. The properties of scroller component can be used like an object in it."
                         },
                         {
+                            "name": "size",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "\"small\" | \"large\"",
+                            "description": "Defines the size of the component."
+                        },
+                        {
                             "name": "overlayOptions",
                             "optional": false,
                             "readonly": false,
@@ -25652,6 +27117,107 @@
                                 }
                             ],
                             "description": "Clears the model."
+                        }
+                    ]
+                },
+                "templates": {
+                    "description": "Defines the templates used by the component.",
+                    "values": [
+                        {
+                            "name": "item",
+                            "description": "Custom item template.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "group",
+                            "description": "Custom group template.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "loader",
+                            "description": "Custom loader template.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "selecteditem",
+                            "description": "Custom selected item template.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "header",
+                            "description": "Custom header template.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "filter",
+                            "description": "Custom filter template.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "footer",
+                            "description": "Custom footer template.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "emptyfilter",
+                            "description": "Custom empty filter template.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "empty",
+                            "description": "Custom empty template.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "dropdownicon",
+                            "description": "Custom dropdown icon template.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "loadingicon",
+                            "description": "Custom loading icon template.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "clearicon",
+                            "description": "Custom clear icon template.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "filtericon",
+                            "description": "Custom filter icon template.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "onicon",
+                            "description": "Custom on icon template.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "officon",
+                            "description": "Custom off icon template.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "cancelicon",
+                            "description": "Custom cancel icon template.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
                         }
                     ]
                 }
@@ -26023,6 +27589,13 @@
                             "description": "Establishes relationships between the component and label(s) where its value should be one or more element IDs."
                         },
                         {
+                            "name": "size",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "\"small\" | \"large\"",
+                            "description": "Defines the size of the component."
+                        },
+                        {
                             "name": "disabled",
                             "optional": false,
                             "readonly": false,
@@ -26069,6 +27642,17 @@
                                 }
                             ],
                             "description": "Callback to invoke on selection change."
+                        }
+                    ]
+                },
+                "templates": {
+                    "description": "Defines the templates used by the component.",
+                    "values": [
+                        {
+                            "name": "item",
+                            "description": "Template of an item in the list.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
                         }
                     ]
                 }
@@ -26303,6 +27887,13 @@
                         },
                         {
                             "name": "headlessTemplate",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "TemplateRef<any>",
+                            "description": "Headless template."
+                        },
+                        {
+                            "name": "contentTemplate",
                             "optional": false,
                             "readonly": false,
                             "type": "TemplateRef<any>",
@@ -26903,6 +28494,29 @@
                             "description": "Fired when the actions are hidden."
                         }
                     ]
+                },
+                "templates": {
+                    "description": "Defines the templates used by the component.",
+                    "values": [
+                        {
+                            "name": "button",
+                            "description": "Template of the button.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "item",
+                            "description": "Template of the item.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "icon",
+                            "description": "Template of the item.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        }
+                    ]
                 }
             }
         },
@@ -27080,7 +28694,7 @@
                             "name": "tooltipOptions",
                             "optional": false,
                             "readonly": false,
-                            "type": "string",
+                            "type": "TooltipOptions",
                             "description": "Tooltip options for the main button."
                         },
                         {
@@ -27235,6 +28849,23 @@
                                 }
                             ],
                             "description": "Callback to invoke when dropdown button is clicked."
+                        }
+                    ]
+                },
+                "templates": {
+                    "description": "Defines the templates used by the component.",
+                    "values": [
+                        {
+                            "name": "content",
+                            "description": "Template of the content.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "dropdownicon",
+                            "description": "Template of the dropdownicon.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
                         }
                     ]
                 }
@@ -27523,7 +29154,7 @@
                     "description": "Defines the templates used by the component.",
                     "values": [
                         {
-                            "name": "contentTemplate",
+                            "name": "content",
                             "description": "Content template.",
                             "type": "TemplateRef<StepContentTemplateContext>",
                             "parameters": []
@@ -27550,10 +29181,16 @@
                     "description": "Defines the templates used by the component.",
                     "values": [
                         {
-                            "name": "contentTemplate",
+                            "name": "content",
                             "description": "Content template.",
                             "type": "TemplateRef<StepPanelContentTemplateContext>",
-                            "parameters": []
+                            "parameters": [
+                                {
+                                    "name": "context",
+                                    "description": "Context of the template",
+                                    "type": "StepPanelContentTemplateContext"
+                                }
+                            ]
                         }
                     ]
                 }
@@ -29096,6 +30733,203 @@
                             "description": "Scrolls to given index."
                         }
                     ]
+                },
+                "templates": {
+                    "description": "Defines the templates used by the component.",
+                    "values": [
+                        {
+                            "name": "caption",
+                            "description": "Caption template",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "header",
+                            "description": "Header template",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "headergrouped",
+                            "description": "Header grouped template",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "body",
+                            "description": "Body template",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "loadingbody",
+                            "description": "Loading body template",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "footer",
+                            "description": "Footer template",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "footergrouped",
+                            "description": "Footer grouped template",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "summary",
+                            "description": "Summary template",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "colgroup",
+                            "description": "Column group template",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "expandedrow",
+                            "description": "Row expansion template",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "groupheader",
+                            "description": "Group header template",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "groupfooter",
+                            "description": "Group footer template",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "frozenheader",
+                            "description": "Frozen header template",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "frozenbody",
+                            "description": "Frozen body template",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "frozenfooter",
+                            "description": "Frozen footer template",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "frozencolgroup",
+                            "description": "Frozen column group template",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "frozenexpandedrow",
+                            "description": "Frozen row expansion template",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "emptymessage",
+                            "description": "Empty message template",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "paginatorleft",
+                            "description": "Paginator left template",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "paginatorright",
+                            "description": "Paginator right template",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "paginatordropdownicon",
+                            "description": "Paginator dropdown icon template",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "paginatordropdownitem",
+                            "description": "Paginator dropdown item template",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "paginatorfirstpagelinkicon",
+                            "description": "Paginator first page link icon template",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "paginatorlastpagelinkicon",
+                            "description": "Paginator last page link icon template",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "paginatorpreviouspagelinkicon",
+                            "description": "Paginator previous page link icon template",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "paginatornextpagelinkicon",
+                            "description": "Paginator next page link icon template",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "loadingicon",
+                            "description": "Loading icon template",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "reorderindicatorupicon",
+                            "description": "Reorder indicator up icon template",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "reorderindicatordownicon",
+                            "description": "Reorder indicator down icon template",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "sorticon",
+                            "description": "Sort icon template",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "checkboxicon",
+                            "description": "Checkbox icon template",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "headercheckboxicon",
+                            "description": "Header checkbox icon template",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        }
+                    ]
                 }
             }
         },
@@ -30123,6 +31957,29 @@
                             "description": "Event fired when a tab is selected."
                         }
                     ]
+                },
+                "templates": {
+                    "description": "Defines the templates used by the component.",
+                    "values": [
+                        {
+                            "name": "item",
+                            "description": "Template of the menu item.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "previousicon",
+                            "description": "Template of the previous icon.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "nexticon",
+                            "description": "Template of the next icon.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        }
+                    ]
                 }
             }
         },
@@ -30333,13 +32190,13 @@
                     "description": "Defines the templates used by the component.",
                     "values": [
                         {
-                            "name": "prevIconTemplate",
+                            "name": "previcon",
                             "description": "A template reference variable that represents the previous icon in a UI component.",
                             "type": "TemplateRef<any>",
                             "parameters": []
                         },
                         {
-                            "name": "nextIconTemplate",
+                            "name": "nexticon",
                             "description": "A template reference variable that represents the next icon in a UI component.",
                             "type": "TemplateRef<any>",
                             "parameters": []
@@ -30914,10 +32771,13 @@
     "terminalservice": {
         "components": {}
     },
-    "aura": {
+    "datatable": {
         "components": {}
     },
-    "datatable": {
+    "imagecompare": {
+        "components": {}
+    },
+    "aura": {
         "components": {}
     },
     "inlinemessage": {
@@ -30968,6 +32828,14 @@
                             "readonly": false,
                             "type": "any",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element."
+                        },
+                        {
+                            "name": "breakpoint",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "default": "960px",
+                            "description": "The breakpoint to define the maximum width boundary."
                         },
                         {
                             "name": "autoZIndex",
@@ -31116,6 +32984,23 @@
                             "description": "Displays the popup menu."
                         }
                     ]
+                },
+                "templates": {
+                    "description": "Defines the templates used by the component.",
+                    "values": [
+                        {
+                            "name": "submenuicon",
+                            "description": "Template of the submenu icon.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "item",
+                            "description": "Template of the item.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        }
+                    ]
                 }
             }
         },
@@ -31243,6 +33128,29 @@
                             "type": "\"horizontal\" | \"vertical\"",
                             "default": "vertical",
                             "description": "Orientation of the timeline."
+                        }
+                    ]
+                },
+                "templates": {
+                    "description": "Defines the templates used by the component.",
+                    "values": [
+                        {
+                            "name": "content",
+                            "description": "Custom content template.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "opposite",
+                            "description": "Custom opposite item template.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "marker",
+                            "description": "Custom marker template.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
                         }
                     ]
                 }
@@ -31458,6 +33366,23 @@
                             "description": "Callback to invoke when a message is closed."
                         }
                     ]
+                },
+                "templates": {
+                    "description": "Defines the templates used by the component.",
+                    "values": [
+                        {
+                            "name": "template",
+                            "description": "Custom template of message.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "headless",
+                            "description": "Custom headless template.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        }
+                    ]
                 }
             }
         },
@@ -31642,6 +33567,13 @@
                             "description": "Index of the element in tabbing order."
                         },
                         {
+                            "name": "size",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "\"small\" | \"large\"",
+                            "description": "Defines the size of the component."
+                        },
+                        {
                             "name": "iconPos",
                             "optional": false,
                             "readonly": false,
@@ -31679,6 +33611,23 @@
                                 }
                             ],
                             "description": "Callback to invoke on value change."
+                        }
+                    ]
+                },
+                "templates": {
+                    "description": "Defines the templates used by the component.",
+                    "values": [
+                        {
+                            "name": "icon",
+                            "description": "Custom icon template.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "content",
+                            "description": "Custom content template.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
                         }
                     ]
                 }
@@ -31873,26 +33822,18 @@
                             "description": "Callback to invoke when the on value change."
                         }
                     ]
+                },
+                "templates": {
+                    "description": "Defines the templates used by the component.",
+                    "values": [
+                        {
+                            "name": "handle",
+                            "description": "Callback to invoke when the on value change.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        }
+                    ]
                 }
-            }
-        },
-        "style": {
-            "components": {},
-            "classes": {
-                "values": [
-                    {
-                        "class": "p-toggleswitch",
-                        "description": "Class name of the root element"
-                    },
-                    {
-                        "class": "p-toggleswitch-input",
-                        "description": "Class name of the input element"
-                    },
-                    {
-                        "class": "p-toggleswitch-slider",
-                        "description": "Class name of the slider element"
-                    }
-                ]
             }
         },
         "interfaces": {
@@ -31919,6 +33860,25 @@
                                 "description": "Checked state."
                             }
                         ]
+                    }
+                ]
+            }
+        },
+        "style": {
+            "components": {},
+            "classes": {
+                "values": [
+                    {
+                        "class": "p-toggleswitch",
+                        "description": "Class name of the root element"
+                    },
+                    {
+                        "class": "p-toggleswitch-input",
+                        "description": "Class name of the input element"
+                    },
+                    {
+                        "class": "p-toggleswitch-slider",
+                        "description": "Class name of the slider element"
                     }
                 ]
             }
@@ -31951,6 +33911,29 @@
                             "readonly": false,
                             "type": "string",
                             "description": "Defines a string value that labels an interactive element."
+                        }
+                    ]
+                },
+                "templates": {
+                    "description": "Defines the templates used by the component.",
+                    "values": [
+                        {
+                            "name": "start",
+                            "description": "Defines template option for start.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "end",
+                            "description": "Defines template option for end.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "center",
+                            "description": "Defines template option for center.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
                         }
                     ]
                 }
@@ -32356,6 +34339,13 @@
                             "description": "Mode for filtering valid values are \"lenient\" and \"strict\". Default is lenient."
                         },
                         {
+                            "name": "filterOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "any",
+                            "description": "Mode for filtering valid values are \"lenient\" and \"strict\". Default is lenient."
+                        },
+                        {
                             "name": "filterPlaceholder",
                             "optional": false,
                             "readonly": false,
@@ -32597,6 +34587,65 @@
                                 }
                             ],
                             "description": "Scrolls to virtual index."
+                        }
+                    ]
+                },
+                "templates": {
+                    "description": "Defines the templates used by the component.",
+                    "values": [
+                        {
+                            "name": "node",
+                            "description": "Node template.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "header",
+                            "description": "Header template.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "footer",
+                            "description": "Footer template.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "loader",
+                            "description": "Loader template.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "emptymessage",
+                            "description": "Empty message template.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "togglericon",
+                            "description": "Toggler icon template.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "checkboxicon",
+                            "description": "Checkbox icon template.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "loadingicon",
+                            "description": "Loading icon template.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "filtericon",
+                            "description": "Filter icon template.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
                         }
                     ]
                 }
@@ -33223,6 +35272,13 @@
                             "description": "Height of an item in the list for VirtualScrolling."
                         },
                         {
+                            "name": "size",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "\"small\" | \"large\"",
+                            "description": "Defines the size of the component."
+                        },
+                        {
                             "name": "virtualScrollOptions",
                             "optional": false,
                             "readonly": false,
@@ -33297,8 +35353,8 @@
                             "name": "onShow",
                             "parameters": [
                                 {
-                                    "name": "event",
-                                    "type": "Event"
+                                    "name": "value",
+                                    "type": "any"
                                 }
                             ],
                             "description": "Callback to invoke when the overlay is shown."
@@ -33372,6 +35428,83 @@
                                 }
                             ],
                             "description": "Callback to invoke when a node is selected."
+                        }
+                    ]
+                },
+                "templates": {
+                    "description": "Defines the templates used by the component.",
+                    "values": [
+                        {
+                            "name": "value",
+                            "description": "Custom value template.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "header",
+                            "description": "Custom header template.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "empty",
+                            "description": "Custom empty message template.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "footer",
+                            "description": "Custom footer template.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "clearicon",
+                            "description": "Custom clear icon template.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "triggericon",
+                            "description": "Custom trigger icon template.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "dropdownicon",
+                            "description": "Custom dropdown icon template.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "filtericon",
+                            "description": "Custom filter icon template.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "closeicon",
+                            "description": "Custom close icon template.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "itemtogglericon",
+                            "description": "Custom item toggler icon template.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "itemcheckboxicon",
+                            "description": "Custom item checkbox icon template.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "itemloadingicon",
+                            "description": "Custom item loading icon template.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
                         }
                     ]
                 }
@@ -35186,123 +37319,12 @@
         }
     },
     "virtualscroller": {
-        "components": {
-            "VirtualScroller": {
-                "description": "VirtualScroller is a performant approach to handle huge data efficiently.",
-                "props": {
-                    "description": "Defines the input properties of the component.",
-                    "values": [
-                        {
-                            "name": "value",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "any[]",
-                            "description": "An array of objects to display."
-                        },
-                        {
-                            "name": "itemSize",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "number",
-                            "description": "Height of an item in the list."
-                        },
-                        {
-                            "name": "style",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "Object",
-                            "description": "Inline style of the component."
-                        },
-                        {
-                            "name": "styleClass",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "string",
-                            "description": "Style class of the component."
-                        },
-                        {
-                            "name": "scrollHeight",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "any",
-                            "description": "Max height of the content area in inline mode."
-                        },
-                        {
-                            "name": "lazy",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "boolean",
-                            "default": "false",
-                            "description": "Defines if data is loaded and interacted with in lazy manner."
-                        },
-                        {
-                            "name": "options",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "ScrollerOptions",
-                            "description": "Whether to use the scroller feature. The properties of scroller component can be used like an object in it."
-                        },
-                        {
-                            "name": "delay",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "number",
-                            "default": "250",
-                            "description": "Threshold in milliseconds to delay lazy loading during scrolling."
-                        }
-                    ]
-                },
-                "emits": {
-                    "description": "Defines emit that determine the behavior of the component based on a given condition or report the actions that the component takes.",
-                    "values": [
-                        {
-                            "name": "onLazyLoad",
-                            "parameters": [
-                                {
-                                    "name": "event",
-                                    "type": "VirtualScrollerLazyLoadEvent"
-                                }
-                            ],
-                            "description": "Callback to invoke in lazy mode to load new data."
-                        }
-                    ]
-                }
-            }
-        },
-        "interfaces": {
-            "components": {},
-            "templates": {
-                "description": "Defines the templates used by the component.",
-                "values": [
-                    {
-                        "parent": "virtualscroller",
-                        "name": "item",
-                        "parameters": [
-                            {
-                                "name": "context",
-                                "type": "{\n  \t $implicit: any, // Item instance.\n  \t options: ScrollerOptions, // Scroller options.\n  }",
-                                "description": "item data."
-                            }
-                        ],
-                        "description": "Custom item template."
-                    },
-                    {
-                        "parent": "virtualscroller",
-                        "name": "header",
-                        "parameters": [],
-                        "description": "Custom header template."
-                    },
-                    {
-                        "parent": "virtualscroller",
-                        "name": "footer",
-                        "parameters": [],
-                        "description": "Custom header template."
-                    }
-                ]
-            }
-        }
+        "components": {}
     },
     "lara": {
+        "components": {}
+    },
+    "material": {
         "components": {}
     },
     "nora": {

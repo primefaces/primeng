@@ -2,24 +2,24 @@ import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
     AfterContentInit,
     AfterViewChecked,
+    booleanAttribute,
     ChangeDetectionStrategy,
     Component,
     ContentChildren,
     ElementRef,
     EventEmitter,
+    forwardRef,
     HostBinding,
+    inject,
     Input,
     NgModule,
+    numberAttribute,
     OnDestroy,
     Output,
     QueryList,
     TemplateRef,
     ViewChild,
     ViewEncapsulation,
-    booleanAttribute,
-    forwardRef,
-    inject,
-    numberAttribute,
 } from '@angular/core';
 import { BlockableUI, PrimeTemplate, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
@@ -41,7 +41,7 @@ import { styleClassAttribute } from "primeng/base";
  * @group Components
  */
 @Component({
-    selector: 'p-tabPanel',
+    selector: 'p-tabPanel, p-tabpanel',
     standalone: true,
     imports: [CommonModule, SharedModule],
     template: `
@@ -188,8 +188,6 @@ export class TabPanel extends BaseComponent implements AfterContentInit, OnDestr
         this.tabView.cd.markForCheck();
     }
 
-    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
-
     closed: boolean = false;
 
     _headerStyle: { [klass: string]: any } | null | undefined;
@@ -259,7 +257,7 @@ export class TabPanel extends BaseComponent implements AfterContentInit, OnDestr
  * @group Components
  */
 @Component({
-    selector: 'p-tabView',
+    selector: 'p-tabView, p-tabview',
     standalone: true,
     imports: [CommonModule, TabPanel, SharedModule, TooltipModule, Ripple, TimesIcon, ChevronLeftIcon, ChevronRightIcon],
     template: `
@@ -486,8 +484,6 @@ export class TabView extends BaseComponent implements AfterContentInit, AfterVie
     @ViewChild('inkbar') inkbar?: ElementRef;
 
     @ContentChildren(TabPanel) tabPanels: QueryList<TabPanel> | undefined;
-
-    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
     initialized: boolean | undefined;
 
@@ -904,7 +900,7 @@ export class TabView extends BaseComponent implements AfterContentInit, AfterVie
 }
 
 @NgModule({
-    imports: [TabView, TabPanel],
+    imports: [TabView, TabPanel, SharedModule],
     exports: [TabView, TabPanel, SharedModule],
 })
 export class TabViewModule {}

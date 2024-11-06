@@ -44,7 +44,7 @@ export class DefaultDoc {
     <div pRipple class="ripple-box">Default</div>
 </div>`,
         typescript: `import { Component } from '@angular/core';
-import { RippleModule } from 'primeng/ripple';
+import { Ripple } from 'primeng/ripple';
 
 @Component({
     selector: 'ripple-default-demo',
@@ -65,7 +65,7 @@ import { RippleModule } from 'primeng/ripple';
             }\`
     ],
     standalone: true,
-    imports: [RippleModule]
+    imports: [Ripple]
 })
 export class RippleDefaultDemo {
 }`,

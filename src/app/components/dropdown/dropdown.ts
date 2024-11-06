@@ -8,7 +8,6 @@ import {
     ChangeDetectionStrategy,
     Component,
     computed,
-    ContentChildren,
     effect,
     ElementRef,
     EventEmitter,
@@ -30,13 +29,12 @@ import {
     ViewRef,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { FilterService, OverlayOptions, PrimeTemplate, SelectItem, SharedModule, TranslationKeys } from 'primeng/api';
+import { FilterService, OverlayOptions, PrimeTemplate, ScrollerOptions, SelectItem, SharedModule, TranslationKeys } from 'primeng/api';
 import { AutoFocusModule } from 'primeng/autofocus';
 import { DomHandler } from 'primeng/dom';
 import { Overlay, OverlayModule } from 'primeng/overlay';
-import { RippleModule } from 'primeng/ripple';
-import { Scroller, ScrollerModule } from 'primeng/scroller';
-import { ScrollerOptions } from 'primeng/api';
+import { Ripple } from 'primeng/ripple';
+import { Scroller } from 'primeng/scroller';
 import { TooltipModule } from 'primeng/tooltip';
 import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
 import { TimesIcon } from 'primeng/icons/times';
@@ -47,8 +45,8 @@ import { SearchIcon } from 'primeng/icons/search';
 import { DropdownChangeEvent, DropdownFilterEvent, DropdownFilterOptions, DropdownLazyLoadEvent } from './dropdown.interface';
 import { Nullable } from 'primeng/ts-helpers';
 import { InputTextModule } from 'primeng/inputtext';
-import { IconFieldModule } from 'primeng/iconfield';
-import { InputIconModule } from 'primeng/inputicon';
+import { IconField } from 'primeng/iconfield';
+import { InputIcon } from 'primeng/inputicon';
 import { DropdownStyle } from './style/dropdownstyle';
 import { BaseComponent } from 'primeng/basecomponent';
 import { styleClassAttribute } from "primeng/base";
@@ -154,8 +152,7 @@ export class DropdownItem extends BaseComponent {
             [attr.aria-expanded]="overlayVisible ?? false"
             [attr.aria-controls]="overlayVisible ? id + '_list' : null"
             [attr.tabindex]="!disabled ? tabindex : -1"
-            pAutoFocus
-            [autofocus]="autofocus"
+            [pAutoFocus]="autofocus"
             [attr.aria-activedescendant]="focused ? focusedOptionId : undefined"
             (focus)="onInputFocus($event)"
             (blur)="onInputBlur($event)"
@@ -188,8 +185,7 @@ export class DropdownItem extends BaseComponent {
             [attr.aria-label]="ariaLabel || (label() === 'p-emptylabel' ? undefined : label())"
             (input)="onEditableInput($event)"
             (keydown)="onKeyDown($event)"
-            pAutoFocus
-            [autofocus]="autofocus"
+            [pAutoFocus]="autofocus"
             [attr.aria-activedescendant]="focused ? focusedOptionId : undefined"
             (focus)="onInputFocus($event)"
             (blur)="onInputBlur($event)"
@@ -248,7 +244,7 @@ export class DropdownItem extends BaseComponent {
             (onAnimationStart)="onOverlayAnimationStart($event)"
             (onHide)="hide()"
         >
-            <ng-template pTemplate="content">
+            <ng-template #content>
                 <div [ngClass]="'p-select-overlay p-component'" [ngStyle]="panelStyle" [class]="panelStyleClass">
                     <span
                         #firstHiddenFocusableEl
@@ -305,13 +301,13 @@ export class DropdownItem extends BaseComponent {
                             (onLazyLoad)="onLazyLoad.emit($event)"
                             [options]="virtualScrollOptions"
                         >
-                            <ng-template pTemplate="content" let-items let-scrollerOptions="options">
+                            <ng-template #content let-items let-scrollerOptions="options">
                                 <ng-container
                                     *ngTemplateOutlet="buildInItems; context: { $implicit: items, options: scrollerOptions }"
                                 ></ng-container>
                             </ng-template>
                             <ng-container *ngIf="loaderTemplate">
-                                <ng-template pTemplate="loader" let-scrollerOptions="options">
+                                <ng-template #loader let-scrollerOptions="options">
                                     <ng-container *ngTemplateOutlet="loaderTemplate; context: { options: scrollerOptions }"></ng-container>
                                 </ng-template>
                             </ng-container>
@@ -369,10 +365,11 @@ export class DropdownItem extends BaseComponent {
                                     [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }"
                                     role="option"
                                 >
-                                    <ng-container *ngIf="!emptyFilterTemplate && !emptyTemplate; else emptyFilter">
+                                    @if (!emptyFilterTemplate && !emptyTemplate) {
                                         {{ emptyFilterMessageLabel }}
-                                    </ng-container>
-                                    <ng-container #emptyFilter *ngTemplateOutlet="emptyFilterTemplate || emptyTemplate"></ng-container>
+                                    } @else {
+                                        <ng-container #emptyFilter *ngTemplateOutlet="emptyFilterTemplate || emptyTemplate"></ng-container>
+                                    }
                                 </li>
                                 <li
                                     *ngIf="!filterValue && isEmpty()"
@@ -380,10 +377,11 @@ export class DropdownItem extends BaseComponent {
                                     [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }"
                                     role="option"
                                 >
-                                    <ng-container *ngIf="!emptyTemplate; else empty">
+                                    @if (!emptyTemplate) {
                                         {{ emptyMessageLabel }}
-                                    </ng-container>
-                                    <ng-container #empty *ngTemplateOutlet="emptyTemplate"></ng-container>
+                                    } @else {
+                                        <ng-container *ngTemplateOutlet="emptyTemplate"></ng-container>
+                                    }
                                 </li>
                             </ul>
                         </ng-template>
@@ -881,8 +879,6 @@ export class Dropdown extends BaseComponent implements OnInit, AfterViewInit, Af
     @ViewChild('firstHiddenFocusableEl') firstHiddenFocusableElementOnOverlay: Nullable<ElementRef>;
 
     @ViewChild('lastHiddenFocusableEl') lastHiddenFocusableElementOnOverlay: Nullable<ElementRef>;
-
-    @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<PrimeTemplate>>;
 
     // @todo to be refactored
     @HostBinding('class') get hostClass() {
@@ -1471,7 +1467,7 @@ export class Dropdown extends BaseComponent implements OnInit, AfterViewInit, Af
         return !this._options() || (this.visibleOptions() && this.visibleOptions().length === 0);
     }
 
-    onEditableInput(event: KeyboardEvent) {
+    onEditableInput(event: any) {
         const value = (event.target as HTMLInputElement).value;
         this.searchValue = '';
         const matched = this.searchOptions(event, value);
@@ -1508,7 +1504,7 @@ export class Dropdown extends BaseComponent implements OnInit, AfterViewInit, Af
         this.cd.markForCheck();
     }
 
-    onOverlayAnimationStart(event: AnimationEvent) {
+    onOverlayAnimationStart(event: any) {
         if (event.toState === 'visible') {
             this.itemsWrapper = DomHandler.findSingle(
                 this.overlayViewChild?.overlayViewChild?.nativeElement,
@@ -1603,7 +1599,7 @@ export class Dropdown extends BaseComponent implements OnInit, AfterViewInit, Af
         this.preventModelTouched = false;
     }
 
-    onKeyDown(event: KeyboardEvent, search: boolean) {
+    onKeyDown(event: any, search?: boolean) {
         if (this.disabled || this.readonly || this.loading) {
             return;
         }
@@ -2112,8 +2108,8 @@ export class Dropdown extends BaseComponent implements OnInit, AfterViewInit, Af
         OverlayModule,
         SharedModule,
         TooltipModule,
-        RippleModule,
-        ScrollerModule,
+        Ripple,
+        Scroller,
         AutoFocusModule,
         TimesIcon,
         ChevronDownIcon,
@@ -2121,10 +2117,10 @@ export class Dropdown extends BaseComponent implements OnInit, AfterViewInit, Af
         BlankIcon,
         CheckIcon,
         InputTextModule,
-        IconFieldModule,
-        InputIconModule,
+        IconField,
+        InputIcon,
     ],
-    exports: [Dropdown, OverlayModule, SharedModule, ScrollerModule],
+    exports: [Dropdown, OverlayModule, SharedModule, Scroller],
     declarations: [Dropdown, DropdownItem],
 })
 export class DropdownModule {}

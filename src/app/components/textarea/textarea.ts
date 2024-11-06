@@ -1,34 +1,39 @@
 import {
-    NgModule,
-    Directive,
-    HostListener,
-    Input,
-    Output,
-    EventEmitter,
-    Optional,
     AfterViewInit,
-    OnInit,
-    OnDestroy,
     booleanAttribute,
+    Directive,
+    EventEmitter,
+    HostListener,
     inject,
+    Input,
+    NgModule,
+    OnDestroy,
+    OnInit,
+    Optional,
+    Output,
 } from '@angular/core';
-import { NgModel, NgControl } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+import { NgControl, NgModel } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { BaseComponent } from 'primeng/basecomponent';
 import { TextareaStyle } from './style/textareastyle';
+
 /**
  * Textarea adds styling and autoResize functionality to standard textarea element.
  * @group Components
  */
 @Directive({
     selector: '[pTextarea]',
+    standalone: true,
     host: {
         class: 'p-textarea p-component',
         '[class.p-filled]': 'filled',
         '[class.p-textarea-resizable]': 'autoResize',
         '[class.p-variant-filled]': 'variant === "filled" || config.inputStyle() === "filled"',
         '[class.p-textarea-fluid]': 'hasFluid',
+        '[class.p-textarea-sm]': 'size === "small"',
+        '[class.p-inputfield-sm]': 'size === "small"',
+        '[class.p-textarea-lg]': 'size === "large"',
+        '[class.p-inputfield-lg]': 'size === "large"',
     },
     providers: [TextareaStyle],
 })
@@ -48,6 +53,11 @@ export class Textarea extends BaseComponent implements OnInit, AfterViewInit, On
      * @group Props
      */
     @Input({ transform: booleanAttribute }) fluid: boolean = false;
+    /**
+     * Defines the size of the component.
+     * @group Props
+     */
+    @Input() size: 'large' | 'small';
     /**
      * Callback to invoke on textarea resize.
      * @param {(Event | {})} event - Custom resize event.
@@ -146,8 +156,7 @@ export class Textarea extends BaseComponent implements OnInit, AfterViewInit, On
 }
 
 @NgModule({
-    imports: [CommonModule],
+    imports: [Textarea],
     exports: [Textarea],
-    declarations: [Textarea],
 })
 export class TextareaModule {}

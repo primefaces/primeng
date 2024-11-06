@@ -3,7 +3,7 @@ import {
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
-    ContentChildren,
+    ContentChild,
     EventEmitter,
     forwardRef,
     inject,
@@ -12,13 +12,11 @@ import {
     numberAttribute,
     OnInit,
     Output,
-    QueryList,
     signal,
     TemplateRef,
     ViewEncapsulation,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { BanIcon } from 'primeng/icons/ban';
 import { StarIcon } from 'primeng/icons/star';
 import { StarFillIcon } from 'primeng/icons/starfill';
@@ -26,9 +24,10 @@ import { Nullable } from 'primeng/ts-helpers';
 import { RatingRateEvent } from './rating.interface';
 import { DomHandler } from 'primeng/dom';
 import { UniqueComponentId } from 'primeng/utils';
-import { AutoFocusModule } from 'primeng/autofocus';
+import { AutoFocus } from 'primeng/autofocus';
 import { RatingStyle } from './style/ratingstyle';
 import { BaseComponent } from 'primeng/basecomponent';
+import { SharedModule } from 'primeng/api';
 
 export const RATING_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -41,6 +40,8 @@ export const RATING_VALUE_ACCESSOR: any = {
  */
 @Component({
     selector: 'p-rating',
+    imports: [CommonModule, AutoFocus, StarFillIcon, StarIcon, BanIcon, SharedModule],
+    standalone: true,
     template: `
         <ng-container *ngIf="!isCustomIcon; else customTemplate">
             <ng-template ngFor [ngForOf]="starsArray" let-star let-i="index">
@@ -64,8 +65,7 @@ export const RATING_VALUE_ACCESSOR: any = {
                             (focus)="onInputFocus($event, star + 1)"
                             (blur)="onInputBlur($event)"
                             (change)="onChange($event, star + 1)"
-                            pAutoFocus
-                            [autofocus]="autofocus"
+                            [pAutoFocus]="autofocus"
                         />
                     </span>
                     <ng-container *ngIf="!value || i >= value">
@@ -187,14 +187,21 @@ export class Rating extends BaseComponent implements OnInit, ControlValueAccesso
      * @group Emits
      */
     @Output() onBlur: EventEmitter<FocusEvent> = new EventEmitter<FocusEvent>();
-
-    @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
-
-    onIconTemplate: Nullable<TemplateRef<any>>;
-
-    offIconTemplate: Nullable<TemplateRef<any>>;
-
-    cancelIconTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom on icon template.
+     * @group Templates
+     */
+    @ContentChild('onicon') onIconTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom off icon template.
+     * @group Templates
+     */
+    @ContentChild('officon') offIconTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom cancel icon template.
+     * @group Templates
+     */
+    @ContentChild('cancelicon') cancelIconTemplate: Nullable<TemplateRef<any>>;
 
     value: Nullable<number>;
 
@@ -219,24 +226,6 @@ export class Rating extends BaseComponent implements OnInit, ControlValueAccesso
         for (let i = 0; i < this.stars; i++) {
             this.starsArray[i] = i;
         }
-    }
-
-    ngAfterContentInit() {
-        this.templates.forEach((item) => {
-            switch (item.getType()) {
-                case 'onicon':
-                    this.onIconTemplate = item.template;
-                    break;
-
-                case 'officon':
-                    this.offIconTemplate = item.template;
-                    break;
-
-                case 'cancelicon':
-                    this.cancelIconTemplate = item.template;
-                    break;
-            }
-        });
     }
 
     onOptionClick(event, value) {
@@ -316,13 +305,12 @@ export class Rating extends BaseComponent implements OnInit, ControlValueAccesso
     }
 
     get isCustomIcon(): boolean {
-        return this.templates && this.templates.length > 0;
+        return !!(this.onIconTemplate || this.offIconTemplate || this.cancelIconTemplate);
     }
 }
 
 @NgModule({
-    imports: [CommonModule, AutoFocusModule, StarFillIcon, StarIcon, BanIcon],
+    imports: [Rating, SharedModule],
     exports: [Rating, SharedModule],
-    declarations: [Rating],
 })
 export class RatingModule {}

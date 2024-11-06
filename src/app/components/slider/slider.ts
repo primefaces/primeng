@@ -1,32 +1,29 @@
-import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
+    booleanAttribute,
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     ElementRef,
     EventEmitter,
-    Inject,
+    forwardRef,
+    inject,
     Input,
     NgModule,
     NgZone,
+    numberAttribute,
     OnDestroy,
     Output,
-    PLATFORM_ID,
-    Renderer2,
     ViewChild,
     ViewEncapsulation,
-    booleanAttribute,
-    forwardRef,
-    inject,
-    numberAttribute,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { DomHandler } from 'primeng/dom';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
-import { AutoFocusModule } from 'primeng/autofocus';
+import { AutoFocus } from 'primeng/autofocus';
 import { SliderChangeEvent, SliderSlideEndEvent } from './slider.interface';
 import { SliderStyle } from './style/sliderstyle';
 import { BaseComponent } from 'primeng/basecomponent';
+import { SharedModule } from 'primeng/api';
 import { styleClassAttribute } from "primeng/base";
 
 export const SLIDER_VALUE_ACCESSOR: any = {
@@ -40,6 +37,8 @@ export const SLIDER_VALUE_ACCESSOR: any = {
  */
 @Component({
     selector: 'p-slider',
+    standalone: true,
+    imports: [CommonModule, AutoFocus, SharedModule],
     template: `
         <div
             [ngStyle]="style"
@@ -111,8 +110,7 @@ export const SLIDER_VALUE_ACCESSOR: any = {
                 [attr.aria-label]="ariaLabel"
                 [attr.aria-orientation]="orientation"
                 [attr.data-pc-section]="'handle'"
-                pAutoFocus
-                [autofocus]="autofocus"
+                [pAutoFocus]="autofocus"
             ></span>
             <span
                 *ngIf="range"
@@ -124,7 +122,7 @@ export const SLIDER_VALUE_ACCESSOR: any = {
                 (keydown)="onKeyDown($event, 0)"
                 (mousedown)="onMouseDown($event, 0)"
                 (touchstart)="onDragStart($event, 0)"
-                (touchmove)="onDrag($event, 0)"
+                (touchmove)="onDrag($event)"
                 (touchend)="onDragEnd($event)"
                 [attr.tabindex]="disabled ? null : tabindex"
                 role="slider"
@@ -135,8 +133,7 @@ export const SLIDER_VALUE_ACCESSOR: any = {
                 [attr.aria-label]="ariaLabel"
                 [attr.aria-orientation]="orientation"
                 [attr.data-pc-section]="'startHandler'"
-                pAutoFocus
-                [autofocus]="autofocus"
+                [pAutoFocus]="autofocus"
             ></span>
             <span
                 *ngIf="range"
@@ -148,7 +145,7 @@ export const SLIDER_VALUE_ACCESSOR: any = {
                 (keydown)="onKeyDown($event, 1)"
                 (mousedown)="onMouseDown($event, 1)"
                 (touchstart)="onDragStart($event, 1)"
-                (touchmove)="onDrag($event, 1)"
+                (touchmove)="onDrag($event)"
                 (touchend)="onDragEnd($event)"
                 [attr.tabindex]="disabled ? null : tabindex"
                 [attr.aria-valuemin]="min"
@@ -404,7 +401,7 @@ export class Slider extends BaseComponent implements OnDestroy, ControlValueAcce
         this.sliderHandleClick = false;
     }
 
-    onKeyDown(event, index) {
+    onKeyDown(event: any, index?) {
         this.handleIndex = index;
 
         switch (event.code) {
@@ -742,8 +739,7 @@ export class Slider extends BaseComponent implements OnDestroy, ControlValueAcce
 }
 
 @NgModule({
-    imports: [CommonModule, AutoFocusModule],
-    exports: [Slider],
-    declarations: [Slider],
+    imports: [Slider, SharedModule],
+    exports: [Slider, SharedModule],
 })
 export class SliderModule {}
