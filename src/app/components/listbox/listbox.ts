@@ -192,9 +192,6 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                             <ng-container *ngTemplateOutlet="loaderTemplate; context: { options: scrollerOptions }"></ng-container>
                         </ng-template>
                     }
-                    @if (loaderTemplate) {
-                        <ng-template #loader let-scrollerOptions="options">
-                    }
                 </p-scroller>
                 <ng-container *ngIf="!virtualScroll">
                     <ng-container *ngTemplateOutlet="buildInItems; context: { $implicit: visibleOptions(), options: {} }"></ng-container>
