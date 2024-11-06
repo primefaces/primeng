@@ -183,4 +183,4 @@ export default {
     color: ${dt('datepicker.dropdown.hover.color')};
 }
 `,
-}; as DatePickerDesignTokens;
+} as DatePickerDesignTokens;

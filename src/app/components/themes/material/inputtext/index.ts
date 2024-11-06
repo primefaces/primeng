@@ -82,4 +82,4 @@ export default {
     background-image: linear-gradient(to bottom, ${dt('inputtext.invalid.border.color')}, ${dt('inputtext.invalid.border.color')}), linear-gradient(to bottom, ${dt('inputtext.invalid.border.color')}, ${dt('inputtext.invalid.border.color')});
 }
 `,
-}; as InputTextDesignTokens;
+} as InputTextDesignTokens;

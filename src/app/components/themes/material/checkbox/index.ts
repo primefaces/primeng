@@ -129,4 +129,4 @@ export default {
     }
 }
 `,
-}; as CheckboxDesignTokens;
+} as CheckboxDesignTokens;

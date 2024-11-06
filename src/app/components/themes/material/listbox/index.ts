@@ -61,4 +61,4 @@ export default {
     transition: none
 }
 `,
-}; as ListboxDesignTokens;
+} as ListboxDesignTokens;

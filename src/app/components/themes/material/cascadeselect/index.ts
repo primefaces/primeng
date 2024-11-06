@@ -1,4 +1,4 @@
-import { CascadeselectDesignTokens } from 'primeng/themes/types/cascadeselect';
+import { CascadeSelectDesignTokens } from 'primeng/themes/types/cascadeselect';
 
 export default {
     root: {
@@ -125,4 +125,4 @@ export default {
     transition: none;
 }
 `,
-}; as CascadeselectDesignTokens;
+} as CascadeSelectDesignTokens;

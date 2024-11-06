@@ -83,4 +83,4 @@ export default {
     background: ${dt('navigation.item.active.background')}
 }
 `,
-}; as MegaMenuDesignTokens;
+} as MegaMenuDesignTokens;

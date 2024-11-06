@@ -70,4 +70,4 @@ export default {
     background: ${dt('navigation.item.active.background')}
 }
 `,
-}; as StepperDesignTokens;
+} as StepperDesignTokens;

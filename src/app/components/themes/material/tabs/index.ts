@@ -82,4 +82,4 @@ export default {
     background: ${dt('navigation.item.active.background')};
 }
 `,
-}; as TabsDesignTokens;
+} as TabsDesignTokens;

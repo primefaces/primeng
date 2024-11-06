@@ -1,5 +1,4 @@
-
-import {InputNumberDesignTokens} from 'primeng/themes/types/inputnumber'
+import { InputNumberDesignTokens } from 'primeng/themes/types/inputnumber';
 
 export default {
     root: {
@@ -45,4 +44,4 @@ export default {
     height: calc(100% - 4px);
 }
 `,
-}; as InputNumberDesignTokens;
+} as InputNumberDesignTokens;

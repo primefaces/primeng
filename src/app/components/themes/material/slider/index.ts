@@ -48,4 +48,4 @@ export default {
     box-shadow: 0 0 1px 10px color-mix(in srgb, ${dt('slider.handle.background')}, transparent 84%);
 }
 `,
-}; as SliderDesignTokens;
+} as SliderDesignTokens;

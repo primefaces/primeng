@@ -1,5 +1,3 @@
-import { MaterialDesignTokens } from 'primeng/themes/types/material';
-
 import accordion from 'primeng/themes/material/accordion';
 import autocomplete from 'primeng/themes/material/autocomplete';
 import avatar from 'primeng/themes/material/avatar';
@@ -185,4 +183,4 @@ export default {
     css: ({ dt }) => `
 
     `,
-}; as MaterialDesignTokens;
+};

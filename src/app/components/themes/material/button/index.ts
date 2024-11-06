@@ -624,4 +624,4 @@ export default {
     background: ${dt('button.outlined.plain.active.background')};
 }
 `,
-}; as ButtonDesignTokens;
+} as ButtonDesignTokens;

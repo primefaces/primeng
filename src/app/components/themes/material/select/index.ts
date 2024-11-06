@@ -132,4 +132,4 @@ export default {
     transition: none;
 }
 `,
-}; as SelectDesignTokens;
+} as SelectDesignTokens;

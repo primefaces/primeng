@@ -56,4 +56,4 @@ export default {
     box-shadow: 0 0 1px 10px color-mix(in srgb, ${dt('carousel.indicator.active.background')}, transparent 84%);
 }
 `,
-}; as CarouselDesignTokens;
+} as CarouselDesignTokens;

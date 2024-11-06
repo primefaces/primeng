@@ -34,4 +34,4 @@ export default {
     box-shadow: 0 0 1px 8px color-mix(in srgb, ${dt('rating.icon.active.color')}, transparent 84%);
 }
 `,
-}; as RatingDesignTokens;
+} as RatingDesignTokens;

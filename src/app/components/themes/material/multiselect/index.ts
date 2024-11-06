@@ -131,4 +131,4 @@ export default {
     transition: none;
 }
 `,
-}; as MultiSelectDesignTokens;
+} as MultiSelectDesignTokens;

@@ -64,4 +64,4 @@ export default {
     background: ${dt('togglebutton.hover.background')}
 }
 `,
-}; as ToggleButtonDesignTokens;
+} as ToggleButtonDesignTokens;

@@ -169,4 +169,4 @@ export default {
     transition: none;
 }
 `,
-}; as AutoCompleteDesignTokens;
+} as AutoCompleteDesignTokens;

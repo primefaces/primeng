@@ -51,4 +51,3 @@ export default {
         padding: '0 1.125rem 1.125rem 1.125rem',
     },
 } as AccordionDesignTokens;
-\

@@ -105,4 +105,4 @@ export default {
     background-image: linear-gradient(to bottom, ${dt('treeselect.invalid.border.color')}, ${dt('treeselect.invalid.border.color')}), linear-gradient(to bottom, ${dt('treeselect.invalid.border.color')}, ${dt('treeselect.invalid.border.color')});
 }
 `,
-}; as TreeSelectDesignTokens;
+} as TreeSelectDesignTokens;

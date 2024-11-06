@@ -39,4 +39,4 @@ export default {
     border-color: transparent
 }
 `,
-}; as MenuDesignTokens;
+} as MenuDesignTokens;

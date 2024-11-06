@@ -73,4 +73,4 @@ export default {
     box-shadow: 0 0 1px 10px color-mix(in srgb, ${dt('radiobutton.checked.border.color')}, transparent 84%);
 }
 `,
-}; as RadioButtonDesignTokens;
+} as RadioButtonDesignTokens;

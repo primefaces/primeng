@@ -177,4 +177,4 @@ export default {
     transition: none
 }
 `,
-}; as DataTableDesignTokens;
+} as DataTableDesignTokens;

@@ -1,4 +1,4 @@
-import { TreetableDesignTokens } from 'primeng/themes/types/treetable';
+import { TreeTableDesignTokens } from 'primeng/themes/types/treetable';
 
 export default {
     root: {
@@ -129,4 +129,4 @@ export default {
     transition: none
 }
 `,
-}; as TreetableDesignTokens;
+} as TreeTableDesignTokens;

@@ -58,4 +58,4 @@ export default {
     transition: none
 }
 `,
-}; as TreeDesignTokens;
+} as TreeDesignTokens;

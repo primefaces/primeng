@@ -45,4 +45,4 @@ export default {
     border-color: transparent
 }
 `,
-}; as TieredMenuDesignTokens;
+} as TieredMenuDesignTokens;
