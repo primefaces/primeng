@@ -1,7 +1,7 @@
-import { BlockUiDesignTokens } from '../../types/blockui';
+import { BlockUIDesignTokens } from '../../types/blockui';
 
 export default {
     root: {
         borderRadius: '{content.border.radius}',
     },
-} as BlockUiDesignTokens;
+} as BlockUIDesignTokens;
