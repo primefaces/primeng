@@ -58,7 +58,7 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
  * @group Components
  */
 @Component({
-    selector: 'p-datePicker, p-datepicker',
+    selector: 'p-datePicker, p-datepicker, p-date-picker',
     standalone: true,
     imports: [
         CommonModule,

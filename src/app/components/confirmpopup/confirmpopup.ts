@@ -33,7 +33,7 @@ import { BaseComponent } from 'primeng/basecomponent';
  * @group Components
  */
 @Component({
-    selector: 'p-confirmPopup, p-confirmpopup',
+    selector: 'p-confirmPopup, p-confirmpopup, p-confirm-popup',
     standalone: true,
     imports: [CommonModule, SharedModule, ButtonModule],
     template: `

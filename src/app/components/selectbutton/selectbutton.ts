@@ -33,7 +33,7 @@ export const SELECTBUTTON_VALUE_ACCESSOR: any = {
  * @group Components
  */
 @Component({
-    selector: 'p-selectButton, p-selectbutton',
+    selector: 'p-selectButton, p-selectbutton, p-select-button',
     standalone: true,
     imports: [Ripple, ToggleButton, FormsModule, CommonModule, SharedModule],
     template: `

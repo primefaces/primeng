@@ -58,7 +58,7 @@ import { FormsModule } from '@angular/forms';
  * @group Components
  */
 @Component({
-    selector: 'p-pickList, p-picklist',
+    selector: 'p-pickList, p-picklist, p-pick-list',
     standalone: true,
     imports: [
         CommonModule,
