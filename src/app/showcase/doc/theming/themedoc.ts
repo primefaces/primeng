@@ -21,11 +21,12 @@ export class AppComponent {
     constructor(private config: PrimeNGConfig) {
         // Default theme configuration
         this.config.theme.set({
-        preset: Aura,
-        options: {
-            prefix: 'p',
-            darkModeSelector: 'system',
-            cssLayer: false
+            preset: Aura,
+            options: {
+                prefix: 'p',
+                darkModeSelector: 'system',
+                cssLayer: false    
+            }
         });
     }
 }`,
