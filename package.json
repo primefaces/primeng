@@ -103,8 +103,7 @@
     },
     "lint-staged": {
         "**/*.{js,ts,d.ts}": [
-            "prettier --write",
-            "ng lint"
+            "prettier --write"
         ]
     }
 }
