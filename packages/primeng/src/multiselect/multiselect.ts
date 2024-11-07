@@ -53,6 +53,7 @@ import { AutoFocus } from 'primeng/autofocus';
 import { BaseComponent } from 'primeng/basecomponent';
 import { Checkbox } from 'primeng/checkbox';
 import { Chip } from 'primeng/chip';
+import { DomHandler } from 'primeng/dom';
 import { IconField } from 'primeng/iconfield';
 import { CheckIcon, ChevronDownIcon, MinusIcon, SearchIcon, TimesCircleIcon, TimesIcon } from 'primeng/icons';
 import { InputIcon } from 'primeng/inputicon';
@@ -304,7 +305,7 @@ export class MultiSelectItem extends BaseComponent {
                             <ng-container *ngTemplateOutlet="filterTemplate; context: { options: filterOptions }"></ng-container>
                         </ng-container>
                         <ng-template #builtInFilterElement>
-                            <p-checkbox [ngModel]="allSelected()" [binary]="true" (onChange)="onToggleAll($event)" *ngIf="showToggleAll && !selectionLimit" [variant]="variant" [disabled]="disabled">
+                            <p-checkbox [ngModel]="allSelected()" [binary]="true" (onChange)="onToggleAll($event)" *ngIf="showToggleAll && !selectionLimit" [variant]="variant" [disabled]="disabled" #headerCheckbox>
                                 <ng-template #icon let-class="class">
                                     <CheckIcon *ngIf="!headerCheckboxIconTemplate && allSelected()" [styleClass]="class" [attr.data-pc-section]="'icon'" />
                                     <ng-template
@@ -967,7 +968,7 @@ export class MultiSelect extends BaseComponent implements OnInit, AfterViewInit,
 
     @ViewChild('firstHiddenFocusableEl') firstHiddenFocusableElementOnOverlay: Nullable<ElementRef>;
 
-    @ViewChild('headerCheckbox') headerCheckboxViewChild: Nullable<ElementRef>;
+    @ViewChild('headerCheckbox') headerCheckboxViewChild: Nullable<Checkbox>;
 
     @ContentChild(Footer) footerFacet: any;
 
@@ -1980,11 +1981,11 @@ export class MultiSelect extends BaseComponent implements OnInit, AfterViewInit,
         }
 
         this.onChange.emit({ originalEvent: event, value: this.value });
-        focus(this.headerCheckboxViewChild?.nativeElement);
+        DomHandler.focus(this.headerCheckboxViewChild?.inputViewChild?.nativeElement);
         this.headerCheckboxFocus = true;
 
-        event.preventDefault();
-        event.stopPropagation();
+        event.originalEvent.preventDefault();
+        event.originalEvent.stopPropagation();
     }
 
     changeFocusedOptionIndex(event, index) {
@@ -2156,7 +2157,7 @@ export class MultiSelect extends BaseComponent implements OnInit, AfterViewInit,
         });
         this.onRemove.emit({
             newValue: value,
-            removed: optionValue,
+            removed: optionValue
         });
 
         event && event.stopPropagation();
