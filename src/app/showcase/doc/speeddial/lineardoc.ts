@@ -14,10 +14,10 @@ import { Code } from '@domain/code';
         <div class="card">
             <div style="height: 500px; position: relative;">
                 <p-toast />
-                <p-speeddial [model]="items" direction="up" style="position: absolute; left: calc(50% - 2rem); bottom: 0" />
-                <p-speeddial [model]="items" direction="down" style="position: absolute; left: calc(50% - 2rem); top: 0" />
-                <p-speeddial [model]="items" direction="left" style="position: absolute; top: calc(50% - 2rem); right: 0" />
-                <p-speeddial [model]="items" direction="right" style="position: absolute; top: calc(50% - 2rem); left: 0" />
+                <p-speeddial [model]="items" direction="up" [style]="{ position: 'absolute', left: 'calc(50% - 2rem)', bottom: 0 }" />
+                <p-speeddial [model]="items" direction="down" [style]="{ position: 'absolute', left: 'calc(50% - 2rem)', top: 0 }" />
+                <p-speeddial [model]="items" direction="left" [style]="{ position: 'absolute', top: 'calc(50% - 2rem)', right: 0 }" />
+                <p-speeddial [model]="items" direction="right" [style]="{ position: 'absolute', top: 'calc(50% - 2rem)', left: 0 }" />
             </div>
         </div>
         <app-code [code]="code" selector="speed-dial-linear-demo"></app-code>
@@ -62,18 +62,18 @@ export class LinearDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-speeddial [model]="items" direction="up" style="position: absolute; left: calc(50% - 2rem); bottom: 0" />
-<p-speeddial [model]="items" direction="down" style="position: absolute; left: calc(50% - 2rem); top: 0" />
-<p-speeddial [model]="items" direction="left" style="position: absolute; top: calc(50% - 2rem); right: 0" />
-<p-speeddial [model]="items" direction="right" style="position: absolute; top: calc(50% - 2rem); left: 0" />`,
+        basic: `<p-speeddial [model]="items" direction="up" [style]="{ position: 'absolute', left: 'calc(50% - 2rem)', bottom: 0 }" />
+<p-speeddial [model]="items" direction="down" [style]="{ position: 'absolute', left: 'calc(50% - 2rem)', top: 0 }" />
+<p-speeddial [model]="items" direction="left" [style]="{ position: 'absolute', top: 'calc(50% - 2rem)', right: 0 }" />
+<p-speeddial [model]="items" direction="right" [style]="{ position: 'absolute', top: 'calc(50% - 2rem)', left: 0 }" />`,
 
         html: `<div class="card">
     <div style="height: 500px; position: relative;">
         <p-toast />
-        <p-speeddial [model]="items" direction="up" style="position: absolute; left: calc(50% - 2rem); bottom: 0" />
-        <p-speeddial [model]="items" direction="down" style="position: absolute; left: calc(50% - 2rem); top: 0" />
-        <p-speeddial [model]="items" direction="left" style="position: absolute; top: calc(50% - 2rem); right: 0" />
-        <p-speeddial [model]="items" direction="right" style="position: absolute; top: calc(50% - 2rem); left: 0" />
+        <p-speeddial [model]="items" direction="up" [style]="{ position: 'absolute', left: 'calc(50% - 2rem)', bottom: 0 }" />
+        <p-speeddial [model]="items" direction="down" [style]="{ position: 'absolute', left: 'calc(50% - 2rem)', top: 0 }" />
+        <p-speeddial [model]="items" direction="left" [style]="{ position: 'absolute', top: 'calc(50% - 2rem)', right: 0 }" />
+        <p-speeddial [model]="items" direction="right" [style]="{ position: 'absolute', top: 'calc(50% - 2rem)', left: 0 }" />
     </div>
 </div>`,
 
