@@ -2154,6 +2154,10 @@ export class MultiSelect extends BaseComponent implements OnInit, AfterViewInit,
             value: value,
             itemValue: optionValue
         });
+        this.onRemove.emit({
+            newValue: value,
+            removed: optionValue,
+        });
 
         event && event.stopPropagation();
     }
