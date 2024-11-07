@@ -23,27 +23,15 @@ export class ReactiveDoc {
     code: Code = {
         basic: `<p-knob [(ngModel)]="value" size="150" readonly="true"/>
 <div class="flex gap-2">
-    <p-button 
-        icon="pi pi-plus" 
-        (click)="value = value+1" 
-        [disabled]="value >= 100" />
-    <p-button 
-        icon="pi pi-minus" 
-        (click)="value = value-1" 
-        [disabled]="value <= 0" />
+    <p-button icon="pi pi-plus" (click)="value = value+1" [disabled]="value >= 100" />
+    <p-button icon="pi pi-minus" (click)="value = value-1" [disabled]="value <= 0" />
 </div>`,
 
         html: `<div class="card flex flex-col items-center gap-2">
 <p-knob [(ngModel)]="value" size="150" readonly="true"/>
 <div class="flex gap-2">
-    <p-button 
-        icon="pi pi-plus" 
-        (click)="value = value+1" 
-        [disabled]="value >= 100" />
-    <p-button 
-        icon="pi pi-minus" 
-        (click)="value = value-1" 
-        [disabled]="value <= 0" />
+    <p-button icon="pi pi-plus" (click)="value = value+1" [disabled]="value >= 100" />
+    <p-button icon="pi pi-minus" (click)="value = value-1" [disabled]="value <= 0" />
 </div>
 </div>`,
 
