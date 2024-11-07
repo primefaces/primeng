@@ -27,7 +27,7 @@ import { Code } from '@domain/code';
                     <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
                         <tr [ttRow]="rowNode">
                             <td>
-                                <p-treetableToggler [rowNode]="rowNode" />
+                                <p-treeTableToggler [rowNode]="rowNode" />
                                 {{ rowData.brand }}
                             </td>
                             <td>{{ rowData.lastYearSale }}</td>
@@ -328,7 +328,7 @@ export class ColumnGroupDoc {
     <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
         <tr>
             <td>
-                <p-treetableToggler [rowNode]="rowNode" />
+                <p-treeTableToggler [rowNode]="rowNode" />
                 {{ rowData.brand }}
             </td>
             <td>{{ rowData.lastYearSale }}</td>
@@ -367,7 +367,7 @@ export class ColumnGroupDoc {
         <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
             <tr [ttRow]="rowNode">
                 <td>
-                    <p-treetableToggler [rowNode]="rowNode" />
+                    <p-treeTableToggler [rowNode]="rowNode" />
                     {{ rowData.brand }}
                 </td>
                 <td>{{ rowData.lastYearSale }}</td>
