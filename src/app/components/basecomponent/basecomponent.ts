@@ -94,10 +94,7 @@ export class BaseComponent {
         this.templates?.forEach((item) => {
             const type = item.getType();
             const template = `${type}Template`;
-
-            if (this[template]) {
-                this[template] = item.template;
-            }
+            this[template] = item.template;
         });
     }
 
