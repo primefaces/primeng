@@ -33,7 +33,7 @@ interface Column {
                                 *ngFor="let col of columns; let i = index"
                                 [ngClass]="{ 'font-bold': col.field === 'size' && rowData.size.endsWith('kb') }"
                             >
-                                <p-treetableToggler [rowNode]="rowNode" *ngIf="i === 0" />
+                                <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
                                 {{ rowData[col.field] }}
                             </td>
                         </tr>
@@ -79,7 +79,7 @@ export class ConditionalStyleDoc {
                 <td 
                     *ngFor="let col of columns; let i = index" 
                     [ngClass]="{ 'font-bold': col.field === 'size' && rowData.size.endsWith('kb') }">
-                        <p-treetableToggler [rowNode]="rowNode" *ngIf="i === 0" />
+                        <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
                         {{ rowData[col.field] }}
                 </td>
             </tr>
@@ -104,7 +104,7 @@ export class ConditionalStyleDoc {
                     <td 
                         *ngFor="let col of columns; let i = index" 
                         [ngClass]="{ 'font-bold': col.field === 'size' && rowData.size.endsWith('kb') }">
-                            <p-treetableToggler [rowNode]="rowNode" *ngIf="i === 0" />
+                            <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
                             {{ rowData[col.field] }}
                     </td>
                 </tr>

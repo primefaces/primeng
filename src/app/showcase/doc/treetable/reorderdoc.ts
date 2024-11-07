@@ -33,7 +33,7 @@ interface Column {
                     <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
                         <tr [ttRow]="rowNode">
                             <td *ngFor="let col of columns; let i = index">
-                                <p-treetableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-treetableToggler>
+                                <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-treeTableToggler>
                                 {{ rowData[col.field] }}
                             </td>
                         </tr>
@@ -73,7 +73,7 @@ export class ReorderDoc {
     <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
         <tr [ttRow]="rowNode">
             <td *ngFor="let col of columns; let i = index">
-                <p-treetableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-treetableToggler>
+                <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-treeTableToggler>
                 {{ rowData[col.field] }}
             </td>
         </tr>
@@ -93,7 +93,7 @@ export class ReorderDoc {
         <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
             <tr [ttRow]="rowNode">
                 <td *ngFor="let col of columns; let i = index">
-                    <p-treetableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-treetableToggler>
+                    <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-treeTableToggler>
                     {{ rowData[col.field] }}
                 </td>
             </tr>

@@ -33,6 +33,7 @@ import { SharedModule } from 'primeng/api';
     encapsulation: ViewEncapsulation.None,
     host: {
         '[class.p-tab]': 'true',
+        '[class.p-tab-active]': 'active()',
         '[class.p-component]': 'true',
         '[attr.data-pc-name]': '"tab"',
         '[attr.id]': 'id()',
