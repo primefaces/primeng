@@ -48,7 +48,7 @@ interface Column {
                     <ng-template pTemplate="frozenbody" let-rowNode let-rowData="rowData">
                         <tr [ttRow]="rowNode" style="height: 57px">
                             <td>
-                                <p-treetableToggler [rowNode]="rowNode" />
+                                <p-treeTableToggler [rowNode]="rowNode" />
                                 {{ rowData.name }}
                             </td>
                         </tr>
@@ -123,7 +123,7 @@ export class FrozenColumnsDoc {
         <ng-template pTemplate="frozenbody" let-rowNode let-rowData="rowData">
             <tr [ttRow]="rowNode" style="height: 57px">
                 <td>
-                    <p-treetableToggler [rowNode]="rowNode" />
+                    <p-treeTableToggler [rowNode]="rowNode" />
                     {{ rowData.name }}
                 </td>
             </tr>
@@ -162,7 +162,7 @@ export class FrozenColumnsDoc {
             <ng-template pTemplate="frozenbody" let-rowNode let-rowData="rowData">
                 <tr [ttRow]="rowNode" style="height: 57px">
                     <td>
-                        <p-treetableToggler [rowNode]="rowNode" />
+                        <p-treeTableToggler [rowNode]="rowNode" />
                         {{ rowData.name }}
                     </td>
                 </tr>
