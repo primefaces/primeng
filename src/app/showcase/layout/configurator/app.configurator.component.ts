@@ -446,7 +446,7 @@ export class AppConfiguratorComponent {
             this.configService.appState.update((state) => ({ ...state, surface: color.name }));
         }
         this.applyTheme(type, color);
-        
+
         event.stopPropagation();
     }
 

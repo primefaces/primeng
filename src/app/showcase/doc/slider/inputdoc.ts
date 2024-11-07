@@ -20,10 +20,8 @@ export class InputDoc {
     value: number = 50;
 
     code: Code = {
-        basic: `<div>
-    <input type="text" pInputText [(ngModel)]="value" class="w-full mb-4"/>
-    <p-slider [(ngModel)]="value" class="w-full" />
-</div>`,
+        basic: `<input type="text" pInputText [(ngModel)]="value" class="w-full mb-4"/>
+<p-slider [(ngModel)]="value" class="w-full" />`,
 
         html: `<div class="card flex justify-center">
     <div>
