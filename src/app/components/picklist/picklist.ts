@@ -1866,6 +1866,7 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
         if (this.media && !this.mediaChangeListener) {
             this.mediaChangeListener = this.renderer.listen(this.media, 'change', (event) => {
                 this.viewChanged = event.matches;
+
                 this.cd.markForCheck();
             });
         }
@@ -1888,11 +1889,11 @@ export class PickList extends BaseComponent implements AfterViewChecked, AfterCo
 
                 let innerHTML = `
                 @media screen and (max-width: ${this.breakpoint}) {
-                    .p-picklist[${this.attrSelector}] {
+                    .p-picklist[${this.id}] {
                         flex-direction: column;
                     }
 
-                    .p-picklist[${this.attrSelector}] .p-picklist-controls {
+                    .p-picklist[${this.id}] .p-picklist-controls {
                         flex-direction: row;
                     }
                 }`;
