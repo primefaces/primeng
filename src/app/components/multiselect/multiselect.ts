@@ -375,6 +375,7 @@ export class MultiSelectItem extends BaseComponent {
                                 *ngIf="showToggleAll && !selectionLimit"
                                 [variant]="variant"
                                 [disabled]="disabled"
+                                #headerCheckbox
                             >
                                 <ng-template #icon let-class="class">
                                     <CheckIcon
@@ -1072,7 +1073,7 @@ export class MultiSelect extends BaseComponent implements OnInit, AfterViewInit,
 
     @ViewChild('firstHiddenFocusableEl') firstHiddenFocusableElementOnOverlay: Nullable<ElementRef>;
 
-    @ViewChild('headerCheckbox') headerCheckboxViewChild: Nullable<ElementRef>;
+    @ViewChild('headerCheckbox') headerCheckboxViewChild: Nullable<Checkbox>;
 
     @ContentChild(Footer) footerFacet: any;
 
@@ -2160,11 +2161,11 @@ export class MultiSelect extends BaseComponent implements OnInit, AfterViewInit,
         }
 
         this.onChange.emit({ originalEvent: event, value: this.value });
-        DomHandler.focus(this.headerCheckboxViewChild?.nativeElement);
+        DomHandler.focus(this.headerCheckboxViewChild?.inputViewChild?.nativeElement);
         this.headerCheckboxFocus = true;
 
-        event.preventDefault();
-        event.stopPropagation();
+        event.originalEvent.preventDefault();
+        event.originalEvent.stopPropagation();
     }
 
     changeFocusedOptionIndex(event, index) {
