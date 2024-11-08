@@ -3,7 +3,7 @@
     "version": 1,
     "newProjectRoot": "projects",
     "projects": {
-        "primeng": {
+        "showcase": {
             "projectType": "application",
             "schematics": {
                 "@schematics/angular:component": {
@@ -17,7 +17,7 @@
                 "build": {
                     "builder": "@angular-devkit/build-angular:application",
                     "options": {
-                        "outputPath": "dist/primeng",
+                        "outputPath": "dist/showcase",
                         "index": "src/index.html",
                         "browser": "src/main.ts",
                         "polyfills": [
@@ -74,10 +74,10 @@
                     "builder": "@angular-devkit/build-angular:dev-server",
                     "configurations": {
                         "production": {
-                            "buildTarget": "primeng:build:production"
+                            "buildTarget": "showcase:build:production"
                         },
                         "development": {
-                            "buildTarget": "primeng:build:development"
+                            "buildTarget": "showcase:build:development"
                         }
                     },
                     "defaultConfiguration": "development"
@@ -85,7 +85,7 @@
                 "extract-i18n": {
                     "builder": "@angular-devkit/build-angular:extract-i18n",
                     "options": {
-                        "buildTarget": "primeng:build"
+                        "buildTarget": "showcase:build"
                     }
                 },
                 "test": {
