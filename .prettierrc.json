@@ -6,5 +6,31 @@
     "singleQuote": true,
     "printWidth": 250,
     "bracketSameLine": false,
-    "parser": "typescript"
+    "overrides": [
+        {
+            "files": ["*.ts", "*.mts", "*.d.ts"],
+            "options": {
+                "parser": "typescript"
+            }
+        },
+        {
+            "files": ["*.json"],
+            "options": {
+                "singleQuote": false,
+                "parser": "json"
+            }
+        },
+        {
+            "files": ["*.html"],
+            "options": {
+                "parser": "html"
+            }
+        },
+        {
+            "files": ["*.component.html"],
+            "options": {
+                "parser": "angular"
+            }
+        }
+    ]
 }

@@ -20,35 +20,13 @@
                         "outputPath": "dist/showcase",
                         "index": "src/index.html",
                         "browser": "src/main.ts",
-                        "polyfills": [
-                            "zone.js"
-                        ],
+                        "polyfills": ["zone.js"],
                         "tsConfig": "tsconfig.app.json",
                         "inlineStyleLanguage": "scss",
-                        "assets": [
-                            "src/favicon.ico",
-                            "src/assets"
-                        ],
-                        "styles": [
-                            "src/styles.scss"
-                        ],
-                        "scripts": [
-                            "./node_modules/prismjs/prism.js",
-                            "./node_modules/prismjs/components/prism-typescript.js",
-                            "./node_modules/prismjs/components/prism-scss.js",
-                            "./node_modules/prismjs/components/prism-bash.js"
-                        ],
-                        "allowedCommonJsDependencies": [
-                            "chart.js",
-                            "xlsx",
-                            "jspdf-autotable",
-                            "file-saver",
-                            "jspdf",
-                            "quill",
-                            "core-js",
-                            "raf",
-                            "rgbcolor"
-                        ],
+                        "assets": ["src/favicon.ico", "src/assets"],
+                        "styles": ["src/styles.scss"],
+                        "scripts": ["./node_modules/prismjs/prism.js", "./node_modules/prismjs/components/prism-typescript.js", "./node_modules/prismjs/components/prism-scss.js", "./node_modules/prismjs/components/prism-bash.js"],
+                        "allowedCommonJsDependencies": ["chart.js", "xlsx", "jspdf-autotable", "file-saver", "jspdf", "quill", "core-js", "raf", "rgbcolor"],
                         "server": "src/main.server.ts",
                         "prerender": {
                             "discoverRoutes": false,
@@ -91,19 +69,11 @@
                 "test": {
                     "builder": "@angular-devkit/build-angular:karma",
                     "options": {
-                        "polyfills": [
-                            "zone.js",
-                            "zone.js/testing"
-                        ],
+                        "polyfills": ["zone.js", "zone.js/testing"],
                         "tsConfig": "tsconfig.spec.json",
                         "inlineStyleLanguage": "scss",
-                        "assets": [
-                            "src/favicon.ico",
-                            "src/assets"
-                        ],
-                        "styles": [
-                            "src/styles.scss"
-                        ],
+                        "assets": ["src/favicon.ico", "src/assets"],
+                        "styles": ["src/styles.scss"],
                         "scripts": []
                     }
                 }

@@ -8,3 +8,6 @@ styles
 node_modules
 .vscode
 .angular
+*.md
+*.yml
+/tsconfig.json

@@ -1,19 +1,18 @@
 {
-    "data":
-    [  
-        {  
-            "data":{  
-                "name":"Lazy Folder 0",
-                "size":"75kb",
-                "type":"Folder"
+    "data": [
+        {
+            "data": {
+                "name": "Lazy Folder 0",
+                "size": "75kb",
+                "type": "Folder"
             },
             "leaf": false
         },
-        {  
-            "data":{  
-                "name":"Lazy Folder 1",
-                "size":"150kb",
-                "type":"Folder"
+        {
+            "data": {
+                "name": "Lazy Folder 1",
+                "size": "150kb",
+                "type": "Folder"
             },
             "leaf": false
         }
