@@ -45,7 +45,11 @@ import { MenuItem } from 'primeng/api';
                     <a pRipple class="flex items-center p-menubar-item-link">
                         <span>{{ item.label }}</span>
                         <p-badge *ngIf="item.badge" [ngClass]="{ 'ml-auto': !root, 'ml-2': root }" [value]="item.badge" />
+                        <<<<<<< HEAD:apps/showcase/doc/menubar/templatedoc.ts
                         <span *ngIf="item.shortcut" class="ml-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
+                        =======
+                        <span *ngIf="item.shortcut" class="ml-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
+                        >>>>>>> 9096aed9c (update menubar | templatedoc):src/app/showcase/doc/menubar/templatedoc.ts
                         <i *ngIf="item.items" [ngClass]="['ml-auto pi', root ? 'pi-angle-down' : 'pi-angle-right']"></i>
                     </a>
                 </ng-template>
@@ -88,6 +92,9 @@ export class TemplateDoc implements OnInit {
                         separator: true
                     },
                     {
+                        separator: true
+                    },
+                    {
                         label: 'UI Kit',
                         icon: 'pi pi-pencil',
                         shortcut: '⌘+U'
@@ -108,7 +115,11 @@ export class TemplateDoc implements OnInit {
         <a pRipple class="flex items-center p-menubar-item-link">
             <span>{{ item.label }}</span>
             <p-badge *ngIf="item.badge" [ngClass]="{ 'ml-auto': !root, 'ml-2': root }" [value]="item.badge" />
-            <span *ngIf="item.shortcut" class="ml-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
+            <span
+                *ngIf="item.shortcut"
+                class="ml-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1"
+                >{{ item.shortcut }}</span
+            >
             <i *ngIf="item.items" [ngClass]="['ml-auto pi', root ? 'pi-angle-down' : 'pi-angle-right']"></i>
         </a>
     </ng-template>
@@ -180,7 +191,11 @@ export class TemplateDoc implements OnInit {
             <a pRipple class="flex items-center p-menubar-item-link">
                 <span>{{ item.label }}</span>
                 <p-badge *ngIf="item.badge" [ngClass]="{ 'ml-auto': !root, 'ml-2': root }" [value]="item.badge" />
-                <span *ngIf="item.shortcut" class="ml-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
+                <span
+                    *ngIf="item.shortcut"
+                    class="ml-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1"
+                    >{{ item.shortcut }}</span
+                >
                 <i *ngIf="item.items" [ngClass]="['ml-auto pi', root ? 'pi-angle-down' : 'pi-angle-right']"></i>
             </a>
         </ng-template>
@@ -211,39 +226,41 @@ import { Ripple } from 'primeng/ripple';
 export class MenubarTemplateDemo implements OnInit {
     items: MenuItem[] | undefined;
 
+    items: MenuItem[] | undefined;
+
     ngOnInit() {
         this.items = [
-        {
-            label: 'Home',
-            icon: 'pi pi-home'
-        },
-        {
-            label: 'Projects',
-            icon: 'pi pi-search',
-            badge: '3',
-            items: [
-                {
-                    label: 'Core',
-                    icon: 'pi pi-bolt',
-                    shortcut: '⌘+S'
-                },
-                {
-                    label: 'Blocks',
-                    icon: 'pi pi-server',
-                    shortcut: '⌘+B'
-                },
-                {
-                    separator: true
-                },
-                {
-                    label: 'UI Kit',
-                    icon: 'pi pi-pencil',
-                    shortcut: '⌘+U'
-                }
-            ]
-        }
-    ];
-}
+            {
+                label: 'Home',
+                icon: 'pi pi-home',
+            },
+            {
+                label: 'Projects',
+                icon: 'pi pi-search',
+                badge: '3',
+                items: [
+                    {
+                        label: 'Core',
+                        icon: 'pi pi-bolt',
+                        shortcut: '⌘+S',
+                    },
+                    {
+                        label: 'Blocks',
+                        icon: 'pi pi-server',
+                        shortcut: '⌘+B',
+                    },
+                    {
+                        separator: true,
+                    },
+                    {
+                        label: 'UI Kit',
+                        icon: 'pi pi-pencil',
+                        shortcut: '⌘+U',
+                    },
+                ],
+            },
+        ];
+    }
 }`
     };
 }
