@@ -4,7 +4,7 @@ import { FilterMatchMode } from './filtermatchmode';
 import { OverlayOptions } from './overlayoptions';
 import { Translation } from './translation';
 import { ThemeProvider } from './themeprovider';
-import { PRIME_NG_CONFIG, PrimeNgFeature } from './provideprimengconfig';
+import { PRIME_NG_CONFIG, PrimeNgConfigProps } from './provideprimengconfig';
 
 @Injectable({ providedIn: 'root' })
 export class PrimeNG extends ThemeProvider {
@@ -37,7 +37,7 @@ export class PrimeNG extends ThemeProvider {
 
     translationObserver = this.translationSource.asObservable();
 
-    constructor(@Inject(PRIME_NG_CONFIG) public _config: PrimeNgFeature) {
+    constructor(@Inject(PRIME_NG_CONFIG) public _config: PrimeNgConfigProps) {
         super(_config);
         this.setConfig(_config);
     }
@@ -51,7 +51,7 @@ export class PrimeNG extends ThemeProvider {
         this.translationSource.next(this.translation);
     }
 
-    private setConfig(config: PrimeNgFeature): void {
+    private setConfig(config: PrimeNgConfigProps): void {
         const { csp, ripple, inputStyle } = config;
         if (csp) this.csp.set(csp);
         if (ripple) this.ripple.set(ripple);
