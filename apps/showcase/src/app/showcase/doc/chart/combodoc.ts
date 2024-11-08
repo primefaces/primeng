@@ -12,7 +12,7 @@ import { AppConfigService } from '@service/appconfigservice';
             <p-chart type="line" [data]="data" [options]="options" class="h-[30rem]" />
         </div>
         <app-code [code]="code" selector="chart-combo-demo"></app-code>
-    `,
+    `
 })
 export class ComboDoc implements OnInit {
     data: any;
@@ -53,7 +53,7 @@ export class ComboDoc implements OnInit {
                         borderWidth: 2,
                         fill: false,
                         tension: 0.4,
-                        data: [50, 25, 12, 48, 56, 76, 42],
+                        data: [50, 25, 12, 48, 56, 76, 42]
                     },
                     {
                         type: 'bar',
@@ -61,15 +61,15 @@ export class ComboDoc implements OnInit {
                         backgroundColor: documentStyle.getPropertyValue('--p-gray-500'),
                         data: [21, 84, 24, 75, 37, 65, 34],
                         borderColor: 'white',
-                        borderWidth: 2,
+                        borderWidth: 2
                     },
                     {
                         type: 'bar',
                         label: 'Dataset 3',
                         backgroundColor: documentStyle.getPropertyValue('--p-cyan-500'),
-                        data: [41, 52, 24, 74, 23, 21, 32],
-                    },
-                ],
+                        data: [41, 52, 24, 74, 23, 21, 32]
+                    }
+                ]
             };
 
             this.options = {
@@ -78,28 +78,28 @@ export class ComboDoc implements OnInit {
                 plugins: {
                     legend: {
                         labels: {
-                            color: textColor,
-                        },
-                    },
+                            color: textColor
+                        }
+                    }
                 },
                 scales: {
                     x: {
                         ticks: {
-                            color: textColorSecondary,
+                            color: textColorSecondary
                         },
                         grid: {
-                            color: surfaceBorder,
-                        },
+                            color: surfaceBorder
+                        }
                     },
                     y: {
                         ticks: {
-                            color: textColorSecondary,
+                            color: textColorSecondary
                         },
                         grid: {
-                            color: surfaceBorder,
-                        },
-                    },
-                },
+                            color: surfaceBorder
+                        }
+                    }
+                }
             };
         }
     }
@@ -210,6 +210,6 @@ export class ChartComboDemo implements OnInit {
         }
     }
 
-}`,
+}`
     };
 }

@@ -7,8 +7,8 @@ import { Code } from '@domain/code';
     template: `
         <app-docsectiontext>
             <p>
-                Dock requires a collection of menuitems as its <i>model</i>. Default location is <i>bottom</i> and other sides are also
-                available when defined with the <i>position</i> property. Content of the dock component is defined by <i>item</i> template.
+                Dock requires a collection of menuitems as its <i>model</i>. Default location is <i>bottom</i> and other sides are also available when defined with the <i>position</i> property. Content of the dock component is defined by
+                <i>item</i> template.
             </p>
         </app-docsectiontext>
         <div class="card">
@@ -27,7 +27,7 @@ import { Code } from '@domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="dock-basic-demo"></app-code>
-    `,
+    `
 })
 export class BasicDoc implements OnInit {
     items: MenuItem[] | undefined;
@@ -37,40 +37,40 @@ export class BasicDoc implements OnInit {
     positionOptions = [
         {
             label: 'Bottom',
-            value: 'bottom',
+            value: 'bottom'
         },
         {
             label: 'Top',
-            value: 'top',
+            value: 'top'
         },
         {
             label: 'Left',
-            value: 'left',
+            value: 'left'
         },
         {
             label: 'Right',
-            value: 'right',
-        },
+            value: 'right'
+        }
     ];
 
     ngOnInit() {
         this.items = [
             {
                 label: 'Finder',
-                icon: 'https://primefaces.org/cdn/primeng/images/dock/finder.svg',
+                icon: 'https://primefaces.org/cdn/primeng/images/dock/finder.svg'
             },
             {
                 label: 'App Store',
-                icon: 'https://primefaces.org/cdn/primeng/images/dock/appstore.svg',
+                icon: 'https://primefaces.org/cdn/primeng/images/dock/appstore.svg'
             },
             {
                 label: 'Photos',
-                icon: 'https://primefaces.org/cdn/primeng/images/dock/photos.svg',
+                icon: 'https://primefaces.org/cdn/primeng/images/dock/photos.svg'
             },
             {
                 label: 'Trash',
-                icon: 'https://primefaces.org/cdn/primeng/images/dock/trash.png',
-            },
+                icon: 'https://primefaces.org/cdn/primeng/images/dock/trash.png'
+            }
         ];
     }
 
@@ -190,6 +190,6 @@ export class DockBasicDemo implements OnInit {
     .p-dock {
         z-index: 1000;
     }
-}`,
+}`
     };
 }

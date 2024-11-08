@@ -10,9 +10,7 @@ import { Code } from '@domain/code';
         <div class="card flex flex-col items-center gap-4">
             <span
                 >Ripple option at the
-                <span class="mx-1 h-8 w-8 rounded-border inline-flex items-center justify-center bg-primary text-primary-contrast"
-                    ><i class="pi pi-palette"></i
-                ></span>
+                <span class="mx-1 h-8 w-8 rounded-border inline-flex items-center justify-center bg-primary text-primary-contrast"><i class="pi pi-palette"></i></span>
                 configurator needs to be turned on for the demo.</span
             >
             <div pRipple class="ripple-box">Default</div>
@@ -34,8 +32,8 @@ import { Code } from '@domain/code';
                     border-radius: var(--p-content-border-radius);
                 }
             }
-        `,
-    ],
+        `
+    ]
 })
 export class DefaultDoc {
     code: Code = {
@@ -82,6 +80,6 @@ export class RippleDefaultDemo {
                     border-radius: var(--p-content-border-radius);
                 }
             }
-}`,
+}`
     };
 }

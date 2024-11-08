@@ -6,16 +6,11 @@ import { Code } from '@domain/code';
     template: ` <app-docsectiontext>
             <h3>Screen Reader</h3>
             <p>
-                SpeedDial component renders a native button element that implicitly includes any passed prop. Text to describe the button
-                can be defined with the <i>aria-labelledby</i> or <i>aria-label</i> props. Addititonally the button includes includes
-                <i>aria-haspopup</i>, <i>aria-expanded</i> for states along with <i>aria-controls</i> to define the relation between the
-                popup and the button.
+                SpeedDial component renders a native button element that implicitly includes any passed prop. Text to describe the button can be defined with the <i>aria-labelledby</i> or <i>aria-label</i> props. Addititonally the button includes
+                includes <i>aria-haspopup</i>, <i>aria-expanded</i> for states along with <i>aria-controls</i> to define the relation between the popup and the button.
             </p>
 
-            <p>
-                The popup overlay uses <i>menu</i> role on the list and each action item has a <i>menuitem</i> role with an
-                <i>aria-label</i> as the menuitem label. The id of the menu refers to the <i>aria-controls</i> of the button.
-            </p>
+            <p>The popup overlay uses <i>menu</i> role on the list and each action item has a <i>menuitem</i> role with an <i>aria-label</i> as the menuitem label. The id of the menu refers to the <i>aria-controls</i> of the button.</p>
         </app-docsectiontext>
 
         <app-code [code]="code" [hideToggleCode]="true" [hideStackBlitz]="true" [hideCodeSandbox]="true"></app-code>
@@ -100,10 +95,10 @@ import { Code } from '@domain/code';
                     </tr>
                 </tbody>
             </table>
-        </div>`,
+        </div>`
 })
 export class AccessibilityDoc {
     code: Code = {
-        basic: `<p-speeddial aria-label="Options" />`,
+        basic: `<p-speeddial aria-label="Options" />`
     };
 }

@@ -12,7 +12,7 @@ import { AppConfigService } from '@service/appconfigservice';
             <p-chart type="line" [data]="data" [options]="options" class="h-[30rem]" />
         </div>
         <app-code [code]="code" selector="chart-line-style-demo"></app-code>
-    `,
+    `
 })
 export class LineStyleDoc implements OnInit {
     data: any;
@@ -51,7 +51,7 @@ export class LineStyleDoc implements OnInit {
                         data: [65, 59, 80, 81, 56, 55, 40],
                         fill: false,
                         tension: 0.4,
-                        borderColor: documentStyle.getPropertyValue('--p-cyan-500'),
+                        borderColor: documentStyle.getPropertyValue('--p-cyan-500')
                     },
                     {
                         label: 'Second Dataset',
@@ -59,7 +59,7 @@ export class LineStyleDoc implements OnInit {
                         fill: false,
                         borderDash: [5, 5],
                         tension: 0.4,
-                        borderColor: documentStyle.getPropertyValue('--p-orange-500'),
+                        borderColor: documentStyle.getPropertyValue('--p-orange-500')
                     },
                     {
                         label: 'Third Dataset',
@@ -67,9 +67,9 @@ export class LineStyleDoc implements OnInit {
                         fill: true,
                         borderColor: documentStyle.getPropertyValue('--p-gray-500'),
                         tension: 0.4,
-                        backgroundColor: 'rgba(107, 114, 128, 0.2)',
-                    },
-                ],
+                        backgroundColor: 'rgba(107, 114, 128, 0.2)'
+                    }
+                ]
             };
 
             this.options = {
@@ -78,28 +78,28 @@ export class LineStyleDoc implements OnInit {
                 plugins: {
                     legend: {
                         labels: {
-                            color: textColor,
-                        },
-                    },
+                            color: textColor
+                        }
+                    }
                 },
                 scales: {
                     x: {
                         ticks: {
-                            color: textColorSecondary,
+                            color: textColorSecondary
                         },
                         grid: {
-                            color: surfaceBorder,
-                        },
+                            color: surfaceBorder
+                        }
                     },
                     y: {
                         ticks: {
-                            color: textColorSecondary,
+                            color: textColorSecondary
                         },
                         grid: {
-                            color: surfaceBorder,
-                        },
-                    },
-                },
+                            color: surfaceBorder
+                        }
+                    }
+                }
             };
         }
     }
@@ -209,6 +209,6 @@ export class ChartLineStyleDemo implements OnInit {
             };
         }
     }
-}`,
+}`
     };
 }

@@ -20,54 +20,54 @@ import { SizesDoc } from '@doc/selectbutton/sizesdoc';
         themeDocs="selectbutton"
     ></app-doc>`,
     standalone: true,
-    imports: [SelectButtonDocModule],
+    imports: [SelectButtonDocModule]
 })
 export class SelectButtonDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc,
+            component: ImportDoc
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc,
+            component: BasicDoc
         },
         {
             id: 'reactive-forms',
             label: 'Reactive Forms',
-            component: ReactiveFormsDoc,
+            component: ReactiveFormsDoc
         },
         {
             id: 'multiple',
             label: 'Multiple',
-            component: MultipleDoc,
+            component: MultipleDoc
         },
         {
             id: 'template',
             label: 'Template',
-            component: TemplateDoc,
+            component: TemplateDoc
         },
         {
             id: 'sizes',
             label: 'Sizes',
-            component: SizesDoc,
+            component: SizesDoc
         },
         {
             id: 'invalid',
             label: 'Invalid',
-            component: InvalidDoc,
+            component: InvalidDoc
         },
         {
             id: 'disabled',
             label: 'Disabled',
-            component: DisabledDoc,
+            component: DisabledDoc
         },
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc,
-        },
+            component: AccessibilityDoc
+        }
     ];
 }

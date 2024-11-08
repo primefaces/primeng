@@ -6,10 +6,7 @@ import { Code } from '@domain/code';
     selector: 'breadcrumb-router-demo',
     template: `
         <app-docsectiontext>
-            <p>
-                Items with navigation are defined with templating to be able to use a routerLink directive, an external link or programmatic
-                navigation.
-            </p>
+            <p>Items with navigation are defined with templating to be able to use a routerLink directive, an external link or programmatic navigation.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-breadcrumb class="max-w-full" [model]="items">
@@ -29,7 +26,7 @@ import { Code } from '@domain/code';
             </p-breadcrumb>
         </div>
         <app-code [code]="code" selector="breadcrumb-router-demo"></app-code>
-    `,
+    `
 })
 export class RouterDoc implements OnInit {
     items: MenuItem[] | undefined;
@@ -37,12 +34,7 @@ export class RouterDoc implements OnInit {
     home: MenuItem | undefined;
 
     ngOnInit() {
-        this.items = [
-            { icon: 'pi pi-home', route: '/installation' },
-            { label: 'Components' },
-            { label: 'Form' },
-            { label: 'InputText', route: '/inputtext' },
-        ];
+        this.items = [{ icon: 'pi pi-home', route: '/installation' }, { label: 'Components' }, { label: 'Form' }, { label: 'InputText', route: '/inputtext' }];
     }
 
     code: Code = {
@@ -99,6 +91,6 @@ export class BreadcrumbRouterDemo implements OnInit {
     ngOnInit() {
         this.items = [{ icon: 'pi pi-home', route: '/installation' }, { label: 'Components' }, { label: 'Form' }, { label: 'InputText', route: '/inputtext' }];
     }
-}`,
+}`
     };
 }

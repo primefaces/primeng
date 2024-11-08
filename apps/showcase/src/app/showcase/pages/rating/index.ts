@@ -11,59 +11,52 @@ import { ReactiveFormsDoc } from '@doc/rating/reactiveformsdoc';
 import { RatingDocModule } from '@doc/rating/ratingdoc.module';
 
 @Component({
-    template: `<app-doc
-        docTitle="Angular Rating Component"
-        header="Rating"
-        description="Rating component is a star based selection input."
-        [docs]="docs"
-        [apiDocs]="['Rating']"
-        themeDocs="rating"
-    ></app-doc>`,
+    template: `<app-doc docTitle="Angular Rating Component" header="Rating" description="Rating component is a star based selection input." [docs]="docs" [apiDocs]="['Rating']" themeDocs="rating"></app-doc>`,
     standalone: true,
-    imports: [RatingDocModule],
+    imports: [RatingDocModule]
 })
 export class RatingDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc,
+            component: ImportDoc
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc,
+            component: BasicDoc
         },
         {
             id: 'reactive-forms',
             label: 'Reactive Forms',
-            component: ReactiveFormsDoc,
+            component: ReactiveFormsDoc
         },
         {
             id: 'numberofstars',
             label: 'Number of Stars',
-            component: NumberOfStarsDoc,
+            component: NumberOfStarsDoc
         },
         {
             id: 'template',
             label: 'Template',
-            component: TemplateDoc,
+            component: TemplateDoc
         },
         {
             id: 'readonly',
             label: 'ReadOnly',
-            component: ReadOnlyDoc,
+            component: ReadOnlyDoc
         },
         {
             id: 'disabled',
             label: 'Disabled',
-            component: DisabledDoc,
+            component: DisabledDoc
         },
 
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc,
-        },
+            component: AccessibilityDoc
+        }
     ];
 }

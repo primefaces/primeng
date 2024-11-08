@@ -40,7 +40,7 @@ import { TooltipModule } from 'primeng/tooltip';
         TagModule,
         MeterGroupModule,
         OverlayBadgeModule,
-        DatePickerModule,
+        DatePickerModule
     ],
     template: `
         <div class="flex-1 h-full overflow-y-auto pb-0.5">
@@ -62,24 +62,10 @@ import { TooltipModule } from 'primeng/tooltip';
                 </div>
             </div>
             <div class="mt-4 flex flex-wrap gap-6 items-center justify-between p-1">
-                <p-selectbutton
-                    [(ngModel)]="selectedTime"
-                    [options]="timeOptions"
-                    aria-labelledby="basic"
-                    [allowEmpty]="false"
-                    (onChange)="changeSelect()"
-                />
+                <p-selectbutton [(ngModel)]="selectedTime" [options]="timeOptions" aria-labelledby="basic" [allowEmpty]="false" (onChange)="changeSelect()" />
                 <div class="flex items-center gap-2">
                     <p-button label="Download" icon="pi pi-download" iconPos="right" />
-                    <p-datepicker
-                        [(ngModel)]="dates"
-                        appendTo="body"
-                        dateFormat="dd.mm.yy"
-                        selectionMode="range"
-                        showIcon
-                        iconDisplay="input"
-                        placeholder="06/11/2024 - 06/22/2024"
-                    />
+                    <p-datepicker [(ngModel)]="dates" appendTo="body" dateFormat="dd.mm.yy" selectionMode="range" showIcon iconDisplay="input" placeholder="06/11/2024 - 06/22/2024" />
                 </div>
             </div>
             <div class="flex flex-col gap-6 mt-6">
@@ -99,15 +85,7 @@ import { TooltipModule } from 'primeng/tooltip';
                     <div class="flex-1 border border-surface rounded-2xl py-5 px-7">
                         <div class="flex items-center gap-6 mb-4">
                             <div class="flex-1 text-color font-semibold leading-6">Transactions</div>
-                            <p-button
-                                type="button"
-                                icon="pi pi-ellipsis-h"
-                                severity="secondary"
-                                text
-                                (click)="menu.toggle($event)"
-                                aria-haspopup="true"
-                                aria-controls="overlay_menu"
-                            />
+                            <p-button type="button" icon="pi pi-ellipsis-h" severity="secondary" text (click)="menu.toggle($event)" aria-haspopup="true" aria-controls="overlay_menu" />
                             <p-menu #menu id="overlay_menu" [model]="menuItems" [popup]="true" />
                         </div>
                         <p-table
@@ -138,12 +116,7 @@ import { TooltipModule } from 'primeng/tooltip';
                                     </td>
                                     <td class="w-1/4">
                                         <div class="flex items-center">
-                                            <p-avatar
-                                                [label]="item.name.label"
-                                                class="mr-2 text-xs font-medium"
-                                                [style]="{ 'background-color': '#ece9fc', color: '#2a1261' }"
-                                                shape="circle"
-                                            />
+                                            <p-avatar [label]="item.name.label" class="mr-2 text-xs font-medium" [style]="{ 'background-color': '#ece9fc', color: '#2a1261' }" shape="circle" />
                                             <div class="leading-6 text-muted-color flex-1">{{ item.name.text }}</div>
                                         </div>
                                     </td>
@@ -153,8 +126,7 @@ import { TooltipModule } from 'primeng/tooltip';
                                                 class="pi"
                                                 [ngClass]="{
                                                     'pi-bitcoin text-yellow-500 !text-3xl': item.coin !== 'btc',
-                                                    'pi-ethereum bg-surface-950 text-surface-0 dark:bg-surface-0 dark:text-surface-950 w-7 h-7 rounded-full flex items-center justify-center':
-                                                        item.coin !== 'eth',
+                                                    'pi-ethereum bg-surface-950 text-surface-0 dark:bg-surface-0 dark:text-surface-950 w-7 h-7 rounded-full flex items-center justify-center': item.coin !== 'eth'
                                                 }"
                                             ></i>
                                         </div>
@@ -176,15 +148,7 @@ import { TooltipModule } from 'primeng/tooltip';
                         <div>
                             <div class="flex items-center mb-6">
                                 <div class="flex-1 text-color font-semibold leading-6">My Wallet</div>
-                                <p-button
-                                    type="button"
-                                    icon="pi pi-ellipsis-h"
-                                    severity="secondary"
-                                    text
-                                    (click)="menu.toggle($event)"
-                                    aria-haspopup="true"
-                                    aria-controls="overlay_menu"
-                                />
+                                <p-button type="button" icon="pi pi-ellipsis-h" severity="secondary" text (click)="menu.toggle($event)" aria-haspopup="true" aria-controls="overlay_menu" />
                                 <p-menu #menu id="overlay_menu" [model]="menuItems" [popup]="true" styleClass="ml-6" />
                             </div>
                             <p-metergroup [value]="metersData" labelPosition="end">
@@ -211,10 +175,10 @@ import { TooltipModule } from 'primeng/tooltip';
         </div>
     `,
     host: {
-        class: 'flex-1 h-full overflow-y-auto pb-0.5',
+        class: 'flex-1 h-full overflow-y-auto pb-0.5'
     },
     encapsulation: ViewEncapsulation.None,
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class OverviewApp {
     chartData: any;
@@ -251,12 +215,12 @@ export class OverviewApp {
         this.menuItems = [
             {
                 label: 'Refresh',
-                icon: 'pi pi-refresh',
+                icon: 'pi pi-refresh'
             },
             {
                 label: 'Export',
-                icon: 'pi pi-upload',
-            },
+                icon: 'pi pi-upload'
+            }
         ];
 
         this.sampleAppsTableDatas = [
@@ -266,7 +230,7 @@ export class OverviewApp {
                 coin: 'btc',
                 date: 'May 5th',
                 process: { type: 'success', value: 'Buy' },
-                amount: '3.005 BTC',
+                amount: '3.005 BTC'
             },
             {
                 id: '#2355',
@@ -274,7 +238,7 @@ export class OverviewApp {
                 coin: 'eth',
                 date: 'Mar 17th',
                 process: { type: 'success', value: 'Buy' },
-                amount: '0.050 ETH',
+                amount: '0.050 ETH'
             },
             {
                 id: '#1235',
@@ -282,7 +246,7 @@ export class OverviewApp {
                 coin: 'btc',
                 date: 'May 24th',
                 process: { type: 'danger', value: 'Sell' },
-                amount: '3.050 BTC',
+                amount: '3.050 BTC'
             },
             {
                 id: '#2355',
@@ -290,7 +254,7 @@ export class OverviewApp {
                 coin: 'eth',
                 date: 'Mar 17th',
                 process: { type: 'danger', value: 'Sell' },
-                amount: '0.050 ETH',
+                amount: '0.050 ETH'
             },
             {
                 id: '#2355',
@@ -298,7 +262,7 @@ export class OverviewApp {
                 coin: 'eth',
                 date: 'Mar 17th',
                 process: { type: 'danger', value: 'Sell' },
-                amount: '0.050 ETH',
+                amount: '0.050 ETH'
             },
             {
                 id: '#7896',
@@ -306,7 +270,7 @@ export class OverviewApp {
                 coin: 'btc',
                 date: 'Jun 12th',
                 process: { type: 'success', value: 'Buy' },
-                amount: '2.500 BTC',
+                amount: '2.500 BTC'
             },
             {
                 id: '#5648',
@@ -314,7 +278,7 @@ export class OverviewApp {
                 coin: 'eth',
                 date: 'Feb 23rd',
                 process: { type: 'success', value: 'Buy' },
-                amount: '1.200 ETH',
+                amount: '1.200 ETH'
             },
             {
                 id: '#3265',
@@ -322,7 +286,7 @@ export class OverviewApp {
                 coin: 'btc',
                 date: 'Apr 30th',
                 process: { type: 'danger', value: 'Sell' },
-                amount: '4.000 BTC',
+                amount: '4.000 BTC'
             },
             {
                 id: '#1423',
@@ -330,7 +294,7 @@ export class OverviewApp {
                 coin: 'btc',
                 date: 'Jan 15th',
                 process: { type: 'danger', value: 'Sell' },
-                amount: '5.050 LTC',
+                amount: '5.050 LTC'
             },
             {
                 id: '#6854',
@@ -338,8 +302,8 @@ export class OverviewApp {
                 coin: 'eth',
                 date: 'Dec 2nd',
                 process: { type: 'success', value: 'Buy' },
-                amount: '0.300 ETH',
-            },
+                amount: '0.300 ETH'
+            }
         ];
 
         this.metersData = [
@@ -348,7 +312,7 @@ export class OverviewApp {
             { label: 'GBP', color: '#22C55E', value: 25, text: '£ 147.562,32' },
             { label: 'EUR', color: '#84CC16', value: 11, text: '€ 137.457,25' },
             { label: 'USD', color: '#14B8A6', value: 29, text: '$ 133.364,12' },
-            { label: 'XAU', color: '#EAB308', value: 29, text: '200 g' },
+            { label: 'XAU', color: '#EAB308', value: 29, text: '200 g' }
         ];
 
         this.initChart();
@@ -379,7 +343,7 @@ export class OverviewApp {
                     backgroundColor: primary400,
                     hoverBackgroundColor: primary600,
                     data: datasets.data[0],
-                    barThickness: 32,
+                    barThickness: 32
                 },
                 {
                     type: 'bar',
@@ -387,7 +351,7 @@ export class OverviewApp {
                     backgroundColor: primary300,
                     hoverBackgroundColor: primary500,
                     data: datasets.data[1],
-                    barThickness: 32,
+                    barThickness: 32
                 },
                 {
                     type: 'bar',
@@ -397,12 +361,12 @@ export class OverviewApp {
                     data: datasets.data[2],
                     borderRadius: {
                         topLeft: 8,
-                        topRight: 8,
+                        topRight: 8
                     },
                     borderSkipped: false,
-                    barThickness: 32,
-                },
-            ],
+                    barThickness: 32
+                }
+            ]
         };
     }
 
@@ -439,7 +403,7 @@ export class OverviewApp {
                                 'transition-all',
                                 'duration-[0.1s]',
                                 'pointer-events-none',
-                                'shadow-[0px_25px_20px_-5px_rgba(0,0,0,0.10),0px_10px_8px_-6px_rgba(0,0,0,0.10)]',
+                                'shadow-[0px_25px_20px_-5px_rgba(0,0,0,0.10),0px_10px_8px_-6px_rgba(0,0,0,0.10)]'
                             );
                             chart.canvas.parentNode.appendChild(tooltipEl);
                         }
@@ -508,42 +472,42 @@ export class OverviewApp {
 
                         tooltipEl.style.left = tooltipX + 'px';
                         tooltipEl.style.top = tooltipY + 'px';
-                    },
+                    }
                 },
                 legend: {
-                    display: false,
-                },
+                    display: false
+                }
             },
             scales: {
                 x: {
                     stacked: true,
                     ticks: {
-                        color: darkTheme ? surface500 : surface400,
+                        color: darkTheme ? surface500 : surface400
                     },
                     grid: {
                         display: false,
-                        borderColor: 'transparent',
+                        borderColor: 'transparent'
                     },
                     border: {
-                        display: false,
-                    },
+                        display: false
+                    }
                 },
                 y: {
                     beginAtZero: true,
                     stacked: true,
                     ticks: {
-                        color: darkTheme ? surface500 : surface400,
+                        color: darkTheme ? surface500 : surface400
                     },
                     grid: {
                         display: true,
                         color: darkTheme ? surface900 : surface100,
-                        borderColor: 'transparent',
+                        borderColor: 'transparent'
                     },
                     border: {
-                        display: false,
-                    },
-                },
-            },
+                        display: false
+                    }
+                }
+            }
         };
     }
 
@@ -551,44 +515,31 @@ export class OverviewApp {
         let data, labels;
 
         if (val === 'Weekly') {
-            labels = [
-                '6 May',
-                '13 May',
-                '20 May',
-                '27 May',
-                '3 June',
-                '10 June',
-                '17 June',
-                '24 June',
-                '1 July',
-                '8 July',
-                '15 July',
-                '22 July',
-            ];
+            labels = ['6 May', '13 May', '20 May', '27 May', '3 June', '10 June', '17 June', '24 June', '1 July', '8 July', '15 July', '22 July'];
             data = [
                 [9000, 3000, 13000, 3000, 5000, 17000, 11000, 4000, 15000, 4000, 11000, 5000],
                 [1800, 7600, 11100, 6800, 3300, 5800, 3600, 7200, 4300, 8100, 6800, 3700],
-                [3800, 4800, 2100, 6600, 1000, 3800, 6500, 4200, 4300, 7000, 6800, 3700],
+                [3800, 4800, 2100, 6600, 1000, 3800, 6500, 4200, 4300, 7000, 6800, 3700]
             ];
         } else if (val === 'Monthly') {
             labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
             data = [
                 [4000, 10000, 15000, 4000, 16000, 8000, 12000, 14000, 17000, 5000, 12000, 6000],
                 [2100, 8400, 2400, 7500, 3700, 6500, 7400, 8000, 4800, 9000, 7600, 4200],
-                [4100, 5200, 2400, 7400, 2300, 4100, 7200, 8000, 4800, 9000, 7600, 4200],
+                [4100, 5200, 2400, 7400, 2300, 4100, 7200, 8000, 4800, 9000, 7600, 4200]
             ];
         } else if (val === 'Yearly') {
             labels = ['2019', '2020', '2021', '2022', '2023', '2024'];
             data = [
                 [4500, 10500, 15500, 4500, 16500, 8500, 12500, 14500, 17500, 5500, 12500, 6500],
                 [2250, 8700, 2550, 7650, 3850, 6650, 7650, 8250, 4950, 9250, 7850, 4450],
-                [4350, 5450, 2650, 7650, 2550, 4350, 7450, 8250, 4950, 9250, 7850, 4450],
+                [4350, 5450, 2650, 7650, 2550, 4350, 7450, 8250, 4950, 9250, 7850, 4450]
             ];
         }
 
         return {
             data,
-            labels,
+            labels
         };
     }
 

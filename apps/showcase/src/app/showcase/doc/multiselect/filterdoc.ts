@@ -13,18 +13,10 @@ interface City {
             <p>MultiSelect provides built-in filtering that is enabled by adding the <i>filter</i> property.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-multiselect
-                [options]="cities"
-                [(ngModel)]="selectedCities"
-                [filter]="true"
-                optionLabel="name"
-                placeholder="Select Cities"
-                [maxSelectedLabels]="3"
-                styleClass="w-full md:w-80"
-            />
+            <p-multiselect [options]="cities" [(ngModel)]="selectedCities" [filter]="true" optionLabel="name" placeholder="Select Cities" [maxSelectedLabels]="3" styleClass="w-full md:w-80" />
         </div>
         <app-code [code]="code" selector="multi-select-filter-demo"></app-code>
-    `,
+    `
 })
 export class FilterDoc implements OnInit {
     cities!: City[];
@@ -37,7 +29,7 @@ export class FilterDoc implements OnInit {
             { name: 'Rome', code: 'RM' },
             { name: 'London', code: 'LDN' },
             { name: 'Istanbul', code: 'IST' },
-            { name: 'Paris', code: 'PRS' },
+            { name: 'Paris', code: 'PRS' }
         ];
     }
 
@@ -77,6 +69,6 @@ export class MultiSelectFilterDemo implements OnInit {
             { name: 'Paris', code: 'PRS' }
         ];
     }
-}`,
+}`
     };
 }

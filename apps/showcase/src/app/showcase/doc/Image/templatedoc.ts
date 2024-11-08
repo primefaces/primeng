@@ -5,10 +5,7 @@ import { Code } from '@domain/code';
     selector: 'template-doc',
     template: `
         <app-docsectiontext>
-            <p>
-                An eye icon is displayed by default when the image is hovered in preview mode. Use the <i>indicator</i> template for custom
-                content.
-            </p>
+            <p>An eye icon is displayed by default when the image is hovered in preview mode. Use the <i>indicator</i> template for custom content.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-image src="https://primefaces.org/cdn/primeng/images/galleria/galleria11.jpg" [preview]="true" alt="Image" width="250">
@@ -19,17 +16,12 @@ import { Code } from '@domain/code';
                     <img src="https://primefaces.org/cdn/primeng/images/galleria/galleria11.jpg" alt="image" width="250" />
                 </ng-template>
                 <ng-template pTemplate="preview" let-style="style" let-previewCallback="previewCallback">
-                    <img
-                        src="https://primefaces.org/cdn/primeng/images/galleria/galleria11.jpg"
-                        alt="image"
-                        [style]="style"
-                        (click)="previewCallback()"
-                    />
+                    <img src="https://primefaces.org/cdn/primeng/images/galleria/galleria11.jpg" alt="image" [style]="style" (click)="previewCallback()" />
                 </ng-template>
             </p-image>
         </div>
         <app-code [code]="code" selector="image-template-demo"></app-code>
-    `,
+    `
 })
 export class TemplateDoc {
     code: Code = {
@@ -68,6 +60,6 @@ import { ImageModule } from 'primeng/image';
     standalone: true,
     imports: [ImageModule]
 })
-export class ImageTemplateDemo {}`,
+export class ImageTemplateDemo {}`
     };
 }

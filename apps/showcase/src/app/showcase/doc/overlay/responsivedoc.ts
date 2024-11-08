@@ -5,9 +5,7 @@ import { AppDocSectionTextComponent } from '@layout/doc/app.docsectiontext.compo
 @Component({
     selector: 'responsive-doc',
     template: ` <app-docsectiontext>
-            <p>
-                It is the option used to determine in which mode it should appear according to the given <i>media</i> or <i>breakpoint</i>.
-            </p>
+            <p>It is the option used to determine in which mode it should appear according to the given <i>media</i> or <i>breakpoint</i>.</p>
         </app-docsectiontext>
         <app-code [code]="code" [hideToggleCode]="true"></app-code>
 
@@ -28,7 +26,7 @@ import { AppDocSectionTextComponent } from '@layout/doc/app.docsectiontext.compo
                 <li>right-start</li>
                 <li>right-end</li>
             </ul>
-        </div>`,
+        </div>`
 })
 export class ResponsiveDoc {
     @Input() id: string;
@@ -53,6 +51,6 @@ const responsiveOptions: ResponsiveOverlayOptions = {
 
 this.primengConfig.overlayOptions: OverlayOptions = {
     responsive: responsiveOptions
-};`,
+};`
     };
 }

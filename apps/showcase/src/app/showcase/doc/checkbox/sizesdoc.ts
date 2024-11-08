@@ -22,7 +22,7 @@ import { Code } from '@domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="checkbox-sizes-demo"></app-code>
-    `,
+    `
 })
 export class SizesDoc {
     size: any = null;
@@ -68,6 +68,6 @@ import { Checkbox } from 'primeng/checkbox';
 })
 export class CheckboxSizesDemo {
     size: any = null;
-}`,
+}`
     };
 }

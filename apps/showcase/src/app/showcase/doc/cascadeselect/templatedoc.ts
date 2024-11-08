@@ -7,28 +7,14 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>
                 Label of an option is used as the display text of an item by default, for custom content support define an
-                <i>option</i> template that gets the option instance as a parameter. In addition <i>value</i>, <i>dropdownicon</i>,
-                <i>loadingicon</i>, and <i>optiongroupicon</i> slots are provided for further customization.
+                <i>option</i> template that gets the option instance as a parameter. In addition <i>value</i>, <i>dropdownicon</i>, <i>loadingicon</i>, and <i>optiongroupicon</i> slots are provided for further customization.
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-cascadeselect
-                [(ngModel)]="selectedCity"
-                [options]="countries"
-                optionLabel="cname"
-                optionGroupLabel="name"
-                [optionGroupChildren]="['states', 'cities']"
-                [style]="{ minWidth: '14rem' }"
-                placeholder="Select a City"
-            >
+            <p-cascadeselect [(ngModel)]="selectedCity" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" [style]="{ minWidth: '14rem' }" placeholder="Select a City">
                 <ng-template #option let-option>
                     <div class="flex items-center">
-                        <img
-                            *ngIf="option.states"
-                            src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
-                            [class]="'mr-2 flag flag-' + option.code.toLowerCase()"
-                            style="width: 18px"
-                        />
+                        <img *ngIf="option.states" src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'mr-2 flag flag-' + option.code.toLowerCase()" style="width: 18px" />
                         <i class="pi pi-compass mr-2" *ngIf="option.cities"></i>
                         <i class="pi pi-map-marker mr-2" *ngIf="option.cname"></i>
                         <span>{{ option.cname || option.name }}</span>
@@ -49,7 +35,7 @@ import { Code } from '@domain/code';
             </p-cascadeselect>
         </div>
         <app-code [code]="code" selector="cascade-select-template-demo"></app-code>
-    `,
+    `
 })
 export class TemplateDoc {
     countries: any[] | undefined;
@@ -67,17 +53,17 @@ export class TemplateDoc {
                         cities: [
                             { cname: 'Sydney', code: 'A-SY' },
                             { cname: 'Newcastle', code: 'A-NE' },
-                            { cname: 'Wollongong', code: 'A-WO' },
-                        ],
+                            { cname: 'Wollongong', code: 'A-WO' }
+                        ]
                     },
                     {
                         name: 'Queensland',
                         cities: [
                             { cname: 'Brisbane', code: 'A-BR' },
-                            { cname: 'Townsville', code: 'A-TO' },
-                        ],
-                    },
-                ],
+                            { cname: 'Townsville', code: 'A-TO' }
+                        ]
+                    }
+                ]
             },
             {
                 name: 'Canada',
@@ -87,17 +73,17 @@ export class TemplateDoc {
                         name: 'Quebec',
                         cities: [
                             { cname: 'Montreal', code: 'C-MO' },
-                            { cname: 'Quebec City', code: 'C-QU' },
-                        ],
+                            { cname: 'Quebec City', code: 'C-QU' }
+                        ]
                     },
                     {
                         name: 'Ontario',
                         cities: [
                             { cname: 'Ottawa', code: 'C-OT' },
-                            { cname: 'Toronto', code: 'C-TO' },
-                        ],
-                    },
-                ],
+                            { cname: 'Toronto', code: 'C-TO' }
+                        ]
+                    }
+                ]
             },
             {
                 name: 'United States',
@@ -108,8 +94,8 @@ export class TemplateDoc {
                         cities: [
                             { cname: 'Los Angeles', code: 'US-LA' },
                             { cname: 'San Diego', code: 'US-SD' },
-                            { cname: 'San Francisco', code: 'US-SF' },
-                        ],
+                            { cname: 'San Francisco', code: 'US-SF' }
+                        ]
                     },
                     {
                         name: 'Florida',
@@ -117,19 +103,19 @@ export class TemplateDoc {
                             { cname: 'Jacksonville', code: 'US-JA' },
                             { cname: 'Miami', code: 'US-MI' },
                             { cname: 'Tampa', code: 'US-TA' },
-                            { cname: 'Orlando', code: 'US-OR' },
-                        ],
+                            { cname: 'Orlando', code: 'US-OR' }
+                        ]
                     },
                     {
                         name: 'Texas',
                         cities: [
                             { cname: 'Austin', code: 'US-AU' },
                             { cname: 'Dallas', code: 'US-DA' },
-                            { cname: 'Houston', code: 'US-HO' },
-                        ],
-                    },
-                ],
-            },
+                            { cname: 'Houston', code: 'US-HO' }
+                        ]
+                    }
+                ]
+            }
         ];
     }
 
@@ -284,6 +270,6 @@ export class CascadeSelectTemplateDemo implements OnInit {
             }
         ];
     }
-}`,
+}`
     };
 }

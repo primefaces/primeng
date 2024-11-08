@@ -7,20 +7,20 @@ export class TicketService {
         personalInformation: {
             firstname: '',
             lastname: '',
-            age: null,
+            age: null
         },
         seatInformation: {
             class: null,
             wagon: null,
-            seat: null,
+            seat: null
         },
         paymentInformation: {
             cardholderName: '',
             cardholderNumber: '',
             date: '',
             cvv: '',
-            remember: false,
-        },
+            remember: false
+        }
     };
 
     private paymentComplete = new Subject<any>();

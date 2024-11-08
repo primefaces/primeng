@@ -7,9 +7,8 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <h3>Screen Reader</h3>
             <p>
-                Value to describe the component can either be provided via <i>label</i> tag combined with <i>id</i> prop or using
-                <i>ariaLabelledBy</i>, <i>ariaLabel</i> props. Screen reader is notified about the changes to the strength of the password
-                using a section that has <i>aria-live</i> while typing.
+                Value to describe the component can either be provided via <i>label</i> tag combined with <i>id</i> prop or using <i>ariaLabelledBy</i>, <i>ariaLabel</i> props. Screen reader is notified about the changes to the strength of the
+                password using a section that has <i>aria-live</i> while typing.
             </p>
         </app-docsectiontext>
 
@@ -40,7 +39,7 @@ import { Code } from '@domain/code';
                 </tbody>
             </table>
         </div>
-    </div>`,
+    </div>`
 })
 export class AccessibilityDoc {
     code: Code = {
@@ -50,6 +49,6 @@ export class AccessibilityDoc {
 <span id="pwd2">Password</span>
 <p-password ariaLabelledBy="pwd2" />
 
-<p-password ariaLabel="Password" />`,
+<p-password ariaLabel="Password" />`
     };
 }

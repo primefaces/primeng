@@ -21,6 +21,6 @@ import { CardModule } from 'primeng/card';
 @NgModule({
     imports: [CommonModule, AppCodeModule, FormsModule, RouterModule, ButtonModule, AppDocModule, MeterGroup, CardModule],
     declarations: [BasicDoc, ImportDoc, MultipleDoc, IconDoc, LabelDoc, VerticalDoc, MinMaxDoc, TemplateDoc, StyleDoc, AccessibilityDoc],
-    exports: [AppDocModule],
+    exports: [AppDocModule]
 })
 export class MeterGroupDocModule {}

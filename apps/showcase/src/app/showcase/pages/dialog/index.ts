@@ -14,69 +14,60 @@ import { DialogDocModule } from '@doc/dialog/dialogdoc.module';
 @Component({
     standalone: true,
     imports: [DialogDocModule],
-    template: `
-        <app-doc
-            docTitle="Angular Dialog Component"
-            header="Dialog"
-            description="Dialog is a container to display content in an overlay window."
-            [docs]="docs"
-            [apiDocs]="['Dialog']"
-            themeDocs="dialog"
-        ></app-doc>
-    `,
+    template: ` <app-doc docTitle="Angular Dialog Component" header="Dialog" description="Dialog is a container to display content in an overlay window." [docs]="docs" [apiDocs]="['Dialog']" themeDocs="dialog"></app-doc> `
 })
 export class DialogDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc,
+            component: ImportDoc
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc,
+            component: BasicDoc
         },
         {
             id: 'template',
             label: 'Template',
-            component: TemplateDoc,
+            component: TemplateDoc
         },
         {
             id: 'position',
             label: 'Position',
-            component: PositionDoc,
+            component: PositionDoc
         },
         {
             id: 'maximizable',
             label: 'Maximizable',
-            component: MaximizableDoc,
+            component: MaximizableDoc
         },
         {
             id: 'longcontent',
             label: 'Long Content',
-            component: LongContentDoc,
+            component: LongContentDoc
         },
         {
             id: 'withoutmodal',
             label: 'Without Modal',
-            component: WithoutModalDoc,
+            component: WithoutModalDoc
         },
         {
             id: 'responsive',
             label: 'Responsive',
-            component: ResponsiveDoc,
+            component: ResponsiveDoc
         },
         {
             id: 'headless',
             label: 'Headless',
-            component: HeadlessDoc,
+            component: HeadlessDoc
         },
 
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc,
-        },
+            component: AccessibilityDoc
+        }
     ];
 }

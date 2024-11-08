@@ -11,7 +11,7 @@ import { Code } from '@domain/code';
             <p-button pTooltip="Confirm to proceed" showDelay="1000" hideDelay="300" label="Save" />
         </div>
         <app-code [code]="code" selector="tooltip-delay-demo"></app-code>
-    `,
+    `
 })
 export class DelayDoc {
     code: Code = {
@@ -31,6 +31,6 @@ import { ButtonModule } from 'primeng/button';
     standalone: true,
     imports: [Tooltip, ButtonModule]
 })
-export class TooltipDelayDemo {}`,
+export class TooltipDelayDemo {}`
     };
 }

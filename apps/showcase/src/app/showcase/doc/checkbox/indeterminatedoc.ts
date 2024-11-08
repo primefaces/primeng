@@ -11,7 +11,7 @@ import { Code } from '@domain/code';
             <p-checkbox [(ngModel)]="checked" [binary]="true" [indeterminate]="true" />
         </div>
         <app-code [code]="code" selector="checkbox-indeterminate-demo"></app-code>
-    `,
+    `
 })
 export class IndeterminateDoc {
     checked: any = null;
@@ -35,6 +35,6 @@ import { Checkbox } from 'primeng/checkbox';
 })
 export class CheckboxIndeterminateDemo {
     checked: boolean = false;
-}`,
+}`
     };
 }

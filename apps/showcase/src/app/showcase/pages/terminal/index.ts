@@ -5,34 +5,27 @@ import { AccessibilityDoc } from '@doc/terminal/accessibilitydoc';
 import { TerminalDocModule } from '@doc/terminal/terminaldoc.module';
 
 @Component({
-    template: `<app-doc
-        docTitle="Angular Terminal Component"
-        header="Terminal"
-        description='Terminal is a text based user interface. Enter "date" to display the current date.'
-        [docs]="docs"
-        [apiDocs]="['Terminal']"
-        themeDocs="terminal"
-    ></app-doc> `,
+    template: `<app-doc docTitle="Angular Terminal Component" header="Terminal" description='Terminal is a text based user interface. Enter "date" to display the current date.' [docs]="docs" [apiDocs]="['Terminal']" themeDocs="terminal"></app-doc> `,
     standalone: true,
-    imports: [TerminalDocModule],
+    imports: [TerminalDocModule]
 })
 export class TerminalDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc,
+            component: ImportDoc
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc,
+            component: BasicDoc
         },
 
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc,
-        },
+            component: AccessibilityDoc
+        }
     ];
 }

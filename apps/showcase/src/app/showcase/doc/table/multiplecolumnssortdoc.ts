@@ -7,10 +7,7 @@ import { ProductService } from '@service/productservice';
     selector: 'multiple-columns-sort-doc',
     template: `
         <app-docsectiontext>
-            <p>
-                Multiple columns can be sorted by defining <i>sortMode</i> as <i>multiple</i>. This mode requires metaKey (e.g. <i>⌘</i>) to
-                be pressed when clicking a header.
-            </p>
+            <p>Multiple columns can be sorted by defining <i>sortMode</i> as <i>multiple</i>. This mode requires metaKey (e.g. <i>⌘</i>) to be pressed when clicking a header.</p>
         </app-docsectiontext>
         <p-deferred-demo (load)="loadDemoData()">
             <div class="card">
@@ -48,14 +45,14 @@ import { ProductService } from '@service/productservice';
         </p-deferred-demo>
         <app-code [code]="code" selector="table-multiple-columns-sort-demo" [extFiles]="extFiles"></app-code>
     `,
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MultipleColumnsSortDoc {
     products: Product[];
 
     constructor(
         private productService: ProductService,
-        private cd: ChangeDetectorRef,
+        private cd: ChangeDetectorRef
     ) {}
 
     loadDemoData() {
@@ -157,7 +154,7 @@ export class TableSingleColumnsSortDemo implements OnInit {
     rating: 5
 },
 ...`,
-        service: ['ProductService'],
+        service: ['ProductService']
     };
 
     extFiles = [
@@ -175,7 +172,7 @@ export interface Product {
     category?: string;
     image?: string;
     rating?: number;
-}`,
-        },
+}`
+        }
     ];
 }

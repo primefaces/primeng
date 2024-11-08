@@ -6,17 +6,14 @@ import { Code } from '@domain/code';
     template: `
         <app-docsectiontext>
             <p>
-                HTML offers various element to organize content on a web page that screen readers are aware of. Preferring Semantic HTML for
-                good semantics provide out of the box support for reader which is not possible when regular
+                HTML offers various element to organize content on a web page that screen readers are aware of. Preferring Semantic HTML for good semantics provide out of the box support for reader which is not possible when regular
                 <i>div</i> elements with classes are used. Consider the following example that do not mean too much for readers.
             </p>
             <app-code [code]="code1" [hideToggleCode]="true"></app-code>
-            <p class="doc-section-description mt-4">
-                Same layout can be achieved using the semantic elements with screen reader support built-in.
-            </p>
+            <p class="doc-section-description mt-4">Same layout can be achieved using the semantic elements with screen reader support built-in.</p>
             <app-code [code]="code2" [hideToggleCode]="true"></app-code>
         </app-docsectiontext>
-    `,
+    `
 })
 export class SemanticHTMLDoc {
     code1: Code = {
@@ -31,7 +28,7 @@ export class SemanticHTMLDoc {
     <div class="sidebar"></div>
 </div>
 
-<div class="footer"></div>`,
+<div class="footer"></div>`
     };
 
     code2: Code = {
@@ -46,6 +43,6 @@ export class SemanticHTMLDoc {
     <aside></aside>
 </main>
 
-<footer></footer>`,
+<footer></footer>`
     };
 }

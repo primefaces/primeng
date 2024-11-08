@@ -8,50 +8,43 @@ import { AccessibilityDoc } from '@doc/skeleton/accessibilitydoc';
 import { SkeletonDocModule } from '@doc/skeleton/skeletondoc.module';
 
 @Component({
-    template: `<app-doc
-        docTitle="Angular Skeleton Component"
-        header="Skeleton"
-        description="Skeleton is a placeholder to display instead of the actual content."
-        [docs]="docs"
-        [apiDocs]="['Skeleton']"
-        themeDocs="skeleton"
-    ></app-doc>`,
+    template: `<app-doc docTitle="Angular Skeleton Component" header="Skeleton" description="Skeleton is a placeholder to display instead of the actual content." [docs]="docs" [apiDocs]="['Skeleton']" themeDocs="skeleton"></app-doc>`,
     standalone: true,
     imports: [SkeletonDocModule],
-    styleUrl: './skeletondemo.scss',
+    styleUrl: './skeletondemo.scss'
 })
 export class SkeletonDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc,
+            component: ImportDoc
         },
         {
             id: 'shapes',
             label: 'Shapes',
-            component: ShapesDoc,
+            component: ShapesDoc
         },
         {
             id: 'card',
             label: 'Card',
-            component: CardDoc,
+            component: CardDoc
         },
         {
             id: 'list',
             label: 'List',
-            component: ListDoc,
+            component: ListDoc
         },
         {
             id: 'datatable',
             label: 'DataTable',
-            component: DataTableDoc,
+            component: DataTableDoc
         },
 
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc,
-        },
+            component: AccessibilityDoc
+        }
     ];
 }

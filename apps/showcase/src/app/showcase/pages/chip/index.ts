@@ -10,47 +10,40 @@ import { ChipDocModule } from '@doc/chip/chipdoc.module';
 @Component({
     standalone: true,
     imports: [ChipDocModule],
-    template: ` <app-doc
-        docTitle="Angular Chip Component"
-        header="Chip"
-        description="Chip represents entities using icons, labels and images."
-        [docs]="docs"
-        [apiDocs]="['Chip']"
-        themeDocs="chip"
-    ></app-doc>`,
+    template: ` <app-doc docTitle="Angular Chip Component" header="Chip" description="Chip represents entities using icons, labels and images." [docs]="docs" [apiDocs]="['Chip']" themeDocs="chip"></app-doc>`
 })
 export class ChipDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc,
+            component: ImportDoc
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc,
+            component: BasicDoc
         },
         {
             id: 'icon',
             label: 'Icon',
-            component: IconDoc,
+            component: IconDoc
         },
         {
             id: 'image',
             label: 'Image',
-            component: ImageDoc,
+            component: ImageDoc
         },
         {
             id: 'template',
             label: 'Template',
-            component: TemplateDoc,
+            component: TemplateDoc
         },
 
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc,
-        },
+            component: AccessibilityDoc
+        }
     ];
 }

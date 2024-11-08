@@ -7,9 +7,8 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <h3>Screen Reader</h3>
             <p>
-                Dialog component uses <i>dialog</i> role along with <i>aria-labelledby</i> referring to the header element however any
-                attribute is passed to the root element so you may use <i>aria-labelledby</i> to override this default behavior. In addition
-                <i>aria-modal</i> is added since focus is kept within the popup.
+                Dialog component uses <i>dialog</i> role along with <i>aria-labelledby</i> referring to the header element however any attribute is passed to the root element so you may use <i>aria-labelledby</i> to override this default behavior. In
+                addition <i>aria-modal</i> is added since focus is kept within the popup.
             </p>
             <p>
                 It is recommended to use a trigger component that can be accessed with keyboard such as a button, if not adding
@@ -17,9 +16,8 @@ import { Code } from '@domain/code';
             </p>
             <p>Trigger element also requires <i>aria-expanded</i> and <i>aria-controls</i> to be handled explicitly.</p>
             <p>
-                Close element is a <i>button</i> with an <i>aria-label</i> that refers to the <i>aria.close</i> property of the
-                <a href="/configuration/#locale">locale</a> API by default, you may use<i>closeButtonProps</i> to customize the element and
-                override the default <i>aria-label</i>.
+                Close element is a <i>button</i> with an <i>aria-label</i> that refers to the <i>aria.close</i> property of the <a href="/configuration/#locale">locale</a> API by default, you may use<i>closeButtonProps</i> to customize the element
+                and override the default <i>aria-label</i>.
             </p>
 
             <app-code [code]="code" [hideToggleCode]="true"></app-code>
@@ -71,7 +69,7 @@ import { Code } from '@domain/code';
                 </table>
             </div>
         </app-docsectiontext>
-    </div>`,
+    </div>`
 })
 export class AccessibilityDoc {
     code: Code = {
@@ -79,6 +77,6 @@ export class AccessibilityDoc {
     
 <p-dialog id="dialog" header="Header" [(visible)]="visible" [style]="{ width: '50vw' }" (onHide)="visible = false">
     <p>Content</p>
-</p-dialog>`,
+</p-dialog>`
     };
 }

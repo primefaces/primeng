@@ -23,20 +23,7 @@ import { Footer } from './footer';
 
 @NgModule({
     imports: [CommonModule, AppCodeModule, RouterModule, FormsModule, Tag, Dialog, ButtonModule, AppDocModule, ToastModule, TableModule],
-    declarations: [
-        OpenDoc,
-        Footer,
-        ImportDoc,
-        StyleDoc,
-        ExampleDoc,
-        ProductListDemo,
-        UsageDoc,
-        PassingDataDoc,
-        CloseDoc,
-        StyleDoc,
-        InfoDemo,
-        CustomizationDoc,
-    ],
-    exports: [AppDocModule],
+    declarations: [OpenDoc, Footer, ImportDoc, StyleDoc, ExampleDoc, ProductListDemo, UsageDoc, PassingDataDoc, CloseDoc, StyleDoc, InfoDemo, CustomizationDoc],
+    exports: [AppDocModule]
 })
 export class DynamicDialogDocModule {}

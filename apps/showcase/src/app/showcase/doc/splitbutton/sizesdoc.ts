@@ -16,7 +16,7 @@ import { Code } from '@domain/code';
         </div>
         <app-code [code]="code" selector="split-button-sizes-demo"></app-code>
     `,
-    providers: [MessageService],
+    providers: [MessageService]
 })
 export class SizesDoc {
     constructor(private messageService: MessageService) {
@@ -25,17 +25,17 @@ export class SizesDoc {
                 label: 'Update',
                 command: () => {
                     this.update();
-                },
+                }
             },
             {
                 label: 'Delete',
                 command: () => {
                     this.delete();
-                },
+                }
             },
             { label: 'Angular Website', url: 'http://angular.io' },
             { separator: true },
-            { label: 'Upload', routerLink: ['/fileupload'] },
+            { label: 'Upload', routerLink: ['/fileupload'] }
         ];
     }
 
@@ -111,6 +111,6 @@ export class SplitButtonSizesDemo {
     delete() {
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Data Deleted' });
     }
-}`,
+}`
     };
 }

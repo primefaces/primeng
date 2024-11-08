@@ -3,6 +3,6 @@ import { SelectButtonDemo } from './';
 export default [
     {
         path: '',
-        component: SelectButtonDemo,
-    },
+        component: SelectButtonDemo
+    }
 ];

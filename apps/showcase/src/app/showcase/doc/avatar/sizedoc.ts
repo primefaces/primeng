@@ -12,7 +12,7 @@ import { Code } from '@domain/code';
             <p-avatar label="T" size="xlarge" />
         </div>
         <app-code [code]="code" selector="avatar-size-demo"></app-code>
-    `,
+    `
 })
 export class SizeDoc {
     code: Code = {
@@ -31,6 +31,6 @@ import { Avatar } from 'primeng/avatar';
     standalone: true,
     imports: [Avatar]
 })
-export class AvatarSizeDemo {}`,
+export class AvatarSizeDemo {}`
     };
 }

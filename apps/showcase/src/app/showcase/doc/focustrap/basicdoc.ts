@@ -13,16 +13,7 @@ import { Code } from '@domain/code';
                     <p-inputicon>
                         <i class="pi pi-user"></i>
                     </p-inputicon>
-                    <input
-                        type="text"
-                        pInputText
-                        id="input"
-                        [(ngModel)]="name"
-                        type="text"
-                        placeholder="Name"
-                        [pAutoFocus]="true"
-                        [fluid]="true"
-                    />
+                    <input type="text" pInputText id="input" [(ngModel)]="name" type="text" placeholder="Name" [pAutoFocus]="true" [fluid]="true" />
                 </p-iconfield>
 
                 <p-iconfield>
@@ -41,7 +32,7 @@ import { Code } from '@domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="focus-trap-basic-demo"></app-code>
-    `,
+    `
 })
 export class BasicDoc {
     name: string = '';
@@ -118,6 +109,6 @@ export class FocusTrapBasicDemo {
     email: string = '';
 
     accept: boolean = false;
-}`,
+}`
     };
 }

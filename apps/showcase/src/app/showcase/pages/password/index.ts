@@ -16,89 +16,82 @@ import { IftaLabelDoc } from '@doc/password/iftalabeldoc';
 import { SizesDoc } from '@doc/password/sizesdoc';
 
 @Component({
-    template: `<app-doc
-        docTitle="Angular Password Component"
-        header="Password"
-        description="Password displays strength indicator for password fields."
-        [docs]="docs"
-        [apiDocs]="['Password', 'PasswordDirective']"
-        themeDocs="password"
-    ></app-doc>`,
+    template: `<app-doc docTitle="Angular Password Component" header="Password" description="Password displays strength indicator for password fields." [docs]="docs" [apiDocs]="['Password', 'PasswordDirective']" themeDocs="password"></app-doc>`,
     standalone: true,
-    imports: [PasswordDocModule],
+    imports: [PasswordDocModule]
 })
 export class PasswordDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc,
+            component: ImportDoc
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc,
+            component: BasicDoc
         },
         {
             id: 'reactive-forms',
             label: 'Reactive Forms',
-            component: ReactiveFormsDoc,
+            component: ReactiveFormsDoc
         },
         {
             id: 'meter',
             label: 'Meter',
-            component: MeterDoc,
+            component: MeterDoc
         },
         {
             id: 'locale',
             label: 'Locale',
-            component: LocaleDoc,
+            component: LocaleDoc
         },
         {
             id: 'togglemask',
             label: 'Toggle Mask',
-            component: ToggleMaskDoc,
+            component: ToggleMaskDoc
         },
         {
             id: 'template',
             label: 'Template',
-            component: TemplateDoc,
+            component: TemplateDoc
         },
         {
             id: 'floatlabel',
             label: 'Float Label',
-            component: FloatLabelDoc,
+            component: FloatLabelDoc
         },
         {
             id: 'iftalabel',
             label: 'Ifta Label',
-            component: IftaLabelDoc,
+            component: IftaLabelDoc
         },
         {
             id: 'sizes',
             label: 'Sizes',
-            component: SizesDoc,
+            component: SizesDoc
         },
         {
             id: 'filled',
             label: 'Filled',
-            component: FilledDoc,
+            component: FilledDoc
         },
         {
             id: 'invalid',
             label: 'Invalid',
-            component: InvalidDoc,
+            component: InvalidDoc
         },
         {
             id: 'disabled',
             label: 'Disabled',
-            component: DisabledDoc,
+            component: DisabledDoc
         },
 
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc,
-        },
+            component: AccessibilityDoc
+        }
     ];
 }

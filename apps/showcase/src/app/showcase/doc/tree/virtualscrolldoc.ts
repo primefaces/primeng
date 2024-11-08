@@ -7,22 +7,13 @@ import { NodeService } from '@service/nodeservice';
     selector: 'virtual-scroll-doc',
     template: `
         <app-docsectiontext>
-            <p>
-                VirtualScroller is a performance-approach to handle huge data efficiently. Setting <i>virtualScroll</i> property as true and
-                providing a <i>virtualScrollItemSize</i> in pixels would be enough to enable this functionality.
-            </p>
+            <p>VirtualScroller is a performance-approach to handle huge data efficiently. Setting <i>virtualScroll</i> property as true and providing a <i>virtualScrollItemSize</i> in pixels would be enough to enable this functionality.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-tree
-                styleClass="w-full md:w-[30rem]"
-                scrollHeight="250px"
-                [virtualScroll]="true"
-                [virtualScrollItemSize]="46"
-                [value]="files"
-            />
+            <p-tree styleClass="w-full md:w-[30rem]" scrollHeight="250px" [virtualScroll]="true" [virtualScrollItemSize]="46" [value]="files" />
         </div>
         <app-code [code]="code" selector="tree-virtual-scroll-demo"></app-code>
-    `,
+    `
 })
 export class VirtualScrollDoc implements OnInit {
     loading: boolean = false;
@@ -31,7 +22,7 @@ export class VirtualScrollDoc implements OnInit {
 
     constructor(
         private nodeService: NodeService,
-        private cd: ChangeDetectorRef,
+        private cd: ChangeDetectorRef
     ) {}
 
     ngOnInit() {
@@ -120,6 +111,6 @@ children: [
 }
 ]
 },
-...`,
+...`
     };
 }

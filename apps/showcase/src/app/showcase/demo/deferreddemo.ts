@@ -14,7 +14,7 @@ import { Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output, PLA
             <ng-content></ng-content>
         }
     `,
-    styleUrl: './deferreddemo.scss',
+    styleUrl: './deferreddemo.scss'
 })
 export class DeferredDemo implements OnInit {
     visible: boolean = false;
@@ -29,7 +29,7 @@ export class DeferredDemo implements OnInit {
 
     constructor(
         public el: ElementRef,
-        @Inject(PLATFORM_ID) private platformId: any,
+        @Inject(PLATFORM_ID) private platformId: any
     ) {}
 
     ngOnInit() {

@@ -27,18 +27,12 @@ import { Code } from '@domain/code';
                     <p-divider layout="horizontal" class="!flex md:!hidden" align="center"><b>OR</b></p-divider>
                 </div>
                 <div class="w-full md:w-5/12 flex items-center justify-center py-5">
-                    <p-button
-                        label="Sign Up"
-                        icon="pi pi-user-plus"
-                        severity="success"
-                        class="w-full max-w-[17.35rem]"
-                        styleClass="w-full mx-auto"
-                    />
+                    <p-button label="Sign Up" icon="pi pi-user-plus" severity="success" class="w-full max-w-[17.35rem]" styleClass="w-full mx-auto" />
                 </div>
             </div>
         </div>
         <app-code [code]="code" selector="divider-login-demo"></app-code>
-    `,
+    `
 })
 export class LoginDoc {
     code: Code = {
@@ -101,6 +95,6 @@ import { InputTextModule } from 'primeng/inputtext';
     standalone: true,
     imports: [DividerModule, ButtonModule, InputTextModule]
 })
-export class DividerLoginDemo {}`,
+export class DividerLoginDemo {}`
     };
 }

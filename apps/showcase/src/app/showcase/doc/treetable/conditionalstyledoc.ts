@@ -12,10 +12,7 @@ interface Column {
     selector: 'conditional-style-doc',
     template: `
         <app-docsectiontext>
-            <p>
-                Particular rows and cells can be styled based on conditions. The <i>ngClass</i> receives a row data as a parameter to return
-                a style class for a row whereas cells are customized using the <i>body</i> template.
-            </p>
+            <p>Particular rows and cells can be styled based on conditions. The <i>ngClass</i> receives a row data as a parameter to return a style class for a row whereas cells are customized using the <i>body</i> template.</p>
         </app-docsectiontext>
         <div class="card">
             <p-deferred-demo (load)="loadDemoData()">
@@ -29,10 +26,7 @@ interface Column {
                     </ng-template>
                     <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
                         <tr [ttRow]="rowNode" [ngClass]="{ 'p-highlight': rowData.size.endsWith('kb') }">
-                            <td
-                                *ngFor="let col of columns; let i = index"
-                                [ngClass]="{ 'font-bold': col.field === 'size' && rowData.size.endsWith('kb') }"
-                            >
+                            <td *ngFor="let col of columns; let i = index" [ngClass]="{ 'font-bold': col.field === 'size' && rowData.size.endsWith('kb') }">
                                 <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
                                 {{ rowData[col.field] }}
                             </td>
@@ -43,7 +37,7 @@ interface Column {
         </div>
         <app-code [code]="code" selector="tree-table-conditional-style-demo"></app-code>
     `,
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ConditionalStyleDoc {
     files!: TreeNode[];
@@ -57,7 +51,7 @@ export class ConditionalStyleDoc {
         this.cols = [
             { field: 'name', header: 'Name' },
             { field: 'size', header: 'Size' },
-            { field: 'type', header: 'Type' },
+            { field: 'type', header: 'Type' }
         ];
     }
 
@@ -147,6 +141,6 @@ export class TreeTableConditionalStyleDemo implements OnInit{
     }
 }`,
 
-        service: ['NodeService'],
+        service: ['NodeService']
     };
 }

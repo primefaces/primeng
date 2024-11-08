@@ -12,20 +12,11 @@ interface Column {
     selector: 'sort-multiple-columns-doc',
     template: `
         <app-docsectiontext>
-            <p>
-                Multiple columns can be sorted by defining <i>sortMode</i> as <i>multiple</i>. This mode requires metaKey (e.g. <i>⌘</i>) to
-                be pressed when clicking a header.
-            </p>
+            <p>Multiple columns can be sorted by defining <i>sortMode</i> as <i>multiple</i>. This mode requires metaKey (e.g. <i>⌘</i>) to be pressed when clicking a header.</p>
         </app-docsectiontext>
         <div class="card">
             <p-deferred-demo (load)="loadDemoData()">
-                <p-treetable
-                    [value]="files"
-                    [columns]="cols"
-                    sortMode="multiple"
-                    [scrollable]="true"
-                    [tableStyle]="{ 'min-width': '50rem' }"
-                >
+                <p-treetable [value]="files" [columns]="cols" sortMode="multiple" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template pTemplate="header" let-columns>
                         <tr>
                             <th *ngFor="let col of columns" [ttSortableColumn]="col.field">
@@ -47,7 +38,7 @@ interface Column {
         </div>
         <app-code [code]="code" selector="tree-table-sort-multiple-columns-demo"></app-code>
     `,
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SortMultipleColumnsDoc {
     files!: TreeNode[];
@@ -62,7 +53,7 @@ export class SortMultipleColumnsDoc {
         this.cols = [
             { field: 'name', header: 'Name' },
             { field: 'size', header: 'Size' },
-            { field: 'type', header: 'Type' },
+            { field: 'type', header: 'Type' }
         ];
     }
 
@@ -153,6 +144,6 @@ export class TreeTableSortMultipleColumnsDemo implements OnInit {
     }
 }`,
 
-        service: ['NodeService'],
+        service: ['NodeService']
     };
 }

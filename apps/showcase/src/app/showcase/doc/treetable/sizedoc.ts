@@ -7,10 +7,7 @@ import { NodeService } from '@service/nodeservice';
     selector: 'size-doc',
     template: ` <section class="py-6">
         <app-docsectiontext>
-            <p>
-                In addition to a regular treetable, alternatives with alternative sizes are available. Add <i>p-treetable-sm</i> class to
-                reduce the size of treetable or <i>p-treetable-lg</i> to enlarge it.
-            </p>
+            <p>In addition to a regular treetable, alternatives with alternative sizes are available. Add <i>p-treetable-sm</i> class to reduce the size of treetable or <i>p-treetable-lg</i> to enlarge it.</p>
         </app-docsectiontext>
         <div class="card">
             <div class="flex justify-center mb-4">
@@ -40,7 +37,7 @@ import { NodeService } from '@service/nodeservice';
         </div>
         <app-code [code]="code" selector="tree-table-size-demo"></app-code>
     </section>`,
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SizeDoc {
     files!: TreeNode[];
@@ -57,7 +54,7 @@ export class SizeDoc {
         this.sizes = [
             { name: 'Small', class: 'p-treetable-sm' },
             { name: 'Normal', class: '' },
-            { name: 'Large', class: 'p-treetable-lg' },
+            { name: 'Large', class: 'p-treetable-lg' }
         ];
     }
 
@@ -161,6 +158,6 @@ export class TreeTableSizeDemo implements OnInit {
     }
 }`,
 
-        service: ['NodeService'],
+        service: ['NodeService']
     };
 }

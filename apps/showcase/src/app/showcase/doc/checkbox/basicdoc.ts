@@ -11,7 +11,7 @@ import { Code } from '@domain/code';
             <p-checkbox [(ngModel)]="checked" [binary]="true" />
         </div>
         <app-code [code]="code" selector="checkbox-basic-demo"></app-code>
-    `,
+    `
 })
 export class BasicDoc {
     checked: any = null;
@@ -35,6 +35,6 @@ import { Checkbox } from 'primeng/checkbox';
 })
 export class CheckboxBasicDemo {
     checked: boolean = false;
-}`,
+}`
     };
 }

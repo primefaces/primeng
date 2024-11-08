@@ -4,13 +4,10 @@ import { Component } from '@angular/core';
     selector: 'primary-doc',
     template: `
         <app-docsectiontext>
-            <p>
-                The <i>primary</i> defines the main color palette, default value maps to the <i>emerald</i> primitive token. Let's setup to
-                use <i>indigo</i> instead.
-            </p>
+            <p>The <i>primary</i> defines the main color palette, default value maps to the <i>emerald</i> primitive token. Let's setup to use <i>indigo</i> instead.</p>
         </app-docsectiontext>
         <app-code [code]="code" selector="primary-demo" [hideToggleCode]="true"></app-code>
-    `,
+    `
 })
 export class PrimaryDoc {
     code = {
@@ -30,6 +27,6 @@ export class PrimaryDoc {
             950: '{indigo.950}'
         }
     }
-});`,
+});`
     };
 }

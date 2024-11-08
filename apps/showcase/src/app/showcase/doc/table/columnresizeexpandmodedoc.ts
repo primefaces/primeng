@@ -10,13 +10,7 @@ import { ProductService } from '@service/productservice';
         </app-docsectiontext>
         <p-deferred-demo (load)="loadDemoData()">
             <div class="card">
-                <p-table
-                    [value]="products"
-                    showGridlines
-                    [resizableColumns]="true"
-                    columnResizeMode="expand"
-                    [tableStyle]="{ 'min-width': '50rem' }"
-                >
+                <p-table [value]="products" showGridlines [resizableColumns]="true" columnResizeMode="expand" [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template #header>
                         <tr>
                             <th pResizableColumn>Code</th>
@@ -37,14 +31,14 @@ import { ProductService } from '@service/productservice';
             </div>
         </p-deferred-demo>
         <app-code [code]="code" selector="table-column-resize-expand-mode-demo" [extFiles]="extFiles"></app-code>`,
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ColumnResizeExpandModeDoc {
     products!: Product[];
 
     constructor(
         private productService: ProductService,
-        private cd: ChangeDetectorRef,
+        private cd: ChangeDetectorRef
     ) {}
 
     loadDemoData() {
@@ -139,7 +133,7 @@ export class TableColumnResizeExpandModeDemo implements OnInit{
     rating: 5
 },
 ...`,
-        service: ['ProductService'],
+        service: ['ProductService']
     };
 
     extFiles = [
@@ -157,7 +151,7 @@ export interface Product {
     category?: string;
     image?: string;
     rating?: number;
-}`,
-        },
+}`
+        }
     ];
 }

@@ -6,8 +6,7 @@ import { Component } from '@angular/core';
         <app-docsectiontext>
             <h3>Screen Reader</h3>
             <p>
-                ScrollTop uses a button element with an <i>aria-label</i> that refers to the <i>aria.scrollTop</i> property of the
-                <a href="/configuration/#locale">locale</a> API by default, you may use your own aria roles and attributes as any valid
+                ScrollTop uses a button element with an <i>aria-label</i> that refers to the <i>aria.scrollTop</i> property of the <a href="/configuration/#locale">locale</a> API by default, you may use your own aria roles and attributes as any valid
                 attribute is passed to the button element implicitly.
             </p>
         </app-docsectiontext>
@@ -33,6 +32,6 @@ import { Component } from '@angular/core';
                 </tbody>
             </table>
         </div>
-    </div>`,
+    </div>`
 })
 export class AccessibilityDoc {}

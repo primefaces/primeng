@@ -5,10 +5,7 @@ import { Code } from '@domain/code';
     selector: 'basic-doc',
     template: `
         <app-docsectiontext>
-            <p>
-                Popover is accessed via its reference and visibility is controlled using <i>toggle</i>, <i>show</i> and <i>hide</i> methods
-                with an event of the target.
-            </p>
+            <p>Popover is accessed via its reference and visibility is controlled using <i>toggle</i>, <i>show</i> and <i>hide</i> methods with an event of the target.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-button (click)="op.toggle($event)" icon="pi pi-share-alt" label="Share" />
@@ -17,12 +14,7 @@ import { Code } from '@domain/code';
                     <div>
                         <span class="font-medium text-surface-900 dark:text-surface-0 block mb-2">Share this document</span>
                         <p-inputgroup>
-                            <input
-                                pInputText
-                                value="https://primeng.org/12323ff26t2g243g423g234gg52hy25XADXAG3"
-                                readonly
-                                class="w-[25rem]"
-                            />
+                            <input pInputText value="https://primeng.org/12323ff26t2g243g423g234gg52hy25XADXAG3" readonly class="w-[25rem]" />
                             <p-inputgroup-addon>
                                 <i class="pi pi-copy"></i>
                             </p-inputgroup-addon>
@@ -57,13 +49,13 @@ import { Code } from '@domain/code';
             </p-popover>
         </div>
         <app-code [code]="code" selector="popover-basic-demo"></app-code>
-    `,
+    `
 })
 export class BasicDoc {
     members = [
         { name: 'Amy Elsner', image: 'amyelsner.png', email: 'amy@email.com', role: 'Owner' },
         { name: 'Bernardo Dominic', image: 'bernardodominic.png', email: 'bernardo@email.com', role: 'Editor' },
-        { name: 'Ioni Bowcher', image: 'ionibowcher.png', email: 'ioni@email.com', role: 'Viewer' },
+        { name: 'Ioni Bowcher', image: 'ionibowcher.png', email: 'ioni@email.com', role: 'Viewer' }
     ];
 
     code: Code = {
@@ -169,6 +161,6 @@ export class PopoverBasicDemo {
         { name: 'Bernardo Dominic', image: 'bernardodominic.png', email: 'bernardo@email.com', role: 'Editor' },
         { name: 'Ioni Bowcher', image: 'ionibowcher.png', email: 'ioni@email.com', role: 'Viewer' }
     ];
-}`,
+}`
     };
 }

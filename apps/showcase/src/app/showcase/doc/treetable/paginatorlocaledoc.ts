@@ -18,15 +18,7 @@ interface Column {
         </app-docsectiontext>
         <div class="card">
             <p-deferred-demo (load)="loadDemoData()">
-                <p-treetable
-                    paginatorLocale="fa-IR"
-                    [value]="files"
-                    [columns]="cols"
-                    [paginator]="true"
-                    [rows]="10"
-                    [scrollable]="true"
-                    [tableStyle]="{ 'min-width': '50rem' }"
-                >
+                <p-treetable paginatorLocale="fa-IR" [value]="files" [columns]="cols" [paginator]="true" [rows]="10" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template pTemplate="header" let-columns>
                         <tr>
                             <th *ngFor="let col of columns">
@@ -47,7 +39,7 @@ interface Column {
         </div>
         <app-code [code]="code" selector="tree-table-paginator-locale-demo"></app-code>
     `,
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PaginatorLocaleDoc {
     files!: TreeNode[];
@@ -61,17 +53,17 @@ export class PaginatorLocaleDoc {
                 data: {
                     name: 'Item ' + i,
                     size: Math.floor(Math.random() * 1000) + 1 + 'kb',
-                    type: 'Type ' + i,
+                    type: 'Type ' + i
                 },
                 children: [
                     {
                         data: {
                             name: 'Item ' + i + ' - 0',
                             size: Math.floor(Math.random() * 1000) + 1 + 'kb',
-                            type: 'Type ' + i,
-                        },
-                    },
-                ],
+                            type: 'Type ' + i
+                        }
+                    }
+                ]
             };
 
             this.files.push(node);
@@ -80,7 +72,7 @@ export class PaginatorLocaleDoc {
         this.cols = [
             { field: 'name', header: 'Name' },
             { field: 'size', header: 'Size' },
-            { field: 'type', header: 'Type' },
+            { field: 'type', header: 'Type' }
         ];
     }
 
@@ -187,6 +179,6 @@ export class TreeTablePaginatorLocaleDemo implements OnInit {
             { field: 'type', header: 'Type' }
         ];
     }
-}`,
+}`
     };
 }

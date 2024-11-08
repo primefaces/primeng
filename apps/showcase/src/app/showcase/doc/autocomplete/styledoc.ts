@@ -48,6 +48,6 @@ import { Component } from '@angular/core';
                     </tr>
                 </tbody>
             </table>
-        </div>`,
+        </div>`
 })
 export class StyleDoc {}

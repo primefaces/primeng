@@ -13,7 +13,7 @@ import { Code } from '@domain/code';
             <p-inputmask [(ngModel)]="value3" placeholder="Large" size="large" mask="99-999999" />
         </div>
         <app-code [code]="code" selector="input-mask-sizes-demo"></app-code>
-    `,
+    `
 })
 export class SizesDoc {
     value1: string | undefined;
@@ -49,6 +49,6 @@ export class InputMaskSizesDemo {
     value2: string | undefined;
 
     value3: string | undefined;
-}`,
+}`
     };
 }

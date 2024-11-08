@@ -11,51 +11,44 @@ import { ShapeDoc } from '@doc/avatar/shapedoc';
 @Component({
     standalone: true,
     imports: [AvatarDocModule],
-    template: ` <app-doc
-        docTitle="Angular Avatar Component"
-        header="Avatar"
-        description="Avatar represents people using icons, labels and images."
-        [docs]="docs"
-        [apiDocs]="['Avatar', 'AvatarGroup']"
-        [themeDocs]="'Avatar'"
-    ></app-doc>`,
+    template: ` <app-doc docTitle="Angular Avatar Component" header="Avatar" description="Avatar represents people using icons, labels and images." [docs]="docs" [apiDocs]="['Avatar', 'AvatarGroup']" [themeDocs]="'Avatar'"></app-doc>`
 })
 export class AvatarDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc,
+            component: ImportDoc
         },
         {
             id: 'label',
             label: 'Label',
-            component: LabelDoc,
+            component: LabelDoc
         },
         {
             id: 'icon',
             label: 'Icon',
-            component: IconDoc,
+            component: IconDoc
         },
         {
             id: 'image',
             label: 'Image',
-            component: ImageDoc,
+            component: ImageDoc
         },
         {
             id: 'avatargroup',
             label: 'AvatarGroup',
-            component: GroupDoc,
+            component: GroupDoc
         },
         {
             id: 'shape',
             label: 'Shape',
-            component: ShapeDoc,
+            component: ShapeDoc
         },
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc,
-        },
+            component: AccessibilityDoc
+        }
     ];
 }

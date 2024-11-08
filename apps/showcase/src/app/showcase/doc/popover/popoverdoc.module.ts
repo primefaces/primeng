@@ -21,21 +21,8 @@ import { TagModule } from 'primeng/tag';
 import { SelectDataDoc } from './selectdatadoc';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        AppCodeModule,
-        RouterModule,
-        PopoverModule,
-        ButtonModule,
-        TableModule,
-        ToastModule,
-        AppDocModule,
-        InputGroupModule,
-        InputGroupAddonModule,
-        InputTextModule,
-        TagModule,
-    ],
+    imports: [CommonModule, AppCodeModule, RouterModule, PopoverModule, ButtonModule, TableModule, ToastModule, AppDocModule, InputGroupModule, InputGroupAddonModule, InputTextModule, TagModule],
     declarations: [BasicDoc, ImportDoc, StyleDoc, DataTableDoc, TemplateDoc, TargetDoc, SelectDataDoc, AccessibilityDoc],
-    exports: [AppDocModule],
+    exports: [AppDocModule]
 })
 export class PopoverDocModule {}

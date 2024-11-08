@@ -6,9 +6,8 @@ import { Component } from '@angular/core';
         <app-docsectiontext>
             <h3>Screen Reader</h3>
             <p>
-                Steps component uses the <i>nav</i> element and since any attribute is passed to the root implicitly
-                <i>aria-labelledby</i> or <i>aria-label</i> can be used to describe the component. Inside an ordered list is used where the
-                current step item defines <i>aria-current</i> as "step".
+                Steps component uses the <i>nav</i> element and since any attribute is passed to the root implicitly <i>aria-labelledby</i> or <i>aria-label</i> can be used to describe the component. Inside an ordered list is used where the current
+                step item defines <i>aria-current</i> as "step".
             </p>
             <h3>Keyboard Support</h3>
             <div class="doc-tablewrapper">
@@ -22,10 +21,7 @@ import { Component } from '@angular/core';
                     <tbody>
                         <tr>
                             <td><i>tab</i></td>
-                            <td>
-                                Adds focus to the active step when focus moves in to the component, if there is already a focused tab header
-                                then moves the focus out of the component based on the page tab sequence.
-                            </td>
+                            <td>Adds focus to the active step when focus moves in to the component, if there is already a focused tab header then moves the focus out of the component based on the page tab sequence.</td>
                         </tr>
                         <tr>
                             <td><i>enter</i></td>
@@ -55,6 +51,6 @@ import { Component } from '@angular/core';
                 </table>
             </div>
         </app-docsectiontext>
-    </div>`,
+    </div>`
 })
 export class AccessibilityDoc {}

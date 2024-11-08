@@ -6,14 +6,10 @@ import { Component } from '@angular/core';
         <app-docsectiontext>
             <h3>Screen Reader</h3>
             <p>
-                Message component uses <i>alert</i> role that implicitly defines <i>aria-live</i> as "assertive" and <i>aria-atomic</i> as
-                "true". Since any attribute is passed to the root element, attributes like <i>aria-labelledby</i> and <i>aria-label</i> can
-                optionally be used as well.
+                Message component uses <i>alert</i> role that implicitly defines <i>aria-live</i> as "assertive" and <i>aria-atomic</i> as "true". Since any attribute is passed to the root element, attributes like <i>aria-labelledby</i> and
+                <i>aria-label</i> can optionally be used as well.
             </p>
-            <p>
-                Close element is a <i>button</i> with an <i>aria-label</i> that refers to the <i>aria.close</i> property of the
-                <a href="/configuration/#locale">locale</a> API by default.
-            </p>
+            <p>Close element is a <i>button</i> with an <i>aria-label</i> that refers to the <i>aria.close</i> property of the <a href="/configuration/#locale">locale</a> API by default.</p>
 
             <h3>Close Button Keyboard Support</h3>
             <div class="doc-tablewrapper">
@@ -37,6 +33,6 @@ import { Component } from '@angular/core';
                 </table>
             </div>
         </app-docsectiontext>
-    `,
+    `
 })
 export class AccessibilityDoc {}

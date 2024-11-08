@@ -6,21 +6,12 @@ import { Product } from '@domain/product';
     selector: 'drag-drop-drop-indicator-demo',
     template: `
         <app-docsectiontext>
-            <p>
-                When a suitable draggable enters a droppable area, the area gets <i>p-draggable-enter</i> class that can be used to style
-                the droppable section.
-            </p>
+            <p>When a suitable draggable enters a droppable area, the area gets <i>p-draggable-enter</i> class that can be used to style the droppable section.</p>
         </app-docsectiontext>
         <div class="card flex flex-wrap gap-4">
             <div class="p-2 border border-surface rounded-border w-60 h-40">
                 <ul class="list-none flex flex-col gap-2 p-0 m-0">
-                    <li
-                        *ngFor="let product of availableProducts"
-                        class="p-2 rounded-border shadow-sm"
-                        pDraggable
-                        (onDragStart)="dragStart(product)"
-                        (onDragEnd)="dragEnd()"
-                    >
+                    <li *ngFor="let product of availableProducts" class="p-2 rounded-border shadow-sm" pDraggable (onDragStart)="dragStart(product)" (onDragEnd)="dragEnd()">
                         {{ product.name }}
                     </li>
                 </ul>
@@ -35,7 +26,7 @@ import { Product } from '@domain/product';
             </div>
         </div>
         <app-code [code]="code" selector="drag-drop-drop-indicator-demo" [extFiles]="extFiles"></app-code>
-    `,
+    `
 })
 export class DropIndicatorDoc {
     availableProducts: Product[] | undefined;
@@ -48,7 +39,7 @@ export class DropIndicatorDoc {
         this.selectedProducts = [];
         this.availableProducts = [
             { id: '1', name: 'Black Watch' },
-            { id: '2', name: 'Bamboo Watch' },
+            { id: '2', name: 'Bamboo Watch' }
         ];
     }
 
@@ -209,7 +200,7 @@ export class DragDropDropIndicatorDemo implements OnInit {
         cursor: move;
     }
 }`,
-        service: ['ProductService'],
+        service: ['ProductService']
     };
 
     extFiles = [
@@ -227,7 +218,7 @@ export interface Product {
     category?: string;
     image?: string;
     rating?: number;
-}`,
-        },
+}`
+        }
     ];
 }

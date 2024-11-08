@@ -13,7 +13,7 @@ import { Code } from '@domain/code';
             <textarea pTextarea [(ngModel)]="value3" size="large" placeholder="Large" rows="3"></textarea>
         </div>
         <app-code [code]="code" selector="input-textarea-basic-demo"></app-code>
-    `,
+    `
 })
 export class SizesDoc {
     value1!: string;
@@ -50,6 +50,6 @@ export class InputTextareaSizesDemo {
     value2!: string;
 
     value3!: string;
-}`,
+}`
     };
 }

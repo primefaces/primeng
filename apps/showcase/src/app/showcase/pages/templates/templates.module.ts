@@ -6,6 +6,6 @@ import { TemplatesComponent } from './templates.component';
 
 @NgModule({
     declarations: [TemplatesComponent],
-    imports: [CommonModule, TemplatesRoutingModule],
+    imports: [CommonModule, TemplatesRoutingModule]
 })
 export class TemplatesModule {}

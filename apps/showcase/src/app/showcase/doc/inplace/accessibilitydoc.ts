@@ -5,19 +5,14 @@ import { Component } from '@angular/core';
     template: ` <div>
         <app-docsectiontext>
             <h3>Screen Reader</h3>
+            <p>Inplace component defines <i>aria-live</i> as "polite" by default, since any valid attribute is passed to the main container aria roles and attributes of the root element can be customized easily.</p>
             <p>
-                Inplace component defines <i>aria-live</i> as "polite" by default, since any valid attribute is passed to the main container
-                aria roles and attributes of the root element can be customized easily.
+                Display element uses <i>button</i> role in view mode by default, <i>displayProps</i> can be used for customizations like adding <i>aria-label</i> or <i>aria-labelledby</i> attributes to describe the content of the view mode or even
+                overriding the default role.
             </p>
             <p>
-                Display element uses <i>button</i> role in view mode by default, <i>displayProps</i> can be used for customizations like
-                adding <i>aria-label</i> or <i>aria-labelledby</i> attributes to describe the content of the view mode or even overriding
-                the default role.
-            </p>
-            <p>
-                Closable inplace components displays a button with an <i>aria-label</i> that refers to the <i>aria.close</i> property of the
-                <a href="/configuration/#locale">locale</a> API by default, you may use<i>closeButtonProps</i> to customize the element and
-                override the default <i>aria-label</i>.
+                Closable inplace components displays a button with an <i>aria-label</i> that refers to the <i>aria.close</i> property of the <a href="/configuration/#locale">locale</a> API by default, you may use<i>closeButtonProps</i> to customize
+                the element and override the default <i>aria-label</i>.
             </p>
             <h3>View Mode Keyboard Support</h3>
             <div class="doc-tablewrapper">
@@ -58,6 +53,6 @@ import { Component } from '@angular/core';
                 </table>
             </div>
         </app-docsectiontext>
-    </div>`,
+    </div>`
 })
 export class AccessibilityDoc {}

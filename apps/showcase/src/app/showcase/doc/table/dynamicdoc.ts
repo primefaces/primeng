@@ -34,7 +34,7 @@ interface Column {
             </div>
         </p-deferred-demo>
         <app-code [code]="code" selector="table-dynamic-demo" [extFiles]="extFiles"></app-code>`,
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DynamicDoc {
     products!: Product[];
@@ -43,7 +43,7 @@ export class DynamicDoc {
 
     constructor(
         private productService: ProductService,
-        private cd: ChangeDetectorRef,
+        private cd: ChangeDetectorRef
     ) {}
 
     loadDemoData() {
@@ -56,7 +56,7 @@ export class DynamicDoc {
             { field: 'code', header: 'Code' },
             { field: 'name', header: 'Name' },
             { field: 'category', header: 'Category' },
-            { field: 'quantity', header: 'Quantity' },
+            { field: 'quantity', header: 'Quantity' }
         ];
     }
 
@@ -146,7 +146,7 @@ export class TableDynamicDemo {
     rating: 5
 },
 ...`,
-        service: ['ProductService'],
+        service: ['ProductService']
     };
 
     extFiles = [
@@ -164,7 +164,7 @@ export interface Product {
     category?: string;
     image?: string;
     rating?: number;
-}`,
-        },
+}`
+        }
     ];
 }

@@ -12,72 +12,30 @@ import { Code } from '@domain/code';
             <p-toast />
             <p-confirmdialog key="positionDialog" [position]="position" />
             <div class="flex flex-wrap justify-center gap-2 mb-4">
-                <p-button
-                    (click)="confirmPosition('left')"
-                    icon="pi pi-arrow-right"
-                    label="Left"
-                    severity="secondary"
-                    styleClass="min-w-40"
-                />
-                <p-button
-                    (click)="confirmPosition('right')"
-                    icon="pi pi-arrow-left"
-                    label="Right"
-                    severity="secondary"
-                    styleClass="min-w-40"
-                />
+                <p-button (click)="confirmPosition('left')" icon="pi pi-arrow-right" label="Left" severity="secondary" styleClass="min-w-40" />
+                <p-button (click)="confirmPosition('right')" icon="pi pi-arrow-left" label="Right" severity="secondary" styleClass="min-w-40" />
             </div>
             <div class="flex flex-wrap justify-center gap-2 mb-4">
-                <p-button
-                    (click)="confirmPosition('topleft')"
-                    icon="pi pi-arrow-down"
-                    label="TopLeft"
-                    severity="secondary"
-                    styleClass="min-w-40"
-                />
+                <p-button (click)="confirmPosition('topleft')" icon="pi pi-arrow-down" label="TopLeft" severity="secondary" styleClass="min-w-40" />
                 <p-button (click)="confirmPosition('top')" icon="pi pi-arrow-down" label="Top" severity="secondary" styleClass="min-w-40" />
-                <p-button
-                    (click)="confirmPosition('topright')"
-                    icon="pi pi-arrow-down"
-                    label="TopRight"
-                    severity="secondary"
-                    styleClass="min-w-40"
-                />
+                <p-button (click)="confirmPosition('topright')" icon="pi pi-arrow-down" label="TopRight" severity="secondary" styleClass="min-w-40" />
             </div>
             <div class="flex flex-wrap justify-center gap-2">
-                <p-button
-                    (click)="confirmPosition('bottomleft')"
-                    icon="pi pi-arrow-up"
-                    label="BottomLeft"
-                    severity="secondary"
-                    styleClass="min-w-40"
-                />
-                <p-button
-                    (click)="confirmPosition('bottom')"
-                    icon="pi pi-arrow-up"
-                    label="Bottom"
-                    severity="secondary"
-                    styleClass="min-w-40"
-                />
-                <p-button
-                    (click)="confirmPosition('bottomright')"
-                    icon="pi pi-arrow-up"
-                    label="BottomRight"
-                    severity="secondary"
-                    styleClass="min-w-40"
-                />
+                <p-button (click)="confirmPosition('bottomleft')" icon="pi pi-arrow-up" label="BottomLeft" severity="secondary" styleClass="min-w-40" />
+                <p-button (click)="confirmPosition('bottom')" icon="pi pi-arrow-up" label="Bottom" severity="secondary" styleClass="min-w-40" />
+                <p-button (click)="confirmPosition('bottomright')" icon="pi pi-arrow-up" label="BottomRight" severity="secondary" styleClass="min-w-40" />
             </div>
         </div>
         <app-code [code]="code" selector="confirm-dialog-position-demo"></app-code>
     `,
-    providers: [ConfirmationService, MessageService],
+    providers: [ConfirmationService, MessageService]
 })
 export class PositionDoc {
     position: string = 'center';
 
     constructor(
         private confirmationService: ConfirmationService,
-        private messageService: MessageService,
+        private messageService: MessageService
     ) {}
 
     confirmPosition(position: string) {
@@ -91,11 +49,11 @@ export class PositionDoc {
             rejectButtonProps: {
                 label: 'Cancel',
                 severity: 'secondary',
-                text: true,
+                text: true
             },
             acceptButtonProps: {
                 label: 'Save',
-                text: true,
+                text: true
             },
             accept: () => {
                 this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Request submitted' });
@@ -105,10 +63,10 @@ export class PositionDoc {
                     severity: 'error',
                     summary: 'Rejected',
                     detail: 'Process incomplete',
-                    life: 3000,
+                    life: 3000
                 });
             },
-            key: 'positionDialog',
+            key: 'positionDialog'
         });
     }
 
@@ -294,6 +252,6 @@ export class ConfirmDialogPositionDemo {
             key: 'positionDialog',
         });
     }
-}`,
+}`
     };
 }

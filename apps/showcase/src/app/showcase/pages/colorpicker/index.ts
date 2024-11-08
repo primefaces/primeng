@@ -11,52 +11,45 @@ import { ColorPickerDocModule } from '@doc/colorpicker/colorpickerdoc.module';
 @Component({
     standalone: true,
     imports: [ColorPickerDocModule],
-    template: ` <app-doc
-        docTitle="Angular ColorPicker Component"
-        header="ColorPicker"
-        description="ColorPicker is an input component to select a color."
-        [docs]="docs"
-        [apiDocs]="['ColorPicker']"
-        themeDocs="colorpicker"
-    ></app-doc>`,
+    template: ` <app-doc docTitle="Angular ColorPicker Component" header="ColorPicker" description="ColorPicker is an input component to select a color." [docs]="docs" [apiDocs]="['ColorPicker']" themeDocs="colorpicker"></app-doc>`
 })
 export class ColorPickerDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc,
+            component: ImportDoc
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc,
+            component: BasicDoc
         },
         {
             id: 'reactive-forms',
             label: 'Reactive Forms',
-            component: ReactiveFormsDoc,
+            component: ReactiveFormsDoc
         },
         {
             id: 'inline',
             label: 'Inline',
-            component: InlineDoc,
+            component: InlineDoc
         },
         {
             id: 'format',
             label: 'Format',
-            component: FormatDoc,
+            component: FormatDoc
         },
         {
             id: 'disabled',
             label: 'Disabled',
-            component: DisabledDoc,
+            component: DisabledDoc
         },
 
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc,
-        },
+            component: AccessibilityDoc
+        }
     ];
 }

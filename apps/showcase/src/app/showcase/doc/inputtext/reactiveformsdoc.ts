@@ -6,10 +6,7 @@ import { Code } from '@domain/code';
     selector: 'reactive-forms-doc',
     template: `
         <app-docsectiontext>
-            <p>
-                InputText can also be used with reactive forms. In this case, the <i>formControlName</i> property is used to bind the
-                component to a form control.
-            </p>
+            <p>InputText can also be used with reactive forms. In this case, the <i>formControlName</i> property is used to bind the component to a form control.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
             <form [formGroup]="formGroup">
@@ -17,14 +14,14 @@ import { Code } from '@domain/code';
             </form>
         </div>
         <app-code [code]="code" selector="input-text-reactive-forms-demo"></app-code>
-    `,
+    `
 })
 export class ReactiveFormsDoc implements OnInit {
     formGroup: FormGroup | undefined;
 
     ngOnInit() {
         this.formGroup = new FormGroup({
-            text: new FormControl<string | null>(null),
+            text: new FormControl<string | null>(null)
         });
     }
 
@@ -53,6 +50,6 @@ export class InputTextReactiveFormsDemo implements OnInit {
             text: new FormControl<string | null>(null)
         });
     }
-}`,
+}`
     };
 }

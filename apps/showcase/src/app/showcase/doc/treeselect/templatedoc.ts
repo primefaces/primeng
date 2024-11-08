@@ -9,13 +9,7 @@ import { NodeService } from '@service/nodeservice';
             <p>TreeSelect offers multiple templates for customization through templating.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-treeselect
-                class="md:w-80 w-full"
-                containerStyleClass="w-full"
-                [(ngModel)]="selectedNodes"
-                [options]="nodes"
-                placeholder="Select Item"
-            >
+            <p-treeselect class="md:w-80 w-full" containerStyleClass="w-full" [(ngModel)]="selectedNodes" [options]="nodes" placeholder="Select Item">
                 <ng-template #dropdownicon>
                     <i class="pi pi-search"></i>
                 </ng-template>
@@ -31,7 +25,7 @@ import { NodeService } from '@service/nodeservice';
             </p-treeselect>
         </div>
         <app-code [code]="code" selector="tree-select-template-demo"></app-code>
-    `,
+    `
 })
 export class TemplateDoc {
     nodes!: any[];
@@ -127,6 +121,6 @@ export class TreeSelectTemplateDemo {
         }
     ]
 },
-...`,
+...`
     };
 }

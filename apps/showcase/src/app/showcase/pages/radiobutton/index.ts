@@ -20,55 +20,55 @@ import { SizesDoc } from '@doc/radiobutton/sizesdoc';
         themeDocs="radiobutton"
     ></app-doc>`,
     standalone: true,
-    imports: [RadioButtonDocModule],
+    imports: [RadioButtonDocModule]
 })
 export class RadioButtonDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc,
+            component: ImportDoc
         },
         {
             id: 'group',
             label: 'Group',
-            component: GroupDoc,
+            component: GroupDoc
         },
         {
             id: 'reactive-forms',
             label: 'Reactive Forms',
-            component: ReactiveFormsDoc,
+            component: ReactiveFormsDoc
         },
         {
             id: 'dynamic',
             label: 'Dynamic',
-            component: DynamicDoc,
+            component: DynamicDoc
         },
         {
             id: 'filled',
             label: 'Filled',
-            component: FilledDoc,
+            component: FilledDoc
         },
         {
             id: 'sizes',
             label: 'Sizes',
-            component: SizesDoc,
+            component: SizesDoc
         },
         {
             id: 'invalid',
             label: 'Invalid',
-            component: InvalidDoc,
+            component: InvalidDoc
         },
         {
             id: 'disabled',
             label: 'Disabled',
-            component: DisabledDoc,
+            component: DisabledDoc
         },
 
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc,
-        },
+            component: AccessibilityDoc
+        }
     ];
 }

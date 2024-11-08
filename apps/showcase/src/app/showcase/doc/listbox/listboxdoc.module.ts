@@ -22,20 +22,6 @@ import { CheckmarkDoc } from './checkmarkdoc';
 @NgModule({
     imports: [CommonModule, AppCodeModule, RouterModule, Listbox, FormsModule, ReactiveFormsModule, AppDocModule],
     exports: [AppDocModule],
-    declarations: [
-        ImportDoc,
-        BasicDoc,
-        MultipleDoc,
-        TemplateDoc,
-        InvalidDoc,
-        DisabledDoc,
-        FilterDoc,
-        GroupDoc,
-        StyleDoc,
-        AccessibilityDoc,
-        ReactiveFormsDoc,
-        VirtualScrollDoc,
-        CheckmarkDoc,
-    ],
+    declarations: [ImportDoc, BasicDoc, MultipleDoc, TemplateDoc, InvalidDoc, DisabledDoc, FilterDoc, GroupDoc, StyleDoc, AccessibilityDoc, ReactiveFormsDoc, VirtualScrollDoc, CheckmarkDoc]
 })
 export class ListboxDocModule {}

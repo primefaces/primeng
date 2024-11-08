@@ -7,25 +7,11 @@ import { Code } from '@domain/code';
             <p>AutoComplete provides <i>small</i> and <i>large</i> sizes as alternatives to the base.</p>
         </app-docsectiontext>
         <div class="card flex flex-col items-center gap-4">
-            <p-autocomplete
-                [(ngModel)]="value1"
-                [suggestions]="items"
-                (completeMethod)="search()"
-                size="small"
-                placeholder="Small"
-                dropdown
-            />
+            <p-autocomplete [(ngModel)]="value1" [suggestions]="items" (completeMethod)="search()" size="small" placeholder="Small" dropdown />
             <p-autocomplete [(ngModel)]="value2" [suggestions]="items" (completeMethod)="search()" placeholder="Normal" dropdown />
-            <p-autocomplete
-                [(ngModel)]="value3"
-                [suggestions]="items"
-                (completeMethod)="search()"
-                size="large"
-                placeholder="Large"
-                dropdown
-            />
+            <p-autocomplete [(ngModel)]="value3" [suggestions]="items" (completeMethod)="search()" size="large" placeholder="Large" dropdown />
         </div>
-        <app-code [code]="code" selector="autocomplete-sizes-demo"></app-code>`,
+        <app-code [code]="code" selector="autocomplete-sizes-demo"></app-code>`
 })
 export class SizesDoc {
     items: any[] | undefined;
@@ -69,7 +55,7 @@ export class AutocompleteSizesDemo {
         this.items = [];
     }
 
-}`,
+}`
     };
 
     search() {

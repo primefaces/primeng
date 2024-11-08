@@ -7,14 +7,11 @@ import { ProductListDemo } from './productlistdemo';
     selector: 'customization-doc',
     template: `
         <app-docsectiontext>
-            <p>
-                DynamicDialog uses the Dialog component internally, visit <a [routerLink]="'/dialog'">dialog</a> for more information about
-                the available props.
-            </p>
+            <p>DynamicDialog uses the Dialog component internally, visit <a [routerLink]="'/dialog'">dialog</a> for more information about the available props.</p>
         </app-docsectiontext>
         <app-code [code]="code" [hideToggleCode]="true"></app-code>
     `,
-    providers: [DialogService],
+    providers: [DialogService]
 })
 export class CustomizationDoc {
     ref: DynamicDialogRef | undefined;
@@ -28,8 +25,8 @@ export class CustomizationDoc {
             modal: true,
             breakpoints: {
                 '960px': '75vw',
-                '640px': '90vw',
-            },
+                '640px': '90vw'
+            }
         });
     }
 
@@ -58,6 +55,6 @@ export class CustomizationDemo {
                 '640px': '90vw'
             },
         });
-}`,
+}`
     };
 }

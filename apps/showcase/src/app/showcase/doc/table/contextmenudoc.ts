@@ -8,24 +8,15 @@ import { ProductService } from '@service/productservice';
     selector: 'context-menu-doc',
     template: ` <app-docsectiontext>
             <p>
-                Table has exclusive integration with <i>contextmenu</i> component. In order to attach a menu to a table, add
-                <i>pContextMenuRow</i> directive to the rows that can be selected with context menu, define a local template variable for
-                the menu and bind it to the <i>contextMenu</i> property of the table. This enables displaying the menu whenever a row is
-                right clicked. Optional <i>pContextMenuRowIndex</i> property is available to access the row index. A separate
-                <i>contextMenuSelection</i> property is used to get a hold of the right clicked row. For dynamic columns, setting
-                <i>pContextMenuRowDisabled</i> property as true disables context menu for that particular row.
+                Table has exclusive integration with <i>contextmenu</i> component. In order to attach a menu to a table, add <i>pContextMenuRow</i> directive to the rows that can be selected with context menu, define a local template variable for the
+                menu and bind it to the <i>contextMenu</i> property of the table. This enables displaying the menu whenever a row is right clicked. Optional <i>pContextMenuRowIndex</i> property is available to access the row index. A separate
+                <i>contextMenuSelection</i> property is used to get a hold of the right clicked row. For dynamic columns, setting <i>pContextMenuRowDisabled</i> property as true disables context menu for that particular row.
             </p>
         </app-docsectiontext>
         <p-deferred-demo (load)="loadDemoData()">
             <div class="card">
                 <p-contextmenu #cm [model]="items" (onHide)="selectedProduct = null" />
-                <p-table
-                    [value]="products"
-                    [(contextMenuSelection)]="selectedProduct"
-                    [contextMenu]="cm"
-                    dataKey="code"
-                    [tableStyle]="{ 'min-width': '50rem' }"
-                >
+                <p-table [value]="products" [(contextMenuSelection)]="selectedProduct" [contextMenu]="cm" dataKey="code" [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template #header>
                         <tr>
                             <th>Code</th>
@@ -48,7 +39,7 @@ import { ProductService } from '@service/productservice';
         </p-deferred-demo>
         <app-code [code]="code" selector="table-context-menu-demo" [extFiles]="extFiles"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [MessageService],
+    providers: [MessageService]
 })
 export class ContextMenuDoc {
     products!: Product[];
@@ -60,7 +51,7 @@ export class ContextMenuDoc {
     constructor(
         private productService: ProductService,
         private messageService: MessageService,
-        private cd: ChangeDetectorRef,
+        private cd: ChangeDetectorRef
     ) {}
 
     loadDemoData() {
@@ -71,7 +62,7 @@ export class ContextMenuDoc {
 
         this.items = [
             { label: 'View', icon: 'pi pi-fw pi-search', command: () => this.viewProduct(this.selectedProduct) },
-            { label: 'Delete', icon: 'pi pi-fw pi-times', command: () => this.deleteProduct(this.selectedProduct) },
+            { label: 'Delete', icon: 'pi pi-fw pi-times', command: () => this.deleteProduct(this.selectedProduct) }
         ];
     }
 
@@ -196,7 +187,7 @@ export class TableContextMenuDemo implements OnInit{
     rating: 5
 },
 ...`,
-        service: ['ProductService'],
+        service: ['ProductService']
     };
 
     extFiles = [
@@ -214,7 +205,7 @@ export interface Product {
     category?: string;
     image?: string;
     rating?: number;
-}`,
-        },
+}`
+        }
     ];
 }

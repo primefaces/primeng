@@ -3,6 +3,6 @@ import { CarouselDemo } from './';
 export default [
     {
         path: '',
-        component: CarouselDemo,
-    },
+        component: CarouselDemo
+    }
 ];

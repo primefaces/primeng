@@ -13,6 +13,6 @@ import { StyleDoc } from './styledoc';
 @NgModule({
     imports: [CommonModule, AppCodeModule, AppDocModule, ScrollPanel, RouterModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, CusstomDoc, StyleDoc, AccessibilityDoc],
+    declarations: [ImportDoc, BasicDoc, CusstomDoc, StyleDoc, AccessibilityDoc]
 })
 export class ScrollPanelDocModule {}

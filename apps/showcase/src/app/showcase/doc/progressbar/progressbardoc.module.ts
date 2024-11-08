@@ -16,6 +16,6 @@ import { StyleDoc } from './styledoc';
 @NgModule({
     imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, ProgressBar, ToastModule],
     declarations: [BasicDoc, DynamicDoc, ImportDoc, IndeterminateDoc, TemplateDoc, StyleDoc, AccessibilityDoc],
-    exports: [AppDocModule],
+    exports: [AppDocModule]
 })
 export class ProgressBarDocModule {}

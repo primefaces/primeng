@@ -10,43 +10,36 @@ import { BreadcrumbDocModule } from '@doc/breadcrumb/breadcrumbdoc.module';
     standalone: true,
     imports: [BreadcrumbDocModule],
     template: `
-        <app-doc
-            docTitle="Angular Breadcrumb Component"
-            header="Breadcrumb"
-            description="Breadcrumb provides contextual information about page hierarchy."
-            [docs]="docs"
-            [apiDocs]="['Breadcrumb', 'MenuItem']"
-            themeDocs="Breadcrumb"
-        ></app-doc>
-    `,
+        <app-doc docTitle="Angular Breadcrumb Component" header="Breadcrumb" description="Breadcrumb provides contextual information about page hierarchy." [docs]="docs" [apiDocs]="['Breadcrumb', 'MenuItem']" themeDocs="Breadcrumb"></app-doc>
+    `
 })
 export class BreadcrumbDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc,
+            component: ImportDoc
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc,
+            component: BasicDoc
         },
         {
             id: 'template',
             label: 'Template',
-            component: TemplateDoc,
+            component: TemplateDoc
         },
         {
             id: 'router',
             label: 'Router',
-            component: RouterDoc,
+            component: RouterDoc
         },
 
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc,
-        },
+            component: AccessibilityDoc
+        }
     ];
 }

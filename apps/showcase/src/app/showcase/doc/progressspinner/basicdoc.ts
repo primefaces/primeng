@@ -11,7 +11,7 @@ import { Code } from '@domain/code';
             <p-progress-spinner ariaLabel="loading" />
         </div>
         <app-code [code]="code" selector="progress-spinner-basic-demo"></app-code>
-    `,
+    `
 })
 export class BasicDoc {
     code: Code = {
@@ -28,6 +28,6 @@ import { ProgressSpinner } from 'primeng/progressspinner';
     standalone: true,
     imports: [ProgressSpinner]
 })
-export class ProgressSpinnerBasicDemo {}`,
+export class ProgressSpinnerBasicDemo {}`
     };
 }

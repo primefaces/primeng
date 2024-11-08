@@ -17,17 +17,6 @@ import { ThemingDoc } from './themingdoc';
 @NgModule({
     imports: [CommonModule, AppCodeModule, AppDocModule, RouterModule],
     exports: [AppDocModule],
-    declarations: [
-        FilterModeDoc,
-        ImportDoc,
-        CspDoc,
-        RippleDoc,
-        ZIndexDoc,
-        NgxTranslateDoc,
-        ApiDoc,
-        RepositoryDoc,
-        SetLocaleDoc,
-        ThemingDoc,
-    ],
+    declarations: [FilterModeDoc, ImportDoc, CspDoc, RippleDoc, ZIndexDoc, NgxTranslateDoc, ApiDoc, RepositoryDoc, SetLocaleDoc, ThemingDoc]
 })
 export class ConfigurationDocModule {}

@@ -11,7 +11,7 @@ import { Code } from '@domain/code';
             <textarea rows="5" cols="30" pTextarea [autoResize]="true"></textarea>
         </div>
         <app-code [code]="code" selector="input-textarea-auto-resize-demo"></app-code>
-    `,
+    `
 })
 export class AutoResizeDoc {
     code: Code = {
@@ -32,6 +32,6 @@ import { FormsModule } from '@angular/forms';
     imports: [FormsModule, Textarea]
 })
 export class InputTextareaAutoResizeDemo {
-}`,
+}`
     };
 }

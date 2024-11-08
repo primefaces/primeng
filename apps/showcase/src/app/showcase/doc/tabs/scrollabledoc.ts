@@ -26,13 +26,13 @@ import { Code } from '@domain/code';
             </p-tabs>
         </div>
         <app-code [code]="code" selector="tabs-scrollable-demo"></app-code>
-    `,
+    `
 })
 export class ScrollableDoc {
     scrollableTabs: any[] = Array.from({ length: 50 }, (_, i) => ({
         title: `Tab ${i + 1}`,
         content: `Tab ${i + 1} Content`,
-        value: `${i}`,
+        value: `${i}`
     }));
 
     code: Code = {
@@ -86,6 +86,6 @@ export class TabsScrollableDemo {
     activeIndex: number = 0;
 
     scrollableTabs: any[] = Array.from({ length: 50 }, (_, i) => ({ title: "Title", content: "Content" }));
-}`,
+}`
     };
 }

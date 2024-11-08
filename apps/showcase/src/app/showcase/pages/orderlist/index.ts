@@ -8,43 +8,36 @@ import { OrderlistDocModule } from '@doc/orderlist/orderlistdoc.module';
 import { TemplateDoc } from '@doc/orderlist/templatedoc';
 
 @Component({
-    template: `<app-doc
-        docTitle="Angular OrderList Component"
-        header="OrderList"
-        description="OrderList is used to sort a collection."
-        [docs]="docs"
-        [apiDocs]="['OrderList']"
-        themeDocs="orderlist"
-    ></app-doc>`,
+    template: `<app-doc docTitle="Angular OrderList Component" header="OrderList" description="OrderList is used to sort a collection." [docs]="docs" [apiDocs]="['OrderList']" themeDocs="orderlist"></app-doc>`,
     standalone: true,
-    imports: [OrderlistDocModule],
+    imports: [OrderlistDocModule]
 })
 export class OrderListDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc,
+            component: ImportDoc
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc,
+            component: BasicDoc
         },
         {
             id: 'filter',
             label: 'Filter',
-            component: FilterDoc,
+            component: FilterDoc
         },
         {
             id: 'template',
             label: 'Template',
-            component: TemplateDoc,
+            component: TemplateDoc
         },
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc,
-        },
+            component: AccessibilityDoc
+        }
     ];
 }

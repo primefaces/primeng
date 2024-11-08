@@ -5,10 +5,7 @@ import { Code } from '@domain/code';
     selector: 'vertical-doc',
     template: `
         <app-docsectiontext>
-            <p>
-                Layout of the Stepper is configured with the <i>orientation</i> property that accepts <i>horizontal</i> and
-                <i>vertical</i> as available options.
-            </p>
+            <p>Layout of the Stepper is configured with the <i>orientation</i> property that accepts <i>horizontal</i> and <i>vertical</i> as available options.</p>
         </app-docsectiontext>
         <div class="card">
             <p-stepper [value]="1">
@@ -17,11 +14,7 @@ import { Code } from '@domain/code';
                     <p-step-panel>
                         <ng-template #content let-activateCallback="activateCallback">
                             <div class="flex flex-col h-48">
-                                <div
-                                    class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium"
-                                >
-                                    Content I
-                                </div>
+                                <div class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium">Content I</div>
                             </div>
                             <div class="py-6">
                                 <p-button label="Next" (onClick)="activateCallback(2)" />
@@ -35,11 +28,7 @@ import { Code } from '@domain/code';
                     <p-step-panel>
                         <ng-template #content let-activateCallback="activateCallback">
                             <div class="flex flex-col h-48">
-                                <div
-                                    class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium"
-                                >
-                                    Content II
-                                </div>
+                                <div class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium">Content II</div>
                             </div>
                             <div class="flex py-6 gap-2">
                                 <p-button label="Back" severity="secondary" (onClick)="activateCallback(1)" />
@@ -54,11 +43,7 @@ import { Code } from '@domain/code';
                     <p-step-panel>
                         <ng-template #content let-activateCallback="activateCallback">
                             <div class="flex flex-col h-48">
-                                <div
-                                    class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium"
-                                >
-                                    Content III
-                                </div>
+                                <div class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium">Content III</div>
                             </div>
                             <div class="py-6">
                                 <p-button label="Back" severity="secondary" (onClick)="activateCallback(2)" />
@@ -69,7 +54,7 @@ import { Code } from '@domain/code';
             </p-stepper>
         </div>
         <app-code [code]="code" selector="stepper-vertical-demo"></app-code>
-    `,
+    `
 })
 export class VerticalDoc {
     code: Code = {
@@ -200,6 +185,6 @@ import { ButtonModule } from 'primeng/button';
     imports: [StepperModule, ButtonModule]
 })
 export class StepperVerticalDemo {
-}`,
+}`
     };
 }

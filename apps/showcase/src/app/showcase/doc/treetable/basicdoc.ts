@@ -6,10 +6,7 @@ import { NodeService } from '@service/nodeservice';
 @Component({
     selector: 'basic-doc',
     template: ` <app-docsectiontext>
-            <p>
-                TreeTable requires a collection of <i>TreeNode</i> instances as a <i>value</i> components as children for the
-                representation.
-            </p>
+            <p>TreeTable requires a collection of <i>TreeNode</i> instances as a <i>value</i> components as children for the representation.</p>
         </app-docsectiontext>
         <div class="card">
             <p-deferred-demo (load)="loadDemoData()">
@@ -35,14 +32,14 @@ import { NodeService } from '@service/nodeservice';
             </p-deferred-demo>
         </div>
         <app-code [code]="code" selector="tree-table-basic-demo"></app-code>`,
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BasicDoc {
     files!: TreeNode[];
 
     constructor(
         private nodeService: NodeService,
-        private cd: ChangeDetectorRef,
+        private cd: ChangeDetectorRef
     ) {}
 
     loadDemoData() {
@@ -117,6 +114,6 @@ export class TreeTableBasicDemo implements OnInit {
     }
 }`,
 
-        service: ['NodeService'],
+        service: ['NodeService']
     };
 }

@@ -14,7 +14,7 @@ import { Code } from '@domain/code';
         </div>
         <app-code [code]="code" selector="toast-multiple-demo"></app-code>
     `,
-    providers: [MessageService],
+    providers: [MessageService]
 })
 export class MultipleDoc {
     constructor(private messageService: MessageService) {}
@@ -24,7 +24,7 @@ export class MultipleDoc {
             { severity: 'success', summary: 'Message 1', detail: 'Message Content' },
             { severity: 'info', summary: 'Message 2', detail: 'Message Content' },
             { severity: 'warn', summary: 'Message 3', detail: 'Message Content' },
-            { severity: 'error', summary: 'Message 4', detail: 'Message Content' },
+            { severity: 'error', summary: 'Message 4', detail: 'Message Content' }
         ]);
     }
 
@@ -59,6 +59,6 @@ export class ToastMultipleDemo {
             { severity: 'error', summary: 'Message 4', detail: 'Message Content' }
         ]);
     }
-}`,
+}`
     };
 }

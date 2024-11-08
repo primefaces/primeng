@@ -3,6 +3,6 @@ import { SkeletonDemo } from './';
 export default [
     {
         path: '',
-        component: SkeletonDemo,
-    },
+        component: SkeletonDemo
+    }
 ];

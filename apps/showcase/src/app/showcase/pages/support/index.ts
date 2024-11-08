@@ -8,28 +8,21 @@ import { Component } from '@angular/core';
         <div>
             <div class="flex flex-col md:flex-row mb-8 gap-8">
                 <div class="card flex-1 !m-0 relative overflow-hidden">
-                    <i
-                        class="pi pi-github absolute opacity-20"
-                        style="bottom: -50px; right: -50px; font-size: 200px; transform: rotateX(45deg) rotateY(0deg) rotateZ(-45deg)"
-                    ></i>
+                    <i class="pi pi-github absolute opacity-20" style="bottom: -50px; right: -50px; font-size: 200px; transform: rotateX(45deg) rotateY(0deg) rotateZ(-45deg)"></i>
                     <div class="text-2xl font-semibold mb-4 relative">Community Support</div>
                     <p class="m-0 leading-normal relative text-lg">
-                        <a href="https://github.com/orgs/primefaces/discussions" class="doc-link" target="_blank" rel="noopener noreferrer"
-                            >Forum</a
-                        >
+                        <a href="https://github.com/orgs/primefaces/discussions" class="doc-link" target="_blank" rel="noopener noreferrer">Forum</a>
                         and
-                        <a href="https://discord.gg/gzKFYnpmCY" class="doc-link" target="_blank" rel="noopener noreferrer">Discord</a> are
-                        where the community users gather to seek support, post topics and discuss the technology. GitHub issue is the
-                        channel for the community users to create tickets however PrimeTek does not guarantee a response time although they
-                        are monitored and maintained by our staff. If you need to secure a response, you may consider PRO support instead.
+                        <a href="https://discord.gg/gzKFYnpmCY" class="doc-link" target="_blank" rel="noopener noreferrer">Discord</a> are where the community users gather to seek support, post topics and discuss the technology. GitHub issue is the
+                        channel for the community users to create tickets however PrimeTek does not guarantee a response time although they are monitored and maintained by our staff. If you need to secure a response, you may consider PRO support
+                        instead.
                     </p>
                 </div>
                 <div class="card !m-0 flex-1 !bg-primary !text-primary-contrast font-medium">
                     <div class="text-2xl font-semibold mb-4">Professional Support</div>
                     <p class="m-0 leading-normal text-lg">
-                        With PRO support, it's easy to support, tune, and add features to PrimeNG as an in-house library. With the exclusive
-                        services of a PRO account, you no longer need to post questions in the community forum and the community issue
-                        tracker at GitHub. Service is delivered via a private issue tracker based on a one-business-day response time.
+                        With PRO support, it's easy to support, tune, and add features to PrimeNG as an in-house library. With the exclusive services of a PRO account, you no longer need to post questions in the community forum and the community
+                        issue tracker at GitHub. Service is delivered via a private issue tracker based on a one-business-day response time.
                     </p>
                 </div>
             </div>
@@ -99,29 +92,21 @@ import { Component } from '@angular/core';
                             <div class="font-semibold mb-1">1. Purchase PRO Support</div>
                             <span class="leading-normal"
                                 >Contact
-                                <a href="mailto:contact@primetek.com.tr" target="_blank" rel="noopener noreferrer" class="doc-link"
-                                    >PrimeTek</a
-                                >
+                                <a href="mailto:contact@primetek.com.tr" target="_blank" rel="noopener noreferrer" class="doc-link">PrimeTek</a>
                                 to purchase support.</span
                             >
                         </li>
                         <li>
                             <div class="font-semibold mb-1">2. Setup</div>
-                            <span class="leading-normal"
-                                >A private repository with an exclusive issue tracker is created for you at GitHub.</span
-                            >
+                            <span class="leading-normal">A private repository with an exclusive issue tracker is created for you at GitHub.</span>
                         </li>
                         <li>
                             <div class="font-semibold mb-1">3. Request Support</div>
-                            <span class="leading-normal"
-                                >Create a ticket with a description of the issue and receive a reply within 1 business day.</span
-                            >
+                            <span class="leading-normal">Create a ticket with a description of the issue and receive a reply within 1 business day.</span>
                         </li>
                         <li>
                             <div class="font-semibold mb-1">4. Estimate and Approval</div>
-                            <span class="leading-normal"
-                                >An estimate is provided to resolve the issue, upon your approval the PrimeTek team commences work.</span
-                            >
+                            <span class="leading-normal">An estimate is provided to resolve the issue, upon your approval the PrimeTek team commences work.</span>
                         </li>
                         <li>
                             <div class="font-semibold mb-1">5. Resolution</div>
@@ -130,8 +115,7 @@ import { Component } from '@angular/core';
                         <li>
                             <div class="font-semibold mb-1">6. Delivery</div>
                             <span class="leading-normal"
-                                >If the issue requires an update in the library, it gets published to npm by as part of the public PrimeNG
-                                package. A patch update on an older version can also be requested if you are not using the latest version.
+                                >If the issue requires an update in the library, it gets published to npm by as part of the public PrimeNG package. A patch update on an older version can also be requested if you are not using the latest version.
                             </span>
                         </li>
                     </ul>
@@ -142,33 +126,27 @@ import { Component } from '@angular/core';
                 <div class="text-2xl font-semibold mb-4">Consulting</div>
 
                 <p class="m-0 leading-normal mb-8 text-lg">
-                    Unlock the full potential of your software projects in addition to PRO Support with the premier consulting services of
-                    our partners. The team of seasoned consultants is available to provide tailored expertise and guidance, ensuring your
-                    software development initiatives are successful, efficient, and innovative.
+                    Unlock the full potential of your software projects in addition to PRO Support with the premier consulting services of our partners. The team of seasoned consultants is available to provide tailored expertise and guidance,
+                    ensuring your software development initiatives are successful, efficient, and innovative.
                 </p>
 
                 <div class="flex flex-col md:flex-row gap-8 mb-8">
                     <div class="flex-1">
                         <div class="font-semibold mb-2 text-xl">Deep Expertise</div>
                         <p class="!m-0 leading-normal mb-4 text-lg">
-                            Our consultants are experts with extensive experience in various aspects of software development, including
-                            design, architecture, coding, testing, and deployment. They bring a wealth of knowledge and best practices to
-                            your project.
+                            Our consultants are experts with extensive experience in various aspects of software development, including design, architecture, coding, testing, and deployment. They bring a wealth of knowledge and best practices to your
+                            project.
                         </p>
                     </div>
                     <div class="flex-1">
                         <div class="font-semibold mb-2 text-xl">Customized Solutions</div>
                         <p class="!m-0 leading-normal mb-4 text-lg">
-                            We understand that every project is unique. Our consultants work closely with you to understand your specific
-                            requirements and challenges, delivering solutions that are perfectly aligned with your business goals..
+                            We understand that every project is unique. Our consultants work closely with you to understand your specific requirements and challenges, delivering solutions that are perfectly aligned with your business goals..
                         </p>
                     </div>
                     <div class="flex-1">
                         <div class="font-semibold mb-2 text-xl">Scalable Engagements</div>
-                        <p class="!m-0 leading-normal mb-4 text-lg">
-                            Whether you need short-term advice for a specific problem or long-term strategic guidance, our consulting
-                            services are flexible and scalable to meet your needs.
-                        </p>
+                        <p class="!m-0 leading-normal mb-4 text-lg">Whether you need short-term advice for a specific problem or long-term strategic guidance, our consulting services are flexible and scalable to meet your needs.</p>
                     </div>
                 </div>
 
@@ -178,8 +156,7 @@ import { Component } from '@angular/core';
                         <a href="https://unvoid.com/" target="_blank" rel="noopener noreferrer" class="doc-link">Unvoid</a>,
                         <a href="https://virtua.tech" target="_blank" rel="noopener noreferrer" class="doc-link">Virtua</a>
                         and
-                        <a href="https://www.t2.com.tr/" target="_blank" rel="noopener noreferrer" class="doc-link">T2</a> that share our
-                        commitment to excellence and open source values.
+                        <a href="https://www.t2.com.tr/" target="_blank" rel="noopener noreferrer" class="doc-link">T2</a> that share our commitment to excellence and open source values.
                     </p>
 
                     <div class="flex flex-wrap items-center gap-20">
@@ -199,24 +176,15 @@ import { Component } from '@angular/core';
                                     />
                                 </svg>
                             </a>
-                            <a
-                                href="https://calendly.com/unvoid/discovery-call"
-                                class="inline-block bg-primary rounded-border py-3 px-4 hover:bg-primary-emphasis transition-all duration-300 text-primary-contrast font-semibold text-lg leading-none"
-                            >
+                            <a href="https://calendly.com/unvoid/discovery-call" class="inline-block bg-primary rounded-border py-3 px-4 hover:bg-primary-emphasis transition-all duration-300 text-primary-contrast font-semibold text-lg leading-none">
                                 Get a Quote
                             </a>
                         </div>
                         <div class="flex flex-col gap-4 items-center">
                             <a href="https://virtua.tech" target="_blank" rel="noopener noreferrer">
                                 <svg width="191" height="60" viewBox="0 0 191 45" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M16.13 43.599L0 0H9.686L22.197 33.73L34.322 0H40.831L25.2 43.599H16.131H16.13Z"
-                                        fill="var(--p-primary-color)"
-                                    />
-                                    <path
-                                        d="M47.222 5.803V0H53.025V5.803H47.222ZM47.222 43.599V11.606H53.025V43.598L47.222 43.599Z"
-                                        fill="var(--p-primary-color)"
-                                    />
+                                    <path d="M16.13 43.599L0 0H9.686L22.197 33.73L34.322 0H40.831L25.2 43.599H16.131H16.13Z" fill="var(--p-primary-color)" />
+                                    <path d="M47.222 5.803V0H53.025V5.803H47.222ZM47.222 43.599V11.606H53.025V43.598L47.222 43.599Z" fill="var(--p-primary-color)" />
                                     <path
                                         d="M64.662 43.599V11.606H70.465V17.588C71.565 15.447 72.994 13.792 74.752 12.624C76.51 11.455 78.419 10.871 80.481 10.871C81.07 10.871 81.689 10.92 82.337 11.018V16.438C81.355 16.104 80.471 15.937 79.686 15.937C77.86 15.937 76.176 16.483 74.634 17.574C73.092 18.665 71.702 20.302 70.465 22.484V43.599H64.662Z"
                                         fill="var(--p-primary-color)"
@@ -243,10 +211,7 @@ import { Component } from '@angular/core';
                                     />
                                 </svg>
                             </a>
-                            <a
-                                href="https://virtua.tech/contact"
-                                class="inline-block bg-primary rounded-border py-3 px-4 hover:bg-primary-emphasis transition-all duration-300 text-primary-contrast font-semibold text-lg leading-none"
-                            >
+                            <a href="https://virtua.tech/contact" class="inline-block bg-primary rounded-border py-3 px-4 hover:bg-primary-emphasis transition-all duration-300 text-primary-contrast font-semibold text-lg leading-none">
                                 Get a Quote
                             </a>
                         </div>
@@ -282,10 +247,7 @@ import { Component } from '@angular/core';
                                     <g id="Layer_3" class="st12"></g>
                                 </svg>
                             </a>
-                            <a
-                                href="https://www.t2.com.tr/consulting"
-                                class="inline-block bg-primary rounded-border py-3 px-4 hover:bg-primary-emphasis transition-all duration-300 text-primary-contrast font-semibold text-lg leading-none"
-                            >
+                            <a href="https://www.t2.com.tr/consulting" class="inline-block bg-primary rounded-border py-3 px-4 hover:bg-primary-emphasis transition-all duration-300 text-primary-contrast font-semibold text-lg leading-none">
                                 Get a Quote
                             </a>
                         </div>
@@ -306,25 +268,18 @@ import { Component } from '@angular/core';
                             <p class="!m-0 leading-normal">Service ends either when all support hours are used or after 1 year.</p>
                         </div>
                         <div>
-                            <div class="leading-normal mb-2 font-semibold">
-                                What happens if we extend after 1 year and we have unused hours?
-                            </div>
+                            <div class="leading-normal mb-2 font-semibold">What happens if we extend after 1 year and we have unused hours?</div>
                             <p class="!m-0 leading-normal">Unused hours expire and are not transferred to the new term.</p>
                         </div>
                         <div>
                             <div class="leading-normal mb-2 font-semibold">What are hours used for?</div>
-                            <p class="!m-0 leading-normal">
-                                Hours are utilized when creating tickets, filing defects, requesting enhancements, POC implementations of a
-                                use case and questions.
-                            </p>
+                            <p class="!m-0 leading-normal">Hours are utilized when creating tickets, filing defects, requesting enhancements, POC implementations of a use case and questions.</p>
                         </div>
                     </div>
                     <div class="flex-1 flex flex-col gap-8">
                         <div>
                             <div class="leading-normal mb-2 font-semibold">Are the changes delivered with a custom build?</div>
-                            <p class="!m-0 leading-normal">
-                                No, changes become part of the PrimeNG core and pushed to the public npm package on next update.
-                            </p>
+                            <p class="!m-0 leading-normal">No, changes become part of the PrimeNG core and pushed to the public npm package on next update.</p>
                         </div>
                         <div>
                             <div class="leading-normal mb-2 font-semibold">Who provides the support service?</div>
@@ -335,21 +290,14 @@ import { Component } from '@angular/core';
                             <p class="!m-0 leading-normal">At least 25 hours are required to initiate the service.</p>
                         </div>
                         <div>
-                            <div class="leading-normal mb-2 font-semibold">
-                                What happens if the issue takes longer or shorter than the approved estimate?
-                            </div>
-                            <p class="!m-0 leading-normal">
-                                The confirmed estimate is still used even if it takes longer to resolve the issue.
-                            </p>
+                            <div class="leading-normal mb-2 font-semibold">What happens if the issue takes longer or shorter than the approved estimate?</div>
+                            <p class="!m-0 leading-normal">The confirmed estimate is still used even if it takes longer to resolve the issue.</p>
                         </div>
                     </div>
                     <div class="flex-1 flex flex-col gap-8">
                         <div>
                             <div class="leading-normal mb-2 font-semibold">Can we request new features and enhancements?</div>
-                            <p class="!m-0 leading-normal">
-                                Yes, initially the request needs to be approved by PrimeTek based on project roadmap fit. As a result, not
-                                all requests may be accepted.
-                            </p>
+                            <p class="!m-0 leading-normal">Yes, initially the request needs to be approved by PrimeTek based on project roadmap fit. As a result, not all requests may be accepted.</p>
                         </div>
                         <div>
                             <div class="leading-normal mb-2 font-semibold">What are the payment terms?</div>
@@ -360,18 +308,13 @@ import { Component } from '@angular/core';
                             <p class="!m-0 leading-normal">Credit card and bank wire transfers are the available options.</p>
                         </div>
                         <div>
-                            <div class="leading-normal mb-2 font-semibold">
-                                We are a reseller, can we purchase this support for our client?
-                            </div>
-                            <p class="!m-0 leading-normal">
-                                That is possible, the service will be provided to your client even if you are the contact in purchase
-                                process.
-                            </p>
+                            <div class="leading-normal mb-2 font-semibold">We are a reseller, can we purchase this support for our client?</div>
+                            <p class="!m-0 leading-normal">That is possible, the service will be provided to your client even if you are the contact in purchase process.</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    `,
+    `
 })
 export class Support {}

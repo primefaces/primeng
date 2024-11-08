@@ -18,7 +18,7 @@ import { Code } from '@domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="key-filter-reg-exp-demo"></app-code>
-    `,
+    `
 })
 export class RegexDoc {
     blockSpace: RegExp = /^[^\s]+$/;
@@ -53,6 +53,6 @@ export class KeyFilterRegExpDemo {
     blockSpace: RegExp = /[^\s]/;
 
     blockChars: RegExp = /^[^<>*!]+$/;
-}`,
+}`
     };
 }

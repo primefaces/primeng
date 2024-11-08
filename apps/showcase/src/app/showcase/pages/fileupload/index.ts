@@ -17,40 +17,40 @@ import { FileUploadDocModule } from '@doc/fileupload/fileuploaddoc.module';
         [docs]="docs"
         [apiDocs]="['FileUpload']"
         themeDocs="fileupload"
-    ></app-doc>`,
+    ></app-doc>`
 })
 export class FileUploadDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc,
+            component: ImportDoc
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc,
+            component: BasicDoc
         },
         {
             id: 'auto',
             label: 'Auto',
-            component: AutoDoc,
+            component: AutoDoc
         },
         {
             id: 'template',
             label: 'Template',
-            component: TemplateDoc,
+            component: TemplateDoc
         },
         {
             id: 'advanced',
             label: 'Advanced',
-            component: AdvancedDoc,
+            component: AdvancedDoc
         },
 
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc,
-        },
+            component: AccessibilityDoc
+        }
     ];
 }

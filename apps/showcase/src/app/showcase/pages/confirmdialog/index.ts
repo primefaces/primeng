@@ -19,39 +19,39 @@ import { ConfirmDialogDocModule } from '@doc/confirmdialog/confirmdialogdoc.modu
             [apiDocs]="['ConfirmDialog', 'ConfirmationService', 'Confirmation']"
             themeDocs="confirmDialog"
         ></app-doc>
-    `,
+    `
 })
 export class ConfirmDialogDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc,
+            component: ImportDoc
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc,
+            component: BasicDoc
         },
         {
             id: 'position',
             label: 'Position',
-            component: PositionDoc,
+            component: PositionDoc
         },
         {
             id: 'template',
             label: 'Template',
-            component: TemplateDoc,
+            component: TemplateDoc
         },
         {
             id: 'headless',
             label: 'Headless',
-            component: HeadlessDoc,
+            component: HeadlessDoc
         },
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc,
-        },
+            component: AccessibilityDoc
+        }
     ];
 }

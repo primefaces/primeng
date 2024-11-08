@@ -12,17 +12,11 @@ import { Code } from '@domain/code';
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <img
-                #img
-                src="https://primefaces.org/cdn/primeng/images/demo/nature/nature2.jpg"
-                alt="Logo"
-                aria-haspopup="true"
-                class="w-full md:w-[30rem] rounded shadow-lg"
-            />
+            <img #img src="https://primefaces.org/cdn/primeng/images/demo/nature/nature2.jpg" alt="Logo" aria-haspopup="true" class="w-full md:w-[30rem] rounded shadow-lg" />
             <p-contextmenu [target]="img" [model]="items" />
         </div>
         <app-code [code]="code" selector="context-menu-basic-demo"></app-code>
-    `,
+    `
 })
 export class BasicDoc implements OnInit {
     items: MenuItem[] | undefined;
@@ -30,7 +24,7 @@ export class BasicDoc implements OnInit {
     ngOnInit() {
         this.items = [
             { label: 'Copy', icon: 'pi pi-copy' },
-            { label: 'Rename', icon: 'pi pi-file-edit' },
+            { label: 'Rename', icon: 'pi pi-file-edit' }
         ];
     }
 
@@ -62,6 +56,6 @@ export class ContextMenuBasicDemo implements OnInit {
             { label: 'Rename', icon: 'pi pi-file-edit' }
         ];
     }
-}`,
+}`
     };
 }

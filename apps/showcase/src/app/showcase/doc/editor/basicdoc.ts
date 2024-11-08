@@ -11,7 +11,7 @@ import { Code } from '@domain/code';
             <p-editor [(ngModel)]="text" [style]="{ height: '320px' }" />
         </div>
         <app-code [code]="code" selector="editor-basic-demo"></app-code>
-    `,
+    `
 })
 export class BasicDoc {
     text: string | undefined;
@@ -35,6 +35,6 @@ import { Editor } from 'primeng/editor';
 })
 export class EditorBasicDemo {
     text: string | undefined;
-}`,
+}`
     };
 }

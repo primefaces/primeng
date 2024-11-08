@@ -53,7 +53,7 @@ import { Component, Input } from '@angular/core';
                 </tr>
             </tbody>
         </table>
-    </div>`,
+    </div>`
 })
 export class TemplatesDoc {
     @Input() id: string;

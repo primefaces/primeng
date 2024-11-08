@@ -16,7 +16,7 @@ interface City {
             <p-listbox [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" [disabled]="true" class="w-full md:w-56" />
         </div>
         <app-code [code]="code" selector="listbox-disabled-demo"></app-code>
-    `,
+    `
 })
 export class DisabledDoc implements OnInit {
     cities!: City[];
@@ -29,7 +29,7 @@ export class DisabledDoc implements OnInit {
             { name: 'Rome', code: 'RM' },
             { name: 'London', code: 'LDN' },
             { name: 'Istanbul', code: 'IST' },
-            { name: 'Paris', code: 'PRS' },
+            { name: 'Paris', code: 'PRS' }
         ];
     }
 
@@ -69,6 +69,6 @@ export class ListboxDisabledDemo implements OnInit {
             { name: 'Paris', code: 'PRS' }
         ];
     }
-}`,
+}`
     };
 }

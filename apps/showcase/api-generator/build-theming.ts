@@ -33,7 +33,7 @@ async function theming() {
         disableSources: false,
         logLevel: 'Error',
         sort: ['source-order'],
-        exclude: ['node_modules', 'src/app/components/**/*spec.ts', 'src/app/components/**/*public_api.ts'],
+        exclude: ['node_modules', 'src/app/components/**/*spec.ts', 'src/app/components/**/*public_api.ts']
     });
 
     const project = await app.convert();
@@ -64,7 +64,7 @@ async function theming() {
             const _name = child.name.split('/').pop();
             doc[_name] = {
                 name: _name,
-                properties: {},
+                properties: {}
             };
 
             child.groups.forEach((group) => {
@@ -77,7 +77,7 @@ async function theming() {
         for (const key in doc) {
             if (!mergedDocs[key]) {
                 mergedDocs[key] = {
-                    ...doc[key],
+                    ...doc[key]
                 };
             }
         }

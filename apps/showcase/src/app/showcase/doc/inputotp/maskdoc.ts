@@ -11,7 +11,7 @@ import { Code } from '@domain/code';
             <p-inputotp [(ngModel)]="value" [mask]="true" />
         </div>
         <app-code [code]="code" selector="input-otp-mask-demo"></app-code>
-    `,
+    `
 })
 export class MaskDoc {
     value: any;
@@ -35,6 +35,6 @@ import { FormsModule } from '@angular/forms';
 })
 export class InputOtpMaskDemo {
     value: any;
-}`,
+}`
     };
 }

@@ -16,34 +16,29 @@ import { ZIndexDoc } from '@doc/configuration/zindexdoc';
     selector: 'configuration',
     standalone: true,
     imports: [CommonModule, ConfigurationDocModule],
-    template: `<app-doc
-        docTitle="Configuration - PrimeNG"
-        header="Configuration"
-        description="Global configuration options of the components."
-        [docs]="docs"
-    ></app-doc>`,
+    template: `<app-doc docTitle="Configuration - PrimeNG" header="Configuration" description="Global configuration options of the components." [docs]="docs"></app-doc>`
 })
 export class ConfigurationDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc,
+            component: ImportDoc
         },
         {
             id: 'theming',
             label: 'Theming',
-            component: ThemingDoc,
+            component: ThemingDoc
         },
         {
             id: 'ripple',
             label: 'Ripple',
-            component: RippleDoc,
+            component: RippleDoc
         },
         {
             id: 'zIndex',
             label: 'ZIndex',
-            component: ZIndexDoc,
+            component: ZIndexDoc
         },
         {
             id: 'csp',
@@ -52,14 +47,14 @@ export class ConfigurationDemo {
                 {
                     id: 'csp-nonce',
                     label: 'Nonce',
-                    component: CspDoc,
-                },
-            ],
+                    component: CspDoc
+                }
+            ]
         },
         {
             id: 'filter-mode',
             label: 'Filter Mode',
-            component: FilterModeDoc,
+            component: FilterModeDoc
         },
         {
             id: 'locale',
@@ -68,24 +63,24 @@ export class ConfigurationDemo {
                 {
                     id: 'set-locale',
                     label: 'Set Locale',
-                    component: SetLocaleDoc,
+                    component: SetLocaleDoc
                 },
                 {
                     id: 'ngx-translate',
                     label: 'Ngx-translate',
-                    component: NgxTranslateDoc,
+                    component: NgxTranslateDoc
                 },
                 {
                     id: 'repository',
                     label: 'Repository',
-                    component: RepositoryDoc,
+                    component: RepositoryDoc
                 },
                 {
                     id: 'api',
                     label: 'API',
-                    component: ApiDoc,
-                },
-            ],
-        },
+                    component: ApiDoc
+                }
+            ]
+        }
     ];
 }

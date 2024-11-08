@@ -8,14 +8,7 @@ import { Code } from '@domain/code';
             <p>Buttons can also placed vertically by setting <i>buttonLayout</i> as <i>vertical</i>.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-inputnumber
-                [(ngModel)]="value1"
-                [showButtons]="true"
-                buttonLayout="vertical"
-                spinnerMode="vertical"
-                inputId="vertical"
-                [inputStyle]="{ width: '3rem' }"
-            >
+            <p-inputnumber [(ngModel)]="value1" [showButtons]="true" buttonLayout="vertical" spinnerMode="vertical" inputId="vertical" [inputStyle]="{ width: '3rem' }">
                 <ng-template pTemplate="incrementbuttonicon">
                     <span class="pi pi-plus"></span>
                 </ng-template>
@@ -25,7 +18,7 @@ import { Code } from '@domain/code';
             </p-inputnumber>
         </div>
         <app-code [code]="code" selector="input-number-vertical-demo"></app-code>
-    `,
+    `
 })
 export class VerticalDoc {
     value1: number = 50;
@@ -63,6 +56,6 @@ import { FormsModule } from '@angular/forms';
 })
 export class InputNumberVerticalDemo {
     value1: number = 50;
-}`,
+}`
     };
 }

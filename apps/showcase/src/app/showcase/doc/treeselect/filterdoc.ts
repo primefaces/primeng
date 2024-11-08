@@ -7,26 +7,16 @@ import { NodeService } from '@service/nodeservice';
     template: `
         <app-docsectiontext>
             <p>
-                Filtering is enabled by adding the <i>filter</i> property, by default label property of a node is used to compare against
-                the value in the text field, in order to customize which field(s) should be used during search define
-                <i>filterBy</i> property. In addition <i>filterMode</i> specifies the filtering strategy. In <i>lenient</i> mode when the
-                query matches a node, children of the node are not searched further as all descendants of the node are included. On the
-                other hand, in <i>strict</i> mode when the query matches a node, filtering continues on all descendants.
+                Filtering is enabled by adding the <i>filter</i> property, by default label property of a node is used to compare against the value in the text field, in order to customize which field(s) should be used during search define
+                <i>filterBy</i> property. In addition <i>filterMode</i> specifies the filtering strategy. In <i>lenient</i> mode when the query matches a node, children of the node are not searched further as all descendants of the node are included.
+                On the other hand, in <i>strict</i> mode when the query matches a node, filtering continues on all descendants.
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-treeselect
-                class="md:w-80 w-full"
-                containerStyleClass="w-full"
-                [(ngModel)]="selectedNodes"
-                [options]="nodes"
-                placeholder="Select Item"
-                [filter]="true"
-                [filterInputAutoFocus]="true"
-            />
+            <p-treeselect class="md:w-80 w-full" containerStyleClass="w-full" [(ngModel)]="selectedNodes" [options]="nodes" placeholder="Select Item" [filter]="true" [filterInputAutoFocus]="true" />
         </div>
         <app-code [code]="code" selector="tree-select-filter-demo"></app-code>
-    `,
+    `
 })
 export class FilterDoc {
     nodes!: any[];
@@ -95,6 +85,6 @@ export class TreeSelectFilterDemo {
         }
     ]
 },
-...`,
+...`
     };
 }

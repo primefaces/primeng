@@ -11,49 +11,44 @@ import { VerifyDoc } from '@doc/installation/verifydoc';
 @Component({
     standalone: true,
     imports: [CommonModule, InstallationDocModule],
-    template: `<app-doc
-        docTitle="Getting Started - PrimeNG"
-        header="Installation"
-        description="Setting up PrimeNG in an Angular CLI project."
-        [docs]="docs"
-    ></app-doc>`,
+    template: `<app-doc docTitle="Getting Started - PrimeNG" header="Installation" description="Setting up PrimeNG in an Angular CLI project." [docs]="docs"></app-doc>`
 })
 export class InstallationDemo {
     docs = [
         {
             id: 'download',
             label: 'Download',
-            component: DownloadDoc,
+            component: DownloadDoc
         },
         {
             id: 'animations',
             label: 'Animations',
-            component: AnimationsDoc,
+            component: AnimationsDoc
         },
         {
             id: 'theme',
             label: 'Theme',
-            component: ThemeDoc,
+            component: ThemeDoc
         },
         {
             id: 'verify',
             label: 'Verify',
-            component: VerifyDoc,
+            component: VerifyDoc
         },
         {
             id: 'examples',
             label: 'Example',
-            component: ExamplesDoc,
+            component: ExamplesDoc
         },
         {
             id: 'nextsteps',
             label: 'Next Steps',
-            component: NextStepsDoc,
+            component: NextStepsDoc
         } /*,
         {
             id: 'videos',
             label: 'Videos',
             component: VideosDoc,
-        },*/,
+        },*/
     ];
 }

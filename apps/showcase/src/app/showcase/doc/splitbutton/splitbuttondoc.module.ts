@@ -24,22 +24,6 @@ import { RouterModule } from '@angular/router';
 @NgModule({
     imports: [CommonModule, AppCodeModule, AppDocModule, SplitButtonModule, ToastModule, RouterModule],
     exports: [AppDocModule],
-    declarations: [
-        ImportDoc,
-        BasicDoc,
-        IconsDoc,
-        NestedDoc,
-        SeverityDoc,
-        RaisedDoc,
-        RoundedDoc,
-        TextDoc,
-        RaisedTextDoc,
-        OutlinedDoc,
-        SizesDoc,
-        DisabledDoc,
-        TemplateDoc,
-        StyleDoc,
-        AccessibilityDoc,
-    ],
+    declarations: [ImportDoc, BasicDoc, IconsDoc, NestedDoc, SeverityDoc, RaisedDoc, RoundedDoc, TextDoc, RaisedTextDoc, OutlinedDoc, SizesDoc, DisabledDoc, TemplateDoc, StyleDoc, AccessibilityDoc]
 })
 export class SplitButtonDocModule {}

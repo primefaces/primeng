@@ -26,7 +26,7 @@ import { Code } from '@domain/code';
             </p-dialog>
         </div>
         <app-code [code]="code" selector="dialog-without-modal-demo"></app-code>
-    `,
+    `
 })
 export class WithoutModalDoc {
     visible: boolean = false;
@@ -89,6 +89,6 @@ export class DialogWithoutModalDemo {
     showDialog() {
         this.visible = true;
     }
-}`,
+}`
     };
 }

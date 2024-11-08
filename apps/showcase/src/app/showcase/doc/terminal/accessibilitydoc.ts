@@ -6,8 +6,7 @@ import { Component } from '@angular/core';
         <app-docsectiontext>
             <h3>Screen Reader</h3>
             <p>
-                Terminal component has an input element that can be described with <i>aria-label</i> or <i>aria-labelledby</i> props. The
-                element that lists the previous commands has <i>aria-live</i> so that changes are received by the screen reader.
+                Terminal component has an input element that can be described with <i>aria-label</i> or <i>aria-labelledby</i> props. The element that lists the previous commands has <i>aria-live</i> so that changes are received by the screen reader.
             </p>
 
             <h3>Keyboard Support</h3>
@@ -32,6 +31,6 @@ import { Component } from '@angular/core';
                 </table>
             </div>
         </app-docsectiontext>
-    </div>`,
+    </div>`
 })
 export class AccessibilityDoc {}

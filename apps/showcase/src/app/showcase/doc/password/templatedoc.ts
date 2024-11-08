@@ -5,10 +5,7 @@ import { Code } from '@domain/code';
     selector: 'template-doc',
     template: `
         <app-docsectiontext>
-            <p>
-                3 templates are included to customize the overlay. These are <i>header</i>, <i>content</i> and <i>footer</i>. Note that
-                content overrides the default meter.
-            </p>
+            <p>3 templates are included to customize the overlay. These are <i>header</i>, <i>content</i> and <i>footer</i>. Note that content overrides the default meter.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-password [(ngModel)]="value" autocomplete="off">
@@ -27,7 +24,7 @@ import { Code } from '@domain/code';
             </p-password>
         </div>
         <app-code [code]="code" selector="password-template-demo"></app-code>
-    `,
+    `
 })
 export class TemplateDoc {
     value!: string;
@@ -78,6 +75,6 @@ import { DividerModule } from 'primeng/divider';
 })
 export class PasswordTemplateDemo {
     value!: string;
-}`,
+}`
     };
 }

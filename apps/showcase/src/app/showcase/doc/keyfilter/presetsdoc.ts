@@ -38,7 +38,7 @@ import { Code } from '@domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="key-filter-presets-demo"></app-code>
-    `,
+    `
 })
 export class PresetsDoc {
     code: Code = {
@@ -90,6 +90,6 @@ import { InputTextModule } from 'primeng/inputtext';
     standalone: true,
     imports: [FormsModule, InputTextModule]
 })
-export class KeyFilterPresetsDemo {}`,
+export class KeyFilterPresetsDemo {}`
     };
 }

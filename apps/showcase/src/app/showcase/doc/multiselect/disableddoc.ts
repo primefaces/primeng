@@ -13,17 +13,10 @@ interface City {
             <p>When <i>disabled</i> is present, the element cannot be edited and focused.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-multiselect
-                [options]="cities"
-                [(ngModel)]="selectedCities"
-                [disabled]="true"
-                optionLabel="name"
-                placeholder="Select Cities"
-                styleClass="w-full md:w-80"
-            />
+            <p-multiselect [options]="cities" [(ngModel)]="selectedCities" [disabled]="true" optionLabel="name" placeholder="Select Cities" styleClass="w-full md:w-80" />
         </div>
         <app-code [code]="code" selector="multi-select-disabled-demo"></app-code>
-    `,
+    `
 })
 export class DisabledDoc implements OnInit {
     cities!: City[];
@@ -36,7 +29,7 @@ export class DisabledDoc implements OnInit {
             { name: 'Rome', code: 'RM' },
             { name: 'London', code: 'LDN' },
             { name: 'Istanbul', code: 'IST' },
-            { name: 'Paris', code: 'PRS' },
+            { name: 'Paris', code: 'PRS' }
         ];
     }
 
@@ -76,6 +69,6 @@ export class MultiSelectDisabledDemo implements OnInit {
             { name: 'Paris', code: 'PRS' }
         ];
     }
-}`,
+}`
     };
 }

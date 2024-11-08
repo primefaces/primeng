@@ -19,7 +19,7 @@ import { Code } from '@domain/code';
         </div>
         <app-code [code]="code" selector="toast-target-demo"></app-code>
     `,
-    providers: [MessageService],
+    providers: [MessageService]
 })
 export class TargetDoc {
     constructor(private messageService: MessageService) {}
@@ -84,6 +84,6 @@ export class ToastTargetDemo {
         this.messageService.clear();
         this.messageService.add({ key: 'toast2', severity: 'warn', summary: 'Warning', detail: 'key: toast2' });
     }
-}`,
+}`
     };
 }

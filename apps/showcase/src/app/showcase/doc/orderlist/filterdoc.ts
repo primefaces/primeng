@@ -13,11 +13,7 @@ import { ProductService } from '@service/productservice';
             <p-orderlist [value]="products" [listStyle]="{ 'max-height': '30rem' }" filterBy="name" filterPlaceholder="Filter by name">
                 <ng-template let-option let-selected="selected" pTemplate="option">
                     <div class="flex flex-wrap p-1 items-center gap-4 w-full">
-                        <img
-                            class="w-12 shrink-0 rounded"
-                            src="https://primefaces.org/cdn/primeng/images/demo/product/{{ option.image }}"
-                            [alt]="option.name"
-                        />
+                        <img class="w-12 shrink-0 rounded" src="https://primefaces.org/cdn/primeng/images/demo/product/{{ option.image }}" [alt]="option.name" />
                         <div class="flex-1 flex flex-col">
                             <span class="font-medium text-sm">{{ option.name }}</span>
                             <span
@@ -25,7 +21,7 @@ import { ProductService } from '@service/productservice';
                                     'text-sm': true,
                                     'text-surface-500': !selected,
                                     'dark:text-surface-400': !selected,
-                                    'text-inherit': selected,
+                                    'text-inherit': selected
                                 }"
                                 >{{ option.category }}</span
                             >
@@ -36,14 +32,14 @@ import { ProductService } from '@service/productservice';
             </p-orderlist>
         </div>
         <app-code [code]="code" selector="orderlist-filter-demo" [extFiles]="extFiles"></app-code>
-    `,
+    `
 })
 export class FilterDoc implements OnInit {
     products!: Product[];
 
     constructor(
         private productService: ProductService,
-        private cdr: ChangeDetectorRef,
+        private cdr: ChangeDetectorRef
     ) {}
 
     ngOnInit() {
@@ -176,7 +172,7 @@ export class OrderlistFilterDemo implements OnInit {
 },
 ...`,
 
-        service: ['ProductService'],
+        service: ['ProductService']
     };
 
     extFiles = [
@@ -194,7 +190,7 @@ export interface Product {
     category?: string;
     image?: string;
     rating?: number;
-}`,
-        },
+}`
+        }
     ];
 }

@@ -15,72 +15,65 @@ import { SizesDoc } from '@doc/textarea/sizesdoc';
 @Component({
     standalone: true,
     imports: [TextareaDocModule],
-    template: `<app-doc
-        docTitle="Angular Textarea Component"
-        header="Textarea"
-        description="Textarea adds styling and autoResize functionality to standard textarea element."
-        [docs]="docs"
-        [apiDocs]="['Textarea']"
-        themeDocs="textearea"
-    ></app-doc>`,
+    template: `<app-doc docTitle="Angular Textarea Component" header="Textarea" description="Textarea adds styling and autoResize functionality to standard textarea element." [docs]="docs" [apiDocs]="['Textarea']" themeDocs="textearea"></app-doc>`
 })
 export class TextareaDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc,
+            component: ImportDoc
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc,
+            component: BasicDoc
         },
         {
             id: 'reactive-forms',
             label: 'Reactive Forms',
-            component: ReactiveFormsDoc,
+            component: ReactiveFormsDoc
         },
         {
             id: 'autoresize',
             label: 'AutoResize',
-            component: AutoResizeDoc,
+            component: AutoResizeDoc
         },
         {
             id: 'floatlabel',
             label: 'Float Label',
-            component: FloatlabelDoc,
+            component: FloatlabelDoc
         },
         {
             id: 'iftalabel',
             label: 'Ifta Label',
-            component: IftaLabelDoc,
+            component: IftaLabelDoc
         },
         {
             id: 'sizes',
             label: 'Sizes',
-            component: SizesDoc,
+            component: SizesDoc
         },
         {
             id: 'filled',
             label: 'Filled',
-            component: FilledDoc,
+            component: FilledDoc
         },
         {
             id: 'invalid',
             label: 'Invalid',
-            component: InvalidDoc,
+            component: InvalidDoc
         },
         {
             id: 'disabled',
             label: 'Disabled',
-            component: DisabledDoc,
+            component: DisabledDoc
         },
 
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc,
-        },
+            component: AccessibilityDoc
+        }
     ];
 }

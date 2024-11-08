@@ -27,7 +27,7 @@ import { Code } from '@domain/code';
             </p-floatlabel>
         </div>
         <app-code [code]="code" selector="datepicker-float-label-demo"></app-code>
-    `,
+    `
 })
 export class FloatLabelDoc {
     value1: Date | undefined;
@@ -86,6 +86,6 @@ export class DatePickerFloatLabelDemo {
     value2: Date | undefined;
 
     value3: Date | undefined;
-}`,
+}`
     };
 }

@@ -22,116 +22,109 @@ import { IftaLabelDoc } from '@doc/select/iftalabeldoc';
 import { SizesDoc } from '@doc/select/sizesdoc';
 
 @Component({
-    template: `<app-doc
-        docTitle="Angular Select Component"
-        header="Select"
-        description="Select is used to choose an item from a collection of options."
-        [docs]="docs"
-        [apiDocs]="['Select']"
-        themeDocs="select"
-    ></app-doc> `,
+    template: `<app-doc docTitle="Angular Select Component" header="Select" description="Select is used to choose an item from a collection of options." [docs]="docs" [apiDocs]="['Select']" themeDocs="select"></app-doc> `,
     standalone: true,
     imports: [SelectDocModule],
-    styleUrl: './selectdemo.scss',
+    styleUrl: './selectdemo.scss'
 })
 export class SelectDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc,
+            component: ImportDoc
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc,
+            component: BasicDoc
         },
         {
             id: 'reactive-forms',
             label: 'Reactive Forms',
-            component: ReactiveFormsDoc,
+            component: ReactiveFormsDoc
         },
         {
             id: 'checkmark',
             label: 'Checkmark',
-            component: CheckmarkDoc,
+            component: CheckmarkDoc
         },
         {
             id: 'editable',
             label: 'Editable',
-            component: EditableDoc,
+            component: EditableDoc
         },
         {
             id: 'group',
             label: 'Group',
-            component: GroupDoc,
+            component: GroupDoc
         },
         {
             id: 'template',
             label: 'Template',
-            component: TemplateDoc,
+            component: TemplateDoc
         },
         {
             id: 'filter',
             label: 'Filter',
-            component: FilterDoc,
+            component: FilterDoc
         },
         {
             id: 'clearicon',
             label: 'Clear Icon',
-            component: ClearIconDoc,
+            component: ClearIconDoc
         },
         {
             id: 'loadingstate',
             label: 'Loading State',
-            component: LoadingStateDoc,
+            component: LoadingStateDoc
         },
 
         {
             id: 'virtualscroll',
             label: 'Virtual Scroll',
-            component: VirtualScrollDoc,
+            component: VirtualScrollDoc
         },
         {
             id: 'lazyvirtualscroll',
             label: 'Lazy Virtual Scroll',
-            component: LazyVirtualScrollDoc,
+            component: LazyVirtualScrollDoc
         },
         {
             id: 'filled',
             label: 'Filled',
-            component: FilledDoc,
+            component: FilledDoc
         },
         {
             id: 'floatlabel',
             label: 'Float Label',
-            component: FloatLabelDoc,
+            component: FloatLabelDoc
         },
         {
             id: 'iftalabel',
             label: 'Ifta Label',
-            component: IftaLabelDoc,
+            component: IftaLabelDoc
         },
         {
             id: 'sizes',
             label: 'Sizes',
-            component: SizesDoc,
+            component: SizesDoc
         },
         {
             id: 'invalid',
             label: 'Invalid',
-            component: InvalidDoc,
+            component: InvalidDoc
         },
         {
             id: 'disabled',
             label: 'Disabled',
-            component: DisabledDoc,
+            component: DisabledDoc
         },
 
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc,
-        },
+            component: AccessibilityDoc
+        }
     ];
 }

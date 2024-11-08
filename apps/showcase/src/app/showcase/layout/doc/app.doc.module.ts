@@ -19,28 +19,8 @@ import { AppDocService } from './app.doc.service';
 
 @NgModule({
     imports: [CommonModule, FormsModule, ButtonModule, InputTextModule, TooltipModule, AppCodeModule, RouterModule],
-    exports: [
-        AppDocSectionTextComponent,
-        AppDocApiSection,
-        AppDocFeaturesSection,
-        AppDocSectionNavComponent,
-        AppDocSectionsComponent,
-        AppDevelopmentSection,
-        AppDoc,
-        AppDocApiTable,
-        AppDocThemingSectionComponent,
-    ],
-    declarations: [
-        AppDocFeaturesSection,
-        AppDocSectionTextComponent,
-        AppDocApiSection,
-        AppDocSectionNavComponent,
-        AppDocSectionsComponent,
-        AppDevelopmentSection,
-        AppDoc,
-        AppDocApiTable,
-        AppDocThemingSectionComponent,
-    ],
-    providers: [AppDocService],
+    exports: [AppDocSectionTextComponent, AppDocApiSection, AppDocFeaturesSection, AppDocSectionNavComponent, AppDocSectionsComponent, AppDevelopmentSection, AppDoc, AppDocApiTable, AppDocThemingSectionComponent],
+    declarations: [AppDocFeaturesSection, AppDocSectionTextComponent, AppDocApiSection, AppDocSectionNavComponent, AppDocSectionsComponent, AppDevelopmentSection, AppDoc, AppDocApiTable, AppDocThemingSectionComponent],
+    providers: [AppDocService]
 })
 export class AppDocModule {}

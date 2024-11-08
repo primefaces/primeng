@@ -9,14 +9,7 @@ import { PhotoService } from '@service/photoservice';
             <p>Indicator content can be customized with the <i>indicator</i> template.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-galleria
-                [(value)]="images"
-                [showIndicators]="true"
-                [showThumbnails]="false"
-                [showIndicatorsOnItem]="true"
-                indicatorsPosition="left"
-                [containerStyle]="{ maxWidth: '640px' }"
-            >
+            <p-galleria [(value)]="images" [showIndicators]="true" [showThumbnails]="false" [showIndicatorsOnItem]="true" indicatorsPosition="left" [containerStyle]="{ maxWidth: '640px' }">
                 <ng-template pTemplate="item" let-item>
                     <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
                 </ng-template>
@@ -28,7 +21,7 @@ import { PhotoService } from '@service/photoservice';
             </p-galleria>
         </div>
         <app-code [code]="code" selector="galleria-indicator-template-demo"></app-code>
-    `,
+    `
 })
 export class TemplateDoc implements OnInit {
     images: any[] | undefined;
@@ -36,12 +29,12 @@ export class TemplateDoc implements OnInit {
     responsiveOptions: any[] = [
         {
             breakpoint: '1300px',
-            numVisible: 4,
+            numVisible: 4
         },
         {
             breakpoint: '575px',
-            numVisible: 1,
-        },
+            numVisible: 1
+        }
     ];
 
     constructor(private photoService: PhotoService) {}
@@ -104,6 +97,6 @@ export class GalleriaIndicatorTemplateDemo implements OnInit {
     title: 'Title 1'
 },
 ...`,
-        service: ['PhotoService'],
+        service: ['PhotoService']
     };
 }

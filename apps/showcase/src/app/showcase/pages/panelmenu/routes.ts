@@ -3,6 +3,6 @@ import { PanelMenuDemo } from './';
 export default [
     {
         path: '',
-        component: PanelMenuDemo,
-    },
+        component: PanelMenuDemo
+    }
 ];

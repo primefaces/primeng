@@ -8,48 +8,41 @@ import { AccessibilityDoc } from '@doc/progressbar/accessibilitydoc';
 import { ProgressBarDocModule } from '@doc/progressbar/progressbardoc.module';
 
 @Component({
-    template: `<app-doc
-        docTitle="Angular ProgressBar Component"
-        header="ProgressBar"
-        description="ProgressBar is a process status indicator."
-        [docs]="docs"
-        [apiDocs]="['ProgressBar']"
-        themeDocs="progressbar"
-    ></app-doc>`,
+    template: `<app-doc docTitle="Angular ProgressBar Component" header="ProgressBar" description="ProgressBar is a process status indicator." [docs]="docs" [apiDocs]="['ProgressBar']" themeDocs="progressbar"></app-doc>`,
     standalone: true,
-    imports: [ProgressBarDocModule],
+    imports: [ProgressBarDocModule]
 })
 export class ProgressBarDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc,
+            component: ImportDoc
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc,
+            component: BasicDoc
         },
         {
             id: 'dynamic',
             label: 'Dynamic',
-            component: DynamicDoc,
+            component: DynamicDoc
         },
         {
             id: 'template',
             label: 'Template',
-            component: TemplateDoc,
+            component: TemplateDoc
         },
         {
             id: 'indeterminate',
             label: 'Indeterminate',
-            component: IndeterminateDoc,
+            component: IndeterminateDoc
         },
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc,
-        },
+            component: AccessibilityDoc
+        }
     ];
 }

@@ -8,39 +8,30 @@ import { CardDocModule } from '@doc/card/carddoc.module';
 @Component({
     standalone: true,
     imports: [CardDocModule],
-    template: `
-        <app-doc
-            docTitle="Angular Card Component"
-            header="Card"
-            description="Card is a flexible container component."
-            [docs]="docs"
-            [apiDocs]="['Card']"
-            themeDocs="Card"
-        ></app-doc>
-    `,
+    template: ` <app-doc docTitle="Angular Card Component" header="Card" description="Card is a flexible container component." [docs]="docs" [apiDocs]="['Card']" themeDocs="Card"></app-doc> `
 })
 export class CardDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc,
+            component: ImportDoc
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc,
+            component: BasicDoc
         },
         {
             id: 'advanced',
             label: 'Advanced',
-            component: AdvancedDoc,
+            component: AdvancedDoc
         },
 
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc,
-        },
+            component: AccessibilityDoc
+        }
     ];
 }

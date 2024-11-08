@@ -5,9 +5,8 @@ import { Component } from '@angular/core';
     template: ` <app-docsectiontext>
         <h3>Screen Reader</h3>
         <p>
-            Component currently uses a table based implementation and does not provide high level of screen reader support, a nested list
-            implementation replacement is planned with aria roles and attributes aligned to a tree widget for high level of reader support
-            in the upcoming versions.
+            Component currently uses a table based implementation and does not provide high level of screen reader support, a nested list implementation replacement is planned with aria roles and attributes aligned to a tree widget for high level of
+            reader support in the upcoming versions.
         </p>
         <h3>Keyboard Support</h3>
         <div class="doc-tablewrapper">
@@ -34,6 +33,6 @@ import { Component } from '@angular/core';
                 </tbody>
             </table>
         </div>
-    </app-docsectiontext>`,
+    </app-docsectiontext>`
 })
 export class AccessibilityDoc {}

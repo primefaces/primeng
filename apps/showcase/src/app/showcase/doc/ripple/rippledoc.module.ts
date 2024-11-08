@@ -13,6 +13,6 @@ import { AccessibilityDoc } from './accessibilitydoc';
 @NgModule({
     imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, Ripple],
     declarations: [DefaultDoc, ImportDoc, StyleDoc, CustomDoc, AccessibilityDoc],
-    exports: [AppDocModule],
+    exports: [AppDocModule]
 })
 export class RippleDocModule {}

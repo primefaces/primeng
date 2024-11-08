@@ -14,78 +14,71 @@ import { SimpleDoc } from '@doc/message/simpledoc';
 import { ClosableDoc } from '@doc/message/closabledoc';
 
 @Component({
-    template: `<app-doc
-        docTitle="Angular Message Component"
-        header="Message"
-        description="Message component is used to display inline messages."
-        [docs]="docs"
-        [apiDocs]="['Message']"
-        themeDocs="message"
-    ></app-doc>`,
+    template: `<app-doc docTitle="Angular Message Component" header="Message" description="Message component is used to display inline messages." [docs]="docs" [apiDocs]="['Message']" themeDocs="message"></app-doc>`,
     imports: [MessageDocModule],
-    standalone: true,
+    standalone: true
 })
 export class MessageDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc,
+            component: ImportDoc
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc,
+            component: BasicDoc
         },
         {
             id: 'severity',
             label: 'Severity',
-            component: SeverityDoc,
+            component: SeverityDoc
         },
         {
             id: 'icon',
             label: 'Icon',
-            component: IconDoc,
+            component: IconDoc
         },
         {
             id: 'outlined',
             label: 'Outlined',
-            component: OutlinedDoc,
+            component: OutlinedDoc
         },
         {
             id: 'simple',
             label: 'Simple',
-            component: SimpleDoc,
+            component: SimpleDoc
         },
         {
             id: 'sizes',
             label: 'Sizes',
-            component: SizesDoc,
+            component: SizesDoc
         },
         {
             id: 'forms',
             label: 'Forms',
-            component: FormDoc,
+            component: FormDoc
         },
         {
             id: 'dynamic',
             label: 'Dynamic',
-            component: DynamicDoc,
+            component: DynamicDoc
         },
         {
             id: 'closable',
             label: 'Closable',
-            component: ClosableDoc,
+            component: ClosableDoc
         },
         {
             id: 'life',
             label: 'Life',
-            component: LifeDoc,
+            component: LifeDoc
         },
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc,
-        },
+            component: AccessibilityDoc
+        }
     ];
 }

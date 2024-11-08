@@ -22,20 +22,7 @@ import { SimpleDoc } from './simpledoc';
 
 @NgModule({
     imports: [CommonModule, AppCodeModule, RouterModule, MessageModule, AppDocModule, AvatarModule, InputTextModule, ButtonModule],
-    declarations: [
-        BasicDoc,
-        SeverityDoc,
-        ImportDoc,
-        IconDoc,
-        FormDoc,
-        DynamicDoc,
-        ClosableDoc,
-        LifeDoc,
-        SizesDoc,
-        OutlinedDoc,
-        SimpleDoc,
-        AccessibilityDoc,
-    ],
-    exports: [AppDocModule],
+    declarations: [BasicDoc, SeverityDoc, ImportDoc, IconDoc, FormDoc, DynamicDoc, ClosableDoc, LifeDoc, SizesDoc, OutlinedDoc, SimpleDoc, AccessibilityDoc],
+    exports: [AppDocModule]
 })
 export class MessageDocModule {}

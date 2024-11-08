@@ -25,7 +25,7 @@ import { Code } from '@domain/code';
         </div>
         <app-code [code]="code" selector="toast-template-demo"></app-code>
     `,
-    providers: [MessageService],
+    providers: [MessageService]
 })
 export class TemplateDoc {
     constructor(private messageService: MessageService) {}
@@ -116,7 +116,7 @@ export class ToastTemplateDemo {
         this.messageService.clear('confirm');
         this.visible = false;
     }
-}`,
+}`
     };
 
     onConfirm() {
@@ -135,7 +135,7 @@ export class ToastTemplateDemo {
                 key: 'confirm',
                 sticky: true,
                 severity: 'success',
-                summary: 'Can you send me the report?',
+                summary: 'Can you send me the report?'
             });
             this.visible = true;
         }

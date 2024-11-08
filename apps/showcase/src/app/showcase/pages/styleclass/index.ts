@@ -13,24 +13,24 @@ import { StyleClassDocModule } from '@doc/styleclass/styleclassdoc.module';
         [apiDocs]="['StyleClass']"
     ></app-doc>`,
     standalone: true,
-    imports: [StyleClassDocModule],
+    imports: [StyleClassDocModule]
 })
 export class StyleClassDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc,
+            component: ImportDoc
         },
         {
             id: 'toggleclass',
             label: 'Toggle Class',
-            component: ToggleClassDoc,
+            component: ToggleClassDoc
         },
         {
             id: 'animation',
             label: 'Animation',
-            component: AnimationDoc,
-        },
+            component: AnimationDoc
+        }
     ];
 }

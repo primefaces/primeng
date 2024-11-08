@@ -5,13 +5,12 @@ import { Component } from '@angular/core';
     template: `
         <app-docsectiontext>
             <p>
-                The <i>noir</i> mode is the nickname of a variant that uses black tones as the primary and requires and additional
-                <i>colorScheme</i> configuration to implement. A sample preset configuration with black and white variants as the primary
-                color;
+                The <i>noir</i> mode is the nickname of a variant that uses black tones as the primary and requires and additional <i>colorScheme</i> configuration to implement. A sample preset configuration with black and white variants as the
+                primary color;
             </p>
         </app-docsectiontext>
         <app-code [code]="code" selector="noir-demo" [hideToggleCode]="true"></app-code>
-    `,
+    `
 })
 export class NoirDoc {
     code = {
@@ -61,6 +60,6 @@ export class NoirDoc {
             }
         }
     }
-});`,
+});`
     };
 }

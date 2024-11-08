@@ -9,10 +9,7 @@ import { AppConfigService } from '@service/appconfigservice';
             <path d="M20.0055 0L0 39.8951H6.7486L20.0064 11.5771L32.9975 39.8951H40.0134L20.0055 0Z" [attr.fill]="fillColor" />
             <path d="M26.4066 30.0791L30.9241 40.0001H22.4536L26.4066 30.0791Z" [attr.fill]="fillColor" />
             <path d="M17.2595 40.0001L12.7419 30.0791L8.78906 40.0001H17.2595Z" [attr.fill]="fillColor" />
-            <path
-                d="M78.0429 27.6582H66.3425L63.2979 34.2844H58.855L72.3786 5.28833L85.4243 34.2844H80.9104L78.0429 27.6582ZM76.3613 23.7886L72.3078 14.512L68.0595 23.7886H76.3613Z"
-                [attr.fill]="fillColor"
-            />
+            <path d="M78.0429 27.6582H66.3425L63.2979 34.2844H58.855L72.3786 5.28833L85.4243 34.2844H80.9104L78.0429 27.6582ZM76.3613 23.7886L72.3078 14.512L68.0595 23.7886H76.3613Z" [attr.fill]="fillColor" />
             <path
                 d="M100.155 23.2053V34.2843H96.0303V7.0022H100.703C102.993 7.0022 104.721 7.16123 105.89 7.47928C107.07 7.79734 108.108 8.39811 109.005 9.2816C110.575 10.813 111.359 12.7449 111.359 15.0773C111.359 17.5746 110.521 19.5536 108.846 21.0143C107.17 22.4751 104.91 23.2053 102.066 23.2053H100.155ZM100.155 19.3887H101.695C105.483 19.3887 107.377 17.9339 107.377 15.0243C107.377 12.2089 105.423 10.8012 101.517 10.8012H100.155V19.3887Z"
                 [attr.fill]="fillColor"
@@ -30,8 +27,8 @@ import { AppConfigService } from '@service/appconfigservice';
         </svg>
     `,
     host: {
-        class: 'h-8 lg:h-10 [&>svg]:h-full [&>svg]:w-auto select-none',
-    },
+        class: 'h-8 lg:h-10 [&>svg]:h-full [&>svg]:w-auto select-none'
+    }
 })
 export class ApolloLogo {
     configService = inject(AppConfigService);

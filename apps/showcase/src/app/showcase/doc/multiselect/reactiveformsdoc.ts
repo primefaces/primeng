@@ -11,23 +11,13 @@ interface City {
     selector: 'reactive-forms-doc',
     template: `
         <app-docsectiontext>
-            <p>
-                MultiSelect can also be used with reactive forms. In this case, the <i>formControlName</i> property is used to bind the
-                component to a form control.
-            </p>
+            <p>MultiSelect can also be used with reactive forms. In this case, the <i>formControlName</i> property is used to bind the component to a form control.</p>
         </app-docsectiontext>
         <form [formGroup]="formGroup" class="card flex justify-center">
-            <p-multiselect
-                [options]="cities"
-                formControlName="selectedCities"
-                optionLabel="name"
-                placeholder="Select Cities"
-                [maxSelectedLabels]="3"
-                styleClass="w-full md:w-80"
-            />
+            <p-multiselect [options]="cities" formControlName="selectedCities" optionLabel="name" placeholder="Select Cities" [maxSelectedLabels]="3" styleClass="w-full md:w-80" />
         </form>
         <app-code [code]="code" selector="multi-select-reactive-forms-demo"></app-code>
-    `,
+    `
 })
 export class ReactiveFormsDoc implements OnInit {
     cities!: City[];
@@ -40,11 +30,11 @@ export class ReactiveFormsDoc implements OnInit {
             { name: 'Rome', code: 'RM' },
             { name: 'London', code: 'LDN' },
             { name: 'Istanbul', code: 'IST' },
-            { name: 'Paris', code: 'PRS' },
+            { name: 'Paris', code: 'PRS' }
         ];
 
         this.formGroup = new FormGroup({
-            selectedCities: new FormControl<City[] | null>([{ name: 'Istanbul', code: 'IST' }]),
+            selectedCities: new FormControl<City[] | null>([{ name: 'Istanbul', code: 'IST' }])
         });
     }
 
@@ -85,6 +75,6 @@ export class MultiSelectReactiveFormsDemo implements OnInit {
             selectedCities: new FormControl<City[] | null>([{ name: 'Istanbul', code: 'IST' }])
         });
     }  
-}`,
+}`
     };
 }

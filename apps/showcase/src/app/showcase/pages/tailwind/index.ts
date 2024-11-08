@@ -10,36 +10,31 @@ import { PluginDoc } from '@doc/tailwind/plugindoc';
 import { TailwindDocModule } from '@doc/tailwind/tailwinddoc.module';
 
 @Component({
-    template: `<app-doc
-        docTitle="Tailwind CSS - PrimeNG"
-        header="Tailwind CSS"
-        description="Integration between PrimeNG and Tailwind CSS."
-        [docs]="docs"
-    ></app-doc>`,
+    template: `<app-doc docTitle="Tailwind CSS - PrimeNG" header="Tailwind CSS" description="Integration between PrimeNG and Tailwind CSS." [docs]="docs"></app-doc>`,
     standalone: true,
-    imports: [TailwindDocModule],
+    imports: [TailwindDocModule]
 })
 export class TailwindDemo {
     docs = [
         {
             id: 'overview',
             label: 'Overview',
-            component: OverviewDoc,
+            component: OverviewDoc
         },
         {
             id: 'plugin',
             label: 'Plugin',
-            component: PluginDoc,
+            component: PluginDoc
         },
         {
             id: 'extensions',
             label: 'Extensions',
-            component: ExtensionsDoc,
+            component: ExtensionsDoc
         },
         {
             id: 'override',
             label: 'Override',
-            component: OverrideDoc,
+            component: OverrideDoc
         },
         {
             id: 'samples',
@@ -49,24 +44,24 @@ export class TailwindDemo {
                 {
                     id: 'color-palette',
                     label: 'Color Palette',
-                    component: ColorPaletteDoc,
+                    component: ColorPaletteDoc
                 },
                 {
                     id: 'form',
                     label: 'Form',
-                    component: FormDoc,
+                    component: FormDoc
                 },
                 {
                     id: 'headless',
                     label: 'Headless',
-                    component: HeadlessDoc,
+                    component: HeadlessDoc
                 },
                 {
                     id: 'animations',
                     label: 'Animations',
-                    component: AnimationsDoc,
-                },
-            ],
-        },
+                    component: AnimationsDoc
+                }
+            ]
+        }
     ];
 }

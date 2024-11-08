@@ -37,7 +37,7 @@ import { CarService } from '@service/carservice';
             </p-inplace>
         </div>
         <app-code [code]="code" selector="inplace-data-demo" [extFiles]="extFiles"></app-code>
-    `,
+    `
 })
 export class DataDoc {
     cars: Car[] | undefined;
@@ -129,7 +129,7 @@ export class InplaceDataDemo {
         this.carService.getCarsSmall().then((cars) => (this.cars = cars));
     } 
 }`,
-        service: ['CarService'],
+        service: ['CarService']
     };
 
     extFiles = [
@@ -144,7 +144,7 @@ export interface Car {
     color?;
     price?;
     saleDate?;
-}`,
-        },
+}`
+        }
     ];
 }

@@ -6,9 +6,8 @@ import { Code } from '@domain/code';
     template: `
         <app-docsectiontext>
             <p>
-                <i>show</i> method takes two parameters, first one is the event and it is mandatory. By default the target component to
-                align the overlay is the event target, if you'd like to align it to another element, provide it as the second parameter
-                <i>target</i>.
+                <i>show</i> method takes two parameters, first one is the event and it is mandatory. By default the target component to align the overlay is the event target, if you'd like to align it to another element, provide it as the second
+                parameter <i>target</i>.
             </p>
         </app-docsectiontext>
         <div class="card flex flex-col items-center gap-4">
@@ -21,7 +20,7 @@ import { Code } from '@domain/code';
             </p-popover>
         </div>
         <app-code [code]="code" selector="overlay-panel-target-demo"></app-code>
-    `,
+    `
 })
 export class TargetDoc {
     code: Code = {
@@ -51,6 +50,6 @@ import { Component } from '@angular/core';
     selector: 'overlay-panel-target-demo',
     templateUrl: './overlay-panel-target-demo.html'
 })
-export class OverlayPanelTargetDemo {}`,
+export class OverlayPanelTargetDemo {}`
     };
 }

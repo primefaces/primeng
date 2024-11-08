@@ -5,16 +5,13 @@ import { Code } from '@domain/code';
     selector: 'basic-doc',
     template: `
         <app-docsectiontext>
-            <p>
-                Image is used as the native <i>img</i> element and supports all properties that the native element has. For multiple image,
-                see <a [routerLink]="['/galleria']">Galleria.</a>
-            </p>
+            <p>Image is used as the native <i>img</i> element and supports all properties that the native element has. For multiple image, see <a [routerLink]="['/galleria']">Galleria.</a></p>
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-image src="https://primefaces.org/cdn/primeng/images/galleria/galleria10.jpg" alt="Image" width="250" />
         </div>
         <app-code [code]="code" selector="image-basic-demo"></app-code>
-    `,
+    `
 })
 export class BasicDoc {
     code: Code = {
@@ -33,6 +30,6 @@ import { Image } from 'primeng/image';
     standalone: true,
     imports: [Image]
 })
-export class ImageBasicDemo {}`,
+export class ImageBasicDemo {}`
     };
 }

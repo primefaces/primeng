@@ -9,53 +9,46 @@ import { IftaLabelDoc } from '@doc/iconfield/iftalabeldoc';
 import { SizesDoc } from '@doc/iconfield/sizesdoc';
 
 @Component({
-    template: ` <app-doc
-        docTitle="Angular IconField Component"
-        header="IconField"
-        description="IconField wraps an input and an icon."
-        [docs]="docs"
-        [apiDocs]="['IconField', 'InputIcon']"
-        themeDocs="iconfield"
-    ></app-doc>`,
+    template: ` <app-doc docTitle="Angular IconField Component" header="IconField" description="IconField wraps an input and an icon." [docs]="docs" [apiDocs]="['IconField', 'InputIcon']" themeDocs="iconfield"></app-doc>`,
     standalone: true,
-    imports: [IconFieldDocModule],
+    imports: [IconFieldDocModule]
 })
 export class IconFieldDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc,
+            component: ImportDoc
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc,
+            component: BasicDoc
         },
         {
             id: 'template',
             label: 'Template',
-            component: TemplateDoc,
+            component: TemplateDoc
         },
         {
             id: 'floatlabel',
             label: 'Float Label',
-            component: FloatLabelDoc,
+            component: FloatLabelDoc
         },
         {
             id: 'iftalabel',
             label: 'Ifta Label',
-            component: IftaLabelDoc,
+            component: IftaLabelDoc
         },
         {
             id: 'sizes',
             label: 'Sizes',
-            component: SizesDoc,
+            component: SizesDoc
         },
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc,
-        },
+            component: AccessibilityDoc
+        }
     ];
 }

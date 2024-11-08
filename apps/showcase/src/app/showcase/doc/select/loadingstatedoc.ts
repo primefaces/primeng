@@ -13,17 +13,10 @@ interface City {
             <p>Loading state can be used <i>loading</i> property.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-select
-                [options]="cities"
-                [(ngModel)]="selectedCity"
-                [loading]="true"
-                optionLabel="name"
-                placeholder="Loading..."
-                class="w-full md:w-56"
-            />
+            <p-select [options]="cities" [(ngModel)]="selectedCity" [loading]="true" optionLabel="name" placeholder="Loading..." class="w-full md:w-56" />
         </div>
         <app-code [code]="code" selector="select-loading-state-demo"></app-code>
-    `,
+    `
 })
 export class LoadingStateDoc implements OnInit {
     cities: City[];
@@ -36,7 +29,7 @@ export class LoadingStateDoc implements OnInit {
             { name: 'Rome', code: 'RM' },
             { name: 'London', code: 'LDN' },
             { name: 'Istanbul', code: 'IST' },
-            { name: 'Paris', code: 'PRS' },
+            { name: 'Paris', code: 'PRS' }
         ];
     }
 
@@ -76,6 +69,6 @@ export class SelectLoadingStateDemo implements OnInit {
             { name: 'Paris', code: 'PRS' }
         ];
     }
-}`,
+}`
     };
 }

@@ -2,7 +2,7 @@
 const primeui = require('tailwindcss-primeui');
 module.exports = {
     corePlugins: {
-        preflight: false,
+        preflight: false
     },
     darkMode: ['selector', '[class="p-dark"]'],
     content: ['./src/**/*.{html,ts,scss,css}'],
@@ -13,7 +13,7 @@ module.exports = {
             md: '768px',
             lg: '992px',
             xl: '1200px',
-            '2xl': '1920px',
-        },
-    },
+            '2xl': '1920px'
+        }
+    }
 };

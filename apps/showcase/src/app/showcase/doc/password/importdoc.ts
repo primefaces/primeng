@@ -3,10 +3,10 @@ import { Code } from '@domain/code';
 
 @Component({
     selector: 'password-import-doc',
-    template: ` <app-code [code]="code" [hideToggleCode]="true"></app-code> `,
+    template: ` <app-code [code]="code" [hideToggleCode]="true"></app-code> `
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { PasswordModule } from 'primeng/password';`,
+        typescript: `import { PasswordModule } from 'primeng/password';`
     };
 }

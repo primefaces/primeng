@@ -7,45 +7,32 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <h3>Screen Reader</h3>
             <p>
-                Value to describe the component can either be provided via <i>label</i> tag combined with <i>inputId</i> prop or using
-                <i>aria-labelledby</i>, <i>aria-label</i> props. The input element has <i>combobox</i> role in addition to
-                <i>aria-autocomplete</i> as "none", <i>aria-haspopup</i> as "dialog" and <i>aria-expanded</i> attributes. The relation
-                between the input and the popup is created with <i>aria-controls</i> attribute that refers to the id of the popup.
+                Value to describe the component can either be provided via <i>label</i> tag combined with <i>inputId</i> prop or using <i>aria-labelledby</i>, <i>aria-label</i> props. The input element has <i>combobox</i> role in addition to
+                <i>aria-autocomplete</i> as "none", <i>aria-haspopup</i> as "dialog" and <i>aria-expanded</i> attributes. The relation between the input and the popup is created with <i>aria-controls</i> attribute that refers to the id of the popup.
             </p>
             <p>
-                The optional DatePicker button requires includes <i>aria-haspopup</i>, <i>aria-expanded</i> for states along with
-                <i>aria-controls</i> to define the relation between the popup and the button. The value to read is retrieved from the
+                The optional DatePicker button requires includes <i>aria-haspopup</i>, <i>aria-expanded</i> for states along with <i>aria-controls</i> to define the relation between the popup and the button. The value to read is retrieved from the
                 <i>chooseDate</i>
-                key of the aria property from the <a href="/configuration/#locale">locale</a> API. This label is also used for the
-                <i>aria-label</i> of the popup as well. When there is a value selected, it is formatted and appended to the label to be able
-                to notify users about the current value.
+                key of the aria property from the <a href="/configuration/#locale">locale</a> API. This label is also used for the <i>aria-label</i> of the popup as well. When there is a value selected, it is formatted and appended to the label to be
+                able to notify users about the current value.
             </p>
 
             <p>
-                Popup has a <i>dialog</i> role along with <i>aria-modal</i> and <i>aria-label</i>. The navigation buttons at the header has
-                an <i>aria-label</i> retrieved from the <i>prevYear</i>, <i>nextYear</i>, <i>prevMonth</i>, <i>nextMonth</i>,<i
-                    >prevDecade</i
-                >
-                and <i>nextDecade</i> keys of the locale aria API. Similarly month picker button uses the <i>chooseMonth</i> and year picker
-                button uses the <i>chooseYear</i> keys.
+                Popup has a <i>dialog</i> role along with <i>aria-modal</i> and <i>aria-label</i>. The navigation buttons at the header has an <i>aria-label</i> retrieved from the <i>prevYear</i>, <i>nextYear</i>, <i>prevMonth</i>,
+                <i>nextMonth</i>,<i>prevDecade</i> and <i>nextDecade</i> keys of the locale aria API. Similarly month picker button uses the <i>chooseMonth</i> and year picker button uses the <i>chooseYear</i> keys.
             </p>
 
             <p>
-                Main date table uses <i>grid</i> role that contains th elements with <i>col</i> as the scope along with <i>abbr</i> tag
-                resolving to the full name of the month. Each date cell has an <i>aria-label</i> referring to the full date value. Buttons
-                at the footer utilize their readable labels as <i>aria-label</i> as well. Selected date also receives the
-                <i>aria-selected</i> attribute.
+                Main date table uses <i>grid</i> role that contains th elements with <i>col</i> as the scope along with <i>abbr</i> tag resolving to the full name of the month. Each date cell has an <i>aria-label</i> referring to the full date value.
+                Buttons at the footer utilize their readable labels as <i>aria-label</i> as well. Selected date also receives the <i>aria-selected</i> attribute.
             </p>
 
             <p>
-                Timepicker spinner buttons get their labels for <i>aria-label</i> from the aria locale API using the <i>prevHour</i>,
-                <i>nextHour</i>, <i>prevMinute</i>, <i>nextMinute</i>, <i>prevSecond</i>, <i>nextSecond</i>, <i>am</i> and <i>pm</i> keys.
+                Timepicker spinner buttons get their labels for <i>aria-label</i> from the aria locale API using the <i>prevHour</i>, <i>nextHour</i>, <i>prevMinute</i>, <i>nextMinute</i>, <i>prevSecond</i>, <i>nextSecond</i>, <i>am</i> and
+                <i>pm</i> keys.
             </p>
 
-            <p>
-                DatePicker also includes a hidden section that is only available to screen readers with <i>aria-live</i> as "polite". This
-                element is updated when the selected date changes to instruct the user about the current date selected.
-            </p>
+            <p>DatePicker also includes a hidden section that is only available to screen readers with <i>aria-live</i> as "polite". This element is updated when the selected date changes to instruct the user about the current date selected.</p>
         </app-docsectiontext>
 
         <app-code [code]="code" [hideToggleCode]="true" [hideCodeSandbox]="true" [hideStackBlitz]="true"></app-code>
@@ -194,10 +181,7 @@ import { Code } from '@domain/code';
                         <td>
                             <i>page up</i>
                         </td>
-                        <td>
-                            Changes the date to previous month in date picker mode. Moves to previous year in month picker mode and previous
-                            decade in year picker.
-                        </td>
+                        <td>Changes the date to previous month in date picker mode. Moves to previous year in month picker mode and previous decade in year picker.</td>
                     </tr>
                     <tr>
                         <td><i>shift</i> + <i>page up</i></td>
@@ -207,10 +191,7 @@ import { Code } from '@domain/code';
                         <td>
                             <i>page down</i>
                         </td>
-                        <td>
-                            Changes the date to next month in date picker mode. Moves to next year in month picker mode and next decade in
-                            year picker.
-                        </td>
+                        <td>Changes the date to next month in date picker mode. Moves to next year in month picker mode and next decade in year picker.</td>
                     </tr>
                     <tr>
                         <td><i>shift</i> + <i>page down</i></td>
@@ -245,7 +226,7 @@ import { Code } from '@domain/code';
                 </tbody>
             </table>
         </div>
-    </div>`,
+    </div>`
 })
 export class AccessibilityDoc {
     code: Code = {
@@ -255,6 +236,6 @@ export class AccessibilityDoc {
 <span id="date2">Date</span>
 <p-datepicker ariaLabelledBy="date2"/>
 
-<p-datepicker ariaLabel="Date"/>`,
+<p-datepicker ariaLabel="Date"/>`
     };
 }

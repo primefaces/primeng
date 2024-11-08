@@ -10,7 +10,7 @@ import { Component } from '@angular/core';
                 <a href="https://www.primetek.com.tr">PrimeTek</a>
             </div>
         </div>
-    `,
+    `
 })
 export class AppFooterComponent {
     // eslint-disable-next-line @typescript-eslint/no-var-requires

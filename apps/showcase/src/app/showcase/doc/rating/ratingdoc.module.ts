@@ -19,17 +19,6 @@ import { WithoutCancelDoc } from './withoutcanceldoc';
 @NgModule({
     imports: [CommonModule, AppCodeModule, AppDocModule, Rating, FormsModule, ReactiveFormsModule, RouterModule],
     exports: [AppDocModule],
-    declarations: [
-        ImportDoc,
-        BasicDoc,
-        WithoutCancelDoc,
-        NumberOfStarsDoc,
-        TemplateDoc,
-        ReadOnlyDoc,
-        DisabledDoc,
-        StyleDoc,
-        AccessibilityDoc,
-        ReactiveFormsDoc,
-    ],
+    declarations: [ImportDoc, BasicDoc, WithoutCancelDoc, NumberOfStarsDoc, TemplateDoc, ReadOnlyDoc, DisabledDoc, StyleDoc, AccessibilityDoc, ReactiveFormsDoc]
 })
 export class RatingDocModule {}

@@ -6,10 +6,7 @@ import { ProductService } from '@service/productservice';
 @Component({
     selector: 'cell-edit-doc',
     template: ` <app-docsectiontext>
-            <p>
-                In-cell editing is enabled by adding <i>pEditableColumn</i> directive to an editable cell that has a
-                <i>p-cellEditor</i> helper component to define the input-output templates for the edit and view modes respectively.
-            </p>
+            <p>In-cell editing is enabled by adding <i>pEditableColumn</i> directive to an editable cell that has a <i>p-cellEditor</i> helper component to define the input-output templates for the edit and view modes respectively.</p>
         </app-docsectiontext>
         <p-deferred-demo (load)="loadDemoData()">
             <div class="card">
@@ -70,14 +67,14 @@ import { ProductService } from '@service/productservice';
             </div>
         </p-deferred-demo>
         <app-code [code]="code" selector="table-cell-edit-demo" [extFiles]="extFiles"></app-code>`,
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CellEditDoc {
     products!: Product[];
 
     constructor(
         private productService: ProductService,
-        private cd: ChangeDetectorRef,
+        private cd: ChangeDetectorRef
     ) {}
 
     loadDemoData() {
@@ -283,7 +280,7 @@ export class TableCellEditDemo implements OnInit {
     padding-top: 0 !important;
     padding-bottom: 0 !important;
 }`,
-        service: ['ProductService'],
+        service: ['ProductService']
     };
 
     extFiles = [
@@ -301,7 +298,7 @@ export interface Product {
     category?: string;
     image?: string;
     rating?: number;
-}`,
-        },
+}`
+        }
     ];
 }

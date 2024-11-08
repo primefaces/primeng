@@ -14,7 +14,7 @@ import { Code } from '@domain/code';
         </div>
         <app-code [code]="code" selector="menu-command-demo"></app-code>
     `,
-    providers: [MessageService],
+    providers: [MessageService]
 })
 export class CommandDoc implements OnInit {
     items: MenuItem[] | undefined;
@@ -28,15 +28,15 @@ export class CommandDoc implements OnInit {
                 icon: 'pi pi-plus',
                 command: () => {
                     this.update();
-                },
+                }
             },
             {
                 label: 'Search',
                 icon: 'pi pi-search',
                 command: () => {
                     this.delete();
-                },
-            },
+                }
+            }
         ];
     }
 
@@ -100,6 +100,6 @@ export class MenuCommandDemo implements OnInit {
     delete() {
         this.messageService.add({ severity: 'warn', summary: 'Search Completed', detail: 'No results found', life: 3000 });
     }
-}`,
+}`
     };
 }

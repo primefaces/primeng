@@ -8,14 +8,13 @@ import { ProductListDemo } from './productlistdemo';
     template: `
         <app-docsectiontext>
             <p>
-                In case you need to pass data to the component that is dynamically loaded, use the <i>data</i> property that can be access
-                using the DynamicDialogConfig class. In additon, the loaded component can also control the Dialog using the DynamicDialogRef
-                API. Both the DynamicDialogConfig and DynamicDialogRef are injectable using the constructor.
+                In case you need to pass data to the component that is dynamically loaded, use the <i>data</i> property that can be access using the DynamicDialogConfig class. In additon, the loaded component can also control the Dialog using the
+                DynamicDialogRef API. Both the DynamicDialogConfig and DynamicDialogRef are injectable using the constructor.
             </p>
         </app-docsectiontext>
         <app-code [code]="code" [hideToggleCode]="true"></app-code>
     `,
-    providers: [DialogService],
+    providers: [DialogService]
 })
 export class PassingDataDoc {
     ref: DynamicDialogRef | undefined;
@@ -25,9 +24,9 @@ export class PassingDataDoc {
     show() {
         this.ref = this.dialogService.open(ProductListDemo, {
             data: {
-                id: '51gF3',
+                id: '51gF3'
             },
-            header: 'Select a Product',
+            header: 'Select a Product'
         });
     }
 
@@ -55,6 +54,6 @@ export class DynamicDialogDemo {
             header: 'Select a Product'
         });
     }
-}`,
+}`
     };
 }

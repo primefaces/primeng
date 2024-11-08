@@ -6,11 +6,8 @@ import { Code } from '@domain/code';
     template: `
         <app-docsectiontext>
             <p>
-                A navigation menu is implemented using tabs without the panels where the content of a tab is provided by a route component
-                like
-                <a href="https://angular.dev/api/router/RouterOutlet?tab=description" target="_blank" rel="noopener noreferrer"
-                    >router-outlet</a
-                >. For the purpose of this demo, <i>router-outlet</i> is not included.
+                A navigation menu is implemented using tabs without the panels where the content of a tab is provided by a route component like
+                <a href="https://angular.dev/api/router/RouterOutlet?tab=description" target="_blank" rel="noopener noreferrer">router-outlet</a>. For the purpose of this demo, <i>router-outlet</i> is not included.
             </p>
         </app-docsectiontext>
         <div class="card">
@@ -27,14 +24,14 @@ import { Code } from '@domain/code';
             <!--<router-outlet></router-outlet>-->
         </div>
         <app-code [code]="code" selector="tabs-tabmenu-demo"></app-code>
-    `,
+    `
 })
 export class TabmenuDoc {
     tabs = [
         { route: 'dashboard', label: 'Dashboard', icon: 'pi pi-home' },
         { route: 'transactions', label: 'Transactions', icon: 'pi pi-chart-line' },
         { route: 'products', label: 'Products', icon: 'pi pi-list' },
-        { route: 'messages', label: 'Messages', icon: 'pi pi-inbox' },
+        { route: 'messages', label: 'Messages', icon: 'pi pi-inbox' }
     ];
 
     code: Code = {
@@ -75,6 +72,6 @@ import { TabsModule } from 'primeng/tabs';
     standalone: true,
     imports: [TabsModule, RouterModule, CommonModule]
 })
-export class TabsTabmenuDemo {}`,
+export class TabsTabmenuDemo {}`
     };
 }

@@ -16,18 +16,14 @@ interface Country {
             <p-listbox [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" class="w-full md:w-56">
                 <ng-template let-country pTemplate="item">
                     <div class="flex items-center gap-2">
-                        <img
-                            src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
-                            [class]="'flag flag-' + country.code.toLowerCase()"
-                            style="width: 18px"
-                        />
+                        <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" style="width: 18px" />
                         <div>{{ country.name }}</div>
                     </div>
                 </ng-template>
             </p-listbox>
         </div>
         <app-code [code]="code" selector="listbox-template-demo"></app-code>
-    `,
+    `
 })
 export class TemplateDoc implements OnInit {
     countries!: Country[];
@@ -45,7 +41,7 @@ export class TemplateDoc implements OnInit {
             { name: 'India', code: 'IN' },
             { name: 'Japan', code: 'JP' },
             { name: 'Spain', code: 'ES' },
-            { name: 'United States', code: 'US' },
+            { name: 'United States', code: 'US' }
         ];
     }
 
@@ -118,6 +114,6 @@ export class ListboxTemplateDemo implements OnInit {
             { name: 'United States', code: 'US' }
         ];
     }
-}`,
+}`
     };
 }

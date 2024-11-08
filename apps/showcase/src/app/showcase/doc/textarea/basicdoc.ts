@@ -11,7 +11,7 @@ import { Code } from '@domain/code';
             <textarea rows="5" cols="30" pTextarea [(ngModel)]="value"></textarea>
         </div>
         <app-code [code]="code" selector="input-textarea-basic-demo"></app-code>
-    `,
+    `
 })
 export class BasicDoc {
     value!: string;
@@ -36,6 +36,6 @@ import { FormsModule } from '@angular/forms';
 
 export class InputTextareaBasicDemo {
     value!: string;
-}`,
+}`
     };
 }

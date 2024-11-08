@@ -15,17 +15,13 @@ import { Code } from '@domain/code';
                         <i [class]="item.icon + ' text-primary group-hover:text-inherit'"></i>
                         <span class="ml-2">{{ item.label }}</span>
                         <p-badge *ngIf="item.badge" class="ml-auto" [value]="item.badge" />
-                        <span
-                            *ngIf="item.shortcut"
-                            class="ml-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1"
-                            >{{ item.shortcut }}</span
-                        >
+                        <span *ngIf="item.shortcut" class="ml-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
                     </a>
                 </ng-template>
             </p-panelMenu>
         </div>
         <app-code [code]="code" selector="panel-menu-template-demo"></app-code>
-    `,
+    `
 })
 export class TemplateDoc implements OnInit {
     items: MenuItem[];
@@ -40,24 +36,24 @@ export class TemplateDoc implements OnInit {
                     {
                         label: 'Compose',
                         icon: 'pi pi-file-edit',
-                        shortcut: '⌘+N',
+                        shortcut: '⌘+N'
                     },
                     {
                         label: 'Inbox',
                         icon: 'pi pi-inbox',
-                        badge: '5',
+                        badge: '5'
                     },
                     {
                         label: 'Sent',
                         icon: 'pi pi-send',
-                        shortcut: '⌘+S',
+                        shortcut: '⌘+S'
                     },
                     {
                         label: 'Trash',
                         icon: 'pi pi-trash',
-                        shortcut: '⌘+T',
-                    },
-                ],
+                        shortcut: '⌘+T'
+                    }
+                ]
             },
             {
                 label: 'Reports',
@@ -67,14 +63,14 @@ export class TemplateDoc implements OnInit {
                     {
                         label: 'Sales',
                         icon: 'pi pi-chart-line',
-                        badge: '3',
+                        badge: '3'
                     },
                     {
                         label: 'Products',
                         icon: 'pi pi-list',
-                        badge: '6',
-                    },
-                ],
+                        badge: '6'
+                    }
+                ]
             },
             {
                 label: 'Profile',
@@ -84,15 +80,15 @@ export class TemplateDoc implements OnInit {
                     {
                         label: 'Settings',
                         icon: 'pi pi-cog',
-                        shortcut: '⌘+O',
+                        shortcut: '⌘+O'
                     },
                     {
                         label: 'Privacy',
                         icon: 'pi pi-shield',
-                        shortcut: '⌘+P',
-                    },
-                ],
-            },
+                        shortcut: '⌘+P'
+                    }
+                ]
+            }
         ];
     }
 
@@ -251,6 +247,6 @@ export class PanelMenuTemplateDemo implements OnInit {
         return this.items.every((menuItem) => menuItem.expanded);
     }
 
-}`,
+}`
     };
 }

@@ -5,9 +5,7 @@ import { Code } from '@domain/code';
     selector: 'prefix-suffix-doc',
     template: `
         <app-docsectiontext>
-            <p>
-                Custom texts e.g. units can be placed before or after the input section with the <i>prefix</i> and <i>suffix</i> properties.
-            </p>
+            <p>Custom texts e.g. units can be placed before or after the input section with the <i>prefix</i> and <i>suffix</i> properties.</p>
         </app-docsectiontext>
         <p-fluid class="card flex flex-wrap gap-4">
             <div class="flex-auto">
@@ -28,7 +26,7 @@ import { Code } from '@domain/code';
             </div>
         </p-fluid>
         <app-code [code]="code" selector="input-number-prefix-suffix-demo"></app-code>
-    `,
+    `
 })
 export class PrefixSuffixDoc {
     value1: number = 20;
@@ -91,6 +89,6 @@ export class InputNumberPrefixSuffixDemo {
     value3: number = 10;
 
     value4: number = 20;
-}`,
+}`
     };
 }

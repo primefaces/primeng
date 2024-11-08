@@ -13,17 +13,10 @@ interface City {
             <p>Invalid state style is added using the <i>ng-invalid</i> and <i>ng-dirty</i> class to indicate a failed validation.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-select
-                [options]="cities"
-                [(ngModel)]="selectedCity"
-                optionLabel="name"
-                [showClear]="true"
-                placeholder="Select a City"
-                class="ng-dirty ng-invalid w-full md:w-56"
-            />
+            <p-select [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" [showClear]="true" placeholder="Select a City" class="ng-dirty ng-invalid w-full md:w-56" />
         </div>
         <app-code [code]="code" selector="select-invalid-demo"></app-code>
-    `,
+    `
 })
 export class InvalidDoc implements OnInit {
     cities: City[];
@@ -36,7 +29,7 @@ export class InvalidDoc implements OnInit {
             { name: 'Rome', code: 'RM' },
             { name: 'London', code: 'LDN' },
             { name: 'Istanbul', code: 'IST' },
-            { name: 'Paris', code: 'PRS' },
+            { name: 'Paris', code: 'PRS' }
         ];
     }
 
@@ -75,6 +68,6 @@ export class SelectInvalidDemo implements OnInit {
             { name: 'Paris', code: 'PRS' }
         ];
     }
-}`,
+}`
     };
 }

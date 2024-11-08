@@ -10,16 +10,14 @@ interface AutoCompleteCompleteEvent {
     selector: 'dropdown-doc',
     template: ` <app-docsectiontext>
             <p>
-                Enabling <i>dropdown</i> property displays a button next to the input field where click behavior of the button is defined
-                using <i>dropdownMode</i> property that takes <strong>blank</strong> or <strong>current</strong> as possible values.
-                <i>blank</i> is the default mode to send a query with an empty string whereas <i>current</i> setting sends a query with the
-                current value of the input.
+                Enabling <i>dropdown</i> property displays a button next to the input field where click behavior of the button is defined using <i>dropdownMode</i> property that takes <strong>blank</strong> or <strong>current</strong> as possible
+                values. <i>blank</i> is the default mode to send a query with an empty string whereas <i>current</i> setting sends a query with the current value of the input.
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-autocomplete [(ngModel)]="value" [dropdown]="true" [suggestions]="items" (completeMethod)="search($event)" />
         </div>
-        <app-code [code]="code" selector="autocomplete-dropdown-demo"></app-code>`,
+        <app-code [code]="code" selector="autocomplete-dropdown-demo"></app-code>`
 })
 export class DropdownDoc {
     items: any[] | undefined;
@@ -57,7 +55,7 @@ export class AutocompleteDropdownDemo implements OnInit {
 
     this.items = event.query ? [...Array(10).keys()].map((item) => event.query + '-' + item) : _items;
     }
-}`,
+}`
     };
 
     search(event: AutoCompleteCompleteEvent) {

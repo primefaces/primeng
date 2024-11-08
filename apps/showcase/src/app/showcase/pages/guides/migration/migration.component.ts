@@ -5,19 +5,14 @@ import { MigrationOverviewDoc } from '@doc/guides/migration/migrationoverviewdoc
 import { RenamedComponentsDoc } from '@doc/guides/migration/renamedcomponentsdoc';
 
 @Component({
-    template: ` <app-doc
-        docTitle="Migration - PrimeNG"
-        header="Migration"
-        description="Migration guide to PrimeNG v18"
-        [docs]="docs"
-    ></app-doc>`,
+    template: ` <app-doc docTitle="Migration - PrimeNG" header="Migration" description="Migration guide to PrimeNG v18" [docs]="docs"></app-doc>`
 })
 export class MigrationDemoComponent {
     docs = [
         {
             id: 'overview',
             label: 'Overview',
-            component: MigrationOverviewDoc,
+            component: MigrationOverviewDoc
         },
         {
             id: 'changes',
@@ -27,19 +22,19 @@ export class MigrationDemoComponent {
                 {
                     id: 'compatible',
                     label: 'Compatible',
-                    component: RenamedComponentsDoc,
+                    component: RenamedComponentsDoc
                 },
                 {
                     id: 'deprecated',
                     label: 'Deprecated Components',
-                    component: DeprecatedComponentsDoc,
+                    component: DeprecatedComponentsDoc
                 },
                 {
                     id: 'breaking',
                     label: 'Breaking',
-                    component: BreakingChangesDoc,
-                },
-            ],
-        },
+                    component: BreakingChangesDoc
+                }
+            ]
+        }
     ];
 }

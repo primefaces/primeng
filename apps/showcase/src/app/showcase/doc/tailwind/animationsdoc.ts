@@ -5,10 +5,7 @@ import { Code } from '@domain/code';
     selector: 'animations-doc',
     template: `
         <app-docsectiontext>
-            <p>
-                The plugin also adds extended animation utilities that can be used with the <a routerLink="/styleclass">styleclass</a> and
-                <a routerLink="/animateonscroll">animateonscroll</a> directives.
-            </p>
+            <p>The plugin also adds extended animation utilities that can be used with the <a routerLink="/styleclass">styleclass</a> and <a routerLink="/animateonscroll">animateonscroll</a> directives.</p>
         </app-docsectiontext>
         <div class="card">
             <p-select [(ngModel)]="animation" [options]="animations" placeholder="Select One" class="w-full sm:w-44" />
@@ -394,23 +391,14 @@ import { Code } from '@domain/code';
                 </tbody>
             </table>
         </div>
-    `,
+    `
 })
 export class AnimationsDoc {
     animation = null;
     animations;
 
     get dynamicAnimationClasses(): string[] {
-        return [
-            'rounded-border',
-            'bg-primary',
-            'w-16',
-            'h-16',
-            'mx-auto',
-            `animate-${this.animation}`,
-            'animate-once',
-            'animate-duration-1000',
-        ];
+        return ['rounded-border', 'bg-primary', 'w-16', 'h-16', 'mx-auto', `animate-${this.animation}`, 'animate-once', 'animate-duration-1000'];
     }
 
     ngOnInit() {
@@ -433,7 +421,7 @@ export class AnimationsDoc {
             'zoomindown',
             'zoominleft',
             'zoominright',
-            'zoominup',
+            'zoominup'
         ];
     }
 
@@ -441,6 +429,6 @@ export class AnimationsDoc {
         basic: `<p-select [(ngModel)]="animation" [options]="animations" placeholder="Select One" class="w-full sm:w-44" />
 <div class="py-8 overflow-hidden">
    <div [ngClass]="dynamicAnimationClasses"></div>
-</div>`,
+</div>`
     };
 }

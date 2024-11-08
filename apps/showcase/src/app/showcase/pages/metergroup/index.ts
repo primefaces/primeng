@@ -13,62 +13,55 @@ import { MeterGroupDocModule } from '@doc/metergroup/metergroupdoc.module';
 @Component({
     standalone: true,
     imports: [MeterGroupDocModule],
-    template: ` <app-doc
-        docTitle="Angular MeterGroup Component"
-        header="MeterGroup"
-        description="MeterGroup displays scalar measurements within a known range."
-        [docs]="docs"
-        [apiDocs]="['MeterGroup']"
-        themeDocs="metergroup"
-    ></app-doc>`,
+    template: ` <app-doc docTitle="Angular MeterGroup Component" header="MeterGroup" description="MeterGroup displays scalar measurements within a known range." [docs]="docs" [apiDocs]="['MeterGroup']" themeDocs="metergroup"></app-doc>`
 })
 export class MeterGroupDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc,
+            component: ImportDoc
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc,
+            component: BasicDoc
         },
         {
             id: 'multiple',
             label: 'Multiple',
-            component: MultipleDoc,
+            component: MultipleDoc
         },
         {
             id: 'icon',
             label: 'Icon',
-            component: IconDoc,
+            component: IconDoc
         },
         {
             id: 'label',
             label: 'Label',
-            component: LabelDoc,
+            component: LabelDoc
         },
         {
             id: 'vertical',
             label: 'Vertical',
-            component: VerticalDoc,
+            component: VerticalDoc
         },
         {
             id: 'minmax',
             label: 'Min Max',
-            component: MinMaxDoc,
+            component: MinMaxDoc
         },
         {
             id: 'template',
             label: 'Template',
-            component: TemplateDoc,
+            component: TemplateDoc
         },
 
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc,
-        },
+            component: AccessibilityDoc
+        }
     ];
 }

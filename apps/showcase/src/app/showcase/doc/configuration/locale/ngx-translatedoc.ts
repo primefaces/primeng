@@ -5,13 +5,10 @@ import { Code } from '@domain/code';
     selector: 'ngx-translate-doc',
     template: `
         <app-docsectiontext>
-            <p>
-                i18n API can easily be integrated with 3rd party libraries such as ngx-translate that even allows dynamically changing the
-                language in the application.
-            </p>
+            <p>i18n API can easily be integrated with 3rd party libraries such as ngx-translate that even allows dynamically changing the language in the application.</p>
         </app-docsectiontext>
         <app-code [code]="code" [hideToggleCode]="true"></app-code>
-    `,
+    `
 })
 export class NgxTranslateDoc {
     code: Code = {
@@ -36,6 +33,6 @@ export class AppComponent implements OnInit {
         this.translateService.use(lang);
         this.translateService.get('primeng').subscribe(res => this.config.setTranslation(res));
     }
-}`,
+}`
     };
 }

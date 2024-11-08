@@ -6,24 +6,15 @@ import { Code } from '@domain/code';
     template: `
         <app-docsectiontext>
             <p>
-                Labels are translated at component level by <i>promptLabel</i>, <i>weakLabel</i>, <i>mediumLabel</i> and
-                <i>strongLabel</i> properties. In order to apply global translations for all Password components in the application, refer
-                to the
+                Labels are translated at component level by <i>promptLabel</i>, <i>weakLabel</i>, <i>mediumLabel</i> and <i>strongLabel</i> properties. In order to apply global translations for all Password components in the application, refer to the
                 <a href="/configuration/#locale">locale</a>
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-password
-                [(ngModel)]="value"
-                promptLabel="Choose a password"
-                weakLabel="Too simple"
-                mediumLabel="Average complexity"
-                strongLabel="Complex password"
-                autocomplete="off"
-            />
+            <p-password [(ngModel)]="value" promptLabel="Choose a password" weakLabel="Too simple" mediumLabel="Average complexity" strongLabel="Complex password" autocomplete="off" />
         </div>
         <app-code [code]="code" selector="password-locale-demo"></app-code>
-    `,
+    `
 })
 export class LocaleDoc {
     value!: string;
@@ -47,6 +38,6 @@ import { FormsModule } from '@angular/forms';
 })
 export class PasswordLocaleDemo {
     value!: string;
-}`,
+}`
     };
 }

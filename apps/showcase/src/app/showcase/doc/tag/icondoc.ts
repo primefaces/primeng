@@ -17,7 +17,7 @@ import { Code } from '@domain/code';
             <p-tag icon="pi pi-cog" severity="contrast" value="Contrast" />
         </div>
         <app-code [code]="code" selector="tag-icon-demo"></app-code>
-    `,
+    `
 })
 export class IconDoc {
     code: Code = {
@@ -47,6 +47,6 @@ import { Tag } from 'primeng/tag';
     standalone: true,
     imports: [Tag]
 })
-export class TagIconDemo {}`,
+export class TagIconDemo {}`
     };
 }

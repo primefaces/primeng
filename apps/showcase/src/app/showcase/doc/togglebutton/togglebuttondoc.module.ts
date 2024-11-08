@@ -18,6 +18,6 @@ import { SizesDoc } from './sizesdoc';
 @NgModule({
     imports: [CommonModule, AppCodeModule, AppDocModule, ToggleButton, FormsModule, ReactiveFormsModule, RouterModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, CustomizedDoc, InvalidDoc, StyleDoc, AccessibilityDoc, ReactiveFormsDoc, DisabledDoc, SizesDoc],
+    declarations: [ImportDoc, BasicDoc, CustomizedDoc, InvalidDoc, StyleDoc, AccessibilityDoc, ReactiveFormsDoc, DisabledDoc, SizesDoc]
 })
 export class ToggleButtonDocModule {}

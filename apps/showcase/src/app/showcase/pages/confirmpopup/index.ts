@@ -18,35 +18,35 @@ import { ConfirmPopupDocModule } from '@doc/confirmpopup/confirmpopupdoc.module'
             [apiDocs]="['ConfirmPopup', 'Confirmation', 'ConfirmationService']"
             themeDocs="confirmPopup"
         ></app-doc>
-    `,
+    `
 })
 export class ConfirmPopupDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc,
+            component: ImportDoc
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc,
+            component: BasicDoc
         },
         {
             id: 'template',
             label: 'Template',
-            component: TemplateDoc,
+            component: TemplateDoc
         },
         {
             id: 'headless',
             label: 'Headless',
-            component: HeadlessDoc,
+            component: HeadlessDoc
         },
 
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc,
-        },
+            component: AccessibilityDoc
+        }
     ];
 }

@@ -24,75 +24,75 @@ import { SizesDoc } from '@doc/inputmask/sizesdoc';
         themeDocs="inputmask"
     ></app-doc> `,
     standalone: true,
-    imports: [InputMaskDocModule],
+    imports: [InputMaskDocModule]
 })
 export class InputMaskDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc,
+            component: ImportDoc
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc,
+            component: BasicDoc
         },
         {
             id: 'reactive-forms',
             label: 'Reactive Forms',
-            component: ReactiveFormsDoc,
+            component: ReactiveFormsDoc
         },
         {
             id: 'mask',
             label: 'Mask',
-            component: MaskDoc,
+            component: MaskDoc
         },
         {
             id: 'optional',
             label: 'Optional',
-            component: OptionalDoc,
+            component: OptionalDoc
         },
         {
             id: 'slotchar',
             label: 'SlotChar',
-            component: SlotCharDoc,
+            component: SlotCharDoc
         },
         {
             id: 'filled',
             label: 'Filled',
-            component: FilledDoc,
+            component: FilledDoc
         },
         {
             id: 'floatlabel',
             label: 'Float Label',
-            component: FloatlabelDoc,
+            component: FloatlabelDoc
         },
         {
             id: 'iftalabel',
             label: 'Ifta Label',
-            component: IftaLabelDoc,
+            component: IftaLabelDoc
         },
         {
             id: 'sizes',
             label: 'Sizes',
-            component: SizesDoc,
+            component: SizesDoc
         },
         {
             id: 'invalid',
             label: 'Invalid',
-            component: InvalidDoc,
+            component: InvalidDoc
         },
         {
             id: 'disabled',
             label: 'Disabled',
-            component: DisabledDoc,
+            component: DisabledDoc
         },
 
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc,
-        },
+            component: AccessibilityDoc
+        }
     ];
 }

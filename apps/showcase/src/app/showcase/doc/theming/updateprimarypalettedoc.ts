@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
             <p>Updates the primary colors, this is a shorthand to do the same update using <i>updatePreset</i>.</p>
         </app-docsectiontext>
         <app-code [code]="code" selector="update-primary-palette-demo" [hideToggleCode]="true"></app-code>
-    `,
+    `
 })
 export class UpdatePrimaryPaletteDoc {
     code = {
@@ -27,6 +27,6 @@ const changePrimaryColor() {
         900: '{indigo.900}',
         950: '{indigo.950}'
     });
-}`,
+}`
     };
 }

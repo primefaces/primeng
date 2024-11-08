@@ -15,74 +15,65 @@ import { SizesDoc } from '@doc/checkbox/sizesdoc';
 @Component({
     standalone: true,
     imports: [CheckboxDocModule],
-    template: `
-        <app-doc
-            docTitle="Angular Checkbox Component"
-            header="Checkbox"
-            description="Checkbox is an extension to standard checkbox element with theming."
-            [docs]="docs"
-            [apiDocs]="['Checkbox']"
-            themeDocs="checkbox"
-        ></app-doc>
-    `,
+    template: ` <app-doc docTitle="Angular Checkbox Component" header="Checkbox" description="Checkbox is an extension to standard checkbox element with theming." [docs]="docs" [apiDocs]="['Checkbox']" themeDocs="checkbox"></app-doc> `
 })
 export class CheckboxDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc,
+            component: ImportDoc
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc,
+            component: BasicDoc
         },
         {
             id: 'reactive-forms',
             label: 'Reactive Forms',
-            component: ReactiveFormsDoc,
+            component: ReactiveFormsDoc
         },
         {
             id: 'indeterminate',
             label: 'Indeterminate',
-            component: IndeterminateDoc,
+            component: IndeterminateDoc
         },
         {
             id: 'group',
             label: 'Group',
-            component: MultipleDoc,
+            component: MultipleDoc
         },
         {
             id: 'dynamic',
             label: 'Dynamic',
-            component: DynamicDoc,
+            component: DynamicDoc
         },
         {
             id: 'filled',
             label: 'Filled',
-            component: FilledDoc,
+            component: FilledDoc
         },
         {
             id: 'sizes',
             label: 'Sizes',
-            component: SizesDoc,
+            component: SizesDoc
         },
         {
             id: 'invalid',
             label: 'Invalid',
-            component: InvalidDoc,
+            component: InvalidDoc
         },
         {
             id: 'disabled',
             label: 'Disabled',
-            component: DisabledDoc,
+            component: DisabledDoc
         },
 
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc,
-        },
+            component: AccessibilityDoc
+        }
     ];
 }

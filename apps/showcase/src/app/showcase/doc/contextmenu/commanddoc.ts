@@ -26,11 +26,7 @@ interface Users {
                     (contextmenu)="onContextMenu($event, user)"
                 >
                     <div class="flex flex-1 items-center gap-2">
-                        <img
-                            class="w-8 h-8"
-                            [alt]="user.name"
-                            [src]="'https://primefaces.org/cdn/primeng/images/demo/avatar/' + user.image"
-                        />
+                        <img class="w-8 h-8" [alt]="user.name" [src]="'https://primefaces.org/cdn/primeng/images/demo/avatar/' + user.image" />
                         <span class="font-bold">{{ user.name }}</span>
                     </div>
                     <p-tag [value]="user.role" [severity]="getBadge(user)" />
@@ -42,7 +38,7 @@ interface Users {
 
         <app-code [code]="code" selector="context-menu-command-demo"></app-code>
     `,
-    providers: [MessageService],
+    providers: [MessageService]
 })
 export class CommandDoc implements OnInit {
     items: MenuItem[] | undefined;
@@ -61,7 +57,7 @@ export class CommandDoc implements OnInit {
             { id: 1, name: 'Anna Fali', image: 'annafali.png', role: 'Member' },
             { id: 2, name: 'Asiya Javayant', image: 'asiyajavayant.png', role: 'Member' },
             { id: 3, name: 'Bernardo Dominic', image: 'bernardodominic.png', role: 'Guest' },
-            { id: 4, name: 'Elwin Sharvill', image: 'elwinsharvill.png', role: 'Member' },
+            { id: 4, name: 'Elwin Sharvill', image: 'elwinsharvill.png', role: 'Member' }
         ];
 
         this.items = [
@@ -73,21 +69,21 @@ export class CommandDoc implements OnInit {
                         label: 'Admin',
                         command: () => {
                             this.selectedUser.role = 'Admin';
-                        },
+                        }
                     },
                     {
                         label: 'Member',
                         command: () => {
                             this.selectedUser.role = 'Member';
-                        },
+                        }
                     },
                     {
                         label: 'Guest',
                         command: () => {
                             this.selectedUser.role = 'Guest';
-                        },
-                    },
-                ],
+                        }
+                    }
+                ]
             },
             {
                 label: 'Invite',
@@ -97,10 +93,10 @@ export class CommandDoc implements OnInit {
                         severity: 'success',
                         summary: 'Success',
                         detail: 'Invitation sent!',
-                        life: 3000,
+                        life: 3000
                     });
-                },
-            },
+                }
+            }
         ];
     }
 
@@ -257,6 +253,6 @@ export class ContextMenuCommandDemo implements OnInit {
     onHide() {
         this.selectedUser = null;
     }
-}`,
+}`
     };
 }

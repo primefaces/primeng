@@ -23,32 +23,8 @@ import { AccessibilityDoc } from './accessibilitydoc';
 import { OverlayBadgeModule } from 'primeng/overlaybadge';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        RouterModule,
-        AppCodeModule,
-        InputTextModule,
-        FormsModule,
-        AppDocModule,
-        AvatarModule,
-        AvatarGroupModule,
-        BadgeModule,
-        OverlayBadgeModule,
-    ],
-    declarations: [
-        ImportDoc,
-        LabelDoc,
-        IconDoc,
-        GroupDoc,
-        ImageDoc,
-        AvatarStyleDoc,
-        AvatarGroupStyleDoc,
-        ShapeDoc,
-        SizeDoc,
-        BadgeDoc,
-        TemplateDoc,
-        AccessibilityDoc,
-    ],
-    exports: [AppDocModule],
+    imports: [CommonModule, RouterModule, AppCodeModule, InputTextModule, FormsModule, AppDocModule, AvatarModule, AvatarGroupModule, BadgeModule, OverlayBadgeModule],
+    declarations: [ImportDoc, LabelDoc, IconDoc, GroupDoc, ImageDoc, AvatarStyleDoc, AvatarGroupStyleDoc, ShapeDoc, SizeDoc, BadgeDoc, TemplateDoc, AccessibilityDoc],
+    exports: [AppDocModule]
 })
 export class AvatarDocModule {}

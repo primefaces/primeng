@@ -6,20 +6,16 @@ import { Code } from '@domain/code';
     template: `
         <app-docsectiontext>
             <p>
-                Various components utilize Angular animations to enhance the user experience. To enable animations in your application, you
-                must import the <i>BrowserAnimationsModule</i>. If you prefer to disable animations globally, you can import
+                Various components utilize Angular animations to enhance the user experience. To enable animations in your application, you must import the <i>BrowserAnimationsModule</i>. If you prefer to disable animations globally, you can import
                 <i>NoopAnimationsModule</i> instead.
             </p>
-            <p>
-                Starting from Angular 17, you can also use the <i>provideAnimationsAsync</i> function for configuring animations in a more
-                efficient way, especially in larger applications where optimizing load times is crucial.
-            </p>
+            <p>Starting from Angular 17, you can also use the <i>provideAnimationsAsync</i> function for configuring animations in a more efficient way, especially in larger applications where optimizing load times is crucial.</p>
         </app-docsectiontext>
         <div class="mb-4">
             <app-code [code]="code" [hideToggleCode]="true"></app-code>
         </div>
         <app-code [code]="code2" [hideToggleCode]="true"></app-code>
-    `,
+    `
 })
 export class AnimationsDoc {
     code: Code = {
@@ -32,7 +28,7 @@ export const appConfig: ApplicationConfig = {
         // Other providers...
         provideAnimationsAsync(),
     ],
-};`,
+};`
     };
 
     code2: Code = {
@@ -42,6 +38,6 @@ import {appConfig} from './app/app.config';
 import {AppComponent} from './app/app.component';
 
 bootstrapApplication(AppComponent, appConfig).catch((err) => console.error(err));
-`,
+`
     };
 }

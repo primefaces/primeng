@@ -10,27 +10,13 @@ interface Country {
     selector: 'template-doc',
     template: `
         <app-docsectiontext>
-            <p>
-                Available options and the selected options support templating with <i>pTemplate</i> properties respectively. In addition,
-                header, footer and filter sections can be templated as well.
-            </p>
+            <p>Available options and the selected options support templating with <i>pTemplate</i> properties respectively. In addition, header, footer and filter sections can be templated as well.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-multiselect
-                [options]="countries"
-                [(ngModel)]="selectedCountries"
-                placeholder="Select Countries"
-                optionLabel="name"
-                styleClass="w-full md:w-80"
-                display="chip"
-            >
+            <p-multiselect [options]="countries" [(ngModel)]="selectedCountries" placeholder="Select Countries" optionLabel="name" styleClass="w-full md:w-80" display="chip">
                 <ng-template let-country pTemplate="item">
                     <div class="flex items-center gap-2">
-                        <img
-                            src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
-                            [class]="'flag flag-' + country.code.toLowerCase()"
-                            style="width: 18px"
-                        />
+                        <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" style="width: 18px" />
                         <div>{{ country.name }}</div>
                     </div>
                 </ng-template>
@@ -52,7 +38,7 @@ interface Country {
             </p-multiselect>
         </div>
         <app-code [code]="code" selector="multi-select-template-demo"></app-code>
-    `,
+    `
 })
 export class TemplateDoc implements OnInit {
     countries!: Country[];
@@ -70,7 +56,7 @@ export class TemplateDoc implements OnInit {
             { name: 'India', code: 'IN' },
             { name: 'Japan', code: 'JP' },
             { name: 'Spain', code: 'ES' },
-            { name: 'United States', code: 'US' },
+            { name: 'United States', code: 'US' }
         ];
     }
 
@@ -182,6 +168,6 @@ export class MultiSelectTemplateDemo implements OnInit {
             { name: 'United States', code: 'US' }
         ];
     }
-}`,
+}`
     };
 }

@@ -11,7 +11,7 @@ import { Code } from '@domain/code';
             <p-togglebutton [(ngModel)]="checked" onLabel="On" offLabel="Off" styleClass="w-24" />
         </div>
         <app-code [code]="code" selector="toggle-button-basic-demo"></app-code>
-    `,
+    `
 })
 export class BasicDoc {
     checked: boolean = false;
@@ -35,6 +35,6 @@ import { ToggleButton } from 'primeng/togglebutton';
 })
 export class ToggleButtonBasicDemo {
     checked: boolean = false;
-}`,
+}`
     };
 }

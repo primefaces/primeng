@@ -5,10 +5,7 @@ import { Code } from '@domain/code';
     selector: 'locale-doc',
     template: `
         <app-docsectiontext>
-            <p>
-                Localization information such as grouping and decimal symbols are defined with the <i>locale</i> property which defaults to
-                the user locale.
-            </p>
+            <p>Localization information such as grouping and decimal symbols are defined with the <i>locale</i> property which defaults to the user locale.</p>
         </app-docsectiontext>
         <p-fluid class="card flex flex-wrap gap-4">
             <div class="flex-auto">
@@ -29,7 +26,7 @@ import { Code } from '@domain/code';
             </div>
         </p-fluid>
         <app-code [code]="code" selector="input-number-locale-demo"></app-code>
-    `,
+    `
 })
 export class LocaleDoc {
     value1: number = 151351;
@@ -92,6 +89,6 @@ export class InputNumberLocaleDemo {
     value3: number = 635524;
 
     value4: number = 732762;
-}`,
+}`
     };
 }

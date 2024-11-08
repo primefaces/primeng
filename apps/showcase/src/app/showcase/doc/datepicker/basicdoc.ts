@@ -11,7 +11,7 @@ import { Code } from '@domain/code';
             <p-datepicker [(ngModel)]="date" />
         </div>
         <app-code [code]="code" selector="datepicker-basic-demo"></app-code>
-    `,
+    `
 })
 export class BasicDoc {
     date: Date | undefined;
@@ -35,6 +35,6 @@ import { FormsModule } from '@angular/forms';
 })
 export class DatePickerBasicDemo {
     date: Date | undefined;
-}`,
+}`
     };
 }

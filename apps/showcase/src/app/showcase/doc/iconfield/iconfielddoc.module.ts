@@ -18,19 +18,8 @@ import { SizesDoc } from './sizesdoc';
 import { StyleDoc } from './styledoc';
 import { TemplateDoc } from './templatedoc';
 @NgModule({
-    imports: [
-        CommonModule,
-        RouterModule,
-        AppCodeModule,
-        AppDocModule,
-        InputTextModule,
-        IconFieldModule,
-        InputIconModule,
-        FormsModule,
-        FloatLabelModule,
-        IftaLabelModule,
-    ],
+    imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, InputTextModule, IconFieldModule, InputIconModule, FormsModule, FloatLabelModule, IftaLabelModule],
     declarations: [ImportDoc, BasicDoc, TemplateDoc, FloatLabelDoc, IftaLabelDoc, SizesDoc, AccessibilityDoc, StyleDoc],
-    exports: [AppDocModule],
+    exports: [AppDocModule]
 })
 export class IconFieldDocModule {}

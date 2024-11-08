@@ -5,10 +5,7 @@ import { Code } from '@domain/code';
     selector: 'ifta-label-doc',
     template: `
         <app-docsectiontext>
-            <p>
-                IftaLabel is used to create infield top aligned labels. Visit <a routerLink="/iftalabel">IftaLabel</a> documentation for
-                more information.
-            </p>
+            <p>IftaLabel is used to create infield top aligned labels. Visit <a routerLink="/iftalabel">IftaLabel</a> documentation for more information.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-inputgroup class="md:!w-80">
@@ -22,7 +19,7 @@ import { Code } from '@domain/code';
             </p-inputgroup>
         </div>
         <app-code [code]="code" selector="input-group-ifta-label-demo"></app-code>
-    `,
+    `
 })
 export class IftaLabelDoc {
     value: number = 10;
@@ -66,6 +63,6 @@ import { InputNumberModule } from 'primeng/inputnumber';
 })
 export class InputGroupIftaLabelDemo {
     value: number = 10;
-}`,
+}`
     };
 }

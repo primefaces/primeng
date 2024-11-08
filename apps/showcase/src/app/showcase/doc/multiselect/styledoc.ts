@@ -57,6 +57,6 @@ import { Component } from '@angular/core';
                 </tbody>
             </table>
         </div>
-    `,
+    `
 })
 export class StyleDoc {}

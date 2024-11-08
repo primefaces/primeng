@@ -3,6 +3,6 @@ import { DialogDemo } from './';
 export default [
     {
         path: '',
-        component: DialogDemo,
-    },
+        component: DialogDemo
+    }
 ];

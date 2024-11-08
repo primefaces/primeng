@@ -12,9 +12,9 @@ import { MigrationDemoComponent } from './migration/migration.component';
             { path: 'accessibility', component: AccessibilityDemoComponent },
             { path: 'templateupdate', component: TemplateUpdateDemoComponent },
             { path: 'primeflex', component: PrimeFlexDemoComponent },
-            { path: 'migration', component: MigrationDemoComponent },
-        ]),
+            { path: 'migration', component: MigrationDemoComponent }
+        ])
     ],
-    exports: [RouterModule],
+    exports: [RouterModule]
 })
 export class GuidesRoutingModule {}

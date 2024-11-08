@@ -18,13 +18,7 @@ import { Code } from '@domain/code';
             </div>
             <div class="flex-auto">
                 <label class="mb-2 font-bold block" for="minmaxfraction">Min-Max Fraction Digits</label>
-                <p-inputnumber
-                    [(ngModel)]="value3"
-                    inputId="minmaxfraction"
-                    mode="decimal"
-                    [minFractionDigits]="2"
-                    [maxFractionDigits]="5"
-                />
+                <p-inputnumber [(ngModel)]="value3" inputId="minmaxfraction" mode="decimal" [minFractionDigits]="2" [maxFractionDigits]="5" />
             </div>
             <div class="flex-auto">
                 <label class="mb-2 font-bold block" for="minmax">Min-Max Boundaries</label>
@@ -32,7 +26,7 @@ import { Code } from '@domain/code';
             </div>
         </p-fluid>
         <app-code [code]="code" selector="input-number-numerals-demo"></app-code>
-    `,
+    `
 })
 export class NumeralsDoc {
     value1: number = 42723;
@@ -87,6 +81,6 @@ export class InputNumberNumeralsDemo {
     value3: number = 2351.35;
 
     value4: number = 50;
-}`,
+}`
     };
 }

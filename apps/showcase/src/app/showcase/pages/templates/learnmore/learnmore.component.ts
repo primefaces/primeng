@@ -4,7 +4,7 @@ import * as templateData from './templatedata.json';
 @Component({
     selector: 'templates',
     templateUrl: './learnmore.component.html',
-    styleUrl: './learnmore.scss',
+    styleUrl: './learnmore.scss'
 })
 export class LearnMoreComponent implements OnInit {
     id: string;
@@ -15,7 +15,7 @@ export class LearnMoreComponent implements OnInit {
 
     constructor(
         private route: ActivatedRoute,
-        private router: Router,
+        private router: Router
     ) {}
 
     ngOnInit() {

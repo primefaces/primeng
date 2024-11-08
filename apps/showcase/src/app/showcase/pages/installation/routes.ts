@@ -3,6 +3,6 @@ import { InstallationDemo } from '.';
 export default [
     {
         path: '',
-        component: InstallationDemo,
-    },
+        component: InstallationDemo
+    }
 ];

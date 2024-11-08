@@ -24,18 +24,7 @@ import Noir from '../themes/app-theme';
     selector: 'app-root',
     template: ` <router-outlet></router-outlet>`,
     standalone: true,
-    imports: [
-        RouterOutlet,
-        FormsModule,
-        ReactiveFormsModule,
-        HttpClientModule,
-        AppMainComponent,
-        LandingComponent,
-        AppNewsComponent,
-        AppConfiguratorComponent,
-        AppTopBarComponent,
-        AppMenuComponent,
-    ],
+    imports: [RouterOutlet, FormsModule, ReactiveFormsModule, HttpClientModule, AppMainComponent, LandingComponent, AppNewsComponent, AppConfiguratorComponent, AppTopBarComponent, AppMenuComponent],
     providers: [
         CarService,
         CountryService,
@@ -49,10 +38,10 @@ import Noir from '../themes/app-theme';
             provide: IMAGE_CONFIG,
             useValue: {
                 disableImageSizeWarning: true,
-                disableImageLazyLoadWarning: true,
-            },
-        },
-    ],
+                disableImageLazyLoadWarning: true
+            }
+        }
+    ]
 })
 export class AppComponent {
     constructor(
@@ -61,7 +50,7 @@ export class AppComponent {
         private primeng: PrimeNGConfig,
         private configService: AppConfigService,
         private router: Router,
-        @Inject(PLATFORM_ID) private platformId: any,
+        @Inject(PLATFORM_ID) private platformId: any
     ) {
         afterNextRender(() => {
             if (process.env.NODE_ENV === 'production') {
@@ -97,7 +86,7 @@ export class AppComponent {
             if (event instanceof NavigationEnd) {
                 if (typeof window['gtag'] === 'function') {
                     window['gtag']('event', 'page_view', {
-                        page_path: event.urlAfterRedirects,
+                        page_path: event.urlAfterRedirects
                     });
                 }
             }

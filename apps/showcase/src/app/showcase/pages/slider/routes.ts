@@ -3,6 +3,6 @@ import { SliderDemo } from './';
 export default [
     {
         path: '',
-        component: SliderDemo,
-    },
+        component: SliderDemo
+    }
 ];

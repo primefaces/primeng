@@ -7,9 +7,8 @@ import { Component } from '@angular/core';
             <div class="doc-section-description">
                 <h3>Screen Reader</h3>
                 <p>
-                    Chip uses the <i>label</i> property as the default <i>aria-label</i>, since any attribute is passed to the root element
-                    <i>aria-labelledby</i> or <i>aria-label</i> can be used to override the default behavior. Removable chips have a
-                    <i>tabindex</i> and focusable with the tab key.
+                    Chip uses the <i>label</i> property as the default <i>aria-label</i>, since any attribute is passed to the root element <i>aria-labelledby</i> or <i>aria-label</i> can be used to override the default behavior. Removable chips have
+                    a <i>tabindex</i> and focusable with the tab key.
                 </p>
                 <h3>Keyboard Support</h3>
                 <div class="doc-tablewrapper">
@@ -34,6 +33,6 @@ import { Component } from '@angular/core';
                 </div>
             </div>
         </app-docsectiontext>
-    </div>`,
+    </div>`
 })
 export class AccessibilityDoc {}

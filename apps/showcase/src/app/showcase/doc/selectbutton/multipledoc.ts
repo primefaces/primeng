@@ -5,22 +5,19 @@ import { Code } from '@domain/code';
     selector: 'multiple-doc',
     template: `
         <app-docsectiontext>
-            <p>
-                SelectButton allows selecting only one item by default and setting <i>multiple</i> option enables choosing more than one
-                item. In multiple case, model property should be an array.
-            </p>
+            <p>SelectButton allows selecting only one item by default and setting <i>multiple</i> option enables choosing more than one item. In multiple case, model property should be an array.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-selectbutton [options]="paymentOptions" [(ngModel)]="value" [multiple]="true" optionLabel="name" optionValue="value" />
         </div>
         <app-code [code]="code" selector="select-button-multiple-demo"></app-code>
-    `,
+    `
 })
 export class MultipleDoc {
     paymentOptions: any[] = [
         { name: 'Option 1', value: 1 },
         { name: 'Option 2', value: 2 },
-        { name: 'Option 3', value: 3 },
+        { name: 'Option 3', value: 3 }
     ];
 
     value!: number;
@@ -51,6 +48,6 @@ export class SelectButtonMultipleDemo {
         { name: 'Option 3', value: 3 }
     ];
 
-}`,
+}`
     };
 }

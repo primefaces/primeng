@@ -11,13 +11,7 @@ import { ProductService } from '@service/productservice';
         <p-deferred-demo (load)="loadDemoData()">
             <div class="card">
                 <div class="flex justify-center mb-4">
-                    <p-selectbutton
-                        [options]="sizes"
-                        [(ngModel)]="selectedSize"
-                        [multiple]="false"
-                        optionLabel="name"
-                        optionValue="value"
-                    />
+                    <p-selectbutton [options]="sizes" [(ngModel)]="selectedSize" [multiple]="false" optionLabel="name" optionValue="value" />
                 </div>
                 <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }" [size]="selectedSize">
                     <ng-template #header>
@@ -40,7 +34,7 @@ import { ProductService } from '@service/productservice';
             </div>
         </p-deferred-demo>
         <app-code [code]="code" selector="table-size-demo" [extFiles]="extFiles"></app-code>`,
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SizeDoc {
     products!: Product[];
@@ -51,7 +45,7 @@ export class SizeDoc {
 
     constructor(
         private productService: ProductService,
-        private cd: ChangeDetectorRef,
+        private cd: ChangeDetectorRef
     ) {}
 
     loadDemoData() {
@@ -63,7 +57,7 @@ export class SizeDoc {
         this.sizes = [
             { name: 'Small', value: 'small' },
             { name: 'Normal', value: undefined },
-            { name: 'Large', value: 'large' },
+            { name: 'Large', value: 'large' }
         ];
     }
 
@@ -170,7 +164,7 @@ export class TableSizeDemo {
     rating: 5
 },
 ...`,
-        service: ['ProductService'],
+        service: ['ProductService']
     };
 
     extFiles = [
@@ -188,7 +182,7 @@ export interface Product {
     category?: string;
     image?: string;
     rating?: number;
-}`,
-        },
+}`
+        }
     ];
 }

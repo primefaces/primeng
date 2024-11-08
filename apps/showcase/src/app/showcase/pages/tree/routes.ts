@@ -3,6 +3,6 @@ import { TreeDemo } from './';
 export default [
     {
         path: '',
-        component: TreeDemo,
-    },
+        component: TreeDemo
+    }
 ];

@@ -8,49 +8,43 @@ import { AccessibilityDoc } from '@doc/organizationchart/accessibilitydoc';
 import { OrganizationChartDocModule } from '@doc/organizationchart/organizationchartdoc.module';
 
 @Component({
-    template: ` <app-doc
-        docTitle="Angular Organization Chart Component"
-        header="OrganizationChart"
-        description="OrganizationChart visualizes hierarchical organization data."
-        [docs]="docs"
-        [apiDocs]="['OrganizationChart']"
-    ></app-doc>`,
+    template: ` <app-doc docTitle="Angular Organization Chart Component" header="OrganizationChart" description="OrganizationChart visualizes hierarchical organization data." [docs]="docs" [apiDocs]="['OrganizationChart']"></app-doc>`,
     standalone: true,
     imports: [OrganizationChartDocModule],
-    styleUrl: './organizationchartdemo.scss',
+    styleUrl: './organizationchartdemo.scss'
 })
 export class OrganizationChartDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc,
+            component: ImportDoc
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc,
+            component: BasicDoc
         },
         {
             id: 'template',
             label: 'Template',
-            component: TemplateDoc,
+            component: TemplateDoc
         },
         {
             id: 'selection',
             label: 'Selection',
-            component: SelectionDoc,
+            component: SelectionDoc
         },
         {
             id: 'colored',
             label: 'Colored',
-            component: ColoredDoc,
+            component: ColoredDoc
         },
 
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc,
-        },
+            component: AccessibilityDoc
+        }
     ];
 }

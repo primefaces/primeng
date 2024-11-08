@@ -7,10 +7,9 @@ import { ProductService } from '@service/productservice';
     selector: 'multiple-selection-doc',
     template: ` <app-docsectiontext>
             <p>
-                More than one row is selectable by setting <i>selectionMode</i> to <i>multiple</i>. By default in multiple selection mode,
-                metaKey press (e.g. <i>⌘</i>) is not necessary to add to existing selections. When the optional <i>metaKeySelection</i>
-                is present, behavior is changed in a way that selecting a new row requires meta key to be present. Note that in touch
-                enabled devices, DataTable always ignores metaKey.
+                More than one row is selectable by setting <i>selectionMode</i> to <i>multiple</i>. By default in multiple selection mode, metaKey press (e.g. <i>⌘</i>) is not necessary to add to existing selections. When the optional
+                <i>metaKeySelection</i>
+                is present, behavior is changed in a way that selecting a new row requires meta key to be present. Note that in touch enabled devices, DataTable always ignores metaKey.
             </p>
         </app-docsectiontext>
         <p-deferred-demo (load)="loadDemoData()">
@@ -19,14 +18,7 @@ import { ProductService } from '@service/productservice';
                     <p-toggleswitch [(ngModel)]="metaKey" inputId="input-metakey" />
                     <label for="input-metakey">MetaKey</label>
                 </div>
-                <p-table
-                    [value]="products"
-                    selectionMode="multiple"
-                    [(selection)]="selectedProducts"
-                    [metaKeySelection]="metaKey"
-                    dataKey="code"
-                    [tableStyle]="{ 'min-width': '50rem' }"
-                >
+                <p-table [value]="products" selectionMode="multiple" [(selection)]="selectedProducts" [metaKeySelection]="metaKey" dataKey="code" [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template #header>
                         <tr>
                             <th>Code</th>
@@ -47,7 +39,7 @@ import { ProductService } from '@service/productservice';
             </div>
         </p-deferred-demo>
         <app-code [code]="code" selector="table-multiple-selection-demo" [extFiles]="extFiles"></app-code>`,
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MultipleSelectionDoc {
     products!: Product[];
@@ -58,7 +50,7 @@ export class MultipleSelectionDoc {
 
     constructor(
         private productService: ProductService,
-        private cd: ChangeDetectorRef,
+        private cd: ChangeDetectorRef
     ) {}
 
     loadDemoData() {
@@ -170,7 +162,7 @@ export class TableMultipleSelectionDemo implements OnInit{
     rating: 5
 },
 ...`,
-        service: ['ProductService'],
+        service: ['ProductService']
     };
 
     extFiles = [
@@ -188,7 +180,7 @@ export interface Product {
     category?: string;
     image?: string;
     rating?: number;
-}`,
-        },
+}`
+        }
     ];
 }

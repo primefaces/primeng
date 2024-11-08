@@ -6,10 +6,7 @@ import { Code } from '@domain/code';
     selector: 'sticky-doc',
     template: `
         <app-docsectiontext>
-            <p>
-                A toast disappears after the time defined by the <i>life</i> option, set <i>sticky</i> option <i>true</i> on the message to
-                override this and not hide the toast automatically.
-            </p>
+            <p>A toast disappears after the time defined by the <i>life</i> option, set <i>sticky</i> option <i>true</i> on the message to override this and not hide the toast automatically.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-toast />
@@ -20,7 +17,7 @@ import { Code } from '@domain/code';
         </div>
         <app-code [code]="code" selector="toast-sticky-demo"></app-code>
     `,
-    providers: [MessageService],
+    providers: [MessageService]
 })
 export class StickyDoc {
     constructor(private messageService: MessageService) {}
@@ -69,6 +66,6 @@ export class ToastStickyDemo {
     clear() {
         this.messageService.clear();
     }
-}`,
+}`
     };
 }

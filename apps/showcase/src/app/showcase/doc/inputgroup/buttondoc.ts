@@ -33,7 +33,7 @@ import { MenuItem } from 'primeng/api';
             </p-inputgroup>
         </div>
         <app-code [code]="code" selector="input-group-button-demo"></app-code>
-    `,
+    `
 })
 export class ButtonDoc {
     items: MenuItem[] | undefined;
@@ -112,6 +112,6 @@ export class InputGroupButtonDemo {
     ngOnInit() {
         this.items = [{ label: 'Web Search' }, { label: 'AI Assistant' }, { label: 'History' }];
     }
-}`,
+}`
     };
 }

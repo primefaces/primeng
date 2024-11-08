@@ -8,23 +8,17 @@ import { Code } from '@domain/code';
             <p>Tooltip is also configurable by using <i>tooltipOptions</i> property.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <input
-                type="text"
-                pInputText
-                pTooltip="Enter your username"
-                [tooltipOptions]="tooltipOptions"
-                placeholder="hover to display tooltip"
-            />
+            <input type="text" pInputText pTooltip="Enter your username" [tooltipOptions]="tooltipOptions" placeholder="hover to display tooltip" />
         </div>
         <app-code [code]="code" selector="tooltip-options-demo"></app-code>
-    `,
+    `
 })
 export class OptionsDoc {
     tooltipOptions = {
         showDelay: 150,
         autoHide: false,
         tooltipEvent: 'hover',
-        tooltipPosition: 'left',
+        tooltipPosition: 'left'
     };
 
     code: Code = {
@@ -51,6 +45,6 @@ export class TooltipOptionsDemo {
         tooltipEvent: 'hover',
         tooltipPosition: 'left'
     };
-}`,
+}`
     };
 }

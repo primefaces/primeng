@@ -9,15 +9,12 @@ interface AutoCompleteCompleteEvent {
 @Component({
     selector: 'filled-doc',
     template: ` <app-docsectiontext>
-            <p>
-                Specify the <i>variant</i> property as <i>filled</i> to display the component with a higher visual emphasis than the default
-                <i>outlined</i> style.
-            </p>
+            <p>Specify the <i>variant</i> property as <i>filled</i> to display the component with a higher visual emphasis than the default <i>outlined</i> style.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-autocomplete [(ngModel)]="selectedItem" [suggestions]="suggestions" (completeMethod)="search($event)" variant="filled" />
         </div>
-        <app-code [code]="code" selector="autocomplete-filled-demo"></app-code>`,
+        <app-code [code]="code" selector="autocomplete-filled-demo"></app-code>`
 })
 export class FilledDoc {
     items: any[] | undefined;
@@ -62,6 +59,6 @@ export class AutocompleteFilledDemo {
     search(event: AutoCompleteCompleteEvent) {
         this.suggestions = [...Array(10).keys()].map(item => event.query + '-' + item);
     }
-}`,
+}`
     };
 }

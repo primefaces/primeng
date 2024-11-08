@@ -25,7 +25,7 @@ import { LearnMoreComponent } from './learnmore.component';
         TemplateFeaturesAnimationModule,
         TemplateConfigurationModule,
         TemplateRelatedModule,
-        TemplateFeaturesAnimationInlineModule,
-    ],
+        TemplateFeaturesAnimationInlineModule
+    ]
 })
 export class LearnMoreModule {}

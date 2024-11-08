@@ -18,6 +18,6 @@ import { AccessibilityDoc } from './accessibilitydoc';
 @NgModule({
     imports: [CommonModule, AppCodeModule, AppDocModule, Timeline, CardModule, ButtonModule, RouterModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, AlignmentDoc, OppositeDoc, TemplateDoc, HorizontalDoc, StyleDoc, AccessibilityDoc],
+    declarations: [ImportDoc, BasicDoc, AlignmentDoc, OppositeDoc, TemplateDoc, HorizontalDoc, StyleDoc, AccessibilityDoc]
 })
 export class TimelineDocModule {}

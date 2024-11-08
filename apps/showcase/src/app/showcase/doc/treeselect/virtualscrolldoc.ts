@@ -6,10 +6,8 @@ import { NodeService } from '@service/nodeservice';
     selector: 'virtual-scroll-doc',
     template: ` <app-docsectiontext>
             <p>
-                VirtualScrolling is an efficient way of rendering the options by displaying a small subset of data in the viewport at any
-                time. When dealing with huge number of options, it is suggested to enable VirtualScrolling to avoid performance issues.
-                Usage is simple as setting <i>virtualScroll</i> property to true and defining <i>virtualScrollItemSize</i> to specify the
-                height of an item.
+                VirtualScrolling is an efficient way of rendering the options by displaying a small subset of data in the viewport at any time. When dealing with huge number of options, it is suggested to enable VirtualScrolling to avoid performance
+                issues. Usage is simple as setting <i>virtualScroll</i> property to true and defining <i>virtualScrollItemSize</i> to specify the height of an item.
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
@@ -27,7 +25,7 @@ import { NodeService } from '@service/nodeservice';
                 [virtualScrollOptions]="{ scrollHeight: '200px' }"
             ></p-treeselect>
         </div>
-        <app-code [code]="code" selector="tree-select-virtual-scroll-demo"></app-code>`,
+        <app-code [code]="code" selector="tree-select-virtual-scroll-demo"></app-code>`
 })
 export class VirtualScrollDoc {
     nodes!: any[];
@@ -66,6 +64,6 @@ export class TreeSelectVirtualScrollDemo {
     }
 }`,
 
-        service: ['NodeService'],
+        service: ['NodeService']
     };
 }

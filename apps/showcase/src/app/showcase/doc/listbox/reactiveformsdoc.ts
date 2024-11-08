@@ -11,16 +11,13 @@ interface City {
     selector: 'reactive-forms-doc',
     template: `
         <app-docsectiontext>
-            <p>
-                Listbox can also be used with reactive forms. In this case, the <i>formControlName</i> property is used to bind the
-                component to a form control.
-            </p>
+            <p>Listbox can also be used with reactive forms. In this case, the <i>formControlName</i> property is used to bind the component to a form control.</p>
         </app-docsectiontext>
         <form [formGroup]="formGroup" class="card flex justify-center">
             <p-listbox [options]="cities" formControlName="selectedCity" optionLabel="name" class="w-full md:w-56" />
         </form>
         <app-code [code]="code" selector="listbox-reactive-forms-demo"></app-code>
-    `,
+    `
 })
 export class ReactiveFormsDoc implements OnInit {
     cities!: City[];
@@ -33,11 +30,11 @@ export class ReactiveFormsDoc implements OnInit {
             { name: 'Rome', code: 'RM' },
             { name: 'London', code: 'LDN' },
             { name: 'Istanbul', code: 'IST' },
-            { name: 'Paris', code: 'PRS' },
+            { name: 'Paris', code: 'PRS' }
         ];
 
         this.formGroup = new FormGroup({
-            selectedCity: new FormControl<City | null>(null),
+            selectedCity: new FormControl<City | null>(null)
         });
     }
 
@@ -83,6 +80,6 @@ export class ListboxReactiveFormsDemo implements OnInit {
             selectedCity: new FormControl<City | null>(null)
         });
     } 
-}`,
+}`
     };
 }

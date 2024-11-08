@@ -17,6 +17,6 @@ import { AccessibilityDoc } from './accessibilitydoc';
 @NgModule({
     imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, Tag, ButtonModule],
     declarations: [ImportDoc, BasicDoc, IconDoc, PillDoc, StyleDoc, TemplateDoc, SeverityDoc, AccessibilityDoc],
-    exports: [AppDocModule],
+    exports: [AppDocModule]
 })
 export class TagDocModule {}

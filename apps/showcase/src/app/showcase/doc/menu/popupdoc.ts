@@ -6,10 +6,7 @@ import { Code } from '@domain/code';
     selector: 'popup-doc',
     template: `
         <app-docsectiontext>
-            <p>
-                Popup mode is enabled by setting <i>popup</i> property to <i>true</i> and calling <i>toggle</i> method with an event of the
-                target.
-            </p>
+            <p>Popup mode is enabled by setting <i>popup</i> property to <i>true</i> and calling <i>toggle</i> method with an event of the target.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-menu #menu [model]="items" [popup]="true" />
@@ -17,7 +14,7 @@ import { Code } from '@domain/code';
         </div>
         <app-code [code]="code" selector="menu-popup-demo"></app-code>
     `,
-    providers: [MessageService],
+    providers: [MessageService]
 })
 export class PopupDoc implements OnInit {
     items: MenuItem[] | undefined;
@@ -29,14 +26,14 @@ export class PopupDoc implements OnInit {
                 items: [
                     {
                         label: 'Refresh',
-                        icon: 'pi pi-refresh',
+                        icon: 'pi pi-refresh'
                     },
                     {
                         label: 'Export',
-                        icon: 'pi pi-upload',
-                    },
-                ],
-            },
+                        icon: 'pi pi-upload'
+                    }
+                ]
+            }
         ];
     }
     code: Code = {
@@ -80,6 +77,6 @@ export class MenuPopupDemo implements OnInit {
             }
         ];
     }
-}`,
+}`
     };
 }

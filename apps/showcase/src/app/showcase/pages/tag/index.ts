@@ -9,54 +9,47 @@ import { AccessibilityDoc } from '@doc/tag/accessibilitydoc';
 import { TagDocModule } from '@doc/tag/tagdoc.module';
 
 @Component({
-    template: `<app-doc
-        docTitle="Angular Tag Component"
-        header="Tag"
-        description="Tag component is used to categorize content."
-        [docs]="docs"
-        [apiDocs]="['Tag']"
-        themeDocs="tag"
-    ></app-doc>`,
+    template: `<app-doc docTitle="Angular Tag Component" header="Tag" description="Tag component is used to categorize content." [docs]="docs" [apiDocs]="['Tag']" themeDocs="tag"></app-doc>`,
     standalone: true,
-    imports: [TagDocModule],
+    imports: [TagDocModule]
 })
 export class TagDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc,
+            component: ImportDoc
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc,
+            component: BasicDoc
         },
         {
             id: 'severity',
             label: 'Severity',
-            component: SeverityDoc,
+            component: SeverityDoc
         },
         {
             id: 'pill',
             label: 'Pill',
-            component: PillDoc,
+            component: PillDoc
         },
         {
             id: 'icon',
             label: 'Icon',
-            component: IconDoc,
+            component: IconDoc
         },
         {
             id: 'template',
             label: 'Template',
-            component: TemplateDoc,
+            component: TemplateDoc
         },
 
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc,
-        },
+            component: AccessibilityDoc
+        }
     ];
 }

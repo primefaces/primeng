@@ -19,13 +19,7 @@ import { Code } from '@domain/code';
                 <div class="flex-auto">
                     <h5>Circle</h5>
                     <p-avatar icon="pi pi-user" class="mr-2" size="xlarge" shape="circle" />
-                    <p-avatar
-                        icon="pi pi-user"
-                        class="mr-2"
-                        size="large"
-                        style="background-color: #ece9fc; color: #2a1261"
-                        shape="circle"
-                    />
+                    <p-avatar icon="pi pi-user" class="mr-2" size="large" style="background-color: #ece9fc; color: #2a1261" shape="circle" />
                     <p-avatar icon="pi pi-user" style="background-color: #dee9fc; color: #1a2551" shape="circle" />
                 </div>
 
@@ -38,7 +32,7 @@ import { Code } from '@domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="avatar-icon-demo"></app-code>
-    `,
+    `
 })
 export class IconDoc {
     code: Code = {
@@ -93,6 +87,6 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
     standalone: true,
     imports: [AvatarModule, OverlayBadgeModule]
 })
-export class AvatarIconDemo {}`,
+export class AvatarIconDemo {}`
     };
 }

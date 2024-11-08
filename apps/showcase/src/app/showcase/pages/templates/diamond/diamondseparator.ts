@@ -22,7 +22,7 @@ import { AppConfigService } from '@service/appconfigservice';
                 </defs>
             </svg>
         </template-separator>
-    `,
+    `
 })
 export class DiamondSeparator {
     configService = inject(AppConfigService);

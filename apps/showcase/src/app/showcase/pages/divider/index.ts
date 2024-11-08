@@ -11,54 +11,45 @@ import { DividerDocModule } from '@doc/divider/dividerdoc.module';
 @Component({
     standalone: true,
     imports: [DividerDocModule],
-    template: `
-        <app-doc
-            docTitle="Angular Divider Component"
-            header="Divider"
-            description="Divider is used to separate contents."
-            [docs]="docs"
-            [apiDocs]="['Divider']"
-            themeDocs="divider"
-        ></app-doc>
-    `,
+    template: ` <app-doc docTitle="Angular Divider Component" header="Divider" description="Divider is used to separate contents." [docs]="docs" [apiDocs]="['Divider']" themeDocs="divider"></app-doc> `
 })
 export class DividerDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc,
+            component: ImportDoc
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc,
+            component: BasicDoc
         },
         {
             id: 'type',
             label: 'Type',
-            component: TypeDoc,
+            component: TypeDoc
         },
         {
             id: 'vertical',
             label: 'Vertical',
-            component: VerticalDoc,
+            component: VerticalDoc
         },
         {
             id: 'content',
             label: 'Content',
-            component: ContentDoc,
+            component: ContentDoc
         },
         {
             id: 'login',
             label: 'Login',
-            component: LoginDoc,
+            component: LoginDoc
         },
 
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc,
-        },
+            component: AccessibilityDoc
+        }
     ];
 }

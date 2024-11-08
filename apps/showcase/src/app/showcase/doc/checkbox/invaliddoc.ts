@@ -11,7 +11,7 @@ import { Code } from '@domain/code';
             <p-checkbox [(ngModel)]="checked" [binary]="true" styleClass="ng-invalid ng-dirty" />
         </div>
         <app-code [code]="code" selector="checkbox-invalid-demo"></app-code>
-    `,
+    `
 })
 export class InvalidDoc {
     checked: boolean = false;
@@ -35,6 +35,6 @@ import { Checkbox } from 'primeng/checkbox';
 })
 export class CheckboxInvalidDemo {
     checked: boolean = false;
-}`,
+}`
     };
 }

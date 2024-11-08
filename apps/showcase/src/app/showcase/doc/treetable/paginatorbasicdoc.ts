@@ -14,15 +14,7 @@ interface Column {
         </app-docsectiontext>
         <div class="card">
             <p-deferred-demo (load)="loadDemoData()">
-                <p-treetable
-                    [value]="files"
-                    [columns]="cols"
-                    [paginator]="true"
-                    [rows]="5"
-                    [rowsPerPageOptions]="[5, 10, 25]"
-                    [scrollable]="true"
-                    [tableStyle]="{ 'min-width': '50rem' }"
-                >
+                <p-treetable [value]="files" [columns]="cols" [paginator]="true" [rows]="5" [rowsPerPageOptions]="[5, 10, 25]" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template pTemplate="header" let-columns>
                         <tr>
                             <th *ngFor="let col of columns">
@@ -42,7 +34,7 @@ interface Column {
             </p-deferred-demo>
         </div>
         <app-code [code]="code" selector="tree-table-paginator-basic-demo"></app-code>`,
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PaginatorBasicDoc {
     files!: TreeNode[];
@@ -55,17 +47,17 @@ export class PaginatorBasicDoc {
                 data: {
                     name: 'Item ' + i,
                     size: Math.floor(Math.random() * 1000) + 1 + 'kb',
-                    type: 'Type ' + i,
+                    type: 'Type ' + i
                 },
                 children: [
                     {
                         data: {
                             name: 'Item ' + i + ' - 0',
                             size: Math.floor(Math.random() * 1000) + 1 + 'kb',
-                            type: 'Type ' + i,
-                        },
-                    },
-                ],
+                            type: 'Type ' + i
+                        }
+                    }
+                ]
             };
 
             this.files.push(node);
@@ -74,7 +66,7 @@ export class PaginatorBasicDoc {
         this.cols = [
             { field: 'name', header: 'Name' },
             { field: 'size', header: 'Size' },
-            { field: 'type', header: 'Type' },
+            { field: 'type', header: 'Type' }
         ];
     }
 
@@ -181,6 +173,6 @@ export class TreeTablePaginatorBasicDemo implements OnInit {
             { field: 'type', header: 'Type' }
         ];
     }
-}`,
+}`
     };
 }

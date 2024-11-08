@@ -60,17 +60,14 @@ import { KnobModule } from 'primeng/knob';
         CustomersApp,
         DrawerModule,
         OverlayBadgeModule,
-        KnobModule,
+        KnobModule
     ],
     template: `
         <section class="landing-hero py-20 px-8 lg:px-20">
             <div class="flex flex-col items-center">
-                <h1 class="text-5xl font-bold text-center xl:text-left leading-tight">
-                    The Next-Gen UI Suite for <span class="font-bold text-primary">Angular</span>
-                </h1>
+                <h1 class="text-5xl font-bold text-center xl:text-left leading-tight">The Next-Gen UI Suite for <span class="font-bold text-primary">Angular</span></h1>
                 <p class="text-center mt-0 mb-8 text-surface-500 dark:text-surface-400 font-medium text-xl leading-relaxed lg:px-56">
-                    Enhance your web applications with PrimeNG's comprehensive suite of customizable, feature-rich UI components. With
-                    PrimeNG, turning your development vision into reality has never been easier.
+                    Enhance your web applications with PrimeNG's comprehensive suite of customizable, feature-rich UI components. With PrimeNG, turning your development vision into reality has never been easier.
                 </p>
                 <div class="flex items-center gap-4">
                     <a [routerLink]="'installation'" class="linkbox linkbox-primary">
@@ -83,98 +80,56 @@ import { KnobModule } from 'primeng/knob';
                     </a>
                 </div>
                 <div class="w-full flex lg:hidden items-center justify-center mt-16 mb-4">
-                    <p-selectbutton
-                        [(ngModel)]="selectedSampleOption"
-                        [options]="sampleOptions"
-                        optionLabel="title"
-                        styleClass="dark:border dark:border-white/20"
-                    >
+                    <p-selectbutton [(ngModel)]="selectedSampleOption" [options]="sampleOptions" optionLabel="title" styleClass="dark:border dark:border-white/20">
                         <ng-template let-item pTemplate="item">
                             <i [class]="item.icon"></i>
                             <div class="hidden sm:flex flex-1 text-sm font-medium leading-5">{{ item.title }}</div>
                         </ng-template>
                     </p-selectbutton>
                 </div>
-                <div
-                    class="bg-surface-0 border border-black/10 dark:border-white/20 dark:bg-surface-950 w-full rounded-3xl p-0 flex lg:hidden items-start gap-6 overflow-hidden"
-                >
+                <div class="bg-surface-0 border border-black/10 dark:border-white/20 dark:bg-surface-950 w-full rounded-3xl p-0 flex lg:hidden items-start gap-6 overflow-hidden">
                     <ng-container *ngFor="let sampleOption of sampleOptions">
-                        <img
-                            *ngIf="selectedSampleOption.title === sampleOption.title"
-                            [src]="sampleOption.src + (isDarkMode ? '-dark.jpg' : '.jpg')"
-                            class="w-full"
-                        />
+                        <img *ngIf="selectedSampleOption.title === sampleOption.title" [src]="sampleOption.src + (isDarkMode ? '-dark.jpg' : '.jpg')" class="w-full" />
                     </ng-container>
                 </div>
-                <div
-                    class="bg-surface-0 border border-black/10 dark:border-white/20 dark:bg-surface-950 w-full h-[85vh] max-h-[1040px] rounded-3xl p-6 hidden lg:flex lg:mt-20 items-start gap-6 overflow-hidden"
-                >
+                <div class="bg-surface-0 border border-black/10 dark:border-white/20 dark:bg-surface-950 w-full h-[85vh] max-h-[1040px] rounded-3xl p-6 hidden lg:flex lg:mt-20 items-start gap-6 overflow-hidden">
                     <div
                         [ngClass]="{
                             'w-auto': isSlimMenu,
-                            'w-72': !isSlimMenu,
+                            'w-72': !isSlimMenu
                         }"
                         class="rounded-2xl p-5 bg-surface-50 dark:bg-surface-900 h-full flex flex-col justify-between"
                     >
                         <div
                             [ngClass]="{
                                 'w-12 flex flex-col items-center': isSlimMenu,
-                                'w-auto': !isSlimMenu,
+                                'w-auto': !isSlimMenu
                             }"
                         >
                             <div class="flex items-center gap-3">
                                 <div class="w-11 h-11 border border-primary rounded-xl flex items-center justify-center">
                                     <svg width="20" height="24" viewBox="0 0 20 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path
-                                            d="M14.65 11.0645L13.1283 10.7253L14.3119 12.4216V17.6803L18.3698 14.2876V8.52002L16.5099 9.19856L14.65 11.0645Z"
-                                            fill="var(--p-primary-color)"
-                                        />
-                                        <path
-                                            d="M5.18078 11.0645L6.70251 10.7253L5.51894 12.4216V17.6803L1.46098 14.2876V8.52002L3.32088 9.19856L5.18078 11.0645Z"
-                                            fill="var(--p-primary-color)"
-                                        />
+                                        <path d="M14.65 11.0645L13.1283 10.7253L14.3119 12.4216V17.6803L18.3698 14.2876V8.52002L16.5099 9.19856L14.65 11.0645Z" fill="var(--p-primary-color)" />
+                                        <path d="M5.18078 11.0645L6.70251 10.7253L5.51894 12.4216V17.6803L1.46098 14.2876V8.52002L3.32088 9.19856L5.18078 11.0645Z" fill="var(--p-primary-color)" />
                                         <path
                                             fill-rule="evenodd"
                                             clip-rule="evenodd"
                                             d="M6.02649 12.7634L7.37914 10.7278L8.22455 11.2367H11.6062L12.4516 10.7278L13.8042 12.7634V20.397L12.7898 21.9237L11.6062 23.1111H8.22455L7.04098 21.9237L6.02649 20.397V12.7634Z"
                                             fill="var(--p-primary-color)"
                                         />
-                                        <path
-                                            d="M14.311 20.9058L16.5091 18.7005V16.4952L14.311 18.3612V20.9058Z"
-                                            fill="var(--p-primary-color)"
-                                        />
-                                        <path
-                                            d="M5.51868 20.9058L3.32062 18.7005V16.4952L5.51868 18.3612V20.9058Z"
-                                            fill="var(--p-primary-color)"
-                                        />
-                                        <path
-                                            fill-rule="evenodd"
-                                            clip-rule="evenodd"
-                                            d="M9.578 0.888672H7.7177L6.36505 4.11174L8.56311 10.5579H11.4375L13.4665 4.11174L12.1138 0.888672H10.2543V10.5578H9.578V0.888672Z"
-                                            fill="var(--p-primary-color)"
-                                        />
-                                        <path
-                                            d="M8.56283 10.5575L1.29232 7.84329L0.277832 3.60242L6.53385 4.11132L8.73191 10.5575H8.56283Z"
-                                            fill="var(--p-primary-color)"
-                                        />
-                                        <path
-                                            d="M11.4372 10.5575L18.7077 7.84329L19.7222 3.60242L13.2971 4.11132L11.2681 10.5575H11.4372Z"
-                                            fill="var(--p-primary-color)"
-                                        />
-                                        <path
-                                            d="M13.8041 3.60283L17.3548 3.26356L14.9876 0.888672H12.6205L13.8041 3.60283Z"
-                                            fill="var(--p-primary-color)"
-                                        />
-                                        <path
-                                            d="M6.02676 3.60283L2.47604 3.26356L4.84318 0.888672H7.21033L6.02676 3.60283Z"
-                                            fill="var(--p-primary-color)"
-                                        />
+                                        <path d="M14.311 20.9058L16.5091 18.7005V16.4952L14.311 18.3612V20.9058Z" fill="var(--p-primary-color)" />
+                                        <path d="M5.51868 20.9058L3.32062 18.7005V16.4952L5.51868 18.3612V20.9058Z" fill="var(--p-primary-color)" />
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M9.578 0.888672H7.7177L6.36505 4.11174L8.56311 10.5579H11.4375L13.4665 4.11174L12.1138 0.888672H10.2543V10.5578H9.578V0.888672Z" fill="var(--p-primary-color)" />
+                                        <path d="M8.56283 10.5575L1.29232 7.84329L0.277832 3.60242L6.53385 4.11132L8.73191 10.5575H8.56283Z" fill="var(--p-primary-color)" />
+                                        <path d="M11.4372 10.5575L18.7077 7.84329L19.7222 3.60242L13.2971 4.11132L11.2681 10.5575H11.4372Z" fill="var(--p-primary-color)" />
+                                        <path d="M13.8041 3.60283L17.3548 3.26356L14.9876 0.888672H12.6205L13.8041 3.60283Z" fill="var(--p-primary-color)" />
+                                        <path d="M6.02676 3.60283L2.47604 3.26356L4.84318 0.888672H7.21033L6.02676 3.60283Z" fill="var(--p-primary-color)" />
                                     </svg>
                                 </div>
                                 <div
                                     [ngClass]="{
                                         hidden: isSlimMenu,
-                                        block: !isSlimMenu,
+                                        block: !isSlimMenu
                                     }"
                                     class="text-surface-950 dark:text-surface-0 font-medium text-3xl"
                                 >
@@ -191,22 +146,21 @@ import { KnobModule } from 'primeng/knob';
                                         'w-12 justify-center py-4': isSlimMenu,
                                         'w-full': !isSlimMenu,
                                         'text-muted-color hover:bg-emphasis bg-transparent': selectedSampleAppsSidebarNav !== navItem.title,
-                                        'text-primary-contrast bg-primary hover:bg-primary-emphasis':
-                                            selectedSampleAppsSidebarNav === navItem.title,
+                                        'text-primary-contrast bg-primary hover:bg-primary-emphasis': selectedSampleAppsSidebarNav === navItem.title
                                     }"
                                 >
                                     <i [class]="navItem.icon"></i>
                                     <span
                                         [ngClass]="{
                                             hidden: isSlimMenu,
-                                            'font-medium leading-8': !isSlimMenu,
+                                            'font-medium leading-8': !isSlimMenu
                                         }"
                                         >・</span
                                     >
                                     <span
                                         [ngClass]="{
                                             hidden: isSlimMenu,
-                                            'font-medium leading-none': !isSlimMenu,
+                                            'font-medium leading-none': !isSlimMenu
                                         }"
                                         >{{ navItem.title }}</span
                                     >
@@ -216,7 +170,7 @@ import { KnobModule } from 'primeng/knob';
                         <div
                             [ngClass]="{
                                 'w-12 flex flex-col items-center': isSlimMenu,
-                                'w-auto': !isSlimMenu,
+                                'w-auto': !isSlimMenu
                             }"
                         >
                             <div class="mt-10 flex flex-col gap-2">
@@ -226,7 +180,7 @@ import { KnobModule } from 'primeng/knob';
                                     class="px-4 py-1 flex items-center gap-1 cursor-pointer text-base rounded-lg transition-all select-none text-muted-color hover:bg-emphasis"
                                     [ngClass]="{
                                         'w-12 justify-center py-4': isSlimMenu,
-                                        'w-full': !isSlimMenu,
+                                        'w-full': !isSlimMenu
                                     }"
                                 >
                                     <a class="cursor-pointer block p-0 m-0 leading-none">
@@ -246,8 +200,7 @@ import { KnobModule } from 'primeng/knob';
                                         'w-12 justify-center py-4': isSlimMenu,
                                         'w-full': !isSlimMenu,
                                         'text-muted-color hover:bg-emphasis bg-transparent': selectedSampleAppsSidebarNav !== navItem.title,
-                                        'text-primary-contrast bg-primary hover:bg-primary-emphasis':
-                                            selectedSampleAppsSidebarNav === navItem.title,
+                                        'text-primary-contrast bg-primary hover:bg-primary-emphasis': selectedSampleAppsSidebarNav === navItem.title
                                     }"
                                 >
                                     <i [class]="navItem.icon"></i>
@@ -257,12 +210,7 @@ import { KnobModule } from 'primeng/knob';
                             </div>
                             <p-divider />
                             <div [class]="isSlimMenu ? 'justify-center' : ' gap-3'" class="flex items-center">
-                                <p-avatar
-                                    image="https://www.primefaces.org/cdn/primevue/images/landing/apps/main-avatar.png"
-                                    size="large"
-                                    shape="circle"
-                                    class="shrink-0"
-                                />
+                                <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/main-avatar.png" size="large" shape="circle" class="shrink-0" />
                                 <div>
                                     <div [class]="isSlimMenu ? 'hidden' : 'text-base font-medium text-color leading-5'">Robin Jonas</div>
                                     <div [class]="isSlimMenu ? 'hidden' : 'text-sm text-muted-color mt-1'">hi&#64;robin.xyz</div>
@@ -270,102 +218,53 @@ import { KnobModule } from 'primeng/knob';
                             </div>
                         </div>
                     </div>
-                    <p-drawer
-                        [(visible)]="visibleRight"
-                        position="right"
-                        closeIcon="pi pi-sign-out"
-                        styleClass="!max-w-2xl !w-full !h-screen rounded-l-2xl"
-                    >
+                    <p-drawer [(visible)]="visibleRight" position="right" closeIcon="pi pi-sign-out" styleClass="!max-w-2xl !w-full !h-screen rounded-l-2xl">
                         <ng-template pTemplate="headless">
                             <div class="flex flex-col h-screen overflow-auto">
                                 <div class="">
                                     <div class="flex align-items-center gap-3 p-6">
-                                        <p-avatar
-                                            image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar11.jpg"
-                                            size="large"
-                                            class="rounded-xl overflow-hidden"
-                                        />
+                                        <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar11.jpg" size="large" class="rounded-xl overflow-hidden" />
                                         <div class="flex-1">
                                             <div class="leading-6 text-color font-medium">Brook Simmons</div>
                                             <div class="mt-1 leading-5 text-muted-color text-sm">Sales Executive</div>
                                         </div>
-                                        <p-button
-                                            (onClick)="visibleRight = false"
-                                            icon="pi pi-sign-out"
-                                            text
-                                            rounded
-                                            severity="secondary"
-                                        />
+                                        <p-button (onClick)="visibleRight = false" icon="pi pi-sign-out" text rounded severity="secondary" />
                                     </div>
-                                    <p-selectbutton
-                                        [(ngModel)]="selectedSidebarOption"
-                                        [options]="sidebarOptions"
-                                        class="w-full px-6 py-3"
-                                        styleClass="flex-1 py-2.5"
-                                    >
+                                    <p-selectbutton [(ngModel)]="selectedSidebarOption" [options]="sidebarOptions" class="w-full px-6 py-3" styleClass="flex-1 py-2.5">
                                         <ng-template pTemplate="item" let-item>
                                             <span class="text-sm">{{ item }}</span>
                                         </ng-template>
                                     </p-selectbutton>
                                 </div>
-                                <div
-                                    *ngIf="selectedSidebarOption === 'Interaction Logs'"
-                                    class="h-[calc(100%-172px)] flex flex-col gap-4 p-6"
-                                >
+                                <div *ngIf="selectedSidebarOption === 'Interaction Logs'" class="h-[calc(100%-172px)] flex flex-col gap-4 p-6">
                                     <div class="h-1/3 flex flex-col p-3 rounded-xl bg-emphasis">
                                         <div class="flex items-start justify-between">
                                             <div class="leading-6 font-medium text-color">Call Logs</div>
-                                            <p-button
-                                                icon="pi pi-download text-sm"
-                                                styleClass="w-8 h-8 !border-surface !bg-surface-0 dark:!bg-surface-900 hover:opacity-75 transition-all"
-                                                severity="secondary"
-                                                text
-                                            />
+                                            <p-button icon="pi pi-download text-sm" styleClass="w-8 h-8 !border-surface !bg-surface-0 dark:!bg-surface-900 hover:opacity-75 transition-all" severity="secondary" text />
                                         </div>
-                                        <div
-                                            class="overflow-y-auto flex-1 bg-surface-0 dark:bg-surface-900 mt-2 flex flex-col rounded-lg overflow-hidden divide-y divide-surface-200 dark:divide-surface-800"
-                                        >
+                                        <div class="overflow-y-auto flex-1 bg-surface-0 dark:bg-surface-900 mt-2 flex flex-col rounded-lg overflow-hidden divide-y divide-surface-200 dark:divide-surface-800">
                                             <div *ngFor="let data of callLogs" class="flex items-center gap-3 p-2">
                                                 <p-overlayBadge severity="success" styleClass="w-fit">
-                                                    <p-avatar
-                                                        [image]="data.image"
-                                                        size="normal"
-                                                        styleClass="rounded-md w-10 h-10 overflow-hidden flex"
-                                                    />
+                                                    <p-avatar [image]="data.image" size="normal" styleClass="rounded-md w-10 h-10 overflow-hidden flex" />
                                                 </p-overlayBadge>
 
                                                 <div class="flex-1">
                                                     <div class="text-sm leading-5 font-medium text-color">{{ data.name }}</div>
                                                     <div class="mt-1 text-sm leading-5 text-muted-color">{{ data.time }}</div>
                                                 </div>
-                                                <p-button
-                                                    icon="pi pi-phone text-sm"
-                                                    text
-                                                    styleClass="bg-primary/10 dark:bg-primary/20 w-8 h-8"
-                                                />
+                                                <p-button icon="pi pi-phone text-sm" text styleClass="bg-primary/10 dark:bg-primary/20 w-8 h-8" />
                                             </div>
                                         </div>
                                     </div>
                                     <div class="h-1/3 flex flex-col p-3 rounded-xl bg-emphasis">
                                         <div class="flex items-start justify-between">
                                             <div class="leading-6 font-medium text-color">Email Records</div>
-                                            <p-button
-                                                icon="pi pi-download text-sm"
-                                                styleClass="w-8 h-8 !border-surface !bg-surface-0 dark:!bg-surface-900 hover:opacity-75 transition-all"
-                                                severity="secondary"
-                                                text
-                                            />
+                                            <p-button icon="pi pi-download text-sm" styleClass="w-8 h-8 !border-surface !bg-surface-0 dark:!bg-surface-900 hover:opacity-75 transition-all" severity="secondary" text />
                                         </div>
-                                        <div
-                                            class="overflow-y-auto flex-1 bg-surface-0 dark:bg-surface-900 mt-2 flex flex-col rounded-lg overflow-hidden divide-y divide-surface-200 dark:divide-surface-800"
-                                        >
+                                        <div class="overflow-y-auto flex-1 bg-surface-0 dark:bg-surface-900 mt-2 flex flex-col rounded-lg overflow-hidden divide-y divide-surface-200 dark:divide-surface-800">
                                             <div *ngFor="let data of emailRecords" class="flex items-center gap-3 p-2">
                                                 <p-overlayBadge severity="danger" styleClass="w-fit">
-                                                    <p-avatar
-                                                        [image]="data.image"
-                                                        size="normal"
-                                                        styleClass="rounded-md overflow-hidden w-10 h-10 flex"
-                                                    />
+                                                    <p-avatar [image]="data.image" size="normal" styleClass="rounded-md overflow-hidden w-10 h-10 flex" />
                                                 </p-overlayBadge>
 
                                                 <div class="w-1/5 text-sm leading-5 font-medium text-color">{{ data.name }}</div>
@@ -386,20 +285,11 @@ import { KnobModule } from 'primeng/knob';
                                     <div class="h-1/3 flex flex-col p-3 rounded-xl bg-emphasis">
                                         <div class="flex items-start justify-between">
                                             <div class="leading-6 font-medium text-color">Meeting Notes</div>
-                                            <p-button
-                                                icon="pi pi-download text-sm"
-                                                styleClass="w-8 h-8 !border-surface !bg-surface-0 dark:!bg-surface-900 hover:opacity-75 transition-all leading-none"
-                                                severity="secondary"
-                                                text
-                                            />
+                                            <p-button icon="pi pi-download text-sm" styleClass="w-8 h-8 !border-surface !bg-surface-0 dark:!bg-surface-900 hover:opacity-75 transition-all leading-none" severity="secondary" text />
                                         </div>
-                                        <div
-                                            class="overflow-y-auto flex-1 bg-surface-0 dark:bg-surface-900 mt-2 p-4 flex flex-col rounded-lg overflow-hidden"
-                                        >
+                                        <div class="overflow-y-auto flex-1 bg-surface-0 dark:bg-surface-900 mt-2 p-4 flex flex-col rounded-lg overflow-hidden">
                                             <div class="flex items-start justify-between gap-1">
-                                                <div class="text-sm text-color font-medium max-w-60">
-                                                    Subject: Meeting Wrap-up & Action Items: Jacob Jones
-                                                </div>
+                                                <div class="text-sm text-color font-medium max-w-60">Subject: Meeting Wrap-up & Action Items: Jacob Jones</div>
                                                 <div class="text-sm text-muted-color">February 14, 2024 / 2:00 PM</div>
                                             </div>
                                             <div class="text-sm text-muted-color mt-6">
@@ -413,8 +303,7 @@ import { KnobModule } from 'primeng/knob';
                                                 </ul>
                                                 <br />
                                                 Demo: Schedule product demo with Arlene McCoy. (Assigned to: Jerome Bell)<br /><br />
-                                                Integration Blueprint: Draft and deliver technical blueprint. (Assigned to: Cameron
-                                                Williamson)<br /><br />
+                                                Integration Blueprint: Draft and deliver technical blueprint. (Assigned to: Cameron Williamson)<br /><br />
                                                 Follow-up Meeting: Arrange to discuss any queries post-demo. (Assigned to: Dianne Russell)
                                                 <br /><br />
                                                 Please act on these items promptly.
@@ -425,9 +314,7 @@ import { KnobModule } from 'primeng/knob';
                                 <div *ngIf="selectedSidebarOption === 'Preferences'" class="h-[calc(100%-72px)] flex flex-col gap-4 p-6">
                                     <div *ngFor="let data of preferences" class="h-1/4 flex flex-col p-3 rounded-xl bg-emphasis">
                                         <div class="leading-6 font-medium text-color p-2">{{ data.title }}</div>
-                                        <div
-                                            class="overflow-y-auto flex-1 bg-surface-0 dark:bg-surface-900 mt-2 p-4 flex flex-col gap-3 rounded-lg"
-                                        >
+                                        <div class="overflow-y-auto flex-1 bg-surface-0 dark:bg-surface-900 mt-2 p-4 flex flex-col gap-3 rounded-lg">
                                             <div *ngFor="let pref of data.prefs" class="flex items-center gap-2">
                                                 <i class="text-lg text-color" [class]="pref.icon"></i>
                                                 <div class="font-medium text-color flex-1">{{ pref.title }}</div>
@@ -441,12 +328,7 @@ import { KnobModule } from 'primeng/knob';
                                         <div class="flex items-start justify-between gap-2">
                                             <div class="font-medium text-color mt-0.5">{{ data.title }}</div>
                                             <a [routerLink]="data.link" target="_blank" rel="noopener">
-                                                <p-button
-                                                    icon="pi pi-arrow-up-right text-sm !leading-none"
-                                                    styleClass="w-8 h-8 !border-surface !bg-surface-0 dark:!bg-surface-900"
-                                                    severity="secondary"
-                                                    text
-                                                />
+                                                <p-button icon="pi pi-arrow-up-right text-sm !leading-none" styleClass="w-8 h-8 !border-surface !bg-surface-0 dark:!bg-surface-900" severity="secondary" text />
                                             </a>
                                         </div>
                                         <img class="w-full rounded-lg mt-2 block" [src]="data.image" alt="Opportunutiy Image" />
@@ -461,45 +343,19 @@ import { KnobModule } from 'primeng/knob';
                                             <div class="flex items-center justify-between gap-2">
                                                 <div class="font-medium text-color p-2">Customer Satisfaction Score</div>
                                             </div>
-                                            <div
-                                                class="flex-1 py-4 mt-2 flex items-center justify-center rounded-lg bg-surface-0 dark:bg-surface-900 shadow-sm"
-                                            >
-                                                <p-knob
-                                                    [(ngModel)]="customerSatisfaction"
-                                                    [size]="150"
-                                                    [strokeWidth]="8"
-                                                    valueTemplate="{value}%"
-                                                    styleClass="pointer-events-none"
-                                                />
+                                            <div class="flex-1 py-4 mt-2 flex items-center justify-center rounded-lg bg-surface-0 dark:bg-surface-900 shadow-sm">
+                                                <p-knob [(ngModel)]="customerSatisfaction" [size]="150" [strokeWidth]="8" valueTemplate="{value}%" styleClass="pointer-events-none" />
                                             </div>
                                         </div>
                                         <div class="w-full h-full flex flex-col p-3 rounded-xl bg-emphasis">
                                             <div class="flex items-center justify-between gap-2">
                                                 <div class="font-medium text-color p-2">Estimated Lifetime Value</div>
                                             </div>
-                                            <div
-                                                class="flex-1 flex items-center gap-2 justify-center mt-2 p-2 rounded-lg bg-surface-0 dark:bg-surface-900 shadow-sm"
-                                            >
-                                                <div
-                                                    class="font-semibold text-lg leading-none text-color border border-surface py-3.5 px-2 rounded-lg"
-                                                >
-                                                    $
-                                                </div>
-                                                <div
-                                                    class="font-semibold text-lg leading-none text-color border border-surface py-3.5 px-2 rounded-lg"
-                                                >
-                                                    272
-                                                </div>
-                                                <div
-                                                    class="font-semibold text-lg leading-none text-color border border-surface py-3.5 px-2 rounded-lg"
-                                                >
-                                                    123
-                                                </div>
-                                                <div
-                                                    class="font-semibold text-lg leading-none text-color border border-surface py-3.5 px-2 rounded-lg"
-                                                >
-                                                    000
-                                                </div>
+                                            <div class="flex-1 flex items-center gap-2 justify-center mt-2 p-2 rounded-lg bg-surface-0 dark:bg-surface-900 shadow-sm">
+                                                <div class="font-semibold text-lg leading-none text-color border border-surface py-3.5 px-2 rounded-lg">$</div>
+                                                <div class="font-semibold text-lg leading-none text-color border border-surface py-3.5 px-2 rounded-lg">272</div>
+                                                <div class="font-semibold text-lg leading-none text-color border border-surface py-3.5 px-2 rounded-lg">123</div>
+                                                <div class="font-semibold text-lg leading-none text-color border border-surface py-3.5 px-2 rounded-lg">000</div>
                                             </div>
                                         </div>
                                         <div class="w-full h-full flex flex-col p-3 rounded-xl bg-emphasis">
@@ -507,43 +363,20 @@ import { KnobModule } from 'primeng/knob';
                                                 <div class="font-medium text-color p-2">Product Usage</div>
                                             </div>
                                             <div class="flex-1 mt-2 py-4 rounded-lg bg-surface-0 dark:bg-surface-900 shadow-sm">
-                                                <p-chart
-                                                    type="line"
-                                                    [data]="lineChartData"
-                                                    [options]="lineChartOptions"
-                                                    styleClass="min-h-44 w-full"
-                                                    width="100%"
-                                                    height="11rem"
-                                                />
+                                                <p-chart type="line" [data]="lineChartData" [options]="lineChartOptions" styleClass="min-h-44 w-full" width="100%" height="11rem" />
                                             </div>
                                         </div>
                                         <div class="w-full h-full flex flex-col p-3 rounded-xl bg-emphasis">
                                             <div class="font-medium text-color p-2">Churn Risk</div>
-                                            <div
-                                                class="flex-1 py-4 mt-2 flex items-center justify-center rounded-lg bg-surface-0 dark:bg-surface-900 shadow-sm"
-                                            >
-                                                <p-knob
-                                                    [(ngModel)]="churnRisk"
-                                                    [size]="150"
-                                                    [strokeWidth]="8"
-                                                    valueTemplate="{value}%"
-                                                    class="pointer-events-none"
-                                                />
+                                            <div class="flex-1 py-4 mt-2 flex items-center justify-center rounded-lg bg-surface-0 dark:bg-surface-900 shadow-sm">
+                                                <p-knob [(ngModel)]="churnRisk" [size]="150" [strokeWidth]="8" valueTemplate="{value}%" class="pointer-events-none" />
                                             </div>
                                         </div>
                                     </div>
                                     <div class="mt-4 w-full flex flex-col p-3 rounded-xl bg-emphasis">
                                         <div class="font-medium text-color p-2">Total Purchases</div>
-                                        <div
-                                            class="flex-1 py-4 px-2 w-full mt-2 flex items-center justify-center rounded-lg bg-surface-0 dark:bg-surface-900 shadow-sm"
-                                        >
-                                            <p-chart
-                                                type="bar"
-                                                [data]="chartData2"
-                                                [options]="chartOptions2"
-                                                height="15rem"
-                                                class="w-full"
-                                            />
+                                        <div class="flex-1 py-4 px-2 w-full mt-2 flex items-center justify-center rounded-lg bg-surface-0 dark:bg-surface-900 shadow-sm">
+                                            <p-chart type="bar" [data]="chartData2" [options]="chartOptions2" height="15rem" class="w-full" />
                                         </div>
                                     </div>
                                 </div>
@@ -560,7 +393,7 @@ import { KnobModule } from 'primeng/knob';
                 </div>
             </div>
         </section>
-    `,
+    `
 })
 export class HeroSectionComponent implements OnInit, OnDestroy {
     selectedSampleOption;
@@ -634,7 +467,7 @@ export class HeroSectionComponent implements OnInit, OnDestroy {
     constructor(
         private configService: AppConfigService,
         @Inject(PLATFORM_ID) private platformId: any,
-        private cd: ChangeDetectorRef,
+        private cd: ChangeDetectorRef
     ) {}
 
     ngOnInit() {
@@ -642,33 +475,33 @@ export class HeroSectionComponent implements OnInit, OnDestroy {
             {
                 icon: 'pi pi-home',
                 title: 'Overview',
-                src: 'https://www.primefaces.org/cdn/primevue/images/landing/apps/sampleshots/overview',
+                src: 'https://www.primefaces.org/cdn/primevue/images/landing/apps/sampleshots/overview'
             },
             {
                 icon: 'pi pi-comment',
                 title: 'Chat',
-                src: 'https://www.primefaces.org/cdn/primevue/images/landing/apps/sampleshots/chat',
+                src: 'https://www.primefaces.org/cdn/primevue/images/landing/apps/sampleshots/chat'
             },
             {
                 icon: 'pi pi-inbox',
                 title: 'Inbox',
-                src: 'https://www.primefaces.org/cdn/primevue/images/landing/apps/sampleshots/mail',
+                src: 'https://www.primefaces.org/cdn/primevue/images/landing/apps/sampleshots/mail'
             },
             {
                 icon: 'pi pi-th-large',
                 title: 'Cards',
-                src: 'https://www.primefaces.org/cdn/primevue/images/landing/apps/sampleshots/cards',
+                src: 'https://www.primefaces.org/cdn/primevue/images/landing/apps/sampleshots/cards'
             },
             {
                 icon: 'pi pi-user',
                 title: 'Customers',
-                src: 'https://www.primefaces.org/cdn/primevue/images/landing/apps/sampleshots/customers',
+                src: 'https://www.primefaces.org/cdn/primevue/images/landing/apps/sampleshots/customers'
             },
             {
                 icon: 'pi pi-video',
                 title: 'Movies',
-                src: 'https://www.primefaces.org/cdn/primevue/images/landing/apps/sampleshots/movies',
-            },
+                src: 'https://www.primefaces.org/cdn/primevue/images/landing/apps/sampleshots/movies'
+            }
         ];
         this.selectedSampleOption = this.sampleOptions[0];
 
@@ -678,7 +511,7 @@ export class HeroSectionComponent implements OnInit, OnDestroy {
             { icon: 'pi pi-inbox', title: 'Inbox' },
             { icon: 'pi pi-th-large', title: 'Cards' },
             { icon: 'pi pi-user', title: 'Customers' },
-            { icon: 'pi pi-video', title: 'Movies' },
+            { icon: 'pi pi-video', title: 'Movies' }
         ];
         this.sampleAppsSidebarNavsMore = [{ icon: 'pi pi-cog', title: 'Settings' }];
 
@@ -687,18 +520,18 @@ export class HeroSectionComponent implements OnInit, OnDestroy {
 
         this.selectButtonOptions = [
             { label: 'Styled', value: 1 },
-            { label: 'Unstyled', value: 2 },
+            { label: 'Unstyled', value: 2 }
         ];
 
         this.items = [
             { label: 'Home', icon: 'pi pi-fw pi-home' },
-            { label: 'Calendar', icon: 'pi pi-fw pi-calendar' },
+            { label: 'Calendar', icon: 'pi pi-fw pi-calendar' }
         ];
 
         this.users = [
             { name: 'Amy Elsner', image: 'amyelsner.png' },
             { name: 'Bernardo Dominic', image: 'bernardodominic.png' },
-            { name: 'Onyama Limba', image: 'onyamalimba.png' },
+            { name: 'Onyama Limba', image: 'onyamalimba.png' }
         ];
 
         this.preferences = [
@@ -707,31 +540,31 @@ export class HeroSectionComponent implements OnInit, OnDestroy {
                 prefs: [
                     { icon: 'pi pi-bell', title: 'Notification', checked: true },
                     { icon: 'pi pi-inbox', title: 'Newsletter', checked: false },
-                    { icon: 'pi pi-sync', title: 'Product Updates', checked: false },
-                ],
+                    { icon: 'pi pi-sync', title: 'Product Updates', checked: false }
+                ]
             },
             {
                 title: 'Telephone',
                 prefs: [
                     { icon: 'pi pi-mobile', title: 'Phone Call', checked: true },
                     { icon: 'pi pi-volume-down', title: 'Voicemail', checked: false },
-                    { icon: 'pi pi-comments', title: 'SMS text', checked: false },
-                ],
+                    { icon: 'pi pi-comments', title: 'SMS text', checked: false }
+                ]
             },
             {
                 title: 'Social Media',
                 prefs: [
                     { icon: 'pi pi-clock', title: 'Automated Post', checked: true },
-                    { icon: 'pi pi-user', title: 'Direct Message', checked: false },
-                ],
+                    { icon: 'pi pi-user', title: 'Direct Message', checked: false }
+                ]
             },
             {
                 title: 'Data Privacy',
                 prefs: [
                     { icon: 'pi pi-box', title: 'Share Data with 3rd Parties', checked: true },
-                    { icon: 'pi pi-file', title: 'Cookies', checked: false },
-                ],
-            },
+                    { icon: 'pi pi-file', title: 'Cookies', checked: false }
+                ]
+            }
         ];
 
         this.opportunities = [
@@ -739,71 +572,71 @@ export class HeroSectionComponent implements OnInit, OnDestroy {
                 title: 'Apollo',
                 link: 'https://primevue.org/templates/apollo/',
                 image: 'https://primefaces.org/cdn/primevue/images/layouts/apollo-vue.jpg',
-                text: 'Keep your application fresh with Apollo, the newest and most modern template available.',
+                text: 'Keep your application fresh with Apollo, the newest and most modern template available.'
             },
             {
                 title: 'Ultima',
                 link: 'https://primevue.org/templates/ultima/',
                 image: 'https://primefaces.org/cdn/primevue/images/layouts/ultima-vue.jpg',
-                text: "Elevate your application's intuitiveness with Ultima's premium Material Design interface.",
+                text: "Elevate your application's intuitiveness with Ultima's premium Material Design interface."
             },
             {
                 title: 'Diamond',
                 link: 'https://primevue.org/templates/diamond/',
                 image: 'https://primefaces.org/cdn/primevue/images/layouts/diamond-vue.jpg',
-                text: "Handle complex operations with elegance with Diamond's robust and powerful premium design.",
+                text: "Handle complex operations with elegance with Diamond's robust and powerful premium design."
             },
             {
                 title: 'Atlantis',
                 link: 'https://primevue.org/templates/atlantis/',
                 image: 'https://primefaces.org/cdn/primevue/images/layouts/atlantis-vue.jpg',
-                text: "Boost your application's capabilities, customization with the Atlantis template.",
+                text: "Boost your application's capabilities, customization with the Atlantis template."
             },
             {
                 title: 'Verona',
                 link: 'https://primevue.org/templates/verona/',
                 image: 'https://primefaces.org/cdn/primevue/images/layouts/verona-vue.jpg',
-                text: "Achieve sophistication and subtlety with Verona's minimalistic, content-focused design.",
+                text: "Achieve sophistication and subtlety with Verona's minimalistic, content-focused design."
             },
             {
                 title: 'Freya',
                 link: 'https://primevue.org/templates/freya/',
                 image: 'https://primefaces.org/cdn/primevue/images/layouts/freya-vue.png',
-                text: "Give your application a sleek, updated look with Freya's chic and modern premium template.",
-            },
+                text: "Give your application a sleek, updated look with Freya's chic and modern premium template."
+            }
         ];
 
         this.callLogs = [
             {
                 image: 'https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar6.png',
                 name: 'Brook Simmons',
-                time: '02.02.2024 | 45 min',
+                time: '02.02.2024 | 45 min'
             },
             {
                 image: 'https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar12.jpg',
                 name: 'Jacob Jones',
-                time: '02.02.2024 | 45 min',
+                time: '02.02.2024 | 45 min'
             },
             {
                 image: 'https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar13.jpg',
                 name: 'Annette Black',
-                time: '02.03.2024 | 13 min',
+                time: '02.03.2024 | 13 min'
             },
             {
                 image: 'https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar9.jpg',
                 name: 'Arlene McCoy',
-                time: '02.03.2024 | 14 min',
+                time: '02.03.2024 | 14 min'
             },
             {
                 image: 'https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar10.jpg',
                 name: 'Arlene Simmons',
-                time: '02.03.2024 | 14 min',
+                time: '02.03.2024 | 14 min'
             },
             {
                 image: 'https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar11.jpg',
                 name: 'Michael Brown',
-                time: '02.04.2024 | 20 min',
-            },
+                time: '02.04.2024 | 20 min'
+            }
         ];
 
         this.emailRecords = [
@@ -812,43 +645,43 @@ export class HeroSectionComponent implements OnInit, OnDestroy {
                 name: 'Brook Simmons',
                 time: '3:24 PM',
                 title: 'Unleash Business Potential',
-                text: 'Automate, analyze, and accelerate with our SaaS platform. Unshackle from mundane tasks and focus on scaling your business. Contact us for a demo today!',
+                text: 'Automate, analyze, and accelerate with our SaaS platform. Unshackle from mundane tasks and focus on scaling your business. Contact us for a demo today!'
             },
             {
                 image: 'https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar7.png',
                 name: 'Jacob Jones',
                 time: '12.23.2023',
                 title: 'Optimized Workflow Revolution  ',
-                text: "Experience a workflow revolution with our intuitive SaaS tool. With enhanced features and optimized processes, it's efficiency like never before. Let's get in touch for a brief demo!",
+                text: "Experience a workflow revolution with our intuitive SaaS tool. With enhanced features and optimized processes, it's efficiency like never before. Let's get in touch for a brief demo!"
             },
             {
                 image: 'https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar8.png',
                 name: 'Annette Black',
                 time: '12.17.2023',
                 title: 'Innovation at Fingertips',
-                text: 'With our SaaS solution, innovation is only a click away. Shape your future with pioneering features and minimalist design. Join us for your solution walk-through today!',
+                text: 'With our SaaS solution, innovation is only a click away. Shape your future with pioneering features and minimalist design. Join us for your solution walk-through today!'
             },
             {
                 image: 'https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar11.jpg',
                 name: 'Arlene McCoy',
                 time: '06.17.2023',
                 title: 'Seamless Integration',
-                text: 'Integrate effortlessly with our user-friendly SaaS tools. Streamline your operations and boost productivity. Discover more in our demo session.',
+                text: 'Integrate effortlessly with our user-friendly SaaS tools. Streamline your operations and boost productivity. Discover more in our demo session.'
             },
             {
                 image: 'https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar13.jpg',
                 name: 'Arlene Simmons',
                 time: '04.17.2023',
                 title: 'Transform Your Business',
-                text: 'Empower your team with our innovative SaaS solutions. Achieve unparalleled efficiency and drive growth. Book a demo to explore the possibilities.',
+                text: 'Empower your team with our innovative SaaS solutions. Achieve unparalleled efficiency and drive growth. Book a demo to explore the possibilities.'
             },
             {
                 image: 'https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar2.png',
                 name: 'Michael Brown',
                 time: '01.05.2024',
                 title: 'Next-Gen Collaboration',
-                text: 'Experience the future of collaboration with our cutting-edge SaaS platform. Enhance teamwork and streamline communication. Contact us for a demo today!',
-            },
+                text: 'Experience the future of collaboration with our cutting-edge SaaS platform. Enhance teamwork and streamline communication. Contact us for a demo today!'
+            }
         ];
 
         if (isPlatformBrowser(this.platformId)) {
@@ -874,14 +707,14 @@ export class HeroSectionComponent implements OnInit, OnDestroy {
                     data: [100, 201, 404, 300, 140, 220, 314, 520, 145, 234, 325, 147],
                     borderRadius: {
                         topLeft: 4,
-                        topRight: 4,
+                        topRight: 4
                     },
                     borderSkipped: true,
                     barThickness: 20,
                     hoverBackgroundColor: hoverBackgroundColor,
-                    hoverTransition: '1s ease all',
-                },
-            ],
+                    hoverTransition: '1s ease all'
+                }
+            ]
         };
     }
 
@@ -923,7 +756,7 @@ export class HeroSectionComponent implements OnInit, OnDestroy {
                     borderColor: 'red',
                     borderWidth: 2,
                     borderDash: [5, 5],
-                    borderDashOffset: 2,
+                    borderDashOffset: 2
                 },
                 tooltip: {
                     enabled: false,
@@ -946,7 +779,7 @@ export class HeroSectionComponent implements OnInit, OnDestroy {
                                 const strArr = b.lines[0].split(':');
                                 const data = {
                                     text: strArr[0].trim(),
-                                    value: strArr[1].trim(),
+                                    value: strArr[1].trim()
                                 };
 
                                 return data;
@@ -973,37 +806,37 @@ export class HeroSectionComponent implements OnInit, OnDestroy {
                         tooltipEl.style.top = positionY + tooltip.caretY + 'px';
                         tooltipEl.style.font = tooltip.options.bodyFont.string;
                         tooltipEl.style.padding = tooltip.options.padding + 'px ' + tooltip.options.padding + 'px';
-                    },
+                    }
                 },
                 legend: {
-                    display: false,
-                },
+                    display: false
+                }
             },
             scales: {
                 x: {
                     stacked: true,
                     ticks: {
-                        color: textMutedColor,
+                        color: textMutedColor
                     },
                     grid: {
                         color: 'transparent',
-                        borderColor: 'transparent',
-                    },
+                        borderColor: 'transparent'
+                    }
                 },
                 y: {
                     border: {
-                        display: false,
+                        display: false
                     },
                     stacked: true,
                     ticks: {
-                        color: textMutedColor,
+                        color: textMutedColor
                     },
                     grid: {
                         color: borderColor,
-                        borderColor: 'transparent',
-                    },
-                },
-            },
+                        borderColor: 'transparent'
+                    }
+                }
+            }
         };
     }
 
@@ -1053,7 +886,7 @@ export class HeroSectionComponent implements OnInit, OnDestroy {
                         const {
                             ctx,
                             data,
-                            chartArea: { top, bottom },
+                            chartArea: { top, bottom }
                         } = context.chart;
                         const gradientBg = ctx.createLinearGradient(0, top, 0, bottom);
                         const colorTranches = 1 / (bgColor.length - 1);
@@ -1063,21 +896,21 @@ export class HeroSectionComponent implements OnInit, OnDestroy {
                         }
 
                         return gradientBg;
-                    },
-                },
+                    }
+                }
             ],
             options: {
                 responsive: true,
                 plugins: {
                     legend: {
-                        position: 'top',
+                        position: 'top'
                     },
                     title: {
                         display: true,
-                        text: 'Chart.js Line Chart',
-                    },
-                },
-            },
+                        text: 'Chart.js Line Chart'
+                    }
+                }
+            }
         };
     }
 
@@ -1119,7 +952,7 @@ export class HeroSectionComponent implements OnInit, OnDestroy {
                     borderColor: 'red',
                     borderWidth: 2,
                     borderDash: [5, 5],
-                    borderDashOffset: 2,
+                    borderDashOffset: 2
                 },
                 tooltip: {
                     enabled: false,
@@ -1142,7 +975,7 @@ export class HeroSectionComponent implements OnInit, OnDestroy {
                                 const strArr = b.lines[0].split(':');
                                 const data = {
                                     text: strArr[0].trim(),
-                                    value: strArr[1].trim(),
+                                    value: strArr[1].trim()
                                 };
 
                                 return data;
@@ -1169,28 +1002,28 @@ export class HeroSectionComponent implements OnInit, OnDestroy {
                         tooltipEl.style.top = positionY + tooltip.caretY - 40 + 'px';
                         tooltipEl.style.font = tooltip.options.bodyFont.string;
                         tooltipEl.style.padding = tooltip.options.padding + 'px ' + tooltip.options.padding + 'px';
-                    },
+                    }
                 },
                 legend: {
-                    display: false,
-                },
+                    display: false
+                }
             },
             scales: {
                 x: {
                     stacked: true,
                     ticks: {
-                        color: textMutedColor,
+                        color: textMutedColor
                     },
                     grid: {
                         color: 'transparent',
-                        borderColor: 'transparent',
-                    },
+                        borderColor: 'transparent'
+                    }
                 },
                 y: {
                     display: false,
-                    grace: 14,
-                },
-            },
+                    grace: 14
+                }
+            }
         };
     }
 

@@ -9,6 +9,6 @@ import { Component } from '@angular/core';
                 <a href="/configuration/#locale">PrimeNG Locale</a> configuration for more information.
             </p>
         </app-docsectiontext>
-    `,
+    `
 })
 export class LocaleDoc {}

@@ -19,6 +19,6 @@ import { CustomDoc } from './customdoc';
 @NgModule({
     imports: [CommonModule, AppCodeModule, RouterModule, Tooltip, ButtonModule, InputTextModule, AppDocModule],
     declarations: [ImportDoc, StyleDoc, PositionDoc, EventDoc, AutoHideDoc, DelayDoc, CustomDoc, OptionsDoc, AccessibilityDoc],
-    exports: [AppDocModule],
+    exports: [AppDocModule]
 })
 export class TooltipDocModule {}

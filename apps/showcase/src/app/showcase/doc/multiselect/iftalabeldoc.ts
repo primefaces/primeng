@@ -10,27 +10,16 @@ interface City {
     selector: 'iftalabel-doc',
     template: `
         <app-docsectiontext>
-            <p>
-                IftaLabel is used to create infield top aligned labels. Visit <a routerLink="/iftalabel">IftaLabel</a> documentation for
-                more information.
-            </p>
+            <p>IftaLabel is used to create infield top aligned labels. Visit <a routerLink="/iftalabel">IftaLabel</a> documentation for more information.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-iftalabel class="w-full md:w-80">
-                <p-multiselect
-                    [(ngModel)]="selectedCities"
-                    inputId="ms_cities"
-                    [options]="cities"
-                    optionLabel="name"
-                    [filter]="true"
-                    [maxSelectedLabels]="3"
-                    styleClass="w-full"
-                />
+                <p-multiselect [(ngModel)]="selectedCities" inputId="ms_cities" [options]="cities" optionLabel="name" [filter]="true" [maxSelectedLabels]="3" styleClass="w-full" />
                 <label for="ms_cities">Cities</label>
             </p-iftalabel>
         </div>
         <app-code [code]="code" selector="multi-select-iftalabel-demo"></app-code>
-    `,
+    `
 })
 export class IftaLabelDoc implements OnInit {
     cities!: City[];
@@ -79,7 +68,7 @@ export class MultiSelectIftalabelDemo implements OnInit {
             { name: 'Paris', code: 'PRS' },
         ];
     }
-}`,
+}`
     };
 
     ngOnInit() {
@@ -88,7 +77,7 @@ export class MultiSelectIftalabelDemo implements OnInit {
             { name: 'Rome', code: 'RM' },
             { name: 'London', code: 'LDN' },
             { name: 'Istanbul', code: 'IST' },
-            { name: 'Paris', code: 'PRS' },
+            { name: 'Paris', code: 'PRS' }
         ];
     }
 }

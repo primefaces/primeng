@@ -6,16 +6,13 @@ import { AppConfigService } from '@service/appconfigservice';
     selector: 'chart-vertical-bar-demo',
     template: `
         <app-docsectiontext>
-            <p>
-                A bar chart or bar graph is a chart that presents grouped data with rectangular bars with lengths proportional to the values
-                that they represent.
-            </p>
+            <p>A bar chart or bar graph is a chart that presents grouped data with rectangular bars with lengths proportional to the values that they represent.</p>
         </app-docsectiontext>
         <div class="card">
             <p-chart type="bar" [data]="data" [options]="options" class="h-[30rem]" />
         </div>
         <app-code [code]="code" selector="chart-vertical-bar-demo"></app-code>
-    `,
+    `
 })
 export class VerticalBarDoc implements OnInit {
     data: any;
@@ -53,15 +50,15 @@ export class VerticalBarDoc implements OnInit {
                         label: 'My First dataset',
                         backgroundColor: documentStyle.getPropertyValue('--p-cyan-500'),
                         borderColor: documentStyle.getPropertyValue('--p-cyan-500'),
-                        data: [65, 59, 80, 81, 56, 55, 40],
+                        data: [65, 59, 80, 81, 56, 55, 40]
                     },
                     {
                         label: 'My Second dataset',
                         backgroundColor: documentStyle.getPropertyValue('--p-gray-500'),
                         borderColor: documentStyle.getPropertyValue('--p-gray-500'),
-                        data: [28, 48, 40, 19, 86, 27, 90],
-                    },
-                ],
+                        data: [28, 48, 40, 19, 86, 27, 90]
+                    }
+                ]
             };
 
             this.options = {
@@ -70,33 +67,33 @@ export class VerticalBarDoc implements OnInit {
                 plugins: {
                     legend: {
                         labels: {
-                            color: textColor,
-                        },
-                    },
+                            color: textColor
+                        }
+                    }
                 },
                 scales: {
                     x: {
                         ticks: {
                             color: textColorSecondary,
                             font: {
-                                weight: 500,
-                            },
+                                weight: 500
+                            }
                         },
                         grid: {
                             color: surfaceBorder,
-                            drawBorder: false,
-                        },
+                            drawBorder: false
+                        }
                     },
                     y: {
                         ticks: {
-                            color: textColorSecondary,
+                            color: textColorSecondary
                         },
                         grid: {
                             color: surfaceBorder,
-                            drawBorder: false,
-                        },
-                    },
-                },
+                            drawBorder: false
+                        }
+                    }
+                }
             };
         }
     }
@@ -210,6 +207,6 @@ import { ChartDemo } from './chartdemo';
     imports: [CommonModule, ChartModule],
     declarations: [ChartDemo]
 })
-export class ChartDemoModule {}`,
+export class ChartDemoModule {}`
     };
 }

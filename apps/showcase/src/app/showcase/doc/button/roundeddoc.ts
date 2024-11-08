@@ -18,7 +18,7 @@ import { Code } from '@domain/code';
             <p-button label="Contrast" [rounded]="true" severity="contrast" />
         </div>
         <app-code [code]="code" selector="button-rounded-demo"></app-code>
-    `,
+    `
 })
 export class RoundedDoc {
     code: Code = {
@@ -51,6 +51,6 @@ import { ButtonModule } from 'primeng/button';
     standalone: true,
     imports: [ButtonModule]
 })
-export class ButtonRoundedDemo { }`,
+export class ButtonRoundedDemo { }`
     };
 }

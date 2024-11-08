@@ -14,19 +14,10 @@ import { RouterModule } from '@angular/router';
                         <ul class="list-none p-0 m-0">
                             <li class="font-bold mb-8">General</li>
                             <li class="mb-6">
-                                <a
-                                    [routerLink]="['installation']"
-                                    class="text-surface-500 dark:text-surface-400 font-medium hover:text-primary rounded transition-all duration-300"
-                                >
-                                    Get Started
-                                </a>
+                                <a [routerLink]="['installation']" class="text-surface-500 dark:text-surface-400 font-medium hover:text-primary rounded transition-all duration-300"> Get Started </a>
                             </li>
                             <li class="mb-6">
-                                <a
-                                    href="https://github.com/primefaces/primeng-examples"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    class="text-surface-500 dark:text-surface-400 font-medium hover:text-primary rounded transition-all duration-300"
+                                <a href="https://github.com/primefaces/primeng-examples" target="_blank" rel="noopener noreferrer" class="text-surface-500 dark:text-surface-400 font-medium hover:text-primary rounded transition-all duration-300"
                                     >Examples</a
                                 >
                             </li>
@@ -36,29 +27,15 @@ import { RouterModule } from '@angular/router';
                         <ul class="list-none p-0 m-0">
                             <li class="font-bold mb-8">Support</li>
                             <li class="mb-6">
-                                <a
-                                    href="https://github.com/orgs/primefaces/discussions"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    class="text-surface-500 dark:text-surface-400 font-medium hover:text-primary rounded transition-all duration-300"
+                                <a href="https://github.com/orgs/primefaces/discussions" target="_blank" rel="noopener noreferrer" class="text-surface-500 dark:text-surface-400 font-medium hover:text-primary rounded transition-all duration-300"
                                     >Forum</a
                                 >
                             </li>
                             <li class="mb-6">
-                                <a
-                                    href="https://discord.gg/gzKFYnpmCY"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    class="text-surface-500 dark:text-surface-400 font-medium hover:text-primary rounded transition-all duration-300"
-                                    >Discord</a
-                                >
+                                <a href="https://discord.gg/gzKFYnpmCY" target="_blank" rel="noopener noreferrer" class="text-surface-500 dark:text-surface-400 font-medium hover:text-primary rounded transition-all duration-300">Discord</a>
                             </li>
                             <li class="mb-6">
-                                <a
-                                    [routerLink]="['support']"
-                                    class="text-surface-500 dark:text-surface-400 font-medium hover:text-primary rounded transition-all duration-300"
-                                    >PRO Support
-                                </a>
+                                <a [routerLink]="['support']" class="text-surface-500 dark:text-surface-400 font-medium hover:text-primary rounded transition-all duration-300">PRO Support </a>
                             </li>
                         </ul>
                     </div>
@@ -66,11 +43,7 @@ import { RouterModule } from '@angular/router';
                         <ul class="list-none p-0 m-0">
                             <li class="font-bold mt-8 lg:mt-0 mb-8">Theming</li>
                             <li class="mb-6">
-                                <a
-                                    [routerLink]="'/theming'"
-                                    class="text-surface-500 dark:text-surface-400 font-medium hover:text-primary rounded transition-all duration-300"
-                                    >Styled Mode</a
-                                >
+                                <a [routerLink]="'/theming'" class="text-surface-500 dark:text-surface-400 font-medium hover:text-primary rounded transition-all duration-300">Styled Mode</a>
                             </li>
                         </ul>
                     </div>
@@ -87,58 +60,24 @@ import { RouterModule } from '@angular/router';
                                 >
                             </li>
                             <li class="mb-6">
-                                <a
-                                    href="https://www.primefaces.org/store/"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    class="text-surface-500 dark:text-surface-400 font-medium hover:text-primary rounded transition-all duration-300"
-                                    >Store</a
-                                >
+                                <a href="https://www.primefaces.org/store/" target="_blank" rel="noopener noreferrer" class="text-surface-500 dark:text-surface-400 font-medium hover:text-primary rounded transition-all duration-300">Store</a>
                             </li>
                             <li class="mb-6">
-                                <a
-                                    href="https://github.com/primefaces/primeng"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    class="text-surface-500 dark:text-surface-400 font-medium hover:text-primary rounded transition-all duration-300"
+                                <a href="https://github.com/primefaces/primeng" target="_blank" rel="noopener noreferrer" class="text-surface-500 dark:text-surface-400 font-medium hover:text-primary rounded transition-all duration-300"
                                     >Source Code</a
                                 >
                             </li>
                             <li class="mb-6">
-                                <a
-                                    href="https://twitter.com/prime_ng"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    class="text-surface-500 dark:text-surface-400 font-medium hover:text-primary rounded transition-all duration-300"
-                                    >Twitter</a
-                                >
+                                <a href="https://twitter.com/prime_ng" target="_blank" rel="noopener noreferrer" class="text-surface-500 dark:text-surface-400 font-medium hover:text-primary rounded transition-all duration-300">Twitter</a>
                             </li>
                             <li class="mb-6">
-                                <a
-                                    href="https://www.primefaces.org/newsletter"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    class="text-surface-500 dark:text-surface-400 font-medium hover:text-primary rounded transition-all duration-300"
-                                    >Newsletter</a
-                                >
+                                <a href="https://www.primefaces.org/newsletter" target="_blank" rel="noopener noreferrer" class="text-surface-500 dark:text-surface-400 font-medium hover:text-primary rounded transition-all duration-300">Newsletter</a>
                             </li>
                             <li class="mb-6">
-                                <a
-                                    href="https://gear.primefaces.org/"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    class="text-surface-500 dark:text-surface-400 font-medium hover:text-primary rounded transition-all duration-300"
-                                    >PrimeGear</a
-                                >
+                                <a href="https://gear.primefaces.org/" target="_blank" rel="noopener noreferrer" class="text-surface-500 dark:text-surface-400 font-medium hover:text-primary rounded transition-all duration-300">PrimeGear</a>
                             </li>
                             <li class="mb-6">
-                                <a
-                                    href="mailto:contact@primetek.com.tr"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    class="text-surface-500 dark:text-surface-400 font-medium hover:text-primary rounded transition-all duration-300"
-                                    >Contact Us</a
-                                >
+                                <a href="mailto:contact@primetek.com.tr" target="_blank" rel="noopener noreferrer" class="text-surface-500 dark:text-surface-400 font-medium hover:text-primary rounded transition-all duration-300">Contact Us</a>
                             </li>
                         </ul>
                     </div>
@@ -160,32 +99,15 @@ import { RouterModule } from '@angular/router';
                             d="M99.998 25.5099C99.998 25.7529 99.8765 25.8987 99.6091 25.8987H97.0815C96.8385 25.8987 96.6927 25.7529 96.6927 25.5099V6.84456C96.6927 6.60152 96.8385 6.4557 97.0815 6.4557H99.4876C99.7063 6.4557 99.8521 6.55291 99.9251 6.77165L103.619 17.1008H103.765V6.84456C103.765 6.60152 103.887 6.4557 104.154 6.4557H106.682C106.925 6.4557 107.07 6.60152 107.07 6.84456V25.5099C107.07 25.7529 106.925 25.8987 106.682 25.8987H104.275C104.057 25.8987 103.911 25.8015 103.838 25.5828L100.119 15.2051H99.998V25.5099ZM119.708 22.399C119.708 24.6835 118.469 25.8987 116.209 25.8987H113.001C110.716 25.8987 109.501 24.6835 109.501 22.399V9.95544C109.501 7.67089 110.716 6.4557 113.001 6.4557H116.209C118.469 6.4557 119.708 7.67089 119.708 9.95544V12.483C119.708 12.7261 119.563 12.8719 119.319 12.8719H116.889C116.622 12.8719 116.5 12.7261 116.5 12.483V10.6359C116.5 10.0041 116.16 9.6638 115.528 9.6638H113.778C113.122 9.6638 112.806 10.0041 112.806 10.6359V21.7185C112.806 22.3747 113.146 22.6906 113.778 22.6906H115.528C116.16 22.6906 116.5 22.3747 116.5 21.7185V18.4618H115.236C114.969 18.4618 114.848 18.3159 114.848 18.0729V15.6425C114.848 15.3752 114.969 15.2537 115.236 15.2537H119.319C119.563 15.2537 119.708 15.3752 119.708 15.6425V22.399Z"
                             fill="var(--p-primary-color)"
                         />
-                        <path
-                            d="M15.1934 0V0V0L0.0391235 5.38288L2.35052 25.3417L15.1934 32.427V32.427V32.427L28.0364 25.3417L30.3478 5.38288L15.1934 0Z"
-                            fill="var(--p-primary-color)"
-                        />
+                        <path d="M15.1934 0V0V0L0.0391235 5.38288L2.35052 25.3417L15.1934 32.427V32.427V32.427L28.0364 25.3417L30.3478 5.38288L15.1934 0Z" fill="var(--p-primary-color)" />
                         <mask id="mask0_1_36" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="31" height="33">
-                            <path
-                                d="M15.1934 0V0V0L0.0391235 5.38288L2.35052 25.3417L15.1934 32.427V32.427V32.427L28.0364 25.3417L30.3478 5.38288L15.1934 0Z"
-                                fill="var(--high-contrast-text-color)"
-                            />
+                            <path d="M15.1934 0V0V0L0.0391235 5.38288L2.35052 25.3417L15.1934 32.427V32.427V32.427L28.0364 25.3417L30.3478 5.38288L15.1934 0Z" fill="var(--high-contrast-text-color)" />
                         </mask>
                         <g mask="url(#mask0_1_36)">
-                            <path
-                                fill-rule="evenodd"
-                                clip-rule="evenodd"
-                                d="M15.1935 0V3.5994V3.58318V20.0075V20.0075V32.427V32.427L28.0364 25.3417L30.3478 5.38288L15.1935 0Z"
-                                fill="var(--p-primary-color)"
-                            />
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M15.1935 0V3.5994V3.58318V20.0075V20.0075V32.427V32.427L28.0364 25.3417L30.3478 5.38288L15.1935 0Z" fill="var(--p-primary-color)" />
                         </g>
-                        <path
-                            d="M19.6399 15.3776L18.1861 15.0547L19.3169 16.6695V21.6755L23.1938 18.4458V12.9554L21.4169 13.6013L19.6399 15.3776Z"
-                            fill="var(--ground-background)"
-                        />
-                        <path
-                            d="M10.5936 15.3776L12.0474 15.0547L10.9166 16.6695V21.6755L7.03966 18.4458V12.9554L8.81661 13.6013L10.5936 15.3776Z"
-                            fill="var(--ground-background)"
-                        />
+                        <path d="M19.6399 15.3776L18.1861 15.0547L19.3169 16.6695V21.6755L23.1938 18.4458V12.9554L21.4169 13.6013L19.6399 15.3776Z" fill="var(--ground-background)" />
+                        <path d="M10.5936 15.3776L12.0474 15.0547L10.9166 16.6695V21.6755L7.03966 18.4458V12.9554L8.81661 13.6013L10.5936 15.3776Z" fill="var(--ground-background)" />
                         <path
                             fill-rule="evenodd"
                             clip-rule="evenodd"
@@ -200,33 +122,16 @@ import { RouterModule } from '@angular/router';
                             d="M13.0167 5.68861L11.7244 8.7568L13.8244 14.8932H14.7936V5.68861H13.0167ZM15.4397 5.68861V14.8932H16.5706L18.5091 8.7568L17.2167 5.68861H15.4397Z"
                             fill="var(--ground-background)"
                         />
-                        <path
-                            d="M13.8244 14.8932L6.87813 12.3094L5.90888 8.27235L11.8859 8.7568L13.9859 14.8932H13.8244Z"
-                            fill="var(--ground-background)"
-                        />
-                        <path
-                            d="M16.5706 14.8932L23.5169 12.3094L24.4861 8.27235L18.3476 8.7568L16.4091 14.8932H16.5706Z"
-                            fill="var(--ground-background)"
-                        />
-                        <path
-                            d="M18.8321 8.27235L22.2245 7.94938L19.9629 5.68861H17.7013L18.8321 8.27235Z"
-                            fill="var(--ground-background)"
-                        />
-                        <path
-                            d="M11.4013 8.27235L8.00893 7.94938L10.2705 5.68861H12.5321L11.4013 8.27235Z"
-                            fill="var(--ground-background)"
-                        />
+                        <path d="M13.8244 14.8932L6.87813 12.3094L5.90888 8.27235L11.8859 8.7568L13.9859 14.8932H13.8244Z" fill="var(--ground-background)" />
+                        <path d="M16.5706 14.8932L23.5169 12.3094L24.4861 8.27235L18.3476 8.7568L16.4091 14.8932H16.5706Z" fill="var(--ground-background)" />
+                        <path d="M18.8321 8.27235L22.2245 7.94938L19.9629 5.68861H17.7013L18.8321 8.27235Z" fill="var(--ground-background)" />
+                        <path d="M11.4013 8.27235L8.00893 7.94938L10.2705 5.68861H12.5321L11.4013 8.27235Z" fill="var(--ground-background)" />
                     </svg>
                     <div class="flex items-center gap-2">
                         <a href="https://twitter.com/prime_ng" target="_blank" rel="noopener noreferrer" class="linkbox linkbox-icon">
                             <i class="pi pi-twitter"></i>
                         </a>
-                        <a
-                            href="https://github.com/primefaces/primeng"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            class="linkbox linkbox-icon"
-                        >
+                        <a href="https://github.com/primefaces/primeng" target="_blank" rel="noopener noreferrer" class="linkbox linkbox-icon">
                             <i class="pi pi-github"></i>
                         </a>
                         <a href="https://discord.gg/gzKFYnpmCY" target="_blank" rel="noopener noreferrer" class="linkbox linkbox-icon">
@@ -239,6 +144,6 @@ import { RouterModule } from '@angular/router';
                 </div>
             </div>
         </section>
-    `,
+    `
 })
 export class FooterSectionComponent {}

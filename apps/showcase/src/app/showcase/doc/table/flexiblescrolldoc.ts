@@ -7,9 +7,8 @@ import { CustomerService } from '@service/customerservice';
     selector: 'flexible-scroll-doc',
     template: ` <app-docsectiontext>
             <p>
-                Flex scroll feature makes the scrollable viewport section dynamic instead of a fixed value so that it can grow or shrink
-                relative to the parent size of the table. Click the button below to display a maximizable Dialog where data viewport adjusts
-                itself according to the size changes.
+                Flex scroll feature makes the scrollable viewport section dynamic instead of a fixed value so that it can grow or shrink relative to the parent size of the table. Click the button below to display a maximizable Dialog where data
+                viewport adjusts itself according to the size changes.
             </p>
         </app-docsectiontext>
         <p-deferred-demo (load)="loadDemoData()">
@@ -17,16 +16,7 @@ import { CustomerService } from '@service/customerservice';
                 <div class="flex justify-center">
                     <button type="button" (click)="showDialog()" pButton icon="pi pi-external-link" label="Show"></button>
                 </div>
-                <p-dialog
-                    header="Header"
-                    [resizable]="false"
-                    [modal]="true"
-                    [maximizable]="true"
-                    appendTo="body"
-                    [(visible)]="dialogVisible"
-                    [style]="{ width: '75vw' }"
-                    [contentStyle]="{ height: '300px' }"
-                >
+                <p-dialog header="Header" [resizable]="false" [modal]="true" [maximizable]="true" appendTo="body" [(visible)]="dialogVisible" [style]="{ width: '75vw' }" [contentStyle]="{ height: '300px' }">
                     <p-table [value]="customers" [scrollable]="true" scrollHeight="flex" [tableStyle]="{ 'min-width': '50rem' }">
                         <ng-template pTemplate="header">
                             <tr>
@@ -52,7 +42,7 @@ import { CustomerService } from '@service/customerservice';
             </div>
         </p-deferred-demo>
         <app-code [code]="code" selector="table-flexible-scroll-demo" [extFiles]="extFiles"></app-code>`,
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FlexibleScrollDoc {
     customers!: Customer[];
@@ -61,7 +51,7 @@ export class FlexibleScrollDoc {
 
     constructor(
         private customerService: CustomerService,
-        private cd: ChangeDetectorRef,
+        private cd: ChangeDetectorRef
     ) {}
 
     loadDemoData() {
@@ -196,7 +186,7 @@ export class TableFlexibleScrollDemo implements OnInit{
     balance: 70663
 },
 ...`,
-        service: ['CustomerService'],
+        service: ['CustomerService']
     };
 
     extFiles = [
@@ -224,7 +214,7 @@ export interface Customer {
     representative?: Representative;
     verified?: boolean;
     balance?: number;
-}`,
-        },
+}`
+        }
     ];
 }

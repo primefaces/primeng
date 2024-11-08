@@ -7,9 +7,8 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <h3>Screen Reader</h3>
             <p>
-                Drawer component uses <i>complementary</i> role by default, since any attribute is passed to the root element aria role can
-                be changed depending on your use case and additional attributes like <i>aria-labelledby</i> can be added. In addition
-                <i>aria-modal</i> is added since focus is kept within the drawer when opened.
+                Drawer component uses <i>complementary</i> role by default, since any attribute is passed to the root element aria role can be changed depending on your use case and additional attributes like <i>aria-labelledby</i> can be added. In
+                addition <i>aria-modal</i> is added since focus is kept within the drawer when opened.
             </p>
             <p>
                 It is recommended to use a trigger component that can be accessed with keyboard such as a button, if not adding
@@ -67,7 +66,7 @@ import { Code } from '@domain/code';
                 </table>
             </div>
         </app-docsectiontext>
-    `,
+    `
 })
 export class AccessibilityDoc {
     code: Code = {
@@ -84,6 +83,6 @@ export class AccessibilityDoc {
     role="region"
 >
     content
-</p-drawer>`,
+</p-drawer>`
     };
 }

@@ -33,14 +33,14 @@ import { ProductService } from '@service/productservice';
             </div>
         </p-deferred-demo>
         <app-code [code]="code" selector="table-style-demo" [extFiles]="extFiles"></app-code>`,
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class StyleDoc {
     products!: Product[];
 
     constructor(
         private productService: ProductService,
-        private cd: ChangeDetectorRef,
+        private cd: ChangeDetectorRef
     ) {}
 
     code: Code = {
@@ -132,7 +132,7 @@ export class TableStyleDemo implements OnInit{
     }
 
 }`,
-        service: ['ProductService'],
+        service: ['ProductService']
     };
 
     loadDemoData() {
@@ -173,7 +173,7 @@ export interface Product {
     category?: string;
     image?: string;
     rating?: number;
-}`,
-        },
+}`
+        }
     ];
 }

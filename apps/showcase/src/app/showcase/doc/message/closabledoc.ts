@@ -11,7 +11,7 @@ import { Code } from '@domain/code';
             <p-message closable>Closable Message</p-message>
         </div>
         <app-code [code]="code" selector="message-closable-demo"></app-code>
-    `,
+    `
 })
 export class ClosableDoc {
     code: Code = {
@@ -30,6 +30,6 @@ import { Message } from 'primeng/message';
     standalone: true,
     imports: [Message]
 })
-export class MessageClosableDemo {}`,
+export class MessageClosableDemo {}`
     };
 }

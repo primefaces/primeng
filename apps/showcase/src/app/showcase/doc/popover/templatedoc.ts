@@ -16,7 +16,7 @@ import { Code } from '@domain/code';
             <p-button (click)="op.toggle($event)" icon="pi pi-image" label="Show"></p-button>
         </div>
         <app-code [code]="code" selector="overlay-panel-template-demo"></app-code>
-    `,
+    `
 })
 export class TemplateDoc {
     code: Code = {
@@ -44,6 +44,6 @@ import { Component } from '@angular/core';
     selector: 'overlay-panel-template-demo',
     templateUrl: './overlay-panel-template-demo.html'
 })
-export class OverlayPanelTemplateDemo {}`,
+export class OverlayPanelTemplateDemo {}`
     };
 }

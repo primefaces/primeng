@@ -12,7 +12,7 @@ import { Code } from '@domain/code';
             <p-menu [model]="items"></p-menu>
         </div>
         <app-code [code]="code" selector="prime-icons-constants-demo" [hideToggleCode]="true"></app-code>
-    `,
+    `
 })
 export class ConstantsDoc {
     items: MenuItem[];
@@ -21,12 +21,12 @@ export class ConstantsDoc {
         this.items = [
             {
                 label: 'New',
-                icon: PrimeIcons.PLUS,
+                icon: PrimeIcons.PLUS
             },
             {
                 label: 'Delete',
-                icon: PrimeIcons.TRASH,
-            },
+                icon: PrimeIcons.TRASH
+            }
         ];
     }
 
@@ -54,6 +54,6 @@ export class PrimeIconsConstantsDemo {
             }
         ];
     }
-}`,
+}`
     };
 }

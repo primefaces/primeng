@@ -8,14 +8,7 @@ import { BlockUIDocModule } from '@doc/blockui/blockuidoc.module';
 @Component({
     standalone: true,
     imports: [BlockUIDocModule],
-    template: ` <app-doc
-        docTitle="Angular BlockUI Component"
-        header="BlockUI"
-        description="BlockUI can either block other components or the whole page."
-        [docs]="docs"
-        [apiDocs]="['BlockUI']"
-        themeDocs="BlockUI"
-    ></app-doc>`,
+    template: ` <app-doc docTitle="Angular BlockUI Component" header="BlockUI" description="BlockUI can either block other components or the whole page." [docs]="docs" [apiDocs]="['BlockUI']" themeDocs="BlockUI"></app-doc>`,
     styles: [
         `
             :host ::ng-deep button {
@@ -47,8 +40,8 @@ import { BlockUIDocModule } from '@doc/blockui/blockuidoc.module';
                     color: transparent;
                 }
             }
-        `,
-    ],
+        `
+    ]
 })
 export class BlockUIDemo {
     blockedPanel: boolean = false;
@@ -58,24 +51,24 @@ export class BlockUIDemo {
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc,
+            component: ImportDoc
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc,
+            component: BasicDoc
         },
         {
             id: 'document',
             label: 'Document',
-            component: DocumentDoc,
+            component: DocumentDoc
         },
 
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc,
-        },
+            component: AccessibilityDoc
+        }
     ];
 
     blockDocument() {

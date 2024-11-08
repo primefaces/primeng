@@ -41,19 +41,13 @@ import { PhotoService } from '@service/photoservice';
                             <span class="title">{{ images[activeIndex].title }}</span>
                             <span>{{ images[activeIndex].alt }}</span>
                         </span>
-                        <button
-                            type="button"
-                            pButton
-                            [icon]="fullScreenIcon()"
-                            (click)="toggleFullScreen()"
-                            class="fullscreen-button"
-                        ></button>
+                        <button type="button" pButton [icon]="fullScreenIcon()" (click)="toggleFullScreen()" class="fullscreen-button"></button>
                     </div>
                 </ng-template>
             </p-galleria>
         </div>
         <app-code [code]="code" selector="galleria-advanced-demo"></app-code>
-    `,
+    `
 })
 export class AdvancedDoc implements OnInit, OnDestroy {
     images: any[] | undefined;
@@ -71,18 +65,18 @@ export class AdvancedDoc implements OnInit, OnDestroy {
     constructor(
         @Inject(PLATFORM_ID) private platformId: any,
         private photoService: PhotoService,
-        private cd: ChangeDetectorRef,
+        private cd: ChangeDetectorRef
     ) {}
 
     responsiveOptions: any[] = [
         {
             breakpoint: '1300px',
-            numVisible: 4,
+            numVisible: 4
         },
         {
             breakpoint: '575px',
-            numVisible: 1,
-        },
+            numVisible: 1
+        }
     ];
 
     ngOnInit() {
@@ -411,6 +405,6 @@ export class GalleriaAdvancedDemo implements OnInit, OnDestroy {
 },
 ...`,
 
-        service: ['PhotoService'],
+        service: ['PhotoService']
     };
 }

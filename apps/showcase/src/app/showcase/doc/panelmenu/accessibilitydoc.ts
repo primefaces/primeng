@@ -6,19 +6,13 @@ import { Component } from '@angular/core';
         <app-docsectiontext>
             <h3>Screen Reader</h3>
             <p>
-                Accordion header elements have a <i>button</i> role, an <i>aria-label</i> defined using the <i>label</i> property of the
-                menuitem model and <i>aria-controls</i> to define the id of the content section along with <i>aria-expanded</i> for the
-                visibility state.
+                Accordion header elements have a <i>button</i> role, an <i>aria-label</i> defined using the <i>label</i> property of the menuitem model and <i>aria-controls</i> to define the id of the content section along with
+                <i>aria-expanded</i> for the visibility state.
             </p>
+            <p>The content of an accordion panel uses <i>region</i> role, defines an id that matches the <i>aria-controls</i> of the header and <i>aria-labelledby</i> referring to the id of the header.</p>
             <p>
-                The content of an accordion panel uses <i>region</i> role, defines an id that matches the <i>aria-controls</i> of the header
-                and <i>aria-labelledby</i> referring to the id of the header.
-            </p>
-            <p>
-                The tree elements has a <i>tree</i> as the role and each menu item has a <i>treeitem</i> role along with <i>aria-label</i>,
-                <i>aria-selected</i> and <i>aria-expanded</i> attributes. The container element of a treenode has the <i>group</i> role. The
-                <i>aria-setsize</i>, <i>aria-posinset</i> and <i>aria-level</i> attributes are calculated implicitly and added to each
-                treeitem.
+                The tree elements has a <i>tree</i> as the role and each menu item has a <i>treeitem</i> role along with <i>aria-label</i>, <i>aria-selected</i> and <i>aria-expanded</i> attributes. The container element of a treenode has the
+                <i>group</i> role. The <i>aria-setsize</i>, <i>aria-posinset</i> and <i>aria-level</i> attributes are calculated implicitly and added to each treeitem.
             </p>
 
             <h3>Header Keyboard Support</h3>
@@ -33,10 +27,7 @@ import { Component } from '@angular/core';
                     <tbody>
                         <tr>
                             <td><i>tab</i></td>
-                            <td>
-                                Adds focus to the first header when focus moves in to the component, if there is already a focused tab
-                                header then moves the focus out of the component based on the page tab sequence.
-                            </td>
+                            <td>Adds focus to the first header when focus moves in to the component, if there is already a focused tab header then moves the focus out of the component based on the page tab sequence.</td>
                         </tr>
                         <tr>
                             <td><i>enter</i></td>
@@ -48,17 +39,11 @@ import { Component } from '@angular/core';
                         </tr>
                         <tr>
                             <td><i>down arrow</i></td>
-                            <td>
-                                If panel is collapsed then moves focus to the next header, otherwise first treenode of the panel receives
-                                the focus.
-                            </td>
+                            <td>If panel is collapsed then moves focus to the next header, otherwise first treenode of the panel receives the focus.</td>
                         </tr>
                         <tr>
                             <td><i>up arrow</i></td>
-                            <td>
-                                If previous panel is collapsed then moves focus to the previous header, otherwise last treenode of the
-                                previous panel receives the focus.
-                            </td>
+                            <td>If previous panel is collapsed then moves focus to the previous header, otherwise last treenode of the previous panel receives the focus.</td>
                         </tr>
                         <tr>
                             <td><i>home</i></td>
@@ -118,6 +103,6 @@ import { Component } from '@angular/core';
                 </table>
             </div>
         </app-docsectiontext>
-    </div>`,
+    </div>`
 })
 export class AccessibilityDoc {}

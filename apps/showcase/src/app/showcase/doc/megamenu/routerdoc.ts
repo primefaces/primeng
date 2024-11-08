@@ -5,13 +5,10 @@ import { Code } from '@domain/code';
     selector: 'router-doc',
     template: `
         <app-docsectiontext>
-            <p>
-                Items with navigation are defined with templating to be able to use a routerLink directive, an external link or programmatic
-                navigation.
-            </p>
+            <p>Items with navigation are defined with templating to be able to use a routerLink directive, an external link or programmatic navigation.</p>
         </app-docsectiontext>
         <app-code [code]="code" [hideToggleCode]="true" [hideStackBlitz]="true"></app-code>
-    `,
+    `
 })
 export class RouterDoc {
     code: Code = {
@@ -30,6 +27,6 @@ export class RouterDoc {
             </a>
         </ng-template>
     </ng-template>
-</p-megaMenu>`,
+</p-megaMenu>`
     };
 }

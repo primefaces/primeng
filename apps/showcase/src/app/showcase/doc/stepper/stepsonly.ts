@@ -17,7 +17,7 @@ import { Code } from '@domain/code';
             </p-stepper>
         </div>
         <app-code [code]="code" selector="stepper-steps-only-demo"></app-code>
-    `,
+    `
 })
 export class StepsOnlyDoc {
     code: Code = {
@@ -49,6 +49,6 @@ import { StepperModule } from 'primeng/stepper';
     imports: [ButtonModule, StepperModule]
 })
 export class StepperStepsOnlyDemo {
-}`,
+}`
     };
 }

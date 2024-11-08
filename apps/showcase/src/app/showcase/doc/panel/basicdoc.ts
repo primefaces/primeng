@@ -10,15 +10,13 @@ import { Code } from '@domain/code';
         <div class="card flex justify-center">
             <p-panel header="Header">
                 <p class="m-0">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis
-                    aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-                    occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                 </p>
             </p-panel>
         </div>
         <app-code [code]="code" selector="panel-basic-demo"></app-code>
-    `,
+    `
 })
 export class BasicDoc {
     code: Code = {
@@ -46,6 +44,6 @@ import { PanelModule } from 'primeng/panel';
     standalone: true,
     imports: [PanelModule]
 })
-export class PanelBasicDemo {}`,
+export class PanelBasicDemo {}`
     };
 }

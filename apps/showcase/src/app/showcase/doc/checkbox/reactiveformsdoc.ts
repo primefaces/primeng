@@ -6,10 +6,7 @@ import { Code } from '@domain/code';
     selector: 'reactive-forms-doc',
     template: `
         <app-docsectiontext>
-            <p>
-                Checkbox can also be used with reactive forms. In this case, the <i>formControlName</i> property is used to bind the
-                component to a form control.
-            </p>
+            <p>Checkbox can also be used with reactive forms. In this case, the <i>formControlName</i> property is used to bind the component to a form control.</p>
         </app-docsectiontext>
         <div class="card">
             <form [formGroup]="formGroup" class="flex items-center justify-center gap-1">
@@ -18,14 +15,14 @@ import { Code } from '@domain/code';
             </form>
         </div>
         <app-code [code]="code" selector="checkbox-reactive-forms-demo"></app-code>
-    `,
+    `
 })
 export class ReactiveFormsDoc implements OnInit {
     formGroup: FormGroup | undefined;
 
     ngOnInit() {
         this.formGroup = new FormGroup({
-            city: new FormControl<string | null>(null),
+            city: new FormControl<string | null>(null)
         });
     }
 
@@ -60,6 +57,6 @@ export class CheckboxReactiveFormsDemo implements OnInit{
             city: new FormControl<string | null>(null)
         });
     }
-}`,
+}`
     };
 }

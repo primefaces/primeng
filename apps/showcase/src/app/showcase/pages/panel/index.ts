@@ -7,44 +7,37 @@ import { AccessibilityDoc } from '@doc/panel/accessibilitydoc';
 import { PanelDocModule } from '@doc/panel/paneldoc.module';
 
 @Component({
-    template: `<app-doc
-        docTitle="Angular Panel Component"
-        header="Panel"
-        description="Panel is a container component with an optional content toggle feature."
-        [docs]="docs"
-        [apiDocs]="['Panel']"
-        themeDocs="panel"
-    ></app-doc>`,
+    template: `<app-doc docTitle="Angular Panel Component" header="Panel" description="Panel is a container component with an optional content toggle feature." [docs]="docs" [apiDocs]="['Panel']" themeDocs="panel"></app-doc>`,
     standalone: true,
-    imports: [PanelDocModule],
+    imports: [PanelDocModule]
 })
 export class PanelDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc,
+            component: ImportDoc
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc,
+            component: BasicDoc
         },
         {
             id: 'toggleable',
             label: 'Toggleable',
-            component: ToggleableDoc,
+            component: ToggleableDoc
         },
         {
             id: 'template',
             label: 'Template',
-            component: TemplateDoc,
+            component: TemplateDoc
         },
 
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc,
-        },
+            component: AccessibilityDoc
+        }
     ];
 }

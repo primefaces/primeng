@@ -18,10 +18,7 @@ import { Code } from '@domain/code';
                                         <span class="text-surface-500 dark:text-surface-400 text-sm">{{ meterItem.label }}</span>
                                         <span class="font-bold text-lg">{{ meterItem.value }}%</span>
                                     </div>
-                                    <span
-                                        class="w-8 h-8 rounded-full inline-flex justify-center items-center text-center"
-                                        [style]="{ 'background-color': meterItem.color1, color: '#ffffff' }"
-                                    >
+                                    <span class="w-8 h-8 rounded-full inline-flex justify-center items-center text-center" [style]="{ 'background-color': meterItem.color1, color: '#ffffff' }">
                                         <i [class]="meterItem.icon"></i>
                                     </span>
                                 </div>
@@ -30,10 +27,7 @@ import { Code } from '@domain/code';
                     </div>
                 </ng-template>
                 <ng-template #meter let-value let-class="class" let-width="size">
-                    <span
-                        [class]="class"
-                        [style]="{ background: 'linear-gradient(to right, ' + value.color1 + ', ' + value.color2 + ')', width: width }"
-                    ></span>
+                    <span [class]="class" [style]="{ background: 'linear-gradient(to right, ' + value.color1 + ', ' + value.color2 + ')', width: width }"></span>
                 </ng-template>
                 <ng-template #start let-totalPercent="totalPercent">
                     <div class="flex justify-between mt-4 mb-2 relative">
@@ -51,14 +45,14 @@ import { Code } from '@domain/code';
             </p-metergroup>
         </div>
         <app-code [code]="code" selector="meter-group-template-demo"></app-code>
-    `,
+    `
 })
 export class TemplateDoc {
     value = [
         { label: 'Apps', color1: '#34d399', color2: '#fbbf24', value: 25, icon: 'pi pi-table' },
         { label: 'Messages', color1: '#fbbf24', color2: '#60a5fa', value: 15, icon: 'pi pi-inbox' },
         { label: 'Media', color1: '#60a5fa', color2: '#c084fc', value: 20, icon: 'pi pi-image' },
-        { label: 'System', color1: '#c084fc', color2: '#c084fc', value: 10, icon: 'pi pi-cog' },
+        { label: 'System', color1: '#c084fc', color2: '#c084fc', value: 10, icon: 'pi pi-cog' }
     ];
 
     code: Code = {
@@ -155,6 +149,6 @@ export class MeterGroupTemplateDemo {
         { label: 'Media', color1: '#60a5fa', color2: '#c084fc', value: 20, icon: 'pi pi-image' },
         { label: 'System', color1: '#c084fc', color2: '#c084fc', value: 10, icon: 'pi pi-cog' }
     ];
-}`,
+}`
     };
 }

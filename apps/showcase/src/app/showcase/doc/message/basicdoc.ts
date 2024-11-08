@@ -11,7 +11,7 @@ import { Code } from '@domain/code';
             <p-message>Message Content</p-message>
         </div>
         <app-code [code]="code" selector="message-basic-demo"></app-code>
-    `,
+    `
 })
 export class BasicDoc {
     code: Code = {
@@ -30,6 +30,6 @@ import { Message } from 'primeng/message';
     standalone: true,
     imports: [Message]
 })
-export class MessageBasicDemo {}`,
+export class MessageBasicDemo {}`
     };
 }

@@ -6,23 +6,13 @@ import { NodeService } from '@service/nodeservice';
     selector: 'filled-doc',
     template: `
         <app-docsectiontext>
-            <p>
-                Specify the <i>variant</i> property as <i>filled</i> to display the component with a higher visual emphasis than the default
-                <i>outlined</i> style.
-            </p>
+            <p>Specify the <i>variant</i> property as <i>filled</i> to display the component with a higher visual emphasis than the default <i>outlined</i> style.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-treeselect
-                class="md:w-80 w-full"
-                containerStyleClass="w-full"
-                [(ngModel)]="selectedNodes"
-                variant="filled"
-                [options]="nodes"
-                placeholder="Select Item"
-            />
+            <p-treeselect class="md:w-80 w-full" containerStyleClass="w-full" [(ngModel)]="selectedNodes" variant="filled" [options]="nodes" placeholder="Select Item" />
         </div>
         <app-code [code]="code" selector="tree-select-filled-demo"></app-code>
-    `,
+    `
 })
 export class FilledDoc {
     nodes!: any[];
@@ -91,6 +81,6 @@ export class TreeSelectFilledDemo {
         }
     ]
 },
-...`,
+...`
     };
 }

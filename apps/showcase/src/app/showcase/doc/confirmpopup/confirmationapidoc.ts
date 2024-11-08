@@ -24,10 +24,7 @@ import { Component } from '@angular/core';
                         <td>key</td>
                         <td>string</td>
                         <td>null</td>
-                        <td>
-                            Optional key to match the key of the confirm popup, necessary to use when component tree has multiple confirm
-                            popups.
-                        </td>
+                        <td>Optional key to match the key of the confirm popup, necessary to use when component tree has multiple confirm popups.</td>
                     </tr>
                     <tr>
                         <td>icon</td>
@@ -104,6 +101,6 @@ import { Component } from '@angular/core';
                 </tbody>
             </table>
         </div>
-    `,
+    `
 })
 export class ConfirmationApiDoc {}

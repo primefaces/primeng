@@ -19,20 +19,8 @@ import { AccessibilityDoc } from './accessibilitydoc';
 import { BadgeModule } from 'primeng/badge';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        FormsModule,
-        AppCodeModule,
-        AppDocModule,
-        ButtonModule,
-        Tag,
-        ProgressBar,
-        ToastModule,
-        FileUpload,
-        BadgeModule,
-        RouterModule,
-    ],
+    imports: [CommonModule, FormsModule, AppCodeModule, AppDocModule, ButtonModule, Tag, ProgressBar, ToastModule, FileUpload, BadgeModule, RouterModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, TemplateDoc, StyleDoc, AdvancedDoc, AutoDoc, AccessibilityDoc],
+    declarations: [ImportDoc, BasicDoc, TemplateDoc, StyleDoc, AdvancedDoc, AutoDoc, AccessibilityDoc]
 })
 export class FileUploadDocModule {}

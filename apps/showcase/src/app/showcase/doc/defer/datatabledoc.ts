@@ -39,14 +39,14 @@ import { CarService } from '@service/carservice';
         </div>
         <app-code [code]="code" [extFiles]="extFiles" selector="defer-data-table-demo"></app-code>
     `,
-    providers: [MessageService, CarService],
+    providers: [MessageService, CarService]
 })
 export class DataTableDoc {
     cars: Car[] | undefined;
 
     constructor(
         private carService: CarService,
-        private messageService: MessageService,
+        private messageService: MessageService
     ) {}
 
     initData() {
@@ -136,7 +136,7 @@ export class DeferDataTableDemo {
             year: 1987,
             color: 'Maroon'
 }`,
-        service: ['CarService'],
+        service: ['CarService']
     };
     extFiles = [
         {
@@ -150,7 +150,7 @@ export interface Car {
     color?;
     price?;
     saleDate?;
-}`,
-        },
+}`
+        }
     ];
 }

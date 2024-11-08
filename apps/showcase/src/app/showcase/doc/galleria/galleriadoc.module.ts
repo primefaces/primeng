@@ -53,8 +53,8 @@ import { AccessibilityDoc } from './accessibilitydoc';
         ResponsiveDoc,
         StyleDoc,
         ThumbnailDoc,
-        AccessibilityDoc,
+        AccessibilityDoc
     ],
-    exports: [AppDocModule],
+    exports: [AppDocModule]
 })
 export class GalleriaDocModule {}

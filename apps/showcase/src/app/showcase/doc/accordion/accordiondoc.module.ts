@@ -19,18 +19,8 @@ import { TemplateDoc } from './templatedoc';
 import { DynamicDoc } from './dynamicdoc';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        AppCodeModule,
-        AppDocModule,
-        AccordionModule,
-        ButtonModule,
-        RouterModule,
-        AvatarModule,
-        BadgeModule,
-        FormsModule,
-    ],
+    imports: [CommonModule, AppCodeModule, AppDocModule, AccordionModule, ButtonModule, RouterModule, AvatarModule, BadgeModule, FormsModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, DynamicDoc, MultipleDoc, DisabledDoc, ControlledDoc, TemplateDoc, StyleDoc, AccessibilityDoc],
+    declarations: [ImportDoc, BasicDoc, DynamicDoc, MultipleDoc, DisabledDoc, ControlledDoc, TemplateDoc, StyleDoc, AccessibilityDoc]
 })
 export class AccordionDocModule {}

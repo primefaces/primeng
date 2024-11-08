@@ -17,18 +17,8 @@ import { AccessibilityDoc } from './accessibilitydoc';
 import { SizesDoc } from './sizesdoc';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        RouterModule,
-        AppCodeModule,
-        AppDocModule,
-        FormsModule,
-        ReactiveFormsModule,
-        InputOtp,
-        InputTextModule,
-        ButtonModule,
-    ],
+    imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, FormsModule, ReactiveFormsModule, InputOtp, InputTextModule, ButtonModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, MaskDoc, IntegerOnlyDoc, TemplateDoc, SampleDoc, SizesDoc, AccessibilityDoc],
+    declarations: [ImportDoc, BasicDoc, MaskDoc, IntegerOnlyDoc, TemplateDoc, SampleDoc, SizesDoc, AccessibilityDoc]
 })
 export class InputOtpDocModule {}

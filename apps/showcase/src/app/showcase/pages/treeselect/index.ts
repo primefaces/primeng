@@ -27,90 +27,90 @@ import { SizesDoc } from '@doc/treeselect/sizesdoc';
         themeDocs="treeselect"
     ></app-doc>`,
     standalone: true,
-    imports: [TreeSelectDocModule],
+    imports: [TreeSelectDocModule]
 })
 export class TreeSelectDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc,
+            component: ImportDoc
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc,
+            component: BasicDoc
         },
         {
             id: 'reactive-forms',
             label: 'Reactive Forms',
-            component: ReactiveFormsDoc,
+            component: ReactiveFormsDoc
         },
         {
             id: 'multiple',
             label: 'Multiple',
-            component: MultipleDoc,
+            component: MultipleDoc
         },
         {
             id: 'checkbox',
             label: 'Checkbox',
-            component: CheckboxDoc,
+            component: CheckboxDoc
         },
         {
             id: 'virtual-scroll-doc',
             label: 'Virtual Scroll',
-            component: VirtualScrollDoc,
+            component: VirtualScrollDoc
         },
         {
             id: 'lazy',
             label: 'Lazy',
-            component: LazyDoc,
+            component: LazyDoc
         },
         {
             id: 'filter',
             label: 'Filter',
-            component: FilterDoc,
+            component: FilterDoc
         },
         {
             id: 'template',
             label: 'Template',
-            component: TemplateDoc,
+            component: TemplateDoc
         },
         {
             id: 'floatlabel',
             label: 'Float Label',
-            component: FloatLabelDoc,
+            component: FloatLabelDoc
         },
         {
             id: 'iftalabel',
             label: 'Ifta Label',
-            component: IftaLabelDoc,
+            component: IftaLabelDoc
         },
         {
             id: 'sizes',
             label: 'Sizes',
-            component: SizesDoc,
+            component: SizesDoc
         },
         {
             id: 'filled',
             label: 'Filled',
-            component: FilledDoc,
+            component: FilledDoc
         },
         {
             id: 'invalid',
             label: 'Invalid',
-            component: InvalidDoc,
+            component: InvalidDoc
         },
         {
             id: 'disabled',
             label: 'Disabled',
-            component: DisabledDoc,
+            component: DisabledDoc
         },
 
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc,
-        },
+            component: AccessibilityDoc
+        }
     ];
 }

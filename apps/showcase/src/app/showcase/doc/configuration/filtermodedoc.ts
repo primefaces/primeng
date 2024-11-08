@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
             <p>Default filter modes to display on DataTable filter menus.</p>
         </app-docsectiontext>
         <app-code [code]="code" [hideToggleCode]="true"></app-code>
-    `,
+    `
 })
 export class FilterModeDoc {
     code: Code = {
@@ -29,6 +29,6 @@ export class AppComponent implements OnInit {
             date: [FilterMatchMode.DATE_IS, FilterMatchMode.DATE_IS_NOT, FilterMatchMode.DATE_BEFORE, FilterMatchMode.DATE_AFTER]
         };
     }
-}`,
+}`
     };
 }

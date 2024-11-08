@@ -53,7 +53,7 @@ import { WindowMaximizeIcon } from 'primeng/icons/windowmaximize';
         TemplateDoc,
         StyleDoc,
         AccessibilityDoc,
-        DirectiveDoc,
-    ],
+        DirectiveDoc
+    ]
 })
 export class ButtonDocModule {}

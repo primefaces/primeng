@@ -5,10 +5,7 @@ import { Code } from '@domain/code';
     selector: 'datepicker-time-demo',
     template: `
         <app-docsectiontext>
-            <p>
-                A time picker is displayed when <i>showTime</i> is enabled where 12/24 hour format is configured with
-                <i>hourFormat</i> property. In case, only time needs to be selected, add <i>timeOnly</i> to hide the date section.
-            </p>
+            <p>A time picker is displayed when <i>showTime</i> is enabled where 12/24 hour format is configured with <i>hourFormat</i> property. In case, only time needs to be selected, add <i>timeOnly</i> to hide the date section.</p>
         </app-docsectiontext>
 
         <p-fluid class="card flex flex-wrap gap-4">
@@ -27,7 +24,7 @@ import { Code } from '@domain/code';
         </p-fluid>
 
         <app-code [code]="code" selector="datepicker-time-demo"></app-code>
-    `,
+    `
 })
 export class TimeDoc {
     datetime12h: Date[] | undefined;
@@ -76,6 +73,6 @@ export class DatePickerTimeDemo {
     datetime24h: Date[] | undefined;
 
     time: Date[] | undefined;
-}`,
+}`
     };
 }

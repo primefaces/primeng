@@ -8,34 +8,29 @@ import { CustomIconsDocModule } from '@doc/customicons/customicons.module';
 @Component({
     standalone: true,
     imports: [CustomIconsDocModule],
-    template: ` <app-doc
-        title="Custom Icons - PrimeNG"
-        header="Custom Icons"
-        description="PrimeNG components can be used with any icon library using the templating features."
-        [docs]="docs"
-    ></app-doc>`,
+    template: ` <app-doc title="Custom Icons - PrimeNG" header="Custom Icons" description="PrimeNG components can be used with any icon library using the templating features." [docs]="docs"></app-doc>`
 })
 export class CustomIconsDemo {
     docs = [
         {
             id: 'material',
             label: 'Material',
-            component: MaterialDoc,
+            component: MaterialDoc
         },
         {
             id: 'fontawesome',
             label: 'Font Awesome',
-            component: FontAwesomeDoc,
+            component: FontAwesomeDoc
         },
         {
             id: 'svg',
             label: 'SVG',
-            component: SVGDoc,
+            component: SVGDoc
         },
         {
             id: 'image',
             label: 'Image',
-            component: ImageDoc,
-        },
+            component: ImageDoc
+        }
     ];
 }

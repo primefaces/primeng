@@ -5,22 +5,12 @@ import { Code } from '@domain/code';
     selector: 'template-doc',
     template: `
         <app-docsectiontext>
-            <p>
-                Define a template with your own UI elements with bindings to the provided events and attributes to replace the default
-                design.
-            </p>
+            <p>Define a template with your own UI elements with bindings to the provided events and attributes to replace the default design.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-inputotp [(ngModel)]="value">
                 <ng-template pTemplate="input" let-token let-events="events">
-                    <input
-                        class="custom-otp-input"
-                        (keydown)="events.keydown($event)"
-                        (input)="events.input($event)"
-                        type="text"
-                        [attr.value]="token"
-                        [maxLength]="1"
-                    />
+                    <input class="custom-otp-input" (keydown)="events.keydown($event)" (input)="events.input($event)" type="text" [attr.value]="token" [maxLength]="1" />
                 </ng-template>
             </p-inputotp>
         </div>
@@ -44,8 +34,8 @@ import { Code } from '@domain/code';
                 outline: 0 none;
                 border-bottom-color: var(--p-primary-color);
             }
-        `,
-    ],
+        `
+    ]
 })
 export class TemplateDoc {
     value: any;
@@ -98,6 +88,6 @@ import { FormsModule } from '@angular/forms';
 
 export class InputOtpTemplateDemo {
     value: any;
-}`,
+}`
     };
 }

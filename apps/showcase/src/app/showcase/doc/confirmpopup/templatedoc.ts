@@ -22,12 +22,12 @@ import { Code } from '@domain/code';
         </div>
         <app-code [code]="code" selector="confirm-popup-template-demo"></app-code>
     `,
-    providers: [ConfirmationService, MessageService],
+    providers: [ConfirmationService, MessageService]
 })
 export class TemplateDoc {
     constructor(
         private confirmationService: ConfirmationService,
-        private messageService: MessageService,
+        private messageService: MessageService
     ) {}
 
     confirm(event: Event) {
@@ -38,18 +38,18 @@ export class TemplateDoc {
             rejectButtonProps: {
                 icon: 'pi pi-times',
                 label: 'Cancel',
-                outlined: true,
+                outlined: true
             },
             acceptButtonProps: {
                 icon: 'pi pi-check',
-                label: 'Confirm',
+                label: 'Confirm'
             },
             accept: () => {
                 this.messageService.add({
                     severity: 'info',
                     summary: 'Confirmed',
                     detail: 'You have accepted',
-                    life: 3000,
+                    life: 3000
                 });
             },
             reject: () => {
@@ -57,9 +57,9 @@ export class TemplateDoc {
                     severity: 'error',
                     summary: 'Rejected',
                     detail: 'You have rejected',
-                    life: 3000,
+                    life: 3000
                 });
-            },
+            }
         });
     }
 
@@ -141,6 +141,6 @@ export class ConfirmPopupTemplateDemo {
             },
         });
     }
-}`,
+}`
     };
 }

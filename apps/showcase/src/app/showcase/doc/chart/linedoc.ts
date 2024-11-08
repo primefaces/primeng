@@ -7,16 +7,13 @@ import { AppConfigService } from '@service/appconfigservice';
     selector: 'chart-line-demo',
     template: `
         <app-docsectiontext>
-            <p>
-                A line chart or line graph is a type of chart which displays information as a series of data points called 'markers'
-                connected by straight line segments.
-            </p>
+            <p>A line chart or line graph is a type of chart which displays information as a series of data points called 'markers' connected by straight line segments.</p>
         </app-docsectiontext>
         <div class="card">
             <p-chart type="line" [data]="data" [options]="options" class="h-[30rem]" />
         </div>
         <app-code [code]="code" selector="chart-line-demo"></app-code>
-    `,
+    `
 })
 export class LineDoc implements OnInit {
     data: any;
@@ -55,16 +52,16 @@ export class LineDoc implements OnInit {
                         data: [65, 59, 80, 81, 56, 55, 40],
                         fill: false,
                         borderColor: documentStyle.getPropertyValue('--p-cyan-500'),
-                        tension: 0.4,
+                        tension: 0.4
                     },
                     {
                         label: 'Second Dataset',
                         data: [28, 48, 40, 19, 86, 27, 90],
                         fill: false,
                         borderColor: documentStyle.getPropertyValue('--p-gray-500'),
-                        tension: 0.4,
-                    },
-                ],
+                        tension: 0.4
+                    }
+                ]
             };
 
             this.options = {
@@ -73,30 +70,30 @@ export class LineDoc implements OnInit {
                 plugins: {
                     legend: {
                         labels: {
-                            color: textColor,
-                        },
-                    },
+                            color: textColor
+                        }
+                    }
                 },
                 scales: {
                     x: {
                         ticks: {
-                            color: textColorSecondary,
+                            color: textColorSecondary
                         },
                         grid: {
                             color: surfaceBorder,
-                            drawBorder: false,
-                        },
+                            drawBorder: false
+                        }
                     },
                     y: {
                         ticks: {
-                            color: textColorSecondary,
+                            color: textColorSecondary
                         },
                         grid: {
                             color: surfaceBorder,
-                            drawBorder: false,
-                        },
-                    },
-                },
+                            drawBorder: false
+                        }
+                    }
+                }
             };
         }
     }
@@ -199,6 +196,6 @@ export class ChartLineDemo implements OnInit {
             };
         }
     }
-}`,
+}`
     };
 }

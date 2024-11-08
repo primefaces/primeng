@@ -15,6 +15,6 @@ import { InvalidDoc } from './invaliddoc';
 @NgModule({
     imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, FormsModule, FloatLabelModule, InputTextModule],
     declarations: [ImportDoc, BasicDoc, VariantsDoc, InvalidDoc, StyleDoc, AccessibilityDoc],
-    exports: [AppDocModule],
+    exports: [AppDocModule]
 })
 export class FloatLabelDocModule {}

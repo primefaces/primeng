@@ -1,15 +1,4 @@
-import {
-    ChangeDetectionStrategy,
-    Component,
-    inject,
-    Input,
-    OnChanges,
-    OnInit,
-    Renderer2,
-    signal,
-    SimpleChanges,
-    ViewEncapsulation,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, Input, OnChanges, OnInit, Renderer2, signal, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { Doc } from '@domain/doc';
 import { Meta, Title } from '@angular/platform-browser';
@@ -36,34 +25,19 @@ import { DOCUMENT } from '@angular/common';
         </ul>
         <div class="doc-tabpanels">
             @if (docs) {
-                <app-docfeaturessection
-                    [header]="header"
-                    [description]="description"
-                    [docs]="docs"
-                    [ngStyle]="{ display: docService.activeTab() === 0 ? 'flex' : 'none' }"
-                />
+                <app-docfeaturessection [header]="header" [description]="description" [docs]="docs" [ngStyle]="{ display: docService.activeTab() === 0 ? 'flex' : 'none' }" />
             }
             @if (apiDocs) {
-                <app-docapisection
-                    [docs]="apiDocs"
-                    [header]="header"
-                    class="doc-tabpanel"
-                    [ngStyle]="{ display: docService.activeTab() === 1 ? 'flex' : 'none' }"
-                />
+                <app-docapisection [docs]="apiDocs" [header]="header" class="doc-tabpanel" [ngStyle]="{ display: docService.activeTab() === 1 ? 'flex' : 'none' }" />
             }
 
             @if (themeDocs) {
-                <app-docthemingsection
-                    [header]="header"
-                    [docs]="themeDocs"
-                    class="doc-tabpanel"
-                    [ngStyle]="{ display: docService.activeTab() === 2 ? 'flex' : 'none' }"
-                />
+                <app-docthemingsection [header]="header" [docs]="themeDocs" class="doc-tabpanel" [ngStyle]="{ display: docService.activeTab() === 2 ? 'flex' : 'none' }" />
             }
         </div>
     </div>`,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None,
+    encapsulation: ViewEncapsulation.None
 })
 export class AppDoc implements OnInit, OnChanges {
     @Input() docTitle!: string;

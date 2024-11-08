@@ -18,7 +18,7 @@ import { Code } from '@domain/code';
             </p-splitter>
         </div>
         <app-code [code]="code" selector="splitter-vertical-demo"></app-code>
-    `,
+    `
 })
 export class VerticalDoc {
     code: Code = {
@@ -51,6 +51,6 @@ import { SplitterModule } from 'primeng/splitter';
     standalone: true,
     imports: [SplitterModule]
 })
-export class SplitterVerticalDemo {}`,
+export class SplitterVerticalDemo {}`
     };
 }

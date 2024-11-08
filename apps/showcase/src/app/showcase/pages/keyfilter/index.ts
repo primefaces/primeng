@@ -15,34 +15,34 @@ import { KeyFilterDocModule } from '@doc/keyfilter/keyfilterdoc.module';
         [apiDocs]="['KeyFilter']"
     ></app-doc>`,
     standalone: true,
-    imports: [KeyFilterDocModule],
+    imports: [KeyFilterDocModule]
 })
 export class KeyFilterDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc,
+            component: ImportDoc
         },
         {
             id: 'presets',
             label: 'Presets',
-            component: PresetsDoc,
+            component: PresetsDoc
         },
         {
             id: 'regex',
             label: 'Regex',
-            component: RegexDoc,
+            component: RegexDoc
         },
         {
             id: 'reactive-forms',
             label: 'Reactive Forms',
-            component: ReactiveFormsDoc,
+            component: ReactiveFormsDoc
         },
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc,
-        },
+            component: AccessibilityDoc
+        }
     ];
 }

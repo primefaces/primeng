@@ -3,10 +3,10 @@ import { Code } from '@domain/code';
 
 @Component({
     selector: 'accordion-import-doc',
-    template: ` <app-code [code]="code" [hideToggleCode]="true"></app-code> `,
+    template: ` <app-code [code]="code" [hideToggleCode]="true"></app-code> `
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { Accordion, AccordionTab } from 'primeng/accordion';`,
+        typescript: `import { Accordion, AccordionTab } from 'primeng/accordion';`
     };
 }

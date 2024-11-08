@@ -5,33 +5,24 @@ import { Code } from '@domain/code';
     selector: 'disabled-doc',
     template: `
         <app-docsectiontext>
-            <p>
-                When <i>disabled</i> is present, the element cannot be edited and focused entirely. Certain options can also be disabled
-                using the <i>optionDisabled</i> property.
-            </p>
+            <p>When <i>disabled</i> is present, the element cannot be edited and focused entirely. Certain options can also be disabled using the <i>optionDisabled</i> property.</p>
         </app-docsectiontext>
         <div class="card flex justify-center flex-wrap gap-4">
             <p-selectbutton [options]="stateOptions" [(ngModel)]="value1" optionLabel="label" optionValue="value" [disabled]="true" />
-            <p-selectbutton
-                [options]="stateOptions2"
-                [(ngModel)]="value2"
-                optionLabel="label"
-                optionValue="value"
-                optionDisabled="constant"
-            />
+            <p-selectbutton [options]="stateOptions2" [(ngModel)]="value2" optionLabel="label" optionValue="value" optionDisabled="constant" />
         </div>
         <app-code [code]="code" selector="select-button-disabled-demo"></app-code>
-    `,
+    `
 })
 export class DisabledDoc {
     stateOptions: any[] = [
         { label: 'Off', value: 'off' },
-        { label: 'On', value: 'on' },
+        { label: 'On', value: 'on' }
     ];
 
     stateOptions2: any[] = [
         { label: 'Option 1', value: 'Option 1' },
-        { label: 'Option 2', value: 'Option 2', constant: true },
+        { label: 'Option 2', value: 'Option 2', constant: true }
     ];
 
     value1: string = 'off';
@@ -72,6 +63,6 @@ export class SelectButtonDisabledDemo {
     value1: string = 'off';
 
     value2: string = 'Option 1';
-}`,
+}`
     };
 }

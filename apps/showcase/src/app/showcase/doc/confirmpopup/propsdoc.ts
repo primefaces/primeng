@@ -18,10 +18,7 @@ import { Component } from '@angular/core';
                         <td>key</td>
                         <td>string</td>
                         <td>null</td>
-                        <td>
-                            Optional key to match the key of confirm object, necessary to use when component tree has multiple confirm
-                            dialogs.
-                        </td>
+                        <td>Optional key to match the key of confirm object, necessary to use when component tree has multiple confirm dialogs.</td>
                     </tr>
                     <tr>
                         <td>showTransitionOptions</td>
@@ -62,6 +59,6 @@ import { Component } from '@angular/core';
                 </tbody>
             </table>
         </div>
-    `,
+    `
 })
 export class PropsDoc {}

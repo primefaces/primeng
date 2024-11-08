@@ -12,19 +12,14 @@ import { Code } from '@domain/code';
             <p-organization-chart [value]="data" [collapsible]="true">
                 <ng-template let-node pTemplate="default">
                     <div class="flex flex-col items-center">
-                        <img
-                            src="https://primefaces.org/cdn/primeng/images/flag/flag_placeholder.png"
-                            [alt]="node.label"
-                            [class]="'flag' + ' flag-' + node.data"
-                            width="32"
-                        />
+                        <img src="https://primefaces.org/cdn/primeng/images/flag/flag_placeholder.png" [alt]="node.label" [class]="'flag' + ' flag-' + node.data" width="32" />
                         <div class="mt-4 font-medium text-lg">{{ node.label }}</div>
                     </div>
                 </ng-template>
             </p-organization-chart>
         </div>
         <app-code [code]="code" selector="organization-chart-template-demo"></app-code>
-    `,
+    `
 })
 export class TemplateDoc {
     data: TreeNode[] = [
@@ -40,13 +35,13 @@ export class TemplateDoc {
                     children: [
                         {
                             label: 'Argentina',
-                            data: 'ar',
+                            data: 'ar'
                         },
                         {
                             label: 'Croatia',
-                            data: 'hr',
-                        },
-                    ],
+                            data: 'hr'
+                        }
+                    ]
                 },
                 {
                     label: 'France',
@@ -55,16 +50,16 @@ export class TemplateDoc {
                     children: [
                         {
                             label: 'France',
-                            data: 'fr',
+                            data: 'fr'
                         },
                         {
                             label: 'Morocco',
-                            data: 'ma',
-                        },
-                    ],
-                },
-            ],
-        },
+                            data: 'ma'
+                        }
+                    ]
+                }
+            ]
+        }
     ];
 
     code: Code = {
@@ -148,6 +143,6 @@ export class OrganizationChartTemplateDemo {
             ]
         }
     ];
-}`,
+}`
     };
 }

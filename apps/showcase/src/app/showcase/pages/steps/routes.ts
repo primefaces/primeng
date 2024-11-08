@@ -3,6 +3,6 @@ import { StepsDemo } from './';
 export default [
     {
         path: '',
-        component: StepsDemo,
-    },
+        component: StepsDemo
+    }
 ];

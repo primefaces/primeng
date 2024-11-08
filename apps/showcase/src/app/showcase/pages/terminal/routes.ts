@@ -3,6 +3,6 @@ import { TerminalDemo } from './';
 export default [
     {
         path: '',
-        component: TerminalDemo,
-    },
+        component: TerminalDemo
+    }
 ];

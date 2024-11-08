@@ -25,30 +25,16 @@ import { Component } from '@angular/core';
                     </div>
                     <div class="flex-1">
                         <label for="country" class="block font-semibold mb-2">Country</label>
-                        <p-select
-                            [options]="countries"
-                            [(ngModel)]="selectedCountry"
-                            optionLabel="name"
-                            [showClear]="true"
-                            placeholder="Select a Country"
-                        >
+                        <p-select [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" [showClear]="true" placeholder="Select a Country">
                             <ng-template pTemplate="selectedItem">
                                 <div class="flex items-center gap-2" *ngIf="selectedCountry">
-                                    <img
-                                        src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
-                                        [class]="'flag flag-' + selectedCountry.code.toLowerCase()"
-                                        style="width: 18px"
-                                    />
+                                    <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + selectedCountry.code.toLowerCase()" style="width: 18px" />
                                     <div>{{ selectedCountry.name }}</div>
                                 </div>
                             </ng-template>
                             <ng-template let-country pTemplate="item">
                                 <div class="flex items-center gap-2">
-                                    <img
-                                        src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
-                                        [class]="'flag flag-' + country.code.toLowerCase()"
-                                        style="width: 18px"
-                                    />
+                                    <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" style="width: 18px" />
                                     <div>{{ country.name }}</div>
                                 </div>
                             </ng-template>
@@ -62,7 +48,7 @@ import { Component } from '@angular/core';
             </div>
         </div>
         <app-code [code]="code" selector="code" [hideToggleCode]="true" [hideCodeSandbox]="true" [hideStackBlitz]="true"></app-code>
-    `,
+    `
 })
 export class FormDoc {
     countries: any[] | undefined;
@@ -80,7 +66,7 @@ export class FormDoc {
             { name: 'India', code: 'IN' },
             { name: 'Japan', code: 'JP' },
             { name: 'Spain', code: 'ES' },
-            { name: 'United States', code: 'US' },
+            { name: 'United States', code: 'US' }
         ];
     }
 

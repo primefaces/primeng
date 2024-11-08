@@ -9,13 +9,7 @@ import { PhotoService } from '@service/photoservice';
             <p>Galleria responsiveness is defined with the <i>responsiveOptions</i> property.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-galleria
-                [(value)]="images"
-                [responsiveOptions]="responsiveOptions"
-                [containerStyle]="{ 'max-width': '640px' }"
-                [numVisible]="7"
-                [circular]="true"
-            >
+            <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="7" [circular]="true">
                 <ng-template pTemplate="item" let-item>
                     <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
                 </ng-template>
@@ -25,7 +19,7 @@ import { PhotoService } from '@service/photoservice';
             </p-galleria>
         </div>
         <app-code [code]="code" selector="galleria-responsive-demo"></app-code>
-    `,
+    `
 })
 export class ResponsiveDoc implements OnInit {
     images: any[] | undefined;
@@ -33,12 +27,12 @@ export class ResponsiveDoc implements OnInit {
     responsiveOptions: any[] = [
         {
             breakpoint: '1300px',
-            numVisible: 4,
+            numVisible: 4
         },
         {
             breakpoint: '575px',
-            numVisible: 1,
-        },
+            numVisible: 1
+        }
     ];
 
     constructor(private photoService: PhotoService) {}
@@ -106,6 +100,6 @@ export class GalleriaResponsiveDemo implements OnInit {
     alt: 'Description for Image 1',
     title: 'Title 1'
 },
-...`,
+...`
     };
 }

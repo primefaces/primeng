@@ -17,6 +17,6 @@ import { SizesDoc } from './sizesdoc';
 @NgModule({
     imports: [CommonModule, AppCodeModule, AppDocModule, SelectButton, FormsModule, ReactiveFormsModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, MultipleDoc, TemplateDoc, InvalidDoc, SizesDoc, DisabledDoc, AccessibilityDoc, ReactiveFormsDoc],
+    declarations: [ImportDoc, BasicDoc, MultipleDoc, TemplateDoc, InvalidDoc, SizesDoc, DisabledDoc, AccessibilityDoc, ReactiveFormsDoc]
 })
 export class SelectButtonDocModule {}

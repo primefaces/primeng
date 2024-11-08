@@ -7,7 +7,7 @@ export class PlatformService {
 
     constructor(
         @Inject(PLATFORM_ID) private platformId: any,
-        @Inject(DOCUMENT) private document: Document,
+        @Inject(DOCUMENT) private document: Document
     ) {
         this.window = this.document.defaultView as Window;
     }

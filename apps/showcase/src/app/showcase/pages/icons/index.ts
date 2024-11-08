@@ -22,54 +22,54 @@ import { IconsDocModule } from '@doc/icons/icons.module';
             [docs]="docs"
         ></app-doc>
     `,
-    styleUrls: ['./iconsdemo.component.scss'],
+    styleUrls: ['./iconsdemo.component.scss']
 })
 export class IconsDemo {
     docs = [
         {
             id: 'download',
             label: 'Download',
-            component: DownloadDoc,
+            component: DownloadDoc
         },
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc,
+            component: ImportDoc
         },
         {
             id: 'figma',
             label: 'Figma',
-            component: FigmaDoc,
+            component: FigmaDoc
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc,
+            component: BasicDoc
         },
         {
             id: 'size',
             label: 'Size',
-            component: SizeDoc,
+            component: SizeDoc
         },
         {
             id: 'color',
             label: 'Color',
-            component: ColorDoc,
+            component: ColorDoc
         },
         {
             id: 'spin',
             label: 'Spin',
-            component: SpinDoc,
+            component: SpinDoc
         },
         {
             id: 'constants',
             label: 'Constants',
-            component: ConstantsDoc,
+            component: ConstantsDoc
         },
         {
             id: 'list',
             label: 'List',
-            component: ListDoc,
-        },
+            component: ListDoc
+        }
     ];
 }

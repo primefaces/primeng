@@ -18,6 +18,6 @@ import { VerticalDoc } from './verticaldoc';
 @NgModule({
     imports: [CommonModule, AppCodeModule, AppDocModule, DividerModule, ButtonModule, InputTextModule, RouterModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, TypeDoc, ContentDoc, VerticalDoc, LoginDoc, StyleDoc, AccessibilityDoc],
+    declarations: [ImportDoc, BasicDoc, TypeDoc, ContentDoc, VerticalDoc, LoginDoc, StyleDoc, AccessibilityDoc]
 })
 export class DividerDocModule {}

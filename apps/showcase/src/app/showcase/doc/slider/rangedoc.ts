@@ -5,16 +5,13 @@ import { Code } from '@domain/code';
     selector: 'range-doc',
     template: `
         <app-docsectiontext>
-            <p>
-                When <i>range</i> property is present, slider provides two handles to define two values. In range mode, value should be an
-                array instead of a single value.
-            </p>
+            <p>When <i>range</i> property is present, slider provides two handles to define two values. In range mode, value should be an array instead of a single value.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-slider [(ngModel)]="rangeValues" [range]="true" styleClass="w-56" />
         </div>
         <app-code [code]="code" selector="slider-range-demo"></app-code>
-    `,
+    `
 })
 export class RangeDoc {
     rangeValues: number[] = [20, 80];
@@ -38,6 +35,6 @@ import { Slider } from 'primeng/slider';
 })
 export class SliderRangeDemo {
     rangeValues: number[] = [20, 80];
-}`,
+}`
     };
 }

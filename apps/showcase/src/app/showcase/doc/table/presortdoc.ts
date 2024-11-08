@@ -7,8 +7,7 @@ import { ProductService } from '@service/productservice';
     selector: 'presort-doc',
     template: ` <app-docsectiontext>
             <p>
-                Defining a default <i>sortField</i> and <i>sortOrder</i> displays data as sorted initially in single column sorting. In
-                <i>multiple</i> sort mode, <i>multiSortMeta</i> should be used instead by providing an array of
+                Defining a default <i>sortField</i> and <i>sortOrder</i> displays data as sorted initially in single column sorting. In <i>multiple</i> sort mode, <i>multiSortMeta</i> should be used instead by providing an array of
                 <i>DataTableSortMeta</i> objects.
             </p>
         </app-docsectiontext>
@@ -52,14 +51,14 @@ import { ProductService } from '@service/productservice';
             </div>
         </p-deferred-demo>
         <app-code [code]="code" selector="table-presort-demo" [extFiles]="extFiles"></app-code>`,
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PreSortDoc {
     products!: Product[];
 
     constructor(
         private productService: ProductService,
-        private cd: ChangeDetectorRef,
+        private cd: ChangeDetectorRef
     ) {}
 
     loadDemoData() {
@@ -169,7 +168,7 @@ export class TablePreSortDemo implements OnInit {
     rating: 5
 },
 ...`,
-        service: ['ProductService'],
+        service: ['ProductService']
     };
 
     extFiles = [
@@ -187,7 +186,7 @@ export interface Product {
     category?: string;
     image?: string;
     rating?: number;
-}`,
-        },
+}`
+        }
     ];
 }

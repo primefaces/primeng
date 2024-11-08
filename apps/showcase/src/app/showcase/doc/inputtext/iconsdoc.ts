@@ -22,7 +22,7 @@ import { Code } from '@domain/code';
             </span>
         </div>
         <app-code [code]="code" selector="input-text-icons-demo"></app-code>
-    `,
+    `
 })
 export class IconsDoc {
     value: string | undefined;
@@ -59,6 +59,6 @@ export class InputTextIconsDemo {
     value: string | undefined;
     
     value2: string | undefined;
-}`,
+}`
     };
 }

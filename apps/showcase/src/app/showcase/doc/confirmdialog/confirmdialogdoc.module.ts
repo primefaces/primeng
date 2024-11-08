@@ -17,6 +17,6 @@ import { AccessibilityDoc } from './accessibilitydoc';
 @NgModule({
     imports: [CommonModule, AppCodeModule, RouterModule, ConfirmDialog, ButtonModule, ToastModule, AppDocModule],
     declarations: [BasicDoc, ImportDoc, StyleDoc, PositionDoc, TemplateDoc, HeadlessDoc, AccessibilityDoc],
-    exports: [AppDocModule],
+    exports: [AppDocModule]
 })
 export class ConfirmDialogDocModule {}

@@ -6,10 +6,7 @@ import { Code } from '@domain/code';
     selector: 'position-doc',
     template: `
         <app-docsectiontext>
-            <p>
-                Location of the toast is customized with the <i>position</i> property. Valid values are <i>top-left</i>, <i>top-center</i>,
-                <i>top-right</i>, <i>bottom-left</i>, <i>bottom-center</i>, <i>bottom-right</i> and <i>center</i>.
-            </p>
+            <p>Location of the toast is customized with the <i>position</i> property. Valid values are <i>top-left</i>, <i>top-center</i>, <i>top-right</i>, <i>bottom-left</i>, <i>bottom-center</i>, <i>bottom-right</i> and <i>center</i>.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-toast position="top-left" key="tl" />
@@ -23,7 +20,7 @@ import { Code } from '@domain/code';
         </div>
         <app-code [code]="code" selector="toast-position-demo"></app-code>
     `,
-    providers: [MessageService],
+    providers: [MessageService]
 })
 export class PositionDoc {
     constructor(private messageService: MessageService) {}
@@ -34,7 +31,7 @@ export class PositionDoc {
             summary: 'Info Message',
             detail: 'Message Content',
             key: 'tl',
-            life: 3000,
+            life: 3000
         });
     }
 
@@ -44,7 +41,7 @@ export class PositionDoc {
             summary: 'Warn Message',
             detail: 'Message Content',
             key: 'bl',
-            life: 3000,
+            life: 3000
         });
     }
 
@@ -54,7 +51,7 @@ export class PositionDoc {
             summary: 'Success Message',
             detail: 'Message Content',
             key: 'br',
-            life: 3000,
+            life: 3000
         });
     }
 
@@ -104,6 +101,6 @@ export class ToastPositionDemo {
     showBottomRight() {
         this.messageService.add({ severity: 'success', summary: 'Success Message', detail: 'Message Content', key: 'br', life: 3000 });
     }
-}`,
+}`
     };
 }

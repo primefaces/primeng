@@ -22,6 +22,6 @@ import { Ripple } from 'primeng/ripple';
 @NgModule({
     imports: [CommonModule, AppCodeModule, RouterModule, Menu, ToastModule, ButtonModule, Ripple, AvatarModule, AppDocModule, BadgeModule],
     declarations: [BasicDoc, CommandDoc, TemplateDoc, GroupDoc, ImportDoc, RouterDoc, PopupDoc, StyleDoc, AccessibilityDoc],
-    exports: [AppDocModule],
+    exports: [AppDocModule]
 })
 export class MenuDocModule {}

@@ -13,7 +13,7 @@ import { AppConfiguratorComponent } from '@layout/configurator/app.configurator.
     selector: 'app-topbar',
     standalone: true,
     templateUrl: './app.topbar.component.html',
-    imports: [CommonModule, FormsModule, StyleClass, RouterModule, AppConfiguratorComponent],
+    imports: [CommonModule, FormsModule, StyleClass, RouterModule, AppConfiguratorComponent]
 })
 export class AppTopBarComponent implements OnDestroy {
     @Input({ transform: booleanAttribute }) showConfigurator = true;
@@ -29,7 +29,7 @@ export class AppTopBarComponent implements OnDestroy {
         @Inject(DOCUMENT) private document: Document,
         private el: ElementRef,
         private renderer: Renderer2,
-        private configService: AppConfigService,
+        private configService: AppConfigService
     ) {
         this.window = this.document.defaultView as Window;
 
@@ -66,7 +66,7 @@ export class AppTopBarComponent implements OnDestroy {
             appId: 'XG1L2MUWT9',
             apiKey: '6057fe1af77fee4e7e41907b0b3ec79d',
             indexName: 'primeng',
-            container: '#docsearch',
+            container: '#docsearch'
         });
     }
 

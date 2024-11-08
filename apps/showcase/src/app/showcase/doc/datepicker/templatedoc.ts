@@ -14,7 +14,7 @@ import { Code } from '@domain/code';
             </p-calendar>
         </div>
         <app-code [code]="code" selector="calendar-template-demo"></app-code>
-    `,
+    `
 })
 export class TemplateDoc {
     date: Date[] | undefined;
@@ -40,6 +40,6 @@ export class TemplateDoc {
 })
 export class CalendarTemplateDemo {
     date: Date[] | undefined;
-}`,
+}`
     };
 }

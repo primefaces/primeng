@@ -10,25 +10,15 @@ import ThemeDoc from '@doc/apidoc/themedoc.json';
                 <h1>{{ header }} Theming</h1>
             </div>
             @if (classDoc()) {
-                <app-docapitable
-                    [id]="header + 'Classes'"
-                    [label]="'CSS Classes'"
-                    description="List of class names used in the styled mode."
-                    [data]="classDoc().classes"
-                />
+                <app-docapitable [id]="header + 'Classes'" [label]="'CSS Classes'" description="List of class names used in the styled mode." [data]="classDoc().classes" />
             }
             @if (tokensDoc()) {
-                <app-docapitable
-                    [id]="header + 'DesignTokens'"
-                    [label]="header + ' Design Tokens'"
-                    description="List of design tokens used in a preset."
-                    [data]="tokensDoc().tokens"
-                />
+                <app-docapitable [id]="header + 'DesignTokens'" [label]="header + ' Design Tokens'" description="List of design tokens used in a preset." [data]="tokensDoc().tokens" />
             }
         </div>
         <app-docsection-nav [docs]="navItems()" />
     `,
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppDocThemingSectionComponent {
     @Input() header!: string;
@@ -53,8 +43,8 @@ export class AppDocThemingSectionComponent {
                 ...prev,
                 {
                     id: this.header + 'DesignTokens',
-                    label: 'Design Tokens',
-                },
+                    label: 'Design Tokens'
+                }
             ]);
         }
         if (APIDoc[docName]) {
@@ -64,9 +54,9 @@ export class AppDocThemingSectionComponent {
             this.navItems.update((prev) => [
                 {
                     id: this.header + 'classes',
-                    label: 'CSS Classes',
+                    label: 'CSS Classes'
                 },
-                ...prev,
+                ...prev
             ]);
         }
     }

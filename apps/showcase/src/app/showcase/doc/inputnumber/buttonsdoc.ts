@@ -6,9 +6,8 @@ import { Code } from '@domain/code';
     template: `
         <app-docsectiontext>
             <p>
-                Spinner buttons are enabled using the <i>showButtons</i> options and layout is defined with the <i>buttonLayout</i>. Default
-                value is "stacked" whereas "horizontal" and "stacked" are alternatives. Note that even there are no buttons, up and down
-                arrow keys can be used to spin the values with keyboard.
+                Spinner buttons are enabled using the <i>showButtons</i> options and layout is defined with the <i>buttonLayout</i>. Default value is "stacked" whereas "horizontal" and "stacked" are alternatives. Note that even there are no buttons,
+                up and down arrow keys can be used to spin the values with keyboard.
             </p>
         </app-docsectiontext>
         <p-fluid class="card flex flex-wrap gap-4">
@@ -22,16 +21,7 @@ import { Code } from '@domain/code';
             </div>
             <div class="flex-auto">
                 <label class="mb-2 block font-bold" for="horizontal">Horizontal with Step</label>
-                <p-inputnumber
-                    [(ngModel)]="value3"
-                    [showButtons]="true"
-                    buttonLayout="horizontal"
-                    inputId="horizontal"
-                    spinnerMode="horizontal"
-                    [step]="0.25"
-                    mode="currency"
-                    currency="EUR"
-                >
+                <p-inputnumber [(ngModel)]="value3" [showButtons]="true" buttonLayout="horizontal" inputId="horizontal" spinnerMode="horizontal" [step]="0.25" mode="currency" currency="EUR">
                     <ng-template pTemplate="incrementbuttonicon">
                         <span class="pi pi-plus"></span>
                     </ng-template>
@@ -42,7 +32,7 @@ import { Code } from '@domain/code';
             </div>
         </p-fluid>
         <app-code [code]="code" selector="input-number-buttons-demo"></app-code>
-    `,
+    `
 })
 export class ButtonsDoc {
     value1: number = 20;
@@ -108,6 +98,6 @@ export class InputNumberButtonsDemo {
     value2: number = 10.5;
 
     value3: number = 25;
-}`,
+}`
     };
 }

@@ -6,10 +6,7 @@ import { NodeService } from '@service/nodeservice';
     selector: 'iftalabel-doc',
     template: `
         <app-docsectiontext>
-            <p>
-                IftaLabel is used to create infield top aligned labels. Visit <a routerLink="/iftalabel">IftaLabel</a> documentation for
-                more information.
-            </p>
+            <p>IftaLabel is used to create infield top aligned labels. Visit <a routerLink="/iftalabel">IftaLabel</a> documentation for more information.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-iftalabel class="w-full md:w-80">
@@ -18,7 +15,7 @@ import { NodeService } from '@service/nodeservice';
             </p-iftalabel>
         </div>
         <app-code [code]="code" selector="tree-select-iftalabel-demo"></app-code>
-    `,
+    `
 })
 export class IftaLabelDoc {
     nodes!: any[];
@@ -89,7 +86,7 @@ export class TreeSelectIftaLabelDemo {
         }
     ]
 },
-...`,
+...`
     };
 
     constructor(private nodeService: NodeService) {

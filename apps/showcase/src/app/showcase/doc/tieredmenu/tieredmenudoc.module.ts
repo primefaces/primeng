@@ -22,6 +22,6 @@ import { FloatLabel } from 'primeng/floatlabel';
     imports: [CommonModule, AppCodeModule, RouterModule, TieredMenu, ButtonModule, AppDocModule, BadgeModule, ToastModule, FloatLabel],
     declarations: [BasicDoc, ImportDoc, PopupDoc, StyleDoc, AccessibilityDoc, TemplateDoc, CommandDoc, RouterDoc],
     exports: [AppDocModule],
-    providers: [MessageService],
+    providers: [MessageService]
 })
 export class TieredMenuDocModule {}

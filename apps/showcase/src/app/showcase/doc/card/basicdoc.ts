@@ -10,13 +10,13 @@ import { Code } from '@domain/code';
         <div class="mb-4 p-8">
             <p-card header="Simple Card">
                 <p class="m-0">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt
-                    quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque
+                    quas!
                 </p>
             </p-card>
         </div>
         <app-code [code]="code" selector="card-basic-demo"></app-code>
-    `,
+    `
 })
 export class BasicDoc {
     code: Code = {
@@ -44,6 +44,6 @@ import { CardModule } from 'primeng/card';
     standalone: true,
     imports: [CardModule]
 })
-export class CardBasicDemo {}`,
+export class CardBasicDemo {}`
     };
 }

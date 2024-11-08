@@ -18,44 +18,44 @@ import { StepsOnlyDoc } from '@doc/stepper/stepsonly';
         themeDocs="stepper"
     ></app-doc>`,
     standalone: true,
-    imports: [StepperDocModule],
+    imports: [StepperDocModule]
 })
 export class StepperDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc,
+            component: ImportDoc
         },
         {
             id: 'horizontal',
             label: 'Horizontal',
-            component: BasicDoc,
+            component: BasicDoc
         },
         {
             id: 'vertical',
             label: 'Vertical',
-            component: VerticalDoc,
+            component: VerticalDoc
         },
         {
             id: 'linear',
             label: 'Linear',
-            component: LinearDoc,
+            component: LinearDoc
         },
         {
             id: 'steps-only',
             label: 'Steps Only',
-            component: StepsOnlyDoc,
+            component: StepsOnlyDoc
         },
         {
             id: 'template',
             label: 'Template',
-            component: TemplateDoc,
+            component: TemplateDoc
         },
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc,
-        },
+            component: AccessibilityDoc
+        }
     ];
 }

@@ -15,6 +15,6 @@ import { TemplateDoc } from './templatedoc';
 @NgModule({
     imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, OrganizationChartModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, TemplateDoc, SelectionDoc, ColoredDoc, StyleDoc, AccessibilityDoc],
+    declarations: [ImportDoc, BasicDoc, TemplateDoc, SelectionDoc, ColoredDoc, StyleDoc, AccessibilityDoc]
 })
 export class OrganizationChartDocModule {}

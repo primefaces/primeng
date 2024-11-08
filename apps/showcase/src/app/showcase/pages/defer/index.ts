@@ -17,7 +17,7 @@ import { DeferDocModule } from '@doc/defer/deferdoc.module';
         [docs]="docs"
         [apiDocs]="['Defer']"
     ></app-doc>`,
-    providers: [MessageService],
+    providers: [MessageService]
 })
 export class DeferDemo {
     cars: Car[];
@@ -29,18 +29,18 @@ export class DeferDemo {
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc,
+            component: ImportDoc
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc,
+            component: BasicDoc
         },
         {
             id: 'datatable',
             label: 'DataTable',
-            component: DataTableDoc,
-        },
+            component: DataTableDoc
+        }
     ];
 
     initData() {

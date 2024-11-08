@@ -25,34 +25,8 @@ import { AccessibilityDoc } from './accessibilitydoc';
 import { WithoutModalDoc } from './withoutmodaldoc';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        AppCodeModule,
-        RouterModule,
-        FormsModule,
-        Dialog,
-        ButtonModule,
-        DropdownModule,
-        AppDocModule,
-        InputTextModule,
-        AvatarModule,
-        AutoFocusModule,
-    ],
-    declarations: [
-        BasicDoc,
-        ImportDoc,
-        StyleDoc,
-        LongContentDoc,
-        ResponsiveDoc,
-        PositionDoc,
-        MaximizableDoc,
-        TemplateDoc,
-        OverlaysInsideDoc,
-        ModalDoc,
-        AccessibilityDoc,
-        HeadlessDoc,
-        WithoutModalDoc,
-    ],
-    exports: [AppDocModule, LongContentDoc],
+    imports: [CommonModule, AppCodeModule, RouterModule, FormsModule, Dialog, ButtonModule, DropdownModule, AppDocModule, InputTextModule, AvatarModule, AutoFocusModule],
+    declarations: [BasicDoc, ImportDoc, StyleDoc, LongContentDoc, ResponsiveDoc, PositionDoc, MaximizableDoc, TemplateDoc, OverlaysInsideDoc, ModalDoc, AccessibilityDoc, HeadlessDoc, WithoutModalDoc],
+    exports: [AppDocModule, LongContentDoc]
 })
 export class DialogDocModule {}

@@ -14,7 +14,7 @@ import { Code } from '@domain/code';
             </p-iftalabel>
         </div>
         <app-code [code]="code" selector="ifta-label-invalid-demo"></app-code>
-    `,
+    `
 })
 export class InvalidDoc {
     value: string | undefined;
@@ -45,6 +45,6 @@ import { FormsModule } from '@angular/forms';
 })
 export class IftaLabelInvalidDemo {
     value: string | undefined;
-}`,
+}`
     };
 }

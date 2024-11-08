@@ -26,36 +26,8 @@ import { IftaLabelDoc } from './iftalabeldoc';
 import { SizesDoc } from './sizesdoc';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        InputTextModule,
-        AppCodeModule,
-        AppDocModule,
-        PasswordModule,
-        FormsModule,
-        ReactiveFormsModule,
-        DividerModule,
-        RouterModule,
-        FloatLabelModule,
-        IftaLabelModule,
-    ],
+    imports: [CommonModule, InputTextModule, AppCodeModule, AppDocModule, PasswordModule, FormsModule, ReactiveFormsModule, DividerModule, RouterModule, FloatLabelModule, IftaLabelModule],
     exports: [AppDocModule],
-    declarations: [
-        ImportDoc,
-        BasicDoc,
-        MeterDoc,
-        LocaleDoc,
-        ToggleMaskDoc,
-        TemplateDoc,
-        FloatLabelDoc,
-        IftaLabelDoc,
-        InvalidDoc,
-        DisabledDoc,
-        StyleDoc,
-        AccessibilityDoc,
-        ReactiveFormsDoc,
-        FilledDoc,
-        SizesDoc,
-    ],
+    declarations: [ImportDoc, BasicDoc, MeterDoc, LocaleDoc, ToggleMaskDoc, TemplateDoc, FloatLabelDoc, IftaLabelDoc, InvalidDoc, DisabledDoc, StyleDoc, AccessibilityDoc, ReactiveFormsDoc, FilledDoc, SizesDoc]
 })
 export class PasswordDocModule {}

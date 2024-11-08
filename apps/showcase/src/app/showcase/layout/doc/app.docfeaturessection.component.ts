@@ -14,8 +14,8 @@ import { CommonModule } from '@angular/common';
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
-        '[class.doc-tabpanel]': 'true',
-    },
+        '[class.doc-tabpanel]': 'true'
+    }
 })
 export class AppDocFeaturesSection {
     @Input() header!: string;

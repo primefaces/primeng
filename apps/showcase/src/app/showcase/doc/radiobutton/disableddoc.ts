@@ -12,7 +12,7 @@ import { Code } from '@domain/code';
             <p-radiobutton [(ngModel)]="value" [value]="2" [disabled]="true" />
         </div>
         <app-code [code]="code" selector="radio-button-disabled-demo"></app-code>
-    `,
+    `
 })
 export class DisabledDoc {
     value: number = 2;
@@ -36,6 +36,6 @@ import { FormsModule } from '@angular/forms';
     standalone: true,
     imports: [FormsModule, RadioButton]
 })
-export class RadioButtonDisabledDemo { }`,
+export class RadioButtonDisabledDemo { }`
     };
 }

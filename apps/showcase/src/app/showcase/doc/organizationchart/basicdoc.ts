@@ -12,7 +12,7 @@ import { Code } from '@domain/code';
             <p-organization-chart [value]="data" />
         </div>
         <app-code [code]="code" selector="organization-chart-basic-doc"></app-code>
-    `,
+    `
 })
 export class BasicDoc {
     data: TreeNode[] = [
@@ -25,27 +25,27 @@ export class BasicDoc {
                     expanded: true,
                     children: [
                         {
-                            label: 'Argentina',
+                            label: 'Argentina'
                         },
                         {
-                            label: 'France',
-                        },
-                    ],
+                            label: 'France'
+                        }
+                    ]
                 },
                 {
                     label: 'France',
                     expanded: true,
                     children: [
                         {
-                            label: 'France',
+                            label: 'France'
                         },
                         {
-                            label: 'Morocco',
-                        },
-                    ],
-                },
-            ],
-        },
+                            label: 'Morocco'
+                        }
+                    ]
+                }
+            ]
+        }
     ];
 
     code: Code = {
@@ -98,6 +98,6 @@ export class OrganizationChartBasicDoc {
             ]
         }
     ];
-}`,
+}`
     };
 }

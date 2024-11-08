@@ -6,10 +6,7 @@ import { PhotoService } from '@service/photoservice';
     selector: 'click-event-doc',
     template: `
         <app-docsectiontext>
-            <p>
-                Indicators are displayed at the bottom by enabling <i>showIndicators</i> property and interacted with the click event by
-                default.
-            </p>
+            <p>Indicators are displayed at the bottom by enabling <i>showIndicators</i> property and interacted with the click event by default.</p>
         </app-docsectiontext>
         <div class="card">
             <p-galleria [(value)]="images" [showIndicators]="true" [showThumbnails]="false" [containerStyle]="{ 'max-width': '640px' }">
@@ -19,7 +16,7 @@ import { PhotoService } from '@service/photoservice';
             </p-galleria>
         </div>
         <app-code [code]="code" selector="galleria-indicator-click-event-demo"></app-code>
-    `,
+    `
 })
 export class ClickEventDoc implements OnInit {
     images: any[] | undefined;
@@ -76,6 +73,6 @@ export class GalleriaIndicatorClickEventDemo implements OnInit {
     title: 'Title 1'
 },
 ...`,
-        service: ['PhotoService'],
+        service: ['PhotoService']
     };
 }

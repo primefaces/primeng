@@ -8,44 +8,37 @@ import { PopoverDocModule } from '@doc/popover/popoverdoc.module';
 import { SelectDataDoc } from '@doc/popover/selectdatadoc';
 
 @Component({
-    template: `<app-doc
-        docTitle="Angular Popover Component"
-        header="Popover"
-        description="Popover is a container component that can overlay other components on page."
-        [docs]="docs"
-        [apiDocs]="['Popover']"
-        themeDocs="popover"
-    ></app-doc>`,
+    template: `<app-doc docTitle="Angular Popover Component" header="Popover" description="Popover is a container component that can overlay other components on page." [docs]="docs" [apiDocs]="['Popover']" themeDocs="popover"></app-doc>`,
     imports: [CommonModule, PopoverDocModule],
-    standalone: true,
+    standalone: true
 })
 export class PopoverDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc,
+            component: ImportDoc
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc,
+            component: BasicDoc
         },
         {
             id: 'selectdata',
             label: 'Select Data',
-            component: SelectDataDoc,
+            component: SelectDataDoc
         },
         {
             id: 'datatable',
             label: 'DataTable',
-            component: DataTableDoc,
+            component: DataTableDoc
         },
 
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc,
-        },
+            component: AccessibilityDoc
+        }
     ];
 }

@@ -11,26 +11,16 @@ interface City {
     template: `
         <app-docsectiontext>
             <p>
-                MultiSelect is used as a controlled component with <i>ngModel</i> property along with an <i>options</i> collection. Label
-                and value of an option are defined with the <i>optionLabel</i> and <i>optionValue</i> properties respectively. Default
-                property name for the <i>optionLabel</i> is <i>label</i> and <i>value</i> for the <i>optionValue</i>. If
-                <i>optionValue</i> is omitted and the object has no <i>value</i> property, the object itself becomes the value of an option.
-                Note that, when options are simple primitive values such as a string array, no <i>optionLabel</i> and
-                <i>optionValue</i> would be necessary.
+                MultiSelect is used as a controlled component with <i>ngModel</i> property along with an <i>options</i> collection. Label and value of an option are defined with the <i>optionLabel</i> and <i>optionValue</i> properties respectively.
+                Default property name for the <i>optionLabel</i> is <i>label</i> and <i>value</i> for the <i>optionValue</i>. If <i>optionValue</i> is omitted and the object has no <i>value</i> property, the object itself becomes the value of an
+                option. Note that, when options are simple primitive values such as a string array, no <i>optionLabel</i> and <i>optionValue</i> would be necessary.
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-multiselect
-                [options]="cities"
-                [(ngModel)]="selectedCities"
-                optionLabel="name"
-                placeholder="Select Cities"
-                [maxSelectedLabels]="3"
-                styleClass="w-full md:w-80"
-            />
+            <p-multiselect [options]="cities" [(ngModel)]="selectedCities" optionLabel="name" placeholder="Select Cities" [maxSelectedLabels]="3" styleClass="w-full md:w-80" />
         </div>
         <app-code [code]="code" selector="multi-select-basic-demo"></app-code>
-    `,
+    `
 })
 export class BasicDoc implements OnInit {
     cities!: City[];
@@ -43,7 +33,7 @@ export class BasicDoc implements OnInit {
             { name: 'Rome', code: 'RM' },
             { name: 'London', code: 'LDN' },
             { name: 'Istanbul', code: 'IST' },
-            { name: 'Paris', code: 'PRS' },
+            { name: 'Paris', code: 'PRS' }
         ];
     }
 
@@ -84,6 +74,6 @@ export class MultiSelectBasicDemo implements OnInit {
             {name: 'Paris', code: 'PRS'}
         ];
     }
-}`,
+}`
     };
 }

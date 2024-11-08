@@ -11,6 +11,6 @@ import { AnimateOnScroll } from 'primeng/animateonscroll';
 @NgModule({
     imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, AnimateOnScroll],
     declarations: [ImportDoc, BasicDoc, AccessibilityDoc],
-    exports: [AppDocModule],
+    exports: [AppDocModule]
 })
 export class AnimateOnScrollDocModule {}

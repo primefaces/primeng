@@ -6,10 +6,7 @@ import { Code } from '@domain/code';
     selector: 'reactive-forms-doc',
     template: `
         <app-docsectiontext>
-            <p>
-                RadioButton can also be used with reactive forms. In this case, the <i>formControlName</i> property is used to bind the
-                component to a form control.
-            </p>
+            <p>RadioButton can also be used with reactive forms. In this case, the <i>formControlName</i> property is used to bind the component to a form control.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
             <form class="flex flex-col gap-4" [formGroup]="formGroup">
@@ -20,7 +17,7 @@ import { Code } from '@domain/code';
             </form>
         </div>
         <app-code [code]="code" selector="radio-button-reactive-forms-demo"></app-code>
-    `,
+    `
 })
 export class ReactiveFormsDoc implements OnInit {
     formGroup!: FormGroup;
@@ -29,12 +26,12 @@ export class ReactiveFormsDoc implements OnInit {
         { name: 'Accounting', key: 'A' },
         { name: 'Marketing', key: 'M' },
         { name: 'Production', key: 'P' },
-        { name: 'Research', key: 'R' },
+        { name: 'Research', key: 'R' }
     ];
 
     ngOnInit() {
         this.formGroup = new FormGroup({
-            selectedCategory: new FormControl(),
+            selectedCategory: new FormControl()
         });
     }
 
@@ -80,6 +77,6 @@ export class RadioButtonReactiveFormsDemo implements OnInit {
             selectedCategory: new FormControl()
         });
     }
-}`,
+}`
     };
 }

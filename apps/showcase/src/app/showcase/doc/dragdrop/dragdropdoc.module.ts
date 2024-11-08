@@ -16,6 +16,6 @@ import { DragHandleDoc } from './draghandledoc';
 @NgModule({
     imports: [CommonModule, AppCodeModule, AppDocModule, DragDropModule, TableModule, Tag, FormsModule, PanelModule],
     declarations: [BasicDoc, DataTableDoc, ImportDoc, DropIndicatorDoc, DragHandleDoc],
-    exports: [AppDocModule],
+    exports: [AppDocModule]
 })
 export class DragDropDocModule {}

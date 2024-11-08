@@ -10,16 +10,7 @@ import { PhotoService } from '@service/photoservice';
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-button icon="pi pi-external-link" label="Show" (click)="displayBasic = true" />
-            <p-galleria
-                [(value)]="images"
-                [(visible)]="displayBasic"
-                [responsiveOptions]="responsiveOptions"
-                [containerStyle]="{ 'max-width': '50%' }"
-                [numVisible]="9"
-                [circular]="true"
-                [fullScreen]="true"
-                [showItemNavigators]="true"
-            >
+            <p-galleria [(value)]="images" [(visible)]="displayBasic" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '50%' }" [numVisible]="9" [circular]="true" [fullScreen]="true" [showItemNavigators]="true">
                 <ng-template pTemplate="item" let-item>
                     <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
                 </ng-template>
@@ -29,7 +20,7 @@ import { PhotoService } from '@service/photoservice';
             </p-galleria>
         </div>
         <app-code [code]="code" selector="galleria-full-screen-with-thumbnails-demo"></app-code>
-    `,
+    `
 })
 export class WithThumbnailsDoc implements OnInit {
     displayBasic: boolean | undefined;
@@ -39,20 +30,20 @@ export class WithThumbnailsDoc implements OnInit {
     responsiveOptions: any[] = [
         {
             breakpoint: '1500px',
-            numVisible: 5,
+            numVisible: 5
         },
         {
             breakpoint: '1024px',
-            numVisible: 3,
+            numVisible: 3
         },
         {
             breakpoint: '768px',
-            numVisible: 2,
+            numVisible: 2
         },
         {
             breakpoint: '560px',
-            numVisible: 1,
-        },
+            numVisible: 1
+        }
     ];
 
     constructor(private photoService: PhotoService) {}
@@ -132,6 +123,6 @@ export class GalleriaFullScreenWithThumbnailsDemo implements OnInit {
     title: 'Title 1'
 },
 ...`,
-        service: ['PhotoService'],
+        service: ['PhotoService']
     };
 }

@@ -18,13 +18,7 @@ import { Code } from '@domain/code';
                 <div class="flex-auto">
                     <h5>Circle</h5>
                     <p-avatar label="P" styleClass="mr-2" size="xlarge" shape="circle" />
-                    <p-avatar
-                        label="V"
-                        styleClass="mr-2"
-                        size="large"
-                        [style]="{ 'background-color': '#ece9fc', color: '#2a1261' }"
-                        shape="circle"
-                    />
+                    <p-avatar label="V" styleClass="mr-2" size="large" [style]="{ 'background-color': '#ece9fc', color: '#2a1261' }" shape="circle" />
                     <p-avatar label="U" styleClass="mr-2" [style]="{ 'background-color': '#dee9fc', color: '#1a2551' }" shape="circle" />
                 </div>
                 <div class="flex-auto">
@@ -36,7 +30,7 @@ import { Code } from '@domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="avatar-label-demo"></app-code>
-    `,
+    `
 })
 export class LabelDoc {
     code: Code = {
@@ -89,6 +83,6 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
     standalone: true,
     imports: [AvatarModule, OverlayBadgeModule]
 })
-export class AvatarLabelDemo {}`,
+export class AvatarLabelDemo {}`
     };
 }

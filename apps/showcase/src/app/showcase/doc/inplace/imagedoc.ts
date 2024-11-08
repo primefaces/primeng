@@ -16,16 +16,12 @@ import { Code } from '@domain/code';
                     </span>
                 </ng-template>
                 <ng-template pTemplate="content">
-                    <img
-                        class="w-full sm:w-80 shadow-md"
-                        src="https://primefaces.org/cdn/primeng/images/demo/galleria/galleria5.jpg"
-                        alt="Nature"
-                    />
+                    <img class="w-full sm:w-80 shadow-md" src="https://primefaces.org/cdn/primeng/images/demo/galleria/galleria5.jpg" alt="Nature" />
                 </ng-template>
             </p-inplace>
         </div>
         <app-code [code]="code" selector="inplace-image-demo"></app-code>
-    `,
+    `
 })
 export class ImageDoc {
     code: Code = {
@@ -70,6 +66,6 @@ import { InplaceModule } from 'primeng/inplace';
     standalone: true,
     imports: [InplaceModule]
 })
-export class InplaceImageDemo {}`,
+export class InplaceImageDemo {}`
     };
 }

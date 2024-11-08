@@ -39,18 +39,7 @@ import { IftaLabelDoc } from './iftalabeldoc';
 import { SizesDoc } from './sizesdoc';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        RouterModule,
-        AppCodeModule,
-        AppDocModule,
-        FormsModule,
-        ReactiveFormsModule,
-        FloatLabelModule,
-        IftaLabelModule,
-        DatePickerModule,
-        FluidModule,
-    ],
+    imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, FormsModule, ReactiveFormsModule, FloatLabelModule, IftaLabelModule, DatePickerModule, FluidModule],
     exports: [AppDocModule],
     declarations: [
         ImportDoc,
@@ -81,7 +70,7 @@ import { SizesDoc } from './sizesdoc';
         SizesDoc,
         FilledDoc,
         InvalidDoc,
-        DisabledDoc,
-    ],
+        DisabledDoc
+    ]
 })
 export class DatePickerDocModule {}

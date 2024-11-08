@@ -49,59 +49,52 @@ import { FilterAdvancedDoc } from '@doc/table/filteradvanceddoc';
 import { TableDocModule } from '@doc/table/tabledoc.module';
 
 @Component({
-    template: `<app-doc
-        docTitle="Angular Table Component"
-        header="Table"
-        description="Table displays data in tabular format."
-        [docs]="docs"
-        [apiDocs]="['Table', 'ColumnFilter']"
-        themeDocs="table"
-    ></app-doc>`,
+    template: `<app-doc docTitle="Angular Table Component" header="Table" description="Table displays data in tabular format." [docs]="docs" [apiDocs]="['Table', 'ColumnFilter']" themeDocs="table"></app-doc>`,
     standalone: true,
     imports: [TableDocModule],
-    styleUrl: './tabledemo.scss',
+    styleUrl: './tabledemo.scss'
 })
 export class TableDemo {
     docs = [
         {
             id: 'import-demo',
             label: 'Import',
-            component: ImportDoc,
+            component: ImportDoc
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc,
+            component: BasicDoc
         },
         {
             id: 'dynamic',
             label: 'Dynamic Columns',
-            component: DynamicDoc,
+            component: DynamicDoc
         },
         {
             id: 'template',
             label: 'Template',
-            component: TemplateDoc,
+            component: TemplateDoc
         },
         {
             id: 'size',
             label: 'Size',
-            component: SizeDoc,
+            component: SizeDoc
         },
         {
             id: 'gridlines',
             label: 'Grid Lines',
-            component: GridlinesDoc,
+            component: GridlinesDoc
         },
         {
             id: 'striped',
             label: 'Striped Rows',
-            component: StripedDoc,
+            component: StripedDoc
         },
         {
             id: 'table-style',
             label: 'Conditional Style',
-            component: StyleDoc,
+            component: StyleDoc
         },
         {
             id: 'paginator',
@@ -110,14 +103,14 @@ export class TableDemo {
                 {
                     id: 'paginator-basic',
                     label: 'Basic',
-                    component: PaginatorBasicDoc,
+                    component: PaginatorBasicDoc
                 },
                 {
                     id: 'paginator-programmatic',
                     label: 'Programmatic',
-                    component: PaginatorProgrammaticDoc,
-                },
-            ],
+                    component: PaginatorProgrammaticDoc
+                }
+            ]
         },
         {
             id: 'sort',
@@ -126,24 +119,24 @@ export class TableDemo {
                 {
                     id: 'single-column-sort',
                     label: 'Single Column',
-                    component: SingleColumnSortDoc,
+                    component: SingleColumnSortDoc
                 },
                 {
                     id: 'multiple-columns-sort',
                     label: 'Multiple Columns',
-                    component: MultipleColumnsSortDoc,
+                    component: MultipleColumnsSortDoc
                 },
                 {
                     id: 'pre-sort',
                     label: 'Presort',
-                    component: PreSortDoc,
+                    component: PreSortDoc
                 },
                 {
                     id: 'removable-sort',
                     label: 'Removable',
-                    component: RemovableSortDoc,
-                },
-            ],
+                    component: RemovableSortDoc
+                }
+            ]
         },
         {
             id: 'filter',
@@ -152,14 +145,14 @@ export class TableDemo {
                 {
                     id: 'filter-basic',
                     label: 'Basic',
-                    component: FilterBasicDoc,
+                    component: FilterBasicDoc
                 },
                 {
                     id: 'filter-advanced',
                     label: 'Advanced',
-                    component: FilterAdvancedDoc,
-                },
-            ],
+                    component: FilterAdvancedDoc
+                }
+            ]
         },
         {
             id: 'row-selection',
@@ -168,39 +161,39 @@ export class TableDemo {
                 {
                     id: 'single-selection',
                     label: 'Single',
-                    component: SingleSelectionDoc,
+                    component: SingleSelectionDoc
                 },
                 {
                     id: 'multiple-selection',
                     label: 'Multiple',
-                    component: MultipleSelectionDoc,
+                    component: MultipleSelectionDoc
                 },
                 {
                     id: 'radio-button-selection',
                     label: 'RadioButton',
-                    component: RadioButtonSelectionDoc,
+                    component: RadioButtonSelectionDoc
                 },
                 {
                     id: 'checkbox-selection',
                     label: 'Checkbox',
-                    component: CheckboxSelectionDoc,
+                    component: CheckboxSelectionDoc
                 },
                 {
                     id: 'column-selection',
                     label: 'Column',
-                    component: ColumnSelectionDoc,
+                    component: ColumnSelectionDoc
                 },
                 {
                     id: 'selection-events',
                     label: 'Events',
-                    component: SelectionEventsDoc,
-                },
-            ],
+                    component: SelectionEventsDoc
+                }
+            ]
         },
         {
             id: 'row-expansion',
             label: 'Row Expansion',
-            component: RowExpansionDoc,
+            component: RowExpansionDoc
         },
         {
             id: 'Edit',
@@ -209,14 +202,14 @@ export class TableDemo {
                 {
                     id: 'cell-edit',
                     label: 'Cell',
-                    component: CellEditDoc,
+                    component: CellEditDoc
                 },
                 {
                     id: 'row-edit',
                     label: 'Row',
-                    component: RowEditDoc,
-                },
-            ],
+                    component: RowEditDoc
+                }
+            ]
         },
         // {
         //     id: 'lazy-load',
@@ -230,29 +223,29 @@ export class TableDemo {
                 {
                     id: 'vertical-scroll',
                     label: 'Vertical',
-                    component: VerticalScrollDoc,
+                    component: VerticalScrollDoc
                 },
                 {
                     id: 'flex-scroll',
                     label: 'Flexible',
-                    component: FlexibleScrollDoc,
+                    component: FlexibleScrollDoc
                 },
                 {
                     id: 'horizontal-scroll',
                     label: 'Horizontal',
-                    component: HorizontalScrollDoc,
+                    component: HorizontalScrollDoc
                 },
                 {
                     id: 'frozen-rows',
                     label: 'Frozen Rows',
-                    component: FrozenRowsDoc,
+                    component: FrozenRowsDoc
                 },
                 {
                     id: 'frozen-columns',
                     label: 'Frozen Columns',
-                    component: FrozenColumnsDoc,
-                },
-            ],
+                    component: FrozenColumnsDoc
+                }
+            ]
         },
         {
             id: 'virtual-scroll',
@@ -261,19 +254,19 @@ export class TableDemo {
                 {
                     id: 'virtual-scroll-basic',
                     label: 'Preload',
-                    component: VirtualScrollDoc,
+                    component: VirtualScrollDoc
                 },
                 {
                     id: 'virtual-scroll-lazy',
                     label: 'Lazy',
-                    component: VirtualScrollLazyDoc,
-                },
-            ],
+                    component: VirtualScrollLazyDoc
+                }
+            ]
         },
         {
             id: 'column-group',
             label: 'Column Group',
-            component: ColumnGroupDoc,
+            component: ColumnGroupDoc
         },
         {
             id: 'row-group',
@@ -282,19 +275,19 @@ export class TableDemo {
                 {
                     id: 'subheader',
                     label: 'Subheader',
-                    component: SubheaderGroupingDoc,
+                    component: SubheaderGroupingDoc
                 },
                 {
                     id: 'expand',
                     label: 'Expandable',
-                    component: ExpandableRowGroupDoc,
+                    component: ExpandableRowGroupDoc
                 },
                 {
                     id: 'row-span',
                     label: 'RowSpan',
-                    component: RowspanGroupingDoc,
-                },
-            ],
+                    component: RowspanGroupingDoc
+                }
+            ]
         },
         {
             id: 'column-resize',
@@ -303,44 +296,44 @@ export class TableDemo {
                 {
                     id: 'fit-mode',
                     label: 'Fit Mode',
-                    component: ColumnResizeFitModeDoc,
+                    component: ColumnResizeFitModeDoc
                 },
                 {
                     id: 'expand-mode',
                     label: 'Expand Mode',
-                    component: ColumnResizeExpandModeDoc,
+                    component: ColumnResizeExpandModeDoc
                 },
                 {
                     id: 'scrollable',
                     label: 'Scrollable',
-                    component: ColumnResizeScrollableModeDoc,
-                },
-            ],
+                    component: ColumnResizeScrollableModeDoc
+                }
+            ]
         },
         {
             id: 'reorder',
             label: 'Reorder',
-            component: ReorderDoc,
+            component: ReorderDoc
         },
         {
             id: 'column-toggle',
             label: 'Column Toggle',
-            component: ColumnToggleDoc,
+            component: ColumnToggleDoc
         },
         {
             id: 'export',
             label: 'Export',
-            component: ExportDoc,
+            component: ExportDoc
         },
         {
             id: 'context-menu',
             label: 'Context Menu',
-            component: ContextMenuDoc,
+            component: ContextMenuDoc
         },
         {
             id: 'stateful',
             label: 'Stateful',
-            component: StatefulDoc,
+            component: StatefulDoc
         },
         {
             id: 'samples',
@@ -349,19 +342,19 @@ export class TableDemo {
                 {
                     id: 'customers',
                     label: 'Customers',
-                    component: CustomersDoc,
+                    component: CustomersDoc
                 },
                 {
                     id: 'products',
                     label: 'Products',
-                    component: ProductsDoc,
-                },
-            ],
+                    component: ProductsDoc
+                }
+            ]
         },
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc,
-        },
+            component: AccessibilityDoc
+        }
     ];
 }

@@ -16,13 +16,7 @@ interface Column {
         </app-docsectiontext>
         <div class="card">
             <p-deferred-demo (load)="loadDemoData()">
-                <p-treetable
-                    [value]="files"
-                    [columns]="cols"
-                    [reorderableColumns]="true"
-                    [scrollable]="true"
-                    [tableStyle]="{ 'min-width': '50rem' }"
-                >
+                <p-treetable [value]="files" [columns]="cols" [reorderableColumns]="true" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template pTemplate="header" let-columns>
                         <tr>
                             <th *ngFor="let col of columns" ttReorderableColumn>
@@ -43,7 +37,7 @@ interface Column {
             <app-code [code]="code" selector="tree-table-reorder-demo"></app-code>
         </div>
     `,
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ReorderDoc {
     files!: TreeNode[];
@@ -57,7 +51,7 @@ export class ReorderDoc {
         this.cols = [
             { field: 'name', header: 'Name' },
             { field: 'size', header: 'Size' },
-            { field: 'type', header: 'Type' },
+            { field: 'type', header: 'Type' }
         ];
     }
 
@@ -132,6 +126,6 @@ export class TreeTableReorderDemo implements OnInit{
     }
 }`,
 
-        service: ['NodeService'],
+        service: ['NodeService']
     };
 }

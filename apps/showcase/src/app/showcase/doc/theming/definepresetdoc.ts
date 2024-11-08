@@ -4,13 +4,10 @@ import { Component } from '@angular/core';
     selector: 'define-preset-doc',
     template: `
         <app-docsectiontext>
-            <p>
-                The <i>definePreset</i> utility is used to customize an existing preset during the PrimeNG setup. The first parameter is the
-                preset to customize and the second is the design tokens to override.
-            </p>
+            <p>The <i>definePreset</i> utility is used to customize an existing preset during the PrimeNG setup. The first parameter is the preset to customize and the second is the design tokens to override.</p>
         </app-docsectiontext>
         <app-code [code]="code" selector="define-preset-demo" [hideToggleCode]="true"></app-code>
-    `,
+    `
 })
 export class DefinePresetDoc {
     code = {
@@ -30,6 +27,6 @@ export class AppComponent {
     constructor() {
         this.config.theme.set(MyPreset);
     }
-}`,
+}`
     };
 }

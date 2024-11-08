@@ -18,7 +18,7 @@ const presets = {
     Aura,
     Material,
     Lara,
-    Nora,
+    Nora
 };
 
 @Component({
@@ -36,7 +36,7 @@ const presets = {
                             (click)="updateColors($event, 'primary', primaryColor)"
                             [ngClass]="{ 'active-color': primaryColor.name === selectedPrimaryColor() }"
                             [style]="{
-                                'background-color': primaryColor.name === 'noir' ? 'var(--text-color)' : primaryColor?.palette['500'],
+                                'background-color': primaryColor.name === 'noir' ? 'var(--text-color)' : primaryColor?.palette['500']
                             }"
                         ></button>
                     }
@@ -53,7 +53,7 @@ const presets = {
                             (click)="updateColors($event, 'surface', surface)"
                             [ngClass]="{ 'active-color': surface.name === selectedSurfaceColor() }"
                             [style]="{
-                                'background-color': surface.name === 'noir' ? 'var(--text-color)' : surface?.palette['500'],
+                                'background-color': surface.name === 'noir' ? 'var(--text-color)' : surface?.palette['500']
                             }"
                         ></button>
                     }
@@ -62,13 +62,7 @@ const presets = {
 
             <div class="config-panel-settings">
                 <span class="config-panel-label">Presets</span>
-                <p-selectbutton
-                    [options]="presets"
-                    [(ngModel)]="selectedPreset"
-                    (ngModelChange)="onPresetChange($event)"
-                    [allowEmpty]="false"
-                    size="small"
-                />
+                <p-selectbutton [options]="presets" [(ngModel)]="selectedPreset" (ngModelChange)="onPresetChange($event)" [allowEmpty]="false" size="small" />
             </div>
             <div class="config-panel-settings">
                 <span class="config-panel-label">Ripple</span>
@@ -77,9 +71,9 @@ const presets = {
         </div>
     `,
     host: {
-        class: 'config-panel hidden',
+        class: 'config-panel hidden'
     },
-    imports: [CommonModule, FormsModule, InputSwitchModule, ButtonModule, RadioButtonModule, SelectButton, ToggleSwitchModule],
+    imports: [CommonModule, FormsModule, InputSwitchModule, ButtonModule, RadioButtonModule, SelectButton, ToggleSwitchModule]
 })
 export class AppConfiguratorComponent {
     get ripple() {
@@ -113,8 +107,8 @@ export class AppConfiguratorComponent {
                 700: '#334155',
                 800: '#1e293b',
                 900: '#0f172a',
-                950: '#020617',
-            },
+                950: '#020617'
+            }
         },
         {
             name: 'gray',
@@ -130,8 +124,8 @@ export class AppConfiguratorComponent {
                 700: '#374151',
                 800: '#1f2937',
                 900: '#111827',
-                950: '#030712',
-            },
+                950: '#030712'
+            }
         },
         {
             name: 'zinc',
@@ -147,8 +141,8 @@ export class AppConfiguratorComponent {
                 700: '#3f3f46',
                 800: '#27272a',
                 900: '#18181b',
-                950: '#09090b',
-            },
+                950: '#09090b'
+            }
         },
         {
             name: 'neutral',
@@ -164,8 +158,8 @@ export class AppConfiguratorComponent {
                 700: '#404040',
                 800: '#262626',
                 900: '#171717',
-                950: '#0a0a0a',
-            },
+                950: '#0a0a0a'
+            }
         },
         {
             name: 'stone',
@@ -181,8 +175,8 @@ export class AppConfiguratorComponent {
                 700: '#44403c',
                 800: '#292524',
                 900: '#1c1917',
-                950: '#0c0a09',
-            },
+                950: '#0c0a09'
+            }
         },
         {
             name: 'soho',
@@ -198,8 +192,8 @@ export class AppConfiguratorComponent {
                 700: '#616268',
                 800: '#4a4b52',
                 900: '#34343d',
-                950: '#1d1e27',
-            },
+                950: '#1d1e27'
+            }
         },
         {
             name: 'viva',
@@ -215,8 +209,8 @@ export class AppConfiguratorComponent {
                 700: '#565a5b',
                 800: '#3e4244',
                 900: '#262b2c',
-                950: '#0e1315',
-            },
+                950: '#0e1315'
+            }
         },
         {
             name: 'ocean',
@@ -232,9 +226,9 @@ export class AppConfiguratorComponent {
                 700: '#415B61',
                 800: '#29444E',
                 900: '#183240',
-                950: '#0c1920',
-            },
-        },
+                950: '#0c1920'
+            }
+        }
     ];
 
     selectedPrimaryColor = computed(() => {
@@ -245,30 +239,13 @@ export class AppConfiguratorComponent {
 
     primaryColors = computed(() => {
         const presetPalette = presets[this.configService.appState().preset].primitive;
-        const colors = [
-            'emerald',
-            'green',
-            'lime',
-            'orange',
-            'amber',
-            'yellow',
-            'teal',
-            'cyan',
-            'sky',
-            'blue',
-            'indigo',
-            'violet',
-            'purple',
-            'fuchsia',
-            'pink',
-            'rose',
-        ];
+        const colors = ['emerald', 'green', 'lime', 'orange', 'amber', 'yellow', 'teal', 'cyan', 'sky', 'blue', 'indigo', 'violet', 'purple', 'fuchsia', 'pink', 'rose'];
         const palettes = [{ name: 'noir', palette: {} }];
 
         colors.forEach((color) => {
             palettes.push({
                 name: color,
-                palette: presetPalette[color],
+                palette: presetPalette[color]
             });
         });
 
@@ -292,7 +269,7 @@ export class AppConfiguratorComponent {
                         700: '{surface.700}',
                         800: '{surface.800}',
                         900: '{surface.900}',
-                        950: '{surface.950}',
+                        950: '{surface.950}'
                     },
                     colorScheme: {
                         light: {
@@ -300,31 +277,31 @@ export class AppConfiguratorComponent {
                                 color: '{primary.950}',
                                 contrastColor: '#ffffff',
                                 hoverColor: '{primary.800}',
-                                activeColor: '{primary.700}',
+                                activeColor: '{primary.700}'
                             },
                             highlight: {
                                 background: '{primary.950}',
                                 focusBackground: '{primary.700}',
                                 color: '#ffffff',
-                                focusColor: '#ffffff',
-                            },
+                                focusColor: '#ffffff'
+                            }
                         },
                         dark: {
                             primary: {
                                 color: '{primary.50}',
                                 contrastColor: '{primary.950}',
                                 hoverColor: '{primary.200}',
-                                activeColor: '{primary.300}',
+                                activeColor: '{primary.300}'
                             },
                             highlight: {
                                 background: '{primary.50}',
                                 focusBackground: '{primary.300}',
                                 color: '{primary.950}',
-                                focusColor: '{primary.950}',
-                            },
-                        },
-                    },
-                },
+                                focusColor: '{primary.950}'
+                            }
+                        }
+                    }
+                }
             };
         } else {
             if (this.configService.appState().preset === 'Nora') {
@@ -337,31 +314,31 @@ export class AppConfiguratorComponent {
                                     color: '{primary.600}',
                                     contrastColor: '#ffffff',
                                     hoverColor: '{primary.700}',
-                                    activeColor: '{primary.800}',
+                                    activeColor: '{primary.800}'
                                 },
                                 highlight: {
                                     background: '{primary.600}',
                                     focusBackground: '{primary.700}',
                                     color: '#ffffff',
-                                    focusColor: '#ffffff',
-                                },
+                                    focusColor: '#ffffff'
+                                }
                             },
                             dark: {
                                 primary: {
                                     color: '{primary.500}',
                                     contrastColor: '{surface.900}',
                                     hoverColor: '{primary.400}',
-                                    activeColor: '{primary.300}',
+                                    activeColor: '{primary.300}'
                                 },
                                 highlight: {
                                     background: '{primary.500}',
                                     focusBackground: '{primary.400}',
                                     color: '{surface.900}',
-                                    focusColor: '{surface.900}',
-                                },
-                            },
-                        },
-                    },
+                                    focusColor: '{surface.900}'
+                                }
+                            }
+                        }
+                    }
                 };
             } else if (this.configService.appState().preset === 'Material') {
                 return {
@@ -373,31 +350,31 @@ export class AppConfiguratorComponent {
                                     color: '{primary.500}',
                                     contrastColor: '#ffffff',
                                     hoverColor: '{primary.400}',
-                                    activeColor: '{primary.300}',
+                                    activeColor: '{primary.300}'
                                 },
                                 highlight: {
                                     background: 'color-mix(in srgb, {primary.color}, transparent 88%)',
                                     focusBackground: 'color-mix(in srgb, {primary.color}, transparent 76%)',
                                     color: '{primary.700}',
-                                    focusColor: '{primary.800}',
-                                },
+                                    focusColor: '{primary.800}'
+                                }
                             },
                             dark: {
                                 primary: {
                                     color: '{primary.400}',
                                     contrastColor: '{surface.900}',
                                     hoverColor: '{primary.300}',
-                                    activeColor: '{primary.200}',
+                                    activeColor: '{primary.200}'
                                 },
                                 highlight: {
                                     background: 'color-mix(in srgb, {primary.400}, transparent 84%)',
                                     focusBackground: 'color-mix(in srgb, {primary.400}, transparent 76%)',
                                     color: 'rgba(255,255,255,.87)',
-                                    focusColor: 'rgba(255,255,255,.87)',
-                                },
-                            },
-                        },
-                    },
+                                    focusColor: 'rgba(255,255,255,.87)'
+                                }
+                            }
+                        }
+                    }
                 };
             } else {
                 return {
@@ -409,31 +386,31 @@ export class AppConfiguratorComponent {
                                     color: '{primary.500}',
                                     contrastColor: '#ffffff',
                                     hoverColor: '{primary.600}',
-                                    activeColor: '{primary.700}',
+                                    activeColor: '{primary.700}'
                                 },
                                 highlight: {
                                     background: '{primary.50}',
                                     focusBackground: '{primary.100}',
                                     color: '{primary.700}',
-                                    focusColor: '{primary.800}',
-                                },
+                                    focusColor: '{primary.800}'
+                                }
                             },
                             dark: {
                                 primary: {
                                     color: '{primary.400}',
                                     contrastColor: '{surface.900}',
                                     hoverColor: '{primary.300}',
-                                    activeColor: '{primary.200}',
+                                    activeColor: '{primary.200}'
                                 },
                                 highlight: {
                                     background: 'color-mix(in srgb, {primary.400}, transparent 84%)',
                                     focusBackground: 'color-mix(in srgb, {primary.400}, transparent 76%)',
                                     color: 'rgba(255,255,255,.87)',
-                                    focusColor: 'rgba(255,255,255,.87)',
-                                },
-                            },
-                        },
-                    },
+                                    focusColor: 'rgba(255,255,255,.87)'
+                                }
+                            }
+                        }
+                    }
                 };
             }
         }

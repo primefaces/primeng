@@ -15,6 +15,6 @@ import { StyleDoc } from './styledoc';
 @NgModule({
     imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, PanelModule, ButtonModule, BlockUI],
     declarations: [ImportDoc, BasicDoc, DocumentDoc, StyleDoc, AccessibilityDoc],
-    exports: [AppDocModule],
+    exports: [AppDocModule]
 })
 export class BlockUIDocModule {}

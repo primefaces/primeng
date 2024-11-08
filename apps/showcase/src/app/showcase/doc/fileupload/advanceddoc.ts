@@ -11,22 +11,11 @@ interface UploadEvent {
     selector: 'file-upload-advanced-demo',
     template: `
         <app-docsectiontext>
-            <p>
-                FileUpload is an advanced uploader with dragdrop support, multi file uploads, auto uploading, progress tracking and
-                validations.
-            </p>
+            <p>FileUpload is an advanced uploader with dragdrop support, multi file uploads, auto uploading, progress tracking and validations.</p>
         </app-docsectiontext>
         <div class="card">
             <p-toast />
-            <p-fileupload
-                name="demo[]"
-                url="https://www.primefaces.org/cdn/api/upload.php"
-                (onUpload)="onUpload($event)"
-                [multiple]="true"
-                accept="image/*"
-                maxFileSize="1000000"
-                mode="advanced"
-            >
+            <p-fileupload name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php" (onUpload)="onUpload($event)" [multiple]="true" accept="image/*" maxFileSize="1000000" mode="advanced">
                 <ng-template #empty>
                     <div>Drag and drop files to here to upload.</div>
                 </ng-template>
@@ -39,7 +28,7 @@ interface UploadEvent {
         </div>
         <app-code [code]="code" selector="file-upload-advanced-demo"></app-code>
     `,
-    providers: [MessageService],
+    providers: [MessageService]
 })
 export class AdvancedDoc {
     uploadedFiles: any[] = [];
@@ -124,6 +113,6 @@ export class FileUploadAdvancedDemo {
 
         this.messageService.add({severity: 'info', summary: 'File Uploaded', detail: ''});
     }
-}`,
+}`
     };
 }

@@ -13,7 +13,7 @@ import { Code } from '@domain/code';
             <input pInputText [(ngModel)]="value3" type="text" size="large" placeholder="Large" />
         </div>
         <app-code [code]="code" selector="input-text-sizes-demo"></app-code>
-    `,
+    `
 })
 export class SizesDoc {
     value1: string | undefined;
@@ -48,6 +48,6 @@ export class InputTextSizesDemo {
     value2: string | undefined;
     
     value3: string | undefined;
-}`,
+}`
     };
 }

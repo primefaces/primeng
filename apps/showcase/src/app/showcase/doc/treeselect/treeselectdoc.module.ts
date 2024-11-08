@@ -27,37 +27,8 @@ import { ButtonModule } from 'primeng/button';
 import { SizesDoc } from './sizesdoc';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        AppCodeModule,
-        AppDocModule,
-        TreeSelectModule,
-        FormsModule,
-        ReactiveFormsModule,
-        RouterModule,
-        FloatLabelModule,
-        IftaLabelModule,
-        ButtonModule,
-    ],
+    imports: [CommonModule, AppCodeModule, AppDocModule, TreeSelectModule, FormsModule, ReactiveFormsModule, RouterModule, FloatLabelModule, IftaLabelModule, ButtonModule],
     exports: [AppDocModule],
-    declarations: [
-        ImportDoc,
-        BasicDoc,
-        MultipleDoc,
-        CheckboxDoc,
-        LazyDoc,
-        VirtualScrollDoc,
-        FilterDoc,
-        FloatLabelDoc,
-        InvalidDoc,
-        DisabledDoc,
-        StyleDoc,
-        AccessibilityDoc,
-        ReactiveFormsDoc,
-        FilledDoc,
-        IftaLabelDoc,
-        TemplateDoc,
-        SizesDoc,
-    ],
+    declarations: [ImportDoc, BasicDoc, MultipleDoc, CheckboxDoc, LazyDoc, VirtualScrollDoc, FilterDoc, FloatLabelDoc, InvalidDoc, DisabledDoc, StyleDoc, AccessibilityDoc, ReactiveFormsDoc, FilledDoc, IftaLabelDoc, TemplateDoc, SizesDoc]
 })
 export class TreeSelectDocModule {}

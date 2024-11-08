@@ -16,7 +16,7 @@ import { Code } from '@domain/code';
             <p-message severity="contrast">Contrast Message</p-message>
         </div>
         <app-code [code]="code" selector="message-severity-demo"></app-code>
-    `,
+    `
 })
 export class SeverityDoc {
     code: Code = {
@@ -43,6 +43,6 @@ import { Message } from 'primeng/message';
     standalone: true,
     imports: [Message]
 })
-export class MessageSeverityDemo {}`,
+export class MessageSeverityDemo {}`
     };
 }

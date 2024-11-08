@@ -13,17 +13,13 @@ import { Code } from '@domain/code';
             <p-toast />
             <div pDefer (onLoad)="onLoad()">
                 <ng-template>
-                    <img
-                        class="w-full md:w-[30rem] md:block md:mx-auto"
-                        src="https://primefaces.org/cdn/primeng/images/demo/nature/nature1.jpg"
-                        alt="Prime"
-                    />
+                    <img class="w-full md:w-[30rem] md:block md:mx-auto" src="https://primefaces.org/cdn/primeng/images/demo/nature/nature1.jpg" alt="Prime" />
                 </ng-template>
             </div>
         </div>
         <app-code [code]="code" selector="defer-basic-demo"></app-code>
     `,
-    providers: [MessageService],
+    providers: [MessageService]
 })
 export class BasicDoc {
     constructor(private messageService: MessageService) {}
@@ -73,6 +69,6 @@ export class DeferBasicDemo {
     onLoad() {
         this.messageService.add({ severity: 'success', summary: 'Data Initialized', detail: 'Render Completed' });
     }
-}`,
+}`
     };
 }

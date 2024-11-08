@@ -11,44 +11,17 @@ import { Code } from '@domain/code';
             <p-button (click)="showDialog()" icon="pi pi-user" label="Login" />
             <p-dialog maskStyleClass="backdrop-blur-sm" [(visible)]="visible" styleClass="!border-0 !bg-transparent">
                 <ng-template pTemplate="headless">
-                    <div
-                        class="flex flex-col px-8 py-8 gap-6 rounded-2xl"
-                        style="border-radius: 12px; background-image: radial-gradient(circle at left top, var(--p-primary-400), var(--p-primary-700))"
-                    >
-                        <svg
-                            width="31"
-                            height="33"
-                            viewBox="0 0 31 33"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                            class="block mx-auto"
-                        >
-                            <path
-                                d="M15.1934 0V0V0L0.0391235 5.38288L2.35052 25.3417L15.1934 32.427V32.427V32.427L28.0364 25.3417L30.3478 5.38288L15.1934 0Z"
-                                fill="var(--p-primary-color)"
-                            />
+                    <div class="flex flex-col px-8 py-8 gap-6 rounded-2xl" style="border-radius: 12px; background-image: radial-gradient(circle at left top, var(--p-primary-400), var(--p-primary-700))">
+                        <svg width="31" height="33" viewBox="0 0 31 33" fill="none" xmlns="http://www.w3.org/2000/svg" class="block mx-auto">
+                            <path d="M15.1934 0V0V0L0.0391235 5.38288L2.35052 25.3417L15.1934 32.427V32.427V32.427L28.0364 25.3417L30.3478 5.38288L15.1934 0Z" fill="var(--p-primary-color)" />
                             <mask id="mask0_1_52" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="31" height="33">
-                                <path
-                                    d="M15.1934 0V0V0L0.0391235 5.38288L2.35052 25.3417L15.1934 32.427V32.427V32.427L28.0364 25.3417L30.3478 5.38288L15.1934 0Z"
-                                    fill="var(--ground-background)"
-                                />
+                                <path d="M15.1934 0V0V0L0.0391235 5.38288L2.35052 25.3417L15.1934 32.427V32.427V32.427L28.0364 25.3417L30.3478 5.38288L15.1934 0Z" fill="var(--ground-background)" />
                             </mask>
                             <g mask="url(#mask0_1_52)">
-                                <path
-                                    fill-rule="evenodd"
-                                    clip-rule="evenodd"
-                                    d="M15.1935 0V3.5994V3.58318V20.0075V20.0075V32.427V32.427L28.0364 25.3417L30.3478 5.38288L15.1935 0Z"
-                                    fill="var(--p-primary-color)"
-                                />
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M15.1935 0V3.5994V3.58318V20.0075V20.0075V32.427V32.427L28.0364 25.3417L30.3478 5.38288L15.1935 0Z" fill="var(--p-primary-color)" />
                             </g>
-                            <path
-                                d="M19.6399 15.3776L18.1861 15.0547L19.3169 16.6695V21.6755L23.1938 18.4458V12.9554L21.4169 13.6013L19.6399 15.3776Z"
-                                fill="var(--ground-background)"
-                            />
-                            <path
-                                d="M10.5936 15.3776L12.0474 15.0547L10.9166 16.6695V21.6755L7.03966 18.4458V12.9554L8.81661 13.6013L10.5936 15.3776Z"
-                                fill="var(--ground-background)"
-                            />
+                            <path d="M19.6399 15.3776L18.1861 15.0547L19.3169 16.6695V21.6755L23.1938 18.4458V12.9554L21.4169 13.6013L19.6399 15.3776Z" fill="var(--ground-background)" />
+                            <path d="M10.5936 15.3776L12.0474 15.0547L10.9166 16.6695V21.6755L7.03966 18.4458V12.9554L8.81661 13.6013L10.5936 15.3776Z" fill="var(--ground-background)" />
                             <path
                                 fill-rule="evenodd"
                                 clip-rule="evenodd"
@@ -63,22 +36,10 @@ import { Code } from '@domain/code';
                                 d="M13.0167 5.68861L11.7244 8.7568L13.8244 14.8932H14.7936V5.68861H13.0167ZM15.4397 5.68861V14.8932H16.5706L18.5091 8.7568L17.2167 5.68861H15.4397Z"
                                 fill="var(--ground-background)"
                             />
-                            <path
-                                d="M13.8244 14.8932L6.87813 12.3094L5.90888 8.27235L11.8859 8.7568L13.9859 14.8932H13.8244Z"
-                                fill="var(--ground-background)"
-                            />
-                            <path
-                                d="M16.5706 14.8932L23.5169 12.3094L24.4861 8.27235L18.3476 8.7568L16.4091 14.8932H16.5706Z"
-                                fill="var(--ground-background)"
-                            />
-                            <path
-                                d="M18.8321 8.27235L22.2245 7.94938L19.9629 5.68861H17.7013L18.8321 8.27235Z"
-                                fill="var(--ground-background)"
-                            />
-                            <path
-                                d="M11.4013 8.27235L8.00893 7.94938L10.2705 5.68861H12.5321L11.4013 8.27235Z"
-                                fill="var(--ground-background)"
-                            />
+                            <path d="M13.8244 14.8932L6.87813 12.3094L5.90888 8.27235L11.8859 8.7568L13.9859 14.8932H13.8244Z" fill="var(--ground-background)" />
+                            <path d="M16.5706 14.8932L23.5169 12.3094L24.4861 8.27235L18.3476 8.7568L16.4091 14.8932H16.5706Z" fill="var(--ground-background)" />
+                            <path d="M18.8321 8.27235L22.2245 7.94938L19.9629 5.68861H17.7013L18.8321 8.27235Z" fill="var(--ground-background)" />
+                            <path d="M11.4013 8.27235L8.00893 7.94938L10.2705 5.68861H12.5321L11.4013 8.27235Z" fill="var(--ground-background)" />
                         </svg>
                         <div class="inline-flex flex-col gap-2">
                             <label for="username" class="text-primary-50 font-semibold">Username</label>
@@ -89,27 +50,15 @@ import { Code } from '@domain/code';
                             <input pInputText id="password" class="!bg-white/20 !border-0 !p-4 !text-primary-50 w-80" type="password" />
                         </div>
                         <div class="flex items-center gap-4">
-                            <p-button
-                                label="Cancel"
-                                (click)="closeDialog()"
-                                [text]="true"
-                                styleClass="!p-4 w-full !text-primary-50 !border !border-white/30 hover:!bg-white/10"
-                                class="w-full"
-                            />
-                            <p-button
-                                label="Sign-In"
-                                (click)="closeDialog()"
-                                [text]="true"
-                                styleClass="!p-4 w-full !text-primary-50 !border !border-white/30 hover:!bg-white/10"
-                                class="w-full"
-                            />
+                            <p-button label="Cancel" (click)="closeDialog()" [text]="true" styleClass="!p-4 w-full !text-primary-50 !border !border-white/30 hover:!bg-white/10" class="w-full" />
+                            <p-button label="Sign-In" (click)="closeDialog()" [text]="true" styleClass="!p-4 w-full !text-primary-50 !border !border-white/30 hover:!bg-white/10" class="w-full" />
                         </div>
                     </div>
                 </ng-template>
             </p-dialog>
         </div>
         <app-code [code]="code" selector="code" [hideToggleCode]="true" [hideCodeSandbox]="true" [hideStackBlitz]="true"></app-code>
-    `,
+    `
 })
 export class HeadlessDoc {
     visible: boolean = false;
@@ -227,6 +176,6 @@ export class HeadlessDoc {
                 </div>
             </div>
         </ng-template>
-    </p-dialog>`,
+    </p-dialog>`
     };
 }

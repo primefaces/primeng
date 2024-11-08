@@ -4,15 +4,9 @@ import { Component } from '@angular/core';
     selector: 'colors-doc',
     template: `
         <app-docsectiontext>
-            <p>
-                Colors on a web page should aim a contrast ratio of at least <strong>4.5:1</strong> and consider a selection of colors that
-                do not cause vibration.
-            </p>
+            <p>Colors on a web page should aim a contrast ratio of at least <strong>4.5:1</strong> and consider a selection of colors that do not cause vibration.</p>
             <h3>Good Contrast</h3>
-            <p>
-                Color contrast between the background and the foreground content should be sufficient enough to ensure readability. Example
-                below displays two cases with good and bad samples.
-            </p>
+            <p>Color contrast between the background and the foreground content should be sufficient enough to ensure readability. Example below displays two cases with good and bad samples.</p>
 
             <div class="flex">
                 <div class="h-32 w-32 flex justify-center items-center mr-8 font-bold bg-blue-600" style="border-radius: 10px;">
@@ -24,10 +18,7 @@ import { Component } from '@angular/core';
             </div>
 
             <h3>Vibration</h3>
-            <p>
-                Color vibration is leads to an illusion of motion due to choosing colors that have low visibility against each other. Color
-                combinations need to be picked with caution to avoid vibration.
-            </p>
+            <p>Color vibration is leads to an illusion of motion due to choosing colors that have low visibility against each other. Color combinations need to be picked with caution to avoid vibration.</p>
 
             <div class="flex">
                 <div class="h-32 w-32 flex justify-center items-center mr-8 font-bold bg-pink-500" style="border-radius: 10px;">
@@ -36,10 +27,7 @@ import { Component } from '@angular/core';
             </div>
 
             <h3>Dark Mode</h3>
-            <p>
-                Highly saturated colors should be avoided when used within a dark design scheme as they cause eye strain. Instead
-                desaturated colors should be preferred.
-            </p>
+            <p>Highly saturated colors should be avoided when used within a dark design scheme as they cause eye strain. Instead desaturated colors should be preferred.</p>
 
             <div class="flex">
                 <div class="h-32 w-32 flex flex-col justify-center items-center mr-8 font-bold bg-gray-900" style="border-radius: 10px;">
@@ -52,6 +40,6 @@ import { Component } from '@angular/core';
                 </div>
             </div>
         </app-docsectiontext>
-    `,
+    `
 })
 export class ColorsDoc {}

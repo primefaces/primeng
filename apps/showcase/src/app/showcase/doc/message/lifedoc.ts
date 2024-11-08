@@ -14,7 +14,7 @@ import { Code } from '@domain/code';
             }
         </div>
         <app-code [code]="code" selector="message-life-demo"></app-code>
-    `,
+    `
 })
 export class LifeDoc {
     visible = signal(false);
@@ -57,6 +57,6 @@ export class MessageLifeDemo {
             this.visible.set(false);
         }, 3500);
     }
-}`,
+}`
     };
 }

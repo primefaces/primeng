@@ -10,58 +10,52 @@ import { RouterDoc } from '@doc/panelmenu/routerdoc';
 import { PanelMenuDocModule } from '@doc/panelmenu/panelmenudoc.module';
 
 @Component({
-    template: `<app-doc
-        docTitle="Angular PanelMenu Component"
-        header="PanelMenu"
-        description="PanelMenu is a hybrid of Accordion and Tree components."
-        [docs]="docs"
-        [apiDocs]="['PanelMenu', 'MenuItem']"
-    ></app-doc>`,
+    template: `<app-doc docTitle="Angular PanelMenu Component" header="PanelMenu" description="PanelMenu is a hybrid of Accordion and Tree components." [docs]="docs" [apiDocs]="['PanelMenu', 'MenuItem']"></app-doc>`,
     standalone: true,
-    imports: [PanelMenuDocModule],
+    imports: [PanelMenuDocModule]
 })
 export class PanelMenuDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc,
+            component: ImportDoc
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc,
+            component: BasicDoc
         },
         {
             id: 'multiple',
             label: 'Multiple',
-            component: MultipleDoc,
+            component: MultipleDoc
         },
         {
             id: 'controlled',
             label: 'Controlled',
-            component: ControlledDoc,
+            component: ControlledDoc
         },
         {
             id: 'template',
             label: 'Template',
-            component: TemplateDoc,
+            component: TemplateDoc
         },
         {
             id: 'command',
             label: 'Command',
-            component: CommandDoc,
+            component: CommandDoc
         },
         {
             id: 'router',
             label: 'Router',
-            component: RouterDoc,
+            component: RouterDoc
         },
 
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc,
-        },
+            component: AccessibilityDoc
+        }
     ];
 }

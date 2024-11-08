@@ -100,15 +100,15 @@ import { ProductService } from '@service/productservice';
                 padding-top: 0 !important;
                 padding-bottom: 0 !important;
             }
-        `,
-    ],
+        `
+    ]
 })
 export class FilterSortEditDoc {
     products!: Product[];
 
     constructor(
         private productService: ProductService,
-        private cd: ChangeDetectorRef,
+        private cd: ChangeDetectorRef
     ) {}
 
     loadDemoData() {
@@ -360,7 +360,7 @@ export class TableFilterSortEditDemo implements OnInit {
 },
 ...`,
 
-        service: ['ProductService'],
+        service: ['ProductService']
     };
 
     extFiles = [
@@ -378,7 +378,7 @@ export interface Product {
     category?: string;
     image?: string;
     rating?: number;
-}`,
-        },
+}`
+        }
     ];
 }

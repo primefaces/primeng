@@ -20,23 +20,8 @@ import { StyleDoc } from './styledoc';
 import { Tooltip } from 'primeng/tooltip';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        AppCodeModule,
-        RouterModule,
-        Dock,
-        FormsModule,
-        RadioButton,
-        MenubarModule,
-        ToastModule,
-        Dialog,
-        GalleriaModule,
-        Terminal,
-        Tree,
-        AppDocModule,
-        Tooltip,
-    ],
+    imports: [CommonModule, AppCodeModule, RouterModule, Dock, FormsModule, RadioButton, MenubarModule, ToastModule, Dialog, GalleriaModule, Terminal, Tree, AppDocModule, Tooltip],
     declarations: [AdvancedDoc, BasicDoc, ImportDoc, StyleDoc, AccessibilityDoc],
-    exports: [AppDocModule],
+    exports: [AppDocModule]
 })
 export class DockDocModule {}

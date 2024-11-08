@@ -32,7 +32,7 @@ import { PhotoService } from '@service/photoservice';
             </p-galleria>
         </div>
         <app-code [code]="code" selector="galleria-full-screen-template-demo"></app-code>
-    `,
+    `
 })
 export class FullScreenTemplateDoc implements OnInit {
     displayCustom: boolean | undefined;
@@ -44,16 +44,16 @@ export class FullScreenTemplateDoc implements OnInit {
     responsiveOptions: any[] = [
         {
             breakpoint: '1024px',
-            numVisible: 5,
+            numVisible: 5
         },
         {
             breakpoint: '768px',
-            numVisible: 3,
+            numVisible: 3
         },
         {
             breakpoint: '560px',
-            numVisible: 1,
-        },
+            numVisible: 1
+        }
     ];
 
     constructor(private photoService: PhotoService) {}
@@ -140,6 +140,6 @@ export class GalleriaFullScreenTemplateDemo implements OnInit {
     title: 'Title 1'
 },
 ...`,
-        service: ['PhotoService'],
+        service: ['PhotoService']
     };
 }

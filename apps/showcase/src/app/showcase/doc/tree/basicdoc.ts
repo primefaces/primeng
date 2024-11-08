@@ -13,7 +13,7 @@ import { NodeService } from '@service/nodeservice';
             <p-tree [value]="files" styleClass="w-full md:w-[30rem]" />
         </div>
         <app-code [code]="code" selector="tree-basic-demo"></app-code>
-    `,
+    `
 })
 export class BasicDoc implements OnInit {
     files!: TreeNode[];
@@ -81,6 +81,6 @@ export class TreeBasicDemo implements OnInit {
         }
     ]
 },
-...`,
+...`
     };
 }

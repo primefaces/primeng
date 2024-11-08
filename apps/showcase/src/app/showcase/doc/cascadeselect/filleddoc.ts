@@ -5,25 +5,13 @@ import { Code } from '@domain/code';
     selector: 'cascade-select-filled-demo',
     template: `
         <app-docsectiontext>
-            <p>
-                Specify the <i>variant</i> property as <i>filled</i> to display the component with a higher visual emphasis than the default
-                <i>outlined</i> style.
-            </p>
+            <p>Specify the <i>variant</i> property as <i>filled</i> to display the component with a higher visual emphasis than the default <i>outlined</i> style.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-cascadeselect
-                [(ngModel)]="selectedCity"
-                variant="filled"
-                [options]="countries"
-                optionLabel="cname"
-                optionGroupLabel="name"
-                [optionGroupChildren]="['states', 'cities']"
-                [style]="{ minWidth: '14rem' }"
-                placeholder="Select a City"
-            />
+            <p-cascadeselect [(ngModel)]="selectedCity" variant="filled" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" [style]="{ minWidth: '14rem' }" placeholder="Select a City" />
         </div>
         <app-code [code]="code" selector="cascade-select-filled-demo"></app-code>
-    `,
+    `
 })
 export class FilledDoc {
     countries: any[] | undefined;
@@ -41,17 +29,17 @@ export class FilledDoc {
                         cities: [
                             { cname: 'Sydney', code: 'A-SY' },
                             { cname: 'Newcastle', code: 'A-NE' },
-                            { cname: 'Wollongong', code: 'A-WO' },
-                        ],
+                            { cname: 'Wollongong', code: 'A-WO' }
+                        ]
                     },
                     {
                         name: 'Queensland',
                         cities: [
                             { cname: 'Brisbane', code: 'A-BR' },
-                            { cname: 'Townsville', code: 'A-TO' },
-                        ],
-                    },
-                ],
+                            { cname: 'Townsville', code: 'A-TO' }
+                        ]
+                    }
+                ]
             },
             {
                 name: 'Canada',
@@ -61,17 +49,17 @@ export class FilledDoc {
                         name: 'Quebec',
                         cities: [
                             { cname: 'Montreal', code: 'C-MO' },
-                            { cname: 'Quebec City', code: 'C-QU' },
-                        ],
+                            { cname: 'Quebec City', code: 'C-QU' }
+                        ]
                     },
                     {
                         name: 'Ontario',
                         cities: [
                             { cname: 'Ottawa', code: 'C-OT' },
-                            { cname: 'Toronto', code: 'C-TO' },
-                        ],
-                    },
-                ],
+                            { cname: 'Toronto', code: 'C-TO' }
+                        ]
+                    }
+                ]
             },
             {
                 name: 'United States',
@@ -82,8 +70,8 @@ export class FilledDoc {
                         cities: [
                             { cname: 'Los Angeles', code: 'US-LA' },
                             { cname: 'San Diego', code: 'US-SD' },
-                            { cname: 'San Francisco', code: 'US-SF' },
-                        ],
+                            { cname: 'San Francisco', code: 'US-SF' }
+                        ]
                     },
                     {
                         name: 'Florida',
@@ -91,19 +79,19 @@ export class FilledDoc {
                             { cname: 'Jacksonville', code: 'US-JA' },
                             { cname: 'Miami', code: 'US-MI' },
                             { cname: 'Tampa', code: 'US-TA' },
-                            { cname: 'Orlando', code: 'US-OR' },
-                        ],
+                            { cname: 'Orlando', code: 'US-OR' }
+                        ]
                     },
                     {
                         name: 'Texas',
                         cities: [
                             { cname: 'Austin', code: 'US-AU' },
                             { cname: 'Dallas', code: 'US-DA' },
-                            { cname: 'Houston', code: 'US-HO' },
-                        ],
-                    },
-                ],
-            },
+                            { cname: 'Houston', code: 'US-HO' }
+                        ]
+                    }
+                ]
+            }
         ];
     }
 
@@ -205,6 +193,6 @@ export class CascadeSelectFilledDemo implements OnInit {
             }
         ];
     }
-}`,
+}`
     };
 }

@@ -6,15 +6,10 @@ import { Component } from '@angular/core';
         <app-docsectiontext>
             <h3>Screen Reader</h3>
             <p>
-                Toggleable panels use a content toggle button at the header that has <i>aria-controls</i> to define the id of the content
-                section along with <i>aria-expanded</i> for the visibility state. The value to read the button defaults to the value of the
-                <i>header</i> property and can be customized by defining an <i>aria-label</i> or <i>aria-labelledby</i> via the
-                <i>toggleButtonProps</i> property.
+                Toggleable panels use a content toggle button at the header that has <i>aria-controls</i> to define the id of the content section along with <i>aria-expanded</i> for the visibility state. The value to read the button defaults to the
+                value of the <i>header</i> property and can be customized by defining an <i>aria-label</i> or <i>aria-labelledby</i> via the <i>toggleButtonProps</i> property.
             </p>
-            <p>
-                The content uses <i>region</i>, defines an id that matches the <i>aria-controls</i> of the content toggle button and
-                <i>aria-labelledby</i> referring to the id of the header.
-            </p>
+            <p>The content uses <i>region</i>, defines an id that matches the <i>aria-controls</i> of the content toggle button and <i>aria-labelledby</i> referring to the id of the header.</p>
             <h3>Content Toggle Button Keyboard Support</h3>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
@@ -45,6 +40,6 @@ import { Component } from '@angular/core';
                 </table>
             </div>
         </app-docsectiontext>
-    </div>`,
+    </div>`
 })
 export class AccessibilityDoc {}

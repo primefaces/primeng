@@ -17,33 +17,26 @@ import { LazyVirtualScrollDoc } from '@doc/tree/virtualscrolllazydoc';
 import { TreeDocModule } from '@doc/tree/treedoc.module';
 
 @Component({
-    template: `<app-doc
-        docTitle="Angular Tree Component"
-        header="Tree"
-        description="Tree is used to display hierarchical data."
-        [docs]="docs"
-        [apiDocs]="['Tree', 'TreeNode']"
-        themeDocs="tree"
-    ></app-doc>`,
+    template: `<app-doc docTitle="Angular Tree Component" header="Tree" description="Tree is used to display hierarchical data." [docs]="docs" [apiDocs]="['Tree', 'TreeNode']" themeDocs="tree"></app-doc>`,
     standalone: true,
-    imports: [TreeDocModule],
+    imports: [TreeDocModule]
 })
 export class TreeDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc,
+            component: ImportDoc
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc,
+            component: BasicDoc
         },
         {
             id: 'controlled',
             label: 'Controlled',
-            component: ControlledDoc,
+            component: ControlledDoc
         },
         {
             id: 'selection',
@@ -52,39 +45,39 @@ export class TreeDemo {
                 {
                     id: 'single',
                     label: 'Single',
-                    component: SingleDoc,
+                    component: SingleDoc
                 },
                 {
                     id: 'multiple',
                     label: 'Multiple',
-                    component: MultipleDoc,
+                    component: MultipleDoc
                 },
                 {
                     id: 'checkbox',
                     label: 'Checkbox',
-                    component: CheckboxDoc,
-                },
-            ],
+                    component: CheckboxDoc
+                }
+            ]
         },
         {
             id: 'event',
             label: 'Events',
-            component: EventDoc,
+            component: EventDoc
         },
         {
             id: 'lazy',
             label: 'Lazy',
-            component: LazyDoc,
+            component: LazyDoc
         },
         {
             id: 'template',
             label: 'Template',
-            component: TemplateDoc,
+            component: TemplateDoc
         },
         {
             id: 'filter',
             label: 'Filter',
-            component: FilterDoc,
+            component: FilterDoc
         },
         {
             id: 'virtualscroll',
@@ -93,29 +86,29 @@ export class TreeDemo {
                 {
                     id: 'preload',
                     label: 'Preload',
-                    component: VirtualScrollDoc,
+                    component: VirtualScrollDoc
                 },
                 {
                     id: 'lazyvirtualscroll',
                     label: 'Lazy',
-                    component: LazyVirtualScrollDoc,
-                },
-            ],
+                    component: LazyVirtualScrollDoc
+                }
+            ]
         },
         {
             id: 'dragdrop',
             label: 'DragDrop',
-            component: DragDropDoc,
+            component: DragDropDoc
         },
         {
             id: 'contextmenu',
             label: 'Context Menu',
-            component: ContextMenuDoc,
+            component: ContextMenuDoc
         },
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc,
-        },
+            component: AccessibilityDoc
+        }
     ];
 }

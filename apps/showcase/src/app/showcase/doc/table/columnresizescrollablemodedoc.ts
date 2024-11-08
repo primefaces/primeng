@@ -7,14 +7,7 @@ import { CustomerService } from '@service/customerservice';
     selector: 'column-resize-scrollable-mode-doc',
     template: ` <p-deferred-demo (load)="loadDemoData()">
             <div class="card">
-                <p-table
-                    [value]="customers"
-                    showGridlines
-                    [scrollable]="true"
-                    scrollHeight="400px"
-                    [resizableColumns]="true"
-                    [tableStyle]="{ 'min-width': '50rem' }"
-                >
+                <p-table [value]="customers" showGridlines [scrollable]="true" scrollHeight="400px" [resizableColumns]="true" [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template #header>
                         <tr>
                             <th pResizableColumn>Name</th>
@@ -35,14 +28,14 @@ import { CustomerService } from '@service/customerservice';
             </div>
         </p-deferred-demo>
         <app-code [code]="code" selector="table-column-resize-scrollable-mode-demo" [extFiles]="extFiles"></app-code>`,
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ColumnResizeScrollableModeDoc {
     customers!: Customer[];
 
     constructor(
         private customerService: CustomerService,
-        private cd: ChangeDetectorRef,
+        private cd: ChangeDetectorRef
     ) {}
 
     loadDemoData() {
@@ -142,7 +135,7 @@ export class TableColumnResizeScrollableModeDemo implements OnInit{
     balance: 70663
 },
 ...`,
-        service: ['CustomerService'],
+        service: ['CustomerService']
     };
 
     extFiles = [
@@ -170,7 +163,7 @@ export interface Customer {
     representative?: Representative;
     verified?: boolean;
     balance?: number;
-}`,
-        },
+}`
+        }
     ];
 }

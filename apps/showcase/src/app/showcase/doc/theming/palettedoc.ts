@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
             <p>Returns shades and tints of a given color from 50 to 950 as an array.</p>
         </app-docsectiontext>
         <app-code [code]="code" selector="palette-demo" [hideToggleCode]="true"></app-code>
-    `,
+    `
 })
 export class PaletteDoc {
     code = {
@@ -17,6 +17,6 @@ export class PaletteDoc {
 const values1 = palette('#10b981');
 
 // copy an existing token set
-const primaryColor = palette('{blue}');`,
+const primaryColor = palette('{blue}');`
     };
 }

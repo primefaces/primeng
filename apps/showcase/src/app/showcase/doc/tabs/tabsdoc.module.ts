@@ -20,6 +20,6 @@ import { BadgeModule } from 'primeng/badge';
 @NgModule({
     imports: [CommonModule, AppCodeModule, AppDocModule, TabsModule, RouterModule, ButtonModule, AvatarModule, BadgeModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, ControlledDoc, DynamicDoc, DisabledDoc, TemplateDoc, ScrollableDoc, TabmenuDoc, AccessibilityDoc],
+    declarations: [ImportDoc, BasicDoc, ControlledDoc, DynamicDoc, DisabledDoc, TemplateDoc, ScrollableDoc, TabmenuDoc, AccessibilityDoc]
 })
 export class TabsDocModule {}

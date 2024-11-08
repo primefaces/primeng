@@ -8,21 +8,15 @@ import { Code } from '@domain/code';
             <p>Invalid state style is added using the <i>ng-invalid</i> and <i>ng-dirty</i> class to indicate a failed validation.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-selectbutton
-                [options]="stateOptions"
-                [(ngModel)]="value"
-                optionLabel="label"
-                optionValue="value"
-                class="ng-invalid ng-dirty"
-            />
+            <p-selectbutton [options]="stateOptions" [(ngModel)]="value" optionLabel="label" optionValue="value" class="ng-invalid ng-dirty" />
         </div>
         <app-code [code]="code" selector="select-button-invalid-demo"></app-code>
-    `,
+    `
 })
 export class InvalidDoc {
     stateOptions: any[] = [
         { label: 'One-Way', value: 'one-way' },
-        { label: 'Return', value: 'return' },
+        { label: 'Return', value: 'return' }
     ];
 
     value: string = 'off';
@@ -51,6 +45,6 @@ export class SelectButtonInvalidDemo {
     ];
 
     value: string = 'off';
-}`,
+}`
     };
 }

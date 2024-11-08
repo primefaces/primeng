@@ -17,19 +17,7 @@ import { Subscription } from 'rxjs';
     selector: 'landing',
     standalone: true,
     templateUrl: './landing.component.html',
-    imports: [
-        CommonModule,
-        NgOptimizedImage,
-        AppNewsComponent,
-        AppTopBarComponent,
-        HeroSectionComponent,
-        FeaturesSectionComponent,
-        UsersSectionComponent,
-        ThemeSectionComponent,
-        BlockSectionComponent,
-        TemplateSectionComponent,
-        FooterSectionComponent,
-    ],
+    imports: [CommonModule, NgOptimizedImage, AppNewsComponent, AppTopBarComponent, HeroSectionComponent, FeaturesSectionComponent, UsersSectionComponent, ThemeSectionComponent, BlockSectionComponent, TemplateSectionComponent, FooterSectionComponent]
 })
 export class LandingComponent implements OnInit {
     subscription!: Subscription;
@@ -37,14 +25,14 @@ export class LandingComponent implements OnInit {
     constructor(
         private configService: AppConfigService,
         private metaService: Meta,
-        private titleService: Title,
+        private titleService: Title
     ) {}
 
     get landingClass() {
         return {
             'layout-dark': this.isDarkMode,
             'layout-light': !this.isDarkMode,
-            'layout-news-active': this.isNewsActive,
+            'layout-news-active': this.isNewsActive
         };
     }
 
@@ -60,7 +48,7 @@ export class LandingComponent implements OnInit {
         this.titleService.setTitle('PrimeNG - Angular UI Component Library');
         this.metaService.updateTag({
             name: 'description',
-            content: 'The ultimate collection of design-agnostic, flexible and accessible Angular UI Components.',
+            content: 'The ultimate collection of design-agnostic, flexible and accessible Angular UI Components.'
         });
     }
 }

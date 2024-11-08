@@ -7,9 +7,8 @@ import { ProductService } from '@service/productservice';
     selector: 'single-column-sort-doc',
     template: ` <app-docsectiontext>
             <p>
-                A column can be made sortable by adding the <i>pSortableColumn</i> directive whose value is the field to sort against and a
-                sort indicator via <i>p-sortIcon</i> component. For dynamic columns, setting <i>pSortableColumnDisabled</i> property as true
-                disables sorting for that particular column.
+                A column can be made sortable by adding the <i>pSortableColumn</i> directive whose value is the field to sort against and a sort indicator via <i>p-sortIcon</i> component. For dynamic columns, setting
+                <i>pSortableColumnDisabled</i> property as true disables sorting for that particular column.
             </p>
             <p>
                 Default sorting is executed on a single column, in order to enable multiple field sorting, set <i>sortMode</i>
@@ -51,14 +50,14 @@ import { ProductService } from '@service/productservice';
             </div>
         </p-deferred-demo>
         <app-code [code]="code" selector="table-single-column-sort-demo" [extFiles]="extFiles"></app-code>`,
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SingleColumnSortDoc {
     products!: Product[];
 
     constructor(
         private productService: ProductService,
-        private cd: ChangeDetectorRef,
+        private cd: ChangeDetectorRef
     ) {}
 
     loadDemoData() {
@@ -160,7 +159,7 @@ export class TableSingleColumnSortDemo implements OnInit {
     rating: 5
 },
 ...`,
-        service: ['ProductService'],
+        service: ['ProductService']
     };
 
     extFiles = [
@@ -178,7 +177,7 @@ export interface Product {
     category?: string;
     image?: string;
     rating?: number;
-}`,
-        },
+}`
+        }
     ];
 }

@@ -7,18 +7,14 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <h3>Screen Reader</h3>
             <p>
-                Value to describe the component can either be provided with <i>ariaLabelledby</i> or <i>ariaLabel</i> props. The treeselect
-                element has a <i>combobox</i> role in addition to <i>aria-haspopup</i> and <i>aria-expanded</i> attributes. The relation
-                between the combobox and the popup is created with <i>aria-controls</i> that refers to the id of the popup.
+                Value to describe the component can either be provided with <i>ariaLabelledby</i> or <i>ariaLabel</i> props. The treeselect element has a <i>combobox</i> role in addition to <i>aria-haspopup</i> and <i>aria-expanded</i> attributes.
+                The relation between the combobox and the popup is created with <i>aria-controls</i> that refers to the id of the popup.
             </p>
             <p>
-                The popup list has an id that refers to the <i>aria-controls</i> attribute of the <i>combobox</i> element and uses
-                <i>tree</i> as the role. Each list item has a <i>treeitem</i> role along with <i>aria-label</i>, <i>aria-selected</i> and
-                <i>aria-expanded</i> attributes. In checkbox selection, <i>aria-checked</i> is used instead of <i>aria-selected</i>.
-                Checkbox and toggle icons are hidden from screen readers as their parent element with <i>treeitem</i> role and attributes
-                are used instead for readers and keyboard support. The container element of a treenode has the <i>group</i> role. The
-                <i>aria-setsize</i>, <i>aria-posinset</i> and <i>aria-level</i> attributes are calculated implicitly and added to each
-                treeitem.
+                The popup list has an id that refers to the <i>aria-controls</i> attribute of the <i>combobox</i> element and uses <i>tree</i> as the role. Each list item has a <i>treeitem</i> role along with <i>aria-label</i>,
+                <i>aria-selected</i> and <i>aria-expanded</i> attributes. In checkbox selection, <i>aria-checked</i> is used instead of <i>aria-selected</i>. Checkbox and toggle icons are hidden from screen readers as their parent element with
+                <i>treeitem</i> role and attributes are used instead for readers and keyboard support. The container element of a treenode has the <i>group</i> role. The <i>aria-setsize</i>, <i>aria-posinset</i> and <i>aria-level</i> attributes are
+                calculated implicitly and added to each treeitem.
             </p>
 
             <p>If filtering is enabled, <i>filterInputProps</i> can be defined to give <i>aria-*</i> props to the filter input element.</p>
@@ -46,19 +42,13 @@ import { Code } from '@domain/code';
                         <td>
                             <i>space</i>
                         </td>
-                        <td>
-                            Opens the popup and moves visual focus to the selected treenode, if there is none then first treenode receives
-                            the focus.
-                        </td>
+                        <td>Opens the popup and moves visual focus to the selected treenode, if there is none then first treenode receives the focus.</td>
                     </tr>
                     <tr>
                         <td>
                             <i>down arrow</i>
                         </td>
-                        <td>
-                            Opens the popup and moves visual focus to the selected option, if there is none then first option receives the
-                            focus.
-                        </td>
+                        <td>Opens the popup and moves visual focus to the selected option, if there is none then first option receives the focus.</td>
                     </tr>
                 </tbody>
             </table>
@@ -78,17 +68,11 @@ import { Code } from '@domain/code';
                         <td>
                             <i>tab</i>
                         </td>
-                        <td>
-                            Moves focus to the next focusable element in the popup, if there is none then first focusable element receives
-                            the focus.
-                        </td>
+                        <td>Moves focus to the next focusable element in the popup, if there is none then first focusable element receives the focus.</td>
                     </tr>
                     <tr>
                         <td><i>shift</i> + <i>tab</i></td>
-                        <td>
-                            Moves focus to the previous focusable element in the popup, if there is none then last focusable element
-                            receives the focus.
-                        </td>
+                        <td>Moves focus to the previous focusable element in the popup, if there is none then last focusable element receives the focus.</td>
                     </tr>
                     <tr>
                         <td>
@@ -193,13 +177,13 @@ import { Code } from '@domain/code';
                 </tbody>
             </table>
         </div>
-    </div>`,
+    </div>`
 })
 export class AccessibilityDoc {
     code: Code = {
         basic: `<span id="dd1">Options</span>
 <p-treeselect ariaLabelledBy="dd1" />
 
-<p-treeselect ariaLabel="Options" />`,
+<p-treeselect ariaLabel="Options" />`
     };
 }

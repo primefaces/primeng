@@ -11,7 +11,7 @@ import { Code } from '@domain/code';
             <p-rating [(ngModel)]="value" [stars]="10" />
         </div>
         <app-code [code]="code" selector="rating-number-of-stars-demo"></app-code>
-    `,
+    `
 })
 export class NumberOfStarsDoc {
     value: number = 5;
@@ -35,6 +35,6 @@ import { Rating } from 'primeng/rating';
 })
 export class RatingNumberOfStarsDemo {
     value: number = 5;
-}`,
+}`
     };
 }

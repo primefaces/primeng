@@ -9,6 +9,6 @@ import { MigrationDemoComponent } from './migration/migration.component';
 
 @NgModule({
     imports: [CommonModule, GuidesRoutingModule, GuidesDocModule],
-    declarations: [AccessibilityDemoComponent, TemplateUpdateDemoComponent, PrimeFlexDemoComponent, MigrationDemoComponent],
+    declarations: [AccessibilityDemoComponent, TemplateUpdateDemoComponent, PrimeFlexDemoComponent, MigrationDemoComponent]
 })
 export class GuidesModule {}

@@ -22,13 +22,13 @@ import { Code } from '@domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="accordion-dynamic-demo"></app-code>
-    `,
+    `
 })
 export class DynamicDoc {
     tabs = [
         { title: 'Title 1', content: 'Content 1', value: '0' },
         { title: 'Title 2', content: 'Content 2', value: '1' },
-        { title: 'Title 3', content: 'Content 3', value: '2' },
+        { title: 'Title 3', content: 'Content 3', value: '2' }
     ];
 
     code: Code = {
@@ -72,6 +72,6 @@ export class AccordionDynamicDemo {
         { title: 'Title 2', content: 'Content 2', value: '1' },
         { title: 'Title 3', content: 'Content 3', value: '2' },
     ];
-}`,
+}`
     };
 }

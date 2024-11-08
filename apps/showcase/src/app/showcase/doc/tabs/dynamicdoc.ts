@@ -24,7 +24,7 @@ import { Code } from '@domain/code';
             </p-tabs>
         </div>
         <app-code [code]="code" selector="tabs-dynamic-demo"></app-code>
-    `,
+    `
 })
 export class DynamicDoc implements OnInit {
     tabs: { title: string; value: string; content: string }[] = [];
@@ -81,14 +81,14 @@ export class TabsDynamicDemo implements OnInit {
             { title: 'Tab 3', value: 2, content: 'Tab 3 Content' },
         ];
     }
-}`,
+}`
     };
 
     ngOnInit() {
         this.tabs = [
             { title: 'Tab 1', value: '0', content: 'Tab 1 Content' },
             { title: 'Tab 2', value: '1', content: 'Tab 2 Content' },
-            { title: 'Tab 3', value: '2', content: 'Tab 3 Content' },
+            { title: 'Tab 3', value: '2', content: 'Tab 3 Content' }
         ];
     }
 }

@@ -7,22 +7,14 @@ import { NodeService } from '@service/nodeservice';
     selector: 'flexible-scroll-doc',
     template: ` <app-docsectiontext>
             <p>
-                Flex scroll feature makes the scrollable viewport section dynamic instead of a fixed value so that it can grow or shrink
-                relative to the parent size of the table. Click the button below to display a maximizable Dialog where data viewport adjusts
-                itself according to the size changes.
+                Flex scroll feature makes the scrollable viewport section dynamic instead of a fixed value so that it can grow or shrink relative to the parent size of the table. Click the button below to display a maximizable Dialog where data
+                viewport adjusts itself according to the size changes.
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-deferred-demo (load)="loadDemoData()">
                 <p-button label="Show" icon="pi pi-external-link" (onClick)="dialogVisible = true" />
-                <p-dialog
-                    [(visible)]="dialogVisible"
-                    header="Flex Scroll"
-                    [style]="{ width: '75vw' }"
-                    maximizable
-                    modal
-                    [contentStyle]="{ height: '300px' }"
-                >
+                <p-dialog [(visible)]="dialogVisible" header="Flex Scroll" [style]="{ width: '75vw' }" maximizable modal [contentStyle]="{ height: '300px' }">
                     <ng-template pTemplate="content">
                         <p-treetable [value]="files" [scrollable]="true" scrollHeight="flex" [tableStyle]="{ 'min-width': '50rem' }">
                             <ng-template pTemplate="header">
@@ -51,7 +43,7 @@ import { NodeService } from '@service/nodeservice';
             </p-deferred-demo>
         </div>
         <app-code [code]="code" selector="tree-table-flexible-scroll-demo"></app-code>`,
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ScrollFlexibleDoc {
     files!: TreeNode[];
@@ -60,7 +52,7 @@ export class ScrollFlexibleDoc {
 
     constructor(
         private nodeService: NodeService,
-        private cd: ChangeDetectorRef,
+        private cd: ChangeDetectorRef
     ) {}
 
     loadDemoData() {
@@ -185,6 +177,6 @@ export class TreeTableFlexibleScrollDemo implements OnInit {
     }
 }`,
 
-        service: ['NodeService'],
+        service: ['NodeService']
     };
 }

@@ -10,44 +10,39 @@ import { FilterServiceDocModule } from '@doc/filterservice/filterservicedoc.modu
 @Component({
     standalone: true,
     imports: [FilterServiceDocModule],
-    template: ` <app-doc
-        docTitle="FilterService - PrimeNG"
-        header="FilterService"
-        description="FilterService is a helper utility to filter collections against constraints."
-        [docs]="docs"
-    ></app-doc>`,
+    template: ` <app-doc docTitle="FilterService - PrimeNG" header="FilterService" description="FilterService is a helper utility to filter collections against constraints." [docs]="docs"></app-doc>`
 })
 export class FilterServiceDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc,
+            component: ImportDoc
         },
         {
             id: 'usage',
             label: 'Usage',
-            component: UsageDoc,
+            component: UsageDoc
         },
         {
             id: 'builtinconstraints',
             label: 'Built-in Constraints',
-            component: BuiltInConstraintsDoc,
+            component: BuiltInConstraintsDoc
         },
         {
             id: 'customconstraints',
             label: 'Custom Constraints',
-            component: CustomConstraintsDoc,
+            component: CustomConstraintsDoc
         },
         {
             id: 'table-integration',
             label: 'Table Integration',
-            component: TableIntegrationDoc,
+            component: TableIntegrationDoc
         },
         {
             id: 'api',
             label: 'FilterService API',
-            component: ApiDoc,
-        },
+            component: ApiDoc
+        }
     ];
 }

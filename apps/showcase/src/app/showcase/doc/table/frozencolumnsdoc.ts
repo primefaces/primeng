@@ -6,20 +6,11 @@ import { CustomerService } from '@service/customerservice';
 @Component({
     selector: 'frozen-columns-doc',
     template: ` <app-docsectiontext>
-            <p>
-                Certain columns can be frozen by using the <i>pFrozenColumn</i> directive of the table component. In addition,
-                <i>alignFrozen</i> is available to define whether the column should be fixed on the left or right.
-            </p>
+            <p>Certain columns can be frozen by using the <i>pFrozenColumn</i> directive of the table component. In addition, <i>alignFrozen</i> is available to define whether the column should be fixed on the left or right.</p>
         </app-docsectiontext>
         <p-deferred-demo (load)="loadDemoData()">
             <div class="card">
-                <p-togglebutton
-                    [(ngModel)]="balanceFrozen"
-                    [onIcon]="'pi pi-lock'"
-                    offIcon="pi pi-lock-open"
-                    [onLabel]="'Balance'"
-                    offLabel="Balance"
-                />
+                <p-togglebutton [(ngModel)]="balanceFrozen" [onIcon]="'pi pi-lock'" offIcon="pi pi-lock-open" [onLabel]="'Balance'" offLabel="Balance" />
 
                 <p-table [value]="customers" [scrollable]="true" scrollHeight="400px" styleClass="mt-4">
                     <ng-template #header>
@@ -32,15 +23,7 @@ import { CustomerService } from '@service/customerservice';
                             <th style="min-width:200px">Status</th>
                             <th style="min-width:200px">Activity</th>
                             <th style="min-width:200px">Representative</th>
-                            <th
-                                style="min-width:200px"
-                                alignFrozen="right"
-                                pFrozenColumn
-                                [frozen]="balanceFrozen"
-                                [ngClass]="{ 'font-bold': balanceFrozen }"
-                            >
-                                Balance
-                            </th>
+                            <th style="min-width:200px" alignFrozen="right" pFrozenColumn [frozen]="balanceFrozen" [ngClass]="{ 'font-bold': balanceFrozen }">Balance</th>
                         </tr>
                     </ng-template>
                     <ng-template #body let-customer>
@@ -62,7 +45,7 @@ import { CustomerService } from '@service/customerservice';
             </div>
         </p-deferred-demo>
         <app-code [code]="code" selector="table-frozen-columns-demo" [extFiles]="extFiles"></app-code>`,
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FrozenColumnsDoc {
     balanceFrozen: boolean = false;
@@ -71,7 +54,7 @@ export class FrozenColumnsDoc {
 
     constructor(
         private customerService: CustomerService,
-        private cd: ChangeDetectorRef,
+        private cd: ChangeDetectorRef
     ) {}
 
     loadDemoData() {
@@ -224,7 +207,7 @@ export class TableFrozenColumnsDemo implements OnInit{
     balance: 70663
 },
 ...`,
-        service: ['CustomerService'],
+        service: ['CustomerService']
     };
 
     extFiles = [
@@ -252,7 +235,7 @@ export interface Customer {
     representative?: Representative;
     verified?: boolean;
     balance?: number;
-}`,
-        },
+}`
+        }
     ];
 }

@@ -19,18 +19,8 @@ import { RouterModule } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        AppCodeModule,
-        AppDocModule,
-        SpeedDialModule,
-        MessagesModule,
-        ToastModule,
-        TooltipModule,
-        RouterModule,
-        ButtonModule,
-    ],
+    imports: [CommonModule, AppCodeModule, AppDocModule, SpeedDialModule, MessagesModule, ToastModule, TooltipModule, RouterModule, ButtonModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, LinearDoc, CircleDoc, SemiCircleDoc, QuarterCircleDoc, TooltipDoc, MaskDoc, TemplateDoc, AccessibilityDoc],
+    declarations: [ImportDoc, LinearDoc, CircleDoc, SemiCircleDoc, QuarterCircleDoc, TooltipDoc, MaskDoc, TemplateDoc, AccessibilityDoc]
 })
 export class SpeedDialDocModule {}

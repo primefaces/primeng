@@ -12,21 +12,13 @@ interface Column {
     selector: 'virtual-scroll-doc',
     template: ` <app-docsectiontext>
             <p>
-                VirtualScroller is a performance-approach to handle huge data efficiently. Setting <i>virtualScroll</i> property as true and
-                providing a <i>virtualScrollItemSize</i> in pixels would be enough to enable this functionality. It is also suggested to use
-                the same <i>virtualScrollItemSize</i> value on the tr element inside the body template.
+                VirtualScroller is a performance-approach to handle huge data efficiently. Setting <i>virtualScroll</i> property as true and providing a <i>virtualScrollItemSize</i> in pixels would be enough to enable this functionality. It is also
+                suggested to use the same <i>virtualScrollItemSize</i> value on the tr element inside the body template.
             </p>
         </app-docsectiontext>
         <p-deferred-demo (load)="loadDemoData()">
             <div class="card">
-                <p-table
-                    [columns]="cols"
-                    [value]="cars"
-                    [scrollable]="true"
-                    scrollHeight="400px"
-                    [virtualScroll]="true"
-                    [virtualScrollItemSize]="46"
-                >
+                <p-table [columns]="cols" [value]="cars" [scrollable]="true" scrollHeight="400px" [virtualScroll]="true" [virtualScrollItemSize]="46">
                     <ng-template #header let-columns>
                         <tr>
                             <th *ngFor="let col of columns" style="width: 20%;">
@@ -45,7 +37,7 @@ interface Column {
             </div>
         </p-deferred-demo>
         <app-code [code]="code" selector="table-virtual-scroll-demo" [extFiles]="extFiles"></app-code>`,
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class VirtualScrollDoc {
     cars!: Car[];
@@ -62,7 +54,7 @@ export class VirtualScrollDoc {
             { field: 'vin', header: 'Vin' },
             { field: 'year', header: 'Year' },
             { field: 'brand', header: 'Brand' },
-            { field: 'color', header: 'Color' },
+            { field: 'color', header: 'Color' }
         ];
 
         this.cars = Array.from({ length: 10000 }).map((_, i) => this.carService.generateCar(i + 1));
@@ -164,7 +156,7 @@ export class TableVirtualScrollDemo implements OnInit{
     year: 2002
 }
 ...`,
-        service: ['CarService'],
+        service: ['CarService']
     };
 
     extFiles = [
@@ -179,7 +171,7 @@ export interface Car {
     color?;
     price?;
     saleDate?;
-}`,
-        },
+}`
+        }
     ];
 }

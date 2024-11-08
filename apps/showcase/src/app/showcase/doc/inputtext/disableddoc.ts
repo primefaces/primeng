@@ -11,7 +11,7 @@ import { Code } from '@domain/code';
             <input pInputText [disabled]="true" [(ngModel)]="value" />
         </div>
         <app-code [code]="code" selector="input-text-disabled-demo"></app-code>
-    `,
+    `
 })
 export class DisabledDoc {
     value: string | undefined = 'Disabled';
@@ -35,6 +35,6 @@ import { FormsModule } from '@angular/forms';
 })
 export class InputTextDisabledDemo {
     value: string | undefined = "Disabled"
-}`,
+}`
     };
 }

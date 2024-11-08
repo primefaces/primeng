@@ -13,17 +13,10 @@ interface City {
             <p>When <i>showClear</i> is enabled, a clear icon is added to reset the Select.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-select
-                [options]="cities"
-                [(ngModel)]="selectedCity"
-                optionLabel="name"
-                [showClear]="true"
-                placeholder="Select a City"
-                class="w-full md:w-56"
-            />
+            <p-select [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" [showClear]="true" placeholder="Select a City" class="w-full md:w-56" />
         </div>
         <app-code [code]="code" selector="select-clear-icon-demo"></app-code>
-    `,
+    `
 })
 export class ClearIconDoc implements OnInit {
     cities: City[];
@@ -36,7 +29,7 @@ export class ClearIconDoc implements OnInit {
             { name: 'Rome', code: 'RM' },
             { name: 'London', code: 'LDN' },
             { name: 'Istanbul', code: 'IST' },
-            { name: 'Paris', code: 'PRS' },
+            { name: 'Paris', code: 'PRS' }
         ];
     }
 
@@ -76,6 +69,6 @@ export class SelectClearIconDemo implements OnInit {
             { name: 'Paris', code: 'PRS' }
         ];
     }
-}`,
+}`
     };
 }

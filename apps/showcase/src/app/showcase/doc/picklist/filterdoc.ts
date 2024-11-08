@@ -25,18 +25,14 @@ import { ProductService } from '@service/productservice';
             >
                 <ng-template let-option let-selected="selected" pTemplate="option">
                     <div class="flex flex-wrap p-1 items-center gap-4 w-full">
-                        <img
-                            class="w-12 shrink-0 rounded"
-                            src="https://primefaces.org/cdn/primeng/images/demo/product/{{ option.image }}"
-                            [alt]="option.name"
-                        />
+                        <img class="w-12 shrink-0 rounded" src="https://primefaces.org/cdn/primeng/images/demo/product/{{ option.image }}" [alt]="option.name" />
                         <div class="flex-1 flex flex-col">
                             <span class="font-medium text-sm">{{ option.name }}</span>
                             <span
                                 [ngClass]="{
                                     'text-surface-500': !selected,
                                     'dark:text-surface-400': !selected,
-                                    'text-inherit': selected,
+                                    'text-inherit': selected
                                 }"
                                 >{{ option.category }}</span
                             >
@@ -47,7 +43,7 @@ import { ProductService } from '@service/productservice';
             </p-picklist>
         </div>
         <app-code [code]="code" selector="picklist-filter-demo" [extFiles]="extFiles"></app-code>
-    `,
+    `
 })
 export class FilterDoc {
     sourceProducts!: Product[];
@@ -56,7 +52,7 @@ export class FilterDoc {
 
     constructor(
         private carService: ProductService,
-        private cdr: ChangeDetectorRef,
+        private cdr: ChangeDetectorRef
     ) {}
 
     ngOnInit() {
@@ -190,7 +186,7 @@ export class PicklistFilterDemo {
 },
 ...`,
 
-        service: ['ProductService'],
+        service: ['ProductService']
     };
 
     extFiles = [
@@ -208,7 +204,7 @@ export interface Product {
     category?: string;
     image?: string;
     rating?: number;
-}`,
-        },
+}`
+        }
     ];
 }

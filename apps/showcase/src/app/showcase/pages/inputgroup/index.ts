@@ -10,57 +10,51 @@ import { FloatLabelDoc } from '@doc/inputgroup/floatlabeldoc';
 import { IftaLabelDoc } from '@doc/inputgroup/iftalabeldoc';
 
 @Component({
-    template: `<app-doc
-        docTitle="Angular InputGroup Component"
-        header="InputGroup"
-        description="Text, icon, buttons and other content can be grouped next to an input."
-        [docs]="docs"
-        themeDocs="inputgroup"
-    ></app-doc> `,
+    template: `<app-doc docTitle="Angular InputGroup Component" header="InputGroup" description="Text, icon, buttons and other content can be grouped next to an input." [docs]="docs" themeDocs="inputgroup"></app-doc> `,
     standalone: true,
-    imports: [InputGroupDocModule],
+    imports: [InputGroupDocModule]
 })
 export class InputGroupDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc,
+            component: ImportDoc
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc,
+            component: BasicDoc
         },
         {
             id: 'multiple',
             label: 'Multiple',
-            component: MultipleDoc,
+            component: MultipleDoc
         },
         {
             id: 'button',
             label: 'Button',
-            component: ButtonDoc,
+            component: ButtonDoc
         },
         {
             id: 'checkbox',
             label: 'Checkbox & Radio',
-            component: CheckboxDoc,
+            component: CheckboxDoc
         },
         {
             id: 'floatlabel',
             label: 'Float Label',
-            component: FloatLabelDoc,
+            component: FloatLabelDoc
         },
         {
             id: 'iftalabel',
             label: 'Ifta Label',
-            component: IftaLabelDoc,
+            component: IftaLabelDoc
         },
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc,
-        },
+            component: AccessibilityDoc
+        }
     ];
 }

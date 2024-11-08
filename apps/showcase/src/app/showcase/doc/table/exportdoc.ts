@@ -21,15 +21,7 @@ interface ExportColumn {
         </app-docsectiontext>
         <p-deferred-demo (load)="loadDemoData()">
             <div class="card">
-                <p-table
-                    #dt
-                    [columns]="cols"
-                    [value]="products"
-                    selectionMode="multiple"
-                    [(selection)]="selectedProducts"
-                    [exportHeader]="'customExportHeader'"
-                    [tableStyle]="{ 'min-width': '50rem' }"
-                >
+                <p-table #dt [columns]="cols" [value]="products" selectionMode="multiple" [(selection)]="selectedProducts" [exportHeader]="'customExportHeader'" [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template pTemplate="caption">
                         <div class="text-end pb-4">
                             <p-button icon="pi pi-external-link" label="Export" (click)="dt.exportCSV()" />
@@ -53,7 +45,7 @@ interface ExportColumn {
             </div>
         </p-deferred-demo>
         <app-code [code]="code" selector="table-export-demo" [extFiles]="extFiles"></app-code>`,
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExportDoc {
     products!: Product[];
@@ -62,7 +54,7 @@ export class ExportDoc {
 
     constructor(
         private productService: ProductService,
-        private cd: ChangeDetectorRef,
+        private cd: ChangeDetectorRef
     ) {}
 
     cols!: Column[];
@@ -79,7 +71,7 @@ export class ExportDoc {
             { field: 'code', header: 'Code', customExportHeader: 'Product Code' },
             { field: 'name', header: 'Name' },
             { field: 'category', header: 'Category' },
-            { field: 'quantity', header: 'Quantity' },
+            { field: 'quantity', header: 'Quantity' }
         ];
 
         this.exportColumns = this.cols.map((col) => ({ title: col.header, dataKey: col.field }));
@@ -215,7 +207,7 @@ export class TableExportDemo implements OnInit{
     rating: 5
 },
 ...`,
-        service: ['ProductService'],
+        service: ['ProductService']
     };
 
     extFiles = [
@@ -233,7 +225,7 @@ export interface Product {
     category?: string;
     image?: string;
     rating?: number;
-}`,
-        },
+}`
+        }
     ];
 }

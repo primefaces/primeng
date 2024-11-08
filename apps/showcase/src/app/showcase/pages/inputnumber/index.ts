@@ -17,94 +17,87 @@ import { IftaLabelDoc } from '@doc/inputnumber/iftalabeldoc';
 import { SizesDoc } from '@doc/inputnumber/sizesdoc';
 
 @Component({
-    template: `<app-doc
-        docTitle="Angular InputNumber Component"
-        header="InputNumber"
-        description="InputNumber is an input component to provide numerical input."
-        [docs]="docs"
-        [apiDocs]="['InputNumber']"
-        themeDocs="inputnumber"
-    ></app-doc> `,
+    template: `<app-doc docTitle="Angular InputNumber Component" header="InputNumber" description="InputNumber is an input component to provide numerical input." [docs]="docs" [apiDocs]="['InputNumber']" themeDocs="inputnumber"></app-doc> `,
     standalone: true,
-    imports: [InputNumberDocModule],
+    imports: [InputNumberDocModule]
 })
 export class InputNumberDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc,
+            component: ImportDoc
         },
         {
             id: 'numerals',
             label: 'Numerals',
-            component: NumeralsDoc,
+            component: NumeralsDoc
         },
         {
             id: 'reactive-forms',
             label: 'Reactive Forms',
-            component: ReactiveFormsDoc,
+            component: ReactiveFormsDoc
         },
         {
             id: 'locale',
             label: 'Locale',
-            component: LocaleDoc,
+            component: LocaleDoc
         },
         {
             id: 'currency',
             label: 'Currency',
-            component: CurrencyDoc,
+            component: CurrencyDoc
         },
         {
             id: 'prefixsuffix',
             label: 'Prefix & Suffix',
-            component: PrefixSuffixDoc,
+            component: PrefixSuffixDoc
         },
         {
             id: 'buttons',
             label: 'Buttons',
-            component: ButtonsDoc,
+            component: ButtonsDoc
         },
         {
             id: 'vertical',
             label: 'Vertical',
-            component: VerticalDoc,
+            component: VerticalDoc
         },
         {
             id: 'floatlabel',
             label: 'Float Label',
-            component: FloatlabelDoc,
+            component: FloatlabelDoc
         },
         {
             id: 'iftalabel',
             label: 'Ifta Label',
-            component: IftaLabelDoc,
+            component: IftaLabelDoc
         },
         {
             id: 'sizes',
             label: 'Sizes',
-            component: SizesDoc,
+            component: SizesDoc
         },
         {
             id: 'filled',
             label: 'Filled',
-            component: FilledDoc,
+            component: FilledDoc
         },
         {
             id: 'invalid',
             label: 'Invalid',
-            component: InvalidDoc,
+            component: InvalidDoc
         },
         {
             id: 'disabled',
             label: 'Disabled',
-            component: DisabledDoc,
+            component: DisabledDoc
         },
 
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc,
-        },
+            component: AccessibilityDoc
+        }
     ];
 }

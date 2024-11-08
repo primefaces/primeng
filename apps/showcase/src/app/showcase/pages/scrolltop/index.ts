@@ -16,30 +16,30 @@ import { ScrollTopDocModule } from '@doc/scrolltop/scrolltopdoc.module';
         [apiDocs]="['ScrollTop']"
         themeDocs="scrollTop"
     ></app-doc>`,
-    styleUrls: ['./scrolltopdemo.scss'],
+    styleUrls: ['./scrolltopdemo.scss']
 })
 export class ScrollTopDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc,
+            component: ImportDoc
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc,
+            component: BasicDoc
         },
         {
             id: 'element',
             label: 'Target Element',
-            component: ElementDoc,
+            component: ElementDoc
         },
 
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc,
-        },
+            component: AccessibilityDoc
+        }
     ];
 }

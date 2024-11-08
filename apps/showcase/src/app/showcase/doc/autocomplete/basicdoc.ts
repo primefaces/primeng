@@ -10,15 +10,14 @@ interface AutoCompleteCompleteEvent {
     selector: 'basic-doc',
     template: ` <app-docsectiontext>
             <p>
-                AutoComplete uses <i>ngModel</i> for two-way binding, requires a list of suggestions and a <i>completeMethod</i> to query
-                for the results. The completeMethod gets the query text as <i>event.query</i> property and should update the suggestions
-                with the search results.
+                AutoComplete uses <i>ngModel</i> for two-way binding, requires a list of suggestions and a <i>completeMethod</i> to query for the results. The completeMethod gets the query text as <i>event.query</i> property and should update the
+                suggestions with the search results.
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-autocomplete [(ngModel)]="value" [suggestions]="items" (completeMethod)="search($event)" />
         </div>
-        <app-code [code]="code" selector="autocomplete-basic-demo"></app-code>`,
+        <app-code [code]="code" selector="autocomplete-basic-demo"></app-code>`
 })
 export class BasicDoc {
     items: any[] | undefined;
@@ -54,7 +53,7 @@ export class AutocompleteBasicDemo {
     search(event: AutoCompleteCompleteEvent) {
         this.items = [...Array(10).keys()].map(item => event.query + '-' + item);
     }
-}`,
+}`
     };
 
     search(event: AutoCompleteCompleteEvent) {

@@ -19,7 +19,7 @@ import { Code } from '@domain/code';
             </p-overlaybadge>
         </div>
         <app-code [code]="code" selector="badge-overlay-demo"></app-code>
-    `,
+    `
 })
 export class OverlayDoc {
     code: Code = {
@@ -52,6 +52,6 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
     standalone: true,
     imports: [OverlayBadgeModule]
 })
-export class BadgeOverlayDemo {}`,
+export class BadgeOverlayDemo {}`
     };
 }

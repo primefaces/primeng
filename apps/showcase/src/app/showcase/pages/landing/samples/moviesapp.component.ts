@@ -17,26 +17,9 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
 @Component({
     selector: 'movies-app',
     standalone: true,
-    imports: [
-        CommonModule,
-        RouterModule,
-        SelectButton,
-        Slider,
-        FormsModule,
-        AvatarModule,
-        TooltipModule,
-        IconField,
-        InputIcon,
-        ButtonModule,
-        InputTextModule,
-        ProgressBar,
-        Carousel,
-        OverlayBadgeModule,
-    ],
+    imports: [CommonModule, RouterModule, SelectButton, Slider, FormsModule, AvatarModule, TooltipModule, IconField, InputIcon, ButtonModule, InputTextModule, ProgressBar, Carousel, OverlayBadgeModule],
     template: `
-        <div
-            class="flex-1 flex flex-col gap-6 p-6 h-full overflow-y-auto overflow-x-clip overflow-hidden border border-surface rounded-2xl"
-        >
+        <div class="flex-1 flex flex-col gap-6 p-6 h-full overflow-y-auto overflow-x-clip overflow-hidden border border-surface rounded-2xl">
             <div class="flex flex-wrap gap-4 items-center justify-between">
                 <p-selectbutton [(ngModel)]="value" [options]="options" aria-labelledby="basic" />
                 <div class="flex gap-2.5 items-center">
@@ -49,65 +32,27 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
                             <i class="pi pi-bell"></i>
                         </p-overlayBadge>
                     </p-button>
-                    <p-avatar
-                        image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar11.jpg"
-                        shape="circle"
-                        class="w-9 h-9 cursor-pointer"
-                    />
+                    <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar11.jpg" shape="circle" class="w-9 h-9 cursor-pointer" />
                 </div>
             </div>
             <div class="">
                 <div class="flex items-center justify-between gap-2 mb-6">
                     <div class="text-color text-xl font-medium leading-7">Keep watching</div>
                     <div class="xl:flex hidden items-center gap-2">
-                        <p-button
-                            [disabled]="page === 0"
-                            (click)="previousPage()"
-                            icon="pi pi-chevron-left"
-                            severity="secondary"
-                            outlined
-                        />
-                        <p-button
-                            [disabled]="page === carouselData.length - page"
-                            (click)="nextPage()"
-                            icon="pi pi-chevron-right"
-                            severity="secondary"
-                            outlined
-                        />
+                        <p-button [disabled]="page === 0" (click)="previousPage()" icon="pi pi-chevron-left" severity="secondary" outlined />
+                        <p-button [disabled]="page === carouselData.length - page" (click)="nextPage()" icon="pi pi-chevron-right" severity="secondary" outlined />
                     </div>
                     <div class="xl:hidden flex items-center gap-2">
-                        <p-button
-                            [disabled]="page === 0"
-                            (click)="previousPage()"
-                            icon="pi pi-chevron-left"
-                            severity="secondary"
-                            outlined
-                        />
-                        <p-button
-                            [disabled]="page === carouselData.length - 3"
-                            (click)="nextPage()"
-                            icon="pi pi-chevron-right"
-                            severity="secondary"
-                            outlined
-                        />
+                        <p-button [disabled]="page === 0" (click)="previousPage()" icon="pi pi-chevron-left" severity="secondary" outlined />
+                        <p-button [disabled]="page === carouselData.length - 3" (click)="nextPage()" icon="pi pi-chevron-right" severity="secondary" outlined />
                     </div>
                 </div>
-                <p-carousel
-                    [value]="carouselData"
-                    [page]="page"
-                    [numVisible]="5"
-                    [numScroll]="1"
-                    [responsiveOptions]="responsiveOptions"
-                    [showIndicators]="false"
-                    [showNavigators]="false"
-                >
+                <p-carousel [value]="carouselData" [page]="page" [numVisible]="5" [numScroll]="1" [responsiveOptions]="responsiveOptions" [showIndicators]="false" [showNavigators]="false">
                     <ng-template pTemplate="item" let-item>
                         <div class="p-2 rounded-xl hover:bg-emphasis transition-colors cursor-pointer">
                             <div class="relative w-full aspect-[195/118.5] rounded-lg overflow-hidden">
                                 <img [src]="item.image" class="w-full h-full object-cover" alt="Carousel Movie Image" />
-                                <div
-                                    class="absolute z-10 top-2 right-2 px-2 py-1 text-sm font-medium leading-tight bg-surface-0 dark:bg-surface-950 border border-surface rounded-md"
-                                >
+                                <div class="absolute z-10 top-2 right-2 px-2 py-1 text-sm font-medium leading-tight bg-surface-0 dark:bg-surface-950 border border-surface rounded-md">
                                     {{ item.point }}
                                 </div>
                                 <div class="absolute z-10 bottom-2 inset-x-2">
@@ -146,9 +91,7 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
                     <div *ngFor="let movie of popularMovies" class="cursor-pointer">
                         <div class="relative aspect-[259/174.5] rounded-lg overflow-hidden">
                             <img class="w-full h-full object-cover" [src]="movie.image" alt="Popular Movie Cover" />
-                            <div
-                                class="absolute z-10 top-2 right-2 px-2 py-1 text-sm font-medium leading-tight bg-surface-0 dark:bg-surface-950 border border-surface rounded-md"
-                            >
+                            <div class="absolute z-10 top-2 right-2 px-2 py-1 text-sm font-medium leading-tight bg-surface-0 dark:bg-surface-950 border border-surface rounded-md">
                                 {{ movie.point }}
                             </div>
                         </div>
@@ -167,7 +110,7 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
         </div>
     `,
     encapsulation: ViewEncapsulation.None,
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MoviesApp {
     search: string | undefined;
@@ -189,19 +132,19 @@ export class MoviesApp {
             {
                 breakpoint: '1199px',
                 numVisible: 3,
-                numScroll: 1,
+                numScroll: 1
             },
 
             {
                 breakpoint: '767px',
                 numVisible: 2,
-                numScroll: 1,
+                numScroll: 1
             },
             {
                 breakpoint: '575px',
                 numVisible: 1,
-                numScroll: 1,
-            },
+                numScroll: 1
+            }
         ];
 
         this.carouselData = [
@@ -211,7 +154,7 @@ export class MoviesApp {
                 bookmarked: true,
                 point: '4.7',
                 watchedPercent: 80,
-                categories: ['Action', 'Crime', 'Drama'],
+                categories: ['Action', 'Crime', 'Drama']
             },
             {
                 image: 'https://www.primefaces.org/cdn/primevue/images/landing/apps/movie-cover2.png',
@@ -219,7 +162,7 @@ export class MoviesApp {
                 bookmarked: false,
                 point: '4.8',
                 watchedPercent: 45,
-                categories: ['Action', 'Crime', 'Drama'],
+                categories: ['Action', 'Crime', 'Drama']
             },
             {
                 image: 'https://www.primefaces.org/cdn/primevue/images/landing/apps/movie-cover3.png',
@@ -227,7 +170,7 @@ export class MoviesApp {
                 bookmarked: false,
                 point: '4.3',
                 watchedPercent: 10,
-                categories: ['Action', 'Crime', 'Drama'],
+                categories: ['Action', 'Crime', 'Drama']
             },
             {
                 image: 'https://www.primefaces.org/cdn/primevue/images/landing/apps/movie-cover4.png',
@@ -235,7 +178,7 @@ export class MoviesApp {
                 bookmarked: false,
                 point: '4.9',
                 watchedPercent: 50,
-                categories: ['Action', 'Sci-Fi'],
+                categories: ['Action', 'Sci-Fi']
             },
             {
                 image: 'https://www.primefaces.org/cdn/primevue/images/landing/apps/movie-cover5.png',
@@ -243,7 +186,7 @@ export class MoviesApp {
                 bookmarked: false,
                 point: '4.4',
                 watchedPercent: 30,
-                categories: ['Drama'],
+                categories: ['Drama']
             },
             {
                 image: 'https://www.primefaces.org/cdn/primevue/images/landing/apps/movie-cover6.png',
@@ -251,7 +194,7 @@ export class MoviesApp {
                 bookmarked: false,
                 point: '4.7',
                 watchedPercent: 40,
-                categories: ['Comedy', 'Drama'],
+                categories: ['Comedy', 'Drama']
             },
             {
                 image: 'https://www.primefaces.org/cdn/primevue/images/landing/apps/movie-cover7.png',
@@ -259,7 +202,7 @@ export class MoviesApp {
                 bookmarked: false,
                 point: '4.7',
                 watchedPercent: 50,
-                categories: ['Crime', 'Drama'],
+                categories: ['Crime', 'Drama']
             },
             {
                 image: 'https://www.primefaces.org/cdn/primevue/images/landing/apps/movie-cover8.png',
@@ -267,7 +210,7 @@ export class MoviesApp {
                 bookmarked: true,
                 point: '4.7',
                 watchedPercent: 80,
-                categories: ['Drama', 'War'],
+                categories: ['Drama', 'War']
             },
             {
                 image: 'https://www.primefaces.org/cdn/primevue/images/landing/apps/movie-cover9.png',
@@ -275,7 +218,7 @@ export class MoviesApp {
                 bookmarked: false,
                 point: '4.7',
                 watchedPercent: 20,
-                categories: ['Crime', 'Drama', 'Mystery'],
+                categories: ['Crime', 'Drama', 'Mystery']
             },
             {
                 image: 'https://www.primefaces.org/cdn/primevue/images/landing/apps/movie-cover10.png',
@@ -283,8 +226,8 @@ export class MoviesApp {
                 bookmarked: false,
                 point: '4.7',
                 watchedPercent: 70,
-                categories: ['Mystery', 'Thriller'],
-            },
+                categories: ['Mystery', 'Thriller']
+            }
         ];
 
         this.popularMovies = [
@@ -293,57 +236,57 @@ export class MoviesApp {
                 name: 'Twelve Angry Men',
                 bookmarked: false,
                 point: '4.6',
-                categories: ['Crime', 'Drama'],
+                categories: ['Crime', 'Drama']
             },
             {
                 image: 'https://www.primefaces.org/cdn/primevue/images/landing/apps/movie-cover8.png',
                 name: 'Saving Private Ryan',
                 bookmarked: true,
                 point: '4.4',
-                categories: ['Drama', 'War'],
+                categories: ['Drama', 'War']
             },
             {
                 image: 'https://www.primefaces.org/cdn/primevue/images/landing/apps/movie-cover9.png',
                 name: 'Seven',
                 bookmarked: false,
                 point: '4.3',
-                categories: ['Crime', 'Drama', 'Mystery'],
+                categories: ['Crime', 'Drama', 'Mystery']
             },
             {
                 image: 'https://www.primefaces.org/cdn/primevue/images/landing/apps/movie-cover10.png',
                 name: 'Shutter Island',
                 bookmarked: false,
                 point: '4.7',
-                categories: ['Mystery', 'Thriller'],
+                categories: ['Mystery', 'Thriller']
             },
             {
                 image: 'https://www.primefaces.org/cdn/primevue/images/landing/apps/movie-cover11.png',
                 name: 'Basic Instinct',
                 bookmarked: true,
                 point: '4.3',
-                categories: ['Drama', 'Mystery', 'Thriller'],
+                categories: ['Drama', 'Mystery', 'Thriller']
             },
             {
                 image: 'https://www.primefaces.org/cdn/primevue/images/landing/apps/movie-cover12.png',
                 name: 'Big Hero 6',
                 bookmarked: false,
                 point: '4.7',
-                categories: ['Animation', 'Action', 'Adventure'],
+                categories: ['Animation', 'Action', 'Adventure']
             },
             {
                 image: 'https://www.primefaces.org/cdn/primevue/images/landing/apps/movie-cover13.png',
                 name: 'The Lord Of The Rings: Fellowship of the ring',
                 bookmarked: true,
                 point: '4.9',
-                categories: ['Action', 'Adventure', 'Drama'],
+                categories: ['Action', 'Adventure', 'Drama']
             },
             {
                 image: 'https://www.primefaces.org/cdn/primevue/images/landing/apps/movie-cover14.png',
                 name: 'Kill Bill',
                 bookmarked: true,
                 point: '4.5',
-                categories: ['Action', 'Crime', 'Thriller'],
-            },
+                categories: ['Action', 'Crime', 'Thriller']
+            }
         ];
     }
 

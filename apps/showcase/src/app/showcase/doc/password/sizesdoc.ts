@@ -13,7 +13,7 @@ import { Code } from '@domain/code';
             <p-password [(ngModel)]="value3" type="text" size="large" placeholder="Large" />
         </div>
         <app-code [code]="code" selector="password-sizes-demo"></app-code>
-    `,
+    `
 })
 export class SizesDoc {
     value1: string;
@@ -49,6 +49,6 @@ export class PasswordSizesDemo {
     value2: string;
 
     value3: string;
-}`,
+}`
     };
 }

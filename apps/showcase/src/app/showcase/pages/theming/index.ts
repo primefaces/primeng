@@ -29,21 +29,16 @@ import { UpdateSurfacePaletteDoc } from '@doc/theming/updatesurfacepalettedoc';
 import { UsePresetDoc } from '@doc/theming/usepresetdoc';
 
 @Component({
-    template: `<app-doc
-        docTitle="Theming - PrimeNG"
-        header="Theming"
-        description="Choose from a variety of pre-styled themes or develop your own."
-        [docs]="docs"
-    ></app-doc>`,
+    template: `<app-doc docTitle="Theming - PrimeNG" header="Theming" description="Choose from a variety of pre-styled themes or develop your own." [docs]="docs"></app-doc>`,
     imports: [ThemingDocModule],
-    standalone: true,
+    standalone: true
 })
 export class ThemingDemo {
     docs = [
         {
             id: 'architecture',
             label: 'Architecture',
-            component: ArchitectureDoc,
+            component: ArchitectureDoc
         },
         {
             id: 'configuration',
@@ -52,29 +47,29 @@ export class ThemingDemo {
                 {
                     id: 'theme',
                     label: 'Theme',
-                    component: ThemeDoc,
+                    component: ThemeDoc
                 },
                 {
                     id: 'options',
                     label: 'Options',
-                    component: OptionsDoc,
-                },
-            ],
+                    component: OptionsDoc
+                }
+            ]
         },
         {
             id: 'presets',
             label: 'Presets',
-            component: PresetsDoc,
+            component: PresetsDoc
         },
         {
             id: 'casestyle',
             label: 'Case Style',
-            component: CaseDoc,
+            component: CaseDoc
         },
         {
             id: 'reserved',
             label: 'Reserved Keys',
-            component: ReversedKeysDoc,
+            component: ReversedKeysDoc
         },
         {
             id: 'customization',
@@ -83,49 +78,49 @@ export class ThemingDemo {
                 {
                     id: 'definepreset',
                     label: 'definePreset',
-                    component: DefinePresetDoc,
+                    component: DefinePresetDoc
                 },
                 {
                     id: 'primary',
                     label: 'Primary',
-                    component: PrimaryDoc,
+                    component: PrimaryDoc
                 },
                 {
                     id: 'noir',
                     label: 'Noir',
-                    component: NoirDoc,
+                    component: NoirDoc
                 },
                 {
                     id: 'surface',
                     label: 'Surface',
-                    component: SurfaceDoc,
+                    component: SurfaceDoc
                 },
                 {
                     id: 'font',
                     label: 'Font',
-                    component: FontDoc,
+                    component: FontDoc
                 },
                 {
                     id: 'forms',
                     label: 'Forms',
-                    component: FormsDoc,
+                    component: FormsDoc
                 },
                 {
                     id: 'focusring',
                     label: 'Focus Ring',
-                    component: FocusRingDoc,
+                    component: FocusRingDoc
                 },
                 {
                     id: 'component',
                     label: 'Component',
-                    component: ComponentDoc,
-                },
-            ],
+                    component: ComponentDoc
+                }
+            ]
         },
         {
             id: 'scopedtokens',
             label: 'Scoped Tokens',
-            component: ScopedTokensDoc,
+            component: ScopedTokensDoc
         },
         {
             id: 'utils',
@@ -134,72 +129,71 @@ export class ThemingDemo {
                 {
                     id: 'usepreset',
                     label: 'usePreset',
-                    component: UsePresetDoc,
+                    component: UsePresetDoc
                 },
                 {
                     id: 'updatepreset',
                     label: 'updatePreset',
-                    component: UpdatePresetDoc,
+                    component: UpdatePresetDoc
                 },
                 {
                     id: 'updateprimarypalette',
                     label: 'updatePrimaryPalette',
-                    component: UpdatePrimaryPaletteDoc,
+                    component: UpdatePrimaryPaletteDoc
                 },
                 {
                     id: 'updatesurfacepalette',
                     label: 'updateSurfacePalette',
-                    component: UpdateSurfacePaletteDoc,
+                    component: UpdateSurfacePaletteDoc
                 },
                 {
                     id: 'dt',
                     label: '$dt',
-                    component: DtDoc,
+                    component: DtDoc
                 },
                 {
                     id: 'Palette',
                     label: 'palette',
-                    component: PaletteDoc,
-                },
-            ],
+                    component: PaletteDoc
+                }
+            ]
         },
         {
             id: 'colors',
             label: 'Colors',
-            component: ColorsDoc,
+            component: ColorsDoc
         },
         {
             id: 'darkmode',
             label: 'Dark Mode',
-            component: DarkModeDoc,
+            component: DarkModeDoc
         },
         {
             id: 'csslayer',
             label: 'CSS Layer',
-            description:
-                'The PrimeNG CSS layer only applies to styled mode when layering is enabled explicitly at theme configuration, in unstyled mode the built-in CSS classes are not included and as a result no layer is necessary.',
+            description: 'The PrimeNG CSS layer only applies to styled mode when layering is enabled explicitly at theme configuration, in unstyled mode the built-in CSS classes are not included and as a result no layer is necessary.',
             children: [
                 {
                     id: 'specificity',
                     label: 'Specificity',
-                    component: SpecificityDoc,
+                    component: SpecificityDoc
                 },
                 {
                     id: 'reset',
                     label: 'Reset',
-                    component: ResetDoc,
+                    component: ResetDoc
                 },
                 {
                     id: 'libraries',
                     label: 'Libraries',
-                    component: LibrariesDoc,
-                },
-            ],
+                    component: LibrariesDoc
+                }
+            ]
         },
         {
             id: 'scale',
             label: 'Scale',
-            component: ScaleDoc,
-        },
+            component: ScaleDoc
+        }
     ];
 }

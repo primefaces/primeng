@@ -25,12 +25,12 @@ import { Code } from '@domain/code';
         </div>
         <app-code [code]="code" selector="confirm-popup-headless-demo"></app-code>
     `,
-    providers: [ConfirmationService, MessageService],
+    providers: [ConfirmationService, MessageService]
 })
 export class HeadlessDoc {
     constructor(
         private confirmationService: ConfirmationService,
-        private messageService: MessageService,
+        private messageService: MessageService
     ) {}
 
     confirm(event: Event) {
@@ -42,7 +42,7 @@ export class HeadlessDoc {
             },
             reject: () => {
                 this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected', life: 3000 });
-            },
+            }
         });
     }
 
@@ -105,6 +105,6 @@ export class ConfirmPopupHeadlessDemo {
             }
         });
     }
-}`,
+}`
     };
 }

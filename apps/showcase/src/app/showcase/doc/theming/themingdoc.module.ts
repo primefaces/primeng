@@ -69,7 +69,7 @@ import { SurfaceDoc } from './surfacedoc';
         UpdatePrimaryPaletteDoc,
         UpdateSurfacePaletteDoc,
         UsePresetDoc,
-        SurfaceDoc,
+        SurfaceDoc
     ],
     exports: [
         AppDocModule,
@@ -101,7 +101,7 @@ import { SurfaceDoc } from './surfacedoc';
         UpdatePrimaryPaletteDoc,
         UpdateSurfacePaletteDoc,
         UsePresetDoc,
-        SurfaceDoc,
-    ],
+        SurfaceDoc
+    ]
 })
 export class ThemingDocModule {}

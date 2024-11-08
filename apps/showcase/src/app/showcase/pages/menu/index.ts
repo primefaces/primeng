@@ -10,59 +10,52 @@ import { AccessibilityDoc } from '@doc/menu/accessibilitydoc';
 import { MenuDocModule } from '@doc/menu/menudoc.module';
 
 @Component({
-    template: `<app-doc
-        docTitle="Angular Menu Component"
-        header="Menu"
-        description="Menu is a navigation / command component that supports dynamic and static positioning."
-        [docs]="docs"
-        [apiDocs]="['Menu', 'MenuItem']"
-        themeDocs="menu"
-    ></app-doc> `,
+    template: `<app-doc docTitle="Angular Menu Component" header="Menu" description="Menu is a navigation / command component that supports dynamic and static positioning." [docs]="docs" [apiDocs]="['Menu', 'MenuItem']" themeDocs="menu"></app-doc> `,
     standalone: true,
-    imports: [MenuDocModule],
+    imports: [MenuDocModule]
 })
 export class MenuDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc,
+            component: ImportDoc
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc,
+            component: BasicDoc
         },
         {
             id: 'group',
             label: 'Group',
-            component: GroupDoc,
+            component: GroupDoc
         },
         {
             id: 'popup',
             label: 'Popup',
-            component: PopupDoc,
+            component: PopupDoc
         },
         {
             id: 'template',
             label: 'Template',
-            component: TemplateDoc,
+            component: TemplateDoc
         },
         {
             id: 'command',
             label: 'Command',
-            component: CommandDoc,
+            component: CommandDoc
         },
         {
             id: 'router',
             label: 'Router',
-            component: RouterDoc,
+            component: RouterDoc
         },
 
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc,
-        },
+            component: AccessibilityDoc
+        }
     ];
 }

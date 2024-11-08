@@ -3,6 +3,6 @@ import { NotFoundDemo } from './';
 export default [
     {
         path: '',
-        component: NotFoundDemo,
-    },
+        component: NotFoundDemo
+    }
 ];

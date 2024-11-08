@@ -28,10 +28,10 @@ export interface MenuItem {
     </aside>`,
     host: {
         class: 'layout-sidebar',
-        '[class.active]': 'isActive',
+        '[class.active]': 'isActive'
     },
     standalone: true,
-    imports: [CommonModule, StyleClass, RouterModule, AutoComplete, AppMenuItemComponent],
+    imports: [CommonModule, StyleClass, RouterModule, AutoComplete, AppMenuItemComponent]
 })
 export class AppMenuComponent implements OnDestroy {
     menu!: MenuItem[];
@@ -41,7 +41,7 @@ export class AppMenuComponent implements OnDestroy {
     constructor(
         private configService: AppConfigService,
         private el: ElementRef,
-        private router: Router,
+        private router: Router
     ) {
         this.menu = MenuData.data;
 
@@ -72,13 +72,7 @@ export class AppMenuComponent implements OnDestroy {
 
     isInViewport(element) {
         const rect = element.getBoundingClientRect();
-        return (
-            rect.top >= 0 &&
-            rect.left >= 0 &&
-            rect.bottom <=
-                (window.innerHeight ||
-                    (document.documentElement.clientHeight && rect.right <= (window.innerWidth || document.documentElement.clientWidth)))
-        );
+        return rect.top >= 0 && rect.left >= 0 && rect.bottom <= (window.innerHeight || (document.documentElement.clientHeight && rect.right <= (window.innerWidth || document.documentElement.clientWidth)));
     }
 
     ngOnDestroy() {

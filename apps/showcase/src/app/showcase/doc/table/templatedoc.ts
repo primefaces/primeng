@@ -36,11 +36,7 @@ interface Column {
                         <tr>
                             <td>{{ product.name }}</td>
                             <td>
-                                <img
-                                    [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image"
-                                    [alt]="product.name"
-                                    class="w-24 rounded"
-                                />
+                                <img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.name" class="w-24 rounded" />
                             </td>
                             <td>{{ product.price | currency: 'USD' }}</td>
                             <td>{{ product.category }}</td>
@@ -55,7 +51,7 @@ interface Column {
             </div>
         </p-deferred-demo>
         <app-code [code]="code" selector="table-template-demo" [extFiles]="extFiles"></app-code>`,
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TemplateDoc {
     products!: Product[];
@@ -64,7 +60,7 @@ export class TemplateDoc {
 
     constructor(
         private productService: ProductService,
-        private cd: ChangeDetectorRef,
+        private cd: ChangeDetectorRef
     ) {}
 
     loadDemoData() {
@@ -77,7 +73,7 @@ export class TemplateDoc {
             { field: 'code', header: 'Code' },
             { field: 'name', header: 'Name' },
             { field: 'category', header: 'Category' },
-            { field: 'quantity', header: 'Quantity' },
+            { field: 'quantity', header: 'Quantity' }
         ];
     }
 
@@ -220,7 +216,7 @@ export class TableTemplateDemo implements OnInit {
     rating: 5
 },
 ...`,
-        service: ['ProductService'],
+        service: ['ProductService']
     };
 
     extFiles = [
@@ -238,7 +234,7 @@ export interface Product {
     category?: string;
     image?: string;
     rating?: number;
-}`,
-        },
+}`
+        }
     ];
 }

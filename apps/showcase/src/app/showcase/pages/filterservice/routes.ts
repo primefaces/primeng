@@ -3,6 +3,6 @@ import { FilterServiceDemo } from './';
 export default [
     {
         path: '',
-        component: FilterServiceDemo,
-    },
+        component: FilterServiceDemo
+    }
 ];

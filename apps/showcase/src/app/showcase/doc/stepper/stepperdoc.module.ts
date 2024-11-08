@@ -20,22 +20,8 @@ import { StepperModule } from 'primeng/stepper';
 import { StepsOnlyDoc } from '@doc/stepper/stepsonly';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        AppCodeModule,
-        AppDocModule,
-        StepperModule,
-        RouterModule,
-        FormsModule,
-        ReactiveFormsModule,
-        ButtonModule,
-        PasswordModule,
-        InputIcon,
-        IconField,
-        InputTextModule,
-        ToggleButton,
-    ],
+    imports: [CommonModule, AppCodeModule, AppDocModule, StepperModule, RouterModule, FormsModule, ReactiveFormsModule, ButtonModule, PasswordModule, InputIcon, IconField, InputTextModule, ToggleButton],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, VerticalDoc, LinearDoc, TemplateDoc, AccessibilityDoc, StepsOnlyDoc],
+    declarations: [ImportDoc, BasicDoc, VerticalDoc, LinearDoc, TemplateDoc, AccessibilityDoc, StepsOnlyDoc]
 })
 export class StepperDocModule {}

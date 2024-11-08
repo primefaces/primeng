@@ -9,18 +9,13 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card flex justify-center">
             <div class="flex flex-col items-center">
-                <img
-                    alt="user header"
-                    class="w-full md:w-80 rounded mb-6"
-                    src="https://primefaces.org/cdn/primevue/images/card-vue.jpg"
-                    [style]="filterStyle"
-                />
+                <img alt="user header" class="w-full md:w-80 rounded mb-6" src="https://primefaces.org/cdn/primevue/images/card-vue.jpg" [style]="filterStyle" />
                 <p-selectbutton [(ngModel)]="filter" [options]="filterOptions" optionLabel="label" optionValue="value" class="mb-4" />
                 <p-slider [(ngModel)]="filterValues[filter]" class="w-56" [min]="0" [max]="200" />
             </div>
         </div>
         <app-code [code]="code" selector="slider-filter-demo"></app-code>
-    `,
+    `
 })
 export class FilterDoc {
     filter: number = 0;
@@ -30,7 +25,7 @@ export class FilterDoc {
     filterOptions: any = [
         { label: 'Contrast', value: 0 },
         { label: 'Brightness', value: 1 },
-        { label: 'Sepia', value: 2 },
+        { label: 'Sepia', value: 2 }
     ];
     code: Code = {
         basic: `<img alt="user header" class="w-full md:w-80 rounded mb-6" src="https://primefaces.org/cdn/primevue/images/card-vue.jpg" [style]="filterStyle" />
@@ -72,12 +67,12 @@ export class SliderFilterDemo {
             filter: \`contrast(\${this.filterValues[0]}%) brightness(\${this.filterValues[1]}%) sepia(\${this.filterValues[2]}%)\`,
         };
     }
-}`,
+}`
     };
 
     get filterStyle() {
         return {
-            filter: `contrast(${this.filterValues[0]}%) brightness(${this.filterValues[1]}%) sepia(${this.filterValues[2]}%)`,
+            filter: `contrast(${this.filterValues[0]}%) brightness(${this.filterValues[1]}%) sepia(${this.filterValues[2]}%)`
         };
     }
 }

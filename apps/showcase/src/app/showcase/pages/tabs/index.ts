@@ -11,63 +11,56 @@ import { AccessibilityDoc } from '@doc/tabs/accessibilitydoc';
 import { TabsDocModule } from '@doc/tabs/tabsdoc.module';
 
 @Component({
-    template: `<app-doc
-        docTitle="Angular Tabs Component"
-        header="Tabs"
-        description="Tabs is a container component to group content with tabs."
-        [docs]="docs"
-        [apiDocs]="['Tabs', 'TabPanel', 'Tab']"
-        themeDocs="tabs"
-    ></app-doc>`,
+    template: `<app-doc docTitle="Angular Tabs Component" header="Tabs" description="Tabs is a container component to group content with tabs." [docs]="docs" [apiDocs]="['Tabs', 'TabPanel', 'Tab']" themeDocs="tabs"></app-doc>`,
     imports: [TabsDocModule],
-    standalone: true,
+    standalone: true
 })
 export class TabsDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc,
+            component: ImportDoc
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc,
+            component: BasicDoc
         },
         {
             id: 'dynamic',
             label: 'Dynamic',
-            component: DynamicDoc,
+            component: DynamicDoc
         },
         {
             id: 'controlled',
             label: 'Controlled',
-            component: ControlledDoc,
+            component: ControlledDoc
         },
         {
             id: 'scrollable',
             label: 'Scrollable',
-            component: ScrollableDoc,
+            component: ScrollableDoc
         },
         {
             id: 'disabled',
             label: 'Disabled',
-            component: DisabledDoc,
+            component: DisabledDoc
         },
         {
             id: 'template',
             label: 'Template',
-            component: TemplateDoc,
+            component: TemplateDoc
         },
         {
             id: 'tabmenu',
             label: 'Tab Menu',
-            component: TabmenuDoc,
+            component: TabmenuDoc
         },
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc,
-        },
+            component: AccessibilityDoc
+        }
     ];
 }

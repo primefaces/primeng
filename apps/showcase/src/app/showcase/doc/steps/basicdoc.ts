@@ -12,7 +12,7 @@ import { Code } from '@domain/code';
             <p-steps [model]="items" [readonly]="true" />
         </div>
         <app-code [code]="code" selector="steps-basic-demo"></app-code>
-    `,
+    `
 })
 export class BasicDoc implements OnInit {
     items: MenuItem[] | undefined;
@@ -20,14 +20,14 @@ export class BasicDoc implements OnInit {
     ngOnInit() {
         this.items = [
             {
-                label: 'Personal Info',
+                label: 'Personal Info'
             },
             {
-                label: 'Reservation',
+                label: 'Reservation'
             },
             {
-                label: 'Review',
-            },
+                label: 'Review'
+            }
         ];
     }
 
@@ -71,6 +71,6 @@ export class StepsBasicDemo implements OnInit {
             }
         ];
     }
-}`,
+}`
     };
 }

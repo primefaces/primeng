@@ -14,7 +14,7 @@ const Noir = definePreset(Aura, {
             700: '{surface.700}',
             800: '{surface.800}',
             900: '{surface.900}',
-            950: '{surface.950}',
+            950: '{surface.950}'
         },
         colorScheme: {
             light: {
@@ -22,36 +22,36 @@ const Noir = definePreset(Aura, {
                     color: '{primary.950}',
                     contrastColor: '#ffffff',
                     hoverColor: '{primary.800}',
-                    activeColor: '{primary.700}',
+                    activeColor: '{primary.700}'
                 },
                 highlight: {
                     background: '{primary.950}',
                     focusBackground: '{primary.700}',
                     color: '#ffffff',
-                    focusColor: '#ffffff',
-                },
+                    focusColor: '#ffffff'
+                }
             },
             dark: {
                 primary: {
                     color: '{primary.50}',
                     contrastColor: '{primary.950}',
                     hoverColor: '{primary.200}',
-                    activeColor: '{primary.300}',
+                    activeColor: '{primary.300}'
                 },
                 highlight: {
                     background: '{primary.50}',
                     focusBackground: '{primary.300}',
                     color: '{primary.950}',
-                    focusColor: '{primary.950}',
-                },
-            },
-        },
-    },
+                    focusColor: '{primary.950}'
+                }
+            }
+        }
+    }
 });
 
 export default {
     preset: Noir,
     options: {
-        darkModeSelector: '.p-dark',
-    },
+        darkModeSelector: '.p-dark'
+    }
 };

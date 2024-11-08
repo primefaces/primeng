@@ -9,12 +9,7 @@ import { PhotoService } from '@service/photoservice';
             <p>Description of an image is specified with the <i>caption</i> template.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-galleria
-                [(value)]="images"
-                [responsiveOptions]="responsiveOptions"
-                [containerStyle]="{ 'max-width': '640px' }"
-                [numVisible]="5"
-            >
+            <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5">
                 <ng-template pTemplate="item" let-item>
                     <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
                 </ng-template>
@@ -28,7 +23,7 @@ import { PhotoService } from '@service/photoservice';
             </p-galleria>
         </div>
         <app-code [code]="code" selector="galleria-caption-demo"></app-code>
-    `,
+    `
 })
 export class CaptionDoc implements OnInit {
     images: any[] | undefined;
@@ -36,12 +31,12 @@ export class CaptionDoc implements OnInit {
     responsiveOptions: any[] = [
         {
             breakpoint: '1300px',
-            numVisible: 4,
+            numVisible: 4
         },
         {
             breakpoint: '575px',
-            numVisible: 1,
-        },
+            numVisible: 1
+        }
     ];
 
     constructor(private photoService: PhotoService) {}
@@ -117,6 +112,6 @@ export class GalleriaCaptionDemo implements OnInit {
     title: 'Title 1'
 },
 ...`,
-        service: ['PhotoService'],
+        service: ['PhotoService']
     };
 }

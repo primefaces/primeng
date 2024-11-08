@@ -29,15 +29,13 @@ import { Code } from '@domain/code';
                     <p-menu #menu id="config_menu" [model]="items" [popup]="true" />
                 </ng-template>
                 <p class="m-0">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis
-                    aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-                    occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                 </p>
             </p-panel>
         </div>
         <app-code [code]="code" selector="panel-template-demo"></app-code>
-    `,
+    `
 })
 export class TemplateDoc implements OnInit {
     items: { label?: string; icon?: string; separator?: boolean }[] = [];
@@ -46,19 +44,19 @@ export class TemplateDoc implements OnInit {
         this.items = [
             {
                 label: 'Refresh',
-                icon: 'pi pi-refresh',
+                icon: 'pi pi-refresh'
             },
             {
                 label: 'Search',
-                icon: 'pi pi-search',
+                icon: 'pi pi-search'
             },
             {
-                separator: true,
+                separator: true
             },
             {
                 label: 'Delete',
-                icon: 'pi pi-times',
-            },
+                icon: 'pi pi-times'
+            }
         ];
     }
 
@@ -155,6 +153,6 @@ export class PanelTemplateDemo implements OnInit {
             }
         ];
     }
-}`,
+}`
     };
 }

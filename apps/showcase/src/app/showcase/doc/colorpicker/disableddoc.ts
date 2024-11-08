@@ -11,7 +11,7 @@ import { Code } from '@domain/code';
             <p-colorpicker [(ngModel)]="color" [disabled]="true" />
         </div>
         <app-code [code]="code" selector="color-picker-disabled-demo"></app-code>
-    `,
+    `
 })
 export class DisabledDoc {
     color: string | undefined;
@@ -35,6 +35,6 @@ import { ColorPicker } from 'primeng/colorpicker';
 })
 export class ColorPickerDisabledDemo {
     color: string | undefined;
-}`,
+}`
     };
 }

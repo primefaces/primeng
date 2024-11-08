@@ -18,6 +18,6 @@ import { CommonModule } from '@angular/common';
             <div class="font-bold text-center text-4xl border-t border-surface pt-8">Page Not Found</div>
             <p-button label="GO TO HOMEPAGE" routerLink="/" />
         </div>
-    </div>`,
+    </div>`
 })
 export class NotFoundDemo {}

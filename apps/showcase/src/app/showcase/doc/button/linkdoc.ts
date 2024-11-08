@@ -13,7 +13,7 @@ import { Code } from '@domain/code';
             <a routerLink="/" class="p-button font-bold">Router</a>
         </div>
         <app-code [code]="code" selector="button-link-demo"></app-code>
-    `,
+    `
 })
 export class LinkDoc {
     code: Code = {
@@ -45,6 +45,6 @@ import { RouterModule } from '@angular/router';
     standalone: true,
     imports: [ButtonModule, RouterModule]
 })
-export class ButtonLinkDemo { }`,
+export class ButtonLinkDemo { }`
     };
 }

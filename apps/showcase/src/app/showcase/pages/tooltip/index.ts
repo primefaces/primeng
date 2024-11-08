@@ -19,50 +19,50 @@ import { TooltipDocModule } from '@doc/tooltip/tooltipdoc.module';
         themeDocs="tooltip"
     ></app-doc>`,
     standalone: true,
-    imports: [TooltipDocModule],
+    imports: [TooltipDocModule]
 })
 export class TooltipDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc,
+            component: ImportDoc
         },
         {
             id: 'position',
             label: 'Position',
-            component: PositionDoc,
+            component: PositionDoc
         },
         {
             id: 'event',
             label: 'Event',
-            component: EventDoc,
+            component: EventDoc
         },
         {
             id: 'autohide',
             label: 'Auto Hide',
-            component: AutoHideDoc,
+            component: AutoHideDoc
         },
         {
             id: 'delay',
             label: 'Delay',
-            component: DelayDoc,
+            component: DelayDoc
         },
         {
             id: 'custom',
             label: 'Custom',
-            component: CustomDoc,
+            component: CustomDoc
         },
         {
             id: 'options',
             label: 'Tooltip Options',
-            component: OptionsDoc,
+            component: OptionsDoc
         },
 
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc,
-        },
+            component: AccessibilityDoc
+        }
     ];
 }

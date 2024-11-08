@@ -21,7 +21,7 @@ import { Code } from '@domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="message-form-demo"></app-code>
-    `,
+    `
 })
 export class FormDoc {
     code: Code = {
@@ -61,6 +61,6 @@ import { InputTextModule } from 'primeng/inputtext';
     standalone: true,
     imports: [Message, InputTextModule]
 })
-export class MessageFormDemo {}`,
+export class MessageFormDemo {}`
     };
 }

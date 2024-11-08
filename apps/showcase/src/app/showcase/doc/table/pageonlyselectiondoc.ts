@@ -7,15 +7,7 @@ import { ProductService } from '@service/productservice';
     selector: 'page-only-selection-doc',
     template: ` <p-deferred-demo (load)="loadDemoData()">
             <div class="card">
-                <p-table
-                    [value]="products"
-                    [(selection)]="selectedProducts"
-                    dataKey="code"
-                    [paginator]="true"
-                    [rows]="5"
-                    [selectionPageOnly]="true"
-                    [tableStyle]="{ 'min-width': '50rem' }"
-                >
+                <p-table [value]="products" [(selection)]="selectedProducts" dataKey="code" [paginator]="true" [rows]="5" [selectionPageOnly]="true" [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template pTemplate="header">
                         <tr>
                             <th style="width: 4rem">
@@ -42,7 +34,7 @@ import { ProductService } from '@service/productservice';
             </div>
         </p-deferred-demo>
         <app-code [code]="code" selector="table-page-only-selection-demo" [extFiles]="extFiles"></app-code>`,
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PageOnlySelectionDoc {
     products!: Product[];
@@ -51,7 +43,7 @@ export class PageOnlySelectionDoc {
 
     constructor(
         private productService: ProductService,
-        private cd: ChangeDetectorRef,
+        private cd: ChangeDetectorRef
     ) {}
 
     loadDemoData() {
@@ -148,7 +140,7 @@ export class TablePageOnlySelectionDemo implements OnInit{
     rating: 5
 },
 ...`,
-        service: ['ProductService'],
+        service: ['ProductService']
     };
 
     extFiles = [
@@ -166,7 +158,7 @@ export interface Product {
     category?: string;
     image?: string;
     rating?: number;
-}`,
-        },
+}`
+        }
     ];
 }

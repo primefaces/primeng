@@ -21,14 +21,7 @@ import { AppConfigService } from '@service/appconfigservice';
                 />
             </g>
             <defs>
-                <linearGradient
-                    id="paint0_linear_2005_187770"
-                    x1="1785.56"
-                    y1="0.104126"
-                    x2="1785.56"
-                    y2="3867.66"
-                    gradientUnits="userSpaceOnUse"
-                >
+                <linearGradient id="paint0_linear_2005_187770" x1="1785.56" y1="0.104126" x2="1785.56" y2="3867.66" gradientUnits="userSpaceOnUse">
                     <stop [attr.stop-color]="fillColor" />
                     <stop offset="1" [attr.stop-color]="fillColor" stop-opacity="0" />
                 </linearGradient>
@@ -37,7 +30,7 @@ import { AppConfigService } from '@service/appconfigservice';
                 </clipPath>
             </defs>
         </svg>
-    `,
+    `
 })
 export class PoseidonLogo {
     configService = inject(AppConfigService);

@@ -9,10 +9,7 @@ interface City {
     selector: 'basic-doc',
     template: `
         <app-docsectiontext>
-            <p>
-                A group is created by wrapping the input and add-ons with the <i>p-inputgroup</i> component. Each add-on element is defined
-                as a child of <i>p-inputgroup-addon</i> component.
-            </p>
+            <p>A group is created by wrapping the input and add-ons with the <i>p-inputgroup</i> component. Each add-on element is defined as a child of <i>p-inputgroup-addon</i> component.</p>
         </app-docsectiontext>
         <div class="card grid grid-cols-1 md:grid-cols-2 gap-4">
             <p-inputgroup>
@@ -41,7 +38,7 @@ interface City {
             </p-inputgroup>
         </div>
         <app-code [code]="code" selector="input-group-basic-demo"></app-code>
-    `,
+    `
 })
 export class BasicDoc {
     text1: string | undefined;
@@ -57,7 +54,7 @@ export class BasicDoc {
         { name: 'Rome', code: 'RM' },
         { name: 'London', code: 'LDN' },
         { name: 'Istanbul', code: 'IST' },
-        { name: 'Paris', code: 'PRS' },
+        { name: 'Paris', code: 'PRS' }
     ];
     code: Code = {
         basic: `<p-inputgroup>
@@ -147,6 +144,6 @@ export class InputGroupBasicDemo {
         { name: 'Istanbul', code: 'IST' },
         { name: 'Paris', code: 'PRS' },
     ];
-}`,
+}`
     };
 }

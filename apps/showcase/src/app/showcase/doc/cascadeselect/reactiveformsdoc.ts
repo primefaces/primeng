@@ -6,26 +6,15 @@ import { Code } from '@domain/code';
     selector: 'reactive-forms-doc',
     template: `
         <app-docsectiontext>
-            <p>
-                CascadeSelect can also be used with reactive forms. In this case, the <i>formControlName</i> property is used to bind the
-                component to a form control.
-            </p>
+            <p>CascadeSelect can also be used with reactive forms. In this case, the <i>formControlName</i> property is used to bind the component to a form control.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
             <form [formGroup]="formGroup">
-                <p-cascadeselect
-                    formControlName="selectedCity"
-                    [options]="countries"
-                    optionLabel="cname"
-                    optionGroupLabel="name"
-                    [optionGroupChildren]="['states', 'cities']"
-                    [style]="{ minWidth: '14rem' }"
-                    placeholder="Select a City"
-                />
+                <p-cascadeselect formControlName="selectedCity" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" [style]="{ minWidth: '14rem' }" placeholder="Select a City" />
             </form>
         </div>
         <app-code [code]="code" selector="cascade-select-reactive-forms-demo"></app-code>
-    `,
+    `
 })
 export class ReactiveFormsDoc implements OnInit {
     countries: any[] | undefined;
@@ -36,7 +25,7 @@ export class ReactiveFormsDoc implements OnInit {
 
     ngOnInit() {
         this.formGroup = new FormGroup({
-            selectedCity: new FormControl<object | null>(null),
+            selectedCity: new FormControl<object | null>(null)
         });
 
         this.countries = [
@@ -49,17 +38,17 @@ export class ReactiveFormsDoc implements OnInit {
                         cities: [
                             { cname: 'Sydney', code: 'A-SY' },
                             { cname: 'Newcastle', code: 'A-NE' },
-                            { cname: 'Wollongong', code: 'A-WO' },
-                        ],
+                            { cname: 'Wollongong', code: 'A-WO' }
+                        ]
                     },
                     {
                         name: 'Queensland',
                         cities: [
                             { cname: 'Brisbane', code: 'A-BR' },
-                            { cname: 'Townsville', code: 'A-TO' },
-                        ],
-                    },
-                ],
+                            { cname: 'Townsville', code: 'A-TO' }
+                        ]
+                    }
+                ]
             },
             {
                 name: 'Canada',
@@ -69,17 +58,17 @@ export class ReactiveFormsDoc implements OnInit {
                         name: 'Quebec',
                         cities: [
                             { cname: 'Montreal', code: 'C-MO' },
-                            { cname: 'Quebec City', code: 'C-QU' },
-                        ],
+                            { cname: 'Quebec City', code: 'C-QU' }
+                        ]
                     },
                     {
                         name: 'Ontario',
                         cities: [
                             { cname: 'Ottawa', code: 'C-OT' },
-                            { cname: 'Toronto', code: 'C-TO' },
-                        ],
-                    },
-                ],
+                            { cname: 'Toronto', code: 'C-TO' }
+                        ]
+                    }
+                ]
             },
             {
                 name: 'United States',
@@ -90,8 +79,8 @@ export class ReactiveFormsDoc implements OnInit {
                         cities: [
                             { cname: 'Los Angeles', code: 'US-LA' },
                             { cname: 'San Diego', code: 'US-SD' },
-                            { cname: 'San Francisco', code: 'US-SF' },
-                        ],
+                            { cname: 'San Francisco', code: 'US-SF' }
+                        ]
                     },
                     {
                         name: 'Florida',
@@ -99,19 +88,19 @@ export class ReactiveFormsDoc implements OnInit {
                             { cname: 'Jacksonville', code: 'US-JA' },
                             { cname: 'Miami', code: 'US-MI' },
                             { cname: 'Tampa', code: 'US-TA' },
-                            { cname: 'Orlando', code: 'US-OR' },
-                        ],
+                            { cname: 'Orlando', code: 'US-OR' }
+                        ]
                     },
                     {
                         name: 'Texas',
                         cities: [
                             { cname: 'Austin', code: 'US-AU' },
                             { cname: 'Dallas', code: 'US-DA' },
-                            { cname: 'Houston', code: 'US-HO' },
-                        ],
-                    },
-                ],
-            },
+                            { cname: 'Houston', code: 'US-HO' }
+                        ]
+                    }
+                ]
+            }
         ];
     }
 
@@ -223,6 +212,6 @@ export class CascadeSelectReactiveFormsDemo implements OnInit {
             }
         ];
     }
-}`,
+}`
     };
 }

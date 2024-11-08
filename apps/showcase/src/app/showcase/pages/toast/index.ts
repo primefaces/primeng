@@ -16,74 +16,67 @@ import { HeadlessDoc } from '@doc/toast/headlessdoc';
 import { ToastDocModule } from '@doc/toast/toastdoc.module';
 
 @Component({
-    template: `<app-doc
-        docTitle="Angular Toast Component"
-        header="Toast"
-        description="Toast is used to display messages in an overlay."
-        [docs]="docs"
-        [apiDocs]="['Toast', 'ToastMessage']"
-        themeDocs="toast"
-    ></app-doc> `,
+    template: `<app-doc docTitle="Angular Toast Component" header="Toast" description="Toast is used to display messages in an overlay." [docs]="docs" [apiDocs]="['Toast', 'ToastMessage']" themeDocs="toast"></app-doc> `,
     standalone: true,
-    imports: [ToastDocModule],
+    imports: [ToastDocModule]
 })
 export class ToastDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc,
+            component: ImportDoc
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc,
+            component: BasicDoc
         },
         {
             id: 'severity',
             label: 'Severity',
-            component: SeverityDoc,
+            component: SeverityDoc
         },
         {
             id: 'position',
             label: 'Position',
-            component: PositionDoc,
+            component: PositionDoc
         },
         {
             id: 'multiple',
             label: 'Multiple',
-            component: MultipleDoc,
+            component: MultipleDoc
         },
         {
             id: 'sticky',
             label: 'Sticky',
-            component: StickyDoc,
+            component: StickyDoc
         },
         {
             id: 'templating',
             label: 'Template',
-            component: TemplateDoc,
+            component: TemplateDoc
         },
         {
             id: 'headless',
             label: 'Headless',
-            component: HeadlessDoc,
+            component: HeadlessDoc
         },
         {
             id: 'responsive',
             label: 'Responsive',
-            component: ResponsiveDoc,
+            component: ResponsiveDoc
         },
         {
             id: 'animation',
             label: 'Animation',
-            component: AnimationDoc,
+            component: AnimationDoc
         },
 
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc,
-        },
+            component: AccessibilityDoc
+        }
     ];
 }

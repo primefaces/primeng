@@ -25,79 +25,79 @@ import { SplitButtonDocModule } from '@doc/splitbutton/splitbuttondoc.module';
         themeDocs="splitbutton"
     ></app-doc>`,
     standalone: true,
-    imports: [SplitButtonDocModule],
+    imports: [SplitButtonDocModule]
 })
 export class SplitButtonDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc,
+            component: ImportDoc
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc,
+            component: BasicDoc
         },
         {
             id: 'icons',
             label: 'Icons',
-            component: IconsDoc,
+            component: IconsDoc
         },
         {
             id: 'nested',
             label: 'Nested',
-            component: NestedDoc,
+            component: NestedDoc
         },
         {
             id: 'severity',
             label: 'Severity',
-            component: SeverityDoc,
+            component: SeverityDoc
         },
         {
             id: 'disabled',
             label: 'Disabled',
-            component: DisabledDoc,
+            component: DisabledDoc
         },
         {
             id: 'raised',
             label: 'Raised',
-            component: RaisedDoc,
+            component: RaisedDoc
         },
         {
             id: 'rounded',
             label: 'Rounded',
-            component: RoundedDoc,
+            component: RoundedDoc
         },
         {
             id: 'text',
             label: 'Text',
-            component: TextDoc,
+            component: TextDoc
         },
         {
             id: 'raisedtext',
             label: 'Raised Text',
-            component: RaisedTextDoc,
+            component: RaisedTextDoc
         },
         {
             id: 'outlined',
             label: 'Outlined',
-            component: OutlinedDoc,
+            component: OutlinedDoc
         },
         {
             id: 'sizes',
             label: 'Sizes',
-            component: SizesDoc,
+            component: SizesDoc
         },
         {
             id: 'template',
             label: 'Template',
-            component: TemplateDoc,
+            component: TemplateDoc
         },
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc,
-        },
+            component: AccessibilityDoc
+        }
     ];
 }

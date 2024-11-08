@@ -21,21 +21,8 @@ import { Select } from 'primeng/select';
 import { SelectButton } from 'primeng/selectbutton';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        AppCodeModule,
-        SelectButton,
-        AppDocModule,
-        DataView,
-        Select,
-        ButtonModule,
-        RouterModule,
-        Rating,
-        Tag,
-        FormsModule,
-        Skeleton,
-    ],
+    imports: [CommonModule, AppCodeModule, SelectButton, AppDocModule, DataView, Select, ButtonModule, RouterModule, Rating, Tag, FormsModule, Skeleton],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, PaginationDoc, SortingDoc, LayoutDoc, LoadingDoc, StyleDoc, AccessibilityDoc],
+    declarations: [ImportDoc, BasicDoc, PaginationDoc, SortingDoc, LayoutDoc, LoadingDoc, StyleDoc, AccessibilityDoc]
 })
 export class DataViewDocModule {}

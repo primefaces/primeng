@@ -3,20 +3,20 @@ import { computed, effect, inject, Injectable, PLATFORM_ID, signal } from '@angu
 import { AppState } from '@domain/appstate';
 
 @Injectable({
-    providedIn: 'root',
+    providedIn: 'root'
 })
 export class AppConfigService {
     state: AppState = {
         configActive: false,
         menuActive: false,
-        newsActive: false,
+        newsActive: false
     };
 
     appState = signal<any>({
         preset: 'Aura',
         primary: 'noir',
         surface: 'slate',
-        darkTheme: false,
+        darkTheme: false
     });
 
     document = inject(DOCUMENT);

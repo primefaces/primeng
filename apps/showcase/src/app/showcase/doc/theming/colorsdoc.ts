@@ -5,8 +5,8 @@ import { Component } from '@angular/core';
     template: `
         <app-docsectiontext>
             <p>
-                Color palette of a preset is defined by the <i>primitive</i> design token group. The default colors are derived from the
-                Tailwind colors with some extensions to make it consistent with the Tailwind Presets projects of the unstyled mode.
+                Color palette of a preset is defined by the <i>primitive</i> design token group. The default colors are derived from the Tailwind colors with some extensions to make it consistent with the Tailwind Presets projects of the unstyled
+                mode.
             </p>
             <p>Colors can be accessed at CSS as a variable and programmatically using the <i>$dt</i> utility.</p>
             <app-code [code]="code" selector="colors-demo" [hideToggleCode]="true"></app-code>
@@ -18,10 +18,7 @@ import { Component } from '@angular/core';
                             <div class="flex gap-4 flex-auto flex-col sm:flex-row">
                                 @for (shade of shades; track shade) {
                                     <div class="flex flex-col items-center gap-1 flex-1">
-                                        <div
-                                            class="rounded h-8 w-full"
-                                            [style]="'background-color: var(--p-' + color + '-' + shade + ')'"
-                                        ></div>
+                                        <div class="rounded h-8 w-full" [style]="'background-color: var(--p-' + color + '-' + shade + ')'"></div>
                                         <span class="text-sm text-surface-500 dark:text-surface-400 font-medium">{{ shades[j] }}</span>
                                     </div>
                                 }
@@ -31,41 +28,18 @@ import { Component } from '@angular/core';
                 </ul>
             </div>
         </app-docsectiontext>
-    `,
+    `
 })
 export class ColorsDoc {
     shades = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950];
 
-    colors = [
-        'emerald',
-        'green',
-        'lime',
-        'red',
-        'orange',
-        'amber',
-        'yellow',
-        'teal',
-        'cyan',
-        'sky',
-        'blue',
-        'indigo',
-        'violet',
-        'purple',
-        'fuchsia',
-        'pink',
-        'rose',
-        'slate',
-        'gray',
-        'zinc',
-        'neutral',
-        'stone',
-    ];
+    colors = ['emerald', 'green', 'lime', 'red', 'orange', 'amber', 'yellow', 'teal', 'cyan', 'sky', 'blue', 'indigo', 'violet', 'purple', 'fuchsia', 'pink', 'rose', 'slate', 'gray', 'zinc', 'neutral', 'stone'];
 
     code = {
         basic: `// With CSS
 var(--p-blue-500)
 
 // With JS
-$dt('blue.500').value`,
+$dt('blue.500').value`
     };
 }

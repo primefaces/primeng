@@ -6,12 +6,11 @@ import { Component } from '@angular/core';
         <app-docsectiontext>
             <p>
                 The color scheme palette that varies between light and dark modes is specified with the surface tokens. Example below uses
-                <i>zinc</i> for light mode and <i>slategray</i> for dark mode. With this setting, light mode, would have a grayscale tone
-                and dark mode would include blue tone.
+                <i>zinc</i> for light mode and <i>slategray</i> for dark mode. With this setting, light mode, would have a grayscale tone and dark mode would include blue tone.
             </p>
         </app-docsectiontext>
         <app-code [code]="code" selector="surface-demo" [hideToggleCode]="true"></app-code>
-    `,
+    `
 })
 export class SurfaceDoc {
     code = {
@@ -53,6 +52,6 @@ const MyPreset = definePreset(Aura, {
             }
         }
     }
-});`,
+});`
     };
 }

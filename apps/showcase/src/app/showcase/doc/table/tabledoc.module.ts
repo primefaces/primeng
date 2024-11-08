@@ -123,7 +123,7 @@ import { VirtualScrollLazyDoc } from './virtualscrolllazydoc';
         IconFieldModule,
         InputIconModule,
         ToggleSwitchModule,
-        BadgeModule,
+        BadgeModule
     ],
     declarations: [
         ImportDoc,
@@ -182,8 +182,8 @@ import { VirtualScrollLazyDoc } from './virtualscrolllazydoc';
         AccessibilityDoc,
         PaginatorLocaleDoc,
         PreSortDoc,
-        RemovableSortDoc,
+        RemovableSortDoc
     ],
-    exports: [AppDocModule],
+    exports: [AppDocModule]
 })
 export class TableDocModule {}

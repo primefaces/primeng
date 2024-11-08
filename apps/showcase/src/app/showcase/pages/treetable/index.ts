@@ -43,44 +43,44 @@ import { TreeTableDocModule } from '@doc/treetable/treetabledoc.module';
         themeDocs="treetable"
     ></app-doc>`,
     standalone: true,
-    imports: [TreeTableDocModule],
+    imports: [TreeTableDocModule]
 })
 export class TreeTableDemo {
     docs = [
         {
             id: 'import-demo',
             label: 'Import',
-            component: ImportDoc,
+            component: ImportDoc
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc,
+            component: BasicDoc
         },
         {
             id: 'dynamiccolumns',
             label: 'Dynamic Columns',
-            component: DynamicColumnsDoc,
+            component: DynamicColumnsDoc
         },
         {
             id: 'controlled',
             label: 'Controlled',
-            component: ControlledDoc,
+            component: ControlledDoc
         },
         {
             id: 'template',
             label: 'Template',
-            component: TemplateDoc,
+            component: TemplateDoc
         },
         {
             id: 'size',
             label: 'Size',
-            component: SizeDoc,
+            component: SizeDoc
         },
         {
             id: 'gridlines',
             label: 'Grid Lines',
-            component: GridlinesDoc,
+            component: GridlinesDoc
         },
         {
             id: 'paginator',
@@ -89,19 +89,19 @@ export class TreeTableDemo {
                 {
                     id: 'paginatorbasic',
                     label: 'Basic',
-                    component: PaginatorBasicDoc,
+                    component: PaginatorBasicDoc
                 },
                 {
                     id: 'paginatorlocale',
                     label: 'Locale',
-                    component: PaginatorLocaleDoc,
+                    component: PaginatorLocaleDoc
                 },
                 {
                     id: 'paginatortemplate',
                     label: 'Template',
-                    component: PaginatorTemplateDoc,
-                },
-            ],
+                    component: PaginatorTemplateDoc
+                }
+            ]
         },
         {
             id: 'sort',
@@ -110,24 +110,24 @@ export class TreeTableDemo {
                 {
                     id: 'sortsinglecolumn',
                     label: 'Single Column',
-                    component: SortSingleColumnDoc,
+                    component: SortSingleColumnDoc
                 },
                 {
                     id: 'sortmultiplecolumns',
                     label: 'Multiple Columns',
-                    component: SortMultipleColumnsDoc,
-                },
+                    component: SortMultipleColumnsDoc
+                }
                 // {
                 //     id: 'sortremovable',
                 //     label: 'Removable Sort',
                 //     component: SortRemovableDoc
                 // }
-            ],
+            ]
         },
         {
             id: 'filter',
             label: 'Filter',
-            component: FilterDoc,
+            component: FilterDoc
         },
         {
             id: 'selection',
@@ -136,34 +136,34 @@ export class TreeTableDemo {
                 {
                     id: 'selectionsingle',
                     label: 'Single',
-                    component: SelectionSingleDoc,
+                    component: SelectionSingleDoc
                 },
                 {
                     id: 'selectionmultiple',
                     label: 'Multiple',
-                    component: SelectionMultipleDoc,
+                    component: SelectionMultipleDoc
                 },
                 {
                     id: 'checkbox',
                     label: 'Checkbox',
-                    component: SelectionCheckboxDoc,
+                    component: SelectionCheckboxDoc
                 },
                 {
                     id: 'events',
                     label: 'Events',
-                    component: SelectionEventsDoc,
-                },
-            ],
+                    component: SelectionEventsDoc
+                }
+            ]
         },
         {
             id: 'columngroup',
             label: 'Column Group',
-            component: ColumnGroupDoc,
+            component: ColumnGroupDoc
         },
         {
             id: 'lazyload',
             label: 'Lazy Load',
-            component: LazyLoadDoc,
+            component: LazyLoadDoc
         },
         // {
         //     id: 'edit',
@@ -177,24 +177,24 @@ export class TreeTableDemo {
                 {
                     id: 'vertical',
                     label: 'Vertical',
-                    component: ScrollVerticalDoc,
+                    component: ScrollVerticalDoc
                 },
                 {
                     id: 'flexible',
                     label: 'Flexible',
-                    component: ScrollFlexibleDoc,
+                    component: ScrollFlexibleDoc
                 },
                 {
                     id: 'horizontal',
                     label: 'Horizontal',
-                    component: ScrollHorizontalDoc,
+                    component: ScrollHorizontalDoc
                 },
                 {
                     id: 'frozencolumns',
                     label: 'Frozen Columns',
-                    component: FrozenColumnsDoc,
-                },
-            ],
+                    component: FrozenColumnsDoc
+                }
+            ]
         },
         {
             id: 'columnresize',
@@ -203,45 +203,45 @@ export class TreeTableDemo {
                 {
                     id: 'fitmode',
                     label: 'Fit Mode',
-                    component: ResizeFitDoc,
+                    component: ResizeFitDoc
                 },
                 {
                     id: 'expandmode',
                     label: 'Expand Mode',
-                    component: ResizeExpandDoc,
+                    component: ResizeExpandDoc
                 },
                 {
                     id: 'scrollable',
                     label: 'Scrollable',
-                    component: ResizeScrollableDoc,
-                },
-            ],
+                    component: ResizeScrollableDoc
+                }
+            ]
         },
         {
             id: 'reorder',
             label: 'Reorder',
-            component: ReorderDoc,
+            component: ReorderDoc
         },
         {
             id: 'columntoggle',
             label: 'Column Toggle',
-            component: ColumnToggleDoc,
+            component: ColumnToggleDoc
         },
         {
             id: 'conditionalstyle',
             label: 'Conditional Style',
-            component: ConditionalStyleDoc,
+            component: ConditionalStyleDoc
         },
         {
             id: 'contextmenu',
             label: 'Context Menu',
-            component: ContextMenuDoc,
+            component: ContextMenuDoc
         },
 
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc,
-        },
+            component: AccessibilityDoc
+        }
     ];
 }

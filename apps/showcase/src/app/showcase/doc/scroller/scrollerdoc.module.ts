@@ -21,20 +21,7 @@ import { AccessibilityDoc } from './accessibilitydoc';
 
 @NgModule({
     imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, Scroller, Skeleton, ButtonModule],
-    declarations: [
-        BasicDoc,
-        DelayDoc,
-        ImportDoc,
-        HorizontalDoc,
-        GridDoc,
-        LazyLoadDoc,
-        LoaderDoc,
-        ScrollOptionsDoc,
-        StyleDoc,
-        TemplateDoc,
-        ProgrammaticDoc,
-        AccessibilityDoc,
-    ],
-    exports: [AppDocModule],
+    declarations: [BasicDoc, DelayDoc, ImportDoc, HorizontalDoc, GridDoc, LazyLoadDoc, LoaderDoc, ScrollOptionsDoc, StyleDoc, TemplateDoc, ProgrammaticDoc, AccessibilityDoc],
+    exports: [AppDocModule]
 })
 export class VirtualScrollerDocModule {}

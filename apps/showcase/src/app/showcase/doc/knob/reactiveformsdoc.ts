@@ -6,10 +6,7 @@ import { Code } from '@domain/code';
     selector: 'reactive-forms-doc',
     template: `
         <app-docsectiontext>
-            <p>
-                Knob can also be used with reactive forms. In this case, the <i>formControlName</i> property is used to bind the component
-                to a form control.
-            </p>
+            <p>Knob can also be used with reactive forms. In this case, the <i>formControlName</i> property is used to bind the component to a form control.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
             <form [formGroup]="formGroup">
@@ -17,14 +14,14 @@ import { Code } from '@domain/code';
             </form>
         </div>
         <app-code [code]="code" selector="knob-reactive-forms-demo"></app-code>
-    `,
+    `
 })
 export class ReactiveFormsDoc implements OnInit {
     formGroup!: FormGroup;
 
     ngOnInit() {
         this.formGroup = new FormGroup({
-            value: new FormControl(32),
+            value: new FormControl(32)
         });
     }
 
@@ -57,6 +54,6 @@ export class KnobReactiveFormsDemo implements OnInit {
             value: new FormControl(32)
         });
     }
-}`,
+}`
     };
 }

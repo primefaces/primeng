@@ -30,7 +30,7 @@ import { Code } from '@domain/code';
             </p-toolbar>
         </div>
         <app-code [code]="code" selector="toolbar-basic-demo"></app-code>
-    `,
+    `
 })
 export class BasicDoc implements OnInit {
     items: MenuItem[] | undefined;
@@ -39,12 +39,12 @@ export class BasicDoc implements OnInit {
         this.items = [
             {
                 label: 'Update',
-                icon: 'pi pi-refresh',
+                icon: 'pi pi-refresh'
             },
             {
                 label: 'Delete',
-                icon: 'pi pi-times',
-            },
+                icon: 'pi pi-times'
+            }
         ];
     }
 
@@ -115,6 +115,6 @@ export class ToolbarBasicDemo implements OnInit {
             }
         ];
     }
-}`,
+}`
     };
 }

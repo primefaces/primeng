@@ -13,7 +13,7 @@ import { Code } from '@domain/code';
         </div>
         <app-code [code]="code" selector="toast-life-demo"></app-code>
     `,
-    providers: [MessageService],
+    providers: [MessageService]
 })
 export class LifeDoc {
     constructor(private messageService: MessageService) {}
@@ -66,6 +66,6 @@ export class ToastLifeDemo {
     showLifeLong() {
         this.messageService.add({ severity: 'info', summary: 'Life', detail: 'I show for 20000ms', life: 20000 });
     }
-}`,
+}`
     };
 }

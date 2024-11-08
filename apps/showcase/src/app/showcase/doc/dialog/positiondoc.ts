@@ -13,38 +13,14 @@ import { Code } from '@domain/code';
                 <p-button (click)="showDialog('right')" icon="pi pi-arrow-left" label="Right" severity="secondary" styleClass="min-w-40" />
             </div>
             <div class="flex flex-wrap justify-center gap-2 mb-2">
-                <p-button
-                    (click)="showDialog('topleft')"
-                    icon="pi pi-arrow-down-right"
-                    label="TopLeft"
-                    severity="secondary"
-                    styleClass="min-w-40"
-                />
+                <p-button (click)="showDialog('topleft')" icon="pi pi-arrow-down-right" label="TopLeft" severity="secondary" styleClass="min-w-40" />
                 <p-button (click)="showDialog('top')" icon="pi pi-arrow-down" label="Top" severity="secondary" styleClass="min-w-40" />
-                <p-button
-                    (click)="showDialog('topright')"
-                    icon="pi pi-arrow-down-left"
-                    label="TopRight"
-                    severity="secondary"
-                    styleClass="min-w-40"
-                />
+                <p-button (click)="showDialog('topright')" icon="pi pi-arrow-down-left" label="TopRight" severity="secondary" styleClass="min-w-40" />
             </div>
             <div class="flex flex-wrap justify-center gap-2">
-                <p-button
-                    (click)="showDialog('bottomleft')"
-                    icon="pi pi-arrow-up-right"
-                    label="BottomLeft"
-                    severity="secondary"
-                    styleClass="min-w-40"
-                />
+                <p-button (click)="showDialog('bottomleft')" icon="pi pi-arrow-up-right" label="BottomLeft" severity="secondary" styleClass="min-w-40" />
                 <p-button (click)="showDialog('bottom')" icon="pi pi-arrow-up" label="Bottom" severity="secondary" styleClass="min-w-40" />
-                <p-button
-                    (click)="showDialog('bottomright')"
-                    icon="pi pi-arrow-up-left"
-                    label="BottomRight"
-                    severity="secondary"
-                    styleClass="min-w-40"
-                />
+                <p-button (click)="showDialog('bottomright')" icon="pi pi-arrow-up-left" label="BottomRight" severity="secondary" styleClass="min-w-40" />
             </div>
             <p-dialog header="Edit Profile" [modal]="true" [(visible)]="visible" [position]="position" [style]="{ width: '25rem' }">
                 <span class="text-surface-500 dark:text-surface-400 block mb-8">Update your information.</span>
@@ -63,7 +39,7 @@ import { Code } from '@domain/code';
             </p-dialog>
         </div>
         <app-code [code]="code" selector="dialog-position-demo"></app-code>
-    `,
+    `
 })
 export class PositionDoc {
     visible: boolean = false;
@@ -158,6 +134,6 @@ export class DialogPositionDemo {
         this.position = position;
         this.visible = true;
     }
-}`,
+}`
     };
 }

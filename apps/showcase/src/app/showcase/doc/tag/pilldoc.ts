@@ -17,7 +17,7 @@ import { Code } from '@domain/code';
             <p-tag severity="contrast" value="Contrast" [rounded]="true" />
         </div>
         <app-code [code]="code" selector="tag-pill-demo"></app-code>
-    `,
+    `
 })
 export class PillDoc {
     code: Code = {
@@ -46,6 +46,6 @@ import { Tag } from 'primeng/tag';
     standalone: true,
     imports: [Tag]
 })
-export class TagPillDemo {}`,
+export class TagPillDemo {}`
     };
 }

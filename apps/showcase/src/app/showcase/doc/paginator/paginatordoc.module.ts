@@ -20,21 +20,8 @@ import { InputNumber } from 'primeng/inputnumber';
 import { Select } from 'primeng/select';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        AppCodeModule,
-        AppDocModule,
-        PaginatorModule,
-        ButtonModule,
-        DividerModule,
-        FormsModule,
-        InputNumber,
-        Slider,
-        RouterModule,
-        Select,
-        DropdownModule,
-    ],
+    imports: [CommonModule, AppCodeModule, AppDocModule, PaginatorModule, ButtonModule, DividerModule, FormsModule, InputNumber, Slider, RouterModule, Select, DropdownModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, TemplateDoc, ImagesDoc, StyleDoc, AccessibilityDoc, CurrentPageReportDoc],
+    declarations: [ImportDoc, BasicDoc, TemplateDoc, ImagesDoc, StyleDoc, AccessibilityDoc, CurrentPageReportDoc]
 })
 export class PaginatorDocModule {}

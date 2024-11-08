@@ -11,8 +11,7 @@ interface City {
     template: `
         <app-docsectiontext>
             <p>
-                When dialog includes other components with overlays such as dropdown, the overlay part cannot exceed dialog boundaries due
-                to overflow. In order to solve this, you can either append the overlay to the body by using
+                When dialog includes other components with overlays such as dropdown, the overlay part cannot exceed dialog boundaries due to overflow. In order to solve this, you can either append the overlay to the body by using
                 <i>appendTo</i> property or allow overflow in dialog.
             </p>
         </app-docsectiontext>
@@ -20,18 +19,12 @@ interface City {
             <p-button (click)="showDialog()" icon="pi pi-external-link" label="Show"></p-button>
             <p-dialog header="Header" [(visible)]="visible" [style]="{ width: '50vw' }">
                 <div class="flex py-2 justify-center">
-                    <p-dropdown
-                        appendTo="body"
-                        [options]="cities"
-                        [(ngModel)]="selectedCity"
-                        placeholder="Select a City"
-                        optionLabel="name"
-                    ></p-dropdown>
+                    <p-dropdown appendTo="body" [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City" optionLabel="name"></p-dropdown>
                 </div>
             </p-dialog>
         </div>
         <app-code [code]="code" selector="dialog-overlays-inside-demo"></app-code>
-    `,
+    `
 })
 export class OverlaysInsideDoc implements OnInit {
     cities: City[] | undefined;
@@ -46,7 +39,7 @@ export class OverlaysInsideDoc implements OnInit {
             { name: 'Rome', code: 'RM' },
             { name: 'London', code: 'LDN' },
             { name: 'Istanbul', code: 'IST' },
-            { name: 'Paris', code: 'PRS' },
+            { name: 'Paris', code: 'PRS' }
         ];
     }
 
@@ -104,6 +97,6 @@ export class DialogOverlaysInsideDemo implements OnInit {
     showDialog() {
         this.visible = true;
     }
-}`,
+}`
     };
 }

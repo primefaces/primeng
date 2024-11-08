@@ -24,34 +24,8 @@ import { IftaLabelDoc } from './iftalabeldoc';
 import { SizesDoc } from './sizesdoc';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        AppCodeModule,
-        InputTextModule,
-        FormsModule,
-        ReactiveFormsModule,
-        TextareaModule,
-        AppDocModule,
-        KeyFilterModule,
-        FloatLabelModule,
-        RouterModule,
-        IftaLabelModule,
-    ],
+    imports: [CommonModule, AppCodeModule, InputTextModule, FormsModule, ReactiveFormsModule, TextareaModule, AppDocModule, KeyFilterModule, FloatLabelModule, RouterModule, IftaLabelModule],
     exports: [AppDocModule],
-    declarations: [
-        ImportDoc,
-        BasicDoc,
-        AutoResizeDoc,
-        FloatlabelDoc,
-        InvalidDoc,
-        DisabledDoc,
-        KeyfilterDoc,
-        StyleDoc,
-        AccessibilityDoc,
-        ReactiveFormsDoc,
-        FilledDoc,
-        IftaLabelDoc,
-        SizesDoc,
-    ],
+    declarations: [ImportDoc, BasicDoc, AutoResizeDoc, FloatlabelDoc, InvalidDoc, DisabledDoc, KeyfilterDoc, StyleDoc, AccessibilityDoc, ReactiveFormsDoc, FilledDoc, IftaLabelDoc, SizesDoc]
 })
 export class TextareaDocModule {}

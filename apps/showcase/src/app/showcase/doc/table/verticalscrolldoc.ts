@@ -6,10 +6,7 @@ import { CustomerService } from '@service/customerservice';
 @Component({
     selector: 'vertical-scroll-doc',
     template: ` <app-docsectiontext>
-            <p>
-                Adding <i>scrollable</i> property along with a <i>scrollHeight</i> for the data viewport enables vertical scrolling with
-                fixed headers.
-            </p></app-docsectiontext
+            <p>Adding <i>scrollable</i> property along with a <i>scrollHeight</i> for the data viewport enables vertical scrolling with fixed headers.</p></app-docsectiontext
         >
         <p-deferred-demo (load)="loadDemoData()">
             <div class="card">
@@ -34,14 +31,14 @@ import { CustomerService } from '@service/customerservice';
             </div>
         </p-deferred-demo>
         <app-code [code]="code" selector="table-vertical-scroll-demo" [extFiles]="extFiles"></app-code>`,
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class VerticalScrollDoc {
     customers!: Customer[];
 
     constructor(
         private customerService: CustomerService,
-        private cd: ChangeDetectorRef,
+        private cd: ChangeDetectorRef
     ) {}
 
     loadDemoData() {
@@ -141,7 +138,7 @@ export class TableVerticalScrollDemo implements OnInit{
         balance: 70663
     },
     ...`,
-        service: ['CustomerService'],
+        service: ['CustomerService']
     };
 
     extFiles = [
@@ -169,7 +166,7 @@ export interface Customer {
     representative?: Representative;
     verified?: boolean;
     balance?: number;
-}`,
-        },
+}`
+        }
     ];
 }

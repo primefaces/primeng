@@ -28,7 +28,7 @@ import { Code } from '@domain/code';
             </p-table>
         </div>
         <app-code [code]="code" selector="skeleton-data-table-demo"></app-code>
-    `,
+    `
 })
 export class DataTableDoc implements OnInit {
     products: any[] | undefined;
@@ -92,6 +92,6 @@ export class SkeletonDataTableDemo implements OnInit {
     ngOnInit() {
         this.products = Array.from({ length: 5 }).map((_, i) => \`Item #\${i}\`);
     }
-}`,
+}`
     };
 }

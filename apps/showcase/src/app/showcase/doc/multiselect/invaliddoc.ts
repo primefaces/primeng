@@ -13,18 +13,10 @@ interface City {
             <p>Invalid state style is added using the <i>ng-invalid</i> and <i>ng-dirty</i> class to indicate a failed validation.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-multiselect
-                [options]="cities"
-                [(ngModel)]="selectedCities"
-                class="ng-dirty ng-invalid"
-                optionLabel="name"
-                placeholder="Select Cities"
-                [maxSelectedLabels]="3"
-                styleClass="w-full md:w-80"
-            />
+            <p-multiselect [options]="cities" [(ngModel)]="selectedCities" class="ng-dirty ng-invalid" optionLabel="name" placeholder="Select Cities" [maxSelectedLabels]="3" styleClass="w-full md:w-80" />
         </div>
         <app-code [code]="code" selector="multi-select-invalid-demo"></app-code>
-    `,
+    `
 })
 export class InvalidDoc implements OnInit {
     cities!: City[];
@@ -37,7 +29,7 @@ export class InvalidDoc implements OnInit {
             { name: 'Rome', code: 'RM' },
             { name: 'London', code: 'LDN' },
             { name: 'Istanbul', code: 'IST' },
-            { name: 'Paris', code: 'PRS' },
+            { name: 'Paris', code: 'PRS' }
         ];
     }
 
@@ -77,6 +69,6 @@ export class MultiSelectInvalidDemo implements OnInit {
             { name: 'Paris', code: 'PRS' }
         ];
     }
-}`,
+}`
     };
 }

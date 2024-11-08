@@ -24,7 +24,7 @@ import { Code } from '@domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="radio-button-sizes-demo"></app-code>
-    `,
+    `
 })
 export class SizesDoc {
     size: any = false;
@@ -74,6 +74,6 @@ import { FormsModule } from '@angular/forms';
 })
 export class RadioButtonSizesDemo { 
     size: any = false;
-}`,
+}`
     };
 }

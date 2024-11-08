@@ -13,17 +13,10 @@ interface City {
             <p>An alternative way to highlight the selected option is displaying a checkmark instead.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-listbox
-                [(ngModel)]="selectedCity"
-                [options]="cities"
-                optionLabel="name"
-                [checkmark]="true"
-                [highlightOnSelect]="false"
-                class="w-full md:w-56"
-            />
+            <p-listbox [(ngModel)]="selectedCity" [options]="cities" optionLabel="name" [checkmark]="true" [highlightOnSelect]="false" class="w-full md:w-56" />
         </div>
         <app-code [code]="code" selector="listbox-checkmark-demo"></app-code>
-    `,
+    `
 })
 export class CheckmarkDoc implements OnInit {
     cities!: City[];
@@ -65,7 +58,7 @@ export class ListboxCheckmarkDemo implements OnInit {
             { name: 'Paris', code: 'PRS' }
         ];
     }
-}`,
+}`
     };
 
     ngOnInit() {
@@ -74,7 +67,7 @@ export class ListboxCheckmarkDemo implements OnInit {
             { name: 'Rome', code: 'RM' },
             { name: 'London', code: 'LDN' },
             { name: 'Istanbul', code: 'IST' },
-            { name: 'Paris', code: 'PRS' },
+            { name: 'Paris', code: 'PRS' }
         ];
     }
 }

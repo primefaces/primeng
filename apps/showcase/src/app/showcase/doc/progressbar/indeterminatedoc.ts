@@ -13,7 +13,7 @@ import { Code } from '@domain/code';
         </div>
         <app-code [code]="code" selector="progress-bar-indeterminate-demo"></app-code>
     `,
-    providers: [MessageService],
+    providers: [MessageService]
 })
 export class IndeterminateDoc {
     code: Code = {
@@ -32,6 +32,6 @@ import { ProgressBar } from 'primeng/progressbar';
     imports: [ProgressBar],
     providers: [MessageService]
 })
-export class ProgressBarIndeterminateDemo {}`,
+export class ProgressBarIndeterminateDemo {}`
     };
 }

@@ -5,10 +5,7 @@ import { Code } from '@domain/code';
     selector: 'variants-doc',
     template: `
         <app-docsectiontext>
-            <p>
-                The <i>variant</i> property defines the position of the label. Default value is <i>over</i>, whereas <i>in</i> and
-                <i>on</i> are the alternatives.
-            </p>
+            <p>The <i>variant</i> property defines the position of the label. Default value is <i>over</i>, whereas <i>in</i> and <i>on</i> are the alternatives.</p>
         </app-docsectiontext>
         <div class="card flex flex-wrap justify-center items-end gap-4">
             <p-floatlabel variant="in">
@@ -22,7 +19,7 @@ import { Code } from '@domain/code';
             </p-floatlabel>
         </div>
         <app-code [code]="code" selector="float-label-variants-demo"></app-code>
-    `,
+    `
 })
 export class VariantsDoc {
     value1: string | undefined;
@@ -67,6 +64,6 @@ export class FloatLabelVariantsDemo {
     value1: string | undefined;
 
     value2: string | undefined;
-}`,
+}`
     };
 }

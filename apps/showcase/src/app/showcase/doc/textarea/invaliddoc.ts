@@ -11,7 +11,7 @@ import { Code } from '@domain/code';
             <textarea rows="5" cols="30" pTextarea [(ngModel)]="value" class="ng-invalid ng-dirty" placeholder="Invalid"></textarea>
         </div>
         <app-code [code]="code" selector="input-textarea-invalid-demo"></app-code>
-    `,
+    `
 })
 export class InvalidDoc {
     value!: string;
@@ -35,6 +35,6 @@ import { FormsModule } from '@angular/forms';
 })
 export class InputTextareaInvalidDemo {
     value!: string;
-}`,
+}`
     };
 }

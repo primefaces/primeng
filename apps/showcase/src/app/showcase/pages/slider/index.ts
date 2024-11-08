@@ -11,64 +11,57 @@ import { SliderDocModule } from '@doc/slider/sliderdoc.module';
 import { FilterDoc } from '@doc/slider/filterdoc';
 
 @Component({
-    template: `<app-doc
-        docTitle="Angular Slider Component"
-        header="Slider"
-        description="Slider is a component to provide input with a drag handle."
-        [docs]="docs"
-        [apiDocs]="['Slider']"
-        themeDocs="slider"
-    ></app-doc>`,
+    template: `<app-doc docTitle="Angular Slider Component" header="Slider" description="Slider is a component to provide input with a drag handle." [docs]="docs" [apiDocs]="['Slider']" themeDocs="slider"></app-doc>`,
     standalone: true,
-    imports: [SliderDocModule],
+    imports: [SliderDocModule]
 })
 export class SliderDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc,
+            component: ImportDoc
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc,
+            component: BasicDoc
         },
         {
             id: 'reactive-forms',
             label: 'Reactive Forms',
-            component: ReactiveFormsDoc,
+            component: ReactiveFormsDoc
         },
         {
             id: 'input',
             label: 'Input',
-            component: InputDoc,
+            component: InputDoc
         },
         {
             id: 'step',
             label: 'Step',
-            component: StepDoc,
+            component: StepDoc
         },
         {
             id: 'range',
             label: 'Range',
-            component: RangeDoc,
+            component: RangeDoc
         },
         {
             id: 'filter',
             label: 'Filter',
-            component: FilterDoc,
+            component: FilterDoc
         },
         {
             id: 'vertical',
             label: 'Vertical',
-            component: VerticalDoc,
+            component: VerticalDoc
         },
 
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc,
-        },
+            component: AccessibilityDoc
+        }
     ];
 }

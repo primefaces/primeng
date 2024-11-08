@@ -18,7 +18,7 @@ import { Code } from '@domain/code';
                                         class="rounded-border border-2 w-12 h-12 inline-flex items-center justify-center"
                                         [ngClass]="{
                                             'bg-primary text-primary-contrast border-primary': value <= activeStep,
-                                            'border-surface': value > activeStep,
+                                            'border-surface': value > activeStep
                                         }"
                                     >
                                         <i class="pi pi-user"></i>
@@ -36,7 +36,7 @@ import { Code } from '@domain/code';
                                         class="rounded-border border-2 w-12 h-12 inline-flex items-center justify-center"
                                         [ngClass]="{
                                             'bg-primary text-primary-contrast border-primary': value <= activeStep,
-                                            'border-surface': value > activeStep,
+                                            'border-surface': value > activeStep
                                         }"
                                     >
                                         <i class="pi pi-star"></i>
@@ -54,7 +54,7 @@ import { Code } from '@domain/code';
                                         class="rounded-border border-2 w-12 h-12 inline-flex items-center justify-center"
                                         [ngClass]="{
                                             'bg-primary text-primary-contrast border-primary': value <= activeStep,
-                                            'border-surface': value > activeStep,
+                                            'border-surface': value > activeStep
                                         }"
                                     >
                                         <i class="pi pi-id-card"></i>
@@ -137,7 +137,7 @@ import { Code } from '@domain/code';
             </p-stepper>
         </div>
         <app-code [code]="code" selector="stepper-template-demo"></app-code>
-    `,
+    `
 })
 export class TemplateDoc {
     activeStep: number = 1;
@@ -478,6 +478,6 @@ export class StepperTemplateDemo {
     option9: boolean | undefined = false;
 
     option10: boolean | undefined = false;
-}`,
+}`
     };
 }

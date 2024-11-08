@@ -25,34 +25,8 @@ import { LazyVirtualScrollDoc } from './virtualscrolllazydoc';
 import { ToggleSwitchModule } from 'primeng/toggleswitch';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        AppCodeModule,
-        AppDocModule,
-        TreeModule,
-        ButtonModule,
-        FormsModule,
-        ToastModule,
-        ContextMenuModule,
-        ToggleSwitchModule,
-    ],
+    imports: [CommonModule, AppCodeModule, AppDocModule, TreeModule, ButtonModule, FormsModule, ToastModule, ContextMenuModule, ToggleSwitchModule],
     exports: [AppDocModule],
-    declarations: [
-        ImportDoc,
-        BasicDoc,
-        ControlledDoc,
-        SingleDoc,
-        MultipleDoc,
-        CheckboxDoc,
-        EventDoc,
-        LazyDoc,
-        VirtualScrollDoc,
-        LazyVirtualScrollDoc,
-        TemplateDoc,
-        DragDropDoc,
-        ContextMenuDoc,
-        FilterDoc,
-        AccessibilityDoc,
-    ],
+    declarations: [ImportDoc, BasicDoc, ControlledDoc, SingleDoc, MultipleDoc, CheckboxDoc, EventDoc, LazyDoc, VirtualScrollDoc, LazyVirtualScrollDoc, TemplateDoc, DragDropDoc, ContextMenuDoc, FilterDoc, AccessibilityDoc]
 })
 export class TreeDocModule {}

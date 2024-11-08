@@ -27,37 +27,8 @@ import { ButtonModule } from 'primeng/button';
 import { SizesDoc } from './sizesdoc';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        AppCodeModule,
-        RouterModule,
-        MultiSelectModule,
-        FormsModule,
-        ReactiveFormsModule,
-        AppDocModule,
-        FloatLabelModule,
-        IftaLabelModule,
-        ButtonModule,
-    ],
+    imports: [CommonModule, AppCodeModule, RouterModule, MultiSelectModule, FormsModule, ReactiveFormsModule, AppDocModule, FloatLabelModule, IftaLabelModule, ButtonModule],
     exports: [AppDocModule],
-    declarations: [
-        ImportDoc,
-        BasicDoc,
-        ChipsDoc,
-        GroupDoc,
-        FilterDoc,
-        TemplateDoc,
-        VirtualScrollDoc,
-        FloatLabelDoc,
-        IftaLabelDoc,
-        InvalidDoc,
-        DisabledDoc,
-        StyleDoc,
-        AccessibilityDoc,
-        ReactiveFormsDoc,
-        LoadingStateDoc,
-        FilledDoc,
-        SizesDoc,
-    ],
+    declarations: [ImportDoc, BasicDoc, ChipsDoc, GroupDoc, FilterDoc, TemplateDoc, VirtualScrollDoc, FloatLabelDoc, IftaLabelDoc, InvalidDoc, DisabledDoc, StyleDoc, AccessibilityDoc, ReactiveFormsDoc, LoadingStateDoc, FilledDoc, SizesDoc]
 })
 export class MultiSelectDocModule {}

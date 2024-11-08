@@ -6,10 +6,7 @@ import { Code } from '@domain/code';
     selector: 'reactive-forms-doc',
     template: `
         <app-docsectiontext>
-            <p>
-                SelectButton can also be used with reactive forms. In this case, the <i>formControlName</i> property is used to bind the
-                component to a form control.
-            </p>
+            <p>SelectButton can also be used with reactive forms. In this case, the <i>formControlName</i> property is used to bind the component to a form control.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
             <form [formGroup]="formGroup">
@@ -17,19 +14,19 @@ import { Code } from '@domain/code';
             </form>
         </div>
         <app-code [code]="code" selector="select-button-reactive-forms-demo"></app-code>
-    `,
+    `
 })
 export class ReactiveFormsDoc implements OnInit {
     formGroup!: FormGroup;
 
     stateOptions: any[] = [
         { label: 'Off', value: 'off' },
-        { label: 'On', value: 'on' },
+        { label: 'On', value: 'on' }
     ];
 
     ngOnInit() {
         this.formGroup = new FormGroup({
-            value: new FormControl('on'),
+            value: new FormControl('on')
         });
     }
 
@@ -67,6 +64,6 @@ export class SelectButtonReactiveFormsDemo implements OnInit {
             value: new FormControl('on')
         });
     }
-}`,
+}`
     };
 }

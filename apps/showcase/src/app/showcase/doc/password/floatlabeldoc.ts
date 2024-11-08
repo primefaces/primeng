@@ -27,7 +27,7 @@ import { Code } from '@domain/code';
             </p-floatlabel>
         </div>
         <app-code [code]="code" selector="password-floatlabel-demo"></app-code>
-    `,
+    `
 })
 export class FloatLabelDoc {
     value1!: string;
@@ -86,6 +86,6 @@ export class PasswordFloatlabelDemo {
     value2!: string;
 
     value3!: string;
-}`,
+}`
     };
 }

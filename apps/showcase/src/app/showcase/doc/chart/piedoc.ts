@@ -13,7 +13,7 @@ import { AppConfigService } from '@service/appconfigservice';
             <p-chart type="pie" [data]="data" [options]="options" class="w-full md:w-[30rem]" />
         </div>
         <app-code [code]="code" selector="chart-pie-demo"></app-code>
-    `,
+    `
 })
 export class PieDoc implements OnInit {
     data: any;
@@ -47,18 +47,10 @@ export class PieDoc implements OnInit {
                 datasets: [
                     {
                         data: [540, 325, 702],
-                        backgroundColor: [
-                            documentStyle.getPropertyValue('--p-cyan-500'),
-                            documentStyle.getPropertyValue('--p-orange-500'),
-                            documentStyle.getPropertyValue('--p-gray-500'),
-                        ],
-                        hoverBackgroundColor: [
-                            documentStyle.getPropertyValue('--p-cyan-400'),
-                            documentStyle.getPropertyValue('--p-orange-400'),
-                            documentStyle.getPropertyValue('--p-gray-400'),
-                        ],
-                    },
-                ],
+                        backgroundColor: [documentStyle.getPropertyValue('--p-cyan-500'), documentStyle.getPropertyValue('--p-orange-500'), documentStyle.getPropertyValue('--p-gray-500')],
+                        hoverBackgroundColor: [documentStyle.getPropertyValue('--p-cyan-400'), documentStyle.getPropertyValue('--p-orange-400'), documentStyle.getPropertyValue('--p-gray-400')]
+                    }
+                ]
             };
 
             this.options = {
@@ -66,10 +58,10 @@ export class PieDoc implements OnInit {
                     legend: {
                         labels: {
                             usePointStyle: true,
-                            color: textColor,
-                        },
-                    },
-                },
+                            color: textColor
+                        }
+                    }
+                }
             };
         }
     }
@@ -133,6 +125,6 @@ export class ChartPieDemo implements OnInit {
             }
         };
     }
-}`,
+}`
     };
 }

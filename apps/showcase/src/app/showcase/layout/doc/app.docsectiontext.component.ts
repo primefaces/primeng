@@ -18,7 +18,7 @@ import { Component, ElementRef, Input, numberAttribute } from '@angular/core';
         <div class="doc-section-description">
             <ng-content></ng-content>
         </div>
-    `,
+    `
 })
 export class AppDocSectionTextComponent {
     @Input() title!: string;
@@ -33,7 +33,7 @@ export class AppDocSectionTextComponent {
 
     constructor(
         public location: Location,
-        public el: ElementRef,
+        public el: ElementRef
     ) {}
 
     navigate(event) {

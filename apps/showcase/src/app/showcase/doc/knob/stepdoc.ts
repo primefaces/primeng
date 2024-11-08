@@ -11,7 +11,7 @@ import { Code } from '@domain/code';
             <p-knob [(ngModel)]="value" [step]="10" />
         </div>
         <app-code [code]="code" selector="knob-step-demo"></app-code>
-    `,
+    `
 })
 export class StepDoc {
     value!: number;
@@ -35,6 +35,6 @@ import { Knob } from 'primeng/knob';
 })
 export class KnobStepDemo {
     value!: number;
-}`,
+}`
     };
 }

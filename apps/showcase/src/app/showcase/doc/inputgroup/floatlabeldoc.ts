@@ -39,7 +39,7 @@ import { Code } from '@domain/code';
             </p-inputgroup>
         </div>
         <app-code [code]="code" selector="input-group-float-label-demo"></app-code>
-    `,
+    `
 })
 export class FloatLabelDoc {
     value1: string | undefined;
@@ -125,6 +125,6 @@ export class InputGroupFloatLabelDemo {
     value2: string | undefined;
 
     value3: string | undefined;
-}`,
+}`
     };
 }

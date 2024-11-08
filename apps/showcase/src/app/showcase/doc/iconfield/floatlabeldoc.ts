@@ -5,10 +5,7 @@ import { Code } from '@domain/code';
     selector: 'float-label-doc',
     template: `
         <app-docsectiontext>
-            <p>
-                FloatLabel visually integrates a label with its form element. Visit <a routerLink="/floatlabel">FloatLabel</a> documentation
-                for more information.
-            </p>
+            <p>FloatLabel visually integrates a label with its form element. Visit <a routerLink="/floatlabel">FloatLabel</a> documentation for more information.</p>
         </app-docsectiontext>
         <div class="card flex flex-wrap justify-center items-end gap-4">
             <p-floatlabel>
@@ -36,7 +33,7 @@ import { Code } from '@domain/code';
             </p-floatlabel>
         </div>
         <app-code [code]="code" selector="iconfield-float-label-demo"></app-code>
-    `,
+    `
 })
 export class FloatLabelDoc {
     value1: string | undefined;
@@ -115,6 +112,6 @@ export class IconFieldFloatLabelDemo {
     value2: string | undefined;
 
     value3: string | undefined;
-}`,
+}`
     };
 }

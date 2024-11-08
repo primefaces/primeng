@@ -17,7 +17,7 @@ import { Code } from '@domain/code';
             </p-message>
         </div>
         <app-code [code]="code" selector="message-icon-demo"></app-code>
-    `,
+    `
 })
 export class IconDoc implements OnInit {
     ngOnInit() {}
@@ -49,6 +49,6 @@ import { AvatarModule } from 'primeng/avatar';
     standalone: true,
     imports: [MessageModule, AvatarModule]
 })
-export class MessageIconDemo {}`,
+export class MessageIconDemo {}`
     };
 }

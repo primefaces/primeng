@@ -7,25 +7,13 @@ import { NodeService } from '@service/nodeservice';
     selector: 'lazy-virtual-scroll-doc',
     template: `
         <app-docsectiontext>
-            <p>
-                VirtualScroller is a performance-approach to handle huge data efficiently. Setting <i>virtualScroll</i> property as true and
-                providing a <i>virtualScrollItemSize</i> in pixels would be enough to enable this functionality.
-            </p>
+            <p>VirtualScroller is a performance-approach to handle huge data efficiently. Setting <i>virtualScroll</i> property as true and providing a <i>virtualScrollItemSize</i> in pixels would be enough to enable this functionality.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-tree
-                styleClass="w-full md:w-[30rem]"
-                scrollHeight="250px"
-                [virtualScroll]="true"
-                [lazy]="true"
-                [virtualScrollItemSize]="46"
-                [value]="files"
-                (onNodeExpand)="nodeExpand($event)"
-                [loading]="loading"
-            />
+            <p-tree styleClass="w-full md:w-[30rem]" scrollHeight="250px" [virtualScroll]="true" [lazy]="true" [virtualScrollItemSize]="46" [value]="files" (onNodeExpand)="nodeExpand($event)" [loading]="loading" />
         </div>
         <app-code [code]="code" selector="tree-virtual-scroll-lazy-demo"></app-code>
-    `,
+    `
 })
 export class LazyVirtualScrollDoc implements OnInit {
     loading: boolean = false;
@@ -36,7 +24,7 @@ export class LazyVirtualScrollDoc implements OnInit {
 
     constructor(
         private nodeService: NodeService,
-        private cd: ChangeDetectorRef,
+        private cd: ChangeDetectorRef
     ) {}
 
     ngOnInit() {
@@ -158,6 +146,6 @@ export class TreeVirtualScrollLazyDemo implements OnInit {
         }
     ]
 },
-...`,
+...`
     };
 }

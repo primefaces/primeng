@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
             <p>The properties of scroller component can be used like an object in it.</p>
         </app-docsectiontext>
         <app-code [code]="code" [hideToggleCode]="true"></app-code>
-    `,
+    `
 })
 export class ScrollOptionsDoc {
     code: Code = {
@@ -33,6 +33,6 @@ export class ScrollOptionsDoc {
 </ng-template>
 <ng-template #loadericon let-scrollOptions="options">
     // scrollOptions.styleClass: Style class of the default icon.
-</ng-template>`,
+</ng-template>`
     };
 }

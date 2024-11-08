@@ -7,8 +7,7 @@ import { Code } from '@domain/code';
     template: `
         <app-docsectiontext>
             <p>
-                Toasts are displayed by calling the <i>add</i> and <i>addAll</i> method provided by the <i>messageService</i>. A single
-                toast is specified by the <i>Message</i> interface that defines various properties such as <i>severity</i>,
+                Toasts are displayed by calling the <i>add</i> and <i>addAll</i> method provided by the <i>messageService</i>. A single toast is specified by the <i>Message</i> interface that defines various properties such as <i>severity</i>,
                 <i>summary</i> and <i>detail</i>.
             </p>
         </app-docsectiontext>
@@ -18,7 +17,7 @@ import { Code } from '@domain/code';
         </div>
         <app-code [code]="code" selector="toast-basic-demo"></app-code>
     `,
-    providers: [MessageService],
+    providers: [MessageService]
 })
 export class BasicDoc {
     constructor(private messageService: MessageService) {}
@@ -53,6 +52,6 @@ export class ToastBasicDemo {
     show() {
         this.messageService.add({ severity: 'info', summary: 'Info', detail: 'Message Content', life: 3000 });
     }
-}`,
+}`
     };
 }

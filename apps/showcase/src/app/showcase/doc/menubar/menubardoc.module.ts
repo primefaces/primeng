@@ -18,19 +18,8 @@ import { ToastModule } from 'primeng/toast';
 import { RouterDoc } from './routerdoc';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        AppCodeModule,
-        RouterModule,
-        Menubar,
-        InputTextModule,
-        AppDocModule,
-        BadgeModule,
-        Ripple,
-        AvatarModule,
-        ToastModule,
-    ],
+    imports: [CommonModule, AppCodeModule, RouterModule, Menubar, InputTextModule, AppDocModule, BadgeModule, Ripple, AvatarModule, ToastModule],
     declarations: [BasicDoc, ImportDoc, StyleDoc, TemplateDoc, CommandDoc, RouterDoc, AccessibilityDoc],
-    exports: [AppDocModule],
+    exports: [AppDocModule]
 })
 export class MenubarDocModule {}

@@ -28,134 +28,125 @@ import { SizesDoc } from '@doc/datepicker/sizesdoc';
 @Component({
     standalone: true,
     imports: [DatePickerDocModule],
-    template: `
-        <app-doc
-            docTitle="Angular DatePicker Component"
-            header="DatePicker"
-            description="DatePicker is an input component to select a date."
-            [docs]="docs"
-            [apiDocs]="['DatePicker']"
-            themeDocs="datepicker"
-        ></app-doc>
-    `,
+    template: ` <app-doc docTitle="Angular DatePicker Component" header="DatePicker" description="DatePicker is an input component to select a date." [docs]="docs" [apiDocs]="['DatePicker']" themeDocs="datepicker"></app-doc> `
 })
 export class DatePickerDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc,
+            component: ImportDoc
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc,
+            component: BasicDoc
         },
         {
             id: 'reactive-forms',
             label: 'Reactive Forms',
-            component: ReactiveFormsDoc,
+            component: ReactiveFormsDoc
         },
         {
             id: 'format',
             label: 'Format',
-            component: FormatDoc,
+            component: FormatDoc
         },
         {
             id: 'locale',
             label: 'Locale',
-            component: LocaleDoc,
+            component: LocaleDoc
         },
         {
             id: 'icon',
             label: 'Icon',
-            component: IconDoc,
+            component: IconDoc
         },
         {
             id: 'minmax',
             label: 'Min / Max',
-            component: MinMaxDoc,
+            component: MinMaxDoc
         },
         {
             id: 'multiple',
             label: 'Multiple',
-            component: MultipleDoc,
+            component: MultipleDoc
         },
         {
             id: 'range',
             label: 'Range',
-            component: RangeDoc,
+            component: RangeDoc
         },
         {
             id: 'buttonbar',
             label: 'Button Bar',
-            component: ButtonBarDoc,
+            component: ButtonBarDoc
         },
         {
             id: 'time',
             label: 'Time',
-            component: TimeDoc,
+            component: TimeDoc
         },
         {
             id: 'monthpicker',
             label: 'Month Picker',
-            component: MonthDoc,
+            component: MonthDoc
         },
         {
             id: 'yearpicker',
             label: 'Year Picker',
-            component: YearDoc,
+            component: YearDoc
         },
         {
             id: 'multiplemonths',
             label: 'Multiple Months',
-            component: MultipleMonthDoc,
+            component: MultipleMonthDoc
         },
         {
             id: 'datetemplate',
             label: 'Date Template',
-            component: DateTemplateDoc,
+            component: DateTemplateDoc
         },
         {
             id: 'inline',
             label: 'Inline',
-            component: InlineDoc,
+            component: InlineDoc
         },
         {
             id: 'floatlabel',
             label: 'Float Label',
-            component: FloatLabelDoc,
+            component: FloatLabelDoc
         },
         {
             id: 'iftalabel',
             label: 'Ifta Label',
-            component: IftaLabelDoc,
+            component: IftaLabelDoc
         },
         {
             id: 'sizes',
             label: 'Sizes',
-            component: SizesDoc,
+            component: SizesDoc
         },
         {
             id: 'filled',
             label: 'Filled',
-            component: FilledDoc,
+            component: FilledDoc
         },
         {
             id: 'invalid',
             label: 'Invalid',
-            component: InvalidDoc,
+            component: InvalidDoc
         },
         {
             id: 'disabled',
             label: 'Disabled',
-            component: DisabledDoc,
+            component: DisabledDoc
         },
 
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc,
-        },
+            component: AccessibilityDoc
+        }
     ];
 }

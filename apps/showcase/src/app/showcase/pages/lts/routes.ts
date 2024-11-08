@@ -3,6 +3,6 @@ import { LTSDemo } from './';
 export default [
     {
         path: '',
-        component: LTSDemo,
-    },
+        component: LTSDemo
+    }
 ];

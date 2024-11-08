@@ -17,10 +17,7 @@ import { Component, Input } from '@angular/core';
                     <tr>
                         <td>onSelect</td>
                         <td>value: Selected value</td>
-                        <td>
-                            Callback to invoke when a date is selected. Note that this event is not called when the value is entered from
-                            the input manually.
-                        </td>
+                        <td>Callback to invoke when a date is selected. Note that this event is not called when the value is entered from the input manually.</td>
                     </tr>
                     <tr>
                         <td>onBlur</td>
@@ -86,7 +83,7 @@ import { Component, Input } from '@angular/core';
                 </tbody>
             </table>
         </div>
-    </section>`,
+    </section>`
 })
 export class EventsDoc {
     @Input() id: string;

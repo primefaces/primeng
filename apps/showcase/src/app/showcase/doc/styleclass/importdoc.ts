@@ -3,10 +3,10 @@ import { Code } from '@domain/code';
 
 @Component({
     selector: 'style-class-import-doc',
-    template: ` <app-code [code]="code" [hideToggleCode]="true"></app-code> `,
+    template: ` <app-code [code]="code" [hideToggleCode]="true"></app-code> `
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { StyleClass } from 'primeng/styleclass';`,
+        typescript: `import { StyleClass } from 'primeng/styleclass';`
     };
 }

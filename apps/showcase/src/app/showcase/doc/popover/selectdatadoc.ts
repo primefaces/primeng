@@ -9,23 +9,14 @@ import { Popover } from 'primeng/popover';
             <p>In this sample, data is retrieved from the content inside the popover.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-button
-                type="button"
-                [label]="selectedMember ? selectedMember.name : 'Select Member'"
-                (onClick)="toggle($event)"
-                styleClass="min-w-48"
-            />
+            <p-button type="button" [label]="selectedMember ? selectedMember.name : 'Select Member'" (onClick)="toggle($event)" styleClass="min-w-48" />
 
             <p-popover #op>
                 <div class="flex flex-col gap-4">
                     <div>
                         <span class="font-medium block mb-2">Team Members</span>
                         <ul class="list-none p-0 m-0 flex flex-col">
-                            <li
-                                *ngFor="let member of members"
-                                class="flex items-center gap-2 px-2 py-3 hover:bg-emphasis cursor-pointer rounded-border"
-                                (click)="selectMember(member)"
-                            >
+                            <li *ngFor="let member of members" class="flex items-center gap-2 px-2 py-3 hover:bg-emphasis cursor-pointer rounded-border" (click)="selectMember(member)">
                                 <img [src]="'https://primefaces.org/cdn/primeng/images/demo/avatar/' + member.image" style="width: 32px" />
                                 <div>
                                     <span class="font-medium">{{ member.name }}</span>
@@ -39,7 +30,7 @@ import { Popover } from 'primeng/popover';
         </div>
 
         <app-code [code]="code" selector="popover-basic-demo"></app-code>
-    `,
+    `
 })
 export class SelectDataDoc {
     @ViewChild('op') op!: Popover;
@@ -49,7 +40,7 @@ export class SelectDataDoc {
     members = [
         { name: 'Amy Elsner', image: 'amyelsner.png', email: 'amy@email.com', role: 'Owner' },
         { name: 'Bernardo Dominic', image: 'bernardodominic.png', email: 'bernardo@email.com', role: 'Editor' },
-        { name: 'Ioni Bowcher', image: 'ionibowcher.png', email: 'ioni@email.com', role: 'Viewer' },
+        { name: 'Ioni Bowcher', image: 'ionibowcher.png', email: 'ioni@email.com', role: 'Viewer' }
     ];
 
     toggle(event) {
@@ -133,6 +124,6 @@ export class PopoverBasicDemo {
         this.selectedMember = member;
         this.op.hide();
     }
-}`,
+}`
     };
 }

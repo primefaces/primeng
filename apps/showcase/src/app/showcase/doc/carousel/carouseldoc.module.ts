@@ -19,6 +19,6 @@ import { AccessibilityDoc } from './accessibilitydoc';
 @NgModule({
     imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, Carousel, Button, ButtonDirective, Tag],
     declarations: [ImportDoc, BasicDoc, CircularDoc, NumScrollDoc, StyleDoc, ResponsiveDoc, TemplateDoc, VerticalDoc, AccessibilityDoc],
-    exports: [AppDocModule],
+    exports: [AppDocModule]
 })
 export class CarouselDocModule {}

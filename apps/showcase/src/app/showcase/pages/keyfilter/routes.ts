@@ -3,6 +3,6 @@ import { KeyFilterDemo } from './';
 export default [
     {
         path: '',
-        component: KeyFilterDemo,
-    },
+        component: KeyFilterDemo
+    }
 ];

@@ -12,38 +12,12 @@ import { AppConfigService } from '@service/appconfigservice';
                 <path d="M38.196 16.2153H1.51099V16.4585H38.196V16.2153Z" [attr.fill]="fillColor" fillOpacity="0.5" />
                 <path d="M38.2203 22.5198H1.46021V22.7647H38.2203V22.5198Z" [attr.fill]="fillColor" fillOpacity="0.5" />
                 <path d="M36.4897 28.7495H3.15845V28.9948H36.4897V28.7495Z" [attr.fill]="fillColor" fillOpacity="0.5" />
-                <path
-                    d="M18.258 0.745136L18.0569 0.625L2.89163 28.5555L3.09275 28.6757L18.258 0.745136Z"
-                    [attr.fill]="fillColor"
-                    fillOpacity="0.5"
-                />
-                <path
-                    d="M24.7927 1.33747L24.5918 1.21704L6.70444 34.051L6.90537 34.1715L24.7927 1.33747Z"
-                    [attr.fill]="fillColor"
-                    fillOpacity="0.5"
-                />
-                <path
-                    d="M30.2568 3.89703L30.0564 3.77563L11.481 37.5142L11.6814 37.6356L30.2568 3.89703Z"
-                    [attr.fill]="fillColor"
-                    fillOpacity="0.5"
-                />
-                <path
-                    d="M34.8568 8.36101L34.6572 8.23804L17.2043 39.3938L17.4039 39.5168L34.8568 8.36101Z"
-                    [attr.fill]="fillColor"
-                    fillOpacity="0.5"
-                />
-                <path
-                    d="M37.8638 15.1027L37.6636 14.981L24.3961 38.994L24.5964 39.1157L37.8638 15.1027Z"
-                    [attr.fill]="fillColor"
-                    fillOpacity="0.5"
-                />
-                <path
-                    fillRule="evenodd"
-                    clipRule="evenodd"
-                    d="M34.9999 7.8125L38.1249 14.375L26.6701 35.1446L9.72192 3.87728L15.3124 0.9375L26.7489 22.6438L34.9999 7.8125Z"
-                    [attr.fill]="fillColor"
-                    fillOpacity="0.87"
-                />
+                <path d="M18.258 0.745136L18.0569 0.625L2.89163 28.5555L3.09275 28.6757L18.258 0.745136Z" [attr.fill]="fillColor" fillOpacity="0.5" />
+                <path d="M24.7927 1.33747L24.5918 1.21704L6.70444 34.051L6.90537 34.1715L24.7927 1.33747Z" [attr.fill]="fillColor" fillOpacity="0.5" />
+                <path d="M30.2568 3.89703L30.0564 3.77563L11.481 37.5142L11.6814 37.6356L30.2568 3.89703Z" [attr.fill]="fillColor" fillOpacity="0.5" />
+                <path d="M34.8568 8.36101L34.6572 8.23804L17.2043 39.3938L17.4039 39.5168L34.8568 8.36101Z" [attr.fill]="fillColor" fillOpacity="0.5" />
+                <path d="M37.8638 15.1027L37.6636 14.981L24.3961 38.994L24.5964 39.1157L37.8638 15.1027Z" [attr.fill]="fillColor" fillOpacity="0.5" />
+                <path fillRule="evenodd" clipRule="evenodd" d="M34.9999 7.8125L38.1249 14.375L26.6701 35.1446L9.72192 3.87728L15.3124 0.9375L26.7489 22.6438L34.9999 7.8125Z" [attr.fill]="fillColor" fillOpacity="0.87" />
                 <path
                     d="M26.6697 35.2349L26.6328 35.1669L9.64893 3.83334L16.5629 3.71368L16.5752 3.73693L26.7493 22.5538L33.6907 10.1564L37.0868 16.3689L37.0745 16.3913L26.6697 35.2349ZM9.79501 3.92071L26.6705 35.0541L36.9879 16.3685L33.6903 10.3359L26.7481 22.7338L26.7116 22.6657L16.5132 3.8045L9.79501 3.92071Z"
                     [attr.fill]="fillColor"
@@ -61,7 +35,7 @@ import { AppConfigService } from '@service/appconfigservice';
                 </clipPath>
             </defs>
         </svg>
-    `,
+    `
 })
 export class VeronaLogo {
     configService = inject(AppConfigService);

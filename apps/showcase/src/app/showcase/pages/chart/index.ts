@@ -21,105 +21,97 @@ import { ChartDocModule } from '@doc/chart/chartdoc.module';
 @Component({
     standalone: true,
     imports: [ChartDocModule],
-    template: `
-        <app-doc
-            docTitle="Angular Chart Component"
-            header="Charts"
-            description="Chart components are based on Charts.js 3.3.2+, an open source HTML5 based charting library."
-            [docs]="docs"
-            [apiDocs]="['Chart']"
-        ></app-doc>
-    `,
+    template: ` <app-doc docTitle="Angular Chart Component" header="Charts" description="Chart components are based on Charts.js 3.3.2+, an open source HTML5 based charting library." [docs]="docs" [apiDocs]="['Chart']"></app-doc> `
 })
 export class ChartDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc,
+            component: ImportDoc
         },
         {
             id: 'chartjs',
             label: 'Chart.js',
-            component: ChartjsDoc,
+            component: ChartjsDoc
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc,
+            component: BasicDoc
         },
         {
             id: 'pie',
             label: 'Pie',
-            component: PieDoc,
+            component: PieDoc
         },
         {
             id: 'doughnut',
             label: 'Doughnut',
-            component: DoughnutDoc,
+            component: DoughnutDoc
         },
         {
             id: 'verticalbar',
             label: 'Vertical Bar',
-            component: VerticalBarDoc,
+            component: VerticalBarDoc
         },
         {
             id: 'horizontalbar',
             label: 'Horizontal Bar',
-            component: HorizontalBarDoc,
+            component: HorizontalBarDoc
         },
         {
             id: 'stackedbar',
             label: 'Stacked Bar',
-            component: StackedBarDoc,
+            component: StackedBarDoc
         },
         {
             id: 'line',
             label: 'Line',
-            component: LineDoc,
+            component: LineDoc
         },
         {
             id: 'multiaxis',
             label: 'MultiAxis',
-            component: MultiAxisDoc,
+            component: MultiAxisDoc
         },
         {
             id: 'linestyles',
             label: 'Line Styles',
-            component: LineStyleDoc,
+            component: LineStyleDoc
         },
         {
             id: 'polararea',
             label: 'Polar Area',
-            component: PolarAreaDoc,
+            component: PolarAreaDoc
         },
         {
             id: 'Radar',
             label: 'Radar',
-            component: RadarDoc,
+            component: RadarDoc
         },
         {
             id: 'combo',
             label: 'Combo',
-            component: ComboDoc,
+            component: ComboDoc
         },
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc,
-        },
+            component: AccessibilityDoc
+        }
     ];
 
     apiDocs = [
         {
             id: 'properties',
             label: 'Properties',
-            component: PropsDoc,
+            component: PropsDoc
         },
         {
             id: 'methods',
             label: 'Methods',
-            component: MethodsDoc,
-        },
+            component: MethodsDoc
+        }
     ];
 }

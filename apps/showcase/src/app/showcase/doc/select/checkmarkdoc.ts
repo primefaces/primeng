@@ -13,18 +13,10 @@ interface City {
             <p>An alternative way to highlight the selected option is displaying a checkmark instead.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-select
-                [options]="cities"
-                [(ngModel)]="selectedCity"
-                [checkmark]="true"
-                optionLabel="name"
-                [showClear]="true"
-                placeholder="Select a City"
-                class="w-full md:w-56"
-            />
+            <p-select [options]="cities" [(ngModel)]="selectedCity" [checkmark]="true" optionLabel="name" [showClear]="true" placeholder="Select a City" class="w-full md:w-56" />
         </div>
         <app-code [code]="code" selector="select-checkmark-demo"></app-code>
-    `,
+    `
 })
 export class CheckmarkDoc implements OnInit {
     cities: City[];
@@ -37,7 +29,7 @@ export class CheckmarkDoc implements OnInit {
             { name: 'Rome', code: 'RM' },
             { name: 'London', code: 'LDN' },
             { name: 'Istanbul', code: 'IST' },
-            { name: 'Paris', code: 'PRS' },
+            { name: 'Paris', code: 'PRS' }
         ];
     }
 
@@ -77,6 +69,6 @@ export class SelectCheckmarkDemo implements OnInit {
             { name: 'Paris', code: 'PRS' }
         ];
     }
-}`,
+}`
     };
 }

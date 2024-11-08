@@ -78,6 +78,6 @@ import { Component } from '@angular/core';
                 </table>
             </div>
         </app-docsectiontext>
-    `,
+    `
 })
 export class ExtensionsDoc {}

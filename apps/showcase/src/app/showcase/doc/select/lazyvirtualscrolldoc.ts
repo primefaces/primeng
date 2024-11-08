@@ -6,18 +6,10 @@ import { Code } from '@domain/code';
     selector: 'select-lazy-virtualscroll-demo',
     template: `
         <div class="card flex justify-center">
-            <p-select
-                [options]="items"
-                [(ngModel)]="selectedItem"
-                placeholder="Select Item"
-                [virtualScroll]="true"
-                [virtualScrollItemSize]="38"
-                [virtualScrollOptions]="options"
-                class="w-full md:w-56"
-            />
+            <p-select [options]="items" [(ngModel)]="selectedItem" placeholder="Select Item" [virtualScroll]="true" [virtualScrollItemSize]="38" [virtualScrollOptions]="options" class="w-full md:w-56" />
         </div>
         <app-code [code]="code" selector="select-lazy-virtualscroll-demo"></app-code>
-    `,
+    `
 })
 export class LazyVirtualScrollDoc {
     items: SelectItem[];
@@ -32,7 +24,7 @@ export class LazyVirtualScrollDoc {
         delay: 250,
         showLoader: true,
         lazy: true,
-        onLazyLoad: this.onLazyLoad.bind(this),
+        onLazyLoad: this.onLazyLoad.bind(this)
     };
 
     constructor() {
@@ -61,7 +53,7 @@ export class LazyVirtualScrollDoc {
                 this.items = items;
                 this.loading = false;
             },
-            Math.random() * 1000 + 250,
+            Math.random() * 1000 + 250
         );
     }
 
@@ -126,6 +118,6 @@ export class SelectLazyVirtualscrollDemo {
         }, Math.random() * 1000 + 250);
     }
 
-}`,
+}`
     };
 }

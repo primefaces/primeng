@@ -12726,5 +12726,5 @@ import { Subject } from 'rxjs';
             this.paymentComplete.next(this.ticketInformation.personalInformation);
         }
     }
-    `,
+    `
 };

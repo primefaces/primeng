@@ -11,7 +11,7 @@ import { Code } from '@domain/code';
             <i class="pi pi-bell !text-3xl" pBadge value="2"></i>
         </div>
         <app-code [code]="code" selector="badge-directive-demo"></app-code>
-    `,
+    `
 })
 export class DirectiveDoc {
     code: Code = {
@@ -28,6 +28,6 @@ import { BadgeModule } from 'primeng/badge';
     standalone: true,
     imports: [BadgeModule]
 })
-export class BadgeDirectiveDemo {}`,
+export class BadgeDirectiveDemo {}`
     };
 }

@@ -23,10 +23,7 @@ import { ProductService } from '@service/productservice';
                 <ng-template #list let-items>
                     <div class="flex flex-col">
                         <div *ngFor="let i of counterArray(6); let first = first">
-                            <div
-                                class="flex flex-col xl:flex-row xl:items-start p-6 gap-6"
-                                [ngClass]="{ 'border-t border-surface-200 dark:border-surface-700': !first }"
-                            >
+                            <div class="flex flex-col xl:flex-row xl:items-start p-6 gap-6" [ngClass]="{ 'border-t border-surface-200 dark:border-surface-700': !first }">
                                 <p-skeleton styleClass="!w-9/12 sm:!w-64 xl:!w-40 !h-24 mx-auto" />
                                 <div class="flex flex-col sm:flex-row justify-between items-center xl:items-start flex-1 gap-6">
                                     <div class="flex flex-col items-center sm:items-start gap-4">
@@ -71,7 +68,7 @@ import { ProductService } from '@service/productservice';
             </p-dataview>
         </div>
         <app-code [code]="code" selector="data-view-loading-demo" [extFiles]="extFiles"></app-code>
-    `,
+    `
 })
 export class LoadingDoc {
     layout: string = 'grid';
@@ -285,7 +282,7 @@ export class DataViewLoadingDemo {
 },
 ...`,
 
-        service: ['ProductService'],
+        service: ['ProductService']
     };
 
     getSeverity(product: Product) {
@@ -327,7 +324,7 @@ export interface Product {
     category?: string;
     image?: string;
     rating?: number;
-}`,
-        },
+}`
+        }
     ];
 }

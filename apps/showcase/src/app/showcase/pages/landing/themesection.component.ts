@@ -22,17 +22,7 @@ import { InputIcon } from 'primeng/inputicon';
             <p class="section-detail">The most complete UI component library for Angular based on a design-agnostic infrastructure.</p>
             <div class="themes-main flex mt-16 justify-center px-8 lg:px-20">
                 <div class="box overflow-hidden z-10 p-8 table-container">
-                    <p-table
-                        #dt
-                        [value]="customers"
-                        [(selection)]="selectedCustomers"
-                        dataKey="id"
-                        [rowHover]="true"
-                        [rows]="5"
-                        [loading]="loading"
-                        [paginator]="true"
-                        [globalFilterFields]="['name', 'country.name', 'representative.name', 'status']"
-                    >
+                    <p-table #dt [value]="customers" [(selection)]="selectedCustomers" dataKey="id" [rowHover]="true" [rows]="5" [loading]="loading" [paginator]="true" [globalFilterFields]="['name', 'country.name', 'representative.name', 'status']">
                         <ng-template #caption>
                             <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center">
                                 <span class="text-xl font-bold">Customers</span>
@@ -40,13 +30,7 @@ import { InputIcon } from 'primeng/inputicon';
                                     <p-inputicon>
                                         <i class="pi pi-search"></i>
                                     </p-inputicon>
-                                    <input
-                                        class="w-full"
-                                        pInputText
-                                        type="text"
-                                        (input)="dt.filterGlobal($event.target.value, 'contains')"
-                                        placeholder="Search"
-                                    />
+                                    <input class="w-full" pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search" />
                                 </p-iconfield>
                             </div>
                         </ng-template>
@@ -109,13 +93,7 @@ import { InputIcon } from 'primeng/inputicon';
                                     {{ customer.name }}
                                 </td>
                                 <td style="width: 14%; min-width: 14rem">
-                                    <img
-                                        src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
-                                        [class]="'flag flag-' + customer.country.code"
-                                        width="30"
-                                        height="20"
-                                        alt="country flag"
-                                    />
+                                    <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" width="30" height="20" alt="country flag" />
                                     <span class="ml-2 image-text">{{ customer.country.name }}</span>
                                 </td>
                                 <td style="width: 14%; min-width: 14rem">
@@ -138,18 +116,10 @@ import { InputIcon } from 'primeng/inputicon';
                                     {{ customer.balance | currency: 'USD' : 'symbol' }}
                                 </td>
                                 <td style="width: 14%; min-width: 10rem">
-                                    <p-tag
-                                        [value]="customer.status"
-                                        [severity]="getSeverity(customer.status)"
-                                        styleClass="text-sm font-bold"
-                                    ></p-tag>
+                                    <p-tag [value]="customer.status" [severity]="getSeverity(customer.status)" styleClass="text-sm font-bold"></p-tag>
                                 </td>
                                 <td style="width: 14%; min-width: 6rem">
-                                    <p-progressbar
-                                        [value]="customer.activity"
-                                        [showValue]="false"
-                                        [style]="{ height: '6px' }"
-                                    ></p-progressbar>
+                                    <p-progressbar [value]="customer.activity" [showValue]="false" [style]="{ height: '6px' }"></p-progressbar>
                                 </td>
                                 <td style="text-align: center">
                                     <button pButton type="button" class="p-button-text p-button-icon-only" icon="pi pi-cog"></button>
@@ -165,14 +135,14 @@ import { InputIcon } from 'primeng/inputicon';
                 </div>
             </div>
         </section>
-    `,
+    `
 })
 export class ThemeSectionComponent {
     constructor(
         @Inject(PLATFORM_ID) private platformId: any,
         private customerService: CustomerService,
         private configService: AppConfigService,
-        public app: AppComponent,
+        public app: AppComponent
     ) {}
 
     @ViewChild('dt') table: Table;

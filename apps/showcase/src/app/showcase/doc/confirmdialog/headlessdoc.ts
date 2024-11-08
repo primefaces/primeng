@@ -29,12 +29,12 @@ import { Code } from '@domain/code';
         </div>
         <app-code [code]="code" selector="confirm-dialog-headless-demo"></app-code>
     `,
-    providers: [ConfirmationService, MessageService],
+    providers: [ConfirmationService, MessageService]
 })
 export class HeadlessDoc {
     constructor(
         private confirmationService: ConfirmationService,
-        private messageService: MessageService,
+        private messageService: MessageService
     ) {}
 
     confirm() {
@@ -46,7 +46,7 @@ export class HeadlessDoc {
             },
             reject: () => {
                 this.messageService.add({ severity: 'info', summary: 'Rejected', detail: 'You have rejected' });
-            },
+            }
         });
     }
 
@@ -121,6 +121,6 @@ export class ConfirmDialogHeadlessDemo {
             },
         });
     }
-}`,
+}`
     };
 }

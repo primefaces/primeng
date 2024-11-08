@@ -28,7 +28,7 @@ import { NodeService } from '@service/nodeservice';
             </p-floatlabel>
         </div>
         <app-code [code]="code" selector="tree-select-floatlabel-demo"></app-code>
-    `,
+    `
 })
 export class FloatLabelDoc {
     nodes!: any[];
@@ -132,6 +132,6 @@ export class TreeSelectFloatlabelDemo {
         }
     ]
 },
-...`,
+...`
     };
 }

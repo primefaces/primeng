@@ -10,8 +10,7 @@ import { AppConfigService } from '@service/appconfigservice';
         <section class="landing-users py-20 px-4 lg:px-20">
             <div class="section-header">Who Uses</div>
             <p class="section-detail">
-                PrimeTek libraries have reached over<span class="font-semibold animated-text relative white-space-nowrap !p-0"
-                    ><span>200 Million Downloads</span></span
+                PrimeTek libraries have reached over<span class="font-semibold animated-text relative white-space-nowrap !p-0"><span>200 Million Downloads</span></span
                 >on npm! Join the PrimeLand community and experience the difference yourself.
             </p>
             <div class="flex justify-center items-center mt-6">
@@ -31,7 +30,7 @@ import { AppConfigService } from '@service/appconfigservice';
                 <div class="fade-right h-24 w-24 block absolute top-0 right-0 z-20"></div>
             </div>
         </section>
-    `,
+    `
 })
 export class UsersSectionComponent {
     constructor(private configService: AppConfigService) {}
@@ -42,7 +41,7 @@ export class UsersSectionComponent {
     ngOnInit() {
         this.users = [
             { slicedUsers: this.usersData.slice(0, 6), reverse: false },
-            { slicedUsers: this.usersData.slice(6), reverse: true },
+            { slicedUsers: this.usersData.slice(6), reverse: true }
         ];
     }
 

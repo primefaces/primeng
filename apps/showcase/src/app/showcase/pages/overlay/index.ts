@@ -25,24 +25,24 @@ import { OverlayDocModule } from '@doc/overlay/overlaydoc.module';
         themeDocs="overlay"
     ></app-doc>`,
     standalone: true,
-    imports: [OverlayDocModule],
+    imports: [OverlayDocModule]
 })
 export class OverlayDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc,
+            component: ImportDoc
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: OverlayBasicDemo,
+            component: OverlayBasicDemo
         },
         {
             id: 'template',
             label: 'Template',
-            component: OverlayTemplateDemo,
+            component: OverlayTemplateDemo
         },
         {
             id: 'options',
@@ -51,59 +51,59 @@ export class OverlayDemo {
                 {
                     id: 'mode',
                     label: 'Mode',
-                    component: ModeDoc,
+                    component: ModeDoc
                 },
                 {
                     id: 'responsive',
                     label: 'Responsive',
-                    component: ResponsiveDoc,
+                    component: ResponsiveDoc
                 },
                 {
                     id: 'append-to',
                     label: 'AppendTo',
-                    component: AppendToDoc,
+                    component: AppendToDoc
                 },
                 {
                     id: 'target',
                     label: 'Target',
-                    component: TargetDoc,
+                    component: TargetDoc
                 },
                 {
                     id: 'style',
                     label: 'Style',
-                    component: StyleDoc,
+                    component: StyleDoc
                 },
                 {
                     id: 'base-z-index',
                     label: 'BaseZIndex',
-                    component: BaseZIndexDoc,
+                    component: BaseZIndexDoc
                 },
                 {
                     id: 'auto-z-index',
                     label: 'AutoZIndex',
-                    component: AutoZIndexDoc,
+                    component: AutoZIndexDoc
                 },
                 {
                     id: 'hide-on-escape',
                     label: 'HideOnEscape',
-                    component: HideOnEscapeDoc,
+                    component: HideOnEscapeDoc
                 },
                 {
                     id: 'transition-options',
                     label: 'ShowTransitionOptions and HideTransitionOptions',
-                    component: TransitionOptionsDoc,
+                    component: TransitionOptionsDoc
                 },
                 {
                     id: 'events',
                     label: 'Events',
-                    component: EventsDoc,
-                },
-            ],
+                    component: EventsDoc
+                }
+            ]
         },
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc,
-        },
+            component: AccessibilityDoc
+        }
     ];
 }

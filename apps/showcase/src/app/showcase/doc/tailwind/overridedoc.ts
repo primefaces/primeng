@@ -5,10 +5,7 @@ import { Code } from '@domain/code';
     selector: 'override-doc',
     template: `
         <app-docsectiontext>
-            <p>
-                In styled mode, Tailwind utilities may not be able to override the default styling due to css specificity, there are two
-                possible solutions.
-            </p>
+            <p>In styled mode, Tailwind utilities may not be able to override the default styling due to css specificity, there are two possible solutions.</p>
             <h3>Important</h3>
             <p>Use the <i>!</i> as a prefix to enforce the styling.</p>
             <app-code [code]="code1" selector="code1" [hideToggleCode]="true" [hideCodeSandbox]="true" [hideStackBlitz]="true"></app-code>
@@ -21,11 +18,11 @@ import { Code } from '@domain/code';
             <app-code [code]="code2" selector="code2" [hideToggleCode]="true" [hideCodeSandbox]="true" [hideStackBlitz]="true"></app-code>
             <app-code [code]="code3" selector="code3" [hideToggleCode]="true" [hideCodeSandbox]="true" [hideStackBlitz]="true"></app-code>
         </app-docsectiontext>
-    `,
+    `
 })
 export class OverrideDoc {
     code1: Code = {
-        basic: `<input type="text" pInputText placeholder="Overriden" class="!p-8" />`,
+        basic: `<input type="text" pInputText placeholder="Overriden" class="!p-8" />`
     };
 
     code2: Code = {
@@ -45,7 +42,7 @@ export class AppComponent() {
             })
         }
     }
-}`,
+}`
     };
     code3: Code = {
         basic: `@layer tailwind-base, primeng, tailwind-utilities;
@@ -57,6 +54,6 @@ export class AppComponent() {
 @layer tailwind-utilities {
 @tailwind components;
 @tailwind utilities;
-}`,
+}`
     };
 }

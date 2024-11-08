@@ -15,84 +15,77 @@ import { TemplateDoc } from '@doc/knob/templatedoc';
 import { KnobDocModule } from '@doc/knob/knobdoc.module';
 
 @Component({
-    template: `<app-doc
-        docTitle="Angular Knob Component"
-        header="Knob"
-        description="Knob is a form component to define number inputs with a dial."
-        [docs]="docs"
-        [apiDocs]="['Knob']"
-        themeDocs="knob"
-    ></app-doc> `,
+    template: `<app-doc docTitle="Angular Knob Component" header="Knob" description="Knob is a form component to define number inputs with a dial." [docs]="docs" [apiDocs]="['Knob']" themeDocs="knob"></app-doc> `,
     standalone: true,
-    imports: [KnobDocModule],
+    imports: [KnobDocModule]
 })
 export class KnobDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc,
+            component: ImportDoc
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc,
+            component: BasicDoc
         },
         {
             id: 'reactive-forms',
             label: 'Reactive Forms',
-            component: ReactiveFormsDoc,
+            component: ReactiveFormsDoc
         },
         {
             id: 'minmax',
             label: 'Min/Max',
-            component: MinMaxDoc,
+            component: MinMaxDoc
         },
         {
             id: 'step',
             label: 'Step',
-            component: StepDoc,
+            component: StepDoc
         },
         {
             id: 'template',
             label: 'Template',
-            component: TemplateDoc,
+            component: TemplateDoc
         },
         {
             id: 'stroke',
             label: 'Stroke',
-            component: StrokeDoc,
+            component: StrokeDoc
         },
         {
             id: 'size',
             label: 'Size',
-            component: SizeDoc,
+            component: SizeDoc
         },
         {
             id: 'color',
             label: 'Color',
-            component: ColorDoc,
+            component: ColorDoc
         },
         {
             id: 'reactive',
             label: 'Reactive',
-            component: ReactiveDoc,
+            component: ReactiveDoc
         },
         {
             id: 'readonly',
             label: 'ReadOnly',
-            component: ReadonlyDoc,
+            component: ReadonlyDoc
         },
         {
             id: 'disabled',
             label: 'Disabled',
-            component: DisabledDoc,
+            component: DisabledDoc
         },
 
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc,
-        },
+            component: AccessibilityDoc
+        }
     ];
 }

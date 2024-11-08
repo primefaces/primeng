@@ -17,7 +17,7 @@ import { AppConfigService } from '@service/appconfigservice';
                 />
             </svg>
         </template-separator>
-    `,
+    `
 })
 export class UltimaSeparator {
     configService = inject(AppConfigService);

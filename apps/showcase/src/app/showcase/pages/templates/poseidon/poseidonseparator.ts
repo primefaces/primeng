@@ -23,7 +23,7 @@ import { AppConfigService } from '@service/appconfigservice';
                 </defs>
             </svg>
         </template-separator>
-    `,
+    `
 })
 export class PoseidonSeparator {
     configService = inject(AppConfigService);

@@ -9,44 +9,35 @@ import { FieldsetDocModule } from '@doc/fieldset/fieldsetdoc.module';
 @Component({
     standalone: true,
     imports: [FieldsetDocModule],
-    template: `
-        <app-doc
-            docTitle="Angular Fieldset Component"
-            header="Fieldset"
-            description="Fieldset is a grouping component with a content toggle feature."
-            [docs]="docs"
-            [apiDocs]="['Fieldset']"
-            themeDocs="fieldset"
-        ></app-doc>
-    `,
+    template: ` <app-doc docTitle="Angular Fieldset Component" header="Fieldset" description="Fieldset is a grouping component with a content toggle feature." [docs]="docs" [apiDocs]="['Fieldset']" themeDocs="fieldset"></app-doc> `
 })
 export class FieldsetDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc,
+            component: ImportDoc
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc,
+            component: BasicDoc
         },
         {
             id: 'toggleable',
             label: 'Toggleable',
-            component: ToggleableDoc,
+            component: ToggleableDoc
         },
         {
             id: 'template',
             label: 'Template',
-            component: TemplateDoc,
+            component: TemplateDoc
         },
 
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc,
-        },
+            component: AccessibilityDoc
+        }
     ];
 }

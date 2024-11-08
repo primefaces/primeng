@@ -13,24 +13,24 @@ import { AnimateOnScrollDocModule } from '@doc/animateonscroll/animateonscrolldo
         [apiDocs]="['AnimateOnScroll']"
     ></app-doc>`,
     imports: [AnimateOnScrollDocModule],
-    standalone: true,
+    standalone: true
 })
 export class AnimateOnScrollDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc,
+            component: ImportDoc
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc,
+            component: BasicDoc
         },
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc,
-        },
+            component: AccessibilityDoc
+        }
     ];
 }

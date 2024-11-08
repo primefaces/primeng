@@ -22,20 +22,6 @@ import { SizesDoc } from './sizesdoc';
 @NgModule({
     imports: [CommonModule, RouterModule, FormsModule, AppCodeModule, AppDocModule, CheckboxModule, ReactiveFormsModule],
     exports: [ImportDoc, AppDocModule],
-    declarations: [
-        ImportDoc,
-        BasicDoc,
-        IndeterminateDoc,
-        MultipleDoc,
-        LabelDoc,
-        DynamicDoc,
-        DisabledDoc,
-        InvalidDoc,
-        StyleDoc,
-        AccessibilityDoc,
-        ReactiveFormsDoc,
-        FilledDoc,
-        SizesDoc,
-    ],
+    declarations: [ImportDoc, BasicDoc, IndeterminateDoc, MultipleDoc, LabelDoc, DynamicDoc, DisabledDoc, InvalidDoc, StyleDoc, AccessibilityDoc, ReactiveFormsDoc, FilledDoc, SizesDoc]
 })
 export class CheckboxDocModule {}

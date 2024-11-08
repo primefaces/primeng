@@ -6,10 +6,7 @@ import { Code } from '@domain/code';
     selector: 'confirm-dialog-basic-demo',
     template: `
         <app-docsectiontext>
-            <p>
-                ConfirmDialog is defined using <i>p-confirmDialog</i> tag and an instance of <i>ConfirmationService</i> is required to
-                display it bycalling confirm method.
-            </p>
+            <p>ConfirmDialog is defined using <i>p-confirmDialog</i> tag and an instance of <i>ConfirmationService</i> is required to display it bycalling confirm method.</p>
         </app-docsectiontext>
         <div class="card flex justify-center gap-2">
             <p-toast />
@@ -19,12 +16,12 @@ import { Code } from '@domain/code';
         </div>
         <app-code [code]="code" selector="confirm-dialog-basic-demo"></app-code>
     `,
-    providers: [ConfirmationService, MessageService],
+    providers: [ConfirmationService, MessageService]
 })
 export class BasicDoc {
     constructor(
         private confirmationService: ConfirmationService,
-        private messageService: MessageService,
+        private messageService: MessageService
     ) {}
 
     confirm1(event: Event) {
@@ -38,10 +35,10 @@ export class BasicDoc {
             rejectButtonProps: {
                 label: 'Cancel',
                 severity: 'secondary',
-                outlined: true,
+                outlined: true
             },
             acceptButtonProps: {
-                label: 'Save',
+                label: 'Save'
             },
             accept: () => {
                 this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted' });
@@ -51,9 +48,9 @@ export class BasicDoc {
                     severity: 'error',
                     summary: 'Rejected',
                     detail: 'You have rejected',
-                    life: 3000,
+                    life: 3000
                 });
-            },
+            }
         });
     }
 
@@ -67,11 +64,11 @@ export class BasicDoc {
             rejectButtonProps: {
                 label: 'Cancel',
                 severity: 'secondary',
-                outlined: true,
+                outlined: true
             },
             acceptButtonProps: {
                 label: 'Delete',
-                severity: 'danger',
+                severity: 'danger'
             },
 
             accept: () => {
@@ -79,7 +76,7 @@ export class BasicDoc {
             },
             reject: () => {
                 this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected' });
-            },
+            }
         });
     }
 
@@ -167,6 +164,6 @@ export class ConfirmDialogBasicDemo {
             },
         });
     }
-}`,
+}`
     };
 }

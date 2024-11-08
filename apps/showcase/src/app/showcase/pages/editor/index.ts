@@ -11,54 +11,45 @@ import { EditorDocModule } from '@doc/editor/editordoc.module';
 @Component({
     standalone: true,
     imports: [EditorDocModule],
-    template: `
-        <app-doc
-            docTitle="Angular Editor Component"
-            header="Editor"
-            description="Editor is rich text editor component based on Quill."
-            [docs]="docs"
-            [apiDocs]="['Editor']"
-            themeDocs="editor"
-        ></app-doc>
-    `,
+    template: ` <app-doc docTitle="Angular Editor Component" header="Editor" description="Editor is rich text editor component based on Quill." [docs]="docs" [apiDocs]="['Editor']" themeDocs="editor"></app-doc> `
 })
 export class EditorDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc,
+            component: ImportDoc
         },
         {
             id: 'quill',
             label: 'Quill',
-            component: QuillDoc,
+            component: QuillDoc
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc,
+            component: BasicDoc
         },
         {
             id: 'reactive-forms',
             label: 'Reactive Forms',
-            component: ReactiveFormsDoc,
+            component: ReactiveFormsDoc
         },
         {
             id: 'readonly',
             label: 'ReadOnly',
-            component: ReadOnlyDoc,
+            component: ReadOnlyDoc
         },
         {
             id: 'template',
             label: 'Template',
-            component: CustomToolbarDoc,
+            component: CustomToolbarDoc
         },
 
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc,
-        },
+            component: AccessibilityDoc
+        }
     ];
 }

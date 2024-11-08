@@ -5,10 +5,7 @@ import { Code } from '@domain/code';
     selector: 'badge-size-demo',
     template: `
         <app-docsectiontext>
-            <p>
-                Badge sizes are adjusted with the <i>badgeSize</i> property that accepts <i>small</i>, <i>large</i> and <i>xlarge</i> as the
-                possible alternatives to the default size. Currently sizes only apply to component mode.
-            </p>
+            <p>Badge sizes are adjusted with the <i>badgeSize</i> property that accepts <i>small</i>, <i>large</i> and <i>xlarge</i> as the possible alternatives to the default size. Currently sizes only apply to component mode.</p>
         </app-docsectiontext>
         <div class="card flex justify-center gap-1 items-end">
             <p-badge value="8" badgeSize="xlarge" severity="success" />
@@ -17,7 +14,7 @@ import { Code } from '@domain/code';
             <p-badge value="2" badgeSize="small" />
         </div>
         <app-code [code]="code" selector="badge-size-demo"></app-code>
-    `,
+    `
 })
 export class SizeDoc {
     code: Code = {
@@ -37,6 +34,6 @@ import { BadgeModule } from 'primeng/badge';
     standalone: true,
     imports: [BadgeModule]
 })
-export class BadgeSizeDemo {}`,
+export class BadgeSizeDemo {}`
     };
 }

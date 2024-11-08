@@ -50,7 +50,7 @@ import { Code } from '@domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="skeleton-list-demo"></app-code>
-    `,
+    `
 })
 export class ListDoc {
     code: Code = {
@@ -145,6 +145,6 @@ import { Skeleton } from 'primeng/skeleton';
     standalone: true,
     imports: [Skeleton]
 })
-export class SkeletonListDemo {}`,
+export class SkeletonListDemo {}`
     };
 }

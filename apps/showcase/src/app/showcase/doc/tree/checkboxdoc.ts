@@ -13,7 +13,7 @@ import { NodeService } from '@service/nodeservice';
             <p-tree [value]="files" selectionMode="checkbox" styleClass="w-full md:w-[30rem]" [(selection)]="selectedFiles" />
         </div>
         <app-code [code]="code" selector="tree-checkbox-demo"></app-code>
-    `,
+    `
 })
 export class CheckboxDoc implements OnInit {
     files!: TreeNode[];
@@ -86,6 +86,6 @@ export class TreeCheckboxDemo implements OnInit {
         }
     ]
 },
-...`,
+...`
     };
 }

@@ -11,7 +11,7 @@ import { Code } from '@domain/code';
             <p-knob [(ngModel)]="value" [min]="-50" [max]="50" />
         </div>
         <app-code [code]="code" selector="knob-min-max-demo"></app-code>
-    `,
+    `
 })
 export class MinMaxDoc {
     value: number = 10;
@@ -35,6 +35,6 @@ import { Knob } from 'primeng/knob';
 })
 export class KnobMinMaxDemo {
     value: number = 10;
-}`,
+}`
     };
 }

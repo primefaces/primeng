@@ -10,19 +10,18 @@ import { ProductListDemo } from './productlistdemo';
     template: `
         <app-docsectiontext>
             <p>
-                Most of the time, requirement is returning a value from the dialog. DialogRef's close method is used for this purpose where
-                the parameter passed will be available at the <i>onClose</i> event at the caller. Here is an example on how to close the
-                dialog from the ProductListDemo by passing a selected product.
+                Most of the time, requirement is returning a value from the dialog. DialogRef's close method is used for this purpose where the parameter passed will be available at the <i>onClose</i> event at the caller. Here is an example on how to
+                close the dialog from the ProductListDemo by passing a selected product.
             </p>
         </app-docsectiontext>
         <app-code [code]="code" [hideToggleCode]="true"></app-code>
     `,
-    providers: [DialogService, MessageService],
+    providers: [DialogService, MessageService]
 })
 export class CloseDoc {
     constructor(
         public dialogService: DialogService,
-        public messageService: MessageService,
+        public messageService: MessageService
     ) {}
 
     ref: DynamicDialogRef | undefined;
@@ -33,7 +32,7 @@ export class CloseDoc {
             width: '70%',
             contentStyle: { overflow: 'auto' },
             baseZIndex: 10000,
-            maximizable: true,
+            maximizable: true
         });
 
         this.ref.onClose.subscribe((product: Product) => {
@@ -76,6 +75,6 @@ export class DynamicDialogDemo {
             }
         });
     }
-}`,
+}`
     };
 }

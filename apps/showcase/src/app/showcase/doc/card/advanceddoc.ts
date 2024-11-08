@@ -15,8 +15,8 @@ import { Code } from '@domain/code';
                 <ng-template pTemplate="title"> Advanced Card </ng-template>
                 <ng-template pTemplate="subtitle"> Card subtitle </ng-template>
                 <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt
-                    quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque
+                    quas!
                 </p>
                 <ng-template pTemplate="footer">
                     <div class="flex gap-4 mt-1">
@@ -27,7 +27,7 @@ import { Code } from '@domain/code';
             </p-card>
         </div>
         <app-code [code]="code" selector="card-advanced-demo"></app-code>
-    `,
+    `
 })
 export class AdvancedDoc {
     code: Code = {
@@ -79,6 +79,6 @@ import { ButtonModule } from 'primeng/button';
     standalone: true,
     imports: [CardModule, ButtonModule]
 })
-export class CardAdvancedDemo {}`,
+export class CardAdvancedDemo {}`
     };
 }

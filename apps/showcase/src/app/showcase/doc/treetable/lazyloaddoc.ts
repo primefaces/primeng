@@ -13,19 +13,14 @@ interface Column {
     template: `
         <app-docsectiontext>
             <p>
-                Lazy mode is handy to deal with large datasets, instead of loading the entire data, small chunks of data is loaded by
-                invoking corresponding callbacks everytime <i>paging</i>, <i>sorting</i> and <i>filtering</i> occurs. Sample below imitates
-                lazy loading data from a remote datasource using an in-memory list and timeouts to mimic network connection.
+                Lazy mode is handy to deal with large datasets, instead of loading the entire data, small chunks of data is loaded by invoking corresponding callbacks everytime <i>paging</i>, <i>sorting</i> and <i>filtering</i> occurs. Sample below
+                imitates lazy loading data from a remote datasource using an in-memory list and timeouts to mimic network connection.
             </p>
             <p>
-                Enabling the <i>lazy</i> property and assigning the logical number of rows to <i>totalRecords</i> by doing a projection
-                query are the key elements of the implementation so that paginator displays the UI assuming there are actually records of
-                totalRecords size although in reality they are not present on page, only the records that are displayed on the current page
-                exist.
+                Enabling the <i>lazy</i> property and assigning the logical number of rows to <i>totalRecords</i> by doing a projection query are the key elements of the implementation so that paginator displays the UI assuming there are actually
+                records of totalRecords size although in reality they are not present on page, only the records that are displayed on the current page exist.
             </p>
-            <p>
-                In addition, only the root elements should be loaded, children can be loaded on demand using <i>onNodeExpand</i> callback.
-            </p>
+            <p>In addition, only the root elements should be loaded, children can be loaded on demand using <i>onNodeExpand</i> callback.</p>
         </app-docsectiontext>
         <div class="card">
             <p-treetable
@@ -60,7 +55,7 @@ interface Column {
         </div>
         <app-code [code]="code" selector="tree-table-lazy-load-demo"></app-code>
     `,
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LazyLoadDoc implements OnInit {
     files!: TreeNode[];
@@ -73,14 +68,14 @@ export class LazyLoadDoc implements OnInit {
 
     constructor(
         private nodeService: NodeService,
-        private cd: ChangeDetectorRef,
+        private cd: ChangeDetectorRef
     ) {}
 
     ngOnInit() {
         this.cols = [
             { field: 'name', header: 'Name' },
             { field: 'size', header: 'Size' },
-            { field: 'type', header: 'Type' },
+            { field: 'type', header: 'Type' }
         ];
 
         this.totalRecords = 1000;
@@ -99,9 +94,9 @@ export class LazyLoadDoc implements OnInit {
                     data: {
                         name: 'Item ' + (event.first + i),
                         size: Math.floor(Math.random() * 1000) + 1 + 'kb',
-                        type: 'Type ' + (event.first + i),
+                        type: 'Type ' + (event.first + i)
                     },
-                    leaf: false,
+                    leaf: false
                 };
 
                 this.files.push(node);
@@ -123,16 +118,16 @@ export class LazyLoadDoc implements OnInit {
                     data: {
                         name: node.data.name + ' - 0',
                         size: Math.floor(Math.random() * 1000) + 1 + 'kb',
-                        type: 'File',
-                    },
+                        type: 'File'
+                    }
                 },
                 {
                     data: {
                         name: node.data.name + ' - 1',
                         size: Math.floor(Math.random() * 1000) + 1 + 'kb',
-                        type: 'File',
-                    },
-                },
+                        type: 'File'
+                    }
+                }
             ];
 
             this.files = [...this.files];
@@ -293,6 +288,6 @@ export class TreeTableLazyLoadDemo implements OnInit{
     }
 }`,
 
-        service: ['NodeService'],
+        service: ['NodeService']
     };
 }

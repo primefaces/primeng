@@ -27,7 +27,7 @@ import { Code } from '@domain/code';
             </p-floatlabel>
         </div>
         <app-code [code]="code" selector="input-textarea-floatlabel-demo"></app-code>
-    `,
+    `
 })
 export class FloatlabelDoc {
     value1: string = '';
@@ -86,6 +86,6 @@ export class TextareaFloatlabelDemo {
     value2: string = '';
 
     value3: string = '';
-}`,
+}`
     };
 }

@@ -26,7 +26,7 @@ import { Code } from '@domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="checkbox-multiple-demo"></app-code>
-    `,
+    `
 })
 export class MultipleDoc {
     pizza: string[] = [];
@@ -80,6 +80,6 @@ import { Checkbox } from 'primeng/checkbox';
 })
 export class CheckboxMultipleDemo {
     pizza: string[] = [];
-}`,
+}`
     };
 }

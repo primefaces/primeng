@@ -8,8 +8,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>
                 Toast styling can be adjusted per screen size with the <i>breakpoints</i> option. The value of <i>breakpoints</i>
-                should be an object literal whose keys are the maximum screen sizes and values are the styles per screen. In example below,
-                width of the toast messages cover the whole page on screens whose widths is smaller than 921px.
+                should be an object literal whose keys are the maximum screen sizes and values are the styles per screen. In example below, width of the toast messages cover the whole page on screens whose widths is smaller than 921px.
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
@@ -18,7 +17,7 @@ import { Code } from '@domain/code';
         </div>
         <app-code [code]="code" selector="toast-responsive-demo"></app-code>
     `,
-    providers: [MessageService],
+    providers: [MessageService]
 })
 export class ResponsiveDoc {
     constructor(private messageService: MessageService) {}
@@ -53,6 +52,6 @@ export class ToastResponsiveDemo {
     show() {
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Message Content' });
     }
-}`,
+}`
     };
 }

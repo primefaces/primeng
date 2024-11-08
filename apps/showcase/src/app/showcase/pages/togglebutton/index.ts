@@ -10,58 +10,51 @@ import { InvalidDoc } from '@doc/togglebutton/invaliddoc';
 import { SizesDoc } from '@doc/togglebutton/sizesdoc';
 
 @Component({
-    template: `<app-doc
-        docTitle="Angular ToggleButton Component"
-        header="ToggleButton"
-        description="ToggleButton is used to select a boolean value using a button."
-        [docs]="docs"
-        [apiDocs]="['ToggleButton']"
-        themeDocs="togglebutton"
-    ></app-doc>`,
+    template: `<app-doc docTitle="Angular ToggleButton Component" header="ToggleButton" description="ToggleButton is used to select a boolean value using a button." [docs]="docs" [apiDocs]="['ToggleButton']" themeDocs="togglebutton"></app-doc>`,
     standalone: true,
-    imports: [ToggleButtonDocModule],
+    imports: [ToggleButtonDocModule]
 })
 export class ToggleButtonDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc,
+            component: ImportDoc
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc,
+            component: BasicDoc
         },
         {
             id: 'reactive-forms',
             label: 'Reactive Forms',
-            component: ReactiveFormsDoc,
+            component: ReactiveFormsDoc
         },
         {
             id: 'customized',
             label: 'Customized',
-            component: CustomizedDoc,
+            component: CustomizedDoc
         },
         {
             id: 'sizes',
             label: 'Sizes',
-            component: SizesDoc,
+            component: SizesDoc
         },
         {
             id: 'invalid',
             label: 'Invalid',
-            component: InvalidDoc,
+            component: InvalidDoc
         },
         {
             id: 'disabled',
             label: 'Disabled',
-            component: DisabledDoc,
+            component: DisabledDoc
         },
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc,
-        },
+            component: AccessibilityDoc
+        }
     ];
 }

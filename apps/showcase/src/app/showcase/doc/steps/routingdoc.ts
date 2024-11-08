@@ -17,7 +17,7 @@ import { TicketService } from '@service/ticketservice';
         <router-outlet></router-outlet>
         <app-code [code]="code" selector="steps-routing-demo" [routeFiles]="routeFiles"></app-code>
     `,
-    providers: [MessageService],
+    providers: [MessageService]
 })
 export class RoutingDoc implements OnInit {
     items: MenuItem[];
@@ -26,34 +26,34 @@ export class RoutingDoc implements OnInit {
 
     constructor(
         public messageService: MessageService,
-        public ticketService: TicketService,
+        public ticketService: TicketService
     ) {}
 
     ngOnInit() {
         this.items = [
             {
                 label: 'Personal',
-                routerLink: '',
+                routerLink: ''
             },
             {
                 label: 'Seat',
-                routerLink: 'seat',
+                routerLink: 'seat'
             },
             {
                 label: 'Payment',
-                routerLink: 'payment',
+                routerLink: 'payment'
             },
             {
                 label: 'Confirmation',
-                routerLink: 'confirmation',
-            },
+                routerLink: 'confirmation'
+            }
         ];
 
         this.subscription = this.ticketService.paymentComplete$.subscribe((personalInformation) => {
             this.messageService.add({
                 severity: 'success',
                 summary: 'Order submitted',
-                detail: 'Dear, ' + personalInformation.firstname + ' ' + personalInformation.lastname + ' your order completed.',
+                detail: 'Dear, ' + personalInformation.firstname + ' ' + personalInformation.lastname + ' your order completed.'
             });
         });
     }
@@ -142,7 +142,7 @@ export class StepsRoutingDemo implements OnInit {
             ]
         }
     ])`,
-        service: ['TicketService'],
+        service: ['TicketService']
     };
 
     routeFiles = [
@@ -210,7 +210,7 @@ export class PaymentDemo implements OnInit {
     prevPage() {
         this.router.navigate(['steps/seat']);
     }
-}`,
+}`
         },
         {
             path: 'src/app/demo/personaldemo.ts',
@@ -282,7 +282,7 @@ export class PersonalDemo implements OnInit {
 
         this.submitted = true;
     }
-}`,
+}`
         },
         {
             path: 'src/app/demo/seatdemo.ts',
@@ -371,7 +371,7 @@ export class SeatDemo implements OnInit {
     prevPage() {
         this.router.navigate(['steps/personal']);
     }
-}`,
+}`
         },
         {
             path: 'src/app/demo/confirmationdemo.ts',
@@ -450,7 +450,7 @@ export class ConfirmationDemo implements OnInit {
     prevPage() {
         this.router.navigate(['steps/payment']);
     }
-}`,
-        },
+}`
+        }
     ];
 }

@@ -5,6 +5,6 @@ import { AppDocSectionTextComponent } from '@layout/doc/app.docsectiontext.compo
     selector: 'base-zindex-doc',
     template: ` <app-docsectiontext>
         <p>The <i>baseZIndex</i> is base zIndex value to use in layering. Its default value is 0.</p>
-    </app-docsectiontext>`,
+    </app-docsectiontext>`
 })
 export class BaseZIndexDoc {}

@@ -16,7 +16,7 @@ import { Code } from '@domain/code';
             <p-message severity="contrast" variant="outlined">Contrast Message</p-message>
         </div>
         <app-code [code]="code" selector="message-outlined-demo"></app-code>
-    `,
+    `
 })
 export class OutlinedDoc {
     code: Code = {
@@ -45,6 +45,6 @@ import { Message } from 'primeng/message';
     standalone: true,
     imports: [Message]
 })
-export class MessageOutlinedDemo {}`,
+export class MessageOutlinedDemo {}`
     };
 }

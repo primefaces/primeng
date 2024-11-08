@@ -11,6 +11,6 @@ import { SVGDoc } from './svgdoc';
 @NgModule({
     imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule],
     declarations: [FontAwesomeDoc, MaterialDoc, SVGDoc, ImageDoc],
-    exports: [AppDocModule],
+    exports: [AppDocModule]
 })
 export class CustomIconsDocModule {}

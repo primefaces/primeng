@@ -26,35 +26,9 @@ import { ControlledDoc } from './controlleddoc';
 import { RouterModule } from '@angular/router';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        AppCodeModule,
-        StepsModule,
-        ToastModule,
-        AppDocModule,
-        FormsModule,
-        DropdownModule,
-        InputTextModule,
-        InputMask,
-        Checkbox,
-        CardModule,
-        ButtonModule,
-        RouterModule,
-    ],
-    declarations: [
-        BasicDoc,
-        ImportDoc,
-        StyleDoc,
-        InteractiveDoc,
-        ConfirmationDemo,
-        PaymentDemo,
-        PersonalDemo,
-        SeatDemo,
-        RoutingDoc,
-        ControlledDoc,
-        AccessibilityDoc,
-    ],
+    imports: [CommonModule, AppCodeModule, StepsModule, ToastModule, AppDocModule, FormsModule, DropdownModule, InputTextModule, InputMask, Checkbox, CardModule, ButtonModule, RouterModule],
+    declarations: [BasicDoc, ImportDoc, StyleDoc, InteractiveDoc, ConfirmationDemo, PaymentDemo, PersonalDemo, SeatDemo, RoutingDoc, ControlledDoc, AccessibilityDoc],
     exports: [AppDocModule],
-    providers: [TicketService],
+    providers: [TicketService]
 })
 export class StepsDocModule {}

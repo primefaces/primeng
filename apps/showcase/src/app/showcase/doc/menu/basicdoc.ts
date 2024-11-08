@@ -12,7 +12,7 @@ import { Code } from '@domain/code';
             <p-menu [model]="items" />
         </div>
         <app-code [code]="code" selector="menu-basic-demo"></app-code>
-    `,
+    `
 })
 export class BasicDoc implements OnInit {
     items: MenuItem[] | undefined;
@@ -20,7 +20,7 @@ export class BasicDoc implements OnInit {
     ngOnInit() {
         this.items = [
             { label: 'New', icon: 'pi pi-plus' },
-            { label: 'Search', icon: 'pi pi-search' },
+            { label: 'Search', icon: 'pi pi-search' }
         ];
     }
 
@@ -50,6 +50,6 @@ export class MenuBasicDemo implements OnInit {
             { label: 'Search', icon: 'pi pi-search' }
         ];
     }
-}`,
+}`
     };
 }

@@ -24,34 +24,8 @@ import { IftaLabelModule } from 'primeng/iftalabel';
 import { RouterModule } from '@angular/router';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        AppCodeModule,
-        InputTextModule,
-        FormsModule,
-        ReactiveFormsModule,
-        AppDocModule,
-        KeyFilterModule,
-        FloatLabelModule,
-        IftaLabelModule,
-        RouterModule,
-    ],
-    declarations: [
-        BasicDoc,
-        DisabledDoc,
-        FloatLabelDoc,
-        IftaLabelDoc,
-        HelpTextDoc,
-        IconsDoc,
-        InvalidDoc,
-        KeyFilterDoc,
-        SizesDoc,
-        ImportDoc,
-        StyleDoc,
-        AccessibilityDoc,
-        ReactiveFormsDoc,
-        FilledDoc,
-    ],
-    exports: [AppDocModule],
+    imports: [CommonModule, AppCodeModule, InputTextModule, FormsModule, ReactiveFormsModule, AppDocModule, KeyFilterModule, FloatLabelModule, IftaLabelModule, RouterModule],
+    declarations: [BasicDoc, DisabledDoc, FloatLabelDoc, IftaLabelDoc, HelpTextDoc, IconsDoc, InvalidDoc, KeyFilterDoc, SizesDoc, ImportDoc, StyleDoc, AccessibilityDoc, ReactiveFormsDoc, FilledDoc],
+    exports: [AppDocModule]
 })
 export class InputtextDocModule {}

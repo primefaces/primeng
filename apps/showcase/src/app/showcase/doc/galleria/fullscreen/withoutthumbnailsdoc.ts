@@ -27,7 +27,7 @@ import { PhotoService } from '@service/photoservice';
             </p-galleria>
         </div>
         <app-code [code]="code" selector="galleria-full-screen-without-thumbnails-demo"></app-code>
-    `,
+    `
 })
 export class WithoutThumbnailsDoc implements OnInit {
     displayBasic: boolean | undefined;
@@ -37,20 +37,20 @@ export class WithoutThumbnailsDoc implements OnInit {
     responsiveOptions: any[] = [
         {
             breakpoint: '1500px',
-            numVisible: 5,
+            numVisible: 5
         },
         {
             breakpoint: '1024px',
-            numVisible: 3,
+            numVisible: 3
         },
         {
             breakpoint: '768px',
-            numVisible: 2,
+            numVisible: 2
         },
         {
             breakpoint: '560px',
-            numVisible: 1,
-        },
+            numVisible: 1
+        }
     ];
 
     constructor(private photoService: PhotoService) {}
@@ -126,6 +126,6 @@ export class GalleriaFullScreenWithoutThumbnailsDemo implements OnInit {
     title: 'Title 1'
 },
 ...`,
-        service: ['PhotoService'],
+        service: ['PhotoService']
     };
 }

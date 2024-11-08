@@ -7,8 +7,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <h3>Screen Reader</h3>
             <p>
-                Knob element component uses <i>slider</i> role in addition to the <i>aria-valuemin</i>, <i>aria-valuemax</i> and
-                <i>aria-valuenow</i> attributes. Value to describe the component can be defined using <i>ariaLabelledBy</i> and
+                Knob element component uses <i>slider</i> role in addition to the <i>aria-valuemin</i>, <i>aria-valuemax</i> and <i>aria-valuenow</i> attributes. Value to describe the component can be defined using <i>ariaLabelledBy</i> and
                 <i>ariaLabel</i> props.
             </p>
         </app-docsectiontext>
@@ -76,13 +75,13 @@ import { Code } from '@domain/code';
                 </tbody>
             </table>
         </div>
-    </div>`,
+    </div>`
 })
 export class AccessibilityDoc {
     code: Code = {
         basic: `<span id="label_number">Number</span>
 <p-knob ariaLabelledBy="label_number"/>
 
-<p-knob ariaLabel="Number"/>`,
+<p-knob ariaLabel="Number"/>`
     };
 }

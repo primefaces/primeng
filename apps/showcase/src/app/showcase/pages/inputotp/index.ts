@@ -12,59 +12,50 @@ import { SizesDoc } from '@doc/inputotp/sizesdoc';
 @Component({
     standalone: true,
     imports: [InputOtpDocModule],
-    template: `
-        <app-doc
-            docTitle="Angular Otp Input Component"
-            header="InputOtp"
-            description="Input Otp is used to enter one time passwords."
-            [docs]="docs"
-            [apiDocs]="['InputOtp']"
-            themeDocs="inputotp"
-        ></app-doc>
-    `,
-    encapsulation: ViewEncapsulation.None,
+    template: ` <app-doc docTitle="Angular Otp Input Component" header="InputOtp" description="Input Otp is used to enter one time passwords." [docs]="docs" [apiDocs]="['InputOtp']" themeDocs="inputotp"></app-doc> `,
+    encapsulation: ViewEncapsulation.None
 })
 export class InputOtpDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc,
+            component: ImportDoc
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc,
+            component: BasicDoc
         },
         {
             id: 'mask',
             label: 'Mask',
-            component: MaskDoc,
+            component: MaskDoc
         },
         {
             id: 'integeronly',
             label: 'Integer Only',
-            component: IntegerOnlyDoc,
+            component: IntegerOnlyDoc
         },
         {
             id: 'sizes',
             label: 'Sizes',
-            component: SizesDoc,
+            component: SizesDoc
         },
         {
             id: 'template',
             label: 'Template',
-            component: TemplateDoc,
+            component: TemplateDoc
         },
         {
             id: 'sample',
             label: 'Sample',
-            component: SampleDoc,
+            component: SampleDoc
         },
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc,
-        },
+            component: AccessibilityDoc
+        }
     ];
 }

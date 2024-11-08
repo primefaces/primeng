@@ -9,42 +9,34 @@ import { InvalidDoc } from '@doc/floatlabel/invaliddoc';
 @Component({
     standalone: true,
     imports: [FloatLabelDocModule],
-    template: `
-        <app-doc
-            docTitle="Angular Float Label Component"
-            header="FloatLabel"
-            description="FloatLabel appears on top of the input field when focused."
-            [docs]="docs"
-            themeDocs="floatlabel"
-        ></app-doc>
-    `,
+    template: ` <app-doc docTitle="Angular Float Label Component" header="FloatLabel" description="FloatLabel appears on top of the input field when focused." [docs]="docs" themeDocs="floatlabel"></app-doc> `
 })
 export class FloatLabelDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc,
+            component: ImportDoc
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc,
+            component: BasicDoc
         },
         {
             id: 'variants',
             label: 'Variants',
-            component: VariantsDoc,
+            component: VariantsDoc
         },
         {
             id: 'invalid',
             label: 'Invalid',
-            component: InvalidDoc,
+            component: InvalidDoc
         },
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc,
-        },
+            component: AccessibilityDoc
+        }
     ];
 }

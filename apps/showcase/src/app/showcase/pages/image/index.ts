@@ -7,43 +7,36 @@ import { TemplateDoc } from '@doc/Image/templatedoc';
 import { ImageDocModule } from '@doc/Image/imagedoc.module';
 
 @Component({
-    template: `<app-doc
-        docTitle="Angular Image Component"
-        header="Image"
-        description="Displays an image with preview and tranformation options."
-        [docs]="docs"
-        [apiDocs]="['Image']"
-        themeDocs="image"
-    ></app-doc> `,
+    template: `<app-doc docTitle="Angular Image Component" header="Image" description="Displays an image with preview and tranformation options." [docs]="docs" [apiDocs]="['Image']" themeDocs="image"></app-doc> `,
     standalone: true,
-    imports: [ImageDocModule],
+    imports: [ImageDocModule]
 })
 export class ImageDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc,
+            component: ImportDoc
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc,
+            component: BasicDoc
         },
         {
             id: 'preview',
             label: 'Preview',
-            component: PreviewDoc,
+            component: PreviewDoc
         },
         {
             id: 'template',
             label: 'Template',
-            component: TemplateDoc,
+            component: TemplateDoc
         },
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc,
-        },
+            component: AccessibilityDoc
+        }
     ];
 }

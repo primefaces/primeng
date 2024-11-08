@@ -7,116 +7,53 @@ import { MessageService, PrimeNGConfig } from 'primeng/api';
     template: `
         <app-docsectiontext>
             <p>
-                Uploader UI is customizable using a ng-template called <i>file</i> that gets the
-                <a href="https://www.w3.org/TR/FileAPI/">File</a> instance as the implicit variable. Second ng-template named
-                <i>content</i> can be used to place custom content inside the content section which would be useful to implement a user
-                interface to manage the uploaded files such as removing them. This template gets the selected files as the implicit
-                variable. Third and final ng-template option is <i>toolbar</i> to display custom content at toolbar.
+                Uploader UI is customizable using a ng-template called <i>file</i> that gets the <a href="https://www.w3.org/TR/FileAPI/">File</a> instance as the implicit variable. Second ng-template named <i>content</i> can be used to place custom
+                content inside the content section which would be useful to implement a user interface to manage the uploaded files such as removing them. This template gets the selected files as the implicit variable. Third and final ng-template
+                option is <i>toolbar</i> to display custom content at toolbar.
             </p></app-docsectiontext
         >
         <div class="card">
             <p-toast />
-            <p-fileupload
-                name="myfile[]"
-                url="https://www.primefaces.org/cdn/api/upload.php"
-                [multiple]="true"
-                accept="image/*"
-                maxFileSize="1000000"
-                (onUpload)="onTemplatedUpload()"
-                (onSelect)="onSelectedFiles($event)"
-            >
-                <ng-template
-                    #header
-                    let-files
-                    let-chooseCallback="chooseCallback"
-                    let-clearCallback="clearCallback"
-                    let-uploadCallback="uploadCallback"
-                >
+            <p-fileupload name="myfile[]" url="https://www.primefaces.org/cdn/api/upload.php" [multiple]="true" accept="image/*" maxFileSize="1000000" (onUpload)="onTemplatedUpload()" (onSelect)="onSelectedFiles($event)">
+                <ng-template #header let-files let-chooseCallback="chooseCallback" let-clearCallback="clearCallback" let-uploadCallback="uploadCallback">
                     <div class="flex flex-wrap justify-between items-center flex-1 gap-4">
                         <div class="flex gap-2">
                             <p-button (onClick)="choose($event, chooseCallback)" icon="pi pi-images" [rounded]="true" [outlined]="true" />
-                            <p-button
-                                (onClick)="uploadEvent(uploadCallback)"
-                                icon="pi pi-cloud-upload"
-                                [rounded]="true"
-                                [outlined]="true"
-                                severity="success"
-                                [disabled]="!files || files.length === 0"
-                            />
-                            <p-button
-                                (onClick)="clearCallback()"
-                                icon="pi pi-times"
-                                [rounded]="true"
-                                [outlined]="true"
-                                severity="danger"
-                                [disabled]="!files || files.length === 0"
-                            />
+                            <p-button (onClick)="uploadEvent(uploadCallback)" icon="pi pi-cloud-upload" [rounded]="true" [outlined]="true" severity="success" [disabled]="!files || files.length === 0" />
+                            <p-button (onClick)="clearCallback()" icon="pi pi-times" [rounded]="true" [outlined]="true" severity="danger" [disabled]="!files || files.length === 0" />
                         </div>
-                        <p-progressbar
-                            [value]="totalSizePercent"
-                            [showValue]="false"
-                            class="w-full"
-                            styleClass="md:w-20rem h-1 w-full md:ml-auto"
-                        >
+                        <p-progressbar [value]="totalSizePercent" [showValue]="false" class="w-full" styleClass="md:w-20rem h-1 w-full md:ml-auto">
                             <span class="whitespace-nowrap">{{ totalSize }}B / 1Mb</span>
                         </p-progressbar>
                     </div>
                 </ng-template>
-                <ng-template
-                    #content
-                    let-files
-                    let-uploadedFiles="uploadedFiles"
-                    let-removeFileCallback="removeFileCallback"
-                    let-removeUploadedFileCallback="removeUploadedFileCallback"
-                >
+                <ng-template #content let-files let-uploadedFiles="uploadedFiles" let-removeFileCallback="removeFileCallback" let-removeUploadedFileCallback="removeUploadedFileCallback">
                     <div class="flex flex-col gap-8 pt-4">
                         <div *ngIf="files?.length > 0">
                             <h5>Pending</h5>
                             <div class="flex flex-wrap gap-4">
-                                <div
-                                    *ngFor="let file of files; let i = index"
-                                    class="p-8 rounded-border flex flex-col border border-surface items-center gap-4"
-                                >
+                                <div *ngFor="let file of files; let i = index" class="p-8 rounded-border flex flex-col border border-surface items-center gap-4">
                                     <div>
                                         <img role="presentation" [alt]="file.name" [src]="file.objectURL" width="100" height="50" />
                                     </div>
-                                    <span class="font-semibold text-ellipsis max-w-60 whitespace-nowrap overflow-hidden">{{
-                                        file.name
-                                    }}</span>
+                                    <span class="font-semibold text-ellipsis max-w-60 whitespace-nowrap overflow-hidden">{{ file.name }}</span>
                                     <div>{{ formatSize(file.size) }}</div>
                                     <p-badge value="Pending" severity="warning" />
-                                    <p-button
-                                        icon="pi pi-times"
-                                        (click)="onRemoveTemplatingFile($event, file, removeFileCallback, index)"
-                                        [outlined]="true"
-                                        [rounded]="true"
-                                        severity="danger"
-                                    />
+                                    <p-button icon="pi pi-times" (click)="onRemoveTemplatingFile($event, file, removeFileCallback, index)" [outlined]="true" [rounded]="true" severity="danger" />
                                 </div>
                             </div>
                         </div>
                         <div *ngIf="uploadedFiles?.length > 0">
                             <h5>Completed</h5>
                             <div class="flex flex-wrap gap-4">
-                                <div
-                                    *ngFor="let file of uploadedFiles; let i = index"
-                                    class="card m-0 px-12 flex flex-col border border-surface items-center gap-4"
-                                >
+                                <div *ngFor="let file of uploadedFiles; let i = index" class="card m-0 px-12 flex flex-col border border-surface items-center gap-4">
                                     <div>
                                         <img role="presentation" [alt]="file.name" [src]="file.objectURL" width="100" height="50" />
                                     </div>
-                                    <span class="font-semibold text-ellipsis max-w-60 whitespace-nowrap overflow-hidden">{{
-                                        file.name
-                                    }}</span>
+                                    <span class="font-semibold text-ellipsis max-w-60 whitespace-nowrap overflow-hidden">{{ file.name }}</span>
                                     <div>{{ formatSize(file.size) }}</div>
                                     <p-badge value="Completed" class="mt-4" severity="success" />
-                                    <p-button
-                                        icon="pi pi-times"
-                                        (onClick)="removeUploadedFileCallback(index)"
-                                        [outlined]="true"
-                                        [rounded]="true"
-                                        severity="danger"
-                                    />
+                                    <p-button icon="pi pi-times" (onClick)="removeUploadedFileCallback(index)" [outlined]="true" [rounded]="true" severity="danger" />
                                 </div>
                             </div>
                         </div>
@@ -133,7 +70,7 @@ import { MessageService, PrimeNGConfig } from 'primeng/api';
         </div>
         <app-code [code]="code" selector="file-upload-template-demo"></app-code>
     `,
-    providers: [MessageService],
+    providers: [MessageService]
 })
 export class TemplateDoc {
     files = [];
@@ -144,7 +81,7 @@ export class TemplateDoc {
 
     constructor(
         private config: PrimeNGConfig,
-        private messageService: MessageService,
+        private messageService: MessageService
     ) {}
 
     choose(event, callback) {
@@ -536,6 +473,6 @@ export class FileUploadTemplateDemo {
 
         return \`\${formattedSize} \${sizes[i]}\`;
     }
-}`,
+}`
     };
 }

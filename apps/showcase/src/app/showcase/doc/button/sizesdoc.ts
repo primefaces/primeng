@@ -13,7 +13,7 @@ import { Code } from '@domain/code';
             <p-button label="Large" icon="pi pi-check" size="large" />
         </div>
         <app-code [code]="code" selector="button-sizes-demo"></app-code>
-    `,
+    `
 })
 export class SizesDoc {
     code: Code = {
@@ -36,6 +36,6 @@ import { ButtonModule } from 'primeng/button';
     standalone: true,
     imports: [ButtonModule]
 })
-export class ButtonSizesDemo { }`,
+export class ButtonSizesDemo { }`
     };
 }

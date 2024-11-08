@@ -39,9 +39,9 @@ import { Code } from '@domain/code';
                     background-color: color-mix(in srgb, var(--p-primary-50) calc(100% * var(--tw-bg-opacity)), transparent) !important;
                 }
             }
-        `,
+        `
     ],
-    providers: [MessageService],
+    providers: [MessageService]
 })
 export class HeadlessDoc {
     visible: boolean = false;
@@ -52,7 +52,7 @@ export class HeadlessDoc {
 
     constructor(
         private messageService: MessageService,
-        private cdr: ChangeDetectorRef,
+        private cdr: ChangeDetectorRef
     ) {}
 
     showConfirm() {
@@ -62,7 +62,7 @@ export class HeadlessDoc {
                 sticky: true,
                 severity: 'custom',
                 summary: 'Uploading your files.',
-                styleClass: 'backdrop-blur-lg rounded-2xl',
+                styleClass: 'backdrop-blur-lg rounded-2xl'
             });
             this.visible = true;
             this.progress = 0;
@@ -197,6 +197,6 @@ export class ToastHeadlessDemo {
     onClose() {
         this.visible = false;
     }
-}`,
+}`
     };
 }

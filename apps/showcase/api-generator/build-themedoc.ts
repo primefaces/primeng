@@ -22,7 +22,7 @@ async function themedoc() {
         disableSources: false,
         logLevel: 'Error',
         sort: ['source-order'],
-        exclude: ['node_modules', 'src/app/components/**/*spec.ts', 'src/app/components/**/*public_api.ts'],
+        exclude: ['node_modules', 'src/app/components/**/*spec.ts', 'src/app/components/**/*public_api.ts']
     });
 
     const project = await app.convert();
@@ -40,7 +40,7 @@ async function themedoc() {
 
             const description = comment && comment.summary.map((s) => s.text || '').join(' ');
             doc[componentName] = {
-                description,
+                description
             };
 
             const module_interfaces_group = module.groups.find((g) => g.title === 'Interfaces');
@@ -49,7 +49,7 @@ async function themedoc() {
                 if (!doc[componentName]['tokens']) {
                     doc[componentName]['tokens'] = {
                         description: 'Tokens Description',
-                        values: {},
+                        values: {}
                     };
 
                     const setTokens = (_declaration, _name) => {
@@ -76,10 +76,7 @@ async function themedoc() {
                                                         return s.text || '';
                                                     })
                                                     .join(' '),
-                                            deprecated:
-                                                prop.comment && prop.comment.getTag('@deprecated')
-                                                    ? parseText(prop.comment.getTag('@deprecated').content[0]?.text)
-                                                    : undefined,
+                                            deprecated: prop.comment && prop.comment.getTag('@deprecated') ? parseText(prop.comment.getTag('@deprecated').content[0]?.text) : undefined
                                         });
                                     }
                                 });

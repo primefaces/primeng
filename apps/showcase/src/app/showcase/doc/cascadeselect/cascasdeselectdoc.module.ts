@@ -23,33 +23,8 @@ import { ButtonModule } from 'primeng/button';
 import { SizesDoc } from './sizesdoc';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        RouterModule,
-        CascadeSelectModule,
-        FormsModule,
-        AppCodeModule,
-        AppDocModule,
-        ReactiveFormsModule,
-        FloatLabelModule,
-        IftaLabelModule,
-        ButtonModule,
-    ],
+    imports: [CommonModule, RouterModule, CascadeSelectModule, FormsModule, AppCodeModule, AppDocModule, ReactiveFormsModule, FloatLabelModule, IftaLabelModule, ButtonModule],
     exports: [AppDocModule],
-    declarations: [
-        ImportDoc,
-        BasicDoc,
-        TemplateDoc,
-        InvalidDoc,
-        FloatLabelDoc,
-        IftaLabelDoc,
-        FilledDoc,
-        DisabledDoc,
-        StyleDoc,
-        AccessibilityDoc,
-        ReactiveFormsDoc,
-        LoadingDoc,
-        SizesDoc,
-    ],
+    declarations: [ImportDoc, BasicDoc, TemplateDoc, InvalidDoc, FloatLabelDoc, IftaLabelDoc, FilledDoc, DisabledDoc, StyleDoc, AccessibilityDoc, ReactiveFormsDoc, LoadingDoc, SizesDoc]
 })
 export class CascadeSelectDocModule {}

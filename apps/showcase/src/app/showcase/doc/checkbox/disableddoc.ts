@@ -12,7 +12,7 @@ import { Code } from '@domain/code';
             <p-checkbox [(ngModel)]="checked2" [binary]="true" [disabled]="true" />
         </div>
         <app-code [code]="code" selector="checkbox-disabled-demo"></app-code>
-    `,
+    `
 })
 export class DisabledDoc {
     checked1: boolean = false;
@@ -42,6 +42,6 @@ export class CheckboxDisabledDemo {
     checked1: boolean = false;
     
     checked2: boolean = true;
-}`,
+}`
     };
 }

@@ -18,19 +18,14 @@ import { CommonModule } from '@angular/common';
                     <a href="https://primereact.org" class="text-primary font-medium hover:underline"> PrimeReact </a>
                     and
                     <a href="https://primevue.org" class="text-primary font-medium hover:underline"> PrimeVue </a>
-                    . All the members in our team are full time employees of PrimeTek who share the same passion and vision for open source
-                    to create awesome UI libraries.
+                    . All the members in our team are full time employees of PrimeTek who share the same passion and vision for open source to create awesome UI libraries.
                 </p>
             </div>
 
             <div class="card p-20">
                 <div class="flex flex-wrap gap-20">
                     <div class="flex flex-col items-center flex-auto">
-                        <img
-                            src="https://primefaces.org/cdn/primeng/images/team/cagatay.jpg"
-                            class="rounded-full mb-6"
-                            alt="Cagatay Civici"
-                        />
+                        <img src="https://primefaces.org/cdn/primeng/images/team/cagatay.jpg" class="rounded-full mb-6" alt="Cagatay Civici" />
                         <span class="mb-2 text-xl font-bold">Çağatay Çivici</span>
                         <span>Founder</span>
                     </div>
@@ -50,20 +45,12 @@ import { CommonModule } from '@angular/common';
                         <span>Business Administration</span>
                     </div>
                     <div class="flex flex-col items-center flex-auto">
-                        <img
-                            src="https://primefaces.org/cdn/primeng/images/team/cetin.jpg"
-                            class="rounded-full mb-6"
-                            alt="Çetin Çakıroğlu"
-                        />
+                        <img src="https://primefaces.org/cdn/primeng/images/team/cetin.jpg" class="rounded-full mb-6" alt="Çetin Çakıroğlu" />
                         <span class="mb-2 text-xl font-bold">Çetin Çakıroğlu</span>
                         <span>Front-End Developer</span>
                     </div>
                     <div class="flex flex-col items-center flex-auto">
-                        <img
-                            src="https://primefaces.org/cdn/primeng/images/team/tugce.jpg"
-                            class="rounded-full mb-6"
-                            alt="Tuğçe Küçükoğlu"
-                        />
+                        <img src="https://primefaces.org/cdn/primeng/images/team/tugce.jpg" class="rounded-full mb-6" alt="Tuğçe Küçükoğlu" />
                         <span class="mb-2 text-xl font-bold">Tuğçe Küçükoğlu</span>
                         <span>Front-End Developer</span>
                     </div>
@@ -90,6 +77,6 @@ import { CommonModule } from '@angular/common';
                 </div>
             </div>
         </div>
-    `,
+    `
 })
 export class TeamDemo {}

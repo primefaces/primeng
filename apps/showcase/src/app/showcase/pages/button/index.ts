@@ -24,113 +24,106 @@ import { ButtonDocModule } from '@doc/button/buttondoc.module';
     standalone: true,
     imports: [ButtonDocModule],
     template: `
-        <app-doc
-            docTitle="Angular Button Component"
-            header="Button"
-            description="Button is an extension to standard button element with icons and theming."
-            [docs]="docs"
-            [apiDocs]="['Button', 'ButtonDirective']"
-            themeDocs="button"
-        ></app-doc>
-    `,
+        <app-doc docTitle="Angular Button Component" header="Button" description="Button is an extension to standard button element with icons and theming." [docs]="docs" [apiDocs]="['Button', 'ButtonDirective']" themeDocs="button"></app-doc>
+    `
 })
 export class ButtonDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc,
+            component: ImportDoc
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc,
+            component: BasicDoc
         },
         {
             id: 'directive',
             label: 'Directive',
-            component: DirectiveDoc,
+            component: DirectiveDoc
         },
         {
             id: 'link',
             label: 'Link',
-            component: LinkDoc,
+            component: LinkDoc
         },
         {
             id: 'icons',
             label: 'Icons',
-            component: IconsDoc,
+            component: IconsDoc
         },
         {
             id: 'loading',
             label: 'Loading',
-            component: LoadingDoc,
+            component: LoadingDoc
         },
         {
             id: 'severity',
             label: 'Severity',
-            component: SeverityDoc,
+            component: SeverityDoc
         },
         {
             id: 'disabled',
             label: 'Disabled',
-            component: DisabledDoc,
+            component: DisabledDoc
         },
         {
             id: 'raised',
             label: 'Raised',
-            component: RaisedDoc,
+            component: RaisedDoc
         },
         {
             id: 'rounded',
             label: 'Rounded',
-            component: RoundedDoc,
+            component: RoundedDoc
         },
         {
             id: 'text',
             label: 'Text',
-            component: TextDoc,
+            component: TextDoc
         },
         {
             id: 'raisedtext',
             label: 'Raised Text',
-            component: RaisedTextDoc,
+            component: RaisedTextDoc
         },
         {
             id: 'outlined',
             label: 'Outlined',
-            component: OutlinedDoc,
+            component: OutlinedDoc
         },
         {
             id: 'icononly',
             label: 'Icon Only',
-            component: IconOnlyDoc,
+            component: IconOnlyDoc
         },
         {
             id: 'badge',
             label: 'Badge',
-            component: BadgeDoc,
+            component: BadgeDoc
         },
         {
             id: 'buttongroup',
             label: 'Button Group',
-            component: ButtonGroupDoc,
+            component: ButtonGroupDoc
         },
         {
             id: 'sizes',
             label: 'Sizes',
-            component: SizesDoc,
+            component: SizesDoc
         },
         {
             id: 'template',
             label: 'Template',
-            component: TemplateDoc,
+            component: TemplateDoc
         },
 
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc,
-        },
+            component: AccessibilityDoc
+        }
     ];
 }

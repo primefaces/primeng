@@ -22,33 +22,27 @@ import { ThumbnailDoc } from '@doc/galleria/thumbnaildoc';
 import { GalleriaDocModule } from '@doc/galleria/galleriadoc.module';
 
 @Component({
-    template: ` <app-doc
-        docTitle="Angular Gallery Component"
-        header="Galleria"
-        description="Galleria is an advanced content gallery component."
-        [docs]="docs"
-        [apiDocs]="['Galleria']"
-    ></app-doc>`,
+    template: ` <app-doc docTitle="Angular Gallery Component" header="Galleria" description="Galleria is an advanced content gallery component." [docs]="docs" [apiDocs]="['Galleria']"></app-doc>`,
     standalone: true,
     imports: [GalleriaDocModule],
-    styleUrl: './galleriademo.scss',
+    styleUrl: './galleriademo.scss'
 })
 export class GalleriaDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc,
+            component: ImportDoc
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc,
+            component: BasicDoc
         },
         {
             id: 'controlled',
             label: 'Controlled',
-            component: ControlledDoc,
+            component: ControlledDoc
         },
         {
             id: 'indicator',
@@ -57,34 +51,34 @@ export class GalleriaDemo {
                 {
                     id: 'clickevent',
                     label: 'Click Event',
-                    component: ClickEventDoc,
+                    component: ClickEventDoc
                 },
                 {
                     id: 'hoverevent',
                     label: 'Hover Event',
-                    component: HoverEventDoc,
+                    component: HoverEventDoc
                 },
                 {
                     id: 'position',
                     label: 'Position',
-                    component: PositionedDoc,
+                    component: PositionedDoc
                 },
                 {
                     id: 'template',
                     label: 'Template',
-                    component: TemplateDoc,
-                },
-            ],
+                    component: TemplateDoc
+                }
+            ]
         },
         {
             id: 'thumbnail',
             label: 'Thumbnail',
-            component: ThumbnailDoc,
+            component: ThumbnailDoc
         },
         {
             id: 'responsive',
             label: 'Responsive',
-            component: ResponsiveDoc,
+            component: ResponsiveDoc
         },
         {
             id: 'fullscreen',
@@ -93,19 +87,19 @@ export class GalleriaDemo {
                 {
                     id: 'withthumbnails',
                     label: 'With Thumbnails',
-                    component: WithThumbnailsDoc,
+                    component: WithThumbnailsDoc
                 },
                 {
                     id: 'withtouthumbnails',
                     label: 'Without Thumbnails',
-                    component: WithoutThumbnailsDoc,
+                    component: WithoutThumbnailsDoc
                 },
                 {
                     id: 'customcontent',
                     label: 'Custom Content',
-                    component: FullScreenTemplateDoc,
-                },
-            ],
+                    component: FullScreenTemplateDoc
+                }
+            ]
         },
         {
             id: 'navigator',
@@ -114,45 +108,45 @@ export class GalleriaDemo {
                 {
                     id: 'itemwiththumbnails',
                     label: 'With Thumbnails',
-                    component: ItemThumbnailsDoc,
+                    component: ItemThumbnailsDoc
                 },
                 {
                     id: 'itemwithtouthumbnails',
                     label: 'Without Thumbnails',
-                    component: ItemWithoutThumbnailsDoc,
+                    component: ItemWithoutThumbnailsDoc
                 },
                 {
                     id: 'hover',
                     label: 'Display on Hover',
-                    component: HoverDoc,
+                    component: HoverDoc
                 },
                 {
                     id: 'withindicators',
                     label: 'With Indicators',
-                    component: IndicatorsDoc,
-                },
-            ],
+                    component: IndicatorsDoc
+                }
+            ]
         },
         {
             id: 'autoplay',
             label: 'AutoPlay',
-            component: AutoPlayDoc,
+            component: AutoPlayDoc
         },
         {
             id: 'caption',
             label: 'Caption',
-            component: CaptionDoc,
+            component: CaptionDoc
         },
         {
             id: 'advanced',
             label: 'Advanced',
-            component: AdvancedDoc,
+            component: AdvancedDoc
         },
 
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc,
-        },
+            component: AccessibilityDoc
+        }
     ];
 }

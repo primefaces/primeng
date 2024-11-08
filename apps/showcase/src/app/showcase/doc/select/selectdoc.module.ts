@@ -34,21 +34,7 @@ import { IftaLabelDoc } from './iftalabeldoc';
 import { SizesDoc } from './sizesdoc';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        RouterModule,
-        AppCodeModule,
-        AppDocModule,
-        FormsModule,
-        ReactiveFormsModule,
-        SelectModule,
-        ButtonModule,
-        InputTextModule,
-        FloatLabelModule,
-        IftaLabelModule,
-        InputGroupModule,
-        InputGroupAddonModule,
-    ],
+    imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, FormsModule, ReactiveFormsModule, SelectModule, ButtonModule, InputTextModule, FloatLabelModule, IftaLabelModule, InputGroupModule, InputGroupAddonModule],
     exports: [AppDocModule],
     declarations: [
         ImportDoc,
@@ -71,7 +57,7 @@ import { SizesDoc } from './sizesdoc';
         ClearIconDoc,
         LoadingStateDoc,
         FilledDoc,
-        SizesDoc,
-    ],
+        SizesDoc
+    ]
 })
 export class SelectDocModule {}

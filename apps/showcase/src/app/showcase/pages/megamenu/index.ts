@@ -11,14 +11,7 @@ import { MegaMenuDocModule } from '@doc/megamenu/megamenudoc.module';
 @Component({
     standalone: true,
     imports: [MegaMenuDocModule],
-    template: `<app-doc
-        docTitle="Angular MegaMenu Component"
-        header="MegaMenu"
-        description="MegaMenu is navigation component that displays submenus together."
-        [docs]="docs"
-        [apiDocs]="['MegaMenu', 'MegaMenuItem']"
-        themeDocs="megamenu"
-    ></app-doc>`,
+    template: `<app-doc docTitle="Angular MegaMenu Component" header="MegaMenu" description="MegaMenu is navigation component that displays submenus together." [docs]="docs" [apiDocs]="['MegaMenu', 'MegaMenuItem']" themeDocs="megamenu"></app-doc>`,
     styles: [
         `
             :host ::ng-deep {
@@ -26,46 +19,46 @@ import { MegaMenuDocModule } from '@doc/megamenu/megamenudoc.module';
                     z-index: 3;
                 }
             }
-        `,
-    ],
+        `
+    ]
 })
 export class MegaMenuDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc,
+            component: ImportDoc
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc,
+            component: BasicDoc
         },
         {
             id: 'vertical',
             label: 'Vertical',
-            component: VerticalDoc,
+            component: VerticalDoc
         },
         {
             id: 'template',
             label: 'Template',
-            component: TemplateDoc,
+            component: TemplateDoc
         },
         {
             id: 'command',
             label: 'Command',
-            component: CommandDoc,
+            component: CommandDoc
         },
         {
             id: 'router',
             label: 'Router',
-            component: RouterDoc,
+            component: RouterDoc
         },
 
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc,
-        },
+            component: AccessibilityDoc
+        }
     ];
 }

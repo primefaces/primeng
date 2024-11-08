@@ -21,7 +21,7 @@ import { Code } from '@domain/code';
             </p-rating>
         </div>
         <app-code [code]="code" selector="rating-template-demo"></app-code>
-    `,
+    `
 })
 export class TemplateDoc {
     value!: number;
@@ -65,6 +65,6 @@ import { Rating } from 'primeng/rating';
 })
 export class RatingTemplateDemo {
     value!: number;
-}`,
+}`
     };
 }

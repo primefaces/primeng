@@ -46,7 +46,7 @@ import { RenamedComponentsDoc } from './migration/renamedcomponentsdoc';
         BreakingChangesDoc,
         DeprecatedComponentsDoc,
         MigrationOverviewDoc,
-        RenamedComponentsDoc,
-    ],
+        RenamedComponentsDoc
+    ]
 })
 export class GuidesDocModule {}

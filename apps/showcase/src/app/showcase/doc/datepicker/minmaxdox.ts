@@ -11,7 +11,7 @@ import { Code } from '@domain/code';
             <p-datepicker [(ngModel)]="date" [minDate]="minDate" [maxDate]="maxDate" [readonlyInput]="true" />
         </div>
         <app-code [code]="code" selector="datepicker-minmax-demo"></app-code>
-    `,
+    `
 })
 export class MinMaxDoc {
     date: Date | undefined;
@@ -75,6 +75,6 @@ export class DatePickerMinmaxDemo implements OnInit {
         this.maxDate.setMonth(nextMonth);
         this.maxDate.setFullYear(nextYear);
     }
-}`,
+}`
     };
 }

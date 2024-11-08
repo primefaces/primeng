@@ -15,6 +15,6 @@ import { TemplateDoc } from './templatedoc';
 @NgModule({
     imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, Chip],
     declarations: [ImportDoc, BasicDoc, IconDoc, ImageDoc, StyleDoc, TemplateDoc, AccessibilityDoc],
-    exports: [AppDocModule],
+    exports: [AppDocModule]
 })
 export class ChipDocModule {}

@@ -24,34 +24,8 @@ import { IftaLabelModule } from 'primeng/iftalabel';
 import { SizesDoc } from './sizesdoc';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        FormsModule,
-        ReactiveFormsModule,
-        InputMaskModule,
-        RouterModule,
-        AppCodeModule,
-        AppDocModule,
-        FloatLabelModule,
-        FluidModule,
-        IftaLabelModule,
-    ],
+    imports: [CommonModule, FormsModule, ReactiveFormsModule, InputMaskModule, RouterModule, AppCodeModule, AppDocModule, FloatLabelModule, FluidModule, IftaLabelModule],
     exports: [AppDocModule],
-    declarations: [
-        ImportDoc,
-        BasicDoc,
-        MaskDoc,
-        SlotCharDoc,
-        OptionalDoc,
-        FloatlabelDoc,
-        DisabledDoc,
-        InvalidDoc,
-        StyleDoc,
-        AccessibilityDoc,
-        ReactiveFormsDoc,
-        FilledDoc,
-        SizesDoc,
-        IftaLabelDoc,
-    ],
+    declarations: [ImportDoc, BasicDoc, MaskDoc, SlotCharDoc, OptionalDoc, FloatlabelDoc, DisabledDoc, InvalidDoc, StyleDoc, AccessibilityDoc, ReactiveFormsDoc, FilledDoc, SizesDoc, IftaLabelDoc]
 })
 export class InputMaskDocModule {}

@@ -20,6 +20,6 @@ import { OverlayDoc } from './overlaydoc';
 @NgModule({
     imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, BadgeModule, ButtonModule, OverlayBadgeModule],
     declarations: [ImportDoc, BasicDoc, ButtonDoc, DirectiveDoc, PositionDoc, SeverityDoc, SizeDoc, OverlayDoc, StyleDoc, AccessibilityDoc],
-    exports: [AppDocModule],
+    exports: [AppDocModule]
 })
 export class BadgeDocModule {}

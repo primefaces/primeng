@@ -5,16 +5,13 @@ import { Code } from '@domain/code';
     selector: 'filled-doc',
     template: `
         <app-docsectiontext>
-            <p>
-                Specify the <i>variant</i> property as <i>filled</i> to display the component with a higher visual emphasis than the default
-                <i>outlined</i> style.
-            </p>
+            <p>Specify the <i>variant</i> property as <i>filled</i> to display the component with a higher visual emphasis than the default <i>outlined</i> style.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
             <textarea [(ngModel)]="value" [variant]="'filled'" rows="5" cols="30" pTextarea></textarea>
         </div>
         <app-code [code]="code" selector="input-textarea-filled-demo"></app-code>
-    `,
+    `
 })
 export class FilledDoc {
     value!: string;
@@ -39,6 +36,6 @@ import { FormsModule } from '@angular/forms';
 
 export class InputTextareaFilledDemo {
     value!: string;
-}`,
+}`
     };
 }

@@ -10,14 +10,14 @@ import { Code } from '@domain/code';
         <div class="card flex justify-center">
             <p-drawer [(visible)]="visible" header="Drawer">
                 <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                    consequat.
                 </p>
             </p-drawer>
             <p-button (click)="visible = true" icon="pi pi-arrow-right" />
         </div>
         <app-code [code]="code" selector="drawer-basic-demo"></app-code>
-    `,
+    `
 })
 export class BasicDoc {
     visible: boolean = false;
@@ -55,6 +55,6 @@ import { ButtonModule } from 'primeng/button';
 })
 export class DrawerBasicDemo {
     visible: boolean = false;
-}`,
+}`
     };
 }

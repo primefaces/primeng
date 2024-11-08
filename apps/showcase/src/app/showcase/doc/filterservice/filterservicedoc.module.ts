@@ -14,6 +14,6 @@ import { UsageDoc } from './usagedoc';
 @NgModule({
     imports: [CommonModule, AppCodeModule, AppDocModule, RouterModule, TableModule],
     exports: [AppDocModule],
-    declarations: [ApiDoc, BuiltInConstraintsDoc, CustomConstraintsDoc, ImportDoc, UsageDoc, TableIntegrationDoc],
+    declarations: [ApiDoc, BuiltInConstraintsDoc, CustomConstraintsDoc, ImportDoc, UsageDoc, TableIntegrationDoc]
 })
 export class FilterServiceDocModule {}

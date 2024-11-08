@@ -17,46 +17,22 @@ interface City {
         </app-docsectiontext>
         <div class="card flex flex-wrap justify-center items-end gap-4">
             <p-floatlabel class="w-full md:w-80">
-                <p-multiselect
-                    id="over_label"
-                    [(ngModel)]="value1"
-                    [options]="cities"
-                    optionLabel="name"
-                    filter
-                    [maxSelectedLabels]="3"
-                    styleClass="w-full"
-                />
+                <p-multiselect id="over_label" [(ngModel)]="value1" [options]="cities" optionLabel="name" filter [maxSelectedLabels]="3" styleClass="w-full" />
                 <label for="over_label">Over Label</label>
             </p-floatlabel>
 
             <p-floatlabel class="w-full md:w-80" variant="in">
-                <p-multiselect
-                    id="in_label"
-                    [(ngModel)]="value2"
-                    [options]="cities"
-                    optionLabel="name"
-                    filter
-                    [maxSelectedLabels]="3"
-                    styleClass="w-full"
-                />
+                <p-multiselect id="in_label" [(ngModel)]="value2" [options]="cities" optionLabel="name" filter [maxSelectedLabels]="3" styleClass="w-full" />
                 <label for="in_label">In Label</label>
             </p-floatlabel>
 
             <p-floatlabel class="w-full md:w-80" variant="on">
-                <p-multiselect
-                    id="on_label"
-                    [(ngModel)]="value3"
-                    [options]="cities"
-                    optionLabel="name"
-                    filter
-                    [maxSelectedLabels]="3"
-                    styleClass="w-full"
-                />
+                <p-multiselect id="on_label" [(ngModel)]="value3" [options]="cities" optionLabel="name" filter [maxSelectedLabels]="3" styleClass="w-full" />
                 <label for="on_label">On Label</label>
             </p-floatlabel>
         </div>
         <app-code [code]="code" selector="multi-select-floatlabel-demo"></app-code>
-    `,
+    `
 })
 export class FloatLabelDoc implements OnInit {
     cities!: City[];
@@ -73,7 +49,7 @@ export class FloatLabelDoc implements OnInit {
             { name: 'Rome', code: 'RM' },
             { name: 'London', code: 'LDN' },
             { name: 'Istanbul', code: 'IST' },
-            { name: 'Paris', code: 'PRS' },
+            { name: 'Paris', code: 'PRS' }
         ];
     }
 
@@ -144,6 +120,6 @@ export class MultiSelectFloatlabelDemo implements OnInit {
             { name: 'Paris', code: 'PRS' },
         ];
     }
-}`,
+}`
     };
 }

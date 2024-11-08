@@ -10,17 +10,14 @@ interface AutoCompleteCompleteEvent {
 @Component({
     selector: 'reactive-forms-doc',
     template: ` <app-docsectiontext>
-            <p>
-                AutoComplete can also be used with reactive forms. In this case, the <i>formControlName</i> property is used to bind the
-                component to a form control.
-            </p>
+            <p>AutoComplete can also be used with reactive forms. In this case, the <i>formControlName</i> property is used to bind the component to a form control.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
             <form [formGroup]="formGroup">
                 <p-autocomplete formControlName="selectedCountry" [suggestions]="items" (completeMethod)="search($event)" />
             </form>
         </div>
-        <app-code [code]="code" selector="autocomplete-reactive-forms-demo"></app-code>`,
+        <app-code [code]="code" selector="autocomplete-reactive-forms-demo"></app-code>`
 })
 export class ReactiveFormsDoc {
     items: any[] | undefined;
@@ -68,7 +65,7 @@ export class AutocompleteReactiveFormsDemo implements OnInit {
             selectedCountry: new FormControl(undefined),
         });
     }
-}`,
+}`
     };
 
     search(event: AutoCompleteCompleteEvent) {
@@ -77,7 +74,7 @@ export class AutocompleteReactiveFormsDemo implements OnInit {
 
     ngOnInit() {
         this.formGroup = new FormGroup({
-            selectedCountry: new FormControl(undefined),
+            selectedCountry: new FormControl(undefined)
         });
     }
 }

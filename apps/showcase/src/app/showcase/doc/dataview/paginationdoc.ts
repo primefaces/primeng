@@ -7,34 +7,17 @@ import { ProductService } from '@service/productservice';
     selector: 'data-view-pagination-demo',
     template: `
         <app-docsectiontext>
-            <p>
-                Pagination is enabled with the <i>paginator</i> and <i>rows</i> properties. Refer to the
-                <a routerLink="/paginator">Paginator</a> for more information about customizing the paginator.
-            </p>
+            <p>Pagination is enabled with the <i>paginator</i> and <i>rows</i> properties. Refer to the <a routerLink="/paginator">Paginator</a> for more information about customizing the paginator.</p>
         </app-docsectiontext>
         <div class="card">
             <p-dataview #dv [value]="products()" [rows]="5" [paginator]="true">
                 <ng-template #list let-items>
                     <div class="grid grid-cols-12 gap-4 grid-nogutter">
                         <div class="col-span-12" *ngFor="let item of items; let first = first" class="col-span-12">
-                            <div
-                                class="flex flex-col sm:flex-row sm:items-center p-6 gap-4"
-                                [ngClass]="{ 'border-t border-surface-200 dark:border-surface-700': !first }"
-                            >
+                            <div class="flex flex-col sm:flex-row sm:items-center p-6 gap-4" [ngClass]="{ 'border-t border-surface-200 dark:border-surface-700': !first }">
                                 <div class="md:w-40 relative">
-                                    <img
-                                        class="block xl:block mx-auto rounded-border w-full"
-                                        [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + item.image"
-                                        [alt]="item.name"
-                                    />
-                                    <p-tag
-                                        [value]="item.inventoryStatus"
-                                        [severity]="getSeverity(item)"
-                                        class="absolute"
-                                        styleClass="dark:!bg-surface-900"
-                                        [style.left.px]="4"
-                                        [style.top.px]="4"
-                                    />
+                                    <img class="block xl:block mx-auto rounded-border w-full" [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + item.image" [alt]="item.name" />
+                                    <p-tag [value]="item.inventoryStatus" [severity]="getSeverity(item)" class="absolute" styleClass="dark:!bg-surface-900" [style.left.px]="4" [style.top.px]="4" />
                                 </div>
                                 <div class="flex flex-col md:flex-row justify-between md:items-center flex-1 gap-6">
                                     <div class="flex flex-row md:flex-col justify-between items-start gap-2">
@@ -47,25 +30,16 @@ import { ProductService } from '@service/productservice';
                                                 class="bg-surface-0 dark:bg-surface-900 flex items-center gap-2 justify-center py-1 px-2"
                                                 style="border-radius: 30px; box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.04), 0px 1px 2px 0px rgba(0, 0, 0, 0.06)"
                                             >
-                                                <span class="text-surface-900 dark:text-surface-0 font-medium text-sm">{{
-                                                    item.rating
-                                                }}</span>
+                                                <span class="text-surface-900 dark:text-surface-0 font-medium text-sm">{{ item.rating }}</span>
                                                 <i class="pi pi-star-fill text-yellow-500"></i>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="flex flex-col md:items-end gap-8">
-                                        <span class="text-xl font-semibold text-surface-900 dark:text-surface-0">{{
-                                            '$' + item.price
-                                        }}</span>
+                                        <span class="text-xl font-semibold text-surface-900 dark:text-surface-0">{{ '$' + item.price }}</span>
                                         <div class="flex flex-row-reverse md:flex-row gap-2">
                                             <p-button icon="pi pi-heart" [outlined]="true" />
-                                            <p-button
-                                                icon="pi pi-shopping-cart"
-                                                class="flex-auto md:flex-initial whitespace-nowrap"
-                                                label="Buy Now"
-                                                [disabled]="item.inventoryStatus === 'OUTOFSTOCK'"
-                                            />
+                                            <p-button icon="pi pi-shopping-cart" class="flex-auto md:flex-initial whitespace-nowrap" label="Buy Now" [disabled]="item.inventoryStatus === 'OUTOFSTOCK'" />
                                         </div>
                                     </div>
                                 </div>
@@ -76,7 +50,7 @@ import { ProductService } from '@service/productservice';
             </p-dataview>
         </div>
         <app-code [code]="code" selector="data-view-pagination-demo" [extFiles]="extFiles"></app-code>
-    `,
+    `
 })
 export class PaginationDoc {
     products = signal<any>([]);
@@ -269,7 +243,7 @@ export class DataViewPaginationDemo {
 },
 ...`,
 
-        service: ['ProductService'],
+        service: ['ProductService']
     };
 
     getSeverity(product: Product) {
@@ -309,7 +283,7 @@ export interface Product {
     category?: string;
     image?: string;
     rating?: number;
-}`,
-        },
+}`
+        }
     ];
 }

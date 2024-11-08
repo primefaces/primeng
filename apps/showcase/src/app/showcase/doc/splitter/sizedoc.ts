@@ -5,10 +5,7 @@ import { Code } from '@domain/code';
     selector: 'size-doc',
     template: `
         <app-docsectiontext>
-            <p>
-                When no panelSizes are defined, panels are split 50/50, use the <i>panelSizes</i> property to give relative widths e.g. [25,
-                75].
-            </p>
+            <p>When no panelSizes are defined, panels are split 50/50, use the <i>panelSizes</i> property to give relative widths e.g. [25, 75].</p>
         </app-docsectiontext>
         <div class="card">
             <p-splitter [panelSizes]="[25, 75]" [style]="{ height: '300px' }" styleClass="mb-8">
@@ -21,7 +18,7 @@ import { Code } from '@domain/code';
             </p-splitter>
         </div>
         <app-code [code]="code" selector="splitter-size-demo"></app-code>
-    `,
+    `
 })
 export class SizeDoc {
     code: Code = {
@@ -54,6 +51,6 @@ import { SplitterModule } from 'primeng/splitter';
     standalone: true,
     imports: [SplitterModule]
 })
-export class SplitterSizeDemo {}`,
+export class SplitterSizeDemo {}`
     };
 }

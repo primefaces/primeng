@@ -18,7 +18,7 @@ import { Code } from '@domain/code';
             <p-button label="Contrast" severity="contrast" />
         </div>
         <app-code [code]="code" selector="button-severity-demo"></app-code>
-    `,
+    `
 })
 export class SeverityDoc {
     code: Code = {
@@ -51,6 +51,6 @@ import { ButtonModule } from 'primeng/button';
     standalone: true,
     imports: [ButtonModule]
 })
-export class ButtonSeverityDemo { }`,
+export class ButtonSeverityDemo { }`
     };
 }

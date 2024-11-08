@@ -6,14 +6,10 @@ import { Code } from '@domain/code';
     template: `
         <app-docsectiontext>
             <p>
-                Components with the <i>fluid</i> option like <i>InputText</i> have the ability to span the full width of their component.
-                Enabling the <i>fluid</i> for each component individually may be cumbersome so wrap the content with <i>Fluid</i> to instead
-                for an easier alternative.
+                Components with the <i>fluid</i> option like <i>InputText</i> have the ability to span the full width of their component. Enabling the <i>fluid</i> for each component individually may be cumbersome so wrap the content with
+                <i>Fluid</i> to instead for an easier alternative.
             </p>
-            <p>
-                Any component that has the <i>fluid</i> property can be nested inside the <i>Fluid</i> component. The <i>fluid</i> property
-                of a child component has higher precedence than the fluid container as shown in the last sample.
-            </p>
+            <p>Any component that has the <i>fluid</i> property can be nested inside the <i>Fluid</i> component. The <i>fluid</i> property of a child component has higher precedence than the fluid container as shown in the last sample.</p>
         </app-docsectiontext>
         <div class="card flex flex-col gap-6">
             <div>
@@ -35,7 +31,7 @@ import { Code } from '@domain/code';
             </p-fluid>
         </div>
         <app-code [code]="code" selector="fluid-basic-demo"></app-code>
-    `,
+    `
 })
 export class BasicDoc {
     code: Code = {
@@ -88,6 +84,6 @@ import { Fluid } from 'primeng/fluid';
 })
 export class FluidBasicDemo {
 
-}`,
+}`
     };
 }

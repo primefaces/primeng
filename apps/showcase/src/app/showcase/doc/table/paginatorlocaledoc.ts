@@ -49,14 +49,14 @@ import { CustomerService } from '@service/customerservice';
             </div>
         </p-deferred-demo>
         <app-code [code]="code" selector="table-paginator-locale-demo" [extFiles]="extFiles"></app-code>`,
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PaginatorLocaleDoc {
     customers!: Customer[];
 
     constructor(
         private customerService: CustomerService,
-        private cd: ChangeDetectorRef,
+        private cd: ChangeDetectorRef
     ) {}
 
     loadDemoData() {
@@ -173,7 +173,7 @@ export class TablePaginatorLocaleDemo {
     balance: 70663
 },
 ...`,
-        service: ['CustomerService'],
+        service: ['CustomerService']
     };
 
     extFiles = [
@@ -201,7 +201,7 @@ export interface Customer {
     representative?: Representative;
     verified?: boolean;
     balance?: number;
-}`,
-        },
+}`
+        }
     ];
 }

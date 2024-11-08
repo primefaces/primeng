@@ -16,7 +16,7 @@ interface City {
             <p-listbox [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" [filter]="true" class="w-full md:w-56" />
         </div>
         <app-code [code]="code" selector="listbox-filter-demo"></app-code>
-    `,
+    `
 })
 export class FilterDoc implements OnInit {
     cities!: City[];
@@ -29,7 +29,7 @@ export class FilterDoc implements OnInit {
             { name: 'Rome', code: 'RM' },
             { name: 'London', code: 'LDN' },
             { name: 'Istanbul', code: 'IST' },
-            { name: 'Paris', code: 'PRS' },
+            { name: 'Paris', code: 'PRS' }
         ];
     }
 
@@ -69,6 +69,6 @@ export class ListboxFilterDemo implements OnInit {
             { name: 'Paris', code: 'PRS' }
         ];
     }
-}`,
+}`
     };
 }

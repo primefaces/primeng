@@ -4,10 +4,7 @@ import { Component } from '@angular/core';
     selector: 'presets-doc',
     template: `
         <app-docsectiontext>
-            <p>
-                Currently Aura, Lara and Nora are the available presets, a new preset based on Material Design is planned by the end of
-                2024.
-            </p>
+            <p>Currently Aura, Lara and Nora are the available presets, a new preset based on Material Design is planned by the end of 2024.</p>
         </app-docsectiontext>
         <div class="card">
             <p-tabs>
@@ -25,7 +22,7 @@ import { Component } from '@angular/core';
                 </p-tabpanel>
             </p-tabs>
         </div>
-    `,
+    `
 })
 export class PresetsDoc {
     aura = {
@@ -412,7 +409,7 @@ export const Aura = {
         accordion,
         // ... other components
     }
-};`,
+};`
     };
 
     lara = {
@@ -805,7 +802,7 @@ export const Lara = {
         // ... other components
     }
 };
-`,
+`
     };
 
     nora = {
@@ -1191,6 +1188,6 @@ export const Nora = {
         accordion,
         // ... other components
     }
-};`,
+};`
     };
 }

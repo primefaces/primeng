@@ -3,6 +3,6 @@ import { CheckboxDemo } from './';
 export default [
     {
         path: '',
-        component: CheckboxDemo,
-    },
+        component: CheckboxDemo
+    }
 ];

@@ -25,7 +25,7 @@ import { Code } from '@domain/code';
             </p-inputgroup>
         </div>
         <app-code [code]="code" selector="input-group-checkbox-demo"></app-code>
-    `,
+    `
 })
 export class CheckboxDoc {
     radioValue1: boolean = false;
@@ -97,6 +97,6 @@ export class InputGroupCheckboxDemo {
     checked2: boolean = false;
 
     category: string | undefined;
-}`,
+}`
     };
 }

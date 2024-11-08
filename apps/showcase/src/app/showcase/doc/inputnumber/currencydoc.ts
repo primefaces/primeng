@@ -6,8 +6,8 @@ import { Code } from '@domain/code';
     template: `
         <app-docsectiontext>
             <p>
-                Currency formatting is specified by setting the <i>mode</i> option to currency and <i>currency</i> property. In addition
-                <i>currencyDisplay</i> option allows how the currency is displayed, valid values are "symbol" (default) or "code".
+                Currency formatting is specified by setting the <i>mode</i> option to currency and <i>currency</i> property. In addition <i>currencyDisplay</i> option allows how the currency is displayed, valid values are "symbol" (default) or
+                "code".
             </p>
         </app-docsectiontext>
         <p-fluid class="card flex flex-wrap gap-4">
@@ -21,14 +21,7 @@ import { Code } from '@domain/code';
             </div>
             <div class="flex-auto">
                 <label class="block font-bold mb-2" for="currency-india">India</label>
-                <p-inputnumber
-                    [(ngModel)]="value3"
-                    mode="currency"
-                    inputId="currency-india"
-                    currency="INR"
-                    currencyDisplay="code"
-                    locale="en-IN"
-                />
+                <p-inputnumber [(ngModel)]="value3" mode="currency" inputId="currency-india" currency="INR" currencyDisplay="code" locale="en-IN" />
             </div>
             <div class="flex-auto">
                 <label class="block font-bold mb-2" for="currency-japan">Japan</label>
@@ -36,7 +29,7 @@ import { Code } from '@domain/code';
             </div>
         </p-fluid>
         <app-code [code]="code" selector="input-number-currency-demo"></app-code>
-    `,
+    `
 })
 export class CurrencyDoc {
     value1: number = 1500;
@@ -99,6 +92,6 @@ export class InputNumberCurrencyDemo {
     value3: number = 4250;
 
     value4: number = 5002;
-}`,
+}`
     };
 }

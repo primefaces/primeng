@@ -37,7 +37,7 @@ interface Column {
         </div>
         <app-code [code]="code" selector="tree-table-dynamic-columns-demo"></app-code>
     `,
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DynamicColumnsDoc {
     files!: TreeNode[];
@@ -51,7 +51,7 @@ export class DynamicColumnsDoc {
         this.cols = [
             { field: 'name', header: 'Name' },
             { field: 'size', header: 'Size' },
-            { field: 'type', header: 'Type' },
+            { field: 'type', header: 'Type' }
         ];
     }
     code: Code = {
@@ -125,6 +125,6 @@ export class TreeTableDynamicColumnsDemo implements OnInit {
         ];
     }
 }`,
-        service: ['NodeService'],
+        service: ['NodeService']
     };
 }

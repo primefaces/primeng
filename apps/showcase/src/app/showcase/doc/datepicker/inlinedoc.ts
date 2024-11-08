@@ -11,7 +11,7 @@ import { Code } from '@domain/code';
             <p-datepicker class="max-w-full" [(ngModel)]="date" [inline]="true" [showWeek]="true" />
         </div>
         <app-code [code]="code" selector="datepicker-inline-demo"></app-code>
-    `,
+    `
 })
 export class InlineDoc {
     date: Date[] | undefined;
@@ -35,6 +35,6 @@ import { DatePicker } from 'primeng/datepicker';
 })
 export class DatePickerInlineDemo {
     date: Date[] | undefined;
-}`,
+}`
     };
 }

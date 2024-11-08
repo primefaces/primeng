@@ -26,36 +26,8 @@ import { IftaLabelModule } from 'primeng/iftalabel';
 import { SizesDoc } from './sizesdoc';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        FormsModule,
-        ReactiveFormsModule,
-        InputNumberModule,
-        RouterModule,
-        AppCodeModule,
-        AppDocModule,
-        FloatLabelModule,
-        FluidModule,
-        IftaLabelModule,
-    ],
+    imports: [CommonModule, FormsModule, ReactiveFormsModule, InputNumberModule, RouterModule, AppCodeModule, AppDocModule, FloatLabelModule, FluidModule, IftaLabelModule],
     exports: [AppDocModule],
-    declarations: [
-        ImportDoc,
-        NumeralsDoc,
-        LocaleDoc,
-        CurrencyDoc,
-        PrefixSuffixDoc,
-        ButtonsDoc,
-        VerticalDoc,
-        FloatlabelDoc,
-        IftaLabelDoc,
-        InvalidDoc,
-        FilledDoc,
-        DisabledDoc,
-        StyleDoc,
-        AccessibilityDoc,
-        ReactiveFormsDoc,
-        SizesDoc,
-    ],
+    declarations: [ImportDoc, NumeralsDoc, LocaleDoc, CurrencyDoc, PrefixSuffixDoc, ButtonsDoc, VerticalDoc, FloatlabelDoc, IftaLabelDoc, InvalidDoc, FilledDoc, DisabledDoc, StyleDoc, AccessibilityDoc, ReactiveFormsDoc, SizesDoc]
 })
 export class InputNumberDocModule {}

@@ -5,10 +5,7 @@ import { Code } from '@domain/code';
     selector: 'color-picker-format-demo',
     template: `
         <app-docsectiontext>
-            <p>
-                Default color format to use in value binding is <i>hex</i> and other possible values can be <i>rgb</i> and <i>hsb</i> using
-                the <i>format</i> property.
-            </p>
+            <p>Default color format to use in value binding is <i>hex</i> and other possible values can be <i>rgb</i> and <i>hsb</i> using the <i>format</i> property.</p>
         </app-docsectiontext>
         <div class="card flex flex-wrap gap-4">
             <div class="flex-1 flex flex-col items-center">
@@ -28,7 +25,7 @@ import { Code } from '@domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="color-picker-format-demo"></app-code>
-    `,
+    `
 })
 export class FormatDoc {
     color: string = '#6466f1';
@@ -78,6 +75,6 @@ export class ColorPickerFormatDemo {
     colorRGB: any = { r: 100, g: 102, b: 241 };
 
     colorHSB: any = { h: 239, s: 59, b: 95 };
-}`,
+}`
     };
 }

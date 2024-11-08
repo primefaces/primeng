@@ -11,7 +11,7 @@ import { Code } from '@domain/code';
             <p-slider [(ngModel)]="value" orientation="vertical" styleClass="h-56" />
         </div>
         <app-code [code]="code" selector="slider-vertical-demo"></app-code>
-    `,
+    `
 })
 export class VerticalDoc {
     value: number = 50;
@@ -35,6 +35,6 @@ import { Slider } from 'primeng/slider';
 })
 export class SliderVerticalDemo {
     value: number = 50
-}`,
+}`
     };
 }

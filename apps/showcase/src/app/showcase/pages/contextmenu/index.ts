@@ -13,58 +13,51 @@ import { ContextMenuDocModule } from '@doc/contextmenu/contextmenudoc.module';
     standalone: true,
     imports: [ContextMenuDocModule],
     template: `
-        <app-doc
-            docTitle="Angular ContextMenu Component"
-            header="ContextMenu"
-            description="ContextMenu displays an overlay menu on right click of its target."
-            [docs]="docs"
-            [apiDocs]="['ContextMenu', 'MenuItem']"
-            themeDocs="contextmenu"
-        ></app-doc>
-    `,
+        <app-doc docTitle="Angular ContextMenu Component" header="ContextMenu" description="ContextMenu displays an overlay menu on right click of its target." [docs]="docs" [apiDocs]="['ContextMenu', 'MenuItem']" themeDocs="contextmenu"></app-doc>
+    `
 })
 export class ContextMenuDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc,
+            component: ImportDoc
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc,
+            component: BasicDoc
         },
         {
             id: 'document',
             label: 'Document',
-            component: DocumentDoc,
+            component: DocumentDoc
         },
         {
             id: 'template',
             label: 'Template',
-            component: TemplateDoc,
+            component: TemplateDoc
         },
         {
             id: 'command',
             label: 'Command',
-            component: CommandDoc,
+            component: CommandDoc
         },
         {
             id: 'router',
             label: 'Router',
-            component: RouterDoc,
+            component: RouterDoc
         },
         {
             id: 'table',
             label: 'Table',
-            component: TableDoc,
+            component: TableDoc
         },
 
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc,
-        },
+            component: AccessibilityDoc
+        }
     ];
 }

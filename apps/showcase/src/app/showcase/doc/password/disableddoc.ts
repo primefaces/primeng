@@ -11,7 +11,7 @@ import { Code } from '@domain/code';
             <p-password [(ngModel)]="value" [disabled]="true" placeholder="Disabled" autocomplete="off" />
         </div>
         <app-code [code]="code" selector="password-disabled-demo"></app-code>
-    `,
+    `
 })
 export class DisabledDoc {
     value!: string;
@@ -35,6 +35,6 @@ import { FormsModule } from '@angular/forms';
 })
 export class PasswordDisabledDemo {
     value!: string;
-}`,
+}`
     };
 }

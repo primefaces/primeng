@@ -48,7 +48,7 @@ import { PopoverModule } from 'primeng/popover';
         OverlayBadgeModule,
         DrawerModule,
         ToggleSwitchModule,
-        PopoverModule,
+        PopoverModule
     ],
     template: `
         <div class="h-full flex-1 flex flex-col overflow-hidden border border-surface rounded-2xl p-6">
@@ -96,16 +96,13 @@ import { PopoverModule } from 'primeng/popover';
                             </td>
                             <td>
                                 <div class="flex items-center">
-                                    <p-overlayBadge
-                                        [severity]="data.active === undefined ? 'contrast' : data.active ? 'success' : 'danger'"
-                                        styleClass="w-fit"
-                                    >
+                                    <p-overlayBadge [severity]="data.active === undefined ? 'contrast' : data.active ? 'success' : 'danger'" styleClass="w-fit">
                                         <p-avatar
                                             [image]="data.image"
                                             [label]="!data.image ? data.capName : ''"
                                             [ngClass]="{
                                                 'bg-violet-100 text-violet-950 text-xs font-medium': !data.image,
-                                                'rounded-md overflow-hidden flex': true,
+                                                'rounded-md overflow-hidden flex': true
                                             }"
                                         />
                                     </p-overlayBadge>
@@ -132,11 +129,7 @@ import { PopoverModule } from 'primeng/popover';
                                 <div class="leading-6 text-muted-color">{{ data.lead }}</div>
                             </td>
                             <td>
-                                <p-tag
-                                    [severity]="data.status === 'Active' ? 'success' : data.status === 'Inactive' ? 'danger' : 'info'"
-                                    [value]="data.status"
-                                    styleClass="font-medium"
-                                />
+                                <p-tag [severity]="data.status === 'Active' ? 'success' : data.status === 'Inactive' ? 'danger' : 'info'" [value]="data.status" styleClass="font-medium" />
                             </td>
                             <td>
                                 <div class="flex justify-end w-full">
@@ -158,10 +151,10 @@ import { PopoverModule } from 'primeng/popover';
         </div>
     `,
     host: {
-        class: 'w-full h-full',
+        class: 'w-full h-full'
     },
     encapsulation: ViewEncapsulation.None,
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CustomersApp {
     search: string = '';
@@ -174,7 +167,7 @@ export class CustomersApp {
 
     constructor(
         @Inject(PLATFORM_ID) private platformId: any,
-        private sanitizer: DomSanitizer,
+        private sanitizer: DomSanitizer
     ) {}
 
     ngOnInit() {
@@ -188,7 +181,7 @@ export class CustomersApp {
                 company: { name: 'Mistranet', logo: 'mistranet' },
                 email: 'hi@brooksmmns.co',
                 lead: 'Linkedin',
-                status: 'Active',
+                status: 'Active'
             },
             {
                 id: 2,
@@ -199,7 +192,7 @@ export class CustomersApp {
                 company: { name: 'BriteMank', logo: 'britemank' },
                 email: 'hi@diannerussell.com',
                 lead: 'Website',
-                status: 'Inactive',
+                status: 'Inactive'
             },
             {
                 id: 3,
@@ -210,7 +203,7 @@ export class CustomersApp {
                 company: { name: 'ZenTrailMs', logo: 'zentrailms' },
                 email: 'hi@amyelsner.com',
                 lead: 'Cold Call',
-                status: 'Prospect',
+                status: 'Prospect'
             },
             {
                 id: 4,
@@ -221,7 +214,7 @@ export class CustomersApp {
                 company: { name: 'Streamlinz', logo: 'streamlinz' },
                 email: 'jacobjones@gmail.com',
                 lead: 'Partner',
-                status: 'Prospect',
+                status: 'Prospect'
             },
             {
                 id: 5,
@@ -233,7 +226,7 @@ export class CustomersApp {
                 company: { name: 'BriteMank', logo: 'britemank' },
                 email: 'hi@cameronwilliamson',
                 lead: 'Social Media',
-                status: 'Active',
+                status: 'Active'
             },
             {
                 id: 6,
@@ -245,7 +238,7 @@ export class CustomersApp {
                 company: { name: 'Streamlinz', logo: 'streamlinz' },
                 email: 'hi@annetteblack.com',
                 lead: 'Cold Call',
-                status: 'Inactive',
+                status: 'Inactive'
             },
             {
                 id: 7,
@@ -256,7 +249,7 @@ export class CustomersApp {
                 company: { name: 'Wavelength', logo: 'wavelength' },
                 email: 'hi@darrellsteward.com',
                 lead: 'Linkedin',
-                status: 'Active',
+                status: 'Active'
             },
             {
                 id: 8,
@@ -267,7 +260,7 @@ export class CustomersApp {
                 company: { name: 'Wavelength', logo: 'wavelength' },
                 email: 'jeromebell@gmail.com',
                 lead: 'Website',
-                status: 'Inactive',
+                status: 'Inactive'
             },
             {
                 id: 9,
@@ -278,7 +271,7 @@ export class CustomersApp {
                 company: { name: 'ZenTrailMs', logo: 'zentrailms' },
                 email: 'hi@onyamalimba.co',
                 lead: 'Website',
-                status: 'Active',
+                status: 'Active'
             },
             {
                 id: 10,
@@ -290,7 +283,7 @@ export class CustomersApp {
                 company: { name: 'Mistranet', logo: 'mistranet' },
                 email: 'hi@courtneyhenryo',
                 lead: 'Social Media',
-                status: 'Active',
+                status: 'Active'
             },
             {
                 id: 11,
@@ -301,8 +294,8 @@ export class CustomersApp {
                 company: { name: 'BriteMank', logo: 'britemank' },
                 email: 'hi@arlenemccoy.com',
                 lead: 'Social Media',
-                status: 'Active',
-            },
+                status: 'Active'
+            }
         ];
 
         this.companyLogos = {
@@ -329,20 +322,18 @@ export class CustomersApp {
 <path fill-rule="evenodd" clip-rule="evenodd" d="M9.79908 18.5C14.7696 18.5 18.7991 14.4705 18.7991 9.49998C18.7991 4.52944 14.7696 0.5 9.79908 0.5C4.8285 0.5 0.799072 4.52944 0.799072 9.49998C0.799072 14.4705 4.8285 18.5 9.79908 18.5ZM12.6068 4.69258C12.7434 4.20712 12.2723 3.92006 11.8421 4.22658L5.83597 8.5053C5.36937 8.83772 5.44276 9.49998 5.94622 9.49998H7.52779V9.48774H10.6102L8.09862 10.3739L6.99139 14.3074C6.85473 14.7929 7.32579 15.0799 7.75608 14.7734L13.7622 10.4947C14.2288 10.1623 14.1553 9.49998 13.6519 9.49998H11.2535L12.6068 4.69258Z" />
 </svg>
             `),
-            streamlinz: this.sanitizer
-                .bypassSecurityTrustHtml(`<svg class="fill-surface-600 dark:fill-surface-400" xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 19 19" fill="none">
+            streamlinz: this.sanitizer.bypassSecurityTrustHtml(`<svg class="fill-surface-600 dark:fill-surface-400" xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 19 19" fill="none">
 <path d="M9.79907 0.498047C8.61719 0.498047 7.44683 0.730864 6.3549 1.18313C5.26297 1.63544 4.27086 2.29835 3.43509 3.13407C2.59938 3.96983 1.93647 4.96194 1.48415 6.05387C1.03189 7.1458 0.799072 8.31616 0.799072 9.49804C0.799072 10.6799 1.03189 11.8503 1.48415 12.9422C1.93647 14.0341 2.59938 15.0262 3.43509 15.862C4.27086 16.6977 5.26297 17.3606 6.3549 17.813C7.44683 18.2652 8.61719 18.498 9.79907 18.498V13.998C9.2081 13.998 8.62295 13.8817 8.07698 13.6555C7.53102 13.4293 7.03494 13.0979 6.61708 12.68C6.19922 12.2622 5.86777 11.7661 5.64164 11.2201C5.41545 10.6742 5.29907 10.089 5.29907 9.49804C5.29907 8.90708 5.41545 8.32192 5.64164 7.77596C5.86777 7.22999 6.19922 6.73391 6.61708 6.31606C7.03494 5.8982 7.53102 5.56674 8.07698 5.34061C8.62295 5.11443 9.2081 4.99804 9.79907 4.99804V0.498047Z" />
 <path d="M9.79905 12.5019C11.4559 12.5019 12.799 11.1588 12.799 9.50193C12.799 7.84506 11.4559 6.50195 9.79905 6.50195C8.14218 6.50195 6.79907 7.84506 6.79907 9.50193C6.79907 11.1588 8.14218 12.5019 9.79905 12.5019Z"/>
 <path d="M0.799072 9.49805C0.799072 10.6799 1.03189 11.8503 1.48415 12.9422C1.93647 14.0341 2.59938 15.0263 3.43509 15.862C4.27086 16.6977 5.26297 17.3606 6.3549 17.813C7.44683 18.2652 8.61719 18.498 9.79907 18.498C10.9809 18.498 12.1513 18.2652 13.2432 17.813C14.3352 17.3606 15.3273 16.6977 16.163 15.862C16.9988 15.0263 17.6617 14.0341 18.114 12.9422C18.5662 11.8503 18.7991 10.6799 18.7991 9.49805H14.2991C14.2991 10.089 14.1827 10.6742 13.9565 11.2201C13.7304 11.7661 13.3989 12.2622 12.9811 12.68C12.5632 13.0979 12.0671 13.4293 11.5212 13.6555C10.9752 13.8817 10.39 13.998 9.79907 13.998C9.2081 13.998 8.62295 13.8817 8.07698 13.6555C7.53102 13.4293 7.03494 13.0979 6.61708 12.68C6.19922 12.2622 5.86777 11.7661 5.64164 11.2201C5.41545 10.6742 5.29907 10.089 5.29907 9.49805H0.799072Z" />
 <path d="M12.7991 9.50199C12.7991 8.70634 12.483 7.94329 11.9204 7.38066C11.3578 6.81803 10.5948 6.50195 9.7991 6.50195C9.00345 6.50195 8.24041 6.81803 7.67778 7.38066C7.11515 7.94329 6.79907 8.70634 6.79907 9.50199H9.7991H12.7991Z" />
 </svg>`),
-            wavelength: this.sanitizer
-                .bypassSecurityTrustHtml(`<svg class="fill-surface-600 dark:fill-surface-400" xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 19 19" fill="none">
+            wavelength: this.sanitizer.bypassSecurityTrustHtml(`<svg class="fill-surface-600 dark:fill-surface-400" xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 19 19" fill="none">
 <path d="M9.79907 0.5C4.82851 0.5 0.799072 4.52943 0.799072 9.5C5.76963 9.5 9.79907 5.47056 9.79907 0.5Z" />
 <path d="M9.79907 18.5C14.7696 18.5 18.7991 14.4706 18.7991 9.5C13.8285 9.5 9.79907 13.5294 9.79907 18.5Z" />
 <path d="M9.79907 0.5C14.7696 0.5 18.7991 4.52943 18.7991 9.5C13.8285 9.5 9.79907 5.47056 9.79907 0.5Z" />
 <path d="M9.79907 18.5C4.82851 18.5 0.799072 14.4706 0.799072 9.5C5.76963 9.5 9.79907 13.5294 9.79907 18.5Z" />
-</svg>`),
+</svg>`)
         };
     }
 }

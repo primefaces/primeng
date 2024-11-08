@@ -14,6 +14,6 @@ import { AccessibilityDoc } from './accessibilitydoc';
 @NgModule({
     imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, FormsModule, IftaLabelModule, InputTextModule],
     declarations: [ImportDoc, BasicDoc, InvalidDoc, AccessibilityDoc],
-    exports: [AppDocModule],
+    exports: [AppDocModule]
 })
 export class IftaLabelDocModule {}

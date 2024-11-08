@@ -5,10 +5,7 @@ import { Code } from '@domain/code';
     selector: 'datepicker-ifta-label-demo',
     template: `
         <app-docsectiontext>
-            <p>
-                IftaLabel is used to create infield top aligned labels. Visit <a routerLink="/iftalabel">IftaLabel</a> documentation for
-                more information.
-            </p>
+            <p>IftaLabel is used to create infield top aligned labels. Visit <a routerLink="/iftalabel">IftaLabel</a> documentation for more information.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-iftalabel>
@@ -17,7 +14,7 @@ import { Code } from '@domain/code';
             </p-iftalabel>
         </div>
         <app-code [code]="code" selector="datepicker-ifta-label-demo"></app-code>
-    `,
+    `
 })
 export class IftaLabelDoc {
     value: Date | undefined;
@@ -68,6 +65,6 @@ import { IftaLabelModule } from 'primeng/iftalabel';
 })
 export class DatePickerIftaLabelDemo {
     value: Date | undefined;
-}`,
+}`
     };
 }

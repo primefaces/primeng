@@ -33,14 +33,14 @@ import { NodeService } from '@service/nodeservice';
             </p-deferred-demo>
         </div>
         <app-code [code]="code" selector="tree-table-controlled-demo"></app-code>`,
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ControlledDoc {
     files!: TreeNode[];
 
     constructor(
         private nodeService: NodeService,
-        private cd: ChangeDetectorRef,
+        private cd: ChangeDetectorRef
     ) {}
 
     loadDemoData() {
@@ -137,6 +137,6 @@ export class TreeTableControlledDemo implements OnInit {
     }
 }`,
 
-        service: ['NodeService'],
+        service: ['NodeService']
     };
 }

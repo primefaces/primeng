@@ -7,10 +7,7 @@ import { ProductService } from '@service/productservice';
     selector: 'template-doc',
     template: `
         <app-docsectiontext>
-            <p>
-                For custom content support define an <i>option</i> template that gets the item instance as a parameter. In addition
-                <i>sourceheader</i> and <i>targetheader</i> templates are provided for further customization.
-            </p>
+            <p>For custom content support define an <i>option</i> template that gets the item instance as a parameter. In addition <i>sourceheader</i> and <i>targetheader</i> templates are provided for further customization.</p>
         </app-docsectiontext>
         <div class="card">
             <p-picklist
@@ -27,18 +24,14 @@ import { ProductService } from '@service/productservice';
             >
                 <ng-template let-option let-selected="selected" pTemplate="option">
                     <div class="flex flex-wrap p-1 items-center gap-4 w-full">
-                        <img
-                            class="w-12 shrink-0 rounded"
-                            src="https://primefaces.org/cdn/primeng/images/demo/product/{{ option.image }}"
-                            [alt]="option.name"
-                        />
+                        <img class="w-12 shrink-0 rounded" src="https://primefaces.org/cdn/primeng/images/demo/product/{{ option.image }}" [alt]="option.name" />
                         <div class="flex-1 flex flex-col">
                             <span class="font-medium text-sm">{{ option.name }}</span>
                             <span
                                 [ngClass]="{
                                     'text-surface-500': !selected,
                                     'dark:text-surface-400': !selected,
-                                    'text-inherit': selected,
+                                    'text-inherit': selected
                                 }"
                                 >{{ option.category }}</span
                             >
@@ -49,7 +42,7 @@ import { ProductService } from '@service/productservice';
             </p-picklist>
         </div>
         <app-code [code]="code" selector="picklist-template-demo" [extFiles]="extFiles"></app-code>
-    `,
+    `
 })
 export class TemplateDoc {
     sourceProducts!: Product[];
@@ -178,7 +171,7 @@ export class PicklistTemplateDemo {
 },
 ...`,
 
-        service: ['ProductService'],
+        service: ['ProductService']
     };
     extFiles = [
         {
@@ -195,13 +188,13 @@ export interface Product {
     category?: string;
     image?: string;
     rating?: number;
-}`,
-        },
+}`
+        }
     ];
 
     constructor(
         private carService: ProductService,
-        private cdr: ChangeDetectorRef,
+        private cdr: ChangeDetectorRef
     ) {}
 
     ngOnInit() {

@@ -11,7 +11,7 @@ import { Code } from '@domain/code';
             <p-button label="Search" icon="pi pi-check" [loading]="loading" (onClick)="load()" />
         </div>
         <app-code [code]="code" selector="button-loading-demo"></app-code>
-    `,
+    `
 })
 export class LoadingDoc {
     loading: boolean = false;
@@ -53,6 +53,6 @@ export class ButtonLoadingDemo {
             this.loading = false
         }, 2000);
     }
-}`,
+}`
     };
 }

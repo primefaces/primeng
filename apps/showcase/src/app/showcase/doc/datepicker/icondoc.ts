@@ -28,7 +28,7 @@ import { Code } from '@domain/code';
             </div>
         </p-fluid>
         <app-code [code]="code" selector="datepicker-icon-demo"></app-code>
-    `,
+    `
 })
 export class IconDoc {
     date1: Date | undefined;
@@ -86,6 +86,6 @@ export class DatePickerIconDemo {
     date2: Date | undefined;
 
     date3: Date | undefined;
-}`,
+}`
     };
 }

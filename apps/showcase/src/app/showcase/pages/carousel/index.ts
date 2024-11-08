@@ -12,16 +12,7 @@ import { CarouselDocModule } from '@doc/carousel/carouseldoc.module';
 @Component({
     standalone: true,
     imports: [CarouselDocModule],
-    template: `
-        <app-doc
-            docTitle="Angular Carousel Component"
-            header="Carousel"
-            description="Carousel is a content slider featuring various customization options."
-            [docs]="docs"
-            [apiDocs]="['Carousel']"
-            themeDocs="Carousel"
-        ></app-doc>
-    `,
+    template: ` <app-doc docTitle="Angular Carousel Component" header="Carousel" description="Carousel is a content slider featuring various customization options." [docs]="docs" [apiDocs]="['Carousel']" themeDocs="Carousel"></app-doc> `
     // styles: [
     //     `
     //         :host ::ng-deep {
@@ -50,32 +41,32 @@ export class CarouselDemo {
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc,
+            component: ImportDoc
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc,
+            component: BasicDoc
         },
         {
             id: 'circular',
             label: 'Circular',
-            component: CircularDoc,
+            component: CircularDoc
         },
         {
             id: 'responsive',
             label: 'Responsive',
-            component: ResponsiveDoc,
+            component: ResponsiveDoc
         },
         {
             id: 'vertical',
             label: 'Vertical',
-            component: VerticalDoc,
+            component: VerticalDoc
         },
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc,
-        },
+            component: AccessibilityDoc
+        }
     ];
 }

@@ -18,99 +18,92 @@ import { MultiSelectDocModule } from '@doc/multiselect/multiselectdoc.module';
 import { SizesDoc } from '@doc/multiselect/sizesdoc';
 
 @Component({
-    template: `<app-doc
-        docTitle="Angular MultiSelect Component"
-        header="MultiSelect"
-        description="MultiSelect is used to select multiple items from a collection."
-        [docs]="docs"
-        [apiDocs]="['MultiSelect']"
-        themeDocs="multiselect"
-    ></app-doc> `,
+    template: `<app-doc docTitle="Angular MultiSelect Component" header="MultiSelect" description="MultiSelect is used to select multiple items from a collection." [docs]="docs" [apiDocs]="['MultiSelect']" themeDocs="multiselect"></app-doc> `,
     standalone: true,
-    imports: [MultiSelectDocModule],
+    imports: [MultiSelectDocModule]
 })
 export class MultiSelectDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc,
+            component: ImportDoc
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc,
+            component: BasicDoc
         },
         {
             id: 'reactive-forms',
             label: 'Reactive Forms',
-            component: ReactiveFormsDoc,
+            component: ReactiveFormsDoc
         },
         {
             id: 'chips',
             label: 'Chips',
-            component: ChipsDoc,
+            component: ChipsDoc
         },
         {
             id: 'group',
             label: 'Group',
-            component: GroupDoc,
+            component: GroupDoc
         },
         {
             id: 'template',
             label: 'Template',
-            component: TemplateDoc,
+            component: TemplateDoc
         },
         {
             id: 'filter',
             label: 'Filter',
-            component: FilterDoc,
+            component: FilterDoc
         },
         {
             id: 'loadingstate',
             label: 'Loading State',
-            component: LoadingStateDoc,
+            component: LoadingStateDoc
         },
         {
             id: 'virtualscroll',
             label: 'VirtualScroll',
-            component: VirtualScrollDoc,
+            component: VirtualScrollDoc
         },
         {
             id: 'floatlabel',
             label: 'Float Label',
-            component: FloatLabelDoc,
+            component: FloatLabelDoc
         },
         {
             id: 'iftalabel',
             label: 'Ifta Label',
-            component: IftaLabelDoc,
+            component: IftaLabelDoc
         },
         {
             id: 'sizes',
             label: 'Sizes',
-            component: SizesDoc,
+            component: SizesDoc
         },
         {
             id: 'filled',
             label: 'Filled',
-            component: FilledDoc,
+            component: FilledDoc
         },
         {
             id: 'invalid',
             label: 'Invalid',
-            component: InvalidDoc,
+            component: InvalidDoc
         },
         {
             id: 'disabled',
             label: 'Disabled',
-            component: DisabledDoc,
+            component: DisabledDoc
         },
 
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc,
-        },
+            component: AccessibilityDoc
+        }
     ];
 }

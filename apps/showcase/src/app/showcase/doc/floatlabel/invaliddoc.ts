@@ -24,7 +24,7 @@ import { Code } from '@domain/code';
             </p-floatlabel>
         </div>
         <app-code [code]="code" selector="float-label-invalid-demo"></app-code>
-    `,
+    `
 })
 export class InvalidDoc {
     value1: string | undefined;
@@ -83,6 +83,6 @@ export class FloatLabelInvalidDemo {
     value2: string | undefined;
 
     value3: string | undefined;
-}`,
+}`
     };
 }

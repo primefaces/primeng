@@ -8,49 +8,42 @@ import { AccessibilityDoc } from '@doc/splitter/accessibilitydoc';
 import { SplitterDocModule } from '@doc/splitter/splitterdoc.module';
 
 @Component({
-    template: `<app-doc
-        docTitle="Angular Splitter Component"
-        header="Splitter"
-        description="Splitter is utilized to separate and resize panels."
-        [docs]="docs"
-        [apiDocs]="['Splitter']"
-        themeDocs="splitter"
-    ></app-doc>`,
+    template: `<app-doc docTitle="Angular Splitter Component" header="Splitter" description="Splitter is utilized to separate and resize panels." [docs]="docs" [apiDocs]="['Splitter']" themeDocs="splitter"></app-doc>`,
     standalone: true,
-    imports: [SplitterDocModule],
+    imports: [SplitterDocModule]
 })
 export class SplitterDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc,
+            component: ImportDoc
         },
         {
             id: 'horizontal',
             label: 'Horizontal',
-            component: HorizontalDoc,
+            component: HorizontalDoc
         },
         {
             id: 'size',
             label: 'Size',
-            component: SizeDoc,
+            component: SizeDoc
         },
         {
             id: 'vertical',
             label: 'Vertical',
-            component: VerticalDoc,
+            component: VerticalDoc
         },
         {
             id: 'nested',
             label: 'Nested',
-            component: NestedDoc,
+            component: NestedDoc
         },
 
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc,
-        },
+            component: AccessibilityDoc
+        }
     ];
 }

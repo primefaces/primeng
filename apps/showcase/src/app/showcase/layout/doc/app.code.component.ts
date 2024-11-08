@@ -13,28 +13,13 @@ import { useCodeSandbox, useStackBlitz } from './codeeditor';
         <div *ngIf="code" class="doc-section-code">
             <div class="doc-section-code-buttons animate-scalein animate-duration-300">
                 <ng-container *ngIf="fullCodeVisible">
-                    <button
-                        *ngIf="code.html"
-                        (click)="changeLang('html')"
-                        class="py-0 px-2 rounded-border h-8"
-                        [ngClass]="{ 'code-active': lang === 'html' }"
-                    >
+                    <button *ngIf="code.html" (click)="changeLang('html')" class="py-0 px-2 rounded-border h-8" [ngClass]="{ 'code-active': lang === 'html' }">
                         <span>HTML</span>
                     </button>
-                    <button
-                        *ngIf="code.typescript"
-                        (click)="changeLang('typescript')"
-                        class="py-0 px-2 rounded-border h-8"
-                        [ngClass]="{ 'code-active': lang === 'typescript' }"
-                    >
+                    <button *ngIf="code.typescript" (click)="changeLang('typescript')" class="py-0 px-2 rounded-border h-8" [ngClass]="{ 'code-active': lang === 'typescript' }">
                         <span>TS</span>
                     </button>
-                    <button
-                        *ngIf="code.scss"
-                        (click)="changeLang('scss')"
-                        class="py-0 px-2 rounded-border h-8"
-                        [ngClass]="{ 'code-active': lang === 'scss' }"
-                    >
+                    <button *ngIf="code.scss" (click)="changeLang('scss')" class="py-0 px-2 rounded-border h-8" [ngClass]="{ 'code-active': lang === 'scss' }">
                         <span>SCSS</span>
                     </button>
 
@@ -50,14 +35,7 @@ import { useCodeSandbox, useStackBlitz } from './codeeditor';
                         <i class="pi pi-database"></i>
                     </button>
                 </ng-container>
-                <button
-                    *ngIf="!hideToggleCode"
-                    pTooltip="Toggle Full Code"
-                    tooltipStyleClass="doc-section-code-tooltip"
-                    tooltipPosition="bottom"
-                    class="h-8 w-8 p-0 inline-flex items-center justify-center"
-                    (click)="toggleCode()"
-                >
+                <button *ngIf="!hideToggleCode" pTooltip="Toggle Full Code" tooltipStyleClass="doc-section-code-tooltip" tooltipPosition="bottom" class="h-8 w-8 p-0 inline-flex items-center justify-center" (click)="toggleCode()">
                     <i class="pi pi-code"></i>
                 </button>
 
@@ -69,27 +47,12 @@ import { useCodeSandbox, useStackBlitz } from './codeeditor';
                     class="h-8 w-8 p-0 inline-flex items-center justify-center"
                     (click)="openStackBlitz()"
                 >
-                    <svg
-                        role="img"
-                        width="13"
-                        height="18"
-                        viewBox="0 0 13 19"
-                        fill="currentColor"
-                        xmlns="http://www.w3.org/2000/svg"
-                        style="display: 'block'"
-                    >
+                    <svg role="img" width="13" height="18" viewBox="0 0 13 19" fill="currentColor" xmlns="http://www.w3.org/2000/svg" style="display: 'block'">
                         <path d="M0 10.6533H5.43896L2.26866 18.1733L12.6667 7.463H7.1986L10.3399 0L0 10.6533Z" />
                     </svg>
                 </button>
 
-                <button
-                    type="button"
-                    class="h-8 w-8 p-0 inline-flex items-center justify-center"
-                    (click)="copyCode()"
-                    pTooltip="Copy Code"
-                    tooltipPosition="bottom"
-                    tooltipStyleClass="doc-section-code-tooltip"
-                >
+                <button type="button" class="h-8 w-8 p-0 inline-flex items-center justify-center" (click)="copyCode()" pTooltip="Copy Code" tooltipPosition="bottom" tooltipStyleClass="doc-section-code-tooltip">
                     <i class="pi pi-copy"></i>
                 </button>
             </div>
@@ -129,7 +92,7 @@ import { useCodeSandbox, useStackBlitz } from './codeeditor';
 
 </code></pre>
         </div>
-    `,
+    `
 })
 export class AppCodeComponent {
     @Input() code!: Code;
@@ -158,7 +121,7 @@ export class AppCodeComponent {
 
     constructor(
         @Inject(PLATFORM_ID) public platformId: any,
-        @Inject(DOCUMENT) public document: Document,
+        @Inject(DOCUMENT) public document: Document
     ) {}
 
     ngAfterViewChecked() {
@@ -219,15 +182,9 @@ export class AppCodeComponent {
                     return match;
                 });
 
-                modifiedCodeWithImportsModule = modifiedCodeWithImportsModule.replace(
-                    /\bimports:\s*\[[^\]]*\]/,
-                    'imports: [ImportsModule]',
-                );
+                modifiedCodeWithImportsModule = modifiedCodeWithImportsModule.replace(/\bimports:\s*\[[^\]]*\]/, 'imports: [ImportsModule]');
 
-                const finalModifiedCode = modifiedCodeWithImportsModule.replace(
-                    /import\s+\{[^{}]*\}\s+from\s+'@angular\/core';/,
-                    (match) => match + '\n' + importModuleStatement,
-                );
+                const finalModifiedCode = modifiedCodeWithImportsModule.replace(/import\s+\{[^{}]*\}\s+from\s+'@angular\/core';/, (match) => match + '\n' + importModuleStatement);
 
                 str = finalModifiedCode;
             }
@@ -247,6 +204,6 @@ export class AppCodeComponent {
 
 @NgModule({
     imports: [AppCodeComponent],
-    exports: [AppCodeComponent],
+    exports: [AppCodeComponent]
 })
 export class AppCodeModule {}

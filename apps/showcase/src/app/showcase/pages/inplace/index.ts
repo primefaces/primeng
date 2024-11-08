@@ -18,39 +18,39 @@ import { InplaceDocModule } from '@doc/inplace/inplacedoc.module';
         [docs]="docs"
         [apiDocs]="['Inplace']"
         themeDocs="Inplace"
-    ></app-doc>`,
+    ></app-doc>`
 })
 export class InplaceDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc,
+            component: ImportDoc
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc,
+            component: BasicDoc
         },
         {
             id: 'input',
             label: 'Input',
-            component: InputDoc,
+            component: InputDoc
         },
         {
             id: 'image',
             label: 'Image',
-            component: ImageDoc,
+            component: ImageDoc
         },
         {
             id: 'lazy',
             label: 'Lazy',
-            component: LazyDoc,
+            component: LazyDoc
         },
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc,
-        },
+            component: AccessibilityDoc
+        }
     ];
 }

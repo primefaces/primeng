@@ -5,24 +5,24 @@ import { TailwindCSSDoc } from '@doc/guides/primeflex/tailwindcssdoc';
 
 @Component({
     selector: 'css-layer',
-    templateUrl: './primeflexdemo.component.html',
+    templateUrl: './primeflexdemo.component.html'
 })
 export class PrimeFlexDemoComponent {
     docs = [
         {
             id: 'overview',
             label: 'Overview',
-            component: OverviewDoc,
+            component: OverviewDoc
         },
         {
             id: 'tailwindcss',
             label: 'Tailwind CSS',
-            component: TailwindCSSDoc,
+            component: TailwindCSSDoc
         },
         {
             id: 'migration',
             label: 'Migration',
-            component: MigrationDoc,
-        },
+            component: MigrationDoc
+        }
     ];
 }

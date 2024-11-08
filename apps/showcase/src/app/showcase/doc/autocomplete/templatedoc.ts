@@ -13,19 +13,10 @@ interface AutoCompleteCompleteEvent {
             <p>AutoComplete offers multiple templates for customization through templating.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-autocomplete
-                [(ngModel)]="selectedCountryAdvanced"
-                [suggestions]="filteredCountries"
-                (completeMethod)="filterCountry($event)"
-                optionLabel="name"
-            >
+            <p-autocomplete [(ngModel)]="selectedCountryAdvanced" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" optionLabel="name">
                 <ng-template let-country #item>
                     <div class="flex items-center gap-2">
-                        <img
-                            src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
-                            [class]="'flag flag-' + country.code.toLowerCase()"
-                            style="width: 18px"
-                        />
+                        <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" style="width: 18px" />
                         <div>{{ country.name }}</div>
                     </div>
                 </ng-template>
@@ -39,7 +30,7 @@ interface AutoCompleteCompleteEvent {
                 </ng-template>
             </p-autocomplete>
         </div>
-        <app-code [code]="code" selector="autocomplete-template-demo"></app-code>`,
+        <app-code [code]="code" selector="autocomplete-template-demo"></app-code>`
 })
 export class TemplateDoc {
     countries: any[] | undefined;
@@ -163,6 +154,6 @@ export class AutocompleteTemplateDemo {
     "name": "Afghanistan",
     "code": "AF"
 }
-...`,
+...`
     };
 }

@@ -24,7 +24,7 @@ import { Code } from '@domain/code';
             </p-inplace>
         </div>
         <app-code [code]="code" selector="inplace-input-demo"></app-code>
-    `,
+    `
 })
 export class InputDoc {
     code: Code = {
@@ -63,6 +63,6 @@ import { AutoFocusModule } from 'primeng/autofocus';
     standalone: true,
     imports: [InplaceModule, InputTextModule, AutoFocusModule]
 })
-export class InplaceInputDemo {}`,
+export class InplaceInputDemo {}`
     };
 }

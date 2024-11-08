@@ -10,14 +10,7 @@ import { CustomerService } from '@service/customerservice';
         </app-docsectiontext>
         <p-deferred-demo (load)="loadDemoData()">
             <div class="card">
-                <p-table
-                    [value]="customers"
-                    rowGroupMode="rowspan"
-                    groupRowsBy="representative.name"
-                    sortField="representative.name"
-                    sortMode="single"
-                    [tableStyle]="{ 'min-width': '75rem' }"
-                >
+                <p-table [value]="customers" rowGroupMode="rowspan" groupRowsBy="representative.name" sortField="representative.name" sortMode="single" [tableStyle]="{ 'min-width': '75rem' }">
                     <ng-template #header>
                         <tr>
                             <th style="width:3rem">#</th>
@@ -33,23 +26,14 @@ import { CustomerService } from '@service/customerservice';
                         <tr>
                             <td>{{ rowIndex }}</td>
                             <td *ngIf="rowgroup" [attr.rowspan]="rowspan">
-                                <img
-                                    [alt]="customer.representative.name"
-                                    src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}"
-                                    width="32"
-                                    style="vertical-align: middle"
-                                />
+                                <img [alt]="customer.representative.name" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}" width="32" style="vertical-align: middle" />
                                 <span class="font-bold ml-2">{{ customer.representative.name }}</span>
                             </td>
                             <td>
                                 {{ customer.name }}
                             </td>
                             <td>
-                                <img
-                                    src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
-                                    [class]="'flag flag-' + customer.country.code"
-                                    style="width: 20px"
-                                />
+                                <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px" />
                                 <span class="ml-1 align-middle">{{ customer.country.name }}</span>
                             </td>
                             <td>
@@ -67,14 +51,14 @@ import { CustomerService } from '@service/customerservice';
             </div>
         </p-deferred-demo>
         <app-code [code]="code" selector="table-rowspan-grouping-demo" [extFiles]="extFiles"></app-code>`,
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RowspanGroupingDoc {
     customers!: Customer[];
 
     constructor(
         private customerService: CustomerService,
-        private cd: ChangeDetectorRef,
+        private cd: ChangeDetectorRef
     ) {}
 
     loadDemoData() {
@@ -309,7 +293,7 @@ export class TableRowspanGroupingDemo implements OnInit{
     balance: 70663
 },
 ...`,
-        service: ['CustomerService'],
+        service: ['CustomerService']
     };
 
     extFiles = [
@@ -337,7 +321,7 @@ export interface Customer {
     representative?: Representative;
     verified?: boolean;
     balance?: number;
-}`,
-        },
+}`
+        }
     ];
 }

@@ -16,8 +16,8 @@ import { Code } from '@domain/code';
                     </div>
                 </ng-template>
                 <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                    consequat.
                 </p>
                 <ng-template #footer>
                     <div class="flex items-center gap-2">
@@ -29,7 +29,7 @@ import { Code } from '@domain/code';
             <button pButton (click)="visible = true" icon="pi pi-plus"></button>
         </div>
         <app-code [code]="code" selector="drawer-template-demo"></app-code>
-    `,
+    `
 })
 export class TemplateDoc {
     visible: boolean = false;
@@ -109,6 +109,6 @@ import { ButtonModule } from 'primeng/button';
 })
 export class DrawerTemplateDemo {
     visible: boolean = false;
-}`,
+}`
     };
 }

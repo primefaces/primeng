@@ -22,7 +22,7 @@ import { AppConfigService } from '@service/appconfigservice';
                 </clipPath>
             </defs>
         </svg>
-    `,
+    `
 })
 export class DiamondLogo {
     configService = inject(AppConfigService);

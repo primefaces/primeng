@@ -54,7 +54,7 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
         FileUpload,
         OverlayBadgeModule,
         Checkbox,
-        ToggleSwitchModule,
+        ToggleSwitchModule
     ],
     template: `
         <div class="text-color text-2xl font-medium leading-8">Cards</div>
@@ -64,10 +64,7 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
                 <div class="border border-surface rounded-3xl p-6 flex flex-col gap-6">
                     <div class="flex items-center gap-3">
                         <p-overlayBadge severity="danger" styleClass="w-fit">
-                            <p-avatar
-                                image="https://www.primefaces.org/cdn/primevue/images/landing/apps/main-avatar.png"
-                                class="rounded-lg overflow-hidden flex"
-                            />
+                            <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/main-avatar.png" class="rounded-lg overflow-hidden flex" />
                         </p-overlayBadge>
 
                         <div>
@@ -79,49 +76,23 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
                         <div class="text-sm leading-5 text-color">14.k <span class="text-muted-color">Followers</span></div>
                         <div class="text-sm leading-5 text-color">359 <span class="text-muted-color">Following</span></div>
                     </div>
-                    <p class="text-sm text-muted-color leading-5 mb-0">
-                        Meet Jacob Jones, the whimsical adventurer on a quest for life's quirks. From sock mysteries to subway adventures,
-                        join him for a laughter-filled journey!
-                    </p>
+                    <p class="text-sm text-muted-color leading-5 mb-0">Meet Jacob Jones, the whimsical adventurer on a quest for life's quirks. From sock mysteries to subway adventures, join him for a laughter-filled journey!</p>
                     <div class="flex items-center justify-between gap-2">
                         <div class="text-sm leading-5 text-color font-medium">Mutual Friends</div>
                         <p-avatarGroup>
-                            <p-avatar
-                                image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar1.png"
-                                class="rounded-lg overflow-hidden"
-                            />
-                            <p-avatar
-                                image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar9.jpg"
-                                class="rounded-lg overflow-hidden"
-                            />
-                            <p-avatar
-                                image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar11.jpg"
-                                class="rounded-lg overflow-hidden"
-                            />
-                            <p-avatar
-                                image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar13.jpg"
-                                class="rounded-lg overflow-hidden"
-                            />
-                            <p-avatar
-                                image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar5.png"
-                                class="rounded-lg overflow-hidden"
-                            />
+                            <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar1.png" class="rounded-lg overflow-hidden" />
+                            <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar9.jpg" class="rounded-lg overflow-hidden" />
+                            <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar11.jpg" class="rounded-lg overflow-hidden" />
+                            <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar13.jpg" class="rounded-lg overflow-hidden" />
+                            <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar5.png" class="rounded-lg overflow-hidden" />
                             <p-avatar label="+99" class="rounded-lg overflow-hidden text-xs" />
                         </p-avatarGroup>
                     </div>
-                    <p-selectbutton
-                        [(ngModel)]="selectedUserSelectButtonOption"
-                        [options]="userSelectButtonOptions"
-                        class="w-full"
-                        styleClass="flex-1"
-                    />
+                    <p-selectbutton [(ngModel)]="selectedUserSelectButtonOption" [options]="userSelectButtonOptions" class="w-full" styleClass="flex-1" />
                     <div class="flex flex-col gap-4">
                         <div class="p-2 rounded-2xl flex items-center gap-3 bg-emphasis">
                             <p-overlayBadge severity="danger" class="w-fit">
-                                <p-avatar
-                                    image="https://www.primefaces.org/cdn/primevue/images/landing/apps/main-avatar.png"
-                                    class="rounded-lg overflow-hidden w-10 h-10 block"
-                                />
+                                <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/main-avatar.png" class="rounded-lg overflow-hidden w-10 h-10 block" />
                             </p-overlayBadge>
 
                             <div class="flex-1">
@@ -132,10 +103,7 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
                         </div>
                         <div class="p-2 rounded-2xl flex items-center gap-3 bg-emphasis">
                             <p-overlayBadge severity="danger" class="w-fit">
-                                <p-avatar
-                                    image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar9.jpg"
-                                    class="rounded-lg overflow-hidden w-10 h-10 flex"
-                                />
+                                <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar9.jpg" class="rounded-lg overflow-hidden w-10 h-10 flex" />
                             </p-overlayBadge>
 
                             <div class="flex-1">
@@ -148,10 +116,7 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
                 </div>
                 <div class="border border-surface rounded-3xl p-6">
                     <div class="flex items-center gap-3 p-3 border border-surface rounded-xl shadow-[0px_1px_2px_0px_rgba(18,18,23,0.05)]">
-                        <p-avatar
-                            image="https://www.primefaces.org/cdn/primevue/images/landing/apps/main-avatar.png"
-                            class="rounded-lg overflow-hidden w-14 h-14"
-                        />
+                        <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/main-avatar.png" class="rounded-lg overflow-hidden w-14 h-14" />
                         <div class="flex-1">
                             <div class="text-color font-medium leading-7">Jacob Jones</div>
                             <div class="text-muted-color text-sm mt-1">hi&#64;jacobjones.co</div>
@@ -159,40 +124,30 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
                         <p-button icon="pi pi-bell" severity="contrast" text />
                     </div>
                     <div class="mt-4 flex flex-col gap-1">
-                        <button
-                            class="w-full flex items-center gap-2 text-color p-2 bg-transparent hover:bg-emphasis active:bg-surface-200 dark:active:bg-surface-700 cursor-pointer rounded-lg transition-all select-none"
-                        >
+                        <button class="w-full flex items-center gap-2 text-color p-2 bg-transparent hover:bg-emphasis active:bg-surface-200 dark:active:bg-surface-700 cursor-pointer rounded-lg transition-all select-none">
                             <i class="pi pi-envelope text-lg w-7 h-7 flex items-center justify-center"></i>
                             <div class="font-medium leading-normal flex-1 text-left">Messages</div>
                         </button>
-                        <button
-                            class="w-full flex items-center gap-2 text-color p-2 bg-transparent hover:bg-emphasis active:bg-surface-200 dark:active:bg-surface-700 cursor-pointer rounded-lg transition-all select-none"
-                        >
+                        <button class="w-full flex items-center gap-2 text-color p-2 bg-transparent hover:bg-emphasis active:bg-surface-200 dark:active:bg-surface-700 cursor-pointer rounded-lg transition-all select-none">
                             <i class="pi pi-cog text-lg w-7 h-7 flex items-center justify-center"></i>
                             <div class="font-medium leading-normal flex-1 text-left">Settings</div>
                         </button>
-                        <button
-                            class="w-full flex items-center gap-2 text-color p-2 bg-transparent hover:bg-emphasis active:bg-surface-200 dark:active:bg-surface-700 cursor-pointer rounded-lg transition-all select-none"
-                        >
+                        <button class="w-full flex items-center gap-2 text-color p-2 bg-transparent hover:bg-emphasis active:bg-surface-200 dark:active:bg-surface-700 cursor-pointer rounded-lg transition-all select-none">
                             <i class="pi pi-sync text-lg w-7 h-7 flex items-center justify-center"></i>
                             <div class="font-medium leading-normal flex-1 text-left">Switch Accounts</div>
                         </button>
-                        <button
-                            class="w-full flex items-center gap-2 text-color p-2 bg-transparent hover:bg-emphasis active:bg-surface-200 dark:active:bg-surface-700 cursor-pointer rounded-lg transition-all select-none"
-                        >
+                        <button class="w-full flex items-center gap-2 text-color p-2 bg-transparent hover:bg-emphasis active:bg-surface-200 dark:active:bg-surface-700 cursor-pointer rounded-lg transition-all select-none">
                             <i class="pi pi-sign-in text-lg w-7 h-7 flex items-center justify-center"></i>
                             <div class="font-medium leading-normal flex-1 text-left">Log out</div>
                         </button>
                     </div>
                     <p-divider />
-                    <div
-                        class="w-full flex items-center gap-2 text-color p-2 bg-transparent cursor-pointer rounded-lg transition-all select-none"
-                    >
+                    <div class="w-full flex items-center gap-2 text-color p-2 bg-transparent cursor-pointer rounded-lg transition-all select-none">
                         <i
                             class="pi text-lg w-7 h-7 flex items-center justify-center"
                             [ngClass]="{
                                 'pi-moon': !darkMode,
-                                'pi-sun': darkMode,
+                                'pi-sun': darkMode
                             }"
                         ></i>
                         <div class="font-medium leading-normal flex-1 text-left">Switch to {{ darkMode ? 'Light' : 'Dark' }}</div>
@@ -206,13 +161,7 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
                                 <div class="text-2xl text-color font-medium">Data Analyst</div>
                                 <div class="mt-2 text-color">Data Insights Ltd.</div>
                             </div>
-                            <p-button
-                                (click)="jobApplication = !jobApplication"
-                                [icon]="jobApplication ? 'pi pi-bookmark-fill' : 'pi pi-bookmark'"
-                                severity="secondary"
-                                outlined
-                                rounded
-                            />
+                            <p-button (click)="jobApplication = !jobApplication" [icon]="jobApplication ? 'pi pi-bookmark-fill' : 'pi pi-bookmark'" severity="secondary" outlined rounded />
                         </div>
                         <div class="flex flex-wrap gap-1 items-center justify-between">
                             <div class="flex items-center gap-2 whitespace-nowrap text-muted-color">
@@ -228,9 +177,7 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
                                 <div class="font-medium leading-none">$80,000</div>
                             </div>
                         </div>
-                        <p class="leading-6 text-muted-color mb-0">
-                            Expert in data analysis? Join Data Insights Ltd. as a senior data analyst. Lead in the world of data with us!
-                        </p>
+                        <p class="leading-6 text-muted-color mb-0">Expert in data analysis? Join Data Insights Ltd. as a senior data analyst. Lead in the world of data with us!</p>
                         <div class="flex flex-wrap gap-2 items-center">
                             <p-tag value="Data Analysis" rounded class="font-normal"></p-tag>
                             <p-tag value="Analytics" rounded class="font-normal"></p-tag>
@@ -238,9 +185,7 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
                         </div>
                     </div>
                     <div class="p-1 mt-4">
-                        <button
-                            class="p-4 rounded-3xl w-full bg-emphasis transition-all text-color hover:text-color-emphasis flex items-center gap-2 justify-between cursor-pointer"
-                        >
+                        <button class="p-4 rounded-3xl w-full bg-emphasis transition-all text-color hover:text-color-emphasis flex items-center gap-2 justify-between cursor-pointer">
                             <div class="flex items-center [&>*]:-mr-2">
                                 <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar11.jpg" shape="circle" />
                                 <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar10.jpg" shape="circle" />
@@ -269,97 +214,35 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
                     </div>
                     <div>
                         <label class="text-color font-medium leading-6">Upload Files</label>
-                        <p-fileupload
-                            name="demo[]"
-                            url="/api/upload"
-                            (onUpload)="onTemplatedUpload($event)"
-                            accept="image/*"
-                            [maxFileSize]="1000000"
-                            styleClass="mt-2"
-                            (onSelect)="onSelectedFiles($event)"
-                        >
-                            <ng-template
-                                #header
-                                let-chooseCallback="chooseCallback"
-                                let-clearCallback="clearCallback"
-                                let-uploadCallback="uploadCallback"
-                            >
-                                <div
-                                    *ngIf="files.length > 0 || uploadedFiles.length > 0"
-                                    class="flex w-full flex-wrap justify-between items-center flex-1 gap-4 border-b border-surface pb-4"
-                                >
+                        <p-fileupload name="demo[]" url="/api/upload" (onUpload)="onTemplatedUpload($event)" accept="image/*" [maxFileSize]="1000000" styleClass="mt-2" (onSelect)="onSelectedFiles($event)">
+                            <ng-template #header let-chooseCallback="chooseCallback" let-clearCallback="clearCallback" let-uploadCallback="uploadCallback">
+                                <div *ngIf="files.length > 0 || uploadedFiles.length > 0" class="flex w-full flex-wrap justify-between items-center flex-1 gap-4 border-b border-surface pb-4">
                                     <div class="flex gap-2">
-                                        <p-button
-                                            (click)="chooseCallback()"
-                                            icon="pi pi-images"
-                                            rounded
-                                            outlined
-                                            severity="secondary"
-                                        ></p-button>
-                                        <p-button
-                                            (click)="uploadEvent(uploadCallback)"
-                                            icon="pi pi-cloud-upload"
-                                            rounded
-                                            outlined
-                                            severity="success"
-                                            [disabled]="!files || files.length === 0"
-                                        ></p-button>
-                                        <p-button
-                                            (click)="clearCallback()"
-                                            icon="pi pi-times"
-                                            rounded
-                                            outlined
-                                            severity="danger"
-                                            [disabled]="!files || files.length === 0"
-                                        ></p-button>
+                                        <p-button (click)="chooseCallback()" icon="pi pi-images" rounded outlined severity="secondary"></p-button>
+                                        <p-button (click)="uploadEvent(uploadCallback)" icon="pi pi-cloud-upload" rounded outlined severity="success" [disabled]="!files || files.length === 0"></p-button>
+                                        <p-button (click)="clearCallback()" icon="pi pi-times" rounded outlined severity="danger" [disabled]="!files || files.length === 0"></p-button>
                                     </div>
                                 </div>
-                                <div
-                                    *ngIf="files.length <= 0 && uploadedFiles.length <= 0"
-                                    class="flex flex-col items-center justify-center p-6 cursor-pointer"
-                                    (click)="chooseCallback()"
-                                >
+                                <div *ngIf="files.length <= 0 && uploadedFiles.length <= 0" class="flex flex-col items-center justify-center p-6 cursor-pointer" (click)="chooseCallback()">
                                     <i class="pi pi-cloud-upload text-4xl text-color"></i>
-                                    <div class="text-sm text-color font-medium mt-2">
-                                        Click to upload <span class="text-muted-color">or and drop</span>
-                                    </div>
-                                    <p class="mt-2 mb-0 text-sm text-muted-color text-center">
-                                        PDF, JPG, PNG, JPEG, DOC, CSV, XML, XMLX, XLS, XLSX (max 10MB)
-                                    </p>
+                                    <div class="text-sm text-color font-medium mt-2">Click to upload <span class="text-muted-color">or and drop</span></div>
+                                    <p class="mt-2 mb-0 text-sm text-muted-color text-center">PDF, JPG, PNG, JPEG, DOC, CSV, XML, XMLX, XLS, XLSX (max 10MB)</p>
                                 </div>
                             </ng-template>
 
-                            <ng-template
-                                #content
-                                let-chooseCallback="chooseCallback"
-                                let-clearCallback="clearCallback"
-                                let-uploadCallback="uploadCallback"
-                                let-removeCallback="removeCallback"
-                            >
+                            <ng-template #content let-chooseCallback="chooseCallback" let-clearCallback="clearCallback" let-uploadCallback="uploadCallback" let-removeCallback="removeCallback">
                                 <div *ngIf="files.length > 0" class="px-4 py-0">
                                     <h5 class="m-0 mb-2">Pending</h5>
                                     <div class="flex flex-wrap gap-2 grow overflow-auto max-h-[210px]">
-                                        <div
-                                            *ngFor="let file of files; let i = index"
-                                            class="card max-w-[120px] !p-2 m-0 flex flex-col border-1 surface-border items-center gap-2 text-center"
-                                        >
+                                        <div *ngFor="let file of files; let i = index" class="card max-w-[120px] !p-2 m-0 flex flex-col border-1 surface-border items-center gap-2 text-center">
                                             <div>
                                                 <img role="presentation" [alt]="file.name" [src]="file.objectURL" width="100" height="50" />
                                             </div>
-                                            <span class="font-semibold max-w-[100px] text-ellipsis whitespace-nowrap overflow-hidden">{{
-                                                file.name
-                                            }}</span>
+                                            <span class="font-semibold max-w-[100px] text-ellipsis whitespace-nowrap overflow-hidden">{{ file.name }}</span>
                                             <span class="text-sm text-muted-color">{{ formatSize(file.size) }}</span>
                                             <div class="grow flex flex-col gap-2 justify-end">
                                                 <p-badge value="Pending" severity="warn" />
-                                                <p-button
-                                                    icon="pi pi-times text-sm leading-none"
-                                                    (click)="onRemoveTemplatingFile(file, removeCallback, i)"
-                                                    class="!text-sm !leading-none"
-                                                    label="Cancel"
-                                                    text
-                                                    severity="danger"
-                                                />
+                                                <p-button icon="pi pi-times text-sm leading-none" (click)="onRemoveTemplatingFile(file, removeCallback, i)" class="!text-sm !leading-none" label="Cancel" text severity="danger" />
                                             </div>
                                         </div>
                                     </div>
@@ -368,27 +251,15 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
                                 <div *ngIf="uploadedFiles.length > 0" class="px-4 py-0">
                                     <h5 class="m-0 mb-2">Completed</h5>
                                     <div class="flex flex-wrap gap-2">
-                                        <div
-                                            *ngFor="let file of uploadedFiles"
-                                            :key="file.name + file.type + file.size"
-                                            class="card max-w-[120px] !p-2 m-0 flex flex-col border-1 surface-border items-center gap-2 text-center"
-                                        >
+                                        <div *ngFor="let file of uploadedFiles" :key="file.name + file.type + file.size" class="card max-w-[120px] !p-2 m-0 flex flex-col border-1 surface-border items-center gap-2 text-center">
                                             <div>
                                                 <img role="presentation" [alt]="file.name" :src="file.objectURL" width="100" height="50" />
                                             </div>
-                                            <span class="font-semibold max-w-[100px] text-ellipsis whitespace-nowrap overflow-hidden">{{
-                                                file.name
-                                            }}</span>
+                                            <span class="font-semibold max-w-[100px] text-ellipsis whitespace-nowrap overflow-hidden">{{ file.name }}</span>
                                             <span class="text-sm text-muted-color">{{ formatSize(file.size) }}</span>
                                             <div class="grow flex flex-col gap-2 justify-end">
                                                 <p-badge value="Completed" class="mt-3" severity="success" />
-                                                <p-button
-                                                    icon="pi pi-times text-sm leading-none"
-                                                    class="!text-sm !leading-none"
-                                                    label="Cancel"
-                                                    text
-                                                    severity="danger"
-                                                />
+                                                <p-button icon="pi pi-times text-sm leading-none" class="!text-sm !leading-none" label="Cancel" text severity="danger" />
                                             </div>
                                         </div>
                                     </div>
@@ -398,14 +269,7 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
                     </div>
                     <div>
                         <label class="text-color font-medium leading-6">Tag (Optional)</label>
-                        <p-autocomplete
-                            [(ngModel)]="filesTag"
-                            styleClass="w-full mt-2"
-                            inputId="multiple-ac-2"
-                            multiple
-                            (completeMethod)="search($event)"
-                            [typeahead]="false"
-                        />
+                        <p-autocomplete [(ngModel)]="filesTag" styleClass="w-full mt-2" inputId="multiple-ac-2" multiple (completeMethod)="search($event)" [typeahead]="false" />
                     </div>
                     <div class="flex items-center gap-2">
                         <label
@@ -416,13 +280,7 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
                         >
                             <i class="text-color" :class="permission.icon"></i>
                             <div class="flex-1 text-sm leading-5 text-color">{{ permission.name }}</div>
-                            <p-radiobutton
-                                [(ngModel)]="selectedPermission"
-                                [inputId]="permission.key"
-                                variant="filled"
-                                name="dynamic"
-                                [value]="permission.name"
-                            />
+                            <p-radiobutton [(ngModel)]="selectedPermission" [inputId]="permission.key" variant="filled" name="dynamic" [value]="permission.name" />
                         </label>
                     </div>
                     <div class="flex items-center gap-2">
@@ -433,57 +291,17 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
                 <div class="border border-surface rounded-3xl p-6">
                     <div class="flex items-start justify-between gap-1">
                         <div class="flex items-center gap-x-2 gap-y-1 flex-wrap flex-1">
-                            <p-avatar
-                                image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar1.png"
-                                shape="circle"
-                                class="rounded-lg overflow-hidden"
-                            />
-                            <p-avatar
-                                image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar2.png"
-                                shape="circle"
-                                class="rounded-lg overflow-hidden"
-                            />
-                            <p-avatar
-                                image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar9.jpg"
-                                shape="circle"
-                                class="rounded-lg overflow-hidden"
-                            />
-                            <p-avatar
-                                image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar11.jpg"
-                                shape="circle"
-                                class="rounded-lg overflow-hidden"
-                            />
+                            <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar1.png" shape="circle" class="rounded-lg overflow-hidden" />
+                            <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar2.png" shape="circle" class="rounded-lg overflow-hidden" />
+                            <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar9.jpg" shape="circle" class="rounded-lg overflow-hidden" />
+                            <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar11.jpg" shape="circle" class="rounded-lg overflow-hidden" />
                             <div class="w-full"></div>
-                            <p-avatar
-                                image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar5.png"
-                                shape="circle"
-                                class="rounded-lg overflow-hidden"
-                            />
-                            <p-avatar
-                                image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar13.jpg"
-                                shape="circle"
-                                class="rounded-lg overflow-hidden"
-                            />
-                            <p-avatar
-                                image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar7.png"
-                                shape="circle"
-                                class="rounded-lg overflow-hidden"
-                            />
-                            <p-avatar
-                                image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar8.png"
-                                shape="circle"
-                                class="rounded-lg overflow-hidden"
-                            />
-                            <p-avatar
-                                image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar10.jpg"
-                                shape="circle"
-                                class="rounded-lg overflow-hidden"
-                            />
-                            <p-avatar
-                                image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar12.jpg"
-                                shape="circle"
-                                class="rounded-lg overflow-hidden"
-                            />
+                            <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar5.png" shape="circle" class="rounded-lg overflow-hidden" />
+                            <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar13.jpg" shape="circle" class="rounded-lg overflow-hidden" />
+                            <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar7.png" shape="circle" class="rounded-lg overflow-hidden" />
+                            <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar8.png" shape="circle" class="rounded-lg overflow-hidden" />
+                            <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar10.jpg" shape="circle" class="rounded-lg overflow-hidden" />
+                            <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar12.jpg" shape="circle" class="rounded-lg overflow-hidden" />
                         </div>
                         <p-button icon="pi pi-arrow-up-right" rounded text />
                     </div>
@@ -498,15 +316,7 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
                     <div>
                         <div class="text-muted-color leading-6">Email</div>
                         <div class="flex items-start gap-3 mt-2">
-                            <p-autocomplete
-                                [(ngModel)]="emailChips"
-                                inputId="multiple-ac-2"
-                                styleClass="w-full"
-                                class="flex-1"
-                                multiple
-                                (onSelect)="search($event)"
-                                [typeahead]="false"
-                            />
+                            <p-autocomplete [(ngModel)]="emailChips" inputId="multiple-ac-2" styleClass="w-full" class="flex-1" multiple (onSelect)="search($event)" [typeahead]="false" />
                             <p-button label="Invite" />
                         </div>
                     </div>
@@ -514,58 +324,28 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
                         <div class="font-medium leading-6 text-muted-color">Members</div>
                         <div class="mt-4 flex flex-col gap-4">
                             <div class="flex items-center gap-2 justify-between">
-                                <p-avatar
-                                    image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar8.png"
-                                    class="w-9 h-9"
-                                    shape="circle"
-                                />
+                                <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar8.png" class="w-9 h-9" shape="circle" />
                                 <div class="flex-1">
                                     <div class="text-sm font-medium text-color leading-5">Brook Simmons</div>
                                     <div class="text-sm text-muted-color leading-5 line-clamp-4">brook.sim42&#64;primeng.org</div>
                                 </div>
-                                <p-select
-                                    [(ngModel)]="memberSelectedTypes[0]"
-                                    [options]="memberTypes"
-                                    optionLabel="name"
-                                    placeholder="Select"
-                                    class="!border-0 !shadow-none"
-                                />
+                                <p-select [(ngModel)]="memberSelectedTypes[0]" [options]="memberTypes" optionLabel="name" placeholder="Select" class="!border-0 !shadow-none" />
                             </div>
                             <div class="flex items-center gap-2 justify-between">
-                                <p-avatar
-                                    image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar13.jpg"
-                                    class="w-9 h-9"
-                                    shape="circle"
-                                />
+                                <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar13.jpg" class="w-9 h-9" shape="circle" />
                                 <div class="flex-1">
                                     <div class="text-sm font-medium text-color leading-5">Dianne Russell</div>
                                     <div class="text-sm text-muted-color leading-5 line-clamp-4">di.russ23&#64;primeng.org</div>
                                 </div>
-                                <p-select
-                                    [(ngModel)]="memberSelectedTypes[1]"
-                                    [options]="memberTypes"
-                                    optionLabel="name"
-                                    placeholder="Select"
-                                    class="!border-0 !shadow-none"
-                                />
+                                <p-select [(ngModel)]="memberSelectedTypes[1]" [options]="memberTypes" optionLabel="name" placeholder="Select" class="!border-0 !shadow-none" />
                             </div>
                             <div class="flex items-center gap-2 justify-between">
-                                <p-avatar
-                                    image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar12.jpg"
-                                    class="w-9 h-9"
-                                    shape="circle"
-                                />
+                                <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar12.jpg" class="w-9 h-9" shape="circle" />
                                 <div class="flex-1">
                                     <div class="text-sm font-medium text-color leading-5">Jacob Jones</div>
                                     <div class="text-sm text-muted-color leading-5 line-clamp-4">jac.jon87&#64;primeng.org</div>
                                 </div>
-                                <p-select
-                                    [(ngModel)]="memberSelectedTypes[2]"
-                                    [options]="memberTypes"
-                                    optionLabel="name"
-                                    placeholder="Select"
-                                    class="!border-0 !shadow-none"
-                                />
+                                <p-select [(ngModel)]="memberSelectedTypes[2]" [options]="memberTypes" optionLabel="name" placeholder="Select" class="!border-0 !shadow-none" />
                             </div>
                         </div>
                     </div>
@@ -622,22 +402,13 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
                             Verification code <br />
                             has been sent to email
                         </div>
-                        <div
-                            class="rounded-full px-4 py-1 bg-surface-200 dark:bg-surface-800 w-fit mx-auto mt-4 text-color text-lg leading-relaxed"
-                        >
-                            u*******m&#64;gmail.com
-                        </div>
+                        <div class="rounded-full px-4 py-1 bg-surface-200 dark:bg-surface-800 w-fit mx-auto mt-4 text-color text-lg leading-relaxed">u*******m&#64;gmail.com</div>
                     </div>
                     <div class="flex items-center justify-center">
                         <p-button label="Resend" text />
                     </div>
                     <div class="flex items-center justify-center">
-                        <p-inputotp
-                            [(ngModel)]="forgotPasswordOTP"
-                            [length]="6"
-                            [integerOnly]="true"
-                            class="w-full [&>*]:flex-1 [&>*]:min-h-14 [&>*]:text-2xl"
-                        />
+                        <p-inputotp [(ngModel)]="forgotPasswordOTP" [length]="6" [integerOnly]="true" class="w-full [&>*]:flex-1 [&>*]:min-h-14 [&>*]:text-2xl" />
                     </div>
                     <button pButton label="Change password" class="w-full"></button>
                 </div>
@@ -649,38 +420,18 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
                     <div class="mt-4 flex gap-2">
                         <div class="flex-1">
                             <label for="price-min-val" class="leading-6 text-color">Min Value</label>
-                            <p-inputnumber
-                                [(ngModel)]="priceRange[0]"
-                                [min]="0"
-                                inputId="price-min-val"
-                                mode="currency"
-                                currency="USD"
-                                locale="en-US"
-                                styleClass="w-full"
-                            />
+                            <p-inputnumber [(ngModel)]="priceRange[0]" [min]="0" inputId="price-min-val" mode="currency" currency="USD" locale="en-US" styleClass="w-full" />
                         </div>
                         <div class="flex-1">
                             <label for="price-max-val" class="leading-6 text-color">Max Value</label>
-                            <p-inputnumber
-                                [(ngModel)]="priceRange[1]"
-                                inputId="price-max-val"
-                                mode="currency"
-                                currency="USD"
-                                locale="en-US"
-                                styleClass="w-full"
-                            />
+                            <p-inputnumber [(ngModel)]="priceRange[1]" inputId="price-max-val" mode="currency" currency="USD" locale="en-US" styleClass="w-full" />
                         </div>
                     </div>
                     <div class="mt-4">
                         <div class="text-color font-medium leading-6 mb-6">Popular specs</div>
                         <div class="flex items-center gap-4 flex-wrap">
                             <div *ngFor="let data of priceRangePopularSpecs" class="flex align-items-center">
-                                <p-checkbox
-                                    [(ngModel)]="priceRangePopularSpecsChecked"
-                                    [inputId]="data.value"
-                                    [name]="data.value"
-                                    [value]="data.value"
-                                />
+                                <p-checkbox [(ngModel)]="priceRangePopularSpecsChecked" [inputId]="data.value" [name]="data.value" [value]="data.value" />
                                 <label [for]="data.value" class="ml-2">{{ data.value }}</label>
                             </div>
                         </div>
@@ -694,11 +445,11 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
         </div>
     `,
     host: {
-        class: 'flex-1 h-full overflow-y-auto overflow-x-clip overflow-hidden border border-surface rounded-2xl p-6',
+        class: 'flex-1 h-full overflow-y-auto overflow-x-clip overflow-hidden border border-surface rounded-2xl p-6'
     },
     providers: [MessageService],
     encapsulation: ViewEncapsulation.None,
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CardsApp {
     files = [];
@@ -755,7 +506,7 @@ export class CardsApp {
 
     constructor(
         private config: PrimeNGConfig,
-        private messageService: MessageService,
+        private messageService: MessageService
     ) {}
 
     ngOnInit() {
@@ -769,17 +520,17 @@ export class CardsApp {
             { value: 'Triplex', checked: false },
             { value: 'Garden', checked: false },
             { value: 'Central location', checked: false },
-            { value: 'Sea view', checked: true },
+            { value: 'Sea view', checked: true }
         ];
         this.memberTypes = [
             { name: 'Owner', code: 'O' },
             { name: 'Editor', code: 'E' },
-            { name: 'Viewer', code: 'V' },
+            { name: 'Viewer', code: 'V' }
         ];
 
         this.permissions = [
             { name: 'Everyone', icon: 'pi pi-globe', key: 'E' },
-            { name: 'Admins only', icon: 'pi pi-users', key: 'A' },
+            { name: 'Admins only', icon: 'pi pi-users', key: 'A' }
         ];
     }
 

@@ -7,14 +7,7 @@ import { CurrentPageReportDoc } from '@doc/paginator/currentpagereportdoc';
 import { PaginatorDocModule } from '@doc/paginator/paginatordoc.module';
 
 @Component({
-    template: `<app-doc
-        docTitle="Angular Paginator Component"
-        header="Paginator"
-        description="Paginator displays data in paged format and provides navigation between pages."
-        [docs]="docs"
-        [apiDocs]="['Paginator']"
-        themeDocs="paginator"
-    ></app-doc>`,
+    template: `<app-doc docTitle="Angular Paginator Component" header="Paginator" description="Paginator displays data in paged format and provides navigation between pages." [docs]="docs" [apiDocs]="['Paginator']" themeDocs="paginator"></app-doc>`,
     standalone: true,
     imports: [PaginatorDocModule],
     styles: `
@@ -22,35 +15,35 @@ import { PaginatorDocModule } from '@doc/paginator/paginatordoc.module';
             text-align: center;
             padding: 1rem;
         }
-    `,
+    `
 })
 export class PaginatorDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc,
+            component: ImportDoc
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc,
+            component: BasicDoc
         },
         {
             id: 'template',
             label: 'Template',
-            component: TemplateDoc,
+            component: TemplateDoc
         },
         {
             id: 'current-page-report',
             label: 'Current Page Report',
-            component: CurrentPageReportDoc,
+            component: CurrentPageReportDoc
         },
 
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc,
-        },
+            component: AccessibilityDoc
+        }
     ];
 }

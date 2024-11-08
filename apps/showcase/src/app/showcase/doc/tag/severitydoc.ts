@@ -5,10 +5,7 @@ import { Code } from '@domain/code';
     selector: 'severity-doc',
     template: `
         <app-docsectiontext>
-            <p>
-                Severity defines the color of the tag, possible values are <i>success</i>, <i>info</i>, <i>warn</i> and <i>danger</i> in
-                addition to the default theme color.
-            </p>
+            <p>Severity defines the color of the tag, possible values are <i>success</i>, <i>info</i>, <i>warn</i> and <i>danger</i> in addition to the default theme color.</p>
         </app-docsectiontext>
         <div class="card flex justify-center gap-2">
             <p-tag value="Primary" />
@@ -20,7 +17,7 @@ import { Code } from '@domain/code';
             <p-tag severity="contrast" value="Contrast" />
         </div>
         <app-code [code]="code" selector="tag-severity-demo"></app-code>
-    `,
+    `
 })
 export class SeverityDoc {
     code: Code = {
@@ -49,6 +46,6 @@ import { Tag } from 'primeng/tag';
     standalone: true,
     imports: [Tag]
 })
-export class TagSeverityDemo {}`,
+export class TagSeverityDemo {}`
     };
 }

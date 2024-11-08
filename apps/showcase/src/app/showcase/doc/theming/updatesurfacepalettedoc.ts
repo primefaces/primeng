@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
             <p>Updates the surface colors, this is a shorthand to do the same update using <i>updatePreset</i>.</p>
         </app-docsectiontext>
         <app-code [code]="code" selector="update-surface-palette-demo" [hideToggleCode]="true"></app-code>
-    `,
+    `
 })
 export class UpdateSurfacePaletteDoc {
     code = {
@@ -42,6 +42,6 @@ const changeDarkSurfaces() {
             950: '{zinc.950}'
         }
     });
-}`,
+}`
     };
 }

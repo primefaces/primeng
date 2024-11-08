@@ -12,15 +12,9 @@ interface AutoCompleteCompleteEvent {
             <p>Invalid state style is added using the <i>ng-invalid</i> and <i>ng-dirty</i> class to indicate a failed validation.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-autocomplete
-                [(ngModel)]="selectedItem"
-                [suggestions]="suggestions"
-                class="ng-invalid ng-dirty"
-                (completeMethod)="search($event)"
-                placeholder="yo"
-            />
+            <p-autocomplete [(ngModel)]="selectedItem" [suggestions]="suggestions" class="ng-invalid ng-dirty" (completeMethod)="search($event)" placeholder="yo" />
         </div>
-        <app-code [code]="code" selector="autocomplete-invalid-demo"></app-code>`,
+        <app-code [code]="code" selector="autocomplete-invalid-demo"></app-code>`
 })
 export class InvalidDoc {
     items: any[] | undefined;
@@ -65,6 +59,6 @@ export class AutocompleteInvalidDemo {
     search(event: AutoCompleteCompleteEvent) {
         this.suggestions = [...Array(10).keys()].map(item => event.query + '-' + item);
     }
-}`,
+}`
     };
 }

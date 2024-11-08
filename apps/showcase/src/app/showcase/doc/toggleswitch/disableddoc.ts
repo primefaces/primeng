@@ -11,7 +11,7 @@ import { Code } from '@domain/code';
             <p-toggleswitch [(ngModel)]="checked" [disabled]="true" />
         </div>
         <app-code [code]="code" selector="toggle-switch-disabled-demo"></app-code>
-    `,
+    `
 })
 export class DisabledDoc {
     checked: boolean = false;
@@ -35,6 +35,6 @@ import { FormsModule } from '@angular/forms';
 })
 export class ToggleSwitchDisabledDemo {
     checked: boolean = false;
-}`,
+}`
     };
 }

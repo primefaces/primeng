@@ -15,7 +15,7 @@ import { Code } from '@domain/code';
             <input type="text" pInputText pTooltip="Enter your username" placeholder="autoHide: true" />
         </div>
         <app-code [code]="code" selector="tooltip-auto-hide-demo"></app-code>
-    `,
+    `
 })
 export class AutoHideDoc {
     code: Code = {
@@ -37,6 +37,6 @@ import { InputTextModule } from 'primeng/inputtext';
     standalone: true,
     imports: [Tooltip, InputTextModule]
 })
-export class TooltipAutoHideDemo {}`,
+export class TooltipAutoHideDemo {}`
     };
 }

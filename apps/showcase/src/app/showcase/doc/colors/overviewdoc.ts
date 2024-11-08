@@ -5,10 +5,7 @@ import { Code } from '@domain/code';
     selector: 'overview-doc',
     template: `
         <app-docsectiontext>
-            <p>
-                Colors are exported as CSS variables and used with the standard <i>var</i> syntax such as <i>var(--text-color)</i>.
-                Following is the list of general variables used in a theme.
-            </p>
+            <p>Colors are exported as CSS variables and used with the standard <i>var</i> syntax such as <i>var(--text-color)</i>. Following is the list of general variables used in a theme.</p>
         </app-docsectiontext>
         <div class="doc-tablewrapper">
             <table class="doc-table">
@@ -72,7 +69,7 @@ import { Code } from '@domain/code';
                     backgroundColor: 'var(--highlight-bg)',
                     color: 'var(--highlight-text-color)',
                     borderRadius: 'var(--border-radius)',
-                    padding: '3rem',
+                    padding: '3rem'
                 }"
             >
                 Highlighted Item
@@ -82,18 +79,18 @@ import { Code } from '@domain/code';
                     backgroundColor: 'var(--primary-color)',
                     color: 'var(--primary-color-text)',
                     borderRadius: 'var(--border-radius)',
-                    padding: '3rem',
+                    padding: '3rem'
                 }"
             >
                 Primary Color
             </div>
         </div>
         <app-code [code]="code" [hideToggleCode]="true"></app-code>
-    `,
+    `
 })
 export class OverviewDoc {
     code: Code = {
         basic: `<div [ngStyle]="{backgroundColor:'var(--highlight-bg)', color: 'var(--highlight-text-color)', borderRadius: 'var(--border-radius)', padding: '3rem'}">Highlighted Item</div>
-<div [ngStyle]="{backgroundColor:'var(--primary-color)', color: 'var(--primary-color-text)', borderRadius: 'var(--border-radius)', padding: '3rem'}">Primary Color</div>`,
+<div [ngStyle]="{backgroundColor:'var(--primary-color)', color: 'var(--primary-color-text)', borderRadius: 'var(--border-radius)', padding: '3rem'}">Primary Color</div>`
     };
 }

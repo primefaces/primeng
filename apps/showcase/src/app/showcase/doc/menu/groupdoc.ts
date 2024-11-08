@@ -13,7 +13,7 @@ import { Code } from '@domain/code';
         </div>
         <app-code [code]="code" selector="menu-group-demo"></app-code>
     `,
-    providers: [MessageService],
+    providers: [MessageService]
 })
 export class GroupDoc implements OnInit {
     items: MenuItem[] | undefined;
@@ -27,27 +27,27 @@ export class GroupDoc implements OnInit {
                 items: [
                     {
                         label: 'New',
-                        icon: 'pi pi-plus',
+                        icon: 'pi pi-plus'
                     },
                     {
                         label: 'Search',
-                        icon: 'pi pi-search',
-                    },
-                ],
+                        icon: 'pi pi-search'
+                    }
+                ]
             },
             {
                 label: 'Profile',
                 items: [
                     {
                         label: 'Settings',
-                        icon: 'pi pi-cog',
+                        icon: 'pi pi-cog'
                     },
                     {
                         label: 'Logout',
-                        icon: 'pi pi-sign-out',
-                    },
-                ],
-            },
+                        icon: 'pi pi-sign-out'
+                    }
+                ]
+            }
         ];
     }
 
@@ -103,6 +103,6 @@ export class MenuGroupDemo implements OnInit {
         ];
     }
 
-}`,
+}`
     };
 }

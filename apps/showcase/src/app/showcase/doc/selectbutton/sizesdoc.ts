@@ -13,7 +13,7 @@ import { Code } from '@domain/code';
             <p-selectbutton [(ngModel)]="value3" [options]="options" size="large" />
         </div>
         <app-code [code]="code" selector="select-button-sizes-demo"></app-code>
-    `,
+    `
 })
 export class SizesDoc {
     value1!: string;
@@ -24,7 +24,7 @@ export class SizesDoc {
 
     options: any[] = [
         { label: 'Beginner', value: 'Beginner' },
-        { label: 'Expert', value: 'Expert' },
+        { label: 'Expert', value: 'Expert' }
     ];
 
     code: Code = {
@@ -59,6 +59,6 @@ export class SelectButtonSizesDemo {
         { label: 'Beginner', value: 'Beginner' },
         { label: 'Expert', value: 'Expert' },
     ];
-}`,
+}`
     };
 }

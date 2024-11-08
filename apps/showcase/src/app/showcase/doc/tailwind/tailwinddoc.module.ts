@@ -21,21 +21,8 @@ import { Dialog } from 'primeng/dialog';
 import { AnimationsDoc } from './animationsdoc';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        RouterModule,
-        AppCodeModule,
-        AppDocModule,
-        Tag,
-        Button,
-        InputText,
-        Textarea,
-        Select,
-        DatePicker,
-        FormsModule,
-        Dialog,
-    ],
+    imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, Tag, Button, InputText, Textarea, Select, DatePicker, FormsModule, Dialog],
     declarations: [OverviewDoc, PluginDoc, ExtensionsDoc, OverrideDoc, ColorPaletteDoc, FormDoc, HeadlessDoc, AnimationsDoc],
-    exports: [AppDocModule],
+    exports: [AppDocModule]
 })
 export class TailwindDocModule {}

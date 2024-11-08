@@ -28,19 +28,7 @@ import { ButtonModule } from 'primeng/button';
 import { SizesDoc } from './sizesdoc';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        RouterModule,
-        AppCodeModule,
-        FormsModule,
-        AppDocModule,
-        AutoCompleteModule,
-        ReactiveFormsModule,
-        RouterModule,
-        FloatLabelModule,
-        IftaLabelModule,
-        ButtonModule,
-    ],
+    imports: [CommonModule, RouterModule, AppCodeModule, FormsModule, AppDocModule, AutoCompleteModule, ReactiveFormsModule, RouterModule, FloatLabelModule, IftaLabelModule, ButtonModule],
     exports: [AppDocModule],
     declarations: [
         ImportDoc,
@@ -60,7 +48,7 @@ import { SizesDoc } from './sizesdoc';
         DisabledDoc,
         InvalidDoc,
         FilledDoc,
-        SizesDoc,
-    ],
+        SizesDoc
+    ]
 })
 export class AutoCompleteDocModule {}

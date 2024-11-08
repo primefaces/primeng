@@ -6,16 +6,13 @@ import { Code } from '@domain/code';
     selector: 'multiple-doc',
     template: `
         <app-docsectiontext>
-            <p>
-                Only one single root menuitem can be active by default, enable <i>multiple</i> property to be able to open more than one
-                items.
-            </p>
+            <p>Only one single root menuitem can be active by default, enable <i>multiple</i> property to be able to open more than one items.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-panelmenu [model]="items" styleClass="w-full md:w-80" [multiple]="true" />
         </div>
         <app-code [code]="code" selector="panel-menu-multiple-demo"></app-code>
-    `,
+    `
 })
 export class MultipleDoc implements OnInit {
     items: MenuItem[];
@@ -36,19 +33,19 @@ export class MultipleDoc implements OnInit {
                                 items: [
                                     {
                                         label: 'Pending',
-                                        icon: 'pi pi-stop',
+                                        icon: 'pi pi-stop'
                                     },
                                     {
                                         label: 'Paid',
-                                        icon: 'pi pi-check-circle',
-                                    },
-                                ],
+                                        icon: 'pi pi-check-circle'
+                                    }
+                                ]
                             },
                             {
                                 label: 'Clients',
-                                icon: 'pi pi-users',
-                            },
-                        ],
+                                icon: 'pi pi-users'
+                            }
+                        ]
                     },
                     {
                         label: 'Images',
@@ -56,11 +53,11 @@ export class MultipleDoc implements OnInit {
                         items: [
                             {
                                 label: 'Logos',
-                                icon: 'pi pi-image',
-                            },
-                        ],
-                    },
-                ],
+                                icon: 'pi pi-image'
+                            }
+                        ]
+                    }
+                ]
             },
             {
                 label: 'Cloud',
@@ -68,17 +65,17 @@ export class MultipleDoc implements OnInit {
                 items: [
                     {
                         label: 'Upload',
-                        icon: 'pi pi-cloud-upload',
+                        icon: 'pi pi-cloud-upload'
                     },
                     {
                         label: 'Download',
-                        icon: 'pi pi-cloud-download',
+                        icon: 'pi pi-cloud-download'
                     },
                     {
                         label: 'Sync',
-                        icon: 'pi pi-refresh',
-                    },
-                ],
+                        icon: 'pi pi-refresh'
+                    }
+                ]
             },
             {
                 label: 'Devices',
@@ -86,18 +83,18 @@ export class MultipleDoc implements OnInit {
                 items: [
                     {
                         label: 'Phone',
-                        icon: 'pi pi-mobile',
+                        icon: 'pi pi-mobile'
                     },
                     {
                         label: 'Desktop',
-                        icon: 'pi pi-desktop',
+                        icon: 'pi pi-desktop'
                     },
                     {
                         label: 'Tablet',
-                        icon: 'pi pi-tablet',
-                    },
-                ],
-            },
+                        icon: 'pi pi-tablet'
+                    }
+                ]
+            }
         ];
     }
 
@@ -201,6 +198,6 @@ export class PanelMenuMultipleDemo implements OnInit {
             }
         ]
     }
-}`,
+}`
     };
 }

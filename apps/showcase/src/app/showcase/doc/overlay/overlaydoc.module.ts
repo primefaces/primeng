@@ -22,21 +22,6 @@ import { AccessibilityDoc } from './accessibilitydoc';
 @NgModule({
     imports: [CommonModule, AppCodeModule, OverlayModule, ButtonModule, AppDocModule],
     exports: [AppDocModule],
-    declarations: [
-        AppendToDoc,
-        AutoZIndexDoc,
-        BaseZIndexDoc,
-        OverlayBasicDemo,
-        EventsDoc,
-        HideOnEscapeDoc,
-        ImportDoc,
-        ModeDoc,
-        ResponsiveDoc,
-        StyleDoc,
-        TargetDoc,
-        OverlayTemplateDemo,
-        TransitionOptionsDoc,
-        AccessibilityDoc,
-    ],
+    declarations: [AppendToDoc, AutoZIndexDoc, BaseZIndexDoc, OverlayBasicDemo, EventsDoc, HideOnEscapeDoc, ImportDoc, ModeDoc, ResponsiveDoc, StyleDoc, TargetDoc, OverlayTemplateDemo, TransitionOptionsDoc, AccessibilityDoc]
 })
 export class OverlayDocModule {}

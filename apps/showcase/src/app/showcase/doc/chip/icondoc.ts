@@ -14,7 +14,7 @@ import { Code } from '@domain/code';
             <p-chip label="Microsoft" icon="pi pi-microsoft" [removable]="true" />
         </div>
         <app-code [code]="code" selector="chip-icon-demo"></app-code>
-    `,
+    `
 })
 export class IconDoc {
     code: Code = {
@@ -34,6 +34,6 @@ import { Chip } from 'primeng/chip';
     standalone: true,
     imports: [Chip]
 })
-export class ChipIconDemo {}`,
+export class ChipIconDemo {}`
     };
 }

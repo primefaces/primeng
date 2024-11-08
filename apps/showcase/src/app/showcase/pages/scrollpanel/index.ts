@@ -15,30 +15,30 @@ import { ScrollPanelDocModule } from '@doc/scrollpanel/scrollpaneldoc.module';
         themeDocs="scrollpanel"
     ></app-doc>`,
     standalone: true,
-    imports: [ScrollPanelDocModule],
+    imports: [ScrollPanelDocModule]
 })
 export class ScrollPanelDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc,
+            component: ImportDoc
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc,
+            component: BasicDoc
         },
         {
             id: 'custom',
             label: 'Custom',
-            component: CusstomDoc,
+            component: CusstomDoc
         },
 
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc,
-        },
+            component: AccessibilityDoc
+        }
     ];
 }

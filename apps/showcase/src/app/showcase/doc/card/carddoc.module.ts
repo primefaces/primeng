@@ -14,6 +14,6 @@ import { StyleDoc } from './styledoc';
 @NgModule({
     imports: [CommonModule, AppCodeModule, AppDocModule, Card, ButtonModule, RouterModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, AdvancedDoc, StyleDoc, AccessibilityDoc],
+    declarations: [ImportDoc, BasicDoc, AdvancedDoc, StyleDoc, AccessibilityDoc]
 })
 export class CardDocModule {}

@@ -16,22 +16,8 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { AutoFocusModule } from 'primeng/autofocus';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        RouterModule,
-        AppCodeModule,
-        AppDocModule,
-        FormsModule,
-        ButtonModule,
-        InputTextModule,
-        FocusTrapModule,
-        FloatLabelModule,
-        IconFieldModule,
-        InputIconModule,
-        CheckboxModule,
-        AutoFocusModule,
-    ],
+    imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, FormsModule, ButtonModule, InputTextModule, FocusTrapModule, FloatLabelModule, IconFieldModule, InputIconModule, CheckboxModule, AutoFocusModule],
     declarations: [ImportDoc, BasicDoc],
-    exports: [AppDocModule],
+    exports: [AppDocModule]
 })
 export class FocusTrapDocModule {}

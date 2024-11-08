@@ -13,47 +13,23 @@ import { Code } from '@domain/code';
 
         <div class="card flex flex-wrap justify-center items-end gap-4">
             <p-floatlabel class="w-full md:w-56">
-                <p-cascadeselect
-                    [(ngModel)]="value1"
-                    inputId="over_label"
-                    [options]="countries"
-                    optionLabel="cname"
-                    optionGroupLabel="name"
-                    [optionGroupChildren]="['states', 'cities']"
-                    styleClass="w-full"
-                />
+                <p-cascadeselect [(ngModel)]="value1" inputId="over_label" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" styleClass="w-full" />
                 <label for="over_label">Over Label</label>
             </p-floatlabel>
 
             <p-floatlabel class="w-full md:w-56" variant="in">
-                <p-cascadeselect
-                    [(ngModel)]="value2"
-                    inputId="in_label"
-                    [options]="countries"
-                    optionLabel="cname"
-                    optionGroupLabel="name"
-                    [optionGroupChildren]="['states', 'cities']"
-                    styleClass="w-full"
-                />
+                <p-cascadeselect [(ngModel)]="value2" inputId="in_label" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" styleClass="w-full" />
                 <label for="in_label">In Label</label>
             </p-floatlabel>
 
             <p-floatlabel class="w-full md:w-56" variant="on">
-                <p-cascadeselect
-                    [(ngModel)]="value3"
-                    inputId="on_label"
-                    [options]="countries"
-                    optionLabel="cname"
-                    optionGroupLabel="name"
-                    [optionGroupChildren]="['states', 'cities']"
-                    styleClass="w-full"
-                />
+                <p-cascadeselect [(ngModel)]="value3" inputId="on_label" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" styleClass="w-full" />
                 <label for="on_label">On Label</label>
             </p-floatlabel>
         </div>
 
         <app-code [code]="code" selector="cascade-select-float-label-demo"></app-code>
-    `,
+    `
 })
 export class FloatLabelDoc {
     value1: string | undefined;
@@ -77,17 +53,17 @@ export class FloatLabelDoc {
                         cities: [
                             { cname: 'Sydney', code: 'A-SY' },
                             { cname: 'Newcastle', code: 'A-NE' },
-                            { cname: 'Wollongong', code: 'A-WO' },
-                        ],
+                            { cname: 'Wollongong', code: 'A-WO' }
+                        ]
                     },
                     {
                         name: 'Queensland',
                         cities: [
                             { cname: 'Brisbane', code: 'A-BR' },
-                            { cname: 'Townsville', code: 'A-TO' },
-                        ],
-                    },
-                ],
+                            { cname: 'Townsville', code: 'A-TO' }
+                        ]
+                    }
+                ]
             },
             {
                 name: 'Canada',
@@ -97,17 +73,17 @@ export class FloatLabelDoc {
                         name: 'Quebec',
                         cities: [
                             { cname: 'Montreal', code: 'C-MO' },
-                            { cname: 'Quebec City', code: 'C-QU' },
-                        ],
+                            { cname: 'Quebec City', code: 'C-QU' }
+                        ]
                     },
                     {
                         name: 'Ontario',
                         cities: [
                             { cname: 'Ottawa', code: 'C-OT' },
-                            { cname: 'Toronto', code: 'C-TO' },
-                        ],
-                    },
-                ],
+                            { cname: 'Toronto', code: 'C-TO' }
+                        ]
+                    }
+                ]
             },
             {
                 name: 'United States',
@@ -118,8 +94,8 @@ export class FloatLabelDoc {
                         cities: [
                             { cname: 'Los Angeles', code: 'US-LA' },
                             { cname: 'San Diego', code: 'US-SD' },
-                            { cname: 'San Francisco', code: 'US-SF' },
-                        ],
+                            { cname: 'San Francisco', code: 'US-SF' }
+                        ]
                     },
                     {
                         name: 'Florida',
@@ -127,19 +103,19 @@ export class FloatLabelDoc {
                             { cname: 'Jacksonville', code: 'US-JA' },
                             { cname: 'Miami', code: 'US-MI' },
                             { cname: 'Tampa', code: 'US-TA' },
-                            { cname: 'Orlando', code: 'US-OR' },
-                        ],
+                            { cname: 'Orlando', code: 'US-OR' }
+                        ]
                     },
                     {
                         name: 'Texas',
                         cities: [
                             { cname: 'Austin', code: 'US-AU' },
                             { cname: 'Dallas', code: 'US-DA' },
-                            { cname: 'Houston', code: 'US-HO' },
-                        ],
-                    },
-                ],
-            },
+                            { cname: 'Houston', code: 'US-HO' }
+                        ]
+                    }
+                ]
+            }
         ];
     }
 
@@ -274,6 +250,6 @@ export class CascadeSelectFloatLabelDemo implements OnInit {
             }
         ];
     }
-}`,
+}`
     };
 }

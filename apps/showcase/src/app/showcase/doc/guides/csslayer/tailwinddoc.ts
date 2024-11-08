@@ -8,18 +8,11 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>
                 Tailwind CSS includes a reset utility in base called
-                <a href="https://tailwindcss.com/docs/preflight" target="_blank" rel="noopener noreferrer">preflight</a>. If you are using
-                this feature, wrap the base and utilities in separate layers and make sure primeNG layer comes after the base.
+                <a href="https://tailwindcss.com/docs/preflight" target="_blank" rel="noopener noreferrer">preflight</a>. If you are using this feature, wrap the base and utilities in separate layers and make sure primeNG layer comes after the base.
             </p>
-            <app-code
-                [code]="code"
-                selector="tailwind-demo"
-                [hideToggleCode]="true"
-                [hideCodeSandbox]="true"
-                [hideStackBlitz]="true"
-            ></app-code>
+            <app-code [code]="code" selector="tailwind-demo" [hideToggleCode]="true" [hideCodeSandbox]="true" [hideStackBlitz]="true"></app-code>
         </app-docsectiontext>
-    `,
+    `
 })
 export class TailwindDoc {
     code: Code = {
@@ -32,6 +25,6 @@ export class TailwindDoc {
 @layer tailwind-utilities {
     @tailwind components;
     @tailwind utilities;
-}`,
+}`
     };
 }

@@ -14,7 +14,7 @@ import { Code } from '@domain/code';
         </div>
         <app-code [code]="code" selector="split-button-icons-demo"></app-code>
     `,
-    providers: [MessageService],
+    providers: [MessageService]
 })
 export class IconsDoc {
     items: MenuItem[];
@@ -67,7 +67,7 @@ export class SplitButtonIconsDemo {
             },
         ];
     }
-}`,
+}`
     };
 
     constructor(private messageService: MessageService) {
@@ -77,25 +77,25 @@ export class SplitButtonIconsDemo {
                 icon: 'pi pi-refresh',
                 command: () => {
                     this.messageService.add({ severity: 'success', summary: 'Updated', detail: 'Data Updated', life: 3000 });
-                },
+                }
             },
             {
                 label: 'Delete',
                 icon: 'pi pi-times',
                 command: () => {
                     this.messageService.add({ severity: 'warn', summary: 'Delete', detail: 'Data Deleted', life: 3000 });
-                },
+                }
             },
             {
-                separator: true,
+                separator: true
             },
             {
                 label: 'Quit',
                 icon: 'pi pi-power-off',
                 command: () => {
                     window.open('https://angular.io/', '_blank');
-                },
-            },
+                }
+            }
         ];
     }
 }

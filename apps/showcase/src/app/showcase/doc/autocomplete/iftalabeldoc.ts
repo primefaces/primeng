@@ -9,10 +9,7 @@ interface AutoCompleteCompleteEvent {
 @Component({
     selector: 'ifta-label-doc',
     template: ` <app-docsectiontext>
-            <p>
-                IftaLabel is used to create infield top aligned labels. Visit <a routerLink="/iftalabel">IftaLabel</a> documentation for
-                more information.
-            </p>
+            <p>IftaLabel is used to create infield top aligned labels. Visit <a routerLink="/iftalabel">IftaLabel</a> documentation for more information.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-iftalabel>
@@ -20,7 +17,7 @@ interface AutoCompleteCompleteEvent {
                 <label for="ac">Identifier</label>
             </p-iftalabel>
         </div>
-        <app-code [code]="code" selector="autocomplete-ifta-label-demo"></app-code>`,
+        <app-code [code]="code" selector="autocomplete-ifta-label-demo"></app-code>`
 })
 export class IftaLabelDoc {
     items: any[] | undefined;
@@ -63,7 +60,7 @@ export class AutocompleteIftaLabelDemo {
     search(event: AutoCompleteCompleteEvent) {
         this.items = [...Array(10).keys()].map((item) => event.query + '-' + item);
     }
-}`,
+}`
     };
 
     search(event: AutoCompleteCompleteEvent) {

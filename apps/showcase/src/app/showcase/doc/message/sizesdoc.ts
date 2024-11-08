@@ -13,7 +13,7 @@ import { Code } from '@domain/code';
             <p-message size="large" icon="pi pi-check">Large Message</p-message>
         </div>
         <app-code [code]="code" selector="message-sizes-demo"></app-code>
-    `,
+    `
 })
 export class SizesDoc {
     code: Code = {
@@ -36,6 +36,6 @@ import { Message } from 'primeng/message';
     standalone: true,
     imports: [Message]
 })
-export class MessageSizesDemo {}`,
+export class MessageSizesDemo {}`
     };
 }

@@ -26,7 +26,7 @@ import { PrimeNGConfig } from 'primeng/api';
         </div>
     `,
     standalone: true,
-    imports: [RouterOutlet, AppFooterComponent, CommonModule, AppNewsComponent, AppMenuComponent, AppTopBarComponent],
+    imports: [RouterOutlet, AppFooterComponent, CommonModule, AppNewsComponent, AppMenuComponent, AppTopBarComponent]
 })
 export class AppMainComponent {
     configService: AppConfigService = inject(AppConfigService);
@@ -51,7 +51,7 @@ export class AppMainComponent {
 
     get containerClass() {
         return {
-            'layout-news-active': this.isNewsActive,
+            'layout-news-active': this.isNewsActive
             // 'p-ripple-disabled': this.isRippleDisabled,
         };
     }

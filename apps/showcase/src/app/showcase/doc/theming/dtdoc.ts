@@ -4,13 +4,10 @@ import { Component } from '@angular/core';
     selector: 'dt-doc',
     template: `
         <app-docsectiontext>
-            <p>
-                The <i>$dt</i> function returns the information about a token like the full path and value. This would be useful if you need
-                to access tokens programmatically.
-            </p>
+            <p>The <i>$dt</i> function returns the information about a token like the full path and value. This would be useful if you need to access tokens programmatically.</p>
         </app-docsectiontext>
         <app-code [code]="code" selector="dt-demo" [hideToggleCode]="true"></app-code>
-    `,
+    `
 })
 export class DtDoc {
     code = {
@@ -51,6 +48,6 @@ const primaryColor = $dt('primary.color');
         }
     }
 }
-*/`,
+*/`
     };
 }

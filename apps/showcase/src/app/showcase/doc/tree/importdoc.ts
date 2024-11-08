@@ -3,10 +3,10 @@ import { Code } from '@domain/code';
 
 @Component({
     selector: 'tree-import-doc',
-    template: ` <app-code [code]="code" [hideToggleCode]="true"></app-code> `,
+    template: ` <app-code [code]="code" [hideToggleCode]="true"></app-code> `
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { Tree } from 'primeng/tree';`,
+        typescript: `import { Tree } from 'primeng/tree';`
     };
 }

@@ -11,7 +11,7 @@ import { Code } from '@domain/code';
             <textarea rows="5" cols="30" pTextarea [disabled]="true"></textarea>
         </div>
         <app-code [code]="code" selector="input-textarea-disabled-demo"></app-code>
-    `,
+    `
 })
 export class DisabledDoc {
     code: Code = {
@@ -32,6 +32,6 @@ import { FormsModule } from '@angular/forms';
     imports: [FormsModule, Textarea]
 })
 export class InputTextareaDisabledDemo {
-}`,
+}`
     };
 }

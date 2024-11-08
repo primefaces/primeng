@@ -12,56 +12,49 @@ import { BadgeDocModule } from '@doc/badge/badgedoc.module';
 @Component({
     standalone: true,
     imports: [BadgeDocModule],
-    template: ` <app-doc
-        docTitle="Angular Badge Component"
-        header="Badge"
-        description="Badge is a small status indicator for another element."
-        [docs]="docs"
-        [apiDocs]="['Badge', 'BadgeDirective']"
-        themeDocs="Badge"
-    ></app-doc>`,
+    template: ` <app-doc docTitle="Angular Badge Component" header="Badge" description="Badge is a small status indicator for another element." [docs]="docs" [apiDocs]="['Badge', 'BadgeDirective']" themeDocs="Badge"></app-doc>`
 })
 export class BadgeDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc,
+            component: ImportDoc
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc,
+            component: BasicDoc
         },
         {
             id: 'directive',
             label: 'Directive',
-            component: DirectiveDoc,
+            component: DirectiveDoc
         },
         {
             id: 'severity',
             label: 'Severity',
-            component: SeverityDoc,
+            component: SeverityDoc
         },
         {
             id: 'size',
             label: 'Size',
-            component: SizeDoc,
+            component: SizeDoc
         },
         {
             id: 'overlay',
             label: 'Overlay',
-            component: OverlayDoc,
+            component: OverlayDoc
         },
         {
             id: 'button',
             label: 'Button',
-            component: ButtonDoc,
+            component: ButtonDoc
         },
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc,
-        },
+            component: AccessibilityDoc
+        }
     ];
 }

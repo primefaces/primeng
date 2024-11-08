@@ -9,24 +9,15 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-button (click)="showDialog()" icon="pi pi-external-link" label="Show"></p-button>
-            <p-dialog
-                header="Header"
-                [(visible)]="visible"
-                [modal]="true"
-                [style]="{ width: '50vw' }"
-                [draggable]="false"
-                [resizable]="false"
-            >
+            <p-dialog header="Header" [(visible)]="visible" [modal]="true" [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
                 <p class="m-0">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis
-                    aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-                    occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                 </p>
             </p-dialog>
         </div>
         <app-code [code]="code" selector="dialog-modal-demo"></app-code>
-    `,
+    `
 })
 export class ModalDoc {
     visible: boolean = false;
@@ -68,6 +59,6 @@ export class DialogModalDemo {
     showDialog() {
         this.visible = true;
     }
-}`,
+}`
     };
 }

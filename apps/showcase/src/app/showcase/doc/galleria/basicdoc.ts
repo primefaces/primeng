@@ -6,18 +6,10 @@ import { PhotoService } from '@service/photoservice';
     selector: 'galleria-basic-demo',
     template: `
         <app-docsectiontext>
-            <p>
-                Galleria requires a <i>value</i> as a collection of images, <i>item</i> template for the higher resolution image and
-                <i>thumbnail</i> template to display as a thumbnail.
-            </p>
+            <p>Galleria requires a <i>value</i> as a collection of images, <i>item</i> template for the higher resolution image and <i>thumbnail</i> template to display as a thumbnail.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-galleria
-                [(value)]="images"
-                [responsiveOptions]="responsiveOptions"
-                [containerStyle]="{ 'max-width': '640px' }"
-                [numVisible]="5"
-            >
+            <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5">
                 <ng-template pTemplate="item" let-item>
                     <img [src]="item.itemImageSrc" style="width:100%" />
                 </ng-template>
@@ -27,7 +19,7 @@ import { PhotoService } from '@service/photoservice';
             </p-galleria>
         </div>
         <app-code [code]="code" selector="galleria-basic-demo"></app-code>
-    `,
+    `
 })
 export class BasicDoc implements OnInit {
     images: any[] | undefined;
@@ -96,7 +88,7 @@ export class GalleriaBasicDemo implements OnInit {
     title: 'Title 1'
 },
 ...`,
-        service: ['PhotoService'],
+        service: ['PhotoService']
     };
 
     ngOnInit() {
@@ -104,12 +96,12 @@ export class GalleriaBasicDemo implements OnInit {
         this.responsiveOptions = [
             {
                 breakpoint: '1300px',
-                numVisible: 4,
+                numVisible: 4
             },
             {
                 breakpoint: '575px',
-                numVisible: 1,
-            },
+                numVisible: 1
+            }
         ];
     }
 }

@@ -18,40 +18,40 @@ import { StepsDocModule } from '@doc/steps/stepsdoc.module';
     ></app-doc>`,
     standalone: true,
     imports: [StepsDocModule],
-    styleUrl: './stepsdemo.scss',
+    styleUrl: './stepsdemo.scss'
 })
 export class StepsDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc,
+            component: ImportDoc
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc,
+            component: BasicDoc
         },
         {
             id: 'controlled',
             label: 'Controlled',
-            component: ControlledDoc,
+            component: ControlledDoc
         },
         {
             id: 'interactive',
             label: 'Interactive',
-            component: InteractiveDoc,
+            component: InteractiveDoc
         },
         {
             id: 'routing',
             label: 'Routing',
-            component: RoutingDoc,
+            component: RoutingDoc
         },
 
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc,
-        },
+            component: AccessibilityDoc
+        }
     ];
 }

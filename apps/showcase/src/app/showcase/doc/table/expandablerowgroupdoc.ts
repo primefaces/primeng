@@ -6,22 +6,11 @@ import { CustomerService } from '@service/customerservice';
 @Component({
     selector: 'expandable-row-group-doc',
     template: ` <app-docsectiontext>
-            <p>
-                When <i>expandableRowGroups</i> is present in subheader based row grouping, groups can be expanded and collapsed. State of
-                the expansions are controlled using the <i>expandedRows</i> and <i>onRowToggle</i> properties.
-            </p>
+            <p>When <i>expandableRowGroups</i> is present in subheader based row grouping, groups can be expanded and collapsed. State of the expansions are controlled using the <i>expandedRows</i> and <i>onRowToggle</i> properties.</p>
         </app-docsectiontext>
         <p-deferred-demo (load)="loadDemoData()">
             <div class="card">
-                <p-table
-                    [value]="customers"
-                    sortField="representative.name"
-                    sortMode="single"
-                    dataKey="representative.name"
-                    rowGroupMode="subheader"
-                    groupRowsBy="representative.name"
-                    [tableStyle]="{ 'min-width': '70rem' }"
-                >
+                <p-table [value]="customers" sortField="representative.name" sortMode="single" dataKey="representative.name" rowGroupMode="subheader" groupRowsBy="representative.name" [tableStyle]="{ 'min-width': '70rem' }">
                     <ng-template #header>
                         <tr>
                             <th style="width:20%">Name</th>
@@ -34,20 +23,8 @@ import { CustomerService } from '@service/customerservice';
                     <ng-template #groupheader let-customer let-rowIndex="rowIndex" let-expanded="expanded">
                         <tr>
                             <td colspan="5">
-                                <button
-                                    type="button"
-                                    pButton
-                                    pRipple
-                                    [pRowToggler]="customer"
-                                    class="p-button-text p-button-rounded p-button-plain mr-2"
-                                    [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"
-                                ></button>
-                                <img
-                                    [alt]="customer.representative.name"
-                                    src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}"
-                                    width="32"
-                                    style="vertical-align: middle"
-                                />
+                                <button type="button" pButton pRipple [pRowToggler]="customer" class="p-button-text p-button-rounded p-button-plain mr-2" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
+                                <img [alt]="customer.representative.name" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}" width="32" style="vertical-align: middle" />
                                 <span class="font-bold ml-2">{{ customer.representative.name }}</span>
                             </td>
                         </tr>
@@ -64,11 +41,7 @@ import { CustomerService } from '@service/customerservice';
                                 {{ customer.name }}
                             </td>
                             <td>
-                                <img
-                                    src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
-                                    [class]="'flag flag-' + customer.country.code"
-                                    style="width: 20px"
-                                />
+                                <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px" />
                                 <span class="ml-1 align-middle">{{ customer.country.name }}</span>
                             </td>
                             <td>
@@ -86,14 +59,14 @@ import { CustomerService } from '@service/customerservice';
             </div>
         </p-deferred-demo>
         <app-code [code]="code" selector="table-expandable-row-group-demo" [extFiles]="extFiles"></app-code>`,
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExpandableRowGroupDoc {
     customers!: Customer[];
 
     constructor(
         private customerService: CustomerService,
-        private cd: ChangeDetectorRef,
+        private cd: ChangeDetectorRef
     ) {}
 
     loadDemoData() {
@@ -383,7 +356,7 @@ export class TableExpandableRowGroupDemo implements OnInit{
     balance: 70663
 },
 ...`,
-        service: ['CustomerService'],
+        service: ['CustomerService']
     };
 
     extFiles = [
@@ -411,7 +384,7 @@ export interface Customer {
     representative?: Representative;
     verified?: boolean;
     balance?: number;
-}`,
-        },
+}`
+        }
     ];
 }

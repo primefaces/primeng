@@ -7,14 +7,12 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <h3>Screen Reader</h3>
             <p>
-                Overlay component uses <i>dialog</i> role and since any attribute is passed to the root element you may define attributes
-                like <i>aria-label</i> or <i>aria-labelledby</i> to describe the popup contents. In addition <i>aria-modal</i> is added
-                since focus is kept within the popup.
+                Overlay component uses <i>dialog</i> role and since any attribute is passed to the root element you may define attributes like <i>aria-label</i> or <i>aria-labelledby</i> to describe the popup contents. In addition
+                <i>aria-modal</i> is added since focus is kept within the popup.
             </p>
             <p>
                 It is recommended to use a trigger component that can be accessed with keyboard such as a button, if not adding
-                <i>tabIndex</i> would be necessary. Overlay adds <i>aria-expanded</i> state attribute and <i>aria-controls</i> to the
-                trigger so that the relation between the trigger and the popup is defined.
+                <i>tabIndex</i> would be necessary. Overlay adds <i>aria-expanded</i> state attribute and <i>aria-controls</i> to the trigger so that the relation between the trigger and the popup is defined.
             </p>
             <h3>Overlay Keyboard Support</h3>
             <p>
@@ -67,7 +65,7 @@ import { Code } from '@domain/code';
                 </table>
             </div>
         </app-docsectiontext>
-    </div>`,
+    </div>`
 })
 export class AccessibilityDoc {
     @Input() id: string;

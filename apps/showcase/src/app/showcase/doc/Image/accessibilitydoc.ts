@@ -4,15 +4,9 @@ import { Component } from '@angular/core';
     selector: 'image-accessibility-doc',
     template: ` <app-docsectiontext>
         <h3>Screen Reader</h3>
-        <p>
-            The preview button is a native <i>button</i> element with an <i>aria-label</i> that refers to the <i>aria.zoomImage</i> property
-            of the <a href="/configuration/#locale">locale</a> API by default.
-        </p>
+        <p>The preview button is a native <i>button</i> element with an <i>aria-label</i> that refers to the <i>aria.zoomImage</i> property of the <a href="/configuration/#locale">locale</a> API by default.</p>
         <p>When preview is active, <i>dialog</i> role with <i>aria-modal</i> is applied to the overlay image container.</p>
-        <p>
-            Button controls use <i>aria.rotateRight</i>, <i>aria.rotateLeft</i>, <i>aria.zoomIn</i>, <i>aria.zoomOut</i> and
-            <i>aria.close</i> from the <a href="/configuration/#locale">locale</a> API as <i>aria-label</i>.
-        </p>
+        <p>Button controls use <i>aria.rotateRight</i>, <i>aria.rotateLeft</i>, <i>aria.zoomIn</i>, <i>aria.zoomOut</i> and <i>aria.close</i> from the <a href="/configuration/#locale">locale</a> API as <i>aria-label</i>.</p>
         <h3>ButtonBar Keyboard Support</h3>
         <p>When preview is activated, close button receives the initial focus.</p>
         <div class="doc-tablewrapper">
@@ -43,6 +37,6 @@ import { Component } from '@angular/core';
                 </tbody>
             </table>
         </div>
-    </app-docsectiontext>`,
+    </app-docsectiontext>`
 })
 export class AccessibilityDoc {}

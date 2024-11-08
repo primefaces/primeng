@@ -11,7 +11,7 @@ import { Code } from '@domain/code';
             <p-datepicker [(ngModel)]="date" class="ng-invalid ng-dirty" />
         </div>
         <app-code [code]="code" selector="datepicker-invalid-demo"></app-code>
-    `,
+    `
 })
 export class InvalidDoc {
     date: Date | undefined;
@@ -35,6 +35,6 @@ import { DatePicker } from 'primeng/datepicker';
 })
 export class DatePickerInvalidDemo {
     date: Date | undefined;
-}`,
+}`
     };
 }

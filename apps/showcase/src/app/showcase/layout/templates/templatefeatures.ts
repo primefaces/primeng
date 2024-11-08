@@ -13,11 +13,7 @@ import { AppConfigService } from '@service/appconfigservice';
                         <ng-container *ngFor="let feature of featuresData">
                             <div class="p-5 rounded-2xl border border-surface flex-1 min-w-80 max-w-96 animate-duration-500">
                                 <div class="flex w-full mb-5 bg-surface-100 dark:bg-surface-800 overflow-hidden rounded-lg">
-                                    <img
-                                        class="w-full"
-                                        [src]="isDarkMode ? feature.darkSrc || feature.src : feature.src"
-                                        [alt]="feature.title"
-                                    />
+                                    <img class="w-full" [src]="isDarkMode ? feature.darkSrc || feature.src : feature.src" [alt]="feature.title" />
                                 </div>
                                 <div>
                                     <h5 class="text-surface-900 dark:text-surface-0 font-semibold mb-2 text-lg">{{ feature.title }}</h5>
@@ -37,17 +33,13 @@ import { AppConfigService } from '@service/appconfigservice';
                             *ngFor="let _ of [].constructor(2); let i = index"
                             class="flex flex-col gap-6 flex-1"
                             [ngClass]="{
-                                'sm:pt-32': i === 1,
+                                'sm:pt-32': i === 1
                             }"
                         >
                             <ng-container *ngFor="let data of i === 0 ? firstColumnData : secondColumnData; let j = index">
                                 <div class="w-full p-4 md:p-5 rounded-2xl border border-surface animate-duration-500">
                                     <div class="w-full bg-surface-100 dark:bg-surface-800 rounded-lg overflow-hidden flex">
-                                        <img
-                                            class="w-full h-auto rounded-lg"
-                                            [src]="isDarkMode ? data.darkSrc || data.src : data.src"
-                                            [alt]="data.title"
-                                        />
+                                        <img class="w-full h-auto rounded-lg" [src]="isDarkMode ? data.darkSrc || data.src : data.src" [alt]="data.title" />
                                     </div>
                                     <h2 class="mt-5 mb-0 text-lg text-surface-900 dark:text-surface-0 font-semibold">{{ data.title }}</h2>
                                     <p class="mt-2 mb-0 text-muted-color">{{ data.description }}</p>
@@ -60,7 +52,7 @@ import { AppConfigService } from '@service/appconfigservice';
         </div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None,
+    encapsulation: ViewEncapsulation.None
 })
 export class TemplateFeatures {
     @Input() displayType;
@@ -88,6 +80,6 @@ export class TemplateFeatures {
 @NgModule({
     imports: [CommonModule, SharedModule],
     exports: [TemplateFeatures, SharedModule],
-    declarations: [TemplateFeatures],
+    declarations: [TemplateFeatures]
 })
 export class TemplateFeaturesModule {}

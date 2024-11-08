@@ -5,16 +5,13 @@ import { Code } from '@domain/code';
     selector: 'auto-focus-basic-demo',
     template: `
         <app-docsectiontext>
-            <p>
-                AutoFocus is applied to any focusable input element on initial load. It's disabled by default and needs to be enabled
-                manually.
-            </p>
+            <p>AutoFocus is applied to any focusable input element on initial load. It's disabled by default and needs to be enabled manually.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
             <input type="text" pInputText [pAutoFocus]="true" placeholder="Automatically focused" />
         </div>
         <app-code [code]="code" selector="auto-focus-basic-demo"></app-code>
-    `,
+    `
 })
 export class BasicDoc {
     code: Code = {
@@ -32,6 +29,6 @@ import { InputTextModule } from 'primeng/inputtext';
     standalone: true,
     imports: [AutoFocus, InputTextModule]
 })
-export class AutoFocusBasicDemo {}`,
+export class AutoFocusBasicDemo {}`
     };
 }

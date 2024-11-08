@@ -7,16 +7,13 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <h3>Screen Reader</h3>
             <p>
-                Value to describe the component can either be provided with <i>ariaLabelledBy</i> or <i>ariaLabel</i> props. The select
-                element has a <i>combobox</i> role in addition to <i>aria-haspopup</i> and <i>aria-expanded</i> attributes. If the editable
-                option is enabled <i>aria-autocomplete</i> is also added. The relation between the combobox and the popup is created with
-                <i>aria-controls</i> and <i>aria-activedescendant</i> attribute is used to instruct screen reader which option to read
-                during keyboard navigation within the popup list.
+                Value to describe the component can either be provided with <i>ariaLabelledBy</i> or <i>ariaLabel</i> props. The select element has a <i>combobox</i> role in addition to <i>aria-haspopup</i> and <i>aria-expanded</i> attributes. If the
+                editable option is enabled <i>aria-autocomplete</i> is also added. The relation between the combobox and the popup is created with <i>aria-controls</i> and <i>aria-activedescendant</i> attribute is used to instruct screen reader which
+                option to read during keyboard navigation within the popup list.
             </p>
             <p>
-                The popup list has an id that refers to the <i>aria-controls</i> attribute of the <i>combobox</i> element and uses
-                <i>listbox</i> as the role. Each list item has an <i>option</i> role, an id to match the <i>aria-activedescendant</i> of the
-                input element along with <i>aria-label</i>, <i>aria-selected</i> and <i>aria-disabled</i> attributes.
+                The popup list has an id that refers to the <i>aria-controls</i> attribute of the <i>combobox</i> element and uses <i>listbox</i> as the role. Each list item has an <i>option</i> role, an id to match the
+                <i>aria-activedescendant</i> of the input element along with <i>aria-label</i>, <i>aria-selected</i> and <i>aria-disabled</i> attributes.
             </p>
 
             <p>If filtering is enabled, <i>filterInputProps</i> can be defined to give <i>aria-*</i> props to the filter input element.</p>
@@ -44,28 +41,19 @@ import { Code } from '@domain/code';
                         <td>
                             <i>space</i>
                         </td>
-                        <td>
-                            Opens the popup and moves visual focus to the selected option, if there is none then first option receives the
-                            focus.
-                        </td>
+                        <td>Opens the popup and moves visual focus to the selected option, if there is none then first option receives the focus.</td>
                     </tr>
                     <tr>
                         <td>
                             <i>down arrow</i>
                         </td>
-                        <td>
-                            Opens the popup and moves visual focus to the selected option, if there is none then first option receives the
-                            focus.
-                        </td>
+                        <td>Opens the popup and moves visual focus to the selected option, if there is none then first option receives the focus.</td>
                     </tr>
                     <tr>
                         <td>
                             <i>up arrow</i>
                         </td>
-                        <td>
-                            Opens the popup and moves visual focus to the selected option, if there is none then last option receives the
-                            focus.
-                        </td>
+                        <td>Opens the popup and moves visual focus to the selected option, if there is none then last option receives the focus.</td>
                     </tr>
                 </tbody>
             </table>
@@ -85,17 +73,11 @@ import { Code } from '@domain/code';
                         <td>
                             <i>tab</i>
                         </td>
-                        <td>
-                            Moves focus to the next focusable element in the popup, if there is none then first focusable element receives
-                            the focus.
-                        </td>
+                        <td>Moves focus to the next focusable element in the popup, if there is none then first focusable element receives the focus.</td>
                     </tr>
                     <tr>
                         <td><i>shift</i> + <i>tab</i></td>
-                        <td>
-                            Moves focus to the previous focusable element in the popup, if there is none then last focusable element
-                            receives the focus.
-                        </td>
+                        <td>Moves focus to the previous focusable element in the popup, if there is none then last focusable element receives the focus.</td>
                     </tr>
                     <tr>
                         <td>
@@ -131,19 +113,13 @@ import { Code } from '@domain/code';
                         <td>
                             <i>right arrow</i>
                         </td>
-                        <td>
-                            If the select is editable, removes the visual focus from the current option and moves input cursor to one
-                            character left.
-                        </td>
+                        <td>If the select is editable, removes the visual focus from the current option and moves input cursor to one character left.</td>
                     </tr>
                     <tr>
                         <td>
                             <i>left arrow</i>
                         </td>
-                        <td>
-                            If the select is editable, removes the visual focus from the current option and moves input cursor to one
-                            character right.
-                        </td>
+                        <td>If the select is editable, removes the visual focus from the current option and moves input cursor to one character right.</td>
                     </tr>
                     <tr>
                         <td>
@@ -192,13 +168,13 @@ import { Code } from '@domain/code';
                 </tbody>
             </table>
         </div>
-    </div>`,
+    </div>`
 })
 export class AccessibilityDoc {
     code: Code = {
         basic: `<span id="dd1">Options</span>
 <p-select ariaLabelledBy="dd1"/>
 
-<p-select ariaLabel="Options"/>`,
+<p-select ariaLabel="Options"/>`
     };
 }

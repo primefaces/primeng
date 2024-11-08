@@ -10,10 +10,7 @@ interface City {
     selector: 'select-iftalabel-demo',
     template: `
         <app-docsectiontext>
-            <p>
-                IftaLabel is used to create infield top aligned labels. Visit <a routerLink="/iftalabel">IftaLabel</a> documentation for
-                more information.
-            </p>
+            <p>IftaLabel is used to create infield top aligned labels. Visit <a routerLink="/iftalabel">IftaLabel</a> documentation for more information.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-iftalabel class="w-full md:w-56">
@@ -22,7 +19,7 @@ interface City {
             </p-iftalabel>
         </div>
         <app-code [code]="code" selector="select-iftalabel-demo"></app-code>
-    `,
+    `
 })
 export class IftaLabelDoc implements OnInit {
     cities: City[] | undefined;
@@ -71,7 +68,7 @@ export class SelectIftaLabelDemo implements OnInit {
             { name: 'Paris', code: 'PRS' },
         ];
     }
-}`,
+}`
     };
 
     ngOnInit() {
@@ -80,7 +77,7 @@ export class SelectIftaLabelDemo implements OnInit {
             { name: 'Rome', code: 'RM' },
             { name: 'London', code: 'LDN' },
             { name: 'Istanbul', code: 'IST' },
-            { name: 'Paris', code: 'PRS' },
+            { name: 'Paris', code: 'PRS' }
         ];
     }
 }

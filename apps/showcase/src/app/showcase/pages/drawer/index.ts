@@ -12,59 +12,50 @@ import { DrawerDocModule } from '@doc/drawer/drawerdoc.module';
 @Component({
     standalone: true,
     imports: [DrawerDocModule],
-    template: `
-        <app-doc
-            docTitle="Angular Drawer Component"
-            header="Drawer"
-            description="Drawer is a container component displayed as an overlay."
-            [docs]="docs"
-            [apiDocs]="['Drawer']"
-            themeDocs="drawer"
-        ></app-doc>
-    `,
+    template: ` <app-doc docTitle="Angular Drawer Component" header="Drawer" description="Drawer is a container component displayed as an overlay." [docs]="docs" [apiDocs]="['Drawer']" themeDocs="drawer"></app-doc> `
 })
 export class DrawerDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc,
+            component: ImportDoc
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc,
+            component: BasicDoc
         },
         {
             id: 'position',
             label: 'Position',
-            component: PositionDoc,
+            component: PositionDoc
         },
         {
             id: 'size',
             label: 'Size',
-            component: SizeDoc,
+            component: SizeDoc
         },
         {
             id: 'fullscreen',
             label: 'Full Screen',
-            component: FullScreenDoc,
+            component: FullScreenDoc
         },
         {
             id: 'template',
             label: 'Template',
-            component: TemplateDoc,
+            component: TemplateDoc
         },
         {
             id: 'headless',
             label: 'Headless',
-            component: HeadlessDoc,
+            component: HeadlessDoc
         },
 
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc,
-        },
+            component: AccessibilityDoc
+        }
     ];
 }

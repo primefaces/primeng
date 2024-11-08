@@ -3,6 +3,6 @@ import { InputOtpDemo } from './';
 export default [
     {
         path: '',
-        component: InputOtpDemo,
-    },
+        component: InputOtpDemo
+    }
 ];

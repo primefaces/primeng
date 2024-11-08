@@ -13,13 +13,7 @@ import { PhotoService } from '@service/photoservice';
                 <p-button type="button" icon="pi pi-minus" (click)="prev()" />
                 <p-button type="button" icon="pi pi-plus" (click)="next()" severity="secondary" styleClass="ml-2" />
             </div>
-            <p-galleria
-                [(value)]="images"
-                [responsiveOptions]="responsiveOptions"
-                [containerStyle]="{ 'max-width': '640px' }"
-                [numVisible]="5"
-                [(activeIndex)]="activeIndex"
-            >
+            <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5" [(activeIndex)]="activeIndex">
                 <ng-template pTemplate="item" let-item>
                     <img [src]="item.itemImageSrc" style="width: 100%;" />
                 </ng-template>
@@ -29,7 +23,7 @@ import { PhotoService } from '@service/photoservice';
             </p-galleria>
         </div>
         <app-code [code]="code" selector="galleria-controlled-demo"></app-code>
-    `,
+    `
 })
 export class ControlledDoc implements OnInit {
     images: any[] | undefined;
@@ -49,12 +43,12 @@ export class ControlledDoc implements OnInit {
     responsiveOptions: any[] = [
         {
             breakpoint: '1300px',
-            numVisible: 4,
+            numVisible: 4
         },
         {
             breakpoint: '575px',
-            numVisible: 1,
-        },
+            numVisible: 1
+        }
     ];
 
     constructor(private photoService: PhotoService) {}
@@ -159,6 +153,6 @@ export class GalleriaControlledDemo implements OnInit {
     title: 'Title 1'
 },
 ...`,
-        service: ['PhotoService'],
+        service: ['PhotoService']
     };
 }

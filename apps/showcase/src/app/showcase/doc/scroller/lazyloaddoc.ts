@@ -10,32 +10,16 @@ interface LazyEvent {
     template: `
         <app-docsectiontext>
             <p>
-                Lazy mode is handy to deal with large datasets where instead of loading the entire data, small chunks of data are loaded on
-                demand by invoking onLazyLoad callback everytime scrolling requires a new chunk. To implement lazy loading, enable
-                <i>lazy</i> attribute, initialize your data as a placeholder with a length and finally implement a method callback using
-                <i>onLazyLoad</i> that actually loads a chunk from a datasource. onLazyLoad gets an event object that contains information
-                about the chunk of data to load such as the index and number of items to load. Notice that a new template called loadingItem
-                is also required to display as a placeholder while the new items are being loaded.
+                Lazy mode is handy to deal with large datasets where instead of loading the entire data, small chunks of data are loaded on demand by invoking onLazyLoad callback everytime scrolling requires a new chunk. To implement lazy loading,
+                enable
+                <i>lazy</i> attribute, initialize your data as a placeholder with a length and finally implement a method callback using <i>onLazyLoad</i> that actually loads a chunk from a datasource. onLazyLoad gets an event object that contains
+                information about the chunk of data to load such as the index and number of items to load. Notice that a new template called loadingItem is also required to display as a placeholder while the new items are being loaded.
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-virtualscroller
-                [items]="items"
-                [itemSize]="50"
-                [showLoader]="true"
-                [delay]="250"
-                [loading]="lazyLoading"
-                [lazy]="true"
-                (onLazyLoad)="onLazyLoad($event)"
-                styleClass="border border-surface"
-                [style]="{ width: '200px', height: '200px' }"
-            >
+            <p-virtualscroller [items]="items" [itemSize]="50" [showLoader]="true" [delay]="250" [loading]="lazyLoading" [lazy]="true" (onLazyLoad)="onLazyLoad($event)" styleClass="border border-surface" [style]="{ width: '200px', height: '200px' }">
                 <ng-template pTemplate="item" let-item let-options="options">
-                    <div
-                        class="flex items-center p-2"
-                        [ngClass]="{ 'bg-surface-100 dark:bg-surface-700': options.odd }"
-                        style="height: 50px;"
-                    >
+                    <div class="flex items-center p-2" [ngClass]="{ 'bg-surface-100 dark:bg-surface-700': options.odd }" style="height: 50px;">
                         {{ item }}
                     </div>
                 </ng-template>
@@ -43,7 +27,7 @@ interface LazyEvent {
         </div>
         <app-code [code]="code" selector="scroller-lazy-load-demo"></app-code>
     `,
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LazyLoadDoc {
     items!: string[];
@@ -79,7 +63,7 @@ export class LazyLoadDoc {
                 this.lazyLoading = false;
                 this.cd.markForCheck();
             },
-            Math.random() * 1000 + 250,
+            Math.random() * 1000 + 250
         );
     }
 
@@ -184,6 +168,6 @@ export class ScrollerLazyLoadDemo implements OnInit {
     .p-scroller-viewport {
         flex: none;
     }
-}`,
+}`
     };
 }

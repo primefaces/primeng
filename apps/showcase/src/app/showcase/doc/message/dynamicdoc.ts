@@ -14,17 +14,12 @@ import { Code } from '@domain/code';
             </div>
             <div class="flex flex-col">
                 @for (message of messages(); track message; let first = $first) {
-                    <p-message
-                        [severity]="message.severity"
-                        [text]="message.content"
-                        [ngClass]="{ 'mt-4': !first }"
-                        [closable]="message?.closable"
-                    />
+                    <p-message [severity]="message.severity" [text]="message.content" [ngClass]="{ 'mt-4': !first }" [closable]="message?.closable" />
                 }
             </div>
         </div>
         <app-code [code]="code" selector="message-dynamic-demo"></app-code>
-    `,
+    `
 })
 export class DynamicDoc {
     messages = signal<any[]>([]);
@@ -76,7 +71,7 @@ export class MessageDynamicDemo {
     clearMessages() {
         this.messages.set([]);
     }
-}`,
+}`
     };
 
     clearMessages() {
@@ -87,7 +82,7 @@ export class MessageDynamicDemo {
         this.messages.set([
             { severity: 'info', content: 'Dynamic Info Message' },
             { severity: 'success', content: 'Dynamic Success Message' },
-            { severity: 'warn', content: 'Dynamic Warn Message' },
+            { severity: 'warn', content: 'Dynamic Warn Message' }
         ]);
     }
 }

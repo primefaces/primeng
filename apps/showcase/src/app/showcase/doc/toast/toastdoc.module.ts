@@ -26,23 +26,7 @@ import { AccessibilityDoc } from './accessibilitydoc';
 
 @NgModule({
     imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, Toast, ButtonModule, Ripple, AvatarModule, ProgressBar],
-    declarations: [
-        AnimationDoc,
-        BasicDoc,
-        ImportDoc,
-        MultipleDoc,
-        PositionDoc,
-        ResponsiveDoc,
-        SeverityDoc,
-        LifeDoc,
-        StickyDoc,
-        StyleDoc,
-        TargetDoc,
-        TemplateDoc,
-        ClearDoc,
-        HeadlessDoc,
-        AccessibilityDoc,
-    ],
-    exports: [AppDocModule],
+    declarations: [AnimationDoc, BasicDoc, ImportDoc, MultipleDoc, PositionDoc, ResponsiveDoc, SeverityDoc, LifeDoc, StickyDoc, StyleDoc, TargetDoc, TemplateDoc, ClearDoc, HeadlessDoc, AccessibilityDoc],
+    exports: [AppDocModule]
 })
 export class ToastDocModule {}

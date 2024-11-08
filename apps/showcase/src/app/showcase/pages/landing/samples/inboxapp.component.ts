@@ -18,23 +18,7 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
 @Component({
     selector: 'inbox-app',
     standalone: true,
-    imports: [
-        CommonModule,
-        RouterModule,
-        FormsModule,
-        DividerModule,
-        AvatarModule,
-        IconField,
-        InputIcon,
-        ButtonModule,
-        Table,
-        InputTextModule,
-        MenuModule,
-        Tag,
-        ProgressBar,
-        Checkbox,
-        OverlayBadgeModule,
-    ],
+    imports: [CommonModule, RouterModule, FormsModule, DividerModule, AvatarModule, IconField, InputIcon, ButtonModule, Table, InputTextModule, MenuModule, Tag, ProgressBar, Checkbox, OverlayBadgeModule],
     template: `
         <div class="w-64 h-full overflow-hidden border border-surface rounded-2xl flex flex-col">
             <div class="flex items-center justify-between gap-2 p-4 border-b border-surface">
@@ -52,7 +36,7 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
                             (click)="activeInboxNav = nav.name"
                             [ngClass]="{
                                 'text-color bg-emphasis': activeInboxNav === nav.name,
-                                'text-muted-color bg-transparent': activeInboxNav !== nav.name,
+                                'text-muted-color bg-transparent': activeInboxNav !== nav.name
                             }"
                             class="px-4 py-2 rounded-lg flex items-center gap-2 cursor-pointer hover:bg-emphasis transition-all"
                         >
@@ -66,10 +50,7 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
                         <div class="font-medium text-color mb-4">Free Version</div>
                         <p-progressbar [value]="75">
                             <ng-template #content let-value>
-                                <span
-                                    class="w-full text-center text-sm font-normal text-surface-0 leading-5 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
-                                    >4 days left</span
-                                >
+                                <span class="w-full text-center text-sm font-normal text-surface-0 leading-5 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">4 days left</span>
                             </ng-template>
                         </p-progressbar>
                     </div>
@@ -122,7 +103,7 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
                                         [label]="!data.image ? data.capName : ''"
                                         [ngClass]="{
                                             'bg-violet-100 text-violet-950 text-xs font-medium': !data.image,
-                                            'rounded-md overflow-hidden flex': true,
+                                            'rounded-md overflow-hidden flex': true
                                         }"
                                     />
                                 </p-overlayBadge>
@@ -151,10 +132,10 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
         </div>
     `,
     host: {
-        class: 'flex gap-4 h-full flex-1 w-full overflow-auto',
+        class: 'flex gap-4 h-full flex-1 w-full overflow-auto'
     },
     encapsulation: ViewEncapsulation.None,
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class InboxApp {
     search: string | undefined;
@@ -179,8 +160,8 @@ export class InboxApp {
                     { name: 'Sent', icon: 'pi pi-send' },
                     { name: 'Archive', icon: 'pi pi-inbox' },
                     { name: 'Spam', icon: 'pi pi-info-circle' },
-                    { name: 'Trash', icon: 'pi pi-trash' },
-                ],
+                    { name: 'Trash', icon: 'pi pi-trash' }
+                ]
             },
             {
                 title: 'Other',
@@ -188,9 +169,9 @@ export class InboxApp {
                     { name: 'Security', icon: 'pi pi-tag' },
                     { name: 'Update', icon: 'pi pi-tag' },
                     { name: 'Marketing', icon: 'pi pi-tag' },
-                    { name: 'HR', icon: 'pi pi-tag' },
-                ],
-            },
+                    { name: 'HR', icon: 'pi pi-tag' }
+                ]
+            }
         ];
         this.tableData = [
             {
@@ -202,8 +183,7 @@ export class InboxApp {
                 type: 'Security',
                 time: '3:24 PM',
                 title: 'Important Account Update',
-                message:
-                    "Dear customer, we've made updates to enhance your account security. Please log in to review and complete the necessary steps. Thank you for choosing ABC Corporation.",
+                message: "Dear customer, we've made updates to enhance your account security. Please log in to review and complete the necessary steps. Thank you for choosing ABC Corporation."
             },
             {
                 id: 2,
@@ -214,8 +194,7 @@ export class InboxApp {
                 type: 'Update',
                 time: '11:24 AM',
                 title: 'Weekly Project Update',
-                message:
-                    'Hi team, attached is the weekly project update. Kindly review the progress and come prepared for our discussion in the upcoming meeting on [Date and Time].',
+                message: 'Hi team, attached is the weekly project update. Kindly review the progress and come prepared for our discussion in the upcoming meeting on [Date and Time].'
             },
             {
                 id: 3,
@@ -226,8 +205,7 @@ export class InboxApp {
                 type: 'Security',
                 time: '9:24 AM',
                 title: 'Urgent: Security Alert - Account Compromise',
-                message:
-                    'Dear user, we detected unauthorized access to your account. Take immediate action to secure your account. Follow the provided link to reset your password. Thank you.',
+                message: 'Dear user, we detected unauthorized access to your account. Take immediate action to secure your account. Follow the provided link to reset your password. Thank you.'
             },
             {
                 id: 4,
@@ -238,8 +216,7 @@ export class InboxApp {
                 type: 'Marketing',
                 time: 'Jan 21',
                 title: 'Exclusive Offer Inside - Limited Time Only',
-                message:
-                    "Greetings, check out our exclusive offer! Don't miss this limited-time deal. Details enclosed in the attached flyer. Act fast; the offer expires on [Date].",
+                message: "Greetings, check out our exclusive offer! Don't miss this limited-time deal. Details enclosed in the attached flyer. Act fast; the offer expires on [Date]."
             },
             {
                 id: 5,
@@ -251,8 +228,7 @@ export class InboxApp {
                 type: 'HR',
                 time: 'Jan 15',
                 title: 'Employee Appreciation Event - Save the Date',
-                message:
-                    'Hello team, mark your calendars for our upcoming Employee Appreciation Event on [Date]. Stay tuned for more details and get ready for a day of celebration!',
+                message: 'Hello team, mark your calendars for our upcoming Employee Appreciation Event on [Date]. Stay tuned for more details and get ready for a day of celebration!'
             },
             {
                 id: 6,
@@ -264,8 +240,7 @@ export class InboxApp {
                 type: 'Invoice',
                 time: 'Jan 12',
                 title: 'Your Recent Purchase - Order Confirmation',
-                message:
-                    'Hi Wade Warren, secure your spot at the XYZ Conference 2024 with early bird registration. Enjoy discounted rates until [Date].',
+                message: 'Hi Wade Warren, secure your spot at the XYZ Conference 2024 with early bird registration. Enjoy discounted rates until [Date].'
             },
             {
                 id: 7,
@@ -276,8 +251,7 @@ export class InboxApp {
                 type: 'Events',
                 time: 'Jan 11',
                 title: 'Early Bird Registration Open - XYZ Conference 2024',
-                message:
-                    ' Attention users, we have scheduled system maintenance on Jan 17. Expect minimal service disruption during this period. Thank you for your understanding.',
+                message: ' Attention users, we have scheduled system maintenance on Jan 17. Expect minimal service disruption during this period. Thank you for your understanding.'
             },
             {
                 id: 8,
@@ -288,8 +262,7 @@ export class InboxApp {
                 type: '',
                 time: 'Jan 8',
                 title: 'Upcoming System Maintenance Notice',
-                message:
-                    "Dear valued customer, as a token of appreciation, we're offering exclusive discounts for VIP customers. Explore the savings in the attached catalog. Expires [Date].",
+                message: "Dear valued customer, as a token of appreciation, we're offering exclusive discounts for VIP customers. Explore the savings in the attached catalog. Expires [Date]."
             },
             {
                 id: 9,
@@ -300,8 +273,7 @@ export class InboxApp {
                 type: 'Discount',
                 time: 'Jan 4',
                 title: 'Special Discounts for VIP Customers',
-                message:
-                    'Hello Darrell Steward, stay updated with our latest news and highlights in the January edition of our newsletter. Enjoy the read!',
+                message: 'Hello Darrell Steward, stay updated with our latest news and highlights in the January edition of our newsletter. Enjoy the read!'
             },
             {
                 id: 10,
@@ -313,8 +285,7 @@ export class InboxApp {
                 type: 'Newsletter',
                 time: 'Jan 2',
                 title: 'Monthly Newsletter - January Edition',
-                message:
-                    "Dear user, we've updated our Terms of Service. Please review the changes to ensure compliance. Your continued use of our services implies acceptance. Thank you.",
+                message: "Dear user, we've updated our Terms of Service. Please review the changes to ensure compliance. Your continued use of our services implies acceptance. Thank you."
             },
             {
                 id: 11,
@@ -325,8 +296,7 @@ export class InboxApp {
                 type: '',
                 time: 'Jan 2',
                 title: 'Exclusive Travel Packages for You',
-                message:
-                    'Greetings traveler, explore our exclusive travel packages tailored just for you. Plan your next adventure with XYZ Travel. Offers valid until [Date].',
+                message: 'Greetings traveler, explore our exclusive travel packages tailored just for you. Plan your next adventure with XYZ Travel. Offers valid until [Date].'
             },
             {
                 id: 12,
@@ -338,8 +308,7 @@ export class InboxApp {
                 type: 'Invitation',
                 time: '12.12.2023',
                 title: 'Invitation to Amsterdam',
-                message:
-                    "Hello Robert Fox, you're invited to our upcoming webinar on Amsterdam. Join us on [Date and Time] for an insightful session. Reserve your spot now!",
+                message: "Hello Robert Fox, you're invited to our upcoming webinar on Amsterdam. Join us on [Date and Time] for an insightful session. Reserve your spot now!"
             },
             {
                 id: 13,
@@ -351,8 +320,7 @@ export class InboxApp {
                 type: '',
                 time: '12.09.2023',
                 title: 'New Arrivals - Check Out the Latest Books',
-                message:
-                    'Book enthusiasts, discover our latest arrivals! Explore the attached catalog and dive into the world of new releases. Available for purchase starting [Date].',
+                message: 'Book enthusiasts, discover our latest arrivals! Explore the attached catalog and dive into the world of new releases. Available for purchase starting [Date].'
             },
             {
                 id: 14,
@@ -363,7 +331,7 @@ export class InboxApp {
                 type: '',
                 time: '12.04.2023',
                 title: 'New Product Demo',
-                message: 'Exclusive demo of our latest product on Thursday.',
+                message: 'Exclusive demo of our latest product on Thursday.'
             },
             {
                 id: 15,
@@ -375,9 +343,8 @@ export class InboxApp {
                 type: 'Newsletter',
                 time: '10.01.2023',
                 title: 'Monthly Newsletter - January Edition',
-                message:
-                    "Dear user, we've updated our Terms of Service. Please review the changes to ensure compliance. Your continued use of our services implies acceptance. Thank you.",
-            },
+                message: "Dear user, we've updated our Terms of Service. Please review the changes to ensure compliance. Your continued use of our services implies acceptance. Thank you."
+            }
         ];
     }
 }

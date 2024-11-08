@@ -48,7 +48,7 @@ import { Code } from '@domain/code';
         </div>
         <app-code [code]="code" selector="tree-table-column-group-demo"></app-code>
     `,
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ColumnGroupDoc {
     sales!: TreeNode[];
@@ -64,7 +64,7 @@ export class ColumnGroupDoc {
                             lastYearSale: '25%',
                             thisYearSale: '20%',
                             lastYearProfit: '$34,406.00',
-                            thisYearProfit: '$23,342',
+                            thisYearProfit: '$23,342'
                         },
                         children: [
                             {
@@ -73,8 +73,8 @@ export class ColumnGroupDoc {
                                     lastYearSale: '20%',
                                     thisYearSale: '10%',
                                     lastYearProfit: '$24,406.00',
-                                    thisYearProfit: '$13,342',
-                                },
+                                    thisYearProfit: '$13,342'
+                                }
                             },
                             {
                                 data: {
@@ -82,10 +82,10 @@ export class ColumnGroupDoc {
                                     lastYearSale: '5%',
                                     thisYearSale: '10%',
                                     lastYearProfit: '$10,000.00',
-                                    thisYearProfit: '$10,000',
-                                },
-                            },
-                        ],
+                                    thisYearProfit: '$10,000'
+                                }
+                            }
+                        ]
                     },
                     {
                         data: {
@@ -93,10 +93,10 @@ export class ColumnGroupDoc {
                             lastYearSale: '26%',
                             thisYearSale: '20%',
                             lastYearProfit: '$24,000.00',
-                            thisYearProfit: '$23,000',
-                        },
-                    },
-                ],
+                            thisYearProfit: '$23,000'
+                        }
+                    }
+                ]
             },
             {
                 data: { brand: 'Fate', lastYearSale: '83%', thisYearSale: '96%', lastYearProfit: '$423,132', thisYearProfit: '$312,122' },
@@ -107,8 +107,8 @@ export class ColumnGroupDoc {
                             lastYearSale: '50%',
                             thisYearSale: '40%',
                             lastYearProfit: '$223,132',
-                            thisYearProfit: '$156,061',
-                        },
+                            thisYearProfit: '$156,061'
+                        }
                     },
                     {
                         data: {
@@ -116,10 +116,10 @@ export class ColumnGroupDoc {
                             lastYearSale: '33%',
                             thisYearSale: '56%',
                             lastYearProfit: '$200,000',
-                            thisYearProfit: '$156,061',
-                        },
-                    },
-                ],
+                            thisYearProfit: '$156,061'
+                        }
+                    }
+                ]
             },
             {
                 data: { brand: 'Ruby', lastYearSale: '38%', thisYearSale: '5%', lastYearProfit: '$12,321', thisYearProfit: '$8,500' },
@@ -130,8 +130,8 @@ export class ColumnGroupDoc {
                             lastYearSale: '18%',
                             thisYearSale: '2%',
                             lastYearProfit: '$10,300',
-                            thisYearProfit: '$5,500',
-                        },
+                            thisYearProfit: '$5,500'
+                        }
                     },
                     {
                         data: {
@@ -139,10 +139,10 @@ export class ColumnGroupDoc {
                             lastYearSale: '20%',
                             thisYearSale: '3%',
                             lastYearProfit: '$2,021',
-                            thisYearProfit: '$3,000',
-                        },
-                    },
-                ],
+                            thisYearProfit: '$3,000'
+                        }
+                    }
+                ]
             },
             {
                 data: { brand: 'Sky', lastYearSale: '49%', thisYearSale: '22%', lastYearProfit: '$745,232', thisYearProfit: '$650,323' },
@@ -153,8 +153,8 @@ export class ColumnGroupDoc {
                             lastYearSale: '20%',
                             thisYearSale: '16%',
                             lastYearProfit: '$345,232',
-                            thisYearProfit: '$350,000',
-                        },
+                            thisYearProfit: '$350,000'
+                        }
                     },
                     {
                         data: {
@@ -162,10 +162,10 @@ export class ColumnGroupDoc {
                             lastYearSale: '29%',
                             thisYearSale: '6%',
                             lastYearProfit: '$400,009',
-                            thisYearProfit: '$300,323',
-                        },
-                    },
-                ],
+                            thisYearProfit: '$300,323'
+                        }
+                    }
+                ]
             },
             {
                 data: { brand: 'Comfort', lastYearSale: '17%', thisYearSale: '79%', lastYearProfit: '$643,242', thisYearProfit: '500,332' },
@@ -176,8 +176,8 @@ export class ColumnGroupDoc {
                             lastYearSale: '10%',
                             thisYearSale: '40%',
                             lastYearProfit: '$243,242',
-                            thisYearProfit: '$100,000',
-                        },
+                            thisYearProfit: '$100,000'
+                        }
                     },
                     {
                         data: {
@@ -185,10 +185,10 @@ export class ColumnGroupDoc {
                             lastYearSale: '7%',
                             thisYearSale: '39%',
                             lastYearProfit: '$400,00',
-                            thisYearProfit: '$400,332',
-                        },
-                    },
-                ],
+                            thisYearProfit: '$400,332'
+                        }
+                    }
+                ]
             },
             {
                 data: { brand: 'Merit', lastYearSale: '52%', thisYearSale: ' 65%', lastYearProfit: '$421,132', thisYearProfit: '$150,005' },
@@ -199,8 +199,8 @@ export class ColumnGroupDoc {
                             lastYearSale: '20%',
                             thisYearSale: '40%',
                             lastYearProfit: '$121,132',
-                            thisYearProfit: '$100,000',
-                        },
+                            thisYearProfit: '$100,000'
+                        }
                     },
                     {
                         data: {
@@ -208,10 +208,10 @@ export class ColumnGroupDoc {
                             lastYearSale: '32%',
                             thisYearSale: '25%',
                             lastYearProfit: '$300,000',
-                            thisYearProfit: '$50,005',
-                        },
-                    },
-                ],
+                            thisYearProfit: '$50,005'
+                        }
+                    }
+                ]
             },
             {
                 data: { brand: 'Violet', lastYearSale: '82%', thisYearSale: '12%', lastYearProfit: '$131,211', thisYearProfit: '$100,214' },
@@ -222,8 +222,8 @@ export class ColumnGroupDoc {
                             lastYearSale: '30%',
                             thisYearSale: '6%',
                             lastYearProfit: '$101,211',
-                            thisYearProfit: '$30,214',
-                        },
+                            thisYearProfit: '$30,214'
+                        }
                     },
                     {
                         data: {
@@ -231,10 +231,10 @@ export class ColumnGroupDoc {
                             lastYearSale: '52%',
                             thisYearSale: '6%',
                             lastYearProfit: '$30,000',
-                            thisYearProfit: '$70,000',
-                        },
-                    },
-                ],
+                            thisYearProfit: '$70,000'
+                        }
+                    }
+                ]
             },
             {
                 data: { brand: 'Dulce', lastYearSale: '44%', thisYearSale: '45%', lastYearProfit: '$66,442', thisYearProfit: '$53,322' },
@@ -245,8 +245,8 @@ export class ColumnGroupDoc {
                             lastYearSale: '22%',
                             thisYearSale: '25%',
                             lastYearProfit: '$33,221',
-                            thisYearProfit: '$20,000',
-                        },
+                            thisYearProfit: '$20,000'
+                        }
                     },
                     {
                         data: {
@@ -254,10 +254,10 @@ export class ColumnGroupDoc {
                             lastYearSale: '22%',
                             thisYearSale: '25%',
                             lastYearProfit: '$33,221',
-                            thisYearProfit: '$33,322',
-                        },
-                    },
-                ],
+                            thisYearProfit: '$33,322'
+                        }
+                    }
+                ]
             },
             {
                 data: { brand: 'Solace', lastYearSale: '90%', thisYearSale: '56%', lastYearProfit: '$765,442', thisYearProfit: '$296,232' },
@@ -268,8 +268,8 @@ export class ColumnGroupDoc {
                             lastYearSale: '60%',
                             thisYearSale: '36%',
                             lastYearProfit: '$465,000',
-                            thisYearProfit: '$150,653',
-                        },
+                            thisYearProfit: '$150,653'
+                        }
                     },
                     {
                         data: {
@@ -277,10 +277,10 @@ export class ColumnGroupDoc {
                             lastYearSale: '30%',
                             thisYearSale: '20%',
                             lastYearProfit: '$300,442',
-                            thisYearProfit: '$145,579',
-                        },
-                    },
-                ],
+                            thisYearProfit: '$145,579'
+                        }
+                    }
+                ]
             },
             {
                 data: { brand: 'Essence', lastYearSale: '75%', thisYearSale: '54%', lastYearProfit: '$21,212', thisYearProfit: '$12,533' },
@@ -291,8 +291,8 @@ export class ColumnGroupDoc {
                             lastYearSale: '50%',
                             thisYearSale: '34%',
                             lastYearProfit: '$11,000',
-                            thisYearProfit: '$8,562',
-                        },
+                            thisYearProfit: '$8,562'
+                        }
                     },
                     {
                         data: {
@@ -300,11 +300,11 @@ export class ColumnGroupDoc {
                             lastYearSale: '25%',
                             thisYearSale: '20%',
                             lastYearProfit: '$11,212',
-                            thisYearProfit: '$3,971',
-                        },
-                    },
-                ],
-            },
+                            thisYearProfit: '$3,971'
+                        }
+                    }
+                ]
+            }
         ];
     }
     code: Code = {
@@ -521,6 +521,6 @@ export class TreeTableColumnGroupDemo implements OnInit {
             }
         ];
     }
-}`,
+}`
     };
 }

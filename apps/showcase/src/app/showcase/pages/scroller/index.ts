@@ -11,64 +11,57 @@ import { AccessibilityDoc } from '@doc/scroller/accessibilitydoc';
 import { VirtualScrollerDocModule } from '@doc/scroller/scrollerdoc.module';
 
 @Component({
-    template: `<app-doc
-        docTitle="Angular Virtual Scroller Component"
-        header="Scroller"
-        description="VirtualScroller is a performance-approach to handle huge data efficiently."
-        [docs]="docs"
-        [apiDocs]="['Scroller']"
-        themeDocs="scroller"
-    ></app-doc>`,
+    template: `<app-doc docTitle="Angular Virtual Scroller Component" header="Scroller" description="VirtualScroller is a performance-approach to handle huge data efficiently." [docs]="docs" [apiDocs]="['Scroller']" themeDocs="scroller"></app-doc>`,
     standalone: true,
     imports: [VirtualScrollerDocModule],
-    styleUrl: './scrollerdemo.scss',
+    styleUrl: './scrollerdemo.scss'
 })
 export class VirtualScrollerDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc,
+            component: ImportDoc
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc,
+            component: BasicDoc
         },
         {
             id: 'horizontal',
             label: 'Horizontal',
-            component: HorizontalDoc,
+            component: HorizontalDoc
         },
         {
             id: 'grid',
             label: 'Grid',
-            component: GridDoc,
+            component: GridDoc
         },
         {
             id: 'delay',
             label: 'Delay',
-            component: DelayDoc,
+            component: DelayDoc
         },
         {
             id: 'loading',
             label: 'Loading',
-            component: LoaderDoc,
+            component: LoaderDoc
         },
         {
             id: 'lazy',
             label: 'Lazy',
-            component: LazyLoadDoc,
+            component: LazyLoadDoc
         },
         {
             id: 'programmatic',
             label: 'Programmatic',
-            component: ProgrammaticDoc,
+            component: ProgrammaticDoc
         },
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc,
-        },
+            component: AccessibilityDoc
+        }
     ];
 }

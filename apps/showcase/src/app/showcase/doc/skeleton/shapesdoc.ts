@@ -5,10 +5,7 @@ import { Code } from '@domain/code';
     selector: 'shapes-doc',
     template: `
         <app-docsectiontext>
-            <p>
-                Various shapes and sizes can be created using styling properties like <i>shape</i>, <i>width</i>, <i>height</i>,
-                <i>borderRadius</i> and <i>styleClass</i>.
-            </p>
+            <p>Various shapes and sizes can be created using styling properties like <i>shape</i>, <i>width</i>, <i>height</i>, <i>borderRadius</i> and <i>styleClass</i>.</p>
         </app-docsectiontext>
         <div class="card">
             <div class="flex flex-wrap">
@@ -49,7 +46,7 @@ import { Code } from '@domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="skeleton-shapes-demo"></app-code>
-    `,
+    `
 })
 export class ShapesDoc {
     code: Code = {
@@ -125,6 +122,6 @@ import { Skeleton } from 'primeng/skeleton';
     standalone: true,
     imports: [Skeleton]
 })
-export class SkeletonShapesDemo {}`,
+export class SkeletonShapesDemo {}`
     };
 }

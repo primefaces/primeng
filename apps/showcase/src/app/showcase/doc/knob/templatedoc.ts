@@ -11,7 +11,7 @@ import { Code } from '@domain/code';
             <p-knob [(ngModel)]="value" valueTemplate="{value}%" />
         </div>
         <app-code [code]="code" selector="knob-template-demo"></app-code>
-    `,
+    `
 })
 export class TemplateDoc {
     value: number = 60;
@@ -35,6 +35,6 @@ import { Knob } from 'primeng/knob';
 })
 export class KnobTemplateDemo {
     value: number = 60;
-}`,
+}`
     };
 }

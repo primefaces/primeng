@@ -21,45 +21,45 @@ import { DataViewDocModule } from '@doc/dataview/dataviewdoc.module';
             themeDocs="dataview"
         ></app-doc>
     `,
-    styleUrls: ['./dataviewdemo.scss'],
+    styleUrls: ['./dataviewdemo.scss']
 })
 export class DataViewDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc,
+            component: ImportDoc
         },
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc,
+            component: BasicDoc
         },
         {
             id: 'pagination',
             label: 'Pagination',
-            component: PaginationDoc,
+            component: PaginationDoc
         },
         {
             id: 'sorting',
             label: 'Sorting',
-            component: SortingDoc,
+            component: SortingDoc
         },
         {
             id: 'layout',
             label: 'Layout',
-            component: LayoutDoc,
+            component: LayoutDoc
         },
         {
             id: 'loading',
             label: 'Loading',
-            component: LoadingDoc,
+            component: LoadingDoc
         },
 
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc,
-        },
+            component: AccessibilityDoc
+        }
     ];
 }

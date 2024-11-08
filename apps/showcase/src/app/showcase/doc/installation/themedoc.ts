@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
             <p>Configure PrimeVue to use a theme like Aura.</p>
             <app-code [code]="code" [hideToggleCode]="true"></app-code>
         </app-docsectiontext>
-    `,
+    `
 })
 export class ThemeDoc {
     code: Code = {
@@ -22,6 +22,6 @@ export class AppComponent {
     constructor(private primeng: PrimeNG) {
         this.primeng.theme.set({ preset: Aura });
     }
-}`,
+}`
     };
 }

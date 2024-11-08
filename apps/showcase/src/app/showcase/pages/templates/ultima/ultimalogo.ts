@@ -14,14 +14,8 @@ import { AppConfigService } from '@service/appconfigservice';
                 <path d="M104.805 32.9688H118.848V35H102.383V6.5625H104.805V32.9688Z" [attr.fill]="fillColor" />
                 <path d="M137.383 8.61328H127.636V35H125.235V8.61328H115.508V6.5625H137.383V8.61328Z" [attr.fill]="fillColor" />
                 <path d="M144.923 35H142.52V6.5625H144.923V35Z" [attr.fill]="fillColor" />
-                <path
-                    d="M155.84 6.5625L166.327 31.6601L176.855 6.5625H180.059V35H177.656V22.6172L177.851 9.92188L167.265 35H165.41L154.864 10.0195L155.059 22.539V35H152.656V6.5625H155.84Z"
-                    [attr.fill]="fillColor"
-                />
-                <path
-                    d="M202.969 27.0312H190.059L187.129 35H184.61L195.371 6.5625H197.656L208.418 35H205.918L202.969 27.0312ZM190.801 24.9805H202.208L196.504 9.49219L190.801 24.9805Z"
-                    [attr.fill]="fillColor"
-                />
+                <path d="M155.84 6.5625L166.327 31.6601L176.855 6.5625H180.059V35H177.656V22.6172L177.851 9.92188L167.265 35H165.41L154.864 10.0195L155.059 22.539V35H152.656V6.5625H155.84Z" [attr.fill]="fillColor" />
+                <path d="M202.969 27.0312H190.059L187.129 35H184.61L195.371 6.5625H197.656L208.418 35H205.918L202.969 27.0312ZM190.801 24.9805H202.208L196.504 9.49219L190.801 24.9805Z" [attr.fill]="fillColor" />
                 <path
                     fillRule="evenodd"
                     clipRule="evenodd"
@@ -35,7 +29,7 @@ import { AppConfigService } from '@service/appconfigservice';
                 </clipPath>
             </defs>
         </svg>
-    `,
+    `
 })
 export class UltimaLogo {
     configService = inject(AppConfigService);

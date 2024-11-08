@@ -9,15 +9,7 @@ import { PhotoService } from '@service/photoservice';
             <p>Simple example with indicators only.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-galleria
-                [(value)]="images"
-                [numVisible]="5"
-                [circular]="true"
-                [showItemNavigators]="true"
-                [showThumbnails]="false"
-                [responsiveOptions]="responsiveOptions"
-                [containerStyle]="{ 'max-width': '640px' }"
-            >
+            <p-galleria [(value)]="images" [numVisible]="5" [circular]="true" [showItemNavigators]="true" [showThumbnails]="false" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }">
                 <ng-template pTemplate="item" let-item>
                     <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
                 </ng-template>
@@ -25,7 +17,7 @@ import { PhotoService } from '@service/photoservice';
         </div>
         <app-code [code]="code" selector="galleria-item-without-thumbnails-demo"></app-code>
     `,
-    providers: [PhotoService],
+    providers: [PhotoService]
 })
 export class ItemWithoutThumbnailsDoc implements OnInit {
     images: any[] | undefined;
@@ -33,16 +25,16 @@ export class ItemWithoutThumbnailsDoc implements OnInit {
     responsiveOptions: any[] = [
         {
             breakpoint: '991px',
-            numVisible: 4,
+            numVisible: 4
         },
         {
             breakpoint: '767px',
-            numVisible: 3,
+            numVisible: 3
         },
         {
             breakpoint: '575px',
-            numVisible: 1,
-        },
+            numVisible: 1
+        }
     ];
 
     constructor(private photoService: PhotoService) {}
@@ -111,6 +103,6 @@ export class GalleriaItemWithoutThumbnailsDemo implements OnInit {
     alt: 'Description for Image 1',
     title: 'Title 1'
 },
-...`,
+...`
     };
 }

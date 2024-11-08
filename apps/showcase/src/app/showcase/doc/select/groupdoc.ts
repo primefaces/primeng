@@ -9,27 +9,17 @@ import { Code } from '@domain/code';
             <p>Options can be grouped when a nested data structures is provided.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-select
-                [options]="groupedCities"
-                [(ngModel)]="selectedCity"
-                placeholder="Select a City"
-                [group]="true"
-                class="w-full md:w-56"
-            >
+            <p-select [options]="groupedCities" [(ngModel)]="selectedCity" placeholder="Select a City" [group]="true" class="w-full md:w-56">
                 <ng-template let-group pTemplate="group">
                     <div class="flex items-center">
-                        <img
-                            src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
-                            [class]="'mr-2 flag flag-' + group.value"
-                            style="width: 20px"
-                        />
+                        <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'mr-2 flag flag-' + group.value" style="width: 20px" />
                         <span>{{ group.label }}</span>
                     </div>
                 </ng-template>
             </p-select>
         </div>
         <app-code [code]="code" selector="select-group-demo"></app-code>
-    `,
+    `
 })
 export class GroupDoc {
     groupedCities: SelectItemGroup[];
@@ -45,8 +35,8 @@ export class GroupDoc {
                     { label: 'Berlin', value: 'Berlin' },
                     { label: 'Frankfurt', value: 'Frankfurt' },
                     { label: 'Hamburg', value: 'Hamburg' },
-                    { label: 'Munich', value: 'Munich' },
-                ],
+                    { label: 'Munich', value: 'Munich' }
+                ]
             },
             {
                 label: 'USA',
@@ -55,8 +45,8 @@ export class GroupDoc {
                     { label: 'Chicago', value: 'Chicago' },
                     { label: 'Los Angeles', value: 'Los Angeles' },
                     { label: 'New York', value: 'New York' },
-                    { label: 'San Francisco', value: 'San Francisco' },
-                ],
+                    { label: 'San Francisco', value: 'San Francisco' }
+                ]
             },
             {
                 label: 'Japan',
@@ -65,9 +55,9 @@ export class GroupDoc {
                     { label: 'Kyoto', value: 'Kyoto' },
                     { label: 'Osaka', value: 'Osaka' },
                     { label: 'Tokyo', value: 'Tokyo' },
-                    { label: 'Yokohama', value: 'Yokohama' },
-                ],
-            },
+                    { label: 'Yokohama', value: 'Yokohama' }
+                ]
+            }
         ];
     }
 
@@ -142,6 +132,6 @@ export class SelectGroupDemo {
             }
         ];
     }
-}`,
+}`
     };
 }

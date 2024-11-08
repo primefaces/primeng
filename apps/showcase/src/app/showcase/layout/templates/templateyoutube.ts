@@ -26,22 +26,9 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
                                     />
                                 </g>
                                 <defs>
-                                    <filter
-                                        id="filter0_d_918_49700"
-                                        x="0"
-                                        y="0"
-                                        width="180"
-                                        height="180"
-                                        filterUnits="userSpaceOnUse"
-                                        colorInterpolationFilters="sRGB"
-                                    >
+                                    <filter id="filter0_d_918_49700" x="0" y="0" width="180" height="180" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
                                         <feflood floodOpacity="0" result="BackgroundImageFix" />
-                                        <feColorMatrix
-                                            in="SourceAlpha"
-                                            type="matrix"
-                                            values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
-                                            result="hardAlpha"
-                                        />
+                                        <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
                                         <feOffset dy="4" />
                                         <feGaussianBlur stdDeviation="25" />
                                         <feComposite in2="hardAlpha" operator="out" />
@@ -55,33 +42,21 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
                     </div>
                     <img [src]="imgSrc" alt="Template Youtube Screen" />
                 </div>
-                <p-dialog
-                    header="Video Content"
-                    [(visible)]="youtubeVideoVisible"
-                    (onHide)="youtubeVideoVisible = false"
-                    [style]="{ width: '70vw' }"
-                >
+                <p-dialog header="Video Content" [(visible)]="youtubeVideoVisible" (onHide)="youtubeVideoVisible = false" [style]="{ width: '70vw' }">
                     <div class="template-youtube-video">
-                        <iframe
-                            [src]="iframeSrc"
-                            title="PrimeNG 2023 Roadmap"
-                            frameborder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                            allowfullscreen
-                        ></iframe>
+                        <iframe [src]="iframeSrc" title="PrimeNG 2023 Roadmap" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     </div>
                 </p-dialog>
             </div>
         </div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None,
+    encapsulation: ViewEncapsulation.None
 })
 export class TemplateYoutube {
     @Input() imgSrc: string;
     title: string[] = ['Integration with', 'Existing Vite Applications'];
-    description: string =
-        'Only the folders that are related to the layout needs to move in to your project. We‘ve already created a short tutorial with details for Sakai Vue. The both templates have the same implementation.';
+    description: string = 'Only the folders that are related to the layout needs to move in to your project. We‘ve already created a short tutorial with details for Sakai Vue. The both templates have the same implementation.';
     youtubeLink: string = 'https://www.youtube.com/embed/Y07edRJd5QM';
     youtubeVideoVisible: boolean = false;
     constructor(private sanitizer: DomSanitizer) {}
@@ -97,6 +72,6 @@ export class TemplateYoutube {
 @NgModule({
     imports: [CommonModule, SharedModule, Dialog],
     exports: [TemplateYoutube, SharedModule],
-    declarations: [TemplateYoutube],
+    declarations: [TemplateYoutube]
 })
 export class TemplateYoutubeModule {}

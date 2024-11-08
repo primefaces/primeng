@@ -8,28 +8,19 @@ import { ProductService } from '@service/productservice';
     template: `
         <app-docsectiontext>
             <p>
-                PickList is used as a controlled input with <i>source</i> and <i>target</i> properties. Content of a list item needs to be
-                defined with the <i>pTemplate</i> property that receives an object in the list as parameter. Drag & drop functionality
-                depends on <i>&#64;angular/cdk</i> package.
+                PickList is used as a controlled input with <i>source</i> and <i>target</i> properties. Content of a list item needs to be defined with the <i>pTemplate</i> property that receives an object in the list as parameter. Drag & drop
+                functionality depends on <i>&#64;angular/cdk</i> package.
             </p>
         </app-docsectiontext>
         <div class="card">
-            <p-picklist
-                [source]="sourceProducts"
-                [target]="targetProducts"
-                [dragdrop]="true"
-                [responsive]="true"
-                [sourceStyle]="{ height: '30rem' }"
-                [targetStyle]="{ height: '30rem' }"
-                breakpoint="1400px"
-            >
+            <p-picklist [source]="sourceProducts" [target]="targetProducts" [dragdrop]="true" [responsive]="true" [sourceStyle]="{ height: '30rem' }" [targetStyle]="{ height: '30rem' }" breakpoint="1400px">
                 <ng-template let-item pTemplate="item">
                     {{ item.name }}
                 </ng-template>
             </p-picklist>
         </div>
         <app-code [code]="code" selector="picklist-basic-demo" [extFiles]="extFiles"></app-code>
-    `,
+    `
 })
 export class BasicDoc {
     sourceProducts!: Product[];
@@ -38,7 +29,7 @@ export class BasicDoc {
 
     constructor(
         private carService: ProductService,
-        private cdr: ChangeDetectorRef,
+        private cdr: ChangeDetectorRef
     ) {}
 
     ngOnInit() {
@@ -111,7 +102,7 @@ export class PicklistBasicDemo {
 },
 ...`,
 
-        service: ['ProductService'],
+        service: ['ProductService']
     };
 
     extFiles = [
@@ -129,7 +120,7 @@ export interface Product {
     category?: string;
     image?: string;
     rating?: number;
-}`,
-        },
+}`
+        }
     ];
 }
