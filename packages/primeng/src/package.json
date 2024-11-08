@@ -54,6 +54,7 @@
         "zone.js": "~0.14.0"
     },
     "dependencies": {
-        "@primeuix/styled": "catalog:"
+        "@primeuix/styled": "catalog:",
+        "@primeuix/utils": "catalog:"
     }
 }

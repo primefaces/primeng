@@ -93,9 +93,9 @@
         "@docsearch/js": "^3.3.4",
         "@docsearch/css": "^3.3.4",
         "esbuild": "^0.19.8",
-        "@primeuix/styled": "0.3.0",
-        "@primeuix/utils": "0.3.0",
         "@algolia/client-search": "^4.19.1",
+        "@primeuix/styled": "catalog:",
+        "@primeuix/utils": "catalog:",
         "primeng": "workspace:*",
         "@primeng/themes": "workspace:*"
     },
