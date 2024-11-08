@@ -1,4 +1,5 @@
 /
+/installation
 /accordion
 /animateonscroll
 /autocomplete
