@@ -72,20 +72,19 @@ import { Code } from '@domain/code';
                 </ng-template>
                 <ng-template #item let-item let-root="root">
                     <a pRipple class="flex items-center p-menubar-item-link">
-                        <span [class]="item.icon"></span>
-                        <span class="ml-2">{{ item.label }}</span>
+                        <span>{{ item.label }}</span>
                         <p-badge *ngIf="item.badge" [ngClass]="{ 'ml-auto': !root, 'ml-2': root }" [value]="item.badge" />
                         <span
                             *ngIf="item.shortcut"
                             class="ml-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1"
                             >{{ item.shortcut }}</span
                         >
-                        <i *ngIf="item.items" [ngClass]="['pi', root ? 'pi-angle-down ml-2' : 'pi-angle-right ml-auto']"></i>
+                        <i *ngIf="item.items" [ngClass]="['ml-auto pi', root ? 'pi-angle-down' : 'pi-angle-right']"></i>
                     </a>
                 </ng-template>
                 <ng-template #end>
                     <div class="flex items-center gap-2">
-                        <input type="text" pInputText placeholder="Search" class="w-32 sm:w-auto" />
+                        <input type="text" pInputText placeholder="Search" class="w-36" />
                         <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
                     </div>
                 </ng-template>
@@ -104,12 +103,9 @@ export class TemplateDoc implements OnInit {
                 icon: 'pi pi-home',
             },
             {
-                label: 'Features',
-                icon: 'pi pi-star',
-            },
-            {
                 label: 'Projects',
                 icon: 'pi pi-search',
+                badge: '3',
                 items: [
                     {
                         label: 'Core',
@@ -122,35 +118,14 @@ export class TemplateDoc implements OnInit {
                         shortcut: '⌘+B',
                     },
                     {
+                        separator: true,
+                    },
+                    {
                         label: 'UI Kit',
                         icon: 'pi pi-pencil',
                         shortcut: '⌘+U',
                     },
-                    {
-                        separator: true,
-                    },
-                    {
-                        label: 'Templates',
-                        icon: 'pi pi-palette',
-                        items: [
-                            {
-                                label: 'Apollo',
-                                icon: 'pi pi-palette',
-                                badge: '2',
-                            },
-                            {
-                                label: 'Ultima',
-                                icon: 'pi pi-palette',
-                                badge: '3',
-                            },
-                        ],
-                    },
                 ],
-            },
-            {
-                label: 'Contact',
-                icon: 'pi pi-envelope',
-                badge: '3',
             },
         ];
     }
@@ -188,18 +163,21 @@ export class TemplateDoc implements OnInit {
             <path d="..." fill="var(--primary-color-text)" />
         </svg>
     </ng-template>
-    <ng-template  #item let-item let-root="root">
+    <ng-template #item let-item let-root="root">
         <a pRipple class="flex items-center p-menubar-item-link">
-            <span [class]="item.icon"></span>
-            <span class="ml-2">{{ item.label }}</span>
+            <span>{{ item.label }}</span>
             <p-badge *ngIf="item.badge" [ngClass]="{ 'ml-auto': !root, 'ml-2': root }" [value]="item.badge" />
-            <span *ngIf="item.shortcut" class="ml-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
-            <i *ngIf="item.items" [ngClass]="['pi', root ? 'pi-angle-down ml-2' : 'pi-angle-right ml-auto']"></i>
+            <span
+                *ngIf="item.shortcut"
+                class="ml-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1"
+                >{{ item.shortcut }}</span
+            >
+            <i *ngIf="item.items" [ngClass]="['ml-auto pi', root ? 'pi-angle-down' : 'pi-angle-right']"></i>
         </a>
     </ng-template>
     <ng-template #end>
         <div class="flex items-center gap-2">
-            <input type="text" pInputText placeholder="Search" class="w-32 sm:w-auto" />
+            <input type="text" pInputText placeholder="Search" class="w-36" />
             <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
         </div>
     </ng-template>
@@ -261,18 +239,21 @@ export class TemplateDoc implements OnInit {
                 />
             </svg>
         </ng-template>
-        <ng-template  #item let-item let-root="root">
+        <ng-template #item let-item let-root="root">
             <a pRipple class="flex items-center p-menubar-item-link">
-                <span [class]="item.icon"></span>
-                <span class="ml-2">{{ item.label }}</span>
+                <span>{{ item.label }}</span>
                 <p-badge *ngIf="item.badge" [ngClass]="{ 'ml-auto': !root, 'ml-2': root }" [value]="item.badge" />
-                <span *ngIf="item.shortcut" class="ml-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
-                <i *ngIf="item.items" [ngClass]="['pi', root ? 'pi-angle-down ml-2' : 'pi-angle-right ml-auto']"></i>
+                <span
+                    *ngIf="item.shortcut"
+                    class="ml-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1"
+                    >{{ item.shortcut }}</span
+                >
+                <i *ngIf="item.items" [ngClass]="['ml-auto pi', root ? 'pi-angle-down' : 'pi-angle-right']"></i>
             </a>
         </ng-template>
         <ng-template #end>
             <div class="flex items-center gap-2">
-                <input type="text" pInputText placeholder="Search" class="w-32 sm:w-auto" />
+                <input type="text" pInputText placeholder="Search" class="w-36" />
                 <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
             </div>
         </ng-template>
@@ -297,61 +278,39 @@ import { Ripple } from 'primeng/ripple';
 export class MenubarTemplateDemo implements OnInit {
     items: MenuItem[] | undefined;
 
+    items: MenuItem[] | undefined;
+
     ngOnInit() {
         this.items = [
             {
                 label: 'Home',
-                icon: 'pi pi-home'
-            },
-            {
-                label: 'Features',
-                icon: 'pi pi-star'
+                icon: 'pi pi-home',
             },
             {
                 label: 'Projects',
                 icon: 'pi pi-search',
+                badge: '3',
                 items: [
                     {
                         label: 'Core',
                         icon: 'pi pi-bolt',
-                        shortcut: '⌘+S'
+                        shortcut: '⌘+S',
                     },
                     {
                         label: 'Blocks',
                         icon: 'pi pi-server',
-                        shortcut: '⌘+B'
+                        shortcut: '⌘+B',
+                    },
+                    {
+                        separator: true,
                     },
                     {
                         label: 'UI Kit',
                         icon: 'pi pi-pencil',
-                        shortcut: '⌘+U'
+                        shortcut: '⌘+U',
                     },
-                    {
-                        separator: true
-                    },
-                    {
-                        label: 'Templates',
-                        icon: 'pi pi-palette',
-                        items: [
-                            {
-                                label: 'Apollo',
-                                icon: 'pi pi-palette',
-                                badge: '2'
-                            },
-                            {
-                                label: 'Ultima',
-                                icon: 'pi pi-palette',
-                                badge: '3'
-                            }
-                        ]
-                    }
-                ]
+                ],
             },
-            {
-                label: 'Contact',
-                icon: 'pi pi-envelope',
-                badge: '3'
-            }
         ];
     }
 }`,
