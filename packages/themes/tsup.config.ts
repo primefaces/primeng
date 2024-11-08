@@ -19,7 +19,7 @@ export default defineConfig({
     dts: {
         entry: 'src/index.ts'
     },
-    external: [/^@primeuix\/(.*)$/, /^@primeng\/(.*)$/],
+    external: [/^@primeuix\/(.*)$/, /^@primeng\/themes\/(.*)$/],
     sourcemap: true,
     splitting: false
 });
