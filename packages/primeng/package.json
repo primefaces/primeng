@@ -49,25 +49,23 @@
         "test:coverage": "vitest run --coverage"
     },
     "devDependencies": {
-        "@angular/cli": "catalog:angular18",
-        "@angular/animations": "catalog:angular18",
-        "@angular/router": "catalog:angular18",
-        "@angular/platform-browser": "catalog:angular18",
         "@angular/cdk": "catalog:angular18",
-        "ng-packagr": "catalog:angular18",
+        "chart.js": "4.4.2",
         "karma": "~6.4.2",
         "karma-chrome-launcher": "~3.2.0",
         "karma-coverage": "~2.2.0",
         "karma-jasmine": "~5.1.0",
         "karma-jasmine-html-reporter": "~2.0.0",
-        "chart.js": "4.4.2",
         "quill": "2.0.2",
         "tslib": "^2.5.0"
     },
     "peerDependencies": {
-        "@angular/core": "^17.0.0 || ^18.0.0",
+        "@angular/animations": "^17.0.0 || ^18.0.0",
+        "@angular/cdk": "^17.0.0 || ^18.0.0",
         "@angular/common": "^17.0.0 || ^18.0.0",
+        "@angular/core": "^17.0.0 || ^18.0.0",
         "@angular/forms": "^17.0.0 || ^18.0.0",
+        "@angular/router": "^17.0.0 || ^18.0.0",
         "rxjs": "^6.0.0 || ^7.8.1",
         "zone.js": "~0.14.0"
     },

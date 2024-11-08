@@ -1,9 +1,9 @@
 {
-    "$schema": "../node_modules/ng-packagr/ng-package.schema.json",
+    "$schema": "../../../node_modules/ng-packagr/ng-package.schema.json",
     "dest": "../dist",
     "deleteDestPath": true,
     "lib": {
         "entryFile": "public_api.ts"
     },
-    "allowedNonPeerDependencies": ["@primeuix/styled"]
+    "allowedNonPeerDependencies": ["@primeuix/styled", "@primeuix/utils"]
 }
