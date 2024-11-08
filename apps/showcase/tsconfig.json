@@ -1,0 +1,42 @@
+{
+    "extends": "../../tsconfig.json",
+    "compilerOptions": {
+        "baseUrl": "./",
+        "forceConsistentCasingInFileNames": false,
+        "noImplicitOverride": false,
+        "noPropertyAccessFromIndexSignature": false,
+        "noImplicitReturns": false,
+        "noFallthroughCasesInSwitch": false,
+        "sourceMap": true,
+        "allowSyntheticDefaultImports": true,
+        "declaration": false,
+        "downlevelIteration": true,
+        "experimentalDecorators": true,
+        "moduleResolution": "node",
+        "importHelpers": true,
+        "target": "ES2022",
+        "module": "ES2022",
+        "useDefineForClassFields": false,
+        "types": ["jasmine"],
+        "lib": ["ES2022", "dom"],
+        "resolveJsonModule": true,
+        "esModuleInterop": true,
+        "paths": {
+            "@primeng/themes/*": ["../../packages/themes/src/presets/*"],
+            "primeng/*": ["../../packages/primeng/src/*/public_api"],
+            "@pages/*": ["src/app/showcase/pages/*"],
+            "@data/*": ["src/assets/showcase/data/*"],
+            "@doc/*": ["src/app/showcase/doc/*"],
+            "@domain/*": ["src/app/showcase/domain/*"],
+            "@service/*": ["src/app/showcase/service/*"],
+            "@layout/*": ["src/app/showcase/layout/*"],
+            "@themes/*": ["src/app/components/themes/*"]
+        }
+    },
+    "angularCompilerOptions": {
+        "enableI18nLegacyMessageIdFormat": false,
+        "strictInjectionParameters": false,
+        "strictInputAccessModifiers": false,
+        "strictTemplates": false
+    }
+}
