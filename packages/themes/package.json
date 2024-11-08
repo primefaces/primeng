@@ -82,6 +82,5 @@
     },
     "dependencies": {
         "@primeuix/styled": "catalog:"
-    },
-    "engines": {}
+    }
 }

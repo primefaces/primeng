@@ -49,12 +49,12 @@
         "test:coverage": "vitest run --coverage"
     },
     "devDependencies": {
-        "@angular/cli": "^18.0.2",
-        "@angular/animations": "^18.0.1",
-        "@angular/router": "^18.0.1",
-        "@angular/platform-browser": "^18.0.1",
-        "@angular/cdk": "^18.0.1",
-        "ng-packagr": "^18.0.0",
+        "@angular/cli": "catalog:angular18",
+        "@angular/animations": "catalog:angular18",
+        "@angular/router": "catalog:angular18",
+        "@angular/platform-browser": "catalog:angular18",
+        "@angular/cdk": "catalog:angular18",
+        "ng-packagr": "catalog:angular18",
         "karma": "~6.4.2",
         "karma-chrome-launcher": "~3.2.0",
         "karma-coverage": "~2.2.0",
