@@ -1,10 +1,10 @@
-import { inject, Injectable, PLATFORM_ID, signal } from '@angular/core';
+import { Inject, inject, Injectable, PLATFORM_ID, signal } from '@angular/core';
 import { Subject } from 'rxjs';
 import { FilterMatchMode } from './filtermatchmode';
 import { OverlayOptions } from './overlayoptions';
 import { Translation } from './translation';
 import { ThemeProvider } from './themeprovider';
-import { Minipass } from 'minipass';
+import { PRIME_NG_CONFIG, PrimeNgFeature } from './provideprimengconfig';
 
 @Injectable({ providedIn: 'root' })
 export class PrimeNG extends ThemeProvider {
@@ -24,7 +24,52 @@ export class PrimeNG extends ThemeProvider {
         date: [FilterMatchMode.DATE_IS, FilterMatchMode.DATE_IS_NOT, FilterMatchMode.DATE_BEFORE, FilterMatchMode.DATE_AFTER]
     };
 
-    public translation: Translation = {
+    public translation: Translation = initializeTranslation();
+
+    zIndex: ZIndex = {
+        modal: 1100,
+        overlay: 1000,
+        menu: 1000,
+        tooltip: 1100
+    };
+
+    private translationSource = new Subject<any>();
+
+    translationObserver = this.translationSource.asObservable();
+
+    constructor(@Inject(PRIME_NG_CONFIG) public _config: PrimeNgFeature) {
+        super(_config);
+        this.setConfig(_config);
+    }
+
+    getTranslation(key: string): any {
+        return this.translation[key as keyof typeof this.translation];
+    }
+
+    setTranslation(value: Translation) {
+        this.translation = { ...this.translation, ...value };
+        this.translationSource.next(this.translation);
+    }
+
+    private setConfig(config: PrimeNgFeature): void {
+        const { csp, ripple, inputStyle } = config;
+        if (csp) this.csp.set(csp);
+        if (ripple) this.ripple.set(ripple);
+        if (inputStyle) this.inputStyle.set(inputStyle);
+    }
+}
+
+// Type for zIndex
+type ZIndex = {
+    modal: number;
+    overlay: number;
+    menu: number;
+    tooltip: number;
+};
+
+// Function to initialize translations
+function initializeTranslation(): Translation {
+    return {
         startsWith: 'Starts with',
         contains: 'Contains',
         notContains: 'Not contains',
@@ -88,12 +133,12 @@ export class PrimeNG extends ThemeProvider {
         strong: 'Strong',
         passwordPrompt: 'Enter a password',
         emptyMessage: 'No results found',
-        searchMessage: '{0} results are available',
-        selectionMessage: '{0} items selected',
+        searchMessage: 'Search results are available',
+        selectionMessage: 'Items selected',
         emptySelectionMessage: 'No selected item',
         emptySearchMessage: 'No results found',
         emptyFilterMessage: 'No results found',
-        fileChosenMessage: '{0} files',
+        fileChosenMessage: 'Files',
         noFileChosenMessage: 'No file chosen',
         aria: {
             trueLabel: 'True',
@@ -152,24 +197,4 @@ export class PrimeNG extends ThemeProvider {
             maximizeLabel: 'Maximize'
         }
     };
-
-    zIndex: any = {
-        modal: 1100,
-        overlay: 1000,
-        menu: 1000,
-        tooltip: 1100
-    };
-
-    private translationSource = new Subject<any>();
-
-    translationObserver = this.translationSource.asObservable();
-
-    getTranslation(key: string): any {
-        return this.translation[key as keyof typeof this.translation];
-    }
-
-    setTranslation(value: Translation) {
-        this.translation = { ...this.translation, ...value };
-        this.translationSource.next(this.translation);
-    }
 }

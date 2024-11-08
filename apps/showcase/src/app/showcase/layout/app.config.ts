@@ -9,7 +9,7 @@ import Noir from '../themes/app-theme';
 
 export const appConfig: ApplicationConfig = {
     providers: [
-        providePrimeNgConfig({ theme: Noir, ripple: true }),
+        providePrimeNgConfig({ theme: Noir, ripple: true, inputStyle: 'outlined' }),
         provideRouter(routes, withInMemoryScrolling({ anchorScrolling: 'enabled', scrollPositionRestoration: 'enabled' }), withEnabledBlockingInitialNavigation()),
         provideHttpClient(withFetch()),
         provideAnimationsAsync()
