@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
     template: `
         <app-docsectiontext>
             <p>
-                Welcome to the Prime UI Ecosystem! Once you have PrimeVue up and running, we recommend exploring the following resources to
+                Welcome to the Prime UI Ecosystem! Once you have PrimeNG up and running, we recommend exploring the following resources to
                 gain a deeper understanding of the library.
             </p>
             <ul class="leading-relaxed">
