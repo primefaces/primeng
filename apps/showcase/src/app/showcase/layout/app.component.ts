@@ -18,7 +18,6 @@ import { AppConfiguratorComponent } from './configurator/app.configurator.compon
 import { AppMenuComponent } from './menu/app.menu.component';
 import { AppNewsComponent } from './news/app.news.component';
 import { AppTopBarComponent } from './topbar/app.topbar.component';
-import Noir from '../themes/app-theme';
 
 @Component({
     selector: 'app-root',
@@ -60,7 +59,7 @@ export class AppComponent {
             this.bindRouteEvents();
         });
 
-        this.primeng.theme.set(Noir);
+        // this.primeng.theme.set(Noir);
     }
 
     injectScripts() {

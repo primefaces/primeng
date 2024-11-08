@@ -32,3 +32,4 @@ export * from './treedragdropservice';
 export * from './treenode';
 export * from './treenodedragevent';
 export * from './treetablenode';
+export * from './provideprimengconfig';

@@ -4,6 +4,7 @@ import { FilterMatchMode } from './filtermatchmode';
 import { OverlayOptions } from './overlayoptions';
 import { Translation } from './translation';
 import { ThemeProvider } from './themeprovider';
+import { Minipass } from 'minipass';
 
 @Injectable({ providedIn: 'root' })
 export class PrimeNG extends ThemeProvider {
