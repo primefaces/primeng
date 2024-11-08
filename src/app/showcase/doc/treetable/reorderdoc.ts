@@ -40,8 +40,8 @@ interface Column {
                     </ng-template>
                 </p-treetable>
             </p-deferred-demo>
-            <app-code [code]="code" selector="tree-table-reorder-demo"></app-code>
         </div>
+        <app-code [code]="code" selector="tree-table-reorder-demo"></app-code>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
