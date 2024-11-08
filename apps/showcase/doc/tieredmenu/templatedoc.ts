@@ -112,8 +112,8 @@ export class TemplateDoc implements OnInit {
     code: Code = {
         basic: `<p-tieredMenu [model]="items">
     <ng-template #item let-item let-hasSubmenu="hasSubmenu">
-    <a pRipple class="flex items-center p-tieredmenu-item-link">
-    <span [class]="item.icon" class="p-tieredmenu-item-icon"></span>
+        <a pRipple class="flex items-center p-tieredmenu-item-link">
+            <span [class]="item.icon" class="p-tieredmenu-item-icon"></span>
             <span class="ml-2">{{ item.label }}</span>
             <p-badge *ngIf="item.badge" class="ml-auto" [value]="item.badge" />
             <span *ngIf="item.shortcut" class="ml-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">
@@ -127,8 +127,8 @@ export class TemplateDoc implements OnInit {
         html: `<div class="card flex justify-center">
     <p-tieredMenu [model]="items">
         <ng-template #item let-item let-hasSubmenu="hasSubmenu">
-        <a pRipple class="flex items-center p-tieredmenu-item-link">
-        <span [class]="item.icon" class="p-tieredmenu-item-icon"></span>
+            <a pRipple class="flex items-center p-tieredmenu-item-link">
+                <span [class]="item.icon" class="p-tieredmenu-item-icon"></span>
                 <span class="ml-2">{{ item.label }}</span>
                 <p-badge *ngIf="item.badge" class="ml-auto" [value]="item.badge" />
                 <span *ngIf="item.shortcut" class="ml-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">
