@@ -1,10 +1,10 @@
 {
     "name": "@primeng/icons",
-    "version": "4.2.1",
+    "version": "18.0.0-rc.1",
     "author": "PrimeTek Informatics",
     "description": "",
     "homepage": "https://primeng.org/",
-    "license": "MIT",
+    "license": "SEE LICENSE IN LICENSE.md",
     "repository": {
         "type": "git",
         "url": "https://github.com/primefaces/primeng.git",
@@ -13,28 +13,14 @@
     "bugs": {
         "url": "https://github.com/primefaces/primeng/issues"
     },
-    "main": "./src/index.js",
-    "module": "./src/index.js",
-    "types": "./src/index.d.ts",
+    "main": "./src/public_api.ts",
+    "module": "./src/public_api.ts",
+    "types": "./src/public_api.ts",
     "exports": {
-        "./*": "./*"
+        ".": "./src/public_api.ts",
+        "./*": "./src/*/public_api.ts"
     },
     "publishConfig": {
-        "main": "./index.mjs",
-        "module": "./index.mjs",
-        "types": "./index.d.ts",
-        "exports": {
-            ".": {
-                "types": "./index.d.ts",
-                "import": "./index.mjs",
-                "default": "./index.mjs"
-            },
-            "./*": {
-                "types": "./*/index.d.ts",
-                "import": "./*/index.mjs",
-                "default": "./*/index.mjs"
-            }
-        },
         "directory": "dist",
         "linkDirectory": false,
         "access": "public"
@@ -46,8 +32,15 @@
         "build:postbuild": "node ./scripts/postbuild.mjs",
         "dev:link": "pnpm link --global && npm link"
     },
+    "peerDependencies": {
+        "@angular/core": "catalog:compatible",
+        "@primeng/core": "workspace:*"
+    },
     "dependencies": {
         "@primeuix/utils": "catalog:",
         "@primeng/core": "workspace:*"
+    },
+    "engines": {
+        "node": ">=12.11.0"
     }
 }

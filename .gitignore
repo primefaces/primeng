@@ -50,3 +50,4 @@ builder/node_modules
 
 # primeng packages
 packages/core/src/package.json
+packages/icons/src/package.json
