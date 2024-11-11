@@ -19,7 +19,7 @@ fs.readdirSync(API_PATH).forEach((file) => {
     !IGNORED_FILES.test(file) && apiExports.push(`export * from './${file.split('.ts')[0]}';`);
 });
 
-fs.writeFileSync(path.join(API_PATH, 'public_api.ts'), apiExports.join('\n'));
+fs.writeFileSync(path.join(API_PATH, 'public_api.ts'), apiExports.join('\n') + '\n', { encoding: 'utf8' });
 
 // update src > "exports" in public_api.ts
 let exports = [AUTO_FILE_COMMENT];
@@ -30,4 +30,4 @@ fs.readdirSync(INPUT_PATH, { withFileTypes: true })
         exports.push(`export * from '@primeng/core/${folderName}';`);
     });
 
-fs.writeFileSync(path.join(INPUT_PATH, 'public_api.ts'), exports.join('\n'));
+fs.writeFileSync(path.join(INPUT_PATH, 'public_api.ts'), exports.join('\n') + '\n', { encoding: 'utf8' });

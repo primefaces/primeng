@@ -6,7 +6,6 @@
     "singleQuote": true,
     "printWidth": 250,
     "bracketSameLine": false,
-    "endOfLine": "lf",
     "overrides": [
         {
             "files": ["*.ts", "*.mts", "*.d.ts"],
