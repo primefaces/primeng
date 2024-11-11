@@ -12,7 +12,7 @@
         "url": "https://github.com/primefaces/primeng/issues"
     },
     "scripts": {
-        "setup": "rm -rf **/node_modules **/dist ./pnpm-lock.yaml && pnpm run init",
+        "setup": "rm -rf **/node_modules **/dist **/.angular ./pnpm-lock.yaml && pnpm run init",
         "init": "pnpm install && husky",
         "link": "pnpm --filter './packages/*' dev:link",
         "release": "pnpm run build && pnpm recursive publish --filter './packages/*' --no-git-checks --report-summary",
@@ -20,7 +20,9 @@
         "release:rc": "pnpm run build && pnpm recursive publish --filter './packages/*' --no-git-checks --report-summary --tag rc",
         "build": "NODE_ENV=production pnpm run build:check && pnpm run build:packages",
         "build:check": "pnpm run format:check && pnpm run security:check",
-        "build:packages": "pnpm run build:lib && pnpm run build:themes && pnpm run build:showcase",
+        "build:packages": "pnpm --filter core build && pnpm --filter icons build && pnpm run build:lib && pnpm run build:themes && pnpm run build:showcase",
+        "build:core": "pnpm --filter core build",
+        "build:icons": "pnpm --filter icons build",
         "build:lib": "pnpm --filter primeng build",
         "build:themes": "pnpm --filter themes build",
         "build:showcase": "pnpm --filter showcase build",
@@ -71,6 +73,9 @@
         "access": "public"
     },
     "packageManager": "pnpm@9.6.0",
+    "engines": {
+        "node": ">=12.11.0"
+    },
     "lint-staged": {
         "**/*.{js,mjs,ts,mts,d.ts,json,html}": ["prettier --write"]
     }
