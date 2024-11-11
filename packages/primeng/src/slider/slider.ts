@@ -120,6 +120,7 @@ export const SLIDER_VALUE_ACCESSOR: any = {
                 (touchmove)="onDrag($event)"
                 (touchend)="onDragEnd($event)"
                 [attr.tabindex]="disabled ? null : tabindex"
+                role="slider"
                 [attr.aria-valuemin]="min"
                 [attr.aria-valuenow]="value ? value[1] : null"
                 [attr.aria-valuemax]="max"
